@@ -6,6 +6,63 @@
     case hidden
 }
 
+
+// This class works in concert w/ `NavigationBarHider` to implement our custom Navigation Bar.
+// This `NavigationBar` class holds the properties and subviews, and `NavigationBarHider` implements the hiding logic when `isInteractiveHidingEnabled` is true.
+
+/*
+ Navigation bars can have a top spacing, a title, an UnderBarView, and an ExtendedBarView.
+ Example of the SavedViewController: The title is "Saved", the underNavigationBarView is the "All articles / Reading lists" picker, and the extendedNavigationBarView is the search bar (when on "all articles") or "+ Create a new list" buton (when on "reading lists").
+
+ _Main subviews_
+    var barTopSpacing: CGFloat
+    var title: String?
+    func addExtendedNavigationBarView(_ view: UIView)
+    func removeExtendedNavigationBarView()
+    func addUnderNavigationBarView(_ view: UIView, shouldIgnoreSafeArea: Bool)
+    func removeUnderNavigationBarView()
+    var topSpacingPercentHidden, navigationBarPercentHidden, underBarViewPercentHidden, extendedViewPercentHidden // Four CGFloats, each setting the percent hidden for the component
+
+ _Main properties_
+    var displayType: NavigationBarDisplayType // see enum above for options
+    var isBarHidingEnabled: Bool // Does the NavigationBar scroll away.
+    var isUnderBarViewHidingEnabled: Bool // Does the UnderBarView scroll away.
+    var isUnderBarFadingEnabled: Bool // Fade out UnderBarView as it hides
+    var isExtendedViewHidingEnabled: Bool // Does the extendedView scroll away.
+    var isExtendedViewFadingEnabled: Bool // fade out extended view as it hides
+    var underBarViewPercentHiddenForShowingTitle: CGFloat // amount of fading before showing title in bar
+    var isAdjustingHidingFromContentInsetChangesEnabled: Bool
+    var isShadowHidingEnabled: Bool // turn on/off shadow alpha adjusment
+    var isTitleShrinkingEnabled: Bool // turn on/off title shrinking
+    var isInteractiveHidingEnabled: Bool // turn on/off any interactive adjustment of bar or view visibility
+    var isTopSpacingHidingEnabled: Bool
+    var shouldTransformUnderBarViewWithBar: Bool = false // hide/show underbar view when bar is hidden/shown
+    var delegate: UIViewController? // Set by WMFViewController when this NavBar is initially set up
+
+ _Detailed styling_
+     var backgroundAlpha: CGFloat
+     var isShadowBelowUnderBarView: Bool
+     var isShadowShowing: Bool
+     var shadowAlpha: CGFloat
+     var shadowColorKeyPath: KeyPath<Theme, UIColor>
+
+ _Used only by FakeProgressController_
+     func setProgress(_ progress: Float, animated: Bool)
+     func setProgressHidden(_ hidden: Bool, animated: Bool)
+     var progress: Float
+
+ _Related to tap targets_
+     var allowsUnderbarHitsFallThrough: Bool //if true, this only considers underBarView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
+     var allowsExtendedHitsFallThrough: Bool //if true, this only considers extendedView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
+
+ _See comments near `updateHackyConstraint` for details_
+    var needsUnderBarHack: Bool
+    func updateHackyConstraint()
+
+ _Read by other classes to help with their layouts_
+     var visibleHeight: CGFloat
+     var hiddenHeight: CGFloat
+ */
 @objc(WMFNavigationBar)
 public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelegate {
     fileprivate let statusBarUnderlay: UIView =  UIView()
@@ -56,8 +113,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public var isExtendedViewHidingEnabled: Bool = false
     @objc public var isExtendedViewFadingEnabled: Bool = true // fade out extended view as it hides
     public var shouldTransformUnderBarViewWithBar: Bool = false // hide/show underbar view when bar is hidden/shown // TODO: change this stupid name
-    public var allowsUnderbarHitsFallThrough: Bool = false //if true, this only considers underBarView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
-    public var allowsExtendedHitsFallThrough: Bool = false //if true, this only considers extendedView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
+    public var allowsUnderbarHitsFallThrough: Bool = false // if true, this only considers underBarView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
+    public var allowsExtendedHitsFallThrough: Bool = false // if true, this only considers extendedView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
     
     private var theme = Theme.standard
 
@@ -247,9 +304,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
     }
     
-    var underBarViewTopBarBottomConstraint: NSLayoutConstraint!
-    var underBarViewTopTitleBarBottomConstraint: NSLayoutConstraint!
-    var underBarViewTopBottomConstraint: NSLayoutConstraint!
+    private var underBarViewTopBarBottomConstraint: NSLayoutConstraint!
+    private var underBarViewTopTitleBarBottomConstraint: NSLayoutConstraint!
+    private var underBarViewTopBottomConstraint: NSLayoutConstraint!
 
     /// See `updateHackyConstraint` for details
     public var needsUnderBarHack: Bool = false {
@@ -436,7 +493,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     @objc dynamic public var visibleHeight: CGFloat = 0
-    @objc dynamic public var insetTop: CGFloat = 0
     @objc public var hiddenHeight: CGFloat = 0
 
     public var shadowAlpha: CGFloat {
@@ -449,7 +505,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, topSpacingPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool, additionalAnimations: (() -> Void)? = nil) {
-        if (animated) {
+        if animated {
             layoutIfNeeded()
         }
 
@@ -470,13 +526,13 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
         
         setNeedsLayout()
-        //DDLogDebug("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
+        // DDLogDebug("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let applyChanges = {
             let changes = {
-                if shadowAlpha >= 0  {
+                if shadowAlpha >= 0 {
                     self.shadowAlpha = shadowAlpha
                 }
-                if (animated) {
+                if animated {
                     self.layoutIfNeeded()
                 }
                 additionalAnimations?()
@@ -531,35 +587,43 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         shadowTopExtendedViewBottomConstraint.isActive = !isShadowBelowUnderBarView
         setNeedsUpdateConstraints()
     }
-    
+
+    // Only used by this class and NavigationBarHider
     var barHeight: CGFloat {
         return (displayType == .largeTitle || displayType == .centeredLargeTitle ? titleBar.frame.height : bar.frame.height)
     }
-    
+
+    // Only used by this class and NavigationBarHider
     var underBarViewHeight: CGFloat {
         return underBarView.frame.size.height
     }
-    
+
+    // Only used by this class and NavigationBarHider
     var extendedViewHeight: CGFloat {
         return extendedView.frame.size.height
     }
 
+    // Only used by this class and NavigationBarHider
     var topSpacingHideableHeight: CGFloat {
         return isTopSpacingHidingEnabled ? barTopSpacing : 0
     }
-    
+
+    // Only used by this class and NavigationBarHider
     var barHideableHeight: CGFloat {
         return isBarHidingEnabled ? barHeight : 0
     }
-    
+
+    // Only used by this class and NavigationBarHider
     var underBarViewHideableHeight: CGFloat {
         return isUnderBarViewHidingEnabled ? underBarViewHeight : 0
     }
-    
+
+    // Only used by this class and NavigationBarHider
     var extendedViewHideableHeight: CGFloat {
         return isExtendedViewHidingEnabled ? extendedViewHeight : 0
     }
-    
+
+    // Only used by this class and NavigationBarHider
     var hideableHeight: CGFloat {
         return topSpacingHideableHeight + barHideableHeight + underBarViewHideableHeight + extendedViewHideableHeight
     }
@@ -623,8 +687,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         self.progressView.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
         self.shadow.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
-    
-        insetTop = visibleHeight
     }
     
     

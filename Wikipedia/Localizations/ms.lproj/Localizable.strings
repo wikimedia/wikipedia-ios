@@ -9,17 +9,29 @@
 // Author: Macofe
 // Author: Nemo bis
 // Author: Tofeiku
+// Author: Ultron90
 
 "aaald-added-text-description-2" = "$1 ditambah";
+"aaald-article-description-updated-description" = "Pemerihalan rencana terkemaskini";
+"aaald-article-insert-header" = "Kemaskinian Ketara";
 "aaald-article-insert-last-updated" = "Kali terakhir dikemas kini";
 "aaald-article-insert-new-changes" = "Perubahan baru";
 "aaald-article-insert-read-more" = "Baca lebih banyak kemas kini";
+"aaald-deleted-text-description-2" = "$1 dipadamkan";
+"aaald-error-subitle" = "Langsegar untuk cuba lagi";
+"aaald-error-title" = "Nirboleh untuk memuatkan sejarah rencana sebaris";
+"aaald-many-sections-description" = "dalam keratan-keratan $1";
+"aaald-multiple-changes-description" = "Pelbagai perubahan dilakukan";
+"aaald-multiple-references-added-description" = "Pelbagai rujukan ditambahkan";
 "aaald-new-book-reference-title" = "Buku";
 "aaald-new-discussion" = "Perbincangan baru";
 "aaald-new-journal-reference-database" = "melalui $1";
 "aaald-new-journal-reference-title" = "Jurnal";
+"aaald-new-journal-reference-volume" = "Jilid $1:";
+"aaald-new-news-reference-retrieved-date" = "Dicapai $1";
 "aaald-new-news-reference-title" = "Berita";
 "aaald-new-talk-topic-description-format" = "$1 tentang rencana ini";
+"aaald-new-website-reference-archive-date-text" = "dari yang asli pada $1";
 "aaald-new-website-reference-archive-url-text" = "URL Archive.org";
 "aaald-new-website-reference-title" = "Tapak web";
 "aaald-revision-by-anonymous" = "Suntingan oleh pengguna awanama";
@@ -77,6 +89,7 @@
 "action-add-to-reading-list" = "Tambahkan ke senarai bacaan";
 "action-add-to-reading-list-short" = "Tambahkan kepada senarai";
 "action-cancel" = "Batalkan";
+"action-discard-edits" = "Buang suntingan";
 "action-find-in-page" = "Cari dalam laman";
 "action-language-accessibility" = "Tukar bahasa";
 "action-move-to" = "Pindah ke...";
@@ -96,6 +109,7 @@
 "action-share" = "Kongsi";
 "action-share-accessibility" = "Kongsi";
 "action-sort" = "Isih";
+"action-thank-user-accessibility" = "Ucapi Pengguna";
 "action-undo" = "Nyahbuat";
 "action-unsave" = "Nyahsimpan";
 "action-unsaved-accessibility-notification" = "Rencana batal disimpan";
@@ -192,9 +206,11 @@
 "diff-context-lines-collapsed-button-title" = "Tunjukkan";
 "diff-context-lines-expanded-button-title" = "Sorokkan";
 "diff-multi-line-format" = "Baris $1 - $2";
+"diff-paragraph-moved" = "Perenggan dipindahkan";
 "diff-paragraph-moved-direction-down" = "bawah";
 "diff-paragraph-moved-direction-up" = "atas";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 baris|$1 baris}}";
+"diff-paragraph-moved-format" = "Perenggan dipindahkan $1 $2";
 "diff-revision-error-title" = "Semakan tidak dapat dimuatkan";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 suntingan}}";
 "diff-single-header-editor-title" = "Maklumat penyunting";
@@ -206,6 +222,8 @@
 "diff-thanks-anonymous-no-thanks" = "Pengguna awanama tidak dapat dihantar ucapan terima kasih";
 "diff-thanks-login-title" = "Log masuk untuk hantar ucapan 'Terima kasih'";
 "diff-thanks-send-button-title" = "Ucap 'Terima kasih'";
+"diff-thanks-send-title" = "Beri 'Terima kasih' awamnya";
+"diff-thanks-sent" = "Ucapan 'Terima kasih' anda diberi kepada $1";
 "diff-thanks-sent-cannot-unsend" = "Ucapan terima kasih tidak boleh dinyahhantar";
 "dim-images" = "Samarkan imej";
 "edit-bold-accessibility-label" = "Tambah pemformatan tebal";
@@ -223,6 +241,7 @@
 "edit-italic-remove-accessibility-label" = "Buang pemformatan italik";
 "edit-link-accessibility-label" = "Tambah sintaks pautan";
 "edit-link-remove-accessibility-label" = "Buang sintaks pautan";
+"edit-link-title" = "Sunting pautan";
 "edit-menu-item" = "Sunting";
 "edit-minor-learn-more-text" = "Ketahui lebih lanjut mengenai suntingan kecil";
 "edit-minor-text" = "Ini ialah suntingan kecil";
@@ -442,6 +461,8 @@
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "Saiz imej";
 "insert-media-image-type-setting-basic" = "Asas";
+"insert-media-image-type-setting-frame" = "Bingkai";
+"insert-media-image-type-setting-frameless" = "Nirbingkai";
 "insert-media-image-type-settings-title" = "Jenis gambar";
 "insert-media-media-settings-title" = "Tetapan media";
 "insert-media-title" = "Sisipkan media";
@@ -503,16 +524,34 @@
 "notifications-center-go-to-your-talk-page" = "Laman perbincangan anda";
 "notifications-center-inbox-title" = "Projek";
 "notifications-center-login-notifications" = "Pemberitahuan log masuk";
+"notifications-center-mark-as-read" = "Tanda sebagai Dibaca";
+"notifications-center-mark-as-unread" = "Tanda sebagai Awabaca";
+"notifications-center-more-action-accessibility-label" = "Lebih";
+"notifications-center-notifications-settings" = "Tetapan pemberitahuan";
+"notifications-center-onboarding-modal-continue-action" = "Teruskan";
 "notifications-center-onboarding-modal-filters-title" = "Penapis";
+"notifications-center-onboarding-panel-secondary-button" = "Tidak perlu";
+"notifications-center-project-filters-accessibility-label" = "Penapis Projek";
 "notifications-center-status-all" = "Semua";
 "notifications-center-status-all-notifications" = "Semua pemberitahuan";
 "notifications-center-status-double-concatenation" = "$1 dalam $2";
+"notifications-center-status-filtered-by" = "Tertapis mengikut";
 "notifications-center-status-in-types" = "{{PLURAL:$1|1=1 jenis|$1 jenis}}";
 "notifications-center-status-read" = "Baca";
+"notifications-center-status-unread" = "Awabaca";
 "notifications-center-subheader-email-from-other-user" = "E-mel baru";
+"notifications-center-subheader-thanks" = "Terima kasih";
 "notifications-center-subheader-welcome" = "Selamat datang!";
+"notifications-center-swipe-more" = "Lebih";
 "notifications-center-title" = "Pemberitahuan";
+"notifications-center-type-item-description-notice" = "Pemberitahuan";
 "notifications-center-type-item-description-welcome-verbose" = "Pesanan selamat datang";
+"notifications-center-type-title-edit-reverted" = "Suntingan diundurkan";
+"notifications-center-type-title-login-attempts" = "Cubaan log masuk";
+"notifications-center-type-title-other" = "Lain";
+"notifications-center-type-title-page-link" = "Pautan halaman";
+"notifications-center-type-title-thanks" = "Terima kasih";
+"notifications-center-type-title-welcome" = "Selamat datang";
 "notifications-push-fallback-body-text" = "Kegiatan baru di Wikipedia";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Pesanan baru|Pesanan baru}}";
 "number-billions" = "$1 bilion";
@@ -575,6 +614,13 @@
 "potd-empty-error-description" = "Gagal untuk menerima gambar pilihan pada $1";
 "preference-summary-eventlogging-opt-in" = "Benarkan Wikimedia Foundation untuk mengumpul maklumat mengenai cara penggunaan aplikasi demi peningkatan kualiti aplikasi";
 "preference-title-eventlogging-opt-in" = "Kirim laporan penggunaan";
+"project-name-wikibooks" = "Wikibuku";
+"project-name-wikinews" = "Wikiberita";
+"project-name-wikiquote" = "Wikipetikan";
+"project-name-wikisource" = "Wikisumber";
+"project-name-wikiversity" = "Wikiversiti";
+"project-name-wikivoyage" = "Wikikembara";
+"project-name-wiktionary" = "Wikikamus";
 "rank-accessibility-label" = "Nombor $1";
 "readers-accessibility-label" = "$1 pembaca";
 "reading-list-add-generic-hint-title" = "Tambahkan rencana ini ke dalam senarai bacaan?";
@@ -755,6 +801,7 @@
 "table-of-contents-heading" = "Kandungan";
 "talk-page-add-discussion-accessibility-label" = "Tambah perbincangan";
 "talk-page-discussion-read-accessibility-label" = "Baca";
+"talk-page-discussion-unread-accessibility-label" = "Awabaca";
 "talk-page-link-user-action-sheet-title" = "Laman pengguna";
 "talk-page-new-topic-title" = "Perbincangan baru";
 "talk-page-reply-title" = "Balas";
@@ -775,6 +822,8 @@
 "two-factor-login-with-backup-code" = "Gunakan salah satu kod sandaran anda";
 "two-factor-login-with-regular-code" = "Gunakan kod pengesahan";
 "unknown-generic-text" = "Tidak diketahui";
+"variants-alert-dismiss-button" = "Tidak perlu";
+"variants-alert-preferences-button" = "Semak keutamaan anda";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disyorkan dan rencana harian dari komuniti kami";
 "welcome-exploration-explore-feed-title" = "Umpan Jelajah";
 "welcome-exploration-on-this-day-description" = "Perjalanan kembali ke masa untuk mempelajari apa yang berlaku hari ini dalam sejarah";
@@ -805,6 +854,7 @@
 "wikitext-preview-changes-none" = "Tiada suntingan yang dilakukan untuk pralihat.";
 "wikitext-preview-link-external-preview-title" = "Pautan luar";
 "wikitext-preview-link-not-found-preview-description" = "Wikipedia tidak mempunyai rencana dengan nama yang tepat";
+"wikitext-preview-link-not-found-preview-title" = "Tiada pautan dalaman dijumpai";
 "wikitext-preview-link-preview-description" = "Pautan ini membawa kepada '$1'";
 "wikitext-preview-link-preview-title" = "Pralihat pautan";
 "wikitext-preview-save-changes-title" = "Simpan perubahan";

@@ -1,4 +1,3 @@
-
 import UIKit
 import CocoaLumberjackSwift
 
@@ -88,7 +87,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
                     
                     return MediaListItem(imageURL: url, imageTitle: title)
                     
-                }.compactMap{ $0 }
+                }.compactMap { $0 }
                 
                 completion(.success(result))
             }
@@ -117,7 +116,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
                     let scheme = request.url?.scheme ?? "https"
                     let finalString = "\(scheme):\(urlString)"
                     return URL(string: finalString)
-                }.compactMap{ $0 }
+                }.compactMap { $0 }
                 
                 completion(.success(result))
             }
@@ -318,7 +317,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     
     public func urlRequest(from url: URL, cachePolicy: WMFCachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
         var requestHeaders = configuration.pageContentServiceHeaders(for: url)
-        requestHeaders.merge(headers)  { (_, updated) in updated }
+        requestHeaders.merge(headers) { (_, updated) in updated }
         let request = urlRequestFromPersistence(with: url, persistType: .article, cachePolicy: cachePolicy, headers: requestHeaders)
 
         return request
@@ -430,7 +429,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         return session.isCachedWithURLRequest(request, completion: completion)
     }
     
-    //MARK: Bundled offline resources
+    // MARK: Bundled offline resources
     
     struct BundledOfflineResources {
         let baseCSS: URL

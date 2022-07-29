@@ -1,16 +1,15 @@
-
 import Foundation
 
-//MARK: Private Helpers - LinkData
+// MARK: Private Helpers - LinkData
 
 extension NotificationsCenterCommonViewModel {
 
-    //common data used throughout url generation helpers
+    // common data used throughout url generation helpers
     struct LinkData {
         let host: String
         let wiki: String
-        let title: String? //ex: Cat
-        let fullTitle: String? //ex: Talk:Cat
+        let title: String? // ex: Cat
+        let fullTitle: String? // ex: Talk:Cat
         let primaryLinkFragment: String?
         let legacyPrimaryLinkFragment: String?
         let agentName: String?
@@ -39,7 +38,7 @@ extension NotificationsCenterCommonViewModel {
     }
 }
 
-//MARK: Helpers - URL Generation Methods
+// MARK: Helpers - URL Generation Methods
 
 extension NotificationsCenterCommonViewModel {
     
@@ -69,7 +68,7 @@ extension NotificationsCenterCommonViewModel {
             return url
         }
 
-        //primaryLinkFragment sometimes returns user's talk signature within in, which messes up deep linking to a talk page topic. Prefer legacyPrimaryLinkFragment which seems to not have this signature.
+        // primaryLinkFragment sometimes returns user's talk signature within in, which messes up deep linking to a talk page topic. Prefer legacyPrimaryLinkFragment which seems to not have this signature.
         components.fragment = linkData.legacyPrimaryLinkFragment ?? linkData.primaryLinkFragment
         return components.url
     }
@@ -131,8 +130,8 @@ extension NotificationsCenterCommonViewModel {
     
     //https://www.mediawiki.org/wiki/Special:UserGroupRights
     var userGroupRightsURL: URL? {
-        //Note: Sample notification json indicates that translated user group link we want is listed as the primary URL
-        //Ex. https://en.wikipedia.org/wiki/Special:ListGroupRights?markasread=nnnnnnnn&markasreadwiki=enwiki#confirmed
+        // Note: Sample notification json indicates that translated user group link we want is listed as the primary URL
+        // Ex. https://en.wikipedia.org/wiki/Special:ListGroupRights?markasread=nnnnnnnn&markasreadwiki=enwiki#confirmed
         
         guard let url = primaryLinkMinusQueryItemsURL,
               var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
@@ -144,22 +143,22 @@ extension NotificationsCenterCommonViewModel {
     }
     
     var specificUserGroupRightsURL: URL? {
-        //Note: Sample notification json indicates that specific user group link we want is listed as the primary URL + fragment
-        //Ex. https://en.wikipedia.org/wiki/Special:ListGroupRights?markasread=nnnnnnnn&markasreadwiki=enwiki#confirmed
+        // Note: Sample notification json indicates that specific user group link we want is listed as the primary URL + fragment
+        // Ex. https://en.wikipedia.org/wiki/Special:ListGroupRights?markasread=nnnnnnnn&markasreadwiki=enwiki#confirmed
         return primaryLinkMinusQueryItemsURL
     }
     
-    //For a page link notification type (FROM page > TO page), this is the url of the TO page
+    // For a page link notification type (FROM page > TO page), this is the url of the TO page
     var pageLinkToURL: URL? {
-        //Note: Sample notification json indicates that the url we want is listed as the primary URL
-        //Ex. https://en.wikipedia.org/wiki/Cat?markasread=nnnnnnnn&markasreadwiki=enwiki
+        // Note: Sample notification json indicates that the url we want is listed as the primary URL
+        // Ex. https://en.wikipedia.org/wiki/Cat?markasread=nnnnnnnn&markasreadwiki=enwiki
         return primaryLinkMinusQueryItemsURL
     }
     
     var connectionWithWikidataItemURL: URL? {
 
-        //Note: Sample notification json indicates that the wikidata item link is the second secondary link.
-        //Return this link if we're fairly certain it's what we think it is
+        // Note: Sample notification json indicates that the wikidata item link is the second secondary link.
+        // Return this link if we're fairly certain it's what we think it is
         
         guard let secondaryLinks = notification.secondaryLinks,
               secondaryLinks.indices.contains(1),
@@ -167,13 +166,13 @@ extension NotificationsCenterCommonViewModel {
             return nil
         }
 
-        //Confirm host is a Wikidata environment.
+        // Confirm host is a Wikidata environment.
         guard let host = wikidataItemURL.host,
               host.contains("wikidata") else {
             return nil
         }
 
-        //see if any part of path contains a Q identifier
+        // see if any part of path contains a Q identifier
         let path = wikidataItemURL.path
         let range = NSRange(location: 0, length: path.count)
 

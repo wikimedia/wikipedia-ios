@@ -65,7 +65,7 @@ open class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtocol 
         
         wmf_configureSubviewsForDynamicType()
 
-        //Setup the prototype cell with placeholder content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
+        // Setup the prototype cell with placeholder content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
         prototypeCell.configure(with: CellArticle(articleURL: nil, title: "Lorem", titleHTML: "Lorem", description: "Ipsum", imageURL: nil), semanticContentAttribute: .forceLeftToRight, theme: self.theme, layoutOnly: true)
 
         prototypeCell.isHidden = true
@@ -109,7 +109,7 @@ open class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtocol 
         var origin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
         let widthToFit = size.width - layoutMargins.left - layoutMargins.right
         if !isImageViewHidden {
-            if (apply) {
+            if apply {
                 let imageViewWidth = size.width - widthToFit > 50 ? widthToFit : size.width
                 imageView.frame = CGRect(x: round(0.5 * (size.width - imageViewWidth)), y: 0, width: imageViewWidth, height: imageViewHeight)
             }
@@ -136,7 +136,7 @@ open class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtocol 
             height = 0
         }
 
-        if (apply) {
+        if apply {
             flowLayout?.itemSize = CGSize(width: 250, height: height - 2*collectionViewSpacing)
             flowLayout?.minimumInteritemSpacing = collectionViewSpacing
             flowLayout?.minimumLineSpacing = 15
@@ -159,7 +159,7 @@ open class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtocol 
     }
 
     public func resetContentOffset() {
-        /// Without a layout pass, RTL languages on LTR chrome have an incorrect initial inset.
+        // Without a layout pass, RTL languages on LTR chrome have an incorrect initial inset.
         layoutIfNeeded()
         let x: CGFloat = semanticContentAttributeOverride == .forceRightToLeft ? collectionView.contentSize.width - collectionView.bounds.size.width + collectionView.contentInset.right : -collectionView.contentInset.left
         collectionView.contentOffset = CGPoint(x: x, y: 0)

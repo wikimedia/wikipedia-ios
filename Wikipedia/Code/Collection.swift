@@ -68,7 +68,7 @@ extension SearchableCollection where Self: EditableCollection {
 enum SortActionType: Int {
     case byTitle, byRecentlyAdded
     
-    func action(with sortDescriptors: [NSSortDescriptor], handler: @escaping ([NSSortDescriptor], UIAlertAction, Int) -> ()) -> SortAction {
+    func action(with sortDescriptors: [NSSortDescriptor], handler: @escaping ([NSSortDescriptor], UIAlertAction, Int) -> Void) -> SortAction {
         let title: String
         switch self {
         case .byTitle:
@@ -119,7 +119,7 @@ extension SortableCollection where Self: UIViewController {
     }
     
     func presentSortAlert(from button: UIButton) {
-        if let popoverController = sortAlert.popoverPresentationController  {
+        if let popoverController = sortAlert.popoverPresentationController {
             popoverController.sourceView = button
             popoverController.sourceRect = button.bounds
         }

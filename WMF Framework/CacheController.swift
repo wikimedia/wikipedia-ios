@@ -1,4 +1,3 @@
-
 import Foundation
 
 public enum CacheControllerError: Error {
@@ -35,7 +34,7 @@ public class CacheController {
         return url
     }()
     
-    //todo: Settings hook, logout don't sync hook, etc.
+    // todo: Settings hook, logout don't sync hook, etc.
     public static var totalCacheSizeInBytes: Int64 {
         return FileManager.default.sizeOfDirectory(at: cacheURL)
     }
@@ -60,7 +59,7 @@ public class CacheController {
 
     static func createCacheContext(cacheURL: URL) -> NSManagedObjectContext? {
         
-        //create cacheURL directory
+        // create cacheURL directory
         do {
             try FileManager.default.createDirectory(at: cacheURL, withIntermediateDirectories: true, attributes: nil)
         } catch let error {
@@ -68,14 +67,14 @@ public class CacheController {
             return nil
         }
         
-        //create ManagedObjectModel based on Cache.momd
+        // create ManagedObjectModel based on Cache.momd
         guard let modelURL = Bundle.wmf.url(forResource: "Cache", withExtension: "momd"),
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
                 assertionFailure("Failure to create managed object model")
                 return nil
         }
 
-        //create persistent store coordinator / persistent store
+        // create persistent store coordinator / persistent store
         let dbURL = cacheURL.appendingPathComponent("Cache.sqlite", isDirectory: false)
         let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
 
@@ -109,7 +108,7 @@ public class CacheController {
     
     public typealias ItemKey = String
     public typealias GroupKey = String
-    public typealias UniqueKey = String //combo of item key + variant
+    public typealias UniqueKey = String // combo of item key + variant
     public typealias IndividualCompletionBlock = (FinalIndividualResult) -> Void
     public typealias GroupCompletionBlock = (FinalGroupResult) -> Void
     
@@ -193,99 +192,99 @@ public class CacheController {
         }
         
         switch result {
-            case .success(let urlRequests):
-                
-                var successfulKeys: [CacheController.UniqueKey] = []
-                var failedKeys: [(CacheController.UniqueKey, Error)] = []
-                
-                let group = DispatchGroup()
-                for urlRequest in urlRequests {
-                    
-                    guard let uniqueKey = fileWriter.uniqueFileNameForURLRequest(urlRequest),
-                        let url = urlRequest.url else {
-                        continue
-                    }
-                    
-                    group.enter()
-                    
-                    if gatekeeper.numberOfQueuedIndividualCompletions(for: uniqueKey) > 0 {
-                        defer {
-                            group.leave()
-                        }
-                        gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
-                        continue
-                    }
-                    
-                    gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
-                    
-                    guard dbWriter.shouldDownloadVariant(urlRequest: urlRequest) else {
+        case .success(let urlRequests):
+
+            var successfulKeys: [CacheController.UniqueKey] = []
+            var failedKeys: [(CacheController.UniqueKey, Error)] = []
+
+            let group = DispatchGroup()
+            for urlRequest in urlRequests {
+
+                guard let uniqueKey = fileWriter.uniqueFileNameForURLRequest(urlRequest),
+                    let url = urlRequest.url else {
+                    continue
+                }
+
+                group.enter()
+
+                if gatekeeper.numberOfQueuedIndividualCompletions(for: uniqueKey) > 0 {
+                    defer {
                         group.leave()
-                        continue
                     }
-                    
-                    fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { [weak self] (result) in
-                        
-                        guard let self = self else {
-                            return
-                        }
-                        
-                        switch result {
-                        case .success(let response, let data):
-                            
-                            self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (result) in
-                                
-                                defer {
-                                    group.leave()
-                                }
-                                
-                                let individualResult: FinalIndividualResult
-                                
-                                switch result {
-                                case .success:
-                                    successfulKeys.append(uniqueKey)
-                                    individualResult = FinalIndividualResult.success(uniqueKey: uniqueKey)
-                                    
-                                case .failure(let error):
-                                    failedKeys.append((uniqueKey, error))
-                                    individualResult = FinalIndividualResult.failure(error: error)
-                                }
-                                
-                                self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
-                            }
-                            
-                            self.finishFileSave(data: data, mimeType: response.mimeType, uniqueKey: uniqueKey, url: url)
-                            
-                        case .failure(let error):
-                            
+                    gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
+                    continue
+                }
+
+                gatekeeper.queueIndividualCompletion(uniqueKey: uniqueKey, individualCompletion: individualCompletion)
+
+                guard dbWriter.shouldDownloadVariant(urlRequest: urlRequest) else {
+                    group.leave()
+                    continue
+                }
+
+                fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { [weak self] (result) in
+
+                    guard let self = self else {
+                        return
+                    }
+
+                    switch result {
+                    case .success(let response, let data):
+
+                        self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (result) in
+
                             defer {
                                 group.leave()
                             }
-                            
-                            failedKeys.append((uniqueKey, error))
-                            let individualResult = FinalIndividualResult.failure(error: error)
+
+                            let individualResult: FinalIndividualResult
+
+                            switch result {
+                            case .success:
+                                successfulKeys.append(uniqueKey)
+                                individualResult = FinalIndividualResult.success(uniqueKey: uniqueKey)
+
+                            case .failure(let error):
+                                failedKeys.append((uniqueKey, error))
+                                individualResult = FinalIndividualResult.failure(error: error)
+                            }
+
                             self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                         }
-                    }
-                    
-                    group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                        let groupResult: FinalGroupResult
-                        if let error = failedKeys.first?.1 {
-                            groupResult = FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter(error))
-                        } else {
-                            groupResult = FinalGroupResult.success(uniqueKeys: successfulKeys)
+
+                        self.finishFileSave(data: data, mimeType: response.mimeType, uniqueKey: uniqueKey, url: url)
+
+                    case .failure(let error):
+
+                        defer {
+                            group.leave()
                         }
-                        groupCompleteBlock(groupResult)
+
+                        failedKeys.append((uniqueKey, error))
+                        let individualResult = FinalIndividualResult.failure(error: error)
+                        self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                     }
                 }
-            
-            case .failure(let error):
-                let groupResult = FinalGroupResult.failure(error: error)
-                groupCompleteBlock(groupResult)
+
+                group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+                    let groupResult: FinalGroupResult
+                    if let error = failedKeys.first?.1 {
+                        groupResult = FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter(error))
+                    } else {
+                        groupResult = FinalGroupResult.success(uniqueKeys: successfulKeys)
+                    }
+                    groupCompleteBlock(groupResult)
+                }
+            }
+
+        case .failure(let error):
+            let groupResult = FinalGroupResult.failure(error: error)
+            groupCompleteBlock(groupResult)
         }
     }
     
     func finishFileSave(data: Data, mimeType: String?, uniqueKey: CacheController.UniqueKey, url: URL) {
-        //hook to allow subclasses to do any additional work with data
+        // hook to allow subclasses to do any additional work with data
     }
     
     public func remove(groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {

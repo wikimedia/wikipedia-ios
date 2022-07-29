@@ -113,7 +113,7 @@ class NotificationsCenterDetailHeaderCell: UITableViewCell, ReusableCell {
             mainStackView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
             mainStackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            mainStackView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
         ])
     }
 

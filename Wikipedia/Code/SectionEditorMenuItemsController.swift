@@ -32,7 +32,7 @@ class SectionEditorMenuItemsController: NSObject, SectionEditorMenuItemsDataSour
     var originalMenuItems: [UIMenuItem]?
 
     func setEditMenuItems() {
-        if (originalMenuItems == nil){
+        if originalMenuItems == nil {
             originalMenuItems = UIMenuController.shared.menuItems
         }
         var menuItems = self.menuItems

@@ -1,4 +1,3 @@
-
 struct WMFAuthLinkLabelStrings {
     /// String containing "%1$@" substring.
     var dollarSignString: String
@@ -23,15 +22,11 @@ class WMFAuthLinkLabel: UILabel, Themeable {
     public var strings: WMFAuthLinkLabelStrings?
 
     fileprivate var boldSubheadlineFont: UIFont? {
-        get {
-            return UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: self.traitCollection)
-        }
+        return UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: self.traitCollection)
     }
 
     fileprivate var subheadlineFont: UIFont? {
-        get {
-            return UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: self.traitCollection)
-        }
+        return UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: self.traitCollection)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

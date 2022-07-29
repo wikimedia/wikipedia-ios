@@ -29,12 +29,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     }
     
     public var titleHTML: String? {
+        get {
+            return _titleHTML
+        }
         set {
             _titleHTML = newValue
             updateTitleLabel()
-        }
-        get {
-            return _titleHTML
         }
     }
     
@@ -45,12 +45,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     }
     
     public var actions: [Action] {
+        get {
+            return actionsView.actions
+        }
         set {
             actionsView.actions = newValue
             updateAccessibilityElements()
-        }
-        get {
-            return actionsView.actions
         }
     }
 
@@ -205,7 +205,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         return size
     }
     
-    // MARK - View configuration
+    // MARK: - View configuration
     // These properties can mutate with each use of the cell. They should be reset by the `reset` function. Call setsNeedLayout after adjusting any of these properties
     
     public var titleTextStyle: DynamicTextStyle!
@@ -213,7 +213,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public var extractTextStyle: DynamicTextStyle!
     public var saveButtonTextStyle: DynamicTextStyle!
     
-    public var imageViewDimension: CGFloat = 0 //used as height on full width cell, width & height on right aligned
+    public var imageViewDimension: CGFloat = 0 // used as height on full width cell, width & height on right aligned
     public var spacing: CGFloat = 3
 
     public var isImageViewHidden = false {
@@ -234,18 +234,18 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         alertButton.titleLabel?.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
     }
     
-    // MARK - Semantic content
+    // MARK: - Semantic content
     
     fileprivate var _articleSemanticContentAttribute: UISemanticContentAttribute = .unspecified
     fileprivate var _effectiveArticleSemanticContentAttribute: UISemanticContentAttribute = .unspecified
     open var articleSemanticContentAttribute: UISemanticContentAttribute {
+        get {
+            return _effectiveArticleSemanticContentAttribute
+        }
         set {
             _articleSemanticContentAttribute = newValue
             updateEffectiveArticleSemanticContentAttribute()
             setNeedsLayout()
-        }
-        get {
-            return _effectiveArticleSemanticContentAttribute
         }
     }
 
@@ -275,7 +275,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         super.traitCollectionDidChange(previousTraitCollection)
     }
     
-    // MARK - Accessibility
+    // MARK: - Accessibility
     
     open override func updateAccessibilityElements() {
         var updatedAccessibilityElements: [Any] = []

@@ -20,8 +20,8 @@ enum RemoteNotificationsOperationsError: LocalizedError {
 }
 
 public extension Notification.Name {
-    static let NotificationsCenterLoadingDidStart = Notification.Name("NotificationsCenterLoadingDidStart") //fired when notifications have begun importing or refreshing
-    static let NotificationsCenterLoadingDidEnd = Notification.Name("NotificationsCenterLoadingDidEnd") //fired when notifications have ended importing or refreshing
+    static let NotificationsCenterLoadingDidStart = Notification.Name("NotificationsCenterLoadingDidStart") // fired when notifications have begun importing or refreshing
+    static let NotificationsCenterLoadingDidEnd = Notification.Name("NotificationsCenterLoadingDidEnd") // fired when notifications have ended importing or refreshing
 }
 
 class RemoteNotificationsOperationsController: NSObject {
@@ -49,7 +49,7 @@ class RemoteNotificationsOperationsController: NSObject {
         NotificationCenter.default.removeObserver(self)
     }
     
-    //MARK: Public
+    // MARK: Public
     
     /// Kicks off operations to fetch and persist read and unread history of notifications from app languages, Commons, and Wikidata, + other projects with unread notifications. Designed to automatically page and fully import once per installation, then only fetch new notifications for each project when called after that. Will not attempt if loading is already in progress. Must be called from main thread.
     /// - Parameter completion: Block to run once operations have completed. Dispatched to main thread.
@@ -60,7 +60,7 @@ class RemoteNotificationsOperationsController: NSObject {
             loadingNotificationsCompletionBlocks.append(completion)
         }
         
-        //Purposefully not calling completion block here, because we are tracking it in line above. It will be called when currently running loading operations complete.
+        // Purposefully not calling completion block here, because we are tracking it in line above. It will be called when currently running loading operations complete.
         guard !isLoadingNotifications else {
             return
         }
@@ -68,7 +68,7 @@ class RemoteNotificationsOperationsController: NSObject {
         isLoadingNotifications = true
         NotificationCenter.default.post(name: Notification.Name.NotificationsCenterLoadingDidStart, object: nil)
         
-        kickoffPagingOperations() { [weak self] result in
+        kickoffPagingOperations { [weak self] result in
             DispatchQueue.main.async {
                 self?.isLoadingNotifications = false
                 self?.loadingNotificationsCompletionBlocks.forEach { completionBlock in
@@ -85,7 +85,7 @@ class RemoteNotificationsOperationsController: NSObject {
     func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, languageLinkController: MWKLanguageLinkController, completion: ((Result<Void, Error>) -> Void)? = nil) {
         assert(Thread.isMainThread)
         
-        //sort identifier groups into dictionary keyed by wiki
+        // sort identifier groups into dictionary keyed by wiki
         let requestDictionary: [String: Set<RemoteNotification.IdentifierGroup>] = identifierGroups.reduce([String: Set<RemoteNotification.IdentifierGroup>]()) { partialResult, identifierGroup in
 
             var result = partialResult
@@ -98,7 +98,7 @@ class RemoteNotificationsOperationsController: NSObject {
             return result
         }
         
-        //turn into array of operations
+        // turn into array of operations
         let operations: [RemoteNotificationsMarkReadOrUnreadOperation] = requestDictionary.compactMap { element in
             
             let wiki = element.key
@@ -133,7 +133,7 @@ class RemoteNotificationsOperationsController: NSObject {
         let wikisWithUnreadNotifications: Set<String>
         do {
             wikisWithUnreadNotifications = try modelController.distinctWikisWithUnreadNotifications()
-        } catch (let error) {
+        } catch let error {
             completion?(.failure(error))
             return
         }
@@ -160,7 +160,7 @@ class RemoteNotificationsOperationsController: NSObject {
         self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
     }
     
-    //MARK: Private
+    // MARK: Private
     
     /// Generates the correct paging operation (Import or Refresh) based on a project's persisted imported state.
     /// - Parameter project: RemoteNotificationsProject to evaluate
@@ -200,25 +200,25 @@ class RemoteNotificationsOperationsController: NSObject {
         let appLanguageProject = RemoteNotificationsProject.wikipedia(appLanguage.languageCode, appLanguage.localizedName, appLanguage.languageVariantCode)
         let secondaryProjects = secondaryProjects(appLanguage: appLanguage)
         
-        //basic operations first - primary language then secondary (languages, commons & wikidata)
+        // basic operations first - primary language then secondary (languages, commons & wikidata)
         let appLanguageOperation = pagingOperationForProject(appLanguageProject, isAppLanguageProject: true)
         let secondaryOperations = secondaryProjects.map { project in
             pagingOperationForProject(project, isAppLanguageProject: false)
         }
         
-        //BEGIN: chained cross wiki operations
-        //this generates additional API calls to fetch extra unread messages by inspecting the app language operation's cross wiki summary notification object in its response
+        // BEGIN: chained cross wiki operations
+        // this generates additional API calls to fetch extra unread messages by inspecting the app language operation's cross wiki summary notification object in its response
         let crossWikiGroupOperation = RemoteNotificationsRefreshCrossWikiGroupOperation(appLanguageProject: appLanguageProject, secondaryProjects: secondaryProjects, languageLinkController: languageLinkController, apiController: apiController, modelController: modelController)
         let crossWikiAdapterOperation = BlockOperation { [weak crossWikiGroupOperation] in
             crossWikiGroupOperation?.crossWikiSummaryNotification = appLanguageOperation.crossWikiSummaryNotification
         }
         crossWikiAdapterOperation.addDependency(appLanguageOperation)
         crossWikiGroupOperation.addDependency(crossWikiAdapterOperation)
-        //END: chained cross wiki operations
+        // END: chained cross wiki operations
 
-        //BEGIN: chained reauthentication operations
-        //these will ask the authManager to reauthenticate if the app language operation has an unauthenticaated error code in it's response
-        //then it will cancel existing operations running and recursively call kickoffPagingOperations again
+        // BEGIN: chained reauthentication operations
+        // these will ask the authManager to reauthenticate if the app language operation has an unauthenticaated error code in it's response
+        // then it will cancel existing operations running and recursively call kickoffPagingOperations again
         let reauthenticateOperation = RemoteNotificationsReauthenticateOperation(authManager: authManager)
         let reauthenticateAdapterOperation = BlockOperation { [weak reauthenticateOperation] in
             reauthenticateOperation?.appLanguageOperationError = appLanguageOperation.error
@@ -239,7 +239,7 @@ class RemoteNotificationsOperationsController: NSObject {
             }
         }
         recursiveKickoffOperation.addDependency(reauthenticateOperation)
-        //END: chained reauthentication operations
+        // END: chained reauthentication operations
         
         let finalListOfOperations = [appLanguageOperation, crossWikiAdapterOperation, crossWikiGroupOperation, reauthenticateAdapterOperation, reauthenticateOperation, recursiveKickoffOperation] + secondaryOperations
         

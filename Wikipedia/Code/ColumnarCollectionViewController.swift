@@ -209,7 +209,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     }
     
     
-    // MARK - UICollectionViewDataSourcePrefetching
+    // MARK: - UICollectionViewDataSourcePrefetching
     
     private lazy var imageURLsCurrentlyBeingPrefetched: Set<URL> = {
         return []
@@ -258,7 +258,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         footer.apply(theme: theme)
     }
     
-    // MARK - ColumnarCollectionViewLayoutDelegate
+    // MARK: - ColumnarCollectionViewLayoutDelegate
     
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)

@@ -11,7 +11,7 @@ class LinkOnlyTextView: UITextView {
 
         let glyphIndex = self.layoutManager.glyphIndex(for: point, in: self.textContainer)
         
-        //Ensure the glyphIndex actually matches the point and isn't just the closest glyph to the point
+        // Ensure the glyphIndex actually matches the point and isn't just the closest glyph to the point
         let glyphRect = self.layoutManager.boundingRect(forGlyphRange: NSRange(location: glyphIndex, length: 1), in: self.textContainer)
         
         if glyphIndex < self.textStorage.length,

@@ -12,7 +12,7 @@ class TextFormattingInputViewController: UIInputViewController {
     private var textFormattingTableViewController: TextFormattingTableViewController
 
     weak var delegate: TextFormattingDelegate? {
-        didSet{
+        didSet {
             textStyleFormattingTableViewController.delegate = delegate
             textFormattingTableViewController.delegate = delegate
         }

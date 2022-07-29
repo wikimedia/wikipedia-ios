@@ -1,13 +1,12 @@
-
 import UIKit
 
-protocol TalkPageReplyCellDelegate: AnyObject {
-    func tappedLink(_ url: URL, cell: TalkPageReplyCell, sourceView: UIView, sourceRect: CGRect?)
+protocol OldTalkPageReplyCellDelegate: AnyObject {
+    func tappedLink(_ url: URL, cell: OldTalkPageReplyCell, sourceView: UIView, sourceRect: CGRect?)
 }
 
-class TalkPageReplyCell: CollectionViewCell {
+class OldTalkPageReplyCell: CollectionViewCell {
     
-    weak var delegate: TalkPageReplyCellDelegate?
+    weak var delegate: OldTalkPageReplyCellDelegate?
     
     private let titleTextView = UITextView()
     private let depthMarker = UIView()
@@ -41,7 +40,7 @@ class TalkPageReplyCell: CollectionViewCell {
         if depth > 0 {
             var depthIndicatorX = isRTL ? size.width - adjustedMargins.right : adjustedMargins.left
             
-            let depthAdjustmentMultiplier = CGFloat(13) //todo: may want to shift this higher or lower depending on screen size. Also possibly give it a max value
+            let depthAdjustmentMultiplier = CGFloat(13) // todo: may want to shift this higher or lower depending on screen size. Also possibly give it a max value
             if isRTL {
                 depthIndicatorX -= (CGFloat(depth) - 1) * depthAdjustmentMultiplier
             } else {
@@ -75,7 +74,7 @@ class TalkPageReplyCell: CollectionViewCell {
             depthMarker.frame = CGRect(origin: depthIndicatorOrigin, size: CGSize(width: 2, height: titleTextViewFrame.height))
         }
         
-        if (apply) {
+        if apply {
             titleTextView.textAlignment = textAlignmentOverride
         }
         
@@ -121,9 +120,9 @@ class TalkPageReplyCell: CollectionViewCell {
     }
 }
 
-//MARK: Themeable
+// MARK: Themeable
 
-extension TalkPageReplyCell: Themeable {
+extension OldTalkPageReplyCell: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         titleTextView.textColor = theme.colors.primaryText
@@ -133,9 +132,9 @@ extension TalkPageReplyCell: Themeable {
     }
 }
 
-//MARK: UITextViewDelegate
+// MARK: UITextViewDelegate
 
-extension TalkPageReplyCell: UITextViewDelegate {
+extension OldTalkPageReplyCell: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         delegate?.tappedLink(URL, cell: self, sourceView: textView, sourceRect: textView.frame(of: characterRange))
         return false

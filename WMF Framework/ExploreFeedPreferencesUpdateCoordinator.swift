@@ -1,7 +1,7 @@
 @objc public class ExploreFeedPreferencesUpdateCoordinator: NSObject {
     private unowned let feedContentController: WMFExploreFeedContentController
-    private var oldExploreFeedPreferences = Dictionary<String, Any>()
-    private var newExploreFeedPreferences = Dictionary<String, Any>()
+    private var oldExploreFeedPreferences = [String: Any]()
+    private var newExploreFeedPreferences = [String: Any]()
     private var willTurnOnContentGroupOrLanguage = false
     private var updateFeed: Bool = true
 
@@ -9,7 +9,7 @@
         self.feedContentController = feedContentController
     }
 
-    @objc public func configure(oldExploreFeedPreferences: Dictionary<String, Any>, newExploreFeedPreferences: Dictionary<String, Any>, willTurnOnContentGroupOrLanguage: Bool, updateFeed: Bool) {
+    @objc public func configure(oldExploreFeedPreferences: [String: Any], newExploreFeedPreferences: [String: Any], willTurnOnContentGroupOrLanguage: Bool, updateFeed: Bool) {
         self.oldExploreFeedPreferences = oldExploreFeedPreferences
         self.newExploreFeedPreferences = newExploreFeedPreferences
         self.willTurnOnContentGroupOrLanguage = willTurnOnContentGroupOrLanguage
@@ -82,7 +82,7 @@
         }
     }
 
-    private func areAllLanguagesTurnedOff(in exploreFeedPreferences: Dictionary<String, Any>) -> Bool {
+    private func areAllLanguagesTurnedOff(in exploreFeedPreferences: [String: Any]) -> Bool {
         guard exploreFeedPreferences.count == 1 else {
             return false
         }
@@ -93,15 +93,15 @@
         return true
     }
 
-    private func globalCardPreferences(in exploreFeedPreferences: Dictionary<String, Any>) -> Dictionary<NSNumber, NSNumber>? {
-        guard let globalCardPreferences = exploreFeedPreferences[WMFExploreFeedPreferencesGlobalCardsKey] as? Dictionary<NSNumber, NSNumber> else {
+    private func globalCardPreferences(in exploreFeedPreferences: [String: Any]) -> [NSNumber: NSNumber]? {
+        guard let globalCardPreferences = exploreFeedPreferences[WMFExploreFeedPreferencesGlobalCardsKey] as? [NSNumber: NSNumber] else {
             assertionFailure("Expected value of type Dictionary<NSNumber, NSNumber>")
             return nil
         }
         return globalCardPreferences
     }
 
-    private func areGlobalCardsTurnedOff(in exploreFeedPreferences: Dictionary<String, Any>) -> Bool {
+    private func areGlobalCardsTurnedOff(in exploreFeedPreferences: [String: Any]) -> Bool {
         guard let globalCardPreferences = globalCardPreferences(in: exploreFeedPreferences) else {
             return false
         }

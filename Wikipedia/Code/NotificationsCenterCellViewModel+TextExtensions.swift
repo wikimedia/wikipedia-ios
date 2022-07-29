@@ -1,4 +1,3 @@
-
 import Foundation
 import WMF
 
@@ -116,7 +115,7 @@ extension NotificationsCenterCellViewModel {
     }
 }
 
-//MARK: Header text determination helper methods
+// MARK: Header text determination helper methods
 
 private extension NotificationsCenterCellViewModel {
     

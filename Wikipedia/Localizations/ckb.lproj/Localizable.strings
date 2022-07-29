@@ -1,5 +1,6 @@
 // Messages for Central Kurdish (کوردی)
 // Exported from translatewiki.net
+// Author: Aram
 // Author: Arya sarhan
 // Author: Asoxor
 // Author: Diyariq
@@ -14,6 +15,16 @@
 // Author: ئارام بکر
 
 "aaald-added-text-description-2" = "$1 زیادکرا";
+"aaald-new-news-reference-title" = "ھەواڵەکان";
+"aaald-new-talk-topic-description-format" = "$1 دەربارەی ئەم وتارە";
+"aaald-new-website-reference-archive-date-text" = "لە ڕەسەنەکەوە لە $1ەوە";
+"aaald-new-website-reference-title" = "وێبگە";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=٠ سەرچاوە|$1 سەرچاوە|$1 سەرچاوە}} زیادکرا";
+"aaald-one-section-description" = "لە بەشی $1";
+"aaald-revision-by-anonymous" = "دەستکاری لەلایەن بەکارھێنەری بێناوەوە";
+"aaald-revision-userInfo" = "دەستکاری لەلایەن $1 ($2 دەستکاری)";
+"aaald-single-reference-added-description" = "سەرچاوە زیادکرا";
+"aaald-two-sections-description" = "لە بەشەکانی $1 و $2";
 "about-content-license" = "مۆڵەتی ناوەڕۆک";
 "about-content-license-details" = "مەگەر بە پێچەوانەوە وترابێت، ناوەڕۆک بەردەستە لەژێر $1.";
 "about-content-license-details-share-alike-license" = "مۆڵەتنامەی Creative Commons Attribution-ShareAlike";
@@ -179,7 +190,7 @@
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "لە ویکیپیدیا";
 "explore-nearby-sub-heading-your-location" = "شوێنی تۆ";
 "explore-potd-heading" = "وێنەی ئەمڕۆ";
-"explore-random-article-heading" = "وتاری هەڕەمەکی";
+"explore-random-article-heading" = "وتاری ھەڕەمەکی";
 "explore-randomizer" = "ھەڵکەوت";
 "field-alert-captcha-invalid" = "کاپچای ھەڵە";
 "field-alert-password-confirm-mismatch" = "تێپەڕوشەکان ھەماھەنگ نین";
@@ -225,13 +236,25 @@
 "home-title" = "دۆزینەوە";
 "home-title-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ سەری گەڕان";
 "icon-shortcut-nearby-title" = "وتارەکانی پەیوەندیدار بە ناوچەکەت";
-"icon-shortcut-random-title" = "وتاری هەڕەمەکی";
+"icon-shortcut-random-title" = "وتاری ھەڕەمەکی";
 "icon-shortcut-search-title" = "گەڕان بە ویکیپیدیادا";
 "image-gallery-unknown-owner" = "نووسەر نەناسراوە.";
 "in-the-news-title" = "لە ھەواڵەکاندا";
 "insert-media-image-preview-more-information-action-title" = "زانیاریی زیاتر";
+"insert-media-image-size-settings-title" = "قەبارەی وێنە";
+"insert-media-image-type-setting-basic" = "بنەڕەتی";
+"insert-media-image-type-setting-frame" = "چوارچێوە";
+"insert-media-image-type-setting-frameless" = "بێچوارچێوە";
+"insert-media-image-type-setting-thumbnail" = "وێنۆک";
+"insert-media-image-type-settings-title" = "جۆری وێنە";
+"insert-media-media-settings-title" = "ڕێکخستنەکانی میدیا";
+"insert-media-title" = "تێخستنی میدیا";
+"insert-media-uploaded-image-title" = "وێنەی بارکراو";
+"languages-settings-title" = "زمانەکان";
 "languages-title" = "گۆڕینی زمان";
 "languages-wikipedia" = "زمانەکانی ویکیپیدیا";
+"logged-out-continue-without-logging-in-button-title" = "بەردەوام بە بەبێ چوونەژوورەوە";
+"logged-out-log-back-in-button-title" = "بچۆرەوە نێو ھەژمارەکەت";
 "login-forgot-password" = "تێپەڕوشەکەت لەبیر کردووە؟";
 "login-join-wikipedia" = "بەشداربوونی ویکیپیدیا";
 "login-no-account" = "ھەژمارت نییە؟  $1.";
@@ -260,8 +283,33 @@
 "new-password-instructions" = "تۆ بە تێپەڕوشەیەکی کاتیی ھاتوویتە ژوورەوە. بۆ تەواوکردنی چوونە ژوورەوە تێپەڕوشەیەکی نوێ لێرە دابنێ.";
 "new-password-title" = "تێپەڕوشەکەت بنووسە";
 "no-email-account-alert" = "تکایە ھەژماری ئیمەیڵێک جێگیر بکە لە ئامێرەکەت و ھەوڵ بدەرەوە.";
-// Fuzzy
+"no-internet-connection" = "پەیوەندیی ئینتەرنێت نییە";
+"notifications-center-agent-description-from-format" = "لە $1ەوە";
+"notifications-center-alert" = "ھۆشدار";
+"notifications-center-badge-button-accessibility-label" = "ئاگادارکەرەوەکان بە نیشانەی نەخوێندراوەوە";
+"notifications-center-cell-notification-type-accessibility-label-format" = "ئاگادارکەرەوەی $1";
+"notifications-center-change-password" = "گۆڕینی تێپەڕوشە";
+"notifications-center-checking-for-notifications" = "گەڕان بۆ ئاگادارییەکان...";
+"notifications-center-destination-app" = "لەنێو بەرنامە";
+"notifications-center-destination-web" = "لە وێب";
+"notifications-center-empty-no-messages" = "ھیچ پەیامێکت نییە";
 "notifications-center-feed-news-notification-button-text" = "ئاگادارییەکان کار پێ بکە";
+"notifications-center-feed-news-notification-dismiss-button-text" = "ئێستا نا";
+"notifications-center-filters-read-status-item-title-all" = "ھەموو";
+"notifications-center-filters-read-status-item-title-read" = "خوێندراوە";
+"notifications-center-filters-read-status-item-title-unread" = "نەخوێندراوە";
+"notifications-center-filters-read-status-section-title" = "دۆخی خوێندنەوە";
+"notifications-center-filters-types-item-title-all" = "ھەموو جۆرەکان";
+"notifications-center-filters-types-section-title" = "جۆرەکانی ئاگادارکەرەوەکان";
+"notifications-center-go-to-article" = "وتار";
+"notifications-center-go-to-article-talk-format" = "پەڕەی وتووێژی $1";
+"notifications-center-go-to-talk-page" = "پەڕەی وتووێژ";
+"notifications-center-go-to-user-page" = "پەڕەی بەکارھێنەری $1";
+"notifications-center-go-to-your-talk-page" = "پەڕەی لێدوانەکەت";
+"notifications-center-header-alert-from-agent" = "ھۆشدار لە $1ەوە";
+"notifications-center-inbox-title" = "پڕۆژەکان";
+"notifications-center-inbox-wikipedias-section-title" = "ویکیپیدیاکان";
+"notifications-center-language-project-name-format" = "$2ی $1";
 "number-billions" = "$1";
 "number-millions" = "$1";
 "number-thousands" = "$1";

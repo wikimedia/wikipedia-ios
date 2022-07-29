@@ -234,11 +234,11 @@ class ArticlePlaceView: MapAnnotationView {
             }
         }
         
-        if (animated && rasterizeOnAnimations) {
+        if animated && rasterizeOnAnimations {
             self.imageView.layer.shouldRasterize = true
         }
         let done = {
-            if (animated && self.rasterizeOnAnimations) {
+            if animated && self.rasterizeOnAnimations {
                 self.imageView.layer.shouldRasterize = false
             }
             guard let articlePlace = self.annotation as? ArticlePlace else {
@@ -271,7 +271,6 @@ class ArticlePlaceView: MapAnnotationView {
             done()
         }
     }
-    
 
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
@@ -282,9 +281,7 @@ class ArticlePlaceView: MapAnnotationView {
         
         selectedImageButton.addTarget(self, action: #selector(selectedImageViewWasTapped), for: .touchUpInside)
     }
-    
 
-    
     @objc func selectedImageViewWasTapped(_ sender: UIButton) {
         delegate?.articlePlaceViewWasTapped(self)
     }
@@ -464,11 +461,11 @@ class ArticlePlaceView: MapAnnotationView {
                 self.selectedImageView.alpha = 0
             }
         }
-        if (animated && rasterizeOnAnimations) {
+        if animated && rasterizeOnAnimations {
             shouldRasterize = true
         }
         let done = {
-            if (animated && self.rasterizeOnAnimations) {
+            if animated && self.rasterizeOnAnimations {
                 self.shouldRasterize = false
             }
             if !selected {

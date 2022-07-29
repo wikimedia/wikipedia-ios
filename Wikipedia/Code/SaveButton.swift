@@ -66,7 +66,7 @@ import UIKit
     }
     
     var longPressGestureRecognizer: UILongPressGestureRecognizer?
-    public weak var saveButtonDelegate: SaveButtonDelegate?  {
+    public weak var saveButtonDelegate: SaveButtonDelegate? {
         didSet {
             if let lpgr = longPressGestureRecognizer, saveButtonDelegate == nil {
                 removeGestureRecognizer(lpgr)

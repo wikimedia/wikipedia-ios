@@ -4,9 +4,7 @@ import XCTest
 class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterViewModelTests {
     
     override var dataFileName: String {
-        get {
-            return "notifications-userTalkMessages"
-        }
+        return "notifications-userTalkMessages"
     }
     
     func testUserTalkPageGenericMessage() throws {

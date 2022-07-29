@@ -1,4 +1,3 @@
-
 import Foundation
 
 enum CacheFileWriterHelperError: Error {
@@ -103,13 +102,13 @@ final class CacheFileWriterHelper {
             try data.write(to: temporaryFileURL,
             options: .atomic)
             
-            let _ = try FileManager.default.replaceItemAt(destinationURL, withItemAt: temporaryFileURL)
+            _ = try FileManager.default.replaceItemAt(destinationURL, withItemAt: temporaryFileURL)
             
             try FileManager.default.removeItem(at: temporaryDirectoryURL)
             
             completion(.success)
             
-        } catch (let error) {
+        } catch let error {
             completion(.failure(error))
         }
     }

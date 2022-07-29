@@ -1,4 +1,3 @@
-
 import Foundation
 import CocoaLumberjackSwift
 
@@ -78,14 +77,14 @@ extension NSManagedObjectContext {
         
         localTalkPage.revisionId = NSNumber(value: revisionID)
         
-        guard let topicShas = (localTalkPage.topics as? Set<TalkPageTopic>)?.compactMap ({ return $0.textSha }) else {
+        guard let topicShas = (localTalkPage.topics as? Set<TalkPageTopic>)?.compactMap({ return $0.textSha }) else {
             return nil
         }
         
         let oldTopicSetShas = Set(topicShas)
         let newTopicSetShas = Set(networkTalkPage.topics.map { $0.shas.html })
 
-        //delete old topics
+        // delete old topics
         let topicShasToDelete = oldTopicSetShas.subtracting(newTopicSetShas)
 
         let localTopicsToDelete = localTalkPage.topics?.filter({ (item) -> Bool in
@@ -107,12 +106,12 @@ extension NSManagedObjectContext {
             }
         }
         
-        //update common topics
+        // update common topics
         let commonTopicShas = oldTopicSetShas.intersection(newTopicSetShas)
-        do  {
+        do {
             try updateCommonTopics(localTalkPage: localTalkPage, with: networkTalkPage, commonTopicShas: commonTopicShas)
         
-            //add new topics
+            // add new topics
             let topicShasToInsert = newTopicSetShas.subtracting(oldTopicSetShas)
             
             let insertNetworkTopics = networkTalkPage.topics.filter { topicShasToInsert.contains($0.shas.html) }
@@ -165,13 +164,13 @@ extension NSManagedObjectContext {
     }
 }
 
-//MARK: Private
+// MARK: Private
 
 private extension NSManagedObjectContext {
     
     func updateCommonTopics(localTalkPage: TalkPage, with networkTalkPage: NetworkTalkPage, commonTopicShas: Set<String>) throws {
         
-        //create & zip limited set of topics
+        // create & zip limited set of topics
         let predicate = NSPredicate(format:"textSha IN %@", commonTopicShas)
         guard let sameLocalTopics = localTalkPage.topics?.filtered(using: predicate).sorted(by: { (item1, item2) -> Bool in
             guard let topic1 = item1 as? TalkPageTopic,
@@ -186,9 +185,9 @@ private extension NSManagedObjectContext {
             return
         }
         
-        let sameNetworkTopics = networkTalkPage.topics.filter ({ commonTopicShas.contains($0.shas.html) }).sorted(by: { $0.shas.html < $1.shas.html })
+        let sameNetworkTopics = networkTalkPage.topics.filter({ commonTopicShas.contains($0.shas.html) }).sorted(by: { $0.shas.html < $1.shas.html })
         
-        guard (sameLocalTopics.count == sameNetworkTopics.count) else {
+        guard sameLocalTopics.count == sameNetworkTopics.count else {
             return
         }
         
@@ -209,14 +208,14 @@ private extension NSManagedObjectContext {
 
             try fetchOrCreateTalkPageTopicContent(with: networkTopic.shas.indicator, for: localTopic)
 
-            guard let replyShas = (localTopic.replies as? Set<TalkPageReply>)?.compactMap ({ return $0.sha }) else {
+            guard let replyShas = (localTopic.replies as? Set<TalkPageReply>)?.compactMap({ return $0.sha }) else {
                 continue
             }
             
             let oldSetReplyShas = Set(replyShas)
             let newSetReplyShas = Set(networkTopic.replies.map { $0.sha })
             
-            //delete old replies
+            // delete old replies
             let replyShasToDelete = oldSetReplyShas.subtracting(newSetReplyShas)
 
             let localRepliesToDelete = localTopic.replies?.filter({ (item) -> Bool in
@@ -238,8 +237,8 @@ private extension NSManagedObjectContext {
                 }
             }
             
-            //update common replies
-            //note: not sure if this is possible anymore. reply shas now contain sort so a different ordering will be seen as new or deleted
+            // update common replies
+            // note: not sure if this is possible anymore. reply shas now contain sort so a different ordering will be seen as new or deleted
             let commonReplyShas = oldSetReplyShas.intersection(newSetReplyShas)
             
             let predicate = NSPredicate(format:"sha IN %@", commonReplyShas)
@@ -256,7 +255,7 @@ private extension NSManagedObjectContext {
                 return
             }
             
-            let sameNetworkReplies = networkTopic.replies.filter ({ commonReplyShas.contains($0.sha) }).sorted(by: { $0.sha < $1.sha })
+            let sameNetworkReplies = networkTopic.replies.filter({ commonReplyShas.contains($0.sha) }).sorted(by: { $0.sha < $1.sha })
             
             guard sameLocalReplies.count == sameNetworkReplies.count else { continue }
             
@@ -266,7 +265,7 @@ private extension NSManagedObjectContext {
                localReply.sort = Int64(networkReply.sort)
             }
             
-            //add new replies
+            // add new replies
             let replyShasToInsert = newSetReplyShas.subtracting(oldSetReplyShas)
             
             let insertNetworkReplies = networkTopic.replies.filter { replyShasToInsert.contains($0.sha) }

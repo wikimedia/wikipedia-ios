@@ -215,7 +215,7 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
     func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController, result: ArticleDescriptionPublishResult) {
         injectNewDescriptionIntoArticleContent(result.newDescription) { [weak self] injectResult in
             
-            guard let self = self else  {
+            guard let self = self else {
                 return
             }
             
@@ -231,5 +231,5 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
 }
 
 // Save these strings in case we need them - right now I don't think mobile-html even sends the event if they can't edit
-//WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit-title", nil, nil, @"This page is protected", @"Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.")
-//WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit", nil, nil, @"You do not have the rights to edit this page", @"Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.")
+// WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit-title", nil, nil, @"This page is protected", @"Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.")
+// WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit", nil, nil, @"You do not have the rights to edit this page", @"Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.")

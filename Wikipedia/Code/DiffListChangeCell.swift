@@ -1,4 +1,3 @@
-
 import UIKit
 
 protocol DiffListChangeCellDelegate: AnyObject {
@@ -114,11 +113,11 @@ private extension DiffListChangeCell {
                 addTapGestureRecognizer(to: label)
             }
             
-            //add surrounding view
+            // add surrounding view
             let view = UIView(frame: .zero)
             view.translatesAutoresizingMaskIntoConstraints = false
             
-            //shaded background view
+            // shaded background view
             if item.hasShadedBackgroundView {
                 let shadedBackgroundView = UIView(frame: .zero)
                 shadedBackgroundViews.append(shadedBackgroundView)

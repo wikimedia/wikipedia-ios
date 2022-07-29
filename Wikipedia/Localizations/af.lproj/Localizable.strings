@@ -6,6 +6,7 @@
 // Author: Naudefj
 // Author: Nemo bis
 // Author: Puvircho
+// Author: Rooiratel
 
 "about-contributors" = "Bydraers";
 "about-libraries" = "Biblioteke gebruik";
@@ -240,6 +241,7 @@
 "table-of-contents-close-accessibility-label" = "Sluit Inhoudsopgawe";
 "table-of-contents-heading" = "Inhoud";
 "table-of-contents-hide-button-label" = "Steek die inhoudsopgawe";
+"talk-pages-view-title" = "Bespreking";
 "theme-black-display-name" = "Swart";
 "theme-dark-display-name" = "Donker";
 "theme-default-display-name" = "Verstek";

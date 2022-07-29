@@ -42,7 +42,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         }
     }
     
-    var searches: [[PlaceSearch]] = [[],[],[],[]]{
+    var searches: [[PlaceSearch]] = [[],[],[],[]] {
         didSet {
             tableView.reloadData()
         }
@@ -171,7 +171,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     }
     
     
-    // MARK - ScrollViewDelegate. Ideally, convert this to a ViewController & remove this code
+    // MARK: - ScrollViewDelegate. Ideally, convert this to a ViewController & remove this code
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         navigationBarHider?.scrollViewDidScroll(scrollView)

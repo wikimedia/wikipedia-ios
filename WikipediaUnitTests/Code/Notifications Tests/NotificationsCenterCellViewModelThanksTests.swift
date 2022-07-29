@@ -4,9 +4,7 @@ import XCTest
 class NotificationsCenterCellViewModelThanksTests: NotificationsCenterViewModelTests {
 
     override var dataFileName: String {
-        get {
-            return "notifications-thanks"
-        }
+        return "notifications-thanks"
     }
     
     func testThanksOnUserTalkEdit() throws {

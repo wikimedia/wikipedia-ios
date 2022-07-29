@@ -176,7 +176,7 @@ class WikipediaUITests: XCTestCase {
         
         // SEARCH
         app.wmf_scrollToTop()
-        if let searchField = app.wmf_firstSearchField(withTranslationIn: ["search-field-placeholder-text"]){
+        if let searchField = app.wmf_firstSearchField(withTranslationIn: ["search-field-placeholder-text"]) {
             if searchField.wmf_tap() {
                 wmf_snapshot("Search1")
                 if searchField.wmf_typeText(text: "a") {
@@ -256,7 +256,7 @@ class WikipediaUITests: XCTestCase {
         // Article find in page
         app.wmf_tapFirstButton(withTranslationIn: ["action-find-in-page"])
         wmf_snapshot("ArticleFindInPage1")
-        if let textField = app.textFields.element(boundBy: 0).wmf_waitUntilExists(){
+        if let textField = app.textFields.element(boundBy: 0).wmf_waitUntilExists() {
             if textField.wmf_tap() {
                 if textField.wmf_typeText(text: "a") {
                     wmf_snapshot("ArticleFindInPage2")
@@ -268,8 +268,6 @@ class WikipediaUITests: XCTestCase {
         app.wmf_tapFirstButton(withTranslationIn: ["button-save-for-later"])
         
         app.wmf_tapFirstButton(withTranslationIn: ["home-button-explore-accessibility-label"])
-
-
         
         // SETTINGS
         app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
@@ -409,7 +407,7 @@ class WikipediaUITests: XCTestCase {
             allowLocationPermissionButton.wmf_tap()
             wmf_snapshot("Places3")
         }
-        if let searchField = app.wmf_firstSearchField(withTranslationIn: ["places-search-default-text"]){
+        if let searchField = app.wmf_firstSearchField(withTranslationIn: ["places-search-default-text"]) {
             if searchField.wmf_tap() {
                 wmf_snapshot("Places4")
                 if searchField.wmf_typeText(text: "a") {

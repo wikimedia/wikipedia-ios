@@ -30,7 +30,7 @@ extension WikidataFetcher {
                 return
             }
             
-            let keys = ["P1332", "P1333", "P1334", "P1335"] //bounding coordinates
+            let keys = ["P1332", "P1333", "P1334", "P1335"] // bounding coordinates
 
             let coordinates = keys.compactMap({ (key) -> CLLocationCoordinate2D? in
                 guard let values = claims[key] as? [Any] else {

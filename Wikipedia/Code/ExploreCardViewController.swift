@@ -52,7 +52,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     
     var dataStore: MWKDataStore!
     
-    // MARK - View Lifecycle
+    // MARK: - View Lifecycle
     
     override func loadView() {
         super.loadView()
@@ -121,7 +121,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         delegateVC.dismiss(animated: flag, completion: completion)
     }
     
-    // MARK - Data
+    // MARK: - Data
     private var visibleLocationCellCount: Int = 0
 
     public var contentGroup: WMFContentGroup? {
@@ -213,7 +213,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         return dataStore.fetchArticle(with: url)
     }
     
-    // MARK - cell configuration
+    // MARK: - cell configuration
     
     private func configureArticleCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
         guard let cell = cell as? ArticleCollectionViewCell, let articleURL = articleURL(at: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
@@ -342,13 +342,13 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             cell.isImageViewHidden = false
             cell.imageView.image = UIImage(named: "feed-card-themes")
             cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
-            cell.messageHTML = WMFLocalizedString("home-themes-prompt", value: "Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.", comment: "Description on feed card that describes how to adjust reading preferences.");
+            cell.messageHTML = WMFLocalizedString("home-themes-prompt", value: "Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.", comment: "Description on feed card that describes how to adjust reading preferences.")
             cell.actionButton.setTitle(WMFLocalizedString("home-themes-action-title", value: "Manage preferences", comment: "Action on the feed card that describes the theme feature. Takes the user to manage theme preferences."), for:.normal)
         case .readingList:
             cell.isImageViewHidden = false
             cell.imageView.image = UIImage(named: "feed-card-reading-list")
             cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
-            cell.messageHTML = WMFLocalizedString("home-reading-list-prompt", value: "Your saved articles can now be organized into reading lists and synced across devices. Log in to allow your reading lists to be saved to your user preferences.", comment: "Description on feed card that describes reading lists.");
+            cell.messageHTML = WMFLocalizedString("home-reading-list-prompt", value: "Your saved articles can now be organized into reading lists and synced across devices. Log in to allow your reading lists to be saved to your user preferences.", comment: "Description on feed card that describes reading lists.")
             cell.actionButton.setTitle(CommonStrings.readingListLoginButtonTitle, for:.normal)
         default:
             break
@@ -386,7 +386,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
 
-    // MARK - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let displayType = displayTypeAt(indexPath)
@@ -420,7 +420,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
     
-    // MARK - UICollectionViewDelegate
+    // MARK: - UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return contentGroup?.isSelectable ?? false
@@ -430,7 +430,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: indexPath)
     }
     
-    // MARK - ColumnarCollectionViewLayoutDelegate
+    // MARK: - ColumnarCollectionViewLayoutDelegate
     
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         let displayType = displayTypeAt(indexPath)
@@ -517,11 +517,11 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
         }
         let alertController = ReadingListsAlertController()
         let cancel = ReadingListsAlertActionType.cancel.action()
-        let delete = ReadingListsAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
+        let delete = ReadingListsAlertActionType.unsave.action { _ = self.editController.didPerformAction(action) }
         let actions = [cancel, delete]
         alertController.showAlertIfNeeded(presenter: self, for: [article], with: actions) { showed in
             if !showed {
-                let _ = self.editController.didPerformAction(action)
+                _ = self.editController.didPerformAction(action)
             }
         }
         return true

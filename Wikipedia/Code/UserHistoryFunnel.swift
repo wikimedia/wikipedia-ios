@@ -24,7 +24,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         super.init(schema: "MobileWikiAppiOSUserHistory", version: 22479505)
     }
     
-    private func event(authorizationStatus: UNAuthorizationStatus?) -> Dictionary<String, Any> {
+    private func event(authorizationStatus: UNAuthorizationStatus?) -> [String: Any] {
         let userDefaults = UserDefaults.standard
         
         let fontSize = UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue
@@ -75,11 +75,11 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         
         var feedEnabledList = [String: Any]()
         
-        WMFExploreFeedContentController.globalContentGroupKindNumbers().compactMap(contentGroupKindAndLoggingCodeFromNumber).forEach() {
+        WMFExploreFeedContentController.globalContentGroupKindNumbers().compactMap(contentGroupKindAndLoggingCodeFromNumber).forEach {
             feedEnabledList[$0.loggingCode] = $0.kind.isInFeed
         }
         
-        WMFExploreFeedContentController.customizableContentGroupKindNumbers().compactMap(contentGroupKindAndLoggingCodeFromNumber).forEach() {
+        WMFExploreFeedContentController.customizableContentGroupKindNumbers().compactMap(contentGroupKindAndLoggingCodeFromNumber).forEach {
             feedEnabledList[$0.loggingCode] = $0.kind.userHistorySchemaLanguageInfo
         }
 
@@ -94,8 +94,8 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         UserDefaults.standard.wmf_lastAppVersion = WikipediaAppUtils.appVersion()
     }
     
-    private var latestSnapshot: Dictionary<String, Any>? {
-        return EventLoggingService.shared?.lastLoggedSnapshot as? Dictionary<String, Any>
+    private var latestSnapshot: [String: Any]? {
+        return EventLoggingService.shared?.lastLoggedSnapshot as? [String: Any]
     }
     
     @objc public func logSnapshot() {
@@ -160,7 +160,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
 
 private extension WMFContentGroupKind {
     var offLanguageCodes: Set<String> {
-        let preferredContentLangCodes = MWKDataStore.shared().languageLinkController.preferredLanguages.map{$0.contentLanguageCode}
+        let preferredContentLangCodes = MWKDataStore.shared().languageLinkController.preferredLanguages.map {$0.contentLanguageCode}
         return Set(preferredContentLangCodes).subtracting(contentLanguageCodes)
     }
     

@@ -15,7 +15,7 @@ enum ContextMenuCompletionType {
     case success
 }
 
-// MARK:- Context Menu for Protocol
+// MARK: - Context Menu for Protocol
 // All functions in this extension are for Context Menus
 /// The ArticleContextMenuPresenting protocol extension has functions that are called by various classes' WKUIDelegate functions, but the WKUIDelegate functions themselves
 /// reside within the actual classes. This is because in testing, the delegate methods were never called when they lived in the protocol extension - there would just be a silent failure.
@@ -37,7 +37,7 @@ extension ArticleContextMenuPresenting {
             return
         }
 
-        //moving into separate function for easier testability
+        // moving into separate function for easier testability
         contextMenuConfigurationForLinkURL(linkURL) { (completionType, menuConfig) in
             guard completionType != .bail && completionType != .timeout else {
                 nullCompletion()
@@ -55,7 +55,7 @@ extension ArticleContextMenuPresenting {
         var didCallCompletion = false
 
         dispatchAfterDelayInSeconds(1.0, DispatchQueue.main) {
-            if (!didCallCompletion) {
+            if !didCallCompletion {
                 completionHandler(.timeout, nil)
                 didCallCompletion = true
             }
@@ -64,7 +64,7 @@ extension ArticleContextMenuPresenting {
         getPeekViewControllerAsync(for: linkURL) { (peekParentVC) in
             assert(Thread.isMainThread)
             guard let peekParentVC = peekParentVC else {
-                if (!didCallCompletion) {
+                if !didCallCompletion {
                     completionHandler(.bail, nil)
                     didCallCompletion = true
                 }
@@ -83,13 +83,13 @@ extension ArticleContextMenuPresenting {
             if let articlePeekVC = peekVC as? ArticlePeekPreviewViewController {
                 articlePeekVC.fetchArticle {
                     assert(Thread.isMainThread)
-                    if (!didCallCompletion) {
+                    if !didCallCompletion {
                         completionHandler(.success, config)
                         didCallCompletion = true
                     }
                 }
             } else {
-                if (!didCallCompletion) {
+                if !didCallCompletion {
                     completionHandler(.success, config)
                     didCallCompletion = true
                 }

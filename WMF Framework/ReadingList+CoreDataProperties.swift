@@ -26,11 +26,11 @@ extension ReadingList {
     @NSManaged public var sortOrder: NSNumber?
     
     public var name: String? {
-        set {
-            canonicalName = newValue?.precomposedStringWithCanonicalMapping
-        }
         get {
             return isDefault ? CommonStrings.readingListsDefaultListTitle : canonicalName
+        }
+        set {
+            canonicalName = newValue?.precomposedStringWithCanonicalMapping
         }
     }
     

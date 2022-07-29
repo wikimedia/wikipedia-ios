@@ -1,4 +1,3 @@
-
 import UserNotifications
 import WMF
 
@@ -56,7 +55,7 @@ class NotificationService: UNNotificationServiceExtension {
                 newCache.notifications = finalNotificationsToCache
                 self.sharedCache.saveCache(newCache)
                 
-                //specific handling for talk page types (New messages title, bundled body)
+                // specific handling for talk page types (New messages title, bundled body)
                 if let talkPageContent = NotificationServiceHelper.talkPageContent(for: finalNotificationsToDisplay) {
                     bestAttemptContent.subtitle = talkPageContent.subtitle
                     bestAttemptContent.body = talkPageContent.body

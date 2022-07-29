@@ -1,23 +1,22 @@
-
 import UIKit
 
-protocol TalkPageReplyComposeViewDelegate: AnyObject {
+protocol OldTalkPageReplyComposeViewDelegate: AnyObject {
     func composeTextDidChange(text: String?)
      var collectionViewFrame: CGRect { get }
 }
 
-class TalkPageReplyComposeView: SizeThatFitsView {
+class OldTalkPageReplyComposeView: SizeThatFitsView {
     
     lazy private(set) var composeTextView: ThemeableTextView = ThemeableTextView()
     lazy private var finePrintTextView: UITextView = UITextView()
     
-    weak var delegate: TalkPageReplyComposeViewDelegate?
+    weak var delegate: OldTalkPageReplyComposeViewDelegate?
     
     private var theme: Theme?
     
     private var licenseTitleTextViewAttributedString: NSAttributedString {
         
-        //since this is just colors it shouldn't affect sizing
+        // since this is just colors it shouldn't affect sizing
         let colorTheme = theme ?? Theme.light
         
         let localizedString = WMFLocalizedString("talk-page-publish-terms-and-licenses", value: "By saving changes, you agree to the %1$@Terms of Use%2$@, and agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ and the %5$@GFDL%6$@ licenses.", comment: "Text for information about the Terms of Use and edit licenses on talk pages. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
@@ -65,13 +64,13 @@ class TalkPageReplyComposeView: SizeThatFitsView {
         let finePrintTextViewWidth = size.width - adjustedMargins.left - adjustedMargins.right
         
         
-        let finePrintFrame = finePrintTextView.wmf_preferredFrame(at: finePrintTextViewOrigin, maximumWidth: finePrintTextViewWidth, minimumWidth: finePrintTextViewWidth, alignedBy: semanticContentAttribute, apply: false) //will apply below
+        let finePrintFrame = finePrintTextView.wmf_preferredFrame(at: finePrintTextViewOrigin, maximumWidth: finePrintTextViewWidth, minimumWidth: finePrintTextViewWidth, alignedBy: semanticContentAttribute, apply: false) // will apply below
 
         let forcedComposeHeight = (delegate?.collectionViewFrame.size ?? size).height * 0.67 - finePrintFrame.height - inputAccessoryViewHeight
         
         let composeTextViewFrame = CGRect(x: composeTextViewOrigin.x, y: composeTextViewOrigin.y, width: composeTextViewWidth, height: forcedComposeHeight)
         
-        if (apply) {
+        if apply {
             composeTextView.frame = composeTextViewFrame
             finePrintTextView.frame = CGRect(x: adjustedMargins.left, y: composeTextViewFrame.minY + composeTextViewFrame.height, width: finePrintTextViewWidth, height: finePrintFrame.height)
         }
@@ -80,7 +79,7 @@ class TalkPageReplyComposeView: SizeThatFitsView {
         return CGSize(width: size.width, height: finalHeight)
     }
     
-    // MARK - Dynamic Type
+    // MARK: - Dynamic Type
     // Only applies new fonts if the content size category changes
     
     open override func setNeedsLayout() {
@@ -109,9 +108,9 @@ class TalkPageReplyComposeView: SizeThatFitsView {
     }
 }
 
-//MARK: Private
+// MARK: Private
 
-private extension TalkPageReplyComposeView {
+private extension OldTalkPageReplyComposeView {
     func setupView() {
         preservesSuperviewLayoutMargins = false
         insetsLayoutMarginsFromSafeArea = false
@@ -131,9 +130,9 @@ private extension TalkPageReplyComposeView {
     }
 }
 
-//MARK: Themeable
+// MARK: Themeable
 
-extension TalkPageReplyComposeView: Themeable {
+extension OldTalkPageReplyComposeView: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         composeTextView.apply(theme: theme)
@@ -143,9 +142,9 @@ extension TalkPageReplyComposeView: Themeable {
     }
 }
 
-//MARK: ThemeableTextViewPlaceholderDelegate
+// MARK: ThemeableTextViewPlaceholderDelegate
 
-extension TalkPageReplyComposeView: UITextViewDelegate {
+extension OldTalkPageReplyComposeView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         delegate?.composeTextDidChange(text: textView.text)
     }
