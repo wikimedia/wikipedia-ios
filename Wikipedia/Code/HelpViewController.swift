@@ -79,7 +79,6 @@ class HelpViewController: SinglePageWebViewController {
     
     enum UserDataExportError: Error {
         case unableToDetectSystemFreeSpace
-        case unableToDetectContainerSize
         case unableToDetectLogSize
     }
     
@@ -195,7 +194,7 @@ private extension HelpViewController {
             do {
                 let logFileURL = URL(fileURLWithPath: logFilePath)
                 try fileManager.copyItem(at: logFileURL, to: newLogURL)
-            } catch (let error) {
+            } catch let error {
                 DDLogError("Error moving log file to app container: \(error)")
             }
         }
@@ -214,7 +213,7 @@ private extension HelpViewController {
         for url in urlsToRemove {
             do {
                 try fileManager.removeItem(at: url)
-            } catch (let error) {
+            } catch let error {
                 DDLogError("Error deleting unnecessary files from app container: \(error)")
             }
         }
@@ -243,8 +242,12 @@ private extension HelpViewController {
                 }
                 
                
-            } catch (let error) {
+            } catch let error {
                 DDLogError("Error moving zip file to temporary directory: \(error)")
+                DispatchQueue.main.async {
+                    self.handleGenericUserExportError()
+                }
+                return
             }
             
         }
@@ -252,9 +255,10 @@ private extension HelpViewController {
         if let zipURL = zipURL,
            error == nil {
             DispatchQueue.main.async {
-                let avc = UIActivityViewController(activityItems: [zipURL], applicationActivities: nil)
-                self.present(avc, animated: true)
                 self.setupToolbarItems(isExportingUserData: false)
+                let avc = UIActivityViewController(activityItems: [zipURL], applicationActivities: nil)
+                avc.popoverPresentationController?.barButtonItem = self.exportUserDataToolbarItem
+                self.present(avc, animated: true)
             }
         } else {
             if let error = error {
@@ -264,24 +268,29 @@ private extension HelpViewController {
             }
             
             DispatchQueue.main.async {
-                self.setupToolbarItems(isExportingUserData: false)
+                self.handleGenericUserExportError()
             }
         }
         
         do {
             try fileManager.removeItem(at: temporaryAppContainerURL)
-        } catch (let error) {
+        } catch let error {
             DDLogError("Error deleting temp app container: \(error).")
         }
         
         fileManager.delegate = nil
     }
     
+    private func handleGenericUserExportError() {
+        self.wmf_showAlertWithMessage(WMFLocalizedString("export-user-data-generic-error", value: "There was an error while exporting your data. Please try again later.", comment: "Error message displayed after user has tried exporting their data and an error occurs."))
+        self.setupToolbarItems(isExportingUserData: false)
+    }
+    
     func kickoffExportUserDataProcess() {
         // Set export button to spinner
         setupToolbarItems(isExportingUserData: true)
 
-        saveSyncedReadingListResultsToAppContainer {
+        saveSyncedReadingListResultsToAppContainer(completion: {
             
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 
@@ -296,11 +305,15 @@ private extension HelpViewController {
                 let logFilePath = DDLog.wmf_currentLogFilePath()
                 
                 // Because we'll be copying the app container over to something that can be zipped up, we must check that we have at least enough free space for another container + log file
-                var enoughSpace: Bool = true
+                var enoughSpace: Bool = false
                 do {
                     enoughSpace = try self.userHasEnoughSpace(containerURL: containerURL, logFilePath: logFilePath)
-                } catch (let error) {
+                } catch {
                     DDLogError("Error determining if there's enough free space: \(error)")
+                    DispatchQueue.main.async {
+                        self.handleGenericUserExportError()
+                    }
+                    return
                 }
                 
                 guard enoughSpace else {
@@ -316,15 +329,19 @@ private extension HelpViewController {
                 
                 do {
                     try fileManager.copyItem(at: containerURL, to: temporaryAppContainerURL)
-                } catch (let error) {
+                } catch let error {
                     DDLogError("Error copying container into temporary directory: \(error)")
+                    DispatchQueue.main.async {
+                        self.handleGenericUserExportError()
+                    }
+                    return
                 }
                 
-                //Add log file, prune, zip and export temporary app container directory
+                // Add log file, prune, zip and export temporary app container directory
                 self.copyLogFile(temporaryAppContainerURL: temporaryAppContainerURL, fileManager: fileManager)
                 self.removeUnnecessaryFilesAndSubdirectories(temporaryAppContainerURL: temporaryAppContainerURL, fileManager: fileManager)
                 self.zipUpAndShare(temporaryAppContainerURL: temporaryAppContainerURL, fileManager: fileManager)
             }
-        }
+        })
     }
 }

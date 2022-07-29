@@ -404,6 +404,7 @@
 "explore-randomizer" = "Randomizer";
 "export-user-data-confirmation-message" = "Sharing your app library includes data on your Reading lists and history, preferences and Explore feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.";
 "export-user-data-confirmation-title" = "Share app library?";
+"export-user-data-generic-error" = "There was an error while exporting your data. Please try again later.";
 "export-user-data-space-error" = "You do not have enough device space to export your user data. Please try again later.";
 "export-user-data-title" = "Export User Data";
 "featured-article-empty-title" = "No featured article available today";
