@@ -49,7 +49,22 @@ public final class RemoteNotificationLink: NSObject, NSSecureCoding, Codable {
         type = try? values.decode(String.self, forKey: .type)
         
         let urlString = try? values.decode(String.self, forKey: .url)
-        if let urlString = urlString {
+        if var urlString = urlString {
+            
+            // If there's a fragment, it may not be encoded from the API, thus URLs and URLComponents won't instantiate.
+            // Manually encoding it here.
+            // https://phabricator.wikimedia.org/T307604
+            if let firstHashIndex = urlString.firstIndex(of: "#") {
+                let preFragment = urlString.prefix(upTo: firstHashIndex)
+                let nextIndex = urlString.index(firstHashIndex, offsetBy: 1)
+                let fragment = urlString.suffix(from: nextIndex)
+                
+                let unallowedFragmentCharacters = CharacterSet.urlFragmentAllowed.inverted
+                if fragment.rangeOfCharacter(from: unallowedFragmentCharacters) != nil {
+                    urlString = preFragment + "#" + (fragment.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) ?? "")
+                }
+            }
+            
             url = URL(string: urlString)
         } else {
             url = nil

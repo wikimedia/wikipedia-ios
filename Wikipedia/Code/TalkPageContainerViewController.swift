@@ -409,7 +409,7 @@ private extension TalkPageContainerViewController {
     
     func matchingTopicFromFragment(in talkPage: TalkPage) -> TalkPageTopic? {
 
-        guard let normalizedSectionTitleFragment = sectionTitleFragment?.normalizedPageTitle,
+        guard let normalizedSectionTitleFragment = sectionTitleFragment?.removingPercentEncoding?.normalizedPageTitle,
               let topics = talkPage.topics as? Set<TalkPageTopic> else {
             return nil
         }
