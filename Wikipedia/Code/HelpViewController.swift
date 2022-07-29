@@ -112,12 +112,10 @@ class HelpViewController: SinglePageWebViewController {
 
 extension HelpViewController: FileManagerDelegate {
     func fileManager(_ fileManager: FileManager, shouldProceedAfterError error: Error, copyingItemAt srcURL: URL, to dstURL: URL) -> Bool {
-        print(error)
         return true
     }
     
     func fileManager(_ fileManager: FileManager, shouldProceedAfterError error: Error, copyingItemAtPath srcPath: String, toPath dstPath: String) -> Bool {
-        print(error)
         return true
     }
 }
@@ -319,7 +317,7 @@ private extension HelpViewController {
                 do {
                     try fileManager.copyItem(at: containerURL, to: temporaryAppContainerURL)
                 } catch (let error) {
-                    print(error)
+                    DDLogError("Error copying container into temporary directory: \(error)")
                 }
                 
                 //Add log file, prune, zip and export temporary app container directory
