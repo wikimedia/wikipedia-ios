@@ -65,6 +65,8 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
+    ///  This function takes a **topic** argument of type String.
+    ///  This argument expects a `name`value from `TalkPageItem` heading (or topic) items.
     func subscribeToTopic(talkPageTitle: String, siteURL: URL, topic: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
         
         guard let title = talkPageTitle.denormalizedPageTitle else {
@@ -104,7 +106,7 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func getAllSubscriptions(siteURL: URL, topics: [String], completion: @escaping (Result<[String], Error>) -> Void) {
+    func getSubscribedTopics(siteURL: URL, topics: [String], completion: @escaping (Result<[String], Error>) -> Void) {
         
         let joinedString = topics.joined(separator: "|")
         
