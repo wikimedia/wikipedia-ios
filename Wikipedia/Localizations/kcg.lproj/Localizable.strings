@@ -334,6 +334,8 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Neet Wikipidya";
 "explore-randomizer" = "A̱tyia̱kpeak";
 "featured-article-empty-title" = "Ghwughwu kidee nshyia̱ a̱fwun ka bah";
+"featured-widget-from-language-wikipedia" = "Neet Wukipedia n$1";
+"featured-widget-from-wikipedia" = "Neet di̱ Wukipedia";
 "field-alert-captcha-invalid" = "A̱kace CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Swáng-nwuai tai njhyang bah";
 "field-alert-token-invalid" = "A̱kace zwunzwuo";

@@ -1,6 +1,6 @@
 import UIKit
 
-class TalkPageTopicCell: CollectionViewCell {
+class OldTalkPageTopicCell: CollectionViewCell {
     
     private let titleLabel = UILabel()
     private let unreadView = UIView()
@@ -100,7 +100,7 @@ class TalkPageTopicCell: CollectionViewCell {
     }
 }
 
-extension TalkPageTopicCell: Themeable {
+extension OldTalkPageTopicCell: Themeable {
     func apply(theme: Theme) {
         titleLabel.textColor = theme.colors.primaryText
         setBackgroundColors(theme.colors.paperBackground, selected: theme.colors.baseBackground)
