@@ -64,7 +64,7 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func postReply(talkPageTitle: String, siteURL: URL, commentId: String, comment: String, completion: @escaping(Result<[AnyHashable: Any], Error>) -> Void) {
+    func postReply(talkPageTitle: String, siteURL: URL, commentId: String, comment: String, completion: @escaping(Result<Void, Error>) -> Void) {
         guard let title = talkPageTitle.denormalizedPageTitle else {
             completion(.failure(RequestError.invalidParameters))
             return
@@ -82,12 +82,12 @@ class TalkPageFetcher: Fetcher {
         
         performTokenizedMediaWikiAPIPOST(to: siteURL, with: params, reattemptLoginOn401Response: false) { result, httpResponse, error in
             
-            self.performTalkPagePost(error, result, completion: completion)
+            self.evaluateResponse(error, result, completion: completion)
         }
     }
     
     
-    func postTopic(talkPageTitle: String, siteURL: URL, topicTitle: String, topicBody: String, completion: @escaping(Result<[AnyHashable: Any], Error>) -> Void) {
+    func postTopic(talkPageTitle: String, siteURL: URL, topicTitle: String, topicBody: String, completion: @escaping(Result<Void, Error>) -> Void) {
         
         guard let title = talkPageTitle.denormalizedPageTitle else {
             completion(.failure(RequestError.invalidParameters))
@@ -104,11 +104,11 @@ class TalkPageFetcher: Fetcher {
         
         performTokenizedMediaWikiAPIPOST(to: siteURL, with: params, reattemptLoginOn401Response: false) { result, httpResponse, error in
             
-            self.performTalkPagePost(error, result, completion: completion)
+            self.evaluateResponse(error, result, completion: completion)
         }
     }
     
-    fileprivate func performTalkPagePost(_ error: Error?, _ result: [String : Any]?, completion: @escaping(Result<[AnyHashable: Any], Error>) -> Void) {
+    fileprivate func evaluateResponse(_ error: Error?, _ result: [String : Any]?, completion: @escaping(Result<Void, Error>) -> Void) {
         if let error = error {
             completion(.failure(error))
             return
@@ -120,12 +120,14 @@ class TalkPageFetcher: Fetcher {
             return
         }
         
-        if let resultSuccess = result?["discussiontoolsedit"] as? [String: Any] {
-            completion(.success(resultSuccess))
+        guard let discussionToolsEdit = result?["discussiontoolsedit"] as? [String: Any],
+              let discussionToolsEditResult = discussionToolsEdit["result"] as? String,
+              discussionToolsEditResult == "success" else {
+            completion(.failure(RequestError.unexpectedResponse))
             return
         }
         
-        completion(.failure(RequestError.invalidParameters))
+        completion(.success(()))
     }
     
 }
