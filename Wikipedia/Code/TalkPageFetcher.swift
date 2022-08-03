@@ -52,7 +52,7 @@ class TalkPageFetcher: Fetcher {
                       "prop" : "threaditemshtml",
                       "formatversion" : "2"
         ]
-
+        
         performDecodableMediaWikiAPIGET(for: siteURL, with: params) { (result: Result<TalkPageAPIResponse, Error>) in
             switch result {
             case let .success(talk):
@@ -61,6 +61,83 @@ class TalkPageFetcher: Fetcher {
             case let .failure(error):
                 completion(.failure(error))
             }
+        }
+    }
+    
+    ///  This function takes a **topic** argument of type String.
+    ///  This argument expects a `name` value from `TalkPageItem` heading (or topic) items.
+    func subscribeToTopic(talkPageTitle: String, siteURL: URL, topic: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
+        
+        guard let title = talkPageTitle.denormalizedPageTitle else {
+            completion(.failure(RequestError.invalidParameters))
+            return
+        }
+        
+        var params = ["action": "discussiontoolssubscribe",
+                      "page": title,
+                      "format": "json",
+                      "commentname": topic,
+                      "formatversion": "2"
+        ]
+        
+        if shouldSubscribe {
+            params["subscribe"] = "1"
+        }
+        
+        performTokenizedMediaWikiAPIPOST(to: siteURL, with: params, reattemptLoginOn401Response: true) { result, httpResponse, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let resultError = result?["error"] as? [String: Any],
+               let info = resultError["info"] as? String {
+                completion(.failure(RequestError.api(info)))
+                return
+            }
+            
+            if let resultSuccess = result?["discussiontoolssubscribe"] as? [String: Any],
+               let didSubscribe = resultSuccess["subscribe"] as? Bool {
+                completion(.success(didSubscribe))
+                return
+            }
+            completion(.failure(RequestError.unexpectedResponse))
+        }
+    }
+    
+    func getSubscribedTopics(siteURL: URL, topics: [String], completion: @escaping (Result<[String], Error>) -> Void) {
+        
+        let joinedString = topics.joined(separator: "|")
+        
+        let params = ["action": "discussiontoolsgetsubscriptions",
+                      "format": "json",
+                      "commentname": joinedString,
+                      "formatversion": "2"
+        ]
+        
+        performMediaWikiAPIGET(for: siteURL, with: params, cancellationKey: nil) { result, httpResponse, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let resultError = result?["error"] as? [String: Any],
+               let info = resultError["info"] as? String {
+                completion(.failure(RequestError.api(info)))
+                return
+            }
+            
+            if let resultSuccess = result?["subscriptions"] as? [String: Any] {
+                var subscribedTopics = [String]()
+                for (topicId, subStatus) in resultSuccess {
+                    if subStatus as? Int == 1 {
+                        subscribedTopics.append(topicId)
+                    }
+                }
+                completion(.success(subscribedTopics))
+                return
+            }
+            completion(.failure(RequestError.unexpectedResponse))
         }
     }
     
@@ -81,11 +158,9 @@ class TalkPageFetcher: Fetcher {
         ]
         
         performTokenizedMediaWikiAPIPOST(to: siteURL, with: params, reattemptLoginOn401Response: false) { result, httpResponse, error in
-            
             self.evaluateResponse(error, result, completion: completion)
         }
     }
-    
     
     func postTopic(talkPageTitle: String, siteURL: URL, topicTitle: String, topicBody: String, completion: @escaping(Result<Void, Error>) -> Void) {
         
@@ -103,7 +178,6 @@ class TalkPageFetcher: Fetcher {
                       "wikitext": topicBody        ]
         
         performTokenizedMediaWikiAPIPOST(to: siteURL, with: params, reattemptLoginOn401Response: false) { result, httpResponse, error in
-            
             self.evaluateResponse(error, result, completion: completion)
         }
     }
