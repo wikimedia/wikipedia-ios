@@ -1,5 +1,6 @@
 // Messages for Nepali (नेपाली)
 // Exported from translatewiki.net
+// Author: Bada Kaji
 // Author: Drjpoudel
 // Author: NehalDaveND
 // Author: Nemo bis
@@ -357,6 +358,7 @@
 "talk-page-link-user-action-sheet-title" = "प्रयोगकर्ता पृष्ठहरू";
 "talk-page-new-subject-placeholder-text" = "विषय";
 "talk-page-new-subject-textfield-accessibility-label" = "विषय";
+"talk-pages-view-title" = "वार्तालाप";
 "theme-black-display-name" = "कालो";
 "theme-dark-display-name" = "गाढा";
 "theme-default-display-name" = "पूर्वनिर्धारित";
