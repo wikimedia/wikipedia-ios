@@ -3,6 +3,7 @@
 // Author: Cleinman
 // Author: Lamine
 // Author: Lancine.kounfantoh.fofana
+// Author: Sorylonmakonon
 // Author: Tsevener
 // Author: Youssoufkadialy
 
@@ -495,3 +496,4 @@
 "reading-lists-article-not-synced-list-limit-exceeded" = "ߛߙߍߘߍ ߓߘߊ߫ ߕߊ߬ߡߌ߲߬ ߊ߬ ߘߊ߲߭ ߠߊ߫ ߸ ߊ߬ ߕߴߛߋ߫ ߞߴߊ߬ ߓߌ߬ߟߊ߬ ߢߐ߲߯ ߡߊ߬";
 "reading-lists-articles-not-synced-limit-exceeded" = "ߞߎߡߘߊ ߘߏ߫ ߟߎ߫ ߡߊ߫ ߓߌ߬ߟߊ߬ ߢߐ߲߯ ߡߊ߬ ߸ ߊ߬ ߓߘߊ߫ ߕߊ߬ߡߴߊ߬ ߘߊ߲߭ ߠߊ߫";
 "reading-lists-list-not-synced-limit-exceeded" = "ߛߙߍߘߍ ߡߊ߫ ߓߌ߬ߟߊ߬ ߢߐ߲߯ ߡߊ߬ ߸ߊ߬ ߓߘߊ߫ ߕߊ߬ߡߌ߲߬ ߊ߬ ߘߊ߲߭ ߠߊ߫";
+"talk-pages-view-title" = "ߞߎߡߊߢߐ߲߯ߦߊ";
