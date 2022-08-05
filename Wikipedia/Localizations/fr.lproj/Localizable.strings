@@ -100,7 +100,7 @@
 "account-creation-captcha-cannot-see-image" = "Impossible de voir l’image ? $1";
 "account-creation-captcha-obtaining" = "Obtention d’un nouveau CAPTCHA…";
 "account-creation-captcha-request-account" = "Demander un compte.";
-"account-creation-captcha-title" = "Vérification de sécurité CAPTCHA";
+"account-creation-captcha-title" = "Contrôle de sécurité CAPTCHA";
 "account-creation-create-account" = "Créer votre compte";
 "account-creation-have-account" = "Vous avez déjà un compte ? $1";
 "account-creation-log-in" = "Se connecter.";
