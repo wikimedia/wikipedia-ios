@@ -4,6 +4,7 @@
 // Author: BodminPill
 // Author: Brettchenweber
 // Author: DraconicDark
+// Author: Duke of Wikipädia
 // Author: Envlh
 // Author: FF-11
 // Author: Ferdinand0101
@@ -32,6 +33,10 @@
 "aaald-characters-text-description" = "{{PLURAL:$1|0=Zeichen|Zeichen|Zeichen}}";
 "aaald-deleted-text-description-2" = "$1 gelöscht";
 "aaald-error-subitle" = "Aktualisieren, um es erneut zu versuchen";
+"aaald-error-title" = "Inline-Artikelverlauf kann nicht geladen werden";
+"aaald-many-sections-description" = "in $1 Abschnitten";
+"aaald-multiple-changes-description" = "Mehrere Änderungen vorgenommen";
+"aaald-multiple-references-added-description" = "Mehrere Referenzen hinzugefügt";
 "aaald-new-book-reference-title" = "Buch";
 "aaald-new-discussion" = "Neue Diskussion";
 "aaald-new-journal-reference-title" = "Zeitschrift";
