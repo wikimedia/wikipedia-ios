@@ -962,7 +962,7 @@
 "settings-primary-language-details" = "اولین زبان موجود در این فهرست به‌عنوان زبان اصلی نرم‌افزار به کار می‌رود.";
 "settings-search-footer-text" = "تنظیم نرم‌افزار برای باز کردن زبانهٔ جستجو به‌جای زبانهٔ کاوش";
 "settings-search-open-app-on-search" = "باز کردن نرم‌افزار در زبانهٔ جستجو";
-"settings-storage-and-syncing-enable-sync-footer-text" = "به ویکی‌مدیا اجازه دهید تا در زمان ورود به حساب و همگام‌سازی، مقاله‌ها و فهرست‌های مطالعه‌ای که ذخیره کرده‌اید را در ترجیحات کاربری شما دخیره کند.";
+"settings-storage-and-syncing-enable-sync-footer-text" = "به ویکی‌مدیا اجازه دهید تا در زمان ورود به حساب و همگام‌سازی، مقاله‌ها و فهرست‌های مطالعه‌ای که ذخیره کرده‌اید را در ترجیحات کاربری شما ذخیره کند.";
 "settings-storage-and-syncing-enable-sync-title" = "همگام‌سازی مقاله‌ها و فهرست‌های ذخیره‌شده";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "در صورتی که همگام‌سازی را فعال کرده‌باشید، پاک کردن مقاله‌های ذخیره‌شده علاوه بر حذف آن‌ها از این دستگاه، منجر به حذف آن‌ها از حساب کاربری شما نیز خواهد شد. شما قادر به برگرداندن این عمل نخواهید بود.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "همهٔ مقاله‌های ذخیره‌شده پاک شوند؟";
