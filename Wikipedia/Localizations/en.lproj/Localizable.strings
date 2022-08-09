@@ -77,13 +77,11 @@
 "account-creation-saving" = "Saving...";
 "account-creation-title" = "Create a new account";
 "account-group-title" = "Your Account";
-"account-request-vanishing" = "Request account deletion";
+"account-request-vanishing" = "Vanish account";
 "account-talk-page-title" = "Your talk page";
 "account-talk-preferences-auto-sign-discussions" = "Auto-sign discussions";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Auto-signing of discussions will use the signature defined in Signature settings";
 "account-talk-preferences-title" = "Talk page preferences";
-"account-vanishing-footer-info" = "Copy TBD";
-"account-vanishing-section-title" = "Account deletion";
 "action-add-to" = "Add to…";
 "action-add-to-reading-list" = "Add to reading list";
 "action-add-to-reading-list-short" = "Add to list";
@@ -1015,6 +1013,12 @@
 "unknown-generic-text" = "Unknown";
 "uzbek-variants-alert-body" = "The Wikipedia app now supports the following Uzbek variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Updates to Uzbek variant support";
+"vanish-account-additional-information-field" = "Additional information";
+"vanish-account-bottom-text" = "Account deletion on Wikipedia is done by changing your account name to make it so others cannot recognize your contributions in a process called account vanishing. You may use the form below to request a courtesy vanishing. Vanishing does not guarantee complete anonymity or remove contributions to the projects.";
+"vanish-account-button-text" = "Send request";
+"vanish-account-description" = "Vanishing is a last resort and should only be used when you wish to stop editing forever and also to hide as many of your past associations as possible.\n\nTo initiate the vanishing process please provide the following:";
+"vanish-account-title" = "Vanishing process";
+"vanish-account-username-field" = "Username and user page";
 "variants-alert-dismiss-button" = "No thanks";
 "variants-alert-preferences-button" = "Review your preferences";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";

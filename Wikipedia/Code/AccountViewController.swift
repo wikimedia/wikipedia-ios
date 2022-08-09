@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 import WMF
 
 @objc(WMFAccountViewControllerDelegate)
@@ -43,18 +44,13 @@ class AccountViewController: SubSettingsViewController {
         
         let logout = Item(title: username, subtitle: CommonStrings.logoutTitle, iconName: "settings-user", iconColor: .white, iconBackgroundColor: UIColor.wmf_colorWithHex(0xFF8E2B), type: .logout)
         let talkPage = Item(title: WMFLocalizedString("account-talk-page-title", value: "Your talk page", comment: "Title for button and page letting user view their account page."), subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: UIColor(red: 51/255, green: 102/255, blue: 204/255, alpha: 1) , type: .talkPage)
-        let account = Section(items: [logout, talkPage], headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
+        let vanishAccount = Item(title: WMFLocalizedString("account-request-vanishing", value: "Vanish account", comment: "This will initiate the process of requesting your account to be vanished "), subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: .red, type: .vanishAccount) // TODO get correct icon
+        let account = Section(items: [logout, talkPage, vanishAccount], headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
 
         let autoSignDiscussions = Item(title: WMFLocalizedString("account-talk-preferences-auto-sign-discussions", value: "Auto-sign discussions", comment: "Title for talk page preference that configures adding signature to new posts"), subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .talkPageAutoSignDiscussions)
         let talkPagePreferences = Section(items: [autoSignDiscussions], headerTitle: WMFLocalizedString("account-talk-preferences-title", value: "Talk page preferences", comment: "Title for talk page preference sections in account settings"), footerTitle: WMFLocalizedString("account-talk-preferences-auto-sign-discussions-setting-explanation", value: "Auto-signing of discussions will use the signature defined in Signature settings", comment: "Text explaining how setting the auto-signing of talk page discussions preference works"))
-        let vanishAccount = Item(title: WMFLocalizedString("account-request-vanishing", value: "Request account deletion", comment: "This will initiate the process of reuqest your account ot be vanished "), subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .vanishAccount)
-        let accountDeletion = Section(items: [vanishAccount], headerTitle: WMFLocalizedString("account-vanishing-section-title", value: "Account deletion", comment: "Section header for the account vanishing process option of account settings"), footerTitle: WMFLocalizedString("account-vanishing-footer-info", value: "Copy TBD", comment: "Footer text for the account deletion/vanishing section on account settings further explaining the process"))
 
-        var sections = [account, talkPagePreferences]
-        if dataStore.authenticationManager.isLoggedIn {
-            sections.append(accountDeletion)
-        }
-        return sections
+        return [account, talkPagePreferences]
     }()
 
     override func viewDidLoad() {
@@ -145,9 +141,13 @@ class AccountViewController: SubSettingsViewController {
             }
             
         case .vanishAccount:
-            let vc = VanishAccountViewController(theme: theme)
-            vc.dataStore = dataStore
-            self.navigationController?.pushViewController(vc, animated: true)
+            guard let username = dataStore.authenticationManager.loggedInUsername else {
+                // TODO error?
+                return
+            }
+            let contentView = VanishAccountContentView(theme: theme, username: username)
+            let hostingController = VanishAccountCustomUIHostingController(rootView: contentView, title: "Vanish Account") // get localized string
+            self.navigationController?.pushViewController(hostingController, animated: true)
         default:
             break
         }

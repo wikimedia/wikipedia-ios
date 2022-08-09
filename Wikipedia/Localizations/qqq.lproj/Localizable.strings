@@ -77,13 +77,11 @@
 "account-creation-saving" = "Alert shown when user saves account creation form. {{Identical|Saving}}";
 "account-creation-title" = "Title for account creation interface";
 "account-group-title" = "Title for account group on account settings screen.";
-"account-request-vanishing" = "This will initiate the process of reuqest your account ot be vanished";
+"account-request-vanishing" = "This will initiate the process of requesting your account to be vanished";
 "account-talk-page-title" = "Title for button and page letting user view their account page.";
 "account-talk-preferences-auto-sign-discussions" = "Title for talk page preference that configures adding signature to new posts";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Text explaining how setting the auto-signing of talk page discussions preference works";
 "account-talk-preferences-title" = "Title for talk page preference sections in account settings";
-"account-vanishing-footer-info" = "Footer text for the account deletion/vanishing section on account settings further explaining the process";
-"account-vanishing-section-title" = "Section header for the account vanishing process option of account settings";
 "action-add-to" = "Title of the action that adds the selection to something else.";
 "action-add-to-reading-list" = "Title of the action that adds selected articles to a reading list";
 "action-add-to-reading-list-short" = "Shorter title for the action that adds selected articles to a reading list";
@@ -1015,6 +1013,12 @@
 "unknown-generic-text" = "Default text used in places where no contextual information is provided";
 "uzbek-variants-alert-body" = "Body text of alert used to inform users about Uzbek variant support. Please do not translate the newlines (\n) or Uzbek characters (ўзбекча кирилл, etc.).";
 "uzbek-variants-alert-title" = "Title of alert used to inform users about Uzbek variant support.";
+"vanish-account-additional-information-field" = "Titl for the additional information form field";
+"vanish-account-bottom-text" = "Text";
+"vanish-account-button-text" = "Text for button on vanish account request screen";
+"vanish-account-description" = "Description for the vanishing process";
+"vanish-account-title" = "Title for the vanishing process screen";
+"vanish-account-username-field" = "Title for the username and userpage form field";
 "variants-alert-dismiss-button" = "Dismiss button on alert used to inform users about variant support.";
 "variants-alert-preferences-button" = "Action button on alert used to inform users about variant support.";
 "welcome-exploration-explore-feed-description" = "Description for Explore feed";
