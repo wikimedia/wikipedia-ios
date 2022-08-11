@@ -6,6 +6,7 @@ class TalkPageViewController: ViewController {
     // MARK: - Properties
 
     fileprivate let viewModel: TalkPageViewModel
+    fileprivate var headerView: TalkPageHeaderView?
 
     var talkPageView: TalkPageView {
         return view as! TalkPageView
@@ -35,9 +36,33 @@ class TalkPageViewController: ViewController {
 
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil)
         navigationItem.rightBarButtonItem = rightBarButtonItem
-
+        
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
+
+        setupHeaderView()
+    }
+
+    private func setupHeaderView() {
+        let headerView = TalkPageHeaderView()
+        self.headerView = headerView
+
+        headerView.configure(viewModel: viewModel)
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.isUnderBarViewHidingEnabled = true
+        navigationBar.allowsUnderbarHitsFallThrough = true
+        navigationBar.underBarViewPercentHidden = 0.6
+
+        navigationBar.addUnderNavigationBarView(headerView, shouldIgnoreSafeArea: true)
+        useNavigationBarVisibleHeightForScrollViewInsets = false
+        updateScrollViewInsets()
+
+        headerView.apply(theme: theme)
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        headerView?.updateLabelFonts()
     }
 
     // MARK: - Public
@@ -48,6 +73,7 @@ class TalkPageViewController: ViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
 
+        headerView?.apply(theme: theme)
         talkPageView.apply(theme: theme)
         talkPageView.collectionView.reloadData()
     }
@@ -59,7 +85,7 @@ class TalkPageViewController: ViewController {
 extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 5
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
