@@ -48,6 +48,7 @@ import UIKit
     public static let mediumCaption1 = DynamicTextStyle(.system, .caption1, .medium)
     public static let caption2 = DynamicTextStyle(.system, .caption2)
     public static let semiboldCaption2 = DynamicTextStyle(.system, .caption2, .semibold)
+    public static let mediumCaption2 = DynamicTextStyle(.system, .caption2, .medium)
     public static let italicCaption2 = DynamicTextStyle(.system, .caption2, .regular, [UIFontDescriptor.SymbolicTraits.traitItalic])
     public static let italicCaption1 = DynamicTextStyle(.system, .caption1, .regular, [UIFontDescriptor.SymbolicTraits.traitItalic])
 
