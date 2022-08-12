@@ -38,6 +38,10 @@ class TalkPageViewController: ViewController {
 
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
+        
+        // Needed for reply compose views to display on top of navigation bar.
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationMode = .forceBar
     }
 
     // MARK: - Public
