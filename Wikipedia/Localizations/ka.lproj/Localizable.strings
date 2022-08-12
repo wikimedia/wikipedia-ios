@@ -137,6 +137,7 @@
 "main-menu-title" = "მეტი";
 "main-menu-zero-faq" = "ვიკიპედია ზეროს ხშირი შეკითხვები";
 "menu-cancel-accessibility-label" = "გაუქმება";
+"more-languages-tooltip-title" = "ენების დამატება";
 "navbar-title-mode-edit-wikitext-preview" = "წინასწარ გადახედვა";
 "nearby-distance-label-feet" = "$1 ფუტი";
 "nearby-distance-label-km" = "$1 კმ";

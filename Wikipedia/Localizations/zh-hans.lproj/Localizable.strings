@@ -37,6 +37,7 @@
 // Author: Willy1018
 // Author: Winston Sung
 // Author: Wxyveronica
+// Author: Wzl19371
 // Author: Xiplus
 // Author: Yfdyh000
 // Author: Yining Chen
@@ -351,6 +352,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "为了让每个人都能获得世界上的知识，我们需要您通过阅读、编辑和贡献，参与到世界知识的创造中来。";
 "editing-welcome-set-knowledge-free-title" = "解除知识的束缚";
 "editor-exit-confirmation-body" = "您确定要退出编辑模式而不先发布吗？";
+"editor-exit-confirmation-title" = "关闭编辑模式？";
 "empty-diff-compare-title" = "版本间无差异";
 "empty-diff-single-title" = "没有可以观察到的变化";
 "empty-insert-media-title" = "从维基共享资源中选择一个文件";
@@ -603,6 +605,9 @@
 "no-internet-connection-article-reload-button" = "返回至最近保存的版本";
 "notifications-center-agent-description-from-format" = "来自$1";
 "notifications-center-alert" = "提醒";
+"notifications-center-applied-filters-accessibility-label" = "通知过滤器 - 已应用过滤器";
+"notifications-center-applied-project-filters-accessibility-label" = "项目过滤器 - 已应用过滤器";
+"notifications-center-badge-button-accessibility-label" = "带有未读标记的通知";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1通知";
 "notifications-center-change-password" = "更改密码";
 "notifications-center-checking-for-notifications" = "正在检查通知…";
@@ -612,7 +617,9 @@
 "notifications-center-empty-no-messages" = "您没有消息";
 "notifications-center-empty-not-subscribed" = "您目前没有订阅任何维基百科通知";
 "notifications-center-empty-state-filters-subtitle" = "修改$1来查看更多消息";
+"notifications-center-empty-state-no-projects-selected" = "添加项目以查看更多消息";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 种筛选}}";
+"notifications-center-feed-card-title" = "编辑通知现已可用";
 "notifications-center-feed-news-notification-button-text" = "打开推送通知";
 "notifications-center-feed-news-notification-dismiss-button-text" = "不是现在";
 "notifications-center-filters-accessibility-label" = "通知过滤器";
@@ -653,6 +660,7 @@
 "notifications-center-onboarding-modal-title" = "编辑通知";
 "notifications-center-onboarding-panel-heading" = "打开推送通知";
 "notifications-center-onboarding-panel-secondary-button" = "不用了，谢谢";
+"notifications-center-project-filters-accessibility-label" = "项目过滤器";
 "notifications-center-status-all" = "全部";
 "notifications-center-status-all-notifications" = "所有通知";
 "notifications-center-status-read" = "已读";
@@ -1011,6 +1019,7 @@
 "talk-page-title-user-talk" = "用户讨论";
 "talk-page-topic-title" = "讨论";
 "talk-pages-reply-button-title" = "回复该讨论";
+"talk-pages-view-title" = "讨论";
 "theme-black-display-name" = "黑暗";
 "theme-dark-display-name" = "夜间";
 "theme-default-display-name" = "默认";

@@ -402,8 +402,6 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             readStatusPredicate = NSPredicate(format: "isRead == %@", NSNumber(value: false))
         }
         
-        // Note: The nature of the type and project predicates may feel backwards, but it allows unknown notification types to be caught by the filter `Other`. Writing these predicates by going through a list of types and projects toggled ON, with a predicate format of each like "categoryString IN %@ AND typeString IN %@" excludes unknown notification types when any filter is enabled. If the server started returning notifications with categoryString and typeStrings the app doesn't recognize (but is capable of displaying in a generic way), we would filter them generically as `other`. So instead we are going through a list of types and projects toggled OFF, and writing the predicates as "NOT (categoryString IN %@ AND typeString IN %@)" for notifications with known types. We're filtering projects in a similar manner for the sake of consistency.
-        
         let offTypes = filterState.offTypes
         let onTypes = RemoteNotificationFilterType.orderingForFilters.filter {!offTypes.contains($0)}
         

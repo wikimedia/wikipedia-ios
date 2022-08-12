@@ -30,8 +30,8 @@ extension NotificationsCenterCommonViewModel {
         let agentName = notification.agentName?.denormalizedPageTitle?.percentEncodedPageTitleForPathComponents
         let titleNamespace = PageNamespace(namespaceValue: Int(notification.titleNamespaceKey))
         let revisionID = notification.revisionID
-        let primaryLinkFragment = notification.primaryLinkFragment
-        let legacyPrimaryLinkFragment = notification.legacyPrimaryLinkFragment
+        let primaryLinkFragment = notification.primaryLinkFragment?.removingPercentEncoding
+        let legacyPrimaryLinkFragment = notification.legacyPrimaryLinkFragment?.removingPercentEncoding
 
         return LinkData(host: host, wiki: wiki, title: title, fullTitle: fullTitle, primaryLinkFragment: primaryLinkFragment, legacyPrimaryLinkFragment: legacyPrimaryLinkFragment, agentName: agentName, revisionID: revisionID, titleNamespace: titleNamespace, languageVariantCode: project.languageVariantCode)
 
