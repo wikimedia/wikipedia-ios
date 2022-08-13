@@ -54,6 +54,34 @@ class TalkPageViewController: ViewController {
 
         talkPageView.apply(theme: theme)
         talkPageView.collectionView.reloadData()
+        replyComposeController.apply(theme: theme)
+    }
+    
+    // MARK: Reply Compose Management
+    
+    let replyComposeController = TalkPageReplyComposeController()
+    
+    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
+        super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
+        
+        replyComposeController.calculateLayout(in: self, newKeyboardFrame: newKeyboardFrame)
+        
+        view.setNeedsLayout()
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        replyComposeController.calculateLayout(in: self)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        replyComposeController.calculateLayout(in: self, newViewSize: size)
     }
 
 }
@@ -77,7 +105,7 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("tapped cell")
+        replyComposeController.setupAndDisplay(in: self, theme: theme)
     }
 
 }
