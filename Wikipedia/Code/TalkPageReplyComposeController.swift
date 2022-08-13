@@ -5,7 +5,7 @@ import WMF
 /// Class for coordinating talk page reply compose views
 class TalkPageReplyComposeController {
     
-    private(set) var containerView: UIView?
+    private var containerView: UIView?
     private var containerViewTopConstraint: NSLayoutConstraint?
     private var containerViewBottomConstraint: NSLayoutConstraint?
     private var containerViewHeightConstraint: NSLayoutConstraint?
@@ -44,6 +44,10 @@ class TalkPageReplyComposeController {
         }
 
         toggleConstraints(shouldPinToTop: false)
+    }
+    
+    var additionalBottomContentInset: CGFloat {
+        return containerViewHeightConstraint?.constant ?? 0
     }
     
     // MARK: Private
