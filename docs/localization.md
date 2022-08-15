@@ -192,5 +192,19 @@ In other cases where this isn't feasible, you'll need to add your test class to 
 ##### Visual tests
 Visual tests can be incredibly useful when verifying LTR & RTL responsiveness across multiple OS versions.  Write you visual test as you normally would, ensure it's added to the **WikipediaRTL** scheme, and use the `WMFSnapshotVerifyViewForOSAndWritingDirection` convenience macro to record & compare your view with a reference image dedicated to a specific OS version and writing direction.  See [`WMFTextualSaveButtonLayoutVisualTests`](../WikipediaUnitTests/Code/WMFTextualSaveButtonLayoutVisualTests.m) for an example.
 
-##### Fixing failing tests
+### Troubleshooting
+
+#### Fixing failing tests
 When a test fails, it should provide useful output as to which languages and strings are incorrect. A common situation is a translator trying to give options (singular/plural, for example) for a string that isn't designed to take one. In some cases, the translation string in the app should be updated to allow for the options that the translator tried to use, as it will allow for better translations in that language. In other cases, the translation string should be fixed on [Translatewiki](https://translatewiki.net/w/i.php?title=Special:Translate&group=out-wikimedia-mobile-wikipedia-ios-0-all&filter=&action=translate).
+
+#### Missing translations
+Oftentimes iOS engineers need to do a one-time extra step to add a localization language to the project before our importing script will pick up the TranslateWiki changes. If you notice a PR from TranslateWiki containing a new .strings/.stringsdict files within the Wikipedia/Localizations subdirectory, but they are missing in Wikipedia/iOS Native Localization subdirectory, then we need to perform this step.
+
+1. In the project navigator, select the Wikipedia Project item to open the project settings, then select the Wikipedia project (not the target) in the projects targets list panel. Choose the Info tab. You will see a section called Localizations. Scroll down to the bottom and tap the + button.
+2. In the languages disclosure menu, choose the language whose localizations you wish to add.
+3. You will see a prompt that says "Choose files and reference language to create {language} localization". Select the first 3 files (InfoPlist.strings, Localizable.strings, and Localizable.stringsdict) and uncheck the rest. These should indicate that they are located under the Wikipedia > Localizations subdirectory. Leave the Reference Language column as-is (English).
+4. Tap finish. Commit the changes with a message like "Added {Language Name} language to project for localizations"."
+5. Now choose the "Update Localizations" scheme and run it to execute the import script. This will import the new TranslateWiki translations into the proper strings files within the Wikipedia/iOS Native Localizations subdirectory. 
+6. Commit your changes from running the import script in the previous step.
+7. Push your changes up to the TranslateWiki PR.
+8. Confirm unit tests pass, then approve and merge.
