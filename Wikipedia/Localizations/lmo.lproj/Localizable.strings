@@ -8,7 +8,7 @@
 "aaald-article-insert-last-updated" = "Darera atualizazzion";
 "aaald-article-insert-new-changes" = "Noeuv cambiament";
 "aaald-article-insert-read-more" = "Varda di alter atualizazzion";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=carater de stampa}}";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=carater de stampa|$1 carater de stampa}}";
 "aaald-deleted-text-description-2" = "$1 scancellad";
 "aaald-error-subitle" = "Atualiza per provàgh an'mò";
 "aaald-error-title" = "A l'è stad minga possibil caregà la storia in linea de la vos";
@@ -544,7 +544,7 @@
 "notifications-center-status-all-notifications" = "Tute i notifiche";
 "notifications-center-status-double-concatenation" = "$1 in $2";
 "notifications-center-status-filtered-by" = "Fitrad de";
-"notifications-center-status-in-projects" = "{{PLURAL:$1|1=In 1 proget}}";
+"notifications-center-status-in-projects" = "{{PLURAL:$1|1=In 1 proget|In $1 proget}}";
 "notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1 proget|$1 proget}}";
 "notifications-center-status-in-types" = "{{PLURAL:$1|1=1 tipo|$1 tipi}}";
 "notifications-center-status-read" = "Lensgiuda";
