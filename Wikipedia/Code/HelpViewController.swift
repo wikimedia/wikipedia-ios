@@ -85,7 +85,7 @@ class HelpViewController: SinglePageWebViewController {
     @objc func exportUserData() {
         
         let confirmationTitle = WMFLocalizedString("export-user-data-confirmation-title", value: "Share app library?", comment: "Title of confirmation modal after user taps \"Export User Data\" button.")
-        let confirmationMessage = WMFLocalizedString("export-user-data-confirmation-message", value: "Sharing your app library includes data on your Reading lists and history, preferences and Explore feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.", comment: "Message of confirmation modal after user taps \"Export User Data\" button.")
+        let confirmationMessage = WMFLocalizedString("export-user-data-confirmation-message", value: "Sharing your app library includes data about your Reading lists and history, preferences, and Explore feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.", comment: "Message of confirmation modal after user taps \"Export User Data\" button.")
         let shareAction = UIAlertAction(title: CommonStrings.shareActionTitle, style: .default) { _ in
             self.kickoffExportUserDataProcess()
         }
@@ -161,7 +161,7 @@ private extension HelpViewController {
 
             let sharedCache = SharedContainerCache<UserDataExportSyncInfo>.init(pathComponent: .userDataExportSyncInfo, defaultCache: { UserDataExportSyncInfo(serverReadingLists: [], serverReadingListEntries: [], appSettingsSyncSavedArticlesAndLists: false, appSettingsShowSavedReadingList: false) })
             
-            apiController.getAllReadingLists { (serverReadingLists, since, error) in
+            apiController.getAllReadingLists { (serverReadingLists, _, _) in
                 dispatchQueue.async {
                     let group = DispatchGroup()
                     
