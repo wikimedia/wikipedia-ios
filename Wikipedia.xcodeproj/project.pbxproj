@@ -203,6 +203,10 @@
 		00BCB72326DEEB1C002C3F72 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB72126DEEB1C002C3F72 /* RoundedImageView.swift */; };
 		00BCB72426DEEB1C002C3F72 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB72126DEEB1C002C3F72 /* RoundedImageView.swift */; };
 		00BCB72526DEEB1C002C3F72 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB72126DEEB1C002C3F72 /* RoundedImageView.swift */; };
+		00CB6898288B0CD3002EBB0A /* TalkPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB6897288B0CD3002EBB0A /* TalkPageHeaderView.swift */; };
+		00CB6899288B0CD3002EBB0A /* TalkPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB6897288B0CD3002EBB0A /* TalkPageHeaderView.swift */; };
+		00CB689A288B0CD3002EBB0A /* TalkPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB6897288B0CD3002EBB0A /* TalkPageHeaderView.swift */; };
+		00CB689B288B0CD3002EBB0A /* TalkPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB6897288B0CD3002EBB0A /* TalkPageHeaderView.swift */; };
 		00CF2EA027DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CF2E9F27DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift */; };
 		00CF2EA127DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CF2E9F27DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift */; };
 		00CF2EA227DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CF2E9F27DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift */; };
@@ -3847,6 +3851,7 @@
 		00BCB71726DEE04D002C3F72 /* InsetLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetLabelView.swift; sourceTree = "<group>"; };
 		00BCB71C26DEE1C7002C3F72 /* VerticalSpacerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSpacerView.swift; sourceTree = "<group>"; };
 		00BCB72126DEEB1C002C3F72 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
+		00CB6897288B0CD3002EBB0A /* TalkPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageHeaderView.swift; sourceTree = "<group>"; };
 		00CF2E9F27DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterOnboardingView.swift; sourceTree = "<group>"; };
 		00D1F58E28885BA300127169 /* TalkPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageViewModel.swift; sourceTree = "<group>"; };
 		00D280F6247EFFFE006BEE23 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; usesTabs = 0; };
@@ -6084,6 +6089,7 @@
 				00D1F58E28885BA300127169 /* TalkPageViewModel.swift */,
 				00D46DA42889B7F50015DE9B /* TalkPageView.swift */,
 				00D46DA92889B9250015DE9B /* TalkPageCell.swift */,
+				00CB6897288B0CD3002EBB0A /* TalkPageHeaderView.swift */,
 			);
 			name = "Talk Pages";
 			sourceTree = "<group>";
@@ -11337,6 +11343,7 @@
 				67DAEDA323CE24DA003AA208 /* SavedArticlesFetcher.swift in Sources */,
 				7A4B333C2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				D8CB32AD1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
+				00CB6898288B0CD3002EBB0A /* TalkPageHeaderView.swift in Sources */,
 				83E52BBF1F682E3E0045E776 /* LicenseView.swift in Sources */,
 				7AE1FE3121B4A9790068BE9F /* TextFormattingButtonView.swift in Sources */,
 				671AC2562226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift in Sources */,
@@ -12268,6 +12275,7 @@
 				B0016CBC21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
 				D8A42AAF1E815A9C00D8E281 /* SavedPagesFunnel.m in Sources */,
 				D8A42AB11E815A9C00D8E281 /* WMFChange.m in Sources */,
+				00CB689B288B0CD3002EBB0A /* TalkPageHeaderView.swift in Sources */,
 				7A4B333F2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				67DAEDA623CE24DA003AA208 /* SavedArticlesFetcher.swift in Sources */,
 				D8A42AB31E815A9C00D8E281 /* MWKSearchRedirectMapping.m in Sources */,
@@ -12794,6 +12802,7 @@
 				7AA96D5D21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
 				B0B423621EF9D6A300D3DC4C /* OnThisDayViewController.swift in Sources */,
 				D818D3871ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
+				00CB689A288B0CD3002EBB0A /* TalkPageHeaderView.swift in Sources */,
 				7A203F0C1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				D8CE25371E698E2400DAE2E0 /* SavedPagesFunnel.m in Sources */,
 				6798331B22C174F00073CE6F /* LinkOnlyTextView.swift in Sources */,
@@ -13340,6 +13349,7 @@
 				7A0CD24221DFA34100066F68 /* TextFormattingToolbarView.swift in Sources */,
 				D8EC3E251E9BDA35006712EB /* WMFArticleRevisionFetcher.m in Sources */,
 				D8EC3E261E9BDA35006712EB /* WMFArticleLanguagesSectionHeader.m in Sources */,
+				00CB6899288B0CD3002EBB0A /* TalkPageHeaderView.swift in Sources */,
 				7A29A5CA1F6C405900E8F42B /* HistoryViewController.swift in Sources */,
 				7AA96D5E21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
 				677129A124FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift in Sources */,
