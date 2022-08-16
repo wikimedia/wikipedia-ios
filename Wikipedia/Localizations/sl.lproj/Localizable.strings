@@ -15,7 +15,7 @@
 "aaald-deleted-text-description-2" = "$1 izbrisano";
 "aaald-error-subitle" = "Osvežite za ponovni poskus";
 "aaald-error-title" = "Zgodovine v članku ni mogoče naložiti";
-"aaald-many-sections-description" = "$1 razdelkih";
+"aaald-many-sections-description" = "v $1 razdelkih";
 "aaald-multiple-changes-description" = "Opravljenih več sprememb";
 "aaald-multiple-references-added-description" = "Več dodanih sklicev";
 "aaald-new-book-reference-title" = "Knjiga";
@@ -176,6 +176,7 @@
 "diff-paragraph-moved" = "Odstavek prestavljen";
 "diff-paragraph-moved-direction-down" = "navzdol";
 "diff-paragraph-moved-direction-up" = "navzgor";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 razdelek|$1 razdelka|$1 razdelki|$1 razdelkov}}";
 "diff-revision-error-title" = "Redakcije ni mogoče naložiti.";
 "diff-single-header-editor-title" = "Podatki o urejevalcu";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 zlog dodan|$1 zloga dodana|$1 zlogi dodani|$1 zlogov dodanih}}";
@@ -392,6 +393,7 @@
 "settings-clear-cache-cancel" = "Prekliči";
 "settings-notifications-push-notifications" = "Potisna obvestila";
 "sort-by-title-action" = "Naslov";
+"table-of-contents-close-accessibility-hint" = "Zapri";
 "talk-page-reply-title" = "Odgovor";
 "theme-default-display-name" = "Privzeto";
 "top-read-header-generic" = "Wikipedija";

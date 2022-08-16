@@ -23,6 +23,7 @@
 "account-creation-logging-in" = "ארײנלאגנדיק…";
 "account-creation-passwords-mismatched" = "פאסווארט פעלדער שטימען נישט.";
 "account-creation-saving" = "אויפהיטנדיק…";
+"action-cancel" = "אַנולירן";
 "action-read" = "לייענען";
 "action-save" = "אויפֿהיטן";
 "action-saved" = "אויפֿגעהיטן";
@@ -37,6 +38,7 @@
 "button-ok" = "יאָ";
 "button-publish" = "פֿאַרעפֿנטלעכן";
 "button-read-now" = "לייענען אצינד";
+"cancel" = "אַנולירן";
 "close-button-accessibility-label" = "פארמאכן";
 "edit-summary-choice-fixed-grammar" = "פארראכטן גראמאטיק";
 "edit-summary-choice-linked-words" = "צולייגן לינקען";
@@ -86,6 +88,7 @@
 "reading-list-create-new-list-description" = "באַשרײבונג";
 "reading-list-create-new-list-reading-list-name" = "נאמען פון לייענען־ליסטע";
 "reading-list-create-new-list-title" = "שאפן א נײע ליסטע";
+"reading-lists-default-list-title" = "אויפֿגעהיטן";
 "reference-title" = "רעפערענץ $1";
 "saved-title" = "אויפֿגעהיטן";
 "search-did-you-mean" = "צי האט איר געמיינט $1?";
@@ -107,6 +110,7 @@
 "settings-title" = "איינשטעלונגען";
 // Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" אויף @Wikipedia:";
+"sort-by-title-action" = "טיטל";
 "table-of-contents-close-accessibility-hint" = "פארמאכן";
 "table-of-contents-heading" = "אינהאַלט";
 "theme-dark-display-name" = "טונקל";

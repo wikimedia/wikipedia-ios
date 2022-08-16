@@ -402,6 +402,11 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Subtext beneath the 'Random article' header describing which Wikipedia the random article came from. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "explore-random-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Random article' header when the specific language wikipedia is unknown.";
 "explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
+"export-user-data-confirmation-message" = "Message of confirmation modal after user taps \"Export User Data\" button.";
+"export-user-data-confirmation-title" = "Title of confirmation modal after user taps \"Export User Data\" button.";
+"export-user-data-generic-error" = "Error message displayed after user has tried exporting their data and an error occurs.";
+"export-user-data-space-error" = "Error message displayed after user has tried exporting their data and the system determines it doesn't have space to do so.";
+"export-user-data-title" = "Button title for exporting user data";
 "featured-article-empty-title" = "Title that displays when featured article is not available";
 "featured-widget-content-failure-for-date" = "Text displayed when Featured article is not available on the current date.";
 "featured-widget-description" = "Text for description of Featured article widget displayed when adding to home screen.";
