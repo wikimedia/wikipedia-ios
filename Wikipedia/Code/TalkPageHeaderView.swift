@@ -254,6 +254,21 @@ final class TalkPageHeaderView: SetupView {
         ])
     }
 
+    // MARK: - Overrides
+
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        guard !UIAccessibility.isVoiceOverRunning else {
+            return super.point(inside: point, with: event)
+        }
+
+        let convertedPoint = convert(point, to: coffeeRollReadMoreButton)
+        if coffeeRollReadMoreButton.point(inside: convertedPoint, with: event) {
+            return true
+        }
+
+        return false
+    }
+
     // MARK: - Public
 
     func configure(viewModel: TalkPageViewModel) {
