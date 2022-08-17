@@ -13,6 +13,7 @@ final class TalkPageViewModel {
 
     private let pageTitle: String
     private let siteURL: URL
+    private let dataController: TalkPageDataController
 
     // TODO: - Populate from data controller
     var pageType = PageType.user
@@ -28,6 +29,7 @@ final class TalkPageViewModel {
     init(pageTitle: String, siteURL: URL) {
         self.pageTitle = pageTitle
         self.siteURL = siteURL
+        self.dataController = TalkPageDataController(pageTitle: pageTitle, siteURL: siteURL)
     }
     
     convenience init?(siteURL: URL) {
