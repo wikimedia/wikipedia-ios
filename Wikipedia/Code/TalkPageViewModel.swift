@@ -3,13 +3,6 @@ import WMF
 
 final class TalkPageViewModel {
 
-    // MARK: - Nested Types
-
-    enum PageType {
-        case article
-        case user
-    }
-
     // MARK: - Properties
 
     private let pageTitle: String
@@ -17,7 +10,7 @@ final class TalkPageViewModel {
     private let dataController: TalkPageDataController
 
     // TODO: - Populate from data controller
-    var pageType = PageType.user
+    var pageType = TalkPageType.user
     let talkPageTitle: String = "Page title"
     var description: String? = "This is the page description"
     var leadImage: UIImage? = UIImage(systemName: "text.bubble.fill")
