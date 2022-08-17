@@ -23,7 +23,7 @@ final class TalkPageViewModel {
     init(pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
         self.pageTitle = pageTitle
         self.siteURL = siteURL
-        self.dataController = TalkPageDataController(pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
+        self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
     }
     
     convenience init?(siteURL: URL, articleSummaryController: ArticleSummaryController) {

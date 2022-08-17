@@ -5,12 +5,14 @@ import WMF
 /// Leans on file persistence for offline mode as-needed.
 class TalkPageDataController {
     
+    private let pageType: TalkPageType
     private let pageTitle: String
     private let siteURL: URL
     private let talkPageFetcher = TalkPageFetcher()
     private let articleSummaryController: ArticleSummaryController
     
-    init(pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
+    init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
+        self.pageType = pageType
         self.pageTitle = pageTitle
         self.siteURL = siteURL
         self.articleSummaryController = articleSummaryController
