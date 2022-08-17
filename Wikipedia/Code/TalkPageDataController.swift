@@ -1,4 +1,5 @@
 import Foundation
+import WMF
 
 /// Class that coordinates network fetches for talk pages.
 /// Leans on file persistence for offline mode as-needed.
@@ -7,10 +8,12 @@ class TalkPageDataController {
     private let pageTitle: String
     private let siteURL: URL
     private let talkPageFetcher = TalkPageFetcher()
+    private let articleSummaryController: ArticleSummaryController
     
-    init(pageTitle: String, siteURL: URL) {
+    init(pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
         self.pageTitle = pageTitle
         self.siteURL = siteURL
+        self.articleSummaryController = articleSummaryController
     }
     
     func fetchTalkPageContent(completion: @escaping (Result<[TalkPageItem], Error>) -> Void) {

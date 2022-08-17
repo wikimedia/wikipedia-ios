@@ -1,4 +1,5 @@
 import Foundation
+import WMF
 
 final class TalkPageViewModel {
 
@@ -26,18 +27,18 @@ final class TalkPageViewModel {
 
     // MARK: - Lifecycle
 
-    init(pageTitle: String, siteURL: URL) {
+    init(pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
         self.pageTitle = pageTitle
         self.siteURL = siteURL
-        self.dataController = TalkPageDataController(pageTitle: pageTitle, siteURL: siteURL)
+        self.dataController = TalkPageDataController(pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
     }
     
-    convenience init?(siteURL: URL) {
+    convenience init?(siteURL: URL, articleSummaryController: ArticleSummaryController) {
         guard let pageTitle = siteURL.wmf_title, let siteURL = siteURL.wmf_site else {
             return nil
         }
 
-        self.init(pageTitle: pageTitle, siteURL: siteURL)
+        self.init(pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
     }
 
     // MARK: - Public
