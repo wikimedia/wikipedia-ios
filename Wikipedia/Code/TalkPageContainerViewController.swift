@@ -58,7 +58,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     
     let talkPageTitle: String
     private(set) var siteURL: URL
-    let type: TalkPageType
+    let type: OldTalkPageType
     private let dataStore: MWKDataStore
     private(set) var controller: OldTalkPageController
     private(set) var talkPageSemanticContentAttribute: UISemanticContentAttribute
@@ -159,7 +159,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         }
     }
     
-    required init(title: String, sectionTitleFragment: String? = nil, siteURL: URL, type: TalkPageType, dataStore: MWKDataStore, controller: OldTalkPageController? = nil, theme: Theme) {
+    required init(title: String, sectionTitleFragment: String? = nil, siteURL: URL, type: OldTalkPageType, dataStore: MWKDataStore, controller: OldTalkPageController? = nil, theme: Theme) {
         self.talkPageTitle = title
         self.siteURL = siteURL
         self.type = type
@@ -200,9 +200,9 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         return TalkPageContainerViewController.talkPageContainer(title: title, sectionTitleFragment: sectionTitleFragment, siteURL: siteURL, type: .user, dataStore: dataStore, theme: theme)
     }
 
-    public static func talkPageContainer(title: String, sectionTitleFragment: String? = nil, siteURL: URL, type: TalkPageType, dataStore: MWKDataStore, theme: Theme) -> TalkPageContainerViewController {
-        let strippedTitle = TalkPageType.user.titleWithoutNamespacePrefix(title: title)
-        let titleWithPrefix = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: strippedTitle, siteURL: siteURL)
+    public static func talkPageContainer(title: String, sectionTitleFragment: String? = nil, siteURL: URL, type: OldTalkPageType, dataStore: MWKDataStore, theme: Theme) -> TalkPageContainerViewController {
+        let strippedTitle = OldTalkPageType.user.titleWithoutNamespacePrefix(title: title)
+        let titleWithPrefix = OldTalkPageType.user.titleWithCanonicalNamespacePrefix(title: strippedTitle, siteURL: siteURL)
         return TalkPageContainerViewController(title: titleWithPrefix, sectionTitleFragment: sectionTitleFragment, siteURL: siteURL, type: type, dataStore: dataStore, theme: theme)
     }
 

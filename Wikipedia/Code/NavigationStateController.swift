@@ -133,7 +133,7 @@ final class NavigationStateController: NSObject {
                     let siteURL = URL(string: siteURLString),
                     let title = info.talkPageTitle,
                     let typeRawValue = info.talkPageTypeRawValue,
-                    let type = TalkPageType(rawValue: typeRawValue)
+                    let type = OldTalkPageType(rawValue: typeRawValue)
                 else {
                     return
                 }
