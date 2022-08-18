@@ -22,9 +22,9 @@ final class TalkPageViewModel {
 
     /// Main required init
     /// - Parameters:
-    ///   - pageType: TalkPagetype - e.g. .article or .user
-    ///   - pageTitle: Wiki page title, e.g. "Talk:Cat" or "User_talk: Jimbo"
-    ///   - siteURL: Site URL without path, e.g. "https://en.wikipedia.org"
+    ///   - pageType: TalkPageType - e.g. .article or .user
+    ///   - pageTitle: Wiki page title, e.g. "Talk:Cat" or "User_talk:Jimbo"
+    ///   - siteURL: Site URL without article path, e.g. "https://en.wikipedia.org"
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
     init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
         self.pageType = pageType
