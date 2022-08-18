@@ -6,7 +6,7 @@ final class NotificationsCenterCellViewModel {
 
     let notification: RemoteNotification
     let key: String
-    let project: RemoteNotificationsProject
+    let project: WikimediaProject
     private(set) var displayState: NotificationsCenterCellDisplayState
     let configuration: Configuration
     let commonViewModel: NotificationsCenterCommonViewModel
@@ -18,7 +18,7 @@ final class NotificationsCenterCellViewModel {
         // Validation - all notifications must have a recognized project for display (wikidata, commons, or app-supported language)
         guard let wiki = notification.wiki,
               let key = notification.key,
-              let project = RemoteNotificationsProject(apiIdentifier: wiki, languageLinkController: languageLinkController) else {
+              let project = WikimediaProject(notificationsApiIdentifier: wiki, languageLinkController: languageLinkController) else {
             return nil
         }
         

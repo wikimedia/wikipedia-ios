@@ -102,7 +102,7 @@ class RemoteNotificationsOperationsController: NSObject {
         let operations: [RemoteNotificationsMarkReadOrUnreadOperation] = requestDictionary.compactMap { element in
             
             let wiki = element.key
-            guard let project = RemoteNotificationsProject(apiIdentifier: wiki, languageLinkController: languageLinkController) else {
+            guard let project = WikimediaProject(notificationsApiIdentifier: wiki, languageLinkController: languageLinkController) else {
                 return nil
             }
 
@@ -138,7 +138,7 @@ class RemoteNotificationsOperationsController: NSObject {
             return
         }
         
-        let projects = wikisWithUnreadNotifications.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: self.languageLinkController) }
+        let projects = wikisWithUnreadNotifications.compactMap { WikimediaProject(notificationsApiIdentifier: $0, languageLinkController: self.languageLinkController) }
 
         let operations = projects.map { RemoteNotificationsMarkAllAsReadOperation(project: $0, apiController: self.apiController, modelController: self.modelController) }
         
@@ -163,10 +163,10 @@ class RemoteNotificationsOperationsController: NSObject {
     // MARK: Private
     
     /// Generates the correct paging operation (Import or Refresh) based on a project's persisted imported state.
-    /// - Parameter project: RemoteNotificationsProject to evaluate
+    /// - Parameter project: WikimediaProject to evaluate
     /// - Parameter isAppLanguageProject: Boolean if this project is for the app primary language
     /// - Returns: Appropriate RemoteNotificationsPagingOperation subclass instance
-    private func pagingOperationForProject(_ project: RemoteNotificationsProject, isAppLanguageProject: Bool) -> RemoteNotificationsPagingOperation {
+    private func pagingOperationForProject(_ project: WikimediaProject, isAppLanguageProject: Bool) -> RemoteNotificationsPagingOperation {
         
         if modelController.isProjectAlreadyImported(project: project) {
             return RemoteNotificationsRefreshOperation(project: project, apiController: self.apiController, modelController: modelController, needsCrossWikiSummary: isAppLanguageProject)
@@ -175,11 +175,11 @@ class RemoteNotificationsOperationsController: NSObject {
         }
     }
  
-    private func secondaryProjects(appLanguage: MWKLanguageLink) -> [RemoteNotificationsProject] {
+    private func secondaryProjects(appLanguage: MWKLanguageLink) -> [WikimediaProject] {
         
         let otherLanguages = languageLinkController.preferredLanguages.filter { $0.languageCode != appLanguage.languageCode }
 
-        var secondaryProjects: [RemoteNotificationsProject] = otherLanguages.map { .wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
+        var secondaryProjects: [WikimediaProject] = otherLanguages.map { .wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
         secondaryProjects.append(.commons)
         secondaryProjects.append(.wikidata)
         
@@ -197,7 +197,7 @@ class RemoteNotificationsOperationsController: NSObject {
             return
         }
         
-        let appLanguageProject = RemoteNotificationsProject.wikipedia(appLanguage.languageCode, appLanguage.localizedName, appLanguage.languageVariantCode)
+        let appLanguageProject = WikimediaProject.wikipedia(appLanguage.languageCode, appLanguage.localizedName, appLanguage.languageVariantCode)
         let secondaryProjects = secondaryProjects(appLanguage: appLanguage)
         
         // basic operations first - primary language then secondary (languages, commons & wikidata)
