@@ -5,12 +5,12 @@ final class TalkPageViewModel {
 
     // MARK: - Properties
 
+    let pageType: TalkPageType
     private let pageTitle: String
     private let siteURL: URL
     private let dataController: TalkPageDataController
 
     // TODO: - Populate from data controller
-    var pageType = TalkPageType.user
     let talkPageTitle: String = "Page title"
     var description: String? = "This is the page description"
     var leadImage: UIImage? = UIImage(systemName: "text.bubble.fill")
@@ -20,18 +20,30 @@ final class TalkPageViewModel {
 
     // MARK: - Lifecycle
 
-    init(pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
+    /// Main required init
+    /// - Parameters:
+    ///   - pageType: TalkPagetype - e.g. .article or .user
+    ///   - pageTitle: Wiki page title, e.g. "Talk:Cat" or "User_talk: Jimbo"
+    ///   - siteURL: Site URL without path, e.g. "https://en.wikipedia.org"
+    ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
+    init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
+        self.pageType = pageType
         self.pageTitle = pageTitle
         self.siteURL = siteURL
         self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
     }
     
-    convenience init?(siteURL: URL, articleSummaryController: ArticleSummaryController) {
-        guard let pageTitle = siteURL.wmf_title, let siteURL = siteURL.wmf_site else {
+    /// Convenience init for paths that do not already have pageTitle and siteURL separated
+    /// - Parameters:
+    ///   - pageType: TalkPageType - e.g. .article or .user
+    ///   - pageURL: Full wiki page URL, e.g. https://en.wikipedia.org/wiki/Cat
+    ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
+    convenience init?(pageType: TalkPageType, pageURL: URL, articleSummaryController: ArticleSummaryController) {
+        guard let pageTitle = pageURL.wmf_title, let siteURL = pageURL.wmf_site else {
             return nil
         }
 
-        self.init(pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
+        self.init(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
     }
 
     // MARK: - Public

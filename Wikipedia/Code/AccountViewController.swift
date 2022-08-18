@@ -124,7 +124,7 @@ class AccountViewController: SubSettingsViewController {
             let title = OldTalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
             
             if FeatureFlags.needsNewTalkPage {
-                let viewModel = TalkPageViewModel(pageTitle: title, siteURL: siteURL, articleSummaryController: dataStore.articleSummaryController)
+                let viewModel = TalkPageViewModel(pageType: .user, pageTitle: title, siteURL: siteURL, articleSummaryController: dataStore.articleSummaryController)
                 let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
                 self.navigationController?.pushViewController(newTalkPage, animated: true)
             } else {

@@ -1,5 +1,6 @@
 import WMF
 import UIKit
+import CocoaLumberjackSwift
 
 protocol DetailPresentingFromContentGroup {
     var contentGroupIDURIString: String? { get }
@@ -139,9 +140,8 @@ final class NavigationStateController: NSObject {
                 }
                 
                 if FeatureFlags.needsNewTalkPage {
-                    let viewModel = TalkPageViewModel(pageTitle: title, siteURL: siteURL, articleSummaryController: dataStore.articleSummaryController)
-                    let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
-                    navigationController.pushViewController(newTalkPage, animated: false)
+                    assertionFailure("Need to set up state restoration for new talk pages.")
+                    return
                 } else {
                     let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: type, dataStore: dataStore, theme: theme)
                     navigationController.pushViewController(talkPageContainer, animated: false)
@@ -150,14 +150,8 @@ final class NavigationStateController: NSObject {
                 navigationController.isNavigationBarHidden = true
             case (.talkPageReplyList, let info?):
                 if FeatureFlags.needsNewTalkPage {
-                    guard let siteURLString = info.talkPageSiteURLString,
-                          let title = info.talkPageTitle,
-                          let siteURL = URL(string: siteURLString) else {
-                        return
-                    }
-                    let viewModel = TalkPageViewModel(pageTitle: title, siteURL: siteURL, articleSummaryController: dataStore.articleSummaryController)
-                    let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
-                    navigationController.pushViewController(newTalkPage, animated: false)
+                    DDLogDebug("Attempted to restore old talk page reply list. Ignoring.")
+                    return
                 } else {
                     guard
                         let talkPageTopic = managedObject(with: info.contentGroupIDURIString, in: moc) as? TalkPageTopic,
