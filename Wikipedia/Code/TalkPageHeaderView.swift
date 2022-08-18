@@ -273,8 +273,8 @@ final class TalkPageHeaderView: SetupView {
 
     func configure(viewModel: TalkPageViewModel) {
         typeLabel.text = viewModel.pageType == .article ? CommonStrings.talkPageTitleArticleTalk.localizedUppercase : CommonStrings.talkPageTitleUserTalk.localizedUppercase
-        titleLabel.text = viewModel.talkPageTitle
-        descriptionLabel.text = viewModel.description
+        titleLabel.text = viewModel.headerTitle
+        descriptionLabel.text = viewModel.headerDescription
 
         if let coffeeRollText = viewModel.coffeeRollText {
             coffeeRollContainer.isHidden = false

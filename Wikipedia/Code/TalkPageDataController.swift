@@ -20,7 +20,9 @@ class TalkPageDataController {
     
     // MARK: Public
     
-    func fetchTalkPage(completion: @escaping (Result<(WMFArticle?, [TalkPageItem]), Error>) -> Void) {
+    typealias TalkPageResult = Result<(articleSummary: WMFArticle?, items: [TalkPageItem]), Error>
+    
+    func fetchTalkPage(completion: @escaping (TalkPageResult) -> Void) {
         
         assert(Thread.isMainThread)
 

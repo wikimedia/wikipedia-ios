@@ -17,6 +17,8 @@ class TalkPageViewController: ViewController {
     init(theme: Theme, viewModel: TalkPageViewModel) {
         self.viewModel = viewModel
         super.init(theme: theme)
+        
+        viewModel.delegate = self
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +42,7 @@ class TalkPageViewController: ViewController {
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
 
-        setupHeaderView()
+        viewModel.fetchTalkPage()
     }
 
     private func setupHeaderView() {
@@ -98,4 +100,10 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         return cell
     }
 
+}
+
+extension TalkPageViewController: TalkPageViewModelDelegate {
+    func talkPageDataDidUpdate() {
+        setupHeaderView()
+    }
 }

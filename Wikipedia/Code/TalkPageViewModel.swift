@@ -1,5 +1,10 @@
 import Foundation
 import WMF
+import CocoaLumberjackSwift
+
+protocol TalkPageViewModelDelegate: AnyObject {
+    func talkPageDataDidUpdate()
+}
 
 final class TalkPageViewModel {
 
@@ -9,10 +14,11 @@ final class TalkPageViewModel {
     private let pageTitle: String
     private let siteURL: URL
     private let dataController: TalkPageDataController
+    weak var delegate: TalkPageViewModelDelegate?
 
     // TODO: - Populate from data controller
-    let talkPageTitle: String = "Page title"
-    var description: String? = "This is the page description"
+    private(set) var headerTitle: String
+    private(set) var headerDescription: String?
     var leadImage: UIImage? = UIImage(systemName: "text.bubble.fill")
     var coffeeRollText: NSAttributedString? = NSAttributedString(string: "This is the coffee roll")
     var projectSourceImage: UIImage? = UIImage(named: "notifications-project-mediawiki")
@@ -31,6 +37,9 @@ final class TalkPageViewModel {
         self.pageTitle = pageTitle
         self.siteURL = siteURL
         self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
+        
+        // Setting headerTitle as pageTitle (which contains the namespace prefix) for now, we attempt to strip the namespace later in populateHeaderData
+        self.headerTitle = pageTitle
     }
     
     /// Convenience init for paths that do not already have pageTitle and siteURL separated
@@ -48,4 +57,27 @@ final class TalkPageViewModel {
 
     // MARK: - Public
 
+    func fetchTalkPage() {
+        dataController.fetchTalkPage { [weak self] result in
+            switch result {
+            case .success(let result):
+                self?.populateHeaderData(articleSummary: result.articleSummary, items: result.items)
+                self?.delegate?.talkPageDataDidUpdate()
+            case .failure(let error):
+                DDLogError("Failure fetching talk page: \(error)")
+                // TODO: Error handling
+            }
+        }
+    }
+    
+    // MARK: - Private
+    
+    private func populateHeaderData(articleSummary: WMFArticle?, items: [TalkPageItem]) {
+        
+        if let languageCode = siteURL.wmf_languageCode {
+            headerTitle = pageTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode).title
+        }
+        
+        headerDescription = articleSummary?.wikidataDescription
+    }
 }
