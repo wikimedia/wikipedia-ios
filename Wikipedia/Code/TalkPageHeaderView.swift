@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import CocoaLumberjackSwift
 
 final class TalkPageHeaderView: SetupView {
 
@@ -183,8 +184,9 @@ final class TalkPageHeaderView: SetupView {
 
         horizontalStackView.addArrangedSubview(imageView)
 
-        let imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: 98)
-        let imageHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: 98)
+        let leadImageSideLength = CGFloat(TalkPageViewModel.leadImageSideLength)
+        let imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: leadImageSideLength)
+        let imageHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: leadImageSideLength)
         imageWidthConstraint.priority = .required
         imageHeightConstraint.priority = .required
 
@@ -253,6 +255,8 @@ final class TalkPageHeaderView: SetupView {
             bottomSpacer.widthAnchor.constraint(equalTo: verticalStackView.widthAnchor)
         ])
     }
+    
+    private var viewModel: TalkPageViewModel?
 
     // MARK: - Overrides
 
@@ -272,24 +276,20 @@ final class TalkPageHeaderView: SetupView {
     // MARK: - Public
 
     func configure(viewModel: TalkPageViewModel) {
+        
+        self.viewModel = viewModel
+        
         typeLabel.text = viewModel.pageType == .article ? CommonStrings.talkPageTitleArticleTalk.localizedUppercase : CommonStrings.talkPageTitleUserTalk.localizedUppercase
         titleLabel.text = viewModel.headerTitle
         descriptionLabel.text = viewModel.headerDescription
 
-        if let coffeeRollText = viewModel.coffeeRollText {
+        if viewModel.coffeeRollText != nil {
+            updateCoffeeRollText()
             coffeeRollContainer.isHidden = false
-            coffeeRollLabel.attributedText = coffeeRollText
             bottomSpacer.isHidden = true
         } else {
             coffeeRollContainer.isHidden = true
             bottomSpacer.isHidden = false            
-        }
-
-        if let leadImage = viewModel.leadImage {
-            imageView.isHidden = false
-            imageView.image = leadImage
-        } else {
-            imageView.isHidden = true
         }
 
         projectSourceContainer.isHidden = viewModel.pageType == .article
@@ -301,12 +301,36 @@ final class TalkPageHeaderView: SetupView {
         if let projectLanguage = viewModel.projectLanguage {
             projectLanguageLabel.text = projectLanguage.localizedUppercase
         }
+        
+        if let leadImageURL = viewModel.leadImageURL {
+            imageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
+                DDLogError("Failure loading talk page header image: \(error)")
+            }, success: { [weak self] in
+                self?.imageView.isHidden = false
+            })
+        } else {
+            imageView.isHidden = true
+        }
     }
 
     func updateLabelFonts() {
         typeLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         titleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
         projectLanguageLabel.font = UIFont.wmf_font(.mediumCaption2, compatibleWithTraitCollection: traitCollection)
+        
+        updateCoffeeRollText()
+    }
+    
+    private func updateCoffeeRollText() {
+        
+        guard let viewModel = viewModel,
+           let coffeeRollText = viewModel.coffeeRollText else {
+            return
+        }
+        
+        let theme = viewModel.theme
+        
+        coffeeRollLabel.attributedText = coffeeRollText.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, tagMapping: ["a": "b"])
     }
 
 }
@@ -327,6 +351,7 @@ extension TalkPageHeaderView: Themeable {
 
         coffeeRollSeparator.backgroundColor = theme.colors.tertiaryText
         coffeeRollReadMoreButton.setTitleColor(theme.colors.link, for: .normal)
+        updateCoffeeRollText()
     }
 
 }

@@ -19,10 +19,14 @@ final class TalkPageViewModel {
     // TODO: - Populate from data controller
     private(set) var headerTitle: String
     private(set) var headerDescription: String?
-    var leadImage: UIImage? = UIImage(systemName: "text.bubble.fill")
-    var coffeeRollText: NSAttributedString? = NSAttributedString(string: "This is the coffee roll")
+    private(set) var leadImageURL: URL?
+    private(set) var coffeeRollText: String?
     var projectSourceImage: UIImage? = UIImage(named: "notifications-project-mediawiki")
     var projectLanguage: String? = "EN"
+    
+    static let leadImageSideLength = 98
+    
+    var theme: Theme = .light
 
     // MARK: - Lifecycle
 
@@ -79,5 +83,7 @@ final class TalkPageViewModel {
         }
         
         headerDescription = articleSummary?.wikidataDescription
+        leadImageURL = articleSummary?.imageURL(forWidth: Self.leadImageSideLength)
+        coffeeRollText = items.first?.otherContent
     }
 }

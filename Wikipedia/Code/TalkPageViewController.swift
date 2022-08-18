@@ -75,6 +75,7 @@ class TalkPageViewController: ViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
 
+        viewModel.theme = theme
         headerView?.apply(theme: theme)
         talkPageView.apply(theme: theme)
         talkPageView.collectionView.reloadData()
