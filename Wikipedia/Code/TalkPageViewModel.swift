@@ -84,6 +84,10 @@ final class TalkPageViewModel {
         
         headerDescription = articleSummary?.wikidataDescription
         leadImageURL = articleSummary?.imageURL(forWidth: Self.leadImageSideLength)
-        coffeeRollText = items.first?.otherContent
+        
+        if let otherContent = items.first?.otherContent,
+           !otherContent.isEmpty {
+               coffeeRollText = items.first?.otherContent
+        }
     }
 }
