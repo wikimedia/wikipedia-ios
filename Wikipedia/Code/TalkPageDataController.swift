@@ -18,13 +18,22 @@ class TalkPageDataController {
         self.articleSummaryController = articleSummaryController
     }
     
+    enum TalkPageError: Error {
+        case unableToDetermineWikimediaProject
+    }
+    
     // MARK: Public
     
-    typealias TalkPageResult = Result<(articleSummary: WMFArticle?, items: [TalkPageItem], subscribedTopicNames: [String]), Error>
+    typealias TalkPageResult = Result<(project: WikimediaProject, articleSummary: WMFArticle?, items: [TalkPageItem], subscribedTopicNames: [String]), Error>
     
     func fetchTalkPage(completion: @escaping (TalkPageResult) -> Void) {
         
         assert(Thread.isMainThread)
+        
+        guard let project = WikimediaProject(siteURL: siteURL) else {
+            completion(.failure(TalkPageError.unableToDetermineWikimediaProject))
+            return
+        }
 
         let group = DispatchGroup()
         
@@ -50,12 +59,12 @@ class TalkPageDataController {
                 completion(.failure(firstError))
                 return
             }
+
             self.fetchTopicSubscriptions(for: finalItems, dispatchGroup: group) { items, errors in
                 finalSubscribedTopics = items
                 finalErrors.append(contentsOf: errors)
-                completion(.success((finalArticleSummary, finalItems, finalSubscribedTopics)))
+                completion(.success((project, finalArticleSummary, finalItems, finalSubscribedTopics)))
             }
-            
         })
 
     }

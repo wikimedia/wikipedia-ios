@@ -33,6 +33,7 @@ final class TalkPageViewModel {
     ///   - pageTitle: Wiki page title, e.g. "Talk:Cat" or "User_talk:Jimbo"
     ///   - siteURL: Site URL without article path, e.g. "https://en.wikipedia.org"
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
+    ///   - authenticationManager: authentication manager from the MWKDataStore singleton
     init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
         self.pageType = pageType
         self.pageTitle = pageTitle
@@ -49,6 +50,7 @@ final class TalkPageViewModel {
     ///   - pageType: TalkPageType - e.g. .article or .user
     ///   - pageURL: Full wiki page URL, e.g. https://en.wikipedia.org/wiki/Cat
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
+    ///   - authenticationManager: authentication manager from the MWKDataStore singleton
     convenience init?(pageType: TalkPageType, pageURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
         guard let pageTitle = pageURL.wmf_title, let siteURL = pageURL.wmf_site else {
             return nil
@@ -72,7 +74,7 @@ final class TalkPageViewModel {
             
             switch result {
             case .success(let result):
-                self.populateHeaderData(articleSummary: result.articleSummary, items: result.items)
+                self.populateHeaderData(project: result.project, articleSummary: result.articleSummary, items: result.items)
                 let oldViewModels: [TalkPageCellViewModel] = self.topics
                 self.topics.removeAll()
                 self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
@@ -118,7 +120,7 @@ final class TalkPageViewModel {
     
     // MARK: - Private
     
-    private func populateHeaderData(articleSummary: WMFArticle?, items: [TalkPageItem]) {
+    private func populateHeaderData(project: WikimediaProject, articleSummary: WMFArticle?, items: [TalkPageItem]) {
         
         guard let languageCode = siteURL.wmf_languageCode else {
             return
