@@ -85,7 +85,7 @@ class TalkPageViewController: ViewController {
 extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return viewModel.topics.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -93,9 +93,49 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
              return UICollectionViewCell()
         }
 
+        let viewModel = viewModel.topics[indexPath.row]
+
+        cell.configure(viewModel: viewModel)
         cell.apply(theme: theme)
+        cell.delegate = self
 
         return cell
+    }
+
+}
+
+
+// MARK: - TalkPageCellDelegate
+
+// TODO
+extension TalkPageViewController: TalkPageCellDelegate {
+
+    func userDidTapDisclosureButton(cellViewModel: TalkPageCellViewModel?) {
+        guard let cellViewModel = cellViewModel, let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}) else {
+            return
+        }
+
+        let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
+
+        talkPageView.collectionView.collectionViewLayout.invalidateLayout()
+        talkPageView.collectionView.performBatchUpdates {
+            configuredCellViewModel.isThreadExpanded = !configuredCellViewModel.isThreadExpanded
+            self.talkPageView.collectionView.reloadItems(at: [IndexPath(row: indexOfConfiguredCell, section: 0)])
+        }
+    }
+
+    func userDidTapSubscribeButton(cellViewModel: TalkPageCellViewModel?) {
+        guard let cellViewModel = cellViewModel, let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}) else {
+            return
+        }
+
+        let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
+
+        talkPageView.collectionView.performBatchUpdates {
+            configuredCellViewModel.isSubscribed = !configuredCellViewModel.isSubscribed
+            self.talkPageView.collectionView.reloadItems(at: [IndexPath(row: indexOfConfiguredCell, section: 0)])
+        }
+
     }
 
 }

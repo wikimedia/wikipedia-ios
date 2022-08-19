@@ -23,6 +23,11 @@ final class TalkPageViewModel {
     var projectSourceImage: UIImage? = UIImage(named: "notifications-project-mediawiki")
     var projectLanguage: String? = "EN"
 
+
+    // TODO: Data Controller - Topics
+
+    var topics: [TalkPageCellViewModel] = [TalkPageCellViewModel(), TalkPageCellViewModel(), TalkPageCellViewModel(), TalkPageCellViewModel()]
+
     // MARK: - Lifecycle
 
     init(pageTitle: String, siteURL: URL) {
