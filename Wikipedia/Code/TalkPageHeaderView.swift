@@ -300,6 +300,8 @@ final class TalkPageHeaderView: SetupView {
 
         if let projectLanguage = viewModel.projectLanguage {
             projectLanguageLabel.text = projectLanguage.localizedUppercase
+        } else {
+            projectLanguageLabelContainer.isHidden = true
         }
         
         if let leadImageURL = viewModel.leadImageURL {

@@ -21,8 +21,8 @@ final class TalkPageViewModel {
     private(set) var headerDescription: String?
     private(set) var leadImageURL: URL?
     private(set) var coffeeRollText: String?
-    var projectSourceImage: UIImage? = UIImage(named: "notifications-project-mediawiki")
-    var projectLanguage: String? = "EN"
+    private(set) var projectSourceImage: UIImage?
+    private(set) var projectLanguage: String?
     
     static let leadImageSideLength = 98
     
@@ -78,9 +78,11 @@ final class TalkPageViewModel {
     
     private func populateHeaderData(articleSummary: WMFArticle?, items: [TalkPageItem]) {
         
-        if let languageCode = siteURL.wmf_languageCode {
-            headerTitle = pageTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode).title
+        guard let languageCode = siteURL.wmf_languageCode else {
+            return
         }
+        
+        headerTitle = pageTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode).title
         
         headerDescription = articleSummary?.wikidataDescription
         leadImageURL = articleSummary?.imageURL(forWidth: Self.leadImageSideLength)
@@ -89,5 +91,10 @@ final class TalkPageViewModel {
            !otherContent.isEmpty {
                coffeeRollText = items.first?.otherContent
         }
+        
+        projectLanguage = languageCode
+        
+        //TODO: Populate project source image
+        projectSourceImage = nil
     }
 }
