@@ -122,13 +122,9 @@ final class TalkPageViewModel {
     
     private func populateHeaderData(project: WikimediaProject, articleSummary: WMFArticle?, items: [TalkPageItem]) {
         
-        guard let languageCode = siteURL.wmf_languageCode else {
-            return
-        }
-        
-        headerTitle = pageTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode).title
-        
+        headerTitle = pageTitle.namespaceAndTitleOfWikiResourcePath(with: project.languageCode ?? "en").title
         headerDescription = articleSummary?.wikidataDescription
+
         leadImageURL = articleSummary?.imageURL(forWidth: Self.leadImageSideLength * Int(UIScreen.main.scale))
         
         if let otherContent = items.first?.otherContent,
@@ -136,10 +132,13 @@ final class TalkPageViewModel {
                coffeeRollText = items.first?.otherContent
         }
         
-        projectLanguage = languageCode
+        if let projectIconName = project.projectIconName {
+           projectSourceImage = UIImage(named: projectIconName)
+        }
         
-        // TODO: Populate project source image
-        projectSourceImage = nil
+        if let projectLanguage = project.languageCode {
+            self.projectLanguage = projectLanguage
+        }
     }
     
     private func populateCellData(topics: [TalkPageItem], oldViewModels: [TalkPageCellViewModel]) {
