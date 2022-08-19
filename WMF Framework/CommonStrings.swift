@@ -247,6 +247,8 @@ public class CommonStrings: NSObject {
 
     public static let successfullyPublishedReply = WMFLocalizedString("talk-page-new-reply-success-text", value: "Your reply was successfully published", comment: "Banner text that appears after a new reply was successfully published on a talk page discussion.")
 
+    public static let talkPageReply = WMFLocalizedString("talk-page-reply-button", value: "Reply", comment: "Text used on button to reply to talk page messages.")
+
     public static let defaultThemeDisplayName = WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user")
 
     public static let diffSingleLineFormat = WMFLocalizedString("diff-single-line-format", value:"Line %1$d", comment:"Label in diff to indicate how many lines a change section encompases. This format is for a single change line. %1$d is replaced by the change line number.")
