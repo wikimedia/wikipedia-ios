@@ -45,4 +45,80 @@ public enum WikimediaProject: Hashable {
             return "wikimedia-project-wikispecies"
         }
     }
+    
+    public var languageCode: String? {
+        switch self {
+        case .commons:
+            return nil
+        case .wikidata:
+            return nil
+        case .wikiquote(let languageCode, _):
+            return languageCode
+        case .wikipedia(let languageCode, _, _):
+            return languageCode
+        case .wikibooks(let languageCode, _):
+            return languageCode
+        case .wiktionary(let languageCode, _):
+            return languageCode
+        case .wikisource(let languageCode, _):
+            return languageCode
+        case .wikinews(let languageCode, _):
+            return languageCode
+        case .wikiversity(let languageCode, _):
+            return languageCode
+        case .wikivoyage(let languageCode, _):
+            return languageCode
+        case .mediawiki:
+            return nil
+        case .wikispecies:
+            return nil
+        }
+    }
+    
+    public init?(siteURL: URL) {
+            
+        let canonicalSiteURL = siteURL.canonical
+        let siteURLString = canonicalSiteURL.absoluteString
+        
+        // Assign non-language specific project
+        if siteURLString.contains(Configuration.Domain.mediaWiki) {
+           self = .mediawiki
+            return
+        } else if siteURLString.contains(Configuration.Domain.wikispecies) {
+           self = .wikispecies
+           return
+        } else if siteURLString.contains(Configuration.Domain.commons) || siteURLString.contains(Configuration.Domain.commonsBetaLabs) {
+           self = .commons
+           return
+        } else if siteURLString.contains(Configuration.Domain.wikidata) || siteURLString.contains(Configuration.Domain.wikidataBetaLabs) {
+           self = .wikidata
+           return
+        }
+        
+        guard let languageCode = canonicalSiteURL.wmf_languageCode else {
+            return nil
+        }
+        
+        if siteURLString.contains(Configuration.current.defaultSiteDomain) {
+            self = .wikipedia(languageCode, "", nil)
+        } else if siteURLString.contains(Configuration.Domain.wikiquote) {
+            self = .wikiquote(languageCode, "")
+        } else if siteURLString.contains(Configuration.Domain.wikibooks) {
+            self = .wikibooks(languageCode, "")
+        } else if siteURLString.contains(Configuration.Domain.wiktionary) {
+            self = .wiktionary(languageCode, "")
+        } else if siteURLString.contains(Configuration.Domain.wiktionary) {
+            self = .wiktionary(languageCode, "")
+        } else if siteURLString.contains(Configuration.Domain.wikisource) {
+            self = .wikisource(languageCode, "")
+        } else if siteURLString.contains(Configuration.Domain.wikinews) {
+            self = .wikinews(languageCode, "")
+        } else if siteURLString.contains(Configuration.Domain.wikiversity) {
+            self = .wikiversity(languageCode, "")
+        } else if siteURLString.contains(Configuration.Domain.wikivoyage) {
+            self = .wikivoyage(languageCode, "")
+        } else {
+            return nil
+        }
+    }
 }
