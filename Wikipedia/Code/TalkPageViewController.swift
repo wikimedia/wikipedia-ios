@@ -53,7 +53,6 @@ class TalkPageViewController: ViewController {
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = true
         navigationBar.allowsUnderbarHitsFallThrough = true
-        navigationBar.underBarViewPercentHidden = 0.6
 
         navigationBar.addUnderNavigationBarView(headerView, shouldIgnoreSafeArea: true)
         useNavigationBarVisibleHeightForScrollViewInsets = false
