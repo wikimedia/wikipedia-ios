@@ -15,6 +15,7 @@ public class Router: NSObject {
     }
     
     unowned let configuration: Configuration
+    
     required init(configuration: Configuration) {
         self.configuration = configuration
     }
@@ -23,17 +24,18 @@ public class Router: NSObject {
     
     /// Gets the appropriate in-app destination for a given URL
     public func destination(for url: URL) -> Destination {
-        guard configuration.isWikipediaHost(url.host) else {
-            guard configuration.isInAppLinkHost(url.host) else {
-                return .externalLink(url)
-            }
+        
+        guard let siteURL = url.wmf_site,
+        let project = WikimediaProject(siteURL: siteURL) else {
+            
             guard url.isWikimediaHostedAudioFileLink else {
-                return .inAppLink(url)
+                return webViewDestinationForHostURL(url)
             }
+            
             return .audio(url.byMakingAudioFileCompatibilityAdjustments)
         }
         
-        return destinationForWikipediaHostURL(url)
+        return destinationForHostURL(url, project: project)
     }
 
     public func doesOpenInBrowser(for url: URL) -> Bool {
@@ -47,25 +49,30 @@ public class Router: NSObject {
     private let mobilediffRegexSingle = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)", options: .caseInsensitive)
     private let historyRegex = try! NSRegularExpression(pattern: "^history/(.*)", options: .caseInsensitive)
     
-    internal func destinationForWikiResourceURL(_ url: URL) -> Destination? {
+    internal func destinationForWikiResourceURL(_ url: URL, project: WikimediaProject) -> Destination? {
         guard let path = url.wikiResourcePath else {
             return nil
         }
-        let language = url.wmf_languageCode ?? "en"
+        
+        let language = project.languageCode ?? "en"
         let namespaceAndTitle = path.namespaceAndTitleOfWikiResourcePath(with: language)
         let namespace = namespaceAndTitle.0
         let title = namespaceAndTitle.1
-        let inAppLinkDestination = Destination.inAppLink(url)
         switch namespace {
         case .talk:
-            if FeatureFlags.needsNewTalkPage {
+            if FeatureFlags.needsNewTalkPage && project.supportsNativeUserTalkPages {
                 return .talk(url)
             } else {
-                return .inAppLink(url)
+                return nil
             }
         case .userTalk:
-            return .userTalk(url)
+            return project.supportsNativeUserTalkPages ? .userTalk(url) : nil
         case .special:
+            
+            guard project.supportsNativeDiffPages else {
+                return nil
+            }
+            
             if let compareDiffMatch = mobilediffRegexCompare.firstMatch(in: title),
                 let fromRevID = Int(mobilediffRegexCompare.replacementString(for: compareDiffMatch, in: title, offset: 0, template: "$1")),
                 let toRevID = Int(mobilediffRegexCompare.replacementString(for: compareDiffMatch, in: title, offset: 0, template: "$2")) {
@@ -81,10 +88,20 @@ public class Router: NSObject {
                 return .articleHistory(url, articleTitle: articleTitle)
             }
             
-            return inAppLinkDestination
+            return nil
         case .main:
-            return WikipediaURLTranslations.isMainpageTitle(title, in: language) ? inAppLinkDestination : Destination.article(url)
+            
+            guard project.mainNamespaceGoesToNativeArticleView else {
+                return nil
+            }
+            
+            return WikipediaURLTranslations.isMainpageTitle(title, in: language) ? nil : Destination.article(url)
         case .wikipedia:
+            
+            guard project.considersWResourcePathsForRouting else {
+                return nil
+            }
+            
             let onThisDayURLSnippet = "On_this_day"
             if title.uppercased().contains(onThisDayURLSnippet.uppercased()) {
                 // URL in form of https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today?3. Take bit past question mark.
@@ -97,26 +114,26 @@ public class Router: NSObject {
                 fallthrough
             }
         default:
-            return inAppLinkDestination
+            return nil
         }
     }
     
-    internal func destinationForWResourceURL(_ url: URL) -> Destination? {
-        guard let path = url.wResourcePath else {
+    internal func destinationForWResourceURL(_ url: URL, project: WikimediaProject) -> Destination? {
+        
+        guard project.considersWResourcePathsForRouting,
+              let path = url.wResourcePath else {
             return nil
         }
         
-        let defaultActivity = Destination.inAppLink(url)
-        
         guard var components = URLComponents(string: path) else {
-            return defaultActivity
+            return nil
         }
         components.query = url.query
         guard components.path.lowercased() == "index.php" else {
-            return defaultActivity
+            return nil
         }
         guard let queryItems = components.queryItems else {
-            return defaultActivity
+            return nil
         }
         
         var params: [String: String] = [:]
@@ -138,7 +155,7 @@ public class Router: NSObject {
         let maybeLimit = params["limit"]
         
         guard let title = maybeTitle else {
-            return defaultActivity
+            return nil
         }
         
         if maybeLimit != nil,
@@ -172,20 +189,30 @@ public class Router: NSObject {
             return .articleDiffSingle(url, fromRevID: nil, toRevID: toRevID)
         }
         
-        return defaultActivity
+        return nil
     }
     
-    internal func destinationForWikipediaHostURL(_ url: URL) -> Destination {
+    internal func destinationForHostURL(_ url: URL, project: WikimediaProject) -> Destination {
         let canonicalURL = url.canonical
         
-        if let wikiResourcePathInfo = destinationForWikiResourceURL(canonicalURL) {
+        if let wikiResourcePathInfo = destinationForWikiResourceURL(canonicalURL, project: project) {
             return wikiResourcePathInfo
         }
         
-        if let wResourcePathInfo = destinationForWResourceURL(canonicalURL) {
+        if let wResourcePathInfo = destinationForWResourceURL(canonicalURL, project: project) {
             return wResourcePathInfo
         }
         
-        return .inAppLink(canonicalURL)
+        return webViewDestinationForHostURL(url)
+    }
+    
+    internal func webViewDestinationForHostURL(_ url: URL) -> Destination {
+        let canonicalURL = url.canonical
+        
+        if configuration.hostCanRouteToInAppWebView(url.host) {
+            return .inAppLink(canonicalURL)
+        } else {
+            return .externalLink(canonicalURL)
+        }
     }
 }

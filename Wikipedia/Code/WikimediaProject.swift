@@ -76,7 +76,7 @@ public enum WikimediaProject: Hashable {
     }
     
     public init?(siteURL: URL) {
-            
+        
         let canonicalSiteURL = siteURL.canonical
         let siteURLString = canonicalSiteURL.absoluteString
         
@@ -119,6 +119,54 @@ public enum WikimediaProject: Hashable {
             self = .wikivoyage(languageCode, "")
         } else {
             return nil
+        }
+    }
+    
+    // MARK: Routing Helpers
+    
+    public var supportsNativeArticleTalkPages: Bool {
+        // Can switch on this in the future if we add more projects that don't support them
+        return true
+    }
+    
+    public var supportsNativeUserTalkPages: Bool {
+        // Can switch on this in the future if we add more projects that don't support them
+        return true
+    }
+    
+    public var supportsNativeDiffPages: Bool {
+        switch self {
+        case .wikipedia:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    public var mainNamespaceGoesToNativeArticleView: Bool {
+        switch self {
+        case .wikipedia:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    public var considersWikipediaNamespaceForRouting: Bool {
+        switch self {
+        case .wikipedia:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    public var considersWResourcePathsForRouting: Bool {
+        switch self {
+        case .wikipedia:
+            return true
+        default:
+            return false
         }
     }
 }
