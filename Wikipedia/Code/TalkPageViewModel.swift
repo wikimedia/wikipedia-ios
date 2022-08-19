@@ -94,7 +94,7 @@ final class TalkPageViewModel {
         
         projectLanguage = languageCode
         
-        //TODO: Populate project source image
+        // TODO: Populate project source image
         projectSourceImage = nil
     }
 }
