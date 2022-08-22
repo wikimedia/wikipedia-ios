@@ -442,6 +442,9 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Van Wikipedia in het $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Uit Wikipedia";
 "explore-randomizer" = "Randomizer";
+"export-user-data-generic-error" = "Er is een fout opgetreden bij het exporteren van uw gegevens. Probeer het later opnieuw.";
+"export-user-data-space-error" = "U heeft onvoldoende ruimte op uw apparaat om uw gebruikersgegevens te exporteren. Probeer het later opnieuw.";
+"export-user-data-title" = "Exporteer gebruikersgegevens";
 "featured-article-empty-title" = "Geen toegelicht artikel beschikbaar voor vandaag";
 "featured-widget-content-failure-for-date" = "Er is geen uitgelicht artikel voor deze datum.";
 "featured-widget-description" = "Ontdek de beste artikelen op Wikipedia, dagelijks uitgekozen door onze gemeenschap.";
@@ -1028,6 +1031,7 @@
 "talk-page-title-article-talk" = "Artikeloverleg";
 "talk-page-title-user-talk" = "Gebruikersoverleg";
 "talk-page-topic-title" = "Overleg";
+"talk-pages-coffee-roll-read-more" = "Meer lezen";
 "talk-pages-reply-button-title" = "Op deze discussie reageren";
 "talk-pages-view-title" = "Overleg";
 "theme-black-display-name" = "Zwart";

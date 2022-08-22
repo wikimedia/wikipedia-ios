@@ -15,6 +15,7 @@
 // Author: Steeve815
 // Author: Strayblues
 // Author: Tsevener
+// Author: Xnet1234
 // Author: YaronSh
 // Author: איתן96
 // Author: דגש
@@ -427,6 +428,11 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "מתוך ויקיפדיה ב$1";
 "explore-random-article-sub-heading-from-wikipedia" = "מתוך ויקיפדיה";
 "explore-randomizer" = "הגרלה";
+"export-user-data-confirmation-message" = "שיתוף ספריית היישום שלך כולל נתונים על רשימות הקריאה, ההיסטוריה שלך וההעדפות שלך. יש לשתף את קובץ הנתונים הזה רק עם נמען מהימן לשימוש למטרות אבחון טכני.";
+"export-user-data-confirmation-title" = "לשתף את ספריית היישום?";
+"export-user-data-generic-error" = "אירעה שגיאה בעת יצוא הנתונים שלך. נא לנסות שוב מאוחר יותר.";
+"export-user-data-space-error" = "אין לך מספיק מקום במכשיר כדי לייצא את נתוני המשתמש שלך. נא לנסות שוב מאוחר יותר.";
+"export-user-data-title" = "יצוא נתוני משתמשים";
 "featured-article-empty-title" = "היום אין ערכים מומלצים זמינים";
 "featured-widget-content-failure-for-date" = "לא זמין ערך מומלץ עבור התאריך הזה.";
 "featured-widget-description" = "גלו את הערכים הטובים ביותר בוויקיפדיה, שנבחרים יום־יום על־ידי הקהילה שלנו.";
@@ -1015,6 +1021,7 @@
 "talk-page-title-article-talk" = "שיחת ערך";
 "talk-page-title-user-talk" = "שיחת משתמש";
 "talk-page-topic-title" = "דיון";
+"talk-pages-coffee-roll-read-more" = "לקרוא עוד";
 "talk-pages-reply-button-title" = "השב לדיון זה";
 "talk-pages-view-title" = "שיחה";
 "theme-black-display-name" = "שחורה";

@@ -1005,6 +1005,7 @@
 "talk-page-new-topic-title" = "Nová diskusia";
 "talk-page-publish-terms-and-licenses" = "Uložením zmien vyjadrujete súhlas s $1Podmienkami použitia$2 a súhlasíte s uvoľnením vášho príspevku pod licenciami $3CC BY-SA 3.0$4 a $5GFDL$6.";
 "talk-page-reply-title" = "Odpovedať";
+// Fuzzy
 "talk-page-title-article-talk" = "Diskusia k článku";
 "talk-page-title-user-talk" = "Diskusia s redaktorom";
 "talk-page-topic-title" = "Diskusia";

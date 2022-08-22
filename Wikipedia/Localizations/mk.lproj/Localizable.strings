@@ -414,6 +414,11 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Од Википедија на $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Од Википедија";
 "explore-randomizer" = "Случаен избирач";
+"export-user-data-confirmation-message" = "Споделувањето на вашата библиотека на прилози вклучува податоци за вашите Списоци на читање и историја, вашите нагодувања, и содржината на тековникот Истражи. Оваа податочна податотека треба да се споделува само со доверлив примач и да се користи за техничка дијагностика.";
+"export-user-data-confirmation-title" = "Да се сподели библиотеката на прилози?";
+"export-user-data-generic-error" = "Се јави грешка при извозот на вашите податоци. Обидете се подоцна.";
+"export-user-data-space-error" = "Немате доволно простор во уредот за да ги извезете вашите кориснички податоци. Обидете се подоцна.";
+"export-user-data-title" = "Извези кориснички податоци";
 "featured-article-empty-title" = "Нема избрана статија за денес";
 "featured-widget-content-failure-for-date" = "Нема избрана статија за овој датум.";
 "featured-widget-description" = "Откријте ги најдобрите статии на Википедија кои нашата заедница ги бира секој ден.";
@@ -999,9 +1004,10 @@
 "talk-page-new-topic-title" = "Нова расправа";
 "talk-page-publish-terms-and-licenses" = "Зачувувајќи ги промените, се согласувате со $1Условите на употреба$2, и дека ги објавувате вашите придонеси под лиценците $3CC BY-SA 3.0$4 и $5ГЛСД$6.";
 "talk-page-reply-title" = "Одговори";
-"talk-page-title-article-talk" = "разговор за статија";
+"talk-page-title-article-talk" = "Разговор за статија";
 "talk-page-title-user-talk" = "Кориснички разговор";
 "talk-page-topic-title" = "Расправа";
+"talk-pages-coffee-roll-read-more" = "Прочитајте повеќе";
 "talk-pages-reply-button-title" = "Одговори на расправата";
 "talk-pages-view-title" = "Разговор";
 "theme-black-display-name" = "Црн";

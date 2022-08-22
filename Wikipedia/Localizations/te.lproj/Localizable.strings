@@ -850,6 +850,7 @@
 "talk-page-new-topic-title" = "కొత్త చర్చ";
 "talk-page-publish-terms-and-licenses" = "మార్పులను భద్రపరిస్తే మీరు, $1వాడుకరి నియమాలనూ$2, మీ రచనను $3CC BY-SA 3.0$4, $5GFDL$6 లైసెన్సుల కింద విడుదల చేసేందుకూ అంగీకరిస్తున్నట్లే.";
 "talk-page-reply-title" = "సమాధానం";
+// Fuzzy
 "talk-page-title-article-talk" = "వ్యాసం చర్చ";
 "talk-page-title-user-talk" = "వాడుకరి చర్చ";
 "talk-page-topic-title" = "చర్చ";
