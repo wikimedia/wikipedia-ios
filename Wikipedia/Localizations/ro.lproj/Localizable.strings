@@ -1000,6 +1000,7 @@
 "talk-page-new-topic-title" = "Discuție nouă";
 "talk-page-publish-terms-and-licenses" = "Prin salvarea modificărilor, sunteți de acord cu $1Termeni de utilizare$2, și sunteți de acord să eliberați contribuția dvs. sub licențele $3CC BY-SA 3.0$4 și li $5GFDL$6.";
 "talk-page-reply-title" = "Răspunde";
+// Fuzzy
 "talk-page-title-article-talk" = "discuție articol";
 "talk-page-title-user-talk" = "Discuție Utilizator";
 "talk-page-topic-title" = "Discuție";

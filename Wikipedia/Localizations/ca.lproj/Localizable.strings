@@ -1013,6 +1013,7 @@
 "talk-page-new-topic-title" = "Discussió nova";
 "talk-page-publish-terms-and-licenses" = "En desar els canvis esteu d'acord amb els $1Termes d'ús$2 i esteu d'acord en alliberar la vostra contribució sota les llicències $3CC BY-SA 3.0$4 i $5GFDL$6.";
 "talk-page-reply-title" = "Respon";
+// Fuzzy
 "talk-page-title-article-talk" = "Discussió de l'article";
 "talk-page-title-user-talk" = "Discussió de l'usuari";
 "talk-page-topic-title" = "Discussió";

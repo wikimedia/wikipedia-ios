@@ -972,6 +972,7 @@
 "talk-page-new-topic-title" = "Ný umræða";
 "talk-page-publish-terms-and-licenses" = "Með því að vista breytingar samþykkir þú $1notkunarskilmálana$2 og að framlag þitt verði gefið út með $3CC BY-SA 3.0$4 og $5GFDL$6 notkunarleyfunum.";
 "talk-page-reply-title" = "Svara";
+// Fuzzy
 "talk-page-title-article-talk" = "Spjall greinar";
 "talk-page-title-user-talk" = "Spjall notanda";
 "talk-page-topic-title" = "Umræða";
