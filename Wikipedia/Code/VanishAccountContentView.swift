@@ -3,7 +3,7 @@ import WMF
 
 struct VanishAccountContentView: View {
     @SwiftUI.State var userInput: String = ""
-    @SwiftUI.State var showPopUp = false
+    @SwiftUI.State var showPopUp: Bool = false
     
     enum LocalizedStrings {
         static let title = WMFLocalizedString("vanish-account-title", value: "Vanishing process", comment: "Title for the vanishing process screen")
@@ -90,7 +90,7 @@ struct VanishAccountContentView: View {
                     Button(action: {
                         //                    openMailClient()
                         withAnimation(.linear(duration: 0.3)) {
-                            showPopUp.toggle()
+                            showPopUp.toggle() //testing the modal, remove
                         }
                     }, label: {
                         Text(LocalizedStrings.buttonText)

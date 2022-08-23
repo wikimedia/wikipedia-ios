@@ -10,6 +10,7 @@ struct VanishAccountPopUpAlert: View {
     private let bodyFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
     
     enum LocalizedStrings {
+        // TODO add comments to strings
         static let title = WMFLocalizedString("vanish-modal-title", value: "Vanish request", comment: "Title text fot the vanish request modal")
         static let bullet1 = WMFLocalizedString("vanish-modal-item", value: "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator.", comment: " ")
         static let bullet2 = WMFLocalizedString("vanish-modal-item-2", value: "If you are unsure if your request went through please check your Mail app", comment: "")

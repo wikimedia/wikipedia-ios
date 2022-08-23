@@ -145,8 +145,8 @@ class AccountViewController: SubSettingsViewController {
                 // TODO error?
                 return
             }
-            let contentView = VanishAccountContentView(theme: theme, username: username)
-            let hostingController = VanishAccountCustomUIHostingController(rootView: contentView, title: "Vanish Account") // get localized string
+
+            let hostingController = VanishAccountCustomUIHostingController(title: "Vanish Account", theme: theme, username: username) // get localized string
             self.navigationController?.pushViewController(hostingController, animated: true)
         default:
             break

@@ -1,12 +1,15 @@
 import SwiftUI
 import UIKit
 
-class VanishAccountCustomUIHostingController<Content: View>: UIHostingController<Content> {
+class VanishAccountCustomUIHostingController: UIHostingController<VanishAccountContentView> {
     
+    var shouldShowPopUp = false
     
-    
-    init(rootView: Content, title: String) {
-        super.init(rootView: rootView)
+    init(title: String, theme: Theme, username: String) {
+        super.init(rootView: VanishAccountContentView(theme: theme, username: username))
+        rootView.showPopUp = false
+
+        
         self.title = title
     }
     
@@ -24,7 +27,7 @@ class VanishAccountCustomUIHostingController<Content: View>: UIHostingController
     @objc func shouldShowModal() {
         let userDefaults = UserDefaults.standard
         if userDefaults.wmf_shouldShowVanishingRequestModal {
-            
+            shouldShowPopUp = true
         }
     }
     
