@@ -7,9 +7,9 @@ protocol ThemeableTextViewClearDelegate: AnyObject {
 }
 
 class ThemeableTextView: UITextView {
-    private var theme = Theme.standard
+    private(set) var theme = Theme.standard
     public var isUnderlined = true
-    private var firstTimeEditing = true
+    var firstTimeEditing = true
 
     weak var _delegate: UITextViewDelegate?
     weak var placeholderDelegate: ThemeableTextViewPlaceholderDelegate?
@@ -66,7 +66,7 @@ class ThemeableTextView: UITextView {
         }
     }
 
-    public private(set) var isShowingPlaceholder: Bool = true {
+    public var isShowingPlaceholder: Bool = true {
         didSet {
             if isShowingPlaceholder {
                 text = placeholder
@@ -96,7 +96,7 @@ class ThemeableTextView: UITextView {
         setup()
     }
 
-    private func setup() {
+    @objc func setup() {
         delegate = self
     }
 
@@ -142,9 +142,28 @@ extension ThemeableTextView: UITextViewDelegate {
         _delegate?.textViewDidChange?(textView)
         setClearButtonHidden(textView.text.isEmpty)
     }
+    
+    @objc func shouldExitBeginEditingEarly() -> Bool {
+        // override if needed
+        return false
+    }
+    
+    @objc func postBeginEditingHandlingHandling() {
+        // override if needed
+        firstTimeEditing = false
+    }
+    
+    @objc var shouldHandlePlaceholder: Bool {
+        // override if needed
+        return firstTimeEditing
+    }
 
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if firstTimeEditing {
+        if shouldExitBeginEditingEarly() {
+            return false
+        }
+        
+        if shouldHandlePlaceholder {
             if textView.text.isEmpty, !isShowingPlaceholder {
                 isShowingPlaceholder = true
                 placeholderDelegate?.themeableTextViewPlaceholderDidHide(self, isPlaceholderHidden: false)
@@ -154,7 +173,7 @@ extension ThemeableTextView: UITextViewDelegate {
                 placeholderDelegate?.themeableTextViewPlaceholderDidHide(self, isPlaceholderHidden: true)
             }
         }
-        firstTimeEditing = false
+        postBeginEditingHandlingHandling()
         return _delegate?.textViewShouldBeginEditing?(textView) ?? true
     }
 
@@ -209,5 +228,62 @@ extension ThemeableTextView: Themeable {
             layer.shadowOpacity = 0.0
             layer.shadowRadius = 0.0
         }
+    }
+}
+
+/// UITextView for embedding into SwiftUI via UIViewRepresentable. It also adds a Done button + handling as an input accessory view.
+///
+/// textViewShouldBeginEditing seems to be called immediately when placed on screen within a UIViewRepresentable view for iOS15, even if it's not focused. This class has additional handling for that case, so that the placeholder properly populates.
+class SwiftUIThemableTextView: ThemeableTextView {
+    private var secondTimeEditing = false
+    
+    override func shouldExitBeginEditingEarly() -> Bool {
+        if #available(iOS 15.0, *) {
+            if firstTimeEditing {
+                firstTimeEditing = false
+                secondTimeEditing = true
+                return true
+            }
+            
+            return false
+        } else {
+            return super.shouldExitBeginEditingEarly()
+        }
+    }
+    
+    override func postBeginEditingHandlingHandling() {
+        if #available(iOS 15.0, *) {
+            secondTimeEditing = false
+        } else {
+            super.postBeginEditingHandlingHandling()
+        }
+    }
+    
+    override var shouldHandlePlaceholder: Bool {
+        if #available(iOS 15.0, *) {
+            return secondTimeEditing
+        } else {
+            return super.shouldHandlePlaceholder
+        }
+    }
+    
+    override func setup() {
+        super.setup()
+        setDoneOnKeyboard()
+    }
+    
+    func setDoneOnKeyboard() {
+        let keyboardToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        keyboardToolbar.barStyle = .default
+        
+        let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(tappedDone))
+        doneBarButton.tintColor = theme.colors.link
+        keyboardToolbar.items = [flexBarButton, doneBarButton]
+        self.inputAccessoryView = keyboardToolbar
+    }
+
+    @objc func tappedDone() {
+        self.resignFirstResponder()
     }
 }

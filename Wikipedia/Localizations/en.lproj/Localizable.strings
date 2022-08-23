@@ -1015,6 +1015,7 @@
 "uzbek-variants-alert-body" = "The Wikipedia app now supports the following Uzbek variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Updates to Uzbek variant support";
 "vanish-account-additional-information-field" = "Additional information";
+"vanish-account-additional-information-placeholder" = "Optional";
 "vanish-account-bottom-text" = "Account deletion on Wikipedia is done by changing your account name to make it so others cannot recognize your contributions in a process called account vanishing. You may use the form below to request a";
 "vanish-account-bottom-text-continuation" = "Vanishing does not guarantee complete anonymity or remove contributions to the projects.";
 "vanish-account-button-text" = "Send request";

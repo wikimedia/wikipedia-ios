@@ -9,7 +9,8 @@ struct VanishAccountContentView: View {
         static let title = WMFLocalizedString("vanish-account-title", value: "Vanishing process", comment: "Title for the vanishing process screen")
         static let description = WMFLocalizedString("vanish-account-description", value: "Vanishing is a last resort and should only be used when you wish to stop editing forever and also to hide as many of your past associations as possible.\n\nTo initiate the vanishing process please provide the following:", comment: "Description for the vanishing process")
         static let usernameFieldTitle = WMFLocalizedString("vanish-account-username-field", value: "Username and user page", comment: "Title for the username and userpage form field")
-        static let additionalInformationFieldTitle = WMFLocalizedString("vanish-account-additional-information-field", value: "Additional information", comment: "Titl for the additional information form field")
+        static let additionalInformationFieldTitle = WMFLocalizedString("vanish-account-additional-information-field", value: "Additional information", comment: "Title for the additional information form field")
+        static let additionalInformationFieldPlaceholder = WMFLocalizedString("vanish-account-additional-information-placeholder", value: "Optional", comment: "Placeholder for the additional information form field")
         static let bottomText = WMFLocalizedString("vanish-account-bottom-text", value: "Account deletion on Wikipedia is done by changing your account name to make it so others cannot recognize your contributions in a process called account vanishing. You may use the form below to request a", comment: "Informative text on accounting deletion on Wikipedia")
         static let courtesyVanishing = WMFLocalizedString("vanish-account-courtesy-vanishing", value: "courtesy vanishing. ", comment: "Text for courtesy vaninshing link")
         static let bottomTextContinuation = WMFLocalizedString("vanish-account-bottom-text-continuation", value: "Vanishing does not guarantee complete anonymity or remove contributions to the projects.", comment: "Continuation on informative text about account deletion on Wikipedia")
@@ -24,90 +25,91 @@ struct VanishAccountContentView: View {
     private let fieldTitleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .subheadline, weight: .regular, size: 15)
     
     var body: some View {
-        ScrollView {
-             ZStack {
-                VStack {
+        ZStack {
+            GeometryReader { proxy in
+                ScrollView(.vertical, showsIndicators: false) {
                     VStack {
-                        Text(LocalizedStrings.title)
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(Font(titleFont))
-                            .frame(maxWidth: .infinity, maxHeight: 40)
-                            .padding([.leading, .trailing, .top], 20)
-                        Text(LocalizedStrings.description)
-                            .fontWeight(.light)
-                            .foregroundColor(Color(theme.colors.secondaryText))
-                            .multilineTextAlignment(.leading)
-                            .font(Font(bodyFont))
-                            .padding([.leading, .trailing, .bottom], 20)
-                    }.background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
-                    VStack {
-                        Text(LocalizedStrings.usernameFieldTitle)
-                            .foregroundColor(Color(theme.colors.secondaryText))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(Font(fieldTitleFont))
-                            .padding([.top], 10)
-                            .padding([.leading, .trailing], 20)
-                        Text(username)
-                            .foregroundColor(Color(theme.colors.secondaryText))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(Font(fieldTitleFont))
-                            .padding([.bottom], 5)
-                            .padding([.top], 2)
-                            .padding([.leading, .trailing], 20)
-                        Divider().padding([.leading], 20)
-                        Text(LocalizedStrings.additionalInformationFieldTitle)
-                            .foregroundColor(Color(theme.colors.link))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(Font(fieldTitleFont))
-                            .padding([.leading, .trailing], 20)
-                            .padding([.top], 5)
-                        TextView {
-                            $0.textColor = theme.colors.primaryText
-                            $0.font = bodyFont
-                            let userText = $0.text
-                            //                    userInput = userText ?? String()
-                            // Causes a runtime error
-                            // delegate issues - dismiss keyboard, placeholder
-                        }
-                        .padding([.leading, .trailing], 20)
-                        .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 100)
-                        
-                        Spacer()
-                    }.background(Color(theme.colors.paperBackground))
-                    VStack {
-                        Text("\(LocalizedStrings.bottomText) [\(LocalizedStrings.courtesyVanishing)](https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing) \(LocalizedStrings.bottomTextContinuation)")
-                            .foregroundColor(Color(theme.colors.secondaryText))
-                            .fontWeight(.light)
-                            .multilineTextAlignment(.leading)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .frame(height: 120)
-                            .font(Font(bodyFont))
-                            .padding(20)
-                        
-                        Spacer()
-                        Button(action: {
-                            //                    openMailClient()
-                            withAnimation(.linear(duration: 0.3)) {
-                                showPopUp.toggle() // testing the modal, remove
-                            }
-                        }, label: {
-                            Text(LocalizedStrings.buttonText)
+                        VStack {
+                            Text(LocalizedStrings.title)
+                                .foregroundColor(.black)
+                                .fontWeight(.light)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(Font(titleFont))
+                                .frame(maxWidth: .infinity, maxHeight: 40)
+                                .padding([.leading, .trailing, .top], 20)
+                            Text(LocalizedStrings.description)
+                                .fontWeight(.light)
+                                .foregroundColor(Color(theme.colors.secondaryText))
+                                .multilineTextAlignment(.leading)
+                                .font(Font(bodyFont))
+                                .padding([.leading, .trailing, .bottom], 20)
+                            
+                        }.background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
+                        VStack {
+                            Text(LocalizedStrings.usernameFieldTitle)
+                                .foregroundColor(Color(theme.colors.secondaryText))
+                                .fontWeight(.light)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.body)
+                                .padding([.top], 10)
+                                .padding([.leading, .trailing], 20)
+                            Text(username)
+                                .foregroundColor(Color(theme.colors.secondaryText))
+                                .fontWeight(.light)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.body)
+                                .padding([.bottom], 5)
+                                .padding([.top], 2)
+                                .padding([.leading, .trailing], 20)
+                            Divider().padding([.leading], 20)
+                            Text(LocalizedStrings.additionalInformationFieldTitle)
                                 .foregroundColor(Color(theme.colors.link))
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .frame(width: 335, height: 46)
-                                .background(Color(theme.colors.paperBackground))
-                                .cornerRadius(8)
+                                .fontWeight(.light)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.body)
+                                .padding([.leading, .trailing], 15)
+                                .padding([.top], 5)
+                            TextView(placeholder: LocalizedStrings.additionalInformationFieldPlaceholder, theme: theme, text: $userInput)
+                                .padding([.leading, .trailing], 10)
+                                .frame(maxWidth: .infinity, minHeight: 100)
+                            Spacer()
+                                .frame(height: 12)
+                        }.background(Color(theme.colors.paperBackground))
+                        VStack {
+                            Text("\(LocalizedStrings.bottomText) [\(LocalizedStrings.courtesyVanishing)](https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing) \(LocalizedStrings.bottomTextContinuation)")
+                                .foregroundColor(Color(theme.colors.secondaryText))
+                                .fontWeight(.light)
+                                .multilineTextAlignment(.leading)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(Font(bodyFont))
                                 .padding(20)
-                        })
-                        Spacer()
-                    }.background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            
+                            Spacer()
+                            Button(action: {
+                                print(userInput)
+                                withAnimation(.linear(duration: 0.3)) {
+                                    showPopUp.toggle() // testing the modal, remove
+                                }
+                            }, label: {
+                                Text(LocalizedStrings.buttonText)
+                                    .font(Font(titleFont))
+                                    .foregroundColor(Color(theme.colors.link))
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .frame(width: 335, height: 46)
+                                    .background(Color(theme.colors.paperBackground))
+                                    .cornerRadius(8)
+                                    .padding()
+                            })
+                            Spacer()
+                        }
+                    }
+                    .frame(minHeight: proxy.size.height)
                 }
-                VanishAccountPopUpAlert(theme:theme, isVisible: $showPopUp)
+                
+                .background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
             }
+            VanishAccountPopUpAlert(theme:theme, isVisible: $showPopUp)
         }
     }
     
@@ -145,14 +147,46 @@ struct VanishAccountContentView: View {
 
 struct TextView: UIViewRepresentable {
     
-    typealias UIViewType = UITextView
-    var configuration = { (view: UIViewType) in }
+    let placeholder: String
+    let theme: Theme
+    @Binding var text: String
+    
+    typealias UIViewType = SwiftUIThemableTextView
     
     func makeUIView(context: UIViewRepresentableContext<Self>) -> UIViewType {
-        UIViewType()
+        let textView = UIViewType()
+        textView.placeholder = placeholder
+        textView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: textView.traitCollection)
+        textView._delegate = context.coordinator
+        textView.apply(theme: theme)
+        textView.clipsToBounds = true
+        return textView
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(text: $text, placeholder: placeholder)
     }
     
     func updateUIView(_ uiView: UIViewType, context: UIViewRepresentableContext<Self>) {
-        configuration(uiView)
+        if !text.isEmpty {
+            uiView.text = text
+        }
+    }
+    
+    class Coordinator: NSObject, UITextViewDelegate {
+
+        @Binding var text: String
+        let placeholder: String
+
+        init(text: Binding<String>, placeholder: String) {
+            _text = text
+            self.placeholder = placeholder
+        }
+        
+        func textViewDidChange(_ textView: UITextView) {
+            if textView.text != placeholder {
+                text = textView.text
+            }
+        }
     }
 }
