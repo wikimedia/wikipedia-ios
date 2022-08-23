@@ -1015,8 +1015,10 @@
 "uzbek-variants-alert-body" = "Body text of alert used to inform users about Uzbek variant support. Please do not translate the newlines (\n) or Uzbek characters (ўзбекча кирилл, etc.).";
 "uzbek-variants-alert-title" = "Title of alert used to inform users about Uzbek variant support.";
 "vanish-account-additional-information-field" = "Titl for the additional information form field";
-"vanish-account-bottom-text" = "Text";
+"vanish-account-bottom-text" = "Informative text on accounting deletion on Wikipedia";
+"vanish-account-bottom-text-continuation" = "Continuation on informative text about account deletion on Wikipedia";
 "vanish-account-button-text" = "Text for button on vanish account request screen";
+"vanish-account-courtesy-vanishing" = "Text for courtesy vaninshing link";
 "vanish-account-description" = "Description for the vanishing process";
 "vanish-account-email-text" = "Email content for the vanishing account request";
 "vanish-account-email-username-title" = "No comment provided by engineer.";
