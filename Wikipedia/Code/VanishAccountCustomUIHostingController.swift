@@ -7,9 +7,7 @@ class VanishAccountCustomUIHostingController: UIHostingController<VanishAccountC
     
     init(title: String, theme: Theme, username: String) {
         super.init(rootView: VanishAccountContentView(theme: theme, username: username))
-        rootView.showPopUp = false
-
-        
+        rootView.showPopUp = shouldShowPopUp
         self.title = title
     }
     

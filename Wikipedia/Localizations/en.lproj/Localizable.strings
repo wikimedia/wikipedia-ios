@@ -1025,7 +1025,7 @@
 "vanish-modal-item" = "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator.";
 "vanish-modal-item-2" = "If you are unsure if your request went through please check your Mail app";
 "vanish-modal-item-3" = "If you have further questions about vanishing please visit";
-"vanish-modal-title" = "Vanish request";
+"vanish-modal-title" = "Vanishing request";
 "vanishing-link-title" = "Wikipedia:Courtesy vanishing";
 "vanishing-request-email-title" = "Request for courtesy vanishing";
 "variants-alert-dismiss-button" = "No thanks";
