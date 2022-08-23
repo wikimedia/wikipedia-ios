@@ -1016,8 +1016,10 @@
 "uzbek-variants-alert-title" = "Updates to Uzbek variant support";
 "vanish-account-additional-information-field" = "Additional information";
 "vanish-account-additional-information-placeholder" = "Optional";
-"vanish-account-bottom-text" = "Account deletion on Wikipedia is done by changing your account name to make it so others cannot recognize your contributions in a process called account vanishing. You may use the form below to request a courtesy vanishing. Vanishing does not guarantee complete anonymity or remove contributions to the projects.";
+"vanish-account-bottom-text" = "Account deletion on Wikipedia is done by changing your account name to make it so others cannot recognize your contributions in a process called account vanishing. You may use the form below to request a";
+"vanish-account-bottom-text-continuation" = "Vanishing does not guarantee complete anonymity or remove contributions to the projects.";
 "vanish-account-button-text" = "Send request";
+"vanish-account-courtesy-vanishing" = "courtesy vanishing. ";
 "vanish-account-description" = "Vanishing is a last resort and should only be used when you wish to stop editing forever and also to hide as many of your past associations as possible.\n\nTo initiate the vanishing process please provide the following:";
 "vanish-account-email-text" = "Hello,\nThis is a request to vanish my Wikipedia account.";
 "vanish-account-email-username-title" = "Username and userpage";
@@ -1026,8 +1028,8 @@
 "vanish-modal-item" = "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator.";
 "vanish-modal-item-2" = "If you are unsure if your request went through please check your Mail app";
 "vanish-modal-item-3" = "If you have further questions about vanishing please visit";
-"vanish-modal-title" = "Vanish request";
-"vanishing-link-title" = "Wikipedia:Courtesy vanishing";
+"vanish-modal-title" = "Vanishing request";
+"vanishing-link-title" = "Wikipedia:Courtesy vanishing.";
 "vanishing-request-email-title" = "Request for courtesy vanishing";
 "variants-alert-dismiss-button" = "No thanks";
 "variants-alert-preferences-button" = "Review your preferences";

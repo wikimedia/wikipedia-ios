@@ -6,20 +6,18 @@ struct VanishAccountPopUpAlert: View {
     
     @Binding var isVisible: Bool
     
-    private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .semibold, size: 18) // review fonts
+    private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .semibold, size: 18)
     private let bodyFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
     
     enum LocalizedStrings {
-        // TODO add comments to strings
-        static let title = WMFLocalizedString("vanish-modal-title", value: "Vanish request", comment: "Title text fot the vanish request modal")
-        static let bullet1 = WMFLocalizedString("vanish-modal-item", value: "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator.", comment: " ")
-        static let bullet2 = WMFLocalizedString("vanish-modal-item-2", value: "If you are unsure if your request went through please check your Mail app", comment: "")
-        static let bullet3 = WMFLocalizedString("vanish-modal-item-3", value: "If you have further questions about vanishing please visit", comment: " ")
-        static let linkTitle = WMFLocalizedString("vanishing-link-title", value: "Wikipedia:Courtesy vanishing", comment: "Courtesy vanishing page title")
+        static let title = WMFLocalizedString("vanish-modal-title", value: "Vanishing request", comment: "Title text fot the vanish request modal")
+        static let firstItem = WMFLocalizedString("vanish-modal-item", value: "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator.", comment: "Text indicating that the process of vanishing might take days to be completed")
+        static let secondItem = WMFLocalizedString("vanish-modal-item-2", value: "If you are unsure if your request went through please check your Mail app", comment: "Text indicating that the user should check if their email was sent in the Mail app used to send the message")
+        static let thirdItem = WMFLocalizedString("vanish-modal-item-3", value: "If you have further questions about vanishing please visit", comment: "Text indicating that more infor is in the following link")
+        static let linkTitle = WMFLocalizedString("vanishing-link-title", value: "Wikipedia:Courtesy vanishing.", comment: "Courtesy vanishing page title")
     }
-
+    
     var body: some View {
-        let bullet = "\u{2022}"
         ZStack {
             if isVisible {
                 Color.black.opacity(isVisible ? 0.3 : 0).edgesIgnoringSafeArea(.all)
@@ -30,17 +28,14 @@ struct VanishAccountPopUpAlert: View {
                         .font(Font(titleFont))
                         .foregroundColor(Color(theme.colors.primaryText))
                         .padding(10)
-                    Image("settings-user")
-                        .renderingMode(.template)
+                    Image("vanish-account-two-tone")
                         .resizable()
-                        .scaledToFit()
-                        .frame(width: 80, height: 80, alignment: .center)
-                        .foregroundColor(Color(theme.colors.link))
-                    Text("\(bullet) \(LocalizedStrings.bullet1)\n \(bullet) \(LocalizedStrings.bullet2). \n\(bullet) \(LocalizedStrings.bullet3) [\(LocalizedStrings.linkTitle)](https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing).")
-                    .multilineTextAlignment(.leading)
-                    .font(Font(bodyFont))
-                    .padding(25)
-                    .foregroundColor(Color(theme.colors.primaryText))
+                        .scaledToFill()
+                        .frame(width: 85, height: 85, alignment: .center)
+                    BulletListView(theme: theme)
+                        .background(Color(theme.colors.paperBackground))
+                        .padding([.top, .leading, .trailing], 20)
+                    
                     Divider()
                     Button(action: {
                         withAnimation(.linear(duration: 0.3)) {
@@ -49,7 +44,7 @@ struct VanishAccountPopUpAlert: View {
                     }, label: {
                         Text(CommonStrings.okTitle)
                             .frame(maxWidth: .infinity)
-                            .frame(height: 54, alignment: .center)
+                            .frame(height: 43, alignment: .center)
                             .foregroundColor(Color(theme.colors.link))
                             .font(Font(titleFont))
                     }).buttonStyle(PlainButtonStyle())
@@ -60,4 +55,61 @@ struct VanishAccountPopUpAlert: View {
             }
         }
     }
+}
+
+struct BulletListView: View {
+    
+    var theme: Theme
+    
+    enum LocalizedStrings {
+        static let title = WMFLocalizedString("vanish-modal-title", value: "Vanishing request", comment: "Title text fot the vanish request modal")
+        static let firstItem = WMFLocalizedString("vanish-modal-item", value: "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator.", comment: "Text indicating that the process of vanishing might take days to be completed")
+        static let secondItem = WMFLocalizedString("vanish-modal-item-2", value: "If you are unsure if your request went through please check your Mail app", comment: "Text indicating that the user should check if their email was sent in the Mail app used to send the message")
+        static let thirdItem = WMFLocalizedString("vanish-modal-item-3", value: "If you have further questions about vanishing please visit", comment: "Text indicating that more infor is in the following link")
+        static let linkTitle = WMFLocalizedString("vanishing-link-title", value: "Wikipedia:Courtesy vanishing", comment: "Courtesy vanishing page title")
+    }
+    
+    
+    private let bodyFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
+    
+    var body: some View {
+        VStack {
+            HStack {
+                BulletView(theme: theme, height: 52)
+                Text(LocalizedStrings.firstItem)
+                    .font(Font(bodyFont))
+                    .frame(width: 220, alignment: .leading)
+            }
+            HStack {
+                BulletView(theme: theme, height: 40)
+                Text(LocalizedStrings.secondItem)
+                    .font(Font(bodyFont))
+                    .frame(width: 220, alignment: .leading)
+            }
+            HStack {
+                BulletView(theme: theme, height: 44)
+                Text("\(LocalizedStrings.thirdItem) [\(LocalizedStrings.linkTitle)](https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing)")
+                    .font(Font(bodyFont))
+                    .frame(width: 220, alignment: .leading)
+                    .padding(.bottom, 10)
+            }
+        }
+    }
+    
+}
+
+struct BulletView: View {
+    
+    var theme: Theme
+    var height: CGFloat
+    
+    var body: some View {
+        VStack {
+            Circle()
+                .frame(width: 3, height: 3, alignment: .top)
+                .foregroundColor(Color(theme.colors.primaryText))
+            Spacer()
+        }.frame(minHeight: 20, maxHeight: height, alignment: .leading)
+    }
+    
 }

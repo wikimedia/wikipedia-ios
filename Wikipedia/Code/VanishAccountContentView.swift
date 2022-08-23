@@ -9,20 +9,22 @@ struct VanishAccountContentView: View {
         static let title = WMFLocalizedString("vanish-account-title", value: "Vanishing process", comment: "Title for the vanishing process screen")
         static let description = WMFLocalizedString("vanish-account-description", value: "Vanishing is a last resort and should only be used when you wish to stop editing forever and also to hide as many of your past associations as possible.\n\nTo initiate the vanishing process please provide the following:", comment: "Description for the vanishing process")
         static let usernameFieldTitle = WMFLocalizedString("vanish-account-username-field", value: "Username and user page", comment: "Title for the username and userpage form field")
-        static let additionalInformationFieldTitle = WMFLocalizedString("vanish-account-additional-information-field", value: "Additional information", comment: "Titl for the additional information form field")
+        static let additionalInformationFieldTitle = WMFLocalizedString("vanish-account-additional-information-field", value: "Additional information", comment: "Title for the additional information form field")
         static let additionalInformationFieldPlaceholder = WMFLocalizedString("vanish-account-additional-information-placeholder", value: "Optional", comment: "Placeholder for the additional information form field")
-        static let bottomText = WMFLocalizedString("vanish-account-bottom-text", value: "Account deletion on Wikipedia is done by changing your account name to make it so others cannot recognize your contributions in a process called account vanishing. You may use the form below to request a courtesy vanishing. Vanishing does not guarantee complete anonymity or remove contributions to the projects.", comment: "Text") // TODO - check string formatting and link
+        static let bottomText = WMFLocalizedString("vanish-account-bottom-text", value: "Account deletion on Wikipedia is done by changing your account name to make it so others cannot recognize your contributions in a process called account vanishing. You may use the form below to request a", comment: "Informative text on accounting deletion on Wikipedia") // TODO - check string formatting and link
+        
+        static let courtesyVanishing = WMFLocalizedString("vanish-account-courtesy-vanishing", value: "courtesy vanishing. ", comment: "Text for courtesy vaninshing link")
+        static let bottomTextContinuation = WMFLocalizedString("vanish-account-bottom-text-continuation", value: "Vanishing does not guarantee complete anonymity or remove contributions to the projects.", comment: "Continuation on informative text about account deletion on Wikipedia")
         static let buttonText = WMFLocalizedString("vanish-account-button-text", value: "Send request", comment: "Text for button on vanish account request screen")
     }
     
     var theme: Theme
     var username: String
     
-    private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .bold, size: 18) // review fonts
+    private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .bold, size: 18)
     private let bodyFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 13)
     
     var body: some View {
-        // TODO : review all fonts and colors
         ZStack {
             VStack {
                 VStack {
@@ -72,7 +74,7 @@ struct VanishAccountContentView: View {
                     Spacer()
                 }.background(Color(theme.colors.paperBackground))
                 VStack {
-                    Text(LocalizedStrings.bottomText)
+                    Text("\(LocalizedStrings.bottomText) [\(LocalizedStrings.courtesyVanishing)](https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing) \(LocalizedStrings.bottomTextContinuation)")
                         .foregroundColor(Color(theme.colors.secondaryText))
                         .fontWeight(.light)
                         .multilineTextAlignment(.leading)
@@ -103,7 +105,6 @@ struct VanishAccountContentView: View {
             VanishAccountPopUpAlert(theme:theme, isVisible: $showPopUp)
         }
     }
-    
     
     func getMailBody() -> String {
         let mainText = WMFLocalizedString("vanish-account-email-text", value: "Hello,\nThis is a request to vanish my Wikipedia account.", comment: "Email content for the vanishing account request")
