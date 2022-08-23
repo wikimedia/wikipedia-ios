@@ -113,6 +113,7 @@
 "action-update" = "Update";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "add-citation-title" = "Add citation";
+"addtional-information-email-title" = "Additional information";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
 "app-store-release-notes" = "Fully customizable and easier to read Explore feed. Localization, performance improvements and bug fixes.";
@@ -1017,8 +1018,16 @@
 "vanish-account-bottom-text" = "Account deletion on Wikipedia is done by changing your account name to make it so others cannot recognize your contributions in a process called account vanishing. You may use the form below to request a courtesy vanishing. Vanishing does not guarantee complete anonymity or remove contributions to the projects.";
 "vanish-account-button-text" = "Send request";
 "vanish-account-description" = "Vanishing is a last resort and should only be used when you wish to stop editing forever and also to hide as many of your past associations as possible.\n\nTo initiate the vanishing process please provide the following:";
+"vanish-account-email-text" = "Hello,\nThis is a request to vanish my Wikipedia account.";
+"vanish-account-email-username-title" = "Username and userpage";
 "vanish-account-title" = "Vanishing process";
 "vanish-account-username-field" = "Username and user page";
+"vanish-modal-item" = "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator.";
+"vanish-modal-item-2" = "If you are unsure if your request went through please check your Mail app";
+"vanish-modal-item-3" = "If you have further questions about vanishing please visit";
+"vanish-modal-title" = "Vanish request";
+"vanishing-link-title" = "Wikipedia:Courtesy vanishing";
+"vanishing-request-email-title" = "Request for courtesy vanishing";
 "variants-alert-dismiss-button" = "No thanks";
 "variants-alert-preferences-button" = "Review your preferences";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";

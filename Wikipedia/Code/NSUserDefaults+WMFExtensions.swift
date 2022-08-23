@@ -501,6 +501,15 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
             set(newValue, forKey: WMFShowNotificationsExploreFeedCard)
         }
     }
+    
+    var wmf_shouldShowVanishingRequestModal: Bool {
+        get {
+            return bool(forKey: "ShowVanishingModal")
+        }
+        set {
+            set(newValue, forKey: "ShowVanishingModal")
+        }
+    }
 
 #if UI_TEST
     @objc func wmf_isFastlaneSnapshotInProgress() -> Bool {

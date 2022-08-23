@@ -113,6 +113,7 @@
 "action-update" = "Title of the update action.";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
 "add-citation-title" = "Title for add citation action";
+"addtional-information-email-title" = "";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement {{Identical|No thanks}}";
 "app-store-keywords" = "Short list of keywords describing the app for the app store. It is required that these are individual words, not phrases, and are comma separated.";
 "app-store-release-notes" = "Short summary of what is new in this version of the app for the app store";
@@ -1017,8 +1018,16 @@
 "vanish-account-bottom-text" = "Text";
 "vanish-account-button-text" = "Text for button on vanish account request screen";
 "vanish-account-description" = "Description for the vanishing process";
+"vanish-account-email-text" = "Email content for the vanishing account request";
+"vanish-account-email-username-title" = "No comment provided by engineer.";
 "vanish-account-title" = "Title for the vanishing process screen";
 "vanish-account-username-field" = "Title for the username and userpage form field";
+"vanish-modal-item" = "";
+"vanish-modal-item-2" = "No comment provided by engineer.";
+"vanish-modal-item-3" = "";
+"vanish-modal-title" = "Title text fot the vanish request modal";
+"vanishing-link-title" = "Courtesy vanishing page title";
+"vanishing-request-email-title" = "Title for vanishing request email";
 "variants-alert-dismiss-button" = "Dismiss button on alert used to inform users about variant support.";
 "variants-alert-preferences-button" = "Action button on alert used to inform users about variant support.";
 "welcome-exploration-explore-feed-description" = "Description for Explore feed";
