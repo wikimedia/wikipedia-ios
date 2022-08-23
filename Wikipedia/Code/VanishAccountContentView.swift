@@ -26,81 +26,86 @@ struct VanishAccountContentView: View {
     
     var body: some View {
         ZStack {
-            VStack {
-                VStack {
-                    Text(LocalizedStrings.title)
-                        .foregroundColor(.black)
-                        .fontWeight(.light)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(Font(titleFont))
-                        .frame(maxWidth: .infinity, maxHeight: 40)
-                        .padding([.leading, .trailing, .top], 20)
-                    Text(LocalizedStrings.description)
-                        .fontWeight(.light)
-                        .foregroundColor(Color(theme.colors.secondaryText))
-                        .multilineTextAlignment(.leading)
-                        .font(Font(bodyFont))
-                        .padding([.leading, .trailing, .bottom], 20)
-                    
-                }.background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
-                VStack {
-                    Text(LocalizedStrings.usernameFieldTitle)
-                        .foregroundColor(Color(theme.colors.secondaryText))
-                        .fontWeight(.light)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.body)
-                        .padding([.top], 10)
-                        .padding([.leading, .trailing], 20)
-                    Text(username)
-                        .foregroundColor(Color(theme.colors.secondaryText))
-                        .fontWeight(.light)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.body)
-                        .padding([.bottom], 5)
-                        .padding([.top], 2)
-                        .padding([.leading, .trailing], 20)
-                    Divider().padding([.leading], 20)
-                    Text(LocalizedStrings.additionalInformationFieldTitle)
-                        .foregroundColor(Color(theme.colors.link))
-                        .fontWeight(.light)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.body)
-                        .padding([.leading, .trailing], 15)
-                        .padding([.top], 5)
-                    TextView(placeholder: LocalizedStrings.additionalInformationFieldPlaceholder, theme: theme, text: $userInput)
-                    .padding([.leading, .trailing], 10)
-                    .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 100)
-                    
-                    Spacer()
-                }.background(Color(theme.colors.paperBackground))
-                VStack {
-                    Text("\(LocalizedStrings.bottomText) [\(LocalizedStrings.courtesyVanishing)](https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing) \(LocalizedStrings.bottomTextContinuation)")
-                        .foregroundColor(Color(theme.colors.secondaryText))
-                        .fontWeight(.light)
-                        .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(Font(bodyFont))
-                        .padding(20)
-                    
-                    Spacer()
-                    Button(action: {
-                        print(userInput)
-                        withAnimation(.linear(duration: 0.3)) {
-                            showPopUp.toggle() // testing the modal, remove
+            GeometryReader { proxy in
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack {
+                        VStack {
+                            Text(LocalizedStrings.title)
+                                .foregroundColor(.black)
+                                .fontWeight(.light)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(Font(titleFont))
+                                .frame(maxWidth: .infinity, maxHeight: 40)
+                                .padding([.leading, .trailing, .top], 20)
+                            Text(LocalizedStrings.description)
+                                .fontWeight(.light)
+                                .foregroundColor(Color(theme.colors.secondaryText))
+                                .multilineTextAlignment(.leading)
+                                .font(Font(bodyFont))
+                                .padding([.leading, .trailing, .bottom], 20)
+                            
+                        }.background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
+                        VStack {
+                            Text(LocalizedStrings.usernameFieldTitle)
+                                .foregroundColor(Color(theme.colors.secondaryText))
+                                .fontWeight(.light)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.body)
+                                .padding([.top], 10)
+                                .padding([.leading, .trailing], 20)
+                            Text(username)
+                                .foregroundColor(Color(theme.colors.secondaryText))
+                                .fontWeight(.light)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.body)
+                                .padding([.bottom], 5)
+                                .padding([.top], 2)
+                                .padding([.leading, .trailing], 20)
+                            Divider().padding([.leading], 20)
+                            Text(LocalizedStrings.additionalInformationFieldTitle)
+                                .foregroundColor(Color(theme.colors.link))
+                                .fontWeight(.light)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.body)
+                                .padding([.leading, .trailing], 15)
+                                .padding([.top], 5)
+                            TextView(placeholder: LocalizedStrings.additionalInformationFieldPlaceholder, theme: theme, text: $userInput)
+                            .padding([.leading, .trailing], 10)
+                            .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 100)
+                            Spacer()
+                        }.background(Color(theme.colors.paperBackground))
+                        VStack {
+                            Text("\(LocalizedStrings.bottomText) [\(LocalizedStrings.courtesyVanishing)](https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing) \(LocalizedStrings.bottomTextContinuation)")
+                                .foregroundColor(Color(theme.colors.secondaryText))
+                                .fontWeight(.light)
+                                .multilineTextAlignment(.leading)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(Font(bodyFont))
+                                .padding(20)
+                            
+                            Spacer()
+                            Button(action: {
+                                print(userInput)
+                                withAnimation(.linear(duration: 0.3)) {
+                                    showPopUp.toggle() // testing the modal, remove
+                                }
+                            }, label: {
+                                Text(LocalizedStrings.buttonText)
+                                    .font(Font(titleFont))
+                                    .foregroundColor(Color(theme.colors.link))
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .frame(width: 335, height: 46)
+                                    .background(Color(theme.colors.paperBackground))
+                                    .cornerRadius(8)
+                                    .padding()
+                            })
+                            Spacer()
                         }
-                    }, label: {
-                        Text(LocalizedStrings.buttonText)
-                            .font(Font(titleFont))
-                            .foregroundColor(Color(theme.colors.link))
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .frame(width: 335, height: 46)
-                            .background(Color(theme.colors.paperBackground))
-                            .cornerRadius(8)
-                            .padding()
-                    })
-                    Spacer()
-                }.background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
+                    }
+                    .frame(minHeight: proxy.size.height)
+                }
+                .background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
             }
             VanishAccountPopUpAlert(theme:theme, isVisible: $showPopUp)
         }

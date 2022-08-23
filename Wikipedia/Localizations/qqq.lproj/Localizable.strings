@@ -1014,7 +1014,7 @@
 "unknown-generic-text" = "Default text used in places where no contextual information is provided";
 "uzbek-variants-alert-body" = "Body text of alert used to inform users about Uzbek variant support. Please do not translate the newlines (\n) or Uzbek characters (ўзбекча кирилл, etc.).";
 "uzbek-variants-alert-title" = "Title of alert used to inform users about Uzbek variant support.";
-"vanish-account-additional-information-field" = "Titl for the additional information form field";
+"vanish-account-additional-information-field" = "Title for the additional information form field";
 "vanish-account-additional-information-placeholder" = "Placeholder for the additional information form field";
 "vanish-account-bottom-text" = "Informative text on accounting deletion on Wikipedia";
 "vanish-account-bottom-text-continuation" = "Continuation on informative text about account deletion on Wikipedia";
