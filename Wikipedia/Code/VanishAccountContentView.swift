@@ -11,8 +11,7 @@ struct VanishAccountContentView: View {
         static let usernameFieldTitle = WMFLocalizedString("vanish-account-username-field", value: "Username and user page", comment: "Title for the username and userpage form field")
         static let additionalInformationFieldTitle = WMFLocalizedString("vanish-account-additional-information-field", value: "Additional information", comment: "Title for the additional information form field")
         static let additionalInformationFieldPlaceholder = WMFLocalizedString("vanish-account-additional-information-placeholder", value: "Optional", comment: "Placeholder for the additional information form field")
-        static let bottomText = WMFLocalizedString("vanish-account-bottom-text", value: "Account deletion on Wikipedia is done by changing your account name to make it so others cannot recognize your contributions in a process called account vanishing. You may use the form below to request a", comment: "Informative text on accounting deletion on Wikipedia") // TODO - check string formatting and link
-        
+        static let bottomText = WMFLocalizedString("vanish-account-bottom-text", value: "Account deletion on Wikipedia is done by changing your account name to make it so others cannot recognize your contributions in a process called account vanishing. You may use the form below to request a", comment: "Informative text on accounting deletion on Wikipedia")
         static let courtesyVanishing = WMFLocalizedString("vanish-account-courtesy-vanishing", value: "courtesy vanishing. ", comment: "Text for courtesy vaninshing link")
         static let bottomTextContinuation = WMFLocalizedString("vanish-account-bottom-text-continuation", value: "Vanishing does not guarantee complete anonymity or remove contributions to the projects.", comment: "Continuation on informative text about account deletion on Wikipedia")
         static let buttonText = WMFLocalizedString("vanish-account-button-text", value: "Send request", comment: "Text for button on vanish account request screen")
@@ -21,8 +20,9 @@ struct VanishAccountContentView: View {
     var theme: Theme
     var username: String
     
-    private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .bold, size: 18)
+    private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .medium, size: 16)
     private let bodyFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 13)
+    private let fieldTitleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .subheadline, weight: .regular, size: 15)
     
     private var extraBottomPaddingiOS13: CGFloat {
         // iOS 13doesn't add a bottom scroll view content inset with the keyboard like 14 & 15
@@ -117,6 +117,7 @@ struct VanishAccountContentView: View {
                     .padding([.bottom], extraBottomPaddingiOS13)
                     .frame(minHeight: proxy.size.height)
                 }
+                
                 .background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
             }
             VanishAccountPopUpAlert(theme:theme, isVisible: $showPopUp)
