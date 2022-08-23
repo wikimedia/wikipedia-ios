@@ -90,7 +90,7 @@ struct VanishAccountContentView: View {
                     Button(action: {
                         //                    openMailClient()
                         withAnimation(.linear(duration: 0.3)) {
-                            showPopUp.toggle() //testing the modal, remove
+                            showPopUp.toggle() // testing the modal, remove
                         }
                     }, label: {
                         Text(LocalizedStrings.buttonText)

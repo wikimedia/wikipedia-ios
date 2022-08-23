@@ -10,11 +10,10 @@ struct VanishAccountPopUpAlert: View {
     private let bodyFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
     
     enum LocalizedStrings {
-        // TODO add comments to strings
         static let title = WMFLocalizedString("vanish-modal-title", value: "Vanish request", comment: "Title text fot the vanish request modal")
-        static let bullet1 = WMFLocalizedString("vanish-modal-item", value: "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator.", comment: " ")
-        static let bullet2 = WMFLocalizedString("vanish-modal-item-2", value: "If you are unsure if your request went through please check your Mail app", comment: "")
-        static let bullet3 = WMFLocalizedString("vanish-modal-item-3", value: "If you have further questions about vanishing please visit", comment: " ")
+        static let firstItem = WMFLocalizedString("vanish-modal-item", value: "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator.", comment: "Text indicating that the process of vanishing might take days to be completed")
+        static let secondItem = WMFLocalizedString("vanish-modal-item-2", value: "If you are unsure if your request went through please check your Mail app", comment: "Text indicating that the user should check if their email was sent in the Mail app used to send the message")
+        static let thirdItem = WMFLocalizedString("vanish-modal-item-3", value: "If you have further questions about vanishing please visit", comment: "Text indicating that more infor is in the following link")
         static let linkTitle = WMFLocalizedString("vanishing-link-title", value: "Wikipedia:Courtesy vanishing", comment: "Courtesy vanishing page title")
     }
 
@@ -30,13 +29,11 @@ struct VanishAccountPopUpAlert: View {
                         .font(Font(titleFont))
                         .foregroundColor(Color(theme.colors.primaryText))
                         .padding(10)
-                    Image("settings-user")
-                        .renderingMode(.template)
+                    Image("vanish-account-2")
                         .resizable()
-                        .scaledToFit()
-                        .frame(width: 80, height: 80, alignment: .center)
-                        .foregroundColor(Color(theme.colors.link))
-                    Text("\(bullet) \(LocalizedStrings.bullet1)\n \(bullet) \(LocalizedStrings.bullet2). \n\(bullet) \(LocalizedStrings.bullet3) [\(LocalizedStrings.linkTitle)](https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing).")
+                        .scaledToFill()
+                        .frame(width: 85, height: 85, alignment: .center)
+                    Text("\(bullet) \(LocalizedStrings.firstItem)\n \(bullet) \(LocalizedStrings.secondItem). \n\(bullet) \(LocalizedStrings.thirdItem) [\(LocalizedStrings.linkTitle)](https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing).")
                     .multilineTextAlignment(.leading)
                     .font(Font(bodyFont))
                     .padding(25)
@@ -49,7 +46,7 @@ struct VanishAccountPopUpAlert: View {
                     }, label: {
                         Text(CommonStrings.okTitle)
                             .frame(maxWidth: .infinity)
-                            .frame(height: 54, alignment: .center)
+                            .frame(height: 43, alignment: .center)
                             .foregroundColor(Color(theme.colors.link))
                             .font(Font(titleFont))
                     }).buttonStyle(PlainButtonStyle())
