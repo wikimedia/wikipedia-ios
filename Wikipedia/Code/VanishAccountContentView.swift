@@ -70,9 +70,10 @@ struct VanishAccountContentView: View {
                                 .padding([.leading, .trailing], 15)
                                 .padding([.top], 5)
                             TextView(placeholder: LocalizedStrings.additionalInformationFieldPlaceholder, theme: theme, text: $userInput)
-                            .padding([.leading, .trailing], 10)
-                            .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 100)
+                                .padding([.leading, .trailing], 10)
+                                .frame(maxWidth: .infinity, minHeight: 100)
                             Spacer()
+                                .frame(height: 12)
                         }.background(Color(theme.colors.paperBackground))
                         VStack {
                             Text("\(LocalizedStrings.bottomText) [\(LocalizedStrings.courtesyVanishing)](https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing) \(LocalizedStrings.bottomTextContinuation)")
