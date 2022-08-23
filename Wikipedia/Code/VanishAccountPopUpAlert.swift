@@ -7,7 +7,6 @@ struct VanishAccountPopUpAlert: View {
     @Binding var isVisible: Bool
     
     private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .semibold, size: 18)
-    private let bodyFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
     
     enum LocalizedStrings {
         static let title = WMFLocalizedString("vanish-modal-title", value: "Vanishing request", comment: "Title text fot the vanish request modal")
