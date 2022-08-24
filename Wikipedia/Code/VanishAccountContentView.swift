@@ -117,6 +117,7 @@ struct VanishAccountContentView: View {
                 if shouldShowModal {
                     withAnimation(.linear(duration: 0.3)) {
                         toggleModalVisibility.toggle()
+                        shouldShowModal.toggle()
                     }
                 }
             }
