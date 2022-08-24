@@ -15,7 +15,7 @@ struct VanishAccountContentView: View {
         static let buttonText = WMFLocalizedString("vanish-account-button-text", value: "Send request", comment: "Text for button on vanish account request screen")
     }
     
-    @SwiftUI.State var userInput = ""
+    @SwiftUI.ObservedObject var userInput: UserInput
     @SwiftUI.State var toggleModalVisibility = false
     @SwiftUI.State var shouldShowModal = false
     
@@ -77,8 +77,8 @@ struct VanishAccountContentView: View {
                                 .font(Font(fieldTitleFont))
                                 .padding([.leading, .trailing], 15)
                                 .padding([.top], 5)
-                            TextView(placeholder: LocalizedStrings.additionalInformationFieldPlaceholder, theme: theme, text: $userInput)
-                                .padding([.leading, .trailing], 10)
+                            TextView(placeholder: LocalizedStrings.additionalInformationFieldPlaceholder, theme: theme, text: $userInput.text)
+                                .padding([.leading, .trailing], 15)
                                 .frame(maxWidth: .infinity, minHeight: 100)
                             Spacer()
                                 .frame(height: 12)
@@ -95,7 +95,6 @@ struct VanishAccountContentView: View {
                             Spacer()
                             Button(action: {
                                 openMailClient()
-                                print(userInput)
                             }, label: {
                                 Text(LocalizedStrings.buttonText)
                                     .font(Font(buttonFont))
@@ -124,7 +123,7 @@ struct VanishAccountContentView: View {
                     }
                 }
             }
-            VanishAccountPopUpAlert(theme:theme, isVisible: $toggleModalVisibility)
+            VanishAccountPopUpAlert(theme:theme, isVisible: $toggleModalVisibility, userInput: $userInput.text)
         }
         
     }
@@ -133,7 +132,7 @@ struct VanishAccountContentView: View {
         let mainText = WMFLocalizedString("vanish-account-email-text", value: "Hello,\nThis is a request to vanish my Wikipedia account.", comment: "Email content for the vanishing account request")
         let usernameAndPage = WMFLocalizedString("vanish-account-email-username-title", value: "Username and userpage", comment: "")
         let addtionalInformationTitle = WMFLocalizedString("addtional-information-email-title", value: "Additional information", comment: " ")
-        let emailBody = "\(mainText)\n\n\(usernameAndPage): \(username)\n\n\(addtionalInformationTitle): \(userInput)"
+        let emailBody = "\(mainText)\n\n\(usernameAndPage): \(username)\n\n\(addtionalInformationTitle): \(userInput.text)"
         return emailBody
     }
     
@@ -162,15 +161,15 @@ struct TextView: UIViewRepresentable {
     let theme: Theme
     @Binding var text: String
     
-    typealias UIViewType = SwiftUIThemableTextView
+    typealias UIViewType = SwiftUITextView
     
     func makeUIView(context: UIViewRepresentableContext<Self>) -> UIViewType {
         let textView = UIViewType()
-        textView.placeholder = placeholder
-        textView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: textView.traitCollection)
-        textView._delegate = context.coordinator
-        textView.apply(theme: theme)
-        textView.clipsToBounds = true
+        textView.setup(placeholder: placeholder, theme: theme)
+        textView.delegate = context.coordinator
+        let font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: textView.traitCollection)
+        textView.font = font
+        textView.placeholderLabel.font = font
         return textView
     }
     
@@ -179,9 +178,7 @@ struct TextView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIViewType, context: UIViewRepresentableContext<Self>) {
-        if !text.isEmpty {
-            uiView.text = text
-        }
+        uiView.text = text
     }
     
     class Coordinator: NSObject, UITextViewDelegate {
@@ -195,9 +192,7 @@ struct TextView: UIViewRepresentable {
         }
         
         func textViewDidChange(_ textView: UITextView) {
-            if textView.text != placeholder {
-                text = textView.text
-            }
+            text = textView.text
         }
     }
 }
