@@ -1,5 +1,4 @@
 import SwiftUI
-import UIKit
 import WMF
 
 class VanishAccountCustomUIHostingController: UIHostingController<VanishAccountContentView> {
