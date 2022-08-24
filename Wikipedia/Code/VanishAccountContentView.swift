@@ -44,7 +44,7 @@ struct VanishAccountContentView: View {
                     VStack {
                         VStack {
                             Text(LocalizedStrings.title)
-                                .foregroundColor(.black)
+                                .foregroundColor(Color(theme.colors.primaryText))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(Font(titleFont))
                                 .frame(maxWidth: .infinity, maxHeight: 40)

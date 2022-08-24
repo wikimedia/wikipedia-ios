@@ -8,6 +8,9 @@ struct VanishAccountPopUpAlert: View {
     
     private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .semibold, size: 18)
     
+    @SwiftUI.State private var thisWidth: CGFloat = 300
+    @SwiftUI.State private var orientation = UIDeviceOrientation.unknown
+    
     enum LocalizedStrings {
         static let title = WMFLocalizedString("vanish-modal-title", value: "Vanishing request", comment: "Title text fot the vanish request modal")
         static let firstItem = WMFLocalizedString("vanish-modal-item", value: "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator.", comment: "Text indicating that the process of vanishing might take days to be completed")
@@ -34,7 +37,7 @@ struct VanishAccountPopUpAlert: View {
                     BulletListView(theme: theme)
                         .background(Color(theme.colors.paperBackground))
                         .padding([.top, .leading, .trailing], 20)
-                    
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     Divider()
                     Button(action: {
                         withAnimation(.linear(duration: 0.3)) {
@@ -48,10 +51,22 @@ struct VanishAccountPopUpAlert: View {
                             .font(Font(titleFont))
                     }).buttonStyle(PlainButtonStyle())
                 }
-                .frame(maxWidth: 300)
+                .frame(maxWidth: thisWidth)
                 .background(Color(theme.colors.paperBackground))
                 .cornerRadius(14)
+                .onRotate { newOr in
+                    orientation = newOr
+                    updateOrientation()
+                }
             }
+        }
+    }
+    
+    private func updateOrientation() {
+        if orientation.isPortrait {
+            thisWidth = 300
+        } else {
+            thisWidth = 800
         }
     }
 }
@@ -59,6 +74,7 @@ struct VanishAccountPopUpAlert: View {
 struct BulletListView: View {
     
     var theme: Theme
+    @SwiftUI.State var orientation = UIDeviceOrientation.unknown
     
     enum LocalizedStrings {
         static let title = WMFLocalizedString("vanish-modal-title", value: "Vanishing request", comment: "Title text fot the vanish request modal")
@@ -68,35 +84,39 @@ struct BulletListView: View {
         static let linkTitle = WMFLocalizedString("vanishing-link-title", value: "Wikipedia:Courtesy vanishing", comment: "Courtesy vanishing page title")
     }
     
-    
     private let bodyFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
-    
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    var sizeClassPadding: CGFloat {
-        horizontalSizeClass == .regular ? 180 : 0
-    }
     
     var body: some View {
         VStack {
             HStack {
-                BulletView(theme: theme, height: 52)
+                BulletView(theme: theme, height: updateHeight(height: 52))
                 Text(LocalizedStrings.firstItem)
                     .font(Font(bodyFont))
-                    .frame(width: 220, alignment: .leading)
+                    .frame(maxWidth: .infinity, minHeight: updateHeight(height: 90), alignment: .leading)
             }
             HStack {
-                BulletView(theme: theme, height: 40)
+                BulletView(theme: theme, height: updateHeight(height: 40))
                 Text(LocalizedStrings.secondItem)
                     .font(Font(bodyFont))
-                    .frame(width: 220, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             HStack {
-                BulletView(theme: theme, height: 44)
+                BulletView(theme: theme, height: updateHeight(height: 44))
                 Text("\(LocalizedStrings.thirdItem) [\(LocalizedStrings.linkTitle)](https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing)")
                     .font(Font(bodyFont))
-                    .frame(width: 220, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, 10)
             }
+        }.onRotate { newOr in
+            orientation = newOr
+        }
+    }
+    
+    func updateHeight(height: CGFloat) -> CGFloat {
+        if orientation.isLandscape {
+            return height - 30
+        } else {
+            return height
         }
     }
     
@@ -113,7 +133,25 @@ struct BulletView: View {
                 .frame(width: 3, height: 3, alignment: .top)
                 .foregroundColor(Color(theme.colors.primaryText))
             Spacer()
-        }.frame(minHeight: 20, maxHeight: height, alignment: .leading)
+        }.frame(maxHeight: height, alignment: .leading)
     }
     
+}
+
+struct DeviceRotationViewModifier: ViewModifier {
+    let action: (UIDeviceOrientation) -> Void
+    
+    func body(content: Content) -> some View {
+        content
+            .onAppear()
+            .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+                action(UIDevice.current.orientation)
+            }
+    }
+}
+
+extension View {
+    func onRotate(perform action: @escaping (UIDeviceOrientation) -> Void) -> some View {
+        self.modifier(DeviceRotationViewModifier(action: action))
+    }
 }
