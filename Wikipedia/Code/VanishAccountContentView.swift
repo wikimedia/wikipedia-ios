@@ -90,13 +90,10 @@ struct VanishAccountContentView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(Font(bodyFont))
                                 .padding(20)
-                            
                             Spacer()
                             Button(action: {
                                 openMailClient()
                                 print(userInput)
-                                
-                                
                             }, label: {
                                 Text(LocalizedStrings.buttonText)
                                     .font(Font(buttonFont))
@@ -114,7 +111,6 @@ struct VanishAccountContentView: View {
                     .padding([.bottom], extraBottomPaddingiOS13)
                     .frame(minHeight: proxy.size.height)
                 }
-                
                 .background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
