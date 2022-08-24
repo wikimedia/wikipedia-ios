@@ -78,7 +78,7 @@ struct VanishAccountContentView: View {
                                 .padding([.leading, .trailing], 15)
                                 .padding([.top], 5)
                             TextView(placeholder: LocalizedStrings.additionalInformationFieldPlaceholder, theme: theme, text: $userInput.text)
-                                .padding([.leading, .trailing], 10)
+                                .padding([.leading, .trailing], 15)
                                 .frame(maxWidth: .infinity, minHeight: 100)
                             Spacer()
                                 .frame(height: 12)
@@ -161,15 +161,15 @@ struct TextView: UIViewRepresentable {
     let theme: Theme
     @Binding var text: String
     
-    typealias UIViewType = SwiftUIThemableTextView
+    typealias UIViewType = SwiftUITextView
     
     func makeUIView(context: UIViewRepresentableContext<Self>) -> UIViewType {
         let textView = UIViewType()
-        textView.placeholder = placeholder
-        textView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: textView.traitCollection)
-        textView._delegate = context.coordinator
-        textView.apply(theme: theme)
-        textView.clipsToBounds = true
+        textView.setup(placeholder: placeholder, theme: theme)
+        textView.delegate = context.coordinator
+        let font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: textView.traitCollection)
+        textView.font = font
+        textView.placeholderLabel.font = font
         return textView
     }
     
@@ -178,11 +178,7 @@ struct TextView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIViewType, context: UIViewRepresentableContext<Self>) {
-        if text.isEmpty {
-            uiView.isShowingPlaceholder = true
-        } else {
-            uiView.text = text
-        }
+        uiView.text = text
     }
     
     class Coordinator: NSObject, UITextViewDelegate {
@@ -196,9 +192,7 @@ struct TextView: UIViewRepresentable {
         }
         
         func textViewDidChange(_ textView: UITextView) {
-            if textView.text != placeholder {
-                text = textView.text
-            }
+            text = textView.text
         }
     }
 }
