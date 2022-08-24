@@ -73,6 +73,11 @@ struct BulletListView: View {
     
     private let bodyFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
     
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    var sizeClassPadding: CGFloat {
+        horizontalSizeClass == .regular ? 180 : 0
+    }
+    
     var body: some View {
         VStack {
             HStack {

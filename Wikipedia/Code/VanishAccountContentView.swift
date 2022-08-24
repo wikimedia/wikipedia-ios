@@ -48,14 +48,14 @@ struct VanishAccountContentView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(Font(titleFont))
                                 .frame(maxWidth: .infinity, maxHeight: 40)
-                                .padding([.leading, .trailing, .top], 20)
                             Text(LocalizedStrings.description)
                                 .foregroundColor(Color(theme.colors.secondaryText))
-                                .multilineTextAlignment(.leading)
                                 .font(Font(bodyFont))
-                                .padding([.leading, .trailing, .bottom], 20)
-                            
-                        }.background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(20)
                         VStack {
                             Text(LocalizedStrings.usernameFieldTitle)
                                 .foregroundColor(Color(theme.colors.secondaryText))
@@ -82,12 +82,14 @@ struct VanishAccountContentView: View {
                                 .frame(maxWidth: .infinity, minHeight: 100)
                             Spacer()
                                 .frame(height: 12)
-                        }.background(Color(theme.colors.paperBackground))
+                        }
+                        .background(Color(theme.colors.paperBackground))
+                        .frame(maxWidth: .infinity, minHeight: 300)
                         VStack {
                             Text("\(LocalizedStrings.bottomText) [\(LocalizedStrings.courtesyVanishing)](https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing) \(LocalizedStrings.bottomTextContinuation)")
                                 .foregroundColor(Color(theme.colors.secondaryText))
                                 .multilineTextAlignment(.leading)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .frame(maxWidth: .infinity, minHeight: 100, alignment: .leading)
                                 .font(Font(bodyFont))
                                 .padding(20)
                             Spacer()
@@ -98,8 +100,8 @@ struct VanishAccountContentView: View {
                                     .font(Font(buttonFont))
                                     .foregroundColor(Color(theme.colors.link))
                                     .padding()
-                                    .frame(maxWidth: .infinity)
-                                    .frame(width: 335, height: 46)
+                                    .frame(minWidth: 335)
+                                    .frame(height: 46)
                                     .background(Color(theme.colors.paperBackground))
                                     .cornerRadius(8)
                                     .padding()
@@ -109,6 +111,7 @@ struct VanishAccountContentView: View {
                     }
                     .padding([.bottom], extraBottomPaddingiOS13)
                     .frame(minHeight: proxy.size.height)
+                    .frame(maxWidth: .infinity)
                 }
                 .background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
             }
@@ -122,6 +125,7 @@ struct VanishAccountContentView: View {
             }
             VanishAccountPopUpAlert(theme:theme, isVisible: $toggleModalVisibility, userInput: $userInput.text)
         }
+        
     }
     
     func getMailBody() -> String {
