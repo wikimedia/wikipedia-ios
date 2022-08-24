@@ -1020,7 +1020,7 @@
 "vanish-account-bottom-text-continuation" = "Vanishing does not guarantee complete anonymity or remove contributions to the projects.";
 "vanish-account-button-text" = "Send request";
 "vanish-account-courtesy-vanishing" = "courtesy vanishing. ";
-"vanish-account-description" = "Vanishing is a last resort and should only be used when you wish to stop editing forever and also to hide as many of your past associations as possible.\n\nTo initiate the vanishing process please provide the following:";
+"vanish-account-description" = "Vanishing is a last resort and should only be used when you wish to stop editing forever and also to hide as many of your past associations as possible.\n\nTo initiate the vanishing process please provide the following";
 "vanish-account-email-text" = "Hello,\nThis is a request to vanish my Wikipedia account.";
 "vanish-account-email-username-title" = "Username and userpage";
 "vanish-account-title" = "Vanishing process";

@@ -2,12 +2,10 @@ import SwiftUI
 import WMF
 
 struct VanishAccountContentView: View {
-    @SwiftUI.State var userInput: String = ""
-    @SwiftUI.State var showPopUp: Bool = false
     
     enum LocalizedStrings {
         static let title = WMFLocalizedString("vanish-account-title", value: "Vanishing process", comment: "Title for the vanishing process screen")
-        static let description = WMFLocalizedString("vanish-account-description", value: "Vanishing is a last resort and should only be used when you wish to stop editing forever and also to hide as many of your past associations as possible.\n\nTo initiate the vanishing process please provide the following:", comment: "Description for the vanishing process")
+        static let description = WMFLocalizedString("vanish-account-description", value: "Vanishing is a last resort and should only be used when you wish to stop editing forever and also to hide as many of your past associations as possible.\n\nTo initiate the vanishing process please provide the following", comment: "Description for the vanishing process")
         static let usernameFieldTitle = WMFLocalizedString("vanish-account-username-field", value: "Username and user page", comment: "Title for the username and userpage form field")
         static let additionalInformationFieldTitle = WMFLocalizedString("vanish-account-additional-information-field", value: "Additional information", comment: "Title for the additional information form field")
         static let additionalInformationFieldPlaceholder = WMFLocalizedString("vanish-account-additional-information-placeholder", value: "Optional", comment: "Placeholder for the additional information form field")
@@ -17,10 +15,15 @@ struct VanishAccountContentView: View {
         static let buttonText = WMFLocalizedString("vanish-account-button-text", value: "Send request", comment: "Text for button on vanish account request screen")
     }
     
+    @SwiftUI.State var userInput = ""
+    @SwiftUI.State var toggleModalVisibility = false
+    @SwiftUI.State var shouldShowModal = false
+    
     var theme: Theme
     var username: String
     
-    private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .medium, size: 16)
+    private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .medium, size: 18)
+    private let buttonFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .medium, size: 16)
     private let bodyFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 13)
     private let fieldTitleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .subheadline, weight: .regular, size: 15)
     
@@ -90,13 +93,13 @@ struct VanishAccountContentView: View {
                             
                             Spacer()
                             Button(action: {
+                                openMailClient()
                                 print(userInput)
-                                withAnimation(.linear(duration: 0.3)) {
-                                    showPopUp.toggle() // testing the modal, remove
-                                }
+                                
+                                
                             }, label: {
                                 Text(LocalizedStrings.buttonText)
-                                    .font(Font(titleFont))
+                                    .font(Font(buttonFont))
                                     .foregroundColor(Color(theme.colors.link))
                                     .padding()
                                     .frame(maxWidth: .infinity)
@@ -114,7 +117,14 @@ struct VanishAccountContentView: View {
                 
                 .background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
             }
-            VanishAccountPopUpAlert(theme:theme, isVisible: $showPopUp)
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                if shouldShowModal {
+                    withAnimation(.linear(duration: 0.3)) {
+                        toggleModalVisibility.toggle()
+                    }
+                }
+            }
+            VanishAccountPopUpAlert(theme:theme, isVisible: $toggleModalVisibility)
         }
     }
     
@@ -139,16 +149,11 @@ struct VanishAccountContentView: View {
         
         let userDefaults = UserDefaults.standard
         userDefaults.wmf_shouldShowVanishingRequestModal = true
+        shouldShowModal = true
         UIApplication.shared.open(mailtoURL)
     }
     
 }
-
-// struct VanishAccountContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        VanishAccountContentView(theme: Theme.black, username: "UserName")
-//    }
-// }
 
 struct TextView: UIViewRepresentable {
     
@@ -179,10 +184,10 @@ struct TextView: UIViewRepresentable {
     }
     
     class Coordinator: NSObject, UITextViewDelegate {
-
+        
         @Binding var text: String
         let placeholder: String
-
+        
         init(text: Binding<String>, placeholder: String) {
             _text = text
             self.placeholder = placeholder
