@@ -756,6 +756,7 @@
 "talk-page-new-topic-success-text" = "Vaša diskusija je uspešno objavljena";
 "talk-page-new-topic-title" = "Nova diskusija";
 "talk-page-reply-title" = "Odgovori";
+// Fuzzy
 "talk-page-title-article-talk" = "stranica za razgovor članka";
 "talk-page-title-user-talk" = "Korisnička stranica za razgovor";
 "talk-page-topic-title" = "Diskusija";

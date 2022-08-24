@@ -687,6 +687,7 @@
 "talk-page-new-subject-textfield-accessibility-label" = "Tárgy";
 "talk-page-new-topic-title" = "Új téma";
 "talk-page-reply-title" = "Válasz";
+// Fuzzy
 "talk-page-title-article-talk" = "szócikk-vitalap";
 "talk-page-title-user-talk" = "Szerkesztővita";
 "talk-pages-reply-button-title" = "Válasz erre a témára";

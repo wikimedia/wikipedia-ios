@@ -429,6 +429,11 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Із Вікіпедії мовою «$1»";
 "explore-random-article-sub-heading-from-wikipedia" = "З Вікіпедії";
 "explore-randomizer" = "Рандомайзер";
+"export-user-data-confirmation-message" = "Спільний доступ до вашої бібліотеки додатків включає дані про ваші списки читання та історію, налаштування та вміст каналу Explore. Цей файл даних слід надавати лише довіреному одержувачу для використання в цілях технічної діагностики.";
+"export-user-data-confirmation-title" = "Поділитися бібліотекою додаток?";
+"export-user-data-generic-error" = "Під час експорту ваших даних сталася помилка. Будь-ласка, спробуйте пізніше.";
+"export-user-data-space-error" = "У вас недостатньо місця на пристрої, щоб експортувати дані користувача. Будь-ласка, спробуйте пізніше.";
+"export-user-data-title" = "Експорт даних користувача";
 "featured-article-empty-title" = "Немає обраних статей на сьогодні";
 "featured-widget-content-failure-for-date" = "На цю дату недоступна вибрана стаття.";
 "featured-widget-description" = "Відкрийте найкращі статті Вікіпедії, які обираються вашою спільнотою щоденно.";
@@ -1017,7 +1022,9 @@
 "talk-page-title-article-talk" = "Обговорення статті";
 "talk-page-title-user-talk" = "Обговорення користувача";
 "talk-page-topic-title" = "Обговорення";
+"talk-pages-coffee-roll-read-more" = "Читати більше";
 "talk-pages-reply-button-title" = "Відповісти в цьому обговоренні";
+"talk-pages-view-title" = "Обговорення";
 "theme-black-display-name" = "Чорна";
 "theme-dark-display-name" = "Темна";
 "theme-default-display-name" = "Типова";

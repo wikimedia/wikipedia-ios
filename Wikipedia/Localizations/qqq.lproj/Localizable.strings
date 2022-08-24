@@ -404,6 +404,11 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Subtext beneath the 'Random article' header describing which Wikipedia the random article came from. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "explore-random-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Random article' header when the specific language wikipedia is unknown.";
 "explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
+"export-user-data-confirmation-message" = "Message of confirmation modal after user taps \"Export User Data\" button.";
+"export-user-data-confirmation-title" = "Title of confirmation modal after user taps \"Export User Data\" button.";
+"export-user-data-generic-error" = "Error message displayed after user has tried exporting their data and an error occurs.";
+"export-user-data-space-error" = "Error message displayed after user has tried exporting their data and the system determines it doesn't have space to do so.";
+"export-user-data-title" = "Button title for exporting user data";
 "featured-article-empty-title" = "Title that displays when featured article is not available";
 "featured-widget-content-failure-for-date" = "Text displayed when Featured article is not available on the current date.";
 "featured-widget-description" = "Text for description of Featured article widget displayed when adding to home screen.";
@@ -992,7 +997,9 @@
 "talk-page-title-article-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page.";
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page.";
 "talk-page-topic-title" = "This header label is displayed at the top of a talk page topic thread.";
+"talk-pages-coffee-roll-read-more" = "Title of user and article talk pages button to read more of the coffee roll.";
 "talk-pages-reply-button-title" = "Text displayed in a reply button for replying to a talk page topic thread.";
+"talk-pages-view-title" = "Title of user and article talk pages view.";
 "theme-black-display-name" = "Black theme name presented to the user";
 "theme-dark-display-name" = "Dark theme name presented to the user";
 "theme-default-display-name" = "Default theme name presented to the user";

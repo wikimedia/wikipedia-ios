@@ -1025,10 +1025,12 @@
 "talk-page-new-topic-title" = "Yeni tartışma";
 "talk-page-publish-terms-and-licenses" = "Değişiklikleri kaydederek $1Kullanım Koşullarını$2 kabul etmiş olursunuz ve katkılarınızı $3CC BY-SA 3.0$4 ve $5GFDL$6 lisansları altında yayımlamayı kabul edersiniz.";
 "talk-page-reply-title" = "Yanıtla";
+// Fuzzy
 "talk-page-title-article-talk" = "madde Tartışma";
 "talk-page-title-user-talk" = "Kullanıcı mesajı";
 "talk-page-topic-title" = "Tartışma";
 "talk-pages-reply-button-title" = "Bu tartışmayı cevapla";
+"talk-pages-view-title" = "Tartışma";
 "theme-black-display-name" = "Siyah";
 "theme-dark-display-name" = "Koyu";
 "theme-default-display-name" = "Varsayılan";

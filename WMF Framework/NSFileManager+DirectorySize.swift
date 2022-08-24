@@ -1,6 +1,6 @@
 import Foundation
 
-@objc extension FileManager {
+@objc public extension FileManager {
     @objc func sizeOfDirectory(at url: URL) -> Int64 {
         var size: Int64 = 0
         let prefetchedProperties: [URLResourceKey] = [.isRegularFileKey, .fileAllocatedSizeKey, .totalFileAllocatedSizeKey]

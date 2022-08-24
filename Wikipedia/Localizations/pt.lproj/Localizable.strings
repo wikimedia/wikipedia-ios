@@ -424,6 +424,11 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Da Wikipédia em $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Da Wikipédia";
 "explore-randomizer" = "Aleatório";
+"export-user-data-confirmation-message" = "A partilha da sua biblioteca de aplicações inclui dados sobre as suas listas de leitura, o historial de leituras, as preferências e o conteúdo do feed Explorar. Este ficheiro de dados só deve ser partilhado com destinatários de confiança e para fins de diagnóstico técnico.";
+"export-user-data-confirmation-title" = "Partilhar a biblioteca de aplicações?";
+"export-user-data-generic-error" = "Ocorreu um erro durante a exportação dos seus dados. Tente novamente mais tarde, por favor.";
+"export-user-data-space-error" = "Não tem espaço disponível suficiente no seu dispositivo para exportar os seus dados de utilizador. Tente novamente mais tarde, por favor.";
+"export-user-data-title" = "Exportar dados de utilizador";
 "featured-article-empty-title" = "Hoje não está disponível nenhum artigo destacado";
 "featured-widget-content-failure-for-date" = "Não está disponível nenhum artigo destacado para esta data.";
 "featured-widget-description" = "Descubra os melhores artigos da Wikipédia, selecionados diariamente pela nossa comunidade.";
@@ -654,7 +659,6 @@
 "notifications-center-subheader-email-from-other-user" = "Mensagem nova";
 "notifications-center-subheader-login-fail-known-device" = "Várias tentativas falhadas de início de sessão";
 "notifications-center-subheader-login-fail-unknown-device" = "Tentativas falhada de início de sessão";
-// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Início de sessão de dispositivo desconhecido";
 "notifications-center-subheader-mention-article-talk-page" = "Menção na página de discussão de um artigo";
 "notifications-center-subheader-mention-edit-summary" = "Menção no resumo de uma edição";
@@ -675,7 +679,27 @@
 "notifications-center-title" = "Notificações";
 "notifications-center-toolbar-mark-accessibility-label" = "Marcar as notificações selecionadas";
 "notifications-center-type-item-description-mentions" = "Menções";
+"notifications-center-type-item-description-notice" = "Aviso";
 "notifications-center-type-item-description-welcome-verbose" = "Mensagem de boas-vindas";
+"notifications-center-type-title-connection-with-wikidata" = "Ligação com Wikidata";
+"notifications-center-type-title-edit-milestone" = "Meta de edição";
+"notifications-center-type-title-edit-reverted" = "Edição revertida";
+"notifications-center-type-title-edit-summary-mention" = "Menção em resumo de edição";
+"notifications-center-type-title-email-from-other-user" = "Correio de outro utilizador";
+"notifications-center-type-title-login-attempts" = "Tentativas de início de sessão";
+"notifications-center-type-title-login-attempts-subtitle" = "Tentativas falhadas de início de sessão com a sua conta";
+"notifications-center-type-title-login-success" = "Sessões iniciadas";
+"notifications-center-type-title-other" = "Outras";
+"notifications-center-type-title-page-link" = "Hiperligação para a página";
+"notifications-center-type-title-page-review" = "Revisão da página";
+"notifications-center-type-title-sent-mention-failure" = "Falha de envio de menção";
+"notifications-center-type-title-sent-mention-success" = "Sucesso de envio de menção";
+"notifications-center-type-title-talk-page-mention" = "Menção da página de discussão";
+"notifications-center-type-title-thanks" = "Agradecimento";
+"notifications-center-type-title-translation-milestone" = "Meta de tradução";
+"notifications-center-type-title-user-rights-change" = "Alteração dos privilégios do utilizador";
+"notifications-center-type-title-user-talk-page-messsage" = "Mensagem na página de discussão";
+"notifications-center-type-title-welcome" = "Boas-vindas";
 "notifications-push-fallback-body-text" = "Atividade nova na Wikipédia";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 mensagem nova|$1 mensagens novas}} em $2";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Mensagem nova|Mensagens novas}}";
@@ -757,6 +781,17 @@
 "potd-widget-title" = "Imagem do dia";
 "preference-summary-eventlogging-opt-in" = "Permitir que a Wikimedia Foundation recolha informações sobre o seu uso da aplicação para melhorá-la";
 "preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
+"project-name-mediawiki" = "MediaWiki";
+"project-name-wikibooks" = "Wikilivros";
+"project-name-wikidata" = "Wikidata";
+"project-name-wikimedia-commons" = "Wikimedia Commons";
+"project-name-wikinews" = "Wikinotícias";
+"project-name-wikiquote" = "Wikiquote";
+"project-name-wikisource" = "Wikisource";
+"project-name-wikispecies" = "Wikispecies";
+"project-name-wikiversity" = "Wikiversidade";
+"project-name-wikivoyage" = "Wikivoyage";
+"project-name-wiktionary" = "Wikcionário";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 leitores";
 "reading-list-add-generic-hint-title" = "Adicionar este artigo a uma lista de leitura?";
@@ -929,20 +964,17 @@
 "settings-support" = "Apoiar a Wikipédia";
 "settings-title" = "Definições";
 "share-a-fact-made-with" = "Feito com a aplicação Wikipédia";
-// Fuzzy
-"share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
+"share-article-name-on-wikipedia" = "\"$1\" na Wikipédia:";
 "share-building" = "A criar um cartão \"Partilhar um facto\"...";
 "share-default-format" = "“$1” de “$2”: $3";
 "share-email-format" = "“$1”\n\nde “$2”\n\n$3";
 "share-get-directions-in-maps" = "Obter direções";
 "share-menu-item" = "Partilhar...";
 "share-message-format" = "“$1” $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "via @Wikipédia";
+"share-on-twitter-sign-off" = "via Wikipédia";
 "share-open-in-maps" = "Abrir em Mapas";
 "share-social-format" = "“$1” via Wikipédia: $2";
-// Fuzzy
-"share-social-mention-format" = "“$1” via @Wikipédia: $2";
+"share-social-mention-format" = "“$1” via Wikipédia: $2";
 "sort-by-recently-added-action" = "Adicionado recentemente";
 "sort-by-title-action" = "Título";
 "table-of-contents-button-label" = "Índice";
@@ -985,7 +1017,9 @@
 "talk-page-title-article-talk" = "Discussão de artigo";
 "talk-page-title-user-talk" = "Discussão do utilizador";
 "talk-page-topic-title" = "Discussão";
+"talk-pages-coffee-roll-read-more" = "Ler mais";
 "talk-pages-reply-button-title" = "Responder a esta discussão";
+"talk-pages-view-title" = "Discussão";
 "theme-black-display-name" = "Negro";
 "theme-dark-display-name" = "Escuro";
 "theme-default-display-name" = "Padrão";

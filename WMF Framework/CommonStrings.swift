@@ -241,6 +241,10 @@ public class CommonStrings: NSObject {
 
     public static let talkPageNewBannerSubtitle = WMFLocalizedString("talk-page-new-banner-subtitle", value: "Remember, we are all humans here", comment: "Subtitle text on banner that appears once user posts a new reply or discussion topic on their talk page.")
 
+    public static let talkPageTitleUserTalk = WMFLocalizedString("talk-page-title-user-talk", value: "User Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page.")
+
+    public static let talkPageTitleArticleTalk = WMFLocalizedString("talk-page-title-article-talk", value: "Article Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page.")
+
     public static let accessibilityClearTitle = WMFLocalizedString("clear-title-accessibility-label", value: "Clear", comment: "Accessibility label title for action that clears text")
 
     public static let successfullyPublishedDiscussion = WMFLocalizedString("talk-page-new-topic-success-text", value: "Your discussion was successfully published", comment: "Banner text that appears after a new discussion was successfully published on a talk page.")

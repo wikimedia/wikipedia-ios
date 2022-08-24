@@ -227,6 +227,7 @@
 "empty-no-feed-message" = "အင်တာနက်ရရှိချိန်တွင် သင့်ကိုအကြံပြုထောက်ခံထားသော ဆောင်းပါးများကို မြင်တွေ့နိုင်သည်";
 "empty-no-history-message" = "ဤနေရာတွင် သင်ဖတ်ရှုသောအရာကို ခြေရာခံမည်";
 "empty-no-history-title" = "ပြသရန် ရာဇဝင် မရှိပါ";
+"empty-no-other-article-languages-title" = "အခြားဘာသာစကားများ မရနိုင်ပါ။";
 "empty-no-reading-lists-title" = "စာဖတ်စာရင်းများဖြင့် သိမ်းထားသောဆောင်းပါးများကို ဖွဲ့စည်းရန်";
 "empty-no-saved-pages-in-reading-list-title" = "ဤစာရင်းသို့ စာမျက်နှာများ မသိမ်းရသေးပါ";
 "empty-no-saved-pages-message" = "အင်တာနက်မရှိလျင်တောင်မှ နောက်ပိုင်းကြည့်ရှုရန် စာမျက်နှာများကို သိမ်းဆည်းပါ";
@@ -405,9 +406,21 @@
 "no-email-account-alert" = "သင်၏ စက်ပစ္စည်းတွင် အီးမေးလ်လိပ်စာတစ်ခု ထည့်သွင်း၍ ထပ်မံကြိုးစားပါ။";
 "no-internet-connection" = "အင်တာနက် ကွန်နက်ရှင် မရှိပါ";
 "no-internet-connection-article-reload" = "ဤဆောင်းပါး၏ ပိုမိုသစ်လွင်သောမူကို ရရှိနိုင်ကောင်းပါသည်၊ သို့သော် အင်တာနက်ကွန်နက်ရှင်မရှိဘဲ မဆွဲတင်နိုင်ပါ။";
+"notifications-center-agent-description-from-format" = "$1 မှ";
+"notifications-center-alert" = "သတိပေးချက်";
+"notifications-center-cell-notification-type-accessibility-label-format" = "$1 အသိပေးချက်";
 "notifications-center-change-password" = "စကားဝှက် ပြောင်းလဲရန်";
+"notifications-center-checking-for-notifications" = "အသိပေးချက်များကို စစ်ဆေးနေသည်...";
+"notifications-center-destination-app" = "အက်ပ်တွင်";
+"notifications-center-destination-web" = "ဝဘ်ပေါ်တွင်";
+"notifications-center-empty-checking-for-notifications" = "အသိပေးချက်များကို စစ်ဆေးနေသည်...";
+"notifications-center-empty-no-messages" = "မက်ဆေ့များ မရောက်ရှိပါ";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "အသိပေးချက်များ ဖွင့်ရန်။";
+"notifications-center-feed-news-notification-dismiss-button-text" = "အခု မဟုတ်ပါ";
+"notifications-center-filters-read-status-item-title-all" = "အားလုံး";
+"notifications-center-filters-read-status-item-title-read" = "ဖတ်ပြီး";
+"notifications-center-filters-read-status-item-title-unread" = "မဖတ်ရသေး";
 "notifications-center-go-to-article" = "ဆောင်းပါး";
 // Fuzzy
 "notifications-center-go-to-talk-page" = "ဆွေးနွေးစာမျက်နှာသို့ သွားရန်";
@@ -415,19 +428,55 @@
 "notifications-center-go-to-user-page" = "$1 ၏ စာမျက်နှာသို့ သွားရန်";
 // Fuzzy
 "notifications-center-go-to-your-talk-page" = "သင်၏ဆွေးနွေးစာမျက်နှာသို့ သွားရန်";
+"notifications-center-header-alert-from-agent" = "$1 မှ သတိပေးချက်";
 "notifications-center-inbox-title" = "ပရောဂျက်များ";
 "notifications-center-inbox-wikimedia-projects-section-title" = "ဝီကီမီဒီယာ ပရောဂျက်များ";
+"notifications-center-inbox-wikipedias-section-title" = "ဝီကီပီးဒီးယားများ";
 "notifications-center-login-notifications" = "လော့ဂ်အင် အသိပေးချက်များ";
+"notifications-center-mark" = "မှတ်သားရန်";
+"notifications-center-mark-all-as-read" = "အကုန်လုံး ဖတ်ရှုပြီးဖြစ်ကြောင်း မှတ်သားရန်";
 "notifications-center-mark-as-read" = "ဖတ်ပြီးကြောင်း မှတ်သားရန်";
+"notifications-center-mark-as-unread" = "မဖတ်ရသေးကြောင်း မှတ်သားရန်";
 "notifications-center-more-action-accessibility-label" = "ပို၍";
 "notifications-center-notifications-settings" = "အသိပေးချက် အပြင်အဆင်များ";
+"notifications-center-onboarding-modal-continue-action" = "ဆက်လက်";
+"notifications-center-onboarding-modal-learn-more-action" = "အသိပေးချက်များအကြောင်း ပိုမိုလေ့လာရန်";
+"notifications-center-onboarding-modal-notifications-alerts-title" = "အသိပေးချက်များနှင့် သတိပေးချက်များ";
+"notifications-center-status-read" = "ဖတ်ပြီး";
+"notifications-center-status-triple-concatenation" = "$3 ရှိ $1 နှင့် $2";
+"notifications-center-status-unread" = "မဖတ်ရှုရသေး";
 "notifications-center-subheader-edit-milestone" = "မိုင်တိုင် တည်းဖြတ်မှု";
+"notifications-center-subheader-edit-reverted" = "သင်၏တည်းဖြတ်မှုကို ပြန်ပြောင်းထားသည်။";
 "notifications-center-subheader-email-from-other-user" = "အီးမေးလ်အသစ်";
+"notifications-center-subheader-login-fail-known-device" = "အကြိမ်ပေါင်းများစွာ မအောင်မြင်သော အကောင့်ဝင်ရန် ကြိုးပမ်းမှု";
+"notifications-center-subheader-login-fail-unknown-device" = "မအောင်မြင်သော လော့ဂ်အင်ဝင်ရန် ကြိုးပမ်းမှု";
+"notifications-center-subheader-login-success-unknown-device" = "မရင်းနှီးသောစက်ပစ္စည်းတစ်ခုမှ လော့ဂ်အင်ဝင်ဝင်ခြင်း";
 "notifications-center-subheader-page-link" = "စာမျက်နှာလင့်ခ်";
 "notifications-center-subheader-thanks" = "ကျေးဇူးတင်မှုများ";
 "notifications-center-subheader-translate-milestone" = "ဘာသာပြန်မှု မိုင်တိုင်";
+"notifications-center-subheader-user-rights-change" = "အသုံးပြုသူအခွင့်ရေး ပြောင်းလဲမှု";
 "notifications-center-subheader-welcome" = "ကြိုဆိုပါသည်!";
+"notifications-center-swipe-mark-as-read" = "ဖတ်ပြီးကြောင်း မှတ်သားရန်";
+"notifications-center-swipe-mark-as-unread" = "မဖတ်ရသေးကြောင်း မှတ်သားရန်";
+"notifications-center-swipe-more" = "ပို၍";
 "notifications-center-title" = "အသိပေးချက်များ";
+"notifications-center-toolbar-mark-accessibility-label" = "ရွေးချယ်ထားသော အသိပေးချက်များကို အမှတ်အသားပြုရန်";
+"notifications-center-type-item-description-mentions" = "ရည်ညွန်းပြောဆိုချက်များ";
+"notifications-center-type-item-description-notice" = "ကြော်ငြာသင်ပုန်း";
+"notifications-center-type-item-description-welcome-verbose" = "ကြိုဆိုမက်ဆေ့";
+"notifications-center-type-title-email-from-other-user" = "အခြားအသုံးပြုသူထံမှ အီးမေးလ်";
+"notifications-center-type-title-login-attempts" = "အကောင့်ဝင်ရန် ကြိုးစားမှုများ";
+"notifications-center-type-title-login-attempts-subtitle" = "သင့်အကောင့်သို့ ဝင်ရောက်ရန် ကြိုးပမ်းမှု မအောင်မြင်ပါ";
+"notifications-center-type-title-login-success" = "လော့အင် အောင်မြင်သည်";
+"notifications-center-type-title-other" = "အခြား";
+"notifications-center-type-title-page-link" = "စာမျက်နှာလင့်ခ်";
+"notifications-center-type-title-page-review" = "စာမျက်နှာ အကြိုမြင်ကွင်း";
+"notifications-center-type-title-thanks" = "ကျေးဇူးတင်မှုများ";
+"notifications-center-type-title-translation-milestone" = "ဘာသာပြန်မှု မိုင်တိုင်";
+"notifications-center-type-title-user-rights-change" = "အသုံးပြုသူအခွင့်ရေး ပြောင်းလဲမှု";
+"notifications-center-type-title-user-talk-page-messsage" = "ဆွေးနွေးစာမျက်နှာ မက်ဆေ့";
+"notifications-center-type-title-welcome" = "ကြိုဆိုပါသည်";
+"notifications-push-fallback-body-text" = "ဝီကီပီးဒီးယားရှိ လုပ်ဆောင်ချက်အသစ်";
 // Fuzzy
 "notifications-push-talk-title-format" = "အသစ် $1";
 "number-billions" = "$1B";
@@ -602,6 +651,7 @@
 "settings-my-languages" = "ကျွန်ုပ်၏ ဘာသာစကားများ";
 // Fuzzy
 "settings-notifications" = "အသိပေးချက်များ";
+"settings-notifications-echo-failure-try-again" = "နောက်တစ်ဖန် ကြိုးစားပါ";
 "settings-notifications-learn-more" = "အသိပေးချက်များအကြောင်း ပိုမိုလေ့လာရန်";
 "settings-notifications-push-notifications" = "အသိပေးချက်များ";
 "settings-notifications-system-turn-on" = "အသိပေးချက်များ ဖွင့်ရန်";

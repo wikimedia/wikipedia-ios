@@ -4,6 +4,7 @@
 // Author: BodminPill
 // Author: Brettchenweber
 // Author: DraconicDark
+// Author: Duke of Wikipädia
 // Author: Envlh
 // Author: FF-11
 // Author: Ferdinand0101
@@ -32,6 +33,10 @@
 "aaald-characters-text-description" = "{{PLURAL:$1|0=Zeichen|Zeichen|Zeichen}}";
 "aaald-deleted-text-description-2" = "$1 gelöscht";
 "aaald-error-subitle" = "Aktualisieren, um es erneut zu versuchen";
+"aaald-error-title" = "Inline-Artikelverlauf kann nicht geladen werden";
+"aaald-many-sections-description" = "in $1 Abschnitten";
+"aaald-multiple-changes-description" = "Mehrere Änderungen vorgenommen";
+"aaald-multiple-references-added-description" = "Mehrere Referenzen hinzugefügt";
 "aaald-new-book-reference-title" = "Buch";
 "aaald-new-discussion" = "Neue Diskussion";
 "aaald-new-journal-reference-title" = "Zeitschrift";
@@ -866,6 +871,7 @@
 "talk-page-new-topic-title" = "Neue Diskussion";
 "talk-page-publish-terms-and-licenses" = "Indem du die Änderungen speicherst, stimmst du den $1Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den $3CC BY-SA 3.0$4 und den $5GFDL$6 Lizenzen zu veröffentlichen.";
 "talk-page-reply-title" = "Antworten";
+// Fuzzy
 "talk-page-title-article-talk" = "Artikeldiskussionsseite";
 "talk-page-title-user-talk" = "Benutzerdiskussionsseite";
 "talk-page-topic-title" = "Diskussion";

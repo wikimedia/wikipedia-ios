@@ -1,5 +1,6 @@
 // Messages for Nepali (नेपाली)
 // Exported from translatewiki.net
+// Author: Bada Kaji
 // Author: Drjpoudel
 // Author: NehalDaveND
 // Author: Nemo bis
@@ -338,7 +339,7 @@
 "settings-search-open-app-on-search" = "खोजी ट्याबमा एप खोल्नुहोस्";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "मेट्नुहोस्";
 "settings-support" = "विकिपिडियालाई समर्थन गर्नुहोस्";
-"settings-title" = "सेटिङ्हरू";
+"settings-title" = "मेरो अभिरुचिहरू";
 // Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia मा \"$1\" :";
 "share-get-directions-in-maps" = "दिशा पत्ता लगाउनुहोस्";
@@ -357,6 +358,7 @@
 "talk-page-link-user-action-sheet-title" = "प्रयोगकर्ता पृष्ठहरू";
 "talk-page-new-subject-placeholder-text" = "विषय";
 "talk-page-new-subject-textfield-accessibility-label" = "विषय";
+"talk-pages-view-title" = "वार्तालाप";
 "theme-black-display-name" = "कालो";
 "theme-dark-display-name" = "गाढा";
 "theme-default-display-name" = "पूर्वनिर्धारित";

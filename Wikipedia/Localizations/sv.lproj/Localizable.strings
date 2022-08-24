@@ -1014,10 +1014,12 @@
 "talk-page-new-topic-title" = "Ny diskussion";
 "talk-page-publish-terms-and-licenses" = "Genom att spara ändringar samtycker du till $1användningsvillkoren$2 och att släppa ditt bidrag under licenserna $3CC BY-SA 3.0$4 och $5GFDL$6.";
 "talk-page-reply-title" = "Svara";
+// Fuzzy
 "talk-page-title-article-talk" = "artikeldiskussion";
 "talk-page-title-user-talk" = "Användardiskussion";
 "talk-page-topic-title" = "Diskussion";
 "talk-pages-reply-button-title" = "Svara på denna diskussion";
+"talk-pages-view-title" = "Diskussion";
 "theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Mörkt";
 "theme-default-display-name" = "Standard";

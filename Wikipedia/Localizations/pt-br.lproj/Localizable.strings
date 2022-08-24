@@ -9,6 +9,7 @@
 // Author: Caçador de Palavras
 // Author: Cristofer Alves
 // Author: Dianakc
+// Author: Duke of Wikipädia
 // Author: Eduardo Addad de Oliveira
 // Author: Eduardoaddad
 // Author: Fasouzafreitas
@@ -122,6 +123,7 @@
 "action-add-to-reading-list" = "Adicionar à lista de leitura";
 "action-add-to-reading-list-short" = "Adicionar à lista";
 "action-cancel" = "Cancelar";
+"action-discard-edits" = "Descartar edições";
 "action-find-in-page" = "Encontrar na página";
 "action-language-accessibility" = "Alterar idioma";
 "action-move-to" = "Mover para…";
@@ -332,6 +334,8 @@
 "editing-welcome-impartial-tone-title" = "Escreva em tom imparcial";
 "editing-welcome-set-knowledge-free-subtitle" = "Para dar a todos o acesso ao conhecimento do mundo, precisamos que você participe da criação lendo, editando e contribuindo com os tópicos mais importantes para você.";
 "editing-welcome-set-knowledge-free-title" = "Definir conhecimento livre";
+"editor-exit-confirmation-body" = "Tem certeza de que deseja sair do modo de edição sem publicar primeiro?";
+"editor-exit-confirmation-title" = "Sair do modo de edição?";
 "empty-diff-compare-title" = "Não há diferenças entre as revisões";
 "empty-diff-single-title" = "Nenhuma alteração visível feita";
 "empty-insert-media-title" = "Selecionar um arquivo do Wikimedia Commons";
@@ -558,6 +562,7 @@
 "main-menu-account-login" = "Entrar";
 "main-menu-account-logout" = "Sair";
 "main-menu-account-logout-are-you-sure" = "Você tem certeza que quer sair?";
+"main-menu-account-logout-are-you-sure-message" = "Terminar a sessão apagará os seus dados de conta armazenados localmente (notificações e mensagens), mas os dados da sua conta continuarão a estar disponíveis na internet e voltarão a ser descarregados se voltar a iniciar uma sessão.";
 "main-menu-account-logout-cancel" = "Cancelar";
 "main-menu-account-title-logged-in" = "Entrado como $1";
 "main-menu-heading-legal" = "Privacidade e Termos";
@@ -582,36 +587,133 @@
 "no-internet-connection" = "Sem conexão com a internet";
 "no-internet-connection-article-reload" = "Uma versão mais recente deste artigo pode estar disponível, mas não pode ser carregada sem uma conexão com a Internet";
 "no-internet-connection-article-reload-button" = "Retornar para a última versão salva";
+"notifications-center-agent-description-from-format" = "De $1";
 "notifications-center-alert" = "Alerta";
+"notifications-center-applied-filters-accessibility-label" = "Filtro de notificações - tem filtros aplicados";
+"notifications-center-applied-project-filters-accessibility-label" = "Filtro de projetos - tem filtros aplicados";
+"notifications-center-badge-button-accessibility-label" = "Notificações com o marcador 'não lida'";
 "notifications-center-cell-notification-type-accessibility-label-format" = "notificação $1";
 "notifications-center-change-password" = "Alterar senha";
+"notifications-center-checking-for-notifications" = "Verificando notificações...";
 "notifications-center-destination-app" = "No app";
+"notifications-center-destination-web" = "na web";
 "notifications-center-empty-checking-for-notifications" = "Verificando notificações...";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "Ativar notificações";
+"notifications-center-empty-no-messages" = "Não tem mensagens";
+"notifications-center-empty-not-subscribed" = "Você não está atualmente inscrito em nenhuma Notificação da Wikipédia";
+"notifications-center-empty-state-filters-subtitle" = "Modifique $1 para ver mais mensagens";
+"notifications-center-empty-state-no-projects-selected" = "Adicione projetos para ver mais mensagens";
+"notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtro|$1 filtros}}";
+"notifications-center-feed-card-title" = "Editando notificações agora disponíveis";
+"notifications-center-feed-news-notification-button-text" = "Ativar notificações push";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Agora não";
+"notifications-center-feed-news-notification-text" = "As notificações de edição para todos os projetos da Wikimedia estão agora disponíveis através do aplicativo. Ative as notificações push para se manter atualizado com suas mensagens na Wikipedia enquanto estiver ausente.";
+"notifications-center-filters-accessibility-label" = "Filtro de notificações";
+"notifications-center-filters-read-status-item-title-all" = "Tudo";
+"notifications-center-filters-read-status-item-title-read" = "Ler";
+"notifications-center-filters-read-status-item-title-unread" = "Não lidas";
+"notifications-center-filters-read-status-section-title" = "Status de leitura";
+"notifications-center-filters-title" = "Filtros";
+"notifications-center-filters-types-footer" = "Modifique os tipos de notificação para filtrá-los dentro/fora de sua caixa de entrada de notificação. Os tipos desativados não ficarão visíveis, mas seu conteúdo e quaisquer novas notificações estarão disponíveis quando a alternância for ativada novamente.";
+"notifications-center-filters-types-item-title-all" = "Todos os tipos";
+"notifications-center-filters-types-section-title" = "Tipos de notificações";
 "notifications-center-go-to-article" = "Artigo";
-// Fuzzy
-"notifications-center-go-to-talk-page" = "Ir para a página de discussão";
-// Fuzzy
-"notifications-center-go-to-user-page" = "Ir para a página de discussão de $1";
+"notifications-center-go-to-article-talk-format" = "Página de discussão de $1";
+"notifications-center-go-to-diff" = "Diferenças";
+"notifications-center-go-to-talk-page" = "Página de discussão";
+"notifications-center-go-to-user-page" = "Página de discussão de $1";
+"notifications-center-go-to-wikidata-item" = "Item do Wikidata";
+"notifications-center-go-to-your-talk-page" = "Sua página de discussão";
+"notifications-center-header-alert-from-agent" = "Alerta de $1";
+"notifications-center-inbox-title" = "Projetos";
+"notifications-center-inbox-wikimedia-projects-section-footer" = "Só aparecerão aqui projetos para os quais criou uma conta";
+"notifications-center-inbox-wikimedia-projects-section-title" = "Projetos Wikimedia";
+"notifications-center-inbox-wikipedias-section-title" = "Wikipédias";
+"notifications-center-language-project-name-format" = "$2 em $1";
+"notifications-center-login-notifications" = "Notificações de entradas";
+"notifications-center-mark" = "Marcar";
+"notifications-center-mark-all-as-read" = "Marcas todas como lidas";
+"notifications-center-mark-all-as-read-confirmation-format" = "Tem a certeza de que pretende marcar como {{PLURAL:$1|lida a mensagem|lidas as $1 mensagens}} das suas notificações? As notificações serão marcadas como lidas em todos os seus dispositivos.";
+"notifications-center-mark-all-as-read-missing-number" = "Tem a certeza de que pretende marcar todas as suas notificações como lidas? As notificações serão marcadas como lidas em todos os seus dispositivos.";
 "notifications-center-mark-as-read" = "Marcar como lida";
 "notifications-center-mark-as-unread" = "Marcar como não lida";
 "notifications-center-more-action-accessibility-label" = "Mais";
 "notifications-center-notifications-settings" = "Configurações de notificação";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 mensagem|$1 mensagens}}";
+"notifications-center-onboarding-modal-continue-action" = "Continuar";
+"notifications-center-onboarding-modal-filters-message" = "Filtre as suas notificações por estado de leitura e tipo para reduzir facilmente a sua caixa de entrada.";
+"notifications-center-onboarding-modal-filters-title" = "Filtros";
+"notifications-center-onboarding-modal-learn-more-action" = "Saber mais sobre notificações";
+"notifications-center-onboarding-modal-notifications-alerts-message" = "As notificações ajudam a mantê-lo informado da atividade relacionada com as suas edições e a sua conta.";
+"notifications-center-onboarding-modal-notifications-alerts-title" = "Notificações e alertas";
+"notifications-center-onboarding-modal-project-inboxes-message" = "Ver num só lugar todas as suas mensagens por ler nas wikipédias das diferentes idiomas e nos projetos da Wikimedia.";
+"notifications-center-onboarding-modal-project-inboxes-title" = "Caixas de entrada dos projetos";
+"notifications-center-onboarding-modal-push-notifications-message" = "Opte pela inclusão nas notificações imediatas para estar a par das suas mensagens e alertas de edição enquanto estiver ausente.";
+"notifications-center-onboarding-modal-push-notifications-title" = "Notificações via push";
+"notifications-center-onboarding-modal-title" = "Notificações de edição";
+"notifications-center-onboarding-panel-heading" = "Ativar as notificações imediatas?";
+"notifications-center-onboarding-panel-primary-button" = "Ativar as notificações imediatas";
 "notifications-center-onboarding-panel-secondary-button" = "Não, {{GENDER:|obrigado|obrigada|obrigado}}";
-// Fuzzy
-"notifications-center-subheader-login-success-unknown-device" = "Entrar em um dispositivo desconhecido";
+"notifications-center-onboarding-panel-subheading" = "A Wikipédia é um projeto de colaboração e ativar as notificações imediatas pode facilitar o processo de manter-se a par das mensagens, alertas e obrigados dos colegas editores.";
+"notifications-center-project-filters-accessibility-label" = "Filtro de projetos";
+"notifications-center-status-all" = "Todas";
+"notifications-center-status-all-notifications" = "Todas as notificações";
+"notifications-center-status-double-concatenation" = "$1 em $2";
+"notifications-center-status-filtered-by" = "Filtradas por";
+"notifications-center-status-in-projects" = "{{PLURAL:$1|1=Em 1 projeto|Em $1 projetos}}";
+"notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1 projeto|$1 projetos}}";
+"notifications-center-status-in-types" = "{{PLURAL:$1|1=1 tipo|$1 tipos}}";
+"notifications-center-status-read" = "Ler";
+"notifications-center-status-triple-concatenation" = "$1 e $2 em $3";
+"notifications-center-status-unread" = "Não lidas";
+"notifications-center-subheader-edit-milestone" = "Meta de edição";
+"notifications-center-subheader-edit-reverted" = "A sua edição foi revertida";
+"notifications-center-subheader-email-from-other-user" = "Novo e-mail";
+"notifications-center-subheader-login-fail-known-device" = "Várias tentativas falhadas de entrada";
+"notifications-center-subheader-login-fail-unknown-device" = "Tentativas falhada de entrada";
+"notifications-center-subheader-login-success-unknown-device" = "Acesso a partir de um dispositivo desconhecido";
+"notifications-center-subheader-mention-article-talk-page" = "Menção na página de discussão de um artigo";
+"notifications-center-subheader-mention-edit-summary" = "Menção no resumo de uma edição";
 "notifications-center-subheader-mention-failed" = "Menção falhada";
 "notifications-center-subheader-mention-successful" = "Menção bem sucedida";
 "notifications-center-subheader-mention-talk-page" = "Menção na página de discussão";
+"notifications-center-subheader-message-user-talk-page" = "Mensagem na sua página de discussão";
 "notifications-center-subheader-page-link" = "Link da página";
 "notifications-center-subheader-page-reviewed" = "Página revisada";
 "notifications-center-subheader-thanks" = "Agradecimento";
+"notifications-center-subheader-translate-milestone" = "Meta de tradução";
 "notifications-center-subheader-user-rights-change" = "Mudanças nos direitos do usuário";
 "notifications-center-subheader-welcome" = "Bem-vindo!";
+"notifications-center-subheader-wikidata-connection" = "Conexão com Wikidata feita";
+"notifications-center-swipe-mark-as-read" = "Marcar como lida";
+"notifications-center-swipe-mark-as-unread" = "Marcar como não lida";
+"notifications-center-swipe-more" = "Mais";
 "notifications-center-title" = "Notificações";
+"notifications-center-toolbar-mark-accessibility-label" = "Marcar as notificações selecionadas";
 "notifications-center-type-item-description-mentions" = "Menções";
+"notifications-center-type-item-description-notice" = "Aviso";
+"notifications-center-type-item-description-welcome-verbose" = "Mensagem de boas-vindas";
+"notifications-center-type-title-connection-with-wikidata" = "Conexão com Wikidata";
+"notifications-center-type-title-edit-milestone" = "Editar marco";
+"notifications-center-type-title-edit-reverted" = "Edição revertida";
+"notifications-center-type-title-edit-summary-mention" = "Editar menção de resumo";
+"notifications-center-type-title-email-from-other-user" = "E-mail de outro usuário";
+"notifications-center-type-title-login-attempts" = "Tentativas de entrada";
+"notifications-center-type-title-login-attempts-subtitle" = "Tentativas de entradas falhadas na sua conta";
+"notifications-center-type-title-login-success" = "Entrada bem-sucedida";
+"notifications-center-type-title-other" = "Outro";
+"notifications-center-type-title-page-link" = "Link da página";
+"notifications-center-type-title-page-review" = "Revisão da página";
+"notifications-center-type-title-sent-mention-failure" = "Falha ao enviar menção";
+"notifications-center-type-title-sent-mention-success" = "Menção enviada com sucesso";
+"notifications-center-type-title-talk-page-mention" = "Menção da página de discussão";
+"notifications-center-type-title-thanks" = "Obrigado";
+"notifications-center-type-title-translation-milestone" = "Marco de tradução";
+"notifications-center-type-title-user-rights-change" = "Alteração dos direitos do usuário";
+"notifications-center-type-title-user-talk-page-messsage" = "Mensagem da página de discussão";
+"notifications-center-type-title-welcome" = "Boas vindas";
+"notifications-push-fallback-body-text" = "Atividade nova na Wikipédia";
+"notifications-push-talk-body-format" = "{{PLURAL:$1|$1 mensagem nova|$1 mensagens novas}} em $2";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Mensagem nova|Mensagens novas}}";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -690,6 +792,17 @@
 "potd-widget-title" = "Imagem do dia";
 "preference-summary-eventlogging-opt-in" = "Permitir que a Fundação Wikimedia recolha informações sobre o uso do aplicativo para aperfeiçoá-lo";
 "preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
+"project-name-mediawiki" = "MediaWiki";
+"project-name-wikibooks" = "Wikilivros";
+"project-name-wikidata" = "Wikidata";
+"project-name-wikimedia-commons" = "Wikimedia Commons";
+"project-name-wikinews" = "Wikinotícias";
+"project-name-wikiquote" = "Wikiquote";
+"project-name-wikisource" = "Wikisource";
+"project-name-wikispecies" = "Wikispecies";
+"project-name-wikiversity" = "Wikiversidade";
+"project-name-wikivoyage" = "Wikivoyage";
+"project-name-wiktionary" = "Wikcionário";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 leitores";
 "reading-list-add-generic-hint-title" = "Adicione este artigo a uma lista de leitura?";
@@ -832,9 +945,11 @@
 "settings-language-bar" = "Mostrar idiomas ao buscar";
 "settings-languages-feed-customization" = "Você pode gerenciar quais idiomas são exibidos no seu feed do Explore, personalizando as configurações do feed do Explore.";
 "settings-my-languages" = "Meus idiomas";
-// Fuzzy
-"settings-notifications" = "Notificações";
+"settings-notifications" = "Notificações via push";
+"settings-notifications-echo-failure-message" = "Ocorreu um erro ao verificar as assinaturas de notificação relacionadas à sua conta.";
+"settings-notifications-echo-failure-title" = "Não é possível verificar inscrições de Notificação Echo";
 "settings-notifications-echo-failure-try-again" = "Tente novamente";
+"settings-notifications-header" = "Receber alertas de atividades relacionadas com a sua conta, como mensagens de outros usuários, alertas e avisos. Tudo fornecido com respeito pela sua privacidade e com dados atualizados.";
 "settings-notifications-info" = "Seja alertado para artigos de tendências e de leitura de topo na Wikipédia com as nossas notificações de envio. Todos equipados com respeito à privacidade e dados atualizados ao minuto.";
 "settings-notifications-learn-more" = "Saber mais sobre notificações";
 "settings-notifications-push-notifications" = "Notificações via push";
@@ -860,20 +975,17 @@
 "settings-support" = "Ajude a Wikipédia";
 "settings-title" = "Configurações";
 "share-a-fact-made-with" = "Feito com o aplicativo Wikipedia";
-// Fuzzy
-"share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
+"share-article-name-on-wikipedia" = "\"$1\" na Wikipédia:";
 "share-building" = "Construindo um cartão de compartilhamento...";
 "share-default-format" = "“$1” de “$2”: $3";
 "share-email-format" = "“$1”\n\nde “$2”\n\n$3";
 "share-get-directions-in-maps" = "Obter direções";
 "share-menu-item" = "Compartilhar...";
 "share-message-format" = "“$1” $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "via @Wikipedia";
+"share-on-twitter-sign-off" = "via Wikipédia";
 "share-open-in-maps" = "Abrir no Maps";
 "share-social-format" = "“$1” via Wikipedia: $2";
-// Fuzzy
-"share-social-mention-format" = "“$1” via @Wikipedia: $2";
+"share-social-mention-format" = "“$1” via Wikipédia: $2";
 "sort-by-recently-added-action" = "Adicionado recentemente";
 "sort-by-title-action" = "Título";
 "table-of-contents-button-label" = "Tabela de conteúdos";
@@ -916,7 +1028,9 @@
 "talk-page-title-article-talk" = "Discussão de artigo";
 "talk-page-title-user-talk" = "Discussão do usuário";
 "talk-page-topic-title" = "Discussão";
+"talk-pages-coffee-roll-read-more" = "Leia mais";
 "talk-pages-reply-button-title" = "Responder a esta discussão";
+"talk-pages-view-title" = "Discussão";
 "theme-black-display-name" = "Preto";
 "theme-dark-display-name" = "Escuro";
 "theme-default-display-name" = "Padrão";
