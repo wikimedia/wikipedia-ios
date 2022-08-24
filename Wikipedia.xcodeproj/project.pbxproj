@@ -1847,10 +1847,10 @@
 		83ED2E25289ACB1100462C65 /* VanishAccountCustomUIHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ED2E23289ACB1100462C65 /* VanishAccountCustomUIHostingController.swift */; };
 		83ED2E26289ACB1100462C65 /* VanishAccountCustomUIHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ED2E23289ACB1100462C65 /* VanishAccountCustomUIHostingController.swift */; };
 		83ED2E27289ACB1100462C65 /* VanishAccountCustomUIHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ED2E23289ACB1100462C65 /* VanishAccountCustomUIHostingController.swift */; };
-		83EDC4C128B424B5007D0192 /* VanishAccountPopUpAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EDC4C028B424B5007D0192 /* VanishAccountPopUpAlert.swift */; };
-		83EDC4C228B424B5007D0192 /* VanishAccountPopUpAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EDC4C028B424B5007D0192 /* VanishAccountPopUpAlert.swift */; };
-		83EDC4C328B424B6007D0192 /* VanishAccountPopUpAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EDC4C028B424B5007D0192 /* VanishAccountPopUpAlert.swift */; };
-		83EDC4C428B424B6007D0192 /* VanishAccountPopUpAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EDC4C028B424B5007D0192 /* VanishAccountPopUpAlert.swift */; };
+		83EDC4C128B424B5007D0192 /* VanishAccountPopUpAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EDC4C028B424B5007D0192 /* VanishAccountPopUpAlertView.swift */; };
+		83EDC4C228B424B5007D0192 /* VanishAccountPopUpAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EDC4C028B424B5007D0192 /* VanishAccountPopUpAlertView.swift */; };
+		83EDC4C328B424B6007D0192 /* VanishAccountPopUpAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EDC4C028B424B5007D0192 /* VanishAccountPopUpAlertView.swift */; };
+		83EDC4C428B424B6007D0192 /* VanishAccountPopUpAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EDC4C028B424B5007D0192 /* VanishAccountPopUpAlertView.swift */; };
 		83EE476A20D019A100A21F34 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE476920D019A100A21F34 /* ExploreViewController.swift */; };
 		83EE476B20D019A100A21F34 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE476920D019A100A21F34 /* ExploreViewController.swift */; };
 		83EE476C20D019A100A21F34 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE476920D019A100A21F34 /* ExploreViewController.swift */; };
@@ -4482,7 +4482,7 @@
 		83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeProgressController.swift; sourceTree = "<group>"; };
 		83E9C45A2419193C006BDBC2 /* WikipediaSiteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WikipediaSiteInfo.swift; path = "WMF Framework/WikipediaSiteInfo.swift"; sourceTree = SOURCE_ROOT; };
 		83ED2E23289ACB1100462C65 /* VanishAccountCustomUIHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VanishAccountCustomUIHostingController.swift; sourceTree = "<group>"; };
-		83EDC4C028B424B5007D0192 /* VanishAccountPopUpAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VanishAccountPopUpAlert.swift; sourceTree = "<group>"; };
+		83EDC4C028B424B5007D0192 /* VanishAccountPopUpAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VanishAccountPopUpAlertView.swift; sourceTree = "<group>"; };
 		83EE476920D019A100A21F34 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		83EE476F20D01A9A00A21F34 /* ExploreCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		83F1095623D07E3B003F3E9E /* APIURLComponentsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIURLComponentsBuilder.swift; sourceTree = "<group>"; };
@@ -7254,7 +7254,7 @@
 				67F73E6C2267B79E0079DEEF /* AccountViewController.swift */,
 				832BD3BB28996B68002623CA /* VanishAccountContentView.swift */,
 				83ED2E23289ACB1100462C65 /* VanishAccountCustomUIHostingController.swift */,
-				83EDC4C028B424B5007D0192 /* VanishAccountPopUpAlert.swift */,
+				83EDC4C028B424B5007D0192 /* VanishAccountPopUpAlertView.swift */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -11207,7 +11207,7 @@
 				B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */,
 				8321FCCC2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				FF59DF4D2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
-				83EDC4C128B424B5007D0192 /* VanishAccountPopUpAlert.swift in Sources */,
+				83EDC4C128B424B5007D0192 /* VanishAccountPopUpAlertView.swift in Sources */,
 				7A610CBD220A582A00C266AE /* HintController.swift in Sources */,
 				7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				67C6F7AB27E8D22400B9C864 /* NotificationsCenterDetailViewModel.swift in Sources */,
@@ -12138,7 +12138,7 @@
 				8321FCCF2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D850A53D1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				FF59DF502555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
-				83EDC4C428B424B6007D0192 /* VanishAccountPopUpAlert.swift in Sources */,
+				83EDC4C428B424B6007D0192 /* VanishAccountPopUpAlertView.swift in Sources */,
 				D8A42A6F1E815A9C00D8E281 /* UIApplication+RTL.swift in Sources */,
 				672285732540B56D0038E332 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */,
 				67C6F7AE27E8D22400B9C864 /* NotificationsCenterDetailViewModel.swift in Sources */,
@@ -12976,7 +12976,7 @@
 				672C35EC22D8E7D2007B8D46 /* EmptyViewController.swift in Sources */,
 				7A4FE5401FA00AEF009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				D8CE25B11E698E2400DAE2E0 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
-				83EDC4C328B424B6007D0192 /* VanishAccountPopUpAlert.swift in Sources */,
+				83EDC4C328B424B6007D0192 /* VanishAccountPopUpAlertView.swift in Sources */,
 				B01E54B0206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				D8CE25B31E698E2400DAE2E0 /* WMFReferencePageViewController.swift in Sources */,
 				6782DBC82343FDE4003FA21B /* DiffListContextCell.swift in Sources */,
@@ -13522,7 +13522,7 @@
 				672C35ED22D8E7D2007B8D46 /* EmptyViewController.swift in Sources */,
 				67E2E490250452E60070F12D /* ArticleAsLivingDocHeaderView.swift in Sources */,
 				B01E54B1206479CC00374FEE /* ProgressContainer.swift in Sources */,
-				83EDC4C228B424B5007D0192 /* VanishAccountPopUpAlert.swift in Sources */,
+				83EDC4C228B424B5007D0192 /* VanishAccountPopUpAlertView.swift in Sources */,
 				83023C1320E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				D8EC3EB01E9BDA35006712EB /* WMFReferencePageViewController.swift in Sources */,
 				D850A53C1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,

@@ -123,7 +123,7 @@ struct VanishAccountContentView: View {
                     }
                 }
             }
-            VanishAccountPopUpAlert(theme:theme, isVisible: $toggleModalVisibility, userInput: $userInput.text)
+            VanishAccountPopUpAlertView(theme:theme, isVisible: $toggleModalVisibility, userInput: $userInput.text)
         }
         
     }

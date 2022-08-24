@@ -1,7 +1,7 @@
 import SwiftUI
 import WMF
 
-struct VanishAccountPopUpAlert: View {
+struct VanishAccountPopUpAlertView: View {
     var theme: Theme
     
     @Binding var isVisible: Bool
