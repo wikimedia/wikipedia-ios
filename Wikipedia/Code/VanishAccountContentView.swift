@@ -28,7 +28,7 @@ struct VanishAccountContentView: View {
     private let fieldTitleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .subheadline, weight: .regular, size: 15)
     
     private var extraBottomPaddingiOS13: CGFloat {
-        // iOS 13doesn't add a bottom scroll view content inset with the keyboard like 14 & 15
+        // iOS 13 doesn't add a bottom scroll view content inset with the keyboard like 14 & 15
         // Adding some extra padding here so it's easier to scroll and see the text view on smaller iOS13 devices
         if #available(iOS 14, *) {
             return 0
