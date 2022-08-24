@@ -142,28 +142,10 @@ extension ThemeableTextView: UITextViewDelegate {
         _delegate?.textViewDidChange?(textView)
         setClearButtonHidden(textView.text.isEmpty)
     }
-    
-    @objc func shouldExitBeginEditingEarly() -> Bool {
-        // override if needed
-        return false
-    }
-    
-    @objc func postBeginEditingHandlingHandling() {
-        // override if needed
-        firstTimeEditing = false
-    }
-    
-    @objc var shouldHandlePlaceholder: Bool {
-        // override if needed
-        return firstTimeEditing
-    }
 
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if shouldExitBeginEditingEarly() {
-            return false
-        }
-        
-        if shouldHandlePlaceholder {
+
+        if firstTimeEditing {
             if textView.text.isEmpty, !isShowingPlaceholder {
                 isShowingPlaceholder = true
                 placeholderDelegate?.themeableTextViewPlaceholderDidHide(self, isPlaceholderHidden: false)
@@ -173,7 +155,8 @@ extension ThemeableTextView: UITextViewDelegate {
                 placeholderDelegate?.themeableTextViewPlaceholderDidHide(self, isPlaceholderHidden: true)
             }
         }
-        postBeginEditingHandlingHandling()
+        
+        firstTimeEditing = false
         return _delegate?.textViewShouldBeginEditing?(textView) ?? true
     }
 
@@ -235,36 +218,30 @@ extension ThemeableTextView: Themeable {
 ///
 /// textViewShouldBeginEditing seems to be called immediately when placed on screen within a UIViewRepresentable view for iOS15, even if it's not focused. This class has additional handling for that case, so that the placeholder properly populates.
 class SwiftUIThemableTextView: ThemeableTextView {
+    
     private var secondTimeEditing = false
     
-    override func shouldExitBeginEditingEarly() -> Bool {
+    override func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if #available(iOS 15.0, *) {
-            if firstTimeEditing {
-                firstTimeEditing = false
-                secondTimeEditing = true
-                return true
+            
+            if secondTimeEditing {
+                if textView.text.isEmpty, !isShowingPlaceholder {
+                    isShowingPlaceholder = true
+                    placeholderDelegate?.themeableTextViewPlaceholderDidHide(self, isPlaceholderHidden: false)
+                } else if isShowingPlaceholder {
+                    textView.text = nil
+                    isShowingPlaceholder = false
+                    placeholderDelegate?.themeableTextViewPlaceholderDidHide(self, isPlaceholderHidden: true)
+                }
+                secondTimeEditing = false
             }
             
-            return false
-        } else {
-            return super.shouldExitBeginEditingEarly()
+            firstTimeEditing = false
+            secondTimeEditing = true
+            return _delegate?.textViewShouldBeginEditing?(textView) ?? true
         }
-    }
-    
-    override func postBeginEditingHandlingHandling() {
-        if #available(iOS 15.0, *) {
-            secondTimeEditing = false
-        } else {
-            super.postBeginEditingHandlingHandling()
-        }
-    }
-    
-    override var shouldHandlePlaceholder: Bool {
-        if #available(iOS 15.0, *) {
-            return secondTimeEditing
-        } else {
-            return super.shouldHandlePlaceholder
-        }
+        
+        return super.textViewShouldBeginEditing(textView)
     }
     
     override func setup() {

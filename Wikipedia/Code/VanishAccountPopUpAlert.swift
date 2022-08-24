@@ -5,6 +5,7 @@ struct VanishAccountPopUpAlert: View {
     var theme: Theme
     
     @Binding var isVisible: Bool
+    @Binding var userInput: String
     
     private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .semibold, size: 18)
     
@@ -38,6 +39,7 @@ struct VanishAccountPopUpAlert: View {
                     Divider()
                     Button(action: {
                         withAnimation(.linear(duration: 0.3)) {
+                            userInput = ""
                             isVisible = false
                         }
                     }, label: {

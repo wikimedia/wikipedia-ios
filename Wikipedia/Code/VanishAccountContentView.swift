@@ -15,7 +15,7 @@ struct VanishAccountContentView: View {
         static let buttonText = WMFLocalizedString("vanish-account-button-text", value: "Send request", comment: "Text for button on vanish account request screen")
     }
     
-    @SwiftUI.State var userInput = ""
+    @SwiftUI.ObservedObject var userInput: UserInput
     @SwiftUI.State var toggleModalVisibility = false
     @SwiftUI.State var shouldShowModal = false
     
@@ -77,7 +77,7 @@ struct VanishAccountContentView: View {
                                 .font(Font(fieldTitleFont))
                                 .padding([.leading, .trailing], 15)
                                 .padding([.top], 5)
-                            TextView(placeholder: LocalizedStrings.additionalInformationFieldPlaceholder, theme: theme, text: $userInput)
+                            TextView(placeholder: LocalizedStrings.additionalInformationFieldPlaceholder, theme: theme, text: $userInput.text)
                                 .padding([.leading, .trailing], 10)
                                 .frame(maxWidth: .infinity, minHeight: 100)
                             Spacer()
@@ -93,7 +93,6 @@ struct VanishAccountContentView: View {
                             Spacer()
                             Button(action: {
                                 openMailClient()
-                                print(userInput)
                             }, label: {
                                 Text(LocalizedStrings.buttonText)
                                     .font(Font(buttonFont))
@@ -121,7 +120,7 @@ struct VanishAccountContentView: View {
                     }
                 }
             }
-            VanishAccountPopUpAlert(theme:theme, isVisible: $toggleModalVisibility)
+            VanishAccountPopUpAlert(theme:theme, isVisible: $toggleModalVisibility, userInput: $userInput.text)
         }
     }
     
@@ -129,7 +128,7 @@ struct VanishAccountContentView: View {
         let mainText = WMFLocalizedString("vanish-account-email-text", value: "Hello,\nThis is a request to vanish my Wikipedia account.", comment: "Email content for the vanishing account request")
         let usernameAndPage = WMFLocalizedString("vanish-account-email-username-title", value: "Username and userpage", comment: "")
         let addtionalInformationTitle = WMFLocalizedString("addtional-information-email-title", value: "Additional information", comment: " ")
-        let emailBody = "\(mainText)\n\n\(usernameAndPage): \(username)\n\n\(addtionalInformationTitle): \(userInput)"
+        let emailBody = "\(mainText)\n\n\(usernameAndPage): \(username)\n\n\(addtionalInformationTitle): \(userInput.text)"
         return emailBody
     }
     
@@ -175,7 +174,9 @@ struct TextView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIViewType, context: UIViewRepresentableContext<Self>) {
-        if !text.isEmpty {
+        if text.isEmpty {
+            uiView.isShowingPlaceholder = true
+        } else {
             uiView.text = text
         }
     }

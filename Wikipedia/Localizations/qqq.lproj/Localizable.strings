@@ -1016,6 +1016,9 @@
 "uzbek-variants-alert-title" = "Title of alert used to inform users about Uzbek variant support.";
 "vanish-account-additional-information-field" = "Title for the additional information form field";
 "vanish-account-additional-information-placeholder" = "Placeholder for the additional information form field";
+"vanish-account-back-confirm-discard" = "Text of confirmation alert discard option on vanishing request screen, if user taps Back after filling out information. This option backs out of the screen.";
+"vanish-account-back-confirm-keep-editing" = "Text of confirmation alert keep editing option on vanishing request screen, if user taps Back after filling out information. This option keeps them on the screen to continue editing.";
+"vanish-account-back-confirm-title" = "Title of confirmation alert on vanishing request screen, if user taps Back after filling out information.";
 "vanish-account-bottom-text" = "Informative text on accounting deletion on Wikipedia";
 "vanish-account-bottom-text-continuation" = "Continuation on informative text about account deletion on Wikipedia";
 "vanish-account-button-text" = "Text for button on vanish account request screen";
