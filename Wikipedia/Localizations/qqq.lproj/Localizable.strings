@@ -1027,9 +1027,8 @@
 "vanish-account-back-confirm-keep-editing" = "Text of confirmation alert keep editing option on vanishing request screen, if user taps Back after filling out information. This option keeps them on the screen to continue editing.";
 "vanish-account-back-confirm-title" = "Title of confirmation alert on vanishing request screen, if user taps Back after filling out information.";
 "vanish-account-bottom-text" = "Informative text on accounting deletion on Wikipedia";
-"vanish-account-bottom-text-continuation" = "Continuation on informative text about account deletion on Wikipedia";
+"vanish-account-bottom-text-with-link" = "Informative text on accounting deletion on Wikipedia, contains link to more info on a web page. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting.";
 "vanish-account-button-text" = "Text for button on vanish account request screen";
-"vanish-account-courtesy-vanishing" = "Text for courtesy vaninshing link";
 "vanish-account-description" = "Description for the vanishing process";
 "vanish-account-email-text" = "Email content for the vanishing account request";
 "vanish-account-email-username-title" = "No comment provided by engineer.";
