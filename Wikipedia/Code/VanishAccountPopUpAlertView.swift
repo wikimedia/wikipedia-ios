@@ -30,8 +30,8 @@ struct VanishAccountPopUpAlertView: View {
                             .frame(height: geometry.size.height / 5)
                         VStack(alignment: .center, spacing: 0) {
                             Text(LocalizedStrings.title)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 45, alignment: .center)
+                                .frame(alignment: .center)
+                                .fixedSize(horizontal: false, vertical: true)
                                 .font(Font(titleFont))
                                 .foregroundColor(Color(theme.colors.primaryText))
                                 .padding(10)
