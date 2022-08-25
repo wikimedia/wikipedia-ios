@@ -21,14 +21,13 @@ struct VanishAccountPopUpAlertView: View {
     }
     
     var body: some View {
-        GeometryReader { proxy in
+        GeometryReader { geometry in
             ZStack {
                 Color.black.opacity(isVisible ? 0.3 : 0).edgesIgnoringSafeArea(.all)
                 if isVisible {
-                    
                     ScrollView(.vertical, showsIndicators: false) {
-                        
-                        
+                        Spacer()
+                            .frame(height: geometry.size.height / 5)
                         VStack(alignment: .center, spacing: 0) {
                             Text(LocalizedStrings.title)
                                 .frame(maxWidth: .infinity)
@@ -62,9 +61,9 @@ struct VanishAccountPopUpAlertView: View {
                         .background(Color(theme.colors.paperBackground))
                         .cornerRadius(14)
                     }
+                  
                 }
-                
-            }.frame(minHeight: proxy.size.height)
+            }.frame(minHeight: geometry.size.height)
         }
     }
     
