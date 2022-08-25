@@ -127,9 +127,9 @@ struct VanishAccountContentView: View {
     
     func getMailBody() -> String {
         let mainText = WMFLocalizedString("vanish-account-email-text", value: "Hello,\nThis is a request to vanish my Wikipedia account.", comment: "Email content for the vanishing account request")
-        let usernameAndPage = WMFLocalizedString("vanish-account-email-username-title", value: "Username and userpage", comment: "")
-        let addtionalInformationTitle = WMFLocalizedString("addtional-information-email-title", value: "Additional information", comment: " ")
-        let emailBody = "\(mainText)\n\n\(usernameAndPage): \(username)\n\n\(addtionalInformationTitle): \(userInput.text)"
+        let usernameAndPage = WMFLocalizedString("vanish-account-email-username-title", value: "Username and userpage", comment: "Text for the username and userpage items for the request vanishing email body")
+        let additionalInformationTitle = WMFLocalizedString("additional-information-email-title", value: "Additional information", comment: "Text for the additional information for the request vanishing email body")
+        let emailBody = "\(mainText)\n\n\(usernameAndPage): \(username)\n\n\(additionalInformationTitle): \(userInput.text)"
         return emailBody
     }
     

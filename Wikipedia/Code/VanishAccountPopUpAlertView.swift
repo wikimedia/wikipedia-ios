@@ -66,14 +66,6 @@ struct VanishAccountPopUpAlertView: View {
             }.frame(minHeight: geometry.size.height)
         }
     }
-    
-    private func updateOrientation() {
-        if orientation.isPortrait {
-            thisWidth = 300
-        } else {
-            thisWidth = 800
-        }
-    }
 }
 
 struct BulletListView: View {
