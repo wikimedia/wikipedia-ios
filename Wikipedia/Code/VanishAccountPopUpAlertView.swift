@@ -9,9 +9,6 @@ struct VanishAccountPopUpAlertView: View {
     
     private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .semibold, size: 18)
     
-    @SwiftUI.State private var thisWidth: CGFloat = 300
-    @SwiftUI.State private var orientation = UIDeviceOrientation.unknown
-    
     enum LocalizedStrings {
         static let title = WMFLocalizedString("vanish-modal-title", value: "Vanishing request", comment: "Title text fot the vanish request modal")
         static let firstItem = WMFLocalizedString("vanish-modal-item", value: "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator.", comment: "Text indicating that the process of vanishing might take days to be completed")
@@ -57,11 +54,10 @@ struct VanishAccountPopUpAlertView: View {
                                     .font(Font(titleFont))
                             }).buttonStyle(PlainButtonStyle())
                         }
-                        .frame(maxWidth: thisWidth)
+                        .frame(maxWidth: 300)
                         .background(Color(theme.colors.paperBackground))
                         .cornerRadius(14)
                     }
-                    
                 }
             }.frame(minHeight: geometry.size.height)
         }
