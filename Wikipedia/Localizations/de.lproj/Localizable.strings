@@ -871,7 +871,6 @@
 "talk-page-new-topic-title" = "Neue Diskussion";
 "talk-page-publish-terms-and-licenses" = "Indem du die Änderungen speicherst, stimmst du den $1Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den $3CC BY-SA 3.0$4 und den $5GFDL$6 Lizenzen zu veröffentlichen.";
 "talk-page-reply-title" = "Antworten";
-// Fuzzy
 "talk-page-title-article-talk" = "Artikeldiskussionsseite";
 "talk-page-title-user-talk" = "Benutzerdiskussionsseite";
 "talk-page-topic-title" = "Diskussion";
