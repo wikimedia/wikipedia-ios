@@ -88,10 +88,10 @@ struct VanishAccountContentView: View {
                         VStack {
                             Text("\(LocalizedStrings.bottomText) [\(LocalizedStrings.courtesyVanishing)](https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing) \(LocalizedStrings.bottomTextContinuation)")
                                 .foregroundColor(Color(theme.colors.secondaryText))
-                                .multilineTextAlignment(.leading)
-                                .frame(maxWidth: .infinity, minHeight: 100, alignment: .leading)
+                                .fixedSize(horizontal: false, vertical: true) // maybe fix weird cutoff bug
                                 .font(Font(bodyFont))
                                 .padding(20)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             Spacer()
                             Button(action: {
                                 openMailClient()
