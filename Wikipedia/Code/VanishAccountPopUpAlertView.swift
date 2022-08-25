@@ -98,18 +98,21 @@ struct BulletListView: View {
                 Text(LocalizedStrings.firstItem)
                     .font(Font(bodyFont))
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(Color(theme.colors.primaryText))
             }
             HStack {
                 BulletView(theme: theme, height: 40)
                 Text(LocalizedStrings.secondItem)
                     .font(Font(bodyFont))
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(Color(theme.colors.primaryText))
             }
             HStack {
                 BulletView(theme: theme, height: 44)
                 Text("\(LocalizedStrings.thirdItem) [\(LocalizedStrings.linkTitle)](https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing)")
                     .font(Font(bodyFont))
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(Color(theme.colors.primaryText))
                     .padding(.bottom, 10)
             }
         }

@@ -1,4 +1,4 @@
-import Foundation
+import WMF
 import SwiftUI
 
 struct VanishAccountFooterView: View {

@@ -9,7 +9,6 @@ struct VanishAccountContentView: View {
         static let usernameFieldTitle = WMFLocalizedString("vanish-account-username-field", value: "Username and user page", comment: "Title for the username and userpage form field")
         static let additionalInformationFieldTitle = WMFLocalizedString("vanish-account-additional-information-field", value: "Additional information", comment: "Title for the additional information form field")
         static let additionalInformationFieldPlaceholder = WMFLocalizedString("vanish-account-additional-information-placeholder", value: "Optional", comment: "Placeholder for the additional information form field")
-       
         static let buttonText = WMFLocalizedString("vanish-account-button-text", value: "Send request", comment: "Text for button on vanish account request screen")
     }
     
@@ -73,10 +72,10 @@ struct VanishAccountContentView: View {
                                 .foregroundColor(Color(theme.colors.link))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(Font(fieldTitleFont))
-                                .padding([.leading, .trailing], 15)
+                                .padding([.leading, .trailing], 20)
                                 .padding([.top], 5)
                             TextView(placeholder: LocalizedStrings.additionalInformationFieldPlaceholder, theme: theme, text: $userInput.text)
-                                .padding([.leading, .trailing], 15)
+                                .padding([.leading, .trailing], 20)
                                 .frame(maxWidth: .infinity, minHeight: 100)
                             Spacer()
                                 .frame(height: 12)
@@ -86,7 +85,7 @@ struct VanishAccountContentView: View {
                         VStack {
                             VanishAccountFooterView()
                                 .foregroundColor(Color(theme.colors.secondaryText))
-                                .fixedSize(horizontal: false, vertical: true) // maybe fix weird cutoff bug
+                                .fixedSize(horizontal: false, vertical: true)
                                 .font(Font(bodyFont))
                                 .padding(20)
                                 .frame(maxWidth: .infinity, alignment: .leading)
