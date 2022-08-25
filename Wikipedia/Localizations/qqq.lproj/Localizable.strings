@@ -1036,7 +1036,8 @@
 "vanish-account-username-field" = "Title for the username and userpage form field";
 "vanish-modal-item" = "Text indicating that the process of vanishing might take days to be completed";
 "vanish-modal-item-2" = "Text indicating that the user should check if their email was sent in the Mail app used to send the message";
-"vanish-modal-item-3" = "Text indicating that more infor is in the following link";
+"vanish-modal-item-3" = "Informative text indicating more information is available at a Wikipedia page";
+"vanish-modal-item-3-ios15" = "Informative text indicating more information is available at a Wikipedia page, contains link to page. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting.";
 "vanish-modal-title" = "Title text fot the vanish request modal";
 "vanishing-link-title" = "Courtesy vanishing page title";
 "vanishing-request-email-title" = "Title for vanishing request email";
