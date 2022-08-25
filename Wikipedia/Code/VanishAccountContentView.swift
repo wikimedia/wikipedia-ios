@@ -13,8 +13,8 @@ struct VanishAccountContentView: View {
     }
     
     @SwiftUI.ObservedObject var userInput: UserInput
-    @SwiftUI.State var toggleModalVisibility = false
-    @SwiftUI.State var shouldShowModal = false
+    @SwiftUI.State var isModalVisible = false
+    @SwiftUI.State var shouldShowModalOnForeground = false
     
     var theme: Theme
     var username: String
@@ -113,14 +113,14 @@ struct VanishAccountContentView: View {
                 .background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-                if shouldShowModal {
+                if shouldShowModalOnForeground {
                     withAnimation(.linear(duration: 0.3)) {
-                        toggleModalVisibility.toggle()
-                        shouldShowModal.toggle()
+                        isModalVisible = true
+                        shouldShowModalOnForeground = false
                     }
                 }
             }
-            VanishAccountPopUpAlertView(theme:theme, isVisible: $toggleModalVisibility, userInput: $userInput.text)
+            VanishAccountPopUpAlertView(theme:theme, isVisible: $isModalVisible, userInput: $userInput.text)
         }
         
     }
@@ -144,7 +144,7 @@ struct VanishAccountContentView: View {
             return
         }
 
-        shouldShowModal = true
+        shouldShowModalOnForeground = true
         UIApplication.shared.open(mailtoURL)
     }
     
