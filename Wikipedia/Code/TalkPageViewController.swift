@@ -110,32 +110,27 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
 // TODO
 extension TalkPageViewController: TalkPageCellDelegate {
 
-    func userDidTapDisclosureButton(cellViewModel: TalkPageCellViewModel?) {
+    func userDidTapDisclosureButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {
         guard let cellViewModel = cellViewModel, let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}) else {
             return
         }
 
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
-
+        configuredCellViewModel.isThreadExpanded.toggle()
+        
+        cell.configure(viewModel: configuredCellViewModel)
         talkPageView.collectionView.collectionViewLayout.invalidateLayout()
-        talkPageView.collectionView.performBatchUpdates {
-            configuredCellViewModel.isThreadExpanded = !configuredCellViewModel.isThreadExpanded
-            self.talkPageView.collectionView.reloadItems(at: [IndexPath(row: indexOfConfiguredCell, section: 0)])
-        }
     }
 
-    func userDidTapSubscribeButton(cellViewModel: TalkPageCellViewModel?) {
+    func userDidTapSubscribeButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {
         guard let cellViewModel = cellViewModel, let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}) else {
             return
         }
 
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
-
-        talkPageView.collectionView.performBatchUpdates {
-            configuredCellViewModel.isSubscribed = !configuredCellViewModel.isSubscribed
-            self.talkPageView.collectionView.reloadItems(at: [IndexPath(row: indexOfConfiguredCell, section: 0)])
-        }
-
+        configuredCellViewModel.isSubscribed.toggle()
+        
+        cell.configure(viewModel: configuredCellViewModel)
     }
 
 }

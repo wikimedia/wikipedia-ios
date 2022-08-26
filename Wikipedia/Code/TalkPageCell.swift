@@ -3,8 +3,8 @@ import UIKit
 import WMF
 
 protocol TalkPageCellDelegate: AnyObject {
-    func userDidTapDisclosureButton(cellViewModel: TalkPageCellViewModel?)
-    func userDidTapSubscribeButton(cellViewModel: TalkPageCellViewModel?)
+    func userDidTapDisclosureButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell)
+    func userDidTapSubscribeButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell)
 }
 
 final class TalkPageCell: UICollectionViewCell {
@@ -113,11 +113,11 @@ final class TalkPageCell: UICollectionViewCell {
     // MARK: - Actions
 
     @objc func userDidTapDisclosureButton() {
-        delegate?.userDidTapDisclosureButton(cellViewModel: viewModel)
+        delegate?.userDidTapDisclosureButton(cellViewModel: viewModel, cell: self)
     }
 
     @objc func userDidTapSubscribeButton() {
-        delegate?.userDidTapSubscribeButton(cellViewModel: viewModel)
+        delegate?.userDidTapSubscribeButton(cellViewModel: viewModel, cell: self)
     }
 
 }
