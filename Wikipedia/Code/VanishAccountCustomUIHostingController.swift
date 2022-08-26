@@ -29,7 +29,11 @@ class VanishAccountCustomUIHostingController: UIHostingController<VanishAccountC
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         // Custom back button, so we can present the action sheet
-        let newBackButton = UIBarButtonItem(title: CommonStrings.accessibilityBackTitle, style: .plain, target: self, action: #selector(tappedBack))
+        let imageFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .medium, size: 18, maximumPointSize: 18)
+        let imageConfig = UIImage.SymbolConfiguration(font: imageFont)
+        let backImage = UIImage(systemName: "chevron.backward", withConfiguration: imageConfig)
+        
+        let newBackButton = UIBarButtonItem(image: backImage, style: .plain, target: self, action: #selector(tappedBack))
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.navigationItem.leftBarButtonItem = newBackButton
     }
