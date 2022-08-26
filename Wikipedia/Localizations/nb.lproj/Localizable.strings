@@ -990,6 +990,7 @@
 "talk-page-new-topic-title" = "Ny diskusjon";
 "talk-page-publish-terms-and-licenses" = "Ved å lagre endringene samtykker du i $1bruksvilkårene$2 og i å slippe ditt bidrag under lisensene $3CC BY-SA 3.0$4 og $5GFDL$6.";
 "talk-page-reply-title" = "Svar";
+// Fuzzy
 "talk-page-title-article-talk" = "Artikkeldiskusjon";
 "talk-page-title-user-talk" = "Brukerdiskusjon";
 "talk-page-topic-title" = "Diskusjon";

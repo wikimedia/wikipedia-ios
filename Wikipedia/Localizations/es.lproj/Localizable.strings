@@ -915,6 +915,7 @@
 "talk-page-new-topic-title" = "Discusión nueva";
 "talk-page-publish-terms-and-licenses" = "Al guardar tus cambios aceptas los $1términos de uso$ e igualmente aceptas publicar tus contribuciones bajo los términos de las licencias $3CC BY-SA 3.0$4 y $5GFDL$6.";
 "talk-page-reply-title" = "Responder";
+// Fuzzy
 "talk-page-title-article-talk" = "discusión";
 "talk-page-title-user-talk" = "Conversaciones";
 "talk-page-topic-title" = "Discusión";

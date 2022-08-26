@@ -309,6 +309,20 @@
 			<string>vos</string>
 		</dict>
 	</dict>
+	<key>notifications-center-empty-state-num-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d filter</string>
+		</dict>
+	</dict>
 	<key>notifications-center-mark-all-as-read-confirmation-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -439,6 +453,50 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d aveniment storich pussee</string>
+		</dict>
+	</dict>
+	<key>page-history-revision-size-diff-addition</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ %1$d bait</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>Sgiontad</string>
+		</dict>
+	</dict>
+	<key>page-history-revision-size-diff-subtraction</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ %1$d bait</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>Levad</string>
+		</dict>
+	</dict>
+	<key>page-history-stats-text</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ dal %2$@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1 modifega</string>
+			<key>other</key>
+			<string>%1$d modifeghe</string>
 		</dict>
 	</dict>
 </dict>
