@@ -294,6 +294,8 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
             bottom += toolbar.frame.height
         }
         
+        bottom += additionalBottomContentInset
+        
         let scrollIndicatorInsets: UIEdgeInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
         
         if let rc = scrollView.refreshControl, rc.isRefreshing {
@@ -303,6 +305,11 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
         if scrollView.setContentInset(contentInset, verticalScrollIndicatorInsets: scrollIndicatorInsets, preserveContentOffset: navigationBar.isAdjustingHidingFromContentInsetChangesEnabled, preserveAnimation: shouldAnimateWhileUpdatingScrollViewInsets) {
             scrollViewInsetsDidChange()
         }
+    }
+    
+    /// Override to add any additional bottom insets during content inset calculations
+    var additionalBottomContentInset: CGFloat {
+        return 0
     }
 
     open func scrollViewInsetsDidChange() {
