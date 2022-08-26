@@ -735,6 +735,7 @@
 "talk-page-new-topic-title" = "Nova diskuto";
 "talk-page-publish-terms-and-licenses" = "Per konservado de ŝanĝoj, vi konsentas al la $1Kondiĉoj de Uzo$2, kaj konsentas al distribuado de via kontribuaĵo sub la permesiloj $3CC BY-SA 3.0$4 kaj $5GFDL$6.";
 "talk-page-reply-title" = "Respondi";
+// Fuzzy
 "talk-page-title-article-talk" = "Diskutpaĝo de artikolo";
 "talk-page-title-user-talk" = "Diskutpaĝo de Uzanto";
 "talk-page-topic-title" = "Diskuto";

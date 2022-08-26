@@ -611,7 +611,7 @@
 "notifications-center-filters-read-status-item-title-all" = "Tudo";
 "notifications-center-filters-read-status-item-title-read" = "Ler";
 "notifications-center-filters-read-status-item-title-unread" = "Não lidas";
-"notifications-center-filters-read-status-section-title" = "Estado de leitura";
+"notifications-center-filters-read-status-section-title" = "Status de leitura";
 "notifications-center-filters-title" = "Filtros";
 "notifications-center-filters-types-footer" = "Modifique os tipos de notificação para filtrá-los dentro/fora de sua caixa de entrada de notificação. Os tipos desativados não ficarão visíveis, mas seu conteúdo e quaisquer novas notificações estarão disponíveis quando a alternância for ativada novamente.";
 "notifications-center-filters-types-item-title-all" = "Todos os tipos";
@@ -697,9 +697,9 @@
 "notifications-center-type-title-edit-reverted" = "Edição revertida";
 "notifications-center-type-title-edit-summary-mention" = "Editar menção de resumo";
 "notifications-center-type-title-email-from-other-user" = "E-mail de outro usuário";
-"notifications-center-type-title-login-attempts" = "Tentativas de login";
-"notifications-center-type-title-login-attempts-subtitle" = "Tentativas de login falhadas na sua conta";
-"notifications-center-type-title-login-success" = "Login bem sucedido";
+"notifications-center-type-title-login-attempts" = "Tentativas de entrada";
+"notifications-center-type-title-login-attempts-subtitle" = "Tentativas de entradas falhadas na sua conta";
+"notifications-center-type-title-login-success" = "Entrada bem-sucedida";
 "notifications-center-type-title-other" = "Outro";
 "notifications-center-type-title-page-link" = "Link da página";
 "notifications-center-type-title-page-review" = "Revisão da página";
@@ -1028,6 +1028,7 @@
 "talk-page-title-article-talk" = "Discussão de artigo";
 "talk-page-title-user-talk" = "Discussão do usuário";
 "talk-page-topic-title" = "Discussão";
+"talk-pages-coffee-roll-read-more" = "Leia mais";
 "talk-pages-reply-button-title" = "Responder a esta discussão";
 "talk-pages-view-title" = "Discussão";
 "theme-black-display-name" = "Preto";

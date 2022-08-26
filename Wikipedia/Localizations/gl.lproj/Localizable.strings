@@ -747,6 +747,7 @@
 "talk-page-new-topic-title" = "Nova conversa";
 "talk-page-publish-terms-and-licenses" = "Ó gardar os cambios, vostede concorda cos $1Termos de Uso$2, e concorda liberar as súas contribucións baixo as licenzas $3CC BY-SA 3.0$4 e $5GFDL$6.";
 "talk-page-reply-title" = "Respostar";
+// Fuzzy
 "talk-page-title-article-talk" = "conversa de artigo";
 "talk-page-title-user-talk" = "Conversa de usuario";
 "talk-page-topic-title" = "Conversa";

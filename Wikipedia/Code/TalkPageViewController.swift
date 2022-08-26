@@ -6,6 +6,7 @@ class TalkPageViewController: ViewController {
     // MARK: - Properties
 
     fileprivate let viewModel: TalkPageViewModel
+    fileprivate var headerView: TalkPageHeaderView?
 
     var talkPageView: TalkPageView {
         return view as! TalkPageView
@@ -35,13 +36,32 @@ class TalkPageViewController: ViewController {
 
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil)
         navigationItem.rightBarButtonItem = rightBarButtonItem
-
+        
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
-        
+ 
         // Needed for reply compose views to display on top of navigation bar.
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
+
+        setupHeaderView()
+    }
+
+    private func setupHeaderView() {
+        let headerView = TalkPageHeaderView()
+        self.headerView = headerView
+
+        headerView.configure(viewModel: viewModel)
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.isUnderBarViewHidingEnabled = true
+        navigationBar.allowsUnderbarHitsFallThrough = true
+        navigationBar.underBarViewPercentHidden = 0.6
+
+        navigationBar.addUnderNavigationBarView(headerView, shouldIgnoreSafeArea: true)
+        useNavigationBarVisibleHeightForScrollViewInsets = false
+        updateScrollViewInsets()
+
+        headerView.apply(theme: theme)
     }
 
     // MARK: - Public
@@ -52,6 +72,7 @@ class TalkPageViewController: ViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
 
+        headerView?.apply(theme: theme)
         talkPageView.apply(theme: theme)
         talkPageView.collectionView.reloadData()
         replyComposeController.apply(theme: theme)
@@ -78,7 +99,7 @@ class TalkPageViewController: ViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
+        headerView?.updateLabelFonts()
         replyComposeController.calculateLayout(in: self)
     }
     

@@ -435,6 +435,11 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "De Wikipédia en $1";
 "explore-random-article-sub-heading-from-wikipedia" = "De Wikipédia";
 "explore-randomizer" = "Au hasard";
+"export-user-data-confirmation-message" = "Le partage de votre bibliothèque d’applications inclut des données sur vos listes de lecture et votre historique, vos préférences et le contenu du flux d’exploration. Ce fichier de données ne doit être partagé qu’avec un destinataire de confiance pour être utilisé à des fins de diagnostic technique.";
+"export-user-data-confirmation-title" = "Partager la bibliothèque d’applications ?";
+"export-user-data-generic-error" = "Une erreur s’est produite lors de l’exportation de vos données. Veuillez essayer à nouveau plus tard.";
+"export-user-data-space-error" = "Vous ne disposez pas de suffisamment d’espace sur l’appareil pour exporter vos données utilisateur. Veuillez essayer à nouveau plus tard.";
+"export-user-data-title" = "Exporter les données utilisateur";
 "featured-article-empty-title" = "Aucun article en vedette disponible aujourd’hui";
 "featured-widget-content-failure-for-date" = "Un article mis en avant n’est pas disponible à cette date.";
 "featured-widget-description" = "Découvrir les meilleurs articles sur Wikipédia, sélectionnés chaque jour par notre communauté.";
@@ -1023,6 +1028,7 @@
 "talk-page-title-article-talk" = "Discussion de l’article";
 "talk-page-title-user-talk" = "Discussion de l’utilisateur";
 "talk-page-topic-title" = "Discussion";
+"talk-pages-coffee-roll-read-more" = "Lire davantage";
 "talk-pages-reply-button-title" = "Répondre à cette discussion";
 "talk-pages-view-title" = "Discussion";
 "theme-black-display-name" = "Noir";

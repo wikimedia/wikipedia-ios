@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 fileprivate enum TalkPageContainerViewState {
     case initial
@@ -535,9 +536,9 @@ private extension TalkPageContainerViewController {
         var headerText: String
         switch type {
         case .user:
-            headerText = WMFLocalizedString("talk-page-title-user-talk", value: "User Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page.").localizedUppercase
+            headerText = CommonStrings.talkPageTitleUserTalk.localizedUppercase
         case .article:
-            headerText = WMFLocalizedString("talk-page-title-article-talk", value: "article Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page.").localizedUppercase
+            headerText = CommonStrings.talkPageTitleArticleTalk.localizedUppercase
         }
         
         let languageTextFormat = WMFLocalizedString("talk-page-info-active-conversations", value: "Active conversations on %1$@ Wikipedia", comment: "This information label is displayed at the top of a talk page discussion list. %1$@ is replaced by the language wiki they are using - for example, 'Active conversations on English Wikipedia'.")
