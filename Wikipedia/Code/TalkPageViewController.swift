@@ -17,6 +17,8 @@ class TalkPageViewController: ViewController {
     init(theme: Theme, viewModel: TalkPageViewModel) {
         self.viewModel = viewModel
         super.init(theme: theme)
+        
+        viewModel.delegate = self
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -44,7 +46,7 @@ class TalkPageViewController: ViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
 
-        setupHeaderView()
+        viewModel.fetchTalkPage()
     }
 
     private func setupHeaderView() {
@@ -55,7 +57,6 @@ class TalkPageViewController: ViewController {
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = true
         navigationBar.allowsUnderbarHitsFallThrough = true
-        navigationBar.underBarViewPercentHidden = 0.6
 
         navigationBar.addUnderNavigationBarView(headerView, shouldIgnoreSafeArea: true)
         useNavigationBarVisibleHeightForScrollViewInsets = false
@@ -72,6 +73,7 @@ class TalkPageViewController: ViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
 
+        viewModel.theme = theme
         headerView?.apply(theme: theme)
         talkPageView.apply(theme: theme)
         talkPageView.collectionView.reloadData()
@@ -133,4 +135,10 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         replyComposeController.setupAndDisplay(in: self, theme: theme)
     }
 
+}
+
+extension TalkPageViewController: TalkPageViewModelDelegate {
+    func talkPageDataDidUpdate() {
+        setupHeaderView()
+    }
 }
