@@ -9,6 +9,7 @@ class SwiftUITextView: UITextView {
     lazy var placeholderLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .natural
         return label
     }()
     
@@ -33,9 +34,11 @@ class SwiftUITextView: UITextView {
         placeholderLabel.text = placeholder
         
         addSubview(placeholderLabel)
+        
         NSLayoutConstraint.activate([
-            placeholderLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            placeholderLabel.topAnchor.constraint(equalTo: topAnchor)
+            placeholderLabel.leftAnchor.constraint(equalTo: leftAnchor),
+            placeholderLabel.topAnchor.constraint(equalTo: topAnchor),
+            placeholderLabel.widthAnchor.constraint(equalTo: widthAnchor)
         ])
         
         setDoneOnKeyboard()
