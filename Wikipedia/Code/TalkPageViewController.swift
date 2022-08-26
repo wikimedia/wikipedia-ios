@@ -118,7 +118,7 @@ class TalkPageViewController: ViewController {
 extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 25
+        return viewModel.topics.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -126,19 +126,48 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
              return UICollectionViewCell()
         }
 
+        let viewModel = viewModel.topics[indexPath.row]
+
+        cell.configure(viewModel: viewModel)
         cell.apply(theme: theme)
+        cell.delegate = self
 
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        replyComposeController.setupAndDisplay(in: self, theme: theme)
+}
+
+// MARK: - TalkPageCellDelegate
+
+// TODO
+extension TalkPageViewController: TalkPageCellDelegate {
+
+    func userDidTapDisclosureButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {
+        guard let cellViewModel = cellViewModel, let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}) else {
+            return
+        }
+
+        let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
+        configuredCellViewModel.isThreadExpanded.toggle()
+        
+        cell.configure(viewModel: configuredCellViewModel)
+        talkPageView.collectionView.collectionViewLayout.invalidateLayout()
     }
 
+    func userDidTapSubscribeButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {
+        guard let cellViewModel = cellViewModel, let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}) else {
+            return
+        }
+
+        let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
+        configuredCellViewModel.isSubscribed.toggle()
+        
+        cell.configure(viewModel: configuredCellViewModel)
+    }
 }
 
 extension TalkPageViewController: TalkPageViewModelDelegate {
     func talkPageDataDidUpdate() {
         setupHeaderView()
+        talkPageView.collectionView.reloadData()
     }
 }
