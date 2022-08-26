@@ -410,6 +410,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Af $1 Wikipedia";
 "explore-random-article-sub-heading-from-wikipedia" = "Af Wikipedia";
 "explore-randomizer" = "Slembið";
+"export-user-data-title" = "Flytja út notandagögn";
 "featured-article-empty-title" = "Engin forsíðugrein er tiltæk í dag";
 "featured-widget-content-failure-for-date" = "Engin forsíðugrein er tiltæk fyrir þessa dagsetningu.";
 "featured-widget-description" = "Uppgötvaðu bestu greinarnar á Wikipedia, valdar af þátttakendunum okkar.";
@@ -588,6 +589,7 @@
 "notifications-center-go-to-your-talk-page" = "Spjallsíðan þín";
 "notifications-center-header-alert-from-agent" = "Aðvörun frá $1";
 "notifications-center-inbox-title" = "Verkefni";
+"notifications-center-inbox-wikimedia-projects-section-footer" = "Aðeins verkefni sem þú hefur búið til reikning fyrir munu birtast hér";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedia-verkefni";
 "notifications-center-inbox-wikipedias-section-title" = "Wikipedíur";
 "notifications-center-language-project-name-format" = "$1 $2";
@@ -975,7 +977,9 @@
 "talk-page-title-article-talk" = "Spjall greinar";
 "talk-page-title-user-talk" = "Spjall notanda";
 "talk-page-topic-title" = "Umræða";
+"talk-pages-coffee-roll-read-more" = "Lesa meira";
 "talk-pages-reply-button-title" = "Svara á þessa umræðu";
+"talk-pages-view-title" = "Spjall";
 "theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Dökkt";
 "theme-default-display-name" = "Sjálfgefið";

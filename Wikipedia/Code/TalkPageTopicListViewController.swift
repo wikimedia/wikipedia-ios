@@ -21,12 +21,12 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
     
     private let siteURL: URL
-    private let type: TalkPageType
+    private let type: OldTalkPageType
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
     
     var fromNavigationStateRestoration: Bool = false
 
-    required init(dataStore: MWKDataStore, talkPageTitle: String, talkPage: TalkPage, siteURL: URL, type: TalkPageType, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
+    required init(dataStore: MWKDataStore, talkPageTitle: String, talkPage: TalkPage, siteURL: URL, type: OldTalkPageType, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
         self.dataStore = dataStore
         self.talkPageTitle = talkPageTitle
         self.talkPage = talkPage

@@ -907,6 +907,7 @@
 "talk-page-new-topic-title" = "Đề tài mới";
 "talk-page-publish-terms-and-licenses" = "Với việc lưu các thay đổi, bạn chấp nhận các $1Điều khoản sử dụng$2 và đồng ý phát hành đóng góp của bạn theo các giấy phép $3CC BY-SA 3.0$4 và $5GFDL$6.";
 "talk-page-reply-title" = "Trả lời";
+// Fuzzy
 "talk-page-title-article-talk" = "Thảo luận Bài viết";
 "talk-page-title-user-talk" = "Thảo luận Người dùng";
 "talk-page-topic-title" = "Đề tài thảo luận";

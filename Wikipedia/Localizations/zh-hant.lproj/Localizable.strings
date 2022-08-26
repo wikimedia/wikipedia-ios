@@ -441,6 +441,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "來自$1維基百科";
 "explore-random-article-sub-heading-from-wikipedia" = "來自維基百科";
 "explore-randomizer" = "隨機條目產生器";
+"export-user-data-title" = "匯出使用者資料";
 "featured-article-empty-title" = "今日沒有可用的典範條目";
 "featured-widget-content-failure-for-date" = "沒有此日期可用的典範條目。";
 "featured-widget-description" = "查看由我們社群每日挑選出的維基百科最佳條目。";
@@ -1014,9 +1015,10 @@
 "talk-page-new-topic-title" = "新討論";
 "talk-page-publish-terms-and-licenses" = "儲存更改後，表示您同意$1使用條款$2，並同意依據$3CC BY-SA 3.0$4以及$5GFDL$6授權發佈您的貢獻。";
 "talk-page-reply-title" = "回覆";
-"talk-page-title-article-talk" = "條目對話";
+"talk-page-title-article-talk" = "條目討論";
 "talk-page-title-user-talk" = "使用者討論";
 "talk-page-topic-title" = "討論";
+"talk-pages-coffee-roll-read-more" = "閱讀更多";
 "talk-pages-reply-button-title" = "回覆此討論";
 "theme-black-display-name" = "漆黑";
 "theme-dark-display-name" = "陰暗";

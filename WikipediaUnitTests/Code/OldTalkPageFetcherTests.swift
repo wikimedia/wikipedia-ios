@@ -49,8 +49,8 @@ class OldTalkPageFetcherTests: XCTestCase {
         
         let siteURL = URL(string: "https://en.wikipedia.org")!
         
-        let prefixedTitle = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: "Username", siteURL: siteURL)
-        guard let title = TalkPageType.user.urlTitle(for: prefixedTitle) else {
+        let prefixedTitle = OldTalkPageType.user.titleWithCanonicalNamespacePrefix(title: "Username", siteURL: siteURL)
+        guard let title = OldTalkPageType.user.urlTitle(for: prefixedTitle) else {
             XCTFail("Failure generating title")
             return
         }
@@ -75,7 +75,7 @@ class OldTalkPageFetcherTests: XCTestCase {
         
         let fetchExpectation = expectation(description: "Waiting for fetch callback")
         
-        guard let title = TalkPageType.user.urlTitle(for: "User talk:Username") else {
+        guard let title = OldTalkPageType.user.urlTitle(for: "User talk:Username") else {
             XCTFail("Failure generating title")
             return
         }

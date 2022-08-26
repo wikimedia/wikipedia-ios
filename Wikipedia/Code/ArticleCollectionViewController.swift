@@ -88,19 +88,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
     open func canShare(at indexPath: IndexPath) -> Bool {
         return articleURL(at: indexPath) != nil
     }
-
-    func pushUserTalkPage(title: String, siteURL: URL) {
-        if FeatureFlags.needsNewTalkPage {
-            let viewModel = TalkPageViewModel(pageTitle: title, siteURL: siteURL)
-            let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel) 
-            push(newTalkPage, animated: true)
-        } else {
-            let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: .user, dataStore: dataStore, theme: theme)
-            push(talkPageContainer, animated: true)
-        }
-        
-        return
-    }
     
     override func contentSizeCategoryDidChange(_ notification: Notification?) {
         cellLayoutEstimate = nil
