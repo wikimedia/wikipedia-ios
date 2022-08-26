@@ -168,5 +168,6 @@ extension TalkPageViewController: TalkPageCellDelegate {
 extension TalkPageViewController: TalkPageViewModelDelegate {
     func talkPageDataDidUpdate() {
         setupHeaderView()
+        talkPageView.collectionView.reloadData()
     }
 }

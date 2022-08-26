@@ -31,7 +31,7 @@ final class TalkPageViewModel {
 
     // TODO: Data Controller - Topics
 
-    var topics: [TalkPageCellViewModel] = [TalkPageCellViewModel(), TalkPageCellViewModel(), TalkPageCellViewModel(), TalkPageCellViewModel()]
+    var topics: [TalkPageCellViewModel] = []
 
     // MARK: - Lifecycle
 
@@ -71,6 +71,7 @@ final class TalkPageViewModel {
             switch result {
             case .success(let result):
                 self?.populateHeaderData(articleSummary: result.articleSummary, items: result.items)
+                self?.topics = [TalkPageCellViewModel(), TalkPageCellViewModel(), TalkPageCellViewModel(), TalkPageCellViewModel()]
                 self?.delegate?.talkPageDataDidUpdate()
             case .failure(let error):
                 DDLogError("Failure fetching talk page: \(error)")
