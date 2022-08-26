@@ -52,7 +52,7 @@ class NetworkReply: NSObject, Codable {
 import Foundation
 import WMF
 
-enum TalkPageType: Int {
+enum OldTalkPageType: Int {
     case user
     case article
     
