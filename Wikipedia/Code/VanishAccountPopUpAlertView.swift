@@ -35,7 +35,7 @@ struct VanishAccountPopUpAlertView: View {
                             BulletListView(theme: theme)
                                 .background(Color(theme.colors.paperBackground))
                                 .padding([.top, .leading, .trailing], 20)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .frame(maxWidth: .infinity, minHeight: 240, alignment: .leading)
                             Divider()
                             Button(action: {
                                 withAnimation(.linear(duration: 0.3)) {
@@ -50,7 +50,7 @@ struct VanishAccountPopUpAlertView: View {
                                     .font(Font(titleFont))
                             }).buttonStyle(PlainButtonStyle())
                         }
-                        .frame(maxWidth: 300)
+                        .frame(width: 300)
                         .background(Color(theme.colors.paperBackground))
                         .cornerRadius(14)
                     }
@@ -73,7 +73,7 @@ struct BulletListView: View {
         @available(iOS 15, *)
         static var thirdItemiOS15: AttributedString? = {
             
-            let localizedString = WMFLocalizedString("vanish-modal-item-3-ios15", value: "If you have further questions about vanishing please visit %1$@Meta:Right_to_vanish%2$@%3$@.", comment: "Informative text indicating more information is available at a Wikipedia page, contains link to page. The parameters do not require translation, as they are used for markdown formatting. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting")
+            let localizedString = WMFLocalizedString("vanish-modal-item-3-ios15", value: "If you have further questions about vanishing please visit %1$@Meta:Right_to_vanish%2$@%3$@", comment: "Informative text indicating more information is available at a Wikipedia page, contains link to page. The parameters do not require translation, as they are used for markdown formatting. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting")
             
             let substitutedString = String.localizedStringWithFormat(
                 localizedString,
