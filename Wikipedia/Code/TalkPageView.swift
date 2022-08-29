@@ -4,16 +4,12 @@ final class TalkPageView: SetupView {
 
     // MARK: - Private Properties
 
-    private lazy var topicGroupLayout: UICollectionViewLayout = {
-        let heightDimension: NSCollectionLayoutDimension = .estimated(225)
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: heightDimension)
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: heightDimension)
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-        let layout = UICollectionViewCompositionalLayout(section: section)
+    private var topicGroupLayout: UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
         return layout
-    }()
+    }
 
     // MARK: - UI Elements
 

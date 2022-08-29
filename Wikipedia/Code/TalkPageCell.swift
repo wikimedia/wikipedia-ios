@@ -27,7 +27,6 @@ final class TalkPageCellRootContainerView: SetupView, Themeable {
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: Self.padding.top),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Self.padding.bottom),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Self.padding.leading),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Self.padding.trailing)
         ])
