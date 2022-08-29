@@ -20,6 +20,8 @@ final class TalkPageView: SetupView {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
+    
+    private(set) var sizingView: TalkPageCellRootContainerView?
 
     // MARK: - Lifecycle
 
@@ -31,6 +33,19 @@ final class TalkPageView: SetupView {
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+        
+        // Add Sizing View for cell height calculations
+        let sizingView = TalkPageCellRootContainerView(frame: .zero)
+        sizingView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.insertSubview(sizingView, at: 0)
+        let horizontalPadding = TalkPageCell.padding.leading + TalkPageCell.padding.trailing
+        NSLayoutConstraint.activate([
+            sizingView.topAnchor.constraint(equalTo: collectionView.topAnchor),
+            sizingView.leadingAnchor.constraint(equalTo: collectionView.safeAreaLayoutGuide.leadingAnchor),
+            sizingView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, constant: -horizontalPadding)
+        ])
+        sizingView.isHidden = true
+        self.sizingView = sizingView
     }
 
 }

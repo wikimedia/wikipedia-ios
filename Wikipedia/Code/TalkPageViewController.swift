@@ -136,7 +136,29 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 225)
+        
+        guard let viewModel = viewModel.topics[safeIndex: indexPath.item],
+              let sizingView = talkPageView.sizingView else {
+            return .zero
+        }
+        
+        sizingView.configure(viewModel: viewModel)
+        sizingView.setNeedsLayout()
+        sizingView.layoutIfNeeded()
+        
+        let horizontalPadding = TalkPageCell.padding.leading + TalkPageCell.padding
+            .trailing
+        let verticalPadding = TalkPageCell.padding.top +
+                                TalkPageCell.padding.bottom +
+                                TalkPageCellRootContainerView.padding.top +
+                                TalkPageCellRootContainerView.padding.bottom
+        
+        let newWidth = sizingView.frame.width + horizontalPadding
+        let newHeight = sizingView.stackView.frame.height + verticalPadding
+        
+        let newSize = CGSize(width: newWidth, height: newHeight)
+        
+        return newSize
     }
 }
 
