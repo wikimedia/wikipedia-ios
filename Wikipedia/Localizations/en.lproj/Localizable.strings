@@ -1036,10 +1036,10 @@
 "vanish-account-email-text" = "Hello,\nThis is a request to vanish my Wikipedia account.";
 "vanish-account-title" = "Vanishing process";
 "vanish-account-username-field" = "Username and user page";
-"vanish-modal-item" = "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator.";
+"vanish-modal-item" = "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator";
 "vanish-modal-item-2" = "If you are unsure if your request went through please check your Mail app";
-"vanish-modal-item-3" = "If you have further questions about vanishing please visit Wikipedia:Courtesy vanishing";
-"vanish-modal-item-3-ios15" = "If you have further questions about vanishing please visit $1Wikipedia:Courtesy vanishing$2$3.";
+"vanish-modal-item-3" = "If you have further questions about vanishing please visit Right to vanish on Meta-wiki";
+"vanish-modal-item-3-ios15" = "If you have further questions about vanishing please visit $1Right to vanish$2$3.";
 "vanish-modal-title" = "Vanishing request";
 "vanishing-request-email-title" = "Request for courtesy vanishing";
 "variants-alert-dismiss-button" = "No thanks";
