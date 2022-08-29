@@ -20,14 +20,16 @@ final class TalkPageCellRootContainerView: SetupView, Themeable {
     lazy var disclosureRow: TalkPageCellDisclosureRow = TalkPageCellDisclosureRow()
     lazy var commentView = TalkPageCellCommentView()
     
+    static let padding = NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
+    
     override func setup() {
         addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 12),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: Self.padding.top),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Self.padding.bottom),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Self.padding.leading),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Self.padding.trailing)
         ])
         
         stackView.addArrangedSubview(disclosureRow)
@@ -74,6 +76,8 @@ final class TalkPageCell: UICollectionViewCell {
 
     weak var viewModel: TalkPageCellViewModel?
     weak var delegate: TalkPageCellDelegate?
+    
+    static let padding = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
 
     // MARK: - UI Elements
 
@@ -110,10 +114,10 @@ final class TalkPageCell: UICollectionViewCell {
         contentView.addSubview(rootContainer)
 
         NSLayoutConstraint.activate([
-            rootContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            rootContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            rootContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            rootContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            rootContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Self.padding.top),
+            rootContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Self.padding.bottom),
+            rootContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Self.padding.leading),
+            rootContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Self.padding.trailing)
         ])
     }
 
