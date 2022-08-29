@@ -614,7 +614,7 @@
 "notifications-center-login-notifications" = "Innloggingsvarsler";
 "notifications-center-mark" = "Merk";
 "notifications-center-mark-all-as-read" = "Merk alle som lest";
-"notifications-center-mark-all-as-read-confirmation-format" = "Er du sikker på at du ønsker å merke {{PLURAL:$1|den ene meldingen|alle $1 meldinger}} fra varslene dine som lest? Varslene blir merket som lest på alle enhetene dine.";
+"notifications-center-mark-all-as-read-confirmation-format" = "Er du sikker på at du ønsker å merke {{PLURAL:$1|den ene meldingen|2=begge meldingene|alle $1 meldinger}} fra varslene dine som lest? Varslene blir merket som lest på alle enhetene dine.";
 "notifications-center-mark-all-as-read-missing-number" = "Er du sikker på at du vil merke alle varslene dine som lest? Varslene blir merket som lest på alle enhetene dine.";
 "notifications-center-mark-as-read" = "Merk som lest";
 "notifications-center-mark-as-unread" = "Merk som ulest";

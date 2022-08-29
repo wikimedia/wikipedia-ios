@@ -6,7 +6,7 @@ struct VanishAccountContentView: View {
     enum LocalizedStrings {
         static let title = WMFLocalizedString("vanish-account-title", value: "Vanishing process", comment: "Title for the vanishing process screen")
         static let description = WMFLocalizedString("vanish-account-description", value: "Vanishing is a last resort and should only be used when you wish to stop editing forever and also to hide as many of your past associations as possible.\n\nTo initiate the vanishing process please provide the following", comment: "Description for the vanishing process")
-        static let usernameFieldTitle = WMFLocalizedString("vanish-account-username-field", value: "Username and user page", comment: "Title for the username and userpage form field")
+        static let usernameFieldTitle = CommonStrings.usernameFieldTitle
         static let additionalInformationFieldTitle = WMFLocalizedString("vanish-account-additional-information-field", value: "Additional information", comment: "Title for the additional information form field")
         static let additionalInformationFieldPlaceholder = WMFLocalizedString("vanish-account-additional-information-placeholder", value: "Optional", comment: "Placeholder for the additional information form field")
         static let buttonText = WMFLocalizedString("vanish-account-button-text", value: "Send request", comment: "Text for button on vanish account request screen")
@@ -132,7 +132,7 @@ struct VanishAccountContentView: View {
     
     func getMailBody() -> String {
         let mainText = WMFLocalizedString("vanish-account-email-text", value: "Hello,\nThis is a request to vanish my Wikipedia account.", comment: "Email content for the vanishing account request")
-        let usernameAndPage = WMFLocalizedString("vanish-account-email-username-title", value: "Username and userpage", comment: "Text for the username and userpage items for the request vanishing email body")
+        let usernameAndPage = CommonStrings.usernameFieldTitle
         let additionalInformationTitle = WMFLocalizedString("additional-information-email-title", value: "Additional information", comment: "Text for the additional information for the request vanishing email body")
         let emailBody = "\(mainText)\n\n\(usernameAndPage): \(username)\n\n\(additionalInformationTitle): \(userInput.text)"
         return emailBody
