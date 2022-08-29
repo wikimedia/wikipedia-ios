@@ -148,13 +148,10 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         
         let horizontalPadding = TalkPageCell.padding.leading + TalkPageCell.padding
             .trailing
-        let verticalPadding = TalkPageCell.padding.top +
-                                TalkPageCell.padding.bottom +
-                                TalkPageCellRootContainerView.padding.top +
-                                TalkPageCellRootContainerView.padding.bottom
+        let verticalPadding = TalkPageCell.padding.top + TalkPageCell.padding.bottom
         
         let newWidth = sizingView.frame.width + horizontalPadding
-        let newHeight = sizingView.stackView.frame.height + verticalPadding
+        let newHeight = sizingView.frame.height + verticalPadding
         
         let newSize = CGSize(width: newWidth, height: newHeight)
         
