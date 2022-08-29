@@ -160,6 +160,10 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         
         return newSize
     }
+    
+    func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+        return collectionView.contentOffset
+    }
 }
 
 // MARK: - TalkPageCellDelegate
@@ -176,7 +180,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         configuredCellViewModel.isThreadExpanded.toggle()
         
         cell.configure(viewModel: configuredCellViewModel)
-        talkPageView.collectionView.collectionViewLayout.invalidateLayout()
+        talkPageView.animateLayoutUpdate()
     }
 
     func userDidTapSubscribeButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {

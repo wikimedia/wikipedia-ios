@@ -47,7 +47,10 @@ final class TalkPageView: SetupView {
         sizingView.isHidden = true
         self.sizingView = sizingView
     }
-
+    
+    func animateLayoutUpdate() {
+        collectionView.setCollectionViewLayout(topicGroupLayout, animated: true)
+    }
 }
 
 // MARK: - Themeable
