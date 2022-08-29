@@ -27,11 +27,10 @@ class VanishAccountCustomUIHostingController: UIHostingController<VanishAccountC
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        
+
         // Custom back button, so we can present the action sheet
-        let newBackButton = UIBarButtonItem(title: CommonStrings.accessibilityBackTitle, style: .plain, target: self, action: #selector(tappedBack))
         self.navigationItem.setHidesBackButton(true, animated: false)
-        self.navigationItem.leftBarButtonItem = newBackButton
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(.caretLeft, target: self, action: #selector(tappedBack))
     }
 
     override func viewWillDisappear(_ animated: Bool) {
