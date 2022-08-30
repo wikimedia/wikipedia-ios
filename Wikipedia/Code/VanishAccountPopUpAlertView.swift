@@ -8,9 +8,12 @@ struct VanishAccountPopUpAlertView: View {
     @Binding var userInput: String
     
     private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .semibold, size: 18)
+    private let bodyFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
+    private let boldFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .bold, size: 18)
     
     enum LocalizedStrings {
         static let title = WMFLocalizedString("vanish-modal-title", value: "Vanishing request", comment: "Title text fot the vanish request modal")
+        static let learnMoreButtonText = CommonStrings.learnMoreButtonText
     }
     
     var body: some View {
@@ -20,14 +23,15 @@ struct VanishAccountPopUpAlertView: View {
                 if isVisible {
                     ScrollView(.vertical, showsIndicators: false) {
                         Spacer()
-                            .frame(height: geometry.size.height / 5)
+                            .frame(height: getSpacerHeight(height: geometry.size.height))
                         VStack(alignment: .center, spacing: 0) {
                             Text(LocalizedStrings.title)
                                 .frame(alignment: .center)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .font(Font(titleFont))
                                 .foregroundColor(Color(theme.colors.primaryText))
-                                .padding(10)
+                                .padding(20)
+                            Spacer()
                             Image("vanish-account-two-tone")
                                 .resizable()
                                 .scaledToFill()
@@ -36,6 +40,24 @@ struct VanishAccountPopUpAlertView: View {
                                 .background(Color(theme.colors.paperBackground))
                                 .padding([.top, .leading, .trailing], 20)
                                 .frame(maxWidth: .infinity, minHeight: 240, alignment: .leading)
+                            if #unavailable(iOS 15) {
+                                HStack {
+                                    Button(action: {
+                                        goToVanishPage()
+                                    }, label: {
+                                        Text(LocalizedStrings.learnMoreButtonText)
+                                            .font(Font(bodyFont))
+                                            .foregroundColor(Color(theme.colors.link))
+                                            .frame(height: 25, alignment: .center)
+                                            .background(Color(theme.colors.paperBackground))
+                                    })
+                                    .padding(.bottom, 20)
+                                    .frame(height: 25, alignment: .center)
+                                    Spacer()
+                                }
+                                .padding(30)
+                                .frame(maxHeight: 25)
+                            }
                             Divider()
                             Button(action: {
                                 withAnimation(.linear(duration: 0.3)) {
@@ -47,16 +69,31 @@ struct VanishAccountPopUpAlertView: View {
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 43, alignment: .center)
                                     .foregroundColor(Color(theme.colors.link))
-                                    .font(Font(titleFont))
+                                    .font(Font(boldFont))
                             }).buttonStyle(PlainButtonStyle())
+                                .frame(height: 43)
                         }
-                        .frame(width: 300)
+                        .frame(width: 300, height: 470)
                         .background(Color(theme.colors.paperBackground))
                         .cornerRadius(14)
                     }
+                    Spacer()
                 }
             }.frame(minHeight: geometry.size.height)
         }
+    }
+    
+    func goToVanishPage() {
+        if let url = URL(string: "https://meta.wikimedia.org/wiki/Right_to_vanish") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    func getSpacerHeight(height: CGFloat) -> CGFloat {
+        if height > 470 {
+            return (height - 470) / 2
+        }
+            return height / 5
     }
 }
 
@@ -94,14 +131,14 @@ struct BulletListView: View {
                 BulletView(theme: theme, height: 52)
                 Text(LocalizedStrings.firstItem)
                     .font(Font(bodyFont))
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: .infinity, minHeight: 75, alignment: .leading)
                     .foregroundColor(Color(theme.colors.primaryText))
             }
             HStack {
                 BulletView(theme: theme, height: 40)
                 Text(LocalizedStrings.secondItem)
                     .font(Font(bodyFont))
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: .infinity, minHeight: 70, alignment: .leading)
                     .foregroundColor(Color(theme.colors.primaryText))
             }
             HStack {
@@ -110,20 +147,20 @@ struct BulletListView: View {
                     if let text = LocalizedStrings.thirdItemiOS15 {
                         Text(text)
                             .font(Font(bodyFont))
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .frame(maxWidth: .infinity, minHeight: 70, alignment: .leading)
                             .foregroundColor(Color(theme.colors.primaryText))
                             .padding(.bottom, 10)
                     } else {
                         Text(LocalizedStrings.thirdItem)
                             .font(Font(bodyFont))
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .frame(maxWidth: .infinity, minHeight: 70, alignment: .leading)
                             .foregroundColor(Color(theme.colors.primaryText))
                             .padding(.bottom, 10)
                     }
                 } else {
                     Text(LocalizedStrings.thirdItem)
                         .font(Font(bodyFont))
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(maxWidth: .infinity, minHeight: 70, alignment: .leading)
                         .foregroundColor(Color(theme.colors.primaryText))
                         .padding(.bottom, 10)
                 }

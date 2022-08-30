@@ -10,7 +10,7 @@ struct VanishAccountContentView: View {
         static let additionalInformationFieldTitle = WMFLocalizedString("vanish-account-additional-information-field", value: "Additional information", comment: "Title for the additional information form field")
         static let additionalInformationFieldPlaceholder = WMFLocalizedString("vanish-account-additional-information-placeholder", value: "Optional", comment: "Placeholder for the additional information form field")
         static let buttonText = WMFLocalizedString("vanish-account-button-text", value: "Send request", comment: "Text for button on vanish account request screen")
-        static let learnMoreButtonText = WMFLocalizedString("vanish-account-learn-more-text", value: "Learn more", comment: "Text for button on vanish account request screen that redirects to the meta page about the process")
+        static let learnMoreButtonText = CommonStrings.learnMoreButtonText
     }
     
     @SwiftUI.ObservedObject var userInput: UserInput
@@ -107,7 +107,6 @@ struct VanishAccountContentView: View {
                                         .frame(height: 46)
                                         .background(Color(theme.colors.paperBackground))
                                         .cornerRadius(8)
-                                    
                                 })
                                 if #unavailable(iOS 15) {
                                     Button(action: {
@@ -170,7 +169,9 @@ struct VanishAccountContentView: View {
     }
     
     func goToVanishPage() {
-        
+        if let url = URL(string: "https://meta.wikimedia.org/wiki/Right_to_vanish") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
     
 }
