@@ -15,7 +15,7 @@ struct VanishAccountFooterView: View {
                     localizedString,
                     "[",
                     "]",
-                    "(https://en.wikipedia.org/wiki/Wikipedia:Courtesy_vanishing)"
+                    "(https://meta.wikimedia.org/wiki/Right_to_vanish)"
             )
 
             return try? AttributedString(markdown: substitutedString)
