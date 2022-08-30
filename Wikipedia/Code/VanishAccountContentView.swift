@@ -163,7 +163,7 @@ struct VanishAccountContentView: View {
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousAlerts: false)
             return
         }
-        
+
         shouldShowModalOnForeground = true
         UIApplication.shared.open(mailtoURL)
     }
