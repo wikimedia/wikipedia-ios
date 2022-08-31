@@ -95,6 +95,7 @@
 "action-update" = "نوێکردنەوە";
 "add-articles-to-reading-list" = "زیادکردنی {{PLURAL:$1|$1 وتار|$1 وتار}} بۆ پێڕستی خوێندنەوە";
 "add-citation-title" = "زیادکردنی شرۆڤە";
+"additional-information-email-title" = "زانیاریی زیاتر";
 "announcements-dismiss" = "لێگەڕان";
 "app-store-subtitle" = "ئینسایکڵۆپیدیای ئازاد";
 "appearance-settings-adjust-text-sizing" = "ڕێکخستنی قەبارەی دەقی وتار";
@@ -434,6 +435,11 @@
 "two-factor-login-title" = "بچۆ ژوورەوە بۆ ناو ھەژمارەکەت";
 "two-factor-login-with-backup-code" = "یەکێک لە کۆدی باک-ئەپەکانت بەکاربھێنە";
 "two-factor-login-with-regular-code" = "کۆدی دووپاتکردنەوە بەکاربھێنە";
+"vanish-account-additional-information-field" = "زانیاریی زیاتر";
+"vanish-account-back-confirm-discard" = "پێشێلکردنەوەی داخوازی";
+"vanish-account-back-confirm-keep-editing" = "بەردەوامبە لە دەستکاریکردن";
+"vanish-account-button-text" = "ناردنی داخوازی";
+"vanish-account-username-field" = "ناوی بەکارھێنەر و پەڕەی بەکارھێنەر";
 "welcome-exploration-explore-feed-description" = "ئەو وتارانەی لە لایەن کۆمەڵگەکەمانەوە پێشنیار کراون";
 "welcome-exploration-explore-feed-title" = "گەڕان و دۆزینەوە لە پەڕەی سەرەکی";
 "welcome-exploration-on-this-day-description" = "بگەڕێوە بۆ مێژوو تا بزانی ئەمڕۆ لە مێژوودا چی ڕوویداوە";
