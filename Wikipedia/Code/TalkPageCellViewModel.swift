@@ -6,7 +6,7 @@ final class TalkPageCellViewModel {
     var isSubscribed: Bool = false
 
     let topicTitle: String
-    let timestamp: Date
+    let timestamp: Date?
 
     var leadComment: TalkPageCellCommentViewModel
     let replies: [TalkPageCellCommentViewModel]
@@ -19,7 +19,7 @@ final class TalkPageCellViewModel {
         return "\(replies.count + 1)"
     }
     
-    init(topicTitle: String, timestamp: Date, leadComment: TalkPageCellCommentViewModel, replies: [TalkPageCellCommentViewModel], activeUsersCount: String) {
+    init(topicTitle: String, timestamp: Date?, leadComment: TalkPageCellCommentViewModel, replies: [TalkPageCellCommentViewModel], activeUsersCount: String) {
         self.topicTitle = topicTitle
         self.timestamp = timestamp
         self.leadComment = leadComment

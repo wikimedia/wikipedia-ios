@@ -112,7 +112,6 @@ final class TalkPageViewModel {
             }
             
             guard let firstReply = topic.replies.first,
-                  let timestamp = firstReply.timestamp,
                   let leadCommentViewModel = TalkPageCellCommentViewModel(text: firstReply.html, author: firstReply.author, authorTalkPageURL: "", timestamp: firstReply.timestamp, replyDepth: firstReply.level) else {
                 DDLogWarn("Unable to parse lead comment. Skipping topic.")
                 continue
@@ -124,7 +123,7 @@ final class TalkPageViewModel {
             
             let activeUsersCount = activeUsersCount(topic: topic)
             
-            let topicViewModel = TalkPageCellViewModel(topicTitle: topicTitle, timestamp: timestamp, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount)
+            let topicViewModel = TalkPageCellViewModel(topicTitle: topicTitle, timestamp: firstReply.timestamp, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount)
             self.topics.append(topicViewModel)
         }
     }
