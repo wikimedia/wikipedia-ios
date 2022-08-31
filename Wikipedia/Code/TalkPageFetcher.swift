@@ -72,6 +72,10 @@ struct TalkPageItem: Codable {
             timestamp = nil
         }
     }
+    
+    func updatingReplies(replies: [TalkPageItem]) -> TalkPageItem {
+        return TalkPageItem(type: type, level: level, id: id, html: html, name: name, headingLevel: headingLevel, replies: replies, otherContent: otherContent, author: author, timestamp: timestamp)
+    }
 }
 
 class TalkPageFetcher: Fetcher {
