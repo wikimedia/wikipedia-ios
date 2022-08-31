@@ -1034,6 +1034,7 @@
 "vanish-account-button-text" = "Send request";
 "vanish-account-description" = "Vanishing is a last resort and should only be used when you wish to stop editing forever and also to hide as many of your past associations as possible.\n\nTo initiate the vanishing process please provide the following";
 "vanish-account-email-text" = "Hello,\nThis is a request to vanish my Wikipedia account.";
+"vanish-account-learn-more-text" = "Learn more";
 "vanish-account-title" = "Vanishing process";
 "vanish-account-username-field" = "Username and user page";
 "vanish-modal-item" = "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator";
