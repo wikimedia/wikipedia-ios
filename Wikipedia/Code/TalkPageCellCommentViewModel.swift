@@ -2,11 +2,26 @@ import Foundation
 
 final class TalkPageCellCommentViewModel {
 
-    // TODO: From Data Controller
-    var text: String = "This is a reply. Let's see how it looks when it spans multiple lines. And maybe even some more lines. Like the topic title, it truncates after a few lines but displays fully when the thread is expanded."
-    var author: String = "Username"
-    var authorTalkPageURL = ""
-    var timestamp = Date()
-    var replyDepth: Int = Int.random(in: 0...5)
+    let text: String
+    let author: String
+    let authorTalkPageURL: String
+    let timestamp: Date
+    let replyDepth: Int
+    
+    init?(text: String?, author: String?, authorTalkPageURL: String, timestamp: Date?, replyDepth: Int?) {
+        
+        guard let text = text,
+              let timestamp = timestamp,
+              let author = author,
+              let replyDepth = replyDepth else {
+            return nil
+        }
+        
+        self.text = text
+        self.author = author
+        self.authorTalkPageURL = authorTalkPageURL
+        self.timestamp = timestamp
+        self.replyDepth = replyDepth
+    }
 
 }
