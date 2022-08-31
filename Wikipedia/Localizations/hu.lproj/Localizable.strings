@@ -117,6 +117,7 @@
 "action-update" = "Frissítés";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 szócikk|$1 szócikk}} hozzáadása az olvasólistához";
 "add-citation-title" = "Forráshivatkozás hozzáadása";
+"additional-information-email-title" = "További információ";
 "announcements-dismiss" = "Kihagyás";
 "app-store-keywords" = "Wikipédia, hivatkozás, wiki, enciklopédia, infó, tudás, kutatás, információ, felfedezés, tanulás";
 "app-store-release-notes" = "Teljesen testreszabható és könnyebben olvasható Felfedezés hírfolyam. Fordítási és teljesítményjavítások, hibajavítások.";
@@ -322,6 +323,8 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "A(z) $1 Wikipédiáról";
 "explore-random-article-sub-heading-from-wikipedia" = "A Wikipédiáról";
 "explore-randomizer" = "Randomizáló";
+"export-user-data-confirmation-title" = "Megosztod az alkalmazáskönyvtárat?";
+"export-user-data-title" = "Felhasználói adatok exportálása";
 "featured-widget-title" = "Kiemelt szócikk";
 "fetcher-error-generic" = "Valami félresikerült. Kérlek próbáld újra később.";
 "field-alert-captcha-invalid" = "Érvénytelen CAPTCHA";
@@ -686,10 +689,13 @@
 "talk-page-new-subject-placeholder-text" = "Tárgy";
 "talk-page-new-subject-textfield-accessibility-label" = "Tárgy";
 "talk-page-new-topic-title" = "Új téma";
+"talk-page-reply-button" = "Válasz";
 "talk-page-reply-title" = "Válasz";
-// Fuzzy
-"talk-page-title-article-talk" = "szócikk-vitalap";
+"talk-page-subscribe-to-topic" = "Feliratkozás";
+"talk-page-title-article-talk" = "Szócikk Vitalap";
 "talk-page-title-user-talk" = "Szerkesztővita";
+"talk-page-unsubscribe-to-topic" = "Leiratkozás";
+"talk-pages-coffee-roll-read-more" = "Továbbolvas";
 "talk-pages-reply-button-title" = "Válasz erre a témára";
 "theme-black-display-name" = "Fekete";
 "theme-dark-display-name" = "Sötét";
@@ -707,6 +713,12 @@
 "unable-to-load-talk-page-title" = "Nem sikerült betölteni a vitalapot";
 "unknown-generic-text" = "Ismeretlen";
 "uzbek-variants-alert-title" = "Az üzbég nyelvi változat támogatásának frissítése";
+"vanish-account-additional-information-field" = "További információ";
+"vanish-account-additional-information-placeholder" = "Opcionális";
+"vanish-account-back-confirm-discard" = "Kérelem elvetése";
+"vanish-account-back-confirm-keep-editing" = "Szerkesztés folytatása";
+"vanish-account-button-text" = "Kérelem küldése";
+"vanish-account-username-field" = "Felhasználónév és felhasználói oldal";
 "variants-alert-dismiss-button" = "Nem, köszönöm";
 "variants-alert-preferences-button" = "Beállításaid áttekintése";
 "welcome-exploration-explore-feed-description" = "A közösség által napi olvasásra ajánlott szócikk";
