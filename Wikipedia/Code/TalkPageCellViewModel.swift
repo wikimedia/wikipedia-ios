@@ -11,10 +11,12 @@ final class TalkPageCellViewModel {
     var leadComment: TalkPageCellCommentViewModel
     let replies: [TalkPageCellCommentViewModel]
     // Number of users involved in thread
-    var activeUsersCount: String = "3"
+    let activeUsersCount: String
 
     var repliesCount: String {
-        return "\(replies.count)"
+        
+        // Add one for lead comment
+        return "\(replies.count + 1)"
     }
     
     init(topicTitle: String, timestamp: Date, leadComment: TalkPageCellCommentViewModel, replies: [TalkPageCellCommentViewModel], activeUsersCount: String) {

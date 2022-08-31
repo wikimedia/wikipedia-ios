@@ -124,9 +124,21 @@ final class TalkPageViewModel {
             
             let activeUsersCount = activeUsersCount(topic: topic)
             
-            let topicViewModel = TalkPageCellViewModel(topicTitle: topicTitle, timestamp: timestamp, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: "3")
+            let topicViewModel = TalkPageCellViewModel(topicTitle: topicTitle, timestamp: timestamp, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount)
             self.topics.append(topicViewModel)
         }
+    }
+    
+    private func activeUsersCount(topic: TalkPageItem) -> String {
+        var distinctUsers: Set<String> = []
+        
+        for item in topic.replies {
+            if let author = item.author {
+                distinctUsers.insert(author)
+            }
+        }
+        
+        return String(distinctUsers.count)
     }
 }
 
