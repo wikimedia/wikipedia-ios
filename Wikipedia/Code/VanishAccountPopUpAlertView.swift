@@ -73,7 +73,8 @@ struct VanishAccountPopUpAlertView: View {
                             }).buttonStyle(PlainButtonStyle())
                                 .frame(height: 43)
                         }
-                        .frame(width: 300, height: 470)
+                        .frame(width: 300)
+                        .frame(minHeight: 470)
                         .background(Color(theme.colors.paperBackground))
                         .cornerRadius(14)
                     }
@@ -130,6 +131,7 @@ struct BulletListView: View {
             HStack {
                 BulletView(theme: theme, height: 52)
                 Text(LocalizedStrings.firstItem)
+                    .fixedSize(horizontal: false, vertical: true)
                     .font(Font(bodyFont))
                     .frame(maxWidth: .infinity, minHeight: 75, alignment: .leading)
                     .foregroundColor(Color(theme.colors.primaryText))
@@ -137,6 +139,7 @@ struct BulletListView: View {
             HStack {
                 BulletView(theme: theme, height: 40)
                 Text(LocalizedStrings.secondItem)
+                    .fixedSize(horizontal: false, vertical: true)
                     .font(Font(bodyFont))
                     .frame(maxWidth: .infinity, minHeight: 70, alignment: .leading)
                     .foregroundColor(Color(theme.colors.primaryText))
@@ -146,12 +149,14 @@ struct BulletListView: View {
                 if #available(iOS 15, *) {
                     if let text = LocalizedStrings.thirdItemiOS15 {
                         Text(text)
+                            .fixedSize(horizontal: false, vertical: true)
                             .font(Font(bodyFont))
                             .frame(maxWidth: .infinity, minHeight: 70, alignment: .leading)
                             .foregroundColor(Color(theme.colors.primaryText))
                             .padding(.bottom, 10)
                     } else {
                         Text(LocalizedStrings.thirdItem)
+                            .fixedSize(horizontal: false, vertical: true)
                             .font(Font(bodyFont))
                             .frame(maxWidth: .infinity, minHeight: 70, alignment: .leading)
                             .foregroundColor(Color(theme.colors.primaryText))
@@ -159,6 +164,7 @@ struct BulletListView: View {
                     }
                 } else {
                     Text(LocalizedStrings.thirdItem)
+                        .fixedSize(horizontal: false, vertical: true)
                         .font(Font(bodyFont))
                         .frame(maxWidth: .infinity, minHeight: 70, alignment: .leading)
                         .foregroundColor(Color(theme.colors.primaryText))
