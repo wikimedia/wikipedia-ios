@@ -29,7 +29,7 @@ class TalkPageReplyComposeController {
 
     // MARK: Public
     
-    func setupAndDisplay(in viewController: ViewController, theme: Theme) {
+    func setupAndDisplay(in viewController: ViewController) {
         
         guard containerView == nil && contentView == nil else {
             return
@@ -39,7 +39,7 @@ class TalkPageReplyComposeController {
         
         setupViews(in: viewController)
         calculateLayout(in: viewController)
-        apply(theme: theme)
+        apply(theme: viewController.theme)
     }
     
     func calculateLayout(in viewController: ViewController, newViewSize: CGSize? = nil, newKeyboardFrame: CGRect? = nil) {
@@ -47,9 +47,9 @@ class TalkPageReplyComposeController {
         containerViewBottomConstraint?.constant = newKeyboardFrame?.height ?? 0
         
         let viewHeight = newViewSize?.height ?? viewController.view.frame.height
-        let oneFifthViewHeight = viewHeight / 5
+        let oneFourthViewHeight = viewHeight / 4
         
-        containerViewHeightConstraint?.constant = oneFifthViewHeight
+        containerViewHeightConstraint?.constant = oneFourthViewHeight
         
         toggleConstraints(shouldPinToTop: shouldAlwaysPinToTop)
     }
@@ -90,7 +90,7 @@ class TalkPageReplyComposeController {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidPanContainerView(_:)))
         containerView.addGestureRecognizer(panGestureRecognizer)
         
-        addContentView(to: containerView)
+        addContentView(to: containerView, theme: viewController.theme)
     }
     
     private func setupSafeAreaBackgroundView(in viewController: ViewController) {
@@ -133,8 +133,8 @@ class TalkPageReplyComposeController {
         self.dragHandleView = dragHandleView
     }
     
-    private func addContentView(to containerView: UIView) {
-        let contentView = TalkPageReplyComposeContentView(frame: .zero)
+    private func addContentView(to containerView: UIView, theme: Theme) {
+        let contentView = TalkPageReplyComposeContentView(theme: theme)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(contentView)
         
@@ -174,7 +174,7 @@ class TalkPageReplyComposeController {
             self.containerViewYUponDragBegin = containerViewYUponDragBegin
             self.containerViewWasPinnedToTopUponDragBegin = containerViewYUponDragBegin == containerPinnedTopSpacing
 
-            containerViewTopConstraint?.constant = containerViewYUponDragBegin + translationY // max(containerViewYUponDragBegin + translationY, containerPinnedTopSpacing)
+            containerViewTopConstraint?.constant = max(containerViewYUponDragBegin + translationY, containerPinnedTopSpacing)
             toggleConstraints(shouldPinToTop: true)
         case .changed:
             
@@ -183,7 +183,7 @@ class TalkPageReplyComposeController {
                 return
             }
             
-            containerViewTopConstraint?.constant = containerViewYUponDragBegin + translationY // max(containerViewYUponDragBegin + translationY, containerPinnedTopSpacing)
+            containerViewTopConstraint?.constant = max(containerViewYUponDragBegin + translationY, containerPinnedTopSpacing)
             toggleConstraints(shouldPinToTop: true)
         case .ended:
 
