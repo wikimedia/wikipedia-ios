@@ -1034,6 +1034,7 @@
 "vanish-account-button-text" = "Text for button on vanish account request screen";
 "vanish-account-description" = "Description for the vanishing process";
 "vanish-account-email-text" = "Email content for the vanishing account request";
+"vanish-account-learn-more-text" = "Text for button on vanish account request screen that redirects to the meta page about the process";
 "vanish-account-title" = "Title for the vanishing process screen";
 "vanish-account-username-field" = "Title for the username and userpage form field";
 "vanish-modal-item" = "Text indicating that the process of vanishing might take days to be completed";
