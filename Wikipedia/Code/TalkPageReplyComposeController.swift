@@ -239,10 +239,8 @@ class TalkPageReplyComposeController {
             return
         }
         
-        let maxY = containerViewYUponDragBegin + 10
-        let minY = containerViewYUponDragBegin - 10
-
-        containerViewTopConstraint?.constant = max(min(containerViewYUponDragBegin + translationY, maxY), minY)
+        // MAYBETODO: Consider maxing or mining out this value
+        containerViewTopConstraint?.constant = containerViewYUponDragBegin + translationY
     }
     
     private func toggleConstraints(shouldPinToTop: Bool) {
