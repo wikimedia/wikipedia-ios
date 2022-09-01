@@ -292,7 +292,7 @@ extension TalkPageReplyComposeContentView: Themeable {
         finePrintTextView.textColor = theme.colors.secondaryText
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString
         
-        closeButton.tintColor = theme.colors.tertiaryText // todo: better color
+        closeButton.tintColor = theme.colors.tertiaryText
         publishButton.tintColor = theme.colors.link
     }
 }
