@@ -164,7 +164,7 @@ class TalkPageReplyComposeContentView: SetupView {
         let bottomConstraint = containerScrollView.bottomAnchor.constraint(equalTo: verticalStackView.bottomAnchor)
         let centerXConstraint = verticalStackView.centerXAnchor.constraint(equalTo: containerScrollView.centerXAnchor)
         
-        let bottomContainerConstraint = safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: verticalStackView.bottomAnchor)
+        let bottomContainerConstraint = safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: verticalStackView.bottomAnchor, constant: 5)
         bottomContainerConstraint.priority = .defaultHigh
         
         NSLayoutConstraint.activate([topConstraint, trailingConstraint, leadingConstraint, bottomConstraint, bottomContainerConstraint, centerXConstraint])
