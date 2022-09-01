@@ -74,7 +74,6 @@ class TalkPageReplyComposeController {
         // always active constraints
         let trailingConstraint = viewController.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
         let bottomConstraint = viewController.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
-        bottomConstraint.priority = .defaultHigh // prevents autolayout complaint when container view is dragged beneath the keyboard
         let leadingConstraint = viewController.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
         NSLayoutConstraint.activate([trailingConstraint, bottomConstraint, leadingConstraint])
         
@@ -172,18 +171,19 @@ class TalkPageReplyComposeController {
             let containerViewSafeAreaFrame = viewController.view.convert(containerView.frame, to: safeAreaBackgroundView)
             let containerViewYUponDragBegin = containerViewSafeAreaFrame.origin.y
             self.containerViewYUponDragBegin = containerViewYUponDragBegin
+            
             self.containerViewWasPinnedToTopUponDragBegin = containerViewYUponDragBegin == containerPinnedTopSpacing
-
-            containerViewTopConstraint?.constant = max(containerViewYUponDragBegin + translationY, containerPinnedTopSpacing)
+            
+            calculateTopConstraintUponDrag(translationY: translationY)
             toggleConstraints(shouldPinToTop: true)
         case .changed:
             
-            guard let containerViewYUponDragBegin = containerViewYUponDragBegin else {
+            guard containerViewYUponDragBegin != nil else {
                 gestureRecognizer.state = .ended
                 return
             }
             
-            containerViewTopConstraint?.constant = max(containerViewYUponDragBegin + translationY, containerPinnedTopSpacing)
+            calculateTopConstraintUponDrag(translationY: translationY)
             toggleConstraints(shouldPinToTop: true)
         case .ended:
 
@@ -210,6 +210,18 @@ class TalkPageReplyComposeController {
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut) {
             viewController.view.layoutIfNeeded()
         }
+    }
+    
+    private func calculateTopConstraintUponDrag(translationY: CGFloat) {
+        
+        guard let containerViewYUponDragBegin = containerViewYUponDragBegin else {
+            return
+        }
+        
+        let maxY = containerViewYUponDragBegin + 10
+        let minY = containerViewYUponDragBegin - 10
+
+        containerViewTopConstraint?.constant = max(min(containerViewYUponDragBegin + translationY, maxY), minY)
     }
     
     private func toggleConstraints(shouldPinToTop: Bool) {
