@@ -1,11 +1,17 @@
 import UIKit
 import WMF
 
+protocol TalkPageReplyComposeDelegate: AnyObject {
+    func tappedClose()
+    func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel)
+}
+
 class TalkPageReplyComposeContentView: SetupView {
     
     private lazy var publishButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(CommonStrings.publishTitle, for: .normal)
+        button.addTarget(self, action: #selector(tappedPublish), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.preservesSuperviewLayoutMargins = true
         return button
@@ -77,16 +83,19 @@ class TalkPageReplyComposeContentView: SetupView {
         button.setImage(UIImage(systemName: "info.circle"), for: .normal)
         button.addTarget(self, action: #selector(tappedInfo), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        // button.accessibilityLabel = //TODO: accessibility
         return button
     }()
     
+    private(set) var commentViewModel: TalkPageCellCommentViewModel
     private var theme: Theme
+    private weak var delegate: TalkPageReplyComposeDelegate?
     
     // MARK: Lifecycle
     
-    init(theme: Theme) {
+    init(commentViewModel: TalkPageCellCommentViewModel, theme: Theme, delegate: TalkPageReplyComposeDelegate) {
+        self.commentViewModel = commentViewModel
         self.theme = theme
+        self.delegate = delegate
         super.init(frame: .zero)
     }
     
@@ -179,6 +188,8 @@ class TalkPageReplyComposeContentView: SetupView {
         finePrintTextView.setContentCompressionResistancePriority(.required, for: .vertical)
         
         finePrintTextView.widthAnchor.constraint(equalTo: replyTextView.widthAnchor).isActive = true
+        
+        // TODO: tap link responding
     }
     
     private func setupPlaceholderLabel() {
@@ -200,13 +211,17 @@ class TalkPageReplyComposeContentView: SetupView {
     
     // MARK: Actions
     
-    @objc func tappedClose() {
+    @objc private func tappedClose() {
         replyTextView.resignFirstResponder()
-        // TODO: Tell delegate tappedClose
+        delegate?.tappedClose()
     }
     
-    @objc func tappedInfo() {
+    @objc private func tappedInfo() {
         toggleFinePrint(shouldShow: true)
+    }
+    
+    @objc private func tappedPublish() {
+        delegate?.tappedPublish(text: replyTextView.text, commentViewModel: commentViewModel)
     }
     
     // MARK: Helpers

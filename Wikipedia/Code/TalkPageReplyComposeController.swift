@@ -9,7 +9,8 @@ class TalkPageReplyComposeController {
     // containerView - the view that contains the contentView. It has the drag handle and pan gesture attached.
     // contentView - the view with the reply compose UI elements (close button, publish button, text views)
     
-    private var viewController: ViewController?
+    typealias ReplyComposableViewController = ViewController & TalkPageReplyComposeDelegate
+    private var viewController: ReplyComposableViewController?
     
     private var containerView: UIView?
     private var containerViewTopConstraint: NSLayoutConstraint?
@@ -29,7 +30,7 @@ class TalkPageReplyComposeController {
 
     // MARK: Public
     
-    func setupAndDisplay(in viewController: ViewController) {
+    func setupAndDisplay(in viewController: ReplyComposableViewController, commentViewModel: TalkPageCellCommentViewModel) {
         
         guard containerView == nil && contentView == nil else {
             return
@@ -37,12 +38,12 @@ class TalkPageReplyComposeController {
         
         self.viewController = viewController
         
-        setupViews(in: viewController)
+        setupViews(in: viewController, commentViewModel: commentViewModel)
         calculateLayout(in: viewController)
         apply(theme: viewController.theme)
     }
     
-    func calculateLayout(in viewController: ViewController, newViewSize: CGSize? = nil, newKeyboardFrame: CGRect? = nil) {
+    func calculateLayout(in viewController: ReplyComposableViewController, newViewSize: CGSize? = nil, newKeyboardFrame: CGRect? = nil) {
         
         containerViewBottomConstraint?.constant = newKeyboardFrame?.height ?? 0
         
@@ -58,9 +59,29 @@ class TalkPageReplyComposeController {
         return containerViewHeightConstraint?.constant ?? 0
     }
     
+    func reset() {
+        safeAreaBackgroundView?.removeFromSuperview()
+        safeAreaBackgroundView = nil
+        dragHandleView?.removeFromSuperview()
+        dragHandleView = nil
+        containerViewYUponDragBegin = nil
+        containerViewWasPinnedToTopUponDragBegin = nil
+        
+        containerView?.removeFromSuperview()
+        containerView = nil
+        containerViewTopConstraint = nil
+        containerViewBottomConstraint = nil
+        containerViewHeightConstraint = nil
+        
+        contentView?.removeFromSuperview()
+        contentView = nil
+
+        viewController = nil
+    }
+    
     // MARK: Private
     
-    private func setupViews(in viewController: ViewController) {
+    private func setupViews(in viewController: ReplyComposableViewController, commentViewModel: TalkPageCellCommentViewModel) {
         
         setupSafeAreaBackgroundView(in: viewController)
         
@@ -89,7 +110,7 @@ class TalkPageReplyComposeController {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidPanContainerView(_:)))
         containerView.addGestureRecognizer(panGestureRecognizer)
         
-        addContentView(to: containerView, theme: viewController.theme)
+        addContentView(to: containerView, theme: viewController.theme, commentViewModel: commentViewModel, replyComposeDelegate: viewController)
     }
     
     private func setupSafeAreaBackgroundView(in viewController: ViewController) {
@@ -132,8 +153,8 @@ class TalkPageReplyComposeController {
         self.dragHandleView = dragHandleView
     }
     
-    private func addContentView(to containerView: UIView, theme: Theme) {
-        let contentView = TalkPageReplyComposeContentView(theme: theme)
+    private func addContentView(to containerView: UIView, theme: Theme, commentViewModel: TalkPageCellCommentViewModel, replyComposeDelegate: TalkPageReplyComposeDelegate) {
+        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme, delegate: replyComposeDelegate)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(contentView)
         

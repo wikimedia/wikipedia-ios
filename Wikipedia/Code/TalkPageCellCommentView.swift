@@ -48,10 +48,15 @@ final class TalkPageCellCommentView: SetupView {
 
         button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 15)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
+        
+        button.addTarget(self, action: #selector(tappedReply), for: .touchUpInside)
         return button
     }()
 
     lazy var replyDepthView = TalkPageCellCommentDepthIndicator(depth: 0)
+    
+    weak var viewModel: TalkPageCellCommentViewModel?
+    weak var replyDelegate: TalkPageCellReplyDelegate?
 
     // MARK: - Lifecycle
 
@@ -74,8 +79,20 @@ final class TalkPageCellCommentView: SetupView {
     // MARK: - Configure
 
     func configure(viewModel: TalkPageCellCommentViewModel) {
+        self.viewModel = viewModel
         commentLabel.text = viewModel.text
         replyDepthView.label.text = " \(viewModel.replyDepth) "
+    }
+    
+    // MARK: - Actions
+    
+    @objc private func tappedReply() {
+        
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        replyDelegate?.tappedReply(commentViewModel: viewModel)
     }
 
 }
