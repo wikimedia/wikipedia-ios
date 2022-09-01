@@ -91,6 +91,10 @@ class TalkPageViewController: ViewController {
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
         super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
         
+        guard oldKeyboardFrame != newKeyboardFrame else {
+            return
+        }
+        
         replyComposeController.calculateLayout(in: self, newKeyboardFrame: newKeyboardFrame)
         
         view.setNeedsLayout()
