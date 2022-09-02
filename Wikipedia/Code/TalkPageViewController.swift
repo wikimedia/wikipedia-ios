@@ -7,7 +7,15 @@ class TalkPageViewController: ViewController {
 
     fileprivate let viewModel: TalkPageViewModel
     fileprivate var headerView: TalkPageHeaderView?
-
+    
+    fileprivate lazy var shareButton: IconBarButtonItem = IconBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(userDidTapShareButton))
+    
+    fileprivate lazy var findButton: IconBarButtonItem = IconBarButtonItem(image: UIImage(systemName: "doc.text.magnifyingglass"), style: .plain, target: self, action: #selector(userDidTapShareButton))
+    
+    fileprivate lazy var revisionButton: IconBarButtonItem = IconBarButtonItem(image: UIImage(systemName: "clock.arrow.circlepath"), style: .plain, target: self, action: #selector(userDidTapShareButton))
+    
+    fileprivate lazy var addTopicButton: IconBarButtonItem = IconBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(userDidTapShareButton))
+    
     var talkPageView: TalkPageView {
         return view as! TalkPageView
     }
@@ -47,6 +55,8 @@ class TalkPageViewController: ViewController {
         navigationMode = .forceBar
 
         viewModel.fetchTalkPage()
+        
+        setupToolbar()
     }
 
     private func setupHeaderView() {
@@ -109,6 +119,47 @@ class TalkPageViewController: ViewController {
         super.viewWillTransition(to: size, with: coordinator)
         
         replyComposeController.calculateLayout(in: self, newViewSize: size)
+    }
+    
+    // MARK: Toolbar actions
+    
+    var talkPageURL: URL? {
+        var talkPageURLComponents = URLComponents(url: viewModel.siteURL, resolvingAgainstBaseURL: false)
+        talkPageURLComponents?.path = "/wiki/\(viewModel.pageTitle)"
+        return talkPageURLComponents?.url
+    }
+
+    @objc fileprivate func userDidTapShareButton() {
+        guard let talkPageURL = talkPageURL else {
+            return
+        }
+        
+        let activityController = UIActivityViewController(activityItems: [talkPageURL], applicationActivities: [TUSafariActivity()])
+        present(activityController, animated: true)
+    }
+    
+    @objc fileprivate func userDidTapFindButton() {
+        
+    }
+    
+    @objc fileprivate func userDidTapRevisionButton() {
+        
+    }
+    
+    @objc fileprivate func userDidTapAddTopicButton() {
+        
+    }
+    
+    fileprivate func setupToolbar() {
+        enableToolbar()
+        setToolbarHidden(false, animated: false)
+        
+        toolbar.items = [shareButton,  .flexibleSpaceToolbar(), revisionButton, .flexibleSpaceToolbar(), findButton,.flexibleSpaceToolbar(), addTopicButton]
+        
+        shareButton.accessibilityLabel = WMFLocalizedString("talk-page-share-button", value: "Share talk page", comment: "Title for share talk page button")
+        findButton.accessibilityLabel = WMFLocalizedString("talk-page-find-in-page-button", value: "Find in page", comment: "Title for find content in page button")
+        revisionButton.accessibilityLabel = WMFLocalizedString("talk-page-revision-button", value: "Revision history", comment: "Title for talk page revision history button")
+        addTopicButton.accessibilityLabel = WMFLocalizedString("talk-page-add-topic-button", value: "Add topic", comment: "Title for add topic to talk page button")
     }
 
 }
