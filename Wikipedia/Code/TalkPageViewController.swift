@@ -11,6 +11,73 @@ class TalkPageViewController: ViewController {
     var talkPageView: TalkPageView {
         return view as! TalkPageView
     }
+    
+    // MARK: - Overflow menu properties
+    
+    fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
+        let contributionsAction = UIAction(title: "contributions", image: UIImage(systemName: "star"), handler: { _ in
+            print("hi")
+        })
+
+        let userGroupsAction = UIAction(title: "user groups", image: UIImage(systemName: "star"), handler: { _ in
+            print("hi")
+        })
+
+        let logsAction = UIAction(title: "logs", image: UIImage(systemName: "star"), handler: { _ in
+            print("hi")
+        })
+
+        return [contributionsAction, userGroupsAction, logsAction]
+    }
+
+    fileprivate var overflowSubmenuActions: [UIAction] {
+        
+        let goToArchivesAction = UIAction(title: "Archives", image: UIImage(systemName: "star"), handler: { _ in
+            print("hi")
+        })
+        let pageInfoAction = UIAction(title: "Page information", image: UIImage(systemName: "star"), handler: { _ in
+            print("hi")
+        })
+        
+        let goToPermalinkAction = UIAction(title: "Permanent link", image: UIImage(systemName: "star"), handler: { _ in
+            print("hi")
+        })
+        let changeLanguageAction = UIAction(title: "Change language", image: UIImage(systemName: "star"), handler: { _ in
+            print("hi")
+        })
+        let getLinksAction = UIAction(title: "What links here", image: UIImage(systemName: "star"), handler: { _ in
+            print("hi")
+        })
+        
+        let aboutTalkPagesAction = UIAction(title: "About talk pages", image: UIImage(systemName: "star"), handler: { _ in
+            print("hi")
+        })
+        
+        var actions = [goToArchivesAction, pageInfoAction, goToPermalinkAction, changeLanguageAction, getLinksAction, aboutTalkPagesAction]
+        
+        if viewModel.pageType == .user {
+            actions.insert(contentsOf: userTalkOverflowSubmenuActions, at: 1)
+        }
+        return actions
+    }
+    
+    var overflowMenu: UIMenu {
+        
+        let openAllAction = UIAction(title: "Open all threads", image: UIImage(systemName: "star"), handler: { _ in
+            print("hi")
+        })
+        let revisionHistoryAction = UIAction(title: "Rev history", image: UIImage(systemName: "star"), handler: { _ in
+            print("hi")
+        })
+        let openInWebAction = UIAction(title: "Read in web", image: UIImage(systemName: "star"), handler: { _ in
+            print("hi")
+        })
+        
+        let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
+        let mainMenu = UIMenu(title: String(), image: nil,  children: [openAllAction, revisionHistoryAction, openInWebAction, submenu])
+
+        return mainMenu
+    }
 
     // MARK: - Lifecycle
 
@@ -36,9 +103,14 @@ class TalkPageViewController: ViewController {
 
         navigationItem.title = WMFLocalizedString("talk-pages-view-title", value: "Talk", comment: "Title of user and article talk pages view.")
 
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil)
-        navigationItem.rightBarButtonItem = rightBarButtonItem
-        
+        // Not adding fallback for other versions since we're dropping iOS 13 on the next release
+        // TODO this version check should be removed
+        if #available(iOS 14.0, *) {
+            let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+            navigationItem.rightBarButtonItem = rightBarButtonItem
+            rightBarButtonItem.tintColor = theme.colors.link
+        }
+       
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
  
