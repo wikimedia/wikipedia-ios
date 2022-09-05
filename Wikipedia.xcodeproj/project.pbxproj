@@ -4094,9 +4094,6 @@
 		6761AEF42707BE4200E47BAD /* RemoteNotificationsRefreshOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsRefreshOperation.swift; sourceTree = "<group>"; };
 		6761AEF62707E34F00E47BAD /* NotificationsCenterModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterModelController.swift; sourceTree = "<group>"; };
 		676A8A8223A4013D0084B967 /* ArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleFetcher.swift; path = ../Wikipedia/Code/ArticleFetcher.swift; sourceTree = "<group>"; };
-		676C84FD28AAA0EF002EB40C /* lmo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lmo; path = lmo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		676C84FE28AAA0EF002EB40C /* lmo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lmo; path = lmo.lproj/Localizable.strings; sourceTree = "<group>"; };
-		676C84FF28AAA0EF002EB40C /* lmo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lmo; path = lmo.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		676C864626D40AEB00A704C1 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		676C864826D40AEB00A704C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -10318,7 +10315,6 @@
 				nqo,
 				kcg,
 				"kcg-Latn",
-				lmo,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
@@ -14133,7 +14129,6 @@
 				D801C9251EB8E131001FA294 /* zh-hant */,
 				FF6A77E8258D68E7006FA238 /* nqo */,
 				FF0261872627B2D800CBD55F /* kcg */,
-				676C84FD28AAA0EF002EB40C /* lmo */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -14237,7 +14232,6 @@
 				834C269B24042DBF00245BE7 /* hr */,
 				FF338A0A258D572900292602 /* nqo */,
 				FF19C1AB260548FD000AC20B /* kcg */,
-				676C84FE28AAA0EF002EB40C /* lmo */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -14349,7 +14343,6 @@
 				834C269C24042DCF00245BE7 /* hr */,
 				FF338A0B258D572900292602 /* nqo */,
 				FF19C1AC26054909000AC20B /* kcg */,
-				676C84FF28AAA0EF002EB40C /* lmo */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
