@@ -970,6 +970,7 @@
 "vanish-account-back-confirm-discard" = "リクエストを破棄";
 "vanish-account-back-confirm-keep-editing" = "編集を続行";
 "vanish-account-button-text" = "リクエストを送信";
+"vanish-account-learn-more-text" = "もっと詳しく";
 "vanish-account-username-field" = "ユーザー名とユーザーページ";
 "variants-alert-dismiss-button" = "いいえ";
 "variants-alert-preferences-button" = "設定を確認する";
