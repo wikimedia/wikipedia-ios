@@ -822,6 +822,7 @@
 "talk-page-new-topic-title" = "Нова дискусија";
 "talk-page-publish-terms-and-licenses" = "Чувањем измена прихватате $1услове коришћења$2 и неопозиво објављивање свог доприноса под лиценцама $3CC BY-SA 3.0$4 и $5GFDL$6.";
 "talk-page-reply-title" = "Одговори";
+// Fuzzy
 "talk-page-title-article-talk" = "страница за разговор чланка";
 "talk-page-title-user-talk" = "Корисничка страница за разговор";
 "talk-page-topic-title" = "Дискусија";

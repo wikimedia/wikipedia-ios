@@ -17,6 +17,8 @@ class TalkPageViewController: ViewController {
     init(theme: Theme, viewModel: TalkPageViewModel) {
         self.viewModel = viewModel
         super.init(theme: theme)
+        
+        viewModel.delegate = self
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -39,8 +41,12 @@ class TalkPageViewController: ViewController {
         
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
+ 
+        // Needed for reply compose views to display on top of navigation bar.
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationMode = .forceBar
 
-        setupHeaderView()
+        viewModel.fetchTalkPage()
     }
 
     private func setupHeaderView() {
@@ -51,18 +57,12 @@ class TalkPageViewController: ViewController {
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = true
         navigationBar.allowsUnderbarHitsFallThrough = true
-        navigationBar.underBarViewPercentHidden = 0.6
 
         navigationBar.addUnderNavigationBarView(headerView, shouldIgnoreSafeArea: true)
         useNavigationBarVisibleHeightForScrollViewInsets = false
         updateScrollViewInsets()
 
         headerView.apply(theme: theme)
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        headerView?.updateLabelFonts()
     }
 
     // MARK: - Public
@@ -73,9 +73,42 @@ class TalkPageViewController: ViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
 
+        viewModel.theme = theme
         headerView?.apply(theme: theme)
         talkPageView.apply(theme: theme)
         talkPageView.collectionView.reloadData()
+        replyComposeController.apply(theme: theme)
+    }
+    
+    // MARK: Reply Compose Management
+    
+    let replyComposeController = TalkPageReplyComposeController()
+    
+    override var additionalBottomContentInset: CGFloat {
+        return replyComposeController.additionalBottomContentInset
+    }
+    
+    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
+        super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
+        
+        replyComposeController.calculateLayout(in: self, newKeyboardFrame: newKeyboardFrame)
+        
+        view.setNeedsLayout()
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        headerView?.updateLabelFonts()
+        replyComposeController.calculateLayout(in: self)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        replyComposeController.calculateLayout(in: self, newViewSize: size)
     }
 
 }
@@ -85,7 +118,7 @@ class TalkPageViewController: ViewController {
 extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return viewModel.topics.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -93,9 +126,57 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
              return UICollectionViewCell()
         }
 
+        let viewModel = viewModel.topics[indexPath.row]
+
+        cell.configure(viewModel: viewModel)
         cell.apply(theme: theme)
+        cell.delegate = self
 
         return cell
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? TalkPageCell else {
+            return
+        }
+
+        userDidTapDisclosureButton(cellViewModel: cell.viewModel, cell: cell)
+    }
+    
+}
+
+// MARK: - TalkPageCellDelegate
+
+// TODO
+extension TalkPageViewController: TalkPageCellDelegate {
+
+    func userDidTapDisclosureButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {
+        guard let cellViewModel = cellViewModel, let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}) else {
+            return
+        }
+
+        let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
+        configuredCellViewModel.isThreadExpanded.toggle()
+        
+        cell.configure(viewModel: configuredCellViewModel)
+        talkPageView.collectionView.collectionViewLayout.invalidateLayout()
+    }
+
+    func userDidTapSubscribeButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {
+        guard let cellViewModel = cellViewModel, let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}) else {
+            return
+        }
+
+        let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
+        configuredCellViewModel.isSubscribed.toggle()
+        
+        cell.configure(viewModel: configuredCellViewModel)
+    }
+}
+
+extension TalkPageViewController: TalkPageViewModelDelegate {
+    func talkPageDataDidUpdate() {
+        setupHeaderView()
+        talkPageView.collectionView.reloadData()
+    }
 }

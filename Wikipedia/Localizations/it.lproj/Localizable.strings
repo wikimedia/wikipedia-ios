@@ -152,6 +152,7 @@
 "action-update" = "Aggiorna";
 "add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "add-citation-title" = "Aggiungi citazione";
+"additional-information-email-title" = "Ulteriori informazioni";
 "announcements-dismiss" = "Nascondi";
 "app-store-keywords" = "Wikipedia, riferimento, wiki, enciclopedia, info, conoscenza, ricerca, informazione, esplorazione, apprendimento";
 "app-store-subtitle" = "L'enciclopedia libera";
@@ -724,8 +725,9 @@
 "talk-page-new-topic-body-placeholder-text" = "Scrivi una nuova discussione";
 "talk-page-new-topic-success-text" = "La tua discussione è stata pubblicata con successo";
 "talk-page-new-topic-title" = "Nuova discussione";
+"talk-page-reply-button" = "Rispondi";
 "talk-page-reply-title" = "Rispondi";
-"talk-page-title-article-talk" = "Discussione";
+"talk-page-title-article-talk" = "Discussione voce";
 "talk-page-title-user-talk" = "Discussioni utente";
 "talk-page-topic-title" = "Discussione";
 "talk-pages-reply-button-title" = "Rispondi a questa discussione";
@@ -748,6 +750,9 @@
 "two-factor-login-with-regular-code" = "Usa codice di verifica";
 "unable-to-load-talk-page-title" = "Impossibile caricare la pagina di discussione";
 "unknown-generic-text" = "Sconosciuto";
+"vanish-account-additional-information-field" = "Ulteriori informazioni";
+"vanish-account-button-text" = "Invia richiesta";
+"vanish-account-username-field" = "Nome utente e pagina utente";
 "variants-alert-dismiss-button" = "No, grazie";
 "welcome-exploration-explore-feed-description" = "Letture consigliate e voci quotidiane della nostra comunità";
 "welcome-exploration-explore-feed-title" = "Esplora feed";

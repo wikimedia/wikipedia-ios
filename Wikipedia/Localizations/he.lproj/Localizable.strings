@@ -15,6 +15,7 @@
 // Author: Steeve815
 // Author: Strayblues
 // Author: Tsevener
+// Author: Xnet1234
 // Author: YaronSh
 // Author: איתן96
 // Author: דגש
@@ -102,6 +103,7 @@
 "account-creation-saving" = "שמירה...";
 "account-creation-title" = "יצירת חשבון חדש";
 "account-group-title" = "החשבון שלך";
+"account-request-vanishing" = "העלמת החשבון שלך";
 "account-talk-page-title" = "דף השיחה שלך";
 "account-talk-preferences-auto-sign-discussions" = "חתימה אוטומטית בדיונים";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "חתימה אוטומטית בדיונים תשתמש בחתימה שהוגדרה בהגדרות החתימה";
@@ -137,6 +139,7 @@
 "action-update" = "עדכון";
 "add-articles-to-reading-list" = "הוספת {{PLURAL:$1|ערך אחד|$1 ערכים}} לרשימת הקריאה";
 "add-citation-title" = "הוספת הערת שוליים";
+"additional-information-email-title" = "מידע נוסף";
 "announcements-dismiss" = "סגירה";
 "app-store-keywords" = "ויקיפדיה, מקורות, ויקי, אנציקלופדיה, מידע, ידע, חקר, מחקר, גילוי, למידה";
 "app-store-release-notes" = "הזנת ה\"לחקור\" ניתנת להתאמה אישית וקל יותר לקרוא אותה. שיפורי מיקום, ביצועים ותיקוני באגים.";
@@ -427,6 +430,11 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "מתוך ויקיפדיה ב$1";
 "explore-random-article-sub-heading-from-wikipedia" = "מתוך ויקיפדיה";
 "explore-randomizer" = "הגרלה";
+"export-user-data-confirmation-message" = "שיתוף ספריית היישום שלך כולל נתונים על רשימות הקריאה, ההיסטוריה שלך וההעדפות שלך. יש לשתף את קובץ הנתונים הזה רק עם נמען מהימן לשימוש למטרות אבחון טכני.";
+"export-user-data-confirmation-title" = "לשתף את ספריית היישום?";
+"export-user-data-generic-error" = "אירעה שגיאה בעת יצוא הנתונים שלך. נא לנסות שוב מאוחר יותר.";
+"export-user-data-space-error" = "אין לך מספיק מקום במכשיר כדי לייצא את נתוני המשתמש שלך. נא לנסות שוב מאוחר יותר.";
+"export-user-data-title" = "יצוא נתוני משתמשים";
 "featured-article-empty-title" = "היום אין ערכים מומלצים זמינים";
 "featured-widget-content-failure-for-date" = "לא זמין ערך מומלץ עבור התאריך הזה.";
 "featured-widget-description" = "גלו את הערכים הטובים ביותר בוויקיפדיה, שנבחרים יום־יום על־ידי הקהילה שלנו.";
@@ -1011,10 +1019,14 @@
 "talk-page-new-topic-success-text" = "הדיון שלך פורסם בהצלחה";
 "talk-page-new-topic-title" = "דיון חדש";
 "talk-page-publish-terms-and-licenses" = "שמירת השינויים מהווה את הסכמתך ל$1תנאי השימוש$2 ואת הסכמתך הבלתי־חוזרת לשחרר את תרומתך בכפוף לרישיון $3CC BY-SA 3.0$4 ולרישיון $5GFDL$6.";
+"talk-page-reply-button" = "תגובה";
 "talk-page-reply-title" = "תגובה";
+"talk-page-subscribe-to-topic" = "מינוי";
 "talk-page-title-article-talk" = "שיחת ערך";
 "talk-page-title-user-talk" = "שיחת משתמש";
 "talk-page-topic-title" = "דיון";
+"talk-page-unsubscribe-to-topic" = "ביטול מינוי";
+"talk-pages-coffee-roll-read-more" = "לקרוא עוד";
 "talk-pages-reply-button-title" = "השב לדיון זה";
 "talk-pages-view-title" = "שיחה";
 "theme-black-display-name" = "שחורה";
@@ -1038,6 +1050,24 @@
 "unknown-generic-text" = "לא ידוע";
 "uzbek-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\noʻzbekcha lotin אוזבקית, לטינית (uz-latin)\nўзбекча кирилл אוזבקית, קירילית (uz-cyrl)";
 "uzbek-variants-alert-title" = "עדכונים לתמיכה בהגוונים של אוזבקית";
+"vanish-account-additional-information-field" = "מידע נוסף";
+"vanish-account-additional-information-placeholder" = "לא חובה";
+"vanish-account-back-confirm-discard" = "לבטל את הבקשה";
+"vanish-account-back-confirm-keep-editing" = "להמשיך לערוך";
+"vanish-account-back-confirm-title" = "האם ברצונך באמת לבטל את בקשת ההעלמה הזאת?";
+"vanish-account-bottom-text" = "מחיקת חשבון בוויקיפדיה נעשית על־ידי שינוי שם החשבון שלך כך שאחרים לא יוכלו להכיר את התרומות שלך בתהליך שנקרא העלמה (vanishing). באפשרותך להשתמש בטופס להלן כדי להעלות בקשה אישית להיעלם. היעלמות בהליך הזה לא מבטיחה אלמוניות מוחלטת ולא לא מסירה את התרומה למיזמים.";
+"vanish-account-bottom-text-with-link" = "מחיקת חשבון בוויקיפדיה נעשית על־ידי שינוי שם החשבון שלך כך שאחרים לא יוכלו להכיר את התרומות שלך בתהליך שנקרא העלמה (vanishing). באפשרותך להשתמש בטופס להלן כדי להעלות $1בקשה אישית להיעלם$2$3. היעלמות בהליך הזה לא מבטיחה אלמוניות מוחלטת ולא לא מסירה את התרומה למיזמים.";
+"vanish-account-button-text" = "שליחת בקשה";
+"vanish-account-description" = "היעלמות היא מוצא אחרון וצריך להשמתמש בה רק כשברצונך להפסיק לערוך לתמיד וגם להסתיר את הקשרים הקודמים שלך במידת האפשר.\n\nכדי להתניע את תהליך ההעילמות, נא לספק את הדברים הבאים";
+"vanish-account-email-text" = "שלום,\nזאת בקשה להעלים את חשבון הוויקיפדיה שלי.";
+"vanish-account-title" = "תהליך ההיעלמות";
+"vanish-account-username-field" = "שם משתמש ודף משתמש";
+"vanish-modal-item" = "אם השלמת את בקשת ההיעלמות שלך, נא לתת כמה ימים לעיבוד הבקשה על־ידי מפעיל.";
+"vanish-modal-item-2" = "אם לא ברור לך אם הבקשה שלך הגיעה ליעדה, נא לבדוק את יישום הדואר שלך";
+"vanish-modal-item-3" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף Wikipedia:Courtesy vanishing";
+"vanish-modal-item-3-ios15" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף $1Wikipedia:Courtesy vanishing$2$3.";
+"vanish-modal-title" = "בקשת היעלמות";
+"vanishing-request-email-title" = "בקשת היעלמות אישית";
 "variants-alert-dismiss-button" = "לא, תודה";
 "variants-alert-preferences-button" = "סקירת ההעדפות שלך";
 "welcome-exploration-explore-feed-description" = "קריאה מומלצת וערכים יומיים מהקהילה שלנו";

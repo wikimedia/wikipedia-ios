@@ -32,13 +32,13 @@ class OldTalkPageController {
     let moc: NSManagedObjectContext
     let title: String
     let siteURL: URL
-    let type: TalkPageType
+    let type: OldTalkPageType
     
     var displayTitle: String {
         return type.titleWithoutNamespacePrefix(title: title)
     }
     
-    required init(fetcher: OldTalkPageFetcher = OldTalkPageFetcher(), articleRevisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), moc: NSManagedObjectContext, title: String, siteURL: URL, type: TalkPageType) {
+    required init(fetcher: OldTalkPageFetcher = OldTalkPageFetcher(), articleRevisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), moc: NSManagedObjectContext, title: String, siteURL: URL, type: OldTalkPageType) {
         self.fetcher = fetcher
         self.articleRevisionFetcher = articleRevisionFetcher
         self.moc = moc

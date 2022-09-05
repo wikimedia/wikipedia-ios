@@ -99,6 +99,7 @@
 "account-creation-saving" = "A gravar...";
 "account-creation-title" = "Criar uma conta nova";
 "account-group-title" = "A sua conta";
+"account-request-vanishing" = "Fazer conta desaparecer";
 "account-talk-page-title" = "A sua página de discussão";
 "account-talk-preferences-auto-sign-discussions" = "Assinar discussões automaticamente";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "A assinatura automática de discussões usará a assinatura definida nas configurações da assinatura";
@@ -134,6 +135,7 @@
 "action-update" = "Atualizar";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
 "add-citation-title" = "Adicionar citação";
+"additional-information-email-title" = "Informações adicionais";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Feed Explorar completamente personalizável e mais fácil de ler. Localização, melhorias de desempenho e correções de defeitos.";
@@ -424,6 +426,11 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Da Wikipédia em $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Da Wikipédia";
 "explore-randomizer" = "Aleatório";
+"export-user-data-confirmation-message" = "A partilha da sua biblioteca de aplicações inclui dados sobre as suas listas de leitura, o historial de leituras, as preferências e o conteúdo do feed Explorar. Este ficheiro de dados só deve ser partilhado com destinatários de confiança e para fins de diagnóstico técnico.";
+"export-user-data-confirmation-title" = "Partilhar a biblioteca de aplicações?";
+"export-user-data-generic-error" = "Ocorreu um erro durante a exportação dos seus dados. Tente novamente mais tarde, por favor.";
+"export-user-data-space-error" = "Não tem espaço disponível suficiente no seu dispositivo para exportar os seus dados de utilizador. Tente novamente mais tarde, por favor.";
+"export-user-data-title" = "Exportar dados de utilizador";
 "featured-article-empty-title" = "Hoje não está disponível nenhum artigo destacado";
 "featured-widget-content-failure-for-date" = "Não está disponível nenhum artigo destacado para esta data.";
 "featured-widget-description" = "Descubra os melhores artigos da Wikipédia, selecionados diariamente pela nossa comunidade.";
@@ -654,7 +661,6 @@
 "notifications-center-subheader-email-from-other-user" = "Mensagem nova";
 "notifications-center-subheader-login-fail-known-device" = "Várias tentativas falhadas de início de sessão";
 "notifications-center-subheader-login-fail-unknown-device" = "Tentativas falhada de início de sessão";
-// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Início de sessão de dispositivo desconhecido";
 "notifications-center-subheader-mention-article-talk-page" = "Menção na página de discussão de um artigo";
 "notifications-center-subheader-mention-edit-summary" = "Menção no resumo de uma edição";
@@ -675,7 +681,27 @@
 "notifications-center-title" = "Notificações";
 "notifications-center-toolbar-mark-accessibility-label" = "Marcar as notificações selecionadas";
 "notifications-center-type-item-description-mentions" = "Menções";
+"notifications-center-type-item-description-notice" = "Aviso";
 "notifications-center-type-item-description-welcome-verbose" = "Mensagem de boas-vindas";
+"notifications-center-type-title-connection-with-wikidata" = "Ligação com Wikidata";
+"notifications-center-type-title-edit-milestone" = "Meta de edição";
+"notifications-center-type-title-edit-reverted" = "Edição revertida";
+"notifications-center-type-title-edit-summary-mention" = "Menção em resumo de edição";
+"notifications-center-type-title-email-from-other-user" = "Correio de outro utilizador";
+"notifications-center-type-title-login-attempts" = "Tentativas de início de sessão";
+"notifications-center-type-title-login-attempts-subtitle" = "Tentativas falhadas de início de sessão com a sua conta";
+"notifications-center-type-title-login-success" = "Sessões iniciadas";
+"notifications-center-type-title-other" = "Outras";
+"notifications-center-type-title-page-link" = "Hiperligação para a página";
+"notifications-center-type-title-page-review" = "Revisão da página";
+"notifications-center-type-title-sent-mention-failure" = "Falha de envio de menção";
+"notifications-center-type-title-sent-mention-success" = "Sucesso de envio de menção";
+"notifications-center-type-title-talk-page-mention" = "Menção da página de discussão";
+"notifications-center-type-title-thanks" = "Agradecimento";
+"notifications-center-type-title-translation-milestone" = "Meta de tradução";
+"notifications-center-type-title-user-rights-change" = "Alteração dos privilégios do utilizador";
+"notifications-center-type-title-user-talk-page-messsage" = "Mensagem na página de discussão";
+"notifications-center-type-title-welcome" = "Boas-vindas";
 "notifications-push-fallback-body-text" = "Atividade nova na Wikipédia";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 mensagem nova|$1 mensagens novas}} em $2";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Mensagem nova|Mensagens novas}}";
@@ -757,6 +783,17 @@
 "potd-widget-title" = "Imagem do dia";
 "preference-summary-eventlogging-opt-in" = "Permitir que a Wikimedia Foundation recolha informações sobre o seu uso da aplicação para melhorá-la";
 "preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
+"project-name-mediawiki" = "MediaWiki";
+"project-name-wikibooks" = "Wikilivros";
+"project-name-wikidata" = "Wikidata";
+"project-name-wikimedia-commons" = "Wikimedia Commons";
+"project-name-wikinews" = "Wikinotícias";
+"project-name-wikiquote" = "Wikiquote";
+"project-name-wikisource" = "Wikisource";
+"project-name-wikispecies" = "Wikispecies";
+"project-name-wikiversity" = "Wikiversidade";
+"project-name-wikivoyage" = "Wikivoyage";
+"project-name-wiktionary" = "Wikcionário";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 leitores";
 "reading-list-add-generic-hint-title" = "Adicionar este artigo a uma lista de leitura?";
@@ -929,20 +966,17 @@
 "settings-support" = "Apoiar a Wikipédia";
 "settings-title" = "Definições";
 "share-a-fact-made-with" = "Feito com a aplicação Wikipédia";
-// Fuzzy
-"share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
+"share-article-name-on-wikipedia" = "\"$1\" na Wikipédia:";
 "share-building" = "A criar um cartão \"Partilhar um facto\"...";
 "share-default-format" = "“$1” de “$2”: $3";
 "share-email-format" = "“$1”\n\nde “$2”\n\n$3";
 "share-get-directions-in-maps" = "Obter direções";
 "share-menu-item" = "Partilhar...";
 "share-message-format" = "“$1” $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "via @Wikipédia";
+"share-on-twitter-sign-off" = "via Wikipédia";
 "share-open-in-maps" = "Abrir em Mapas";
 "share-social-format" = "“$1” via Wikipédia: $2";
-// Fuzzy
-"share-social-mention-format" = "“$1” via @Wikipédia: $2";
+"share-social-mention-format" = "“$1” via Wikipédia: $2";
 "sort-by-recently-added-action" = "Adicionado recentemente";
 "sort-by-title-action" = "Título";
 "table-of-contents-button-label" = "Índice";
@@ -985,7 +1019,9 @@
 "talk-page-title-article-talk" = "Discussão de artigo";
 "talk-page-title-user-talk" = "Discussão do utilizador";
 "talk-page-topic-title" = "Discussão";
+"talk-pages-coffee-roll-read-more" = "Ler mais";
 "talk-pages-reply-button-title" = "Responder a esta discussão";
+"talk-pages-view-title" = "Discussão";
 "theme-black-display-name" = "Negro";
 "theme-dark-display-name" = "Escuro";
 "theme-default-display-name" = "Padrão";
@@ -1007,6 +1043,25 @@
 "unknown-generic-text" = "Desconhecido";
 "uzbek-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua uzbeque como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\noʻzbekcha lotin - Uzbeque latino (uz-latin)\nўзбекча кирилл - Uzbeque cirílico (uz-cyrl)";
 "uzbek-variants-alert-title" = "Atualizações ao suporte de variantes do uzbeque";
+"vanish-account-additional-information-field" = "Informações adicionais";
+"vanish-account-additional-information-placeholder" = "Opcional";
+"vanish-account-back-confirm-discard" = "Descartar pedido";
+"vanish-account-back-confirm-keep-editing" = "Continuar a editar";
+"vanish-account-back-confirm-title" = "Tem a certeza de que deseja descartar este pedido de desaparecimento?";
+"vanish-account-bottom-text" = "A eliminação da conta na Wikipédia é feita alterando o nome da sua conta para que as outras pessoas não possam reconhecer as suas contribuições, num processo chamado desaparecimento da conta. Pode usar o formulário abaixo para pedir um desaparecimento de cortesia. O desaparecimento não garante o anonimato completo nem remove as contribuições para os projetos.";
+"vanish-account-bottom-text-with-link" = "A eliminação da conta na Wikipédia é feita alterando o nome da sua conta para que as outras pessoas não possam reconhecer as suas contribuições, num processo chamado desaparecimento da conta. Pode usar o formulário abaixo para pedir um $1desaparecimento de cortesia$2$3. O desaparecimento não garante o anonimato completo nem remove as contribuições para os projetos.";
+"vanish-account-button-text" = "Enviar pedido";
+"vanish-account-description" = "O desaparecimento é um recurso de última instância e só deve ser usado quando pretende parar de editar para sempre e também ocultar o máximo possível das suas associações anteriores.\n\nPara iniciar o processo de desaparecimento forneça o seguinte, por favor:";
+"vanish-account-email-text" = "Olá,\nEste pedido é para fazer desaparecer a minha conta da Wikipédia.";
+"vanish-account-title" = "Processo de desaparecimento";
+"vanish-account-username-field" = "Nome de utilizador e página de utilizador";
+"vanish-modal-item" = "Se preencheu o seu pedido de desaparecimento, aguarde alguns dias para que o pedido seja processado por um administrador.";
+"vanish-modal-item-2" = "Se não tem a certeza se o seu pedido foi aprovado, verifique a sua aplicação de correio.";
+// Fuzzy
+"vanish-modal-item-3" = "Se tem dúvidas acerca do desaparecimento, visite";
+"vanish-modal-item-3-ios15" = "Se tem dúvidas acerca do desaparecimento, visite $1Wikipédia:Direito a desaparecer$2$3.";
+"vanish-modal-title" = "Pedido de desaparecimento";
+"vanishing-request-email-title" = "Pedido de desaparecimento de cortesia";
 "variants-alert-dismiss-button" = "Não, obrigado";
 "variants-alert-preferences-button" = "Rever as suas preferências";
 "welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";

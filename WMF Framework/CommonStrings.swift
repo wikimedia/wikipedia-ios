@@ -208,6 +208,12 @@ public class CommonStrings: NSObject {
     @objc public static let revertedEditTitle = WMFLocalizedString("reverted-edit-title", value: "Reverted edit", comment: "Title for notification informing user that their edit was reverted.")
 
     @objc public static let noInternetConnection = WMFLocalizedString("no-internet-connection", value: "No internet connection", comment: "String used in various places to indicate no internet connection")
+    
+    @objc public static let noEmailClient = WMFLocalizedString("no-email-account-alert", value: "Please setup an email account on your device and try again.", comment: "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device")
+    
+    @objc public static let vanishAccount = WMFLocalizedString("account-request-vanishing", value: "Vanish account", comment: "This will initiate the process of requesting your account to be vanished ")
+    @objc public static var usernameFieldTitle = WMFLocalizedString("vanish-account-username-field", value: "Username and user page", comment: "Title for the username and userpage form field")
+    @objc public static let learnMoreButtonText = WMFLocalizedString("vanish-account-learn-more-text", value: "Learn more", comment: "Text for button on vanish account request screen that redirects to the meta page about the process")
 
     // REMINDER: do not delete the app store strings below. We're not using them anywhere within the app itself but we need them to remain so they get upstreamed into TWN. ("localizations.swift copies the non-EN translations of these strings into respective Fastlane "Localized Metadata" files. See: https://docs.fastlane.tools/actions/deliver/)
     @objc public static let appStoreSubtitle = WMFLocalizedString("app-store-subtitle", value: "The free encyclopedia", comment: "Subtitle describing the app for the app store")
@@ -246,6 +252,8 @@ public class CommonStrings: NSObject {
     public static let successfullyPublishedDiscussion = WMFLocalizedString("talk-page-new-topic-success-text", value: "Your discussion was successfully published", comment: "Banner text that appears after a new discussion was successfully published on a talk page.")
 
     public static let successfullyPublishedReply = WMFLocalizedString("talk-page-new-reply-success-text", value: "Your reply was successfully published", comment: "Banner text that appears after a new reply was successfully published on a talk page discussion.")
+
+    public static let talkPageReply = WMFLocalizedString("talk-page-reply-button", value: "Reply", comment: "Text used on button to reply to talk page messages.")
 
     public static let defaultThemeDisplayName = WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user")
 

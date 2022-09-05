@@ -139,6 +139,7 @@
 "action-update" = "Оновити";
 "add-articles-to-reading-list" = "Додати {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} до читального списку";
 "add-citation-title" = "Додати джерело";
+"additional-information-email-title" = "Додаткова інформація";
 "announcements-dismiss" = "Відхилити";
 "app-store-keywords" = "Вікіпедія, стаття, вікі, енциклопедія, інформація, знання, дослідження, інформація, читання, навчання";
 "app-store-release-notes" = "Тепер стрічка в додатку цілком налаштовувана та легша до використання. Поліпшена локалізація, підвищена продуктивність, деякі помилки виправлені.";
@@ -429,6 +430,11 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Із Вікіпедії мовою «$1»";
 "explore-random-article-sub-heading-from-wikipedia" = "З Вікіпедії";
 "explore-randomizer" = "Рандомайзер";
+"export-user-data-confirmation-message" = "Спільний доступ до вашої бібліотеки додатків включає дані про ваші списки читання та історію, налаштування та вміст каналу Explore. Цей файл даних слід надавати лише довіреному одержувачу для використання в цілях технічної діагностики.";
+"export-user-data-confirmation-title" = "Поділитися бібліотекою додаток?";
+"export-user-data-generic-error" = "Під час експорту ваших даних сталася помилка. Будь-ласка, спробуйте пізніше.";
+"export-user-data-space-error" = "У вас недостатньо місця на пристрої, щоб експортувати дані користувача. Будь-ласка, спробуйте пізніше.";
+"export-user-data-title" = "Експорт даних користувача";
 "featured-article-empty-title" = "Немає обраних статей на сьогодні";
 "featured-widget-content-failure-for-date" = "На цю дату недоступна вибрана стаття.";
 "featured-widget-description" = "Відкрийте найкращі статті Вікіпедії, які обираються вашою спільнотою щоденно.";
@@ -1017,6 +1023,7 @@
 "talk-page-title-article-talk" = "Обговорення статті";
 "talk-page-title-user-talk" = "Обговорення користувача";
 "talk-page-topic-title" = "Обговорення";
+"talk-pages-coffee-roll-read-more" = "Читати більше";
 "talk-pages-reply-button-title" = "Відповісти в цьому обговоренні";
 "talk-pages-view-title" = "Обговорення";
 "theme-black-display-name" = "Чорна";
@@ -1040,6 +1047,13 @@
 "unknown-generic-text" = "Невідомо";
 "uzbek-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти узбецької мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\noʻzbekcha lotin узбецька, латинка (uz-latin)\nўзбекча кирилл узбецька, кирилиця (uz-cyrl)";
 "uzbek-variants-alert-title" = "Оновлення щодо підтримки варіантів узбецької";
+"vanish-account-additional-information-field" = "Додаткова інформація";
+"vanish-account-additional-information-placeholder" = "Необов'язково";
+"vanish-account-back-confirm-discard" = "Скасувати Запит";
+"vanish-account-back-confirm-keep-editing" = "Продовжити Редагування";
+"vanish-account-back-confirm-title" = "Ви впевнені, що бажаєте відхилити цей запит на знищення?";
+"vanish-account-button-text" = "Надіслати запит";
+"vanish-account-email-text" = "Вітаю,\nЦе запит на видалення мого облікового запису Вікіпедії.";
 "variants-alert-dismiss-button" = "Ні, дякую";
 "variants-alert-preferences-button" = "Переглянути свої налаштування";
 "welcome-exploration-explore-feed-description" = "Рекомендовані записи та щоденні статті від нашої спільноти";

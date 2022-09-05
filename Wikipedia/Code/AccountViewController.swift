@@ -1,4 +1,6 @@
 import UIKit
+import SwiftUI
+import WMF
 
 @objc(WMFAccountViewControllerDelegate)
 protocol AccountViewControllerDelegate: AnyObject {
@@ -9,6 +11,7 @@ private enum ItemType {
     case logout
     case talkPage
     case talkPageAutoSignDiscussions
+    case vanishAccount
 }
 
 private struct Section {
@@ -41,7 +44,8 @@ class AccountViewController: SubSettingsViewController {
         
         let logout = Item(title: username, subtitle: CommonStrings.logoutTitle, iconName: "settings-user", iconColor: .white, iconBackgroundColor: UIColor.wmf_colorWithHex(0xFF8E2B), type: .logout)
         let talkPage = Item(title: WMFLocalizedString("account-talk-page-title", value: "Your talk page", comment: "Title for button and page letting user view their account page."), subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: UIColor(red: 51/255, green: 102/255, blue: 204/255, alpha: 1) , type: .talkPage)
-        let account = Section(items: [logout, talkPage], headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
+        let vanishAccount = Item(title: CommonStrings.vanishAccount, subtitle: nil, iconName: "vanish-account", iconColor: .white, iconBackgroundColor: .red, type: .vanishAccount)
+        let account = Section(items: [logout, talkPage, vanishAccount], headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
 
         let autoSignDiscussions = Item(title: WMFLocalizedString("account-talk-preferences-auto-sign-discussions", value: "Auto-sign discussions", comment: "Title for talk page preference that configures adding signature to new posts"), subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .talkPageAutoSignDiscussions)
         let talkPagePreferences = Section(items: [autoSignDiscussions], headerTitle: WMFLocalizedString("account-talk-preferences-title", value: "Talk page preferences", comment: "Title for talk page preference sections in account settings"), footerTitle: WMFLocalizedString("account-talk-preferences-auto-sign-discussions-setting-explanation", value: "Auto-signing of discussions will use the signature defined in Signature settings", comment: "Text explaining how setting the auto-signing of talk page discussions preference works"))
@@ -94,6 +98,9 @@ class AccountViewController: SubSettingsViewController {
             cell.selectionStyle = .none
             cell.disclosureSwitch.isOn = UserDefaults.standard.autoSignTalkPageDiscussions
             cell.disclosureSwitch.addTarget(self, action: #selector(autoSignTalkPageDiscussions(_:)), for: .valueChanged)
+        case .vanishAccount:
+            cell.disclosureType = .viewController
+            cell.accessibilityTraits = .button
         }
         
         cell.apply(theme)
@@ -121,17 +128,25 @@ class AccountViewController: SubSettingsViewController {
                 return
             }
             
-            let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
+            let title = OldTalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
             
             if FeatureFlags.needsNewTalkPage {
-                let viewModel = TalkPageViewModel(pageTitle: title, siteURL: siteURL)
+                let viewModel = TalkPageViewModel(pageType: .user, pageTitle: title, siteURL: siteURL, articleSummaryController: dataStore.articleSummaryController)
                 let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
                 self.navigationController?.pushViewController(newTalkPage, animated: true)
             } else {
-                let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
+                let title = OldTalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
                 let loadingFlowController = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL,  type: .user, dataStore: dataStore, theme: theme)
                 self.navigationController?.pushViewController(loadingFlowController, animated: true)
             }
+            
+        case .vanishAccount:
+            guard let username = dataStore.authenticationManager.loggedInUsername else {
+                return
+            }
+
+            let hostingController = VanishAccountCustomUIHostingController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
+            self.navigationController?.pushViewController(hostingController, animated: true)
         default:
             break
         }

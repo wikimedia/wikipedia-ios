@@ -964,6 +964,7 @@
 "talk-page-new-topic-title" = "Uusi keskustelu";
 "talk-page-publish-terms-and-licenses" = "Tallentamalla hyväksyt $1Käyttöehdot$2 sekä kirjoituksen julkaisemisen $3CC BY-SA 3.0$4 ja $5GFDL$6 -lisensseillä.";
 "talk-page-reply-title" = "Vastaa";
+// Fuzzy
 "talk-page-title-article-talk" = "artikkelikeskustelu";
 "talk-page-title-user-talk" = "Keskustelu käyttäjästä";
 "talk-page-topic-title" = "Keskustelu";

@@ -9,7 +9,7 @@ extension String {
         return WikipediaURLTranslations.commonNamespace(for: namespaceString, in: languageCode) ?? .main
     }
     
-    func namespaceAndTitleOfWikiResourcePath(with languageCode: String) -> (namespace: PageNamespace, title: String) {
+    public func namespaceAndTitleOfWikiResourcePath(with languageCode: String) -> (namespace: PageNamespace, title: String) {
         guard let result = String.namespaceRegex.firstMatch(in: self) else {
             return (.main, self)
         }

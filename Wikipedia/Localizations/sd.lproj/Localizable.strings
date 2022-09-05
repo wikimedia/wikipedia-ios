@@ -862,6 +862,7 @@
 "talk-page-new-topic-title" = "نئين گفتگو";
 "talk-page-publish-terms-and-licenses" = "تبديليون سانڍڻ سان، توھان $1استعمال جي شرطن$2 سان راضي آھيو، ۽ پنھنجي ڀاڱيداري $3سيسي بي.واءِ-ايس.اي 3.0$4 ۽ $5جي.ايفڊي.ايل$6 اجازتنامن ھيٺ جاري ڪرڻ لاءِ راضي آھيو.";
 "talk-page-reply-title" = "ورندي ڏيو";
+// Fuzzy
 "talk-page-title-article-talk" = "مضمون بحث";
 "talk-page-title-user-talk" = "واپرائيندڙ بحث";
 "talk-page-topic-title" = "گفتگو";
