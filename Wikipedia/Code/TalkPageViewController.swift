@@ -16,15 +16,12 @@ class TalkPageViewController: ViewController {
     
     fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
         let contributionsAction = UIAction(title: MenuLocalizedStrings.contributions, image: UIImage(systemName: "star"), handler: { _ in
-            print("hi")
         })
 
         let userGroupsAction = UIAction(title: MenuLocalizedStrings.userGroups, image: UIImage(systemName: "person.2"), handler: { _ in
-            print("hi")
         })
 
         let logsAction = UIAction(title: MenuLocalizedStrings.logs, image: UIImage(systemName: "list.bullet"), handler: { _ in
-            print("hi")
         })
 
         return [contributionsAction, userGroupsAction, logsAction]
