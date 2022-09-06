@@ -15,7 +15,7 @@ class TalkPageViewController: ViewController {
     // MARK: - Overflow menu properties
     
     fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
-        let contributionsAction = UIAction(title: MenuLocalizedStrings.contributions, image: UIImage(systemName: "star"), handler: { _ in
+        let contributionsAction = UIAction(title: MenuLocalizedStrings.contributions, image: UIImage(named: "user-contributions"), handler: { _ in
         })
 
         let userGroupsAction = UIAction(title: MenuLocalizedStrings.userGroups, image: UIImage(systemName: "person.2"), handler: { _ in
@@ -50,7 +50,7 @@ class TalkPageViewController: ViewController {
             actions.insert(contentsOf: userTalkOverflowSubmenuActions, at: 1)
             actions.append(aboutTalkUserPagesAction)
         } else {
-            let changeLanguageAction = UIAction(title: MenuLocalizedStrings.changeLanguage, image: UIImage(named: "language"), handler: { _ in
+            let changeLanguageAction = UIAction(title: MenuLocalizedStrings.changeLanguage, image: UIImage(named: "language-talk-page"), handler: { _ in
             })
             let aboutTalkPagesAction = UIAction(title: MenuLocalizedStrings.aboutArticleTalk, image: UIImage(systemName: "doc.plaintext"), handler: { _ in
                 
