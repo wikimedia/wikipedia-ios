@@ -76,7 +76,7 @@ class TalkPageViewController: ViewController {
         })
         
         let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
-        let mainMenu = UIMenu(title: String(), image: nil,  children: [openAllAction, revisionHistoryAction, openInWebAction, submenu])
+        let mainMenu = UIMenu(title: String(), children: [openAllAction, revisionHistoryAction, openInWebAction, submenu])
 
         return mainMenu
     }
@@ -106,7 +106,7 @@ class TalkPageViewController: ViewController {
         navigationItem.title = WMFLocalizedString("talk-pages-view-title", value: "Talk", comment: "Title of user and article talk pages view.")
 
         // Not adding fallback for other versions since we're dropping iOS 13 on the next release
-        // TODO this version check should be removed
+        // TODO: this version check should be removed
         if #available(iOS 14.0, *) {
             let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
             navigationItem.rightBarButtonItem = rightBarButtonItem
