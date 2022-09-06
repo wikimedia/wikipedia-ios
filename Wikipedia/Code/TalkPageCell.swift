@@ -7,6 +7,10 @@ protocol TalkPageCellDelegate: AnyObject {
     func userDidTapSubscribeButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell)
 }
 
+protocol TalkPageCellReplyDelegate: AnyObject {
+    func tappedReply(commentViewModel: TalkPageCellCommentViewModel)
+}
+
 final class TalkPageCell: UICollectionViewCell {
 
     // MARK: - Properties
@@ -15,6 +19,7 @@ final class TalkPageCell: UICollectionViewCell {
 
     weak var viewModel: TalkPageCellViewModel?
     weak var delegate: TalkPageCellDelegate?
+    weak var replyDelegate: TalkPageCellReplyDelegate?
 
     // MARK: - UI Elements
 
@@ -97,6 +102,7 @@ final class TalkPageCell: UICollectionViewCell {
         for commentViewModel in viewModel.replies {
             let separator = TalkPageCellCommentSeparator()
             let commentView = TalkPageCellCommentView()
+            commentView.replyDelegate = replyDelegate
             commentView.configure(viewModel: commentViewModel)
 
             commentView.isHidden = !viewModel.isThreadExpanded
@@ -108,6 +114,7 @@ final class TalkPageCell: UICollectionViewCell {
 
         disclosureRow.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
         disclosureRow.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
+        topicView.replyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
     }
 
     // MARK: - Actions
@@ -119,7 +126,15 @@ final class TalkPageCell: UICollectionViewCell {
     @objc func userDidTapSubscribeButton() {
         delegate?.userDidTapSubscribeButton(cellViewModel: viewModel, cell: self)
     }
-
+    
+    @objc func userDidTapLeadReply() {
+        
+        guard let commentViewModel = viewModel?.leadComment else {
+            return
+        }
+        
+        replyDelegate?.tappedReply(commentViewModel: commentViewModel)
+    }
 }
 
 // MARK: - Themeable

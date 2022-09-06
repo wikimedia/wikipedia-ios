@@ -154,10 +154,14 @@ final class TalkPageCellTopicView: SetupView {
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+    
+    private weak var viewModel: TalkPageCellViewModel?
 
     // MARK: - Configure
 
     func configure(viewModel: TalkPageCellViewModel) {
+        self.viewModel = viewModel
+        
         topicLabel.numberOfLines = viewModel.isThreadExpanded ? 0 : 2
         topicCommentLabel.numberOfLines = viewModel.isThreadExpanded ? 0 : 3
 
