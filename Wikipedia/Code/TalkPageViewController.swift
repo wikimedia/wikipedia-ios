@@ -15,15 +15,15 @@ class TalkPageViewController: ViewController {
     // MARK: - Overflow menu properties
     
     fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
-        let contributionsAction = UIAction(title: "contributions", image: UIImage(systemName: "star"), handler: { _ in
+        let contributionsAction = UIAction(title: MenuLocalizedStrings.contributions, image: UIImage(systemName: "star"), handler: { _ in
             print("hi")
         })
 
-        let userGroupsAction = UIAction(title: "user groups", image: UIImage(systemName: "star"), handler: { _ in
+        let userGroupsAction = UIAction(title: MenuLocalizedStrings.userGroups, image: UIImage(systemName: "person.2"), handler: { _ in
             print("hi")
         })
 
-        let logsAction = UIAction(title: "logs", image: UIImage(systemName: "star"), handler: { _ in
+        let logsAction = UIAction(title: MenuLocalizedStrings.logs, image: UIImage(systemName: "list.bullet"), handler: { _ in
             print("hi")
         })
 
@@ -32,45 +32,50 @@ class TalkPageViewController: ViewController {
 
     fileprivate var overflowSubmenuActions: [UIAction] {
         
-        let goToArchivesAction = UIAction(title: "Archives", image: UIImage(systemName: "star"), handler: { _ in
-            print("hi")
-        })
-        let pageInfoAction = UIAction(title: "Page information", image: UIImage(systemName: "star"), handler: { _ in
-            print("hi")
+        let goToArchivesAction = UIAction(title: MenuLocalizedStrings.archives, image: UIImage(systemName: "archivebox"), handler: { _ in
         })
         
-        let goToPermalinkAction = UIAction(title: "Permanent link", image: UIImage(systemName: "star"), handler: { _ in
-            print("hi")
-        })
-        let changeLanguageAction = UIAction(title: "Change language", image: UIImage(systemName: "star"), handler: { _ in
-            print("hi")
-        })
-        let getLinksAction = UIAction(title: "What links here", image: UIImage(systemName: "star"), handler: { _ in
-            print("hi")
+        let pageInfoAction = UIAction(title: MenuLocalizedStrings.pageInfo, image: UIImage(systemName: "info.circle"), handler: { _ in
         })
         
-        let aboutTalkPagesAction = UIAction(title: "About talk pages", image: UIImage(systemName: "star"), handler: { _ in
-            print("hi")
+        let goToPermalinkAction = UIAction(title: MenuLocalizedStrings.permaLink, image: UIImage(systemName: "link"), handler: { _ in
         })
         
-        var actions = [goToArchivesAction, pageInfoAction, goToPermalinkAction, changeLanguageAction, getLinksAction, aboutTalkPagesAction]
+        let relatedLinksAction = UIAction(title: MenuLocalizedStrings.relatedLinks, image: UIImage(systemName: "arrowshape.turn.up.forward"), handler: { _ in
+        })
+        
+        var actions = [goToArchivesAction, pageInfoAction, goToPermalinkAction, relatedLinksAction]
         
         if viewModel.pageType == .user {
+            let aboutTalkUserPagesAction = UIAction(title: MenuLocalizedStrings.aboutUserTalk, image: UIImage(systemName: "doc.plaintext"), handler: { _ in
+                
+            })
             actions.insert(contentsOf: userTalkOverflowSubmenuActions, at: 1)
+            actions.append(aboutTalkUserPagesAction)
+        } else {
+            let changeLanguageAction = UIAction(title: MenuLocalizedStrings.changeLanguage, image: UIImage(named: "language"), handler: { _ in
+            })
+            let aboutTalkPagesAction = UIAction(title: MenuLocalizedStrings.aboutArticleTalk, image: UIImage(systemName: "doc.plaintext"), handler: { _ in
+                
+            })
+            actions.insert(changeLanguageAction, at: 3)
+            actions.append(aboutTalkPagesAction)
         }
         return actions
     }
     
     var overflowMenu: UIMenu {
         
-        let openAllAction = UIAction(title: "Open all threads", image: UIImage(systemName: "star"), handler: { _ in
-            print("hi")
+        let openAllAction = UIAction(title: MenuLocalizedStrings.openAllThreads, image: UIImage(systemName: "square.stack"), handler: { _ in
+           
         })
-        let revisionHistoryAction = UIAction(title: "Rev history", image: UIImage(systemName: "star"), handler: { _ in
-            print("hi")
+        
+        let revisionHistoryAction = UIAction(title: MenuLocalizedStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { _ in
+            
         })
-        let openInWebAction = UIAction(title: "Read in web", image: UIImage(systemName: "star"), handler: { _ in
-            print("hi")
+        
+        let openInWebAction = UIAction(title: MenuLocalizedStrings.readInWeb, image: UIImage(systemName: "display"), handler: { _ in
+            
         })
         
         let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
@@ -250,5 +255,23 @@ extension TalkPageViewController: TalkPageViewModelDelegate {
     func talkPageDataDidUpdate() {
         setupHeaderView()
         talkPageView.collectionView.reloadData()
+    }
+}
+
+extension TalkPageViewController {
+    enum MenuLocalizedStrings {
+        static let openAllThreads = WMFLocalizedString("talk-page-menu-open-all", value: "Open all threads", comment: "Title for menu option open all talk page threads")
+        static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for menu option that leads to talk pages revision history")
+        static let readInWeb = WMFLocalizedString("talk-page-open-in-web", value: "Open in web", comment: "Title for menu option to open a talk page in a web browser")
+        static let archives = WMFLocalizedString("talk-page-archives", value: "Archives", comment: "Title for menu option that redirects to talk page archives")
+        static let pageInfo = WMFLocalizedString("talk-page-page-info", value: "Page information", comment: "Title for menu option to go to the talk page information link")
+        static let permaLink = WMFLocalizedString("talk-page-permanent-link", value: "Permanent link", comment: "Title for menu option to open the talk page's permanent link in a web browser")
+        static let changeLanguage = WMFLocalizedString("talk-page-change-language", value: "Change language", comment: "Title for menu option to got to the change language page")
+        static let relatedLinks = WMFLocalizedString("talk-page-related-links", value: "What links here", comment: "Title for menu option that redirects to a page that shows related links")
+        static let aboutArticleTalk = WMFLocalizedString("talk-page-article-about", value: "About talk pages", comment: "Title for menu option for information on article talk pages")
+        static let aboutUserTalk = WMFLocalizedString("talk-page-user-about", value: "About user talk page", comment: "Title for menu option for information on article talk pages")
+        static let contributions = WMFLocalizedString("talk-page-user-contributions", value: "Contributions", comment: "Title for menu option for information on the user's contributions")
+        static let userGroups = WMFLocalizedString("talk-pages-user-groups", value: "User groups", comment: "Title for menu option for information on the user's user groups")
+        static let logs = WMFLocalizedString("talk-pages-user-logs", value: "Logs", comment: "Title for menu option to consult the user's public logs")
     }
 }
