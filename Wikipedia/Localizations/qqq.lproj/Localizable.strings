@@ -1003,12 +1003,14 @@
 "talk-page-subscribe-to-topic" = "Text used on button to subscribe to talk page topic.";
 "talk-page-title-article-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page.";
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page.";
-"talk-page-topic-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
+"talk-page-topic-compose-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "talk-page-topic-title" = "This header label is displayed at the top of a talk page topic thread.";
 "talk-page-unsubscribe-to-topic" = "Text used on button to unsubscribe from talk page topic.";
 "talk-pages-coffee-roll-read-more" = "Title of user and article talk pages button to read more of the coffee roll.";
 "talk-pages-reply-button-title" = "Text displayed in a reply button for replying to a talk page topic thread.";
-"talk-pages-topic-compose-title" = "Title of new topic compose screen.";
+"talk-pages-topic-compose-body-placeholder" = "Placeholder text in topic body field of the talk page topic compose screen.";
+"talk-pages-topic-compose-navbar-title" = "Top navigation bar title of talk page topic compose screen.";
+"talk-pages-topic-compose-title-placeholder" = "Placeholder text in topic title field of the talk page topic compose screen.";
 "talk-pages-view-title" = "Title of user and article talk pages view.";
 "theme-black-display-name" = "Black theme name presented to the user";
 "theme-dark-display-name" = "Dark theme name presented to the user";

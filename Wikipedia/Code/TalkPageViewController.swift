@@ -152,7 +152,8 @@ class TalkPageViewController: ViewController {
     
     @objc fileprivate func userDidTapAddTopicButton() {
         let topicComposeVC = TalkPageTopicComposeViewController(theme: theme)
-        let navVC = WMFThemeableNavigationController(rootViewController: topicComposeVC)
+        let navVC = WMFThemeableNavigationController(rootViewController: topicComposeVC, theme: theme)
+        navVC.modalPresentationStyle = .pageSheet
         present(navVC, animated: true, completion: nil)
     }
     

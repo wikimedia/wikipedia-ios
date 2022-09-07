@@ -1,6 +1,14 @@
 import UIKit
+import WMF
 
 class TalkPageTopicComposeViewController: ViewController {
+    
+    enum TopicComposeStrings {
+        static let navigationBarTitle = WMFLocalizedString("talk-pages-topic-compose-navbar-title", value: "Topic", comment: "Top navigation bar title of talk page topic compose screen.")
+        static let titlePlaceholder = WMFLocalizedString("talk-pages-topic-compose-title-placeholder", value: "Topic title", comment: "Placeholder text in topic title field of the talk page topic compose screen.")
+        static let bodyPlaceholder = WMFLocalizedString("talk-pages-topic-compose-body-placeholder", value: "Description", comment: "Placeholder text in topic body field of the talk page topic compose screen.")
+        static let finePrintFormat = WMFLocalizedString("talk-page-topic-compose-terms-and-licenses", value: "By publishing changes, you agree to the %1$@Terms of Use%2$@, and you irrevocably agree to release your contribution under the %3$@CC BY-SA 3.0 License%4$@ and the %5$@GFDL%6$@.", comment: "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
+    }
     
     private lazy var safeAreaBackgroundView: UIView = {
         let view = UIView(frame: .zero)
@@ -51,7 +59,15 @@ class TalkPageTopicComposeViewController: ViewController {
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = .zero
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.delegate = self
         return textView
+    }()
+    
+    private lazy var bodyPlaceholderLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = Self.TopicComposeStrings.bodyPlaceholder
+        return label
     }()
     
     private lazy var finePrintTextView: UITextView = {
@@ -77,7 +93,7 @@ class TalkPageTopicComposeViewController: ViewController {
         setupContainerStackView()
         updateFonts()
         apply(theme: theme)
-        self.title = WMFLocalizedString("talk-pages-topic-compose-title", value: "Topic", comment: "Title of new topic compose screen.")
+        self.title = Self.TopicComposeStrings.navigationBarTitle
     }
     
     private func setupSafeAreaBackgroundView() {
@@ -109,6 +125,7 @@ class TalkPageTopicComposeViewController: ViewController {
         
         // Container Stack View
         containerScrollView.addSubview(containerStackView)
+        containerScrollView.addSubview(bodyPlaceholderLabel)
         
         NSLayoutConstraint.activate([
             containerStackView.topAnchor.constraint(equalTo: containerScrollView.contentLayoutGuide.topAnchor),
@@ -151,7 +168,11 @@ class TalkPageTopicComposeViewController: ViewController {
             
             bodyTextView.leadingAnchor.constraint(equalTo: inputContainerView.leadingAnchor, constant: 16),
             bodyTextView.trailingAnchor.constraint(equalTo: inputContainerView.trailingAnchor, constant: -16),
-            bodyTextView.bottomAnchor.constraint(equalTo: inputContainerView.bottomAnchor, constant: -16)
+            bodyTextView.bottomAnchor.constraint(equalTo: inputContainerView.bottomAnchor, constant: -16),
+            
+            bodyPlaceholderLabel.leadingAnchor.constraint(equalTo: bodyTextView.leadingAnchor),
+            bodyPlaceholderLabel.topAnchor.constraint(equalTo: bodyTextView.topAnchor),
+            bodyPlaceholderLabel.trailingAnchor.constraint(equalTo: bodyTextView.trailingAnchor)
         ])
     }
     
@@ -161,13 +182,14 @@ class TalkPageTopicComposeViewController: ViewController {
     }
     
     func updateFonts() {
-        titleTextField.font = UIFont.wmf_font(.boldHeadline, compatibleWithTraitCollection: traitCollection)
+        titleTextField.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
         bodyTextView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
+        bodyPlaceholderLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString
     }
     
     private var licenseTitleTextViewAttributedString: NSAttributedString {
-        let localizedString = WMFLocalizedString("talk-page-topic-terms-and-licenses", value: "By publishing changes, you agree to the %1$@Terms of Use%2$@, and you irrevocably agree to release your contribution under the %3$@CC BY-SA 3.0 License%4$@ and the %5$@GFDL%6$@.", comment: "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
+        let localizedString = Self.TopicComposeStrings.finePrintFormat
 
         let substitutedString = String.localizedStringWithFormat(
             localizedString,
@@ -179,7 +201,7 @@ class TalkPageTopicComposeViewController: ViewController {
             "</a>"
         )
 
-        let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, color: theme.colors.secondaryText, linkColor: theme.colors.link, tagMapping: nil, additionalTagAttributes: nil)
+        let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, tagMapping: nil, additionalTagAttributes: nil)
 
         return attributedString
     }
@@ -212,12 +234,26 @@ class TalkPageTopicComposeViewController: ViewController {
         containerScrollView.backgroundColor = .clear
         containerStackView.backgroundColor = .clear
         inputContainerView.backgroundColor = theme.colors.paperBackground
-        titleTextField.backgroundColor = theme.colors.paperBackground
+        titleTextField.textColor = theme.colors.primaryText
+        titleTextField.attributedPlaceholder = NSAttributedString(string: Self.TopicComposeStrings.titlePlaceholder, attributes: [NSAttributedString.Key.foregroundColor: theme.colors.tertiaryText])
         bodyTextView.backgroundColor = theme.colors.paperBackground
+        bodyTextView.textColor = theme.colors.primaryText
+        bodyPlaceholderLabel.textColor = theme.colors.tertiaryText
         divView.backgroundColor = theme.colors.chromeShadow
         
-        finePrintTextView.backgroundColor = .clear
-        finePrintTextView.textColor = theme.colors.secondaryText
+        finePrintTextView.backgroundColor = theme.colors.baseBackground
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString // TODO: not working? Link colors are off.
     }
+}
+
+extension TalkPageTopicComposeViewController: UITextViewDelegate {
+
+     func textViewDidChange(_ textView: UITextView) {
+
+         guard textView == bodyTextView else {
+             return
+         }
+
+         bodyPlaceholderLabel.isHidden = bodyTextView.text.count == 0 ? false : true
+     }
 }

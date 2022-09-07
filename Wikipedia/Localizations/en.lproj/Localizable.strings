@@ -1003,12 +1003,14 @@
 "talk-page-subscribe-to-topic" = "Subscribe";
 "talk-page-title-article-talk" = "Article Talk";
 "talk-page-title-user-talk" = "User Talk";
-"talk-page-topic-terms-and-licenses" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 3.0 License$4 and the $5GFDL$6.";
+"talk-page-topic-compose-terms-and-licenses" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 3.0 License$4 and the $5GFDL$6.";
 "talk-page-topic-title" = "Discussion";
 "talk-page-unsubscribe-to-topic" = "Unsubscribe";
 "talk-pages-coffee-roll-read-more" = "Read more";
 "talk-pages-reply-button-title" = "Reply to this discussion";
-"talk-pages-topic-compose-title" = "Topic";
+"talk-pages-topic-compose-body-placeholder" = "Description";
+"talk-pages-topic-compose-navbar-title" = "Topic";
+"talk-pages-topic-compose-title-placeholder" = "Topic title";
 "talk-pages-view-title" = "Talk";
 "theme-black-display-name" = "Black";
 "theme-dark-display-name" = "Dark";
