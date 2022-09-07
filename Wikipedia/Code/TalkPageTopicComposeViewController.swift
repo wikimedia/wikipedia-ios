@@ -254,6 +254,7 @@ class TalkPageTopicComposeViewController: ViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         
+        navigationController?.navigationBar.titleTextAttributes = theme.navigationBarTitleTextAttributes
         view.backgroundColor = theme.colors.baseBackground
         closeButton.tintColor = theme.colors.tertiaryText
         publishButton.tintColor = theme.colors.link
