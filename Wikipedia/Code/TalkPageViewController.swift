@@ -36,7 +36,7 @@ class TalkPageViewController: ViewController {
 
         navigationItem.title = WMFLocalizedString("talk-pages-view-title", value: "Talk", comment: "Title of user and article talk pages view.")
 
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil)
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(tappedOverflow))
         navigationItem.rightBarButtonItem = rightBarButtonItem
         
         talkPageView.collectionView.dataSource = self
@@ -47,6 +47,12 @@ class TalkPageViewController: ViewController {
         navigationMode = .forceBar
 
         viewModel.fetchTalkPage()
+    }
+    
+    @objc func tappedOverflow() {
+        let topicComposeVC = TalkPageTopicComposeViewController(theme: theme)
+        let navVC = WMFThemeableNavigationController(rootViewController: topicComposeVC)
+        present(navVC, animated: true, completion: nil)
     }
 
     private func setupHeaderView() {
