@@ -26,15 +26,55 @@ struct TalkPageItem: Codable {
     let headingLevel: Int?
     let replies: [TalkPageItem]
     let otherContent: String?
+    let author: String?
+    let timestamp: Date?
     
     enum CodingKeys: String, CodingKey {
-        case type, level, id, html, name ,headingLevel, replies
+        case type, level, id, html, name ,headingLevel, replies, author, timestamp
         case otherContent = "othercontent"
     }
     
     enum TalkPageItemType: String, Codable {
         case comment = "comment"
         case heading = "heading"
+    }
+    
+    init(type: TalkPageItemType, level: Int?, id: String, html: String?, name: String?, headingLevel: Int?, replies: [TalkPageItem], otherContent: String?, author: String?, timestamp: Date?) {
+        self.type = type
+        self.level = level
+        self.id = id
+        self.html = html
+        self.name = name
+        self.headingLevel = headingLevel
+        self.replies = replies
+        self.otherContent = otherContent
+        self.author = author
+        self.timestamp = timestamp
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        type = try values.decode(TalkPageItemType.self, forKey: .type)
+        level = try? values.decode(Int.self, forKey: .level)
+        id = try values.decode(String.self, forKey: .id)
+        html = try? values.decode(String.self, forKey: .html)
+        name = try? values.decode(String.self, forKey: .name)
+        headingLevel = try? values.decode(Int.self, forKey: .headingLevel)
+        replies = (try? values.decode([TalkPageItem].self, forKey: .replies)) ?? []
+        otherContent = try? values.decode(String.self, forKey: .otherContent)
+        author = try? values.decode(String.self, forKey: .author)
+  
+        if let timestampString = try? values.decode(String.self, forKey: .timestamp) {
+            let timestampDate = (timestampString as NSString).wmf_iso8601Date()
+            timestamp = timestampDate
+        } else {
+            timestamp = nil
+        }
+    }
+    
+    func updatingReplies(replies: [TalkPageItem]) -> TalkPageItem {
+        return TalkPageItem(type: type, level: level, id: id, html: html, name: name, headingLevel: headingLevel, replies: replies, otherContent: otherContent, author: author, timestamp: timestamp)
     }
 }
 
