@@ -166,6 +166,7 @@ class TalkPageViewController: ViewController {
         topicComposeVC.delegate = self
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
+        navVC.presentationController?.delegate = self
         present(navVC, animated: true, completion: nil)
     }
     
@@ -297,4 +298,20 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
     }
     
     
+}
+
+extension TalkPageViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        guard let navVC = presentationController.presentingViewController as? UINavigationController,
+              let topicComposeVC = navVC.visibleViewController as? TalkPageTopicComposeViewController else {
+            return true
+        }
+        
+        guard topicComposeVC.shouldBlockDismissal else {
+            return true
+        }
+        
+        topicComposeVC.presentDismissConfirmationActionSheet()
+        return false
+    }
 }
