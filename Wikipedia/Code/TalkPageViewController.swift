@@ -91,6 +91,10 @@ class TalkPageViewController: ViewController {
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
         super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
         
+        guard oldKeyboardFrame != newKeyboardFrame else {
+            return
+        }
+        
         replyComposeController.calculateLayout(in: self, newKeyboardFrame: newKeyboardFrame)
         
         view.setNeedsLayout()
@@ -128,12 +132,23 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
 
         let viewModel = viewModel.topics[indexPath.row]
 
+        cell.delegate = self
+        cell.replyDelegate = self
+        
         cell.configure(viewModel: viewModel)
         cell.apply(theme: theme)
-        cell.delegate = self
 
         return cell
     }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? TalkPageCell else {
+            return
+        }
+
+        userDidTapDisclosureButton(cellViewModel: cell.viewModel, cell: cell)
+    }
+    
 }
 
 // MARK: - TalkPageCellDelegate
@@ -169,5 +184,21 @@ extension TalkPageViewController: TalkPageViewModelDelegate {
     func talkPageDataDidUpdate() {
         setupHeaderView()
         talkPageView.collectionView.reloadData()
+    }
+}
+
+extension TalkPageViewController: TalkPageCellReplyDelegate {
+    func tappedReply(commentViewModel: TalkPageCellCommentViewModel) {
+        replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel)
+    }
+}
+
+extension TalkPageViewController: TalkPageReplyComposeDelegate {
+    func tappedClose() {
+        replyComposeController.reset()
+    }
+    
+    func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
+        // TODO: Publish reply once live data is connected to commentViewModels
     }
 }

@@ -10,6 +10,7 @@ struct VanishAccountContentView: View {
         static let additionalInformationFieldTitle = WMFLocalizedString("vanish-account-additional-information-field", value: "Additional information", comment: "Title for the additional information form field")
         static let additionalInformationFieldPlaceholder = WMFLocalizedString("vanish-account-additional-information-placeholder", value: "Optional", comment: "Placeholder for the additional information form field")
         static let buttonText = WMFLocalizedString("vanish-account-button-text", value: "Send request", comment: "Text for button on vanish account request screen")
+        static let learnMoreButtonText = CommonStrings.learnMoreButtonText
     }
     
     @SwiftUI.ObservedObject var userInput: UserInput
@@ -95,19 +96,33 @@ struct VanishAccountContentView: View {
                                 .padding(20)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             Spacer()
-                            Button(action: {
-                                openMailClient()
-                            }, label: {
-                                Text(LocalizedStrings.buttonText)
-                                    .font(Font(buttonFont))
-                                    .foregroundColor(Color(theme.colors.link))
-                                    .padding()
-                                    .frame(minWidth: 335)
-                                    .frame(height: 46)
-                                    .background(Color(theme.colors.paperBackground))
-                                    .cornerRadius(8)
-                                    .padding()
-                            })
+                            VStack {
+                                Button(action: {
+                                    openMailClient()
+                                }, label: {
+                                    Text(LocalizedStrings.buttonText)
+                                        .font(Font(buttonFont))
+                                        .foregroundColor(Color(theme.colors.link))
+                                        .frame(minWidth: 335)
+                                        .frame(height: 46)
+                                        .background(Color(theme.colors.paperBackground))
+                                        .cornerRadius(8)
+                                })
+                                if #unavailable(iOS 15) {
+                                    Button(action: {
+                                        goToVanishPage()
+                                    }, label: {
+                                        Text(LocalizedStrings.learnMoreButtonText)
+                                            .font(Font(buttonFont))
+                                            .foregroundColor(Color(theme.colors.link))
+                                            .frame(minWidth: 335)
+                                            .frame(height: 46)
+                                            .background(Color(theme.colors.baseBackground))
+                                        
+                                    })
+                                }
+                            }
+                            .padding(0)
                             Spacer()
                         }
                     }
@@ -151,6 +166,12 @@ struct VanishAccountContentView: View {
 
         shouldShowModalOnForeground = true
         UIApplication.shared.open(mailtoURL)
+    }
+    
+    func goToVanishPage() {
+        if let url = URL(string: "https://meta.wikimedia.org/wiki/Right_to_vanish") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
     
 }
