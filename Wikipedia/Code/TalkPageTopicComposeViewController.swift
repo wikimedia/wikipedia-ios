@@ -29,6 +29,7 @@ class TalkPageTopicComposeViewController: ViewController {
     
     lazy var publishButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(tappedPublish))
+        button.isEnabled = false
         return button
     }()
     
@@ -59,6 +60,7 @@ class TalkPageTopicComposeViewController: ViewController {
     private lazy var titleTextField: UITextField = {
         let textfield = UITextField(frame: .zero)
         textfield.translatesAutoresizingMaskIntoConstraints = false
+        textfield.addTarget(self, action: #selector(titleTextFieldChanged), for: .editingChanged)
         return textfield
     }()
     
@@ -296,6 +298,14 @@ class TalkPageTopicComposeViewController: ViewController {
             }
         })
     }
+    
+    @objc private func titleTextFieldChanged() {
+        evaluatePublishButtonEnabledState()
+    }
+    
+    private func evaluatePublishButtonEnabledState() {
+        publishButton.isEnabled = !(titleTextField.text ?? "").isEmpty && !bodyTextView.text.isEmpty
+    }
 }
 
 extension TalkPageTopicComposeViewController: UITextViewDelegate {
@@ -307,5 +317,7 @@ extension TalkPageTopicComposeViewController: UITextViewDelegate {
          }
 
          bodyPlaceholderLabel.isHidden = bodyTextView.text.count == 0 ? false : true
+         
+         evaluatePublishButtonEnabledState()
      }
 }
