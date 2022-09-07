@@ -47,7 +47,7 @@
     return (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)UTI, kUTTagClassMIMEType);
 }
 
-- (NSDate *)wmf_iso8601Date {
+- (nullable NSDate *)wmf_iso8601Date {
     return [[NSDateFormatter wmf_iso8601Formatter] dateFromString:self];
 }
 
