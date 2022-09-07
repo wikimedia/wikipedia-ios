@@ -1010,7 +1010,7 @@
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page.";
 "talk-page-topic-title" = "This header label is displayed at the top of a talk page topic thread.";
 "talk-page-unsubscribe-to-topic" = "Text used on button to unsubscribe from talk page topic.";
-"talk-page-user-about" = "Title for menu option for information on article talk pages";
+"talk-page-user-about" = "Title for menu option for information on user talk pages";
 "talk-page-user-contributions" = "Title for menu option for information on the user's contributions";
 "talk-pages-coffee-roll-read-more" = "Title of user and article talk pages button to read more of the coffee roll.";
 "talk-pages-reply-button-title" = "Text displayed in a reply button for replying to a talk page topic thread.";
