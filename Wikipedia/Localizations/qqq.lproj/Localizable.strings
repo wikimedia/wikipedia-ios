@@ -968,10 +968,10 @@
 "tajik-variants-alert-body" = "Body text of alert used to inform users about Tajik variant support. Please do not translate the newlines (\n) or Tajik characters (тоҷикӣ кирилликӣ, etc.).";
 "tajik-variants-alert-title" = "Title of alert used to inform users about Tajik variant support.";
 "talk-page-add-discussion-accessibility-label" = "Accessibility label for a button that opens the add new discussion screen.";
+"talk-page-add-topic-button" = "Title for add topic to talk page button";
 "talk-page-archives" = "Title for menu option that redirects to talk page archives";
 "talk-page-article-about" = "Title for menu option for information on article talk pages";
 "talk-page-change-language" = "Title for menu option to got to the change language page";
-"talk-page-add-topic-button" = "Title for add topic to talk page button";
 "talk-page-discussion-accessibility-hint" = "Accessibility hint when user is on a discussion title cell.";
 "talk-page-discussion-read-accessibility-label" = "Accessibility text for indicating that some content have been read.";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a discussion's contents have been read.";
@@ -1006,12 +1006,9 @@
 "talk-page-reply-button" = "Text used on button to reply to talk page messages.";
 "talk-page-reply-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "talk-page-reply-title" = "This header label is displayed at the top of a talk page thread once the user taps Reply.";
-<<<<<<< HEAD
-"talk-page-revision-history" = "Title for menu option that leads to talk pages revision history";
-=======
 "talk-page-revision-button" = "Title for talk page revision history button";
+"talk-page-revision-history" = "Title for menu option that leads to talk pages revision history";
 "talk-page-share-button" = "Title for share talk page button";
->>>>>>> main
 "talk-page-subscribe-to-topic" = "Text used on button to subscribe to talk page topic.";
 "talk-page-title-article-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page.";
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page.";
