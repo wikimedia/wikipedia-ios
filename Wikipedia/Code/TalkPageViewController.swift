@@ -302,6 +302,18 @@ extension TalkPageViewController: TalkPageCellDelegate {
         configuredCellViewModel.isSubscribed.toggle()
         
         cell.configure(viewModel: configuredCellViewModel)
+        
+        let title = configuredCellViewModel.isSubscribed ? TalkPageLocalizedStrings.subscribedAlertTitle : TalkPageLocalizedStrings.unsubscribedAlertTitle
+        let subtitle = configuredCellViewModel.isSubscribed ? TalkPageLocalizedStrings.subscribedAlertSubtitle : TalkPageLocalizedStrings.unsubscribedAlertSubtitle
+        
+        let image = configuredCellViewModel.isSubscribed ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell.slash.fill")
+        
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image ?? UIImage(), dismissPreviousAlerts: true)
+            
+        }
     }
 }
 

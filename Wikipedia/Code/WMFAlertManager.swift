@@ -79,6 +79,12 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
             RMessage.showNotification(in: nil, title: message, subtitle: nil, iconImage: nil, type: .error, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
     }
+    
+    @objc func showBottomAlertWithMessage(_ message: String, subtitle: String, image: UIImage, dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)? = nil) {
+        showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
+            RMessage.showNotification(withTitle: message, subtitle: subtitle, iconImage: UIImage(named: "language"), type: .normal, customTypeName: nil, duration: 10, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .bottom, canBeDismissedByUser: true)
+        })
+    }
 
     @objc func showAlert(_ dismissPreviousAlerts:Bool, alertBlock: @escaping () -> Void) {
         DispatchQueue.main.async {
