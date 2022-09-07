@@ -147,6 +147,7 @@
 "action-update" = "Perbarui";
 "add-articles-to-reading-list" = "Tambahkan {{PLURAL:$1|$1 artikel|$1 artikel}} ke daftar bacaan";
 "add-citation-title" = "Tambahkan kutipan";
+"additional-information-email-title" = "Informasi tambahan";
 "announcements-dismiss" = "Tutup";
 "app-store-keywords" = "Wikipedia, referensi, wiki, ensiklopedia, info, pengetahuan, penelitian, informasi, mengeksplorasi, belajar";
 "app-store-release-notes" = "Sepenuhnya dapat disesuaikan dan lebih mudah membaca umpan Jelajahi. Lokalisasi, peningkatan kinerja, dan perbaikan kesalahan.";
@@ -1024,10 +1025,13 @@
 "talk-page-new-topic-success-text" = "Diskusi anda telah diterbitkan";
 "talk-page-new-topic-title" = "Diskusi baru";
 "talk-page-publish-terms-and-licenses" = "Dengan menyimpan perubahan, anda menyetujui $1Syarat Penggunaan$2, dan setuju untuk menerbitkan kontribusi anda dibawah lisensi $3CC BY-SA 3.0$4 dan $5GFDL.";
+"talk-page-reply-button" = "Balas";
 "talk-page-reply-title" = "Balas";
+"talk-page-subscribe-to-topic" = "Berlangganan";
 "talk-page-title-article-talk" = "Pembicaraan Artikel";
 "talk-page-title-user-talk" = "Pembicaraan pengguna";
 "talk-page-topic-title" = "Diskusi";
+"talk-page-unsubscribe-to-topic" = "Berhenti berlangganan";
 "talk-pages-coffee-roll-read-more" = "Baca lebih lanjut";
 "talk-pages-reply-button-title" = "Balas diskusi ini";
 "talk-pages-view-title" = "Pembicaraan";
@@ -1052,6 +1056,12 @@
 "unknown-generic-text" = "Tidak diketahui";
 "uzbek-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Uzbek berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Sirilik (uz-cyrl)";
 "uzbek-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Uzbek";
+"vanish-account-additional-information-field" = "Informasi tambahan";
+"vanish-account-additional-information-placeholder" = "Opsional";
+"vanish-account-back-confirm-discard" = "Buang Permintaan";
+"vanish-account-back-confirm-keep-editing" = "Lanjutkan penyuntingan";
+"vanish-account-learn-more-text" = "Pelajari lebih lanjut";
+"vanish-account-username-field" = "Nama pengguna dan halaman pengguna";
 "variants-alert-dismiss-button" = "Tidak, terima kasih";
 "variants-alert-preferences-button" = "Tinjau preferensi Anda";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disarankan dan artikel harian dari komunitas kami";

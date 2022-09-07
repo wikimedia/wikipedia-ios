@@ -1019,10 +1019,13 @@
 "talk-page-new-topic-success-text" = "Ваше обговорення успішно оприлюднене";
 "talk-page-new-topic-title" = "Нове обговорення";
 "talk-page-publish-terms-and-licenses" = "Затверджуючи зміни, ви погоджуєтеся з $1Умовами використання$2 та оприлюднюєте свій внесок за ліцензіями $3CC BY-SA 3.0$4 и $5GFDL$6.";
+"talk-page-reply-button" = "Відповісти";
 "talk-page-reply-title" = "Відповісти";
+"talk-page-subscribe-to-topic" = "Підписатись";
 "talk-page-title-article-talk" = "Обговорення статті";
 "talk-page-title-user-talk" = "Обговорення користувача";
 "talk-page-topic-title" = "Обговорення";
+"talk-page-unsubscribe-to-topic" = "Відписатись";
 "talk-pages-coffee-roll-read-more" = "Читати більше";
 "talk-pages-reply-button-title" = "Відповісти в цьому обговоренні";
 "talk-pages-view-title" = "Обговорення";
@@ -1054,6 +1057,11 @@
 "vanish-account-back-confirm-title" = "Ви впевнені, що бажаєте відхилити цей запит на знищення?";
 "vanish-account-button-text" = "Надіслати запит";
 "vanish-account-email-text" = "Вітаю,\nЦе запит на видалення мого облікового запису Вікіпедії.";
+"vanish-account-title" = "Процес зникнення";
+"vanish-account-username-field" = "Ім'я користувача та сторінка користувача";
+"vanish-modal-item" = "Якщо ви виконали ваш запит на зникнення, зачекайте кілька днів, щоб запит обробив адміністратор";
+"vanish-modal-item-2" = "Якщо ви не впевнені, що ваш запит прийнято, перевірте свій додаток Mail";
+"vanish-modal-item-3" = "Якщо у вас є додаткові запитання щодо знищення, відвідайте Meta:Right_to_vanish";
 "variants-alert-dismiss-button" = "Ні, дякую";
 "variants-alert-preferences-button" = "Переглянути свої налаштування";
 "welcome-exploration-explore-feed-description" = "Рекомендовані записи та щоденні статті від нашої спільноти";
