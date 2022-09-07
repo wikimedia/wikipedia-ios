@@ -254,6 +254,8 @@ public class CommonStrings: NSObject {
     public static let successfullyPublishedReply = WMFLocalizedString("talk-page-new-reply-success-text", value: "Your reply was successfully published", comment: "Banner text that appears after a new reply was successfully published on a talk page discussion.")
 
     public static let talkPageReply = WMFLocalizedString("talk-page-reply-button", value: "Reply", comment: "Text used on button to reply to talk page messages.")
+    
+    public static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for option that leads to talk pages revision history")
 
     public static let defaultThemeDisplayName = WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user")
 

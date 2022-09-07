@@ -75,7 +75,7 @@ class TalkPageViewController: ViewController {
            
         })
         
-        let revisionHistoryAction = UIAction(title: MenuLocalizedStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { _ in
+        let revisionHistoryAction = UIAction(title: CommonStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { _ in
             
         })
         
@@ -236,7 +236,7 @@ class TalkPageViewController: ViewController {
         
         shareButton.accessibilityLabel = WMFLocalizedString("talk-page-share-button", value: "Share talk page", comment: "Title for share talk page button")
         findButton.accessibilityLabel = WMFLocalizedString("talk-page-find-in-page-button", value: "Find in page", comment: "Title for find content in page button")
-        revisionButton.accessibilityLabel = WMFLocalizedString("talk-page-revision-button", value: "Revision history", comment: "Title for talk page revision history button")
+        revisionButton.accessibilityLabel = CommonStrings.revisionHistory
         addTopicButton.accessibilityLabel = WMFLocalizedString("talk-page-add-topic-button", value: "Add topic", comment: "Title for add topic to talk page button")
     }
 
@@ -331,8 +331,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
 extension TalkPageViewController {
     enum MenuLocalizedStrings {
         static let openAllThreads = WMFLocalizedString("talk-page-menu-open-all", value: "Open all threads", comment: "Title for menu option open all talk page threads")
-        static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for menu option that leads to talk pages revision history")
-        static let readInWeb = WMFLocalizedString("talk-page-open-in-web", value: "Open in web", comment: "Title for menu option to open a talk page in a web browser")
+        static let readInWeb = WMFLocalizedString("talk-page-open-in-web", value: "Read in web", comment: "Title for menu option to open a talk page in a web browser")
         static let archives = WMFLocalizedString("talk-page-archives", value: "Archives", comment: "Title for menu option that redirects to talk page archives")
         static let pageInfo = WMFLocalizedString("talk-page-page-info", value: "Page information", comment: "Title for menu option to go to the talk page information link")
         static let permaLink = WMFLocalizedString("talk-page-permanent-link", value: "Permanent link", comment: "Title for menu option to open the talk page's permanent link in a web browser")
