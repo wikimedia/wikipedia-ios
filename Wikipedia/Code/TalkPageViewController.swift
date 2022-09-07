@@ -19,6 +19,75 @@ class TalkPageViewController: ViewController {
     var talkPageView: TalkPageView {
         return view as! TalkPageView
     }
+    
+    // MARK: - Overflow menu properties
+    
+    fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
+        let contributionsAction = UIAction(title: MenuLocalizedStrings.contributions, image: UIImage(named: "user-contributions"), handler: { _ in
+        })
+
+        let userGroupsAction = UIAction(title: MenuLocalizedStrings.userGroups, image: UIImage(systemName: "person.2"), handler: { _ in
+        })
+
+        let logsAction = UIAction(title: MenuLocalizedStrings.logs, image: UIImage(systemName: "list.bullet"), handler: { _ in
+        })
+
+        return [contributionsAction, userGroupsAction, logsAction]
+    }
+
+    fileprivate var overflowSubmenuActions: [UIAction] {
+        
+        let goToArchivesAction = UIAction(title: MenuLocalizedStrings.archives, image: UIImage(systemName: "archivebox"), handler: { _ in
+        })
+        
+        let pageInfoAction = UIAction(title: MenuLocalizedStrings.pageInfo, image: UIImage(systemName: "info.circle"), handler: { _ in
+        })
+        
+        let goToPermalinkAction = UIAction(title: MenuLocalizedStrings.permaLink, image: UIImage(systemName: "link"), handler: { _ in
+        })
+        
+        let relatedLinksAction = UIAction(title: MenuLocalizedStrings.relatedLinks, image: UIImage(systemName: "arrowshape.turn.up.forward"), handler: { _ in
+        })
+        
+        var actions = [goToArchivesAction, pageInfoAction, goToPermalinkAction, relatedLinksAction]
+        
+        if viewModel.pageType == .user {
+            let aboutTalkUserPagesAction = UIAction(title: MenuLocalizedStrings.aboutUserTalk, image: UIImage(systemName: "doc.plaintext"), handler: { _ in
+                
+            })
+            actions.insert(contentsOf: userTalkOverflowSubmenuActions, at: 1)
+            actions.append(aboutTalkUserPagesAction)
+        } else {
+            let changeLanguageAction = UIAction(title: MenuLocalizedStrings.changeLanguage, image: UIImage(named: "language-talk-page"), handler: { _ in
+            })
+            let aboutTalkPagesAction = UIAction(title: MenuLocalizedStrings.aboutArticleTalk, image: UIImage(systemName: "doc.plaintext"), handler: { _ in
+                
+            })
+            actions.insert(changeLanguageAction, at: 3)
+            actions.append(aboutTalkPagesAction)
+        }
+        return actions
+    }
+    
+    var overflowMenu: UIMenu {
+        
+        let openAllAction = UIAction(title: MenuLocalizedStrings.openAllThreads, image: UIImage(systemName: "square.stack"), handler: { _ in
+           
+        })
+        
+        let revisionHistoryAction = UIAction(title: CommonStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { _ in
+            
+        })
+        
+        let openInWebAction = UIAction(title: MenuLocalizedStrings.readInWeb, image: UIImage(systemName: "display"), handler: { _ in
+            
+        })
+        
+        let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
+        let mainMenu = UIMenu(title: String(), children: [openAllAction, revisionHistoryAction, openInWebAction, submenu])
+
+        return mainMenu
+    }
 
     // MARK: - Lifecycle
 
@@ -44,9 +113,14 @@ class TalkPageViewController: ViewController {
 
         navigationItem.title = WMFLocalizedString("talk-pages-view-title", value: "Talk", comment: "Title of user and article talk pages view.")
 
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil)
-        navigationItem.rightBarButtonItem = rightBarButtonItem
-        
+        // Not adding fallback for other versions since we're dropping iOS 13 on the next release
+        // TODO: this version check should be removed
+        if #available(iOS 14.0, *) {
+            let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+            navigationItem.rightBarButtonItem = rightBarButtonItem
+            rightBarButtonItem.tintColor = theme.colors.link
+        }
+       
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
  
@@ -162,7 +236,7 @@ class TalkPageViewController: ViewController {
         
         shareButton.accessibilityLabel = WMFLocalizedString("talk-page-share-button", value: "Share talk page", comment: "Title for share talk page button")
         findButton.accessibilityLabel = WMFLocalizedString("talk-page-find-in-page-button", value: "Find in page", comment: "Title for find content in page button")
-        revisionButton.accessibilityLabel = WMFLocalizedString("talk-page-revision-button", value: "Revision history", comment: "Title for talk page revision history button")
+        revisionButton.accessibilityLabel = CommonStrings.revisionHistory
         addTopicButton.accessibilityLabel = WMFLocalizedString("talk-page-add-topic-button", value: "Add topic", comment: "Title for add topic to talk page button")
     }
 
@@ -251,5 +325,22 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
         // TODO: Publish reply once live data is connected to commentViewModels
+    }
+}
+
+extension TalkPageViewController {
+    enum MenuLocalizedStrings {
+        static let openAllThreads = WMFLocalizedString("talk-page-menu-open-all", value: "Open all threads", comment: "Title for menu option open all talk page threads")
+        static let readInWeb = WMFLocalizedString("talk-page-open-in-web", value: "Read in web", comment: "Title for menu option to open a talk page in a web browser")
+        static let archives = WMFLocalizedString("talk-page-archives", value: "Archives", comment: "Title for menu option that redirects to talk page archives")
+        static let pageInfo = WMFLocalizedString("talk-page-page-info", value: "Page information", comment: "Title for menu option to go to the talk page information link")
+        static let permaLink = WMFLocalizedString("talk-page-permanent-link", value: "Permanent link", comment: "Title for menu option to open the talk page's permanent link in a web browser")
+        static let changeLanguage = WMFLocalizedString("talk-page-change-language", value: "Change language", comment: "Title for menu option to got to the change language page")
+        static let relatedLinks = WMFLocalizedString("talk-page-related-links", value: "What links here", comment: "Title for menu option that redirects to a page that shows related links")
+        static let aboutArticleTalk = WMFLocalizedString("talk-page-article-about", value: "About talk pages", comment: "Title for menu option for information on article talk pages")
+        static let aboutUserTalk = WMFLocalizedString("talk-page-user-about", value: "About user talk pages", comment: "Title for menu option for information on user talk pages")
+        static let contributions = WMFLocalizedString("talk-page-user-contributions", value: "Contributions", comment: "Title for menu option for information on the user's contributions")
+        static let userGroups = WMFLocalizedString("talk-pages-user-groups", value: "User groups", comment: "Title for menu option for information on the user's user groups")
+        static let logs = WMFLocalizedString("talk-pages-user-logs", value: "Logs", comment: "Title for menu option to consult the user's public logs")
     }
 }
