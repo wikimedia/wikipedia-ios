@@ -53,6 +53,7 @@ class TalkPageTopicComposeViewController: ViewController {
     private lazy var inputContainerView: UIView = {
         let inputContainerView = UIView(frame: .zero)
         inputContainerView.translatesAutoresizingMaskIntoConstraints = false
+        inputContainerView.borderWidth = 1.0
         inputContainerView.cornerRadius = 8
         return inputContainerView
     }()
@@ -243,7 +244,7 @@ class TalkPageTopicComposeViewController: ViewController {
         }
         
         let safeAreaKeyboardFrame = safeAreaBackgroundView.frame.intersection(newKeyboardFrame)
-        scrollViewBottomConstraint?.constant = safeAreaKeyboardFrame.height + view.directionalLayoutMargins.bottom
+        scrollViewBottomConstraint?.constant = safeAreaKeyboardFrame.height + 16
         
         view.setNeedsLayout()
         UIView.animate(withDuration: 0.2) {
@@ -255,20 +256,23 @@ class TalkPageTopicComposeViewController: ViewController {
         super.apply(theme: theme)
         
         navigationController?.navigationBar.titleTextAttributes = theme.navigationBarTitleTextAttributes
-        view.backgroundColor = theme.colors.baseBackground
+        view.backgroundColor = theme.colors.midBackground
         closeButton.tintColor = theme.colors.tertiaryText
         publishButton.tintColor = theme.colors.link
         containerScrollView.backgroundColor = .clear
         containerStackView.backgroundColor = .clear
         inputContainerView.backgroundColor = theme.colors.paperBackground
+        inputContainerView.borderColor = theme.colors.border
         titleTextField.textColor = theme.colors.primaryText
         titleTextField.attributedPlaceholder = NSAttributedString(string: Self.TopicComposeStrings.titlePlaceholder, attributes: [NSAttributedString.Key.foregroundColor: theme.colors.tertiaryText])
+        titleTextField.keyboardAppearance = theme.keyboardAppearance
         bodyTextView.backgroundColor = theme.colors.paperBackground
         bodyTextView.textColor = theme.colors.primaryText
+        bodyTextView.keyboardAppearance = theme.keyboardAppearance
         bodyPlaceholderLabel.textColor = theme.colors.tertiaryText
         divView.backgroundColor = theme.colors.chromeShadow
         
-        finePrintTextView.backgroundColor = theme.colors.baseBackground
+        finePrintTextView.backgroundColor = theme.colors.midBackground
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString // TODO: not working? Link colors are off.
     }
     
