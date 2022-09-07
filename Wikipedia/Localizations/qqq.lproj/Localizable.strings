@@ -998,10 +998,10 @@
 "talk-page-new-topic-body-placeholder-text" = "Placeholder text which appears initially in the new topic body field for talk pages.";
 "talk-page-new-topic-success-text" = "Banner text that appears after a new discussion was successfully published on a talk page.";
 "talk-page-new-topic-title" = "Title of page when composing a new topic on talk pages.";
-"talk-page-open-in-web" = "Title for menu option to open a talk page in a web browser";
 "talk-page-page-info" = "Title for menu option to go to the talk page information link";
 "talk-page-permanent-link" = "Title for menu option to open the talk page's permanent link in a web browser";
 "talk-page-publish-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
+"talk-page-read-in-web" = "Title for menu option to read a talk page in a web browser";
 "talk-page-related-links" = "Title for menu option that redirects to a page that shows related links";
 "talk-page-reply-button" = "Text used on button to reply to talk page messages.";
 "talk-page-reply-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
@@ -1009,10 +1009,14 @@
 "talk-page-revision-history" = "Title for option that leads to talk pages revision history";
 "talk-page-share-button" = "Title for share talk page button";
 "talk-page-subscribe-to-topic" = "Text used on button to subscribe to talk page topic.";
+"talk-page-subscribed-alert-subtitle" = "Subtitle for alert informing that the user will receive notifications for a subscribed topic";
+"talk-page-subscribed-alert-title" = "Title for alert informing that the user subscribed to a topic";
 "talk-page-title-article-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page.";
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page.";
 "talk-page-topic-title" = "This header label is displayed at the top of a talk page topic thread.";
 "talk-page-unsubscribe-to-topic" = "Text used on button to unsubscribe from talk page topic.";
+"talk-page-unsubscribed-alert-subtitle" = "Subtitle for alert informing that the user will no longer receive notifications for a topic";
+"talk-page-unsubscribed-alert-title" = "Title for alert informing that the user unsubscribed to a topic";
 "talk-page-user-about" = "Title for menu option for information on user talk pages";
 "talk-page-user-contributions" = "Title for menu option for information on the user's contributions";
 "talk-pages-coffee-roll-read-more" = "Title of user and article talk pages button to read more of the coffee roll.";

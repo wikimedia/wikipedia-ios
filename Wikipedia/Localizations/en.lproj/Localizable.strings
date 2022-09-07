@@ -998,10 +998,10 @@
 "talk-page-new-topic-body-placeholder-text" = "Compose new discussion";
 "talk-page-new-topic-success-text" = "Your discussion was successfully published";
 "talk-page-new-topic-title" = "New discussion";
-"talk-page-open-in-web" = "Read in web";
 "talk-page-page-info" = "Page information";
 "talk-page-permanent-link" = "Permanent link";
 "talk-page-publish-terms-and-licenses" = "By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 3.0$4 and the $5GFDL$6 licenses.";
+"talk-page-read-in-web" = "Read in web";
 "talk-page-related-links" = "What links here";
 "talk-page-reply-button" = "Reply";
 "talk-page-reply-terms-and-licenses" = "Note your reply will be automatically signed with your username. By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 3.0$4 and the $5GFDL$6 licenses.";
@@ -1009,10 +1009,14 @@
 "talk-page-revision-history" = "Revision history";
 "talk-page-share-button" = "Share talk page";
 "talk-page-subscribe-to-topic" = "Subscribe";
+"talk-page-subscribed-alert-subtitle" = "You will receive notifications about new comments in this topic.";
+"talk-page-subscribed-alert-title" = "You have subscribed!";
 "talk-page-title-article-talk" = "Article Talk";
 "talk-page-title-user-talk" = "User Talk";
 "talk-page-topic-title" = "Discussion";
 "talk-page-unsubscribe-to-topic" = "Unsubscribe";
+"talk-page-unsubscribed-alert-subtitle" = "ou will no longer receive notifications about new comments in this topic.";
+"talk-page-unsubscribed-alert-title" = "You have unsubscribed.";
 "talk-page-user-about" = "About user talk pages";
 "talk-page-user-contributions" = "Contributions";
 "talk-pages-coffee-roll-read-more" = "Read more";
