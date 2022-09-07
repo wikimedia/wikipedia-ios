@@ -75,6 +75,7 @@ class TalkPageTopicComposeViewController: ViewController {
         setupSafeAreaBackgroundView()
         setupContainerScrollView()
         setupContainerStackView()
+        updateFonts()
         apply(theme: theme)
         self.title = WMFLocalizedString("talk-pages-topic-compose-title", value: "Topic", comment: "Title of new topic compose screen.")
     }
@@ -152,6 +153,17 @@ class TalkPageTopicComposeViewController: ViewController {
             bodyTextView.trailingAnchor.constraint(equalTo: inputContainerView.trailingAnchor, constant: -16),
             bodyTextView.bottomAnchor.constraint(equalTo: inputContainerView.bottomAnchor, constant: -16)
         ])
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+    
+    func updateFonts() {
+        titleTextField.font = UIFont.wmf_font(.boldHeadline, compatibleWithTraitCollection: traitCollection)
+        bodyTextView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
+        finePrintTextView.attributedText = licenseTitleTextViewAttributedString
     }
     
     private var licenseTitleTextViewAttributedString: NSAttributedString {
