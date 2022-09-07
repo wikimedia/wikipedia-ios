@@ -1041,6 +1041,7 @@
 "unknown-generic-text" = "未知";
 "uzbek-variants-alert-body" = "维基百科应用现在支持以下乌兹别克语变体作为应用内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "更新乌兹别克语变体支持";
+"vanish-account-learn-more-text" = "了解更多";
 "variants-alert-dismiss-button" = "不，谢谢";
 "variants-alert-preferences-button" = "查看您的参数设置";
 "welcome-exploration-explore-feed-description" = "来自我们社群的推荐阅读和每日条目";

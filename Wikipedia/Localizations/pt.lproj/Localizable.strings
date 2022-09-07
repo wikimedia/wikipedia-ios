@@ -1015,10 +1015,13 @@
 "talk-page-new-topic-success-text" = "A sua discussão foi publicada";
 "talk-page-new-topic-title" = "Discussão nova";
 "talk-page-publish-terms-and-licenses" = "Ao gravar as alterações concorda com as $1Condições de utilização$2 e aceita publicar a sua contribuição com as licenças $3CC BY-SA 3.0$4 e $5GFDL$6.";
+"talk-page-reply-button" = "Responder";
 "talk-page-reply-title" = "Resposta";
+"talk-page-subscribe-to-topic" = "Subscrever";
 "talk-page-title-article-talk" = "Discussão de artigo";
 "talk-page-title-user-talk" = "Discussão do utilizador";
 "talk-page-topic-title" = "Discussão";
+"talk-page-unsubscribe-to-topic" = "Cancelar subscrição";
 "talk-pages-coffee-roll-read-more" = "Ler mais";
 "talk-pages-reply-button-title" = "Responder a esta discussão";
 "talk-pages-view-title" = "Discussão";
@@ -1057,8 +1060,7 @@
 "vanish-account-username-field" = "Nome de utilizador e página de utilizador";
 "vanish-modal-item" = "Se preencheu o seu pedido de desaparecimento, aguarde alguns dias para que o pedido seja processado por um administrador.";
 "vanish-modal-item-2" = "Se não tem a certeza se o seu pedido foi aprovado, verifique a sua aplicação de correio.";
-// Fuzzy
-"vanish-modal-item-3" = "Se tem dúvidas acerca do desaparecimento, visite";
+"vanish-modal-item-3" = "Se tem dúvidas acerca do desaparecimento, visite Wikipédia:Direito a desaparecer";
 "vanish-modal-item-3-ios15" = "Se tem dúvidas acerca do desaparecimento, visite $1Wikipédia:Direito a desaparecer$2$3.";
 "vanish-modal-title" = "Pedido de desaparecimento";
 "vanishing-request-email-title" = "Pedido de desaparecimento de cortesia";

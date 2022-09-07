@@ -11,8 +11,8 @@ final class TalkPageViewModel {
     // MARK: - Properties
 
     let pageType: TalkPageType
-    private let pageTitle: String
-    private let siteURL: URL
+    let pageTitle: String
+    let siteURL: URL
     private let dataController: TalkPageDataController
     weak var delegate: TalkPageViewModelDelegate?
 

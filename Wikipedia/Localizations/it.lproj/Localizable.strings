@@ -41,6 +41,7 @@
 // Author: Stefano
 // Author: SuperVirtual
 // Author: Superpes15
+// Author: Vivbod
 // Author: Yacine Boussoufa
 
 "aaald-added-text-description-2" = "$1 aggiunto";
@@ -405,7 +406,7 @@
 "insert-media-alternative-text-placeholder" = "Descrivi questa immagine";
 "insert-media-alternative-text-title" = "Testo alternativo";
 "insert-media-caption-caption-placeholder" = "In che modo quest'immagine è correlata alla voce?";
-"insert-media-caption-description" = "Testo che appare vicino all'elemento per tutti i lettori";
+"insert-media-caption-description" = "Etichetta che appare vicino all'elemento per tutti i lettori";
 "insert-media-caption-title" = "Didascalia";
 "insert-media-image-position-setting-center" = "Al centro";
 "insert-media-image-position-setting-left" = "A sinistra";
@@ -470,6 +471,7 @@
 "no-internet-connection-article-reload" = "Potrebbe essere disponibile una versione più recente di questa voce, ma non può essere caricata senza una connessione a internet";
 "no-internet-connection-article-reload-button" = "Torna all'ultima versione salvata";
 "notifications-center-agent-description-from-format" = "Da $1";
+"notifications-center-cell-notification-type-accessibility-label-format" = "$1 notifica";
 "notifications-center-change-password" = "Cambia password";
 "notifications-center-empty-no-messages" = "Non hai messaggi";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtro|$1 filtri}}";
@@ -489,8 +491,14 @@
 "notifications-center-inbox-title" = "Progetti";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Progetti Wikimedia";
 "notifications-center-inbox-wikipedias-section-title" = "Wikipedia";
+"notifications-center-language-project-name-format" = "$2 $1";
+"notifications-center-login-notifications" = "Notifiche di accesso";
+"notifications-center-mark" = "Contrassegna";
 "notifications-center-mark-all-as-read" = "Segna tutti come letti";
+"notifications-center-mark-as-read" = "Segna come letto";
+"notifications-center-mark-as-unread" = "Segna come non letto";
 "notifications-center-more-action-accessibility-label" = "Altro";
+"notifications-center-notifications-settings" = "Impostazioni di notifica";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 messaggio|$1 messaggi}}";
 "notifications-center-onboarding-modal-continue-action" = "Continua";
 "notifications-center-onboarding-modal-filters-title" = "Filtri";
@@ -505,6 +513,7 @@
 "notifications-center-status-read" = "Letta";
 "notifications-center-status-triple-concatenation" = "$1 e $2 in $3";
 "notifications-center-status-unread" = "Non lette";
+"notifications-center-subheader-email-from-other-user" = "Nuova email";
 "notifications-center-subheader-login-success-unknown-device" = "Accesso da un dispositivo sconosciuto";
 "notifications-center-subheader-thanks" = "Ringraziamenti";
 "notifications-center-subheader-welcome" = "Benvenuto/a!";
@@ -595,11 +604,13 @@
 "project-name-wikiquote" = "Wikiquote";
 "project-name-wikisource" = "Wikisource";
 "project-name-wikispecies" = "Wikispecies";
+"project-name-wikiversity" = "Wikiversità";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wikizionario";
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lettori";
 "reading-list-add-hint-title" = "Aggiungere \"$1\" a un elenco di lettura?";
+"reading-list-add-saved-title" = "Voci salvate trovate";
 "reading-list-api-error-generic" = "Un errore inaspettato si è verificato durante la sincronizzazione degli elenchi di lettura.";
 "reading-list-create-new-list-button-title" = "Crea elenco di lettura";
 "reading-list-create-new-list-description" = "Descrizione";
@@ -684,8 +695,10 @@
 "settings-primary-language" = "Primaria";
 "settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permetti a Wikipedia di conservare le tue voci salvate e i tuoi elenchi di lettura nelle tue preferenze utente quando ti colleghi e sincronizzi";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Cancellare tutte le voci salvate?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Cancella";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Cancellando le tue voci salvate li rimuoverai dal tuo account se hai l'account sincronizzato con questo dispositivo.\n\nCancellando le tue voci salvate guadagnerai $1 di spazio.";
+"settings-storage-and-syncing-erase-saved-articles-title" = "Cancella le voci salvate";
 "settings-storage-and-syncing-server-sync-footer-text" = "Richiedi un aggiornamento alle tue voci sincronizzate e degli elenchi di lettura.";
 "settings-storage-and-syncing-server-sync-title" = "Aggiorna elenchi di lettura sincronizzati";
 "settings-support" = "Sostieni Wikipedia";
@@ -727,9 +740,11 @@
 "talk-page-new-topic-title" = "Nuova discussione";
 "talk-page-reply-button" = "Rispondi";
 "talk-page-reply-title" = "Rispondi";
+"talk-page-subscribe-to-topic" = "Iscriviti";
 "talk-page-title-article-talk" = "Discussione voce";
 "talk-page-title-user-talk" = "Discussioni utente";
 "talk-page-topic-title" = "Discussione";
+"talk-page-unsubscribe-to-topic" = "Annulla iscrizione";
 "talk-pages-reply-button-title" = "Rispondi a questa discussione";
 "talk-pages-view-title" = "Discussione";
 "theme-black-display-name" = "Nero";
@@ -752,6 +767,7 @@
 "unknown-generic-text" = "Sconosciuto";
 "vanish-account-additional-information-field" = "Ulteriori informazioni";
 "vanish-account-button-text" = "Invia richiesta";
+"vanish-account-learn-more-text" = "Ulteriori informazioni";
 "vanish-account-username-field" = "Nome utente e pagina utente";
 "variants-alert-dismiss-button" = "No, grazie";
 "welcome-exploration-explore-feed-description" = "Letture consigliate e voci quotidiane della nostra comunità";

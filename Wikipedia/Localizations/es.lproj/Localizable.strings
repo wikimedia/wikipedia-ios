@@ -9,6 +9,7 @@
 // Author: Carlosmg.dg
 // Author: Chopan050
 // Author: DannyS712
+// Author: DarkGames26
 // Author: David.novella
 // Author: Dgstranz
 // Author: DiegoAmbrocio
@@ -941,6 +942,7 @@
 "unknown-generic-text" = "Desconocido";
 "uzbek-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del uzbeko siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\noʻzbekcha lotin uzbeko, latino (uz-latin)\nўзбекча кирилл uzbeko, cirílico (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualizaciones a soporte de variantes del uzbeko";
+"vanish-account-learn-more-text" = "Más información";
 "variants-alert-dismiss-button" = "No, gracias";
 "variants-alert-preferences-button" = "Revisar tus preferencias";
 "welcome-exploration-explore-feed-description" = "Lecturas recomendadas y artículos diarios de nuestra comunidad";

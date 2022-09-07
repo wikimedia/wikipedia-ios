@@ -1057,6 +1057,7 @@
 "unknown-generic-text" = "Неизвестно";
 "uzbek-variants-alert-body" = "Приложение Википедия теперь поддерживает следующие Узбекские варианты в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Обновление поддержки вариантов Узбекского";
+"vanish-account-learn-more-text" = "Узнать подробности";
 "variants-alert-dismiss-button" = "Нет, спасибо";
 "variants-alert-preferences-button" = "Просмотреть свои настройки";
 "welcome-exploration-explore-feed-description" = "Рекомендованные записи и ежедневные статьи от нашего сообщества";
