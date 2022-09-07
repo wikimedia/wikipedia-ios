@@ -166,7 +166,9 @@ final class TalkPageCellTopicView: SetupView {
         topicCommentLabel.numberOfLines = viewModel.isThreadExpanded ? 0 : 3
 
         topicLabel.text = viewModel.topicTitle
-        timestampLabel.text = DateFormatter.wmf_utcMediumDateFormatterWithoutTime().string(from: viewModel.timestamp)
+        if let timestamp = viewModel.timestamp {
+            timestampLabel.text = DateFormatter.wmf_utcMediumDateFormatterWithoutTime().string(from: timestamp)
+        }
         topicCommentLabel.text = viewModel.leadComment.text
         activeUsersLabel.text = viewModel.activeUsersCount
         repliesCountLabel.text = viewModel.repliesCount
