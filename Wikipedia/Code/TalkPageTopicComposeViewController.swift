@@ -2,7 +2,7 @@ import UIKit
 import WMF
 
 protocol TalkPageTopicComposeViewControllerDelegate: AnyObject {
-    func tappedPublish(topicTitle: String, topicBody: String, completion: (Result<Void, Error>) -> Void)
+    func tappedPublish(topicTitle: String, topicBody: String, composeViewController: TalkPageTopicComposeViewController)
 }
 
 class TalkPageTopicComposeViewController: ViewController {
@@ -292,16 +292,7 @@ class TalkPageTopicComposeViewController: ViewController {
         }
         
         // TODO: Spinner somewhere while making call
-        delegate?.tappedPublish(topicTitle: title, topicBody: body, completion: { result in
-            switch result {
-            case .success:
-                // TODO: dismiss
-                dismiss(animated: true)
-            case .failure(let error):
-                // TODO: show error banner of some sort
-                print("error")
-            }
-        })
+        delegate?.tappedPublish(topicTitle: title, topicBody: body, composeViewController: self)
     }
     
     @objc private func titleTextFieldChanged() {

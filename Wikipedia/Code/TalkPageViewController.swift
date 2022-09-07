@@ -25,8 +25,6 @@ class TalkPageViewController: ViewController {
     init(theme: Theme, viewModel: TalkPageViewModel) {
         self.viewModel = viewModel
         super.init(theme: theme)
-        
-        viewModel.delegate = self
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -54,12 +52,25 @@ class TalkPageViewController: ViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
 
-        viewModel.fetchTalkPage()
+        viewModel.fetchTalkPage { [weak self] result in
+            switch result {
+            case .success:
+                self?.setupHeaderView()
+                self?.talkPageView.collectionView.reloadData()
+            case .failure:
+                break
+            }
+        }
         
         setupToolbar()
     }
 
     private func setupHeaderView() {
+        
+        guard self.headerView == nil else {
+            return
+        }
+        
         let headerView = TalkPageHeaderView()
         self.headerView = headerView
 
@@ -170,6 +181,12 @@ class TalkPageViewController: ViewController {
         addTopicButton.accessibilityLabel = WMFLocalizedString("talk-page-add-topic-button", value: "Add topic", comment: "Title for add topic to talk page button")
     }
 
+    private func scrollToLastTopic() {
+        if viewModel.topics.count > 0 {
+            let indexPath = IndexPath.init(item: viewModel.topics.count - 1, section: 0)
+            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -235,13 +252,6 @@ extension TalkPageViewController: TalkPageCellDelegate {
     }
 }
 
-extension TalkPageViewController: TalkPageViewModelDelegate {
-    func talkPageDataDidUpdate() {
-        setupHeaderView()
-        talkPageView.collectionView.reloadData()
-    }
-}
-
 extension TalkPageViewController: TalkPageCellReplyDelegate {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel) {
         replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel)
@@ -259,8 +269,32 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
 }
 
 extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
-    func tappedPublish(topicTitle: String, topicBody: String, completion: (Result<Void, Error>) -> Void) {
-        // TODO: Publish, reload data.
-        completion(.success(()))
+    func tappedPublish(topicTitle: String, topicBody: String, composeViewController: TalkPageTopicComposeViewController) {
+
+        viewModel.postTopic(topicTitle: topicTitle, topicBody: topicBody) { [weak self] result in
+
+            switch result {
+            case .success:
+                composeViewController.dismiss(animated: true) {
+                    // TODO: Display success banner
+                }
+                
+                // Try to refresh page
+                self?.viewModel.fetchTalkPage { [weak self] result in
+                    switch result {
+                    case .success:
+                        self?.talkPageView.collectionView.reloadData()
+                        self?.scrollToLastTopic()
+                    case .failure:
+                        break
+                    }
+                }
+            case .failure(let error):
+                print("failure: \(error)")
+                // TODO: Display failure banner on topic compose VC
+            }
+        }
     }
+    
+    
 }
