@@ -1,6 +1,10 @@
 import UIKit
 import WMF
 
+protocol TalkPageTopicComposeViewControllerDelegate: AnyObject {
+    func tappedPublish(topicTitle: String, topicBody: String, completion: (Result<Void, Error>) -> Void)
+}
+
 class TalkPageTopicComposeViewController: ViewController {
     
     enum TopicComposeStrings {
@@ -15,6 +19,17 @@ class TalkPageTopicComposeViewController: ViewController {
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    lazy var closeButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(named: "close-inverse"), style: .plain, target: self, action: #selector(tappedClose))
+        button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        return button
+    }()
+    
+    lazy var publishButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(tappedPublish))
+        return button
     }()
     
     private lazy var containerScrollView: UIScrollView = {
@@ -82,18 +97,25 @@ class TalkPageTopicComposeViewController: ViewController {
     }()
     
     private var scrollViewBottomConstraint: NSLayoutConstraint?
+    var delegate: TalkPageTopicComposeViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
         
+        setupNavigationBar()
         setupSafeAreaBackgroundView()
         setupContainerScrollView()
         setupContainerStackView()
         updateFonts()
         apply(theme: theme)
         self.title = Self.TopicComposeStrings.navigationBarTitle
+    }
+    
+    private func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = publishButton
+        navigationItem.leftBarButtonItem = closeButton
     }
     
     private func setupSafeAreaBackgroundView() {
@@ -231,6 +253,8 @@ class TalkPageTopicComposeViewController: ViewController {
         super.apply(theme: theme)
         
         view.backgroundColor = theme.colors.baseBackground
+        closeButton.tintColor = theme.colors.tertiaryText
+        publishButton.tintColor = theme.colors.link
         containerScrollView.backgroundColor = .clear
         containerStackView.backgroundColor = .clear
         inputContainerView.backgroundColor = theme.colors.paperBackground
@@ -243,6 +267,34 @@ class TalkPageTopicComposeViewController: ViewController {
         
         finePrintTextView.backgroundColor = theme.colors.baseBackground
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString // TODO: not working? Link colors are off.
+    }
+    
+    // MARK: Actions
+    
+    @objc private func tappedClose() {
+        // TODO: Confirmation action sheet.
+        dismiss(animated: true)
+    }
+    
+    @objc private func tappedPublish() {
+        guard let title = titleTextField.text,
+              let body = bodyTextView.text,
+              !title.isEmpty && !body.isEmpty else {
+            assertionFailure("Title text field or body text view are empty. Publish button should have been disabled.")
+            return
+        }
+        
+        // TODO: Spinner somewhere while making call
+        delegate?.tappedPublish(topicTitle: title, topicBody: body, completion: { result in
+            switch result {
+            case .success:
+                // TODO: dismiss
+                dismiss(animated: true)
+            case .failure(let error):
+                // TODO: show error banner of some sort
+                print("error")
+            }
+        })
     }
 }
 

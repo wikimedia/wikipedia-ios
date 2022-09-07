@@ -152,6 +152,7 @@ class TalkPageViewController: ViewController {
     
     @objc fileprivate func userDidTapAddTopicButton() {
         let topicComposeVC = TalkPageTopicComposeViewController(theme: theme)
+        topicComposeVC.delegate = self
         let navVC = WMFThemeableNavigationController(rootViewController: topicComposeVC, theme: theme)
         navVC.modalPresentationStyle = .pageSheet
         present(navVC, animated: true, completion: nil)
@@ -254,5 +255,12 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
         // TODO: Publish reply once live data is connected to commentViewModels
+    }
+}
+
+extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
+    func tappedPublish(topicTitle: String, topicBody: String, completion: (Result<Void, Error>) -> Void) {
+        // TODO: Publish, reload data.
+        completion(.success(()))
     }
 }
