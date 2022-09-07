@@ -4,6 +4,7 @@
 // Author: Kwisha
 // Author: Nemo bis
 // Author: Rance
+// Author: Wangombe
 // Author: Yasen igra
 
 "about-contributors" = "Wachangiaji";
@@ -82,6 +83,7 @@
 // Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" katika @Wikipedia:";
 "table-of-contents-heading" = "Yaliyomo";
+"vanish-account-learn-more-text" = "Soma zaidi";
 "wikitext-downloading" = "Inapakia maudhui...";
 // Fuzzy
 "wikitext-upload-save" = "Inahifadhi...";

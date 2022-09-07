@@ -4,6 +4,7 @@
 // Author: Chameleon222
 // Author: Cleinman
 // Author: Danmichaelo
+// Author: Gabriel Kielland
 // Author: Imre Eilertsen
 // Author: Jeblad
 // Author: Jon Harald Søby
@@ -1017,6 +1018,7 @@
 "unknown-generic-text" = "Ukjent";
 "uzbek-variants-alert-body" = "Wikipedia-appen støtter nå følgende usbekiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\noʻzbekcha lotin latinsk usbekisk (uz-latin)\nўзбекча кирилл kyrillisk usbekisk (uz-cyrl)";
 "uzbek-variants-alert-title" = "Oppdateringer i støtte for usbekiske varianter";
+"vanish-account-learn-more-text" = "Les mer";
 "variants-alert-dismiss-button" = "Nei takk";
 "variants-alert-preferences-button" = "Gå gjennom innstillingene dine";
 "welcome-exploration-explore-feed-description" = "Anbefalt lesning og daglige artikler utvalgt av fellesskapet";
