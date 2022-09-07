@@ -111,7 +111,7 @@ class TalkPageViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = WMFLocalizedString("talk-pages-view-title", value: "Talk", comment: "Title of user and article talk pages view.")
+        navigationItem.title = TalkPageLocalizedStrings.title
 
         // Not adding fallback for other versions since we're dropping iOS 13 on the next release
         // TODO: this version check should be removed
@@ -234,10 +234,10 @@ class TalkPageViewController: ViewController {
         
         toolbar.items = [shareButton,  .flexibleSpaceToolbar(), revisionButton, .flexibleSpaceToolbar(), findButton,.flexibleSpaceToolbar(), addTopicButton]
         
-        shareButton.accessibilityLabel = WMFLocalizedString("talk-page-share-button", value: "Share talk page", comment: "Title for share talk page button")
-        findButton.accessibilityLabel = WMFLocalizedString("talk-page-find-in-page-button", value: "Find in page", comment: "Title for find content in page button")
+        shareButton.accessibilityLabel = TalkPageLocalizedStrings.shareButtonAccesibilityLabel
+        findButton.accessibilityLabel = TalkPageLocalizedStrings.findButtonAccesibilityLabel
         revisionButton.accessibilityLabel = CommonStrings.revisionHistory
-        addTopicButton.accessibilityLabel = WMFLocalizedString("talk-page-add-topic-button", value: "Add topic", comment: "Title for add topic to talk page button")
+        addTopicButton.accessibilityLabel = TalkPageLocalizedStrings.addTopicButtonAccesibilityLabel
     }
 
 }
@@ -342,6 +342,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
 
 extension TalkPageViewController {
     enum TalkPageLocalizedStrings {
+        static let title = WMFLocalizedString("talk-pages-view-title", value: "Talk", comment: "Title of user and article talk pages view.")
         static let openAllThreads = WMFLocalizedString("talk-page-menu-open-all", value: "Open all threads", comment: "Title for menu option open all talk page threads")
         static let readInWeb = WMFLocalizedString("talk-page-read-in-web", value: "Read in web", comment: "Title for menu option to read a talk page in a web browser")
         static let archives = WMFLocalizedString("talk-page-archives", value: "Archives", comment: "Title for menu option that redirects to talk page archives")
@@ -359,5 +360,9 @@ extension TalkPageViewController {
         static let unsubscribedAlertTitle = WMFLocalizedString("talk-page-unsubscribed-alert-title", value: "You have unsubscribed.", comment: "Title for alert informing that the user unsubscribed to a topic")
         static let subscribedAlertSubtitle = WMFLocalizedString("talk-page-subscribed-alert-subtitle", value: "You will receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will receive notifications for a subscribed topic")
         static let unsubscribedAlertSubtitle = WMFLocalizedString("talk-page-unsubscribed-alert-subtitle", value: "ou will no longer receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will no longer receive notifications for a topic")
+        
+        static let shareButtonAccesibilityLabel = WMFLocalizedString("talk-page-share-button", value: "Share talk page", comment: "Title for share talk page button")
+        static let findButtonAccesibilityLabel = WMFLocalizedString("talk-page-find-in-page-button", value: "Find in page", comment: "Title for find content in page button")
+        static let addTopicButtonAccesibilityLabel = WMFLocalizedString("talk-page-add-topic-button", value: "Add topic", comment: "Title for add topic to talk page button")
     }
 }
