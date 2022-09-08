@@ -260,7 +260,7 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         cell.delegate = self
         cell.replyDelegate = self
         
-        cell.configure(viewModel: viewModel)
+        cell.configure(viewModel: viewModel, linkDelegate: self)
         cell.apply(theme: theme)
 
         return cell
@@ -289,7 +289,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isThreadExpanded.toggle()
         
-        cell.configure(viewModel: configuredCellViewModel)
+        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
         cell.apply(theme: theme)
         talkPageView.collectionView.collectionViewLayout.invalidateLayout()
     }
@@ -302,7 +302,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isSubscribed.toggle()
         
-        cell.configure(viewModel: configuredCellViewModel)
+        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
     }
 }
 
@@ -343,5 +343,18 @@ extension TalkPageViewController {
         static let contributions = WMFLocalizedString("talk-page-user-contributions", value: "Contributions", comment: "Title for menu option for information on the user's contributions")
         static let userGroups = WMFLocalizedString("talk-pages-user-groups", value: "User groups", comment: "Title for menu option for information on the user's user groups")
         static let logs = WMFLocalizedString("talk-pages-user-logs", value: "Logs", comment: "Title for menu option to consult the user's public logs")
+    }
+}
+
+protocol TalkPageTextViewLinkHandling: AnyObject {
+    func tappedLink(_ url: URL, sourceTextView: UITextView)
+}
+
+extension TalkPageViewController: TalkPageTextViewLinkHandling {
+    func tappedLink(_ url: URL, sourceTextView: UITextView) {
+        guard let url = URL(string: url.absoluteString, relativeTo: talkPageURL) else {
+            return
+        }
+        navigate(to: url.absoluteURL)
     }
 }

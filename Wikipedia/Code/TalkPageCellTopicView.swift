@@ -24,6 +24,7 @@ final class TalkPageCellTopicView: SetupView {
         textView.isEditable = false
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = .zero
+        textView.delegate = self
         return textView
     }()
 
@@ -44,6 +45,7 @@ final class TalkPageCellTopicView: SetupView {
         textView.isEditable = false
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = .zero
+        textView.delegate = self
         return textView
     }()
 
@@ -162,6 +164,7 @@ final class TalkPageCellTopicView: SetupView {
     }
     
     private weak var viewModel: TalkPageCellViewModel?
+    weak var linkDelegate: TalkPageTextViewLinkHandling?
 
     // MARK: - Configure
 
@@ -207,4 +210,11 @@ extension TalkPageCellTopicView: Themeable {
         replyButton.tintColor = theme.colors.paperBackground
     }
     
+}
+
+extension TalkPageCellTopicView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        linkDelegate?.tappedLink(URL, sourceTextView: textView)
+        return false
+    }
 }

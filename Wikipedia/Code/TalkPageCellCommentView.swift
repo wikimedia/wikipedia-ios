@@ -32,6 +32,7 @@ final class TalkPageCellCommentView: SetupView {
         textView.isEditable = false
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = .zero
+        textView.delegate = self
         return textView
     }()
 
@@ -59,6 +60,7 @@ final class TalkPageCellCommentView: SetupView {
     
     weak var viewModel: TalkPageCellCommentViewModel?
     weak var replyDelegate: TalkPageCellReplyDelegate?
+    weak var linkDelegate: TalkPageTextViewLinkHandling?
 
     // MARK: - Lifecycle
 
@@ -109,4 +111,11 @@ extension TalkPageCellCommentView: Themeable {
         replyButton.setTitleColor(theme.colors.link, for: .normal)
     }
 
+}
+
+extension TalkPageCellCommentView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        linkDelegate?.tappedLink(URL, sourceTextView: textView)
+        return false
+    }
 }
