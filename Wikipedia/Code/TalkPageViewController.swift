@@ -291,7 +291,6 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
 
 // MARK: - TalkPageCellDelegate
 
-// TODO
 extension TalkPageViewController: TalkPageCellDelegate {
     
     func userDidTapDisclosureButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {
