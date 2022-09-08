@@ -241,6 +241,18 @@ class TalkPageViewController: ViewController {
         addTopicButton.accessibilityLabel = TalkPageLocalizedStrings.addTopicButtonAccesibilityLabel
     }
     
+    fileprivate func handleSubscriptionAlert(isSubscribedToTopic: Bool) {
+        let title = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertTitle : TalkPageLocalizedStrings.unsubscribedAlertTitle
+        let subtitle = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertSubtitle : TalkPageLocalizedStrings.unsubscribedAlertSubtitle
+        let image = isSubscribedToTopic ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell.slash.fill")
+        
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image ?? UIImage(), dismissPreviousAlerts: true)
+        }
+    }
+    
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -315,19 +327,6 @@ extension TalkPageViewController: TalkPageCellDelegate {
             }
         }
     }
-
-    fileprivate func handleSubscriptionAlert(isSubscribedToTopic: Bool) {
-        let title = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertTitle : TalkPageLocalizedStrings.unsubscribedAlertTitle
-        let subtitle = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertSubtitle : TalkPageLocalizedStrings.unsubscribedAlertSubtitle
-        let image = isSubscribedToTopic ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell.slash.fill")
-        
-        if UIAccessibility.isVoiceOverRunning {
-            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
-        } else {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image ?? UIImage(), dismissPreviousAlerts: true)
-        }
-    }
-    
 }
 
 extension TalkPageViewController: TalkPageViewModelDelegate {
