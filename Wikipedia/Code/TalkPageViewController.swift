@@ -3,9 +3,9 @@ import WMF
 import CocoaLumberjackSwift
 
 class TalkPageViewController: ViewController {
-    
+
     // MARK: - Properties
-    
+
     fileprivate let viewModel: TalkPageViewModel
     fileprivate var headerView: TalkPageHeaderView?
     
@@ -26,35 +26,35 @@ class TalkPageViewController: ViewController {
     fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
         let contributionsAction = UIAction(title: TalkPageLocalizedStrings.contributions, image: UIImage(named: "user-contributions"), handler: { _ in
         })
-        
+
         let userGroupsAction = UIAction(title: TalkPageLocalizedStrings.userGroups, image: UIImage(systemName: "person.2"), handler: { _ in
         })
-        
+
         let logsAction = UIAction(title: TalkPageLocalizedStrings.logs, image: UIImage(systemName: "list.bullet"), handler: { _ in
         })
-        
+
         return [contributionsAction, userGroupsAction, logsAction]
     }
-    
+
     fileprivate var overflowSubmenuActions: [UIAction] {
-        
+
         let goToArchivesAction = UIAction(title: TalkPageLocalizedStrings.archives, image: UIImage(systemName: "archivebox"), handler: { _ in
         })
-        
+
         let pageInfoAction = UIAction(title: TalkPageLocalizedStrings.pageInfo, image: UIImage(systemName: "info.circle"), handler: { _ in
         })
-        
+
         let goToPermalinkAction = UIAction(title: TalkPageLocalizedStrings.permaLink, image: UIImage(systemName: "link"), handler: { _ in
         })
-        
+
         let relatedLinksAction = UIAction(title: TalkPageLocalizedStrings.relatedLinks, image: UIImage(systemName: "arrowshape.turn.up.forward"), handler: { _ in
         })
-        
+
         var actions = [goToArchivesAction, pageInfoAction, goToPermalinkAction, relatedLinksAction]
-        
+
         if viewModel.pageType == .user {
             let aboutTalkUserPagesAction = UIAction(title: TalkPageLocalizedStrings.aboutUserTalk, image: UIImage(systemName: "doc.plaintext"), handler: { _ in
-                
+
             })
             actions.insert(contentsOf: userTalkOverflowSubmenuActions, at: 1)
             actions.append(aboutTalkUserPagesAction)
@@ -62,18 +62,18 @@ class TalkPageViewController: ViewController {
             let changeLanguageAction = UIAction(title: TalkPageLocalizedStrings.changeLanguage, image: UIImage(named: "language-talk-page"), handler: { _ in
             })
             let aboutTalkPagesAction = UIAction(title: TalkPageLocalizedStrings.aboutArticleTalk, image: UIImage(systemName: "doc.plaintext"), handler: { _ in
-                
+
             })
             actions.insert(changeLanguageAction, at: 3)
             actions.append(aboutTalkPagesAction)
         }
         return actions
     }
-    
+
     var overflowMenu: UIMenu {
         
         let openAllAction = UIAction(title: TalkPageLocalizedStrings.openAllThreads, image: UIImage(systemName: "square.stack"), handler: { _ in
-            
+
         })
         
         let revisionHistoryAction = UIAction(title: CommonStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { _ in
@@ -86,12 +86,12 @@ class TalkPageViewController: ViewController {
         
         let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
         let mainMenu = UIMenu(title: String(), children: [openAllAction, revisionHistoryAction, openInWebAction, submenu])
-        
+
         return mainMenu
     }
-    
+
     // MARK: - Lifecycle
-    
+
     init(theme: Theme, viewModel: TalkPageViewModel) {
         self.viewModel = viewModel
         super.init(theme: theme)
@@ -111,9 +111,9 @@ class TalkPageViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationItem.title = TalkPageLocalizedStrings.title
-        
+
         // Not adding fallback for other versions since we're dropping iOS 13 on the next release
         // TODO: this version check should be removed
         if #available(iOS 14.0, *) {
@@ -121,19 +121,19 @@ class TalkPageViewController: ViewController {
             navigationItem.rightBarButtonItem = rightBarButtonItem
             rightBarButtonItem.tintColor = theme.colors.link
         }
-        
+ 
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
-        
+
         // Needed for reply compose views to display on top of navigation bar.
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
-        
+
         viewModel.fetchTalkPage()
         
         setupToolbar()
     }
-    
+
     private func setupHeaderView() {
         let headerView = TalkPageHeaderView()
         self.headerView = headerView
@@ -149,12 +149,11 @@ class TalkPageViewController: ViewController {
         
         headerView.apply(theme: theme)
     }
-    
+
     // MARK: - Public
-    
-    
+
     // MARK: - Themeable
-    
+
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         
@@ -267,18 +266,18 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TalkPageCell.reuseIdentifier, for: indexPath) as? TalkPageCell else {
             return UICollectionViewCell()
         }
-        
+
         let viewModel = viewModel.topics[indexPath.row]
-        
+
         cell.delegate = self
         cell.replyDelegate = self
-        
+
         cell.configure(viewModel: viewModel)
         cell.apply(theme: theme)
-        
+
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? TalkPageCell else {
             return
@@ -304,7 +303,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         cell.configure(viewModel: configuredCellViewModel)
         talkPageView.collectionView.collectionViewLayout.invalidateLayout()
     }
-
+    
     func userDidTapSubscribeButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {
         guard let cellViewModel = cellViewModel, let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}) else {
             return
