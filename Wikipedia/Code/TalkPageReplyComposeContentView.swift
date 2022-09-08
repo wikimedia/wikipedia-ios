@@ -70,8 +70,6 @@ class TalkPageReplyComposeContentView: SetupView {
     
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        // todo: localization, dynamic
-        label.text = "Reply to DavidDavid"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .natural
         return label
@@ -193,6 +191,9 @@ class TalkPageReplyComposeContentView: SetupView {
     }
     
     private func setupPlaceholderLabel() {
+        
+        placeholderLabel.text = String.localizedStringWithFormat(WMFLocalizedString("talk-page-reply-placeholder-format", value: "Reply to %1$@", comment: "Placeholder text that displays in the talk page reply text view. Parameters:\n* %1$@ - the username of the comment the user is replying to."), commentViewModel.author) 
+        
         containerScrollView.addSubview(placeholderLabel)
         
         let topConstraint = replyTextView.topAnchor.constraint(equalTo: placeholderLabel.topAnchor)

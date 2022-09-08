@@ -1004,6 +1004,7 @@
 "talk-page-read-in-web" = "Title for menu option to read a talk page in a web browser";
 "talk-page-related-links" = "Title for menu option that redirects to a page that shows related links";
 "talk-page-reply-button" = "Text used on button to reply to talk page messages.";
+"talk-page-reply-placeholder-format" = "Placeholder text that displays in the talk page reply text view. Parameters:\n* $1 - the username of the comment the user is replying to.";
 "talk-page-reply-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "talk-page-reply-title" = "This header label is displayed at the top of a talk page thread once the user taps Reply.";
 "talk-page-revision-history" = "Title for option that leads to talk pages revision history";

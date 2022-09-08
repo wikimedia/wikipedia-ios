@@ -77,6 +77,7 @@ final class TalkPageViewModel {
         dataController.postTopic(topicTitle: topicTitle, topicBody: topicBody, completion: completion)
     }
     
+
     func updateSubscriptionToTopic(topic: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
         dataController.subscribeToTopic(topicName: topic, shouldSubscribe: shouldSubscribe) { [self] result in
             switch result {
@@ -88,6 +89,10 @@ final class TalkPageViewModel {
                 completion(.failure(error))
             }
         }
+    }
+
+    func postReply(commentId: String, comment: String, completion: @escaping(Result<Void, Error>) -> Void) {
+        dataController.postReply(commentId: commentId, comment: comment, completion: completion)
     }
     
     // MARK: - Private
@@ -126,14 +131,14 @@ final class TalkPageViewModel {
             }
             
             guard let firstReply = topic.replies.first,
-                  let leadCommentViewModel = TalkPageCellCommentViewModel(text: firstReply.html, author: firstReply.author, authorTalkPageURL: "", timestamp: firstReply.timestamp, replyDepth: firstReply.level) else {
+                  let leadCommentViewModel = TalkPageCellCommentViewModel(commentId: firstReply.id, text: firstReply.html, author: firstReply.author, authorTalkPageURL: "", timestamp: firstReply.timestamp, replyDepth: firstReply.level) else {
                 DDLogWarn("Unable to parse lead comment. Skipping topic.")
                 continue
             }
             
             let remainingReplies = Array(topic.replies.suffix(from: 1))
             
-            let remainingCommentViewModels = remainingReplies.compactMap { TalkPageCellCommentViewModel(text: $0.html, author: $0.author, authorTalkPageURL: "", timestamp: $0.timestamp, replyDepth: $0.level) }
+            let remainingCommentViewModels = remainingReplies.compactMap { TalkPageCellCommentViewModel(commentId: $0.id, text: $0.html, author: $0.author, authorTalkPageURL: "", timestamp: $0.timestamp, replyDepth: $0.level) }
             
             let activeUsersCount = activeUsersCount(topic: topic)
             
