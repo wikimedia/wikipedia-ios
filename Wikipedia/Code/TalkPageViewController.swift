@@ -350,7 +350,27 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
     }
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
-        // TODO: Publish reply once live data is connected to commentViewModels
+        viewModel.postReply(commentId: commentViewModel.commentId, comment: text) { [weak self] result in
+
+            switch result {
+            case .success:
+                // TODO: Display success banner
+                self?.replyComposeController.reset()
+                
+                // Try to refresh page
+                self?.viewModel.fetchTalkPage { [weak self] result in
+                    switch result {
+                    case .success:
+                        self?.talkPageView.collectionView.reloadData()
+                    case .failure:
+                        break
+                    }
+                }
+            case .failure(let error):
+                print("failure: \(error)")
+                // TODO: Display failure banner
+            }
+        }
     }
 }
 
