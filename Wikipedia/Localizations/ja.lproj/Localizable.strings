@@ -911,6 +911,7 @@
 "table-of-contents-hide-button-label" = "目次を非表示にする";
 "table-of-contents-subheading-label" = "小見出し $1";
 "talk-page-add-discussion-accessibility-label" = "議論を追加";
+"talk-page-add-topic-button" = "トピックを追加";
 "talk-page-discussion-accessibility-hint" = "ダブルタップすると議論のスレッドが開きます";
 "talk-page-discussion-read-accessibility-label" = "既読";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "kʲidokɯ";
@@ -918,6 +919,7 @@
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "mʲidokɯ̹";
 "talk-page-error-unable-to-post-reply" = "インターネット接続がないため返信を投稿できません。";
 "talk-page-error-unable-to-post-topic" = "インターネット接続がないため議論を投稿できません。";
+"talk-page-find-in-page-button" = "ページ内検索";
 "talk-page-info-active-conversations" = "$1ウィキペディア上でのアクティブな会話";
 "talk-page-info-active-conversations-generic" = "ウィキペディア上でのアクティブな会話";
 "talk-page-link-user-action-sheet-app" = "アプリ内で利用者の会話ページを表示";
@@ -938,6 +940,8 @@
 "talk-page-publish-terms-and-licenses" = "変更を保存すると、 $1利用規約$2 に同意し、投稿を $3CC BY-SA 3.0$4 及び $5GFDL$6 ライセンスの下にリリースすることに同意したものとみなされます。";
 "talk-page-reply-button" = "返信";
 "talk-page-reply-title" = "返信";
+"talk-page-revision-history" = "変更履歴";
+"talk-page-share-button" = "トークページを共有";
 "talk-page-subscribe-to-topic" = "購読";
 // Fuzzy
 "talk-page-title-article-talk" = "記事の議論";
