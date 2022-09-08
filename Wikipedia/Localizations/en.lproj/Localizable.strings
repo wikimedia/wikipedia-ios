@@ -1004,6 +1004,7 @@
 "talk-page-read-in-web" = "Read in web";
 "talk-page-related-links" = "What links here";
 "talk-page-reply-button" = "Reply";
+"talk-page-reply-placeholder-format" = "Reply to $1";
 "talk-page-reply-terms-and-licenses" = "Note your reply will be automatically signed with your username. By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 3.0$4 and the $5GFDL$6 licenses.";
 "talk-page-reply-title" = "Reply";
 "talk-page-revision-history" = "Revision history";
