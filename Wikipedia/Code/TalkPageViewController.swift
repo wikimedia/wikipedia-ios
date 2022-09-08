@@ -3,9 +3,9 @@ import WMF
 import CocoaLumberjackSwift
 
 class TalkPageViewController: ViewController {
-
+    
     // MARK: - Properties
-
+    
     fileprivate let viewModel: TalkPageViewModel
     fileprivate var headerView: TalkPageHeaderView?
     
@@ -26,16 +26,16 @@ class TalkPageViewController: ViewController {
     fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
         let contributionsAction = UIAction(title: TalkPageLocalizedStrings.contributions, image: UIImage(named: "user-contributions"), handler: { _ in
         })
-
+        
         let userGroupsAction = UIAction(title: TalkPageLocalizedStrings.userGroups, image: UIImage(systemName: "person.2"), handler: { _ in
         })
-
+        
         let logsAction = UIAction(title: TalkPageLocalizedStrings.logs, image: UIImage(systemName: "list.bullet"), handler: { _ in
         })
-
+        
         return [contributionsAction, userGroupsAction, logsAction]
     }
-
+    
     fileprivate var overflowSubmenuActions: [UIAction] {
         
         let goToArchivesAction = UIAction(title: TalkPageLocalizedStrings.archives, image: UIImage(systemName: "archivebox"), handler: { _ in
@@ -73,7 +73,7 @@ class TalkPageViewController: ViewController {
     var overflowMenu: UIMenu {
         
         let openAllAction = UIAction(title: TalkPageLocalizedStrings.openAllThreads, image: UIImage(systemName: "square.stack"), handler: { _ in
-           
+            
         })
         
         let revisionHistoryAction = UIAction(title: CommonStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { _ in
@@ -86,34 +86,34 @@ class TalkPageViewController: ViewController {
         
         let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
         let mainMenu = UIMenu(title: String(), children: [openAllAction, revisionHistoryAction, openInWebAction, submenu])
-
+        
         return mainMenu
     }
-
+    
     // MARK: - Lifecycle
-
+    
     init(theme: Theme, viewModel: TalkPageViewModel) {
         self.viewModel = viewModel
         super.init(theme: theme)
         
         viewModel.delegate = self
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func loadView() {
         let talkPageView = TalkPageView(frame: UIScreen.main.bounds)
         view = talkPageView
         scrollView = talkPageView.collectionView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationItem.title = TalkPageLocalizedStrings.title
-
+        
         // Not adding fallback for other versions since we're dropping iOS 13 on the next release
         // TODO: this version check should be removed
         if #available(iOS 14.0, *) {
@@ -121,43 +121,43 @@ class TalkPageViewController: ViewController {
             navigationItem.rightBarButtonItem = rightBarButtonItem
             rightBarButtonItem.tintColor = theme.colors.link
         }
-       
+        
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
- 
+        
         // Needed for reply compose views to display on top of navigation bar.
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
-
+        
         viewModel.fetchTalkPage()
         
         setupToolbar()
     }
-
+    
     private func setupHeaderView() {
         let headerView = TalkPageHeaderView()
         self.headerView = headerView
-
+        
         headerView.configure(viewModel: viewModel)
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = true
         navigationBar.allowsUnderbarHitsFallThrough = true
-
+        
         navigationBar.addUnderNavigationBarView(headerView, shouldIgnoreSafeArea: true)
         useNavigationBarVisibleHeightForScrollViewInsets = false
         updateScrollViewInsets()
-
+        
         headerView.apply(theme: theme)
     }
-
+    
     // MARK: - Public
-
-
+    
+    
     // MARK: - Themeable
-
+    
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-
+        
         viewModel.theme = theme
         headerView?.apply(theme: theme)
         talkPageView.apply(theme: theme)
@@ -207,7 +207,7 @@ class TalkPageViewController: ViewController {
         talkPageURLComponents?.path = "/wiki/\(viewModel.pageTitle)"
         return talkPageURLComponents?.url
     }
-
+    
     @objc fileprivate func userDidTapShareButton() {
         guard let talkPageURL = talkPageURL else {
             return
@@ -240,38 +240,38 @@ class TalkPageViewController: ViewController {
         revisionButton.accessibilityLabel = CommonStrings.revisionHistory
         addTopicButton.accessibilityLabel = TalkPageLocalizedStrings.addTopicButtonAccesibilityLabel
     }
-
+    
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
 extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.topics.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TalkPageCell.reuseIdentifier, for: indexPath) as? TalkPageCell else {
-             return UICollectionViewCell()
+            return UICollectionViewCell()
         }
-
+        
         let viewModel = viewModel.topics[indexPath.row]
-
+        
         cell.delegate = self
         cell.replyDelegate = self
         
         cell.configure(viewModel: viewModel)
         cell.apply(theme: theme)
-
+        
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? TalkPageCell else {
             return
         }
-
+        
         userDidTapDisclosureButton(cellViewModel: cell.viewModel, cell: cell)
     }
     
@@ -281,12 +281,12 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
 
 // TODO
 extension TalkPageViewController: TalkPageCellDelegate {
-
+    
     func userDidTapDisclosureButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {
         guard let cellViewModel = cellViewModel, let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}) else {
             return
         }
-
+        
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isThreadExpanded.toggle()
         
@@ -298,7 +298,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         guard let cellViewModel = cellViewModel, let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}) else {
             return
         }
-
+        
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         
         let shouldSubscribe = !configuredCellViewModel.isSubscribed
@@ -306,24 +306,28 @@ extension TalkPageViewController: TalkPageCellDelegate {
             switch result {
             case .failure(let error):
                 DDLogError("Failure updating subscription: \(error)")
-                //TODO: Handle error state
+                // TODO: Handle error state
             case .success:
-                cell.configure(viewModel: configuredCellViewModel)
-                
-                let title = configuredCellViewModel.isSubscribed ? TalkPageLocalizedStrings.subscribedAlertTitle : TalkPageLocalizedStrings.unsubscribedAlertTitle
-                let subtitle = configuredCellViewModel.isSubscribed ? TalkPageLocalizedStrings.subscribedAlertSubtitle : TalkPageLocalizedStrings.unsubscribedAlertSubtitle
-                
-                let image = configuredCellViewModel.isSubscribed ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell.slash.fill")
-                
-                if UIAccessibility.isVoiceOverRunning {
-                    UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
-                } else {
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image ?? UIImage(), dismissPreviousAlerts: true)
-                    
+                DispatchQueue.main.async {
+                    cell.configure(viewModel: configuredCellViewModel)
+                    self.handleSubscriptionAlert(isSubscribedToTopic: configuredCellViewModel.isSubscribed)
                 }
             }
         }
     }
+
+    fileprivate func handleSubscriptionAlert(isSubscribedToTopic: Bool) {
+        let title = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertTitle : TalkPageLocalizedStrings.unsubscribedAlertTitle
+        let subtitle = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertSubtitle : TalkPageLocalizedStrings.unsubscribedAlertSubtitle
+        let image = isSubscribedToTopic ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell.slash.fill")
+        
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image ?? UIImage(), dismissPreviousAlerts: true)
+        }
+    }
+    
 }
 
 extension TalkPageViewController: TalkPageViewModelDelegate {
@@ -368,7 +372,7 @@ extension TalkPageViewController {
         static let subscribedAlertTitle = WMFLocalizedString("talk-page-subscribed-alert-title", value: "You have subscribed!", comment: "Title for alert informing that the user subscribed to a topic")
         static let unsubscribedAlertTitle = WMFLocalizedString("talk-page-unsubscribed-alert-title", value: "You have unsubscribed.", comment: "Title for alert informing that the user unsubscribed to a topic")
         static let subscribedAlertSubtitle = WMFLocalizedString("talk-page-subscribed-alert-subtitle", value: "You will receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will receive notifications for a subscribed topic")
-        static let unsubscribedAlertSubtitle = WMFLocalizedString("talk-page-unsubscribed-alert-subtitle", value: "ou will no longer receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will no longer receive notifications for a topic")
+        static let unsubscribedAlertSubtitle = WMFLocalizedString("talk-page-unsubscribed-alert-subtitle", value: "You will no longer receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will no longer receive notifications for a topic")
         
         static let shareButtonAccesibilityLabel = WMFLocalizedString("talk-page-share-button", value: "Share talk page", comment: "Title for share talk page button")
         static let findButtonAccesibilityLabel = WMFLocalizedString("talk-page-find-in-page-button", value: "Find in page", comment: "Title for find content in page button")
