@@ -290,6 +290,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         configuredCellViewModel.isThreadExpanded.toggle()
         
         cell.configure(viewModel: configuredCellViewModel)
+        cell.apply(theme: theme)
         talkPageView.collectionView.collectionViewLayout.invalidateLayout()
     }
 

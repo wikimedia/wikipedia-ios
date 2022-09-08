@@ -15,13 +15,16 @@ final class TalkPageCellTopicView: SetupView {
         return stackView
     }()
 
-    lazy var topicLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 17)
-        label.adjustsFontForContentSizeCategory = true
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    lazy var topicTitleTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.setContentCompressionResistancePriority(.required, for: .vertical)
+        textView.setContentHuggingPriority(.required, for: .vertical)
+        textView.isScrollEnabled = false
+        textView.isEditable = false
+        textView.textContainer.lineFragmentPadding = 0
+        textView.textContainerInset = .zero
+        return textView
     }()
 
     lazy var timestampLabel: UILabel = {
@@ -32,13 +35,16 @@ final class TalkPageCellTopicView: SetupView {
         return label
     }()
 
-    lazy var topicCommentLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 16)
-        label.adjustsFontForContentSizeCategory = true
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    lazy var topicCommentTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.setContentCompressionResistancePriority(.required, for: .vertical)
+        textView.setContentHuggingPriority(.required, for: .vertical)
+        textView.isScrollEnabled = false
+        textView.isEditable = false
+        textView.textContainer.lineFragmentPadding = 0
+        textView.textContainerInset = .zero
+        return textView
     }()
 
     lazy var horizontalStack: UIStackView = {
@@ -131,9 +137,9 @@ final class TalkPageCellTopicView: SetupView {
 
     override func setup() {
         addSubview(stackView)
-        stackView.addArrangedSubview(topicLabel)
+        stackView.addArrangedSubview(topicTitleTextView)
         stackView.addArrangedSubview(timestampLabel)
-        stackView.addArrangedSubview(topicCommentLabel)
+        stackView.addArrangedSubview(topicCommentTextView)
         stackView.addArrangedSubview(horizontalStack)
         stackView.addArrangedSubview(replyButton)
 
@@ -162,14 +168,18 @@ final class TalkPageCellTopicView: SetupView {
     func configure(viewModel: TalkPageCellViewModel) {
         self.viewModel = viewModel
         
-        topicLabel.numberOfLines = viewModel.isThreadExpanded ? 0 : 2
-        topicCommentLabel.numberOfLines = viewModel.isThreadExpanded ? 0 : 3
+        topicTitleTextView.invalidateIntrinsicContentSize()
+        topicTitleTextView.textContainer.maximumNumberOfLines = viewModel.isThreadExpanded ? 0 : 2
+        topicTitleTextView.textContainer.lineBreakMode = viewModel.isThreadExpanded ? .byWordWrapping : .byTruncatingTail
+        
+        topicCommentTextView.invalidateIntrinsicContentSize()
+        topicCommentTextView.textContainer.maximumNumberOfLines = viewModel.isThreadExpanded ? 0 : 3
+        topicCommentTextView.textContainer.lineBreakMode = viewModel.isThreadExpanded ? .byWordWrapping : .byTruncatingTail
 
-        topicLabel.text = viewModel.topicTitle
         if let timestamp = viewModel.timestamp {
             timestampLabel.text = DateFormatter.wmf_utcMediumDateFormatterWithoutTime().string(from: timestamp)
         }
-        topicCommentLabel.text = viewModel.leadComment.text
+        
         activeUsersLabel.text = viewModel.activeUsersCount
         repliesCountLabel.text = viewModel.repliesCount
     }
@@ -179,9 +189,13 @@ final class TalkPageCellTopicView: SetupView {
 extension TalkPageCellTopicView: Themeable {
 
     func apply(theme: Theme) {
-        topicLabel.textColor = theme.colors.primaryText
+        
+        topicTitleTextView.attributedText = viewModel?.topicTitle.byAttributingHTML(with: .headline, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: false, handlingSuperSubscripts: true)
+        
         timestampLabel.textColor = theme.colors.secondaryText
-        topicCommentLabel.textColor = theme.colors.primaryText
+        
+        let commentColor = (viewModel?.isThreadExpanded ?? false) ? theme.colors.primaryText : theme.colors.secondaryText
+        topicCommentTextView.attributedText = viewModel?.leadComment.text.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
 
         activeUsersImageView.tintColor = theme.colors.secondaryText
         activeUsersLabel.textColor = theme.colors.secondaryText
