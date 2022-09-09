@@ -73,6 +73,17 @@ class TalkPageDataController {
         talkPageFetcher.subscribeToTopic(talkPageTitle: pageTitle, siteURL: siteURL, topic: topicName, shouldSubscribe: shouldSubscribe, completion: completion)
     }
     
+    func fetchSubscriptions(for topics: [String], completion: @escaping (Result<[String], Error>) -> Void) {
+        talkPageFetcher.getSubscribedTopics(siteURL: siteURL, topics: topics) { result in
+            switch result {
+            case let .success(result):
+                completion(.success(result))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     // MARK: Private
     
     private func fetchTalkPageItems(dispatchGroup group: DispatchGroup, completion: @escaping ([TalkPageItem], [Error]) -> Void) {

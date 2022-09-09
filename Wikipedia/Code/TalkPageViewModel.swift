@@ -77,6 +77,19 @@ final class TalkPageViewModel {
         dataController.postTopic(topicTitle: topicTitle, topicBody: topicBody, completion: completion)
     }
     
+    func updateSubscriptionToTopic(topic: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
+        dataController.subscribeToTopic(topicName: topic, shouldSubscribe: shouldSubscribe) { [self] result in
+            switch result {
+            case let .success(result) :
+                let topicUpdated = topics.filter { $0.topicTitle == topic}
+                topicUpdated[0].isSubscribed = result
+                completion(.success(result))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     // MARK: - Private
     
     private func populateHeaderData(articleSummary: WMFArticle?, items: [TalkPageItem]) {

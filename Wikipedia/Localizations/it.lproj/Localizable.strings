@@ -720,10 +720,12 @@
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-heading" = "Contenuti";
 "talk-page-add-discussion-accessibility-label" = "Aggiungi discussione";
+"talk-page-add-topic-button" = "Aggiungi argomento";
 "talk-page-discussion-read-accessibility-label" = "Letta";
 "talk-page-discussion-unread-accessibility-label" = "Non lette";
 "talk-page-error-unable-to-post-reply" = "Nessuna connessione a internet. Impossibile pubblicare la risposta.";
 "talk-page-error-unable-to-post-topic" = "Nessuna connessione a internet. Impossibile pubblicare la risposta.";
+"talk-page-find-in-page-button" = "Trova nella pagina";
 "talk-page-info-active-conversations-generic" = "Conversazioni attive su Wikipedia";
 "talk-page-link-user-action-sheet-app" = "Vedi la pagina di discussione dell'utente nell'app";
 "talk-page-link-user-action-sheet-safari" = "Vedi la pagina dell'utente su Safari";
@@ -740,6 +742,7 @@
 "talk-page-new-topic-title" = "Nuova discussione";
 "talk-page-reply-button" = "Rispondi";
 "talk-page-reply-title" = "Rispondi";
+"talk-page-revision-history" = "Cronologia";
 "talk-page-subscribe-to-topic" = "Iscriviti";
 "talk-page-title-article-talk" = "Discussione voce";
 "talk-page-title-user-talk" = "Discussioni utente";
