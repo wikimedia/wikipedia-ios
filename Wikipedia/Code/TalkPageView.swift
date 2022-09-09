@@ -4,17 +4,13 @@ final class TalkPageView: SetupView {
 
     // MARK: - Private Properties
 
-    private lazy var topicGroupLayout: UICollectionViewLayout = {
-        let heightDimension: NSCollectionLayoutDimension = .estimated(225)
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: heightDimension)
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: heightDimension)
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
-        let layout = UICollectionViewCompositionalLayout(section: section)
+    private var topicGroupLayout: UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        layout.sectionInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         return layout
-    }()
+    }
 
     // MARK: - UI Elements
 
@@ -25,6 +21,8 @@ final class TalkPageView: SetupView {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
+    
+    private(set) var sizingView: TalkPageCellRootContainerView?
 
     // MARK: - Lifecycle
 
@@ -36,6 +34,23 @@ final class TalkPageView: SetupView {
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+        
+        // Add Sizing View for cell height calculations
+        let sizingView = TalkPageCellRootContainerView(frame: .zero)
+        sizingView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.insertSubview(sizingView, at: 0)
+        let horizontalPadding = TalkPageCell.padding.leading + TalkPageCell.padding.trailing
+        NSLayoutConstraint.activate([
+            sizingView.topAnchor.constraint(equalTo: collectionView.topAnchor),
+            sizingView.leadingAnchor.constraint(equalTo: collectionView.safeAreaLayoutGuide.leadingAnchor),
+            sizingView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, constant: -horizontalPadding)
+        ])
+        sizingView.isHidden = true
+        self.sizingView = sizingView
+    }
+
+    func animateLayoutUpdate() {
+        collectionView.setCollectionViewLayout(topicGroupLayout, animated: true)
     }
 
 }
