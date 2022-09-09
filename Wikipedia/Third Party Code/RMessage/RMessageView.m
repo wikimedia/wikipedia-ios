@@ -29,6 +29,7 @@ static NSMutableDictionary *globalDesignDictionary;
 @property (nonatomic, weak) IBOutlet UILabel *subtitleLabel;
 @property (nonatomic, weak) IBOutlet UIButton *button;
 @property (nonatomic, weak) IBOutlet UIStackView *stackView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleSubtitleContainerViewLeadingConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *titleSubtitleContainerViewCenterYConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *closeImageView;
 
@@ -448,7 +449,7 @@ static NSMutableDictionary *globalDesignDictionary;
     self.topToVCLayoutConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                 attribute:NSLayoutAttributeTop
                                                                 relatedBy:NSLayoutRelationEqual
-                                                                   toItem:self.superview
+                                                                   toItem:self.superview.safeAreaLayoutGuide
                                                                 attribute:NSLayoutAttributeBottom
                                                                multiplier:1.f
                                                                  constant:0.f];
@@ -461,6 +462,7 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                        attribute:NSLayoutAttributeCenterX
                                                                       multiplier:1.f
                                                                         constant:0.f];
+    centerXConstraint.identifier = @"RMessageView to superview centerX";
   NSLayoutConstraint *leadingConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                        attribute:NSLayoutAttributeLeading
                                                                        relatedBy:NSLayoutRelationEqual
@@ -468,6 +470,7 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                        attribute:NSLayoutAttributeLeading
                                                                       multiplier:1.f
                                                                         constant:0.f];
+    leadingConstraint.identifier = @"RMessageView to superview leading";
   NSLayoutConstraint *trailingConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                         attribute:NSLayoutAttributeTrailing
                                                                         relatedBy:NSLayoutRelationEqual
@@ -475,6 +478,7 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                         attribute:NSLayoutAttributeTrailing
                                                                        multiplier:1.f
                                                                          constant:0.f];
+    trailingConstraint.identifier = @"RMessageView to superview trailing";
   [[self class]
     activateConstraints:@[centerXConstraint, leadingConstraint, trailingConstraint, self.topToVCLayoutConstraint]
             inSuperview:self.superview];
@@ -759,7 +763,7 @@ static NSMutableDictionary *globalDesignDictionary;
   NSLayoutConstraint *imgViewLeading = [NSLayoutConstraint constraintWithItem:self.iconImageView
                                                                     attribute:NSLayoutAttributeLeading
                                                                     relatedBy:NSLayoutRelationEqual
-                                                                       toItem:self
+                                                                       toItem:self.safeAreaLayoutGuide
                                                                     attribute:NSLayoutAttributeLeading
                                                                    multiplier:1.f
                                                                      constant:15.f];
@@ -777,16 +781,10 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                    attribute:NSLayoutAttributeBottom
                                                                   multiplier:1.f
                                                                     constant:-10.f];
-  NSLayoutConstraint *titleViewLeading = [NSLayoutConstraint constraintWithItem:self.titleSubtitleContainerView
-                                                                      attribute:NSLayoutAttributeLeading
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:self
-                                                                      attribute:NSLayoutAttributeLeading
-                                                                     multiplier:1.f
-                                                                       constant:50.f];
+    self.titleSubtitleContainerViewLeadingConstraint.constant = 50.0;
     
   [self addSubview:self.iconImageView];
-  [[self class] activateConstraints:@[imgViewCenterY, imgViewLeading, imgViewTrailing, imgViewBottom, titleViewLeading] inSuperview:self];
+  [[self class] activateConstraints:@[imgViewCenterY, imgViewLeading, imgViewTrailing, imgViewBottom] inSuperview:self];
 }
 
 - (void)setupGestureRecognizers
@@ -894,8 +892,7 @@ static NSMutableDictionary *globalDesignDictionary;
       // If tool bar present animate above toolbar
       offset -= messageNavigationController.toolbar.bounds.size.height;
     }
-    CGFloat safeAreaExtraPadding = 30.0f;
-    self.topToVCFinalConstant = offset - safeAreaExtraPadding;
+    self.topToVCFinalConstant = offset;
     [self.viewController.view addSubview:self];
   }
 }
