@@ -894,7 +894,8 @@ static NSMutableDictionary *globalDesignDictionary;
       // If tool bar present animate above toolbar
       offset -= messageNavigationController.toolbar.bounds.size.height;
     }
-    self.topToVCFinalConstant = offset;
+    CGFloat safeAreaExtraPadding = 30.0f;
+    self.topToVCFinalConstant = offset - safeAreaExtraPadding;
     [self.viewController.view addSubview:self];
   }
 }
@@ -904,6 +905,8 @@ static NSMutableDictionary *globalDesignDictionary;
   [self layoutIfNeeded];
   if (self.messagePosition == RMessagePositionBottom) {
     self.topToVCFinalConstant = -self.bounds.size.height - [self customVerticalOffset];
+      self.titleSubtitleContainerViewCenterYConstraint.constant =
+        [UIApplication sharedApplication].statusBarFrame.size.height / 2.f;
   } else {
     self.topToVCFinalConstant = [self customVerticalOffset];
     self.titleSubtitleContainerViewCenterYConstraint.constant =
