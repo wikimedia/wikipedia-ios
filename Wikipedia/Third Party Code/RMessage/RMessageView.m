@@ -462,7 +462,6 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                        attribute:NSLayoutAttributeCenterX
                                                                       multiplier:1.f
                                                                         constant:0.f];
-    centerXConstraint.identifier = @"RMessageView to superview centerX";
   NSLayoutConstraint *leadingConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                        attribute:NSLayoutAttributeLeading
                                                                        relatedBy:NSLayoutRelationEqual
@@ -470,7 +469,6 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                        attribute:NSLayoutAttributeLeading
                                                                       multiplier:1.f
                                                                         constant:0.f];
-    leadingConstraint.identifier = @"RMessageView to superview leading";
   NSLayoutConstraint *trailingConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                         attribute:NSLayoutAttributeTrailing
                                                                         relatedBy:NSLayoutRelationEqual
@@ -478,7 +476,6 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                         attribute:NSLayoutAttributeTrailing
                                                                        multiplier:1.f
                                                                          constant:0.f];
-    trailingConstraint.identifier = @"RMessageView to superview trailing";
   [[self class]
     activateConstraints:@[centerXConstraint, leadingConstraint, trailingConstraint, self.topToVCLayoutConstraint]
             inSuperview:self.superview];
