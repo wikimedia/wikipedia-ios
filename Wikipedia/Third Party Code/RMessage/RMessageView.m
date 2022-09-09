@@ -905,8 +905,6 @@ static NSMutableDictionary *globalDesignDictionary;
   [self layoutIfNeeded];
   if (self.messagePosition == RMessagePositionBottom) {
     self.topToVCFinalConstant = -self.bounds.size.height - [self customVerticalOffset];
-      self.titleSubtitleContainerViewCenterYConstraint.constant =
-        [UIApplication sharedApplication].statusBarFrame.size.height / 2.f;
   } else {
     self.topToVCFinalConstant = [self customVerticalOffset];
     self.titleSubtitleContainerViewCenterYConstraint.constant =
