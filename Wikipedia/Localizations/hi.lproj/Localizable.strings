@@ -45,20 +45,14 @@
 "about-translators-details" = "$1 पर स्वयंसेवकों द्वारा अनुवादित";
 "about-wikimedia-foundation" = "विकिमीडिया संस्था";
 "about-wikipedia" = "विकिपीडिया";
-// Fuzzy
-"abuse-filter-disallow-heading" = "आप इस संपादन को प्रकाशित नहीं कर सकते। कृपया वापस जाएँ और इसे बदलें।";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "एक स्वचलित फ़िल्टर ने इस संपादन को संभावित अरचनात्मक या बर्बरता के प्रयास के रूप में चिह्नित किया है।";
-// Fuzzy
-"abuse-filter-warning-blanking" = "लेख खाली करना या स्पैमिंग";
-// Fuzzy
-"abuse-filter-warning-caps" = "सब कैप्स में लिखना";
+"abuse-filter-disallow-heading" = "आप इस संपादन को प्रकाशित नहीं कर सकते";
+"abuse-filter-disallow-unconstructive" = "एक स्वचालित फ़िल्टर ने इस संपादन को संभावित रूप से असंरचित या बर्बरता के प्रयास के रूप में पहचाना है। कृपया वापस जाएं और अपना संपादन बदलें।";
+"abuse-filter-warning-blanking" = "अनुभाग या पूर्ण लेख हटाना";
+"abuse-filter-warning-caps" = "सारा कैपिटल टेक्स्ट";
 "abuse-filter-warning-heading" = "यह एक अरचनात्मक संपादन लगता है, क्या आप इसे प्रकाशित करने को लेकर निश्चित हैं?";
 "abuse-filter-warning-irrelevant" = "अनुपयुक्त बाहरी लिंक या चित्र";
-// Fuzzy
-"abuse-filter-warning-repeat" = "अक्षरों का दोहराव";
-// Fuzzy
-"abuse-filter-warning-subheading" = "आपके संपादन में निम्न में से एक या अधिक हैं:";
+"abuse-filter-warning-repeat" = "दोहराए जाने वाले अक्षर";
+"abuse-filter-warning-subheading" = "आपके संपादन में हो सकते हैं:";
 "account-creation-captcha-cannot-see-image" = "$1 चित्र को नहीं देख सकते?";
 "account-creation-captcha-obtaining" = "एक नया कैप्चा प्राप्त किया जा रहा है...";
 "account-creation-captcha-request-account" = "अकाउंट हेतु अनुरोध";
@@ -86,12 +80,10 @@
 "appearance-settings-adjust-text-sizing" = "लेख में शब्दों का आकार व्यवस्थित करें";
 "appearance-settings-image-dimming-footer" = "गहरे और काले रंग की विषयवस्तुओं पर छवियों की अस्पष्टता घटाएँ";
 "appearance-settings-reading-themes" = "विषय पढ़ रहा";
-// Fuzzy
-"appearance-settings-text-sizing-example-text" = "लेख में शब्दों के आकार को बदलने के लिए ऊपर दिए बटन को खिसकाएँ। एप के अन्य स्थानों पर शब्दों के आकार को बदलने के लिए अपने सिस्टम सेटिंग्स का प्रयोग करें।";
+"appearance-settings-text-sizing-example-text" = "लेख के टेक्स्ट का आकार बदलने के लिए स्लाइडर को ड्रैग करें। ऐप में अन्य टेक्स्ट क्षेत्रों का आकार बदलने के लिए अपने सिस्टम टेक्स्ट आकार का उपयोग करें।";
 "appearance-settings-theme-options" = "विषय विकल्प";
 "article-delete" = "हटाएँ";
-// Fuzzy
-"article-deleted-accessibility-notification" = "लेख डिलीट कर दिया गया";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1| लेख हटा दिया गया|लेख हटा दिये गये}}";
 "article-languages-filter-placeholder" = "भाषा ढूंढें";
 "article-languages-label" = "भाषा चुनें";
 "article-languages-others" = "अन्य भाषाएँ";
@@ -143,16 +135,13 @@
 "explore-featured-article-heading" = "निर्वाचित लेख";
 "explore-main-page-description" = "विकिमीडिया परियोजनाओं का मुख्यपृष्ठ";
 "explore-main-page-heading" = "विकिपीडिया पर आज";
-// Fuzzy
 "explore-most-read-footer" = "सारे सर्वाधिक पढ़े गए लेख";
 "explore-most-read-generic-heading" = "सर्वाधिक पढ़े गए";
 "explore-most-read-more-list-title-for-date" = "$1 के प्रमुख लेख";
 "explore-nearby-heading" = "पास के स्थान";
 "explore-nearby-placeholder-heading" = "स्थान";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 विकिपीडिया पर";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "विकिपीडिया पर";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 विकिपीडिया से";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "विकिपीडिया से";
 "explore-nearby-sub-heading-your-location" = "आपकी स्थिति";
 "explore-potd-heading" = "आज का चित्र";
 "explore-random-article-heading" = "कोई भी लेख";
@@ -193,11 +182,9 @@
 "home-button-history-accessibility-label" = "विकिपीडीया, इतिहास पर लौटें";
 "home-button-saved-accessibility-label" = "विकिपीडिया, सहेजे गए पर लौटें";
 "home-more-like-footer" = "$1 के समान";
-// Fuzzy
-"home-nearby-footer" = "आपकी निकटतम स्थिति से और अधिक";
+"home-nearby-footer" = "आपके स्थान के आस-पास के और स्थान";
 "home-nearby-location-footer" = "$1 के निकट और अधिक";
-// Fuzzy
-"home-news-footer" = "समाचारों में अधिक";
+"home-news-footer" = "अधिक वर्तमान घटनाएं";
 "home-themes-action-title" = "प्राथमिकताएं प्रबंधित करें";
 "home-themes-prompt" = "एक अधिक आरामदायक पठन अनुभव करने के लिए लेख उपकरण पट्टी से विषय और आपके उपयोगकर्ता सेटिंग्स में पढ़ने की वरीयताओं को(टेक्स्ट का आकार सहित) समायोजित करें।";
 "home-title" = "छानबीन";
@@ -227,8 +214,7 @@
 "main-menu-title" = "अधिक";
 "main-menu-zero-faq" = "विकिपीडिया ज़ीरो FAQ";
 "menu-cancel-accessibility-label" = "रद्द करें";
-// Fuzzy
-"more-languages-tooltip-description" = "विजीपीडिया को लगभग 300 भाषाओं में खोजें";
+"more-languages-tooltip-description" = "विकिपीडिया को 300 से अधिक भाषाओं में खोजें";
 "more-languages-tooltip-title" = "भाषाएँ जोड़ें";
 "navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
 "nearby-distance-label-feet" = "$1 फिट";
@@ -242,11 +228,9 @@
 "notifications-center-change-password" = "पासवर्ड बदलें";
 "notifications-center-destination-app" = "ऐप में";
 "notifications-center-destination-web" = "वेब पर";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "नोटिफिकेशन ऑन करें";
+"notifications-center-feed-news-notification-button-text" = "पुश नोटिफिकेशन चालू करें";
 "notifications-center-feed-news-notification-dismiss-button-text" = "अभी नहीं";
-// Fuzzy
-"notifications-center-go-to-article" = "लेख पर जाएं";
+"notifications-center-go-to-article" = "लेख";
 "notifications-center-go-to-diff" = "अन्तर";
 "notifications-center-more-action-accessibility-label" = "और";
 "notifications-center-onboarding-modal-continue-action" = "जारी रखें";
@@ -323,15 +307,12 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "लाल-भूरे रंग का विषय";
 "reading-themes-controls-accessibility-text-size-slider" = "पाठ आकार खिसकाने वाला";
 "reference-title" = "सन्दर्भ $1";
-// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=आज|कल|$1 दिन पहले}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=हाल ही में|$1 घंटे पहले|$1 घंटे पहले}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=बिल्कुल अभी|$1 मिनट पहले|$1 मिनट पहले}}";
-// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=इस वर्ष|पिछला वर्ष|$1 वर्ष पहले}}";
 "saved-pages-image-download-error" = "सहेजे गए पेज के लिए चित्र डाउनलोड करने में विफल रहे।";
-// Fuzzy
-"saved-pages-progress-syncing" = "अनुच्छेद सिंकिंग प्रगति में हैं...";
+"saved-pages-progress-syncing" = "लेख डाउनलोड हो रहा है...";
 "saved-title" = "सहेजा गया";
 "search-button-accessibility-label" = "विकिपीडिया में खोजें";
 "search-did-you-mean" = "क्या आपका मतलब $1 था?";
@@ -344,8 +325,7 @@
 "search-recent-title" = "हाल ही में खोजा गया";
 "search-result-redirected-from" = "$1 से अनुप्रेषित";
 "search-title" = "खोजें";
-// Fuzzy
-"settings-appearance" = "दिखावट";
+"settings-appearance" = "पढ़ने की वरीयताएँ";
 "settings-clear-cache" = "कैश डेटा खाली करें";
 "settings-clear-cache-are-you-sure-message" = "कैश डेटा खाली करने से $1 स्पेस खाली होगी। इससे आपके सहेजे गए पेज नहीं डिलीट होंगे।";
 "settings-clear-cache-are-you-sure-title" = "कैश डेटा खाली करें?";
@@ -354,8 +334,7 @@
 "settings-help-and-feedback" = "सहायता व फीडबैक";
 "settings-language-bar" = "खोज में भाषाओं को दिखाएँ";
 "settings-my-languages" = "मेरी भाषाएँ";
-// Fuzzy
-"settings-notifications" = "नोटिफिकेशन्स";
+"settings-notifications" = "पुश नोटिफिकेशन्स";
 "settings-notifications-echo-failure-try-again" = "पुनः प्रयास करें";
 "settings-notifications-info" = "हमारे पुश नोटिफिकेशन्स के साथ रुझानों में और सर्वाधिक पढ़े गए विकिपीडिया लेखों के बारे में सजग रहें। यह सब आपकी निजता का सम्मान करते और बारीक डेटा के साथ प्रदान किया जाता है।";
 "settings-notifications-learn-more" = "नोटिफिकेशन्स के बारे में अधिक जानें";
@@ -363,25 +342,21 @@
 "settings-notifications-system-turn-on" = "नोटिफिकेशन्स चालू करें";
 "settings-notifications-trending" = "रुझानों में हाल की घटनाएं";
 "settings-primary-language" = "प्राथमिक";
-// Fuzzy
-"settings-primary-language-details" = "इस सूची की पहली भाषा को इस एप की प्राथमिक भाषा के रूप में प्रयोग किया जाता है।\nइस भाषा को बदलने पर खोज पर दिखाई जाने वाली दैनिक सामग्री (जैसे निर्वाचित लेख) भी परिवर्तित हो जायेगा।";
+"settings-primary-language-details" = "इस सूची में पहली भाषा का उपयोग ऐप के लिए प्राथमिक भाषा के रूप में किया जाता है।";
 "settings-support" = "विकिपीडिया को समर्थन दें";
 "settings-title" = "सेटिंग्स";
 "share-a-fact-made-with" = "विकिपीडिया एप के साथ बनाया गया";
-// Fuzzy
-"share-article-name-on-wikipedia" = "@Wikipedia पर \"$1\" :";
+"share-article-name-on-wikipedia" = "विकिपीडिया पर \" $1 \" :";
 "share-building" = "तथ्य को साझा कर कार्ड को बनायें";
 "share-default-format" = "\"$1\" से \"$2\": $3";
 "share-email-format" = "\"$1\"\n\n\"$2\" से\n\n$3";
 "share-get-directions-in-maps" = "दिशानिर्देश पाएं";
 "share-menu-item" = "साझा करें";
 "share-message-format" = "“$1” $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "@विकिपीडिया के माध्यम से";
+"share-on-twitter-sign-off" = "विकिपीडिया के माध्यम से";
 "share-open-in-maps" = "नक्शों में खोलें";
 "share-social-format" = "\"$1\" विकिपीडिया: $2 के माध्यम से";
-// Fuzzy
-"share-social-mention-format" = "विकिपीडिया@: $2 के द्वारा \"$1\"";
+"share-social-mention-format" = "विकिपीडिया के माध्यम से \" $1 \": $2";
 "sort-by-recently-added-action" = "हाल ही में जोड़ा गया";
 "sort-by-title-action" = "शीर्षक";
 "table-of-contents-button-label" = "सामग्री सारणी (टेबल)";
@@ -401,6 +376,7 @@
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
 "two-factor-login-with-backup-code" = "अपने बैकअप कोड्स में से एक प्रयोग करें";
 "two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
+"vanish-account-learn-more-text" = "अधिक जानें";
 "welcome-exploration-explore-feed-description" = "हमारे समुदाय से पढ़ने के लिए निर्वाचित दैनिक लेख";
 "welcome-exploration-explore-feed-title" = "फीड में खोजें";
 "welcome-exploration-on-this-day-description" = "समय में वापस जाएं और जाने इतिहास में आज के दिन क्या हुआ";
@@ -410,8 +386,7 @@
 "welcome-explore-continue-button" = "शुरू करें";
 "welcome-explore-new-ways-title" = "खोजने के नए तरीके";
 "welcome-explore-tell-me-more-done-button" = "समझ में आया";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "विकिपीडिया को स्वयंसेवकों द्वारा आपसी सहयोग से लिखा जाता है और इसमें लगभग 300 भाषाओं के 40 मिलियन से अधिक लेख मौजूद हैं।";
+"welcome-intro-free-encyclopedia-description" = "विकिपीडिया स्वयंसेवकों द्वारा सहयोग से लिखा गया है और इसमें 300 से अधिक भाषाओं में 40 मिलियन से अधिक लेख शामिल हैं।";
 "welcome-intro-free-encyclopedia-more" = "विकिपीडिया के बारे में अधिक जानें";
 "welcome-intro-free-encyclopedia-more-about" = "विकिपीडिया के बारे में";
 "welcome-intro-free-encyclopedia-more-description" = "विश्व की सभी भाषाओं में मुक्त ज्ञानकोश बनाने के लिए विकिपीडिया एक वैश्विक प्रोजेक्ट है। लगभग कोई भी जिसके पास इंटरनेट कनेक्शन है वो पक्षपात रहित, उद्धरण युक्त जानकारी के साथ इससे जुड़ने के लिए मुक्त है।";
@@ -419,8 +394,7 @@
 "welcome-languages-add-button" = "दूसरी भाषा जोड़ें";
 "welcome-languages-add-or-edit-button" = "पसंदीदा भाषाओं को जोड़ें या संपादित करें";
 "welcome-languages-description" = "हमें आपकी डिवाइस पर निम्न भाषाएँ मिली हैं:";
-// Fuzzy
-"welcome-languages-search-title" = "लगभग 300 भाषाओं में खोजें";
+"welcome-languages-search-title" = "300 से अधिक भाषाओं में खोजें";
 "welcome-notifications-tell-me-more-creation" = "आप की डिवाइस पर नोटिफिकेशन एप द्वारा बनाये और भेजे जाते हैं, न कि हमारे (या थर्ड पार्टी) सर्वर्स द्वारा।";
 "welcome-notifications-tell-me-more-storage" = "नोटिफिकेशन वरीयताएं डिवाइस पर स्टोर की जातीं हैं और ये व्यक्तिगत जानकारी या क्रियाकलाप पर आधारित नहीं हैं।";
 "welcome-notifications-tell-me-more-title" = "नोटिफिकेशन्स के बारे में अधिक";
