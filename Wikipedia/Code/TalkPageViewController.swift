@@ -21,8 +21,6 @@ class TalkPageViewController: ViewController {
         return view as! TalkPageView
     }
     
-    var isReloadingAfterReply = false
-    
     // MARK: - Overflow menu properties
     
     fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
@@ -278,9 +276,9 @@ class TalkPageViewController: ViewController {
     }
 }
 
-// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 
-extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.topics.count
@@ -294,8 +292,7 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         let viewModel = viewModel.topics[indexPath.row]
 
         cell.delegate = self
-        cell.replyDelegate = self
-        cell.configure(viewModel: viewModel, linkDelegate: self)
+        cell.configure(viewModel: viewModel, linkDelegate: self, replyDelegate: self)
         cell.apply(theme: theme)
 
         return cell
@@ -309,14 +306,34 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         userDidTapDisclosureButton(cellViewModel: cell.viewModel, cell: cell)
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if isReloadingAfterReply && cell.frame.size.height == 225 {
-            DispatchQueue.main.async {
-                collectionView.collectionViewLayout.invalidateLayout()
-                collectionView.layoutIfNeeded()
-                self.isReloadingAfterReply = false
-            }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        guard let viewModel = viewModel.topics[safeIndex: indexPath.item],
+              let sizingView = talkPageView.sizingView else {
+            return .zero
         }
+
+        sizingView.configure(viewModel: viewModel, linkDelegate: self, replyDelegate: self)
+        sizingView.apply(theme: theme) // TODO: gross, theme should affect sizing. fix this so that textviews set text via configure methods too.
+        sizingView.setNeedsLayout()
+        sizingView.layoutIfNeeded()
+
+        let horizontalPadding = TalkPageCell.padding.leading + TalkPageCell.padding
+            .trailing
+        let verticalPadding = TalkPageCell.padding.top + TalkPageCell.padding.bottom
+
+        let newWidth = sizingView.frame.width + horizontalPadding
+        let newHeight = sizingView.frame.height + verticalPadding
+
+        let newSize = CGSize(width: newWidth, height: newHeight)
+        
+        print("newSize: \(newSize)")
+
+        return newSize
+    }
+
+    func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+        return collectionView.contentOffset
     }
     
 }
@@ -333,9 +350,9 @@ extension TalkPageViewController: TalkPageCellDelegate {
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isThreadExpanded.toggle()
         
-        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
+        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self, replyDelegate: self)
         cell.apply(theme: theme)
-        talkPageView.collectionView.collectionViewLayout.invalidateLayout()
+        talkPageView.animateLayoutUpdate()
     }
     
     func userDidTapSubscribeButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {
@@ -345,7 +362,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isSubscribed.toggle()
-        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
+        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self, replyDelegate: self)
         self.handleSubscriptionAlert(isSubscribedToTopic: configuredCellViewModel.isSubscribed)
     }
 }
@@ -373,7 +390,6 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     switch result {
                     case .success:
-                        self?.isReloadingAfterReply = true
                         self?.talkPageView.collectionView.reloadData()
                     case .failure:
                         break
