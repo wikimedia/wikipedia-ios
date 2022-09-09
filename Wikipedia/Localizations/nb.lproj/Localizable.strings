@@ -134,6 +134,7 @@
 "action-update" = "Oppdater";
 "add-articles-to-reading-list" = "Legg til {{PLURAL:$1|$1 artikkel|$1 artikler}} i leselisten";
 "add-citation-title" = "Legg til referanse";
+"additional-information-email-title" = "Ekstra informasjon";
 "announcements-dismiss" = "Lukk";
 "app-store-keywords" = "Wikipedia, referanse, wiki, encyklopedi, info, kunnskap, informasjon, oppdaging, læring";
 "app-store-release-notes" = "Fullstendig tilpassbar og mer lettlest utforskingsside. Lokalisering, ytelsesforbedringer og feilrettinger.";
@@ -319,6 +320,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "For å gi alle tilgang til all verdens kunnskap trenger vi din deltakelse i å lese, redigere og bidra til de temaene som har størst betydning for deg.";
 "editing-welcome-set-knowledge-free-title" = "Sett kunnskap fri";
 "editor-exit-confirmation-body" = "Er du sikker på at du vil gå ut av redigeringsmodus uten å publisere først?";
+"editor-exit-confirmation-title" = "Gå ut av redigeringsmodus?";
 "empty-diff-compare-title" = "Ingen forskjeller mellom revisjoner";
 "empty-diff-single-title" = "Ingen synlige endringer gjort";
 "empty-insert-media-title" = "Velg ei fil fra Wikimedia Commons";

@@ -1029,10 +1029,13 @@
 "talk-page-new-topic-success-text" = "Ваше обсуждение было опубликовано";
 "talk-page-new-topic-title" = "Новое обсуждение";
 "talk-page-publish-terms-and-licenses" = "Сохраняя изменения, вы соглашаетесь с $1Условиями использования$2 и публикуете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6.";
+"talk-page-reply-button" = "Ответить";
 "talk-page-reply-title" = "Ответ";
+"talk-page-subscribe-to-topic" = "Подписаться";
 "talk-page-title-article-talk" = "Обсуждение статьи";
 "talk-page-title-user-talk" = "Обсуждение участника";
 "talk-page-topic-title" = "Обсуждение";
+"talk-page-unsubscribe-to-topic" = "Отписаться";
 "talk-pages-coffee-roll-read-more" = "Читать далее";
 "talk-pages-reply-button-title" = "Ответить в этом обсуждении";
 "talk-pages-view-title" = "Обсуждение";
@@ -1057,6 +1060,10 @@
 "unknown-generic-text" = "Неизвестно";
 "uzbek-variants-alert-body" = "Приложение Википедия теперь поддерживает следующие Узбекские варианты в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Обновление поддержки вариантов Узбекского";
+"vanish-account-additional-information-field" = "Дополнительная информация";
+"vanish-account-additional-information-placeholder" = "Необязательно";
+"vanish-account-back-confirm-keep-editing" = "Продолжить редактирование";
+"vanish-account-button-text" = "Послать запрос";
 "vanish-account-learn-more-text" = "Узнать подробности";
 "variants-alert-dismiss-button" = "Нет, спасибо";
 "variants-alert-preferences-button" = "Просмотреть свои настройки";
