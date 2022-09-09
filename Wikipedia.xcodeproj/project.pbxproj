@@ -171,10 +171,10 @@
 		0072991B28AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991928AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift */; };
 		0072991C28AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991928AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift */; };
 		0072991D28AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991928AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift */; };
-		0072991F28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift */; };
-		0072992028AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift */; };
-		0072992128AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift */; };
-		0072992228AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift */; };
+		0072991F28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift */; };
+		0072992028AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift */; };
+		0072992128AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift */; };
+		0072992228AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift */; };
 		007B5FC526FA40F100180FF8 /* RemoteNotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007B5FC426FA40F000180FF8 /* RemoteNotificationType.swift */; };
 		007CCF0126D5A10200D5EA7C /* NotificationsCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCF0026D5A10100D5EA7C /* NotificationsCenterViewController.swift */; };
 		007CCF0226D5A10200D5EA7C /* NotificationsCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCF0026D5A10100D5EA7C /* NotificationsCenterViewController.swift */; };
@@ -3910,7 +3910,7 @@
 		0072990F28AC478400DCD2E6 /* TalkPageCellDisclosureRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCellDisclosureRow.swift; sourceTree = "<group>"; };
 		0072991428AC49FA00DCD2E6 /* TalkPageCellCommentSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCellCommentSeparator.swift; sourceTree = "<group>"; };
 		0072991928AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCellCommentView.swift; sourceTree = "<group>"; };
-		0072991E28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCellCommentDepthIndicator.swift; sourceTree = "<group>"; };
+		0072991E28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCellReplyDepthIndicator.swift; sourceTree = "<group>"; };
 		007B5FC426FA40F000180FF8 /* RemoteNotificationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteNotificationType.swift; sourceTree = "<group>"; };
 		007CCF0026D5A10100D5EA7C /* NotificationsCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterViewController.swift; sourceTree = "<group>"; };
 		007CCF0626D5A17200D5EA7C /* NotificationsCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterView.swift; sourceTree = "<group>"; };
@@ -6118,7 +6118,7 @@
 				0072990F28AC478400DCD2E6 /* TalkPageCellDisclosureRow.swift */,
 				0072990528AC44F100DCD2E6 /* TalkPageCellTopicView.swift */,
 				0072991428AC49FA00DCD2E6 /* TalkPageCellCommentSeparator.swift */,
-				0072991E28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift */,
+				0072991E28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift */,
 				0072991928AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift */,
 			);
 			name = "Cell UI Elements";
@@ -11477,7 +11477,7 @@
 				B0F9299F1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				6782DBCD2343FDF2003FA21B /* DiffListUneditedCell.swift in Sources */,
 				D8A47C8F23D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
-				0072991F28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */,
+				0072991F28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */,
 				B09B03ED1CE0FB4200009083 /* PageHistorySection.swift in Sources */,
 				D8B166851FD97A0500097D8B /* ViewController.swift in Sources */,
 				7AB809D022675B2300BFAB7C /* ThemeableTextView.swift in Sources */,
@@ -12426,7 +12426,7 @@
 				D8A42AC01E815A9C00D8E281 /* PageHistorySection.swift in Sources */,
 				7ABE170F2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */,
 				B0F9299E1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
-				0072992228AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */,
+				0072992228AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */,
 				D8B166881FD97A0500097D8B /* ViewController.swift in Sources */,
 				D8A47C9223D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
 				6782DBD02343FDF2003FA21B /* DiffListUneditedCell.swift in Sources */,
@@ -12916,7 +12916,7 @@
 				7A715668226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				D8CE25231E698E2400DAE2E0 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				00E75B6427EB87DC00A45B78 /* NotificationsCenterDetailView.swift in Sources */,
-				0072992128AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */,
+				0072992128AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */,
 				7ADF498821B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
 				D8CE25241E698E2400DAE2E0 /* (null) in Sources */,
 				D818D3821ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
@@ -13480,7 +13480,7 @@
 				7A715669226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				D8EC3E121E9BDA35006712EB /* LoggingDefaults.swift in Sources */,
 				00E75B6327EB87DC00A45B78 /* NotificationsCenterDetailView.swift in Sources */,
-				0072992028AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */,
+				0072992028AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */,
 				7ADF498921B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
 				D8EC3E171E9BDA35006712EB /* MWKTitleLanguageController.m in Sources */,
 				B0016CC521362DB300FA1096 /* SetupGradientView.swift in Sources */,

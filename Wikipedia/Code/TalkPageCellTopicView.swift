@@ -33,6 +33,7 @@ final class TalkPageCellTopicView: SetupView {
         label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
@@ -75,6 +76,7 @@ final class TalkPageCellTopicView: SetupView {
         let imageView = UIImageView(image: UIImage(systemName: "person.crop.circle"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.setContentCompressionResistancePriority(.required, for: .vertical)
         return imageView
     }()
 
@@ -83,6 +85,7 @@ final class TalkPageCellTopicView: SetupView {
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
         label.numberOfLines = 0
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
@@ -97,6 +100,7 @@ final class TalkPageCellTopicView: SetupView {
         let imageView = UIImageView(image: UIImage(systemName: "bubble.left"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.setContentCompressionResistancePriority(.required, for: .vertical)
         return imageView
     }()
 
@@ -105,6 +109,7 @@ final class TalkPageCellTopicView: SetupView {
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
         label.numberOfLines = 0
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
@@ -123,6 +128,8 @@ final class TalkPageCellTopicView: SetupView {
 
         button.setContentHuggingPriority(.required, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
+        button.setContentCompressionResistancePriority(.required, for: .vertical)
+        
         return button
     }()
 

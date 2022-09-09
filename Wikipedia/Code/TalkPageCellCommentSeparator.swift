@@ -22,6 +22,7 @@ final class TalkPageCellCommentSeparator: SetupView {
     // MARK: - Lifecycle
 
     override func setup() {
+        /*
         addSubview(stackView)
         stackView.addArrangedSubview(horizontalLine)
 
@@ -31,6 +32,7 @@ final class TalkPageCellCommentSeparator: SetupView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
         ])
+         */
     }
 
 }
