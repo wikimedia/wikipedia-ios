@@ -777,13 +777,13 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                    attribute:NSLayoutAttributeBottom
                                                                   multiplier:1.f
                                                                     constant:-10.f];
-    NSLayoutConstraint *titleViewLeading = [NSLayoutConstraint constraintWithItem:self.titleSubtitleContainerView
-                                                                        attribute:NSLayoutAttributeLeading
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                           toItem:self
-                                                                        attribute:NSLayoutAttributeLeading
-                                                                       multiplier:1.f
-                                                                         constant:50.f];
+  NSLayoutConstraint *titleViewLeading = [NSLayoutConstraint constraintWithItem:self.titleSubtitleContainerView
+                                                                      attribute:NSLayoutAttributeLeading
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self
+                                                                      attribute:NSLayoutAttributeLeading
+                                                                     multiplier:1.f
+                                                                       constant:50.f];
     
   [self addSubview:self.iconImageView];
   [[self class] activateConstraints:@[imgViewCenterY, imgViewLeading, imgViewTrailing, imgViewBottom, titleViewLeading] inSuperview:self];
