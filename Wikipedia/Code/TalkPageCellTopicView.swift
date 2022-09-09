@@ -194,11 +194,13 @@ extension TalkPageCellTopicView: Themeable {
     func apply(theme: Theme) {
         
         topicTitleTextView.attributedText = viewModel?.topicTitle.byAttributingHTML(with: .headline, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: false, handlingSuperSubscripts: true)
+        topicTitleTextView.backgroundColor = theme.colors.paperBackground
         
         timestampLabel.textColor = theme.colors.secondaryText
         
         let commentColor = (viewModel?.isThreadExpanded ?? false) ? theme.colors.primaryText : theme.colors.secondaryText
         topicCommentTextView.attributedText = viewModel?.leadComment.text.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
+        topicCommentTextView.backgroundColor = theme.colors.paperBackground
 
         activeUsersImageView.tintColor = theme.colors.secondaryText
         activeUsersLabel.textColor = theme.colors.secondaryText

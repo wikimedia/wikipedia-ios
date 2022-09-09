@@ -106,6 +106,7 @@ extension TalkPageCellCommentView: Themeable {
         replyDepthView.apply(theme: theme)
         
         commentTextView.attributedText = viewModel?.text.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
+        commentTextView.backgroundColor = theme.colors.paperBackground
         
         replyButton.tintColor = theme.colors.link
         replyButton.setTitleColor(theme.colors.link, for: .normal)
