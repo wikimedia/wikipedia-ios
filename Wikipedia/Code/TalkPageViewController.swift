@@ -295,8 +295,7 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
 
         cell.delegate = self
         cell.replyDelegate = self
-
-        cell.configure(viewModel: viewModel)
+        cell.configure(viewModel: viewModel, linkDelegate: self)
         cell.apply(theme: theme)
 
         return cell
@@ -334,7 +333,8 @@ extension TalkPageViewController: TalkPageCellDelegate {
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isThreadExpanded.toggle()
         
-        cell.configure(viewModel: configuredCellViewModel)
+        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
+        cell.apply(theme: theme)
         talkPageView.collectionView.collectionViewLayout.invalidateLayout()
     }
     
@@ -345,7 +345,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isSubscribed.toggle()
-        cell.configure(viewModel: configuredCellViewModel)
+        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
         self.handleSubscriptionAlert(isSubscribedToTopic: configuredCellViewModel.isSubscribed)
     }
 }
@@ -458,5 +458,18 @@ extension TalkPageViewController {
         static let shareButtonAccesibilityLabel = WMFLocalizedString("talk-page-share-button", value: "Share talk page", comment: "Title for share talk page button")
         static let findButtonAccesibilityLabel = WMFLocalizedString("talk-page-find-in-page-button", value: "Find in page", comment: "Title for find content in page button")
         static let addTopicButtonAccesibilityLabel = WMFLocalizedString("talk-page-add-topic-button", value: "Add topic", comment: "Title for add topic to talk page button")
+    }
+}
+
+protocol TalkPageTextViewLinkHandling: AnyObject {
+    func tappedLink(_ url: URL, sourceTextView: UITextView)
+}
+
+extension TalkPageViewController: TalkPageTextViewLinkHandling {
+    func tappedLink(_ url: URL, sourceTextView: UITextView) {
+        guard let url = URL(string: url.absoluteString, relativeTo: talkPageURL) else {
+            return
+        }
+        navigate(to: url.absoluteURL)
     }
 }
