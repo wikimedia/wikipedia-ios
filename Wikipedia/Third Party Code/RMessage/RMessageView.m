@@ -633,7 +633,7 @@ static NSMutableDictionary *globalDesignDictionary;
       _iconImageView.clipsToBounds = YES;
     } else {
       self.iconRelativeCornerRadius = 0.f;
-      _iconImageView.clipsToBounds = NO;
+      _iconImageView.clipsToBounds = YES;
     }
     [self setupIconImageView];
   }
@@ -765,7 +765,7 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                      constant:15.f];
   NSLayoutConstraint *imgViewTrailing = [NSLayoutConstraint constraintWithItem:self.iconImageView
                                                                      attribute:NSLayoutAttributeTrailing
-                                                                     relatedBy:NSLayoutRelationEqual
+                                                                     relatedBy:NSLayoutRelationGreaterThanOrEqual
                                                                         toItem:self.titleSubtitleContainerView
                                                                      attribute:NSLayoutAttributeLeading
                                                                     multiplier:1.f
@@ -777,8 +777,16 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                    attribute:NSLayoutAttributeBottom
                                                                   multiplier:1.f
                                                                     constant:-10.f];
+    NSLayoutConstraint *titleViewLeading = [NSLayoutConstraint constraintWithItem:self.titleSubtitleContainerView
+                                                                        attribute:NSLayoutAttributeLeading
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:self
+                                                                        attribute:NSLayoutAttributeLeading
+                                                                       multiplier:1.f
+                                                                         constant:50.f];
+    
   [self addSubview:self.iconImageView];
-  [[self class] activateConstraints:@[imgViewCenterY, imgViewLeading, imgViewTrailing, imgViewBottom] inSuperview:self];
+  [[self class] activateConstraints:@[imgViewCenterY, imgViewLeading, imgViewTrailing, imgViewBottom, titleViewLeading] inSuperview:self];
 }
 
 - (void)setupGestureRecognizers
