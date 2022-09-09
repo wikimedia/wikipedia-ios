@@ -310,20 +310,8 @@ extension TalkPageViewController: TalkPageCellDelegate {
         }
         
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
-        
-        let shouldSubscribe = !configuredCellViewModel.isSubscribed
-        viewModel.updateSubscriptionToTopic(topic: configuredCellViewModel.topicTitle, shouldSubscribe: shouldSubscribe) { result in
-            switch result {
-            case .failure(let error):
-                DDLogError("Failure updating subscription: \(error)")
-                // TODO: Handle error state
-            case .success:
-                DispatchQueue.main.async {
-                    cell.configure(viewModel: configuredCellViewModel)
-                    self.handleSubscriptionAlert(isSubscribedToTopic: configuredCellViewModel.isSubscribed)
-                }
-            }
-        }
+        cell.configure(viewModel: configuredCellViewModel)
+        self.handleSubscriptionAlert(isSubscribedToTopic: configuredCellViewModel.isSubscribed)
     }
 }
 
