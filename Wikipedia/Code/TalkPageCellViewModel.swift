@@ -8,6 +8,7 @@ final class TalkPageCellViewModel {
     let topicTitle: String
     let timestamp: Date?
 
+    let id: String
     var leadComment: TalkPageCellCommentViewModel
     let replies: [TalkPageCellCommentViewModel]
     // Number of users involved in thread
@@ -19,7 +20,8 @@ final class TalkPageCellViewModel {
         return "\(replies.count + 1)"
     }
     
-    init(topicTitle: String, timestamp: Date?, leadComment: TalkPageCellCommentViewModel, replies: [TalkPageCellCommentViewModel], activeUsersCount: String) {
+    init(id: String, topicTitle: String, timestamp: Date?, leadComment: TalkPageCellCommentViewModel, replies: [TalkPageCellCommentViewModel], activeUsersCount: String) {
+        self.id = id
         self.topicTitle = topicTitle
         self.timestamp = timestamp
         self.leadComment = leadComment
