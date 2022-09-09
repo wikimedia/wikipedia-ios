@@ -21,6 +21,8 @@ class TalkPageViewController: ViewController {
         return view as! TalkPageView
     }
     
+    var isReloadingAfterReply = false
+    
     // MARK: - Overflow menu properties
     
     fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
@@ -275,8 +277,8 @@ class TalkPageViewController: ViewController {
         }
     }
     
-    private func handleNewTopicAlert() {
-        let title = TalkPageLocalizedStrings.addedTopicAlertTitle
+    private func handleNewTopicOrCommentAlert(isNewTopic: Bool) {
+        let title = isNewTopic ? TalkPageLocalizedStrings.addedTopicAlertTitle : TalkPageLocalizedStrings.addedCommentAlertTitle
         let image = UIImage(systemName: "checkmark.circle.fill")
         
         if UIAccessibility.isVoiceOverRunning {
@@ -402,6 +404,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                     switch result {
                     case .success:
                         self?.talkPageView.collectionView.reloadData()
+                        self?.handleNewTopicOrCommentAlert(isNewTopic: false)
                     case .failure:
                         break
                     }
@@ -431,7 +434,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                     case .success:
                         self?.talkPageView.collectionView.reloadData()
                         self?.scrollToLastTopic()
-                        self?.handleNewTopicAlert()
+                        self?.handleNewTopicOrCommentAlert(isNewTopic: true)
                     case .failure:
                         break
                     }
@@ -484,6 +487,7 @@ extension TalkPageViewController {
         static let unsubscribedAlertSubtitle = WMFLocalizedString("talk-page-unsubscribed-alert-subtitle", value: "You will no longer receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will no longer receive notifications for a topic")
         
         static let addedTopicAlertTitle = WMFLocalizedString("talk-pages-topic-added-alert-title", value: "Your topic was added", comment: "Title for alert informing that the user's new topic was successfully published.")
+        static let addedCommentAlertTitle = WMFLocalizedString("talk-pages-comment-added-alert-title", value: "Your comment was added", comment: "Title for alert informing that the user's new comment was successfully published.")
         
         static let shareButtonAccesibilityLabel = WMFLocalizedString("talk-page-share-button", value: "Share talk page", comment: "Title for share talk page button")
         static let findButtonAccesibilityLabel = WMFLocalizedString("talk-page-find-in-page-button", value: "Find in page", comment: "Title for find content in page button")

@@ -1022,6 +1022,7 @@
 "talk-page-user-about" = "Title for menu option for information on user talk pages";
 "talk-page-user-contributions" = "Title for menu option for information on the user's contributions";
 "talk-pages-coffee-roll-read-more" = "Title of user and article talk pages button to read more of the coffee roll.";
+"talk-pages-comment-added-alert-title" = "Title for alert informing that the user's new comment was successfully published.";
 "talk-pages-reply-button-title" = "Text displayed in a reply button for replying to a talk page topic thread.";
 "talk-pages-topic-added-alert-title" = "Title for alert informing that the user's new topic was successfully published.";
 "talk-pages-topic-compose-body-placeholder" = "Placeholder text in topic body field of the talk page topic compose screen.";
