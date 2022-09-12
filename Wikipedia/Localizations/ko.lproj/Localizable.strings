@@ -1039,6 +1039,7 @@
 "unknown-generic-text" = "알 수 없음";
 "uzbek-variants-alert-body" = "이제 위키백과 앱에서 아래의 우즈베크어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\noʻzbekcha lotin 우즈베크어 라틴 (uz-latin)\nўзбекча кирилл 우즈베크어 키릴 (uz-cyrl)";
 "uzbek-variants-alert-title" = "우즈베크어 변이형 지원 업데이트";
+"vanish-account-learn-more-text" = "더 알아보기";
 "variants-alert-dismiss-button" = "괜찮습니다";
 "variants-alert-preferences-button" = "내 환경 설정 검토하기";
 "welcome-exploration-explore-feed-description" = "우리 공동체의 권장 읽기 및 일일 문서";
