@@ -994,6 +994,9 @@
 "tajik-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти таджицької мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nтоҷикӣ кирилликӣ таджицька, кирилиця (tg-cyrl)\ntojikī lotinī таджицька, латинка (tg-latn)";
 "tajik-variants-alert-title" = "Оновлення щодо підтримки варіантів таджицької";
 "talk-page-add-discussion-accessibility-label" = "Додати обговорення";
+"talk-page-add-topic-button" = "Додати тему";
+"talk-page-archives" = "Архіви";
+"talk-page-change-language" = "Змінити мову";
 "talk-page-discussion-accessibility-hint" = "Натисніть двічі, щоб відкрити гілку обговорення";
 "talk-page-discussion-read-accessibility-label" = "Прочитане";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "прочитане";
@@ -1001,6 +1004,7 @@
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "непрочитане";
 "talk-page-error-unable-to-post-reply" = "Нема підключення до Інтернету. Неможливо оприлюднити відповідь.";
 "talk-page-error-unable-to-post-topic" = "Нема підключення до Інтернету. Неможливо оприлюднити нове обговорення.";
+"talk-page-find-in-page-button" = "Знайти на сторінці";
 "talk-page-info-active-conversations" = "Активні обговорення у Вікіпедії мовою $1";
 "talk-page-info-active-conversations-generic" = "Активні обговорення у Вікіпедії";
 "talk-page-link-user-action-sheet-app" = "Переглянути сторінку обговорення користувача в додатку";
@@ -1019,13 +1023,16 @@
 "talk-page-new-topic-success-text" = "Ваше обговорення успішно оприлюднене";
 "talk-page-new-topic-title" = "Нове обговорення";
 "talk-page-publish-terms-and-licenses" = "Затверджуючи зміни, ви погоджуєтеся з $1Умовами використання$2 та оприлюднюєте свій внесок за ліцензіями $3CC BY-SA 3.0$4 и $5GFDL$6.";
+"talk-page-read-in-web" = "Читати в мережі";
 "talk-page-reply-button" = "Відповісти";
 "talk-page-reply-title" = "Відповісти";
 "talk-page-subscribe-to-topic" = "Підписатись";
+"talk-page-subscribed-alert-title" = "Ви підписалися!";
 "talk-page-title-article-talk" = "Обговорення статті";
 "talk-page-title-user-talk" = "Обговорення користувача";
 "talk-page-topic-title" = "Обговорення";
 "talk-page-unsubscribe-to-topic" = "Відписатись";
+"talk-page-unsubscribed-alert-title" = "Ви скасували підписку.";
 "talk-pages-coffee-roll-read-more" = "Читати більше";
 "talk-pages-reply-button-title" = "Відповісти в цьому обговоренні";
 "talk-pages-view-title" = "Обговорення";
@@ -1062,6 +1069,7 @@
 "vanish-modal-item" = "Якщо ви виконали ваш запит на зникнення, зачекайте кілька днів, щоб запит обробив адміністратор";
 "vanish-modal-item-2" = "Якщо ви не впевнені, що ваш запит прийнято, перевірте свій додаток Mail";
 "vanish-modal-item-3" = "Якщо у вас є додаткові запитання щодо знищення, відвідайте Meta:Right_to_vanish";
+"vanish-modal-item-3-ios15" = "Якщо у вас є додаткові запитання щодо знищення, відвідайте $1Meta:Right_to_vanish$2$3";
 "variants-alert-dismiss-button" = "Ні, дякую";
 "variants-alert-preferences-button" = "Переглянути свої налаштування";
 "welcome-exploration-explore-feed-description" = "Рекомендовані записи та щоденні статті від нашої спільноти";
