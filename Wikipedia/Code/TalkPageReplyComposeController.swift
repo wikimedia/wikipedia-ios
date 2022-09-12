@@ -79,6 +79,12 @@ class TalkPageReplyComposeController {
         viewController = nil
     }
     
+    var isLoading: Bool = false {
+        didSet {
+            contentView?.isLoading = isLoading
+        }
+    }
+    
     // MARK: Private
     
     private func setupViews(in viewController: ReplyComposableViewController, commentViewModel: TalkPageCellCommentViewModel) {
