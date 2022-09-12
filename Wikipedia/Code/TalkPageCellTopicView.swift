@@ -126,7 +126,7 @@ final class TalkPageCellTopicView: SetupView {
         return button
     }()
 
-    lazy var trailingSpacer: UIView = {
+    lazy var centerSpacer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         let widthConstraint = view.widthAnchor.constraint(equalToConstant: 99999)
@@ -140,9 +140,8 @@ final class TalkPageCellTopicView: SetupView {
     override func setup() {
         addSubview(stackView)
         stackView.addArrangedSubview(topicTitleTextView)
-        stackView.addArrangedSubview(timestampLabel)
-        stackView.addArrangedSubview(topicCommentTextView)
         stackView.addArrangedSubview(horizontalStack)
+        stackView.addArrangedSubview(topicCommentTextView)
         stackView.addArrangedSubview(replyButton)
 
         activeUsersStack.addArrangedSubview(activeUsersImageView)
@@ -150,10 +149,11 @@ final class TalkPageCellTopicView: SetupView {
         repliesStack.addArrangedSubview(repliesImageView)
         repliesStack.addArrangedSubview(repliesCountLabel)
 
+        horizontalStack.addArrangedSubview(timestampLabel)
+        horizontalStack.addArrangedSubview(centerSpacer)
         horizontalStack.addArrangedSubview(activeUsersStack)
         horizontalStack.addArrangedSubview(metadataSpacer)
         horizontalStack.addArrangedSubview(repliesStack)
-        horizontalStack.addArrangedSubview(trailingSpacer)
 
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
