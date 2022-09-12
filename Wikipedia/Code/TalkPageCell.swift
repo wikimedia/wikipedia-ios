@@ -86,11 +86,12 @@ final class TalkPageCell: UICollectionViewCell {
 
     // MARK: - Configure
 
-    func configure(viewModel: TalkPageCellViewModel) {
+    func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling) {
         self.viewModel = viewModel
 
         disclosureRow.configure(viewModel: viewModel)
         topicView.configure(viewModel: viewModel)
+        topicView.linkDelegate = linkDelegate
 
         let comments: [UIView] = stackView.arrangedSubviews.filter { view in view is TalkPageCellCommentView || view is TalkPageCellCommentSeparator }
         stackView.arrangedSubviews.forEach { view in
@@ -104,6 +105,7 @@ final class TalkPageCell: UICollectionViewCell {
             let commentView = TalkPageCellCommentView()
             commentView.replyDelegate = replyDelegate
             commentView.configure(viewModel: commentViewModel)
+            commentView.linkDelegate = linkDelegate
 
             commentView.isHidden = !viewModel.isThreadExpanded
             separator.isHidden = !viewModel.isThreadExpanded
