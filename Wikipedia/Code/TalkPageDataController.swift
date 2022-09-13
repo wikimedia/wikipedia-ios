@@ -58,7 +58,15 @@ class TalkPageDataController {
     }
     
     func postTopic(topicTitle: String, topicBody: String, completion: @escaping(Result<Void, Error>) -> Void) {
-        talkPageFetcher.postTopic(talkPageTitle: pageTitle, siteURL: siteURL, topicTitle: topicTitle, topicBody: topicBody, completion: completion)
+        
+        // TODO: should we check topicBody here to see if ~~~~ already exists?
+        let signedBody = UserDefaults.standard.autoSignTalkPageDiscussions ? topicBody + " ~~~~" : ""
+        
+        talkPageFetcher.postTopic(talkPageTitle: pageTitle, siteURL: siteURL, topicTitle: topicTitle, topicBody: signedBody) { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
     }
     
     func subscribeToTopic(topicName: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
