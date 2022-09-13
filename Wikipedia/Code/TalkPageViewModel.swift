@@ -59,11 +59,17 @@ final class TalkPageViewModel {
 
     func fetchTalkPage(completion: @escaping (Result<Void, Error>) -> Void) {
         dataController.fetchTalkPage { [weak self] result in
+            
+            guard let self = self else {
+                return
+            }
+            
             switch result {
             case .success(let result):
-                self?.populateHeaderData(articleSummary: result.articleSummary, items: result.items)
-                self?.topics.removeAll()
-                self?.populateCellData(topics: result.items)
+                self.populateHeaderData(articleSummary: result.articleSummary, items: result.items)
+                let oldViewModels: [TalkPageCellViewModel] = self.topics
+                self.topics.removeAll()
+                self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
                 completion(.success(()))
             case .failure(let error):
                 DDLogError("Failure fetching talk page: \(error)")
@@ -77,6 +83,7 @@ final class TalkPageViewModel {
         dataController.postTopic(topicTitle: topicTitle, topicBody: topicBody, completion: completion)
     }
     
+
     func updateSubscriptionToTopic(topic: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
         dataController.subscribeToTopic(topicName: topic, shouldSubscribe: shouldSubscribe) { [self] result in
             switch result {
@@ -88,6 +95,10 @@ final class TalkPageViewModel {
                 completion(.failure(error))
             }
         }
+    }
+
+    func postReply(commentId: String, comment: String, completion: @escaping(Result<Void, Error>) -> Void) {
+        dataController.postReply(commentId: commentId, comment: comment, completion: completion)
     }
     
     // MARK: - Private
@@ -114,7 +125,7 @@ final class TalkPageViewModel {
         projectSourceImage = nil
     }
     
-    private func populateCellData(topics: [TalkPageItem]) {
+    private func populateCellData(topics: [TalkPageItem], oldViewModels: [TalkPageCellViewModel]) {
         
         let cleanTopics = cleanTalkPageItems(items: topics)
         
@@ -126,7 +137,7 @@ final class TalkPageViewModel {
             }
             
             guard let firstReply = topic.replies.first,
-                  let leadCommentViewModel = TalkPageCellCommentViewModel(text: firstReply.html, author: firstReply.author, authorTalkPageURL: "", timestamp: firstReply.timestamp, replyDepth: firstReply.level) else {
+                  let leadCommentViewModel = TalkPageCellCommentViewModel(commentId: firstReply.id, text: firstReply.html, author: firstReply.author, authorTalkPageURL: "", timestamp: firstReply.timestamp, replyDepth: firstReply.level) else {
                 DDLogWarn("Unable to parse lead comment. Skipping topic.")
                 continue
             }
@@ -144,12 +155,24 @@ final class TalkPageViewModel {
                     replyDepth = level - 1
                 }
                 
-                return TalkPageCellCommentViewModel(text: $0.html, author: $0.author, authorTalkPageURL: "", timestamp: $0.timestamp, replyDepth: replyDepth) }
+                return TalkPageCellCommentViewModel(commentId: $0.id, text: $0.html, author: $0.author, authorTalkPageURL: "", timestamp: $0.timestamp, replyDepth: replyDepth)
+            }
             
             let activeUsersCount = activeUsersCount(topic: topic)
             
-            let topicViewModel = TalkPageCellViewModel(topicTitle: topicTitle, timestamp: firstReply.timestamp, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount)
+            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount)
+            
+            // Note this is a nested loop, so it will not perform well with many topics.
+            // Talk pages generally have a limited number of topics, so optimize later if we determine it's needed
+            assignExpandedFlag(to: topicViewModel, from: oldViewModels)
+            
             self.topics.append(topicViewModel)
+        }
+    }
+    
+    private func assignExpandedFlag(to newViewModel: TalkPageCellViewModel, from oldViewModels: [TalkPageCellViewModel]) {
+        if let oldTopicViewModel = oldViewModels.first(where: { $0.id == newViewModel.id }) {
+            newViewModel.isThreadExpanded = oldTopicViewModel.isThreadExpanded
         }
     }
     
