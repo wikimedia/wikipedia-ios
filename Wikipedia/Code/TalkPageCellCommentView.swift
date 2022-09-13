@@ -23,14 +23,17 @@ final class TalkPageCellCommentView: SetupView {
         return stackView
     }()
 
-    lazy var commentLabel: UILabel = {
-        let label = UILabel()
-        label.adjustsFontForContentSizeCategory = true
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.setContentCompressionResistancePriority(.required, for: .horizontal)
-        label.numberOfLines = 0
-        return label
+    lazy var commentTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.setContentCompressionResistancePriority(.required, for: .vertical)
+        textView.setContentHuggingPriority(.required, for: .vertical)
+        textView.isScrollEnabled = false
+        textView.isEditable = false
+        textView.textContainer.lineFragmentPadding = 0
+        textView.textContainerInset = .zero
+        textView.delegate = self
+        return textView
     }()
 
     lazy var replyButton: UIButton = {
@@ -57,6 +60,7 @@ final class TalkPageCellCommentView: SetupView {
     
     weak var viewModel: TalkPageCellCommentViewModel?
     weak var replyDelegate: TalkPageCellReplyDelegate?
+    weak var linkDelegate: TalkPageTextViewLinkHandling?
 
     // MARK: - Lifecycle
 
@@ -65,7 +69,7 @@ final class TalkPageCellCommentView: SetupView {
 
         horizontalStackView.addArrangedSubview(replyDepthView)
         horizontalStackView.addArrangedSubview(verticalStackView)
-        verticalStackView.addArrangedSubview(commentLabel)
+        verticalStackView.addArrangedSubview(commentTextView)
         verticalStackView.addArrangedSubview(replyButton)
 
         NSLayoutConstraint.activate([
@@ -80,7 +84,6 @@ final class TalkPageCellCommentView: SetupView {
 
     func configure(viewModel: TalkPageCellCommentViewModel) {
         self.viewModel = viewModel
-        commentLabel.text = viewModel.text
         replyDepthView.label.text = " \(viewModel.replyDepth) "
     }
     
@@ -102,9 +105,18 @@ extension TalkPageCellCommentView: Themeable {
     func apply(theme: Theme) {
         replyDepthView.apply(theme: theme)
         
-        commentLabel.textColor = theme.colors.primaryText
+        commentTextView.attributedText = viewModel?.text.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
+        commentTextView.backgroundColor = theme.colors.paperBackground
+        
         replyButton.tintColor = theme.colors.link
         replyButton.setTitleColor(theme.colors.link, for: .normal)
     }
 
+}
+
+extension TalkPageCellCommentView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        linkDelegate?.tappedLink(URL, sourceTextView: textView)
+        return false
+    }
 }
