@@ -410,7 +410,8 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                     }
                 }
             case .failure(let error):
-                print("failure: \(error)")
+                DDLogError("Failure publishing reply: \(error)")
+                self?.replyComposeController.isLoading = false
                 // TODO: Display failure banner
             }
         }

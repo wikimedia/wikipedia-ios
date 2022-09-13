@@ -17,6 +17,13 @@ class TalkPageReplyComposeContentView: SetupView {
         return button
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.color = theme.colors.primaryText
+        return activityIndicator
+    }()
+    
     private lazy var closeButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "close-inverse"), for: .normal)
@@ -114,18 +121,38 @@ class TalkPageReplyComposeContentView: SetupView {
         apply(theme: theme)
     }
     
+    // MARK: Public
+    
+    var isLoading: Bool = false {
+        didSet {
+            publishButton.isHidden = isLoading ? true : false
+            if isLoading {
+                activityIndicator.isHidden = false
+                activityIndicator.startAnimating()
+            } else {
+                activityIndicator.isHidden = true
+                activityIndicator.stopAnimating()
+            }
+        }
+    }
+    
     // MARK: Setup
     
     private func setupPublishButton() {
         addSubview(publishButton)
+        addSubview(activityIndicator)
         
         publishButton.setContentHuggingPriority(.required, for: .vertical)
         publishButton.setContentCompressionResistancePriority(.required, for: .vertical)
+
+        NSLayoutConstraint.activate([
+            layoutMarginsGuide.topAnchor.constraint(equalTo: publishButton.topAnchor),
+            layoutMarginsGuide.trailingAnchor.constraint(equalTo: publishButton.trailingAnchor),
+            activityIndicator.topAnchor.constraint(equalTo: publishButton.topAnchor),
+            activityIndicator.trailingAnchor.constraint(equalTo: publishButton.trailingAnchor)
+        ])
         
-        let topConstraint = layoutMarginsGuide.topAnchor.constraint(equalTo: publishButton.topAnchor)
-        let trailingConstraint = layoutMarginsGuide.trailingAnchor.constraint(equalTo: publishButton.trailingAnchor)
-        
-        NSLayoutConstraint.activate([trailingConstraint, topConstraint])
+        activityIndicator.isHidden = true
         
         publishButton.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .subheadline, weight: .bold, size: 15.0)
     }
@@ -222,6 +249,7 @@ class TalkPageReplyComposeContentView: SetupView {
     }
     
     @objc private func tappedPublish() {
+        isLoading = true
         delegate?.tappedPublish(text: replyTextView.text, commentViewModel: commentViewModel)
     }
     
