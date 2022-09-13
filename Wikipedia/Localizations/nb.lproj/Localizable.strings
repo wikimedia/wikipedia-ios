@@ -4,6 +4,7 @@
 // Author: Chameleon222
 // Author: Cleinman
 // Author: Danmichaelo
+// Author: EdoAug
 // Author: Gabriel Kielland
 // Author: Imre Eilertsen
 // Author: Jeblad
@@ -425,12 +426,14 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Fra $1 Wikipedia";
 "explore-random-article-sub-heading-from-wikipedia" = "Fra Wikipedia";
 "explore-randomizer" = "Tilfeldig artikkel";
+"export-user-data-generic-error" = "Det oppsto en feil ved eksporteringen av din data. Vennligst prøv igjen senere.";
+"export-user-data-title" = "Eksporter brukerdata";
 "featured-article-empty-title" = "Ingen utvalgt artikkel tilgjengelig i dag";
 "featured-widget-content-failure-for-date" = "Ingen utvalgt artikkel er tilgjengelig for denne datoen.";
 "featured-widget-description" = "Oppdag de beste artiklene på Wikipedia, som velges ut daglig av bidragsyterne.";
 "featured-widget-from-language-wikipedia" = "Fra Wikipedia på $1";
 "featured-widget-from-wikipedia" = "Fra Wikipedia";
-"featured-widget-language-failure" = "Ditt hoved Wikipedia-språk har ikke støtte for Utmerkede artikler. Du kan oppdatere ditt hoved Wikipedia-språk i applikasjons innstillingene.";
+"featured-widget-language-failure" = "Ditt hoved-Wikipedia-språk har ikke støtte for Utmerkede artikler. Du kan oppdatere ditt hoved-Wikipedia-språk i applikasjonens innstillinger.";
 "featured-widget-title" = "Utvalgt artikkel";
 "fetcher-error-generic" = "Noe gikk galt. Prøv igjen senere.";
 "fetcher-error-unexpected-response" = "Appen mottok en uventet respons fra serveren. Prøv igjen senere.";
@@ -630,6 +633,12 @@
 "notifications-center-onboarding-modal-learn-more-action" = "Lær mer om varsler";
 "notifications-center-onboarding-modal-notifications-alerts-message" = "Varsler holder deg informert om aktivitet som gjelder din konto og dine redigeringer.";
 "notifications-center-onboarding-modal-notifications-alerts-title" = "Varsler";
+"notifications-center-onboarding-modal-project-inboxes-message" = "Se alle dine uleste meldinger fra forskjellige språkversjon av Wikipedia- og Wikimedia-prosjekter på ett sted.";
+"notifications-center-onboarding-modal-project-inboxes-title" = "Prosjektinnbokser";
+"notifications-center-onboarding-modal-push-notifications-title" = "Pushvarsler";
+"notifications-center-onboarding-modal-title" = "Redigeringsvarsler";
+"notifications-center-onboarding-panel-heading" = "Slå på pushvarsler?";
+"notifications-center-onboarding-panel-primary-button" = "Slå på pushvarsler";
 "notifications-center-onboarding-panel-secondary-button" = "Nei takk";
 "notifications-center-project-filters-accessibility-label" = "Prosjektfilter";
 "notifications-center-status-all" = "Alle";
@@ -679,6 +688,7 @@
 "notifications-center-type-title-login-success" = "Vellykket innlogging";
 "notifications-center-type-title-other" = "Annet";
 "notifications-center-type-title-page-link" = "Sidelenke";
+"notifications-center-type-title-talk-page-mention" = "Omtalt på diskusjonsside";
 "notifications-center-type-title-thanks" = "Takk";
 "notifications-center-type-title-translation-milestone" = "Oversettelsesmilepæl";
 "notifications-center-type-title-user-rights-change" = "Endring av brukerrettigheter";
@@ -694,6 +704,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk hendelse|$1 historiske hendelser}}";
 "on-this-day-footer" = "Flere historiske hendelser på denne dagen";
 "on-this-day-footer-showing-event-count" = "$1 {{PLURAL:$1|historisk hendelse|historiske hendelser}} til på denne dag";
+"on-this-day-language-does-not-support-error" = "Ditt hoved-Wikipedia-språk har ikke støtte for På denne dag. Du kan oppdatere ditt hoved-Wikipedia-språk i applikasjonens innstillinger.";
 "on-this-day-no-internet-error" = "Ingen tilgjengelige data";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra Wikipedia på $2";
 "on-this-day-title" = "På denne dag";
@@ -967,6 +978,9 @@
 "tajik-variants-alert-body" = "Wikipedia-appen støtter nå følgende tadsjikiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nтоҷикӣ кирилликӣ kyrillisk tadsjikisk (tg-cyrl)\ntojikī lotinī latinsk tadsjikisk (tg-latn)";
 "tajik-variants-alert-title" = "Oppdateringer i støtte for tadsjikiske varianter";
 "talk-page-add-discussion-accessibility-label" = "Legg til diskusjon";
+"talk-page-archives" = "Arkiv";
+"talk-page-article-about" = "Om diskusjonssider";
+"talk-page-change-language" = "Endre språk";
 "talk-page-discussion-accessibility-hint" = "Dobbeltrykk for å åpne diskusjonstråd";
 "talk-page-discussion-read-accessibility-label" = "Lest";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "leːst";
@@ -974,6 +988,7 @@
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ʉːˈlɛst";
 "talk-page-error-unable-to-post-reply" = "Ingen internettforbindelse. Kunne ikke poste svar.";
 "talk-page-error-unable-to-post-topic" = "Ingen internettforbindelse. Kunne ikke poste diskusjon.";
+"talk-page-find-in-page-button" = "Finn på siden";
 "talk-page-info-active-conversations" = "Aktive samtaler på Wikipedia på $1";
 "talk-page-info-active-conversations-generic" = "Aktive samtaler på Wikipedia";
 "talk-page-link-user-action-sheet-app" = "Vis brukerdiskusjonsside i appen";
@@ -992,12 +1007,16 @@
 "talk-page-new-topic-success-text" = "Diskusjonen din ble publisert";
 "talk-page-new-topic-title" = "Ny diskusjon";
 "talk-page-publish-terms-and-licenses" = "Ved å lagre endringene samtykker du i $1bruksvilkårene$2 og i å slippe ditt bidrag under lisensene $3CC BY-SA 3.0$4 og $5GFDL$6.";
+"talk-page-related-links" = "Lenker hit";
+"talk-page-reply-button" = "Svar";
 "talk-page-reply-title" = "Svar";
+"talk-page-subscribe-to-topic" = "Abonner";
 // Fuzzy
 "talk-page-title-article-talk" = "Artikkeldiskusjon";
 "talk-page-title-user-talk" = "Brukerdiskusjon";
 "talk-page-topic-title" = "Diskusjon";
 "talk-pages-reply-button-title" = "Svar på denne diskusjonen";
+"talk-pages-user-logs" = "Logger";
 "talk-pages-view-title" = "Diskusjon";
 "theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Mørk";
@@ -1020,7 +1039,10 @@
 "unknown-generic-text" = "Ukjent";
 "uzbek-variants-alert-body" = "Wikipedia-appen støtter nå følgende usbekiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\noʻzbekcha lotin latinsk usbekisk (uz-latin)\nўзбекча кирилл kyrillisk usbekisk (uz-cyrl)";
 "uzbek-variants-alert-title" = "Oppdateringer i støtte for usbekiske varianter";
+"vanish-account-additional-information-placeholder" = "Valgfritt";
+"vanish-account-button-text" = "Send forespørsel";
 "vanish-account-learn-more-text" = "Les mer";
+"vanish-account-username-field" = "Brukernavn og brukerside";
 "variants-alert-dismiss-button" = "Nei takk";
 "variants-alert-preferences-button" = "Gå gjennom innstillingene dine";
 "welcome-exploration-explore-feed-description" = "Anbefalt lesning og daglige artikler utvalgt av fellesskapet";
