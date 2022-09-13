@@ -16,8 +16,29 @@ final class TalkPageCellRootContainerView: SetupView, Themeable {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
+        stackView.alignment = .leading
         stackView.distribution = .fill
         return stackView
+    }()
+
+    lazy var leadReplySpacer = VerticalSpacerView.spacerWith(space: 16)
+
+    lazy var leadReplyButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 8
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+        button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 15)
+        button.setTitle(CommonStrings.talkPageReply, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.setImage(UIImage(systemName: "arrowshape.turn.up.left"), for: .normal)
+
+        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+
+        button.setContentHuggingPriority(.required, for: .horizontal)        
+        button.setContentCompressionResistancePriority(.required, for: .horizontal)
+        return button
     }()
 
     lazy var topicView: TalkPageCellTopicView = TalkPageCellTopicView()
@@ -36,6 +57,8 @@ final class TalkPageCellRootContainerView: SetupView, Themeable {
 
         stackView.addArrangedSubview(disclosureRow)
         stackView.addArrangedSubview(topicView)
+        stackView.addArrangedSubview(leadReplySpacer)
+        stackView.addArrangedSubview(leadReplyButton)
     }
 
     func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling, replyDelegate: TalkPageCellReplyDelegate) {
@@ -43,6 +66,9 @@ final class TalkPageCellRootContainerView: SetupView, Themeable {
         disclosureRow.configure(viewModel: viewModel)
         topicView.configure(viewModel: viewModel)
         topicView.linkDelegate = linkDelegate
+        
+        leadReplySpacer.isHidden = !viewModel.isThreadExpanded
+        leadReplyButton.isHidden = !viewModel.isThreadExpanded
 
         let comments: [UIView] = stackView.arrangedSubviews.filter { view in view is TalkPageCellCommentView || view is TalkPageCellCommentSeparator }
         stackView.arrangedSubviews.forEach { view in
@@ -53,6 +79,9 @@ final class TalkPageCellRootContainerView: SetupView, Themeable {
 
         for commentViewModel in viewModel.replies {
             let separator = TalkPageCellCommentSeparator()
+            separator.setContentHuggingPriority(.defaultLow, for: .horizontal)
+            separator.setContentCompressionResistancePriority(.required, for: .horizontal)
+            
             let commentView = TalkPageCellCommentView()
             commentView.configure(viewModel: commentViewModel)
             commentView.replyDelegate = replyDelegate
@@ -70,6 +99,10 @@ final class TalkPageCellRootContainerView: SetupView, Themeable {
         backgroundColor = theme.colors.paperBackground
         layer.borderColor = theme.colors.border.cgColor
         stackView.arrangedSubviews.forEach { ($0 as? Themeable)?.apply(theme: theme) }
+        
+        leadReplyButton.setTitleColor(theme.colors.paperBackground, for: .normal)
+        leadReplyButton.backgroundColor = theme.colors.link
+        leadReplyButton.tintColor = theme.colors.paperBackground
     }
 }
 
@@ -136,10 +169,10 @@ final class TalkPageCell: UICollectionViewCell {
         self.replyDelegate = replyDelegate
         
         rootContainer.configure(viewModel: viewModel, linkDelegate: linkDelegate, replyDelegate: replyDelegate)
-
+        
         rootContainer.disclosureRow.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
         rootContainer.disclosureRow.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
-        rootContainer.topicView.replyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
+        rootContainer.leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
     }
 
     // MARK: - Actions
