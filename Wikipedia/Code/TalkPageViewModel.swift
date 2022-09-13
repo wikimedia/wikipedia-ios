@@ -19,7 +19,7 @@ final class TalkPageViewModel {
     private(set) var projectSourceImage: UIImage?
     private(set) var projectLanguage: String?
     
-    static let leadImageSideLength = 98
+    static let leadImageSideLength = 80
     
     var theme: Theme = .light
     private(set) var topics: [TalkPageCellViewModel] = []
