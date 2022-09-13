@@ -54,15 +54,17 @@ class TalkPageDataController {
     }
     
     func postReply(commentId: String, comment: String, completion: @escaping(Result<Void, Error>) -> Void) {
-        talkPageFetcher.postReply(talkPageTitle: pageTitle, siteURL: siteURL, commentId: commentId, comment: comment, completion: completion)
+        
+        talkPageFetcher.postReply(talkPageTitle: pageTitle, siteURL: siteURL, commentId: commentId, comment: comment.signed) { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
     }
     
     func postTopic(topicTitle: String, topicBody: String, completion: @escaping(Result<Void, Error>) -> Void) {
         
-        // TODO: should we check topicBody here to see if ~~~~ already exists?
-        let signedBody = UserDefaults.standard.autoSignTalkPageDiscussions ? topicBody + " ~~~~" : ""
-        
-        talkPageFetcher.postTopic(talkPageTitle: pageTitle, siteURL: siteURL, topicTitle: topicTitle, topicBody: signedBody) { result in
+        talkPageFetcher.postTopic(talkPageTitle: pageTitle, siteURL: siteURL, topicTitle: topicTitle, topicBody: topicBody.signed) { result in
             DispatchQueue.main.async {
                 completion(result)
             }
@@ -142,6 +144,11 @@ class TalkPageDataController {
                 completion(nil, [])
             }
         }
-        
+    }
+}
+
+private extension String {
+    var signed: String {
+        return UserDefaults.standard.autoSignTalkPageDiscussions ? self + " ~~~~" : self
     }
 }

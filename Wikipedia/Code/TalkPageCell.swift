@@ -88,10 +88,13 @@ final class TalkPageCell: UICollectionViewCell {
     func setup() {
         contentView.addSubview(rootContainer)
         rootContainer.addSubview(stackView)
+        
+        let rootContainerBottomConstraint = rootContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+        rootContainerBottomConstraint.priority = .defaultHigh
 
         NSLayoutConstraint.activate([
             rootContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            rootContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            rootContainerBottomConstraint,
             rootContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             rootContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
