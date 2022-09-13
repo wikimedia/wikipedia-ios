@@ -424,6 +424,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
 
             switch result {
             case .success:
+                
                 composeViewController.dismiss(animated: true) {
                     // TODO: Display success banner
                 }
@@ -440,7 +441,8 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                     }
                 }
             case .failure(let error):
-                print("failure: \(error)")
+                DDLogError("Failure publishing topic: \(error)")
+                composeViewController.setupNavigationBar(isPublishing: false)
                 // TODO: Display failure banner on topic compose VC
             }
         }

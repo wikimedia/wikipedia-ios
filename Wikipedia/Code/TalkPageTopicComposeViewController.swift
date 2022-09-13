@@ -102,6 +102,16 @@ class TalkPageTopicComposeViewController: ViewController {
         return textView
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.color = theme.colors.primaryText
+        return activityIndicator
+    }()
+    
+    private lazy var spinnerToolbarItem: UIBarButtonItem = {
+        return UIBarButtonItem(customView: activityIndicator)
+    }()
+    
     private var scrollViewBottomConstraint: NSLayoutConstraint?
     var delegate: TalkPageTopicComposeViewControllerDelegate?
     
@@ -112,18 +122,13 @@ class TalkPageTopicComposeViewController: ViewController {
         
         view.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
         
-        setupNavigationBar()
+        setupNavigationBar(isPublishing: false)
         setupSafeAreaBackgroundView()
         setupContainerScrollView()
         setupContainerStackView()
         updateFonts()
         apply(theme: theme)
         self.title = Self.TopicComposeStrings.navigationBarTitle
-    }
-    
-    private func setupNavigationBar() {
-        navigationItem.rightBarButtonItem = publishButton
-        navigationItem.leftBarButtonItem = closeButton
     }
     
     private func setupSafeAreaBackgroundView() {
@@ -207,6 +212,19 @@ class TalkPageTopicComposeViewController: ViewController {
     }
     
     // MARK: Public
+    
+    func setupNavigationBar(isPublishing: Bool) {
+            
+        let rightItem = isPublishing ? spinnerToolbarItem : publishButton
+        if isPublishing {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
+        
+        navigationItem.rightBarButtonItem = rightItem
+        navigationItem.leftBarButtonItem = closeButton
+    }
     
     var shouldBlockDismissal: Bool {
         if let title = titleTextField.text,
@@ -338,7 +356,7 @@ class TalkPageTopicComposeViewController: ViewController {
             return
         }
         
-        // TODO: Spinner somewhere while making call
+        setupNavigationBar(isPublishing: true)
         delegate?.tappedPublish(topicTitle: title, topicBody: body, composeViewController: self)
     }
     
