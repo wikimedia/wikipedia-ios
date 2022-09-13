@@ -75,7 +75,7 @@ final class TalkPageViewModel {
             }
         }
     }
-    
+    // rename for clarity
     func updateSubscriptionToTopic(topic: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
         dataController.subscribeToTopic(topicName: topic, shouldSubscribe: shouldSubscribe) { [self] result in
             switch result {
@@ -87,6 +87,36 @@ final class TalkPageViewModel {
                 completion(.failure(error))
             }
         }
+    }
+    
+    func getAllCurrentSubscriptionsForTalkPage(topics: [TalkPageCellViewModel]) {
+        var topicIDs = [String]()
+        for topic in topics {
+            topicIDs.append(topic.topicTitle)
+        }
+        
+        dataController.fetchSubscriptions(for: topicIDs) { result in
+            switch result {
+            case let .success(topics):
+                self.updateSubscriptionForTopic(topicIDs: topics)
+            case let .failure(error):
+               DDLogError("Failure getting subscribed topoics \(error)")
+            }
+        }
+    }
+    
+    func updateSubscriptionForTopic(topicIDs: [String]) {
+        var subscribedTopics = [TalkPageCellViewModel]()
+        for topic in topics {
+            for id in topicIDs {
+                if topic.topicTitle == id {
+                    subscribedTopics.append(topic)
+                    topic.isSubscribed = true
+                }
+            }
+        }
+        
+        print("SUBSCRIBED \(subscribedTopics)")
     }
     
     // MARK: - Private
@@ -138,6 +168,7 @@ final class TalkPageViewModel {
             
             let topicViewModel = TalkPageCellViewModel(topicTitle: topicTitle, timestamp: firstReply.timestamp, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount)
             self.topics.append(topicViewModel)
+            self.getAllCurrentSubscriptionsForTalkPage(topics: self.topics)
         }
     }
     

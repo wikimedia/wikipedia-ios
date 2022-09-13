@@ -130,7 +130,6 @@ class TalkPageViewController: ViewController {
         navigationMode = .forceBar
 
         viewModel.fetchTalkPage()
-        
         setupToolbar()
     }
 
