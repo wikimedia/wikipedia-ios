@@ -64,6 +64,10 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
     }
 
     private var requiredTotalStickWidth: CGFloat {
+        guard depth > 0 else {
+            return 0
+        }
+        
         return stickWidth * CGFloat(depth) + stickHorizontalSpacing * CGFloat(depth)
     }
 
@@ -90,11 +94,19 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
 
         stickContainer.subviews.forEach { $0.removeFromSuperview() }
         depthLabel.removeFromSuperview()
+        
+        guard depth > 0 else {
+            return
+        }
 
         let drawableSticks = Int(availableWidth / (stickWidth + stickHorizontalSpacing))
         var drawnCount = 0
+        
+        guard drawableSticks >= 1 else {
+            return
+        }
 
-        for lineDepth in 0...drawableSticks {
+        for lineDepth in 1...drawableSticks {
             let height = availableHeight - stickHeightDelta * CGFloat(lineDepth)
             guard height > 0 else {
                 break

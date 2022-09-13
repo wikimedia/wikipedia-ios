@@ -75,14 +75,14 @@ final class TalkPageCellCommentView: SetupView {
         verticalStackView.addArrangedSubview(commentTextView)
         verticalStackView.addArrangedSubview(replyButton)
 
-        let replyDepthWidthConstraint = replyDepthView.widthAnchor.constraint(lessThanOrEqualTo: horizontalStackView.widthAnchor, constant: 1/2)
+        let replyDepthWidthConstraint = replyDepthView.widthAnchor.constraint(lessThanOrEqualTo: horizontalStackView.widthAnchor, multiplier: 1/2)
         replyDepthWidthConstraint.priority = .required
 
         let replyDepthHeightConstraint = replyDepthView.heightAnchor.constraint(equalTo: horizontalStackView.heightAnchor)
         replyDepthHeightConstraint.priority = .required
 
-        let commentLabelWidthConstraint = commentTextView.widthAnchor.constraint(greaterThanOrEqualTo: horizontalStackView.widthAnchor, multiplier: 1/2)
-        commentLabelWidthConstraint.priority = .required
+        let commentTextWidthConstraint = commentTextView.widthAnchor.constraint(greaterThanOrEqualTo: horizontalStackView.widthAnchor, multiplier: 1/2)
+        commentTextWidthConstraint.priority = .required
 
         NSLayoutConstraint.activate([
             horizontalStackView.topAnchor.constraint(equalTo: topAnchor),
@@ -92,7 +92,7 @@ final class TalkPageCellCommentView: SetupView {
 
             replyDepthWidthConstraint,
             replyDepthHeightConstraint,
-            commentLabelWidthConstraint
+            commentTextWidthConstraint
         ])
     }
 

@@ -144,7 +144,18 @@ final class TalkPageViewModel {
             
             let remainingReplies = Array(topic.replies.suffix(from: 1))
             
-            let remainingCommentViewModels = remainingReplies.compactMap { TalkPageCellCommentViewModel(commentId: $0.id, text: $0.html, author: $0.author, authorTalkPageURL: "", timestamp: $0.timestamp, replyDepth: $0.level) }
+            let remainingCommentViewModels: [TalkPageCellCommentViewModel] = remainingReplies.compactMap {
+                
+                // API considers headers as level 0, so comments comes back as level 1 = no indention, level 2 = 1 indention, etc.
+                // Offsetting this by one for replyDepth so that 0 = no indention, 1 = 1 indention, etc.
+                
+                var replyDepth: Int?
+                if let level = $0.level,
+                level > 0 {
+                    replyDepth = level - 1
+                }
+                
+                return TalkPageCellCommentViewModel(commentId: $0.id, text: $0.html, author: $0.author, authorTalkPageURL: "", timestamp: $0.timestamp, replyDepth: replyDepth) }
             
             let activeUsersCount = activeUsersCount(topic: topic)
             
