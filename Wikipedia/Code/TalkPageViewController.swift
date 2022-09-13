@@ -377,7 +377,6 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
 
             switch result {
             case .success:
-                // TODO: Display success banner
                 self?.replyComposeController.reset()
                 
                 // Try to refresh page
