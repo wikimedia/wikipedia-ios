@@ -19,6 +19,10 @@ final class TalkPageCellCommentSeparator: SetupView {
         return view
     }()
 
+    override var intrinsicContentSize: CGSize {
+        return UIView.layoutFittingExpandedSize
+    }
+
     // MARK: - Lifecycle
 
     override func setup() {

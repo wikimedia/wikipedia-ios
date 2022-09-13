@@ -21,6 +21,7 @@
 // Author: דגש
 // Author: דגש חזק
 // Author: ישראל קלר
+// Author: מקף
 // Author: נדב ס
 // Author: שמזן
 
@@ -994,6 +995,10 @@
 "tajik-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nтоҷикӣ кирилликӣ טג'יקית, קירילית (tg-cyrl)\ntojikī lotinī טג'יקית, לטינית (tg-latn)";
 "tajik-variants-alert-title" = "עדכונים לתמיכה בהגוונים של טג'יקית";
 "talk-page-add-discussion-accessibility-label" = "הוספת דיון";
+"talk-page-add-topic-button" = "הוספת נושא";
+"talk-page-archives" = "ארכיונים";
+"talk-page-article-about" = "אודות דפי שיחה";
+"talk-page-change-language" = "שינוי שפה";
 "talk-page-discussion-accessibility-hint" = "יש לגעת נגיעה כפולה כדי לפתוח שרשור דיון";
 "talk-page-discussion-read-accessibility-label" = "נקרא";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "nikʁʔ";
@@ -1001,11 +1006,13 @@
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "lo nikʁʔ";
 "talk-page-error-unable-to-post-reply" = "אין חיבור לאינטרנט. לא ניתן לפרסם תגובה.";
 "talk-page-error-unable-to-post-topic" = "אין חיבור לאינטרנט. לא ניתן לפרסם דיון.";
+"talk-page-find-in-page-button" = "למצוא בדף";
 "talk-page-info-active-conversations" = "שיחות פעילות בוויקיפדיה ה$1";
 "talk-page-info-active-conversations-generic" = "שיחות פעילות בוויקיפדיה";
 "talk-page-link-user-action-sheet-app" = "צפיה בדף שיחת משתמש מהאפליקציה";
 "talk-page-link-user-action-sheet-safari" = "צפיה בדף משתמש בדפדפן ספארי";
 "talk-page-link-user-action-sheet-title" = "דפי משתמש";
+"talk-page-menu-open-all" = "פתיחת כל השרשורים";
 "talk-page-new-banner-subtitle" = "זכרו, כולנו כאן בני אדם";
 "talk-page-new-banner-title" = "היו מנומסים";
 "talk-page-new-body-textfield-accessibility-label" = "גוף הדיון";
@@ -1018,16 +1025,27 @@
 "talk-page-new-topic-body-placeholder-text" = "דיון חדש";
 "talk-page-new-topic-success-text" = "הדיון שלך פורסם בהצלחה";
 "talk-page-new-topic-title" = "דיון חדש";
+"talk-page-page-info" = "מידע על הדף";
+"talk-page-permanent-link" = "קישור קבוע";
 "talk-page-publish-terms-and-licenses" = "שמירת השינויים מהווה את הסכמתך ל$1תנאי השימוש$2 ואת הסכמתך הבלתי־חוזרת לשחרר את תרומתך בכפוף לרישיון $3CC BY-SA 3.0$4 ולרישיון $5GFDL$6.";
+"talk-page-read-in-web" = "לקריאה בדפדפן";
+"talk-page-related-links" = "מה מקשר לכאן";
 "talk-page-reply-button" = "תגובה";
+"talk-page-reply-terms-and-licenses" = "נא לשים לב לכך שהתשובה שלך תיחתם אוטומטית עם שם המשתמש שלך. שמירת השינויים מהווה את הסכמתך ל$1תנאי השימוש$2, ואת הסכמתך לשחרר את התרומה של לפי רישיונות $3CC BY-SA 3.0$4 ו־$5GFDL$6.";
 "talk-page-reply-title" = "תגובה";
+"talk-page-revision-history" = "היסטוריית גרסאות";
+"talk-page-share-button" = "שיתוף דף שיחה";
 "talk-page-subscribe-to-topic" = "מינוי";
 "talk-page-title-article-talk" = "שיחת ערך";
 "talk-page-title-user-talk" = "שיחת משתמש";
 "talk-page-topic-title" = "דיון";
 "talk-page-unsubscribe-to-topic" = "ביטול מינוי";
+"talk-page-user-about" = "אודות דפי שיחת משתמש";
+"talk-page-user-contributions" = "תרומות";
 "talk-pages-coffee-roll-read-more" = "לקרוא עוד";
 "talk-pages-reply-button-title" = "השב לדיון זה";
+"talk-pages-user-groups" = "קבוצות משתמשים";
+"talk-pages-user-logs" = "יומנים";
 "talk-pages-view-title" = "שיחה";
 "theme-black-display-name" = "שחורה";
 "theme-dark-display-name" = "חשוכה";
