@@ -37,8 +37,29 @@ final class TalkPageCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
+        stackView.alignment = .leading
         stackView.distribution = .fill
         return stackView
+    }()
+
+    lazy var leadReplySpacer = VerticalSpacerView.spacerWith(space: 16)
+
+    lazy var leadReplyButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 8
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+        button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 15)
+        button.setTitle(CommonStrings.talkPageReply, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.setImage(UIImage(systemName: "arrowshape.turn.up.left"), for: .normal)
+
+        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+
+        button.setContentHuggingPriority(.required, for: .horizontal)        
+        button.setContentCompressionResistancePriority(.required, for: .horizontal)
+        return button
     }()
 
     lazy var topicView: TalkPageCellTopicView = TalkPageCellTopicView()
@@ -82,6 +103,8 @@ final class TalkPageCell: UICollectionViewCell {
 
         stackView.addArrangedSubview(disclosureRow)
         stackView.addArrangedSubview(topicView)
+        stackView.addArrangedSubview(leadReplySpacer)
+        stackView.addArrangedSubview(leadReplyButton)
     }
 
     // MARK: - Configure
@@ -93,6 +116,9 @@ final class TalkPageCell: UICollectionViewCell {
         topicView.configure(viewModel: viewModel)
         topicView.linkDelegate = linkDelegate
 
+        leadReplySpacer.isHidden = !viewModel.isThreadExpanded
+        leadReplyButton.isHidden = !viewModel.isThreadExpanded
+
         let comments: [UIView] = stackView.arrangedSubviews.filter { view in view is TalkPageCellCommentView || view is TalkPageCellCommentSeparator }
         stackView.arrangedSubviews.forEach { view in
             if comments.contains(view) {
@@ -102,6 +128,9 @@ final class TalkPageCell: UICollectionViewCell {
 
         for commentViewModel in viewModel.replies {
             let separator = TalkPageCellCommentSeparator()
+            separator.setContentHuggingPriority(.defaultLow, for: .horizontal)
+            separator.setContentCompressionResistancePriority(.required, for: .horizontal)
+
             let commentView = TalkPageCellCommentView()
             commentView.replyDelegate = replyDelegate
             commentView.configure(viewModel: commentViewModel)
@@ -116,7 +145,7 @@ final class TalkPageCell: UICollectionViewCell {
 
         disclosureRow.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
         disclosureRow.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
-        topicView.replyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
+        leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
     }
 
     // MARK: - Actions
@@ -148,6 +177,10 @@ extension TalkPageCell: Themeable {
         rootContainer.layer.borderColor = theme.colors.border.cgColor
 
         stackView.arrangedSubviews.forEach { ($0 as? Themeable)?.apply(theme: theme) }
+
+        leadReplyButton.setTitleColor(theme.colors.paperBackground, for: .normal)
+        leadReplyButton.backgroundColor = theme.colors.link
+        leadReplyButton.tintColor = theme.colors.paperBackground
     }
 
 }

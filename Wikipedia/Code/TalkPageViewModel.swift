@@ -2,10 +2,6 @@ import Foundation
 import WMF
 import CocoaLumberjackSwift
 
-protocol TalkPageViewModelDelegate: AnyObject {
-    func talkPageDataDidUpdate()
-}
-
 final class TalkPageViewModel {
 
     // MARK: - Properties
@@ -14,7 +10,6 @@ final class TalkPageViewModel {
     let pageTitle: String
     let siteURL: URL
     private let dataController: TalkPageDataController
-    weak var delegate: TalkPageViewModelDelegate?
 
     // TODO: - Populate from data controller
     private(set) var headerTitle: String
@@ -62,18 +57,24 @@ final class TalkPageViewModel {
 
     // MARK: - Public
 
-    func fetchTalkPage() {
+    func fetchTalkPage(completion: @escaping (Result<Void, Error>) -> Void) {
         dataController.fetchTalkPage { [weak self] result in
             switch result {
             case .success(let result):
                 self?.populateHeaderData(articleSummary: result.articleSummary, items: result.items)
+                self?.topics.removeAll()
                 self?.populateCellData(topics: result.items)
-                self?.delegate?.talkPageDataDidUpdate()
+                completion(.success(()))
             case .failure(let error):
                 DDLogError("Failure fetching talk page: \(error)")
+                completion(.failure(error))
                 // TODO: Error handling
             }
         }
+    }
+    
+    func postTopic(topicTitle: String, topicBody: String, completion: @escaping(Result<Void, Error>) -> Void) {
+        dataController.postTopic(topicTitle: topicTitle, topicBody: topicBody, completion: completion)
     }
     
     func updateSubscriptionToTopic(topic: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
