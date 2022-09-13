@@ -59,6 +59,7 @@ final class TalkPageCell: UICollectionViewCell {
 
         button.setContentHuggingPriority(.required, for: .horizontal)        
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
+        button.setContentCompressionResistancePriority(.required, for: .vertical)
         return button
     }()
 
