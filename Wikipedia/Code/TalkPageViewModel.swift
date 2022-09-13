@@ -112,7 +112,7 @@ final class TalkPageViewModel {
         headerTitle = pageTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode).title
         
         headerDescription = articleSummary?.wikidataDescription
-        leadImageURL = articleSummary?.imageURL(forWidth: Self.leadImageSideLength)
+        leadImageURL = articleSummary?.imageURL(forWidth: Self.leadImageSideLength * Int(UIScreen.main.scale))
         
         if let otherContent = items.first?.otherContent,
            !otherContent.isEmpty {
