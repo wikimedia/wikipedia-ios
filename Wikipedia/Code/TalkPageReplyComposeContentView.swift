@@ -154,7 +154,7 @@ class TalkPageReplyComposeContentView: SetupView {
         
         activityIndicator.isHidden = true
         
-        publishButton.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .subheadline, weight: .bold, size: 15.0)
+        publishButton.titleLabel?.font = UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
     }
     
     private func setupCloseButton() {
@@ -203,7 +203,7 @@ class TalkPageReplyComposeContentView: SetupView {
         
         readableContentGuide.widthAnchor.constraint(equalTo: replyTextView.widthAnchor).isActive = true
 
-        replyTextView.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        replyTextView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
     }
     
     private func setupFinePrintTextView() {
@@ -229,7 +229,7 @@ class TalkPageReplyComposeContentView: SetupView {
         
         NSLayoutConstraint.activate([topConstraint, trailingConstraint, leadingConstraint])
         
-        placeholderLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        placeholderLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
     }
     
     private func setupInfoButton() {
