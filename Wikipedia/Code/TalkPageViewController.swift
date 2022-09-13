@@ -135,11 +135,16 @@ class TalkPageViewController: ViewController {
 
         fakeProgressController.start()
         viewModel.fetchTalkPage { [weak self] result in
-            fakeProgressController.stop()
+            
+            guard let self = self else {
+                return
+            }
+            
+            self.fakeProgressController.stop()
             switch result {
             case .success:
-                self?.setupHeaderView()
-                self?.talkPageView.collectionView.reloadData()
+                self.setupHeaderView()
+                self.talkPageView.collectionView.reloadData()
             case .failure:
                 break
             }
