@@ -44,7 +44,22 @@ final class TalkPageView: SetupView {
 extension TalkPageView: Themeable {
 
     func apply(theme: Theme) {
-        collectionView.backgroundColor = theme.colors.baseBackground
+        // TODO: Replace these once new theme colors are added/refreshed in the app
+        let baseBackground: UIColor!
+        switch theme {
+        case .light:
+            baseBackground = UIColor.wmf_colorWithHex(0xF8F9FA)
+        case .sepia:
+            baseBackground = UIColor.wmf_colorWithHex(0xF0E6D6)
+        case .dark:
+            baseBackground = UIColor.wmf_colorWithHex(0x202122)
+        case .black:
+            baseBackground = UIColor.wmf_colorWithHex(0x202122)
+        default:
+            baseBackground = UIColor.wmf_colorWithHex(0xF8F9FA)
+        }
+
+        collectionView.backgroundColor = baseBackground
     }
 
 }
