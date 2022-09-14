@@ -193,7 +193,7 @@ class TalkPageViewController: ViewController {
         replyComposeController.apply(theme: theme)
     }
     
-    // MARK: Reply Compose Management
+    // MARK: - Reply Compose Management
     
     let replyComposeController = TalkPageReplyComposeController()
     
@@ -228,7 +228,7 @@ class TalkPageViewController: ViewController {
         replyComposeController.calculateLayout(in: self, newViewSize: size)
     }
     
-    // MARK: Toolbar actions
+    // MARK: - Toolbar actions
     
     var talkPageURL: URL? {
         var talkPageURLComponents = URLComponents(url: viewModel.siteURL, resolvingAgainstBaseURL: false)
@@ -273,12 +273,8 @@ class TalkPageViewController: ViewController {
         revisionButton.accessibilityLabel = CommonStrings.revisionHistory
         addTopicButton.accessibilityLabel = TalkPageLocalizedStrings.addTopicButtonAccesibilityLabel
     }
-    private func scrollToLastTopic() {
-        if viewModel.topics.count > 0 {
-            let indexPath = IndexPath.init(item: viewModel.topics.count - 1, section: 0)
-            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-        }
-    }
+    
+    // MARK: - Alerts
     
     fileprivate func handleSubscriptionAlert(isSubscribedToTopic: Bool) {
         let title = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertTitle : TalkPageLocalizedStrings.unsubscribedAlertTitle
@@ -303,7 +299,14 @@ class TalkPageViewController: ViewController {
         }
     }
     
-    // MARK: Scrolling Helpers
+    // MARK: - Scrolling Helpers
+    
+    private func scrollToLastTopic() {
+        if viewModel.topics.count > 0 {
+            let indexPath = IndexPath.init(item: viewModel.topics.count - 1, section: 0)
+            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        }
+    }
     
     private func scrollToNewComment(oldCellViewModel: TalkPageCellViewModel?, oldCommentViewModels: [TalkPageCellCommentViewModel]?) {
         
