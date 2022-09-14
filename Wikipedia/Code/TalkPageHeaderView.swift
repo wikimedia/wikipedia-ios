@@ -36,7 +36,10 @@ final class TalkPageHeaderView: SetupView {
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
+        imageView.masksToBounds = true
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 4
         return imageView
     }()
 
