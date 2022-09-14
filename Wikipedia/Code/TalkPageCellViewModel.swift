@@ -20,6 +20,10 @@ final class TalkPageCellViewModel {
         return "\(replies.count + 1)"
     }
     
+    var allCommentViewModels: [TalkPageCellCommentViewModel] {
+        return replies + [leadComment]
+    }
+    
     init(id: String, topicTitle: String, timestamp: Date?, leadComment: TalkPageCellCommentViewModel, replies: [TalkPageCellCommentViewModel], activeUsersCount: String) {
         self.id = id
         self.topicTitle = topicTitle
@@ -27,5 +31,15 @@ final class TalkPageCellViewModel {
         self.leadComment = leadComment
         self.replies = replies
         self.activeUsersCount = activeUsersCount
+    }
+}
+
+extension TalkPageCellViewModel: Hashable {
+    static func == (lhs: TalkPageCellViewModel, rhs: TalkPageCellViewModel) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }

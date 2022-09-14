@@ -62,6 +62,18 @@ final class TalkPageCellRootContainerView: SetupView, Themeable {
         stackView.addArrangedSubview(leadReplySpacer)
         stackView.addArrangedSubview(leadReplyButton)
     }
+    
+    func displayingCommentViewForViewModel(_ commentViewModel: TalkPageCellCommentViewModel) -> TalkPageCellCommentView? {
+        
+        return stackView.arrangedSubviews.first { view in
+            if let commentView = view as? TalkPageCellCommentView,
+               commentView.viewModel == commentViewModel {
+                return true
+            }
+               
+            return false
+        } as? TalkPageCellCommentView
+    }
 
     func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling, replyDelegate: TalkPageCellReplyDelegate) {
         
@@ -162,6 +174,12 @@ final class TalkPageCell: UICollectionViewCell {
             rootContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Self.padding.leading),
             rootContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Self.padding.trailing)
         ])
+    }
+    
+    // MARK: - Public
+    
+    func displayingCommentViewForViewModel(_ commentViewModel: TalkPageCellCommentViewModel) -> TalkPageCellCommentView? {
+        return rootContainer.displayingCommentViewForViewModel(commentViewModel)
     }
 
     // MARK: - Configure

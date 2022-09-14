@@ -255,13 +255,8 @@ class TalkPageViewController: ViewController {
         revisionButton.accessibilityLabel = CommonStrings.revisionHistory
         addTopicButton.accessibilityLabel = TalkPageLocalizedStrings.addTopicButtonAccesibilityLabel
     }
-
-    private func scrollToLastTopic() {
-        if viewModel.topics.count > 0 {
-            let indexPath = IndexPath.init(item: viewModel.topics.count - 1, section: 0)
-            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-        }
-    }
+    
+    // MARK: Alerts
     
     fileprivate func handleSubscriptionAlert(isSubscribedToTopic: Bool) {
         let title = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertTitle : TalkPageLocalizedStrings.unsubscribedAlertTitle
@@ -283,6 +278,72 @@ class TalkPageViewController: ViewController {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, dismissPreviousAlerts: true)
+        }
+    }
+    
+    // MARK: Scrolling Helpers
+    
+    private func scrollToLastTopic() {
+        if viewModel.topics.count > 0 {
+            let indexPath = IndexPath.init(item: viewModel.topics.count - 1, section: 0)
+            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        }
+    }
+    
+    private func scrollToNewComment(oldCellViewModel: TalkPageCellViewModel?, oldCommentViewModels: [TalkPageCellCommentViewModel]?) {
+        
+        guard let oldCellViewModel = oldCellViewModel,
+        let oldCommentViewModels = oldCommentViewModels else {
+            return
+        }
+        
+        let newCellViewModel = viewModel.topics.first { $0 == oldCellViewModel }
+        
+        guard let newCommentViewModels = newCellViewModel?.allCommentViewModels else {
+            return
+        }
+        
+        if let newCommentViewModel = newestComment(from: oldCommentViewModels, to: newCommentViewModels) {
+            scrollToComment(commentViewModel: newCommentViewModel)
+        }
+    }
+    
+    private func newestComment(from oldCommentViewModels: [TalkPageCellCommentViewModel], to newCommentViewModels: [TalkPageCellCommentViewModel]) -> TalkPageCellCommentViewModel? {
+        
+        let oldCommentViewModelsSet = Set(oldCommentViewModels)
+        let newCommentViewModelsSet = Set(newCommentViewModels)
+        
+        let newComments = newCommentViewModelsSet.subtracting(oldCommentViewModelsSet)
+        
+        // MAYBETODO: Sort by date here?
+        
+        guard let newComment = newComments.first else {
+            return nil
+        }
+        
+        return newComment
+    }
+    
+    private func scrollToComment(commentViewModel: TalkPageCellCommentViewModel) {
+        
+        guard let cellViewModel = commentViewModel.cellViewModel else {
+            return
+        }
+
+        let collectionView = talkPageView.collectionView
+
+        for cell in collectionView.visibleCells {
+            if let talkPageCell = cell as? TalkPageCell {
+                
+                if talkPageCell.viewModel == cellViewModel {
+                 
+                     if let commentView = talkPageCell.displayingCommentViewForViewModel(commentViewModel),
+                         let convertedCommentViewFrame = commentView.superview?.convert(commentView.frame, to: collectionView) {
+                         let shiftedFrame = CGRect(x: convertedCommentViewFrame.minX, y: convertedCommentViewFrame.minY + 50, width: convertedCommentViewFrame.width, height: convertedCommentViewFrame.height)
+                             collectionView.scrollRectToVisible(shiftedFrame, animated: true)
+                     }
+                }
+            }
         }
     }
 }
@@ -390,6 +451,9 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
     }
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
+        let oldCellViewModel = commentViewModel.cellViewModel
+        let oldCommentViewModels = oldCellViewModel?.allCommentViewModels
+        
         viewModel.postReply(commentId: commentViewModel.commentId, comment: text) { [weak self] result in
 
             switch result {
@@ -400,8 +464,15 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     switch result {
                     case .success:
-                        self?.talkPageView.collectionView.reloadData()
+
                         self?.handleNewTopicOrCommentAlert(isNewTopic: false)
+                        
+                        self?.talkPageView.collectionView.reloadData()
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self?.scrollToNewComment(oldCellViewModel: oldCellViewModel, oldCommentViewModels: oldCommentViewModels)
+                        }
+
                     case .failure:
                         break
                     }
