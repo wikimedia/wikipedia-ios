@@ -495,7 +495,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
             case .success:
                 
                 composeViewController.dismiss(animated: true) {
-                    // TODO: Display success banner
+                    self?.handleNewTopicOrCommentAlert(isNewTopic: true)
                 }
                 
                 // Try to refresh page
@@ -504,7 +504,6 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                     case .success:
                         self?.talkPageView.collectionView.reloadData()
                         self?.scrollToLastTopic()
-                        self?.handleNewTopicOrCommentAlert(isNewTopic: true)
                     case .failure:
                         break
                     }
