@@ -398,8 +398,6 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         let newHeight = sizingView.frame.height + verticalPadding
 
         let newSize = CGSize(width: newWidth, height: newHeight)
-        
-        print("newSize: \(newSize)")
 
         return newSize
     }
@@ -435,6 +433,8 @@ extension TalkPageViewController: TalkPageCellDelegate {
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isSubscribed.toggle()
         cell.configure(viewModel: configuredCellViewModel, linkDelegate: self, replyDelegate: self)
+        // TODO: This helps set the attributed strings in the text views, but really that should be a part of cell configuration.
+        cell.apply(theme: theme)
         self.handleSubscriptionAlert(isSubscribedToTopic: configuredCellViewModel.isSubscribed)
     }
 }
