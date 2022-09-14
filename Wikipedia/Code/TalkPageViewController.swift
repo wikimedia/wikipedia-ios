@@ -357,6 +357,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isSubscribed.toggle()
         cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
+        cell.apply(theme: theme)
         self.handleSubscriptionAlert(isSubscribedToTopic: configuredCellViewModel.isSubscribed)
     }
 }
