@@ -9,6 +9,8 @@ final class TalkPageCellCommentViewModel {
     let timestamp: Date?
     let replyDepth: Int
     
+    weak var cellViewModel: TalkPageCellViewModel?
+    
     init?(commentId: String, text: String?, author: String?, authorTalkPageURL: String, timestamp: Date?, replyDepth: Int?) {
         
         guard let text = text,
