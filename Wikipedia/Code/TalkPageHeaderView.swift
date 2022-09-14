@@ -342,7 +342,7 @@ final class TalkPageHeaderView: SetupView {
         coffeeRollLabel.attributedText = attributedText
     }
     
-    // Coffee roll attributed strigs were sometimes created with extra escape characters (\n) as the initial characters, so we remove them to properly render the text
+    // Coffee roll attributed strigs were sometimes created with extra new line characters (\n) as the initial characters, so we remove them to properly render the text
     func removeInitialCharactersFrom(_ attributedString: inout NSMutableAttributedString) -> NSMutableAttributedString {
         while attributedString.string.first == "\n" {
             let range = (attributedString.string as NSString).range(of: "\n")
