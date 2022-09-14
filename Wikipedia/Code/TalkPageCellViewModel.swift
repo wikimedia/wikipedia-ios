@@ -31,3 +31,13 @@ final class TalkPageCellViewModel {
         self.isUserLoggedIn = isUserLoggedIn
     }
 }
+
+extension TalkPageCellViewModel: Hashable {
+    static func == (lhs: TalkPageCellViewModel, rhs: TalkPageCellViewModel) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}

@@ -24,5 +24,14 @@ final class TalkPageCellCommentViewModel {
         self.timestamp = timestamp
         self.replyDepth = replyDepth
     }
+}
 
+extension TalkPageCellCommentViewModel: Hashable {
+    static func == (lhs: TalkPageCellCommentViewModel, rhs: TalkPageCellCommentViewModel) -> Bool {
+        lhs.commentId == rhs.commentId
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(commentId)
+    }
 }
