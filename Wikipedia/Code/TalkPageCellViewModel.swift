@@ -18,6 +18,10 @@ final class TalkPageCellViewModel {
         // Add one for lead comment
         return "\(replies.count + 1)"
     }
+    
+    var allCommentViewModels: [TalkPageCellCommentViewModel] {
+        return replies + [leadComment]
+    }
 
     let isUserLoggedIn: Bool
     
