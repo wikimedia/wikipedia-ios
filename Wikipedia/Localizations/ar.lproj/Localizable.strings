@@ -894,6 +894,7 @@
 "talk-page-new-topic-body-placeholder-text" = "قم بصياغة نقاش جديد";
 "talk-page-new-topic-success-text" = "تم نشر نقاشك بنجاح";
 "talk-page-new-topic-title" = "نقاش حديد";
+"talk-page-page-info" = "معلومات الصفحة";
 "talk-page-publish-terms-and-licenses" = "بحفظك للتغييرات، أنت توافق على  $1شروط الاستخدام$2  وعلى إصدار مساهمتك تحت رخصتا  \n $3CC BY-SA 3.0$4 و $5GFDL$6.";
 "talk-page-reply-title" = "رد";
 // Fuzzy

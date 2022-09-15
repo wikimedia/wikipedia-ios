@@ -741,6 +741,7 @@
 "talk-page-new-topic-success-text" = "La tua discussione è stata pubblicata con successo";
 "talk-page-new-topic-title" = "Nuova discussione";
 "talk-page-reply-button" = "Rispondi";
+"talk-page-reply-placeholder-format" = "Rispondi a $1";
 "talk-page-reply-title" = "Rispondi";
 "talk-page-revision-history" = "Cronologia";
 "talk-page-subscribe-to-topic" = "Iscriviti";
@@ -750,7 +751,15 @@
 "talk-page-topic-title" = "Discussione";
 "talk-page-unsubscribe-to-topic" = "Annulla iscrizione";
 "talk-page-unsubscribed-alert-title" = "Hai annullato l'iscrizione.";
+"talk-pages-comment-added-alert-title" = "Il tuo commento è stato aggiunto";
 "talk-pages-reply-button-title" = "Rispondi a questa discussione";
+"talk-pages-topic-added-alert-title" = "Il tuo argomento è stato aggiunto";
+"talk-pages-topic-compose-body-placeholder" = "Descrizione";
+"talk-pages-topic-compose-close-confirmation-discard" = "Annulla argomento";
+"talk-pages-topic-compose-close-confirmation-keep" = "Continua a modificare";
+"talk-pages-topic-compose-close-confirmation-title" = "Sei sicuro di voler annullare questo nuovo argomento?";
+"talk-pages-topic-compose-navbar-title" = "Argomento";
+"talk-pages-topic-compose-title-placeholder" = "Titolo dell'argomento";
 "talk-pages-view-title" = "Discussione";
 "theme-black-display-name" = "Nero";
 "theme-dark-display-name" = "Scuro";
