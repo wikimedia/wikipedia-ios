@@ -871,6 +871,8 @@
 		67C78F7728B7407000AC207A /* VanishAccountFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C78F7528B7406E00AC207A /* VanishAccountFooterView.swift */; };
 		67C78F7828B7407000AC207A /* VanishAccountFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C78F7528B7406E00AC207A /* VanishAccountFooterView.swift */; };
 		67C78F7928B7407100AC207A /* VanishAccountFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C78F7528B7406E00AC207A /* VanishAccountFooterView.swift */; };
+		67C9D58F28D3689F00629165 /* WMFLocalizedDateFormatStrings+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9D58E28D3689F00629165 /* WMFLocalizedDateFormatStrings+Extensions.swift */; };
+		67C9D59128D36BDD00629165 /* WMFFeedNewsStory+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9D59028D36BDD00629165 /* WMFFeedNewsStory+LocalizedStrings.swift */; };
 		67C9FBFF28C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */; };
 		67C9FC0028C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */; };
 		67C9FC0128C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */; };
@@ -4198,6 +4200,8 @@
 		67C6F7AA27E8D22400B9C864 /* NotificationsCenterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModel.swift; sourceTree = "<group>"; };
 		67C78F7028B6DA1300AC207A /* SwiftUITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUITextView.swift; sourceTree = "<group>"; };
 		67C78F7528B7406E00AC207A /* VanishAccountFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VanishAccountFooterView.swift; sourceTree = "<group>"; };
+		67C9D58E28D3689F00629165 /* WMFLocalizedDateFormatStrings+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFLocalizedDateFormatStrings+Extensions.swift"; sourceTree = "<group>"; };
+		67C9D59028D36BDD00629165 /* WMFFeedNewsStory+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFFeedNewsStory+LocalizedStrings.swift"; sourceTree = "<group>"; };
 		67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageTopicComposeViewController.swift; sourceTree = "<group>"; };
 		67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListContextCell.xib; sourceTree = "<group>"; };
 		67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListUneditedCell.xib; sourceTree = "<group>"; };
@@ -6339,6 +6343,7 @@
 				0EE489021D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift */,
 				D81E5F871E5F2C8400E1A80C /* UIApplication+SystemSettings.swift */,
 				6707C037237F0A6E0017E7B6 /* UIFont+Extensions.swift */,
+				67C9D58E28D3689F00629165 /* WMFLocalizedDateFormatStrings+Extensions.swift */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -6436,6 +6441,7 @@
 				0E19B9A71DA7D52A00239F3A /* WMFFeedImage.m */,
 				0E19B9A91DA7D77600239F3A /* WMFFeedNewsStory.h */,
 				0E19B9AA1DA7D77600239F3A /* WMFFeedNewsStory.m */,
+				67C9D59028D36BDD00629165 /* WMFFeedNewsStory+LocalizedStrings.swift */,
 				B0B423451EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.h */,
 				B0B423461EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m */,
 				D837B5A91F0D0D1600DCB9CD /* WMFFeedOnThisDayEvent+LocalizedDates.swift */,
@@ -11880,6 +11886,7 @@
 				702096B9256C3D5700E27041 /* SamplingController.swift in Sources */,
 				D826C51521766E570012F940 /* Collection+AsyncMap.swift in Sources */,
 				D8987E061E325D8A00E75DA6 /* QuadKey.swift in Sources */,
+				67C9D58F28D3689F00629165 /* WMFLocalizedDateFormatStrings+Extensions.swift in Sources */,
 				D8FA18B11E1BD891009675C3 /* NSBundle+WMFInfoUtils.m in Sources */,
 				D8FA18FB1E1BDA4C009675C3 /* UIImage+WMFStyle.m in Sources */,
 				8392E8681F55801B007E2EE2 /* NSTextAttachment+WMFExtras.swift in Sources */,
@@ -12180,6 +12187,7 @@
 				D82972951E4361C60061550A /* WMFKeyValue+CoreDataProperties.m in Sources */,
 				D8C41DDB23FC09EE00353DCE /* NSManagedObjectContext+History.swift in Sources */,
 				67F1375E23C986CD00512B61 /* CacheTaskTracking.swift in Sources */,
+				67C9D59128D36BDD00629165 /* WMFFeedNewsStory+LocalizedStrings.swift in Sources */,
 				834F47F42833D91F00F86C80 /* RemoteNotificationFilterType.swift in Sources */,
 				835A042D223AD63000D4D758 /* ArticleSummaryController.swift in Sources */,
 				D844D9B81D6CB7980042D692 /* MWKRecentSearchEntry.m in Sources */,
