@@ -304,7 +304,7 @@ class TalkPageViewController: ViewController {
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
-extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.topics.count
@@ -342,6 +342,9 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 225)
+    }
 }
 
 // MARK: - TalkPageCellDelegate
