@@ -20,7 +20,7 @@ class TalkPageDataController {
     
     // MARK: Public
     
-    typealias TalkPageResult = Result<(articleSummary: WMFArticle?, items: [TalkPageItem]), Error>
+    typealias TalkPageResult = Result<(articleSummary: WMFArticle?, items: [TalkPageItem], topicNames: [String]), Error>
     
     func fetchTalkPage(completion: @escaping (TalkPageResult) -> Void) {
         
@@ -31,6 +31,7 @@ class TalkPageDataController {
         var finalErrors: [Error] = []
         var finalItems: [TalkPageItem] = []
         var finalArticleSummary: WMFArticle?
+        var finalSubscribedTopics: [String] = []
         
         fetchTalkPageItems(dispatchGroup: group) { items, errors in
             finalItems = items
@@ -42,15 +43,21 @@ class TalkPageDataController {
             finalErrors.append(contentsOf: errors)
         }
         
+        
         group.notify(queue: DispatchQueue.main, execute: {
             
             if let firstError = finalErrors.first {
                 completion(.failure(firstError))
                 return
             }
-
-            completion(.success((finalArticleSummary, finalItems)))
+            self.fetchTopicSubscriptions(for: finalItems, dispatchGroup: group) { items, errors in
+                finalSubscribedTopics = items
+                finalErrors.append(contentsOf: errors)
+                completion(.success((finalArticleSummary, finalItems, finalSubscribedTopics)))
+            }
+            
         })
+
     }
     
     func postReply(commentId: String, comment: String, completion: @escaping(Result<Void, Error>) -> Void) {
@@ -65,19 +72,32 @@ class TalkPageDataController {
         talkPageFetcher.subscribeToTopic(talkPageTitle: pageTitle, siteURL: siteURL, topic: topicName, shouldSubscribe: shouldSubscribe, completion: completion)
     }
     
-    func fetchSubscriptions(for topics: [String], completion: @escaping (Result<[String], Error>) -> Void) {
-        talkPageFetcher.getSubscribedTopics(siteURL: siteURL, topics: topics) { result in
-            switch result {
-            case let .success(result):
-                completion(.success(result))
-            case let .failure(error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
     // MARK: Private
     
+    private func fetchTopicSubscriptions(for items: [TalkPageItem], dispatchGroup group: DispatchGroup, completion: @escaping  ([String], [Error]) -> Void) {
+        
+        var topicNames = [String]()
+        for item in items {
+            if let itemName = item.name {
+                topicNames.append(itemName)
+            }
+        }
+        
+        
+        talkPageFetcher.getSubscribedTopics(siteURL: siteURL, topics: topicNames) { result in
+            
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(result):
+                    completion(result, [])
+                case let .failure(error):
+                    completion([], [error])
+                }
+            }
+            
+        }
+    }
+
     private func fetchTalkPageItems(dispatchGroup group: DispatchGroup, completion: @escaping ([TalkPageItem], [Error]) -> Void) {
         
         group.enter()
