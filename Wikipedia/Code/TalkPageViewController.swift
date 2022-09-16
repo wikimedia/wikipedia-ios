@@ -21,6 +21,12 @@ class TalkPageViewController: ViewController {
         return view as! TalkPageView
     }
     
+    lazy private(set) var fakeProgressController: FakeProgressController = {
+        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
+        progressController.delay = 0.0
+        return progressController
+    }()
+
     var isReloadingAfterReply = false
     
     // MARK: - Overflow menu properties
@@ -129,11 +135,18 @@ class TalkPageViewController: ViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
 
+        fakeProgressController.start()
         viewModel.fetchTalkPage { [weak self] result in
+            
+            guard let self = self else {
+                return
+            }
+            
+            self.fakeProgressController.stop()
             switch result {
             case .success:
-                self?.setupHeaderView()
-                self?.talkPageView.collectionView.reloadData()
+                self.setupHeaderView()
+                self.talkPageView.collectionView.reloadData()
             case .failure:
                 break
             }
