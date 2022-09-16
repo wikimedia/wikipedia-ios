@@ -349,7 +349,8 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
               let sizingView = talkPageView.sizingView else {
             return .zero
         }
-
+        
+        sizingView.prepareForReuse()
         sizingView.configure(viewModel: viewModel, linkDelegate: self, replyDelegate: self, theme: theme)
         sizingView.setNeedsLayout()
         sizingView.layoutIfNeeded()
@@ -380,6 +381,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isThreadExpanded.toggle()
         
+        cell.prepareForReuse()
         cell.configure(viewModel: configuredCellViewModel, linkDelegate: self, replyDelegate: self, theme: theme)
         talkPageView.collectionView.collectionViewLayout.invalidateLayout()
     }
@@ -391,6 +393,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isSubscribed.toggle()
+        cell.prepareForReuse()
         cell.configure(viewModel: configuredCellViewModel, linkDelegate: self, replyDelegate: self, theme: theme)
         self.handleSubscriptionAlert(isSubscribedToTopic: configuredCellViewModel.isSubscribed)
     }

@@ -58,40 +58,39 @@ final class TalkPageCellRootContainerView: SetupView, Themeable {
 
         stackView.addArrangedSubview(disclosureRow)
         stackView.addArrangedSubview(topicView)
-        stackView.addArrangedSubview(leadReplySpacer)
-        stackView.addArrangedSubview(leadReplyButton)
+        
+    }
+    
+    func prepareForReuse() {
+        for subview in stackView.arrangedSubviews {
+            if subview != disclosureRow && subview != topicView {
+                subview.removeFromSuperview()
+            }
+        }
     }
     
     func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling, replyDelegate: TalkPageCellReplyDelegate, theme: Theme) {
         disclosureRow.configure(viewModel: viewModel)
         topicView.configure(viewModel: viewModel)
         topicView.linkDelegate = linkDelegate
+        
+        if viewModel.isThreadExpanded {
+            stackView.addArrangedSubview(leadReplySpacer)
+            stackView.addArrangedSubview(leadReplyButton)
+            
+            for commentViewModel in viewModel.replies {
+                let separator = TalkPageCellCommentSeparator()
+                separator.setContentHuggingPriority(.defaultLow, for: .horizontal)
+                separator.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-        leadReplySpacer.isHidden = !viewModel.isThreadExpanded
-        leadReplyButton.isHidden = !viewModel.isThreadExpanded
+                let commentView = TalkPageCellCommentView()
+                commentView.replyDelegate = replyDelegate
+                commentView.configure(viewModel: commentViewModel)
+                commentView.linkDelegate = linkDelegate
 
-        let comments: [UIView] = stackView.arrangedSubviews.filter { view in view is TalkPageCellCommentView || view is TalkPageCellCommentSeparator }
-        stackView.arrangedSubviews.forEach { view in
-            if comments.contains(view) {
-                view.removeFromSuperview()
+                stackView.addArrangedSubview(separator)
+                stackView.addArrangedSubview(commentView)
             }
-        }
-
-        for commentViewModel in viewModel.replies {
-            let separator = TalkPageCellCommentSeparator()
-            separator.setContentHuggingPriority(.defaultLow, for: .horizontal)
-            separator.setContentCompressionResistancePriority(.required, for: .horizontal)
-
-            let commentView = TalkPageCellCommentView()
-            commentView.replyDelegate = replyDelegate
-            commentView.configure(viewModel: commentViewModel)
-            commentView.linkDelegate = linkDelegate
-
-            commentView.isHidden = !viewModel.isThreadExpanded
-            separator.isHidden = !viewModel.isThreadExpanded
-
-            stackView.addArrangedSubview(separator)
-            stackView.addArrangedSubview(commentView)
         }
         
         apply(theme: theme)
@@ -147,9 +146,8 @@ final class TalkPageCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         viewModel = nil
-        delegate = nil
-        rootContainer.disclosureRow.disclosureButton.removeTarget(nil, action: nil, for: .allEvents)
-        rootContainer.disclosureRow.subscribeButton.removeTarget(nil, action: nil, for: .allEvents)
+        
+        rootContainer.prepareForReuse()
     }
 
     func setup() {
@@ -160,6 +158,10 @@ final class TalkPageCell: UICollectionViewCell {
             rootContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Self.padding.leading),
             rootContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Self.padding.trailing)
         ])
+        
+        rootContainer.disclosureRow.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
+        rootContainer.disclosureRow.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
+        rootContainer.leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
     }
 
     // MARK: - Configure
@@ -169,10 +171,6 @@ final class TalkPageCell: UICollectionViewCell {
         self.replyDelegate = replyDelegate
 
         rootContainer.configure(viewModel: viewModel, linkDelegate: linkDelegate, replyDelegate: replyDelegate, theme: theme)
-
-        rootContainer.disclosureRow.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
-        rootContainer.disclosureRow.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
-        rootContainer.leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
     }
 
     // MARK: - Actions
