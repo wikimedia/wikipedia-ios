@@ -117,6 +117,7 @@ class ArticleViewController: ViewController, HintPresenting {
         contentSizeObservation?.invalidate()
         messagingController.removeScriptMessageHandler()
         articleLoadWaitGroup = nil
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: WebView
