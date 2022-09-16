@@ -145,7 +145,7 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    /// Returns topics with active subscription from a list o topic names
+    /// Returns a list of active talk page topics subscription
     /// - Parameters:
     ///   - siteURL: URL for the talk page, takes a URL object
     ///   - topics: Expects a array of Strings containing the `name` value from `TalkPageItem`
