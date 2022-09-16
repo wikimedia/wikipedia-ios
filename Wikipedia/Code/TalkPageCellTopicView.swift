@@ -33,6 +33,7 @@ final class TalkPageCellTopicView: SetupView {
         label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
@@ -75,6 +76,7 @@ final class TalkPageCellTopicView: SetupView {
         let imageView = UIImageView(image: UIImage(systemName: "person.crop.circle"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.setContentCompressionResistancePriority(.required, for: .vertical)
         return imageView
     }()
 
@@ -83,6 +85,7 @@ final class TalkPageCellTopicView: SetupView {
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
         label.numberOfLines = 0
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
@@ -97,6 +100,7 @@ final class TalkPageCellTopicView: SetupView {
         let imageView = UIImageView(image: UIImage(systemName: "bubble.left"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.setContentCompressionResistancePriority(.required, for: .vertical)
         return imageView
     }()
 
@@ -105,28 +109,11 @@ final class TalkPageCellTopicView: SetupView {
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
         label.numberOfLines = 0
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
-    lazy var replyButton: UIButton = {
-        let button = UIButton()
-        button.layer.cornerRadius = 8
-        button.titleLabel?.adjustsFontForContentSizeCategory = true
-        button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 15)
-        button.setTitle(CommonStrings.talkPageReply, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.setImage(UIImage(systemName: "arrowshape.turn.up.left"), for: .normal)
-
-        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
-
-        button.setContentHuggingPriority(.required, for: .horizontal)
-        button.setContentCompressionResistancePriority(.required, for: .horizontal)
-        return button
-    }()
-
-    lazy var trailingSpacer: UIView = {
+    lazy var centerSpacer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         let widthConstraint = view.widthAnchor.constraint(equalToConstant: 99999)
@@ -140,20 +127,19 @@ final class TalkPageCellTopicView: SetupView {
     override func setup() {
         addSubview(stackView)
         stackView.addArrangedSubview(topicTitleTextView)
-        stackView.addArrangedSubview(timestampLabel)
-        stackView.addArrangedSubview(topicCommentTextView)
         stackView.addArrangedSubview(horizontalStack)
-        stackView.addArrangedSubview(replyButton)
+        stackView.addArrangedSubview(topicCommentTextView)
 
         activeUsersStack.addArrangedSubview(activeUsersImageView)
         activeUsersStack.addArrangedSubview(activeUsersLabel)
         repliesStack.addArrangedSubview(repliesImageView)
         repliesStack.addArrangedSubview(repliesCountLabel)
 
+        horizontalStack.addArrangedSubview(timestampLabel)
+        horizontalStack.addArrangedSubview(centerSpacer)
         horizontalStack.addArrangedSubview(activeUsersStack)
         horizontalStack.addArrangedSubview(metadataSpacer)
         horizontalStack.addArrangedSubview(repliesStack)
-        horizontalStack.addArrangedSubview(trailingSpacer)
 
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
@@ -206,10 +192,6 @@ extension TalkPageCellTopicView: Themeable {
         activeUsersLabel.textColor = theme.colors.secondaryText
         repliesImageView.tintColor = theme.colors.secondaryText
         repliesCountLabel.textColor = theme.colors.secondaryText
-
-        replyButton.setTitleColor(theme.colors.paperBackground, for: .normal)
-        replyButton.backgroundColor = theme.colors.link
-        replyButton.tintColor = theme.colors.paperBackground
     }
     
 }

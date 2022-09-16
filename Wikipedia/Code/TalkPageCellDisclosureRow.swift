@@ -18,6 +18,9 @@ final class TalkPageCellDisclosureRow: SetupView {
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
+
+        button.setContentCompressionResistancePriority(.required, for: .vertical)
+
         return button
     }()
 
@@ -35,6 +38,7 @@ final class TalkPageCellDisclosureRow: SetupView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "chevron.down"), for: .normal)
         button.tintColor = .black
+        button.setContentCompressionResistancePriority(.required, for: .vertical)
         return button
     }()
 

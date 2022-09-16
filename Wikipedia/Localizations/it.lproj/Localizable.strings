@@ -744,10 +744,12 @@
 "talk-page-reply-title" = "Rispondi";
 "talk-page-revision-history" = "Cronologia";
 "talk-page-subscribe-to-topic" = "Iscriviti";
+"talk-page-subscribed-alert-title" = "Ti sei iscritto!";
 "talk-page-title-article-talk" = "Discussione voce";
 "talk-page-title-user-talk" = "Discussioni utente";
 "talk-page-topic-title" = "Discussione";
 "talk-page-unsubscribe-to-topic" = "Annulla iscrizione";
+"talk-page-unsubscribed-alert-title" = "Hai annullato l'iscrizione.";
 "talk-pages-reply-button-title" = "Rispondi a questa discussione";
 "talk-pages-view-title" = "Discussione";
 "theme-black-display-name" = "Nero";

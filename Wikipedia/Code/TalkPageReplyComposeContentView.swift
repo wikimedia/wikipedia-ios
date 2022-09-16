@@ -17,6 +17,13 @@ class TalkPageReplyComposeContentView: SetupView {
         return button
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.color = theme.colors.primaryText
+        return activityIndicator
+    }()
+    
     private lazy var closeButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "close-inverse"), for: .normal)
@@ -70,8 +77,6 @@ class TalkPageReplyComposeContentView: SetupView {
     
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        // todo: localization, dynamic
-        label.text = "Reply to DavidDavid"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .natural
         return label
@@ -116,20 +121,40 @@ class TalkPageReplyComposeContentView: SetupView {
         apply(theme: theme)
     }
     
+    // MARK: Public
+    
+    var isLoading: Bool = false {
+        didSet {
+            publishButton.isHidden = isLoading ? true : false
+            if isLoading {
+                activityIndicator.isHidden = false
+                activityIndicator.startAnimating()
+            } else {
+                activityIndicator.isHidden = true
+                activityIndicator.stopAnimating()
+            }
+        }
+    }
+    
     // MARK: Setup
     
     private func setupPublishButton() {
         addSubview(publishButton)
+        addSubview(activityIndicator)
         
         publishButton.setContentHuggingPriority(.required, for: .vertical)
         publishButton.setContentCompressionResistancePriority(.required, for: .vertical)
+
+        NSLayoutConstraint.activate([
+            layoutMarginsGuide.topAnchor.constraint(equalTo: publishButton.topAnchor),
+            layoutMarginsGuide.trailingAnchor.constraint(equalTo: publishButton.trailingAnchor),
+            activityIndicator.topAnchor.constraint(equalTo: publishButton.topAnchor),
+            activityIndicator.trailingAnchor.constraint(equalTo: publishButton.trailingAnchor)
+        ])
         
-        let topConstraint = layoutMarginsGuide.topAnchor.constraint(equalTo: publishButton.topAnchor)
-        let trailingConstraint = layoutMarginsGuide.trailingAnchor.constraint(equalTo: publishButton.trailingAnchor)
+        activityIndicator.isHidden = true
         
-        NSLayoutConstraint.activate([trailingConstraint, topConstraint])
-        
-        publishButton.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .subheadline, weight: .bold, size: 15.0)
+        publishButton.titleLabel?.font = UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
     }
     
     private func setupCloseButton() {
@@ -178,7 +203,7 @@ class TalkPageReplyComposeContentView: SetupView {
         
         readableContentGuide.widthAnchor.constraint(equalTo: replyTextView.widthAnchor).isActive = true
 
-        replyTextView.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        replyTextView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
     }
     
     private func setupFinePrintTextView() {
@@ -193,6 +218,9 @@ class TalkPageReplyComposeContentView: SetupView {
     }
     
     private func setupPlaceholderLabel() {
+        
+        placeholderLabel.text = String.localizedStringWithFormat(WMFLocalizedString("talk-page-reply-placeholder-format", value: "Reply to %1$@", comment: "Placeholder text that displays in the talk page reply text view. Parameters:\n* %1$@ - the username of the comment the user is replying to."), commentViewModel.author) 
+        
         containerScrollView.addSubview(placeholderLabel)
         
         let topConstraint = replyTextView.topAnchor.constraint(equalTo: placeholderLabel.topAnchor)
@@ -201,7 +229,7 @@ class TalkPageReplyComposeContentView: SetupView {
         
         NSLayoutConstraint.activate([topConstraint, trailingConstraint, leadingConstraint])
         
-        placeholderLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        placeholderLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
     }
     
     private func setupInfoButton() {
@@ -221,6 +249,7 @@ class TalkPageReplyComposeContentView: SetupView {
     }
     
     @objc private func tappedPublish() {
+        isLoading = true
         delegate?.tappedPublish(text: replyTextView.text, commentViewModel: commentViewModel)
     }
     

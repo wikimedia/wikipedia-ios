@@ -171,10 +171,10 @@
 		0072991B28AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991928AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift */; };
 		0072991C28AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991928AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift */; };
 		0072991D28AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991928AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift */; };
-		0072991F28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift */; };
-		0072992028AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift */; };
-		0072992128AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift */; };
-		0072992228AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift */; };
+		0072991F28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift */; };
+		0072992028AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift */; };
+		0072992128AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift */; };
+		0072992228AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072991E28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift */; };
 		007B5FC526FA40F100180FF8 /* RemoteNotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007B5FC426FA40F000180FF8 /* RemoteNotificationType.swift */; };
 		007CCF0126D5A10200D5EA7C /* NotificationsCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCF0026D5A10100D5EA7C /* NotificationsCenterViewController.swift */; };
 		007CCF0226D5A10200D5EA7C /* NotificationsCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCF0026D5A10100D5EA7C /* NotificationsCenterViewController.swift */; };
@@ -871,6 +871,10 @@
 		67C78F7728B7407000AC207A /* VanishAccountFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C78F7528B7406E00AC207A /* VanishAccountFooterView.swift */; };
 		67C78F7828B7407000AC207A /* VanishAccountFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C78F7528B7406E00AC207A /* VanishAccountFooterView.swift */; };
 		67C78F7928B7407100AC207A /* VanishAccountFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C78F7528B7406E00AC207A /* VanishAccountFooterView.swift */; };
+		67C9FBFF28C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */; };
+		67C9FC0028C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */; };
+		67C9FC0128C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */; };
+		67C9FC0228C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */; };
 		67CE5D20222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D22222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D23222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
@@ -3906,7 +3910,7 @@
 		0072990F28AC478400DCD2E6 /* TalkPageCellDisclosureRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCellDisclosureRow.swift; sourceTree = "<group>"; };
 		0072991428AC49FA00DCD2E6 /* TalkPageCellCommentSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCellCommentSeparator.swift; sourceTree = "<group>"; };
 		0072991928AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCellCommentView.swift; sourceTree = "<group>"; };
-		0072991E28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCellCommentDepthIndicator.swift; sourceTree = "<group>"; };
+		0072991E28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCellReplyDepthIndicator.swift; sourceTree = "<group>"; };
 		007B5FC426FA40F000180FF8 /* RemoteNotificationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteNotificationType.swift; sourceTree = "<group>"; };
 		007CCF0026D5A10100D5EA7C /* NotificationsCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterViewController.swift; sourceTree = "<group>"; };
 		007CCF0626D5A17200D5EA7C /* NotificationsCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterView.swift; sourceTree = "<group>"; };
@@ -4194,6 +4198,7 @@
 		67C6F7AA27E8D22400B9C864 /* NotificationsCenterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModel.swift; sourceTree = "<group>"; };
 		67C78F7028B6DA1300AC207A /* SwiftUITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUITextView.swift; sourceTree = "<group>"; };
 		67C78F7528B7406E00AC207A /* VanishAccountFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VanishAccountFooterView.swift; sourceTree = "<group>"; };
+		67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageTopicComposeViewController.swift; sourceTree = "<group>"; };
 		67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListContextCell.xib; sourceTree = "<group>"; };
 		67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListUneditedCell.xib; sourceTree = "<group>"; };
 		67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffNetworkModels.swift; sourceTree = "<group>"; };
@@ -6113,7 +6118,7 @@
 				0072990F28AC478400DCD2E6 /* TalkPageCellDisclosureRow.swift */,
 				0072990528AC44F100DCD2E6 /* TalkPageCellTopicView.swift */,
 				0072991428AC49FA00DCD2E6 /* TalkPageCellCommentSeparator.swift */,
-				0072991E28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift */,
+				0072991E28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift */,
 				0072991928AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift */,
 			);
 			name = "Cell UI Elements";
@@ -6177,6 +6182,7 @@
 				0072990428AC44C100DCD2E6 /* Cell UI Elements */,
 				836BF56D2869F9C200B98321 /* TalkPageViewController.swift */,
 				00D1F58E28885BA300127169 /* TalkPageViewModel.swift */,
+				67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */,
 				00D46DA42889B7F50015DE9B /* TalkPageView.swift */,
 				00D46DA92889B9250015DE9B /* TalkPageCell.swift */,
 				67134A1628A73C0A00BA0BB9 /* TalkPageReplyComposeController.swift */,
@@ -11302,6 +11308,7 @@
 				83987AD020E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				7A420DB422A029780005689B /* EditFunnel.swift in Sources */,
 				B027FD281E678F5C005644A9 /* WMFAuthButton.swift in Sources */,
+				67C9FBFF28C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */,
 				B01490A51DB96EA7007F5391 /* WMFReferencePanelViewController.swift in Sources */,
 				D84DAA161EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
 				B0ACB13321265B930078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */,
@@ -11470,7 +11477,7 @@
 				B0F9299F1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				6782DBCD2343FDF2003FA21B /* DiffListUneditedCell.swift in Sources */,
 				D8A47C8F23D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
-				0072991F28AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */,
+				0072991F28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */,
 				B09B03ED1CE0FB4200009083 /* PageHistorySection.swift in Sources */,
 				D8B166851FD97A0500097D8B /* ViewController.swift in Sources */,
 				7AB809D022675B2300BFAB7C /* ThemeableTextView.swift in Sources */,
@@ -12250,6 +12257,7 @@
 				B0B4236B1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				D8A42A621E815A9C00D8E281 /* PlacesViewController.swift in Sources */,
 				B0ACB13621265B9D0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */,
+				67C9FC0228C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */,
 				8382F8D620D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				B0C7A0811F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				67DDD18A250C1A28006C0F93 /* ThreeLineHeaderView.swift in Sources */,
@@ -12418,7 +12426,7 @@
 				D8A42AC01E815A9C00D8E281 /* PageHistorySection.swift in Sources */,
 				7ABE170F2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */,
 				B0F9299E1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
-				0072992228AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */,
+				0072992228AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */,
 				D8B166881FD97A0500097D8B /* ViewController.swift in Sources */,
 				D8A47C9223D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
 				6782DBD02343FDF2003FA21B /* DiffListUneditedCell.swift in Sources */,
@@ -12825,6 +12833,7 @@
 				D818D38C1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				7A71567A22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D8CE24F11E698E2400DAE2E0 /* WikidataFetcher+Places.swift in Sources */,
+				67C9FC0128C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */,
 				D8CE24F21E698E2400DAE2E0 /* UIButton+WMFButton.m in Sources */,
 				D8CE24F31E698E2400DAE2E0 /* TableOfContentsAnimator.swift in Sources */,
 				7AEC985A219F529000BEF62B /* DefaultEditToolbarView.swift in Sources */,
@@ -12907,7 +12916,7 @@
 				7A715668226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				D8CE25231E698E2400DAE2E0 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				00E75B6427EB87DC00A45B78 /* NotificationsCenterDetailView.swift in Sources */,
-				0072992128AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */,
+				0072992128AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */,
 				7ADF498821B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
 				D8CE25241E698E2400DAE2E0 /* (null) in Sources */,
 				D818D3821ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
@@ -13388,6 +13397,7 @@
 				7A71567B22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D8EC3DE81E9BDA35006712EB /* WikidataFetcher+Places.swift in Sources */,
 				D8EC3DE91E9BDA35006712EB /* UIButton+WMFButton.m in Sources */,
+				67C9FC0028C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */,
 				67B64D582507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift in Sources */,
 				D82E956C1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
 				7AEC985B219F529000BEF62B /* DefaultEditToolbarView.swift in Sources */,
@@ -13470,7 +13480,7 @@
 				7A715669226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				D8EC3E121E9BDA35006712EB /* LoggingDefaults.swift in Sources */,
 				00E75B6327EB87DC00A45B78 /* NotificationsCenterDetailView.swift in Sources */,
-				0072992028AC4D5300DCD2E6 /* TalkPageCellCommentDepthIndicator.swift in Sources */,
+				0072992028AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */,
 				7ADF498921B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
 				D8EC3E171E9BDA35006712EB /* MWKTitleLanguageController.m in Sources */,
 				B0016CC521362DB300FA1096 /* SetupGradientView.swift in Sources */,

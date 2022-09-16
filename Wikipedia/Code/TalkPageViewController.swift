@@ -21,6 +21,8 @@ class TalkPageViewController: ViewController {
         return view as! TalkPageView
     }
     
+    var isReloadingAfterReply = false
+    
     // MARK: - Overflow menu properties
     
     fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
@@ -95,8 +97,6 @@ class TalkPageViewController: ViewController {
     init(theme: Theme, viewModel: TalkPageViewModel) {
         self.viewModel = viewModel
         super.init(theme: theme)
-        
-        viewModel.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -129,11 +129,25 @@ class TalkPageViewController: ViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
 
-        viewModel.fetchTalkPage()
+        viewModel.fetchTalkPage { [weak self] result in
+            switch result {
+            case .success:
+                self?.setupHeaderView()
+                self?.talkPageView.collectionView.reloadData()
+            case .failure:
+                break
+            }
+        }
+        
         setupToolbar()
     }
 
     private func setupHeaderView() {
+        
+        guard self.headerView == nil else {
+            return
+        }
+        
         let headerView = TalkPageHeaderView()
         self.headerView = headerView
         
@@ -224,7 +238,12 @@ class TalkPageViewController: ViewController {
     }
     
     @objc fileprivate func userDidTapAddTopicButton() {
-        
+        let topicComposeVC = TalkPageTopicComposeViewController(theme: theme)
+        topicComposeVC.delegate = self
+        let navVC = UINavigationController(rootViewController: topicComposeVC)
+        navVC.modalPresentationStyle = .pageSheet
+        navVC.presentationController?.delegate = self
+        present(navVC, animated: true, completion: nil)
     }
     
     fileprivate func setupToolbar() {
@@ -238,6 +257,13 @@ class TalkPageViewController: ViewController {
         revisionButton.accessibilityLabel = CommonStrings.revisionHistory
         addTopicButton.accessibilityLabel = TalkPageLocalizedStrings.addTopicButtonAccesibilityLabel
     }
+
+    private func scrollToLastTopic() {
+        if viewModel.topics.count > 0 {
+            let indexPath = IndexPath.init(item: viewModel.topics.count - 1, section: 0)
+            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        }
+    }
     
     fileprivate func handleSubscriptionAlert(isSubscribedToTopic: Bool) {
         let title = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertTitle : TalkPageLocalizedStrings.unsubscribedAlertTitle
@@ -247,10 +273,20 @@ class TalkPageViewController: ViewController {
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image ?? UIImage(), dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image, dismissPreviousAlerts: true)
         }
     }
     
+    private func handleNewTopicOrCommentAlert(isNewTopic: Bool) {
+        let title = isNewTopic ? TalkPageLocalizedStrings.addedTopicAlertTitle : TalkPageLocalizedStrings.addedCommentAlertTitle
+        let image = UIImage(systemName: "checkmark.circle.fill")
+        
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, dismissPreviousAlerts: true)
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -284,6 +320,16 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         userDidTapDisclosureButton(cellViewModel: cell.viewModel, cell: cell)
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if isReloadingAfterReply && cell.frame.size.height == 225 {
+            DispatchQueue.main.async {
+                collectionView.collectionViewLayout.invalidateLayout()
+                collectionView.layoutIfNeeded()
+                self.isReloadingAfterReply = false
+            }
+        }
+    }
+    
 }
 
 // MARK: - TalkPageCellDelegate
@@ -315,13 +361,6 @@ extension TalkPageViewController: TalkPageCellDelegate {
     }
 }
 
-extension TalkPageViewController: TalkPageViewModelDelegate {
-    func talkPageDataDidUpdate() {
-        setupHeaderView()
-        talkPageView.collectionView.reloadData()
-    }
-}
-
 extension TalkPageViewController: TalkPageCellReplyDelegate {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel) {
         replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel)
@@ -334,7 +373,79 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
     }
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
-        // TODO: Publish reply once live data is connected to commentViewModels
+        viewModel.postReply(commentId: commentViewModel.commentId, comment: text) { [weak self] result in
+
+            switch result {
+            case .success:
+                self?.replyComposeController.reset()
+                
+                // Try to refresh page
+                self?.viewModel.fetchTalkPage { [weak self] result in
+                    switch result {
+                    case .success:
+                        self?.isReloadingAfterReply = true
+                        self?.talkPageView.collectionView.reloadData()
+                        self?.handleNewTopicOrCommentAlert(isNewTopic: false)
+                    case .failure:
+                        break
+                    }
+                }
+            case .failure(let error):
+                DDLogError("Failure publishing reply: \(error)")
+                self?.replyComposeController.isLoading = false
+                // TODO: Display failure banner
+            }
+        }
+    }
+}
+
+extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
+    func tappedPublish(topicTitle: String, topicBody: String, composeViewController: TalkPageTopicComposeViewController) {
+
+        viewModel.postTopic(topicTitle: topicTitle, topicBody: topicBody) { [weak self] result in
+
+            switch result {
+            case .success:
+                
+                composeViewController.dismiss(animated: true) {
+                    // TODO: Display success banner
+                }
+                
+                // Try to refresh page
+                self?.viewModel.fetchTalkPage { [weak self] result in
+                    switch result {
+                    case .success:
+                        self?.talkPageView.collectionView.reloadData()
+                        self?.scrollToLastTopic()
+                        self?.handleNewTopicOrCommentAlert(isNewTopic: true)
+                    case .failure:
+                        break
+                    }
+                }
+            case .failure(let error):
+                DDLogError("Failure publishing topic: \(error)")
+                composeViewController.setupNavigationBar(isPublishing: false)
+                // TODO: Display failure banner on topic compose VC
+            }
+        }
+    }
+    
+    
+}
+
+extension TalkPageViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        guard let navVC = presentationController.presentingViewController as? UINavigationController,
+              let topicComposeVC = navVC.visibleViewController as? TalkPageTopicComposeViewController else {
+            return true
+        }
+        
+        guard topicComposeVC.shouldBlockDismissal else {
+            return true
+        }
+        
+        topicComposeVC.presentDismissConfirmationActionSheet()
+        return false
     }
 }
 
@@ -358,6 +469,9 @@ extension TalkPageViewController {
         static let unsubscribedAlertTitle = WMFLocalizedString("talk-page-unsubscribed-alert-title", value: "You have unsubscribed.", comment: "Title for alert informing that the user unsubscribed to a topic")
         static let subscribedAlertSubtitle = WMFLocalizedString("talk-page-subscribed-alert-subtitle", value: "You will receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will receive notifications for a subscribed topic")
         static let unsubscribedAlertSubtitle = WMFLocalizedString("talk-page-unsubscribed-alert-subtitle", value: "You will no longer receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will no longer receive notifications for a topic")
+        
+        static let addedTopicAlertTitle = WMFLocalizedString("talk-pages-topic-added-alert-title", value: "Your topic was added", comment: "Title for alert informing that the user's new topic was successfully published.")
+        static let addedCommentAlertTitle = WMFLocalizedString("talk-pages-comment-added-alert-title", value: "Your comment was added", comment: "Title for alert informing that the user's new comment was successfully published.")
         
         static let shareButtonAccesibilityLabel = WMFLocalizedString("talk-page-share-button", value: "Share talk page", comment: "Title for share talk page button")
         static let findButtonAccesibilityLabel = WMFLocalizedString("talk-page-find-in-page-button", value: "Find in page", comment: "Title for find content in page button")
