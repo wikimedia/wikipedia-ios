@@ -115,6 +115,8 @@ final class TalkPageCell: UICollectionViewCell {
     weak var viewModel: TalkPageCellViewModel?
     weak var delegate: TalkPageCellDelegate?
     weak var replyDelegate: TalkPageCellReplyDelegate?
+    
+    static let padding = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
 
     // MARK: - UI Elements
 
@@ -151,14 +153,14 @@ final class TalkPageCell: UICollectionViewCell {
     func setup() {
         contentView.addSubview(rootContainer)
         
-        let rootContainerBottomConstraint = rootContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+        let rootContainerBottomConstraint = rootContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Self.padding.bottom)
         rootContainerBottomConstraint.priority = .defaultHigh
 
         NSLayoutConstraint.activate([
-            rootContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            rootContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Self.padding.top),
             rootContainerBottomConstraint,
-            rootContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            rootContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            rootContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Self.padding.leading),
+            rootContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Self.padding.trailing)
         ])
     }
 
