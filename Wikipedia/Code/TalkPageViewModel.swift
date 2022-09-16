@@ -93,7 +93,7 @@ final class TalkPageViewModel {
         dataController.subscribeToTopic(topicName: topic, shouldSubscribe: shouldSubscribe) { [self] result in
             switch result {
             case let .success(result) :
-                let topicUpdated = topics.filter { $0.topicTitle == topic}
+                let topicUpdated = topics.filter { $0.topicName == topic}
                 topicUpdated[0].isSubscribed = result
                 completion(.success(result))
             case let .failure(error):

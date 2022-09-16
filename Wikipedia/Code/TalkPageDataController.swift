@@ -79,7 +79,12 @@ class TalkPageDataController {
     }
     
     func subscribeToTopic(topicName: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
-        talkPageFetcher.subscribeToTopic(talkPageTitle: pageTitle, siteURL: siteURL, topic: topicName, shouldSubscribe: shouldSubscribe, completion: completion)
+        
+        talkPageFetcher.subscribeToTopic(talkPageTitle: pageTitle, siteURL: siteURL, topic: topicName, shouldSubscribe: shouldSubscribe) { result in 
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
     }
     
     // MARK: Private
