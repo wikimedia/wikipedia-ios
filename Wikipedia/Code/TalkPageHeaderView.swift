@@ -335,7 +335,21 @@ final class TalkPageHeaderView: SetupView {
         
         let theme = viewModel.theme
         
-        coffeeRollLabel.attributedText = coffeeRollText.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, tagMapping: ["a": "b"])
+        var attributedText: NSMutableAttributedString = coffeeRollText.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, tagMapping: ["a": "b"])
+        if attributedText.string.first == "\n" {
+            attributedText = removeInitialCharactersFrom(&attributedText)
+        }
+        coffeeRollLabel.attributedText = attributedText
+    }
+    
+    // Coffee roll attributed strigs were sometimes created with extra new line characters (\n) as the initial characters, so we remove them to properly render the text
+    func removeInitialCharactersFrom(_ attributedString: inout NSMutableAttributedString) -> NSMutableAttributedString {
+        while attributedString.string.first == "\n" {
+            let range = (attributedString.string as NSString).range(of: "\n")
+            attributedString.deleteCharacters(in: range)
+        }
+        
+        return attributedString
     }
 
 }
@@ -351,8 +365,21 @@ extension TalkPageHeaderView: Themeable {
         projectLanguageLabel.textColor = theme.colors.secondaryText
         projectLanguageLabelContainer.layer.borderColor = theme.colors.secondaryText.cgColor
 
-        // TODO: Use new Sepia `beige` for background color
-        coffeeRollContainer.backgroundColor = .sepiaBase100
+        // TODO: Replace these once new theme colors are added/refreshed in the app
+        let coffeeRollContainerBackground: UIColor!
+        switch theme {
+        case .light:
+            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0xF8F1E3)
+        case .sepia:
+            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0xE1DAD1)
+        case .dark:
+            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0x101418)
+        case .black:
+            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0x101418)
+        default:
+            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0xF8F1E3)
+        }
+        coffeeRollContainer.backgroundColor = coffeeRollContainerBackground
 
         coffeeRollSeparator.backgroundColor = theme.colors.tertiaryText
         coffeeRollReadMoreButton.setTitleColor(theme.colors.link, for: .normal)

@@ -4,8 +4,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocalizedDateFormatStrings : NSObject
 
-+ (NSString *)yearsAgoForWikiLanguage:(nullable NSString *)language;
-
 + (NSString *)hoursAgo;
 
 + (NSString *)minutesAgo;

@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (nullable NSString *)semanticFeaturedArticleTitleFromStoryHTML:(NSString *)storyHTML siteURL:(NSURL *)siteURL {
-    NSString *pictured = WMFLocalizedStringWithDefaultValue(@"pictured", siteURL.wmf_languageCode, nil, @"pictured", @"Indicates the person or item is pictured (as in a news story).");
+    NSString *pictured = [WMFFeedNewsStory localizedPicturedTextForWikiLanguage: siteURL.wmf_languageCode];
     NSRange range = [storyHTML rangeOfString:pictured options:NSCaseInsensitiveSearch];
     if (range.length == 0) {
         return nil;
