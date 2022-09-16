@@ -3,15 +3,12 @@
 #import <WMF/NSCalendar+WMFCommonCalendars.h>
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/WMF-Swift.h>
 
 NSString *const WMFAbbreviatedRelativeDateAgo = @"includingAgo";
 NSString *const WMFAbbreviatedRelativeDate = @"excludingAgo";
 
 @implementation WMFLocalizedDateFormatStrings
-
-+ (NSString *)yearsAgoForWikiLanguage:(nullable NSString *)language {
-    return WMFLocalizedStringWithDefaultValue(@"relative-date-years-ago", language, nil, @"{{PLURAL:%1$d|0=This year|1=Last year|%1$d years ago}}", @"Relative years ago. 0 = this year, singular = last year. %1$d will be replaced with the number of years ago.");
-}
 
 + (NSString *)monthsAgo {
     return WMFLocalizedStringWithDefaultValue(@"relative-date-months-ago", nil, nil, @"{{PLURAL:%1$d|0=This month|1=Last month|%1$d months ago}}", @"Relative months ago. 0 = this month, singular = last month. %1$d will be replaced with the number of months ago.");
