@@ -26,8 +26,6 @@ class TalkPageViewController: ViewController {
         progressController.delay = 0.0
         return progressController
     }()
-
-    var isReloadingAfterReply = false
     
     // MARK: - Overflow menu properties
     
@@ -332,17 +330,6 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         
         userDidTapDisclosureButton(cellViewModel: cell.viewModel, cell: cell)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if isReloadingAfterReply && cell.frame.size.height == 225 {
-            DispatchQueue.main.async {
-                collectionView.collectionViewLayout.invalidateLayout()
-                collectionView.layoutIfNeeded()
-                self.isReloadingAfterReply = false
-            }
-        }
-    }
-    
 }
 
 // MARK: - TalkPageCellDelegate
@@ -396,7 +383,6 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     switch result {
                     case .success:
-                        self?.isReloadingAfterReply = true
                         self?.talkPageView.collectionView.reloadData()
                         self?.handleNewTopicOrCommentAlert(isNewTopic: false)
                     case .failure:
