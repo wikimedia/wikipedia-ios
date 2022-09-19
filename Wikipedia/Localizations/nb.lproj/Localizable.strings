@@ -1018,7 +1018,9 @@
 "talk-page-topic-title" = "Diskusjon";
 "talk-pages-comment-added-alert-title" = "Kommentaren din ble lagt til";
 "talk-pages-reply-button-title" = "Svar på denne diskusjonen";
+"talk-pages-topic-compose-body-placeholder" = "Beskrivelse";
 "talk-pages-topic-compose-close-confirmation-keep" = "Fortsett å redigere";
+"talk-pages-user-groups" = "Brukergrupper";
 "talk-pages-user-logs" = "Logger";
 "talk-pages-view-title" = "Diskusjon";
 "theme-black-display-name" = "Svart";

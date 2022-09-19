@@ -8,6 +8,7 @@
 // Author: BadDog
 // Author: Batumski brodyaga
 // Author: Bsitzmann
+// Author: Deltaspace
 // Author: Dicto23456
 // Author: Diralik
 // Author: Dyaydyasasha2015
@@ -171,6 +172,7 @@
 "action-update" = "Обновить";
 "add-articles-to-reading-list" = "Добавить {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
 "add-citation-title" = "Добавить ссылку на источник";
+"additional-information-email-title" = "Дополнительная информация";
 "announcements-dismiss" = "Закрыть";
 "app-store-keywords" = "Википедия, статья, вики, энциклопедия, инфо, знание, прочитать, информация, чтение, определение";
 "app-store-release-notes" = "Лента в приложении теперь сделана полностью настраиваемой и лёгкой в использовании. Были улучшены сообщения локализации, а также повышена производительность приложения и, традиционно, исправлены некоторые ошибки.";
@@ -1039,6 +1041,7 @@
 "talk-page-publish-terms-and-licenses" = "Сохраняя изменения, вы соглашаетесь с $1Условиями использования$2 и публикуете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6.";
 "talk-page-related-links" = "Ссылки сюда";
 "talk-page-reply-button" = "Ответить";
+"talk-page-reply-placeholder-format" = "Ответить $1";
 "talk-page-reply-title" = "Ответ";
 "talk-page-revision-history" = "История изменений";
 "talk-page-share-button" = "Поделиться страницей обсуждения";
@@ -1047,6 +1050,7 @@
 "talk-page-subscribed-alert-title" = "Вы подписались!";
 "talk-page-title-article-talk" = "Обсуждение статьи";
 "talk-page-title-user-talk" = "Обсуждение участника";
+"talk-page-topic-compose-terms-and-licenses" = "Сохраняя изменения, вы соглашаетесь с $1Условиями использования$2 и безвозвратно соглашаетесь опубликовать свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6.";
 "talk-page-topic-title" = "Обсуждение";
 "talk-page-unsubscribe-to-topic" = "Отписаться";
 "talk-page-unsubscribed-alert-subtitle" = "Вы больше не будете получать уведомления о новых сообщениях в этой теме.";
@@ -1054,7 +1058,15 @@
 "talk-page-user-about" = "О страницах обсуждения участников";
 "talk-page-user-contributions" = "Вклад";
 "talk-pages-coffee-roll-read-more" = "Читать далее";
+"talk-pages-comment-added-alert-title" = "Ваш комментарий был добавлен";
 "talk-pages-reply-button-title" = "Ответить в этом обсуждении";
+"talk-pages-topic-added-alert-title" = "Ваша тема была добавлена";
+"talk-pages-topic-compose-body-placeholder" = "Описание";
+"talk-pages-topic-compose-close-confirmation-discard" = "Удалить тему";
+"talk-pages-topic-compose-close-confirmation-keep" = "Продолжить редактирование";
+"talk-pages-topic-compose-close-confirmation-title" = "Вы уверены, что хотите удалить эту новую тему?";
+"talk-pages-topic-compose-navbar-title" = "Тема";
+"talk-pages-topic-compose-title-placeholder" = "Название темы";
 "talk-pages-user-groups" = "Группы участников";
 "talk-pages-user-logs" = "Журналы";
 "talk-pages-view-title" = "Обсуждение";
@@ -1085,6 +1097,7 @@
 "vanish-account-back-confirm-keep-editing" = "Продолжить редактирование";
 "vanish-account-button-text" = "Послать запрос";
 "vanish-account-learn-more-text" = "Узнать подробности";
+"vanish-account-username-field" = "Имя участника и его страница";
 "variants-alert-dismiss-button" = "Нет, спасибо";
 "variants-alert-preferences-button" = "Просмотреть свои настройки";
 "welcome-exploration-explore-feed-description" = "Рекомендованные записи и ежедневные статьи от нашего сообщества";
