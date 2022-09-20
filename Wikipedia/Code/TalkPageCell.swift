@@ -62,7 +62,7 @@ final class TalkPageCellRootContainerView: SetupView, Themeable {
         stackView.addArrangedSubview(leadReplyButton)
     }
     
-    func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling, replyDelegate: TalkPageCellReplyDelegate) {
+    func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling, replyDelegate: TalkPageCellReplyDelegate, theme: Theme) {
         disclosureRow.configure(viewModel: viewModel)
         topicView.configure(viewModel: viewModel)
         topicView.linkDelegate = linkDelegate
@@ -93,6 +93,8 @@ final class TalkPageCellRootContainerView: SetupView, Themeable {
             stackView.addArrangedSubview(separator)
             stackView.addArrangedSubview(commentView)
         }
+        
+        apply(theme: theme)
     }
     
     func apply(theme: Theme) {
@@ -162,11 +164,11 @@ final class TalkPageCell: UICollectionViewCell {
 
     // MARK: - Configure
 
-    func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling, replyDelegate: TalkPageCellReplyDelegate) {
+    func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling, replyDelegate: TalkPageCellReplyDelegate, theme: Theme) {
         self.viewModel = viewModel
         self.replyDelegate = replyDelegate
 
-        rootContainer.configure(viewModel: viewModel, linkDelegate: linkDelegate, replyDelegate: replyDelegate)
+        rootContainer.configure(viewModel: viewModel, linkDelegate: linkDelegate, replyDelegate: replyDelegate, theme: theme)
 
         rootContainer.disclosureRow.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
         rootContainer.disclosureRow.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)

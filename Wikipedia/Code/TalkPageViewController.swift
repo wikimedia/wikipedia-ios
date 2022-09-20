@@ -222,6 +222,8 @@ class TalkPageViewController: ViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
+        talkPageView.collectionView.collectionViewLayout.invalidateLayout()
+        
         replyComposeController.calculateLayout(in: self, newViewSize: size)
     }
     
@@ -318,8 +320,7 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         let viewModel = viewModel.topics[indexPath.row]
 
         cell.delegate = self
-        cell.configure(viewModel: viewModel, linkDelegate: self, replyDelegate: self)
-        cell.apply(theme: theme)
+        cell.configure(viewModel: viewModel, linkDelegate: self, replyDelegate: self, theme: theme)
 
         return cell
     }
@@ -343,7 +344,27 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 225)
+        
+        guard let viewModel = viewModel.topics[safeIndex: indexPath.item],
+              let sizingView = talkPageView.sizingView else {
+            return .zero
+        }
+
+        sizingView.configure(viewModel: viewModel, linkDelegate: self, replyDelegate: self, theme: theme)
+        sizingView.setNeedsLayout()
+        sizingView.layoutIfNeeded()
+
+        let horizontalPadding = TalkPageCell.padding.leading + TalkPageCell.padding
+            .trailing
+        let verticalPadding = TalkPageCell.padding.top +
+                                TalkPageCell.padding.bottom
+
+        let newWidth = sizingView.frame.width + horizontalPadding
+        let newHeight = sizingView.frame.height + verticalPadding
+
+        let newSize = CGSize(width: newWidth, height: newHeight)
+
+        return newSize
     }
 }
 
@@ -359,8 +380,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isThreadExpanded.toggle()
         
-        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self, replyDelegate: self)
-        cell.apply(theme: theme)
+        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self, replyDelegate: self, theme: theme)
         talkPageView.collectionView.collectionViewLayout.invalidateLayout()
     }
     
@@ -371,7 +391,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isSubscribed.toggle()
-        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self, replyDelegate: self)
+        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self, replyDelegate: self, theme: theme)
         self.handleSubscriptionAlert(isSubscribedToTopic: configuredCellViewModel.isSubscribed)
     }
 }
