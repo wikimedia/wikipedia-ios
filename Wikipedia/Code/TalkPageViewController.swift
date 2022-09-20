@@ -79,7 +79,22 @@ class TalkPageViewController: ViewController {
     var overflowMenu: UIMenu {
         
         let openAllAction = UIAction(title: TalkPageLocalizedStrings.openAllThreads, image: UIImage(systemName: "square.stack"), handler: { _ in
+            
+            // Wait for context menu to dismiss before reloading
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0, execute: {
+                self.toggleSpinner(show: true)
+                
+                // Be sure spinner is showing before we reload
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2, execute: {
+                    for topic in self.viewModel.topics {
+                        topic.isThreadExpanded = true
+                    }
 
+                    self.talkPageView.collectionView.reloadData()
+                    
+                    self.toggleSpinner(show: false)
+                })
+            })
         })
         
         let revisionHistoryAction = UIAction(title: CommonStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { _ in
@@ -95,6 +110,21 @@ class TalkPageViewController: ViewController {
 
         return mainMenu
     }
+    
+    private lazy var spinnerOverlay: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = theme.colors.paperBackground
+        view.alpha = 0.8
+        return view
+    }()
+    
+    private lazy var spinner: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .medium)
+        view.color = theme.colors.primaryText
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     // MARK: - Lifecycle
 
@@ -298,6 +328,27 @@ class TalkPageViewController: ViewController {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, dismissPreviousAlerts: true)
+        }
+    }
+    
+    private func toggleSpinner(show: Bool) {
+        if show {
+            view.addSubview(spinnerOverlay)
+            spinnerOverlay.addSubview(spinner)
+            NSLayoutConstraint.activate([
+                spinnerOverlay.topAnchor.constraint(equalTo: view.topAnchor),
+                spinnerOverlay.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                spinnerOverlay.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                spinnerOverlay.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                
+                spinner.centerYAnchor.constraint(equalTo: spinnerOverlay.centerYAnchor),
+                spinner.centerXAnchor.constraint(equalTo: spinnerOverlay.centerXAnchor)
+            ])
+            spinner.startAnimating()
+        } else {
+            spinner.stopAnimating()
+            spinner.removeFromSuperview()
+            spinnerOverlay.removeFromSuperview()
         }
     }
 }
