@@ -105,7 +105,6 @@ platform :ios do
       job = ENV['CIRCLE_JOB']
       slack_message = "<#{url}|CircleCI #{job} ##{number}>"
     end
-    read_xcversion
     devices_by_scheme = get_devices_by_scheme_from_options(options)
     devices_by_scheme.each do |scheme, devices|
       opts = {
