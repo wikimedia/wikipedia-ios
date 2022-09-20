@@ -38,8 +38,4 @@ final class TalkPageCellViewModel {
         self.replies = replies
         self.activeUsersCount = activeUsersCount
     }
-    
-    func resetCachedSize() {
-        cachedCellSizes.removeAll()
-    }
 }

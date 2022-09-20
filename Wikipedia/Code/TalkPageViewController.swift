@@ -425,6 +425,19 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
     }
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
+        
+        // TODO: Better pulling of old topic
+        let oldTopic = viewModel.topics.first { topic in
+            let allReplies = topic.replies + [topic.leadComment]
+            for reply in allReplies {
+                if commentViewModel.commentId == reply.commentId {
+                    return true
+                }
+            }
+
+            return false
+        }
+        
         viewModel.postReply(commentId: commentViewModel.commentId, comment: text) { [weak self] result in
 
             switch result {
@@ -432,7 +445,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self?.replyComposeController.reset()
                 
                 // Try to refresh page
-                self?.viewModel.fetchTalkPage { [weak self] result in
+                self?.viewModel.fetchTalkPage(replyingToTopic: oldTopic) { [weak self] result in
                     switch result {
                     case .success:
                         self?.talkPageView.collectionView.reloadData()
