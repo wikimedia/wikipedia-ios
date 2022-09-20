@@ -318,8 +318,7 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         let viewModel = viewModel.topics[indexPath.row]
 
         cell.delegate = self
-        cell.replyDelegate = self
-        cell.configure(viewModel: viewModel, linkDelegate: self)
+        cell.configure(viewModel: viewModel, linkDelegate: self, replyDelegate: self)
         cell.apply(theme: theme)
 
         return cell
@@ -357,7 +356,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isThreadExpanded.toggle()
         
-        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
+        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self, replyDelegate: self)
         cell.apply(theme: theme)
         talkPageView.collectionView.collectionViewLayout.invalidateLayout()
     }
@@ -369,7 +368,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isSubscribed.toggle()
-        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
+        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self, replyDelegate: self)
         self.handleSubscriptionAlert(isSubscribedToTopic: configuredCellViewModel.isSubscribed)
     }
 }

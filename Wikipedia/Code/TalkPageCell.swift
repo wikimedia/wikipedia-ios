@@ -11,28 +11,7 @@ protocol TalkPageCellReplyDelegate: AnyObject {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel)
 }
 
-final class TalkPageCell: UICollectionViewCell {
-
-    // MARK: - Properties
-
-    static let reuseIdentifier = "TalkPageCell"
-
-    weak var viewModel: TalkPageCellViewModel?
-    weak var delegate: TalkPageCellDelegate?
-    weak var replyDelegate: TalkPageCellReplyDelegate?
-
-    // MARK: - UI Elements
-
-    lazy var rootContainer: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.masksToBounds = true
-        view.layer.cornerCurve = .continuous
-        view.layer.cornerRadius = 8
-        view.layer.borderWidth = 1.0
-        return view
-    }()
-
+final class TalkPageCellRootContainerView: SetupView, Themeable {
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +36,7 @@ final class TalkPageCell: UICollectionViewCell {
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
 
-        button.setContentHuggingPriority(.required, for: .horizontal)        
+        button.setContentHuggingPriority(.required, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .vertical)
         return button
@@ -66,43 +45,15 @@ final class TalkPageCell: UICollectionViewCell {
     lazy var topicView: TalkPageCellTopicView = TalkPageCellTopicView()
     lazy var disclosureRow: TalkPageCellDisclosureRow = TalkPageCellDisclosureRow()
     lazy var commentView = TalkPageCellCommentView()
-
-    // MARK: - Lifecycle
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
-
-    override func prepareForReuse() {
-        viewModel = nil
-        delegate = nil
-        disclosureRow.disclosureButton.removeTarget(nil, action: nil, for: .allEvents)
-        disclosureRow.subscribeButton.removeTarget(nil, action: nil, for: .allEvents)
-    }
-
-    func setup() {
-        contentView.addSubview(rootContainer)
-        rootContainer.addSubview(stackView)
+    
+    override func setup() {
+        addSubview(stackView)
         
-        let rootContainerBottomConstraint = rootContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
-        rootContainerBottomConstraint.priority = .defaultHigh
-
         NSLayoutConstraint.activate([
-            rootContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            rootContainerBottomConstraint,
-            rootContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            rootContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-
-            stackView.topAnchor.constraint(equalTo: rootContainer.topAnchor, constant: 12),
-            stackView.bottomAnchor.constraint(equalTo: rootContainer.bottomAnchor, constant: -12),
-            stackView.leadingAnchor.constraint(equalTo: rootContainer.leadingAnchor, constant: 12),
-            stackView.trailingAnchor.constraint(equalTo: rootContainer.trailingAnchor, constant: -12)
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
         ])
 
         stackView.addArrangedSubview(disclosureRow)
@@ -110,12 +61,8 @@ final class TalkPageCell: UICollectionViewCell {
         stackView.addArrangedSubview(leadReplySpacer)
         stackView.addArrangedSubview(leadReplyButton)
     }
-
-    // MARK: - Configure
-
-    func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling) {
-        self.viewModel = viewModel
-
+    
+    func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling, replyDelegate: TalkPageCellReplyDelegate) {
         disclosureRow.configure(viewModel: viewModel)
         topicView.configure(viewModel: viewModel)
         topicView.linkDelegate = linkDelegate
@@ -146,10 +93,86 @@ final class TalkPageCell: UICollectionViewCell {
             stackView.addArrangedSubview(separator)
             stackView.addArrangedSubview(commentView)
         }
+    }
+    
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.paperBackground
+        layer.borderColor = theme.colors.border.cgColor
+        stackView.arrangedSubviews.forEach { ($0 as? Themeable)?.apply(theme: theme) }
+        
+        leadReplyButton.setTitleColor(theme.colors.paperBackground, for: .normal)
+        leadReplyButton.backgroundColor = theme.colors.link
+        leadReplyButton.tintColor = theme.colors.paperBackground
+    }
+}
 
-        disclosureRow.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
-        disclosureRow.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
-        leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
+final class TalkPageCell: UICollectionViewCell {
+
+    // MARK: - Properties
+
+    static let reuseIdentifier = "TalkPageCell"
+
+    weak var viewModel: TalkPageCellViewModel?
+    weak var delegate: TalkPageCellDelegate?
+    weak var replyDelegate: TalkPageCellReplyDelegate?
+
+    // MARK: - UI Elements
+
+    lazy var rootContainer: TalkPageCellRootContainerView = {
+        let view = TalkPageCellRootContainerView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.masksToBounds = true
+        view.layer.cornerCurve = .continuous
+        view.layer.cornerRadius = 8
+        view.layer.borderWidth = 1.0
+        return view
+    }()
+
+
+    // MARK: - Lifecycle
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+
+    override func prepareForReuse() {
+        viewModel = nil
+        delegate = nil
+        rootContainer.disclosureRow.disclosureButton.removeTarget(nil, action: nil, for: .allEvents)
+        rootContainer.disclosureRow.subscribeButton.removeTarget(nil, action: nil, for: .allEvents)
+    }
+
+    func setup() {
+        contentView.addSubview(rootContainer)
+        
+        let rootContainerBottomConstraint = rootContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+        rootContainerBottomConstraint.priority = .defaultHigh
+
+        NSLayoutConstraint.activate([
+            rootContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            rootContainerBottomConstraint,
+            rootContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            rootContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+        ])
+    }
+
+    // MARK: - Configure
+
+    func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling, replyDelegate: TalkPageCellReplyDelegate) {
+        self.viewModel = viewModel
+        self.replyDelegate = replyDelegate
+
+        rootContainer.configure(viewModel: viewModel, linkDelegate: linkDelegate, replyDelegate: replyDelegate)
+
+        rootContainer.disclosureRow.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
+        rootContainer.disclosureRow.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
+        rootContainer.leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
     }
 
     // MARK: - Actions
@@ -177,14 +200,7 @@ final class TalkPageCell: UICollectionViewCell {
 extension TalkPageCell: Themeable {
 
     func apply(theme: Theme) {
-        rootContainer.backgroundColor = theme.colors.paperBackground
-        rootContainer.layer.borderColor = theme.colors.border.cgColor
-
-        stackView.arrangedSubviews.forEach { ($0 as? Themeable)?.apply(theme: theme) }
-
-        leadReplyButton.setTitleColor(theme.colors.paperBackground, for: .normal)
-        leadReplyButton.backgroundColor = theme.colors.link
-        leadReplyButton.tintColor = theme.colors.paperBackground
+        rootContainer.apply(theme: theme)
     }
 
 }
