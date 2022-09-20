@@ -5,25 +5,6 @@ final class TalkPageCellCommentView: SetupView {
 
     // MARK: - UI Elements
 
-    lazy var verticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.alignment = .top
-        return stackView
-    }()
-
-    lazy var horizontalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.alignment = .leading
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 4
-        return stackView
-    }()
-
     lazy var commentTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,6 +20,7 @@ final class TalkPageCellCommentView: SetupView {
 
     lazy var replyButton: UIButton = {
         let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(CommonStrings.talkPageReply, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.setImage(UIImage(systemName: "arrowshape.turn.up.left"), for: .normal)
@@ -55,11 +37,20 @@ final class TalkPageCellCommentView: SetupView {
         button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 15)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         
+        button.titleLabel?.setContentHuggingPriority(.required, for: .vertical)
+        button.titleLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
+        
         button.addTarget(self, action: #selector(tappedReply), for: .touchUpInside)
         return button
     }()
 
-    lazy var replyDepthView = TalkPageCellReplyDepthIndicator(depth: 0)
+    lazy var replyDepthView: TalkPageCellReplyDepthIndicator = {
+        let depthIndicator = TalkPageCellReplyDepthIndicator(depth: 0)
+        depthIndicator.translatesAutoresizingMaskIntoConstraints = false
+        depthIndicator.setContentCompressionResistancePriority(UILayoutPriority(999), for: .horizontal)
+        depthIndicator.setContentHuggingPriority(.required, for: .horizontal)
+        return depthIndicator
+    }()
     
     weak var viewModel: TalkPageCellCommentViewModel?
     weak var replyDelegate: TalkPageCellReplyDelegate?
@@ -68,28 +59,34 @@ final class TalkPageCellCommentView: SetupView {
     // MARK: - Lifecycle
 
     override func setup() {
-        addSubview(horizontalStackView)
+        addSubview(replyDepthView)
+        addSubview(commentTextView)
+        addSubview(replyButton)
 
-        horizontalStackView.addArrangedSubview(replyDepthView)
-        horizontalStackView.addArrangedSubview(verticalStackView)
-        verticalStackView.addArrangedSubview(commentTextView)
-        verticalStackView.addArrangedSubview(replyButton)
+        NSLayoutConstraint.activate([
+            replyDepthView.topAnchor.constraint(equalTo: commentTextView.topAnchor),
+            replyDepthView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            replyDepthView.bottomAnchor.constraint(equalTo: replyButton.bottomAnchor),
 
-        let replyDepthWidthConstraint = replyDepthView.widthAnchor.constraint(lessThanOrEqualTo: horizontalStackView.widthAnchor, multiplier: 1/2)
+            commentTextView.leadingAnchor.constraint(equalTo: replyDepthView.trailingAnchor, constant: 4),
+            commentTextView.topAnchor.constraint(equalTo: topAnchor),
+            commentTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            commentTextView.bottomAnchor.constraint(equalTo: replyButton.topAnchor),
+
+            replyButton.leadingAnchor.constraint(equalTo: commentTextView.leadingAnchor),
+            replyButton.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+
+        let replyDepthWidthConstraint = replyDepthView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 1/2)
         replyDepthWidthConstraint.priority = .required
 
-        let replyDepthHeightConstraint = replyDepthView.heightAnchor.constraint(equalTo: horizontalStackView.heightAnchor)
+        let replyDepthHeightConstraint = replyDepthView.heightAnchor.constraint(equalTo: heightAnchor)
         replyDepthHeightConstraint.priority = .required
 
-        let commentTextWidthConstraint = commentTextView.widthAnchor.constraint(greaterThanOrEqualTo: horizontalStackView.widthAnchor, multiplier: 1/2)
+        let commentTextWidthConstraint = commentTextView.widthAnchor.constraint(greaterThanOrEqualTo: widthAnchor, multiplier: 1/2)
         commentTextWidthConstraint.priority = .required
 
         NSLayoutConstraint.activate([
-            horizontalStackView.topAnchor.constraint(equalTo: topAnchor),
-            horizontalStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            horizontalStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            horizontalStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-
             replyDepthWidthConstraint,
             replyDepthHeightConstraint,
             commentTextWidthConstraint
