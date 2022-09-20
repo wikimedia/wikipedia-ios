@@ -20,6 +20,16 @@ final class TalkPageCellViewModel {
         return "\(replies.count + 1)"
     }
     
+    struct CachedCellSize {
+        var collapsedHeight: CGFloat?
+        var expandedHeight: CGFloat?
+        var width: CGFloat
+    }
+    
+    typealias CollectionViewWidth = CGFloat
+
+    var cachedCellSizes: [CollectionViewWidth: CachedCellSize] = [:]
+    
     init(id: String, topicTitle: String, timestamp: Date?, leadComment: TalkPageCellCommentViewModel, replies: [TalkPageCellCommentViewModel], activeUsersCount: String) {
         self.id = id
         self.topicTitle = topicTitle
@@ -27,5 +37,9 @@ final class TalkPageCellViewModel {
         self.leadComment = leadComment
         self.replies = replies
         self.activeUsersCount = activeUsersCount
+    }
+    
+    func resetCachedSize() {
+        cachedCellSizes.removeAll()
     }
 }

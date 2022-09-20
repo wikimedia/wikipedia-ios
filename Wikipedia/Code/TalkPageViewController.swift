@@ -338,22 +338,48 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
             return .zero
         }
         
+        let collectionViewWidth = talkPageView.collectionView.frame.width
+ 
+        if let cachedSize = cachedSize(viewModel: viewModel, collectionViewWidth: collectionViewWidth) {
+            return cachedSize
+        }
+        
         sizingView.prepareForReuse()
         sizingView.configure(viewModel: viewModel, linkDelegate: self, replyDelegate: self, theme: theme)
         sizingView.setNeedsLayout()
         sizingView.layoutIfNeeded()
-
+        
         let horizontalPadding = TalkPageCell.padding.leading + TalkPageCell.padding
-            .trailing
-        let verticalPadding = TalkPageCell.padding.top +
-                                TalkPageCell.padding.bottom
-
+                    .trailing
+        let verticalPadding = TalkPageCell.padding.top + TalkPageCell.padding.bottom
+        
         let newWidth = sizingView.frame.width + horizontalPadding
         let newHeight = sizingView.frame.height + verticalPadding
 
-        let newSize = CGSize(width: newWidth, height: newHeight)
+        setCachedSize(viewModel: viewModel, newWidth: newWidth, newHeight: newHeight, collectionViewWidth: collectionViewWidth)
 
-        return newSize
+        return CGSize(width: newWidth, height: newHeight)
+    }
+    
+    private func cachedSize(viewModel: TalkPageCellViewModel, collectionViewWidth: CGFloat) -> CGSize? {
+        if let cachedSize = viewModel.cachedCellSizes[collectionViewWidth],
+           let height = viewModel.isThreadExpanded ? cachedSize.expandedHeight : cachedSize.collapsedHeight {
+            return CGSize(width: cachedSize.width, height: height)
+        }
+        
+        return nil
+    }
+    
+    private func setCachedSize(viewModel: TalkPageCellViewModel, newWidth: CGFloat, newHeight: CGFloat, collectionViewWidth: CGFloat) {
+        var sizeToCache = viewModel.cachedCellSizes[collectionViewWidth] ?? TalkPageCellViewModel.CachedCellSize(width: newWidth)
+        
+        if viewModel.isThreadExpanded {
+            sizeToCache.expandedHeight = newHeight
+        } else {
+            sizeToCache.collapsedHeight = newHeight
+        }
+        
+        viewModel.cachedCellSizes[collectionViewWidth] = sizeToCache
     }
 }
 
