@@ -79,6 +79,8 @@ final class TalkPageCell: UICollectionViewCell {
     }
 
     override func prepareForReuse() {
+        super.prepareForReuse()
+        
         viewModel = nil
         delegate = nil
         topicView.disclosureButton.removeTarget(nil, action: nil, for: .allEvents)
