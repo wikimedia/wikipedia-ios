@@ -1721,6 +1721,10 @@
 		836BF56F2869F9C200B98321 /* TalkPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56D2869F9C200B98321 /* TalkPageViewController.swift */; };
 		836BF5702869F9C200B98321 /* TalkPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56D2869F9C200B98321 /* TalkPageViewController.swift */; };
 		836BF5712869F9C200B98321 /* TalkPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56D2869F9C200B98321 /* TalkPageViewController.swift */; };
+		837A15F328DA591E00AAC3FC /* TalkPageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A15F228DA591E00AAC3FC /* TalkPageCache.swift */; };
+		837A15F428DA591E00AAC3FC /* TalkPageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A15F228DA591E00AAC3FC /* TalkPageCache.swift */; };
+		837A15F528DA591E00AAC3FC /* TalkPageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A15F228DA591E00AAC3FC /* TalkPageCache.swift */; };
+		837A15F628DA591E00AAC3FC /* TalkPageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A15F228DA591E00AAC3FC /* TalkPageCache.swift */; };
 		837E619B2510E47400C67494 /* ArticleSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D3FC12223A8BCD0048384B /* ArticleSummary.swift */; };
 		8380753720DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380753620DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift */; };
 		8380753920DC7684000D222C /* ColumarCollectionViewLayoutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380753820DC7684000D222C /* ColumarCollectionViewLayoutSection.swift */; };
@@ -4492,6 +4496,7 @@
 		836BF56D2869F9C200B98321 /* TalkPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageViewController.swift; sourceTree = "<group>"; };
 		83703A7724DC44C600EE98EA /* RemoteNotifications 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RemoteNotifications 2.xcdatamodel"; sourceTree = "<group>"; };
 		83703A7824DC44CD00EE98EA /* EventLogging 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EventLogging 2.xcdatamodel"; sourceTree = "<group>"; };
+		837A15F228DA591E00AAC3FC /* TalkPageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCache.swift; sourceTree = "<group>"; };
 		8380753620DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutInfo.swift; sourceTree = "<group>"; };
 		8380753820DC7684000D222C /* ColumarCollectionViewLayoutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumarCollectionViewLayoutSection.swift; sourceTree = "<group>"; };
 		8380753A20DC7D04000D222C /* ColumnarCollectionViewLayoutMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutMetrics.swift; sourceTree = "<group>"; };
@@ -6195,6 +6200,7 @@
 				00DEE61828AD6C9500A60DF9 /* TalkPageCellCommentViewModel.swift */,
 				67C1757528AD4D6000C5ABA4 /* TalkPageDataController.swift */,
 				67BEFFD428AD9DF000606B38 /* TalkPageType.swift */,
+				837A15F228DA591E00AAC3FC /* TalkPageCache.swift */,
 			);
 			name = "Talk Pages";
 			sourceTree = "<group>";
@@ -11629,6 +11635,7 @@
 				B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				B0F92C821E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
 				83F1096923D0DB0F003F3E9E /* ViewController+ArticlePreviewing.swift in Sources */,
+				837A15F328DA591E00AAC3FC /* TalkPageCache.swift in Sources */,
 				0072990B28AC455500DCD2E6 /* TalkPageCellViewModel.swift in Sources */,
 				7A0FF2CC230343BA00E755D4 /* PageHistoryCollectionViewCell.swift in Sources */,
 				67282FBD24855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */,
@@ -12580,6 +12587,7 @@
 				D8A42B231E815A9C00D8E281 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
 				83F1096C23D0DB0F003F3E9E /* ViewController+ArticlePreviewing.swift in Sources */,
 				6707C035237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */,
+				837A15F628DA591E00AAC3FC /* TalkPageCache.swift in Sources */,
 				0072990E28AC455500DCD2E6 /* TalkPageCellViewModel.swift in Sources */,
 				7A0FF2CF230343BA00E755D4 /* PageHistoryCollectionViewCell.swift in Sources */,
 				67282FC024855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */,
@@ -13119,6 +13127,7 @@
 				D8CE25961E698E2400DAE2E0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				7AF6F76722395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
 				6734116522739CCB005B31DA /* TalkPageLocalHandler.swift in Sources */,
+				837A15F528DA591E00AAC3FC /* TalkPageCache.swift in Sources */,
 				BA7683C91F30D87F00A487AA /* ProminentSwitch.swift in Sources */,
 				7A4B333D2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				B0D4917021F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
@@ -13683,6 +13692,7 @@
 				6734116622739CCB005B31DA /* TalkPageLocalHandler.swift in Sources */,
 				7A4B333E2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				D8C4D3DA1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
+				837A15F428DA591E00AAC3FC /* TalkPageCache.swift in Sources */,
 				B0D4917121F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				67985A552523D80000EBF353 /* ArticleAsLivingDocController.swift in Sources */,
 				83023C0820E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,

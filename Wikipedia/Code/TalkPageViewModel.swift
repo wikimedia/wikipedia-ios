@@ -66,21 +66,31 @@ final class TalkPageViewModel {
     func fetchTalkPage(completion: @escaping (Result<Void, Error>) -> Void) {
         dataController.fetchTalkPage { [weak self] result in
             
+            let sharedCache = SharedContainerCache<TalkPageCache>.init(pathComponent: .talkPageCache, defaultCache: {
+                TalkPageCache(talkPages: [])
+            })
+            let cache = sharedCache.loadCache()
+            
             guard let self = self else {
                 return
             }
             
+            let oldViewModels: [TalkPageCellViewModel] = self.topics
+            
             switch result {
             case .success(let result):
                 self.populateHeaderData(articleSummary: result.articleSummary, items: result.items)
-                let oldViewModels: [TalkPageCellViewModel] = self.topics
                 self.topics.removeAll()
                 self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
                 completion(.success(()))
             case .failure(let error):
-                DDLogError("Failure fetching talk page: \(error)")
-                completion(.failure(error))
-                // TODO: Error handling
+                if let cachedPages = cache.talkPages.first {
+                    self.populateCellData(topics: cachedPages, oldViewModels: oldViewModels)
+                } else {
+                    DDLogError("Failure fetching talk page: \(error)")
+                    completion(.failure(error))
+                    // TODO: Error handling
+                }
             }
         }
     }
