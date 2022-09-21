@@ -1031,6 +1031,7 @@
 "talk-page-read-in-web" = "לקריאה בדפדפן";
 "talk-page-related-links" = "מה מקשר לכאן";
 "talk-page-reply-button" = "תגובה";
+"talk-page-reply-placeholder-format" = "להגיב לדברי $1";
 "talk-page-reply-terms-and-licenses" = "נא לשים לב לכך שהתשובה שלך תיחתם אוטומטית עם שם המשתמש שלך. שמירת השינויים מהווה את הסכמתך ל$1תנאי השימוש$2, ואת הסכמתך לשחרר את התרומה של לפי רישיונות $3CC BY-SA 3.0$4 ו־$5GFDL$6.";
 "talk-page-reply-title" = "תגובה";
 "talk-page-revision-history" = "היסטוריית גרסאות";
@@ -1040,6 +1041,7 @@
 "talk-page-subscribed-alert-title" = "עשית מינוי!";
 "talk-page-title-article-talk" = "שיחת ערך";
 "talk-page-title-user-talk" = "שיחת משתמש";
+"talk-page-topic-compose-terms-and-licenses" = "פרסום השינויים מהווה את הסכמתך ל$1תנאי השימוש$2 ואת הסכמתך הבלתי־חוזרת לשחרר את תרומתך בכפוף לרישיון $3CC BY-SA 3.0$4 ולרישיון $5GFDL$6.";
 "talk-page-topic-title" = "דיון";
 "talk-page-unsubscribe-to-topic" = "ביטול מינוי";
 "talk-page-unsubscribed-alert-subtitle" = "לא יתקבלו אצלך עוד התראות על תגובות חדשות בנושא הזה.";
@@ -1047,7 +1049,15 @@
 "talk-page-user-about" = "אודות דפי שיחת משתמש";
 "talk-page-user-contributions" = "תרומות";
 "talk-pages-coffee-roll-read-more" = "לקרוא עוד";
+"talk-pages-comment-added-alert-title" = "התגובה שלך נוספה";
 "talk-pages-reply-button-title" = "השב לדיון זה";
+"talk-pages-topic-added-alert-title" = "הנושא שלך נוסף";
+"talk-pages-topic-compose-body-placeholder" = "תיאור";
+"talk-pages-topic-compose-close-confirmation-discard" = "לזרוק את הנושא";
+"talk-pages-topic-compose-close-confirmation-keep" = "להמשיך לערוך";
+"talk-pages-topic-compose-close-confirmation-title" = "האם ברצונך באמת לזרוק את הנושא החדש הזה?";
+"talk-pages-topic-compose-navbar-title" = "נושא";
+"talk-pages-topic-compose-title-placeholder" = "כותרת הנושא";
 "talk-pages-user-groups" = "קבוצות משתמשים";
 "talk-pages-user-logs" = "יומנים";
 "talk-pages-view-title" = "שיחה";

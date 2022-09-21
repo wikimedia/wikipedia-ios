@@ -24,7 +24,36 @@
 // Author: चक्रपाणी
 // Author: संजीव कुमार
 
+"aaald-added-text-description-2" = "$1 जोड़ा गया";
+"aaald-article-description-updated-description" = "लेख विवरण अपडेट किया गया";
+"aaald-article-insert-header" = "महत्वपूर्ण अपडेट";
 "aaald-article-insert-last-updated" = "आखरी अपडेट";
+"aaald-article-insert-new-changes" = "नए बदलाव";
+"aaald-article-insert-read-more" = "और अपडेट पढ़ें";
+"aaald-deleted-text-description-2" = "$1 हटाया गया";
+"aaald-error-subitle" = "पुनः प्रयास करने के लिए ताज़ा करें";
+"aaald-error-title" = "इनलाइन लेख इतिहास लोड करने में असमर्थ";
+"aaald-many-sections-description" = "$1 अनुभागों में";
+"aaald-multiple-changes-description" = "कई बदलाव किए गए";
+"aaald-multiple-references-added-description" = "कई संदर्भ जोड़े गए";
+"aaald-new-book-reference-title" = "पुस्तक";
+"aaald-new-discussion" = "नई चर्चा";
+"aaald-new-journal-reference-database" = "$1 के माध्यम से";
+"aaald-new-journal-reference-title" = "पत्रिका";
+"aaald-new-journal-reference-volume" = "श्रृंखला $1 :";
+"aaald-new-news-reference-retrieved-date" = "$1 प्राप्त किया";
+"aaald-new-news-reference-title" = "समाचार";
+"aaald-new-talk-topic-description-format" = "इस लेख के बारे में $1";
+"aaald-new-website-reference-archive-date-text" = "$1 पर मूल से";
+"aaald-new-website-reference-archive-url-text" = "Archive.org यूआरएल";
+"aaald-new-website-reference-title" = "वेबसाइट";
+"aaald-one-section-description" = "$1 खंड में";
+"aaald-revision-by-anonymous" = "अनाम उपयोगकर्ता द्वारा संपादन";
+"aaald-revision-userInfo" = "$1 द्वारा संपादित ( $2 संपादन)";
+"aaald-single-reference-added-description" = "संदर्भ जोड़ा गया";
+"aaald-two-sections-description" = "$1 और $2 अनुभागों में";
+"aaald-vandalism-revert-description" = "संदिग्ध बर्बरता पूर्ववत";
+"aaald-view-full-history-button" = "पूरा लेख इतिहास देखें";
 "about-content-license" = "सामग्री लाइसेंस";
 "about-content-license-details" = "जब तक अलग से बताया गया हो तब तक सामग्री $1 के अंतर्गत उपलब्ध है।";
 "about-content-license-details-share-alike-license" = "क्रिएटिव कॉमन्स अट्ट्रिब्यूशन-शेयरअलाइक लाइसेंस";
@@ -33,6 +62,9 @@
 "about-libraries-complete-list" = "पूरी सूची";
 "about-libraries-license" = "लाइसेंस";
 "about-libraries-licenses-title" = "हमें ओपन सोर्स सॉफ्टवेयर $1 पसंद है";
+"about-places-maps-license" = "स्थान मानचित्र लाइसेंस";
+"about-places-maps-license-details" = "प्लेसिस ऐप्पल मैप्स द्वारा प्रदान किए गए मानचित्रों का उपयोग करता है। $1।";
+"about-places-maps-license-details-link-text" = "कृपया लाइसेंस विवरण के लिए यहां देखें";
 "about-product-of" = "$1 के द्वारा आप जैसे स्वयंसेवकों की सहायता से बनाया गया";
 "about-repositories" = "रिपॉजिटरीज़";
 "about-repositories-app-source-license" = "सोर्स कोड $1 के अंतर्गत उपलब्ध है।";
@@ -52,6 +84,7 @@
 "abuse-filter-warning-heading" = "यह एक अरचनात्मक संपादन लगता है, क्या आप इसे प्रकाशित करने को लेकर निश्चित हैं?";
 "abuse-filter-warning-irrelevant" = "अनुपयुक्त बाहरी लिंक या चित्र";
 "abuse-filter-warning-repeat" = "दोहराए जाने वाले अक्षर";
+"abuse-filter-warning-spam" = "लेखों में स्पैम जोड़ा";
 "abuse-filter-warning-subheading" = "आपके संपादन में हो सकते हैं:";
 "account-creation-captcha-cannot-see-image" = "$1 चित्र को नहीं देख सकते?";
 "account-creation-captcha-obtaining" = "एक नया कैप्चा प्राप्त किया जा रहा है...";
@@ -65,6 +98,9 @@
 "account-creation-passwords-mismatched" = "पासवर्ड मैच नहीं हो रहा है।";
 "account-creation-saving" = "सहेज रहा है...";
 "account-creation-title" = "एक नया खाता बनायें";
+"account-group-title" = "आपका खाता";
+"account-request-vanishing" = "गायब खाता";
+"account-talk-page-title" = "आपका वार्ता पृष्ठ";
 "action-cancel" = "रद्द करें";
 "action-find-in-page" = "पृष्ठ में ढूंढें";
 "action-read" = "पढ़ें";
