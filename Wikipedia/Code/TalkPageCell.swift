@@ -64,7 +64,6 @@ final class TalkPageCell: UICollectionViewCell {
     }()
 
     lazy var topicView: TalkPageCellTopicView = TalkPageCellTopicView()
-    lazy var disclosureRow: TalkPageCellDisclosureRow = TalkPageCellDisclosureRow()
     lazy var commentView = TalkPageCellCommentView()
 
     // MARK: - Lifecycle
@@ -82,8 +81,8 @@ final class TalkPageCell: UICollectionViewCell {
     override func prepareForReuse() {
         viewModel = nil
         delegate = nil
-        disclosureRow.disclosureButton.removeTarget(nil, action: nil, for: .allEvents)
-        disclosureRow.subscribeButton.removeTarget(nil, action: nil, for: .allEvents)
+        topicView.disclosureButton.removeTarget(nil, action: nil, for: .allEvents)
+        topicView.subscribeButton.removeTarget(nil, action: nil, for: .allEvents)
     }
 
     func setup() {
@@ -105,7 +104,6 @@ final class TalkPageCell: UICollectionViewCell {
             stackView.trailingAnchor.constraint(equalTo: rootContainer.trailingAnchor, constant: -12)
         ])
 
-        stackView.addArrangedSubview(disclosureRow)
         stackView.addArrangedSubview(topicView)
         stackView.addArrangedSubview(leadReplySpacer)
         stackView.addArrangedSubview(leadReplyButton)
@@ -116,7 +114,6 @@ final class TalkPageCell: UICollectionViewCell {
     func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling) {
         self.viewModel = viewModel
 
-        disclosureRow.configure(viewModel: viewModel)
         topicView.configure(viewModel: viewModel)
         topicView.linkDelegate = linkDelegate
 
@@ -147,8 +144,8 @@ final class TalkPageCell: UICollectionViewCell {
             stackView.addArrangedSubview(commentView)
         }
 
-        disclosureRow.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
-        disclosureRow.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
+        topicView.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
+        topicView.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
         leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
     }
 
