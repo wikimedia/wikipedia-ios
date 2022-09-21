@@ -79,7 +79,12 @@ class TalkPageViewController: ViewController {
     var overflowMenu: UIMenu {
         
         let openAllAction = UIAction(title: TalkPageLocalizedStrings.openAllThreads, image: UIImage(systemName: "square.stack"), handler: { _ in
+            
+            for topic in self.viewModel.topics {
+                topic.isThreadExpanded = true
+            }
 
+            self.talkPageView.collectionView.reloadData()
         })
         
         let revisionHistoryAction = UIAction(title: CommonStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { _ in
