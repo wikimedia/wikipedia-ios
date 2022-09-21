@@ -69,11 +69,12 @@ final class TalkPageViewModel {
             let sharedCache = SharedContainerCache<TalkPageCache>.init(pathComponent: .talkPageCache, defaultCache: {
                 TalkPageCache(talkPages: [])
             })
-            let cache = sharedCache.loadCache()
             
             guard let self = self else {
                 return
             }
+            
+            let cache = sharedCache.loadCache(for: self.pageTitle)
             
             let oldViewModels: [TalkPageCellViewModel] = self.topics
             

@@ -106,7 +106,7 @@ class TalkPageDataController {
                 switch result {
                 case .success(let items):
                     cache.talkPages.insert(items)
-                    sharedCache.saveCache(cache)
+                    sharedCache.saveCache(to: self.pageTitle, cache)
                     completion(items, [])
                 case .failure(let error):
                     completion([], [error])
