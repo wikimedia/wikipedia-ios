@@ -335,9 +335,9 @@ final class TalkPageHeaderView: SetupView {
         
         let theme = viewModel.theme
         
-        let coffeeRollattributedText: NSMutableAttributedString = coffeeRollText.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, tagMapping: ["a": "b"])
+        let coffeeRollAttributedText: NSMutableAttributedString = coffeeRollText.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, tagMapping: ["a": "b"])
         
-        coffeeRollLabel.attributedText = coffeeRollattributedText.removingInitialNewlineCharacters()
+        coffeeRollLabel.attributedText = coffeeRollAttributedText.removingInitialNewlineCharacters()
     }
     
 }
