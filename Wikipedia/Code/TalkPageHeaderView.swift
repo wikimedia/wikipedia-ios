@@ -335,23 +335,11 @@ final class TalkPageHeaderView: SetupView {
         
         let theme = viewModel.theme
         
-        var attributedText: NSMutableAttributedString = coffeeRollText.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, tagMapping: ["a": "b"])
-        if attributedText.string.first == "\n" {
-            attributedText = removeInitialCharactersFrom(&attributedText)
-        }
-        coffeeRollLabel.attributedText = attributedText
+        let coffeeRollAttributedText: NSMutableAttributedString = coffeeRollText.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, tagMapping: ["a": "b"])
+        
+        coffeeRollLabel.attributedText = coffeeRollAttributedText.removingInitialNewlineCharacters()
     }
     
-    // Coffee roll attributed strigs were sometimes created with extra new line characters (\n) as the initial characters, so we remove them to properly render the text
-    func removeInitialCharactersFrom(_ attributedString: inout NSMutableAttributedString) -> NSMutableAttributedString {
-        while attributedString.string.first == "\n" {
-            let range = (attributedString.string as NSString).range(of: "\n")
-            attributedString.deleteCharacters(in: range)
-        }
-        
-        return attributedString
-    }
-
 }
 
 extension TalkPageHeaderView: Themeable {
