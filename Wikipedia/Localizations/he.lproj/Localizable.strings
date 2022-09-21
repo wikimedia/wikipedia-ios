@@ -1036,10 +1036,14 @@
 "talk-page-revision-history" = "היסטוריית גרסאות";
 "talk-page-share-button" = "שיתוף דף שיחה";
 "talk-page-subscribe-to-topic" = "מינוי";
+"talk-page-subscribed-alert-subtitle" = "יתקבלו אצלך התראות על תגובות חדשות בנושא הזה.";
+"talk-page-subscribed-alert-title" = "עשית מינוי!";
 "talk-page-title-article-talk" = "שיחת ערך";
 "talk-page-title-user-talk" = "שיחת משתמש";
 "talk-page-topic-title" = "דיון";
 "talk-page-unsubscribe-to-topic" = "ביטול מינוי";
+"talk-page-unsubscribed-alert-subtitle" = "לא יתקבלו אצלך עוד התראות על תגובות חדשות בנושא הזה.";
+"talk-page-unsubscribed-alert-title" = "ביטלת את המינוי.";
 "talk-page-user-about" = "אודות דפי שיחת משתמש";
 "talk-page-user-contributions" = "תרומות";
 "talk-pages-coffee-roll-read-more" = "לקרוא עוד";

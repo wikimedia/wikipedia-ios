@@ -26,6 +26,7 @@
 // Author: Shirayuki
 // Author: Siglite3
 // Author: SkyDaisy9
+// Author: Sou0012
 // Author: Suchichi02
 // Author: Sujiniku
 // Author: Surgical21
@@ -956,6 +957,7 @@
 "talk-page-read-in-web" = "ウェブで読む";
 "talk-page-related-links" = "リンク元";
 "talk-page-reply-button" = "返信";
+"talk-page-reply-placeholder-format" = "「$1」への返信";
 "talk-page-reply-title" = "返信";
 "talk-page-revision-history" = "変更履歴";
 "talk-page-share-button" = "トークページを共有";
@@ -967,7 +969,15 @@
 "talk-page-unsubscribe-to-topic" = "購読解除";
 "talk-page-user-contributions" = "投稿記録";
 "talk-pages-coffee-roll-read-more" = "さらに読む";
+"talk-pages-comment-added-alert-title" = "あなたのコメントが追加されました";
 "talk-pages-reply-button-title" = "この議論に返信する";
+"talk-pages-topic-added-alert-title" = "トピックが追加されました";
+"talk-pages-topic-compose-body-placeholder" = "説明";
+"talk-pages-topic-compose-close-confirmation-discard" = "トピックを破棄";
+"talk-pages-topic-compose-close-confirmation-keep" = "編集を続行";
+"talk-pages-topic-compose-close-confirmation-title" = "この新しいトピックを破棄してもよろしいですか?";
+"talk-pages-topic-compose-navbar-title" = "トピック";
+"talk-pages-topic-compose-title-placeholder" = "トピック名";
 "talk-pages-user-groups" = "利用者グループ";
 "talk-pages-user-logs" = "ログ";
 "talk-pages-view-title" = "トーク";
