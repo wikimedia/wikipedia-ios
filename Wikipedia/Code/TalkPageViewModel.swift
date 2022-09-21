@@ -96,11 +96,9 @@ final class TalkPageViewModel {
     
 
     func subscribe(to topic: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
-        dataController.subscribeToTopic(topicName: topic, shouldSubscribe: shouldSubscribe) { [self] result in
+        dataController.subscribeToTopic(topicName: topic, shouldSubscribe: shouldSubscribe) { result in
             switch result {
             case let .success(result) :
-                let topicUpdated = topics.filter { $0.topicName == topic}
-                topicUpdated[0].isSubscribed = result
                 completion(.success(result))
             case let .failure(error):
                 completion(.failure(error))
