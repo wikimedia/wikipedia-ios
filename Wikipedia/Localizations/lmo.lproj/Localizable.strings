@@ -337,6 +337,8 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Pizzad tusscoss";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Pizzad";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Pizzad $1";
+"explore-feed-preferences-hide-card-action-title" = "Scond questa scheda chì";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Scond tute i “$1” schede";
 "explore-feed-preferences-in-the-news-description" = "Vos sora i aveniment de adess";
 "explore-feed-preferences-on-this-day-description" = "Aveniment in la storia in quell dì chì";
 "explore-feed-preferences-places-description" = "Vos de Wikipedia arent al to sit";

@@ -43,7 +43,7 @@
 "abuse-filter-disallow-heading" = "यस सम्पादनलाई प्रकाशन गर्न सक्नुहुन्न। कृपया पछाडि जानुहोस् र यसलाई परिवर्तन गर्नुहोस्।";
 "account-creation-captcha-request-account" = "खाता अनुरोध गर्नुहोस् ।";
 "account-creation-create-account" = "खाता खोल्नुहोस्";
-"account-creation-log-in" = "प्रवेश";
+"account-creation-log-in" = "प्रवेश गर्नुहोस्.";
 "account-creation-logging-in" = "प्रवेश गर्दै...";
 "account-creation-saving" = "सङ्ग्रह गर्दै...";
 "account-creation-title" = "नयाँ खाता खोल्नुहोस्";
@@ -257,7 +257,7 @@
 "login-join-wikipedia" = "विकिपिडियामा सहभागीहुनुहोस्।";
 "login-title" = "खातामा प्रवेश गर्नुहोस्";
 "main-menu-about" = "विकिपिडिया अनुप्रयोगको बारेमा";
-"main-menu-account-login" = "प्रवेश";
+"main-menu-account-login" = "प्रवेश गर्नुहोस्";
 "main-menu-account-logout" = "निर्गमन";
 "main-menu-account-logout-are-you-sure" = "के तपाईं निर्गमन गर्न चहानुहुन्छ?";
 "main-menu-account-logout-cancel" = "रद्द गर्नुहोस्";
@@ -450,5 +450,5 @@
 "wikitext-preview-save-changes-title" = "परिवर्तन प्रकाशित गर्नुहोस्";
 "wikitext-upload-save" = "प्रकाशन गर्दै...";
 "wikitext-upload-save-anonymously-warning" = "सम्पादनको श्रेय तपाईँको यन्त्रको IP ठेगानालाई दिइने छ। If you $1 you will have more privacy.";
-"wikitext-upload-save-sign-in" = "प्रवेश";
+"wikitext-upload-save-sign-in" = "प्रवेश गर्नुहोस्";
 "wikitext-upload-save-terms-name" = "प्रयोगका सर्तहरू";

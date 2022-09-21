@@ -9,6 +9,7 @@ final class TalkPageViewModel {
     let pageType: TalkPageType
     let pageTitle: String
     let siteURL: URL
+    let authenticationManager: WMFAuthenticationManager
     private let dataController: TalkPageDataController
 
     // TODO: - Populate from data controller
@@ -32,11 +33,12 @@ final class TalkPageViewModel {
     ///   - pageTitle: Wiki page title, e.g. "Talk:Cat" or "User_talk:Jimbo"
     ///   - siteURL: Site URL without article path, e.g. "https://en.wikipedia.org"
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
-    init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
+    init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
         self.pageType = pageType
         self.pageTitle = pageTitle
         self.siteURL = siteURL
         self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
+        self.authenticationManager = authenticationManager
         
         // Setting headerTitle as pageTitle (which contains the namespace prefix) for now, we attempt to strip the namespace later in populateHeaderData
         self.headerTitle = pageTitle
@@ -47,15 +49,19 @@ final class TalkPageViewModel {
     ///   - pageType: TalkPageType - e.g. .article or .user
     ///   - pageURL: Full wiki page URL, e.g. https://en.wikipedia.org/wiki/Cat
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
-    convenience init?(pageType: TalkPageType, pageURL: URL, articleSummaryController: ArticleSummaryController) {
+    convenience init?(pageType: TalkPageType, pageURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
         guard let pageTitle = pageURL.wmf_title, let siteURL = pageURL.wmf_site else {
             return nil
         }
 
-        self.init(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
+        self.init(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager)
     }
 
     // MARK: - Public
+
+    var isUserLoggedIn: Bool {
+        return authenticationManager.isLoggedIn
+    }
 
     func fetchTalkPage(completion: @escaping (Result<Void, Error>) -> Void) {
         dataController.fetchTalkPage { [weak self] result in
@@ -177,8 +183,8 @@ final class TalkPageViewModel {
                 DDLogError("Unable to parse topic name")
                 return
             }
-            
-            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount)
+
+            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserLoggedIn: isUserLoggedIn)
 
             // Note this is a nested loop, so it will not perform well with many topics.
             // Talk pages generally have a limited number of topics, so optimize later if we determine it's needed

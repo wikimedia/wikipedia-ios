@@ -15,6 +15,53 @@ final class TalkPageCellTopicView: SetupView {
         return stackView
     }()
 
+    lazy var disclosureHorizontalStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .top
+        stackView.spacing = 8
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
+    lazy var subscribeButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .subheadline, weight: .semibold, size: 15)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.setImage(UIImage(systemName: "bell"), for: .normal)
+        button.tintColor = .black
+
+        let inset: CGFloat = 2
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
+
+        button.setContentCompressionResistancePriority(.required, for: .vertical)
+
+        return button
+    }()
+
+    lazy var disclosureButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+        button.tintColor = .black
+        button.setContentCompressionResistancePriority(.required, for: .vertical)
+        return button
+    }()
+
+    lazy var disclosureCenterSpacer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        let widthConstraint = view.widthAnchor.constraint(equalToConstant: 99999)
+        widthConstraint.priority = .defaultLow
+        widthConstraint.isActive = true
+        return view
+    }()
+
     lazy var topicTitleTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +97,7 @@ final class TalkPageCellTopicView: SetupView {
         return textView
     }()
 
-    lazy var horizontalStack: UIStackView = {
+    lazy var metadataHorizontalStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .leading
@@ -113,7 +160,7 @@ final class TalkPageCellTopicView: SetupView {
         return label
     }()
 
-    lazy var centerSpacer: UIView = {
+    lazy var variableMetadataCenterSpacer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         let widthConstraint = view.widthAnchor.constraint(equalToConstant: 99999)
@@ -126,8 +173,14 @@ final class TalkPageCellTopicView: SetupView {
 
     override func setup() {
         addSubview(stackView)
+        stackView.addArrangedSubview(disclosureHorizontalStack)
+
+        disclosureHorizontalStack.addArrangedSubview(subscribeButton)
+        disclosureHorizontalStack.addArrangedSubview(disclosureCenterSpacer)
+        disclosureHorizontalStack.addArrangedSubview(disclosureButton)
+
         stackView.addArrangedSubview(topicTitleTextView)
-        stackView.addArrangedSubview(horizontalStack)
+        stackView.addArrangedSubview(metadataHorizontalStack)
         stackView.addArrangedSubview(topicCommentTextView)
 
         activeUsersStack.addArrangedSubview(activeUsersImageView)
@@ -135,14 +188,14 @@ final class TalkPageCellTopicView: SetupView {
         repliesStack.addArrangedSubview(repliesImageView)
         repliesStack.addArrangedSubview(repliesCountLabel)
 
-        horizontalStack.addArrangedSubview(timestampLabel)
-        horizontalStack.addArrangedSubview(centerSpacer)
-        horizontalStack.addArrangedSubview(activeUsersStack)
-        horizontalStack.addArrangedSubview(metadataSpacer)
-        horizontalStack.addArrangedSubview(repliesStack)
+        metadataHorizontalStack.addArrangedSubview(timestampLabel)
+        metadataHorizontalStack.addArrangedSubview(variableMetadataCenterSpacer)
+        metadataHorizontalStack.addArrangedSubview(activeUsersStack)
+        metadataHorizontalStack.addArrangedSubview(metadataSpacer)
+        metadataHorizontalStack.addArrangedSubview(repliesStack)
 
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
@@ -156,6 +209,16 @@ final class TalkPageCellTopicView: SetupView {
 
     func configure(viewModel: TalkPageCellViewModel) {
         self.viewModel = viewModel
+
+        configureDisclosureRow(isUserLoggedIn: viewModel.isUserLoggedIn)
+
+        disclosureButton.setImage(viewModel.isThreadExpanded ? UIImage(systemName: "chevron.up") : UIImage(systemName: "chevron.down"), for: .normal)
+
+        let talkPageTopicSubscribe = WMFLocalizedString("talk-page-subscribe-to-topic", value: "Subscribe", comment: "Text used on button to subscribe to talk page topic.")
+        let talkPageTopicUnsubscribe = WMFLocalizedString("talk-page-unsubscribe-to-topic", value: "Unsubscribe", comment: "Text used on button to unsubscribe from talk page topic.")
+
+        subscribeButton.setTitle(viewModel.isSubscribed ? talkPageTopicUnsubscribe : talkPageTopicSubscribe , for: .normal)
+        subscribeButton.setImage(viewModel.isSubscribed ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell"), for: .normal)
         
         topicTitleTextView.invalidateIntrinsicContentSize()
         topicTitleTextView.textContainer.maximumNumberOfLines = viewModel.isThreadExpanded ? 0 : 2
@@ -173,12 +236,31 @@ final class TalkPageCellTopicView: SetupView {
         repliesCountLabel.text = viewModel.repliesCount
     }
 
+    fileprivate func configureDisclosureRow(isUserLoggedIn: Bool) {
+        if isUserLoggedIn {
+            if disclosureHorizontalStack.arrangedSubviews.contains(topicTitleTextView) {
+                topicTitleTextView.removeFromSuperview()
+                disclosureHorizontalStack.insertArrangedSubview(subscribeButton, at: 0)
+                stackView.insertArrangedSubview(topicTitleTextView, at: 1)
+            }
+        } else {
+            if disclosureHorizontalStack.arrangedSubviews.contains(subscribeButton) {
+                subscribeButton.removeFromSuperview()
+                disclosureHorizontalStack.insertArrangedSubview(topicTitleTextView, at: 0)
+            }
+
+        }
+    }
+
 }
 
 extension TalkPageCellTopicView: Themeable {
 
     func apply(theme: Theme) {
-        
+        subscribeButton.tintColor = theme.colors.link
+        subscribeButton.setTitleColor(theme.colors.link, for: .normal)
+        disclosureButton.tintColor = theme.colors.secondaryText
+
         topicTitleTextView.attributedText = viewModel?.topicTitle.byAttributingHTML(with: .headline, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: false, handlingSuperSubscripts: true)
         topicTitleTextView.backgroundColor = theme.colors.paperBackground
         
