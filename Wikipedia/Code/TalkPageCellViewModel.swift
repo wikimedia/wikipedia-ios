@@ -15,17 +15,19 @@ final class TalkPageCellViewModel {
     let activeUsersCount: String
 
     var repliesCount: String {
-        
         // Add one for lead comment
         return "\(replies.count + 1)"
     }
+
+    let isUserLoggedIn: Bool
     
-    init(id: String, topicTitle: String, timestamp: Date?, leadComment: TalkPageCellCommentViewModel, replies: [TalkPageCellCommentViewModel], activeUsersCount: String) {
+    init(id: String, topicTitle: String, timestamp: Date?, leadComment: TalkPageCellCommentViewModel, replies: [TalkPageCellCommentViewModel], activeUsersCount: String, isUserLoggedIn: Bool) {
         self.id = id
         self.topicTitle = topicTitle
         self.timestamp = timestamp
         self.leadComment = leadComment
         self.replies = replies
         self.activeUsersCount = activeUsersCount
+        self.isUserLoggedIn = isUserLoggedIn
     }
 }
