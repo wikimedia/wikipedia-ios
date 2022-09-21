@@ -344,6 +344,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isThreadExpanded.toggle()
         
+        cell.removeExpandedElements()
         cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
         cell.apply(theme: theme)
         talkPageView.collectionView.collectionViewLayout.invalidateLayout()
