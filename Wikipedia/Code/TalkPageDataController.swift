@@ -20,7 +20,7 @@ class TalkPageDataController {
     
     // MARK: Public
     
-    typealias TalkPageResult = Result<(articleSummary: WMFArticle?, items: [TalkPageItem], topicNames: [String]), Error>
+    typealias TalkPageResult = Result<(articleSummary: WMFArticle?, items: [TalkPageItem], subscribedTopicNames: [String]), Error>
     
     func fetchTalkPage(completion: @escaping (TalkPageResult) -> Void) {
         

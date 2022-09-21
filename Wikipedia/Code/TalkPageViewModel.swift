@@ -76,7 +76,7 @@ final class TalkPageViewModel {
                 let oldViewModels: [TalkPageCellViewModel] = self.topics
                 self.topics.removeAll()
                 self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
-                self.updateSubscriptionForTopic(topicIDs: result.topicNames)
+                self.updateSubscriptionForTopic(topicNames: result.subscribedTopicNames)
                 completion(.success(()))
             case .failure(let error):
                 DDLogError("Failure fetching talk page: \(error)")
@@ -108,12 +108,10 @@ final class TalkPageViewModel {
         }
     }
 
-    func updateSubscriptionForTopic(topicIDs: [String]) {
-        var subscribedTopics = [TalkPageCellViewModel]()
+    func updateSubscriptionForTopic(topicNames: [String]) {
         for topic in topics {
-            for id in topicIDs {
+            for id in topicNames {
                 if topic.topicName == id {
-                    subscribedTopics.append(topic)
                     topic.isSubscribed = true
                 }
             }
@@ -181,7 +179,7 @@ final class TalkPageViewModel {
             
             guard let topicName = topic.name else {
                 DDLogError("Unable to parse topic name")
-                return
+                continue
             }
 
             let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserLoggedIn: isUserLoggedIn)
