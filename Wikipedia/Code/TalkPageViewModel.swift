@@ -24,6 +24,11 @@ final class TalkPageViewModel {
     
     var theme: Theme = .light
     private(set) var topics: [TalkPageCellViewModel] = []
+    
+    
+    private let sharedCache = SharedContainerCache<TalkPageCache>.init(pathComponent: .talkPageCache, defaultCache: {
+        TalkPageCache(talkPages: [])
+    })
 
     // MARK: - Lifecycle
 
@@ -66,15 +71,11 @@ final class TalkPageViewModel {
     func fetchTalkPage(completion: @escaping (Result<Void, Error>) -> Void) {
         dataController.fetchTalkPage { [weak self] result in
             
-            let sharedCache = SharedContainerCache<TalkPageCache>.init(pathComponent: .talkPageCache, defaultCache: {
-                TalkPageCache(talkPages: [])
-            })
-            
             guard let self = self else {
                 return
             }
             
-            let cache = sharedCache.loadCache(for: self.pageTitle)
+            let cache = self.sharedCache.loadCache(for: self.pageTitle)
             
             let oldViewModels: [TalkPageCellViewModel] = self.topics
             
@@ -85,13 +86,15 @@ final class TalkPageViewModel {
                 self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
                 completion(.success(()))
             case .failure(let error):
-                if let cachedPages = cache.talkPages.first {
-                    self.populateCellData(topics: cachedPages, oldViewModels: oldViewModels)
-                } else {
+//                if let cachedPages = cache.talkPages {
+                    var arrayi = [TalkPageItem]()
+                    arrayi.append(contentsOf: cache.talkPages)
+                    self.populateCellData(topics: arrayi, oldViewModels: oldViewModels)
+//                } else {
                     DDLogError("Failure fetching talk page: \(error)")
-                    completion(.failure(error))
-                    // TODO: Error handling
-                }
+//                    completion(.failure(error))
+//                    // TODO: Error handling
+//                }
             }
         }
     }

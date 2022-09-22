@@ -2,9 +2,9 @@ import Foundation
 
 struct TalkPageCache: Codable {
     
-    var talkPages: Set<[TalkPageItem]>
+    var talkPages: Set<TalkPageItem>
     
-    init(talkPages: Set<[TalkPageItem]>) {
+    init(talkPages: Set<TalkPageItem>) {
         self.talkPages = talkPages
     }
 }

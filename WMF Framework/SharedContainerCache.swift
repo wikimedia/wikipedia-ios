@@ -63,6 +63,8 @@ public final class SharedContainerCache<T: Codable> {
         let cacheFolderURL = cacheDataFileURL(to: folder)
         
         if let data = try? Data(contentsOf: cacheFolderURL), let decodedCache = try? JSONDecoder().decode(T.self, from: data) {
+
+            // not decoding cache
             return decodedCache
         }
 
@@ -85,6 +87,7 @@ public final class SharedContainerCache<T: Codable> {
         }
         
         print(cacheDataFileURL(to: folder), ">>>>>>>>>")
-        try? encodedCache.write(to: cacheDataFileURL(to: folder))
+        let folderFinal = cacheDataFileURL(to: folder)
+        try? encodedCache.write(to: folderFinal)
     }
 }
