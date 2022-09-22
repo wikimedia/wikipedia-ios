@@ -349,19 +349,38 @@ class TalkPageViewController: ViewController {
         }
 
         let collectionView = talkPageView.collectionView
-
-        for cell in collectionView.visibleCells {
-            if let talkPageCell = cell as? TalkPageCell {
-                
-                if talkPageCell.viewModel == cellViewModel {
-                 
-                     if let commentView = talkPageCell.displayingCommentViewForViewModel(commentViewModel),
-                         let convertedCommentViewFrame = commentView.superview?.convert(commentView.frame, to: collectionView) {
-                         let shiftedFrame = CGRect(x: convertedCommentViewFrame.minX, y: convertedCommentViewFrame.minY + 50, width: convertedCommentViewFrame.width, height: convertedCommentViewFrame.height)
-                             collectionView.scrollRectToVisible(shiftedFrame, animated: true)
-                     }
+        
+        guard let index = viewModel.topics.firstIndex(of: cellViewModel)
+               else {
+            return
+        }
+        
+        let topicIndexPath = IndexPath(item: index, section: 0)
+        
+        let scrollToIndividualComment = {
+            for cell in self.talkPageView.collectionView.visibleCells {
+                if let talkPageCell = cell as? TalkPageCell {
+                    
+                    if talkPageCell.viewModel == cellViewModel {
+                     
+                         if let commentView = talkPageCell.displayingCommentViewForViewModel(commentViewModel),
+                             let convertedCommentViewFrame = commentView.superview?.convert(commentView.frame, to: collectionView) {
+                             let shiftedFrame = CGRect(x: convertedCommentViewFrame.minX, y: convertedCommentViewFrame.minY + 50, width: convertedCommentViewFrame.width, height: convertedCommentViewFrame.height)
+                                 collectionView.scrollRectToVisible(shiftedFrame, animated: true)
+                         }
+                    }
                 }
             }
+        }
+        
+        if talkPageView.collectionView.indexPathsForVisibleItems.contains(topicIndexPath) {
+            scrollToIndividualComment()
+        } else {
+            talkPageView.collectionView.scrollToItem(at: topicIndexPath, at: .top, animated: true)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                scrollToIndividualComment()
+            })
         }
     }
 }
