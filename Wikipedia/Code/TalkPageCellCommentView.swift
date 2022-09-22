@@ -50,6 +50,8 @@ final class TalkPageCellCommentView: SetupView {
     weak var viewModel: TalkPageCellCommentViewModel?
     weak var replyDelegate: TalkPageCellReplyDelegate?
     weak var linkDelegate: TalkPageTextViewLinkHandling?
+    
+    var sticksWidthConstraint: NSLayoutConstraint?
 
     // MARK: - Lifecycle
 
@@ -71,21 +73,31 @@ final class TalkPageCellCommentView: SetupView {
             replyButton.leadingAnchor.constraint(equalTo: commentTextView.leadingAnchor),
             replyButton.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        
 
-        let replyDepthWidthConstraint = replyDepthView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 1/2)
-        replyDepthWidthConstraint.priority = .required
-
-        let replyDepthHeightConstraint = replyDepthView.heightAnchor.constraint(equalTo: heightAnchor)
-        replyDepthHeightConstraint.priority = .required
-
-        let commentTextWidthConstraint = commentTextView.widthAnchor.constraint(greaterThanOrEqualTo: widthAnchor, multiplier: 1/2)
-        commentTextWidthConstraint.priority = .required
+        let replyDepthWidthConstraint = replyDepthView.widthAnchor.constraint(equalToConstant: 0)
+        self.sticksWidthConstraint = replyDepthWidthConstraint
 
         NSLayoutConstraint.activate([
-            replyDepthWidthConstraint,
-            replyDepthHeightConstraint,
-            commentTextWidthConstraint
+            replyDepthWidthConstraint
         ])
+    }
+    
+    override func updateConstraints() {
+        super.updateConstraints()
+        
+        let sticksSize = replyDepthView.sizeThatFits(CGSize(width: frame.width / 2, height: frame.height))
+        
+        let currentConstant = sticksWidthConstraint?.constant ?? 0
+        if currentConstant != sticksSize.width {
+            sticksWidthConstraint?.constant = sticksSize.width
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        setNeedsUpdateConstraints()
     }
 
     // MARK: - Configure

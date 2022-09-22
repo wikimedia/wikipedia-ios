@@ -41,9 +41,9 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
 
     override func setup() {
         setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         setContentHuggingPriority(.defaultHigh, for: .vertical)
-        setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        setContentHuggingPriority(.defaultLow, for: .horizontal)
 
         addSubview(stickContainer)
 
@@ -54,40 +54,55 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
             stickContainer.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        super.sizeThatFits(size)
+        
+        let availableHeight = size.height
+        let availableWidth = size.width
+        
+        let drawableSticks = min(depth, Int(availableWidth / (stickWidth + stickHorizontalSpacing)))
+        var drawnCount = 0
+        
+        guard drawableSticks >= 1 else {
+            return CGSize.zero
+        }
 
-    override var intrinsicContentSize: CGSize {
-        return calculateIntrinsicContentSize()
-    }
-
-    private func calculateIntrinsicContentSize() -> CGSize {
-        return CGSize(width: requiredTotalStickWidth, height: UIView.noIntrinsicMetric)
-    }
-
-    private var requiredTotalStickWidth: CGFloat {
-        guard depth > 0 else {
-            return 0
+        var lineFrames: [CGRect] = []
+        for lineDepth in 1...drawableSticks {
+            let height = availableHeight - stickHeightDelta * CGFloat(lineDepth)
+            guard height > 0 else {
+                continue
+            }
+            lineFrames.append(CGRect(x: availableWidth - CGFloat(lineDepth) * (stickHorizontalSpacing + stickWidth), y: 0, width: stickWidth, height: height))
+            
+            drawnCount += 1
         }
         
-        return stickWidth * CGFloat(depth) + stickHorizontalSpacing * CGFloat(depth)
+        // shift all frames over a bit so we don't have any left padding
+        var offsetX = CGFloat.infinity
+        for frame in lineFrames {
+            if frame.minX < offsetX {
+                offsetX = frame.minX
+            }
+        }
+        
+        var maxX = CGFloat(0)
+        var maxY = CGFloat(0)
+        for frame in lineFrames {
+            if frame.maxX > maxX {
+                maxX = frame.maxX
+            }
+            if frame.maxY > maxY {
+                maxY = frame.maxY
+            }
+        }
+        
+        return CGSize(width: (maxX - offsetX) + stickHorizontalSpacing, height: maxY)
     }
-
-    private var requiredMaximumStickHeight: CGFloat {
-        return stickHeightDelta * CGFloat(depth)
-    }
-
-//    private var totalDrawableSticksGivenCurrentFrame: Int {
-//        let drawableSticksConsideringWidthOnly = Int(frame.width / (stickWidth + stickHorizontalSpacing))
-//        let drawableSticksConsideringHeightOnly = Int(frame.height / stickHeightDelta)
-//        let drawableSticksConsideringHeightAndSpacing = drawableSticksConsideringHeightOnly - Int((stickWidth + stickHorizontalSpacing) * CGFloat(depth))
-//
-//        // TODO: - this is wrong
-//        return min(drawableSticksConsideringWidthOnly, drawableSticksConsideringHeightOnly)
-//    }
-
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        invalidateIntrinsicContentSize()
 
         let availableHeight = frame.height
         let availableWidth = frame.width
@@ -109,32 +124,44 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
         for lineDepth in 1...drawableSticks {
             let height = availableHeight - stickHeightDelta * CGFloat(lineDepth)
             guard height > 0 else {
-                break
+                continue
             }
             let line = UIView(frame: CGRect(x: availableWidth - CGFloat(lineDepth) * (stickHorizontalSpacing + stickWidth), y: 0, width: stickWidth, height: height))
             line.backgroundColor = theme.colors.depthMarker
             stickContainer.addSubview(line)
             drawnCount += 1
         }
+        
+        // shift all sticks over a bit so we don't have left padding
+        var offsetX = CGFloat.infinity
+        for subview in stickContainer.subviews {
+            if subview.frame.minX < offsetX {
+                offsetX = subview.frame.minX
+            }
+        }
+        
+        for subview in stickContainer.subviews {
+            subview.frame.origin.x = subview.frame.origin.x - offsetX
+        }
 
         if drawnCount < depth {
             addSubview(depthLabel)
-            depthLabel.text = "+\(depth-drawnCount)"
+            depthLabel.frame.origin = stickContainer.frame.origin
+            depthLabel.text = "+\(depth-drawnCount) "
             depthLabel.sizeToFit()
             depthLabel.textColor = theme.colors.depthMarker
 
             var intersectingViews = 0
 
             for line in stickContainer.subviews {
-                if line.frame.intersects(depthLabel.convert(depthLabel.frame, to: line)) {
+                if line.frame.intersects(depthLabel.frame) {
                     intersectingViews += 1
-                    line.removeFromSuperview()
+                    line.alpha = 0
                 }
             }
-
-            depthLabel.text = "+\(depth-drawnCount + intersectingViews)"
+            // depthLabel.text = "+\(depth-drawnCount + intersectingViews)"
+            // depthLabel.sizeToFit()
         }
-
     }
 
     // MARK: - Configure
