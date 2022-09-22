@@ -4,7 +4,7 @@
 
 "aaald-article-insert-new-changes" = "نویاں تبدیلیاں";
 "about-content-license" = "مواد دا لائسینس";
-"about-contributors" = "ونڳاراں";
+"about-contributors" = "ونگاراں";
 "about-libraries-complete-list" = "مکمل فہرست";
 "about-libraries-license" = "لائیسنس";
 "about-title" = "تعارف";
@@ -201,12 +201,14 @@
 "talk-page-new-subject-placeholder-text" = "موضوع";
 "talk-page-new-subject-textfield-accessibility-label" = "موضوع";
 "talk-page-reply-title" = "جواب";
+"talk-page-user-contributions" = "ونگاراں";
 "theme-black-display-name" = "کالا";
 "theme-dark-display-name" = "گہرا";
 "theme-default-display-name" = "پہلے کنوں طے تھیا ہویا";
 "theme-light-display-name" = "پھکّا";
 "top-read-header-generic" = "وکیپیڈیا";
 "top-read-header-with-language" = "وکیپیڈیا$1";
+"vanish-account-learn-more-text" = "ٻیا سِکھو";
 "welcome-exploration-on-this-day-title" = "ایں ݙینہ کوں";
 "welcome-explore-tell-me-more-done-button" = "گھن گھندا";
 "welcome-intro-free-encyclopedia-more-about" = "وکیپیڈیا دا تعارف";
