@@ -40,10 +40,10 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
     }
 
     override func setup() {
-        setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        setContentHuggingPriority(.defaultHigh, for: .vertical)
-        setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        setContentCompressionResistancePriority(.required, for: .horizontal)
+        setContentCompressionResistancePriority(.required, for: .vertical)
+        setContentHuggingPriority(.required, for: .vertical)
+        setContentHuggingPriority(.required, for: .horizontal)
 
         addSubview(stickContainer)
 
@@ -54,40 +54,17 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
             stickContainer.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-
-    override var intrinsicContentSize: CGSize {
-        return calculateIntrinsicContentSize()
+    
+    func expectedWidth() -> CGFloat {
+        return (CGFloat(depth) * (stickWidth + stickHorizontalSpacing))
     }
-
-    private func calculateIntrinsicContentSize() -> CGSize {
-        return CGSize(width: requiredTotalStickWidth, height: UIView.noIntrinsicMetric)
+    
+    func expectedHeight() -> CGFloat {
+        return CGFloat(depth) * CGFloat(stickHeightDelta)
     }
-
-    private var requiredTotalStickWidth: CGFloat {
-        guard depth > 0 else {
-            return 0
-        }
-        
-        return stickWidth * CGFloat(depth) + stickHorizontalSpacing * CGFloat(depth)
-    }
-
-    private var requiredMaximumStickHeight: CGFloat {
-        return stickHeightDelta * CGFloat(depth)
-    }
-
-//    private var totalDrawableSticksGivenCurrentFrame: Int {
-//        let drawableSticksConsideringWidthOnly = Int(frame.width / (stickWidth + stickHorizontalSpacing))
-//        let drawableSticksConsideringHeightOnly = Int(frame.height / stickHeightDelta)
-//        let drawableSticksConsideringHeightAndSpacing = drawableSticksConsideringHeightOnly - Int((stickWidth + stickHorizontalSpacing) * CGFloat(depth))
-//
-//        // TODO: - this is wrong
-//        return min(drawableSticksConsideringWidthOnly, drawableSticksConsideringHeightOnly)
-//    }
-
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        invalidateIntrinsicContentSize()
 
         let availableHeight = frame.height
         let availableWidth = frame.width
@@ -109,7 +86,8 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
         for lineDepth in 1...drawableSticks {
             let height = availableHeight - stickHeightDelta * CGFloat(lineDepth)
             guard height > 0 else {
-                break
+                drawnCount += 1
+                continue
             }
             let line = UIView(frame: CGRect(x: availableWidth - CGFloat(lineDepth) * (stickHorizontalSpacing + stickWidth), y: 0, width: stickWidth, height: height))
             line.backgroundColor = theme.colors.depthMarker
@@ -119,22 +97,20 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
 
         if drawnCount < depth {
             addSubview(depthLabel)
-            depthLabel.text = "+\(depth-drawnCount)"
+            depthLabel.frame.origin = stickContainer.frame.origin
+            depthLabel.text = "+\(depth-drawnCount) "
             depthLabel.sizeToFit()
             depthLabel.textColor = theme.colors.depthMarker
 
             var intersectingViews = 0
 
             for line in stickContainer.subviews {
-                if line.frame.intersects(depthLabel.convert(depthLabel.frame, to: line)) {
+                if line.frame.intersects(depthLabel.frame) {
                     intersectingViews += 1
-                    line.removeFromSuperview()
+                    line.alpha = 0
                 }
             }
-
-            depthLabel.text = "+\(depth-drawnCount + intersectingViews)"
         }
-
     }
 
     // MARK: - Configure

@@ -50,8 +50,19 @@ final class TalkPageCellCommentView: SetupView {
     weak var viewModel: TalkPageCellCommentViewModel?
     weak var replyDelegate: TalkPageCellReplyDelegate?
     weak var linkDelegate: TalkPageTextViewLinkHandling?
+    
+    var replyDepthWidthConstraint: NSLayoutConstraint?
+    var replyDepthHeightConstraint: NSLayoutConstraint?
 
     // MARK: - Lifecycle
+    
+    private var maxReplyDepthWidthMultiplier: CGFloat {
+        if traitCollection.horizontalSizeClass == .compact {
+            return 1/2
+        } else {
+            return 1/4
+        }
+    }
 
     override func setup() {
         addSubview(replyDepthView)
@@ -71,20 +82,22 @@ final class TalkPageCellCommentView: SetupView {
             replyButton.leadingAnchor.constraint(equalTo: commentTextView.leadingAnchor),
             replyButton.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        
 
-        let replyDepthWidthConstraint = replyDepthView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 1/2)
-        replyDepthWidthConstraint.priority = .required
-
-        let replyDepthHeightConstraint = replyDepthView.heightAnchor.constraint(equalTo: heightAnchor)
-        replyDepthHeightConstraint.priority = .required
-
-        let commentTextWidthConstraint = commentTextView.widthAnchor.constraint(greaterThanOrEqualTo: widthAnchor, multiplier: 1/2)
-        commentTextWidthConstraint.priority = .required
-
+        let replyDepthWidthConstraint = replyDepthView.widthAnchor.constraint(equalToConstant: 0)
+        replyDepthWidthConstraint.priority = UILayoutPriority(999) // 999 so that replyDepthMaxWidthConstraint constraint takes priority without conflicts
+        self.replyDepthWidthConstraint = replyDepthWidthConstraint
+        
+        let replyDepthMaxWidthConstraint = replyDepthView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: maxReplyDepthWidthMultiplier)
+        replyDepthMaxWidthConstraint.priority = .required
+        
+        let replyDepthHeightConstraint = replyDepthView.heightAnchor.constraint(greaterThanOrEqualToConstant: 0)
+        self.replyDepthHeightConstraint = replyDepthHeightConstraint
+        
         NSLayoutConstraint.activate([
             replyDepthWidthConstraint,
-            replyDepthHeightConstraint,
-            commentTextWidthConstraint
+            replyDepthMaxWidthConstraint,
+            replyDepthHeightConstraint
         ])
     }
 
@@ -93,6 +106,8 @@ final class TalkPageCellCommentView: SetupView {
     func configure(viewModel: TalkPageCellCommentViewModel) {
         self.viewModel = viewModel
         replyDepthView.configure(viewModel: viewModel)
+        self.replyDepthWidthConstraint?.constant = replyDepthView.expectedWidth()
+        self.replyDepthHeightConstraint?.constant = replyDepthView.expectedHeight()
     }
     
     // MARK: - Actions
