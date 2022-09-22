@@ -26,8 +26,6 @@ class TalkPageViewController: ViewController {
         progressController.delay = 0.0
         return progressController
     }()
-
-    var isReloadingAfterReply = false
     
     // MARK: - Overflow menu properties
     
@@ -81,7 +79,12 @@ class TalkPageViewController: ViewController {
     var overflowMenu: UIMenu {
         
         let openAllAction = UIAction(title: TalkPageLocalizedStrings.openAllThreads, image: UIImage(systemName: "square.stack"), handler: { _ in
+            
+            for topic in self.viewModel.topics {
+                topic.isThreadExpanded = true
+            }
 
+            self.talkPageView.collectionView.reloadData()
         })
         
         let revisionHistoryAction = UIAction(title: CommonStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { _ in
@@ -332,17 +335,6 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         
         userDidTapDisclosureButton(cellViewModel: cell.viewModel, cell: cell)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if isReloadingAfterReply && cell.frame.size.height == 225 {
-            DispatchQueue.main.async {
-                collectionView.collectionViewLayout.invalidateLayout()
-                collectionView.layoutIfNeeded()
-                self.isReloadingAfterReply = false
-            }
-        }
-    }
-    
 }
 
 // MARK: - TalkPageCellDelegate
@@ -357,6 +349,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
         configuredCellViewModel.isThreadExpanded.toggle()
         
+        cell.removeExpandedElements()
         cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
         cell.apply(theme: theme)
         talkPageView.collectionView.collectionViewLayout.invalidateLayout()
@@ -412,7 +405,6 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     switch result {
                     case .success:
-                        self?.isReloadingAfterReply = true
                         self?.talkPageView.collectionView.reloadData()
                         self?.handleNewTopicOrCommentAlert(isNewTopic: false)
                     case .failure:
