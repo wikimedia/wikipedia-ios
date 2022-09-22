@@ -368,9 +368,25 @@ extension TalkPageViewController: TalkPageCellDelegate {
         }
         
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
-        configuredCellViewModel.isSubscribed.toggle()
+        
+        let shouldSubscribe = !configuredCellViewModel.isSubscribed
+        cellViewModel.isSubscribed.toggle()
         cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
-        self.handleSubscriptionAlert(isSubscribedToTopic: configuredCellViewModel.isSubscribed)
+        
+        viewModel.subscribe(to: configuredCellViewModel.topicName, shouldSubscribe: shouldSubscribe) { result in
+            switch result {
+            case let .success(didSubscribe):
+                self.handleSubscriptionAlert(isSubscribedToTopic: didSubscribe)
+            case let .failure(error):
+                cellViewModel.isSubscribed.toggle()
+                if cell.viewModel?.topicName == cellViewModel.topicName {
+                    cell.configure(viewModel: cellViewModel, linkDelegate: self)
+                }
+                DDLogError("Error subscribing to topic: \(error)")
+                // TODO: Error handling
+            }
+        }
+ 
     }
 }
 
