@@ -21,6 +21,12 @@ class TalkPageViewController: ViewController {
         return view as! TalkPageView
     }
     
+    lazy private(set) var fakeProgressController: FakeProgressController = {
+        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
+        progressController.delay = 0.0
+        return progressController
+    }()
+
     var isReloadingAfterReply = false
     
     // MARK: - Overflow menu properties
@@ -129,11 +135,18 @@ class TalkPageViewController: ViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
 
+        fakeProgressController.start()
         viewModel.fetchTalkPage { [weak self] result in
+            
+            guard let self = self else {
+                return
+            }
+            
+            self.fakeProgressController.stop()
             switch result {
             case .success:
-                self?.setupHeaderView()
-                self?.talkPageView.collectionView.reloadData()
+                self.setupHeaderView()
+                self.talkPageView.collectionView.reloadData()
             case .failure:
                 break
             }
@@ -355,10 +368,25 @@ extension TalkPageViewController: TalkPageCellDelegate {
         }
         
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
-        configuredCellViewModel.isSubscribed.toggle()
+        
+        let shouldSubscribe = !configuredCellViewModel.isSubscribed
+        cellViewModel.isSubscribed.toggle()
         cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
         cell.apply(theme: theme)
-        self.handleSubscriptionAlert(isSubscribedToTopic: configuredCellViewModel.isSubscribed)
+
+        viewModel.subscribe(to: configuredCellViewModel.topicName, shouldSubscribe: shouldSubscribe) { result in
+            switch result {
+            case let .success(didSubscribe):
+                self.handleSubscriptionAlert(isSubscribedToTopic: didSubscribe)
+            case let .failure(error):
+                cellViewModel.isSubscribed.toggle()
+                if cell.viewModel?.topicName == cellViewModel.topicName {
+                    cell.configure(viewModel: cellViewModel, linkDelegate: self)
+                }
+                DDLogError("Error subscribing to topic: \(error)")
+                // TODO: Error handling
+            }
+        }
     }
 }
 

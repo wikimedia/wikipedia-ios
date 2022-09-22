@@ -145,6 +145,11 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
+    /// Returns a list of active talk page topics subscription
+    /// - Parameters:
+    ///   - siteURL: URL for the talk page, takes a URL object
+    ///   - topics: Expects a array of Strings containing the `name` value from `TalkPageItem`
+    ///   - completion: Returns either and array with the the `name` property of subscribed topics or an Error
     func getSubscribedTopics(siteURL: URL, topics: [String], completion: @escaping (Result<[String], Error>) -> Void) {
         
         let joinedString = topics.joined(separator: "|")

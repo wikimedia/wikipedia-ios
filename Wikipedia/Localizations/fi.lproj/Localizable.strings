@@ -107,6 +107,7 @@
 "account-creation-saving" = "Tallennetaan...";
 "account-creation-title" = "Luo uusi käyttäjätunnus";
 "account-group-title" = "Oma käyttäjätunnus";
+"account-request-vanishing" = "Häivytä tunnus";
 "account-talk-page-title" = "Oma keskustelusivu";
 "account-talk-preferences-auto-sign-discussions" = "Allekirjoita automaattisesti";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Allekirjoita keskusteluviestit asetuksissa määritellyllä allekirjoituksella automaattisesti";
@@ -142,6 +143,7 @@
 "action-update" = "Päivitä";
 "add-articles-to-reading-list" = "Lisää {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
 "add-citation-title" = "Lisää viittaus";
+"additional-information-email-title" = "Lisätiedot";
 "announcements-dismiss" = "Sulje";
 "app-store-keywords" = "Wikipedia, viittaus, wiki, tietosanakirja, tieto, info, tutkimus, tutki, opi";
 "app-store-release-notes" = "Täysin mukautettava ja helpommin luettava Tutki-syöte. Paikallistamista, suorituskykyparannuksia ja bugikorjauksia.";

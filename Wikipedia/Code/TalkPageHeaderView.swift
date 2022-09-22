@@ -335,9 +335,11 @@ final class TalkPageHeaderView: SetupView {
         
         let theme = viewModel.theme
         
-        coffeeRollLabel.attributedText = coffeeRollText.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, tagMapping: ["a": "b"])
+        let coffeeRollAttributedText: NSMutableAttributedString = coffeeRollText.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, tagMapping: ["a": "b"])
+        
+        coffeeRollLabel.attributedText = coffeeRollAttributedText.removingInitialNewlineCharacters()
     }
-
+    
 }
 
 extension TalkPageHeaderView: Themeable {
@@ -351,8 +353,21 @@ extension TalkPageHeaderView: Themeable {
         projectLanguageLabel.textColor = theme.colors.secondaryText
         projectLanguageLabelContainer.layer.borderColor = theme.colors.secondaryText.cgColor
 
-        // TODO: Use new Sepia `beige` for background color
-        coffeeRollContainer.backgroundColor = .sepiaBase100
+        // TODO: Replace these once new theme colors are added/refreshed in the app
+        let coffeeRollContainerBackground: UIColor!
+        switch theme {
+        case .light:
+            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0xF8F1E3)
+        case .sepia:
+            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0xE1DAD1)
+        case .dark:
+            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0x101418)
+        case .black:
+            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0x101418)
+        default:
+            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0xF8F1E3)
+        }
+        coffeeRollContainer.backgroundColor = coffeeRollContainerBackground
 
         coffeeRollSeparator.backgroundColor = theme.colors.tertiaryText
         coffeeRollReadMoreButton.setTitleColor(theme.colors.link, for: .normal)

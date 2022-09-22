@@ -137,6 +137,7 @@
 "action-update" = "تحديث";
 "add-articles-to-reading-list" = "أضف {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
 "add-citation-title" = "إضافة استشهاد";
+"additional-information-email-title" = "معلومات إضافية";
 "announcements-dismiss" = "تجاهل";
 "app-store-keywords" = "ويكيبيديا، مرجع، ويكي، موسوعة، معلومة، معرفة، بحث، معلومات، استكشاف، تعلم";
 "app-store-release-notes" = "قابلة للتخصيص بالكامل وسهلة لقراءة موجز الاستكشاف، الترجمة وتحسينات الأداء وإصلاحات الأخطاء.";
@@ -579,12 +580,14 @@
 "notifications-center-inbox-wikipedias-section-title" = "ويكيبيديات";
 "notifications-center-mark-all-as-read" = "اعتبرها كلها مقروءة";
 "notifications-center-mark-as-read" = "علّم كمقروءة";
+"notifications-center-onboarding-panel-secondary-button" = "لا شكرًا";
 "notifications-center-project-filters-accessibility-label" = "تصفية المشاريع";
 "notifications-center-status-all" = "الكل";
 "notifications-center-status-all-notifications" = "كل الإشعارات";
 "notifications-center-status-read" = "اقرأ";
 "notifications-center-status-unread" = "غير مقروءة";
 "notifications-center-subheader-email-from-other-user" = "بريد إلكتروني جديد";
+"notifications-center-subheader-page-link" = "وصلة صفحة";
 "notifications-center-subheader-thanks" = "شكرًا";
 "notifications-center-subheader-welcome" = "مرحبًا!";
 "notifications-center-swipe-mark-as-read" = "علّم كمقروءة";
@@ -594,6 +597,7 @@
 "notifications-center-type-item-description-welcome-verbose" = "رسالة ترحيب";
 "notifications-center-type-title-other" = "أخرى";
 "notifications-center-type-title-page-link" = "وصلة صفحة";
+"notifications-center-type-title-thanks" = "شكر";
 "notifications-center-type-title-user-rights-change" = "تغييرات صلاحيات المستخدم";
 "notifications-center-type-title-user-talk-page-messsage" = "رسالة صفحة نقاش";
 "notifications-push-fallback-body-text" = "نشاط جديد على ويكيبيديا";
@@ -680,6 +684,7 @@
 "project-name-wikisource" = "ويكي مصدر";
 "project-name-wikiversity" = "ويكي الجامعة";
 "project-name-wikivoyage" = "ويكي الرحلات";
+"project-name-wiktionary" = "ويكاموس";
 "rank-accessibility-label" = "رقم $1";
 "readers-accessibility-label" = "$1 قارئ";
 "reading-list-add-generic-hint-title" = "إضافة هذه المقالة لقائمة قراءة؟";
@@ -870,6 +875,7 @@
 "table-of-contents-hide-button-label" = "إخفاء جدول المحتويات.";
 "tajik-variants-alert-title" = "تحديثات لدعم النسخة الطاجكية";
 "talk-page-add-discussion-accessibility-label" = "أضف نقاشا";
+"talk-page-article-about" = "حول صفحات النقاش";
 "talk-page-discussion-accessibility-hint" = "انقر نقرًا مزدوجًا لفتح موضوع نقاش";
 "talk-page-discussion-read-accessibility-label" = "قراءة";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "قراءة";
@@ -877,6 +883,7 @@
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnrɛd";
 "talk-page-error-unable-to-post-reply" = "لا يوجد اتصال بالإنترنت؛ غير قادر على نشر الرد.";
 "talk-page-error-unable-to-post-topic" = "لا يوجد اتصال بالإنترنت؛ غير قادر على نشر النقاش.";
+"talk-page-find-in-page-button" = "البحث في الصفحة";
 "talk-page-info-active-conversations" = "النقاشات النشطة في $1 ويكيبيديا";
 "talk-page-info-active-conversations-generic" = "النقاشات النشطة في ويكيبيديا";
 "talk-page-link-user-action-sheet-app" = "عرض صفحة نقاش المستخدم في التطبيق";
@@ -894,13 +901,27 @@
 "talk-page-new-topic-body-placeholder-text" = "قم بصياغة نقاش جديد";
 "talk-page-new-topic-success-text" = "تم نشر نقاشك بنجاح";
 "talk-page-new-topic-title" = "نقاش حديد";
+"talk-page-page-info" = "معلومات الصفحة";
+"talk-page-permanent-link" = "وصلة دائمة";
 "talk-page-publish-terms-and-licenses" = "بحفظك للتغييرات، أنت توافق على  $1شروط الاستخدام$2  وعلى إصدار مساهمتك تحت رخصتا  \n $3CC BY-SA 3.0$4 و $5GFDL$6.";
+"talk-page-related-links" = "ماذا يصل هنا";
+"talk-page-reply-button" = "رد";
+"talk-page-reply-placeholder-format" = "رد على $1";
 "talk-page-reply-title" = "رد";
+"talk-page-share-button" = "شارك صفحة النقاش";
 // Fuzzy
 "talk-page-title-article-talk" = "نقاش المقالة";
 "talk-page-title-user-talk" = "نقاش المستخدم";
 "talk-page-topic-title" = "نقاش";
+"talk-page-user-about" = "حول صفحات نقاش المستخدم";
+"talk-page-user-contributions" = "مساهمات";
+"talk-pages-comment-added-alert-title" = "أضيف تعليقك";
 "talk-pages-reply-button-title" = "رد على هذا النقاش";
+"talk-pages-topic-compose-body-placeholder" = "الوصف";
+"talk-pages-topic-compose-close-confirmation-keep" = "واصل التعديل";
+"talk-pages-topic-compose-navbar-title" = "موضوع";
+"talk-pages-topic-compose-title-placeholder" = "عنوان الموضوع";
+"talk-pages-user-groups" = "مجموعات المستخدم";
 "talk-pages-view-title" = "نقاش";
 "theme-black-display-name" = "أسود";
 "theme-dark-display-name" = "غامق";
@@ -922,6 +943,9 @@
 "unable-to-load-talk-page-title" = "غير قادر على تحميل صفحة النقاش";
 "unknown-generic-text" = "غير معروف";
 "uzbek-variants-alert-title" = "تحديثات لدعم النسخة الأوزبكية";
+"vanish-account-additional-information-field" = "معلومات إضافية";
+"vanish-account-additional-information-placeholder" = "اختياري";
+"vanish-account-back-confirm-keep-editing" = "واصل التعديل";
 "variants-alert-dismiss-button" = "لا شكرًا";
 "variants-alert-preferences-button" = "راجع تفضيلاتك";
 "welcome-exploration-explore-feed-description" = "القراءة الموصى بها والمقالات اليومية من مجتمعنا";

@@ -6,21 +6,17 @@ $:.unshift File.dirname(__FILE__)
 default_platform :ios
 
 configurations_to_test_on_pull = [
-  {device: 'iPhone 13 Pro', os: '15.5'},
-  {device: 'iPad Pro (12.9-inch) (5th generation)', os: '14.5'}
-]
-
-configurations_to_test = configurations_to_test_on_pull + [
-  {device: 'iPhone 13 Pro', os: '15.5', scheme: "WikipediaRTL"}
+  {device: 'iPhone 14 Pro', os: '16.0'},
+  {device: 'iPad Pro (12.9-inch) (5th generation)', os: '15.5'}
 ]
 
 def get_devices_by_scheme_from_options(options)
-  configs = options[:configurations] || [{device: 'iPhone 13 Pro', os: '15.5'}]
+  configs = options[:configurations] || [{device: 'iPhone 14 Pro', os: '16.0'}]
   devices_by_scheme = {}
   configs.each do |options|
     scheme = options[:scheme] || 'Wikipedia'
-    device = options[:device] || 'iPhone 13 Pro'
-    os = options[:os]         || '15.5'
+    device = options[:device] || 'iPhone 14 Pro'
+    os = options[:os]         || '16.0'
     sim = "#{device} (#{os})"
     devices = devices_by_scheme[scheme] || []
     devices << sim
@@ -72,11 +68,6 @@ platform :ios do
     )
   end
 
-  desc "Runs tests on the primary platforms and configurations"
-  lane :verify_test_platforms do
-    verify({configurations: configurations_to_test})
-  end
-
   desc "Runs tests on select platforms for verifying pull requests"
   lane :verify_pull_request do |options|
     verify({configurations: configurations_to_test_on_pull})
@@ -105,7 +96,6 @@ platform :ios do
       job = ENV['CIRCLE_JOB']
       slack_message = "<#{url}|CircleCI #{job} ##{number}>"
     end
-    read_xcversion
     devices_by_scheme = get_devices_by_scheme_from_options(options)
     devices_by_scheme.each do |scheme, devices|
       opts = {

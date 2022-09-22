@@ -1009,13 +1009,18 @@
 "talk-page-publish-terms-and-licenses" = "Ved å lagre endringene samtykker du i $1bruksvilkårene$2 og i å slippe ditt bidrag under lisensene $3CC BY-SA 3.0$4 og $5GFDL$6.";
 "talk-page-related-links" = "Lenker hit";
 "talk-page-reply-button" = "Svar";
+"talk-page-reply-placeholder-format" = "Gi et svar til $1";
 "talk-page-reply-title" = "Svar";
 "talk-page-subscribe-to-topic" = "Abonner";
 // Fuzzy
 "talk-page-title-article-talk" = "Artikkeldiskusjon";
 "talk-page-title-user-talk" = "Brukerdiskusjon";
 "talk-page-topic-title" = "Diskusjon";
+"talk-pages-comment-added-alert-title" = "Kommentaren din ble lagt til";
 "talk-pages-reply-button-title" = "Svar på denne diskusjonen";
+"talk-pages-topic-compose-body-placeholder" = "Beskrivelse";
+"talk-pages-topic-compose-close-confirmation-keep" = "Fortsett å redigere";
+"talk-pages-user-groups" = "Brukergrupper";
 "talk-pages-user-logs" = "Logger";
 "talk-pages-view-title" = "Diskusjon";
 "theme-black-display-name" = "Svart";

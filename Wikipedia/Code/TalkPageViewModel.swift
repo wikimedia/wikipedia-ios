@@ -9,6 +9,7 @@ final class TalkPageViewModel {
     let pageType: TalkPageType
     let pageTitle: String
     let siteURL: URL
+    let authenticationManager: WMFAuthenticationManager
     private let dataController: TalkPageDataController
 
     // TODO: - Populate from data controller
@@ -32,11 +33,12 @@ final class TalkPageViewModel {
     ///   - pageTitle: Wiki page title, e.g. "Talk:Cat" or "User_talk:Jimbo"
     ///   - siteURL: Site URL without article path, e.g. "https://en.wikipedia.org"
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
-    init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
+    init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
         self.pageType = pageType
         self.pageTitle = pageTitle
         self.siteURL = siteURL
         self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
+        self.authenticationManager = authenticationManager
         
         // Setting headerTitle as pageTitle (which contains the namespace prefix) for now, we attempt to strip the namespace later in populateHeaderData
         self.headerTitle = pageTitle
@@ -47,15 +49,19 @@ final class TalkPageViewModel {
     ///   - pageType: TalkPageType - e.g. .article or .user
     ///   - pageURL: Full wiki page URL, e.g. https://en.wikipedia.org/wiki/Cat
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
-    convenience init?(pageType: TalkPageType, pageURL: URL, articleSummaryController: ArticleSummaryController) {
+    convenience init?(pageType: TalkPageType, pageURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
         guard let pageTitle = pageURL.wmf_title, let siteURL = pageURL.wmf_site else {
             return nil
         }
 
-        self.init(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
+        self.init(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager)
     }
 
     // MARK: - Public
+
+    var isUserLoggedIn: Bool {
+        return authenticationManager.isLoggedIn
+    }
 
     func fetchTalkPage(completion: @escaping (Result<Void, Error>) -> Void) {
         dataController.fetchTalkPage { [weak self] result in
@@ -70,6 +76,7 @@ final class TalkPageViewModel {
                 let oldViewModels: [TalkPageCellViewModel] = self.topics
                 self.topics.removeAll()
                 self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
+                self.updateSubscriptionForTopic(topicNames: result.subscribedTopicNames)
                 completion(.success(()))
             case .failure(let error):
                 DDLogError("Failure fetching talk page: \(error)")
@@ -78,18 +85,20 @@ final class TalkPageViewModel {
             }
         }
     }
-    
+
     func postTopic(topicTitle: String, topicBody: String, completion: @escaping(Result<Void, Error>) -> Void) {
         dataController.postTopic(topicTitle: topicTitle, topicBody: topicBody, completion: completion)
     }
     
+    func postReply(commentId: String, comment: String, completion: @escaping(Result<Void, Error>) -> Void) {
+        dataController.postReply(commentId: commentId, comment: comment, completion: completion)
+    }
+    
 
-    func updateSubscriptionToTopic(topic: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
-        dataController.subscribeToTopic(topicName: topic, shouldSubscribe: shouldSubscribe) { [self] result in
+    func subscribe(to topic: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
+        dataController.subscribeToTopic(topicName: topic, shouldSubscribe: shouldSubscribe) { result in
             switch result {
             case let .success(result) :
-                let topicUpdated = topics.filter { $0.topicTitle == topic}
-                topicUpdated[0].isSubscribed = result
                 completion(.success(result))
             case let .failure(error):
                 completion(.failure(error))
@@ -97,8 +106,14 @@ final class TalkPageViewModel {
         }
     }
 
-    func postReply(commentId: String, comment: String, completion: @escaping(Result<Void, Error>) -> Void) {
-        dataController.postReply(commentId: commentId, comment: comment, completion: completion)
+    func updateSubscriptionForTopic(topicNames: [String]) {
+        for topic in topics {
+            for id in topicNames {
+                if topic.topicName == id {
+                    topic.isSubscribed = true
+                }
+            }
+        }
     }
     
     // MARK: - Private
@@ -160,8 +175,13 @@ final class TalkPageViewModel {
             
             let activeUsersCount = activeUsersCount(topic: topic)
             
-            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount)
-            
+            guard let topicName = topic.name else {
+                DDLogError("Unable to parse topic name")
+                continue
+            }
+
+            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserLoggedIn: isUserLoggedIn)
+
             // Note this is a nested loop, so it will not perform well with many topics.
             // Talk pages generally have a limited number of topics, so optimize later if we determine it's needed
             assignExpandedFlag(to: topicViewModel, from: oldViewModels)
