@@ -564,7 +564,6 @@
 "notifications-center-badge-button-accessibility-label" = "اشعارات بدون اشارة القراءة";
 "notifications-center-change-password" = "تغيير كلمة السر";
 "notifications-center-empty-state-no-projects-selected" = "اضف المشاريع لرؤية المزيد من الرسائل";
-// Fuzzy
 "notifications-center-feed-news-notification-button-text" = "أظهر الإشعارات";
 "notifications-center-filters-accessibility-label" = "مُرشّح الإشعارات";
 "notifications-center-filters-read-status-item-title-all" = "الكل";
@@ -572,8 +571,7 @@
 "notifications-center-filters-read-status-item-title-unread" = "غير مقروءة";
 "notifications-center-filters-title" = "المرشحات";
 "notifications-center-filters-types-item-title-all" = "جميع الأنواع";
-// Fuzzy
-"notifications-center-go-to-wikidata-item" = "اذهب إلى عنصر ويكي بيانات";
+"notifications-center-go-to-wikidata-item" = "عنصر ويكي بيانات";
 "notifications-center-header-alert-from-agent" = "إنذار من $1";
 "notifications-center-inbox-title" = "مشاريع";
 "notifications-center-inbox-wikimedia-projects-section-title" = "مشاريع ويكيميديا";
@@ -824,7 +822,6 @@
 "settings-language-bar" = "إظهار اللغات في البحث";
 "settings-languages-feed-customization" = "أنت يمكنك التحكم في أي اللغات تكون معروضة على تلقيم استكشف الخاص بك عن طريق تعديل إعدادات تلقيم استكشف الخاص بك";
 "settings-my-languages" = "لغاتي";
-// Fuzzy
 "settings-notifications" = "الإشعارات";
 "settings-notifications-echo-failure-try-again" = "حاول مجددًا";
 "settings-notifications-info" = "يتم تنبيهك إلى المقالات الشائعة والأعلى قراءة في ويكيبيديا بإخطارات الدفع لدينا، الجميع المقدمة فيما يتعلق بالخصوصية وحتى البيانات الدقيقة.";
@@ -852,19 +849,16 @@
 "settings-support" = "ادعم ويكبيديا";
 "settings-title" = "إعدادات";
 "share-a-fact-made-with" = "صُنعت بتطبيق ويكيبيديا";
-// Fuzzy
-"share-article-name-on-wikipedia" = "«$1» على @Wikipedia:";
+"share-article-name-on-wikipedia" = "«$1» على Wikipedia:";
 "share-building" = "جارٍ بناء بطاقة مشاركة حقيقة...";
 "share-default-format" = "“$1” من “$2”: $3";
 "share-email-format" = "“$1”\n\nمن “$2”\n\n$3";
 "share-get-directions-in-maps" = "احصل على الاتجاهات";
 "share-menu-item" = "شارك...";
 "share-message-format" = "“$1” $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "عبر @Wikipedia";
+"share-on-twitter-sign-off" = "عبر Wikipedia";
 "share-open-in-maps" = "افتح في الخرائط";
 "share-social-format" = "عبر “$1” ويكيبيديا: $2";
-// Fuzzy
 "share-social-mention-format" = "“$1” عبر ويكيبيديا: $2";
 "sort-by-recently-added-action" = "أُضيف مؤخرا";
 "sort-by-title-action" = "العنوان";
@@ -909,7 +903,6 @@
 "talk-page-reply-placeholder-format" = "رد على $1";
 "talk-page-reply-title" = "رد";
 "talk-page-share-button" = "شارك صفحة النقاش";
-// Fuzzy
 "talk-page-title-article-talk" = "نقاش المقالة";
 "talk-page-title-user-talk" = "نقاش المستخدم";
 "talk-page-topic-title" = "نقاش";

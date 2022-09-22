@@ -1026,6 +1026,7 @@
 "talk-page-read-in-web" = "Читати в мережі";
 "talk-page-reply-button" = "Відповісти";
 "talk-page-reply-title" = "Відповісти";
+"talk-page-share-button" = "Поділитися сторінкою обговорення";
 "talk-page-subscribe-to-topic" = "Підписатись";
 "talk-page-subscribed-alert-title" = "Ви підписалися!";
 "talk-page-title-article-talk" = "Обговорення статті";
@@ -1033,6 +1034,7 @@
 "talk-page-topic-title" = "Обговорення";
 "talk-page-unsubscribe-to-topic" = "Відписатись";
 "talk-page-unsubscribed-alert-title" = "Ви скасували підписку.";
+"talk-page-user-contributions" = "Внесок";
 "talk-pages-coffee-roll-read-more" = "Читати більше";
 "talk-pages-reply-button-title" = "Відповісти в цьому обговоренні";
 "talk-pages-view-title" = "Обговорення";
