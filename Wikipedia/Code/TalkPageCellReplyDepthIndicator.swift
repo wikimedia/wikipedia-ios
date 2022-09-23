@@ -70,21 +70,13 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
 
         var lineFrames: [CGRect] = []
         for lineDepth in 1...drawableSticks {
-            let height = availableHeight - stickHeightDelta * CGFloat(lineDepth)
-            guard height > 0 else {
-                continue
+            var height = availableHeight - stickHeightDelta * CGFloat(lineDepth)
+            if height <= 0 {
+                height = 3
             }
             lineFrames.append(CGRect(x: availableWidth - CGFloat(lineDepth) * (stickHorizontalSpacing + stickWidth), y: 0, width: stickWidth, height: height))
             
             drawnCount += 1
-        }
-        
-        // shift all frames over a bit so we don't have any left padding
-        var offsetX = CGFloat.infinity
-        for frame in lineFrames {
-            if frame.minX < offsetX {
-                offsetX = frame.minX
-            }
         }
         
         var maxX = CGFloat(0)
@@ -98,7 +90,7 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
             }
         }
         
-        return CGSize(width: (maxX - offsetX) + stickHorizontalSpacing, height: maxY)
+        return CGSize(width: maxX + stickHorizontalSpacing, height: maxY)
     }
 
     override func layoutSubviews() {
@@ -122,26 +114,14 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
         }
 
         for lineDepth in 1...drawableSticks {
-            let height = availableHeight - stickHeightDelta * CGFloat(lineDepth)
-            guard height > 0 else {
-                continue
+            var height = availableHeight - stickHeightDelta * CGFloat(lineDepth)
+            if height <= 0 {
+                height = 3
             }
             let line = UIView(frame: CGRect(x: availableWidth - CGFloat(lineDepth) * (stickHorizontalSpacing + stickWidth), y: 0, width: stickWidth, height: height))
             line.backgroundColor = theme.colors.depthMarker
             stickContainer.addSubview(line)
             drawnCount += 1
-        }
-        
-        // shift all sticks over a bit so we don't have left padding
-        var offsetX = CGFloat.infinity
-        for subview in stickContainer.subviews {
-            if subview.frame.minX < offsetX {
-                offsetX = subview.frame.minX
-            }
-        }
-        
-        for subview in stickContainer.subviews {
-            subview.frame.origin.x = subview.frame.origin.x - offsetX
         }
 
         if drawnCount < depth {
