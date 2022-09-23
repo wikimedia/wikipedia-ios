@@ -7,9 +7,10 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
 
     var depth: Int
 
-    private let lineWidth: CGFloat = 1
-    private let lineHorizontalSpacing: CGFloat = 6
-    private let lineHeightDelta: CGFloat = 8
+    private let lineWidth = CGFloat(1)
+    private let lineHorizontalSpacing = CGFloat(6)
+    private let lineHeightDelta = CGFloat(8)
+    private let lineHeightMinimum = CGFloat(3)
     
     private var maxAllowedLines: Int {
         return traitCollection.horizontalSizeClass == .compact ? 10 : 25
@@ -81,14 +82,20 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
         depth = viewModel.replyDepth
         
         let numberOfLinesToDraw = min(depth, maxAllowedLines)
+        
         for index in (1...numberOfLinesToDraw) {
             let line = UIView(frame: .zero)
             line.translatesAutoresizingMaskIntoConstraints = false
             stackView.addArrangedSubview(line)
+
+            let heightAmountToSubtract = CGFloat(numberOfLinesToDraw - index) * lineHeightDelta
+            let potentialHeightConstraint = line.heightAnchor.constraint(equalTo: stackView.heightAnchor, constant: -heightAmountToSubtract)
+            potentialHeightConstraint.priority = UILayoutPriority(999)
             
             NSLayoutConstraint.activate([
                 line.widthAnchor.constraint(equalToConstant: lineWidth),
-                line.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: CGFloat(index)/CGFloat(numberOfLinesToDraw))
+                potentialHeightConstraint,
+                line.heightAnchor.constraint(greaterThanOrEqualToConstant: lineHeightMinimum)
             ])
         }
         
