@@ -228,7 +228,6 @@ class TalkPageViewController: ViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         headerView?.updateLabelFonts()
-        replyComposeController.calculateLayout(in: self)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
