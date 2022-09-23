@@ -16,7 +16,7 @@ final class TalkPageCoffeeRollView: SetupView {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isScrollEnabled = true
         textView.isEditable = false
-        textView.textContainerInset = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 16)
+        textView.textContainerInset = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
         textView.delegate = self
         return textView
     }()
