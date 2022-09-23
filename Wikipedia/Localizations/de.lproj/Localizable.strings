@@ -12,6 +12,7 @@
 // Author: Hikemaniac
 // Author: Hwboehm
 // Author: JanRei
+// Author: Justman10000
 // Author: Kghbln
 // Author: Killarnee
 // Author: Lucas Werkmeister
@@ -917,6 +918,7 @@
 "two-factor-login-with-regular-code" = "Verifizierungscode verwenden";
 "unable-to-load-talk-page-title" = "Diskussionsseite kann nicht geladen werden";
 "unknown-generic-text" = "Unbekannt";
+"vanish-account-learn-more-text" = "Mehr erfahren";
 "vanish-account-username-field" = "Benutzername und Benutzerseite";
 "variants-alert-dismiss-button" = "Nein danke";
 "variants-alert-preferences-button" = "Überprüfe deine Einstellungen";
