@@ -12,7 +12,7 @@ class TalkPageReplyComposeController {
     typealias ReplyComposableViewController = ViewController & TalkPageReplyComposeDelegate
     private var viewController: ReplyComposableViewController?
     
-    private var containerView: UIView?
+    private(set) var containerView: UIView?
     private var containerViewTopConstraint: NSLayoutConstraint?
     private var containerViewBottomConstraint: NSLayoutConstraint?
     private var containerViewHeightConstraint: NSLayoutConstraint?
@@ -53,10 +53,6 @@ class TalkPageReplyComposeController {
         containerViewHeightConstraint?.constant = oneFourthViewHeight
         
         toggleConstraints(shouldPinToTop: shouldAlwaysPinToTop)
-    }
-    
-    var additionalBottomContentInset: CGFloat {
-        return containerViewHeightConstraint?.constant ?? 0
     }
     
     func reset() {
