@@ -10,7 +10,10 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
     private let lineWidth: CGFloat = 1
     private let lineHorizontalSpacing: CGFloat = 6
     private let lineHeightDelta: CGFloat = 8
-    private let maxAllowedLines = 10
+    
+    private var maxAllowedLines: Int {
+        return traitCollection.horizontalSizeClass == .compact ? 10 : 25
+    }
 
     fileprivate var theme: Theme = .light
 
