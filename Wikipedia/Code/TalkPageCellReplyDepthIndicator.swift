@@ -83,6 +83,10 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
         
         let numberOfLinesToDraw = min(depth, maxAllowedLines)
         
+        guard numberOfLinesToDraw > 0 else {
+            return
+        }
+        
         for index in (1...numberOfLinesToDraw) {
             let line = UIView(frame: .zero)
             line.translatesAutoresizingMaskIntoConstraints = false
