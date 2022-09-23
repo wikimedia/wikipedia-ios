@@ -7,24 +7,35 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
 
     var depth: Int
 
-    private let stickWidth: CGFloat = 1
-    private let stickHorizontalSpacing: CGFloat = 6
-    private let stickHeightDelta: CGFloat = 8
+    private let lineWidth: CGFloat = 1
+    private let lineHorizontalSpacing: CGFloat = 6
+    private let lineHeightDelta: CGFloat = 8
+    private let maxAllowedLines = 10
 
     fileprivate var theme: Theme = .light
 
     // MARK: - UI Elements
 
-    lazy var stickContainer: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .top
+        stackView.distribution = .fillEqually
+        stackView.spacing = lineHorizontalSpacing
+        return stackView
     }()
 
     lazy var depthLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    lazy var depthLabelContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
 
     // MARK: - Lifecycle
@@ -40,115 +51,59 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
     }
 
     override func setup() {
-        setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        setContentHuggingPriority(.defaultHigh, for: .vertical)
-        setContentHuggingPriority(.defaultHigh, for: .horizontal)
-
-        addSubview(stickContainer)
+        addSubview(stackView)
+        addSubview(depthLabelContainer)
+        depthLabelContainer.addSubview(depthLabel)
 
         NSLayoutConstraint.activate([
-            stickContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stickContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-            stickContainer.topAnchor.constraint(equalTo: topAnchor),
-            stickContainer.bottomAnchor.constraint(equalTo: bottomAnchor)
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            depthLabel.leadingAnchor.constraint(equalTo: depthLabelContainer.leadingAnchor),
+            depthLabel.trailingAnchor.constraint(equalTo: depthLabelContainer.trailingAnchor),
+            depthLabel.topAnchor.constraint(equalTo: depthLabelContainer.topAnchor),
+            depthLabel.bottomAnchor.constraint(lessThanOrEqualTo: depthLabelContainer.bottomAnchor),
+            
+            depthLabelContainer.topAnchor.constraint(equalTo: stackView.topAnchor),
+            depthLabelContainer.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            depthLabelContainer.bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
         ])
     }
-
-    override var intrinsicContentSize: CGSize {
-        return calculateIntrinsicContentSize()
-    }
-
-    private func calculateIntrinsicContentSize() -> CGSize {
-        return CGSize(width: requiredTotalStickWidth, height: UIView.noIntrinsicMetric)
-    }
-
-    private var requiredTotalStickWidth: CGFloat {
-        guard depth > 0 else {
-            return 0
-        }
-        
-        return stickWidth * CGFloat(depth) + stickHorizontalSpacing * CGFloat(depth)
-    }
-
-    private var requiredMaximumStickHeight: CGFloat {
-        return stickHeightDelta * CGFloat(depth)
-    }
-
-//    private var totalDrawableSticksGivenCurrentFrame: Int {
-//        let drawableSticksConsideringWidthOnly = Int(frame.width / (stickWidth + stickHorizontalSpacing))
-//        let drawableSticksConsideringHeightOnly = Int(frame.height / stickHeightDelta)
-//        let drawableSticksConsideringHeightAndSpacing = drawableSticksConsideringHeightOnly - Int((stickWidth + stickHorizontalSpacing) * CGFloat(depth))
-//
-//        // TODO: - this is wrong
-//        return min(drawableSticksConsideringWidthOnly, drawableSticksConsideringHeightOnly)
-//    }
-
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        invalidateIntrinsicContentSize()
-
-        let availableHeight = frame.height
-        let availableWidth = frame.width
-
-        stickContainer.subviews.forEach { $0.removeFromSuperview() }
-        depthLabel.removeFromSuperview()
-        
-        guard depth > 0 else {
-            return
-        }
-
-        let drawableSticks = Int(availableWidth / (stickWidth + stickHorizontalSpacing))
-        var drawnCount = 0
-        
-        guard drawableSticks >= 1 else {
-            return
-        }
-
-        for lineDepth in 1...drawableSticks {
-            let height = availableHeight - stickHeightDelta * CGFloat(lineDepth)
-            guard height > 0 else {
-                break
-            }
-            let line = UIView(frame: CGRect(x: availableWidth - CGFloat(lineDepth) * (stickHorizontalSpacing + stickWidth), y: 0, width: stickWidth, height: height))
-            line.backgroundColor = theme.colors.depthMarker
-            stickContainer.addSubview(line)
-            drawnCount += 1
-        }
-
-        if drawnCount < depth {
-            addSubview(depthLabel)
-            depthLabel.text = "+\(depth-drawnCount)"
-            depthLabel.sizeToFit()
-            depthLabel.textColor = theme.colors.depthMarker
-
-            var intersectingViews = 0
-
-            for line in stickContainer.subviews {
-                if line.frame.intersects(depthLabel.convert(depthLabel.frame, to: line)) {
-                    intersectingViews += 1
-                    line.removeFromSuperview()
-                }
-            }
-
-            depthLabel.text = "+\(depth-drawnCount + intersectingViews)"
-        }
-
-    }
-
+    
     // MARK: - Configure
 
     func configure(viewModel: TalkPageCellCommentViewModel) {
         depth = viewModel.replyDepth
+        
+        let numberOfLinesToDraw = min(depth, maxAllowedLines)
+        for index in (1...numberOfLinesToDraw) {
+            let line = UIView(frame: .zero)
+            line.translatesAutoresizingMaskIntoConstraints = false
+            stackView.addArrangedSubview(line)
+            
+            NSLayoutConstraint.activate([
+                line.widthAnchor.constraint(equalToConstant: lineWidth),
+                line.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: CGFloat(index)/CGFloat(numberOfLinesToDraw))
+            ])
+        }
+        
+        let numberRemaining = depth - numberOfLinesToDraw
+        depthLabel.text = "+\(numberRemaining) "
+        depthLabelContainer.isHidden = numberRemaining == 0
     }
-
 }
 
 extension TalkPageCellReplyDepthIndicator: Themeable {
 
     func apply(theme: Theme) {
         self.theme = theme
+        for line in stackView.arrangedSubviews {
+            line.backgroundColor = theme.colors.depthMarker
+        }
+        depthLabel.textColor = theme.colors.depthMarker
+        depthLabelContainer.backgroundColor = theme.colors.paperBackground
     }
 
 }

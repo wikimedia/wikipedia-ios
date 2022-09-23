@@ -63,28 +63,13 @@ final class TalkPageCellCommentView: SetupView {
             replyDepthView.leadingAnchor.constraint(equalTo: leadingAnchor),
             replyDepthView.bottomAnchor.constraint(equalTo: replyButton.bottomAnchor),
 
-            commentTextView.leadingAnchor.constraint(equalTo: replyDepthView.trailingAnchor, constant: 4),
+            commentTextView.leadingAnchor.constraint(equalTo: replyDepthView.trailingAnchor, constant: 10),
             commentTextView.topAnchor.constraint(equalTo: topAnchor),
             commentTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
             commentTextView.bottomAnchor.constraint(equalTo: replyButton.topAnchor),
 
             replyButton.leadingAnchor.constraint(equalTo: commentTextView.leadingAnchor),
             replyButton.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-
-        let replyDepthWidthConstraint = replyDepthView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 1/2)
-        replyDepthWidthConstraint.priority = .required
-
-        let replyDepthHeightConstraint = replyDepthView.heightAnchor.constraint(equalTo: heightAnchor)
-        replyDepthHeightConstraint.priority = .required
-
-        let commentTextWidthConstraint = commentTextView.widthAnchor.constraint(greaterThanOrEqualTo: widthAnchor, multiplier: 1/2)
-        commentTextWidthConstraint.priority = .required
-
-        NSLayoutConstraint.activate([
-            replyDepthWidthConstraint,
-            replyDepthHeightConstraint,
-            commentTextWidthConstraint
         ])
     }
 
