@@ -4,8 +4,8 @@ final class TalkPageCoffeeRollView: SetupView {
 
     // MARK: - Properties
 
-    var theme: Theme!
-    var viewModel: TalkPageCoffeeRollViewModel!
+    var theme: Theme
+    var viewModel: TalkPageCoffeeRollViewModel
     
     weak var linkDelegate: TalkPageTextViewLinkHandling?
 
