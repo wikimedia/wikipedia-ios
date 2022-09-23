@@ -328,8 +328,6 @@ class TalkPageTopicComposeViewController: ViewController {
         let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, tagMapping: nil, additionalTagAttributes: nil)
 
         return attributedString
-        
-        // TODO: Fine print link handling
     }
     
     private func evaluatePublishButtonEnabledState() {
