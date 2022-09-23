@@ -70,11 +70,11 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
 
         var lineFrames: [CGRect] = []
         for lineDepth in 1...drawableSticks {
-            var height = availableHeight - stickHeightDelta * CGFloat(lineDepth)
+            var height = availableHeight - (stickHeightDelta * CGFloat(lineDepth))
             if height <= 0 {
                 height = 3
             }
-            lineFrames.append(CGRect(x: availableWidth - CGFloat(lineDepth) * (stickHorizontalSpacing + stickWidth), y: 0, width: stickWidth, height: height))
+            lineFrames.append(CGRect(x: (CGFloat(lineDepth) * (stickHorizontalSpacing + stickWidth))-1, y: 0, width: stickWidth, height: height))
             
             drawnCount += 1
         }
@@ -115,7 +115,7 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
 
         for lineDepth in 1...drawableSticks {
             var height = availableHeight - stickHeightDelta * CGFloat(lineDepth)
-            if height <= 0 {
+            if height <= 3 {
                 height = 3
             }
             let line = UIView(frame: CGRect(x: availableWidth - CGFloat(lineDepth) * (stickHorizontalSpacing + stickWidth), y: 0, width: stickWidth, height: height))
