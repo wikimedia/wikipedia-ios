@@ -75,7 +75,7 @@ final class TalkPageViewModel {
                 return
             }
             
-            let cache = self.sharedCache.loadCache(for: self.pageTitle)
+            let cache = self.sharedCache.loadCache()
             
             let oldViewModels: [TalkPageCellViewModel] = self.topics
             
@@ -86,15 +86,13 @@ final class TalkPageViewModel {
                 self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
                 completion(.success(()))
             case .failure(let error):
-//                if let cachedPages = cache.talkPages {
-                    var arrayi = [TalkPageItem]()
-                    arrayi.append(contentsOf: cache.talkPages)
-                    self.populateCellData(topics: arrayi, oldViewModels: oldViewModels)
-//                } else {
-                    DDLogError("Failure fetching talk page: \(error)")
-//                    completion(.failure(error))
-//                    // TODO: Error handling
-//                }
+                var cachedTalkPage = [TalkPageItem]()
+                cachedTalkPage.append(contentsOf: cache.talkPages)
+                self.populateCellData(topics: cachedTalkPage, oldViewModels: oldViewModels)
+                completion(.failure(error))
+
+                DDLogError("Failure fetching talk page: \(error)")
+                // TODO: Error handling
             }
         }
     }

@@ -8,27 +8,6 @@ public final class SharedContainerCache<T: Codable> {
         case pushNotificationsCache = "Push Notifications Cache"
         case userDataExportSyncInfo = "User Data Export Sync Info"
         case talkPageCache = "Talk Page Cache"
-
-        
-//        case widgetCache, pushNotificationsCache, userDataExportSyncInfo, talkPageCache
-//        case talkPagePath(path: String)
-//
-//        var value: String {
-//            switch self {
-//
-//            case .widgetCache:
-//                return "Widget Cache"
-//            case .pushNotificationsCache:
-//                return "Push Notifications Cache"
-//            case .userDataExportSyncInfo:
-//                return "User Data Export Sync Info"
-//            case .talkPageCache:
-//                return "Talk Page Cache"
-//            case .talkPagePath(path: let talkPage):
-//                return "Talk Page Cache \(talkPage)"
-//            }
-//        }
-        
     }
     
     private let pathComponent: PathComponent
