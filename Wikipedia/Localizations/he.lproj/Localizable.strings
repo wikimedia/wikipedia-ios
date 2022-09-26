@@ -877,9 +877,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "ערכת נושא כהה";
 "reading-themes-controls-accessibility-light-theme-button" = "ערכת נושא בהירה";
 "reading-themes-controls-accessibility-sepia-theme-button" = "ערכת נושא ספיה";
-"reading-themes-controls-accessibility-syntax-highlighting-switch" = "הדגשת תחביר";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "צביעת תחביר";
 "reading-themes-controls-accessibility-text-size-slider" = "מחלק גודל טקסט";
-"reading-themes-controls-syntax-highlighting" = "הדגשת תחביר";
+"reading-themes-controls-syntax-highlighting" = "צביעת תחביר";
 "reference-section-button-accessibility-label" = "לקפוץ לפרק המקורות";
 "reference-title" = "הערה $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=היום|1=אתמול|2=שלשום|לפני $1 ימים}}";
