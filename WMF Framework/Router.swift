@@ -212,7 +212,7 @@ public class Router: NSObject {
         if configuration.hostCanRouteToInAppWebView(url.host) {
             return .inAppLink(canonicalURL)
         } else {
-            return .externalLink(canonicalURL)
+            return .externalLink(url)
         }
     }
 }
