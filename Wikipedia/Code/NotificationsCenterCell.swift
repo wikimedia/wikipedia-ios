@@ -52,7 +52,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     lazy var projectSourceImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "notifications-project-commons")
+        imageView.image = UIImage(named: "wikimedia-project-commons")
         imageView.contentMode = .scaleAspectFit
 
         imageView.isHidden = true

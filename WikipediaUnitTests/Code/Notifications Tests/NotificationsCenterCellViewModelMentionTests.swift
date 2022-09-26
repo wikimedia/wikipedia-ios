@@ -468,7 +468,7 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
     }
     
     private func testMentionSuccessWikidataIcons(cellViewModel: NotificationsCenterCellViewModel) throws {
-        XCTAssertEqual(cellViewModel.projectIconName, "notifications-project-wikidata", "Invalid projectIconName")
+        XCTAssertEqual(cellViewModel.projectIconName, "wikimedia-project-wikidata", "Invalid projectIconName")
         XCTAssertEqual(cellViewModel.footerIconType, .personFill, "Invalid footerIconType")
     }
     
@@ -485,7 +485,7 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
         let expectedText1 = "Talk page"
         let expectedURL1: URL? = URL(string: "https://wikidata.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         let expectedIcon1: NotificationsCenterIconType = .document
-        let expectedDestinationText1 = "On web"
+        let expectedDestinationText1 = "In app"
         let expectedAction1: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: expectedAction1)
         
@@ -509,7 +509,7 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
     
     private func testMentionInArticleTalkZhWikiquoteIcons(cellViewModel: NotificationsCenterCellViewModel) throws {
 
-        XCTAssertEqual(cellViewModel.projectIconName, "notifications-project-wikiquote", "Invalid projectIconName")
+        XCTAssertEqual(cellViewModel.projectIconName, "wikimedia-project-wikiquote", "Invalid projectIconName")
         XCTAssertEqual(cellViewModel.footerIconType, .personFill, "Invalid footerIconType")
     }
     
