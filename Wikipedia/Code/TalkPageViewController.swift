@@ -177,6 +177,16 @@ class TalkPageViewController: ViewController {
         updateScrollViewInsets()
         
         headerView.apply(theme: theme)
+
+        headerView.coffeeRollReadMoreButton.addTarget(self, action: #selector(userDidTapCoffeeRollReadMoreButton), for: .primaryActionTriggered)
+    }
+
+    // MARK: - Coffee Roll
+
+    @objc private func userDidTapCoffeeRollReadMoreButton() {
+        let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: talkPageURL)
+        let coffeeViewController = TalkPageCoffeeRollViewController(theme: theme, viewModel: coffeeRollViewModel)
+        push(coffeeViewController, animated: true)
     }
 
     // MARK: - Public
