@@ -8,7 +8,7 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
     var depth: Int
 
     private let lineWidth = CGFloat(1)
-    private let lineHorizontalSpacing = CGFloat(6)
+    private let lineHorizontalSpacing = CGFloat(8)
     private let lineHeightDelta = CGFloat(8)
     private let lineHeightMinimum = CGFloat(3)
     private let maxLines = 10
