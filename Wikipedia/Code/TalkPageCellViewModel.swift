@@ -19,6 +19,10 @@ final class TalkPageCellViewModel {
         // Add one for lead comment
         return "\(replies.count + 1)"
     }
+    
+    var allCommentViewModels: [TalkPageCellCommentViewModel] {
+        return replies + [leadComment]
+    }
 
     let isUserLoggedIn: Bool
     
@@ -31,5 +35,15 @@ final class TalkPageCellViewModel {
         self.replies = replies
         self.activeUsersCount = activeUsersCount
         self.isUserLoggedIn = isUserLoggedIn
+    }
+}
+
+extension TalkPageCellViewModel: Hashable {
+    static func == (lhs: TalkPageCellViewModel, rhs: TalkPageCellViewModel) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
