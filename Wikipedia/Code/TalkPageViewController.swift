@@ -177,6 +177,16 @@ class TalkPageViewController: ViewController {
         updateScrollViewInsets()
         
         headerView.apply(theme: theme)
+
+        headerView.coffeeRollReadMoreButton.addTarget(self, action: #selector(userDidTapCoffeeRollReadMoreButton), for: .primaryActionTriggered)
+    }
+
+    // MARK: - Coffee Roll
+
+    @objc private func userDidTapCoffeeRollReadMoreButton() {
+        let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: talkPageURL)
+        let coffeeViewController = TalkPageCoffeeRollViewController(theme: theme, viewModel: coffeeRollViewModel)
+        push(coffeeViewController, animated: true)
     }
 
     // MARK: - Public
@@ -441,9 +451,25 @@ extension TalkPageViewController: TalkPageCellDelegate {
         }
         
         let configuredCellViewModel = viewModel.topics[indexOfConfiguredCell]
-        configuredCellViewModel.isSubscribed.toggle()
+        
+        let shouldSubscribe = !configuredCellViewModel.isSubscribed
+        cellViewModel.isSubscribed.toggle()
         cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
-        self.handleSubscriptionAlert(isSubscribedToTopic: configuredCellViewModel.isSubscribed)
+        
+        viewModel.subscribe(to: configuredCellViewModel.topicName, shouldSubscribe: shouldSubscribe) { result in
+            switch result {
+            case let .success(didSubscribe):
+                self.handleSubscriptionAlert(isSubscribedToTopic: didSubscribe)
+            case let .failure(error):
+                cellViewModel.isSubscribed.toggle()
+                if cell.viewModel?.topicName == cellViewModel.topicName {
+                    cell.configure(viewModel: cellViewModel, linkDelegate: self)
+                }
+                DDLogError("Error subscribing to topic: \(error)")
+                // TODO: Error handling
+            }
+        }
+ 
     }
 }
 
