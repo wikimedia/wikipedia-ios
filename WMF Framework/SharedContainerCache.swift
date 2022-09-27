@@ -43,7 +43,6 @@ public final class SharedContainerCache<T: Codable> {
         
         if let data = try? Data(contentsOf: cacheFolderURL), let decodedCache = try? JSONDecoder().decode(T.self, from: data) {
 
-            // not decoding cache
             return decodedCache
         }
 
@@ -55,7 +54,7 @@ public final class SharedContainerCache<T: Codable> {
         guard let encodedCache = try? encoder.encode(cache) else {
             return
         }
-
+        deleteStaleTalkPages()
         try? encodedCache.write(to: cacheDataFileURL)
     }
     
@@ -66,7 +65,30 @@ public final class SharedContainerCache<T: Codable> {
         }
         
         print(cacheDataFileURL(to: folder), ">>>>>>>>>")
-        let folderFinal = cacheDataFileURL(to: folder)
-        try? encodedCache.write(to: folderFinal)
+        let fullPath = cacheDataFileURL(to: folder)
+        try? encodedCache.write(to: fullPath)
+    }
+
+    @objc public func deleteStaleTalkPages() {
+        let folderURL = cacheDirectoryContainerURL.appendingPathComponent(pathComponent.rawValue)
+
+        if let urlArray = try? FileManager.default.contentsOfDirectory(at: folderURL,
+                                                                       includingPropertiesForKeys: [.contentModificationDateKey],
+                                                                       options: .skipsHiddenFiles) {
+            if urlArray.count > 50 {
+                let sortedArray =  urlArray.map { url in
+                    (url, (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date.distantPast)
+                }.sorted(by: {$0.1 > $1.1 })
+                    .map { $0.0 }
+
+                let over50items = Array(urlArray.suffix(from: 50))
+
+
+                for urlItem in over50items {
+                    try? FileManager.default.removeItem(at: urlItem)
+                }
+            }
+        }
+
     }
 }
