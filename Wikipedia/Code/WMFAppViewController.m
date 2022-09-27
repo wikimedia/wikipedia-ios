@@ -632,8 +632,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         DDLogError(@"Error on cleanup: %@", housekeepingError);
         housekeepingError = nil;
     }
+
+    // todo: call new housekeeper here
     
     completion(housekeepingError);
+
+
 }
 
 #pragma mark - Background Tasks

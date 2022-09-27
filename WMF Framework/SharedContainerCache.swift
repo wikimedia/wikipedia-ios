@@ -26,8 +26,18 @@ public final class SharedContainerCache<T: Codable> {
         return cacheDirectoryContainerURL.appendingPathComponent(pathComponent.rawValue).appendingPathExtension("json")
     }
     
-    private func cacheDataFileURL(to subfolder: String) -> URL {
-        return cacheDirectoryContainerURL.appendingPathComponent(pathComponent.rawValue).appendingPathComponent(subfolder).appendingPathExtension("json")
+    private func subdirectoryFileURL(to subfolder: String) -> URL {
+        return cacheDirectoryContainerURL
+            .appendingPathComponent(pathComponent.rawValue, isDirectory: true)
+//            .appendingPathComponent(subfolder)
+//            .appendingPathExtension("json")
+    }
+
+    func cacheFileURL(to subfolder: String) -> URL {
+        return cacheDirectoryContainerURL
+            .appendingPathComponent(pathComponent.rawValue, isDirectory: true)
+            .appendingPathComponent(subfolder)
+            .appendingPathExtension("json")
     }
     
     public func loadCache() -> T {
@@ -39,9 +49,10 @@ public final class SharedContainerCache<T: Codable> {
     }
     
     public func loadCache(for folder: String) -> T {
-        let cacheFolderURL = cacheDataFileURL(to: folder)
+        let cacheFolderURL = cacheFileURL(to: folder)
         
-        if let data = try? Data(contentsOf: cacheFolderURL), let decodedCache = try? JSONDecoder().decode(T.self, from: data) {
+        if let data = try? Data(contentsOf: cacheFolderURL),
+            let decodedCache = try? JSONDecoder().decode(T.self, from: data) {
 
             return decodedCache
         }
@@ -54,7 +65,6 @@ public final class SharedContainerCache<T: Codable> {
         guard let encodedCache = try? encoder.encode(cache) else {
             return
         }
-        deleteStaleTalkPages()
         try? encodedCache.write(to: cacheDataFileURL)
     }
     
@@ -63,12 +73,20 @@ public final class SharedContainerCache<T: Codable> {
         guard let encodedCache = try? encoder.encode(cache) else {
             return
         }
-        
-        print(cacheDataFileURL(to: folder), ">>>>>>>>>")
-        let fullPath = cacheDataFileURL(to: folder)
-        try? encodedCache.write(to: fullPath)
+
+        let subdirectoryPath = subdirectoryFileURL(to: folder)
+        let filePath = cacheFileURL(to: folder)
+        print(filePath)
+        do {
+            try FileManager.default.createDirectory(at: subdirectoryPath, withIntermediateDirectories: true, attributes: nil)
+            try encodedCache.write(to: filePath)
+        } catch {
+            print(error)
+        }
+
     }
 
+    /// Persist only the last 50 visited talk pages
     @objc public func deleteStaleTalkPages() {
         let folderURL = cacheDirectoryContainerURL.appendingPathComponent(pathComponent.rawValue)
 
@@ -81,10 +99,8 @@ public final class SharedContainerCache<T: Codable> {
                 }.sorted(by: {$0.1 > $1.1 })
                     .map { $0.0 }
 
-                let over50items = Array(urlArray.suffix(from: 50))
-
-
-                for urlItem in over50items {
+                let itemsToDelete = Array(sortedArray.suffix(from: 51))
+                for urlItem in itemsToDelete {
                     try? FileManager.default.removeItem(at: urlItem)
                 }
             }

@@ -148,10 +148,8 @@ class TalkPageViewController: ViewController {
                 self.setupHeaderView()
                 self.talkPageView.collectionView.reloadData()
             case .failure:
-//                self.fakeProgressController.stop()
-//                self.setupHeaderView()
                 // TODO: cache header
-                self.talkPageView.collectionView.reloadData()
+                self.talkPageView.collectionView.reloadData()  // refactor to avoid unecessary code repetition
             }
         }
         

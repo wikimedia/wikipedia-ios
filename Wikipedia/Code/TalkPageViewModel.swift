@@ -75,7 +75,7 @@ final class TalkPageViewModel {
                 return
             }
             
-            let cache = self.sharedCache.loadCache()
+            let cache = self.sharedCache.loadCache(for: self.pageTitle.replacingOccurrences(of: ":", with: ""))
             
             let oldViewModels: [TalkPageCellViewModel] = self.topics
             

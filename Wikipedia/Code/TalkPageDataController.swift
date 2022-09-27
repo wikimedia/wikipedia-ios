@@ -108,7 +108,7 @@ class TalkPageDataController {
                     for item in items {
                         cache.talkPages.insert(item)
                     }
-                    sharedCache.saveCache(cache)
+                    sharedCache.saveCache(to: self.pageTitle.replacingOccurrences(of: ":", with: " "), cache)
                     completion(items, [])
                 case .failure(let error):
                     completion([], [error])
