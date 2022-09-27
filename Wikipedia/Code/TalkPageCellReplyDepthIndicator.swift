@@ -11,10 +11,7 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
     private let lineHorizontalSpacing = CGFloat(6)
     private let lineHeightDelta = CGFloat(8)
     private let lineHeightMinimum = CGFloat(3)
-    
-    private var maxAllowedLines: Int {
-        return traitCollection.horizontalSizeClass == .compact ? 10 : 25
-    }
+    private let maxLines = 10
 
     fileprivate var theme: Theme = .light
 
@@ -81,7 +78,7 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
     func configure(viewModel: TalkPageCellCommentViewModel) {
         depth = viewModel.replyDepth
         
-        let numberOfLinesToDraw = min(depth, maxAllowedLines)
+        let numberOfLinesToDraw = min(depth, maxLines)
         
         guard numberOfLinesToDraw > 0 else {
             return
