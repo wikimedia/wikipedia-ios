@@ -11,7 +11,7 @@
 		<key>tsg</key>
 		<string>https://tsgteam.org</string>
 		<key>feedback</key>
-		<string>mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:$1</string>
+		<string>mailto:ios-support@wikimedia.org?subject=Feedback:$1</string>
 		<key>twn</key>
 		<string>https://translatewiki.net</string>
 		<key>wmf</key>
