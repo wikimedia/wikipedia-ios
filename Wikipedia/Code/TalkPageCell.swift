@@ -112,16 +112,11 @@ final class TalkPageCell: UICollectionViewCell {
     
     // MARK: - Public
     
-    func displayingCommentViewForViewModel(_ commentViewModel: TalkPageCellCommentViewModel) -> TalkPageCellCommentView? {
+    func commentViewForViewModel(_ commentViewModel: TalkPageCellCommentViewModel) -> TalkPageCellCommentView? {
         
-        return stackView.arrangedSubviews.first { view in
-            if let commentView = view as? TalkPageCellCommentView,
-               commentView.viewModel == commentViewModel {
-                return true
-            }
-               
-            return false
-        } as? TalkPageCellCommentView
+        return stackView.arrangedSubviews
+                    .compactMap { $0 as? TalkPageCellCommentView }
+                    .first(where: { $0.viewModel == commentViewModel })
     }
 
     // MARK: - Configure

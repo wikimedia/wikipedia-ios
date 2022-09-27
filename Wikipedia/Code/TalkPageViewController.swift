@@ -303,7 +303,7 @@ class TalkPageViewController: ViewController {
     
     private func scrollToLastTopic() {
         if viewModel.topics.count > 0 {
-            let indexPath = IndexPath.init(item: viewModel.topics.count - 1, section: 0)
+            let indexPath = IndexPath(item: viewModel.topics.count - 1, section: 0)
             talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
         }
     }
@@ -363,7 +363,7 @@ class TalkPageViewController: ViewController {
                     
                     if talkPageCell.viewModel == cellViewModel {
                      
-                         if let commentView = talkPageCell.displayingCommentViewForViewModel(commentViewModel),
+                         if let commentView = talkPageCell.commentViewForViewModel(commentViewModel),
                              let convertedCommentViewFrame = commentView.superview?.convert(commentView.frame, to: collectionView) {
                              let shiftedFrame = CGRect(x: convertedCommentViewFrame.minX, y: convertedCommentViewFrame.minY + 50, width: convertedCommentViewFrame.width, height: convertedCommentViewFrame.height)
                                  collectionView.scrollRectToVisible(shiftedFrame, animated: true)
