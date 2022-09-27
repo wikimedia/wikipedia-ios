@@ -154,7 +154,7 @@ struct VanishAccountContentView: View {
     }
     
     func openMailClient() {
-        let address = "renamers@wikimedia.org"
+        let address = "ios-support@wikimedia.org"
         let subject = WMFLocalizedString("vanishing-request-email-title", value: "Request for courtesy vanishing", comment: "Title for vanishing request email")
         let body = getMailBody()
         let mailto = "mailto:\(address)?subject=\(subject)&body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)

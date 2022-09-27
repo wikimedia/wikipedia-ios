@@ -9,6 +9,8 @@ final class TalkPageCellCommentViewModel {
     let timestamp: Date?
     let replyDepth: Int
     
+    weak var cellViewModel: TalkPageCellViewModel?
+    
     init?(commentId: String, text: String?, author: String?, authorTalkPageURL: String, timestamp: Date?, replyDepth: Int?) {
         
         guard let text = text,
@@ -24,5 +26,14 @@ final class TalkPageCellCommentViewModel {
         self.timestamp = timestamp
         self.replyDepth = replyDepth
     }
+}
 
+extension TalkPageCellCommentViewModel: Hashable {
+    static func == (lhs: TalkPageCellCommentViewModel, rhs: TalkPageCellCommentViewModel) -> Bool {
+        lhs.commentId == rhs.commentId
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(commentId)
+    }
 }

@@ -84,6 +84,7 @@ final class TalkPageViewModel {
                 self.populateHeaderData(articleSummary: result.articleSummary, items: result.items)
                 self.topics.removeAll()
                 self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
+                self.updateSubscriptionForTopic(topicNames: result.subscribedTopicNames)
                 completion(.success(()))
             case .failure(let error):
                 var cachedTalkPage = [TalkPageItem]()
@@ -96,18 +97,20 @@ final class TalkPageViewModel {
             }
         }
     }
-    
+
     func postTopic(topicTitle: String, topicBody: String, completion: @escaping(Result<Void, Error>) -> Void) {
         dataController.postTopic(topicTitle: topicTitle, topicBody: topicBody, completion: completion)
     }
     
+    func postReply(commentId: String, comment: String, completion: @escaping(Result<Void, Error>) -> Void) {
+        dataController.postReply(commentId: commentId, comment: comment, completion: completion)
+    }
+    
 
-    func updateSubscriptionToTopic(topic: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
-        dataController.subscribeToTopic(topicName: topic, shouldSubscribe: shouldSubscribe) { [self] result in
+    func subscribe(to topic: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
+        dataController.subscribeToTopic(topicName: topic, shouldSubscribe: shouldSubscribe) { result in
             switch result {
             case let .success(result) :
-                let topicUpdated = topics.filter { $0.topicTitle == topic}
-                topicUpdated[0].isSubscribed = result
                 completion(.success(result))
             case let .failure(error):
                 completion(.failure(error))
@@ -115,8 +118,14 @@ final class TalkPageViewModel {
         }
     }
 
-    func postReply(commentId: String, comment: String, completion: @escaping(Result<Void, Error>) -> Void) {
-        dataController.postReply(commentId: commentId, comment: comment, completion: completion)
+    func updateSubscriptionForTopic(topicNames: [String]) {
+        for topic in topics {
+            for id in topicNames {
+                if topic.topicName == id {
+                    topic.isSubscribed = true
+                }
+            }
+        }
     }
     
     // MARK: - Private
@@ -178,11 +187,20 @@ final class TalkPageViewModel {
             
             let activeUsersCount = activeUsersCount(topic: topic)
             
-            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserLoggedIn: isUserLoggedIn)
-            
+            guard let topicName = topic.name else {
+                DDLogError("Unable to parse topic name")
+                continue
+            }
+
+            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserLoggedIn: isUserLoggedIn)
+
             // Note this is a nested loop, so it will not perform well with many topics.
             // Talk pages generally have a limited number of topics, so optimize later if we determine it's needed
             assignExpandedFlag(to: topicViewModel, from: oldViewModels)
+            
+            // It is beneficial for comment view models to have a weak reference to their parent cell view model - it is used for scrolling enhancements after replying
+            let commentViewModels = (remainingCommentViewModels + [leadCommentViewModel])
+            assignCellViewModel(topicViewModel, to: commentViewModels)
             
             self.topics.append(topicViewModel)
         }
@@ -191,6 +209,12 @@ final class TalkPageViewModel {
     private func assignExpandedFlag(to newViewModel: TalkPageCellViewModel, from oldViewModels: [TalkPageCellViewModel]) {
         if let oldTopicViewModel = oldViewModels.first(where: { $0.id == newViewModel.id }) {
             newViewModel.isThreadExpanded = oldTopicViewModel.isThreadExpanded
+        }
+    }
+    
+    private func assignCellViewModel(_ cellViewModel: TalkPageCellViewModel, to commentViewModels: [TalkPageCellCommentViewModel]) {
+        for commentViewModel in commentViewModels {
+            commentViewModel.cellViewModel = cellViewModel
         }
     }
     

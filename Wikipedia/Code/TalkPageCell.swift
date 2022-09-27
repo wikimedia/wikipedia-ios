@@ -79,10 +79,13 @@ final class TalkPageCell: UICollectionViewCell {
     }
 
     override func prepareForReuse() {
+        super.prepareForReuse()
+        
         viewModel = nil
         delegate = nil
         topicView.disclosureButton.removeTarget(nil, action: nil, for: .allEvents)
         topicView.subscribeButton.removeTarget(nil, action: nil, for: .allEvents)
+        removeExpandedElements()
     }
 
     func setup() {
@@ -105,8 +108,16 @@ final class TalkPageCell: UICollectionViewCell {
         ])
 
         stackView.addArrangedSubview(topicView)
-        stackView.addArrangedSubview(leadReplySpacer)
-        stackView.addArrangedSubview(leadReplyButton)
+    }
+    
+    // MARK: - Public
+    
+    /// Seeks out and returns the associated comment view that is already in the cell view hierarchy.
+    func commentViewForViewModel(_ commentViewModel: TalkPageCellCommentViewModel) -> TalkPageCellCommentView? {
+        
+        return stackView.arrangedSubviews
+                    .compactMap { $0 as? TalkPageCellCommentView }
+                    .first(where: { $0.viewModel == commentViewModel })
     }
 
     // MARK: - Configure
@@ -117,36 +128,37 @@ final class TalkPageCell: UICollectionViewCell {
         topicView.configure(viewModel: viewModel)
         topicView.linkDelegate = linkDelegate
 
-        leadReplySpacer.isHidden = !viewModel.isThreadExpanded
-        leadReplyButton.isHidden = !viewModel.isThreadExpanded
+        if viewModel.isThreadExpanded {
+            stackView.addArrangedSubview(leadReplySpacer)
+            stackView.addArrangedSubview(leadReplyButton)
 
-        let comments: [UIView] = stackView.arrangedSubviews.filter { view in view is TalkPageCellCommentView || view is TalkPageCellCommentSeparator }
-        stackView.arrangedSubviews.forEach { view in
-            if comments.contains(view) {
-                view.removeFromSuperview()
+            for commentViewModel in viewModel.replies {
+                let separator = TalkPageCellCommentSeparator()
+                separator.setContentHuggingPriority(.defaultLow, for: .horizontal)
+                separator.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+                let commentView = TalkPageCellCommentView()
+                commentView.replyDelegate = replyDelegate
+                commentView.configure(viewModel: commentViewModel)
+                commentView.linkDelegate = linkDelegate
+
+                stackView.addArrangedSubview(separator)
+                stackView.addArrangedSubview(commentView)
             }
         }
-
-        for commentViewModel in viewModel.replies {
-            let separator = TalkPageCellCommentSeparator()
-            separator.setContentHuggingPriority(.defaultLow, for: .horizontal)
-            separator.setContentCompressionResistancePriority(.required, for: .horizontal)
-
-            let commentView = TalkPageCellCommentView()
-            commentView.replyDelegate = replyDelegate
-            commentView.configure(viewModel: commentViewModel)
-            commentView.linkDelegate = linkDelegate
-
-            commentView.isHidden = !viewModel.isThreadExpanded
-            separator.isHidden = !viewModel.isThreadExpanded
-
-            stackView.addArrangedSubview(separator)
-            stackView.addArrangedSubview(commentView)
-        }
-
+        
         topicView.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
         topicView.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
+
         leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
+    }
+    
+    func removeExpandedElements() {
+        for subview in stackView.arrangedSubviews {
+            if subview != topicView {
+                subview.removeFromSuperview()
+            }
+        }
     }
 
     // MARK: - Actions
