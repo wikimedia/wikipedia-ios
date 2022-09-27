@@ -5,7 +5,7 @@ import WMF
 @objc(WMFHelpViewController)
 class HelpViewController: SinglePageWebViewController {
     static let faqURLString = "https://m.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ"
-    static let emailAddress = "mobile-ios-wikipedia@wikimedia.org"
+    static let emailAddress = "ios-support@wikimedia.org"
     static let emailSubject = "Bug:"
     let dataStore: MWKDataStore
     
