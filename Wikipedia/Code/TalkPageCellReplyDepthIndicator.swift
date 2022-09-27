@@ -5,8 +5,7 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
 
     // MARK: - Properties
 
-    var depth: Int
-
+    private var depth: Int
     private let lineWidth = CGFloat(1)
     private let lineHorizontalSpacing = CGFloat(8)
     private let lineHeightDelta = CGFloat(8)
@@ -29,7 +28,12 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
 
     lazy var depthLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        label.setContentHuggingPriority(.required, for: .horizontal)
         return label
     }()
     
@@ -38,6 +42,8 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    var depthLabelTrailingConstraint: NSLayoutConstraint?
 
     // MARK: - Lifecycle
 
@@ -67,19 +73,24 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
             depthLabel.topAnchor.constraint(equalTo: depthLabelContainer.topAnchor),
             depthLabel.bottomAnchor.constraint(lessThanOrEqualTo: depthLabelContainer.bottomAnchor),
             
-            depthLabelContainer.topAnchor.constraint(equalTo: stackView.topAnchor),
-            depthLabelContainer.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            depthLabelContainer.bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
+            depthLabelContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
+            depthLabelContainer.topAnchor.constraint(equalTo: topAnchor),
+            depthLabelContainer.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        
+        // Allows depth label to wrap when it gets too long
+        // Activated upon configuration with view model
+        let depthLabelTrailingConstraint = depthLabelContainer.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -10)
+        self.depthLabelTrailingConstraint = depthLabelTrailingConstraint
     }
     
     // MARK: - Configure
 
     func configure(viewModel: TalkPageCellCommentViewModel) {
+        
         depth = viewModel.replyDepth
         
         let numberOfLinesToDraw = min(depth, maxLines)
-        
         guard numberOfLinesToDraw > 0 else {
             return
         }
@@ -87,12 +98,13 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
         for index in (1...numberOfLinesToDraw) {
             let line = UIView(frame: .zero)
             line.translatesAutoresizingMaskIntoConstraints = false
+            
             stackView.addArrangedSubview(line)
 
             let heightAmountToSubtract = CGFloat(numberOfLinesToDraw - index) * lineHeightDelta
             let potentialHeightConstraint = line.heightAnchor.constraint(equalTo: stackView.heightAnchor, constant: -heightAmountToSubtract)
             potentialHeightConstraint.priority = UILayoutPriority(999)
-            
+
             NSLayoutConstraint.activate([
                 line.widthAnchor.constraint(equalToConstant: lineWidth),
                 potentialHeightConstraint,
@@ -101,8 +113,9 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
         }
         
         let numberRemaining = depth - numberOfLinesToDraw
-        depthLabel.text = "+\(numberRemaining) "
+        depthLabel.text = numberRemaining > 0 ? "+ \(numberRemaining) " : ""
         depthLabelContainer.isHidden = numberRemaining == 0
+        depthLabelTrailingConstraint?.isActive = numberRemaining > 0
     }
 }
 
