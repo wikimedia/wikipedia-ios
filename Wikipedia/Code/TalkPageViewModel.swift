@@ -186,6 +186,10 @@ final class TalkPageViewModel {
             // Talk pages generally have a limited number of topics, so optimize later if we determine it's needed
             assignExpandedFlag(to: topicViewModel, from: oldViewModels)
             
+            // It is beneficial for comment view models to have a weak reference to their parent cell view model - it is used for scrolling enhancements after replying
+            let commentViewModels = (remainingCommentViewModels + [leadCommentViewModel])
+            assignCellViewModel(topicViewModel, to: commentViewModels)
+            
             self.topics.append(topicViewModel)
         }
     }
@@ -193,6 +197,12 @@ final class TalkPageViewModel {
     private func assignExpandedFlag(to newViewModel: TalkPageCellViewModel, from oldViewModels: [TalkPageCellViewModel]) {
         if let oldTopicViewModel = oldViewModels.first(where: { $0.id == newViewModel.id }) {
             newViewModel.isThreadExpanded = oldTopicViewModel.isThreadExpanded
+        }
+    }
+    
+    private func assignCellViewModel(_ cellViewModel: TalkPageCellViewModel, to commentViewModels: [TalkPageCellCommentViewModel]) {
+        for commentViewModel in commentViewModels {
+            commentViewModel.cellViewModel = cellViewModel
         }
     }
     
