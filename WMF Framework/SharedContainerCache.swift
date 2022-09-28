@@ -29,8 +29,6 @@ public final class SharedContainerCache<T: Codable> {
     private func subdirectoryFileURL(to subfolder: String) -> URL {
         return cacheDirectoryContainerURL
             .appendingPathComponent(pathComponent.rawValue, isDirectory: true)
-//            .appendingPathComponent(subfolder)
-//            .appendingPathExtension("json")
     }
 
     func cacheFileURL(to subfolder: String) -> URL {
@@ -50,13 +48,10 @@ public final class SharedContainerCache<T: Codable> {
     
     public func loadCache(for folder: String) -> T {
         let cacheFolderURL = cacheFileURL(to: folder)
-        
         if let data = try? Data(contentsOf: cacheFolderURL),
             let decodedCache = try? JSONDecoder().decode(T.self, from: data) {
-
             return decodedCache
         }
-
         return defaultCache()
     }
 

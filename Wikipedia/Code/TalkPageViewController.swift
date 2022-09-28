@@ -149,11 +149,10 @@ class TalkPageViewController: ViewController {
             switch result {
             case .success:
                 self.setupHeaderView()
-                self.talkPageView.collectionView.reloadData()
             case .failure:
-                // TODO: cache header
-                self.talkPageView.collectionView.reloadData()  // refactor to avoid unecessary code repetition
+                break
             }
+            self.talkPageView.collectionView.reloadData()
         }
         
         setupToolbar()

@@ -46,7 +46,7 @@ class TalkPageDataController {
         
         group.notify(queue: DispatchQueue.main, execute: {
             
-            if let firstError = finalErrors.first {
+            if let firstError = finalErrors.first, finalItems.isEmpty {
                 completion(.failure(firstError))
                 return
             }
@@ -134,7 +134,7 @@ class TalkPageDataController {
                     sharedCache.saveCache(to: self.pageTitle.replacingOccurrences(of: ":", with: " "), cache)
                     completion(items, [])
                 case .failure(let error):
-                    completion([], [error])
+                    completion(cache.talkPages, [error])
                 }
             }
         }
