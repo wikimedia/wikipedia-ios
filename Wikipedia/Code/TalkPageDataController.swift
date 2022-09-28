@@ -130,9 +130,7 @@ class TalkPageDataController {
                 
                 switch result {
                 case .success(let items):
-                    for item in items {
-                        cache.talkPages.insert(item)
-                    }
+                    cache.talkPages = items
                     sharedCache.saveCache(to: self.pageTitle.replacingOccurrences(of: ":", with: " "), cache)
                     completion(items, [])
                 case .failure(let error):
