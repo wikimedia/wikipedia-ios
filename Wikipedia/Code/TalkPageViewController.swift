@@ -480,7 +480,7 @@ extension TalkPageViewController: TalkPageCellReplyDelegate {
 }
 
 extension TalkPageViewController: TalkPageReplyComposeDelegate {
-    func tappedClose() {
+    func closeReplyView() {
         replyComposeController.reset()
     }
     

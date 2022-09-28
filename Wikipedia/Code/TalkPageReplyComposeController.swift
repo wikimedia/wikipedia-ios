@@ -3,7 +3,7 @@ import UIKit
 import WMF
 
 protocol TalkPageReplyComposeDelegate: AnyObject {
-    func tappedClose()
+    func closeReplyView()
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel)
 }
 
@@ -177,7 +177,7 @@ class TalkPageReplyComposeController {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(contentView)
         
-        contentView.closeButton.addTarget(self, action: #selector(tappedClose), for: .touchUpInside)
+        contentView.closeButton.addTarget(self, action: #selector(attemptClose), for: .touchUpInside)
         contentView.publishButton.addTarget(self, action: #selector(tappedPublish), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
@@ -278,7 +278,7 @@ class TalkPageReplyComposeController {
     func presentDismissConfirmationActionSheet() {
         let alertController = UIAlertController(title: Self.ActionSheetStrings.closeConfirmationTitle, message: nil, preferredStyle: .actionSheet)
         let discardAction = UIAlertAction(title: Self.ActionSheetStrings.closeConfirmationDiscard, style: .destructive) { _ in
-            self.viewController?.tappedClose()
+            self.viewController?.closeReplyView()
         }
         
         let keepEditingAction = UIAlertAction(title: CommonStrings.talkPageCloseConfirmationKeepEditing, style: .cancel)
@@ -292,7 +292,7 @@ class TalkPageReplyComposeController {
     
 // MARK: - ACTIONS
     
-    @objc private func tappedClose() {
+    @objc private func attemptClose() {
         contentView?.resignFirstResponder()
         
         if let replyText = contentView?.replyTextView.text,
@@ -301,7 +301,7 @@ class TalkPageReplyComposeController {
             return
         }
         
-        viewController?.tappedClose()
+        viewController?.closeReplyView()
     }
     
     @objc private func tappedPublish() {
