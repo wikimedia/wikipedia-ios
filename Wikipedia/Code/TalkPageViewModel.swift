@@ -24,8 +24,7 @@ final class TalkPageViewModel {
     
     var theme: Theme = .light
     private(set) var topics: [TalkPageCellViewModel] = []
-    
-    
+
     private let sharedCache = SharedContainerCache<TalkPageCache>.init(pathComponent: .talkPageCache, defaultCache: {
         TalkPageCache(talkPages: [])
     })
@@ -75,7 +74,7 @@ final class TalkPageViewModel {
                 return
             }
             
-            let cache = self.sharedCache.loadCache(for: self.pageTitle.replacingOccurrences(of: ":", with: ""))
+            let cache = self.sharedCache.loadCache(for: self.pageTitle.replacingOccurrences(of: ":", with: " "))
             
             let oldViewModels: [TalkPageCellViewModel] = self.topics
             
