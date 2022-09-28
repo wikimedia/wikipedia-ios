@@ -235,6 +235,14 @@ class TalkPageReplyComposeController {
                 toggleConstraints(shouldPinToTop: true)
             } else if translationY > 50 && !shouldAlwaysPinToTop {
                 toggleConstraints(shouldPinToTop: false)
+                
+                // If not pinned to top, and swiping down fast enough, attempt to close.
+                if let containerViewWasPinnedToTopUponDragBegin = containerViewWasPinnedToTopUponDragBegin,
+                   !containerViewWasPinnedToTopUponDragBegin {
+                    if gestureRecognizer.velocity(in: containerView).y > 100 {
+                        attemptClose()
+                    }
+                }
             } else {
                 // wasn't dragged far enough in either direction, so reset back to where it was when pan gesture started
                 toggleConstraints(shouldPinToTop: (containerViewWasPinnedToTopUponDragBegin ?? false))
