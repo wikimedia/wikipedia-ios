@@ -1023,11 +1023,12 @@
 "talk-page-user-contributions" = "Contributions";
 "talk-pages-coffee-roll-read-more" = "Read more";
 "talk-pages-comment-added-alert-title" = "Your comment was added";
+"talk-pages-compose-close-confirmation-keep" = "Keep Editing";
 "talk-pages-reply-button-title" = "Reply to this discussion";
+"talk-pages-reply-compose-close-confirmation-title" = "Are you sure you want to discard this new reply?";
 "talk-pages-topic-added-alert-title" = "Your topic was added";
 "talk-pages-topic-compose-body-placeholder" = "Description";
-"talk-pages-topic-compose-close-confirmation-discard" = "Discard Topic";
-"talk-pages-topic-compose-close-confirmation-keep" = "Keep Editing";
+"talk-pages-topic-compose-close-confirmation-discard" = "Discard Reply";
 "talk-pages-topic-compose-close-confirmation-title" = "Are you sure you want to discard this new topic?";
 "talk-pages-topic-compose-navbar-title" = "Topic";
 "talk-pages-topic-compose-title-placeholder" = "Topic title";

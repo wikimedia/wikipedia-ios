@@ -1023,11 +1023,12 @@
 "talk-page-user-contributions" = "Title for menu option for information on the user's contributions";
 "talk-pages-coffee-roll-read-more" = "Title of user and article talk pages button to read more of the coffee roll.";
 "talk-pages-comment-added-alert-title" = "Title for alert informing that the user's new comment was successfully published.";
+"talk-pages-compose-close-confirmation-keep" = "Title of keep editing action, displayed within a confirmation alert to user when they attempt to close the new topic view or new reply after entering text.";
 "talk-pages-reply-button-title" = "Text displayed in a reply button for replying to a talk page topic thread.";
+"talk-pages-reply-compose-close-confirmation-title" = "Title of confirmation alert displayed to user when they attempt to close the new reply view after entering text.";
 "talk-pages-topic-added-alert-title" = "Title for alert informing that the user's new topic was successfully published.";
 "talk-pages-topic-compose-body-placeholder" = "Placeholder text in topic body field of the talk page topic compose screen.";
 "talk-pages-topic-compose-close-confirmation-discard" = "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text.";
-"talk-pages-topic-compose-close-confirmation-keep" = "Title of keep editing action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text.";
 "talk-pages-topic-compose-close-confirmation-title" = "Title of confirmation alert displayed to user when they attempt to close the new topic view after entering title or body text.";
 "talk-pages-topic-compose-navbar-title" = "Top navigation bar title of talk page topic compose screen.";
 "talk-pages-topic-compose-title-placeholder" = "Placeholder text in topic title field of the talk page topic compose screen.";

@@ -10,6 +10,11 @@ protocol TalkPageReplyComposeDelegate: AnyObject {
 /// Class for coordinating talk page reply compose views
 class TalkPageReplyComposeController {
     
+    enum ActionSheetStrings {
+        static let closeConfirmationTitle = WMFLocalizedString("talk-pages-reply-compose-close-confirmation-title", value: "Are you sure you want to discard this new reply?", comment: "Title of confirmation alert displayed to user when they attempt to close the new reply view after entering text.")
+        static let closeConfirmationDiscard = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-discard", value: "Discard Reply", comment: "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text.")
+    }
+    
     // viewController - the view controller that triggered the reply compose screen
     // containerView - the view that contains the contentView. It has the drag handle and pan gesture attached.
     // contentView - the view with the reply compose UI elements (close button, publish button, text views)
@@ -270,10 +275,32 @@ class TalkPageReplyComposeController {
         }
     }
     
+    func presentDismissConfirmationActionSheet() {
+        let alertController = UIAlertController(title: Self.ActionSheetStrings.closeConfirmationTitle, message: nil, preferredStyle: .actionSheet)
+        let discardAction = UIAlertAction(title: Self.ActionSheetStrings.closeConfirmationDiscard, style: .destructive) { _ in
+            self.viewController?.tappedClose()
+        }
+        
+        let keepEditingAction = UIAlertAction(title: CommonStrings.talkPageCloseConfirmationKeepEditing, style: .cancel)
+        
+        alertController.addAction(discardAction)
+        alertController.addAction(keepEditingAction)
+        
+        alertController.popoverPresentationController?.sourceView = contentView?.closeButton
+        viewController?.present(alertController, animated: true)
+    }
+    
 // MARK: - ACTIONS
     
     @objc private func tappedClose() {
         contentView?.resignFirstResponder()
+        
+        if let replyText = contentView?.replyTextView.text,
+           !replyText.isEmpty {
+            presentDismissConfirmationActionSheet()
+            return
+        }
+        
         viewController?.tappedClose()
     }
     
