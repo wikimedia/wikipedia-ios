@@ -1821,6 +1821,10 @@
 		83ACAAAB24E6E745003B3035 /* WikipediaLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAAAA24E6E745003B3035 /* WikipediaLookup.swift */; };
 		83ACAAAD24E6EED9003B3035 /* WikipediaSiteInfoLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAAAC24E6EED9003B3035 /* WikipediaSiteInfoLookup.swift */; };
 		83ACAAAE24E6EF0B003B3035 /* WikipediaSiteInfoLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAAAC24E6EED9003B3035 /* WikipediaSiteInfoLookup.swift */; };
+		83ACF8E528E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACF8E428E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift */; };
+		83ACF8E628E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACF8E428E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift */; };
+		83ACF8E728E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACF8E428E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift */; };
+		83ACF8E828E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACF8E428E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift */; };
 		83AE1C811F34BB59004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		83AE1C821F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		83AE1C831F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
@@ -4552,6 +4556,7 @@
 		83ACAAA624E6E655003B3035 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = "Command Line Tools/Update Localizations/main.swift"; sourceTree = SOURCE_ROOT; };
 		83ACAAAA24E6E745003B3035 /* WikipediaLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaLookup.swift; sourceTree = "<group>"; };
 		83ACAAAC24E6EED9003B3035 /* WikipediaSiteInfoLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaSiteInfoLookup.swift; sourceTree = "<group>"; };
+		83ACF8E428E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContainerCacheHousekeeping.swift; sourceTree = "<group>"; };
 		83AF34F624D3341D000046D6 /* BackgroundTasks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BackgroundTasks.framework; path = System/Library/Frameworks/BackgroundTasks.framework; sourceTree = SDKROOT; };
 		83B019CD24F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikipediaLanguageCommandLineUtility.swift; sourceTree = "<group>"; };
 		83B019CE24F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtilityAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikipediaLanguageCommandLineUtilityAPI.swift; sourceTree = "<group>"; };
@@ -6559,6 +6564,7 @@
 		0E281A0E1DC1391900FA1AB1 /* Housekeeping */ = {
 			isa = PBXGroup;
 			children = (
+				83ACF8E428E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift */,
 				B37B38EF1E5F432F00FE11BD /* WMFDatabaseHousekeeper.swift */,
 			);
 			name = Housekeeping;
@@ -11424,6 +11430,7 @@
 				B00DDEDB1DB4B76B00615FA2 /* UIView+WMFSubviews.swift in Sources */,
 				678E7E8126432F060005439C /* NavigationEventsFunnel.swift in Sources */,
 				830ECACF1FBDD8C00080B1EF /* ReadingListsViewController.swift in Sources */,
+				83ACF8E528E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */,
 				D82117FC1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				7AF0265622985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				B0379A2C1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m in Sources */,
@@ -12379,6 +12386,7 @@
 				D8A42A891E815A9C00D8E281 /* WMFEmptyView.m in Sources */,
 				678E7E8426432F060005439C /* NavigationEventsFunnel.swift in Sources */,
 				830ECAD21FBDD8C00080B1EF /* ReadingListsViewController.swift in Sources */,
+				83ACF8E828E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */,
 				D8A42A8C1E815A9C00D8E281 /* WMFSettingsTableViewCell.m in Sources */,
 				D8A42A8D1E815A9C00D8E281 /* UIView+WMFSubviews.swift in Sources */,
 				D8A42A8F1E815A9C00D8E281 /* WMFReferencePopoverMessageViewController.m in Sources */,
@@ -13208,6 +13216,7 @@
 				D850A53B1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				B3F21D101EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
 				D8CE25BC1E698E2400DAE2E0 /* WikiTextSectionUploader.m in Sources */,
+				83ACF8E728E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */,
 				7A0DE50120CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				7A9F060E2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				7A27E85321B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
@@ -13776,6 +13785,7 @@
 				6782DBC92343FDE4003FA21B /* DiffListContextCell.swift in Sources */,
 				B3F21D111EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
 				D8EC3EB91E9BDA35006712EB /* WikiTextSectionUploader.m in Sources */,
+				83ACF8E628E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */,
 				7A0DE50220CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				D8EC3EBB1E9BDA35006712EB /* WMFAuthLinkLabel.swift in Sources */,
 				7A9F060F2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,

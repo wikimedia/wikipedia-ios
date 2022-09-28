@@ -251,6 +251,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.editHintController = [[WMFEditHintController alloc] init];
     self.talkPageReplyHintController = [[WMFTalkPageReplyHintController alloc] init];
     self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
+
     if (@available(iOS 14.0, *)) {
         self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
     }
@@ -633,11 +634,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         housekeepingError = nil;
     }
 
-    // todo: call new housekeeper here
-    
+    /// Housekeeping for the new talk page cache
+    SharedContainerCacheHousekeeping *sharedContainerCacheHousekeeper = [SharedContainerCacheHousekeeping new];
+    [sharedContainerCacheHousekeeper.housekeeping deleteStaleCachedItems];
+
     completion(housekeepingError);
-
-
 }
 
 #pragma mark - Background Tasks

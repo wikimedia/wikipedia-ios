@@ -1,6 +1,6 @@
 import Foundation
 
-public final class SharedContainerCache<T: Codable> {
+public final class SharedContainerCache<T: Codable>: SharedContainerCacheHousekeepingProtocol {
     
     // values must all be distinct
     public enum PathComponent: String {
@@ -82,19 +82,20 @@ public final class SharedContainerCache<T: Codable> {
     }
 
     /// Persist only the last 50 visited talk pages
-    @objc public func deleteStaleTalkPages() {
+    @objc public func deleteStaleCachedItems() {
         let folderURL = cacheDirectoryContainerURL.appendingPathComponent(pathComponent.rawValue)
 
         if let urlArray = try? FileManager.default.contentsOfDirectory(at: folderURL,
                                                                        includingPropertiesForKeys: [.contentModificationDateKey],
                                                                        options: .skipsHiddenFiles) {
-            if urlArray.count > 50 {
+            let maxCacheSize = 50
+            if urlArray.count > maxCacheSize {
                 let sortedArray =  urlArray.map { url in
                     (url, (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date.distantPast)
                 }.sorted(by: {$0.1 > $1.1 })
                     .map { $0.0 }
 
-                let itemsToDelete = Array(sortedArray.suffix(from: 51))
+                let itemsToDelete = Array(sortedArray.suffix(from: maxCacheSize))
                 for urlItem in itemsToDelete {
                     try? FileManager.default.removeItem(at: urlItem)
                 }
@@ -102,4 +103,8 @@ public final class SharedContainerCache<T: Codable> {
         }
 
     }
+}
+
+@objc public protocol SharedContainerCacheHousekeepingProtocol: AnyObject {
+    func deleteStaleCachedItems()
 }
