@@ -2,6 +2,11 @@ import Foundation
 import UIKit
 import WMF
 
+protocol TalkPageReplyComposeDelegate: AnyObject {
+    func tappedClose()
+    func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel)
+}
+
 /// Class for coordinating talk page reply compose views
 class TalkPageReplyComposeController {
     
@@ -11,6 +16,7 @@ class TalkPageReplyComposeController {
     
     typealias ReplyComposableViewController = ViewController & TalkPageReplyComposeDelegate
     private var viewController: ReplyComposableViewController?
+    private var commentViewModel: TalkPageCellCommentViewModel?
     
     private var containerView: UIView?
     private var containerViewTopConstraint: NSLayoutConstraint?
@@ -37,6 +43,7 @@ class TalkPageReplyComposeController {
         }
         
         self.viewController = viewController
+        self.commentViewModel = commentViewModel
         
         setupViews(in: viewController, commentViewModel: commentViewModel)
         calculateLayout(in: viewController)
@@ -77,6 +84,7 @@ class TalkPageReplyComposeController {
         contentView = nil
 
         viewController = nil
+        commentViewModel = nil
     }
     
     var isLoading: Bool = false {
@@ -116,7 +124,7 @@ class TalkPageReplyComposeController {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidPanContainerView(_:)))
         containerView.addGestureRecognizer(panGestureRecognizer)
         
-        addContentView(to: containerView, theme: viewController.theme, commentViewModel: commentViewModel, replyComposeDelegate: viewController)
+        addContentView(to: containerView, theme: viewController.theme, commentViewModel: commentViewModel)
     }
     
     private func setupSafeAreaBackgroundView(in viewController: ViewController) {
@@ -159,10 +167,13 @@ class TalkPageReplyComposeController {
         self.dragHandleView = dragHandleView
     }
     
-    private func addContentView(to containerView: UIView, theme: Theme, commentViewModel: TalkPageCellCommentViewModel, replyComposeDelegate: TalkPageReplyComposeDelegate) {
-        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme, delegate: replyComposeDelegate)
+    private func addContentView(to containerView: UIView, theme: Theme, commentViewModel: TalkPageCellCommentViewModel) {
+        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(contentView)
+        
+        contentView.closeButton.addTarget(self, action: #selector(tappedClose), for: .touchUpInside)
+        contentView.publishButton.addTarget(self, action: #selector(tappedPublish), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: contentTopSpacing),
@@ -257,6 +268,24 @@ class TalkPageReplyComposeController {
             containerViewTopConstraint?.isActive = false
             containerViewHeightConstraint?.isActive = true
         }
+    }
+    
+// MARK: - ACTIONS
+    
+    @objc private func tappedClose() {
+        contentView?.resignFirstResponder()
+        viewController?.tappedClose()
+    }
+    
+    @objc private func tappedPublish() {
+        
+        guard let commentViewModel = commentViewModel,
+              let text = contentView?.replyTextView.text else {
+            return
+        }
+        
+        isLoading = true
+        viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
     }
 }
 
