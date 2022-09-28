@@ -26,7 +26,6 @@ class TalkPageReplyComposeController {
     private var containerView: UIView?
     private var containerViewTopConstraint: NSLayoutConstraint?
     private var containerViewBottomConstraint: NSLayoutConstraint?
-    private var containerViewHeightConstraint: NSLayoutConstraint?
     
     // Pan Gesture tracking properties
     private var safeAreaBackgroundView: UIView?
@@ -38,6 +37,13 @@ class TalkPageReplyComposeController {
     
     private let containerPinnedTopSpacing = CGFloat(10)
     private let contentTopSpacing = CGFloat(15)
+    
+    enum DisplayMode {
+        case full
+        case partial
+    }
+    
+    private var displayMode: DisplayMode = .partial
 
     // MARK: Public
     
@@ -57,18 +63,31 @@ class TalkPageReplyComposeController {
     
     func calculateLayout(in viewController: ReplyComposableViewController, newViewSize: CGSize? = nil, newKeyboardFrame: CGRect? = nil) {
         
-        containerViewBottomConstraint?.constant = newKeyboardFrame?.height ?? 0
+        guard containerView != nil else {
+            return
+        }
         
-        let viewHeight = newViewSize?.height ?? viewController.view.frame.height
-        let oneFourthViewHeight = viewHeight / 4
+        let keyboardHeight = newKeyboardFrame?.height ?? 0
+        let viewHeight = newViewSize?.height ?? viewController.view.bounds.height
         
-        containerViewHeightConstraint?.constant = oneFourthViewHeight
+        containerViewBottomConstraint?.constant = keyboardHeight
         
-        toggleConstraints(shouldPinToTop: shouldAlwaysPinToTop)
+        guard !shouldAlwaysPinToTop(newViewSize: newViewSize) else {
+            displayMode = .full
+            containerViewTopConstraint?.constant = containerPinnedTopSpacing
+            return
+        }
+        
+        switch displayMode {
+        case .full:
+            containerViewTopConstraint?.constant = containerPinnedTopSpacing
+        case .partial:
+            containerViewTopConstraint?.constant = viewHeight * (0.40)
+        }
     }
     
     var additionalBottomContentInset: CGFloat {
-        return containerViewHeightConstraint?.constant ?? 0
+        return 0
     }
     
     func reset() {
@@ -83,13 +102,14 @@ class TalkPageReplyComposeController {
         containerView = nil
         containerViewTopConstraint = nil
         containerViewBottomConstraint = nil
-        containerViewHeightConstraint = nil
         
         contentView?.removeFromSuperview()
         contentView = nil
 
         viewController = nil
         commentViewModel = nil
+        
+        displayMode = .partial
     }
     
     var isLoading: Bool = false {
@@ -111,17 +131,14 @@ class TalkPageReplyComposeController {
         addDragHandle(to: containerView)
         viewController.view.addSubview(containerView)
         
-        // always active constraints
         let trailingConstraint = viewController.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
         let bottomConstraint = viewController.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         let leadingConstraint = viewController.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
-        NSLayoutConstraint.activate([trailingConstraint, bottomConstraint, leadingConstraint])
+        let topConstraint = containerView.topAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.topAnchor, constant: containerPinnedTopSpacing)
+        NSLayoutConstraint.activate([trailingConstraint, bottomConstraint, leadingConstraint, topConstraint])
         
         self.containerViewBottomConstraint = bottomConstraint
-        
-        // sometimes inactive constraints
-        self.containerViewTopConstraint = containerView.topAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.topAnchor, constant: containerPinnedTopSpacing)
-        self.containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: 0)
+        self.containerViewTopConstraint = topConstraint
 
         self.containerView = containerView
         
@@ -190,12 +207,14 @@ class TalkPageReplyComposeController {
         self.contentView = contentView
     }
     
-    private var shouldAlwaysPinToTop: Bool {
+    private func shouldAlwaysPinToTop(newViewSize: CGSize? = nil) -> Bool {
         guard let viewController = viewController else {
-            return false
+            return true
         }
         
-        return viewController.traitCollection.verticalSizeClass == .compact
+        let viewSize = newViewSize ?? viewController.view.bounds.size
+        
+        return viewSize.width > viewSize.height
     }
     
     @objc fileprivate func userDidPanContainerView(_ gestureRecognizer: UIPanGestureRecognizer) {
@@ -208,6 +227,7 @@ class TalkPageReplyComposeController {
         }
         
         let translationY = gestureRecognizer.translation(in: viewController.view).y
+        print(translationY)
 
         switch gestureRecognizer.state {
         case .began:
@@ -218,7 +238,6 @@ class TalkPageReplyComposeController {
             self.containerViewWasPinnedToTopUponDragBegin = containerViewYUponDragBegin == containerPinnedTopSpacing
             
             calculateTopConstraintUponDrag(translationY: translationY)
-            toggleConstraints(shouldPinToTop: true)
         case .changed:
             
             guard containerViewYUponDragBegin != nil else {
@@ -227,29 +246,27 @@ class TalkPageReplyComposeController {
             }
             
             calculateTopConstraintUponDrag(translationY: translationY)
-            toggleConstraints(shouldPinToTop: true)
         case .ended:
 
             if translationY < -50 {
-                containerViewTopConstraint?.constant = containerPinnedTopSpacing
-                toggleConstraints(shouldPinToTop: true)
-            } else if translationY > 50 && !shouldAlwaysPinToTop {
-                toggleConstraints(shouldPinToTop: false)
+                displayMode = .full
+                calculateLayout(in: viewController)
+            } else if translationY > 50 {
                 
-                // If not pinned to top, and swiping down fast enough, attempt to close.
-                if let containerViewWasPinnedToTopUponDragBegin = containerViewWasPinnedToTopUponDragBegin,
-                   !containerViewWasPinnedToTopUponDragBegin {
-                    if gestureRecognizer.velocity(in: containerView).y > 100 {
-                        attemptClose()
-                    }
+                // If swiping down fast enough, attempt to close.
+                
+                let shouldAttemptClose = displayMode == .partial || (displayMode == .full && shouldAlwaysPinToTop())
+                if shouldAttemptClose && gestureRecognizer.velocity(in: containerView).y > 100 {
+                    attemptClose()
                 }
+                
+                displayMode = .partial
+                calculateLayout(in: viewController)
             } else {
-                // wasn't dragged far enough in either direction, so reset back to where it was when pan gesture started
-                toggleConstraints(shouldPinToTop: (containerViewWasPinnedToTopUponDragBegin ?? false))
+                calculateLayout(in: viewController)
             }
             
             // reset top constraint
-            containerViewTopConstraint?.constant = containerPinnedTopSpacing
             containerViewYUponDragBegin = nil
             containerViewWasPinnedToTopUponDragBegin = nil
             
@@ -271,16 +288,6 @@ class TalkPageReplyComposeController {
         
         // MAYBETODO: Consider maxing or mining out this value
         containerViewTopConstraint?.constant = containerViewYUponDragBegin + translationY
-    }
-    
-    private func toggleConstraints(shouldPinToTop: Bool) {
-        if shouldPinToTop {
-            containerViewHeightConstraint?.isActive = false
-            containerViewTopConstraint?.isActive = true
-        } else {
-            containerViewTopConstraint?.isActive = false
-            containerViewHeightConstraint?.isActive = true
-        }
     }
     
     func presentDismissConfirmationActionSheet() {
