@@ -118,7 +118,7 @@ class TalkPageDataController {
         let sharedCache = SharedContainerCache<TalkPageCache>.init(pathComponent: .talkPageCache, defaultCache: {
             TalkPageCache(talkPages: [])
         })
-        var cache = sharedCache.loadCache()
+        var cache = sharedCache.loadCache(for: pageTitle.replacingOccurrences(of: ":", with: " "))
         
         group.enter()
         talkPageFetcher.fetchTalkPageContent(talkPageTitle: pageTitle, siteURL: siteURL) { result in
