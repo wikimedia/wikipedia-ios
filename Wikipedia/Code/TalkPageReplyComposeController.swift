@@ -28,10 +28,8 @@ class TalkPageReplyComposeController {
     private var containerViewBottomConstraint: NSLayoutConstraint?
     
     // Pan Gesture tracking properties
-    private var safeAreaBackgroundView: UIView?
     private var dragHandleView: UIView?
     private var containerViewYUponDragBegin: CGFloat?
-    private var containerViewWasPinnedToTopUponDragBegin: Bool?
     
     private var contentView: TalkPageReplyComposeContentView?
     
@@ -91,12 +89,9 @@ class TalkPageReplyComposeController {
     }
     
     func reset() {
-        safeAreaBackgroundView?.removeFromSuperview()
-        safeAreaBackgroundView = nil
         dragHandleView?.removeFromSuperview()
         dragHandleView = nil
         containerViewYUponDragBegin = nil
-        containerViewWasPinnedToTopUponDragBegin = nil
         
         containerView?.removeFromSuperview()
         containerView = nil
@@ -122,8 +117,6 @@ class TalkPageReplyComposeController {
     
     private func setupViews(in viewController: ReplyComposableViewController, commentViewModel: TalkPageCellCommentViewModel) {
         
-        setupSafeAreaBackgroundView(in: viewController)
-        
         let containerView = UIView(frame: .zero)
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -147,22 +140,6 @@ class TalkPageReplyComposeController {
         containerView.addGestureRecognizer(panGestureRecognizer)
         
         addContentView(to: containerView, theme: viewController.theme, commentViewModel: commentViewModel)
-    }
-    
-    private func setupSafeAreaBackgroundView(in viewController: ViewController) {
-        let backgroundView = UIView(frame: .zero)
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        viewController.view.addSubview(backgroundView)
-        
-        NSLayoutConstraint.activate([
-            viewController.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: backgroundView.topAnchor),
-            viewController.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
-            viewController.view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
-            viewController.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor)
-        ])
-        
-        backgroundView.isHidden = true
-        self.safeAreaBackgroundView = backgroundView
     }
     
     private func addShadow(to containerView: UIView) {
@@ -220,22 +197,17 @@ class TalkPageReplyComposeController {
     @objc fileprivate func userDidPanContainerView(_ gestureRecognizer: UIPanGestureRecognizer) {
         
         guard let viewController = viewController,
-        let containerView = containerView,
-        let safeAreaBackgroundView = safeAreaBackgroundView else {
+        let containerView = containerView else {
             gestureRecognizer.state = .ended
             return
         }
         
         let translationY = gestureRecognizer.translation(in: viewController.view).y
-        print(translationY)
 
         switch gestureRecognizer.state {
         case .began:
-            let containerViewSafeAreaFrame = viewController.view.convert(containerView.frame, to: safeAreaBackgroundView)
-            let containerViewYUponDragBegin = containerViewSafeAreaFrame.origin.y
+            let containerViewYUponDragBegin = containerView.frame.origin.y - viewController.view.safeAreaInsets.top
             self.containerViewYUponDragBegin = containerViewYUponDragBegin
-            
-            self.containerViewWasPinnedToTopUponDragBegin = containerViewYUponDragBegin == containerPinnedTopSpacing
             
             calculateTopConstraintUponDrag(translationY: translationY)
         case .changed:
@@ -268,7 +240,6 @@ class TalkPageReplyComposeController {
             
             // reset top constraint
             containerViewYUponDragBegin = nil
-            containerViewWasPinnedToTopUponDragBegin = nil
             
         default:
             break
