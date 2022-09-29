@@ -25,6 +25,7 @@ class TalkPageReplyComposeController {
     
     private var containerView: UIView?
     private var containerViewTopConstraint: NSLayoutConstraint?
+    private var containerViewBottomConstraint: NSLayoutConstraint?
     private var contentViewBottomConstraint: NSLayoutConstraint?
     
     // Pan Gesture tracking properties
@@ -53,9 +54,7 @@ class TalkPageReplyComposeController {
         
         self.viewController = viewController
         self.commentViewModel = commentViewModel
-        
         setupViews(in: viewController, commentViewModel: commentViewModel)
-        calculateLayout(in: viewController)
         apply(theme: viewController.theme)
     }
     
@@ -89,22 +88,26 @@ class TalkPageReplyComposeController {
     }
     
     func reset() {
-        dragHandleView?.removeFromSuperview()
-        dragHandleView = nil
-        containerViewYUponDragBegin = nil
         
-        containerView?.removeFromSuperview()
-        containerView = nil
-        containerViewTopConstraint = nil
-        contentViewBottomConstraint = nil
-        
-        contentView?.removeFromSuperview()
-        contentView = nil
+        animateOff {
+            self.dragHandleView?.removeFromSuperview()
+            self.dragHandleView = nil
+            self.containerViewYUponDragBegin = nil
+            
+            self.containerView?.removeFromSuperview()
+            self.containerView = nil
+            self.containerViewTopConstraint = nil
+            self.contentViewBottomConstraint = nil
+            self.containerViewBottomConstraint = nil
+            
+            self.contentView?.removeFromSuperview()
+            self.contentView = nil
 
-        viewController = nil
-        commentViewModel = nil
-        
-        displayMode = .partial
+            self.viewController = nil
+            self.commentViewModel = nil
+            
+            self.displayMode = .partial
+        }
     }
     
     var isLoading: Bool = false {
@@ -124,6 +127,7 @@ class TalkPageReplyComposeController {
         addDragHandle(to: containerView)
         viewController.view.addSubview(containerView)
         
+        // set constraints
         let trailingConstraint = viewController.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
         let bottomConstraint = viewController.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         let leadingConstraint = viewController.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
@@ -131,13 +135,18 @@ class TalkPageReplyComposeController {
         NSLayoutConstraint.activate([trailingConstraint, bottomConstraint, leadingConstraint, topConstraint])
         
         self.containerViewTopConstraint = topConstraint
+        self.containerViewBottomConstraint = bottomConstraint
         self.containerView = containerView
+        
+        // sets more accurate top constraint
+        calculateLayout(in: viewController)
         
         // add pan gesture
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidPanContainerView(_:)))
         containerView.addGestureRecognizer(panGestureRecognizer)
         
         addContentView(to: containerView, theme: viewController.theme, commentViewModel: commentViewModel)
+        animateOn()
     }
     
     private func addShadow(to containerView: UIView) {
@@ -231,10 +240,10 @@ class TalkPageReplyComposeController {
                 let shouldAttemptClose = displayMode == .partial || (displayMode == .full && shouldAlwaysPinToTop())
                 if shouldAttemptClose && gestureRecognizer.velocity(in: containerView).y > 100 {
                     attemptClose()
+                } else {
+                    displayMode = .partial
+                    calculateLayout(in: viewController)
                 }
-                
-                displayMode = .partial
-                calculateLayout(in: viewController)
             } else {
                 calculateLayout(in: viewController)
             }
@@ -262,13 +271,60 @@ class TalkPageReplyComposeController {
         containerViewTopConstraint?.constant = containerViewYUponDragBegin + translationY
     }
     
+// MARK: - Animate on/off
+    
+    private func animateOn() {
+        
+        guard let viewController = viewController,
+              let containerView = containerView else {
+            return
+        }
+        
+        // manually move container off screen before animating to final constraints
+        containerView.frame = CGRect(x: 0, y: viewController.view.bounds.height, width: viewController.view.bounds.width, height: viewController.view.bounds.height)
+        containerView.setNeedsLayout()
+        containerView.layoutIfNeeded()
+        
+        // animate on screen
+        viewController.view.setNeedsLayout()
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut) {
+            viewController.view.layoutIfNeeded()
+        }
+    }
+    
+    private func animateOff(completion: @escaping () -> Void) {
+        
+        guard let viewController = viewController else {
+            return
+        }
+        
+        containerViewTopConstraint?.constant = viewController.view.bounds.height
+        containerViewBottomConstraint?.constant = -viewController.view.bounds.height
+        contentViewBottomConstraint?.constant = 0
+        
+        viewController.view.setNeedsLayout()
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut) {
+            viewController.view.layoutIfNeeded()
+        } completion: { _ in
+            completion()
+        }
+    }
+    
     func presentDismissConfirmationActionSheet() {
         let alertController = UIAlertController(title: Self.ActionSheetStrings.closeConfirmationTitle, message: nil, preferredStyle: .actionSheet)
         let discardAction = UIAlertAction(title: Self.ActionSheetStrings.closeConfirmationDiscard, style: .destructive) { _ in
             self.viewController?.closeReplyView()
         }
         
-        let keepEditingAction = UIAlertAction(title: CommonStrings.talkPageCloseConfirmationKeepEditing, style: .cancel)
+        let keepEditingAction = UIAlertAction(title: CommonStrings.talkPageCloseConfirmationKeepEditing, style: .cancel) { _ in
+            
+            guard let viewController = self.viewController else {
+                return
+            }
+            
+            self.displayMode = .partial
+            self.calculateLayout(in: viewController)
+        }
         
         alertController.addAction(discardAction)
         alertController.addAction(keepEditingAction)
