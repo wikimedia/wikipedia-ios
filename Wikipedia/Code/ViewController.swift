@@ -38,7 +38,7 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
         }
     }
 
-    private(set) var keyboardFrame: CGRect? {
+    private var keyboardFrame: CGRect? {
         didSet {
             keyboardDidChangeFrame(from: oldValue, newKeyboardFrame: keyboardFrame)
         }

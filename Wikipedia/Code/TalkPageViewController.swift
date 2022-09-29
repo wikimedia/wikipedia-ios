@@ -208,16 +208,7 @@ class TalkPageViewController: ViewController {
     let replyComposeController = TalkPageReplyComposeController()
     
     override var additionalBottomContentInset: CGFloat {
-        if let replyComposeView = replyComposeController.containerView {
-            var additionalAmount = replyComposeView.frame.height - toolbar.frame.height
-            if keyboardFrame == nil {
-                additionalAmount -= view.safeAreaInsets.bottom
-            }
-            
-            return additionalAmount
-        }
-        
-        return 0
+        return replyComposeController.additionalBottomContentInset
     }
     
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
