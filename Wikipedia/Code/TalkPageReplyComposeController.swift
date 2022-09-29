@@ -21,7 +21,7 @@ class TalkPageReplyComposeController {
     
     typealias ReplyComposableViewController = ViewController & TalkPageReplyComposeDelegate
     private var viewController: ReplyComposableViewController?
-    private var commentViewModel: TalkPageCellCommentViewModel?
+    private(set) var commentViewModel: TalkPageCellCommentViewModel?
     
     private var containerView: UIView?
     private var containerViewTopConstraint: NSLayoutConstraint?
@@ -48,7 +48,8 @@ class TalkPageReplyComposeController {
     
     func setupAndDisplay(in viewController: ReplyComposableViewController, commentViewModel: TalkPageCellCommentViewModel) {
         
-        guard containerView == nil && contentView == nil else {
+        guard self.commentViewModel == nil else {
+            attemptChangeCommentViewModel(in: viewController, newCommentViewModel: commentViewModel)
             return
         }
         
@@ -56,6 +57,15 @@ class TalkPageReplyComposeController {
         self.commentViewModel = commentViewModel
         setupViews(in: viewController, commentViewModel: commentViewModel)
         apply(theme: viewController.theme)
+    }
+    
+    func attemptChangeCommentViewModel(in viewController: ReplyComposableViewController, newCommentViewModel: TalkPageCellCommentViewModel) {
+        
+        presentDismissConfirmationActionSheet(discardBlock: {
+            self.reset(completion: {
+                self.setupAndDisplay(in: viewController, commentViewModel: newCommentViewModel)
+            })
+        })
     }
     
     func calculateLayout(in viewController: ReplyComposableViewController, newViewSize: CGSize? = nil, newKeyboardFrame: CGRect? = nil) {
@@ -90,7 +100,7 @@ class TalkPageReplyComposeController {
         return 0
     }
     
-    func reset() {
+    func reset(completion: (() -> Void)? = nil) {
         
         animateOff {
             self.dragHandleView?.removeFromSuperview()
@@ -110,6 +120,7 @@ class TalkPageReplyComposeController {
             self.commentViewModel = nil
             
             self.displayMode = .partial
+            completion?()
         }
     }
     
@@ -313,10 +324,10 @@ class TalkPageReplyComposeController {
         }
     }
     
-    func presentDismissConfirmationActionSheet() {
+    func presentDismissConfirmationActionSheet(discardBlock: @escaping () -> Void) {
         let alertController = UIAlertController(title: Self.ActionSheetStrings.closeConfirmationTitle, message: nil, preferredStyle: .actionSheet)
         let discardAction = UIAlertAction(title: Self.ActionSheetStrings.closeConfirmationDiscard, style: .destructive) { _ in
-            self.viewController?.closeReplyView()
+            discardBlock()
         }
         
         let keepEditingAction = UIAlertAction(title: CommonStrings.talkPageCloseConfirmationKeepEditing, style: .cancel) { _ in
@@ -342,7 +353,9 @@ class TalkPageReplyComposeController {
         
         if let replyText = contentView?.replyTextView.text,
            !replyText.isEmpty {
-            presentDismissConfirmationActionSheet()
+            presentDismissConfirmationActionSheet(discardBlock: {
+                self.viewController?.closeReplyView()
+            })
             return
         }
         
