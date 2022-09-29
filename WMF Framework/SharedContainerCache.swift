@@ -12,10 +12,12 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
     
     private let pathComponent: PathComponent
     private let defaultCache: () -> T
+    private let fileFolder: String
     
-    public init(pathComponent: PathComponent, defaultCache: @escaping () -> T) {
+    public init(pathComponent: PathComponent, fileFolder: String = String(), defaultCache: @escaping () -> T) {
         self.pathComponent = pathComponent
         self.defaultCache = defaultCache
+        self.fileFolder = fileFolder
     }
     
     private var cacheDirectoryContainerURL: URL {
@@ -39,31 +41,27 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
     }
     
     public func loadCache() -> T {
-        if let data = try? Data(contentsOf: cacheDataFileURL), let decodedCache = try? JSONDecoder().decode(T.self, from: data) {
+        let filePath = fileFolder.isEmpty ? cacheDataFileURL : cacheFileURL(to: fileFolder)
+        if let data = try? Data(contentsOf: filePath), let decodedCache = try? JSONDecoder().decode(T.self, from: data) {
             return decodedCache
         }
 
-        return defaultCache()
-    }
-    
-    public func loadCache(for folder: String) -> T {
-        let cacheFolderURL = cacheFileURL(to: folder)
-        if let data = try? Data(contentsOf: cacheFolderURL),
-            let decodedCache = try? JSONDecoder().decode(T.self, from: data) {
-            return decodedCache
-        }
         return defaultCache()
     }
 
     public func saveCache(_ cache: T) {
-        let encoder = JSONEncoder()
-        guard let encodedCache = try? encoder.encode(cache) else {
-            return
+        if fileFolder.isEmpty {
+            let encoder = JSONEncoder()
+            guard let encodedCache = try? encoder.encode(cache) else {
+                return
+            }
+            try? encodedCache.write(to: cacheDataFileURL)
+        } else {
+            saveCache(to: fileFolder, cache)
         }
-        try? encodedCache.write(to: cacheDataFileURL)
     }
     
-    public func saveCache(to folder: String, _ cache: T) {
+    private func saveCache(to folder: String, _ cache: T) {
         let encoder = JSONEncoder()
         guard let encodedCache = try? encoder.encode(cache) else {
             return
@@ -71,14 +69,12 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
 
         let subdirectoryPath = subdirectoryFileURL(to: folder)
         let filePath = cacheFileURL(to: folder)
-        print(filePath)
         do {
             try FileManager.default.createDirectory(at: subdirectoryPath, withIntermediateDirectories: true, attributes: nil)
             try encodedCache.write(to: filePath)
         } catch {
             print(error)
         }
-
     }
 
     /// Persist only the last 50 visited talk pages
