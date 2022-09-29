@@ -16,9 +16,13 @@
 // Author: हिमाल सुबेदी
 
 "aaald-added-text-description-2" = "$1 थप्नुभयो";
+"aaald-article-description-updated-description" = "लेख विवरण अद्यावधिक गरियो";
 "aaald-article-insert-last-updated" = "अन्तिम सम्पादन";
 "aaald-article-insert-new-changes" = "नयाँ परिवर्तनहरू";
 "aaald-new-book-reference-title" = "पुस्तक";
+"aaald-new-journal-reference-database" = "$1 मार्फत";
+"aaald-new-news-reference-title" = "समाचार";
+"aaald-new-talk-topic-description-format" = "यस लेखको बारेमा $1";
 "aaald-new-website-reference-title" = "वेबसाइट";
 "about-content-license" = "सामग्री इजाजतपत्र";
 "about-content-license-details" = "खुलाइएको समयमा बाहेक, सामग्री $1 मातहत उपलब्ध छ";
@@ -108,6 +112,7 @@
 "cancel" = "रद्द गर्नुहोस्";
 "clear-title-accessibility-label" = "खाली गर्नुहोस्";
 "close-button-accessibility-label" = "बन्द गर्नुहोस्";
+"data-migration-status" = "अद्यावधिक गर्दै...";
 "description-add-title" = "विवरण थप्नुहोस्";
 // Fuzzy
 "description-edit-for-article" = "$1का लागि शीर्षक जानकारी";
@@ -307,6 +312,7 @@
 "notifications-center-title" = "सूचनाहरू";
 "notifications-center-type-item-description-notice" = "सूचना";
 "notifications-center-type-item-description-welcome-verbose" = "स्वागत सन्देश";
+"notifications-center-type-title-other" = "अन्य";
 "notifications-center-type-title-thanks" = "धन्यवाद";
 "notifications-center-type-title-welcome" = "स्वागतम्";
 "notifications-push-fallback-body-text" = "विकिपिडियामा नयाँ गतिविधि";
@@ -414,10 +420,18 @@
 "talk-page-new-subject-placeholder-text" = "विषय";
 "talk-page-new-subject-textfield-accessibility-label" = "विषय";
 "talk-page-reply-button" = "जवाफ दिनुहोस्";
+"talk-page-reply-placeholder-format" = "$1लाई जवाफ दिनुहोस्";
 "talk-page-reply-title" = "जवाफ दिनुहोस्";
 "talk-page-subscribe-to-topic" = "सदस्यता लिनुहोस्";
 "talk-page-unsubscribe-to-topic" = "सदस्यता खारेज गर्नुहोस्";
 "talk-pages-coffee-roll-read-more" = "थप पढ्नुहोस्";
+"talk-pages-topic-added-alert-title" = "तपाईंको विषय थपियो।";
+"talk-pages-topic-compose-body-placeholder" = "वर्णन";
+"talk-pages-topic-compose-close-confirmation-discard" = "विषय खारेज गर्नुहोस्";
+"talk-pages-topic-compose-close-confirmation-keep" = "सम्पादन जारी राख्नुहोस्";
+"talk-pages-topic-compose-close-confirmation-title" = "के तपाइँ यो नयाँ विषयलाई खारेज गर्न निश्चित हुनुहुन्छ?";
+"talk-pages-topic-compose-navbar-title" = "विषय";
+"talk-pages-topic-compose-title-placeholder" = "विषय शीर्षक";
 "talk-pages-view-title" = "वार्तालाप";
 "theme-black-display-name" = "कालो";
 "theme-dark-display-name" = "गाढा";

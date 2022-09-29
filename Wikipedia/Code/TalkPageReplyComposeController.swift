@@ -9,7 +9,7 @@ class TalkPageReplyComposeController {
     // containerView - the view that contains the contentView. It has the drag handle and pan gesture attached.
     // contentView - the view with the reply compose UI elements (close button, publish button, text views)
     
-    typealias ReplyComposableViewController = ViewController & TalkPageReplyComposeDelegate
+    typealias ReplyComposableViewController = ViewController & TalkPageReplyComposeDelegate & TalkPageTextViewLinkHandling
     private var viewController: ReplyComposableViewController?
     
     private(set) var containerView: UIView?
@@ -112,7 +112,7 @@ class TalkPageReplyComposeController {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidPanContainerView(_:)))
         containerView.addGestureRecognizer(panGestureRecognizer)
         
-        addContentView(to: containerView, theme: viewController.theme, commentViewModel: commentViewModel, replyComposeDelegate: viewController)
+        addContentView(to: containerView, theme: viewController.theme, commentViewModel: commentViewModel, replyComposeDelegate: viewController, linkDelegate: viewController)
     }
     
     private func setupSafeAreaBackgroundView(in viewController: ViewController) {
@@ -155,8 +155,8 @@ class TalkPageReplyComposeController {
         self.dragHandleView = dragHandleView
     }
     
-    private func addContentView(to containerView: UIView, theme: Theme, commentViewModel: TalkPageCellCommentViewModel, replyComposeDelegate: TalkPageReplyComposeDelegate) {
-        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme, delegate: replyComposeDelegate)
+    private func addContentView(to containerView: UIView, theme: Theme, commentViewModel: TalkPageCellCommentViewModel, replyComposeDelegate: TalkPageReplyComposeDelegate, linkDelegate: TalkPageTextViewLinkHandling) {
+        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme, delegate: replyComposeDelegate, linkDelegate: linkDelegate)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(contentView)
         

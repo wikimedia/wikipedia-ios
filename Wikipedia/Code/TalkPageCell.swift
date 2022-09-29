@@ -109,6 +109,16 @@ final class TalkPageCell: UICollectionViewCell {
 
         stackView.addArrangedSubview(topicView)
     }
+    
+    // MARK: - Public
+    
+    /// Seeks out and returns the associated comment view that is already in the cell view hierarchy.
+    func commentViewForViewModel(_ commentViewModel: TalkPageCellCommentViewModel) -> TalkPageCellCommentView? {
+        
+        return stackView.arrangedSubviews
+                    .compactMap { $0 as? TalkPageCellCommentView }
+                    .first(where: { $0.viewModel == commentViewModel })
+    }
 
     // MARK: - Configure
 
