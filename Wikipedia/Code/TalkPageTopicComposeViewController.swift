@@ -97,7 +97,7 @@ class TalkPageTopicComposeViewController: ViewController {
         textView.textContainerInset = .zero
         textView.isScrollEnabled = false
         textView.isEditable = false
-        textView.isSelectable = false
+        textView.delegate = self
         return textView
     }()
     
@@ -112,7 +112,7 @@ class TalkPageTopicComposeViewController: ViewController {
     }()
     
     private var scrollViewBottomConstraint: NSLayoutConstraint?
-    var delegate: TalkPageTopicComposeViewControllerDelegate?
+    weak var delegate: TalkPageTopicComposeViewControllerDelegate?
     
     // MARK: Lifecycle
     
@@ -327,8 +327,6 @@ class TalkPageTopicComposeViewController: ViewController {
         let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, tagMapping: nil, additionalTagAttributes: nil)
 
         return attributedString
-        
-        // TODO: Fine print link handling
     }
     
     private func evaluatePublishButtonEnabledState() {
@@ -377,4 +375,9 @@ extension TalkPageTopicComposeViewController: UITextViewDelegate {
          
          evaluatePublishButtonEnabledState()
      }
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        navigate(to: URL.absoluteURL, useSafari: true)
+        return false
+    }
 }

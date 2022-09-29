@@ -19,7 +19,7 @@ class TalkPageReplyComposeController {
     // containerView - the view that contains the contentView. It has the drag handle and pan gesture attached.
     // contentView - the view with the reply compose UI elements (close button, publish button, text views)
     
-    typealias ReplyComposableViewController = ViewController & TalkPageReplyComposeDelegate
+    typealias ReplyComposableViewController = ViewController & TalkPageReplyComposeDelegate & TalkPageTextViewLinkHandling
     private var viewController: ReplyComposableViewController?
     private(set) var commentViewModel: TalkPageCellCommentViewModel?
     
@@ -157,7 +157,7 @@ class TalkPageReplyComposeController {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidPanContainerView(_:)))
         containerView.addGestureRecognizer(panGestureRecognizer)
         
-        addContentView(to: containerView, theme: viewController.theme, commentViewModel: commentViewModel)
+        addContentView(to: containerView, theme: viewController.theme, commentViewModel: commentViewModel, linkDelegate: viewController)
         animateOn()
     }
     
@@ -185,8 +185,8 @@ class TalkPageReplyComposeController {
         self.dragHandleView = dragHandleView
     }
     
-    private func addContentView(to containerView: UIView, theme: Theme, commentViewModel: TalkPageCellCommentViewModel) {
-        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme)
+    private func addContentView(to containerView: UIView, theme: Theme, commentViewModel: TalkPageCellCommentViewModel, linkDelegate: TalkPageTextViewLinkHandling) {
+        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme, linkDelegate: linkDelegate)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(contentView)
         

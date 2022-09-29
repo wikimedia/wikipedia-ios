@@ -64,7 +64,7 @@ class TalkPageReplyComposeContentView: SetupView {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isScrollEnabled = false
         textView.isEditable = false
-        textView.isSelectable = false
+        textView.delegate = self
         return textView
     }()
     
@@ -86,12 +86,14 @@ class TalkPageReplyComposeContentView: SetupView {
     
     private(set) var commentViewModel: TalkPageCellCommentViewModel
     private var theme: Theme
+    private weak var linkDelegate: TalkPageTextViewLinkHandling?
     
     // MARK: Lifecycle
     
-    init(commentViewModel: TalkPageCellCommentViewModel, theme: Theme) {
+    init(commentViewModel: TalkPageCellCommentViewModel, theme: Theme, linkDelegate: TalkPageTextViewLinkHandling) {
         self.commentViewModel = commentViewModel
         self.theme = theme
+        self.linkDelegate = linkDelegate
         super.init(frame: .zero)
     }
     
@@ -205,8 +207,6 @@ class TalkPageReplyComposeContentView: SetupView {
         finePrintTextView.setContentCompressionResistancePriority(.required, for: .vertical)
         
         finePrintTextView.widthAnchor.constraint(equalTo: replyTextView.widthAnchor).isActive = true
-        
-        // TODO: tap link responding
     }
     
     private func setupPlaceholderLabel() {
@@ -288,6 +288,11 @@ extension TalkPageReplyComposeContentView: UITextViewDelegate {
          placeholderLabel.alpha = 0
          toggleFinePrint(shouldShow: false)
      }
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        linkDelegate?.tappedLink(URL, sourceTextView: textView)
+        return false
+    }
 }
 
 extension TalkPageReplyComposeContentView: Themeable {
