@@ -23,7 +23,7 @@ class TalkPageReplyComposeController {
     private var viewController: ReplyComposableViewController?
     private(set) var commentViewModel: TalkPageCellCommentViewModel?
     
-    private var containerView: UIView?
+    private(set) var containerView: UIView?
     private var containerViewTopConstraint: NSLayoutConstraint?
     private var containerViewBottomConstraint: NSLayoutConstraint?
     private var contentViewBottomConstraint: NSLayoutConstraint?
@@ -62,7 +62,7 @@ class TalkPageReplyComposeController {
     func attemptChangeCommentViewModel(in viewController: ReplyComposableViewController, newCommentViewModel: TalkPageCellCommentViewModel) {
         
         presentDismissConfirmationActionSheet(discardBlock: {
-            self.reset(completion: {
+            self.closeAndReset(completion: {
                 self.setupAndDisplay(in: viewController, commentViewModel: newCommentViewModel)
             })
         })
@@ -96,11 +96,9 @@ class TalkPageReplyComposeController {
         }
     }
     
-    var additionalBottomContentInset: CGFloat {
-        return 0
-    }
-    
-    func reset(completion: (() -> Void)? = nil) {
+    func closeAndReset(completion: (() -> Void)? = nil) {
+        
+        contentView?.replyTextView.resignFirstResponder()
         
         animateOff {
             self.dragHandleView?.removeFromSuperview()
