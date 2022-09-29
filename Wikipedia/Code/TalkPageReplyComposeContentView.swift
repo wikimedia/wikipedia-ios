@@ -172,7 +172,8 @@ class TalkPageReplyComposeContentView: SetupView {
     
     private func setupStackView() {
         containerScrollView.addSubview(verticalStackView)
-        verticalStackView.spacing = 5
+        
+        verticalStackView.spacing = traitCollection.preferredContentSizeCategory <= .extraExtraExtraLarge ? 5 : 50
         
         let topConstraint = verticalStackView.topAnchor.constraint(equalTo: containerScrollView.topAnchor)
         let trailingConstraint = containerScrollView.trailingAnchor.constraint(greaterThanOrEqualTo: verticalStackView.trailingAnchor)
