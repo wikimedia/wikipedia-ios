@@ -65,21 +65,24 @@ class TalkPageReplyComposeController {
         }
         
         let keyboardHeight = newKeyboardFrame?.height ?? viewController.keyboardFrame?.height ?? 0
-        let viewHeight = newViewSize?.height ?? viewController.view.bounds.height
         
         contentViewBottomConstraint?.constant = keyboardHeight
         
-        guard !shouldAlwaysPinToTop(newViewSize: newViewSize) else {
+        guard !shouldAlwaysPinToTop() else {
             displayMode = .full
             containerViewTopConstraint?.constant = containerPinnedTopSpacing
             return
         }
         
+        let viewSize = newViewSize ?? viewController.view.bounds.size
+        let isLandscape = viewSize.height < viewSize.width
+        let topConstraintMultiplier = isLandscape ? 0.20 : 0.40
+        
         switch displayMode {
         case .full:
             containerViewTopConstraint?.constant = containerPinnedTopSpacing
         case .partial:
-            containerViewTopConstraint?.constant = viewHeight * (0.40)
+            containerViewTopConstraint?.constant = viewSize.height * (topConstraintMultiplier)
         }
     }
     
@@ -195,14 +198,13 @@ class TalkPageReplyComposeController {
         self.contentView = contentView
     }
     
-    private func shouldAlwaysPinToTop(newViewSize: CGSize? = nil) -> Bool {
+    private func shouldAlwaysPinToTop() -> Bool {
+        
         guard let viewController = viewController else {
-            return true
+            return false
         }
         
-        let viewSize = newViewSize ?? viewController.view.bounds.size
-        
-        return viewSize.width > viewSize.height
+        return viewController.view.traitCollection.verticalSizeClass == .compact
     }
     
     @objc fileprivate func userDidPanContainerView(_ gestureRecognizer: UIPanGestureRecognizer) {
@@ -323,7 +325,6 @@ class TalkPageReplyComposeController {
                 return
             }
             
-            self.displayMode = .partial
             self.calculateLayout(in: viewController)
         }
         
