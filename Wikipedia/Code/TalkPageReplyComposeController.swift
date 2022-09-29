@@ -64,7 +64,7 @@ class TalkPageReplyComposeController {
             return
         }
         
-        let keyboardHeight = newKeyboardFrame?.height ?? 0
+        let keyboardHeight = newKeyboardFrame?.height ?? viewController.keyboardFrame?.height ?? 0
         let viewHeight = newViewSize?.height ?? viewController.view.bounds.height
         
         contentViewBottomConstraint?.constant = keyboardHeight
@@ -182,6 +182,7 @@ class TalkPageReplyComposeController {
         contentView.publishButton.addTarget(self, action: #selector(tappedPublish), for: .touchUpInside)
         
         let bottomConstraint = containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        bottomConstraint.priority = UILayoutPriority(999)
         
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: contentTopSpacing),
