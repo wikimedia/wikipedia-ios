@@ -6207,6 +6207,7 @@
 		00D1F58D28885B8200127169 /* Talk Pages */ = {
 			isa = PBXGroup;
 			children = (
+				83ACF8EA28E5D7E3000F3B6F /* Model */,
 				0072990428AC44C100DCD2E6 /* Cell UI Elements */,
 				836BF56D2869F9C200B98321 /* TalkPageViewController.swift */,
 				00D1F58E28885BA300127169 /* TalkPageViewModel.swift */,
@@ -6219,8 +6220,6 @@
 				0072990A28AC455500DCD2E6 /* TalkPageCellViewModel.swift */,
 				00DEE61828AD6C9500A60DF9 /* TalkPageCellCommentViewModel.swift */,
 				67C1757528AD4D6000C5ABA4 /* TalkPageDataController.swift */,
-				67BEFFD428AD9DF000606B38 /* TalkPageType.swift */,
-				837A15F228DA591E00AAC3FC /* TalkPageCache.swift */,
 				00474A2928DD1AE2002E3C09 /* TalkPageCoffeeRollViewController.swift */,
 				005E004028DE1F2800721584 /* TalkPageCoffeeRollViewModel.swift */,
 				00474A2E28DD1B13002E3C09 /* TalkPageCoffeeRollView.swift */,
@@ -7794,6 +7793,15 @@
 				533AB8AD259792A9003A43D9 /* wikipedia-language-variants.json */,
 			);
 			name = Wikipedia;
+			sourceTree = "<group>";
+		};
+		83ACF8EA28E5D7E3000F3B6F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				67BEFFD428AD9DF000606B38 /* TalkPageType.swift */,
+				837A15F228DA591E00AAC3FC /* TalkPageCache.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		83B019CC24F6ACAA0014B5EF /* Update Languages */ = {

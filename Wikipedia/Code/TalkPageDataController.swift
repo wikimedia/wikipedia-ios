@@ -10,6 +10,13 @@ class TalkPageDataController {
     private let siteURL: URL
     private let talkPageFetcher = TalkPageFetcher()
     private let articleSummaryController: ArticleSummaryController
+
+    private var cachedFileName: String {
+        let languageCode = siteURL.wmf_languageVariantCode
+        let page = pageTitle.replacingOccurrences(of: ":", with: " ")
+        let pageTitleWithLanguage = "\(languageCode ?? "en")-\(page)"
+        return pageTitleWithLanguage
+    }
     
     init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
         self.pageType = pageType
@@ -97,10 +104,8 @@ class TalkPageDataController {
                 topicNames.append(itemName)
             }
         }
-        
-        
+
         talkPageFetcher.getSubscribedTopics(siteURL: siteURL, topics: topicNames) { result in
-            
             DispatchQueue.main.async {
                 switch result {
                 case let .success(result):
@@ -109,7 +114,6 @@ class TalkPageDataController {
                     completion([], [error])
                 }
             }
-            
         }
     }
 
@@ -118,7 +122,7 @@ class TalkPageDataController {
         let sharedCache = SharedContainerCache<TalkPageCache>.init(pathComponent: .talkPageCache, defaultCache: {
             TalkPageCache(talkPages: [])
         })
-        var cache = sharedCache.loadCache(for: pageTitle.replacingOccurrences(of: ":", with: " "))
+        var cache = sharedCache.loadCache(for: cachedFileName)
         
         group.enter()
         talkPageFetcher.fetchTalkPageContent(talkPageTitle: pageTitle, siteURL: siteURL) { result in
@@ -131,7 +135,7 @@ class TalkPageDataController {
                 switch result {
                 case .success(let items):
                     cache.talkPages = items
-                    sharedCache.saveCache(to: self.pageTitle.replacingOccurrences(of: ":", with: " "), cache)
+                    sharedCache.saveCache(to: self.cachedFileName, cache)
                     completion(items, [])
                 case .failure(let error):
                     completion(cache.talkPages, [error])
