@@ -1004,7 +1004,7 @@
 "talk-page-add-topic-button" = "Ajouter un sujet";
 "talk-page-archives" = "Archives";
 "talk-page-article-about" = "À propos des pages de discussion";
-"talk-page-change-language" = "Changer de langue";
+"talk-page-change-language" = "Changer la langue";
 "talk-page-discussion-accessibility-hint" = "Taper deux fois pour ouvrir un fil de discussion";
 "talk-page-discussion-read-accessibility-label" = "Lu";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "ly";
@@ -1057,7 +1057,7 @@
 "talk-pages-coffee-roll-read-more" = "Lire davantage";
 "talk-pages-comment-added-alert-title" = "Votre commentaire a été ajouté";
 "talk-pages-reply-button-title" = "Répondre à cette discussion";
-"talk-pages-topic-added-alert-title" = "Votre sujet a été ajouté.";
+"talk-pages-topic-added-alert-title" = "Votre sujet a été ajouté";
 "talk-pages-topic-compose-body-placeholder" = "Description";
 "talk-pages-topic-compose-close-confirmation-discard" = "Abandonner le sujet";
 "talk-pages-topic-compose-close-confirmation-keep" = "Continuer à modifier";

@@ -177,6 +177,16 @@ class TalkPageViewController: ViewController {
         updateScrollViewInsets()
         
         headerView.apply(theme: theme)
+
+        headerView.coffeeRollReadMoreButton.addTarget(self, action: #selector(userDidTapCoffeeRollReadMoreButton), for: .primaryActionTriggered)
+    }
+
+    // MARK: - Coffee Roll
+
+    @objc private func userDidTapCoffeeRollReadMoreButton() {
+        let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: talkPageURL)
+        let coffeeViewController = TalkPageCoffeeRollViewController(theme: theme, viewModel: coffeeRollViewModel)
+        push(coffeeViewController, animated: true)
     }
 
     // MARK: - Public
@@ -193,7 +203,7 @@ class TalkPageViewController: ViewController {
         replyComposeController.apply(theme: theme)
     }
     
-    // MARK: Reply Compose Management
+    // MARK: - Reply Compose Management
     
     let replyComposeController = TalkPageReplyComposeController()
     
@@ -228,7 +238,7 @@ class TalkPageViewController: ViewController {
         replyComposeController.calculateLayout(in: self, newViewSize: size)
     }
     
-    // MARK: Toolbar actions
+    // MARK: - Toolbar actions
     
     var talkPageURL: URL? {
         var talkPageURLComponents = URLComponents(url: viewModel.siteURL, resolvingAgainstBaseURL: false)
@@ -273,13 +283,8 @@ class TalkPageViewController: ViewController {
         revisionButton.accessibilityLabel = CommonStrings.revisionHistory
         addTopicButton.accessibilityLabel = TalkPageLocalizedStrings.addTopicButtonAccesibilityLabel
     }
-
-    private func scrollToLastTopic() {
-        if viewModel.topics.count > 0 {
-            let indexPath = IndexPath.init(item: viewModel.topics.count - 1, section: 0)
-            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-        }
-    }
+    
+    // MARK: - Alerts
     
     fileprivate func handleSubscriptionAlert(isSubscribedToTopic: Bool) {
         let title = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertTitle : TalkPageLocalizedStrings.unsubscribedAlertTitle
@@ -301,6 +306,91 @@ class TalkPageViewController: ViewController {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, dismissPreviousAlerts: true)
+        }
+    }
+    
+    // MARK: - Scrolling Helpers
+    
+    private func scrollToLastTopic() {
+        if viewModel.topics.count > 0 {
+            let indexPath = IndexPath(item: viewModel.topics.count - 1, section: 0)
+            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        }
+    }
+    
+    private func scrollToNewComment(oldCellViewModel: TalkPageCellViewModel?, oldCommentViewModels: [TalkPageCellCommentViewModel]?) {
+        
+        guard let oldCellViewModel = oldCellViewModel,
+        let oldCommentViewModels = oldCommentViewModels else {
+            return
+        }
+        
+        let newCellViewModel = viewModel.topics.first { $0 == oldCellViewModel }
+        
+        guard let newCommentViewModels = newCellViewModel?.allCommentViewModels else {
+            return
+        }
+        
+        if let newCommentViewModel = newestComment(from: oldCommentViewModels, to: newCommentViewModels) {
+            scrollToComment(commentViewModel: newCommentViewModel)
+        }
+    }
+    
+    private func newestComment(from oldCommentViewModels: [TalkPageCellCommentViewModel], to newCommentViewModels: [TalkPageCellCommentViewModel]) -> TalkPageCellCommentViewModel? {
+        
+        let oldCommentViewModelsSet = Set(oldCommentViewModels)
+        let newCommentViewModelsSet = Set(newCommentViewModels)
+        
+        let newComments = newCommentViewModelsSet.subtracting(oldCommentViewModelsSet)
+        
+        // MAYBETODO: Sort by date here?
+        
+        guard let newComment = newComments.first else {
+            return nil
+        }
+        
+        return newComment
+    }
+    
+    private func scrollToComment(commentViewModel: TalkPageCellCommentViewModel) {
+        
+        guard let cellViewModel = commentViewModel.cellViewModel else {
+            return
+        }
+
+        let collectionView = talkPageView.collectionView
+        
+        guard let index = viewModel.topics.firstIndex(of: cellViewModel)
+               else {
+            return
+        }
+        
+        let topicIndexPath = IndexPath(item: index, section: 0)
+        
+        let scrollToIndividualComment = {
+            for cell in self.talkPageView.collectionView.visibleCells {
+                if let talkPageCell = cell as? TalkPageCell {
+                    
+                    if talkPageCell.viewModel == cellViewModel {
+                     
+                         if let commentView = talkPageCell.commentViewForViewModel(commentViewModel),
+                             let convertedCommentViewFrame = commentView.superview?.convert(commentView.frame, to: collectionView) {
+                             let shiftedFrame = CGRect(x: convertedCommentViewFrame.minX, y: convertedCommentViewFrame.minY + 50, width: convertedCommentViewFrame.width, height: convertedCommentViewFrame.height)
+                                 collectionView.scrollRectToVisible(shiftedFrame, animated: true)
+                         }
+                    }
+                }
+            }
+        }
+        
+        if talkPageView.collectionView.indexPathsForVisibleItems.contains(topicIndexPath) {
+            scrollToIndividualComment()
+        } else {
+            talkPageView.collectionView.scrollToItem(at: topicIndexPath, at: .top, animated: true)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                scrollToIndividualComment()
+            })
         }
     }
 }
@@ -395,6 +485,9 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
     }
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
+        let oldCellViewModel = commentViewModel.cellViewModel
+        let oldCommentViewModels = oldCellViewModel?.allCommentViewModels
+        
         viewModel.postReply(commentId: commentViewModel.commentId, comment: text) { [weak self] result in
 
             switch result {
@@ -405,8 +498,14 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     switch result {
                     case .success:
+
                         self?.talkPageView.collectionView.reloadData()
                         self?.handleNewTopicOrCommentAlert(isNewTopic: false)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self?.scrollToNewComment(oldCellViewModel: oldCellViewModel, oldCommentViewModels: oldCommentViewModels)
+                        }
+
                     case .failure:
                         break
                     }
