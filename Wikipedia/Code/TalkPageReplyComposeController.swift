@@ -25,7 +25,7 @@ class TalkPageReplyComposeController {
     
     private var containerView: UIView?
     private var containerViewTopConstraint: NSLayoutConstraint?
-    private var containerViewBottomConstraint: NSLayoutConstraint?
+    private var contentViewBottomConstraint: NSLayoutConstraint?
     
     // Pan Gesture tracking properties
     private var dragHandleView: UIView?
@@ -68,7 +68,7 @@ class TalkPageReplyComposeController {
         let keyboardHeight = newKeyboardFrame?.height ?? 0
         let viewHeight = newViewSize?.height ?? viewController.view.bounds.height
         
-        containerViewBottomConstraint?.constant = keyboardHeight
+        contentViewBottomConstraint?.constant = keyboardHeight
         
         guard !shouldAlwaysPinToTop(newViewSize: newViewSize) else {
             displayMode = .full
@@ -96,7 +96,7 @@ class TalkPageReplyComposeController {
         containerView?.removeFromSuperview()
         containerView = nil
         containerViewTopConstraint = nil
-        containerViewBottomConstraint = nil
+        contentViewBottomConstraint = nil
         
         contentView?.removeFromSuperview()
         contentView = nil
@@ -130,9 +130,7 @@ class TalkPageReplyComposeController {
         let topConstraint = containerView.topAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.topAnchor, constant: containerPinnedTopSpacing)
         NSLayoutConstraint.activate([trailingConstraint, bottomConstraint, leadingConstraint, topConstraint])
         
-        self.containerViewBottomConstraint = bottomConstraint
         self.containerViewTopConstraint = topConstraint
-
         self.containerView = containerView
         
         // add pan gesture
@@ -174,13 +172,16 @@ class TalkPageReplyComposeController {
         contentView.closeButton.addTarget(self, action: #selector(attemptClose), for: .touchUpInside)
         contentView.publishButton.addTarget(self, action: #selector(tappedPublish), for: .touchUpInside)
         
+        let bottomConstraint = containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: contentTopSpacing),
             contentView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            bottomConstraint,
             contentView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
         ])
         
+        self.contentViewBottomConstraint = bottomConstraint
         self.contentView = contentView
     }
     
