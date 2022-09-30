@@ -6,6 +6,7 @@
 // Author: GinawaSaHapon
 // Author: Ianlopez1115
 // Author: Jewel457
+// Author: Jojit fb
 // Author: Leeheonjin
 // Author: Mrkczr
 // Author: Nemo bis
@@ -39,8 +40,8 @@
 "aaald-new-website-reference-title" = "Website";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=Walang sanggunian|$1 sanggunian|$1 (na) sanggunian}} ang nadagdag";
 "aaald-one-section-description" = "sa $1 (na) bahagi";
-"aaald-revision-by-anonymous" = "In-edit ng di-kilalang tagagamit";
-"aaald-revision-userInfo" = "In-edit ni $1 ($2 (na) edit)";
+"aaald-revision-by-anonymous" = "Binago ng di-kilalang tagagamit";
+"aaald-revision-userInfo" = "Binago ni $1 ($2 (na) pagbabago)";
 "aaald-single-reference-added-description" = "Nadagdag ang sanggunian";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Walang ginawang maliit na pagbabago|$1 maliit na pagbabago|$1 (na) maliit na pagbabago}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=Walang pagbabago|$1 pagbabago|$1 (na) pagbabago}} ng {{PLURAL:$2|0=walang editor|$2 editor|$2 (na) editor}} sa {{PLURAL:$3|0=walang araw|$3 araw|$3 (na) araw}}";
@@ -70,7 +71,7 @@
 "about-translators-details" = "Sinalin ng mga boluntaryo sa $1";
 "about-wikimedia-foundation" = "Pundasyong Wikimedia";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Di mo malalathala ang edit na ito";
+"abuse-filter-disallow-heading" = "Di mo malalathala ang binagong ito";
 "abuse-filter-disallow-unconstructive" = "Natukoy ng isang agarang pagsalâ na maaaring walang kabuluhan o di kaya'y isang bandalismo ang edit na ito. Mangyaring bumalik at pakibago po ng iyong edit.";
 "abuse-filter-warning-blanking" = "Pagbubura sa mga bahagi o sa buong artikulo";
 "abuse-filter-warning-caps" = "Naka-caps na teksto";
@@ -78,7 +79,7 @@
 "abuse-filter-warning-irrelevant" = "Walang kabuluhang kawing panlabas o larawan";
 "abuse-filter-warning-repeat" = "Paulit-ulit na karakter";
 "abuse-filter-warning-spam" = "Pagdaragdag ng spam sa mga artikulo";
-"abuse-filter-warning-subheading" = "Maaaring naglalaman ang edit mo ng:";
+"abuse-filter-warning-subheading" = "Maaaring naglalaman ang binago mo ng:";
 "account-creation-captcha-cannot-see-image" = "Di makita ang larawan? $1";
 "account-creation-captcha-obtaining" = "Kumukuha ng bagong CAPTCHA...";
 "account-creation-captcha-request-account" = "Humiling ng account";
