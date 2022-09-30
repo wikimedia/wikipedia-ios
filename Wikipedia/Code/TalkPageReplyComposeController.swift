@@ -84,15 +84,22 @@ class TalkPageReplyComposeController {
             return
         }
         
+        // Aim for compose view to take up 60% of the screen for portrait, 80% for landscape
         let viewSize = newViewSize ?? viewController.view.bounds.size
         let isLandscape = viewSize.height < viewSize.width
         let topConstraintMultiplier = isLandscape ? 0.20 : 0.40
+        let potentialTopConstraint = viewSize.height * (topConstraintMultiplier)
+        
+        // Add a little bit of extra padding if keyboard is still too tall
+        let amountDisplaying = viewSize.height - potentialTopConstraint - keyboardHeight
+        let extraPadding = max(0, 200 - amountDisplaying)
+        let finalTopConstraint = potentialTopConstraint - extraPadding
         
         switch displayMode {
         case .full:
             containerViewTopConstraint?.constant = containerPinnedTopSpacing
         case .partial:
-            containerViewTopConstraint?.constant = viewSize.height * (topConstraintMultiplier)
+            containerViewTopConstraint?.constant = finalTopConstraint
         }
     }
     
