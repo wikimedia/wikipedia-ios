@@ -505,7 +505,6 @@
 "no-internet-connection" = "Нема интернет везе";
 "no-internet-connection-article-reload" = "Новија верзија овог чланка је можда доступна, али не може бити учитана без интернет конекције.";
 "no-internet-connection-article-reload-button" = "Врати се на претходно сачувану верзију";
-// Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Укључи обавештења";
 "notifications-center-filters-read-status-item-title-all" = "Све";
 "notifications-center-filters-read-status-item-title-read" = "Читај";
@@ -752,7 +751,6 @@
 "settings-language-bar" = "Приказуј језике при претрази";
 "settings-languages-feed-customization" = "Можете да управљате језицима за приказ у фиду „Истражи“ променом подешавања.";
 "settings-my-languages" = "Моји језици";
-// Fuzzy
 "settings-notifications" = "Обавештења";
 "settings-notifications-echo-failure-try-again" = "Покушајте поново";
 "settings-notifications-info" = "Будите обавештени о најчитанијим чланцима на Википедији помоћу наших push обавештења. Све информације су тренутне и поштују вашу приватност.";
@@ -830,8 +828,7 @@
 "talk-page-publish-terms-and-licenses" = "Чувањем измена прихватате $1услове коришћења$2 и неопозиво објављивање свог доприноса под лиценцама $3CC BY-SA 3.0$4 и $5GFDL$6.";
 "talk-page-related-links" = "Шта води овамо";
 "talk-page-reply-title" = "Одговори";
-// Fuzzy
-"talk-page-title-article-talk" = "страница за разговор чланка";
+"talk-page-title-article-talk" = "Страница за разговор чланка";
 "talk-page-title-user-talk" = "Корисничка страница за разговор";
 "talk-page-topic-title" = "Дискусија";
 "talk-page-unsubscribed-alert-subtitle" = "Више нећете добијати обавештења о новим коментарима.";
