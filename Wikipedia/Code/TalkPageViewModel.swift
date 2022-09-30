@@ -19,6 +19,8 @@ final class TalkPageViewModel {
     private(set) var coffeeRollText: String?
     private(set) var projectSourceImage: UIImage?
     private(set) var projectLanguage: String?
+
+    private(set) var hasPerformedInitialFetch = false
     
     static let leadImageSideLength = 80
     
@@ -69,7 +71,8 @@ final class TalkPageViewModel {
             guard let self = self else {
                 return
             }
-            
+
+            self.hasPerformedInitialFetch = true
             switch result {
             case .success(let result):
                 self.populateHeaderData(articleSummary: result.articleSummary, items: result.items)
