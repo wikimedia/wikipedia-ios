@@ -8,9 +8,9 @@ final class TalkPageViewModel {
 
     let pageType: TalkPageType
     let pageTitle: String
-    let siteURL: URL
+    var siteURL: URL
     let authenticationManager: WMFAuthenticationManager
-    private let dataController: TalkPageDataController
+    var dataController: TalkPageDataController
 
     // TODO: - Populate from data controller
     private(set) var headerTitle: String
@@ -33,11 +33,16 @@ final class TalkPageViewModel {
     ///   - pageTitle: Wiki page title, e.g. "Talk:Cat" or "User_talk:Jimbo"
     ///   - siteURL: Site URL without article path, e.g. "https://en.wikipedia.org"
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
-    init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
+    init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, dataController: TalkPageDataController? = nil) {
         self.pageType = pageType
         self.pageTitle = pageTitle
         self.siteURL = siteURL
-        self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
+        if let dataController {
+            self.dataController = dataController
+        } else {
+            self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
+            
+        }
         self.authenticationManager = authenticationManager
         
         // Setting headerTitle as pageTitle (which contains the namespace prefix) for now, we attempt to strip the namespace later in populateHeaderData

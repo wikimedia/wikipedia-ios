@@ -6,6 +6,8 @@ class TalkPageViewController: ViewController {
 
     // MARK: - Properties
 
+    private(set) var talkPageSemanticContentAttribute: UISemanticContentAttribute
+
     fileprivate let viewModel: TalkPageViewModel
     fileprivate var headerView: TalkPageHeaderView?
     
@@ -66,6 +68,7 @@ class TalkPageViewController: ViewController {
             actions.append(aboutTalkUserPagesAction)
         } else {
             let changeLanguageAction = UIAction(title: TalkPageLocalizedStrings.changeLanguage, image: UIImage(named: "language-talk-page"), handler: { _ in
+                self.userDidTapChangeLanguage()
             })
             let aboutTalkPagesAction = UIAction(title: TalkPageLocalizedStrings.aboutArticleTalk, image: UIImage(systemName: "doc.plaintext"), handler: { _ in
 
@@ -105,6 +108,8 @@ class TalkPageViewController: ViewController {
 
     init(theme: Theme, viewModel: TalkPageViewModel) {
         self.viewModel = viewModel
+        let contentLanguageCode = viewModel.siteURL.wmf_contentLanguageCode
+        talkPageSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
         super.init(theme: theme)
     }
     
@@ -118,6 +123,25 @@ class TalkPageViewController: ViewController {
         scrollView = talkPageView.collectionView
     }
     
+    fileprivate func fetchTalkPage() {
+        fakeProgressController.start()
+        viewModel.fetchTalkPage { [weak self] result in
+
+            guard let self = self else {
+                return
+            }
+
+            self.fakeProgressController.stop()
+            switch result {
+            case .success:
+                self.setupHeaderView()
+                self.talkPageView.collectionView.reloadData()
+            case .failure:
+                break
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -138,23 +162,7 @@ class TalkPageViewController: ViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
 
-        fakeProgressController.start()
-        viewModel.fetchTalkPage { [weak self] result in
-            
-            guard let self = self else {
-                return
-            }
-            
-            self.fakeProgressController.stop()
-            switch result {
-            case .success:
-                self.setupHeaderView()
-                self.talkPageView.collectionView.reloadData()
-            case .failure:
-                break
-            }
-        }
-        
+        fetchTalkPage()
         setupToolbar()
     }
 
@@ -187,6 +195,16 @@ class TalkPageViewController: ViewController {
         let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: talkPageURL)
         let coffeeViewController = TalkPageCoffeeRollViewController(theme: theme, viewModel: coffeeRollViewModel)
         push(coffeeViewController, animated: true)
+    }
+
+    @objc private func userDidTapChangeLanguage() {
+        let languageVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
+        languageVC.delegate = self
+
+        if let themeableVC = languageVC as Themeable? {
+            themeableVC.apply(theme: self.theme)
+        }
+        present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.theme), animated: true, completion: nil)
     }
 
     // MARK: - Public
@@ -392,6 +410,12 @@ class TalkPageViewController: ViewController {
                 scrollToIndividualComment()
             })
         }
+    }
+
+    private func changeTalkPageLanguage(_ siteURL: URL) {
+        viewModel.dataController = TalkPageDataController(pageType: viewModel.pageType, pageTitle: viewModel.pageTitle, siteURL: siteURL, articleSummaryController: viewModel.dataController.articleSummaryController)
+        talkPageSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: siteURL.wmf_contentLanguageCode)
+        fetchTalkPage()
     }
 }
 
@@ -610,4 +634,25 @@ extension TalkPageViewController: TalkPageTextViewLinkHandling {
         }
         navigate(to: url.absoluteURL)
     }
+}
+
+// MARK: WMFPreferredLanguagesViewControllerDelegate
+
+extension TalkPageViewController: WMFPreferredLanguagesViewControllerDelegate {
+
+    func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
+        guard let currentLanguage = viewModel.siteURL.wmf_contentLanguageCode else {
+            return
+        }
+
+        let selectedLanguage = language.contentLanguageCode
+
+        if selectedLanguage != currentLanguage {
+            viewModel.siteURL = language.siteURL
+            changeTalkPageLanguage(viewModel.siteURL)
+        }
+
+        controller.dismiss(animated: true)
+    }
+
 }
