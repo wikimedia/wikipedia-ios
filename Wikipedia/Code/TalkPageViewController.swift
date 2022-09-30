@@ -149,6 +149,8 @@ class TalkPageViewController: ViewController {
             switch result {
             case .success:
                 self.setupHeaderView()
+                self.talkPageView.configure(viewModel: self.viewModel)
+                self.talkPageView.emptyView.actionButton.addTarget(self, action: #selector(self.userDidTapAddTopicButton), for: .primaryActionTriggered)
                 self.talkPageView.collectionView.reloadData()
             case .failure:
                 break
@@ -262,7 +264,7 @@ class TalkPageViewController: ViewController {
     @objc fileprivate func userDidTapRevisionButton() {
         
     }
-    
+
     @objc fileprivate func userDidTapAddTopicButton() {
         let topicComposeVC = TalkPageTopicComposeViewController(theme: theme)
         topicComposeVC.delegate = self
@@ -320,6 +322,11 @@ class TalkPageViewController: ViewController {
 extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if viewModel.hasPerformedInitialFetch {
+            talkPageView.updateEmptyView(visible: viewModel.topics.count == 0)
+            scrollView = viewModel.topics.count == 0 ? talkPageView.emptyView.scrollView : talkPageView.collectionView
+            updateScrollViewInsets()
+        }
         return viewModel.topics.count
     }
     
