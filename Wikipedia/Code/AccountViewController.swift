@@ -145,8 +145,8 @@ class AccountViewController: SubSettingsViewController {
                 return
             }
 
-            let hostingController = VanishAccountCustomUIHostingController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
-            self.navigationController?.pushViewController(hostingController, animated: true)
+            let viewController = VanishAccountContainerViewController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
+            self.navigationController?.pushViewController(viewController, animated: true)
         default:
             break
         }
