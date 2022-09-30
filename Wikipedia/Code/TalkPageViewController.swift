@@ -87,8 +87,8 @@ class TalkPageViewController: ViewController {
             self.talkPageView.collectionView.reloadData()
         })
         
-        let revisionHistoryAction = UIAction(title: CommonStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { _ in
-            
+        let revisionHistoryAction = UIAction(title: CommonStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { [weak self] _ in
+            self?.pushToRevisionHistory()
         })
         
         let openInWebAction = UIAction(title: TalkPageLocalizedStrings.readInWeb, image: UIImage(systemName: "display"), handler: { _ in
@@ -260,7 +260,7 @@ class TalkPageViewController: ViewController {
     }
     
     @objc fileprivate func userDidTapRevisionButton() {
-        
+        pushToRevisionHistory()
     }
     
     @objc fileprivate func userDidTapAddTopicButton() {
@@ -282,6 +282,11 @@ class TalkPageViewController: ViewController {
         findButton.accessibilityLabel = TalkPageLocalizedStrings.findButtonAccesibilityLabel
         revisionButton.accessibilityLabel = CommonStrings.revisionHistory
         addTopicButton.accessibilityLabel = TalkPageLocalizedStrings.addTopicButtonAccesibilityLabel
+    }
+    
+    fileprivate func pushToRevisionHistory() {
+        let historyVC = PageHistoryViewController(pageTitle: viewModel.pageTitle, pageURL: viewModel.siteURL)
+        navigationController?.pushViewController(historyVC, animated: true)
     }
     
     // MARK: - Alerts
