@@ -54,7 +54,8 @@ class TalkPageViewController: ViewController {
         let goToPermalinkAction = UIAction(title: TalkPageLocalizedStrings.permaLink, image: UIImage(systemName: "link"), handler: { _ in
         })
 
-        let relatedLinksAction = UIAction(title: TalkPageLocalizedStrings.relatedLinks, image: UIImage(systemName: "arrowshape.turn.up.forward"), handler: { _ in
+        let relatedLinksAction = UIAction(title: TalkPageLocalizedStrings.relatedLinks, image: UIImage(systemName: "arrowshape.turn.up.forward"), handler: { [weak self] _ in
+            self?.pushToWhatLinksHere()
         })
 
         var actions = [goToArchivesAction, pageInfoAction, goToPermalinkAction, relatedLinksAction]
@@ -305,6 +306,14 @@ class TalkPageViewController: ViewController {
         guard let host = viewModel.siteURL.host,
         let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
                                                                         "action": "info"]) else {
+            return
+        }
+        
+        navigate(to: url)
+    }
+    
+    fileprivate func pushToWhatLinksHere() {
+        guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:WhatLinksHere/\(viewModel.pageTitle)", isMobile: true) else {
             return
         }
         
