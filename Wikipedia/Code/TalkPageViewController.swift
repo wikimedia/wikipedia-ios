@@ -91,8 +91,8 @@ class TalkPageViewController: ViewController {
             self?.pushToRevisionHistory()
         })
         
-        let openInWebAction = UIAction(title: TalkPageLocalizedStrings.readInWeb, image: UIImage(systemName: "display"), handler: { _ in
-            
+        let openInWebAction = UIAction(title: TalkPageLocalizedStrings.readInWeb, image: UIImage(systemName: "display"), handler: { [weak self] _ in
+            self?.pushToMobileWeb()
         })
         
         let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
@@ -287,6 +287,17 @@ class TalkPageViewController: ViewController {
     fileprivate func pushToRevisionHistory() {
         let historyVC = PageHistoryViewController(pageTitle: viewModel.pageTitle, pageURL: viewModel.siteURL)
         navigationController?.pushViewController(historyVC, animated: true)
+    }
+    
+    // MARK: - Overflow menu navigation
+    
+    fileprivate func pushToMobileWeb() {
+        guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/\(viewModel.pageTitle)", isMobile: true) else {
+            return
+        }
+        
+        let webVC = SinglePageWebViewController(url: url, theme: theme)
+        navigationController?.pushViewController(webVC, animated: true)
     }
     
     // MARK: - Alerts
