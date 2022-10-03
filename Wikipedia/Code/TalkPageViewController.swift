@@ -296,8 +296,7 @@ class TalkPageViewController: ViewController {
             return
         }
         
-        let webVC = SinglePageWebViewController(url: url, theme: theme)
-        navigationController?.pushViewController(webVC, animated: true)
+        navigate(to: url, useSafari: true)
     }
     
     // MARK: - Alerts
