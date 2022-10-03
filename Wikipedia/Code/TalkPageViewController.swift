@@ -30,7 +30,8 @@ class TalkPageViewController: ViewController {
     // MARK: - Overflow menu properties
     
     fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
-        let contributionsAction = UIAction(title: TalkPageLocalizedStrings.contributions, image: UIImage(named: "user-contributions"), handler: { _ in
+        let contributionsAction = UIAction(title: TalkPageLocalizedStrings.contributions, image: UIImage(named: "user-contributions"), handler: { [weak self] _ in
+            self?.pushToContributions()
         })
 
         let userGroupsAction = UIAction(title: TalkPageLocalizedStrings.userGroups, image: UIImage(systemName: "person.2"), handler: { _ in
@@ -318,6 +319,29 @@ class TalkPageViewController: ViewController {
         }
         
         navigate(to: url)
+    }
+    
+    fileprivate func pushToContributions() {
+        guard let username = usernameFromPageTitle(),
+        let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) else {
+            return
+        }
+        
+        navigate(to: url)
+    }
+    
+    fileprivate func usernameFromPageTitle() -> String? {
+        guard let languageCode = viewModel.siteURL.wmf_languageCode else {
+            return nil
+        }
+        
+        let namespaceAndTitle = viewModel.pageTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode)
+        
+        guard namespaceAndTitle.0 == .userTalk else {
+            return nil
+        }
+        
+        return namespaceAndTitle.1
     }
     
     // MARK: - Alerts
