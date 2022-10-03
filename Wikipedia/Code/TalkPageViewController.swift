@@ -47,7 +47,8 @@ class TalkPageViewController: ViewController {
         let goToArchivesAction = UIAction(title: TalkPageLocalizedStrings.archives, image: UIImage(systemName: "archivebox"), handler: { _ in
         })
 
-        let pageInfoAction = UIAction(title: TalkPageLocalizedStrings.pageInfo, image: UIImage(systemName: "info.circle"), handler: { _ in
+        let pageInfoAction = UIAction(title: TalkPageLocalizedStrings.pageInfo, image: UIImage(systemName: "info.circle"), handler: { [weak self] _ in
+            self?.pushToPageInfo()
         })
 
         let goToPermalinkAction = UIAction(title: TalkPageLocalizedStrings.permaLink, image: UIImage(systemName: "link"), handler: { _ in
@@ -297,6 +298,17 @@ class TalkPageViewController: ViewController {
         }
         
         navigate(to: url, useSafari: true)
+    }
+    
+    fileprivate func pushToPageInfo() {
+        
+        guard let host = viewModel.siteURL.host,
+        let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
+                                                                        "action": "info"]) else {
+            return
+        }
+        
+        navigate(to: url)
     }
     
     // MARK: - Alerts
