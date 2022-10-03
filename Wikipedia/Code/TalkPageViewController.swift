@@ -134,6 +134,8 @@ class TalkPageViewController: ViewController {
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
 
+        talkPageView.emptyView.scrollView.delegate = self
+
         // Needed for reply compose views to display on top of navigation bar.
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
@@ -151,6 +153,7 @@ class TalkPageViewController: ViewController {
                 self.setupHeaderView()
                 self.talkPageView.configure(viewModel: self.viewModel)
                 self.talkPageView.emptyView.actionButton.addTarget(self, action: #selector(self.userDidTapAddTopicButton), for: .primaryActionTriggered)
+                self.updateEmptyStateVisibility()
                 self.talkPageView.collectionView.reloadData()
             case .failure:
                 break
@@ -402,11 +405,6 @@ class TalkPageViewController: ViewController {
 extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if viewModel.hasPerformedInitialFetch {
-            talkPageView.updateEmptyView(visible: viewModel.topics.count == 0)
-            scrollView = viewModel.topics.count == 0 ? talkPageView.emptyView.scrollView : talkPageView.collectionView
-            updateScrollViewInsets()
-        }
         return viewModel.topics.count
     }
     
@@ -478,6 +476,16 @@ extension TalkPageViewController: TalkPageCellDelegate {
         }
  
     }
+
+    // MARK: - Empty State
+
+    fileprivate func updateEmptyStateVisibility() {
+        talkPageView.updateEmptyView(visible: viewModel.topics.count == 0)
+        scrollView = viewModel.topics.count == 0 ? talkPageView.emptyView.scrollView : talkPageView.collectionView
+        updateScrollViewInsets()
+    }
+
+
 }
 
 extension TalkPageViewController: TalkPageCellReplyDelegate {
@@ -505,7 +513,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     switch result {
                     case .success:
-
+                        self?.updateEmptyStateVisibility()
                         self?.talkPageView.collectionView.reloadData()
                         self?.handleNewTopicOrCommentAlert(isNewTopic: false)
                         
@@ -542,6 +550,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     switch result {
                     case .success:
+                        self?.updateEmptyStateVisibility()
                         self?.talkPageView.collectionView.reloadData()
                         self?.scrollToLastTopic()
                         self?.handleNewTopicOrCommentAlert(isNewTopic: true)
