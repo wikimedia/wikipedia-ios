@@ -34,6 +34,16 @@ extension String {
     public var fullRange: NSRange {
         return NSRange(startIndex..<endIndex, in: self)
     }
+
+    public func extractingArticleTitleFromTalkPage(lang: String) -> String {
+        if let namespaceString = String.namespaceRegex.firstReplacementString(in: self) {
+            if namespaceOfWikiResourcePath(with: lang) == .talk {
+                return replacingOccurrences(of: namespaceString, with: "").replacingOccurrences(of: ":", with: "")
+            }
+        }
+        return String()
+    }
+
 }
 
 /// Page title transformation

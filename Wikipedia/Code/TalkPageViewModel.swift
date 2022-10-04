@@ -7,7 +7,7 @@ final class TalkPageViewModel {
     // MARK: - Properties
 
     let pageType: TalkPageType
-    let pageTitle: String
+    var pageTitle: String
     var siteURL: URL
     let authenticationManager: WMFAuthenticationManager
     var dataController: TalkPageDataController

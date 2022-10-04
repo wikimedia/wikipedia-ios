@@ -200,13 +200,31 @@ class TalkPageViewController: ViewController {
     }
 
     @objc private func userDidTapChangeLanguage() {
-        let languageVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
-        languageVC.delegate = self
+        if viewModel.pageType == .user {
+            let languageVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
+            languageVC.delegate = self
 
-        if let themeableVC = languageVC as Themeable? {
-            themeableVC.apply(theme: self.theme)
+            if let themeableVC = languageVC as Themeable? {
+                themeableVC.apply(theme: self.theme)
+            }
+            present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.theme), animated: true, completion: nil)
+
+        } else if viewModel.pageType == .article {
+            guard let languageCode  = viewModel.siteURL.wmf_contentLanguageCode else {
+                return
+            }
+            if let articleTitle = viewModel.pageTitle.extractingArticleTitleFromTalkPage(lang: languageCode).denormalizedPageTitle {
+                var talkPageURLComponents = URLComponents(url: viewModel.siteURL, resolvingAgainstBaseURL: false)
+                talkPageURLComponents?.path = "/wiki/\(articleTitle)"
+                if let urlValue = talkPageURLComponents?.url {
+                    print(urlValue)
+                    let languageVC = WMFArticleLanguagesViewController(articleURL: urlValue)
+                    languageVC.delegate = self
+                    present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.theme), animated: true, completion: nil)
+                }
+            }
+
         }
-        present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.theme), animated: true, completion: nil)
     }
 
     // MARK: - Public
@@ -415,7 +433,9 @@ class TalkPageViewController: ViewController {
         }
     }
 
-    private func changeTalkPageLanguage(_ siteURL: URL) {
+    private func changeTalkPageLanguage(_ siteURL: URL, pageTitle: String) {
+        viewModel.pageTitle = pageTitle
+        viewModel.siteURL = siteURL
         viewModel.dataController = TalkPageDataController(pageType: viewModel.pageType, pageTitle: viewModel.pageTitle, siteURL: siteURL, articleSummaryController: viewModel.dataController.articleSummaryController)
         talkPageSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: siteURL.wmf_contentLanguageCode)
         fetchTalkPage()
@@ -661,9 +681,15 @@ extension TalkPageViewController: WMFPreferredLanguagesViewControllerDelegate {
 
         let selectedLanguage = language.contentLanguageCode
 
+        guard let newSiteURL = language.articleURL.wmf_site,
+              let newPageTitle = language.articleURL.wmf_title else {
+            return
+        }
+
         if selectedLanguage != currentLanguage {
-            viewModel.siteURL = language.siteURL
-            changeTalkPageLanguage(viewModel.siteURL)
+//            viewModel.siteURL = newSiteURL
+//            viewModel.pageTitle = newPageTitle
+            changeTalkPageLanguage(newSiteURL, pageTitle: newPageTitle)
         }
 
         controller.dismiss(animated: true)
