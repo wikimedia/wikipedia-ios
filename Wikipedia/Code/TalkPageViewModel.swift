@@ -74,7 +74,7 @@ final class TalkPageViewModel {
             guard let self = self else {
                 return
             }
-            
+
             switch result {
             case .success(let result):
                 self.populateHeaderData(articleSummary: result.articleSummary, items: result.items)

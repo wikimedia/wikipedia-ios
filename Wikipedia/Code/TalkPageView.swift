@@ -26,16 +26,39 @@ final class TalkPageView: SetupView {
         return collectionView
     }()
 
+    lazy var emptyView: TalkPageEmptyView = {
+        let view = TalkPageEmptyView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0
+        return view
+    }()
+
     // MARK: - Lifecycle
 
     override func setup() {
         addSubview(collectionView)
+        addSubview(emptyView)
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            emptyView.topAnchor.constraint(equalTo: topAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            emptyView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    }
+
+    func updateEmptyView(visible: Bool, animated: Bool = true) {
+        UIView.animate(withDuration: animated ? 0.2 : 0, delay: 0, options: .curveEaseInOut, animations: {
+            self.emptyView.isUserInteractionEnabled = visible
+            self.emptyView.alpha = visible ? 1 : 0
+        })
+    }
+
+    func configure(viewModel: TalkPageViewModel) {
+        emptyView.configure(viewModel: viewModel)
     }
 
 }
@@ -61,6 +84,7 @@ extension TalkPageView: Themeable {
         }
 
         collectionView.backgroundColor = baseBackground
+        emptyView.apply(theme: theme)
     }
 
 }
