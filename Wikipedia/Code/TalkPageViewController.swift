@@ -54,7 +54,8 @@ class TalkPageViewController: ViewController {
             self?.pushToPageInfo()
         })
 
-        let goToPermalinkAction = UIAction(title: TalkPageLocalizedStrings.permaLink, image: UIImage(systemName: "link"), handler: { _ in
+        let goToPermalinkAction = UIAction(title: TalkPageLocalizedStrings.permaLink, image: UIImage(systemName: "link"), handler: { [weak self] _ in
+            self?.pushToPermanentLink()
         })
 
         let relatedLinksAction = UIAction(title: TalkPageLocalizedStrings.relatedLinks, image: UIImage(systemName: "arrowshape.turn.up.forward"), handler: { [weak self] _ in
@@ -362,6 +363,19 @@ class TalkPageViewController: ViewController {
         }
         
         return namespaceAndTitle.1
+    }
+    
+    fileprivate func pushToPermanentLink() {
+        
+        guard let latestRevisionID = viewModel.latestRevisionID,
+              let mobileSiteURL = viewModel.siteURL.wmf_URL(withPath: "", isMobile: true),
+              let host = mobileSiteURL.host,
+              let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
+                                                                        "oldid": latestRevisionID]) else {
+            return
+        }
+        
+        navigate(to: url, useSafari: true)
     }
     
     // MARK: - Alerts
