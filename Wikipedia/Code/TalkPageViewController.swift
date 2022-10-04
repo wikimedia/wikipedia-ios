@@ -134,6 +134,8 @@ class TalkPageViewController: ViewController {
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
 
+        talkPageView.emptyView.scrollView.delegate = self
+
         // Needed for reply compose views to display on top of navigation bar.
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
@@ -149,6 +151,11 @@ class TalkPageViewController: ViewController {
             switch result {
             case .success:
                 self.setupHeaderView()
+                self.talkPageView.configure(viewModel: self.viewModel)
+                self.talkPageView.emptyView.actionButton.addTarget(self, action: #selector(self.userDidTapAddTopicButton), for: .primaryActionTriggered)
+                self.updateEmptyStateVisibility()
+                self.talkPageView.collectionView.reloadData()
+
             case .failure:
                 break
             }
@@ -228,6 +235,7 @@ class TalkPageViewController: ViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        talkPageView.collectionView.reloadData()
         headerView?.updateLabelFonts()
         replyComposeController.calculateLayout(in: self)
     }
@@ -262,7 +270,7 @@ class TalkPageViewController: ViewController {
     @objc fileprivate func userDidTapRevisionButton() {
         
     }
-    
+
     @objc fileprivate func userDidTapAddTopicButton() {
         let topicComposeVC = TalkPageTopicComposeViewController(theme: theme)
         topicComposeVC.delegate = self
@@ -471,6 +479,16 @@ extension TalkPageViewController: TalkPageCellDelegate {
         }
  
     }
+
+    // MARK: - Empty State
+
+    fileprivate func updateEmptyStateVisibility() {
+        talkPageView.updateEmptyView(visible: viewModel.topics.count == 0)
+        scrollView = viewModel.topics.count == 0 ? talkPageView.emptyView.scrollView : talkPageView.collectionView
+        updateScrollViewInsets()
+    }
+
+
 }
 
 extension TalkPageViewController: TalkPageCellReplyDelegate {
@@ -498,7 +516,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     switch result {
                     case .success:
-
+                        self?.updateEmptyStateVisibility()
                         self?.talkPageView.collectionView.reloadData()
                         self?.handleNewTopicOrCommentAlert(isNewTopic: false)
                         
@@ -535,6 +553,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     switch result {
                     case .success:
+                        self?.updateEmptyStateVisibility()
                         self?.talkPageView.collectionView.reloadData()
                         self?.scrollToLastTopic()
                         self?.handleNewTopicOrCommentAlert(isNewTopic: true)

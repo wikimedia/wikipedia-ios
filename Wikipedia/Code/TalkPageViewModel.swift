@@ -73,11 +73,9 @@ final class TalkPageViewModel {
             guard let self = self else {
                 return
             }
-            
             let cache = self.sharedCache.loadCache()
-            
             let oldViewModels: [TalkPageCellViewModel] = self.topics
-            
+
             switch result {
             case .success(let result):
                 self.populateHeaderData(articleSummary: result.articleSummary, items: result.items)

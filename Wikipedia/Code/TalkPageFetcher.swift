@@ -2,7 +2,7 @@ import Foundation
 import WMF
 
 struct TalkPageAPIResponse: Codable {
-    let threads: TalkPageThreadItems
+    let threads: TalkPageThreadItems?
     
     enum CodingKeys: String, CodingKey {
         case threads = "discussiontoolspageinfo"
@@ -96,8 +96,7 @@ class TalkPageFetcher: Fetcher {
         performDecodableMediaWikiAPIGET(for: siteURL, with: params) { (result: Result<TalkPageAPIResponse, Error>) in
             switch result {
             case let .success(talk):
-                completion(.success(talk.threads.threadItems))
-                
+                completion(.success(talk.threads?.threadItems ?? []))                
             case let .failure(error):
                 completion(.failure(error))
             }
