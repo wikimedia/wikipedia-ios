@@ -34,7 +34,8 @@ class TalkPageViewController: ViewController {
             self?.pushToContributions()
         })
 
-        let userGroupsAction = UIAction(title: TalkPageLocalizedStrings.userGroups, image: UIImage(systemName: "person.2"), handler: { _ in
+        let userGroupsAction = UIAction(title: TalkPageLocalizedStrings.userGroups, image: UIImage(systemName: "person.2"), handler: { [weak self] _ in
+            self?.pushToUserGroups()
         })
 
         let logsAction = UIAction(title: TalkPageLocalizedStrings.logs, image: UIImage(systemName: "list.bullet"), handler: { _ in
@@ -324,6 +325,15 @@ class TalkPageViewController: ViewController {
     fileprivate func pushToContributions() {
         guard let username = usernameFromPageTitle(),
         let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) else {
+            return
+        }
+        
+        navigate(to: url)
+    }
+    
+    fileprivate func pushToUserGroups() {
+        guard let username = usernameFromPageTitle(),
+        let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:UserRights/\(username)", isMobile: true) else {
             return
         }
         
