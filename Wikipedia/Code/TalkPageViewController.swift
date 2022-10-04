@@ -98,7 +98,7 @@ class TalkPageViewController: ViewController {
         })
         
         let openInWebAction = UIAction(title: TalkPageLocalizedStrings.readInWeb, image: UIImage(systemName: "display"), handler: { [weak self] _ in
-            self?.pushToMobileWeb()
+            self?.pushToDesktopWeb()
         })
         
         let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
@@ -297,8 +297,8 @@ class TalkPageViewController: ViewController {
     
     // MARK: - Overflow menu navigation
     
-    fileprivate func pushToMobileWeb() {
-        guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/\(viewModel.pageTitle)", isMobile: true) else {
+    fileprivate func pushToDesktopWeb() {
+        guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/\(viewModel.pageTitle)", isMobile: false) else {
             // TODO: Error banner
             return
         }
