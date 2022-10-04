@@ -38,7 +38,8 @@ class TalkPageViewController: ViewController {
             self?.pushToUserGroups()
         })
 
-        let logsAction = UIAction(title: TalkPageLocalizedStrings.logs, image: UIImage(systemName: "list.bullet"), handler: { _ in
+        let logsAction = UIAction(title: TalkPageLocalizedStrings.logs, image: UIImage(systemName: "list.bullet"), handler: { [weak self] _ in
+            self?.pushToLogs()
         })
 
         return [contributionsAction, userGroupsAction, logsAction]
@@ -334,6 +335,15 @@ class TalkPageViewController: ViewController {
     fileprivate func pushToUserGroups() {
         guard let username = usernameFromPageTitle(),
         let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:UserRights/\(username)", isMobile: true) else {
+            return
+        }
+        
+        navigate(to: url)
+    }
+    
+    fileprivate func pushToLogs() {
+        guard let username = usernameFromPageTitle(),
+        let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Log/\(username)", isMobile: true) else {
             return
         }
         
