@@ -1037,6 +1037,8 @@
 "talk-pages-topic-compose-close-confirmation-title" = "Title of confirmation alert displayed to user when they attempt to close the new topic view after entering title or body text.";
 "talk-pages-topic-compose-navbar-title" = "Top navigation bar title of talk page topic compose screen.";
 "talk-pages-topic-compose-title-placeholder" = "Placeholder text in topic title field of the talk page topic compose screen.";
+"talk-pages-topic-reply-onboarding-body" = "Body text for user education onboarding view for user and article talk pages. Please do not translate the \n\n characters as these indicate where to insert new lines.";
+"talk-pages-topic-reply-onboarding-title" = "Title of user education onboarding view for user and article talk pages.";
 "talk-pages-user-groups" = "Title for menu option for information on the user's user groups";
 "talk-pages-user-logs" = "Title for menu option to consult the user's public logs";
 "talk-pages-view-title" = "Title of user and article talk pages view.";
