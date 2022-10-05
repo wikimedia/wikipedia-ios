@@ -3,6 +3,11 @@ import WMF
 import CocoaLumberjackSwift
 
 final class TalkPageViewModel {
+    
+    struct DeepLinkData {
+        let topicTitle: String
+        let replyText: String?
+    }
 
     // MARK: - Properties
 
@@ -10,6 +15,9 @@ final class TalkPageViewModel {
     let pageTitle: String
     let siteURL: URL
     let authenticationManager: WMFAuthenticationManager
+    
+    var deepLinkData: DeepLinkData?
+    
     private let dataController: TalkPageDataController
 
     // TODO: - Populate from data controller
