@@ -99,14 +99,25 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return false
             }
+            
+            if let deepLinkData = talkPageDeepLinkData(linkURL: linkURL, userInfo: userInfo) {
+                viewModel.deepLinkData = deepLinkData
+            }
+            
             let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
             return presentOrPush(newTalkPage, with: completion)
         case .userTalk(let linkURL):
             if FeatureFlags.needsNewTalkPage {
+                
                 guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager) else {
                     completion()
                     return false
                 }
+                
+                if let deepLinkData = talkPageDeepLinkData(linkURL: linkURL, userInfo: userInfo) {
+                    viewModel.deepLinkData = deepLinkData
+                }
+                
                 let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
                 return presentOrPush(newTalkPage, with: completion)
             } else {
@@ -132,6 +143,18 @@ class ViewControllerRouter: NSObject {
             completion()
             return false
         }
+    }
+    
+    private func talkPageDeepLinkData(linkURL: URL, userInfo: [AnyHashable: Any]?) -> TalkPageViewModel.DeepLinkData? {
+        
+        guard let topicTitle = linkURL.fragment else {
+            return nil
+        }
+        
+        let replyText = userInfo?[UserInfoKeys.talkPageReplyText] as? String
+            
+        let deepLinkData = TalkPageViewModel.DeepLinkData(topicTitle: topicTitle, replyText: replyText)
+        return deepLinkData
     }
     
 }
