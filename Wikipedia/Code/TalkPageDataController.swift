@@ -11,12 +11,6 @@ class TalkPageDataController {
     private let talkPageFetcher = TalkPageFetcher()
     private let articleSummaryController: ArticleSummaryController
 
-    private var cachedFileName: String {
-        let languageCode = siteURL.wmf_languageVariantCode
-        let page = pageTitle.replacingOccurrences(of: ":", with: " ")
-        let pageTitleWithLanguage = "\(languageCode ?? "en")-\(page)"
-        return pageTitleWithLanguage
-    }
     
     init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
         self.pageType = pageType
@@ -117,9 +111,18 @@ class TalkPageDataController {
         }
     }
 
+    private func cachedFileName() -> String {
+        guard let languageCode = siteURL.wmf_contentLanguageCode else {
+            return "en"
+        }
+        let page = pageTitle.replacingOccurrences(of: ":", with: " ")
+        let pageTitleWithLanguage = "\(languageCode)-\(page)"
+        return pageTitleWithLanguage
+    }
+
     private func fetchTalkPageItems(dispatchGroup group: DispatchGroup, completion: @escaping ([TalkPageItem], [Error]) -> Void) {
         
-        let sharedCache = SharedContainerCache<TalkPageCache>.init(pathComponent: .talkPageCache, fileFolder: cachedFileName, defaultCache: {
+        let sharedCache = SharedContainerCache<TalkPageCache>.init(fileName: cachedFileName(), subdirectoryPathComponent: "Talk Page Cache", defaultCache: {
             TalkPageCache(talkPages: [])
         })
         var cache = sharedCache.loadCache()
