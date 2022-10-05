@@ -74,5 +74,5 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
 }
 
 @objc public protocol SharedContainerCacheHousekeepingProtocol: AnyObject {
-    func deleteStaleCachedItems()
+    func deleteStaleCachedItems(for folder: String)
 }

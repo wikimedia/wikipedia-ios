@@ -636,7 +636,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     /// Housekeeping for the new talk page cache
     SharedContainerCacheHousekeeping *sharedContainerCacheHousekeeper = [SharedContainerCacheHousekeeping new];
-    [sharedContainerCacheHousekeeper.housekeeping deleteStaleCachedItems];
+    [sharedContainerCacheHousekeeper.housekeeping deleteStaleCachedItemsFor: @"Talk Page Cache"];
 
     completion(housekeepingError);
 }
