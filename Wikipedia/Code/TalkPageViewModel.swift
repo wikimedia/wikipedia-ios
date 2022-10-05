@@ -69,7 +69,6 @@ final class TalkPageViewModel {
             guard let self = self else {
                 return
             }
-            let cache = self.sharedCache.loadCache()
             let oldViewModels: [TalkPageCellViewModel] = self.topics
 
             switch result {
@@ -80,11 +79,7 @@ final class TalkPageViewModel {
                 self.updateSubscriptionForTopic(topicNames: result.subscribedTopicNames)
                 completion(.success(()))
             case .failure(let error):
-                var cachedTalkPage = [TalkPageItem]()
-                cachedTalkPage.append(contentsOf: cache.talkPages)
-                self.populateCellData(topics: cachedTalkPage, oldViewModels: oldViewModels)
                 completion(.failure(error))
-
                 DDLogError("Failure fetching talk page: \(error)")
                 // TODO: Error handling
             }
