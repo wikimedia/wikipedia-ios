@@ -3,6 +3,11 @@ import AVKit
 
 @objc(WMFViewControllerRouter)
 class ViewControllerRouter: NSObject {
+    
+    struct UserInfoKeys {
+        static let talkPageReplyText = "talk-page-reply-text"
+    }
+    
     @objc let router: Router
     unowned let appViewController: WMFAppViewController
     @objc(initWithAppViewController:router:)
