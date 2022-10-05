@@ -1,23 +1,15 @@
 import Foundation
 
 public final class SharedContainerCache<T: Codable>: SharedContainerCacheHousekeepingProtocol {
-    
-    // values must all be distinct
-    public enum PathComponent: String {
-        case widgetCache = "Widget Cache"
-        case pushNotificationsCache = "Push Notifications Cache"
-        case userDataExportSyncInfo = "User Data Export Sync Info"
-        case talkPageCache = "Talk Page Cache"
-    }
-    
-    private let pathComponent: PathComponent
+
+    private let fileName: String
+    private let subdirectoryPathComponent: String?
     private let defaultCache: () -> T
-    private let fileFolder: String
     
-    public init(pathComponent: PathComponent, fileFolder: String = String(), defaultCache: @escaping () -> T) {
-        self.pathComponent = pathComponent
+    public init(fileName: String, subdirectoryPathComponent: String? = String(), defaultCache: @escaping () -> T) {
+        self.fileName = fileName
+        self.subdirectoryPathComponent = subdirectoryPathComponent
         self.defaultCache = defaultCache
-        self.fileFolder = fileFolder
     }
     
     private var cacheDirectoryContainerURL: URL {
@@ -25,61 +17,41 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
     }
     
     private var cacheDataFileURL: URL {
-        return cacheDirectoryContainerURL.appendingPathComponent(pathComponent.rawValue).appendingPathExtension("json")
+        let baseURL = subdirectoryURL() ?? cacheDirectoryContainerURL
+        return baseURL.appendingPathComponent(fileName).appendingPathExtension("json")
     }
     
-    private func subdirectoryFileURL(to subfolder: String) -> URL {
-        return cacheDirectoryContainerURL
-            .appendingPathComponent(pathComponent.rawValue, isDirectory: true)
+    private func subdirectoryURL() -> URL? {
+        guard let subdirectoryPathComponent = subdirectoryPathComponent else {
+            return nil
+        }
+        return cacheDirectoryContainerURL.appendingPathComponent(subdirectoryPathComponent, isDirectory: true)
     }
 
-    func cacheFileURL(to subfolder: String) -> URL {
-        return cacheDirectoryContainerURL
-            .appendingPathComponent(pathComponent.rawValue, isDirectory: true)
-            .appendingPathComponent(subfolder)
-            .appendingPathExtension("json")
-    }
-    
     public func loadCache() -> T {
-        let filePath = fileFolder.isEmpty ? cacheDataFileURL : cacheFileURL(to: fileFolder)
-        if let data = try? Data(contentsOf: filePath), let decodedCache = try? JSONDecoder().decode(T.self, from: data) {
+        if let data = try? Data(contentsOf: cacheDataFileURL), let decodedCache = try? JSONDecoder().decode(T.self, from: data) {
             return decodedCache
         }
-
         return defaultCache()
     }
 
     public func saveCache(_ cache: T) {
-        if fileFolder.isEmpty {
-            let encoder = JSONEncoder()
-            guard let encodedCache = try? encoder.encode(cache) else {
-                return
-            }
-            try? encodedCache.write(to: cacheDataFileURL)
-        } else {
-            saveCache(to: fileFolder, cache)
-        }
-    }
-    
-    private func saveCache(to folder: String, _ cache: T) {
         let encoder = JSONEncoder()
         guard let encodedCache = try? encoder.encode(cache) else {
             return
         }
 
-        let subdirectoryPath = subdirectoryFileURL(to: folder)
-        let filePath = cacheFileURL(to: folder)
-        do {
-            try FileManager.default.createDirectory(at: subdirectoryPath, withIntermediateDirectories: true, attributes: nil)
-            try encodedCache.write(to: filePath)
-        } catch {
-            print(error)
+        if let subdirectoryURL = subdirectoryURL() {
+            try? FileManager.default.createDirectory(at: subdirectoryURL, withIntermediateDirectories: true, attributes: nil)
+
         }
+
+        try? encodedCache.write(to: cacheDataFileURL)
     }
 
     /// Persist only the last 50 visited talk pages
-    @objc public func deleteStaleCachedItems() {
-        let folderURL = cacheDirectoryContainerURL.appendingPathComponent(pathComponent.rawValue)
+    @objc public func deleteStaleCachedItems(for folder: String) {
+        let folderURL = cacheDirectoryContainerURL.appendingPathComponent(folder)
 
         if let urlArray = try? FileManager.default.contentsOfDirectory(at: folderURL,
                                                                        includingPropertiesForKeys: [.contentModificationDateKey],

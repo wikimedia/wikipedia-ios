@@ -25,10 +25,6 @@ final class TalkPageViewModel {
     var theme: Theme = .light
     private(set) var topics: [TalkPageCellViewModel] = []
 
-    private let sharedCache = SharedContainerCache<TalkPageCache>.init(pathComponent: .talkPageCache, defaultCache: {
-        TalkPageCache(talkPages: [])
-    })
-
     // MARK: - Lifecycle
 
     /// Main required init

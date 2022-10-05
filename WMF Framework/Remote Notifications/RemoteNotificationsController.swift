@@ -312,7 +312,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
 
     @objc public func updateCacheWithCurrentUnreadNotificationsCount() throws {
         let currentCount = try numberOfUnreadNotifications().intValue
-        let sharedCache = SharedContainerCache<PushNotificationsCache>(pathComponent: .pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
+        let sharedCache = SharedContainerCache<PushNotificationsCache>(fileName: "Push Notifications Cache", defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
         var pushCache = sharedCache.loadCache()
         pushCache.currentUnreadCount = currentCount
         sharedCache.saveCache(pushCache)
