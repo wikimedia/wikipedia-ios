@@ -49,8 +49,8 @@ class ViewControllerRouter: NSObject {
         return true
     }
     
-    @objc(routeURL:completion:)
-    public func route(_ url: URL, completion: @escaping () -> Void) -> Bool {
+    @objc(routeURL:userInfo:completion:)
+    public func route(_ url: URL, userInfo: [AnyHashable: Any]? = nil, completion: @escaping () -> Void) -> Bool {
         let theme = appViewController.theme
         let destination = router.destination(for: url)
         switch destination {

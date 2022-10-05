@@ -1271,7 +1271,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                 return NO;
             }
             [NSUserActivity wmf_makeActivityActive:activity];
-            return [self.router routeURL:linkURL completion:done];
+            return [self.router routeURL:linkURL userInfo:activity.userInfo completion:done];
         }
     }
     done();
