@@ -45,7 +45,7 @@ struct TalkPageTopicReplyOnboardingView: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color(theme.colors.primaryText))
                     Spacer(minLength: 44)
-                    Image("share-building")
+                    Image("talk-pages-empty-view-image")
                     Spacer(minLength: 31)
                     Text(LocalizedStrings.body)
                         .font(.callout)
