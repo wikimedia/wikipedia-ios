@@ -154,7 +154,14 @@ class TalkPageViewController: ViewController {
                 self.talkPageView.configure(viewModel: self.viewModel)
                 self.talkPageView.emptyView.actionButton.addTarget(self, action: #selector(self.userDidTapAddTopicButton), for: .primaryActionTriggered)
                 self.updateEmptyStateVisibility()
-                self.talkPageView.collectionView.reloadData()
+                
+                guard self.needsDeepLinkScroll() else {
+                    self.talkPageView.collectionView.reloadData()
+                    break
+                }
+                
+                self.reloadDataAndScrollToDeepLink()
+                
             case .failure:
                 break
             }
@@ -324,6 +331,68 @@ class TalkPageViewController: ViewController {
         }
     }
     
+    private func needsDeepLinkScroll() -> Bool {
+            return deepLinkDestination() != nil
+        }
+        
+    private func reloadDataAndScrollToDeepLink() {
+        
+        guard let destination = deepLinkDestination() else {
+            return
+        }
+        
+        let cellViewModel = destination.0
+        let indexPath = destination.1
+        let commentViewModel = destination.2
+        
+        cellViewModel.isThreadExpanded = true
+        talkPageView.collectionView.reloadData()
+        
+        isProgramaticallyScrolling = true
+        talkPageView.collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: false)
+        isProgramaticallyScrolling = false
+        
+        if let commentViewModel = commentViewModel {
+            scrollToComment(commentViewModel: commentViewModel, animated: false)
+        }
+    }
+    
+    private func deepLinkDestination() -> (TalkPageCellViewModel, IndexPath, TalkPageCellCommentViewModel?)? {
+        
+        guard let deepLinkData = viewModel.deepLinkData,
+              let topicTitle = deepLinkData.topicTitle.unescapedNormalizedPageTitle else {
+            return nil
+        }
+        
+        var targetIndexPath: IndexPath?
+        var targetCellViewModel: TalkPageCellViewModel?
+        var targetCommentViewModel: TalkPageCellCommentViewModel?
+        
+        for (index, cellViewModel) in viewModel.topics.enumerated() {
+            if cellViewModel.topicTitle.removingHTML == topicTitle {
+                targetIndexPath = IndexPath(item: index, section: 0)
+                targetCellViewModel = cellViewModel
+                break
+            }
+        }
+        
+        guard let targetCellViewModel = targetCellViewModel,
+            let targetIndexPath = targetIndexPath else {
+            return nil
+        }
+        
+        if let replyText = deepLinkData.replyText {
+            
+            for commentViewModel in targetCellViewModel.allCommentViewModels {
+                if commentViewModel.text.removingHTML.contains(replyText.removingHTML) {
+                    targetCommentViewModel = commentViewModel
+                }
+            }
+        }
+        
+        return (targetCellViewModel, targetIndexPath, targetCommentViewModel)
+    }
+    
     private func scrollToNewComment(oldCellViewModel: TalkPageCellViewModel?, oldCommentViewModels: [TalkPageCellCommentViewModel]?) {
         
         guard let oldCellViewModel = oldCellViewModel,
@@ -358,7 +427,7 @@ class TalkPageViewController: ViewController {
         return newComment
     }
     
-    private func scrollToComment(commentViewModel: TalkPageCellCommentViewModel) {
+    private func scrollToComment(commentViewModel: TalkPageCellCommentViewModel, animated: Bool = true) {
         
         guard let cellViewModel = commentViewModel.cellViewModel else {
             return
@@ -382,7 +451,7 @@ class TalkPageViewController: ViewController {
                          if let commentView = talkPageCell.commentViewForViewModel(commentViewModel),
                              let convertedCommentViewFrame = commentView.superview?.convert(commentView.frame, to: collectionView) {
                              let shiftedFrame = CGRect(x: convertedCommentViewFrame.minX, y: convertedCommentViewFrame.minY + 50, width: convertedCommentViewFrame.width, height: convertedCommentViewFrame.height)
-                                 collectionView.scrollRectToVisible(shiftedFrame, animated: true)
+                                 collectionView.scrollRectToVisible(shiftedFrame, animated: animated)
                          }
                     }
                 }
@@ -392,7 +461,7 @@ class TalkPageViewController: ViewController {
         if talkPageView.collectionView.indexPathsForVisibleItems.contains(topicIndexPath) {
             scrollToIndividualComment()
         } else {
-            talkPageView.collectionView.scrollToItem(at: topicIndexPath, at: .top, animated: true)
+            talkPageView.collectionView.scrollToItem(at: topicIndexPath, at: .top, animated: animated)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                 scrollToIndividualComment()
