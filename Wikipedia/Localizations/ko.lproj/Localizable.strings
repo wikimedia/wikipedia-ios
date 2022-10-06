@@ -1029,6 +1029,8 @@
 "talk-page-unsubscribed-alert-subtitle" = "이 주제의 새 댓글에 관한 알림을 더 이상 받지 않게 됩니다.";
 "talk-page-user-about" = "사용자 토론 페이지 정보";
 "talk-page-user-contributions" = "기여";
+"talk-pages-empty-view-button-article-add-topic" = "새 주제 추가";
+"talk-pages-empty-view-button-user-start-discussion" = "토론 시작하기";
 "talk-pages-reply-button-title" = "이 토론에 답변하기";
 "talk-pages-topic-compose-body-placeholder" = "설명";
 "talk-pages-topic-compose-close-confirmation-discard" = "주제 버리기";

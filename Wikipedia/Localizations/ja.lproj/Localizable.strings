@@ -970,6 +970,8 @@
 "talk-page-user-contributions" = "投稿記録";
 "talk-pages-coffee-roll-read-more" = "さらに読む";
 "talk-pages-comment-added-alert-title" = "あなたのコメントが追加されました";
+"talk-pages-empty-view-button-article-add-topic" = "新しいトピックを追加";
+"talk-pages-empty-view-button-user-start-discussion" = "新しい議論を始める";
 "talk-pages-reply-button-title" = "この議論に返信する";
 "talk-pages-topic-added-alert-title" = "トピックが追加されました";
 "talk-pages-topic-compose-body-placeholder" = "説明";

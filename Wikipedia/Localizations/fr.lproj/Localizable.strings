@@ -1056,6 +1056,12 @@
 "talk-page-user-contributions" = "Contributions";
 "talk-pages-coffee-roll-read-more" = "Lire davantage";
 "talk-pages-comment-added-alert-title" = "Votre commentaire a été ajouté";
+"talk-pages-empty-view-body-article" = "Les pages de discussion sont des endroits pour discuter de la façon de rendre le contenu de Wikipédia le meilleur possible. **Commencez par ajouter un nouveau sujet de discussion** pour vous connecter et collaborer avec une communauté de Wikipédiens.";
+"talk-pages-empty-view-body-user" = "Les pages de discussion sont des endroits pour discuter de la façon de rendre le contenu de Wikipédia le meilleur possible. Démarrez une nouvelle discussion pour vous connecter et collaborer avec $1. Ce que vous y direz sera rendu public pour que les autres puissent le voir.";
+"talk-pages-empty-view-button-article-add-topic" = "Ajouter un nouveau sujet";
+"talk-pages-empty-view-button-user-start-discussion" = "Démarrer une discussion";
+"talk-pages-empty-view-header-article" = "La conversation commence ici";
+"talk-pages-empty-view-header-user" = "Démarrer une discussion avec $1";
 "talk-pages-reply-button-title" = "Répondre à cette discussion";
 "talk-pages-topic-added-alert-title" = "Votre sujet a été ajouté";
 "talk-pages-topic-compose-body-placeholder" = "Description";
