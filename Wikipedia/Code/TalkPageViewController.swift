@@ -691,18 +691,13 @@ extension TalkPageViewController: WMFPreferredLanguagesViewControllerDelegate {
                   let newPageTitle = language.articleURL.wmf_title else {
                 return
             }
-
             if selectedLanguage != currentLanguage {
                 changeTalkPageLanguage(newSiteURL, pageTitle: "Talk:\(newPageTitle)")
             }
         } else {
-            
             let newSiteURL = language.siteURL
             changeTalkPageLanguage(newSiteURL, pageTitle: viewModel.pageTitle)
-            
         }
-        
-
         controller.dismiss(animated: true)
     }
 
