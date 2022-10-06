@@ -137,6 +137,8 @@ final class TalkPageViewModel {
         if let otherContent = items.first?.otherContent,
            !otherContent.isEmpty {
                coffeeRollText = items.first?.otherContent
+        } else {
+            coffeeRollText = nil
         }
         
         projectLanguage = languageCode
