@@ -182,7 +182,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         let expectedPrimaryText = "Talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://test.wikipedia.org/wiki/Talk:Blue_Bird#Section_Title")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
-        let expectedPrimaryDestinationText = "On web"
+        let expectedPrimaryDestinationText = "In app"
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .articleTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         

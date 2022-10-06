@@ -245,7 +245,7 @@
 "diff-paragraph-moved-distance-line" = "$1 ligne{{PLURAL:$1||s}}";
 "diff-paragraph-moved-distance-section" = "$1 section{{PLURAL:$1||s}}";
 "diff-paragraph-moved-format" = "Paragraphe déplacé vers le $1 de $2";
-"diff-revision-error-title" = "Impossible de charger la version";
+"diff-revision-error-title" = "Impossible de charger la révision";
 "diff-single-header-editor-number-edits-format" = "$1 modification{{PLURAL:$1||s}}";
 "diff-single-header-editor-title" = "Informations sur l’éditeur";
 "diff-single-header-subtitle-bytes-added" = "$1 octet{{PLURAL:$1||s}} ajouté{{PLURAL:$1||s}}";
@@ -1043,7 +1043,7 @@
 "talk-page-revision-history" = "Historique des versions";
 "talk-page-share-button" = "Partager la page de discussion";
 "talk-page-subscribe-to-topic" = "S’abonner";
-"talk-page-subscribed-alert-subtitle" = "Vous recevrez des notifications concernant les nouveaux commentaires dans ce sujet.";
+"talk-page-subscribed-alert-subtitle" = "Vous recevrez des notifications concernant les nouveaux commentaires de ce sujet.";
 "talk-page-subscribed-alert-title" = "Vous êtes abonné(e) !";
 "talk-page-title-article-talk" = "Discussion de l’article";
 "talk-page-title-user-talk" = "Discussion de l’utilisateur";
@@ -1119,7 +1119,7 @@
 "welcome-explore-new-ways-title" = "Nouvelles voies à explorer";
 "welcome-explore-tell-me-more-done-button" = "J’ai compris";
 "welcome-intro-free-encyclopedia-description" = "Wikipédia est écrit de façon collaborative par des bénévoles et consiste en plus de 40 millions d’articles dans plus de 300 langues.";
-"welcome-intro-free-encyclopedia-more" = "En apprendre plus concernant Wikipédia";
+"welcome-intro-free-encyclopedia-more" = "En savoir plus sur Wikipédia";
 "welcome-intro-free-encyclopedia-more-about" = "À propos de Wikipédia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipédia est un projet global pour construire des encyclopédies libres dans toutes les langues du monde. Virtuellement, n’importe qui avec un accès à Internet est libre de participer en fournissant des informations neutres et citées.";
 "welcome-intro-free-encyclopedia-title" = "L’encyclopédie libre";

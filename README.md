@@ -9,7 +9,7 @@ The official Wikipedia iOS app.
 * **Planning (bugs & features)**: https://phabricator.wikimedia.org/project/view/782/
 * **Team page**: https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS
 
-**Note: The latest `main` branch is set up to build with Xcode 14.0.0.**
+**Note: The latest `main` branch is set up to build with Xcode 14.0.1.**
 
 ## Building and Running
 
