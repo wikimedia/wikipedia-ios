@@ -436,7 +436,7 @@ class TalkPageViewController: ViewController {
     }
 
     private func changeTalkPageLanguage(_ siteURL: URL, pageTitle: String) {
-        viewModel.pageTitle = "Talk:\(pageTitle)"
+        viewModel.pageTitle = pageTitle
         
         viewModel.siteURL = siteURL
         viewModel.dataController = TalkPageDataController(pageType: viewModel.pageType, pageTitle: viewModel.pageTitle, siteURL: siteURL, articleSummaryController: viewModel.dataController.articleSummaryController)
@@ -686,16 +686,22 @@ extension TalkPageViewController: WMFPreferredLanguagesViewControllerDelegate {
 
         let selectedLanguage = language.contentLanguageCode
 
-        guard let newSiteURL = language.articleURL.wmf_site,
-              let newPageTitle = language.articleURL.wmf_title else {
-            return
-        }
+        if viewModel.pageType == .article {
+            guard let newSiteURL = language.articleURL.wmf_site,
+                  let newPageTitle = language.articleURL.wmf_title else {
+                return
+            }
 
-        if selectedLanguage != currentLanguage {
-//            viewModel.siteURL = newSiteURL
-//            viewModel.pageTitle = newPageTitle
-            changeTalkPageLanguage(newSiteURL, pageTitle: newPageTitle)
+            if selectedLanguage != currentLanguage {
+                changeTalkPageLanguage(newSiteURL, pageTitle: "Talk:\(newPageTitle)")
+            }
+        } else {
+            
+            let newSiteURL = language.siteURL
+            changeTalkPageLanguage(newSiteURL, pageTitle: viewModel.pageTitle)
+            
         }
+        
 
         controller.dismiss(animated: true)
     }
