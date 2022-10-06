@@ -49,6 +49,7 @@ struct TalkPageTopicReplyOnboardingView: View {
                     Spacer(minLength: 31)
                     Text(LocalizedStrings.body)
                         .font(.callout)
+                        .foregroundColor(Color(theme.colors.primaryText))
                 }
                 .padding(sizeClassPadding)
             }
