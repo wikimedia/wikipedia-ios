@@ -277,8 +277,9 @@ class TalkPageViewController: ViewController {
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
         navVC.presentationController?.delegate = self
-        present(navVC, animated: true, completion: nil)
-        presentTopicReplyOnboardingIfNecessary()
+        present(navVC, animated: true, completion: { [weak self] in
+            self?.presentTopicReplyOnboardingIfNecessary()
+        })
     }
     
     fileprivate func setupToolbar() {
