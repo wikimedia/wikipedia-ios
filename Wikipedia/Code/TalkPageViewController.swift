@@ -121,6 +121,8 @@ class TalkPageViewController: ViewController {
     }
     
     fileprivate func fetchTalkPage() {
+        navigationBar.removeUnderNavigationBarView()
+        self.headerView = nil
         fakeProgressController.start()
         viewModel.fetchTalkPage { [weak self] result in
 
@@ -170,14 +172,16 @@ class TalkPageViewController: ViewController {
 
     private func setupHeaderView() {
         
-        guard self.headerView == nil else {
-            return
+        if self.headerView != nil {
+            navigationBar.removeUnderNavigationBarView()
+            self.headerView = nil
         }
-        
+
         let headerView = TalkPageHeaderView()
         self.headerView = headerView
-        
+
         headerView.configure(viewModel: viewModel)
+        print(viewModel.siteURL)
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = true
         navigationBar.allowsUnderbarHitsFallThrough = true
@@ -217,7 +221,6 @@ class TalkPageViewController: ViewController {
                 var talkPageURLComponents = URLComponents(url: viewModel.siteURL, resolvingAgainstBaseURL: false)
                 talkPageURLComponents?.path = "/wiki/\(articleTitle)"
                 if let urlValue = talkPageURLComponents?.url {
-                    print(urlValue)
                     let languageVC = WMFArticleLanguagesViewController(articleURL: urlValue)
                     languageVC.delegate = self
                     present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.theme), animated: true, completion: nil)
@@ -434,11 +437,14 @@ class TalkPageViewController: ViewController {
     }
 
     private func changeTalkPageLanguage(_ siteURL: URL, pageTitle: String) {
-        viewModel.pageTitle = pageTitle
+        viewModel.pageTitle = "Talk:\(pageTitle)"
+        
         viewModel.siteURL = siteURL
         viewModel.dataController = TalkPageDataController(pageType: viewModel.pageType, pageTitle: viewModel.pageTitle, siteURL: siteURL, articleSummaryController: viewModel.dataController.articleSummaryController)
-        talkPageSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: siteURL.wmf_contentLanguageCode)
+
         fetchTalkPage()
+
+        talkPageSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: siteURL.wmf_contentLanguageCode)
     }
 }
 
