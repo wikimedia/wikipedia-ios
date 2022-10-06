@@ -181,7 +181,6 @@ class TalkPageViewController: ViewController {
         self.headerView = headerView
 
         headerView.configure(viewModel: viewModel)
-        print(viewModel.siteURL)
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = true
         navigationBar.allowsUnderbarHitsFallThrough = true
