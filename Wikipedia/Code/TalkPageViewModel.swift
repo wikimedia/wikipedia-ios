@@ -79,8 +79,8 @@ final class TalkPageViewModel {
                 self.updateSubscriptionForTopic(topicNames: result.subscribedTopicNames)
                 completion(.success(()))
             case .failure(let error):
-                completion(.failure(error))
                 DDLogError("Failure fetching talk page: \(error)")
+                completion(.failure(error))
                 // TODO: Error handling
             }
         }
