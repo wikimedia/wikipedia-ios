@@ -1,23 +1,28 @@
 import Foundation
 
+public struct SharedContainerCacheCommonFileNames {
+    public static let pushNotificationsCache = "Push Notifications Cache"
+    public static let talkPageCache = "Talk Page Cache"
+}
+
 public final class SharedContainerCache<T: Codable>: SharedContainerCacheHousekeepingProtocol {
 
     private let fileName: String
     private let subdirectoryPathComponent: String?
     private let defaultCache: () -> T
     
-    public init(fileName: String, subdirectoryPathComponent: String? = String(), defaultCache: @escaping () -> T) {
+    public init(fileName: String, subdirectoryPathComponent: String? = nil, defaultCache: @escaping () -> T) {
         self.fileName = fileName
         self.subdirectoryPathComponent = subdirectoryPathComponent
         self.defaultCache = defaultCache
     }
     
-    private var cacheDirectoryContainerURL: URL {
+    private static var cacheDirectoryContainerURL: URL {
         FileManager.default.wmf_containerURL()
     }
     
     private var cacheDataFileURL: URL {
-        let baseURL = subdirectoryURL() ?? cacheDirectoryContainerURL
+        let baseURL = subdirectoryURL() ?? Self.cacheDirectoryContainerURL
         return baseURL.appendingPathComponent(fileName).appendingPathExtension("json")
     }
     
@@ -25,7 +30,7 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
         guard let subdirectoryPathComponent = subdirectoryPathComponent else {
             return nil
         }
-        return cacheDirectoryContainerURL.appendingPathComponent(subdirectoryPathComponent, isDirectory: true)
+        return Self.cacheDirectoryContainerURL.appendingPathComponent(subdirectoryPathComponent, isDirectory: true)
     }
 
     public func loadCache() -> T {
@@ -50,8 +55,8 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
     }
 
     /// Persist only the last 50 visited talk pages
-    @objc public func deleteStaleCachedItems(for folder: String) {
-        let folderURL = cacheDirectoryContainerURL.appendingPathComponent(folder)
+    @objc public static func deleteStaleCachedItems(in subdirectoryPathComponent: String) {
+        let folderURL = cacheDirectoryContainerURL.appendingPathComponent(subdirectoryPathComponent)
 
         if let urlArray = try? FileManager.default.contentsOfDirectory(at: folderURL,
                                                                        includingPropertiesForKeys: [.contentModificationDateKey],
@@ -74,5 +79,5 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
 }
 
 @objc public protocol SharedContainerCacheHousekeepingProtocol: AnyObject {
-    func deleteStaleCachedItems(for folder: String)
+    static func deleteStaleCachedItems(in subdirectoryPathComponent: String)
 }

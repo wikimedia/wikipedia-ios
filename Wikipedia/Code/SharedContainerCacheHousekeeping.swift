@@ -1,11 +1,10 @@
 import Foundation
 import WMF
 
-@objc public class SharedContainerCacheHousekeeping: NSObject {
-    @objc public var housekeeping: SharedContainerCacheHousekeepingProtocol {
-        let talkPageCache = SharedContainerCache<TalkPageCache>.init(fileName: String(), subdirectoryPathComponent: "Talk Page Cache", defaultCache: {
-            TalkPageCache(talkPages: [])
-        })
-        return talkPageCache
+@objc public class SharedContainerCacheHousekeeping: NSObject, SharedContainerCacheHousekeepingProtocol {
+    public static func deleteStaleCachedItems(in subdirectoryPathComponent: String) {
+        SharedContainerCache<TalkPageCache>.deleteStaleCachedItems(in: SharedContainerCacheCommonFileNames.talkPageCache)
     }
+
+
 }
