@@ -141,7 +141,7 @@ final class RemoteNotificationsModelController {
         try batchDeleteBlock(libraryRequest, backgroundContext)
         
         // remove notifications from shared cache (referenced by the NotificationsService extension)
-        let sharedCache = SharedContainerCache<PushNotificationsCache>.init(fileName: SharedContainerCacheCommonFileNames.pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
+        let sharedCache = SharedContainerCache<PushNotificationsCache>.init(fileName: SharedContainerCacheCommonNames.pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
         var cache = sharedCache.loadCache()
         cache.notifications = []
         cache.currentUnreadCount = 0

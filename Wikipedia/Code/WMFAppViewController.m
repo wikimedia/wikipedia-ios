@@ -142,8 +142,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.theme = [[NSUserDefaults standardUserDefaults] themeCompatibleWith:self.traitCollection];
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
-    [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn: @"Talk Page Cache"];
-
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(navigateToActivityNotification:)
@@ -637,7 +635,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
 
     /// Housekeeping for the new talk page cache
-    [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn: @"Talk Page Cache"];
+    [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn: SharedContainerCacheCommonNames.talkPageCache];
 
     completion(housekeepingError);
 }

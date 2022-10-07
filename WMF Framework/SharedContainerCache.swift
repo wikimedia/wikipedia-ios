@@ -1,8 +1,8 @@
 import Foundation
 
-public struct SharedContainerCacheCommonFileNames {
-    public static let pushNotificationsCache = "Push Notifications Cache"
-    public static let talkPageCache = "Talk Page Cache"
+@objc public class SharedContainerCacheCommonNames: NSObject {
+    @objc public static let pushNotificationsCache = "Push Notifications Cache"
+    @objc public static let talkPageCache = "Talk Page Cache"
 }
 
 public final class SharedContainerCache<T: Codable>: SharedContainerCacheHousekeepingProtocol {
