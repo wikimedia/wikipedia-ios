@@ -1050,6 +1050,12 @@
 "talk-page-user-contributions" = "תרומות";
 "talk-pages-coffee-roll-read-more" = "לקרוא עוד";
 "talk-pages-comment-added-alert-title" = "התגובה שלך נוספה";
+"talk-pages-empty-view-body-article" = "דפי שיחה הם המקום שבו אנשים דנים איך להפוך את התוכן בוויקיפדיה לטוב ביותר שהוא יכול להיות. **יש להתחיל בהוספת נושא דיון חדש** כדי להתחבר ולשתף פעולה עם קהילה של ויקיפדים.";
+"talk-pages-empty-view-body-user" = "דפי שיחה הם המקום שבו אנשים דנים איך להפוך את התוכן בוויקיפדיה לטוב ביותר שהוא יכול להיות. יש להתחיל דיון חדש כדי להתחבר ולשתף פעולה עם $1. מה שייאמר כאן יהיה פומבי לעיני אחרים.";
+"talk-pages-empty-view-button-article-add-topic" = "להוסיף נושא חדש";
+"talk-pages-empty-view-button-user-start-discussion" = "להתחיל דיון";
+"talk-pages-empty-view-header-article" = "השיחה מתחילה כאן";
+"talk-pages-empty-view-header-user" = "להתחיל דיון עם $1";
 "talk-pages-reply-button-title" = "השב לדיון זה";
 "talk-pages-topic-added-alert-title" = "הנושא שלך נוסף";
 "talk-pages-topic-compose-body-placeholder" = "תיאור";
