@@ -8,6 +8,8 @@ class TalkPageViewController: ViewController {
 
     fileprivate let viewModel: TalkPageViewModel
     fileprivate var headerView: TalkPageHeaderView?
+
+    fileprivate var topicReplyOnboardingHostingViewController: TalkPageTopicReplyOnboardingHostingController?
     
     fileprivate lazy var shareButton: IconBarButtonItem = IconBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(userDidTapShareButton))
     
@@ -154,10 +156,10 @@ class TalkPageViewController: ViewController {
                 self.talkPageView.configure(viewModel: self.viewModel)
                 self.talkPageView.emptyView.actionButton.addTarget(self, action: #selector(self.userDidTapAddTopicButton), for: .primaryActionTriggered)
                 self.updateEmptyStateVisibility()
-                self.talkPageView.collectionView.reloadData()
             case .failure:
                 break
             }
+            self.talkPageView.collectionView.reloadData()
         }
         
         setupToolbar()
@@ -275,7 +277,9 @@ class TalkPageViewController: ViewController {
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
         navVC.presentationController?.delegate = self
-        present(navVC, animated: true, completion: nil)
+        present(navVC, animated: true, completion: { [weak self] in
+            self?.presentTopicReplyOnboardingIfNecessary()
+        })
     }
     
     fileprivate func setupToolbar() {
@@ -491,6 +495,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
 
 extension TalkPageViewController: TalkPageCellReplyDelegate {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel) {
+        presentTopicReplyOnboardingIfNecessary()
         replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel)
     }
 }
@@ -626,5 +631,29 @@ extension TalkPageViewController: TalkPageTextViewLinkHandling {
             return
         }
         navigate(to: url.absoluteURL)
+    }
+}
+
+extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
+
+    func presentTopicReplyOnboardingIfNecessary() {
+        guard !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages else {
+            return
+        }
+
+        let topicReplyOnboardingHostingViewController = TalkPageTopicReplyOnboardingHostingController(theme: theme)
+        topicReplyOnboardingHostingViewController.delegate = self
+        topicReplyOnboardingHostingViewController.modalPresentationStyle = .pageSheet
+        self.topicReplyOnboardingHostingViewController = topicReplyOnboardingHostingViewController
+
+        if let presentedViewController = presentedViewController {
+            presentedViewController.present(topicReplyOnboardingHostingViewController, animated: true)
+        } else {
+            present(topicReplyOnboardingHostingViewController, animated: true)
+        }
+    }
+
+    func userDidDismissTopicReplyOnboardingView() {
+        UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages = true
     }
 }
