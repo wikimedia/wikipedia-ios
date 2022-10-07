@@ -425,6 +425,8 @@
 "talk-page-subscribe-to-topic" = "सदस्यता लिनुहोस्";
 "talk-page-unsubscribe-to-topic" = "सदस्यता खारेज गर्नुहोस्";
 "talk-pages-coffee-roll-read-more" = "थप पढ्नुहोस्";
+"talk-pages-empty-view-button-article-add-topic" = "नयाँ विषय थप्नुहोस्";
+"talk-pages-empty-view-button-user-start-discussion" = "छलफल सुरु गर्नुहोस्";
 "talk-pages-topic-added-alert-title" = "तपाईंको विषय थपियो।";
 "talk-pages-topic-compose-body-placeholder" = "वर्णन";
 "talk-pages-topic-compose-close-confirmation-discard" = "विषय खारेज गर्नुहोस्";

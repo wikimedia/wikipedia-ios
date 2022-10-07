@@ -394,6 +394,8 @@
 "table-of-contents-close-accessibility-hint" = "বন্ধ করুন";
 "table-of-contents-close-accessibility-label" = "বিষয়বস্তুর সূচিপত্র বন্ধ করুন";
 "table-of-contents-heading" = "পরিচ্ছেদসমূহ";
+"talk-pages-empty-view-button-article-add-topic" = "একটি নতুন প্রসঙ্গ যোগ করুন";
+"talk-pages-empty-view-button-user-start-discussion" = "একটি আলোচনা শুরু করুন";
 "talk-pages-view-title" = "আলাপ";
 "theme-dark-display-name" = "আঁধার";
 "theme-default-display-name" = "পূর্বনির্ধারিত";
