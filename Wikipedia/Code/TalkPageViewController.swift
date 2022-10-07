@@ -156,10 +156,10 @@ class TalkPageViewController: ViewController {
                 self.talkPageView.configure(viewModel: self.viewModel)
                 self.talkPageView.emptyView.actionButton.addTarget(self, action: #selector(self.userDidTapAddTopicButton), for: .primaryActionTriggered)
                 self.updateEmptyStateVisibility()
-                self.talkPageView.collectionView.reloadData()
             case .failure:
                 break
             }
+            self.talkPageView.collectionView.reloadData()
         }
         
         setupToolbar()
