@@ -112,17 +112,23 @@ class TalkPageDataController {
     }
 
     private func cachedFileName() -> String {
-        guard let languageCode = siteURL.wmf_contentLanguageCode else {
-            return "en"
+        let host = siteURL.host ?? ""
+        let fileNameSuffix = pageTitle
+
+        let fileNamePrefix: String
+        if let contentLanguageCode = siteURL.wmf_contentLanguageCode {
+            fileNamePrefix = "\(host)-\(contentLanguageCode)"
+        } else {
+            fileNamePrefix = host
         }
-        let page = pageTitle.replacingOccurrences(of: ":", with: " ")
-        let pageTitleWithLanguage = "\(languageCode)-\(page)"
-        return pageTitleWithLanguage
+
+        let unencodedFileName = "\(fileNamePrefix)-\(fileNameSuffix)"
+        return unencodedFileName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? unencodedFileName
     }
 
     private func fetchTalkPageItems(dispatchGroup group: DispatchGroup, completion: @escaping ([TalkPageItem], [Error]) -> Void) {
         
-        let sharedCache = SharedContainerCache<TalkPageCache>.init(fileName: cachedFileName(), subdirectoryPathComponent: "Talk Page Cache", defaultCache: {
+        let sharedCache = SharedContainerCache<TalkPageCache>.init(fileName: cachedFileName(), subdirectoryPathComponent: SharedContainerCacheCommonFileNames.talkPageCache, defaultCache: {
             TalkPageCache(talkPages: [])
         })
         var cache = sharedCache.loadCache()
