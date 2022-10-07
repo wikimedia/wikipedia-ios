@@ -273,6 +273,14 @@
 		00E2EA8F26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E2EA8D26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift */; };
 		00E2EA9026E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E2EA8D26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift */; };
 		00E2EA9126E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E2EA8D26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift */; };
+		00E5B39F28EB8E2100D2C51A /* TalkPageTopicReplyOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5B39E28EB8E2100D2C51A /* TalkPageTopicReplyOnboardingView.swift */; };
+		00E5B3A028EB8E2100D2C51A /* TalkPageTopicReplyOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5B39E28EB8E2100D2C51A /* TalkPageTopicReplyOnboardingView.swift */; };
+		00E5B3A128EB8E2100D2C51A /* TalkPageTopicReplyOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5B39E28EB8E2100D2C51A /* TalkPageTopicReplyOnboardingView.swift */; };
+		00E5B3A228EB8E2100D2C51A /* TalkPageTopicReplyOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5B39E28EB8E2100D2C51A /* TalkPageTopicReplyOnboardingView.swift */; };
+		00E5B3A428EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5B3A328EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift */; };
+		00E5B3A528EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5B3A328EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift */; };
+		00E5B3A628EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5B3A328EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift */; };
+		00E5B3A728EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5B3A328EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift */; };
 		00E75B5D27EB874A00A45B78 /* NotificationsCenterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E75B5C27EB874A00A45B78 /* NotificationsCenterDetailViewController.swift */; };
 		00E75B5E27EB874A00A45B78 /* NotificationsCenterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E75B5C27EB874A00A45B78 /* NotificationsCenterDetailViewController.swift */; };
 		00E75B5F27EB874A00A45B78 /* NotificationsCenterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E75B5C27EB874A00A45B78 /* NotificationsCenterDetailViewController.swift */; };
@@ -3965,6 +3973,8 @@
 		00DEE61828AD6C9500A60DF9 /* TalkPageCellCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCellCommentViewModel.swift; sourceTree = "<group>"; };
 		00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellStyle.swift; sourceTree = "<group>"; };
 		00E2EA8D26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellDisplayState.swift; sourceTree = "<group>"; };
+		00E5B39E28EB8E2100D2C51A /* TalkPageTopicReplyOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageTopicReplyOnboardingView.swift; sourceTree = "<group>"; };
+		00E5B3A328EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageTopicReplyOnboardingHostingController.swift; sourceTree = "<group>"; };
 		00E75B5C27EB874A00A45B78 /* NotificationsCenterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewController.swift; sourceTree = "<group>"; };
 		00E75B6127EB87DC00A45B78 /* NotificationsCenterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailView.swift; sourceTree = "<group>"; };
 		00E75B6627EB927B00A45B78 /* NotificationsCenterDetailActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailActionCell.swift; sourceTree = "<group>"; };
@@ -6213,6 +6223,7 @@
 			isa = PBXGroup;
 			children = (
 				83ACF8EA28E5D7E3000F3B6F /* Model */,
+				00E5B39D28EB8E0600D2C51A /* Onboarding */,
 				0072990428AC44C100DCD2E6 /* Cell UI Elements */,
 				836BF56D2869F9C200B98321 /* TalkPageViewController.swift */,
 				00D1F58E28885BA300127169 /* TalkPageViewModel.swift */,
@@ -6231,6 +6242,15 @@
 				00EACEC528E39D470054DDB4 /* TalkPageEmptyView.swift */,
 			);
 			name = "Talk Pages";
+			sourceTree = "<group>";
+		};
+		00E5B39D28EB8E0600D2C51A /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				00E5B39E28EB8E2100D2C51A /* TalkPageTopicReplyOnboardingView.swift */,
+				00E5B3A328EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift */,
+			);
+			name = Onboarding;
 			sourceTree = "<group>";
 		};
 		041A3B5718E11ED90079FF1C /* Languages */ = {
@@ -11670,6 +11690,7 @@
 				6761AEF72707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */,
 				0EE489031D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift in Sources */,
 				00D1F58F28885BA300127169 /* TalkPageViewModel.swift in Sources */,
+				00E5B3A428EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift in Sources */,
 				7A9F060D2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				007F5C6D275AA74200E4B02C /* StackedImageLabelView.swift in Sources */,
 				7AA96D5C21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
@@ -11742,6 +11763,7 @@
 				6798332922C3F28A0073CE6F /* UITextView+Extensions.swift in Sources */,
 				B031032D1F677BEC00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
 				7AE99B2E21CC53AB0092BE7F /* TextFontFormattingTableViewController.swift in Sources */,
+				00E5B39F28EB8E2100D2C51A /* TalkPageTopicReplyOnboardingView.swift in Sources */,
 				6782DBC12343FDCA003FA21B /* DiffListChangeCell.swift in Sources */,
 				7A32078821E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
 				00AA5AA7276BF29E005295B0 /* StatusTextBarButtonItem.swift in Sources */,
@@ -12627,6 +12649,7 @@
 				6761AEFA2707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */,
 				7A9F06102266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				00D1F59228885BA300127169 /* TalkPageViewModel.swift in Sources */,
+				00E5B3A728EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift in Sources */,
 				007F5C70275AA74200E4B02C /* StackedImageLabelView.swift in Sources */,
 				D8A42B1F1E815A9C00D8E281 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				0042812025E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */,
@@ -12699,6 +12722,7 @@
 				BA7683C71F30D87D00A487AA /* ProminentSwitch.swift in Sources */,
 				6782DBAC2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				D8A42B4B1E815A9C00D8E281 /* WMFLanguageCell.m in Sources */,
+				00E5B3A228EB8E2100D2C51A /* TalkPageTopicReplyOnboardingView.swift in Sources */,
 				7A1469C0220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
 				6798332C22C3F2950073CE6F /* UITextView+Extensions.swift in Sources */,
 				00AA5AAA276BF29E005295B0 /* StatusTextBarButtonItem.swift in Sources */,
@@ -13204,6 +13228,7 @@
 				D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */,
 				671DF9C725F2AE4F0011799E /* ShortDescriptionController.swift in Sources */,
 				D8CE25A91E698E2400DAE2E0 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
+				00E5B3A128EB8E2100D2C51A /* TalkPageTopicReplyOnboardingView.swift in Sources */,
 				8367A28020D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				7AE99B2921CC4F420092BE7F /* TextSizeFormattingTableViewController.swift in Sources */,
 				83927D7C1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
@@ -13316,6 +13341,7 @@
 				7AF56C3621DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				7A610CBE220A582A00C266AE /* HintController.swift in Sources */,
 				7A2BB1D521F27AC5004C0FDF /* WKWebView+OffsetHack.swift in Sources */,
+				00E5B3A628EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift in Sources */,
 				7A9F061A2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
 				D8CE25EA1E698E2400DAE2E0 /* WMFForgotPasswordViewController.swift in Sources */,
 				D8E6FF6824054FA100686272 /* ArticleViewController+LinkPreviewing.swift in Sources */,
@@ -13774,6 +13800,7 @@
 				8367A28120D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				671DF9C625F2AE4F0011799E /* ShortDescriptionController.swift in Sources */,
 				D8EC3EA61E9BDA35006712EB /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
+				00E5B3A028EB8E2100D2C51A /* TalkPageTopicReplyOnboardingView.swift in Sources */,
 				6747117F250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift in Sources */,
 				7AE99B2A21CC4F420092BE7F /* TextSizeFormattingTableViewController.swift in Sources */,
 				BAC6EEC91F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
@@ -13886,6 +13913,7 @@
 				D8EC3EE41E9BDA35006712EB /* NSString+FormattedAttributedString.m in Sources */,
 				7A610CBF220A582A00C266AE /* HintController.swift in Sources */,
 				7A9F061B2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
+				00E5B3A528EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift in Sources */,
 				7A2BB1D621F27AC5004C0FDF /* WKWebView+OffsetHack.swift in Sources */,
 				FF92187C252F7EA300C39A8F /* ThanksGiving.swift in Sources */,
 				D8E6FF6924054FA100686272 /* ArticleViewController+LinkPreviewing.swift in Sources */,
