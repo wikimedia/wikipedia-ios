@@ -330,8 +330,8 @@ class TalkPageTopicComposeViewController: ViewController {
         return attributedString
     }
     
-    private func evaluatePublishButtonEnabledState() {
-        publishButton.isEnabled = !(titleTextField.text ?? "").isEmpty && !bodyTextView.text.isEmpty
+    private func evaluatePublishButtonEnabledState() {        
+        publishButton.isEnabled = !(titleTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !bodyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
     // MARK: Actions
