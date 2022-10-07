@@ -17,7 +17,7 @@ struct TalkPageThreadItems: Codable {
     }
 }
 
-struct TalkPageItem: Hashable, Codable {
+struct TalkPageItem: Codable {
     let type: TalkPageItemType
     let level: Int?
     let id: String

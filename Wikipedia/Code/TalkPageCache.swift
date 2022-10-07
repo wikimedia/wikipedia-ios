@@ -2,9 +2,9 @@ import Foundation
 
 struct TalkPageCache: Codable {
     
-    var talkPages: [TalkPageItem]
+    var talkPageItems: [TalkPageItem]
     
     init(talkPages: [TalkPageItem]) {
-        self.talkPages = talkPages
+        self.talkPageItems = talkPages
     }
 }

@@ -143,11 +143,11 @@ class TalkPageDataController {
                 
                 switch result {
                 case .success(let items):
-                    cache.talkPages = items
+                    cache.talkPageItems = items
                     sharedCache.saveCache(cache)
                     completion(items, [])
                 case .failure(let error):
-                    completion(cache.talkPages, [error])
+                    completion(cache.talkPageItems, [error])
                 }
             }
         }
