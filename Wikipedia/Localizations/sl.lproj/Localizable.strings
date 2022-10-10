@@ -277,7 +277,7 @@
 "explore-potd-heading" = "Slika dneva";
 "explore-random-article-heading" = "Naključni članek";
 "field-alert-token-invalid" = "Neveljavna koda";
-"field-email-placeholder" = "primer@primer.org";
+"field-email-placeholder" = "zgled@zgled.org";
 "field-email-title" = "E-pošta";
 "field-email-title-optional" = "E-pošta (izbirno)";
 "field-new-password-confirm-title" = "Potrditev gesla";
@@ -349,6 +349,7 @@
 "nearby-distance-label-miles" = "$1 milj";
 "new-password-title" = "Nastavite svoje geslo";
 "notifications-center-empty-not-subscribed" = "Trenutno niste naročeni na nobena obvestila Wikipedije";
+"notifications-center-go-to-article-talk-format" = "Pogovorna stran za $1";
 "notifications-center-mark-as-read" = "Označi kot prebrano";
 "notifications-center-mark-as-unread" = "Označi kot neprebrano";
 "notifications-center-status-all" = "Vse";
@@ -429,6 +430,12 @@
 "talk-page-user-about" = "O uporabniških pogovornih straneh";
 "talk-page-user-contributions" = "Prispevki";
 "talk-pages-comment-added-alert-title" = "Vaš komentar je dodan";
+"talk-pages-empty-view-body-article" = "Pogovorne strani so namenjene pogovorom o tem, kako čim bolj izboljšati vsebino v Wikipediji. **Začnite z dodajanjem nove pogovorne teme**, da se povežete in sodelujete s skupnostjo Wikipedistov.";
+"talk-pages-empty-view-body-user" = "Pogovorne strani so namenjene pogovorom o tem, kako čim bolj izboljšati vsebino v Wikipediji. Začnite nov pogovor, da se povežete in začnete sodelovati z $1. Kar boste tukaj objavili, bodo drugi lahko videli.";
+"talk-pages-empty-view-button-article-add-topic" = "Dodaj novo temo";
+"talk-pages-empty-view-button-user-start-discussion" = "Začni pogovor";
+"talk-pages-empty-view-header-article" = "Pogovor se začne tukaj";
+"talk-pages-empty-view-header-user" = "Začnite pogovor z $1";
 "talk-pages-topic-added-alert-title" = "Vaša tema je dodana";
 "talk-pages-topic-compose-body-placeholder" = "Opis";
 "talk-pages-topic-compose-close-confirmation-discard" = "Zavrzi temo";

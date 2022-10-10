@@ -21,7 +21,7 @@ public final class WidgetController: NSObject {
     // MARK: Properties
 
 	@objc public static let shared = WidgetController()
-    private let sharedCache = SharedContainerCache<WidgetCache>(pathComponent: .widgetCache, defaultCache: { WidgetCache(settings: .default, featuredContent: nil) })
+    private let sharedCache = SharedContainerCache<WidgetCache>(fileName: "Widget Cache", defaultCache: { WidgetCache(settings: .default, featuredContent: nil) })
 
     // MARK: Public
 

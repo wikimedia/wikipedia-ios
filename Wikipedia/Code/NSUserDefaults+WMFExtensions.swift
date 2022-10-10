@@ -27,6 +27,7 @@ let WMFAppInstallId = "WMFAppInstallId"
 let WMFSendUsageReports = "WMFSendUsageReports"
 let WMFShowNotificationsExploreFeedCard = "WMFShowNotificationsExploreFeedCard"
 let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificationsCenter"
+let WMFUserHasOnboardedToContributingToTalkPages = "WMFUserHasOnboardedToContributingToTalkPages"
 let WMFDidShowNotificationsCenterPushOptInPanel = "WMFDidShowNotificationsCenterPushOptInPanel"
 let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
 
@@ -415,6 +416,15 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
         }
         set {
             set(newValue, forKey: WMFUserHasOnboardedToNotificationsCenter)
+        }
+    }
+
+    @objc var wmf_userHasOnboardedToContributingToTalkPages: Bool {
+        get {
+            return bool(forKey: WMFUserHasOnboardedToContributingToTalkPages)
+        }
+        set {
+            set(newValue, forKey: WMFUserHasOnboardedToContributingToTalkPages)
         }
     }
 

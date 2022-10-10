@@ -1023,6 +1023,12 @@
 "talk-page-user-contributions" = "Contributions";
 "talk-pages-coffee-roll-read-more" = "Read more";
 "talk-pages-comment-added-alert-title" = "Your comment was added";
+"talk-pages-empty-view-body-article" = "Talk pages are where people discuss how to make content on Wikipedia the best that it can be. **Start by adding a new discussion topic** to connect and collaborate with a community of Wikipedians.";
+"talk-pages-empty-view-body-user" = "Talk pages are where people discuss how to make content on Wikipedia the best that it can be. Start a new discussion to connect and collaborate with $1. What you say here will be public for others to see.";
+"talk-pages-empty-view-button-article-add-topic" = "Add a new topic";
+"talk-pages-empty-view-button-user-start-discussion" = "Start a discussion";
+"talk-pages-empty-view-header-article" = "The conversation starts here";
+"talk-pages-empty-view-header-user" = "Start a discussion with $1";
 "talk-pages-reply-button-title" = "Reply to this discussion";
 "talk-pages-topic-added-alert-title" = "Your topic was added";
 "talk-pages-topic-compose-body-placeholder" = "Description";
@@ -1031,6 +1037,8 @@
 "talk-pages-topic-compose-close-confirmation-title" = "Are you sure you want to discard this new topic?";
 "talk-pages-topic-compose-navbar-title" = "Topic";
 "talk-pages-topic-compose-title-placeholder" = "Topic title";
+"talk-pages-topic-reply-onboarding-body" = "Talk pages are where people discuss how to make content on Wikipedia the best that it can be. Add a new discussion topic to connect and collaborate with a community of Wikipedians.\n\nPlease be kind, we are all humans here.";
+"talk-pages-topic-reply-onboarding-title" = "Talk pages";
 "talk-pages-user-groups" = "User groups";
 "talk-pages-user-logs" = "Logs";
 "talk-pages-view-title" = "Talk";
