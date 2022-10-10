@@ -203,26 +203,21 @@ class TalkPageViewController: ViewController {
         if viewModel.pageType == .user {
             let languageVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
             languageVC.delegate = self
-
             if let themeableVC = languageVC as Themeable? {
                 themeableVC.apply(theme: self.theme)
             }
             present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.theme), animated: true, completion: nil)
-
         } else if viewModel.pageType == .article {
-            guard let languageCode  = viewModel.siteURL.wmf_contentLanguageCode else {
+            guard let languageCode  = viewModel.siteURL.wmf_languageCode else {
                 return
             }
             if let articleTitle = viewModel.pageTitle.extractingArticleTitleFromTalkPage(languageCode: languageCode)?.denormalizedPageTitle {
-                var talkPageURLComponents = URLComponents(url: viewModel.siteURL, resolvingAgainstBaseURL: false)
-                talkPageURLComponents?.path = "/wiki/\(articleTitle)"
-                if let urlValue = talkPageURLComponents?.url {
-                    let languageVC = WMFArticleLanguagesViewController(articleURL: urlValue)
+                if let articleURL = viewModel.siteURL.wmf_URL(withTitle: articleTitle) {
+                    let languageVC = WMFArticleLanguagesViewController(articleURL: articleURL)
                     languageVC.delegate = self
                     present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.theme), animated: true, completion: nil)
                 }
             }
-
         }
     }
 
