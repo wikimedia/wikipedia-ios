@@ -214,8 +214,19 @@ class TalkPageViewController: ViewController {
     
     let replyComposeController = TalkPageReplyComposeController()
     
+    private var isClosing: Bool = false
+    
+    override var keyboardIsIncludedInBottomContentInset: Bool {
+        return false
+    }
+    
     override var additionalBottomContentInset: CGFloat {
-        return replyComposeController.additionalBottomContentInset
+
+        if let replyComposeView = replyComposeController.containerView {
+            return max(0, toolbar.frame.minY - replyComposeView.frame.minY)
+        }
+
+        return 0
     }
     
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
@@ -479,7 +490,6 @@ extension TalkPageViewController: TalkPageCellDelegate {
                 // TODO: Error handling
             }
         }
- 
     }
 
     // MARK: - Empty State
@@ -501,8 +511,8 @@ extension TalkPageViewController: TalkPageCellReplyDelegate {
 }
 
 extension TalkPageViewController: TalkPageReplyComposeDelegate {
-    func tappedClose() {
-        replyComposeController.reset()
+    func closeReplyView() {
+        replyComposeController.closeAndReset()
     }
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
@@ -513,7 +523,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
 
             switch result {
             case .success:
-                self?.replyComposeController.reset()
+                self?.replyComposeController.closeAndReset()
                 
                 // Try to refresh page
                 self?.viewModel.fetchTalkPage { [weak self] result in
