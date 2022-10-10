@@ -1036,8 +1036,10 @@
 "talk-page-topic-title" = "Обговорення";
 "talk-page-unsubscribe-to-topic" = "Відписатись";
 "talk-page-unsubscribed-alert-title" = "Ви скасували підписку.";
+"talk-page-user-about" = "Про сторінки обговорення користувачів";
 "talk-page-user-contributions" = "Внесок";
 "talk-pages-coffee-roll-read-more" = "Читати більше";
+"talk-pages-comment-added-alert-title" = "Ваш коментар був доданий";
 "talk-pages-reply-button-title" = "Відповісти в цьому обговоренні";
 "talk-pages-topic-compose-navbar-title" = "Тема";
 "talk-pages-view-title" = "Обговорення";
@@ -1069,6 +1071,7 @@
 "vanish-account-back-confirm-title" = "Ви впевнені, що бажаєте відхилити цей запит на знищення?";
 "vanish-account-button-text" = "Надіслати запит";
 "vanish-account-email-text" = "Вітаю,\nЦе запит на видалення мого облікового запису Вікіпедії.";
+"vanish-account-learn-more-text" = "Дізнайтесь більше";
 "vanish-account-title" = "Процес зникнення";
 "vanish-account-username-field" = "Ім'я користувача та сторінка користувача";
 "vanish-modal-item" = "Якщо ви виконали ваш запит на зникнення, зачекайте кілька днів, щоб запит обробив адміністратор";
