@@ -6,8 +6,6 @@ class TalkPageViewController: ViewController {
 
     // MARK: - Properties
 
-    private(set) var talkPageSemanticContentAttribute: UISemanticContentAttribute
-
     fileprivate let viewModel: TalkPageViewModel
     fileprivate var headerView: TalkPageHeaderView?
     
@@ -106,7 +104,6 @@ class TalkPageViewController: ViewController {
     init(theme: Theme, viewModel: TalkPageViewModel) {
         self.viewModel = viewModel
         let contentLanguageCode = viewModel.siteURL.wmf_contentLanguageCode
-        talkPageSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
         super.init(theme: theme)
     }
     
@@ -442,8 +439,6 @@ class TalkPageViewController: ViewController {
         viewModel.dataController = TalkPageDataController(pageType: viewModel.pageType, pageTitle: viewModel.pageTitle, siteURL: siteURL, articleSummaryController: viewModel.dataController.articleSummaryController)
 
         fetchTalkPage()
-
-        talkPageSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: siteURL.wmf_contentLanguageCode)
     }
 }
 
