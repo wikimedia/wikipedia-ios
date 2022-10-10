@@ -10,7 +10,9 @@ class TalkPageDataController {
     var siteURL: URL
     private let talkPageFetcher = TalkPageFetcher()
     var articleSummaryController: ArticleSummaryController
-    
+    private let articleRevisionFetcher = WMFArticleRevisionFetcher()
+
+
     init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
         self.pageType = pageType
         self.pageTitle = pageTitle
@@ -20,7 +22,7 @@ class TalkPageDataController {
     
     // MARK: Public
     
-    typealias TalkPageResult = Result<(articleSummary: WMFArticle?, items: [TalkPageItem], subscribedTopicNames: [String]), Error>
+    typealias TalkPageResult = Result<(articleSummary: WMFArticle?, items: [TalkPageItem], subscribedTopicNames: [String], latestRevisionID: Int?), Error>
     
     func fetchTalkPage(completion: @escaping (TalkPageResult) -> Void) {
         
@@ -31,6 +33,7 @@ class TalkPageDataController {
         var finalErrors: [Error] = []
         var finalItems: [TalkPageItem] = []
         var finalArticleSummary: WMFArticle?
+        var latestRevisionID: Int?
         var finalSubscribedTopics: [String] = []
         
         fetchTalkPageItems(dispatchGroup: group) { items, errors in
@@ -43,17 +46,21 @@ class TalkPageDataController {
             finalErrors.append(contentsOf: errors)
         }
         
+        fetchLatestRevisionID(dispatchGroup: group) { revisionID in
+            latestRevisionID = revisionID
+        }
         
         group.notify(queue: DispatchQueue.main, execute: {
             
-            if let firstError = finalErrors.first {
+            if let firstError = finalErrors.first, finalItems.isEmpty {
                 completion(.failure(firstError))
                 return
             }
+            
             self.fetchTopicSubscriptions(for: finalItems, dispatchGroup: group) { items, errors in
                 finalSubscribedTopics = items
                 finalErrors.append(contentsOf: errors)
-                completion(.success((finalArticleSummary, finalItems, finalSubscribedTopics)))
+                completion(.success((finalArticleSummary, finalItems, finalSubscribedTopics, latestRevisionID)))
             }
             
         })
@@ -97,10 +104,8 @@ class TalkPageDataController {
                 topicNames.append(itemName)
             }
         }
-        
-        
+
         talkPageFetcher.getSubscribedTopics(siteURL: siteURL, topics: topicNames) { result in
-            
             DispatchQueue.main.async {
                 switch result {
                 case let .success(result):
@@ -109,11 +114,30 @@ class TalkPageDataController {
                     completion([], [error])
                 }
             }
-            
         }
     }
 
+    private func cachedFileName() -> String {
+        let host = siteURL.host ?? ""
+        let fileNameSuffix = pageTitle
+
+        let fileNamePrefix: String
+        if let contentLanguageCode = siteURL.wmf_contentLanguageCode {
+            fileNamePrefix = "\(host)-\(contentLanguageCode)"
+        } else {
+            fileNamePrefix = host
+        }
+
+        let unencodedFileName = "\(fileNamePrefix)-\(fileNameSuffix)"
+        return unencodedFileName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? unencodedFileName
+    }
+
     private func fetchTalkPageItems(dispatchGroup group: DispatchGroup, completion: @escaping ([TalkPageItem], [Error]) -> Void) {
+        
+        let sharedCache = SharedContainerCache<TalkPageCache>.init(fileName: cachedFileName(), subdirectoryPathComponent: SharedContainerCacheCommonNames.talkPageCache, defaultCache: {
+            TalkPageCache(talkPages: [])
+        })
+        var cache = sharedCache.loadCache()
         
         group.enter()
         talkPageFetcher.fetchTalkPageContent(talkPageTitle: pageTitle, siteURL: siteURL) { result in
@@ -125,9 +149,11 @@ class TalkPageDataController {
                 
                 switch result {
                 case .success(let items):
+                    cache.talkPageItems = items
+                    sharedCache.saveCache(cache)
                     completion(items, [])
                 case .failure(let error):
-                    completion([], [error])
+                    completion(cache.talkPageItems, [error])
                 }
             }
         }
@@ -169,6 +195,40 @@ class TalkPageDataController {
                 completion(nil, [])
             }
         }
+    }
+    
+    func fetchLatestRevisionID(dispatchGroup: DispatchGroup, completion: @escaping (Int?) -> Void) {
+        
+        guard let mediaWikiURL = Configuration.current.mediaWikiAPIURLForURL(siteURL, with: nil),
+              let revisionURL = mediaWikiURL.wmf_URL(withTitle: pageTitle) else {
+            completion(nil)
+            return
+        }
+        
+        let failureBlock: (Error) -> Void = { error in
+            dispatchGroup.leave()
+            completion(nil)
+        }
+        
+        let successBlock: (Any) -> Void = { object in
+            
+            defer {
+                dispatchGroup.leave()
+            }
+            
+            let queryResults = (object as? [WMFRevisionQueryResults])?.first ?? (object as? WMFRevisionQueryResults)
+            
+            guard let lastRevisionId = queryResults?.revisions.first?.revisionId.intValue else {
+                completion(nil)
+                return
+            }
+            
+            completion(lastRevisionId)
+        }
+        
+        dispatchGroup.enter()
+        articleRevisionFetcher.fetchLatestRevisions(forArticleURL: revisionURL, resultLimit: 1, startingWithRevision: nil, endingWithRevision: nil, failure: failureBlock, success: successBlock)
+
     }
 }
 

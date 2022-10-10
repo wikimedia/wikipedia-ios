@@ -8,6 +8,8 @@ class TalkPageViewController: ViewController {
 
     fileprivate let viewModel: TalkPageViewModel
     fileprivate var headerView: TalkPageHeaderView?
+
+    fileprivate var topicReplyOnboardingHostingViewController: TalkPageTopicReplyOnboardingHostingController?
     
     fileprivate lazy var shareButton: IconBarButtonItem = IconBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(userDidTapShareButton))
     
@@ -30,13 +32,16 @@ class TalkPageViewController: ViewController {
     // MARK: - Overflow menu properties
     
     fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
-        let contributionsAction = UIAction(title: TalkPageLocalizedStrings.contributions, image: UIImage(named: "user-contributions"), handler: { _ in
+        let contributionsAction = UIAction(title: TalkPageLocalizedStrings.contributions, image: UIImage(named: "user-contributions"), handler: { [weak self] _ in
+            self?.pushToContributions()
         })
 
-        let userGroupsAction = UIAction(title: TalkPageLocalizedStrings.userGroups, image: UIImage(systemName: "person.2"), handler: { _ in
+        let userGroupsAction = UIAction(title: TalkPageLocalizedStrings.userGroups, image: UIImage(systemName: "person.2"), handler: { [weak self] _ in
+            self?.pushToUserGroups()
         })
 
-        let logsAction = UIAction(title: TalkPageLocalizedStrings.logs, image: UIImage(systemName: "list.bullet"), handler: { _ in
+        let logsAction = UIAction(title: TalkPageLocalizedStrings.logs, image: UIImage(systemName: "list.bullet"), handler: { [weak self] _ in
+            self?.pushToLogs()
         })
 
         return [contributionsAction, userGroupsAction, logsAction]
@@ -47,17 +52,20 @@ class TalkPageViewController: ViewController {
         let goToArchivesAction = UIAction(title: TalkPageLocalizedStrings.archives, image: UIImage(systemName: "archivebox"), handler: { _ in
         })
 
-        let pageInfoAction = UIAction(title: TalkPageLocalizedStrings.pageInfo, image: UIImage(systemName: "info.circle"), handler: { _ in
+        let pageInfoAction = UIAction(title: TalkPageLocalizedStrings.pageInfo, image: UIImage(systemName: "info.circle"), handler: { [weak self] _ in
+            self?.pushToPageInfo()
         })
 
-        let goToPermalinkAction = UIAction(title: TalkPageLocalizedStrings.permaLink, image: UIImage(systemName: "link"), handler: { _ in
+        let goToPermalinkAction = UIAction(title: TalkPageLocalizedStrings.permaLink, image: UIImage(systemName: "link"), handler: { [weak self] _ in
+            self?.pushToPermanentLink()
         })
 
         let changeLanguageAction = UIAction(title: TalkPageLocalizedStrings.changeLanguage, image: UIImage(named: "language-talk-page"), handler: { _ in
             self.userDidTapChangeLanguage()
         })
 
-        let relatedLinksAction = UIAction(title: TalkPageLocalizedStrings.relatedLinks, image: UIImage(systemName: "arrowshape.turn.up.forward"), handler: { _ in
+        let relatedLinksAction = UIAction(title: TalkPageLocalizedStrings.relatedLinks, image: UIImage(systemName: "arrowshape.turn.up.forward"), handler: { [weak self] _ in
+            self?.pushToWhatLinksHere()
         })
 
         var actions = [goToArchivesAction, pageInfoAction, goToPermalinkAction, changeLanguageAction, relatedLinksAction]
@@ -85,12 +93,12 @@ class TalkPageViewController: ViewController {
             self.talkPageView.collectionView.reloadData()
         })
         
-        let revisionHistoryAction = UIAction(title: CommonStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { _ in
-            
+        let revisionHistoryAction = UIAction(title: CommonStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { [weak self] _ in
+            self?.pushToRevisionHistory()
         })
         
-        let openInWebAction = UIAction(title: TalkPageLocalizedStrings.readInWeb, image: UIImage(systemName: "display"), handler: { _ in
-            
+        let openInWebAction = UIAction(title: TalkPageLocalizedStrings.readInWeb, image: UIImage(systemName: "display"), handler: { [weak self] _ in
+            self?.pushToDesktopWeb()
         })
         
         let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
@@ -153,7 +161,7 @@ class TalkPageViewController: ViewController {
             navigationItem.rightBarButtonItem = rightBarButtonItem
             rightBarButtonItem.tintColor = theme.colors.link
         }
- 
+
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
 
@@ -239,8 +247,19 @@ class TalkPageViewController: ViewController {
     
     let replyComposeController = TalkPageReplyComposeController()
     
+    private var isClosing: Bool = false
+    
+    override var keyboardIsIncludedInBottomContentInset: Bool {
+        return false
+    }
+    
     override var additionalBottomContentInset: CGFloat {
-        return replyComposeController.additionalBottomContentInset
+
+        if let replyComposeView = replyComposeController.containerView {
+            return max(0, toolbar.frame.minY - replyComposeView.frame.minY)
+        }
+
+        return 0
     }
     
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
@@ -293,7 +312,7 @@ class TalkPageViewController: ViewController {
     }
     
     @objc fileprivate func userDidTapRevisionButton() {
-        
+        pushToRevisionHistory()
     }
 
     @objc fileprivate func userDidTapAddTopicButton() {
@@ -302,7 +321,9 @@ class TalkPageViewController: ViewController {
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
         navVC.presentationController?.delegate = self
-        present(navVC, animated: true, completion: nil)
+        present(navVC, animated: true, completion: { [weak self] in
+            self?.presentTopicReplyOnboardingIfNecessary()
+        })
     }
     
     fileprivate func setupToolbar() {
@@ -315,6 +336,101 @@ class TalkPageViewController: ViewController {
         findButton.accessibilityLabel = TalkPageLocalizedStrings.findButtonAccesibilityLabel
         revisionButton.accessibilityLabel = CommonStrings.revisionHistory
         addTopicButton.accessibilityLabel = TalkPageLocalizedStrings.addTopicButtonAccesibilityLabel
+    }
+    
+    fileprivate func pushToRevisionHistory() {
+        let historyVC = PageHistoryViewController(pageTitle: viewModel.pageTitle, pageURL: viewModel.siteURL)
+        navigationController?.pushViewController(historyVC, animated: true)
+    }
+    
+    // MARK: - Overflow menu navigation
+    
+    fileprivate func pushToDesktopWeb() {
+        guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/\(viewModel.pageTitle)", isMobile: false) else {
+            // TODO: Error banner
+            return
+        }
+        
+        navigate(to: url, useSafari: true)
+    }
+    
+    fileprivate func pushToPageInfo() {
+        
+        guard let host = viewModel.siteURL.host,
+              let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
+                                                                                                                                                                "action": "info"]) else {
+            // TODO: Error banner
+            return
+        }
+        
+        navigate(to: url)
+    }
+    
+    fileprivate func pushToWhatLinksHere() {
+        guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:WhatLinksHere/\(viewModel.pageTitle)", isMobile: true) else {
+            // TODO: Error banner
+            return
+        }
+        
+        navigate(to: url)
+    }
+    
+    fileprivate func pushToContributions() {
+        guard let username = usernameFromPageTitle(),
+              let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) else {
+            // TODO: Error banner
+            return
+        }
+        
+        navigate(to: url)
+    }
+    
+    fileprivate func pushToUserGroups() {
+        guard let username = usernameFromPageTitle(),
+              let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:UserRights/\(username)", isMobile: true) else {
+            // TODO: Error banner
+            return
+        }
+        
+        navigate(to: url)
+    }
+    
+    fileprivate func pushToLogs() {
+        guard let username = usernameFromPageTitle(),
+              let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Log/\(username)", isMobile: true) else {
+            // TODO: Error banner
+            return
+        }
+        
+        navigate(to: url)
+    }
+    
+    fileprivate func usernameFromPageTitle() -> String? {
+        guard let languageCode = viewModel.siteURL.wmf_languageCode else {
+            return nil
+        }
+        
+        let namespaceAndTitle = viewModel.pageTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode)
+        
+        guard namespaceAndTitle.0 == .userTalk else {
+            return nil
+        }
+        
+        return namespaceAndTitle.1
+    }
+    
+    fileprivate func pushToPermanentLink() {
+        
+        guard let latestRevisionID = viewModel.latestRevisionID,
+              let mobileSiteURL = viewModel.siteURL.wmf_URL(withPath: "", isMobile: true),
+              let host = mobileSiteURL.host,
+              let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
+                                                                                                                                                                "oldid": latestRevisionID]) else {
+            // TODO: Error banner
+            return
+        }
+        
+        navigate(to: url, useSafari: true)
     }
     
     // MARK: - Alerts
@@ -354,7 +470,7 @@ class TalkPageViewController: ViewController {
     private func scrollToNewComment(oldCellViewModel: TalkPageCellViewModel?, oldCommentViewModels: [TalkPageCellCommentViewModel]?) {
         
         guard let oldCellViewModel = oldCellViewModel,
-        let oldCommentViewModels = oldCommentViewModels else {
+              let oldCommentViewModels = oldCommentViewModels else {
             return
         }
         
@@ -394,7 +510,7 @@ class TalkPageViewController: ViewController {
         let collectionView = talkPageView.collectionView
         
         guard let index = viewModel.topics.firstIndex(of: cellViewModel)
-               else {
+        else {
             return
         }
         
@@ -405,12 +521,12 @@ class TalkPageViewController: ViewController {
                 if let talkPageCell = cell as? TalkPageCell {
                     
                     if talkPageCell.viewModel == cellViewModel {
-                     
-                         if let commentView = talkPageCell.commentViewForViewModel(commentViewModel),
-                             let convertedCommentViewFrame = commentView.superview?.convert(commentView.frame, to: collectionView) {
-                             let shiftedFrame = CGRect(x: convertedCommentViewFrame.minX, y: convertedCommentViewFrame.minY + 50, width: convertedCommentViewFrame.width, height: convertedCommentViewFrame.height)
-                                 collectionView.scrollRectToVisible(shiftedFrame, animated: true)
-                         }
+
+                        if let commentView = talkPageCell.commentViewForViewModel(commentViewModel),
+                           let convertedCommentViewFrame = commentView.superview?.convert(commentView.frame, to: collectionView) {
+                            let shiftedFrame = CGRect(x: convertedCommentViewFrame.minX, y: convertedCommentViewFrame.minY + 50, width: convertedCommentViewFrame.width, height: convertedCommentViewFrame.height)
+                            collectionView.scrollRectToVisible(shiftedFrame, animated: true)
+                        }
                     }
                 }
             }
@@ -511,7 +627,6 @@ extension TalkPageViewController: TalkPageCellDelegate {
                 // TODO: Error handling
             }
         }
- 
     }
 
     // MARK: - Empty State
@@ -527,13 +642,14 @@ extension TalkPageViewController: TalkPageCellDelegate {
 
 extension TalkPageViewController: TalkPageCellReplyDelegate {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel) {
+        presentTopicReplyOnboardingIfNecessary()
         replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel)
     }
 }
 
 extension TalkPageViewController: TalkPageReplyComposeDelegate {
-    func tappedClose() {
-        replyComposeController.reset()
+    func closeReplyView() {
+        replyComposeController.closeAndReset()
     }
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
@@ -544,7 +660,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
 
             switch result {
             case .success:
-                self?.replyComposeController.reset()
+                self?.replyComposeController.closeAndReset()
                 
                 // Try to refresh page
                 self?.viewModel.fetchTalkPage { [weak self] result in
@@ -570,6 +686,8 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
         }
     }
 }
+
+// MARK: Extensions
 
 extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
     func tappedPublish(topicTitle: String, topicBody: String, composeViewController: TalkPageTopicComposeViewController) {
@@ -665,8 +783,6 @@ extension TalkPageViewController: TalkPageTextViewLinkHandling {
     }
 }
 
-// MARK: WMFPreferredLanguagesViewControllerDelegate
-
 extension TalkPageViewController: WMFPreferredLanguagesViewControllerDelegate {
 
     func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
@@ -690,5 +806,28 @@ extension TalkPageViewController: WMFPreferredLanguagesViewControllerDelegate {
         }
         controller.dismiss(animated: true)
     }
+}
 
+extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
+
+    func presentTopicReplyOnboardingIfNecessary() {
+        guard !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages else {
+            return
+        }
+
+        let topicReplyOnboardingHostingViewController = TalkPageTopicReplyOnboardingHostingController(theme: theme)
+        topicReplyOnboardingHostingViewController.delegate = self
+        topicReplyOnboardingHostingViewController.modalPresentationStyle = .pageSheet
+        self.topicReplyOnboardingHostingViewController = topicReplyOnboardingHostingViewController
+
+        if let presentedViewController = presentedViewController {
+            presentedViewController.present(topicReplyOnboardingHostingViewController, animated: true)
+        } else {
+            present(topicReplyOnboardingHostingViewController, animated: true)
+        }
+    }
+
+    func userDidDismissTopicReplyOnboardingView() {
+        UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages = true
+    }
 }
