@@ -69,11 +69,11 @@ final class TalkPageViewModel {
             guard let self = self else {
                 return
             }
-            
+            let oldViewModels: [TalkPageCellViewModel] = self.topics
+
             switch result {
             case .success(let result):
                 self.populateHeaderData(articleSummary: result.articleSummary, items: result.items)
-                let oldViewModels: [TalkPageCellViewModel] = self.topics
                 self.topics.removeAll()
                 self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
                 self.updateSubscriptionForTopic(topicNames: result.subscribedTopicNames)

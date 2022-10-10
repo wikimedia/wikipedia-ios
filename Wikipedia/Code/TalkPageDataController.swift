@@ -10,6 +10,7 @@ class TalkPageDataController {
     private let siteURL: URL
     private let talkPageFetcher = TalkPageFetcher()
     private let articleSummaryController: ArticleSummaryController
+
     
     init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
         self.pageType = pageType
@@ -46,7 +47,7 @@ class TalkPageDataController {
         
         group.notify(queue: DispatchQueue.main, execute: {
             
-            if let firstError = finalErrors.first {
+            if let firstError = finalErrors.first, finalItems.isEmpty {
                 completion(.failure(firstError))
                 return
             }
@@ -97,10 +98,8 @@ class TalkPageDataController {
                 topicNames.append(itemName)
             }
         }
-        
-        
+
         talkPageFetcher.getSubscribedTopics(siteURL: siteURL, topics: topicNames) { result in
-            
             DispatchQueue.main.async {
                 switch result {
                 case let .success(result):
@@ -109,11 +108,30 @@ class TalkPageDataController {
                     completion([], [error])
                 }
             }
-            
         }
     }
 
+    private func cachedFileName() -> String {
+        let host = siteURL.host ?? ""
+        let fileNameSuffix = pageTitle
+
+        let fileNamePrefix: String
+        if let contentLanguageCode = siteURL.wmf_contentLanguageCode {
+            fileNamePrefix = "\(host)-\(contentLanguageCode)"
+        } else {
+            fileNamePrefix = host
+        }
+
+        let unencodedFileName = "\(fileNamePrefix)-\(fileNameSuffix)"
+        return unencodedFileName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? unencodedFileName
+    }
+
     private func fetchTalkPageItems(dispatchGroup group: DispatchGroup, completion: @escaping ([TalkPageItem], [Error]) -> Void) {
+        
+        let sharedCache = SharedContainerCache<TalkPageCache>.init(fileName: cachedFileName(), subdirectoryPathComponent: SharedContainerCacheCommonNames.talkPageCache, defaultCache: {
+            TalkPageCache(talkPages: [])
+        })
+        var cache = sharedCache.loadCache()
         
         group.enter()
         talkPageFetcher.fetchTalkPageContent(talkPageTitle: pageTitle, siteURL: siteURL) { result in
@@ -125,9 +143,11 @@ class TalkPageDataController {
                 
                 switch result {
                 case .success(let items):
+                    cache.talkPageItems = items
+                    sharedCache.saveCache(cache)
                     completion(items, [])
                 case .failure(let error):
-                    completion([], [error])
+                    completion(cache.talkPageItems, [error])
                 }
             }
         }

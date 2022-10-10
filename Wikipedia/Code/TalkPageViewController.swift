@@ -8,6 +8,8 @@ class TalkPageViewController: ViewController {
 
     fileprivate let viewModel: TalkPageViewModel
     fileprivate var headerView: TalkPageHeaderView?
+
+    fileprivate var topicReplyOnboardingHostingViewController: TalkPageTopicReplyOnboardingHostingController?
     
     fileprivate lazy var shareButton: IconBarButtonItem = IconBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(userDidTapShareButton))
     
@@ -134,6 +136,8 @@ class TalkPageViewController: ViewController {
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
 
+        talkPageView.emptyView.scrollView.delegate = self
+
         // Needed for reply compose views to display on top of navigation bar.
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
@@ -149,10 +153,13 @@ class TalkPageViewController: ViewController {
             switch result {
             case .success:
                 self.setupHeaderView()
-                self.talkPageView.collectionView.reloadData()
+                self.talkPageView.configure(viewModel: self.viewModel)
+                self.talkPageView.emptyView.actionButton.addTarget(self, action: #selector(self.userDidTapAddTopicButton), for: .primaryActionTriggered)
+                self.updateEmptyStateVisibility()
             case .failure:
                 break
             }
+            self.talkPageView.collectionView.reloadData()
         }
         
         setupToolbar()
@@ -239,6 +246,7 @@ class TalkPageViewController: ViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        talkPageView.collectionView.reloadData()
         headerView?.updateLabelFonts()
         replyComposeController.calculateLayout(in: self)
     }
@@ -273,14 +281,16 @@ class TalkPageViewController: ViewController {
     @objc fileprivate func userDidTapRevisionButton() {
         
     }
-    
+
     @objc fileprivate func userDidTapAddTopicButton() {
         let topicComposeVC = TalkPageTopicComposeViewController(theme: theme)
         topicComposeVC.delegate = self
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
         navVC.presentationController?.delegate = self
-        present(navVC, animated: true, completion: nil)
+        present(navVC, animated: true, completion: { [weak self] in
+            self?.presentTopicReplyOnboardingIfNecessary()
+        })
     }
     
     fileprivate func setupToolbar() {
@@ -481,10 +491,21 @@ extension TalkPageViewController: TalkPageCellDelegate {
             }
         }
     }
+
+    // MARK: - Empty State
+
+    fileprivate func updateEmptyStateVisibility() {
+        talkPageView.updateEmptyView(visible: viewModel.topics.count == 0)
+        scrollView = viewModel.topics.count == 0 ? talkPageView.emptyView.scrollView : talkPageView.collectionView
+        updateScrollViewInsets()
+    }
+
+
 }
 
 extension TalkPageViewController: TalkPageCellReplyDelegate {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel) {
+        presentTopicReplyOnboardingIfNecessary()
         replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel)
     }
 }
@@ -508,7 +529,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     switch result {
                     case .success:
-
+                        self?.updateEmptyStateVisibility()
                         self?.talkPageView.collectionView.reloadData()
                         self?.handleNewTopicOrCommentAlert(isNewTopic: false)
                         
@@ -545,6 +566,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     switch result {
                     case .success:
+                        self?.updateEmptyStateVisibility()
                         self?.talkPageView.collectionView.reloadData()
                         self?.scrollToLastTopic()
                         self?.handleNewTopicOrCommentAlert(isNewTopic: true)
@@ -619,5 +641,29 @@ extension TalkPageViewController: TalkPageTextViewLinkHandling {
             return
         }
         navigate(to: url.absoluteURL)
+    }
+}
+
+extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
+
+    func presentTopicReplyOnboardingIfNecessary() {
+        guard !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages else {
+            return
+        }
+
+        let topicReplyOnboardingHostingViewController = TalkPageTopicReplyOnboardingHostingController(theme: theme)
+        topicReplyOnboardingHostingViewController.delegate = self
+        topicReplyOnboardingHostingViewController.modalPresentationStyle = .pageSheet
+        self.topicReplyOnboardingHostingViewController = topicReplyOnboardingHostingViewController
+
+        if let presentedViewController = presentedViewController {
+            presentedViewController.present(topicReplyOnboardingHostingViewController, animated: true)
+        } else {
+            present(topicReplyOnboardingHostingViewController, animated: true)
+        }
+    }
+
+    func userDidDismissTopicReplyOnboardingView() {
+        UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages = true
     }
 }
