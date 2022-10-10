@@ -216,7 +216,7 @@ class TalkPageViewController: ViewController {
             guard let languageCode  = viewModel.siteURL.wmf_contentLanguageCode else {
                 return
             }
-            if let articleTitle = viewModel.pageTitle.extractingArticleTitleFromTalkPage(lang: languageCode).denormalizedPageTitle {
+            if let articleTitle = viewModel.pageTitle.extractingArticleTitleFromTalkPage(languageCode: languageCode)?.denormalizedPageTitle {
                 var talkPageURLComponents = URLComponents(url: viewModel.siteURL, resolvingAgainstBaseURL: false)
                 talkPageURLComponents?.path = "/wiki/\(articleTitle)"
                 if let urlValue = talkPageURLComponents?.url {

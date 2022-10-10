@@ -35,13 +35,14 @@ extension String {
         return NSRange(startIndex..<endIndex, in: self)
     }
 
-    public func extractingArticleTitleFromTalkPage(lang: String) -> String {
+    public func extractingArticleTitleFromTalkPage(languageCode: String) -> String? {
         if let namespaceString = String.namespaceRegex.firstReplacementString(in: self) {
-            if namespaceOfWikiResourcePath(with: lang) == .talk {
-                return replacingOccurrences(of: namespaceString, with: "").replacingOccurrences(of: ":", with: "")
+            let namespaceStringWithColon = "\(namespaceString):"
+            if namespaceOfWikiResourcePath(with: languageCode) == .talk {
+                return replacingOccurrences(of: namespaceStringWithColon, with: "")
             }
         }
-        return String()
+        return nil
     }
 
 }
