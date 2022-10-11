@@ -1,17 +1,11 @@
 import UIKit
 import WMF
 
-protocol TalkPageReplyComposeDelegate: AnyObject {
-    func tappedClose()
-    func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel)
-}
-
 class TalkPageReplyComposeContentView: SetupView {
     
-    private lazy var publishButton: UIButton = {
+    private(set) lazy var publishButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(CommonStrings.publishTitle, for: .normal)
-        button.addTarget(self, action: #selector(tappedPublish), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.preservesSuperviewLayoutMargins = true
         return button
@@ -24,10 +18,9 @@ class TalkPageReplyComposeContentView: SetupView {
         return activityIndicator
     }()
     
-    private lazy var closeButton: UIButton = {
+    private(set) lazy var closeButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "close-inverse"), for: .normal)
-        button.addTarget(self, action: #selector(tappedClose), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.preservesSuperviewLayoutMargins = true
         button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
@@ -53,7 +46,7 @@ class TalkPageReplyComposeContentView: SetupView {
         return stackView
     }()
     
-    private lazy var replyTextView: UITextView = {
+    private(set) lazy var replyTextView: UITextView = {
         let textView = UITextView(frame: .zero)
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = .zero
@@ -93,15 +86,13 @@ class TalkPageReplyComposeContentView: SetupView {
     
     private(set) var commentViewModel: TalkPageCellCommentViewModel
     private var theme: Theme
-    private weak var delegate: TalkPageReplyComposeDelegate?
     private weak var linkDelegate: TalkPageTextViewLinkHandling?
     
     // MARK: Lifecycle
     
-    init(commentViewModel: TalkPageCellCommentViewModel, theme: Theme, delegate: TalkPageReplyComposeDelegate, linkDelegate: TalkPageTextViewLinkHandling) {
+    init(commentViewModel: TalkPageCellCommentViewModel, theme: Theme, linkDelegate: TalkPageTextViewLinkHandling) {
         self.commentViewModel = commentViewModel
         self.theme = theme
-        self.delegate = delegate
         self.linkDelegate = linkDelegate
         super.init(frame: .zero)
     }
@@ -155,7 +146,8 @@ class TalkPageReplyComposeContentView: SetupView {
         ])
         
         activityIndicator.isHidden = true
-        
+
+        publishButton.isEnabled = false
         publishButton.titleLabel?.font = UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
     }
     
@@ -183,7 +175,8 @@ class TalkPageReplyComposeContentView: SetupView {
     
     private func setupStackView() {
         containerScrollView.addSubview(verticalStackView)
-        verticalStackView.spacing = 5
+        
+        verticalStackView.spacing = traitCollection.preferredContentSizeCategory <= .extraExtraExtraLarge ? 5 : 50
         
         let topConstraint = verticalStackView.topAnchor.constraint(equalTo: containerScrollView.topAnchor)
         let trailingConstraint = containerScrollView.trailingAnchor.constraint(greaterThanOrEqualTo: verticalStackView.trailingAnchor)
@@ -239,18 +232,8 @@ class TalkPageReplyComposeContentView: SetupView {
     
     // MARK: Actions
     
-    @objc private func tappedClose() {
-        replyTextView.resignFirstResponder()
-        delegate?.tappedClose()
-    }
-    
     @objc private func tappedInfo() {
         toggleFinePrint(shouldShow: true)
-    }
-    
-    @objc private func tappedPublish() {
-        isLoading = true
-        delegate?.tappedPublish(text: replyTextView.text, commentViewModel: commentViewModel)
     }
     
     // MARK: Helpers
@@ -283,22 +266,26 @@ class TalkPageReplyComposeContentView: SetupView {
         
         return attributedString
     }
+
+    private func evaluatePublishButtonEnabledState() {
+        publishButton.isEnabled = !replyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
 }
 
 extension TalkPageReplyComposeContentView: UITextViewDelegate {
 
      func textViewDidChange(_ textView: UITextView) {
-
          guard textView == replyTextView else {
              return
          }
 
          placeholderLabel.alpha = replyTextView.text.count == 0 ? 1 : 0
          toggleFinePrint(shouldShow: false)
+         evaluatePublishButtonEnabledState()
      }
      
      func textViewDidBeginEditing(_ textView: UITextView) {
-         
          guard textView == replyTextView else {
              return
          }

@@ -14,7 +14,6 @@ class TalkPageTopicComposeViewController: ViewController {
         static let finePrintFormat = WMFLocalizedString("talk-page-topic-compose-terms-and-licenses", value: "By publishing changes, you agree to the %1$@Terms of Use%2$@, and you irrevocably agree to release your contribution under the %3$@CC BY-SA 3.0 License%4$@ and the %5$@GFDL%6$@.", comment: "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
         static let closeConfirmationTitle = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-title", value: "Are you sure you want to discard this new topic?", comment: "Title of confirmation alert displayed to user when they attempt to close the new topic view after entering title or body text.")
         static let closeConfirmationDiscard = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-discard", value: "Discard Topic", comment: "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text.")
-        static let closeConfirmationKeepEditing = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-keep", value: "Keep Editing", comment: "Title of keep editing action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text.")
     }
     
     private lazy var safeAreaBackgroundView: UIView = {
@@ -242,7 +241,7 @@ class TalkPageTopicComposeViewController: ViewController {
             self.dismiss(animated: true)
         }
         
-        let keepEditingAction = UIAlertAction(title: Self.TopicComposeStrings.closeConfirmationKeepEditing, style: .cancel)
+        let keepEditingAction = UIAlertAction(title: CommonStrings.talkPageCloseConfirmationKeepEditing, style: .cancel)
         
         alertController.addAction(discardAction)
         alertController.addAction(keepEditingAction)
@@ -330,8 +329,8 @@ class TalkPageTopicComposeViewController: ViewController {
         return attributedString
     }
     
-    private func evaluatePublishButtonEnabledState() {
-        publishButton.isEnabled = !(titleTextField.text ?? "").isEmpty && !bodyTextView.text.isEmpty
+    private func evaluatePublishButtonEnabledState() {        
+        publishButton.isEnabled = !(titleTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !bodyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
     // MARK: Actions

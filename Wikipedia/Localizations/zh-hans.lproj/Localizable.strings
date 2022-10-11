@@ -23,6 +23,7 @@
 // Author: Linforest
 // Author: Liuxinyu970226
 // Author: Macofe
+// Author: MangoFanFanw
 // Author: Nemo bis
 // Author: NeverBehave
 // Author: NigelSoft
@@ -1018,6 +1019,12 @@
 "talk-page-title-article-talk" = "条目讨论";
 "talk-page-title-user-talk" = "用户讨论";
 "talk-page-topic-title" = "讨论";
+"talk-pages-empty-view-body-article" = "讨论页是人们讨论如何使维基百科上的内容达到最佳状态的地方。 **首先添加一个新的讨论主题**，以便与维基百科社区建立联系和协作。";
+"talk-pages-empty-view-body-user" = "讨论页是人们讨论如何使维基百科上的内容达到最佳状态的地方。开始新的讨论以与$1建立联系和协作。您在此处所说的内容将公开给其他人查看。";
+"talk-pages-empty-view-button-article-add-topic" = "添加新话题";
+"talk-pages-empty-view-button-user-start-discussion" = "发起讨论";
+"talk-pages-empty-view-header-article" = "对话从这里开始";
+"talk-pages-empty-view-header-user" = "用$1开始讨论";
 "talk-pages-reply-button-title" = "回复该讨论";
 "talk-pages-view-title" = "讨论";
 "theme-black-display-name" = "黑暗";

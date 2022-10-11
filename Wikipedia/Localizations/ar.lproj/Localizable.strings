@@ -909,6 +909,9 @@
 "talk-page-user-about" = "حول صفحات نقاش المستخدم";
 "talk-page-user-contributions" = "مساهمات";
 "talk-pages-comment-added-alert-title" = "أضيف تعليقك";
+"talk-pages-empty-view-button-article-add-topic" = "أضف موضوعًا جديدًا";
+"talk-pages-empty-view-button-user-start-discussion" = "ابدأ نقاشًا";
+"talk-pages-empty-view-header-user" = "ابدأ نقاشًا مع $1";
 "talk-pages-reply-button-title" = "رد على هذا النقاش";
 "talk-pages-topic-compose-body-placeholder" = "الوصف";
 "talk-pages-topic-compose-close-confirmation-keep" = "واصل التعديل";

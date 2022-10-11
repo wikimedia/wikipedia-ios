@@ -38,7 +38,7 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
         }
     }
 
-    private var keyboardFrame: CGRect? {
+    private(set) var keyboardFrame: CGRect? {
         didSet {
             keyboardDidChangeFrame(from: oldValue, newKeyboardFrame: keyboardFrame)
         }
@@ -284,7 +284,8 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
         let safeInsets = view.safeAreaInsets
         
         var bottom = safeInsets.bottom
-        if let keyboardFrame = keyboardFrame {
+        if let keyboardFrame = keyboardFrame,
+           keyboardIsIncludedInBottomContentInset {
             let adjustedKeyboardFrame = view.convert(keyboardFrame, to: scrollView)
             let keyboardIntersection = adjustedKeyboardFrame.intersection(scrollView.bounds)
             bottom = max(bottom, scrollView.bounds.maxY - keyboardIntersection.minY)
@@ -310,6 +311,11 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
     /// Override to add any additional bottom insets during content inset calculations
     var additionalBottomContentInset: CGFloat {
         return 0
+    }
+    
+    /// Override if needed - useful when needing to calculate your own additionalBottomContentInset
+    var keyboardIsIncludedInBottomContentInset: Bool {
+        return true
     }
 
     open func scrollViewInsetsDidChange() {

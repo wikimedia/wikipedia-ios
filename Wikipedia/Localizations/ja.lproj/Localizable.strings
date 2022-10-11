@@ -970,6 +970,8 @@
 "talk-page-user-contributions" = "投稿記録";
 "talk-pages-coffee-roll-read-more" = "さらに読む";
 "talk-pages-comment-added-alert-title" = "あなたのコメントが追加されました";
+"talk-pages-empty-view-button-article-add-topic" = "新しいトピックを追加";
+"talk-pages-empty-view-button-user-start-discussion" = "新しい議論を始める";
 "talk-pages-reply-button-title" = "この議論に返信する";
 "talk-pages-topic-added-alert-title" = "トピックが追加されました";
 "talk-pages-topic-compose-body-placeholder" = "説明";
@@ -978,6 +980,7 @@
 "talk-pages-topic-compose-close-confirmation-title" = "この新しいトピックを破棄してもよろしいですか?";
 "talk-pages-topic-compose-navbar-title" = "トピック";
 "talk-pages-topic-compose-title-placeholder" = "トピック名";
+"talk-pages-topic-reply-onboarding-title" = "トークページ";
 "talk-pages-user-groups" = "利用者グループ";
 "talk-pages-user-logs" = "ログ";
 "talk-pages-view-title" = "トーク";

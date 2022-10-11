@@ -1049,6 +1049,12 @@
 "talk-page-user-contributions" = "Contribucions";
 "talk-pages-coffee-roll-read-more" = "Més informació";
 "talk-pages-comment-added-alert-title" = "S'ha afegit el vostre comentari";
+"talk-pages-empty-view-body-article" = "Les pàgines de discussió són on la gent debat com fer contingut a la Viquipèdia de la millor forma possible. **Comenceu-hi afegint un nou tema de discussió** per a connectar-vos-hi i col·laborar amb una comunitat de viquipedistes.";
+"talk-pages-empty-view-body-user" = "Les pàgines de discussió són on la gent debat com fer contingut a la Viquipèdia de la millor forma possible. Inicieu una nova discussió per a connectar-vos-hi i col·laborar amb $1. El que hi digueu serà públic per a tothom qui ho vegi.";
+"talk-pages-empty-view-button-article-add-topic" = "Afegeix un tema nou";
+"talk-pages-empty-view-button-user-start-discussion" = "Inicia una discussió";
+"talk-pages-empty-view-header-article" = "La conversa comença aquí";
+"talk-pages-empty-view-header-user" = "Inicia una discussió amb $1";
 "talk-pages-reply-button-title" = "Respon la discussió";
 "talk-pages-topic-added-alert-title" = "S'ha afegit el vostre tema";
 "talk-pages-topic-compose-body-placeholder" = "Descripció";
@@ -1057,6 +1063,8 @@
 "talk-pages-topic-compose-close-confirmation-title" = "Esteu segur que voleu descartar aquest nou tema?";
 "talk-pages-topic-compose-navbar-title" = "Tema";
 "talk-pages-topic-compose-title-placeholder" = "Títol del tema";
+"talk-pages-topic-reply-onboarding-body" = "Les pàgines de discussió és on la gent debat com fer contingut a la Viquipèdia de la millor forma possible. Afegiu un nou tema de discussió per a connectar-vos-hi i col·laborar amb una comunitat de viquipedistes.";
+"talk-pages-topic-reply-onboarding-title" = "Pàgines de discussió";
 "talk-pages-user-groups" = "Grups d’usuaris";
 "talk-pages-user-logs" = "Registres";
 "talk-pages-view-title" = "Discussió";
