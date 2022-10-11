@@ -7,18 +7,18 @@ final class TalkPageViewModel {
     // MARK: - Properties
 
     let pageType: TalkPageType
-    let pageTitle: String
-    let siteURL: URL
+    var pageTitle: String
+    var siteURL: URL
     let authenticationManager: WMFAuthenticationManager
-    private let dataController: TalkPageDataController
+    var dataController: TalkPageDataController
 
-    // TODO: - Populate from data controller
     private(set) var headerTitle: String
     private(set) var headerDescription: String?
     private(set) var leadImageURL: URL?
     private(set) var coffeeRollText: String?
     private(set) var projectSourceImage: UIImage?
     private(set) var projectLanguage: String?
+    private(set) var latestRevisionID: Int?
     
     static let leadImageSideLength = 80
     
@@ -33,11 +33,16 @@ final class TalkPageViewModel {
     ///   - pageTitle: Wiki page title, e.g. "Talk:Cat" or "User_talk:Jimbo"
     ///   - siteURL: Site URL without article path, e.g. "https://en.wikipedia.org"
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
-    init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
+    init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, dataController: TalkPageDataController? = nil) {
         self.pageType = pageType
         self.pageTitle = pageTitle
         self.siteURL = siteURL
-        self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
+        if let dataController {
+            self.dataController = dataController
+        } else {
+            self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
+            
+        }
         self.authenticationManager = authenticationManager
         
         // Setting headerTitle as pageTitle (which contains the namespace prefix) for now, we attempt to strip the namespace later in populateHeaderData
@@ -69,14 +74,15 @@ final class TalkPageViewModel {
             guard let self = self else {
                 return
             }
-            
+            let oldViewModels: [TalkPageCellViewModel] = self.topics
+
             switch result {
             case .success(let result):
                 self.populateHeaderData(articleSummary: result.articleSummary, items: result.items)
-                let oldViewModels: [TalkPageCellViewModel] = self.topics
                 self.topics.removeAll()
                 self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
                 self.updateSubscriptionForTopic(topicNames: result.subscribedTopicNames)
+                self.latestRevisionID = result.latestRevisionID
                 completion(.success(()))
             case .failure(let error):
                 DDLogError("Failure fetching talk page: \(error)")
@@ -132,6 +138,8 @@ final class TalkPageViewModel {
         if let otherContent = items.first?.otherContent,
            !otherContent.isEmpty {
                coffeeRollText = items.first?.otherContent
+        } else {
+            coffeeRollText = nil
         }
         
         projectLanguage = languageCode
