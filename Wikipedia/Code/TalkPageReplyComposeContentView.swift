@@ -146,7 +146,8 @@ class TalkPageReplyComposeContentView: SetupView {
         ])
         
         activityIndicator.isHidden = true
-        
+
+        publishButton.isEnabled = false
         publishButton.titleLabel?.font = UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
     }
     
@@ -265,22 +266,26 @@ class TalkPageReplyComposeContentView: SetupView {
         
         return attributedString
     }
+
+    private func evaluatePublishButtonEnabledState() {
+        publishButton.isEnabled = !replyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
 }
 
 extension TalkPageReplyComposeContentView: UITextViewDelegate {
 
      func textViewDidChange(_ textView: UITextView) {
-
          guard textView == replyTextView else {
              return
          }
 
          placeholderLabel.alpha = replyTextView.text.count == 0 ? 1 : 0
          toggleFinePrint(shouldShow: false)
+         evaluatePublishButtonEnabledState()
      }
      
      func textViewDidBeginEditing(_ textView: UITextView) {
-         
          guard textView == replyTextView else {
              return
          }
