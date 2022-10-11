@@ -32,13 +32,16 @@ class TalkPageViewController: ViewController {
     // MARK: - Overflow menu properties
     
     fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
-        let contributionsAction = UIAction(title: TalkPageLocalizedStrings.contributions, image: UIImage(named: "user-contributions"), handler: { _ in
+        let contributionsAction = UIAction(title: TalkPageLocalizedStrings.contributions, image: UIImage(named: "user-contributions"), handler: { [weak self] _ in
+            self?.pushToContributions()
         })
 
-        let userGroupsAction = UIAction(title: TalkPageLocalizedStrings.userGroups, image: UIImage(systemName: "person.2"), handler: { _ in
+        let userGroupsAction = UIAction(title: TalkPageLocalizedStrings.userGroups, image: UIImage(systemName: "person.2"), handler: { [weak self] _ in
+            self?.pushToUserGroups()
         })
 
-        let logsAction = UIAction(title: TalkPageLocalizedStrings.logs, image: UIImage(systemName: "list.bullet"), handler: { _ in
+        let logsAction = UIAction(title: TalkPageLocalizedStrings.logs, image: UIImage(systemName: "list.bullet"), handler: { [weak self] _ in
+            self?.pushToLogs()
         })
 
         return [contributionsAction, userGroupsAction, logsAction]
@@ -49,13 +52,16 @@ class TalkPageViewController: ViewController {
         let goToArchivesAction = UIAction(title: TalkPageLocalizedStrings.archives, image: UIImage(systemName: "archivebox"), handler: { _ in
         })
 
-        let pageInfoAction = UIAction(title: TalkPageLocalizedStrings.pageInfo, image: UIImage(systemName: "info.circle"), handler: { _ in
+        let pageInfoAction = UIAction(title: TalkPageLocalizedStrings.pageInfo, image: UIImage(systemName: "info.circle"), handler: { [weak self] _ in
+            self?.pushToPageInfo()
         })
 
-        let goToPermalinkAction = UIAction(title: TalkPageLocalizedStrings.permaLink, image: UIImage(systemName: "link"), handler: { _ in
+        let goToPermalinkAction = UIAction(title: TalkPageLocalizedStrings.permaLink, image: UIImage(systemName: "link"), handler: { [weak self] _ in
+            self?.pushToPermanentLink()
         })
 
-        let relatedLinksAction = UIAction(title: TalkPageLocalizedStrings.relatedLinks, image: UIImage(systemName: "arrowshape.turn.up.forward"), handler: { _ in
+        let relatedLinksAction = UIAction(title: TalkPageLocalizedStrings.relatedLinks, image: UIImage(systemName: "arrowshape.turn.up.forward"), handler: { [weak self] _ in
+            self?.pushToWhatLinksHere()
         })
 
         var actions = [goToArchivesAction, pageInfoAction, goToPermalinkAction, relatedLinksAction]
@@ -89,12 +95,12 @@ class TalkPageViewController: ViewController {
             self.talkPageView.collectionView.reloadData()
         })
         
-        let revisionHistoryAction = UIAction(title: CommonStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { _ in
-            
+        let revisionHistoryAction = UIAction(title: CommonStrings.revisionHistory, image: UIImage(systemName: "clock.arrow.circlepath"), handler: { [weak self] _ in
+            self?.pushToRevisionHistory()
         })
         
-        let openInWebAction = UIAction(title: TalkPageLocalizedStrings.readInWeb, image: UIImage(systemName: "display"), handler: { _ in
-            
+        let openInWebAction = UIAction(title: TalkPageLocalizedStrings.readInWeb, image: UIImage(systemName: "display"), handler: { [weak self] _ in
+            self?.pushToDesktopWeb()
         })
         
         let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
@@ -214,8 +220,19 @@ class TalkPageViewController: ViewController {
     
     let replyComposeController = TalkPageReplyComposeController()
     
+    private var isClosing: Bool = false
+    
+    override var keyboardIsIncludedInBottomContentInset: Bool {
+        return false
+    }
+    
     override var additionalBottomContentInset: CGFloat {
-        return replyComposeController.additionalBottomContentInset
+
+        if let replyComposeView = replyComposeController.containerView {
+            return max(0, toolbar.frame.minY - replyComposeView.frame.minY)
+        }
+
+        return 0
     }
     
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
@@ -268,7 +285,7 @@ class TalkPageViewController: ViewController {
     }
     
     @objc fileprivate func userDidTapRevisionButton() {
-        
+        pushToRevisionHistory()
     }
 
     @objc fileprivate func userDidTapAddTopicButton() {
@@ -292,6 +309,101 @@ class TalkPageViewController: ViewController {
         findButton.accessibilityLabel = TalkPageLocalizedStrings.findButtonAccesibilityLabel
         revisionButton.accessibilityLabel = CommonStrings.revisionHistory
         addTopicButton.accessibilityLabel = TalkPageLocalizedStrings.addTopicButtonAccesibilityLabel
+    }
+    
+    fileprivate func pushToRevisionHistory() {
+        let historyVC = PageHistoryViewController(pageTitle: viewModel.pageTitle, pageURL: viewModel.siteURL)
+        navigationController?.pushViewController(historyVC, animated: true)
+    }
+    
+    // MARK: - Overflow menu navigation
+    
+    fileprivate func pushToDesktopWeb() {
+        guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/\(viewModel.pageTitle)", isMobile: false) else {
+            // TODO: Error banner
+            return
+        }
+        
+        navigate(to: url, useSafari: true)
+    }
+    
+    fileprivate func pushToPageInfo() {
+        
+        guard let host = viewModel.siteURL.host,
+        let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
+                                                                        "action": "info"]) else {
+            // TODO: Error banner
+            return
+        }
+        
+        navigate(to: url)
+    }
+    
+    fileprivate func pushToWhatLinksHere() {
+        guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:WhatLinksHere/\(viewModel.pageTitle)", isMobile: true) else {
+            // TODO: Error banner
+            return
+        }
+        
+        navigate(to: url)
+    }
+    
+    fileprivate func pushToContributions() {
+        guard let username = usernameFromPageTitle(),
+        let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) else {
+            // TODO: Error banner
+            return
+        }
+        
+        navigate(to: url)
+    }
+    
+    fileprivate func pushToUserGroups() {
+        guard let username = usernameFromPageTitle(),
+        let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:UserRights/\(username)", isMobile: true) else {
+            // TODO: Error banner
+            return
+        }
+        
+        navigate(to: url)
+    }
+    
+    fileprivate func pushToLogs() {
+        guard let username = usernameFromPageTitle(),
+        let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Log/\(username)", isMobile: true) else {
+            // TODO: Error banner
+            return
+        }
+        
+        navigate(to: url)
+    }
+    
+    fileprivate func usernameFromPageTitle() -> String? {
+        guard let languageCode = viewModel.siteURL.wmf_languageCode else {
+            return nil
+        }
+        
+        let namespaceAndTitle = viewModel.pageTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode)
+        
+        guard namespaceAndTitle.0 == .userTalk else {
+            return nil
+        }
+        
+        return namespaceAndTitle.1
+    }
+    
+    fileprivate func pushToPermanentLink() {
+        
+        guard let latestRevisionID = viewModel.latestRevisionID,
+              let mobileSiteURL = viewModel.siteURL.wmf_URL(withPath: "", isMobile: true),
+              let host = mobileSiteURL.host,
+              let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
+                                                                        "oldid": latestRevisionID]) else {
+            // TODO: Error banner
+            return
+        }
+        
+        navigate(to: url, useSafari: true)
     }
     
     // MARK: - Alerts
@@ -479,7 +591,6 @@ extension TalkPageViewController: TalkPageCellDelegate {
                 // TODO: Error handling
             }
         }
- 
     }
 
     // MARK: - Empty State
@@ -501,8 +612,8 @@ extension TalkPageViewController: TalkPageCellReplyDelegate {
 }
 
 extension TalkPageViewController: TalkPageReplyComposeDelegate {
-    func tappedClose() {
-        replyComposeController.reset()
+    func closeReplyView() {
+        replyComposeController.closeAndReset()
     }
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
@@ -513,7 +624,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
 
             switch result {
             case .success:
-                self?.replyComposeController.reset()
+                self?.replyComposeController.closeAndReset()
                 
                 // Try to refresh page
                 self?.viewModel.fetchTalkPage { [weak self] result in

@@ -12,13 +12,13 @@ final class TalkPageViewModel {
     let authenticationManager: WMFAuthenticationManager
     private let dataController: TalkPageDataController
 
-    // TODO: - Populate from data controller
     private(set) var headerTitle: String
     private(set) var headerDescription: String?
     private(set) var leadImageURL: URL?
     private(set) var coffeeRollText: String?
     private(set) var projectSourceImage: UIImage?
     private(set) var projectLanguage: String?
+    private(set) var latestRevisionID: Int?
     
     static let leadImageSideLength = 80
     
@@ -77,6 +77,7 @@ final class TalkPageViewModel {
                 self.topics.removeAll()
                 self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
                 self.updateSubscriptionForTopic(topicNames: result.subscribedTopicNames)
+                self.latestRevisionID = result.latestRevisionID
                 completion(.success(()))
             case .failure(let error):
                 DDLogError("Failure fetching talk page: \(error)")
