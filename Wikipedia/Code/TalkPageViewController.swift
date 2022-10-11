@@ -111,7 +111,6 @@ class TalkPageViewController: ViewController {
 
     init(theme: Theme, viewModel: TalkPageViewModel) {
         self.viewModel = viewModel
-        let contentLanguageCode = viewModel.siteURL.wmf_contentLanguageCode
         super.init(theme: theme)
     }
     

@@ -68,7 +68,7 @@
 "account-creation-missing-fields" = "Da ustvarite račun, morate vnesti uporabniško ime in geslo ter potrditi geslo.";
 "account-creation-passwords-mismatched" = "Polja gesla se ne ujemajo.";
 "account-creation-saving" = "Shranjevanje ...";
-"account-creation-title" = "Ustvarite račun";
+"account-creation-title" = "Ustvarite nov račun";
 "account-group-title" = "Vaš račun";
 "account-talk-page-title" = "Vaša stran za pogovor";
 "account-talk-preferences-auto-sign-discussions" = "Pogovori s samodejnim podpisom";
@@ -283,7 +283,7 @@
 "field-new-password-confirm-title" = "Potrditev gesla";
 "field-new-password-placeholder" = "vnesite novo geslo";
 "field-new-password-title" = "Novo geslo";
-"field-password-confirm-placeholder" = "ponovno vnesite geslo";
+"field-password-confirm-placeholder" = "znova vnesite geslo";
 "field-password-confirm-title" = "Potrditev gesla";
 "field-password-placeholder" = "vnesite geslo";
 "field-password-title" = "Geslo";
@@ -355,6 +355,7 @@
 "notifications-center-status-all" = "Vse";
 "notifications-center-swipe-mark-as-unread" = "Označi kot neprebrano";
 "notifications-center-swipe-more" = "Več";
+"notifications-center-type-title-talk-page-mention" = "Omemba na pogovorni strani";
 "on-this-day-detail-header-date-range" = "od $1 – $2";
 "on-this-day-title" = "Na današnji dan";
 "page-location" = "Prikaži na karti";
@@ -443,6 +444,8 @@
 "talk-pages-topic-compose-close-confirmation-title" = "Ali res želite zavreči to novo temo?";
 "talk-pages-topic-compose-navbar-title" = "Tema";
 "talk-pages-topic-compose-title-placeholder" = "Naslov teme";
+"talk-pages-topic-reply-onboarding-body" = "Pogovorne strani so namenjene pogovorom o tem, kako karseda izboljšati vsebino Wikipedije. Dodajte novo temo za razpravo, da se povežete in sodelujete s skupnostjo Wikipedistov.\n\nBodite prijazni, vsi tu smo ljudje.";
+"talk-pages-topic-reply-onboarding-title" = "Pogovorne strani";
 "talk-pages-user-groups" = "Uporabniške skupine";
 "talk-pages-user-logs" = "Dnevniki";
 "theme-default-display-name" = "Privzeto";
