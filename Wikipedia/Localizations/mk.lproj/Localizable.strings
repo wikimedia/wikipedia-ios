@@ -1049,6 +1049,8 @@
 "talk-pages-topic-compose-close-confirmation-title" = "Дали сигурно сакате да ја отфрлите оваа нова тема?";
 "talk-pages-topic-compose-navbar-title" = "Тема";
 "talk-pages-topic-compose-title-placeholder" = "Наслов на темата";
+"talk-pages-topic-reply-onboarding-body" = "Разговорните страници се места каде луѓето дискутираат како што повеќе да ја подобрат содржината на Википедија. Додајте нова тема на разговор за да се поврзете и да соработувате со википедијанската заедница.\n\nБидете фини, сите сме луѓе.";
+"talk-pages-topic-reply-onboarding-title" = "Разговорни страници";
 "talk-pages-user-groups" = "Кориснички групи";
 "talk-pages-user-logs" = "Дневници";
 "talk-pages-view-title" = "Разговор";

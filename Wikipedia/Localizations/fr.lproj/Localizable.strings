@@ -1070,6 +1070,8 @@
 "talk-pages-topic-compose-close-confirmation-title" = "Voulez-vous vraiment abandonner ce nouveau sujet ?";
 "talk-pages-topic-compose-navbar-title" = "Sujet";
 "talk-pages-topic-compose-title-placeholder" = "Titre du sujet";
+"talk-pages-topic-reply-onboarding-body" = "Les pages de discussion sont les endroits où les gens discutent de la façon de rendre le contenu de Wikipédia le meilleur possible. Ajoutez un nouveau sujet de discussion pour vous connecter et collaborer avec une communauté de Wikipédiens.\n\nVeuillez rester courtois, nous sommes tous des humains ici.";
+"talk-pages-topic-reply-onboarding-title" = "Pages de discussion";
 "talk-pages-user-groups" = "Groupes d’utilisateurs";
 "talk-pages-user-logs" = "Journaux";
 "talk-pages-view-title" = "Discussion";
