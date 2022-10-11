@@ -127,7 +127,7 @@ class NotificationsCenterCellViewModelEditRevertedTests: NotificationsCenterView
         let expectedText3 = "Blue Bird talk page"
         let expectedURL3: URL? = URL(string: "https://test.wikipedia.org/wiki/Talk:Blue_Bird")!
         let expectedIcon3: NotificationsCenterIconType = .document
-        let expectedDestinationText3 = "On web"
+        let expectedDestinationText3 = "In app"
         let expectedAction3: NotificationsCenterActionData.LoggingLabel = .articleTalk
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText3, actionToTest: cellViewModel.sheetActions[3], actionType: expectedAction3)
         

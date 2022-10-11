@@ -16,7 +16,7 @@ class URL_ExtensionTests: XCTestCase {
         XCTAssertFalse(URL(string: "https://en.wikipedia.org/wiki/User_talk:Jimbo_Wales")!.doesOpenInBrowser)
 
         // Article talk
-        XCTAssertTrue(URL(string: "https://en.wikipedia.org/wiki/Talk:Jo_Ann_Hardesty")!.doesOpenInBrowser)
+        XCTAssertFalse(URL(string: "https://en.wikipedia.org/wiki/Talk:Jo_Ann_Hardesty")!.doesOpenInBrowser)
 
         // Article in Chinese
         XCTAssertFalse(URL(string: "https://zh.wikipedia.org/wiki/%E7%BE%8E%E5%9C%8B%E9%91%84%E5%B9%A3%E5%B1%80")!.doesOpenInBrowser)

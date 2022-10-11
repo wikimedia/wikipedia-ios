@@ -251,6 +251,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.editHintController = [[WMFEditHintController alloc] init];
     self.talkPageReplyHintController = [[WMFTalkPageReplyHintController alloc] init];
     self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
+
     if (@available(iOS 14.0, *)) {
         self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
     }
@@ -632,7 +633,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         DDLogError(@"Error on cleanup: %@", housekeepingError);
         housekeepingError = nil;
     }
-    
+
+    /// Housekeeping for the new talk page cache
+    [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn: SharedContainerCacheCommonNames.talkPageCache];
+
     completion(housekeepingError);
 }
 
