@@ -33,6 +33,10 @@
 		0033D79E24F8193900CAB5B3 /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0033D79C24F8193900CAB5B3 /* CGPoint+Extensions.swift */; };
 		0033D7A124F8199300CAB5B3 /* Sparkline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0033D7A024F8199300CAB5B3 /* Sparkline.swift */; };
 		0036C8B3282C2AAA00EADB35 /* Notification+NotificationsCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0036C8B2282C2AAA00EADB35 /* Notification+NotificationsCenter.swift */; };
+		003CD3E928EF7C77000158E4 /* TalkPageFindInPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003CD3E828EF7C77000158E4 /* TalkPageFindInPageController.swift */; };
+		003CD3EA28EF7C77000158E4 /* TalkPageFindInPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003CD3E828EF7C77000158E4 /* TalkPageFindInPageController.swift */; };
+		003CD3EB28EF7C77000158E4 /* TalkPageFindInPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003CD3E828EF7C77000158E4 /* TalkPageFindInPageController.swift */; };
+		003CD3EC28EF7C77000158E4 /* TalkPageFindInPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003CD3E828EF7C77000158E4 /* TalkPageFindInPageController.swift */; };
 		0042806C25E6E395004945B3 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042804025E6E395004945B3 /* FLAnimatedImage.m */; };
 		0042806D25E6E395004945B3 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042804125E6E395004945B3 /* FLAnimatedImageView.m */; };
 		0042806E25E6E395004945B3 /* FLAnimatedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042804225E6E395004945B3 /* FLAnimatedImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3806,6 +3810,7 @@
 		0033D79C24F8193900CAB5B3 /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
 		0033D7A024F8199300CAB5B3 /* Sparkline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sparkline.swift; sourceTree = "<group>"; };
 		0036C8B2282C2AAA00EADB35 /* Notification+NotificationsCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+NotificationsCenter.swift"; sourceTree = "<group>"; };
+		003CD3E828EF7C77000158E4 /* TalkPageFindInPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageFindInPageController.swift; sourceTree = "<group>"; };
 		0042804025E6E395004945B3 /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImage.m; sourceTree = "<group>"; };
 		0042804125E6E395004945B3 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
 		0042804225E6E395004945B3 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
@@ -6240,6 +6245,7 @@
 				005E004028DE1F2800721584 /* TalkPageCoffeeRollViewModel.swift */,
 				00474A2E28DD1B13002E3C09 /* TalkPageCoffeeRollView.swift */,
 				00EACEC528E39D470054DDB4 /* TalkPageEmptyView.swift */,
+				003CD3E828EF7C77000158E4 /* TalkPageFindInPageController.swift */,
 			);
 			name = "Talk Pages";
 			sourceTree = "<group>";
@@ -11590,6 +11596,7 @@
 				B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */,
 				FFD7B85624B3B384005C2471 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */,
+				003CD3E928EF7C77000158E4 /* TalkPageFindInPageController.swift in Sources */,
 				B0524B1F214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
 				D80BF0A32347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				8330532E23EF107D00123141 /* MediaListGalleryViewController.swift in Sources */,
@@ -12549,6 +12556,7 @@
 				83E52BB71F681F940045E776 /* ShareAFactViewController.swift in Sources */,
 				D8A42AD51E815A9C00D8E281 /* UIViewController+WMFEmptyView.m in Sources */,
 				BAA0D91F1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
+				003CD3EC28EF7C77000158E4 /* TalkPageFindInPageController.swift in Sources */,
 				B0524B22214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
 				D8A42ADD1E815A9C00D8E281 /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				8382F8DC20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,
@@ -13284,6 +13292,7 @@
 				6741245227E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */,
 				67E5DA5E2761B0AB00CE827D /* NotificationsCenterFilterView.swift in Sources */,
 				7AFEB1BD1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
+				003CD3EB28EF7C77000158E4 /* TalkPageFindInPageController.swift in Sources */,
 				B0ACB13421265B9C0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */,
 				7A1469C6220BC223000A20F1 /* EditHintController.swift in Sources */,
 				D8CE25CC1E698E2400DAE2E0 /* UIView+IBExtras.swift in Sources */,
@@ -13856,6 +13865,7 @@
 				6741245127E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */,
 				67E5DA5D2761B0AB00CE827D /* NotificationsCenterFilterView.swift in Sources */,
 				7AFEB1BE1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
+				003CD3EA28EF7C77000158E4 /* TalkPageFindInPageController.swift in Sources */,
 				B0ACB13521265B9D0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */,
 				D8EC3ECA1E9BDA35006712EB /* UIView+IBExtras.swift in Sources */,
 				7A1469C7220BC223000A20F1 /* EditHintController.swift in Sources */,
