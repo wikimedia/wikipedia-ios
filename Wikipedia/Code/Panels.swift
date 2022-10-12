@@ -189,6 +189,18 @@ class LoggedOutPanelViewController: ScrollableEducationPanelViewController {
     }
 }
 
+class NotLoggedInPanelViewController: ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "abuse-filter-flag")
+        heading = WMFLocalizedString("panel-not-logged-in-title", value: "You are not logged in", comment: "Title for education panel letting user know they are not logged in.")
+        subheadingHTML = WMFLocalizedString("panel-not-logged-in-subtitle", value: "Your IP address will be publicly visible if you make any edits. If you <b>log in</b> or <b>create an account</b>, your edits will be attributed to your username, along with other benefits.", comment: "Subtitle for letting user know that they are not logged in, after they attempt to publish an edit. Please keep the <b> and </b> tags in translations for bolded text.")
+        primaryButtonTitle = WMFLocalizedString("panel-not-logged-in-continue-edit-action-title", value: "Edit without logging in", comment: "Title for button that continues publishing the edit anonymously.")
+        secondaryButtonTitle = WMFLocalizedString("panel-not-logged-in-log-in-action-title", value: "Log in", comment: "Title for button allowing user to log in before publishing their edit.")
+        tertiaryButtonTitle = WMFLocalizedString("panel-not-logged-in-sign-up-action-title", value: "Sign up", comment: "Title for button allowing user sign up for an account before publishing their edit.")
+    }
+}
+
 class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -501,6 +513,29 @@ extension UIViewController {
             }
         }
         let panelVC = LoggedOutPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler, theme: theme)
+
+        presenter?.present(panelVC, animated: true)
+    }
+    
+    @objc func wmf_showNotLoggedInUponPublishPanel(theme: Theme) {
+        let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            self.presentedViewController?.dismiss(animated: true) {
+                print("edit without logging in")
+            }
+        }
+        let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            self.presentedViewController?.dismiss(animated: true) {
+                print("log in")
+            }
+        }
+        
+        let tertiaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            self.presentedViewController?.dismiss(animated: true) {
+                print("sign up")
+            }
+        }
+        
+        let panelVC = NotLoggedInPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, tertiaryButtonTapHandler: tertiaryButtonTapHandler, dismissHandler: nil, theme: theme)
 
         presenter?.present(panelVC, animated: true)
     }
