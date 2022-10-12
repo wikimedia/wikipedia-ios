@@ -114,7 +114,18 @@ class TalkPageTopicComposeViewController: ViewController {
     private var scrollViewBottomConstraint: NSLayoutConstraint?
     weak var delegate: TalkPageTopicComposeViewControllerDelegate?
     
+    private weak var authenticationManager: WMFAuthenticationManager?
+    
     // MARK: Lifecycle
+    
+    init(authenticationManager: WMFAuthenticationManager, theme: Theme) {
+        self.authenticationManager = authenticationManager
+        super.init(theme: theme)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

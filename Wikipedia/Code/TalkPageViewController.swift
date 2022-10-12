@@ -315,7 +315,7 @@ class TalkPageViewController: ViewController {
     }
 
     @objc fileprivate func userDidTapAddTopicButton() {
-        let topicComposeVC = TalkPageTopicComposeViewController(theme: theme)
+        let topicComposeVC = TalkPageTopicComposeViewController(authenticationManager: viewModel.authenticationManager, theme: theme)
         topicComposeVC.delegate = self
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
@@ -642,7 +642,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
 extension TalkPageViewController: TalkPageCellReplyDelegate {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel) {
         presentTopicReplyOnboardingIfNecessary()
-        replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel)
+        replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager)
     }
 }
 

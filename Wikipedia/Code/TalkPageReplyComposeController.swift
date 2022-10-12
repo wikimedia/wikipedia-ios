@@ -43,10 +43,11 @@ class TalkPageReplyComposeController {
     }
     
     private var displayMode: DisplayMode = .partial
+    private weak var authenticationManager: WMFAuthenticationManager?
 
     // MARK: Public
     
-    func setupAndDisplay(in viewController: ReplyComposableViewController, commentViewModel: TalkPageCellCommentViewModel) {
+    func setupAndDisplay(in viewController: ReplyComposableViewController, commentViewModel: TalkPageCellCommentViewModel, authenticationManager: WMFAuthenticationManager?) {
         
         guard self.commentViewModel == nil else {
             attemptChangeCommentViewModel(in: viewController, newCommentViewModel: commentViewModel)
@@ -55,6 +56,7 @@ class TalkPageReplyComposeController {
         
         self.viewController = viewController
         self.commentViewModel = commentViewModel
+        self.authenticationManager = authenticationManager
         setupViews(in: viewController, commentViewModel: commentViewModel)
         apply(theme: viewController.theme)
     }
@@ -63,7 +65,7 @@ class TalkPageReplyComposeController {
         
         presentDismissConfirmationActionSheet(discardBlock: {
             self.closeAndReset(completion: {
-                self.setupAndDisplay(in: viewController, commentViewModel: newCommentViewModel)
+                self.setupAndDisplay(in: viewController, commentViewModel: newCommentViewModel, authenticationManager: self.authenticationManager)
             })
         })
     }
