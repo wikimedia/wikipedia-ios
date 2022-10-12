@@ -119,7 +119,8 @@ class TalkPageViewController: ViewController {
         view = talkPageView
         scrollView = talkPageView.collectionView
     }
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -132,7 +133,7 @@ class TalkPageViewController: ViewController {
             navigationItem.rightBarButtonItem = rightBarButtonItem
             rightBarButtonItem.tintColor = theme.colors.link
         }
- 
+
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
 
@@ -142,13 +143,24 @@ class TalkPageViewController: ViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
 
+        fetch()
+        
+        setupToolbar()
+    }
+
+    @objc func tryAgain() {
+        fetch()
+    }
+
+    fileprivate func fetch() {
         fakeProgressController.start()
+
         viewModel.fetchTalkPage { [weak self] result in
-            
+
             guard let self = self else {
                 return
             }
-            
+
             self.fakeProgressController.stop()
             switch result {
             case .success:
@@ -158,11 +170,10 @@ class TalkPageViewController: ViewController {
                 self.updateEmptyStateVisibility()
             case .failure:
                 self.updateErrorStateVisibility()
+                self.talkPageView.errorView.button.addTarget(self, action: #selector(self.tryAgain), for: .primaryActionTriggered)
             }
             self.talkPageView.collectionView.reloadData()
         }
-        
-        setupToolbar()
     }
 
     private func setupHeaderView() {
@@ -331,7 +342,7 @@ class TalkPageViewController: ViewController {
     private func scrollToNewComment(oldCellViewModel: TalkPageCellViewModel?, oldCommentViewModels: [TalkPageCellCommentViewModel]?) {
         
         guard let oldCellViewModel = oldCellViewModel,
-        let oldCommentViewModels = oldCommentViewModels else {
+              let oldCommentViewModels = oldCommentViewModels else {
             return
         }
         
@@ -371,7 +382,7 @@ class TalkPageViewController: ViewController {
         let collectionView = talkPageView.collectionView
         
         guard let index = viewModel.topics.firstIndex(of: cellViewModel)
-               else {
+        else {
             return
         }
         
@@ -382,12 +393,12 @@ class TalkPageViewController: ViewController {
                 if let talkPageCell = cell as? TalkPageCell {
                     
                     if talkPageCell.viewModel == cellViewModel {
-                     
-                         if let commentView = talkPageCell.commentViewForViewModel(commentViewModel),
-                             let convertedCommentViewFrame = commentView.superview?.convert(commentView.frame, to: collectionView) {
-                             let shiftedFrame = CGRect(x: convertedCommentViewFrame.minX, y: convertedCommentViewFrame.minY + 50, width: convertedCommentViewFrame.width, height: convertedCommentViewFrame.height)
-                                 collectionView.scrollRectToVisible(shiftedFrame, animated: true)
-                         }
+
+                        if let commentView = talkPageCell.commentViewForViewModel(commentViewModel),
+                           let convertedCommentViewFrame = commentView.superview?.convert(commentView.frame, to: collectionView) {
+                            let shiftedFrame = CGRect(x: convertedCommentViewFrame.minX, y: convertedCommentViewFrame.minY + 50, width: convertedCommentViewFrame.width, height: convertedCommentViewFrame.height)
+                            collectionView.scrollRectToVisible(shiftedFrame, animated: true)
+                        }
                     }
                 }
             }
@@ -479,7 +490,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
                 // TODO: Error handling
             }
         }
- 
+
     }
 
     // MARK: - Empty State

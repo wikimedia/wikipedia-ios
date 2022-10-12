@@ -87,9 +87,9 @@ class TalkPageFetcher: Fetcher {
         }
         
         let params = ["action" : "discussiontoolspageinfo",
-//                      "page" : title,
-//                      "format": "json",
-//                      "prop" : "threaditemshtml",
+                      "page" : title,
+                      "format": "json",
+                      "prop" : "threaditemshtml",
                       "formatversion" : "2"
         ]
         

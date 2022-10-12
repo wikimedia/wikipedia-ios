@@ -56,6 +56,7 @@ final class TalkPageErrorStateView: SetupView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+
     }
 
 }
