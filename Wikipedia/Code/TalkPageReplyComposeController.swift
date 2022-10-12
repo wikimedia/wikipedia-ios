@@ -373,8 +373,11 @@ class TalkPageReplyComposeController {
         
         guard let commentViewModel = commentViewModel,
               let text = contentView?.replyTextView.text else {
+            assertionFailure("Comment view model or replyTextView text is empty. Publish button should have been disabled.")
             return
         }
+        
+        contentView?.replyTextView.resignFirstResponder()
         
         guard let authenticationManager = authenticationManager,
         !authenticationManager.isLoggedIn else {
@@ -395,7 +398,7 @@ class TalkPageReplyComposeController {
             case 1, 2:
                 break
             default:
-                assertionFailure("Unrecognize button index in tap handler.")
+                assertionFailure("Unrecognized button index in tap handler.")
             }
         }, theme: theme)
     }

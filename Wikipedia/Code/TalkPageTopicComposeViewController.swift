@@ -364,6 +364,8 @@ class TalkPageTopicComposeViewController: ViewController {
             return
         }
         
+        view.endEditing(true)
+        
         guard let authenticationManager = authenticationManager,
         !authenticationManager.isLoggedIn else {
             setupNavigationBar(isPublishing: true)
