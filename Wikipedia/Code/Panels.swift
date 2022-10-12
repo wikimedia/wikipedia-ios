@@ -196,7 +196,7 @@ class NotLoggedInPanelViewController: ScrollableEducationPanelViewController {
         heading = WMFLocalizedString("panel-not-logged-in-title", value: "You are not logged in", comment: "Title for education panel letting user know they are not logged in.")
         subheadingHTML = WMFLocalizedString("panel-not-logged-in-subtitle", value: "Your IP address will be publicly visible if you make any edits. If you <b>log in</b> or <b>create an account</b>, your edits will be attributed to your username, along with other benefits.", comment: "Subtitle for letting user know that they are not logged in, after they attempt to publish an edit. Please keep the <b> and </b> tags in translations for bolded text.")
         primaryButtonTitle = WMFLocalizedString("panel-not-logged-in-continue-edit-action-title", value: "Edit without logging in", comment: "Title for button that continues publishing the edit anonymously.")
-        secondaryButtonTitle = WMFLocalizedString("panel-not-logged-in-log-in-action-title", value: "Log in", comment: "Title for button allowing user to log in before publishing their edit.")
+        secondaryButtonTitle = CommonStrings.editSignIn
         tertiaryButtonTitle = WMFLocalizedString("panel-not-logged-in-sign-up-action-title", value: "Sign up", comment: "Title for button allowing user sign up for an account before publishing their edit.")
     }
 }
