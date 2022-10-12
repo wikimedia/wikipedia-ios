@@ -230,9 +230,9 @@ extension WikimediaProject {
         }
     }
 
-    /// Initializes RemoteNotificationProject with wiki identifier recognize by the MediaWiki Notifications API
+    /// Initializes WikimediaProject with wiki identifier recognize by the MediaWiki Notifications API
     /// - Parameters:
-    ///   - apiIdentifier: The API identifier used by the MediaWiki Notifications API. (e.g. "enwiki", "commonswiki", "wikidatawiki", etc.)
+    ///   - notificationsApiIdentifier: The API identifier used by the MediaWiki Notifications API. (e.g. "enwiki", "commonswiki", "wikidatawiki", etc.)
     ///   - languageLinkController: Included to validate project against a list of languages that the app recognizes. This also associates extra metadata to language enum associated value, like localizedName and languageVariantCode.
     public init?(notificationsApiIdentifier: String, languageLinkController: MWKLanguageLinkController) {
         
