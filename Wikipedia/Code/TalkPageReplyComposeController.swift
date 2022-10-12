@@ -376,8 +376,28 @@ class TalkPageReplyComposeController {
             return
         }
         
-        isLoading = true
-        viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
+        guard let authenticationManager = authenticationManager,
+        !authenticationManager.isLoggedIn else {
+            isLoading = true
+            viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
+            return
+        }
+        
+        guard let theme = viewController?.theme else {
+            return
+        }
+        
+        viewController?.wmf_showNotLoggedInUponPublishPanel(buttonTapHandler: { [weak self] buttonIndex in
+            switch buttonIndex {
+            case 0:
+                self?.isLoading = true
+                self?.viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
+            case 1, 2:
+                break
+            default:
+                assertionFailure("Unrecognize button index in tap handler.")
+            }
+        }, theme: theme)
     }
 }
 

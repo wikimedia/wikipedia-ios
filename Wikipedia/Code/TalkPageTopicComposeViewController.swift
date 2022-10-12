@@ -364,8 +364,28 @@ class TalkPageTopicComposeViewController: ViewController {
             return
         }
         
-        setupNavigationBar(isPublishing: true)
-        delegate?.tappedPublish(topicTitle: title, topicBody: body, composeViewController: self)
+        guard let authenticationManager = authenticationManager,
+        !authenticationManager.isLoggedIn else {
+            setupNavigationBar(isPublishing: true)
+            delegate?.tappedPublish(topicTitle: title, topicBody: body, composeViewController: self)
+            return
+        }
+        
+        wmf_showNotLoggedInUponPublishPanel(buttonTapHandler: { [weak self] buttonIndex in
+            switch buttonIndex {
+            case 0:
+                guard let self = self else {
+                    return
+                }
+                
+                self.setupNavigationBar(isPublishing: true)
+                self.delegate?.tappedPublish(topicTitle: title, topicBody: body, composeViewController: self)
+            case 1, 2:
+                break
+            default:
+                assertionFailure("Unrecognize button index in tap handler.")
+            }
+        }, theme: theme)
     }
     
     @objc private func titleTextFieldChanged() {
