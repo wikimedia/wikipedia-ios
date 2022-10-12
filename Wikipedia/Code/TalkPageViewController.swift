@@ -157,7 +157,7 @@ class TalkPageViewController: ViewController {
                 self.talkPageView.emptyView.actionButton.addTarget(self, action: #selector(self.userDidTapAddTopicButton), for: .primaryActionTriggered)
                 self.updateEmptyStateVisibility()
             case .failure:
-                break
+                self.updateErrorStateVisibility()
             }
             self.talkPageView.collectionView.reloadData()
         }
@@ -490,6 +490,9 @@ extension TalkPageViewController: TalkPageCellDelegate {
         updateScrollViewInsets()
     }
 
+    fileprivate func updateErrorStateVisibility() {
+        talkPageView.updateErrorView(visible: viewModel.shouldShowErrorState)
+    }
 
 }
 
