@@ -517,25 +517,50 @@ extension UIViewController {
         presenter?.present(panelVC, animated: true)
     }
     
-    @objc func wmf_showNotLoggedInUponPublishPanel(theme: Theme) {
-        let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
-            self.presentedViewController?.dismiss(animated: true) {
-                print("edit without logging in")
+    @objc func wmf_showNotLoggedInUponPublishPanel(buttonTapHandler: ((Int) -> Void)?, theme: Theme) {
+        
+        let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+            
+            self?.dismiss(animated: true) {
+                buttonTapHandler?(0)
             }
+            
         }
-        let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
-            self.presentedViewController?.dismiss(animated: true) {
-                print("log in")
+        
+        let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+            
+            self?.dismiss(animated: true) {
+                
+                guard let self = self,
+                      let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
+                    return
+                }
+                loginVC.apply(theme: theme)
+                let navigationController = WMFThemeableNavigationController(rootViewController: loginVC, theme: theme)
+                self.present(navigationController, animated: true, completion: nil)
+                buttonTapHandler?(1)
+                
             }
         }
         
-        let tertiaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
-            self.presentedViewController?.dismiss(animated: true) {
-                print("sign up")
+        let tertiaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+            
+            self?.dismiss(animated: true) {
+                
+                guard let self = self,
+                      let createAccountVC = WMFAccountCreationViewController.wmf_initialViewControllerFromClassStoryboard() else {
+                    return
+                }
+                createAccountVC.apply(theme: theme)
+                let navigationController = WMFThemeableNavigationController(rootViewController: createAccountVC, theme: theme)
+                self.present(navigationController, animated: true, completion: nil)
+                buttonTapHandler?(2)
+                
             }
         }
         
         let panelVC = NotLoggedInPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, tertiaryButtonTapHandler: tertiaryButtonTapHandler, dismissHandler: nil, theme: theme)
+        panelVC.dismissWhenTappedOutside = true
 
         presenter?.present(panelVC, animated: true)
     }
