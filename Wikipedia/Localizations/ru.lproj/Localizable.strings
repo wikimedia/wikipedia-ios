@@ -49,6 +49,7 @@
 // Author: Soul Train
 // Author: Stjn
 // Author: Sunpriat
+// Author: UniCollab
 // Author: Valencia212
 // Author: Vlad5250
 // Author: WindEwriX
@@ -56,6 +57,7 @@
 // Author: Yuryleb
 // Author: Zpizza
 // Author: Александр Сигачёв
+// Author: Артём 13327
 // Author: Марио
 
 "aaald-added-text-description-2" = "$1 добавлено";
@@ -463,6 +465,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Раздел Википедии: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-randomizer" = "Рандомизатор";
+"export-user-data-title" = "Экспорт данных пользователя";
 "featured-article-empty-title" = "Сегодня нет избранных статей";
 "featured-widget-content-failure-for-date" = "Избранная статья недоступна для этой даты.";
 "featured-widget-description" = "Откройте для себя лучшие статьи из Википедии, ежедневно отбираемые нашим сообществом.";
@@ -1071,6 +1074,8 @@
 "talk-pages-topic-compose-close-confirmation-title" = "Вы уверены, что хотите удалить эту новую тему?";
 "talk-pages-topic-compose-navbar-title" = "Тема";
 "talk-pages-topic-compose-title-placeholder" = "Название темы";
+"talk-pages-topic-reply-onboarding-body" = "Страницы обсуждения — это место, где люди обсуждают, как сделать контент в Википедии как можно лучше. Добавьте новую тему для обсуждения, чтобы общаться и сотрудничать с сообществом википедистов.\n\nПожалуйста, будьте приветливы, мы все здесь люди.";
+"talk-pages-topic-reply-onboarding-title" = "Страницы обсуждения";
 "talk-pages-user-groups" = "Группы участников";
 "talk-pages-user-logs" = "Журналы";
 "talk-pages-view-title" = "Обсуждение";
@@ -1102,6 +1107,7 @@
 "vanish-account-button-text" = "Послать запрос";
 "vanish-account-learn-more-text" = "Узнать подробности";
 "vanish-account-username-field" = "Имя участника и его страница";
+"vanish-modal-title" = "Запрос на исчезновение";
 "variants-alert-dismiss-button" = "Нет, спасибо";
 "variants-alert-preferences-button" = "Просмотреть свои настройки";
 "welcome-exploration-explore-feed-description" = "Рекомендованные записи и ежедневные статьи от нашего сообщества";
