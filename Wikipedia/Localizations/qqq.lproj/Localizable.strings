@@ -918,7 +918,6 @@
 "settings-notifications" = "Title for view and button letting users change their push notifications settings.";
 "settings-notifications-echo-failure-message" = "Alert message text informing user of failure when subscribing to Echo Notifications.";
 "settings-notifications-echo-failure-title" = "Alert title text informing user of failure when subscribing to Echo Notifications.";
-"settings-notifications-echo-failure-try-again" = "Alert action text allowing user to retry Echo Notifications subscriptions.";
 "settings-notifications-header" = "Text informing user of benefits of enabling push notifications.";
 "settings-notifications-info" = "A short description of notifications shown in settings";
 "settings-notifications-learn-more" = "A title for a button to learn more about notifications";

@@ -108,7 +108,7 @@ final class TalkPageErrorStateView: SetupView {
     func configure() {
         titleLabel.text = titleText
         subtitleLabel.text = subtitleText
-        button.setTitle(CommonStrings.tryAgain, for: .normal)
+        button.setTitle(CommonStrings.tryAgain.localizedCapitalized, for: .normal)
     }
 
 }

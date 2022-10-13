@@ -319,7 +319,7 @@
 "empty-no-search-results-message" = "No results found";
 "empty-talk-page-title" = "No messages have been posted for this user yet";
 "error-generic-recovery-suggestion" = "Please try again later";
-"error-try-again" = "Try Again";
+"error-try-again" = "Try again";
 "error-unknown" = "An unknown error occurred";
 "explore-another-random" = "Another random article";
 "explore-because-you-read" = "Because you read";
@@ -918,7 +918,6 @@
 "settings-notifications" = "Push notifications";
 "settings-notifications-echo-failure-message" = "An error occurred while checking for notification subscriptions related to your account.";
 "settings-notifications-echo-failure-title" = "Unable to Check for Echo Notification subscriptions";
-"settings-notifications-echo-failure-try-again" = "Try again";
 "settings-notifications-header" = "Be alerted to activity related to your account, such as messages from fellow contributors, alerts, and notices. All provided with respect to privacy and up to the minute data.";
 "settings-notifications-info" = "Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.";
 "settings-notifications-learn-more" = "Learn more about notifications";
