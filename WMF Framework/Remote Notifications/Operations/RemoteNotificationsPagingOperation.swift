@@ -6,12 +6,12 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
     private let needsCrossWikiSummary: Bool
     private(set) var crossWikiSummaryNotification: RemoteNotificationsAPIController.NotificationsResult.Notification?
     
-    required init(project: RemoteNotificationsProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController, needsCrossWikiSummary: Bool) {
+    required init(project: WikimediaProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController, needsCrossWikiSummary: Bool) {
         self.needsCrossWikiSummary = needsCrossWikiSummary
         super.init(project: project, apiController: apiController, modelController: modelController)
     }
     
-    required init(project: RemoteNotificationsProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
+    required init(project: WikimediaProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
         fatalError("init(project:apiController:modelController:) has not been implemented")
     }
     
