@@ -164,6 +164,21 @@ final class TalkPageViewModel {
                 continue
             }
             
+            guard let topicName = topic.name else {
+                DDLogError("Unable to parse topic name")
+                continue
+            }
+            
+            // If we cannot detect any replies to traverse but there is other content to display,
+            // set up cell view model with otherContent and continue to next topic
+            if let otherContent = topic.otherContent,
+               topic.replies.isEmpty {
+                let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: nil, topicName: topicName, leadComment: nil, otherContent: otherContent, replies: [], activeUsersCount: nil, isUserLoggedIn: isUserLoggedIn)
+                self.topics.append(topicViewModel)
+                continue
+            }
+            
+            // Parse through topic replies and set up comment view models
             guard let firstReply = topic.replies.first,
                   let leadCommentViewModel = TalkPageCellCommentViewModel(commentId: firstReply.id, text: firstReply.html, author: firstReply.author, authorTalkPageURL: "", timestamp: firstReply.timestamp, replyDepth: firstReply.level) else {
                 DDLogWarn("Unable to parse lead comment. Skipping topic.")
@@ -187,11 +202,6 @@ final class TalkPageViewModel {
             }
             
             let activeUsersCount = activeUsersCount(topic: topic)
-            
-            guard let topicName = topic.name else {
-                DDLogError("Unable to parse topic name")
-                continue
-            }
 
             let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, otherContent: nil, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserLoggedIn: isUserLoggedIn)
 

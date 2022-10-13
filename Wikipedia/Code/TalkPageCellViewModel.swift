@@ -11,10 +11,12 @@ final class TalkPageCellViewModel {
 
     let id: String
     
+    // A cell could contain unsigned content with no replies. In this case the leadComment is nil and otherContent is populated. The subscribe button, metadata row and first reply button will hide.
     let leadComment: TalkPageCellCommentViewModel?
     let otherContent: String?
     
     let replies: [TalkPageCellCommentViewModel]
+    
     // Number of users involved in thread
     let activeUsersCount: String?
 
