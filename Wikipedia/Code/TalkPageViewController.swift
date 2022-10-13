@@ -141,7 +141,6 @@ class TalkPageViewController: ViewController {
                 self.talkPageView.configure(viewModel: self.viewModel)
                 self.talkPageView.emptyView.actionButton.addTarget(self, action: #selector(self.userDidTapAddTopicButton), for: .primaryActionTriggered)
                 self.updateEmptyStateVisibility()
-                
                 guard self.needsDeepLinkScroll() else {
                     self.talkPageView.collectionView.reloadData()
                     break
@@ -150,9 +149,10 @@ class TalkPageViewController: ViewController {
                 self.reloadDataAndScrollToDeepLink()
                 
             case .failure:
-                self.updateErrorStateVisibility()
                 self.talkPageView.errorView.button.addTarget(self, action: #selector(self.tryAgain), for: .primaryActionTriggered)
             }
+            self.updateErrorStateVisibility()
+
         }
     }
 
