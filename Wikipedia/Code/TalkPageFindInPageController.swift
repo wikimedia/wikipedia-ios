@@ -48,8 +48,9 @@ final class TalkPageFindInPageController {
                 results.append(result)
             }
 
-            if topic.leadComment.text.removingHTML.localizedCaseInsensitiveContains(searchTerm) {
-                let bridgedText = NSString(string: topic.leadComment.text.removingHTML)
+            if let leadComment = topic.leadComment,
+               leadComment.text.removingHTML.localizedCaseInsensitiveContains(searchTerm) {
+                let bridgedText = NSString(string: leadComment.text.removingHTML)
                 let rangeOfTerm = bridgedText.range(of: searchTerm, options: .caseInsensitive)
                 let result = SearchResult(term: searchTerm, location: .topicLeadComment(topicIndex: topicIndex), range: rangeOfTerm)
                 results.append(result)

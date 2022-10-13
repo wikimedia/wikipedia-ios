@@ -10,10 +10,13 @@ final class TalkPageCellViewModel {
     let topicName: String
 
     let id: String
-    let leadComment: TalkPageCellCommentViewModel
+    
+    let leadComment: TalkPageCellCommentViewModel?
+    let otherContent: String?
+    
     let replies: [TalkPageCellCommentViewModel]
     // Number of users involved in thread
-    let activeUsersCount: String
+    let activeUsersCount: String?
 
     var repliesCount: String {
         // Add one for lead comment
@@ -21,17 +24,21 @@ final class TalkPageCellViewModel {
     }
     
     var allCommentViewModels: [TalkPageCellCommentViewModel] {
-        return replies + [leadComment]
+        if let leadComment = leadComment {
+            return replies + [leadComment]
+        }
+        return replies
     }
 
     let isUserLoggedIn: Bool
     
-    init(id: String, topicTitle: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel, replies: [TalkPageCellCommentViewModel], activeUsersCount: String, isUserLoggedIn: Bool) {
+    init(id: String, topicTitle: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel?, otherContent: String?, replies: [TalkPageCellCommentViewModel], activeUsersCount: String?, isUserLoggedIn: Bool) {
         self.id = id
         self.topicTitle = topicTitle
         self.timestamp = timestamp
         self.topicName = topicName
         self.leadComment = leadComment
+        self.otherContent = otherContent
         self.replies = replies
         self.activeUsersCount = activeUsersCount
         self.isUserLoggedIn = isUserLoggedIn
