@@ -195,9 +195,8 @@ class NotLoggedInPanelViewController: ScrollableEducationPanelViewController {
         image = UIImage(named: "abuse-filter-flag")
         heading = WMFLocalizedString("panel-not-logged-in-title", value: "You are not logged in", comment: "Title for education panel letting user know they are not logged in.")
         subheadingHTML = WMFLocalizedString("panel-not-logged-in-subtitle", value: "Your IP address will be publicly visible if you make any edits. If you <b>log in</b> or <b>create an account</b>, your edits will be attributed to your username, along with other benefits.", comment: "Subtitle for letting user know that they are not logged in, after they attempt to publish an edit. Please keep the <b> and </b> tags in translations for bolded text.")
-        primaryButtonTitle = WMFLocalizedString("panel-not-logged-in-continue-edit-action-title", value: "Edit without logging in", comment: "Title for button that continues publishing the edit anonymously.")
-        secondaryButtonTitle = CommonStrings.editSignIn
-        tertiaryButtonTitle = WMFLocalizedString("panel-not-logged-in-sign-up-action-title", value: "Sign up", comment: "Title for button allowing user sign up for an account before publishing their edit.")
+        primaryButtonTitle = CommonStrings.loginOrCreateAccountTitle
+        secondaryButtonTitle = WMFLocalizedString("panel-not-logged-in-continue-edit-action-title", value: "Edit without logging in", comment: "Title for button that continues publishing the edit anonymously.")
     }
 }
 
@@ -521,7 +520,8 @@ extension UIViewController {
         
         let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
             
-            self?.dismiss(animated: true) {
+            self?.dismiss(animated: true) { [weak self] in
+                self?.wmf_showLoginViewController(theme: theme, loginSuccessCompletion: nil, loginDismissedCompletion: nil)
                 buttonTapHandler?(0)
             }
             
@@ -530,36 +530,11 @@ extension UIViewController {
         let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
             
             self?.dismiss(animated: true) {
-                
-                guard let self = self,
-                      let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
-                    return
-                }
-                loginVC.apply(theme: theme)
-                let navigationController = WMFThemeableNavigationController(rootViewController: loginVC, theme: theme)
-                self.present(navigationController, animated: true, completion: nil)
                 buttonTapHandler?(1)
-                
             }
         }
         
-        let tertiaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
-            
-            self?.dismiss(animated: true) {
-                
-                guard let self = self,
-                      let createAccountVC = WMFAccountCreationViewController.wmf_initialViewControllerFromClassStoryboard() else {
-                    return
-                }
-                createAccountVC.apply(theme: theme)
-                let navigationController = WMFThemeableNavigationController(rootViewController: createAccountVC, theme: theme)
-                self.present(navigationController, animated: true, completion: nil)
-                buttonTapHandler?(2)
-                
-            }
-        }
-        
-        let panelVC = NotLoggedInPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, tertiaryButtonTapHandler: tertiaryButtonTapHandler, dismissHandler: nil, theme: theme)
+        let panelVC = NotLoggedInPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: nil, theme: theme)
         panelVC.dismissWhenTappedOutside = true
 
         presenter?.present(panelVC, animated: true)

@@ -393,10 +393,10 @@ class TalkPageReplyComposeController {
         viewController?.wmf_showNotLoggedInUponPublishPanel(buttonTapHandler: { [weak self] buttonIndex in
             switch buttonIndex {
             case 0:
+                break
+            case 1:
                 self?.isLoading = true
                 self?.viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
-            case 1, 2:
-                break
             default:
                 assertionFailure("Unrecognized button index in tap handler.")
             }
