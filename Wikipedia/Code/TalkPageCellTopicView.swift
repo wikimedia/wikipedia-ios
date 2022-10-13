@@ -268,7 +268,7 @@ extension TalkPageCellTopicView: Themeable {
         timestampLabel.textColor = theme.colors.secondaryText
         
         let commentColor = (viewModel?.isThreadExpanded ?? false) ? theme.colors.primaryText : theme.colors.secondaryText
-        topicCommentTextView.attributedText = viewModel?.leadComment.text.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
+        topicCommentTextView.attributedText = viewModel?.leadComment.text.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
         topicCommentTextView.backgroundColor = theme.colors.paperBackground
 
         activeUsersImageView.tintColor = theme.colors.secondaryText
