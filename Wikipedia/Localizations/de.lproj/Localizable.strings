@@ -944,10 +944,11 @@
 "talk-page-user-about" = "Über Benutzer-Diskussionsseiten";
 "talk-page-user-contributions" = "Beiträge";
 "talk-pages-coffee-roll-read-more" = "Mehr lesen";
+"talk-pages-compose-close-confirmation-keep" = "Weiter bearbeiten";
 "talk-pages-reply-button-title" = "Auf diese Diskussion antworten";
 "talk-pages-topic-compose-body-placeholder" = "Beschreibung";
+// Fuzzy
 "talk-pages-topic-compose-close-confirmation-discard" = "Thema verwerfen";
-"talk-pages-topic-compose-close-confirmation-keep" = "Weiter bearbeiten";
 "talk-pages-topic-compose-navbar-title" = "Thema";
 "talk-pages-topic-compose-title-placeholder" = "Thementitel";
 "talk-pages-user-groups" = "Benutzergruppen";
