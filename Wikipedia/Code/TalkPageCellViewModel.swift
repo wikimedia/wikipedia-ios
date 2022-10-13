@@ -10,7 +10,7 @@ final class TalkPageCellViewModel {
     let topicName: String
 
     let id: String
-    var leadComment: TalkPageCellCommentViewModel
+    let leadComment: TalkPageCellCommentViewModel
     let replies: [TalkPageCellCommentViewModel]
     // Number of users involved in thread
     let activeUsersCount: String
