@@ -319,6 +319,7 @@
 "empty-no-search-results-message" = "Shown when there are no search results";
 "empty-talk-page-title" = "Text for placeholder label visible when talk page is empty";
 "error-generic-recovery-suggestion" = "Generic recovery suggestion for when the error isn't recoverable by the user.";
+"error-try-again" = "Text alerting the user to try action again after error";
 "error-unknown" = "Message displayed when an unknown error occurred";
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
 "explore-because-you-read" = "Text for 'Because you read' header";
@@ -977,6 +978,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a discussion's contents have been read.";
 "talk-page-discussion-unread-accessibility-label" = "Accessibility text for indicating that some content have not been read.";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a discussion's contents have not been read.";
+"talk-page-error-loading-subtitle" = "Subtitle text for error page on talk pages";
+"talk-page-error-loading-title" = "Title text for error page on talk pages";
 "talk-page-error-unable-to-post-reply" = "Error message appearing when user attempts to post a new talk page reply while being offline";
 "talk-page-error-unable-to-post-topic" = "Error message appearing when user attempts to post a new talk page discussion while being offline";
 "talk-page-find-in-page-button" = "Title for find content in page button";

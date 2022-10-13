@@ -2,6 +2,13 @@ import WMF
 
 final class TalkPageErrorStateView: SetupView {
 
+    fileprivate var titleText = WMFLocalizedString("talk-page-error-loading-title", value: "Unable to load talk page", comment: "Title text for error page on talk pages")
+    fileprivate var subtitleText = WMFLocalizedString("talk-page-error-loading-subtitle", value: "Something went wrong.", comment: "Subtitle text for error page on talk pages")
+
+    fileprivate var titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .title2, weight: .medium, size: 17)
+    fileprivate var subtitleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 13)
+    fileprivate var buttonFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 15)
+
     lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "talk-page-error-message"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -9,19 +16,22 @@ final class TalkPageErrorStateView: SetupView {
         return imageView
     }()
 
-    lazy var title: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textAlignment = .center
+        label.font = titleFont
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
 
-    lazy var subtitle: UILabel = {
+    lazy var subtitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
+        label.textAlignment = .center
+        label.font = subtitleFont
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -30,6 +40,7 @@ final class TalkPageErrorStateView: SetupView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.adjustsFontForContentSizeCategory = true
+        button.titleLabel?.font = buttonFont
         button.cornerRadius = 8
         button.masksToBounds = true
         return button
@@ -42,14 +53,14 @@ final class TalkPageErrorStateView: SetupView {
         return stackView
     }()
 
-    lazy var stacktext: UIStackView = {
+    lazy var textStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         return stackView
     }()
 
-    lazy var stackImage: UIStackView = {
+    lazy var imageStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -66,46 +77,62 @@ final class TalkPageErrorStateView: SetupView {
     override func setup() {
         addSubview(stackView)
 
-        title.text = "Title"
-        subtitle.text = "Sub"
-        button.setTitle("Button", for: .normal)
+        stackView.addArrangedSubview(imageStackView)
+        imageStackView.addArrangedSubview(imageView)
 
-        stackView.addArrangedSubview(stackImage)
-        stackImage.addArrangedSubview(VerticalSpacerView.spacerWith(space: 20))
-        stackImage.addArrangedSubview(imageView)
-        stackImage.addArrangedSubview(VerticalSpacerView.spacerWith(space: 20))
-
-        stackView.addArrangedSubview(stacktext)
-        stacktext.addArrangedSubview(title)
+        stackView.addArrangedSubview(textStackView)
+        textStackView.addArrangedSubview(titleLabel)
+        textStackView.addArrangedSubview(subtitleLabel)
+        textStackView.setCustomSpacing(10, after: titleLabel)
+        textStackView.setCustomSpacing(20, after: subtitleLabel)
 
         stackView.addArrangedSubview(stackButton)
-        stackButton.addArrangedSubview(VerticalSpacerView.spacerWith(space: 20))
         stackButton.addArrangedSubview(button)
-        stackButton.addArrangedSubview(VerticalSpacerView.spacerWith(space: 20))
 
-        stackView.setCustomSpacing(28, after: stackImage)
-        stackView.setCustomSpacing(28, after: stackButton)
+        stackView.distribution = .equalSpacing
 
         NSLayoutConstraint.activate([
-            button.heightAnchor.constraint(equalToConstant: 45),
+            button.heightAnchor.constraint(greaterThanOrEqualToConstant: 45),
 
-            imageView.heightAnchor.constraint(equalToConstant: 130),
-            imageView.widthAnchor.constraint(equalToConstant: 130),
+            imageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 130),
+            imageView.widthAnchor.constraint(greaterThanOrEqualToConstant: 130),
 
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 200),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -200),
+            stackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 270),
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
 
         ])
 
+        configure()
+    }
+
+    func configure() {
+        titleLabel.text = titleText
+        subtitleLabel.text = subtitleText
+        button.setTitle(CommonStrings.tryAgain, for: .normal)
     }
 
 }
 
 extension TalkPageErrorStateView: Themeable {
     func apply(theme: Theme) {
-        backgroundColor = theme.colors.baseBackground
+        // TODO: Replace these once new theme colors are added/refreshed in the app
+        let baseBackground: UIColor!
+        switch theme {
+        case .light:
+            baseBackground = UIColor.wmf_colorWithHex(0xF8F9FA)
+        case .sepia:
+            baseBackground = UIColor.wmf_colorWithHex(0xF0E6D6)
+        case .dark:
+            baseBackground = UIColor.wmf_colorWithHex(0x202122)
+        case .black:
+            baseBackground = UIColor.wmf_colorWithHex(0x202122)
+        default:
+            baseBackground = UIColor.wmf_colorWithHex(0xF8F9FA)
+        }
+        
+        backgroundColor = baseBackground
         button.setTitleColor(theme.colors.paperBackground, for: .normal)
         button.backgroundColor = theme.colors.link
     }

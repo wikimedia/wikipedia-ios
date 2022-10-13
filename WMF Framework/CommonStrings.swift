@@ -257,6 +257,8 @@ public class CommonStrings: NSObject {
     
     public static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for option that leads to talk pages revision history")
 
+    public static let tryAgain = WMFLocalizedString("error-try-again", value: "Try Again", comment: "Text alerting the user to try action again after error")
+
     public static let defaultThemeDisplayName = WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user")
 
     public static let diffSingleLineFormat = WMFLocalizedString("diff-single-line-format", value:"Line %1$d", comment:"Label in diff to indicate how many lines a change section encompases. This format is for a single change line. %1$d is replaced by the change line number.")
