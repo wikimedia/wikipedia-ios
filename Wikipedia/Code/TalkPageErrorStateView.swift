@@ -13,6 +13,7 @@ final class TalkPageErrorStateView: SetupView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
+        label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -41,6 +42,27 @@ final class TalkPageErrorStateView: SetupView {
         return stackView
     }()
 
+    lazy var stacktext: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        return stackView
+    }()
+
+    lazy var stackImage: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        return stackView
+    }()
+
+    lazy var stackButton: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        return stackView
+    }()
+
     override func setup() {
         addSubview(stackView)
 
@@ -48,13 +70,33 @@ final class TalkPageErrorStateView: SetupView {
         subtitle.text = "Sub"
         button.setTitle("Button", for: .normal)
 
-        NSLayoutConstraint.activate([
-            button.heightAnchor.constraint(greaterThanOrEqualToConstant: 42),
+        stackView.addArrangedSubview(stackImage)
+        stackImage.addArrangedSubview(VerticalSpacerView.spacerWith(space: 20))
+        stackImage.addArrangedSubview(imageView)
+        stackImage.addArrangedSubview(VerticalSpacerView.spacerWith(space: 20))
 
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        stackView.addArrangedSubview(stacktext)
+        stacktext.addArrangedSubview(title)
+
+        stackView.addArrangedSubview(stackButton)
+        stackButton.addArrangedSubview(VerticalSpacerView.spacerWith(space: 20))
+        stackButton.addArrangedSubview(button)
+        stackButton.addArrangedSubview(VerticalSpacerView.spacerWith(space: 20))
+
+        stackView.setCustomSpacing(28, after: stackImage)
+        stackView.setCustomSpacing(28, after: stackButton)
+
+        NSLayoutConstraint.activate([
+            button.heightAnchor.constraint(equalToConstant: 45),
+
+            imageView.heightAnchor.constraint(equalToConstant: 130),
+            imageView.widthAnchor.constraint(equalToConstant: 130),
+
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 200),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -200),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+
         ])
 
     }
@@ -64,6 +106,7 @@ final class TalkPageErrorStateView: SetupView {
 extension TalkPageErrorStateView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.baseBackground
-        button.setTitleColor(.blue, for: .normal)
+        button.setTitleColor(theme.colors.paperBackground, for: .normal)
+        button.backgroundColor = theme.colors.link
     }
 }
