@@ -50,6 +50,7 @@ final class TalkPageCellTopicView: SetupView {
         button.setImage(UIImage(systemName: "chevron.down"), for: .normal)
         button.tintColor = .black
         button.setContentCompressionResistancePriority(.required, for: .vertical)
+        button.setContentCompressionResistancePriority(.required, for: .horizontal)
         return button
     }()
 

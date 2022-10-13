@@ -1062,6 +1062,7 @@
 "talk-page-user-contributions" = "Вклад";
 "talk-pages-coffee-roll-read-more" = "Читать далее";
 "talk-pages-comment-added-alert-title" = "Ваш комментарий был добавлен";
+"talk-pages-compose-close-confirmation-keep" = "Продолжить редактирование";
 "talk-pages-empty-view-button-article-add-topic" = "Добавить новую тему";
 "talk-pages-empty-view-button-user-start-discussion" = "Начать обсуждение";
 "talk-pages-empty-view-header-article" = "Разговор начинается здесь";
@@ -1069,8 +1070,7 @@
 "talk-pages-reply-button-title" = "Ответить в этом обсуждении";
 "talk-pages-topic-added-alert-title" = "Ваша тема была добавлена";
 "talk-pages-topic-compose-body-placeholder" = "Описание";
-"talk-pages-topic-compose-close-confirmation-discard" = "Удалить тему";
-"talk-pages-topic-compose-close-confirmation-keep" = "Продолжить редактирование";
+"talk-pages-topic-compose-close-confirmation-discard" = "Отменить ответ";
 "talk-pages-topic-compose-close-confirmation-title" = "Вы уверены, что хотите удалить эту новую тему?";
 "talk-pages-topic-compose-navbar-title" = "Тема";
 "talk-pages-topic-compose-title-placeholder" = "Название темы";

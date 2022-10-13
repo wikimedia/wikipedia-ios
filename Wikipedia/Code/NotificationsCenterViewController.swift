@@ -833,7 +833,12 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
                     self.logNotificationInteraction(with: data.actionType, model: cellViewModel)
                     let url = data.url
-                    self.navigate(to: url)
+                    
+                    let replyText = cellViewModel.bodyText
+                    let userInfo: [AnyHashable : Any] = [ViewControllerRouter.UserInfoKeys.talkPageReplyText: replyText as Any]
+                    
+                    self.navigate(to: url, userInfo: userInfo)
+                    
                     if !cellViewModel.isRead {
                         self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
                         self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: true)
