@@ -127,8 +127,19 @@ final class TalkPageCell: UICollectionViewCell {
 
         topicView.configure(viewModel: viewModel)
         topicView.linkDelegate = linkDelegate
+        
+        topicView.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
+        topicView.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
+        leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
+        
+        let showingOtherContent = viewModel.leadComment == nil && viewModel.otherContent != nil
+        
+        guard !showingOtherContent else {
+            return
+        }
 
         if viewModel.isThreadExpanded {
+            
             stackView.addArrangedSubview(leadReplySpacer)
             stackView.addArrangedSubview(leadReplyButton)
 
@@ -146,11 +157,6 @@ final class TalkPageCell: UICollectionViewCell {
                 stackView.addArrangedSubview(commentView)
             }
         }
-        
-        topicView.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
-        topicView.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
-
-        leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
     }
     
     func removeExpandedElements() {
