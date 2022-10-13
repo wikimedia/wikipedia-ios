@@ -752,14 +752,15 @@
 "talk-page-unsubscribe-to-topic" = "Annulla iscrizione";
 "talk-page-unsubscribed-alert-title" = "Hai annullato l'iscrizione.";
 "talk-pages-comment-added-alert-title" = "Il tuo commento è stato aggiunto";
+"talk-pages-compose-close-confirmation-keep" = "Continua a modificare";
 "talk-pages-empty-view-button-article-add-topic" = "Aggiungi un nuovo argomento";
 "talk-pages-empty-view-button-user-start-discussion" = "Inizia discussione";
 "talk-pages-empty-view-header-user" = "Inizia una discussione con $1";
 "talk-pages-reply-button-title" = "Rispondi a questa discussione";
+"talk-pages-reply-compose-close-confirmation-title" = "Sei sicuro di voler annullare questo nuova risposta?";
 "talk-pages-topic-added-alert-title" = "Il tuo argomento è stato aggiunto";
 "talk-pages-topic-compose-body-placeholder" = "Descrizione";
-"talk-pages-topic-compose-close-confirmation-discard" = "Annulla argomento";
-"talk-pages-topic-compose-close-confirmation-keep" = "Continua a modificare";
+"talk-pages-topic-compose-close-confirmation-discard" = "Annulla risposta";
 "talk-pages-topic-compose-close-confirmation-title" = "Sei sicuro di voler annullare questo nuovo argomento?";
 "talk-pages-topic-compose-navbar-title" = "Argomento";
 "talk-pages-topic-compose-title-placeholder" = "Titolo dell'argomento";
