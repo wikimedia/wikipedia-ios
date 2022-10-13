@@ -13,6 +13,9 @@ final class TalkPageFindInPageController {
 
             // Term was located within the topic's lead comment text for topic at associated index
             case topicLeadComment(topicIndex: Int)
+            
+            // Term was located within topic's other content text for topic at associated index
+            case topicOtherContent(topicIndex: Int)
 
             // The term was located within a topic's reply text, for topic and reply at associated indices
             case reply(topicIndex: Int, replyIndex: Int)
@@ -53,6 +56,14 @@ final class TalkPageFindInPageController {
                 let bridgedText = NSString(string: leadComment.text.removingHTML)
                 let rangeOfTerm = bridgedText.range(of: searchTerm, options: .caseInsensitive)
                 let result = SearchResult(term: searchTerm, location: .topicLeadComment(topicIndex: topicIndex), range: rangeOfTerm)
+                results.append(result)
+            }
+            
+            if let otherContent = topic.otherContent,
+               otherContent.removingHTML.localizedCaseInsensitiveContains(searchTerm) {
+                let bridgedText = NSString(string: otherContent.removingHTML)
+                let rangeOfTerm = bridgedText.range(of: searchTerm, options: .caseInsensitive)
+                let result = SearchResult(term: searchTerm, location: .topicOtherContent(topicIndex: topicIndex), range: rangeOfTerm)
                 results.append(result)
             }
 
