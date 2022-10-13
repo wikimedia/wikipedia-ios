@@ -135,5 +135,7 @@ extension TalkPageErrorStateView: Themeable {
         backgroundColor = baseBackground
         button.setTitleColor(theme.colors.paperBackground, for: .normal)
         button.backgroundColor = theme.colors.link
+        titleLabel.textColor = theme.colors.primaryText
+        subtitleLabel.textColor = theme.colors.primaryText
     }
 }
