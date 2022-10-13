@@ -12,7 +12,6 @@ typealias ScrollableEducationPanelTraceableDismissHandler = ((ScrollableEducatio
     == Subheading text ==
     == Primary button ==
     == Secondary button ==
-    == Tertiary button ==
     == Footer text ==
  
  This class pairs with a xib with roughly the following structure:
@@ -25,7 +24,6 @@ typealias ScrollableEducationPanelTraceableDismissHandler = ((ScrollableEducatio
                 subheading label
                 primary button
                 secondary button
-                tertiary button
                 footer label
  
  - Stackview management of its subviews makes it easy to collapse space for unneeded items.
@@ -36,7 +34,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     enum LastAction {
         case tappedPrimary
         case tappedSecondary
-        case tappedTertiary
         case tappedClose
         case tappedBackground
         case none
@@ -67,7 +64,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     
     @IBOutlet fileprivate weak var primaryButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet fileprivate weak var secondaryButton: AutoLayoutSafeMultiLineButton!
-    @IBOutlet fileprivate weak var tertiaryButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet fileprivate weak var footerTextView: UITextView!
 
     @IBOutlet fileprivate weak var scrollViewContainer: UIView!
@@ -76,7 +72,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
     fileprivate var primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
-    fileprivate var tertiaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     
     // traceableDismissHandler takes priority if it's populated. It will pass back a LastAction indicating the action that triggered the dismissal, for the caller to react with.
     fileprivate var dismissHandler: ScrollableEducationPanelDismissHandler?
@@ -190,16 +185,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             view.setNeedsLayout()
         }
     }
-    
-    var tertiaryButtonTitle:String? {
-        get {
-            return tertiaryButton.title(for: .normal)
-        }
-        set {
-            tertiaryButton.setTitle(newValue, for: .normal)
-            view.setNeedsLayout()
-        }
-    }
 
     var footer:String? {
         get {
@@ -280,7 +265,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
     }
 
-    init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, tertiaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler? = nil, dismissHandler: ScrollableEducationPanelDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, theme: Theme) {
+    init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, theme: Theme) {
         super.init(nibName: "ScrollableEducationPanelView", bundle: nil)
         self.modalPresentationStyle = .overFullScreen
         self.modalTransitionStyle = .crossDissolve
@@ -288,7 +273,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         self.showCloseButton = showCloseButton
         self.primaryButtonTapHandler = primaryButtonTapHandler
         self.secondaryButtonTapHandler = secondaryButtonTapHandler
-        self.tertiaryButtonTapHandler = tertiaryButtonTapHandler
         self.dismissHandler = dismissHandler
         self.discardDismissHandlerOnPrimaryButtonTap = discardDismissHandlerOnPrimaryButtonTap
     }
@@ -317,7 +301,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         
         primaryButton.titleLabel?.textAlignment = .center
         secondaryButton.titleLabel?.textAlignment = .center
-        tertiaryButton.titleLabel?.textAlignment = .center
         
         closeButton.isHidden = !showCloseButton
         [self.view, self.roundedCornerContainer].forEach {view in
@@ -352,7 +335,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         subheadingLabel.text = nil
         primaryButton.setTitle(nil, for: .normal)
         secondaryButton.setTitle(nil, for: .normal)
-        tertiaryButton.setTitle(nil, for: .normal)
         footerTextView.text = nil
     }
     
@@ -379,16 +361,9 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             updateFonts()
         }
     }
-    
-    var tertiaryButtonTextStyle: DynamicTextStyle = .semiboldFootnote {
-        didSet {
-            updateFonts()
-        }
-    }
 
     private func updateFonts() {
         secondaryButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
-        tertiaryButton.titleLabel?.font = UIFont.wmf_font(tertiaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
     }
     
     fileprivate func adjustImageViewVisibility(for verticalSizeClass: UIUserInterfaceSizeClass) {
@@ -404,7 +379,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         footerTextView.isHidden = !footerTextView.wmf_hasAnyNonWhitespaceText
         primaryButton.isHidden = !primaryButton.wmf_hasAnyNonWhitespaceText
         secondaryButton.isHidden = !secondaryButton.wmf_hasAnyNonWhitespaceText
-        tertiaryButton.isHidden = !tertiaryButton.wmf_hasAnyNonWhitespaceText
     }
     
     @IBAction fileprivate func close(_ sender: Any) {
@@ -427,14 +401,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             return
         }
         secondaryButtonTapHandler(sender)
-    }
-    
-    @IBAction fileprivate func tertiaryButtonTapped(_ sender: Any) {
-        lastAction = .tappedTertiary
-        guard let tertiaryButtonTapHandler = tertiaryButtonTapHandler else {
-            return
-        }
-        tertiaryButtonTapHandler(sender)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -473,7 +439,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         closeButton.tintColor = theme.colors.primaryText
         primaryButton?.tintColor = theme.colors.link
         secondaryButton?.tintColor = theme.colors.secondaryText
-        tertiaryButton?.tintColor = theme.colors.secondaryText
         primaryButton?.layer.borderColor = theme.colors.link.cgColor
 
         if theme == .sepia {
