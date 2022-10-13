@@ -299,6 +299,8 @@ final class TalkPageHeaderView: SetupView {
 
         if let projectSourceImage = viewModel.projectSourceImage {
             projectImageView.image = projectSourceImage
+        } else {
+            projectImageView.removeFromSuperview()
         }
 
         if let projectLanguage = viewModel.projectLanguage {

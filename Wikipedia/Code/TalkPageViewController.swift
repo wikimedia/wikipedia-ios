@@ -292,7 +292,6 @@ class TalkPageViewController: ViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         talkPageView.collectionView.reloadData()
         headerView?.updateLabelFonts()
-        replyComposeController.calculateLayout(in: self)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -684,8 +683,9 @@ extension TalkPageViewController: TalkPageCellDelegate {
         
         let shouldSubscribe = !configuredCellViewModel.isSubscribed
         cellViewModel.isSubscribed.toggle()
-        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
         
+        cell.updateSubscribedState(viewModel: cellViewModel)
+
         viewModel.subscribe(to: configuredCellViewModel.topicName, shouldSubscribe: shouldSubscribe) { result in
             switch result {
             case let .success(didSubscribe):
@@ -693,7 +693,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
             case let .failure(error):
                 cellViewModel.isSubscribed.toggle()
                 if cell.viewModel?.topicName == cellViewModel.topicName {
-                    cell.configure(viewModel: cellViewModel, linkDelegate: self)
+                    cell.updateSubscribedState(viewModel: cellViewModel)
                 }
                 DDLogError("Error subscribing to topic: \(error)")
                 // TODO: Error handling
@@ -773,7 +773,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
             case .success:
                 
                 composeViewController.dismiss(animated: true) {
-                    // TODO: Display success banner
+                    self?.handleNewTopicOrCommentAlert(isNewTopic: true)
                 }
                 
                 // Try to refresh page
@@ -783,7 +783,6 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                         self?.updateEmptyStateVisibility()
                         self?.talkPageView.collectionView.reloadData()
                         self?.scrollToLastTopic()
-                        self?.handleNewTopicOrCommentAlert(isNewTopic: true)
                     case .failure:
                         break
                     }

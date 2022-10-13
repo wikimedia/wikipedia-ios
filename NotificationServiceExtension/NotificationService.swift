@@ -33,7 +33,7 @@ class NotificationService: UNNotificationServiceExtension {
         }
         
         let cache = sharedCache.loadCache()
-        let project = RemoteNotificationsProject.wikipedia(cache.settings.primaryLanguageCode, cache.settings.primaryLocalizedName, nil)
+        let project = WikimediaProject.wikipedia(cache.settings.primaryLanguageCode, cache.settings.primaryLocalizedName, nil)
         
         let fallbackPushContent = self.fallbackPushContent
         

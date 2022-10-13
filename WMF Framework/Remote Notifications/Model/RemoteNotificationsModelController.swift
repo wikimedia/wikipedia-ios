@@ -18,7 +18,7 @@ final class RemoteNotificationsModelController {
         case continueIdentifer = "RemoteNotificationsContinueIdentifier"
         case filterSettings = "RemoteNotificationsFilterSettings"
         
-        func fullKeyForProject(_ project: RemoteNotificationsProject) -> String {
+        func fullKeyForProject(_ project: WikimediaProject) -> String {
             if self == .filterSettings {
                 assertionFailure("Shouldn't be using this key for filterSettings")
             }
@@ -209,7 +209,7 @@ final class RemoteNotificationsModelController {
     
     // MARK: Mark as read
     
-    func markAllAsRead(moc: NSManagedObjectContext, project: RemoteNotificationsProject, completion: @escaping (Result<Void, Error>) -> Void) {
+    func markAllAsRead(moc: NSManagedObjectContext, project: WikimediaProject, completion: @escaping (Result<Void, Error>) -> Void) {
         
         moc.perform { [weak self] in
             
@@ -334,7 +334,7 @@ final class RemoteNotificationsModelController {
         }
     }
     
-    func isProjectAlreadyImported(project: RemoteNotificationsProject) -> Bool {
+    func isProjectAlreadyImported(project: WikimediaProject) -> Bool {
         
         let key = LibraryKey.completedImportFlags.fullKeyForProject(project)
         guard let nsNumber = libraryValue(forKey: key) as? NSNumber else {

@@ -576,7 +576,7 @@
 		676070A62280D72400A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A72280D72500A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		6761AEDA2704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AED82704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift */; };
-		6761AEDF2704CF0000E47BAD /* RemoteNotificationsProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEDE2704CF0000E47BAD /* RemoteNotificationsProject.swift */; };
+		6761AEDF2704CF0000E47BAD /* WikimediaProject+RemoteNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEDE2704CF0000E47BAD /* WikimediaProject+RemoteNotifications.swift */; };
 		6761AEE12704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */; };
 		6761AEE22704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */; };
 		6761AEE32704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */; };
@@ -838,6 +838,7 @@
 		67BEFFD628AD9DF000606B38 /* TalkPageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BEFFD428AD9DF000606B38 /* TalkPageType.swift */; };
 		67BEFFD728AD9DF000606B38 /* TalkPageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BEFFD428AD9DF000606B38 /* TalkPageType.swift */; };
 		67BEFFD828AD9DF000606B38 /* TalkPageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BEFFD428AD9DF000606B38 /* TalkPageType.swift */; };
+		67BEFFDE28AEDF5200606B38 /* WikimediaProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BEFFD928AEDF3600606B38 /* WikimediaProject.swift */; };
 		67C1757628AD4D6000C5ABA4 /* TalkPageDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C1757528AD4D6000C5ABA4 /* TalkPageDataController.swift */; };
 		67C1757728AD4D6000C5ABA4 /* TalkPageDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C1757528AD4D6000C5ABA4 /* TalkPageDataController.swift */; };
 		67C1757828AD4D6000C5ABA4 /* TalkPageDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C1757528AD4D6000C5ABA4 /* TalkPageDataController.swift */; };
@@ -4136,7 +4137,7 @@
 		676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyFooterView.swift; sourceTree = "<group>"; };
 		676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageTopicNewViewController.xib; sourceTree = "<group>"; };
 		6761AED82704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataClass.swift"; sourceTree = "<group>"; };
-		6761AEDE2704CF0000E47BAD /* RemoteNotificationsProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsProject.swift; sourceTree = "<group>"; };
+		6761AEDE2704CF0000E47BAD /* WikimediaProject+RemoteNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WikimediaProject+RemoteNotifications.swift"; sourceTree = "<group>"; };
 		6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel+TextExtensions.swift"; sourceTree = "<group>"; };
 		6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel+IconNameExtensions.swift"; sourceTree = "<group>"; };
 		6761AEEA270613B400E47BAD /* SharedContainerCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContainerCache.swift; sourceTree = "<group>"; };
@@ -4222,6 +4223,7 @@
 		67B64D562507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocSectionHeaderView.swift; sourceTree = "<group>"; };
 		67B64D5B2507E9FD00FA27F3 /* ArticleAsLivingDocSmallEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocSmallEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		67BEFFD428AD9DF000606B38 /* TalkPageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageType.swift; sourceTree = "<group>"; };
+		67BEFFD928AEDF3600606B38 /* WikimediaProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikimediaProject.swift; sourceTree = "<group>"; };
 		67C1757528AD4D6000C5ABA4 /* TalkPageDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageDataController.swift; sourceTree = "<group>"; };
 		67C6F74D27E2919A00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotificationsModelController+TestExtensions.swift"; sourceTree = "<group>"; };
 		67C6F74F27E293C700B9C864 /* NotificationsCenterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterViewModelTests.swift; sourceTree = "<group>"; };
@@ -7514,7 +7516,7 @@
 				670AF1CD26CA188B005F76D0 /* RemoteNotificationLinks.swift */,
 				007B5FC426FA40F000180FF8 /* RemoteNotificationType.swift */,
 				7A0312F62153C4990095C953 /* RemoteNotificationsModelController.swift */,
-				6761AEDE2704CF0000E47BAD /* RemoteNotificationsProject.swift */,
+				6761AEDE2704CF0000E47BAD /* WikimediaProject+RemoteNotifications.swift */,
 				6761AEEC2706247800E47BAD /* PushNotificationsSettings.swift */,
 				6761AEEE2706249300E47BAD /* PushNotificationsCache.swift */,
 				00D4B1B3282996A2008C705C /* EchoModelVersion.swift */,
@@ -8486,6 +8488,7 @@
 				B087F8D023E3AE3B00ACA012 /* MWKDataStore+LegacyMobileview.swift */,
 				676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */,
 				8397601A2811ABC7000FE3B1 /* UNAuthorizationStatus+String.swift */,
+				67BEFFD928AEDF3600606B38 /* WikimediaProject.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -11989,7 +11992,7 @@
 				D8FA18B81E1BD891009675C3 /* NSDateFormatter+WMFExtensions.m in Sources */,
 				BA7FF0B61F618F5A0054CF02 /* CollectionViewEditController.swift in Sources */,
 				672034E527A2600C007DC24F /* RemoteNotificationsProjectOperation.swift in Sources */,
-				6761AEDF2704CF0000E47BAD /* RemoteNotificationsProject.swift in Sources */,
+				6761AEDF2704CF0000E47BAD /* WikimediaProject+RemoteNotifications.swift in Sources */,
 				D84C361F1F32404700895FA1 /* OnThisDayCollectionViewCell.swift in Sources */,
 				702096B9256C3D5700E27041 /* SamplingController.swift in Sources */,
 				D826C51521766E570012F940 /* Collection+AsyncMap.swift in Sources */,
@@ -12253,6 +12256,7 @@
 				B3632E7F1EE5F98C007A2464 /* EventLoggingService.swift in Sources */,
 				D8FA18F61E1BDA3F009675C3 /* UIFont+WMFDynamicType.swift in Sources */,
 				7A3AD05920ADB1BD00C92E04 /* WMFAuthLoginInfoFetcher.swift in Sources */,
+				67BEFFDE28AEDF5200606B38 /* WikimediaProject.swift in Sources */,
 				0042808E25E6E395004945B3 /* NSObject+MTLComparisonAdditions.m in Sources */,
 				6713519D277285B7006C07D9 /* RemoteNotificationsRefreshDeadlineController.swift in Sources */,
 				830177FC1FBF3EF70005681C /* NSManagedObjectContext+WMFUtilities.swift in Sources */,

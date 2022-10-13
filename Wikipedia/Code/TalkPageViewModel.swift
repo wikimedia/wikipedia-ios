@@ -40,16 +40,12 @@ final class TalkPageViewModel {
     ///   - pageTitle: Wiki page title, e.g. "Talk:Cat" or "User_talk:Jimbo"
     ///   - siteURL: Site URL without article path, e.g. "https://en.wikipedia.org"
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
-    init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, dataController: TalkPageDataController? = nil) {
+    ///   - authenticationManager: authentication manager from the MWKDataStore singleton
+    init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
         self.pageType = pageType
         self.pageTitle = pageTitle
         self.siteURL = siteURL
-        if let dataController {
-            self.dataController = dataController
-        } else {
-            self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
-            
-        }
+        self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
         self.authenticationManager = authenticationManager
         
         // Setting headerTitle as pageTitle (which contains the namespace prefix) for now, we attempt to strip the namespace later in populateHeaderData
@@ -61,6 +57,7 @@ final class TalkPageViewModel {
     ///   - pageType: TalkPageType - e.g. .article or .user
     ///   - pageURL: Full wiki page URL, e.g. https://en.wikipedia.org/wiki/Cat
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
+    ///   - authenticationManager: authentication manager from the MWKDataStore singleton
     convenience init?(pageType: TalkPageType, pageURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
         guard let pageTitle = pageURL.wmf_title, let siteURL = pageURL.wmf_site else {
             return nil
@@ -85,7 +82,7 @@ final class TalkPageViewModel {
             switch result {
             case .success(let result):
                 let oldViewModels: [TalkPageCellViewModel] = self.topics
-                self.populateHeaderData(articleSummary: result.articleSummary, items: result.items)
+                self.populateHeaderData(project: result.project, articleSummary: result.articleSummary, items: result.items)
                 self.topics.removeAll()
                 self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
                 self.updateSubscriptionForTopic(topicNames: result.subscribedTopicNames)
@@ -132,15 +129,11 @@ final class TalkPageViewModel {
     
     // MARK: - Private
     
-    private func populateHeaderData(articleSummary: WMFArticle?, items: [TalkPageItem]) {
+    private func populateHeaderData(project: WikimediaProject, articleSummary: WMFArticle?, items: [TalkPageItem]) {
         
-        guard let languageCode = siteURL.wmf_languageCode else {
-            return
-        }
-        
-        headerTitle = pageTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode).title
-        
+        headerTitle = pageTitle.namespaceAndTitleOfWikiResourcePath(with: project.languageCode ?? "en").title
         headerDescription = articleSummary?.wikidataDescription
+
         leadImageURL = articleSummary?.imageURL(forWidth: Self.leadImageSideLength * Int(UIScreen.main.scale))
         
         if let otherContent = items.first?.otherContent,
@@ -150,10 +143,13 @@ final class TalkPageViewModel {
             coffeeRollText = nil
         }
         
-        projectLanguage = languageCode
+        if let projectIconName = project.projectIconName {
+           projectSourceImage = UIImage(named: projectIconName)
+        }
         
-        // TODO: Populate project source image
-        projectSourceImage = nil
+        if let projectLanguage = project.languageCode {
+            self.projectLanguage = projectLanguage
+        }
     }
     
     private func populateCellData(topics: [TalkPageItem], oldViewModels: [TalkPageCellViewModel]) {

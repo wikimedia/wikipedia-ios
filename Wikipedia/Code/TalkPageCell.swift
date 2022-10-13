@@ -153,6 +153,10 @@ final class TalkPageCell: UICollectionViewCell {
         leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
     }
     
+    func updateSubscribedState(viewModel: TalkPageCellViewModel) {
+        topicView.updateSubscribedState(viewModel: viewModel)
+    }
+    
     func removeExpandedElements() {
         for subview in stackView.arrangedSubviews {
             if subview != topicView {

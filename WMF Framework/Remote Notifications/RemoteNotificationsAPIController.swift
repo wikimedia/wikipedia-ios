@@ -239,7 +239,7 @@ public class RemoteNotificationsAPIController: Fetcher {
     
     // MARK: Public
     
-    public func getUnreadPushNotifications(from project: RemoteNotificationsProject, completion: @escaping (Set<NotificationsResult.Notification>, Error?) -> Void) {
+    public func getUnreadPushNotifications(from project: WikimediaProject, completion: @escaping (Set<NotificationsResult.Notification>, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
                 completion([], error)
@@ -251,7 +251,7 @@ public class RemoteNotificationsAPIController: Fetcher {
         request(project: project, queryParameters: Query.notifications(limit: .max, filter: .unread, notifierType: .push, continueId: nil), completion: completion)
     }
     
-    func getAllNotifications(from project: RemoteNotificationsProject, needsCrossWikiSummary: Bool = false, filter: Query.Filter = .none, continueId: String?, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
+    func getAllNotifications(from project: WikimediaProject, needsCrossWikiSummary: Bool = false, filter: Query.Filter = .none, continueId: String?, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
                 completion(nil, error)
@@ -263,7 +263,7 @@ public class RemoteNotificationsAPIController: Fetcher {
         request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: filter, needsCrossWikiSummary: needsCrossWikiSummary, continueId: continueId), completion: completion)
     }
     
-    func markAllAsSeen(project: RemoteNotificationsProject, completion: @escaping ((Result<Void, Error>) -> Void)) {
+    func markAllAsSeen(project: WikimediaProject, completion: @escaping ((Result<Void, Error>) -> Void)) {
         request(project: project, queryParameters: Query.markAllAsSeen(project: project), method: .post) { (result: MarkSeenResult?, _, error) in
             if let error = error {
                 completion(.failure(error))
@@ -289,7 +289,7 @@ public class RemoteNotificationsAPIController: Fetcher {
         }
     }
     
-    func markAllAsRead(project: RemoteNotificationsProject, completion: @escaping (Error?) -> Void) {
+    func markAllAsRead(project: WikimediaProject, completion: @escaping (Error?) -> Void) {
         
         request(project: project, queryParameters: Query.markAllAsRead(project: project), method: .post) { (result: MarkReadResult?, _, error) in
             if let error = error {
@@ -313,7 +313,7 @@ public class RemoteNotificationsAPIController: Fetcher {
         }
     }
 
-    func markAsReadOrUnread(project: RemoteNotificationsProject, identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping (Error?) -> Void) {
+    func markAsReadOrUnread(project: WikimediaProject, identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping (Error?) -> Void) {
         let maxNumberOfNotificationsPerRequest = 50
         let identifierGroups = Array(identifierGroups)
         let split = identifierGroups.chunked(into: maxNumberOfNotificationsPerRequest)
@@ -351,7 +351,7 @@ public class RemoteNotificationsAPIController: Fetcher {
     
     // MARK: Private
 
-    private func request<T: Decodable>(project: RemoteNotificationsProject?, queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Error?) -> Void) {
+    private func request<T: Decodable>(project: WikimediaProject?, queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Error?) -> Void) {
 
         guard let url = project?.mediaWikiAPIURL(configuration: configuration, queryParameters: queryParameters) else {
             completion(nil, nil, RequestError.invalidParameters)
@@ -403,7 +403,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             case email
         }
         
-        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType? = nil, needsCrossWikiSummary: Bool = false, continueId: String?) -> Parameters {
+        static func notifications(from projects: [WikimediaProject] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType? = nil, needsCrossWikiSummary: Bool = false, continueId: String?) -> Parameters {
             var dictionary: [String: Any] = ["action": "query",
                                              "format": "json",
                                              "formatversion": "2",
@@ -444,7 +444,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             return dictionary
         }
         
-        static func markAllAsRead(project: RemoteNotificationsProject) -> Parameters? {
+        static func markAllAsRead(project: WikimediaProject) -> Parameters? {
             let dictionary = ["action": "echomarkread",
                               "all": "true",
                               "wikis": project.notificationsApiWikiIdentifier,
@@ -452,7 +452,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             return dictionary
         }
         
-        static func markAllAsSeen(project: RemoteNotificationsProject) -> Parameters? {
+        static func markAllAsSeen(project: WikimediaProject) -> Parameters? {
             let dictionary = ["action": "echomarkseen",
                               "wikis": project.notificationsApiWikiIdentifier,
                               "format": "json",
@@ -511,7 +511,7 @@ public extension RemoteNotificationsAPIController.NotificationsResult.Notificati
 
 extension RemoteNotificationsAPIController.NotificationsResult.Notification {
     
-    init?(project: RemoteNotificationsProject, titleText: String, titleNamespace: PageNamespace, remoteNotificationType: RemoteNotificationType, date: Date, customID: String? = nil) {
+    init?(project: WikimediaProject, titleText: String, titleNamespace: PageNamespace, remoteNotificationType: RemoteNotificationType, date: Date, customID: String? = nil) {
         
         switch remoteNotificationType {
         case .userTalkPageMessage:

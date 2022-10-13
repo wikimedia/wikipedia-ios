@@ -24,11 +24,11 @@ class RemoteNotificationsRefreshCrossWikiGroupOperation: RemoteNotificationsOper
     private let internalQueue = OperationQueue()
     private let finishingOperation = BlockOperation(block: {})
     
-    private let appLanguageProject: RemoteNotificationsProject
-    private let secondaryProjects: [RemoteNotificationsProject]
+    private let appLanguageProject: WikimediaProject
+    private let secondaryProjects: [WikimediaProject]
     private let languageLinkController: MWKLanguageLinkController
     
-    init(appLanguageProject: RemoteNotificationsProject, secondaryProjects: [RemoteNotificationsProject], languageLinkController: MWKLanguageLinkController, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
+    init(appLanguageProject: WikimediaProject, secondaryProjects: [WikimediaProject], languageLinkController: MWKLanguageLinkController, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
         self.appLanguageProject = appLanguageProject
         self.secondaryProjects = secondaryProjects
         self.languageLinkController = languageLinkController
@@ -70,7 +70,7 @@ class RemoteNotificationsRefreshCrossWikiGroupOperation: RemoteNotificationsOper
             return []
         }
         
-        let crossWikiProjects = crossWikiSources.keys.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: languageLinkController) }
+        let crossWikiProjects = crossWikiSources.keys.compactMap { WikimediaProject(notificationsApiIdentifier: $0, languageLinkController: languageLinkController) }
         
         // extract new projects from summary object that aren't already queued up to be fetched as an app language or secondary operation
         let filteredCrossWikiProjects = crossWikiProjects.filter { !([appLanguageProject] + secondaryProjects).contains($0) }
