@@ -1051,11 +1051,12 @@
 "talk-page-user-contributions" = "Bidrag";
 "talk-pages-coffee-roll-read-more" = "Läs mer";
 "talk-pages-comment-added-alert-title" = "Din kommentar lades till";
+"talk-pages-compose-close-confirmation-keep" = "Fortsätt redigera";
 "talk-pages-reply-button-title" = "Svara på denna diskussion";
 "talk-pages-topic-added-alert-title" = "Ditt ämne lades till";
 "talk-pages-topic-compose-body-placeholder" = "Beskrivning";
+// Fuzzy
 "talk-pages-topic-compose-close-confirmation-discard" = "Släng ämnet";
-"talk-pages-topic-compose-close-confirmation-keep" = "Fortsätt redigera";
 "talk-pages-topic-compose-close-confirmation-title" = "Är du säker på att du vill slänga detta ämne?";
 "talk-pages-topic-compose-navbar-title" = "Ämne";
 "talk-pages-topic-compose-title-placeholder" = "Ämnestitel";
