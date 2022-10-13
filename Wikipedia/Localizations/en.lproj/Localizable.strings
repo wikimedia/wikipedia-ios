@@ -722,7 +722,7 @@
 "panel-compare-revisions-text" = "Comparing revisions helps to show how an article has changed over time. Comparing two revisions of an article will show the difference between those revisions by highlighting any content that was changed.";
 "panel-compare-revisions-title" = "Comparing revisions";
 "panel-not-logged-in-continue-edit-action-title" = "Edit without logging in";
-"panel-not-logged-in-subtitle" = "Your IP address will be publicly visible if you make any edits. If you <b>log in</b> or <b>create an account</b>, your edits will be attributed to your username, along with other benefits.";
+"panel-not-logged-in-subtitle" = "Your IP address will be publicly visible if you make any edits. If you $1log in$2 or $3create an account$4, your edits will be attributed to your username, along with other benefits.";
 "panel-not-logged-in-title" = "You are not logged in";
 "pictured" = "pictured";
 "places-accessibility-clear-saved-searches" = "Clear saved searches";

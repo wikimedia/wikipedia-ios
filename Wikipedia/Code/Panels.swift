@@ -194,7 +194,16 @@ class NotLoggedInPanelViewController: ScrollableEducationPanelViewController {
         super.viewDidLoad()
         image = UIImage(named: "abuse-filter-flag")
         heading = WMFLocalizedString("panel-not-logged-in-title", value: "You are not logged in", comment: "Title for education panel letting user know they are not logged in.")
-        subheadingHTML = WMFLocalizedString("panel-not-logged-in-subtitle", value: "Your IP address will be publicly visible if you make any edits. If you <b>log in</b> or <b>create an account</b>, your edits will be attributed to your username, along with other benefits.", comment: "Subtitle for letting user know that they are not logged in, after they attempt to publish an edit. Please keep the <b> and </b> tags in translations for bolded text.")
+        
+        let subheadingFormat = WMFLocalizedString("panel-not-logged-in-subtitle", value: "Your IP address will be publicly visible if you make any edits. If you %1$@log in%2$@ or %3$@create an account%4$@, your edits will be attributed to your username, along with other benefits.", comment: "Subtitle for letting user know that they are not logged in, after they attempt to publish an edit. Parameters:\n* %1$@ - app-specific text formatting - beginning bold text, %2$@ - app-specific text formatting - ending bold text, %3$@ - app-specific text formatting - beginning bold text, %4$@ - app-specific text formatting - ending bold text.")
+        
+        self.subheadingHTML = String.localizedStringWithFormat(
+            subheadingFormat,
+            "<b>",
+            "</b>",
+            "<b>",
+            "</b>"
+        )
         primaryButtonTitle = CommonStrings.loginOrCreateAccountTitle
         secondaryButtonTitle = WMFLocalizedString("panel-not-logged-in-continue-edit-action-title", value: "Edit without logging in", comment: "Title for button that continues publishing the edit anonymously.")
     }
