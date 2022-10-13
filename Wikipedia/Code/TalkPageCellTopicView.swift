@@ -211,7 +211,8 @@ final class TalkPageCellTopicView: SetupView {
     func configure(viewModel: TalkPageCellViewModel) {
         self.viewModel = viewModel
 
-        configureDisclosureRow(isUserLoggedIn: viewModel.isUserLoggedIn)
+        let shouldHideSubscribe = !viewModel.isUserLoggedIn || viewModel.topicTitle.isEmpty
+        configureDisclosureRow(shouldHideSubscribe: shouldHideSubscribe)
 
         disclosureButton.setImage(viewModel.isThreadExpanded ? UIImage(systemName: "chevron.up") : UIImage(systemName: "chevron.down"), for: .normal)
 
@@ -237,19 +238,18 @@ final class TalkPageCellTopicView: SetupView {
         repliesCountLabel.text = viewModel.repliesCount
     }
 
-    fileprivate func configureDisclosureRow(isUserLoggedIn: Bool) {
-        if isUserLoggedIn {
+    fileprivate func configureDisclosureRow(shouldHideSubscribe: Bool) {
+        if shouldHideSubscribe {
+            if disclosureHorizontalStack.arrangedSubviews.contains(subscribeButton) {
+                subscribeButton.removeFromSuperview()
+                disclosureHorizontalStack.insertArrangedSubview(topicTitleTextView, at: 0)
+            }
+        } else {
             if disclosureHorizontalStack.arrangedSubviews.contains(topicTitleTextView) {
                 topicTitleTextView.removeFromSuperview()
                 disclosureHorizontalStack.insertArrangedSubview(subscribeButton, at: 0)
                 stackView.insertArrangedSubview(topicTitleTextView, at: 1)
             }
-        } else {
-            if disclosureHorizontalStack.arrangedSubviews.contains(subscribeButton) {
-                subscribeButton.removeFromSuperview()
-                disclosureHorizontalStack.insertArrangedSubview(topicTitleTextView, at: 0)
-            }
-
         }
     }
 
