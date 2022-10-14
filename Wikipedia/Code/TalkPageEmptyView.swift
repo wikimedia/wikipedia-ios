@@ -159,10 +159,10 @@ final class TalkPageEmptyView: SetupView {
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.readableContentGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.readableContentGuide.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            stackView.widthAnchor.constraint(equalTo: scrollView.readableContentGuide.widthAnchor),
 
             actionButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 42)
         ])
