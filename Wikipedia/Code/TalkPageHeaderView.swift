@@ -247,8 +247,8 @@ final class TalkPageHeaderView: SetupView {
             coffeeRollLabel.topAnchor.constraint(equalTo: coffeeRollSeparator.topAnchor, constant: 12),
             coffeeRollLabel.bottomAnchor.constraint(equalTo: coffeeRollReadMoreButton.topAnchor, constant: -4),
 
-            coffeeRollReadMoreButton.leadingAnchor.constraint(equalTo: coffeeRollContainer.readableContentGuide.leadingAnchor),
-            coffeeRollReadMoreButton.trailingAnchor.constraint(equalTo: coffeeRollContainer.readableContentGuide.trailingAnchor),
+            coffeeRollReadMoreButton.leadingAnchor.constraint(equalTo: coffeeRollContainer.readableContentGuide.leadingAnchor, constant: 8),
+            coffeeRollReadMoreButton.trailingAnchor.constraint(equalTo: coffeeRollContainer.readableContentGuide.trailingAnchor, constant: -8),
             coffeeRollReadMoreButton.bottomAnchor.constraint(equalTo: coffeeRollContainer.bottomAnchor, constant: -8)
         ])
 
