@@ -14,6 +14,7 @@ final class TalkPageViewModel {
     let pageType: TalkPageType
     var pageTitle: String
     var siteURL: URL
+    var project: WikimediaProject
     let authenticationManager: WMFAuthenticationManager
     var deepLinkData: DeepLinkData?
     var dataController: TalkPageDataController
@@ -40,10 +41,16 @@ final class TalkPageViewModel {
     ///   - siteURL: Site URL without article path, e.g. "https://en.wikipedia.org"
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
     ///   - authenticationManager: authentication manager from the MWKDataStore singleton
-    init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
+    init?(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
+        
+        guard let project = WikimediaProject(siteURL: siteURL) else {
+            return nil
+        }
+        
         self.pageType = pageType
         self.pageTitle = pageTitle
         self.siteURL = siteURL
+        self.project = project
         self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
         self.authenticationManager = authenticationManager
         
@@ -81,7 +88,7 @@ final class TalkPageViewModel {
 
             switch result {
             case .success(let result):
-                self.populateHeaderData(project: result.project, articleSummary: result.articleSummary, items: result.items)
+                self.populateHeaderData(articleSummary: result.articleSummary, items: result.items)
                 self.topics.removeAll()
                 self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
                 self.updateSubscriptionForTopic(topicNames: result.subscribedTopicNames)
@@ -127,7 +134,7 @@ final class TalkPageViewModel {
     
     // MARK: - Private
     
-    private func populateHeaderData(project: WikimediaProject, articleSummary: WMFArticle?, items: [TalkPageItem]) {
+    private func populateHeaderData(articleSummary: WMFArticle?, items: [TalkPageItem]) {
         
         headerTitle = pageTitle.namespaceAndTitleOfWikiResourcePath(with: project.languageCode ?? "en").title
         headerDescription = articleSummary?.wikidataDescription
