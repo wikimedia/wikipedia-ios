@@ -129,8 +129,8 @@ class TalkPageDataController {
         let fileNameSuffix = pageTitle
 
         let fileNamePrefix: String
-        if let contentLanguageCode = siteURL.wmf_contentLanguageCode {
-            fileNamePrefix = "\(host)-\(contentLanguageCode)"
+        if let languageVariantCode = siteURL.wmf_languageVariantCode {
+            fileNamePrefix = "\(host)-\(languageVariantCode)"
         } else {
             fileNamePrefix = host
         }
