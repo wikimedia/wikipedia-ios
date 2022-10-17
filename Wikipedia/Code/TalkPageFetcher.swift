@@ -98,7 +98,9 @@ class TalkPageFetcher: Fetcher {
             case let .success(talk):
                 completion(.success(talk.threads?.threadItems ?? []))                
             case let .failure(error):
+                
                 completion(.failure(error))
+
             }
         }
     }
@@ -141,6 +143,7 @@ class TalkPageFetcher: Fetcher {
                 return
             }
             completion(.failure(RequestError.unexpectedResponse))
+
         }
     }
     

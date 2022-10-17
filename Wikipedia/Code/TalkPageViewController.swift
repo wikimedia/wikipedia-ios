@@ -453,7 +453,15 @@ class TalkPageViewController: ViewController {
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image, dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image, type: .normal, dismissPreviousAlerts: true)
+        }
+    }
+
+    fileprivate func subscriptionErrorAlert() {
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(TalkPageLocalizedStrings.subscriptionFailed, subtitle: nil, image: UIImage(systemName: "exclamationmark.circle"), type: .warning, dismissPreviousAlerts: true)
         }
     }
     
@@ -464,7 +472,7 @@ class TalkPageViewController: ViewController {
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .normal, dismissPreviousAlerts: true)
         }
     }
     
@@ -696,7 +704,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
                     cell.updateSubscribedState(viewModel: cellViewModel)
                 }
                 DDLogError("Error subscribing to topic: \(error)")
-                // TODO: Error handling
+                self.subscriptionErrorAlert()
             }
         }
     }
@@ -841,6 +849,7 @@ extension TalkPageViewController {
         static let shareButtonAccesibilityLabel = WMFLocalizedString("talk-page-share-button", value: "Share talk page", comment: "Title for share talk page button")
         static let findButtonAccesibilityLabel = WMFLocalizedString("talk-page-find-in-page-button", value: "Find in page", comment: "Title for find content in page button")
         static let addTopicButtonAccesibilityLabel = WMFLocalizedString("talk-page-add-topic-button", value: "Add topic", comment: "Title for add topic to talk page button")
+        static let subscriptionFailed = WMFLocalizedString("talk-page-subscription-failed-alert", value: "Subscribing to the topic failed, please try again.", comment: "Text for the subscription failure alert")
     }
 }
 
