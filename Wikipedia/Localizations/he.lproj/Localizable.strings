@@ -1058,10 +1058,10 @@
 "talk-pages-empty-view-header-article" = "השיחה מתחילה כאן";
 "talk-pages-empty-view-header-user" = "להתחיל דיון עם $1";
 "talk-pages-reply-button-title" = "השב לדיון זה";
+"talk-pages-reply-compose-close-confirmation-title" = "האם ברצונך באמת לזרוק את התשובה החדשה הזאת?";
 "talk-pages-topic-added-alert-title" = "הנושא שלך נוסף";
 "talk-pages-topic-compose-body-placeholder" = "תיאור";
-// Fuzzy
-"talk-pages-topic-compose-close-confirmation-discard" = "לזרוק את הנושא";
+"talk-pages-topic-compose-close-confirmation-discard" = "לזרוק את התשובה";
 "talk-pages-topic-compose-close-confirmation-title" = "האם ברצונך באמת לזרוק את הנושא החדש הזה?";
 "talk-pages-topic-compose-navbar-title" = "נושא";
 "talk-pages-topic-compose-title-placeholder" = "כותרת הנושא";

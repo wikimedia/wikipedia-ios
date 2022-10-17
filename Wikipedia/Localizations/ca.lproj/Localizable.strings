@@ -1057,10 +1057,10 @@
 "talk-pages-empty-view-header-article" = "La conversa comença aquí";
 "talk-pages-empty-view-header-user" = "Inicia una discussió amb $1";
 "talk-pages-reply-button-title" = "Respon la discussió";
+"talk-pages-reply-compose-close-confirmation-title" = "Esteu segur que voleu descartar aquesta nova resposta?";
 "talk-pages-topic-added-alert-title" = "S'ha afegit el vostre tema";
 "talk-pages-topic-compose-body-placeholder" = "Descripció";
-// Fuzzy
-"talk-pages-topic-compose-close-confirmation-discard" = "Descarta el tema";
+"talk-pages-topic-compose-close-confirmation-discard" = "Descarta la resposta";
 "talk-pages-topic-compose-close-confirmation-title" = "Esteu segur que voleu descartar aquest nou tema?";
 "talk-pages-topic-compose-navbar-title" = "Tema";
 "talk-pages-topic-compose-title-placeholder" = "Títol del tema";
