@@ -977,6 +977,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
 "talk-page-discussion-unread-accessibility-label" = "Unread";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
+"talk-page-error-alert-subtitle" = "The app recieved an unexpected response from the server. Please try again later.";
+"talk-page-error-alert-title" = "Unexpected error";
 "talk-page-error-loading-subtitle" = "Something went wrong.";
 "talk-page-error-loading-title" = "Unable to load talk page";
 "talk-page-error-unable-to-post-reply" = "No internet connection. Unable to post reply.";
@@ -1002,6 +1004,9 @@
 "talk-page-new-topic-title" = "New discussion";
 "talk-page-page-info" = "Page information";
 "talk-page-permanent-link" = "Permanent link";
+"talk-page-publish-reply-error-action" = "Go to Settings";
+"talk-page-publish-reply-error-subtitle" = "Please check your internet connection.";
+"talk-page-publish-reply-error-title" = "Unable to publish your comment.";
 "talk-page-publish-terms-and-licenses" = "By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 3.0$4 and the $5GFDL$6 licenses.";
 "talk-page-read-in-web" = "Read in web";
 "talk-page-related-links" = "What links here";

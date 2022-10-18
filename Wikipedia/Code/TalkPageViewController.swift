@@ -747,12 +747,13 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 
                 // Try to refresh page
                 self?.viewModel.fetchTalkPage { [weak self] result in
+
                     switch result {
                     case .success:
                         self?.updateEmptyStateVisibility()
                         self?.talkPageView.collectionView.reloadData()
                         self?.handleNewTopicOrCommentAlert(isNewTopic: false)
-                        
+
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self?.scrollToNewComment(oldCellViewModel: oldCellViewModel, oldCommentViewModels: oldCommentViewModels)
                         }
@@ -764,7 +765,18 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
             case .failure(let error):
                 DDLogError("Failure publishing reply: \(error)")
                 self?.replyComposeController.isLoading = false
-                // TODO: Display failure banner
+
+                if (error as NSError).wmf_isNetworkConnectionError() {
+                    WMFAlertManager.sharedInstance.showErrorAlertWithMessage(TalkPageLocalizedStrings.replyFailedAlertTitle, subtitle: TalkPageLocalizedStrings.replyFailedAlertSubtitle, buttonTitle: TalkPageLocalizedStrings.replyFailedAlertAction, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true) {
+                        UIApplication.shared.wmf_openGeneralSystemSettings()
+                    }
+                } else {
+                    let alert = UIAlertController(title: TalkPageLocalizedStrings.unexpectedErrorAlertTitle, message: TalkPageLocalizedStrings.unexpectedErrorAlertSubtitle, preferredStyle: .alert)
+                    let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
+                    alert.addAction(action)
+                    self?.present(alert, animated: true)
+                }
+
             }
         }
     }
@@ -850,6 +862,11 @@ extension TalkPageViewController {
         static let findButtonAccesibilityLabel = WMFLocalizedString("talk-page-find-in-page-button", value: "Find in page", comment: "Title for find content in page button")
         static let addTopicButtonAccesibilityLabel = WMFLocalizedString("talk-page-add-topic-button", value: "Add topic", comment: "Title for add topic to talk page button")
         static let subscriptionFailed = WMFLocalizedString("talk-page-subscription-failed-alert", value: "Subscribing to the topic failed, please try again.", comment: "Text for the subscription failure alert")
+        static let replyFailedAlertTitle = WMFLocalizedString("talk-page-publish-reply-error-title", value: "Unable to publish your comment.", comment: "Title for topic reply error alert")
+        static let replyFailedAlertSubtitle = WMFLocalizedString("talk-page-publish-reply-error-subtitle", value: "Please check your internet connection.", comment: "Subtitle for topic reply error alert")
+        static let replyFailedAlertAction = WMFLocalizedString("talk-page-publish-reply-error-action", value: "Go to Settings", comment: "Button title for topic reply error alert")
+        static let unexpectedErrorAlertTitle = WMFLocalizedString("talk-page-error-alert-title", value: "Unexpected error", comment: "Title for unexpected error alert")
+        static let unexpectedErrorAlertSubtitle = WMFLocalizedString("talk-page-error-alert-subtitle", value: "The app recieved an unexpected response from the server. Please try again later.", comment: "Subtitle for unexpected error alert")
     }
 }
 

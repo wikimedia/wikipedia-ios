@@ -977,6 +977,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a discussion's contents have been read.";
 "talk-page-discussion-unread-accessibility-label" = "Accessibility text for indicating that some content have not been read.";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a discussion's contents have not been read.";
+"talk-page-error-alert-subtitle" = "Subtitle for unexpected error alert";
+"talk-page-error-alert-title" = "Title for unexpected error alert";
 "talk-page-error-loading-subtitle" = "Subtitle text for error page on talk pages";
 "talk-page-error-loading-title" = "Title text for error page on talk pages";
 "talk-page-error-unable-to-post-reply" = "Error message appearing when user attempts to post a new talk page reply while being offline";
@@ -1002,6 +1004,9 @@
 "talk-page-new-topic-title" = "Title of page when composing a new topic on talk pages.";
 "talk-page-page-info" = "Title for menu option to go to the talk page information link";
 "talk-page-permanent-link" = "Title for menu option to open the talk page's permanent link in a web browser";
+"talk-page-publish-reply-error-action" = "Button title for topic reply error alert";
+"talk-page-publish-reply-error-subtitle" = "Subtitle for topic reply error alert";
+"talk-page-publish-reply-error-title" = "Title for topic reply error alert";
 "talk-page-publish-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "talk-page-read-in-web" = "Title for menu option to read a talk page in a web browser";
 "talk-page-related-links" = "Title for menu option that redirects to a page that shows related links";
