@@ -86,9 +86,9 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         })
     }
     
-    @objc func showBottomAlertWithMessage(_ message: String, subtitle: String?, image: UIImage?, type: RMessageType,  dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)? = nil) {
+    @objc func showBottomAlertWithMessage(_ message: String, subtitle: String?, image: UIImage?, type: RMessageType, customTypeName: String?, dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)? = nil) {
         showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            RMessage.showNotification(withTitle: message, subtitle: subtitle, iconImage: image, type: type, customTypeName: nil, duration: 5, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .bottom, canBeDismissedByUser: true)
+            RMessage.showNotification(withTitle: message, subtitle: subtitle, iconImage: image, type: type, customTypeName: customTypeName, duration: 5, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .bottom, canBeDismissedByUser: true)
         })
     }
 
@@ -125,10 +125,14 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         case .success:
             messageView.titleTextColor = theme.colors.accent
         case .custom:
-            messageView.imageViewTintColor = theme.colors.error
-            messageView.titleTextColor = theme.colors.primaryText
-            messageView.subtitleTextColor = theme.colors.primaryText
-            messageView.buttonFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
+            if messageView.customTypeName == "connection" {
+                messageView.imageViewTintColor = theme.colors.error
+                messageView.titleTextColor = theme.colors.primaryText
+                messageView.subtitleTextColor = theme.colors.primaryText
+                messageView.buttonFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
+            } else if messageView.customTypeName == "subscription" {
+                messageView.imageViewTintColor = theme.colors.warning
+            }
         default:
             messageView.titleTextColor = theme.colors.link
         }

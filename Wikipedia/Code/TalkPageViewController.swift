@@ -459,15 +459,17 @@ class TalkPageViewController: ViewController {
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image, type: .normal, dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
         }
     }
 
     fileprivate func subscriptionErrorAlert() {
+        let title = TalkPageLocalizedStrings.subscriptionFailed
+
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(TalkPageLocalizedStrings.subscriptionFailed, subtitle: nil, image: UIImage(systemName: "exclamationmark.circle"), type: .warning, dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage(systemName: "exclamationmark.circle"), type: .custom, customTypeName: "subscription", dismissPreviousAlerts: true)
         }
     }
     
@@ -478,7 +480,7 @@ class TalkPageViewController: ViewController {
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .normal, dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
         }
     }
     
@@ -655,8 +657,13 @@ class TalkPageViewController: ViewController {
     }()
 
     fileprivate func showOfflineAlertIfNeeded() {
-        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noInternetConnection, subtitle: nil, buttonTitle: TalkPageLocalizedStrings.replyFailedAlertAction, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true) {
-            UIApplication.shared.wmf_openGeneralSystemSettings()
+        let title = CommonStrings.noInternetConnection
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: nil, buttonTitle: TalkPageLocalizedStrings.replyFailedAlertAction, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true) {
+                UIApplication.shared.wmf_openGeneralSystemSettings()
+            }
         }
     }
 
@@ -800,8 +807,13 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self?.replyComposeController.isLoading = false
 
                 if (error as NSError).wmf_isNetworkConnectionError() {
-                    WMFAlertManager.sharedInstance.showErrorAlertWithMessage(TalkPageLocalizedStrings.replyFailedAlertTitle, subtitle: TalkPageLocalizedStrings.replyFailedAlertSubtitle, buttonTitle: TalkPageLocalizedStrings.replyFailedAlertAction, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true) {
-                        UIApplication.shared.wmf_openGeneralSystemSettings()
+                    let title = TalkPageLocalizedStrings.replyFailedAlertTitle
+                    if UIAccessibility.isVoiceOverRunning {
+                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                    } else {
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.replyFailedAlertSubtitle, buttonTitle: TalkPageLocalizedStrings.replyFailedAlertAction, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true) {
+                            UIApplication.shared.wmf_openGeneralSystemSettings()
+                        }
                     }
                 } else {
                     let alert = UIAlertController(title: TalkPageLocalizedStrings.unexpectedErrorAlertTitle, message: TalkPageLocalizedStrings.unexpectedErrorAlertSubtitle, preferredStyle: .alert)
