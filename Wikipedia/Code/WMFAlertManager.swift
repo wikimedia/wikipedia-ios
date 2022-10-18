@@ -63,7 +63,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         })
     }
 
-    func showErrorAlert(_ error: Error, sticky:Bool,dismissPreviousAlerts:Bool, viewController: UIViewController? = nil, tapCallBack: (() -> Void)? = nil) {
+    func showErrorAlert(_ error: Error, sticky:Bool, dismissPreviousAlerts:Bool, viewController: UIViewController? = nil, tapCallBack: (() -> Void)? = nil) {
         showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
             RMessage.showNotification(in: viewController, title: (error as NSError).alertMessage(), subtitle: nil, iconImage: nil, type: .error, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
@@ -80,10 +80,9 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         })
     }
 
-    @objc func showErrorAlertWithMessage(_ message: String, subtitle:String, buttonTitle: String, image: UIImage?, dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)? = nil) {
-
+    @objc func showErrorAlertWithMessage(_ message: String, subtitle: String?, buttonTitle: String, image: UIImage?, dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)? = nil) {
         showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            RMessage.showNotification(in: nil, title: message, subtitle: subtitle, iconImage: image, type: .error, customTypeName: nil, duration: 15, callback: tapCallBack, buttonTitle: buttonTitle, buttonCallback: tapCallBack, at: .top, canBeDismissedByUser: true)
+            RMessage.showNotification(in: nil, title: message, subtitle: subtitle, iconImage: image, type: .custom, customTypeName: "connection", duration: 15, callback: tapCallBack, buttonTitle: buttonTitle, buttonCallback: tapCallBack, at: .top, canBeDismissedByUser: true)
         })
     }
     
@@ -125,6 +124,11 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
             messageView.titleTextColor = theme.colors.warning
         case .success:
             messageView.titleTextColor = theme.colors.accent
+        case .custom:
+            messageView.imageViewTintColor = theme.colors.error
+            messageView.titleTextColor = theme.colors.primaryText
+            messageView.subtitleTextColor = theme.colors.primaryText
+            messageView.buttonFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
         default:
             messageView.titleTextColor = theme.colors.link
         }

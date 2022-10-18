@@ -180,6 +180,12 @@ class TalkPageViewController: ViewController {
 
         fetchTalkPage()
         setupToolbar()
+        reachabilityNotifier.start()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        hideOfflineAlertIfNeeded()
     }
 
     @objc func tryAgain() {
@@ -630,6 +636,33 @@ class TalkPageViewController: ViewController {
 
         fetchTalkPage()
     }
+
+    // MARK: Reachability notifier - internet connection monitoring
+
+    lazy var reachabilityNotifier: ReachabilityNotifier = {
+        let notifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] (reachable, _) in
+            if reachable {
+                DispatchQueue.main.async {
+                    self?.hideOfflineAlertIfNeeded()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.showOfflineAlertIfNeeded()
+                }
+            }
+        }
+        return notifier
+    }()
+
+    fileprivate func showOfflineAlertIfNeeded() {
+        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noInternetConnection, subtitle: nil, buttonTitle: TalkPageLocalizedStrings.replyFailedAlertAction, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true) {
+            UIApplication.shared.wmf_openGeneralSystemSettings()
+        }
+    }
+
+    fileprivate func hideOfflineAlertIfNeeded() {
+        WMFAlertManager.sharedInstance.dismissAllAlerts()
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -776,7 +809,6 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                     alert.addAction(action)
                     self?.present(alert, animated: true)
                 }
-
             }
         }
     }
@@ -931,3 +963,4 @@ extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
         UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages = true
     }
 }
+
