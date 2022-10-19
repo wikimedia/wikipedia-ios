@@ -613,6 +613,7 @@ class TalkPageViewController: ViewController {
         viewModel.pageTitle = pageTitle
         
         viewModel.siteURL = siteURL
+        viewModel.resetDateFormatter()
         viewModel.dataController = TalkPageDataController(pageType: viewModel.pageType, pageTitle: viewModel.pageTitle, siteURL: siteURL, articleSummaryController: viewModel.dataController.articleSummaryController)
 
         fetchTalkPage()
