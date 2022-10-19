@@ -185,7 +185,7 @@ class TalkPageViewController: ViewController {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        hideOfflineAlertIfNeeded()
+        reachabilityNotifier.stop()
     }
 
     @objc func tryAgain() {
