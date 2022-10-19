@@ -33,11 +33,19 @@ final class TalkPageView: SetupView {
         return view
     }()
 
+    lazy var errorView: TalkPageErrorStateView = {
+        let view = TalkPageErrorStateView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0
+        return view
+    }()
+
     // MARK: - Lifecycle
 
     override func setup() {
         addSubview(collectionView)
         addSubview(emptyView)
+        addSubview(errorView)
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -46,7 +54,11 @@ final class TalkPageView: SetupView {
             emptyView.topAnchor.constraint(equalTo: topAnchor),
             emptyView.bottomAnchor.constraint(equalTo: bottomAnchor),
             emptyView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            emptyView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            emptyView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            errorView.topAnchor.constraint(equalTo: topAnchor),
+            errorView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            errorView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            errorView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 
@@ -55,6 +67,11 @@ final class TalkPageView: SetupView {
             self.emptyView.isUserInteractionEnabled = visible
             self.emptyView.alpha = visible ? 1 : 0
         })
+    }
+
+    func updateErrorView(visible: Bool) {
+        self.errorView.isUserInteractionEnabled = visible
+        self.errorView.alpha = visible ? 1 : 0
     }
 
     func configure(viewModel: TalkPageViewModel) {
@@ -85,6 +102,7 @@ extension TalkPageView: Themeable {
 
         collectionView.backgroundColor = baseBackground
         emptyView.apply(theme: theme)
+        errorView.apply(theme: theme)
     }
 
 }

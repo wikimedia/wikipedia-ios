@@ -123,7 +123,7 @@ class TalkPageViewController: ViewController {
         view = talkPageView
         scrollView = talkPageView.collectionView
     }
-    
+
     fileprivate func fetchTalkPage() {
         navigationBar.removeUnderNavigationBarView()
         self.headerView = nil
@@ -141,7 +141,6 @@ class TalkPageViewController: ViewController {
                 self.talkPageView.configure(viewModel: self.viewModel)
                 self.talkPageView.emptyView.actionButton.addTarget(self, action: #selector(self.userDidTapAddTopicButton), for: .primaryActionTriggered)
                 self.updateEmptyStateVisibility()
-                
                 guard self.needsDeepLinkScroll() else {
                     self.talkPageView.collectionView.reloadData()
                     break
@@ -150,8 +149,10 @@ class TalkPageViewController: ViewController {
                 self.reloadDataAndScrollToDeepLink()
                 
             case .failure:
-                break
+                self.talkPageView.errorView.button.addTarget(self, action: #selector(self.tryAgain), for: .primaryActionTriggered)
             }
+            self.updateErrorStateVisibility()
+
         }
     }
 
@@ -179,6 +180,10 @@ class TalkPageViewController: ViewController {
 
         fetchTalkPage()
         setupToolbar()
+    }
+
+    @objc func tryAgain() {
+        fetchTalkPage()
     }
 
     private func setupHeaderView() {
@@ -704,6 +709,9 @@ extension TalkPageViewController: TalkPageCellDelegate {
         updateScrollViewInsets()
     }
 
+    fileprivate func updateErrorStateVisibility() {
+        talkPageView.updateErrorView(visible: viewModel.shouldShowErrorState)
+    }
 
 }
 

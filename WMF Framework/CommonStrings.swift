@@ -163,6 +163,8 @@ public class CommonStrings: NSObject {
     @objc public static let readingPreferences = WMFLocalizedString("settings-appearance", value: "Reading preferences", comment: "Title of the reading preferences screen.")
     @objc public static let pushNotifications = WMFLocalizedString("settings-notifications", value: "Push notifications", comment: "Title for view and button letting users change their push notifications settings.")
 
+    public static let tryAgain = WMFLocalizedString("settings-notifications-echo-failure-try-again", value: "Try again", comment: "Text alerting the user to try action again after error")
+
     @objc public static let settingsStorageAndSyncing = WMFLocalizedString("settings-storage-and-syncing-title", value: "Article storage and syncing", comment: "Title of the saved articles storage and syncing settings screen")
 
     @objc public static let inTheNewsTitle = WMFLocalizedString("in-the-news-title", value:"In the news", comment:"Title for the 'In the news' notification & feed section")
