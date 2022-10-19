@@ -96,6 +96,14 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     return longDateFormatter;
 }
 
++ (instancetype)wmf_utcCustomShortDateFormatterWithTimeForLocale:(NSLocale *)locale {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    [formatter setLocale: locale];
+    [formatter setLocalizedDateFormatFromTemplate:@"HH:mm zzz, dd.MM.yyyy"];
+    return formatter;
+}
+
 + (instancetype)wmf_utcMediumDateFormatterWithoutTime {
     static NSDateFormatter *_dateFormatter;
     static dispatch_once_t onceToken;
