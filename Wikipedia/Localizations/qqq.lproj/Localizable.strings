@@ -319,7 +319,6 @@
 "empty-no-search-results-message" = "Shown when there are no search results";
 "empty-talk-page-title" = "Text for placeholder label visible when talk page is empty";
 "error-generic-recovery-suggestion" = "Generic recovery suggestion for when the error isn't recoverable by the user.";
-"error-try-again" = "Text alerting the user to try action again after error";
 "error-unknown" = "Message displayed when an unknown error occurred";
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
 "explore-because-you-read" = "Text for 'Because you read' header";
@@ -918,6 +917,7 @@
 "settings-notifications" = "Title for view and button letting users change their push notifications settings.";
 "settings-notifications-echo-failure-message" = "Alert message text informing user of failure when subscribing to Echo Notifications.";
 "settings-notifications-echo-failure-title" = "Alert title text informing user of failure when subscribing to Echo Notifications.";
+"settings-notifications-echo-failure-try-again" = "Text alerting the user to try action again after error";
 "settings-notifications-header" = "Text informing user of benefits of enabling push notifications.";
 "settings-notifications-info" = "A short description of notifications shown in settings";
 "settings-notifications-learn-more" = "A title for a button to learn more about notifications";

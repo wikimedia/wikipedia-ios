@@ -67,7 +67,7 @@ final class TalkPageErrorStateView: SetupView {
         return stackView
     }()
 
-    lazy var stackButton: UIStackView = {
+    lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -86,8 +86,8 @@ final class TalkPageErrorStateView: SetupView {
         textStackView.setCustomSpacing(10, after: titleLabel)
         textStackView.setCustomSpacing(20, after: subtitleLabel)
 
-        stackView.addArrangedSubview(stackButton)
-        stackButton.addArrangedSubview(button)
+        stackView.addArrangedSubview(buttonStackView)
+        buttonStackView.addArrangedSubview(button)
 
         stackView.distribution = .equalSpacing
 
