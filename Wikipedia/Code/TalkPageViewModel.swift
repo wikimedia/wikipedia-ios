@@ -12,29 +12,13 @@ final class TalkPageViewModel {
     // MARK: - Properties
 
     let pageType: TalkPageType
-    var pageTitle: String
-    var siteURL: URL
+    private(set) var pageTitle: String
+    private(set) var siteURL: URL
     let authenticationManager: WMFAuthenticationManager
     var deepLinkData: DeepLinkData?
-    var dataController: TalkPageDataController
+    private let dataController: TalkPageDataController
     
-    private var dateFormatter: DateFormatter? {
-        get {
-            if _dateFormatter == nil {
-                guard let languageCode = siteURL.wmf_languageCode else {
-                    return nil
-                }
-                
-                _dateFormatter = DateFormatter.wmf_utcCustomShortDateFormatterWithTime(for: NSLocale.wmf_locale(for: languageCode))
-            }
-            
-            return _dateFormatter
-        }
-        set {
-            _dateFormatter = newValue
-        }
-    }
-    private var _dateFormatter: DateFormatter?
+    private var dateFormatter: DateFormatter?
 
     private(set) var headerTitle: String
     private(set) var headerDescription: String?
@@ -67,6 +51,7 @@ final class TalkPageViewModel {
         
         // Setting headerTitle as pageTitle (which contains the namespace prefix) for now, we attempt to strip the namespace later in populateHeaderData
         self.headerTitle = pageTitle
+        self.dateFormatter = dateFormatterForSiteURL(siteURL)
     }
     
     /// Convenience init for paths that do not already have pageTitle and siteURL separated
@@ -84,6 +69,13 @@ final class TalkPageViewModel {
     }
 
     // MARK: - Public
+    
+    func resetToNewSiteURL(_ siteURL: URL, pageTitle: String) {
+        self.pageTitle = pageTitle
+        self.siteURL = siteURL
+        self.dateFormatter = dateFormatterForSiteURL(siteURL)
+        dataController.resetToNewSiteURL(siteURL, pageTitle: pageTitle)
+    }
 
     var isUserLoggedIn: Bool {
         return authenticationManager.isLoggedIn
@@ -143,11 +135,15 @@ final class TalkPageViewModel {
         }
     }
     
-    func resetDateFormatter() {
-        dateFormatter = nil
-    }
-    
     // MARK: - Private
+    
+    private func dateFormatterForSiteURL(_ siteURL: URL) -> DateFormatter? {
+        guard let languageCode = siteURL.wmf_languageCode else {
+            return nil
+        }
+        
+        return DateFormatter.wmf_utcCustomShortDateFormatterWithTime(for: NSLocale.wmf_locale(for: languageCode))
+    }
     
     private func populateHeaderData(project: WikimediaProject, articleSummary: WMFArticle?, items: [TalkPageItem]) {
         
