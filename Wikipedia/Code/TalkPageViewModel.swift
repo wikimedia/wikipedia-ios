@@ -17,6 +17,24 @@ final class TalkPageViewModel {
     let authenticationManager: WMFAuthenticationManager
     var deepLinkData: DeepLinkData?
     var dataController: TalkPageDataController
+    
+    private var dateFormatter: DateFormatter? {
+        get {
+            if _dateFormatter == nil {
+                guard let languageCode = siteURL.wmf_languageCode else {
+                    return nil
+                }
+                
+                _dateFormatter = DateFormatter.wmf_utcCustomShortDateFormatterWithTime(for: NSLocale.wmf_locale(for: languageCode))
+            }
+            
+            return _dateFormatter
+        }
+        set {
+            _dateFormatter = newValue
+        }
+    }
+    private var _dateFormatter: DateFormatter?
 
     private(set) var headerTitle: String
     private(set) var headerDescription: String?
@@ -123,6 +141,10 @@ final class TalkPageViewModel {
                 }
             }
         }
+    }
+    
+    func resetDateFormatter() {
+        dateFormatter = nil
     }
     
     // MARK: - Private
