@@ -34,11 +34,6 @@ final class TalkPageCellTopicView: SetupView {
         button.setImage(UIImage(systemName: "bell"), for: .normal)
         button.tintColor = .black
 
-        let inset: CGFloat = 2
-        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
-
         button.setContentCompressionResistancePriority(.required, for: .vertical)
 
         return button
@@ -291,6 +286,18 @@ final class TalkPageCellTopicView: SetupView {
         timestampLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         activeUsersLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         repliesCountLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+
+        let inset: CGFloat = 2
+        switch semanticContentAttribute {
+        case .forceRightToLeft:
+            subscribeButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+            subscribeButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
+            subscribeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
+        default:
+            subscribeButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+            subscribeButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
+            subscribeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
+        }
     }
 
 }

@@ -24,10 +24,6 @@ final class TalkPageCellCommentView: SetupView {
         button.setTitleColor(.black, for: .normal)
         button.setImage(UIImage(systemName: "arrowshape.turn.up.left"), for: .normal)
 
-        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
-
         button.setContentHuggingPriority(.required, for: .horizontal)
         button.setContentHuggingPriority(.required, for: .vertical)
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -100,6 +96,18 @@ final class TalkPageCellCommentView: SetupView {
         replyDepthView.semanticContentAttribute = semanticContentAttribute
         
         commentTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        
+        switch semanticContentAttribute {
+        case .forceRightToLeft:
+            replyButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+            replyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+            replyButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+        default:
+            replyButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+            replyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+            replyButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+        }
+        
     }
     
     // MARK: - Actions

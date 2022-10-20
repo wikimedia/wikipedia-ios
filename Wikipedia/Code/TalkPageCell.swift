@@ -52,11 +52,7 @@ final class TalkPageCell: UICollectionViewCell {
         button.setTitleColor(.black, for: .normal)
         button.setImage(UIImage(systemName: "arrowshape.turn.up.left"), for: .normal)
 
-        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
-
-        button.setContentHuggingPriority(.required, for: .horizontal)        
+        button.setContentHuggingPriority(.required, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .vertical)
         return button
@@ -180,6 +176,17 @@ final class TalkPageCell: UICollectionViewCell {
         
         stackView.arrangedSubviews.forEach { subview in
             subview.semanticContentAttribute = semanticContentAttribute
+        }
+        
+        switch semanticContentAttribute {
+        case .forceRightToLeft:
+            leadReplyButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+            leadReplyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+            leadReplyButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+        default:
+            leadReplyButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+            leadReplyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+            leadReplyButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
         }
     }
 
