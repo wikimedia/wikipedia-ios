@@ -19,6 +19,7 @@ final class TalkPageViewModel {
     private let dataController: TalkPageDataController
     
     private var dateFormatter: DateFormatter?
+    private(set) var semanticContentAttribute: UISemanticContentAttribute
 
     private(set) var headerTitle: String
     private(set) var headerDescription: String?
@@ -51,7 +52,9 @@ final class TalkPageViewModel {
         
         // Setting headerTitle as pageTitle (which contains the namespace prefix) for now, we attempt to strip the namespace later in populateHeaderData
         self.headerTitle = pageTitle
-        self.dateFormatter = dateFormatterForSiteURL(siteURL)
+        
+        self.dateFormatter = Self.dateFormatterForSiteURL(siteURL)
+        self.semanticContentAttribute = Self.semanticContentAttributeForSiteURL(siteURL)
     }
     
     /// Convenience init for paths that do not already have pageTitle and siteURL separated
@@ -73,7 +76,8 @@ final class TalkPageViewModel {
     func resetToNewSiteURL(_ siteURL: URL, pageTitle: String) {
         self.pageTitle = pageTitle
         self.siteURL = siteURL
-        self.dateFormatter = dateFormatterForSiteURL(siteURL)
+        self.dateFormatter = Self.dateFormatterForSiteURL(siteURL)
+        self.semanticContentAttribute = Self.semanticContentAttributeForSiteURL(siteURL)
         dataController.resetToNewSiteURL(siteURL, pageTitle: pageTitle)
     }
 
@@ -137,12 +141,16 @@ final class TalkPageViewModel {
     
     // MARK: - Private
     
-    private func dateFormatterForSiteURL(_ siteURL: URL) -> DateFormatter? {
+    private static func dateFormatterForSiteURL(_ siteURL: URL) -> DateFormatter? {
         guard let languageCode = siteURL.wmf_languageCode else {
             return nil
         }
         
         return DateFormatter.wmf_localCustomShortDateFormatterWithTime(for: NSLocale.wmf_locale(for: languageCode))
+    }
+    
+    private static func semanticContentAttributeForSiteURL(_ siteURL: URL) -> UISemanticContentAttribute {
+        return MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: siteURL.wmf_contentLanguageCode)
     }
     
     private func populateHeaderData(project: WikimediaProject, articleSummary: WMFArticle?, items: [TalkPageItem]) {
