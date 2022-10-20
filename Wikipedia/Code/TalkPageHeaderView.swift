@@ -146,7 +146,7 @@ final class TalkPageHeaderView: SetupView {
     lazy var coffeeRollReadMoreButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        let title = WMFLocalizedString("talk-pages-coffee-roll-read-more", value: "Read more", comment: "Title of user and article talk pages button to read more of the coffee roll.")
+        let title = WMFLocalizedString("talk-pages-coffee-roll-read-more", value: "Read more", comment: "Title of user and article talk pages button to read more of the coffee roll. Please prioritize for de, ar and zh wikis.")
         button.setTitle(title, for: .normal)
         button.contentHorizontalAlignment = .trailing
         button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .medium, size: 15)
