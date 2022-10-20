@@ -72,7 +72,7 @@ class PageHistoryCountsViewController: UIViewController {
         setSparklineViewHidden(false)
         countsLabel.setTransparent(true)
 
-        titleLabel.text = WMFLocalizedString("page-history-revision-history-title", value: "Revision history", comment: "Title for revision history view").uppercased(with: locale)
+        titleLabel.text = WMFLocalizedString("page-history-revision-history-title", value: "Revision history", comment: "Title for revision history view. Please prioritize for de, ar and zh wikis.").uppercased(with: locale)
         pageTitleLabel.text = pageTitle
 
         sparklineView.showsVerticalGridlines = true
