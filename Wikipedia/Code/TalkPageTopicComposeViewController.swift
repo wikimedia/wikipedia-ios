@@ -5,6 +5,10 @@ protocol TalkPageTopicComposeViewControllerDelegate: AnyObject {
     func tappedPublish(topicTitle: String, topicBody: String, composeViewController: TalkPageTopicComposeViewController)
 }
 
+struct TalkPageTopicComposeViewModel {
+    let semanticContentAttribute: UISemanticContentAttribute
+}
+
 class TalkPageTopicComposeViewController: ViewController {
     
     enum TopicComposeStrings {
@@ -15,6 +19,8 @@ class TalkPageTopicComposeViewController: ViewController {
         static let closeConfirmationTitle = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-title", value: "Are you sure you want to discard this new topic?", comment: "Title of confirmation alert displayed to user when they attempt to close the new topic view after entering title or body text.")
         static let closeConfirmationDiscard = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-discard", value: "Discard Topic", comment: "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text.")
     }
+    
+    private let viewModel: TalkPageTopicComposeViewModel
     
     private lazy var safeAreaBackgroundView: UIView = {
         let view = UIView(frame: .zero)
@@ -115,6 +121,15 @@ class TalkPageTopicComposeViewController: ViewController {
     weak var delegate: TalkPageTopicComposeViewControllerDelegate?
     
     // MARK: Lifecycle
+    
+    init(viewModel: TalkPageTopicComposeViewModel, theme: Theme) {
+        self.viewModel = viewModel
+        super.init(theme: theme)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -300,6 +315,9 @@ class TalkPageTopicComposeViewController: ViewController {
         
         finePrintTextView.backgroundColor = theme.colors.midBackground
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString // TODO: not working? Link colors are off.
+        
+        // Calling here to ensure text alignment is set properly after attributed strings are set
+        updateSemanticContentAttribute(semanticContentAttribute: viewModel.semanticContentAttribute)
     }
     
     // MARK: Private
@@ -331,6 +349,21 @@ class TalkPageTopicComposeViewController: ViewController {
     
     private func evaluatePublishButtonEnabledState() {        
         publishButton.isEnabled = !(titleTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !bodyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+    
+    private func updateSemanticContentAttribute(semanticContentAttribute: UISemanticContentAttribute) {
+        containerStackView.semanticContentAttribute = semanticContentAttribute
+        inputContainerView.semanticContentAttribute = semanticContentAttribute
+        titleTextField.semanticContentAttribute = semanticContentAttribute
+        divView.semanticContentAttribute = semanticContentAttribute
+        bodyTextView.semanticContentAttribute = semanticContentAttribute
+        bodyPlaceholderLabel.semanticContentAttribute = semanticContentAttribute
+        finePrintTextView.semanticContentAttribute = semanticContentAttribute
+        
+        titleTextField.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        bodyTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        bodyPlaceholderLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        finePrintTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
     }
     
     // MARK: Actions

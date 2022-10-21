@@ -321,7 +321,8 @@ class TalkPageViewController: ViewController {
     }
 
     @objc fileprivate func userDidTapAddTopicButton() {
-        let topicComposeVC = TalkPageTopicComposeViewController(theme: theme)
+        let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute)
+        let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, theme: theme)
         topicComposeVC.delegate = self
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
