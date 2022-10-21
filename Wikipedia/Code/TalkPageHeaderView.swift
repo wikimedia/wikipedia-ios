@@ -367,7 +367,6 @@ final class TalkPageHeaderView: SetupView {
         typeLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         titleLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         descriptionLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
-        projectLanguageLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         coffeeRollLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
     }
 }
@@ -403,7 +402,7 @@ extension TalkPageHeaderView: Themeable {
         coffeeRollReadMoreButton.setTitleColor(theme.colors.link, for: .normal)
         updateCoffeeRollText()
         
-        // Need to set textView textAlignment in the hierarchy again, after their attributed strings are set to the correct theme.
+        // Need to set textView and label textAlignment in the hierarchy again, after their attributed strings are set to the correct theme.
         updateSemanticContentAttribute(semanticContentAttribute)
     }
 

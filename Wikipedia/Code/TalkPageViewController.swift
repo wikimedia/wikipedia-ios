@@ -208,7 +208,7 @@ class TalkPageViewController: ViewController {
     // MARK: - Coffee Roll
 
     @objc private func userDidTapCoffeeRollReadMoreButton() {
-        let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: talkPageURL)
+        let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: talkPageURL, semanticContentAttribute: viewModel.semanticContentAttribute)
         let coffeeViewController = TalkPageCoffeeRollViewController(theme: theme, viewModel: coffeeRollViewModel)
         push(coffeeViewController, animated: true)
     }
