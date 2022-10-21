@@ -64,7 +64,6 @@ final class TalkPageCell: UICollectionViewCell {
     }()
 
     lazy var topicView: TalkPageCellTopicView = TalkPageCellTopicView()
-    lazy var commentView = TalkPageCellCommentView()
 
     // MARK: - Lifecycle
 
@@ -171,7 +170,7 @@ final class TalkPageCell: UICollectionViewCell {
         }
     }
     
-    func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
         stackView.semanticContentAttribute = semanticContentAttribute
         leadReplySpacer.semanticContentAttribute = semanticContentAttribute
         leadReplyButton.semanticContentAttribute = semanticContentAttribute
