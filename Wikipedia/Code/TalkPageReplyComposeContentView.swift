@@ -112,6 +112,12 @@ class TalkPageReplyComposeContentView: SetupView {
         setupPlaceholderLabel()
         setupInfoButton()
         apply(theme: theme)
+        
+        guard let semanticContentAttribute = commentViewModel.cellViewModel?.viewModel?.semanticContentAttribute else {
+            return
+        }
+        
+        updateSemanticContentAttribute(semanticContentAttribute)
     }
     
     // MARK: Public
@@ -230,6 +236,19 @@ class TalkPageReplyComposeContentView: SetupView {
         infoButton.setContentCompressionResistancePriority(.required, for: .vertical)
     }
     
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+        
+        verticalStackView.semanticContentAttribute = semanticContentAttribute
+        replyTextView.semanticContentAttribute = semanticContentAttribute
+        finePrintTextView.semanticContentAttribute = semanticContentAttribute
+        placeholderLabel.semanticContentAttribute = semanticContentAttribute
+        infoButton.semanticContentAttribute = semanticContentAttribute
+        
+        replyTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        finePrintTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        placeholderLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+    }
+    
     // MARK: Actions
     
     @objc private func tappedInfo() {
@@ -315,5 +334,8 @@ extension TalkPageReplyComposeContentView: Themeable {
         
         closeButton.tintColor = theme.colors.tertiaryText
         publishButton.tintColor = theme.colors.link
+        
+        let currentSemanticContentAttribute = verticalStackView.semanticContentAttribute
+        updateSemanticContentAttribute(currentSemanticContentAttribute)
     }
 }
