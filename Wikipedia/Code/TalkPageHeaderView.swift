@@ -209,7 +209,6 @@ final class TalkPageHeaderView: SetupView {
             projectLanguageLabelContainer.bottomAnchor.constraint(equalTo: projectLanguageLabel.bottomAnchor, constant: 5),
 
             projectImageView.heightAnchor.constraint(equalTo: projectLanguageLabelContainer.heightAnchor),
-            projectImageView.widthAnchor.constraint(equalTo: projectImageView.widthAnchor),
 
             projectImageView.leadingAnchor.constraint(equalTo: projectSourceContainer.leadingAnchor),
             projectImageView.topAnchor.constraint(equalTo: projectSourceContainer.topAnchor, constant: 2),
@@ -305,6 +304,7 @@ final class TalkPageHeaderView: SetupView {
             projectImageView.image = projectSourceImage
         } else {
             projectImageView.removeFromSuperview()
+            projectLanguageLabelContainer.leadingAnchor.constraint(equalTo: projectSourceContainer.leadingAnchor).isActive = true
         }
 
         if let projectLanguage = viewModel.projectLanguage {
@@ -359,6 +359,7 @@ final class TalkPageHeaderView: SetupView {
         verticalStackView.semanticContentAttribute = semanticContentAttribute
         bottomSpacer.semanticContentAttribute = semanticContentAttribute
         secondaryVerticalStackView.semanticContentAttribute = semanticContentAttribute
+        projectSourceContainer.semanticContentAttribute = semanticContentAttribute
         projectImageView.semanticContentAttribute = semanticContentAttribute
         projectLanguageLabelContainer.semanticContentAttribute = semanticContentAttribute
         projectLanguageLabel.semanticContentAttribute = semanticContentAttribute
