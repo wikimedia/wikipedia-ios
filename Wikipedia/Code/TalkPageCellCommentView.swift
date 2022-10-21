@@ -52,6 +52,12 @@ final class TalkPageCellCommentView: SetupView {
     weak var linkDelegate: TalkPageTextViewLinkHandling?
     
     private var commentLeadingConstraint: NSLayoutConstraint?
+    
+    override var semanticContentAttribute: UISemanticContentAttribute {
+        didSet {
+            updateSemanticContentAttribute(semanticContentAttribute)
+        }
+    }
 
     // MARK: - Lifecycle
 
@@ -84,6 +90,14 @@ final class TalkPageCellCommentView: SetupView {
         self.viewModel = viewModel
         commentLeadingConstraint?.constant = viewModel.replyDepth > 0 ? 10 : 0
         replyDepthView.configure(viewModel: viewModel)
+    }
+    
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+        commentTextView.semanticContentAttribute = semanticContentAttribute
+        replyButton.semanticContentAttribute = semanticContentAttribute
+        replyDepthView.semanticContentAttribute = semanticContentAttribute
+        
+        commentTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
     }
     
     // MARK: - Actions

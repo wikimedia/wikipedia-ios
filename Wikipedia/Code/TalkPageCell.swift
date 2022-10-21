@@ -151,6 +151,12 @@ final class TalkPageCell: UICollectionViewCell {
         topicView.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
 
         leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
+        
+        guard let semanticContentAttribute = viewModel.viewModel?.semanticContentAttribute else {
+            return
+        }
+        
+        updateSemanticContentAttribute(semanticContentAttribute)
     }
     
     func updateSubscribedState(viewModel: TalkPageCellViewModel) {
@@ -162,6 +168,17 @@ final class TalkPageCell: UICollectionViewCell {
             if subview != topicView {
                 subview.removeFromSuperview()
             }
+        }
+    }
+    
+    func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+        stackView.semanticContentAttribute = semanticContentAttribute
+        leadReplySpacer.semanticContentAttribute = semanticContentAttribute
+        leadReplyButton.semanticContentAttribute = semanticContentAttribute
+        topicView.semanticContentAttribute = semanticContentAttribute
+        
+        stackView.arrangedSubviews.forEach { subview in
+            subview.semanticContentAttribute = semanticContentAttribute
         }
     }
 
@@ -198,6 +215,9 @@ extension TalkPageCell: Themeable {
         leadReplyButton.setTitleColor(theme.colors.paperBackground, for: .normal)
         leadReplyButton.backgroundColor = theme.colors.link
         leadReplyButton.tintColor = theme.colors.paperBackground
+        
+        // Need to set textView and label textAlignments in the hierarchy again, after their attributed strings are set to the correct theme.
+        let currentSemanticContentAttribute = stackView.semanticContentAttribute
+        updateSemanticContentAttribute(currentSemanticContentAttribute)
     }
-
 }

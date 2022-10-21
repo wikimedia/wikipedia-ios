@@ -169,6 +169,12 @@ final class TalkPageCellTopicView: SetupView {
         widthConstraint.isActive = true
         return view
     }()
+    
+    override var semanticContentAttribute: UISemanticContentAttribute {
+        didSet {
+            updateSemanticContentAttribute(semanticContentAttribute)
+        }
+    }
 
     // MARK: - Lifecycle
 
@@ -255,6 +261,33 @@ final class TalkPageCellTopicView: SetupView {
             }
 
         }
+    }
+    
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+            
+        stackView.semanticContentAttribute = semanticContentAttribute
+        disclosureHorizontalStack.semanticContentAttribute = semanticContentAttribute
+        subscribeButton.semanticContentAttribute = semanticContentAttribute
+        disclosureButton.semanticContentAttribute = semanticContentAttribute
+        disclosureCenterSpacer.semanticContentAttribute = semanticContentAttribute
+        topicTitleTextView.semanticContentAttribute = semanticContentAttribute
+        timestampLabel.semanticContentAttribute = semanticContentAttribute
+        topicCommentTextView.semanticContentAttribute = semanticContentAttribute
+        metadataHorizontalStack.semanticContentAttribute = semanticContentAttribute
+        metadataSpacer.semanticContentAttribute = semanticContentAttribute
+        activeUsersStack.semanticContentAttribute = semanticContentAttribute
+        activeUsersImageView.semanticContentAttribute = semanticContentAttribute
+        activeUsersLabel.semanticContentAttribute = semanticContentAttribute
+        repliesStack.semanticContentAttribute = semanticContentAttribute
+        repliesImageView.semanticContentAttribute = semanticContentAttribute
+        repliesCountLabel.semanticContentAttribute = semanticContentAttribute
+        variableMetadataCenterSpacer.semanticContentAttribute = semanticContentAttribute
+        
+        topicTitleTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        topicCommentTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        timestampLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        activeUsersLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        repliesCountLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
     }
 
 }
