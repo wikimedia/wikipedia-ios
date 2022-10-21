@@ -49,7 +49,6 @@ final class TalkPageCell: UICollectionViewCell {
         button.layer.cornerRadius = 8
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 15)
-        button.setTitle(CommonStrings.talkPageReply, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.setImage(UIImage(systemName: "arrowshape.turn.up.left"), for: .normal)
 
@@ -151,6 +150,9 @@ final class TalkPageCell: UICollectionViewCell {
 
         leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
         
+        let languageCode = viewModel.viewModel?.siteURL.wmf_languageCode
+        leadReplyButton.setTitle(CommonStrings.talkPageReply(languageCode: languageCode), for: .normal)
+        
         guard let semanticContentAttribute = viewModel.viewModel?.semanticContentAttribute else {
             return
         }
@@ -159,7 +161,7 @@ final class TalkPageCell: UICollectionViewCell {
     }
     
     func updateSubscribedState(viewModel: TalkPageCellViewModel) {
-        topicView.updateSubscribedState(viewModel: viewModel)
+        topicView.updateSubscribedState(cellViewModel: viewModel)
     }
     
     func removeExpandedElements() {

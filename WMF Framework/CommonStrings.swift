@@ -243,9 +243,13 @@ public class CommonStrings: NSObject {
 
     public static let talkPageNewBannerSubtitle = WMFLocalizedString("talk-page-new-banner-subtitle", value: "Remember, we are all humans here", comment: "Subtitle text on banner that appears once user posts a new reply or discussion topic on their talk page.")
 
-    public static let talkPageTitleUserTalk = WMFLocalizedString("talk-page-title-user-talk", value: "User Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page.")
+    public static func talkPageTitleUserTalk(languageCode: String?) -> String {
+        WMFLocalizedString("talk-page-title-user-talk", languageCode: languageCode, value: "User Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page.")
+    }
 
-    public static let talkPageTitleArticleTalk = WMFLocalizedString("talk-page-title-article-talk", value: "Article Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page.")
+    public static func talkPageTitleArticleTalk(languageCode: String?) -> String {
+        WMFLocalizedString("talk-page-title-article-talk", languageCode: languageCode, value: "Article Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page.")
+    }
 
     public static let accessibilityClearTitle = WMFLocalizedString("clear-title-accessibility-label", value: "Clear", comment: "Accessibility label title for action that clears text")
 
@@ -253,7 +257,9 @@ public class CommonStrings: NSObject {
 
     public static let successfullyPublishedReply = WMFLocalizedString("talk-page-new-reply-success-text", value: "Your reply was successfully published", comment: "Banner text that appears after a new reply was successfully published on a talk page discussion.")
 
-    public static let talkPageReply = WMFLocalizedString("talk-page-reply-button", value: "Reply", comment: "Text used on button to reply to talk page messages.")
+    public static func talkPageReply(languageCode: String?) -> String {
+        WMFLocalizedString("talk-page-reply-button", languageCode: languageCode, value: "Reply", comment: "Text used on button to reply to talk page messages.")
+    }
     
     public static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for option that leads to talk pages revision history")
 

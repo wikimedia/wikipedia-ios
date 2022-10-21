@@ -146,8 +146,6 @@ final class TalkPageHeaderView: SetupView {
     lazy var coffeeRollReadMoreButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        let title = WMFLocalizedString("talk-pages-coffee-roll-read-more", value: "Read more", comment: "Title of user and article talk pages button to read more of the coffee roll.")
-        button.setTitle(title, for: .normal)
         button.contentHorizontalAlignment = .trailing
         button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .medium, size: 15)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
@@ -281,13 +279,19 @@ final class TalkPageHeaderView: SetupView {
     func configure(viewModel: TalkPageViewModel) {
         
         self.viewModel = viewModel
+        let languageCode = viewModel.siteURL.wmf_languageCode
         
-        typeLabel.text = viewModel.pageType == .article ? CommonStrings.talkPageTitleArticleTalk.localizedUppercase : CommonStrings.talkPageTitleUserTalk.localizedUppercase
+        typeLabel.text = viewModel.pageType == .article ? CommonStrings.talkPageTitleArticleTalk(languageCode: languageCode).localizedUppercase : CommonStrings.talkPageTitleUserTalk(languageCode: languageCode).localizedUppercase
         titleLabel.text = viewModel.headerTitle
         descriptionLabel.text = viewModel.headerDescription
 
         if viewModel.coffeeRollText != nil {
             updateCoffeeRollText()
+            
+            let languageCode = viewModel.siteURL.wmf_languageCode
+            let title = WMFLocalizedString("talk-pages-coffee-roll-read-more", languageCode: languageCode, value: "Read more", comment: "Title of user and article talk pages button to read more of the coffee roll.")
+            coffeeRollReadMoreButton.setTitle(title, for: .normal)
+            
             coffeeRollContainer.isHidden = false
             bottomSpacer.isHidden = true
         } else {

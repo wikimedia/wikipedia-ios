@@ -221,7 +221,7 @@ final class TalkPageCellTopicView: SetupView {
 
         disclosureButton.setImage(viewModel.isThreadExpanded ? UIImage(systemName: "chevron.up") : UIImage(systemName: "chevron.down"), for: .normal)
 
-        updateSubscribedState(viewModel: viewModel)
+        updateSubscribedState(cellViewModel: viewModel)
         
         topicTitleTextView.invalidateIntrinsicContentSize()
         topicTitleTextView.textContainer.maximumNumberOfLines = viewModel.isThreadExpanded ? 0 : 2
@@ -239,12 +239,15 @@ final class TalkPageCellTopicView: SetupView {
         repliesCountLabel.text = viewModel.repliesCount
     }
     
-    func updateSubscribedState(viewModel: TalkPageCellViewModel) {
-        let talkPageTopicSubscribe = WMFLocalizedString("talk-page-subscribe-to-topic", value: "Subscribe", comment: "Text used on button to subscribe to talk page topic.")
-        let talkPageTopicUnsubscribe = WMFLocalizedString("talk-page-unsubscribe-to-topic", value: "Unsubscribe", comment: "Text used on button to unsubscribe from talk page topic.")
+    func updateSubscribedState(cellViewModel: TalkPageCellViewModel) {
+        
+        let languageCode = cellViewModel.viewModel?.siteURL.wmf_languageCode
+        
+        let talkPageTopicSubscribe = WMFLocalizedString("talk-page-subscribe-to-topic", languageCode: languageCode, value: "Subscribe", comment: "Text used on button to subscribe to talk page topic.")
+        let talkPageTopicUnsubscribe = WMFLocalizedString("talk-page-unsubscribe-to-topic", languageCode: languageCode, value: "Unsubscribe", comment: "Text used on button to unsubscribe from talk page topic.")
 
-        subscribeButton.setTitle(viewModel.isSubscribed ? talkPageTopicUnsubscribe : talkPageTopicSubscribe , for: .normal)
-        subscribeButton.setImage(viewModel.isSubscribed ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell"), for: .normal)
+        subscribeButton.setTitle(cellViewModel.isSubscribed ? talkPageTopicUnsubscribe : talkPageTopicSubscribe , for: .normal)
+        subscribeButton.setImage(cellViewModel.isSubscribed ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell"), for: .normal)
     }
 
     fileprivate func configureDisclosureRow(isUserLoggedIn: Bool) {

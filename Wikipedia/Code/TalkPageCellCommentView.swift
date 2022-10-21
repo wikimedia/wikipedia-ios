@@ -21,7 +21,6 @@ final class TalkPageCellCommentView: SetupView {
     lazy var replyButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(CommonStrings.talkPageReply, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.setImage(UIImage(systemName: "arrowshape.turn.up.left"), for: .normal)
 
@@ -90,6 +89,9 @@ final class TalkPageCellCommentView: SetupView {
         self.viewModel = viewModel
         commentLeadingConstraint?.constant = viewModel.replyDepth > 0 ? 10 : 0
         replyDepthView.configure(viewModel: viewModel)
+        
+        let languageCode = viewModel.cellViewModel?.viewModel?.siteURL.wmf_languageCode
+        replyButton.setTitle(CommonStrings.talkPageReply(languageCode: languageCode), for: .normal)
     }
     
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
