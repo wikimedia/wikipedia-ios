@@ -217,6 +217,7 @@ final class TalkPageViewModel {
             }
 
             let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserLoggedIn: isUserLoggedIn, dateFormatter: dateFormatter)
+            topicViewModel.viewModel = self
 
             // Note this is a nested loop, so it will not perform well with many topics.
             // Talk pages generally have a limited number of topics, so optimize later if we determine it's needed
