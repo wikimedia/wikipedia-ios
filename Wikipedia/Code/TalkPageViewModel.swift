@@ -142,7 +142,7 @@ final class TalkPageViewModel {
             return nil
         }
         
-        return DateFormatter.wmf_utcCustomShortDateFormatterWithTime(for: NSLocale.wmf_locale(for: languageCode))
+        return DateFormatter.wmf_localCustomShortDateFormatterWithTime(for: NSLocale.wmf_locale(for: languageCode))
     }
     
     private func populateHeaderData(project: WikimediaProject, articleSummary: WMFArticle?, items: [TalkPageItem]) {

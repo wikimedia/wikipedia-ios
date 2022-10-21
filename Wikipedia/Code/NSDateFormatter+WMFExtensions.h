@@ -44,7 +44,7 @@
  */
 + (NSDateFormatter *)wmf_longDateFormatter;
 
-+ (instancetype)wmf_utcCustomShortDateFormatterWithTimeForLocale:(NSLocale *)locale;
++ (instancetype)wmf_localCustomShortDateFormatterWithTimeForLocale:(NSLocale *)locale;
 
 + (instancetype)wmf_mediumDateFormatterWithoutTime;
 
