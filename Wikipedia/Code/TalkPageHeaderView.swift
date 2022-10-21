@@ -318,6 +318,8 @@ final class TalkPageHeaderView: SetupView {
         } else {
             imageView.isHidden = true
         }
+        
+        updateSemanticContentAttribute(viewModel.semanticContentAttribute)
     }
 
     func updateLabelFonts() {
@@ -342,6 +344,32 @@ final class TalkPageHeaderView: SetupView {
         coffeeRollLabel.attributedText = coffeeRollAttributedText.removingInitialNewlineCharacters()
     }
     
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+        self.semanticContentAttribute = semanticContentAttribute
+        typeLabel.semanticContentAttribute = semanticContentAttribute
+        titleLabel.semanticContentAttribute = semanticContentAttribute
+        descriptionLabel.semanticContentAttribute = semanticContentAttribute
+        imageView.semanticContentAttribute = semanticContentAttribute
+        horizontalStackView.semanticContentAttribute = semanticContentAttribute
+        horizontalContainer.semanticContentAttribute = semanticContentAttribute
+        verticalStackView.semanticContentAttribute = semanticContentAttribute
+        bottomSpacer.semanticContentAttribute = semanticContentAttribute
+        secondaryVerticalStackView.semanticContentAttribute = semanticContentAttribute
+        projectImageView.semanticContentAttribute = semanticContentAttribute
+        projectLanguageLabelContainer.semanticContentAttribute = semanticContentAttribute
+        projectLanguageLabel.semanticContentAttribute = semanticContentAttribute
+        coffeeRollSpacer.semanticContentAttribute = semanticContentAttribute
+        coffeeRollContainer.semanticContentAttribute = semanticContentAttribute
+        coffeeRollSeparator.semanticContentAttribute = semanticContentAttribute
+        coffeeRollLabel.semanticContentAttribute = semanticContentAttribute
+        coffeeRollReadMoreButton.semanticContentAttribute = semanticContentAttribute
+        
+        typeLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        titleLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        descriptionLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        projectLanguageLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        coffeeRollLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+    }
 }
 
 extension TalkPageHeaderView: Themeable {
@@ -374,6 +402,9 @@ extension TalkPageHeaderView: Themeable {
         coffeeRollSeparator.backgroundColor = theme.colors.tertiaryText
         coffeeRollReadMoreButton.setTitleColor(theme.colors.link, for: .normal)
         updateCoffeeRollText()
+        
+        // Need to set textView textAlignment in the hierarchy again, after their attributed strings are set to the correct theme.
+        updateSemanticContentAttribute(semanticContentAttribute)
     }
 
 }
