@@ -1,36 +1,28 @@
-//~~~**DELETE THIS HEADER**~~~
+//
+//  SearchTests.swift
+//  WikipediaUITests
+//
+//  Created by Eugene Tkachenko on 22.10.2022.
+//
 
 import XCTest
 
-final class SearchTests: XCTestCase {
+class SearchTests: BaseTest {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testArticleSearch() {
+        
+        let homeScreen = launchApp
+        
+        let searchTitle = "Apollo 11"
+        let articleSubTitle = "First crewed Moon landing"
+        let articleContent = "(July 16–24, 1969) was the American"
 
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        homeScreen
+            .openSearchScreen()
+            .searchArticle(searchTitle)
+            .openArticle(title: articleSubTitle)
+            .validateArticle(content: articleContent)
+            .closeArticleScreen()
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        app.launch()
-
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
-    }
+    
 }
