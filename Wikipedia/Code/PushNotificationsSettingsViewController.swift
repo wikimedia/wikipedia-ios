@@ -45,7 +45,7 @@ final class PushNotificationsSettingsViewController: SubSettingsViewController {
 
     fileprivate let echoAlertFailureTitle = WMFLocalizedString("settings-notifications-echo-failure-title", value: "Unable to Check for Echo Notification subscriptions", comment: "Alert title text informing user of failure when subscribing to Echo Notifications.")
     fileprivate let echoAlertFailureMessage = WMFLocalizedString("settings-notifications-echo-failure-message", value: "An error occurred while checking for notification subscriptions related to your account.", comment: "Alert message text informing user of failure when subscribing to Echo Notifications.")
-    fileprivate let echoAlertFailureTryAgainActionTitle = WMFLocalizedString("settings-notifications-echo-failure-try-again", value: "Try again", comment: "Alert action text allowing user to retry Echo Notifications subscriptions.")
+    fileprivate let echoAlertFailureTryAgainActionTitle = CommonStrings.tryAgain
 
     // MARK: - Lifecycle
 
