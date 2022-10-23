@@ -5,6 +5,8 @@
 //  Created by Eugene Tkachenko on 22.10.2022.
 //
 
+import XCTest
+
 public class Article {
     
     @discardableResult

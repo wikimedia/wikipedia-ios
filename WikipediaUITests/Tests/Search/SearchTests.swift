@@ -22,7 +22,6 @@ class SearchTests: BaseTest {
             .searchArticle(searchTitle)
             .openArticle(title: articleSubTitle)
             .validateArticle(content: articleContent)
-            .closeArticleScreen()
     }
     
 }
