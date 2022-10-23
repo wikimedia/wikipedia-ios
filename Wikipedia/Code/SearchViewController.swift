@@ -277,6 +277,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         searchBar.returnKeyType = .search
         searchBar.searchBarStyle = .minimal
         searchBar.placeholder =  WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
+        searchBar.accessibilityIdentifier = "search_bar"
         return searchBar
     }()
 

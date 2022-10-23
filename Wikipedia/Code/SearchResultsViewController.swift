@@ -123,6 +123,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             cell.imageURL = result.thumbnailURL
         }
         cell.apply(theme: theme)
+        cell.accessibilityIdentifier = "search_results_cell"
     }
     
     override func apply(theme: Theme) {
