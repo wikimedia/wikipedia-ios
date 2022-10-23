@@ -6,8 +6,7 @@ Tests written with XCTest framework and Swift programming language.
 
 For tests design used **Page Object Model** design pattern
 
-### Tests requirements
-- iOS devices only (iPadOS devices do **not** supports yet)
+### Test environment
 - Tests verified on target: Simulator iPhone 14 Pro iOS 16
 
 ### Tests infrastructure
@@ -19,7 +18,7 @@ For tests design used **Page Object Model** design pattern
 ```testArticleSearch```
 - Search articles with title "Apollo 11"
 - Open one of the articles from search results
-- Validate article content is correct
+- Validate that article content is correct
 Where to find the test: WikipediaUITests/Sources/Tests/Search/SearchTests.swift
 
 ```SnapshotRecorderTests```
