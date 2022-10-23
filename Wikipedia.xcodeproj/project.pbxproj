@@ -2436,7 +2436,11 @@
 		BCD3200A1C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */; };
 		BCD557BB1C45B1600060A51A /* UIApplication+VisualTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */; };
 		C97092C22904240D00D9CF07 /* BaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97092C12904240D00D9CF07 /* BaseTest.swift */; };
-		C97092C4290424E500D9CF07 /* CommonHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97092C3290424E500D9CF07 /* CommonHelpers.swift */; };
+		C97092E1290468EC00D9CF07 /* SearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97092E0290468EC00D9CF07 /* SearchTests.swift */; };
+		C9BDDBD22904A5EE00B017D1 /* CommonHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BDDBD12904A5EE00B017D1 /* CommonHelpers.swift */; };
+		C9BDDBD6290553B800B017D1 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BDDBD5290553B800B017D1 /* HomeScreen.swift */; };
+		C9BDDBD82905540700B017D1 /* SearchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BDDBD72905540700B017D1 /* SearchScreen.swift */; };
+		C9BDDBDB29058FEB00B017D1 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BDDBDA29058FEB00B017D1 /* Article.swift */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -5089,7 +5093,11 @@
 		BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+VisualTestUtils.m"; path = "WikipediaUnitTests/Code/UIApplication+VisualTestUtils.m"; sourceTree = SOURCE_ROOT; };
 		BCF012321AD2FA38008D3675 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		C97092C12904240D00D9CF07 /* BaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTest.swift; sourceTree = "<group>"; };
-		C97092C3290424E500D9CF07 /* CommonHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonHelpers.swift; sourceTree = "<group>"; };
+		C97092E0290468EC00D9CF07 /* SearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTests.swift; sourceTree = "<group>"; };
+		C9BDDBD12904A5EE00B017D1 /* CommonHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonHelpers.swift; sourceTree = "<group>"; };
+		C9BDDBD5290553B800B017D1 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		C9BDDBD72905540700B017D1 /* SearchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreen.swift; sourceTree = "<group>"; };
+		C9BDDBDA29058FEB00B017D1 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -7970,9 +7978,8 @@
 		B0606EAF20AA6FF0006EC6B9 /* WikipediaUITests */ = {
 			isa = PBXGroup;
 			children = (
-				C97092C02904230D00D9CF07 /* SnapshotTests */,
+				C97092C72904484500D9CF07 /* Tests */,
 				C97092BC2904228900D9CF07 /* Sources */,
-				C97092BB2904215F00D9CF07 /* SearchTests */,
 				B0606EB220AA6FF0006EC6B9 /* Info.plist */,
 			);
 			path = WikipediaUITests;
@@ -8900,36 +8907,39 @@
 			name = "Face Detection";
 			sourceTree = "<group>";
 		};
-		C97092BB2904215F00D9CF07 /* SearchTests */ = {
+		C97092BB2904215F00D9CF07 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				C97092E0290468EC00D9CF07 /* SearchTests.swift */,
 			);
-			path = SearchTests;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		C97092BC2904228900D9CF07 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C97092C12904240D00D9CF07 /* BaseTest.swift */,
 				C97092BF290422E600D9CF07 /* Extensions */,
 				C97092BE290422A600D9CF07 /* Utility */,
-				C97092BD2904229B00D9CF07 /* Pages */,
-				C97092C12904240D00D9CF07 /* BaseTest.swift */,
+				C97092BD2904229B00D9CF07 /* Screens */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		C97092BD2904229B00D9CF07 /* Pages */ = {
+		C97092BD2904229B00D9CF07 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				C9BDDBD929058FA500B017D1 /* SearchScreen */,
+				C9BDDBD5290553B800B017D1 /* HomeScreen.swift */,
 			);
-			path = Pages;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		C97092BE290422A600D9CF07 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
 				B0606EC420AA955B006EC6B9 /* SnapshotHelper.swift */,
-				C97092C3290424E500D9CF07 /* CommonHelpers.swift */,
+				C9BDDBD12904A5EE00B017D1 /* CommonHelpers.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -8942,12 +8952,30 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		C97092C02904230D00D9CF07 /* SnapshotTests */ = {
+		C97092C02904230D00D9CF07 /* SnapshotRecorder */ = {
 			isa = PBXGroup;
 			children = (
 				B0606EB020AA6FF0006EC6B9 /* SnapshotRecorderTests.swift */,
 			);
-			path = SnapshotTests;
+			path = SnapshotRecorder;
+			sourceTree = "<group>";
+		};
+		C97092C72904484500D9CF07 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C97092BB2904215F00D9CF07 /* Search */,
+				C97092C02904230D00D9CF07 /* SnapshotRecorder */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		C9BDDBD929058FA500B017D1 /* SearchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C9BDDBD72905540700B017D1 /* SearchScreen.swift */,
+				C9BDDBDA29058FEB00B017D1 /* Article.swift */,
+			);
+			path = SearchScreen;
 			sourceTree = "<group>";
 		};
 		D499142C181D51DE00E6073C = {
@@ -10195,7 +10223,7 @@
 					WMFWelcome,
 				);
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "Wikimedia Foundation";
 				TargetAttributes = {
@@ -11258,10 +11286,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C97092C22904240D00D9CF07 /* BaseTest.swift in Sources */,
+				C9BDDBD6290553B800B017D1 /* HomeScreen.swift in Sources */,
+				C9BDDBDB29058FEB00B017D1 /* Article.swift in Sources */,
 				B0606EB120AA6FF0006EC6B9 /* SnapshotRecorderTests.swift in Sources */,
+				C9BDDBD82905540700B017D1 /* SearchScreen.swift in Sources */,
 				B0606EC520AA955C006EC6B9 /* SnapshotHelper.swift in Sources */,
-				C97092C4290424E500D9CF07 /* CommonHelpers.swift in Sources */,
+				C97092E1290468EC00D9CF07 /* SearchTests.swift in Sources */,
 				B0BDA58220B09A090098DB65 /* XCUIApplication+SnapshotUtilities.swift in Sources */,
+				C9BDDBD22904A5EE00B017D1 /* CommonHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
