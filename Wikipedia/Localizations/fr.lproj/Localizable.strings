@@ -1010,6 +1010,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "ly";
 "talk-page-discussion-unread-accessibility-label" = "Non lu";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "nɔ̃ˈly";
+"talk-page-error-loading-subtitle" = "Quelque chose s’est mal passé.";
+"talk-page-error-loading-title" = "Impossible de charger la page de discussion";
 "talk-page-error-unable-to-post-reply" = "Aucune connexion internet. Impossible d’envoyer la réponse.";
 "talk-page-error-unable-to-post-topic" = "Aucune connexion internet. Impossible d’envoyer la discussion.";
 "talk-page-find-in-page-button" = "Trouver dans la page";
@@ -1064,10 +1066,10 @@
 "talk-pages-empty-view-header-article" = "La conversation commence ici";
 "talk-pages-empty-view-header-user" = "Démarrer une discussion avec $1";
 "talk-pages-reply-button-title" = "Répondre à cette discussion";
-"talk-pages-reply-compose-close-confirmation-title" = "Êtes-vous sûr de vouloir abandonner cette nouvelle réponse ?";
+"talk-pages-reply-compose-close-confirmation-title" = "Êtes-vous sûr{{GENDER:||e}} de vouloir abandonner cette nouvelle réponse ?";
 "talk-pages-topic-added-alert-title" = "Votre sujet a été ajouté";
 "talk-pages-topic-compose-body-placeholder" = "Description";
-"talk-pages-topic-compose-close-confirmation-discard" = "Abandonner la réponse";
+"talk-pages-topic-compose-close-confirmation-discard" = "Ignorer la réponse";
 "talk-pages-topic-compose-close-confirmation-title" = "Voulez-vous vraiment abandonner ce nouveau sujet ?";
 "talk-pages-topic-compose-navbar-title" = "Sujet";
 "talk-pages-topic-compose-title-placeholder" = "Titre du sujet";
