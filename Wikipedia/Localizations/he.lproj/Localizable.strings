@@ -1004,6 +1004,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "nikʁʔ";
 "talk-page-discussion-unread-accessibility-label" = "לא נקרא";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "lo nikʁʔ";
+"talk-page-error-loading-subtitle" = "משהו השתבש.";
+"talk-page-error-loading-title" = "לא ניתן לטעון את דף השיחה";
 "talk-page-error-unable-to-post-reply" = "אין חיבור לאינטרנט. לא ניתן לפרסם תגובה.";
 "talk-page-error-unable-to-post-topic" = "אין חיבור לאינטרנט. לא ניתן לפרסם דיון.";
 "talk-page-find-in-page-button" = "למצוא בדף";
@@ -1058,10 +1060,10 @@
 "talk-pages-empty-view-header-article" = "השיחה מתחילה כאן";
 "talk-pages-empty-view-header-user" = "להתחיל דיון עם $1";
 "talk-pages-reply-button-title" = "השב לדיון זה";
+"talk-pages-reply-compose-close-confirmation-title" = "האם ברצונך באמת לזרוק את התשובה החדשה הזאת?";
 "talk-pages-topic-added-alert-title" = "הנושא שלך נוסף";
 "talk-pages-topic-compose-body-placeholder" = "תיאור";
-// Fuzzy
-"talk-pages-topic-compose-close-confirmation-discard" = "לזרוק את הנושא";
+"talk-pages-topic-compose-close-confirmation-discard" = "לזרוק את התשובה";
 "talk-pages-topic-compose-close-confirmation-title" = "האם ברצונך באמת לזרוק את הנושא החדש הזה?";
 "talk-pages-topic-compose-navbar-title" = "נושא";
 "talk-pages-topic-compose-title-placeholder" = "כותרת הנושא";
