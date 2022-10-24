@@ -1008,6 +1008,7 @@
 "talk-page-publish-reply-error-subtitle" = "Subtitle for topic reply error alert";
 "talk-page-publish-reply-error-title" = "Title for topic reply error alert";
 "talk-page-publish-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
+"talk-page-publish-topic-error-title" = "Title for new topic post error alert";
 "talk-page-read-in-web" = "Title for menu option to read a talk page in a web browser";
 "talk-page-related-links" = "Title for menu option that redirects to a page that shows related links";
 "talk-page-reply-button" = "Text used on button to reply to talk page messages.";

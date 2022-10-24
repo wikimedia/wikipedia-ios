@@ -875,8 +875,7 @@ static NSMutableDictionary *globalDesignDictionary;
   if (self.messagePosition != RMessagePositionBottom) {
     if (!messageNavigationBarHidden && self.messagePosition == RMessagePositionTop) {
       // Present from below nav bar when presenting from the top and navigation bar is present
-        
-        // Very gross technical debt for not using safe area on topToVCFinalConstant.
+
         if ([messageNavigationController isKindOfClass:[UINavigationController class]] && [messageNavigationController.topViewController isKindOfClass:[TalkPageTopicComposeViewController class]]) {
             [messageNavigationController.view insertSubview:self aboveSubview:messageNavigationController.navigationBar];
             self.topToVCFinalConstant = [self customVerticalOffset];

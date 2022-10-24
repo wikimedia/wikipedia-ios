@@ -129,15 +129,7 @@ class TalkPageTopicComposeViewController: ViewController {
         apply(theme: theme)
         self.title = Self.TopicComposeStrings.navigationBarTitle
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            WMFAlertManager.sharedInstance.showAlert("Testing!", sticky: false, canBeDismissedByUser: true, dismissPreviousAlerts: true, tapCallBack: nil)
-        }
-    }
-    
+
     private func setupSafeAreaBackgroundView() {
         view.addSubview(safeAreaBackgroundView)
         

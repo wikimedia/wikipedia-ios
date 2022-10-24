@@ -180,7 +180,6 @@ class TalkPageViewController: ViewController {
 
         fetchTalkPage()
         setupToolbar()
-        reachabilityNotifier.start()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -191,13 +190,10 @@ class TalkPageViewController: ViewController {
     @objc func tryAgain() {
         fetchTalkPage()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            WMFAlertManager.sharedInstance.showAlert("Testing!", sticky: false, canBeDismissedByUser: true, dismissPreviousAlerts: true, tapCallBack: nil)
-        }
+        reachabilityNotifier.start()
     }
 
     private func setupHeaderView() {
@@ -819,7 +815,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                     if UIAccessibility.isVoiceOverRunning {
                         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                     } else {
-                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.replyFailedAlertSubtitle, buttonTitle: TalkPageLocalizedStrings.replyFailedAlertAction, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true) {
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: TalkPageLocalizedStrings.replyFailedAlertAction, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true) {
                             UIApplication.shared.wmf_openGeneralSystemSettings()
                         }
                     }
@@ -862,7 +858,14 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
             case .failure(let error):
                 DDLogError("Failure publishing topic: \(error)")
                 composeViewController.setupNavigationBar(isPublishing: false)
-                // TODO: Display failure banner on topic compose VC
+                let title = TalkPageLocalizedStrings.newTopicFailedAlertTitle
+                if UIAccessibility.isVoiceOverRunning {
+                    UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                } else {
+                    WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: TalkPageLocalizedStrings.replyFailedAlertAction, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true) {
+                        UIApplication.shared.wmf_openGeneralSystemSettings()
+                    }
+                }
             }
         }
     }
@@ -915,7 +918,8 @@ extension TalkPageViewController {
         static let addTopicButtonAccesibilityLabel = WMFLocalizedString("talk-page-add-topic-button", value: "Add topic", comment: "Title for add topic to talk page button")
         static let subscriptionFailed = WMFLocalizedString("talk-page-subscription-failed-alert", value: "Subscribing to the topic failed, please try again.", comment: "Text for the subscription failure alert")
         static let replyFailedAlertTitle = WMFLocalizedString("talk-page-publish-reply-error-title", value: "Unable to publish your comment.", comment: "Title for topic reply error alert")
-        static let replyFailedAlertSubtitle = WMFLocalizedString("talk-page-publish-reply-error-subtitle", value: "Please check your internet connection.", comment: "Subtitle for topic reply error alert")
+        static let newTopicFailedAlertTitle = WMFLocalizedString("talk-page-publish-topic-error-title", value: "Unable to publish new topic.", comment: "Title for new topic post error alert")
+        static let failureAlertSubtitle = WMFLocalizedString("talk-page-publish-reply-error-subtitle", value: "Please check your internet connection.", comment: "Subtitle for topic reply error alert")
         static let replyFailedAlertAction = WMFLocalizedString("talk-page-publish-reply-error-action", value: "Go to Settings", comment: "Button title for topic reply error alert")
         static let unexpectedErrorAlertTitle = WMFLocalizedString("talk-page-error-alert-title", value: "Unexpected error", comment: "Title for unexpected error alert")
         static let unexpectedErrorAlertSubtitle = WMFLocalizedString("talk-page-error-alert-subtitle", value: "The app recieved an unexpected response from the server. Please try again later.", comment: "Subtitle for unexpected error alert")
