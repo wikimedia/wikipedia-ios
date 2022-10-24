@@ -364,10 +364,17 @@ class TalkPageViewController: ViewController {
     }
     
     // MARK: - Overflow menu navigation
+
+    fileprivate func showUnexpectedErrorAlert() {
+        let alert = UIAlertController(title: TalkPageLocalizedStrings.unexpectedErrorAlertTitle, message: TalkPageLocalizedStrings.unexpectedErrorAlertSubtitle, preferredStyle: .alert)
+        let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
     
     fileprivate func pushToDesktopWeb() {
         guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/\(viewModel.pageTitle)", isMobile: false) else {
-            // TODO: Error banner
+            showUnexpectedErrorAlert()
             return
         }
         
@@ -379,7 +386,7 @@ class TalkPageViewController: ViewController {
         guard let host = viewModel.siteURL.host,
               let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
                                                                                                                                                                 "action": "info"]) else {
-            // TODO: Error banner
+            showUnexpectedErrorAlert()
             return
         }
         
@@ -388,7 +395,7 @@ class TalkPageViewController: ViewController {
     
     fileprivate func pushToWhatLinksHere() {
         guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:WhatLinksHere/\(viewModel.pageTitle)", isMobile: true) else {
-            // TODO: Error banner
+            showUnexpectedErrorAlert()
             return
         }
         
@@ -398,7 +405,7 @@ class TalkPageViewController: ViewController {
     fileprivate func pushToContributions() {
         guard let username = usernameFromPageTitle(),
               let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) else {
-            // TODO: Error banner
+            showUnexpectedErrorAlert()
             return
         }
         
@@ -408,7 +415,7 @@ class TalkPageViewController: ViewController {
     fileprivate func pushToUserGroups() {
         guard let username = usernameFromPageTitle(),
               let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:UserRights/\(username)", isMobile: true) else {
-            // TODO: Error banner
+            showUnexpectedErrorAlert()
             return
         }
         
@@ -418,7 +425,7 @@ class TalkPageViewController: ViewController {
     fileprivate func pushToLogs() {
         guard let username = usernameFromPageTitle(),
               let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Log/\(username)", isMobile: true) else {
-            // TODO: Error banner
+            showUnexpectedErrorAlert()
             return
         }
         
@@ -446,7 +453,7 @@ class TalkPageViewController: ViewController {
               let host = mobileSiteURL.host,
               let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
                                                                                                                                                                 "oldid": latestRevisionID]) else {
-            // TODO: Error banner
+            showUnexpectedErrorAlert()
             return
         }
         
@@ -820,10 +827,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                         }
                     }
                 } else {
-                    let alert = UIAlertController(title: TalkPageLocalizedStrings.unexpectedErrorAlertTitle, message: TalkPageLocalizedStrings.unexpectedErrorAlertSubtitle, preferredStyle: .alert)
-                    let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
-                    alert.addAction(action)
-                    self?.present(alert, animated: true)
+                    self?.showUnexpectedErrorAlert()
                 }
             }
         }
