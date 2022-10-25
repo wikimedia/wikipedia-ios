@@ -27,6 +27,8 @@ final class TalkPageCellViewModel {
 
     let isUserLoggedIn: Bool
     
+    weak var viewModel: TalkPageViewModel?
+    
     init(id: String, topicTitle: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel, replies: [TalkPageCellCommentViewModel], activeUsersCount: String, isUserLoggedIn: Bool, dateFormatter: DateFormatter?) {
         self.id = id
         self.topicTitle = topicTitle

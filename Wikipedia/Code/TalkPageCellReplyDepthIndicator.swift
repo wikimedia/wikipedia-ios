@@ -44,6 +44,12 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
     }()
     
     var depthLabelTrailingConstraint: NSLayoutConstraint?
+    
+    override var semanticContentAttribute: UISemanticContentAttribute {
+        didSet {
+            updateSemanticContentAttribute(semanticContentAttribute)
+        }
+    }
 
     // MARK: - Lifecycle
 
@@ -116,6 +122,14 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
         depthLabel.text = numberRemaining > 0 ? "+ \(numberRemaining) " : ""
         depthLabelContainer.isHidden = numberRemaining == 0
         depthLabelTrailingConstraint?.isActive = numberRemaining > 0
+    }
+    
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+        stackView.semanticContentAttribute = semanticContentAttribute
+        depthLabel.semanticContentAttribute = semanticContentAttribute
+        depthLabelContainer.semanticContentAttribute = semanticContentAttribute
+        
+        depthLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
     }
 }
 
