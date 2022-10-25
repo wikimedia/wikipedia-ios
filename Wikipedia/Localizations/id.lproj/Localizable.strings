@@ -1011,6 +1011,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
 "talk-page-discussion-unread-accessibility-label" = "Belum dibaca";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
+"talk-page-error-loading-subtitle" = "Ada yang salah.";
+"talk-page-error-loading-title" = "Tidak dapat memuat halaman pembicaraan";
 "talk-page-error-unable-to-post-reply" = "Tidak ada koneksi internet. Tidak dapat memposting balasan.";
 "talk-page-error-unable-to-post-topic" = "Tidak ada koneksi internet. Tidak dapat memposting diskusi.";
 "talk-page-find-in-page-button" = "Cari di halaman";

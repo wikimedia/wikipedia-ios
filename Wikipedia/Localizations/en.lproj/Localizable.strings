@@ -977,6 +977,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
 "talk-page-discussion-unread-accessibility-label" = "Unread";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
+"talk-page-error-loading-subtitle" = "Something went wrong.";
+"talk-page-error-loading-title" = "Unable to load talk page";
 "talk-page-error-unable-to-post-reply" = "No internet connection. Unable to post reply.";
 "talk-page-error-unable-to-post-topic" = "No internet connection. Unable to post discussion.";
 "talk-page-find-in-page-button" = "Find in page";

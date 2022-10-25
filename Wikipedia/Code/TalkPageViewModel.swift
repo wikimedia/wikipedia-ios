@@ -33,6 +33,7 @@ final class TalkPageViewModel {
     
     var theme: Theme = .light
     private(set) var topics: [TalkPageCellViewModel] = []
+    private(set) var shouldShowErrorState: Bool = false
 
     // MARK: - Lifecycle
 
@@ -91,20 +92,21 @@ final class TalkPageViewModel {
             guard let self = self else {
                 return
             }
-            let oldViewModels: [TalkPageCellViewModel] = self.topics
 
             switch result {
             case .success(let result):
+                let oldViewModels: [TalkPageCellViewModel] = self.topics
                 self.populateHeaderData(project: result.project, articleSummary: result.articleSummary, items: result.items)
                 self.topics.removeAll()
                 self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
                 self.updateSubscriptionForTopic(topicNames: result.subscribedTopicNames)
+                self.shouldShowErrorState = false
                 self.latestRevisionID = result.latestRevisionID
                 completion(.success(()))
             case .failure(let error):
                 DDLogError("Failure fetching talk page: \(error)")
+                self.shouldShowErrorState = true
                 completion(.failure(error))
-                // TODO: Error handling
             }
         }
     }

@@ -233,12 +233,10 @@ final class TalkPageCellTopicView: SetupView {
         activeUsersLabel.text = viewModel.activeUsersCount
         repliesCountLabel.text = viewModel.repliesCount
     }
-    
+
     func updateSubscribedState(cellViewModel: TalkPageCellViewModel) {
-        
         let languageCode = cellViewModel.viewModel?.siteURL.wmf_languageCode
-        
-        let talkPageTopicSubscribe = WMFLocalizedString("talk-page-subscribe-to-topic", languageCode: languageCode, value: "Subscribe", comment: "Text used on button to subscribe to talk page topic.")
+        let talkPageTopicSubscribe = WMFLocalizedString("talk-page-subscribe-to-topic", languageCode: languageCode, value: "Subscribe", comment: "Text used on button to subscribe to talk page topic. Please prioritize for de, ar and zh wikis.")
         let talkPageTopicUnsubscribe = WMFLocalizedString("talk-page-unsubscribe-to-topic", languageCode: languageCode, value: "Unsubscribe", comment: "Text used on button to unsubscribe from talk page topic.")
 
         subscribeButton.setTitle(cellViewModel.isSubscribed ? talkPageTopicUnsubscribe : talkPageTopicSubscribe , for: .normal)
