@@ -225,8 +225,8 @@ final class TalkPageCellTopicView: SetupView {
         topicCommentTextView.textContainer.maximumNumberOfLines = viewModel.isThreadExpanded ? 0 : 3
         topicCommentTextView.textContainer.lineBreakMode = viewModel.isThreadExpanded ? .byWordWrapping : .byTruncatingTail
 
-        if let timestamp = viewModel.timestamp {
-            timestampLabel.text = DateFormatter.wmf_utcMediumDateFormatterWithoutTime().string(from: timestamp)
+        if let timestampDisplay = viewModel.timestampDisplay {
+            timestampLabel.text = timestampDisplay
         }
         
         activeUsersLabel.text = viewModel.activeUsersCount

@@ -124,9 +124,9 @@ extension TalkPageCellReplyDepthIndicator: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         for line in stackView.arrangedSubviews {
-            line.backgroundColor = theme.colors.depthMarker
+            line.backgroundColor = theme.colors.distanceBorder
         }
-        depthLabel.textColor = theme.colors.depthMarker
+        depthLabel.textColor = theme.colors.distanceBorder
         depthLabelContainer.backgroundColor = theme.colors.paperBackground
     }
 
