@@ -785,12 +785,16 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
         
         viewModel.postReply(commentId: commentViewModel.commentId, comment: text) { [weak self] result in
 
+            guard let self else {
+                return
+            }
+
             switch result {
             case .success:
-                self?.replyComposeController.closeAndReset()
+                self.replyComposeController.closeAndReset()
                 
                 // Try to refresh page
-                self?.viewModel.fetchTalkPage { [weak self] result in
+                self.viewModel.fetchTalkPage { [weak self] result in
 
                     switch result {
                     case .success:
@@ -808,7 +812,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 }
             case .failure(let error):
                 DDLogError("Failure publishing reply: \(error)")
-                self?.replyComposeController.isLoading = false
+                self.replyComposeController.isLoading = false
 
                 if (error as NSError).wmf_isNetworkConnectionError() {
                     let title = TalkPageLocalizedStrings.replyFailedAlertTitle
@@ -820,17 +824,17 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                         }
                     }
                 } else {
-                    self?.showUnexpectedErrorAlert()
+                    self.showUnexpectedErrorAlert(on: self)
                 }
             }
         }
     }
 
-    fileprivate func showUnexpectedErrorAlert() {
+    fileprivate func showUnexpectedErrorAlert(on viewController: UIViewController) {
         let alert = UIAlertController(title: TalkPageLocalizedStrings.unexpectedErrorAlertTitle, message: TalkPageLocalizedStrings.unexpectedErrorAlertSubtitle, preferredStyle: .alert)
         let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
         alert.addAction(action)
-        present(alert, animated: true)
+        viewController.present(alert, animated: true)
     }
 
 }
@@ -873,7 +877,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                         }
                     }
                 } else {
-                    self?.showUnexpectedErrorAlert()
+                    self?.showUnexpectedErrorAlert(on: composeViewController)
                 }
             }
         }
