@@ -981,7 +981,6 @@
 "talk-page-error-alert-title" = "Title for unexpected error alert";
 "talk-page-error-loading-subtitle" = "Subtitle text for error page on talk pages";
 "talk-page-error-loading-title" = "Title text for error page on talk pages";
-"talk-page-error-settings-action" = "Button title for topic reply error alert";
 "talk-page-error-unable-to-post-reply" = "Error message appearing when user attempts to post a new talk page reply while being offline";
 "talk-page-error-unable-to-post-topic" = "Error message appearing when user attempts to post a new talk page discussion while being offline";
 "talk-page-find-in-page-button" = "Title for find content in page button";
