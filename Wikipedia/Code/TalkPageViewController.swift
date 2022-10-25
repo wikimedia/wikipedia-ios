@@ -832,7 +832,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
         alert.addAction(action)
         present(alert, animated: true)
     }
-    
+
 }
 
 // MARK: Extensions
@@ -861,21 +861,23 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                     }
                 }
             case .failure(let error):
-                DDLogError("Failure publishing topic: \(error)")
-                composeViewController.setupNavigationBar(isPublishing: false)
-                let title = TalkPageLocalizedStrings.newTopicFailedAlertTitle
-                if UIAccessibility.isVoiceOverRunning {
-                    UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
-                } else {
-                    WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: TalkPageLocalizedStrings.replyFailedAlertAction, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true) {
-                        UIApplication.shared.wmf_openGeneralSystemSettings()
+                if (error as NSError).wmf_isNetworkConnectionError() {
+                    DDLogError("Failure publishing topic: \(error)")
+                    composeViewController.setupNavigationBar(isPublishing: false)
+                    let title = TalkPageLocalizedStrings.newTopicFailedAlertTitle
+                    if UIAccessibility.isVoiceOverRunning {
+                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                    } else {
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: TalkPageLocalizedStrings.replyFailedAlertAction, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true) {
+                            UIApplication.shared.wmf_openGeneralSystemSettings()
+                        }
                     }
+                } else {
+                    self?.showUnexpectedErrorAlert()
                 }
             }
         }
     }
-    
-    
 }
 
 extension TalkPageViewController: UIAdaptivePresentationControllerDelegate {
