@@ -22,6 +22,12 @@ final class TalkPageCellCommentSeparator: SetupView {
     override var intrinsicContentSize: CGSize {
         return UIView.layoutFittingExpandedSize
     }
+    
+    override var semanticContentAttribute: UISemanticContentAttribute {
+        didSet {
+            updateSemanticContentAttribute(semanticContentAttribute)
+        }
+    }
 
     // MARK: - Lifecycle
 
@@ -35,6 +41,11 @@ final class TalkPageCellCommentSeparator: SetupView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
         ])
+    }
+    
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+        stackView.semanticContentAttribute = semanticContentAttribute
+        horizontalLine.semanticContentAttribute = semanticContentAttribute
     }
 
 }
