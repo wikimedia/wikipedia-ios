@@ -12,11 +12,13 @@ final class TalkPageViewModel {
     // MARK: - Properties
 
     let pageType: TalkPageType
-    var pageTitle: String
-    var siteURL: URL
+    private(set) var pageTitle: String
+    private(set) var siteURL: URL
     let authenticationManager: WMFAuthenticationManager
     var deepLinkData: DeepLinkData?
-    var dataController: TalkPageDataController
+    private let dataController: TalkPageDataController
+    
+    private var dateFormatter: DateFormatter?
 
     private(set) var headerTitle: String
     private(set) var headerDescription: String?
@@ -50,6 +52,7 @@ final class TalkPageViewModel {
         
         // Setting headerTitle as pageTitle (which contains the namespace prefix) for now, we attempt to strip the namespace later in populateHeaderData
         self.headerTitle = pageTitle
+        self.dateFormatter = dateFormatterForSiteURL(siteURL)
     }
     
     /// Convenience init for paths that do not already have pageTitle and siteURL separated
@@ -67,6 +70,13 @@ final class TalkPageViewModel {
     }
 
     // MARK: - Public
+    
+    func resetToNewSiteURL(_ siteURL: URL, pageTitle: String) {
+        self.pageTitle = pageTitle
+        self.siteURL = siteURL
+        self.dateFormatter = dateFormatterForSiteURL(siteURL)
+        dataController.resetToNewSiteURL(siteURL, pageTitle: pageTitle)
+    }
 
     var isUserLoggedIn: Bool {
         return authenticationManager.isLoggedIn
@@ -128,6 +138,14 @@ final class TalkPageViewModel {
     }
     
     // MARK: - Private
+    
+    private func dateFormatterForSiteURL(_ siteURL: URL) -> DateFormatter? {
+        guard let languageCode = siteURL.wmf_languageCode else {
+            return nil
+        }
+        
+        return DateFormatter.wmf_localCustomShortDateFormatterWithTime(for: NSLocale.wmf_locale(for: languageCode))
+    }
     
     private func populateHeaderData(project: WikimediaProject, articleSummary: WMFArticle?, items: [TalkPageItem]) {
         
@@ -192,7 +210,7 @@ final class TalkPageViewModel {
                 continue
             }
 
-            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserLoggedIn: isUserLoggedIn)
+            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserLoggedIn: isUserLoggedIn, dateFormatter: dateFormatter)
 
             // Note this is a nested loop, so it will not perform well with many topics.
             // Talk pages generally have a limited number of topics, so optimize later if we determine it's needed

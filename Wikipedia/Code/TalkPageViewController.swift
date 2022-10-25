@@ -615,11 +615,8 @@ class TalkPageViewController: ViewController {
     }
 
     private func changeTalkPageLanguage(_ siteURL: URL, pageTitle: String) {
-        viewModel.pageTitle = pageTitle
         
-        viewModel.siteURL = siteURL
-        viewModel.dataController = TalkPageDataController(pageType: viewModel.pageType, pageTitle: viewModel.pageTitle, siteURL: siteURL, articleSummaryController: viewModel.dataController.articleSummaryController)
-
+        viewModel.resetToNewSiteURL(siteURL, pageTitle: pageTitle)
         fetchTalkPage()
     }
 }
