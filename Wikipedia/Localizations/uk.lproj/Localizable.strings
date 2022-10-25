@@ -1002,6 +1002,7 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "прочитане";
 "talk-page-discussion-unread-accessibility-label" = "Непрочитане";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "непрочитане";
+"talk-page-error-loading-title" = "Неможливо завантажити сторінку обговорення";
 "talk-page-error-unable-to-post-reply" = "Нема підключення до Інтернету. Неможливо оприлюднити відповідь.";
 "talk-page-error-unable-to-post-topic" = "Нема підключення до Інтернету. Неможливо оприлюднити нове обговорення.";
 "talk-page-find-in-page-button" = "Знайти на сторінці";
@@ -1040,7 +1041,9 @@
 "talk-page-user-contributions" = "Внесок";
 "talk-pages-coffee-roll-read-more" = "Читати більше";
 "talk-pages-comment-added-alert-title" = "Ваш коментар був доданий";
+"talk-pages-compose-close-confirmation-keep" = "Продовжити Редагування";
 "talk-pages-reply-button-title" = "Відповісти в цьому обговоренні";
+"talk-pages-topic-compose-body-placeholder" = "Опис";
 "talk-pages-topic-compose-navbar-title" = "Тема";
 "talk-pages-view-title" = "Обговорення";
 "theme-black-display-name" = "Чорна";
