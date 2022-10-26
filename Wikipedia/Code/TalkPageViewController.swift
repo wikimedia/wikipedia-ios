@@ -74,8 +74,8 @@ class TalkPageViewController: ViewController {
             actions.insert(contentsOf: userTalkOverflowSubmenuActions, at: 1)
 
         }
-        let aboutTalkPagesAction = UIAction(title: TalkPageLocalizedStrings.aboutTalkPages, image: UIImage(systemName: "doc.plaintext"), handler: { _ in
-
+        let aboutTalkPagesAction = UIAction(title: TalkPageLocalizedStrings.aboutTalkPages, image: UIImage(systemName: "doc.plaintext"), handler: { [weak self] _ in
+            self?.pushToAboutTalkPages()
         })
         actions.append(aboutTalkPagesAction)
 
@@ -448,6 +448,14 @@ class TalkPageViewController: ViewController {
               let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
                                                                                                                                                                 "oldid": latestRevisionID]) else {
             showGenericError()
+            return
+        }
+        
+        navigate(to: url, useSafari: true)
+    }
+    
+    fileprivate func pushToAboutTalkPages() {
+        guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ#Talk_pages") else {
             return
         }
         
