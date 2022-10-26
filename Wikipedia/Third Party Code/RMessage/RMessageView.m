@@ -875,17 +875,25 @@ static NSMutableDictionary *globalDesignDictionary;
   if (self.messagePosition != RMessagePositionBottom) {
     if (!messageNavigationBarHidden && self.messagePosition == RMessagePositionTop) {
       // Present from below nav bar when presenting from the top and navigation bar is present
-      [messageNavigationController.view insertSubview:self belowSubview:messageNavigationController.navigationBar];
 
-      /* If view controller edges dont extend under top bars (navigation bar in our case) we must not factor in the
-       navigation bar frame when animating RMessage's final position */
-      if ([[self class] viewControllerEdgesExtendUnderTopBars:messageNavigationController]) {
-        self.topToVCFinalConstant = [UIApplication sharedApplication].statusBarFrame.size.height +
-                                    messageNavigationController.navigationBar.bounds.size.height +
-                                    [self customVerticalOffset];
-      } else {
-        self.topToVCFinalConstant = [self customVerticalOffset];
-      }
+        if ([messageNavigationController isKindOfClass:[UINavigationController class]] && [messageNavigationController.topViewController isKindOfClass:[TalkPageTopicComposeViewController class]]) {
+            [messageNavigationController.view insertSubview:self aboveSubview:messageNavigationController.navigationBar];
+            self.topToVCFinalConstant = [self customVerticalOffset];
+            return;
+        }
+        
+        [messageNavigationController.view insertSubview:self belowSubview:messageNavigationController.navigationBar];
+            
+        /* If view controller edges dont extend under top bars (navigation bar in our case) we must not factor in the
+         navigation bar frame when animating RMessage's final position */
+        if ([[self class] viewControllerEdgesExtendUnderTopBars:messageNavigationController]) {
+          self.topToVCFinalConstant = [UIApplication sharedApplication].statusBarFrame.size.height +
+                                      messageNavigationController.navigationBar.bounds.size.height +
+                                      [self customVerticalOffset];
+        } else {
+          self.topToVCFinalConstant = [self customVerticalOffset];
+        }
+        
     } else {
       /* Navigation bar hidden or being asked to present as nav bar overlay, so present above status bar and/or
        navigation bar */
