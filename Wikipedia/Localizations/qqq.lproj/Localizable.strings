@@ -721,6 +721,9 @@
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";
 "panel-compare-revisions-text" = "Text for educational panel about comparing revisions";
 "panel-compare-revisions-title" = "Title for educational panel about comparing revisions";
+"panel-not-logged-in-continue-edit-action-title" = "Title for button that continues publishing the edit anonymously.";
+"panel-not-logged-in-subtitle" = "Subtitle for letting user know that they are not logged in, after they attempt to publish an edit. Parameters:\n* $1 - app-specific text formatting - beginning bold text, $2 - app-specific text formatting - ending bold text, $3 - app-specific text formatting - beginning bold text, $4 - app-specific text formatting - ending bold text.";
+"panel-not-logged-in-title" = "Title for education panel letting user know they are not logged in.";
 "pictured" = "Indicates the person or item is pictured (as in a news story).";
 "places-accessibility-clear-saved-searches" = "Accessibility hint for clearing saved searches";
 "places-accessibility-group" = "Accessibility label for a map icon - $1 is replaced with the number of articles in the group {{Identical|Article}}";
