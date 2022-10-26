@@ -34,11 +34,6 @@ final class TalkPageCellTopicView: SetupView {
         button.setImage(UIImage(systemName: "bell"), for: .normal)
         button.tintColor = .black
 
-        let inset: CGFloat = 2
-        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
-
         button.setContentCompressionResistancePriority(.required, for: .vertical)
 
         return button
@@ -169,6 +164,12 @@ final class TalkPageCellTopicView: SetupView {
         widthConstraint.isActive = true
         return view
     }()
+    
+    override var semanticContentAttribute: UISemanticContentAttribute {
+        didSet {
+            updateSemanticContentAttribute(semanticContentAttribute)
+        }
+    }
 
     // MARK: - Lifecycle
 
@@ -215,7 +216,7 @@ final class TalkPageCellTopicView: SetupView {
 
         disclosureButton.setImage(viewModel.isThreadExpanded ? UIImage(systemName: "chevron.up") : UIImage(systemName: "chevron.down"), for: .normal)
 
-        updateSubscribedState(viewModel: viewModel)
+        updateSubscribedState(cellViewModel: viewModel)
         
         topicTitleTextView.invalidateIntrinsicContentSize()
         topicTitleTextView.textContainer.maximumNumberOfLines = viewModel.isThreadExpanded ? 0 : 2
@@ -225,20 +226,21 @@ final class TalkPageCellTopicView: SetupView {
         topicCommentTextView.textContainer.maximumNumberOfLines = viewModel.isThreadExpanded ? 0 : 3
         topicCommentTextView.textContainer.lineBreakMode = viewModel.isThreadExpanded ? .byWordWrapping : .byTruncatingTail
 
-        if let timestamp = viewModel.timestamp {
-            timestampLabel.text = DateFormatter.wmf_utcMediumDateFormatterWithoutTime().string(from: timestamp)
+        if let timestampDisplay = viewModel.timestampDisplay {
+            timestampLabel.text = timestampDisplay
         }
         
         activeUsersLabel.text = viewModel.activeUsersCount
         repliesCountLabel.text = viewModel.repliesCount
     }
-    
-    func updateSubscribedState(viewModel: TalkPageCellViewModel) {
-        let talkPageTopicSubscribe = WMFLocalizedString("talk-page-subscribe-to-topic", value: "Subscribe", comment: "Text used on button to subscribe to talk page topic. Please prioritize for de, ar and zh wikis.")
-        let talkPageTopicUnsubscribe = WMFLocalizedString("talk-page-unsubscribe-to-topic", value: "Unsubscribe", comment: "Text used on button to unsubscribe from talk page topic.")
 
-        subscribeButton.setTitle(viewModel.isSubscribed ? talkPageTopicUnsubscribe : talkPageTopicSubscribe , for: .normal)
-        subscribeButton.setImage(viewModel.isSubscribed ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell"), for: .normal)
+    func updateSubscribedState(cellViewModel: TalkPageCellViewModel) {
+        let languageCode = cellViewModel.viewModel?.siteURL.wmf_languageCode
+        let talkPageTopicSubscribe = WMFLocalizedString("talk-page-subscribe-to-topic", languageCode: languageCode, value: "Subscribe", comment: "Text used on button to subscribe to talk page topic. Please prioritize for de, ar and zh wikis.")
+        let talkPageTopicUnsubscribe = WMFLocalizedString("talk-page-unsubscribe-to-topic", languageCode: languageCode, value: "Unsubscribe", comment: "Text used on button to unsubscribe from talk page topic.")
+
+        subscribeButton.setTitle(cellViewModel.isSubscribed ? talkPageTopicUnsubscribe : talkPageTopicSubscribe , for: .normal)
+        subscribeButton.setImage(cellViewModel.isSubscribed ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell"), for: .normal)
     }
 
     fileprivate func configureDisclosureRow(isUserLoggedIn: Bool) {
@@ -254,6 +256,45 @@ final class TalkPageCellTopicView: SetupView {
                 disclosureHorizontalStack.insertArrangedSubview(topicTitleTextView, at: 0)
             }
 
+        }
+    }
+    
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+            
+        stackView.semanticContentAttribute = semanticContentAttribute
+        disclosureHorizontalStack.semanticContentAttribute = semanticContentAttribute
+        subscribeButton.semanticContentAttribute = semanticContentAttribute
+        disclosureButton.semanticContentAttribute = semanticContentAttribute
+        disclosureCenterSpacer.semanticContentAttribute = semanticContentAttribute
+        topicTitleTextView.semanticContentAttribute = semanticContentAttribute
+        timestampLabel.semanticContentAttribute = semanticContentAttribute
+        topicCommentTextView.semanticContentAttribute = semanticContentAttribute
+        metadataHorizontalStack.semanticContentAttribute = semanticContentAttribute
+        metadataSpacer.semanticContentAttribute = semanticContentAttribute
+        activeUsersStack.semanticContentAttribute = semanticContentAttribute
+        activeUsersImageView.semanticContentAttribute = semanticContentAttribute
+        activeUsersLabel.semanticContentAttribute = semanticContentAttribute
+        repliesStack.semanticContentAttribute = semanticContentAttribute
+        repliesImageView.semanticContentAttribute = semanticContentAttribute
+        repliesCountLabel.semanticContentAttribute = semanticContentAttribute
+        variableMetadataCenterSpacer.semanticContentAttribute = semanticContentAttribute
+        
+        topicTitleTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        topicCommentTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        timestampLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        activeUsersLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        repliesCountLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+
+        let inset: CGFloat = 2
+        switch semanticContentAttribute {
+        case .forceRightToLeft:
+            subscribeButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+            subscribeButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
+            subscribeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
+        default:
+            subscribeButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+            subscribeButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
+            subscribeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
         }
     }
 

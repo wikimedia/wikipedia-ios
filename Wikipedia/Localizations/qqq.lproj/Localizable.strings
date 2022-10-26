@@ -1004,14 +1004,13 @@
 "talk-page-new-topic-title" = "Title of page when composing a new topic on talk pages.";
 "talk-page-page-info" = "Title for menu option to go to the talk page information link. Please prioritize for de, ar and zh wikis.";
 "talk-page-permanent-link" = "Title for menu option to open the talk page's permanent link in a web browser. Please prioritize for de, ar and zh wikis.";
-"talk-page-publish-reply-error-action" = "Button title for topic reply error alert";
 "talk-page-publish-reply-error-subtitle" = "Subtitle for topic reply error alert";
 "talk-page-publish-reply-error-title" = "Title for topic reply error alert";
 "talk-page-publish-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "talk-page-publish-topic-error-title" = "Title for new topic post error alert";
 "talk-page-read-in-web" = "Title for menu option to read a talk page in a web browser. Please prioritize for de, ar and zh wikis.";
 "talk-page-related-links" = "Title for menu option that redirects to a page that shows related links. Please prioritize for de, ar and zh wikis.";
-"talk-page-reply-button" = "Text used on button to reply to talk page messages. Please prioritize for de, ar and zh wikis.";
+"talk-page-reply-button" = "Text used on button to reply to talk page messages.  Please prioritize for de, ar and zh wikis.";
 "talk-page-reply-placeholder-format" = "Placeholder text that displays in the talk page reply text view. Parameters:\n* $1 - the username of the comment the user is replying to. Please prioritize for de, ar and zh wikis.";
 "talk-page-reply-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
 "talk-page-reply-title" = "This header label is displayed at the top of a talk page thread once the user taps Reply.";
@@ -1028,9 +1027,10 @@
 "talk-page-unsubscribe-to-topic" = "Text used on button to unsubscribe from talk page topic.";
 "talk-page-unsubscribed-alert-subtitle" = "Subtitle for alert informing that the user will no longer receive notifications for a topic. Please prioritize for de, ar and zh wikis.";
 "talk-page-unsubscribed-alert-title" = "Title for alert informing that the user unsubscribed to a topic. Please prioritize for de, ar and zh wikis.";
+"talk-page-unsubscription-failed-alert" = "Text for the unsubscription failure alert";
 "talk-page-user-about" = "Title for menu option for information on user talk pages";
 "talk-page-user-contributions" = "Title for menu option for information on the user's contributions. Please prioritize for de, ar and zh wikis.";
-"talk-pages-coffee-roll-read-more" = "Title of user and article talk pages button to read more of the coffee roll. Please prioritize for de, ar and zh wikis.";
+"talk-pages-coffee-roll-read-more" = "Title of user and article talk pages button to read more of the coffee roll.";
 "talk-pages-comment-added-alert-title" = "Title for alert informing that the user's new comment was successfully published. Please prioritize for de, ar and zh wikis.";
 "talk-pages-compose-close-confirmation-keep" = "Title of keep editing action, displayed within a confirmation alert to user when they attempt to close the new topic view or new reply after entering text. Please prioritize for de, ar and zh wikis.";
 "talk-pages-empty-view-body-article" = "Text displayed in article talk pages when no topics are available. Please do not translate or remove the ** characters as these demarcate which part of the text to display in bold.";

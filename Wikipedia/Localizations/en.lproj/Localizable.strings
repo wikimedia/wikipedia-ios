@@ -1004,7 +1004,6 @@
 "talk-page-new-topic-title" = "New discussion";
 "talk-page-page-info" = "Page information";
 "talk-page-permanent-link" = "Permanent link";
-"talk-page-publish-reply-error-action" = "Go to Settings";
 "talk-page-publish-reply-error-subtitle" = "Please check your internet connection.";
 "talk-page-publish-reply-error-title" = "Unable to publish your comment.";
 "talk-page-publish-terms-and-licenses" = "By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 3.0$4 and the $5GFDL$6 licenses.";
@@ -1028,6 +1027,7 @@
 "talk-page-unsubscribe-to-topic" = "Unsubscribe";
 "talk-page-unsubscribed-alert-subtitle" = "You will no longer receive notifications about new comments in this topic.";
 "talk-page-unsubscribed-alert-title" = "You have unsubscribed.";
+"talk-page-unsubscription-failed-alert" = "Unsubscribing to the topic failed, please try again.";
 "talk-page-user-about" = "About user talk pages";
 "talk-page-user-contributions" = "Contributions";
 "talk-pages-coffee-roll-read-more" = "Read more";

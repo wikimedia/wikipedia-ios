@@ -8,12 +8,5 @@ extension UIApplication {
         }
         self.open(settingsURL as URL, options: [:], completionHandler: nil)
     }
-
-    @objc func wmf_openGeneralSystemSettings() {
-        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else {
-            return
-        }
-        self.open(settingsURL as URL, options: [:], completionHandler: nil)
-    }
-
+    
 }

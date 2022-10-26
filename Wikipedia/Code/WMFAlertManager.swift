@@ -125,10 +125,10 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         case .success:
             messageView.titleTextColor = theme.colors.accent
         case .custom:
+            messageView.titleTextColor = theme.colors.primaryText
+            messageView.subtitleTextColor = theme.colors.primaryText
             if messageView.customTypeName == "connection" {
                 messageView.imageViewTintColor = theme.colors.error
-                messageView.titleTextColor = theme.colors.primaryText
-                messageView.subtitleTextColor = theme.colors.primaryText
                 messageView.buttonFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
             } else if messageView.customTypeName == "subscription" {
                 messageView.imageViewTintColor = theme.colors.warning
