@@ -127,7 +127,7 @@ class TalkPageViewController: ViewController {
         view = talkPageView
         scrollView = talkPageView.collectionView
     }
-    
+
     fileprivate func fetchTalkPage() {
         navigationBar.removeUnderNavigationBarView()
         self.headerView = nil
@@ -145,7 +145,6 @@ class TalkPageViewController: ViewController {
                 self.talkPageView.configure(viewModel: self.viewModel)
                 self.talkPageView.emptyView.actionButton.addTarget(self, action: #selector(self.userDidTapAddTopicButton), for: .primaryActionTriggered)
                 self.updateEmptyStateVisibility()
-                
                 guard self.needsDeepLinkScroll() else {
                     self.talkPageView.collectionView.reloadData()
                     break
@@ -154,8 +153,10 @@ class TalkPageViewController: ViewController {
                 self.reloadDataAndScrollToDeepLink()
                 
             case .failure:
-                break
+                self.talkPageView.errorView.button.addTarget(self, action: #selector(self.tryAgain), for: .primaryActionTriggered)
             }
+            self.updateErrorStateVisibility()
+
         }
     }
 
@@ -177,6 +178,20 @@ class TalkPageViewController: ViewController {
 
         fetchTalkPage()
         setupToolbar()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        reachabilityNotifier.stop()
+    }
+
+    @objc func tryAgain() {
+        fetchTalkPage()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        reachabilityNotifier.start()
     }
 
     private func setupHeaderView() {
@@ -216,7 +231,7 @@ class TalkPageViewController: ViewController {
     // MARK: - Coffee Roll
 
     @objc private func userDidTapCoffeeRollReadMoreButton() {
-        let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: talkPageURL)
+        let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: talkPageURL, semanticContentAttribute: viewModel.semanticContentAttribute)
         let coffeeViewController = TalkPageCoffeeRollViewController(theme: theme, viewModel: coffeeRollViewModel)
         push(coffeeViewController, animated: true)
     }
@@ -329,7 +344,8 @@ class TalkPageViewController: ViewController {
     }
 
     @objc fileprivate func userDidTapAddTopicButton() {
-        let topicComposeVC = TalkPageTopicComposeViewController(theme: theme)
+        let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute)
+        let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, authenticationManager: viewModel.authenticationManager, theme: theme)
         topicComposeVC.delegate = self
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
@@ -357,10 +373,10 @@ class TalkPageViewController: ViewController {
     }
     
     // MARK: - Overflow menu navigation
-    
+
     fileprivate func pushToDesktopWeb() {
         guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/\(viewModel.pageTitle)", isMobile: false) else {
-            // TODO: Error banner
+            showGenericError()
             return
         }
         
@@ -372,7 +388,7 @@ class TalkPageViewController: ViewController {
         guard let host = viewModel.siteURL.host,
               let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
                                                                                                                                                                 "action": "info"]) else {
-            // TODO: Error banner
+            showGenericError()
             return
         }
         
@@ -381,7 +397,7 @@ class TalkPageViewController: ViewController {
     
     fileprivate func pushToWhatLinksHere() {
         guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:WhatLinksHere/\(viewModel.pageTitle)", isMobile: true) else {
-            // TODO: Error banner
+            showGenericError()
             return
         }
         
@@ -391,7 +407,7 @@ class TalkPageViewController: ViewController {
     fileprivate func pushToContributions() {
         guard let username = usernameFromPageTitle(),
               let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) else {
-            // TODO: Error banner
+            showGenericError()
             return
         }
         
@@ -401,7 +417,7 @@ class TalkPageViewController: ViewController {
     fileprivate func pushToUserGroups() {
         guard let username = usernameFromPageTitle(),
               let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:UserRights/\(username)", isMobile: true) else {
-            // TODO: Error banner
+            showGenericError()
             return
         }
         
@@ -411,7 +427,7 @@ class TalkPageViewController: ViewController {
     fileprivate func pushToLogs() {
         guard let username = usernameFromPageTitle(),
               let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Log/\(username)", isMobile: true) else {
-            // TODO: Error banner
+            showGenericError()
             return
         }
         
@@ -439,7 +455,7 @@ class TalkPageViewController: ViewController {
               let host = mobileSiteURL.host,
               let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
                                                                                                                                                                 "oldid": latestRevisionID]) else {
-            // TODO: Error banner
+            showGenericError()
             return
         }
         
@@ -456,7 +472,17 @@ class TalkPageViewController: ViewController {
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image, dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+        }
+    }
+
+    fileprivate func subscriptionErrorAlert(isSubscribed: Bool) {
+        let title = isSubscribed ? TalkPageLocalizedStrings.unsubscriptionFailed : TalkPageLocalizedStrings.subscriptionFailed
+
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage(systemName: "exclamationmark.circle"), type: .custom, customTypeName: "subscription", dismissPreviousAlerts: true)
         }
     }
     
@@ -467,7 +493,7 @@ class TalkPageViewController: ViewController {
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
         }
     }
     
@@ -618,18 +644,46 @@ class TalkPageViewController: ViewController {
     }
 
     private func changeTalkPageLanguage(_ siteURL: URL, pageTitle: String) {
-        
+
         guard let project = WikimediaProject(siteURL: siteURL) else {
-            // TODO: Error message
+            showGenericError()
             return
         }
         
-        viewModel.pageTitle = pageTitle
-        viewModel.siteURL = siteURL
-        viewModel.project = project
-        viewModel.dataController = TalkPageDataController(pageType: viewModel.pageType, pageTitle: viewModel.pageTitle, siteURL: siteURL, articleSummaryController: viewModel.dataController.articleSummaryController)
+        viewModel.resetToNewSiteURL(siteURL, pageTitle: pageTitle, project: project)
         setupOverflowMenu()
+        
         fetchTalkPage()
+    }
+
+    // MARK: Reachability notifier - internet connection monitoring
+
+    lazy var reachabilityNotifier: ReachabilityNotifier = {
+        let notifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] (reachable, _) in
+            if reachable {
+                DispatchQueue.main.async {
+                    self?.hideOfflineAlertIfNeeded()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.showOfflineAlertIfNeeded()
+                }
+            }
+        }
+        return notifier
+    }()
+
+    fileprivate func showOfflineAlertIfNeeded() {
+        let title = CommonStrings.noInternetConnection
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: nil, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
+        }
+    }
+
+    fileprivate func hideOfflineAlertIfNeeded() {
+        WMFAlertManager.sharedInstance.dismissAllAlerts()
     }
 }
 
@@ -705,7 +759,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
                     cell.updateSubscribedState(viewModel: cellViewModel)
                 }
                 DDLogError("Error subscribing to topic: \(error)")
-                // TODO: Error handling
+                self.subscriptionErrorAlert(isSubscribed: configuredCellViewModel.isSubscribed)
             }
         }
     }
@@ -718,13 +772,16 @@ extension TalkPageViewController: TalkPageCellDelegate {
         updateScrollViewInsets()
     }
 
+    fileprivate func updateErrorStateVisibility() {
+        talkPageView.updateErrorView(visible: viewModel.shouldShowErrorState)
+    }
 
 }
 
 extension TalkPageViewController: TalkPageCellReplyDelegate {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel) {
         presentTopicReplyOnboardingIfNecessary()
-        replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel)
+        replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager)
     }
 }
 
@@ -739,18 +796,23 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
         
         viewModel.postReply(commentId: commentViewModel.commentId, comment: text) { [weak self] result in
 
+            guard let self else {
+                return
+            }
+
             switch result {
             case .success:
-                self?.replyComposeController.closeAndReset()
+                self.replyComposeController.closeAndReset()
                 
                 // Try to refresh page
-                self?.viewModel.fetchTalkPage { [weak self] result in
+                self.viewModel.fetchTalkPage { [weak self] result in
+
                     switch result {
                     case .success:
                         self?.updateEmptyStateVisibility()
                         self?.talkPageView.collectionView.reloadData()
                         self?.handleNewTopicOrCommentAlert(isNewTopic: false)
-                        
+
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self?.scrollToNewComment(oldCellViewModel: oldCellViewModel, oldCommentViewModels: oldCommentViewModels)
                         }
@@ -761,11 +823,29 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 }
             case .failure(let error):
                 DDLogError("Failure publishing reply: \(error)")
-                self?.replyComposeController.isLoading = false
-                // TODO: Display failure banner
+                self.replyComposeController.isLoading = false
+
+                if (error as NSError).wmf_isNetworkConnectionError() {
+                    let title = TalkPageLocalizedStrings.replyFailedAlertTitle
+                    if UIAccessibility.isVoiceOverRunning {
+                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                    } else {
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
+                    }
+                } else {
+                    self.showUnexpectedErrorAlert(on: self)
+                }
             }
         }
     }
+
+    fileprivate func showUnexpectedErrorAlert(on viewController: UIViewController) {
+        let alert = UIAlertController(title: TalkPageLocalizedStrings.unexpectedErrorAlertTitle, message: TalkPageLocalizedStrings.unexpectedErrorAlertSubtitle, preferredStyle: .alert)
+        let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
+        alert.addAction(action)
+        viewController.present(alert, animated: true)
+    }
+
 }
 
 // MARK: Extensions
@@ -794,14 +874,23 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                     }
                 }
             case .failure(let error):
+                
                 DDLogError("Failure publishing topic: \(error)")
                 composeViewController.setupNavigationBar(isPublishing: false)
-                // TODO: Display failure banner on topic compose VC
+                
+                if (error as NSError).wmf_isNetworkConnectionError() {
+                    let title = TalkPageLocalizedStrings.newTopicFailedAlertTitle
+                    if UIAccessibility.isVoiceOverRunning {
+                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                    } else {
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
+                    }
+                } else {
+                    self?.showUnexpectedErrorAlert(on: composeViewController)
+                }
             }
         }
     }
-    
-    
 }
 
 extension TalkPageViewController: UIAdaptivePresentationControllerDelegate {
@@ -822,31 +911,38 @@ extension TalkPageViewController: UIAdaptivePresentationControllerDelegate {
 
 extension TalkPageViewController {
     enum TalkPageLocalizedStrings {
-        static let title = WMFLocalizedString("talk-pages-view-title", value: "Talk", comment: "Title of user and article talk pages view.")
-        static let openAllThreads = WMFLocalizedString("talk-page-menu-open-all", value: "Open all threads", comment: "Title for menu option open all talk page threads")
-        static let readInWeb = WMFLocalizedString("talk-page-read-in-web", value: "Read in web", comment: "Title for menu option to read a talk page in a web browser")
-        static let archives = WMFLocalizedString("talk-page-archives", value: "Archives", comment: "Title for menu option that redirects to talk page archives")
-        static let pageInfo = WMFLocalizedString("talk-page-page-info", value: "Page information", comment: "Title for menu option to go to the talk page information link")
-        static let permaLink = WMFLocalizedString("talk-page-permanent-link", value: "Permanent link", comment: "Title for menu option to open the talk page's permanent link in a web browser")
-        static let changeLanguage = WMFLocalizedString("talk-page-change-language", value: "Change language", comment: "Title for menu option to got to the change language page")
-        static let relatedLinks = WMFLocalizedString("talk-page-related-links", value: "What links here", comment: "Title for menu option that redirects to a page that shows related links")
-        static let aboutTalkPages = WMFLocalizedString("talk-page-article-about", value: "About talk pages", comment: "Title for menu option for information on article talk pages")
+        static let title = WMFLocalizedString("talk-pages-view-title", value: "Talk", comment: "Title of user and article talk pages view. Please prioritize for de, ar and zh wikis.")
+        static let openAllThreads = WMFLocalizedString("talk-page-menu-open-all", value: "Open all threads", comment: "Title for menu option open all talk page threads. Please prioritize for de, ar and zh wikis.")
+        static let readInWeb = WMFLocalizedString("talk-page-read-in-web", value: "Read in web", comment: "Title for menu option to read a talk page in a web browser. Please prioritize for de, ar and zh wikis.")
+        static let archives = WMFLocalizedString("talk-page-archives", value: "Archives", comment: "Title for menu option that redirects to talk page archives. Please prioritize for de, ar and zh wikis.")
+        static let pageInfo = WMFLocalizedString("talk-page-page-info", value: "Page information", comment: "Title for menu option to go to the talk page information link. Please prioritize for de, ar and zh wikis.")
+        static let permaLink = WMFLocalizedString("talk-page-permanent-link", value: "Permanent link", comment: "Title for menu option to open the talk page's permanent link in a web browser. Please prioritize for de, ar and zh wikis.")
+        static let changeLanguage = WMFLocalizedString("talk-page-change-language", value: "Change language", comment: "Title for menu option to got to the change language page. Please prioritize for de, ar and zh wikis.")
+        static let relatedLinks = WMFLocalizedString("talk-page-related-links", value: "What links here", comment: "Title for menu option that redirects to a page that shows related links. Please prioritize for de, ar and zh wikis.")
+        static let aboutTalkPages = WMFLocalizedString("talk-page-article-about", value: "About talk pages", comment: "Title for menu option for information on article talk pages. Please prioritize for de, ar and zh wikis.")
         static let aboutUserTalk = WMFLocalizedString("talk-page-user-about", value: "About user talk pages", comment: "Title for menu option for information on user talk pages")
-        static let contributions = WMFLocalizedString("talk-page-user-contributions", value: "Contributions", comment: "Title for menu option for information on the user's contributions")
-        static let userGroups = WMFLocalizedString("talk-pages-user-groups", value: "User groups", comment: "Title for menu option for information on the user's user groups")
-        static let logs = WMFLocalizedString("talk-pages-user-logs", value: "Logs", comment: "Title for menu option to consult the user's public logs")
+        static let contributions = WMFLocalizedString("talk-page-user-contributions", value: "Contributions", comment: "Title for menu option for information on the user's contributions. Please prioritize for de, ar and zh wikis.")
+        static let userGroups = WMFLocalizedString("talk-pages-user-groups", value: "User groups", comment: "Title for menu option for information on the user's user groups. Please prioritize for de, ar and zh wikis.")
+        static let logs = WMFLocalizedString("talk-pages-user-logs", value: "Logs", comment: "Title for menu option to consult the user's public logs. Please prioritize for de, ar and zh wikis.")
         
-        static let subscribedAlertTitle = WMFLocalizedString("talk-page-subscribed-alert-title", value: "You have subscribed!", comment: "Title for alert informing that the user subscribed to a topic")
-        static let unsubscribedAlertTitle = WMFLocalizedString("talk-page-unsubscribed-alert-title", value: "You have unsubscribed.", comment: "Title for alert informing that the user unsubscribed to a topic")
-        static let subscribedAlertSubtitle = WMFLocalizedString("talk-page-subscribed-alert-subtitle", value: "You will receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will receive notifications for a subscribed topic")
-        static let unsubscribedAlertSubtitle = WMFLocalizedString("talk-page-unsubscribed-alert-subtitle", value: "You will no longer receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will no longer receive notifications for a topic")
+        static let subscribedAlertTitle = WMFLocalizedString("talk-page-subscribed-alert-title", value: "You have subscribed!", comment: "Title for alert informing that the user subscribed to a topic. Please prioritize for de, ar and zh wikis.")
+        static let unsubscribedAlertTitle = WMFLocalizedString("talk-page-unsubscribed-alert-title", value: "You have unsubscribed.", comment: "Title for alert informing that the user unsubscribed to a topic. Please prioritize for de, ar and zh wikis.")
+        static let subscribedAlertSubtitle = WMFLocalizedString("talk-page-subscribed-alert-subtitle", value: "You will receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will receive notifications for a subscribed topic. Please prioritize for de, ar and zh wikis.")
+        static let unsubscribedAlertSubtitle = WMFLocalizedString("talk-page-unsubscribed-alert-subtitle", value: "You will no longer receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will no longer receive notifications for a topic. Please prioritize for de, ar and zh wikis.")
         
-        static let addedTopicAlertTitle = WMFLocalizedString("talk-pages-topic-added-alert-title", value: "Your topic was added", comment: "Title for alert informing that the user's new topic was successfully published.")
-        static let addedCommentAlertTitle = WMFLocalizedString("talk-pages-comment-added-alert-title", value: "Your comment was added", comment: "Title for alert informing that the user's new comment was successfully published.")
+        static let addedTopicAlertTitle = WMFLocalizedString("talk-pages-topic-added-alert-title", value: "Your topic was added", comment: "Title for alert informing that the user's new topic was successfully published. Please prioritize for de, ar and zh wikis.")
+        static let addedCommentAlertTitle = WMFLocalizedString("talk-pages-comment-added-alert-title", value: "Your comment was added", comment: "Title for alert informing that the user's new comment was successfully published. Please prioritize for de, ar and zh wikis.")
         
         static let shareButtonAccesibilityLabel = WMFLocalizedString("talk-page-share-button", value: "Share talk page", comment: "Title for share talk page button")
         static let findButtonAccesibilityLabel = WMFLocalizedString("talk-page-find-in-page-button", value: "Find in page", comment: "Title for find content in page button")
         static let addTopicButtonAccesibilityLabel = WMFLocalizedString("talk-page-add-topic-button", value: "Add topic", comment: "Title for add topic to talk page button")
+        static let unsubscriptionFailed = WMFLocalizedString("talk-page-unsubscription-failed-alert", value: "Unsubscribing to the topic failed, please try again.", comment: "Text for the unsubscription failure alert")
+        static let subscriptionFailed = WMFLocalizedString("talk-page-subscription-failed-alert", value: "Subscribing to the topic failed, please try again.", comment: "Text for the subscription failure alert")
+        static let replyFailedAlertTitle = WMFLocalizedString("talk-page-publish-reply-error-title", value: "Unable to publish your comment.", comment: "Title for topic reply error alert")
+        static let newTopicFailedAlertTitle = WMFLocalizedString("talk-page-publish-topic-error-title", value: "Unable to publish new topic.", comment: "Title for new topic post error alert")
+        static let failureAlertSubtitle = WMFLocalizedString("talk-page-publish-reply-error-subtitle", value: "Please check your internet connection.", comment: "Subtitle for topic reply error alert")
+        static let unexpectedErrorAlertTitle = WMFLocalizedString("talk-page-error-alert-title", value: "Unexpected error", comment: "Title for unexpected error alert")
+        static let unexpectedErrorAlertSubtitle = WMFLocalizedString("talk-page-error-alert-subtitle", value: "The app recieved an unexpected response from the server. Please try again later.", comment: "Subtitle for unexpected error alert")
     }
 }
 
@@ -911,3 +1007,4 @@ extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
         UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages = true
     }
 }
+

@@ -5,16 +5,22 @@ protocol TalkPageTopicComposeViewControllerDelegate: AnyObject {
     func tappedPublish(topicTitle: String, topicBody: String, composeViewController: TalkPageTopicComposeViewController)
 }
 
+struct TalkPageTopicComposeViewModel {
+    let semanticContentAttribute: UISemanticContentAttribute
+}
+
 class TalkPageTopicComposeViewController: ViewController {
     
     enum TopicComposeStrings {
-        static let navigationBarTitle = WMFLocalizedString("talk-pages-topic-compose-navbar-title", value: "Topic", comment: "Top navigation bar title of talk page topic compose screen.")
-        static let titlePlaceholder = WMFLocalizedString("talk-pages-topic-compose-title-placeholder", value: "Topic title", comment: "Placeholder text in topic title field of the talk page topic compose screen.")
-        static let bodyPlaceholder = WMFLocalizedString("talk-pages-topic-compose-body-placeholder", value: "Description", comment: "Placeholder text in topic body field of the talk page topic compose screen.")
-        static let finePrintFormat = WMFLocalizedString("talk-page-topic-compose-terms-and-licenses", value: "By publishing changes, you agree to the %1$@Terms of Use%2$@, and you irrevocably agree to release your contribution under the %3$@CC BY-SA 3.0 License%4$@ and the %5$@GFDL%6$@.", comment: "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
+        static let navigationBarTitle = WMFLocalizedString("talk-pages-topic-compose-navbar-title", value: "Topic", comment: "Top navigation bar title of talk page topic compose screen. Please prioritize for de, ar and zh wikis.")
+        static let titlePlaceholder = WMFLocalizedString("talk-pages-topic-compose-title-placeholder", value: "Topic title", comment: "Placeholder text in topic title field of the talk page topic compose screen. Please prioritize for de, ar and zh wikis.")
+        static let bodyPlaceholder = WMFLocalizedString("talk-pages-topic-compose-body-placeholder", value: "Description", comment: "Placeholder text in topic body field of the talk page topic compose screen. Please prioritize for de, ar and zh wikis.")
+        static let finePrintFormat = WMFLocalizedString("talk-page-topic-compose-terms-and-licenses", value: "By publishing changes, you agree to the %1$@Terms of Use%2$@, and you irrevocably agree to release your contribution under the %3$@CC BY-SA 3.0 License%4$@ and the %5$@GFDL%6$@.", comment: "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.")
         static let closeConfirmationTitle = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-title", value: "Are you sure you want to discard this new topic?", comment: "Title of confirmation alert displayed to user when they attempt to close the new topic view after entering title or body text.")
-        static let closeConfirmationDiscard = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-discard", value: "Discard Topic", comment: "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text.")
+        static let closeConfirmationDiscard = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-discard", value: "Discard Topic", comment: "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text. Please prioritize for de, ar and zh wikis.")
     }
+    
+    private let viewModel: TalkPageTopicComposeViewModel
     
     private lazy var safeAreaBackgroundView: UIView = {
         let view = UIView(frame: .zero)
@@ -114,7 +120,19 @@ class TalkPageTopicComposeViewController: ViewController {
     private var scrollViewBottomConstraint: NSLayoutConstraint?
     weak var delegate: TalkPageTopicComposeViewControllerDelegate?
     
+    private weak var authenticationManager: WMFAuthenticationManager?
+    
     // MARK: Lifecycle
+    
+    init(viewModel: TalkPageTopicComposeViewModel, authenticationManager: WMFAuthenticationManager, theme: Theme) {
+        self.viewModel = viewModel
+        self.authenticationManager = authenticationManager
+        super.init(theme: theme)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,7 +147,7 @@ class TalkPageTopicComposeViewController: ViewController {
         apply(theme: theme)
         self.title = Self.TopicComposeStrings.navigationBarTitle
     }
-    
+
     private func setupSafeAreaBackgroundView() {
         view.addSubview(safeAreaBackgroundView)
         
@@ -300,6 +318,9 @@ class TalkPageTopicComposeViewController: ViewController {
         
         finePrintTextView.backgroundColor = theme.colors.midBackground
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString // TODO: not working? Link colors are off.
+        
+        // Calling here to ensure text alignment is set properly after attributed strings are set
+        updateSemanticContentAttribute(semanticContentAttribute: viewModel.semanticContentAttribute)
     }
     
     // MARK: Private
@@ -333,6 +354,21 @@ class TalkPageTopicComposeViewController: ViewController {
         publishButton.isEnabled = !(titleTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !bodyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
+    private func updateSemanticContentAttribute(semanticContentAttribute: UISemanticContentAttribute) {
+        containerStackView.semanticContentAttribute = semanticContentAttribute
+        inputContainerView.semanticContentAttribute = semanticContentAttribute
+        titleTextField.semanticContentAttribute = semanticContentAttribute
+        divView.semanticContentAttribute = semanticContentAttribute
+        bodyTextView.semanticContentAttribute = semanticContentAttribute
+        bodyPlaceholderLabel.semanticContentAttribute = semanticContentAttribute
+        finePrintTextView.semanticContentAttribute = semanticContentAttribute
+        
+        titleTextField.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        bodyTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        bodyPlaceholderLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        finePrintTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+    }
+    
     // MARK: Actions
     
     @objc private func tappedClose() {
@@ -353,8 +389,30 @@ class TalkPageTopicComposeViewController: ViewController {
             return
         }
         
-        setupNavigationBar(isPublishing: true)
-        delegate?.tappedPublish(topicTitle: title, topicBody: body, composeViewController: self)
+        view.endEditing(true)
+        
+        guard let authenticationManager = authenticationManager,
+        !authenticationManager.isLoggedIn else {
+            setupNavigationBar(isPublishing: true)
+            delegate?.tappedPublish(topicTitle: title, topicBody: body, composeViewController: self)
+            return
+        }
+        
+        wmf_showNotLoggedInUponPublishPanel(buttonTapHandler: { [weak self] buttonIndex in
+            switch buttonIndex {
+            case 0:
+                break
+            case 1:
+                guard let self = self else {
+                    return
+                }
+                
+                self.setupNavigationBar(isPublishing: true)
+                self.delegate?.tappedPublish(topicTitle: title, topicBody: body, composeViewController: self)
+            default:
+                assertionFailure("Unrecognize button index in tap handler.")
+            }
+        }, theme: theme)
     }
     
     @objc private func titleTextFieldChanged() {

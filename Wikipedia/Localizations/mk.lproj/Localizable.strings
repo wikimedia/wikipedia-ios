@@ -989,6 +989,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "прочитано";
 "talk-page-discussion-unread-accessibility-label" = "Непрочитано";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "непрочитано";
+"talk-page-error-loading-subtitle" = "Нешто не е во ред.";
+"talk-page-error-loading-title" = "Не можам да ја вчитам разговорната страница";
 "talk-page-error-unable-to-post-reply" = "Не сте поврзани со семрежјето. Не можам да го објавам одговорот.";
 "talk-page-error-unable-to-post-topic" = "Не сте поврзани со семрежјето. Не можам да ја објавам расправата.";
 "talk-page-find-in-page-button" = "Најди на страницата";

@@ -51,7 +51,7 @@
 "about-testers-details" = "Квалитет је осигурао $1";
 "about-title" = "О апликацији";
 "about-translators" = "Преводиоци";
-"about-translators-details" = "Превели добровољци сајта $1";
+"about-translators-details" = "Превели добровољци на сајту $1";
 "about-wikimedia-foundation" = "Задужбина Викимедија";
 "about-wikipedia" = "Википедија";
 "abuse-filter-disallow-heading" = "Не можете да објавите ову измену";
@@ -508,10 +508,17 @@
 "notifications-center-feed-news-notification-button-text" = "Укључи обавештења";
 "notifications-center-filters-read-status-item-title-all" = "Све";
 "notifications-center-filters-read-status-item-title-read" = "Читај";
+"notifications-center-filters-types-item-title-all" = "Све врсте";
+"notifications-center-filters-types-section-title" = "Врсте обавештења";
 "notifications-center-go-to-article" = "Чланак";
+"notifications-center-go-to-article-talk-format" = "Страница за разговор $1";
+"notifications-center-go-to-diff" = "Разл";
 "notifications-center-go-to-talk-page" = "Страница за разговор";
 "notifications-center-go-to-user-page" = "$1 - корисничка страница";
 "notifications-center-go-to-your-talk-page" = "Ваша страница за разговор";
+"notifications-center-inbox-title" = "Пројекти";
+"notifications-center-inbox-wikimedia-projects-section-title" = "Викимедијини пројекти";
+"notifications-center-inbox-wikipedias-section-title" = "Википедије";
 "notifications-center-mark" = "Означи";
 "notifications-center-mark-all-as-read" = "Означи све као прочитано";
 "notifications-center-mark-as-read" = "Означи као прочитано";
@@ -524,6 +531,7 @@
 "notifications-center-status-read" = "Прочитано";
 "notifications-center-status-unread" = "Непрочитано";
 "notifications-center-subheader-edit-reverted" = "Ваша измена је поништена";
+"notifications-center-subheader-thanks" = "Хвала";
 "notifications-center-subheader-user-rights-change" = "Промена корисничких права";
 "notifications-center-subheader-welcome" = "Добро дошли!";
 "notifications-center-swipe-mark-as-read" = "Означи као прочитано";
@@ -531,6 +539,7 @@
 "notifications-center-swipe-more" = "Више";
 "notifications-center-title" = "Обавештења";
 "notifications-center-type-item-description-mentions" = "Спомињања";
+"notifications-center-type-item-description-welcome-verbose" = "Порука добродошлице";
 "notifications-center-type-title-login-success" = "Успешно сте пријављени";
 "notifications-center-type-title-thanks" = "Захвалница";
 "notifications-center-type-title-welcome" = "Добро дошли";
@@ -609,6 +618,7 @@
 "project-name-wikibooks" = "Викикњиге";
 "project-name-wikidata" = "Википодаци";
 "project-name-wikimedia-commons" = "Викимедијина остава";
+"project-name-wikinews" = "Викивести";
 "project-name-wikiquote" = "Викицитати";
 "project-name-wikisource" = "Викизворник";
 "project-name-wikispecies" = "Викиврсте";
@@ -830,14 +840,18 @@
 "talk-page-reply-title" = "Одговори";
 "talk-page-title-article-talk" = "Страница за разговор чланка";
 "talk-page-title-user-talk" = "Корисничка страница за разговор";
+"talk-page-topic-compose-terms-and-licenses" = "Чувањем измена прихватате $1услове коришћења$2 и неопозиво се слажете да свој допринос објавите под лиценцама $3CC BY-SA 3.0$4 и $5GFDL$6.";
 "talk-page-topic-title" = "Дискусија";
 "talk-page-unsubscribed-alert-subtitle" = "Више нећете добијати обавештења о новим коментарима.";
 "talk-page-user-about" = "О корисничким страницама за разговор";
 "talk-page-user-contributions" = "Доприноси";
+"talk-pages-coffee-roll-read-more" = "Прочитај још";
+"talk-pages-compose-close-confirmation-keep" = "Настави уређивање";
 "talk-pages-reply-button-title" = "Одговори на ову дискусију";
 "talk-pages-topic-compose-body-placeholder" = "Опис";
 "talk-pages-user-groups" = "Корисничке групе";
 "talk-pages-user-logs" = "Дневници";
+"talk-pages-view-title" = "Разговор";
 "theme-black-display-name" = "Црна";
 "theme-dark-display-name" = "Тамна";
 "theme-default-display-name" = "Подразумевана";
@@ -856,6 +870,7 @@
 "two-factor-login-with-regular-code" = "Користите кôд за верификацију";
 "unable-to-load-talk-page-title" = "Није могуће учитати страницу за разговор";
 "unknown-generic-text" = "Непознато";
+"vanish-account-learn-more-text" = "Сазнајте више";
 "variants-alert-dismiss-button" = "Не, хвала";
 "variants-alert-preferences-button" = "Прегледајте своја подешавања";
 "welcome-exploration-explore-feed-description" = "Препоручени и дневни чланци од наше заједнице";

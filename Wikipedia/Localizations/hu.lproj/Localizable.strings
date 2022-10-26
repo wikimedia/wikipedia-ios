@@ -454,7 +454,6 @@
 "notifications-center-empty-checking-for-notifications" = "Értesítések keresése...";
 "notifications-center-empty-no-messages" = "Nincsenek üzeneteid";
 "notifications-center-empty-not-subscribed" = "Nincsenek beállítva a Wikipédia értesítések";
-// Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Értesítések bekapcsolása";
 "notifications-center-filters-read-status-item-title-all" = "Mind";
 "notifications-center-filters-read-status-item-title-read" = "Olvasva";
@@ -475,7 +474,6 @@
 "notifications-center-subheader-edit-reverted" = "Szerkesztésedet visszavonták";
 "notifications-center-subheader-email-from-other-user" = "Új email";
 "notifications-center-subheader-login-fail-unknown-device" = "Sikertelen bejelentkezés";
-// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Bejelentkezés ismeretlen eszközről";
 "notifications-center-subheader-page-reviewed" = "Ellenőrzött szócikk";
 "notifications-center-subheader-thanks" = "Köszönetek";
@@ -486,8 +484,7 @@
 "notifications-center-swipe-mark-as-unread" = "Jelölés olvasatlanként";
 "notifications-center-swipe-more" = "Tovább";
 "notifications-center-title" = "Értesítések";
-// Fuzzy
-"notifications-push-talk-title-format" = "Új $1";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Új üzenet|Új üzenetek}}";
 "number-billions" = "$1 Mrd";
 "number-millions" = "$1M";
 "number-thousands" = "$1k";
@@ -645,7 +642,6 @@
 "settings-help-and-feedback" = "Súgó és visszajelzés";
 "settings-language-bar" = "Nyelvek megjelenítése keresésnél";
 "settings-my-languages" = "Saját nyelvek";
-// Fuzzy
 "settings-notifications" = "Értesítések";
 "settings-notifications-learn-more" = "További információ az értesítésekről";
 "settings-notifications-push-notifications" = "Push értesítések";
@@ -658,23 +654,21 @@
 "settings-support" = "Támogasd a Wikipédiát!";
 "settings-title" = "Beállítások";
 "share-a-fact-made-with" = "A Wikipédia appal készült";
-// Fuzzy
-"share-article-name-on-wikipedia" = "„$1” a @Wikipedia szabad enciklopédiában:";
+"share-article-name-on-wikipedia" = "„$1” a Wikipédiában:";
 "share-get-directions-in-maps" = "Útvonalterv";
 "share-menu-item" = "Megosztás";
 "share-message-format" = "„$1” $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "a @Wikipedia szabad enciklopédián keresztül";
+"share-on-twitter-sign-off" = "a Wikipédián";
 "share-open-in-maps" = "Megnyitás a Térképekben";
 "share-social-format" = "„$1” a Wikipédián: $2";
-// Fuzzy
-"share-social-mention-format" = "„$1” @Wikipedia: $2";
+"share-social-mention-format" = "„$1” Wikipedián: $2";
 "sort-by-recently-added-action" = "Nemrég hozzáadva";
 "sort-by-title-action" = "Cím";
 "table-of-contents-button-label" = "Tartalomjegyzék";
 "table-of-contents-close-accessibility-hint" = "Bezárás";
 "table-of-contents-close-accessibility-label" = "Tartalomjegyzék bezárása";
 "table-of-contents-heading" = "Tartalom";
+"table-of-contents-hide-button-label" = "Tartalomjegyzék elrejtése";
 "table-of-contents-subheading-label" = "Alcím $1";
 "tajik-variants-alert-title" = "A tadzsik nyelvi változat támogatásának frissítése";
 "talk-page-discussion-read-accessibility-label" = "Olvasott";
