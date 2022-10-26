@@ -180,6 +180,12 @@ class TalkPageViewController: ViewController {
 
         fetchTalkPage()
         setupToolbar()
+        reachabilityNotifier.start()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        reachabilityNotifier.stop()
     }
 
     @objc func tryAgain() {
@@ -454,7 +460,17 @@ class TalkPageViewController: ViewController {
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image, dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+        }
+    }
+
+    fileprivate func subscriptionErrorAlert(isSubscribed: Bool) {
+        let title = isSubscribed ? TalkPageLocalizedStrings.unsubscriptionFailed : TalkPageLocalizedStrings.subscriptionFailed
+
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage(systemName: "exclamationmark.circle"), type: .custom, customTypeName: "subscription", dismissPreviousAlerts: true)
         }
     }
     
@@ -465,7 +481,7 @@ class TalkPageViewController: ViewController {
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
         }
     }
     
@@ -620,6 +636,36 @@ class TalkPageViewController: ViewController {
         viewModel.resetToNewSiteURL(siteURL, pageTitle: pageTitle)
         fetchTalkPage()
     }
+
+    // MARK: Reachability notifier - internet connection monitoring
+
+    lazy var reachabilityNotifier: ReachabilityNotifier = {
+        let notifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] (reachable, _) in
+            if reachable {
+                DispatchQueue.main.async {
+                    self?.hideOfflineAlertIfNeeded()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.showOfflineAlertIfNeeded()
+                }
+            }
+        }
+        return notifier
+    }()
+
+    fileprivate func showOfflineAlertIfNeeded() {
+        let title = CommonStrings.noInternetConnection
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: nil, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
+        }
+    }
+
+    fileprivate func hideOfflineAlertIfNeeded() {
+        WMFAlertManager.sharedInstance.dismissAllAlerts()
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -694,7 +740,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
                     cell.updateSubscribedState(viewModel: cellViewModel)
                 }
                 DDLogError("Error subscribing to topic: \(error)")
-                // TODO: Error handling
+                self.subscriptionErrorAlert(isSubscribed: configuredCellViewModel.isSubscribed)
             }
         }
     }
@@ -737,12 +783,13 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 
                 // Try to refresh page
                 self?.viewModel.fetchTalkPage { [weak self] result in
+
                     switch result {
                     case .success:
                         self?.updateEmptyStateVisibility()
                         self?.talkPageView.collectionView.reloadData()
                         self?.handleNewTopicOrCommentAlert(isNewTopic: false)
-                        
+
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self?.scrollToNewComment(oldCellViewModel: oldCellViewModel, oldCommentViewModels: oldCommentViewModels)
                         }
@@ -754,7 +801,20 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
             case .failure(let error):
                 DDLogError("Failure publishing reply: \(error)")
                 self?.replyComposeController.isLoading = false
-                // TODO: Display failure banner
+
+                if (error as NSError).wmf_isNetworkConnectionError() {
+                    let title = TalkPageLocalizedStrings.replyFailedAlertTitle
+                    if UIAccessibility.isVoiceOverRunning {
+                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                    } else {
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.replyFailedAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
+                    }
+                } else {
+                    let alert = UIAlertController(title: TalkPageLocalizedStrings.unexpectedErrorAlertTitle, message: TalkPageLocalizedStrings.unexpectedErrorAlertSubtitle, preferredStyle: .alert)
+                    let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
+                    alert.addAction(action)
+                    self?.present(alert, animated: true)
+                }
             }
         }
     }
@@ -839,6 +899,12 @@ extension TalkPageViewController {
         static let shareButtonAccesibilityLabel = WMFLocalizedString("talk-page-share-button", value: "Share talk page", comment: "Title for share talk page button")
         static let findButtonAccesibilityLabel = WMFLocalizedString("talk-page-find-in-page-button", value: "Find in page", comment: "Title for find content in page button")
         static let addTopicButtonAccesibilityLabel = WMFLocalizedString("talk-page-add-topic-button", value: "Add topic", comment: "Title for add topic to talk page button")
+        static let unsubscriptionFailed = WMFLocalizedString("talk-page-unsubscription-failed-alert", value: "Unsubscribing to the topic failed, please try again.", comment: "Text for the unsubscription failure alert")
+        static let subscriptionFailed = WMFLocalizedString("talk-page-subscription-failed-alert", value: "Subscribing to the topic failed, please try again.", comment: "Text for the subscription failure alert")
+        static let replyFailedAlertTitle = WMFLocalizedString("talk-page-publish-reply-error-title", value: "Unable to publish your comment.", comment: "Title for topic reply error alert")
+        static let replyFailedAlertSubtitle = WMFLocalizedString("talk-page-publish-reply-error-subtitle", value: "Please check your internet connection.", comment: "Subtitle for topic reply error alert")
+        static let unexpectedErrorAlertTitle = WMFLocalizedString("talk-page-error-alert-title", value: "Unexpected error", comment: "Title for unexpected error alert")
+        static let unexpectedErrorAlertSubtitle = WMFLocalizedString("talk-page-error-alert-subtitle", value: "The app recieved an unexpected response from the server. Please try again later.", comment: "Subtitle for unexpected error alert")
     }
 }
 
@@ -903,3 +969,4 @@ extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
         UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages = true
     }
 }
+

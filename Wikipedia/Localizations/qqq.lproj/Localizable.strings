@@ -977,6 +977,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a discussion's contents have been read.";
 "talk-page-discussion-unread-accessibility-label" = "Accessibility text for indicating that some content have not been read.";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a discussion's contents have not been read.";
+"talk-page-error-alert-subtitle" = "Subtitle for unexpected error alert";
+"talk-page-error-alert-title" = "Title for unexpected error alert";
 "talk-page-error-loading-subtitle" = "Subtitle text for error page on talk pages";
 "talk-page-error-loading-title" = "Title text for error page on talk pages";
 "talk-page-error-unable-to-post-reply" = "Error message appearing when user attempts to post a new talk page reply while being offline";
@@ -1002,6 +1004,8 @@
 "talk-page-new-topic-title" = "Title of page when composing a new topic on talk pages.";
 "talk-page-page-info" = "Title for menu option to go to the talk page information link. Please prioritize for de, ar and zh wikis.";
 "talk-page-permanent-link" = "Title for menu option to open the talk page's permanent link in a web browser. Please prioritize for de, ar and zh wikis.";
+"talk-page-publish-reply-error-subtitle" = "Subtitle for topic reply error alert";
+"talk-page-publish-reply-error-title" = "Title for topic reply error alert";
 "talk-page-publish-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "talk-page-read-in-web" = "Title for menu option to read a talk page in a web browser. Please prioritize for de, ar and zh wikis.";
 "talk-page-related-links" = "Title for menu option that redirects to a page that shows related links. Please prioritize for de, ar and zh wikis.";
@@ -1014,6 +1018,7 @@
 "talk-page-subscribe-to-topic" = "Text used on button to subscribe to talk page topic. Please prioritize for de, ar and zh wikis.";
 "talk-page-subscribed-alert-subtitle" = "Subtitle for alert informing that the user will receive notifications for a subscribed topic. Please prioritize for de, ar and zh wikis.";
 "talk-page-subscribed-alert-title" = "Title for alert informing that the user subscribed to a topic. Please prioritize for de, ar and zh wikis.";
+"talk-page-subscription-failed-alert" = "Text for the subscription failure alert";
 "talk-page-title-article-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page. Please prioritize for de, ar and zh wikis.";
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page. Please prioritize for de, ar and zh wikis.";
 "talk-page-topic-compose-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
@@ -1021,6 +1026,7 @@
 "talk-page-unsubscribe-to-topic" = "Text used on button to unsubscribe from talk page topic.";
 "talk-page-unsubscribed-alert-subtitle" = "Subtitle for alert informing that the user will no longer receive notifications for a topic. Please prioritize for de, ar and zh wikis.";
 "talk-page-unsubscribed-alert-title" = "Title for alert informing that the user unsubscribed to a topic. Please prioritize for de, ar and zh wikis.";
+"talk-page-unsubscription-failed-alert" = "Text for the unsubscription failure alert";
 "talk-page-user-about" = "Title for menu option for information on user talk pages";
 "talk-page-user-contributions" = "Title for menu option for information on the user's contributions. Please prioritize for de, ar and zh wikis.";
 "talk-pages-coffee-roll-read-more" = "Title of user and article talk pages button to read more of the coffee roll.";
