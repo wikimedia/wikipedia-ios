@@ -721,6 +721,9 @@
 "page-similar-titles" = "Similar pages";
 "panel-compare-revisions-text" = "Comparing revisions helps to show how an article has changed over time. Comparing two revisions of an article will show the difference between those revisions by highlighting any content that was changed.";
 "panel-compare-revisions-title" = "Comparing revisions";
+"panel-not-logged-in-continue-edit-action-title" = "Edit without logging in";
+"panel-not-logged-in-subtitle" = "Your IP address will be publicly visible if you make any edits. If you $1log in$2 or $3create an account$4, your edits will be attributed to your username, along with other benefits.";
+"panel-not-logged-in-title" = "You are not logged in";
 "pictured" = "pictured";
 "places-accessibility-clear-saved-searches" = "Clear saved searches";
 "places-accessibility-group" = "$1 articles";
@@ -1007,6 +1010,7 @@
 "talk-page-publish-reply-error-subtitle" = "Please check your internet connection.";
 "talk-page-publish-reply-error-title" = "Unable to publish your comment.";
 "talk-page-publish-terms-and-licenses" = "By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 3.0$4 and the $5GFDL$6 licenses.";
+"talk-page-publish-topic-error-title" = "Unable to publish new topic.";
 "talk-page-read-in-web" = "Read in web";
 "talk-page-related-links" = "What links here";
 "talk-page-reply-button" = "Reply";
