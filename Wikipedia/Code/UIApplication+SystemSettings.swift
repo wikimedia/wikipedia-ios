@@ -8,4 +8,5 @@ extension UIApplication {
         }
         self.open(settingsURL as URL, options: [:], completionHandler: nil)
     }
+    
 }
