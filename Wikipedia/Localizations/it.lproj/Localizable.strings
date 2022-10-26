@@ -723,6 +723,8 @@
 "talk-page-add-topic-button" = "Aggiungi argomento";
 "talk-page-discussion-read-accessibility-label" = "Letta";
 "talk-page-discussion-unread-accessibility-label" = "Non lette";
+"talk-page-error-loading-subtitle" = "Qualcosa è andato storto.";
+"talk-page-error-loading-title" = "Impossibile caricare la pagina di discussione";
 "talk-page-error-unable-to-post-reply" = "Nessuna connessione a internet. Impossibile pubblicare la risposta.";
 "talk-page-error-unable-to-post-topic" = "Nessuna connessione a internet. Impossibile pubblicare la risposta.";
 "talk-page-find-in-page-button" = "Trova nella pagina";

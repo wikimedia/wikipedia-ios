@@ -5,19 +5,27 @@ import WMF
 /// Leans on file persistence for offline mode as-needed.
 class TalkPageDataController {
     
-    var pageType: TalkPageType
-    var pageTitle: String
-    var siteURL: URL
+    private let pageType: TalkPageType
+    private(set) var pageTitle: String
+    private(set) var siteURL: URL
     private let talkPageFetcher = TalkPageFetcher()
-    var articleSummaryController: ArticleSummaryController
+    private let articleSummaryController: ArticleSummaryController
     private let articleRevisionFetcher = WMFArticleRevisionFetcher()
-
 
     init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
         self.pageType = pageType
         self.pageTitle = pageTitle
         self.siteURL = siteURL
         self.articleSummaryController = articleSummaryController
+    }
+    
+    func resetToNewSiteURL(_ siteURL: URL, pageTitle: String) {
+        self.siteURL = siteURL
+        self.pageTitle = pageTitle
+    }
+    
+    enum TalkPageError: Error {
+        case unableToDetermineWikimediaProject
     }
     
     // MARK: Public
@@ -56,13 +64,11 @@ class TalkPageDataController {
                 completion(.failure(firstError))
                 return
             }
-            
             self.fetchTopicSubscriptions(for: finalItems, dispatchGroup: group) { items, errors in
                 finalSubscribedTopics = items
                 finalErrors.append(contentsOf: errors)
                 completion(.success((finalArticleSummary, finalItems, finalSubscribedTopics, latestRevisionID)))
             }
-            
         })
 
     }
@@ -122,8 +128,8 @@ class TalkPageDataController {
         let fileNameSuffix = pageTitle
 
         let fileNamePrefix: String
-        if let contentLanguageCode = siteURL.wmf_contentLanguageCode {
-            fileNamePrefix = "\(host)-\(contentLanguageCode)"
+        if let languageVariantCode = siteURL.wmf_languageVariantCode {
+            fileNamePrefix = "\(host)-\(languageVariantCode)"
         } else {
             fileNamePrefix = host
         }

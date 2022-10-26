@@ -287,6 +287,16 @@ static NSMutableDictionary *globalDesignDictionary;
   [self.titleLabel setTextColor:_titleTextColor];
 }
 
+- (void)setImageViewTintColor:(UIColor *)imageViewTintColor {
+    _imageViewTintColor = imageViewTintColor;
+    [self.iconImageView setTintColor:_imageViewTintColor];
+}
+
+- (void)setButtonFont:(UIFont *)buttonFont {
+    _buttonFont = buttonFont;
+    [self.button.titleLabel  setFont:_buttonFont];
+}
+
 - (void)setCloseIconColor:(UIColor *)closeIconColor
 {
     _closeIconColor = closeIconColor;
@@ -357,7 +367,11 @@ static NSMutableDictionary *globalDesignDictionary;
     break;
   }
   case RMessageTypeWarning: {
-    self.iconImageView.image = _warningIcon;
+      self.iconImageView.image = _warningIcon;
+      break;
+  }
+  case RMessageTypeCustom: {
+    self.iconImageView.image = _successIcon;
     break;
   }
   default:
@@ -668,7 +682,6 @@ static NSMutableDictionary *globalDesignDictionary;
         _titleLabel.textColor = titleTextColor;
     }
 
-
   UIColor *titleShadowColor = [self colorForString:[_messageViewDesignDictionary valueForKey:@"titleShadowColor"]];
   if (titleShadowColor) _titleLabel.shadowColor = titleShadowColor;
   id titleShadowOffsetX = [_messageViewDesignDictionary valueForKey:@"titleShadowOffsetX"];
@@ -684,7 +697,7 @@ static NSMutableDictionary *globalDesignDictionary;
         [_button setTitle:_buttonTitle forState:UIControlStateNormal];
         _stackView.spacing = -5;
         [_button addTarget:self action:@selector(executeMessageViewButtonCallBack) forControlEvents:UIControlEventTouchUpInside];
-        _button.titleLabel.font = _titleLabel.font;
+        _button.titleLabel.font = [UIFont systemFontOfSize:14.0f];
     } else {
         [_button setHidden:YES];
         _stackView.spacing = 5;
@@ -862,17 +875,25 @@ static NSMutableDictionary *globalDesignDictionary;
   if (self.messagePosition != RMessagePositionBottom) {
     if (!messageNavigationBarHidden && self.messagePosition == RMessagePositionTop) {
       // Present from below nav bar when presenting from the top and navigation bar is present
-      [messageNavigationController.view insertSubview:self belowSubview:messageNavigationController.navigationBar];
 
-      /* If view controller edges dont extend under top bars (navigation bar in our case) we must not factor in the
-       navigation bar frame when animating RMessage's final position */
-      if ([[self class] viewControllerEdgesExtendUnderTopBars:messageNavigationController]) {
-        self.topToVCFinalConstant = [UIApplication sharedApplication].statusBarFrame.size.height +
-                                    messageNavigationController.navigationBar.bounds.size.height +
-                                    [self customVerticalOffset];
-      } else {
-        self.topToVCFinalConstant = [self customVerticalOffset];
-      }
+        if ([messageNavigationController isKindOfClass:[UINavigationController class]] && [messageNavigationController.topViewController isKindOfClass:[TalkPageTopicComposeViewController class]]) {
+            [messageNavigationController.view insertSubview:self aboveSubview:messageNavigationController.navigationBar];
+            self.topToVCFinalConstant = [self customVerticalOffset];
+            return;
+        }
+        
+        [messageNavigationController.view insertSubview:self belowSubview:messageNavigationController.navigationBar];
+            
+        /* If view controller edges dont extend under top bars (navigation bar in our case) we must not factor in the
+         navigation bar frame when animating RMessage's final position */
+        if ([[self class] viewControllerEdgesExtendUnderTopBars:messageNavigationController]) {
+          self.topToVCFinalConstant = [UIApplication sharedApplication].statusBarFrame.size.height +
+                                      messageNavigationController.navigationBar.bounds.size.height +
+                                      [self customVerticalOffset];
+        } else {
+          self.topToVCFinalConstant = [self customVerticalOffset];
+        }
+        
     } else {
       /* Navigation bar hidden or being asked to present as nav bar overlay, so present above status bar and/or
        navigation bar */

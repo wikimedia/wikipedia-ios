@@ -11,8 +11,8 @@ protocol TalkPageReplyComposeDelegate: AnyObject {
 class TalkPageReplyComposeController {
     
     enum ActionSheetStrings {
-        static let closeConfirmationTitle = WMFLocalizedString("talk-pages-reply-compose-close-confirmation-title", value: "Are you sure you want to discard this new reply?", comment: "Title of confirmation alert displayed to user when they attempt to close the new reply view after entering text.")
-        static let closeConfirmationDiscard = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-discard", value: "Discard Reply", comment: "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text.")
+        static let closeConfirmationTitle = WMFLocalizedString("talk-pages-reply-compose-close-confirmation-title", value: "Are you sure you want to discard this new reply?", comment: "Title of confirmation alert displayed to user when they attempt to close the new reply view after entering text. Please prioritize for de, ar and zh wikis.")
+        static let closeConfirmationDiscard = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-discard", value: "Discard Reply", comment: "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text. Please prioritize for de, ar and zh wikis.")
     }
     
     // viewController - the view controller that triggered the reply compose screen
@@ -43,10 +43,11 @@ class TalkPageReplyComposeController {
     }
     
     private var displayMode: DisplayMode = .partial
+    private weak var authenticationManager: WMFAuthenticationManager?
 
     // MARK: Public
     
-    func setupAndDisplay(in viewController: ReplyComposableViewController, commentViewModel: TalkPageCellCommentViewModel) {
+    func setupAndDisplay(in viewController: ReplyComposableViewController, commentViewModel: TalkPageCellCommentViewModel, authenticationManager: WMFAuthenticationManager?) {
         
         guard self.commentViewModel == nil else {
             attemptChangeCommentViewModel(in: viewController, newCommentViewModel: commentViewModel)
@@ -55,6 +56,7 @@ class TalkPageReplyComposeController {
         
         self.viewController = viewController
         self.commentViewModel = commentViewModel
+        self.authenticationManager = authenticationManager
         setupViews(in: viewController, commentViewModel: commentViewModel)
         apply(theme: viewController.theme)
     }
@@ -63,7 +65,7 @@ class TalkPageReplyComposeController {
         
         presentDismissConfirmationActionSheet(discardBlock: {
             self.closeAndReset(completion: {
-                self.setupAndDisplay(in: viewController, commentViewModel: newCommentViewModel)
+                self.setupAndDisplay(in: viewController, commentViewModel: newCommentViewModel, authenticationManager: self.authenticationManager)
             })
         })
     }
@@ -371,11 +373,34 @@ class TalkPageReplyComposeController {
         
         guard let commentViewModel = commentViewModel,
               let text = contentView?.replyTextView.text else {
+            assertionFailure("Comment view model or replyTextView text is empty. Publish button should have been disabled.")
             return
         }
         
-        isLoading = true
-        viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
+        contentView?.replyTextView.resignFirstResponder()
+        
+        guard let authenticationManager = authenticationManager,
+        !authenticationManager.isLoggedIn else {
+            isLoading = true
+            viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
+            return
+        }
+        
+        guard let theme = viewController?.theme else {
+            return
+        }
+        
+        viewController?.wmf_showNotLoggedInUponPublishPanel(buttonTapHandler: { [weak self] buttonIndex in
+            switch buttonIndex {
+            case 0:
+                break
+            case 1:
+                self?.isLoading = true
+                self?.viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
+            default:
+                assertionFailure("Unrecognized button index in tap handler.")
+            }
+        }, theme: theme)
     }
 }
 
