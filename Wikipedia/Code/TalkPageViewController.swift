@@ -180,7 +180,6 @@ class TalkPageViewController: ViewController {
 
         fetchTalkPage()
         setupToolbar()
-        reachabilityNotifier.start()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -190,6 +189,11 @@ class TalkPageViewController: ViewController {
 
     @objc func tryAgain() {
         fetchTalkPage()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        reachabilityNotifier.start()
     }
 
     private func setupHeaderView() {
@@ -361,10 +365,10 @@ class TalkPageViewController: ViewController {
     }
     
     // MARK: - Overflow menu navigation
-    
+
     fileprivate func pushToDesktopWeb() {
         guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/\(viewModel.pageTitle)", isMobile: false) else {
-            // TODO: Error banner
+            showGenericError()
             return
         }
         
@@ -376,7 +380,7 @@ class TalkPageViewController: ViewController {
         guard let host = viewModel.siteURL.host,
               let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
                                                                                                                                                                 "action": "info"]) else {
-            // TODO: Error banner
+            showGenericError()
             return
         }
         
@@ -385,7 +389,7 @@ class TalkPageViewController: ViewController {
     
     fileprivate func pushToWhatLinksHere() {
         guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:WhatLinksHere/\(viewModel.pageTitle)", isMobile: true) else {
-            // TODO: Error banner
+            showGenericError()
             return
         }
         
@@ -395,7 +399,7 @@ class TalkPageViewController: ViewController {
     fileprivate func pushToContributions() {
         guard let username = usernameFromPageTitle(),
               let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) else {
-            // TODO: Error banner
+            showGenericError()
             return
         }
         
@@ -405,7 +409,7 @@ class TalkPageViewController: ViewController {
     fileprivate func pushToUserGroups() {
         guard let username = usernameFromPageTitle(),
               let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:UserRights/\(username)", isMobile: true) else {
-            // TODO: Error banner
+            showGenericError()
             return
         }
         
@@ -415,7 +419,7 @@ class TalkPageViewController: ViewController {
     fileprivate func pushToLogs() {
         guard let username = usernameFromPageTitle(),
               let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Log/\(username)", isMobile: true) else {
-            // TODO: Error banner
+            showGenericError()
             return
         }
         
@@ -443,7 +447,7 @@ class TalkPageViewController: ViewController {
               let host = mobileSiteURL.host,
               let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
                                                                                                                                                                 "oldid": latestRevisionID]) else {
-            // TODO: Error banner
+            showGenericError()
             return
         }
         
@@ -777,12 +781,16 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
         
         viewModel.postReply(commentId: commentViewModel.commentId, comment: text) { [weak self] result in
 
+            guard let self else {
+                return
+            }
+
             switch result {
             case .success:
-                self?.replyComposeController.closeAndReset()
+                self.replyComposeController.closeAndReset()
                 
                 // Try to refresh page
-                self?.viewModel.fetchTalkPage { [weak self] result in
+                self.viewModel.fetchTalkPage { [weak self] result in
 
                     switch result {
                     case .success:
@@ -800,24 +808,29 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 }
             case .failure(let error):
                 DDLogError("Failure publishing reply: \(error)")
-                self?.replyComposeController.isLoading = false
+                self.replyComposeController.isLoading = false
 
                 if (error as NSError).wmf_isNetworkConnectionError() {
                     let title = TalkPageLocalizedStrings.replyFailedAlertTitle
                     if UIAccessibility.isVoiceOverRunning {
                         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                     } else {
-                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.replyFailedAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
                     }
                 } else {
-                    let alert = UIAlertController(title: TalkPageLocalizedStrings.unexpectedErrorAlertTitle, message: TalkPageLocalizedStrings.unexpectedErrorAlertSubtitle, preferredStyle: .alert)
-                    let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
-                    alert.addAction(action)
-                    self?.present(alert, animated: true)
+                    self.showUnexpectedErrorAlert(on: self)
                 }
             }
         }
     }
+
+    fileprivate func showUnexpectedErrorAlert(on viewController: UIViewController) {
+        let alert = UIAlertController(title: TalkPageLocalizedStrings.unexpectedErrorAlertTitle, message: TalkPageLocalizedStrings.unexpectedErrorAlertSubtitle, preferredStyle: .alert)
+        let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
+        alert.addAction(action)
+        viewController.present(alert, animated: true)
+    }
+
 }
 
 // MARK: Extensions
@@ -846,14 +859,23 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                     }
                 }
             case .failure(let error):
+                
                 DDLogError("Failure publishing topic: \(error)")
                 composeViewController.setupNavigationBar(isPublishing: false)
-                // TODO: Display failure banner on topic compose VC
+                
+                if (error as NSError).wmf_isNetworkConnectionError() {
+                    let title = TalkPageLocalizedStrings.newTopicFailedAlertTitle
+                    if UIAccessibility.isVoiceOverRunning {
+                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                    } else {
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
+                    }
+                } else {
+                    self?.showUnexpectedErrorAlert(on: composeViewController)
+                }
             }
         }
     }
-    
-    
 }
 
 extension TalkPageViewController: UIAdaptivePresentationControllerDelegate {
@@ -902,7 +924,8 @@ extension TalkPageViewController {
         static let unsubscriptionFailed = WMFLocalizedString("talk-page-unsubscription-failed-alert", value: "Unsubscribing to the topic failed, please try again.", comment: "Text for the unsubscription failure alert")
         static let subscriptionFailed = WMFLocalizedString("talk-page-subscription-failed-alert", value: "Subscribing to the topic failed, please try again.", comment: "Text for the subscription failure alert")
         static let replyFailedAlertTitle = WMFLocalizedString("talk-page-publish-reply-error-title", value: "Unable to publish your comment.", comment: "Title for topic reply error alert")
-        static let replyFailedAlertSubtitle = WMFLocalizedString("talk-page-publish-reply-error-subtitle", value: "Please check your internet connection.", comment: "Subtitle for topic reply error alert")
+        static let newTopicFailedAlertTitle = WMFLocalizedString("talk-page-publish-topic-error-title", value: "Unable to publish new topic.", comment: "Title for new topic post error alert")
+        static let failureAlertSubtitle = WMFLocalizedString("talk-page-publish-reply-error-subtitle", value: "Please check your internet connection.", comment: "Subtitle for topic reply error alert")
         static let unexpectedErrorAlertTitle = WMFLocalizedString("talk-page-error-alert-title", value: "Unexpected error", comment: "Title for unexpected error alert")
         static let unexpectedErrorAlertSubtitle = WMFLocalizedString("talk-page-error-alert-subtitle", value: "The app recieved an unexpected response from the server. Please try again later.", comment: "Subtitle for unexpected error alert")
     }

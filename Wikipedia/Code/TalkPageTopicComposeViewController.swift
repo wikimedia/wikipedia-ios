@@ -144,7 +144,7 @@ class TalkPageTopicComposeViewController: ViewController {
         apply(theme: theme)
         self.title = Self.TopicComposeStrings.navigationBarTitle
     }
-    
+
     private func setupSafeAreaBackgroundView() {
         view.addSubview(safeAreaBackgroundView)
         

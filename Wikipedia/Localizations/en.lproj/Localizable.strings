@@ -1007,6 +1007,7 @@
 "talk-page-publish-reply-error-subtitle" = "Please check your internet connection.";
 "talk-page-publish-reply-error-title" = "Unable to publish your comment.";
 "talk-page-publish-terms-and-licenses" = "By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 3.0$4 and the $5GFDL$6 licenses.";
+"talk-page-publish-topic-error-title" = "Unable to publish new topic.";
 "talk-page-read-in-web" = "Read in web";
 "talk-page-related-links" = "What links here";
 "talk-page-reply-button" = "Reply";
