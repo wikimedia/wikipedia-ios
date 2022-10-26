@@ -11,10 +11,15 @@ final class TalkPageCellViewModel {
     let topicName: String
 
     let id: String
-    var leadComment: TalkPageCellCommentViewModel
+    
+    // A cell could contain unsigned content with no replies. In this case the leadComment is nil and otherContent is populated. The subscribe button, metadata row and first reply button will hide.
+    let leadComment: TalkPageCellCommentViewModel?
+    let otherContent: String?
+    
     let replies: [TalkPageCellCommentViewModel]
+    
     // Number of users involved in thread
-    let activeUsersCount: String
+    let activeUsersCount: String?
 
     var repliesCount: String {
         // Add one for lead comment
@@ -22,14 +27,17 @@ final class TalkPageCellViewModel {
     }
     
     var allCommentViewModels: [TalkPageCellCommentViewModel] {
-        return replies + [leadComment]
+        if let leadComment = leadComment {
+            return replies + [leadComment]
+        }
+        return replies
     }
 
     let isUserLoggedIn: Bool
     
     weak var viewModel: TalkPageViewModel?
     
-    init(id: String, topicTitle: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel, replies: [TalkPageCellCommentViewModel], activeUsersCount: String, isUserLoggedIn: Bool, dateFormatter: DateFormatter?) {
+    init(id: String, topicTitle: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel?, otherContent: String?, replies: [TalkPageCellCommentViewModel], activeUsersCount: String?, isUserLoggedIn: Bool, dateFormatter: DateFormatter?) {
         self.id = id
         self.topicTitle = topicTitle
         self.timestamp = timestamp
@@ -40,6 +48,7 @@ final class TalkPageCellViewModel {
         }
         self.topicName = topicName
         self.leadComment = leadComment
+        self.otherContent = otherContent
         self.replies = replies
         self.activeUsersCount = activeUsersCount
         self.isUserLoggedIn = isUserLoggedIn

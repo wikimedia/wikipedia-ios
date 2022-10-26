@@ -118,32 +118,12 @@ final class TalkPageCell: UICollectionViewCell {
 
     func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling) {
         self.viewModel = viewModel
-
+        
         topicView.configure(viewModel: viewModel)
         topicView.linkDelegate = linkDelegate
-
-        if viewModel.isThreadExpanded {
-            stackView.addArrangedSubview(leadReplySpacer)
-            stackView.addArrangedSubview(leadReplyButton)
-
-            for commentViewModel in viewModel.replies {
-                let separator = TalkPageCellCommentSeparator()
-                separator.setContentHuggingPriority(.defaultLow, for: .horizontal)
-                separator.setContentCompressionResistancePriority(.required, for: .horizontal)
-
-                let commentView = TalkPageCellCommentView()
-                commentView.replyDelegate = replyDelegate
-                commentView.configure(viewModel: commentViewModel)
-                commentView.linkDelegate = linkDelegate
-
-                stackView.addArrangedSubview(separator)
-                stackView.addArrangedSubview(commentView)
-            }
-        }
         
         topicView.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
         topicView.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
-
         leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
         
         let languageCode = viewModel.viewModel?.siteURL.wmf_languageCode
@@ -154,7 +134,34 @@ final class TalkPageCell: UICollectionViewCell {
         }
         
         updateSemanticContentAttribute(semanticContentAttribute)
+        
+        let showingOtherContent = viewModel.leadComment == nil && viewModel.otherContent != nil
+        
+        guard !showingOtherContent else {
+            return
+        }
+        
+        if viewModel.isThreadExpanded {
+            
+            stackView.addArrangedSubview(leadReplySpacer)
+            stackView.addArrangedSubview(leadReplyButton)
+            
+            for commentViewModel in viewModel.replies {
+                let separator = TalkPageCellCommentSeparator()
+                separator.setContentHuggingPriority(.defaultLow, for: .horizontal)
+                separator.setContentCompressionResistancePriority(.required, for: .horizontal)
+                
+                let commentView = TalkPageCellCommentView()
+                commentView.replyDelegate = replyDelegate
+                commentView.configure(viewModel: commentViewModel)
+                commentView.linkDelegate = linkDelegate
+                
+                stackView.addArrangedSubview(separator)
+                stackView.addArrangedSubview(commentView)
+            }
+        }
     }
+
     
     func updateSubscribedState(viewModel: TalkPageCellViewModel) {
         topicView.updateSubscribedState(cellViewModel: viewModel)
