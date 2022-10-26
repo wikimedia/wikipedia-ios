@@ -31,10 +31,10 @@ class NotificationsCenterInboxViewModel: ObservableObject {
             }
         }
         let iconName: String?
-        let project: RemoteNotificationsProject
+        let project: WikimediaProject
         let remoteNotificationsController: RemoteNotificationsController
         
-        init(title: String, isSelected: Bool, iconName: String?, project: RemoteNotificationsProject, remoteNotificationsController: RemoteNotificationsController) {
+        init(title: String, isSelected: Bool, iconName: String?, project: WikimediaProject, remoteNotificationsController: RemoteNotificationsController) {
             self.title = title
             self.isSelected = isSelected
             self.iconName = iconName
@@ -42,7 +42,7 @@ class NotificationsCenterInboxViewModel: ObservableObject {
             self.project = project
         }
         
-        private func appendProjectToFilter(_ project: RemoteNotificationsProject) {
+        private func appendProjectToFilter(_ project: WikimediaProject) {
             
             let currentFilterState = remoteNotificationsController.filterState
             
@@ -53,7 +53,7 @@ class NotificationsCenterInboxViewModel: ObservableObject {
             remoteNotificationsController.filterState = newFilterState
         }
         
-        private func removeProjectFromFilter(_ project: RemoteNotificationsProject) {
+        private func removeProjectFromFilter(_ project: WikimediaProject) {
             
             let currentFilterState = remoteNotificationsController.filterState
             
@@ -69,7 +69,7 @@ class NotificationsCenterInboxViewModel: ObservableObject {
     @Published var theme: Theme
     let remoteNotificationsController: RemoteNotificationsController
  
-    init?(remoteNotificationsController: RemoteNotificationsController, allInboxProjects: Set<RemoteNotificationsProject>, theme: Theme) {
+    init?(remoteNotificationsController: RemoteNotificationsController, allInboxProjects: Set<WikimediaProject>, theme: Theme) {
      
         let filterState = remoteNotificationsController.filterState
         

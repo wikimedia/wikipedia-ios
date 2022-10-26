@@ -1003,6 +1003,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "ʎəʒit";
 "talk-page-discussion-unread-accessibility-label" = "No llegit";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "no ʎəʒit";
+"talk-page-error-loading-subtitle" = "Ha fallat quelcom.";
+"talk-page-error-loading-title" = "No es pot carregar la pàgina de discussió";
 "talk-page-error-unable-to-post-reply" = "No hi ha connexió a Internet. No es pot enviar la resposta.";
 "talk-page-error-unable-to-post-topic" = "No hi ha connexió a Internet. No es pot enviar la discussió.";
 "talk-page-find-in-page-button" = "Cerca a la pàgina";
@@ -1049,6 +1051,7 @@
 "talk-page-user-contributions" = "Contribucions";
 "talk-pages-coffee-roll-read-more" = "Més informació";
 "talk-pages-comment-added-alert-title" = "S'ha afegit el vostre comentari";
+"talk-pages-compose-close-confirmation-keep" = "Continua l'edició";
 "talk-pages-empty-view-body-article" = "Les pàgines de discussió són on la gent debat com fer contingut a la Viquipèdia de la millor forma possible. **Comenceu-hi afegint un nou tema de discussió** per a connectar-vos-hi i col·laborar amb una comunitat de viquipedistes.";
 "talk-pages-empty-view-body-user" = "Les pàgines de discussió són on la gent debat com fer contingut a la Viquipèdia de la millor forma possible. Inicieu una nova discussió per a connectar-vos-hi i col·laborar amb $1. El que hi digueu serà públic per a tothom qui ho vegi.";
 "talk-pages-empty-view-button-article-add-topic" = "Afegeix un tema nou";
@@ -1056,10 +1059,10 @@
 "talk-pages-empty-view-header-article" = "La conversa comença aquí";
 "talk-pages-empty-view-header-user" = "Inicia una discussió amb $1";
 "talk-pages-reply-button-title" = "Respon la discussió";
+"talk-pages-reply-compose-close-confirmation-title" = "Esteu segur que voleu descartar aquesta nova resposta?";
 "talk-pages-topic-added-alert-title" = "S'ha afegit el vostre tema";
 "talk-pages-topic-compose-body-placeholder" = "Descripció";
-"talk-pages-topic-compose-close-confirmation-discard" = "Descarta el tema";
-"talk-pages-topic-compose-close-confirmation-keep" = "Continua l'edició";
+"talk-pages-topic-compose-close-confirmation-discard" = "Descarta la resposta";
 "talk-pages-topic-compose-close-confirmation-title" = "Esteu segur que voleu descartar aquest nou tema?";
 "talk-pages-topic-compose-navbar-title" = "Tema";
 "talk-pages-topic-compose-title-placeholder" = "Títol del tema";

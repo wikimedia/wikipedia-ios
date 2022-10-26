@@ -425,15 +425,17 @@
 "talk-page-subscribe-to-topic" = "सदस्यता लिनुहोस्";
 "talk-page-unsubscribe-to-topic" = "सदस्यता खारेज गर्नुहोस्";
 "talk-pages-coffee-roll-read-more" = "थप पढ्नुहोस्";
+"talk-pages-compose-close-confirmation-keep" = "सम्पादन जारी राख्नुहोस्";
 "talk-pages-empty-view-button-article-add-topic" = "नयाँ विषय थप्नुहोस्";
 "talk-pages-empty-view-button-user-start-discussion" = "छलफल सुरु गर्नुहोस्";
 "talk-pages-topic-added-alert-title" = "तपाईंको विषय थपियो।";
 "talk-pages-topic-compose-body-placeholder" = "वर्णन";
+// Fuzzy
 "talk-pages-topic-compose-close-confirmation-discard" = "विषय खारेज गर्नुहोस्";
-"talk-pages-topic-compose-close-confirmation-keep" = "सम्पादन जारी राख्नुहोस्";
 "talk-pages-topic-compose-close-confirmation-title" = "के तपाइँ यो नयाँ विषयलाई खारेज गर्न निश्चित हुनुहुन्छ?";
 "talk-pages-topic-compose-navbar-title" = "विषय";
 "talk-pages-topic-compose-title-placeholder" = "विषय शीर्षक";
+"talk-pages-topic-reply-onboarding-title" = "वार्तालाप पृष्ठ";
 "talk-pages-view-title" = "वार्तालाप";
 "theme-black-display-name" = "कालो";
 "theme-dark-display-name" = "गाढा";

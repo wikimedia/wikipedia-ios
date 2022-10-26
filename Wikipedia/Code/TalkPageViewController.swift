@@ -123,7 +123,7 @@ class TalkPageViewController: ViewController {
         view = talkPageView
         scrollView = talkPageView.collectionView
     }
-    
+
     fileprivate func fetchTalkPage() {
         navigationBar.removeUnderNavigationBarView()
         self.headerView = nil
@@ -141,10 +141,18 @@ class TalkPageViewController: ViewController {
                 self.talkPageView.configure(viewModel: self.viewModel)
                 self.talkPageView.emptyView.actionButton.addTarget(self, action: #selector(self.userDidTapAddTopicButton), for: .primaryActionTriggered)
                 self.updateEmptyStateVisibility()
-                self.talkPageView.collectionView.reloadData()
+                guard self.needsDeepLinkScroll() else {
+                    self.talkPageView.collectionView.reloadData()
+                    break
+                }
+                
+                self.reloadDataAndScrollToDeepLink()
+                
             case .failure:
-                break
+                self.talkPageView.errorView.button.addTarget(self, action: #selector(self.tryAgain), for: .primaryActionTriggered)
             }
+            self.updateErrorStateVisibility()
+
         }
     }
 
@@ -174,6 +182,10 @@ class TalkPageViewController: ViewController {
         setupToolbar()
     }
 
+    @objc func tryAgain() {
+        fetchTalkPage()
+    }
+
     private func setupHeaderView() {
         
         if self.headerView != nil {
@@ -201,7 +213,7 @@ class TalkPageViewController: ViewController {
     // MARK: - Coffee Roll
 
     @objc private func userDidTapCoffeeRollReadMoreButton() {
-        let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: talkPageURL)
+        let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: talkPageURL, semanticContentAttribute: viewModel.semanticContentAttribute)
         let coffeeViewController = TalkPageCoffeeRollViewController(theme: theme, viewModel: coffeeRollViewModel)
         push(coffeeViewController, animated: true)
     }
@@ -280,7 +292,6 @@ class TalkPageViewController: ViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         talkPageView.collectionView.reloadData()
         headerView?.updateLabelFonts()
-        replyComposeController.calculateLayout(in: self)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -315,7 +326,8 @@ class TalkPageViewController: ViewController {
     }
 
     @objc fileprivate func userDidTapAddTopicButton() {
-        let topicComposeVC = TalkPageTopicComposeViewController(theme: theme)
+        let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute)
+        let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, theme: theme)
         topicComposeVC.delegate = self
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
@@ -474,6 +486,68 @@ class TalkPageViewController: ViewController {
         }
     }
     
+    private func needsDeepLinkScroll() -> Bool {
+            return deepLinkDestination() != nil
+        }
+        
+    private func reloadDataAndScrollToDeepLink() {
+        
+        guard let destination = deepLinkDestination() else {
+            return
+        }
+        
+        let cellViewModel = destination.0
+        let indexPath = destination.1
+        let commentViewModel = destination.2
+        
+        cellViewModel.isThreadExpanded = true
+        talkPageView.collectionView.reloadData()
+        
+        isProgramaticallyScrolling = true
+        talkPageView.collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: false)
+        isProgramaticallyScrolling = false
+        
+        if let commentViewModel = commentViewModel {
+            scrollToComment(commentViewModel: commentViewModel, animated: false)
+        }
+    }
+    
+    private func deepLinkDestination() -> (TalkPageCellViewModel, IndexPath, TalkPageCellCommentViewModel?)? {
+        
+        guard let deepLinkData = viewModel.deepLinkData,
+              let topicTitle = deepLinkData.topicTitle.unescapedNormalizedPageTitle else {
+            return nil
+        }
+        
+        var targetIndexPath: IndexPath?
+        var targetCellViewModel: TalkPageCellViewModel?
+        var targetCommentViewModel: TalkPageCellCommentViewModel?
+        
+        for (index, cellViewModel) in viewModel.topics.enumerated() {
+            if cellViewModel.topicTitle.removingHTML == topicTitle {
+                targetIndexPath = IndexPath(item: index, section: 0)
+                targetCellViewModel = cellViewModel
+                break
+            }
+        }
+        
+        guard let targetCellViewModel = targetCellViewModel,
+            let targetIndexPath = targetIndexPath else {
+            return nil
+        }
+        
+        if let replyText = deepLinkData.replyText {
+            
+            for commentViewModel in targetCellViewModel.allCommentViewModels {
+                if commentViewModel.text.removingHTML.contains(replyText.removingHTML) {
+                    targetCommentViewModel = commentViewModel
+                }
+            }
+        }
+        
+        return (targetCellViewModel, targetIndexPath, targetCommentViewModel)
+    }
+    
     private func scrollToNewComment(oldCellViewModel: TalkPageCellViewModel?, oldCommentViewModels: [TalkPageCellCommentViewModel]?) {
         
         guard let oldCellViewModel = oldCellViewModel,
@@ -508,7 +582,7 @@ class TalkPageViewController: ViewController {
         return newComment
     }
     
-    private func scrollToComment(commentViewModel: TalkPageCellCommentViewModel) {
+    private func scrollToComment(commentViewModel: TalkPageCellCommentViewModel, animated: Bool = true) {
         
         guard let cellViewModel = commentViewModel.cellViewModel else {
             return
@@ -528,12 +602,11 @@ class TalkPageViewController: ViewController {
                 if let talkPageCell = cell as? TalkPageCell {
                     
                     if talkPageCell.viewModel == cellViewModel {
-
-                        if let commentView = talkPageCell.commentViewForViewModel(commentViewModel),
-                           let convertedCommentViewFrame = commentView.superview?.convert(commentView.frame, to: collectionView) {
-                            let shiftedFrame = CGRect(x: convertedCommentViewFrame.minX, y: convertedCommentViewFrame.minY + 50, width: convertedCommentViewFrame.width, height: convertedCommentViewFrame.height)
-                            collectionView.scrollRectToVisible(shiftedFrame, animated: true)
-                        }
+                         if let commentView = talkPageCell.commentViewForViewModel(commentViewModel),
+                             let convertedCommentViewFrame = commentView.superview?.convert(commentView.frame, to: collectionView) {
+                             let shiftedFrame = CGRect(x: convertedCommentViewFrame.minX, y: convertedCommentViewFrame.minY + 50, width: convertedCommentViewFrame.width, height: convertedCommentViewFrame.height)
+                                 collectionView.scrollRectToVisible(shiftedFrame, animated: animated)
+                         }
                     }
                 }
             }
@@ -542,7 +615,7 @@ class TalkPageViewController: ViewController {
         if talkPageView.collectionView.indexPathsForVisibleItems.contains(topicIndexPath) {
             scrollToIndividualComment()
         } else {
-            talkPageView.collectionView.scrollToItem(at: topicIndexPath, at: .top, animated: true)
+            talkPageView.collectionView.scrollToItem(at: topicIndexPath, at: .top, animated: animated)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                 scrollToIndividualComment()
@@ -551,11 +624,8 @@ class TalkPageViewController: ViewController {
     }
 
     private func changeTalkPageLanguage(_ siteURL: URL, pageTitle: String) {
-        viewModel.pageTitle = pageTitle
         
-        viewModel.siteURL = siteURL
-        viewModel.dataController = TalkPageDataController(pageType: viewModel.pageType, pageTitle: viewModel.pageTitle, siteURL: siteURL, articleSummaryController: viewModel.dataController.articleSummaryController)
-
+        viewModel.resetToNewSiteURL(siteURL, pageTitle: pageTitle)
         fetchTalkPage()
     }
 }
@@ -619,8 +689,9 @@ extension TalkPageViewController: TalkPageCellDelegate {
         
         let shouldSubscribe = !configuredCellViewModel.isSubscribed
         cellViewModel.isSubscribed.toggle()
-        cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
         
+        cell.updateSubscribedState(viewModel: cellViewModel)
+
         viewModel.subscribe(to: configuredCellViewModel.topicName, shouldSubscribe: shouldSubscribe) { result in
             switch result {
             case let .success(didSubscribe):
@@ -628,7 +699,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
             case let .failure(error):
                 cellViewModel.isSubscribed.toggle()
                 if cell.viewModel?.topicName == cellViewModel.topicName {
-                    cell.configure(viewModel: cellViewModel, linkDelegate: self)
+                    cell.updateSubscribedState(viewModel: cellViewModel)
                 }
                 DDLogError("Error subscribing to topic: \(error)")
                 // TODO: Error handling
@@ -644,6 +715,9 @@ extension TalkPageViewController: TalkPageCellDelegate {
         updateScrollViewInsets()
     }
 
+    fileprivate func updateErrorStateVisibility() {
+        talkPageView.updateErrorView(visible: viewModel.shouldShowErrorState)
+    }
 
 }
 
@@ -705,7 +779,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
             case .success:
                 
                 composeViewController.dismiss(animated: true) {
-                    // TODO: Display success banner
+                    self?.handleNewTopicOrCommentAlert(isNewTopic: true)
                 }
                 
                 // Try to refresh page
@@ -715,7 +789,6 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                         self?.updateEmptyStateVisibility()
                         self?.talkPageView.collectionView.reloadData()
                         self?.scrollToLastTopic()
-                        self?.handleNewTopicOrCommentAlert(isNewTopic: true)
                     case .failure:
                         break
                     }
@@ -749,27 +822,27 @@ extension TalkPageViewController: UIAdaptivePresentationControllerDelegate {
 
 extension TalkPageViewController {
     enum TalkPageLocalizedStrings {
-        static let title = WMFLocalizedString("talk-pages-view-title", value: "Talk", comment: "Title of user and article talk pages view.")
-        static let openAllThreads = WMFLocalizedString("talk-page-menu-open-all", value: "Open all threads", comment: "Title for menu option open all talk page threads")
-        static let readInWeb = WMFLocalizedString("talk-page-read-in-web", value: "Read in web", comment: "Title for menu option to read a talk page in a web browser")
-        static let archives = WMFLocalizedString("talk-page-archives", value: "Archives", comment: "Title for menu option that redirects to talk page archives")
-        static let pageInfo = WMFLocalizedString("talk-page-page-info", value: "Page information", comment: "Title for menu option to go to the talk page information link")
-        static let permaLink = WMFLocalizedString("talk-page-permanent-link", value: "Permanent link", comment: "Title for menu option to open the talk page's permanent link in a web browser")
-        static let changeLanguage = WMFLocalizedString("talk-page-change-language", value: "Change language", comment: "Title for menu option to got to the change language page")
-        static let relatedLinks = WMFLocalizedString("talk-page-related-links", value: "What links here", comment: "Title for menu option that redirects to a page that shows related links")
-        static let aboutTalkPages = WMFLocalizedString("talk-page-article-about", value: "About talk pages", comment: "Title for menu option for information on article talk pages")
+        static let title = WMFLocalizedString("talk-pages-view-title", value: "Talk", comment: "Title of user and article talk pages view. Please prioritize for de, ar and zh wikis.")
+        static let openAllThreads = WMFLocalizedString("talk-page-menu-open-all", value: "Open all threads", comment: "Title for menu option open all talk page threads. Please prioritize for de, ar and zh wikis.")
+        static let readInWeb = WMFLocalizedString("talk-page-read-in-web", value: "Read in web", comment: "Title for menu option to read a talk page in a web browser. Please prioritize for de, ar and zh wikis.")
+        static let archives = WMFLocalizedString("talk-page-archives", value: "Archives", comment: "Title for menu option that redirects to talk page archives. Please prioritize for de, ar and zh wikis.")
+        static let pageInfo = WMFLocalizedString("talk-page-page-info", value: "Page information", comment: "Title for menu option to go to the talk page information link. Please prioritize for de, ar and zh wikis.")
+        static let permaLink = WMFLocalizedString("talk-page-permanent-link", value: "Permanent link", comment: "Title for menu option to open the talk page's permanent link in a web browser. Please prioritize for de, ar and zh wikis.")
+        static let changeLanguage = WMFLocalizedString("talk-page-change-language", value: "Change language", comment: "Title for menu option to got to the change language page. Please prioritize for de, ar and zh wikis.")
+        static let relatedLinks = WMFLocalizedString("talk-page-related-links", value: "What links here", comment: "Title for menu option that redirects to a page that shows related links. Please prioritize for de, ar and zh wikis.")
+        static let aboutTalkPages = WMFLocalizedString("talk-page-article-about", value: "About talk pages", comment: "Title for menu option for information on article talk pages. Please prioritize for de, ar and zh wikis.")
         static let aboutUserTalk = WMFLocalizedString("talk-page-user-about", value: "About user talk pages", comment: "Title for menu option for information on user talk pages")
-        static let contributions = WMFLocalizedString("talk-page-user-contributions", value: "Contributions", comment: "Title for menu option for information on the user's contributions")
-        static let userGroups = WMFLocalizedString("talk-pages-user-groups", value: "User groups", comment: "Title for menu option for information on the user's user groups")
-        static let logs = WMFLocalizedString("talk-pages-user-logs", value: "Logs", comment: "Title for menu option to consult the user's public logs")
+        static let contributions = WMFLocalizedString("talk-page-user-contributions", value: "Contributions", comment: "Title for menu option for information on the user's contributions. Please prioritize for de, ar and zh wikis.")
+        static let userGroups = WMFLocalizedString("talk-pages-user-groups", value: "User groups", comment: "Title for menu option for information on the user's user groups. Please prioritize for de, ar and zh wikis.")
+        static let logs = WMFLocalizedString("talk-pages-user-logs", value: "Logs", comment: "Title for menu option to consult the user's public logs. Please prioritize for de, ar and zh wikis.")
         
-        static let subscribedAlertTitle = WMFLocalizedString("talk-page-subscribed-alert-title", value: "You have subscribed!", comment: "Title for alert informing that the user subscribed to a topic")
-        static let unsubscribedAlertTitle = WMFLocalizedString("talk-page-unsubscribed-alert-title", value: "You have unsubscribed.", comment: "Title for alert informing that the user unsubscribed to a topic")
-        static let subscribedAlertSubtitle = WMFLocalizedString("talk-page-subscribed-alert-subtitle", value: "You will receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will receive notifications for a subscribed topic")
-        static let unsubscribedAlertSubtitle = WMFLocalizedString("talk-page-unsubscribed-alert-subtitle", value: "You will no longer receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will no longer receive notifications for a topic")
+        static let subscribedAlertTitle = WMFLocalizedString("talk-page-subscribed-alert-title", value: "You have subscribed!", comment: "Title for alert informing that the user subscribed to a topic. Please prioritize for de, ar and zh wikis.")
+        static let unsubscribedAlertTitle = WMFLocalizedString("talk-page-unsubscribed-alert-title", value: "You have unsubscribed.", comment: "Title for alert informing that the user unsubscribed to a topic. Please prioritize for de, ar and zh wikis.")
+        static let subscribedAlertSubtitle = WMFLocalizedString("talk-page-subscribed-alert-subtitle", value: "You will receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will receive notifications for a subscribed topic. Please prioritize for de, ar and zh wikis.")
+        static let unsubscribedAlertSubtitle = WMFLocalizedString("talk-page-unsubscribed-alert-subtitle", value: "You will no longer receive notifications about new comments in this topic.", comment: "Subtitle for alert informing that the user will no longer receive notifications for a topic. Please prioritize for de, ar and zh wikis.")
         
-        static let addedTopicAlertTitle = WMFLocalizedString("talk-pages-topic-added-alert-title", value: "Your topic was added", comment: "Title for alert informing that the user's new topic was successfully published.")
-        static let addedCommentAlertTitle = WMFLocalizedString("talk-pages-comment-added-alert-title", value: "Your comment was added", comment: "Title for alert informing that the user's new comment was successfully published.")
+        static let addedTopicAlertTitle = WMFLocalizedString("talk-pages-topic-added-alert-title", value: "Your topic was added", comment: "Title for alert informing that the user's new topic was successfully published. Please prioritize for de, ar and zh wikis.")
+        static let addedCommentAlertTitle = WMFLocalizedString("talk-pages-comment-added-alert-title", value: "Your comment was added", comment: "Title for alert informing that the user's new comment was successfully published. Please prioritize for de, ar and zh wikis.")
         
         static let shareButtonAccesibilityLabel = WMFLocalizedString("talk-page-share-button", value: "Share talk page", comment: "Title for share talk page button")
         static let findButtonAccesibilityLabel = WMFLocalizedString("talk-page-find-in-page-button", value: "Find in page", comment: "Title for find content in page button")

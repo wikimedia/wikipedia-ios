@@ -1,6 +1,7 @@
 // Messages for German (Deutsch)
 // Exported from translatewiki.net
 // Author: 1233qwer1234qwer4
+// Author: Amire80
 // Author: BodminPill
 // Author: Brettchenweber
 // Author: DraconicDark
@@ -931,6 +932,7 @@
 "talk-page-reply-button" = "Antworten";
 "talk-page-reply-placeholder-format" = "$1 antworten";
 "talk-page-reply-title" = "Antworten";
+"talk-page-revision-history" = "Versionsgeschichte";
 "talk-page-share-button" = "Diskussionsseite teilen";
 "talk-page-subscribe-to-topic" = "Abonnieren";
 "talk-page-subscribed-alert-subtitle" = "Du wirst über neue Kommentare in diesem Thema benachrichtigt.";
@@ -944,10 +946,12 @@
 "talk-page-user-about" = "Über Benutzer-Diskussionsseiten";
 "talk-page-user-contributions" = "Beiträge";
 "talk-pages-coffee-roll-read-more" = "Mehr lesen";
+"talk-pages-compose-close-confirmation-keep" = "Weiter bearbeiten";
 "talk-pages-reply-button-title" = "Auf diese Diskussion antworten";
+"talk-pages-topic-added-alert-title" = "Dein Thema wurde hinzugefügt";
 "talk-pages-topic-compose-body-placeholder" = "Beschreibung";
+// Fuzzy
 "talk-pages-topic-compose-close-confirmation-discard" = "Thema verwerfen";
-"talk-pages-topic-compose-close-confirmation-keep" = "Weiter bearbeiten";
 "talk-pages-topic-compose-navbar-title" = "Thema";
 "talk-pages-topic-compose-title-placeholder" = "Thementitel";
 "talk-pages-user-groups" = "Benutzergruppen";

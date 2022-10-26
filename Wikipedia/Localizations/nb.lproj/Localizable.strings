@@ -18,6 +18,7 @@
 // Author: Pmt
 // Author: Premeditated
 // Author: SuperPotato
+// Author: Telaneo
 // Author: Tsaetre
 // Author: Tsevener
 
@@ -555,7 +556,7 @@
 "main-menu-account-title-logged-in" = "Innlogget som $1";
 "main-menu-heading-legal" = "Personvern og vilkår";
 "main-menu-nearby" = "I nærheten";
-"main-menu-privacy-policy" = "Personvernpolitikk";
+"main-menu-privacy-policy" = "Personvernspolitikk";
 "main-menu-rate-app" = "Vurder appen";
 "main-menu-terms-of-use" = "Bruksvilkår";
 "main-menu-title" = "Mer";
@@ -1017,9 +1018,11 @@
 "talk-page-title-user-talk" = "Brukerdiskusjon";
 "talk-page-topic-title" = "Diskusjon";
 "talk-pages-comment-added-alert-title" = "Kommentaren din ble lagt til";
+"talk-pages-compose-close-confirmation-keep" = "Fortsett å redigere";
 "talk-pages-reply-button-title" = "Svar på denne diskusjonen";
 "talk-pages-topic-compose-body-placeholder" = "Beskrivelse";
-"talk-pages-topic-compose-close-confirmation-keep" = "Fortsett å redigere";
+"talk-pages-topic-reply-onboarding-body" = "Diskusjonssider er stedet hvor folk diskuterer hvordan en kan gjøre det som står på Wikipedia-sider best mulig. Legg til et nytt diskusjonssavsnitt for å ta kontakt og sam arbeide med wikipedianerne.";
+"talk-pages-topic-reply-onboarding-title" = "Diskusjonssider";
 "talk-pages-user-groups" = "Brukergrupper";
 "talk-pages-user-logs" = "Logger";
 "talk-pages-view-title" = "Diskusjon";

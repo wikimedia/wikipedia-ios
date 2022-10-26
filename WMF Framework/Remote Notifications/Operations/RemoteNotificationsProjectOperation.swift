@@ -1,9 +1,9 @@
 import Foundation
 
 class RemoteNotificationsProjectOperation: RemoteNotificationsOperation {
-    let project: RemoteNotificationsProject
+    let project: WikimediaProject
     
-    required init(project: RemoteNotificationsProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
+    required init(project: WikimediaProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
         self.project = project
         super.init(apiController: apiController, modelController: modelController)
     }
