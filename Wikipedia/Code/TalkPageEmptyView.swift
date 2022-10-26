@@ -190,6 +190,26 @@ final class TalkPageEmptyView: SetupView {
             bodyLabel.attributedText = NSMutableAttributedString(string: String.localizedStringWithFormat(LocalizedStrings.userBody, viewModel.headerTitle), attributes: [.paragraphStyle: bodyLineHeightAttribute])
             actionButton.setTitle(LocalizedStrings.startDiscussion, for: .normal)
         }
+        
+        let semanticContentAttribute = viewModel.semanticContentAttribute
+        updateSemanticContentAttribute(semanticContentAttribute)
+    }
+    
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+        
+        container.semanticContentAttribute = semanticContentAttribute
+        imageView.semanticContentAttribute = semanticContentAttribute
+        headerLabel.semanticContentAttribute = semanticContentAttribute
+        bodyLabel.semanticContentAttribute = semanticContentAttribute
+        actionButton.semanticContentAttribute = semanticContentAttribute
+        stackView.semanticContentAttribute = semanticContentAttribute
+        imageStack.semanticContentAttribute = semanticContentAttribute
+        headerStack.semanticContentAttribute = semanticContentAttribute
+        bodyStack.semanticContentAttribute = semanticContentAttribute
+        buttonStack.semanticContentAttribute = semanticContentAttribute
+
+        headerLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        bodyLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
     }
 
 }

@@ -99,7 +99,7 @@ class NotificationsCenterViewModelTests: XCTestCase {
         
         let notification = try fetchManagedObject(identifier: identifier)
         guard let apiIdentifier = notification.wiki,
-              let project = RemoteNotificationsProject(apiIdentifier: apiIdentifier, languageLinkController: languageLinkController) else {
+              let project = WikimediaProject(notificationsApiIdentifier: apiIdentifier, languageLinkController: languageLinkController) else {
             throw TestError.failureConvertingManagedObjectToViewModel
         }
         

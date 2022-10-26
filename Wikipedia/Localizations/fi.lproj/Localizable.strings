@@ -991,6 +991,7 @@
 "talk-page-user-contributions" = "Muokkaukset";
 "talk-pages-coffee-roll-read-more" = "Lue lisää";
 "talk-pages-comment-added-alert-title" = "Kommenttisi lisättiin";
+"talk-pages-compose-close-confirmation-keep" = "Jatka muokkaamista";
 "talk-pages-empty-view-body-article" = "Keskustelusivut ovat paikkoja, jossa ihmiset keskustelevat siitä, miten tehdä Wikipedian sisällöstä parhainta mahdollista. **Aloita lisäämällä uusi keskusteluaihe** saadaksesi yhteyden muihin Wikipedian käyttäjäyhteisön jäseniin ja tehdäksesi yhteistyötä heidän kanssaan.";
 "talk-pages-empty-view-body-user" = "Keskustelusivut ovat paikkoja, jossa ihmiset keskustelevat siitä, miten tehdä Wikipedian sisällöstä parhainta mahdollista. Aloita lisäämällä uusi keskusteluaihe saadaksesi yhteyden käyttäjään $1 ja tehdäksesi yhteistyötä hänen kanssaan. Sanomisesi tässä tulee julkisesti muiden nähtäville.";
 "talk-pages-empty-view-button-article-add-topic" = "Lisää uusi aihe";
@@ -1000,8 +1001,8 @@
 "talk-pages-reply-button-title" = "Vastaa tähän keskusteluun";
 "talk-pages-topic-added-alert-title" = "Aiheesi lisättiin";
 "talk-pages-topic-compose-body-placeholder" = "Kuvaus";
+// Fuzzy
 "talk-pages-topic-compose-close-confirmation-discard" = "Hylkää aihe";
-"talk-pages-topic-compose-close-confirmation-keep" = "Jatka muokkaamista";
 "talk-pages-topic-compose-close-confirmation-title" = "Haluatko varmasti hylätä tämän uuden aiheen?";
 "talk-pages-topic-compose-navbar-title" = "Aihe";
 "talk-pages-topic-compose-title-placeholder" = "Otsikko";

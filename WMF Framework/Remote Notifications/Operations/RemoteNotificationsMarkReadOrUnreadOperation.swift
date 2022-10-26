@@ -3,13 +3,13 @@ class RemoteNotificationsMarkReadOrUnreadOperation: RemoteNotificationsProjectOp
     private let shouldMarkRead: Bool
     private let identifierGroups: Set<RemoteNotification.IdentifierGroup>
     
-    required init(project: RemoteNotificationsProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController, identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool) {
+    required init(project: WikimediaProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController, identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool) {
         self.shouldMarkRead = shouldMarkRead
         self.identifierGroups = identifierGroups
         super.init(project: project, apiController: apiController, modelController: modelController)
     }
     
-    required init(project: RemoteNotificationsProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
+    required init(project: WikimediaProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
         fatalError("init(project:apiController:modelController:) has not been implemented")
     }
     

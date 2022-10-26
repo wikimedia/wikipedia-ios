@@ -1011,6 +1011,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
 "talk-page-discussion-unread-accessibility-label" = "Belum dibaca";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
+"talk-page-error-loading-subtitle" = "Ada yang salah.";
+"talk-page-error-loading-title" = "Tidak dapat memuat halaman pembicaraan";
 "talk-page-error-unable-to-post-reply" = "Tidak ada koneksi internet. Tidak dapat memposting balasan.";
 "talk-page-error-unable-to-post-topic" = "Tidak ada koneksi internet. Tidak dapat memposting diskusi.";
 "talk-page-find-in-page-button" = "Cari di halaman";
@@ -1054,10 +1056,10 @@
 "talk-page-user-contributions" = "Kontribusi";
 "talk-pages-coffee-roll-read-more" = "Baca lebih lanjut";
 "talk-pages-comment-added-alert-title" = "Komentar Anda telah ditambahkan";
+"talk-pages-compose-close-confirmation-keep" = "Lanjutkan penyuntingan";
 "talk-pages-reply-button-title" = "Balas diskusi ini";
 "talk-pages-topic-added-alert-title" = "Topik Anda telah ditambahkan";
 "talk-pages-topic-compose-body-placeholder" = "Deskripsi";
-"talk-pages-topic-compose-close-confirmation-keep" = "Lanjutkan penyuntingan";
 "talk-pages-topic-compose-navbar-title" = "Topik";
 "talk-pages-topic-compose-title-placeholder" = "Judul topik";
 "talk-pages-user-groups" = "Kelompok pengguna";

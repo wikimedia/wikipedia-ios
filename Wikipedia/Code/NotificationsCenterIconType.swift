@@ -50,6 +50,6 @@ enum NotificationsCenterIconType: Hashable {
     }
     
     static var wikidata: NotificationsCenterIconType {
-        return .custom("notifications-project-wikidata")
+        return .custom("wikimedia-project-wikidata")
     }
 }

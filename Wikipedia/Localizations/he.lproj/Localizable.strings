@@ -1004,6 +1004,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "nikʁʔ";
 "talk-page-discussion-unread-accessibility-label" = "לא נקרא";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "lo nikʁʔ";
+"talk-page-error-loading-subtitle" = "משהו השתבש.";
+"talk-page-error-loading-title" = "לא ניתן לטעון את דף השיחה";
 "talk-page-error-unable-to-post-reply" = "אין חיבור לאינטרנט. לא ניתן לפרסם תגובה.";
 "talk-page-error-unable-to-post-topic" = "אין חיבור לאינטרנט. לא ניתן לפרסם דיון.";
 "talk-page-find-in-page-button" = "למצוא בדף";
@@ -1050,6 +1052,7 @@
 "talk-page-user-contributions" = "תרומות";
 "talk-pages-coffee-roll-read-more" = "לקרוא עוד";
 "talk-pages-comment-added-alert-title" = "התגובה שלך נוספה";
+"talk-pages-compose-close-confirmation-keep" = "להמשיך לערוך";
 "talk-pages-empty-view-body-article" = "דפי שיחה הם המקום שבו אנשים דנים איך להפוך את התוכן בוויקיפדיה לטוב ביותר שהוא יכול להיות. **יש להתחיל בהוספת נושא דיון חדש** כדי להתחבר ולשתף פעולה עם קהילה של ויקיפדים.";
 "talk-pages-empty-view-body-user" = "דפי שיחה הם המקום שבו אנשים דנים איך להפוך את התוכן בוויקיפדיה לטוב ביותר שהוא יכול להיות. יש להתחיל דיון חדש כדי להתחבר ולשתף פעולה עם $1. מה שייאמר כאן יהיה פומבי לעיני אחרים.";
 "talk-pages-empty-view-button-article-add-topic" = "להוסיף נושא חדש";
@@ -1057,13 +1060,15 @@
 "talk-pages-empty-view-header-article" = "השיחה מתחילה כאן";
 "talk-pages-empty-view-header-user" = "להתחיל דיון עם $1";
 "talk-pages-reply-button-title" = "השב לדיון זה";
+"talk-pages-reply-compose-close-confirmation-title" = "האם ברצונך באמת לזרוק את התשובה החדשה הזאת?";
 "talk-pages-topic-added-alert-title" = "הנושא שלך נוסף";
 "talk-pages-topic-compose-body-placeholder" = "תיאור";
-"talk-pages-topic-compose-close-confirmation-discard" = "לזרוק את הנושא";
-"talk-pages-topic-compose-close-confirmation-keep" = "להמשיך לערוך";
+"talk-pages-topic-compose-close-confirmation-discard" = "לזרוק את התשובה";
 "talk-pages-topic-compose-close-confirmation-title" = "האם ברצונך באמת לזרוק את הנושא החדש הזה?";
 "talk-pages-topic-compose-navbar-title" = "נושא";
 "talk-pages-topic-compose-title-placeholder" = "כותרת הנושא";
+"talk-pages-topic-reply-onboarding-body" = "דפי שיחה הם המקום שבו אנשים דנים איך להפוך את התוכן בוויקיפדיה לטוב ביותר שהוא יכול להיות. אפשר להוסיף נושא דיון חדש כדי להתחבר ולשתף פעולה עם קהילה של ויקיפדים.\n\nנא להיות אדיבים, כולנו כאן בני־אדם.";
+"talk-pages-topic-reply-onboarding-title" = "דפי שיחה";
 "talk-pages-user-groups" = "קבוצות משתמשים";
 "talk-pages-user-logs" = "יומנים";
 "talk-pages-view-title" = "שיחה";

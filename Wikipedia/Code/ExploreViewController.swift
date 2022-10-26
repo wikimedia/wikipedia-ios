@@ -383,6 +383,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             } else {
                 DispatchQueue.main.async {
                     self?.showOfflineEmptyViewIfNeeded()
+
                 }
             }
         }

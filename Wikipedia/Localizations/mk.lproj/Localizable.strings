@@ -989,6 +989,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "прочитано";
 "talk-page-discussion-unread-accessibility-label" = "Непрочитано";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "непрочитано";
+"talk-page-error-loading-subtitle" = "Нешто не е во ред.";
+"talk-page-error-loading-title" = "Не можам да ја вчитам разговорната страница";
 "talk-page-error-unable-to-post-reply" = "Не сте поврзани со семрежјето. Не можам да го објавам одговорот.";
 "talk-page-error-unable-to-post-topic" = "Не сте поврзани со семрежјето. Не можам да ја објавам расправата.";
 "talk-page-find-in-page-button" = "Најди на страницата";
@@ -1035,6 +1037,7 @@
 "talk-page-user-contributions" = "Придонеси";
 "talk-pages-coffee-roll-read-more" = "Прочитајте повеќе";
 "talk-pages-comment-added-alert-title" = "Вашиот коментар е додаден";
+"talk-pages-compose-close-confirmation-keep" = "Продолжи со уредување";
 "talk-pages-empty-view-body-article" = "Разговорните страници се местата кајшто луѓето дискутираат како да ја направат содржината на Википедија што подобра. **Почнете нова тема на разговор** за да се поврзете и да соработувате со заедница на википедијанци.";
 "talk-pages-empty-view-body-user" = "Разговорните страници се местата кајшто луѓето дискутираат како да ја направат содржината на Википедија што подобра. Почнете нова тема на разговор за да се поврзете со $1. и да соработувате со заедница на википедијанци. Напишаното ќе биде јавно, и сите ќе можат да го читаат.";
 "talk-pages-empty-view-button-article-add-topic" = "Додај нова тема";
@@ -1042,10 +1045,10 @@
 "talk-pages-empty-view-header-article" = "Разговорот започнува тука";
 "talk-pages-empty-view-header-user" = "Започни разговор со $1";
 "talk-pages-reply-button-title" = "Одговори на расправата";
+"talk-pages-reply-compose-close-confirmation-title" = "Дали сигурно сакате да го отфрлите овој нов одговор?";
 "talk-pages-topic-added-alert-title" = "Вашата тема е додадена";
 "talk-pages-topic-compose-body-placeholder" = "Опис";
-"talk-pages-topic-compose-close-confirmation-discard" = "Отфрли тема";
-"talk-pages-topic-compose-close-confirmation-keep" = "Продолжи со уредување";
+"talk-pages-topic-compose-close-confirmation-discard" = "Отфрли одговор";
 "talk-pages-topic-compose-close-confirmation-title" = "Дали сигурно сакате да ја отфрлите оваа нова тема?";
 "talk-pages-topic-compose-navbar-title" = "Тема";
 "talk-pages-topic-compose-title-placeholder" = "Наслов на темата";

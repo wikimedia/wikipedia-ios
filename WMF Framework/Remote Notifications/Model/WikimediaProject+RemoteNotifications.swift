@@ -1,21 +1,6 @@
 import Foundation
 
-public enum RemoteNotificationsProject: Hashable {
-    public typealias LanguageCode = String
-    public typealias LocalizedLanguageName = String
-    public typealias LanguageVariantCode = String
-    case wikipedia(LanguageCode, LocalizedLanguageName, LanguageVariantCode?)
-    case wikibooks(LanguageCode, LocalizedLanguageName)
-    case wiktionary(LanguageCode, LocalizedLanguageName)
-    case wikiquote(LanguageCode, LocalizedLanguageName)
-    case wikisource(LanguageCode, LocalizedLanguageName)
-    case wikinews(LanguageCode, LocalizedLanguageName)
-    case wikiversity(LanguageCode, LocalizedLanguageName)
-    case wikivoyage(LanguageCode, LocalizedLanguageName)
-    case mediawiki
-    case wikispecies
-    case commons
-    case wikidata
+extension WikimediaProject {
     
     private static var commonsIdentifier: String {
         return "commonswiki"
@@ -35,35 +20,6 @@ public enum RemoteNotificationsProject: Hashable {
     
     private static var wikipediaLanguageSuffix: String {
         return "wiki"
-    }
-    
-    public var projectIconName: String? {
-        switch self {
-        case .commons:
-            return "notifications-project-commons"
-        case .wikidata:
-            return "notifications-project-wikidata"
-        case .wikiquote:
-            return "notifications-project-wikiquote"
-        case .wikipedia:
-            return nil
-        case .wikibooks:
-            return "notifications-project-wikibooks"
-        case .wiktionary:
-            return "notifications-project-wiktionary"
-        case .wikisource:
-            return "notifications-project-wikisource"
-        case .wikinews:
-            return "notifications-project-wikinews"
-        case .wikiversity:
-            return "notifications-project-wikiversity"
-        case .wikivoyage:
-            return "notifications-project-wikivoyage"
-        case .mediawiki:
-            return "notifications-project-mediawiki"
-        case .wikispecies:
-            return "notifications-project-wikispecies"
-        }
     }
     
     private static var wikibooksLanguageSuffix: String {
@@ -207,10 +163,6 @@ public enum RemoteNotificationsProject: Hashable {
         }
     }
     
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(notificationsApiWikiIdentifier)
-    }
-    
     public var languageVariantCode: String? {
         switch self {
         case .wikipedia(_, _, let languageVariantCode):
@@ -250,7 +202,7 @@ public enum RemoteNotificationsProject: Hashable {
         }
     }
     
-    private static func projectForLanguageSuffix(suffix: String, language: MWKLanguageLink?) -> RemoteNotificationsProject? {
+    private static func projectForLanguageSuffix(suffix: String, language: MWKLanguageLink?) -> WikimediaProject? {
         
         guard let language = language else {
             return nil
@@ -278,13 +230,13 @@ public enum RemoteNotificationsProject: Hashable {
         }
     }
 
-    /// Initializes RemoteNotificationProject with wiki identifier recognize by the MediaWiki Notifications API
+    /// Initializes WikimediaProject with wiki identifier recognize by the MediaWiki Notifications API
     /// - Parameters:
-    ///   - apiIdentifier: The API identifier used by the MediaWiki Notifications API. (e.g. "enwiki", "commonswiki", "wikidatawiki", etc.)
+    ///   - notificationsApiIdentifier: The API identifier used by the MediaWiki Notifications API. (e.g. "enwiki", "commonswiki", "wikidatawiki", etc.)
     ///   - languageLinkController: Included to validate project against a list of languages that the app recognizes. This also associates extra metadata to language enum associated value, like localizedName and languageVariantCode.
-    public init?(apiIdentifier: String, languageLinkController: MWKLanguageLinkController) {
+    public init?(notificationsApiIdentifier: String, languageLinkController: MWKLanguageLinkController) {
         
-        switch apiIdentifier {
+        switch notificationsApiIdentifier {
         case Self.commonsIdentifier:
             self = .commons
         case Self.wikidataIdentifier:
@@ -297,9 +249,9 @@ public enum RemoteNotificationsProject: Hashable {
             
             let suffixes = [Self.wikipediaLanguageSuffix, Self.wikibooksLanguageSuffix, Self.wiktionaryLanguageSuffix, Self.wikiquoteLanguageSuffix, Self.wikimediaLanguageSuffix, Self.wikisourceLanguageSuffix, Self.wikinewsLanguageSuffix, Self.wikiversityLanguageSuffix, Self.wikivoyageLanguageSuffix]
             
-            var project: RemoteNotificationsProject?
+            var project: WikimediaProject?
             for suffix in suffixes {
-                let strippedIdentifier = apiIdentifier.hasSuffix(suffix) ? String(apiIdentifier.dropLast(suffix.count)) : apiIdentifier
+                let strippedIdentifier = notificationsApiIdentifier.hasSuffix(suffix) ? String(notificationsApiIdentifier.dropLast(suffix.count)) : notificationsApiIdentifier
                 
                 // confirm it is a recognized language
                 let recognizedLanguage = languageLinkController.allLanguages.first { languageLink in

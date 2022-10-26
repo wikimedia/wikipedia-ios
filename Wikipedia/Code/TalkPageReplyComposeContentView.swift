@@ -112,6 +112,12 @@ class TalkPageReplyComposeContentView: SetupView {
         setupPlaceholderLabel()
         setupInfoButton()
         apply(theme: theme)
+        
+        guard let semanticContentAttribute = commentViewModel.cellViewModel?.viewModel?.semanticContentAttribute else {
+            return
+        }
+        
+        updateSemanticContentAttribute(semanticContentAttribute)
     }
     
     // MARK: Public
@@ -212,7 +218,7 @@ class TalkPageReplyComposeContentView: SetupView {
     
     private func setupPlaceholderLabel() {
         
-        placeholderLabel.text = String.localizedStringWithFormat(WMFLocalizedString("talk-page-reply-placeholder-format", value: "Reply to %1$@", comment: "Placeholder text that displays in the talk page reply text view. Parameters:\n* %1$@ - the username of the comment the user is replying to."), commentViewModel.author) 
+        placeholderLabel.text = String.localizedStringWithFormat(WMFLocalizedString("talk-page-reply-placeholder-format", value: "Reply to %1$@", comment: "Placeholder text that displays in the talk page reply text view. Parameters:\n* %1$@ - the username of the comment the user is replying to. Please prioritize for de, ar and zh wikis."), commentViewModel.author) 
         
         containerScrollView.addSubview(placeholderLabel)
         
@@ -228,6 +234,19 @@ class TalkPageReplyComposeContentView: SetupView {
     private func setupInfoButton() {
         infoButton.setContentHuggingPriority(.required, for: .vertical)
         infoButton.setContentCompressionResistancePriority(.required, for: .vertical)
+    }
+    
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+        
+        verticalStackView.semanticContentAttribute = semanticContentAttribute
+        replyTextView.semanticContentAttribute = semanticContentAttribute
+        finePrintTextView.semanticContentAttribute = semanticContentAttribute
+        placeholderLabel.semanticContentAttribute = semanticContentAttribute
+        infoButton.semanticContentAttribute = semanticContentAttribute
+        
+        replyTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        finePrintTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        placeholderLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
     }
     
     // MARK: Actions
@@ -250,7 +269,7 @@ class TalkPageReplyComposeContentView: SetupView {
     }
     
     private var licenseTitleTextViewAttributedString: NSAttributedString {
-        let localizedString = WMFLocalizedString("talk-page-reply-terms-and-licenses", value: "Note your reply will be automatically signed with your username. By saving changes, you agree to the %1$@Terms of Use%2$@, and agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ and the %5$@GFDL%6$@ licenses.", comment: "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
+        let localizedString = WMFLocalizedString("talk-page-reply-terms-and-licenses", value: "Note your reply will be automatically signed with your username. By saving changes, you agree to the %1$@Terms of Use%2$@, and agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ and the %5$@GFDL%6$@ licenses.", comment: "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.")
         
         let substitutedString = String.localizedStringWithFormat(
             localizedString,
@@ -315,5 +334,8 @@ extension TalkPageReplyComposeContentView: Themeable {
         
         closeButton.tintColor = theme.colors.tertiaryText
         publishButton.tintColor = theme.colors.link
+        
+        let currentSemanticContentAttribute = verticalStackView.semanticContentAttribute
+        updateSemanticContentAttribute(currentSemanticContentAttribute)
     }
 }
