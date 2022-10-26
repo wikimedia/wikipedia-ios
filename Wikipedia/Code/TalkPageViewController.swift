@@ -68,7 +68,11 @@ class TalkPageViewController: ViewController {
             self?.pushToWhatLinksHere()
         })
 
-        var actions = [goToArchivesAction, pageInfoAction, goToPermalinkAction, changeLanguageAction, relatedLinksAction]
+        var actions = [goToArchivesAction, pageInfoAction, goToPermalinkAction, relatedLinksAction]
+        
+        if viewModel.project.languageCode != nil {
+            actions.insert(changeLanguageAction, at: 3)
+        }
 
         if viewModel.pageType == .user {
             actions.insert(contentsOf: userTalkOverflowSubmenuActions, at: 1)
@@ -161,13 +165,7 @@ class TalkPageViewController: ViewController {
 
         navigationItem.title = TalkPageLocalizedStrings.title
 
-        // Not adding fallback for other versions since we're dropping iOS 13 on the next release
-        // TODO: this version check should be removed
-        if #available(iOS 14.0, *) {
-            let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
-            navigationItem.rightBarButtonItem = rightBarButtonItem
-            rightBarButtonItem.tintColor = theme.colors.link
-        }
+        setupOverflowMenu()
 
         talkPageView.collectionView.dataSource = self
         talkPageView.collectionView.delegate = self
@@ -218,6 +216,16 @@ class TalkPageViewController: ViewController {
         headerView.apply(theme: theme)
 
         headerView.coffeeRollReadMoreButton.addTarget(self, action: #selector(userDidTapCoffeeRollReadMoreButton), for: .primaryActionTriggered)
+    }
+    
+    private func setupOverflowMenu() {
+        // Not adding fallback for other versions since we're dropping iOS 13 on the next release
+        // TODO: this version check should be removed
+        if #available(iOS 14.0, *) {
+            let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+            navigationItem.rightBarButtonItem = rightBarButtonItem
+            rightBarButtonItem.tintColor = theme.colors.link
+        }
     }
 
     // MARK: - Coffee Roll
@@ -644,8 +652,15 @@ class TalkPageViewController: ViewController {
     }
 
     private func changeTalkPageLanguage(_ siteURL: URL, pageTitle: String) {
+
+        guard let project = WikimediaProject(siteURL: siteURL) else {
+            showGenericError()
+            return
+        }
         
-        viewModel.resetToNewSiteURL(siteURL, pageTitle: pageTitle)
+        viewModel.resetToNewSiteURL(siteURL, pageTitle: pageTitle, project: project)
+        setupOverflowMenu()
+        
         fetchTalkPage()
     }
 
