@@ -859,9 +859,11 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                     }
                 }
             case .failure(let error):
+                
+                DDLogError("Failure publishing topic: \(error)")
+                composeViewController.setupNavigationBar(isPublishing: false)
+                
                 if (error as NSError).wmf_isNetworkConnectionError() {
-                    DDLogError("Failure publishing topic: \(error)")
-                    composeViewController.setupNavigationBar(isPublishing: false)
                     let title = TalkPageLocalizedStrings.newTopicFailedAlertTitle
                     if UIAccessibility.isVoiceOverRunning {
                         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
