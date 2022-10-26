@@ -1723,6 +1723,10 @@
 		8350FC4D20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */; };
 		8350FC4E20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */; };
 		8350FC4F20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */; };
+		83510B0728F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83510B0628F4CF6400B6235B /* TalkPageErrorStateView.swift */; };
+		83510B0828F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83510B0628F4CF6400B6235B /* TalkPageErrorStateView.swift */; };
+		83510B0928F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83510B0628F4CF6400B6235B /* TalkPageErrorStateView.swift */; };
+		83510B0A28F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83510B0628F4CF6400B6235B /* TalkPageErrorStateView.swift */; };
 		8351CE7820D4424100E32FC1 /* CollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8351CE7720D4424100E32FC1 /* CollectionViewHeader.swift */; };
 		8351CE7920D4424100E32FC1 /* CollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8351CE7720D4424100E32FC1 /* CollectionViewHeader.swift */; };
 		8351CE7A20D4424100E32FC1 /* CollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8351CE7720D4424100E32FC1 /* CollectionViewHeader.swift */; };
@@ -4524,6 +4528,7 @@
 		834CC34A21075B7600F62818 /* UITabBar+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Theme.swift"; sourceTree = "<group>"; };
 		834F47F32833D91F00F86C80 /* RemoteNotificationFilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationFilterType.swift; sourceTree = "<group>"; };
 		8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleLocationAuthorizationCollectionViewCell.swift; sourceTree = "<group>"; };
+		83510B0628F4CF6400B6235B /* TalkPageErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageErrorStateView.swift; sourceTree = "<group>"; };
 		8351CE7720D4424100E32FC1 /* CollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewHeader.swift; sourceTree = "<group>"; };
 		8356115C28D4FCEC00E95E6E /* NSMutableAttributedString+RemoveNewLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+RemoveNewLine.swift"; sourceTree = "<group>"; };
 		8359BAC621E4C9C1009B5E6C /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
@@ -6229,24 +6234,18 @@
 		00D1F58D28885B8200127169 /* Talk Pages */ = {
 			isa = PBXGroup;
 			children = (
+				83510B0528F4CF0200B6235B /* View Model */,
+				83510B0428F4CED800B6235B /* View */,
 				83ACF8EA28E5D7E3000F3B6F /* Model */,
 				00E5B39D28EB8E0600D2C51A /* Onboarding */,
 				0072990428AC44C100DCD2E6 /* Cell UI Elements */,
 				836BF56D2869F9C200B98321 /* TalkPageViewController.swift */,
-				00D1F58E28885BA300127169 /* TalkPageViewModel.swift */,
 				67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */,
-				00D46DA42889B7F50015DE9B /* TalkPageView.swift */,
 				00D46DA92889B9250015DE9B /* TalkPageCell.swift */,
 				67134A1628A73C0A00BA0BB9 /* TalkPageReplyComposeController.swift */,
 				6730FD0D28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift */,
-				00CB6897288B0CD3002EBB0A /* TalkPageHeaderView.swift */,
-				0072990A28AC455500DCD2E6 /* TalkPageCellViewModel.swift */,
-				00DEE61828AD6C9500A60DF9 /* TalkPageCellCommentViewModel.swift */,
 				67C1757528AD4D6000C5ABA4 /* TalkPageDataController.swift */,
 				00474A2928DD1AE2002E3C09 /* TalkPageCoffeeRollViewController.swift */,
-				005E004028DE1F2800721584 /* TalkPageCoffeeRollViewModel.swift */,
-				00474A2E28DD1B13002E3C09 /* TalkPageCoffeeRollView.swift */,
-				00EACEC528E39D470054DDB4 /* TalkPageEmptyView.swift */,
 				003CD3E828EF7C77000158E4 /* TalkPageFindInPageController.swift */,
 			);
 			name = "Talk Pages";
@@ -7808,6 +7807,29 @@
 				83E776A220FFA4D700E26A47 /* DetailTransition.swift */,
 			);
 			name = Transitions;
+			sourceTree = "<group>";
+		};
+		83510B0428F4CED800B6235B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				00CB6897288B0CD3002EBB0A /* TalkPageHeaderView.swift */,
+				00D46DA42889B7F50015DE9B /* TalkPageView.swift */,
+				00474A2E28DD1B13002E3C09 /* TalkPageCoffeeRollView.swift */,
+				00EACEC528E39D470054DDB4 /* TalkPageEmptyView.swift */,
+				83510B0628F4CF6400B6235B /* TalkPageErrorStateView.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		83510B0528F4CF0200B6235B /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				00D1F58E28885BA300127169 /* TalkPageViewModel.swift */,
+				005E004028DE1F2800721584 /* TalkPageCoffeeRollViewModel.swift */,
+				0072990A28AC455500DCD2E6 /* TalkPageCellViewModel.swift */,
+				00DEE61828AD6C9500A60DF9 /* TalkPageCellCommentViewModel.swift */,
+			);
+			name = "View Model";
 			sourceTree = "<group>";
 		};
 		83ACAA9F24E6DC8E003B3035 /* Command Line Tools */ = {
@@ -11424,6 +11446,7 @@
 				7A610CBD220A582A00C266AE /* HintController.swift in Sources */,
 				7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				67C6F7AB27E8D22400B9C864 /* NotificationsCenterDetailViewModel.swift in Sources */,
+				83510B0728F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */,
 				D850A53A1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */,
 				67C6F7A627E8CB9000B9C864 /* NotificationsCenterCommonViewModel+TextExtensions.swift in Sources */,
@@ -12385,6 +12408,7 @@
 				D8A42A6F1E815A9C00D8E281 /* UIApplication+RTL.swift in Sources */,
 				672285732540B56D0038E332 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */,
 				67C6F7AE27E8D22400B9C864 /* NotificationsCenterDetailViewModel.swift in Sources */,
+				83510B0A28F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */,
 				D8A42A721E815A9C00D8E281 /* WMFWelcomePanelViewController.swift in Sources */,
 				7A1469C8220BC223000A20F1 /* EditHintController.swift in Sources */,
 				67C6F7A927E8CB9000B9C864 /* NotificationsCenterCommonViewModel+TextExtensions.swift in Sources */,
@@ -12936,6 +12960,7 @@
 				D8CE24EE1E698E2400DAE2E0 /* WMFReferencePanelViewController.swift in Sources */,
 				7AC19E332301EF7D00E25B83 /* PageHistoryFilterCountsViewController.swift in Sources */,
 				7A29A5CF1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
+				83510B0928F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */,
 				7A715662226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				D818D38C1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				7A71567A22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
@@ -13509,6 +13534,7 @@
 				7AC19E342301EF7D00E25B83 /* PageHistoryFilterCountsViewController.swift in Sources */,
 				7A29A5D01F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				7A715663226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
+				83510B0828F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */,
 				D8EC3DE51E9BDA35006712EB /* WMFReferencePanelViewController.swift in Sources */,
 				7A71567B22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D8EC3DE81E9BDA35006712EB /* WikidataFetcher+Places.swift in Sources */,

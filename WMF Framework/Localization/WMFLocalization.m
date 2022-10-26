@@ -88,6 +88,10 @@ NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSString *_Nullable 
     } else {
         NSBundle *languageBundle = [bundle wmf_languageBundleForWikipediaLanguageCode:wikipediaLanguageCode];
         translation = [languageBundle localizedStringForKey:key value:nil table:nil];
+        
+        if (!translation || [translation isEqualToString:key] || (translation.length == 0)) {
+            translation = [bundle localizedStringForKey:key value:nil table:nil];
+        }
     }
 
     if (!translation || [translation isEqualToString:key] || (translation.length == 0)) {

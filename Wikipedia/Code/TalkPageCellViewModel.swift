@@ -7,6 +7,7 @@ final class TalkPageCellViewModel {
 
     let topicTitle: String
     let timestamp: Date?
+    let timestampDisplay: String?
     let topicName: String
 
     let id: String
@@ -26,10 +27,17 @@ final class TalkPageCellViewModel {
 
     let isUserLoggedIn: Bool
     
-    init(id: String, topicTitle: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel, replies: [TalkPageCellCommentViewModel], activeUsersCount: String, isUserLoggedIn: Bool) {
+    weak var viewModel: TalkPageViewModel?
+    
+    init(id: String, topicTitle: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel, replies: [TalkPageCellCommentViewModel], activeUsersCount: String, isUserLoggedIn: Bool, dateFormatter: DateFormatter?) {
         self.id = id
         self.topicTitle = topicTitle
         self.timestamp = timestamp
+        if let timestamp = timestamp {
+            self.timestampDisplay = dateFormatter?.string(from: timestamp)
+        } else {
+            self.timestampDisplay = nil
+        }
         self.topicName = topicName
         self.leadComment = leadComment
         self.replies = replies

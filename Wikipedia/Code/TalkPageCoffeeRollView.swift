@@ -66,7 +66,14 @@ final class TalkPageCoffeeRollView: SetupView {
 
     func configure(viewModel: TalkPageCoffeeRollViewModel) {
         self.viewModel = viewModel
+
         textView.attributedText = viewModel.coffeeRollText?.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+        
+        updateSemanticContentAttribute(viewModel.semanticContentAttribute)
+    }
+    
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+        textView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
     }
 
 }

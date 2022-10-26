@@ -999,6 +999,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "ˈlidu";
 "talk-page-discussion-unread-accessibility-label" = "Não lido";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ˈnɐ̃w̃  ˈlidu";
+"talk-page-error-loading-subtitle" = "Ocorreu um problema não identificado.";
+"talk-page-error-loading-title" = "Não foi possível carregar a página de discussão";
 "talk-page-error-unable-to-post-reply" = "Não há ligação à Internet. Não é possível publicar a resposta.";
 "talk-page-error-unable-to-post-topic" = "Não há ligação à Internet. Não é possível publicar a discussão.";
 "talk-page-find-in-page-button" = "Localizar na página";
