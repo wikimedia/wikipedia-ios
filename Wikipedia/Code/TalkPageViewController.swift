@@ -866,9 +866,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                     if UIAccessibility.isVoiceOverRunning {
                         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                     } else {
-                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: TalkPageLocalizedStrings.replyFailedAlertAction, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true) {
-                            UIApplication.shared.wmf_openGeneralSystemSettings()
-                        }
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
                     }
                 } else {
                     self?.showUnexpectedErrorAlert(on: composeViewController)
