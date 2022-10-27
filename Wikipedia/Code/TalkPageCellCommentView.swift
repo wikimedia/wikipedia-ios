@@ -97,16 +97,47 @@ final class TalkPageCellCommentView: SetupView {
         replyDelegate?.tappedReply(commentViewModel: viewModel)
     }
 
+    // MARK: - Find in page
+
+    private func applyTextHighlightIfNecessary(theme: Theme) {
+        let activeHighlightBackgroundColor: UIColor = .yellow50
+        let backgroundHighlightColor: UIColor!
+        let foregroundHighlightColor: UIColor!
+
+        switch theme {
+        case .black, .dark:
+            backgroundHighlightColor = activeHighlightBackgroundColor.withAlphaComponent(0.6)
+            foregroundHighlightColor = theme.colors.midBackground
+        default:
+            backgroundHighlightColor = activeHighlightBackgroundColor.withAlphaComponent(0.4)
+            foregroundHighlightColor = theme.colors.primaryText
+        }
+
+        commentTextView.attributedText = NSMutableAttributedString(attributedString: commentTextView.attributedText).highlight(viewModel?.cellViewModel?.highlightText, backgroundColor: backgroundHighlightColor, foregroundColor: foregroundHighlightColor)
+
+        if let commentViewModel = viewModel, let activeResult = commentViewModel.cellViewModel?.activeHighlightResult {
+            switch activeResult.location {
+            case .reply(_, _, _, let id):
+                if id == commentViewModel.id {
+                    commentTextView.attributedText = NSMutableAttributedString(attributedString: commentTextView.attributedText).highlight(viewModel?.cellViewModel?.highlightText, backgroundColor: activeHighlightBackgroundColor, targetRange: activeResult.range)
+                }
+            default:
+                break
+            }
+        }
+    }
+
 }
 
 extension TalkPageCellCommentView: Themeable {
 
     func apply(theme: Theme) {
         replyDepthView.apply(theme: theme)
-        
+
         commentTextView.attributedText = viewModel?.text.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
         commentTextView.backgroundColor = theme.colors.paperBackground
-        
+        applyTextHighlightIfNecessary(theme: theme)
+
         replyButton.tintColor = theme.colors.link
         replyButton.setTitleColor(theme.colors.link, for: .normal)
     }

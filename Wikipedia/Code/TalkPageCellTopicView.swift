@@ -257,6 +257,41 @@ final class TalkPageCellTopicView: SetupView {
         }
     }
 
+    // MARK: - Find in page
+
+    private func applyTextHighlightIfNecessary(theme: Theme) {
+        let activeHighlightBackgroundColor: UIColor = .yellow50
+        let backgroundHighlightColor: UIColor!
+        let foregroundHighlightColor: UIColor!
+
+        switch theme {
+        case .black, .dark:
+            backgroundHighlightColor = activeHighlightBackgroundColor.withAlphaComponent(0.6)
+            foregroundHighlightColor = theme.colors.midBackground
+        default:
+            backgroundHighlightColor = activeHighlightBackgroundColor.withAlphaComponent(0.4)
+            foregroundHighlightColor = theme.colors.primaryText
+        }
+
+        topicTitleTextView.attributedText = NSMutableAttributedString(attributedString: topicTitleTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: backgroundHighlightColor, foregroundColor: foregroundHighlightColor)
+        topicCommentTextView.attributedText = NSMutableAttributedString(attributedString: topicCommentTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: backgroundHighlightColor, foregroundColor: foregroundHighlightColor)
+
+        if let cellViewModel = viewModel, let activeResult = cellViewModel.activeHighlightResult {
+            switch activeResult.location {
+            case .topicTitle(_, let id):
+                if id == cellViewModel.id {
+                    topicTitleTextView.attributedText = NSMutableAttributedString(attributedString: topicTitleTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: activeHighlightBackgroundColor, targetRange: activeResult.range)
+                }
+            case .topicLeadComment(_, let id):
+                if id == cellViewModel.leadComment.id {
+                    topicCommentTextView.attributedText = NSMutableAttributedString(attributedString: topicCommentTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: activeHighlightBackgroundColor, targetRange: activeResult.range)
+                }
+            default:
+                break
+            }
+        }
+    }
+
 }
 
 extension TalkPageCellTopicView: Themeable {
@@ -270,10 +305,12 @@ extension TalkPageCellTopicView: Themeable {
         topicTitleTextView.backgroundColor = theme.colors.paperBackground
         
         timestampLabel.textColor = theme.colors.secondaryText
-        
+
         let commentColor = (viewModel?.isThreadExpanded ?? false) ? theme.colors.primaryText : theme.colors.secondaryText
         topicCommentTextView.attributedText = viewModel?.leadComment.text.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
         topicCommentTextView.backgroundColor = theme.colors.paperBackground
+
+        applyTextHighlightIfNecessary(theme: theme)
 
         activeUsersImageView.tintColor = theme.colors.secondaryText
         activeUsersLabel.textColor = theme.colors.secondaryText
