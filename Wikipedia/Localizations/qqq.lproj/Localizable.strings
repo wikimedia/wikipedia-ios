@@ -975,6 +975,7 @@
 "talk-page-archives" = "Title for menu option that redirects to talk page archives. Please prioritize for de, ar and zh wikis.";
 "talk-page-article-about" = "Title for menu option for information on article talk pages. Please prioritize for de, ar and zh wikis.";
 "talk-page-change-language" = "Title for menu option to got to the change language page. Please prioritize for de, ar and zh wikis.";
+"talk-page-collapse-thread-button" = "Accessibility label for the collapse thread button on talk pages when the thread is expanded";
 "talk-page-discussion-accessibility-hint" = "Accessibility hint when user is on a discussion title cell.";
 "talk-page-discussion-read-accessibility-label" = "Accessibility text for indicating that some content have been read.";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a discussion's contents have been read.";
@@ -986,6 +987,7 @@
 "talk-page-error-loading-title" = "Title text for error page on talk pages";
 "talk-page-error-unable-to-post-reply" = "Error message appearing when user attempts to post a new talk page reply while being offline";
 "talk-page-error-unable-to-post-topic" = "Error message appearing when user attempts to post a new talk page discussion while being offline";
+"talk-page-expand-thread-button" = "Accessibility label for the expand thread button on talk pages when the thread is collapsed";
 "talk-page-find-in-page-button" = "Title for find content in page button";
 "talk-page-info-active-conversations" = "This information label is displayed at the top of a talk page discussion list. $1 is replaced by the language wiki they are using - for example, 'Active conversations on English Wikipedia'.";
 "talk-page-info-active-conversations-generic" = "This information label is displayed at the top of a talk page discussion list. This is fallback text in case a specific wiki language cannot be determined.";
