@@ -1,6 +1,6 @@
 import Foundation
 
-final class TalkPageCellViewModel {
+final class TalkPageCellViewModel: Identifiable {
 
     var isThreadExpanded: Bool = false
     var isSubscribed: Bool = false
@@ -14,6 +14,9 @@ final class TalkPageCellViewModel {
     let replies: [TalkPageCellCommentViewModel]
     // Number of users involved in thread
     let activeUsersCount: String
+
+    var highlightText: String?
+    var activeHighlightResult: TalkPageFindInPageSearchController.SearchResult?
 
     var repliesCount: String {
         // Add one for lead comment

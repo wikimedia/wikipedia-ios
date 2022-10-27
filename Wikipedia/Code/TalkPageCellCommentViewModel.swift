@@ -1,6 +1,6 @@
 import Foundation
 
-final class TalkPageCellCommentViewModel {
+final class TalkPageCellCommentViewModel: Identifiable {
 
     let commentId: String
     let text: String
