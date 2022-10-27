@@ -1005,6 +1005,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "lɛ'st";
 "talk-page-discussion-unread-accessibility-label" = "Oläst";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ʊ:'lɛ'st";
+"talk-page-error-loading-subtitle" = "Någonting gick fel.";
+"talk-page-error-loading-title" = "Kan inte läsa in diskussionssida";
 "talk-page-error-unable-to-post-reply" = "Internetanslutning saknas. Kunde inte skicka svaret.";
 "talk-page-error-unable-to-post-topic" = "Internetanslutning saknas. Kunde inte skapa diskussion.";
 "talk-page-find-in-page-button" = "Hitta på sidan";
