@@ -6,8 +6,10 @@ class TalkPageViewController: ViewController {
 
     // MARK: - Properties
 
-    fileprivate let viewModel: TalkPageViewModel
+    let viewModel: TalkPageViewModel
     fileprivate var headerView: TalkPageHeaderView?
+
+    let findInPageState = TalkPageFindInPageState()
 
     fileprivate var topicReplyOnboardingHostingViewController: TalkPageTopicReplyOnboardingHostingController?
     
@@ -247,6 +249,8 @@ class TalkPageViewController: ViewController {
         talkPageView.apply(theme: theme)
         talkPageView.collectionView.reloadData()
         replyComposeController.apply(theme: theme)
+
+        findInPageState.keyboardBar?.apply(theme: theme)
     }
     
     // MARK: - Reply Compose Management
@@ -313,7 +317,7 @@ class TalkPageViewController: ViewController {
     }
     
     @objc fileprivate func userDidTapFindButton() {
-        
+        showFindInPage()
     }
     
     @objc fileprivate func userDidTapRevisionButton() {
@@ -568,8 +572,8 @@ class TalkPageViewController: ViewController {
         return newComment
     }
     
-    private func scrollToComment(commentViewModel: TalkPageCellCommentViewModel, animated: Bool = true) {
-        
+    func scrollToComment(commentViewModel: TalkPageCellCommentViewModel, animated: Bool = true) {
+
         guard let cellViewModel = commentViewModel.cellViewModel else {
             return
         }
