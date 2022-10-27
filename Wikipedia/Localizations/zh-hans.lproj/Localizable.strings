@@ -45,6 +45,7 @@
 // Author: Yining Chen
 // Author: Ywang
 // Author: Zhang8569
+// Author: ZhaoFJx
 // Author: 予弦
 // Author: 佛壁灯
 // Author: 夢蝶葬花
@@ -992,6 +993,7 @@
 "tajik-variants-alert-title" = "更新塔吉克语变体支持";
 "talk-page-add-discussion-accessibility-label" = "添加讨论";
 "talk-page-archives" = "新闻列表";
+"talk-page-article-about" = "关于讨论页";
 "talk-page-change-language" = "更改语言";
 "talk-page-discussion-accessibility-hint" = "轻按两下以开启讨论话题";
 "talk-page-discussion-read-accessibility-label" = "已读";
@@ -1022,6 +1024,7 @@
 "talk-page-publish-terms-and-licenses" = "一旦保存，即表示您认同$1使用条款$2，并采用$3CC BY-SA 3.0$4和$5GFDL$6许可协议发表您的贡献。";
 "talk-page-related-links" = "链入页面";
 "talk-page-reply-button" = "回复";
+"talk-page-reply-placeholder-format" = "回复$1";
 "talk-page-reply-title" = "回复";
 "talk-page-revision-history" = "版本历史";
 "talk-page-subscribe-to-topic" = "订阅";
@@ -1043,7 +1046,7 @@
 "talk-pages-reply-button-title" = "回复该讨论";
 "talk-pages-topic-added-alert-title" = "已添加您的话题";
 "talk-pages-topic-compose-body-placeholder" = "描述";
-"talk-pages-topic-compose-navbar-title" = "话题";
+"talk-pages-topic-compose-navbar-title" = "主题";
 "talk-pages-user-groups" = "用户组";
 "talk-pages-user-logs" = "日志";
 "talk-pages-view-title" = "讨论";

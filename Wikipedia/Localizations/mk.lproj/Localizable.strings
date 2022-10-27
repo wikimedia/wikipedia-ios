@@ -429,7 +429,7 @@
 "featured-widget-language-failure" = "Вашиот главен јазик не поддржува „Избрана статија“. Можете да ја смените главната Википедија во нагодувањата на прилогот.";
 "featured-widget-title" = "Избрана статија";
 "fetcher-error-generic" = "Нешто не е во ред. Обидете се подоцна.";
-"fetcher-error-unexpected-response" = "Прилогот прими неочекуван одговор од опслужувачот. Обидете се повторно.";
+"fetcher-error-unexpected-response" = "Прилогот доби неочекуван одговор од опслужувачот. Обидете се подоцна.";
 "field-alert-captcha-invalid" = "Неважечка CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Лозинките не се совпаѓаат";
 "field-alert-token-invalid" = "Неважечки код";
@@ -733,6 +733,9 @@
 "page-similar-titles" = "Слични страници";
 "panel-compare-revisions-text" = "Споредувањето на преработките дава слика за тоа како една статија се менувала со текот на времето. Споредувањето на две преработки на една статија ги прикажува разликите помеѓу нив со истакнување на променетата содржина.";
 "panel-compare-revisions-title" = "Споредба на преработки";
+"panel-not-logged-in-continue-edit-action-title" = "Уреди без најава";
+"panel-not-logged-in-subtitle" = "Ако уредувате, вашата IP-адреса ќе биде јавно видлива. Ако $1се најавите$2 или $3направите сметка$4, уредувањата ќе се водат под вашето корисничко име, меѓу останатите погодности.";
+"panel-not-logged-in-title" = "Не сте најавени";
 "pictured" = "на сликата";
 "places-accessibility-clear-saved-searches" = "Исчисти зачувани пребарувања";
 "places-accessibility-group" = "$1 статии";
@@ -989,6 +992,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "прочитано";
 "talk-page-discussion-unread-accessibility-label" = "Непрочитано";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "непрочитано";
+"talk-page-error-alert-subtitle" = "Прилогот доби неочекуван одговор од опслужувачот. Обидете се подоцна.";
+"talk-page-error-alert-title" = "Неочекувана грешка";
 "talk-page-error-loading-subtitle" = "Нешто не е во ред.";
 "talk-page-error-loading-title" = "Не можам да ја вчитам разговорната страница";
 "talk-page-error-unable-to-post-reply" = "Не сте поврзани со семрежјето. Не можам да го објавам одговорот.";
@@ -1014,7 +1019,10 @@
 "talk-page-new-topic-title" = "Нова расправа";
 "talk-page-page-info" = "Информации за страницата";
 "talk-page-permanent-link" = "Постојана врска";
+"talk-page-publish-reply-error-subtitle" = "Проверете си ја врската со семрежјето.";
+"talk-page-publish-reply-error-title" = "Не можев да го објавам вашиот коментар.";
 "talk-page-publish-terms-and-licenses" = "Зачувувајќи ги промените, се согласувате со $1Условите на употреба$2, и дека ги објавувате вашите придонеси под лиценците $3CC BY-SA 3.0$4 и $5ГЛСД$6.";
+"talk-page-publish-topic-error-title" = "Не можам да ја објавам новата тема.";
 "talk-page-read-in-web" = "Прочитај во прелистувач";
 "talk-page-related-links" = "Што води овде";
 "talk-page-reply-button" = "Одговори";
@@ -1026,6 +1034,7 @@
 "talk-page-subscribe-to-topic" = "Претплати се";
 "talk-page-subscribed-alert-subtitle" = "Ќе добивате известувања за нови коментари на оваа тема.";
 "talk-page-subscribed-alert-title" = "Претплатени сте!";
+"talk-page-subscription-failed-alert" = "Претплатата на темата не успеа. Обидете се повторно.";
 "talk-page-title-article-talk" = "Разговор за статија";
 "talk-page-title-user-talk" = "Кориснички разговор";
 "talk-page-topic-compose-terms-and-licenses" = "Зачувувајќи ги промените, се согласувате со $1Условите на употреба$2, и дека неотповикливо ги објавувате вашите придонеси под лиценците $3CC BY-SA 3.0$4 и $5ГЛСД$6.";
@@ -1033,6 +1042,7 @@
 "talk-page-unsubscribe-to-topic" = "Отпиши ме";
 "talk-page-unsubscribed-alert-subtitle" = "Повеќе повеќе нема да добивате известувања за нови коментари на оваа тема.";
 "talk-page-unsubscribed-alert-title" = "Отпишани сте.";
+"talk-page-unsubscription-failed-alert" = "Отпишувањето од темата не успеа. Обидете се повторно.";
 "talk-page-user-about" = "За корисничките разговорни страници";
 "talk-page-user-contributions" = "Придонеси";
 "talk-pages-coffee-roll-read-more" = "Прочитајте повеќе";
