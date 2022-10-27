@@ -212,7 +212,11 @@ final class TalkPageCellTopicView: SetupView {
     func configure(viewModel: TalkPageCellViewModel) {
         self.viewModel = viewModel
 
-        configureDisclosureRow(isUserLoggedIn: viewModel.isUserLoggedIn)
+        let showingOtherContent = viewModel.leadComment == nil && viewModel.otherContent != nil
+        let shouldHideSubscribe = !viewModel.isUserLoggedIn || viewModel.topicTitle.isEmpty || (showingOtherContent)
+        
+        configureDisclosureRow(shouldHideSubscribe: shouldHideSubscribe)
+        configureMetadataRow(shouldHideMetadata: showingOtherContent)
 
         disclosureButton.setImage(viewModel.isThreadExpanded ? UIImage(systemName: "chevron.up") : UIImage(systemName: "chevron.down"), for: .normal)
 
@@ -233,7 +237,22 @@ final class TalkPageCellTopicView: SetupView {
         activeUsersLabel.text = viewModel.activeUsersCount
         repliesCountLabel.text = viewModel.repliesCount
     }
-
+    
+    fileprivate func configureDisclosureRow(shouldHideSubscribe: Bool) {
+        if shouldHideSubscribe {
+            if disclosureHorizontalStack.arrangedSubviews.contains(subscribeButton) {
+                subscribeButton.removeFromSuperview()
+                disclosureHorizontalStack.insertArrangedSubview(topicTitleTextView, at: 0)
+            }
+        } else {
+            if disclosureHorizontalStack.arrangedSubviews.contains(topicTitleTextView) {
+                topicTitleTextView.removeFromSuperview()
+                disclosureHorizontalStack.insertArrangedSubview(subscribeButton, at: 0)
+                stackView.insertArrangedSubview(topicTitleTextView, at: 1)
+            }
+        }
+    }
+    
     func updateSubscribedState(cellViewModel: TalkPageCellViewModel) {
         let languageCode = cellViewModel.viewModel?.siteURL.wmf_languageCode
         let talkPageTopicSubscribe = WMFLocalizedString("talk-page-subscribe-to-topic", languageCode: languageCode, value: "Subscribe", comment: "Text used on button to subscribe to talk page topic. Please prioritize for de, ar and zh wikis.")
@@ -242,25 +261,14 @@ final class TalkPageCellTopicView: SetupView {
         subscribeButton.setTitle(cellViewModel.isSubscribed ? talkPageTopicUnsubscribe : talkPageTopicSubscribe , for: .normal)
         subscribeButton.setImage(cellViewModel.isSubscribed ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell"), for: .normal)
     }
-
-    fileprivate func configureDisclosureRow(isUserLoggedIn: Bool) {
-        if isUserLoggedIn {
-            if disclosureHorizontalStack.arrangedSubviews.contains(topicTitleTextView) {
-                topicTitleTextView.removeFromSuperview()
-                disclosureHorizontalStack.insertArrangedSubview(subscribeButton, at: 0)
-                stackView.insertArrangedSubview(topicTitleTextView, at: 1)
-            }
-        } else {
-            if disclosureHorizontalStack.arrangedSubviews.contains(subscribeButton) {
-                subscribeButton.removeFromSuperview()
-                disclosureHorizontalStack.insertArrangedSubview(topicTitleTextView, at: 0)
-            }
-
-        }
+            
+    
+    fileprivate func configureMetadataRow(shouldHideMetadata: Bool) {
+        metadataHorizontalStack.isHidden = shouldHideMetadata
     }
     
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
-            
+        
         stackView.semanticContentAttribute = semanticContentAttribute
         disclosureHorizontalStack.semanticContentAttribute = semanticContentAttribute
         subscribeButton.semanticContentAttribute = semanticContentAttribute
@@ -284,7 +292,7 @@ final class TalkPageCellTopicView: SetupView {
         timestampLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         activeUsersLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         repliesCountLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
-
+        
         let inset: CGFloat = 2
         switch semanticContentAttribute {
         case .forceRightToLeft:
@@ -313,7 +321,9 @@ extension TalkPageCellTopicView: Themeable {
         timestampLabel.textColor = theme.colors.secondaryText
         
         let commentColor = (viewModel?.isThreadExpanded ?? false) ? theme.colors.primaryText : theme.colors.secondaryText
-        topicCommentTextView.attributedText = viewModel?.leadComment.text.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
+        
+        let bodyText = viewModel?.leadComment?.text ?? viewModel?.otherContent
+        topicCommentTextView.attributedText = bodyText?.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
         topicCommentTextView.backgroundColor = theme.colors.paperBackground
 
         activeUsersImageView.tintColor = theme.colors.secondaryText

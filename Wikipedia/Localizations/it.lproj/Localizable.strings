@@ -742,6 +742,7 @@
 "talk-page-new-topic-body-placeholder-text" = "Scrivi una nuova discussione";
 "talk-page-new-topic-success-text" = "La tua discussione è stata pubblicata con successo";
 "talk-page-new-topic-title" = "Nuova discussione";
+"talk-page-publish-topic-error-title" = "Impossibile pubblicare un nuovo argomento.";
 "talk-page-reply-button" = "Rispondi";
 "talk-page-reply-placeholder-format" = "Rispondi a $1";
 "talk-page-reply-title" = "Rispondi";

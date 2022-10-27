@@ -6,6 +6,7 @@
 // Author: Amire80
 // Author: Asma
 // Author: DRIHEM
+// Author: Dyolf77 (WMF)
 // Author: FiberAhmed
 // Author: Haytham morsy
 // Author: Hhaboh162002
@@ -886,7 +887,6 @@
 "talk-page-link-user-action-sheet-app" = "عرض صفحة نقاش المستخدم في التطبيق";
 "talk-page-link-user-action-sheet-safari" = "عرض صفحة المستخدم في سفاري";
 "talk-page-link-user-action-sheet-title" = "صفحات المستخدمين";
-// Fuzzy
 "talk-page-menu-open-all" = "افتح كل المواضيع";
 "talk-page-new-banner-subtitle" = "تذكر، كلنا أناسٌ هنا";
 "talk-page-new-banner-title" = "رجاءً كُن لطيفًا";
@@ -910,18 +910,15 @@
 "talk-page-revision-history" = "تاريخ المراجعة";
 "talk-page-share-button" = "شارك صفحة النقاش";
 "talk-page-subscribe-to-topic" = "اشتراك";
-// Fuzzy
 "talk-page-subscribed-alert-subtitle" = "ستتلقّى تنبيهات حول وجود تعليقات جديدة على هذا الموضوع.";
 "talk-page-subscribed-alert-title" = "لقد اشتركت!";
 "talk-page-title-article-talk" = "نقاش المقالة";
 "talk-page-title-user-talk" = "نقاش المستخدم";
 "talk-page-topic-title" = "نقاش";
-// Fuzzy
 "talk-page-unsubscribed-alert-subtitle" = "لن تتلقّى بعد الآن أي تنبيهات حول وجود تعليقات جديدة على هذا الموضوع.";
 "talk-page-unsubscribed-alert-title" = "لقد ألغيت اشتراكك!";
 "talk-page-user-about" = "حول صفحات نقاش المستخدم";
 "talk-page-user-contributions" = "مساهمات";
-// Fuzzy
 "talk-pages-coffee-roll-read-more" = "اقرأ المزيد";
 "talk-pages-comment-added-alert-title" = "أضيف تعليقك";
 "talk-pages-compose-close-confirmation-keep" = "واصل التعديل";
