@@ -236,6 +236,7 @@ final class TalkPageCellTopicView: SetupView {
 
         if let timestampDisplay = viewModel.timestampDisplay {
             timestampLabel.text = timestampDisplay
+            timestampLabel.accessibilityLabel = viewModel.accessibilityDate()
         }
         
         activeUsersLabel.text = viewModel.activeUsersCount

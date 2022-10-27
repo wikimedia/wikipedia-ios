@@ -64,3 +64,15 @@ extension TalkPageCellViewModel: Hashable {
         hasher.combine(id)
     }
 }
+
+extension TalkPageCellViewModel {
+
+    public func accessibilityDate() -> String? {
+        let dateFormatter = DateFormatter.wmf_customVoiceOverTime()
+
+        if let date = timestamp {
+            return  dateFormatter?.string(from: date)
+        }
+        return nil
+    }
+}

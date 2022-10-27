@@ -38,6 +38,15 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     return shortTimeFormatter;
 }
 
++ (NSDateFormatter *)wmf_customVoiceOverTimeFormatter {
+    static dispatch_once_t onceToken;
+    static NSDateFormatter *formatter = nil;
+    dispatch_once(&onceToken, ^{
+        formatter = [self wmf_customVoiceOverTimeFormatterWithLocale:[NSLocale currentLocale]];
+    });
+    return formatter;
+}
+
 + (NSDateFormatter *)wmf_shortDateFormatter {
     static dispatch_once_t onceToken;
     static NSDateFormatter *shortDateFormatter = nil;
@@ -79,6 +88,16 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     shortTimeFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
     shortTimeFormatter.locale = locale;
     return shortTimeFormatter;
+}
+
++ (NSDateFormatter *)wmf_customVoiceOverTimeFormatterWithLocale:(NSLocale *)locale {
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.timeZone = [NSTimeZone localTimeZone];
+    formatter.dateStyle = NSDateFormatterLongStyle;
+    formatter.timeStyle = NSDateFormatterShortStyle;
+    formatter.formatterBehavior = NSDateFormatterBehavior10_4;
+    formatter.locale = locale;
+    return formatter;
 }
 
 + (NSDateFormatter *)wmf_longDateFormatter {
