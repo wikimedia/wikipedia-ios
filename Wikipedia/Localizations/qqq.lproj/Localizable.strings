@@ -970,6 +970,7 @@
 "tachelhit-variants-alert-title" = "Title of alert used to inform users about Tachelhit variant support.";
 "tajik-variants-alert-body" = "Body text of alert used to inform users about Tajik variant support. Please do not translate the newlines (\n) or Tajik characters (тоҷикӣ кирилликӣ, etc.).";
 "tajik-variants-alert-title" = "Title of alert used to inform users about Tajik variant support.";
+"talk-page-active-users-accessibilty-label" = "Accessibility label indicating the number of active users in a thread. The $1 argument will be replaced with the amount of active users";
 "talk-page-add-discussion-accessibility-label" = "Accessibility label for a button that opens the add new discussion screen.";
 "talk-page-add-topic-button" = "Title for add topic to talk page button";
 "talk-page-archives" = "Title for menu option that redirects to talk page archives. Please prioritize for de, ar and zh wikis.";
@@ -1015,6 +1016,7 @@
 "talk-page-publish-topic-error-title" = "Title for new topic post error alert";
 "talk-page-read-in-web" = "Title for menu option to read a talk page in a web browser. Please prioritize for de, ar and zh wikis.";
 "talk-page-related-links" = "Title for menu option that redirects to a page that shows related links. Please prioritize for de, ar and zh wikis.";
+"talk-page-replies-count-accessibilty-label" = "Accessibility label indicating the number of replies in a thread. The $1 argument will be replaced with the amount of replies";
 "talk-page-reply-button" = "Text used on button to reply to talk page messages.  Please prioritize for de, ar and zh wikis.";
 "talk-page-reply-placeholder-format" = "Placeholder text that displays in the talk page reply text view. Parameters:\n* $1 - the username of the comment the user is replying to. Please prioritize for de, ar and zh wikis.";
 "talk-page-reply-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";

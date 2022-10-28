@@ -238,9 +238,14 @@ final class TalkPageCellTopicView: SetupView {
             timestampLabel.text = timestampDisplay
             timestampLabel.accessibilityLabel = viewModel.accessibilityDate()
         }
-        
+        // TODO: fix plural
+        let activeUsersAccessibilityLabel = WMFLocalizedString("talk-page-active-users-accessibilty-label", value: "%@ active users", comment: "Accessibility label indicating the number of active users in a thread. The %@ argument will be replaced with the amount of active users")
+        let repliesCountAccessibilityLabel = WMFLocalizedString("talk-page-replies-count-accessibilty-label", value: "%@ replies", comment: "Accessibility label indicating the number of replies in a thread. The %@ argument will be replaced with the amount of replies")
+
         activeUsersLabel.text = viewModel.activeUsersCount
+        activeUsersLabel.accessibilityLabel = String.localizedStringWithFormat(activeUsersAccessibilityLabel, viewModel.activeUsersCount!)
         repliesCountLabel.text = viewModel.repliesCount
+        repliesCountLabel.accessibilityLabel = String.localizedStringWithFormat(repliesCountAccessibilityLabel, viewModel.repliesCount)
     }
     
     fileprivate func configureDisclosureRow(shouldHideSubscribe: Bool) {
