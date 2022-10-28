@@ -1084,11 +1084,14 @@
 "vanish-account-bottom-text" = "Informative text on accounting deletion on Wikipedia";
 "vanish-account-bottom-text-with-link" = "Informative text on accounting deletion on Wikipedia, contains link to more info on a web page. The parameters do not require translation, as they are used for markdown formatting. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting.";
 "vanish-account-button-text" = "Text for button on vanish account request screen";
+"vanish-account-continue-button-title" = "Title of button presented in the vanish account warning view.";
 "vanish-account-description" = "Description for the vanishing process";
 "vanish-account-email-text" = "Email content for the vanishing account request";
 "vanish-account-learn-more-text" = "Text for button on vanish account request screen that redirects to the meta page about the process";
 "vanish-account-title" = "Title for the vanishing process screen";
 "vanish-account-username-field" = "Title for the username and userpage form field";
+"vanish-account-warning-body" = "Body text of vanish account warning view. Please do not translate or remove the `**` characters as these indicate which region of the text to display in bold.";
+"vanish-account-warning-title" = "Title of vanish account warning view.";
 "vanish-modal-item" = "Text indicating that the process of vanishing might take days to be completed";
 "vanish-modal-item-2" = "Text indicating that the user should check if their email was sent in the Mail app used to send the message";
 "vanish-modal-item-3" = "Informative text indicating more information is available at the Meta-wiki page Right to vanish";
