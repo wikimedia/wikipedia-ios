@@ -19,6 +19,7 @@ struct VanishAccountWarningView: View {
     // MARK: - Properties
 
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
 
     var theme: Theme
     var dismissAction: (() -> Void)?
@@ -26,6 +27,14 @@ struct VanishAccountWarningView: View {
 
     private var sizeClassPadding: CGFloat {
         horizontalSizeClass == .regular ? 64 : 32
+    }
+
+    private var containerPadding: CGFloat {
+        verticalSizeClass == .regular ? sizeClassPadding : 0
+    }
+
+    private var verticalSpacing: CGFloat {
+        return verticalSizeClass == .regular ? 64 : 16
     }
 
     private var continueButtonTextColor: Color {
@@ -52,7 +61,7 @@ struct VanishAccountWarningView: View {
         Group {
             ScrollView {
                 VStack {
-                    Spacer(minLength: 64)
+                    Spacer(minLength: verticalSpacing)
                     Text(LocalizedStrings.title)
                         .font(Font(titleFont))
                         .multilineTextAlignment(.center)
@@ -92,7 +101,7 @@ struct VanishAccountWarningView: View {
                     Spacer().frame(height: 18)
                 }
             })
-            .padding(sizeClassPadding)
+            .padding(containerPadding)
         }
     }
 
