@@ -242,11 +242,13 @@ final class TalkPageCellTopicView: SetupView {
         if shouldHideSubscribe {
             if disclosureHorizontalStack.arrangedSubviews.contains(subscribeButton) {
                 subscribeButton.removeFromSuperview()
+                topicTitleTextView.removeFromSuperview()
                 disclosureHorizontalStack.insertArrangedSubview(topicTitleTextView, at: 0)
             }
         } else {
             if disclosureHorizontalStack.arrangedSubviews.contains(topicTitleTextView) {
                 topicTitleTextView.removeFromSuperview()
+                subscribeButton.removeFromSuperview()
                 disclosureHorizontalStack.insertArrangedSubview(subscribeButton, at: 0)
                 stackView.insertArrangedSubview(topicTitleTextView, at: 1)
             }
@@ -264,7 +266,15 @@ final class TalkPageCellTopicView: SetupView {
             
     
     fileprivate func configureMetadataRow(shouldHideMetadata: Bool) {
-        metadataHorizontalStack.isHidden = shouldHideMetadata
+        if shouldHideMetadata {
+            if stackView.arrangedSubviews.contains(metadataHorizontalStack) {
+                metadataHorizontalStack.removeFromSuperview()
+            }
+        } else {
+            if !stackView.arrangedSubviews.contains(metadataHorizontalStack) {
+                stackView.insertArrangedSubview(metadataHorizontalStack, at: stackView.arrangedSubviews.count - 2)
+            }
+        }
     }
     
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
