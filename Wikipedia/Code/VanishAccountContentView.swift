@@ -5,7 +5,7 @@ struct VanishAccountContentView: View {
     
     enum LocalizedStrings {
         static let title = WMFLocalizedString("vanish-account-title", value: "Vanishing process", comment: "Title for the vanishing process screen")
-        static let description = WMFLocalizedString("vanish-account-description", value: "To initiate the vanishing process please provide the following", comment: "Description for the vanishing process")
+        static let description = WMFLocalizedString("vanish-account-description", value: "To initiate the vanishing process please provide the following:", comment: "Description for the vanishing process")
         static let usernameFieldTitle = CommonStrings.usernameFieldTitle
         static let additionalInformationFieldTitle = WMFLocalizedString("vanish-account-additional-information-field", value: "Additional information", comment: "Title for the additional information form field")
         static let additionalInformationFieldPlaceholder = WMFLocalizedString("vanish-account-additional-information-placeholder", value: "Optional", comment: "Placeholder for the additional information form field")
