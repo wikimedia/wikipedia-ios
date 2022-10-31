@@ -88,6 +88,8 @@ final class TalkPageCellCommentView: SetupView {
         
         let languageCode = viewModel.cellViewModel?.viewModel?.siteURL.wmf_languageCode
         replyButton.setTitle(CommonStrings.talkPageReply(languageCode: languageCode), for: .normal)
+        let replyButtonAccessibilityLabel = CommonStrings.talkPageReplyAccessibilityText
+        replyButton.accessibilityLabel = String.localizedStringWithFormat(replyButtonAccessibilityLabel, viewModel.author)
     }
     
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {

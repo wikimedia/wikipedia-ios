@@ -262,7 +262,12 @@ public class CommonStrings: NSObject {
     public static func talkPageReply(languageCode: String?) -> String {
         WMFLocalizedString("talk-page-reply-button", languageCode: languageCode, value: "Reply", comment: "Text used on button to reply to talk page messages.  Please prioritize for de, ar and zh wikis.")
     }
-    
+    @objc public static let talkPageReplyAccessibilityText = WMFLocalizedString("talk-page-reply-button-accessibility-label", value: "Reply to %@", comment: "Accessibility text for repy button. The %@ will be replaced with the name of the user whose comment is being responded")
+
+    public static let enabledAccessibilityLabel = WMFLocalizedString("talk-page-reply-button-enabled", value: "Enabled", comment: "Accessibility text indicating that the button is enabled")
+
+    public static let disabledAccessibilityLabel = WMFLocalizedString("talk-page-reply-button-disabled", value: "Disabled", comment: "Accessibility text indicating that the button is disabled")
+
     public static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for option that leads to talk pages revision history. Please prioritize for de, ar and zh wikis.")
 
     public static let defaultThemeDisplayName = WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user")

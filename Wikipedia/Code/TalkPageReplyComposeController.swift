@@ -59,6 +59,7 @@ class TalkPageReplyComposeController {
         self.authenticationManager = authenticationManager
         setupViews(in: viewController, commentViewModel: commentViewModel)
         apply(theme: viewController.theme)
+        UIAccessibility.post(notification: .screenChanged, argument: contentView)
     }
     
     func attemptChangeCommentViewModel(in viewController: ReplyComposableViewController, newCommentViewModel: TalkPageCellCommentViewModel) {
@@ -220,6 +221,10 @@ class TalkPageReplyComposeController {
         
         guard let viewController = viewController else {
             return false
+        }
+
+        if UIAccessibility.isVoiceOverRunning {
+            return true
         }
         
         return viewController.view.traitCollection.verticalSizeClass == .compact

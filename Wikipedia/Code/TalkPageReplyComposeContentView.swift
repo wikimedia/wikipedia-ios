@@ -8,6 +8,7 @@ class TalkPageReplyComposeContentView: SetupView {
         button.setTitle(CommonStrings.publishTitle, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.preservesSuperviewLayoutMargins = true
+        button.accessibilityHint = "Disabled"
         return button
     }()
     
@@ -24,6 +25,7 @@ class TalkPageReplyComposeContentView: SetupView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.preservesSuperviewLayoutMargins = true
         button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        button.accessibilityHint = "Close reply view" // localize it
         return button
     }()
     
@@ -287,7 +289,9 @@ class TalkPageReplyComposeContentView: SetupView {
     }
 
     private func evaluatePublishButtonEnabledState() {
-        publishButton.isEnabled = !replyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        let isEnabled = !replyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        publishButton.isEnabled = isEnabled
+        publishButton.accessibilityHint = isEnabled ? CommonStrings.enabledAccessibilityLabel : CommonStrings.disabledAccessibilityLabel
     }
 
 }
