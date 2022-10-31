@@ -130,8 +130,9 @@ final class TalkPageCell: UICollectionViewCell {
         leadReplyButton.setTitle(CommonStrings.talkPageReply(languageCode: languageCode), for: .normal)
 
         let replyButtonAccessibilityLabel = CommonStrings.talkPageReplyAccessibilityText
-        leadReplyButton.accessibilityLabel = String.localizedStringWithFormat(replyButtonAccessibilityLabel, viewModel.leadComment?.author)
-    }
+        if let author = viewModel.leadComment?.author {
+            leadReplyButton.accessibilityLabel = String.localizedStringWithFormat(replyButtonAccessibilityLabel, author)
+        }
         
         guard let semanticContentAttribute = viewModel.viewModel?.semanticContentAttribute else {
             return

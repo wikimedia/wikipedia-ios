@@ -1018,7 +1018,7 @@
 "talk-page-related-links" = "Title for menu option that redirects to a page that shows related links. Please prioritize for de, ar and zh wikis.";
 "talk-page-replies-count-accessibilty-label" = "Accessibility label indicating the number of replies in a thread. The $1 argument will be replaced with the amount of replies";
 "talk-page-reply-button" = "Text used on button to reply to talk page messages.  Please prioritize for de, ar and zh wikis.";
-"talk-page-reply-button-accessibility-label" = "Accessibility text for repy button. The $1 will be replaced with the name of the user whose comment is being responded";
+"talk-page-reply-button-accessibility-label" = "Accessibility text for reply button. The $1 will be replaced with the name of the user whose comment is being responded";
 "talk-page-reply-button-disabled" = "Accessibility text indicating that the button is disabled";
 "talk-page-reply-button-enabled" = "Accessibility text indicating that the button is enabled";
 "talk-page-reply-placeholder-format" = "Placeholder text that displays in the talk page reply text view. Parameters:\n* $1 - the username of the comment the user is replying to. Please prioritize for de, ar and zh wikis.";
