@@ -38,13 +38,14 @@ struct VanishAccountContentView: View {
         ZStack {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    VStack {
+                    VStack(spacing: 0) {
                         Text(LocalizedStrings.title)
                             .foregroundColor(Color(theme.colors.primaryText))
                             .fixedSize(horizontal: false, vertical: true)
                             .font(Font(titleFont))
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding([.bottom], 16)
+                        Spacer()
+                            .frame(height: 16)
                         Text(LocalizedStrings.description)
                             .foregroundColor(Color(theme.colors.secondaryText))
                             .fixedSize(horizontal: false, vertical: true)
@@ -75,7 +76,7 @@ struct VanishAccountContentView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(Font(fieldTitleFont))
                             .padding([.leading, .trailing], 16)
-                            .padding([.top], 10)
+                            .padding([.top], 8)
                         TextView(placeholder: LocalizedStrings.additionalInformationFieldPlaceholder, theme: theme, text: $userInput.text)
                             .padding([.leading, .trailing], 16)
                             .frame(maxWidth: .infinity, minHeight: 50)
@@ -83,15 +84,14 @@ struct VanishAccountContentView: View {
                             .frame(height: 12)
                     }
                     .background(Color(theme.colors.paperBackground))
-                    VStack {
+                    VStack(spacing: 0) {
                         VanishAccountFooterView()
                             .foregroundColor(Color(theme.colors.secondaryText))
                             .fixedSize(horizontal: false, vertical: true)
                             .font(Font(bodyFont))
-                            .padding(16)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Spacer()
                     }
+                    .padding(16)
                 }
                 .padding([.bottom], extraBottomPadding)
             }
