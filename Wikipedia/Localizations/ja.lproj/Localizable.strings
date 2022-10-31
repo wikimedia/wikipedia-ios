@@ -1013,8 +1013,10 @@
 "vanish-account-back-confirm-discard" = "リクエストを破棄";
 "vanish-account-back-confirm-keep-editing" = "編集を続行";
 "vanish-account-button-text" = "リクエストを送信";
+"vanish-account-continue-button-title" = "続行";
 "vanish-account-learn-more-text" = "もっと詳しく";
 "vanish-account-username-field" = "ユーザー名とユーザーページ";
+"vanish-account-warning-title" = "警告";
 "variants-alert-dismiss-button" = "いいえ";
 "variants-alert-preferences-button" = "設定を確認する";
 "welcome-exploration-explore-feed-description" = "私たちコミュニティからの読書のおすすめと毎日の記事";

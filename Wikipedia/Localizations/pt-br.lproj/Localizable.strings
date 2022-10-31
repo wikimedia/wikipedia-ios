@@ -1110,6 +1110,7 @@
 "vanish-account-bottom-text" = "A eliminação da conta na Wikipédia é feita mudando o nome da sua conta para que as outras pessoas não possam reconhecer as suas contribuições, em um processo chamado desaparecimento da conta. Pode usar o formulário abaixo para pedir um desaparecimento de cortesia. O desaparecimento não garante o anonimato completo nem remove as contribuições para os projetos.";
 "vanish-account-bottom-text-with-link" = "A eliminação da conta na Wikipédia é feita alterando o nome da sua conta para que as outras pessoas não possam reconhecer as suas contribuições, num processo chamado desaparecimento da conta. Pode usar o formulário abaixo para pedir um $1desaparecimento de cortesia$2$3. O desaparecimento não garante o anonimato completo nem remove as contribuições para os projetos.";
 "vanish-account-button-text" = "Enviar pedido";
+// Fuzzy
 "vanish-account-description" = "O desaparecimento é um recurso de última instância e só deve ser usado quando pretende parar de editar para sempre e também ocultar o máximo possível das suas associações anteriores.\n\nPara iniciar o processo de desaparecimento forneça o seguinte, por favor:";
 "vanish-account-email-text" = "Olá,\nEste pedido é para fazer desaparecer a minha conta da Wikipédia.";
 "vanish-account-learn-more-text" = "Saiba mais";
