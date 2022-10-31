@@ -142,12 +142,9 @@ class AccountViewController: SubSettingsViewController {
             }
             
         case .vanishAccount:
-            guard let username = dataStore.authenticationManager.loggedInUsername else {
-                return
-            }
-
-            let viewController = VanishAccountContainerViewController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
-            self.navigationController?.pushViewController(viewController, animated: true)
+            let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
+            warningViewController.delegate = self
+            present(warningViewController, animated: true)
         default:
             break
         }
@@ -204,4 +201,17 @@ class AccountViewController: SubSettingsViewController {
         view.backgroundColor = theme.colors.paperBackground
         tableView.backgroundColor = theme.colors.baseBackground
     }
+}
+
+extension AccountViewController: VanishAccountWarningViewDelegate {
+
+    func userDidDismissVanishAccountWarningView(presentVanishView: Bool) {
+        guard presentVanishView, let username = dataStore.authenticationManager.loggedInUsername else {
+            return
+        }
+
+        let viewController = VanishAccountContainerViewController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+
 }

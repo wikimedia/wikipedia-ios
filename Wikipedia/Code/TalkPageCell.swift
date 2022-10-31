@@ -92,8 +92,8 @@ final class TalkPageCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             rootContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             rootContainerBottomConstraint,
-            rootContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            rootContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            rootContainer.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 8),
+            rootContainer.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: -8),
 
             stackView.topAnchor.constraint(equalTo: rootContainer.topAnchor, constant: 12),
             stackView.bottomAnchor.constraint(equalTo: rootContainer.bottomAnchor, constant: -12),
@@ -150,7 +150,7 @@ final class TalkPageCell: UICollectionViewCell {
             for commentViewModel in viewModel.replies {
                 let separator = TalkPageCellCommentSeparator()
                 separator.setContentHuggingPriority(.defaultLow, for: .horizontal)
-                separator.setContentCompressionResistancePriority(.required, for: .horizontal)
+                separator.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
                 
                 let commentView = TalkPageCellCommentView()
                 commentView.replyDelegate = replyDelegate

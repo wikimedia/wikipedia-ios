@@ -81,6 +81,7 @@
 "edit-summary-choice-linked-words" = "Ավելացվել են հղումներ";
 "edit-text-clear-formatting" = "Մաքրել ֆորմատավորում";
 "edit-watch-this-page-text" = "Հսկել այս էջը";
+"empty-no-other-article-languages-title" = "Մատչելի այլ լեզուներ չկան";
 "explore-featured-article-heading" = "Ընտրյալ հոդված";
 "explore-featured-article-sub-heading-from-wikipedia" = "Վիքիպեդիայից";
 "explore-nearby-heading" = "Վայրեր մոտակայքում";
@@ -213,7 +214,9 @@
 "top-read-header-generic" = "Վիքիպեդիա";
 "top-read-header-with-language" = "$1 Վիքիպեդիա";
 "unknown-generic-text" = "Անհայտ";
+"vanish-account-continue-button-title" = "Շարունակել";
 "vanish-account-learn-more-text" = "Իմանալ ավելին";
+"vanish-account-warning-title" = "Զգուշացում";
 "welcome-explore-new-ways-title" = "Ուսումնասիրելու նոր եղանակներ";
 "welcome-explore-tell-me-more-done-button" = "Հասկանալի է";
 "welcome-intro-free-encyclopedia-more-about" = "Վիքիպեդիայի մասին";

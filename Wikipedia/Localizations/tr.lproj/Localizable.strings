@@ -123,6 +123,7 @@
 "account-creation-saving" = "Kaydediliyor...";
 "account-creation-title" = "Yeni bir hesap oluştur";
 "account-group-title" = "Hesabınız";
+"account-request-vanishing" = "Hesabı yok et";
 "account-talk-page-title" = "Mesaj sayfanız";
 "account-talk-preferences-auto-sign-discussions" = "Otomatik imza tartışmaları";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Tartışmaların otomatik olarak imzalanması, İmza ayarlarında tanımlanan imzayı kullanır";
@@ -449,6 +450,10 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 Vikipedi'den";
 "explore-random-article-sub-heading-from-wikipedia" = "Vikipedi'den";
 "explore-randomizer" = "Rastgele";
+"export-user-data-confirmation-title" = "Uygulama kütüphanesi paylaşılsın mı?";
+"export-user-data-generic-error" = "Verileriniz dışa aktarılırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
+"export-user-data-space-error" = "Kullanıcı verilerinizi dışa aktarmak için cihazınızda yeterli alan yok. Lütfen daha sonra tekrar deneyin.";
+"export-user-data-title" = "Kullanıcı Verilerini Dışa Aktar";
 "featured-article-empty-title" = "Bugün için seçkin madde mevcut değil";
 "featured-widget-content-failure-for-date" = "Bu tarih için seçkin bir madde mevcut değil.";
 "featured-widget-description" = "Topluluğumuz tarafından günlük olarak seçilen Vikipedi'deki en iyi maddeleri keşfedin.";

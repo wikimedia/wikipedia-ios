@@ -663,9 +663,11 @@
 "notifications-center-toolbar-mark-accessibility-label" = "Merkitse valitut ilmoitukset";
 "notifications-center-type-item-description-mentions" = "Maininnat";
 "notifications-center-type-item-description-welcome-verbose" = "Tervetuloviesti";
+"notifications-center-type-title-login-attempts" = "Kirjautumisyritykset";
 "notifications-center-type-title-login-success" = "Kirjautuminen onnistui";
 "notifications-center-type-title-other" = "Muu";
 "notifications-center-type-title-page-link" = "Sivulinkki";
+"notifications-center-type-title-thanks" = "Kiitokset";
 "notifications-center-type-title-welcome" = "Tervetuloa";
 "notifications-push-fallback-body-text" = "Uusi toiminta Wikipediassa";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 uusi viesti|$1 uutta viestiä}} sivulla $2";
@@ -982,6 +984,7 @@
 "talk-page-reply-title" = "Vastaa";
 "talk-page-revision-history" = "Muutoshistoria";
 "talk-page-share-button" = "Jaa keskustelusivu";
+"talk-page-subscribe-to-topic" = "Tilaa";
 "talk-page-subscribed-alert-subtitle" = "Saat ilmoituksia uusista kommenteista tässä aiheessa.";
 // Fuzzy
 "talk-page-title-article-talk" = "artikkelikeskustelu";
@@ -1001,8 +1004,7 @@
 "talk-pages-reply-button-title" = "Vastaa tähän keskusteluun";
 "talk-pages-topic-added-alert-title" = "Aiheesi lisättiin";
 "talk-pages-topic-compose-body-placeholder" = "Kuvaus";
-// Fuzzy
-"talk-pages-topic-compose-close-confirmation-discard" = "Hylkää aihe";
+"talk-pages-topic-compose-close-confirmation-discard" = "Hylkää vastaus";
 "talk-pages-topic-compose-close-confirmation-title" = "Haluatko varmasti hylätä tämän uuden aiheen?";
 "talk-pages-topic-compose-navbar-title" = "Aihe";
 "talk-pages-topic-compose-title-placeholder" = "Otsikko";

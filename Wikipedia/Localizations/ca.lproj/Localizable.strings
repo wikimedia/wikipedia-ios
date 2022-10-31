@@ -1100,6 +1100,7 @@
 "vanish-account-bottom-text" = "La supressió del compte de la Viquipèdia es fa canviant el nom del vostre compte per tal que altres no puguin reconèixer les vostres contribucions mitjançant un procés anomenat «desaparició del compte». Podeu utilitzar el formulari de sota per a sol·licitar una desaparició de cortesia. La desaparició no garanteix el complet anonimat ni tampoc suprimir les contribucions dels projectes.";
 "vanish-account-bottom-text-with-link" = "La supressió del compte de la Viquipèdia es fa canviant el nom del vostre compte per tal que altres no puguin reconèixer les vostres contribucions mitjançant un procés anomenat «desaparició del compte». Podeu utilitzar el formulari de sota per a sol·licitar una $1desaparició de cortesia$2$3. La desaparició no garanteix el complet anonimat ni tampoc suprimir les contribucions dels projectes.";
 "vanish-account-button-text" = "Envia la sol·licitud";
+// Fuzzy
 "vanish-account-description" = "La desaparició és l'últim recurs i només cal utilitzar-se quan desitgeu deixar d'editar per sempre més i també volguéssiu amagar el màxim de les vostres contribucions passades possibles.\n\nPer a iniciar el procés de desaparició proporcioneu el següent";
 "vanish-account-email-text" = "Hola,\naquesta és una sol·licitud per a fer desaparèixer el meu compte de Viquipèdia.";
 "vanish-account-learn-more-text" = "Més informació";
