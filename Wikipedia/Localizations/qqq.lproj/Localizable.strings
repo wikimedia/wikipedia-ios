@@ -1008,6 +1008,7 @@
 "talk-page-new-topic-body-placeholder-text" = "Placeholder text which appears initially in the new topic body field for talk pages.";
 "talk-page-new-topic-success-text" = "Banner text that appears after a new discussion was successfully published on a talk page.";
 "talk-page-new-topic-title" = "Title of page when composing a new topic on talk pages.";
+"talk-page-onboarding-button-accessibility-label" = "Accessibility text for the ok button on the talk pages onboarding modal";
 "talk-page-page-info" = "Title for menu option to go to the talk page information link. Please prioritize for de, ar and zh wikis.";
 "talk-page-permanent-link" = "Title for menu option to open the talk page's permanent link in a web browser. Please prioritize for de, ar and zh wikis.";
 "talk-page-publish-reply-error-subtitle" = "Subtitle for topic reply error alert";
@@ -1032,6 +1033,7 @@
 "talk-page-subscription-failed-alert" = "Text for the subscription failure alert";
 "talk-page-title-article-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page. Please prioritize for de, ar and zh wikis.";
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page. Please prioritize for de, ar and zh wikis.";
+"talk-page-topic-close-button-hint" = "Accessibility hint for talk page new topic screen close button";
 "talk-page-topic-compose-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
 "talk-page-topic-title" = "This header label is displayed at the top of a talk page topic thread.";
 "talk-page-unsubscribe-to-topic" = "Text used on button to unsubscribe from talk page topic.";

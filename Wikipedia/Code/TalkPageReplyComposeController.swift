@@ -59,7 +59,11 @@ class TalkPageReplyComposeController {
         self.authenticationManager = authenticationManager
         setupViews(in: viewController, commentViewModel: commentViewModel)
         apply(theme: viewController.theme)
-        UIAccessibility.post(notification: .screenChanged, argument: contentView)
+        if UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: .screenChanged, argument: contentView)
+            }
+        }
     }
     
     func attemptChangeCommentViewModel(in viewController: ReplyComposableViewController, newCommentViewModel: TalkPageCellCommentViewModel) {

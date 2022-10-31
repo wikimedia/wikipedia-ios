@@ -895,7 +895,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                 if (error as NSError).wmf_isNetworkConnectionError() {
                     let title = TalkPageLocalizedStrings.newTopicFailedAlertTitle
                     if UIAccessibility.isVoiceOverRunning {
-                        DispatchQueue.main.async {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                         }
                     } else {
@@ -919,8 +919,10 @@ extension TalkPageViewController: UIAdaptivePresentationControllerDelegate {
         guard topicComposeVC.shouldBlockDismissal else {
             return true
         }
-        
-        topicComposeVC.presentDismissConfirmationActionSheet()
+
+        if !UIAccessibility.isVoiceOverRunning {
+            topicComposeVC.presentDismissConfirmationActionSheet()
+        }
         return false
     }
 }
@@ -1012,7 +1014,11 @@ extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
         topicReplyOnboardingHostingViewController.modalPresentationStyle = .pageSheet
         self.topicReplyOnboardingHostingViewController = topicReplyOnboardingHostingViewController
 
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: .screenChanged, argument: topicReplyOnboardingHostingViewController)
+        }
         if let presentedViewController = presentedViewController {
+
             presentedViewController.present(topicReplyOnboardingHostingViewController, animated: true)
         } else {
             present(topicReplyOnboardingHostingViewController, animated: true)
