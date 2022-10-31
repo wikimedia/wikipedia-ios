@@ -1026,6 +1026,7 @@
 "talk-page-reply-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
 "talk-page-reply-title" = "This header label is displayed at the top of a talk page thread once the user taps Reply.";
 "talk-page-revision-history" = "Title for option that leads to talk pages revision history. Please prioritize for de, ar and zh wikis.";
+"talk-page-rply-close-button-accessibility-hint" = "Accessibility hint for the reply screen close button";
 "talk-page-share-button" = "Title for share talk page button";
 "talk-page-subscribe-to-topic" = "Text used on button to subscribe to talk page topic. Please prioritize for de, ar and zh wikis.";
 "talk-page-subscribed-alert-subtitle" = "Subtitle for alert informing that the user will receive notifications for a subscribed topic. Please prioritize for de, ar and zh wikis.";

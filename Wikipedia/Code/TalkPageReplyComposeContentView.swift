@@ -25,7 +25,7 @@ class TalkPageReplyComposeContentView: SetupView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.preservesSuperviewLayoutMargins = true
         button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        button.accessibilityHint = "Close reply view" // localize it
+        button.accessibilityHint = WMFLocalizedString("talk-page-rply-close-button-accessibility-hint", value: "Close reply view", comment: "Accessibility hint for the reply screen close button")
         return button
     }()
     
