@@ -1122,6 +1122,7 @@
 "vanish-account-bottom-text" = "Accountverwijdering op Wikipedia wordt gedaan door uw accountnaam te wijzigen zodat anderen uw bijdragen niet kunnen herkennen. U kunt het onderstaande formulier gebruiken om een hoffelijkheidsverdwijning aan te vragen. Het opheffen van uw account garandeert geen volledige anonimiteit en verwijdert geen bijdragen aan de projecten.";
 "vanish-account-bottom-text-with-link" = "Accountverwijdering op Wikipedia wordt gedaan door uw accountnaam te wijzigen zodat anderen uw bijdragen niet kunnen herkennen. U kunt het onderstaande formulier gebruiken om een $1hoffelijkheidsverdwijning$2$3 aan te vragen. Het opheffen van uw account garandeert geen volledige anonimiteit en verwijdert geen bijdragen aan de projecten.";
 "vanish-account-button-text" = "Verzoek versturen";
+// Fuzzy
 "vanish-account-description" = "Het opheffen van een account is een laatste redmiddel en mag alleen worden gebruikt als u voor altijd wilt stoppen met bewerken en ook om zoveel mogelijk van uw eerdere associaties te verbergen.\n\nOm het verdwijnproces te starten, geeft u het volgende op";
 "vanish-account-email-text" = "Hallo,\nDit is een verzoek om mijn Wikipedia-account te laten verdwijnen.";
 "vanish-account-learn-more-text" = "Meer lezen";

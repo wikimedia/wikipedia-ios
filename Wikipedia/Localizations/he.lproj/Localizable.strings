@@ -748,6 +748,9 @@
 "page-similar-titles" = "דפים דומים";
 "panel-compare-revisions-text" = "השוואת גרסאות עוזרת להראות איך ערך השתנה לאורך זמן. השוואת שתי גרסאות של ערך תציג את ההבדל בין שתי הגרסאות האלה באמצעות הדגשת התוכן שהשתנה.";
 "panel-compare-revisions-title" = "גרסאות מושוות";
+"panel-not-logged-in-continue-edit-action-title" = "עריכה ללא כניסה למערכת";
+"panel-not-logged-in-subtitle" = "כתובת ה־IP שלך תהיה גלויה לציבור במקרה של ביצוע עריכות. עם $1כניסה$2 או $3יצירת חשבון$4 העריכות שלך ישויכו לשם המשתמש שלך, לצד שאר ההטבות.";
+"panel-not-logged-in-title" = "לא נכנסת למערכת";
 "pictured" = "בתמונה";
 "places-accessibility-clear-saved-searches" = "ניקוי חיפושים שמורים";
 "places-accessibility-group" = "$1 ערכים";
@@ -1004,6 +1007,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "nikʁʔ";
 "talk-page-discussion-unread-accessibility-label" = "לא נקרא";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "lo nikʁʔ";
+"talk-page-error-alert-subtitle" = "היישומון קיבל תגובה בלתי צפויה מהשרת. נא לנסות שוב.";
+"talk-page-error-alert-title" = "שגיאה בלת ידועה";
 "talk-page-error-loading-subtitle" = "משהו השתבש.";
 "talk-page-error-loading-title" = "לא ניתן לטעון את דף השיחה";
 "talk-page-error-unable-to-post-reply" = "אין חיבור לאינטרנט. לא ניתן לפרסם תגובה.";
@@ -1029,7 +1034,10 @@
 "talk-page-new-topic-title" = "דיון חדש";
 "talk-page-page-info" = "מידע על הדף";
 "talk-page-permanent-link" = "קישור קבוע";
+"talk-page-publish-reply-error-subtitle" = "נא לבדוק שיש לך חיבור לאינטרנט.";
+"talk-page-publish-reply-error-title" = "לא ניתן לפרסם את התגובה שלך.";
 "talk-page-publish-terms-and-licenses" = "שמירת השינויים מהווה את הסכמתך ל$1תנאי השימוש$2 ואת הסכמתך הבלתי־חוזרת לשחרר את תרומתך בכפוף לרישיון $3CC BY-SA 3.0$4 ולרישיון $5GFDL$6.";
+"talk-page-publish-topic-error-title" = "לא ניתן לפרסם נושא חדש.";
 "talk-page-read-in-web" = "לקריאה בדפדפן";
 "talk-page-related-links" = "מה מקשר לכאן";
 "talk-page-reply-button" = "תגובה";
@@ -1041,6 +1049,7 @@
 "talk-page-subscribe-to-topic" = "מינוי";
 "talk-page-subscribed-alert-subtitle" = "יתקבלו אצלך התראות על תגובות חדשות בנושא הזה.";
 "talk-page-subscribed-alert-title" = "עשית מינוי!";
+"talk-page-subscription-failed-alert" = "הרישום לנושא נכשל, נא לנסות שוב.";
 "talk-page-title-article-talk" = "שיחת ערך";
 "talk-page-title-user-talk" = "שיחת משתמש";
 "talk-page-topic-compose-terms-and-licenses" = "פרסום השינויים מהווה את הסכמתך ל$1תנאי השימוש$2 ואת הסכמתך הבלתי־חוזרת לשחרר את תרומתך בכפוף לרישיון $3CC BY-SA 3.0$4 ולרישיון $5GFDL$6.";
@@ -1048,6 +1057,7 @@
 "talk-page-unsubscribe-to-topic" = "ביטול מינוי";
 "talk-page-unsubscribed-alert-subtitle" = "לא יתקבלו אצלך עוד התראות על תגובות חדשות בנושא הזה.";
 "talk-page-unsubscribed-alert-title" = "ביטלת את המינוי.";
+"talk-page-unsubscription-failed-alert" = "ביטול הרישום לפריט נכשל, נא לנסות שוב.";
 "talk-page-user-about" = "אודות דפי שיחת משתמש";
 "talk-page-user-contributions" = "תרומות";
 "talk-pages-coffee-roll-read-more" = "לקרוא עוד";
@@ -1101,11 +1111,14 @@
 "vanish-account-bottom-text" = "מחיקת חשבון בוויקיפדיה נעשית על־ידי שינוי שם החשבון שלך כך שאחרים לא יוכלו להכיר את התרומות שלך בתהליך שנקרא העלמה (vanishing). באפשרותך להשתמש בטופס להלן כדי להעלות בקשה אישית להיעלם. היעלמות בהליך הזה לא מבטיחה אלמוניות מוחלטת ולא לא מסירה את התרומה למיזמים.";
 "vanish-account-bottom-text-with-link" = "מחיקת חשבון בוויקיפדיה נעשית על־ידי שינוי שם החשבון שלך כך שאחרים לא יוכלו להכיר את התרומות שלך בתהליך שנקרא העלמה (vanishing). באפשרותך להשתמש בטופס להלן כדי להעלות $1בקשה אישית להיעלם$2$3. היעלמות בהליך הזה לא מבטיחה אלמוניות מוחלטת ולא לא מסירה את התרומה למיזמים.";
 "vanish-account-button-text" = "שליחת בקשה";
-"vanish-account-description" = "היעלמות היא מוצא אחרון וצריך להשמתמש בה רק כשברצונך להפסיק לערוך לתמיד וגם להסתיר את הקשרים הקודמים שלך במידת האפשר.\n\nכדי להתניע את תהליך ההעילמות, נא לספק את הדברים הבאים";
+"vanish-account-continue-button-title" = "המשך";
+"vanish-account-description" = "כדי להתניע את תהליך ההיעלמות, נא לספק את הפרטים הבאים:";
 "vanish-account-email-text" = "שלום,\nזאת בקשה להעלים את חשבון הוויקיפדיה שלי.";
 "vanish-account-learn-more-text" = "מידע נוסף";
 "vanish-account-title" = "תהליך ההיעלמות";
 "vanish-account-username-field" = "שם משתמש ודף משתמש";
+"vanish-account-warning-body" = "היעלמות היא **מוצא אחרון** וצריך להשתמש בה **רק כשברצונך להפסיק לערוך לתמיד** וגם להסתיר את הקשרים הקודמים שלך במידת האפשר.\n\nמחיקת חשבון בוויקיפדיה מתבצעת על ידי שינוי שם החשבון שלך כדי להסוות אותו מפני אחרים כדי שלא יוכלו לזהות את התרומות שלך בתהליך שנקרא העלמת חשבון. **העלמה לא מבטיחה אלמוניות מלאה או הסרת התרומות למיזמים**.";
+"vanish-account-warning-title" = "אזהרה";
 "vanish-modal-item" = "אם השלמת את בקשת ההיעלמות שלך, נא לתת כמה ימים לעיבוד הבקשה על־ידי מפעיל.";
 "vanish-modal-item-2" = "אם לא ברור לך אם הבקשה שלך הגיעה ליעדה, נא לבדוק את יישום הדואר שלך";
 "vanish-modal-item-3" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף Wikipedia:Courtesy vanishing";

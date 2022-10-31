@@ -56,6 +56,7 @@
 "about-wikimedia-foundation" = "Fundacija Wikimedia";
 "about-wikipedia" = "Wikipedija";
 "abuse-filter-disallow-heading" = "Tega urejanja ne morete objaviti.";
+"abuse-filter-disallow-unconstructive" = "Samodejni filter je to urejanje prepoznal kot potencialno nekonstruktivno ali poskus vandalizma. Vrnite se in spremenite svoje urejanje.";
 "abuse-filter-warning-caps" = "Besedilo z velikimi črkami";
 "abuse-filter-warning-irrelevant" = "Nepomembne zunanje povezave ali slike";
 "abuse-filter-warning-repeat" = "Ponavljanje znakov";
@@ -574,7 +575,7 @@
 "settings-appearance" = "Nastavitve za branje";
 "settings-clear-cache" = "Počisti predpomnjene podatke";
 "settings-clear-cache-cancel" = "Prekliči";
-"settings-clear-cache-ok" = "Počisti predpomnilnik";
+"settings-clear-cache-ok" = "Počisti predpomnenje";
 "settings-help-and-feedback" = "Pomoč in odziv";
 "settings-my-languages" = "Moji jeziki";
 "settings-notifications" = "Potisna obvestila";
@@ -677,7 +678,11 @@
 "vanish-account-back-confirm-keep-editing" = "Nadaljnje urejanje";
 "vanish-account-back-confirm-title" = "Ali res želite zavreči to zahtevo za izginotje?";
 "vanish-account-button-text" = "Pošlji zahtevek";
+"vanish-account-continue-button-title" = "Nadaljuj";
+"vanish-account-description" = "Za začetek postopka izginotja navedite naslednje:";
 "vanish-account-username-field" = "Uporabniško ime in uporabniška stran";
+"vanish-account-warning-body" = "Izginotje je **skrajni ukrep** in ga **uporabite le, če želite za vedno prenehati z urejanjem** in tudi, da skrijete čim več svojih preteklih povezav.\n\nIzbris računa v Wikipediji se v postopku, imenovanem izginotje računa, opravi tako, da spremenite ime svojega računa, da drugi ne morejo prepoznati vaših prispevkov. **Izginotje ne zagotavlja popolne anonimnosti ali odstranitve prispevkov k projektom**.";
+"vanish-account-warning-title" = "Opozorilo";
 "variants-alert-dismiss-button" = "Ne, hvala";
 "variants-alert-preferences-button" = "Preglejte svoje nastavitve";
 "welcome-exploration-explore-feed-title" = "Vir Raziskovanje";

@@ -1105,8 +1105,10 @@
 "vanish-account-back-confirm-discard" = "Отменить запрос";
 "vanish-account-back-confirm-keep-editing" = "Продолжить редактирование";
 "vanish-account-button-text" = "Послать запрос";
+"vanish-account-continue-button-title" = "Продолжить";
 "vanish-account-learn-more-text" = "Узнать подробности";
 "vanish-account-username-field" = "Имя участника и его страница";
+"vanish-account-warning-title" = "Предупреждение";
 "vanish-modal-title" = "Запрос на исчезновение";
 "variants-alert-dismiss-button" = "Нет, спасибо";
 "variants-alert-preferences-button" = "Просмотреть свои настройки";
