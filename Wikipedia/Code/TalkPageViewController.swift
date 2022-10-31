@@ -478,7 +478,9 @@ class TalkPageViewController: ViewController {
         let image = isSubscribedToTopic ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell.slash.fill")
         
         if UIAccessibility.isVoiceOverRunning {
-            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+            DispatchQueue.main.async {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+            }
         } else {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
         }
@@ -488,7 +490,9 @@ class TalkPageViewController: ViewController {
         let title = isSubscribed ? TalkPageLocalizedStrings.unsubscriptionFailed : TalkPageLocalizedStrings.subscriptionFailed
 
         if UIAccessibility.isVoiceOverRunning {
-            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+            }
         } else {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage(systemName: "exclamationmark.circle"), type: .custom, customTypeName: "subscription", dismissPreviousAlerts: true)
         }
@@ -754,7 +758,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         
         let shouldSubscribe = !configuredCellViewModel.isSubscribed
         cellViewModel.isSubscribed.toggle()
-        
+
         cell.updateSubscribedState(viewModel: cellViewModel)
 
         viewModel.subscribe(to: configuredCellViewModel.topicName, shouldSubscribe: shouldSubscribe) { result in
@@ -836,7 +840,9 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 if (error as NSError).wmf_isNetworkConnectionError() {
                     let title = TalkPageLocalizedStrings.replyFailedAlertTitle
                     if UIAccessibility.isVoiceOverRunning {
-                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                        }
                     } else {
                         WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
                     }
@@ -889,7 +895,9 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                 if (error as NSError).wmf_isNetworkConnectionError() {
                     let title = TalkPageLocalizedStrings.newTopicFailedAlertTitle
                     if UIAccessibility.isVoiceOverRunning {
-                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                        DispatchQueue.main.async {
+                            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                        }
                     } else {
                         WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
                     }
