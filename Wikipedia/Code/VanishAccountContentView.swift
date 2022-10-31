@@ -82,7 +82,7 @@ struct VanishAccountContentView: View {
                                 .padding([.top], 5)
                             TextView(placeholder: LocalizedStrings.additionalInformationFieldPlaceholder, theme: theme, text: $userInput.text)
                                 .padding([.leading, .trailing], 20)
-                                .frame(maxWidth: .infinity, minHeight: 100)
+                                .frame(maxWidth: .infinity, maxHeight: 50)
                             Spacer()
                                 .frame(height: 12)
                         }
