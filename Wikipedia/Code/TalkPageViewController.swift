@@ -1027,6 +1027,11 @@ extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
 
     func userDidDismissTopicReplyOnboardingView() {
         UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages = true
+        if UIAccessibility.isVoiceOverRunning {
+            if let height = replyComposeController.containerView?.frame.height, height >= 1.0 {
+                UIAccessibility.post(notification: .screenChanged, argument: replyComposeController.containerView)
+            }
+        }
     }
 }
 

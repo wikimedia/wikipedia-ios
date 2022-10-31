@@ -43,6 +43,7 @@ final class TalkPageTopicReplyOnboardingHostingController: UIHostingController<T
 
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         delegate?.userDidDismissTopicReplyOnboardingView()
+        
     }
 
     // MARK: - Themeable
