@@ -1102,11 +1102,13 @@
 "vanish-account-bottom-text" = "Konton raderas på Wikipedia genom att ändra kontonamnet så att man inte kan känna igen bidragen via en process som kallas kontoförsvinnande. Du kan använda formuläret nedan för att begära ett försvinnande. Detta garanterar inte fullständig anonymitet eller att bidrag tas bort från projekten.";
 "vanish-account-bottom-text-with-link" = "Konton raderas på Wikipedia genom att ändra kontonamnet så att man inte kan känna igen bidragen via en process som kallas kontoförsvinnande. Du kan använda formuläret nedan för att begära ett $1försvinnande$2$3. Detta garanterar inte fullständig anonymitet eller att bidrag tas bort från projekten.";
 "vanish-account-button-text" = "Skicka begäran";
+// Fuzzy
 "vanish-account-description" = "Att försvinna är en sista utväg och bör endast användas när du vill sluta redigera för alltid och även för att dölja så många av dina tidigare associationer som möjligt.\n\nFör att initiera försvinnandeprocessen, ange följande";
 "vanish-account-email-text" = "Hej.\nDetta är en begäran att få mitt Wikipedia-konto att försvinna.";
 "vanish-account-learn-more-text" = "Läs mer";
 "vanish-account-title" = "Process för att försvinna";
 "vanish-account-username-field" = "Användarnamn och användarsida";
+"vanish-account-warning-title" = "Varning";
 "vanish-modal-item" = "Om du slutförde din begäran om att försvinna, vänta några dagar för begäran att behandlas av en administratör";
 "vanish-modal-item-2" = "Om du är osäker på om din begäran gick igenom, se din e-postapp";
 "vanish-modal-item-3" = "Om du har ytterligare frågor om att försvinna, besök Meta:Right_to_vanish";

@@ -68,7 +68,9 @@ class TalkPageViewController: ViewController {
             self?.pushToWhatLinksHere()
         })
 
-        var actions = [goToArchivesAction, pageInfoAction, goToPermalinkAction, relatedLinksAction]
+        // goToArchivesAction
+        // TODO: Restore archives option with T321853
+        var actions = [pageInfoAction, goToPermalinkAction, relatedLinksAction]
         
         if viewModel.project.languageCode != nil {
             actions.insert(changeLanguageAction, at: 3)

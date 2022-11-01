@@ -7,10 +7,12 @@
 // Author: Asma
 // Author: DRIHEM
 // Author: Dyolf77 (WMF)
+// Author: FShbib
 // Author: FiberAhmed
 // Author: Haytham morsy
 // Author: Hhaboh162002
 // Author: Hocinend1
+// Author: Ideophagous
 // Author: Kassem7899
 // Author: Macofe
 // Author: Maroen1990
@@ -26,6 +28,7 @@
 // Author: Shbib Al-Subaie
 // Author: Sonic N800
 // Author: Tarawneh
+// Author: Zinou2go
 // Author: Zpizza
 // Author: أَحمد
 // Author: بدارين
@@ -41,6 +44,8 @@
 "aaald-article-insert-last-updated" = "التحديث الأخير";
 "aaald-article-insert-new-changes" = "تغييرات جديدة";
 "aaald-article-insert-read-more" = "اقرأ المزيد من التحديثات";
+"aaald-characters-text-description" = "{{PLURAL:$1| 0 = أحرف | حرف | أحرف}}";
+"aaald-deleted-text-description-2" = "تم حذف $1";
 "aaald-error-subitle" = "حدِّث للمحاولة مجدداً";
 "aaald-error-title" = "لا يمكن تحميل تاريخ الصفحة المختصر";
 "aaald-many-sections-description" = "في $1 أقسام";
@@ -51,14 +56,18 @@
 "aaald-new-journal-reference-database" = "بواسطة $1";
 "aaald-new-journal-reference-title" = "دورية";
 "aaald-new-journal-reference-volume" = "المجلد $1:";
+"aaald-new-news-reference-retrieved-date" = "استرجاع $1";
 "aaald-new-news-reference-title" = "أخبار";
 "aaald-new-talk-topic-description-format" = "$1 حول هذه المقالة";
 "aaald-new-website-reference-archive-url-text" = "مسار موقع الأرشيف";
 "aaald-new-website-reference-title" = "موقع ويب";
+"aaald-numerical-multiple-references-added-description" = "تمت إضافة {{PLURAL:$1|0=0 مرجع|مرجع|مرجعين|$1 مراجع}}";
 "aaald-one-section-description" = "في قسم $1";
 "aaald-revision-by-anonymous" = "تعديل بواسطة مستخدم مجهول";
 "aaald-revision-userInfo" = "عُدِّل بواسطة $1 ($2 تعديل)";
 "aaald-single-reference-added-description" = "أضيف المرجع";
+"aaald-small-change-description" = "{{PLURAL:$1| 0 = لم يتم إجراء تغييرات طفيفة | تم إجراء تغيير بسيط $1 | تم إجراء $1 من التغييرات الطفيفة}}";
+"aaald-two-sections-description" = "في القسمين $1 و $2";
 "aaald-view-full-history-button" = "عرض كامل تاريخ المقالة";
 "about-content-license" = "رخصة المحتوى";
 "about-content-license-details" = "إن لم يذكر خلاف ذلك، المحتوى متاح بموجب $1.";
@@ -105,6 +114,7 @@
 "account-creation-saving" = "جارٍ الحفظ...";
 "account-creation-title" = "أنشئ حسابًا جديدًا";
 "account-group-title" = "حسابك";
+"account-request-vanishing" = "حذف الحساب";
 "account-talk-page-title" = "صفحة النقاش الخاصة بك";
 "account-talk-preferences-auto-sign-discussions" = "التوقيع التلقائي للنقاشات";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "سيستخدم التوقيع التلقائي للمناقشات التوقيع المحدد في إعدادات التوقيع";
@@ -113,6 +123,7 @@
 "action-add-to-reading-list" = "أضف إلى قائمة القراءة";
 "action-add-to-reading-list-short" = "أضف إلى القائمة";
 "action-cancel" = "إلغاء";
+"action-discard-edits" = "تجاهل التعديلات";
 "action-find-in-page" = "البحث في الصفحة";
 "action-language-accessibility" = "تغيير اللغة";
 "action-move-to" = "نقل إلى…";
@@ -156,6 +167,7 @@
 "article-about-title" = "حول هذه المقالة";
 "article-delete" = "حذف";
 "article-deleted-accessibility-notification" = "تم حذف {{PLURAL:$1|مقالة|مقالات}}";
+"article-fetcher-error-updated-content-timeout" = "لم يتمكن التطبيق من استرداد المحتوى المحدث في الوقت المناسب. يرجى تحديث هذه الصفحة لاحقًا لترى التغييرات التي قمت بها.";
 "article-languages-filter-placeholder" = "ابحث عن لغة";
 "article-languages-label" = "اختر لغة";
 "article-languages-others" = "لغات اخرى";
@@ -196,6 +208,7 @@
 "description-edit-publish" = "نشر الوصف";
 "description-edit-title" = "عدل الوصف";
 "description-edit-warning" = "حاول إبقاء الوصوفات قصيرة حتى يستطيع المستخدمون فهم موضوع المقالة سريعا";
+"description-edit-warning-casing" = "يجب كتابة أسماء العلم فقط بأحرف كبيرة ، حتى في بداية الجملة.";
 "description-help-about-description" = "يلخص الوصفُ المقالةَ لمساعدة القراء على فهم الموضوع سريعاً.";
 "description-help-about-title" = "حول";
 "description-help-about-wikidata" = "حول ويكي بيانات";
@@ -319,6 +332,8 @@
 "editing-welcome-impartial-tone-title" = "اكتب بنبرة محايدة";
 "editing-welcome-set-knowledge-free-subtitle" = "من أجل منح الجميع إمكانية الوصول إلى المعرفة العالمية؛ نحتاج منك المشاركة في إنشائها من خلال القراءة والتحرير والمساهمة في الموضوعات التي تهمك أكثر.";
 "editing-welcome-set-knowledge-free-title" = "تعيين المعرفة الحرة";
+"editor-exit-confirmation-body" = "هل أنت متأكد أنك تريد ترك وضع التحرير دون النشر أولاً؟";
+"editor-exit-confirmation-title" = "رفض وضع التحرير؟";
 "empty-diff-compare-title" = "لا فروق بين المراجعات";
 "empty-diff-single-title" = "لم يتم إجراء تغييرات مرئية";
 "empty-insert-media-title" = "حدد ملفا من ويكيميديا ​​كومنز";
@@ -423,10 +438,17 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "من ويكيبيديا $1";
 "explore-random-article-sub-heading-from-wikipedia" = "من ويكيبيديا";
 "explore-randomizer" = "صفحات عشوائية";
+"export-user-data-confirmation-message" = "تتضمن مشاركة مكتبة التطبيقات الخاصة بك بيانات حول قوائم القراءة والمحفوظات والتفضيلات واستكشاف محتوى الخلاصة. يجب مشاركة ملف البيانات هذا فقط مع شخص موثوق به لاستخدامه في أغراض التشخيص التقني.";
+"export-user-data-confirmation-title" = "مشاركة مكتبة التطبيقات؟";
+"export-user-data-generic-error" = "حدث خطأ أثناء تصدير بياناتك. الرجاء معاودة المحاولة في وقت لاحق.";
+"export-user-data-space-error" = "ليس لديك مساحة كافية على الجهاز لتصدير بيانات المستخدم الخاصة بك. الرجاء معاودة المحاولة في وقت لاحق.";
+"export-user-data-title" = "تصدير بيانات المستخدم";
 "featured-article-empty-title" = "لا توجد مقالة مختارة متوفرة اليوم";
 "featured-widget-content-failure-for-date" = "لا تتوفر مقالة مختارة متوافقة مع هذا التاريخ";
+"featured-widget-description" = "اكتشف أفضل المقالات على ويكيبيديا ، التي يختارها مجتمعنا يوميًا.";
 "featured-widget-from-language-wikipedia" = "من ويكيبيديا $1";
 "featured-widget-from-wikipedia" = "من ويكيبيديا";
+"featured-widget-language-failure" = "لغتك الأساسية في ويكيبيديا لا تدعم المقالة المميزة. يمكنك تحديث ويكيبيديا الأساسية الخاصة بك في قائمة إعدادات التطبيق.";
 "featured-widget-title" = "مقالة متميزة";
 "fetcher-error-generic" = "هناك خطأ ما، الرجاء معاودة المحاولة في وقت لاحق.";
 "fetcher-error-unexpected-response" = "تلقى التطبيق استجابة غير متوقعة من الخادم، الرجاء معاودة المحاولة في وقت لاحق.";
@@ -536,6 +558,7 @@
 "main-menu-account-login" = "تسجيل الدخول";
 "main-menu-account-logout" = "تسجيل الخروج";
 "main-menu-account-logout-are-you-sure" = "هل تريد بالتاكيد تسجيل الخروج؟";
+"main-menu-account-logout-are-you-sure-message" = "سيؤدي تسجيل الخروج إلى حذف بيانات حسابك المخزنة محليًا (الإشعارات والرسائل) ، ولكن ستظل بيانات حسابك متاحة على الويب وسيتم إعادة تنزيلها إذا قمت بتسجيل الدخول مرة أخرى.";
 "main-menu-account-logout-cancel" = "ألغ";
 "main-menu-account-title-logged-in" = "مسجل الدخول بصفتك $1";
 "main-menu-heading-legal" = "الشروط والخصوصية";
@@ -561,25 +584,59 @@
 "no-internet-connection-article-reload" = "قد يتوفر إصدار أحدث من هذه المقالة، ولكن لا يمكن تحميله دون الاتصال بالإنترنت";
 "no-internet-connection-article-reload-button" = "العودة إلى النسخة الأخيرة المحفوظة";
 "notifications-center-agent-description-from-format" = "من $1";
+"notifications-center-alert" = "انذار";
 "notifications-center-applied-filters-accessibility-label" = "تصفية الاشعارات - تم اضافة التصفيات";
 "notifications-center-applied-project-filters-accessibility-label" = "تصفية المشاريع - تمت اضافة التصفية";
 "notifications-center-badge-button-accessibility-label" = "اشعارات بدون اشارة القراءة";
+"notifications-center-cell-notification-type-accessibility-label-format" = "إشعار $1";
 "notifications-center-change-password" = "تغيير كلمة السر";
+"notifications-center-checking-for-notifications" = "التحقق من الاشعارات ...";
+"notifications-center-destination-app" = "في التطبيق";
+"notifications-center-destination-web" = "على الويب";
+"notifications-center-empty-checking-for-notifications" = "التحقق من الاشعارات ...";
+"notifications-center-empty-no-messages" = "ليس لديك رسائل";
+"notifications-center-empty-not-subscribed" = "أنت غير مشترك حاليًا في أي من إشعارات ويكيبيديا";
+"notifications-center-empty-state-filters-subtitle" = "قم بتعديل $1 لرؤية المزيد من الرسائل";
 "notifications-center-empty-state-no-projects-selected" = "اضف المشاريع لرؤية المزيد من الرسائل";
+"notifications-center-empty-state-num-filters" = "{{PLURAL:$1| مرشح $1 | مرشحات $1 }}";
+"notifications-center-feed-card-title" = "تحرير الإخطارات متاح الآن";
 "notifications-center-feed-news-notification-button-text" = "أظهر الإشعارات";
+"notifications-center-feed-news-notification-dismiss-button-text" = "ليس الآن";
+"notifications-center-feed-news-notification-text" = "إخطارات التحرير لجميع مشاريع ويكيميديا متاحة الآن من خلال التطبيق. اشترك في إخطارات الدفع  لمواكبة رسائلك على ويكيبيديا أثناء التنقل.";
 "notifications-center-filters-accessibility-label" = "مُرشّح الإشعارات";
 "notifications-center-filters-read-status-item-title-all" = "الكل";
 "notifications-center-filters-read-status-item-title-read" = "اقرأ";
 "notifications-center-filters-read-status-item-title-unread" = "غير مقروءة";
+"notifications-center-filters-read-status-section-title" = "حالة القراءة";
 "notifications-center-filters-title" = "المرشحات";
 "notifications-center-filters-types-item-title-all" = "جميع الأنواع";
+"notifications-center-filters-types-section-title" = "أنواع الإخطارات";
+"notifications-center-go-to-article" = "مقالة";
+"notifications-center-go-to-article-talk-format" = "صفحة نقاش $1";
+"notifications-center-go-to-diff" = "الفرق";
+"notifications-center-go-to-talk-page" = "صفحة النقاش";
+"notifications-center-go-to-user-page" = "صفحة المستخدم $1";
 "notifications-center-go-to-wikidata-item" = "عنصر ويكي بيانات";
+"notifications-center-go-to-your-talk-page" = "صفحة نقاشك";
 "notifications-center-header-alert-from-agent" = "إنذار من $1";
 "notifications-center-inbox-title" = "مشاريع";
+"notifications-center-inbox-wikimedia-projects-section-footer" = "ستظهر هنا المشاريع التي أنشأت حسابًا لها فقط";
 "notifications-center-inbox-wikimedia-projects-section-title" = "مشاريع ويكيميديا";
 "notifications-center-inbox-wikipedias-section-title" = "ويكيبيديات";
+"notifications-center-login-notifications" = "إشعارات تسجيل الدخول";
+"notifications-center-mark" = "تعليم";
 "notifications-center-mark-all-as-read" = "اعتبرها كلها مقروءة";
+"notifications-center-mark-all-as-read-confirmation-format" = "هل أنت متأكد أنك تريد تعليم كل {{PLURAL:$1| رسالة $1 | $1 رسائل}} من إشعاراتك بمقروء؟ سيتم وضع علامة على إشعاراتك كمقروءة على جميع أجهزتك.";
+"notifications-center-mark-all-as-read-missing-number" = "هل أنت متأكد أنك تريد وضع علامة \"مقروءة\" على جميع الإشعارات؟ سيتم وضع علامة على إشعاراتك كمقروءة على جميع أجهزتك.";
 "notifications-center-mark-as-read" = "علّم كمقروءة";
+"notifications-center-mark-as-unread" = "علّم كغير مقروء";
+"notifications-center-more-action-accessibility-label" = "المزيد";
+"notifications-center-notifications-settings" = "إعدادات الإشعار";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1| رسالة $1 | رسائل $1 }}";
+"notifications-center-onboarding-modal-continue-action" = "استمر";
+"notifications-center-onboarding-modal-filters-title" = "مرشحات";
+"notifications-center-onboarding-modal-learn-more-action" = "إعرف المزيد عن الإشعارات";
+"notifications-center-onboarding-modal-notifications-alerts-message" = "تساعدك الإشعارات على الإطلاع على النشاط المرتبط بتعديلاتك وحسابك.";
 "notifications-center-onboarding-panel-secondary-button" = "لا شكرًا";
 "notifications-center-project-filters-accessibility-label" = "تصفية المشاريع";
 "notifications-center-status-all" = "الكل";
@@ -903,9 +960,11 @@
 "talk-page-page-info" = "معلومات الصفحة";
 "talk-page-permanent-link" = "وصلة دائمة";
 "talk-page-publish-terms-and-licenses" = "بحفظك للتغييرات، أنت توافق على  $1شروط الاستخدام$2  وعلى إصدار مساهمتك تحت رخصتا  \n $3CC BY-SA 3.0$4 و $5GFDL$6.";
+"talk-page-read-in-web" = "اقرأ في الويب";
 "talk-page-related-links" = "ماذا يصل هنا";
 "talk-page-reply-button" = "ردّ";
 "talk-page-reply-placeholder-format" = "رد على $1";
+"talk-page-reply-terms-and-licenses" = "لاحظ أنه سيتم توقيع ردك تلقائيًا باسم المستخدم الخاص بك. بحفظ التغييرات، فإنك توافق على $1شروط الاستخدام$2، وتوافق على نشر مساهمتك بموجب تراخيص $3CC BY-SA 3.0$4 و $5GFDL$6.";
 "talk-page-reply-title" = "رد";
 "talk-page-revision-history" = "تاريخ المراجعة";
 "talk-page-share-button" = "شارك صفحة النقاش";
@@ -914,6 +973,7 @@
 "talk-page-subscribed-alert-title" = "لقد اشتركت!";
 "talk-page-title-article-talk" = "نقاش المقالة";
 "talk-page-title-user-talk" = "نقاش المستخدم";
+"talk-page-topic-compose-terms-and-licenses" = "بحفظك للتغييرات، فأنت توافق على $1شروط الاستخدام$2 وعلى نشر مساهمتك تحت رخصتي $3CC BY-SA 3.0$4 و $5GFDL$6.";
 "talk-page-topic-title" = "نقاش";
 "talk-page-unsubscribed-alert-subtitle" = "لن تتلقّى بعد الآن أي تنبيهات حول وجود تعليقات جديدة على هذا الموضوع.";
 "talk-page-unsubscribed-alert-title" = "لقد ألغيت اشتراكك!";
@@ -926,7 +986,9 @@
 "talk-pages-empty-view-button-user-start-discussion" = "ابدأ نقاشًا";
 "talk-pages-empty-view-header-user" = "ابدأ نقاشًا مع $1";
 "talk-pages-reply-button-title" = "رد على هذا النقاش";
+"talk-pages-reply-compose-close-confirmation-title" = "هل أنت متأكد أنك تريد تجاهل هذا الرد الجديد؟";
 "talk-pages-topic-compose-body-placeholder" = "الوصف";
+"talk-pages-topic-compose-close-confirmation-discard" = "تجاهل الرد";
 "talk-pages-topic-compose-navbar-title" = "موضوع";
 "talk-pages-topic-compose-title-placeholder" = "عنوان الموضوع";
 "talk-pages-topic-reply-onboarding-title" = "صفحات النقاش";
