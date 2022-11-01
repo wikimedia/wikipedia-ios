@@ -61,15 +61,22 @@ final class TalkPageCoffeeRollView: SetupView {
             textView.widthAnchor.constraint(equalTo: scrollView.readableContentGuide.widthAnchor, constant: -32)
         ])
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
 
     // MARK: - Configure
 
     func configure(viewModel: TalkPageCoffeeRollViewModel) {
         self.viewModel = viewModel
-
-        textView.attributedText = viewModel.coffeeRollText?.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
-        
+        updateFonts()
         updateSemanticContentAttribute(viewModel.semanticContentAttribute)
+    }
+    
+    private func updateFonts() {
+        textView.attributedText = viewModel.coffeeRollText?.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
     }
     
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
@@ -86,7 +93,9 @@ extension TalkPageCoffeeRollView: Themeable {
         backgroundColor = theme.colors.paperBackground
 
         textView.backgroundColor = theme.colors.paperBackground
-        configure(viewModel: viewModel)
+        
+        updateFonts()
+        updateSemanticContentAttribute(viewModel.semanticContentAttribute)
     }
 
 }
