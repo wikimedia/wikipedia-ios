@@ -12,11 +12,12 @@ struct VanishAccountContentView: View {
         static let buttonText = WMFLocalizedString("vanish-account-button-text", value: "Send request", comment: "Text for button on vanish account request screen")
         static let learnMoreButtonText = CommonStrings.learnMoreButtonText
     }
-    
+
     @SwiftUI.ObservedObject var userInput: UserInput
     @SwiftUI.State var isModalVisible = false
     @SwiftUI.State var shouldShowModalOnForeground = false
-    
+    @SwiftUI.State var shouldShowButtonStack = true
+
     var theme: Theme
     var username: String
     
@@ -104,34 +105,42 @@ struct VanishAccountContentView: View {
                     }
                 }
             }
-            VStack {
-                Spacer()
-                Button(action: {
-                    openMailClient()
-                }, label: {
-                    Text(LocalizedStrings.buttonText)
-                        .font(Font(buttonFont))
-                        .foregroundColor(Color(theme.colors.link))
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 46)
-                        .background(Color(theme.colors.paperBackground))
-                        .cornerRadius(8)
-                })
-                .padding(16)
-                if #unavailable(iOS 15) {
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardWillShowNotification)) { _ in
+                shouldShowButtonStack = false
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)) { _ in
+                shouldShowButtonStack = true
+            }
+            if shouldShowButtonStack {
+                VStack {
+                    Spacer()
                     Button(action: {
-                        goToVanishPage()
+                        openMailClient()
                     }, label: {
-                        Text(LocalizedStrings.learnMoreButtonText)
+                        Text(LocalizedStrings.buttonText)
                             .font(Font(buttonFont))
                             .foregroundColor(Color(theme.colors.link))
-                            .frame(minWidth: 335)
+                            .frame(maxWidth: .infinity)
                             .frame(height: 46)
-                            .background(Color(theme.colors.baseBackground))
+                            .background(Color(theme.colors.paperBackground))
+                            .cornerRadius(8)
                     })
+                    .padding(16)
+                    if #unavailable(iOS 15) {
+                        Button(action: {
+                            goToVanishPage()
+                        }, label: {
+                            Text(LocalizedStrings.learnMoreButtonText)
+                                .font(Font(buttonFont))
+                                .foregroundColor(Color(theme.colors.link))
+                                .frame(minWidth: 335)
+                                .frame(height: 46)
+                                .background(Color(theme.colors.baseBackground))
+                        })
+                    }
                 }
+                .padding(0)
             }
-            .padding(0)
             Spacer()
             VanishAccountPopUpAlertView(theme:theme, isVisible: $isModalVisible, userInput: $userInput.text)
         }
