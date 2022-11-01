@@ -239,8 +239,8 @@ final class TalkPageCellTopicView: SetupView {
             timestampLabel.accessibilityLabel = viewModel.accessibilityDate()
         }
 
-        let activeUsersAccessibilityLabel = WMFLocalizedString("talk-page-active-users-accessibilty-label", value: "{{PLURAL:%1$d|active user|active users}}", comment: "Accessibility label indicating the number of active users in a thread. The %1$d argument will be replaced with the amount of active users")
-        let repliesCountAccessibilityLabel = WMFLocalizedString("talk-page-replies-count-accessibilty-label", value: "{{PLURAL:%1$d|reply|replies}}", comment: "Accessibility label indicating the number of replies in a thread. The %1$d argument will be replaced with the amount of replies")
+        let activeUsersAccessibilityLabel = WMFLocalizedString("talk-page-active-users-accessibilty-label", value: "{{PLURAL:%1$d|%1$d active user|%1$d active users}}", comment: "Accessibility label indicating the number of active users in a thread. The %1$d argument will be replaced with the amount of active users")
+        let repliesCountAccessibilityLabel = WMFLocalizedString("talk-page-replies-count-accessibilty-label", value: "{{PLURAL:%1$d|%1$d reply|%1$d replies}}", comment: "Accessibility label indicating the number of replies in a thread. The %1$d argument will be replaced with the amount of replies")
 
         if let count = viewModel.activeUsersCount {
             activeUsersLabel.text = String(count)

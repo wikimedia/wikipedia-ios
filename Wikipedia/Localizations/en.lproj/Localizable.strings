@@ -970,7 +970,7 @@
 "tachelhit-variants-alert-title" = "Updates to Tachelhit variant support";
 "tajik-variants-alert-body" = "The Wikipedia app now supports the following Tajik variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
 "tajik-variants-alert-title" = "Updates to Tajik variant support";
-"talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|active user|active users}}";
+"talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 active user|$1 active users}}";
 "talk-page-add-discussion-accessibility-label" = "Add discussion";
 "talk-page-add-topic-button" = "Add topic";
 "talk-page-archives" = "Archives";
@@ -1017,7 +1017,7 @@
 "talk-page-publish-topic-error-title" = "Unable to publish new topic.";
 "talk-page-read-in-web" = "Read in web";
 "talk-page-related-links" = "What links here";
-"talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|reply|replies}}";
+"talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1 reply|$1 replies}}";
 "talk-page-reply-button" = "Reply";
 "talk-page-reply-button-accessibility-label" = "Reply to $1";
 "talk-page-reply-button-disabled" = "Disabled";

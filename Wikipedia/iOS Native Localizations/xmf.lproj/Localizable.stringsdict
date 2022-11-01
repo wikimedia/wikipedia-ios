@@ -851,9 +851,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>active user</string>
+			<string>%1$d active user</string>
 			<key>other</key>
-			<string>active users</string>
+			<string>%1$d active users</string>
 		</dict>
 	</dict>
 	<key>talk-page-replies-count-accessibilty-label</key>
@@ -867,9 +867,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>reply</string>
+			<string>%1$d reply</string>
 			<key>other</key>
-			<string>replies</string>
+			<string>%1$d replies</string>
 		</dict>
 	</dict>
 </dict>
