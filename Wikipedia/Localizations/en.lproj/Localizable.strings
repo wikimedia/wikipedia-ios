@@ -1009,6 +1009,7 @@
 "talk-page-new-topic-success-text" = "Your discussion was successfully published";
 "talk-page-new-topic-title" = "New discussion";
 "talk-page-onboarding-button-accessibility-label" = "Double tap to return to reply";
+"talk-page-overflow-menu-accessibility" = "More Talk Page Options";
 "talk-page-page-info" = "Page information";
 "talk-page-permanent-link" = "Permanent link";
 "talk-page-publish-reply-error-subtitle" = "Please check your internet connection.";
