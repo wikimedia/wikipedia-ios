@@ -9,6 +9,8 @@ class TalkPageViewController: ViewController {
     fileprivate let viewModel: TalkPageViewModel
     fileprivate var headerView: TalkPageHeaderView?
 
+    fileprivate var shouldGoToNewTopic: Bool = false
+
     fileprivate var topicReplyOnboardingHostingViewController: TalkPageTopicReplyOnboardingHostingController?
     
     fileprivate lazy var shareButton: IconBarButtonItem = IconBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(userDidTapShareButton))
@@ -345,16 +347,23 @@ class TalkPageViewController: ViewController {
         pushToRevisionHistory()
     }
 
-    @objc fileprivate func userDidTapAddTopicButton() {
+    fileprivate func showAddTopic() {
         let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute)
         let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, authenticationManager: viewModel.authenticationManager, theme: theme)
         topicComposeVC.delegate = self
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
         navVC.presentationController?.delegate = self
-        present(navVC, animated: true, completion: { [weak self] in
-            self?.presentTopicReplyOnboardingIfNecessary()
-        })
+        present(navVC, animated: true)
+    }
+
+    @objc fileprivate func userDidTapAddTopicButton() {
+        if UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
+            showAddTopic()
+        } else {
+            shouldGoToNewTopic = true
+            presentTopicReplyOnboarding()
+        }
     }
     
     fileprivate func setupToolbar() {
@@ -790,7 +799,9 @@ extension TalkPageViewController: TalkPageCellDelegate {
 
 extension TalkPageViewController: TalkPageCellReplyDelegate {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel) {
-        presentTopicReplyOnboardingIfNecessary()
+        if !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
+            presentTopicReplyOnboarding()
+        }
         replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager)
     }
 }
@@ -1003,25 +1014,20 @@ extension TalkPageViewController: WMFPreferredLanguagesViewControllerDelegate {
 
 extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
 
-    func presentTopicReplyOnboardingIfNecessary() {
-        guard !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages else {
-            return
-        }
-
+    func presentTopicReplyOnboarding() {
         let topicReplyOnboardingHostingViewController = TalkPageTopicReplyOnboardingHostingController(theme: theme)
         topicReplyOnboardingHostingViewController.delegate = self
         topicReplyOnboardingHostingViewController.modalPresentationStyle = .pageSheet
         self.topicReplyOnboardingHostingViewController = topicReplyOnboardingHostingViewController
-
-        if let presentedViewController = presentedViewController {
-            presentedViewController.present(topicReplyOnboardingHostingViewController, animated: true)
-        } else {
             present(topicReplyOnboardingHostingViewController, animated: true)
-        }
     }
 
     func userDidDismissTopicReplyOnboardingView() {
         UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages = true
+        if shouldGoToNewTopic {
+            showAddTopic()
+            shouldGoToNewTopic = false
+        }
     }
 }
 
