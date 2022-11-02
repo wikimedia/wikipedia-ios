@@ -668,7 +668,7 @@ class TalkPageViewController: ViewController {
 
     private func changeTalkPageLanguage(_ siteURL: URL, pageTitle: String) {
 
-        guard let project = WikimediaProject(siteURL: siteURL) else {
+        guard let project = WikimediaProject(siteURL: siteURL, languageLinkController: viewModel.languageLinkController) else {
             showGenericError()
             return
         }

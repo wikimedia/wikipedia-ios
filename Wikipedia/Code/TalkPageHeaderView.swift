@@ -89,6 +89,7 @@ final class TalkPageHeaderView: SetupView {
     lazy var projectSourceContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isAccessibilityElement = false
         return view
     }()
 
@@ -96,6 +97,7 @@ final class TalkPageHeaderView: SetupView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.isAccessibilityElement = false
         return imageView
     }()
 
@@ -104,6 +106,7 @@ final class TalkPageHeaderView: SetupView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 2
         view.layer.borderWidth = 1
+        view.isAccessibilityElement = false
         return view
     }()
 
@@ -115,6 +118,7 @@ final class TalkPageHeaderView: SetupView {
         label.baselineAdjustment = .alignCenters
         label.font = UIFont.wmf_font(.mediumCaption2)
         label.adjustsFontForContentSizeCategory = true
+        label.isAccessibilityElement = false
         return label
     }()
 
@@ -282,7 +286,11 @@ final class TalkPageHeaderView: SetupView {
         self.viewModel = viewModel
         let languageCode = viewModel.siteURL.wmf_languageCode
         
-        typeLabel.text = viewModel.pageType == .article ? CommonStrings.talkPageTitleArticleTalk(languageCode: languageCode).localizedUppercase : CommonStrings.talkPageTitleUserTalk(languageCode: languageCode).localizedUppercase
+        let typeText = viewModel.pageType == .article ? CommonStrings.talkPageTitleArticleTalk(languageCode: languageCode).localizedUppercase : CommonStrings.talkPageTitleUserTalk(languageCode: languageCode).localizedUppercase
+        let projectName = viewModel.project.projectName(shouldReturnCodedFormat: false)
+        typeLabel.text = typeText
+        typeLabel.accessibilityLabel = "\(typeText). \(projectName)."
+        
         titleLabel.text = viewModel.headerTitle
         descriptionLabel.text = viewModel.headerDescription
 
