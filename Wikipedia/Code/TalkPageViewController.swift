@@ -325,6 +325,12 @@ class TalkPageViewController: ViewController {
     }
     
     @objc fileprivate func userDidTapFindButton() {
+        for topic in viewModel.topics {
+            topic.isThreadExpanded = true
+        }
+
+        talkPageView.collectionView.reloadData()
+
         showFindInPage()
     }
     
