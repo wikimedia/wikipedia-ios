@@ -41,6 +41,7 @@ final class TalkPageEmptyView: SetupView {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.automaticallyAdjustsScrollIndicatorInsets = false
+        scrollView.showsVerticalScrollIndicator = true
         return scrollView
     }()
 
