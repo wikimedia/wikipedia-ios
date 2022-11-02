@@ -148,6 +148,11 @@ class TalkPageTopicComposeViewController: ViewController {
         apply(theme: theme)
         self.title = Self.TopicComposeStrings.navigationBarTitle
     }
+    
+    override func accessibilityPerformEscape() -> Bool {
+        tappedClose()
+        return true
+    }
 
     private func setupSafeAreaBackgroundView() {
         view.addSubview(safeAreaBackgroundView)
