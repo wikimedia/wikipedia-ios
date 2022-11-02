@@ -63,6 +63,7 @@ class TalkPageViewController: ViewController {
         })
 
         let changeLanguageAction = UIAction(title: TalkPageLocalizedStrings.changeLanguage, image: UIImage(named: "language-talk-page"), handler: { _ in
+            self.hideFindInPage()
             self.userDidTapChangeLanguage()
         })
 
@@ -87,7 +88,8 @@ class TalkPageViewController: ViewController {
     var overflowMenu: UIMenu {
         
         let openAllAction = UIAction(title: TalkPageLocalizedStrings.openAllThreads, image: UIImage(systemName: "square.stack"), handler: { _ in
-            
+            self.hideFindInPage()
+
             for topic in self.viewModel.topics {
                 topic.isThreadExpanded = true
             }
@@ -181,6 +183,12 @@ class TalkPageViewController: ViewController {
 
         fetchTalkPage()
         setupToolbar()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        hideFindInPage(releaseKeyboardBar: true)
     }
 
     private func setupHeaderView() {
@@ -731,6 +739,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
 
 extension TalkPageViewController: TalkPageCellReplyDelegate {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel) {
+        hideFindInPage(releaseKeyboardBar: true)
         presentTopicReplyOnboardingIfNecessary()
         replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel)
     }

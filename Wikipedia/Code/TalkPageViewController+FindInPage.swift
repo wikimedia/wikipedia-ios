@@ -31,11 +31,15 @@ extension TalkPageViewController {
         findInPageState.keyboardBar?.show()
     }
 
-    func hideFindInPage() {
+    func hideFindInPage(releaseKeyboardBar: Bool = false) {
         findInPageState.reset(viewModel.topics)
         findInPageState.keyboardBar?.hide()
         rethemeVisibleCells()
         resignFirstResponder()
+
+        if releaseKeyboardBar {
+            findInPageState.keyboardBar = nil
+        }
     }
 
     // MARK: - Scroll to Element
