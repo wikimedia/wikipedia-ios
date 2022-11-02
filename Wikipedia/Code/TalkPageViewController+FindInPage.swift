@@ -34,7 +34,7 @@ extension TalkPageViewController {
     func hideFindInPage() {
         findInPageState.reset(viewModel.topics)
         findInPageState.keyboardBar?.hide()
-        talkPageView.collectionView.reloadData()
+        rethemeVisibleCells()
         resignFirstResponder()
     }
 
@@ -43,7 +43,7 @@ extension TalkPageViewController {
     func scrollToFindInPageResult(_ result: TalkPageFindInPageSearchController.SearchResult?) {
         guard let result = result else { return }
 
-        talkPageView.collectionView.reloadData()
+        rethemeVisibleCells()
 
         // TODO: - Fine tune position when scrolling
         switch result.location {
@@ -71,7 +71,7 @@ extension TalkPageViewController: FindAndReplaceKeyboardBarDelegate {
         }
 
         findInPageState.search(term: searchTerm, in: viewModel.topics)
-        talkPageView.collectionView.reloadData()
+        rethemeVisibleCells()
     }
 
     func keyboardBarDidTapClose(_ keyboardBar: FindAndReplaceKeyboardBar) {
@@ -80,7 +80,7 @@ extension TalkPageViewController: FindAndReplaceKeyboardBarDelegate {
 
     func keyboardBarDidTapClear(_ keyboardBar: FindAndReplaceKeyboardBar) {
         findInPageState.reset(viewModel.topics)
-        talkPageView.collectionView.reloadData()
+        rethemeVisibleCells()
     }
 
     func keyboardBarDidTapPrevious(_ keyboardBar: FindAndReplaceKeyboardBar) {

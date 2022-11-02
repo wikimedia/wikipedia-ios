@@ -252,7 +252,15 @@ class TalkPageViewController: ViewController {
 
         findInPageState.keyboardBar?.apply(theme: theme)
     }
-    
+
+    func rethemeVisibleCells() {
+        talkPageView.collectionView.visibleCells.forEach { cell in
+            if let talkCell = cell as? TalkPageCell {
+                talkCell.apply(theme: theme)
+            }
+        }
+    }
+
     // MARK: - Reply Compose Management
     
     let replyComposeController = TalkPageReplyComposeController()
