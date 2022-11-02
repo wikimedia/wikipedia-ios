@@ -268,7 +268,11 @@ class TalkPageViewController: ViewController {
     private var isClosing: Bool = false
     
     override var keyboardIsIncludedInBottomContentInset: Bool {
-        return false
+        if replyComposeController.isShowing {
+            return false
+        }
+
+        return true
     }
     
     override var additionalBottomContentInset: CGFloat {
