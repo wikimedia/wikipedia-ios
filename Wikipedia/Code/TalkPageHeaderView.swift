@@ -12,6 +12,7 @@ final class TalkPageHeaderView: SetupView {
         label.numberOfLines = 0
         label.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         label.adjustsFontForContentSizeCategory = true
+        label.accessibilityTraits = [.header]
         return label
     }()
 
@@ -21,6 +22,7 @@ final class TalkPageHeaderView: SetupView {
         label.numberOfLines = 4
         label.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
         label.adjustsFontForContentSizeCategory = true
+        label.accessibilityTraits = [.header]
         return label
     }()
 

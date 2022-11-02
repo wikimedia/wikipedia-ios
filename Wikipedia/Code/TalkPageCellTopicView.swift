@@ -73,6 +73,7 @@ final class TalkPageCellTopicView: SetupView {
         textView.isEditable = false
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = .zero
+        textView.accessibilityTraits = [.header]
         textView.delegate = self
         return textView
     }()
