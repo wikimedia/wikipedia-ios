@@ -261,8 +261,8 @@ final class TalkPageCellTopicView: SetupView {
 
     private func applyTextHighlightIfNecessary(theme: Theme) {
         let activeHighlightBackgroundColor: UIColor = .yellow50
-        let backgroundHighlightColor: UIColor!
-        let foregroundHighlightColor: UIColor!
+        let backgroundHighlightColor: UIColor
+        let foregroundHighlightColor: UIColor
 
         switch theme {
         case .black, .dark:
