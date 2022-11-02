@@ -21,6 +21,10 @@ struct TalkPageTopicReplyOnboardingView: View {
         horizontalSizeClass == .regular ? 64 : 16
     }
 
+    var horizontalPadding: CGFloat {
+        horizontalSizeClass == .regular ? 64 : 32
+    }
+
     var buttonTextColor: Color {
         switch theme {
         case .dark, .black:
@@ -46,12 +50,16 @@ struct TalkPageTopicReplyOnboardingView: View {
                         .foregroundColor(Color(theme.colors.primaryText))
                     Spacer(minLength: 44)
                     Image("talk-pages-empty-view-image")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 150, height: 150, alignment: .center)
                     Spacer(minLength: 31)
                     Text(LocalizedStrings.body)
                         .font(.callout)
                         .foregroundColor(Color(theme.colors.primaryText))
                 }
-                .padding(sizeClassPadding)
+                .padding([.top, .bottom],sizeClassPadding)
+                .padding([.leading, .trailing], horizontalPadding)
             }
             ZStack(alignment: .bottom, content: {
                 VStack {

@@ -1004,9 +1004,9 @@ extension TalkPageViewController: WMFPreferredLanguagesViewControllerDelegate {
 extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
 
     func presentTopicReplyOnboardingIfNecessary() {
-        guard !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages else {
-            return
-        }
+//        guard !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages else {
+//            return
+//        }
 
         let topicReplyOnboardingHostingViewController = TalkPageTopicReplyOnboardingHostingController(theme: theme)
         topicReplyOnboardingHostingViewController.delegate = self
