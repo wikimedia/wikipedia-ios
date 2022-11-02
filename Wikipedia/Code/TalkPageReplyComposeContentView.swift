@@ -111,6 +111,7 @@ class TalkPageReplyComposeContentView: SetupView {
         setupFinePrintTextView()
         setupPlaceholderLabel()
         setupInfoButton()
+        updateFonts()
         apply(theme: theme)
         
         guard let semanticContentAttribute = commentViewModel.cellViewModel?.viewModel?.semanticContentAttribute else {
@@ -118,6 +119,12 @@ class TalkPageReplyComposeContentView: SetupView {
         }
         
         updateSemanticContentAttribute(semanticContentAttribute)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+        apply(theme: theme)
     }
     
     // MARK: Public
@@ -154,7 +161,6 @@ class TalkPageReplyComposeContentView: SetupView {
         activityIndicator.isHidden = true
 
         publishButton.isEnabled = false
-        publishButton.titleLabel?.font = UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
     }
     
     private func setupCloseButton() {
@@ -203,8 +209,6 @@ class TalkPageReplyComposeContentView: SetupView {
         replyTextView.setContentCompressionResistancePriority(.required, for: .vertical)
         
         readableContentGuide.widthAnchor.constraint(equalTo: replyTextView.widthAnchor).isActive = true
-
-        replyTextView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
     }
     
     private func setupFinePrintTextView() {
@@ -227,8 +231,6 @@ class TalkPageReplyComposeContentView: SetupView {
         let leadingConstraint = replyTextView.leadingAnchor.constraint(equalTo: placeholderLabel.leadingAnchor)
         
         NSLayoutConstraint.activate([topConstraint, trailingConstraint, leadingConstraint])
-        
-        placeholderLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
     }
     
     private func setupInfoButton() {
@@ -247,6 +249,12 @@ class TalkPageReplyComposeContentView: SetupView {
         replyTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         finePrintTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         placeholderLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+    }
+    
+    private func updateFonts() {
+        publishButton.titleLabel?.font = UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
+        replyTextView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
+        placeholderLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
     }
     
     // MARK: Actions
