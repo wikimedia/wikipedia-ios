@@ -186,6 +186,15 @@ class TalkPageViewController: ViewController {
         super.viewDidDisappear(animated)
         reachabilityNotifier.stop()
     }
+    
+    override func accessibilityPerformEscape() -> Bool {
+        if replyComposeController.containerView != nil {
+            replyComposeController.attemptClose()
+            return true
+        }
+        
+        return super.accessibilityPerformEscape()
+    }
 
     @objc func tryAgain() {
         fetchTalkPage()
@@ -793,15 +802,19 @@ extension TalkPageViewController: TalkPageCellDelegate {
 }
 
 extension TalkPageViewController: TalkPageCellReplyDelegate {
-    func tappedReply(commentViewModel: TalkPageCellCommentViewModel) {
+    func tappedReply(commentViewModel: TalkPageCellCommentViewModel, accessibilityFocusView: UIView?) {
         presentTopicReplyOnboardingIfNecessary()
-        replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager)
+        replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager, accessibilityFocusView: accessibilityFocusView)
     }
 }
 
 extension TalkPageViewController: TalkPageReplyComposeDelegate {
     func closeReplyView() {
-        replyComposeController.closeAndReset()
+        replyComposeController.closeAndReset { focusView in
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: .screenChanged, argument: focusView)
+            }
+        }
     }
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
