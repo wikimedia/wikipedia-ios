@@ -437,6 +437,16 @@ static NSMutableDictionary *globalDesignDictionary;
   [self setupTitleLabel];
   [self setupSubTitleLabel];
   [self setupButton];
+
+  if (self.messagePosition != RMessagePositionBottom) {
+    self.layer.shadowOffset = CGSizeMake(0, 2);
+  } else {
+    self.layer.shadowOffset = CGSizeMake(0, -2);
+  }
+    self.layer.shadowRadius = 5;
+    self.layer.shadowOpacity = 1.0;
+
+    self.clipsToBounds = NO;
 }
 
 - (void)setupLayout

@@ -136,6 +136,8 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         default:
             messageView.titleTextColor = theme.colors.link
         }
+        
+        messageView.layer.shadowColor = theme.colors.shadow.cgColor
     }
 
 }
