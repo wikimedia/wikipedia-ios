@@ -213,6 +213,8 @@ final class TalkPageCellTopicView: SetupView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        
+        self.accessibilityElements = [topicTitleTextView, subscribeButton, disclosureButton, timestampLabel, activeUsersLabel, repliesCountLabel, topicCommentTextView]
     }
 
     // MARK: - Configure
@@ -301,6 +303,8 @@ final class TalkPageCellTopicView: SetupView {
             stackView.addArrangedSubview(metadataHorizontalStack)
             stackView.addArrangedSubview(topicCommentTextView)
             
+            self.accessibilityElements = [topicTitleTextView, subscribeButton, disclosureButton, timestampLabel, activeUsersLabel, repliesCountLabel, topicCommentTextView]
+            
         case .metadataReplies:
             
             disclosureHorizontalStack.addArrangedSubview(topicTitleTextView)
@@ -312,6 +316,8 @@ final class TalkPageCellTopicView: SetupView {
             stackView.addArrangedSubview(metadataHorizontalStack)
             stackView.addArrangedSubview(topicCommentTextView)
             
+            self.accessibilityElements = [topicTitleTextView, disclosureButton, timestampLabel, activeUsersLabel, repliesCountLabel, topicCommentTextView]
+            
         case .none:
             
             disclosureHorizontalStack.addArrangedSubview(topicTitleTextView)
@@ -320,6 +326,8 @@ final class TalkPageCellTopicView: SetupView {
             
             stackView.addArrangedSubview(disclosureHorizontalStack)
             stackView.addArrangedSubview(topicCommentTextView)
+            
+            self.accessibilityElements = [topicTitleTextView, disclosureButton, topicCommentTextView]
         }
         
         self.displayMode = displayMode
