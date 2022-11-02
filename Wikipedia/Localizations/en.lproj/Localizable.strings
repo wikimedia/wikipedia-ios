@@ -1057,6 +1057,7 @@
 "talk-pages-reply-compose-close-confirmation-title" = "Are you sure you want to discard this new reply?";
 "talk-pages-topic-added-alert-title" = "Your topic was added";
 "talk-pages-topic-compose-body-placeholder" = "Description";
+"talk-pages-topic-compose-body-placeholder-accessibility" = "Topic description";
 "talk-pages-topic-compose-close-confirmation-discard" = "Discard Reply";
 "talk-pages-topic-compose-close-confirmation-title" = "Are you sure you want to discard this new topic?";
 "talk-pages-topic-compose-navbar-title" = "Topic";
