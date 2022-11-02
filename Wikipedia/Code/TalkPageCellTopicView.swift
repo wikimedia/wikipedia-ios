@@ -2,6 +2,12 @@ import UIKit
 import WMF
 
 final class TalkPageCellTopicView: SetupView {
+    
+    enum DisplayMode {
+        case subscribeMetadataReplies // showing subscribe, metadata, & replies
+        case metadataReplies // hiding subscribe, showing metadata, & replies
+        case none // hiding subscribe, metadata, & replies
+    }
 
     // MARK: - UI Elements
 
@@ -170,6 +176,11 @@ final class TalkPageCellTopicView: SetupView {
             updateSemanticContentAttribute(semanticContentAttribute)
         }
     }
+    
+    private var displayMode: DisplayMode = .subscribeMetadataReplies
+    
+    private weak var viewModel: TalkPageCellViewModel?
+    weak var linkDelegate: TalkPageTextViewLinkHandling?
 
     // MARK: - Lifecycle
 
@@ -203,9 +214,6 @@ final class TalkPageCellTopicView: SetupView {
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-    
-    private weak var viewModel: TalkPageCellViewModel?
-    weak var linkDelegate: TalkPageTextViewLinkHandling?
 
     // MARK: - Configure
 
@@ -215,8 +223,14 @@ final class TalkPageCellTopicView: SetupView {
         let showingOtherContent = viewModel.leadComment == nil && viewModel.otherContent != nil
         let shouldHideSubscribe = !viewModel.isUserLoggedIn || viewModel.topicTitle.isEmpty || (showingOtherContent)
         
-        configureDisclosureRow(shouldHideSubscribe: shouldHideSubscribe)
-        configureMetadataRow(shouldHideMetadata: showingOtherContent)
+        switch (shouldHideSubscribe, showingOtherContent) {
+        case (false, false):
+            updateForNewDisplayModeIfNeeded(displayMode: .subscribeMetadataReplies)
+        case (true, false):
+            updateForNewDisplayModeIfNeeded(displayMode: .metadataReplies)
+        case (_, true):
+            updateForNewDisplayModeIfNeeded(displayMode: .none)
+        }
 
         let isThreadExpanded = viewModel.isThreadExpanded
         let collapseThreadlabel = WMFLocalizedString("talk-page-collapse-thread-button", value: "Collapse thread", comment: "Accessibility label for the collapse thread button on talk pages when the thread is expanded")
@@ -250,21 +264,6 @@ final class TalkPageCellTopicView: SetupView {
         repliesCountLabel.accessibilityLabel = String.localizedStringWithFormat(repliesCountAccessibilityLabel, viewModel.repliesCount)
     }
     
-    fileprivate func configureDisclosureRow(shouldHideSubscribe: Bool) {
-        if shouldHideSubscribe {
-            if disclosureHorizontalStack.arrangedSubviews.contains(subscribeButton) {
-                subscribeButton.removeFromSuperview()
-                disclosureHorizontalStack.insertArrangedSubview(topicTitleTextView, at: 0)
-            }
-        } else {
-            if disclosureHorizontalStack.arrangedSubviews.contains(topicTitleTextView) {
-                topicTitleTextView.removeFromSuperview()
-                disclosureHorizontalStack.insertArrangedSubview(subscribeButton, at: 0)
-                stackView.insertArrangedSubview(topicTitleTextView, at: 1)
-            }
-        }
-    }
-    
     func updateSubscribedState(cellViewModel: TalkPageCellViewModel) {
         let languageCode = cellViewModel.viewModel?.siteURL.wmf_languageCode
         let talkPageTopicSubscribe = WMFLocalizedString("talk-page-subscribe-to-topic", languageCode: languageCode, value: "Subscribe", comment: "Text used on button to subscribe to talk page topic. Please prioritize for de, ar and zh wikis.")
@@ -273,10 +272,57 @@ final class TalkPageCellTopicView: SetupView {
         subscribeButton.setTitle(cellViewModel.isSubscribed ? talkPageTopicUnsubscribe : talkPageTopicSubscribe , for: .normal)
         subscribeButton.setImage(cellViewModel.isSubscribed ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell"), for: .normal)
     }
-            
     
-    fileprivate func configureMetadataRow(shouldHideMetadata: Bool) {
-        metadataHorizontalStack.isHidden = shouldHideMetadata
+    private func updateForNewDisplayModeIfNeeded(displayMode: DisplayMode) {
+        
+        guard displayMode != self.displayMode else {
+            return
+        }
+        
+        // Reset
+        stackView.arrangedSubviews.forEach { view in
+            view.removeFromSuperview()
+        }
+        
+        disclosureHorizontalStack.arrangedSubviews.forEach { view in
+            view.removeFromSuperview()
+        }
+        
+        switch displayMode {
+        case .subscribeMetadataReplies:
+            
+            disclosureHorizontalStack.addArrangedSubview(subscribeButton)
+            disclosureHorizontalStack.addArrangedSubview(disclosureCenterSpacer)
+            disclosureHorizontalStack.addArrangedSubview(disclosureButton)
+            
+            stackView.addArrangedSubview(disclosureHorizontalStack)
+
+            stackView.addArrangedSubview(topicTitleTextView)
+            stackView.addArrangedSubview(metadataHorizontalStack)
+            stackView.addArrangedSubview(topicCommentTextView)
+            
+        case .metadataReplies:
+            
+            disclosureHorizontalStack.addArrangedSubview(topicTitleTextView)
+            disclosureHorizontalStack.addArrangedSubview(disclosureCenterSpacer)
+            disclosureHorizontalStack.addArrangedSubview(disclosureButton)
+            
+            stackView.addArrangedSubview(disclosureHorizontalStack)
+
+            stackView.addArrangedSubview(metadataHorizontalStack)
+            stackView.addArrangedSubview(topicCommentTextView)
+            
+        case .none:
+            
+            disclosureHorizontalStack.addArrangedSubview(topicTitleTextView)
+            disclosureHorizontalStack.addArrangedSubview(disclosureCenterSpacer)
+            disclosureHorizontalStack.addArrangedSubview(disclosureButton)
+            
+            stackView.addArrangedSubview(disclosureHorizontalStack)
+            stackView.addArrangedSubview(topicCommentTextView)
+        }
+        
+        self.displayMode = displayMode
     }
     
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
