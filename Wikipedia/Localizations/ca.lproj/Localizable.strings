@@ -1003,6 +1003,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "ʎəʒit";
 "talk-page-discussion-unread-accessibility-label" = "No llegit";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "no ʎəʒit";
+"talk-page-error-loading-subtitle" = "Ha fallat quelcom.";
+"talk-page-error-loading-title" = "No es pot carregar la pàgina de discussió";
 "talk-page-error-unable-to-post-reply" = "No hi ha connexió a Internet. No es pot enviar la resposta.";
 "talk-page-error-unable-to-post-topic" = "No hi ha connexió a Internet. No es pot enviar la discussió.";
 "talk-page-find-in-page-button" = "Cerca a la pàgina";
@@ -1057,10 +1059,10 @@
 "talk-pages-empty-view-header-article" = "La conversa comença aquí";
 "talk-pages-empty-view-header-user" = "Inicia una discussió amb $1";
 "talk-pages-reply-button-title" = "Respon la discussió";
+"talk-pages-reply-compose-close-confirmation-title" = "Esteu segur que voleu descartar aquesta nova resposta?";
 "talk-pages-topic-added-alert-title" = "S'ha afegit el vostre tema";
 "talk-pages-topic-compose-body-placeholder" = "Descripció";
-// Fuzzy
-"talk-pages-topic-compose-close-confirmation-discard" = "Descarta el tema";
+"talk-pages-topic-compose-close-confirmation-discard" = "Descarta la resposta";
 "talk-pages-topic-compose-close-confirmation-title" = "Esteu segur que voleu descartar aquest nou tema?";
 "talk-pages-topic-compose-navbar-title" = "Tema";
 "talk-pages-topic-compose-title-placeholder" = "Títol del tema";
@@ -1098,6 +1100,7 @@
 "vanish-account-bottom-text" = "La supressió del compte de la Viquipèdia es fa canviant el nom del vostre compte per tal que altres no puguin reconèixer les vostres contribucions mitjançant un procés anomenat «desaparició del compte». Podeu utilitzar el formulari de sota per a sol·licitar una desaparició de cortesia. La desaparició no garanteix el complet anonimat ni tampoc suprimir les contribucions dels projectes.";
 "vanish-account-bottom-text-with-link" = "La supressió del compte de la Viquipèdia es fa canviant el nom del vostre compte per tal que altres no puguin reconèixer les vostres contribucions mitjançant un procés anomenat «desaparició del compte». Podeu utilitzar el formulari de sota per a sol·licitar una $1desaparició de cortesia$2$3. La desaparició no garanteix el complet anonimat ni tampoc suprimir les contribucions dels projectes.";
 "vanish-account-button-text" = "Envia la sol·licitud";
+// Fuzzy
 "vanish-account-description" = "La desaparició és l'últim recurs i només cal utilitzar-se quan desitgeu deixar d'editar per sempre més i també volguéssiu amagar el màxim de les vostres contribucions passades possibles.\n\nPer a iniciar el procés de desaparició proporcioneu el següent";
 "vanish-account-email-text" = "Hola,\naquesta és una sol·licitud per a fer desaparèixer el meu compte de Viquipèdia.";
 "vanish-account-learn-more-text" = "Més informació";

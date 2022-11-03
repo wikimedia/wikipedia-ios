@@ -1005,6 +1005,8 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "lɛ'st";
 "talk-page-discussion-unread-accessibility-label" = "Oläst";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ʊ:'lɛ'st";
+"talk-page-error-loading-subtitle" = "Någonting gick fel.";
+"talk-page-error-loading-title" = "Kan inte läsa in diskussionssida";
 "talk-page-error-unable-to-post-reply" = "Internetanslutning saknas. Kunde inte skicka svaret.";
 "talk-page-error-unable-to-post-topic" = "Internetanslutning saknas. Kunde inte skapa diskussion.";
 "talk-page-find-in-page-button" = "Hitta på sidan";
@@ -1052,14 +1054,22 @@
 "talk-pages-coffee-roll-read-more" = "Läs mer";
 "talk-pages-comment-added-alert-title" = "Din kommentar lades till";
 "talk-pages-compose-close-confirmation-keep" = "Fortsätt redigera";
+"talk-pages-empty-view-body-article" = "Diskussionssidor är platsen där folk diskuterar hur man gör innehåll på Wikipedia så bra som möjligt. **Börja med att lägga till ett nytt diskussionsämne** för att få kontakt och samarbeta med en gemenskap av wikipedianer.";
+"talk-pages-empty-view-body-user" = "Diskussionssidor är platsen där folk diskuterar hur man gör innehåll på Wikipedia så bra som möjligt. Inled en ny diskussion för att få kontakt och samarbeta med $1. Det du säger här kommer att vara offentligt för andra att se.";
+"talk-pages-empty-view-button-article-add-topic" = "Lägg till ett nytt ämne";
+"talk-pages-empty-view-button-user-start-discussion" = "Starta en diskussion";
+"talk-pages-empty-view-header-article" = "Konversationen börjar här";
+"talk-pages-empty-view-header-user" = "Starta en diskussion med $1";
 "talk-pages-reply-button-title" = "Svara på denna diskussion";
+"talk-pages-reply-compose-close-confirmation-title" = "Är du säker på att du vill slänga detta nya svar?";
 "talk-pages-topic-added-alert-title" = "Ditt ämne lades till";
 "talk-pages-topic-compose-body-placeholder" = "Beskrivning";
-// Fuzzy
-"talk-pages-topic-compose-close-confirmation-discard" = "Släng ämnet";
+"talk-pages-topic-compose-close-confirmation-discard" = "Släng svaret";
 "talk-pages-topic-compose-close-confirmation-title" = "Är du säker på att du vill slänga detta ämne?";
 "talk-pages-topic-compose-navbar-title" = "Ämne";
 "talk-pages-topic-compose-title-placeholder" = "Ämnestitel";
+"talk-pages-topic-reply-onboarding-body" = "Diskussionssidor är platsen där folk diskuterar hur man gör innehåll på Wikipedia så bra som möjligt. Lägg till ett nytt diskussionsämne för att få kontakt och samarbeta med en gemenskap av wikipedianer.\n\nVar vänlig, vi är alla människor här.";
+"talk-pages-topic-reply-onboarding-title" = "Diskussionssidor";
 "talk-pages-user-groups" = "Användargrupper";
 "talk-pages-user-logs" = "Loggar";
 "talk-pages-view-title" = "Diskussion";
@@ -1092,11 +1102,13 @@
 "vanish-account-bottom-text" = "Konton raderas på Wikipedia genom att ändra kontonamnet så att man inte kan känna igen bidragen via en process som kallas kontoförsvinnande. Du kan använda formuläret nedan för att begära ett försvinnande. Detta garanterar inte fullständig anonymitet eller att bidrag tas bort från projekten.";
 "vanish-account-bottom-text-with-link" = "Konton raderas på Wikipedia genom att ändra kontonamnet så att man inte kan känna igen bidragen via en process som kallas kontoförsvinnande. Du kan använda formuläret nedan för att begära ett $1försvinnande$2$3. Detta garanterar inte fullständig anonymitet eller att bidrag tas bort från projekten.";
 "vanish-account-button-text" = "Skicka begäran";
+// Fuzzy
 "vanish-account-description" = "Att försvinna är en sista utväg och bör endast användas när du vill sluta redigera för alltid och även för att dölja så många av dina tidigare associationer som möjligt.\n\nFör att initiera försvinnandeprocessen, ange följande";
 "vanish-account-email-text" = "Hej.\nDetta är en begäran att få mitt Wikipedia-konto att försvinna.";
 "vanish-account-learn-more-text" = "Läs mer";
 "vanish-account-title" = "Process för att försvinna";
 "vanish-account-username-field" = "Användarnamn och användarsida";
+"vanish-account-warning-title" = "Varning";
 "vanish-modal-item" = "Om du slutförde din begäran om att försvinna, vänta några dagar för begäran att behandlas av en administratör";
 "vanish-modal-item-2" = "Om du är osäker på om din begäran gick igenom, se din e-postapp";
 "vanish-modal-item-3" = "Om du har ytterligare frågor om att försvinna, besök Meta:Right_to_vanish";

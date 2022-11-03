@@ -4,6 +4,7 @@
 // Author: Ahmetlii
 // Author: Alikaan
 // Author: Alpkant
+// Author: Amire80
 // Author: Ayrıntılı Bilgi
 // Author: BaRaN6161 TURK
 // Author: Betseg
@@ -122,6 +123,7 @@
 "account-creation-saving" = "Kaydediliyor...";
 "account-creation-title" = "Yeni bir hesap oluştur";
 "account-group-title" = "Hesabınız";
+"account-request-vanishing" = "Hesabı yok et";
 "account-talk-page-title" = "Mesaj sayfanız";
 "account-talk-preferences-auto-sign-discussions" = "Otomatik imza tartışmaları";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Tartışmaların otomatik olarak imzalanması, İmza ayarlarında tanımlanan imzayı kullanır";
@@ -448,6 +450,10 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 Vikipedi'den";
 "explore-random-article-sub-heading-from-wikipedia" = "Vikipedi'den";
 "explore-randomizer" = "Rastgele";
+"export-user-data-confirmation-title" = "Uygulama kütüphanesi paylaşılsın mı?";
+"export-user-data-generic-error" = "Verileriniz dışa aktarılırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
+"export-user-data-space-error" = "Kullanıcı verilerinizi dışa aktarmak için cihazınızda yeterli alan yok. Lütfen daha sonra tekrar deneyin.";
+"export-user-data-title" = "Kullanıcı Verilerini Dışa Aktar";
 "featured-article-empty-title" = "Bugün için seçkin madde mevcut değil";
 "featured-widget-content-failure-for-date" = "Bu tarih için seçkin bir madde mevcut değil.";
 "featured-widget-description" = "Topluluğumuz tarafından günlük olarak seçilen Vikipedi'deki en iyi maddeleri keşfedin.";
@@ -1026,8 +1032,7 @@
 "talk-page-new-topic-title" = "Yeni tartışma";
 "talk-page-publish-terms-and-licenses" = "Değişiklikleri kaydederek $1Kullanım Koşullarını$2 kabul etmiş olursunuz ve katkılarınızı $3CC BY-SA 3.0$4 ve $5GFDL$6 lisansları altında yayımlamayı kabul edersiniz.";
 "talk-page-reply-title" = "Yanıtla";
-// Fuzzy
-"talk-page-title-article-talk" = "madde Tartışma";
+"talk-page-title-article-talk" = "Madde Tartışma";
 "talk-page-title-user-talk" = "Kullanıcı mesajı";
 "talk-page-topic-title" = "Tartışma";
 "talk-pages-reply-button-title" = "Bu tartışmayı cevapla";

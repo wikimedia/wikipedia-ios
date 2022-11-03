@@ -21,13 +21,8 @@ final class TalkPageCellCommentView: SetupView {
     lazy var replyButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(CommonStrings.talkPageReply, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.setImage(UIImage(systemName: "arrowshape.turn.up.left"), for: .normal)
-
-        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
 
         button.setContentHuggingPriority(.required, for: .horizontal)
         button.setContentHuggingPriority(.required, for: .vertical)
@@ -52,6 +47,12 @@ final class TalkPageCellCommentView: SetupView {
     weak var linkDelegate: TalkPageTextViewLinkHandling?
     
     private var commentLeadingConstraint: NSLayoutConstraint?
+    
+    override var semanticContentAttribute: UISemanticContentAttribute {
+        didSet {
+            updateSemanticContentAttribute(semanticContentAttribute)
+        }
+    }
 
     // MARK: - Lifecycle
 
@@ -84,6 +85,29 @@ final class TalkPageCellCommentView: SetupView {
         self.viewModel = viewModel
         commentLeadingConstraint?.constant = viewModel.replyDepth > 0 ? 10 : 0
         replyDepthView.configure(viewModel: viewModel)
+        
+        let languageCode = viewModel.cellViewModel?.viewModel?.siteURL.wmf_languageCode
+        replyButton.setTitle(CommonStrings.talkPageReply(languageCode: languageCode), for: .normal)
+    }
+    
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+        commentTextView.semanticContentAttribute = semanticContentAttribute
+        replyButton.semanticContentAttribute = semanticContentAttribute
+        replyDepthView.semanticContentAttribute = semanticContentAttribute
+        
+        commentTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        
+        switch semanticContentAttribute {
+        case .forceRightToLeft:
+            replyButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+            replyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+            replyButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+        default:
+            replyButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+            replyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+            replyButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+        }
+        
     }
     
     // MARK: - Actions
@@ -134,7 +158,7 @@ extension TalkPageCellCommentView: Themeable {
     func apply(theme: Theme) {
         replyDepthView.apply(theme: theme)
 
-        commentTextView.attributedText = viewModel?.text.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
+        commentTextView.attributedText = viewModel?.text.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
         commentTextView.backgroundColor = theme.colors.paperBackground
         applyTextHighlightIfNecessary(theme: theme)
 

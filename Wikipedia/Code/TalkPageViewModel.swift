@@ -12,11 +12,17 @@ final class TalkPageViewModel {
     // MARK: - Properties
 
     let pageType: TalkPageType
-    var pageTitle: String
-    var siteURL: URL
+
+    private(set) var pageTitle: String
+    private(set) var siteURL: URL
+    private(set) var project: WikimediaProject
+
     let authenticationManager: WMFAuthenticationManager
     var deepLinkData: DeepLinkData?
-    var dataController: TalkPageDataController
+    private let dataController: TalkPageDataController
+    
+    private var dateFormatter: DateFormatter?
+    private(set) var semanticContentAttribute: UISemanticContentAttribute
 
     private(set) var headerTitle: String
     private(set) var headerDescription: String?
@@ -30,6 +36,7 @@ final class TalkPageViewModel {
     
     var theme: Theme = .light
     private(set) var topics: [TalkPageCellViewModel] = []
+    private(set) var shouldShowErrorState: Bool = false
 
     // MARK: - Lifecycle
 
@@ -40,15 +47,24 @@ final class TalkPageViewModel {
     ///   - siteURL: Site URL without article path, e.g. "https://en.wikipedia.org"
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
     ///   - authenticationManager: authentication manager from the MWKDataStore singleton
-    init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
+    init?(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
+        
+        guard let project = WikimediaProject(siteURL: siteURL) else {
+            return nil
+        }
+        
         self.pageType = pageType
         self.pageTitle = pageTitle
         self.siteURL = siteURL
+        self.project = project
         self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
         self.authenticationManager = authenticationManager
         
         // Setting headerTitle as pageTitle (which contains the namespace prefix) for now, we attempt to strip the namespace later in populateHeaderData
         self.headerTitle = pageTitle
+        
+        self.dateFormatter = Self.dateFormatterForSiteURL(siteURL)
+        self.semanticContentAttribute = Self.semanticContentAttributeForSiteURL(siteURL)
     }
     
     /// Convenience init for paths that do not already have pageTitle and siteURL separated
@@ -66,6 +82,15 @@ final class TalkPageViewModel {
     }
 
     // MARK: - Public
+    
+    func resetToNewSiteURL(_ siteURL: URL, pageTitle: String, project: WikimediaProject) {
+        self.pageTitle = pageTitle
+        self.siteURL = siteURL
+        self.project = project
+        self.dateFormatter = Self.dateFormatterForSiteURL(siteURL)
+        self.semanticContentAttribute = Self.semanticContentAttributeForSiteURL(siteURL)
+        dataController.resetToNewSiteURL(siteURL, pageTitle: pageTitle)
+    }
 
     var isUserLoggedIn: Bool {
         return authenticationManager.isLoggedIn
@@ -77,20 +102,21 @@ final class TalkPageViewModel {
             guard let self = self else {
                 return
             }
-            let oldViewModels: [TalkPageCellViewModel] = self.topics
 
             switch result {
             case .success(let result):
-                self.populateHeaderData(project: result.project, articleSummary: result.articleSummary, items: result.items)
+                let oldViewModels: [TalkPageCellViewModel] = self.topics
+                self.populateHeaderData(articleSummary: result.articleSummary, items: result.items)
                 self.topics.removeAll()
                 self.populateCellData(topics: result.items, oldViewModels: oldViewModels)
                 self.updateSubscriptionForTopic(topicNames: result.subscribedTopicNames)
+                self.shouldShowErrorState = false
                 self.latestRevisionID = result.latestRevisionID
                 completion(.success(()))
             case .failure(let error):
                 DDLogError("Failure fetching talk page: \(error)")
+                self.shouldShowErrorState = true
                 completion(.failure(error))
-                // TODO: Error handling
             }
         }
     }
@@ -127,16 +153,27 @@ final class TalkPageViewModel {
     
     // MARK: - Private
     
-    private func populateHeaderData(project: WikimediaProject, articleSummary: WMFArticle?, items: [TalkPageItem]) {
+    private static func dateFormatterForSiteURL(_ siteURL: URL) -> DateFormatter? {
+        guard let languageCode = siteURL.wmf_languageCode else {
+            return nil
+        }
+        
+        return DateFormatter.wmf_localCustomShortDateFormatterWithTime(for: NSLocale.wmf_locale(for: languageCode))
+    }
+    
+    private static func semanticContentAttributeForSiteURL(_ siteURL: URL) -> UISemanticContentAttribute {
+        return MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: siteURL.wmf_contentLanguageCode)
+    }
+    
+    private func populateHeaderData(articleSummary: WMFArticle?, items: [TalkPageItem]) {
         
         headerTitle = pageTitle.namespaceAndTitleOfWikiResourcePath(with: project.languageCode ?? "en").title
         headerDescription = articleSummary?.wikidataDescription
 
         leadImageURL = articleSummary?.imageURL(forWidth: Self.leadImageSideLength * Int(UIScreen.main.scale))
         
-        if let otherContent = items.first?.otherContent,
-           !otherContent.isEmpty {
-               coffeeRollText = items.first?.otherContent
+        if let coffeeRollResult = coffeeRollFromItems(items) {
+            coffeeRollText = coffeeRollResult.0.otherContent
         } else {
             coffeeRollText = nil
         }
@@ -161,6 +198,21 @@ final class TalkPageViewModel {
                 continue
             }
             
+            guard let topicName = topic.name else {
+                DDLogError("Unable to parse topic name")
+                continue
+            }
+            
+            // If we cannot detect any replies to traverse but there is other content to display,
+            // set up cell view model with otherContent and continue to next topic
+            if let otherContent = topic.otherContent,
+               topic.replies.isEmpty {
+                let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: nil, topicName: topicName, leadComment: nil, otherContent: otherContent, replies: [], activeUsersCount: nil, isUserLoggedIn: isUserLoggedIn, dateFormatter: dateFormatter)
+                self.topics.append(topicViewModel)
+                continue
+            }
+            
+            // Parse through topic replies and set up comment view models
             guard let firstReply = topic.replies.first,
                   let leadCommentViewModel = TalkPageCellCommentViewModel(commentId: firstReply.id, text: firstReply.html, author: firstReply.author, authorTalkPageURL: "", timestamp: firstReply.timestamp, replyDepth: firstReply.level) else {
                 DDLogWarn("Unable to parse lead comment. Skipping topic.")
@@ -184,13 +236,9 @@ final class TalkPageViewModel {
             }
             
             let activeUsersCount = activeUsersCount(topic: topic)
-            
-            guard let topicName = topic.name else {
-                DDLogError("Unable to parse topic name")
-                continue
-            }
 
-            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserLoggedIn: isUserLoggedIn)
+            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, otherContent: nil, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserLoggedIn: isUserLoggedIn, dateFormatter: dateFormatter)
+            topicViewModel.viewModel = self
 
             // Note this is a nested loop, so it will not perform well with many topics.
             // Talk pages generally have a limited number of topics, so optimize later if we determine it's needed
@@ -236,7 +284,7 @@ private extension TalkPageViewModel {
 
     /// Clean up talk page items so that we can more easily translate them into view models
     ///
-    /// The talk page response returns items in a tree structure. To simplify the response to more closely match our design, we are flattening the items into one top-level list of topics, each with one level of replies. We also clear out any topics that we are not set up to display yet (unsigned topic content, topics without titles).
+    /// The talk page response returns items in a tree structure. To simplify the response to more closely match our design, we are flattening the items into one top-level list of topics, each with one level of replies. We also clear out the first coffee roll item.
     func cleanTalkPageItems(items: [TalkPageItem]) -> [TalkPageItem] {
         let topics = self.removingSubtopics(items: items)
         let validTopics = self.validTopLevelTopics(items: topics)
@@ -290,18 +338,41 @@ private extension TalkPageViewModel {
         return topicsWithFlattenedReplies
     }
     
+    /// Method to seek out coffee roll item from an array of talk page items
+    /// - Parameter items: Array of talk page items
+    /// - Returns: Tuple containing the coffee roll talk page item and the index where it appears in the array
+    func coffeeRollFromItems(_ items: [TalkPageItem]) -> (TalkPageItem, Int)? {
+        if let firstItem = items.first {
+            let otherContent = firstItem.otherContent ?? ""
+            let title = firstItem.html ?? ""
+            if firstItem.type == .heading && firstItem.replies.isEmpty && title.isEmpty && !otherContent.isEmpty {
+                return (firstItem, 0)
+            }
+        }
+            
+        return nil
+    }
+    
     func validTopLevelTopics(items: [TalkPageItem]) -> [TalkPageItem] {
         
-        // Trim any topic item with missing replies (i.e. coffee roll, but also topics can have content without signatures)
-        // Trim any topic item with a missing title (i.e. any threads that occur in the intro area before the first topic title)
-        return items.filter { item in
-            if (item.type == .heading && item.replies.isEmpty) ||
-                (item.type == .heading && (item.html ?? "").isEmpty) {
+        var finalItems: [TalkPageItem] = items
+        
+        // Trim first item if it indicates it's a coffee roll:
+        
+        if let coffeeRollResult = coffeeRollFromItems(items) {
+            finalItems.remove(at: coffeeRollResult.1)
+        }
+        
+        // Filter out items with no content to show
+        finalItems = finalItems.filter { item in
+            if item.replies.isEmpty && (item.html ?? "").isEmpty && (item.otherContent ?? "").isEmpty {
                 return false
             }
             
             return true
         }
+        
+        return finalItems
     }
     
     func recursivelyFlattenReplies(items: [TalkPageItem], flattenedItems: inout [TalkPageItem]) {

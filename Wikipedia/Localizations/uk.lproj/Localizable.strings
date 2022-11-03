@@ -104,6 +104,7 @@
 "account-creation-saving" = "Збереження…";
 "account-creation-title" = "Створити обліковий запис";
 "account-group-title" = "Ваш обліковий запис";
+"account-request-vanishing" = "Знищити обліковий запис";
 "account-talk-page-title" = "Ваша сторінка обговорення";
 "account-talk-preferences-auto-sign-discussions" = "Автоматичний підпис в обговореннях";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "В обговоренні використовуватиметься той підпис, що зазначений у ваших налаштуваннях";
@@ -747,6 +748,7 @@
 "page-similar-titles" = "Сторінки із схожими назвами";
 "panel-compare-revisions-text" = "Порівняння версій допомагає показати, як стаття змінювалася з часом. Порівняння двох версій статті показує різницю між версіями завдяки підсвічуванню того вмісту, який змінився.";
 "panel-compare-revisions-title" = "Порівняння версій";
+"panel-not-logged-in-continue-edit-action-title" = "Редагувати без входу в систему";
 "pictured" = "проілюстровано";
 "places-accessibility-clear-saved-searches" = "Очистити історію пошуку";
 "places-accessibility-group" = "$1 статей";
@@ -996,12 +998,15 @@
 "talk-page-add-discussion-accessibility-label" = "Додати обговорення";
 "talk-page-add-topic-button" = "Додати тему";
 "talk-page-archives" = "Архіви";
+"talk-page-article-about" = "Про сторінки обговорення";
 "talk-page-change-language" = "Змінити мову";
 "talk-page-discussion-accessibility-hint" = "Натисніть двічі, щоб відкрити гілку обговорення";
 "talk-page-discussion-read-accessibility-label" = "Прочитане";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "прочитане";
 "talk-page-discussion-unread-accessibility-label" = "Непрочитане";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "непрочитане";
+"talk-page-error-alert-subtitle" = "Додаток отримав непередбачену відповідь від сервера. Будь ласка, спробуйте ще раз пізніше.";
+"talk-page-error-loading-title" = "Неможливо завантажити сторінку обговорення";
 "talk-page-error-unable-to-post-reply" = "Нема підключення до Інтернету. Неможливо оприлюднити відповідь.";
 "talk-page-error-unable-to-post-topic" = "Нема підключення до Інтернету. Неможливо оприлюднити нове обговорення.";
 "talk-page-find-in-page-button" = "Знайти на сторінці";
@@ -1040,7 +1045,9 @@
 "talk-page-user-contributions" = "Внесок";
 "talk-pages-coffee-roll-read-more" = "Читати більше";
 "talk-pages-comment-added-alert-title" = "Ваш коментар був доданий";
+"talk-pages-compose-close-confirmation-keep" = "Продовжити Редагування";
 "talk-pages-reply-button-title" = "Відповісти в цьому обговоренні";
+"talk-pages-topic-compose-body-placeholder" = "Опис";
 "talk-pages-topic-compose-navbar-title" = "Тема";
 "talk-pages-view-title" = "Обговорення";
 "theme-black-display-name" = "Чорна";

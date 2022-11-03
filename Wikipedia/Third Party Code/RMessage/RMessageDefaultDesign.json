@@ -34,5 +34,32 @@
     "subTitleFontSize": 12,
     "subTitleTextColor": "#222222",
     "blurBackground": 0
+  },
+  "connection": {
+    "backgroundColor": "#F8F9FA",
+    "backgroundColorAlpha": 1.0,
+    "titleTextColor": "#222222",
+    "titleFontSize": 16,
+    "subTitleFontSize": 14,
+    "subTitleTextColor": "#222222",
+    "blurBackground": 0
+  },
+  "subscription-success": {
+    "backgroundColor": "#F8F9FA",
+    "backgroundColorAlpha": 1.0,
+    "titleTextColor": "#222222",
+    "titleFontSize": 14,
+    "subTitleFontSize": 12,
+    "subTitleTextColor": "#222222",
+    "blurBackground": 0
+  },
+  "subscription-error": {
+    "backgroundColor": "#F8F9FA",
+    "backgroundColorAlpha": 1.0,
+    "titleTextColor": "#222222",
+    "titleFontSize": 16,
+    "subTitleFontSize": 14,
+    "subTitleTextColor": "#222222",
+    "blurBackground": 0
   }
 }

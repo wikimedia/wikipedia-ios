@@ -4,12 +4,14 @@
 // Author: A Chinese Wikipedian
 // Author: A Retired User
 // Author: A2B4C
+// Author: Amire80
 // Author: Angrydog001
 // Author: Chixvv
 // Author: Crowley666
 // Author: Cwek
 // Author: Davidzdh
 // Author: Endermoon
+// Author: Evesiesta
 // Author: FakeGreenHand
 // Author: GoForceX
 // Author: GuoPC
@@ -44,6 +46,7 @@
 // Author: Yining Chen
 // Author: Ywang
 // Author: Zhang8569
+// Author: ZhaoFJx
 // Author: 予弦
 // Author: 佛壁灯
 // Author: 夢蝶葬花
@@ -990,6 +993,9 @@
 "tajik-variants-alert-body" = "维基百科应用现在支持以下塔吉克语变体作为应用内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
 "tajik-variants-alert-title" = "更新塔吉克语变体支持";
 "talk-page-add-discussion-accessibility-label" = "添加讨论";
+"talk-page-archives" = "存档";
+"talk-page-article-about" = "关于讨论页";
+"talk-page-change-language" = "更改语言";
 "talk-page-discussion-accessibility-hint" = "轻按两下以开启讨论话题";
 "talk-page-discussion-read-accessibility-label" = "已读";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "i˨˩˦tu˧˥";
@@ -1014,11 +1020,24 @@
 "talk-page-new-topic-body-placeholder-text" = "撰写新讨论";
 "talk-page-new-topic-success-text" = "您的讨论已成功发布";
 "talk-page-new-topic-title" = "新讨论";
+"talk-page-page-info" = "页面信息";
+"talk-page-permanent-link" = "固定链接";
 "talk-page-publish-terms-and-licenses" = "一旦保存，即表示您认同$1使用条款$2，并采用$3CC BY-SA 3.0$4和$5GFDL$6许可协议发表您的贡献。";
+"talk-page-related-links" = "链入页面";
+"talk-page-reply-button" = "回复";
+"talk-page-reply-placeholder-format" = "回复$1";
 "talk-page-reply-title" = "回复";
+"talk-page-revision-history" = "版本历史";
+"talk-page-subscribe-to-topic" = "订阅";
+"talk-page-subscribed-alert-subtitle" = "您将收到有关此话题中新留言的通知。";
+"talk-page-subscribed-alert-title" = "您已订阅！";
 "talk-page-title-article-talk" = "条目讨论";
 "talk-page-title-user-talk" = "用户讨论";
 "talk-page-topic-title" = "讨论";
+"talk-page-unsubscribed-alert-subtitle" = "您将不再收到对于此话题的新留言的通知。";
+"talk-page-unsubscribed-alert-title" = "您已取消订阅。";
+"talk-page-user-contributions" = "贡献";
+"talk-pages-coffee-roll-read-more" = "阅读更多";
 "talk-pages-empty-view-body-article" = "讨论页是人们讨论如何使维基百科上的内容达到最佳状态的地方。 **首先添加一个新的讨论主题**，以便与维基百科社区建立联系和协作。";
 "talk-pages-empty-view-body-user" = "讨论页是人们讨论如何使维基百科上的内容达到最佳状态的地方。开始新的讨论以与$1建立联系和协作。您在此处所说的内容将公开给其他人查看。";
 "talk-pages-empty-view-button-article-add-topic" = "添加新话题";
@@ -1026,6 +1045,11 @@
 "talk-pages-empty-view-header-article" = "对话从这里开始";
 "talk-pages-empty-view-header-user" = "用$1开始讨论";
 "talk-pages-reply-button-title" = "回复该讨论";
+"talk-pages-topic-added-alert-title" = "已添加您的话题";
+"talk-pages-topic-compose-body-placeholder" = "描述";
+"talk-pages-topic-compose-navbar-title" = "主题";
+"talk-pages-user-groups" = "用户组";
+"talk-pages-user-logs" = "日志";
 "talk-pages-view-title" = "讨论";
 "theme-black-display-name" = "黑暗";
 "theme-dark-display-name" = "夜间";

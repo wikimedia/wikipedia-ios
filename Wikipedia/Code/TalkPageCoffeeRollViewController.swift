@@ -18,7 +18,7 @@ final class TalkPageCoffeeRollViewController: ViewController {
         let coffeeRollView = TalkPageCoffeeRollView(theme: theme, viewModel: viewModel, frame: UIScreen.main.bounds)
         view = coffeeRollView
         coffeeRollView.configure(viewModel: viewModel)
-        scrollView = coffeeRollView.textView        
+        scrollView = coffeeRollView.scrollView
     }
 
     init(theme: Theme, viewModel: TalkPageCoffeeRollViewModel) {

@@ -5,133 +5,98 @@ struct VanishAccountContentView: View {
     
     enum LocalizedStrings {
         static let title = WMFLocalizedString("vanish-account-title", value: "Vanishing process", comment: "Title for the vanishing process screen")
-        static let description = WMFLocalizedString("vanish-account-description", value: "Vanishing is a last resort and should only be used when you wish to stop editing forever and also to hide as many of your past associations as possible.\n\nTo initiate the vanishing process please provide the following", comment: "Description for the vanishing process")
+        static let description = WMFLocalizedString("vanish-account-description", value: "To initiate the vanishing process please provide the following:", comment: "Description for the vanishing process")
         static let usernameFieldTitle = CommonStrings.usernameFieldTitle
         static let additionalInformationFieldTitle = WMFLocalizedString("vanish-account-additional-information-field", value: "Additional information", comment: "Title for the additional information form field")
         static let additionalInformationFieldPlaceholder = WMFLocalizedString("vanish-account-additional-information-placeholder", value: "Optional", comment: "Placeholder for the additional information form field")
         static let buttonText = WMFLocalizedString("vanish-account-button-text", value: "Send request", comment: "Text for button on vanish account request screen")
         static let learnMoreButtonText = CommonStrings.learnMoreButtonText
     }
-    
+
     @SwiftUI.ObservedObject var userInput: UserInput
     @SwiftUI.State var isModalVisible = false
     @SwiftUI.State var shouldShowModalOnForeground = false
-    
+    @SwiftUI.State var shouldShowButtonStack = true
+
     var theme: Theme
     var username: String
     
     private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .medium, size: 18)
     private let buttonFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .medium, size: 16)
     private let bodyFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 13)
-    private let fieldTitleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .subheadline, weight: .regular, size: 15)
-    
-    private var extraBottomPaddingiOS13: CGFloat {
-        // iOS 13 doesn't add a bottom scroll view content inset with the keyboard like 14 & 15
-        // Adding some extra padding here so it's easier to scroll and see the text view on smaller iOS13 devices
-        if #available(iOS 14, *) {
-            return 0
-        } else {
+    private let fieldTitleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .subheadline, weight: .regular, size: 16)
+
+    private var extraBottomPadding: CGFloat {
+        // Extra padding to accommodate the one or two (depending on OS version) floating bottom buttons
+        if #available(iOS 15, *) {
             return 100
+        } else {
+            return 200
         }
     }
-    
+
     var body: some View {
         ZStack {
-            GeometryReader { proxy in
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack {
-                        VStack {
-                            Text(LocalizedStrings.title)
-                                .foregroundColor(Color(theme.colors.primaryText))
-                                .fixedSize(horizontal: false, vertical: true)
-                                .font(Font(titleFont))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding([.bottom], 10)
-                            Text(LocalizedStrings.description)
-                                .foregroundColor(Color(theme.colors.secondaryText))
-                                .fixedSize(horizontal: false, vertical: true)
-                                .font(Font(bodyFont))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                        .background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(20)
-                        VStack {
-                            Text(LocalizedStrings.usernameFieldTitle)
-                                .foregroundColor(Color(theme.colors.secondaryText))
-                                .fixedSize(horizontal: false, vertical: true)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .font(Font(fieldTitleFont))
-                                .padding([.top], 10)
-                                .padding([.leading, .trailing], 20)
-                            Text(username)
-                                .foregroundColor(Color(theme.colors.secondaryText))
-                                .fixedSize(horizontal: false, vertical: true)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .font(Font(fieldTitleFont))
-                                .padding([.bottom], 5)
-                                .padding([.top], 2)
-                                .padding([.leading, .trailing], 20)
-                            Divider().padding([.leading], 20)
-                            Text(LocalizedStrings.additionalInformationFieldTitle)
-                                .foregroundColor(Color(theme.colors.link))
-                                .fixedSize(horizontal: false, vertical: true)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .font(Font(fieldTitleFont))
-                                .padding([.leading, .trailing], 20)
-                                .padding([.top], 5)
-                            TextView(placeholder: LocalizedStrings.additionalInformationFieldPlaceholder, theme: theme, text: $userInput.text)
-                                .padding([.leading, .trailing], 20)
-                                .frame(maxWidth: .infinity, minHeight: 100)
-                            Spacer()
-                                .frame(height: 12)
-                        }
-                        .background(Color(theme.colors.paperBackground))
-                        .frame(maxWidth: .infinity, minHeight: 300)
-                        VStack {
-                            VanishAccountFooterView()
-                                .foregroundColor(Color(theme.colors.secondaryText))
-                                .fixedSize(horizontal: false, vertical: true)
-                                .font(Font(bodyFont))
-                                .padding(20)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            Spacer()
-                            VStack {
-                                Button(action: {
-                                    openMailClient()
-                                }, label: {
-                                    Text(LocalizedStrings.buttonText)
-                                        .font(Font(buttonFont))
-                                        .foregroundColor(Color(theme.colors.link))
-                                        .frame(minWidth: 335)
-                                        .frame(height: 46)
-                                        .background(Color(theme.colors.paperBackground))
-                                        .cornerRadius(8)
-                                })
-                                if #unavailable(iOS 15) {
-                                    Button(action: {
-                                        goToVanishPage()
-                                    }, label: {
-                                        Text(LocalizedStrings.learnMoreButtonText)
-                                            .font(Font(buttonFont))
-                                            .foregroundColor(Color(theme.colors.link))
-                                            .frame(minWidth: 335)
-                                            .frame(height: 46)
-                                            .background(Color(theme.colors.baseBackground))
-                                        
-                                    })
-                                }
-                            }
-                            .padding(0)
-                            Spacer()
-                        }
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 0) {
+                    VStack(spacing: 0) {
+                        Text(LocalizedStrings.title)
+                            .foregroundColor(Color(theme.colors.primaryText))
+                            .fixedSize(horizontal: false, vertical: true)
+                            .font(Font(titleFont))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Spacer()
+                            .frame(height: 16)
+                        Text(LocalizedStrings.description)
+                            .foregroundColor(Color(theme.colors.secondaryText))
+                            .fixedSize(horizontal: false, vertical: true)
+                            .font(Font(bodyFont))
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .padding([.bottom], extraBottomPaddingiOS13)
-                    .frame(minHeight: proxy.size.height)
-                    .frame(maxWidth: .infinity)
+                    .padding(16)
+                    VStack {
+                        Text(LocalizedStrings.usernameFieldTitle)
+                            .foregroundColor(Color(theme.colors.secondaryText))
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(Font(fieldTitleFont))
+                            .padding([.top], 16)
+                            .padding([.leading, .trailing], 16)
+                        Text(username)
+                            .foregroundColor(Color(theme.colors.secondaryText))
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(Font(fieldTitleFont))
+                            .padding([.bottom], 5)
+                            .padding([.top], 2)
+                            .padding([.leading, .trailing], 16)
+                        Divider().padding([.leading], 16)
+                        Text(LocalizedStrings.additionalInformationFieldTitle)
+                            .foregroundColor(Color(theme.colors.link))
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(Font(fieldTitleFont))
+                            .padding([.leading, .trailing], 16)
+                            .padding([.top], 8)
+                        TextView(placeholder: LocalizedStrings.additionalInformationFieldPlaceholder, theme: theme, text: $userInput.text)
+                            .padding([.leading, .trailing], 16)
+                            .frame(maxWidth: .infinity, minHeight: 50)
+                        Spacer()
+                            .frame(height: 12)
+                    }
+                    .background(Color(theme.colors.paperBackground))
+                    VStack(spacing: 0) {
+                        VanishAccountFooterView()
+                            .foregroundColor(Color(theme.colors.secondaryText))
+                            .fixedSize(horizontal: false, vertical: true)
+                            .font(Font(bodyFont))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .padding(16)
                 }
-                .background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
+                .padding([.bottom], extraBottomPadding)
             }
+            .background(Color(theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                 if shouldShowModalOnForeground {
                     withAnimation(.linear(duration: 0.3)) {
@@ -140,6 +105,43 @@ struct VanishAccountContentView: View {
                     }
                 }
             }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardWillShowNotification)) { _ in
+                shouldShowButtonStack = false
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)) { _ in
+                shouldShowButtonStack = true
+            }
+            if shouldShowButtonStack {
+                VStack {
+                    Spacer()
+                    Button(action: {
+                        openMailClient()
+                    }, label: {
+                        Text(LocalizedStrings.buttonText)
+                            .font(Font(buttonFont))
+                            .foregroundColor(Color(theme.colors.link))
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 46)
+                            .background(Color(theme.colors.paperBackground))
+                            .cornerRadius(8)
+                    })
+                    .padding(16)
+                    if #unavailable(iOS 15) {
+                        Button(action: {
+                            goToVanishPage()
+                        }, label: {
+                            Text(LocalizedStrings.learnMoreButtonText)
+                                .font(Font(buttonFont))
+                                .foregroundColor(Color(theme.colors.link))
+                                .frame(minWidth: 335)
+                                .frame(height: 46)
+                                .background(Color(theme.colors.baseBackground))
+                        })
+                    }
+                }
+                .padding(0)
+            }
+            Spacer()
             VanishAccountPopUpAlertView(theme:theme, isVisible: $isModalVisible, userInput: $userInput.text)
         }
         
@@ -154,7 +156,7 @@ struct VanishAccountContentView: View {
     }
     
     func openMailClient() {
-        let address = "ios-support@wikimedia.org"
+        let address = "privacy@wikimedia.org"
         let subject = WMFLocalizedString("vanishing-request-email-title", value: "Request for courtesy vanishing", comment: "Title for vanishing request email")
         let body = getMailBody()
         let mailto = "mailto:\(address)?subject=\(subject)&body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)

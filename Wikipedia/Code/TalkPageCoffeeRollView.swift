@@ -10,13 +10,25 @@ final class TalkPageCoffeeRollView: SetupView {
     weak var linkDelegate: TalkPageTextViewLinkHandling?
 
     // MARK: - UI Elements
+    
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView(frame: .zero)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
 
     lazy var textView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.isScrollEnabled = true
+        textView.isScrollEnabled = false
         textView.isEditable = false
-        textView.textContainerInset = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
+        
+        textView.textContainerInset = .zero
+        textView.textContainer.lineFragmentPadding = 0
+        
+        textView.setContentCompressionResistancePriority(.required, for: .vertical)
+        textView.setContentHuggingPriority(.required, for: .vertical)
+        
         textView.delegate = self
         return textView
     }()
@@ -35,20 +47,40 @@ final class TalkPageCoffeeRollView: SetupView {
     }
 
     override func setup() {
-        addSubview(textView)
+        addSubview(scrollView)
+        scrollView.addSubview(textView)
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: topAnchor),
-            textView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            textView.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
-            textView.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor)
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            textView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
+            textView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16),
+            textView.leadingAnchor.constraint(equalTo: scrollView.readableContentGuide.leadingAnchor, constant: 16),
+            textView.trailingAnchor.constraint(equalTo: scrollView.readableContentGuide.trailingAnchor, constant: -16),
+            textView.widthAnchor.constraint(equalTo: scrollView.readableContentGuide.widthAnchor, constant: -32)
         ])
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
     }
 
     // MARK: - Configure
 
     func configure(viewModel: TalkPageCoffeeRollViewModel) {
         self.viewModel = viewModel
-        textView.attributedText = viewModel.coffeeRollText?.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
+        updateFonts()
+        updateSemanticContentAttribute(viewModel.semanticContentAttribute)
+    }
+    
+    private func updateFonts() {
+        textView.attributedText = viewModel.coffeeRollText?.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+    }
+    
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+        textView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
     }
 
 }
@@ -61,7 +93,9 @@ extension TalkPageCoffeeRollView: Themeable {
         backgroundColor = theme.colors.paperBackground
 
         textView.backgroundColor = theme.colors.paperBackground
-        configure(viewModel: viewModel)
+        
+        updateFonts()
+        updateSemanticContentAttribute(viewModel.semanticContentAttribute)
     }
 
 }

@@ -131,9 +131,10 @@ class AccountViewController: SubSettingsViewController {
             let title = OldTalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
             
             if FeatureFlags.needsNewTalkPage {
-                let viewModel = TalkPageViewModel(pageType: .user, pageTitle: title, siteURL: siteURL, articleSummaryController: dataStore.articleSummaryController, authenticationManager: dataStore.authenticationManager)
-                let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
-                self.navigationController?.pushViewController(newTalkPage, animated: true)
+                if let viewModel = TalkPageViewModel(pageType: .user, pageTitle: title, siteURL: siteURL, articleSummaryController: dataStore.articleSummaryController, authenticationManager: dataStore.authenticationManager) {
+                    let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
+                    self.navigationController?.pushViewController(newTalkPage, animated: true)
+                }
             } else {
                 let title = OldTalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
                 let loadingFlowController = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL,  type: .user, dataStore: dataStore, theme: theme)
@@ -141,12 +142,9 @@ class AccountViewController: SubSettingsViewController {
             }
             
         case .vanishAccount:
-            guard let username = dataStore.authenticationManager.loggedInUsername else {
-                return
-            }
-
-            let viewController = VanishAccountContainerViewController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
-            self.navigationController?.pushViewController(viewController, animated: true)
+            let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
+            warningViewController.delegate = self
+            present(warningViewController, animated: true)
         default:
             break
         }
@@ -203,4 +201,17 @@ class AccountViewController: SubSettingsViewController {
         view.backgroundColor = theme.colors.paperBackground
         tableView.backgroundColor = theme.colors.baseBackground
     }
+}
+
+extension AccountViewController: VanishAccountWarningViewDelegate {
+
+    func userDidDismissVanishAccountWarningView(presentVanishView: Bool) {
+        guard presentVanishView, let username = dataStore.authenticationManager.loggedInUsername else {
+            return
+        }
+
+        let viewController = VanishAccountContainerViewController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+
 }

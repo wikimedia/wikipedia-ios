@@ -596,7 +596,7 @@
 "main-menu-rate-app" = "Оценить приложение";
 "main-menu-terms-of-use" = "Условия использования";
 "main-menu-title" = "Ещё";
-"main-menu-zero-faq" = "ЧаВо по Wikipedia Zero";
+"main-menu-zero-faq" = "ЧЗВ по Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Отмена";
 "more-languages-tooltip-description" = "Искать в Википедии на более чем 300 языках";
 "more-languages-tooltip-title" = "Добавить языки";
@@ -765,6 +765,8 @@
 "page-similar-titles" = "Похожие страницы";
 "panel-compare-revisions-text" = "Сравнение редакций помогает показать, как статья менялась с течением времени. Сравнение двух редакций статьи покажет разницу между этими редакциями, выделив все содержание, которое было изменено.";
 "panel-compare-revisions-title" = "Сравнение версий";
+"panel-not-logged-in-continue-edit-action-title" = "Редактировать без входа в систему";
+"panel-not-logged-in-title" = "Вы не вошли в систему";
 "pictured" = "иллюстрировано";
 "places-accessibility-clear-saved-searches" = "Очистить сохранённые поисковые запросы";
 "places-accessibility-group" = "$1 статьи";
@@ -1018,6 +1020,9 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "прочитано";
 "talk-page-discussion-unread-accessibility-label" = "Непрочитано";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "непрочитано";
+"talk-page-error-alert-title" = "Неожиданная ошибка";
+"talk-page-error-loading-subtitle" = "Что-то пошло не так.";
+"talk-page-error-loading-title" = "Невозможно загрузить страницу обсуждения";
 "talk-page-error-unable-to-post-reply" = "Нет подключения к интернету. Невозможно опубликовать ответ.";
 "talk-page-error-unable-to-post-topic" = "Нет подключения к интернету. Невозможно опубликовать обсуждение.";
 "talk-page-find-in-page-button" = "Найти на странице";
@@ -1041,7 +1046,11 @@
 "talk-page-new-topic-title" = "Новое обсуждение";
 "talk-page-page-info" = "Информация о странице";
 "talk-page-permanent-link" = "Постоянная ссылка";
+"talk-page-publish-reply-error-subtitle" = "Проверьте соединение с интернетом.";
+"talk-page-publish-reply-error-title" = "Не удалось опубликовать ваш комментарий.";
 "talk-page-publish-terms-and-licenses" = "Сохраняя изменения, вы соглашаетесь с $1Условиями использования$2 и публикуете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6.";
+"talk-page-publish-topic-error-title" = "Невозможно опубликовать новую тему.";
+"talk-page-read-in-web" = "Читать в Интернете";
 "talk-page-related-links" = "Ссылки сюда";
 "talk-page-reply-button" = "Ответить";
 "talk-page-reply-placeholder-format" = "Ответить $1";
@@ -1105,8 +1114,10 @@
 "vanish-account-back-confirm-discard" = "Отменить запрос";
 "vanish-account-back-confirm-keep-editing" = "Продолжить редактирование";
 "vanish-account-button-text" = "Послать запрос";
+"vanish-account-continue-button-title" = "Продолжить";
 "vanish-account-learn-more-text" = "Узнать подробности";
 "vanish-account-username-field" = "Имя участника и его страница";
+"vanish-account-warning-title" = "Предупреждение";
 "vanish-modal-title" = "Запрос на исчезновение";
 "variants-alert-dismiss-button" = "Нет, спасибо";
 "variants-alert-preferences-button" = "Просмотреть свои настройки";

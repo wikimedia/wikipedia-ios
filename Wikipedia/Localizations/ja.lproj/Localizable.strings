@@ -686,6 +686,8 @@
 "page-protected-sysop" = "このページは全保護されています。";
 "page-similar-titles" = "類似したページ";
 "panel-compare-revisions-title" = "版を比較";
+"panel-not-logged-in-continue-edit-action-title" = "ログインせずに編集";
+"panel-not-logged-in-title" = "ログインしていません";
 "pictured" = "描かれた";
 "places-accessibility-clear-saved-searches" = "保存した検索結果を消去する";
 "places-accessibility-group" = "$1記事";
@@ -930,6 +932,9 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "kʲidokɯ";
 "talk-page-discussion-unread-accessibility-label" = "未読";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "mʲidokɯ̹";
+"talk-page-error-alert-title" = "予期しないエラー";
+"talk-page-error-loading-subtitle" = "エラーが発生しました";
+"talk-page-error-loading-title" = "トークページを読み込めません";
 "talk-page-error-unable-to-post-reply" = "インターネット接続がないため返信を投稿できません。";
 "talk-page-error-unable-to-post-topic" = "インターネット接続がないため議論を投稿できません。";
 "talk-page-find-in-page-button" = "ページ内検索";
@@ -974,10 +979,10 @@
 "talk-pages-empty-view-button-article-add-topic" = "新しいトピックを追加";
 "talk-pages-empty-view-button-user-start-discussion" = "新しい議論を始める";
 "talk-pages-reply-button-title" = "この議論に返信する";
+"talk-pages-reply-compose-close-confirmation-title" = "この新しい返信を破棄してもよろしいですか?";
 "talk-pages-topic-added-alert-title" = "トピックが追加されました";
 "talk-pages-topic-compose-body-placeholder" = "説明";
-// Fuzzy
-"talk-pages-topic-compose-close-confirmation-discard" = "トピックを破棄";
+"talk-pages-topic-compose-close-confirmation-discard" = "返信を破棄";
 "talk-pages-topic-compose-close-confirmation-title" = "この新しいトピックを破棄してもよろしいですか?";
 "talk-pages-topic-compose-navbar-title" = "トピック";
 "talk-pages-topic-compose-title-placeholder" = "トピック名";
@@ -1008,8 +1013,10 @@
 "vanish-account-back-confirm-discard" = "リクエストを破棄";
 "vanish-account-back-confirm-keep-editing" = "編集を続行";
 "vanish-account-button-text" = "リクエストを送信";
+"vanish-account-continue-button-title" = "続行";
 "vanish-account-learn-more-text" = "もっと詳しく";
 "vanish-account-username-field" = "ユーザー名とユーザーページ";
+"vanish-account-warning-title" = "警告";
 "variants-alert-dismiss-button" = "いいえ";
 "variants-alert-preferences-button" = "設定を確認する";
 "welcome-exploration-explore-feed-description" = "私たちコミュニティからの読書のおすすめと毎日の記事";

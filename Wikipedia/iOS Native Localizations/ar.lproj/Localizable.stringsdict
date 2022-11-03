@@ -2,6 +2,56 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>aaald-characters-text-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> حرف </string>
+			<key>other</key>
+			<string> أحرف</string>
+		</dict>
+	</dict>
+	<key>aaald-numerical-multiple-references-added-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>تمت إضافة %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>مرجع</string>
+			<key>other</key>
+			<string>%1$d مراجع</string>
+			<key>zero</key>
+			<string>0 مرجع</string>
+		</dict>
+	</dict>
+	<key>aaald-small-change-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> تم إجراء تغيير بسيط %1$d </string>
+			<key>other</key>
+			<string> تم إجراء %1$d من التغييرات الطفيفة</string>
+		</dict>
+	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -215,6 +265,54 @@
 			<string>%1$d مقالة</string>
 			<key>other</key>
 			<string>%1$d مقالات</string>
+		</dict>
+	</dict>
+	<key>notifications-center-empty-state-num-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> مرشح %1$d </string>
+			<key>other</key>
+			<string> مرشحات %1$d </string>
+		</dict>
+	</dict>
+	<key>notifications-center-mark-all-as-read-confirmation-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>هل أنت متأكد أنك تريد تعليم كل %#@v1@ من إشعاراتك بمقروء؟ سيتم وضع علامة على إشعاراتك كمقروءة على جميع أجهزتك.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> رسالة %1$d </string>
+			<key>other</key>
+			<string> %1$d رسائل</string>
+		</dict>
+	</dict>
+	<key>notifications-center-num-selected-messages-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> رسالة %1$d </string>
+			<key>other</key>
+			<string> رسائل %1$d </string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>

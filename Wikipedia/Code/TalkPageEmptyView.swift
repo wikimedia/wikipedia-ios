@@ -159,10 +159,10 @@ final class TalkPageEmptyView: SetupView {
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.readableContentGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.readableContentGuide.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            stackView.widthAnchor.constraint(equalTo: scrollView.readableContentGuide.widthAnchor),
 
             actionButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 42)
         ])
@@ -190,6 +190,26 @@ final class TalkPageEmptyView: SetupView {
             bodyLabel.attributedText = NSMutableAttributedString(string: String.localizedStringWithFormat(LocalizedStrings.userBody, viewModel.headerTitle), attributes: [.paragraphStyle: bodyLineHeightAttribute])
             actionButton.setTitle(LocalizedStrings.startDiscussion, for: .normal)
         }
+        
+        let semanticContentAttribute = viewModel.semanticContentAttribute
+        updateSemanticContentAttribute(semanticContentAttribute)
+    }
+    
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+        
+        container.semanticContentAttribute = semanticContentAttribute
+        imageView.semanticContentAttribute = semanticContentAttribute
+        headerLabel.semanticContentAttribute = semanticContentAttribute
+        bodyLabel.semanticContentAttribute = semanticContentAttribute
+        actionButton.semanticContentAttribute = semanticContentAttribute
+        stackView.semanticContentAttribute = semanticContentAttribute
+        imageStack.semanticContentAttribute = semanticContentAttribute
+        headerStack.semanticContentAttribute = semanticContentAttribute
+        bodyStack.semanticContentAttribute = semanticContentAttribute
+        buttonStack.semanticContentAttribute = semanticContentAttribute
+
+        headerLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        bodyLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
     }
 
 }

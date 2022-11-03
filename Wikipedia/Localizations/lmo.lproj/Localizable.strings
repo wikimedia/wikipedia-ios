@@ -117,6 +117,7 @@
 "action-update" = "Atualiza";
 "add-articles-to-reading-list" = "Sgionta $1 {{PLURAL:$1|vos}} a la lista de letura";
 "add-citation-title" = "Sgionta ona menzion";
+"additional-information-email-title" = "Informazzion pussee";
 "announcements-dismiss" = "Scond";
 "app-store-keywords" = "Wikipedia, riferiment, wiki, enciclopedia, info, conoscenza, ricerca, informazzion, esplorazzion, l'imprender";
 "app-store-release-notes" = "Del tut adatabil come a se voeul e facil de vesser lesgiud Esplora feed. Rilevament de la posizzion, migliorament de la resa correzzion de bigat.";
@@ -256,6 +257,7 @@
 "edit-link-title" = "Modeifega 'l ligam";
 "edit-menu-item" = "Modifega";
 "edit-menu-item-could-not-find-selection-alert-message" = "Quest el podariss vesser perchè el test che t'hee scernid foeura l'è se pò nò modifegàll (per es. el titol de l'articol o titoi de l'infobox) o per via de la longhezza del test che l'è stad marcad";
+"edit-menu-item-could-not-find-selection-alert-title" = "Impossibil trovà el test selezionad";
 "edit-minor-learn-more-text" = "Per savénn pussee sora i modifeghe piscinine";
 "edit-minor-text" = "Questa chì l'è ona modifega piscinina";
 "edit-ordered-list-accessibility-label" = "Crea lista orinada de la lista corrent";
@@ -289,7 +291,7 @@
 "edit-unordered-list-accessibility-label" = "Crea de la riga correnta lista minga ordenada";
 "edit-unordered-list-remove-accessibility-label" = "Leva de la riga correnta lista minga ordinada";
 "edit-watch-list-learn-more-text" = "Di alter informazzion sora la lista di pagine che te tegnet d'oeugg";
-"edit-watch-this-page-text" = "Tegn d'ouegg";
+"edit-watch-this-page-text" = "Tegn d'oeugg questa pagina chì";
 "editing-welcome-be-bold-subtitle" = "Te gh'hee de vesser ardimentos ma minga strafusari in de l'atualizà i vos. Cruzzies minga per i possibil error che te podarisset fà: ogni version passada d'ona pagina l'è salvada, donca i error a poden vesser corrensgiud facilment de la comunità.";
 "editing-welcome-be-bold-title" = "La toa vos l'è importanta";
 "editing-welcome-citations-subtitle" = "Tucc i contegnud i gh'hann de vesser controllabil. In del sgiontà di informazzion noeuve a ona vos, i editor i gh'hann de fornì opna citazzion d'ona font credibil che sostegnen la contribuzzion.";
@@ -324,13 +326,18 @@
 "explore-because-you-read" = "Perchè t'hee lensgiud";
 "explore-because-you-read-footer" = "Di alter vos correlade pussee";
 "explore-continue-reading-heading" = "Và adree a lensger";
+"explore-detail-back-button-title" = "Torna indree al Canal de esplorazzion";
 "explore-enable-location-title" = "Varda i vos arente al sit indove che te steet adess";
 "explore-featured-article-heading" = "Vos in vedrina";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipedia in $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Da Wikipedia";
 "explore-feed-customize-accessibility-title" = "Adata come te voeulet";
+"explore-feed-language-settings" = "Esplora i impostazzion de la lengua del Canal de esplorazzion";
 "explore-feed-preferences-additional-languages-footer-text" = "A se poden sgiontà di alter lengue pussee in de la pagina di impostazzion de 'I me lengov'.";
+"explore-feed-preferences-card-hidden-title" = "Carta foura vista";
 "explore-feed-preferences-continue-reading-description" = "Ligam svelt per lensger ona vos averta";
+"explore-feed-preferences-customize-explore-feed" = "Personaliza el Canal de esplorazzion";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Personaliza Canal de esplorazzion";
 "explore-feed-preferences-explore-tab" = "Scheda \"Esplora\"";
 "explore-feed-preferences-featured-article-description" = "Vos i vedrina de la sgiornada in su Wikipedia";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Smorzad";

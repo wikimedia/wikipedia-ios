@@ -849,7 +849,11 @@
 "talk-page-title-article-talk" = "Diskuse ke článku";
 "talk-page-title-user-talk" = "Diskuse s wikipedistou";
 "talk-page-topic-title" = "Diskuse";
+"talk-pages-empty-view-body-user" = "Diskusní stránky jsou místa, kde lidé diskutují o tom, jak udělat obsah na Wikipedii co nejlepší. Zahajte novou diskusi a připojte se a spolupracujte s $1. To, co zde řeknete, bude pro ostatní veřejné.";
+"talk-pages-empty-view-button-article-add-topic" = "Přidat nové téma";
+"talk-pages-empty-view-button-user-start-discussion" = "Zahájit diskusi";
 "talk-pages-reply-button-title" = "Odpovědět na tuto diskusi";
+"talk-pages-reply-compose-close-confirmation-title" = "Opravdu chcete tuto novou odpověď zahodit?";
 "theme-black-display-name" = "Černé";
 "theme-dark-display-name" = "Tmavé";
 "theme-default-display-name" = "Standardní";

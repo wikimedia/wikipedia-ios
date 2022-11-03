@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Brion Vibber
 // Author: Caliburn
+// Author: DavidL
 // Author: Derugon
 // Author: Eneelk
 // Author: Envlh
@@ -450,7 +451,7 @@
 "featured-widget-language-failure" = "L’édition de Wikipédia dans votre langue principale ne prend pas en charge l’article mis en avant. Vous pouvez mettre à jour votre édition principale de Wikipédia dans le menu Paramètres de l’application.";
 "featured-widget-title" = "Article mis en avant";
 "fetcher-error-generic" = "Quelque chose s’est mal passé. Veuillez réessayer ultérieurement.";
-"fetcher-error-unexpected-response" = "L’application a reçu une réponse inattendue du serveur. Veuillez réessayer ultérieurement.";
+"fetcher-error-unexpected-response" = "L’application a reçu une réponse inattendue du serveur. Veuillez essayer à nouveau ultérieurement.";
 "field-alert-captcha-invalid" = "CAPTCHA non valide";
 "field-alert-password-confirm-mismatch" = "Les mots de passe ne correspondent pas";
 "field-alert-token-invalid" = "Code non valide";
@@ -754,6 +755,9 @@
 "page-similar-titles" = "Pages similaires";
 "panel-compare-revisions-text" = "Comparer les versions aide à montrer comment un article a changé au cours du temps. La comparaison de deux versions d’un article affichera les différences entre elles en surlignant tout contenu qui a été modifié.";
 "panel-compare-revisions-title" = "Comparaison des versions";
+"panel-not-logged-in-continue-edit-action-title" = "Modifier sans se connecter";
+"panel-not-logged-in-subtitle" = "Votre adresse IP sera actuellement visible publiquement si vous faites des modifications. Si vous $1vous connectez$2 ou $3créez un compte$4, vos modifications seront attribuées à votre nom d’utilisateur, parmi d’autres avantages.";
+"panel-not-logged-in-title" = "Vous n’êtes pas connecté(e)";
 "pictured" = "en image";
 "places-accessibility-clear-saved-searches" = "Effacer les recherches enregistrées";
 "places-accessibility-group" = "$1 articles";
@@ -1010,6 +1014,10 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "ly";
 "talk-page-discussion-unread-accessibility-label" = "Non lu";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "nɔ̃ˈly";
+"talk-page-error-alert-subtitle" = "L’application a reçu une réponse inattendue du serveur. Veuillez essayer à nouveau ultérieurement.";
+"talk-page-error-alert-title" = "Erreur inattendue";
+"talk-page-error-loading-subtitle" = "Quelque chose s’est mal passé.";
+"talk-page-error-loading-title" = "Impossible de charger la page de discussion";
 "talk-page-error-unable-to-post-reply" = "Aucune connexion internet. Impossible d’envoyer la réponse.";
 "talk-page-error-unable-to-post-topic" = "Aucune connexion internet. Impossible d’envoyer la discussion.";
 "talk-page-find-in-page-button" = "Trouver dans la page";
@@ -1033,7 +1041,10 @@
 "talk-page-new-topic-title" = "Nouvelle discussion";
 "talk-page-page-info" = "Informations sur la page";
 "talk-page-permanent-link" = "Lien permanent";
+"talk-page-publish-reply-error-subtitle" = "Vérifiez votre connexion Internet.";
+"talk-page-publish-reply-error-title" = "Impossible de publier votre commentaire.";
 "talk-page-publish-terms-and-licenses" = "En enregistrant les modifications, vous acceptez les $1Conditions d’utilisation$2 et acceptez de livrer vos contributions sous les licences $3CC BY-SA 3.0$4 et $5GFDL$6.";
+"talk-page-publish-topic-error-title" = "Impossible de publier un nouveau sujet.";
 "talk-page-read-in-web" = "Lire sur le web";
 "talk-page-related-links" = "Pages liées";
 "talk-page-reply-button" = "Répondre";
@@ -1045,6 +1056,7 @@
 "talk-page-subscribe-to-topic" = "S’abonner";
 "talk-page-subscribed-alert-subtitle" = "Vous recevrez des notifications concernant les nouveaux commentaires de ce sujet.";
 "talk-page-subscribed-alert-title" = "Vous êtes abonné(e) !";
+"talk-page-subscription-failed-alert" = "L’abonnement au sujet a échoué, veuillez essayer à nouveau.";
 "talk-page-title-article-talk" = "Discussion de l’article";
 "talk-page-title-user-talk" = "Discussion de l’utilisateur";
 "talk-page-topic-compose-terms-and-licenses" = "En enregistrant les modifications, vous acceptez les $1Conditions d’utilisation$2 et acceptez irrévocablement de livrer vos contributions sous les licences $3CC BY-SA 3.0$4 et $5GFDL$6.";
@@ -1052,6 +1064,7 @@
 "talk-page-unsubscribe-to-topic" = "Se désabonner";
 "talk-page-unsubscribed-alert-subtitle" = "Vous ne recevrez plus de notifications concernant les nouveaux commentaires sur ce sujet.";
 "talk-page-unsubscribed-alert-title" = "Vous êtes désabonné(e).";
+"talk-page-unsubscription-failed-alert" = "Le désabonnement du sujet a échoué, veuillez essayer à nouveau.";
 "talk-page-user-about" = "À propos des pages de discussion des utilisateurs";
 "talk-page-user-contributions" = "Contributions";
 "talk-pages-coffee-roll-read-more" = "Lire davantage";
@@ -1064,10 +1077,10 @@
 "talk-pages-empty-view-header-article" = "La conversation commence ici";
 "talk-pages-empty-view-header-user" = "Démarrer une discussion avec $1";
 "talk-pages-reply-button-title" = "Répondre à cette discussion";
-"talk-pages-reply-compose-close-confirmation-title" = "Êtes-vous sûr de vouloir abandonner cette nouvelle réponse ?";
+"talk-pages-reply-compose-close-confirmation-title" = "Êtes-vous sûr{{GENDER:||e}} de vouloir abandonner cette nouvelle réponse ?";
 "talk-pages-topic-added-alert-title" = "Votre sujet a été ajouté";
 "talk-pages-topic-compose-body-placeholder" = "Description";
-"talk-pages-topic-compose-close-confirmation-discard" = "Abandonner la réponse";
+"talk-pages-topic-compose-close-confirmation-discard" = "Ignorer la réponse";
 "talk-pages-topic-compose-close-confirmation-title" = "Voulez-vous vraiment abandonner ce nouveau sujet ?";
 "talk-pages-topic-compose-navbar-title" = "Sujet";
 "talk-pages-topic-compose-title-placeholder" = "Titre du sujet";
@@ -1105,11 +1118,14 @@
 "vanish-account-bottom-text" = "La suppression de compte sur Wikipédia est effectuée en changeant le nom de votre compte pour faire en sorte que les autres ne puisse pas reconnaître vos contributions, dans un processus appelé disparition de compte. Vous pouvez utiliser le formulaire ci-dessous pour demander une disparition par courtoisie. La disparition ne garantit pas un anonymat complet, ni ne supprime les contributions aux projets.";
 "vanish-account-bottom-text-with-link" = "La suppression de compte sur Wikipédia est effectuée en changeant le nom de votre compte pour faire en sorte que les autres ne puisse pas reconnaître vos contributions, dans un processus appelé disparition de compte. Vous pouvez utiliser le formulaire ci-dessous pour demander une $1disparition par courtoisie$2$3. La disparition ne garantit pas un anonymat complet, ni ne supprime les contributions aux projets.";
 "vanish-account-button-text" = "Envoyer la demande";
-"vanish-account-description" = "Le droit de disparaître est un dernier recours et ne devrait être utilisé que lorsque vous voulez arrêter définitivement de modifier et également masquer autant que possible vos associations passées.\n\nPour lancer le processus de disparition, veuillez fournir ce qui suit :";
+"vanish-account-continue-button-title" = "Continuer";
+"vanish-account-description" = "Pour lancer le processus de disparition, veuillez fournir ce qui suit :";
 "vanish-account-email-text" = "Bonjour,\nCeci est une demande pour faire disparaître mon compte Wikipédia.";
 "vanish-account-learn-more-text" = "En savoir plus";
 "vanish-account-title" = "Processus du droit de disparaître";
 "vanish-account-username-field" = "Nom d’utilisateur et page utilisateur";
+"vanish-account-warning-body" = "La disparition est à utiliser en **dernier recours** et ne doit **uniquement lorsque vous souhaitez arrêter les modifications pour toujours** et également pour masquer autant de vos associations passées que possible.\n\nLa suppression du compte sur Wikipédia est réalisée en changeant le nom de votre compte pour que les autres ne puissent pas reconnaître vos contributions dans un processus appelé disparition de compte. **La disparition ne garantit pas l’anonymat complet et ne supprime pas les contributions aux projets**.";
+"vanish-account-warning-title" = "Avertissement";
 "vanish-modal-item" = "Si vous avez complété votre demande de disparition, veuillez accorder quelques jours pour qu’elle soit traitée par un administrateur.";
 "vanish-modal-item-2" = "Si vous n’êtes pas sûr{{GENDER:||e}} que votre demande a abouti, veuillez vérifier dans votre application de courriel.";
 "vanish-modal-item-3" = "Si vous avez plus de questions sur le droit de disparaître, veuillez visiter « Wikipédia:Droit de disparaître ».";

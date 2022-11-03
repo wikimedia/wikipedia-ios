@@ -14,6 +14,9 @@ final class TalkPageFindInPageSearchController {
             // Term was located within the topic's lead comment text for topic at associated index
             case topicLeadComment(topicIndex: Int, replyIdentifier: ObjectIdentifier)
 
+            // Term was located within topic's other content text for topic at associated index
+            case topicOtherContent(topicIndex: Int)
+
             // The term was located within a topic's reply text, for topic and reply at associated indices
             case reply(topicIndex: Int, topicIdentifier: ObjectIdentifier, replyIndex: Int, replyIdentifier: ObjectIdentifier)
         }
@@ -50,11 +53,23 @@ final class TalkPageFindInPageSearchController {
                 }
             }
 
-            if topic.leadComment.text.removingHTML.localizedCaseInsensitiveContains(searchTerm) {
-                let bridgedText = NSString(string: topic.leadComment.text.removingHTML)
+            if let leadComment = topic.leadComment,
+               leadComment.text.removingHTML.localizedCaseInsensitiveContains(searchTerm) {
+                let bridgedText = NSString(string: leadComment.text.removingHTML)
                 let rangesOfTerm = bridgedText.ranges(of: searchTerm)
                 for range in rangesOfTerm {
-                    let result = SearchResult(term: searchTerm, location: .topicLeadComment(topicIndex: topicIndex, replyIdentifier: topic.leadComment.id), range: range)
+                    let result = SearchResult(term: searchTerm, location: .topicLeadComment(topicIndex: topicIndex, replyIdentifier: leadComment.id), range: range)
+                    results.append(result)
+                }
+            }
+            
+            if let otherContent = topic.otherContent,
+               otherContent.removingHTML.localizedCaseInsensitiveContains(searchTerm) {
+                let bridgedText = NSString(string: otherContent.removingHTML)
+                let rangesOfTerm = bridgedText.ranges(of: searchTerm)
+                
+                for range in rangesOfTerm {
+                    let result = SearchResult(term: searchTerm, location: .topicOtherContent(topicIndex: topicIndex), range: range)
                     results.append(result)
                 }
             }

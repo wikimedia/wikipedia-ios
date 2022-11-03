@@ -30,7 +30,6 @@ static NSMutableDictionary *globalDesignDictionary;
 @property (nonatomic, weak) IBOutlet UIButton *button;
 @property (nonatomic, weak) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleSubtitleContainerViewLeadingConstraint;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *titleSubtitleContainerViewCenterYConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *closeImageView;
 
 @property (nonatomic, strong) UIImageView *iconImageView;
@@ -53,18 +52,15 @@ static NSMutableDictionary *globalDesignDictionary;
 /** The view controller this message is displayed in */
 @property (nonatomic, strong) UIViewController *viewController;
 
-/** The vertical space between the message view top to its view controller top */
-@property (nonatomic, strong) NSLayoutConstraint *topToVCLayoutConstraint;
+/** Activated for top banners only, this is the constraint that pins a banner to the top safe area */
+@property (nonatomic, strong) NSLayoutConstraint *topToVCTopLayoutConstraint;
+
+/** Activated for bottom banners only, this is the constraint that pins a banner to the bottom safe area */
+@property (nonatomic, strong) NSLayoutConstraint *bottomToVCBottomLayoutConstraint;
 
 @property (nonatomic, copy) void (^callback)(void);
 
 @property (nonatomic, copy) void (^buttonCallback)(void);
-
-/** The starting constant value that should be set for the topToVCTopLayoutConstraint when animating */
-@property (nonatomic, assign) CGFloat topToVCStartConstant;
-
-/** The final constant value that should be set for the topToVCTopLayoutConstraint when animating */
-@property (nonatomic, assign) CGFloat topToVCFinalConstant;
 
 @property (nonatomic, assign) CGFloat iconRelativeCornerRadius;
 @property (nonatomic, assign) RMessageType messageType;
@@ -139,7 +135,6 @@ static NSMutableDictionary *globalDesignDictionary;
     }
     UIViewController *presentedViewController = nil;
     do {
-        
         if (![viewController.presentedViewController conformsToProtocol:@protocol(RMessageSuppressProtocol)]) {
             presentedViewController = viewController.presentedViewController;
         } else {
@@ -153,7 +148,12 @@ static NSMutableDictionary *globalDesignDictionary;
             viewController = presentedViewController;
         }
     } while (presentedViewController != nil);
-    return viewController;
+    
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        return ((UINavigationController *)viewController).viewControllers.lastObject;
+    } else {
+        return viewController;
+    }
 }
 
 /**
@@ -287,6 +287,16 @@ static NSMutableDictionary *globalDesignDictionary;
   [self.titleLabel setTextColor:_titleTextColor];
 }
 
+- (void)setImageViewTintColor:(UIColor *)imageViewTintColor {
+    _imageViewTintColor = imageViewTintColor;
+    [self.iconImageView setTintColor:_imageViewTintColor];
+}
+
+- (void)setButtonFont:(UIFont *)buttonFont {
+    _buttonFont = buttonFont;
+    [self.button.titleLabel  setFont:_buttonFont];
+}
+
 - (void)setCloseIconColor:(UIColor *)closeIconColor
 {
     _closeIconColor = closeIconColor;
@@ -357,7 +367,11 @@ static NSMutableDictionary *globalDesignDictionary;
     break;
   }
   case RMessageTypeWarning: {
-    self.iconImageView.image = _warningIcon;
+      self.iconImageView.image = _warningIcon;
+      break;
+  }
+  case RMessageTypeCustom: {
+    self.iconImageView.image = _successIcon;
     break;
   }
   default:
@@ -423,45 +437,44 @@ static NSMutableDictionary *globalDesignDictionary;
   [self setupTitleLabel];
   [self setupSubTitleLabel];
   [self setupButton];
+
+  if (self.messagePosition != RMessagePositionBottom) {
+    self.layer.shadowOffset = CGSizeMake(0, 2);
+  } else {
+    self.layer.shadowOffset = CGSizeMake(0, -2);
+  }
+    self.layer.shadowRadius = 5;
+    self.layer.shadowOpacity = 1.0;
+
+    self.clipsToBounds = NO;
 }
 
 - (void)setupLayout
 {
   self.translatesAutoresizingMaskIntoConstraints = NO;
 
-  // Add RMessage to superview and prepare the ending y position constants
-  [self layoutMessageForPresentation];
-  [self setupLabelPreferredMaxLayoutWidth];
+  // Add RMessage to superview
+  [self addToSuperviewForPresentation];
 
-  // Prepare the starting y position constants
   if (self.messagePosition != RMessagePositionBottom) {
     [self layoutIfNeeded];
-    self.topToVCStartConstant = -self.bounds.size.height;
-    self.topToVCLayoutConstraint = [NSLayoutConstraint constraintWithItem:self
+    self.topToVCTopLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.superview
                                                                 attribute:NSLayoutAttributeTop
                                                                 relatedBy:NSLayoutRelationEqual
-                                                                   toItem:self.superview
+                                                                   toItem:self
                                                                 attribute:NSLayoutAttributeTop
                                                                multiplier:1.f
-                                                                 constant:self.topToVCStartConstant];
+                                                                 constant:0.f];
   } else {
-    self.topToVCStartConstant = 0;
-    self.topToVCLayoutConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                                attribute:NSLayoutAttributeTop
+    self.bottomToVCBottomLayoutConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                attribute:NSLayoutAttributeBottom
                                                                 relatedBy:NSLayoutRelationEqual
-                                                                   toItem:self.superview.safeAreaLayoutGuide
+                                                                   toItem:self.superview
                                                                 attribute:NSLayoutAttributeBottom
                                                                multiplier:1.f
                                                                  constant:0.f];
   }
 
-  NSLayoutConstraint *centerXConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                                       attribute:NSLayoutAttributeCenterX
-                                                                       relatedBy:NSLayoutRelationEqual
-                                                                          toItem:self.superview
-                                                                       attribute:NSLayoutAttributeCenterX
-                                                                      multiplier:1.f
-                                                                        constant:0.f];
   NSLayoutConstraint *leadingConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                        attribute:NSLayoutAttributeLeading
                                                                        relatedBy:NSLayoutRelationEqual
@@ -475,11 +488,20 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                            toItem:self.superview
                                                                         attribute:NSLayoutAttributeTrailing
                                                                        multiplier:1.f
+    
                                                                          constant:0.f];
-  [[self class]
-    activateConstraints:@[centerXConstraint, leadingConstraint, trailingConstraint, self.topToVCLayoutConstraint]
-            inSuperview:self.superview];
+    if (self.messagePosition != RMessagePositionBottom) {
+        [[self class] activateConstraints:@[leadingConstraint, trailingConstraint, self.topToVCTopLayoutConstraint] inSuperview:self];
+    } else {
+        [[self class] activateConstraints:@[leadingConstraint, trailingConstraint, self.bottomToVCBottomLayoutConstraint] inSuperview:self];
+    }
   if (self.shouldBlurBackground) [self setupBlurBackground];
+    
+    // Initially set it off screen
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+    self.topToVCTopLayoutConstraint.constant = self.bounds.size.height - [self customVerticalOffset];
+    self.bottomToVCBottomLayoutConstraint.constant = self.bounds.size.height - [self customVerticalOffset];
 }
 
 - (void)setupBackgroundImageViewWithImage:(UIImage *)image
@@ -526,14 +548,6 @@ static NSMutableDictionary *globalDesignDictionary;
   [[self class] activateConstraints:vConstraints inSuperview:self];
 }
 
-- (void)setupLabelPreferredMaxLayoutWidth
-{
-  CGFloat iconImageWidthAndPadding = 0.f;
-  if (_iconImage) iconImageWidthAndPadding = _iconImage.size.width + 15.f;
-  _titleLabel.preferredMaxLayoutWidth = self.superview.bounds.size.width - iconImageWidthAndPadding - 30.f;
-  _subtitleLabel.preferredMaxLayoutWidth = _titleLabel.preferredMaxLayoutWidth;
-}
-
 - (void)executeMessageViewCallBack
 {
   if (self.callback) self.callback();
@@ -560,6 +574,7 @@ static NSMutableDictionary *globalDesignDictionary;
   if (self.iconRelativeCornerRadius > 0) {
     self.iconImageView.layer.cornerRadius = self.iconRelativeCornerRadius * self.iconImageView.bounds.size.width;
   }
+  [self setPositioningConstraintsAndLayout];
 }
 
 - (void)setupDesignDefaults
@@ -668,7 +683,6 @@ static NSMutableDictionary *globalDesignDictionary;
         _titleLabel.textColor = titleTextColor;
     }
 
-
   UIColor *titleShadowColor = [self colorForString:[_messageViewDesignDictionary valueForKey:@"titleShadowColor"]];
   if (titleShadowColor) _titleLabel.shadowColor = titleShadowColor;
   id titleShadowOffsetX = [_messageViewDesignDictionary valueForKey:@"titleShadowOffsetX"];
@@ -684,7 +698,7 @@ static NSMutableDictionary *globalDesignDictionary;
         [_button setTitle:_buttonTitle forState:UIControlStateNormal];
         _stackView.spacing = -5;
         [_button addTarget:self action:@selector(executeMessageViewButtonCallBack) forControlEvents:UIControlEventTouchUpInside];
-        _button.titleLabel.font = _titleLabel.font;
+        _button.titleLabel.font = [UIFont systemFontOfSize:14.0f];
     } else {
         [_button setHidden:YES];
         _stackView.spacing = 5;
@@ -834,77 +848,9 @@ static NSMutableDictionary *globalDesignDictionary;
   }
 }
 
-- (void)layoutMessageForPresentation
+- (void)addToSuperviewForPresentation
 {
-  if ([self.viewController isKindOfClass:[UINavigationController class]] ||
-      [self.viewController.parentViewController isKindOfClass:[UINavigationController class]]) {
-    [self layoutMessageForNavigationControllerPresentation];
-  } else {
-    [self layoutMessageForStandardPresentation];
-  }
-}
-
-- (void)layoutMessageForNavigationControllerPresentation
-{
-  self.titleSubtitleContainerViewCenterYConstraint.constant = 0.f;
-
-  UINavigationController *messageNavigationController;
-
-  if ([self.viewController isKindOfClass:[UINavigationController class]]) {
-    messageNavigationController = (UINavigationController *)self.viewController;
-  } else {
-    messageNavigationController = (UINavigationController *)self.viewController.parentViewController;
-  }
-
-  BOOL messageNavigationBarHidden =
-    [RMessageView isNavigationBarHiddenForNavigationController:messageNavigationController];
-
-  if (self.messagePosition != RMessagePositionBottom) {
-    if (!messageNavigationBarHidden && self.messagePosition == RMessagePositionTop) {
-      // Present from below nav bar when presenting from the top and navigation bar is present
-      [messageNavigationController.view insertSubview:self belowSubview:messageNavigationController.navigationBar];
-
-      /* If view controller edges dont extend under top bars (navigation bar in our case) we must not factor in the
-       navigation bar frame when animating RMessage's final position */
-      if ([[self class] viewControllerEdgesExtendUnderTopBars:messageNavigationController]) {
-        self.topToVCFinalConstant = [UIApplication sharedApplication].statusBarFrame.size.height +
-                                    messageNavigationController.navigationBar.bounds.size.height +
-                                    [self customVerticalOffset];
-      } else {
-        self.topToVCFinalConstant = [self customVerticalOffset];
-      }
-    } else {
-      /* Navigation bar hidden or being asked to present as nav bar overlay, so present above status bar and/or
-       navigation bar */
-      self.topToVCFinalConstant = [self customVerticalOffset];
-      self.titleSubtitleContainerViewCenterYConstraint.constant =
-        [UIApplication sharedApplication].statusBarFrame.size.height / 2.f;
-      [self.viewController.view addSubview:self];
-    }
-  } else {
-    // Present from bottom
-    [self layoutIfNeeded];
-    CGFloat offset = -self.bounds.size.height - [self customVerticalOffset];
-    if (messageNavigationController && !messageNavigationController.isToolbarHidden) {
-      // If tool bar present animate above toolbar
-      offset -= messageNavigationController.toolbar.bounds.size.height;
-    }
-    self.topToVCFinalConstant = offset;
     [self.viewController.view addSubview:self];
-  }
-}
-
-- (void)layoutMessageForStandardPresentation
-{
-  [self layoutIfNeeded];
-  if (self.messagePosition == RMessagePositionBottom) {
-    self.topToVCFinalConstant = -self.bounds.size.height - [self customVerticalOffset];
-  } else {
-    self.topToVCFinalConstant = [self customVerticalOffset];
-    self.titleSubtitleContainerViewCenterYConstraint.constant =
-      [UIApplication sharedApplication].statusBarFrame.size.height / 2.f;
-  }
-  [self.viewController.view addSubview:self];
 }
 
 - (void)animateMessage
@@ -924,8 +870,7 @@ static NSMutableDictionary *globalDesignDictionary;
                          [self.delegate messageViewIsPresenting:self];
                        }
                        if (!self.shouldBlurBackground) self.alpha = self.messageOpacity;
-                       self.topToVCLayoutConstraint.constant = self.topToVCFinalConstant;
-                       [self.superview layoutIfNeeded];
+                       [self setPositioningConstraintsAndLayout];
                      }
                      completion:^(BOOL finished) {
                        self.isPresenting = NO;
@@ -935,6 +880,12 @@ static NSMutableDictionary *globalDesignDictionary;
                        }
                      }];
   });
+}
+
+- (void)setPositioningConstraintsAndLayout {
+    self.topToVCTopLayoutConstraint.constant = 0 + [self customVerticalOffset];
+    self.bottomToVCBottomLayoutConstraint.constant = 0 + [self customVerticalOffset];
+    [self.superview layoutIfNeeded];
 }
 
 - (void)dismiss
@@ -951,7 +902,8 @@ static NSMutableDictionary *globalDesignDictionary;
     [UIView animateWithDuration:kRMessageAnimationDuration
                      animations:^{
                        if (!self.shouldBlurBackground) self.alpha = 0.f;
-                       self.topToVCLayoutConstraint.constant = self.topToVCStartConstant;
+                        self.topToVCTopLayoutConstraint.constant = self.bounds.size.height - [self customVerticalOffset];
+                        self.bottomToVCBottomLayoutConstraint.constant = self.bounds.size.height - [self customVerticalOffset];
                        [self.superview layoutIfNeeded];
                      }
                      completion:^(BOOL finished) {
@@ -969,11 +921,6 @@ static NSMutableDictionary *globalDesignDictionary;
 - (void)interfaceDidRotate
 {
   if (self.isPresenting) [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:self];
-
-  // On completion of UI rotation recalculate positioning
-  [self layoutMessageForPresentation];
-  [self setupLabelPreferredMaxLayoutWidth];
-  self.topToVCLayoutConstraint.constant = self.topToVCFinalConstant;
 }
 
 /**

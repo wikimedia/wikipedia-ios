@@ -323,6 +323,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटनाक्रम|$1 ऐतिहासिक घटनाक्रमहरू}}";
 "on-this-day-footer" = "यस दिनका ऐतिहासिक घटनाक्रमहरू";
 "on-this-day-title" = "आजको दिनमा";
+"page-history-bot-edits" = "यन्त्रका सम्पादनहरू";
 "page-history-compare-title" = "तुलना गर्नुहोस्";
 "page-protected-autoconfirmed" = "यो पृष्ठ अर्ध सुरक्षित गरिएको छ";
 "page-protected-can-not-edit" = "तपाईंलाई यो पृष्ठ सम्पादन गर्ने अधिकार छैन";
@@ -451,6 +452,8 @@
 "vanish-account-additional-information-placeholder" = "वैकल्पिक";
 "vanish-account-back-confirm-discard" = "अनुरोध खारेज गर्नुहोस्";
 "vanish-account-back-confirm-keep-editing" = "सम्पादन जारी राख्नुहोस्";
+"vanish-account-continue-button-title" = "जारी राख्नुहोस्";
+"vanish-account-warning-title" = "चेतावनी";
 "welcome-exploration-on-this-day-title" = "आजको दिनमा";
 "welcome-explore-continue-button" = "सुरु गर्नुहोस्";
 "welcome-explore-new-ways-title" = "अन्वेषण गर्ने नयाँ तरिका";

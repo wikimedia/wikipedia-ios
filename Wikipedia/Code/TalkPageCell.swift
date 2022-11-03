@@ -49,22 +49,16 @@ final class TalkPageCell: UICollectionViewCell {
         button.layer.cornerRadius = 8
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 15)
-        button.setTitle(CommonStrings.talkPageReply, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.setImage(UIImage(systemName: "arrowshape.turn.up.left"), for: .normal)
 
-        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
-
-        button.setContentHuggingPriority(.required, for: .horizontal)        
+        button.setContentHuggingPriority(.required, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .vertical)
         return button
     }()
 
     lazy var topicView: TalkPageCellTopicView = TalkPageCellTopicView()
-    lazy var commentView = TalkPageCellCommentView()
 
     // MARK: - Lifecycle
 
@@ -98,8 +92,8 @@ final class TalkPageCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             rootContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             rootContainerBottomConstraint,
-            rootContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            rootContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            rootContainer.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 8),
+            rootContainer.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: -8),
 
             stackView.topAnchor.constraint(equalTo: rootContainer.topAnchor, constant: 12),
             stackView.bottomAnchor.constraint(equalTo: rootContainer.bottomAnchor, constant: -12),
@@ -124,37 +118,53 @@ final class TalkPageCell: UICollectionViewCell {
 
     func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling) {
         self.viewModel = viewModel
-
+        
         topicView.configure(viewModel: viewModel)
         topicView.linkDelegate = linkDelegate
-
+        
+        topicView.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
+        topicView.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
+        leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
+        
+        let languageCode = viewModel.viewModel?.siteURL.wmf_languageCode
+        leadReplyButton.setTitle(CommonStrings.talkPageReply(languageCode: languageCode), for: .normal)
+        
+        guard let semanticContentAttribute = viewModel.viewModel?.semanticContentAttribute else {
+            return
+        }
+        
+        updateSemanticContentAttribute(semanticContentAttribute)
+        
+        let showingOtherContent = viewModel.leadComment == nil && viewModel.otherContent != nil
+        
+        guard !showingOtherContent else {
+            return
+        }
+        
         if viewModel.isThreadExpanded {
+            
             stackView.addArrangedSubview(leadReplySpacer)
             stackView.addArrangedSubview(leadReplyButton)
-
+            
             for commentViewModel in viewModel.replies {
                 let separator = TalkPageCellCommentSeparator()
                 separator.setContentHuggingPriority(.defaultLow, for: .horizontal)
-                separator.setContentCompressionResistancePriority(.required, for: .horizontal)
-
+                separator.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+                
                 let commentView = TalkPageCellCommentView()
                 commentView.replyDelegate = replyDelegate
                 commentView.configure(viewModel: commentViewModel)
                 commentView.linkDelegate = linkDelegate
-
+                
                 stackView.addArrangedSubview(separator)
                 stackView.addArrangedSubview(commentView)
             }
         }
-        
-        topicView.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
-        topicView.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
-
-        leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
     }
+
     
     func updateSubscribedState(viewModel: TalkPageCellViewModel) {
-        topicView.updateSubscribedState(viewModel: viewModel)
+        topicView.updateSubscribedState(cellViewModel: viewModel)
     }
     
     func removeExpandedElements() {
@@ -162,6 +172,28 @@ final class TalkPageCell: UICollectionViewCell {
             if subview != topicView {
                 subview.removeFromSuperview()
             }
+        }
+    }
+    
+    private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
+        stackView.semanticContentAttribute = semanticContentAttribute
+        leadReplySpacer.semanticContentAttribute = semanticContentAttribute
+        leadReplyButton.semanticContentAttribute = semanticContentAttribute
+        topicView.semanticContentAttribute = semanticContentAttribute
+        
+        stackView.arrangedSubviews.forEach { subview in
+            subview.semanticContentAttribute = semanticContentAttribute
+        }
+        
+        switch semanticContentAttribute {
+        case .forceRightToLeft:
+            leadReplyButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+            leadReplyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+            leadReplyButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+        default:
+            leadReplyButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+            leadReplyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+            leadReplyButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
         }
     }
 
@@ -198,6 +230,9 @@ extension TalkPageCell: Themeable {
         leadReplyButton.setTitleColor(theme.colors.paperBackground, for: .normal)
         leadReplyButton.backgroundColor = theme.colors.link
         leadReplyButton.tintColor = theme.colors.paperBackground
+        
+        // Need to set textView and label textAlignments in the hierarchy again, after their attributed strings are set to the correct theme.
+        let currentSemanticContentAttribute = stackView.semanticContentAttribute
+        updateSemanticContentAttribute(currentSemanticContentAttribute)
     }
-
 }
