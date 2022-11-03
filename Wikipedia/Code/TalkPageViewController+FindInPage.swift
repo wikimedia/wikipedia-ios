@@ -54,9 +54,11 @@ extension TalkPageViewController {
         case .topicTitle(topicIndex: let index, topicIdentifier: _):
             let indexPath = IndexPath(row: index, section: 0)
             talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-        case .topicLeadComment(topicIndex: let index, replyIdentifier: _):
-            let commentViewModel = viewModel.topics[index].leadComment
-            scrollToComment(commentViewModel: commentViewModel, animated: true)
+        case .topicLeadComment(topicIndex: let index, replyIdentifier: _),
+             .topicOtherContent(topicIndex: let index):
+            if let commentViewModel = viewModel.topics[index].leadComment {
+                scrollToComment(commentViewModel: commentViewModel, animated: true)
+            }
         case .reply(topicIndex: let topicIndex, topicIdentifier: _, replyIndex: let replyIndex, replyIdentifier: _):
             let topicViewModel = viewModel.topics[topicIndex]
             topicViewModel.isThreadExpanded = true

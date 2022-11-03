@@ -378,9 +378,11 @@ final class TalkPageCellTopicView: SetupView {
                     topicTitleTextView.attributedText = NSMutableAttributedString(attributedString: topicTitleTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: activeHighlightBackgroundColor, targetRange: activeResult.range)
                 }
             case .topicLeadComment(_, let id):
-                if id == cellViewModel.leadComment.id {
+                if id == cellViewModel.leadComment?.id {
                     topicCommentTextView.attributedText = NSMutableAttributedString(attributedString: topicCommentTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: activeHighlightBackgroundColor, targetRange: activeResult.range)
                 }
+            case .topicOtherContent(topicIndex: _):
+                topicCommentTextView.attributedText = NSMutableAttributedString(attributedString: topicCommentTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: activeHighlightBackgroundColor, targetRange: activeResult.range)
             default:
                 break
             }
