@@ -120,7 +120,7 @@ final class TalkPageCellCommentView: SetupView {
             return
         }
         
-        replyDelegate?.tappedReply(commentViewModel: viewModel)
+        replyDelegate?.tappedReply(commentViewModel: viewModel, accessibilityFocusView: commentTextView)
     }
 
     // MARK: - Find in page

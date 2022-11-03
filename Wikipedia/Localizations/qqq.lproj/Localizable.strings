@@ -1009,6 +1009,7 @@
 "talk-page-new-topic-success-text" = "Banner text that appears after a new discussion was successfully published on a talk page.";
 "talk-page-new-topic-title" = "Title of page when composing a new topic on talk pages.";
 "talk-page-onboarding-button-accessibility-label" = "Accessibility text for the ok button on the talk pages onboarding modal";
+"talk-page-overflow-menu-accessibility" = "Accessibility label for the talk page overflow menu button, which displays more navigation options to the user.";
 "talk-page-page-info" = "Title for menu option to go to the talk page information link. Please prioritize for de, ar and zh wikis.";
 "talk-page-permanent-link" = "Title for menu option to open the talk page's permanent link in a web browser. Please prioritize for de, ar and zh wikis.";
 "talk-page-publish-reply-error-subtitle" = "Subtitle for topic reply error alert";
@@ -1020,6 +1021,7 @@
 "talk-page-replies-count-accessibilty-label" = "Accessibility label indicating the number of replies in a thread. The $1 argument will be replaced with the amount of replies";
 "talk-page-reply-button" = "Text used on button to reply to talk page messages.  Please prioritize for de, ar and zh wikis.";
 "talk-page-reply-button-accessibility-label" = "Accessibility text for reply button. The $1 will be replaced with the name of the user whose comment is being responded";
+"talk-page-reply-depth-accessibility-label" = "Accessibility label for the reply depth indicator. This indicator suggests which reply the text is replying to. $1 is replaced with the depth number.";
 "talk-page-reply-placeholder-format" = "Placeholder text that displays in the talk page reply text view. Parameters:\n* $1 - the username of the comment the user is replying to. Please prioritize for de, ar and zh wikis.";
 "talk-page-reply-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
 "talk-page-reply-title" = "This header label is displayed at the top of a talk page thread once the user taps Reply.";
@@ -1054,6 +1056,7 @@
 "talk-pages-reply-compose-close-confirmation-title" = "Title of confirmation alert displayed to user when they attempt to close the new reply view after entering text. Please prioritize for de, ar and zh wikis.";
 "talk-pages-topic-added-alert-title" = "Title for alert informing that the user's new topic was successfully published. Please prioritize for de, ar and zh wikis.";
 "talk-pages-topic-compose-body-placeholder" = "Placeholder text in topic body field of the talk page topic compose screen. Please prioritize for de, ar and zh wikis.";
+"talk-pages-topic-compose-body-placeholder-accessibility" = "Accessibility label for the placeholder element of the topic body text view on the topic compose screen.";
 "talk-pages-topic-compose-close-confirmation-discard" = "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text. Please prioritize for de, ar and zh wikis.";
 "talk-pages-topic-compose-close-confirmation-title" = "Title of confirmation alert displayed to user when they attempt to close the new topic view after entering title or body text.";
 "talk-pages-topic-compose-navbar-title" = "Top navigation bar title of talk page topic compose screen. Please prioritize for de, ar and zh wikis.";

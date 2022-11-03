@@ -8,7 +8,7 @@ protocol TalkPageCellDelegate: AnyObject {
 }
 
 protocol TalkPageCellReplyDelegate: AnyObject {
-    func tappedReply(commentViewModel: TalkPageCellCommentViewModel)
+    func tappedReply(commentViewModel: TalkPageCellCommentViewModel, accessibilityFocusView: UIView?)
 }
 
 final class TalkPageCell: UICollectionViewCell {
@@ -217,7 +217,7 @@ final class TalkPageCell: UICollectionViewCell {
             return
         }
         
-        replyDelegate?.tappedReply(commentViewModel: commentViewModel)
+        replyDelegate?.tappedReply(commentViewModel: commentViewModel, accessibilityFocusView: topicView.topicCommentTextView)
     }
 }
 

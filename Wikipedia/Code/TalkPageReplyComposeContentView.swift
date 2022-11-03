@@ -73,6 +73,7 @@ class TalkPageReplyComposeContentView: SetupView {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .natural
+        label.isAccessibilityElement = false
         return label
     }()
     
@@ -223,7 +224,9 @@ class TalkPageReplyComposeContentView: SetupView {
     
     private func setupPlaceholderLabel() {
         
-        placeholderLabel.text = String.localizedStringWithFormat(WMFLocalizedString("talk-page-reply-placeholder-format", value: "Reply to %1$@", comment: "Placeholder text that displays in the talk page reply text view. Parameters:\n* %1$@ - the username of the comment the user is replying to. Please prioritize for de, ar and zh wikis."), commentViewModel.author) 
+        let placeholderText = String.localizedStringWithFormat(WMFLocalizedString("talk-page-reply-placeholder-format", value: "Reply to %1$@", comment: "Placeholder text that displays in the talk page reply text view. Parameters:\n* %1$@ - the username of the comment the user is replying to. Please prioritize for de, ar and zh wikis."), commentViewModel.author)
+        placeholderLabel.text = placeholderText
+        replyTextView.accessibilityHint = placeholderText
         
         containerScrollView.addSubview(placeholderLabel)
         

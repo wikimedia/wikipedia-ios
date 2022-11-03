@@ -202,6 +202,15 @@ class TalkPageViewController: ViewController {
         reachabilityNotifier.stop()
     }
     
+    override func accessibilityPerformEscape() -> Bool {
+        if replyComposeController.containerView != nil {
+            replyComposeController.attemptClose()
+            return true
+        }
+        
+        return super.accessibilityPerformEscape()
+    }
+
     @objc func tryAgain() {
         fetchTalkPage()
     }
@@ -235,6 +244,7 @@ class TalkPageViewController: ViewController {
         // TODO: this version check should be removed
         if #available(iOS 14.0, *) {
             let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+            rightBarButtonItem.accessibilityLabel = Self.TalkPageLocalizedStrings.overflowMenuAccessibilityLabel
             navigationItem.rightBarButtonItem = rightBarButtonItem
             rightBarButtonItem.tintColor = theme.colors.link
         }
@@ -691,7 +701,7 @@ class TalkPageViewController: ViewController {
 
     private func changeTalkPageLanguage(_ siteURL: URL, pageTitle: String) {
 
-        guard let project = WikimediaProject(siteURL: siteURL) else {
+        guard let project = WikimediaProject(siteURL: siteURL, languageLinkController: viewModel.languageLinkController) else {
             showGenericError()
             return
         }
@@ -825,16 +835,20 @@ extension TalkPageViewController: TalkPageCellDelegate {
 }
 
 extension TalkPageViewController: TalkPageCellReplyDelegate {
-    func tappedReply(commentViewModel: TalkPageCellCommentViewModel) {
+    func tappedReply(commentViewModel: TalkPageCellCommentViewModel, accessibilityFocusView: UIView?) {
         hideFindInPage(releaseKeyboardBar: true)
         presentTopicReplyOnboardingIfNecessary()
-        replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager)
+        replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager, accessibilityFocusView: accessibilityFocusView)
     }
 }
 
 extension TalkPageViewController: TalkPageReplyComposeDelegate {
     func closeReplyView() {
-        replyComposeController.closeAndReset()
+        replyComposeController.closeAndReset { focusView in
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: .screenChanged, argument: focusView)
+            }
+        }
     }
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
@@ -1003,6 +1017,7 @@ extension TalkPageViewController {
         static let failureAlertSubtitle = WMFLocalizedString("talk-page-publish-reply-error-subtitle", value: "Please check your internet connection.", comment: "Subtitle for topic reply error alert")
         static let unexpectedErrorAlertTitle = WMFLocalizedString("talk-page-error-alert-title", value: "Unexpected error", comment: "Title for unexpected error alert")
         static let unexpectedErrorAlertSubtitle = WMFLocalizedString("talk-page-error-alert-subtitle", value: "The app recieved an unexpected response from the server. Please try again later.", comment: "Subtitle for unexpected error alert")
+        static let overflowMenuAccessibilityLabel = WMFLocalizedString("talk-page-overflow-menu-accessibility", value: "More Talk Page Options", comment: "Accessibility label for the talk page overflow menu button, which displays more navigation options to the user.")
     }
 }
 

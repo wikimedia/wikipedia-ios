@@ -73,6 +73,7 @@ final class TalkPageCellTopicView: SetupView {
         textView.isEditable = false
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = .zero
+        textView.accessibilityTraits = [.header]
         textView.delegate = self
         return textView
     }()
@@ -213,6 +214,8 @@ final class TalkPageCellTopicView: SetupView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        
+        self.accessibilityElements = [topicTitleTextView, subscribeButton, disclosureButton, timestampLabel, activeUsersLabel, repliesCountLabel, topicCommentTextView]
     }
 
     // MARK: - Configure
@@ -301,6 +304,8 @@ final class TalkPageCellTopicView: SetupView {
             stackView.addArrangedSubview(metadataHorizontalStack)
             stackView.addArrangedSubview(topicCommentTextView)
             
+            self.accessibilityElements = [topicTitleTextView, subscribeButton, disclosureButton, timestampLabel, activeUsersLabel, repliesCountLabel, topicCommentTextView]
+            
         case .metadataReplies:
             
             disclosureHorizontalStack.addArrangedSubview(topicTitleTextView)
@@ -312,6 +317,8 @@ final class TalkPageCellTopicView: SetupView {
             stackView.addArrangedSubview(metadataHorizontalStack)
             stackView.addArrangedSubview(topicCommentTextView)
             
+            self.accessibilityElements = [topicTitleTextView, disclosureButton, timestampLabel, activeUsersLabel, repliesCountLabel, topicCommentTextView]
+            
         case .none:
             
             disclosureHorizontalStack.addArrangedSubview(topicTitleTextView)
@@ -320,6 +327,8 @@ final class TalkPageCellTopicView: SetupView {
             
             stackView.addArrangedSubview(disclosureHorizontalStack)
             stackView.addArrangedSubview(topicCommentTextView)
+            
+            self.accessibilityElements = [topicTitleTextView, disclosureButton, topicCommentTextView]
         }
         
         self.displayMode = displayMode
