@@ -970,11 +970,13 @@
 "tachelhit-variants-alert-title" = "Title of alert used to inform users about Tachelhit variant support.";
 "tajik-variants-alert-body" = "Body text of alert used to inform users about Tajik variant support. Please do not translate the newlines (\n) or Tajik characters (тоҷикӣ кирилликӣ, etc.).";
 "tajik-variants-alert-title" = "Title of alert used to inform users about Tajik variant support.";
+"talk-page-active-users-accessibilty-label" = "Accessibility label indicating the number of active users in a thread. The $1 argument will be replaced with the amount of active users";
 "talk-page-add-discussion-accessibility-label" = "Accessibility label for a button that opens the add new discussion screen.";
 "talk-page-add-topic-button" = "Title for add topic to talk page button";
 "talk-page-archives" = "Title for menu option that redirects to talk page archives. Please prioritize for de, ar and zh wikis.";
 "talk-page-article-about" = "Title for menu option for information on article talk pages. Please prioritize for de, ar and zh wikis.";
 "talk-page-change-language" = "Title for menu option to got to the change language page. Please prioritize for de, ar and zh wikis.";
+"talk-page-collapse-thread-button" = "Accessibility label for the collapse thread button on talk pages when the thread is expanded";
 "talk-page-discussion-accessibility-hint" = "Accessibility hint when user is on a discussion title cell.";
 "talk-page-discussion-read-accessibility-label" = "Accessibility text for indicating that some content have been read.";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a discussion's contents have been read.";
@@ -986,6 +988,7 @@
 "talk-page-error-loading-title" = "Title text for error page on talk pages";
 "talk-page-error-unable-to-post-reply" = "Error message appearing when user attempts to post a new talk page reply while being offline";
 "talk-page-error-unable-to-post-topic" = "Error message appearing when user attempts to post a new talk page discussion while being offline";
+"talk-page-expand-thread-button" = "Accessibility label for the expand thread button on talk pages when the thread is collapsed";
 "talk-page-find-in-page-button" = "Title for find content in page button";
 "talk-page-info-active-conversations" = "This information label is displayed at the top of a talk page discussion list. $1 is replaced by the language wiki they are using - for example, 'Active conversations on English Wikipedia'.";
 "talk-page-info-active-conversations-generic" = "This information label is displayed at the top of a talk page discussion list. This is fallback text in case a specific wiki language cannot be determined.";
@@ -1005,6 +1008,7 @@
 "talk-page-new-topic-body-placeholder-text" = "Placeholder text which appears initially in the new topic body field for talk pages.";
 "talk-page-new-topic-success-text" = "Banner text that appears after a new discussion was successfully published on a talk page.";
 "talk-page-new-topic-title" = "Title of page when composing a new topic on talk pages.";
+"talk-page-onboarding-button-accessibility-label" = "Accessibility text for the ok button on the talk pages onboarding modal";
 "talk-page-page-info" = "Title for menu option to go to the talk page information link. Please prioritize for de, ar and zh wikis.";
 "talk-page-permanent-link" = "Title for menu option to open the talk page's permanent link in a web browser. Please prioritize for de, ar and zh wikis.";
 "talk-page-publish-reply-error-subtitle" = "Subtitle for topic reply error alert";
@@ -1013,11 +1017,14 @@
 "talk-page-publish-topic-error-title" = "Title for new topic post error alert";
 "talk-page-read-in-web" = "Title for menu option to read a talk page in a web browser. Please prioritize for de, ar and zh wikis.";
 "talk-page-related-links" = "Title for menu option that redirects to a page that shows related links. Please prioritize for de, ar and zh wikis.";
+"talk-page-replies-count-accessibilty-label" = "Accessibility label indicating the number of replies in a thread. The $1 argument will be replaced with the amount of replies";
 "talk-page-reply-button" = "Text used on button to reply to talk page messages.  Please prioritize for de, ar and zh wikis.";
+"talk-page-reply-button-accessibility-label" = "Accessibility text for reply button. The $1 will be replaced with the name of the user whose comment is being responded";
 "talk-page-reply-placeholder-format" = "Placeholder text that displays in the talk page reply text view. Parameters:\n* $1 - the username of the comment the user is replying to. Please prioritize for de, ar and zh wikis.";
 "talk-page-reply-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
 "talk-page-reply-title" = "This header label is displayed at the top of a talk page thread once the user taps Reply.";
 "talk-page-revision-history" = "Title for option that leads to talk pages revision history. Please prioritize for de, ar and zh wikis.";
+"talk-page-rply-close-button-accessibility-hint" = "Accessibility hint for the reply screen close button";
 "talk-page-share-button" = "Title for share talk page button";
 "talk-page-subscribe-to-topic" = "Text used on button to subscribe to talk page topic. Please prioritize for de, ar and zh wikis.";
 "talk-page-subscribed-alert-subtitle" = "Subtitle for alert informing that the user will receive notifications for a subscribed topic. Please prioritize for de, ar and zh wikis.";
@@ -1025,6 +1032,7 @@
 "talk-page-subscription-failed-alert" = "Text for the subscription failure alert";
 "talk-page-title-article-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page. Please prioritize for de, ar and zh wikis.";
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page. Please prioritize for de, ar and zh wikis.";
+"talk-page-topic-close-button-hint" = "Accessibility hint for talk page new topic screen close button";
 "talk-page-topic-compose-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
 "talk-page-topic-title" = "This header label is displayed at the top of a talk page topic thread.";
 "talk-page-unsubscribe-to-topic" = "Text used on button to unsubscribe from talk page topic.";

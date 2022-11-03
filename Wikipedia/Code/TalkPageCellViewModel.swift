@@ -19,14 +19,14 @@ final class TalkPageCellViewModel: Identifiable {
     let replies: [TalkPageCellCommentViewModel]
     
     // Number of users involved in thread
-    let activeUsersCount: String?
+    let activeUsersCount: Int?
 
     var highlightText: String?
     var activeHighlightResult: TalkPageFindInPageSearchController.SearchResult?
 
-    var repliesCount: String {
+    var repliesCount: Int {
         // Add one for lead comment
-        return "\(replies.count + 1)"
+        return replies.count + 1
     }
     
     var allCommentViewModels: [TalkPageCellCommentViewModel] {
@@ -40,7 +40,7 @@ final class TalkPageCellViewModel: Identifiable {
     
     weak var viewModel: TalkPageViewModel?
     
-    init(id: String, topicTitle: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel?, otherContent: String?, replies: [TalkPageCellCommentViewModel], activeUsersCount: String?, isUserLoggedIn: Bool, dateFormatter: DateFormatter?) {
+    init(id: String, topicTitle: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel?, otherContent: String?, replies: [TalkPageCellCommentViewModel], activeUsersCount: Int?, isUserLoggedIn: Bool, dateFormatter: DateFormatter?) {
         self.id = id
         self.topicTitle = topicTitle
         self.timestamp = timestamp
@@ -71,5 +71,17 @@ extension TalkPageCellViewModel: Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+    }
+}
+
+extension TalkPageCellViewModel {
+
+    public func accessibilityDate() -> String? {
+        let dateFormatter = DateFormatter.wmf_customVoiceOverTime()
+
+        if let date = timestamp {
+            return  dateFormatter?.string(from: date)
+        }
+        return nil
     }
 }
