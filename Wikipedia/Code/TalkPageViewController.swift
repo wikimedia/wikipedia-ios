@@ -68,7 +68,9 @@ class TalkPageViewController: ViewController {
             self?.pushToWhatLinksHere()
         })
 
-        var actions = [goToArchivesAction, pageInfoAction, goToPermalinkAction, relatedLinksAction]
+        // goToArchivesAction
+        // TODO: Restore archives option with T321853
+        var actions = [pageInfoAction, goToPermalinkAction, relatedLinksAction]
         
         if viewModel.project.languageCode != nil {
             actions.insert(changeLanguageAction, at: 3)
@@ -813,7 +815,10 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self.replyComposeController.closeAndReset()
                 
                 // Try to refresh page
+                self.fakeProgressController.start()
                 self.viewModel.fetchTalkPage { [weak self] result in
+                    
+                    self?.fakeProgressController.stop()
 
                     switch result {
                     case .success:
@@ -871,7 +876,11 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                 }
                 
                 // Try to refresh page
+                self?.fakeProgressController.start()
                 self?.viewModel.fetchTalkPage { [weak self] result in
+                    
+                    self?.fakeProgressController.stop()
+                    
                     switch result {
                     case .success:
                         self?.updateEmptyStateVisibility()

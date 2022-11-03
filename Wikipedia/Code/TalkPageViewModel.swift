@@ -355,14 +355,24 @@ private extension TalkPageViewModel {
     
     func validTopLevelTopics(items: [TalkPageItem]) -> [TalkPageItem] {
         
+        var finalItems: [TalkPageItem] = items
+        
         // Trim first item if it indicates it's a coffee roll:
+        
         if let coffeeRollResult = coffeeRollFromItems(items) {
-            var finalItems = items
             finalItems.remove(at: coffeeRollResult.1)
-            return finalItems
         }
         
-        return items
+        // Filter out items with no content to show
+        finalItems = finalItems.filter { item in
+            if item.replies.isEmpty && (item.html ?? "").isEmpty && (item.otherContent ?? "").isEmpty {
+                return false
+            }
+            
+            return true
+        }
+        
+        return finalItems
     }
     
     func recursivelyFlattenReplies(items: [TalkPageItem], flattenedItems: inout [TalkPageItem]) {
