@@ -1021,8 +1021,6 @@
 "talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1 reply|$1 replies}}";
 "talk-page-reply-button" = "Reply";
 "talk-page-reply-button-accessibility-label" = "Reply to $1";
-"talk-page-reply-button-disabled" = "Disabled";
-"talk-page-reply-button-enabled" = "Enabled";
 "talk-page-reply-depth-accessibility-label" = "Reply depth: $1";
 "talk-page-reply-placeholder-format" = "Reply to $1";
 "talk-page-reply-terms-and-licenses" = "Note your reply will be automatically signed with your username. By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 3.0$4 and the $5GFDL$6 licenses.";
@@ -1036,7 +1034,7 @@
 "talk-page-subscription-failed-alert" = "Subscribing to the topic failed, please try again.";
 "talk-page-title-article-talk" = "Article Talk";
 "talk-page-title-user-talk" = "User Talk";
-"talk-page-topic-close-button-hint" = "Double tap to discard reply";
+"talk-page-topic-close-button-hint" = "Close new topic";
 "talk-page-topic-compose-terms-and-licenses" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 3.0 License$4 and the $5GFDL$6.";
 "talk-page-topic-title" = "Discussion";
 "talk-page-unsubscribe-to-topic" = "Unsubscribe";

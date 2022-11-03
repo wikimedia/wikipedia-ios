@@ -488,10 +488,12 @@ class TalkPageViewController: ViewController {
         let title = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertTitle : TalkPageLocalizedStrings.unsubscribedAlertTitle
         let subtitle = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertSubtitle : TalkPageLocalizedStrings.unsubscribedAlertSubtitle
         let image = isSubscribedToTopic ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell.slash.fill")
+
+        let voiceoverAnnoucement = title + subtitle
         
         if UIAccessibility.isVoiceOverRunning {
             DispatchQueue.main.async {
-                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: voiceoverAnnoucement)
             }
         } else {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image, type: .custom, customTypeName: "subscription-success", dismissPreviousAlerts: true)
