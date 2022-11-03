@@ -51,7 +51,13 @@ final class TalkPageCellViewModel: Identifiable {
         }
         self.topicName = topicName
         self.leadComment = leadComment
-        self.otherContent = otherContent
+        
+        if let otherContent = otherContent {
+            self.otherContent = NSMutableAttributedString(string: otherContent).removingInitialNewlineCharacters().string
+        } else {
+            self.otherContent = nil
+        }
+        
         self.replies = replies
         self.activeUsersCount = activeUsersCount
         self.isUserLoggedIn = isUserLoggedIn

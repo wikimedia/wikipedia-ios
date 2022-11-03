@@ -378,7 +378,8 @@ final class TalkPageCellTopicView: SetupView {
                     topicTitleTextView.attributedText = NSMutableAttributedString(attributedString: topicTitleTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: activeHighlightBackgroundColor, targetRange: activeResult.range)
                 }
             case .topicLeadComment(_, let id):
-                if id == cellViewModel.leadComment?.id {
+                if let leadComment = cellViewModel.leadComment,
+                   id == leadComment.id {
                     topicCommentTextView.attributedText = NSMutableAttributedString(attributedString: topicCommentTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: activeHighlightBackgroundColor, targetRange: activeResult.range)
                 }
             case .topicOtherContent(topicIndex: _):
@@ -406,7 +407,7 @@ extension TalkPageCellTopicView: Themeable {
         let commentColor = (viewModel?.isThreadExpanded ?? false) ? theme.colors.primaryText : theme.colors.secondaryText
         
         let bodyText = viewModel?.leadComment?.text ?? viewModel?.otherContent
-        topicCommentTextView.attributedText = bodyText?.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+        topicCommentTextView.attributedText = bodyText?.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
         topicCommentTextView.backgroundColor = theme.colors.paperBackground
 
         applyTextHighlightIfNecessary(theme: theme)

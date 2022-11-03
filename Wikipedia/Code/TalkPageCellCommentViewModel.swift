@@ -20,7 +20,7 @@ final class TalkPageCellCommentViewModel: Identifiable {
         }
         
         self.commentId = commentId
-        self.text = text
+        self.text = NSMutableAttributedString(string: text).removingInitialNewlineCharacters().string
         self.author = author
         self.authorTalkPageURL = authorTalkPageURL
         self.timestamp = timestamp
