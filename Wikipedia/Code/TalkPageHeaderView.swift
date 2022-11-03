@@ -49,6 +49,7 @@ final class TalkPageHeaderView: SetupView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fill
         stackView.alignment = .top
+        stackView.spacing = 12
         return stackView
     }()
 
