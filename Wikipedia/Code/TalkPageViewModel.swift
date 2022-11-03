@@ -264,7 +264,7 @@ final class TalkPageViewModel {
         }
     }
     
-    private func activeUsersCount(topic: TalkPageItem) -> String {
+    private func activeUsersCount(topic: TalkPageItem) -> Int {
         var distinctUsers: Set<String> = []
         
         for item in topic.replies {
@@ -273,7 +273,7 @@ final class TalkPageViewModel {
             }
         }
         
-        return String(distinctUsers.count)
+        return distinctUsers.count
     }
 }
 

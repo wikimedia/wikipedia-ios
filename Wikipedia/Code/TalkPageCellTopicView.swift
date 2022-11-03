@@ -232,8 +232,12 @@ final class TalkPageCellTopicView: SetupView {
             updateForNewDisplayModeIfNeeded(displayMode: .none)
         }
 
-        disclosureButton.setImage(viewModel.isThreadExpanded ? UIImage(systemName: "chevron.up") : UIImage(systemName: "chevron.down"), for: .normal)
+        let isThreadExpanded = viewModel.isThreadExpanded
+        let collapseThreadlabel = WMFLocalizedString("talk-page-collapse-thread-button", value: "Collapse thread", comment: "Accessibility label for the collapse thread button on talk pages when the thread is expanded")
+        let expandThreadlabel = WMFLocalizedString("talk-page-expand-thread-button", value: "Expand thread", comment: "Accessibility label for the expand thread button on talk pages when the thread is collapsed")
+        disclosureButton.setImage(isThreadExpanded ? UIImage(systemName: "chevron.up") : UIImage(systemName: "chevron.down"), for: .normal)
 
+        disclosureButton.accessibilityLabel = isThreadExpanded ? collapseThreadlabel : expandThreadlabel
         updateSubscribedState(cellViewModel: viewModel)
         
         topicTitleTextView.invalidateIntrinsicContentSize()
@@ -246,10 +250,18 @@ final class TalkPageCellTopicView: SetupView {
 
         if let timestampDisplay = viewModel.timestampDisplay {
             timestampLabel.text = timestampDisplay
+            timestampLabel.accessibilityLabel = viewModel.accessibilityDate()
         }
-        
-        activeUsersLabel.text = viewModel.activeUsersCount
-        repliesCountLabel.text = viewModel.repliesCount
+
+        let activeUsersAccessibilityLabel = WMFLocalizedString("talk-page-active-users-accessibilty-label", value: "{{PLURAL:%1$d|%1$d active user|%1$d active users}}", comment: "Accessibility label indicating the number of active users in a thread. The %1$d argument will be replaced with the amount of active users")
+        let repliesCountAccessibilityLabel = WMFLocalizedString("talk-page-replies-count-accessibilty-label", value: "{{PLURAL:%1$d|%1$d reply|%1$d replies}}", comment: "Accessibility label indicating the number of replies in a thread. The %1$d argument will be replaced with the amount of replies")
+
+        if let count = viewModel.activeUsersCount {
+            activeUsersLabel.text = String(count)
+            activeUsersLabel.accessibilityLabel = String.localizedStringWithFormat(activeUsersAccessibilityLabel, count)
+        }
+        repliesCountLabel.text = String(viewModel.repliesCount)
+        repliesCountLabel.accessibilityLabel = String.localizedStringWithFormat(repliesCountAccessibilityLabel, viewModel.repliesCount)
     }
     
     func updateSubscribedState(cellViewModel: TalkPageCellViewModel) {
