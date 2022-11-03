@@ -75,7 +75,7 @@ public enum WikimediaProject: Hashable {
         }
     }
     
-    public init?(siteURL: URL) {
+    public init?(siteURL: URL, languageLinkController: MWKLanguageLinkController? = nil) {
         
         let canonicalSiteURL = siteURL.canonical
         let siteURLString = canonicalSiteURL.absoluteString
@@ -99,24 +99,30 @@ public enum WikimediaProject: Hashable {
             return nil
         }
         
+        let recognizedLanguage = languageLinkController?.allLanguages.first { languageLink in
+            languageLink.languageCode == languageCode
+        }
+        
+        let localizedLanguageName = recognizedLanguage?.localizedName ?? ""
+        
         if siteURLString.contains(Configuration.current.defaultSiteDomain) {
-            self = .wikipedia(languageCode, "", nil)
+            self = .wikipedia(languageCode, localizedLanguageName, nil)
         } else if siteURLString.contains(Configuration.Domain.wikiquote) {
-            self = .wikiquote(languageCode, "")
+            self = .wikiquote(languageCode, localizedLanguageName)
         } else if siteURLString.contains(Configuration.Domain.wikibooks) {
-            self = .wikibooks(languageCode, "")
+            self = .wikibooks(languageCode, localizedLanguageName)
         } else if siteURLString.contains(Configuration.Domain.wiktionary) {
-            self = .wiktionary(languageCode, "")
+            self = .wiktionary(languageCode, localizedLanguageName)
         } else if siteURLString.contains(Configuration.Domain.wiktionary) {
-            self = .wiktionary(languageCode, "")
+            self = .wiktionary(languageCode, localizedLanguageName)
         } else if siteURLString.contains(Configuration.Domain.wikisource) {
-            self = .wikisource(languageCode, "")
+            self = .wikisource(languageCode, localizedLanguageName)
         } else if siteURLString.contains(Configuration.Domain.wikinews) {
-            self = .wikinews(languageCode, "")
+            self = .wikinews(languageCode, localizedLanguageName)
         } else if siteURLString.contains(Configuration.Domain.wikiversity) {
-            self = .wikiversity(languageCode, "")
+            self = .wikiversity(languageCode, localizedLanguageName)
         } else if siteURLString.contains(Configuration.Domain.wikivoyage) {
-            self = .wikivoyage(languageCode, "")
+            self = .wikivoyage(languageCode, localizedLanguageName)
         } else {
             return nil
         }
