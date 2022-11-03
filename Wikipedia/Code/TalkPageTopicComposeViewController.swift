@@ -32,7 +32,7 @@ class TalkPageTopicComposeViewController: ViewController {
     lazy var closeButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(named: "close-inverse"), style: .plain, target: self, action: #selector(tappedClose))
         button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        button.accessibilityHint = WMFLocalizedString("talk-page-topic-close-button-hint", value: "Double tap to discard reply", comment: "Accessibility hint for talk page new topic screen close button")
+        button.accessibilityHint = WMFLocalizedString("talk-page-topic-close-button-hint", value: "Close new topic", comment: "Accessibility hint for talk page new topic screen close button")
         return button
     }()
     

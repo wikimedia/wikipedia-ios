@@ -8,7 +8,6 @@ class TalkPageReplyComposeContentView: SetupView {
         button.setTitle(CommonStrings.publishTitle, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.preservesSuperviewLayoutMargins = true
-        button.accessibilityHint = "Disabled"
         return button
     }()
     
@@ -299,7 +298,6 @@ class TalkPageReplyComposeContentView: SetupView {
     private func evaluatePublishButtonEnabledState() {
         let isEnabled = !replyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         publishButton.isEnabled = isEnabled
-        publishButton.accessibilityHint = isEnabled ? CommonStrings.enabledAccessibilityLabel : CommonStrings.disabledAccessibilityLabel
     }
 
 }
