@@ -11,6 +11,7 @@
 // Author: Cwek
 // Author: Davidzdh
 // Author: Endermoon
+// Author: Evesiesta
 // Author: FakeGreenHand
 // Author: GoForceX
 // Author: GuoPC
@@ -992,7 +993,7 @@
 "tajik-variants-alert-body" = "维基百科应用现在支持以下塔吉克语变体作为应用内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
 "tajik-variants-alert-title" = "更新塔吉克语变体支持";
 "talk-page-add-discussion-accessibility-label" = "添加讨论";
-"talk-page-archives" = "新闻列表";
+"talk-page-archives" = "存档";
 "talk-page-article-about" = "关于讨论页";
 "talk-page-change-language" = "更改语言";
 "talk-page-discussion-accessibility-hint" = "轻按两下以开启讨论话题";
