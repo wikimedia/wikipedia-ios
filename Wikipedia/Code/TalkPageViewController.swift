@@ -6,8 +6,10 @@ class TalkPageViewController: ViewController {
 
     // MARK: - Properties
 
-    fileprivate let viewModel: TalkPageViewModel
+    let viewModel: TalkPageViewModel
     fileprivate var headerView: TalkPageHeaderView?
+
+    let findInPageState = TalkPageFindInPageState()
 
     fileprivate var topicReplyOnboardingHostingViewController: TalkPageTopicReplyOnboardingHostingController?
     
@@ -61,6 +63,7 @@ class TalkPageViewController: ViewController {
         })
 
         let changeLanguageAction = UIAction(title: TalkPageLocalizedStrings.changeLanguage, image: UIImage(named: "language-talk-page"), handler: { _ in
+            self.hideFindInPage()
             self.userDidTapChangeLanguage()
         })
 
@@ -91,7 +94,8 @@ class TalkPageViewController: ViewController {
     var overflowMenu: UIMenu {
         
         let openAllAction = UIAction(title: TalkPageLocalizedStrings.openAllThreads, image: UIImage(systemName: "square.stack"), handler: { _ in
-            
+            self.hideFindInPage()
+
             for topic in self.viewModel.topics {
                 topic.isThreadExpanded = true
             }
@@ -181,7 +185,18 @@ class TalkPageViewController: ViewController {
         fetchTalkPage()
         setupToolbar()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        reachabilityNotifier.start()
+    }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        hideFindInPage(releaseKeyboardBar: true)
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         reachabilityNotifier.stop()
@@ -198,11 +213,6 @@ class TalkPageViewController: ViewController {
 
     @objc func tryAgain() {
         fetchTalkPage()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        reachabilityNotifier.start()
     }
 
     private func setupHeaderView() {
@@ -282,8 +292,18 @@ class TalkPageViewController: ViewController {
         talkPageView.apply(theme: theme)
         talkPageView.collectionView.reloadData()
         replyComposeController.apply(theme: theme)
+
+        findInPageState.keyboardBar?.apply(theme: theme)
     }
-    
+
+    func rethemeVisibleCells() {
+        talkPageView.collectionView.visibleCells.forEach { cell in
+            if let talkCell = cell as? TalkPageCell {
+                talkCell.apply(theme: theme)
+            }
+        }
+    }
+
     // MARK: - Reply Compose Management
     
     let replyComposeController = TalkPageReplyComposeController()
@@ -291,7 +311,11 @@ class TalkPageViewController: ViewController {
     private var isClosing: Bool = false
     
     override var keyboardIsIncludedInBottomContentInset: Bool {
-        return false
+        if replyComposeController.isShowing {
+            return false
+        }
+
+        return true
     }
     
     override var additionalBottomContentInset: CGFloat {
@@ -348,7 +372,13 @@ class TalkPageViewController: ViewController {
     }
     
     @objc fileprivate func userDidTapFindButton() {
-        
+        for topic in viewModel.topics {
+            topic.isThreadExpanded = true
+        }
+
+        talkPageView.collectionView.reloadData()
+
+        showFindInPage()
     }
     
     @objc fileprivate func userDidTapRevisionButton() {
@@ -628,8 +658,8 @@ class TalkPageViewController: ViewController {
         return newComment
     }
     
-    private func scrollToComment(commentViewModel: TalkPageCellCommentViewModel, animated: Bool = true) {
-        
+    func scrollToComment(commentViewModel: TalkPageCellCommentViewModel, animated: Bool = true) {
+
         guard let cellViewModel = commentViewModel.cellViewModel else {
             return
         }
@@ -806,6 +836,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
 
 extension TalkPageViewController: TalkPageCellReplyDelegate {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel, accessibilityFocusView: UIView?) {
+        hideFindInPage(releaseKeyboardBar: true)
         presentTopicReplyOnboardingIfNecessary()
         replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager, accessibilityFocusView: accessibilityFocusView)
     }

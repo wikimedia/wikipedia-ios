@@ -147,6 +147,10 @@ class TalkPageReplyComposeController {
             contentView?.isLoading = isLoading
         }
     }
+
+    var isShowing: Bool {
+        return contentView != nil
+    }
     
     // MARK: Private
     

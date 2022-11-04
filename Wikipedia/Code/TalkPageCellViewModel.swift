@@ -1,6 +1,6 @@
 import Foundation
 
-final class TalkPageCellViewModel {
+final class TalkPageCellViewModel: Identifiable {
 
     var isThreadExpanded: Bool = false
     var isSubscribed: Bool = false
@@ -20,6 +20,9 @@ final class TalkPageCellViewModel {
     
     // Number of users involved in thread
     let activeUsersCount: Int?
+
+    var highlightText: String?
+    var activeHighlightResult: TalkPageFindInPageSearchController.SearchResult?
 
     var repliesCount: Int {
         // Add one for lead comment
@@ -48,7 +51,13 @@ final class TalkPageCellViewModel {
         }
         self.topicName = topicName
         self.leadComment = leadComment
-        self.otherContent = otherContent
+        
+        if let otherContent = otherContent {
+            self.otherContent = NSMutableAttributedString(string: otherContent).removingInitialNewlineCharacters().string
+        } else {
+            self.otherContent = nil
+        }
+        
         self.replies = replies
         self.activeUsersCount = activeUsersCount
         self.isUserLoggedIn = isUserLoggedIn

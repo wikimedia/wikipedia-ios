@@ -1,6 +1,6 @@
 import Foundation
 
-final class TalkPageCellCommentViewModel {
+final class TalkPageCellCommentViewModel: Identifiable {
 
     let commentId: String
     let text: String
@@ -20,7 +20,7 @@ final class TalkPageCellCommentViewModel {
         }
         
         self.commentId = commentId
-        self.text = text
+        self.text = NSMutableAttributedString(string: text).removingInitialNewlineCharacters().string
         self.author = author
         self.authorTalkPageURL = authorTalkPageURL
         self.timestamp = timestamp
