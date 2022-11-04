@@ -49,22 +49,43 @@ extension TalkPageViewController {
 
         rethemeVisibleCells()
 
-        // TODO: - Fine tune position when scrolling
         switch result.location {
         case .topicTitle(topicIndex: let index, topicIdentifier: _):
             let indexPath = IndexPath(row: index, section: 0)
-            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
+
+            if let talkPageCell = talkPageCell(indexPath: indexPath) {
+                if let targetFrame = talkPageCell.topicView.frameForHighlight(result: result) {
+                    talkPageView.collectionView.scrollRectToVisible(targetFrame, animated: false)
+                }
+            }
         case .topicLeadComment(topicIndex: let index, replyIdentifier: _),
              .topicOtherContent(topicIndex: let index):
-            if let commentViewModel = viewModel.topics[index].leadComment {
-                scrollToComment(commentViewModel: commentViewModel, animated: true)
+            let indexPath = IndexPath(row: index, section: 0)
+            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
+
+            if let talkPageCell = talkPageCell(indexPath: indexPath) {
+                if let targetFrame = talkPageCell.topicView.frameForHighlight(result: result) {
+                    talkPageView.collectionView.scrollRectToVisible(targetFrame, animated: false)
+                }
             }
         case .reply(topicIndex: let topicIndex, topicIdentifier: _, replyIndex: let replyIndex, replyIdentifier: _):
             let topicViewModel = viewModel.topics[topicIndex]
-            topicViewModel.isThreadExpanded = true
             let commentViewModel = topicViewModel.replies[replyIndex]
-            scrollToComment(commentViewModel: commentViewModel, animated: true)
+
+            let indexPath = IndexPath(row: topicIndex, section: 0)
+            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
+
+            if let commentView = talkPageCell(indexPath: indexPath)?.commentViewForViewModel(commentViewModel) {
+                if let targetFrame = commentView.frameForHighlight(result: result) {
+                    talkPageView.collectionView.scrollRectToVisible(targetFrame, animated: false)
+                }
+            }
         }
+    }
+
+    private func talkPageCell(indexPath: IndexPath) -> TalkPageCell? {
+        return talkPageView.collectionView.cellForItem(at: indexPath) as? TalkPageCell
     }
 
 }

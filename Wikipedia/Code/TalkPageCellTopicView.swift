@@ -411,6 +411,38 @@ final class TalkPageCellTopicView: SetupView {
         }
     }
 
+    /// Frame converted to containing collection view
+    func frameForHighlight(result: TalkPageFindInPageSearchController.SearchResult) -> CGRect? {
+        guard let range = result.range else {
+            return nil
+        }
+
+        switch result.location {
+        case .topicTitle:
+            guard let initialFrame = topicTitleTextView.frame(of: range) else {
+                return nil
+            }
+            return topicTitleTextView.convert(initialFrame, to: rootCollectionView())
+        case .topicLeadComment:
+            guard let initialFrame = topicCommentTextView.frame(of: range) else {
+                return nil
+            }
+            return topicCommentTextView.convert(initialFrame, to: rootCollectionView())
+
+        default:
+            return nil
+        }
+    }
+
+    /// Containing collection view
+    private func rootCollectionView() -> UIView? {
+        var sv = superview
+        while !(sv is UICollectionView) {
+            sv = sv?.superview
+        }
+        return sv
+    }
+
 }
 
 extension TalkPageCellTopicView: Themeable {
