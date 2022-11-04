@@ -23,7 +23,7 @@ class ViewControllerRouter: NSObject {
         }
 
         let showNewVC = {
-            if viewController is AVPlayerViewController {
+            if viewController is AVPlayerViewController || (viewController is ReadingListsImportViewController) {
                 navigationController.present(viewController, animated: true, completion: completion)
             } else {
                 navigationController.pushViewController(viewController, animated: true)
@@ -139,6 +139,9 @@ class ViewControllerRouter: NSObject {
                 onThisDayVC.initialEvent = selectedEvent
             }
             return presentOrPush(onThisDayVC, with: completion)
+        case .readingListsImport(let encodedPayload):
+            let importVC = ReadingListsImportViewController(encodedPayload: encodedPayload)
+            return presentOrPush(importVC, with: completion)
         default:
             completion()
             return false
