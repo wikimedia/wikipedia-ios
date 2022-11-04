@@ -409,7 +409,6 @@
 "export-user-data-generic-error" = "There was an error while exporting your data. Please try again later.";
 "export-user-data-space-error" = "You do not have enough device space to export your user data. Please try again later.";
 "export-user-data-title" = "Export User Data";
-"featured-article-empty-title" = "No featured article available today";
 "featured-widget-content-failure-for-date" = "A featured article is not available for this date.";
 "featured-widget-description" = "Discover the best articles on Wikipedia, selected daily by our community.";
 "featured-widget-from-language-wikipedia" = "From $1 Wikipedia";

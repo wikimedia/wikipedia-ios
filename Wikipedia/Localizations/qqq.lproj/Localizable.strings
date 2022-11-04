@@ -409,7 +409,6 @@
 "export-user-data-generic-error" = "Error message displayed after user has tried exporting their data and an error occurs.";
 "export-user-data-space-error" = "Error message displayed after user has tried exporting their data and the system determines it doesn't have space to do so.";
 "export-user-data-title" = "Button title for exporting user data";
-"featured-article-empty-title" = "Title that displays when featured article is not available";
 "featured-widget-content-failure-for-date" = "Text displayed when Featured article is not available on the current date.";
 "featured-widget-description" = "Text for description of Featured article widget displayed when adding to home screen.";
 "featured-widget-from-language-wikipedia" = "Text displayed as Wikipedia source on Featured article widget. $1 will be replaced with the language.";
