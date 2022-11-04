@@ -256,9 +256,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.talkPageReplyHintController = [[WMFTalkPageReplyHintController alloc] init];
     self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
 
-    if (@available(iOS 14.0, *)) {
-        self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
-    }
+    self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
