@@ -44,10 +44,11 @@ class TalkPageReplyComposeController {
     
     private var displayMode: DisplayMode = .partial
     private weak var authenticationManager: WMFAuthenticationManager?
+    private weak var accessibilityFocusView: UIView?
 
     // MARK: Public
     
-    func setupAndDisplay(in viewController: ReplyComposableViewController, commentViewModel: TalkPageCellCommentViewModel, authenticationManager: WMFAuthenticationManager?) {
+    func setupAndDisplay(in viewController: ReplyComposableViewController, commentViewModel: TalkPageCellCommentViewModel, authenticationManager: WMFAuthenticationManager?, accessibilityFocusView: UIView?) {
         
         guard self.commentViewModel == nil else {
             attemptChangeCommentViewModel(in: viewController, newCommentViewModel: commentViewModel)
@@ -57,15 +58,21 @@ class TalkPageReplyComposeController {
         self.viewController = viewController
         self.commentViewModel = commentViewModel
         self.authenticationManager = authenticationManager
+        self.accessibilityFocusView = accessibilityFocusView
         setupViews(in: viewController, commentViewModel: commentViewModel)
         apply(theme: viewController.theme)
+        if UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: .screenChanged, argument: contentView)
+            }
+        }
     }
     
     func attemptChangeCommentViewModel(in viewController: ReplyComposableViewController, newCommentViewModel: TalkPageCellCommentViewModel) {
         
         presentDismissConfirmationActionSheet(discardBlock: {
-            self.closeAndReset(completion: {
-                self.setupAndDisplay(in: viewController, commentViewModel: newCommentViewModel, authenticationManager: self.authenticationManager)
+            self.closeAndReset(completion: { _ in
+                self.setupAndDisplay(in: viewController, commentViewModel: newCommentViewModel, authenticationManager: self.authenticationManager, accessibilityFocusView: self.accessibilityFocusView)
             })
         })
     }
@@ -105,7 +112,7 @@ class TalkPageReplyComposeController {
         }
     }
     
-    func closeAndReset(completion: (() -> Void)? = nil) {
+    func closeAndReset(completion: ((UIView?) -> Void)? = nil) {
         
         contentView?.replyTextView.resignFirstResponder()
         
@@ -127,7 +134,11 @@ class TalkPageReplyComposeController {
             self.commentViewModel = nil
             
             self.displayMode = .partial
-            completion?()
+            
+            let accessibilityFocusView = self.accessibilityFocusView
+            self.accessibilityFocusView = nil
+            
+            completion?(accessibilityFocusView)
         }
     }
     
@@ -136,6 +147,10 @@ class TalkPageReplyComposeController {
             contentView?.isLoading = isLoading
         }
     }
+
+    var isShowing: Bool {
+        return contentView != nil
+    }
     
     // MARK: Private
     
@@ -143,6 +158,7 @@ class TalkPageReplyComposeController {
         
         let containerView = UIView(frame: .zero)
         containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.accessibilityViewIsModal = true
         
         addShadow(to: containerView)
         addDragHandle(to: containerView)
@@ -220,6 +236,10 @@ class TalkPageReplyComposeController {
         
         guard let viewController = viewController else {
             return false
+        }
+
+        if UIAccessibility.isVoiceOverRunning {
+            return true
         }
         
         return viewController.view.traitCollection.verticalSizeClass == .compact
@@ -355,7 +375,7 @@ class TalkPageReplyComposeController {
     
 // MARK: - ACTIONS
     
-    @objc private func attemptClose() {
+    @objc func attemptClose() {
         contentView?.resignFirstResponder()
         
         if let replyText = contentView?.replyTextView.text,

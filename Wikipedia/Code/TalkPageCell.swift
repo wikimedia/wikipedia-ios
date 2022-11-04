@@ -8,7 +8,7 @@ protocol TalkPageCellDelegate: AnyObject {
 }
 
 protocol TalkPageCellReplyDelegate: AnyObject {
-    func tappedReply(commentViewModel: TalkPageCellCommentViewModel)
+    func tappedReply(commentViewModel: TalkPageCellCommentViewModel, accessibilityFocusView: UIView?)
 }
 
 final class TalkPageCell: UICollectionViewCell {
@@ -128,7 +128,11 @@ final class TalkPageCell: UICollectionViewCell {
         
         let languageCode = viewModel.viewModel?.siteURL.wmf_languageCode
         leadReplyButton.setTitle(CommonStrings.talkPageReply(languageCode: languageCode), for: .normal)
-        
+        let replyButtonAccessibilityLabel = CommonStrings.talkPageReplyAccessibilityText
+        if let author = viewModel.leadComment?.author {
+            leadReplyButton.accessibilityLabel = String.localizedStringWithFormat(replyButtonAccessibilityLabel, author)
+        }
+
         guard let semanticContentAttribute = viewModel.viewModel?.semanticContentAttribute else {
             return
         }
@@ -213,7 +217,7 @@ final class TalkPageCell: UICollectionViewCell {
             return
         }
         
-        replyDelegate?.tappedReply(commentViewModel: commentViewModel)
+        replyDelegate?.tappedReply(commentViewModel: commentViewModel, accessibilityFocusView: topicView.topicCommentTextView)
     }
 }
 

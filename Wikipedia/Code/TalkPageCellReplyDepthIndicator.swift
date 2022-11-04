@@ -34,6 +34,7 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
         label.lineBreakMode = .byWordWrapping
         label.setContentCompressionResistancePriority(.required, for: .horizontal)
         label.setContentHuggingPriority(.required, for: .horizontal)
+        label.isAccessibilityElement = false
         return label
     }()
     
@@ -95,6 +96,9 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
     func configure(viewModel: TalkPageCellCommentViewModel) {
         
         depth = viewModel.replyDepth
+        
+        isAccessibilityElement = true
+        accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("talk-page-reply-depth-accessibility-label", value: "Reply depth: %1$d", comment: "Accessibility label for the reply depth indicator. This indicator suggests which reply the text is replying to. %1$d is replaced with the depth number."), depth)
         
         let numberOfLinesToDraw = min(depth, maxLines)
         guard numberOfLinesToDraw > 0 else {

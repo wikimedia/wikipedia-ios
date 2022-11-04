@@ -109,6 +109,7 @@
 "action-saved-accessibility" = "रक्षित किया गया। हटाने के लिए सक्रिय करें।";
 "action-saved-accessibility-notification" = "बाद के लिए सहेजे गए लेख";
 "action-share" = "साझा करें";
+"action-share-accessibility" = "साझा करें";
 "action-sort" = "क्रमबद्ध करें";
 "action-unsave" = "न सहेजें";
 "action-unsaved-accessibility-notification" = "असुरक्षित लेख";
@@ -416,6 +417,7 @@
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
 "two-factor-login-with-backup-code" = "अपने बैकअप कोड्स में से एक प्रयोग करें";
 "two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
+"vanish-account-continue-button-title" = "जारी रखें";
 "vanish-account-learn-more-text" = "अधिक जानें";
 "welcome-exploration-explore-feed-description" = "हमारे समुदाय से पढ़ने के लिए निर्वाचित दैनिक लेख";
 "welcome-exploration-explore-feed-title" = "फीड में खोजें";

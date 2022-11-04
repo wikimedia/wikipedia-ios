@@ -18,6 +18,7 @@ final class TalkPageViewModel {
     private(set) var project: WikimediaProject
 
     let authenticationManager: WMFAuthenticationManager
+    let languageLinkController: MWKLanguageLinkController
     var deepLinkData: DeepLinkData?
     private let dataController: TalkPageDataController
     
@@ -47,9 +48,9 @@ final class TalkPageViewModel {
     ///   - siteURL: Site URL without article path, e.g. "https://en.wikipedia.org"
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
     ///   - authenticationManager: authentication manager from the MWKDataStore singleton
-    init?(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
+    init?(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, languageLinkController: MWKLanguageLinkController) {
         
-        guard let project = WikimediaProject(siteURL: siteURL) else {
+        guard let project = WikimediaProject(siteURL: siteURL, languageLinkController: languageLinkController) else {
             return nil
         }
         
@@ -59,6 +60,7 @@ final class TalkPageViewModel {
         self.project = project
         self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
         self.authenticationManager = authenticationManager
+        self.languageLinkController = languageLinkController
         
         // Setting headerTitle as pageTitle (which contains the namespace prefix) for now, we attempt to strip the namespace later in populateHeaderData
         self.headerTitle = pageTitle
@@ -73,12 +75,12 @@ final class TalkPageViewModel {
     ///   - pageURL: Full wiki page URL, e.g. https://en.wikipedia.org/wiki/Cat
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
     ///   - authenticationManager: authentication manager from the MWKDataStore singleton
-    convenience init?(pageType: TalkPageType, pageURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
+    convenience init?(pageType: TalkPageType, pageURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, languageLinkController: MWKLanguageLinkController) {
         guard let pageTitle = pageURL.wmf_title, let siteURL = pageURL.wmf_site else {
             return nil
         }
 
-        self.init(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager)
+        self.init(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager, languageLinkController: languageLinkController)
     }
 
     // MARK: - Public
@@ -264,7 +266,7 @@ final class TalkPageViewModel {
         }
     }
     
-    private func activeUsersCount(topic: TalkPageItem) -> String {
+    private func activeUsersCount(topic: TalkPageItem) -> Int {
         var distinctUsers: Set<String> = []
         
         for item in topic.replies {
@@ -273,7 +275,7 @@ final class TalkPageViewModel {
             }
         }
         
-        return String(distinctUsers.count)
+        return distinctUsers.count
     }
 }
 

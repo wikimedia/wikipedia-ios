@@ -73,6 +73,7 @@ final class TalkPageCellTopicView: SetupView {
         textView.isEditable = false
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = .zero
+        textView.accessibilityTraits = [.header]
         textView.delegate = self
         return textView
     }()
@@ -213,6 +214,8 @@ final class TalkPageCellTopicView: SetupView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        
+        self.accessibilityElements = [topicTitleTextView, subscribeButton, disclosureButton, timestampLabel, activeUsersLabel, repliesCountLabel, topicCommentTextView]
     }
 
     // MARK: - Configure
@@ -232,8 +235,12 @@ final class TalkPageCellTopicView: SetupView {
             updateForNewDisplayModeIfNeeded(displayMode: .none)
         }
 
-        disclosureButton.setImage(viewModel.isThreadExpanded ? UIImage(systemName: "chevron.up") : UIImage(systemName: "chevron.down"), for: .normal)
+        let isThreadExpanded = viewModel.isThreadExpanded
+        let collapseThreadlabel = WMFLocalizedString("talk-page-collapse-thread-button", value: "Collapse thread", comment: "Accessibility label for the collapse thread button on talk pages when the thread is expanded")
+        let expandThreadlabel = WMFLocalizedString("talk-page-expand-thread-button", value: "Expand thread", comment: "Accessibility label for the expand thread button on talk pages when the thread is collapsed")
+        disclosureButton.setImage(isThreadExpanded ? UIImage(systemName: "chevron.up") : UIImage(systemName: "chevron.down"), for: .normal)
 
+        disclosureButton.accessibilityLabel = isThreadExpanded ? collapseThreadlabel : expandThreadlabel
         updateSubscribedState(cellViewModel: viewModel)
         
         topicTitleTextView.invalidateIntrinsicContentSize()
@@ -246,10 +253,18 @@ final class TalkPageCellTopicView: SetupView {
 
         if let timestampDisplay = viewModel.timestampDisplay {
             timestampLabel.text = timestampDisplay
+            timestampLabel.accessibilityLabel = viewModel.accessibilityDate()
         }
-        
-        activeUsersLabel.text = viewModel.activeUsersCount
-        repliesCountLabel.text = viewModel.repliesCount
+
+        let activeUsersAccessibilityLabel = WMFLocalizedString("talk-page-active-users-accessibilty-label", value: "{{PLURAL:%1$d|%1$d active user|%1$d active users}}", comment: "Accessibility label indicating the number of active users in a thread. The %1$d argument will be replaced with the amount of active users")
+        let repliesCountAccessibilityLabel = WMFLocalizedString("talk-page-replies-count-accessibilty-label", value: "{{PLURAL:%1$d|%1$d reply|%1$d replies}}", comment: "Accessibility label indicating the number of replies in a thread. The %1$d argument will be replaced with the amount of replies")
+
+        if let count = viewModel.activeUsersCount {
+            activeUsersLabel.text = String(count)
+            activeUsersLabel.accessibilityLabel = String.localizedStringWithFormat(activeUsersAccessibilityLabel, count)
+        }
+        repliesCountLabel.text = String(viewModel.repliesCount)
+        repliesCountLabel.accessibilityLabel = String.localizedStringWithFormat(repliesCountAccessibilityLabel, viewModel.repliesCount)
     }
     
     func updateSubscribedState(cellViewModel: TalkPageCellViewModel) {
@@ -289,6 +304,8 @@ final class TalkPageCellTopicView: SetupView {
             stackView.addArrangedSubview(metadataHorizontalStack)
             stackView.addArrangedSubview(topicCommentTextView)
             
+            self.accessibilityElements = [topicTitleTextView, subscribeButton, disclosureButton, timestampLabel, activeUsersLabel, repliesCountLabel, topicCommentTextView]
+            
         case .metadataReplies:
             
             disclosureHorizontalStack.addArrangedSubview(topicTitleTextView)
@@ -300,6 +317,8 @@ final class TalkPageCellTopicView: SetupView {
             stackView.addArrangedSubview(metadataHorizontalStack)
             stackView.addArrangedSubview(topicCommentTextView)
             
+            self.accessibilityElements = [topicTitleTextView, disclosureButton, timestampLabel, activeUsersLabel, repliesCountLabel, topicCommentTextView]
+            
         case .none:
             
             disclosureHorizontalStack.addArrangedSubview(topicTitleTextView)
@@ -308,6 +327,8 @@ final class TalkPageCellTopicView: SetupView {
             
             stackView.addArrangedSubview(disclosureHorizontalStack)
             stackView.addArrangedSubview(topicCommentTextView)
+            
+            self.accessibilityElements = [topicTitleTextView, disclosureButton, topicCommentTextView]
         }
         
         self.displayMode = displayMode
@@ -352,6 +373,44 @@ final class TalkPageCellTopicView: SetupView {
         }
     }
 
+    // MARK: - Find in page
+
+    private func applyTextHighlightIfNecessary(theme: Theme) {
+        let activeHighlightBackgroundColor: UIColor = .yellow50
+        let backgroundHighlightColor: UIColor
+        let foregroundHighlightColor: UIColor
+
+        switch theme {
+        case .black, .dark:
+            backgroundHighlightColor = activeHighlightBackgroundColor.withAlphaComponent(0.6)
+            foregroundHighlightColor = theme.colors.midBackground
+        default:
+            backgroundHighlightColor = activeHighlightBackgroundColor.withAlphaComponent(0.4)
+            foregroundHighlightColor = theme.colors.primaryText
+        }
+
+        topicTitleTextView.attributedText = NSMutableAttributedString(attributedString: topicTitleTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: backgroundHighlightColor, foregroundColor: foregroundHighlightColor)
+        topicCommentTextView.attributedText = NSMutableAttributedString(attributedString: topicCommentTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: backgroundHighlightColor, foregroundColor: foregroundHighlightColor)
+
+        if let cellViewModel = viewModel, let activeResult = cellViewModel.activeHighlightResult {
+            switch activeResult.location {
+            case .topicTitle(_, let id):
+                if id == cellViewModel.id {
+                    topicTitleTextView.attributedText = NSMutableAttributedString(attributedString: topicTitleTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: activeHighlightBackgroundColor, targetRange: activeResult.range)
+                }
+            case .topicLeadComment(_, let id):
+                if let leadComment = cellViewModel.leadComment,
+                   id == leadComment.id {
+                    topicCommentTextView.attributedText = NSMutableAttributedString(attributedString: topicCommentTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: activeHighlightBackgroundColor, targetRange: activeResult.range)
+                }
+            case .topicOtherContent(topicIndex: _):
+                topicCommentTextView.attributedText = NSMutableAttributedString(attributedString: topicCommentTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: activeHighlightBackgroundColor, targetRange: activeResult.range)
+            default:
+                break
+            }
+        }
+    }
+
 }
 
 extension TalkPageCellTopicView: Themeable {
@@ -365,12 +424,14 @@ extension TalkPageCellTopicView: Themeable {
         topicTitleTextView.backgroundColor = theme.colors.paperBackground
         
         timestampLabel.textColor = theme.colors.secondaryText
-        
+
         let commentColor = (viewModel?.isThreadExpanded ?? false) ? theme.colors.primaryText : theme.colors.secondaryText
         
         let bodyText = viewModel?.leadComment?.text ?? viewModel?.otherContent
-        topicCommentTextView.attributedText = bodyText?.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+        topicCommentTextView.attributedText = bodyText?.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
         topicCommentTextView.backgroundColor = theme.colors.paperBackground
+
+        applyTextHighlightIfNecessary(theme: theme)
 
         activeUsersImageView.tintColor = theme.colors.secondaryText
         activeUsersLabel.textColor = theme.colors.secondaryText

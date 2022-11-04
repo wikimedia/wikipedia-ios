@@ -27,6 +27,8 @@
  */
 + (NSDateFormatter *)wmf_shortTimeFormatter;
 
++ (NSDateFormatter *)wmf_customVoiceOverTimeFormatter;
+
 + (NSDateFormatter *)wmf_shortDateFormatter;
 
 + (NSDateFormatter *)wmf_24hshortTimeFormatter;

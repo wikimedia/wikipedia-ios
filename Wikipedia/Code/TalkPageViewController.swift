@@ -6,10 +6,10 @@ class TalkPageViewController: ViewController {
 
     // MARK: - Properties
 
-    fileprivate let viewModel: TalkPageViewModel
+    let viewModel: TalkPageViewModel
     fileprivate var headerView: TalkPageHeaderView?
-
     fileprivate var shouldGoToNewTopic: Bool = false
+    let findInPageState = TalkPageFindInPageState()
 
     fileprivate var topicReplyOnboardingHostingViewController: TalkPageTopicReplyOnboardingHostingController?
     
@@ -63,6 +63,7 @@ class TalkPageViewController: ViewController {
         })
 
         let changeLanguageAction = UIAction(title: TalkPageLocalizedStrings.changeLanguage, image: UIImage(named: "language-talk-page"), handler: { _ in
+            self.hideFindInPage()
             self.userDidTapChangeLanguage()
         })
 
@@ -93,7 +94,8 @@ class TalkPageViewController: ViewController {
     var overflowMenu: UIMenu {
         
         let openAllAction = UIAction(title: TalkPageLocalizedStrings.openAllThreads, image: UIImage(systemName: "square.stack"), handler: { _ in
-            
+            self.hideFindInPage()
+
             for topic in self.viewModel.topics {
                 topic.isThreadExpanded = true
             }
@@ -183,19 +185,34 @@ class TalkPageViewController: ViewController {
         fetchTalkPage()
         setupToolbar()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        reachabilityNotifier.start()
+    }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        hideFindInPage(releaseKeyboardBar: true)
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         reachabilityNotifier.stop()
     }
+    
+    override func accessibilityPerformEscape() -> Bool {
+        if replyComposeController.containerView != nil {
+            replyComposeController.attemptClose()
+            return true
+        }
+        
+        return super.accessibilityPerformEscape()
+    }
 
     @objc func tryAgain() {
         fetchTalkPage()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        reachabilityNotifier.start()
     }
 
     private func setupHeaderView() {
@@ -227,6 +244,7 @@ class TalkPageViewController: ViewController {
         // TODO: this version check should be removed
         if #available(iOS 14.0, *) {
             let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+            rightBarButtonItem.accessibilityLabel = Self.TalkPageLocalizedStrings.overflowMenuAccessibilityLabel
             navigationItem.rightBarButtonItem = rightBarButtonItem
             rightBarButtonItem.tintColor = theme.colors.link
         }
@@ -274,8 +292,18 @@ class TalkPageViewController: ViewController {
         talkPageView.apply(theme: theme)
         talkPageView.collectionView.reloadData()
         replyComposeController.apply(theme: theme)
+
+        findInPageState.keyboardBar?.apply(theme: theme)
     }
-    
+
+    func rethemeVisibleCells() {
+        talkPageView.collectionView.visibleCells.forEach { cell in
+            if let talkCell = cell as? TalkPageCell {
+                talkCell.apply(theme: theme)
+            }
+        }
+    }
+
     // MARK: - Reply Compose Management
     
     let replyComposeController = TalkPageReplyComposeController()
@@ -283,7 +311,11 @@ class TalkPageViewController: ViewController {
     private var isClosing: Bool = false
     
     override var keyboardIsIncludedInBottomContentInset: Bool {
-        return false
+        if replyComposeController.isShowing {
+            return false
+        }
+
+        return true
     }
     
     override var additionalBottomContentInset: CGFloat {
@@ -340,7 +372,13 @@ class TalkPageViewController: ViewController {
     }
     
     @objc fileprivate func userDidTapFindButton() {
-        
+        for topic in viewModel.topics {
+            topic.isThreadExpanded = true
+        }
+
+        talkPageView.collectionView.reloadData()
+
+        showFindInPage()
     }
     
     @objc fileprivate func userDidTapRevisionButton() {
@@ -487,9 +525,13 @@ class TalkPageViewController: ViewController {
         let title = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertTitle : TalkPageLocalizedStrings.unsubscribedAlertTitle
         let subtitle = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertSubtitle : TalkPageLocalizedStrings.unsubscribedAlertSubtitle
         let image = isSubscribedToTopic ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell.slash.fill")
+
+        let voiceoverAnnoucement = title + subtitle
         
         if UIAccessibility.isVoiceOverRunning {
-            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+            DispatchQueue.main.async {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: voiceoverAnnoucement)
+            }
         } else {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: image, type: .custom, customTypeName: "subscription-success", dismissPreviousAlerts: true)
         }
@@ -499,7 +541,9 @@ class TalkPageViewController: ViewController {
         let title = isSubscribed ? TalkPageLocalizedStrings.unsubscriptionFailed : TalkPageLocalizedStrings.subscriptionFailed
 
         if UIAccessibility.isVoiceOverRunning {
-            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+            }
         } else {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage(systemName: "exclamationmark.circle"), type: .custom, customTypeName: "subscription-error", dismissPreviousAlerts: true)
         }
@@ -621,8 +665,8 @@ class TalkPageViewController: ViewController {
         return newComment
     }
     
-    private func scrollToComment(commentViewModel: TalkPageCellCommentViewModel, animated: Bool = true) {
-        
+    func scrollToComment(commentViewModel: TalkPageCellCommentViewModel, animated: Bool = true) {
+
         guard let cellViewModel = commentViewModel.cellViewModel else {
             return
         }
@@ -664,7 +708,7 @@ class TalkPageViewController: ViewController {
 
     private func changeTalkPageLanguage(_ siteURL: URL, pageTitle: String) {
 
-        guard let project = WikimediaProject(siteURL: siteURL) else {
+        guard let project = WikimediaProject(siteURL: siteURL, languageLinkController: viewModel.languageLinkController) else {
             showGenericError()
             return
         }
@@ -765,7 +809,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         
         let shouldSubscribe = !configuredCellViewModel.isSubscribed
         cellViewModel.isSubscribed.toggle()
-        
+
         cell.updateSubscribedState(viewModel: cellViewModel)
 
         viewModel.subscribe(to: configuredCellViewModel.topicName, shouldSubscribe: shouldSubscribe) { result in
@@ -798,17 +842,22 @@ extension TalkPageViewController: TalkPageCellDelegate {
 }
 
 extension TalkPageViewController: TalkPageCellReplyDelegate {
-    func tappedReply(commentViewModel: TalkPageCellCommentViewModel) {
+    func tappedReply(commentViewModel: TalkPageCellCommentViewModel, accessibilityFocusView: UIView?) {
+        hideFindInPage(releaseKeyboardBar: true)
         if !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
             presentTopicReplyOnboarding()
         }
-        replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager)
+        replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager, accessibilityFocusView: accessibilityFocusView)
     }
 }
 
 extension TalkPageViewController: TalkPageReplyComposeDelegate {
     func closeReplyView() {
-        replyComposeController.closeAndReset()
+        replyComposeController.closeAndReset { focusView in
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: .screenChanged, argument: focusView)
+            }
+        }
     }
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
@@ -852,7 +901,9 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 if (error as NSError).wmf_isNetworkConnectionError() {
                     let title = TalkPageLocalizedStrings.replyFailedAlertTitle
                     if UIAccessibility.isVoiceOverRunning {
-                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                        }
                     } else {
                         WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
                     }
@@ -909,7 +960,9 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                 if (error as NSError).wmf_isNetworkConnectionError() {
                     let title = TalkPageLocalizedStrings.newTopicFailedAlertTitle
                     if UIAccessibility.isVoiceOverRunning {
-                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                        }
                     } else {
                         WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
                     }
@@ -927,12 +980,14 @@ extension TalkPageViewController: UIAdaptivePresentationControllerDelegate {
               let topicComposeVC = navVC.visibleViewController as? TalkPageTopicComposeViewController else {
             return true
         }
-        
+
         guard topicComposeVC.shouldBlockDismissal else {
             return true
         }
-        
-        topicComposeVC.presentDismissConfirmationActionSheet()
+
+        if !UIAccessibility.isVoiceOverRunning {
+            topicComposeVC.presentDismissConfirmationActionSheet()
+        }
         return false
     }
 }
@@ -971,6 +1026,7 @@ extension TalkPageViewController {
         static let failureAlertSubtitle = WMFLocalizedString("talk-page-publish-reply-error-subtitle", value: "Please check your internet connection.", comment: "Subtitle for topic reply error alert")
         static let unexpectedErrorAlertTitle = WMFLocalizedString("talk-page-error-alert-title", value: "Unexpected error", comment: "Title for unexpected error alert")
         static let unexpectedErrorAlertSubtitle = WMFLocalizedString("talk-page-error-alert-subtitle", value: "The app recieved an unexpected response from the server. Please try again later.", comment: "Subtitle for unexpected error alert")
+        static let overflowMenuAccessibilityLabel = WMFLocalizedString("talk-page-overflow-menu-accessibility", value: "More Talk Page Options", comment: "Accessibility label for the talk page overflow menu button, which displays more navigation options to the user.")
     }
 }
 
@@ -1013,21 +1069,31 @@ extension TalkPageViewController: WMFPreferredLanguagesViewControllerDelegate {
 }
 
 extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
-
+    
     func presentTopicReplyOnboarding() {
         let topicReplyOnboardingHostingViewController = TalkPageTopicReplyOnboardingHostingController(theme: theme)
         topicReplyOnboardingHostingViewController.delegate = self
         topicReplyOnboardingHostingViewController.modalPresentationStyle = .pageSheet
         self.topicReplyOnboardingHostingViewController = topicReplyOnboardingHostingViewController
-            present(topicReplyOnboardingHostingViewController, animated: true)
+        
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: .screenChanged, argument: topicReplyOnboardingHostingViewController)
+        }
+        
+        present(topicReplyOnboardingHostingViewController, animated: true)
     }
-
+    
     func userDidDismissTopicReplyOnboardingView() {
         UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages = true
+        
         if shouldGoToNewTopic {
             showAddTopic()
             shouldGoToNewTopic = false
+            if UIAccessibility.isVoiceOverRunning {
+                if let height = replyComposeController.containerView?.frame.height, height >= 1.0 {
+                    UIAccessibility.post(notification: .screenChanged, argument: replyComposeController.containerView)
+                }
+            }
         }
     }
 }
-

@@ -15,6 +15,7 @@ class TalkPageTopicComposeViewController: ViewController {
         static let navigationBarTitle = WMFLocalizedString("talk-pages-topic-compose-navbar-title", value: "Topic", comment: "Top navigation bar title of talk page topic compose screen. Please prioritize for de, ar and zh wikis.")
         static let titlePlaceholder = WMFLocalizedString("talk-pages-topic-compose-title-placeholder", value: "Topic title", comment: "Placeholder text in topic title field of the talk page topic compose screen. Please prioritize for de, ar and zh wikis.")
         static let bodyPlaceholder = WMFLocalizedString("talk-pages-topic-compose-body-placeholder", value: "Description", comment: "Placeholder text in topic body field of the talk page topic compose screen. Please prioritize for de, ar and zh wikis.")
+        static let bodyPlaceholderAccessibility = WMFLocalizedString("talk-pages-topic-compose-body-placeholder-accessibility", value: "Topic description", comment: "Accessibility label for the placeholder element of the topic body text view on the topic compose screen.")
         static let finePrintFormat = WMFLocalizedString("talk-page-topic-compose-terms-and-licenses", value: "By publishing changes, you agree to the %1$@Terms of Use%2$@, and you irrevocably agree to release your contribution under the %3$@CC BY-SA 3.0 License%4$@ and the %5$@GFDL%6$@.", comment: "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.")
         static let closeConfirmationTitle = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-title", value: "Are you sure you want to discard this new topic?", comment: "Title of confirmation alert displayed to user when they attempt to close the new topic view after entering title or body text.")
         static let closeConfirmationDiscard = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-discard", value: "Discard Topic", comment: "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text. Please prioritize for de, ar and zh wikis.")
@@ -32,6 +33,7 @@ class TalkPageTopicComposeViewController: ViewController {
     lazy var closeButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(named: "close-inverse"), style: .plain, target: self, action: #selector(tappedClose))
         button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        button.accessibilityHint = WMFLocalizedString("talk-page-topic-close-button-hint", value: "Close new topic", comment: "Accessibility hint for talk page new topic screen close button")
         return button
     }()
     
@@ -86,6 +88,7 @@ class TalkPageTopicComposeViewController: ViewController {
         textView.textContainerInset = .zero
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.delegate = self
+        textView.accessibilityHint = Self.TopicComposeStrings.bodyPlaceholderAccessibility
         return textView
     }()
     
@@ -93,6 +96,7 @@ class TalkPageTopicComposeViewController: ViewController {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Self.TopicComposeStrings.bodyPlaceholder
+        label.isAccessibilityElement = false
         return label
     }()
     
@@ -146,6 +150,11 @@ class TalkPageTopicComposeViewController: ViewController {
         updateFonts()
         apply(theme: theme)
         self.title = Self.TopicComposeStrings.navigationBarTitle
+    }
+    
+    override func accessibilityPerformEscape() -> Bool {
+        tappedClose()
+        return true
     }
 
     private func setupSafeAreaBackgroundView() {
