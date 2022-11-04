@@ -12,6 +12,12 @@
 		<string>applinks:wikipedia.org</string>
 		<string>activitycontinuation:wikipedia.org</string>
 		<string>webcredentials:wikipedia.org</string>
+		<string>applinks:en.wikipedia.beta.wmflabs.org?mode=developer</string>
+		<string>webcredentials:en.wikipedia.beta.wmflabs.org?mode=developer</string>
+		<string>activitycontinuation:en.wikipedia.beta.wmflabs.org?mode=developer</string>
+		<string>applinks:en.m.wikipedia.beta.wmflabs.org?mode=developer</string>
+		<string>webcredentials:en.m.wikipedia.beta.wmflabs.org?mode=developer</string>
+		<string>activitycontinuation:en.m.wikipedia.beta.wmflabs.org?mode=developer</string>
 	</array>
 	<key>com.apple.developer.usernotifications.time-sensitive</key>
 	<true/>
