@@ -2697,10 +2697,6 @@
 		D858C7B9210B91CE0039E0C9 /* PassthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D858C7B5210B91CD0039E0C9 /* PassthroughView.swift */; };
 		D85BD2461F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D85BD2441F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D85BD2471F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D85BD2451F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.m */; };
-		D85D34C61D74D07500845125 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E8380641D64989F0076EDE4 /* NotificationCenter.framework */; };
-		D85D34C91D74D07500845125 /* WMFTodayTopReadWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85D34C81D74D07500845125 /* WMFTodayTopReadWidgetViewController.swift */; };
-		D85D34CC1D74D07500845125 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D85D34CA1D74D07500845125 /* MainInterface.storyboard */; };
-		D85D34D01D74D07500845125 /* TopReadWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D85D34C51D74D07500845125 /* TopReadWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D85F56A2219C45C900AF3E13 /* URLComponents+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85F56A1219C45C900AF3E13 /* URLComponents+Extensions.swift */; };
 		D8619BA41FBB10240045C8BC /* ReadingList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619B9E1FBB10240045C8BC /* ReadingList+CoreDataClass.swift */; };
 		D8619BA51FBB10240045C8BC /* ReadingList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619B9F1FBB10240045C8BC /* ReadingList+CoreDataProperties.swift */; };
@@ -2738,7 +2734,6 @@
 		D88E0E1D1EBB5A97005B8E9E /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88E0E1C1EBB5A97005B8E9E /* Bundle.swift */; };
 		D88FCADF1E4B74D300505A9F /* WikidataFetcher+Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCADE1E4B74D300505A9F /* WikidataFetcher+Places.swift */; };
 		D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCAE01E4B776600505A9F /* MapUtilities.swift */; };
-		D890C84B1D772B02007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C84D1D772B02007132C9 /* InfoPlist.strings */; };
 		D890C85D1D772ED3007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C85B1D772ED3007132C9 /* InfoPlist.strings */; };
 		D8940CEF1DB56C8A00E17F9E /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8940CED1DB56C8A00E17F9E /* NewsViewController.swift */; };
 		D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */; };
@@ -2943,7 +2938,6 @@
 		D8A47C9223D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A47C8E23D7338C002AA823 /* ArticleViewController+TableOfContents.swift */; };
 		D8A6BAED1E4C9BF400A981C8 /* UserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6BAEC1E4C9BF400A981C8 /* UserLocationAnnotationView.swift */; };
 		D8A6BAEF1E4C9C0700A981C8 /* ArticlePlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6BAEE1E4C9C0700A981C8 /* ArticlePlaceView.swift */; };
-		D8A6E8741D80A4A0002D6D4D /* TopReadWidgetImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8A6E8731D80A4A0002D6D4D /* TopReadWidgetImages.xcassets */; };
 		D8AAF6B81FE93DE9005760E6 /* UIScrollView+Limits.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AAF6B71FE93DE9005760E6 /* UIScrollView+Limits.swift */; };
 		D8AC391D1D6F2324007E3C14 /* UIScreen+WMFImageWidth.h in Headers */ = {isa = PBXBuildFile; fileRef = BCA15B151C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC391E1D6F2328007E3C14 /* UIScreen+WMFImageWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B161C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m */; };
@@ -3153,7 +3147,6 @@
 		D8CE269D1E698E2400DAE2E0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		D8CE269E1E698E2400DAE2E0 /* ReadingThemesControlsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09B03F41CE0FB7700009083 /* ReadingThemesControlsViewController.xib */; };
 		D8CE269F1E698E2400DAE2E0 /* NotificationButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B581DF22E1700B95311 /* NotificationButtonBackground@2x.png */; };
-		D8CE26A21E698E2400DAE2E0 /* TopReadWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D85D34C51D74D07500845125 /* TopReadWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D8CE26A31E698E2400DAE2E0 /* ContinueReadingWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0E8380631D64989F0076EDE4 /* ContinueReadingWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D8CE26A51E698E2400DAE2E0 /* WMF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8CE9B031FDEBB1900AE7D49 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831835301FD1AC490025DD3D /* NavigationBar.swift */; };
@@ -3400,7 +3393,6 @@
 		D8EC3F9D1E9BDA35006712EB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		D8EC3F9E1E9BDA35006712EB /* ReadingThemesControlsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09B03F41CE0FB7700009083 /* ReadingThemesControlsViewController.xib */; };
 		D8EC3F9F1E9BDA35006712EB /* NotificationButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B581DF22E1700B95311 /* NotificationButtonBackground@2x.png */; };
-		D8EC3FA21E9BDA35006712EB /* TopReadWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D85D34C51D74D07500845125 /* TopReadWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D8EC3FA31E9BDA35006712EB /* ContinueReadingWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0E8380631D64989F0076EDE4 /* ContinueReadingWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D8EC3FA51E9BDA35006712EB /* WMF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */; };
@@ -3477,7 +3469,6 @@
 		D8FA19051E1BDA66009675C3 /* UIImageView+WMFImageFetching.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E805D51C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA19061E1BDA66009675C3 /* UIColor+WMFStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804F21C0CE0DC0065EBC0 /* UIColor+WMFStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA190A1E1BDB79009675C3 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
-		D8FA190B1E1BDB7D009675C3 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
 		D8FA19111E1BDFC8009675C3 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
 		D8FA19161E1BE069009675C3 /* WMFArticlePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8D2703A1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib */; };
 		D8FAC7DD1D6F88AB00C2A6BC /* WMF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -3612,13 +3603,6 @@
 			remoteGlobalIDString = D8479FAA1F222FE80025FD7A;
 			remoteInfo = "Wikipedia Stickers";
 		};
-		D85D34CE1D74D07500845125 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D499142D181D51DE00E6073C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D85D34C41D74D07500845125;
-			remoteInfo = TopReadWidget;
-		};
 		D88DBBBA1D8B322400134A50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D499142D181D51DE00E6073C /* Project object */;
@@ -3654,13 +3638,6 @@
 			remoteGlobalIDString = 0E8380621D64989F0076EDE4;
 			remoteInfo = ContinueReadingWidget;
 		};
-		D8CE24DD1E698E2400DAE2E0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D499142D181D51DE00E6073C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D85D34C41D74D07500845125;
-			remoteInfo = TopReadWidget;
-		};
 		D8EC3DD01E9BDA35006712EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D499142D181D51DE00E6073C /* Project object */;
@@ -3674,13 +3651,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0E8380621D64989F0076EDE4;
 			remoteInfo = ContinueReadingWidget;
-		};
-		D8EC3DD41E9BDA35006712EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D499142D181D51DE00E6073C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D85D34C41D74D07500845125;
-			remoteInfo = TopReadWidget;
 		};
 		D8FA19121E1BDFD7009675C3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3711,7 +3681,6 @@
 				00021DEE24D48EFE00476F97 /* WidgetsExtension.appex in Embed Foundation Extensions */,
 				D8BD029F1F3A389F007AE7B2 /* FeaturedArticleWidget.appex in Embed Foundation Extensions */,
 				676C864B26D40AEB00A704C1 /* NotificationServiceExtension.appex in Embed Foundation Extensions */,
-				D85D34D01D74D07500845125 /* TopReadWidget.appex in Embed Foundation Extensions */,
 				0E8380701D64989F0076EDE4 /* ContinueReadingWidget.appex in Embed Foundation Extensions */,
 				D8479FB21F222FE90025FD7A /* Wikipedia Stickers.appex in Embed Foundation Extensions */,
 			);
@@ -3776,7 +3745,6 @@
 			files = (
 				D83FD2A31EF472AF00532B15 /* FeaturedArticleWidget.appex in Embed Foundation Extensions */,
 				676C867326D4170100A704C1 /* NotificationServiceExtension.appex in Embed Foundation Extensions */,
-				D8CE26A21E698E2400DAE2E0 /* TopReadWidget.appex in Embed Foundation Extensions */,
 				D8CE26A31E698E2400DAE2E0 /* ContinueReadingWidget.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -3801,7 +3769,6 @@
 			files = (
 				D83FD2A41EF472B600532B15 /* FeaturedArticleWidget.appex in Embed Foundation Extensions */,
 				676C867026D416FB00A704C1 /* NotificationServiceExtension.appex in Embed Foundation Extensions */,
-				D8EC3FA21E9BDA35006712EB /* TopReadWidget.appex in Embed Foundation Extensions */,
 				D8EC3FA31E9BDA35006712EB /* ContinueReadingWidget.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -5457,10 +5424,6 @@
 		D85C29541EC4946D007EF868 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tr; path = tr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D85C29551EC4947B007EF868 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		D85C29561EC49485007EF868 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
-		D85D34C51D74D07500845125 /* TopReadWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopReadWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		D85D34C81D74D07500845125 /* WMFTodayTopReadWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = WMFTodayTopReadWidgetViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		D85D34CB1D74D07500845125 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		D85D34CD1D74D07500845125 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D85F56A1219C45C900AF3E13 /* URLComponents+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "URLComponents+Extensions.swift"; path = "WMF Framework/URLComponents+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 		D8619B9E1FBB10240045C8BC /* ReadingList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingList+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D8619B9F1FBB10240045C8BC /* ReadingList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingList+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -5495,8 +5458,6 @@
 		D88E0E1C1EBB5A97005B8E9E /* Bundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		D88FCADE1E4B74D300505A9F /* WikidataFetcher+Places.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WikidataFetcher+Places.swift"; sourceTree = "<group>"; };
 		D88FCAE01E4B776600505A9F /* MapUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapUtilities.swift; sourceTree = "<group>"; };
-		D890C8531D772B27007132C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D890C8541D772B4E007132C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D890C85C1D772ED3007132C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D890C85E1D772EE7007132C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D8940CED1DB56C8A00E17F9E /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
@@ -5520,7 +5481,6 @@
 		D8A47C8E23D7338C002AA823 /* ArticleViewController+TableOfContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+TableOfContents.swift"; sourceTree = "<group>"; };
 		D8A6BAEC1E4C9BF400A981C8 /* UserLocationAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationAnnotationView.swift; sourceTree = "<group>"; };
 		D8A6BAEE1E4C9C0700A981C8 /* ArticlePlaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePlaceView.swift; sourceTree = "<group>"; };
-		D8A6E8731D80A4A0002D6D4D /* TopReadWidgetImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TopReadWidgetImages.xcassets; sourceTree = "<group>"; };
 		D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFTaskGroup.h; path = Wikipedia/Code/WMFTaskGroup.h; sourceTree = SOURCE_ROOT; };
 		D8A76D821D6F2B2E00E5A798 /* WMFTaskGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFTaskGroup.m; path = Wikipedia/Code/WMFTaskGroup.m; sourceTree = SOURCE_ROOT; };
 		D8AAF6B71FE93DE9005760E6 /* UIScrollView+Limits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Limits.swift"; sourceTree = "<group>"; };
@@ -5546,7 +5506,6 @@
 		D8CE26B01E698E2500DAE2E0 /* Experimental-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Experimental-Info.plist"; path = "Wikipedia/Experimental-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D8CE9AFD1FDEB14E00AE7D49 /* NavigationBarHider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationBarHider.swift; path = ../Wikipedia/Code/NavigationBarHider.swift; sourceTree = "<group>"; };
 		D8D0CC361DF6F8C30031EDD9 /* UIFont+WMFDynamicType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+WMFDynamicType.swift"; sourceTree = "<group>"; };
-		D8D270321D75BE8100D093A8 /* TopReadWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TopReadWidget.entitlements; sourceTree = "<group>"; };
 		D8D270391D75ED5000D093A8 /* WMFArticlePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFArticlePreviewViewController.swift; path = Wikipedia/Code/WMFArticlePreviewViewController.swift; sourceTree = SOURCE_ROOT; };
 		D8D2703A1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticlePreviewViewController.xib; path = Wikipedia/Code/WMFArticlePreviewViewController.xib; sourceTree = SOURCE_ROOT; };
 		D8D365141E953C7100593A38 /* ImageControllerCompletionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageControllerCompletionManager.swift; path = Wikipedia/Code/ImageControllerCompletionManager.swift; sourceTree = SOURCE_ROOT; };
@@ -5751,15 +5710,6 @@
 				83B019D624F6C31B0014B5EF /* WidgetKit.framework in Frameworks */,
 				D8CD975E1E83F65700ECCA9D /* UserNotifications.framework in Frameworks */,
 				67A770C8251BFE0400F94EF9 /* CocoaLumberjackSwift in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D85D34C21D74D07500845125 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D8FA190B1E1BDB7D009675C3 /* WMF.framework in Frameworks */,
-				D85D34C61D74D07500845125 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8969,7 +8919,6 @@
 				D801C8501EB8E131001FA294 /* Localizations */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
 				0E8380661D64989F0076EDE4 /* ContinueReadingWidget */,
-				D85D34C71D74D07500845125 /* TopReadWidget */,
 				D844D96D1D6CB2600042D692 /* WMF Framework */,
 				D87021611EBA63EF000D02D6 /* Update Localizations */,
 				D83FD28B1EF4724700532B15 /* FeaturedArticleWidget */,
@@ -8992,7 +8941,6 @@
 				BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */,
 				0E8380631D64989F0076EDE4 /* ContinueReadingWidget.appex */,
 				D844D96C1D6CB2600042D692 /* WMF.framework */,
-				D85D34C51D74D07500845125 /* TopReadWidget.appex */,
 				D8CE26AF1E698E2400DAE2E0 /* Experimental.app */,
 				D8A42C2B1E815A9C00D8E281 /* User Testing.app */,
 				D8EC3FB41E9BDA35006712EB /* Staging.app */,
@@ -9419,19 +9367,6 @@
 				D84F2BFA1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js */,
 			);
 			name = Random;
-			sourceTree = "<group>";
-		};
-		D85D34C71D74D07500845125 /* TopReadWidget */ = {
-			isa = PBXGroup;
-			children = (
-				D8D270321D75BE8100D093A8 /* TopReadWidget.entitlements */,
-				D8A6E8731D80A4A0002D6D4D /* TopReadWidgetImages.xcassets */,
-				D85D34C81D74D07500845125 /* WMFTodayTopReadWidgetViewController.swift */,
-				D85D34CA1D74D07500845125 /* MainInterface.storyboard */,
-				D85D34CD1D74D07500845125 /* Info.plist */,
-				D890C84D1D772B02007132C9 /* InfoPlist.strings */,
-			);
-			path = TopReadWidget;
 			sourceTree = "<group>";
 		};
 		D86706C01D3D4AD3003AB2FC /* Columnar Collection View Layout */ = {
@@ -10006,7 +9941,6 @@
 			dependencies = (
 				D88DBBBB1D8B322400134A50 /* PBXTargetDependency */,
 				0E83806F1D64989F0076EDE4 /* PBXTargetDependency */,
-				D85D34CF1D74D07500845125 /* PBXTargetDependency */,
 				D8BD029E1F3A3892007AE7B2 /* PBXTargetDependency */,
 				D8479FB11F222FE90025FD7A /* PBXTargetDependency */,
 				00021DED24D48EFE00476F97 /* PBXTargetDependency */,
@@ -10071,23 +10005,6 @@
 			productName = "Wikipedia Stickers";
 			productReference = D8479FAB1F222FE80025FD7A /* Wikipedia Stickers.appex */;
 			productType = "com.apple.product-type.app-extension.messages-sticker-pack";
-		};
-		D85D34C41D74D07500845125 /* TopReadWidget */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D85D34D11D74D07600845125 /* Build configuration list for PBXNativeTarget "TopReadWidget" */;
-			buildPhases = (
-				D85D34C11D74D07500845125 /* Sources */,
-				D85D34C21D74D07500845125 /* Frameworks */,
-				D85D34C31D74D07500845125 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = TopReadWidget;
-			productName = TopReadWidget;
-			productReference = D85D34C51D74D07500845125 /* TopReadWidget.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 		D870215F1EBA63EE000D02D6 /* localization */ = {
 			isa = PBXNativeTarget;
@@ -10162,7 +10079,6 @@
 			dependencies = (
 				D8CE24D81E698E2400DAE2E0 /* PBXTargetDependency */,
 				D8CE24DA1E698E2400DAE2E0 /* PBXTargetDependency */,
-				D8CE24DC1E698E2400DAE2E0 /* PBXTargetDependency */,
 				D83FD2AA1EF473E300532B15 /* PBXTargetDependency */,
 				676C867526D4170100A704C1 /* PBXTargetDependency */,
 			);
@@ -10187,7 +10103,6 @@
 			dependencies = (
 				D8EC3DCF1E9BDA35006712EB /* PBXTargetDependency */,
 				D8EC3DD11E9BDA35006712EB /* PBXTargetDependency */,
-				D8EC3DD31E9BDA35006712EB /* PBXTargetDependency */,
 				D83FD2AC1EF473E600532B15 /* PBXTargetDependency */,
 				676C867226D416FB00A704C1 /* PBXTargetDependency */,
 			);
@@ -10287,20 +10202,6 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = AKK7J2GV64;
 						ProvisioningStyle = Automatic;
-					};
-					D85D34C41D74D07500845125 = {
-						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = AKK7J2GV64;
-						LastSwiftMigration = 1020;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-							com.apple.SafariKeychain = {
-								enabled = 1;
-							};
-						};
 					};
 					D870215F1EBA63EE000D02D6 = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -10481,7 +10382,6 @@
 				D8A42A4D1E815A9C00D8E281 /* User Testing */,
 				BC4273511A7C736800068882 /* WikipediaUnitTests */,
 				0E8380621D64989F0076EDE4 /* ContinueReadingWidget */,
-				D85D34C41D74D07500845125 /* TopReadWidget */,
 				D83FD2881EF4724700532B15 /* FeaturedArticleWidget */,
 				D8479FAA1F222FE80025FD7A /* Wikipedia Stickers */,
 				D844D96B1D6CB2600042D692 /* WMF */,
@@ -10674,16 +10574,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8479FAE1F222FE90025FD7A /* Stickers.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D85D34C31D74D07500845125 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D8A6E8741D80A4A0002D6D4D /* TopReadWidgetImages.xcassets in Resources */,
-				D890C84B1D772B02007132C9 /* InfoPlist.strings in Resources */,
-				D85D34CC1D74D07500845125 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12359,14 +12249,6 @@
 				0042807225E6E395004945B3 /* NSError+MTLModelException.m in Sources */,
 				7A03130321542F5C0095C953 /* RemoteNotificationsOperationsController.swift in Sources */,
 				0E728D371DAEEAD60074EB4B /* MWKLocationSearchResult.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D85D34C11D74D07500845125 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D85D34C91D74D07500845125 /* WMFTodayTopReadWidgetViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14200,11 +14082,6 @@
 			target = D8479FAA1F222FE80025FD7A /* Wikipedia Stickers */;
 			targetProxy = D8479FB01F222FE90025FD7A /* PBXContainerItemProxy */;
 		};
-		D85D34CF1D74D07500845125 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D85D34C41D74D07500845125 /* TopReadWidget */;
-			targetProxy = D85D34CE1D74D07500845125 /* PBXContainerItemProxy */;
-		};
 		D88DBBBB1D8B322400134A50 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D844D96B1D6CB2600042D692 /* WMF */;
@@ -14230,11 +14107,6 @@
 			target = 0E8380621D64989F0076EDE4 /* ContinueReadingWidget */;
 			targetProxy = D8CE24DB1E698E2400DAE2E0 /* PBXContainerItemProxy */;
 		};
-		D8CE24DC1E698E2400DAE2E0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D85D34C41D74D07500845125 /* TopReadWidget */;
-			targetProxy = D8CE24DD1E698E2400DAE2E0 /* PBXContainerItemProxy */;
-		};
 		D8EC3DCF1E9BDA35006712EB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D844D96B1D6CB2600042D692 /* WMF */;
@@ -14244,11 +14116,6 @@
 			isa = PBXTargetDependency;
 			target = 0E8380621D64989F0076EDE4 /* ContinueReadingWidget */;
 			targetProxy = D8EC3DD21E9BDA35006712EB /* PBXContainerItemProxy */;
-		};
-		D8EC3DD31E9BDA35006712EB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D85D34C41D74D07500845125 /* TopReadWidget */;
-			targetProxy = D8EC3DD41E9BDA35006712EB /* PBXContainerItemProxy */;
 		};
 		D8FA19131E1BDFD7009675C3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -14581,23 +14448,6 @@
 				D83FD28F1EF4724700532B15 /* Base */,
 			);
 			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
-		D85D34CA1D74D07500845125 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D85D34CB1D74D07500845125 /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
-		D890C84D1D772B02007132C9 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D890C8531D772B27007132C9 /* en */,
-				D890C8541D772B4E007132C9 /* Base */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		D890C85B1D772ED3007132C9 /* InfoPlist.strings */ = {
@@ -15930,37 +15780,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-			};
-			name = UITest;
-		};
-		8350FC4520DA7F0200C19D60 /* UITest */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
 			name = UITest;
 		};
@@ -17489,37 +17308,6 @@
 			};
 			name = LocalDebug;
 		};
-		D854323C2188CC1300E895B5 /* LocalDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-			};
-			name = LocalDebug;
-		};
 		D854323D2188CC1300E895B5 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -17836,32 +17624,6 @@
 			};
 			name = Experimental;
 		};
-		D858A7FE1DA6DBC8009C3DEB /* Experimental */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Experimental;
-		};
 		D858A8001DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -18075,37 +17837,6 @@
 			};
 			name = ExperimentalDebug;
 		};
-		D858A8061DA6DD00009C3DEB /* ExperimentalDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-			};
-			name = ExperimentalDebug;
-		};
 		D858A8081DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -18138,89 +17869,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = ExperimentalDebug;
-		};
-		D85D34D21D74D07600845125 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-			};
-			name = Debug;
-		};
-		D85D34D51D74D07600845125 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		D85D34D61D74D07600845125 /* Test */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Test;
 		};
 		D87021641EBA63EF000D02D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -18612,32 +18260,6 @@
 			};
 			name = Staging;
 		};
-		D8A42A431E814FAA00D8E281 /* Staging */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Staging;
-		};
 		D8A42A441E814FAA00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -18872,37 +18494,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-			};
-			name = StagingDebug;
-		};
-		D8A42A4B1E814FE000D8E281 /* StagingDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
 			name = StagingDebug;
 		};
@@ -19393,32 +18984,6 @@
 			};
 			name = UserTesting;
 		};
-		D8A42C371E815C2800D8E281 /* UserTesting */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = UserTesting;
-		};
 		D8A42C381E815C2800D8E281 /* UserTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -19683,37 +19248,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-			};
-			name = UserTestingDebug;
-		};
-		D8A42C401E815C3200D8E281 /* UserTestingDebug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TopReadWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
 			name = UserTestingDebug;
 		};
@@ -20670,24 +20204,6 @@
 				D8479FBC1F222FE90025FD7A /* Staging */,
 				D8479FBE1F222FE90025FD7A /* Test */,
 				D8479FBF1F222FE90025FD7A /* Experimental */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D85D34D11D74D07600845125 /* Build configuration list for PBXNativeTarget "TopReadWidget" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D85D34D21D74D07600845125 /* Debug */,
-				D854323C2188CC1300E895B5 /* LocalDebug */,
-				8350FC4520DA7F0200C19D60 /* UITest */,
-				D8A42C401E815C3200D8E281 /* UserTestingDebug */,
-				D8A42A4B1E814FE000D8E281 /* StagingDebug */,
-				D858A8061DA6DD00009C3DEB /* ExperimentalDebug */,
-				D85D34D51D74D07600845125 /* Release */,
-				D8A42C371E815C2800D8E281 /* UserTesting */,
-				D8A42A431E814FAA00D8E281 /* Staging */,
-				D85D34D61D74D07600845125 /* Test */,
-				D858A7FE1DA6DBC8009C3DEB /* Experimental */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

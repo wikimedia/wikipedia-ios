@@ -775,8 +775,6 @@
 "project-name-wikiversity" = "Project name for Wikiversity.";
 "project-name-wikivoyage" = "Project name for Wikivoyage.";
 "project-name-wiktionary" = "Project name for Wiktionary.";
-"rank-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. $1 is replaced with the ranking {{Identical|Number}}";
-"readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers {{Identical|Reader}}";
 "reading-list-add-generic-hint-title" = "Title of the reading list hint that appears after an article is saved.";
 "reading-list-add-hint-title" = "Title of the reading list hint that appears after an article is saved. $1 will be replaced with the saved article title";
 "reading-list-add-saved-button-title" = "Title for button to add saved articles to reading list. The question being asked is: There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?";
@@ -1072,9 +1070,6 @@
 "theme-default-explanation" = "Explains that the default theme matches the iOS system theme setting";
 "theme-light-display-name" = "Light theme name presented to the user";
 "theme-sepia-display-name" = "Sepia theme name presented to the user";
-"top-read-header-generic" = "Wikipedia {{Identical|Wikipedia}}";
-"top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia {{Identical|Wikipedia}}";
-"top-read-see-more" = "Text for footer button allowing the user to see more top read articles";
 "top-read-widget-description" = "Text for description of top read widget displayed when adding to home screen.";
 "top-read-widget-readers-count" = "Text for displaying the number of readers an article has in the top read widget. $1 is replaced with the number of readers.";
 "top-read-widget-title" = "Text for title of Top read widget.";
