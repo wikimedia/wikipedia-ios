@@ -6,6 +6,7 @@
 // Author: Pacha Tchernof
 // Author: פוילישער
 
+"aaald-added-text-description-2" = "$1 צוגעגעבן";
 "about-contributors" = "בײַשטײַערער";
 "about-libraries" = "געניצטע ביבליאטעקן";
 "about-libraries-complete-list" = "פֿולשטענדיקע רשימה";
@@ -24,6 +25,7 @@
 "account-creation-passwords-mismatched" = "פאסווארט פעלדער שטימען נישט.";
 "account-creation-saving" = "אויפהיטנדיק…";
 "action-cancel" = "אַנולירן";
+"action-language-accessibility" = "ענדערן שפּראַך";
 "action-read" = "לייענען";
 "action-save" = "אויפֿהיטן";
 "action-saved" = "אויפֿגעהיטן";
@@ -68,6 +70,7 @@
 "main-menu-title" = "נאך";
 "main-menu-zero-faq" = "וויקיפעדיע נול שאלות ותשובות";
 "menu-cancel-accessibility-label" = "אַנולירן";
+"more-languages-tooltip-title" = "צולייגן שפראַכן";
 "navbar-title-mode-edit-wikitext-preview" = "פֿאראויסשטעלונג";
 "nearby-distance-label-feet" = "$1 פיס";
 "nearby-distance-label-km" = "$1 ק״מ";

@@ -1053,6 +1053,7 @@
 "talk-page-read-in-web" = "Читать в Интернете";
 "talk-page-related-links" = "Ссылки сюда";
 "talk-page-reply-button" = "Ответить";
+"talk-page-reply-button-accessibility-label" = "Ответить $1";
 "talk-page-reply-placeholder-format" = "Ответить $1";
 "talk-page-reply-title" = "Ответ";
 "talk-page-revision-history" = "История изменений";

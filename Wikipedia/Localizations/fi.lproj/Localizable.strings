@@ -26,6 +26,7 @@
 // Author: Stryn
 // Author: SuperPete
 // Author: Surjection
+// Author: Valtlai
 // Author: Valtlait
 // Author: Veikk0.ma
 
@@ -737,7 +738,7 @@
 "places-search-recently-searched-header" = "Äskettäin haetut";
 "places-search-saved-articles" = "Kaikki tallennetut artikkelit";
 "places-search-suggested-searches-header" = "Ehdotetut haut";
-"places-search-this-area" = "Hae tällä alueelta";
+"places-search-this-area" = "Hae tältä alueelta";
 "places-search-top-articles" = "Kaikki huippuartikkelit";
 "places-search-top-articles-that-match-scope" = "Lähistöllä";
 "places-search-your-current-location" = "Nykyinen sijaintisi";
@@ -986,10 +987,10 @@
 "talk-page-share-button" = "Jaa keskustelusivu";
 "talk-page-subscribe-to-topic" = "Tilaa";
 "talk-page-subscribed-alert-subtitle" = "Saat ilmoituksia uusista kommenteista tässä aiheessa.";
-// Fuzzy
-"talk-page-title-article-talk" = "artikkelikeskustelu";
+"talk-page-title-article-talk" = "Artikkelikeskustelu";
 "talk-page-title-user-talk" = "Keskustelu käyttäjästä";
 "talk-page-topic-title" = "Keskustelu";
+"talk-page-unsubscribe-to-topic" = "Peruuta tilaus";
 "talk-page-user-about" = "Tietoja käyttäjien keskustelusivuista";
 "talk-page-user-contributions" = "Muokkaukset";
 "talk-pages-coffee-roll-read-more" = "Lue lisää";
@@ -1037,6 +1038,7 @@
 "vanish-account-button-text" = "Lähetä pyyntö";
 "vanish-account-learn-more-text" = "Lue lisää";
 "vanish-account-username-field" = "Käyttäjänimi ja käyttäjäsivu";
+"vanish-account-warning-title" = "Varoitus";
 "variants-alert-dismiss-button" = "Ei kiitos";
 "variants-alert-preferences-button" = "Tarkista asetuksesi";
 "welcome-exploration-explore-feed-description" = "Suositellut luettavat ja pävittäiset artikkelit yhteisöstämme";
