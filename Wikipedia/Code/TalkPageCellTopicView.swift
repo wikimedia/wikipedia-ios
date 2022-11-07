@@ -423,7 +423,7 @@ final class TalkPageCellTopicView: SetupView {
                 return nil
             }
             return topicTitleTextView.convert(initialFrame, to: rootCollectionView())
-        case .topicLeadComment:
+        case .topicLeadComment, .topicOtherContent:
             guard let initialFrame = topicCommentTextView.frame(of: range) else {
                 return nil
             }
