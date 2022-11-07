@@ -81,8 +81,7 @@ class ReadingListsImportViewController: UIViewController {
         }
         
         group.notify(queue: .main) {
-            
-            print("whyyyy")
+
             self.processFinalURLs(finalURLs: finalURLs) { result in
                 
                 DispatchQueue.main.async {

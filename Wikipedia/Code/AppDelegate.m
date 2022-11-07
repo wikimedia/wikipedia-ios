@@ -138,6 +138,10 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *__nullable restorableObjects))restorationHandler {
+
+    DDLogWarn(@"webpageURL: %@", userActivity.webpageURL);
+    DDLogWarn(@"referrerURL: %@", userActivity.referrerURL);
+
     [self.appViewController showSplashView];
 
     BOOL result = [self.appViewController processUserActivity:userActivity
