@@ -31,6 +31,10 @@ class TalkPageViewController: ViewController {
         return progressController
     }()
     
+    var scrollingToIndexPath: IndexPath?
+    var scrollingToResult: TalkPageFindInPageSearchController.SearchResult?
+    var scrollingToCommentViewModel: TalkPageCellCommentViewModel?
+    
     // MARK: - Overflow menu properties
     
     fileprivate var userTalkOverflowSubmenuActions: [UIAction] {

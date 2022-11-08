@@ -47,43 +47,81 @@ extension TalkPageViewController {
     }
 
     // MARK: - Scroll to Element
+    
+    
+    override func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        super.scrollViewDidEndScrollingAnimation(scrollView)
+        
+        scrollToFindInPageResultRect()
+    }
+    
+    private func scrollToFindInPageResultRect() {
+        if let scrollingToIndexPath = scrollingToIndexPath,
+        let scrollingToResult = scrollingToResult {
+            
+            if let scrollingToCommentViewModel = scrollingToCommentViewModel {
+                if let commentView = talkPageCell(indexPath: scrollingToIndexPath)?.commentViewForViewModel(scrollingToCommentViewModel) {
+                    if let targetFrame = commentView.frameForHighlight(result: scrollingToResult) {
+                        talkPageView.collectionView.scrollRectToVisible(targetFrame, animated: true)
+                    }
+                }
+            } else {
+                if let talkPageCell = talkPageCell(indexPath: scrollingToIndexPath) {
+                    if let targetFrame = talkPageCell.topicView.frameForHighlight(result: scrollingToResult) {
+                        talkPageView.collectionView.scrollRectToVisible(targetFrame, animated: true)
+                    }
+                }
+            }
+        }
+        
+        scrollingToIndexPath = nil
+        scrollingToResult = nil
+        scrollingToCommentViewModel = nil
+        
+        rethemeVisibleCells()
+    }
 
     func scrollToFindInPageResult(_ result: TalkPageFindInPageSearchController.SearchResult?) {
         guard let result = result else { return }
-
-        rethemeVisibleCells()
-
+        
         switch result.location {
         case .topicTitle(topicIndex: let index, topicIdentifier: _):
             let indexPath = IndexPath(row: index, section: 0)
-            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
-
-            if let talkPageCell = talkPageCell(indexPath: indexPath) {
-                if let targetFrame = talkPageCell.topicView.frameForHighlight(result: result) {
-                    talkPageView.collectionView.scrollRectToVisible(targetFrame, animated: false)
-                }
+            
+            scrollingToIndexPath = indexPath
+            scrollingToResult = result
+            
+            if talkPageView.collectionView.indexPathsForVisibleItems.contains(indexPath) {
+                scrollToFindInPageResultRect()
+            } else {
+                talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
             }
         case .topicLeadComment(topicIndex: let index, replyIdentifier: _),
              .topicOtherContent(topicIndex: let index):
             let indexPath = IndexPath(row: index, section: 0)
-            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
-
-            if let talkPageCell = talkPageCell(indexPath: indexPath) {
-                if let targetFrame = talkPageCell.topicView.frameForHighlight(result: result) {
-                    talkPageView.collectionView.scrollRectToVisible(targetFrame, animated: false)
-                }
+            
+            scrollingToIndexPath = indexPath
+            scrollingToResult = result
+            
+            if talkPageView.collectionView.indexPathsForVisibleItems.contains(indexPath) {
+                scrollToFindInPageResultRect()
+            } else {
+                talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
             }
         case .reply(topicIndex: let topicIndex, topicIdentifier: _, replyIndex: let replyIndex, replyIdentifier: _):
             let topicViewModel = viewModel.topics[topicIndex]
             let commentViewModel = topicViewModel.replies[replyIndex]
 
             let indexPath = IndexPath(row: topicIndex, section: 0)
-            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
-
-            if let commentView = talkPageCell(indexPath: indexPath)?.commentViewForViewModel(commentViewModel) {
-                if let targetFrame = commentView.frameForHighlight(result: result) {
-                    talkPageView.collectionView.scrollRectToVisible(targetFrame, animated: false)
-                }
+            
+            scrollingToIndexPath = indexPath
+            scrollingToResult = result
+            scrollingToCommentViewModel = commentViewModel
+            
+            if talkPageView.collectionView.indexPathsForVisibleItems.contains(indexPath) {
+                scrollToFindInPageResultRect()
+            } else {
+                talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
             }
         }
     }
