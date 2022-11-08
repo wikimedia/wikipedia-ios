@@ -170,6 +170,13 @@ final class TalkPageEmptyView: SetupView {
         ])
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if scrollView.bounces {
+            scrollView.flashScrollIndicators()
+        }
+    }
+
     func configure(viewModel: TalkPageViewModel) {
         switch viewModel.pageType {
         case .article:

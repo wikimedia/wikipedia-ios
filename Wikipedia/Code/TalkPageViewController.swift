@@ -169,6 +169,7 @@ class TalkPageViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages = false
         navigationItem.title = TalkPageLocalizedStrings.title
 
         setupOverflowMenu()

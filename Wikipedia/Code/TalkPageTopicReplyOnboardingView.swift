@@ -10,13 +10,15 @@ struct TalkPageTopicReplyOnboardingView: View {
         static let body = WMFLocalizedString("talk-pages-topic-reply-onboarding-body", value: "Talk pages are where people discuss how to make content on Wikipedia the best that it can be. Add a new discussion topic to connect and collaborate with a community of Wikipedians.\n\nPlease be kind, we are all humans here.", comment: "Body text for user education onboarding view for user and article talk pages.")
         @available(iOS 15, *)
         static var bodyiOS15: AttributedString? = {
-            let localizedString = WMFLocalizedString("talk-pages-topic-reply-onboarding-body-ios15", value: "Talk pages are where %1$@people discuss how to make content on Wikipedia the best that it can be.%1$@ Add a new discussion topic to connect and collaborate with a community of Wikipedians.\n\nPlease be kind, we are all humans here.", comment: "Body text for user education onboarding view for user and article talk pages. Parameters:\n* %1$@ - app-specific non-text formatting")
+            let localizedString = WMFLocalizedString("talk-pages-topic-reply-onboarding-body-ios15", value: "Talk pages are where %1$@people discuss how to make content on Wikipedia the best that it can be.%1$@ Add a new discussion topic to connect and collaborate with a community of Wikipedians.", comment: "Body text for user education onboarding view for user and article talk pages. Parameters:\n* %1$@ - app-specific non-text formatting")
             let attributedString = String.localizedStringWithFormat(
                 localizedString,
                 "**"
             )
             return try? AttributedString(markdown: attributedString)
         }()
+
+        static var bodySecondPartiOS15 = WMFLocalizedString("talk-pages-topic-reply-onboarding-body-note-ios15", value: "Please be kind, we are all humans here.", comment: "Body text for user education onboarding view for user and article talk pageson iOS 15")
     }
 
     // MARK: - Properties
@@ -69,6 +71,11 @@ struct TalkPageTopicReplyOnboardingView: View {
                     if #available(iOS 15, *) {
                         if let text = LocalizedStrings.bodyiOS15 {
                             Text(text)
+                                .font(.callout)
+                                .foregroundColor(Color(theme.colors.primaryText))
+                            Spacer(minLength: 24)
+                            Text(LocalizedStrings.bodySecondPartiOS15)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(.callout)
                                 .foregroundColor(Color(theme.colors.primaryText))
                         } else {
