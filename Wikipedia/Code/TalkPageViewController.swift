@@ -786,7 +786,9 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
 extension TalkPageViewController: TalkPageCellDelegate {
     
     func userDidTapDisclosureButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {
-        guard let cellViewModel = cellViewModel, let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}) else {
+        guard let cellViewModel = cellViewModel,
+              let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}),
+               isShowingFindInPage == false else {
             return
         }
         
