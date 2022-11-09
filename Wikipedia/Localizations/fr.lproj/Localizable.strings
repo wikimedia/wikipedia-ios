@@ -1004,11 +1004,13 @@
 "tachelhit-variants-alert-title" = "Mises à jour de la prise en charge des variantes du chleuh";
 "tajik-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du tadjik comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nтоҷикӣ кирилликӣ – tadjik cyrillique (tg-cyrl)\ntojikī lotinī – tadjik latin (tg-latn)";
 "tajik-variants-alert-title" = "Mises à jour de la prise en charge des variantes du tadjik";
+"talk-page-active-users-accessibilty-label" = "$1 utilisateur{{PLURAL:$1||s}} actif{{PLURAL:$1||s}}";
 "talk-page-add-discussion-accessibility-label" = "Ajouter une discussion";
 "talk-page-add-topic-button" = "Ajouter un sujet";
 "talk-page-archives" = "Archives";
 "talk-page-article-about" = "À propos des pages de discussion";
 "talk-page-change-language" = "Changer la langue";
+"talk-page-collapse-thread-button" = "Réduire le fil";
 "talk-page-discussion-accessibility-hint" = "Taper deux fois pour ouvrir un fil de discussion";
 "talk-page-discussion-read-accessibility-label" = "Lu";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "ly";
@@ -1020,6 +1022,7 @@
 "talk-page-error-loading-title" = "Impossible de charger la page de discussion";
 "talk-page-error-unable-to-post-reply" = "Aucune connexion internet. Impossible d’envoyer la réponse.";
 "talk-page-error-unable-to-post-topic" = "Aucune connexion internet. Impossible d’envoyer la discussion.";
+"talk-page-expand-thread-button" = "Développer le fil";
 "talk-page-find-in-page-button" = "Trouver dans la page";
 "talk-page-info-active-conversations" = "Conversations actives sur Wikipédia en $1";
 "talk-page-info-active-conversations-generic" = "Conversations actives sur Wikipédia";
@@ -1039,6 +1042,8 @@
 "talk-page-new-topic-body-placeholder-text" = "Rédiger une nouvelle discussion";
 "talk-page-new-topic-success-text" = "Votre discussion a été publiée avec succès";
 "talk-page-new-topic-title" = "Nouvelle discussion";
+"talk-page-onboarding-button-accessibility-label" = "Appuyez deux fois pour revenir à la réponse";
+"talk-page-overflow-menu-accessibility" = "Plus d’options de page de discussion";
 "talk-page-page-info" = "Informations sur la page";
 "talk-page-permanent-link" = "Lien permanent";
 "talk-page-publish-reply-error-subtitle" = "Vérifiez votre connexion Internet.";
@@ -1047,11 +1052,15 @@
 "talk-page-publish-topic-error-title" = "Impossible de publier un nouveau sujet.";
 "talk-page-read-in-web" = "Lire sur le web";
 "talk-page-related-links" = "Pages liées";
+"talk-page-replies-count-accessibilty-label" = "$1 réponse{{PLURAL:$1||s}}";
 "talk-page-reply-button" = "Répondre";
+"talk-page-reply-button-accessibility-label" = "Répondre à $1";
+"talk-page-reply-depth-accessibility-label" = "Profondeur de réponse : $1";
 "talk-page-reply-placeholder-format" = "Répondre à $1";
 "talk-page-reply-terms-and-licenses" = "Notez que votre réponse sera automatiquement signée avec votre nom d’utilisateur. En enregistrant les modifications, vous acceptez les $1Conditions d’utilisation$2 et acceptez de publier votre contribution sous les licences $3CC BY-SA 3.0$4 et $5GFDL$6.";
 "talk-page-reply-title" = "Répondre";
 "talk-page-revision-history" = "Historique des versions";
+"talk-page-rply-close-button-accessibility-hint" = "Fermer la vue des réponses";
 "talk-page-share-button" = "Partager la page de discussion";
 "talk-page-subscribe-to-topic" = "S’abonner";
 "talk-page-subscribed-alert-subtitle" = "Vous recevrez des notifications concernant les nouveaux commentaires de ce sujet.";
@@ -1059,6 +1068,7 @@
 "talk-page-subscription-failed-alert" = "L’abonnement au sujet a échoué, veuillez essayer à nouveau.";
 "talk-page-title-article-talk" = "Discussion de l’article";
 "talk-page-title-user-talk" = "Discussion de l’utilisateur";
+"talk-page-topic-close-button-hint" = "Fermer le nouveau sujet";
 "talk-page-topic-compose-terms-and-licenses" = "En enregistrant les modifications, vous acceptez les $1Conditions d’utilisation$2 et acceptez irrévocablement de livrer vos contributions sous les licences $3CC BY-SA 3.0$4 et $5GFDL$6.";
 "talk-page-topic-title" = "Discussion";
 "talk-page-unsubscribe-to-topic" = "Se désabonner";
@@ -1080,6 +1090,7 @@
 "talk-pages-reply-compose-close-confirmation-title" = "Êtes-vous sûr{{GENDER:||e}} de vouloir abandonner cette nouvelle réponse ?";
 "talk-pages-topic-added-alert-title" = "Votre sujet a été ajouté";
 "talk-pages-topic-compose-body-placeholder" = "Description";
+"talk-pages-topic-compose-body-placeholder-accessibility" = "Description du sujet";
 "talk-pages-topic-compose-close-confirmation-discard" = "Ignorer la réponse";
 "talk-pages-topic-compose-close-confirmation-title" = "Voulez-vous vraiment abandonner ce nouveau sujet ?";
 "talk-pages-topic-compose-navbar-title" = "Sujet";
