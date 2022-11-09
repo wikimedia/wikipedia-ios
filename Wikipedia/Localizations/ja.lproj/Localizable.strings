@@ -927,6 +927,7 @@
 "talk-page-add-topic-button" = "トピックを追加";
 "talk-page-archives" = "アーカイブ";
 "talk-page-change-language" = "言語を変更";
+"talk-page-collapse-thread-button" = "スレッドを折りたたむ";
 "talk-page-discussion-accessibility-hint" = "ダブルタップすると議論のスレッドが開きます";
 "talk-page-discussion-read-accessibility-label" = "既読";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "kʲidokɯ";

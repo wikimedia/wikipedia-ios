@@ -1062,6 +1062,8 @@
 "talk-pages-topic-compose-navbar-title" = "Topic";
 "talk-pages-topic-compose-title-placeholder" = "Topic title";
 "talk-pages-topic-reply-onboarding-body" = "Talk pages are where people discuss how to make content on Wikipedia the best that it can be. Add a new discussion topic to connect and collaborate with a community of Wikipedians.\n\nPlease be kind, we are all humans here.";
+"talk-pages-topic-reply-onboarding-body-ios15" = "Talk pages are where $1people discuss how to make content on Wikipedia the best that it can be.$1 Add a new discussion topic to connect and collaborate with a community of Wikipedians.";
+"talk-pages-topic-reply-onboarding-body-note-ios15" = "Please be kind, we are all humans here.";
 "talk-pages-topic-reply-onboarding-title" = "Talk pages";
 "talk-pages-user-groups" = "User groups";
 "talk-pages-user-logs" = "Logs";
