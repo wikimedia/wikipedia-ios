@@ -139,7 +139,7 @@ final class TalkPageCell: UICollectionViewCell {
         
         updateSemanticContentAttribute(semanticContentAttribute)
         
-        let showingOtherContent = viewModel.leadComment == nil && viewModel.otherContent != nil
+        let showingOtherContent = viewModel.leadComment == nil && viewModel.otherContentHtml != nil
         
         guard !showingOtherContent else {
             return

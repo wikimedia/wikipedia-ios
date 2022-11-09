@@ -97,7 +97,7 @@ extension TalkPageViewController: FindAndReplaceKeyboardBarDelegate {
             return
         }
 
-        findInPageState.search(term: searchTerm, in: viewModel.topics)
+        findInPageState.search(term: searchTerm, in: viewModel.topics, traitCollection: traitCollection, theme: theme)
         rethemeVisibleCells()
     }
 

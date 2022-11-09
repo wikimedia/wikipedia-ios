@@ -3,7 +3,7 @@ import Foundation
 final class TalkPageCellCommentViewModel: Identifiable {
 
     let commentId: String
-    let text: String
+    let html: String
     let author: String
     let authorTalkPageURL: String
     let timestamp: Date?
@@ -11,20 +11,24 @@ final class TalkPageCellCommentViewModel: Identifiable {
     
     weak var cellViewModel: TalkPageCellViewModel?
     
-    init?(commentId: String, text: String?, author: String?, authorTalkPageURL: String, timestamp: Date?, replyDepth: Int?) {
+    init?(commentId: String, html: String?, author: String?, authorTalkPageURL: String, timestamp: Date?, replyDepth: Int?) {
         
-        guard let text = text,
+        guard let html = html,
               let author = author,
               let replyDepth = replyDepth else {
             return nil
         }
         
         self.commentId = commentId
-        self.text = NSMutableAttributedString(string: text).removingInitialNewlineCharacters().string
+        self.html = html
         self.author = author
         self.authorTalkPageURL = authorTalkPageURL
         self.timestamp = timestamp
         self.replyDepth = replyDepth
+    }
+    
+    func commentAttributedString(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+        return html.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
     }
 }
 

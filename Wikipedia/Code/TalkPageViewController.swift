@@ -600,7 +600,7 @@ class TalkPageViewController: ViewController {
         var targetCommentViewModel: TalkPageCellCommentViewModel?
         
         for (index, cellViewModel) in viewModel.topics.enumerated() {
-            if cellViewModel.topicTitle.removingHTML == topicTitle {
+            if cellViewModel.topicTitleHtml.removingHTML == topicTitle {
                 targetIndexPath = IndexPath(item: index, section: 0)
                 targetCellViewModel = cellViewModel
                 break
@@ -615,7 +615,7 @@ class TalkPageViewController: ViewController {
         if let replyText = deepLinkData.replyText {
             
             for commentViewModel in targetCellViewModel.allCommentViewModels {
-                if commentViewModel.text.removingHTML.contains(replyText.removingHTML) {
+                if commentViewModel.html.removingHTML.contains(replyText.removingHTML) {
                     targetCommentViewModel = commentViewModel
                 }
             }
