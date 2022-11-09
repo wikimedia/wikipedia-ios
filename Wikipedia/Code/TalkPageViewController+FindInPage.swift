@@ -41,6 +41,10 @@ extension TalkPageViewController {
             findInPageState.keyboardBar = nil
         }
     }
+    
+    var isShowingFindInPage: Bool {
+        return findInPageState.keyboardBar?.isVisible ?? false
+    }
 
     // MARK: - Scroll to Element
 
