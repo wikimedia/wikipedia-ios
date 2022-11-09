@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Ernác
 // Author: Iltever
+// Author: Къарачайлы
 
 // Fuzzy
 "about-contributors" = "авторла";
@@ -10,7 +11,7 @@
 "about-repositories" = "репозиторийле";
 // Fuzzy
 "about-testers" = "тестерле";
-"about-title" = "Ачыкълау";
+"about-title" = "Юсюнден";
 "about-wikipedia" = "Википедия";
 "account-creation-logging-in" = "Системагъа кириу...";
 "account-creation-saving" = "Сакъланады…";
@@ -33,7 +34,7 @@
 // Fuzzy
 "main-menu-heading-legal" = "Къатыш зат";
 "main-menu-nearby" = "Джууукъда";
-"main-menu-privacy-policy" = "Джашыргъанлыкъ политика";
+"main-menu-privacy-policy" = "Ташалыкъ политика";
 // Fuzzy
 "main-menu-rate-app" = "Къошакъ программагъа багъа бич";
 // Fuzzy
@@ -51,6 +52,17 @@
 "search-recent-clear-cancel" = "Ызына алыу";
 "search-recent-clear-delete-all" = "Барысын да кетер";
 "table-of-contents-heading" = "Контент";
+"talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 актив къошулуучу}}";
+"talk-page-collapse-thread-button" = "Сынджырны чырма";
+"talk-page-expand-thread-button" = "Теманы кер";
+"talk-page-onboarding-button-accessibility-label" = "Джууабха къайтыр ючюн эки кере бас";
+"talk-page-overflow-menu-accessibility" = "Сюзюу бетни къошакъ джарашдырыулары";
+"talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1 джууаб}}";
+"talk-page-reply-button-accessibility-label" = "$1 джууаб бер";
+"talk-page-reply-depth-accessibility-label" = "Джууабны теренлиги: $1";
+"talk-page-rply-close-button-accessibility-hint" = "Джууабны кёргюзюуню джаб";
+"talk-page-topic-close-button-hint" = "Джангы теманы джаб";
+"talk-pages-topic-compose-body-placeholder-accessibility" = "Теманы ачыкълауу";
 // Fuzzy
 "wikitext-upload-save" = "Сакъланады…";
 "wikitext-upload-save-sign-in" = "Кириу";
