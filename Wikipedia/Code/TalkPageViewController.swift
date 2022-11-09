@@ -358,7 +358,11 @@ class TalkPageViewController: ViewController {
     
     var talkPageURL: URL? {
         var talkPageURLComponents = URLComponents(url: viewModel.siteURL, resolvingAgainstBaseURL: false)
-        talkPageURLComponents?.path = "/wiki/\(viewModel.pageTitle)"
+        guard let encodedTitle = viewModel.pageTitle.percentEncodedPageTitleForPathComponents else {
+            return nil
+        }
+        talkPageURLComponents?.path = "/wiki/\(encodedTitle)"
+
         return talkPageURLComponents?.url
     }
     
