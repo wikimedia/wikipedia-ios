@@ -957,6 +957,7 @@
 "talk-page-new-topic-body-placeholder-text" = "قم بصياغة نقاش جديد";
 "talk-page-new-topic-success-text" = "تم نشر نقاشك بنجاح";
 "talk-page-new-topic-title" = "نقاش حديد";
+"talk-page-overflow-menu-accessibility" = "المزيد من خيارات صفحة النقاش";
 "talk-page-page-info" = "معلومات الصفحة";
 "talk-page-permanent-link" = "وصلة دائمة";
 "talk-page-publish-terms-and-licenses" = "بحفظك للتغييرات، أنت توافق على  $1شروط الاستخدام$2  وعلى إصدار مساهمتك تحت رخصتا  \n $3CC BY-SA 3.0$4 و $5GFDL$6.";
@@ -988,6 +989,7 @@
 "talk-pages-reply-button-title" = "رد على هذا النقاش";
 "talk-pages-reply-compose-close-confirmation-title" = "هل أنت متأكد أنك تريد تجاهل هذا الرد الجديد؟";
 "talk-pages-topic-compose-body-placeholder" = "الوصف";
+"talk-pages-topic-compose-body-placeholder-accessibility" = "وصف الموضوع";
 "talk-pages-topic-compose-close-confirmation-discard" = "تجاهل الرد";
 "talk-pages-topic-compose-navbar-title" = "موضوع";
 "talk-pages-topic-compose-title-placeholder" = "عنوان الموضوع";

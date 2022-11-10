@@ -6203,6 +6203,7 @@
 			isa = PBXGroup;
 			children = (
 				00FCCBC4290082C200C9ECD2 /* TalkPageFindInPageState.swift */,
+				003CD3E828EF7C77000158E4 /* TalkPageFindInPageSearchController.swift */,
 				00FCCBC92900848300C9ECD2 /* TalkPageViewController+FindInPage.swift */,
 			);
 			name = "Find in Page";

@@ -8,7 +8,7 @@ class TalkPageViewController: ViewController {
 
     let viewModel: TalkPageViewModel
     fileprivate var headerView: TalkPageHeaderView?
-
+    fileprivate var shouldGoToNewTopic: Bool = false
     let findInPageState = TalkPageFindInPageState()
 
     fileprivate var topicReplyOnboardingHostingViewController: TalkPageTopicReplyOnboardingHostingController?
@@ -30,6 +30,10 @@ class TalkPageViewController: ViewController {
         progressController.delay = 0.0
         return progressController
     }()
+    
+    var scrollingToIndexPath: IndexPath?
+    var scrollingToResult: TalkPageFindInPageSearchController.SearchResult?
+    var scrollingToCommentViewModel: TalkPageCellCommentViewModel?
     
     // MARK: - Overflow menu properties
     
@@ -318,6 +322,8 @@ class TalkPageViewController: ViewController {
 
         if let replyComposeView = replyComposeController.containerView {
             return max(0, toolbar.frame.minY - replyComposeView.frame.minY)
+        } else if isShowingFindInPage {
+            return -toolbar.frame.height
         }
 
         return 0
@@ -354,7 +360,11 @@ class TalkPageViewController: ViewController {
     
     var talkPageURL: URL? {
         var talkPageURLComponents = URLComponents(url: viewModel.siteURL, resolvingAgainstBaseURL: false)
-        talkPageURLComponents?.path = "/wiki/\(viewModel.pageTitle)"
+        guard let encodedTitle = viewModel.pageTitle.percentEncodedPageTitleForPathComponents else {
+            return nil
+        }
+        talkPageURLComponents?.path = "/wiki/\(encodedTitle)"
+
         return talkPageURLComponents?.url
     }
     
@@ -381,16 +391,23 @@ class TalkPageViewController: ViewController {
         pushToRevisionHistory()
     }
 
-    @objc fileprivate func userDidTapAddTopicButton() {
+    fileprivate func showAddTopic() {
         let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute)
         let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, authenticationManager: viewModel.authenticationManager, theme: theme)
         topicComposeVC.delegate = self
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
         navVC.presentationController?.delegate = self
-        present(navVC, animated: true, completion: { [weak self] in
-            self?.presentTopicReplyOnboardingIfNecessary()
-        })
+        present(navVC, animated: true)
+    }
+
+    @objc fileprivate func userDidTapAddTopicButton() {
+        if UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
+            showAddTopic()
+        } else {
+            shouldGoToNewTopic = true
+            presentTopicReplyOnboarding()
+        }
     }
     
     fileprivate func setupToolbar() {
@@ -596,7 +613,7 @@ class TalkPageViewController: ViewController {
         var targetCommentViewModel: TalkPageCellCommentViewModel?
         
         for (index, cellViewModel) in viewModel.topics.enumerated() {
-            if cellViewModel.topicTitle.removingHTML == topicTitle {
+            if cellViewModel.topicTitleHtml.removingHTML == topicTitle {
                 targetIndexPath = IndexPath(item: index, section: 0)
                 targetCellViewModel = cellViewModel
                 break
@@ -611,7 +628,7 @@ class TalkPageViewController: ViewController {
         if let replyText = deepLinkData.replyText {
             
             for commentViewModel in targetCellViewModel.allCommentViewModels {
-                if commentViewModel.text.removingHTML.contains(replyText.removingHTML) {
+                if commentViewModel.html.removingHTML.contains(replyText.removingHTML) {
                     targetCommentViewModel = commentViewModel
                 }
             }
@@ -776,7 +793,9 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
 extension TalkPageViewController: TalkPageCellDelegate {
     
     func userDidTapDisclosureButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {
-        guard let cellViewModel = cellViewModel, let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}) else {
+        guard let cellViewModel = cellViewModel,
+              let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}),
+               isShowingFindInPage == false else {
             return
         }
         
@@ -833,7 +852,9 @@ extension TalkPageViewController: TalkPageCellDelegate {
 extension TalkPageViewController: TalkPageCellReplyDelegate {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel, accessibilityFocusView: UIView?) {
         hideFindInPage(releaseKeyboardBar: true)
-        presentTopicReplyOnboardingIfNecessary()
+        if !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
+            presentTopicReplyOnboarding()
+        }
         replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager, accessibilityFocusView: accessibilityFocusView)
     }
 }
@@ -967,7 +988,7 @@ extension TalkPageViewController: UIAdaptivePresentationControllerDelegate {
               let topicComposeVC = navVC.visibleViewController as? TalkPageTopicComposeViewController else {
             return true
         }
-        
+
         guard topicComposeVC.shouldBlockDismissal else {
             return true
         }
@@ -1056,35 +1077,31 @@ extension TalkPageViewController: WMFPreferredLanguagesViewControllerDelegate {
 }
 
 extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
-
-    func presentTopicReplyOnboardingIfNecessary() {
-        guard !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages else {
-            return
-        }
-
+    
+    func presentTopicReplyOnboarding() {
         let topicReplyOnboardingHostingViewController = TalkPageTopicReplyOnboardingHostingController(theme: theme)
         topicReplyOnboardingHostingViewController.delegate = self
         topicReplyOnboardingHostingViewController.modalPresentationStyle = .pageSheet
         self.topicReplyOnboardingHostingViewController = topicReplyOnboardingHostingViewController
-
+        
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: .screenChanged, argument: topicReplyOnboardingHostingViewController)
         }
-        if let presentedViewController = presentedViewController {
-
-            presentedViewController.present(topicReplyOnboardingHostingViewController, animated: true)
-        } else {
-            present(topicReplyOnboardingHostingViewController, animated: true)
-        }
+        
+        present(topicReplyOnboardingHostingViewController, animated: true)
     }
-
+    
     func userDidDismissTopicReplyOnboardingView() {
         UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages = true
-        if UIAccessibility.isVoiceOverRunning {
-            if let height = replyComposeController.containerView?.frame.height, height >= 1.0 {
-                UIAccessibility.post(notification: .screenChanged, argument: replyComposeController.containerView)
+        
+        if shouldGoToNewTopic {
+            showAddTopic()
+            shouldGoToNewTopic = false
+            if UIAccessibility.isVoiceOverRunning {
+                if let height = replyComposeController.containerView?.frame.height, height >= 1.0 {
+                    UIAccessibility.post(notification: .screenChanged, argument: replyComposeController.containerView)
+                }
             }
         }
     }
 }
-

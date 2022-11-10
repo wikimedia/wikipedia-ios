@@ -113,7 +113,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
     }
 
     @objc public func customize(_ messageView: RMessageView!) {
-        messageView.backgroundColor = theme.colors.popoverBackground
+        messageView.backgroundColor = theme.colors.chromeBackground
         messageView.closeIconColor = theme.colors.primaryText
         messageView.subtitleTextColor = theme.colors.secondaryText
         messageView.buttonTitleColor = theme.colors.link

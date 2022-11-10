@@ -190,8 +190,7 @@
 "settings-account" = "Հաշիվ";
 "settings-clear-cache-cancel" = "Չեղարկել";
 "settings-my-languages" = "Իմ լեզուններ";
-// Fuzzy
-"settings-notifications" = "Ծանուցումներ";
+"settings-notifications" = "Push ծանուցումներ";
 "settings-notifications-learn-more" = "Կարդալ ավելին ծանուցումների մասին";
 "settings-notifications-system-turn-on" = "Միացնել ծանուցումներ";
 "settings-primary-language" = "Հիմնական";
