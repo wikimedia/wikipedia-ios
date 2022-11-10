@@ -269,7 +269,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     private var _scribbleIgnoringDelegate: Any? = nil
     
-    @available(iOS 14.0, *)
     private var scribbleIgnoringDelegate: ScribbleIgnoringInteractionDelegate? {
         if _scribbleIgnoringDelegate == nil {
             _scribbleIgnoringDelegate = ScribbleIgnoringInteractionDelegate()
@@ -285,7 +284,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         searchBar.placeholder =  WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
 
         // Disable Scribble on this placeholder text field
-        if UIDevice.current.userInterfaceIdiom == .pad, #available(iOS 14.0, *),
+        if UIDevice.current.userInterfaceIdiom == .pad,
         let scribbleIgnoringDelegate = scribbleIgnoringDelegate {
             let existingInteractions = searchBar.searchTextField.interactions
             existingInteractions.forEach { searchBar.searchTextField.removeInteraction($0) }

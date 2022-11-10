@@ -2,6 +2,7 @@ import UIKit
 import NotificationCenter
 import WMF
 
+@available(*, deprecated, message: "TODO: Rework into iOS 14 home screen widget")
 class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWidgetProviding {
     @IBOutlet weak var imageView: UIImageView!
 

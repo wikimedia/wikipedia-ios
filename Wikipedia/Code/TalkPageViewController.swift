@@ -244,14 +244,10 @@ class TalkPageViewController: ViewController {
     }
     
     private func setupOverflowMenu() {
-        // Not adding fallback for other versions since we're dropping iOS 13 on the next release
-        // TODO: this version check should be removed
-        if #available(iOS 14.0, *) {
-            let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
-            rightBarButtonItem.accessibilityLabel = Self.TalkPageLocalizedStrings.overflowMenuAccessibilityLabel
-            navigationItem.rightBarButtonItem = rightBarButtonItem
-            rightBarButtonItem.tintColor = theme.colors.link
-        }
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+        rightBarButtonItem.accessibilityLabel = Self.TalkPageLocalizedStrings.overflowMenuAccessibilityLabel
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+        rightBarButtonItem.tintColor = theme.colors.link
     }
 
     // MARK: - Coffee Roll

@@ -41,30 +41,17 @@ struct NotificationsCenterFilterItemView: View {
                         itemViewModel.toggleSelectionForToggleType()
                     }
                     
-                    if #available(iOS 14.0, *) {
-                        Toggle(isOn: customBinding) {
-                            customLabelForToggle(type: type)
-                        }
-                        .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
-                    } else {
-                        Toggle(isOn: customBinding) {
-                            customLabelForToggle(type: type)
-                        }
+                    Toggle(isOn: customBinding) {
+                        customLabelForToggle(type: type)
                     }
+                    .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
                 }
             case .toggleAll:
-                if #available(iOS 14.0, *) {
-                    Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
-                        itemViewModel.toggleSelectionForAll()
-                    })
-                    .foregroundColor(Color(theme.colors.primaryText))
-                    .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
-                } else {
-                    Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
-                        itemViewModel.toggleSelectionForAll()
-                    })
-                    .foregroundColor(Color(theme.colors.primaryText))
-                }
+                Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
+                    itemViewModel.toggleSelectionForAll()
+                })
+                .foregroundColor(Color(theme.colors.primaryText))
+                .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
             }
         }
         .padding(.horizontal, horizontalSizeClass == .regular ? (UIFont.preferredFont(forTextStyle: .body).pointSize) : 0)
