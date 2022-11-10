@@ -6280,7 +6280,6 @@
 				005E004028DE1F2800721584 /* TalkPageCoffeeRollViewModel.swift */,
 				00474A2E28DD1B13002E3C09 /* TalkPageCoffeeRollView.swift */,
 				00EACEC528E39D470054DDB4 /* TalkPageEmptyView.swift */,
-				003CD3E828EF7C77000158E4 /* TalkPageFindInPageController.swift */,
 			);
 			name = "Talk Pages";
 			sourceTree = "<group>";
@@ -6297,8 +6296,8 @@
 		00FCCBC32900829800C9ECD2 /* Find in Page */ = {
 			isa = PBXGroup;
 			children = (
-				003CD3E828EF7C77000158E4 /* TalkPageFindInPageSearchController.swift */,
 				00FCCBC4290082C200C9ECD2 /* TalkPageFindInPageState.swift */,
+				003CD3E828EF7C77000158E4 /* TalkPageFindInPageSearchController.swift */,
 				00FCCBC92900848300C9ECD2 /* TalkPageViewController+FindInPage.swift */,
 			);
 			name = "Find in Page";
@@ -7860,8 +7859,6 @@
 			children = (
 				00CB6897288B0CD3002EBB0A /* TalkPageHeaderView.swift */,
 				00D46DA42889B7F50015DE9B /* TalkPageView.swift */,
-				00474A2E28DD1B13002E3C09 /* TalkPageCoffeeRollView.swift */,
-				00EACEC528E39D470054DDB4 /* TalkPageEmptyView.swift */,
 				83510B0628F4CF6400B6235B /* TalkPageErrorStateView.swift */,
 			);
 			name = View;
@@ -7871,7 +7868,6 @@
 			isa = PBXGroup;
 			children = (
 				00D1F58E28885BA300127169 /* TalkPageViewModel.swift */,
-				005E004028DE1F2800721584 /* TalkPageCoffeeRollViewModel.swift */,
 				0072990A28AC455500DCD2E6 /* TalkPageCellViewModel.swift */,
 				00DEE61828AD6C9500A60DF9 /* TalkPageCellCommentViewModel.swift */,
 			);

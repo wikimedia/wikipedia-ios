@@ -40,41 +40,55 @@ final class TalkPageFindInPageSearchController {
     ///   - searchTerm: the term to locate, case insensitive
     ///   - topics: an ordered array of topics
     /// - Returns: An ordered array of SearchResult's indicating occurrences where the term was located
-    func search(term searchTerm: String, in topics: [TalkPageCellViewModel]) -> [SearchResult] {
+    func search(term searchTerm: String, in topics: [TalkPageCellViewModel], traitCollection: UITraitCollection, theme: Theme) -> [SearchResult] {
         var results: [SearchResult] = []
 
         for (topicIndex, topic) in topics.enumerated() {
-            if topic.topicTitle.removingHTML.localizedCaseInsensitiveContains(searchTerm) {
-                let bridgedText = NSString(string: topic.topicTitle.removingHTML)
+            let topicTitleAttributedString = topic.topicTitleAttributedString(traitCollection: traitCollection, theme: theme)
+            let textToSearch = topicTitleAttributedString.string
+            if textToSearch.localizedCaseInsensitiveContains(searchTerm) {
+                let bridgedText = NSString(string: textToSearch)
                 let rangesOfTerm = bridgedText.ranges(of: searchTerm)
                 for range in rangesOfTerm {
                     let result = SearchResult(term: searchTerm, location: .topicTitle(topicIndex: topicIndex, topicIdentifier: topic.id), range: range)
                     results.append(result)
                 }
             }
-
+            
             if let leadComment = topic.leadComment,
-               leadComment.text.removingHTML.localizedCaseInsensitiveContains(searchTerm) {
-                let bridgedText = NSString(string: leadComment.text.removingHTML)
-                let rangesOfTerm = bridgedText.ranges(of: searchTerm)
-                for range in rangesOfTerm {
-                    let result = SearchResult(term: searchTerm, location: .topicLeadComment(topicIndex: topicIndex, replyIdentifier: leadComment.id), range: range)
-                    results.append(result)
-                }
-            } else if let otherContent = topic.otherContent,
-               otherContent.removingHTML.localizedCaseInsensitiveContains(searchTerm) {
-                let bridgedText = NSString(string: otherContent.removingHTML)
-                let rangesOfTerm = bridgedText.ranges(of: searchTerm)
+               let leadCommentAttributedString = topic.leadCommentAttributedString(traitCollection: traitCollection, theme: theme) {
+                let textToSearch = leadCommentAttributedString.string
                 
-                for range in rangesOfTerm {
-                    let result = SearchResult(term: searchTerm, location: .topicOtherContent(topicIndex: topicIndex), range: range)
-                    results.append(result)
+                if textToSearch.localizedCaseInsensitiveContains(searchTerm) {
+                    let bridgedText = NSString(string: textToSearch)
+                    let rangesOfTerm = bridgedText.ranges(of: searchTerm)
+                    
+                    for range in rangesOfTerm {
+                        let result = SearchResult(term: searchTerm, location: .topicLeadComment(topicIndex: topicIndex, replyIdentifier: leadComment.id), range: range)
+                        results.append(result)
+                    }
+                }
+                
+            } else if topic.otherContentHtml != nil,
+                      let otherContentAttributedString = topic.otherContentAttributedString(traitCollection: traitCollection, theme: theme) {
+                let textToSearch = otherContentAttributedString.string
+                
+                if textToSearch.localizedCaseInsensitiveContains(searchTerm) {
+                    let bridgedText = NSString(string: textToSearch)
+                    let rangesOfTerm = bridgedText.ranges(of: searchTerm)
+                    
+                    for range in rangesOfTerm {
+                        let result = SearchResult(term: searchTerm, location: .topicOtherContent(topicIndex: topicIndex), range: range)
+                        results.append(result)
+                    }
                 }
             }
 
             for (replyIndex, reply) in topic.replies.enumerated() {
-                if reply.text.removingHTML.localizedCaseInsensitiveContains(searchTerm) {
-                    let bridgedText = NSString(string: reply.text.removingHTML)
+                let replyAttributedString = reply.commentAttributedString(traitCollection: traitCollection, theme: theme)
+                let textToSearch = replyAttributedString.string
+                if textToSearch.localizedCaseInsensitiveContains(searchTerm) {
+                    let bridgedText = NSString(string: textToSearch)
                     let rangesOfTerm = bridgedText.ranges(of: searchTerm)
                     for range in rangesOfTerm {
                         let result = SearchResult(term: searchTerm, location: .reply(topicIndex: topicIndex, topicIdentifier: topic.id, replyIndex: replyIndex, replyIdentifier: reply.id), range: range)
