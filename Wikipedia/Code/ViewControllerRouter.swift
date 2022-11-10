@@ -1,6 +1,20 @@
 import UIKit
 import AVKit
 
+// Wrapper class for access in Objective-C
+@objc class WMFRoutingUserInfoKeys: NSObject {
+    @objc static var source: String {
+        return RoutingUserInfoKeys.source
+    }
+}
+
+// Wrapper class for access in Objective-C
+@objc class WMFRoutingUserInfoSourceValue: NSObject {
+    @objc static var deepLinkRawValue: String {
+        return RoutingUserInfoSourceValue.deepLink.rawValue
+    }
+}
+
 struct RoutingUserInfoKeys {
     static let talkPageReplyText = "talk-page-reply-text"
     static let source = "source"
