@@ -3,6 +3,18 @@ import AVKit
 
 struct RoutingUserInfoKeys {
     static let talkPageReplyText = "talk-page-reply-text"
+    static let source = "source"
+}
+
+enum RoutingUserInfoSourceValue: String {
+    case talkPage
+    case article
+    case notificationsCenter
+    case deepLink
+    case account
+    case search
+    case inAppWebView
+    case unknown
 }
 
 @objc(WMFViewControllerRouter)
@@ -157,4 +169,12 @@ class ViewControllerRouter: NSObject {
         return deepLinkData
     }
     
+    private func source(from userInfo: [AnyHashable: Any]?) -> RoutingUserInfoSourceValue {
+        guard let sourceString = userInfo?[RoutingUserInfoKeys.source] as? String,
+              let source = RoutingUserInfoSourceValue(rawValue: sourceString) else {
+            return .unknown
+        }
+
+        return source
+    }
 }
