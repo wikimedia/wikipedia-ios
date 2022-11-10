@@ -31,6 +31,10 @@ class TalkPageViewController: ViewController {
         return progressController
     }()
     
+    var scrollingToIndexPath: IndexPath?
+    var scrollingToResult: TalkPageFindInPageSearchController.SearchResult?
+    var scrollingToCommentViewModel: TalkPageCellCommentViewModel?
+    
     // MARK: - Overflow menu properties
     
     fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
@@ -322,6 +326,8 @@ class TalkPageViewController: ViewController {
 
         if let replyComposeView = replyComposeController.containerView {
             return max(0, toolbar.frame.minY - replyComposeView.frame.minY)
+        } else if isShowingFindInPage {
+            return -toolbar.frame.height
         }
 
         return 0
@@ -611,7 +617,7 @@ class TalkPageViewController: ViewController {
         var targetCommentViewModel: TalkPageCellCommentViewModel?
         
         for (index, cellViewModel) in viewModel.topics.enumerated() {
-            if cellViewModel.topicTitle.removingHTML == topicTitle {
+            if cellViewModel.topicTitleHtml.removingHTML == topicTitle {
                 targetIndexPath = IndexPath(item: index, section: 0)
                 targetCellViewModel = cellViewModel
                 break
@@ -626,7 +632,7 @@ class TalkPageViewController: ViewController {
         if let replyText = deepLinkData.replyText {
             
             for commentViewModel in targetCellViewModel.allCommentViewModels {
-                if commentViewModel.text.removingHTML.contains(replyText.removingHTML) {
+                if commentViewModel.html.removingHTML.contains(replyText.removingHTML) {
                     targetCommentViewModel = commentViewModel
                 }
             }
@@ -791,7 +797,9 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
 extension TalkPageViewController: TalkPageCellDelegate {
     
     func userDidTapDisclosureButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {
-        guard let cellViewModel = cellViewModel, let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}) else {
+        guard let cellViewModel = cellViewModel,
+              let indexOfConfiguredCell = viewModel.topics.firstIndex(where: {$0 === cellViewModel}),
+               isShowingFindInPage == false else {
             return
         }
         
