@@ -97,7 +97,7 @@ extension NotificationsCenterDetailViewController: UITableViewDelegate, UITableV
             logNotificationInteraction(with: actionCell.action)
             
             if let replyText = viewModel.contentBody {
-                let userInfo: [AnyHashable : Any] = [ViewControllerRouter.UserInfoKeys.talkPageReplyText: replyText as Any]
+                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.talkPageReplyText: replyText as Any]
                 navigate(to: url, userInfo: userInfo)
             } else {
                 navigate(to: url)

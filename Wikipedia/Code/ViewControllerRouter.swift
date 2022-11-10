@@ -1,13 +1,13 @@
 import UIKit
 import AVKit
 
+struct RoutingUserInfoKeys {
+    static let talkPageReplyText = "talk-page-reply-text"
+}
+
 @objc(WMFViewControllerRouter)
 class ViewControllerRouter: NSObject {
-    
-    struct UserInfoKeys {
-        static let talkPageReplyText = "talk-page-reply-text"
-    }
-    
+
     @objc let router: Router
     unowned let appViewController: WMFAppViewController
     @objc(initWithAppViewController:router:)
@@ -151,7 +151,7 @@ class ViewControllerRouter: NSObject {
             return nil
         }
         
-        let replyText = userInfo?[UserInfoKeys.talkPageReplyText] as? String
+        let replyText = userInfo?[RoutingUserInfoKeys.talkPageReplyText] as? String
             
         let deepLinkData = TalkPageViewModel.DeepLinkData(topicTitle: topicTitle, replyText: replyText)
         return deepLinkData

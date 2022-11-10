@@ -835,7 +835,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
                     let url = data.url
                     
                     let replyText = cellViewModel.bodyText
-                    let userInfo: [AnyHashable : Any] = [ViewControllerRouter.UserInfoKeys.talkPageReplyText: replyText as Any]
+                    let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.talkPageReplyText: replyText as Any]
                     
                     self.navigate(to: url, userInfo: userInfo)
                     
