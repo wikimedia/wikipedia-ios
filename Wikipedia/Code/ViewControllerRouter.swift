@@ -107,7 +107,8 @@ class ViewControllerRouter: NSObject {
             vc.player = player
             return presentOrPush(vc, with: completion)
         case .talk(let linkURL):
-            guard let viewModel = TalkPageViewModel(pageType: .article, pageURL: linkURL, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
+            let source = source(from: userInfo)
+            guard let viewModel = TalkPageViewModel(pageType: .article, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
                 completion()
                 return false
             }
@@ -121,7 +122,8 @@ class ViewControllerRouter: NSObject {
         case .userTalk(let linkURL):
             if FeatureFlags.needsNewTalkPage {
                 
-                guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
+                let source = source(from: userInfo)
+                guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
                     completion()
                     return false
                 }
