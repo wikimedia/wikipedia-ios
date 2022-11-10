@@ -290,11 +290,7 @@ private extension NotificationsCenterViewController {
     func createMarkButton() -> TextBarButtonItem {
         let markButton: TextBarButtonItem
         let markText = WMFLocalizedString("notifications-center-mark", value: "Mark", comment: "Button text in Notifications Center. Presents menu of options to mark selected notifications as read or unread.")
-        if #available(iOS 14.0, *) {
-            markButton = TextBarButtonItem(title: markText, image: nil, primaryAction: nil, menu: nil)
-        } else {
-            markButton = TextBarButtonItem(title: markText, target: self, action: #selector(didTapMarkButtonIOS13(_:)))
-        }
+        markButton = TextBarButtonItem(title: markText, image: nil, primaryAction: nil, menu: nil)
         markButton.accessibilityLabel = WMFLocalizedString("notifications-center-toolbar-mark-accessibility-label", value: "Mark selected notifications", comment: "Accessibility label for mark button in Notifications Center")
        
         markButton.apply(theme: theme)
@@ -302,10 +298,8 @@ private extension NotificationsCenterViewController {
     }
     
     func updateMarkButtonOptionsMenu(selectedCellViewModels: [NotificationsCenterCellViewModel]) {
-        if #available(iOS 14.0, *) {
-            let optionsMenu = markButtonOptionsMenuForNumberOfSelectedMessages(selectedCellViewModels: selectedCellViewModels)
-            markButton?.menu = optionsMenu
-        }
+        let optionsMenu = markButtonOptionsMenuForNumberOfSelectedMessages(selectedCellViewModels: selectedCellViewModels)
+        markButton?.menu = optionsMenu
     }
     
     func updateMarkButtonsEnabledStates(numSelectedCells: Int) {

@@ -50,7 +50,7 @@ final public class LocationManager: NSObject {
     public weak var delegate: LocationManagerDelegate?
 
     /// Returns the current locationManager permission state.
-    public var authorizationStatus: CLAuthorizationStatus { type(of: locationManager).authorizationStatus() }
+    public var authorizationStatus: CLAuthorizationStatus { locationManager.authorizationStatus }
 
     /// Starts monitoring location and heading updates.
     public func startMonitoringLocation() {
@@ -205,11 +205,9 @@ extension LocationManager: CLLocationManagerDelegate {
         delegate?.locationManager?(self, didReceive: error)
         DDLogError("LocationManager - encountered error: \(error).")
     }
-
-    public func locationManager(
-        _ manager: CLLocationManager,
-        didChangeAuthorization status: CLAuthorizationStatus
-    ) {
+    
+    public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        let status = manager.authorizationStatus
         DDLogInfo("LocationManager - did change authorization status \(status.rawValue).")
         delegate?.locationManager?(self, didUpdateAuthorized: status.isAuthorized)
 

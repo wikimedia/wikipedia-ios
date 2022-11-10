@@ -17,10 +17,9 @@ class SinglePageWebViewController: ViewController {
         self.doesUseSimpleNavigationBar = doesUseSimpleNavigationBar
         super.init()
         self.theme = theme
-        if #available(iOS 14.0, *) {
-            self.navigationItem.backButtonTitle = url.lastPathComponent
-            self.navigationItem.backButtonDisplayMode = .generic
-        }
+        
+        self.navigationItem.backButtonTitle = url.lastPathComponent
+        self.navigationItem.backButtonDisplayMode = .generic
     }
     
     required init?(coder aDecoder: NSCoder) {

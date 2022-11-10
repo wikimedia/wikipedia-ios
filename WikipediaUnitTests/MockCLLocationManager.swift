@@ -12,8 +12,8 @@ final class MockCLLocationManager: CLLocationManager {
 
     override class func locationServicesEnabled() -> Bool { true }
 
-    private static var _authorizationStatus: CLAuthorizationStatus = .authorizedAlways
-    override class func authorizationStatus() -> CLAuthorizationStatus {
+    private var _authorizationStatus: CLAuthorizationStatus = .authorizedAlways
+    override var authorizationStatus: CLAuthorizationStatus {
         return _authorizationStatus
     }
 
@@ -88,7 +88,7 @@ final class MockCLLocationManager: CLLocationManager {
     /// - Parameter authorizationStatus: The new authorization status.
     ///
     func simulate(authorizationStatus: CLAuthorizationStatus) {
-        MockCLLocationManager._authorizationStatus = authorizationStatus
-        delegate?.locationManager?(self, didChangeAuthorization: authorizationStatus)
+        _authorizationStatus = authorizationStatus
+        delegate?.locationManagerDidChangeAuthorization?(self)
     }   
 }
