@@ -48,6 +48,7 @@
 // Author: Rodm23
 // Author: Rodney Araujo
 // Author: Ryo567
+// Author: SpikeShroom
 // Author: Tiberius1701
 // Author: VegaDark
 // Author: Vivaelcelta
@@ -926,6 +927,7 @@
 "talk-page-title-user-talk" = "Conversaciones";
 "talk-page-topic-title" = "Discusión";
 "talk-pages-reply-button-title" = "Responder a esta discusión";
+"talk-pages-topic-reply-onboarding-body-note-ios15" = "Por favor sea amable, todos somos humanos aquí.";
 "theme-black-display-name" = "Negro";
 "theme-dark-display-name" = "Oscuro";
 "theme-default-display-name" = "Predeterminado";
