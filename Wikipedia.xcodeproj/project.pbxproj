@@ -650,6 +650,7 @@
 		6773B1FE240F02E40022A70E /* PermanentlyPersistableURLCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B1FD240F02E40022A70E /* PermanentlyPersistableURLCache.swift */; };
 		6773B2022411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */; };
 		6773B2042411DCF50022A70E /* ArticleCacheResourceDBWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B2032411DCF50022A70E /* ArticleCacheResourceDBWriting.swift */; };
+		6779618D29245BF300C2A65F /* PageIDToURLFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6779618C29245BF300C2A65F /* PageIDToURLFetcher.swift */; };
 		6779D45123F60903002840CA /* CacheFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6779D45023F60903002840CA /* CacheFileWriter.swift */; };
 		6779D45323F6EC2D002840CA /* CacheFetching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6779D45223F6EC2D002840CA /* CacheFetching.swift */; };
 		6779D45924007AF0002840CA /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */; };
@@ -4126,6 +4127,7 @@
 		6773B1FD240F02E40022A70E /* PermanentlyPersistableURLCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermanentlyPersistableURLCache.swift; sourceTree = "<group>"; };
 		6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCacheDBWriter+SyncResources.swift"; sourceTree = "<group>"; };
 		6773B2032411DCF50022A70E /* ArticleCacheResourceDBWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheResourceDBWriting.swift; sourceTree = "<group>"; };
+		6779618C29245BF300C2A65F /* PageIDToURLFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIDToURLFetcher.swift; sourceTree = "<group>"; };
 		6779D45023F60903002840CA /* CacheFileWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFileWriter.swift; sourceTree = "<group>"; };
 		6779D45223F6EC2D002840CA /* CacheFetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFetching.swift; sourceTree = "<group>"; };
 		6780D5B3237A1F480087A5D1 /* DiffResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DiffResponse.json; sourceTree = "<group>"; };
@@ -6203,7 +6205,6 @@
 			isa = PBXGroup;
 			children = (
 				00FCCBC4290082C200C9ECD2 /* TalkPageFindInPageState.swift */,
-				003CD3E828EF7C77000158E4 /* TalkPageFindInPageSearchController.swift */,
 				00FCCBC92900848300C9ECD2 /* TalkPageViewController+FindInPage.swift */,
 			);
 			name = "Find in Page";
@@ -9206,6 +9207,7 @@
 				D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */,
 				D880652E218C732800BF7B91 /* WorkerController.swift */,
 				6761AEEA270613B400E47BAD /* SharedContainerCache.swift */,
+				6779618C29245BF300C2A65F /* PageIDToURLFetcher.swift */,
 			);
 			path = "WMF Framework";
 			sourceTree = "<group>";
@@ -11898,6 +11900,7 @@
 				67146034243B8B4F008CE885 /* AnnouncementType.swift in Sources */,
 				6761AEDA2704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift in Sources */,
 				B019FED02029347300BDE9C9 /* UIStackView+SubviewVerification.swift in Sources */,
+				6779618D29245BF300C2A65F /* PageIDToURLFetcher.swift in Sources */,
 				83C643582239508600FC16BF /* RandomArticleFetcher.swift in Sources */,
 				D87647481F1F9C2500D02CA4 /* CommonStrings.swift in Sources */,
 				D84B22541DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.m in Sources */,
