@@ -18,12 +18,29 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     fileprivate let articles: [WMFArticle]
     public let moveFromReadingList: ReadingList?
     
+    weak var delegate: CreateReadingListDelegate?
+    
     // Import shared reading list properties
     let encodedPageIds: String?
     private let dataStore: MWKDataStore?
     
     var isInImportingMode: Bool {
         encodedPageIds != nil
+    }
+    
+    // MARK: Lifecycle
+    
+    init(theme: Theme, articles: [WMFArticle], moveFromReadingList: ReadingList? = nil, encodedPageIds: String? = nil, dataStore: MWKDataStore? = nil) {
+        self.theme = theme
+        self.articles = articles
+        self.moveFromReadingList = moveFromReadingList
+        self.encodedPageIds = encodedPageIds
+        self.dataStore = dataStore
+        super.init(nibName: "CreateReadingListViewController", bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -52,37 +69,17 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     override func viewWillDisappear(_ animated: Bool) {
         view.endEditing(false)
     }
-
-    override func accessibilityPerformEscape() -> Bool {
-        dismiss(animated: true)
-        return true
+    
+// MARK: Public
+    
+    func handleReadingListNameError(_ error: ReadingListError) {
+        readingListNameTextField.textColor = theme.colors.error
+        readingListNameErrorLabel.isHidden = false
+        readingListNameErrorLabel.text = error.localizedDescription
+        createReadingListButton.isEnabled = false
     }
     
-    init(theme: Theme, articles: [WMFArticle], moveFromReadingList: ReadingList? = nil, encodedPageIds: String? = nil, dataStore: MWKDataStore? = nil) {
-        self.theme = theme
-        self.articles = articles
-        self.moveFromReadingList = moveFromReadingList
-        self.encodedPageIds = encodedPageIds
-        self.dataStore = dataStore
-        super.init(nibName: "CreateReadingListViewController", bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    weak var delegate: CreateReadingListDelegate?
-    
-    private func setupForImportingReadingList() {
-        
-        guard isInImportingMode else {
-            return
-        }
-        
-        self.title = WMFLocalizedString("import-shared-reading-list-title", value: "Import shared reading list", comment: "Title of screen that imports a shared reading list.")
-        let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonTapped(_:)))
-        navigationItem.leftBarButtonItem = closeButton
-    }
+// MARK: Actions
     
     @objc func closeButtonTapped(_ sender: UIButton) {
         navigationController?.dismiss(animated: true)
@@ -96,11 +93,22 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         delegate?.createReadingListViewController(self, didCreateReadingListWith: trimmedName, description: trimmedDescription, articles: articles)
     }
     
-    func handleReadingListNameError(_ error: ReadingListError) {
-        readingListNameTextField.textColor = theme.colors.error
-        readingListNameErrorLabel.isHidden = false
-        readingListNameErrorLabel.text = error.localizedDescription
-        createReadingListButton.isEnabled = false
+    override func accessibilityPerformEscape() -> Bool {
+        dismiss(animated: true)
+        return true
+    }
+
+//MARK: Private
+    
+    private func setupForImportingReadingList() {
+        
+        guard isInImportingMode else {
+            return
+        }
+        
+        self.title = WMFLocalizedString("import-shared-reading-list-title", value: "Import shared reading list", comment: "Title of screen that imports a shared reading list.")
+        let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonTapped(_:)))
+        navigationItem.leftBarButtonItem = closeButton
     }
     
     private func hideReadingListError() {
@@ -156,6 +164,8 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         return true
     }
 }
+
+// MARK: Themeable
 
 extension CreateReadingListViewController: Themeable {
     func apply(theme: Theme) {
