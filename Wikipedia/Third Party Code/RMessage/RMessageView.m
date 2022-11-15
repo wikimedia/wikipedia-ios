@@ -761,7 +761,7 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)setupIconImageView
 {
-  self.iconImageView.contentMode = UIViewContentModeScaleAspectFit;
+  self.iconImageView.contentMode = UIViewContentModeScaleToFill;
   self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
 
   NSLayoutConstraint *imgViewCenterY = [NSLayoutConstraint constraintWithItem:self.iconImageView
@@ -784,18 +784,18 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                         toItem:self.titleSubtitleContainerView
                                                                      attribute:NSLayoutAttributeLeading
                                                                     multiplier:1.f
-                                                                      constant:-15.f];
-  NSLayoutConstraint *imgViewBottom = [NSLayoutConstraint constraintWithItem:self.iconImageView
-                                                                   attribute:NSLayoutAttributeBottom
-                                                                   relatedBy:NSLayoutRelationLessThanOrEqual
-                                                                      toItem:self
-                                                                   attribute:NSLayoutAttributeBottom
-                                                                  multiplier:1.f
-                                                                    constant:-10.f];
-    self.titleSubtitleContainerViewLeadingConstraint.constant = 50.0;
+                                                                      constant:-10.f];
+  NSLayoutConstraint *imgViewHeight = [NSLayoutConstraint constraintWithItem:self.iconImageView
+                                                                     attribute:NSLayoutAttributeHeight
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self.iconImageView
+                                                                     attribute:NSLayoutAttributeWidth
+                                                                    multiplier:1.f
+                                                                      constant:1.f];
+  self.titleSubtitleContainerViewLeadingConstraint.constant = 55.0;
     
   [self addSubview:self.iconImageView];
-  [[self class] activateConstraints:@[imgViewCenterY, imgViewLeading, imgViewTrailing, imgViewBottom] inSuperview:self];
+  [[self class] activateConstraints:@[imgViewCenterY, imgViewLeading, imgViewTrailing, imgViewHeight] inSuperview:self];
 }
 
 - (void)setupGestureRecognizers
