@@ -140,7 +140,7 @@ extension WMFAppViewController {
         presentEditorAlert(on: topMostViewController, confirmationBlock: dismissAndPushBlock)
     }
     
-    private var editingFlowViewControllerInHierarchy: EditingFlowViewController? {
+    var editingFlowViewControllerInHierarchy: EditingFlowViewController? {
         var currentController: UIViewController? = navigationController
 
         while let presentedViewController = currentController?.presentedViewController {
@@ -227,4 +227,12 @@ protocol NotificationsCenterFlowViewController where Self: UIViewController {
     // hook called after the user taps a push notification while in the foregound.
     // use if needed to tweak the view heirarchy to display the Notifications Center
     func tappedPushNotification()
+}
+
+// MARK: Importing Reading Lists - CreateReadingListDelegate
+
+extension WMFAppViewController: CreateReadingListDelegate {
+    func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle]) {
+        // TODO: Create reading list and push to detail view
+    }
 }

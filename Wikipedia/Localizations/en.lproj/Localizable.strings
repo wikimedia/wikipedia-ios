@@ -473,6 +473,7 @@
 "icon-shortcut-random-title" = "Random article";
 "icon-shortcut-search-title" = "Search Wikipedia";
 "image-gallery-unknown-owner" = "Author unknown.";
+"import-shared-reading-list-title" = "Import shared reading list";
 "in-the-news-sub-title-from-language-wikipedia" = "From $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "From Wikipedia";
 "in-the-news-title" = "In the news";

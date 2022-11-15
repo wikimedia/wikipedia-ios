@@ -18,6 +18,14 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     fileprivate let articles: [WMFArticle]
     public let moveFromReadingList: ReadingList?
     
+    // Import shared reading list properties
+    let encodedPageIds: String?
+    private let dataStore: MWKDataStore?
+    
+    var isInImportingMode: Bool {
+        encodedPageIds != nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         apply(theme: theme)
@@ -35,6 +43,10 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         createReadingListButton.setTitle(WMFLocalizedString("reading-list-create-new-list-button-title", value: "Create reading list", comment: "Title for button allowing the user to create a new reading list."), for: .normal)
         
         createReadingListButton.isEnabled = false
+        
+        if isInImportingMode {
+            setupForImportingReadingList()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -46,10 +58,12 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         return true
     }
     
-    init(theme: Theme, articles: [WMFArticle], moveFromReadingList: ReadingList? = nil) {
+    init(theme: Theme, articles: [WMFArticle], moveFromReadingList: ReadingList? = nil, encodedPageIds: String? = nil, dataStore: MWKDataStore? = nil) {
         self.theme = theme
         self.articles = articles
         self.moveFromReadingList = moveFromReadingList
+        self.encodedPageIds = encodedPageIds
+        self.dataStore = dataStore
         super.init(nibName: "CreateReadingListViewController", bundle: nil)
     }
     
@@ -58,6 +72,21 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     }
     
     weak var delegate: CreateReadingListDelegate?
+    
+    private func setupForImportingReadingList() {
+        
+        guard isInImportingMode else {
+            return
+        }
+        
+        self.title = WMFLocalizedString("import-shared-reading-list-title", value: "Import shared reading list", comment: "Title of screen that imports a shared reading list.")
+        let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonTapped(_:)))
+        navigationItem.leftBarButtonItem = closeButton
+    }
+    
+    @objc func closeButtonTapped(_ sender: UIButton) {
+        navigationController?.dismiss(animated: true)
+    }
     
     @IBAction func createReadingListButtonPressed() {
         guard !isReadingListNameFieldEmpty, let trimmedName = readingListNameTextField.text?.trimmingCharacters(in: .whitespaces) else {
