@@ -26,7 +26,7 @@ class ViewControllerRouter: NSObject {
             if viewController is AVPlayerViewController {
                 navigationController.present(viewController, animated: true, completion: completion)
             } else if let createReadingListVC = viewController as? CreateReadingListViewController,
-                       createReadingListVC.encodedPageIds != nil {
+                       createReadingListVC.isInImportingMode {
 
                  let createReadingListNavVC = WMFThemeableNavigationController(rootViewController: createReadingListVC, theme: self.appViewController.theme)
                  navigationController.present(createReadingListNavVC, animated: true, completion: completion)

@@ -21,7 +21,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     weak var delegate: CreateReadingListDelegate?
     
     // Import shared reading list properties
-    let encodedPageIds: String?
+    private let encodedPageIds: String?
     private let dataStore: MWKDataStore?
     
     var isInImportingMode: Bool {
@@ -98,7 +98,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         return true
     }
 
-//MARK: Private
+// MARK: Private
     
     private func setupForImportingReadingList() {
         
