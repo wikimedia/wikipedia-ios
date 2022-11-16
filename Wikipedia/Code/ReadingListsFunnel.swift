@@ -17,8 +17,7 @@
     }
     
     private override init() {
-        // TODO: Update version number for new schema with import shared reading list actions/category
-        super.init(schema: "MobileWikiAppiOSReadingLists", version: 18280648)
+        super.init(schema: "MobileWikiAppiOSReadingLists", version: 24086844)
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int? = nil, measureAge: Int? = nil, measurePosition: Int? = nil) -> [String: Any] {
