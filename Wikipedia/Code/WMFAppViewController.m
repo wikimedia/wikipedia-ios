@@ -1504,6 +1504,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)shouldShowOnboarding {
+    
+    if (self.unprocessedUserActivity.shouldSkipOnboarding) {
+        [self setDidShowOnboarding];
+        return NO;
+    }
+    
     NSNumber *didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
 }

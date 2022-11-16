@@ -651,6 +651,7 @@
 		6773B2022411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */; };
 		6773B2042411DCF50022A70E /* ArticleCacheResourceDBWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B2032411DCF50022A70E /* ArticleCacheResourceDBWriting.swift */; };
 		6779618D29245BF300C2A65F /* PageIDToURLFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6779618C29245BF300C2A65F /* PageIDToURLFetcher.swift */; };
+		6779618F29246BC900C2A65F /* NSUserActivity+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6779618E29246BC900C2A65F /* NSUserActivity+Extensions.swift */; };
 		6779D45123F60903002840CA /* CacheFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6779D45023F60903002840CA /* CacheFileWriter.swift */; };
 		6779D45323F6EC2D002840CA /* CacheFetching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6779D45223F6EC2D002840CA /* CacheFetching.swift */; };
 		6779D45924007AF0002840CA /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */; };
@@ -4128,6 +4129,7 @@
 		6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCacheDBWriter+SyncResources.swift"; sourceTree = "<group>"; };
 		6773B2032411DCF50022A70E /* ArticleCacheResourceDBWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheResourceDBWriting.swift; sourceTree = "<group>"; };
 		6779618C29245BF300C2A65F /* PageIDToURLFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIDToURLFetcher.swift; sourceTree = "<group>"; };
+		6779618E29246BC900C2A65F /* NSUserActivity+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserActivity+Extensions.swift"; sourceTree = "<group>"; };
 		6779D45023F60903002840CA /* CacheFileWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFileWriter.swift; sourceTree = "<group>"; };
 		6779D45223F6EC2D002840CA /* CacheFetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFetching.swift; sourceTree = "<group>"; };
 		6780D5B3237A1F480087A5D1 /* DiffResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DiffResponse.json; sourceTree = "<group>"; };
@@ -9208,6 +9210,7 @@
 				D880652E218C732800BF7B91 /* WorkerController.swift */,
 				6761AEEA270613B400E47BAD /* SharedContainerCache.swift */,
 				6779618C29245BF300C2A65F /* PageIDToURLFetcher.swift */,
+				6779618E29246BC900C2A65F /* NSUserActivity+Extensions.swift */,
 			);
 			path = "WMF Framework";
 			sourceTree = "<group>";
@@ -11984,6 +11987,7 @@
 				D8E78FA41FB4C8250094B968 /* ReadingListsController.swift in Sources */,
 				982800D624D302BF004B1850 /* EventPlatformClient.swift in Sources */,
 				83A1561420DBE08C0052487B /* ColumnarCollectionViewLayout.swift in Sources */,
+				6779618F29246BC900C2A65F /* NSUserActivity+Extensions.swift in Sources */,
 				831937E923E1CEAC006A9FF3 /* CharacterSet+LinkParsing.swift in Sources */,
 				D8FA18DB1E1BD899009675C3 /* NSURLComponents+WMFLinkParsing.m in Sources */,
 				D8FA18C21E1BD891009675C3 /* NSURL+WMFQueryParameters.m in Sources */,
