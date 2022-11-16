@@ -1504,6 +1504,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)shouldShowOnboarding {
+    
+    if (self.unprocessedUserActivity.shouldSkipOnboarding) {
+        [self setDidShowOnboarding];
+        return NO;
+    }
+    
     NSNumber *didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
 }
@@ -1971,6 +1977,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [nc pushViewController:searchVC
                   animated:true];
+}
+
+- (void)showImportedReadingList:(ReadingList *)readingList {
+    [self dismissPresentedViewControllers];
+    [self setSelectedIndex:WMFAppTabTypeSaved];
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [self.savedViewController toggleCurrentView:WMFSavedViewControllerView.readingListsViewRawValue];
+    ReadingListDetailViewController *detailVC = [[ReadingListDetailViewController alloc] initFor:readingList with:self.dataStore fromImport:YES theme:self.theme];
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 - (nonnull WMFSettingsViewController *)settingsViewController {

@@ -1,4 +1,19 @@
 import UIKit
+import WMF
+
+struct ImportedReadingList: Codable {
+    let name: String?
+    let description: String?
+    let list: [String: [Int]]
+}
+
+enum ImportReadingListError: Error {
+    case failureDecodingPayload
+    case failureFetchingPageURLs
+    case failureFetchingArticleObjects
+    case missingDataStore
+    case missingArticles
+}
 
 protocol CreateReadingListDelegate: NSObjectProtocol {
     func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle])
@@ -15,8 +30,56 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     @IBOutlet weak var createReadingListButton: WMFAuthButton!
     
     fileprivate var theme: Theme = Theme.standard
-    fileprivate let articles: [WMFArticle]
+    fileprivate var articles: [WMFArticle]
     public let moveFromReadingList: ReadingList?
+    
+    weak var delegate: CreateReadingListDelegate?
+    
+    // Import shared reading list properties
+    private let encodedPageIds: String?
+    private var importedReadingList: ImportedReadingList?
+    private let dataStore: MWKDataStore?
+    private let pageIdsFetcher = PageIDToURLFetcher()
+    
+    var isInImportingMode: Bool {
+        encodedPageIds != nil
+    }
+    
+    lazy var importLoadingView: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(importSpinner)
+        view.backgroundColor = theme.colors.paperBackground
+        NSLayoutConstraint.activate([
+            importSpinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            importSpinner.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        view.isHidden = true
+        return view
+    }()
+
+    lazy var importSpinner: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = theme.colors.primaryText
+        return activityIndicator
+    }()
+    
+    // MARK: Lifecycle
+    
+    init(theme: Theme, articles: [WMFArticle], moveFromReadingList: ReadingList? = nil, encodedPageIds: String? = nil, dataStore: MWKDataStore? = nil) {
+        self.theme = theme
+        self.articles = articles
+        self.moveFromReadingList = moveFromReadingList
+        self.encodedPageIds = encodedPageIds
+        self.dataStore = dataStore
+        super.init(nibName: "CreateReadingListViewController", bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,29 +98,38 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         createReadingListButton.setTitle(WMFLocalizedString("reading-list-create-new-list-button-title", value: "Create reading list", comment: "Title for button allowing the user to create a new reading list."), for: .normal)
         
         createReadingListButton.isEnabled = false
+        
+        if isInImportingMode {
+            setupForImportingReadingList()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !isInImportingMode {
+            readingListNameTextField.becomeFirstResponder()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         view.endEditing(false)
     }
-
-    override func accessibilityPerformEscape() -> Bool {
-        dismiss(animated: true)
-        return true
+    
+// MARK: Public
+    
+    func handleReadingListNameError(_ error: ReadingListError) {
+        readingListNameTextField.textColor = theme.colors.error
+        readingListNameErrorLabel.isHidden = false
+        readingListNameErrorLabel.text = error.localizedDescription
+        createReadingListButton.isEnabled = false
     }
     
-    init(theme: Theme, articles: [WMFArticle], moveFromReadingList: ReadingList? = nil) {
-        self.theme = theme
-        self.articles = articles
-        self.moveFromReadingList = moveFromReadingList
-        super.init(nibName: "CreateReadingListViewController", bundle: nil)
-    }
+// MARK: Actions
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    @objc func closeButtonTapped(_ sender: UIButton) {
+        navigationController?.dismiss(animated: true)
     }
-    
-    weak var delegate: CreateReadingListDelegate?
     
     @IBAction func createReadingListButtonPressed() {
         guard !isReadingListNameFieldEmpty, let trimmedName = readingListNameTextField.text?.trimmingCharacters(in: .whitespaces) else {
@@ -67,11 +139,53 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         delegate?.createReadingListViewController(self, didCreateReadingListWith: trimmedName, description: trimmedDescription, articles: articles)
     }
     
-    func handleReadingListNameError(_ error: ReadingListError) {
-        readingListNameTextField.textColor = theme.colors.error
-        readingListNameErrorLabel.isHidden = false
-        readingListNameErrorLabel.text = error.localizedDescription
-        createReadingListButton.isEnabled = false
+    override func accessibilityPerformEscape() -> Bool {
+        dismiss(animated: true)
+        return true
+    }
+
+// MARK: Private
+    
+    private func setupForImportingReadingList() {
+        
+        guard isInImportingMode else {
+            return
+        }
+        
+        self.title = WMFLocalizedString("import-shared-reading-list-title", value: "Import shared reading list", comment: "Title of screen that imports a shared reading list.")
+        let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonTapped(_:)))
+        navigationItem.leftBarButtonItem = closeButton
+        
+        view.wmf_addSubviewWithConstraintsToEdges(importLoadingView)
+
+        if let encodedPageIds = encodedPageIds {
+
+            importSpinner.startAnimating()
+            importLoadingView.isHidden = false
+
+            articlesFromEncodedPageIds(encodedPageIds) { [weak self] result in
+
+                guard let self = self else {
+                    return
+                }
+
+                self.importSpinner.stopAnimating()
+                self.importLoadingView.isHidden = true
+
+                switch result {
+                case .success(let articles):
+                    self.articles = articles
+                    self.readingListNameTextField.text = self.importedReadingList?.name
+                    self.descriptionTextField.text = self.importedReadingList?.description
+                    self.createReadingListButton.isEnabled = !self.isReadingListNameFieldEmpty && self.readingListNameErrorLabel.isHidden
+                case .failure(let error):
+                    self.readingListNameTextField.isEnabled = false
+                    self.descriptionTextField.isEnabled = false
+                    self.createReadingListButton.isEnabled = false
+                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                }
+            }
+        }
     }
     
     private func hideReadingListError() {
@@ -103,11 +217,6 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         createReadingListButton.isEnabled = !isReadingListNameFieldEmpty && readingListNameErrorLabel.isHidden
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        readingListNameTextField.becomeFirstResponder()
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard !descriptionTextField.isFirstResponder else {
             readingListNameTextField.becomeFirstResponder()
@@ -127,6 +236,8 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         return true
     }
 }
+
+// MARK: Themeable
 
 extension CreateReadingListViewController: Themeable {
     func apply(theme: Theme) {
@@ -148,5 +259,129 @@ extension CreateReadingListViewController: Themeable {
         
         createReadingListButton.apply(theme: theme)
        
+    }
+}
+
+// MARK: Importing Reading Lists
+
+private extension CreateReadingListViewController {
+
+    func articlesFromEncodedPageIds(_ encodedPageIds: String, completion: @escaping (Result<[WMFArticle], Error>) -> Void) {
+
+        guard let importedReadingList = decodedReadingListFromEncodedPageIds(encodedPageIds) else {
+            completion(.failure(ImportReadingListError.failureDecodingPayload))
+            return
+        }
+        
+        self.importedReadingList = importedReadingList
+
+        pageURLsFromImportedReadingList(importedReadingList) { [weak self] result in
+            switch result {
+            case .success(let urls):
+                self?.articleObjectsFromArticleURLs(urls, completion: completion)
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func decodedReadingListFromEncodedPageIds(_ encodedPageIds: String) -> ImportedReadingList? {
+        guard let data = Data(base64Encoded: encodedPageIds),
+              let result = try? JSONDecoder().decode(ImportedReadingList.self, from: data) else {
+            return nil
+        }
+        
+        return result
+    }
+    
+    func pageURLsFromImportedReadingList(_ importedReadingList: ImportedReadingList, completion: @escaping ((Result<[URL], Error>) -> Void)) {
+        
+        // https://phabricator.wikimedia.org/T316822#8366987
+        // Has the format:
+        // {
+        //     "en":[59874,31883,24868,14381],
+        //     "ru":[59874,31883,24868,14381]
+        // }
+        let listDict = importedReadingList.list
+
+        // Turn into format:
+        // {
+        //     https://en.wikipedia.org: [59874,31883,24868,14381],
+        //     https://ru.wikipedia.org: [59874,31883,24868,14381]
+        // }
+        var siteURLDict: [URL: [Int]] = [:]
+        for (key, value) in listDict {
+            if let siteURL = NSURL.wmf_URL(withDefaultSiteAndLanguageCode: key) {
+                siteURLDict[siteURL] = value
+            }
+        }
+
+        // Fetch page URLs for each site, combine into single array of page URLs
+        let group = DispatchGroup()
+        var finalPageURLs: [URL] = []
+        var errors: [Error] = []
+        for (key, value) in siteURLDict {
+            group.enter()
+            pageIdsFetcher.fetchPageURLs(key, pageIDs: value) { error in
+                DispatchQueue.main.async {
+                    errors.append(error)
+                    group.leave()
+                }
+            } success: { urls in
+                DispatchQueue.main.async {
+                    finalPageURLs.append(contentsOf: urls)
+                    group.leave()
+                }
+            }
+        }
+
+        group.notify(queue: .main) {
+
+            if let error = errors.first {
+                completion(.failure(error))
+                return
+            }
+
+            guard !finalPageURLs.isEmpty else {
+                completion(.failure(ImportReadingListError.failureFetchingPageURLs))
+                return
+            }
+
+            completion(.success(finalPageURLs))
+        }
+    }
+
+    func articleObjectsFromArticleURLs(_ articleURLs: [URL], completion: @escaping ((Result<[WMFArticle], Error>) -> Void)) {
+        
+        guard let dataStore = dataStore else {
+            completion(.failure(ImportReadingListError.missingDataStore))
+            return
+        }
+
+        let keys = articleURLs.compactMap { $0.wmf_inMemoryKey }
+
+        let articleFetcher = ArticleFetcher()
+        articleFetcher.fetchArticleSummaryResponsesForArticles(withKeys: keys) { result in
+
+            DispatchQueue.main.async {
+                var articles: [WMFArticle] = []
+                do {
+                    let articleSummaries = try dataStore.viewContext.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: result)
+
+                    for (_, value) in articleSummaries {
+                        articles.append(value)
+                    }
+
+                    guard !articles.isEmpty else {
+                        completion(.failure(ImportReadingListError.failureFetchingArticleObjects))
+                        return
+                    }
+
+                    completion(.success(articles))
+                } catch let error {
+                    completion(.failure(error))
+                }
+            }
+        }
     }
 }
