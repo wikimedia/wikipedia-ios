@@ -14,10 +14,19 @@ class ReadingListDetailViewController: ViewController {
     private var searchBarExtendedViewController: SearchBarExtendedViewController?
     private var displayType: ReadingListDetailDisplayType = .pushed
     
-    init(for readingList: ReadingList, with dataStore: MWKDataStore, displayType: ReadingListDetailDisplayType = .pushed) {
+    // Import shared reading list properties
+    private let fromImport: Bool
+    
+    @objc convenience init(for readingList: ReadingList, with dataStore: MWKDataStore, fromImport: Bool, theme: Theme) {
+        self.init(for: readingList, with: dataStore, displayType: .pushed, fromImport: fromImport)
+        self.theme = theme
+    }
+    
+    init(for readingList: ReadingList, with dataStore: MWKDataStore, displayType: ReadingListDetailDisplayType = .pushed, fromImport: Bool = false) {
         self.readingList = readingList
         self.dataStore = dataStore
         self.displayType = displayType
+        self.fromImport = fromImport
         readingListDetailUnderBarViewController = ReadingListDetailUnderBarViewController()
         readingListEntryCollectionViewController = ReadingListEntryCollectionViewController(for: readingList, with: dataStore)
         readingListEntryCollectionViewController.emptyViewType = .noSavedPagesInReadingList
@@ -98,6 +107,8 @@ class ReadingListDetailViewController: ViewController {
         }
         
         wmf_add(childController: savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
+        
+        apply(theme: theme)
     }
     
     private func addExtendedView() {

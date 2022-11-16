@@ -12,6 +12,7 @@ enum ImportReadingListError: Error {
     case failureFetchingPageURLs
     case failureFetchingArticleObjects
     case missingDataStore
+    case missingArticles
 }
 
 protocol CreateReadingListDelegate: NSObjectProtocol {

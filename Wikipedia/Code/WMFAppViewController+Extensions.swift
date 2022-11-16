@@ -233,6 +233,25 @@ protocol NotificationsCenterFlowViewController where Self: UIViewController {
 
 extension WMFAppViewController: CreateReadingListDelegate {
     func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle]) {
-        // TODO: Create reading list and push to detail view
+        
+        guard !articles.isEmpty else {
+            WMFAlertManager.sharedInstance.showErrorAlert(ImportReadingListError.missingArticles, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            return
+        }
+
+        do {
+            createReadingListViewController.createReadingListButton.isEnabled = false
+            let readingList = try dataStore.readingListsController.createReadingList(named: name, description: description, with: articles)
+           showImportedReadingList(readingList)
+
+        } catch let error {
+            switch error {
+            case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
+                createReadingListViewController.handleReadingListNameError(readingListError)
+            default:
+                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                createReadingListViewController.createReadingListButton.isEnabled = true
+            }
+        }
     }
 }
