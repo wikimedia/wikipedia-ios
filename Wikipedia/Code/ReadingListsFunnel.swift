@@ -15,13 +15,16 @@
         super.init(schema: "MobileWikiAppiOSReadingLists", version: 18280648)
     }
     
-    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int = 1, measureAge: Int? = nil, measurePosition: Int? = nil) -> [String: Any] {
+    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int? = nil, measureAge: Int? = nil, measurePosition: Int? = nil) -> [String: Any] {
         let category = category.rawValue
         let action = action.rawValue
         
-        var event: [String: Any] = ["category": category, "action": action, "measure": measure, "primary_language": primaryLanguage(), "is_anon": isAnon]
+        var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage(), "is_anon": isAnon]
         if let label = label?.rawValue {
             event["label"] = label
+        }
+        if let measure = measure {
+            event["measure"] = measure
         }
         if let measurePosition = measurePosition {
             event["measure_position"] = measurePosition
@@ -131,7 +134,7 @@
     }
     
     public func logReadStartIReadingList(_ articleURL: URL) {
-        log(event(category: .saved, label: .items, action: .readStart), language: articleURL.wmf_languageCode)
+        log(event(category: .saved, label: .items, action: .readStart, measure: 1), language: articleURL.wmf_languageCode)
     }
     
     // - MARK: Saved - reading lists
@@ -141,7 +144,7 @@
     }
     
     public func logCreateInReadingLists() {
-        log(event(category: .saved, label: .lists, action: .createList))
+        log(event(category: .saved, label: .lists, action: .createList, measure: 1))
     }
     
     // - MARK: Add articles to reading list
@@ -151,6 +154,6 @@
     }
     
     public func logCreateInAddToReadingList() {
-        log(event(category: .addToList, label: nil, action: .createList))
+        log(event(category: .addToList, label: nil, action: .createList, measure: 1))
     }
 }
