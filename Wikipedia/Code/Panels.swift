@@ -105,8 +105,17 @@ class ReadingListImportSurveyPanelViewController : ScrollableEducationPanelViewC
         primaryButtonTitle = WMFLocalizedString("import-shared-reading-list-survey-prompt-button-take-survey", value:"Take survey", comment:"Title of action button on import reading list survey prompt, which takes user to external survey.")
         secondaryButtonTitle = WMFLocalizedString("import-shared-reading-list-survey-prompt-button-cancel", value:"Not now", comment:"Title of cancel button on import shared reading list survey prompt, which dismisses the prompt.")
         
-        // TODO: Fix footer localization & colors
-        footerHTML = WMFLocalizedString("import-shared-reading-list-survey-prompt-footer", value:"View our <a href='https://foundation.m.wikimedia.org/w/index.php?title=Editing_Awareness_and_Trust_Survey_Privacy_Statement'>privacy statement</a>. Survey powered by a third-party. View their <a href='https://policies.google.com/privacy'>privacy policy</a>.", comment:"Title of footer button on import shared reading list survey prompt, which takes user to the privacy policy. Note to translators: do not adjust the link html tag.")
+        // TODO: Fix footer colors
+        let footerFormat = WMFLocalizedString("import-shared-reading-list-survey-prompt-footer", value: "View our  %1$@privacy statement%2$@. Survey powered by a third-party. View their %3$@privacy policy%4$@.", comment: "TTitle of footer button on import shared reading list survey prompt, which takes user to the privacy policy. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting")
+        
+        let footerHTML = String.localizedStringWithFormat(
+            footerFormat,
+            "<a href=\"https://foundation.m.wikimedia.org/w/index.php?title=Editing_Awareness_and_Trust_Survey_Privacy_Statement\">",
+            "</a>",
+            "<a href=\"https://policies.google.com/privacy\">",
+            "</a>"
+        )
+        self.footerHTML = footerHTML
     }
 }
 
