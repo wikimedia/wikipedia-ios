@@ -9,9 +9,15 @@
         case createList = "createlist"
         case deleteList = "deletelist"
         case readStart = "read_start"
+        case receiveStart = "receive_start"
+        case receiveCancel = "receive_cancel"
+        case receiveFinish = "receive_finish"
+        case surveyShown = "survey_shown"
+        case surveyClicked = "survey_clicked"
     }
     
     private override init() {
+        // TODO: Update version number for new schema with import shared reading list actions/category
         super.init(schema: "MobileWikiAppiOSReadingLists", version: 18280648)
     }
     
@@ -155,5 +161,27 @@
     
     public func logCreateInAddToReadingList() {
         log(event(category: .addToList, label: nil, action: .createList, measure: 1))
+    }
+    
+    // - MARK: Import Shared Reading Lists
+    
+    public func logStartImport(articlesCount: Int) {
+        log(event(category: .shared, label: nil, action: .receiveStart, measure: articlesCount))
+    }
+    
+    public func logCancelImport() {
+        log(event(category: .shared, label: nil, action: .receiveCancel))
+    }
+    
+    public func logCompletedImport(articlesCount: Int) {
+        log(event(category: .shared, label: nil, action: .receiveFinish, measure: articlesCount))
+    }
+    
+    public func logPresentedSurveyPrompt() {
+        log(event(category: .shared, label: nil, action: .surveyShown))
+    }
+    
+    public func logTappedTakeSurvey() {
+        log(event(category: .shared, label: nil, action: .surveyClicked))
     }
 }

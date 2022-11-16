@@ -18,6 +18,7 @@ extern EventLoggingCategory const EventLoggingCategoryArticle;
 extern EventLoggingCategory const EventLoggingCategorySearch;
 extern EventLoggingCategory const EventLoggingCategoryAddToList;
 extern EventLoggingCategory const EventLoggingCategorySaved;
+extern EventLoggingCategory const EventLoggingCategoryShared;
 extern EventLoggingCategory const EventLoggingCategoryLogin;
 extern EventLoggingCategory const EventLoggingCategorySetting;
 extern EventLoggingCategory const EventLoggingCategoryLoginToSyncPopover;
