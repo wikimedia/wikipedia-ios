@@ -8,6 +8,11 @@ protocol SavedViewControllerDelegate: NSObjectProtocol {
     func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar)
 }
 
+// Wrapper for accessing View in Objective-C
+@objc class WMFSavedViewControllerView: NSObject {
+    @objc static let readingListsViewRawValue = SavedViewController.View.readingLists.rawValue
+}
+
 @objc(WMFSavedViewController)
 class SavedViewController: ViewController {
 
@@ -72,7 +77,7 @@ class SavedViewController: ViewController {
         logTappedView(currentView)
     }
 
-    func toggleCurrentView(_ newViewRawValue: Int) {
+    @objc func toggleCurrentView(_ newViewRawValue: Int) {
         toggleButtons.first { $0.tag != newViewRawValue }?.isSelected = false
         for button in toggleButtons {
             if button.tag == newViewRawValue {

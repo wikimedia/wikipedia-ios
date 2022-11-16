@@ -3,6 +3,7 @@
 @class WMFTheme;
 @class MWKDataStore;
 @class WMFTheme;
+@class ReadingList;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,6 +34,8 @@ extern NSString *const WMFLanguageVariantAlertsLibraryVersion; // NSNumber
 - (void)applyTheme:(WMFTheme *)theme;
 
 - (void)showSearchInCurrentNavigationController;
+
+- (void)showImportedReadingList:(ReadingList *)readingList;
 
 - (void)setRemoteNotificationRegistrationStatusWithDeviceToken: (nullable NSData *)deviceToken error: (nullable NSError *)error;
 
