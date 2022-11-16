@@ -104,7 +104,15 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !isInImportingMode {
+            readingListNameTextField.becomeFirstResponder()
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         view.endEditing(false)
     }
     
@@ -207,13 +215,6 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
             hideReadingListError()
         }
         createReadingListButton.isEnabled = !isReadingListNameFieldEmpty && readingListNameErrorLabel.isHidden
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if !isInImportingMode {
-            readingListNameTextField.becomeFirstResponder()
-        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
