@@ -60,13 +60,11 @@ struct TalkPageTopicReplyOnboardingView: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color(theme.colors.primaryText))
                     Spacer(minLength: 44)
-                    if #available(iOS 14.0, *) { // TODO: remove version check
-                        Image("talk-pages-empty-view-image")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 150, height: 150, alignment: .center)
-                            .accessibilityHidden(true)
-                    }
+                    Image("talk-pages-empty-view-image")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 150, height: 150, alignment: .center)
+                        .accessibilityHidden(true)
                     Spacer(minLength: 31)
                     if #available(iOS 15, *) {
                         if let text = LocalizedStrings.bodyiOS15 {
@@ -94,7 +92,6 @@ struct TalkPageTopicReplyOnboardingView: View {
             }
             ZStack(alignment: .bottom, content: {
                 VStack {
-                    if #available(iOS 14.0, *) { // TODO: remove version check
                     Button(action: {
                         dismissAction?()
                     }, label: {
@@ -108,8 +105,7 @@ struct TalkPageTopicReplyOnboardingView: View {
                             .cornerRadius(8)
                             .padding()
                     })
-                        .accessibilityHint(WMFLocalizedString("talk-page-onboarding-button-accessibility-label", value: "Double tap to return to reply", comment: "Accessibility text for the ok button on the talk pages onboarding modal"))
-                    }
+                    .accessibilityHint(WMFLocalizedString("talk-page-onboarding-button-accessibility-label", value: "Double tap to return to reply", comment: "Accessibility text for the ok button on the talk pages onboarding modal"))
                     Spacer().frame(height: 18)
                 }
             })

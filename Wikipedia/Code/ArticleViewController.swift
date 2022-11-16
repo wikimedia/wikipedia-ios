@@ -107,10 +107,8 @@ class ArticleViewController: ViewController, HintPresenting {
         self.surveyTimerController = ArticleSurveyTimerController(delegate: self)
 
         // `viewDidLoad` isn't called when re-creating the navigation stack on an iPad, and hence a cold launch on iPad doesn't properly show article names when long-pressing the back button if this code is in `viewDidLoad`
-        if #available(iOS 14.0, *) {
-            self.navigationItem.backButtonTitle = articleURL.wmf_title
-            self.navigationItem.backButtonDisplayMode = .generic
-        }
+        self.navigationItem.backButtonTitle = articleURL.wmf_title
+        self.navigationItem.backButtonDisplayMode = .generic
     }
     
     deinit {

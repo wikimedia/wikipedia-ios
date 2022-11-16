@@ -51,6 +51,11 @@ class ViewControllerRouter: NSObject {
         let showNewVC = {
             if viewController is AVPlayerViewController {
                 navigationController.present(viewController, animated: true, completion: completion)
+            } else if let createReadingListVC = viewController as? CreateReadingListViewController,
+                       createReadingListVC.isInImportingMode {
+
+                 let createReadingListNavVC = WMFThemeableNavigationController(rootViewController: createReadingListVC, theme: self.appViewController.theme)
+                 navigationController.present(createReadingListNavVC, animated: true, completion: completion)
             } else {
                 navigationController.pushViewController(viewController, animated: true)
                 completion()
@@ -167,6 +172,17 @@ class ViewControllerRouter: NSObject {
                 onThisDayVC.initialEvent = selectedEvent
             }
             return presentOrPush(onThisDayVC, with: completion)
+            
+        case .readingListsImport(let encodedPayload):
+            guard appViewController.editingFlowViewControllerInHierarchy == nil else {
+                // Do not show reading list import if user is in the middle of editing
+                completion()
+                return false
+            }
+
+            let createReadingListVC = CreateReadingListViewController(theme: theme, articles: [], encodedPageIds: encodedPayload, dataStore: appViewController.dataStore)
+            createReadingListVC.delegate = appViewController
+            return presentOrPush(createReadingListVC, with: completion)
         default:
             completion()
             return false

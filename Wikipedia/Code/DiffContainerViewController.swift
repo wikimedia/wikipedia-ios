@@ -261,20 +261,18 @@ class DiffContainerViewController: ViewController {
     }
 
     private func setupBackButton() {
-        if #available(iOS 14.0, *) {
-            let buttonTitle: String
-            switch type {
-            case .compare: buttonTitle = CommonStrings.compareRevisionsTitle
-            case .single:
-                guard let toDate = toModel?.revisionDate as NSDate? else {
-                    return
-                }
-                let dateString = toDate.wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
-                buttonTitle = String.localizedStringWithFormat(CommonStrings.revisionMadeFormat, dateString.lowercased())
+        let buttonTitle: String
+        switch type {
+        case .compare: buttonTitle = CommonStrings.compareRevisionsTitle
+        case .single:
+            guard let toDate = toModel?.revisionDate as NSDate? else {
+                return
             }
-            navigationItem.backButtonTitle = buttonTitle
-            navigationItem.backButtonDisplayMode = .generic
+            let dateString = toDate.wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
+            buttonTitle = String.localizedStringWithFormat(CommonStrings.revisionMadeFormat, dateString.lowercased())
         }
+        navigationItem.backButtonTitle = buttonTitle
+        navigationItem.backButtonDisplayMode = .generic
     }
 }
 

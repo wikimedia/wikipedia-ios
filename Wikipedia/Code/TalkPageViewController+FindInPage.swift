@@ -41,30 +41,93 @@ extension TalkPageViewController {
             findInPageState.keyboardBar = nil
         }
     }
+    
+    var isShowingFindInPage: Bool {
+        return findInPageState.keyboardBar?.isVisible ?? false
+    }
 
     // MARK: - Scroll to Element
+    
+    
+    override func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        super.scrollViewDidEndScrollingAnimation(scrollView)
+        
+        scrollToFindInPageResultRect()
+    }
+    
+    private func scrollToFindInPageResultRect() {
+        if let scrollingToIndexPath = scrollingToIndexPath,
+        let scrollingToResult = scrollingToResult {
+            
+            if let scrollingToCommentViewModel = scrollingToCommentViewModel {
+                if let commentView = talkPageCell(indexPath: scrollingToIndexPath)?.commentViewForViewModel(scrollingToCommentViewModel) {
+                    if let targetFrame = commentView.frameForHighlight(result: scrollingToResult) {
+                        talkPageView.collectionView.scrollRectToVisible(targetFrame, animated: true)
+                    }
+                }
+            } else {
+                if let talkPageCell = talkPageCell(indexPath: scrollingToIndexPath) {
+                    if let targetFrame = talkPageCell.topicView.frameForHighlight(result: scrollingToResult) {
+                        talkPageView.collectionView.scrollRectToVisible(targetFrame, animated: true)
+                    }
+                }
+            }
+        }
+        
+        scrollingToIndexPath = nil
+        scrollingToResult = nil
+        scrollingToCommentViewModel = nil
+        
+        rethemeVisibleCells()
+    }
 
     func scrollToFindInPageResult(_ result: TalkPageFindInPageSearchController.SearchResult?) {
         guard let result = result else { return }
-
-        rethemeVisibleCells()
-
-        // TODO: - Fine tune position when scrolling
+        
         switch result.location {
         case .topicTitle(topicIndex: let index, topicIdentifier: _):
             let indexPath = IndexPath(row: index, section: 0)
-            talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+            
+            scrollingToIndexPath = indexPath
+            scrollingToResult = result
+            
+            if talkPageView.collectionView.indexPathsForVisibleItems.contains(indexPath) {
+                scrollToFindInPageResultRect()
+            } else {
+                talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+            }
         case .topicLeadComment(topicIndex: let index, replyIdentifier: _),
              .topicOtherContent(topicIndex: let index):
-            if let commentViewModel = viewModel.topics[index].leadComment {
-                scrollToComment(commentViewModel: commentViewModel, animated: true)
+            let indexPath = IndexPath(row: index, section: 0)
+            
+            scrollingToIndexPath = indexPath
+            scrollingToResult = result
+            
+            if talkPageView.collectionView.indexPathsForVisibleItems.contains(indexPath) {
+                scrollToFindInPageResultRect()
+            } else {
+                talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
             }
         case .reply(topicIndex: let topicIndex, topicIdentifier: _, replyIndex: let replyIndex, replyIdentifier: _):
             let topicViewModel = viewModel.topics[topicIndex]
-            topicViewModel.isThreadExpanded = true
             let commentViewModel = topicViewModel.replies[replyIndex]
-            scrollToComment(commentViewModel: commentViewModel, animated: true)
+
+            let indexPath = IndexPath(row: topicIndex, section: 0)
+            
+            scrollingToIndexPath = indexPath
+            scrollingToResult = result
+            scrollingToCommentViewModel = commentViewModel
+            
+            if talkPageView.collectionView.indexPathsForVisibleItems.contains(indexPath) {
+                scrollToFindInPageResultRect()
+            } else {
+                talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+            }
         }
+    }
+
+    private func talkPageCell(indexPath: IndexPath) -> TalkPageCell? {
+        return talkPageView.collectionView.cellForItem(at: indexPath) as? TalkPageCell
     }
 
 }
@@ -76,7 +139,7 @@ extension TalkPageViewController: FindAndReplaceKeyboardBarDelegate {
             return
         }
 
-        findInPageState.search(term: searchTerm, in: viewModel.topics)
+        findInPageState.search(term: searchTerm, in: viewModel.topics, traitCollection: traitCollection, theme: theme)
         rethemeVisibleCells()
     }
 

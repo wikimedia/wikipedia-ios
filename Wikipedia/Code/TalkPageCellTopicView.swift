@@ -223,8 +223,8 @@ final class TalkPageCellTopicView: SetupView {
     func configure(viewModel: TalkPageCellViewModel) {
         self.viewModel = viewModel
 
-        let showingOtherContent = viewModel.leadComment == nil && viewModel.otherContent != nil
-        let shouldHideSubscribe = !viewModel.isUserLoggedIn || viewModel.topicTitle.isEmpty || (showingOtherContent)
+        let showingOtherContent = viewModel.leadComment == nil && viewModel.otherContentHtml != nil
+        let shouldHideSubscribe = !viewModel.isUserLoggedIn || viewModel.topicTitleHtml.isEmpty || (showingOtherContent)
         
         switch (shouldHideSubscribe, showingOtherContent) {
         case (false, false):
@@ -411,6 +411,38 @@ final class TalkPageCellTopicView: SetupView {
         }
     }
 
+    /// Frame converted to containing collection view
+    func frameForHighlight(result: TalkPageFindInPageSearchController.SearchResult) -> CGRect? {
+        guard let range = result.range else {
+            return nil
+        }
+
+        switch result.location {
+        case .topicTitle:
+            guard let initialFrame = topicTitleTextView.frame(of: range) else {
+                return nil
+            }
+            return topicTitleTextView.convert(initialFrame, to: rootCollectionView())
+        case .topicLeadComment, .topicOtherContent:
+            guard let initialFrame = topicCommentTextView.frame(of: range) else {
+                return nil
+            }
+            return topicCommentTextView.convert(initialFrame, to: rootCollectionView())
+
+        default:
+            return nil
+        }
+    }
+
+    /// Containing collection view
+    private func rootCollectionView() -> UIView? {
+        var sv = superview
+        while !(sv is UICollectionView) {
+            sv = sv?.superview
+        }
+        return sv
+    }
+
 }
 
 extension TalkPageCellTopicView: Themeable {
@@ -420,15 +452,17 @@ extension TalkPageCellTopicView: Themeable {
         subscribeButton.setTitleColor(theme.colors.link, for: .normal)
         disclosureButton.tintColor = theme.colors.secondaryText
 
-        topicTitleTextView.attributedText = viewModel?.topicTitle.byAttributingHTML(with: .headline, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: false, handlingSuperSubscripts: true)
+        topicTitleTextView.attributedText = viewModel?.topicTitleAttributedString(traitCollection: traitCollection, theme: theme)
         topicTitleTextView.backgroundColor = theme.colors.paperBackground
         
         timestampLabel.textColor = theme.colors.secondaryText
 
-        let commentColor = (viewModel?.isThreadExpanded ?? false) ? theme.colors.primaryText : theme.colors.secondaryText
+        if viewModel?.leadComment != nil {
+            topicCommentTextView.attributedText = viewModel?.leadCommentAttributedString(traitCollection: traitCollection, theme: theme)
+        } else if viewModel?.otherContentHtml != nil {
+            topicCommentTextView.attributedText = viewModel?.otherContentAttributedString(traitCollection: traitCollection, theme: theme)
+        }
         
-        let bodyText = viewModel?.leadComment?.text ?? viewModel?.otherContent
-        topicCommentTextView.attributedText = bodyText?.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
         topicCommentTextView.backgroundColor = theme.colors.paperBackground
 
         applyTextHighlightIfNecessary(theme: theme)

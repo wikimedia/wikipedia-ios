@@ -26,7 +26,7 @@ public final class WidgetController: NSObject {
     // MARK: Public
 
 	@objc public func reloadAllWidgetsIfNecessary() {
-        guard #available(iOS 14.0, *), !Bundle.main.isAppExtension else {
+        guard !Bundle.main.isAppExtension else {
             return
         }
 

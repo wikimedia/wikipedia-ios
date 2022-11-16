@@ -5,16 +5,16 @@ final class TalkPageCellViewModel: Identifiable {
     var isThreadExpanded: Bool = false
     var isSubscribed: Bool = false
 
-    let topicTitle: String
+    let topicTitleHtml: String
     let timestamp: Date?
     let timestampDisplay: String?
     let topicName: String
 
     let id: String
     
-    // A cell could contain unsigned content with no replies. In this case the leadComment is nil and otherContent is populated. The subscribe button, metadata row and first reply button will hide.
+    // A cell could contain unsigned content with no replies. In this case the leadComment is nil and otherContentHtml is populated. The subscribe button, metadata row and first reply button will hide.
     let leadComment: TalkPageCellCommentViewModel?
-    let otherContent: String?
+    let otherContentHtml: String?
     
     let replies: [TalkPageCellCommentViewModel]
     
@@ -40,9 +40,9 @@ final class TalkPageCellViewModel: Identifiable {
     
     weak var viewModel: TalkPageViewModel?
     
-    init(id: String, topicTitle: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel?, otherContent: String?, replies: [TalkPageCellCommentViewModel], activeUsersCount: Int?, isUserLoggedIn: Bool, dateFormatter: DateFormatter?) {
+    init(id: String, topicTitleHtml: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel?, otherContentHtml: String?, replies: [TalkPageCellCommentViewModel], activeUsersCount: Int?, isUserLoggedIn: Bool, dateFormatter: DateFormatter?) {
         self.id = id
-        self.topicTitle = topicTitle
+        self.topicTitleHtml = topicTitleHtml
         self.timestamp = timestamp
         if let timestamp = timestamp {
             self.timestampDisplay = dateFormatter?.string(from: timestamp)
@@ -52,15 +52,36 @@ final class TalkPageCellViewModel: Identifiable {
         self.topicName = topicName
         self.leadComment = leadComment
         
-        if let otherContent = otherContent {
-            self.otherContent = NSMutableAttributedString(string: otherContent).removingInitialNewlineCharacters().string
+        if let otherContentHtml = otherContentHtml {
+            self.otherContentHtml = otherContentHtml
         } else {
-            self.otherContent = nil
+            self.otherContentHtml = nil
         }
         
         self.replies = replies
         self.activeUsersCount = activeUsersCount
         self.isUserLoggedIn = isUserLoggedIn
+    }
+    
+    func topicTitleAttributedString(traitCollection: UITraitCollection, theme: Theme = .light) -> NSAttributedString {
+        return topicTitleHtml.byAttributingHTML(with: .headline, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: false, handlingSuperSubscripts: true)
+    }
+    
+    func leadCommentAttributedString(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
+        if let leadComment = leadComment {
+            let commentColor = isThreadExpanded ? theme.colors.primaryText : theme.colors.secondaryText
+            return leadComment.html.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+        }
+        
+        return nil
+    }
+    
+    func otherContentAttributedString(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
+        if let otherContentHtml = otherContentHtml {
+            return otherContentHtml.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.secondaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+        }
+        
+        return nil
     }
 }
 

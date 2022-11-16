@@ -24,17 +24,11 @@ enum NotificationsCenterIconType: Hashable {
     }
     
     static var documentFill: NotificationsCenterIconType {
-        if #available(iOS 14, *) {
-            return .system("doc.plaintext.fill")
-        }
-        return .system("doc.text.fill")
+        return .system("doc.plaintext.fill")
     }
     
     static var document: NotificationsCenterIconType {
-        if #available(iOS 14, *) {
-            return .system("doc.plaintext")
-        }
-        return .system("doc.text")
+        return .system("doc.plaintext")
     }
     
     static var photo: NotificationsCenterIconType {

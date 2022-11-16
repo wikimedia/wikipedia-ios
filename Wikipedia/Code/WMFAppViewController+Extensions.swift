@@ -140,7 +140,7 @@ extension WMFAppViewController {
         presentEditorAlert(on: topMostViewController, confirmationBlock: dismissAndPushBlock)
     }
     
-    private var editingFlowViewControllerInHierarchy: EditingFlowViewController? {
+    var editingFlowViewControllerInHierarchy: EditingFlowViewController? {
         var currentController: UIViewController? = navigationController
 
         while let presentedViewController = currentController?.presentedViewController {
@@ -227,4 +227,31 @@ protocol NotificationsCenterFlowViewController where Self: UIViewController {
     // hook called after the user taps a push notification while in the foregound.
     // use if needed to tweak the view heirarchy to display the Notifications Center
     func tappedPushNotification()
+}
+
+// MARK: Importing Reading Lists - CreateReadingListDelegate
+
+extension WMFAppViewController: CreateReadingListDelegate {
+    func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle]) {
+        
+        guard !articles.isEmpty else {
+            WMFAlertManager.sharedInstance.showErrorAlert(ImportReadingListError.missingArticles, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            return
+        }
+
+        do {
+            createReadingListViewController.createReadingListButton.isEnabled = false
+            let readingList = try dataStore.readingListsController.createReadingList(named: name, description: description, with: articles)
+           showImportedReadingList(readingList)
+
+        } catch let error {
+            switch error {
+            case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
+                createReadingListViewController.handleReadingListNameError(readingListError)
+            default:
+                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                createReadingListViewController.createReadingListButton.isEnabled = true
+            }
+        }
+    }
 }

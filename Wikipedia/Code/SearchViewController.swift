@@ -33,7 +33,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         if let appVC = parent as? WMFAppViewController {
             appVC.navigationItem.backButtonTitle = title
-        } else if #available(iOS 14.0, *) {
+        } else {
             // If the parent isn't `WMFAppViewController`, then its being presented from an articleVC and we need to set the back button title in the typical way.
             self.navigationItem.backButtonTitle = CommonStrings.searchTitle
             self.navigationItem.backButtonDisplayMode = .generic

@@ -68,9 +68,9 @@ final class TalkPageFindInPageState {
 
     }
 
-    func search(term: String, in topics: [TalkPageCellViewModel]) {
+    func search(term: String, in topics: [TalkPageCellViewModel], traitCollection: UITraitCollection, theme: Theme) {
         selectedIndex = -1
-        matches = searchController.search(term: term, in: topics)
+        matches = searchController.search(term: term, in: topics, traitCollection: traitCollection, theme: theme)
         topics.forEach {
             $0.highlightText = matches.isEmpty ? nil : term
             $0.activeHighlightResult = nil

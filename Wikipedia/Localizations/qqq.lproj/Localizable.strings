@@ -409,7 +409,6 @@
 "export-user-data-generic-error" = "Error message displayed after user has tried exporting their data and an error occurs.";
 "export-user-data-space-error" = "Error message displayed after user has tried exporting their data and the system determines it doesn't have space to do so.";
 "export-user-data-title" = "Button title for exporting user data";
-"featured-article-empty-title" = "Title that displays when featured article is not available";
 "featured-widget-content-failure-for-date" = "Text displayed when Featured article is not available on the current date.";
 "featured-widget-description" = "Text for description of Featured article widget displayed when adding to home screen.";
 "featured-widget-from-language-wikipedia" = "Text displayed as Wikipedia source on Featured article widget. $1 will be replaced with the language.";
@@ -474,6 +473,12 @@
 "icon-shortcut-random-title" = "Title for app icon force touch shortcut to quickly open a random article. {{Identical|Random article}}";
 "icon-shortcut-search-title" = "Title for app icon force touch shortcut to quickly open the search interface.";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Title of cancel button on import shared reading list survey prompt, which dismisses the prompt.";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Title of action button on import reading list survey prompt, which takes user to external survey.";
+"import-shared-reading-list-survey-prompt-footer" = "Title of footer button on import shared reading list survey prompt, which takes user to the privacy policy. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting";
+"import-shared-reading-list-survey-prompt-subtitle" = "Subtitle of prompt to take a survey, displayed after user successfully imports a shared reading list.";
+"import-shared-reading-list-survey-prompt-title" = "Title of prompt to take a survey, displayed after user successfully imports a shared reading list.";
+"import-shared-reading-list-title" = "Title of screen that imports a shared reading list.";
 "in-the-news-sub-title-from-language-wikipedia" = "Subtext beneath the 'In the news' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "in-the-news-sub-title-from-wikipedia" = "Subtext beneath the 'In the news' header when the specific language wikipedia is unknown.";
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
@@ -775,8 +780,6 @@
 "project-name-wikiversity" = "Project name for Wikiversity.";
 "project-name-wikivoyage" = "Project name for Wikivoyage.";
 "project-name-wiktionary" = "Project name for Wiktionary.";
-"rank-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. $1 is replaced with the ranking {{Identical|Number}}";
-"readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers {{Identical|Reader}}";
 "reading-list-add-generic-hint-title" = "Title of the reading list hint that appears after an article is saved.";
 "reading-list-add-hint-title" = "Title of the reading list hint that appears after an article is saved. $1 will be replaced with the saved article title";
 "reading-list-add-saved-button-title" = "Title for button to add saved articles to reading list. The question being asked is: There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?";
@@ -1074,9 +1077,6 @@
 "theme-default-explanation" = "Explains that the default theme matches the iOS system theme setting";
 "theme-light-display-name" = "Light theme name presented to the user";
 "theme-sepia-display-name" = "Sepia theme name presented to the user";
-"top-read-header-generic" = "Wikipedia {{Identical|Wikipedia}}";
-"top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia {{Identical|Wikipedia}}";
-"top-read-see-more" = "Text for footer button allowing the user to see more top read articles";
 "top-read-widget-description" = "Text for description of top read widget displayed when adding to home screen.";
 "top-read-widget-readers-count" = "Text for displaying the number of readers an article has in the top read widget. $1 is replaced with the number of readers.";
 "top-read-widget-title" = "Text for title of Top read widget.";

@@ -14,10 +14,25 @@ class ReadingListDetailViewController: ViewController {
     private var searchBarExtendedViewController: SearchBarExtendedViewController?
     private var displayType: ReadingListDetailDisplayType = .pushed
     
-    init(for readingList: ReadingList, with dataStore: MWKDataStore, displayType: ReadingListDetailDisplayType = .pushed) {
+    // Import shared reading list properties
+    private let fromImport: Bool
+    private var seenSurveyPrompt: Bool = false
+    private weak var importSurveyPromptTimer: Timer?
+    private let importSurveyPromptDelay = TimeInterval(5)
+    
+    // TODO: Get final URL
+    private let importSurveyURL = URL(string: "http://www.mediawiki.org")
+    
+    @objc convenience init(for readingList: ReadingList, with dataStore: MWKDataStore, fromImport: Bool, theme: Theme) {
+        self.init(for: readingList, with: dataStore, displayType: .pushed, fromImport: fromImport)
+        self.theme = theme
+    }
+    
+    init(for readingList: ReadingList, with dataStore: MWKDataStore, displayType: ReadingListDetailDisplayType = .pushed, fromImport: Bool = false) {
         self.readingList = readingList
         self.dataStore = dataStore
         self.displayType = displayType
+        self.fromImport = fromImport
         readingListDetailUnderBarViewController = ReadingListDetailUnderBarViewController()
         readingListEntryCollectionViewController = ReadingListEntryCollectionViewController(for: readingList, with: dataStore)
         readingListEntryCollectionViewController.emptyViewType = .noSavedPagesInReadingList
@@ -81,10 +96,10 @@ class ReadingListDetailViewController: ViewController {
         setUpArticlesViewController()
         
         navigationBar.title = readingList.name
-        if #available(iOS 14.0, *) {
-            navigationItem.backButtonTitle = readingList.name
-            navigationItem.backButtonDisplayMode = .generic
-        }
+
+        navigationItem.backButtonTitle = readingList.name
+        navigationItem.backButtonDisplayMode = .generic
+
         navigationBar.addUnderNavigationBarView(readingListDetailUnderBarViewController.view)
         navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
         navigationBar.isBarHidingEnabled = false
@@ -98,6 +113,8 @@ class ReadingListDetailViewController: ViewController {
         }
         
         wmf_add(childController: savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
+        
+        apply(theme: theme)
     }
     
     private func addExtendedView() {
@@ -119,6 +136,52 @@ class ReadingListDetailViewController: ViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         readingListEntryCollectionViewController.editController.isTextEditing = false
+        
+        importSurveyPromptTimer?.invalidate()
+        importSurveyPromptTimer = nil
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // TODO: Maybe adjust survey prompt display logic to once-per-install
+        guard fromImport && !seenSurveyPrompt else {
+            return
+        }
+
+        guard let surveyURL = self.importSurveyURL else {
+            return
+        }
+
+        self.importSurveyPromptTimer = Timer.scheduledTimer(withTimeInterval: importSurveyPromptDelay, repeats: false, block: { [weak self] timer in
+            guard let self = self else {
+                return
+            }
+
+            self.seenSurveyPrompt = true
+
+            self.wmf_showReadingListImportSurveyPanel(primaryButtonTapHandler: { (sender) in
+                self.navigate(to: surveyURL, useSafari: true)
+                // dismiss handler is called
+            }, secondaryButtonTapHandler: { (sender) in
+                // dismiss handler is called
+            }, footerLinkAction: { (url) in
+                 self.navigate(to: url, useSafari: true)
+                // intentionally don't dismiss
+            }, traceableDismissHandler: { lastAction in
+                switch lastAction {
+                case .tappedBackground, .tappedClose, .tappedSecondary:
+                    print("tappedSecondary")
+                    // TODO: Log dismissed
+                case .tappedPrimary:
+                    print("tappedPrimary")
+                    // TODO: Log tapped survey
+                case .none:
+                    assertionFailure("Unexpected lastAction in Panel dismissHandler")
+                    break
+                }
+            }, theme: self.theme)
+        })
     }
     
     // MARK: - Theme

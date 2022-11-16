@@ -279,6 +279,8 @@
 "edit-summary-choice-linked-words" = "Sgionta i ligam";
 "edit-summary-learn-more-text" = "Per savénn pussee";
 "edit-summary-placeholder-text" = "Comè che t'hhe mijorad la vos?";
+"edit-superscript-accessibility-label" = "Sgionta la formatazzion de l'apice";
+"edit-superscript-remove-accessibility-label" = "Leva la formatazzion de l'apice";
 "edit-template-accessibility-label" = "Sgionta la sintassi del modell";
 "edit-template-remove-accessibility-label" = "Leva la sintassi del modell";
 "edit-text-clear-formatting" = "Neta la formatazzion";
@@ -449,6 +451,7 @@
 "insert-media-image-size-setting-default" = "De impostazzion predefinida";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "Grandezza de l'imagin";
+"insert-media-image-type-setting-basic" = "Fondamental";
 "insert-media-image-type-setting-frame" = "Cornis";
 "insert-media-image-type-setting-frameless" = "Senza cornis";
 "insert-media-image-type-setting-thumbnail" = "Miniadura";
@@ -652,6 +655,7 @@
 "page-similar-titles" = "Pagine compagne";
 "panel-compare-revisions-text" = "el paragon in fra i version l'ajuta a fà vedé comè che ona vos l'è cambiada in del cors del temp. A paragonà do version d'ona vos i sarann fade vedé i diferenza in fra de lor cont el marcà tucc i contegnud che a inn stad cambiad.";
 "panel-compare-revisions-title" = "Paragon in fra i version";
+"panel-not-logged-in-title" = "Te see minga andad dent";
 "pictured" = "dissegnad";
 "places-accessibility-clear-saved-searches" = "Scancella i ricerche salvade";
 "places-accessibility-group" = "$1 vos";

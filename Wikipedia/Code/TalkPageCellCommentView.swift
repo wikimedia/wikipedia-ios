@@ -153,6 +153,33 @@ final class TalkPageCellCommentView: SetupView {
         }
     }
 
+    /// Frame converted to containing collection view
+    func frameForHighlight(result: TalkPageFindInPageSearchController.SearchResult) -> CGRect? {
+        guard let range = result.range else {
+            return nil
+        }
+
+        switch result.location {
+        case .reply:
+            guard let initialFrame = commentTextView.frame(of: range) else {
+                return nil
+            }
+            return commentTextView.convert(initialFrame, to: rootCollectionView())
+        default:
+            return nil
+        }
+    }
+
+    /// Containing collection view
+    private func rootCollectionView() -> UIView? {
+        var sv = superview
+        while !(sv is UICollectionView) {
+            sv = sv?.superview
+        }
+        return sv
+    }
+
+
 }
 
 extension TalkPageCellCommentView: Themeable {
@@ -160,7 +187,7 @@ extension TalkPageCellCommentView: Themeable {
     func apply(theme: Theme) {
         replyDepthView.apply(theme: theme)
 
-        commentTextView.attributedText = viewModel?.text.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
+        commentTextView.attributedText = viewModel?.commentAttributedString(traitCollection: traitCollection, theme: theme)
         commentTextView.backgroundColor = theme.colors.paperBackground
         applyTextHighlightIfNecessary(theme: theme)
 

@@ -197,7 +197,7 @@ final class TalkPageViewModel {
         
         for topic in cleanTopics {
             
-            guard let topicTitle = topic.html else {
+            guard let topicTitleHtml = topic.html else {
                 DDLogWarn("Missing topic title. Skipping topic.")
                 continue
             }
@@ -211,14 +211,20 @@ final class TalkPageViewModel {
             // set up cell view model with otherContent and continue to next topic
             if let otherContent = topic.otherContent,
                topic.replies.isEmpty {
-                let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: nil, topicName: topicName, leadComment: nil, otherContent: otherContent, replies: [], activeUsersCount: nil, isUserLoggedIn: isUserLoggedIn, dateFormatter: dateFormatter)
+                let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitleHtml: topicTitleHtml, timestamp: nil, topicName: topicName, leadComment: nil, otherContentHtml: otherContent, replies: [], activeUsersCount: nil, isUserLoggedIn: isUserLoggedIn, dateFormatter: dateFormatter)
                 self.topics.append(topicViewModel)
                 continue
             }
             
             // Parse through topic replies and set up comment view models
-            guard let firstReply = topic.replies.first,
-                  let leadCommentViewModel = TalkPageCellCommentViewModel(commentId: firstReply.id, text: firstReply.html, author: firstReply.author, authorTalkPageURL: "", timestamp: firstReply.timestamp, replyDepth: firstReply.level) else {
+            guard let firstReply = topic.replies.first else {
+                DDLogWarn("Unable to parse lead comment. Skipping topic.")
+                continue
+            }
+            
+            let firstReplyHtml = firstReply.html
+            
+            guard let leadCommentViewModel = TalkPageCellCommentViewModel(commentId: firstReply.id, html: firstReplyHtml, author: firstReply.author, authorTalkPageURL: "", timestamp: firstReply.timestamp, replyDepth: firstReply.level) else {
                 DDLogWarn("Unable to parse lead comment. Skipping topic.")
                 continue
             }
@@ -236,12 +242,14 @@ final class TalkPageViewModel {
                     replyDepth = level - 1
                 }
                 
-                return TalkPageCellCommentViewModel(commentId: $0.id, text: $0.html, author: $0.author, authorTalkPageURL: "", timestamp: $0.timestamp, replyDepth: replyDepth)
+                let remainingReplyHtml = $0.html
+                
+                return TalkPageCellCommentViewModel(commentId: $0.id, html: remainingReplyHtml, author: $0.author, authorTalkPageURL: "", timestamp: $0.timestamp, replyDepth: replyDepth)
             }
             
             let activeUsersCount = activeUsersCount(topic: topic)
 
-            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitle: topicTitle, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, otherContent: nil, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserLoggedIn: isUserLoggedIn, dateFormatter: dateFormatter)
+            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitleHtml: topicTitleHtml, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, otherContentHtml: nil, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserLoggedIn: isUserLoggedIn, dateFormatter: dateFormatter)
             topicViewModel.viewModel = self
 
             // Note this is a nested loop, so it will not perform well with many topics.
