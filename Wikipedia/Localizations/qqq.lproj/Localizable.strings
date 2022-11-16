@@ -473,6 +473,11 @@
 "icon-shortcut-random-title" = "Title for app icon force touch shortcut to quickly open a random article. {{Identical|Random article}}";
 "icon-shortcut-search-title" = "Title for app icon force touch shortcut to quickly open the search interface.";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Title of cancel button on import shared reading list survey prompt, which dismisses the prompt.";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Title of action button on import reading list survey prompt, which takes user to external survey.";
+"import-shared-reading-list-survey-prompt-footer" = "Title of footer button on import shared reading list survey prompt, which takes user to the privacy policy. Note to translators: do not adjust the link html tag.";
+"import-shared-reading-list-survey-prompt-subtitle" = "Subtitle of prompt to take a survey, displayed after user successfully imports a shared reading list.";
+"import-shared-reading-list-survey-prompt-title" = "Title of prompt to take a survey, displayed after user successfully imports a shared reading list.";
 "import-shared-reading-list-title" = "Title of screen that imports a shared reading list.";
 "in-the-news-sub-title-from-language-wikipedia" = "Subtext beneath the 'In the news' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "in-the-news-sub-title-from-wikipedia" = "Subtext beneath the 'In the news' header when the specific language wikipedia is unknown.";

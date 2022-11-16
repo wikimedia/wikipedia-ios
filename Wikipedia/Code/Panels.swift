@@ -87,6 +87,29 @@ class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
     }
 }
 
+class ReadingListImportSurveyPanelViewController : ScrollableEducationPanelViewController {
+
+    init(primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, theme: Theme) {
+        super.init(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, traceableDismissHandler: traceableDismissHandler, theme: theme)
+        self.footerLinkAction = footerLinkAction
+    }
+
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        heading = WMFLocalizedString("import-shared-reading-list-survey-prompt-title", value:"Could you help us improve this feature by taking a survey?", comment:"Title of prompt to take a survey, displayed after user successfully imports a shared reading list.")
+        subheading = WMFLocalizedString("import-shared-reading-list-survey-prompt-subtitle", value:"Shared reading lists is a test feature and we need your feedback to improve or remove it.", comment:"Subtitle of prompt to take a survey, displayed after user successfully imports a shared reading list.")
+        primaryButtonTitle = WMFLocalizedString("import-shared-reading-list-survey-prompt-button-take-survey", value:"Take survey", comment:"Title of action button on import reading list survey prompt, which takes user to external survey.")
+        secondaryButtonTitle = WMFLocalizedString("import-shared-reading-list-survey-prompt-button-cancel", value:"Not now", comment:"Title of cancel button on import shared reading list survey prompt, which dismisses the prompt.")
+        
+        // TODO: Fix footer localization & colors
+        footerHTML = WMFLocalizedString("import-shared-reading-list-survey-prompt-footer", value:"View our <a href='https://foundation.m.wikimedia.org/w/index.php?title=Editing_Awareness_and_Trust_Survey_Privacy_Statement'>privacy statement</a>. Survey powered by a third-party. View their <a href='https://policies.google.com/privacy'>privacy policy</a>.", comment:"Title of footer button on import shared reading list survey prompt, which takes user to the privacy policy. Note to translators: do not adjust the link html tag.")
+    }
+}
+
 class EnableReadingListSyncPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -397,6 +420,23 @@ extension UIViewController {
         , traceableDismissHandler: { lastAction in
             traceableDismissHandler?(lastAction)
         }, theme: theme)
+        present(panel, animated: true)
+    }
+    
+    func wmf_showReadingListImportSurveyPanel(primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, theme: Theme) {
+
+        let panel = ReadingListImportSurveyPanelViewController(primaryButtonTapHandler: { sender in
+            primaryButtonTapHandler?(sender)
+            self.dismiss(animated: true)
+            // dismissHandler is called on viewDidDisappear
+        }, secondaryButtonTapHandler: { sender in
+            secondaryButtonTapHandler?(sender)
+            self.dismiss(animated: true)
+            // dismissHandler is called on viewDidDisappear
+        }, footerLinkAction: footerLinkAction, traceableDismissHandler: { lastAction in
+            traceableDismissHandler?(lastAction)
+        }, theme: theme)
+
         present(panel, animated: true)
     }
         
