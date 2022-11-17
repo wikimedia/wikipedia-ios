@@ -68,7 +68,7 @@
 		<string>org.wikimedia.wikipedia.searchresults</string>
 	</array>
 	<key>UIApplicationShortcutWidget</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER).TopReadWidget</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER).ContinueReadingWidget</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

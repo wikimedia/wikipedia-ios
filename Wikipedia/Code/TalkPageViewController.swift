@@ -253,7 +253,7 @@ class TalkPageViewController: ViewController {
     // MARK: - Coffee Roll
 
     @objc private func userDidTapCoffeeRollReadMoreButton() {
-        let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: talkPageURL, semanticContentAttribute: viewModel.semanticContentAttribute)
+        let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: getTalkPageURL(encoded: true), semanticContentAttribute: viewModel.semanticContentAttribute)
         let coffeeViewController = TalkPageCoffeeRollViewController(theme: theme, viewModel: coffeeRollViewModel)
         push(coffeeViewController, animated: true)
     }
@@ -357,22 +357,24 @@ class TalkPageViewController: ViewController {
     }
     
     // MARK: - Toolbar actions
-    
-    var talkPageURL: URL? {
+
+    fileprivate func getTalkPageURL(encoded shouldPercentEncodeURL: Bool) -> URL? {
         var talkPageURLComponents = URLComponents(url: viewModel.siteURL, resolvingAgainstBaseURL: false)
         guard let encodedTitle = viewModel.pageTitle.percentEncodedPageTitleForPathComponents else {
             return nil
         }
-        talkPageURLComponents?.path = "/wiki/\(encodedTitle)"
+
+        let talkPageTitle = shouldPercentEncodeURL ? encodedTitle : viewModel.pageTitle
+        talkPageURLComponents?.path = "/wiki/\(talkPageTitle)"
 
         return talkPageURLComponents?.url
     }
     
     @objc fileprivate func userDidTapShareButton() {
-        guard let talkPageURL = talkPageURL else {
+        guard let talkPageURL = getTalkPageURL(encoded: false) else {
             return
         }
-        
+
         let activityController = UIActivityViewController(activityItems: [talkPageURL], applicationActivities: [TUSafariActivity()])
         present(activityController, animated: true)
     }
@@ -1044,7 +1046,7 @@ protocol TalkPageTextViewLinkHandling: AnyObject {
 
 extension TalkPageViewController: TalkPageTextViewLinkHandling {
     func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        guard let url = URL(string: url.absoluteString, relativeTo: talkPageURL) else {
+        guard let url = URL(string: url.absoluteString, relativeTo: getTalkPageURL(encoded: true)) else {
             return
         }
         navigate(to: url.absoluteURL)
