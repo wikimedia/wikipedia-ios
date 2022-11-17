@@ -106,7 +106,7 @@ class ReadingListImportSurveyPanelViewController : ScrollableEducationPanelViewC
         secondaryButtonTitle = WMFLocalizedString("import-shared-reading-list-survey-prompt-button-cancel", value:"Not now", comment:"Title of cancel button on import shared reading list survey prompt, which dismisses the prompt.")
         
         // TODO: Fix footer colors
-        let footerFormat = WMFLocalizedString("import-shared-reading-list-survey-prompt-footer", value: "View our  %1$@privacy statement%2$@. Survey powered by a third-party. View their %3$@privacy policy%4$@.", comment: "Title of footer button on import shared reading list survey prompt, which takes user to the privacy policy. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting")
+        let footerFormat = WMFLocalizedString("import-shared-reading-list-survey-prompt-footer", value: "View our %1$@privacy statement%2$@. Survey powered by a third-party. View their %3$@privacy policy%4$@.", comment: "Title of footer button on import shared reading list survey prompt, which takes user to the privacy policy. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting")
         
         let footerHTML = String.localizedStringWithFormat(
             footerFormat,
