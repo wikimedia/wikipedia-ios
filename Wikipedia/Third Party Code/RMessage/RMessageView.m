@@ -253,7 +253,18 @@ static NSMutableDictionary *globalDesignDictionary;
     if (designError) return nil;
 
     [self setupDesign];
-    [self setupLayout];
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addToSuperviewForPresentation];
+      
+      // This check fixes an NSLayoutConstraint crash
+      // https://phabricator.wikimedia.org/T323163
+      if (self.superview) {
+          [self setupLayout];
+      } else {
+          [self removeFromSuperview];
+          return nil;
+      }
+      
     if (dismissingEnabled) {
       [self setupGestureRecognizers];
     } else {
@@ -451,13 +462,7 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)setupLayout
 {
-  self.translatesAutoresizingMaskIntoConstraints = NO;
-
-  // Add RMessage to superview
-  [self addToSuperviewForPresentation];
-
   if (self.messagePosition != RMessagePositionBottom) {
-    [self layoutIfNeeded];
     self.topToVCTopLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.superview
                                                                 attribute:NSLayoutAttributeTop
                                                                 relatedBy:NSLayoutRelationEqual
