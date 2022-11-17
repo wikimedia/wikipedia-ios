@@ -242,7 +242,8 @@ extension WMFAppViewController: CreateReadingListDelegate {
         do {
             createReadingListViewController.createReadingListButton.isEnabled = false
             let readingList = try dataStore.readingListsController.createReadingList(named: name, description: description, with: articles)
-           showImportedReadingList(readingList)
+            ReadingListsFunnel.shared.logCompletedImport(articlesCount: articles.count)
+            showImportedReadingList(readingList)
 
         } catch let error {
             switch error {
