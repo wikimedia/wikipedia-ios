@@ -180,8 +180,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
                 switch result {
                 case .success(let articles):
                     self.articles = articles
-                    self.readingListNameTextField.text = self.importedReadingList?.name
-                    self.descriptionTextField.text = self.importedReadingList?.description
+                    self.readingListNameTextField.text = WMFLocalizedString("import-shared-reading-list-default-title", value: "My Reading List", comment: "Default title of a reading list imported through a shared link.")
                     self.createReadingListButton.isEnabled = !self.isReadingListNameFieldEmpty && self.readingListNameErrorLabel.isHidden
                 case .failure(let error):
                     self.readingListNameTextField.isEnabled = false

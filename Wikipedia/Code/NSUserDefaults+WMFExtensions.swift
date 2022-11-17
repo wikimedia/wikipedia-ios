@@ -30,6 +30,7 @@ let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificatio
 let WMFUserHasOnboardedToContributingToTalkPages = "WMFUserHasOnboardedToContributingToTalkPages"
 let WMFDidShowNotificationsCenterPushOptInPanel = "WMFDidShowNotificationsCenterPushOptInPanel"
 let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
+let WMFTappedToImportSharedReadingListSurvey = "WMFTappedToImportSharedReadingListSurvey"
 
 @objc public enum WMFAppDefaultTabType: Int {
     case explore
@@ -509,6 +510,15 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
         }
         set {
             set(newValue, forKey: WMFShowNotificationsExploreFeedCard)
+        }
+    }
+    
+    @objc var wmf_tappedToImportSharedReadingListSurvey: Bool {
+        get {
+           return bool(forKey: WMFTappedToImportSharedReadingListSurvey)
+        }
+        set {
+            set(newValue, forKey: WMFTappedToImportSharedReadingListSurvey)
         }
     }
 
