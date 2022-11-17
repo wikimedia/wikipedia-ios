@@ -323,7 +323,7 @@ class TalkPageViewController: ViewController {
         if let replyComposeView = replyComposeController.containerView {
             return max(0, toolbar.frame.minY - replyComposeView.frame.minY)
         } else if isShowingFindInPage {
-            return -toolbar.frame.height
+            return toolbar.frame.height
         }
 
         return 0
