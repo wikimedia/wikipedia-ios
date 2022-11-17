@@ -144,46 +144,7 @@ class ReadingListDetailViewController: ViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // TODO: Maybe adjust survey prompt display logic to once-per-install
-        guard fromImport && !seenSurveyPrompt else {
-            return
-        }
-
-        guard let surveyURL = self.importSurveyURL else {
-            return
-        }
-
-        self.importSurveyPromptTimer = Timer.scheduledTimer(withTimeInterval: importSurveyPromptDelay, repeats: false, block: { [weak self] timer in
-            guard let self = self else {
-                return
-            }
-
-            self.seenSurveyPrompt = true
-            ReadingListsFunnel.shared.logPresentedSurveyPrompt()
-
-            self.wmf_showReadingListImportSurveyPanel(primaryButtonTapHandler: { (sender) in
-                ReadingListsFunnel.shared.logTappedTakeSurvey()
-                self.navigate(to: surveyURL, useSafari: true)
-                // dismiss handler is called
-            }, secondaryButtonTapHandler: { (sender) in
-                // dismiss handler is called
-            }, footerLinkAction: { (url) in
-                 self.navigate(to: url, useSafari: true)
-                // intentionally don't dismiss
-            }, traceableDismissHandler: { lastAction in
-                switch lastAction {
-                case .tappedBackground, .tappedClose, .tappedSecondary:
-                    print("tappedSecondary")
-                    // TODO: Log dismissed
-                case .tappedPrimary:
-                    print("tappedPrimary")
-                    // TODO: Log tapped survey
-                case .none:
-                    assertionFailure("Unexpected lastAction in Panel dismissHandler")
-                    break
-                }
-            }, theme: self.theme)
-        })
+        showImportSharedReadingListSurveyPromptIfNeeded()
     }
     
     // MARK: - Theme
@@ -369,5 +330,63 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
             addExtendedView()
         }
         viewController.updateScrollViewInsets()
+    }
+}
+
+
+// MARK: - Import Shared Reading Lists
+
+private extension ReadingListDetailViewController {
+    private func  showImportSharedReadingListSurveyPromptIfNeeded() {
+        guard fromImport else {
+            return
+        }
+        
+        // If they ever tapped "Take survey", never show the prompt again
+        guard !UserDefaults.standard.wmf_tappedToImportSharedReadingListSurvey else {
+            return
+        }
+        
+        // Don't show survey prompt if they've already seen it on this particular view controller
+        guard !seenSurveyPrompt else {
+            return
+        }
+
+        guard let surveyURL = self.importSurveyURL else {
+            return
+        }
+
+        self.importSurveyPromptTimer = Timer.scheduledTimer(withTimeInterval: importSurveyPromptDelay, repeats: false, block: { [weak self] timer in
+            guard let self = self else {
+                return
+            }
+
+            self.seenSurveyPrompt = true
+            ReadingListsFunnel.shared.logPresentedSurveyPrompt()
+
+            self.wmf_showReadingListImportSurveyPanel(primaryButtonTapHandler: { (sender) in
+                ReadingListsFunnel.shared.logTappedTakeSurvey()
+                UserDefaults.standard.wmf_tappedToImportSharedReadingListSurvey = true
+                self.navigate(to: surveyURL, useSafari: true)
+                // dismiss handler is called
+            }, secondaryButtonTapHandler: { (sender) in
+                // dismiss handler is called
+            }, footerLinkAction: { (url) in
+                 self.navigate(to: url, useSafari: true)
+                // intentionally don't dismiss
+            }, traceableDismissHandler: { lastAction in
+                switch lastAction {
+                case .tappedBackground, .tappedClose, .tappedSecondary:
+                    print("tappedSecondary")
+                    // TODO: Log dismissed
+                case .tappedPrimary:
+                    print("tappedPrimary")
+                    // TODO: Log tapped survey
+                case .none:
+                    assertionFailure("Unexpected lastAction in Panel dismissHandler")
+                    break
+                }
+            }, theme: self.theme)
+        })
     }
 }
