@@ -159,8 +159,10 @@ class ReadingListDetailViewController: ViewController {
             }
 
             self.seenSurveyPrompt = true
+            ReadingListsFunnel.shared.logPresentedSurveyPrompt()
 
             self.wmf_showReadingListImportSurveyPanel(primaryButtonTapHandler: { (sender) in
+                ReadingListsFunnel.shared.logTappedTakeSurvey()
                 self.navigate(to: surveyURL, useSafari: true)
                 // dismiss handler is called
             }, secondaryButtonTapHandler: { (sender) in
