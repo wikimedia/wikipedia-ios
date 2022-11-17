@@ -42,7 +42,9 @@ extension ArticleViewController {
             showGenericError()
             return
         }
-        navigate(to: talkPageURL)
+        
+        let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.article.rawValue]
+        navigate(to: talkPageURL, userInfo: userInfo)
     }
     
     func showCoordinate() {

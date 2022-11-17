@@ -128,6 +128,11 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
 // MARK: Actions
     
     @objc func closeButtonTapped(_ sender: UIButton) {
+        
+        if isInImportingMode {
+            ReadingListsFunnel.shared.logCancelImport()
+        }
+        
         navigationController?.dismiss(animated: true)
     }
     
@@ -274,6 +279,13 @@ private extension CreateReadingListViewController {
         }
         
         self.importedReadingList = importedReadingList
+        
+        var loggingArticleCount = 0
+        for (_, value) in importedReadingList.list {
+            loggingArticleCount = loggingArticleCount + value.count
+        }
+        
+        ReadingListsFunnel.shared.logStartImport(articlesCount: loggingArticleCount)
 
         pageURLsFromImportedReadingList(importedReadingList) { [weak self] result in
             switch result {
