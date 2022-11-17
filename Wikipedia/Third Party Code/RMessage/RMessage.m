@@ -216,6 +216,10 @@ static NSLock *mLock, *nLock;
 
 + (void)prepareNotificationForPresentation:(RMessageView *)messageView
 {
+    if (!messageView) {
+        return;
+    }
+    
   [mLock lock];
   [[RMessage sharedMessage].messages addObject:messageView];
   [mLock unlock];
