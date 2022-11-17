@@ -387,7 +387,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "ពីវិគីភីឌា$1";
 "explore-random-article-sub-heading-from-wikipedia" = "ពីវិគីភីឌា";
 "explore-randomizer" = "អត្ថបទចៃដន្យ";
-"featured-article-empty-title" = "គ្មានអត្ថបទឆ្នើមសម្រាប់អានថ្ងៃនេះទេ";
 "featured-widget-content-failure-for-date" = "គ្មានអត្ថបទឆ្នើមសម្រាប់អាននាកាលបរិច្ឆេទនេះទេ";
 "featured-widget-description" = "រុករកអត្ថបទល្អជាងគេនៅក្នុងវិគីភីឌា ដែលសហគមយើងខ្ញុំបានសម្រាំងប្រចាំថ្ងៃ។";
 "featured-widget-from-language-wikipedia" = "ពីវិគីភីឌា$1";
@@ -682,8 +681,6 @@
 "project-name-wikiversity" = "វិគីសាកលវិទ្យាល័យ";
 "project-name-wikivoyage" = "វិគីទេសចរណ៍";
 "project-name-wiktionary" = "វិគីនានុក្រម";
-"rank-accessibility-label" = "លេខ$1";
-"readers-accessibility-label" = "អ្នកអាន$1នាក់";
 "reading-list-add-generic-hint-title" = "បន្ថែមអត្ថបទនេះទៅក្នុងបញ្ជីអានឬ?";
 "reading-list-add-hint-title" = "បន្ថែម “ $1 ” ទៅក្នុងបញ្ជីអានឬ?";
 "reading-list-add-saved-button-title" = "បាទ/ចាស៎ បន្ថែមអត្ថបទទាំងនេះទៅក្នុងបញ្ជីអានរបស់ខ្ញុំ";
@@ -833,9 +830,6 @@
 "theme-default-explanation" = "សម្របតាមរចនាបថប្រព័ន្ធ";
 "theme-light-display-name" = "ភ្លឺ";
 "theme-sepia-display-name" = "កាគី";
-"top-read-header-generic" = "វិគីភីឌា";
-"top-read-header-with-language" = "វិគីភីឌា$1";
-"top-read-see-more" = "មើលអត្ថបទអានច្រើនជាងគេបន្ថែមទៀត";
 "top-read-widget-description" = "ស្វែងយល់ពីអ្វីដែលមនុស្សក្នុងពិភពលោកកំពុងអានថ្ងៃនេះនៅក្នុងវិគីភីឌា។";
 "top-read-widget-readers-count" = "អ្នកអាន$1នាក់";
 "top-read-widget-title" = "អត្ថបទអានច្រើនជាងគេ";

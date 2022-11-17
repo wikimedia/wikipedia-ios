@@ -801,5 +801,21 @@
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Afturkalla vistun á ?</string>
 	</dict>
+	<key>talk-page-replies-count-accessibilty-label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d svar</string>
+			<key>other</key>
+			<string>%1$d svör</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

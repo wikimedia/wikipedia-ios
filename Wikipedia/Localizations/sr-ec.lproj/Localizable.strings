@@ -378,7 +378,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Језик Википедије: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Са Википедије";
 "explore-randomizer" = "Случајни чланак";
-"featured-article-empty-title" = "Данас нема доступних препоручених чланака";
 "featured-widget-from-wikipedia" = "С Википедије";
 "featured-widget-title" = "Сјајан чланак";
 "fetcher-error-generic" = "Нешто је кренуло наопако. Покушајте поново касније.";
@@ -625,8 +624,6 @@
 "project-name-wikiversity" = "Викиверзитет";
 "project-name-wikivoyage" = "Википутовање";
 "project-name-wiktionary" = "Викиречник";
-"rank-accessibility-label" = "Број $1";
-"readers-accessibility-label" = "Читалаца: $1";
 "reading-list-add-generic-hint-title" = "Додати овај чланак на листу за читање?";
 "reading-list-add-hint-title" = "Додати „$1” на листу за читање?";
 "reading-list-add-saved-button-title" = "Да, додај их на листу за читање";
@@ -858,9 +855,6 @@
 "theme-default-explanation" = "Поклапа се са темом система";
 "theme-light-display-name" = "Светло";
 "theme-sepia-display-name" = "Сепија";
-"top-read-header-generic" = "Википедија";
-"top-read-header-with-language" = "Језик Википедије: $1";
-"top-read-see-more" = "Још најчитанијих чланака";
 "top-read-widget-readers-count" = "Читалаца: $1";
 "top-read-widget-title" = "Најчитаније";
 "two-factor-login-continue" = "Настави пријаву";

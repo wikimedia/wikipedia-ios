@@ -553,8 +553,6 @@
 "potd-widget-title" = "A nap képe";
 "preference-summary-eventlogging-opt-in" = "A Wikimédia Alapítvány adatokat gyűjthet arról, hogy hogyan használod az alkalmazást, hogy még jobbá tehessük.";
 "preference-title-eventlogging-opt-in" = "Használati jelentések küldése";
-"rank-accessibility-label" = "$1.";
-"readers-accessibility-label" = "$1 olvasó";
 "reading-list-add-generic-hint-title" = "Szócikket olvasólistára?";
 "reading-list-add-hint-title" = "„$1” hozzáadása egy olvasólistához?";
 "reading-list-add-saved-button-title" = "Igen, vedd fel az olvasólistáimhoz";
@@ -696,9 +694,6 @@
 "theme-default-display-name" = "Alapértelmezés";
 "theme-light-display-name" = "Világos";
 "theme-sepia-display-name" = "Szépia";
-"top-read-header-generic" = "Wikipédia";
-"top-read-header-with-language" = "$1 Wikipédia";
-"top-read-see-more" = "Több felkapott";
 "two-factor-login-continue" = "Bejelentkezés folytatása";
 "two-factor-login-instructions" = "Írd be a kétlépcsős azonosítás kódját";
 "two-factor-login-title" = "Bejelentkezés a fiókodba";

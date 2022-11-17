@@ -182,8 +182,6 @@
 "potd-description-prefix" = "Dienos nuotrauka $1";
 "potd-empty-error-description" = "Nepavyko gauti $1 dienos nuotraukos";
 "preference-title-eventlogging-opt-in" = "Siųsti naudojimo ataskaitas";
-"rank-accessibility-label" = "Numeris $1";
-"readers-accessibility-label" = "$1 skaitytojai";
 "reading-themes-controls-accessibility-black-theme-button" = "Juoda tema";
 "reference-title" = "Išnaša $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Šiandien|1=Vakar|Prieš $1 dienas|Prieš $1 dienų}}";
@@ -228,9 +226,6 @@
 "theme-black-display-name" = "Juoda";
 "theme-default-explanation" = "Sutampa su sistemos tema";
 "theme-light-display-name" = "Šviesi";
-"top-read-header-generic" = "Vikipedija";
-"top-read-header-with-language" = "$1 Vikipedija";
-"top-read-see-more" = "Žiūrėti daugiau skaitomiausių";
 "two-factor-login-continue" = "Tęsti prisijungimą";
 "two-factor-login-title" = "Prisijunkite prie savo paskyros";
 "two-factor-login-with-regular-code" = "Naudoti patvirtinimo kodą";

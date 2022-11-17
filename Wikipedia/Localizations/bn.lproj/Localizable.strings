@@ -336,8 +336,6 @@
 "preference-title-eventlogging-opt-in" = "ব্যবহারের রিপোর্ট পাঠান";
 "project-name-wikimedia-commons" = "উইকিমিডিয়া কমন্স";
 "project-name-wikiquote" = "উইকিউক্তি";
-"rank-accessibility-label" = "$1 নং";
-"readers-accessibility-label" = "$1 জন পাঠক";
 "reading-list-create-new-list-description" = "বিবরণ";
 "reading-list-create-new-list-title" = "নতুন তালিকা তৈরি করুন";
 "reading-lists-default-list-title" = "সংরক্ষিত";
@@ -400,9 +398,6 @@
 "theme-dark-display-name" = "আঁধার";
 "theme-default-display-name" = "পূর্বনির্ধারিত";
 "theme-sepia-display-name" = "কালচে-বাদামি";
-"top-read-header-generic" = "উইকিপিডিয়া";
-"top-read-header-with-language" = "$1 উইকিপিডিয়া";
-"top-read-see-more" = "আরও শীর্ষ পঠিত দেখুন";
 "top-read-widget-readers-count" = "$1 জন পাঠক";
 "two-factor-login-continue" = "প্রবেশ অব্যাহত রাখুন";
 "two-factor-login-instructions" = "দুই ধাপের যাচাইকরণ কোড প্রবেশ করান";

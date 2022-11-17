@@ -355,7 +355,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Da Wikipedia en $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Da Wikipedia";
 "explore-randomizer" = "Artigo aleatorio";
-"featured-article-empty-title" = "Hoxe non está dispoñible ningún artigo destacado";
 "fetcher-error-generic" = "Algo fallou. Por favor, ténteo de novo máis tarde.";
 "fetcher-error-unexpected-response" = "A aplicación recibiu unha resposta inesperada do servidor. Por favor, ténteo de novo máis tarde.";
 "field-alert-captcha-invalid" = "O CAPTCHA non é válido";
@@ -539,8 +538,6 @@
 "potd-empty-error-description" = "Erro ó recuperar a imaxe do día para $1";
 "preference-summary-eventlogging-opt-in" = "Permitir que a Fundación Wikimedia recompile información acerca de como utiliza a aplicación para facela mellor";
 "preference-title-eventlogging-opt-in" = "Enviar informes de uso";
-"rank-accessibility-label" = "Número $1";
-"readers-accessibility-label" = "$1 lectores";
 "reading-list-add-generic-hint-title" = "Engadir este artigo a unha lista de lectura?";
 "reading-list-add-hint-title" = "Engdir \"$1\" á lista de lectura?";
 "reading-list-add-saved-button-title" = "Si, engadilos ás miñas listas de lectura";
@@ -758,9 +755,6 @@
 "theme-default-explanation" = "Corresponde ó tema do sistema";
 "theme-light-display-name" = "Claro";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "Wikipedia en $1";
-"top-read-see-more" = "Ver máis artigos máis lidos";
 "two-factor-login-continue" = "Continuar co inicio de sesión";
 "two-factor-login-instructions" = "Escriba o código de verificación de dous factores";
 "two-factor-login-title" = "Comezar sesión na súa conta";

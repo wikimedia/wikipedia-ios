@@ -139,6 +139,7 @@
 "account-creation-saving" = "Сохраняется…";
 "account-creation-title" = "Создайте новую учётную запись";
 "account-group-title" = "Ваша учётная запись";
+"account-request-vanishing" = "Удалить учётную запись";
 "account-talk-page-title" = "Ваша страница обсуждения";
 "account-talk-preferences-auto-sign-discussions" = "Автоматическая подпись в обсуждениях";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "В автоматическом подписывании обсуждений будет использовать та подпись, которая установлена в Настройках";
@@ -466,7 +467,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-randomizer" = "Рандомизатор";
 "export-user-data-title" = "Экспорт данных пользователя";
-"featured-article-empty-title" = "Сегодня нет избранных статей";
 "featured-widget-content-failure-for-date" = "Избранная статья недоступна для этой даты.";
 "featured-widget-description" = "Откройте для себя лучшие статьи из Википедии, ежедневно отбираемые нашим сообществом.";
 "featured-widget-from-language-wikipedia" = "Из $1 Википедии";
@@ -818,8 +818,6 @@
 "project-name-wikiversity" = "Викиверситет";
 "project-name-wikivoyage" = "Викигид";
 "project-name-wiktionary" = "Викисловарь";
-"rank-accessibility-label" = "Количество $1";
-"readers-accessibility-label" = "$1 читателей";
 "reading-list-add-generic-hint-title" = "Добавить эту статью в список для чтения?";
 "reading-list-add-hint-title" = "Добавить “$1” в список для чтения";
 "reading-list-add-saved-button-title" = "Да, добавьте их в мои списки чтения";
@@ -1095,9 +1093,6 @@
 "theme-default-explanation" = "Соответствует системной теме оформления";
 "theme-light-display-name" = "Свет";
 "theme-sepia-display-name" = "Сепия";
-"top-read-header-generic" = "Википедия";
-"top-read-header-with-language" = "Раздел Википедии: $1";
-"top-read-see-more" = "Посмотреть больше самых читаемых статей";
 "top-read-widget-description" = "Узнайте, что мир читает сегодня в Википедии.";
 "top-read-widget-readers-count" = "$1 читателей";
 "top-read-widget-title" = "Самые читаемые";

@@ -547,8 +547,6 @@
 "project-name-wikiversity" = "ဝီကီဗာစတီ";
 "project-name-wikivoyage" = "ဝီကီခရီးသွား";
 "project-name-wiktionary" = "ဝစ်ရှင်နရီ";
-"rank-accessibility-label" = "နံပါတ် $1";
-"readers-accessibility-label" = "$1 စာဖတ်သူများ";
 "reading-list-add-generic-hint-title" = "ဤဆောင်းပါးအား စာဖတ်စာရင်းတစ်ခုသို့ ပေါင်းထည့်မည်လော";
 "reading-list-add-hint-title" = "“$1” ကို စာဖတ်စာရင်းသို့ ထည့်သွင်းမှာလား";
 "reading-list-add-saved-button-title" = "ဟုတ်ကဲ့၊ စာဖတ်စာရင်းထဲ ထည့်သွင်းပေးပါ";
@@ -713,9 +711,6 @@
 "theme-dark-display-name" = "အမှောင်";
 "theme-default-display-name" = "နဂိုအတိုင်း";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "ဝီကီပီးဒီးယား";
-"top-read-header-with-language" = "$1 ဝီကီပီးဒီးယား";
-"top-read-see-more" = "ဖတ်ရှုမှုအများဆုံးဆောင်းပါးများ ပိုမိုကြည့်ရှုရန်။";
 "two-factor-login-continue" = "ဆက်လက် ဝင်ရောက်ပါ";
 "two-factor-login-instructions" = "အတည်ပြုကုဒ်ကို ရိုက်ထည့်ပါ";
 "two-factor-login-title" = "သင်၏အကောင့်သို့ ဝင်ရန်";

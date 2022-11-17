@@ -412,8 +412,6 @@
 "potd-empty-error-description" = "Nun pudo algamase la imaxe del día pal $1";
 "preference-summary-eventlogging-opt-in" = "Permite a la Fundación Wikimedia collechar información tocante a cómo uses la app p'ameyorala";
 "preference-title-eventlogging-opt-in" = "Unviar informes d'usu";
-"rank-accessibility-label" = "Númberu $1";
-"readers-accessibility-label" = "$1 llectores";
 "reading-list-add-generic-hint-title" = "¿Amestar esti artículu a una llista de llectura?";
 "reading-list-add-hint-title" = "¿Añadir «$1» a una llista de llectura?";
 "reading-list-add-saved-button-title" = "Si, amestalos a les mios llistes de llectura";
@@ -576,9 +574,6 @@
 "theme-dark-display-name" = "Escuru";
 "theme-default-display-name" = "Predetermináu";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "Wikipedia $1";
-"top-read-see-more" = "Ver más lleíos";
 "two-factor-login-continue" = "Siguir l'aniciu de sesión";
 "two-factor-login-instructions" = "Escribe'l códigu de comprobación de 2 factores";
 "two-factor-login-title" = "Anicia sesión na to cuenta";

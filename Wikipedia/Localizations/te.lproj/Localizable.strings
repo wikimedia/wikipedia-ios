@@ -391,7 +391,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 వికీపీడియా నుండి";
 "explore-random-article-sub-heading-from-wikipedia" = "వికీపీడియా నుండి";
 "explore-randomizer" = "ర్యాండమైజరు";
-"featured-article-empty-title" = "ఇవ్వాళ విశేష వ్యాసమేమీ లేదు";
 "featured-widget-content-failure-for-date" = "ఈ తేదీకి విశేష వ్యాసమేమీ లేదు.";
 "featured-widget-description" = "వికీపీడియాలో రోజూ మా సముదాయం ఎంచిపెట్టే అత్యుత్తమ వ్యాసాలను చూడండి.";
 "featured-widget-from-language-wikipedia" = "$1 వికీపీడియా నుండి";
@@ -682,8 +681,6 @@
 "potd-widget-title" = "నేటి విశేష చిత్రం";
 "preference-summary-eventlogging-opt-in" = "ఈ యాప్‌ను మెరుగు పరచడం కోసం, మీరు దీన్ని ఎలా వాడుతున్నారనే సమాచారం సేకరించటానికి వికీపీడియాకి అనుమతి ఇవ్వండి";
 "preference-title-eventlogging-opt-in" = "వాడుక నివేదికలను పంపించు";
-"rank-accessibility-label" = "నంబర్ $1";
-"readers-accessibility-label" = "$1 పాఠకులు";
 "reading-list-add-generic-hint-title" = "ఈ వ్యాసాన్ని ఏదైనా చదివే జాబితా లోకి చేర్చమంటారా?";
 "reading-list-add-hint-title" = "“$1” ను ఏదైనా చదివే జాబితా లోకి చేర్చమంటారా?";
 "reading-list-add-saved-button-title" = "సరే, నా చదివే జాబితాల్లోకి చేర్చు";
@@ -862,8 +859,6 @@
 "theme-default-explanation" = "సిస్టము థీముతో సరిపోలుతుంది";
 "theme-light-display-name" = "వెలుతురు";
 "theme-sepia-display-name" = "సేపియా";
-"top-read-header-generic" = "వికీపీడియా";
-"top-read-header-with-language" = "$1 వికీపీడియా";
 "top-read-widget-description" = "లోకమంతా ఇవ్వాళ వికీపీడియాలో ఏం చదువుతోందో తెలుసుకోండి.";
 "top-read-widget-readers-count" = "$1 పాఠకులు";
 "top-read-widget-title" = "ఎక్కువగా చదివినవి";

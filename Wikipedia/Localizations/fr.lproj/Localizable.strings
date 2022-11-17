@@ -443,7 +443,6 @@
 "export-user-data-generic-error" = "Une erreur s’est produite lors de l’exportation de vos données. Veuillez essayer à nouveau plus tard.";
 "export-user-data-space-error" = "Vous ne disposez pas de suffisamment d’espace sur l’appareil pour exporter vos données utilisateur. Veuillez essayer à nouveau plus tard.";
 "export-user-data-title" = "Exporter les données utilisateur";
-"featured-article-empty-title" = "Aucun article en vedette disponible aujourd’hui";
 "featured-widget-content-failure-for-date" = "Un article mis en avant n’est pas disponible à cette date.";
 "featured-widget-description" = "Découvrir les meilleurs articles sur Wikipédia, sélectionnés chaque jour par notre communauté.";
 "featured-widget-from-language-wikipedia" = "De Wikipédia en $1";
@@ -508,6 +507,12 @@
 "icon-shortcut-random-title" = "Article au hasard";
 "icon-shortcut-search-title" = "Rechercher dans Wikipédia";
 "image-gallery-unknown-owner" = "Auteur inconnu.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Pas maintenant";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Participer au sondage";
+"import-shared-reading-list-survey-prompt-footer" = "Consultez notre $1déclaration de confidentialité$2. Sondage propulsé par un tiers. Consultez sa $3politique de confidentialité$4.";
+"import-shared-reading-list-survey-prompt-subtitle" = "Les listes de lecture partagées sont une fonctionnalité en test et nous avons besoin de vos commentaires pour l’améliorer ou la supprimer.";
+"import-shared-reading-list-survey-prompt-title" = "Pourriez-vous nous aider à améliorer cette fonctionnalité en participant à un sondage ?";
+"import-shared-reading-list-title" = "Importer une liste de lecture partagée";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipédia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipédia";
 "in-the-news-title" = "Dans l’actualité";
@@ -809,8 +814,6 @@
 "project-name-wikiversity" = "Wikiversité";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionnaire";
-"rank-accessibility-label" = "Numéro $1";
-"readers-accessibility-label" = "$1 lecteurs";
 "reading-list-add-generic-hint-title" = "Ajouter cet article à une liste de lecture ?";
 "reading-list-add-hint-title" = "Ajouter « $1 » à la liste de lecture ?";
 "reading-list-add-saved-button-title" = "Oui, les ajouter à mes listes de lecture";
@@ -1108,9 +1111,6 @@
 "theme-default-explanation" = "Correspond au thème du système";
 "theme-light-display-name" = "Clair";
 "theme-sepia-display-name" = "Sépia";
-"top-read-header-generic" = "Wikipédia";
-"top-read-header-with-language" = "Wikipédia en $1";
-"top-read-see-more" = "Voir d’autres articles les plus lus";
 "top-read-widget-description" = "Apprendre ce qui est lu aujourd’hui dans le monde sur Wikipédia.";
 "top-read-widget-readers-count" = "$1 lecteurs";
 "top-read-widget-title" = "Les plus lus";

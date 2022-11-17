@@ -431,7 +431,6 @@
 "export-user-data-generic-error" = "Ocorreu um erro durante a exportação dos seus dados. Tente novamente mais tarde, por favor.";
 "export-user-data-space-error" = "Não tem espaço disponível suficiente no seu dispositivo para exportar os seus dados de utilizador. Tente novamente mais tarde, por favor.";
 "export-user-data-title" = "Exportar dados de utilizador";
-"featured-article-empty-title" = "Hoje não está disponível nenhum artigo destacado";
 "featured-widget-content-failure-for-date" = "Não está disponível nenhum artigo destacado para esta data.";
 "featured-widget-description" = "Descubra os melhores artigos da Wikipédia, selecionados diariamente pela nossa comunidade.";
 "featured-widget-from-language-wikipedia" = "Da Wikipédia em $1";
@@ -797,8 +796,6 @@
 "project-name-wikiversity" = "Wikiversidade";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wikcionário";
-"rank-accessibility-label" = "Número $1";
-"readers-accessibility-label" = "$1 leitores";
 "reading-list-add-generic-hint-title" = "Adicionar este artigo a uma lista de leitura?";
 "reading-list-add-hint-title" = "Adicionar “$1” a uma lista de leitura?";
 "reading-list-add-saved-button-title" = "Sim, desejo adicioná-los às minhas listas de leitura";
@@ -1094,9 +1091,6 @@
 "theme-default-explanation" = "Corresponde ao tema do sistema";
 "theme-light-display-name" = "Claro";
 "theme-sepia-display-name" = "Sépia";
-"top-read-header-generic" = "Wikipédia";
-"top-read-header-with-language" = "Wikipédia em $1";
-"top-read-see-more" = "Ver mais artigos dos mais lidos";
 "top-read-widget-description" = "Saiba o que o mundo está a ler hoje na Wikipédia.";
 "top-read-widget-readers-count" = "$1 leitores";
 "top-read-widget-title" = "Mais lidos";

@@ -59,6 +59,7 @@
 "aaald-new-news-reference-retrieved-date" = "استرجاع $1";
 "aaald-new-news-reference-title" = "أخبار";
 "aaald-new-talk-topic-description-format" = "$1 حول هذه المقالة";
+"aaald-new-website-reference-archive-date-text" = "من الأصل على $1";
 "aaald-new-website-reference-archive-url-text" = "مسار موقع الأرشيف";
 "aaald-new-website-reference-title" = "موقع ويب";
 "aaald-numerical-multiple-references-added-description" = "تمت إضافة {{PLURAL:$1|0=0 مرجع|مرجع|مرجعين|$1 مراجع}}";
@@ -443,7 +444,6 @@
 "export-user-data-generic-error" = "حدث خطأ أثناء تصدير بياناتك. الرجاء معاودة المحاولة في وقت لاحق.";
 "export-user-data-space-error" = "ليس لديك مساحة كافية على الجهاز لتصدير بيانات المستخدم الخاصة بك. الرجاء معاودة المحاولة في وقت لاحق.";
 "export-user-data-title" = "تصدير بيانات المستخدم";
-"featured-article-empty-title" = "لا توجد مقالة مختارة متوفرة اليوم";
 "featured-widget-content-failure-for-date" = "لا تتوفر مقالة مختارة متوافقة مع هذا التاريخ";
 "featured-widget-description" = "اكتشف أفضل المقالات على ويكيبيديا ، التي يختارها مجتمعنا يوميًا.";
 "featured-widget-from-language-wikipedia" = "من ويكيبيديا $1";
@@ -742,8 +742,6 @@
 "project-name-wikiversity" = "ويكي الجامعة";
 "project-name-wikivoyage" = "ويكي الرحلات";
 "project-name-wiktionary" = "ويكاموس";
-"rank-accessibility-label" = "رقم $1";
-"readers-accessibility-label" = "$1 قارئ";
 "reading-list-add-generic-hint-title" = "إضافة هذه المقالة لقائمة قراءة؟";
 "reading-list-add-hint-title" = "أضف \"$ 1\" إلى قائمة قراءة؟";
 "reading-list-add-saved-button-title" = "نعم ، أضفهم إلى قوائم قراءتي";
@@ -1003,9 +1001,6 @@
 "theme-default-explanation" = "يطابق موضوع النظام";
 "theme-light-display-name" = "فاتح";
 "theme-sepia-display-name" = "بني داكن";
-"top-read-header-generic" = "ويكيبيديا";
-"top-read-header-with-language" = "$1 ويكيبيديا";
-"top-read-see-more" = "طالع المزيد من الأعلى قراءةً";
 "top-read-widget-description" = "تعرَّف على ما أكثر ما قُرأ على ويكيبيديا اليوم";
 "top-read-widget-readers-count" = "$1 قارئ";
 "top-read-widget-title" = "الأكثر قراءة";

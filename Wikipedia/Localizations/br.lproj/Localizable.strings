@@ -317,8 +317,6 @@
 "project-name-wikiversity" = "Wikiskolveur";
 "project-name-wikivoyage" = "Wikibeaj";
 "project-name-wiktionary" = "Wikeriadur";
-"rank-accessibility-label" = "Niverenn $1";
-"readers-accessibility-label" = "$1 lenner";
 "reading-list-add-generic-hint-title" = "Ouzhpennañ ar pennad-mañ d'ur roll lenn ?";
 "reading-list-add-hint-title" = "Ouzhpennañ \"$1\" d'ar roll lenn ?";
 "reading-list-add-saved-button-title" = "Ya, ouzhpennit anezho da'm rolloù lenn";
@@ -377,9 +375,6 @@
 "table-of-contents-close-accessibility-label" = "Serriñ an daolenn";
 "table-of-contents-heading" = "Endalc'had";
 "theme-black-display-name" = "Du";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "$1 Wikipedia";
-"top-read-see-more" = "Gwelet muioc'h a bajennoù hag a vez sellet ar muiañ outo.";
 "two-factor-login-continue" = "Kenderc'hel da gevreañ";
 "two-factor-login-instructions" = "Merkit ar c'hod gwiriañ dezhañ daou faktor";
 "two-factor-login-title" = "Kevreañ d'ho kont";

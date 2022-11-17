@@ -439,7 +439,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 위키백과에서";
 "explore-random-article-sub-heading-from-wikipedia" = "위키백과에서";
 "explore-randomizer" = "임의의 문서 보기";
-"featured-article-empty-title" = "오늘 볼 수 있는 알찬 글 없음";
 "featured-widget-content-failure-for-date" = "알찬 글은 현재 날짜 기준으로 사용할 수 없습니다.";
 "featured-widget-description" = "우리 공동체가 날마다 선정하는 위키백과 최고의 문서를 찾아보세요.";
 "featured-widget-from-language-wikipedia" = "$1 위키백과에서";
@@ -794,8 +793,6 @@
 "project-name-wikiversity" = "위키배움터";
 "project-name-wikivoyage" = "위키여행";
 "project-name-wiktionary" = "위키낱말사전";
-"rank-accessibility-label" = "$1번";
-"readers-accessibility-label" = "$1명의 독자";
 "reading-list-add-generic-hint-title" = "이 문서를 읽기 목록ㄹ에 추가하시겠습니까?";
 "reading-list-add-hint-title" = "\"$1\" 문서를 읽기 목록에 추가할까요?";
 "reading-list-add-saved-button-title" = "예, 내 읽기 목록에 추가합니다";
@@ -1046,9 +1043,6 @@
 "theme-default-explanation" = "시스템 테마에 일치시킵니다";
 "theme-light-display-name" = "밝음";
 "theme-sepia-display-name" = "세피아";
-"top-read-header-generic" = "위키백과";
-"top-read-header-with-language" = "$1 위키백과";
-"top-read-see-more" = "윗글 더 보기";
 "top-read-widget-description" = "세상 사람들이 위키백과에서 오늘 무엇을 읽고 있는지 알아보세요.";
 "top-read-widget-readers-count" = "$1명의 독자";
 "top-read-widget-title" = "가장 많이 읽은 글";

@@ -342,8 +342,6 @@
 "potd-empty-error-description" = "Ezin izan da berreskuratu gaurko argazkia $1(e)ngatik";
 "preference-summary-eventlogging-opt-in" = "Baimendu Wikimediari zure aplikazioaren erabileraren inguruko informazioa jasotzen, aplikazioa hobetzeko.";
 "preference-title-eventlogging-opt-in" = "Bidali erabilpen iruzkina";
-"rank-accessibility-label" = "$1 zenbakia";
-"readers-accessibility-label" = "$1 irakurle";
 "reading-list-add-generic-hint-title" = "Artikulu hau gehitu irakurtze zerrendara?";
 "reading-list-add-hint-title" = "Gehitu $1 irakurketa zerrendara?";
 "reading-list-add-saved-button-title" = "Bai, gehitu itzazu nire irakurketa zerrendetara";
@@ -509,9 +507,6 @@
 "theme-dark-display-name" = "Iluna";
 "theme-default-display-name" = "Lehenetsia";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "$1 Wikipedia";
-"top-read-see-more" = "Irakurketa nabarmen gehiago ikusi";
 "two-factor-login-continue" = "Saio hasierarekin jarraitu";
 "two-factor-login-instructions" = "Mesedez, sartu bi faktoreen egiaztapen kodea";
 "two-factor-login-title" = "Zure kontuan sartu";

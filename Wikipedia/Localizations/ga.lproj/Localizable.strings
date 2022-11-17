@@ -359,8 +359,6 @@
 "potd-description-prefix" = "Pictiúr an lae ar $1";
 "potd-widget-title" = "Pictiúr an lae";
 "preference-title-eventlogging-opt-in" = "Seol tuairiscí úsáide";
-"rank-accessibility-label" = "Uimhir $1";
-"readers-accessibility-label" = "$1 léitheoir";
 "reading-list-add-generic-hint-title" = "Cuir an t-alt seo ar liosta léitheoireachta?";
 "reading-list-add-hint-title" = "Cuir “$1” ar liosta léitheoireachta?";
 "reading-list-add-saved-button-title" = "Ba mhaith, cuir ar mo liostaí léitheoireachta iad";
@@ -474,9 +472,6 @@
 "theme-default-display-name" = "Réamhshocrú";
 "theme-default-explanation" = "Ag teacht le téama an chórais";
 "theme-sepia-display-name" = "Séipia";
-"top-read-header-generic" = "Vicipéid";
-"top-read-header-with-language" = "Vicipéid ($1)";
-"top-read-see-more" = "Féach ar thuilleadh alt is mó léamh";
 "two-factor-login-continue" = "Lean ort ag logáil isteach";
 "two-factor-login-instructions" = "Iontráil cód fhíordheimhniú déshraithe";
 "two-factor-login-title" = "Logáil isteach i do chuntas";

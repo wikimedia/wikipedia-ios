@@ -205,7 +205,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "အဝ်ႏ$1 ဝီခီပီးဒီးယား";
 "explore-random-article-sub-heading-from-wikipedia" = "အဝ်ႏဝီခီပီးဒီးယား";
 "explore-randomizer" = "ရော့ꩻရာꩻစဲဉ်ႏ";
-"featured-article-empty-title" = "ဟန်နီꩻ ရောမ်ဖြုဲင်ꩻတဲးဝါး လꩻနွောင်ꩻတဝ်းသွူ";
 "featured-widget-content-failure-for-date" = "မွူးနီꩻယိုအတာႏ ရောမ်ဖြုဲင်ꩻတဲးဝါး လꩻနွောင်ꩻတဝ်းသွူ။";
 "featured-widget-from-language-wikipedia" = "အဝ်ႏ$1 ဝီခီပီးဒီးယား";
 "featured-widget-from-wikipedia" = "အဝ်ႏဝီခီပီးဒီးယား";
@@ -389,8 +388,6 @@
 "potd-description-prefix" = "$1 တာႏ ဓာတ်ပုင်ႏဟန်ႏနီꩻ";
 "potd-widget-title" = "ဓာတ်ပုင်ႏဟန်ႏနီꩻ";
 "preference-title-eventlogging-opt-in" = "ပသာ ထူႏသုင်ꩻခါꩻခရာႏဖိုင်ႏ";
-"rank-accessibility-label" = "အမုဲင် $1";
-"readers-accessibility-label" = "ဟော်ꩻလိတ်သားဖိုင်ႏ $1";
 "reading-list-add-generic-hint-title" = "ဟော်ꩻလိတ်စာႏရင်ꩻကို ထဲမ်သော့ꩻနေ ရောမ်ဖြုဲင်ꩻယိုဟောင်း?";
 "reading-list-add-hint-title" = "ဟော်ꩻလိတ်စာႏရင်ꩻကို ထဲမ်သော့ꩻနေ \"$1\"ဟောင်း?";
 "reading-list-add-saved-title" = "မော့ꩻ ကသဲမ်ခါꩻဒါႏရောမ်ဖြုဲင်ꩻဖိုင်ႏ";
@@ -520,9 +517,6 @@
 "theme-default-display-name" = "နုဲင်းမူလအတွိုင်ꩻ";
 "theme-light-display-name" = "အလေ";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "ဝီခီပီးဒီးယား";
-"top-read-header-with-language" = "$1 ဝီခီပီးဒီးယား";
-"top-read-see-more" = "ထွားထဲင်း ဟော်ꩻထွားအအာသွတ်ꩻ";
 "top-read-widget-readers-count" = "ဟော်ꩻလိတ်သားဖိုင်ႏ $1";
 "top-read-widget-title" = "ဟော်ꩻထွားအာသွတ်ꩻ";
 "two-factor-login-continue" = "နွို့သွုပ်အကောက်";

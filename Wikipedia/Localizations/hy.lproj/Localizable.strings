@@ -171,8 +171,6 @@
 "places-search-default-text" = "Որոնել վայրեր";
 "places-search-top-articles-that-match-scope" = "Մոտակայքում";
 "preference-title-eventlogging-opt-in" = "Ուղարկել օգտագործման մասին տեղեկություններ";
-"rank-accessibility-label" = "Քանակ $1";
-"readers-accessibility-label" = "$1 ընթերցողներ";
 "reading-list-create-new-list-description" = "Նկարագրություն";
 "replace-infolabel-method-replace" = "Փոխարինել";
 "replace-infolabel-method-replace-all" = "Փոխարինել բոլորը";
@@ -210,8 +208,6 @@
 "theme-black-display-name" = "Սև";
 "theme-default-display-name" = "Լռելյայն";
 "theme-sepia-display-name" = "Սեպիա";
-"top-read-header-generic" = "Վիքիպեդիա";
-"top-read-header-with-language" = "$1 Վիքիպեդիա";
 "unknown-generic-text" = "Անհայտ";
 "vanish-account-continue-button-title" = "Շարունակել";
 "vanish-account-learn-more-text" = "Իմանալ ավելին";

@@ -352,7 +352,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Jezik Vikipedije: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Sa Vikipedije";
 "explore-randomizer" = "Slučajni članak";
-"featured-article-empty-title" = "Danas nema dostupnih preporučenih članaka";
 "fetcher-error-generic" = "Nešto je krenulo naopako. Molimo pokušajte kasnije.";
 "fetcher-error-unexpected-response" = "Aplikacija je dobila neočekivan odgovor od strane servera. Molimo pokušajte kasnije.";
 "field-alert-captcha-invalid" = "Nevažeća CAPTCHA";
@@ -549,8 +548,6 @@
 "potd-empty-error-description" = "Dobavljanje slike dana za $1 nije uspelo";
 "preference-summary-eventlogging-opt-in" = "Dozvolite Zadužbini Vikimedija da prikuplja informacije o tome kako koristite aplikaciju u cilju njenog poboljšanja.";
 "preference-title-eventlogging-opt-in" = "Šalji izveštaje o upotrebi";
-"rank-accessibility-label" = "Broj $1";
-"readers-accessibility-label" = "Čitalaca: $1";
 "reading-list-add-generic-hint-title" = "Dodati ovaj članak na listu za čitanje?";
 "reading-list-add-hint-title" = "Dodati „$1” na listu za čitanje?";
 "reading-list-add-saved-button-title" = "Da, dodaj ih na listu za čitanje";
@@ -767,9 +764,6 @@
 "theme-default-explanation" = "Poklapa se sa temom sistema";
 "theme-light-display-name" = "Svetlo";
 "theme-sepia-display-name" = "Sepija";
-"top-read-header-generic" = "Vikipedija";
-"top-read-header-with-language" = "Jezik Vikipedije: $1";
-"top-read-see-more" = "Još najčitanijih članaka";
 "two-factor-login-continue" = "Nastavi prijavu";
 "two-factor-login-instructions" = "Unesite kôd dvofaktorske potvrde identiteta";
 "two-factor-login-title" = "Prijavite se na svoj nalog";

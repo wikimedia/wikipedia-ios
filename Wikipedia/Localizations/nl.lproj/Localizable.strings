@@ -449,7 +449,6 @@
 "export-user-data-generic-error" = "Er is een fout opgetreden bij het exporteren van uw gegevens. Probeer het later opnieuw.";
 "export-user-data-space-error" = "U heeft onvoldoende ruimte op uw apparaat om uw gebruikersgegevens te exporteren. Probeer het later opnieuw.";
 "export-user-data-title" = "Exporteer gebruikersgegevens";
-"featured-article-empty-title" = "Geen toegelicht artikel beschikbaar voor vandaag";
 "featured-widget-content-failure-for-date" = "Er is geen uitgelicht artikel voor deze datum.";
 "featured-widget-description" = "Ontdek de beste artikelen op Wikipedia, dagelijks uitgekozen door onze gemeenschap.";
 "featured-widget-from-language-wikipedia" = "Uit Wikipedia in het $1";
@@ -815,8 +814,6 @@
 "project-name-wikiversity" = "Wikiversity";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "WikiWoordenboek";
-"rank-accessibility-label" = "Nummer $1";
-"readers-accessibility-label" = "$1 lezers";
 "reading-list-add-generic-hint-title" = "Deze pagina aan uw leeslijst toevoegen?";
 "reading-list-add-hint-title" = "“$1” toevoegen aan een leeslijst?";
 "reading-list-add-saved-button-title" = "Ja, voeg deze toe aan mijn leeslijsten";
@@ -1099,9 +1096,6 @@
 "theme-default-explanation" = "Is gelijk aan het thema van het systeem";
 "theme-light-display-name" = "Licht";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "Wikipedia in het $1";
-"top-read-see-more" = "Meer meest gelezen pagina's bekijken";
 "top-read-widget-description" = "Ontdek wat de wereld tegenwoordig leest op Wikipedia.";
 "top-read-widget-readers-count" = "$1 lezers";
 "top-read-widget-title" = "Meest gelezen";

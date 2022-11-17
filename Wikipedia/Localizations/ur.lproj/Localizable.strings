@@ -314,8 +314,6 @@
 "potd-empty-error-description" = "$1 کے لیے آج کی تصویر اخذ نہیں کی جاسکی";
 "preference-summary-eventlogging-opt-in" = "ویکیمیڈیا کو اجازت دیں کہ وہ آپ کے اس ایپ کے استعمال کی معلومات حاصل کرے تاکہ اس ایپ کو مزید بہتر بنایا جا سکے۔";
 "preference-title-eventlogging-opt-in" = "استعمال کی رپورٹ بھیجیے";
-"rank-accessibility-label" = "نمبر $1";
-"readers-accessibility-label" = "$1 قارئین";
 "reading-list-create-new-list-description" = "وضاحت";
 "reading-list-create-new-list-reading-list-name" = "فہرست مطالعہ کا نام";
 "reading-list-create-new-list-title" = "نئی فہرست بنائیں";
@@ -368,8 +366,6 @@
 "theme-dark-display-name" = "تاریک";
 "theme-default-display-name" = "طے شدہ";
 "theme-sepia-display-name" = "بھورا";
-"top-read-header-generic" = "ویکیپیڈیا";
-"top-read-header-with-language" = "$1 ویکیپیڈیا";
 "two-factor-login-title" = "اپنے کھاتے میں لاگ ان ہوں";
 "welcome-exploration-on-this-day-title" = "آج کے دن";
 "welcome-explore-continue-button" = "شروع کریں";
