@@ -375,17 +375,7 @@ private extension ReadingListDetailViewController {
                  self.navigate(to: url, useSafari: true)
                 // intentionally don't dismiss
             }, traceableDismissHandler: { lastAction in
-                switch lastAction {
-                case .tappedBackground, .tappedClose, .tappedSecondary:
-                    print("tappedSecondary")
-                    // TODO: Log dismissed
-                case .tappedPrimary:
-                    print("tappedPrimary")
-                    // TODO: Log tapped survey
-                case .none:
-                    assertionFailure("Unexpected lastAction in Panel dismissHandler")
-                    break
-                }
+                // Do nothing
             }, theme: self.theme)
         })
     }
