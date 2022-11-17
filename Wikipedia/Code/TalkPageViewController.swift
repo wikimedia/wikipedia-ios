@@ -1049,7 +1049,9 @@ extension TalkPageViewController: TalkPageTextViewLinkHandling {
         guard let url = URL(string: url.absoluteString, relativeTo: getTalkPageURL(encoded: true)) else {
             return
         }
-        navigate(to: url.absoluteURL)
+        
+        let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.talkPage.rawValue]
+        navigate(to: url.absoluteURL, userInfo: userInfo)
     }
 }
 

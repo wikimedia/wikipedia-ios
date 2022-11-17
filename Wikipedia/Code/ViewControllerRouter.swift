@@ -1,13 +1,39 @@
 import UIKit
 import AVKit
 
+// Wrapper class for access in Objective-C
+@objc class WMFRoutingUserInfoKeys: NSObject {
+    @objc static var source: String {
+        return RoutingUserInfoKeys.source
+    }
+}
+
+// Wrapper class for access in Objective-C
+@objc class WMFRoutingUserInfoSourceValue: NSObject {
+    @objc static var deepLinkRawValue: String {
+        return RoutingUserInfoSourceValue.deepLink.rawValue
+    }
+}
+
+struct RoutingUserInfoKeys {
+    static let talkPageReplyText = "talk-page-reply-text"
+    static let source = "source"
+}
+
+enum RoutingUserInfoSourceValue: String {
+    case talkPage
+    case article
+    case notificationsCenter
+    case deepLink
+    case account
+    case search
+    case inAppWebView
+    case unknown
+}
+
 @objc(WMFViewControllerRouter)
 class ViewControllerRouter: NSObject {
-    
-    struct UserInfoKeys {
-        static let talkPageReplyText = "talk-page-reply-text"
-    }
-    
+
     @objc let router: Router
     unowned let appViewController: WMFAppViewController
     @objc(initWithAppViewController:router:)
@@ -100,7 +126,8 @@ class ViewControllerRouter: NSObject {
             vc.player = player
             return presentOrPush(vc, with: completion)
         case .talk(let linkURL):
-            guard let viewModel = TalkPageViewModel(pageType: .article, pageURL: linkURL, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
+            let source = source(from: userInfo)
+            guard let viewModel = TalkPageViewModel(pageType: .article, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
                 completion()
                 return false
             }
@@ -114,7 +141,8 @@ class ViewControllerRouter: NSObject {
         case .userTalk(let linkURL):
             if FeatureFlags.needsNewTalkPage {
                 
-                guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
+                let source = source(from: userInfo)
+                guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
                     completion()
                     return false
                 }
@@ -167,10 +195,18 @@ class ViewControllerRouter: NSObject {
             return nil
         }
         
-        let replyText = userInfo?[UserInfoKeys.talkPageReplyText] as? String
+        let replyText = userInfo?[RoutingUserInfoKeys.talkPageReplyText] as? String
             
         let deepLinkData = TalkPageViewModel.DeepLinkData(topicTitle: topicTitle, replyText: replyText)
         return deepLinkData
     }
     
+    private func source(from userInfo: [AnyHashable: Any]?) -> RoutingUserInfoSourceValue {
+        guard let sourceString = userInfo?[RoutingUserInfoKeys.source] as? String,
+              let source = RoutingUserInfoSourceValue(rawValue: sourceString) else {
+            return .unknown
+        }
+
+        return source
+    }
 }

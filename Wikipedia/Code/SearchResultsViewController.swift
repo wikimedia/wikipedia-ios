@@ -67,7 +67,8 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return
         }
         
-        navigate(to: articleURL)
+        let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.search.rawValue]
+        navigate(to: articleURL, userInfo: userInfo)
     }
 
     func redirectMappingForSearchResult(_ result: MWKSearchResult) -> MWKSearchRedirectMapping? {
