@@ -140,6 +140,12 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *__nullable restorableObjects))restorationHandler {
     [self.appViewController showSplashView];
 
+    // Assign deep link user info source before routing
+    NSMutableDictionary *mutableUserInfo = userActivity.userInfo != nil ? [[NSMutableDictionary alloc] initWithDictionary:userActivity.userInfo] : [[NSMutableDictionary alloc] init];
+    mutableUserInfo[WMFRoutingUserInfoKeys.source] = WMFRoutingUserInfoSourceValue.deepLinkRawValue;
+    NSDictionary *newUserInfo = [[NSDictionary alloc] initWithDictionary:mutableUserInfo];
+    userActivity.userInfo = newUserInfo;
+
     BOOL result = [self.appViewController processUserActivity:userActivity
                                                      animated:NO
                                                    completion:^{

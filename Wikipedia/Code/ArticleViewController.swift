@@ -774,7 +774,10 @@ class ArticleViewController: ViewController, HintPresenting {
         }
         // Check if this is the same article by comparing in-memory keys
         guard resolvedURL.wmf_inMemoryKey == articleURL.wmf_inMemoryKey else {
-            navigate(to: resolvedURL)
+            
+            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.article.rawValue]
+            navigate(to: resolvedURL, userInfo: userInfo)
+            
             return
         }
         // Check for a fragment - if this is the same article and there's no fragment just do nothing?

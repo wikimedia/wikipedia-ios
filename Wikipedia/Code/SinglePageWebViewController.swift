@@ -103,7 +103,9 @@ class SinglePageWebViewController: ViewController {
             return true
         }
     
-        navigate(to: actionURL)
+        let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.inAppWebView.rawValue]
+        navigate(to: actionURL, userInfo: userInfo)
+        
         return false
     }
     

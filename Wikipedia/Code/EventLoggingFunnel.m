@@ -9,6 +9,7 @@ EventLoggingCategory const EventLoggingCategoryArticle = @"article";
 EventLoggingCategory const EventLoggingCategorySearch = @"search";
 EventLoggingCategory const EventLoggingCategoryAddToList = @"add_to_list";
 EventLoggingCategory const EventLoggingCategorySaved = @"saved";
+EventLoggingCategory const EventLoggingCategoryShared = @"shared";
 EventLoggingCategory const EventLoggingCategoryLogin = @"login";
 EventLoggingCategory const EventLoggingCategorySetting = @"setting";
 EventLoggingCategory const EventLoggingCategoryLoginToSyncPopover = @"login_to_sync_popover";
