@@ -268,7 +268,6 @@
 "explore-random-article-heading" = "Připadny zapisk";
 "explore-random-article-sub-heading-from-language-wikipedia" = "Z tuteje Wikipedije: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipedije";
-"featured-article-empty-title" = "Dźensa žadyn předstajeny zapisk přistupny njeje";
 "fetcher-error-generic" = "Něšto je křiwje šło. Prošu spytaj pozdźišo znowa.";
 "fetcher-error-unexpected-response" = "App je njewočakowanu wotmołwu wot serwera dóstała. Prošu spytaj pozdźišo znowa.";
 "field-alert-captcha-invalid" = "Njepłaćiwy CAPTCHA";
@@ -428,8 +427,6 @@
 "share-on-twitter-sign-off" = "přez @Wikipedia";
 "share-social-format" = "„$1“ přez Wikipediju: $2";
 "talk-page-info-active-conversations" = "Aktiwne diskusije we Wikipediji ($1)";
-"top-read-header-generic" = "Wikipedija";
-"top-read-see-more" = "Dalše husto čitane zapiski pokazać";
 "welcome-exploration-on-this-day-description" = "Pućuj w času wróćo, zo by {{GENDER:$1|zhonił|zhoniła|zhoniła}}, što je so na tutym dnju w stawiznach stało.";
 "welcome-exploration-on-this-day-title" = "Na tutym dnju";
 "welcome-intro-free-encyclopedia-more" = "Wjace wo Wikipediji zhonić";

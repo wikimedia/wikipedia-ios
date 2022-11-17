@@ -437,7 +437,6 @@
 "export-user-data-generic-error" = "Det uppstod ett fel när din data skulle exporteras. Var god försök igen senare.";
 "export-user-data-space-error" = "Du har inte tillräckligt med enhetsutrymme för att exportera dina användardata. Var god försök igen senare.";
 "export-user-data-title" = "Exportera användardata";
-"featured-article-empty-title" = "Inga tillgängliga utmärkta artiklar idag";
 "featured-widget-content-failure-for-date" = "Det finns ingen utmärkt artikel för detta datum.";
 "featured-widget-description" = "Upptäck de bästa artiklarna på Wikipedia som väljs ut dagligen av vår gemenskap.";
 "featured-widget-from-language-wikipedia" = "Från Wikipedia på $1";
@@ -800,8 +799,6 @@
 "project-name-wikiversity" = "Wikiversity";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionary";
-"rank-accessibility-label" = "Nummer $1";
-"readers-accessibility-label" = "$1 läsare";
 "reading-list-add-generic-hint-title" = "Lägg till denna artikel i en läslista?";
 "reading-list-add-hint-title" = "Lägg till \"$1\" i en läslista?";
 "reading-list-add-saved-button-title" = "Ja, lägg till dem i mina läslistor";
@@ -1079,9 +1076,6 @@
 "theme-default-explanation" = "Matchar systemtemat";
 "theme-light-display-name" = "Ljust";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "$1 Wikipedia";
-"top-read-see-more" = "Se fler populära artiklar";
 "top-read-widget-description" = "Ta reda på vad världen läser i dag på Wikipedia.";
 "top-read-widget-readers-count" = "$1 läsare";
 "top-read-widget-title" = "Populära läsningar";

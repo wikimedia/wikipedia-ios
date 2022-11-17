@@ -521,8 +521,6 @@
 "potd-empty-error-description" = "တွၼ်ႈတႃႇ ၸူၵ်းဢွၵ်ႇ ၶႅပ်းႁၢင်ႈဝၼ်းမိူဝ်ႈၼႆႉ တွၼ်ႈတႃႇ $1 ၼႆႉ ဢမ်ႇၶႅမ်ႉလႅပ်ႈ";
 "preference-summary-eventlogging-opt-in" = "ပၼ်သုၼ်ႇ ဝီႇၶီႇၽီးတီးယႃး တွၼ်ႈတႃႇ ၵဵပ်းႁွမ်ၶေႃႈမုၼ်း လွင်ႈဝႃႈ ၸဝ်ႈၵဝ်ႇ ႁဵတ်းႁိုဝ်ၸႂ်ႉ ဢႅပ်ႉ၊ ပဵၼ်တွၼ်ႈတႃႇႁဵတ်းႁႂ်ႈ ဢႅပ်ႉ တိူဝ်းၶႅမ်ႉမႃးလီ";
 "preference-title-eventlogging-opt-in" = "တၢင်ႇ ၶေႃႈလၢတ်ႈ လွင်ႈၸႂ်ႉတိုဝ်း";
-"rank-accessibility-label" = "တၢင်းၼမ် $1";
-"readers-accessibility-label" = "ၽူႈလူလိၵ်ႈ $1";
 "reading-list-add-generic-hint-title" = "တေဢဝ်ပွင်ႈလိၵ်ႈၼႆႉ သႂ်ႇၶဝ်ႈၼႂ်း သဵၼ်ႈမၢႆလူၼႄႇ?";
 "reading-list-add-hint-title" = "တေဢဝ် \"$1\" ၼႆႉ ထႅမ်သႂ်ႇတီႈၼႂ်း သဵၼ်ႈမၢႆလူၼႄႇ?";
 "reading-list-add-saved-button-title" = "မႅၼ်ႈယဝ်ႉ၊ ဢဝ်ၶဝ် ထႅမ်သႂ်ႇၸူးၼႂ်း သဵၼ်ႈမၢႆလူၵဝ်ၶႃႈလႄႈ";
@@ -726,9 +724,6 @@
 "theme-dark-display-name" = "လပ်းသိင်ႇ";
 "theme-default-display-name" = "ပိူင်ၵႅဝ်ႈ";
 "theme-sepia-display-name" = "လိူင်မၢၵ်ႇၸွၵ်း";
-"top-read-header-generic" = "ဝီႇၶီႇၽီးတီးယႃး";
-"top-read-header-with-language" = "တီႈ $1 ဝီႇၶီႇၽီးတီးယႃး";
-"top-read-see-more" = "တူၺ်း ၸိူဝ်းလူလိူဝ်သုတ်း";
 "two-factor-login-continue" = "သိုပ်ႇၶဝ်ႈလွၵ်ႉဢိၼ်ႇ";
 "two-factor-login-instructions" = "ၶႅၼ်းတေႃႈပေႃႉသႂ်ႇ ၶူၼ်ႉၼႄႉၼွၼ်းသွင်ၸၼ်ႉ";
 "two-factor-login-title" = "လွၵ်ႉဢိၼ်ႇၸူး ဢၶွင်ႉၸဝ်ႈၵဝ်ႇ";

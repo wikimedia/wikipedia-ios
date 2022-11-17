@@ -433,7 +433,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Wikipedian kieliversiosta $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Wikipediasta";
 "explore-randomizer" = "Satunnaistaminen";
-"featured-article-empty-title" = "Ei saatavilla olevaa suositeltua artikkelia tälle päivälle";
 "featured-widget-content-failure-for-date" = "Suositeltu artikkeli ei ole saatavilla tälle päivälle.";
 "featured-widget-description" = "Löydä parhaat Wikipedian artikkelit, joita yhteisömme valitsee päivittäin.";
 "featured-widget-from-language-wikipedia" = "Wikipedian kieliversiosta $1";
@@ -757,8 +756,6 @@
 "project-name-wikiversity" = "Wikiopisto";
 "project-name-wikivoyage" = "Wikimatkat";
 "project-name-wiktionary" = "Wikisanakirja";
-"rank-accessibility-label" = "Numero $1";
-"readers-accessibility-label" = "$1 lukijaa";
 "reading-list-add-generic-hint-title" = "Lisätäänkö artikkeli lukulistaan?";
 "reading-list-add-hint-title" = "Lisäätäänkö “$1” lukulistaan?";
 "reading-list-add-saved-button-title" = "Kyllä, lisää ne lukulistoihini";
@@ -1018,9 +1015,6 @@
 "theme-default-explanation" = "Järjestelmäasetuksien mukainen";
 "theme-light-display-name" = "Vaalea";
 "theme-sepia-display-name" = "Seepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "$1 Wikipedia";
-"top-read-see-more" = "Katso lisää luetuimpia";
 "top-read-widget-description" = "Opi mitä maailma lukee tänään Wikipediassa.";
 "top-read-widget-readers-count" = "$ lukijaa";
 "top-read-widget-title" = "Luetuimmat";

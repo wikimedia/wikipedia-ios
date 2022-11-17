@@ -418,8 +418,6 @@
 "potd-widget-title" = "Dagens billede";
 "preference-summary-eventlogging-opt-in" = "Tillad Wikimedia Foundation at indsamle oplysninger om, hvordan du bruger appen, for at gøre appen bedre.";
 "preference-title-eventlogging-opt-in" = "Send anvendelsesrapporter";
-"rank-accessibility-label" = "Nummer $1";
-"readers-accessibility-label" = "$1 læsere";
 "reading-list-add-generic-hint-title" = "Tilføj denne artikel til en læseliste?";
 "reading-list-add-hint-title" = "Tilføj »$1« til læselisten?";
 "reading-list-add-saved-button-title" = "Ja, tilføj dem til mine læselister";
@@ -585,9 +583,6 @@
 "theme-dark-display-name" = "Mørk";
 "theme-default-display-name" = "Standard";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "$1 Wikipedia";
-"top-read-see-more" = "Se flere mest læste";
 "two-factor-login-continue" = "Fortsæt login";
 "two-factor-login-instructions" = "Indtast venligst to-faktor-bekræftelseskode";
 "two-factor-login-title" = "Log ind på din konto";

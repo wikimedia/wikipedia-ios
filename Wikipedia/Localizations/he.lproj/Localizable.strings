@@ -436,7 +436,6 @@
 "export-user-data-generic-error" = "אירעה שגיאה בעת יצוא הנתונים שלך. נא לנסות שוב מאוחר יותר.";
 "export-user-data-space-error" = "אין לך מספיק מקום במכשיר כדי לייצא את נתוני המשתמש שלך. נא לנסות שוב מאוחר יותר.";
 "export-user-data-title" = "יצוא נתוני משתמשים";
-"featured-article-empty-title" = "היום אין ערכים מומלצים זמינים";
 "featured-widget-content-failure-for-date" = "לא זמין ערך מומלץ עבור התאריך הזה.";
 "featured-widget-description" = "גלו את הערכים הטובים ביותר בוויקיפדיה, שנבחרים יום־יום על־ידי הקהילה שלנו.";
 "featured-widget-from-language-wikipedia" = "מתוך ויקיפדיה ה$1";
@@ -802,8 +801,6 @@
 "project-name-wikiversity" = "ויקיברסיטה";
 "project-name-wikivoyage" = "ויקימסע";
 "project-name-wiktionary" = "ויקימילון";
-"rank-accessibility-label" = "מספר $1";
-"readers-accessibility-label" = "$1 קוראים";
 "reading-list-add-generic-hint-title" = "להוסיף את הערך הזה לרשימת קריאה?";
 "reading-list-add-hint-title" = "האם להוסיף את \"$1\" לרשימת קריאה?";
 "reading-list-add-saved-button-title" = "כן, להוסיף אותם לרשימות הקריאה שלי";
@@ -1089,6 +1086,8 @@
 "talk-pages-topic-compose-navbar-title" = "נושא";
 "talk-pages-topic-compose-title-placeholder" = "כותרת הנושא";
 "talk-pages-topic-reply-onboarding-body" = "דפי שיחה הם המקום שבו אנשים דנים איך להפוך את התוכן בוויקיפדיה לטוב ביותר שהוא יכול להיות. אפשר להוסיף נושא דיון חדש כדי להתחבר ולשתף פעולה עם קהילה של ויקיפדים.\n\nנא להיות אדיבים, כולנו כאן בני־אדם.";
+"talk-pages-topic-reply-onboarding-body-ios15" = "דפי שיחה הם המקום שבו $1אנשים דנים איך להפוך את התוכן בוויקיפדיה לטוב ביותר שהוא יכול להיות.$1 יש להתחיל בהוספת נושא דיון חדש** כדי להתחבר ולשתף פעולה עם קהילה של ויקיפדים.";
+"talk-pages-topic-reply-onboarding-body-note-ios15" = "נא לשמור על אדיבות, כולנו כאן בני־אדם.";
 "talk-pages-topic-reply-onboarding-title" = "דפי שיחה";
 "talk-pages-user-groups" = "קבוצות משתמשים";
 "talk-pages-user-logs" = "יומנים";
@@ -1099,9 +1098,6 @@
 "theme-default-explanation" = "בהתאם לערכת העיצוב של המערכת";
 "theme-light-display-name" = "בהיר";
 "theme-sepia-display-name" = "ספיה";
-"top-read-header-generic" = "ויקיפדיה";
-"top-read-header-with-language" = "ויקיפדיה ב$1";
-"top-read-see-more" = "צפייה בערכים פופולריים נוספים";
 "top-read-widget-description" = "למדו מה העולם קורה היום בוויקיפדיה.";
 "top-read-widget-readers-count" = "$1 קוראים";
 "top-read-widget-title" = "הנקראים ביותר";

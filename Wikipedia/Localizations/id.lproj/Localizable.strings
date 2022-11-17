@@ -443,7 +443,6 @@
 "export-user-data-generic-error" = "Terjadi kesalahan saat mengekspor data Anda. Silakan coba lagi nanti.";
 "export-user-data-space-error" = "Anda tidak memiliki cukup ruang perangkat untuk mengekspor data pengguna Anda. Silakan coba lagi nanti.";
 "export-user-data-title" = "Ekspor Data Pengguna";
-"featured-article-empty-title" = "Tidak ada artikel pilihan yang tersedia pada hari ini";
 "featured-widget-content-failure-for-date" = "Tidak ada artikel pilihan untuk tanggal ini.";
 "featured-widget-description" = "Temukan artikel yang terbaik di Wikipedia, dipilih setiap hari oleh komunitas kami.";
 "featured-widget-from-language-wikipedia" = "Dari Wikipedia $1";
@@ -806,8 +805,6 @@
 "project-name-wikiversity" = "Wikiversitas";
 "project-name-wikivoyage" = "Wikiwisata";
 "project-name-wiktionary" = "Wikikamus";
-"rank-accessibility-label" = "Peringkat $1";
-"readers-accessibility-label" = "$1 pembaca";
 "reading-list-add-generic-hint-title" = "Tambahkan artikel ini ke dalam daftar bacaan?";
 "reading-list-add-hint-title" = "Tambahkan “$1” ke daftar bacaan?";
 "reading-list-add-saved-button-title" = "Ya, tambahkan ke daftar bacaan saya";
@@ -1071,9 +1068,6 @@
 "theme-default-explanation" = "Cocok dengan tema sistem";
 "theme-light-display-name" = "Terang";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "Wikipedia $1";
-"top-read-see-more" = "Lihat bacaan teratas lainnya";
 "top-read-widget-description" = "Pelajari apa yang sedang dibaca dunia hari ini di Wikipedia.";
 "top-read-widget-readers-count" = "$1 pembaca";
 "top-read-widget-title" = "Bacaan teratas";

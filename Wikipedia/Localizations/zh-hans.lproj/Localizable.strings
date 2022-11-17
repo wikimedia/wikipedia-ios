@@ -461,7 +461,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "来自$1维基百科";
 "explore-random-article-sub-heading-from-wikipedia" = "来自维基百科";
 "explore-randomizer" = "随机条目产生器";
-"featured-article-empty-title" = "今天没有典范条目";
 "featured-widget-content-failure-for-date" = "迄今为止特色条目并不可用。";
 "featured-widget-description" = "发现维基百科上最好的文章，每日由我们的社区选择。";
 "featured-widget-from-language-wikipedia" = "来自$1维基百科";
@@ -800,8 +799,6 @@
 "project-name-wikiversity" = "维基学院";
 "project-name-wikivoyage" = "维基导游";
 "project-name-wiktionary" = "维基词典";
-"rank-accessibility-label" = "第$1";
-"readers-accessibility-label" = "$1位读者";
 "reading-list-add-generic-hint-title" = "添加此条目至阅读列表么？";
 "reading-list-add-hint-title" = "添加“$1”至阅读列表么？";
 "reading-list-add-saved-button-title" = "是，将他们添加到我的阅读列表";
@@ -1057,9 +1054,6 @@
 "theme-default-explanation" = "跟随系统主题";
 "theme-light-display-name" = "日间";
 "theme-sepia-display-name" = "棕褐色";
-"top-read-header-generic" = "维基百科";
-"top-read-header-with-language" = "$1维基百科";
-"top-read-see-more" = "查看更多热门阅读";
 "top-read-widget-description" = "在维基百科上学习世界今天在读什么。";
 "top-read-widget-readers-count" = "$1位读者";
 "top-read-widget-title" = "热门阅读";

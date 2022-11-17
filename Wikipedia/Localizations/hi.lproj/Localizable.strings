@@ -325,8 +325,6 @@
 "potd-empty-error-description" = "$1 के लिए आज का चित्र लाने में असमर्थ";
 "preference-summary-eventlogging-opt-in" = "एप को बेहतर बनाने के लिए विकिमीडिया फाउंडेशन को आपके द्वारा इस एप के इस्तेमाल संबंधी जानकारी को इकट्ठा करने की अनुमति दें";
 "preference-title-eventlogging-opt-in" = "उपयोग रिपोर्ट भेजें";
-"rank-accessibility-label" = "नंबर $1";
-"readers-accessibility-label" = "$1 पाठक";
 "reading-list-add-saved-button-title" = "हाँ, उन्हें मेरी पठन सूची में जोड़ें";
 "reading-list-add-saved-title" = "सहेजे गए लेख मिले";
 "reading-list-do-not-keep-button-title" = "नहीं, डिवाइस से लेख हटाएं";
@@ -409,9 +407,6 @@
 "theme-dark-display-name" = "गहरा";
 "theme-default-display-name" = "डिफ़ॉल्ट";
 "theme-sepia-display-name" = "लाल-भूरा रंग";
-"top-read-header-generic" = "विकिपीडिया";
-"top-read-header-with-language" = "$1 विकिपीडिया";
-"top-read-see-more" = "सर्वाधिक पढ़े जाने वाले और देखें";
 "two-factor-login-continue" = "लॉग इन जारी रखें";
 "two-factor-login-instructions" = "कृपया टू फैक्टर वेरिफिकेशन कोड डालें";
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";

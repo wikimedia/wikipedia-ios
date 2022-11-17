@@ -439,7 +439,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "ウィキペディアより";
 "explore-randomizer" = "おまかせ表示";
 "export-user-data-title" = "利用者データをエクスポート";
-"featured-article-empty-title" = "今日は秀逸な記事がありません";
 "featured-widget-content-failure-for-date" = "この日の秀逸な記事は利用できません。";
 "featured-widget-description" = "コミュニティから選ばれた、ウィキペディアの秀逸な記事を探索しましょう。";
 "featured-widget-from-language-wikipedia" = "$1版ウィキペディアより";
@@ -738,8 +737,6 @@
 "project-name-wikiversity" = "ウィキバーシティ";
 "project-name-wikivoyage" = "ウィキボヤージュ";
 "project-name-wiktionary" = "ウィクショナリー";
-"rank-accessibility-label" = "$1位";
-"readers-accessibility-label" = "$1人の読者";
 "reading-list-add-generic-hint-title" = "この記事をあとで読むリストに追加しますか?";
 "reading-list-add-hint-title" = "「$1」をあとで読むリストに保存しますか?";
 "reading-list-add-saved-button-title" = "はい、記事をあとで読むリストに追加します";
@@ -997,9 +994,6 @@
 "theme-default-explanation" = "システムのテーマと合わせる";
 "theme-light-display-name" = "ライト";
 "theme-sepia-display-name" = "セピア";
-"top-read-header-generic" = "ウィキペディア";
-"top-read-header-with-language" = "$1ウィキペディア";
-"top-read-see-more" = "詳細を読む";
 "top-read-widget-description" = "世界で今日、何がウィキペディアで読まれているか学びましょう。";
 "top-read-widget-readers-count" = "$1人の読者";
 "top-read-widget-title" = "よく読まれている記事";

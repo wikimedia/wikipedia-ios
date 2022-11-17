@@ -414,7 +414,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Từ Wikipedia $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Từ Wikipedia";
 "explore-randomizer" = "Ngẫu nhiên";
-"featured-article-empty-title" = "Hôm nay không có bài viết chọn lọc";
 "featured-widget-content-failure-for-date" = "Không có sẵn bài viết chọn lọc vào ngày này.";
 "featured-widget-from-language-wikipedia" = "Từ Wikipedia $1";
 "featured-widget-from-wikipedia" = "Từ Wikipedia";
@@ -686,8 +685,6 @@
 "potd-widget-title" = "Hình ảnh trong ngày";
 "preference-summary-eventlogging-opt-in" = "Cho phép Quỹ Wikimedia thu thập thông tin về cách bạn sử dụng ứng dụng để giúp làm ứng dụng tốt hơn";
 "preference-title-eventlogging-opt-in" = "Gửi báo cáo sử dụng";
-"rank-accessibility-label" = "Hạng $1";
-"readers-accessibility-label" = "$1 người đọc";
 "reading-list-add-generic-hint-title" = "Thêm bài này vào danh sách đọc?";
 "reading-list-add-hint-title" = "Thêm “$1” vào danh sách đọc?";
 "reading-list-add-saved-button-title" = "Có, thêm chúng vào các danh sách đọc của tôi";
@@ -918,9 +915,6 @@
 "theme-default-explanation" = "Phù hợp với chủ đề hệ thống";
 "theme-light-display-name" = "Sáng";
 "theme-sepia-display-name" = "Nâu";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "Wikipedia $1";
-"top-read-see-more" = "Xem thêm bài đọc nhiều nhất";
 "top-read-widget-readers-count" = "$1 người đọc";
 "top-read-widget-title" = "Bài đọc nhiều nhất";
 "two-factor-login-continue" = "Tiếp tục đăng nhập";

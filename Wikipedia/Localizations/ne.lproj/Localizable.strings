@@ -1,6 +1,7 @@
 // Messages for Nepali (नेपाली)
 // Exported from translatewiki.net
 // Author: Bada Kaji
+// Author: CAPTAIN MEDUSA
 // Author: Drjpoudel
 // Author: NehalDaveND
 // Author: Nemo bis
@@ -132,7 +133,7 @@
 "description-published-button-title" = "भयो";
 "description-published-subtitle" = "तपाईंले विकिपिडियालाई सबैको लागि अझ राम्रो बनाउनु भएकाे छ";
 "description-welcome-concise-title" = "यसलाई छोटो राख्नुहोस्";
-"description-welcome-start-editing-button" = "सम्पादन शुरुवात गर्नुहोस्";
+"description-welcome-start-editing-button" = "सम्पादन सुरुवात गर्नुहोस्";
 "diff-compare-header-from-info-heading" = "देखि:";
 "diff-compare-header-to-info-heading" = "लाई:";
 "diff-compare-title" = "संशोधनहरू तुलना गर्नुहोस्";
@@ -256,7 +257,7 @@
 "languages-settings-title" = "भाषाहरू";
 "languages-title" = "भाषा परिवर्तन गर्नुहोस्";
 "languages-wikipedia" = "विकिपिडिया भाषहरू";
-"logged-out-continue-without-logging-in-button-title" = "प्रवेश नगरीकन सम्पादन शुरु गर्नुहोस्";
+"logged-out-continue-without-logging-in-button-title" = "प्रवेश नगरीकन सम्पादन सुरु गर्नुहोस्";
 "logged-out-log-back-in-button-title" = "आफ्नो खातामा पुन प्रवेश गर्नुहोस्";
 "login-forgot-password" = "के पासवर्ड भुल्नुभयो?";
 "login-join-wikipedia" = "विकिपिडियामा सहभागीहुनुहोस्।";
@@ -363,8 +364,6 @@
 "project-name-wikiversity" = "विकिविश्वविद्यालय";
 "project-name-wikivoyage" = "विकियात्रा";
 "project-name-wiktionary" = "विक्सनरी";
-"rank-accessibility-label" = "नम्बर $1";
-"readers-accessibility-label" = "$1 को पाठकहरू";
 "reading-list-create-new-list-description" = "विवरण";
 "reading-list-login-or-create-account-button-title" = "प्रवेश गर्ने/नयाँ खाता बनाउने";
 "reading-lists-default-list-title" = "सङ्ग्रह गरिएको";
@@ -443,9 +442,6 @@
 "theme-default-display-name" = "पूर्वनिर्धारित";
 "theme-light-display-name" = "हल्का";
 "theme-sepia-display-name" = "सेपिया";
-"top-read-header-generic" = "विकिपिडिया";
-"top-read-header-with-language" = "$1 विकिपिडिया";
-"top-read-see-more" = "अरू धेरै धेरै पढिएकाहरू हेर्नुहोस्";
 "two-factor-login-continue" = "लग इन जारी राख्नुहोस् ।";
 "unknown-generic-text" = "अज्ञात";
 "vanish-account-additional-information-field" = "थप जानकारी";

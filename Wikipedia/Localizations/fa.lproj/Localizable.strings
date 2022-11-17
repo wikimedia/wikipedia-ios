@@ -446,7 +446,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "از ویکی‌پدیای $1";
 "explore-random-article-sub-heading-from-wikipedia" = "از ویکی‌پدیا";
 "explore-randomizer" = "تصادفی";
-"featured-article-empty-title" = "امروز مقالهٔ برگزیده‌ای موجود نیست";
 "featured-widget-content-failure-for-date" = "مقالهٔ برگزیده‌ای برای این تاریخ موجود نیست.";
 "featured-widget-description" = "برترین مقاله‌های ویکی‌پدیا، که به‌طور روزانه توسط اجتماع ما انتخاب می‌شوند را بیابید.";
 "featured-widget-from-language-wikipedia" = "از ویکی‌پدیای $1";
@@ -511,6 +510,10 @@
 "icon-shortcut-random-title" = "مقاله تصادفی";
 "icon-shortcut-search-title" = "جستجو در ویکی‌پدیا";
 "image-gallery-unknown-owner" = "پدیدآورنده ناشناخته است.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "حالا نه";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "شرکت در نظرسنجی";
+"import-shared-reading-list-survey-prompt-title" = "آیا می توانید با شرکت در یک نظرسنجی به ما در بهبود این ویژگی کمک کنید؟";
+"import-shared-reading-list-title" = "درون‌ریزی فهرست مطالعهٔ مشترک";
 "in-the-news-sub-title-from-language-wikipedia" = "از ویکی‌پدیای $1";
 "in-the-news-sub-title-from-wikipedia" = "از ویکی‌پدیا";
 "in-the-news-title" = "از میان خبرها";
@@ -806,8 +809,6 @@
 "project-name-wikiversity" = "ویکی‌دانشگاه";
 "project-name-wikivoyage" = "ویکی‌سفر";
 "project-name-wiktionary" = "ویکی‌واژه";
-"rank-accessibility-label" = "شمارهٔ $1";
-"readers-accessibility-label" = "$1 خواننده";
 "reading-list-add-generic-hint-title" = "افزودن این مقاله به فهرست مطالعه؟";
 "reading-list-add-hint-title" = "«$1» به یک فهرست مطالعه افزوده شود؟";
 "reading-list-add-saved-button-title" = "بله، اینها را به فهرست‌های مطالعهٔ من بیفزا";
@@ -1037,9 +1038,6 @@
 "theme-default-explanation" = "تطایق با زمینه سامانه";
 "theme-light-display-name" = "روشن";
 "theme-sepia-display-name" = "قهوه‌ای";
-"top-read-header-generic" = "ویکی‌پدیا";
-"top-read-header-with-language" = "ویکی‌پدیای $1";
-"top-read-see-more" = "دیدن پربازدیدهای بیشتر";
 "top-read-widget-description" = "از آنچه جهانیان امروز در ویکی‌پدیا می‌خوانند آگاه شوید.";
 "top-read-widget-readers-count" = "$1 مخاطب";
 "top-read-widget-title" = "پربازدیدترین‌ها";

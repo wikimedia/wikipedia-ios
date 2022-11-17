@@ -435,7 +435,6 @@
 "export-user-data-generic-error" = "S'ha produït un error en exportar les vostres dades. Proveu-ho de nou més tard.";
 "export-user-data-space-error" = "No teniu prou espai al dispositiu per a exportar les vostres dades d'usuari. Proveu-ho de nou més tard.";
 "export-user-data-title" = "Exporta les dades d'usuari";
-"featured-article-empty-title" = "No hi ha cap article destacat avui";
 "featured-widget-content-failure-for-date" = "No hi ha cap article destacat disponible en aquesta data.";
 "featured-widget-description" = "Descobriu els millors articles de la Viquipèdia, seleccionats cada dia per la nostra comunitat.";
 "featured-widget-from-language-wikipedia" = "De la Viquipèdia en $1";
@@ -798,8 +797,6 @@
 "project-name-wikiversity" = "Wikiversity";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Viccionari";
-"rank-accessibility-label" = "Número $1";
-"readers-accessibility-label" = "$1 lectors";
 "reading-list-add-generic-hint-title" = "Voleu afegir l'article a una llista de lectura?";
 "reading-list-add-hint-title" = "Voleu afegir «$1» a una llista de lectura?";
 "reading-list-add-saved-button-title" = "Sí, afegeix-los a les meves llistes de lectura";
@@ -1077,9 +1074,6 @@
 "theme-default-explanation" = "Correspon amb el tema del sistema";
 "theme-light-display-name" = "Clar";
 "theme-sepia-display-name" = "Sèpia";
-"top-read-header-generic" = "Viquipèdia";
-"top-read-header-with-language" = "Viquipèdia en $1";
-"top-read-see-more" = "Vegeu-ne d'altres més llegits";
 "top-read-widget-description" = "Esbrineu que està llegint el món avui a la Viquipèdia.";
 "top-read-widget-readers-count" = "$1 lectors";
 "top-read-widget-title" = "El més llegit";

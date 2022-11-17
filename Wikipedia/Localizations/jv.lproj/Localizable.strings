@@ -317,8 +317,6 @@
 "potd-empty-error-description" = "Wurung njupuk gambar dina iki ing $1";
 "preference-summary-eventlogging-opt-in" = "Ngidini Yeyasan Wikimedia ngumpulaké katerangan ngenani carané nganggo aplikasi supaya aplikasiné dadi luwih becik";
 "preference-title-eventlogging-opt-in" = "Kirim lapuran pangguna";
-"rank-accessibility-label" = "Angka $1";
-"readers-accessibility-label" = "$1 sing maca";
 "reading-themes-controls-accessibility-brightness-slider" = "Panggeser padhang";
 "reading-themes-controls-accessibility-dark-theme-button" = "Ules peteng";
 "reading-themes-controls-accessibility-light-theme-button" = "Ules padhang";
@@ -400,9 +398,6 @@
 "theme-dark-display-name" = "Peteng";
 "theme-default-display-name" = "Gawan";
 "theme-sepia-display-name" = "Sèpia";
-"top-read-header-generic" = "Wikipédia";
-"top-read-header-with-language" = "Wikipédia $1";
-"top-read-see-more" = "Deleng wacan laris liyané";
 "two-factor-login-continue" = "Banjuraké mlebu log";
 "two-factor-login-instructions" = "Mangga isinen kodhe vèrifikasi rong faktor";
 "two-factor-login-title" = "Mlebu log ing akun panjenengan";

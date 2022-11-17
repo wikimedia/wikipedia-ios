@@ -362,8 +362,6 @@
 "places-unknown-distance" = "Άγνωστη απόσταση";
 "potd-description-prefix" = "Εικόνα της ημέρας για το $1";
 "preference-title-eventlogging-opt-in" = "Στείλτε εκθέσεις χρήσης";
-"rank-accessibility-label" = "Αριθμός $1";
-"readers-accessibility-label" = "$1 αναγνώστες";
 "reading-list-add-hint-title" = "Προσθήκη του \"$1\" σε μια λίστα ανάνγωσης;";
 "reading-list-add-saved-button-title" = "Ναι, πρόσθεσέ τα στις λίστες ανάγνωσής μου";
 "reading-list-add-saved-title" = "Αποθηκευμένα λήμματα που βρέθηκαν";
@@ -474,9 +472,6 @@
 "theme-dark-display-name" = "Σκούρο";
 "theme-default-display-name" = "Προεπιλογή";
 "theme-sepia-display-name" = "Σέπια";
-"top-read-header-generic" = "Βικιπαίδεια";
-"top-read-header-with-language" = "$1 Βικιπαίδεια";
-"top-read-see-more" = "Δείτε περισσότερα κορυφαία αναγνωσμένα άρθρα";
 "two-factor-login-continue" = "Συνεχίστε την σύνδεσή σας";
 "two-factor-login-title" = "Συνδεθείτε στο λογαριασμό σας.";
 "two-factor-login-with-backup-code" = "Χρησιμοποιήστε έναν από τους κωδικούς ασφαλείας σας";

@@ -417,7 +417,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Von Wikipedia";
 "explore-randomizer" = "Zufallsgenerator";
 "export-user-data-title" = "Benutzerdaten exportieren";
-"featured-article-empty-title" = "Heute kein vorgestellter Artikel verfügbar";
 "featured-widget-content-failure-for-date" = "Für dieses Datum ist kein vorgestellter Artikel verfügbar.";
 "featured-widget-description" = "Entdecke die besten Artikel auf Wikipedia, die täglich von unserer Gemeinschaft ausgewählt werden.";
 "featured-widget-from-language-wikipedia" = "Von der Wikipedia auf $1";
@@ -480,6 +479,12 @@
 "icon-shortcut-random-title" = "Zufälliger Artikel";
 "icon-shortcut-search-title" = "Wikipedia durchsuchen";
 "image-gallery-unknown-owner" = "Autor unbekannt.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Nicht jetzt";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Umfrage durchführen";
+"import-shared-reading-list-survey-prompt-footer" = "Sieh dir unsere $1Datenschutzerklärung$2 an. Die Umfrage wird von einem Drittanbieter durchgeführt. Siehe deren $3Datenschutzerklärung$4.";
+"import-shared-reading-list-survey-prompt-subtitle" = "Gemeinsame Leselisten sind eine Testfunktion und wir brauchen dein Feedback, um sie zu verbessern oder zu entfernen.";
+"import-shared-reading-list-survey-prompt-title" = "Kannst du uns helfen, diese Funktion zu verbessern, indem du an einer Umfrage teilnimmst?";
+"import-shared-reading-list-title" = "Gemeinsame Leseliste importieren";
 "in-the-news-sub-title-from-language-wikipedia" = "Von der Wikipedia auf $1";
 "in-the-news-sub-title-from-wikipedia" = "Von Wikipedia";
 "in-the-news-title" = "In den Nachrichten";
@@ -720,8 +725,6 @@
 "project-name-wikiversity" = "Wikiversity";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionary";
-"rank-accessibility-label" = "Platz $1";
-"readers-accessibility-label" = "$1 Leser";
 "reading-list-add-generic-hint-title" = "Diesen Artikel zu einer Leseliste hinzufügen?";
 "reading-list-add-hint-title" = "„$1“ zu einer Leseliste hinzufügen?";
 "reading-list-add-saved-button-title" = "Ja, füge sie zu meinen Leselisten hinzu";
@@ -964,6 +967,8 @@
 "talk-pages-topic-compose-close-confirmation-discard" = "Antwort verwerfen";
 "talk-pages-topic-compose-navbar-title" = "Thema";
 "talk-pages-topic-compose-title-placeholder" = "Thementitel";
+"talk-pages-topic-reply-onboarding-body-ios15" = "Auf den Diskussionsseiten diskutieren $1Menschen darüber, wie man den Inhalt von Wikipedia so gut wie möglich gestalten kann.$1 Füge ein neues Diskussionsthema hinzu, um dich mit einer Gemeinschaft von Wikipedianern zu verbinden und zusammenzuarbeiten.";
+"talk-pages-topic-reply-onboarding-body-note-ios15" = "Bitte sei freundlich, wir sind hier alle Menschen.";
 "talk-pages-user-groups" = "Benutzergruppen";
 "talk-pages-user-logs" = "Logs";
 "talk-pages-view-title" = "Diskussion";
@@ -972,9 +977,6 @@
 "theme-default-display-name" = "Standard";
 "theme-light-display-name" = "Hell";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "$1 Wikipedia";
-"top-read-see-more" = "Weitere meistgelesene Artikel ansehen";
 "top-read-widget-description" = "Erfahre auf Wikipedia, was die Welt heute liest.";
 "top-read-widget-title" = "Meistgelesen";
 "two-factor-login-continue" = "Mit der Anmeldung fortfahren";

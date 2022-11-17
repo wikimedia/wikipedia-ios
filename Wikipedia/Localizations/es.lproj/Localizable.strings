@@ -447,7 +447,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "De Wikipedia en $1";
 "explore-random-article-sub-heading-from-wikipedia" = "De Wikipedia";
 "explore-randomizer" = "Aleatorio";
-"featured-article-empty-title" = "No hay artículo destacado hoy";
 "featured-widget-from-language-wikipedia" = "De Wikipedia en $1";
 "featured-widget-from-wikipedia" = "De Wikipedia";
 "featured-widget-language-failure" = "Su idioma principal de Wikipedia no soporta Artículo destacado. Puede actualizar su Wikipedia principal en el menú de Configuración de la aplicación.";
@@ -697,8 +696,6 @@
 "potd-widget-title" = "Imagen del día";
 "preference-summary-eventlogging-opt-in" = "Permitir que la Fundación Wikimedia recopile información acerca de cómo utilizas la aplicación para mejorarla";
 "preference-title-eventlogging-opt-in" = "Enviar informes de uso";
-"rank-accessibility-label" = "Número $1";
-"readers-accessibility-label" = "$1 lectores";
 "reading-list-add-generic-hint-title" = "¿Añadir este artículo a la lista de lectura?";
 "reading-list-add-hint-title" = "¿Quieres añadir «$1» a una lista de lectura?";
 "reading-list-add-saved-button-title" = "Sí, añadirlos a mis listas de lectura";
@@ -934,9 +931,6 @@
 "theme-default-explanation" = "Coincidir con tema del sistema";
 "theme-light-display-name" = "Claro";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "Wikipedia en $1";
-"top-read-see-more" = "Ver otros de los más leídos";
 "top-read-widget-description" = "Entérate lo que el mundo está leyendo hoy en Wikipedia.";
 "top-read-widget-readers-count" = "$1 lectores";
 "top-read-widget-title" = "Más leídos";
