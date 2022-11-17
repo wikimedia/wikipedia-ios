@@ -180,8 +180,6 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
                 switch result {
                 case .success(let articles):
                     self.articles = articles
-                    self.readingListNameTextField.text = self.importedReadingList?.name
-                    self.descriptionTextField.text = self.importedReadingList?.description
                     self.createReadingListButton.isEnabled = !self.isReadingListNameFieldEmpty && self.readingListNameErrorLabel.isHidden
                 case .failure(let error):
                     self.readingListNameTextField.isEnabled = false
