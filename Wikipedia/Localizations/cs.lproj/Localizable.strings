@@ -438,7 +438,6 @@
 "export-user-data-generic-error" = "Při exportu vašich dat došlo k chybě. Prosím zkuste to znovu později.";
 "export-user-data-space-error" = "K exportu uživatelských dat nemáte v zařízení dostatek místa. Prosím zkuste to znovu později.";
 "export-user-data-title" = "Export uživatelských dat";
-"featured-article-empty-title" = "Není dostupný doporučený článek";
 "featured-widget-content-failure-for-date" = "Doporučený článek není pro toto datum k dispozici.";
 "featured-widget-description" = "Objevte nejlepší články na Wikipedii, které denně vybírá naše komunita.";
 "featured-widget-from-language-wikipedia" = "Z $1 Wikipedie";
@@ -690,8 +689,6 @@
 "potd-empty-error-description" = "Nepodařilo se načíst obrázek dne pro $1";
 "preference-summary-eventlogging-opt-in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace, aby ji mohla zlepšovat";
 "preference-title-eventlogging-opt-in" = "Odesílat zprávy o využití";
-"rank-accessibility-label" = "Číslo $1";
-"readers-accessibility-label" = "$1 čtenářů";
 "reading-list-add-generic-hint-title" = "Přidat tento článek do seznamu k přečtení?";
 "reading-list-add-hint-title" = "Přidat „$1“ do seznamu k přečtení?";
 "reading-list-add-saved-button-title" = "Ano, přidat články do tohoto seznamu k přečtení";
@@ -918,9 +915,6 @@
 "theme-default-explanation" = "Přizpůsobeno vzhledu systému";
 "theme-light-display-name" = "Světlý";
 "theme-sepia-display-name" = "Sépie";
-"top-read-header-generic" = "Wikipedie";
-"top-read-header-with-language" = "Wikipedie v jazyce $1";
-"top-read-see-more" = "Zobrazit další nejčtenější";
 "two-factor-login-continue" = "Pokračovat v přihlášení";
 "two-factor-login-instructions" = "Prosím zadejte dvoufaktorizační ověřovací kód.";
 "two-factor-login-title" = "Přihlaste se do svého účtu";

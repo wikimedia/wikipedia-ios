@@ -135,7 +135,6 @@
 "page-history-revision-author-accessibility-label" = "Nuştekar: $1";
 "page-history-revision-comment-accessibility-label" = "Mışewre $1";
 "page-history-revision-minor-edit-accessibility-label" = "Vurriyayışo werdi";
-"rank-accessibility-label" = "Numre $1";
 "reading-list-create-new-list-description" = "Şınasnayış";
 "reading-list-entry-limit-exceeded-title" = "Sinorê yew hesabi ra {{PLURAL:$1|$1 meqale vêrd|$1 meqaleyi vêrdi}} ra.";
 "reading-list-list-limit-exceeded-title" = "Sinorê yew hesabi ra {{PLURAL:$1|$1 lista wendışi vêrde|$1 listeyê wendışi vêrdi}} ra.";
@@ -179,8 +178,6 @@
 "talk-page-topic-title" = "Werênayış";
 "theme-light-display-name" = "Akerde";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipediya";
-"top-read-header-with-language" = "$1 Wikipediya";
 "welcome-explore-continue-button" = "Dest pêke";
 "wikitext-downloading" = "Zerreko beno bar...";
 "wikitext-preview-changes" = "Verqaytê vıriyayış dê şıma yo arêno...";

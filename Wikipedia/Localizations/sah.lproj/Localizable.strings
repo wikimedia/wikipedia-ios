@@ -305,8 +305,6 @@
 "potd-empty-error-description" = "$1 күн ойуутун ылар сатаммата";
 "preference-summary-eventlogging-opt-in" = "Дьибилгэти туһанар туһунан Викимедиаҕа ыытары көҥүллээтэххинэ дьибилгэти тупсарарга көмөлөһүөҥ.";
 "preference-title-eventlogging-opt-in" = "Туһаныы отчуоттарын ыыт";
-"rank-accessibility-label" = "Ахсаана $1";
-"readers-accessibility-label" = "$1 ааҕааччылаах";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ыстатыйалары наардаа";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Наардамматах ыстатыйа ахсаана 5000-ттан таҕыстаҕына мэнэйдэммэт. Бука диэн наардаа, оччоҕо мэнэйдээһин салҕаныа.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Наардамматах ыстатыйалар хааччахтанар ахсааннара";
@@ -352,9 +350,6 @@
 "table-of-contents-close-accessibility-hint" = "Сап";
 "table-of-contents-close-accessibility-label" = "Ис хоһоонун тиһилигин сап";
 "table-of-contents-heading" = "Иһинээҕитэ";
-"top-read-header-generic" = "Бикипиэдьийэ";
-"top-read-header-with-language" = "$1 Бикипиэдьийэ";
-"top-read-see-more" = "Элбэхтэ ааҕыллары көрүү";
 "two-factor-login-continue" = "Киириини салҕаа";
 "two-factor-login-title" = "Бэлиэ-ааккынан киир";
 "two-factor-login-with-regular-code" = "Куоду бигэргэт";

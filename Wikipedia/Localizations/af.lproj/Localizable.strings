@@ -199,8 +199,6 @@
 "potd-description-prefix" = "Prent van die dag vir $1";
 "preference-summary-eventlogging-opt-in" = "Laat Wikimedia toe om inligting in te samel oor hoe u die toep gebruik om sodoende die toep te verbeter";
 "preference-title-eventlogging-opt-in" = "Stuur gebruiksverslae";
-"rank-accessibility-label" = "Nommer $1";
-"readers-accessibility-label" = "$1 lesers";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sorteer artikels";
 "reference-title" = "Verwysing $1";
 "saved-reading-lists-title" = "Leeslyste";
@@ -246,8 +244,6 @@
 "theme-dark-display-name" = "Donker";
 "theme-default-display-name" = "Verstek";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "$1 Wikipedia";
 "two-factor-login-title" = "Meld aan met u rekening";
 "welcome-exploration-on-this-day-title" = "Op dié dag";
 "welcome-explore-tell-me-more-done-button" = "Het dit";

@@ -214,8 +214,6 @@
 "places-title" = "இடங்கள்";
 "places-unknown-distance" = "தெரியாத தொலைவு";
 "preference-title-eventlogging-opt-in" = "பயன்பாடு அறிக்கை அனுப்பு";
-"rank-accessibility-label" = "எண் $1";
-"readers-accessibility-label" = "$1 படிப்பவர்கள்";
 "reading-themes-controls-accessibility-black-theme-button" = "கறுப்பு தோற்றம்";
 "reading-themes-controls-accessibility-brightness-slider" = "ஒளிர்வு வழுக்கான்";
 "reading-themes-controls-accessibility-dark-theme-button" = "இருண்ட தோற்றம்";
@@ -255,9 +253,6 @@
 "theme-black-display-name" = "கருப்பு";
 "theme-dark-display-name" = "இருட்டான";
 "theme-default-display-name" = "இயல்பிருப்பு";
-"top-read-header-generic" = "விக்கிபீடியா";
-"top-read-header-with-language" = "$1 விக்கிபீடியா";
-"top-read-see-more" = "அதிகம் படித்தவர்களை மேலும் பார்க்க";
 "two-factor-login-continue" = "உள்நுழைவை தொடரவும்";
 "two-factor-login-title" = "உங்கள் கணக்கிற்கு பகுபதியவும்";
 "welcome-exploration-on-this-day-title" = "இந்த நாளில்";

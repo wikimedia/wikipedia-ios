@@ -413,8 +413,6 @@
 "potd-empty-error-description" = "ھێنانی وێنەی ڕۆژ بۆ $1 شکستی ھێنا";
 "preference-summary-eventlogging-opt-in" = "ڕێگەدان بە دامەزراوەی ویکیمیدیا بۆ کۆکردنەوەی زانیاری لەبارەی چۆنیەتی بەکارھێنانی بەرنامەکە لەلایەن تۆوە، بە مەبەستی باشترکردنی بەرنامەکە";
 "preference-title-eventlogging-opt-in" = "ناردنی ڕاپۆرتەکانی بەکارھێنان";
-"rank-accessibility-label" = "ژمارە $1";
-"readers-accessibility-label" = "$1 خوێنەر";
 "reading-themes-controls-accessibility-black-theme-button" = "ڕووکاری ڕەش";
 "reading-themes-controls-accessibility-brightness-slider" = "خزێنەری ڕووناکی";
 "reading-themes-controls-accessibility-dark-theme-button" = "ڕووکەشی تاریک";
@@ -484,9 +482,6 @@
 "theme-dark-display-name" = "تاریک";
 "theme-default-display-name" = "بنچینەیی";
 "theme-sepia-display-name" = "قاوەیی تێر";
-"top-read-header-generic" = "ویکیپیدیا";
-"top-read-header-with-language" = "$1 ویکیپیدیا";
-"top-read-see-more" = "زیاترین خوێندراوەی زیاتر ببینە";
 "two-factor-login-continue" = "بەردەوامبوونی چوونەژوورەوە";
 "two-factor-login-instructions" = "تکایە کۆدی دڵنیاکردنەوەی دووجاری داخڵ بکە";
 "two-factor-login-title" = "بچۆ ژوورەوە بۆ ناو ھەژمارەکەت";

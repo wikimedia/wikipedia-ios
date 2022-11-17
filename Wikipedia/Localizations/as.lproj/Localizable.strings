@@ -152,7 +152,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 ৱিকিপিডিয়াৰ পৰা";
 "explore-random-article-sub-heading-from-wikipedia" = "ৱিকিপিডিয়াৰ পৰা";
 "explore-randomizer" = "যাদৃচ্ছিক";
-"featured-article-empty-title" = "আজি কোনো নিৰ্বাচিত প্ৰবন্ধ উপলব্ধ নহয়";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "ইমেইল";
 "field-email-title-optional" = "ইমেইল (বৈকল্পিক)";
@@ -290,8 +289,6 @@
 "theme-default-explanation" = "ছিষ্টেমৰ থীমৰ সৈতে একে";
 "theme-light-display-name" = "পোহৰ";
 "theme-sepia-display-name" = "ছেপিয়া";
-"top-read-header-generic" = "ৱিকিপিডিয়া";
-"top-read-header-with-language" = "$1 ৱিকিপিডিয়া";
 "unknown-generic-text" = "অজ্ঞাত";
 "variants-alert-dismiss-button" = "নালাগে দিয়ক";
 "welcome-explore-tell-me-more-done-button" = "বুজিছোঁ";

@@ -378,7 +378,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "وڪيپيڊيا $1 تان";
 "explore-random-article-sub-heading-from-wikipedia" = "وڪيپيڊيا تان";
 "explore-randomizer" = "بلاترتيبڪار";
-"featured-article-empty-title" = "اڄ ڪوبہ نمايان مضمون موجود ناھي";
 "featured-widget-from-language-wikipedia" = "$1 وڪيپيڊيا تان";
 "featured-widget-from-wikipedia" = "وڪيپيڊيا تان";
 "featured-widget-title" = "چونڊ مضمون";
@@ -695,8 +694,6 @@
 "project-name-wikiversity" = "وڪيورسٽي";
 "project-name-wikivoyage" = "وڪي‌سفر";
 "project-name-wiktionary" = "وڪي‌لغت";
-"rank-accessibility-label" = "انگ $1";
-"readers-accessibility-label" = "$1 پڙھندڙ";
 "reading-list-add-generic-hint-title" = "ھن مضمون کي ڪنھن پڙھڻ جي فھرست ۾ شامل ڪجي؟";
 "reading-list-add-hint-title" = "”$1“ کي ڪنھن پڙھڻ جي فھرست ۾ شامل ڪندا؟";
 "reading-list-add-saved-button-title" = "ھا، انھن کي منھنجي پڙھڻ جي فھرستن ۾ شامل ڪريو";
@@ -908,9 +905,6 @@
 "theme-default-explanation" = "سرشتي جي نظاري سان ملي ٿو";
 "theme-light-display-name" = "هلڪو";
 "theme-sepia-display-name" = "سيپيا";
-"top-read-header-generic" = "وڪيپيڊيا";
-"top-read-header-with-language" = "$1 وڪيپيڊيا";
-"top-read-see-more" = "وڌيڪ گھڻو پڙھيل ڏسو";
 "top-read-widget-readers-count" = "$1 پڙھندڙ";
 "top-read-widget-title" = "گهڻو پڙھيل";
 "two-factor-login-continue" = "داخل ٿيڻ جاري رکو";

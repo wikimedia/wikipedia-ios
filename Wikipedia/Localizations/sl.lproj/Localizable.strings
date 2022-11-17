@@ -385,7 +385,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Iz Wikipedije";
 "explore-randomizer" = "Naključno";
 "export-user-data-title" = "Izvoz uporabniških podatkov";
-"featured-article-empty-title" = "Danes ni na voljo noben izbrani članek";
 "featured-widget-content-failure-for-date" = "Za ta datum izbrani članek še ni na voljo";
 "featured-widget-from-wikipedia" = "Iz Wikipedije";
 "featured-widget-title" = "Izbrani članek";
@@ -437,6 +436,12 @@
 "icon-shortcut-random-title" = "Naključni članek";
 "icon-shortcut-search-title" = "Išči v Wikipediji";
 "image-gallery-unknown-owner" = "Neznan avtor.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Ne zdaj";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Izpolni anketo";
+"import-shared-reading-list-survey-prompt-footer" = "Oglejte si našo $1izjavo o zasebnosti$2. Anketo poganja tretja oseba. Oglejte si njen  $3pravilnik o zasebnosti$4.";
+"import-shared-reading-list-survey-prompt-subtitle" = "Skupni bralni seznami so preizkusna funkcija in potrebujemo vaše povratne informacije, da jih izboljšamo ali odstranimo.";
+"import-shared-reading-list-survey-prompt-title" = "Nam lahko pomagate izboljšati to funkcijo z anketo?";
+"import-shared-reading-list-title" = "Uvoz skupnega bralnega seznama";
 "in-the-news-sub-title-from-language-wikipedia" = "Iz vikipedije v $1";
 "in-the-news-sub-title-from-wikipedia" = "Iz Wikipedije";
 "in-the-news-title" = "V novicah";
@@ -548,6 +553,7 @@
 "notifications-center-notifications-settings" = "Nastavitve obvestil";
 "notifications-center-onboarding-modal-continue-action" = "Nadaljuj";
 "notifications-center-onboarding-modal-filters-title" = "Filtri";
+"notifications-center-onboarding-modal-notifications-alerts-message" = "Obvestila vas seznanjajo z dejavnostjo, povezano z vašimi urejanji in računom.";
 "notifications-center-onboarding-modal-notifications-alerts-title" = "Obvestila in opozorila";
 "notifications-center-onboarding-modal-project-inboxes-title" = "Projektni nabiralniki";
 "notifications-center-onboarding-modal-push-notifications-title" = "Potisna obvestila";
@@ -679,8 +685,6 @@
 "project-name-wikiversity" = "Wikiverza";
 "project-name-wikivoyage" = "Wikipotovanje";
 "project-name-wiktionary" = "Wikislovar";
-"rank-accessibility-label" = "Število $1";
-"readers-accessibility-label" = "$1 bralcev";
 "reading-list-add-generic-hint-title" = "Želite dodati ta članek na bralni seznam?";
 "reading-list-add-saved-title" = "Najdeni shranjeni članki";
 "reading-list-create-new-list-button-title" = "Ustvari seznam za branje";
@@ -874,9 +878,6 @@
 "theme-default-explanation" = "Usklajeno s sistemsko temo";
 "theme-light-display-name" = "Svetla";
 "theme-sepia-display-name" = "Sepija";
-"top-read-header-generic" = "Wikipedija";
-"top-read-header-with-language" = "$1 vikipedija";
-"top-read-see-more" = "Prikaži več najbolj branega";
 "top-read-widget-title" = "Najbolj brano";
 "two-factor-login-continue" = "Nadaljuj s prijavo";
 "two-factor-login-instructions" = "Vnesite dvofaktorsko kodo za preverjanje";

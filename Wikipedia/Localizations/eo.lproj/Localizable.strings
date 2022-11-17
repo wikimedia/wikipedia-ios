@@ -343,7 +343,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "De $1 Vikipedio";
 "explore-random-article-sub-heading-from-wikipedia" = "De Vikipedio";
 "explore-randomizer" = "Hazardumilo";
-"featured-article-empty-title" = "Neniu elstara artikolo estas havebla hodiaŭ";
 "fetcher-error-generic" = "Io misfunkciis. Bonvolu reprovi poste.";
 "fetcher-error-unexpected-response" = "La aplikaĵo ricevis ne atenditan respondon el la servilo. Bonvolu reprovi poste.";
 "field-alert-captcha-invalid" = "Nevalida CAPTCHA";
@@ -530,8 +529,6 @@
 "potd-empty-error-description" = "Malsukcesis ricevi bildon de la tago por $1";
 "preference-summary-eventlogging-opt-in" = "Permesi al Vikipedio kolekti informojn pri kiel vi uzas la aplikaĵon por helpi ĝin plibonigi";
 "preference-title-eventlogging-opt-in" = "Sendi raporton pri uzado";
-"rank-accessibility-label" = "Numero $1";
-"readers-accessibility-label" = "$1 legantoj";
 "reading-list-add-generic-hint-title" = "Ĉu aldoni ĉi tiun artikolon al legolisto?";
 "reading-list-add-hint-title" = "Ĉu aldoni \"$1\" al legolisto?";
 "reading-list-add-saved-button-title" = "Jes, aldonu ilin al miaj legolistoj";
@@ -745,9 +742,6 @@
 "theme-default-display-name" = "Defaŭlta";
 "theme-light-display-name" = "Hela";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Vikipedio";
-"top-read-header-with-language" = "$1 Vikipedio";
-"top-read-see-more" = "Vidi pli da ofte legitaj artikoloj";
 "two-factor-login-continue" = "Daŭrigi la ensalutadon";
 "two-factor-login-instructions" = "Bonvolu enigi la dupaŝan kontrolkodon";
 "two-factor-login-title" = "Ensaluti en vian konton";

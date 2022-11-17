@@ -382,7 +382,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Dari Wikipedia $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Dari Wikipedia";
 "explore-randomizer" = "Rencana sembarang";
-"featured-article-empty-title" = "Tiada rencana pilihan untuk hari ini";
 "featured-widget-from-language-wikipedia" = "Daripada Wikipedia $1";
 "featured-widget-from-wikipedia" = "Daripada Wikipedia";
 "fetcher-error-generic" = "Ada yang salah. Sila cuba sebentar lagi.";
@@ -621,8 +620,6 @@
 "project-name-wikiversity" = "Wikiversiti";
 "project-name-wikivoyage" = "Wikikembara";
 "project-name-wiktionary" = "Wikikamus";
-"rank-accessibility-label" = "Nombor $1";
-"readers-accessibility-label" = "$1 pembaca";
 "reading-list-add-generic-hint-title" = "Tambahkan rencana ini ke dalam senarai bacaan?";
 "reading-list-add-hint-title" = "Tambahkan “$1” ke senarai bacaan?";
 "reading-list-add-saved-button-title" = "Ya, tambahkan ke senarai bacaan saya";
@@ -813,9 +810,6 @@
 "theme-default-display-name" = "Asali";
 "theme-light-display-name" = "Terang";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "Wikipedia Bahasa $1";
-"top-read-see-more" = "Lihat bacaan teratas lainnya";
 "two-factor-login-continue" = "Teruskan log masuk";
 "two-factor-login-instructions" = "Sila masukkan kod pengesahan dua faktor";
 "two-factor-login-title" = "Log masuk ke akaun anda";

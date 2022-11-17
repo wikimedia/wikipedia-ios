@@ -420,7 +420,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Z Wikipédie v jazyku $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipédie";
 "explore-randomizer" = "Randomizér";
-"featured-article-empty-title" = "Nie je dostupný žiadny odporúčaný článok";
 "featured-widget-content-failure-for-date" = "Odporúčaný článok nie je pre tento dátum dostupný.";
 "featured-widget-description" = "Objavte najlepšie články na Wikipédii, vyberané denne našou komunitou.";
 "featured-widget-from-language-wikipedia" = "Z $1 Wikipédie";
@@ -783,8 +782,6 @@
 "project-name-wikiversity" = "Wikiverzita";
 "project-name-wikivoyage" = "Wikicesty";
 "project-name-wiktionary" = "Wikislovník";
-"rank-accessibility-label" = "Číslo $1";
-"readers-accessibility-label" = "$1 čitateľov";
 "reading-list-add-generic-hint-title" = "Pridať tento článok do zoznamu na prečítanie?";
 "reading-list-add-hint-title" = "Pridať „$1“ do zoznamu na prečítanie?";
 "reading-list-add-saved-button-title" = "Áno, chcem ich pridať do svojich zoznamov";
@@ -1016,9 +1013,6 @@
 "theme-default-explanation" = "Prispôsobené vzhľadu systému";
 "theme-light-display-name" = "Svetlá";
 "theme-sepia-display-name" = "Sépia";
-"top-read-header-generic" = "Wikipédia";
-"top-read-header-with-language" = "$1 Wikipédia";
-"top-read-see-more" = "Zobraziť ďalšie najčítanejšie články";
 "top-read-widget-description" = "Zistite čo svet dnes číta na Wikipédii.";
 "top-read-widget-readers-count" = "$1 čitateľov";
 "top-read-widget-title" = "Najčítanejšie články";
