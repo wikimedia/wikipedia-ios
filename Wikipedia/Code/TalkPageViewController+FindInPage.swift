@@ -48,13 +48,6 @@ extension TalkPageViewController {
 
     // MARK: - Scroll to Element
     
-    
-    override func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        super.scrollViewDidEndScrollingAnimation(scrollView)
-        
-        scrollToFindInPageResultRect()
-    }
-    
     private func scrollToFindInPageResultRect() {
         if let scrollingToIndexPath = scrollingToIndexPath,
         let scrollingToResult = scrollingToResult {
@@ -83,7 +76,7 @@ extension TalkPageViewController {
 
     func scrollToFindInPageResult(_ result: TalkPageFindInPageSearchController.SearchResult?) {
         guard let result = result else { return }
-        
+
         switch result.location {
         case .topicTitle(topicIndex: let index, topicIdentifier: _):
             let indexPath = IndexPath(row: index, section: 0)
@@ -94,7 +87,8 @@ extension TalkPageViewController {
             if talkPageView.collectionView.indexPathsForVisibleItems.contains(indexPath) {
                 scrollToFindInPageResultRect()
             } else {
-                talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+                talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
+                scrollToFindInPageResultRect()
             }
         case .topicLeadComment(topicIndex: let index, replyIdentifier: _),
              .topicOtherContent(topicIndex: let index):
@@ -106,7 +100,8 @@ extension TalkPageViewController {
             if talkPageView.collectionView.indexPathsForVisibleItems.contains(indexPath) {
                 scrollToFindInPageResultRect()
             } else {
-                talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+                talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
+                scrollToFindInPageResultRect()
             }
         case .reply(topicIndex: let topicIndex, topicIdentifier: _, replyIndex: let replyIndex, replyIdentifier: _):
             let topicViewModel = viewModel.topics[topicIndex]
@@ -121,12 +116,14 @@ extension TalkPageViewController {
             if talkPageView.collectionView.indexPathsForVisibleItems.contains(indexPath) {
                 scrollToFindInPageResultRect()
             } else {
-                talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+                talkPageView.collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
+                scrollToFindInPageResultRect()
             }
         }
     }
 
     private func talkPageCell(indexPath: IndexPath) -> TalkPageCell? {
+        talkPageView.collectionView.layoutIfNeeded()
         return talkPageView.collectionView.cellForItem(at: indexPath) as? TalkPageCell
     }
 
