@@ -473,6 +473,7 @@
 "icon-shortcut-random-title" = "Random article";
 "icon-shortcut-search-title" = "Search Wikipedia";
 "image-gallery-unknown-owner" = "Author unknown.";
+"import-shared-reading-list-default-title" = "My Reading List";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Not now";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Take survey";
 "import-shared-reading-list-survey-prompt-footer" = "View our  $1privacy statement$2. Survey powered by a third-party. View their $3privacy policy$4.";
