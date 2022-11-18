@@ -20,7 +20,17 @@ class ReadingListDetailViewController: ViewController {
     private weak var importSurveyPromptTimer: Timer?
     private let importSurveyPromptDelay = TimeInterval(5)
     
-    private let importSurveyURL = URL(string: "https://docs.google.com/forms/d/1c7TyQc-Dr9RA7wi6tCAdmWegxNj-s2GpQ1Vk2II6xYY/edit?ts=63767ac8")
+    private typealias LanguageCode = String
+    private let importSurveyURLs: [LanguageCode: URL?] = [
+        "en": URL(string: "https://docs.google.com/forms/d/1c7TyQc-Dr9RA7wi6tCAdmWegxNj-s2GpQ1Vk2II6xYY/edit"),
+        "ar": URL(string: "https://docs.google.com/forms/d/15ZnQRm8J3UtAxkS0BSaq2jGraGeCd8ojKwt97xjlO4Y/edit"),
+        "bn": URL(string: "https://forms.gle/864rFuD19qETpSTv7"),
+        "fr": URL(string: "https://forms.gle/FHNm9LZdQfkbUbW58"),
+        "de": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSfS2-gQJtCUnFMJl-C0BdrWNxpb-PeXjoDeCR4z80gSCoA-RA/viewform?usp=sf_link"),
+        "hi": URL(string: "https://forms.gle/bKYnrH2rAv6pZ8718"),
+        "pt": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSfbRhbf-cqmZC-vn1S_OTdsJ0zpiVW7vfFpWQgZtzQbU0dZEw/viewform?usp=sf_link"),
+        "es": URL(string: ""), // TODO: Need Spanish?
+        "urdu": URL(string: "")] // TODO: Need Urdu?
     
     @objc convenience init(for readingList: ReadingList, with dataStore: MWKDataStore, fromImport: Bool, theme: Theme) {
         self.init(for: readingList, with: dataStore, displayType: .pushed, fromImport: fromImport)
@@ -350,8 +360,9 @@ private extension ReadingListDetailViewController {
         guard !seenSurveyPrompt else {
             return
         }
-
-        guard let surveyURL = self.importSurveyURL else {
+        
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+              let surveyURL = (importSurveyURLs[languageCode] ?? importSurveyURLs["en"]) else {
             return
         }
 
