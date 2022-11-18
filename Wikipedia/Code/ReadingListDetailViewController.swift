@@ -30,7 +30,7 @@ class ReadingListDetailViewController: ViewController {
         "hi": URL(string: "https://forms.gle/bKYnrH2rAv6pZ8718"),
         "pt": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSfbRhbf-cqmZC-vn1S_OTdsJ0zpiVW7vfFpWQgZtzQbU0dZEw/viewform?usp=sf_link"),
         "es": URL(string: ""), // TODO: Need Spanish?
-        "urdu": URL(string: "")] // TODO: Need Urdu?
+        "ur": URL(string: "")] // TODO: Need Urdu?
     
     @objc convenience init(for readingList: ReadingList, with dataStore: MWKDataStore, fromImport: Bool, theme: Theme) {
         self.init(for: readingList, with: dataStore, displayType: .pushed, fromImport: fromImport)
