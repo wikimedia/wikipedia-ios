@@ -20,8 +20,7 @@ class ReadingListDetailViewController: ViewController {
     private weak var importSurveyPromptTimer: Timer?
     private let importSurveyPromptDelay = TimeInterval(5)
     
-    // TODO: Get final URL
-    private let importSurveyURL = URL(string: "http://www.mediawiki.org")
+    private let importSurveyURL = URL(string: "https://docs.google.com/forms/d/1c7TyQc-Dr9RA7wi6tCAdmWegxNj-s2GpQ1Vk2II6xYY/edit?ts=63767ac8")
     
     @objc convenience init(for readingList: ReadingList, with dataStore: MWKDataStore, fromImport: Bool, theme: Theme) {
         self.init(for: readingList, with: dataStore, displayType: .pushed, fromImport: fromImport)

@@ -26,12 +26,6 @@ public class Router: NSObject {
     /// Gets the appropriate in-app destination for a given URL
     public func destination(for url: URL) -> Destination {
         
-        // TODO: Remove once shared reading list landing page is live.
-        // Temporary workaround to allow beta cluster reading list urls through
-        if (url.host ?? "").contains("wikipedia.beta.wmflabs.org") {
-            return destinationForHostURL(url, project: WikimediaProject.wikipedia("en", "", nil))
-        }
-        
         guard let siteURL = url.wmf_site,
         let project = WikimediaProject(siteURL: siteURL) else {
             
