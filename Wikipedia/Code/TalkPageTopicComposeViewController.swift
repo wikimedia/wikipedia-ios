@@ -128,10 +128,16 @@ class TalkPageTopicComposeViewController: ViewController {
 
     private let textFormattingPlainToolbarView = TextFormattingPlainToolbarView.wmf_viewFromClassNib()
 
-    private(set) var inputAccessoryViewType: InputAccessoryViewType?
+    weak var formattingDelegate: TextFormattingDelegate? {
+        didSet {
+            textFormattingPlainToolbarView?.delegate = formattingDelegate
+        }
+    }
 
     override var inputAccessoryView: UIView? {
-        return textFormattingPlainToolbarView
+        let toolbar = TalkPageFormattingToolbarView()
+        toolbar.apply(theme: theme)
+        return toolbar
     }
     
     // MARK: Lifecycle

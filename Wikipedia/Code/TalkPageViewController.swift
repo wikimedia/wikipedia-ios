@@ -30,14 +30,13 @@ class TalkPageViewController: ViewController {
         return view as! TalkPageView
     }
 
-    // formatting
-    weak var formattingDelegate: TextFormattingDelegate? {
+    weak var formattingDelegate: TalkPageFormattingToolbarViewDelegate? {
         didSet {
-            textFormattingPlainToolbarView?.delegate = formattingDelegate
+            textFormattingPlainToolbarView.delegate = formattingDelegate
         }
     }
 
-    private let textFormattingPlainToolbarView = TextFormattingPlainToolbarView.wmf_viewFromClassNib()
+    private let textFormattingPlainToolbarView = TalkPageFormattingToolbarView()
 
     private(set) var inputAccessoryViewType: InputAccessoryViewType?
 
@@ -50,6 +49,7 @@ class TalkPageViewController: ViewController {
         case .findInPage:
             return findInPageState.keyboardBar
         case .format:
+            textFormattingPlainToolbarView.apply(theme: theme)
             return textFormattingPlainToolbarView
         }
     }
@@ -84,7 +84,7 @@ class TalkPageViewController: ViewController {
 
     fileprivate var overflowSubmenuActions: [UIAction] {
 
-        let goToArchivesAction = UIAction(title: TalkPageLocalizedStrings.archives, image: UIImage(systemName: "archivebox"), handler: { _ in
+        let  linkgoToArchivesAction = UIAction(title: TalkPageLocalizedStrings.archives, image: UIImage(systemName: "archivebox"), handler: { _ in
         })
 
         let pageInfoAction = UIAction(title: TalkPageLocalizedStrings.pageInfo, image: UIImage(systemName: "info.circle"), handler: { [weak self] _ in
