@@ -125,6 +125,14 @@ class TalkPageTopicComposeViewController: ViewController {
     weak var delegate: TalkPageTopicComposeViewControllerDelegate?
     
     private weak var authenticationManager: WMFAuthenticationManager?
+
+    private let textFormattingPlainToolbarView = TextFormattingPlainToolbarView.wmf_viewFromClassNib()
+
+    private(set) var inputAccessoryViewType: InputAccessoryViewType?
+
+    override var inputAccessoryView: UIView? {
+        return textFormattingPlainToolbarView
+    }
     
     // MARK: Lifecycle
     

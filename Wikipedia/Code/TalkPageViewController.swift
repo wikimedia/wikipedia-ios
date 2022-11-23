@@ -37,6 +37,8 @@ class TalkPageViewController: ViewController {
         }
     }
 
+    private let textFormattingPlainToolbarView = TextFormattingPlainToolbarView.wmf_viewFromClassNib()
+
     private(set) var inputAccessoryViewType: InputAccessoryViewType?
 
     override var inputAccessoryView: UIView? {
@@ -52,8 +54,6 @@ class TalkPageViewController: ViewController {
         }
     }
 
-    let textFormattingPlainToolbarView = TextFormattingPlainToolbarView.wmf_viewFromClassNib()
-    
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
         progressController.delay = 0.0
