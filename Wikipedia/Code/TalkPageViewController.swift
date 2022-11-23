@@ -2,6 +2,11 @@ import UIKit
 import WMF
 import CocoaLumberjackSwift
 
+public enum InputAccessoryViewType {
+    case format
+    case findInPage
+}
+
 class TalkPageViewController: ViewController {
 
     // MARK: - Properties
@@ -24,6 +29,30 @@ class TalkPageViewController: ViewController {
     var talkPageView: TalkPageView {
         return view as! TalkPageView
     }
+
+    // formatting
+    weak var formattingDelegate: TextFormattingDelegate? {
+        didSet {
+            textFormattingPlainToolbarView?.delegate = formattingDelegate
+        }
+    }
+
+    private(set) var inputAccessoryViewType: InputAccessoryViewType?
+
+    override var inputAccessoryView: UIView? {
+        guard let inputAccessoryViewType = inputAccessoryViewType else {
+            return nil
+        }
+
+        switch inputAccessoryViewType {
+        case .findInPage:
+            return findInPageState.keyboardBar
+        case .format:
+            return textFormattingPlainToolbarView
+        }
+    }
+
+    let textFormattingPlainToolbarView = TextFormattingPlainToolbarView.wmf_viewFromClassNib()
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -384,6 +413,7 @@ class TalkPageViewController: ViewController {
             topic.isThreadExpanded = true
         }
 
+        inputAccessoryViewType = .findInPage
         talkPageView.collectionView.reloadData()
 
         showFindInPage()
@@ -397,6 +427,7 @@ class TalkPageViewController: ViewController {
         let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute)
         let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, authenticationManager: viewModel.authenticationManager, theme: theme)
         topicComposeVC.delegate = self
+        inputAccessoryViewType = .format
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
         navVC.presentationController?.delegate = self
@@ -854,6 +885,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
 extension TalkPageViewController: TalkPageCellReplyDelegate {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel, accessibilityFocusView: UIView?) {
         hideFindInPage(releaseKeyboardBar: true)
+        inputAccessoryViewType = .format
         if !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
             presentTopicReplyOnboarding()
         }
