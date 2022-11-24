@@ -74,6 +74,30 @@ class TalkPageFormattingToolbarView: SetupView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        configure()
+    }
+
+    @objc func didTapBoldButton() {
+        delegate?.didSelectBold()
+    }
+
+    @objc func didTapItalicsButton() {
+        delegate?.didSelectItalics()
+    }
+
+    @objc func didTapInsertImageButton() {
+        delegate?.didSelectInsertImage()
+    }
+
+    @objc func didTapInsertLinkButton() {
+        delegate?.didSelectInsertLink()
+    }
+
+    func configure() {
+        boldButton.addTarget(self, action: #selector(didTapBoldButton), for: .touchUpInside)
+        italicsButton.addTarget(self, action: #selector(didTapItalicsButton), for: .touchUpInside)
+        imageButton.addTarget(self, action: #selector(didTapInsertImageButton), for: .touchUpInside)
+        linkButton.addTarget(self, action: #selector(didTapInsertLinkButton), for: .touchUpInside)
     }
 }
 
