@@ -500,6 +500,7 @@
 "icon-shortcut-random-title" = "Випадкова стаття";
 "icon-shortcut-search-title" = "Пошук по Вікіпедії";
 "image-gallery-unknown-owner" = "Автор невідомий.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Не зараз";
 "in-the-news-sub-title-from-language-wikipedia" = "Із Вікіпедії мовою «$1»";
 "in-the-news-sub-title-from-wikipedia" = "З Вікіпедії";
 "in-the-news-title" = "У новинах";

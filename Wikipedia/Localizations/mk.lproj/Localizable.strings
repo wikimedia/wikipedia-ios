@@ -485,6 +485,7 @@
 "icon-shortcut-random-title" = "Случајна статија";
 "icon-shortcut-search-title" = "Пребарај ја Википедија";
 "image-gallery-unknown-owner" = "Подигачот е непознат.";
+"import-shared-reading-list-default-title" = "Мој список за читање";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Не сега";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Пополнете ја анкетата";
 "import-shared-reading-list-survey-prompt-footer" = "ПОгледајте ја нашата $1изјава за личните податоци$2. Анкетата ја овозможува трето лице. Погледајте ги нивните $3правила за личните податоци$4.";
