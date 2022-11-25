@@ -30,7 +30,7 @@ class TalkPageViewController: ViewController {
         return view as! TalkPageView
     }
     
-    private let textFormattingPlainToolbarView = TalkPageFormattingToolbarView()
+    private let textFormattingToolbarView = TalkPageFormattingToolbarView()
 
     private(set) var inputAccessoryViewType: InputAccessoryViewType?
 
@@ -43,9 +43,9 @@ class TalkPageViewController: ViewController {
         case .findInPage:
             return findInPageState.keyboardBar
         case .format:
-            textFormattingPlainToolbarView.apply(theme: theme)
-            textFormattingPlainToolbarView.delegate = self
-            return textFormattingPlainToolbarView
+            textFormattingToolbarView.apply(theme: theme)
+            textFormattingToolbarView.delegate = self
+            return textFormattingToolbarView
         }
     }
 

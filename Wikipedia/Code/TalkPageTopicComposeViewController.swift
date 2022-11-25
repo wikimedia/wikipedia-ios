@@ -81,7 +81,7 @@ class TalkPageTopicComposeViewController: ViewController {
         return view
     }()
     
-    private lazy var bodyTextView: UITextView = {
+    private(set) lazy var bodyTextView: UITextView = {
         let textView = UITextView(frame: .zero)
         textView.isScrollEnabled = false
         textView.textContainer.lineFragmentPadding = 0
@@ -270,7 +270,7 @@ class TalkPageTopicComposeViewController: ViewController {
         
         return false
     }
-    
+
     func presentDismissConfirmationActionSheet() {
         let alertController = UIAlertController(title: Self.TopicComposeStrings.closeConfirmationTitle, message: nil, preferredStyle: .actionSheet)
         let discardAction = UIAlertAction(title: Self.TopicComposeStrings.closeConfirmationDiscard, style: .destructive) { _ in

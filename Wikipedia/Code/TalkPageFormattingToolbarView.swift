@@ -54,7 +54,6 @@ class TalkPageFormattingToolbarView: SetupView {
 
     init() {
         super.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
-
     }
 
     required init?(coder: NSCoder) {
@@ -75,6 +74,8 @@ class TalkPageFormattingToolbarView: SetupView {
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         configure()
+
+        // TODO: separator
     }
 
     @objc func didTapBoldButton() {
