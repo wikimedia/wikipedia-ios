@@ -17,4 +17,5 @@ extension TalkPageTopicComposeViewController: TalkPageFormattingToolbarViewDeleg
     func didSelectInsertLink() {
         print("LINK")
     }
+    
 }

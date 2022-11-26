@@ -21,4 +21,5 @@ extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
     func didSelectInsertLink() {
         print("LINK")
     }
+    
 }
