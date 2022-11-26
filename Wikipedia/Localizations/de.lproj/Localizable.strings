@@ -49,8 +49,11 @@
 "aaald-new-news-reference-retrieved-date" = "Abgerufen $1";
 "aaald-new-news-reference-title" = "Nachrichten";
 "aaald-new-talk-topic-description-format" = "$1 über diesen Artikel";
+"aaald-new-website-reference-archive-date-text" = "vom Original auf $1";
 "aaald-new-website-reference-archive-url-text" = "Archive.org URL";
 "aaald-new-website-reference-title" = "Webseite";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 Referenzen|$1 Referenz|$1 Referenzen}} hinzugefügt";
+"aaald-one-section-description" = "im Abschnitt $1";
 "aaald-revision-by-anonymous" = "Bearbeitung durch einen nicht angemeldeten Benutzer";
 "aaald-revision-userInfo" = "Bearbeitung von $1 ($2 Bearbeitungen)";
 "aaald-vandalism-revert-description" = "Mutmaßlicher Vandalismus zurückgesetzt";
@@ -955,15 +958,12 @@
 "talk-page-user-about" = "Über Benutzer-Diskussionsseiten";
 "talk-page-user-contributions" = "Beiträge";
 "talk-pages-coffee-roll-read-more" = "Mehr lesen";
-// Fuzzy
 "talk-pages-comment-added-alert-title" = "Dein Kommentar wurde hinzugefügt";
 "talk-pages-compose-close-confirmation-keep" = "Weiter bearbeiten";
 "talk-pages-reply-button-title" = "Auf diese Diskussion antworten";
-// Fuzzy
-"talk-pages-reply-compose-close-confirmation-title" = "Bist du sicher, dass du deine Änderungen verwerfen möchtest?";
+"talk-pages-reply-compose-close-confirmation-title" = "Bist du sicher, dass du diese neue Antwort verwerfen willst?";
 "talk-pages-topic-added-alert-title" = "Dein Thema wurde hinzugefügt";
 "talk-pages-topic-compose-body-placeholder" = "Beschreibung";
-// Fuzzy
 "talk-pages-topic-compose-close-confirmation-discard" = "Antwort verwerfen";
 "talk-pages-topic-compose-navbar-title" = "Thema";
 "talk-pages-topic-compose-title-placeholder" = "Thementitel";

@@ -436,6 +436,7 @@
 "icon-shortcut-random-title" = "Случајни чланак";
 "icon-shortcut-search-title" = "Претражи Википедију";
 "image-gallery-unknown-owner" = "Отпремалац је непознат.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Не сада";
 "in-the-news-sub-title-from-language-wikipedia" = "Језик Википедије: $1";
 "in-the-news-sub-title-from-wikipedia" = "Са Википедије";
 "in-the-news-title" = "Вести";

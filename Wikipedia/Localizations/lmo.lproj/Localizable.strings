@@ -101,7 +101,7 @@
 "action-redo" = "Fà de noeuv";
 "action-remove" = "Toeu via";
 "action-replace" = "Sostituiss";
-"action-replace-all" = "Sostituiss tusscoss";
+"action-replace-all" = "Muda tuscoss";
 "action-retry" = "Proeuva an'mò";
 "action-save" = "Salva";
 "action-saved" = "Salvad";
@@ -343,7 +343,7 @@
 "explore-feed-preferences-explore-tab" = "Scheda \"Esplora\"";
 "explore-feed-preferences-featured-article-description" = "Vos i vedrina de la sgiornada in su Wikipedia";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Smorzad";
-"explore-feed-preferences-feed-card-visibility-all-languages-on" = "Pizzad tusscoss";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "Tuscoss pizzad";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Pizzad";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Pizzad $1";
 "explore-feed-preferences-hide-card-action-title" = "Scond questa scheda chì";
@@ -413,7 +413,7 @@
 "history-clear-all" = "Neta";
 "history-clear-cancel" = "Anulla";
 "history-clear-confirmation-heading" = "Te see sicur che te voeulet scancellà tut i to element recent?";
-"history-clear-delete-all" = "Sì, scassa tusscoss";
+"history-clear-delete-all" = "Sì, scassa tuscoss";
 "history-title" = "Storia";
 "home-button-explore-accessibility-label" = "Wikipedia, ritorna a Esplora";
 "home-button-history-accessibility-label" = "Wikipedia, torna indree a la storia";
@@ -564,7 +564,7 @@
 "notifications-center-onboarding-modal-project-inboxes-message" = "varda tucc i messagg minga lensgiud di Wikipedie in lengue diferente e di alter proget Wikimedia in d'on soll loeugh.";
 "notifications-center-onboarding-modal-title" = "Modifega i notifeghe";
 "notifications-center-onboarding-panel-secondary-button" = "No, grazzie";
-"notifications-center-status-all" = "Tusscoss";
+"notifications-center-status-all" = "Tuscoss";
 "notifications-center-status-all-notifications" = "Tute i notifiche";
 "notifications-center-status-double-concatenation" = "$1 in $2";
 "notifications-center-status-filtered-by" = "Fitrad de";
