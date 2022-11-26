@@ -1,12 +1,17 @@
 import Foundation
 
 extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
+
     func didSelectBold() {
-        print("BOLD")
+        if let textView = replyComposeController.contentView?.replyTextView {
+            textView.addStringFormattingCharacters(formattingString: "'''", cursorOffset: 3)
+        }
     }
 
     func didSelectItalics() {
-        print("ITALICS")
+        if let textView = replyComposeController.contentView?.replyTextView {
+            textView.addStringFormattingCharacters(formattingString: "''", cursorOffset: 2)
+        }
     }
 
     func didSelectInsertImage() {
