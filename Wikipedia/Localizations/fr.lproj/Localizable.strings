@@ -249,8 +249,8 @@
 "diff-revision-error-title" = "Impossible de charger la révision";
 "diff-single-header-editor-number-edits-format" = "$1 modification{{PLURAL:$1||s}}";
 "diff-single-header-editor-title" = "Informations sur l’éditeur";
-"diff-single-header-subtitle-bytes-added" = "$1 octet{{PLURAL:$1||s}} ajouté{{PLURAL:$1||s}}";
-"diff-single-header-subtitle-bytes-removed" = "$1 octet{{PLURAL:$1||s}} enlevé{{PLURAL:$1||s}}";
+"diff-single-header-subtitle-bytes-added" = "$1 octet{{PLURAL:$1||s}} ajouté{{PLURAL:$1||s}}";
+"diff-single-header-subtitle-bytes-removed" = "$1 octet{{PLURAL:$1||s}} enlevé{{PLURAL:$1||s}}";
 "diff-single-header-summary-heading" = "Résumé des modifications";
 "diff-single-intro-title" = "Introduction";
 "diff-single-line-format" = "Ligne $1";
@@ -507,6 +507,7 @@
 "icon-shortcut-random-title" = "Article au hasard";
 "icon-shortcut-search-title" = "Rechercher dans Wikipédia";
 "image-gallery-unknown-owner" = "Auteur inconnu.";
+"import-shared-reading-list-default-title" = "Ma liste de lecture";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Pas maintenant";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Participer au sondage";
 "import-shared-reading-list-survey-prompt-footer" = "Consultez notre $1déclaration de confidentialité$2. Sondage propulsé par un tiers. Consultez sa $3politique de confidentialité$4.";
@@ -744,8 +745,8 @@
 "page-history-revision-comment-accessibility-label" = "Commentaire $1";
 "page-history-revision-history-title" = "Historique des versions";
 "page-history-revision-minor-edit-accessibility-label" = "Modification mineure";
-"page-history-revision-size-diff-addition" = "$1 octet{{PLURAL:$1||s}} ajouté{{PLURAL:$1||s}}";
-"page-history-revision-size-diff-subtraction" = "$1 octet{{PLURAL:$1||s}} enlevé{{PLURAL:$1||s}}";
+"page-history-revision-size-diff-addition" = "$1 octet{{PLURAL:$1||s}} ajouté{{PLURAL:$1||s}}";
+"page-history-revision-size-diff-subtraction" = "$1 octet{{PLURAL:$1||s}} enlevé{{PLURAL:$1||s}}";
 "page-history-revision-time-accessibility-label" = "Modification du $1";
 "page-history-revisions-comparison-warning" = "Seulement deux versions doivent être sélectionnées";
 "page-history-stats-text" = "$1 modification{{PLURAL:$1||s}} depuis $2";

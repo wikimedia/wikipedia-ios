@@ -503,6 +503,9 @@
 "icon-shortcut-random-title" = "임의의 문서";
 "icon-shortcut-search-title" = "위키백과 검색";
 "image-gallery-unknown-owner" = "저자 알 수 없음.";
+"import-shared-reading-list-default-title" = "내 읽기 목록";
+"import-shared-reading-list-survey-prompt-button-cancel" = "지금은 괜찮습니다";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "설문 조사에 참가하기";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 위키백과에서";
 "in-the-news-sub-title-from-wikipedia" = "위키백과에서";
 "in-the-news-title" = "새로 들어온 소식";

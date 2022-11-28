@@ -27,10 +27,11 @@
 "cancel" = "Betal bike";
 "clear-title-accessibility-label" = "Paqij bike";
 "close-button-accessibility-label" = "Bigre";
-"edit-link-title" = "Girêdanê biguherîne";
+"edit-link-title" = "Girêdanê biguhêre";
 "edit-summary-choice-fixed-grammar" = "Rêziman sererast kir";
 "edit-summary-choice-fixed-typos" = "Şaşnivîsînê sererast kir";
 "edit-summary-choice-linked-words" = "Girêdanan lê zêde kir";
+"editor-exit-confirmation-body" = "Ma hûn pê piştrast in ku hûn dixwazin ji moda guhartinê bêyî weşandinê derkevin?";
 "empty-insert-media-title" = "Dosyeyekê bibijêre ji Wîkîmedya Commonsê";
 "empty-no-search-results-message" = "Ti encam nehatin dîtin";
 "explore-potd-heading" = "Wêneyê rojê";
@@ -43,7 +44,7 @@
 "icon-shortcut-random-title" = "Gotara ketober";
 "image-gallery-unknown-owner" = "Nivîskar nenas e";
 "in-the-news-title" = "Di nûçeyan de";
-"languages-title" = "Ziman biguherîne";
+"languages-title" = "Zimên biguhêre";
 "main-menu-about" = "Di derbarê sepanê de";
 "main-menu-account-login" = "Têkeve";
 "main-menu-account-logout" = "Derkeve";
@@ -61,6 +62,8 @@
 "nearby-distance-label-miles" = "$1 mîl";
 "page-protected-can-not-edit" = "Mafê te bo guherandina rûpelê tune ye";
 "page-protected-can-not-edit-title" = "Ev rûpel hatiye parastin";
+"reference-title" = "Çavkanî $1";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=hema niha|berî $1 deqe|berî $1 deqeyan}}";
 "saved-title" = "Hate tomarkirin";
 "search-did-you-mean" = "Gelo mebesta te $1 bû?";
 "search-field-placeholder-text" = "Di nav Wîkîpediyayê de lê bigere";

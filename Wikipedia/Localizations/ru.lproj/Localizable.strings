@@ -466,6 +466,8 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Раздел Википедии: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-randomizer" = "Рандомизатор";
+"export-user-data-confirmation-message" = "Общий доступ к библиотеке приложений включает данные о списках чтения и истории, предпочтениях и содержании раздела «Лента». Этот файл данных должен передаваться только доверенному получателю для использования в целях технической диагностики.";
+"export-user-data-confirmation-title" = "Поделиться библиотекой приложения?";
 "export-user-data-title" = "Экспорт данных пользователя";
 "featured-widget-content-failure-for-date" = "Избранная статья недоступна для этой даты.";
 "featured-widget-description" = "Откройте для себя лучшие статьи из Википедии, ежедневно отбираемые нашим сообществом.";
