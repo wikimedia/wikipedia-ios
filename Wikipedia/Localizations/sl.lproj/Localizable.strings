@@ -125,7 +125,7 @@
 "announcements-dismiss" = "Opusti";
 "app-store-keywords" = "Wikipedija, referenca, viki, enciklopedija, info, znanje, raziskovanje, informacije, odkrivanje, učenje";
 "app-store-release-notes" = "Popolnoma prilagodljiv in za branje preprostejši vir Razišči. Lokalizacija, izboljšave delovanja in popravki napak.";
-"app-store-short-description" = "Prenesite aplikacijo Wikipedia za raziskovanje krajev v vaši bližini, sinhronizirajte članke za branje brez povezave in si prilagodite svojo bralno izkušnjo.";
+"app-store-short-description" = "Prenesite aplikacijo Wikipedija za raziskovanje krajev v vaši bližini, sinhronizirajte članke za branje brez povezave in si prilagodite svojo bralno izkušnjo.";
 "app-store-subtitle" = "Prosta enciklopedija";
 "appearance-settings-adjust-text-sizing" = "Prilagodite velikost besedila članka";
 "appearance-settings-expand-tables" = "Razširite tabele";
@@ -317,8 +317,8 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Dodatne jezike lahko dodate na strani z nastavitvami »Moji jeziki«.";
 "explore-feed-preferences-card-hidden-title" = "Kartica skrita";
 "explore-feed-preferences-continue-reading-description" = "Hitra povezava nazaj na branje odprtega članka";
-"explore-feed-preferences-customize-explore-feed" = "Vir Raziskovanje po meri";
-"explore-feed-preferences-customize-explore-feed-action-title" = "Prilagodi vir Raziskovanje";
+"explore-feed-preferences-customize-explore-feed" = "Vir Raziskuj po meri";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Prilagodi vir Raziskuj";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Skritje vrste kartice bo preprečilo pojavljanje te kartice v viru Raziskovanje.";
 "explore-feed-preferences-explore-tab" = "Zavihek Razišči";
 "explore-feed-preferences-featured-article-description" = "Izbrani članek dneva v Wikipediji";
@@ -356,9 +356,9 @@
 "explore-feed-preferences-show-top-read-footer-text" = "Če boste izklopili kartico Najbolj brano, bo ta kartica izklopljena v vseh razpoložljivih jezikih.";
 "explore-feed-preferences-show-top-read-title" = "Prikaži kartico Najbolj brano";
 "explore-feed-preferences-top-read-description" = "Danes najbolj brani članki";
-"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Izklopi vir Raziskovanje";
+"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Izklopi vir Raziskuj";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Skritje vseh kartic vira Raziskovanje bo izklopilo zavihek Raziskovanje in ga nadomestilo z zavihkom Nastavitve";
-"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Izklopim vir Raziskovanje?";
+"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Izklopim vir Raziskuj?";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "Izklopi Raziskuj";
 "explore-feed-preferences-turn-off-explore-tab-message" = "Zavihek Raziskuj lahko znova vklopite v nastavitvah vira Raziskuj";
 "explore-feed-preferences-turn-off-explore-tab-title" = "Želite izklopiti zavihek Raziskuj?";
@@ -474,7 +474,7 @@
 "insert-media-title" = "Vstavi predstavnost";
 "insert-media-uploaded-image-title" = "Naložite sliko";
 "kazakh-variants-alert-title" = "Posodobitve podpore za kazaško različico";
-"kurdish-variants-alert-body" = "Aplikacija Wikipedia zdaj podpira naslednje kurdske različice kot primarne ali sekundarne jezike v aplikaciji, kar olajša branje, iskanje in urejanje v vaših želenih različicah:\n\nKurdî Latînî Kurdščina, latinica (ku-latn)\nكوردی Kurdščina, arabska pisava (kk-arab)";
+"kurdish-variants-alert-body" = "Aplikacija Wikipedija zdaj podpira naslednje kurdske različice kot primarne ali sekundarne jezike v aplikaciji, kar olajša branje, iskanje in urejanje v vaših želenih različicah:\n\nKurdî Latînî Kurdščina, latinica (ku-latn)\nكوردی Kurdščina, arabska pisava (kk-arab)";
 "kurdish-variants-alert-title" = "Posodobitve podpore za kurdsko različico";
 "languages-settings-title" = "Jeziki";
 "languages-title" = "Spremeni jezik";
@@ -562,7 +562,7 @@
 "notifications-center-onboarding-panel-heading" = "Želite vklopiti potisna obvestila?";
 "notifications-center-onboarding-panel-primary-button" = "Vklopi potisna obvestila";
 "notifications-center-onboarding-panel-secondary-button" = "Ne, hvala";
-"notifications-center-onboarding-panel-subheading" = "Wikipedia je sodelovalni projekt in vklop potisnih obvestil lahko olajša obveščanje o sporočilih, opozorilih in »zahvalah« sourejevalcev.";
+"notifications-center-onboarding-panel-subheading" = "Wikipedija je sodelovalni projekt in vklop potisnih obvestil lahko olajša obveščanje o sporočilih, opozorilih in »zahvalah« sourejevalcev.";
 "notifications-center-project-filters-accessibility-label" = "Filter projektov";
 "notifications-center-status-all" = "Vse";
 "notifications-center-status-all-notifications" = "Vsa obvestila";
@@ -774,7 +774,7 @@
 "settings-storage-and-syncing-title" = "Shranjevanje in sinhroniziranje člankov";
 "settings-support" = "Podprite Wikipedijo";
 "settings-title" = "Nastavitve";
-"share-a-fact-made-with" = "Ustvarjeno z aplikacijo Wikipedia";
+"share-a-fact-made-with" = "Ustvarjeno z aplikacijo Wikipedija";
 "share-article-name-on-wikipedia" = "»$1« v Wikipediji:";
 "share-building" = "Ustvarjanje kartice Deli dejstvo";
 "share-get-directions-in-maps" = "Pridobi navodila za pot";
@@ -902,14 +902,14 @@
 "vanish-account-warning-title" = "Opozorilo";
 "variants-alert-dismiss-button" = "Ne, hvala";
 "variants-alert-preferences-button" = "Preglejte svoje nastavitve";
-"welcome-exploration-explore-feed-title" = "Vir Raziskovanje";
+"welcome-exploration-explore-feed-title" = "Vir Raziskuj";
 "welcome-exploration-on-this-day-title" = "Na današnji dan";
 "welcome-exploration-places-title" = "Zavihek Kraji";
 "welcome-explore-continue-button" = "Začni";
 "welcome-explore-new-ways-title" = "Novi načini raziskovanja";
 "welcome-explore-tell-me-more-done-button" = "Razumem";
 "welcome-intro-free-encyclopedia-more-about" = "O Wikipediji";
-"welcome-intro-free-encyclopedia-more-description" = "Wikipedia je globalni projekt ustvarjanja prostih enciklopedij v vseh jezikih sveta. Sodeluje lahko skorajda vsak, ki ima dostop do interneta, in sicer s prispevanjem nepristranskih informacij in navajanjem virov.";
+"welcome-intro-free-encyclopedia-more-description" = "Wikipedija je globalni projekt ustvarjanja prostih enciklopedij v vseh jezikih sveta. Sodeluje lahko skorajda vsak, ki ima dostop do interneta, in sicer s prispevanjem nepristranskih informacij in navajanjem virov.";
 "welcome-intro-free-encyclopedia-title" = "Prosta enciklopedija";
 "welcome-languages-add-button" = "Dodajte drug jezik";
 "welcome-languages-add-or-edit-button" = "Dodajte ali uredite želene jezike";
