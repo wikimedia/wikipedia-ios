@@ -129,11 +129,33 @@ class ReadingListImportSurveyPanelViewController : ScrollableEducationPanelViewC
         
         let footerHTML = String.localizedStringWithFormat(
             footerFormat,
-            "<a href=\"\(privacyURLString)\"</a>",
+            "<a href=\"\(privacyURLString)\">",
+            "</a>",
             "<a href=\"https://policies.google.com/privacy\">",
             "</a>"
         )
         self.footerHTML = footerHTML
+    }
+    
+    override var footerParagraphStyle: NSParagraphStyle? {
+        
+        guard let paragraphStyle = super.footerParagraphStyle else {
+            return nil
+        }
+        
+        return modifiedParagraphStyleFromOriginalStyle(paragraphStyle)
+    }
+    
+    private func modifiedParagraphStyleFromOriginalStyle(_ originalStyle: NSParagraphStyle) -> NSParagraphStyle? {
+        
+        let semanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: languageCode)
+        
+        if let mutParagraphStyle = originalStyle.mutableCopy() as? NSMutableParagraphStyle {
+            mutParagraphStyle.alignment = semanticContentAttribute == .forceRightToLeft ? .right : .natural
+            return mutParagraphStyle.copy() as? NSParagraphStyle
+        }
+        
+        return originalStyle
     }
 }
 
