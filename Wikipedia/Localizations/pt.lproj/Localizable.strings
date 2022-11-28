@@ -498,7 +498,7 @@
 "import-shared-reading-list-default-title" = "A minha lista de leitura";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Agora não";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Responder à pesquisa";
-"import-shared-reading-list-survey-prompt-footer" = "\"Consulte nossa $1declaração de privacidade$2. Pesquisa feita por terceiros. Consulte a $3política de privacidade$4 deles.\"";
+"import-shared-reading-list-survey-prompt-footer" = "Consulte nossa $1declaração de privacidade$2. Pesquisa feita por terceiros. Consulte a $3política de privacidade$4 deles.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Compartilhar listas de leitura\" é um recurso de teste e precisamos do seu feedback para melhorá-lo ou removê-lo.";
 "import-shared-reading-list-survey-prompt-title" = "Você poderia nos ajudar a melhorar \"Compartilhar listas de leitura\"?";
 "import-shared-reading-list-title" = "Importar lista de leitura partilhada";

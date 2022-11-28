@@ -511,7 +511,7 @@
 "image-gallery-unknown-owner" = "Autor desconocido.";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ahora no";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Responder a la encuesta";
-"import-shared-reading-list-survey-prompt-footer" = "\"Consulta nuestra $1declaración de privacidad$2. Encuesta creada con tecnología de terceros. Consulta su $3política de privacidad$4.\"";
+"import-shared-reading-list-survey-prompt-footer" = "Consulta nuestra $1declaración de privacidad$2. Encuesta creada con tecnología de terceros. Consulta su $3política de privacidad$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Compartir listas de lectura\" es una función de prueba y necesitamos tus comentarios para mejorarla o eliminarla.";
 "import-shared-reading-list-survey-prompt-title" = "¿Podrías ayudarnos a mejorar \"Compartir listas de lectura\"?";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia en $1";
