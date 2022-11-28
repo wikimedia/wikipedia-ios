@@ -509,10 +509,10 @@
 "image-gallery-unknown-owner" = "Auteur inconnu.";
 "import-shared-reading-list-default-title" = "Ma liste de lecture";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Pas maintenant";
-"import-shared-reading-list-survey-prompt-button-take-survey" = "Participer au sondage";
-"import-shared-reading-list-survey-prompt-footer" = "Consultez notre $1déclaration de confidentialité$2. Sondage propulsé par un tiers. Consultez sa $3politique de confidentialité$4.";
-"import-shared-reading-list-survey-prompt-subtitle" = "Les listes de lecture partagées sont une fonctionnalité en test et nous avons besoin de vos commentaires pour l’améliorer ou la supprimer.";
-"import-shared-reading-list-survey-prompt-title" = "Pourriez-vous nous aider à améliorer cette fonctionnalité en participant à un sondage ?";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Répondre au sondage";
+"import-shared-reading-list-survey-prompt-footer" = "« Consultez notre $1déclaration de confidentialité$2. Enquête réalisée par une entité tierce. Consultez sa $3politique de confidentialité$4. »";
+"import-shared-reading-list-survey-prompt-subtitle" = "« Partager des listes de lecture » est une fonctionnalité à l'essai et nous avons besoin de vos commentaires pour l'améliorer ou décider de la supprimer.";
+"import-shared-reading-list-survey-prompt-title" = "Pourriez-vous nous aider à améliorer la fonctionnalité « Partager des listes de lecture » ?";
 "import-shared-reading-list-title" = "Importer une liste de lecture partagée";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipédia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipédia";

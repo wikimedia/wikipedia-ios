@@ -482,11 +482,11 @@
 "icon-shortcut-random-title" = "Zufälliger Artikel";
 "icon-shortcut-search-title" = "Wikipedia durchsuchen";
 "image-gallery-unknown-owner" = "Autor unbekannt.";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Nicht jetzt";
-"import-shared-reading-list-survey-prompt-button-take-survey" = "Umfrage durchführen";
-"import-shared-reading-list-survey-prompt-footer" = "Sieh dir unsere $1Datenschutzerklärung$2 an. Die Umfrage wird von einem Drittanbieter durchgeführt. Siehe deren $3Datenschutzerklärung$4.";
-"import-shared-reading-list-survey-prompt-subtitle" = "Gemeinsame Leselisten sind eine Testfunktion und wir brauchen dein Feedback, um sie zu verbessern oder zu entfernen.";
-"import-shared-reading-list-survey-prompt-title" = "Kannst du uns helfen, diese Funktion zu verbessern, indem du an einer Umfrage teilnimmst?";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Jetzt nicht";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Umfrage beantworten";
+"import-shared-reading-list-survey-prompt-footer" = "„Sehen Sie sich unsere $1Datenschutzerklärung$2 an. Die Umfrage wird von Dritten durchgeführt. Sehen Sie sich deren $3Datenschutzbestimmungen$4 an.“";
+"import-shared-reading-list-survey-prompt-subtitle" = "„Leselisten teilen“ ist eine Testfunktion und um diese zu verbessern oder zu entfernen, benötigen wir Ihr Feedback";
+"import-shared-reading-list-survey-prompt-title" = "Können Sie uns helfen, „Leselisten teilen“ zu verbessern?";
 "import-shared-reading-list-title" = "Gemeinsame Leseliste importieren";
 "in-the-news-sub-title-from-language-wikipedia" = "Von der Wikipedia auf $1";
 "in-the-news-sub-title-from-wikipedia" = "Von Wikipedia";

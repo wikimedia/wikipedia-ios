@@ -506,6 +506,11 @@
 "icon-shortcut-random-title" = "مقالة عشوائية";
 "icon-shortcut-search-title" = "البحث في ويكيبيديا";
 "image-gallery-unknown-owner" = "المؤلف غير معروف.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "ليس الآن";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "المشاركة في الاستطلاع";
+"import-shared-reading-list-survey-prompt-footer" = "\"اطلع على $1بيان الخصوصية$2 الخاص بنا. الاستطلاع مدعوم من قِبل جهة خارجية. اطلع على $3سياسة الخصوصية$4 الخاصة بهم.\"";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"مشاركة قوائم القراءة\" هي ميزة يتم إختبارها حاليا ونحن بحاجة إلى ملاحظاتك لتحسينها أو إزالتها.";
+"import-shared-reading-list-survey-prompt-title" = "هل يمكنك مساعدتنا في تحسين \"مشاركة قوائم القراءة\"؟";
 "in-the-news-sub-title-from-language-wikipedia" = "من ويكيبيديا $1";
 "in-the-news-sub-title-from-wikipedia" = "من ويكيبيديا";
 "in-the-news-title" = "في الأخبار";
