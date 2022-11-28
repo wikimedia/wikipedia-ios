@@ -386,7 +386,7 @@ private extension ReadingListDetailViewController {
                 // intentionally don't dismiss
             }, traceableDismissHandler: { lastAction in
                 // Do nothing
-            }, theme: self.theme)
+            }, theme: self.theme, languageCode: languageCode)
         })
     }
 }

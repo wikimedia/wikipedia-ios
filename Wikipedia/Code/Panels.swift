@@ -89,7 +89,8 @@ class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
 
 class ReadingListImportSurveyPanelViewController : ScrollableEducationPanelViewController {
 
-    init(primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, theme: Theme) {
+    init(primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, theme: Theme, languageCode: String) {
+        self.languageCode = languageCode
         super.init(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, traceableDismissHandler: traceableDismissHandler, theme: theme)
         self.footerLinkAction = footerLinkAction
     }
@@ -97,6 +98,20 @@ class ReadingListImportSurveyPanelViewController : ScrollableEducationPanelViewC
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private typealias LanguageCode = String
+    private typealias URLString = String
+    private let languageCode: LanguageCode
+    private let privacyURLStrings: [LanguageCode: URLString] = [
+        "en": "https://foundation.wikimedia.org/wiki/Legal:Feedback_form_for_sharing_reading_lists_Privacy_Statement",
+        "ar": "https://foundation.wikimedia.org/wiki/Legal:Feedback_form_for_sharing_reading_lists_Privacy_Statement/ar",
+        "bn": "https://foundation.wikimedia.org/wiki/Legal:Feedback_form_for_sharing_reading_lists_Privacy_Statement/bn",
+        "fr": "https://foundation.wikimedia.org/wiki/Legal:Feedback_form_for_sharing_reading_lists_Privacy_Statement/fr",
+        "de": "https://foundation.wikimedia.org/wiki/Legal:Feedback_form_for_sharing_reading_lists_Privacy_Statement/de",
+        "hi": "https://foundation.wikimedia.org/wiki/Legal:Feedback_form_for_sharing_reading_lists_Privacy_Statement/hi",
+        "pt": "https://foundation.wikimedia.org/wiki/Legal:Feedback_form_for_sharing_reading_lists_Privacy_Statement/pt-br",
+        "es": "https://foundation.wikimedia.org/wiki/Legal:Feedback_form_for_sharing_reading_lists_Privacy_Statement/es",
+        "ur": "https://foundation.wikimedia.org/wiki/Legal:Feedback_form_for_sharing_reading_lists_Privacy_Statement"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,10 +123,13 @@ class ReadingListImportSurveyPanelViewController : ScrollableEducationPanelViewC
         // TODO: Fix footer colors
         let footerFormat = WMFLocalizedString("import-shared-reading-list-survey-prompt-footer", value: "View our %1$@privacy statement%2$@. Survey powered by a third-party. View their %3$@privacy policy%4$@.", comment: "Title of footer button on import shared reading list survey prompt, which takes user to the privacy policy. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting")
         
+        guard let privacyURLString = privacyURLStrings[languageCode] ?? privacyURLStrings["en"] else {
+            return
+        }
+        
         let footerHTML = String.localizedStringWithFormat(
             footerFormat,
-            "<a href=\"https://foundation.m.wikimedia.org/w/index.php?title=Editing_Awareness_and_Trust_Survey_Privacy_Statement\">",
-            "</a>",
+            "<a href=\"\(privacyURLString)\"</a>",
             "<a href=\"https://policies.google.com/privacy\">",
             "</a>"
         )
@@ -432,7 +450,7 @@ extension UIViewController {
         present(panel, animated: true)
     }
     
-    func wmf_showReadingListImportSurveyPanel(primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, theme: Theme) {
+    func wmf_showReadingListImportSurveyPanel(primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, theme: Theme, languageCode: String) {
 
         let panel = ReadingListImportSurveyPanelViewController(primaryButtonTapHandler: { sender in
             primaryButtonTapHandler?(sender)
@@ -444,7 +462,7 @@ extension UIViewController {
             // dismissHandler is called on viewDidDisappear
         }, footerLinkAction: footerLinkAction, traceableDismissHandler: { lastAction in
             traceableDismissHandler?(lastAction)
-        }, theme: theme)
+        }, theme: theme, languageCode: languageCode)
 
         present(panel, animated: true)
     }
