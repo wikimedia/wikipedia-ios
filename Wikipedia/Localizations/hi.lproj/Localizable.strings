@@ -230,6 +230,11 @@
 "icon-shortcut-random-title" = "कोईभी लेख";
 "icon-shortcut-search-title" = "विकिपीडिया में खोजें";
 "image-gallery-unknown-owner" = "अज्ञात लेखक";
+"import-shared-reading-list-survey-prompt-button-cancel" = "अभी नहीं";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "सर्वे लें";
+"import-shared-reading-list-survey-prompt-footer" = "हमारी $1गोपनीयता स्टेटमेंट$2 देखें. सर्वे एक थर्ड पार्टी के ज़रिए पावर किया गया है. उनकी $3गोपनीयता नीति$4 देखें.";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"पठन सूचियाँ बाँटें\" एक टेस्ट फीचर है और उसे सुधरने या हटाने में आपकी फीडबैक की जरूरत है।";
+"import-shared-reading-list-survey-prompt-title" = "क्या आप \"पठन सूचियाँ बाँटें\" में सुधार लाने में हमारी सहायता करेंगे?";
 "in-the-news-title" = "समाचारों में";
 "languages-title" = "भाषा बदलें";
 "languages-wikipedia" = "विकिपीडिया भाषाएँ";

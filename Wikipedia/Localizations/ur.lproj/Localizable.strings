@@ -230,6 +230,11 @@
 "icon-shortcut-random-title" = "تصادفی مضمون";
 "icon-shortcut-search-title" = "ویکیپیڈیا میں تلاش";
 "image-gallery-unknown-owner" = "نامعلوم تخلیق کار۔";
+"import-shared-reading-list-survey-prompt-button-cancel" = "ابھی نہیں";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "سروے پُر کریں";
+"import-shared-reading-list-survey-prompt-footer" = "ہمارے $1اصول برائے اخفائے راز$2 ملاحظہ کریں۔ یہ سروے ایک تیسرے فریق کی جانب سے چلایا جاتا ہے۔ اُن کے $3اصول برائے اخفائے راز$4 ملاحظہ کریں۔";
+"import-shared-reading-list-survey-prompt-subtitle" = "مطالعہ کی فہرستیں' شیئر کریں ایک ٹیسٹنگ خصوصیت ہے اور اسے بہتر بنانے یا ہٹانے کے لیے ہمیں آپ کے تاثرات درکار ہیں۔";
+"import-shared-reading-list-survey-prompt-title" = "کیا آپ 'مطالعہ کی فہرستیں شیئر کریں' کو بہتر بنانے میں ہماری مدد کر سکتے ہیں؟";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 ویکیپیڈیا سے";
 "in-the-news-sub-title-from-wikipedia" = "ویکیپیڈیا سے";
 "in-the-news-title" = "خبروں میں";

@@ -477,8 +477,8 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "Not now";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Take survey";
 "import-shared-reading-list-survey-prompt-footer" = "View our $1privacy statement$2. Survey powered by a third-party. View their $3privacy policy$4.";
-"import-shared-reading-list-survey-prompt-subtitle" = "Shared reading lists is a test feature and we need your feedback to improve or remove it.";
-"import-shared-reading-list-survey-prompt-title" = "Could you help us improve this feature by taking a survey?";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Share reading lists\" is a test feature and we need your feedback to improve or remove it.";
+"import-shared-reading-list-survey-prompt-title" = "Could you help us improve \"Share reading lists\"?";
 "import-shared-reading-list-title" = "Import shared reading list";
 "in-the-news-sub-title-from-language-wikipedia" = "From $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "From Wikipedia";
