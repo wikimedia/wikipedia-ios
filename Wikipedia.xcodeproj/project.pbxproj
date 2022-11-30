@@ -626,6 +626,10 @@
 		676C869426D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */; };
 		676C869526D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */; };
 		676C869626D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */; };
+		676E813329380D8A00F15258 /* TalkPagesFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E813229380D8A00F15258 /* TalkPagesFunnel.swift */; };
+		676E813429380D8A00F15258 /* TalkPagesFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E813229380D8A00F15258 /* TalkPagesFunnel.swift */; };
+		676E813529380D8A00F15258 /* TalkPagesFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E813229380D8A00F15258 /* TalkPagesFunnel.swift */; };
+		676E813629380D8A00F15258 /* TalkPagesFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E813229380D8A00F15258 /* TalkPagesFunnel.swift */; };
 		676F39282745FB2000F4D33D /* NotificationsCenterFiltersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F39272745FB1F00F4D33D /* NotificationsCenterFiltersViewModel.swift */; };
 		676F39292745FB2000F4D33D /* NotificationsCenterFiltersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F39272745FB1F00F4D33D /* NotificationsCenterFiltersViewModel.swift */; };
 		676F392A2745FB2000F4D33D /* NotificationsCenterFiltersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F39272745FB1F00F4D33D /* NotificationsCenterFiltersViewModel.swift */; };
@@ -4120,6 +4124,7 @@
 		676C864826D40AEB00A704C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		676C868626D4545D00A704C1 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+WindowWorkarounds.swift"; sourceTree = "<group>"; };
+		676E813229380D8A00F15258 /* TalkPagesFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPagesFunnel.swift; sourceTree = "<group>"; };
 		676F39272745FB1F00F4D33D /* NotificationsCenterFiltersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterFiltersViewModel.swift; sourceTree = "<group>"; };
 		6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		6771299324FF775E00E89CA5 /* ArticleAsLivingDocLargeEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocLargeEventCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -6824,6 +6829,7 @@
 				B0501BBC2110ED8800020BFA /* FeedFunnel.swift */,
 				67FF8E2C2550BB6F0048E741 /* ArticleAsLivingDocFunnel.swift */,
 				83B1218327FC8750006B8CCC /* RemoteNotificationsFunnel.swift */,
+				676E813229380D8A00F15258 /* TalkPagesFunnel.swift */,
 			);
 			name = "WIkimedia Event Logging";
 			sourceTree = "<group>";
@@ -11596,6 +11602,7 @@
 				B01490A31DB96E5F007F5391 /* WMFReferencePageViewController.swift in Sources */,
 				67F73E6D2267B79E0079DEEF /* AccountViewController.swift in Sources */,
 				8382F8CD20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
+				676E813329380D8A00F15258 /* TalkPagesFunnel.swift in Sources */,
 				FF5555642771388F00925099 /* CollectionViewContextMenuShowing.swift in Sources */,
 				B0E8065C1C0CE84B0065EBC0 /* WikiTextSectionUploader.m in Sources */,
 				B0E804C91C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
@@ -12550,6 +12557,7 @@
 				D8A42B2C1E815A9C00D8E281 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				67E8B07D226A57DF00537BC9 /* AccountViewController.swift in Sources */,
 				FF555567277287F500925099 /* CollectionViewContextMenuShowing.swift in Sources */,
+				676E813629380D8A00F15258 /* TalkPagesFunnel.swift in Sources */,
 				D8A42B2E1E815A9C00D8E281 /* WMFReferencePageViewController.swift in Sources */,
 				BA4524271F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				83927D7E1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
@@ -13315,6 +13323,7 @@
 				D80BF0A42347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				833B8C8A281AE2110021C12C /* RemoteNotificationsFunnel.swift in Sources */,
 				7AC809C621DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
+				676E813529380D8A00F15258 /* TalkPagesFunnel.swift in Sources */,
 				D8CE26151E698E2400DAE2E0 /* WMFLoginViewController.swift in Sources */,
 				67C6F79E27E8C51500B9C864 /* NotificationsCenterCommonViewModel+LinkExtensions.swift in Sources */,
 				8330532A23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
@@ -13895,6 +13904,7 @@
 				D80BF0A52347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				833B8C89281AE2100021C12C /* RemoteNotificationsFunnel.swift in Sources */,
 				7AC809C721DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
+				676E813429380D8A00F15258 /* TalkPagesFunnel.swift in Sources */,
 				D8EC3F141E9BDA35006712EB /* WMFLoginViewController.swift in Sources */,
 				67C6F79D27E8C51500B9C864 /* NotificationsCenterCommonViewModel+LinkExtensions.swift in Sources */,
 				8330532B23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
