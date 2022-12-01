@@ -38,4 +38,23 @@ extension UITextView {
             }
         }
     }
+
+    func addOrRemoveStringFormattingCharacters(formattingString: String, cursorOffset: Int) {
+        if let selectedRange = selectedTextRange {
+            if let start = position(from: selectedRange.start, offset: -cursorOffset),
+               let end = position(from: selectedRange.end, offset: cursorOffset),
+               let newSelectedRange = textRange(from: start, to: end) {
+
+                if let newText = text(in: newSelectedRange) {
+                    if newText.contains(formattingString) {
+                        replace(newSelectedRange, withText: text(in: selectedRange) ?? String())
+                    } else {
+                        addStringFormattingCharacters(formattingString: formattingString, cursorOffset: cursorOffset)
+                    }
+                }
+            } else {
+                addStringFormattingCharacters(formattingString: formattingString, cursorOffset: cursorOffset)
+            }
+        }
+    }
 }
