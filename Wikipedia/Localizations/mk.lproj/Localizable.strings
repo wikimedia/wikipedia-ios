@@ -489,7 +489,9 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "Не сега";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Пополнете ја анкетата";
 "import-shared-reading-list-survey-prompt-footer" = "ПОгледајте ја нашата $1изјава за личните податоци$2. Анкетата ја овозможува трето лице. Погледајте ги нивните $3правила за личните податоци$4.";
+// Fuzzy
 "import-shared-reading-list-survey-prompt-subtitle" = "Споделени списоци за читање е пробна функција и ни тербаат ваши мислења за да ја подобриме или отстраниме.";
+// Fuzzy
 "import-shared-reading-list-survey-prompt-title" = "Дали би ни помогнале да ја подобриме оваа функција, пополнувајќи анкета за неа?";
 "import-shared-reading-list-title" = "Увези споделен список за читање";
 "in-the-news-sub-title-from-language-wikipedia" = "Од Википедија на $1";

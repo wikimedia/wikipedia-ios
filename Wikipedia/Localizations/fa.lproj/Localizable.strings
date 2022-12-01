@@ -521,7 +521,9 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "حالا نه";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "شرکت در نظرسنجی";
 "import-shared-reading-list-survey-prompt-footer" = "$1اظهارنامه حریم خصوصی$2 ما را ببینید. نظرسنجی توسط شخص ثالث پشتیبانی شده است. $3اظهارنامه حریم خصوصی$4 آنان را ببینید.";
+// Fuzzy
 "import-shared-reading-list-survey-prompt-subtitle" = "فهرست‌های مطالعهٔ اشتراکی یک ویژگی آزمایشی است و ما برای بهبود یا حذف آن به بازخوردهای شما نیاز داریم.";
+// Fuzzy
 "import-shared-reading-list-survey-prompt-title" = "آیا می توانید با شرکت در یک نظرسنجی به ما در بهبود این ویژگی کمک کنید؟";
 "import-shared-reading-list-title" = "درون‌ریزی فهرست مطالعهٔ مشترک";
 "in-the-news-sub-title-from-language-wikipedia" = "از ویکی‌پدیای $1";
