@@ -23,6 +23,7 @@
 // Author: Skalman
 // Author: Smetanakaviar
 // Author: Technic2
+// Author: Tore
 // Author: Tsevener
 // Author: WikiPhoenix
 
@@ -501,6 +502,7 @@
 "icon-shortcut-random-title" = "Slumpartikel";
 "icon-shortcut-search-title" = "Sök på Wikipedia";
 "image-gallery-unknown-owner" = "Okänd författare.";
+"import-shared-reading-list-default-title" = "Min läslista";
 "in-the-news-sub-title-from-language-wikipedia" = "Från Wikipedia på $1";
 "in-the-news-sub-title-from-wikipedia" = "Från Wikipedia";
 "in-the-news-title" = "I nyheterna";

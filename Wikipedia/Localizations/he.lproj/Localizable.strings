@@ -504,8 +504,8 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "לא עכשיו";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "מילוי סקר";
 "import-shared-reading-list-survey-prompt-footer" = "צפייה בהצהרת הפרטיות של $1שלנו$2. הסקר מופעל על־ידי צד שלישי. צפייה במדיניות הפרטיות $3שלהם$4.";
-"import-shared-reading-list-survey-prompt-subtitle" = "רשימות קריאה משותפות היא תכונת הבדיקה ואנחנו זקוקים למשוב שלך כדי לשפר או להסיר אותה.";
-"import-shared-reading-list-survey-prompt-title" = "אפשר לבקש ממך לעזור לנו לשפר את התכונה הזאת באמצעות מילוי סקר?";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"שיתוף רשימות קריאה\" היא תכונת הבדיקה ואנחנו זקוקים למשוב שלך כדי לשפר או להסיר אותה.";
+"import-shared-reading-list-survey-prompt-title" = "אפשר לבקש ממך לעזור לנו לשפר את התכונה \"שיתוף רשימות קריאה\"?";
 "import-shared-reading-list-title" = "יבוא רשימת קריאה משותפת";
 "in-the-news-sub-title-from-language-wikipedia" = "מתוך ויקיפדיה ב$1";
 "in-the-news-sub-title-from-wikipedia" = "מתוך ויקיפדיה";

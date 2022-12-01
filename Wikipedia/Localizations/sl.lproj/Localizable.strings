@@ -196,7 +196,7 @@
 "description-welcome-concise-title" = "Naj bo kratko";
 "description-welcome-descriptions-sub-title" = "Povzetek članka, ki bralcem pomaga razumeti temo ob prvem pogledu";
 "description-welcome-descriptions-title" = "Opisi člankov";
-"description-welcome-promise-title" = "Ob začetku obljubljam, da te funkcije ne bom zlorabil/a";
+"description-welcome-promise-title" = "Ob začetku obljubljam, da te možnosti ne bom zlorabil_a";
 "description-welcome-start-editing-button" = "Začetek urejanja";
 "diff-compare-header-from-info-heading" = "Od:";
 "diff-compare-header-heading" = "Primerjava redakcij";
@@ -440,8 +440,8 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ne zdaj";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Izpolni anketo";
 "import-shared-reading-list-survey-prompt-footer" = "Oglejte si našo $1izjavo o zasebnosti$2. Anketo poganja tretja oseba. Oglejte si njen  $3pravilnik o zasebnosti$4.";
-"import-shared-reading-list-survey-prompt-subtitle" = "Skupni bralni seznami so preizkusna funkcija in potrebujemo vaše povratne informacije, da jih izboljšamo ali odstranimo.";
-"import-shared-reading-list-survey-prompt-title" = "Nam lahko pomagate izboljšati to funkcijo z anketo?";
+"import-shared-reading-list-survey-prompt-subtitle" = "»Deli bralne sezname« je preizkusna možnoste, zato vas prosimo za vaše mnenje, da jo izboljšamo ali odstranimo.";
+"import-shared-reading-list-survey-prompt-title" = "Nam lahko pomagate izboljšati možnost »Deli bralne sezname«?";
 "import-shared-reading-list-title" = "Uvoz skupnega bralnega seznama";
 "in-the-news-sub-title-from-language-wikipedia" = "Iz vikipedije v $1";
 "in-the-news-sub-title-from-wikipedia" = "Iz Wikipedije";
