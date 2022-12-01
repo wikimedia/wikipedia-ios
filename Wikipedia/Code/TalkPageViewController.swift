@@ -419,7 +419,7 @@ class TalkPageViewController: ViewController {
     }
 
     fileprivate func showAddTopic() {
-        let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute)
+        let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute, siteUrl: viewModel.siteURL,pageTitle: viewModel.pageTitle)
         let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, authenticationManager: viewModel.authenticationManager, theme: theme)
         topicComposeVC.delegate = self
         inputAccessoryViewType = .format

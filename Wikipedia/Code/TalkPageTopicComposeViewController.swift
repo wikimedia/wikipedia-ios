@@ -7,6 +7,8 @@ protocol TalkPageTopicComposeViewControllerDelegate: AnyObject {
 
 struct TalkPageTopicComposeViewModel {
     let semanticContentAttribute: UISemanticContentAttribute
+    let siteUrl: URL
+    let pageTitle: String
 }
 
 class TalkPageTopicComposeViewController: ViewController {
@@ -21,7 +23,7 @@ class TalkPageTopicComposeViewController: ViewController {
         static let closeConfirmationDiscard = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-discard", value: "Discard Topic", comment: "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text. Please prioritize for de, ar and zh wikis.")
     }
     
-    private let viewModel: TalkPageTopicComposeViewModel
+    let viewModel: TalkPageTopicComposeViewModel
     
     private lazy var safeAreaBackgroundView: UIView = {
         let view = UIView(frame: .zero)
