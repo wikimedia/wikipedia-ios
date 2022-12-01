@@ -11,8 +11,10 @@ extension TalkPageTopicComposeViewController: TalkPageFormattingToolbarViewDeleg
     }
 
     func didSelectInsertLink() {
-        let link = Link(page: "", label: "", exists: false)
-        let insertLinkViewController = InsertLinkViewController(link: link!, siteURL: viewModel.siteUrl, dataStore: MWKDataStore.shared())
+        guard let link = Link(page: "", label: "", exists: false) else {
+            return
+        }
+        let insertLinkViewController = InsertLinkViewController(link: link, siteURL: viewModel.siteUrl, dataStore: MWKDataStore.shared())
         insertLinkViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
         self.present(navigationController, animated: true)
