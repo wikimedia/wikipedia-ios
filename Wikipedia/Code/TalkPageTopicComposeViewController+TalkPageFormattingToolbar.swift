@@ -31,7 +31,6 @@ extension TalkPageTopicComposeViewController: InsertLinkViewControllerDelegate {
     }
 
     func insertOrEditLink(page: String, label: String?) {
-        let text = String()
         if let label {
             bodyTextView.insertText("[[\(page)|\(label)]]")
         } else {
