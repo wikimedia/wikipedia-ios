@@ -50,6 +50,7 @@
 // Author: Ryo567
 // Author: SpikeShroom
 // Author: Tiberius1701
+// Author: Tsevener
 // Author: VegaDark
 // Author: Vivaelcelta
 // Author: Wifidel
@@ -509,6 +510,13 @@
 "icon-shortcut-random-title" = "Artículo aleatorio";
 "icon-shortcut-search-title" = "Buscar en Wikipedia";
 "image-gallery-unknown-owner" = "Autor desconocido.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Ahora no";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Responder a la encuesta";
+"import-shared-reading-list-survey-prompt-footer" = "Consulta nuestra $1declaración de privacidad$2. Encuesta creada con tecnología de terceros. Consulta su $3política de privacidad$4.";
+// Fuzzy
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Compartir listas de lectura\" es una función de prueba y necesitamos tus comentarios para mejorarla o eliminarla.";
+// Fuzzy
+"import-shared-reading-list-survey-prompt-title" = "¿Podrías ayudarnos a mejorar \"Compartir listas de lectura\"?";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipedia";
 "in-the-news-title" = "Actualidad";

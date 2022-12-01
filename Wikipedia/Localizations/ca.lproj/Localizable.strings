@@ -499,6 +499,8 @@
 "icon-shortcut-random-title" = "Article a l’atzar";
 "icon-shortcut-search-title" = "Cerca a la Viquipèdia";
 "image-gallery-unknown-owner" = "Autor desconegut.";
+"import-shared-reading-list-default-title" = "La meva llista de lectura";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Ara no";
 "in-the-news-sub-title-from-language-wikipedia" = "De la Viquipèdia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De la Viquipèdia";
 "in-the-news-title" = "Actualitat";
@@ -1094,12 +1096,13 @@
 "vanish-account-bottom-text" = "La supressió del compte de la Viquipèdia es fa canviant el nom del vostre compte per tal que altres no puguin reconèixer les vostres contribucions mitjançant un procés anomenat «desaparició del compte». Podeu utilitzar el formulari de sota per a sol·licitar una desaparició de cortesia. La desaparició no garanteix el complet anonimat ni tampoc suprimir les contribucions dels projectes.";
 "vanish-account-bottom-text-with-link" = "La supressió del compte de la Viquipèdia es fa canviant el nom del vostre compte per tal que altres no puguin reconèixer les vostres contribucions mitjançant un procés anomenat «desaparició del compte». Podeu utilitzar el formulari de sota per a sol·licitar una $1desaparició de cortesia$2$3. La desaparició no garanteix el complet anonimat ni tampoc suprimir les contribucions dels projectes.";
 "vanish-account-button-text" = "Envia la sol·licitud";
-// Fuzzy
-"vanish-account-description" = "La desaparició és l'últim recurs i només cal utilitzar-se quan desitgeu deixar d'editar per sempre més i també volguéssiu amagar el màxim de les vostres contribucions passades possibles.\n\nPer a iniciar el procés de desaparició proporcioneu el següent";
+"vanish-account-continue-button-title" = "Continua";
+"vanish-account-description" = "Per a iniciar el procés de desaparició, proporcioneu el següent:";
 "vanish-account-email-text" = "Hola,\naquesta és una sol·licitud per a fer desaparèixer el meu compte de Viquipèdia.";
 "vanish-account-learn-more-text" = "Més informació";
 "vanish-account-title" = "Procés de desaparició";
 "vanish-account-username-field" = "Nom d'usuari i pàgina d'usuari";
+"vanish-account-warning-title" = "Avís";
 "vanish-modal-item" = "Si heu completat la vostra sol·licitud de desaparició, espereu un parell de dies perquè un administrador la pugui processar.";
 "vanish-modal-item-2" = "Si no esteu segur de si la vostra sol·licitud ha anat endavant, comproveu-ho des de la vostra aplicació de correu";
 "vanish-modal-item-3" = "Si teniu cap més pregunta sobre el procés de desaparició, visiteu Meta:Right_to_vanish";

@@ -17,6 +17,7 @@
 // Author: Nemo bis
 // Author: Ruila
 // Author: SandroHc
+// Author: Tsevener
 // Author: Vitorvicentevalente
 // Author: Webysther
 
@@ -495,6 +496,15 @@
 "icon-shortcut-random-title" = "Artigo aleatório";
 "icon-shortcut-search-title" = "Pesquisar na Wikipédia";
 "image-gallery-unknown-owner" = "Autor desconhecido.";
+"import-shared-reading-list-default-title" = "A minha lista de leitura";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Agora não";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Responder à pesquisa";
+"import-shared-reading-list-survey-prompt-footer" = "Consulte nossa $1declaração de privacidade$2. Pesquisa feita por terceiros. Consulte a $3política de privacidade$4 deles.";
+// Fuzzy
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Compartilhar listas de leitura\" é um recurso de teste e precisamos do seu feedback para melhorá-lo ou removê-lo.";
+// Fuzzy
+"import-shared-reading-list-survey-prompt-title" = "Você poderia nos ajudar a melhorar \"Compartilhar listas de leitura\"?";
+"import-shared-reading-list-title" = "Importar lista de leitura partilhada";
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipédia em $1";
 "in-the-news-sub-title-from-wikipedia" = "Da Wikipédia";
 "in-the-news-title" = "Nas notícias";
@@ -1081,6 +1091,8 @@
 "talk-pages-topic-compose-navbar-title" = "Tópico";
 "talk-pages-topic-compose-title-placeholder" = "Título do tópico";
 "talk-pages-topic-reply-onboarding-body" = "É nas páginas de discussão que as pessoas debatem como tornar o conteúdo da Wikipédia o melhor possível. Adicione um tópico de discussão novo para estabelecer uma ligação e colaborar com uma comunidade de wikipedistas.\n\nSeja gentil e cortês, por favor; aqui somos todos humanos.";
+"talk-pages-topic-reply-onboarding-body-ios15" = "É nas páginas de discussão que $1as pessoas debatem como tornar o conteúdo da Wikipédia o melhor possível.$1 Adicione um tópico de discussão novo para estabelecer uma ligação e colaborar com uma comunidade de wikipedistas.";
+"talk-pages-topic-reply-onboarding-body-note-ios15" = "Seja amável, por favor. Aqui somos todos humanos.";
 "talk-pages-topic-reply-onboarding-title" = "Páginas de discussão";
 "talk-pages-user-groups" = "Grupos de utilizadores";
 "talk-pages-user-logs" = "Registos";
