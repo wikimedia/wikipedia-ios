@@ -1,7 +1,6 @@
 import UIKit
 import WMF
 
-
 class TalkPageFormattingToolbarView: SetupView {
 
     weak var delegate: TalkPageFormattingToolbarViewDelegate?
@@ -30,12 +29,36 @@ class TalkPageFormattingToolbarView: SetupView {
         return button
     }()
 
-    lazy var separatorView: UIView =  {
+    lazy var boldButtonSeparatorView: UIView =  {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .gray
         return view
     }()
+
+    lazy var boldButtonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .fillProportionally
+        stackView.axis = .horizontal
+        return stackView
+    }()
+
+    lazy var italicsButtonSeparatorView: UIView =  {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .gray
+        return view
+    }()
+
+    lazy var italicsButtonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .fillProportionally
+        stackView.axis = .horizontal
+        return stackView
+    }()
+
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,19 +77,35 @@ class TalkPageFormattingToolbarView: SetupView {
 
     override func setup() {
         addSubview(stackView)
-        stackView.addArrangedSubview(boldButton)
-        stackView.addArrangedSubview(italicsButton)
+
+        stackView.addArrangedSubview(boldButtonStackView)
+        stackView.addArrangedSubview(italicsButtonStackView)
+        boldButtonStackView.addArrangedSubview(boldButton)
+        boldButtonStackView.addArrangedSubview(boldButtonSeparatorView)
+        italicsButtonStackView.addArrangedSubview(italicsButton)
+        italicsButtonStackView.addArrangedSubview(italicsButtonSeparatorView)
+
         stackView.addArrangedSubview(linkButton)
 
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+            boldButton.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
+            italicsButton.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
+
+            boldButtonSeparatorView.heightAnchor.constraint(equalTo: boldButton.heightAnchor, constant: -20),
+            boldButtonSeparatorView.widthAnchor.constraint(equalToConstant: 0.5),
+            boldButtonSeparatorView.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
+
+            italicsButtonSeparatorView.heightAnchor.constraint(equalTo: italicsButton.heightAnchor, constant: -20),
+            italicsButtonSeparatorView.widthAnchor.constraint(equalToConstant: 0.5),
+            italicsButtonSeparatorView.centerYAnchor.constraint(equalTo: stackView.centerYAnchor)
         ])
         configure()
 
-        // TODO: separator
     }
 
     @objc func didTapBoldButton() {
@@ -107,6 +146,10 @@ extension TalkPageFormattingToolbarView: Themeable {
         boldButton.tintColor = theme.colors.inputAccessoryButtonTint
         italicsButton.tintColor = theme.colors.inputAccessoryButtonTint
         linkButton.tintColor = theme.colors.inputAccessoryButtonTint
+        boldButtonSeparatorView.backgroundColor = theme.colors.secondaryText
+        boldButtonSeparatorView.alpha = 0.8
+        italicsButtonSeparatorView.backgroundColor = theme.colors.secondaryText
+        italicsButtonSeparatorView.alpha = 0.8
     }
 
 }
