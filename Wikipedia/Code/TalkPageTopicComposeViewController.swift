@@ -90,6 +90,7 @@ class TalkPageTopicComposeViewController: ViewController {
         textView.textContainerInset = .zero
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.delegate = self
+        textView.smartQuotesType = .no
         textView.accessibilityHint = Self.TopicComposeStrings.bodyPlaceholderAccessibility
         return textView
     }()
