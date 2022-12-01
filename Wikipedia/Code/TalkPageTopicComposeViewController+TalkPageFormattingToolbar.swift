@@ -10,15 +10,6 @@ extension TalkPageTopicComposeViewController: TalkPageFormattingToolbarViewDeleg
         bodyTextView.addStringFormattingCharacters(formattingString: "''", cursorOffset: 2)
     }
 
-    func didSelectInsertImage() {
-        let insertMediaViewController = InsertMediaViewController(articleTitle: viewModel.pageTitle, siteURL: viewModel.siteUrl)
-        insertMediaViewController.delegate = self
-        insertMediaViewController.apply(theme: theme)
-        let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
-        navigationController.isNavigationBarHidden = true
-        present(navigationController, animated: true)
-    }
-
     func didSelectInsertLink() {
         let link = Link(page: "", label: "", exists: false)
         let insertLinkViewController = InsertLinkViewController(link: link!, siteURL: viewModel.siteUrl, dataStore: MWKDataStore.shared())
@@ -47,18 +38,4 @@ extension TalkPageTopicComposeViewController: InsertLinkViewControllerDelegate {
             bodyTextView.insertText("[[\(page)]]")
         }
     }
-
-}
-
-extension TalkPageTopicComposeViewController: InsertMediaViewControllerDelegate {
-    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didTapCloseButton button: UIBarButtonItem) {
-        dismiss(animated: true)
-    }
-
-    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String) {
-        bodyTextView.insertText(wikitext)
-        dismiss(animated: true)
-    }
-
-
 }

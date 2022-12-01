@@ -14,10 +14,6 @@ extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
         }
     }
 
-    func didSelectInsertImage() {
-        print("IMAGE")
-    }
-
     func didSelectInsertLink() {
         print("LINK")
     }

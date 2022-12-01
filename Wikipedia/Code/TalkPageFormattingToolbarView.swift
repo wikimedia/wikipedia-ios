@@ -22,14 +22,6 @@ class TalkPageFormattingToolbarView: SetupView {
         return button
     }()
 
-    lazy var imageButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "photo"), for: .normal)
-        button.masksToBounds = true
-        return button
-    }()
-
     lazy var linkButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +56,6 @@ class TalkPageFormattingToolbarView: SetupView {
         addSubview(stackView)
         stackView.addArrangedSubview(boldButton)
         stackView.addArrangedSubview(italicsButton)
-        stackView.addArrangedSubview(imageButton)
         stackView.addArrangedSubview(linkButton)
 
         NSLayoutConstraint.activate([
@@ -86,10 +77,6 @@ class TalkPageFormattingToolbarView: SetupView {
         delegate?.didSelectItalics()
     }
 
-    @objc func didTapInsertImageButton() {
-        delegate?.didSelectInsertImage()
-    }
-
     @objc func didTapInsertLinkButton() {
         delegate?.didSelectInsertLink()
     }
@@ -97,7 +84,6 @@ class TalkPageFormattingToolbarView: SetupView {
     func configure() {
         boldButton.addTarget(self, action: #selector(didTapBoldButton), for: .touchUpInside)
         italicsButton.addTarget(self, action: #selector(didTapItalicsButton), for: .touchUpInside)
-        imageButton.addTarget(self, action: #selector(didTapInsertImageButton), for: .touchUpInside)
         linkButton.addTarget(self, action: #selector(didTapInsertLinkButton), for: .touchUpInside)
     }
 }
@@ -120,7 +106,6 @@ extension TalkPageFormattingToolbarView: Themeable {
 
         boldButton.tintColor = theme.colors.inputAccessoryButtonTint
         italicsButton.tintColor = theme.colors.inputAccessoryButtonTint
-        imageButton.tintColor = theme.colors.inputAccessoryButtonTint
         linkButton.tintColor = theme.colors.inputAccessoryButtonTint
     }
 
