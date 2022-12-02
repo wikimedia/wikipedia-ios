@@ -196,7 +196,7 @@ private extension SchemeHandler {
                 urlSchemeTask.didReceive(data)
                 self.didReceiveDataCallback?(urlSchemeTask, data)
             }
-        }, success: { [weak urlSchemeTask] in
+        }, success: { [weak urlSchemeTask] usedPermanentCache in
             
             DispatchQueue.main.async {
                 guard let urlSchemeTask = urlSchemeTask else {
@@ -210,7 +210,13 @@ private extension SchemeHandler {
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
                 
                 if ((urlSchemeTask.request.url?.absoluteString) ?? "").contains(self.pageLoadMeasurementUrlString) {
-                    SessionsFunnel.shared.endPageLoadStartTime()
+                    
+                    // To reduce inaccurate load times, do not consider load time if we had to lean on our local permanent cache (i.e. Saved Articles)
+                    if usedPermanentCache {
+                        SessionsFunnel.shared.clearPageLoadStartTime()
+                    } else {
+                        SessionsFunnel.shared.endPageLoadStartTime()
+                    }
                 }
             }
             

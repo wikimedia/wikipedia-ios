@@ -75,14 +75,19 @@
     // MARK: ArticleViewController Load Time Measurement Helpers
     
     func setPageLoadStartTime() {
+        assert(Thread.isMainThread)
+        
         pageLoadStartTime = CACurrentMediaTime()
     }
     
     func clearPageLoadStartTime() {
+        assert(Thread.isMainThread)
+        
         pageLoadStartTime = nil
     }
     
     func endPageLoadStartTime() {
+        assert(Thread.isMainThread)
         
         guard let pageLoadStartTime else {
             return
@@ -98,6 +103,7 @@
     }
     
     private func calculatePageLoadMetrics() {
+        assert(Thread.isMainThread)
         
         guard !pageLoadTimes.isEmpty else {
             return
@@ -111,6 +117,8 @@
     }
     
     private func resetPageLoadMetrics() {
+        assert(Thread.isMainThread)
+        
         pageLoadStartTime = nil
         pageLoadMin = nil
         pageLoadMax = nil
