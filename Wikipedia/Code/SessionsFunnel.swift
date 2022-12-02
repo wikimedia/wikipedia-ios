@@ -11,6 +11,7 @@
     private var pageLoadAverage: Double?
     
     private override init() {
+        // TODO: Update schema version number once schema is updated
         super.init(schema: "MobileWikiAppiOSSessions", version: 18121261)
     }
     
