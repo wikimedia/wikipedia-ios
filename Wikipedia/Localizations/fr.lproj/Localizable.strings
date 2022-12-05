@@ -1142,7 +1142,9 @@
 "vanish-account-warning-title" = "Avertissement";
 "vanish-modal-item" = "Si vous avez complété votre demande de disparition, veuillez accorder quelques jours pour qu’elle soit traitée par un administrateur.";
 "vanish-modal-item-2" = "Si vous n’êtes pas sûr{{GENDER:||e}} que votre demande a abouti, veuillez vérifier dans votre application de courriel.";
+// Fuzzy
 "vanish-modal-item-3" = "Si vous avez plus de questions sur le droit de disparaître, veuillez visiter « Wikipédia:Droit de disparaître ».";
+// Fuzzy
 "vanish-modal-item-3-ios15" = "Si vous avez plus de questions sur le droit de disparaître, veuillez visiter $1Wikipédia:Droit de disparaître$2$3.";
 "vanish-modal-title" = "Faire valoir son droit de disparaître";
 "vanishing-request-email-title" = "Demande de droit de disparaître";

@@ -1122,7 +1122,9 @@
 "vanish-account-warning-title" = "Предупредување";
 "vanish-modal-item" = "Ако го завршивте барањето за отстранување, дајте ни пар денови за да го обработи администратор.";
 "vanish-modal-item-2" = "Ако не сте сигурни дали сме го примиле барањето, проверете го вашиот прилог Пошта";
+// Fuzzy
 "vanish-modal-item-3" = "Ако имате други прашања во врска со остранувањето на сметки, појдете на Википедија:Право на исчезнување";
+// Fuzzy
 "vanish-modal-item-3-ios15" = "If you have further questions about vanishing please visit $1Википедија:Право на исчезнување$2$3.";
 "vanish-modal-title" = "Барање за поништување";
 "vanishing-request-email-title" = "Побарај исчезнување";

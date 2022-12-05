@@ -900,6 +900,9 @@
 "vanish-account-username-field" = "Uporabniško ime in uporabniška stran";
 "vanish-account-warning-body" = "Izginotje je **skrajni ukrep** in ga **uporabite le, če želite za vedno prenehati z urejanjem** in tudi, da skrijete čim več svojih preteklih povezav.\n\nIzbris računa v Wikipediji se v postopku, imenovanem izginotje računa, opravi tako, da spremenite ime svojega računa, da drugi ne morejo prepoznati vaših prispevkov. **Izginotje ne zagotavlja popolne anonimnosti ali odstranitve prispevkov k projektom**.";
 "vanish-account-warning-title" = "Opozorilo";
+"vanish-modal-item" = "Če ste svoj zahtevek za izginotje izpolnili, počakajte nekaj dni, da ga obdela administrator.";
+"vanish-modal-item-3" = "Če imate o izginotju še kakšno vprašanje, obiščite stran Meta:Right_to_vanish";
+"vanish-modal-item-3-ios15" = "Če imate o izginotju še kakšno vprašanje, obiščite stran $1Meta:Right_to_vanish$2$3";
 "variants-alert-dismiss-button" = "Ne, hvala";
 "variants-alert-preferences-button" = "Preglejte svoje nastavitve";
 "welcome-exploration-explore-feed-title" = "Vir Raziskuj";
