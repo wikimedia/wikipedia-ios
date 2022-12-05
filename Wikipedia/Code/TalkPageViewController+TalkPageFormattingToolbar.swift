@@ -21,7 +21,7 @@ extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
         let insertLinkViewController = InsertLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared())
         insertLinkViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
-        self.present(navigationController, animated: true)
+        present(navigationController, animated: true)
     }
 }
 

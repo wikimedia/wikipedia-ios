@@ -1,11 +1,11 @@
 import UIKit
 import WMF
 
-class TalkPageFormattingToolbarView: SetupView {
+final class TalkPageFormattingToolbarView: SetupView {
 
-    weak var delegate: TalkPageFormattingToolbarViewDelegate?
+    weak internal var delegate: TalkPageFormattingToolbarViewDelegate?
 
-    lazy var boldButton: UIButton = {
+    lazy private var boldButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "text-formatting-bold"), for: .normal)
@@ -13,7 +13,7 @@ class TalkPageFormattingToolbarView: SetupView {
         return button
     }()
 
-    lazy var italicsButton: UIButton = {
+    lazy private var italicsButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "text-formatting-italics"), for: .normal)
@@ -29,14 +29,14 @@ class TalkPageFormattingToolbarView: SetupView {
         return button
     }()
 
-    lazy var boldButtonSeparatorView: UIView =  {
+    lazy private var boldButtonSeparatorView: UIView =  {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .gray
         return view
     }()
 
-    lazy var boldButtonStackView: UIStackView = {
+    lazy private var boldButtonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillProportionally
@@ -44,14 +44,14 @@ class TalkPageFormattingToolbarView: SetupView {
         return stackView
     }()
 
-    lazy var italicsButtonSeparatorView: UIView =  {
+    lazy private var italicsButtonSeparatorView: UIView =  {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .gray
         return view
     }()
 
-    lazy var italicsButtonStackView: UIStackView = {
+    lazy private var italicsButtonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillProportionally
@@ -59,7 +59,7 @@ class TalkPageFormattingToolbarView: SetupView {
         return stackView
     }()
 
-    lazy var stackView: UIStackView = {
+    lazy private var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillEqually
@@ -108,19 +108,19 @@ class TalkPageFormattingToolbarView: SetupView {
 
     }
 
-    @objc func didTapBoldButton() {
+    @objc private func didTapBoldButton() {
         delegate?.didSelectBold()
     }
 
-    @objc func didTapItalicsButton() {
+    @objc private func didTapItalicsButton() {
         delegate?.didSelectItalics()
     }
 
-    @objc func didTapInsertLinkButton() {
+    @objc private func didTapInsertLinkButton() {
         delegate?.didSelectInsertLink()
     }
 
-    func configure() {
+    private func configure() {
         boldButton.addTarget(self, action: #selector(didTapBoldButton), for: .touchUpInside)
         italicsButton.addTarget(self, action: #selector(didTapItalicsButton), for: .touchUpInside)
         linkButton.addTarget(self, action: #selector(didTapInsertLinkButton), for: .touchUpInside)
