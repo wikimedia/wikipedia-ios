@@ -131,10 +131,13 @@ class TalkPageTopicComposeViewController: ViewController {
     private let textFormattingPlainToolbarView = TextFormattingPlainToolbarView.wmf_viewFromClassNib()
 
     override var inputAccessoryView: UIView? {
-        let toolbar = TalkPageFormattingToolbarView()
-        toolbar.apply(theme: theme)
-        toolbar.delegate = self
-        return toolbar
+        if bodyTextView.isFirstResponder {
+            let toolbar = TalkPageFormattingToolbarView()
+            toolbar.apply(theme: theme)
+            toolbar.delegate = self
+            return toolbar
+        }
+        return nil
     }
     
     // MARK: Lifecycle
@@ -344,7 +347,7 @@ class TalkPageTopicComposeViewController: ViewController {
     }
     
     // MARK: Private
-    
+
     private func updateFonts() {
         titleTextField.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
         bodyTextView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
@@ -458,4 +461,6 @@ extension TalkPageTopicComposeViewController: UITextViewDelegate {
         navigate(to: URL.absoluteURL, useSafari: true)
         return false
     }
+
+    
 }
