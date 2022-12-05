@@ -91,13 +91,16 @@ extension TalkPageTopicComposeViewController: EditLinkViewControllerDelegate {
 
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
         if let range =  bodyTextView.selectedTextRange {
-            let text = bodyTextView.text(in: range)
             preselectedTextRange = range
 
             if let start = bodyTextView.position(from: range.start, offset: -2),
                let end = bodyTextView.position(from: range.end, offset: 2),
                let newSelectedRange = bodyTextView.textRange(from: start, to: end) {
                 bodyTextView.replace(newSelectedRange, withText: bodyTextView.text(in: preselectedTextRange) ?? String())
+
+                let newStartPosition = bodyTextView.position(from: range.start, offset: -2)
+                let newEndPosition = bodyTextView.position(from: range.end, offset: -2)
+                bodyTextView.selectedTextRange = bodyTextView.textRange(from: newStartPosition ?? bodyTextView.endOfDocument, to: newEndPosition ?? bodyTextView.endOfDocument)
             }
         }
         dismiss(animated: true)

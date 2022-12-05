@@ -95,7 +95,6 @@ extension TalkPageViewController: EditLinkViewControllerDelegate {
 
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
         if let textView = replyComposeController.contentView?.replyTextView, let range =  textView.selectedTextRange {
-            let text = textView.text(in: range)
             preselectedTextRange = range
 
             if let start = textView.position(from: range.start, offset: -2),
