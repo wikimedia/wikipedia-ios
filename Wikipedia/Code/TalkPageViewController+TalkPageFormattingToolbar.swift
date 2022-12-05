@@ -15,13 +15,16 @@ extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
     }
 
     func didSelectInsertLink() {
-        guard let link = Link(page: "", label: "", exists: false) else {
-            return
+        if let textView = replyComposeController.contentView?.replyTextView {
+            let text = textView.text(in: textView.selectedTextRange ?? UITextRange())
+            guard let link = Link(page: text, label: text, exists: true) else {
+                return
+            }
+            let insertLinkViewController = InsertLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared())
+            insertLinkViewController.delegate = self
+            let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
+            present(navigationController, animated: true)
         }
-        let insertLinkViewController = InsertLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared())
-        insertLinkViewController.delegate = self
-        let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
-        present(navigationController, animated: true)
     }
 }
 
@@ -38,9 +41,9 @@ extension TalkPageViewController: InsertLinkViewControllerDelegate {
     func insertOrEditLink(page: String, label: String?) {
         if let textView = replyComposeController.contentView?.replyTextView {
             if let label {
-                textView.insertText("[[\(page)|\(label)]]")
+                textView.replace(textView.selectedTextRange ?? UITextRange(), withText: "[[\(page)|\(label)]]")
             } else {
-                textView.insertText("[[\(page)]]")
+                textView.replace(textView.selectedTextRange ?? UITextRange(), withText: "[[\(page)]]")
             }
         }
     }

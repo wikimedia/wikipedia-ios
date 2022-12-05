@@ -23,6 +23,8 @@ class TalkPageTopicComposeViewController: ViewController {
     }
     
     let viewModel: TalkPageTopicComposeViewModel
+
+    internal var preselectedTextRange = UITextRange()
     
     private lazy var safeAreaBackgroundView: UIView = {
         let view = UIView(frame: .zero)
