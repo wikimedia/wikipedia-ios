@@ -17,7 +17,7 @@ extension TalkPageTopicComposeViewController: TalkPageFormattingToolbarViewDeleg
             let text = bodyTextView.text(in: range)
             preselectedTextRange = range
 
-            var existes = false
+            var doesLinkExist = false
 
             if let start = bodyTextView.position(from: range.start, offset: -2),
                let end = bodyTextView.position(from: range.end, offset: 2),
@@ -25,19 +25,19 @@ extension TalkPageTopicComposeViewController: TalkPageFormattingToolbarViewDeleg
 
                 if let newText = bodyTextView.text(in: newSelectedRange) {
                     if newText.contains("[") || newText.contains("]") {
-                        existes = true
+                        doesLinkExist = true
                     } else {
-                        existes = false
+                        doesLinkExist = false
                     }
                 }
             }
 
-            guard let link = Link(page: text, label: text, exists: existes) else {
+            guard let link = Link(page: text, label: text, exists: doesLinkExist) else {
                 return
             }
 
             if link.exists {
-                guard let editLinkViewController = EditLinkViewController(link: link, siteURL: viewModel.siteUrl, dataStore: MWKDataStore.shared()) else {
+                guard let editLinkViewController = EditLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared()) else {
                     return
                 }
                 editLinkViewController.delegate = self
@@ -45,7 +45,7 @@ extension TalkPageTopicComposeViewController: TalkPageFormattingToolbarViewDeleg
                 navigationController.isNavigationBarHidden = true
                 present(navigationController, animated: true)
             } else {
-                let insertLinkViewController = InsertLinkViewController(link: link, siteURL: viewModel.siteUrl, dataStore: MWKDataStore.shared())
+                let insertLinkViewController = InsertLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared())
                 insertLinkViewController.delegate = self
                 let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
                 present(navigationController, animated: true)

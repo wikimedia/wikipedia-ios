@@ -20,7 +20,7 @@ extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
             let text = textView.text(in: range)
             preselectedTextRange = range
 
-            var existes = false
+            var doesLinkExist = false
 
             if let start = textView.position(from: range.start, offset: -2),
                let end = textView.position(from: range.end, offset: 2),
@@ -28,14 +28,14 @@ extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
 
                 if let newText = textView.text(in: newSelectedRange) {
                     if newText.contains("[") || newText.contains("]") {
-                        existes = true
+                        doesLinkExist = true
                     } else {
-                        existes = false
+                        doesLinkExist = false
                     }
                 }
             }
 
-            guard let link = Link(page: text, label: text, exists: existes) else {
+            guard let link = Link(page: text, label: text, exists: doesLinkExist) else {
                 return
             }
 
