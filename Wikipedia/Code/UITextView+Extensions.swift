@@ -23,16 +23,19 @@ extension UITextView {
     func addStringFormattingCharacters(formattingString: String) {
         let cursorOffset = formattingString.count
         if let selectedRange = selectedTextRange {
+            let cursorPosition = offset(from: endOfDocument, to: selectedRange.end)
             if selectedRange.isEmpty {
                 replace(selectedTextRange ?? UITextRange(), withText: formattingString + formattingString)
-
-                let cursorPosition = offset(from: endOfDocument, to: selectedRange.end)
 
                 let newPosition = position(from: endOfDocument, offset: cursorPosition + cursorOffset)
                 selectedTextRange = textRange(from: newPosition ?? endOfDocument, to: newPosition ?? endOfDocument)
             } else {
                 if let selectedSubstring = text(in: selectedRange) {
                     replace(selectedTextRange ?? UITextRange(), withText: formattingString + selectedSubstring + formattingString)
+
+                    let newStartPosition = position(from: selectedRange.start, offset: cursorOffset)
+                    let newEndPosition = position(from: selectedRange.end, offset: cursorOffset)
+                    selectedTextRange = textRange(from: newStartPosition ?? endOfDocument, to: newEndPosition ?? endOfDocument)
                 } else {
                     replace(selectedTextRange ?? UITextRange(), withText: formattingString + formattingString)
                 }
@@ -50,6 +53,10 @@ extension UITextView {
                 if let newText = text(in: newSelectedRange) {
                     if newText.contains(formattingString) {
                         replace(newSelectedRange, withText: text(in: selectedRange) ?? String())
+
+                        let newStartPosition = position(from: selectedRange.start, offset: -cursorOffset)
+                        let newEndPosition = position(from: selectedRange.end, offset: -cursorOffset)
+                        selectedTextRange = textRange(from: newStartPosition ?? endOfDocument, to: newEndPosition ?? endOfDocument)
                     } else {
                         addStringFormattingCharacters(formattingString: formattingString)
                     }
