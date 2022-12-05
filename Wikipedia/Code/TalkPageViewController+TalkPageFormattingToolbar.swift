@@ -101,6 +101,9 @@ extension TalkPageViewController: EditLinkViewControllerDelegate {
                let end = textView.position(from: range.end, offset: 2),
                let newSelectedRange = textView.textRange(from: start, to: end) {
                 textView.replace(newSelectedRange, withText: textView.text(in: preselectedTextRange) ?? String())
+                let newStartPosition = textView.position(from: range.start, offset: -2)
+                let newEndPosition = textView.position(from: range.end, offset: -2)
+                textView.selectedTextRange = textView.textRange(from: newStartPosition ?? textView.endOfDocument, to: newEndPosition ?? textView.endOfDocument)
             }
         }
         dismiss(animated: true)
