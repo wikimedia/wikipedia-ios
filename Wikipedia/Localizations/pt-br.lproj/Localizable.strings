@@ -1113,7 +1113,9 @@
 "vanish-account-username-field" = "Nome de usuário e página de usuário";
 "vanish-modal-item" = "Se preencheu o seu pedido de desaparecimento, aguarde alguns dias para que o pedido seja processado por um administrador.";
 "vanish-modal-item-2" = "Se não tem a certeza se o seu pedido foi aprovado, verifique o seu aplicativo de e-mail.";
+// Fuzzy
 "vanish-modal-item-3" = "Se tem dúvidas sobre o desaparecimento, visite Wikipédia:Direito a desaparecer";
+// Fuzzy
 "vanish-modal-item-3-ios15" = "Se tem dúvidas acerca do desaparecimento, visite $1Wikipédia:Direito a desaparecer$2$3.";
 "vanish-modal-title" = "Pedido de desaparecimento";
 "vanishing-request-email-title" = "Pedido de desaparecimento de cortesia";
