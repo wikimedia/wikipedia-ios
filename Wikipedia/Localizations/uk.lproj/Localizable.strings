@@ -1115,7 +1115,9 @@
 "vanish-account-username-field" = "Ім'я користувача та сторінка користувача";
 "vanish-modal-item" = "Якщо ви виконали ваш запит на зникнення, зачекайте кілька днів, щоб запит обробив адміністратор";
 "vanish-modal-item-2" = "Якщо ви не впевнені, що ваш запит прийнято, перевірте свій додаток Mail";
+// Fuzzy
 "vanish-modal-item-3" = "Якщо у вас є додаткові запитання щодо знищення, відвідайте Meta:Right_to_vanish";
+// Fuzzy
 "vanish-modal-item-3-ios15" = "Якщо у вас є додаткові запитання щодо знищення, відвідайте $1Meta:Right_to_vanish$2$3";
 "vanish-modal-title" = "Запит на зникнення";
 "variants-alert-dismiss-button" = "Ні, дякую";

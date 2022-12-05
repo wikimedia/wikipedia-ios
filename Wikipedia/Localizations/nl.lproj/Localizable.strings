@@ -1123,7 +1123,9 @@
 "vanish-account-username-field" = "Gebruikersnaam en gebruikerspagina";
 "vanish-modal-item" = "Als u uw verdwijnverzoek heeft voltooid, duurt het een paar dagen voordat het verzoek is verwerkt door een beheerder";
 "vanish-modal-item-2" = "Als u niet zeker weet of uw verzoek is aangekomen, controleer dan uw mail-app";
+// Fuzzy
 "vanish-modal-item-3" = "Als u nog vragen heeft over het opheffen van uw account, ga dan naar Meta:Right_to_vanish";
+// Fuzzy
 "vanish-modal-item-3-ios15" = "Als u nog vragen heeft over het opheffen van uw account, ga dan naar $1Meta:Right_to_vanish$2$3";
 "vanish-modal-title" = "Verdwijnverzoek";
 "vanishing-request-email-title" = "Uw wens om te verdwijnen";

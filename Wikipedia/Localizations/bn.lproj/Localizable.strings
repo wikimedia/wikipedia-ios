@@ -31,7 +31,7 @@
 "aaald-article-insert-last-updated" = "সর্বশেষ হালনাগাদ হয়েছে";
 "aaald-article-insert-new-changes" = "নতুন পরিবর্তন";
 "aaald-article-insert-read-more" = "আরো হালনাগাদ পড়ুন";
-"aaald-error-subitle" = "আবার চেষ্টা করতে রিফ্রেশ করুন";
+"aaald-error-subitle" = "আবার চেষ্টা করতে পুনঃসতেজ করুন";
 "about-content-license" = "বিষয়বস্তুর লাইসেন্স";
 "about-content-license-details" = "অন্যথায় নির্দিষ্ট করা না থাকলে, বিষয়বস্তু $1-এর অধীনে উপলব্ধ।";
 "about-content-license-details-share-alike-license" = "ক্রিয়েটিভ কমন্স অ্যাট্রিবিউশন শেয়ার অ্যালাইক";
@@ -220,10 +220,8 @@
 "image-gallery-unknown-owner" = "লেখক অজানা।";
 "import-shared-reading-list-survey-prompt-button-cancel" = "এখন না";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "জরিপে অংশ নিন";
-"import-shared-reading-list-survey-prompt-footer" = "আমাদের $1গোপনীয়তা বিবৃতি$2 দেখুন। তৃতীয় পার্টি দ্বারা চালিত সমীক্ষা। তাদের $3গোপনীয়তা নীতি$4 দেখুন।";
-// Fuzzy
+"import-shared-reading-list-survey-prompt-footer" = "আমাদের $1গোপনীয়তা বিবৃতি$2 দেখুন। সমীক্ষাটি তৃতীয় পক্ষ দ্বারা চালিত। তাদের $3গোপনীয়তা নীতি$4 দেখুন।";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"পড়ার তালিকা শেয়ার\" একটি পরীক্ষামূলক ফিচার এবং এটি উন্নত বা অপসারণ করতে আমাদের আপনার প্রতিক্রিয়া প্রয়োজন।";
-// Fuzzy
 "import-shared-reading-list-survey-prompt-title" = "আপনি কি আমাদের \"পড়ার তালিকা শেয়ার\" উন্নত করতে সহায়তা করতে পারবেন?";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
 "in-the-news-sub-title-from-wikipedia" = "উইকিপিডিয়া থেকে";
