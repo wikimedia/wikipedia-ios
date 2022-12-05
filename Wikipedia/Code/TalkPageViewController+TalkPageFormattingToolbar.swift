@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 
 extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
 
@@ -15,15 +16,43 @@ extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
     }
 
     func didSelectInsertLink() {
-        if let textView = replyComposeController.contentView?.replyTextView {
-            let text = textView.text(in: textView.selectedTextRange ?? UITextRange())
-            guard let link = Link(page: text, label: text, exists: true) else {
+        if let textView = replyComposeController.contentView?.replyTextView, let range =  textView.selectedTextRange {
+            let text = textView.text(in: range)
+            preselectedTextRange = range
+
+            var existes = false
+
+            if let start = textView.position(from: range.start, offset: -2),
+               let end = textView.position(from: range.end, offset: 2),
+               let newSelectedRange = textView.textRange(from: start, to: end) {
+
+                if let newText = textView.text(in: newSelectedRange) {
+                    if newText.contains("[") || newText.contains("]") {
+                        existes = true
+                    } else {
+                        existes = false
+                    }
+                }
+            }
+
+            guard let link = Link(page: text, label: text, exists: existes) else {
                 return
             }
-            let insertLinkViewController = InsertLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared())
-            insertLinkViewController.delegate = self
-            let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
-            present(navigationController, animated: true)
+
+            if link.exists {
+                guard let editLinkViewController = EditLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared()) else {
+                    return
+                }
+                editLinkViewController.delegate = self
+                let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
+                navigationController.isNavigationBarHidden = true
+                present(navigationController, animated: true)
+            } else {
+                let insertLinkViewController = InsertLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared())
+                insertLinkViewController.delegate = self
+                let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
+                present(navigationController, animated: true)
+            }
         }
     }
 }
@@ -34,17 +63,58 @@ extension TalkPageViewController: InsertLinkViewControllerDelegate {
     }
 
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
-        insertOrEditLink(page: page, label: label)
+        insertLink(page: page, label: label)
         dismiss(animated: true)
     }
 
-    func insertOrEditLink(page: String, label: String?) {
+    func insertLink(page: String, label: String?) {
         if let textView = replyComposeController.contentView?.replyTextView {
             if let label {
-                textView.replace(textView.selectedTextRange ?? UITextRange(), withText: "[[\(page)|\(label)]]")
+                textView.replace(preselectedTextRange, withText: "[[\(page)|\(label)]]")
             } else {
-                textView.replace(textView.selectedTextRange ?? UITextRange(), withText: "[[\(page)]]")
+                textView.replace(preselectedTextRange, withText: "[[\(page)]]")
             }
         }
     }
+}
+
+extension TalkPageViewController: EditLinkViewControllerDelegate {
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didTapCloseButton button: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
+        editLink(page: linkTarget, label: displayText)
+        dismiss(animated: true)
+    }
+
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFailToExtractArticleTitleFromArticleURL articleURL: URL) {
+        DDLogError("Failed to extract article title from \(articleURL)")
+        dismiss(animated: true)
+    }
+
+    func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
+        if let textView = replyComposeController.contentView?.replyTextView, let range =  textView.selectedTextRange {
+            let text = textView.text(in: range)
+            preselectedTextRange = range
+
+            if let start = textView.position(from: range.start, offset: -2),
+               let end = textView.position(from: range.end, offset: 2),
+               let newSelectedRange = textView.textRange(from: start, to: end) {
+                textView.replace(newSelectedRange, withText: textView.text(in: preselectedTextRange) ?? String())
+            }
+        }
+        dismiss(animated: true)
+    }
+
+    func editLink(page: String, label: String?) {
+        if let textView = replyComposeController.contentView?.replyTextView {
+            if let label {
+                textView.replace(preselectedTextRange, withText: "\(page)|\(label)")
+            } else {
+                textView.replace(preselectedTextRange, withText: "\(page)")
+            }
+        }
+    }
+
 }
