@@ -120,6 +120,7 @@
 "icon-shortcut-random-title" = "کُݨے نال چوݨواں مضمون";
 "icon-shortcut-search-title" = "وکیپیڈیا وچ ڳولو";
 "image-gallery-unknown-owner" = "نامعلوم مصنف";
+"import-shared-reading-list-survey-prompt-button-cancel" = "ہُݨ نہ";
 "in-the-news-title" = "خبراں وچ";
 "insert-action-title" = "درج کرو";
 "insert-media-caption-title" = "عنوان";
@@ -160,7 +161,6 @@
 "places-search-top-articles-that-match-scope" = "نیڑے";
 "places-title" = "جاہیں";
 "places-unknown-distance" = "نامعلوم پندھ";
-"rank-accessibility-label" = "نمبر$1";
 "reading-list-create-new-list-description" = "تفصیل";
 "reading-list-create-new-list-title" = "نویں لسٹ بݨاؤ";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "مضموناں دی چھانٹی کرو";
@@ -209,8 +209,6 @@
 "theme-dark-display-name" = "گہرا";
 "theme-default-display-name" = "پہلے کنوں طے تھیا ہویا";
 "theme-light-display-name" = "پھکّا";
-"top-read-header-generic" = "وکیپیڈیا";
-"top-read-header-with-language" = "وکیپیڈیا$1";
 "vanish-account-continue-button-title" = "جاری رکھو";
 "vanish-account-learn-more-text" = "ٻیا سِکھو";
 "welcome-exploration-on-this-day-title" = "ایں ݙینہ کوں";

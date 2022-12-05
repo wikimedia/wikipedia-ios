@@ -190,8 +190,6 @@
 "table-of-contents-close-accessibility-hint" = "დახურვა";
 "table-of-contents-close-accessibility-label" = "სარჩევის დახურვა";
 "table-of-contents-heading" = "შინაარსი";
-"top-read-header-generic" = "ვიკიპედია";
-"top-read-header-with-language" = "$1 ვიკიპედია";
 "two-factor-login-continue" = "შესვლის გაგრძელება";
 "two-factor-login-instructions" = "გთხოვთ, შეიყვანოთ ორფაქტორიანი დადასტურების კოდი";
 "two-factor-login-title" = "თქვენ ანგარიშში შესვლა";

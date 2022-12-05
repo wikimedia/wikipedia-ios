@@ -11,6 +11,7 @@
 // Author: Bramadiarya
 // Author: C5st4wr6ch
 // Author: Cleinman
+// Author: DARMAS BUDI SANTOSO
 // Author: Daud I.F. Argana
 // Author: Fate Kage
 // Author: Gombang
@@ -443,7 +444,6 @@
 "export-user-data-generic-error" = "Terjadi kesalahan saat mengekspor data Anda. Silakan coba lagi nanti.";
 "export-user-data-space-error" = "Anda tidak memiliki cukup ruang perangkat untuk mengekspor data pengguna Anda. Silakan coba lagi nanti.";
 "export-user-data-title" = "Ekspor Data Pengguna";
-"featured-article-empty-title" = "Tidak ada artikel pilihan yang tersedia pada hari ini";
 "featured-widget-content-failure-for-date" = "Tidak ada artikel pilihan untuk tanggal ini.";
 "featured-widget-description" = "Temukan artikel yang terbaik di Wikipedia, dipilih setiap hari oleh komunitas kami.";
 "featured-widget-from-language-wikipedia" = "Dari Wikipedia $1";
@@ -508,6 +508,8 @@
 "icon-shortcut-random-title" = "Artikel acak";
 "icon-shortcut-search-title" = "Telusuri Wikipedia";
 "image-gallery-unknown-owner" = "Pembuat tidak diketahui.";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Share reading lists\" is a test feature and we need your feedback to improve or remove it.";
+"import-shared-reading-list-survey-prompt-title" = "Could you help us improve \"Share reading lists\"?";
 "in-the-news-sub-title-from-language-wikipedia" = "Dari Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Dari Wikipedia";
 "in-the-news-title" = "Peristiwa terkini";
@@ -806,8 +808,6 @@
 "project-name-wikiversity" = "Wikiversitas";
 "project-name-wikivoyage" = "Wikiwisata";
 "project-name-wiktionary" = "Wikikamus";
-"rank-accessibility-label" = "Peringkat $1";
-"readers-accessibility-label" = "$1 pembaca";
 "reading-list-add-generic-hint-title" = "Tambahkan artikel ini ke dalam daftar bacaan?";
 "reading-list-add-hint-title" = "Tambahkan “$1” ke daftar bacaan?";
 "reading-list-add-saved-button-title" = "Ya, tambahkan ke daftar bacaan saya";
@@ -1071,9 +1071,6 @@
 "theme-default-explanation" = "Cocok dengan tema sistem";
 "theme-light-display-name" = "Terang";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "Wikipedia $1";
-"top-read-see-more" = "Lihat bacaan teratas lainnya";
 "top-read-widget-description" = "Pelajari apa yang sedang dibaca dunia hari ini di Wikipedia.";
 "top-read-widget-readers-count" = "$1 pembaca";
 "top-read-widget-title" = "Bacaan teratas";
@@ -1092,6 +1089,9 @@
 "vanish-account-back-confirm-keep-editing" = "Lanjutkan penyuntingan";
 "vanish-account-learn-more-text" = "Pelajari lebih lanjut";
 "vanish-account-username-field" = "Nama pengguna dan halaman pengguna";
+"vanish-modal-item" = "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator";
+"vanish-modal-item-3" = "If you have further questions about vanishing please visit Meta:Right_to_vanish";
+"vanish-modal-item-3-ios15" = "If you have further questions about vanishing please visit $1Meta:Right_to_vanish$2$3";
 "variants-alert-dismiss-button" = "Tidak, terima kasih";
 "variants-alert-preferences-button" = "Tinjau preferensi Anda";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disarankan dan artikel harian dari komunitas kami";

@@ -26,6 +26,13 @@
 "history-clear-confirmation-heading" = "Кёб болмагъан бютеу элементле кетерилсинлеми?";
 // Fuzzy
 "history-clear-delete-all" = "Барысын да кетер";
+"import-shared-reading-list-default-title" = "Мени окъургъа тизмем";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Бусагъатда тюл";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Соруулаугъа къошул";
+"import-shared-reading-list-survey-prompt-footer" = "$1privacy Ташалыкъны юсюнден билдириу бла танышыгъыз$2. Соруулауну ючюнчю джаны къурагъанды. Аланы $3 ташалыкъ политикаларына къара$4.";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Окъургъа тизмелени джайыу\"  — тест функцияды, аны маджаллашдырырча неда кетерирча, бизге сизни багъаларыгъыз керекди.";
+"import-shared-reading-list-survey-prompt-title" = "\"Окъургъа тизмелени ортагъа салыу\" функцияны маджаллашдырыргъа болушаллыкъмысыз?";
+"import-shared-reading-list-title" = "Ортагъа салыннган окъургъа тизмени импорту";
 // Fuzzy
 "main-menu-about" = "«Википедия» къошакъ программаны юсюнден";
 // Fuzzy
@@ -41,7 +48,7 @@
 "main-menu-terms-of-use" = "Хайырланыу шартла";
 "main-menu-title" = "Энтда";
 "main-menu-zero-faq" = "ЧаВо по Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Ысына алыу";
+"menu-cancel-accessibility-label" = "Ызына алыу";
 "navbar-title-mode-edit-wikitext-preview" = "Ал къарау";
 "nearby-distance-label-feet" = "$1 фут";
 "nearby-distance-label-km" = "$1 км";
@@ -63,6 +70,8 @@
 "talk-page-rply-close-button-accessibility-hint" = "Джууабны кёргюзюуню джаб";
 "talk-page-topic-close-button-hint" = "Джангы теманы джаб";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Теманы ачыкълауу";
+"talk-pages-topic-reply-onboarding-body-ios15" = "Страницы обсуждения — это место, где $1люди обсуждают, как сделать контент в Википедии как можно лучше.$1 Добавьте новую тему для обсуждения, чтобы связаться и сотрудничать с сообществом википедистов.\nСюзюуню бетлери — $1people,  Википедияда контентни не къадар маджал къалай этерге керек болгъанын сюзген джерди. Википедиячыланы джамагъаты бла байламлы болуб, иш бирлик джюрютюр ючюн, $1 Сюзюуге джангы теманы къошугъуз.";
+"talk-pages-topic-reply-onboarding-body-note-ios15" = "Тилейбиз, джумушакъ болугъуз, барыбыз да мында адамбыз.";
 // Fuzzy
 "wikitext-upload-save" = "Сакъланады…";
 "wikitext-upload-save-sign-in" = "Кириу";

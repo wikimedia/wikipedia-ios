@@ -20,8 +20,17 @@ class ReadingListDetailViewController: ViewController {
     private weak var importSurveyPromptTimer: Timer?
     private let importSurveyPromptDelay = TimeInterval(5)
     
-    // TODO: Get final URL
-    private let importSurveyURL = URL(string: "http://www.mediawiki.org")
+    private typealias LanguageCode = String
+    private let importSurveyURLs: [LanguageCode: URL?] = [
+        "en": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSf7W1Hs20HcP-Ho4T_Rlr8hdpT4oKxYQJD3rdE5RCINl5l6RQ/viewform?usp=sf_link"),
+        "ar": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSeKCRBtnF4V1Gwv2aRsJi8GppfofbiECU6XseZbVRbYijynfg/viewform?usp=sf_link"),
+        "bn": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSeY25GeA8dFOKlVCNpHc5zTUIYUeB3W6fntTitTIQRjl7BCQw/viewform?usp=sf_link"),
+        "fr": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSe_EXLDJxk-9y0ux-c9LERNou7CqhzoSZfL952PKH8bqCGMpA/viewform?usp=sf_link"),
+        "de": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSfS2-gQJtCUnFMJl-C0BdrWNxpb-PeXjoDeCR4z80gSCoA-RA/viewform?usp=sf_link"),
+        "hi": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSdnjiMH4L9eIpwuk3JLdsjKirvQ5GvLwp_8aaLKiESf-zhtHA/viewform?usp=sf_link"),
+        "pt": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSfbRhbf-cqmZC-vn1S_OTdsJ0zpiVW7vfFpWQgZtzQbU0dZEw/viewform?usp=sf_link"),
+        "es": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSelTK2ZeuEOk2T9P-E5OeKZoE9VvmCXLx9v3lc-A-onWXSsog/viewform?usp=sf_link"),
+        "ur": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSdPcGIn049-8g-JgxJ8lFRa8UGg4xcWdL6Na18GuDCUD8iUXA/viewform?usp=sf_link")]
     
     @objc convenience init(for readingList: ReadingList, with dataStore: MWKDataStore, fromImport: Bool, theme: Theme) {
         self.init(for: readingList, with: dataStore, displayType: .pushed, fromImport: fromImport)
@@ -144,44 +153,7 @@ class ReadingListDetailViewController: ViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // TODO: Maybe adjust survey prompt display logic to once-per-install
-        guard fromImport && !seenSurveyPrompt else {
-            return
-        }
-
-        guard let surveyURL = self.importSurveyURL else {
-            return
-        }
-
-        self.importSurveyPromptTimer = Timer.scheduledTimer(withTimeInterval: importSurveyPromptDelay, repeats: false, block: { [weak self] timer in
-            guard let self = self else {
-                return
-            }
-
-            self.seenSurveyPrompt = true
-
-            self.wmf_showReadingListImportSurveyPanel(primaryButtonTapHandler: { (sender) in
-                self.navigate(to: surveyURL, useSafari: true)
-                // dismiss handler is called
-            }, secondaryButtonTapHandler: { (sender) in
-                // dismiss handler is called
-            }, footerLinkAction: { (url) in
-                 self.navigate(to: url, useSafari: true)
-                // intentionally don't dismiss
-            }, traceableDismissHandler: { lastAction in
-                switch lastAction {
-                case .tappedBackground, .tappedClose, .tappedSecondary:
-                    print("tappedSecondary")
-                    // TODO: Log dismissed
-                case .tappedPrimary:
-                    print("tappedPrimary")
-                    // TODO: Log tapped survey
-                case .none:
-                    assertionFailure("Unexpected lastAction in Panel dismissHandler")
-                    break
-                }
-            }, theme: self.theme)
-        })
+        showImportSharedReadingListSurveyPromptIfNeeded()
     }
     
     // MARK: - Theme
@@ -367,5 +339,54 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
             addExtendedView()
         }
         viewController.updateScrollViewInsets()
+    }
+}
+
+
+// MARK: - Import Shared Reading Lists
+
+private extension ReadingListDetailViewController {
+    private func  showImportSharedReadingListSurveyPromptIfNeeded() {
+        guard fromImport else {
+            return
+        }
+        
+        // If they ever tapped "Take survey", never show the prompt again
+        guard !UserDefaults.standard.wmf_tappedToImportSharedReadingListSurvey else {
+            return
+        }
+        
+        // Don't show survey prompt if they've already seen it on this particular view controller
+        guard !seenSurveyPrompt else {
+            return
+        }
+        
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+              let surveyURL = (importSurveyURLs[languageCode] ?? importSurveyURLs["en"]) else {
+            return
+        }
+
+        self.importSurveyPromptTimer = Timer.scheduledTimer(withTimeInterval: importSurveyPromptDelay, repeats: false, block: { [weak self] timer in
+            guard let self = self else {
+                return
+            }
+
+            self.seenSurveyPrompt = true
+            ReadingListsFunnel.shared.logPresentedSurveyPrompt()
+
+            self.wmf_showReadingListImportSurveyPanel(primaryButtonTapHandler: { (sender) in
+                ReadingListsFunnel.shared.logTappedTakeSurvey()
+                UserDefaults.standard.wmf_tappedToImportSharedReadingListSurvey = true
+                self.navigate(to: surveyURL, useSafari: true)
+                // dismiss handler is called
+            }, secondaryButtonTapHandler: { (sender) in
+                // dismiss handler is called
+            }, footerLinkAction: { (url) in
+                 self.navigate(to: url, useSafari: true)
+                // intentionally don't dismiss
+            }, traceableDismissHandler: { lastAction in
+                // Do nothing
+            }, theme: self.theme, languageCode: languageCode)
+        })
     }
 }

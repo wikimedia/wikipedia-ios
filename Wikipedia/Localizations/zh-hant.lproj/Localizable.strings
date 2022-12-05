@@ -443,7 +443,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "來自維基百科";
 "explore-randomizer" = "隨機條目產生器";
 "export-user-data-title" = "匯出使用者資料";
-"featured-article-empty-title" = "今日沒有可用的典範條目";
 "featured-widget-content-failure-for-date" = "沒有此日期可用的典範條目。";
 "featured-widget-description" = "查看由我們社群每日挑選出的維基百科最佳條目。";
 "featured-widget-from-language-wikipedia" = "來自$1維基百科";
@@ -796,8 +795,6 @@
 "project-name-wikiversity" = "維基學院";
 "project-name-wikivoyage" = "維基導遊";
 "project-name-wiktionary" = "維基詞典";
-"rank-accessibility-label" = "號碼$1";
-"readers-accessibility-label" = "$1個讀者";
 "reading-list-add-generic-hint-title" = "新增此條目至閱讀清單？";
 "reading-list-add-hint-title" = "添加「$1」至閱讀清單嗎？";
 "reading-list-add-saved-button-title" = "是的，添加它們至我的閱讀清單";
@@ -1046,9 +1043,6 @@
 "theme-default-explanation" = "符合系統主題";
 "theme-light-display-name" = "明亮";
 "theme-sepia-display-name" = "深褐";
-"top-read-header-generic" = "維基百科";
-"top-read-header-with-language" = "$1維基百科";
-"top-read-see-more" = "查看更多熱門條目";
 "top-read-widget-description" = "在維基百科裡學習世界";
 "top-read-widget-readers-count" = "$1個讀者";
 "top-read-widget-title" = "最多閱讀";

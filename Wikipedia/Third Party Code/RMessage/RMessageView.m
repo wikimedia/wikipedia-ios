@@ -253,7 +253,18 @@ static NSMutableDictionary *globalDesignDictionary;
     if (designError) return nil;
 
     [self setupDesign];
-    [self setupLayout];
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addToSuperviewForPresentation];
+      
+      // This check fixes an NSLayoutConstraint crash
+      // https://phabricator.wikimedia.org/T323163
+      if (self.superview) {
+          [self setupLayout];
+      } else {
+          [self removeFromSuperview];
+          return nil;
+      }
+      
     if (dismissingEnabled) {
       [self setupGestureRecognizers];
     } else {
@@ -451,13 +462,7 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)setupLayout
 {
-  self.translatesAutoresizingMaskIntoConstraints = NO;
-
-  // Add RMessage to superview
-  [self addToSuperviewForPresentation];
-
   if (self.messagePosition != RMessagePositionBottom) {
-    [self layoutIfNeeded];
     self.topToVCTopLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.superview
                                                                 attribute:NSLayoutAttributeTop
                                                                 relatedBy:NSLayoutRelationEqual
@@ -761,7 +766,7 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)setupIconImageView
 {
-  self.iconImageView.contentMode = UIViewContentModeScaleAspectFit;
+  self.iconImageView.contentMode = UIViewContentModeScaleToFill;
   self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
 
   NSLayoutConstraint *imgViewCenterY = [NSLayoutConstraint constraintWithItem:self.iconImageView
@@ -784,18 +789,18 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                         toItem:self.titleSubtitleContainerView
                                                                      attribute:NSLayoutAttributeLeading
                                                                     multiplier:1.f
-                                                                      constant:-15.f];
-  NSLayoutConstraint *imgViewBottom = [NSLayoutConstraint constraintWithItem:self.iconImageView
-                                                                   attribute:NSLayoutAttributeBottom
-                                                                   relatedBy:NSLayoutRelationLessThanOrEqual
-                                                                      toItem:self
-                                                                   attribute:NSLayoutAttributeBottom
-                                                                  multiplier:1.f
-                                                                    constant:-10.f];
-    self.titleSubtitleContainerViewLeadingConstraint.constant = 50.0;
+                                                                      constant:-10.f];
+  NSLayoutConstraint *imgViewHeight = [NSLayoutConstraint constraintWithItem:self.iconImageView
+                                                                     attribute:NSLayoutAttributeHeight
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self.iconImageView
+                                                                     attribute:NSLayoutAttributeWidth
+                                                                    multiplier:1.f
+                                                                      constant:1.f];
+  self.titleSubtitleContainerViewLeadingConstraint.constant = 55.0;
     
   [self addSubview:self.iconImageView];
-  [[self class] activateConstraints:@[imgViewCenterY, imgViewLeading, imgViewTrailing, imgViewBottom] inSuperview:self];
+  [[self class] activateConstraints:@[imgViewCenterY, imgViewLeading, imgViewTrailing, imgViewHeight] inSuperview:self];
 }
 
 - (void)setupGestureRecognizers

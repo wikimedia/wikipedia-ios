@@ -412,7 +412,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "s Wikipedije ($1)";
 "explore-random-article-sub-heading-from-wikipedia" = "s Wikipedije";
 "explore-randomizer" = "Nasumična stranica";
-"featured-article-empty-title" = "Odabrani članak danas nije dostupan";
 "featured-widget-content-failure-for-date" = "Istaknuti članak nije dostupan za ovaj dan.";
 "featured-widget-description" = "Otkrijte najbolje članke na Wikipediji, koje svakodnevno bira naša zajednica.";
 "featured-widget-from-language-wikipedia" = "s Wikipedije ($1)";
@@ -745,8 +744,6 @@
 "potd-widget-title" = "Slika dana";
 "preference-summary-eventlogging-opt-in" = "Dozvolite Zadužbini Wikimedia da prikupi informacije o tom kako koristite aplikaciju da bismo je poboljšali";
 "preference-title-eventlogging-opt-in" = "Šalji izvještaje o korištenju";
-"rank-accessibility-label" = "Broj $1";
-"readers-accessibility-label" = "$1 čitalaca";
 "reading-list-add-generic-hint-title" = "Dodaj ovaj članak na spisak za čitanje?";
 "reading-list-add-hint-title" = "Dodaj \"$1\" na spisak za čitanje?";
 "reading-list-add-saved-button-title" = "Da, dodaj ih u moje spiskove za čitanje";
@@ -979,9 +976,6 @@
 "theme-default-explanation" = "Podudara se sa temom systema";
 "theme-light-display-name" = "Svijetla";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "Wikipedia ($1)";
-"top-read-see-more" = "Pogledaj još najčitanijih članaka";
 "top-read-widget-description" = "Saznajte šta svijet danas čita na Wikipediji.";
 "top-read-widget-readers-count" = "$1 čitalaca";
 "top-read-widget-title" = "Najčitanije";

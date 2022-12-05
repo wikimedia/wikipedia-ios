@@ -151,8 +151,6 @@
 "places-title" = "Luòcs";
 "potd-description-prefix" = "Imatge del jorn per $1";
 "preference-title-eventlogging-opt-in" = "Mandar los rapòrts d’utilizacion";
-"rank-accessibility-label" = "Numèro $1";
-"readers-accessibility-label" = "$1 lectors";
 "reading-list-sync-enable-subtitle" = "Vòstres articles e listas de lectura salvagardats pòdon ara èstre salvats dins vòstre compte Wikipedia e sincronizats demest las aplicacions Wikipedia.";
 "reading-lists-article-queued-to-be-downloaded" = "Article ajustat a la tièra per èstre teledescargat";
 "reference-title" = "Referéncia $1";
@@ -191,9 +189,6 @@
 "table-of-contents-close-accessibility-hint" = "Tampar";
 "table-of-contents-close-accessibility-label" = "Tampar l'ensenhador";
 "table-of-contents-heading" = "Contenguts";
-"top-read-header-generic" = "Wikipèdia";
-"top-read-header-with-language" = "Wikipèdia en $1";
-"top-read-see-more" = "Veire mai de paginas las mai gaitadas";
 "two-factor-login-title" = "Se connectar a vòstre compte";
 "welcome-explore-continue-button" = "Començar";
 "welcome-explore-tell-me-more-done-button" = "L’obténer";

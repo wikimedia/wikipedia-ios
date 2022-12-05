@@ -346,7 +346,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Da Wikipedia in $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Da Wikipedia";
 "explore-randomizer" = "Una pagina a caso";
-"featured-article-empty-title" = "Nessuna voce in vetrina disponibile oggi";
 "featured-widget-content-failure-for-date" = "Nessun articolo in evidenza disponibile per questa data.";
 "featured-widget-description" = "Scopri i migliori articoli su Wikipedia, selezionati quotidianamente dalla nostra community.";
 "featured-widget-from-wikipedia" = "Da Wikipedia";
@@ -607,8 +606,6 @@
 "project-name-wikiversity" = "Wikiversità";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wikizionario";
-"rank-accessibility-label" = "Numero $1";
-"readers-accessibility-label" = "$1 lettori";
 "reading-list-add-hint-title" = "Aggiungere \"$1\" a un elenco di lettura?";
 "reading-list-add-saved-title" = "Voci salvate trovate";
 "reading-list-api-error-generic" = "Un errore inaspettato si è verificato durante la sincronizzazione degli elenchi di lettura.";
@@ -779,9 +776,6 @@
 "theme-default-display-name" = "Predefinito";
 "theme-light-display-name" = "Chiaro";
 "theme-sepia-display-name" = "Seppia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "Wikipedia in $1";
-"top-read-see-more" = "Vedi altri tra i più letti";
 "top-read-widget-description" = "Scopri cosa sta leggendo il mondo oggi su Wikipedia.";
 "top-read-widget-readers-count" = "$1 lettori";
 "top-read-widget-title" = "Più letti";

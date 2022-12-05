@@ -1,5 +1,6 @@
 // Messages for Pashto (پښتو)
 // Exported from translatewiki.net
+// Author: Af420
 // Author: Ahmed-Najib-Biabani-Ibrahimkhel
 // Author: Amjad Khan
 // Author: Baloch Khan
@@ -104,8 +105,6 @@
 "table-of-contents-button-label" = "نيوليک";
 "table-of-contents-close-accessibility-hint" = "تړل";
 "table-of-contents-heading" = "منځپانگې";
-"top-read-header-generic" = "ويکيپېډيا";
-"top-read-header-with-language" = "$1 ويکيپېډيا";
 "welcome-explore-continue-button" = "پيلول";
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";
 "welcome-languages-add-button" = "بله ژبه ورگډول";

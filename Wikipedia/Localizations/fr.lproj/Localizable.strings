@@ -129,7 +129,7 @@
 "action-previous-revision-accessibility" = "Version précédente";
 "action-read" = "Lire";
 "action-redo" = "Refaire";
-"action-remove" = "Supprimer";
+"action-remove" = "Retirer";
 "action-replace" = "Remplacer";
 "action-replace-all" = "Remplacer tout";
 "action-retry" = "Réessayer";
@@ -249,8 +249,8 @@
 "diff-revision-error-title" = "Impossible de charger la révision";
 "diff-single-header-editor-number-edits-format" = "$1 modification{{PLURAL:$1||s}}";
 "diff-single-header-editor-title" = "Informations sur l’éditeur";
-"diff-single-header-subtitle-bytes-added" = "$1 octet{{PLURAL:$1||s}} ajouté{{PLURAL:$1||s}}";
-"diff-single-header-subtitle-bytes-removed" = "$1 octet{{PLURAL:$1||s}} enlevé{{PLURAL:$1||s}}";
+"diff-single-header-subtitle-bytes-added" = "$1 octet{{PLURAL:$1||s}} ajouté{{PLURAL:$1||s}}";
+"diff-single-header-subtitle-bytes-removed" = "$1 octet{{PLURAL:$1||s}} enlevé{{PLURAL:$1||s}}";
 "diff-single-header-summary-heading" = "Résumé des modifications";
 "diff-single-intro-title" = "Introduction";
 "diff-single-line-format" = "Ligne $1";
@@ -443,7 +443,6 @@
 "export-user-data-generic-error" = "Une erreur s’est produite lors de l’exportation de vos données. Veuillez essayer à nouveau plus tard.";
 "export-user-data-space-error" = "Vous ne disposez pas de suffisamment d’espace sur l’appareil pour exporter vos données utilisateur. Veuillez essayer à nouveau plus tard.";
 "export-user-data-title" = "Exporter les données utilisateur";
-"featured-article-empty-title" = "Aucun article en vedette disponible aujourd’hui";
 "featured-widget-content-failure-for-date" = "Un article mis en avant n’est pas disponible à cette date.";
 "featured-widget-description" = "Découvrir les meilleurs articles sur Wikipédia, sélectionnés chaque jour par notre communauté.";
 "featured-widget-from-language-wikipedia" = "De Wikipédia en $1";
@@ -508,6 +507,13 @@
 "icon-shortcut-random-title" = "Article au hasard";
 "icon-shortcut-search-title" = "Rechercher dans Wikipédia";
 "image-gallery-unknown-owner" = "Auteur inconnu.";
+"import-shared-reading-list-default-title" = "Ma liste de lecture";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Pas maintenant";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Répondre au sondage";
+"import-shared-reading-list-survey-prompt-footer" = "Consultez notre $1déclaration de confidentialité$2. Enquête réalisée par un tiers. Consultez sa $3politique de confidentialité$4.";
+"import-shared-reading-list-survey-prompt-subtitle" = "Le « Partage de listes de lecture » est une fonctionnalité en test et nous avons besoin de vos commentaires pour l’améliorer ou la supprimer.";
+"import-shared-reading-list-survey-prompt-title" = "Pourriez-vous nous aider à améliorer la fonctionnalité « Partager des listes de lecture » ?";
+"import-shared-reading-list-title" = "Importer une liste de lecture partagée";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipédia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipédia";
 "in-the-news-title" = "Dans l’actualité";
@@ -739,8 +745,8 @@
 "page-history-revision-comment-accessibility-label" = "Commentaire $1";
 "page-history-revision-history-title" = "Historique des versions";
 "page-history-revision-minor-edit-accessibility-label" = "Modification mineure";
-"page-history-revision-size-diff-addition" = "$1 octet{{PLURAL:$1||s}} ajouté{{PLURAL:$1||s}}";
-"page-history-revision-size-diff-subtraction" = "$1 octet{{PLURAL:$1||s}} enlevé{{PLURAL:$1||s}}";
+"page-history-revision-size-diff-addition" = "$1 octet{{PLURAL:$1||s}} ajouté{{PLURAL:$1||s}}";
+"page-history-revision-size-diff-subtraction" = "$1 octet{{PLURAL:$1||s}} enlevé{{PLURAL:$1||s}}";
 "page-history-revision-time-accessibility-label" = "Modification du $1";
 "page-history-revisions-comparison-warning" = "Seulement deux versions doivent être sélectionnées";
 "page-history-stats-text" = "$1 modification{{PLURAL:$1||s}} depuis $2";
@@ -809,8 +815,6 @@
 "project-name-wikiversity" = "Wikiversité";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionnaire";
-"rank-accessibility-label" = "Numéro $1";
-"readers-accessibility-label" = "$1 lecteurs";
 "reading-list-add-generic-hint-title" = "Ajouter cet article à une liste de lecture ?";
 "reading-list-add-hint-title" = "Ajouter « $1 » à la liste de lecture ?";
 "reading-list-add-saved-button-title" = "Oui, les ajouter à mes listes de lecture";
@@ -1108,9 +1112,6 @@
 "theme-default-explanation" = "Correspond au thème du système";
 "theme-light-display-name" = "Clair";
 "theme-sepia-display-name" = "Sépia";
-"top-read-header-generic" = "Wikipédia";
-"top-read-header-with-language" = "Wikipédia en $1";
-"top-read-see-more" = "Voir d’autres articles les plus lus";
 "top-read-widget-description" = "Apprendre ce qui est lu aujourd’hui dans le monde sur Wikipédia.";
 "top-read-widget-readers-count" = "$1 lecteurs";
 "top-read-widget-title" = "Les plus lus";
@@ -1141,7 +1142,9 @@
 "vanish-account-warning-title" = "Avertissement";
 "vanish-modal-item" = "Si vous avez complété votre demande de disparition, veuillez accorder quelques jours pour qu’elle soit traitée par un administrateur.";
 "vanish-modal-item-2" = "Si vous n’êtes pas sûr{{GENDER:||e}} que votre demande a abouti, veuillez vérifier dans votre application de courriel.";
+// Fuzzy
 "vanish-modal-item-3" = "Si vous avez plus de questions sur le droit de disparaître, veuillez visiter « Wikipédia:Droit de disparaître ».";
+// Fuzzy
 "vanish-modal-item-3-ios15" = "Si vous avez plus de questions sur le droit de disparaître, veuillez visiter $1Wikipédia:Droit de disparaître$2$3.";
 "vanish-modal-title" = "Faire valoir son droit de disparaître";
 "vanishing-request-email-title" = "Demande de droit de disparaître";

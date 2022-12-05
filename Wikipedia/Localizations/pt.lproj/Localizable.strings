@@ -17,6 +17,7 @@
 // Author: Nemo bis
 // Author: Ruila
 // Author: SandroHc
+// Author: Tsevener
 // Author: Vitorvicentevalente
 // Author: Webysther
 
@@ -431,7 +432,6 @@
 "export-user-data-generic-error" = "Ocorreu um erro durante a exportação dos seus dados. Tente novamente mais tarde, por favor.";
 "export-user-data-space-error" = "Não tem espaço disponível suficiente no seu dispositivo para exportar os seus dados de utilizador. Tente novamente mais tarde, por favor.";
 "export-user-data-title" = "Exportar dados de utilizador";
-"featured-article-empty-title" = "Hoje não está disponível nenhum artigo destacado";
 "featured-widget-content-failure-for-date" = "Não está disponível nenhum artigo destacado para esta data.";
 "featured-widget-description" = "Descubra os melhores artigos da Wikipédia, selecionados diariamente pela nossa comunidade.";
 "featured-widget-from-language-wikipedia" = "Da Wikipédia em $1";
@@ -496,6 +496,13 @@
 "icon-shortcut-random-title" = "Artigo aleatório";
 "icon-shortcut-search-title" = "Pesquisar na Wikipédia";
 "image-gallery-unknown-owner" = "Autor desconhecido.";
+"import-shared-reading-list-default-title" = "A minha lista de leitura";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Agora não";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Participar em inquérito";
+"import-shared-reading-list-survey-prompt-footer" = "Ver a nossa $1declaração de privacidade$2. Inquérito conduzido por uma entidade terceira. Ver a $3declaração de privacidade$4 dessa entidade.";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Partilhar listas de leitura\" é uma funcionalidade de teste e precisamos dos seus comentários para melhorá-la ou removê-la.";
+"import-shared-reading-list-survey-prompt-title" = "Podia ajudar-nos a melhorar \"Partilhar listas de leitura\"?";
+"import-shared-reading-list-title" = "Importar lista de leitura partilhada";
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipédia em $1";
 "in-the-news-sub-title-from-wikipedia" = "Da Wikipédia";
 "in-the-news-title" = "Nas notícias";
@@ -797,8 +804,6 @@
 "project-name-wikiversity" = "Wikiversidade";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wikcionário";
-"rank-accessibility-label" = "Número $1";
-"readers-accessibility-label" = "$1 leitores";
 "reading-list-add-generic-hint-title" = "Adicionar este artigo a uma lista de leitura?";
 "reading-list-add-hint-title" = "Adicionar “$1” a uma lista de leitura?";
 "reading-list-add-saved-button-title" = "Sim, desejo adicioná-los às minhas listas de leitura";
@@ -1084,6 +1089,8 @@
 "talk-pages-topic-compose-navbar-title" = "Tópico";
 "talk-pages-topic-compose-title-placeholder" = "Título do tópico";
 "talk-pages-topic-reply-onboarding-body" = "É nas páginas de discussão que as pessoas debatem como tornar o conteúdo da Wikipédia o melhor possível. Adicione um tópico de discussão novo para estabelecer uma ligação e colaborar com uma comunidade de wikipedistas.\n\nSeja gentil e cortês, por favor; aqui somos todos humanos.";
+"talk-pages-topic-reply-onboarding-body-ios15" = "É nas páginas de discussão que $1as pessoas debatem como tornar o conteúdo da Wikipédia o melhor possível.$1 Adicione um tópico de discussão novo para estabelecer uma ligação e colaborar com uma comunidade de wikipedistas.";
+"talk-pages-topic-reply-onboarding-body-note-ios15" = "Seja amável, por favor. Aqui somos todos humanos.";
 "talk-pages-topic-reply-onboarding-title" = "Páginas de discussão";
 "talk-pages-user-groups" = "Grupos de utilizadores";
 "talk-pages-user-logs" = "Registos";
@@ -1094,9 +1101,6 @@
 "theme-default-explanation" = "Corresponde ao tema do sistema";
 "theme-light-display-name" = "Claro";
 "theme-sepia-display-name" = "Sépia";
-"top-read-header-generic" = "Wikipédia";
-"top-read-header-with-language" = "Wikipédia em $1";
-"top-read-see-more" = "Ver mais artigos dos mais lidos";
 "top-read-widget-description" = "Saiba o que o mundo está a ler hoje na Wikipédia.";
 "top-read-widget-readers-count" = "$1 leitores";
 "top-read-widget-title" = "Mais lidos";
@@ -1127,7 +1131,9 @@
 "vanish-account-warning-title" = "Aviso";
 "vanish-modal-item" = "Se preencheu o seu pedido de desaparecimento, aguarde alguns dias para que o pedido seja processado por um administrador.";
 "vanish-modal-item-2" = "Se não tem a certeza se o seu pedido foi aprovado, verifique a sua aplicação de correio.";
+// Fuzzy
 "vanish-modal-item-3" = "Se tem dúvidas acerca do desaparecimento, visite Wikipédia:Direito a desaparecer";
+// Fuzzy
 "vanish-modal-item-3-ios15" = "Se tem dúvidas acerca do desaparecimento, visite $1Wikipédia:Direito a desaparecer$2$3.";
 "vanish-modal-title" = "Pedido de desaparecimento";
 "vanishing-request-email-title" = "Pedido de desaparecimento de cortesia";

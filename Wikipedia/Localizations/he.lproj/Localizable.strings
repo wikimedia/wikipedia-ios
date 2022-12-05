@@ -436,7 +436,6 @@
 "export-user-data-generic-error" = "אירעה שגיאה בעת יצוא הנתונים שלך. נא לנסות שוב מאוחר יותר.";
 "export-user-data-space-error" = "אין לך מספיק מקום במכשיר כדי לייצא את נתוני המשתמש שלך. נא לנסות שוב מאוחר יותר.";
 "export-user-data-title" = "יצוא נתוני משתמשים";
-"featured-article-empty-title" = "היום אין ערכים מומלצים זמינים";
 "featured-widget-content-failure-for-date" = "לא זמין ערך מומלץ עבור התאריך הזה.";
 "featured-widget-description" = "גלו את הערכים הטובים ביותר בוויקיפדיה, שנבחרים יום־יום על־ידי הקהילה שלנו.";
 "featured-widget-from-language-wikipedia" = "מתוך ויקיפדיה ה$1";
@@ -501,6 +500,13 @@
 "icon-shortcut-random-title" = "ערך אקראי";
 "icon-shortcut-search-title" = "חיפוש בוויקיפדיה";
 "image-gallery-unknown-owner" = "היוצר אינו ידוע.";
+"import-shared-reading-list-default-title" = "רשימת הקריאה שלי";
+"import-shared-reading-list-survey-prompt-button-cancel" = "לא עכשיו";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "מילוי סקר";
+"import-shared-reading-list-survey-prompt-footer" = "צפייה בהצהרת הפרטיות של $1שלנו$2. הסקר מופעל על־ידי צד שלישי. צפייה במדיניות הפרטיות $3שלהם$4.";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"שיתוף רשימות קריאה\" היא תכונת הבדיקה ואנחנו זקוקים למשוב שלך כדי לשפר או להסיר אותה.";
+"import-shared-reading-list-survey-prompt-title" = "אפשר לבקש ממך לעזור לנו לשפר את התכונה \"שיתוף רשימות קריאה\"?";
+"import-shared-reading-list-title" = "יבוא רשימת קריאה משותפת";
 "in-the-news-sub-title-from-language-wikipedia" = "מתוך ויקיפדיה ב$1";
 "in-the-news-sub-title-from-wikipedia" = "מתוך ויקיפדיה";
 "in-the-news-title" = "בחדשות";
@@ -802,8 +808,6 @@
 "project-name-wikiversity" = "ויקיברסיטה";
 "project-name-wikivoyage" = "ויקימסע";
 "project-name-wiktionary" = "ויקימילון";
-"rank-accessibility-label" = "מספר $1";
-"readers-accessibility-label" = "$1 קוראים";
 "reading-list-add-generic-hint-title" = "להוסיף את הערך הזה לרשימת קריאה?";
 "reading-list-add-hint-title" = "האם להוסיף את \"$1\" לרשימת קריאה?";
 "reading-list-add-saved-button-title" = "כן, להוסיף אותם לרשימות הקריאה שלי";
@@ -1089,6 +1093,8 @@
 "talk-pages-topic-compose-navbar-title" = "נושא";
 "talk-pages-topic-compose-title-placeholder" = "כותרת הנושא";
 "talk-pages-topic-reply-onboarding-body" = "דפי שיחה הם המקום שבו אנשים דנים איך להפוך את התוכן בוויקיפדיה לטוב ביותר שהוא יכול להיות. אפשר להוסיף נושא דיון חדש כדי להתחבר ולשתף פעולה עם קהילה של ויקיפדים.\n\nנא להיות אדיבים, כולנו כאן בני־אדם.";
+"talk-pages-topic-reply-onboarding-body-ios15" = "דפי שיחה הם המקום שבו $1אנשים דנים איך להפוך את התוכן בוויקיפדיה לטוב ביותר שהוא יכול להיות.$1 יש להתחיל בהוספת נושא דיון חדש** כדי להתחבר ולשתף פעולה עם קהילה של ויקיפדים.";
+"talk-pages-topic-reply-onboarding-body-note-ios15" = "נא לשמור על אדיבות, כולנו כאן בני־אדם.";
 "talk-pages-topic-reply-onboarding-title" = "דפי שיחה";
 "talk-pages-user-groups" = "קבוצות משתמשים";
 "talk-pages-user-logs" = "יומנים";
@@ -1099,9 +1105,6 @@
 "theme-default-explanation" = "בהתאם לערכת העיצוב של המערכת";
 "theme-light-display-name" = "בהיר";
 "theme-sepia-display-name" = "ספיה";
-"top-read-header-generic" = "ויקיפדיה";
-"top-read-header-with-language" = "ויקיפדיה ב$1";
-"top-read-see-more" = "צפייה בערכים פופולריים נוספים";
 "top-read-widget-description" = "למדו מה העולם קורה היום בוויקיפדיה.";
 "top-read-widget-readers-count" = "$1 קוראים";
 "top-read-widget-title" = "הנקראים ביותר";
@@ -1132,8 +1135,8 @@
 "vanish-account-warning-title" = "אזהרה";
 "vanish-modal-item" = "אם השלמת את בקשת ההיעלמות שלך, נא לתת כמה ימים לעיבוד הבקשה על־ידי מפעיל.";
 "vanish-modal-item-2" = "אם לא ברור לך אם הבקשה שלך הגיעה ליעדה, נא לבדוק את יישום הדואר שלך";
-"vanish-modal-item-3" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף Wikipedia:Courtesy vanishing";
-"vanish-modal-item-3-ios15" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף $1Wikipedia:Courtesy vanishing$2$3.";
+"vanish-modal-item-3" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף Meta:Right_to_vanish";
+"vanish-modal-item-3-ios15" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף $1Meta:Right_to_vanish$2$3.";
 "vanish-modal-title" = "בקשת היעלמות";
 "vanishing-request-email-title" = "בקשת היעלמות אישית";
 "variants-alert-dismiss-button" = "לא, תודה";

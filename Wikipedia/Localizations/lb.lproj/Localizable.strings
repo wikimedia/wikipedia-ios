@@ -265,6 +265,7 @@
 "icon-shortcut-random-title" = "Zoufällegen Artikel";
 "icon-shortcut-search-title" = "Op Wikipedia sichen";
 "image-gallery-unknown-owner" = "Auteur onbekannt.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Net elo";
 "in-the-news-sub-title-from-language-wikipedia" = "Vu Wikipedia op $1";
 "in-the-news-sub-title-from-wikipedia" = "Vu Wikipedia";
 "in-the-news-title" = "An den Neiegkeeten";
@@ -440,8 +441,6 @@
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "preference-summary-eventlogging-opt-in" = "Der Wikimedia Foundation erlaben Informatiounen iwwer d'Benotze vun der App ze sammele fir se ze verbesseren.";
 "preference-title-eventlogging-opt-in" = "Rapporten iwwer d'Benotze schécken";
-"rank-accessibility-label" = "Nummer $1";
-"readers-accessibility-label" = "$1 Lieser";
 "reading-list-add-generic-hint-title" = "Dësen Artikel op eng Lieslëscht derbäisetzen?";
 "reading-list-add-hint-title" = "\"$1\" op eng Lieslëscht derbäisetzen?";
 "reading-list-add-saved-button-title" = "Jo, setzt s'op meng Lieslëschten derbäi";
@@ -591,9 +590,6 @@
 "theme-dark-display-name" = "Däischter";
 "theme-default-display-name" = "Standard";
 "theme-light-display-name" = "Hell";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "$1 Wikipedia";
-"top-read-see-more" = "Méi dacks geliesen Artikele weisen";
 "two-factor-login-continue" = "Virufuere mam Aloggen";
 "two-factor-login-instructions" = "Gitt wgl. den Zwee-Facteur Iwwerpréiwungscode an";
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";

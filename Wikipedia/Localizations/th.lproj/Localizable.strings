@@ -5,6 +5,7 @@
 // Author: B20180
 // Author: Bebiezaza
 // Author: CodeNameBOSS
+// Author: Ekminarin
 // Author: Geonuch
 // Author: Horus
 // Author: Just Sayori
@@ -39,6 +40,7 @@
 "aaald-new-website-reference-archive-url-text" = "URL ของ Archive.org";
 "aaald-new-website-reference-title" = "เว็บไซต์";
 "aaald-revision-by-anonymous" = "การแก้ไขโดยผู้ใช้นิรนาม";
+"aaald-revision-userInfo" = "แก้ไขโดย $1 (แก้ไข $2)";
 "aaald-single-reference-added-description" = "เพิ่มอ้างอิงแล้ว";
 "aaald-view-full-history-button" = "ดูประวัติบทความแบบเต็ม";
 "about-content-license" = "สัญญาอนุญาตเนื้อหา";
@@ -86,6 +88,7 @@
 "account-creation-saving" = "กำลังบันทึก...";
 "account-creation-title" = "สร้างบัญชีใหม่";
 "account-group-title" = "บัญชีของคุณ";
+"account-request-vanishing" = "ซ่อนบัญชี";
 "account-talk-page-title" = "หน้าคุยของคุณ";
 "account-talk-preferences-auto-sign-discussions" = "เซ็นชื่อการอภิปรายอัตโนมัติ";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "การเซ็นชื่อการอภิปรายอัตโนมัติจะใช้ลายเซ็นที่กำหนดในการตั้งค่าลายเซ็น";
@@ -164,6 +167,7 @@
 "compass-direction" = "ที่ $1 นาฬิกา";
 "continue-reading-empty-description" = "สำรวจบทความเพิ่มเติมที่คุณอยากอ่านในวิกิพีเดีย";
 "continue-reading-empty-title" = "ไม่มีบทความที่อ่านล่าสุด";
+"data-migration-status" = "กำลังอัปเดต...";
 "description-add-title" = "เพิ่มคำอธิบาย";
 // Fuzzy
 "description-edit-for-article" = "คำอธิบายชื่อเรื่องสำหรับ $1";
@@ -393,7 +397,8 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "จากวิกิพีเดียภาษา$1";
 "explore-random-article-sub-heading-from-wikipedia" = "จากวิกิพีเดีย";
 "explore-randomizer" = "ตัวสุ่ม";
-"featured-article-empty-title" = "ไม่มีบทความคัดสรรสำหรับวันนี้";
+"featured-widget-from-language-wikipedia" = "จากวิกิพีเดีย $1";
+"featured-widget-from-wikipedia" = "จากวิกิพีเดีย";
 "fetcher-error-generic" = "มีบางอย่างผิดปกติ โปรดลองอีกครั้งในภายหลัง";
 "fetcher-error-unexpected-response" = "แอปได้รับการตอบกลับที่ไม่คาดคิดจากเซิร์ฟเวอร์ โปรดลองอีกครั้งในภายหลัง";
 "field-alert-captcha-invalid" = "CAPTCHA ไม่ถูกต้อง";
@@ -520,8 +525,22 @@
 "no-internet-connection" = "ไม่มีการเชื่อมต่ออินเทอร์เน็ต";
 "no-internet-connection-article-reload" = "อาจมีรุ่นใหม่ของบทความนี้ แต่ไม่สามารถโหลดได้โดยไม่เชื่อมต่อกับอินเทอร์เน็ต";
 "no-internet-connection-article-reload-button" = "กลับไปยังรุ่นที่บันทึกไว้ล่าสุด";
+"notifications-center-agent-description-from-format" = "จาก $1";
+"notifications-center-destination-app" = "ในแอป";
+"notifications-center-destination-web" = "บนเว็บ";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "เปิดการแจ้งเตือน";
+"notifications-center-feed-news-notification-dismiss-button-text" = "ไม่ใช่ตอนนี้";
+"notifications-center-filters-read-status-item-title-all" = "ทั้งหมด";
+"notifications-center-filters-read-status-item-title-read" = "อ่าน";
+"notifications-center-onboarding-panel-secondary-button" = "ไม่ขอบคุณ";
+"notifications-center-status-all" = "ทั้งหมด";
+"notifications-center-status-all-notifications" = "การแจ้งเตือนทั้งหมด";
+"notifications-center-status-double-concatenation" = "$1 ใน $2";
+"notifications-center-status-read" = "อ่าน";
+"notifications-center-subheader-email-from-other-user" = "อีเมลใหม่";
+"notifications-center-subheader-page-link" = "ลิงค์หน้า";
+"notifications-center-subheader-thanks" = "ขอบคุณ";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -581,8 +600,6 @@
 "potd-widget-title" = "รูปภาพประจำวัน";
 "preference-summary-eventlogging-opt-in" = "อนุญาตให้มูลนิธิวิกิมีเดียเก็บข้อมูลการใช้แอปของคุณเพื่อพัฒนาแอปให้ดีขึ้น";
 "preference-title-eventlogging-opt-in" = "ส่งรายงานการใช้";
-"rank-accessibility-label" = "หมายเลข $1";
-"readers-accessibility-label" = "ผู้อ่าน $1 คน";
 "reading-list-add-generic-hint-title" = "เพิ่มบทความนี้ลงไปยังรายการอ่านหรือไม่";
 "reading-list-add-hint-title" = "เพิ่ม “$1” ลงไปยังรายการอ่านหรือไม่";
 "reading-list-add-saved-button-title" = "ใช่ เพิ่มลงไปยังรายการอ่านของฉัน";
@@ -729,16 +746,13 @@
 "theme-dark-display-name" = "มืด";
 "theme-default-display-name" = "ค่าปริยาย";
 "theme-sepia-display-name" = "ซีเปีย";
-"top-read-header-generic" = "วิกิพีเดีย";
-"top-read-header-with-language" = "วิกิพีเดียภาษา$1";
-"top-read-see-more" = "ดูบทความที่อ่านมากที่สุดเพิ่มเติม";
 "two-factor-login-continue" = "เข้าสู่ระบบต่อ";
 "two-factor-login-instructions" = "โปรดป้อนรหัสพิสูจน์ตัวตนแบบสองชั้น";
 "two-factor-login-title" = "เข้าสู่ระบบบัญชีของคุณ";
 "two-factor-login-with-backup-code" = "ใช้รหัสสำรองข้อมูลของคุณรหัสใดรหัสหนึ่ง";
 "two-factor-login-with-regular-code" = "ใช้รหัสการยืนยัน";
 "unknown-generic-text" = "ไม่ทราบ";
-"variants-alert-dismiss-button" = "ไม่ ขอบคุณ";
+"variants-alert-dismiss-button" = "ไม่ขอบคุณ";
 "welcome-exploration-explore-feed-description" = "บทความแนะนำประจำวันจากชุมชนของเรา";
 "welcome-exploration-explore-feed-title" = "ฟีดสำรวจ";
 "welcome-exploration-on-this-day-description" = "ย้อนเวลากลับไปเพื่อเรียนรู้ว่าเกิดอะไรขึ้นในเวลาที่ผ่านมา";

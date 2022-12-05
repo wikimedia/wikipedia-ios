@@ -268,8 +268,6 @@
 "potd-empty-error-description" = "Ur izmir ara ad d-yawi tugna n wass i $1";
 "preference-summary-eventlogging-opt-in" = "Eǧǧ Tasbeddit Wikimedia ad telqeḍ talɣut ɣef wamek tseqdaceḍ asnas akken ad yuɣal igarrez ugar.";
 "preference-title-eventlogging-opt-in" = "Azen ineqqisen n useqdec";
-"rank-accessibility-label" = "Uṭṭun $1";
-"readers-accessibility-label" = "$1 n imeɣriyen";
 "reading-themes-controls-accessibility-brightness-slider" = "Taḥnaččaḍt n tafat";
 "reading-themes-controls-accessibility-dark-theme-button" = "Asentel aberkan";
 "reading-themes-controls-accessibility-light-theme-button" = "Asentel aceɛlal";
@@ -338,9 +336,6 @@
 "theme-dark-display-name" = "Aberkan";
 "theme-default-display-name" = "Amezwer";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "Wikipedia di $1";
-"top-read-see-more" = "Wali ugar n isabtar yettwaɣran aṭas";
 "two-factor-login-continue" = "Kemmel tuqqna";
 "two-factor-login-instructions" = "Sekcem tangalt n usentem n snat n tarrayin";
 "two-factor-login-title" = "Qqen ar umiḍan-ik";

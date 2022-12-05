@@ -96,12 +96,13 @@ extension NotificationsCenterDetailViewController: UITableViewDelegate, UITableV
             
             logNotificationInteraction(with: actionCell.action)
             
+            var userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.notificationsCenter.rawValue]
+            
             if let replyText = viewModel.contentBody {
-                let userInfo: [AnyHashable : Any] = [ViewControllerRouter.UserInfoKeys.talkPageReplyText: replyText as Any]
-                navigate(to: url, userInfo: userInfo)
-            } else {
-                navigate(to: url)
+                userInfo[RoutingUserInfoKeys.talkPageReplyText] = replyText as Any
             }
+            
+            navigate(to: url, userInfo: userInfo)
         }
 
         tableView.deselectRow(at: indexPath, animated: true)

@@ -432,7 +432,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Z $1 Wikipedii";
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipedii";
 "explore-randomizer" = "Losowy artykuł";
-"featured-article-empty-title" = "Brak polecanego artykułu";
 "featured-widget-content-failure-for-date" = "Polecany artykuł nie jest dostępny w tym dniu.";
 "featured-widget-description" = "Odkryj najlepsze artykuły w Wikipedii, wybierane codziennie przez naszą społeczność.";
 "featured-widget-from-language-wikipedia" = "Z Wikipedii $1";
@@ -731,8 +730,6 @@
 "project-name-wikiversity" = "Wikiwersytet";
 "project-name-wikivoyage" = "Wikipodróże";
 "project-name-wiktionary" = "Wikisłownik";
-"rank-accessibility-label" = "Liczba $1";
-"readers-accessibility-label" = "$1 czytelników";
 "reading-list-add-generic-hint-title" = "Dodaj ten artykuł do listy do przeczytania?";
 "reading-list-add-hint-title" = "Dodać \"$1\" do listy czytania?";
 "reading-list-add-saved-button-title" = "Tak, dodaj je do mojej listy";
@@ -939,9 +936,6 @@
 "theme-default-explanation" = "Dopasowane do motywu systemowego";
 "theme-light-display-name" = "Jasna";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "$1 Wkipedia";
-"top-read-see-more" = "Zobacz więcej najlepiej czytanych";
 "top-read-widget-description" = "Dowiedz się, co dziś czyta świat w Wikipedii.";
 "two-factor-login-continue" = "Kontynuuj logowanie";
 "two-factor-login-instructions" = "Wprowadź kod weryfikacji dwuskładnikowej";

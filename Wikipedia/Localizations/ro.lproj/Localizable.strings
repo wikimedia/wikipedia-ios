@@ -417,7 +417,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "De la $1 Wikipedia";
 "explore-random-article-sub-heading-from-wikipedia" = "De la Wikipedia";
 "explore-randomizer" = "Aleatorizare";
-"featured-article-empty-title" = "Nu există niciun articol recomandat astăzi disponibil";
 "featured-widget-content-failure-for-date" = "Un articol de calitate nu este disponibil pentru această dată.";
 "featured-widget-description" = "Descoperă cele mai bune articole de pe Wikipedia, selectate zilnic de comunitatea noastră.";
 "featured-widget-from-language-wikipedia" = "De la $1 Wikipedia";
@@ -780,8 +779,6 @@
 "project-name-wikiversity" = "Wikiversitate";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wikționar";
-"rank-accessibility-label" = "Numărul $1";
-"readers-accessibility-label" = "$1 cititori";
 "reading-list-add-generic-hint-title" = "Adăugați acest articol la o listă de citire?";
 "reading-list-add-hint-title" = "Adăugați “$1” la o listă de lectură?";
 "reading-list-add-saved-button-title" = "Da, adăugați-le la listele mele de lectură";
@@ -1011,9 +1008,6 @@
 "theme-default-explanation" = "Potrivește tema sistemului";
 "theme-light-display-name" = "Deschis";
 "theme-sepia-display-name" = "Sepia";
-"top-read-header-generic" = "Wikipedia";
-"top-read-header-with-language" = "$1 Wikipedia";
-"top-read-see-more" = "Vezi mai mult cele mai citite";
 "top-read-widget-description" = "Aflați ce citește lumea astăzi pe Wikipedia.";
 "top-read-widget-readers-count" = "$1 cititori";
 "top-read-widget-title" = "Cele mai citite";

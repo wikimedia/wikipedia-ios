@@ -11,6 +11,7 @@
 // Author: Sajidkhan
 // Author: Saqib
 // Author: Sohaib
+// Author: Tsevener
 // Author: Zainab Meher
 // Author: امین اکبر
 
@@ -230,6 +231,13 @@
 "icon-shortcut-random-title" = "تصادفی مضمون";
 "icon-shortcut-search-title" = "ویکیپیڈیا میں تلاش";
 "image-gallery-unknown-owner" = "نامعلوم تخلیق کار۔";
+"import-shared-reading-list-survey-prompt-button-cancel" = "ابھی نہیں";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "سروے پُر کریں";
+"import-shared-reading-list-survey-prompt-footer" = "ہمارے $1اصول برائے اخفائے راز$2 ملاحظہ کریں۔ یہ سروے ایک تیسرے فریق کی جانب سے چلایا جاتا ہے۔ اُن کے $3اصول برائے اخفائے راز$4 ملاحظہ کریں۔";
+// Fuzzy
+"import-shared-reading-list-survey-prompt-subtitle" = "مطالعہ کی فہرستیں' شیئر کریں ایک ٹیسٹنگ خصوصیت ہے اور اسے بہتر بنانے یا ہٹانے کے لیے ہمیں آپ کے تاثرات درکار ہیں۔";
+// Fuzzy
+"import-shared-reading-list-survey-prompt-title" = "کیا آپ 'مطالعہ کی فہرستیں شیئر کریں' کو بہتر بنانے میں ہماری مدد کر سکتے ہیں؟";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 ویکیپیڈیا سے";
 "in-the-news-sub-title-from-wikipedia" = "ویکیپیڈیا سے";
 "in-the-news-title" = "خبروں میں";
@@ -314,8 +322,6 @@
 "potd-empty-error-description" = "$1 کے لیے آج کی تصویر اخذ نہیں کی جاسکی";
 "preference-summary-eventlogging-opt-in" = "ویکیمیڈیا کو اجازت دیں کہ وہ آپ کے اس ایپ کے استعمال کی معلومات حاصل کرے تاکہ اس ایپ کو مزید بہتر بنایا جا سکے۔";
 "preference-title-eventlogging-opt-in" = "استعمال کی رپورٹ بھیجیے";
-"rank-accessibility-label" = "نمبر $1";
-"readers-accessibility-label" = "$1 قارئین";
 "reading-list-create-new-list-description" = "وضاحت";
 "reading-list-create-new-list-reading-list-name" = "فہرست مطالعہ کا نام";
 "reading-list-create-new-list-title" = "نئی فہرست بنائیں";
@@ -368,8 +374,6 @@
 "theme-dark-display-name" = "تاریک";
 "theme-default-display-name" = "طے شدہ";
 "theme-sepia-display-name" = "بھورا";
-"top-read-header-generic" = "ویکیپیڈیا";
-"top-read-header-with-language" = "$1 ویکیپیڈیا";
 "two-factor-login-title" = "اپنے کھاتے میں لاگ ان ہوں";
 "welcome-exploration-on-this-day-title" = "آج کے دن";
 "welcome-explore-continue-button" = "شروع کریں";
