@@ -3,11 +3,11 @@ import Foundation
 extension TalkPageTopicComposeViewController: TalkPageFormattingToolbarViewDelegate {
 
     func didSelectBold() {
-        bodyTextView.addOrRemoveStringFormattingCharacters(formattingString: "'''", cursorOffset: 3)
+        bodyTextView.addOrRemoveStringFormattingCharacters(formattingString: "'''")
     }
 
     func didSelectItalics() {
-        bodyTextView.addOrRemoveStringFormattingCharacters(formattingString: "''", cursorOffset: 2)
+        bodyTextView.addOrRemoveStringFormattingCharacters(formattingString: "''")
     }
 
     func didSelectInsertLink() {

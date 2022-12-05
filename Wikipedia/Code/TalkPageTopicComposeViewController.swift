@@ -8,7 +8,6 @@ protocol TalkPageTopicComposeViewControllerDelegate: AnyObject {
 struct TalkPageTopicComposeViewModel {
     let semanticContentAttribute: UISemanticContentAttribute
     let siteUrl: URL
-    let pageTitle: String
 }
 
 class TalkPageTopicComposeViewController: ViewController {

@@ -20,7 +20,8 @@ extension UITextView {
     /// - Parameters:
     ///   - formattingString: string used for formatting, will surround selected text or cursor
     ///   - cursorOffset: offset to adjust cursor position, should be equal to the number of characters
-    func addStringFormattingCharacters(formattingString: String, cursorOffset: Int) {
+    func addStringFormattingCharacters(formattingString: String) {
+        let cursorOffset = formattingString.count
         if let selectedRange = selectedTextRange {
             if selectedRange.isEmpty {
                 replace(selectedTextRange ?? UITextRange(), withText: formattingString + formattingString)
@@ -39,7 +40,8 @@ extension UITextView {
         }
     }
 
-    func addOrRemoveStringFormattingCharacters(formattingString: String, cursorOffset: Int) {
+    func addOrRemoveStringFormattingCharacters(formattingString: String) {
+        let cursorOffset = formattingString.count
         if let selectedRange = selectedTextRange {
             if let start = position(from: selectedRange.start, offset: -cursorOffset),
                let end = position(from: selectedRange.end, offset: cursorOffset),
@@ -49,11 +51,11 @@ extension UITextView {
                     if newText.contains(formattingString) {
                         replace(newSelectedRange, withText: text(in: selectedRange) ?? String())
                     } else {
-                        addStringFormattingCharacters(formattingString: formattingString, cursorOffset: cursorOffset)
+                        addStringFormattingCharacters(formattingString: formattingString)
                     }
                 }
             } else {
-                addStringFormattingCharacters(formattingString: formattingString, cursorOffset: cursorOffset)
+                addStringFormattingCharacters(formattingString: formattingString)
             }
         }
     }
