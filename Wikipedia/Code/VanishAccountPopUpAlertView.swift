@@ -21,7 +21,7 @@ struct VanishAccountPopUpAlertView: View {
             ZStack {
                 Color.black.opacity(isVisible ? 0.3 : 0).edgesIgnoringSafeArea(.all)
                 if isVisible {
-                    ScrollView(.vertical, showsIndicators: false) {
+                    SwiftUI.ScrollView(.vertical, showsIndicators: false) {
                         Spacer()
                             .frame(height: getSpacerHeight(height: geometry.size.height))
                         VStack(alignment: .center, spacing: 0) {

@@ -55,7 +55,8 @@ class TalkPageViewController: ViewController {
 
     fileprivate var overflowSubmenuActions: [UIAction] {
 
-        let goToArchivesAction = UIAction(title: TalkPageLocalizedStrings.archives, image: UIImage(systemName: "archivebox"), handler: { _ in
+        let goToArchivesAction = UIAction(title: TalkPageLocalizedStrings.archives, image: UIImage(systemName: "archivebox"), handler: { [weak self] _ in
+            self?.pushToArchives()
         })
 
         let pageInfoAction = UIAction(title: TalkPageLocalizedStrings.pageInfo, image: UIImage(systemName: "info.circle"), handler: { [weak self] _ in
@@ -76,8 +77,7 @@ class TalkPageViewController: ViewController {
         })
 
         // goToArchivesAction
-        // TODO: Restore archives option with T321853
-        var actions = [pageInfoAction, goToPermalinkAction, relatedLinksAction]
+        var actions = [goToArchivesAction, pageInfoAction, goToPermalinkAction, relatedLinksAction]
         
         if viewModel.project.languageCode != nil {
             actions.insert(changeLanguageAction, at: 3)
@@ -438,6 +438,12 @@ class TalkPageViewController: ViewController {
         }
         
         navigate(to: url, useSafari: true)
+    }
+    
+    fileprivate func pushToArchives() {
+        
+        let containerVC = TalkPageArchivesContainerViewController(nibName: nil, bundle: nil)
+        navigationController?.pushViewController(containerVC, animated: true)
     }
     
     fileprivate func pushToPageInfo() {

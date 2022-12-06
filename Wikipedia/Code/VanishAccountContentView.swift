@@ -37,7 +37,7 @@ struct VanishAccountContentView: View {
 
     var body: some View {
         ZStack {
-            ScrollView(.vertical, showsIndicators: false) {
+            SwiftUI.ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 0) {
                     VStack(spacing: 0) {
                         Text(LocalizedStrings.title)
