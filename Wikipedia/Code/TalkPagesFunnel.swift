@@ -43,7 +43,7 @@ final class TalkPagesFunnel: EventLoggingFunnel, EventLoggingStandardEventProvid
         let source: Source
         let page_ns: String
         let time_spent: Int
-        let wiki_db: String
+        let wiki_id: String
         let primary_language: String
         let is_anon: Bool
     }
@@ -51,12 +51,12 @@ final class TalkPagesFunnel: EventLoggingFunnel, EventLoggingStandardEventProvid
     private func logEvent(action: TalkPagesFunnel.Action, routingSource: RoutingUserInfoSourceValue, project: WikimediaProject, talkPageType: TalkPageType, lastViewDidAppearDate: Date) {
         
         let source = Source(routingSource: routingSource)
-        let wikiDB = project.notificationsApiWikiIdentifier
+        let wikiID = project.notificationsApiWikiIdentifier
         let primaryLanguage = primaryLanguage()
         let isAnon = isAnon.boolValue
         let timeSpent = -(lastViewDidAppearDate.timeIntervalSinceNow)
 
-        let event: TalkPagesFunnel.Event = TalkPagesFunnel.Event(action: action, source: source, page_ns: talkPageType.namespaceCodeStringForLogging, time_spent: Int(timeSpent), wiki_db: wikiDB, primary_language: primaryLanguage, is_anon: isAnon)
+        let event: TalkPagesFunnel.Event = TalkPagesFunnel.Event(action: action, source: source, page_ns: talkPageType.namespaceCodeStringForLogging, time_spent: Int(timeSpent), wiki_id: wikiID, primary_language: primaryLanguage, is_anon: isAnon)
         EventPlatformClient.shared.submit(stream: .talkPagesInteraction, event: event)
     }
     
