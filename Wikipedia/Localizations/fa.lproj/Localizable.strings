@@ -521,7 +521,9 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "حالا نه";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "شرکت در نظرسنجی";
 "import-shared-reading-list-survey-prompt-footer" = "$1اظهارنامه حریم خصوصی$2 ما را ببینید. نظرسنجی توسط شخص ثالث پشتیبانی شده است. $3اظهارنامه حریم خصوصی$4 آنان را ببینید.";
+// Fuzzy
 "import-shared-reading-list-survey-prompt-subtitle" = "فهرست‌های مطالعهٔ اشتراکی یک ویژگی آزمایشی است و ما برای بهبود یا حذف آن به بازخوردهای شما نیاز داریم.";
+// Fuzzy
 "import-shared-reading-list-survey-prompt-title" = "آیا می توانید با شرکت در یک نظرسنجی به ما در بهبود این ویژگی کمک کنید؟";
 "import-shared-reading-list-title" = "درون‌ریزی فهرست مطالعهٔ مشترک";
 "in-the-news-sub-title-from-language-wikipedia" = "از ویکی‌پدیای $1";
@@ -1150,7 +1152,9 @@
 "vanish-account-warning-title" = "هشدار";
 "vanish-modal-item" = "اگر درخواست ناپدیدسازی خود را کامل کرده‌اید، لطفاً چند روز برای پردازی درخواست توسط یک مدیر صبر کنید.";
 "vanish-modal-item-2" = "اگر از انجام شدن درخواست خود مطمئن نیستید، لطفاً نرم‌افزار ایمیل خود را بررسی کنید";
+// Fuzzy
 "vanish-modal-item-3" = "اگر پرسش دیگری دربارهٔ ناپدیدسازی دارید، لطفاً به Meta:Right_to_vanish مراجعه کنید";
+// Fuzzy
 "vanish-modal-item-3-ios15" = "اگر پرسش دیگری دربارهٔ ناپدیدسازی دارید، لطفاً به $1Meta:Right_to_vanish$2$3 مراجعه کنید";
 "vanish-modal-title" = "درخواست ناپدیدسازی";
 "vanishing-request-email-title" = "درخواست ناپدیدسازی با حسن نیت";

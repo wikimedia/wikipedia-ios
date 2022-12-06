@@ -503,7 +503,9 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "Не зараз";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Взяти участь в опитуванні";
 "import-shared-reading-list-survey-prompt-footer" = "Перегляньте нашу $1заяву про конфіденційність$2. Опитування розроблене третьою стороною, перегляньте їх $3політику конфіденційності$4.";
+// Fuzzy
 "import-shared-reading-list-survey-prompt-subtitle" = "Спільні списки читання є тестовою функцією, нам потрібні ваші відгуки, для їх видалення чи покращення.";
+// Fuzzy
 "import-shared-reading-list-survey-prompt-title" = "Чи можете ви допомогти нам покращити цю функцію, пройшовши опитування?";
 "import-shared-reading-list-title" = "Імпорт спільного списку читання";
 "in-the-news-sub-title-from-language-wikipedia" = "Із Вікіпедії мовою «$1»";
@@ -1113,7 +1115,9 @@
 "vanish-account-username-field" = "Ім'я користувача та сторінка користувача";
 "vanish-modal-item" = "Якщо ви виконали ваш запит на зникнення, зачекайте кілька днів, щоб запит обробив адміністратор";
 "vanish-modal-item-2" = "Якщо ви не впевнені, що ваш запит прийнято, перевірте свій додаток Mail";
+// Fuzzy
 "vanish-modal-item-3" = "Якщо у вас є додаткові запитання щодо знищення, відвідайте Meta:Right_to_vanish";
+// Fuzzy
 "vanish-modal-item-3-ios15" = "Якщо у вас є додаткові запитання щодо знищення, відвідайте $1Meta:Right_to_vanish$2$3";
 "vanish-modal-title" = "Запит на зникнення";
 "variants-alert-dismiss-button" = "Ні, дякую";

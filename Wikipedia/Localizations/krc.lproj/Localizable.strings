@@ -30,8 +30,8 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "Бусагъатда тюл";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Соруулаугъа къошул";
 "import-shared-reading-list-survey-prompt-footer" = "$1privacy Ташалыкъны юсюнден билдириу бла танышыгъыз$2. Соруулауну ючюнчю джаны къурагъанды. Аланы $3 ташалыкъ политикаларына къара$4.";
-"import-shared-reading-list-survey-prompt-subtitle" = "Ортагъа салыннган окъургъа тизмеле — тест функцияды, аны маджаллашдырырча неда кетерирча сизни багъаларыгъыз керекди.";
-"import-shared-reading-list-survey-prompt-title" = "Соруулаугъа къошулуб, бу функцияны маджаллашдырыргъа болушаллыкъмысыз?";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Окъургъа тизмелени джайыу\"  — тест функцияды, аны маджаллашдырырча неда кетерирча, бизге сизни багъаларыгъыз керекди.";
+"import-shared-reading-list-survey-prompt-title" = "\"Окъургъа тизмелени ортагъа салыу\" функцияны маджаллашдырыргъа болушаллыкъмысыз?";
 "import-shared-reading-list-title" = "Ортагъа салыннган окъургъа тизмени импорту";
 // Fuzzy
 "main-menu-about" = "«Википедия» къошакъ программаны юсюнден";

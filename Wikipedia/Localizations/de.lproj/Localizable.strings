@@ -24,6 +24,7 @@
 // Author: Nemo bis
 // Author: Purodha
 // Author: ThisCarthing
+// Author: Tsevener
 // Author: Ubahnverleih
 // Author: Umlaut
 // Author: ZiqiLiang
@@ -485,8 +486,8 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "Jetzt nicht";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Umfrage beantworten";
 "import-shared-reading-list-survey-prompt-footer" = "Sehen Sie sich unsere $1Datenschutzerklärung$2 an. Die Umfrage wird von Dritten durchgeführt. Sehen Sie sich deren $3Datenschutzbestimmungen$4 an.";
-"import-shared-reading-list-survey-prompt-subtitle" = "„Leselisten teilen“ ist eine Testfunktion und um diese zu verbessern oder zu entfernen, benötigen wir Ihr Feedback";
-"import-shared-reading-list-survey-prompt-title" = "Können Sie uns helfen, „Leselisten teilen“ zu verbessern?";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Leselisten teilen\" ist eine Testfunktion und wir brauchen dein Feedback, um sie zu verbessern oder zu entfernen.";
+"import-shared-reading-list-survey-prompt-title" = "Kannst du uns helfen, \"Leselisten teilen\" zu verbessern?";
 "import-shared-reading-list-title" = "Gemeinsame Leseliste importieren";
 "in-the-news-sub-title-from-language-wikipedia" = "Von der Wikipedia auf $1";
 "in-the-news-sub-title-from-wikipedia" = "Von Wikipedia";

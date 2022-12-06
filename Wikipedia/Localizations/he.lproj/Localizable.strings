@@ -504,8 +504,8 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "לא עכשיו";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "מילוי סקר";
 "import-shared-reading-list-survey-prompt-footer" = "צפייה בהצהרת הפרטיות של $1שלנו$2. הסקר מופעל על־ידי צד שלישי. צפייה במדיניות הפרטיות $3שלהם$4.";
-"import-shared-reading-list-survey-prompt-subtitle" = "רשימות קריאה משותפות היא תכונת הבדיקה ואנחנו זקוקים למשוב שלך כדי לשפר או להסיר אותה.";
-"import-shared-reading-list-survey-prompt-title" = "אפשר לבקש ממך לעזור לנו לשפר את התכונה הזאת באמצעות מילוי סקר?";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"שיתוף רשימות קריאה\" היא תכונת הבדיקה ואנחנו זקוקים למשוב שלך כדי לשפר או להסיר אותה.";
+"import-shared-reading-list-survey-prompt-title" = "אפשר לבקש ממך לעזור לנו לשפר את התכונה \"שיתוף רשימות קריאה\"?";
 "import-shared-reading-list-title" = "יבוא רשימת קריאה משותפת";
 "in-the-news-sub-title-from-language-wikipedia" = "מתוך ויקיפדיה ב$1";
 "in-the-news-sub-title-from-wikipedia" = "מתוך ויקיפדיה";
@@ -1135,8 +1135,8 @@
 "vanish-account-warning-title" = "אזהרה";
 "vanish-modal-item" = "אם השלמת את בקשת ההיעלמות שלך, נא לתת כמה ימים לעיבוד הבקשה על־ידי מפעיל.";
 "vanish-modal-item-2" = "אם לא ברור לך אם הבקשה שלך הגיעה ליעדה, נא לבדוק את יישום הדואר שלך";
-"vanish-modal-item-3" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף Wikipedia:Courtesy vanishing";
-"vanish-modal-item-3-ios15" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף $1Wikipedia:Courtesy vanishing$2$3.";
+"vanish-modal-item-3" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף Meta:Right_to_vanish";
+"vanish-modal-item-3-ios15" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף $1Meta:Right_to_vanish$2$3.";
 "vanish-modal-title" = "בקשת היעלמות";
 "vanishing-request-email-title" = "בקשת היעלמות אישית";
 "variants-alert-dismiss-button" = "לא, תודה";

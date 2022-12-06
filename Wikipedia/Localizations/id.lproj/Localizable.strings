@@ -11,6 +11,7 @@
 // Author: Bramadiarya
 // Author: C5st4wr6ch
 // Author: Cleinman
+// Author: DARMAS BUDI SANTOSO
 // Author: Daud I.F. Argana
 // Author: Fate Kage
 // Author: Gombang
@@ -507,6 +508,8 @@
 "icon-shortcut-random-title" = "Artikel acak";
 "icon-shortcut-search-title" = "Telusuri Wikipedia";
 "image-gallery-unknown-owner" = "Pembuat tidak diketahui.";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Share reading lists\" is a test feature and we need your feedback to improve or remove it.";
+"import-shared-reading-list-survey-prompt-title" = "Could you help us improve \"Share reading lists\"?";
 "in-the-news-sub-title-from-language-wikipedia" = "Dari Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Dari Wikipedia";
 "in-the-news-title" = "Peristiwa terkini";
@@ -1086,6 +1089,9 @@
 "vanish-account-back-confirm-keep-editing" = "Lanjutkan penyuntingan";
 "vanish-account-learn-more-text" = "Pelajari lebih lanjut";
 "vanish-account-username-field" = "Nama pengguna dan halaman pengguna";
+"vanish-modal-item" = "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator";
+"vanish-modal-item-3" = "If you have further questions about vanishing please visit Meta:Right_to_vanish";
+"vanish-modal-item-3-ios15" = "If you have further questions about vanishing please visit $1Meta:Right_to_vanish$2$3";
 "variants-alert-dismiss-button" = "Tidak, terima kasih";
 "variants-alert-preferences-button" = "Tinjau preferensi Anda";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disarankan dan artikel harian dari komunitas kami";
