@@ -63,20 +63,12 @@ extension TalkPageViewController: InsertLinkViewControllerDelegate {
     }
 
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
-        insertLink(page: page)
+        if let textView = replyComposeController.contentView?.replyTextView {
+            textView.insertLink(page: page, customTextRange: preselectedTextRange)
+        }
         dismiss(animated: true)
     }
 
-    func insertLink(page: String) {
-        if let textView = replyComposeController.contentView?.replyTextView {
-            let content = "[[\(page)]]"
-            textView.replace(preselectedTextRange, withText: content)
-
-            let newStartPosition = textView.position(from: preselectedTextRange.start, offset: 2)
-            let newEndPosition = textView.position(from: preselectedTextRange.start, offset: content.count-2)
-            textView.selectedTextRange = textView.textRange(from: newStartPosition ?? textView.endOfDocument, to: newEndPosition ?? textView.endOfDocument)
-        }
-    }
 }
 
 extension TalkPageViewController: EditLinkViewControllerDelegate {
