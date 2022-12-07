@@ -27,7 +27,7 @@ extension UITextView {
             if selectedRange.isEmpty {
                 replace(selectedTextRange ?? UITextRange(), withText: formattingString + formattingString)
 
-                let newPosition = position(from: endOfDocument, offset: cursorPosition + cursorOffset)
+                let newPosition = position(from: endOfDocument, offset: cursorPosition - cursorOffset)
                 selectedTextRange = textRange(from: newPosition ?? endOfDocument, to: newPosition ?? endOfDocument)
             } else {
                 if let selectedSubstring = text(in: selectedRange) {
