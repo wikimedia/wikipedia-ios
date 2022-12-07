@@ -30,6 +30,8 @@
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
     "TEMPLET" : 10,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "TOKTOK" : 1,
     "TOKTOK BILONG FAIL" : 7,
     "TOKTOK BILONG GRUP" : 15,
@@ -42,6 +44,7 @@
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
     "WIKIPEDIA TOKTOK" : 5,
+    "WP" : 4,
     "YUSA" : 2
   }
 }

@@ -45,6 +45,8 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "USER" : 2,
     "USER TALK" : 3,
     "UTILISATEUR" : 2,
@@ -52,6 +54,7 @@
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
     "WIKIPEDIYA" : 4,
-    "WIKIPEDIYA NDƆNJƆƆLƖYƐ" : 5
+    "WIKIPEDIYA NDƆNJƆƆLƖYƐ" : 5,
+    "WP" : 4
   }
 }

@@ -38,6 +38,8 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "TULONG" : 12,
     "TULONG TUNGTUNGAN" : 13,
     "TUNGTUNGAN" : 1,
