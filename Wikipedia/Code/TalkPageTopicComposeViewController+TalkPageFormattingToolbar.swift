@@ -72,7 +72,7 @@ extension TalkPageTopicComposeViewController: EditLinkViewControllerDelegate {
     }
 
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
-        editLink(page: linkTarget, label: displayText)
+        bodyTextView.editLink(page: linkTarget, label: displayText, customTextRange: preselectedTextRange)
         dismiss(animated: true)
     }
 
@@ -98,12 +98,5 @@ extension TalkPageTopicComposeViewController: EditLinkViewControllerDelegate {
         dismiss(animated: true)
     }
 
-    func editLink(page: String, label: String?) {
-        if let label {
-            bodyTextView.replace(preselectedTextRange, withText: "\(page)|\(label)")
-        } else {
-            bodyTextView.replace(preselectedTextRange, withText: "\(page)")
-        }
-    }
 
 }

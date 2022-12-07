@@ -15,4 +15,13 @@ internal extension UITextView {
         let newEndPosition = position(from: customTextRange.start, offset: content.count-2)
         selectedTextRange = textRange(from: newStartPosition ?? endOfDocument, to: newEndPosition ?? endOfDocument)
     }
+
+    func editLink(page: String, label: String?, customTextRange: UITextRange) {
+        if let label {
+            replace(customTextRange, withText: "\(page)|\(label)")
+        } else {
+            replace(customTextRange, withText: "\(page)")
+        }
+    }
+
 }

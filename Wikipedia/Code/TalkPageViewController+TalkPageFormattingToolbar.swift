@@ -77,7 +77,9 @@ extension TalkPageViewController: EditLinkViewControllerDelegate {
     }
 
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
-        editLink(page: linkTarget, label: displayText)
+        if let textView = replyComposeController.contentView?.replyTextView {
+            textView.editLink(page: linkTarget, label: displayText, customTextRange: preselectedTextRange)
+        }
         dismiss(animated: true)
     }
 
@@ -100,16 +102,6 @@ extension TalkPageViewController: EditLinkViewControllerDelegate {
             }
         }
         dismiss(animated: true)
-    }
-
-    func editLink(page: String, label: String?) {
-        if let textView = replyComposeController.contentView?.replyTextView {
-            if let label {
-                textView.replace(preselectedTextRange, withText: "\(page)|\(label)")
-            } else {
-                textView.replace(preselectedTextRange, withText: "\(page)")
-            }
-        }
     }
 
 }
