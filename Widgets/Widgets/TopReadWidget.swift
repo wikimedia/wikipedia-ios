@@ -171,6 +171,7 @@ struct TopReadProvider: TimelineProvider {
 struct TopReadView: View {
     @Environment(\.widgetFamily) private var family
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.sizeCategory) private var sizeCategory
 
     var entry: TopReadProvider.Entry?
 
@@ -215,7 +216,7 @@ struct TopReadView: View {
 
     @ViewBuilder
     func rowBasedWidget(_ family: WidgetFamily) -> some View {
-        let showSparkline = family == .systemLarge ? true : false
+        let showSparkline = sizeCategory > .extraLarge ? false : (family == .systemLarge ? true : false)
         let rowCount = family == .systemLarge ? 4 : 2
 
         VStack(alignment: .leading, spacing: 8) {
