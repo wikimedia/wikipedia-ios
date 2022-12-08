@@ -9,6 +9,8 @@
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
     "COD" : 108,
+    "CODE" : 108,
+    "CODE TALK" : 109,
     "DEFINIȚIE GADGET" : 2302,
     "DISCUŢIE" : 1,
     "DISCUȚIE" : 1,
@@ -29,9 +31,7 @@
     "DISCUŢIE MEDIWIKI" : 9,
     "DISCUȚIE MODUL" : 829,
     "DISCUŢIE PORTAL" : 101,
-    "DISCUȚIE PORTAL" : 101,
     "DISCUŢIE PROIECT" : 103,
-    "DISCUȚIE PROIECT" : 103,
     "DISCUŢIE UTILIZATOR" : 3,
     "DISCUȚIE UTILIZATOR" : 3,
     "DISCUŢIE WIKIPEDIA" : 5,
@@ -57,6 +57,7 @@
     "MODULE" : 828,
     "MODULE TALK" : 829,
     "PORTAL" : 100,
+    "PORTAL TALK" : 101,
     "PROIECT" : 102,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
@@ -64,10 +65,15 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "USER" : 2,
     "USER TALK" : 3,
     "UTILIZATOR" : 2,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WIKIPROJECT" : 102,
+    "WIKIPROJECT TALK" : 103,
+    "WP" : 4
   }
 }

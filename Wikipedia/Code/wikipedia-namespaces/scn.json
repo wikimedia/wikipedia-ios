@@ -18,6 +18,7 @@
     "DISCUSSIONI MEDIAWIKI" : 9,
     "DISCUSSIONI MMÀGGINI" : 7,
     "DISCUSSIONI MODULO" : 829,
+    "DISCUSSIONI MÒDULU" : 829,
     "DISCUSSIONI PRUGGETTU" : 103,
     "DISCUSSIONI PURTALI" : 101,
     "DISCUSSIONI TEMPLATE" : 11,
@@ -42,6 +43,7 @@
     "MODULE" : 828,
     "MODULE TALK" : 829,
     "MODULO" : 828,
+    "MÒDULU" : 828,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
     "PRUGGETTU" : 102,
@@ -51,10 +53,13 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "USER" : 2,
     "USER TALK" : 3,
     "UTENTI" : 2,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }

@@ -52,6 +52,8 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "USER" : 2,
     "USER TALK" : 3,
     "UZALUTNO" : -1,
@@ -60,6 +62,7 @@
     "VIKIPIDIYAKE VAKYARIMATA" : 5,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
+    "WP" : 4,
     "ZHUTIPEN" : 12,
     "ZHUTIPEN VAKYARIMATA" : 13
   }
