@@ -1,9 +1,10 @@
 {
-  "mainpage" : "MAIN PAGE",
+  "mainpage" : "URUPAPURO NYAMUKURU",
   "namespace" : {
     "" : 0,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
+    "DOSIYE" : 6,
     "FILE" : 6,
     "FILE TALK" : 7,
     "GADGET" : 2300,
@@ -12,8 +13,17 @@
     "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
+    "IKIYAGO" : 1,
+    "IKIYAGO C'UWUKORESHA" : 3,
+    "IKIYAGO CEREKEYE INGERO" : 11,
+    "IKIYAGO CEREKEYE UMUCE" : 15,
+    "IKIYAGO K'UBUFASHA" : 13,
+    "IKIYAGO KURI MEDIAWIKI" : 9,
+    "IKIYAGO KURI WIKIPEDIA" : 5,
+    "IKIYAGO KW'IDOSIYE" : 7,
     "IMAGE" : 6,
     "IMAGE TALK" : 7,
+    "INGERO" : 10,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI TALK" : 9,
@@ -25,9 +35,16 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
+    "UBUFASHA" : 12,
+    "UMUCE" : 14,
     "USER" : 2,
     "USER TALK" : 3,
+    "UWUKORESHA" : 2,
+    "VYISANGIJE" : -1,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }

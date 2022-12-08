@@ -52,6 +52,8 @@
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
     "TIEDOSTO" : 6,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "TOIMINNOT" : -1,
     "TOPIC" : 2600,
     "USER" : 2,
