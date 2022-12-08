@@ -53,6 +53,8 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "USER" : 2,
     "USER TALK" : 3,
     "VORLAGE" : 10,

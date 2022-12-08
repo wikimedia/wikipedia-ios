@@ -138,7 +138,7 @@ struct PictureOfTheDayEntry: TimelineEntry {
 	var contentDate: Date? = nil
 	var contentURL: URL? = nil
 	var imageURL: URL? = nil
-	let image: UIImage?
+	var image: UIImage?
 	var imageDescription: String? = nil
 	var licenseCode: String? = nil // the system encodes this entry, avoiding bringing in the whole MWKLicense object and the Mantle dependency
 
@@ -158,6 +158,14 @@ struct PictureOfTheDayEntry: TimelineEntry {
         return licenseImages
     }
 
+    // MARK: - Scale Entry Image
+
+    func scalingImageTo(targetSize: CGSize) -> PictureOfTheDayEntry {
+        var entry = self
+        entry.image = entry.image?.scaleImageToFit(targetSize: targetSize)
+        return entry
+    }
+
 }
 
 // MARK: - TimelineProvider
@@ -169,6 +177,8 @@ struct PictureOfTheDayProvider: TimelineProvider {
     public typealias Entry = PictureOfTheDayEntry
 
     // MARK: Properties
+
+    private let targetImageSize = CGSize(width: 1000, height: 1000)
 
     // MARK: TimelineProvider
 
@@ -186,14 +196,14 @@ struct PictureOfTheDayProvider: TimelineProvider {
                 let components = DateComponents(hour: 2)
                 nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
             }
-            let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
+            let timeline = Timeline(entries: [entry.scalingImageTo(targetSize: targetImageSize)], policy: .after(nextUpdate))
             completion(timeline)
         }
     }
 
     func getSnapshot(in context: Context, completion: @escaping (PictureOfTheDayEntry) -> Void) {
         PictureOfTheDayData.fetchLatestAvailablePictureEntry(for: context.imageSize, usingCache: context.isPreview) { entry in
-            completion(entry)
+            completion(entry.scalingImageTo(targetSize: targetImageSize))
         }
     }
 
@@ -232,7 +242,7 @@ struct PictureOfTheDayView: View {
     @ViewBuilder
     var image: some View {
         if let image = entry.image {
-            Image(uiImage: image).resizable().scaledToFill()
+            Image(uiImage: image).resizable().scaledToFill().clipped()
         } else {
             Rectangle()
                 .foregroundColor(Color(.systemFill))

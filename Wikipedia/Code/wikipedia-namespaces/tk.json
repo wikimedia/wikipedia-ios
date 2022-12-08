@@ -33,6 +33,8 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "ULANYJY" : 2,
     "ULANYJY ÇEKIŞME" : 3,
     "USER" : 2,
@@ -41,6 +43,7 @@
     "WIKIPEDIA TALK" : 5,
     "WIKIPEDIÝA" : 4,
     "WIKIPEDIÝA ÇEKIŞME" : 5,
+    "WP" : 4,
     "ÝARDAM" : 12,
     "ÝARDAM ÇEKIŞME" : 13,
     "ÝÖRITE" : -1
