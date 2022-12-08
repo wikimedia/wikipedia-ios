@@ -25,10 +25,13 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
+    "WP" : 4,
     "ВИКИПЕДИЕ" : 4,
     "ВИКИПЕДИЕМ И ТЕГУЩЫӀЭН" : 5,
     "МЕДИА" : -2

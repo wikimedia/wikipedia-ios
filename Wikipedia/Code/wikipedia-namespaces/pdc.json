@@ -54,6 +54,8 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "USER" : 2,
     "USER TALK" : 3,
     "VORLAGE" : 10,
@@ -62,6 +64,7 @@
     "WIKIPEDIA DISCHBEDUTT" : 5,
     "WIKIPEDIA DISKUSSION" : 5,
     "WIKIPEDIA TALK" : 5,
+    "WP" : 4,
     "YUUSER" : 2,
     "YUUSER DISCHBEDUTT" : 3
   }

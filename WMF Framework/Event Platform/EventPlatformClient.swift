@@ -101,8 +101,8 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * analytics-related schemas are collected.
      */
     public enum Schema: String, Codable {
-        case editHistoryCompare = "/analytics/mobile_apps/ios_edit_history_compare/2.0.0"
-        case remoteNotificationsInteraction = "/analytics/mobile_apps/ios_notification_interaction/2.0.0"
+        case editHistoryCompare = "/analytics/mobile_apps/ios_edit_history_compare/2.1.0"
+        case remoteNotificationsInteraction = "/analytics/mobile_apps/ios_notification_interaction/2.1.0"
     }
 
     /**

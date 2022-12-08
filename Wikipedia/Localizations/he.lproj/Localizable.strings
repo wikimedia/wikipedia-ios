@@ -1135,8 +1135,8 @@
 "vanish-account-warning-title" = "אזהרה";
 "vanish-modal-item" = "אם השלמת את בקשת ההיעלמות שלך, נא לתת כמה ימים לעיבוד הבקשה על־ידי מפעיל.";
 "vanish-modal-item-2" = "אם לא ברור לך אם הבקשה שלך הגיעה ליעדה, נא לבדוק את יישום הדואר שלך";
-"vanish-modal-item-3" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף Wikipedia:Courtesy vanishing";
-"vanish-modal-item-3-ios15" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף $1Wikipedia:Courtesy vanishing$2$3.";
+"vanish-modal-item-3" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף Meta:Right_to_vanish";
+"vanish-modal-item-3-ios15" = "אם יש לך שאלות נוספות על היעלמות, נא לבקר בדף $1Meta:Right_to_vanish$2$3.";
 "vanish-modal-title" = "בקשת היעלמות";
 "vanishing-request-email-title" = "בקשת היעלמות אישית";
 "variants-alert-dismiss-button" = "לא, תודה";

@@ -1,5 +1,5 @@
 {
-  "mainpage" : "TEPAS",
+  "mainpage" : "WIKIPÉDIA:PENDHAPA",
   "namespace" : {
     "" : 0,
     "ASTAMIWA" : -1,
@@ -18,7 +18,7 @@
     "DHISKUSI MEDIAWIKI" : 9,
     "DHISKUSI PANGANGGO" : 3,
     "DHISKUSI PITULUNG" : 13,
-    "DHISKUSI WIKIPEDIA" : 5,
+    "DHISKUSI WIKIPÉDIA" : 5,
     "FILE" : 6,
     "FILE TALK" : 7,
     "GADGET" : 2300,
@@ -64,7 +64,7 @@
     "PAREMBUGAN NARAGUNA" : 3,
     "PAREMBUGAN PANGANGGO" : 3,
     "PAREMBUGAN PITULUNG" : 13,
-    "PAREMBUGAN WIKIPEDIA" : 5,
+    "PAREMBUGAN WIKIPÉDIA" : 5,
     "PEMBICARAAN GAMBAR" : 7,
     "PITULUNG" : 12,
     "PITULUNG DHISKUSI" : 13,
@@ -75,9 +75,13 @@
     "TEMPLAT PEMBICARAAN" : 11,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPÉDIA" : 4,
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }

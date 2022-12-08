@@ -1,5 +1,5 @@
 {
-  "mainpage" : "IHU M̀BỤ",
+  "mainpage" : "IHU MBỤ",
   "namespace" : {
     "" : 0,
     "ÁKWÚKWÓ ORÜNOTU" : 6,
@@ -51,10 +51,13 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "USER" : 2,
     "USER TALK" : 3,
     "USÒRÒ" : 6,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }

@@ -29,7 +29,9 @@
     "MODULE TALK" : 829,
     "MODULI" : 828,
     "MODULI DISKUTIM" : 829,
+    "NDIHME" : 12,
     "NDIHMË" : 12,
+    "NDIHME DISKUTIM" : 13,
     "NDIHMË DISKUTIM" : 13,
     "PERDORUESI" : 2,
     "PËRDORUESI" : 2,
@@ -50,10 +52,13 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA DISKUTIM" : 5,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }
