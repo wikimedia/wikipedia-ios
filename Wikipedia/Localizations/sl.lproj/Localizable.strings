@@ -180,7 +180,7 @@
 "description-edit-warning-casing" = "Veliko začetnico uporabite samo pri lastnih imenih. To vključuje tudi začetek povedi.";
 "description-help-about-description" = "Opisi člankov povzamejo članek tako, da lahko bralci razumejo temo že ob prvem pogledu";
 "description-help-about-title" = "O projektu";
-"description-help-about-wikidata" = "O projektu Wikidata";
+"description-help-about-wikidata" = "O Wikipodatkih";
 "description-help-more-info-title" = "Več informacij";
 "description-help-tips-example-title-one" = "slika Leonarda da Vincija";
 "description-help-tips-example-title-two" = "najvišja gora na Zemlji";
@@ -512,7 +512,7 @@
 "no-internet-connection" = "Ni internetne povezave";
 "no-internet-connection-article-reload-button" = "Nazaj na zadnjo shranjeno redakcijo";
 "notifications-center-agent-description-from-format" = "Iz $1";
-"notifications-center-alert" = "Opozorilo";
+"notifications-center-alert" = "Opomnik";
 "notifications-center-badge-button-accessibility-label" = "Obvestila z značko neprebrano";
 "notifications-center-cell-notification-type-accessibility-label-format" = "Obvestilo $1";
 "notifications-center-change-password" = "Spremeni geslo";
@@ -540,7 +540,7 @@
 "notifications-center-go-to-user-page" = "Uporabniška stran: $1";
 "notifications-center-go-to-wikidata-item" = "Predmet v Wikipodatkih";
 "notifications-center-go-to-your-talk-page" = "Vaša pogovorna stran";
-"notifications-center-header-alert-from-agent" = "Opozorilo od $1";
+"notifications-center-header-alert-from-agent" = "Opomnik od $1";
 "notifications-center-inbox-title" = "Projekti";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Tu bodo navedeni samo projekti, za katere ste ustvarili račun";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Projekti Wikimedie";
@@ -555,14 +555,14 @@
 "notifications-center-onboarding-modal-continue-action" = "Nadaljuj";
 "notifications-center-onboarding-modal-filters-title" = "Filtri";
 "notifications-center-onboarding-modal-notifications-alerts-message" = "Obvestila vas seznanjajo z dejavnostjo, povezano z vašimi urejanji in računom.";
-"notifications-center-onboarding-modal-notifications-alerts-title" = "Obvestila in opozorila";
+"notifications-center-onboarding-modal-notifications-alerts-title" = "Obvestila in opomniki";
 "notifications-center-onboarding-modal-project-inboxes-title" = "Projektni nabiralniki";
 "notifications-center-onboarding-modal-push-notifications-title" = "Potisna obvestila";
 "notifications-center-onboarding-modal-title" = "Obvestila o urejanju";
 "notifications-center-onboarding-panel-heading" = "Želite vklopiti potisna obvestila?";
 "notifications-center-onboarding-panel-primary-button" = "Vklopi potisna obvestila";
 "notifications-center-onboarding-panel-secondary-button" = "Ne, hvala";
-"notifications-center-onboarding-panel-subheading" = "Wikipedija je sodelovalni projekt in vklop potisnih obvestil lahko olajša obveščanje o sporočilih, opozorilih in »zahvalah« sourejevalcev.";
+"notifications-center-onboarding-panel-subheading" = "Wikipedija je sodelovalni projekt in vklop potisnih obvestil lahko olajša obveščanje o sporočilih, opomnikih in zahvalah sourejevalcev.";
 "notifications-center-project-filters-accessibility-label" = "Filter projektov";
 "notifications-center-status-all" = "Vse";
 "notifications-center-status-all-notifications" = "Vsa obvestila";
