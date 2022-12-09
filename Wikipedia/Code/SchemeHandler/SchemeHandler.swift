@@ -19,6 +19,7 @@ class SchemeHandler: NSObject {
     private var activeSchemeTasks = NSMutableSet(array: [])
     
     private let cacheQueue: OperationQueue = OperationQueue()
+    private let pageLoadMeasurementUrlString = "page/mobile-html/"
     
     required init(scheme: String, session: Session) {
         self.scheme = scheme
@@ -157,6 +158,11 @@ private extension SchemeHandler {
         
         // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by the callback blocks.
         // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
+        
+        if ((urlSchemeTask.request.url?.absoluteString) ?? "").contains(pageLoadMeasurementUrlString) {
+            SessionsFunnel.shared.setPageLoadStartTime()
+        }
+        
         let callback = Session.Callback(response: {  [weak urlSchemeTask] response in
             DispatchQueue.main.async {
                 guard let urlSchemeTask = urlSchemeTask else {
@@ -170,6 +176,10 @@ private extension SchemeHandler {
                     self.removeSessionTask(request: urlSchemeTask.request)
                     urlSchemeTask.didFailWithError(error)
                     self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                    
+                    if ((urlSchemeTask.request.url?.absoluteString) ?? "").contains(self.pageLoadMeasurementUrlString) {
+                        SessionsFunnel.shared.clearPageLoadStartTime()
+                    }
                 } else {
                     urlSchemeTask.didReceive(response)
                 }
@@ -186,7 +196,8 @@ private extension SchemeHandler {
                 urlSchemeTask.didReceive(data)
                 self.didReceiveDataCallback?(urlSchemeTask, data)
             }
-        }, success: { [weak urlSchemeTask] in
+        }, success: { [weak urlSchemeTask] usedPermanentCache in
+            
             DispatchQueue.main.async {
                 guard let urlSchemeTask = urlSchemeTask else {
                     return
@@ -197,8 +208,20 @@ private extension SchemeHandler {
                 urlSchemeTask.didFinish()
                 self.removeSessionTask(request: urlSchemeTask.request)
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                
+                if ((urlSchemeTask.request.url?.absoluteString) ?? "").contains(self.pageLoadMeasurementUrlString) {
+                    
+                    // To reduce inaccurate load times, do not consider load time if we had to lean on our local permanent cache (i.e. Saved Articles)
+                    if usedPermanentCache {
+                        SessionsFunnel.shared.clearPageLoadStartTime()
+                    } else {
+                        SessionsFunnel.shared.endPageLoadStartTime()
+                    }
+                }
             }
+            
         }, failure: { [weak urlSchemeTask] error in
+            
             DispatchQueue.main.async {
                 
                 guard let urlSchemeTask = urlSchemeTask else {
@@ -210,7 +233,12 @@ private extension SchemeHandler {
                 self.removeSessionTask(request: urlSchemeTask.request)
                 urlSchemeTask.didFailWithError(error)
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                
+                if ((urlSchemeTask.request.url?.absoluteString) ?? "").contains(self.pageLoadMeasurementUrlString) {
+                    SessionsFunnel.shared.clearPageLoadStartTime()
+                }
             }
+            
         }, cacheFallbackError: { error in
             DispatchQueue.main.async {
                 WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: false)

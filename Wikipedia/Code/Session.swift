@@ -59,13 +59,14 @@ public class Session: NSObject {
     }
     
     public struct Callback {
+        public typealias UsedPermanentCache = Bool
         let response: ((URLResponse) -> Void)?
         let data: ((Data) -> Void)?
-        let success: (() -> Void)
+        let success: ((UsedPermanentCache) -> Void)
         let failure: ((Error) -> Void)
         let cacheFallbackError: ((Error) -> Void)? // Extra handling block when session signals a success and returns data because it's leaning on cache, but actually reached a server error.
         
-        public init(response: ((URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping () -> Void, failure: @escaping (Error) -> Void, cacheFallbackError: ((Error) -> Void)?) {
+        public init(response: ((URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping (UsedPermanentCache) -> Void, failure: @escaping (Error) -> Void, cacheFallbackError: ((Error) -> Void)?) {
             self.response = response
             self.data = data
             self.success = success
@@ -282,7 +283,7 @@ public class Session: NSObject {
             let response = URLResponse(url: url, mimeType: "image/png", expectedContentLength: imageData.count, textEncodingName: nil)
             callback.response?(response)
             callback.data?(imageData)
-            callback.success()
+            callback.success(false)
             return nil
         }
 
@@ -293,7 +294,7 @@ public class Session: NSObject {
             let response = URLResponse(url: url, mimeType: "image/png", expectedContentLength: imageData.count, textEncodingName: nil)
             callback.response?(response)
             callback.data?(imageData)
-            callback.success()
+            callback.success(false)
             return nil
         }
         
@@ -301,7 +302,7 @@ public class Session: NSObject {
             let cachedResponse = permanentCache?.urlCache.cachedResponse(for: request) {
             callback.response?(cachedResponse.response)
             callback.data?(cachedResponse.data)
-            callback.success()
+            callback.success(true)
             return nil
         }
         
@@ -724,7 +725,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
                 let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
                 callback.response?(cachedResponse.response)
                 callback.data?(cachedResponse.data)
-                callback.success()
+                callback.success(true)
                 
                 if httpResponse.statusCode != 304 {
                     callback.cacheFallbackError?(RequestError.http(httpResponse.statusCode))
@@ -768,7 +769,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
                 let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
                     callback.response?(cachedResponse.response)
                     callback.data?(cachedResponse.data)
-                    callback.success()
+                    callback.success(true)
                     return
                 }
                 
@@ -777,6 +778,6 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
             return
         }
         
-        callback.success()
+        callback.success(false)
     }
 }
