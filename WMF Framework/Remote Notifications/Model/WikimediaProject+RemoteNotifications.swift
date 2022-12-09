@@ -54,7 +54,7 @@ extension WikimediaProject {
         return "wikivoyage"
     }
 
-    var notificationsApiWikiIdentifier: String {
+    public var notificationsApiWikiIdentifier: String {
         switch self {
         case .wikipedia(let languageCode, _, _):
             return languageCode + Self.wikipediaLanguageSuffix

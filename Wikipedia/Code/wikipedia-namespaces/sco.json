@@ -35,12 +35,15 @@
     "TEMPLATE" : 10,
     "TEMPLATE COLLOGUE" : 11,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "UISER" : 2,
     "UISER COLLOGUE" : 3,
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA COLLOGUE" : 5,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }

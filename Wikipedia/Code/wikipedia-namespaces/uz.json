@@ -47,6 +47,8 @@
     "TASVIR MUNOZARASI" : 7,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "TURKUM" : 14,
     "TURKUM MUNOZARASI" : 15,
     "USER" : 2,
@@ -58,6 +60,7 @@
     "VP" : 4,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
+    "WP" : 4,
     "YORDAM" : 12,
     "YORDAM MUNOZARASI" : 13
   }

@@ -6,6 +6,7 @@
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
     "CHỦ ĐỀ" : 100,
+    "CỔNG THÔNG TIN" : 100,
     "ĐẶC BIỆT" : -1,
     "ĐỊNH NGHĨA TIỆN ÍCH" : 2302,
     "FILE" : 6,
@@ -37,6 +38,7 @@
     "THẢO LUẬN" : 1,
     "THẢO LUẬN BẢN MẪU" : 11,
     "THẢO LUẬN CHỦ ĐỀ" : 101,
+    "THẢO LUẬN CỔNG THÔNG TIN" : 101,
     "THẢO LUẬN ĐỊNH NGHĨA TIỆN ÍCH" : 2303,
     "THẢO LUẬN HÌNH" : 7,
     "THẢO LUẬN MEDIAWIKI" : 9,
@@ -51,10 +53,13 @@
     "THỂ LOẠI" : 14,
     "TIỆN ÍCH" : 2300,
     "TIÊU BẢN" : 10,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "TRỢ GIÚP" : 12,
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }
