@@ -2,6 +2,7 @@
   "mainpage" : "LAMAN UTAMA",
   "namespace" : {
     "" : 0,
+    "ALAT" : 2300,
     "BANTUAN" : 12,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
@@ -28,14 +29,19 @@
     "MODUL" : 828,
     "MODULE" : 828,
     "MODULE TALK" : 829,
+    "PENERANGAN ALAT" : 2302,
     "PENGGUNA" : 2,
     "PERBINCANGAN" : 1,
+    "PERBINCANGAN ALAT" : 2301,
     "PERBINCANGAN BANTUAN" : 13,
     "PERBINCANGAN FAIL" : 7,
     "PERBINCANGAN IMEJ" : 7,
     "PERBINCANGAN KATEGORI" : 15,
     "PERBINCANGAN MEDIAWIKI" : 9,
+    "PERBINCANGAN MODUL" : 829,
+    "PERBINCANGAN PENERANGAN ALAT" : 2303,
     "PERBINCANGAN PENGGUNA" : 3,
+    "PERBINCANGAN PORTAL" : 101,
     "PERBINCANGAN TEMPLAT" : 11,
     "PERBINCANGAN WIKIPEDIA" : 5,
     "PERBUALAN" : 1,
@@ -54,9 +60,12 @@
     "TEMPLAT" : 10,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }

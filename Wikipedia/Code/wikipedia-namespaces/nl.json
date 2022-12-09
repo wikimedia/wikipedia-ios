@@ -47,6 +47,8 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "UITBREIDING" : 2300,
     "UITBREIDINGSDEFINITIE" : 2302,
     "USER" : 2,

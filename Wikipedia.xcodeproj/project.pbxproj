@@ -239,6 +239,7 @@
 		00AA5AAE276BF2AE005295B0 /* TextBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AA5AAB276BF2AE005295B0 /* TextBarButtonItem.swift */; };
 		00AA5AAF276BF2AE005295B0 /* TextBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AA5AAB276BF2AE005295B0 /* TextBarButtonItem.swift */; };
 		00AB75BD24D4E8FB0041056A /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
+		00B16E8E293AACC200EF847F /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B16E8D293AACC200EF847F /* UIImage+Extensions.swift */; };
 		00BCB71826DEE04D002C3F72 /* InsetLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB71726DEE04D002C3F72 /* InsetLabelView.swift */; };
 		00BCB71926DEE11B002C3F72 /* InsetLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB71726DEE04D002C3F72 /* InsetLabelView.swift */; };
 		00BCB71A26DEE11C002C3F72 /* InsetLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB71726DEE04D002C3F72 /* InsetLabelView.swift */; };
@@ -3937,6 +3938,7 @@
 		00A988072829D92B006D800B /* PushNotificationContentIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationContentIdentifier.swift; sourceTree = "<group>"; };
 		00AA5AA6276BF29E005295B0 /* StatusTextBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTextBarButtonItem.swift; sourceTree = "<group>"; };
 		00AA5AAB276BF2AE005295B0 /* TextBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBarButtonItem.swift; sourceTree = "<group>"; };
+		00B16E8D293AACC200EF847F /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		00BCB71726DEE04D002C3F72 /* InsetLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetLabelView.swift; sourceTree = "<group>"; };
 		00BCB71C26DEE1C7002C3F72 /* VerticalSpacerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSpacerView.swift; sourceTree = "<group>"; };
 		00BCB72126DEEB1C002C3F72 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
@@ -6108,6 +6110,7 @@
 				006D273624D8D8D100947551 /* Date+Extensions.swift */,
 				0033D79C24F8193900CAB5B3 /* CGPoint+Extensions.swift */,
 				0033D79B24F8193900CAB5B3 /* UIColor+Extensions.swift */,
+				00B16E8D293AACC200EF847F /* UIImage+Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -11045,6 +11048,7 @@
 				006D273524D8BAFB00947551 /* View+Extensions.swift in Sources */,
 				0033D7A124F8199300CAB5B3 /* Sparkline.swift in Sources */,
 				00669505265DA3D300E23AE4 /* FeaturedArticleWidget.swift in Sources */,
+				00B16E8E293AACC200EF847F /* UIImage+Extensions.swift in Sources */,
 				00021E0424D4A42A00476F97 /* PictureOfTheDayWidget.swift in Sources */,
 				002AB870250BEFBE00ADAC87 /* PictureOfTheDayWidget+LocalizedStrings.swift in Sources */,
 			);
