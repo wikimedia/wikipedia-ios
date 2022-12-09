@@ -143,6 +143,7 @@
 "action-update" = "Aktualizuj";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 artykuł|$1 artykuły}} do listy do przeczytania";
 "add-citation-title" = "Dodaj przypis";
+"additional-information-email-title" = "Dodatkowe informacje";
 "announcements-dismiss" = "Odrzuć";
 "app-store-keywords" = "Wikipedia, referencje, wiki, encyklopedia, informacje, wiedza, badania, informacje, eksploracja, nauka";
 "app-store-release-notes" = "W pełni konfigurowalny i łatwiejszy do odczytania kanał Eksploruj. Lokalizacja, ulepszenia wydajności i poprawki błędów.";
@@ -495,6 +496,7 @@
 "icon-shortcut-random-title" = "Losowy artykuł";
 "icon-shortcut-search-title" = "Szukaj w Wikipedii";
 "image-gallery-unknown-owner" = "Autor nieznany.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Nie teraz";
 "in-the-news-sub-title-from-language-wikipedia" = "Z $1 Wikipedii";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipedii";
 "in-the-news-title" = "W wiadomościach";
@@ -682,6 +684,7 @@
 "page-similar-titles" = "Podobne strony";
 "panel-compare-revisions-text" = "Porównanie wersji pomaga pokazać, jak artykuł zmieniał się na przestrzeni czasu. Porównanie dwóch wersji artykułu pokaże różnicę między tymi wersjami poprzez podświetlenie dowolnej treści, która została zmieniona.";
 "panel-compare-revisions-title" = "Porównaj wersje";
+"panel-not-logged-in-title" = "Nie jesteś zalogowany";
 "pictured" = "z obrazkiem";
 "places-accessibility-clear-saved-searches" = "Wyczyść zapisane wyszukiwania";
 "places-accessibility-group" = "$1 artykułów";
@@ -900,18 +903,26 @@
 "tachelhit-variants-alert-title" = "Aktualizacje obsługi wariantów Tachelhit";
 "tajik-variants-alert-title" = "Aktualizacje obsługi wariantów tadżyckich";
 "talk-page-add-discussion-accessibility-label" = "Dodaj nowy wątek w dyskusji";
+"talk-page-add-topic-button" = "Dodaj temat";
+"talk-page-change-language" = "Zmień język";
 "talk-page-discussion-accessibility-hint" = "Kliknij dwukrotnie, aby otworzyć wątek dyskusji";
 "talk-page-discussion-read-accessibility-label" = "Czytaj";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
 "talk-page-discussion-unread-accessibility-label" = "Nieprzeczytane";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
+"talk-page-error-alert-title" = "Niespodziewany błąd";
+"talk-page-error-loading-subtitle" = "Coś poszło nie tak.";
+"talk-page-error-loading-title" = "Nie można wczytać strony dyskusji";
 "talk-page-error-unable-to-post-reply" = "Brak połączenia z internetem. Nie można wysłać odpowiedzi.";
 "talk-page-error-unable-to-post-topic" = "Brak połączenia z internetem. Nie można opublikować dyskusji.";
+"talk-page-expand-thread-button" = "Rozwiń wątek";
+"talk-page-find-in-page-button" = "Znajdź na stronie";
 "talk-page-info-active-conversations" = "Aktywne dyskusje na $1 Wikipedii";
 "talk-page-info-active-conversations-generic" = "Aktywne dyskusje na Wikipedii";
 "talk-page-link-user-action-sheet-app" = "Zobacz stronę dyskusji użytkownika w aplikacji";
 "talk-page-link-user-action-sheet-safari" = "Zobacz stronę użytkownika w Safari";
 "talk-page-link-user-action-sheet-title" = "Strony użytkowników";
+"talk-page-menu-open-all" = "Otwórz wszystkie wątki";
 "talk-page-new-banner-subtitle" = "Pamiętaj, wszyscy jesteśmy ludźmi";
 "talk-page-new-banner-title" = "Zachowuj się uprzejmie";
 "talk-page-new-reply-body-accessibility-label" = "Utwórz odpowiedź";
@@ -928,8 +939,14 @@
 // Fuzzy
 "talk-page-title-article-talk" = "dyskusja artykułu";
 "talk-page-title-user-talk" = "Dyskusja użytkownika";
+"talk-page-topic-close-button-hint" = "Zamknij nowy temat";
 "talk-page-topic-title" = "Dyskusja";
+"talk-pages-coffee-roll-read-more" = "Czytaj więcej";
+"talk-pages-comment-added-alert-title" = "Twój komentarz został dodany";
+"talk-pages-empty-view-button-user-start-discussion" = "Rozpocznij dyskusję";
 "talk-pages-reply-button-title" = "Odpowiedz na tę dyskusję";
+"talk-pages-topic-compose-body-placeholder" = "Opis";
+"talk-pages-view-title" = "Dyskusja";
 "theme-black-display-name" = "Czarny";
 "theme-dark-display-name" = "Ciemna";
 "theme-default-display-name" = "Domyślnie";
@@ -944,6 +961,8 @@
 "two-factor-login-with-regular-code" = "Użyj kodu weryfikacyjnego";
 "unable-to-load-talk-page-title" = "Nie można wczytać strony dyskusji";
 "unknown-generic-text" = "Nieznany";
+"vanish-account-additional-information-field" = "Dodatkowe informacje";
+"vanish-account-learn-more-text" = "Dowiedz się więcej";
 "variants-alert-dismiss-button" = "Nie, dziękuję";
 "variants-alert-preferences-button" = "Sprawdź swoje preferencje";
 "welcome-exploration-explore-feed-description" = "Polecane lektury i codzienne artykuły z naszej społeczności";

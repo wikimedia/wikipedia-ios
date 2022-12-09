@@ -40,11 +40,14 @@
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
     "TERMO'A" : 10,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "UIKIPEDI'AS" : 4,
     "USER" : 2,
     "USER TALK" : 3,
     "VELSKU" : -2,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }

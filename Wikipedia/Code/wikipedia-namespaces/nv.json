@@ -35,6 +35,8 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "TʼÁÁŁÁHÁGI ÁTʼÉEGO" : 14,
     "TʼÁÁŁÁHÁGI ÁTʼÉEGO BAA YÁSHTIʼ" : 15,
     "USER" : 2,
@@ -42,6 +44,7 @@
     "WIKIIBÍÍDIIYA" : 4,
     "WIKIIBÍÍDIIYA BAA YÁSHTIʼ" : 5,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }

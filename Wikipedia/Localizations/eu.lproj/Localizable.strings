@@ -84,7 +84,7 @@
 "announcements-dismiss" = "Utzi";
 "app-store-keywords" = "Wikipedia, erreferentzia, wiki, entziklopedia, informazioa, ezagutza, ikerketa, informazioa, arakatu, ikasi";
 "app-store-release-notes" = "Gordetako artikuluak jada irakurketa zerrendetan antola daitezke eta gailuetatik zehar sinkroniza daitezke ere.";
-"app-store-short-description" = "Jaitsi Wikipedia app zugandik gertu dauden lekuak exploratzeko, sinkronizatu artikuluak offline irakurtzeko eta zure irakurtze-esperientziari probetxua ateratzeko.";
+"app-store-short-description" = "Deskargatu Wikipedia aplikazioa zure inguruko tokiak arakatzeko, artikuluak konexiorik gabe irakurtzearren sinkronizatzeko, eta zure irakurketa esperientzia pertsonalizatzeko.";
 "app-store-subtitle" = "Entziklopedia askea";
 "appearance-settings-adjust-text-sizing" = "Artikuluaren testuaren tamaina egokitu";
 "appearance-settings-expand-tables" = "Taulak zabaldu";
@@ -369,7 +369,7 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sailkatu artikuluak";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Sailkatu gabeko 5000 artikuluren muga dago. Mesedez, antola itzazu jadanik existitzen diren artikuluak zerrendatan sailkatu gabeko artikuluak sinkronizatu ahal izateko.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Sailkatu gabeko artikuluen muga jo duzu";
-"reading-list-list-limit-exceeded-message" = "Irakurketa zerrenda eta horretan gordetako artikuluak ez dira sinkronizatuk, mesedez jaitsi zure zerrenden zenbakia $1-(e)ra zerrenda honen sinkronizatzea amaitu ahal izateko.";
+"reading-list-list-limit-exceeded-message" = "Irakurketa zerrenda hau eta hor gordetako artikuluak ez dira sinkronizatuko. Murriztu ezazu zure zerrenda kopurua $1-(e)ra, zerrenda honen sinkronizazioari berriz ekin ahal izateko.";
 "reading-list-list-limit-exceeded-title" = "Kontu bakoitzeko {{PLURAL:$1|irakurketa zerrenda $1en|$1 irakurketa zerrenden}} muga gainditu duzu.";
 "reading-list-list-limit-reached" = "Kontu bakoitzeko $1 irakurketa-zerrenden muga gainditu duzu.";
 "reading-list-login-button-title" = "Hasi saioa gordetako arikuluak sinkronizatzeko";

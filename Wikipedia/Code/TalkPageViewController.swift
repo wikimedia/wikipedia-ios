@@ -35,6 +35,8 @@ class TalkPageViewController: ViewController {
     var scrollingToResult: TalkPageFindInPageSearchController.SearchResult?
     var scrollingToCommentViewModel: TalkPageCellCommentViewModel?
     
+    private var lastViewDidAppearDate: Date?
+    
     // MARK: - Overflow menu properties
     
     fileprivate var userTalkOverflowSubmenuActions: [UIAction] {
@@ -193,6 +195,7 @@ class TalkPageViewController: ViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         reachabilityNotifier.start()
+        lastViewDidAppearDate = Date()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -394,6 +397,11 @@ class TalkPageViewController: ViewController {
     }
 
     fileprivate func showAddTopic() {
+        
+        if let lastViewDidAppearDate = lastViewDidAppearDate {
+            TalkPagesFunnel.shared.logTappedNewTopic(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
+        }
+        
         let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute)
         let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, authenticationManager: viewModel.authenticationManager, theme: theme)
         topicComposeVC.delegate = self
@@ -721,6 +729,10 @@ class TalkPageViewController: ViewController {
             return
         }
         
+        if let lastViewDidAppearDate = lastViewDidAppearDate {
+            TalkPagesFunnel.shared.logChangedLanguage(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
+        }
+        
         viewModel.resetToNewSiteURL(siteURL, pageTitle: pageTitle, project: project)
         setupOverflowMenu()
         
@@ -808,6 +820,11 @@ extension TalkPageViewController: TalkPageCellDelegate {
         cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
         cell.apply(theme: theme)
         talkPageView.collectionView.collectionViewLayout.invalidateLayout()
+        
+        if configuredCellViewModel.isThreadExpanded,
+        let lastViewDidAppearDate = lastViewDidAppearDate {
+            TalkPagesFunnel.shared.logExpandedTopic(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
+        }
     }
     
     func userDidTapSubscribeButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell) {
@@ -857,6 +874,11 @@ extension TalkPageViewController: TalkPageCellReplyDelegate {
         if !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
             presentTopicReplyOnboarding()
         }
+        
+        if let lastViewDidAppearDate = lastViewDidAppearDate {
+            TalkPagesFunnel.shared.logTappedInlineReply(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
+        }
+        
         replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager, accessibilityFocusView: accessibilityFocusView)
     }
 }
@@ -873,6 +895,10 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
         let oldCellViewModel = commentViewModel.cellViewModel
         let oldCommentViewModels = oldCellViewModel?.allCommentViewModels
+        
+        if let lastViewDidAppearDate = lastViewDidAppearDate {
+            TalkPagesFunnel.shared.logTappedPublishNewTopicOrInlineReply(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
+        }
         
         viewModel.postReply(commentId: commentViewModel.commentId, comment: text) { [weak self] result in
 
@@ -937,6 +963,10 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
 
 extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
     func tappedPublish(topicTitle: String, topicBody: String, composeViewController: TalkPageTopicComposeViewController) {
+        
+        if let lastViewDidAppearDate = lastViewDidAppearDate {
+            TalkPagesFunnel.shared.logTappedPublishNewTopicOrInlineReply(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
+        }
 
         viewModel.postTopic(topicTitle: topicTitle, topicBody: topicBody) { [weak self] result in
 

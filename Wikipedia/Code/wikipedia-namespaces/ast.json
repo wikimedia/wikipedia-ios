@@ -59,6 +59,8 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "UIQUIPEDIA" : 4,
     "UIQUIPEDIA ALDERIQUE" : 5,
     "USER" : 2,
@@ -71,6 +73,7 @@
     "WIKIPEDIA" : 4,
     "WIKIPEDIA ALDERIQUE" : 5,
     "WIKIPEDIA DISCUSIÓN" : 5,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }
