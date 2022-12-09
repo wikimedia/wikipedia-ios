@@ -19,7 +19,7 @@ class CustomNavigationBar: SetupView {
         wmf_addSubviewWithConstraintsToEdges(stackView)
     }
     
-    func addCollapsingSubviews(views: [CustomNavigationBarSubview]) {
+    func addCollapsingSubviews(views: [CustomNavigationBarSubviewCollapsing]) {
         views.forEach { stackView.addArrangedSubview($0) }
     }
 }

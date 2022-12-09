@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import Combine
 
-class RedView: SetupView, CustomNavigationBarSubview {
+class RedView: SetupView, CustomNavigationBarSubviewCollapsing {
     var collapseOrder: Int = 0
     
     func updateContentOffset(contentOffset: CGPoint) {
@@ -59,7 +59,7 @@ class RedView: SetupView, CustomNavigationBarSubview {
     }
 }
 
-class BlueView: SetupView, CustomNavigationBarSubview {
+class BlueView: SetupView, CustomNavigationBarSubviewCollapsing {
     
     var collapseOrder: Int = 1
     
@@ -83,7 +83,7 @@ class BlueView: SetupView, CustomNavigationBarSubview {
     }
 }
 
-class GreenView: SetupView, CustomNavigationBarSubview {
+class GreenView: SetupView, CustomNavigationBarSubviewCollapsing {
     
     var collapseOrder: Int = 2
     
@@ -106,18 +106,18 @@ class GreenView: SetupView, CustomNavigationBarSubview {
     }
 }
 
-class TalkPageArchivesContainerViewController: UIViewController, CustomNavigationBarContainerViewController {
-    
-    // Any way to hide these elsewhere? Maybe some sort of superclass?
-    var contentOffset = CustomNavigationBarContentOffset()
-    var contentOffsetCancellable: AnyCancellable?
+class TalkPageArchivesContainerViewController: CustomNavigationBarContainerViewController {
     
     let redView = RedView(frame: .zero)
     let blueView = BlueView(frame: .zero)
     let greenView = GreenView(frame: .zero)
     
-    var stackedNavigationViews: [CustomNavigationBarSubview] {
+    override var collapsingNavigationBarSubviews: [CustomNavigationBarSubviewCollapsing] {
         return [redView, blueView, greenView]
+    }
+    
+    override var childContentViewController: UIViewController {
+        return hostingVC
     }
     
     lazy var hostingVC = {
@@ -130,6 +130,5 @@ class TalkPageArchivesContainerViewController: UIViewController, CustomNavigatio
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        setupCustomNavigationBar(withChildViewController: hostingVC)
     }
 }
