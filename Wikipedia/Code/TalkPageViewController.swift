@@ -442,7 +442,7 @@ class TalkPageViewController: ViewController {
     
     fileprivate func pushToArchives() {
         
-        let vc = TalkPageArchivesSwiftUIViewController()
+        let vc = TalkPageArchivesHostingController()
         // let vc = TalkPageArchivesViewController(nibName: nil, bundle: nil)
         navigationController?.pushViewController(vc, animated: true)
     }

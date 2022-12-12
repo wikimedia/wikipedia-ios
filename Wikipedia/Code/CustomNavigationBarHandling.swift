@@ -101,14 +101,10 @@ private extension CustomNavigationBarHandling {
 
 // Use for SwiftUI Content (UIHostingControllers)
 
-class CustomNavigationBarSwiftUIViewController<Content>: UIHostingController<Content>, CustomNavigationBarHandling where Content: View {
+class CustomNavigationBarHostingController<Content>: UIHostingController<Content>, CustomNavigationBarHandling where Content: View {
     
     var data: CustomNavigationBarData {
         fatalError("Must implement in subclass")
-    }
-    
-    static var data: CustomNavigationBarData {
-        return CustomNavigationBarData()
     }
     
     var contentOffsetCancellable: AnyCancellable?

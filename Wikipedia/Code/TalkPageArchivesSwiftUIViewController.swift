@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class TalkPageArchivesSwiftUIViewController: CustomNavigationBarSwiftUIViewController<TalkPageArchivesView> {
+class TalkPageArchivesHostingController: CustomNavigationBarHostingController<TalkPageArchivesView> {
     
     let redView = AdjustingView(color: .red, order: 0)
     let blueView = AdjustingView(color: .blue, order: 1)
