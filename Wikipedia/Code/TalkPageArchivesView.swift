@@ -2,14 +2,14 @@ import SwiftUI
 
 struct TalkPageArchivesView: View {
     
-    @ObservedObject var contentOffset: CustomNavigationBarContentOffset
+    @ObservedObject var data: CustomNavigationBarData
     
     var body: some View {
         ScrollView(
             axes: [.vertical],
             showsIndicators: true,
             offsetChanged: {
-                contentOffset.point = $0
+                data.contentOffset = $0
             }
         ) {
             LazyVStack(alignment: .leading) {
@@ -20,6 +20,7 @@ struct TalkPageArchivesView: View {
                         }
                 }
             }
+            .padding(.top, data.totalBarHeight)
         }
     }
 }

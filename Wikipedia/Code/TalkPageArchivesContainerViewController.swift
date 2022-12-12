@@ -2,41 +2,74 @@ import Foundation
 import UIKit
 import Combine
 
-class RedView: SetupView, CustomNavigationBarSubviewCollapsing {
-    var collapseOrder: Int = 0
+class AdjustingView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
+    let order: Int
+    let color: UIColor
     
-    func updateContentOffset(contentOffset: CGPoint) {
+    var contentHeight: CGFloat {
+        return label.frame.height
+    }
+    
+    func updateContentOffset(contentOffset: CGPoint) -> AdjustingStatus {
+        
         // let offsetYConsideringHeight = contentOffset.y + frame.height
         // print(max(contentOffset.y, -frame.height))
         // if contentOffset.y < 0 {
         
-        let newHeight = min(0, contentOffset.y)
-        if (self.height?.constant ?? 0) != newHeight {
-            self.height?.constant = min(0, contentOffset.y)
+        var didChangeHeight = false
+        
+        // content
+        
+        print("contentOffset: \(contentOffset.y)")
+        
+        // Cool example of last item only collapsing to a certain amount
+        // let heightOffset = order == 2 ? min(0, max((-label.frame.height/2), contentOffset.y)) : min(0, max(-label.frame.height, contentOffset.y))
+        
+        let heightOffset = min(0, max(-label.frame.height, contentOffset.y))
+        
+        print("heightOffset: \(heightOffset)")
+        
+        if (self.equalHeightToContentConstraint?.constant ?? 0) != heightOffset {
+            self.equalHeightToContentConstraint?.constant = heightOffset
+            didChangeHeight = true
         }
         
-        print(newHeight)
-            
-            
-        // }
-        
+        if !didChangeHeight {
+            return .complete((heightOffset * -1))
+        } else {
+            return .adjusting
+        }
     }
     
-    private var height: NSLayoutConstraint?
+    private var equalHeightToContentConstraint: NSLayoutConstraint?
+    private lazy var label: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        return label
+    }()
+    
+    init(color: UIColor, order: Int) {
+        self.order = order
+        self.color = color
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func setup() {
         super.setup()
         
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .red
-        
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        label.setContentCompressionResistancePriority(.required, for: .vertical)
-        
+        backgroundColor = color
+
         addSubview(label)
         
+        // top defaultHigh priority allows label to slide upward
+        // height 999 priority allows parent view to shrink
         let top = label.topAnchor.constraint(equalTo: topAnchor)
         top.priority = .defaultHigh
         let bottom = bottomAnchor.constraint(equalTo: label.bottomAnchor)
@@ -45,7 +78,7 @@ class RedView: SetupView, CustomNavigationBarSubviewCollapsing {
         
         let height = heightAnchor.constraint(equalTo: label.heightAnchor)
         height.priority = UILayoutPriority(999)
-        self.height = height
+        self.equalHeightToContentConstraint = height
         
         NSLayoutConstraint.activate([
             top,
@@ -55,64 +88,20 @@ class RedView: SetupView, CustomNavigationBarSubviewCollapsing {
             height
         ])
         
-        label.text = "RedView"
+        label.text = "I am a view!"
+        
+        clipsToBounds = true
     }
 }
 
-class BlueView: SetupView, CustomNavigationBarSubviewCollapsing {
-    
-    var collapseOrder: Int = 1
-    
-    func updateContentOffset(contentOffset: CGPoint) {
-        // print(contentOffset)
-    }
-    
-    override func setup() {
-        super.setup()
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .blue
-        
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        label.setContentCompressionResistancePriority(.required, for: .vertical)
-        wmf_addSubviewWithConstraintsToEdges(label)
-        label.text = "BlueView"
-        
-    }
-}
-
-class GreenView: SetupView, CustomNavigationBarSubviewCollapsing {
-    
-    var collapseOrder: Int = 2
-    
-    func updateContentOffset(contentOffset: CGPoint) {
-        // print(contentOffset)
-    }
-    
-    override func setup() {
-        super.setup()
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .green
-        
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        label.setContentCompressionResistancePriority(.required, for: .vertical)
-        wmf_addSubviewWithConstraintsToEdges(label)
-        label.text = "GreenView"
-    }
-}
 
 class TalkPageArchivesContainerViewController: CustomNavigationBarContainerViewController {
     
-    let redView = RedView(frame: .zero)
-    let blueView = BlueView(frame: .zero)
-    let greenView = GreenView(frame: .zero)
+    let redView = AdjustingView(color: .red, order: 0)
+    let blueView = AdjustingView(color: .blue, order: 1)
+    let greenView = AdjustingView(color: .green, order: 2)
     
-    override var collapsingNavigationBarSubviews: [CustomNavigationBarSubviewCollapsing] {
+    override var customNavigationBarSubviews: [CustomNavigationBarSubviewHeightAdjusting] {
         return [redView, blueView, greenView]
     }
     
@@ -121,7 +110,7 @@ class TalkPageArchivesContainerViewController: CustomNavigationBarContainerViewC
     }
     
     lazy var hostingVC = {
-        let talkPageArchivesView = TalkPageArchivesView(contentOffset: contentOffset)
+        let talkPageArchivesView = TalkPageArchivesView(data: data)
         let hostingVC = TalkPageArchivesHostingController(rootView: talkPageArchivesView)
         return hostingVC
     }()
