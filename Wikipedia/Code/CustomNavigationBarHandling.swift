@@ -25,6 +25,7 @@ private protocol CustomNavigationBarHandling: UIViewController {
     var data: CustomNavigationBarData { get }
     var contentOffsetCancellable: AnyCancellable? { get set }
     var customNavigationBar: CustomNavigationBar { get }
+    var customNavigationBarSubviews: [CustomNavigationBarSubviewHeightAdjusting] { get }
 }
 
 // Shared Helper Methods
@@ -88,10 +89,6 @@ private extension CustomNavigationBarHandling {
         }
     }
     
-    var customNavigationBarSubviews: [CustomNavigationBarSubviewHeightAdjusting] {
-        fatalError("Must implement in specific subclass")
-    }
-    
     func createCustomNavigationBar() -> CustomNavigationBar {
         let navigationBar = CustomNavigationBar(frame: .zero)
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
@@ -102,6 +99,10 @@ private extension CustomNavigationBarHandling {
 // Use for SwiftUI Content (UIHostingControllers)
 
 class CustomNavigationBarHostingController<Content>: UIHostingController<Content>, CustomNavigationBarHandling where Content: View {
+    
+    var customNavigationBarSubviews: [CustomNavigationBarSubviewHeightAdjusting] {
+        fatalError("Must implement in subclass")
+    }
     
     var data: CustomNavigationBarData {
         fatalError("Must implement in subclass")
@@ -134,10 +135,12 @@ class CustomNavigationBarViewController: UIViewController, CustomNavigationBarHa
     var contentOffsetCancellable: AnyCancellable?
     
     lazy var customNavigationBar: CustomNavigationBar = {
-        let navigationBar = CustomNavigationBar(frame: .zero)
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        return navigationBar
+        return createCustomNavigationBar()
     }()
+    
+    var customNavigationBarSubviews: [CustomNavigationBarSubviewHeightAdjusting] {
+        fatalError("Must implement in subclass")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

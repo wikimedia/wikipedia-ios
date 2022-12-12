@@ -7,7 +7,7 @@ class TalkPageArchivesHostingController: CustomNavigationBarHostingController<Ta
     let blueView = AdjustingView(color: .blue, order: 1)
     let greenView = AdjustingView(color: .green, order: 2)
     
-    var customNavigationBarSubviews: [CustomNavigationBarSubviewHeightAdjusting] {
+    override var customNavigationBarSubviews: [CustomNavigationBarSubviewHeightAdjusting] {
         return [redView, blueView, greenView]
     }
     
