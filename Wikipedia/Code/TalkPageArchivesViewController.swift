@@ -33,9 +33,9 @@ class TalkPageArchivesViewController: CustomNavigationBarViewController {
         view = contentView
     }
     
-    let redView = AdjustingView(color: .red, order: 0)
+    let redView = AdjustingView(color: .red, order: 2)
     let blueView = AdjustingView(color: .blue, order: 1)
-    let greenView = AdjustingView(color: .green, order: 2)
+    let greenView = AdjustingView(color: .green, order: 0)
     
     override var customNavigationBarSubviews: [CustomNavigationBarSubviewHeightAdjusting] {
         return [redView, blueView, greenView]
@@ -54,6 +54,12 @@ class TalkPageArchivesViewController: CustomNavigationBarViewController {
         
         contentView.tableView.reloadData()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        contentView.tableView.contentInset = UIEdgeInsets(top: data.totalBarHeight, left: 0, bottom: 0, right: 0)
+    }
 }
 
 extension TalkPageArchivesViewController: UITableViewDataSource {
@@ -70,4 +76,14 @@ extension TalkPageArchivesViewController: UITableViewDataSource {
 
 extension TalkPageArchivesViewController: UITableViewDelegate {
     
+}
+
+extension TalkPageArchivesViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Note - uiscrollview and scrollview produce different logic in their offsets.
+        // Adjusting the uiviewcontroller way to better fit how the custom nav bar system expects it (which caters to a SwiftUI preferences key.)
+        // What we should do is produce whatever value is clearest to handle in the adjustingheight subview. Before passing that value in, adjust as appropriate before it gets in.
+        let newContentOffsetY = (scrollView.contentOffset.y + scrollView.contentInset.top) * -1
+        self.data.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: newContentOffsetY)
+    }
 }

@@ -36,7 +36,9 @@ private extension CustomNavigationBarHandling {
     }
     
     func sharedViewDidLayoutSubviews() {
-        data.totalBarHeight = customNavigationBar.totalHeight
+        if data.totalBarHeight != customNavigationBar.totalHeight {
+            data.totalBarHeight = customNavigationBar.totalHeight
+        }
         print("customNavigationBar.bounds.height: \(customNavigationBar.bounds.height)")
     }
     
@@ -62,8 +64,8 @@ private extension CustomNavigationBarHandling {
         
         // Initial layout to get data correctly populated initially
         // Without this, data.totalBarHeight doesn't seem to get set properly upon first load.
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
+         view.setNeedsLayout()
+         view.layoutIfNeeded()
         
         // Setup contentOffset listener, pass it through into custom subviews
         let sortedSubviews = customNavigationBarSubviews.sorted {
