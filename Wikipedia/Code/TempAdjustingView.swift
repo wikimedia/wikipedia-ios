@@ -1,6 +1,4 @@
 import Foundation
-import UIKit
-import Combine
 
 class AdjustingView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
     let order: Int
@@ -91,33 +89,5 @@ class AdjustingView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
         label.text = "I am a view!"
         
         clipsToBounds = true
-    }
-}
-
-
-class TalkPageArchivesContainerViewController: CustomNavigationBarContainerViewController {
-    
-    let redView = AdjustingView(color: .red, order: 0)
-    let blueView = AdjustingView(color: .blue, order: 1)
-    let greenView = AdjustingView(color: .green, order: 2)
-    
-    override var customNavigationBarSubviews: [CustomNavigationBarSubviewHeightAdjusting] {
-        return [redView, blueView, greenView]
-    }
-    
-    override var childContentViewController: UIViewController {
-        return hostingVC
-    }
-    
-    lazy var hostingVC = {
-        let talkPageArchivesView = TalkPageArchivesView(data: data)
-        let hostingVC = TalkPageArchivesHostingController(rootView: talkPageArchivesView)
-        return hostingVC
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = .white
     }
 }
