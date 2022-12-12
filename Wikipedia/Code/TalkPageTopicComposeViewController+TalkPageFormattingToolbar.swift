@@ -28,7 +28,6 @@ extension TalkPageTopicComposeViewController: TalkPageFormattingToolbarViewDeleg
                 if let newText = bodyTextView.text(in: newSelectedRange) {
                     if newText.contains("[") || newText.contains("]") {
                         doesLinkExist = true
-
                     } else {
                         doesLinkExist = false
                     }

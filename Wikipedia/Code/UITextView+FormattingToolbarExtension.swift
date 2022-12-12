@@ -5,7 +5,9 @@ internal extension UITextView {
         var content = "[[\(page)]]"
 
         if let selectedText = text(in: customTextRange) {
-            if page != selectedText {
+            if selectedText.isEmpty || page == selectedText {
+                content = "[[\(page)]]"
+            } else if page != selectedText {
                 content = "[[\(page)|\(selectedText)]]"
             }
         }
@@ -17,7 +19,7 @@ internal extension UITextView {
     }
 
     func editLink(page: String, label: String?, customTextRange: UITextRange) {
-        if let label {
+        if let label, !label.isEmpty {
             replace(customTextRange, withText: "\(page)|\(label)")
         } else {
             replace(customTextRange, withText: "\(page)")
