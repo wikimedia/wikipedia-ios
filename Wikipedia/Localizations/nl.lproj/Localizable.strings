@@ -513,6 +513,7 @@
 "icon-shortcut-random-title" = "Willekeurige pagina";
 "icon-shortcut-search-title" = "Zoeken in Wikipedia";
 "image-gallery-unknown-owner" = "Auteur onbekend.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Nu niet";
 "in-the-news-sub-title-from-language-wikipedia" = "Van Wikipedia in het $1";
 "in-the-news-sub-title-from-wikipedia" = "Uit Wikipedia";
 "in-the-news-title" = "Actueel";
@@ -1116,16 +1117,16 @@
 "vanish-account-bottom-text" = "Accountverwijdering op Wikipedia wordt gedaan door uw accountnaam te wijzigen zodat anderen uw bijdragen niet kunnen herkennen. U kunt het onderstaande formulier gebruiken om een coulanceverzoek tot verdwijning in te dienen. Het opheffen van uw account garandeert geen volledige anonimiteit en verwijdert geen bijdragen aan de projecten.";
 "vanish-account-bottom-text-with-link" = "Accountverwijdering op Wikipedia wordt gedaan door uw accountnaam te wijzigen zodat anderen uw bijdragen niet kunnen herkennen. U kunt het onderstaande formulier gebruiken om $1coulanceverzoek tot verdwijning$2$3 in te dienen. Het opheffen van uw account garandeert geen volledige anonimiteit en verwijdert geen bijdragen aan de projecten.";
 "vanish-account-button-text" = "Verzoek versturen";
+"vanish-account-continue-button-title" = "Doorgaan";
 "vanish-account-description" = "Geef het volgende op om het verdwijnproces te starten:";
 "vanish-account-email-text" = "Hallo,\nDit is een verzoek om mijn Wikipedia-account te laten verdwijnen.";
 "vanish-account-learn-more-text" = "Meer lezen";
 "vanish-account-title" = "Verdwijnproces";
 "vanish-account-username-field" = "Gebruikersnaam en gebruikerspagina";
+"vanish-account-warning-title" = "Waarschuwing";
 "vanish-modal-item" = "Als u uw verdwijnverzoek heeft voltooid, duurt het een paar dagen voordat het verzoek is verwerkt door een beheerder";
 "vanish-modal-item-2" = "Als u niet zeker weet of uw verzoek is aangekomen, controleer dan uw mail-app";
-// Fuzzy
 "vanish-modal-item-3" = "Als u nog vragen heeft over het opheffen van uw account, ga dan naar Meta:Right_to_vanish";
-// Fuzzy
 "vanish-modal-item-3-ios15" = "Als u nog vragen heeft over het opheffen van uw account, ga dan naar $1Meta:Right_to_vanish$2$3";
 "vanish-modal-title" = "Verdwijnverzoek";
 "vanishing-request-email-title" = "Uw wens om te verdwijnen";

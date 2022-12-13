@@ -41,6 +41,7 @@
 // Author: おはぐろ蜻蛉
 // Author: きこねす
 // Author: ネイ
+// Author: バレロン
 // Author: 春春眠眠
 // Author: 아라
 
@@ -501,6 +502,7 @@
 "icon-shortcut-random-title" = "おまかせ記事";
 "icon-shortcut-search-title" = "ウィキペディア内を検索";
 "image-gallery-unknown-owner" = "作者不明。";
+"import-shared-reading-list-survey-prompt-subtitle" = "''リーディングリストを共有''はテスト中です。改善または削除のため、フィードバックをください。";
 "in-the-news-sub-title-from-language-wikipedia" = "$1版ウィキペディアより";
 "in-the-news-sub-title-from-wikipedia" = "ウィキペディアより";
 "in-the-news-title" = "ニュースに関する記事";
@@ -1012,6 +1014,9 @@
 "vanish-account-learn-more-text" = "もっと詳しく";
 "vanish-account-username-field" = "ユーザー名とユーザーページ";
 "vanish-account-warning-title" = "警告";
+"vanish-modal-item" = "削除依頼を出してから、管理者によって処理されるまで数日かかります。";
+"vanish-modal-item-3" = "削除依頼についてさらに質問がある場合はMeta:Right_to_vanishをご覧ください。";
+"vanish-modal-item-3-ios15" = "削除依頼についてさらに質問がある場合は$1Meta:Right_to_vanish$2$3をご覧ください。";
 "variants-alert-dismiss-button" = "いいえ";
 "variants-alert-preferences-button" = "設定を確認する";
 "welcome-exploration-explore-feed-description" = "私たちコミュニティからの読書のおすすめと毎日の記事";
