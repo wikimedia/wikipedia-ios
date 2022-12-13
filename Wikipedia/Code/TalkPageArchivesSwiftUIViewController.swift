@@ -3,9 +3,9 @@ import UIKit
 
 class TalkPageArchivesHostingController: CustomNavigationBarHostingController<TalkPageArchivesView> {
     
-    let redView = AdjustingView(color: .red, order: 2)
-    let blueView = AdjustingView(color: .blue, order: 1)
-    let greenView = AdjustingView(color: .green, order: 0)
+    let redView = AdjustingView(color: .red, order: 1)
+    let blueView = AdjustingView(color: .blue, order: 0)
+    let greenView = AdjustingView(color: .green, order: 2)
     
     override var customNavigationBarSubviews: [CustomNavigationBarSubviewHeightAdjusting] {
         return [redView, blueView, greenView]

@@ -4,6 +4,7 @@ class TalkPageArchivesContentViewUIKit: SetupView {
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.contentInsetAdjustmentBehavior = .never
         return tableView
     }()
     
@@ -58,7 +59,18 @@ class TalkPageArchivesViewController: CustomNavigationBarViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        contentView.tableView.contentInset = UIEdgeInsets(top: data.totalBarHeight, left: 0, bottom: 0, right: 0)
+        print("🔴\(data.totalBarHeight)")
+        print("💙\(contentView.tableView.contentOffset)")
+        // todo: clean up
+        if contentView.tableView.contentInset.top != data.totalBarHeight {
+            contentView.tableView.contentInset = UIEdgeInsets(top: data.totalBarHeight, left: 0, bottom: 0, right: 0)
+            if -1 * self.contentView.tableView.contentOffset.y < data.totalBarHeight {
+                var contentOffset = self.contentView.tableView.contentOffset
+                contentOffset.y = -1*data.totalBarHeight
+                self.contentView.tableView.setContentOffset(contentOffset, animated: false)
+            }
+        }
+        
     }
 }
 
