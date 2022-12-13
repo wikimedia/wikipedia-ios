@@ -92,7 +92,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         })
     }
     
-    private var queuedAlertBlocks: [() -> Void] = [] 
+    private var queuedAlertBlocks: [() -> Void] = []
 
     @objc func showAlert(_ dismissPreviousAlerts:Bool, alertBlock: @escaping () -> Void) {
         DispatchQueue.main.async {
