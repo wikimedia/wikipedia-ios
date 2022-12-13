@@ -91,12 +91,19 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
             RMessage.showNotification(withTitle: message, subtitle: subtitle, iconImage: image, type: type, customTypeName: customTypeName, duration: 5, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .bottom, canBeDismissedByUser: true)
         })
     }
+    
+    private var queuedAlertBlocks: [() -> Void] = []
 
     @objc func showAlert(_ dismissPreviousAlerts:Bool, alertBlock: @escaping () -> Void) {
         DispatchQueue.main.async {
             if dismissPreviousAlerts {
+                self.queuedAlertBlocks.append(alertBlock)
                 self.dismissAllAlerts {
-                    alertBlock()
+                    assert(Thread.isMainThread)
+                    if let alertBlock = self.queuedAlertBlocks.popLast() {
+                        alertBlock()
+                    }
+                    self.queuedAlertBlocks.removeAll()
                 }
             } else {
                 alertBlock()
