@@ -5,7 +5,7 @@ struct TalkPageArchivesView: View {
     @ObservedObject var data: CustomNavigationBarData
     
     var body: some View {
-        ScrollView(
+        TrackingScrollView(
             axes: [.vertical],
             showsIndicators: true,
             offsetChanged: {
@@ -26,7 +26,7 @@ struct TalkPageArchivesView: View {
 }
 
 // https://swiftwithmajid.com/2020/09/24/mastering-scrollview-in-swiftui/
-struct ScrollView<Content: View>: View {
+struct TrackingScrollView<Content: View>: View {
     let axes: Axis.Set
     let showsIndicators: Bool
     let offsetChanged: (CGPoint) -> Void
@@ -45,7 +45,7 @@ struct ScrollView<Content: View>: View {
     }
     
     var body: some View {
-        SwiftUI.ScrollView(axes, showsIndicators: showsIndicators) {
+        ScrollView(axes, showsIndicators: showsIndicators) {
             GeometryReader { geometry in
                 Color.clear.preference(
                     key: ScrollOffsetPreferenceKey.self,
