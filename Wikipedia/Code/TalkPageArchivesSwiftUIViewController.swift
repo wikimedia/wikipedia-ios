@@ -1,14 +1,108 @@
 import Foundation
 import UIKit
 
+class NavigationBarView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
+    let order: Int
+    
+    var contentHeight: CGFloat {
+        return bar.frame.height
+    }
+    
+    func updateContentOffset(contentOffset: CGPoint) -> AdjustingStatus {
+        
+        // let offsetYConsideringHeight = contentOffset.y + frame.height
+        // print(max(contentOffset.y, -frame.height))
+        // if contentOffset.y < 0 {
+        
+        var didChangeHeight = false
+        
+        // content
+        
+        print("contentOffset: \(contentOffset.y)")
+        
+        // Cool example of last item only collapsing to a certain amount
+        // let heightOffset = order == 2 ? min(0, max((-label.frame.height/2), contentOffset.y)) : min(0, max(-label.frame.height, contentOffset.y))
+        
+        let heightOffset = min(0, max(-bar.frame.height, contentOffset.y))
+        
+        print("heightOffset: \(heightOffset)")
+        
+        if (self.equalHeightToContentConstraint?.constant ?? 0) != heightOffset {
+            self.equalHeightToContentConstraint?.constant = heightOffset
+            didChangeHeight = true
+        }
+        
+        if !didChangeHeight {
+            return .complete((heightOffset * -1))
+        } else {
+            return .adjusting
+        }
+    }
+    
+    private var equalHeightToContentConstraint: NSLayoutConstraint?
+    private lazy var bar: UINavigationBar = {
+        let bar = UINavigationBar(frame: .zero)
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        // bar.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        // bar.setContentCompressionResistancePriority(.required, for: .vertical)
+        return bar
+    }()
+    
+    init(order: Int) {
+        self.order = order
+        // self.color = color
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func setup() {
+        super.setup()
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        // backgroundColor = color
+
+        let item = UINavigationItem(title: "Testing!")
+        bar.setItems([item], animated: false)
+        addSubview(bar)
+        
+        // top defaultHigh priority allows label to slide upward
+        // height 999 priority allows parent view to shrink
+        let top = bar.topAnchor.constraint(equalTo: topAnchor)
+        top.priority = .defaultHigh
+        let bottom = bottomAnchor.constraint(equalTo: bar.bottomAnchor)
+        let leading = bar.leadingAnchor.constraint(equalTo: leadingAnchor)
+        let trailing = trailingAnchor.constraint(equalTo: bar.trailingAnchor)
+        
+        let height = heightAnchor.constraint(equalTo: bar.heightAnchor)
+        height.priority = UILayoutPriority(999)
+        self.equalHeightToContentConstraint = height
+        
+        NSLayoutConstraint.activate([
+            top,
+            bottom,
+            leading,
+            trailing,
+            height
+        ])
+        
+        // label.text = "I am a view!"
+        
+        clipsToBounds = true
+    }
+}
+
 class TalkPageArchivesHostingController: CustomNavigationBarHostingController<TalkPageArchivesView> {
     
-    let redView = AdjustingView(color: .red, order: 1)
-    let blueView = AdjustingView(color: .blue, order: 0)
+    let redView = AdjustingView(color: .red, order: 0)
+    let blueView = AdjustingView(color: .blue, order: 1)
     let greenView = AdjustingView(color: .green, order: 2)
+    let barView = NavigationBarView(order: 0)
     
     override var customNavigationBarSubviews: [CustomNavigationBarSubviewHeightAdjusting] {
-        return [redView, blueView, greenView]
+        return [barView, blueView, greenView]
     }
     
     // todo: can we hide some of this in superclass?
