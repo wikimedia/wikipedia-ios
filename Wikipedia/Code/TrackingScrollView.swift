@@ -29,6 +29,7 @@ struct TrackingScrollView<Content: View>: View {
                 )
             }.frame(width: 0, height: 0)
             content
+                .padding(.top, data.totalHeight)
         }
         .coordinateSpace(name: "scrollView")
         .onPreferenceChange(ScrollOffsetPreferenceKey.self, perform: offsetChanged)

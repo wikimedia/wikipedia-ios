@@ -5,7 +5,6 @@ class TalkPageArchivesViewUIKit: SetupView {
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.contentInsetAdjustmentBehavior = .never
         return tableView
     }()
     
