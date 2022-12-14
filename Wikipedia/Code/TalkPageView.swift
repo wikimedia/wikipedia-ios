@@ -39,16 +39,26 @@ final class TalkPageView: SetupView {
         view.alpha = 0
         return view
     }()
+    
+    lazy var toolbar: UIToolbar = {
+        let tb = UIToolbar(frame: .zero)
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
 
     // MARK: - Lifecycle
 
     override func setup() {
         addSubview(collectionView)
+        addSubview(toolbar)
         addSubview(emptyView)
         addSubview(errorView)
         NSLayoutConstraint.activate([
+            toolbar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            toolbar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            toolbar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: toolbar.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             emptyView.topAnchor.constraint(equalTo: topAnchor),

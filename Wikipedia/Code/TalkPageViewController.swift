@@ -381,15 +381,11 @@ class TalkPageViewController: CustomNavigationViewController {
     }
     
     fileprivate func setupToolbar() {
-//        enableToolbar()
-//        setToolbarHidden(false, animated: false)
-//
-//        toolbar.items = [shareButton,  .flexibleSpaceToolbar(), revisionButton, .flexibleSpaceToolbar(), findButton,.flexibleSpaceToolbar(), addTopicButton]
-//
-//        shareButton.accessibilityLabel = TalkPageLocalizedStrings.shareButtonAccesibilityLabel
-//        findButton.accessibilityLabel = TalkPageLocalizedStrings.findButtonAccesibilityLabel
-//        revisionButton.accessibilityLabel = CommonStrings.revisionHistory
-//        addTopicButton.accessibilityLabel = TalkPageLocalizedStrings.addTopicButtonAccesibilityLabel
+        talkPageView.toolbar.items = [shareButton,  .flexibleSpaceToolbar(), revisionButton, .flexibleSpaceToolbar(), findButton,.flexibleSpaceToolbar(), addTopicButton]
+        shareButton.accessibilityLabel = TalkPageLocalizedStrings.shareButtonAccesibilityLabel
+        findButton.accessibilityLabel = TalkPageLocalizedStrings.findButtonAccesibilityLabel
+        revisionButton.accessibilityLabel = CommonStrings.revisionHistory
+        addTopicButton.accessibilityLabel = TalkPageLocalizedStrings.addTopicButtonAccesibilityLabel
     }
     
     fileprivate func pushToRevisionHistory() {
