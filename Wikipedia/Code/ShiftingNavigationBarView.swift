@@ -16,7 +16,7 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
     private var goingUp = false {
         didSet {
             if oldValue != goingUp {
-                if lastAmount < 0 {
+                if lastAmount < 0 { // clear out if bouncing at top
                     amountWhenDirectionChanged = 0
                 } else {
                     amountWhenDirectionChanged = lastAmount
@@ -35,7 +35,6 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         if reappearOnScrollUp {
             // If flicking up and fully collapsed, animate nav bar back in
             if flickingUp && isCollapsed {
-                // lastReappearAmount = amount
                 lastAmount = amount
                 equalHeightToContentConstraint?.constant = 0
                 setNeedsLayout()
@@ -45,7 +44,6 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
                 isCollapsed = false
                 return .shifting
             } else if goingUp && isCollapsed {
-                // lastReappearAmount = amount
                 lastAmount = amount
                 return .shifting
             }
