@@ -3,13 +3,22 @@ import Foundation
 class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview {
     let order: Int
     private let navigationItems: [UINavigationItem]
+    private let config: Config
     private weak var popDelegate: UIViewController? // Navigation back actions will be forwarded to this view controller
     
     var contentHeight: CGFloat {
         return bar.frame.height
     }
     
-    private let reappearOnScrollUp: Bool
+    struct Config {
+        let reappearOnScrollUp: Bool
+        let shiftOnScrollUp: Bool
+        
+        init(reappearOnScrollUp: Bool = true, shiftOnScrollUp: Bool = true) {
+            self.reappearOnScrollUp = reappearOnScrollUp
+            self.shiftOnScrollUp = shiftOnScrollUp
+        }
+    }
     
     private var lastReappearAmount: CGFloat?
     private var isCollapsed = false
@@ -29,12 +38,16 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
     
     func shift(amount: CGFloat) -> ShiftingStatus {
         
+        guard config.shiftOnScrollUp else {
+            return .shifted(0)
+        }
+        
         goingUp = lastAmount > amount
         
         // Adjust number for sensitivity
         let flickingUp = (lastAmount - amount) > 8
         
-        if reappearOnScrollUp {
+        if config.reappearOnScrollUp {
             // If flicking up and fully collapsed, animate nav bar back in
             if flickingUp && isCollapsed {
                 lastAmount = amount
@@ -53,7 +66,7 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         }
         
         // adjust amount to start from when direction last changed, if needed
-        let adjustedAmount = reappearOnScrollUp && amount > 0 ? amount - (amountWhenDirectionChanged) : amount
+        let adjustedAmount = config.reappearOnScrollUp && amount > 0 ? amount - (amountWhenDirectionChanged) : amount
         
         let limitedShiftAmount = max(0, min(adjustedAmount, contentHeight))
         
@@ -96,9 +109,9 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         return bar
     }()
     
-    init(order: Int, reappearOnScrollUp: Bool = true, navigationItems: [UINavigationItem], popDelegate: UIViewController) {
+    init(order: Int, config: Config, navigationItems: [UINavigationItem], popDelegate: UIViewController) {
         self.order = order
-        self.reappearOnScrollUp = reappearOnScrollUp
+        self.config = config
         self.navigationItems = navigationItems
         self.popDelegate = popDelegate
         super.init(frame: .zero)

@@ -10,7 +10,8 @@ class TalkPageArchivesHostingController: CustomNavigationViewHostingController<T
     lazy var barView: ShiftingNavigationBarView = {
         var items: [UINavigationItem] = []
         navigationController?.viewControllers.forEach({ items.append($0.navigationItem) })
-        return ShiftingNavigationBarView(order: 2, navigationItems: items, popDelegate: self)
+        let config = ShiftingNavigationBarView.Config(reappearOnScrollUp: false, shiftOnScrollUp: false)
+        return ShiftingNavigationBarView(order: 2, config: config, navigationItems: items, popDelegate: self)
     }()
     
     override var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] {
