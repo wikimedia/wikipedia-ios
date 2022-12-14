@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TalkPageArchivesView: View {
     
-    @EnvironmentObject var data: CustomNavigationViewData
+    @ObservedObject var data: CustomNavigationViewData
     
     var body: some View {
         TrackingScrollView(
@@ -19,5 +19,6 @@ struct TalkPageArchivesView: View {
             }
             .padding(.top, data.totalHeight)
         }
+        .environmentObject(data)
     }
 }

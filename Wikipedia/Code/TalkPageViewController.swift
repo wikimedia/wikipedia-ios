@@ -449,9 +449,7 @@ class TalkPageViewController: ViewController {
     }
     
     fileprivate func pushToArchivesSwiftUI() {
-        let data = CustomNavigationViewData()
-        let archivesView = TalkPageArchivesView().environmentObject(data)
-        let vc = TalkPageArchivesHostingController(data: data, content: archivesView)
+        let vc = TalkPageArchivesHostingController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
