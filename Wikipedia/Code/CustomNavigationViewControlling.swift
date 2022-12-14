@@ -29,7 +29,16 @@ class CustomNavigationView: SetupView {
     override func setup() {
         super.setup()
         
-        wmf_addSubviewWithConstraintsToEdges(stackView)
+        addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            safeAreaLayoutGuide.topAnchor.constraint(equalTo: stackView.topAnchor),
+            safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
+        ])
+        
+        backgroundColor = .white
     }
     
     var totalHeight: CGFloat {
@@ -86,9 +95,9 @@ private extension CustomNavigationViewControlling {
         view.addSubview(customNavigationView)
         
         NSLayoutConstraint.activate([
-            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: customNavigationView.topAnchor),
-            view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: customNavigationView.leadingAnchor),
-            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: customNavigationView.trailingAnchor)
+            view.topAnchor.constraint(equalTo: customNavigationView.topAnchor),
+            view.leadingAnchor.constraint(equalTo: customNavigationView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: customNavigationView.trailingAnchor)
         ])
         
         // Add custom subviews

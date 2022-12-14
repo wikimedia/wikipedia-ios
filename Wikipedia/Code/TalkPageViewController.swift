@@ -55,8 +55,12 @@ class TalkPageViewController: ViewController {
 
     fileprivate var overflowSubmenuActions: [UIAction] {
 
-        let goToArchivesAction = UIAction(title: TalkPageLocalizedStrings.archives, image: UIImage(systemName: "archivebox"), handler: { [weak self] _ in
-            self?.pushToArchives()
+        let goToArchivesUIKitAction = UIAction(title: "UIKit Archives", image: UIImage(systemName: "archivebox"), handler: { [weak self] _ in
+            self?.pushToArchivesUIKit()
+        })
+        
+        let goToArchivesSwiftUIAction = UIAction(title: "SwiftUI Archives", image: UIImage(systemName: "archivebox"), handler: { [weak self] _ in
+            self?.pushToArchivesSwiftUI()
         })
 
         let pageInfoAction = UIAction(title: TalkPageLocalizedStrings.pageInfo, image: UIImage(systemName: "info.circle"), handler: { [weak self] _ in
@@ -76,8 +80,7 @@ class TalkPageViewController: ViewController {
             self?.pushToWhatLinksHere()
         })
 
-        // goToArchivesAction
-        var actions = [goToArchivesAction, pageInfoAction, goToPermalinkAction, relatedLinksAction]
+        var actions = [goToArchivesSwiftUIAction, goToArchivesUIKitAction, pageInfoAction, goToPermalinkAction, relatedLinksAction]
         
         if viewModel.project.languageCode != nil {
             actions.insert(changeLanguageAction, at: 3)
@@ -440,10 +443,13 @@ class TalkPageViewController: ViewController {
         navigate(to: url, useSafari: true)
     }
     
-    fileprivate func pushToArchives() {
-        
-        // let vc = TalkPageArchivesHostingController()
+    fileprivate func pushToArchivesUIKit() {
         let vc = TalkPageArchivesViewController(nibName: nil, bundle: nil)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    fileprivate func pushToArchivesSwiftUI() {
+        let vc = TalkPageArchivesHostingController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
