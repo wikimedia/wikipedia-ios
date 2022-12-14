@@ -3,20 +3,20 @@ import SwiftUI
 
 // https://swiftwithmajid.com/2020/09/24/mastering-scrollview-in-swiftui/
 struct TrackingScrollView<Content: View>: View {
+    
+    @EnvironmentObject var data: CustomNavigationViewData
+    
     let axes: Axis.Set
     let showsIndicators: Bool
-    let offsetChanged: (CGPoint) -> Void
     let content: Content
 
     init(
         axes: Axis.Set = .vertical,
         showsIndicators: Bool = true,
-        offsetChanged: @escaping (CGPoint) -> Void = { _ in },
         @ViewBuilder content: () -> Content
     ) {
         self.axes = axes
         self.showsIndicators = showsIndicators
-        self.offsetChanged = offsetChanged
         self.content = content()
     }
     
@@ -32,6 +32,10 @@ struct TrackingScrollView<Content: View>: View {
         }
         .coordinateSpace(name: "scrollView")
         .onPreferenceChange(ScrollOffsetPreferenceKey.self, perform: offsetChanged)
+    }
+    
+    func offsetChanged(_ offset: CGPoint) {
+        data.scrollAmount = offset.y
     }
 }
 

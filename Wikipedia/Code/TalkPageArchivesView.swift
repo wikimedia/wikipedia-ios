@@ -2,15 +2,12 @@ import SwiftUI
 
 struct TalkPageArchivesView: View {
     
-    @ObservedObject var data: CustomNavigationViewData
+    @EnvironmentObject var data: CustomNavigationViewData
     
     var body: some View {
         TrackingScrollView(
             axes: [.vertical],
-            showsIndicators: true,
-            offsetChanged: {
-                data.scrollAmount = $0.y
-            }
+            showsIndicators: true
         ) {
             LazyVStack(alignment: .leading) {
                 ForEach(0..<100) { i in

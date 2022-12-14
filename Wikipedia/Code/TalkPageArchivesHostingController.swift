@@ -1,7 +1,8 @@
 import Foundation
 import UIKit
+import SwiftUI
 
-class TalkPageArchivesHostingController: CustomNavigationViewHostingController<TalkPageArchivesView> {
+class TalkPageArchivesHostingController<Content>: CustomNavigationViewHostingController<Content> where Content: View {
     
     let redView = TempShiftingView(color: .red, order: 2)
     let blueView = TempShiftingView(color: .blue, order: 1)
@@ -18,10 +19,9 @@ class TalkPageArchivesHostingController: CustomNavigationViewHostingController<T
     }
     private let _data: CustomNavigationViewData
     
-    init() {
-        let data = CustomNavigationViewData()
+    init(data: CustomNavigationViewData, content: Content) {
         self._data = data
-        super.init(rootView: TalkPageArchivesView(data: data))
+        super.init(rootView: content)
     }
     
     required init?(coder aDecoder: NSCoder) {
