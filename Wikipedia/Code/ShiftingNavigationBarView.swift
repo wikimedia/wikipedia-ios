@@ -2,6 +2,8 @@ import Foundation
 
 class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview {
     let order: Int
+    private let navigationItems: [UINavigationItem]
+    private weak var popDelegate: UIViewController? // Navigation back actions will be forwarded to this view controller
     
     var contentHeight: CGFloat {
         return bar.frame.height
@@ -90,13 +92,15 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
     private lazy var bar: UINavigationBar = {
         let bar = UINavigationBar(frame: .zero)
         bar.translatesAutoresizingMaskIntoConstraints = false
+        bar.delegate = self
         return bar
     }()
     
-    init(order: Int, reappearOnScrollUp: Bool = true) {
+    init(order: Int, reappearOnScrollUp: Bool = true, navigationItems: [UINavigationItem], popDelegate: UIViewController) {
         self.order = order
         self.reappearOnScrollUp = reappearOnScrollUp
-        // self.color = color
+        self.navigationItems = navigationItems
+        self.popDelegate = popDelegate
         super.init(frame: .zero)
     }
     
@@ -108,10 +112,9 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         super.setup()
         
         translatesAutoresizingMaskIntoConstraints = false
-        // backgroundColor = color
-
-        let item = UINavigationItem(title: "Testing!")
-        bar.setItems([item], animated: false)
+        
+        bar.setItems(navigationItems, animated: false)
+        
         addSubview(bar)
         
         // top defaultHigh priority allows label to slide upward
@@ -135,5 +138,26 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         ])
         
         clipsToBounds = true
+    }
+}
+
+extension ShiftingNavigationBarView: UINavigationBarDelegate {
+    func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
+        popDelegate?.navigationController?.popViewController(animated: true)
+        return false
+    }
+
+    func navigationBar(_ navigationBar: UINavigationBar, didPop item: UINavigationItem) {
+        // During iOS 14's long press to access back history, this function is called *after* the unneeded navigationItems have been popped off.
+        // However, with our custom navBar the actual articleVC isn't changed. So we need to find the articleVC for the top navItem, and pop to it.
+        // This should be in `shouldPop`, but as of iOS 14.0, `shouldPop` isn't called when long pressing a back button. Once this is fixed by Apple,
+        // we should move this to `shouldPop` to improve animations. (Update: A bug tracker was filed w/ Apple, and this won't be fixed anytime soon.
+        // Apple: "This is expected behavior. Due to side effects that many clients have in the shouldPop handler, we do not consult it when using the back
+        // button menu. We instead recommend that you hide the back button when you wish to disallow popping past a particular point in the navigation stack.")
+        if let topNavigationItem = navigationBar.items?.last,
+           let navController = popDelegate?.navigationController,
+           let tappedViewController = navController.viewControllers.first(where: {$0.navigationItem == topNavigationItem}) {
+            popDelegate?.navigationController?.popToViewController(tappedViewController, animated: true)
+        }
     }
 }
