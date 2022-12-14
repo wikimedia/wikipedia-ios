@@ -1,6 +1,6 @@
 import Foundation
 
-class AdjustingView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
+class TempShiftingView: SetupView, CustomNavigationViewShiftingSubview {
     let order: Int
     let color: UIColor
     
@@ -8,7 +8,7 @@ class AdjustingView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
         return label.frame.height
     }
     
-    func updateScrollAmount(scrollAmount: CGFloat) -> AdjustingStatus {
+    func shift(amount: CGFloat) -> ShiftingStatus {
 
         var didChangeHeight = false
         
@@ -17,7 +17,7 @@ class AdjustingView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
         // Cool example of last item only collapsing to a certain amount
         // let heightOffset = order == 2 ? min(0, max((-label.frame.height/2), scrollAmount)) : min(0, max(-label.frame.height, scrollAmount))
         
-        let heightOffset = min(0, max(-label.frame.height, scrollAmount))
+        let heightOffset = min(0, max(-label.frame.height, amount))
         
         if (self.equalHeightToContentConstraint?.constant ?? 0) != heightOffset {
             self.equalHeightToContentConstraint?.constant = heightOffset
@@ -25,9 +25,9 @@ class AdjustingView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
         }
         
         if !didChangeHeight {
-            return .adjusted((heightOffset * -1))
+            return .shifted((heightOffset * -1))
         } else {
-            return .adjusting
+            return .shifting
         }
     }
     

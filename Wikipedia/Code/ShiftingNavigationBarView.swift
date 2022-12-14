@@ -1,18 +1,17 @@
 import Foundation
-import UIKit
 
-class AdjustingNavigationBarView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
+class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview {
     let order: Int
     
     var contentHeight: CGFloat {
         return bar.frame.height
     }
     
-    func updateScrollAmount(scrollAmount: CGFloat) -> AdjustingStatus {
+    func shift(amount: CGFloat) -> ShiftingStatus {
         
         var didChangeHeight = false
         
-        let heightOffset = min(0, max(-bar.frame.height, scrollAmount))
+        let heightOffset = min(0, max(-bar.frame.height, amount))
         
         if (self.equalHeightToContentConstraint?.constant ?? 0) != heightOffset {
             self.equalHeightToContentConstraint?.constant = heightOffset
@@ -20,9 +19,9 @@ class AdjustingNavigationBarView: SetupView, CustomNavigationBarSubviewHeightAdj
         }
         
         if !didChangeHeight {
-            return .adjusted((heightOffset * -1))
+            return .shifted((heightOffset * -1))
         } else {
-            return .adjusting
+            return .shifting
         }
     }
     
@@ -76,39 +75,5 @@ class AdjustingNavigationBarView: SetupView, CustomNavigationBarSubviewHeightAdj
         // label.text = "I am a view!"
         
         clipsToBounds = true
-    }
-}
-
-class TalkPageArchivesHostingController: CustomNavigationBarHostingController<TalkPageArchivesView> {
-    
-    let redView = AdjustingView(color: .red, order: 0)
-    let blueView = AdjustingView(color: .blue, order: 1)
-    let greenView = AdjustingView(color: .green, order: 2)
-    let barView = AdjustingNavigationBarView(order: 0)
-    
-    override var customNavigationBarSubviews: [CustomNavigationBarSubviewHeightAdjusting] {
-        return [barView, blueView, greenView]
-    }
-    
-    // todo: can we hide some of this in superclass?
-    override var data: CustomNavigationBarData {
-        return _data
-    }
-    private let _data: CustomNavigationBarData
-    
-    init() {
-        let data = CustomNavigationBarData()
-        self._data = data
-        super.init(rootView: TalkPageArchivesView(data: data))
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = .white
     }
 }
