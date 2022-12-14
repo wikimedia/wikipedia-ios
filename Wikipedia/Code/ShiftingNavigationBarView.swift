@@ -11,8 +11,21 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         
         var didChangeHeight = false
         
-        let limitedShiftAmount = max(0, min(amount, bar.frame.height))
+        let limitedShiftAmount = max(0, min(amount, contentHeight))
         
+        let percent = limitedShiftAmount / contentHeight
+        
+        // Shrink items within
+        let barScaleTransform = CGAffineTransformMakeScale(1.0 - (percent/2), 1.0 - (percent/2))
+        for subview in self.bar.subviews {
+            for subview in subview.subviews {
+                subview.transform = barScaleTransform
+            }
+        }
+        
+        alpha = 1.0 - percent
+        
+        // Shift Y placement
         if (self.equalHeightToContentConstraint?.constant ?? 0) != -limitedShiftAmount {
             self.equalHeightToContentConstraint?.constant = -limitedShiftAmount
             didChangeHeight = true
