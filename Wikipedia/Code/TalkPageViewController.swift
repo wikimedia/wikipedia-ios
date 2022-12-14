@@ -204,7 +204,31 @@ class TalkPageViewController: CustomNavigationViewController {
 
         fetchTalkPage()
         setupToolbar()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIWindow.keyboardWillHideNotification, object: nil)
         apply(theme: theme)
+    }
+    
+    // TODO: Keyboard handling - also consider moving to UIViewController extension
+    
+    @objc func keyboardWillChangeFrame(_ notification: Notification) {
+        if let window = view.window, let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            let windowFrame = window.convert(endFrame, from: nil)
+            let keyboardFrame = window.convert(windowFrame, to: talkPageView)
+            let intersectingFrame = keyboardFrame.intersection(talkPageView.collectionView.frame)
+            let oldInset = talkPageView.collectionView.contentInset
+            let oldScrollInset = talkPageView.collectionView.verticalScrollIndicatorInsets
+            
+            talkPageView.collectionView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: intersectingFrame.height, right: oldInset.right)
+            talkPageView.collectionView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: intersectingFrame.height, right: oldScrollInset.right)
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        let oldInset = talkPageView.collectionView.contentInset
+        let oldScrollInset = talkPageView.collectionView.verticalScrollIndicatorInsets
+        talkPageView.collectionView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: 0, right: oldInset.right)
+        talkPageView.collectionView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: 0, right: oldScrollInset.right)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -568,9 +592,7 @@ class TalkPageViewController: CustomNavigationViewController {
         cellViewModel.isThreadExpanded = true
         talkPageView.collectionView.reloadData()
         
-        // isProgramaticallyScrolling = true
         talkPageView.collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: false)
-        // isProgramaticallyScrolling = false
         
         if let commentViewModel = commentViewModel {
             scrollToComment(commentViewModel: commentViewModel, animated: false)
