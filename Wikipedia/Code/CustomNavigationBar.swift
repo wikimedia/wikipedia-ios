@@ -11,8 +11,6 @@ class CustomNavigationBar: SetupView {
         return stackView
     }()
 
-    // fileprivate let bar: UINavigationBar = UINavigationBar()
-
     override func setup() {
         super.setup()
         

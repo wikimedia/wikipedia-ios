@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class NavigationBarView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
+class AdjustingNavigationBarView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
     let order: Int
     
     var contentHeight: CGFloat {
@@ -10,18 +10,9 @@ class NavigationBarView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
     
     func updateContentOffset(contentOffset: CGPoint) -> AdjustingStatus {
         
-        // let offsetYConsideringHeight = contentOffset.y + frame.height
-        // print(max(contentOffset.y, -frame.height))
-        // if contentOffset.y < 0 {
-        
         var didChangeHeight = false
         
-        // content
-        
         print("contentOffset: \(contentOffset.y)")
-        
-        // Cool example of last item only collapsing to a certain amount
-        // let heightOffset = order == 2 ? min(0, max((-label.frame.height/2), contentOffset.y)) : min(0, max(-label.frame.height, contentOffset.y))
         
         let heightOffset = min(0, max(-bar.frame.height, contentOffset.y))
         
@@ -43,8 +34,6 @@ class NavigationBarView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
     private lazy var bar: UINavigationBar = {
         let bar = UINavigationBar(frame: .zero)
         bar.translatesAutoresizingMaskIntoConstraints = false
-        // bar.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        // bar.setContentCompressionResistancePriority(.required, for: .vertical)
         return bar
     }()
     
@@ -99,7 +88,7 @@ class TalkPageArchivesHostingController: CustomNavigationBarHostingController<Ta
     let redView = AdjustingView(color: .red, order: 0)
     let blueView = AdjustingView(color: .blue, order: 1)
     let greenView = AdjustingView(color: .green, order: 2)
-    let barView = NavigationBarView(order: 0)
+    let barView = AdjustingNavigationBarView(order: 0)
     
     override var customNavigationBarSubviews: [CustomNavigationBarSubviewHeightAdjusting] {
         return [barView, blueView, greenView]

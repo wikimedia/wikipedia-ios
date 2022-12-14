@@ -16,9 +16,9 @@ protocol CustomNavigationBarSubviewHeightAdjusting: UIView {
 }
 
 class CustomNavigationBarData: ObservableObject {
-    @Published var contentOffset: CGPoint = .zero
-    @Published var visibleBarHeight: CGFloat = .zero
-    @Published var totalBarHeight: CGFloat = .zero
+    @Published var contentOffset: CGPoint = .zero // updated by content views, read by adjusting custom nav bar subviews
+    @Published var visibleBarHeight: CGFloat = .zero // not used yet
+    @Published var totalBarHeight: CGFloat = .zero //updated at didLayoutSubviews, sum of uncollapsed heights of adjusting custom nav bar subviews
 }
 
 private protocol CustomNavigationBarHandling: UIViewController {
