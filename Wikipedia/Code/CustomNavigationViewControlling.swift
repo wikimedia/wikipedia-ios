@@ -124,7 +124,7 @@ private extension CustomNavigationViewControlling {
                 
                 switch shiftStatus {
                 case .shifted(let height):
-                    offset += height
+                    offset -= height
                     continue
                 case .shifting:
                     return

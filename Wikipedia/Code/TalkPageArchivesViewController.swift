@@ -70,10 +70,7 @@ extension TalkPageArchivesViewController: UITableViewDelegate {
 
 extension TalkPageArchivesViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // Note - uiscrollview and scrollview produce different logic in their offsets.
-        // Adjusting the uiviewcontroller way to better fit how the custom nav bar system expects it (which caters to a SwiftUI preferences key.)
-        // What we should do is produce whatever value is clearest to handle in the adjustingheight subview. Before passing that value in, adjust as appropriate before it gets in.
-        let fixedScrollAmount = (scrollView.contentOffset.y + scrollView.contentInset.top) * -1
-        self.data.scrollAmount = fixedScrollAmount
+        let scrollAmount = scrollView.contentInset.top + scrollView.contentOffset.y
+        self.data.scrollAmount = scrollAmount
     }
 }

@@ -11,15 +11,15 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         
         var didChangeHeight = false
         
-        let heightOffset = min(0, max(-bar.frame.height, amount))
+        let limitedShiftAmount = max(0, min(amount, bar.frame.height))
         
-        if (self.equalHeightToContentConstraint?.constant ?? 0) != heightOffset {
-            self.equalHeightToContentConstraint?.constant = heightOffset
+        if (self.equalHeightToContentConstraint?.constant ?? 0) != -limitedShiftAmount {
+            self.equalHeightToContentConstraint?.constant = -limitedShiftAmount
             didChangeHeight = true
         }
         
         if !didChangeHeight {
-            return .shifted((heightOffset * -1))
+            return .shifted(limitedShiftAmount)
         } else {
             return .shifting
         }
@@ -71,8 +71,6 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
             trailing,
             height
         ])
-        
-        // label.text = "I am a view!"
         
         clipsToBounds = true
     }

@@ -9,23 +9,18 @@ class TempShiftingView: SetupView, CustomNavigationViewShiftingSubview {
     }
     
     func shift(amount: CGFloat) -> ShiftingStatus {
-
+        
         var didChangeHeight = false
         
-        // content
+        let limitedShiftAmount = max(0, min(amount, label.frame.height))
         
-        // Cool example of last item only collapsing to a certain amount
-        // let heightOffset = order == 2 ? min(0, max((-label.frame.height/2), scrollAmount)) : min(0, max(-label.frame.height, scrollAmount))
-        
-        let heightOffset = min(0, max(-label.frame.height, amount))
-        
-        if (self.equalHeightToContentConstraint?.constant ?? 0) != heightOffset {
-            self.equalHeightToContentConstraint?.constant = heightOffset
+        if (self.equalHeightToContentConstraint?.constant ?? 0) != -limitedShiftAmount {
+            self.equalHeightToContentConstraint?.constant = -limitedShiftAmount
             didChangeHeight = true
         }
         
         if !didChangeHeight {
-            return .shifted((heightOffset * -1))
+            return .shifted(limitedShiftAmount)
         } else {
             return .shifting
         }

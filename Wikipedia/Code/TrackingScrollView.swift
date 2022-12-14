@@ -35,7 +35,7 @@ struct TrackingScrollView<Content: View>: View {
     }
     
     func offsetChanged(_ offset: CGPoint) {
-        data.scrollAmount = offset.y
+        data.scrollAmount = -offset.y
     }
 }
 
