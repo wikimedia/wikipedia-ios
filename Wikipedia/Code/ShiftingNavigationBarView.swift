@@ -7,11 +7,55 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         return bar.frame.height
     }
     
+    private let reappearOnScrollUp: Bool
+    
+    private var lastReappearAmount: CGFloat?
+    private var isCollapsed = false
+    private var lastAmount: CGFloat = 0
+    private var amountWhenDirectionChanged: CGFloat = 0
+    private var goingUp = false {
+        didSet {
+            if oldValue != goingUp {
+                if lastAmount < 0 {
+                    amountWhenDirectionChanged = 0
+                } else {
+                    amountWhenDirectionChanged = lastAmount
+                }
+            }
+        }
+    }
+    
     func shift(amount: CGFloat) -> ShiftingStatus {
         
-        var didChangeHeight = false
+        goingUp = lastAmount > amount
         
-        let limitedShiftAmount = max(0, min(amount, contentHeight))
+        // Adjust number for sensitivity
+        let flickingUp = (lastAmount - amount) > 8
+        
+        if reappearOnScrollUp {
+            // If flicking up and fully collapsed, animate nav bar back in
+            if flickingUp && isCollapsed {
+                // lastReappearAmount = amount
+                lastAmount = amount
+                equalHeightToContentConstraint?.constant = 0
+                setNeedsLayout()
+                UIView.animate(withDuration: 0.2) {
+                    self.layoutIfNeeded()
+                }
+                isCollapsed = false
+                return .shifting
+            } else if goingUp && isCollapsed {
+                // lastReappearAmount = amount
+                lastAmount = amount
+                return .shifting
+            }
+            
+        }
+        
+        // adjust amount to start from when direction last changed, if needed
+        let adjustedAmount = reappearOnScrollUp && amount > 0 ? amount - (amountWhenDirectionChanged) : amount
+        
+        let limitedShiftAmount = max(0, min(adjustedAmount, contentHeight))
         
         let percent = limitedShiftAmount / contentHeight
         
@@ -28,10 +72,16 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         // Shift Y placement
         if (self.equalHeightToContentConstraint?.constant ?? 0) != -limitedShiftAmount {
             self.equalHeightToContentConstraint?.constant = -limitedShiftAmount
-            didChangeHeight = true
+            isCollapsed = false
+        } else {
+            if -(self.equalHeightToContentConstraint?.constant ?? 0) == contentHeight {
+                isCollapsed = true
+            }
         }
         
-        if !didChangeHeight {
+        lastAmount = amount
+
+        if isCollapsed {
             return .shifted(limitedShiftAmount)
         } else {
             return .shifting
@@ -45,8 +95,9 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         return bar
     }()
     
-    init(order: Int) {
+    init(order: Int, reappearOnScrollUp: Bool = true) {
         self.order = order
+        self.reappearOnScrollUp = reappearOnScrollUp
         // self.color = color
         super.init(frame: .zero)
     }
