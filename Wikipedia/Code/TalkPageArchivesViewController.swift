@@ -10,6 +10,7 @@ class TalkPageArchivesViewController: CustomNavigationViewController {
     
     override func loadView() {
         let archivesView = TalkPageArchivesViewUIKit(frame: UIScreen.main.bounds)
+        _scrollView = archivesView.tableView
         view = archivesView
     }
     
@@ -35,21 +36,6 @@ class TalkPageArchivesViewController: CustomNavigationViewController {
         
         archivesView.tableView.reloadData()
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        // todo: clean up
-        if archivesView.tableView.contentInset.top != data.totalHeight {
-            archivesView.tableView.contentInset = UIEdgeInsets(top: data.totalHeight, left: 0, bottom: 0, right: 0)
-            if -1 * self.archivesView.tableView.contentOffset.y < data.totalHeight {
-                var contentOffset = self.archivesView.tableView.contentOffset
-                contentOffset.y = -1*data.totalHeight
-                self.archivesView.tableView.setContentOffset(contentOffset, animated: false)
-            }
-        }
-        
-    }
 }
 
 extension TalkPageArchivesViewController: UITableViewDataSource {
@@ -66,11 +52,4 @@ extension TalkPageArchivesViewController: UITableViewDataSource {
 
 extension TalkPageArchivesViewController: UITableViewDelegate {
     
-}
-
-extension TalkPageArchivesViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let scrollAmount = scrollView.contentInset.top + scrollView.contentOffset.y
-        self.data.scrollAmount = scrollAmount
-    }
 }

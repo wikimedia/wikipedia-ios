@@ -173,7 +173,7 @@ class CustomNavigationViewHostingController<Content>: UIHostingController<Conten
 
 // Use for UIKit Content (UIScrollViews)
 
-class CustomNavigationViewController: UIViewController, CustomNavigationViewControlling {
+class CustomNavigationViewController: UIViewController, CustomNavigationViewControlling, UIScrollViewDelegate {
     
     var data = CustomNavigationViewData()
     var scrollAmountCancellable: AnyCancellable?
@@ -185,6 +185,15 @@ class CustomNavigationViewController: UIViewController, CustomNavigationViewCont
     var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] {
         fatalError("Must implement in subclass")
     }
+    
+    var scrollView: UIScrollView {
+        guard let scrollView = _scrollView else {
+            fatalError("Must assign in subclass on load")
+        }
+        
+        return scrollView
+    }
+    var _scrollView: UIScrollView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -196,5 +205,23 @@ class CustomNavigationViewController: UIViewController, CustomNavigationViewCont
         super.viewDidLayoutSubviews()
         
         sharedViewDidLayoutSubviews()
+        
+        // Update content inset according to total height of custom navigation bar
+        if scrollView.contentInset.top != data.totalHeight {
+            scrollView.contentInset = UIEdgeInsets(top: data.totalHeight, left: 0, bottom: 0, right: 0)
+            
+            // This fixes a bug upon first load where content initially appears underneath navigation view
+            // TODO: is there a better fix?
+            if -1 * scrollView.contentOffset.y < data.totalHeight {
+                var contentOffset = scrollView.contentOffset
+                contentOffset.y = -1 * data.totalHeight
+                scrollView.setContentOffset(contentOffset, animated: false)
+            }
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let scrollAmount = scrollView.contentInset.top + scrollView.contentOffset.y
+        self.data.scrollAmount = scrollAmount
     }
 }
