@@ -105,8 +105,10 @@ private extension CustomNavigationViewControlling {
         
         // Initial layout to get data correctly populated initially
         // Without this, data.totalHeight doesn't seem to get set properly upon first load.
+        print(data.totalHeight)
         view.setNeedsLayout()
         view.layoutIfNeeded()
+        print(data.totalHeight)
 
         self.scrollAmountCancellable = data.$scrollAmount.sink { [weak self] scrollAmount in
             
@@ -219,6 +221,9 @@ class CustomNavigationViewController: UIViewController, CustomNavigationViewCont
         super.viewDidLoad()
         
         sharedViewDidLoad()
+        
+        // hide missing bottom toolbar color pain
+        view.backgroundColor = .white
     }
     
     override func viewDidLayoutSubviews() {
@@ -231,13 +236,15 @@ class CustomNavigationViewController: UIViewController, CustomNavigationViewCont
             scrollView.contentInset = UIEdgeInsets(top: data.totalHeight, left: 0, bottom: 0, right: 0)
             scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: data.totalHeight, left: 0, bottom: 0, right: 0)
             
+            print("contentInset: \(scrollView.contentInset)")
+            
             // This fixes a bug upon first load where content initially appears underneath navigation view
             // TODO: is there a better fix?
-            if -1 * scrollView.contentOffset.y < data.totalHeight {
-                var contentOffset = scrollView.contentOffset
-                contentOffset.y = -1 * data.totalHeight
-                scrollView.setContentOffset(contentOffset, animated: false)
-            }
+//            if -1 * scrollView.contentOffset.y < data.totalHeight {
+//                var contentOffset = scrollView.contentOffset
+//                contentOffset.y = -1 * data.totalHeight
+//                scrollView.setContentOffset(contentOffset, animated: false)
+//            }
         }
     }
     

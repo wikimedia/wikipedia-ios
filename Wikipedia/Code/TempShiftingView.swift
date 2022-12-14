@@ -78,3 +78,85 @@ class TempShiftingView: SetupView, CustomNavigationViewShiftingSubview {
         clipsToBounds = true
     }
 }
+
+class TempShiftingTalkPageHeaderView: SetupView, CustomNavigationViewShiftingSubview {
+    let order: Int
+    let viewModel: TalkPageViewModel
+    let theme: Theme
+    
+    var contentHeight: CGFloat {
+        return headerView.frame.height
+    }
+    
+    func shift(amount: CGFloat) -> ShiftingStatus {
+        
+        var didChangeHeight = false
+        
+        let limitedShiftAmount = max(0, min(amount, contentHeight))
+        
+        let percent = limitedShiftAmount / contentHeight
+        alpha = 1.0 - percent
+        
+        if (self.equalHeightToContentConstraint?.constant ?? 0) != -limitedShiftAmount {
+            self.equalHeightToContentConstraint?.constant = -limitedShiftAmount
+            didChangeHeight = true
+        }
+        
+        if !didChangeHeight {
+            return .shifted(limitedShiftAmount)
+        } else {
+            return .shifting
+        }
+    }
+    
+    private var equalHeightToContentConstraint: NSLayoutConstraint?
+    private lazy var headerView: TalkPageHeaderView = {
+        let view = TalkPageHeaderView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    init(order: Int, viewModel: TalkPageViewModel, theme: Theme) {
+        self.order = order
+        self.viewModel = viewModel
+        self.theme = theme
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func setup() {
+        super.setup()
+        
+        translatesAutoresizingMaskIntoConstraints = false
+
+        addSubview(headerView)
+        
+        // top defaultHigh priority allows label to slide upward
+        // height 999 priority allows parent view to shrink
+        let top = headerView.topAnchor.constraint(equalTo: topAnchor)
+        top.priority = .defaultHigh
+        let bottom = bottomAnchor.constraint(equalTo: headerView.bottomAnchor)
+        let leading = headerView.leadingAnchor.constraint(equalTo: leadingAnchor)
+        let trailing = trailingAnchor.constraint(equalTo: headerView.trailingAnchor)
+        
+        let height = heightAnchor.constraint(equalTo: headerView.heightAnchor)
+        height.priority = UILayoutPriority(999)
+        self.equalHeightToContentConstraint = height
+        
+        NSLayoutConstraint.activate([
+            top,
+            bottom,
+            leading,
+            trailing,
+            height
+        ])
+        
+        headerView.configure(viewModel: viewModel)
+        headerView.apply(theme: theme)
+        
+        clipsToBounds = true
+    }
+}
