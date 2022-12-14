@@ -4,7 +4,7 @@ import UIKit
 import Combine
 
 enum ShiftingStatus {
-    typealias Amount = CGFloat
+    public typealias Amount = CGFloat
     case shifted(Amount) // AKA completed shifting. Returns the amount that was shifted.
     case shifting
 }
@@ -107,13 +107,17 @@ private extension CustomNavigationViewControlling {
         // Without this, data.totalHeight doesn't seem to get set properly upon first load.
         view.setNeedsLayout()
         view.layoutIfNeeded()
-        
-        // Setup contentOffset listener, pass it through into custom subviews
-        let sortedSubviews = customNavigationViewSubviews.sorted {
-            $0.order < $1.order
-        }
-        
-        self.scrollAmountCancellable = data.$scrollAmount.sink { scrollAmount in
+
+        self.scrollAmountCancellable = data.$scrollAmount.sink { [weak self] scrollAmount in
+            
+            guard let self = self else {
+                return
+            }
+            
+            // Setup contentOffset listener, pass it through into custom subviews
+            let sortedSubviews = self.customNavigationViewSubviews.sorted {
+                $0.order < $1.order
+            }
 
             var offset: CGFloat = 0
             for subview in sortedSubviews {
@@ -131,6 +135,13 @@ private extension CustomNavigationViewControlling {
                 }
             }
         }
+    }
+    
+    func sharedAppendShiftingSubview(_ subview: CustomNavigationViewShiftingSubview) {
+        customNavigationView.addShiftingSubviews(views: [subview])
+        
+        customNavigationView.setNeedsLayout()
+        customNavigationView.layoutIfNeeded()
     }
     
     func createCustomNavigationView() -> CustomNavigationView {
@@ -168,6 +179,10 @@ class CustomNavigationViewHostingController<Content>: UIHostingController<Conten
         super.viewDidLayoutSubviews()
         
         sharedViewDidLayoutSubviews()
+    }
+    
+    func appendShiftingSubview(_ subview: CustomNavigationViewShiftingSubview) {
+        sharedAppendShiftingSubview(subview)
     }
 }
 
@@ -224,6 +239,10 @@ class CustomNavigationViewController: UIViewController, CustomNavigationViewCont
                 scrollView.setContentOffset(contentOffset, animated: false)
             }
         }
+    }
+    
+    func appendShiftingSubview(_ subview: CustomNavigationViewShiftingSubview) {
+        sharedAppendShiftingSubview(subview)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

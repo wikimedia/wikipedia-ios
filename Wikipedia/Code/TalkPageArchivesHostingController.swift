@@ -3,7 +3,7 @@ import UIKit
 
 class TalkPageArchivesHostingController: CustomNavigationViewHostingController<TalkPageArchivesView> {
     
-    let redView = TempShiftingView(color: .red, order: 2)
+    var redView: TempShiftingView?
     let blueView = TempShiftingView(color: .blue, order: 1)
     let greenView = TempShiftingView(color: .green, order: 0)
     
@@ -15,7 +15,12 @@ class TalkPageArchivesHostingController: CustomNavigationViewHostingController<T
     }()
     
     override var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] {
-        return [barView, blueView, greenView]
+        if let redView {
+            return [barView, blueView, greenView, redView]
+        } else {
+            return [barView, blueView, greenView]
+        }
+        
     }
     
     // todo: can we hide some of this in superclass?
@@ -40,5 +45,10 @@ class TalkPageArchivesHostingController: CustomNavigationViewHostingController<T
         self.title = "Archives"
         
         view.backgroundColor = .white
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) { [self] in
+            self.redView = TempShiftingView(color: .red, order: 3)
+            self.appendShiftingSubview(self.redView!)
+        }
     }
 }

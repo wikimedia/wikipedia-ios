@@ -14,7 +14,7 @@ class TalkPageArchivesViewController: CustomNavigationViewController {
         view = archivesView
     }
     
-    let redView = TempShiftingView(color: .red, order: 2)
+    var redView: TempShiftingView?
     let blueView = TempShiftingView(color: .blue, order: 1)
     let greenView = TempShiftingView(color: .green, order: 0)
     
@@ -26,7 +26,12 @@ class TalkPageArchivesViewController: CustomNavigationViewController {
     }()
     
     override var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] {
-        return [barView, blueView, greenView]
+        if let redView {
+            return [barView, blueView, greenView, redView]
+        } else {
+            return [barView, blueView, greenView]
+        }
+        
     }
     
     override func viewDidLoad() {
@@ -43,6 +48,11 @@ class TalkPageArchivesViewController: CustomNavigationViewController {
         }
         
         archivesView.tableView.reloadData()
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) { [self] in
+            self.redView = TempShiftingView(color: .red, order: 3)
+            self.appendShiftingSubview(self.redView!)
+        }
     }
 }
 
