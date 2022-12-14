@@ -8,24 +8,16 @@ class AdjustingView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
         return label.frame.height
     }
     
-    func updateContentOffset(contentOffset: CGPoint) -> AdjustingStatus {
-        
-        // let offsetYConsideringHeight = contentOffset.y + frame.height
-        // print(max(contentOffset.y, -frame.height))
-        // if contentOffset.y < 0 {
-        
+    func updateScrollAmount(scrollAmount: CGFloat) -> AdjustingStatus {
+
         var didChangeHeight = false
         
         // content
         
-        print("contentOffset: \(contentOffset.y)")
-        
         // Cool example of last item only collapsing to a certain amount
-        // let heightOffset = order == 2 ? min(0, max((-label.frame.height/2), contentOffset.y)) : min(0, max(-label.frame.height, contentOffset.y))
+        // let heightOffset = order == 2 ? min(0, max((-label.frame.height/2), scrollAmount)) : min(0, max(-label.frame.height, scrollAmount))
         
-        let heightOffset = min(0, max(-label.frame.height, contentOffset.y))
-        
-        print("heightOffset: \(heightOffset)")
+        let heightOffset = min(0, max(-label.frame.height, scrollAmount))
         
         if (self.equalHeightToContentConstraint?.constant ?? 0) != heightOffset {
             self.equalHeightToContentConstraint?.constant = heightOffset
@@ -33,7 +25,7 @@ class AdjustingView: SetupView, CustomNavigationBarSubviewHeightAdjusting {
         }
         
         if !didChangeHeight {
-            return .complete((heightOffset * -1))
+            return .adjusted((heightOffset * -1))
         } else {
             return .adjusting
         }

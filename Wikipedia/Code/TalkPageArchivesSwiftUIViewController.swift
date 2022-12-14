@@ -8,15 +8,11 @@ class AdjustingNavigationBarView: SetupView, CustomNavigationBarSubviewHeightAdj
         return bar.frame.height
     }
     
-    func updateContentOffset(contentOffset: CGPoint) -> AdjustingStatus {
+    func updateScrollAmount(scrollAmount: CGFloat) -> AdjustingStatus {
         
         var didChangeHeight = false
         
-        print("contentOffset: \(contentOffset.y)")
-        
-        let heightOffset = min(0, max(-bar.frame.height, contentOffset.y))
-        
-        print("heightOffset: \(heightOffset)")
+        let heightOffset = min(0, max(-bar.frame.height, scrollAmount))
         
         if (self.equalHeightToContentConstraint?.constant ?? 0) != heightOffset {
             self.equalHeightToContentConstraint?.constant = heightOffset
@@ -24,7 +20,7 @@ class AdjustingNavigationBarView: SetupView, CustomNavigationBarSubviewHeightAdj
         }
         
         if !didChangeHeight {
-            return .complete((heightOffset * -1))
+            return .adjusted((heightOffset * -1))
         } else {
             return .adjusting
         }

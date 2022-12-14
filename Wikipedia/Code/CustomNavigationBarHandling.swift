@@ -5,20 +5,20 @@ import Combine
 
 enum AdjustingStatus {
     typealias AmountAdjusted = CGFloat
-    case complete(CGFloat)
+    case adjusted(AmountAdjusted)
     case adjusting
 }
 
 protocol CustomNavigationBarSubviewHeightAdjusting: UIView {
     var order: Int { get }
     var contentHeight: CGFloat { get }
-    func updateContentOffset(contentOffset: CGPoint) -> AdjustingStatus
+    func updateScrollAmount(scrollAmount: CGFloat) -> AdjustingStatus
 }
 
 class CustomNavigationBarData: ObservableObject {
-    @Published var contentOffset: CGPoint = .zero // updated by content views, read by adjusting custom nav bar subviews
-    @Published var visibleBarHeight: CGFloat = .zero // not used yet
-    @Published var totalBarHeight: CGFloat = .zero //updated at didLayoutSubviews, sum of uncollapsed heights of adjusting custom nav bar subviews
+    @Published var scrollAmount = CGFloat(0) // updated by content views, read by adjusting custom nav bar subviews
+    @Published var visibleBarHeight = CGFloat(0) // not used yet
+    @Published var totalBarHeight = CGFloat(0) // updated at didLayoutSubviews, sum of uncollapsed heights of adjusting custom nav bar subviews
 }
 
 private protocol CustomNavigationBarHandling: UIViewController {
@@ -38,9 +38,7 @@ private extension CustomNavigationBarHandling {
     func sharedViewDidLayoutSubviews() {
         if data.totalBarHeight != customNavigationBar.totalHeight {
             data.totalBarHeight = customNavigationBar.totalHeight
-            print("🔵\(data.totalBarHeight)")
         }
-        print("customNavigationBar.bounds.height: \(customNavigationBar.bounds.height)")
     }
     
     func setupCustomNavigationBar() {
@@ -73,17 +71,17 @@ private extension CustomNavigationBarHandling {
             $0.order < $1.order
         }
         
-        self.contentOffsetCancellable = data.$contentOffset.sink { newOffset in
+        self.contentOffsetCancellable = data.$scrollAmount.sink { newScrollAmount in
 
             var adjustedDelta: CGFloat = 0
             for subview in sortedSubviews {
                 
-                let shiftedOffset = CGPoint(x: newOffset.x, y: newOffset.y + adjustedDelta)
-                let adjustStatus = subview.updateContentOffset(contentOffset: shiftedOffset)
+                let shiftedScrollAmount = newScrollAmount + adjustedDelta
+                let adjustStatus = subview.updateScrollAmount(scrollAmount: shiftedScrollAmount)
                 
                 switch adjustStatus {
-                case .complete(let adjustedHeight):
-                    adjustedDelta += adjustedHeight
+                case .adjusted(let height):
+                    adjustedDelta += height
                     continue
                 case .adjusting:
                     return

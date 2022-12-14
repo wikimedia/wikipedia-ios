@@ -9,7 +9,7 @@ struct TalkPageArchivesView: View {
             axes: [.vertical],
             showsIndicators: true,
             offsetChanged: {
-                data.contentOffset = $0
+                data.scrollAmount = $0.y
             }
         ) {
             LazyVStack(alignment: .leading) {
