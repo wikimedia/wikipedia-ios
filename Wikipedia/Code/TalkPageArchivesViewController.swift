@@ -10,7 +10,7 @@ class TalkPageArchivesViewController: CustomNavigationViewController {
     
     override func loadView() {
         let archivesView = TalkPageArchivesViewUIKit(frame: UIScreen.main.bounds)
-        _scrollView = archivesView.tableView
+        scrollView = archivesView.tableView
         view = archivesView
     }
     

@@ -19,7 +19,7 @@ class TalkPageReplyComposeController {
     // containerView - the view that contains the contentView. It has the drag handle and pan gesture attached.
     // contentView - the view with the reply compose UI elements (close button, publish button, text views)
     
-    typealias ReplyComposableViewController = ViewController & TalkPageReplyComposeDelegate & TalkPageTextViewLinkHandling
+    typealias ReplyComposableViewController = UIViewController & TalkPageReplyComposeDelegate & TalkPageTextViewLinkHandling
     private var viewController: ReplyComposableViewController?
     private(set) var commentViewModel: TalkPageCellCommentViewModel?
     
@@ -60,7 +60,9 @@ class TalkPageReplyComposeController {
         self.authenticationManager = authenticationManager
         self.accessibilityFocusView = accessibilityFocusView
         setupViews(in: viewController, commentViewModel: commentViewModel)
-        apply(theme: viewController.theme)
+        
+        // todo: fix theme
+        apply(theme: Theme.light)
         if UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
             if UIAccessibility.isVoiceOverRunning {
                 UIAccessibility.post(notification: .screenChanged, argument: contentView)
@@ -83,7 +85,8 @@ class TalkPageReplyComposeController {
             return
         }
         
-        let keyboardHeight = newKeyboardFrame?.height ?? viewController.keyboardFrame?.height ?? 0
+        // todo: maybe bring back keyboard frame
+        let keyboardHeight = newKeyboardFrame?.height ?? 0 // viewController.keyboardFrame?.height ?? 0
         
         contentViewBottomConstraint?.constant = keyboardHeight
         
@@ -182,7 +185,8 @@ class TalkPageReplyComposeController {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userDidPanContainerView(_:)))
         containerView.addGestureRecognizer(panGestureRecognizer)
         
-        addContentView(to: containerView, theme: viewController.theme, commentViewModel: commentViewModel, linkDelegate: viewController)
+        // todo: fix theme
+        addContentView(to: containerView, theme: .light, commentViewModel: commentViewModel, linkDelegate: viewController)
         animateOn()
     }
     
@@ -406,9 +410,10 @@ class TalkPageReplyComposeController {
             return
         }
         
-        guard let theme = viewController?.theme else {
-            return
-        }
+//        // todo: fix theme
+//        guard let theme = viewController?.theme else {
+//            return
+//        }
         
         viewController?.wmf_showNotLoggedInUponPublishPanel(buttonTapHandler: { [weak self] buttonIndex in
             switch buttonIndex {
@@ -420,7 +425,7 @@ class TalkPageReplyComposeController {
             default:
                 assertionFailure("Unrecognized button index in tap handler.")
             }
-        }, theme: theme)
+        }, theme: .light)
     }
 }
 

@@ -155,7 +155,7 @@ class TalkPageViewController: CustomNavigationViewController {
     override func loadView() {
         let talkPageView = TalkPageView(frame: UIScreen.main.bounds)
         view = talkPageView
-        _scrollView = talkPageView.collectionView
+        self.scrollView = talkPageView.collectionView
     }
 
     fileprivate func fetchTalkPage() {
@@ -207,30 +207,47 @@ class TalkPageViewController: CustomNavigationViewController {
         fetchTalkPage()
         setupToolbar()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIWindow.keyboardWillHideNotification, object: nil)
         apply(theme: theme)
     }
     
     // TODO: Keyboard handling - also consider moving to UIViewController extension
     
+    // This is just for handling content inset for find in page keyboard.
     @objc func keyboardWillChangeFrame(_ notification: Notification) {
-        if let window = view.window, let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+        if let window = view.window, let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+           !replyComposeController.isShowing {
             let windowFrame = window.convert(endFrame, from: nil)
             let keyboardFrame = window.convert(windowFrame, to: talkPageView)
             let intersectingFrame = keyboardFrame.intersection(talkPageView.collectionView.frame)
-            let oldInset = talkPageView.collectionView.contentInset
-            let oldScrollInset = talkPageView.collectionView.verticalScrollIndicatorInsets
-            
-            talkPageView.collectionView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: intersectingFrame.height, right: oldInset.right)
-            talkPageView.collectionView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: intersectingFrame.height, right: oldScrollInset.right)
+            let oldInset = scrollView.contentInset
+            let oldScrollInset = scrollView.verticalScrollIndicatorInsets
+        
+            scrollView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: intersectingFrame.height, right: oldInset.right)
+            scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: intersectingFrame.height, right: oldScrollInset.right)
         }
     }
     
-    @objc func keyboardWillHide(_ notification: Notification) {
-        let oldInset = talkPageView.collectionView.contentInset
-        let oldScrollInset = talkPageView.collectionView.verticalScrollIndicatorInsets
-        talkPageView.collectionView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: 0, right: oldInset.right)
-        talkPageView.collectionView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: 0, right: oldScrollInset.right)
+    // This is just for handling content inset for reply compose view
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        let oldInset = scrollView.contentInset
+        let oldScrollInset = scrollView.verticalScrollIndicatorInsets
+        
+        if replyComposeController.isShowing,
+        let containerView = replyComposeController.containerView {
+            let replyComposeFrame = containerView.frame
+            let bottomInset = scrollView.frame.maxY - replyComposeFrame.minY
+            
+            print(bottomInset)
+            scrollView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: bottomInset, right: oldInset.right)
+            scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: bottomInset, right: oldScrollInset.right)
+            
+        } else {
+            scrollView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: 0, right: oldInset.right)
+            scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: 0, right: oldScrollInset.right)
+        }
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -345,13 +362,13 @@ class TalkPageViewController: CustomNavigationViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         talkPageView.collectionView.reloadData()
-        // headerView?.updateLabelFonts()
+        tempShiftingHeaderView?.headerView.updateLabelFonts()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        // replyComposeController.calculateLayout(in: self, newViewSize: size)
+        replyComposeController.calculateLayout(in: self, newViewSize: size)
     }
     
     // MARK: - Toolbar actions
@@ -845,10 +862,8 @@ extension TalkPageViewController: TalkPageCellDelegate {
     // MARK: - Empty State
 
     fileprivate func updateEmptyStateVisibility() {
-        talkPageView.updateEmptyView(visible: false)
-        // _scrollView = talkPageView.collectionView
-        // scrollView = viewModel.topics.count == 0 ? talkPageView.emptyView.scrollView : talkPageView.collectionView
-        // updateScrollViewInsets()
+        talkPageView.updateEmptyView(visible: viewModel.topics.count == 0)
+        scrollView = viewModel.topics.count == 0 ? talkPageView.emptyView.scrollView : talkPageView.collectionView
     }
 
     fileprivate func updateErrorStateVisibility() {
@@ -863,7 +878,7 @@ extension TalkPageViewController: TalkPageCellReplyDelegate {
         if !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
             presentTopicReplyOnboarding()
         }
-        // replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager, accessibilityFocusView: accessibilityFocusView)
+        replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager, accessibilityFocusView: accessibilityFocusView)
     }
 }
 

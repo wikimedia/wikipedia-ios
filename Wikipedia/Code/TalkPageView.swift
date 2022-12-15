@@ -61,14 +61,14 @@ final class TalkPageView: SetupView {
             collectionView.bottomAnchor.constraint(equalTo: toolbar.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            emptyView.topAnchor.constraint(equalTo: topAnchor),
-            emptyView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            emptyView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            emptyView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            errorView.topAnchor.constraint(equalTo: topAnchor),
-            errorView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            errorView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            errorView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            emptyView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: toolbar.topAnchor),
+            emptyView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            errorView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            errorView.bottomAnchor.constraint(equalTo: toolbar.topAnchor),
+            errorView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            errorView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
         ])
     }
 

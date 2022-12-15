@@ -110,7 +110,7 @@ class TempShiftingTalkPageHeaderView: SetupView, CustomNavigationViewShiftingSub
     }
     
     private var equalHeightToContentConstraint: NSLayoutConstraint?
-    private lazy var headerView: TalkPageHeaderView = {
+    lazy var headerView: TalkPageHeaderView = {
         let view = TalkPageHeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

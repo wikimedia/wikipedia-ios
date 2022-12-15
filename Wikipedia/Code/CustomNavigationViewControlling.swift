@@ -204,13 +204,18 @@ class CustomNavigationViewController: UIViewController, CustomNavigationViewCont
     }
     
     var scrollView: UIScrollView {
-        guard let scrollView = _scrollView else {
-            fatalError("Must assign in subclass on load")
+        get {
+            guard let scrollView = _scrollView else {
+                fatalError("Must assign in subclass on load")
+            }
+            
+            return scrollView
         }
-        
-        return scrollView
+        set {
+            _scrollView = newValue
+        }
     }
-    var _scrollView: UIScrollView? {
+    private var _scrollView: UIScrollView? {
         didSet {
             scrollView.contentInsetAdjustmentBehavior = .never
             scrollView.automaticallyAdjustsScrollIndicatorInsets = false
@@ -236,6 +241,7 @@ class CustomNavigationViewController: UIViewController, CustomNavigationViewCont
             scrollView.contentInset = UIEdgeInsets(top: data.totalHeight, left: 0, bottom: 0, right: 0)
             scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: data.totalHeight, left: 0, bottom: 0, right: 0)
             
+            print("scrollView: \(scrollView)")
             print("contentInset: \(scrollView.contentInset)")
             
             // This fixes a bug upon first load where content initially appears underneath navigation view
