@@ -264,6 +264,10 @@ class TalkPageViewController: CustomNavigationViewController {
 
     private func setupHeaderView() {
         
+        guard tempShiftingHeaderView == nil else {
+            return
+        }
+        
         // TODO: reset for change language
 
         self.tempShiftingHeaderView = TempShiftingTalkPageHeaderView(order: 0, viewModel: viewModel, theme: theme)
@@ -721,6 +725,9 @@ class TalkPageViewController: CustomNavigationViewController {
         
         viewModel.resetToNewSiteURL(siteURL, pageTitle: pageTitle, project: project)
         setupOverflowMenu()
+        
+        tempShiftingHeaderView?.removeFromSuperview()
+        tempShiftingHeaderView = nil
         
         fetchTalkPage()
     }
