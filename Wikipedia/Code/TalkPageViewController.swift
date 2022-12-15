@@ -29,7 +29,7 @@ class TalkPageViewController: CustomNavigationViewController {
     lazy var barView: ShiftingNavigationBarView = {
         var items: [UINavigationItem] = []
         navigationController?.viewControllers.forEach({ items.append($0.navigationItem) })
-        let config = ShiftingNavigationBarView.Config(reappearOnScrollUp: false, shiftOnScrollUp: false)
+        let config = ShiftingNavigationBarView.Config(reappearOnScrollUp: false, shiftOnScrollUp: false, needsProgressView: true)
         return ShiftingNavigationBarView(order: 1, config: config, navigationItems: items, popDelegate: self)
     }()
     
@@ -42,11 +42,11 @@ class TalkPageViewController: CustomNavigationViewController {
         
     }
     
-//    lazy private(set) var fakeProgressController: FakeProgressController = {
-//        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
-//        progressController.delay = 0.0
-//        return progressController
-//    }()
+    lazy private(set) var fakeProgressController: FakeProgressController = {
+        let progressController = FakeProgressController(progress: barView, delegate: barView)
+        progressController.delay = 0.0
+        return progressController
+    }()
     
     var scrollingToIndexPath: IndexPath?
     var scrollingToResult: TalkPageFindInPageSearchController.SearchResult?
@@ -159,12 +159,14 @@ class TalkPageViewController: CustomNavigationViewController {
     }
 
     fileprivate func fetchTalkPage() {
+        fakeProgressController.start()
         viewModel.fetchTalkPage { [weak self] result in
 
             guard let self = self else {
                 return
             }
 
+            self.fakeProgressController.stop()
             switch result {
             case .success:
                 self.setupHeaderView()
@@ -882,10 +884,10 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self.replyComposeController.closeAndReset()
                 
                 // Try to refresh page
-                // self.fakeProgressController.start()
+                self.fakeProgressController.start()
                 self.viewModel.fetchTalkPage { [weak self] result in
                     
-                    // self?.fakeProgressController.stop()
+                    self?.fakeProgressController.stop()
 
                     switch result {
                     case .success:
@@ -945,10 +947,10 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                 }
                 
                 // Try to refresh page
-                // self?.fakeProgressController.start()
+                self?.fakeProgressController.start()
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     
-                    // self?.fakeProgressController.stop()
+                    self?.fakeProgressController.stop()
                     
                     switch result {
                     case .success:

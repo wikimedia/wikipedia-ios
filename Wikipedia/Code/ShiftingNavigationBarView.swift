@@ -13,12 +13,23 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
     struct Config {
         let reappearOnScrollUp: Bool
         let shiftOnScrollUp: Bool
+        let needsProgressView: Bool
         
-        init(reappearOnScrollUp: Bool = true, shiftOnScrollUp: Bool = true) {
+        init(reappearOnScrollUp: Bool = true, shiftOnScrollUp: Bool = true, needsProgressView: Bool = false) {
             self.reappearOnScrollUp = reappearOnScrollUp
             self.shiftOnScrollUp = shiftOnScrollUp
+            self.needsProgressView = needsProgressView
         }
     }
+    
+    private lazy var progressView: UIProgressView = {
+        let progressView = UIProgressView()
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.progressViewStyle = .bar
+        progressView.trackTintColor = .clear
+        progressView.progressTintColor = .blue // todo: theme
+        return progressView
+    }()
     
     private var lastReappearAmount: CGFloat?
     private var isCollapsed = false
@@ -142,6 +153,15 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         height.priority = UILayoutPriority(999)
         self.equalHeightToContentConstraint = height
         
+        if config.needsProgressView {
+            addSubview(progressView)
+            NSLayoutConstraint.activate([
+                progressView.leadingAnchor.constraint(equalTo: bar.leadingAnchor),
+                progressView.trailingAnchor.constraint(equalTo: bar.trailingAnchor),
+                progressView.bottomAnchor.constraint(equalTo: bar.bottomAnchor)
+            ])
+        }
+        
         NSLayoutConstraint.activate([
             top,
             bottom,
@@ -151,6 +171,32 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         ])
         
         clipsToBounds = true
+    }
+}
+
+extension ShiftingNavigationBarView: FakeProgressReceiving, FakeProgressDelegate {
+    @objc public func setProgressHidden(_ hidden: Bool, animated: Bool) {
+        let changes = {
+            self.progressView.alpha = hidden ? 0 : 1
+        }
+        if animated {
+            UIView.animate(withDuration: 0.2, animations: changes)
+        } else {
+            changes()
+        }
+    }
+    
+    @objc public func setProgress(_ progress: Float, animated: Bool) {
+        progressView.setProgress(progress, animated: animated)
+    }
+    
+    public var progress: Float {
+        get {
+            return progressView.progress
+        }
+        set {
+            progressView.progress = newValue
+        }
     }
 }
 
