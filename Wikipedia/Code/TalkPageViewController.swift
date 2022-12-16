@@ -205,11 +205,23 @@ class TalkPageViewController: CustomNavigationViewController {
         fetchTalkPage()
         setupToolbar()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(_:)), name: UIWindow.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIWindow.keyboardWillHideNotification, object: nil)
         
         apply(theme: theme)
     }
     
     // TODO: Keyboard handling - also consider moving to UIViewController extension
+    
+    var isKeyboardShowing = false
+    
+    @objc func keyboardDidShow(_ notification: Notification) {
+        isKeyboardShowing = true
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        isKeyboardShowing = false
+    }
     
     // This is just for handling content inset for find in page keyboard.
     @objc func keyboardWillChangeFrame(_ notification: Notification) {
@@ -242,7 +254,7 @@ class TalkPageViewController: CustomNavigationViewController {
             scrollView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: bottomInset, right: oldInset.right)
             scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: bottomInset, right: oldScrollInset.right)
             
-        } else {
+        } else if !isKeyboardShowing {
             scrollView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: 0, right: oldInset.right)
             scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: 0, right: oldScrollInset.right)
         }
