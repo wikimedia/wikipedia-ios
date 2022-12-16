@@ -40,6 +40,11 @@ class TalkPageViewController: CustomNavigationViewController {
         }
     }
     
+    // Override if needed
+    override var shadowBehavior: CustomNavigationView.ShadowBehavior {
+        return .alwaysShow
+    }
+    
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: barView, delegate: barView)
         progressController.delay = 0.0

@@ -17,6 +17,12 @@ protocol CustomNavigationViewShiftingSubview: UIView, Themeable {
 
 class CustomNavigationView: SetupView, Themeable {
     
+    enum ShadowBehavior {
+        case alwaysShow
+        case showUponScroll
+        case alwaysHide
+    }
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView(frame: .zero)
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -25,20 +31,67 @@ class CustomNavigationView: SetupView, Themeable {
         stackView.distribution = .fill
         return stackView
     }()
-
+    
+    private lazy var shadowView: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .black
+        view.alpha = 0
+        return view
+    }()
+    
+    private let shadowBehavior: ShadowBehavior
+    
+    init(shadowBehavior: ShadowBehavior) {
+        self.shadowBehavior = shadowBehavior
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func setup() {
         super.setup()
         
         addSubview(stackView)
+        addSubview(shadowView)
         
         NSLayoutConstraint.activate([
             safeAreaLayoutGuide.topAnchor.constraint(equalTo: stackView.topAnchor),
             leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
             trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-            safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
+            safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+            
+            leadingAnchor.constraint(equalTo: shadowView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: shadowView.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: shadowView.bottomAnchor),
+            shadowView.heightAnchor.constraint(equalToConstant: 1)
         ])
         
         backgroundColor = .white
+        
+        switch shadowBehavior {
+        case .alwaysShow:
+            shadowView.alpha = 1
+        case .alwaysHide, .showUponScroll:
+            shadowView.alpha = 0
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        switch shadowBehavior {
+        case .showUponScroll:
+            let percentCollapsed = stackView.frame.height / totalHeight
+            
+            UIView.animate(withDuration: 0.2) {
+                self.shadowView.alpha = 1 - percentCollapsed
+            }
+        default:
+            break
+        }
     }
     
     var totalHeight: CGFloat {
@@ -57,9 +110,10 @@ class CustomNavigationView: SetupView, Themeable {
     }
     
     func apply(theme: Theme) {
-        self.backgroundColor = theme.colors.paperBackground
-        self.stackView.backgroundColor = theme.colors.paperBackground
-        self.stackView.arrangedSubviews.forEach({ ($0 as? Themeable)?.apply(theme: theme) })
+        backgroundColor = theme.colors.paperBackground
+        stackView.backgroundColor = theme.colors.paperBackground
+        stackView.arrangedSubviews.forEach({ ($0 as? Themeable)?.apply(theme: theme) })
+        shadowView.backgroundColor = theme.colors.chromeShadow
     }
 }
 
@@ -75,11 +129,13 @@ private protocol CustomNavigationViewControlling: UIViewController, Themeable {
     var customNavigationView: CustomNavigationView { get }
     var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] { get }
     var theme: Theme { get set }
+    var shadowBehavior: CustomNavigationView.ShadowBehavior { get }
 }
 
 // Shared Helper Methods
 
 private extension CustomNavigationViewControlling {
+    
     func sharedViewDidLoad() {
         setupCustomNavigationView()
     }
@@ -159,7 +215,7 @@ private extension CustomNavigationViewControlling {
     }
     
     func createCustomNavigationView() -> CustomNavigationView {
-        let navigationView = CustomNavigationView(frame: .zero)
+        let navigationView = CustomNavigationView(shadowBehavior: shadowBehavior)
         navigationView.translatesAutoresizingMaskIntoConstraints = false
         return navigationView
     }
@@ -171,6 +227,11 @@ class CustomNavigationViewHostingController<Content>: UIHostingController<Conten
 
     var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] {
         fatalError("Must implement in subclass")
+    }
+    
+    // Override if needed
+    var shadowBehavior: CustomNavigationView.ShadowBehavior {
+        return .showUponScroll
     }
     
     var data: CustomNavigationViewData {
@@ -225,6 +286,11 @@ class CustomNavigationViewController: UIViewController, CustomNavigationViewCont
     lazy var customNavigationView: CustomNavigationView = {
         return createCustomNavigationView()
     }()
+    
+    // Override if needed
+    var shadowBehavior: CustomNavigationView.ShadowBehavior {
+        return .showUponScroll
+    }
     
     var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] {
         fatalError("Must implement in subclass")
