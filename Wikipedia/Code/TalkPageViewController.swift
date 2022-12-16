@@ -30,7 +30,7 @@ class TalkPageViewController: CustomNavigationViewController {
         var items: [UINavigationItem] = []
         navigationController?.viewControllers.forEach({ items.append($0.navigationItem) })
         let config = ShiftingNavigationBarView.Config(reappearOnScrollUp: false, shiftOnScrollUp: false, needsProgressView: true)
-        return ShiftingNavigationBarView(order: 1, config: config, navigationItems: items, popDelegate: self)
+        return ShiftingNavigationBarView(order: 0, config: config, navigationItems: items, popDelegate: self)
     }()
     
     override var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] {
@@ -39,7 +39,6 @@ class TalkPageViewController: CustomNavigationViewController {
         } else {
             return [barView]
         }
-        
     }
     
     lazy private(set) var fakeProgressController: FakeProgressController = {

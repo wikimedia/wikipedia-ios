@@ -238,19 +238,19 @@ class CustomNavigationViewController: UIViewController, CustomNavigationViewCont
         
         // Update content inset according to total height of custom navigation bar
         if scrollView.contentInset.top != data.totalHeight {
+            let oldInsetTop = scrollView.contentInset.top
             scrollView.contentInset = UIEdgeInsets(top: data.totalHeight, left: 0, bottom: 0, right: 0)
             scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: data.totalHeight, left: 0, bottom: 0, right: 0)
             
-            print("scrollView: \(scrollView)")
-            print("contentInset: \(scrollView.contentInset)")
             
             // This fixes a bug upon first load where content initially appears underneath navigation view
-            // TODO: is there a better fix?
-//            if -1 * scrollView.contentOffset.y < data.totalHeight {
-//                var contentOffset = scrollView.contentOffset
-//                contentOffset.y = -1 * data.totalHeight
-//                scrollView.setContentOffset(contentOffset, animated: false)
-//            }
+            // This seems to be a one-time fix needed only for UITableViews, not UICollectionViews.
+            // Also seeing a warning "UITableView was told to layout its visible cells and other contents without being in the view hierarchy (the table view or one of its superviews has not been added to a window).". Fixing that may remove the need for this.
+            if Int(-1 * scrollView.contentOffset.y) == Int(oldInsetTop) { // && (-1 * scrollView.contentOffset.y) < data.totalHeight {
+                var contentOffset = scrollView.contentOffset
+                contentOffset.y = -1 * data.totalHeight
+                scrollView.setContentOffset(contentOffset, animated: false)
+            }
         }
     }
     

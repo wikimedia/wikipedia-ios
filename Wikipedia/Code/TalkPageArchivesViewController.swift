@@ -10,8 +10,8 @@ class TalkPageArchivesViewController: CustomNavigationViewController {
     
     override func loadView() {
         let archivesView = TalkPageArchivesViewUIKit(frame: UIScreen.main.bounds)
-        scrollView = archivesView.tableView
         view = archivesView
+        scrollView = archivesView.tableView
     }
     
     var redView: TempShiftingView?
@@ -22,7 +22,7 @@ class TalkPageArchivesViewController: CustomNavigationViewController {
         var items: [UINavigationItem] = []
         navigationController?.viewControllers.forEach({ items.append($0.navigationItem) })
         let config = ShiftingNavigationBarView.Config(reappearOnScrollUp: false, shiftOnScrollUp: false)
-        return ShiftingNavigationBarView(order: 2, config: config, navigationItems: items, popDelegate: self)
+        return ShiftingNavigationBarView(order: 0, config: config, navigationItems: items, popDelegate: self)
     }()
     
     override var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] {
@@ -31,7 +31,6 @@ class TalkPageArchivesViewController: CustomNavigationViewController {
         } else {
             return [barView, blueView, greenView]
         }
-        
     }
     
     override func viewDidLoad() {
@@ -41,17 +40,16 @@ class TalkPageArchivesViewController: CustomNavigationViewController {
         
         archivesView.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "basicStyle")
         archivesView.tableView.dataSource = self
-        archivesView.tableView.delegate = self
-        
-        for _ in 0..<100 {
-            items.append("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
-        }
-        
-        archivesView.tableView.reloadData()
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) { [self] in
             self.redView = TempShiftingView(color: .red, order: 3)
             self.appendShiftingSubview(self.redView!)
+            
+            for _ in 0..<100 {
+                items.append("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+            }
+            
+            archivesView.tableView.reloadData()
         }
     }
 }
@@ -60,14 +58,10 @@ extension TalkPageArchivesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "basicStyle", for: indexPath)
         cell.textLabel!.text = items[indexPath.row]
         return cell
     }
-}
-
-extension TalkPageArchivesViewController: UITableViewDelegate {
-    
 }
