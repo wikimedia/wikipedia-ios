@@ -36,7 +36,7 @@ final class TalkPageViewModel {
     
     static let leadImageSideLength = 80
     
-    // var theme: Theme
+    var theme: Theme
     private(set) var topics: [TalkPageCellViewModel] = []
     private(set) var shouldShowErrorState: Bool = false
 
