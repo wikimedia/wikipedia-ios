@@ -92,9 +92,9 @@ class TempShiftingTalkPageHeaderView: SetupView, CustomNavigationViewShiftingSub
         return headerView.frame.height
     }
     
+    private var isCollapsed = false
+    
     func shift(amount: CGFloat) -> ShiftingStatus {
-        
-        var didChangeHeight = false
         
         let limitedShiftAmount = max(0, min(amount, contentHeight))
         
@@ -103,10 +103,13 @@ class TempShiftingTalkPageHeaderView: SetupView, CustomNavigationViewShiftingSub
         
         if (self.equalHeightToContentConstraint?.constant ?? 0) != -limitedShiftAmount {
             self.equalHeightToContentConstraint?.constant = -limitedShiftAmount
-            didChangeHeight = true
         }
         
-        if !didChangeHeight {
+        if -(self.equalHeightToContentConstraint?.constant ?? 0) == contentHeight {
+            isCollapsed = true
+        }
+        
+        if isCollapsed {
             return .shifted(limitedShiftAmount)
         } else {
             return .shifting

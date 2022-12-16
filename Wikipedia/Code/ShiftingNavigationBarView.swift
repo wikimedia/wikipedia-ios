@@ -96,11 +96,10 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         // Shift Y placement
         if (self.equalHeightToContentConstraint?.constant ?? 0) != -limitedShiftAmount {
             self.equalHeightToContentConstraint?.constant = -limitedShiftAmount
-            isCollapsed = false
-        } else {
-            if -(self.equalHeightToContentConstraint?.constant ?? 0) == contentHeight {
-                isCollapsed = true
-            }
+        }
+                
+        if -(self.equalHeightToContentConstraint?.constant ?? 0) == contentHeight {
+            isCollapsed = true
         }
         
         lastAmount = amount

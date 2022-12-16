@@ -28,8 +28,8 @@ class TalkPageViewController: CustomNavigationViewController {
     lazy var barView: ShiftingNavigationBarView = {
         var items: [UINavigationItem] = []
         navigationController?.viewControllers.forEach({ items.append($0.navigationItem) })
-        let config = ShiftingNavigationBarView.Config(reappearOnScrollUp: false, shiftOnScrollUp: false, needsProgressView: true)
-        return ShiftingNavigationBarView(order: 0, config: config, navigationItems: items, popDelegate: self)
+        let config = ShiftingNavigationBarView.Config(reappearOnScrollUp: false, shiftOnScrollUp: true, needsProgressView: true)
+        return ShiftingNavigationBarView(order: 1, config: config, navigationItems: items, popDelegate: self)
     }()
     
     override var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] {
