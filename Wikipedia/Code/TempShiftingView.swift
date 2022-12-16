@@ -164,6 +164,7 @@ class TempShiftingTalkPageHeaderView: SetupView, CustomNavigationViewShiftingSub
         headerView.configure(viewModel: viewModel, theme: theme)
         
         clipsToBounds = true
+        apply(theme: theme)
     }
     
     func apply(theme: Theme) {

@@ -114,6 +114,8 @@ extension TalkPageView: Themeable {
         collectionView.backgroundColor = baseBackground
         emptyView.apply(theme: theme)
         errorView.apply(theme: theme)
+        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+        toolbar.isTranslucent = false
     }
 
 }

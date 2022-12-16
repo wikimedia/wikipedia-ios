@@ -26,8 +26,6 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         let progressView = UIProgressView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.progressViewStyle = .bar
-        progressView.trackTintColor = .clear
-        progressView.progressTintColor = .blue // todo: theme
         return progressView
     }()
     
@@ -212,6 +210,10 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         bar.barTintColor = theme.colors.chromeBackground
         bar.shadowImage = theme.navigationBarShadowImage
         bar.tintColor = theme.colors.chromeText
+        
+        progressView.progressViewStyle = .bar
+        progressView.trackTintColor = .clear
+        progressView.progressTintColor = theme.colors.link
     }
 }
 
