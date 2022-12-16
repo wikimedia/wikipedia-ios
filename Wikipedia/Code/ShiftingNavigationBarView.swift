@@ -65,19 +65,29 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
                 equalHeightToContentConstraint?.constant = 0
                 setNeedsLayout()
                 UIView.animate(withDuration: 0.2) {
+                    self.alpha = 1.0
+                    let resetTransform = CGAffineTransform.identity
+                    for subview in self.bar.subviews {
+                        for subview in subview.subviews {
+                            subview.transform = resetTransform
+                        }
+                    }
                     self.layoutIfNeeded()
                 }
                 isCollapsed = false
-                return .shifting
-            } else if goingUp && isCollapsed {
+                return .shifted(contentHeight)
+            } else if goingUp && isCollapsed && amount > contentHeight {
                 lastAmount = amount
                 return .shifting
+            } else if goingUp && !isCollapsed && amount <= contentHeight {
+                return .shifted(contentHeight)
             }
-            
         }
         
         // adjust amount to start from when direction last changed, if needed
-        let adjustedAmount = config.reappearOnScrollUp && amount > 0 ? amount - (amountWhenDirectionChanged) : amount
+        print("amount:\(amount)")
+        let adjustedAmount = config.reappearOnScrollUp && amount > contentHeight ? amount - (amountWhenDirectionChanged) : amount
+        print("adjustedAmount: \(adjustedAmount)")
         
         let limitedShiftAmount = max(0, min(adjustedAmount, contentHeight))
         
