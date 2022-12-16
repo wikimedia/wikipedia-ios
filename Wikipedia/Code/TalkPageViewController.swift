@@ -299,8 +299,7 @@ class TalkPageViewController: CustomNavigationViewController {
         self.tempShiftingHeaderView = TempShiftingTalkPageHeaderView(order: 0, viewModel: viewModel, theme: theme)
         appendShiftingSubview(tempShiftingHeaderView!)
 
-        // todo: this too
-        // headerView.coffeeRollReadMoreButton.addTarget(self, action: #selector(userDidTapCoffeeRollReadMoreButton), for: .primaryActionTriggered)
+        tempShiftingHeaderView?.headerView.coffeeRollReadMoreButton.addTarget(self, action: #selector(userDidTapCoffeeRollReadMoreButton), for: .primaryActionTriggered)
     }
     
     private func setupOverflowMenu() {
