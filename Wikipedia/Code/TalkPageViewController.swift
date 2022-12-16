@@ -443,7 +443,7 @@ class TalkPageViewController: CustomNavigationViewController {
 
     fileprivate func pushToDesktopWeb() {
         guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/\(viewModel.pageTitle)", isMobile: false) else {
-            // showGenericError()
+            showGenericError()
             return
         }
         
@@ -465,7 +465,7 @@ class TalkPageViewController: CustomNavigationViewController {
         guard let host = viewModel.siteURL.host,
               let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
                                                                                                                                                                 "action": "info"]) else {
-            // showGenericError()
+            showGenericError()
             return
         }
         
@@ -474,7 +474,7 @@ class TalkPageViewController: CustomNavigationViewController {
     
     fileprivate func pushToWhatLinksHere() {
         guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:WhatLinksHere/\(viewModel.pageTitle)", isMobile: true) else {
-            // showGenericError()
+            showGenericError()
             return
         }
         
@@ -484,7 +484,7 @@ class TalkPageViewController: CustomNavigationViewController {
     fileprivate func pushToContributions() {
         guard let username = usernameFromPageTitle(),
               let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) else {
-            // showGenericError()
+            showGenericError()
             return
         }
         
@@ -494,7 +494,7 @@ class TalkPageViewController: CustomNavigationViewController {
     fileprivate func pushToUserGroups() {
         guard let username = usernameFromPageTitle(),
               let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:UserRights/\(username)", isMobile: true) else {
-            // showGenericError()
+            showGenericError()
             return
         }
         
@@ -504,7 +504,7 @@ class TalkPageViewController: CustomNavigationViewController {
     fileprivate func pushToLogs() {
         guard let username = usernameFromPageTitle(),
               let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Log/\(username)", isMobile: true) else {
-            // showGenericError()
+            showGenericError()
             return
         }
         
@@ -532,7 +532,7 @@ class TalkPageViewController: CustomNavigationViewController {
               let host = mobileSiteURL.host,
               let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
                                                                                                                                                                 "oldid": latestRevisionID]) else {
-            // showGenericError()
+            showGenericError()
             return
         }
         
@@ -735,7 +735,7 @@ class TalkPageViewController: CustomNavigationViewController {
     private func changeTalkPageLanguage(_ siteURL: URL, pageTitle: String) {
 
         guard let project = WikimediaProject(siteURL: siteURL, languageLinkController: viewModel.languageLinkController) else {
-            // showGenericError()
+            showGenericError()
             return
         }
         
