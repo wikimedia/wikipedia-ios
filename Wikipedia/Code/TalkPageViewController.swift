@@ -141,9 +141,9 @@ class TalkPageViewController: CustomNavigationViewController {
 
     // MARK: - Lifecycle
 
-    init(viewModel: TalkPageViewModel) {
+    init(viewModel: TalkPageViewModel, theme: Theme) {
         self.viewModel = viewModel
-        super.init(theme: viewModel.theme)
+        super.init(theme: theme)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -206,7 +206,7 @@ class TalkPageViewController: CustomNavigationViewController {
         setupToolbar()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
         
-        apply(theme: viewModel.theme)
+        apply(theme: theme)
     }
     
     // TODO: Keyboard handling - also consider moving to UIViewController extension
@@ -284,7 +284,7 @@ class TalkPageViewController: CustomNavigationViewController {
             return
         }
 
-        self.tempShiftingHeaderView = TempShiftingTalkPageHeaderView(order: 0, viewModel: viewModel, theme: viewModel.theme)
+        self.tempShiftingHeaderView = TempShiftingTalkPageHeaderView(order: 0, viewModel: viewModel, theme: theme)
         appendShiftingSubview(tempShiftingHeaderView!)
 
         // todo: this too
@@ -301,7 +301,7 @@ class TalkPageViewController: CustomNavigationViewController {
 
     @objc private func userDidTapCoffeeRollReadMoreButton() {
         let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: getTalkPageURL(encoded: true), semanticContentAttribute: viewModel.semanticContentAttribute)
-        let coffeeViewController = TalkPageCoffeeRollViewController(theme: viewModel.theme, viewModel: coffeeRollViewModel)
+        let coffeeViewController = TalkPageCoffeeRollViewController(theme: theme, viewModel: coffeeRollViewModel)
         push(coffeeViewController, animated: true)
     }
 
@@ -310,9 +310,9 @@ class TalkPageViewController: CustomNavigationViewController {
             let languageVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
             languageVC.delegate = self
             if let themeableVC = languageVC as Themeable? {
-                themeableVC.apply(theme: self.viewModel.theme)
+                themeableVC.apply(theme: self.theme)
             }
-            present(WMFThemeableNavigationController(rootViewController: languageVC, theme: viewModel.theme), animated: true, completion: nil)
+            present(WMFThemeableNavigationController(rootViewController: languageVC, theme:theme), animated: true, completion: nil)
         } else if viewModel.pageType == .article {
             guard let languageCode  = viewModel.siteURL.wmf_languageCode else {
                 return
@@ -321,7 +321,7 @@ class TalkPageViewController: CustomNavigationViewController {
                 if let articleURL = viewModel.siteURL.wmf_URL(withTitle: articleTitle) {
                     let languageVC = WMFArticleLanguagesViewController(articleURL: articleURL)
                     languageVC.delegate = self
-                    present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.viewModel.theme), animated: true, completion: nil)
+                    present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.theme), animated: true, completion: nil)
                 }
             }
         }
@@ -332,8 +332,6 @@ class TalkPageViewController: CustomNavigationViewController {
     // MARK: - Themeable
 
     override func apply(theme: Theme) {
-        viewModel.theme = theme
-        
         super.apply(theme: theme)
         
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
@@ -347,7 +345,7 @@ class TalkPageViewController: CustomNavigationViewController {
     func rethemeVisibleCells() {
         talkPageView.collectionView.visibleCells.forEach { cell in
             if let talkCell = cell as? TalkPageCell {
-                talkCell.apply(theme: viewModel.theme)
+                talkCell.apply(theme: theme)
             }
         }
     }
@@ -361,7 +359,7 @@ class TalkPageViewController: CustomNavigationViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         talkPageView.collectionView.reloadData()
-        tempShiftingHeaderView?.headerView.updateLabelFonts()
+        tempShiftingHeaderView?.headerView.updateLabelFonts(theme: theme)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -409,7 +407,7 @@ class TalkPageViewController: CustomNavigationViewController {
 
     fileprivate func showAddTopic() {
         let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute)
-        let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, authenticationManager: viewModel.authenticationManager, theme: viewModel.theme)
+        let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, authenticationManager: viewModel.authenticationManager, theme: theme)
         topicComposeVC.delegate = self
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
@@ -451,12 +449,12 @@ class TalkPageViewController: CustomNavigationViewController {
     }
     
     fileprivate func pushToArchivesUIKit() {
-        let vc = TalkPageArchivesViewController(theme: viewModel.theme)
+        let vc = TalkPageArchivesViewController(theme: theme)
         navigationController?.pushViewController(vc, animated: true)
     }
     
     fileprivate func pushToArchivesSwiftUI() {
-        let vc = TalkPageArchivesHostingController(theme: viewModel.theme)
+        let vc = TalkPageArchivesHostingController(theme: theme)
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -797,7 +795,7 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
         cell.delegate = self
         cell.replyDelegate = self
         cell.configure(viewModel: cellViewModel, linkDelegate: self)
-        cell.apply(theme: viewModel.theme)
+        cell.apply(theme: theme)
 
         return cell
     }
@@ -827,7 +825,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         
         cell.removeExpandedElements()
         cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
-        cell.apply(theme: viewModel.theme)
+        cell.apply(theme: theme)
         talkPageView.collectionView.collectionViewLayout.invalidateLayout()
     }
     
@@ -1103,7 +1101,7 @@ extension TalkPageViewController: WMFPreferredLanguagesViewControllerDelegate {
 extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
     
     func presentTopicReplyOnboarding() {
-        let topicReplyOnboardingHostingViewController = TalkPageTopicReplyOnboardingHostingController(theme: viewModel.theme)
+        let topicReplyOnboardingHostingViewController = TalkPageTopicReplyOnboardingHostingController(theme: theme)
         topicReplyOnboardingHostingViewController.delegate = self
         topicReplyOnboardingHostingViewController.modalPresentationStyle = .pageSheet
         self.topicReplyOnboardingHostingViewController = topicReplyOnboardingHostingViewController

@@ -282,7 +282,7 @@ final class TalkPageHeaderView: SetupView {
 
     // MARK: - Public
 
-    func configure(viewModel: TalkPageViewModel) {
+    func configure(viewModel: TalkPageViewModel, theme: Theme) {
         
         self.viewModel = viewModel
         let languageCode = viewModel.siteURL.wmf_languageCode
@@ -296,7 +296,7 @@ final class TalkPageHeaderView: SetupView {
         descriptionLabel.text = viewModel.headerDescription
 
         if viewModel.coffeeRollText != nil {
-            updateCoffeeRollText()
+            updateCoffeeRollText(theme: theme)
             
             let languageCode = viewModel.siteURL.wmf_languageCode
             let title = WMFLocalizedString("talk-pages-coffee-roll-read-more", languageCode: languageCode, value: "Read more", comment: "Title of user and article talk pages button to read more of the coffee roll.")
@@ -337,22 +337,20 @@ final class TalkPageHeaderView: SetupView {
         updateSemanticContentAttribute(viewModel.semanticContentAttribute)
     }
 
-    func updateLabelFonts() {
+    func updateLabelFonts(theme: Theme) {
         typeLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         titleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
         projectLanguageLabel.font = UIFont.wmf_font(.mediumCaption2, compatibleWithTraitCollection: traitCollection)
         
-        updateCoffeeRollText()
+        updateCoffeeRollText(theme: theme)
     }
     
-    private func updateCoffeeRollText() {
+    private func updateCoffeeRollText(theme: Theme) {
         
         guard let viewModel = viewModel,
            let coffeeRollText = viewModel.coffeeRollText else {
             return
         }
-        
-        let theme = viewModel.theme
         
         let coffeeRollAttributedText: NSMutableAttributedString = coffeeRollText.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, tagMapping: ["a": "b"])
         
@@ -416,7 +414,7 @@ extension TalkPageHeaderView: Themeable {
 
         coffeeRollSeparator.backgroundColor = theme.colors.tertiaryText
         coffeeRollReadMoreButton.setTitleColor(theme.colors.link, for: .normal)
-        updateCoffeeRollText()
+        updateCoffeeRollText(theme: theme)
         
         // Need to set textView and label textAlignment in the hierarchy again, after their attributed strings are set to the correct theme.
         updateSemanticContentAttribute(semanticContentAttribute)

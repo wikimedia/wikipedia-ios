@@ -36,7 +36,6 @@ final class TalkPageViewModel {
     
     static let leadImageSideLength = 80
     
-    var theme: Theme
     private(set) var topics: [TalkPageCellViewModel] = []
     private(set) var shouldShowErrorState: Bool = false
 
@@ -49,7 +48,7 @@ final class TalkPageViewModel {
     ///   - siteURL: Site URL without article path, e.g. "https://en.wikipedia.org"
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
     ///   - authenticationManager: authentication manager from the MWKDataStore singleton
-    init?(pageType: TalkPageType, pageTitle: String, siteURL: URL, source: RoutingUserInfoSourceValue, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, languageLinkController: MWKLanguageLinkController, theme: Theme) {
+    init?(pageType: TalkPageType, pageTitle: String, siteURL: URL, source: RoutingUserInfoSourceValue, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, languageLinkController: MWKLanguageLinkController) {
         
         guard let project = WikimediaProject(siteURL: siteURL, languageLinkController: languageLinkController) else {
             return nil
@@ -69,7 +68,6 @@ final class TalkPageViewModel {
         
         self.dateFormatter = Self.dateFormatterForSiteURL(siteURL)
         self.semanticContentAttribute = Self.semanticContentAttributeForSiteURL(siteURL)
-        self.theme = theme
     }
     
     /// Convenience init for paths that do not already have pageTitle and siteURL separated
@@ -78,12 +76,12 @@ final class TalkPageViewModel {
     ///   - pageURL: Full wiki page URL, e.g. https://en.wikipedia.org/wiki/Cat
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
     ///   - authenticationManager: authentication manager from the MWKDataStore singleton
-    convenience init?(pageType: TalkPageType, pageURL: URL, source: RoutingUserInfoSourceValue, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, languageLinkController: MWKLanguageLinkController, theme: Theme) {
+    convenience init?(pageType: TalkPageType, pageURL: URL, source: RoutingUserInfoSourceValue, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, languageLinkController: MWKLanguageLinkController) {
         guard let pageTitle = pageURL.wmf_title, let siteURL = pageURL.wmf_site else {
             return nil
         }
 
-        self.init(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, source: source, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager, languageLinkController: languageLinkController, theme: theme)
+        self.init(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, source: source, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager, languageLinkController: languageLinkController)
     }
 
     // MARK: - Public

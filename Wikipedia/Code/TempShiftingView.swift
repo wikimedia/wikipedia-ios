@@ -86,7 +86,7 @@ class TempShiftingView: SetupView, CustomNavigationViewShiftingSubview {
 class TempShiftingTalkPageHeaderView: SetupView, CustomNavigationViewShiftingSubview {
     let order: Int
     let viewModel: TalkPageViewModel
-    let theme: Theme
+    private(set) var theme: Theme
     
     var contentHeight: CGFloat {
         return headerView.frame.height
@@ -158,13 +158,13 @@ class TempShiftingTalkPageHeaderView: SetupView, CustomNavigationViewShiftingSub
             height
         ])
         
-        headerView.configure(viewModel: viewModel)
-        headerView.apply(theme: theme)
+        headerView.configure(viewModel: viewModel, theme: theme)
         
         clipsToBounds = true
     }
     
     func apply(theme: Theme) {
+        self.theme = theme
         headerView.apply(theme: theme)
     }
 }

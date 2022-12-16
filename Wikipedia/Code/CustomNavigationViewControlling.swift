@@ -74,7 +74,7 @@ private protocol CustomNavigationViewControlling: UIViewController, Themeable {
     var scrollAmountCancellable: AnyCancellable? { get set }
     var customNavigationView: CustomNavigationView { get }
     var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] { get }
-    var theme: Theme { get }
+    var theme: Theme { get set }
 }
 
 // Shared Helper Methods
@@ -154,6 +154,7 @@ private extension CustomNavigationViewControlling {
     }
     
     func sharedApplyTheme(theme: Theme) {
+        self.theme = theme
         customNavigationView.apply(theme: theme)
     }
     
