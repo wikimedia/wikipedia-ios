@@ -219,6 +219,7 @@ class CustomNavigationViewController: UIViewController, CustomNavigationViewCont
         didSet {
             scrollView.contentInsetAdjustmentBehavior = .never
             scrollView.automaticallyAdjustsScrollIndicatorInsets = false
+            scrollView.delegate = self
         }
     }
 
@@ -257,6 +258,8 @@ class CustomNavigationViewController: UIViewController, CustomNavigationViewCont
     func appendShiftingSubview(_ subview: CustomNavigationViewShiftingSubview) {
         sharedAppendShiftingSubview(subview)
     }
+    
+    // MARK: UIScrollViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let scrollAmount = scrollView.contentInset.top + scrollView.contentOffset.y
