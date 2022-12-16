@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class TalkPageArchivesViewUIKit: SetupView {
+class TalkPageArchivesViewUIKit: SetupView, Themeable {
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -18,5 +18,10 @@ class TalkPageArchivesViewUIKit: SetupView {
             safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
             safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableView.bottomAnchor)
         ])
+    }
+    
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.paperBackground
+        tableView.backgroundColor = theme.colors.paperBackground
     }
 }

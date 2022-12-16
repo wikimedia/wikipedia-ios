@@ -29,10 +29,10 @@ class TalkPageArchivesHostingController: CustomNavigationViewHostingController<T
     }
     private let _data: CustomNavigationViewData
     
-    init() {
+    init(theme: Theme) {
         let data = CustomNavigationViewData()
         self._data = data
-        super.init(rootView: TalkPageArchivesView(data: data))
+        super.init(rootView: TalkPageArchivesView(data: data), theme: theme)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,11 +44,11 @@ class TalkPageArchivesHostingController: CustomNavigationViewHostingController<T
         
         self.title = "Archives"
         
-        view.backgroundColor = .white
-        
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) { [self] in
             self.redView = TempShiftingView(color: .red, order: 3)
             self.appendShiftingSubview(self.redView!)
         }
+        
+        apply(theme: theme)
     }
 }

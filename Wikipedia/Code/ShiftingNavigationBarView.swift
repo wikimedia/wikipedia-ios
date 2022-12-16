@@ -172,6 +172,15 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         
         clipsToBounds = true
     }
+    
+    func apply(theme: Theme) {
+        bar.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
+        bar.titleTextAttributes = theme.navigationBarTitleTextAttributes
+        bar.isTranslucent = false
+        bar.barTintColor = theme.colors.chromeBackground
+        bar.shadowImage = theme.navigationBarShadowImage
+        bar.tintColor = theme.colors.chromeText
+    }
 }
 
 extension ShiftingNavigationBarView: FakeProgressReceiving, FakeProgressDelegate {

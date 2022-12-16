@@ -21,7 +21,7 @@ extension TalkPageViewController {
 
         let keyboardBar = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()!
         keyboardBar.delegate = self
-        keyboardBar.apply(theme: theme)
+        keyboardBar.apply(theme: viewModel.theme)
         findInPageState.keyboardBar = keyboardBar
     }
 
@@ -136,7 +136,7 @@ extension TalkPageViewController: FindAndReplaceKeyboardBarDelegate {
             return
         }
 
-        findInPageState.search(term: searchTerm, in: viewModel.topics, traitCollection: traitCollection, theme: theme)
+        findInPageState.search(term: searchTerm, in: viewModel.topics, traitCollection: traitCollection, theme: viewModel.theme)
         rethemeVisibleCells()
     }
 

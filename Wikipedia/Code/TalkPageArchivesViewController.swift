@@ -51,6 +51,13 @@ class TalkPageArchivesViewController: CustomNavigationViewController {
             
             archivesView.tableView.reloadData()
         }
+        
+        apply(theme: theme)
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        archivesView.apply(theme: theme)
     }
 }
 

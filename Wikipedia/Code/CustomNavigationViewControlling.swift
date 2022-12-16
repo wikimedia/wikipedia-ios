@@ -9,13 +9,13 @@ enum ShiftingStatus {
     case shifting
 }
 
-protocol CustomNavigationViewShiftingSubview: UIView {
+protocol CustomNavigationViewShiftingSubview: UIView, Themeable {
     var order: Int { get } // The order the subview begins shifting, compared to the other subviews
     var contentHeight: CGFloat { get } // The height of it's full content, regardless of how much it has collapsed.
     func shift(amount: CGFloat) -> ShiftingStatus // The amount to shift, starting at 0.
 }
 
-class CustomNavigationView: SetupView {
+class CustomNavigationView: SetupView, Themeable {
     
     private let stackView: UIStackView = {
         let stackView = UIStackView(frame: .zero)
@@ -33,8 +33,8 @@ class CustomNavigationView: SetupView {
         
         NSLayoutConstraint.activate([
             safeAreaLayoutGuide.topAnchor.constraint(equalTo: stackView.topAnchor),
-            safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
             safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
         ])
         
@@ -55,6 +55,12 @@ class CustomNavigationView: SetupView {
     func addShiftingSubviews(views: [CustomNavigationViewShiftingSubview]) {
         views.forEach { stackView.addArrangedSubview($0) }
     }
+    
+    func apply(theme: Theme) {
+        self.backgroundColor = theme.colors.paperBackground
+        self.stackView.backgroundColor = theme.colors.paperBackground
+        self.stackView.arrangedSubviews.forEach({ ($0 as? Themeable)?.apply(theme: theme) })
+    }
 }
 
 class CustomNavigationViewData: ObservableObject {
@@ -63,11 +69,12 @@ class CustomNavigationViewData: ObservableObject {
     @Published var totalHeight = CGFloat(0)
 }
 
-private protocol CustomNavigationViewControlling: UIViewController {
+private protocol CustomNavigationViewControlling: UIViewController, Themeable {
     var data: CustomNavigationViewData { get }
     var scrollAmountCancellable: AnyCancellable? { get set }
     var customNavigationView: CustomNavigationView { get }
     var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] { get }
+    var theme: Theme { get }
 }
 
 // Shared Helper Methods
@@ -146,6 +153,10 @@ private extension CustomNavigationViewControlling {
         customNavigationView.layoutIfNeeded()
     }
     
+    func sharedApplyTheme(theme: Theme) {
+        customNavigationView.apply(theme: theme)
+    }
+    
     func createCustomNavigationView() -> CustomNavigationView {
         let navigationView = CustomNavigationView(frame: .zero)
         navigationView.translatesAutoresizingMaskIntoConstraints = false
@@ -170,7 +181,18 @@ class CustomNavigationViewHostingController<Content>: UIHostingController<Conten
     lazy var customNavigationView: CustomNavigationView = {
         return createCustomNavigationView()
     }()
-
+    
+    var theme: Theme
+    
+    init(rootView: Content, theme: Theme) {
+        self.theme = theme
+        super.init(rootView: rootView)
+    }
+    
+    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -185,6 +207,10 @@ class CustomNavigationViewHostingController<Content>: UIHostingController<Conten
     
     func appendShiftingSubview(_ subview: CustomNavigationViewShiftingSubview) {
         sharedAppendShiftingSubview(subview)
+    }
+    
+    func apply(theme: Theme) {
+        sharedApplyTheme(theme: theme)
     }
 }
 
@@ -222,14 +248,22 @@ class CustomNavigationViewController: UIViewController, CustomNavigationViewCont
             scrollView.delegate = self
         }
     }
-
+    
+    var theme: Theme
+    
+    init(theme: Theme) {
+        self.theme = theme
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         sharedViewDidLoad()
-        
-        // hide missing bottom toolbar color pain
-        view.backgroundColor = .white
     }
     
     override func viewDidLayoutSubviews() {
@@ -264,5 +298,9 @@ class CustomNavigationViewController: UIViewController, CustomNavigationViewCont
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let scrollAmount = scrollView.contentInset.top + scrollView.contentOffset.y
         self.data.scrollAmount = scrollAmount
+    }
+    
+    func apply(theme: Theme) {
+        sharedApplyTheme(theme: theme)
     }
 }

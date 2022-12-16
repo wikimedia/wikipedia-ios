@@ -8,7 +8,6 @@ class TalkPageViewController: CustomNavigationViewController {
 
     let viewModel: TalkPageViewModel
     fileprivate var tempShiftingHeaderView: TempShiftingTalkPageHeaderView?
-    let theme: Theme = .light
     fileprivate var shouldGoToNewTopic: Bool = false
     let findInPageState = TalkPageFindInPageState()
 
@@ -142,9 +141,9 @@ class TalkPageViewController: CustomNavigationViewController {
 
     // MARK: - Lifecycle
 
-    init(theme: Theme, viewModel: TalkPageViewModel) {
+    init(viewModel: TalkPageViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init(theme: viewModel.theme)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -206,7 +205,8 @@ class TalkPageViewController: CustomNavigationViewController {
         fetchTalkPage()
         setupToolbar()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
-        apply(theme: theme)
+        
+        apply(theme: viewModel.theme)
     }
     
     // TODO: Keyboard handling - also consider moving to UIViewController extension
@@ -283,10 +283,8 @@ class TalkPageViewController: CustomNavigationViewController {
         guard tempShiftingHeaderView == nil else {
             return
         }
-        
-        // TODO: reset for change language
 
-        self.tempShiftingHeaderView = TempShiftingTalkPageHeaderView(order: 0, viewModel: viewModel, theme: theme)
+        self.tempShiftingHeaderView = TempShiftingTalkPageHeaderView(order: 0, viewModel: viewModel, theme: viewModel.theme)
         appendShiftingSubview(tempShiftingHeaderView!)
 
         // todo: this too
@@ -297,14 +295,13 @@ class TalkPageViewController: CustomNavigationViewController {
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
         rightBarButtonItem.accessibilityLabel = Self.TalkPageLocalizedStrings.overflowMenuAccessibilityLabel
         navigationItem.rightBarButtonItem = rightBarButtonItem
-        rightBarButtonItem.tintColor = theme.colors.link
     }
 
     // MARK: - Coffee Roll
 
     @objc private func userDidTapCoffeeRollReadMoreButton() {
         let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: getTalkPageURL(encoded: true), semanticContentAttribute: viewModel.semanticContentAttribute)
-        let coffeeViewController = TalkPageCoffeeRollViewController(theme: theme, viewModel: coffeeRollViewModel)
+        let coffeeViewController = TalkPageCoffeeRollViewController(theme: viewModel.theme, viewModel: coffeeRollViewModel)
         push(coffeeViewController, animated: true)
     }
 
@@ -313,9 +310,9 @@ class TalkPageViewController: CustomNavigationViewController {
             let languageVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
             languageVC.delegate = self
             if let themeableVC = languageVC as Themeable? {
-                themeableVC.apply(theme: self.theme)
+                themeableVC.apply(theme: self.viewModel.theme)
             }
-            present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.theme), animated: true, completion: nil)
+            present(WMFThemeableNavigationController(rootViewController: languageVC, theme: viewModel.theme), animated: true, completion: nil)
         } else if viewModel.pageType == .article {
             guard let languageCode  = viewModel.siteURL.wmf_languageCode else {
                 return
@@ -324,7 +321,7 @@ class TalkPageViewController: CustomNavigationViewController {
                 if let articleURL = viewModel.siteURL.wmf_URL(withTitle: articleTitle) {
                     let languageVC = WMFArticleLanguagesViewController(articleURL: articleURL)
                     languageVC.delegate = self
-                    present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.theme), animated: true, completion: nil)
+                    present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.viewModel.theme), animated: true, completion: nil)
                 }
             }
         }
@@ -334,9 +331,12 @@ class TalkPageViewController: CustomNavigationViewController {
 
     // MARK: - Themeable
 
-    func apply(theme: Theme) {
-        
+    override func apply(theme: Theme) {
         viewModel.theme = theme
+        
+        super.apply(theme: theme)
+        
+        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         talkPageView.apply(theme: theme)
         talkPageView.collectionView.reloadData()
         replyComposeController.apply(theme: theme)
@@ -347,7 +347,7 @@ class TalkPageViewController: CustomNavigationViewController {
     func rethemeVisibleCells() {
         talkPageView.collectionView.visibleCells.forEach { cell in
             if let talkCell = cell as? TalkPageCell {
-                talkCell.apply(theme: theme)
+                talkCell.apply(theme: viewModel.theme)
             }
         }
     }
@@ -409,7 +409,7 @@ class TalkPageViewController: CustomNavigationViewController {
 
     fileprivate func showAddTopic() {
         let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute)
-        let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, authenticationManager: viewModel.authenticationManager, theme: theme)
+        let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, authenticationManager: viewModel.authenticationManager, theme: viewModel.theme)
         topicComposeVC.delegate = self
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
@@ -451,12 +451,12 @@ class TalkPageViewController: CustomNavigationViewController {
     }
     
     fileprivate func pushToArchivesUIKit() {
-        let vc = TalkPageArchivesViewController(nibName: nil, bundle: nil)
+        let vc = TalkPageArchivesViewController(theme: viewModel.theme)
         navigationController?.pushViewController(vc, animated: true)
     }
     
     fileprivate func pushToArchivesSwiftUI() {
-        let vc = TalkPageArchivesHostingController()
+        let vc = TalkPageArchivesHostingController(theme: viewModel.theme)
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -792,12 +792,12 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
             return UICollectionViewCell()
         }
 
-        let viewModel = viewModel.topics[indexPath.row]
+        let cellViewModel = viewModel.topics[indexPath.row]
 
         cell.delegate = self
         cell.replyDelegate = self
-        cell.configure(viewModel: viewModel, linkDelegate: self)
-        cell.apply(theme: theme)
+        cell.configure(viewModel: cellViewModel, linkDelegate: self)
+        cell.apply(theme: viewModel.theme)
 
         return cell
     }
@@ -827,7 +827,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
         
         cell.removeExpandedElements()
         cell.configure(viewModel: configuredCellViewModel, linkDelegate: self)
-        cell.apply(theme: theme)
+        cell.apply(theme: viewModel.theme)
         talkPageView.collectionView.collectionViewLayout.invalidateLayout()
     }
     
@@ -1103,7 +1103,7 @@ extension TalkPageViewController: WMFPreferredLanguagesViewControllerDelegate {
 extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
     
     func presentTopicReplyOnboarding() {
-        let topicReplyOnboardingHostingViewController = TalkPageTopicReplyOnboardingHostingController(theme: theme)
+        let topicReplyOnboardingHostingViewController = TalkPageTopicReplyOnboardingHostingController(theme: viewModel.theme)
         topicReplyOnboardingHostingViewController.delegate = self
         topicReplyOnboardingHostingViewController.modalPresentationStyle = .pageSheet
         self.topicReplyOnboardingHostingViewController = topicReplyOnboardingHostingViewController

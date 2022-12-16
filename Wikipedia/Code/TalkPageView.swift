@@ -54,8 +54,8 @@ final class TalkPageView: SetupView {
         addSubview(emptyView)
         addSubview(errorView)
         NSLayoutConstraint.activate([
-            toolbar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            toolbar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            toolbar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            toolbar.trailingAnchor.constraint(equalTo: trailingAnchor),
             toolbar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: toolbar.topAnchor),
@@ -110,6 +110,7 @@ extension TalkPageView: Themeable {
             baseBackground = UIColor.wmf_colorWithHex(0xF8F9FA)
         }
 
+        backgroundColor = baseBackground
         collectionView.backgroundColor = baseBackground
         emptyView.apply(theme: theme)
         errorView.apply(theme: theme)

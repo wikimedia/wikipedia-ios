@@ -127,7 +127,7 @@ class ViewControllerRouter: NSObject {
             return presentOrPush(vc, with: completion)
         case .talk(let linkURL):
             let source = source(from: userInfo)
-            guard let viewModel = TalkPageViewModel(pageType: .article, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
+            guard let viewModel = TalkPageViewModel(pageType: .article, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController, theme: theme) else {
                 completion()
                 return false
             }
@@ -136,13 +136,13 @@ class ViewControllerRouter: NSObject {
                 viewModel.deepLinkData = deepLinkData
             }
             
-            let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
+            let newTalkPage = TalkPageViewController(viewModel: viewModel)
             return presentOrPush(newTalkPage, with: completion)
         case .userTalk(let linkURL):
             if FeatureFlags.needsNewTalkPage {
                 
                 let source = source(from: userInfo)
-                guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
+                guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController, theme: theme) else {
                     completion()
                     return false
                 }
@@ -151,7 +151,7 @@ class ViewControllerRouter: NSObject {
                     viewModel.deepLinkData = deepLinkData
                 }
                 
-                let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
+                let newTalkPage = TalkPageViewController(viewModel: viewModel)
                 return presentOrPush(newTalkPage, with: completion)
             } else {
                 guard let talkPageVC = TalkPageContainerViewController.userTalkPageContainer(url: linkURL, dataStore: appViewController.dataStore, theme: theme) else {

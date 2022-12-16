@@ -77,6 +77,10 @@ class TempShiftingView: SetupView, CustomNavigationViewShiftingSubview {
         
         clipsToBounds = true
     }
+    
+    func apply(theme: Theme) {
+        
+    }
 }
 
 class TempShiftingTalkPageHeaderView: SetupView, CustomNavigationViewShiftingSubview {
@@ -158,5 +162,9 @@ class TempShiftingTalkPageHeaderView: SetupView, CustomNavigationViewShiftingSub
         headerView.apply(theme: theme)
         
         clipsToBounds = true
+    }
+    
+    func apply(theme: Theme) {
+        headerView.apply(theme: theme)
     }
 }
