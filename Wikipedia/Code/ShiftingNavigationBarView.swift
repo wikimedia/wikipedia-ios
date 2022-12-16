@@ -31,8 +31,7 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         return progressView
     }()
     
-    private var lastReappearAmount: CGFloat?
-    private var isCollapsed = false
+    // MARK: Tracking properties used when set to reappearOnScrollUp
     private var lastAmount: CGFloat = 0
     private var amountWhenDirectionChanged: CGFloat = 0
     private var goingUp = false {
@@ -41,28 +40,47 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
                 if lastAmount < 0 { // clear out if bouncing at top
                     amountWhenDirectionChanged = 0
                 } else {
-                    amountWhenDirectionChanged = lastAmount
+                    if isFullyShowing || isFullyHidden { // If it is in the middle of collapsing, resetting this property thows things off. Only set change direction amount if it's already fully collapsed or expanded
+                        amountWhenDirectionChanged = lastAmount
+                    }
                 }
             }
         }
     }
     
+    private var isFullyHidden: Bool {
+       return -(equalHeightToContentConstraint?.constant ?? 0) == contentHeight
+    }
+    
+    private var isFullyShowing: Bool {
+        -(equalHeightToContentConstraint?.constant ?? 0) == 0
+    }
+
     func shift(amount: CGFloat) -> ShiftingStatus {
         
+        defer {
+            lastAmount = amount
+        }
+        
+        guard !(!config.shiftOnScrollUp && config.reappearOnScrollUp) else {
+            assertionFailure("Invalid configuration. shiftOnScrollUp must be true if reappearOnScrollUp is true.")
+            return .shifted(0)
+        }
+        
+        // Early exit if navigation bar shouldn't move.
         guard config.shiftOnScrollUp else {
             return .shifted(0)
         }
         
-        goingUp = lastAmount > amount
-        
-        // Adjust number for sensitivity
-        let flickingUp = (lastAmount - amount) > 8
-        
+        // Various states when configured to reappear where it needs to bail
         if config.reappearOnScrollUp {
+            goingUp = lastAmount > amount
+            let flickingUp = (lastAmount - amount) > 8
+            
             // If flicking up and fully collapsed, animate nav bar back in
-            if flickingUp && isCollapsed {
-                lastAmount = amount
+            if flickingUp && isFullyHidden {
                 equalHeightToContentConstraint?.constant = 0
+                
                 setNeedsLayout()
                 UIView.animate(withDuration: 0.2) {
                     self.alpha = 1.0
@@ -74,47 +92,52 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
                     }
                     self.layoutIfNeeded()
                 }
-                isCollapsed = false
-                return .shifted(contentHeight)
-            } else if goingUp && isCollapsed && amount > contentHeight {
-                lastAmount = amount
-                return .shifting
-            } else if goingUp && !isCollapsed && amount <= contentHeight {
                 return .shifted(contentHeight)
             }
+            
+            // Various weird cases where we need to bail early
+            
+            // Do not re-appear if slowly scrolling up when further down the scroll view. But when slowly going up near the top (amount <= contentHeight), allow it to go through and adjust height constraint.
+            if goingUp && isFullyHidden && amount > contentHeight {
+               return .shifted(contentHeight)
+            }
+            
+            // If it's already showing and slowly scrolling up, don't do anything.
+            if goingUp && isFullyShowing {
+                return .shifted(contentHeight)
+            }
+            
+            // If scrolling down and fully collapsed, don't do anything
+           if !goingUp && isFullyHidden {
+               return .shifted(contentHeight)
+           }
         }
         
-        // adjust amount to start from when direction last changed, if needed
-        print("amount:\(amount)")
-        let adjustedAmount = config.reappearOnScrollUp && amount > contentHeight ? amount - (amountWhenDirectionChanged) : amount
-        print("adjustedAmount: \(adjustedAmount)")
+        
+        var adjustedAmount = amount
+        // Adjust shift amount to be against when direction last changed, if needed. This is so that bar can slowly disappear again when scrolling down further in the view after flicking to show it
+        if config.reappearOnScrollUp && amount > contentHeight {
+            adjustedAmount = amount - amountWhenDirectionChanged
+        }
         
         let limitedShiftAmount = max(0, min(adjustedAmount, contentHeight))
         
+        // Shrink and fade
         let percent = limitedShiftAmount / contentHeight
-        
-        // Shrink items within
         let barScaleTransform = CGAffineTransformMakeScale(1.0 - (percent/2), 1.0 - (percent/2))
         for subview in self.bar.subviews {
             for subview in subview.subviews {
                 subview.transform = barScaleTransform
             }
         }
-        
         alpha = 1.0 - percent
         
         // Shift Y placement
         if (self.equalHeightToContentConstraint?.constant ?? 0) != -limitedShiftAmount {
             self.equalHeightToContentConstraint?.constant = -limitedShiftAmount
         }
-                
-        if -(self.equalHeightToContentConstraint?.constant ?? 0) == contentHeight {
-            isCollapsed = true
-        }
-        
-        lastAmount = amount
 
-        if isCollapsed {
+        if isFullyHidden {
             return .shifted(limitedShiftAmount)
         } else {
             return .shifting
@@ -151,7 +174,7 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         addSubview(bar)
         
         // top defaultHigh priority allows label to slide upward
-        // height 999 priority allows parent view to shrink
+        // height 999 priority allows container view to shrink
         let top = bar.topAnchor.constraint(equalTo: topAnchor)
         top.priority = .defaultHigh
         let bottom = bottomAnchor.constraint(equalTo: bar.bottomAnchor)
