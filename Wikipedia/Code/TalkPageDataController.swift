@@ -9,7 +9,7 @@ class TalkPageDataController {
     private(set) var pageTitle: String
     private(set) var siteURL: URL
     private let talkPageFetcher = TalkPageFetcher()
-    private let articleSummaryController: ArticleSummaryController
+    let articleSummaryController: ArticleSummaryController
     private let articleRevisionFetcher = WMFArticleRevisionFetcher()
 
     init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {

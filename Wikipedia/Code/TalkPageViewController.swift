@@ -470,7 +470,8 @@ class TalkPageViewController: CustomNavigationViewController {
     }
     
     fileprivate func pushToArchivesSwiftUI() {
-        let vc = TalkPageArchivesHostingController(theme: theme)
+        let viewModel = TalkPageArchivesViewModel(pageTitle: viewModel.pageTitle, siteURL: viewModel.siteURL)
+        let vc = TalkPageArchivesHostingController(theme: theme, viewModel: viewModel, tempOldViewModel: self.viewModel)
         navigationController?.pushViewController(vc, animated: true)
     }
     

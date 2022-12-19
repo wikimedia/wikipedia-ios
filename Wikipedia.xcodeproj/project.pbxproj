@@ -852,6 +852,14 @@
 		679471DC275F245000621071 /* NotificationsCenterInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679471DA275F245000621071 /* NotificationsCenterInboxView.swift */; };
 		679471DD275F245000621071 /* NotificationsCenterInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679471DA275F245000621071 /* NotificationsCenterInboxView.swift */; };
 		679471DE275F245900621071 /* NotificationsCenterInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679471DA275F245000621071 /* NotificationsCenterInboxView.swift */; };
+		6797191F295101DB00EA59C8 /* TalkPageArchivesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6797191E295101DB00EA59C8 /* TalkPageArchivesFetcher.swift */; };
+		67971920295101DB00EA59C8 /* TalkPageArchivesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6797191E295101DB00EA59C8 /* TalkPageArchivesFetcher.swift */; };
+		67971921295101DB00EA59C8 /* TalkPageArchivesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6797191E295101DB00EA59C8 /* TalkPageArchivesFetcher.swift */; };
+		67971922295101DB00EA59C8 /* TalkPageArchivesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6797191E295101DB00EA59C8 /* TalkPageArchivesFetcher.swift */; };
+		679719242951160200EA59C8 /* TalkPageArchivesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679719232951160200EA59C8 /* TalkPageArchivesViewModel.swift */; };
+		679719252951160200EA59C8 /* TalkPageArchivesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679719232951160200EA59C8 /* TalkPageArchivesViewModel.swift */; };
+		679719262951160200EA59C8 /* TalkPageArchivesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679719232951160200EA59C8 /* TalkPageArchivesViewModel.swift */; };
+		679719272951160200EA59C8 /* TalkPageArchivesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679719232951160200EA59C8 /* TalkPageArchivesViewModel.swift */; };
 		6798037224F99AB200D765AA /* SignificantEventsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798036A24F94D6700D765AA /* SignificantEventsModels.swift */; };
 		6798037324F99AB200D765AA /* SignificantEventsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798035B24F94CE300D765AA /* SignificantEventsFetcher.swift */; };
 		6798331A22C174ED0073CE6F /* LinkOnlyTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */; };
@@ -4217,6 +4225,8 @@
 		678E7E8026432F060005439C /* NavigationEventsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationEventsFunnel.swift; sourceTree = "<group>"; };
 		678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleCacheDBWriter.swift; path = ../Wikipedia/Code/ArticleCacheDBWriter.swift; sourceTree = "<group>"; };
 		679471DA275F245000621071 /* NotificationsCenterInboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterInboxView.swift; sourceTree = "<group>"; };
+		6797191E295101DB00EA59C8 /* TalkPageArchivesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageArchivesFetcher.swift; sourceTree = "<group>"; };
+		679719232951160200EA59C8 /* TalkPageArchivesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageArchivesViewModel.swift; sourceTree = "<group>"; };
 		6798035B24F94CE300D765AA /* SignificantEventsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsFetcher.swift; sourceTree = "<group>"; };
 		6798036024F94CEE00D765AA /* ArticleAsLivingDocController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocController.swift; sourceTree = "<group>"; };
 		6798036524F94D0300D765AA /* ArticleAsLivingDocViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocViewModels.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -7154,9 +7164,11 @@
 			isa = PBXGroup;
 			children = (
 				6779CBCB293E88FA00B25F3E /* TalkPageArchivesHostingController.swift */,
+				679719232951160200EA59C8 /* TalkPageArchivesViewModel.swift */,
 				671CFE6B2947AE120015A8E9 /* TalkPageArchivesViewController.swift */,
 				6779CBB7293E51D600B25F3E /* TalkPageArchivesView.swift */,
 				67456DC1294A28F400E2438C /* TalkPageArchivesViewUIKit.swift */,
+				6797191E295101DB00EA59C8 /* TalkPageArchivesFetcher.swift */,
 			);
 			name = Archives;
 			sourceTree = "<group>";
@@ -11565,6 +11577,7 @@
 				677129A024FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift in Sources */,
 				0022DD2925829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */,
 				7A82898C21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
+				6797191F295101DB00EA59C8 /* TalkPageArchivesFetcher.swift in Sources */,
 				B0E806951C0CEA7B0065EBC0 /* AboutViewController.m in Sources */,
 				7A6ED51C20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				67456DBA294A282A00E2438C /* ShiftingNavigationBarView.swift in Sources */,
@@ -11635,6 +11648,7 @@
 				B0E803761C0CD9C10065EBC0 /* TableOfContentsCell.swift in Sources */,
 				B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */,
 				7ADF498721B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
+				679719242951160200EA59C8 /* TalkPageArchivesViewModel.swift in Sources */,
 				FFA0641925A943EB00B9460B /* BasicLogger.swift in Sources */,
 				678D79F6235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				BA7683C21F30C56300A487AA /* ImageDimmingExampleViewController.swift in Sources */,
@@ -12528,6 +12542,7 @@
 				67E0690E22399D2E008550AC /* ReadingThemesControlsProtocols.swift in Sources */,
 				0022DD2C25829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */,
 				7A82898F21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
+				67971922295101DB00EA59C8 /* TalkPageArchivesFetcher.swift in Sources */,
 				D8A42AE31E815A9C00D8E281 /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				67E2E492250452E60070F12D /* ArticleAsLivingDocHeaderView.swift in Sources */,
 				67456DBD294A282A00E2438C /* ShiftingNavigationBarView.swift in Sources */,
@@ -12598,6 +12613,7 @@
 				D8A42B0D1E815A9C00D8E281 /* WMFSettingsMenuItem.m in Sources */,
 				B0CD9DEE1F70997500051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				D8A42B0F1E815A9C00D8E281 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
+				679719272951160200EA59C8 /* TalkPageArchivesViewModel.swift in Sources */,
 				FFA0641C25A943EB00B9460B /* BasicLogger.swift in Sources */,
 				678D79F9235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				674E8ABC2382DF030053D206 /* DiffTransformer.swift in Sources */,
@@ -13169,6 +13185,7 @@
 				00D280F9247EFFFE006BEE23 /* Date+Extensions.swift in Sources */,
 				67B64D592507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift in Sources */,
 				832289DC1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
+				679719262951160200EA59C8 /* TalkPageArchivesViewModel.swift in Sources */,
 				7AB209FA22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */,
 				6782DBBC2343B861003FA21B /* DiffListViewController.swift in Sources */,
 				D8CE25961E698E2400DAE2E0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
@@ -13420,6 +13437,7 @@
 				D80BF0A42347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				833B8C8A281AE2110021C12C /* RemoteNotificationsFunnel.swift in Sources */,
 				7AC809C621DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
+				67971921295101DB00EA59C8 /* TalkPageArchivesFetcher.swift in Sources */,
 				D8CE26151E698E2400DAE2E0 /* WMFLoginViewController.swift in Sources */,
 				67C6F79E27E8C51500B9C864 /* NotificationsCenterCommonViewModel+LinkExtensions.swift in Sources */,
 				8330532A23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
@@ -13758,6 +13776,7 @@
 				D8EC3E911E9BDA35006712EB /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				7AB209FB22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */,
 				6782DBBD2343B861003FA21B /* DiffListViewController.swift in Sources */,
+				679719252951160200EA59C8 /* TalkPageArchivesViewModel.swift in Sources */,
 				D8EC3E971E9BDA35006712EB /* TableOfContentsHeader.swift in Sources */,
 				7AF6F76822395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
 				6734116622739CCB005B31DA /* TalkPageLocalHandler.swift in Sources */,
@@ -14009,6 +14028,7 @@
 				D80BF0A52347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				833B8C89281AE2100021C12C /* RemoteNotificationsFunnel.swift in Sources */,
 				7AC809C721DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
+				67971920295101DB00EA59C8 /* TalkPageArchivesFetcher.swift in Sources */,
 				D8EC3F141E9BDA35006712EB /* WMFLoginViewController.swift in Sources */,
 				67C6F79D27E8C51500B9C864 /* NotificationsCenterCommonViewModel+LinkExtensions.swift in Sources */,
 				8330532B23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,

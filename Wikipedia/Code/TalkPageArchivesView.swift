@@ -3,6 +3,10 @@ import SwiftUI
 struct TalkPageArchivesView: View {
     
     @ObservedObject var data: CustomNavigationViewData
+    @ObservedObject var viewModel: TalkPageArchivesViewModel
+    @SwiftUI.State private var task: Task<Void, Never>?
+    
+    var didTapItem: (TalkPageArchivesViewModel.Item) -> Void = { _ in }
     
     var body: some View {
         TrackingScrollView(
@@ -10,11 +14,23 @@ struct TalkPageArchivesView: View {
             showsIndicators: true
         ) {
             LazyVStack(alignment: .leading) {
-                ForEach(0..<100) { i in
-                    Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+                ForEach(viewModel.items, id: \.pageID) { item in
+                    Text(item.displayTitle)
+                        .onTapGesture {
+                            didTapItem(item)
+                        }
                 }
             }
         }
         .environmentObject(data)
+        .onAppear {
+            task = Task(priority: .userInitiated) {
+                await viewModel.fetchArchives()
+            }
+        }
+        .onDisappear {
+            task?.cancel()
+            task = nil
+        }
     }
 }

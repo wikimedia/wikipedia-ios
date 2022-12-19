@@ -582,6 +582,15 @@ public class Session: NSObject {
     }
 }
 
+// MARK: Swift Concurrency APIs
+
+extension Session {
+    public func data(for url: URL) async throws -> (Data, URLResponse) {
+        let request = request(with: url)
+        return try await defaultURLSession.data(for: request)
+    }
+}
+
 // MARK: PermanentlyPersistableURLCache Passthroughs
 
 enum SessionPermanentCacheError: Error {

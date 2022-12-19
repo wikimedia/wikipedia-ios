@@ -74,6 +74,5 @@ class SectionFetcher: Fetcher {
                 completion(.success(Response(wikitext: wikitext, revisionID: revisionID, protection: protection)))
             }
         }
-        
     }
 }
