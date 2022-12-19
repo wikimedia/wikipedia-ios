@@ -803,8 +803,8 @@
 "wikitext-upload-captcha-needed" = "Necesita verificación CAPTCHA.";
 "wikitext-upload-result-unknown" = "Non é posible determinar o resultado da subida do wikitexto.";
 "wikitext-upload-save" = "Publicando...";
-"wikitext-upload-save-anonymously-or-login" = "As edicións serán atribuídas á dirección IP do seu dispositivo. Se vostede $1inicia a sesión$2, terá máis privacidade.";
-"wikitext-upload-save-anonymously-warning" = "As edicións atribuiranse á dirección IP do dispositivo. Se $1 terá máis privacidade.";
+"wikitext-upload-save-anonymously-or-login" = "As edicións serán atribuídas ao enderezo IP do seu dispositivo. Se vostede $1inicia a sesión$2, terá máis privacidade.";
+"wikitext-upload-save-anonymously-warning" = "As edicións atribuiranse ao enderezo IP do dispositivo. Se $1 terá máis privacidade.";
 "wikitext-upload-save-sign-in" = "Acceda ao sistema";
 "wikitext-upload-save-terms-and-licenses" = "Ó publicar os cambios, concorda cos $1Termos de uso$2, e está de acordo en liberar irrevogablemente as súas contribucións baixo a licenza $3CC-BY-SA 3.0$4 e a $5GFDL$6. Concorda en que unha ligazón ou URL é atribución abondo baixo a licenza Creative Commons.";
 "wikitext-upload-save-terms-name" = "Termos de uso";

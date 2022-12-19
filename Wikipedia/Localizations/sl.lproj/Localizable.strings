@@ -279,7 +279,7 @@
 "edit-subscript-remove-accessibility-label" = "Odstrani podpisano oblikovanje";
 "edit-summary-add-summary-text" = "Dodaj povzetek urejanja";
 "edit-summary-choice-fixed-grammar" = "Slovnični popravek";
-"edit-summary-choice-fixed-typos" = "Popravek tipkarske napake";
+"edit-summary-choice-fixed-typos" = "popravek tipkarske napake";
 "edit-summary-choice-linked-words" = "Dodane povezave";
 "edit-summary-learn-more-text" = "Več o tem";
 "edit-summary-placeholder-text" = "Kako ste izboljšali članek?";
@@ -1047,7 +1047,7 @@
 "talk-page-topic-close-button-hint" = "Zapri novo temo";
 "talk-page-topic-compose-terms-and-licenses" = "Z objavo sprememb se strinjate s pogoji uporabe $1Terms of use$2 in se nepreklicno strinjate, da je vaš prispevek prosto na voljo pod licenco $3CC BY-SA 3.0 License$4 in $5GFDL$6.";
 "talk-page-topic-title" = "Pogovor";
-"talk-page-unsubscribe-to-topic" = "Odjavi";
+"talk-page-unsubscribe-to-topic" = "Odnaroči";
 "talk-page-unsubscribed-alert-subtitle" = "O novih komentarjih pri tej temi ne boste več prejemali obvestil.";
 "talk-page-unsubscribed-alert-title" = "Odjavili ste se.";
 "talk-page-unsubscription-failed-alert" = "Odjava od teme ni uspela, poskusite znova.";
