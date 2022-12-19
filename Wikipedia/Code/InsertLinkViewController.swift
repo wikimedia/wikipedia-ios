@@ -42,7 +42,7 @@ class InsertLinkViewController: UIViewController {
         searchViewController.delegate = self
         searchViewController.delegatesSelection = true
         searchViewController.showLanguageBar = false
-		searchViewController.updateRecentlySearchedVisibility(searchText: nil)
+        searchViewController.updateRecentlySearchedVisibility(searchText: link.page)
         searchViewController.doResultsShowArticlePreviews = false
         return searchViewController
     }()
@@ -55,6 +55,11 @@ class InsertLinkViewController: UIViewController {
         navigationController.isNavigationBarHidden = true
         wmf_add(childController: navigationController, andConstrainToEdgesOfContainerView: view)
         apply(theme: theme)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchViewController.search()
     }
 
     @objc private func delegateCloseButtonTap(_ sender: UIBarButtonItem) {
