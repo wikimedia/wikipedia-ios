@@ -34,9 +34,8 @@ class TalkPageArchivesHostingController: CustomNavigationViewHostingController<T
         let data = CustomNavigationViewData()
         self._data = data
         self.tempOldViewModel = tempOldViewModel
-        var rootView = TalkPageArchivesView(data: data, viewModel: viewModel)
         self.viewModel = viewModel
-        super.init(rootView: rootView, theme: theme)
+        super.init(rootView: TalkPageArchivesView(data: data, viewModel: viewModel), theme: theme)
     }
     
     required init?(coder aDecoder: NSCoder) {
