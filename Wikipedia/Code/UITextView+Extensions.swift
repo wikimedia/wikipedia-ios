@@ -46,18 +46,23 @@ extension UITextView {
     /// - Parameters:
     ///   - formattingString: string used for formatting, will surround selected text or cursor
     func addOrRemoveStringFormattingCharacters(formattingString: String) {
-        let cursorOffset = formattingString.count
-        if let selectedRange = selectedTextRange {
-            if let start = position(from: selectedRange.start, offset: -cursorOffset),
-               let end = position(from: selectedRange.end, offset: cursorOffset),
-               let newSelectedRange = textRange(from: start, to: end) {
+        let formattingStringLength = formattingString.count
+        
+        if let originalSelectedRange = selectedTextRange {
+            if
+                let startIncludingFormatting = position(from: originalSelectedRange.start, offset: -formattingStringLength),
+                let endIncludingFormatting = position(from: originalSelectedRange.end, offset: formattingStringLength),
+                let selectedRangeIncludingFormatting = textRange(from: startIncludingFormatting, to: endIncludingFormatting) {
 
-                if let newText = text(in: newSelectedRange) {
-                    if newText.contains(formattingString) {
-                        replace(newSelectedRange, withText: text(in: selectedRange) ?? String())
+                if let selectedTextIncludingFormatting = text(in: selectedRangeIncludingFormatting) {
+                    if selectedTextIncludingFormatting.contains(formattingString) {
+                        
+                        // Toggle off by replacing range with formatting with text in original selected range
+                        replace(selectedRangeIncludingFormatting, withText: text(in: originalSelectedRange) ?? String())
 
-                        let newStartPosition = position(from: selectedRange.start, offset: -cursorOffset)
-                        let newEndPosition = position(from: selectedRange.end, offset: -cursorOffset)
+                        // Select original text again...without this, previous replace line causes it to lose selection.
+                        let newStartPosition = position(from: originalSelectedRange.start, offset: -formattingStringLength)
+                        let newEndPosition = position(from: originalSelectedRange.end, offset: -formattingStringLength)
                         selectedTextRange = textRange(from: newStartPosition ?? endOfDocument, to: newEndPosition ?? endOfDocument)
                     } else {
                         addStringFormattingCharacters(formattingString: formattingString)
