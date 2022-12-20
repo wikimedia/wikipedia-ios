@@ -66,7 +66,7 @@ class CustomNavigationView: SetupView, Themeable {
             leadingAnchor.constraint(equalTo: shadowView.leadingAnchor),
             trailingAnchor.constraint(equalTo: shadowView.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: shadowView.bottomAnchor),
-            shadowView.heightAnchor.constraint(equalToConstant: 1)
+            shadowView.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale)
         ])
         
         backgroundColor = .white
