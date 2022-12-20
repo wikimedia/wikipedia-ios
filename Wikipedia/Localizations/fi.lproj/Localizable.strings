@@ -498,6 +498,10 @@
 "image-gallery-unknown-owner" = "Tuntematon tekijä.";
 "import-shared-reading-list-default-title" = "Oma lukulista";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ei nyt";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Vastaa kyselyyn";
+"import-shared-reading-list-survey-prompt-subtitle" = "Lukulistojen jakaminen on testiominaisuus, jonka kehittämiseen tarvitsemme palautettasi";
+"import-shared-reading-list-survey-prompt-title" = "Voisitko auttaa meitä parantamaan lukulistojen jakamista?";
+"import-shared-reading-list-title" = "Tuo jaettu lukulista";
 "in-the-news-sub-title-from-language-wikipedia" = "Wikipedian kieliversiossa $1";
 "in-the-news-sub-title-from-wikipedia" = "Wikipediasta";
 "in-the-news-title" = "Uutisissa";
@@ -751,10 +755,14 @@
 "potd-widget-title" = "Päivän kuva";
 "preference-summary-eventlogging-opt-in" = "Salli Wikimedia-säätiön kerätä tietoja sovelluksen käyttämisestä käyttökokemuksen parantamiseksi.";
 "preference-title-eventlogging-opt-in" = "Lähetä käyttöraportteja";
+"project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikikirjasto";
+"project-name-wikidata" = "Wikidata";
+"project-name-wikimedia-commons" = "Wikimedia Commons";
 "project-name-wikinews" = "Wikiuutiset";
 "project-name-wikiquote" = "Wikisitaatit";
 "project-name-wikisource" = "Wikiaineisto";
+"project-name-wikispecies" = "Wikispecies";
 "project-name-wikiversity" = "Wikiopisto";
 "project-name-wikivoyage" = "Wikimatkat";
 "project-name-wiktionary" = "Wikisanakirja";
@@ -944,6 +952,7 @@
 "table-of-contents-heading" = "Sisällys";
 "table-of-contents-hide-button-label" = "Piilota sisällysluettelo";
 "table-of-contents-subheading-label" = "Alaotsikko $1";
+"talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 aktiivinen käyttäjä|$1 aktiivista käyttäjää}}";
 "talk-page-add-discussion-accessibility-label" = "Lisää keskustelu";
 "talk-page-add-topic-button" = "Lisää aihe";
 "talk-page-archives" = "Arkistot";

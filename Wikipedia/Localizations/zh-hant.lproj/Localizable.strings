@@ -34,6 +34,8 @@
 // Author: Xiplus
 // Author: 予弦
 // Author: 人工知能
+// Author: 列维劳德
+// Author: 捍粵者
 // Author: 沈澄心
 // Author: 烈羽
 // Author: 神樂坂秀吉
@@ -44,7 +46,7 @@
 "aaald-article-insert-last-updated" = "上一次更新";
 "aaald-article-insert-new-changes" = "新的更改";
 "aaald-article-insert-read-more" = "閱讀更多更新內容";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=字元|字元|字元}}";
+"aaald-characters-text-description" = "{{PLURAL:$1|字元}}";
 "aaald-deleted-text-description-2" = "$1已刪除";
 "aaald-error-subitle" = "重新整理來再次嘗試";
 "aaald-error-title" = "無法載入內嵌條目的歷史紀錄";
@@ -92,7 +94,7 @@
 "about-testers-details" = "已由 $1 完成 QA 測試";
 "about-title" = "關於";
 "about-translators" = "翻譯人員";
-"about-translators-details" = "由 $1 的志工們翻譯";
+"about-translators-details" = "由$1的志工翻譯";
 "about-wikimedia-foundation" = "維基媒體基金會";
 "about-wikipedia" = "維基百科";
 "abuse-filter-disallow-heading" = "您不能發布此編輯";
@@ -130,8 +132,8 @@
 "action-language-accessibility" = "變更語言";
 "action-move-to" = "移動至…";
 "action-move-to-reading-list" = "移動至閱讀清單";
-"action-next-revision-accessibility" = "下一個修訂";
-"action-previous-revision-accessibility" = "上一個修訂";
+"action-next-revision-accessibility" = "下一修訂";
+"action-previous-revision-accessibility" = "上一修訂";
 "action-read" = "閱讀";
 "action-redo" = "重做";
 "action-remove" = "移除";
@@ -182,7 +184,7 @@
 "back-button-popover-title" = "輕觸返回";
 "button-next" = "下一步";
 "button-ok" = "確定";
-"button-publish" = "發布";
+"button-publish" = "發佈";
 "button-read-now" = "立刻讀取";
 "button-report-a-bug" = "回報程式錯誤";
 "button-save-for-later" = "儲存以供日後使用";
@@ -243,12 +245,12 @@
 "diff-compare-title" = "比較修訂";
 "diff-context-lines-collapsed-button-title" = "顯示";
 "diff-context-lines-expanded-button-title" = "隱藏";
-"diff-multi-line-format" = "$1 到 $2 行";
+"diff-multi-line-format" = "第$1到$2行";
 "diff-paragraph-moved" = "章節已移動";
 "diff-paragraph-moved-direction-down" = "向下";
 "diff-paragraph-moved-direction-up" = "向上";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 行|$1 行}}";
-"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1個段落|$1個段落}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 個段落}}";
 "diff-paragraph-moved-format" = "章節已移動$1 $2";
 "diff-revision-error-title" = "無法載入修訂";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 次編輯|$1 次編輯}}";
@@ -267,7 +269,7 @@
 "diff-thanks-sent" = "您的感謝已發送給$1";
 "diff-thanks-sent-already" = "您已曾為此編輯發送過感謝";
 "diff-thanks-sent-cannot-unsend" = "感謝無法撤回發送";
-"diff-unedited-lines-format" = "{{PLURAL:$1|共 $1 行尚未編輯|共 $1 行尚未編輯}}";
+"diff-unedited-lines-format" = "{{PLURAL:$1|共$1行尚未編輯}}";
 "dim-images" = "調暗圖片";
 "edit-bold-accessibility-label" = "添加粗體格式";
 "edit-bold-remove-accessibility-label" = "移除粗體格式";
@@ -354,7 +356,7 @@
 "empty-no-saved-pages-in-reading-list-title" = "沒有頁面儲存至此清單";
 "empty-no-saved-pages-message" = "儲存頁面以便稍後檢視，甚至在離線時";
 "empty-no-saved-pages-title" = "尚未儲存頁面";
-"empty-no-search-results-message" = "找不到任何結果";
+"empty-no-search-results-message" = "找不到結果";
 "empty-talk-page-title" = "尚未對此使用者發佈過訊息";
 "error-generic-recovery-suggestion" = "請稍後重試";
 "error-unknown" = "發生不明錯誤";
@@ -474,8 +476,8 @@
 "field-username-title" = "使用者名稱";
 "find-clear-button-accessibility" = "清除尋找";
 "find-infolabel-number-matches" = "$1 / $2";
-"find-next-button-accessibility" = "下一個尋找結果";
-"find-previous-button-accessibility" = "前一個尋找結果";
+"find-next-button-accessibility" = "下筆搜尋結果";
+"find-previous-button-accessibility" = "前筆搜尋結果";
 "find-replace-header" = "尋找與取代";
 "find-replace-header-close-accessibility" = "關閉尋找與取代";
 "find-textfield-accessibility" = "尋找";
@@ -555,7 +557,7 @@
 "logged-out-continue-without-logging-in-button-title" = "以不登入來繼續";
 "logged-out-log-back-in-button-title" = "重新登入您的帳號";
 "logged-out-subtitle" = "在驗證您的帳號時發生一些問題。要同步您的閱讀清單，和以您的使用者名稱名義來編輯，請重新登入。";
-"logged-out-title" = "您已經被登出";
+"logged-out-title" = "您已登出";
 "login-forgot-password" = "忘記您的密碼？";
 "login-join-wikipedia" = "加入維基百科。";
 "login-no-account" = "還沒有帳號？$1";
@@ -760,7 +762,7 @@
 "places-filter-button-title" = "篩選";
 "places-filter-no-saved-places" = "您已沒有儲存的地方";
 "places-filter-saved-articles" = "已儲存條目";
-"places-filter-top-articles" = "被閱讀最多次";
+"places-filter-top-articles" = "最多人閱讀";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 個條目|$1 個條目}}";
 "places-filter-top-read-articles" = "被閱讀最多次的條目";
 "places-location-enabled" = "位置已啟用";
@@ -885,7 +887,7 @@
 "relative-date-minutes-abbreviated" = "$1 分";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=剛剛|$1 分鐘前|$1 分鐘前}}";
 "relative-date-minutes-ago-abbreviated" = "$1 分前";
-"relative-date-months-ago" = "{{PLURAL:$1|0=這個月|1=上個月|$1 個月前}}";
+"relative-date-months-ago" = "{{PLURAL:$1|0=本月|1=上個月|$1 個月前}}";
 "relative-date-seconds-abbreviated" = "$1 秒";
 "relative-date-seconds-ago-abbreviated" = "$1 秒前";
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|1=去年|$1 年前}}";
@@ -903,7 +905,7 @@
 "saved-all-articles-title" = "所有條目";
 "saved-default-reading-list-tag" = "此清單不能被刪除";
 "saved-pages-image-download-error" = "下載此儲存頁面裡的圖片失敗。";
-"saved-pages-progress-syncing" = "條目下載進行中...";
+"saved-pages-progress-syncing" = "條目下載中…";
 "saved-reading-lists-title" = "閱讀清單";
 "saved-search-default-text" = "搜尋已儲存條目";
 "saved-title" = "已儲存";
