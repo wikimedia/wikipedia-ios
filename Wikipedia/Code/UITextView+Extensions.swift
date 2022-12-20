@@ -56,21 +56,36 @@ extension UITextView {
         }
     }
     
-    func selectedRangeIsSurroundedByFormattingString(formattingString: String) -> Bool {
+    func selectedRangeisPrecededByFormattingString(formattingString: String) -> Bool {
         guard let selectedTextRange = selectedTextRange,
-              let newStart = position(from: selectedTextRange.start, offset: -formattingString.count),
-              let newEnd = position(from: selectedTextRange.end, offset: formattingString.count) else {
+              let newStart = position(from: selectedTextRange.start, offset: -formattingString.count) else {
             return false
         }
         
         guard let startingRange = textRange(from: newStart, to: selectedTextRange.start),
-              let startingString = text(in: startingRange),
-              let endingRange = textRange(from: selectedTextRange.end, to: newEnd),
+              let startingString = text(in: startingRange) else {
+            return false
+        }
+        
+        return startingString == formattingString
+    }
+    
+    func selectedRangeIsFollowedByFormattingString(formattingString: String) -> Bool {
+        guard let selectedTextRange = selectedTextRange,
+              let newEnd = position(from: selectedTextRange.end, offset: formattingString.count) else {
+            return false
+        }
+        
+        guard let endingRange = textRange(from: selectedTextRange.end, to: newEnd),
               let endingString = text(in: endingRange) else {
             return false
         }
         
-        return startingString == formattingString && endingString == formattingString
+        return endingString == formattingString
+    }
+    
+    func selectedRangeIsSurroundedByFormattingString(formattingString: String) -> Bool {
+        return selectedRangeisPrecededByFormattingString(formattingString: formattingString) && selectedRangeIsFollowedByFormattingString(formattingString: formattingString) 
     }
     
     // Check selectedRangeIsSurroundedByFormattingString first before running this
