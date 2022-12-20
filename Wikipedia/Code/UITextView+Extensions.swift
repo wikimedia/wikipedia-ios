@@ -46,8 +46,8 @@ extension UITextView {
     /// - Parameters:
     ///   - formattingString: string used for formatting, will surround selected text or cursor
     func addOrRemoveStringFormattingCharacters(formattingString: String) {
-        
-        // here: select up to tick marks?
+
+        expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: formattingString, endingFormattingString: formattingString)
         
         if selectedRangeIsSurroundedByFormattingString(formattingString: formattingString) {
             removeSurroundingFormattingStringFromSelectedRange(formattingString: formattingString)
@@ -120,8 +120,46 @@ extension UITextView {
 
         selectedTextRange = textRange(from: newSelectionStartPosition, to: newSelectionEndPosition)
     }
-    
-    func expandSelectedRangeUpToNearestFormattingString(formattingString: String) {
+
+    func expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: String, endingFormattingString: String) {
+        guard var originalSelectedRange = selectedTextRange else {
+            return
+        }
         
+        // loop backwards to find start
+        var i = 0
+        var finalStart: UITextPosition?
+        while let newStart = position(from: originalSelectedRange.start, offset: i) {
+            let newRange = textRange(from: newStart, to: originalSelectedRange.end)
+            
+            if selectedRangeisPrecededByFormattingString(formattingString: startingFormattingString) {
+                finalStart = newStart
+                break
+            }
+            
+            i = i - 1
+        }
+        
+        // loop forwards to find end
+        i = 0
+        var finalEnd: UITextPosition?
+        while let newEnd = position(from: originalSelectedRange.end, offset: i) {
+            let newRange = textRange(from: originalSelectedRange.start, to: newEnd)
+            
+            if selectedRangeIsFollowedByFormattingString( formattingString: endingFormattingString) {
+                finalEnd = newEnd
+                break
+            }
+            
+            i = i + 1
+        }
+        
+        // Select new range
+        guard let finalStart = finalStart,
+                  let finalEnd = finalEnd else {
+                      return
+                  }
+        
+        selectedTextRange = textRange(from: finalStart, to: finalEnd)
     }
 }

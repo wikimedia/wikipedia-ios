@@ -16,8 +16,11 @@ extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
     }
 
     func didSelectInsertLink() {
-        if let textView = replyComposeController.contentView?.replyTextView, let range =  textView.selectedTextRange {
-            let text = textView.text(in: range)
+        
+        replyComposeController.contentView?.replyTextView.expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: "[[", endingFormattingString: "]]")
+        
+        if let textView = replyComposeController.contentView?.replyTextView, let range =  textView.selectedTextRange, let text = textView.text(in: range) {
+            
             preselectedTextRange = range
 
             var doesLinkExist = false
@@ -35,7 +38,18 @@ extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
                 }
             }
 
-            guard let link = Link(page: text, label: text, exists: doesLinkExist) else {
+            let index = text.firstIndex(of: "|") ?? text.endIndex
+            let beggining = text[..<index]
+
+            let ending = text[index...]
+
+            let newSearchTerm = String(beggining)
+            let newLabel = String(ending.dropFirst())
+
+            let linkText = doesLinkExist ? newSearchTerm : text
+            let labelText = doesLinkExist ? newLabel : text
+
+            guard let link = Link(page: linkText, label: labelText, exists: doesLinkExist) else {
                 return
             }
 

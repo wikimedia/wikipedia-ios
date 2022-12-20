@@ -13,6 +13,9 @@ extension TalkPageTopicComposeViewController: TalkPageFormattingToolbarViewDeleg
     }
 
     func didSelectInsertLink() {
+        
+        bodyTextView.expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: "[[", endingFormattingString: "]]")
+        
         if let range =  bodyTextView.selectedTextRange {
             let text = bodyTextView.text(in: range)
             preselectedTextRange = range
