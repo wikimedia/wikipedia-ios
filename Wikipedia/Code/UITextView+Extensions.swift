@@ -46,8 +46,8 @@ extension UITextView {
     /// - Parameters:
     ///   - formattingString: string used for formatting, will surround selected text or cursor
     func addOrRemoveStringFormattingCharacters(formattingString: String) {
+        expandSelectedRangeUpToNearestFormattingString(formattingString: formattingString)
 
-        expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: formattingString, endingFormattingString: formattingString)
         
         if selectedRangeIsSurroundedByFormattingString(formattingString: formattingString) {
             removeSurroundingFormattingStringFromSelectedRange(formattingString: formattingString)
@@ -56,13 +56,13 @@ extension UITextView {
         }
     }
     
-    func selectedRangeisPrecededByFormattingString(formattingString: String) -> Bool {
-        guard let selectedTextRange = selectedTextRange,
-              let newStart = position(from: selectedTextRange.start, offset: -formattingString.count) else {
+    func rangeIsPrecededByFormattingString(range: UITextRange?, formattingString: String) -> Bool {
+        guard let range = range,
+              let newStart = position(from: range.start, offset: -formattingString.count) else {
             return false
         }
         
-        guard let startingRange = textRange(from: newStart, to: selectedTextRange.start),
+        guard let startingRange = textRange(from: newStart, to: range.start),
               let startingString = text(in: startingRange) else {
             return false
         }
@@ -70,13 +70,13 @@ extension UITextView {
         return startingString == formattingString
     }
     
-    func selectedRangeIsFollowedByFormattingString(formattingString: String) -> Bool {
-        guard let selectedTextRange = selectedTextRange,
-              let newEnd = position(from: selectedTextRange.end, offset: formattingString.count) else {
+    func rangeIsFollowedByFormattingString(range: UITextRange?, formattingString: String) -> Bool {
+        guard let range = range,
+              let newEnd = position(from: range.end, offset: formattingString.count) else {
             return false
         }
         
-        guard let endingRange = textRange(from: selectedTextRange.end, to: newEnd),
+        guard let endingRange = textRange(from: range.end, to: newEnd),
               let endingString = text(in: endingRange) else {
             return false
         }
@@ -85,7 +85,7 @@ extension UITextView {
     }
     
     func selectedRangeIsSurroundedByFormattingString(formattingString: String) -> Bool {
-        return selectedRangeisPrecededByFormattingString(formattingString: formattingString) && selectedRangeIsFollowedByFormattingString(formattingString: formattingString) 
+        return rangeIsPrecededByFormattingString(range: selectedTextRange, formattingString: formattingString) && rangeIsFollowedByFormattingString(range: selectedTextRange, formattingString: formattingString)
     }
     
     // Check selectedRangeIsSurroundedByFormattingString first before running this
@@ -121,7 +121,8 @@ extension UITextView {
         selectedTextRange = textRange(from: newSelectionStartPosition, to: newSelectionEndPosition)
     }
 
-    func expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: String, endingFormattingString: String) {
+    func expandSelectedRangeUpToNearestFormattingString(formattingString: String) {
+
         guard var originalSelectedRange = selectedTextRange else {
             return
         }
@@ -131,8 +132,9 @@ extension UITextView {
         var finalStart: UITextPosition?
         while let newStart = position(from: originalSelectedRange.start, offset: i) {
             let newRange = textRange(from: newStart, to: originalSelectedRange.end)
-            
-            if selectedRangeisPrecededByFormattingString(formattingString: startingFormattingString) {
+
+            if rangeIsPrecededByFormattingString(range: newRange, formattingString: formattingString) {
+
                 finalStart = newStart
                 break
             }
@@ -146,7 +148,8 @@ extension UITextView {
         while let newEnd = position(from: originalSelectedRange.end, offset: i) {
             let newRange = textRange(from: originalSelectedRange.start, to: newEnd)
             
-            if selectedRangeIsFollowedByFormattingString( formattingString: endingFormattingString) {
+            if rangeIsFollowedByFormattingString(range: newRange, formattingString: formattingString) {
+
                 finalEnd = newEnd
                 break
             }
