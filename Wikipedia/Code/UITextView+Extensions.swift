@@ -46,31 +46,67 @@ extension UITextView {
     /// - Parameters:
     ///   - formattingString: string used for formatting, will surround selected text or cursor
     func addOrRemoveStringFormattingCharacters(formattingString: String) {
-        let formattingStringLength = formattingString.count
         
-        if let originalSelectedRange = selectedTextRange {
-            if
-                let startIncludingFormatting = position(from: originalSelectedRange.start, offset: -formattingStringLength),
-                let endIncludingFormatting = position(from: originalSelectedRange.end, offset: formattingStringLength),
-                let selectedRangeIncludingFormatting = textRange(from: startIncludingFormatting, to: endIncludingFormatting) {
-
-                if let selectedTextIncludingFormatting = text(in: selectedRangeIncludingFormatting) {
-                    if selectedTextIncludingFormatting.contains(formattingString) {
-                        
-                        // Toggle off by replacing range with formatting with text in original selected range
-                        replace(selectedRangeIncludingFormatting, withText: text(in: originalSelectedRange) ?? String())
-
-                        // Select original text again...without this, previous replace line causes it to lose selection.
-                        let newStartPosition = position(from: originalSelectedRange.start, offset: -formattingStringLength)
-                        let newEndPosition = position(from: originalSelectedRange.end, offset: -formattingStringLength)
-                        selectedTextRange = textRange(from: newStartPosition ?? endOfDocument, to: newEndPosition ?? endOfDocument)
-                    } else {
-                        addStringFormattingCharacters(formattingString: formattingString)
-                    }
-                }
-            } else {
-                addStringFormattingCharacters(formattingString: formattingString)
-            }
+        // here: select up to tick marks?
+        
+        if selectedRangeIsSurroundedByFormattingString(formattingString: formattingString) {
+            removeSurroundingFormattingStringFromSelectedRange(formattingString: formattingString)
+        } else {
+            addStringFormattingCharacters(formattingString: formattingString)
         }
+    }
+    
+    func selectedRangeIsSurroundedByFormattingString(formattingString: String) -> Bool {
+        guard let selectedTextRange = selectedTextRange,
+              let newStart = position(from: selectedTextRange.start, offset: -formattingString.count),
+              let newEnd = position(from: selectedTextRange.end, offset: formattingString.count) else {
+            return false
+        }
+        
+        guard let startingRange = textRange(from: newStart, to: selectedTextRange.start),
+              let startingString = text(in: startingRange),
+              let endingRange = textRange(from: selectedTextRange.end, to: newEnd),
+              let endingString = text(in: endingRange) else {
+            return false
+        }
+        
+        return startingString == formattingString && endingString == formattingString
+    }
+    
+    // Check selectedRangeIsSurroundedByFormattingString first before running this
+    func removeSurroundingFormattingStringFromSelectedRange(formattingString: String) {
+        
+        guard selectedRangeIsSurroundedByFormattingString(formattingString: formattingString) else {
+            assertionFailure("Selected text is not surrounded by formatting string. Do nothing")
+            return
+        }
+        
+        guard let originalSelectedTextRange = selectedTextRange,
+              let formattingTextStart = position(from: originalSelectedTextRange.start, offset: -formattingString.count),
+              let formattingTextEnd = position(from: originalSelectedTextRange.end, offset: formattingString.count) else {
+            return
+        }
+        
+        guard let formattingTextStartRange = textRange(from: formattingTextStart, to: originalSelectedTextRange.start),
+              let formattingTextEndRange = textRange(from: originalSelectedTextRange.end, to: formattingTextEnd) else {
+            return
+        }
+        
+        // Note: replacing end first ordering is important here, otherwise range gets thrown off if you begin with start. Check with RTL
+        replace(formattingTextEndRange, withText: "")
+        replace(formattingTextStartRange, withText: "")
+
+        // Reset selection
+        guard
+            let newSelectionStartPosition = position(from: originalSelectedTextRange.start, offset: -formattingString.count),
+            let newSelectionEndPosition = position(from: originalSelectedTextRange.end, offset: -formattingString.count) else {
+            return
+        }
+
+        selectedTextRange = textRange(from: newSelectionStartPosition, to: newSelectionEndPosition)
+    }
+    
+    func expandSelectedRangeUpToNearestFormattingString(formattingString: String) {
+        
     }
 }
