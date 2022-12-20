@@ -32,19 +32,7 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
     // MARK: Tracking properties used when set to reappearOnScrollUp
     private var lastAmount: CGFloat = 0
     private var amountWhenDirectionChanged: CGFloat = 0
-    private var goingUp = false {
-        didSet {
-            if oldValue != goingUp {
-                if lastAmount < 0 { // clear out if bouncing at top
-                    amountWhenDirectionChanged = 0
-                } else {
-                    if isFullyShowing || isFullyHidden { // If it is in the middle of collapsing, resetting this property thows things off. Only set change direction amount if it's already fully collapsed or expanded
-                        amountWhenDirectionChanged = lastAmount
-                    }
-                }
-            }
-        }
-    }
+    private var goingUp = false
     
     private var isFullyHidden: Bool {
        return -(equalHeightToContentConstraint?.constant ?? 0) == contentHeight
@@ -72,13 +60,26 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         
         // Various states when configured to reappear where it needs to bail
         if config.reappearOnScrollUp {
+            
+            let oldGoingUp = goingUp
             goingUp = lastAmount > amount
+            
+            if oldGoingUp != goingUp {
+                
+                // Clear out if it's near the top...otherwise it throws off top bouncing calculations
+                if amount <= contentHeight {
+                    amountWhenDirectionChanged = 0
+                } else {
+                    amountWhenDirectionChanged = amount
+                }
+            }
+            
             let flickingUp = (lastAmount - amount) > 8
             
             // If flicking up and fully collapsed, animate nav bar back in
             if flickingUp && isFullyHidden {
                 equalHeightToContentConstraint?.constant = 0
-                
+
                 setNeedsLayout()
                 UIView.animate(withDuration: 0.2) {
                     self.alpha = 1.0
@@ -110,7 +111,6 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
                return .shifted(contentHeight)
            }
         }
-        
         
         var adjustedAmount = amount
         // Adjust shift amount to be against when direction last changed, if needed. This is so that bar can slowly disappear again when scrolling down further in the view after flicking to show it
