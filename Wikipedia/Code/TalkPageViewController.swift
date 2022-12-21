@@ -2,8 +2,8 @@ import UIKit
 import WMF
 import CocoaLumberjackSwift
 
-class TalkPageViewController: CustomNavigationViewController {
-
+class TalkPageViewController: ThemeableViewController, CustomNavigationContaining {
+    
     // MARK: - Properties
 
     let viewModel: TalkPageViewModel
@@ -25,25 +25,14 @@ class TalkPageViewController: CustomNavigationViewController {
         return view as! TalkPageView
     }
     
+    var navigationViewChildViewController: CustomNavigationChildViewController?
+    
     lazy var barView: ShiftingNavigationBarView = {
         var items: [UINavigationItem] = []
         navigationController?.viewControllers.forEach({ items.append($0.navigationItem) })
-        let config = ShiftingNavigationBarView.Config(reappearOnScrollUp: false, shiftOnScrollUp: false, needsProgressView: true)
+        let config = ShiftingNavigationBarView.Config(reappearOnScrollUp: true, shiftOnScrollUp: true, needsProgressView: true)
         return ShiftingNavigationBarView(order: 1, config: config, navigationItems: items, popDelegate: self)
     }()
-    
-    override var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] {
-        if let tempShiftingHeaderView {
-            return [barView, tempShiftingHeaderView]
-        } else {
-            return [barView]
-        }
-    }
-    
-    // Override if needed
-    override var shadowBehavior: CustomNavigationView.ShadowBehavior {
-        return .alwaysShow
-    }
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: barView, delegate: barView)
@@ -148,7 +137,8 @@ class TalkPageViewController: CustomNavigationViewController {
 
     init(viewModel: TalkPageViewModel, theme: Theme) {
         self.viewModel = viewModel
-        super.init(theme: theme)
+        // self.theme = theme
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -158,7 +148,6 @@ class TalkPageViewController: CustomNavigationViewController {
     override func loadView() {
         let talkPageView = TalkPageView(frame: UIScreen.main.bounds)
         view = talkPageView
-        self.scrollView = talkPageView.collectionView
     }
 
     fileprivate func fetchTalkPage() {
@@ -202,10 +191,8 @@ class TalkPageViewController: CustomNavigationViewController {
         talkPageView.collectionView.delegate = self
 
         talkPageView.emptyView.scrollView.delegate = self
-
-        // Needed for reply compose views to display on top of navigation bar.
-        // navigationController?.setNavigationBarHidden(true, animated: false)
-        // navigationMode = .forceBar
+        
+        setup(shiftingSubviews: [barView], shadowBehavior: .showUponScroll, scrollView: talkPageView.collectionView)
 
         fetchTalkPage()
         setupToolbar()
@@ -235,11 +222,11 @@ class TalkPageViewController: CustomNavigationViewController {
             let windowFrame = window.convert(endFrame, from: nil)
             let keyboardFrame = window.convert(windowFrame, to: talkPageView)
             let intersectingFrame = keyboardFrame.intersection(talkPageView.collectionView.frame)
-            let oldInset = scrollView.contentInset
-            let oldScrollInset = scrollView.verticalScrollIndicatorInsets
+            let oldInset = talkPageView.collectionView.contentInset
+            let oldScrollInset = talkPageView.collectionView.verticalScrollIndicatorInsets
         
-            scrollView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: intersectingFrame.height, right: oldInset.right)
-            scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: intersectingFrame.height, right: oldScrollInset.right)
+            talkPageView.collectionView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: intersectingFrame.height, right: oldInset.right)
+            talkPageView.collectionView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: intersectingFrame.height, right: oldScrollInset.right)
         }
     }
     
@@ -247,21 +234,21 @@ class TalkPageViewController: CustomNavigationViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        let oldInset = scrollView.contentInset
-        let oldScrollInset = scrollView.verticalScrollIndicatorInsets
+        let oldInset = talkPageView.collectionView.contentInset
+        let oldScrollInset = talkPageView.collectionView.verticalScrollIndicatorInsets
         
         if replyComposeController.isShowing,
         let containerView = replyComposeController.containerView {
             let replyComposeFrame = containerView.frame
-            let bottomInset = scrollView.frame.maxY - replyComposeFrame.minY
+            let bottomInset = talkPageView.collectionView.frame.maxY - replyComposeFrame.minY
             
             print(bottomInset)
-            scrollView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: bottomInset, right: oldInset.right)
-            scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: bottomInset, right: oldScrollInset.right)
+            talkPageView.collectionView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: bottomInset, right: oldInset.right)
+            talkPageView.collectionView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: bottomInset, right: oldScrollInset.right)
             
         } else if !isKeyboardShowing {
-            scrollView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: 0, right: oldInset.right)
-            scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: 0, right: oldScrollInset.right)
+            talkPageView.collectionView.contentInset = UIEdgeInsets(top: oldInset.top, left: oldInset.left, bottom: 0, right: oldInset.right)
+            talkPageView.collectionView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollInset.top, left: oldScrollInset.left, bottom: 0, right: oldScrollInset.right)
         }
 
     }
@@ -301,10 +288,11 @@ class TalkPageViewController: CustomNavigationViewController {
             return
         }
 
-        self.tempShiftingHeaderView = TempShiftingTalkPageHeaderView(order: 0, viewModel: viewModel, theme: theme)
-        appendShiftingSubview(tempShiftingHeaderView!)
+        let tempShiftingHeaderView = TempShiftingTalkPageHeaderView(order: 0, viewModel: viewModel, theme: theme)
+        self.tempShiftingHeaderView = tempShiftingHeaderView
+        navigationViewChildViewController?.addShiftingSubviews(views: [tempShiftingHeaderView])
 
-        tempShiftingHeaderView?.headerView.coffeeRollReadMoreButton.addTarget(self, action: #selector(userDidTapCoffeeRollReadMoreButton), for: .primaryActionTriggered)
+        tempShiftingHeaderView.headerView.coffeeRollReadMoreButton.addTarget(self, action: #selector(userDidTapCoffeeRollReadMoreButton), for: .primaryActionTriggered)
     }
     
     private func setupOverflowMenu() {
@@ -465,13 +453,13 @@ class TalkPageViewController: CustomNavigationViewController {
     }
     
     fileprivate func pushToArchivesUIKit() {
-        let vc = TalkPageArchivesViewController(theme: theme)
+        let vc = TalkPageArchivesViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
     fileprivate func pushToArchivesSwiftUI() {
         let viewModel = TalkPageArchivesViewModel(pageTitle: viewModel.pageTitle, siteURL: viewModel.siteURL)
-        let vc = TalkPageArchivesHostingController(theme: theme, viewModel: viewModel, tempOldViewModel: self.viewModel)
+        let vc = TalkPageArchivesHostingContainingController(theme: theme, viewModel: viewModel, tempOldViewModel: self.viewModel)
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -877,7 +865,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
 
     fileprivate func updateEmptyStateVisibility() {
         talkPageView.updateEmptyView(visible: viewModel.topics.count == 0)
-        scrollView = viewModel.topics.count == 0 ? talkPageView.emptyView.scrollView : talkPageView.collectionView
+        navigationViewChildViewController?.scrollView = viewModel.topics.count == 0 ? talkPageView.emptyView.scrollView : talkPageView.collectionView
     }
 
     fileprivate func updateErrorStateVisibility() {
@@ -1142,5 +1130,11 @@ extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
                 }
             }
         }
+    }
+}
+
+extension TalkPageViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        navigationViewChildViewController?.scrollViewDidScroll(scrollView)
     }
 }

@@ -2,7 +2,6 @@ import SwiftUI
 
 struct TalkPageArchivesView: View {
     
-    @ObservedObject var data: CustomNavigationViewData
     @ObservedObject var viewModel: TalkPageArchivesViewModel
     @SwiftUI.State private var task: Task<Void, Never>?
     
@@ -22,7 +21,6 @@ struct TalkPageArchivesView: View {
                 }
             }
         }
-        .environmentObject(data)
         .onAppear {
             task = Task(priority: .userInitiated) {
                 await viewModel.fetchArchives()

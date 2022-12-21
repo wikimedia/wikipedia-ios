@@ -2,27 +2,19 @@ import Foundation
 import UIKit
 import Combine
 
-class TalkPageArchivesHostingController: CustomNavigationViewHostingController<TalkPageArchivesView> {
-    
+class TalkPageArchivesHostingContainingController: UIViewController, CustomNavigationContaining {
     lazy var barView: ShiftingNavigationBarView = {
         var items: [UINavigationItem] = []
         navigationController?.viewControllers.forEach({ items.append($0.navigationItem) })
         let config = ShiftingNavigationBarView.Config(reappearOnScrollUp: true, shiftOnScrollUp: true, needsProgressView: true)
         return ShiftingNavigationBarView(order: 0, config: config, navigationItems: items, popDelegate: self)
     }()
-    
-    override var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] {
-        return [barView]
-    }
-    
-    // todo: can we hide some of this in superclass?
-    override var data: CustomNavigationViewData {
-        return _data
-    }
-    private let _data: CustomNavigationViewData
+
     private let viewModel: TalkPageArchivesViewModel
     private let tempOldViewModel: TalkPageViewModel
     private var isLoadingCancellable: AnyCancellable?
+    
+    var navigationViewChildViewController: CustomNavigationChildViewController?
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: barView, delegate: barView)
@@ -31,11 +23,9 @@ class TalkPageArchivesHostingController: CustomNavigationViewHostingController<T
     }()
     
     init(theme: Theme, viewModel: TalkPageArchivesViewModel, tempOldViewModel: TalkPageViewModel) {
-        let data = CustomNavigationViewData()
-        self._data = data
         self.tempOldViewModel = tempOldViewModel
         self.viewModel = viewModel
-        super.init(rootView: TalkPageArchivesView(data: data, viewModel: viewModel), theme: theme)
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,13 +35,14 @@ class TalkPageArchivesHostingController: CustomNavigationViewHostingController<T
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = WMFLocalizedString("talk-pages-archives-view-title", value: "Archives", comment: "Title of talk page archive list view.")
+        
+        var rootView = TalkPageArchivesView(viewModel: viewModel)
         rootView.didTapItem = { item in
             self.didTapItem(item)
         }
         
-        self.title = WMFLocalizedString("talk-pages-archives-view-title", value: "Archives", comment: "Title of talk page archive list view.")
-        
-        apply(theme: theme)
+        setup(shiftingSubviews: [barView], shadowBehavior: .showUponScroll, swiftuiView: rootView)
         
         self.isLoadingCancellable = viewModel.$isLoading.sink { [weak self] isLoading in
             
@@ -72,7 +63,7 @@ class TalkPageArchivesHostingController: CustomNavigationViewHostingController<T
             showGenericError()
             return
         }
-        let vc = TalkPageViewController(viewModel: viewModel, theme: theme)
+        let vc = TalkPageViewController(viewModel: viewModel, theme: .light)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

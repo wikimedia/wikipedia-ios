@@ -1,18 +1,15 @@
 import UIKit
 
-class TalkPageArchivesViewController: CustomNavigationViewController {
-    
+class TalkPageArchivesViewController: UIViewController, CustomNavigationContaining, UITableViewDelegate {
     var items: [String] = []
     
-    var archivesView: TalkPageArchivesViewUIKit {
-        return view as! TalkPageArchivesViewUIKit
-    }
+    var navigationViewChildViewController: CustomNavigationChildViewController?
     
-    override func loadView() {
-        let archivesView = TalkPageArchivesViewUIKit(frame: UIScreen.main.bounds)
-        view = archivesView
-        scrollView = archivesView.tableView
-    }
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     
     var redView: TempShiftingView?
     let blueView = TempShiftingView(color: .blue, order: 1)
@@ -25,39 +22,28 @@ class TalkPageArchivesViewController: CustomNavigationViewController {
         return ShiftingNavigationBarView(order: 0, config: config, navigationItems: items, popDelegate: self)
     }()
     
-    override var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] {
-        if let redView {
-            return [barView, blueView, greenView, redView]
-        } else {
-            return [barView, blueView, greenView]
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "Archives"
         
-        archivesView.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "basicStyle")
-        archivesView.tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "basicStyle")
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        setup(shiftingSubviews: [barView, blueView, greenView], shadowBehavior: .showUponScroll, scrollView: tableView)
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) { [self] in
-            self.redView = TempShiftingView(color: .red, order: 3)
-            self.appendShiftingSubview(self.redView!)
+            let redView = TempShiftingView(color: .red, order: 3)
+            self.redView = redView
+            self.navigationViewChildViewController?.addShiftingSubviews(views: [redView])
             
             for _ in 0..<100 {
                 items.append("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
             }
             
-            archivesView.tableView.reloadData()
+            tableView.reloadData()
         }
-        
-        apply(theme: theme)
-    }
-    
-    override func apply(theme: Theme) {
-        super.apply(theme: theme)
-        archivesView.apply(theme: theme)
     }
 }
 
@@ -70,5 +56,11 @@ extension TalkPageArchivesViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "basicStyle", for: indexPath)
         cell.textLabel!.text = items[indexPath.row]
         return cell
+    }
+}
+
+extension TalkPageArchivesViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        navigationViewChildViewController?.scrollViewDidScroll(scrollView)
     }
 }

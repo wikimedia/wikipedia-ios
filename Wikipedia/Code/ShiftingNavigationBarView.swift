@@ -44,6 +44,8 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
 
     func shift(amount: CGFloat) -> ShiftingStatus {
         
+        print("sending in amount to navigation bar view: \(amount)")
+        
         defer {
             lastAmount = amount
         }

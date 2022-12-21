@@ -96,6 +96,8 @@ class TempShiftingTalkPageHeaderView: SetupView, CustomNavigationViewShiftingSub
     
     func shift(amount: CGFloat) -> ShiftingStatus {
         
+        print("sending in amount to talk header view: \(amount)")
+        
         let limitedShiftAmount = max(0, min(amount, contentHeight))
         
         let percent = limitedShiftAmount / contentHeight
