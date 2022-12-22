@@ -46,8 +46,7 @@ extension UITextView {
     /// - Parameters:
     ///   - formattingString: string used for formatting, will surround selected text or cursor
     func addOrRemoveStringFormattingCharacters(formattingString: String) {
-        expandSelectedRangeUpToNearestFormattingString(formattingString: formattingString)
-
+        expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: formattingString, endingFormattingString: formattingString)
         
         if selectedRangeIsSurroundedByFormattingString(formattingString: formattingString) {
             removeSurroundingFormattingStringFromSelectedRange(formattingString: formattingString)
@@ -121,7 +120,7 @@ extension UITextView {
         selectedTextRange = textRange(from: newSelectionStartPosition, to: newSelectionEndPosition)
     }
 
-    func expandSelectedRangeUpToNearestFormattingString(formattingString: String) {
+    func expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: String, endingFormattingString: String) {
 
         guard var originalSelectedRange = selectedTextRange else {
             return
@@ -133,7 +132,7 @@ extension UITextView {
         while let newStart = position(from: originalSelectedRange.start, offset: i) {
             let newRange = textRange(from: newStart, to: originalSelectedRange.end)
 
-            if rangeIsPrecededByFormattingString(range: newRange, formattingString: formattingString) {
+            if rangeIsPrecededByFormattingString(range: newRange, formattingString: startingFormattingString) {
 
                 finalStart = newStart
                 break
@@ -148,7 +147,7 @@ extension UITextView {
         while let newEnd = position(from: originalSelectedRange.end, offset: i) {
             let newRange = textRange(from: originalSelectedRange.start, to: newEnd)
             
-            if rangeIsFollowedByFormattingString(range: newRange, formattingString: formattingString) {
+            if rangeIsFollowedByFormattingString(range: newRange, formattingString: endingFormattingString) {
 
                 finalEnd = newEnd
                 break
