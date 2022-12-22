@@ -15,40 +15,10 @@ extension TalkPageTopicComposeViewController: TalkPageFormattingToolbarViewDeleg
     func didSelectInsertLink() {
         
         bodyTextView.expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: "[[", endingFormattingString: "]]")
-        
-        if let range =  bodyTextView.selectedTextRange {
-            let text = bodyTextView.text(in: range)
-            preselectedTextRange = range
 
-            guard let text else { return }
+        if let linkInfo = bodyTextView.prepareLinkInsertion(preselectedTextRange: &preselectedTextRange) {
 
-            var doesLinkExist = false
-
-            if let start = bodyTextView.position(from: range.start, offset: -2),
-               let end = bodyTextView.position(from: range.end, offset: 2),
-               let newSelectedRange = bodyTextView.textRange(from: start, to: end) {
-
-                if let newText = bodyTextView.text(in: newSelectedRange) {
-                    if newText.contains("[") || newText.contains("]") {
-                        doesLinkExist = true
-                    } else {
-                        doesLinkExist = false
-                    }
-                }
-            }
-
-            let index = text.firstIndex(of: "|") ?? text.endIndex
-            let beggining = text[..<index]
-
-            let ending = text[index...]
-
-            let newSearchTerm = String(beggining)
-            let newLabel = String(ending.dropFirst())
-
-            let linkText = doesLinkExist ? newSearchTerm : text
-            let labelText = doesLinkExist ? newLabel : text
-
-            guard let link = Link(page: linkText, label: labelText, exists: doesLinkExist) else {
+            guard let link = Link(page: linkInfo.linkText, label: linkInfo.labelText, exists: linkInfo.doesLinkExist) else {
                 return
             }
 
@@ -56,7 +26,6 @@ extension TalkPageTopicComposeViewController: TalkPageFormattingToolbarViewDeleg
                 guard let editLinkViewController = EditLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared()) else {
                     return
                 }
-
                 editLinkViewController.delegate = self
                 let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
                 navigationController.isNavigationBarHidden = true
@@ -67,6 +36,7 @@ extension TalkPageTopicComposeViewController: TalkPageFormattingToolbarViewDeleg
                 let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
                 present(navigationController, animated: true)
             }
+
         }
     }
 

@@ -19,37 +19,9 @@ extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
         
         replyComposeController.contentView?.replyTextView.expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: "[[", endingFormattingString: "]]")
         
-        if let textView = replyComposeController.contentView?.replyTextView, let range =  textView.selectedTextRange, let text = textView.text(in: range) {
-            
-            preselectedTextRange = range
+        if let linkInfo = replyComposeController.contentView?.replyTextView.prepareLinkInsertion(preselectedTextRange: &preselectedTextRange) {
 
-            var doesLinkExist = false
-
-            if let start = textView.position(from: range.start, offset: -2),
-               let end = textView.position(from: range.end, offset: 2),
-               let newSelectedRange = textView.textRange(from: start, to: end) {
-
-                if let newText = textView.text(in: newSelectedRange) {
-                    if newText.contains("[") || newText.contains("]") {
-                        doesLinkExist = true
-                    } else {
-                        doesLinkExist = false
-                    }
-                }
-            }
-
-            let index = text.firstIndex(of: "|") ?? text.endIndex
-            let beggining = text[..<index]
-
-            let ending = text[index...]
-
-            let newSearchTerm = String(beggining)
-            let newLabel = String(ending.dropFirst())
-
-            let linkText = doesLinkExist ? newSearchTerm : text
-            let labelText = doesLinkExist ? newLabel : text
-
-            guard let link = Link(page: linkText, label: labelText, exists: doesLinkExist) else {
+            guard let link = Link(page: linkInfo.linkText, label: linkInfo.labelText, exists: linkInfo.doesLinkExist) else {
                 return
             }
 
@@ -67,7 +39,9 @@ extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
                 let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
                 present(navigationController, animated: true)
             }
+
         }
+
     }
 }
 
