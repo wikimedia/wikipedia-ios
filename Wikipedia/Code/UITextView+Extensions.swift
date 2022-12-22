@@ -122,7 +122,7 @@ extension UITextView {
 
     func expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: String, endingFormattingString: String) {
 
-        guard var originalSelectedRange = selectedTextRange else {
+        guard let originalSelectedRange = selectedTextRange else {
             return
         }
         

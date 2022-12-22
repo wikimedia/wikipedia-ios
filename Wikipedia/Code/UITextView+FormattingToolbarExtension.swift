@@ -34,31 +34,31 @@ internal extension UITextView {
 
         guard let text else { return nil }
 
-            var doesLinkExist = false
+        var doesLinkExist = false
 
-            if let start = position(from: range.start, offset: -2),
-               let end = position(from: range.end, offset: 2),
-               let newSelectedRange = textRange(from: start, to: end) {
+        if let start = position(from: range.start, offset: -2),
+           let end = position(from: range.end, offset: 2),
+           let newSelectedRange = textRange(from: start, to: end) {
 
-                if let newText = self.text(in: newSelectedRange) {
-                    if newText.contains("[") || newText.contains("]") {
-                        doesLinkExist = true
-                    } else {
-                        doesLinkExist = false
-                    }
+            if let newText = self.text(in: newSelectedRange) {
+                if newText.contains("[") || newText.contains("]") {
+                    doesLinkExist = true
+                } else {
+                    doesLinkExist = false
                 }
             }
+        }
 
-            let index = text.firstIndex(of: "|") ?? text.endIndex
-            let beggining = text[..<index]
+        let index = text.firstIndex(of: "|") ?? text.endIndex
+        let beggining = text[..<index]
 
-            let ending = text[index...]
+        let ending = text[index...]
 
-            let newSearchTerm = String(beggining)
-            let newLabel = String(ending.dropFirst())
+        let newSearchTerm = String(beggining)
+        let newLabel = String(ending.dropFirst())
 
-            let linkText = doesLinkExist ? newSearchTerm : text
-            let labelText = doesLinkExist ? newLabel : text
+        let linkText = doesLinkExist ? newSearchTerm : text
+        let labelText = doesLinkExist ? newLabel : text
 
         return (linkText, labelText, doesLinkExist)
     }
