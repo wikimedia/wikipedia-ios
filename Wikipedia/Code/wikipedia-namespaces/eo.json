@@ -51,6 +51,8 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "TOPIC" : 2600,
     "USER" : 2,
     "USER TALK" : 3,
@@ -68,6 +70,7 @@
     "VIKIPEDIO DISKUTO" : 5,
     "VP" : 4,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }

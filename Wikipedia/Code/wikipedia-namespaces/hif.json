@@ -35,12 +35,15 @@
     "TEMPLATE" : 10,
     "TEMPLATE KE BAAT" : 11,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "USER" : 2,
     "USER TALK" : 3,
     "VIBHAG" : 14,
     "VOIBHAG KE BAAT" : 15,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA BAAT" : 5,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }
