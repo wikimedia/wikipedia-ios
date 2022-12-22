@@ -32,7 +32,7 @@ class TalkPageReplyComposeController {
     private var dragHandleView: UIView?
     private var containerViewYUponDragBegin: CGFloat?
     
-    private var contentView: TalkPageReplyComposeContentView?
+    private(set) var contentView: TalkPageReplyComposeContentView?
     
     private let containerPinnedTopSpacing = CGFloat(10)
     private let contentTopSpacing = CGFloat(15)

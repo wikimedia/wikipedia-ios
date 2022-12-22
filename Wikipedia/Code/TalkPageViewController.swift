@@ -2,6 +2,11 @@ import UIKit
 import WMF
 import CocoaLumberjackSwift
 
+public enum InputAccessoryViewType {
+    case format
+    case findInPage
+}
+
 class TalkPageViewController: ViewController {
 
     // MARK: - Properties
@@ -10,6 +15,8 @@ class TalkPageViewController: ViewController {
     fileprivate var headerView: TalkPageHeaderView?
     fileprivate var shouldGoToNewTopic: Bool = false
     let findInPageState = TalkPageFindInPageState()
+
+    internal var preselectedTextRange = UITextRange()
 
     fileprivate var topicReplyOnboardingHostingViewController: TalkPageTopicReplyOnboardingHostingController?
     
@@ -25,6 +32,25 @@ class TalkPageViewController: ViewController {
         return view as! TalkPageView
     }
     
+    private let textFormattingToolbarView = TalkPageFormattingToolbarView()
+
+    private(set) var inputAccessoryViewType: InputAccessoryViewType?
+
+    override var inputAccessoryView: UIView? {
+        guard let inputAccessoryViewType = inputAccessoryViewType else {
+            return nil
+        }
+
+        switch inputAccessoryViewType {
+        case .findInPage:
+            return findInPageState.keyboardBar
+        case .format:
+            textFormattingToolbarView.apply(theme: theme)
+            textFormattingToolbarView.delegate = self
+            return textFormattingToolbarView
+        }
+    }
+
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
         progressController.delay = 0.0
@@ -57,7 +83,7 @@ class TalkPageViewController: ViewController {
 
     fileprivate var overflowSubmenuActions: [UIAction] {
 
-        let goToArchivesAction = UIAction(title: TalkPageLocalizedStrings.archives, image: UIImage(systemName: "archivebox"), handler: { _ in
+        let  goToArchivesAction = UIAction(title: TalkPageLocalizedStrings.archives, image: UIImage(systemName: "archivebox"), handler: { _ in
         })
 
         let pageInfoAction = UIAction(title: TalkPageLocalizedStrings.pageInfo, image: UIImage(systemName: "info.circle"), handler: { [weak self] _ in
@@ -387,6 +413,7 @@ class TalkPageViewController: ViewController {
             topic.isThreadExpanded = true
         }
 
+        inputAccessoryViewType = .findInPage
         talkPageView.collectionView.reloadData()
 
         showFindInPage()
@@ -397,14 +424,13 @@ class TalkPageViewController: ViewController {
     }
 
     fileprivate func showAddTopic() {
-        
         if let lastViewDidAppearDate = lastViewDidAppearDate {
             TalkPagesFunnel.shared.logTappedNewTopic(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
         }
-        
-        let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute)
+        let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute, siteURL: viewModel.siteURL)
         let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, authenticationManager: viewModel.authenticationManager, theme: theme)
         topicComposeVC.delegate = self
+        inputAccessoryViewType = .format
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
         navVC.presentationController?.delegate = self
@@ -871,6 +897,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
 extension TalkPageViewController: TalkPageCellReplyDelegate {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel, accessibilityFocusView: UIView?) {
         hideFindInPage(releaseKeyboardBar: true)
+        inputAccessoryViewType = .format
         if !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
             presentTopicReplyOnboarding()
         }
