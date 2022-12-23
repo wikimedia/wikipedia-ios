@@ -50,23 +50,23 @@ final class TalkPageView: SetupView {
 
     override func setup() {
         addSubview(collectionView)
-        // addSubview(toolbar)
+        addSubview(toolbar)
         addSubview(emptyView)
         addSubview(errorView)
         NSLayoutConstraint.activate([
-            // toolbar.leadingAnchor.constraint(equalTo: leadingAnchor),
-            // toolbar.trailingAnchor.constraint(equalTo: trailingAnchor),
-            // toolbar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            toolbar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            toolbar.trailingAnchor.constraint(equalTo: trailingAnchor),
+            toolbar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor), // toolbar.topAnchor
+            collectionView.bottomAnchor.constraint(equalTo: toolbar.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             emptyView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor), 
-            emptyView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor), // toolbar.topAnchor
+            emptyView.bottomAnchor.constraint(equalTo: toolbar.topAnchor),
             emptyView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             emptyView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             errorView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            errorView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor), // toolbar.topAnchor
+            errorView.bottomAnchor.constraint(equalTo: toolbar.topAnchor),
             errorView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             errorView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
         ])
