@@ -72,7 +72,10 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
                 if amount <= contentHeight {
                     amountWhenDirectionChanged = 0
                 } else {
-                    amountWhenDirectionChanged = amount
+                    
+                    if isFullyShowing || isFullyHidden { // If it is in the middle of collapsing, resetting this property thows things off. Only set change direction amount if it's already fully collapsed or expanded
+                        amountWhenDirectionChanged = lastAmount
+                    }
                 }
             }
             
