@@ -786,6 +786,7 @@ class ArticleViewController: ViewController, HintPresenting {
         }
         
         articleAsLivingDocController.handleArticleAsLivingDocLinkForAnchor(anchor, articleURL: articleURL)
+        show(anchor: anchor)
     }
     
     // MARK: Table of contents
