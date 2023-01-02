@@ -43,7 +43,7 @@
 "about-content-license" = "Vsebina licence";
 "about-content-license-details" = "Če ni določeno drugače, je vsebina na voljo pod $1.";
 "about-content-license-details-share-alike-license" = "licenco Creative Commons Priznanje avtorstva-Deljenje pod enakimi pogoji";
-"about-contributors" = "Prispevajoči";
+"about-contributors" = "Sodelavci";
 "about-libraries" = "Uporabljene knjižnice";
 "about-libraries-complete-list" = "Popolni seznam";
 "about-libraries-license" = "Licenca";
@@ -79,7 +79,7 @@
 "account-creation-create-account" = "Ustvarite račun";
 "account-creation-have-account" = "Že imate račun? $1";
 "account-creation-log-in" = "Prijava.";
-"account-creation-logging-in" = "Prijavljanje...";
+"account-creation-logging-in" = "Prijavljanje ...";
 "account-creation-missing-fields" = "Da ustvarite račun, morate vnesti uporabniško ime in geslo ter potrditi geslo.";
 "account-creation-passwords-mismatched" = "Polja gesla se ne ujemajo.";
 "account-creation-saving" = "Shranjevanje ...";
@@ -1049,8 +1049,8 @@
 "talk-page-topic-title" = "Pogovor";
 "talk-page-unsubscribe-to-topic" = "Odnaroči";
 "talk-page-unsubscribed-alert-subtitle" = "O novih komentarjih pri tej temi ne boste več prejemali obvestil.";
-"talk-page-unsubscribed-alert-title" = "Odjavili ste se.";
-"talk-page-unsubscription-failed-alert" = "Odjava od teme ni uspela, poskusite znova.";
+"talk-page-unsubscribed-alert-title" = "Odnaročeni ste.";
+"talk-page-unsubscription-failed-alert" = "Odnaročilo teme ni uspelo, poskusite znova.";
 "talk-page-user-about" = "O uporabniških pogovornih straneh";
 "talk-page-user-contributions" = "Prispevki";
 "talk-pages-coffee-roll-read-more" = "Preberi več";
