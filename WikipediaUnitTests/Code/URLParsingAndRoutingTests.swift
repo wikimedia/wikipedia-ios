@@ -148,12 +148,12 @@ class URLParsingAndRoutingTests: XCTestCase {
 
     func testSpecialCharactersEncodedOffWiki() {
         let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
-        XCTAssertEqual(url.resolvingRelativeWikiHref("//www.p%C3%BCzzledpint.com")?.absoluteString, "https://www.p%C3%BCzzledpint.com")
+        XCTAssertEqual(url.resolvingRelativeWikiHref("//www.p%C3%BCzzledpint.com")?.absoluteString, "https://www.xn--pzzledpint-9db.com")
     }
 
     func testSpecialCharactersUnencodedOffWiki() {
         let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
-        XCTAssertEqual(url.resolvingRelativeWikiHref("//www.püzzledpint.com")?.absoluteString, "https://www.p%C3%BCzzledpint.com")
+        XCTAssertEqual(url.resolvingRelativeWikiHref("//www.püzzledpint.com")?.absoluteString, "https://www.xn--pzzledpint-9db.com")
     }
 
     func testQuestionMark() {
