@@ -867,7 +867,6 @@ extension TalkPageViewController: TalkPageCellDelegate {
     // MARK: - Empty State
 
     fileprivate func updateEmptyStateVisibility() {
-        let oldScrollView = navigationViewChildViewController?.scrollView
         talkPageView.updateEmptyView(visible: viewModel.topics.count == 0)
         navigationViewChildViewController?.scrollView = viewModel.topics.count == 0 ? talkPageView.emptyView.scrollView : talkPageView.collectionView
     }
