@@ -16,12 +16,6 @@ class TalkPageArchivesHostingContainingController: UIViewController, CustomNavig
     
     var navigationViewChildViewController: CustomNavigationChildViewController?
     
-    lazy private(set) var fakeProgressController: FakeProgressController = {
-        let progressController = FakeProgressController(progress: barView, delegate: barView)
-        progressController.delay = 0.0
-        return progressController
-    }()
-    
     init(theme: Theme, viewModel: TalkPageArchivesViewModel, tempOldViewModel: TalkPageViewModel) {
         self.tempOldViewModel = tempOldViewModel
         self.viewModel = viewModel
@@ -51,9 +45,9 @@ class TalkPageArchivesHostingContainingController: UIViewController, CustomNavig
             }
             
             if isLoading {
-                self.fakeProgressController.start()
+                self.barView.startLoading()
             } else {
-                self.fakeProgressController.stop()
+                self.barView.stopLoading()
             }
         }
     }

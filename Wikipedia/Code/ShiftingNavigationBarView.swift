@@ -22,6 +22,12 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         }
     }
     
+    private lazy var fakeProgressController: FakeProgressController = {
+        let progressController = FakeProgressController(progress: self, delegate: self)
+        progressController.delay = 0.0
+        return progressController
+    }()
+    
     private lazy var progressView: UIProgressView = {
         let progressView = UIProgressView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
@@ -219,6 +225,14 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         progressView.progressViewStyle = .bar
         progressView.trackTintColor = .clear
         progressView.progressTintColor = theme.colors.link
+    }
+    
+    func startLoading() {
+        fakeProgressController.start()
+    }
+    
+    func stopLoading() {
+        fakeProgressController.stop()
     }
 }
 
