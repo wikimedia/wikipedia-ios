@@ -745,8 +745,11 @@ class TalkPageViewController: ThemeableViewController, CustomNavigationContainin
         viewModel.resetToNewSiteURL(siteURL, pageTitle: pageTitle, project: project)
         setupOverflowMenu()
         
-        tempShiftingHeaderView?.removeFromSuperview()
-        tempShiftingHeaderView = nil
+        if let tempShiftingHeaderView = tempShiftingHeaderView {
+            navigationViewChildViewController?.removeShiftingSubview(tempShiftingHeaderView)
+            tempShiftingHeaderView.removeFromSuperview()
+            self.tempShiftingHeaderView = nil
+        }
         
         fetchTalkPage()
     }
@@ -864,6 +867,7 @@ extension TalkPageViewController: TalkPageCellDelegate {
     // MARK: - Empty State
 
     fileprivate func updateEmptyStateVisibility() {
+        let oldScrollView = navigationViewChildViewController?.scrollView
         talkPageView.updateEmptyView(visible: viewModel.topics.count == 0)
         navigationViewChildViewController?.scrollView = viewModel.topics.count == 0 ? talkPageView.emptyView.scrollView : talkPageView.collectionView
     }

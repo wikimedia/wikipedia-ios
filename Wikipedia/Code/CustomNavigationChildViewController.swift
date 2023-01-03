@@ -35,6 +35,12 @@ class CustomNavigationChildViewController: UIViewController, Themeable {
         didSet {
             scrollView?.contentInsetAdjustmentBehavior = .never
             scrollView?.automaticallyAdjustsScrollIndicatorInsets = false
+            
+            // Ensures contentInset values are retained in case scroll views switched (from empty state scroll view to populated state scroll view, for example)
+            if let oldValue,
+                let scrollView {
+                scrollView.contentInset = oldValue.contentInset
+            }
         }
     }
     
@@ -134,7 +140,6 @@ class CustomNavigationChildViewController: UIViewController, Themeable {
         }
         
         if self.data.totalHeight != totalHeight {
-            print("setting data totalHeight: \(totalHeight)")
             self.data.totalHeight = totalHeight
         }
     }
@@ -148,6 +153,11 @@ class CustomNavigationChildViewController: UIViewController, Themeable {
         }
     
         return totalHeight
+    }
+    
+    func removeShiftingSubview(_ removingSubview: CustomNavigationViewShiftingSubview) {
+        customNavigationViewSubviews = customNavigationViewSubviews.filter { $0 !== removingSubview }
+        removingSubview.removeFromSuperview()
     }
     
     func addShiftingSubviews(views: [CustomNavigationViewShiftingSubview]) {
