@@ -24,29 +24,44 @@ protocol CustomNavigationContaining: UIViewController {
     var navigationViewChildViewController: CustomNavigationChildViewController? { get set }
 }
 
+// Note: This subclass only seems necessary for proper nav bar hiding in iOS 14 & 15. It can be removed and switched to raw UIHostingControllers for iOS16+
+class NavigationBarHidingHostingVC<Content: View>: UIHostingController<Content> {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.isNavigationBarHidden = true
+    }
+}
+
 // Shared Helper Methods
 
 extension CustomNavigationContaining {
     
     func setup(shiftingSubviews: [CustomNavigationViewShiftingSubview], shadowBehavior: CustomNavigationChildViewController.ShadowBehavior, swiftuiView: some View) {
-        
-        navigationController?.isNavigationBarHidden = true
-        
+
         let childNavigationViewVC = CustomNavigationChildViewController(shadowBehavior: shadowBehavior)
         
         // Add hosting child VC
         let finalSwiftUIView = swiftuiView.environmentObject(childNavigationViewVC.data)
-        let childHostingVC = UIHostingController(rootView: finalSwiftUIView)
+        let childHostingVC: UIViewController
+        
+        if #available(iOS 16, *) {
+            childHostingVC = UIHostingController(rootView: finalSwiftUIView)
+        } else {
+            childHostingVC = NavigationBarHidingHostingVC(rootView: finalSwiftUIView)
+        }
+        
         childHostingVC.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(childHostingVC.view)
-        
+
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: childHostingVC.view.topAnchor),
             view.leadingAnchor.constraint(equalTo: childHostingVC.view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: childHostingVC.view.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: childHostingVC.view.bottomAnchor)
         ])
-        
+
         addChild(childHostingVC)
         childHostingVC.didMove(toParent: self)
         
@@ -64,6 +79,8 @@ extension CustomNavigationContaining {
         addChild(childNavigationViewVC)
         childNavigationViewVC.didMove(toParent: self)
         self.navigationViewChildViewController = childNavigationViewVC
+        
+        navigationController?.isNavigationBarHidden = true
     }
     
     func setup(shiftingSubviews: [CustomNavigationViewShiftingSubview], shadowBehavior: CustomNavigationChildViewController.ShadowBehavior, scrollView: UIScrollView) {
