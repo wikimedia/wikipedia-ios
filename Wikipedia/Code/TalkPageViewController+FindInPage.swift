@@ -8,9 +8,6 @@ extension TalkPageViewController {
         return findInPageState.keyboardBar != nil
     }
 
-    override var inputAccessoryView: UIView? {
-        return findInPageState.keyboardBar
-    }
 
     // MARK: - Presentation
 

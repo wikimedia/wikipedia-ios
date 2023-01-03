@@ -10,7 +10,6 @@ protocol EditLinkViewControllerDelegate: AnyObject {
 class EditLinkViewController: ViewController {
     weak var delegate: EditLinkViewControllerDelegate?
 
-    typealias Link = SectionEditorWebViewMessagingController.Link
     private let link: Link
     private let siteURL: URL
     private var articleURL: URL

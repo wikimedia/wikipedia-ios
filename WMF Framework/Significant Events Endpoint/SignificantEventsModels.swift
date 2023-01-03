@@ -358,7 +358,7 @@ public extension SignificantEvents {
     
     struct Citation {
         
-        //https://en.wikipedia.org/wiki/Template:Cite_book/TemplateData
+        // https://en.wikipedia.org/wiki/Template:Cite_book/TemplateData
         public struct Book {
             public let title: String
             public let lastName: String?
@@ -416,7 +416,7 @@ public extension SignificantEvents {
             }
         }
         
-        //https://en.wikipedia.org/wiki/Template:Cite_journal#TemplateData
+        // https://en.wikipedia.org/wiki/Template:Cite_journal#TemplateData
         public struct Journal {
             public let lastName: String?
             public let firstName: String?
@@ -454,7 +454,7 @@ public extension SignificantEvents {
             }
         }
         
-        //https://en.wikipedia.org/wiki/Template:Cite_news#TemplateData
+        // https://en.wikipedia.org/wiki/Template:Cite_news#TemplateData
         public struct News {
             public let lastName: String?
             public let firstName: String?
@@ -492,7 +492,7 @@ public extension SignificantEvents {
             }
         }
         
-        //https://en.wikipedia.org/wiki/Template:Cite_web#TemplateData
+        // https://en.wikipedia.org/wiki/Template:Cite_web#TemplateData
         public struct Website {
             
             public let urlString: String

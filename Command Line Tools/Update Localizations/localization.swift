@@ -81,7 +81,7 @@ extension String {
     
     /* supportsOneEquals indicates that the language's singular translation on iOS is only valid for n=1. digits on translatewiki mean only use the translation when the replacement number === that digit. On iOS one, two, and few are more generic. for example, the translation for one could map to 1, 21, 31, etc. Only use 1= for one when the iOS definition matches the translatewiki definition for a given language. */
     func pluralDictionary(with keys: [String], tokens: [String: String], supportsOneEquals: Bool) -> NSDictionary? {
-        //https://developer.apple.com/library/content/documentation/MacOSX/Conceptual/BPInternational/StringsdictFileFormat/StringsdictFileFormat.html#//apple_ref/doc/uid/10000171i-CH16-SW1
+        // https://developer.apple.com/library/content/documentation/MacOSX/Conceptual/BPInternational/StringsdictFileFormat/StringsdictFileFormat.html#//apple_ref/doc/uid/10000171i-CH16-SW1
         guard let dictionaryRegex = dictionaryRegex else {
             return nil
         }

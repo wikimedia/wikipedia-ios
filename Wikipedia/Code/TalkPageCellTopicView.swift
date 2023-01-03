@@ -403,7 +403,7 @@ final class TalkPageCellTopicView: SetupView {
                    id == leadComment.id {
                     topicCommentTextView.attributedText = NSMutableAttributedString(attributedString: topicCommentTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: activeHighlightBackgroundColor, targetRange: activeResult.range)
                 }
-            case .topicOtherContent(topicIndex: _):
+            case .topicOtherContent:
                 topicCommentTextView.attributedText = NSMutableAttributedString(attributedString: topicCommentTextView.attributedText).highlight(viewModel?.highlightText, backgroundColor: activeHighlightBackgroundColor, targetRange: activeResult.range)
             default:
                 break
