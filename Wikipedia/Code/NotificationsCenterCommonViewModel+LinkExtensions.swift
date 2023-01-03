@@ -105,7 +105,7 @@ extension NotificationsCenterCommonViewModel {
         return url
     }
     
-    //https://en.wikipedia.org/wiki/Special:ChangeCredentials
+    // https://en.wikipedia.org/wiki/Special:ChangeCredentials
     var changePasswordURL: URL? {
         guard let data = linkData else {
             return nil
@@ -128,7 +128,7 @@ extension NotificationsCenterCommonViewModel {
         return components.url
     }
     
-    //https://www.mediawiki.org/wiki/Special:UserGroupRights
+    // https://www.mediawiki.org/wiki/Special:UserGroupRights
     var userGroupRightsURL: URL? {
         // Note: Sample notification json indicates that translated user group link we want is listed as the primary URL
         // Ex. https://en.wikipedia.org/wiki/Special:ListGroupRights?markasread=nnnnnnnn&markasreadwiki=enwiki#confirmed
@@ -187,7 +187,7 @@ extension NotificationsCenterCommonViewModel {
         return wikidataItemURL
     }
     
-    //https://en.wikipedia.org/wiki/Help:Getting_started
+    // https://en.wikipedia.org/wiki/Help:Getting_started
     var gettingStartedURL: URL? {
 
         guard let data = linkData else {
@@ -201,7 +201,7 @@ extension NotificationsCenterCommonViewModel {
         return components.url
     }
     
-    //https://www.mediawiki.org/wiki/Help:Login_notifications
+    // https://www.mediawiki.org/wiki/Help:Login_notifications
     var loginNotificationsHelpURL: URL? {
         var components = URLComponents()
         components.host = Configuration.Domain.mediaWiki

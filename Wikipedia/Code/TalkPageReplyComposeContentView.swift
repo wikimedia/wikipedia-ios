@@ -55,6 +55,7 @@ class TalkPageReplyComposeContentView: SetupView {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = .clear
         textView.delegate = self
+        textView.smartQuotesType = .no
         return textView
     }()
     

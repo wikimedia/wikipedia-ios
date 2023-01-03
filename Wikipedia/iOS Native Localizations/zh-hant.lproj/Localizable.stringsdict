@@ -12,11 +12,7 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>字元</string>
 			<key>other</key>
-			<string>字元</string>
-			<key>zero</key>
 			<string>字元</string>
 		</dict>
 	</dict>
@@ -158,10 +154,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d個段落</string>
 			<key>other</key>
-			<string>%1$d個段落</string>
+			<string>%1$d 個段落</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-editor-number-edits-format</key>
@@ -222,10 +216,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>共 %1$d 行尚未編輯</string>
 			<key>other</key>
-			<string>共 %1$d 行尚未編輯</string>
+			<string>共%1$d行尚未編輯</string>
 		</dict>
 	</dict>
 	<key>intermediate-edits-count</key>
@@ -717,7 +709,7 @@
 			<key>other</key>
 			<string>%1$d 個月前</string>
 			<key>zero</key>
-			<string>這個月</string>
+			<string>本月</string>
 		</dict>
 	</dict>
 	<key>relative-date-years-ago</key>

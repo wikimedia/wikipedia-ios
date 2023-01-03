@@ -142,10 +142,17 @@ extension SinglePageWebViewController: WKNavigationDelegate {
         }
         decisionHandler(.allow, preferences)
     }
+
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        DDLogError("Error loading single page - did fail provisional navigation: \(error)")
+        WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: true)
+        fakeProgressController.finish()
+    }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         DDLogError("Error loading single page: \(error)")
         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: false)
+        fakeProgressController.finish()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

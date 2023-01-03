@@ -7,6 +7,7 @@ protocol TalkPageTopicComposeViewControllerDelegate: AnyObject {
 
 struct TalkPageTopicComposeViewModel {
     let semanticContentAttribute: UISemanticContentAttribute
+    let siteURL: URL
 }
 
 class TalkPageTopicComposeViewController: ViewController {
@@ -21,7 +22,9 @@ class TalkPageTopicComposeViewController: ViewController {
         static let closeConfirmationDiscard = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-discard", value: "Discard Topic", comment: "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text. Please prioritize for de, ar and zh wikis.")
     }
     
-    private let viewModel: TalkPageTopicComposeViewModel
+    let viewModel: TalkPageTopicComposeViewModel
+
+    internal var preselectedTextRange = UITextRange()
     
     private lazy var safeAreaBackgroundView: UIView = {
         let view = UIView(frame: .zero)
@@ -81,13 +84,14 @@ class TalkPageTopicComposeViewController: ViewController {
         return view
     }()
     
-    private lazy var bodyTextView: UITextView = {
+    private(set) lazy var bodyTextView: UITextView = {
         let textView = UITextView(frame: .zero)
         textView.isScrollEnabled = false
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = .zero
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.delegate = self
+        textView.smartQuotesType = .no
         textView.accessibilityHint = Self.TopicComposeStrings.bodyPlaceholderAccessibility
         return textView
     }()
@@ -125,6 +129,18 @@ class TalkPageTopicComposeViewController: ViewController {
     weak var delegate: TalkPageTopicComposeViewControllerDelegate?
     
     private weak var authenticationManager: WMFAuthenticationManager?
+
+    private let textFormattingPlainToolbarView = TextFormattingPlainToolbarView.wmf_viewFromClassNib()
+
+    override var inputAccessoryView: UIView? {
+        if bodyTextView.isFirstResponder {
+            let toolbar = TalkPageFormattingToolbarView()
+            toolbar.apply(theme: theme)
+            toolbar.delegate = self
+            return toolbar
+        }
+        return nil
+    }
     
     // MARK: Lifecycle
     
@@ -261,7 +277,7 @@ class TalkPageTopicComposeViewController: ViewController {
         
         return false
     }
-    
+
     func presentDismissConfirmationActionSheet() {
         let alertController = UIAlertController(title: Self.TopicComposeStrings.closeConfirmationTitle, message: nil, preferredStyle: .actionSheet)
         let discardAction = UIAlertAction(title: Self.TopicComposeStrings.closeConfirmationDiscard, style: .destructive) { _ in
@@ -333,7 +349,7 @@ class TalkPageTopicComposeViewController: ViewController {
     }
     
     // MARK: Private
-    
+
     private func updateFonts() {
         titleTextField.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
         bodyTextView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
@@ -447,4 +463,6 @@ extension TalkPageTopicComposeViewController: UITextViewDelegate {
         navigate(to: URL.absoluteURL, useSafari: true)
         return false
     }
+
+    
 }

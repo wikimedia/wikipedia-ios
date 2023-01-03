@@ -9,7 +9,6 @@ class InsertLinkViewController: UIViewController {
     weak var delegate: InsertLinkViewControllerDelegate?
     private var theme = Theme.standard
     private let dataStore: MWKDataStore
-    typealias Link = SectionEditorWebViewMessagingController.Link
     private let link: Link
     private let siteURL: URL?
 
