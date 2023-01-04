@@ -1,6 +1,11 @@
 import Foundation
 
-class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview {
+protocol Loadable {
+    func startLoading()
+    func stopLoading()
+}
+
+class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview, Loadable {
     let order: Int
     private let navigationItems: [UINavigationItem]
     private let config: Config
@@ -13,12 +18,10 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
     struct Config {
         let reappearOnScrollUp: Bool
         let shiftOnScrollUp: Bool
-        let needsProgressView: Bool
         
-        init(reappearOnScrollUp: Bool = true, shiftOnScrollUp: Bool = true, needsProgressView: Bool = false) {
+        init(reappearOnScrollUp: Bool = true, shiftOnScrollUp: Bool = true) {
             self.reappearOnScrollUp = reappearOnScrollUp
             self.shiftOnScrollUp = shiftOnScrollUp
-            self.needsProgressView = needsProgressView
         }
     }
     
@@ -194,14 +197,13 @@ class ShiftingNavigationBarView: SetupView, CustomNavigationViewShiftingSubview 
         height.priority = UILayoutPriority(999)
         self.equalHeightToContentConstraint = height
         
-        if config.needsProgressView {
-            addSubview(progressView)
-            NSLayoutConstraint.activate([
-                progressView.leadingAnchor.constraint(equalTo: bar.leadingAnchor),
-                progressView.trailingAnchor.constraint(equalTo: bar.trailingAnchor),
-                progressView.bottomAnchor.constraint(equalTo: bar.bottomAnchor)
-            ])
-        }
+        // Add Progress View
+        addSubview(progressView)
+        NSLayoutConstraint.activate([
+            progressView.leadingAnchor.constraint(equalTo: bar.leadingAnchor),
+            progressView.trailingAnchor.constraint(equalTo: bar.trailingAnchor),
+            progressView.bottomAnchor.constraint(equalTo: bar.bottomAnchor)
+        ])
         
         NSLayoutConstraint.activate([
             top,

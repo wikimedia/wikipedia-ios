@@ -18,6 +18,7 @@ protocol CustomNavigationViewShiftingSubview: UIView, Themeable {
 class CustomNavigationViewData: ObservableObject {
     @Published var scrollAmount = CGFloat(0)
     @Published var totalHeight = CGFloat(0)
+    @Published var isLoading = false
 }
 
 protocol CustomNavigationContaining: UIViewController {

@@ -33,7 +33,10 @@ class TalkPageArchivesViewController: UIViewController, CustomNavigationContaini
         
         setup(shiftingSubviews: [barView, blueView, greenView], shadowBehavior: .showUponScroll, scrollView: tableView)
         
+        self.navigationViewChildViewController?.data.isLoading = true
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) { [self] in
+            self.navigationViewChildViewController?.data.isLoading = false
+            
             let redView = TempShiftingView(color: .red, order: 3)
             self.redView = redView
             self.navigationViewChildViewController?.addShiftingSubviews(views: [redView])

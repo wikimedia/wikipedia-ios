@@ -31,6 +31,7 @@ class CustomNavigationChildViewController: UIViewController, Themeable {
     private var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] = []
     private var scrollAmountCancellable: AnyCancellable?
     private var totalHeightCancellable: AnyCancellable?
+    private var isLoadingCancellable: AnyCancellable?
     weak var scrollView: UIScrollView? {
         didSet {
             scrollView?.contentInsetAdjustmentBehavior = .never
@@ -121,6 +122,21 @@ class CustomNavigationChildViewController: UIViewController, Themeable {
                     contentOffset.y = -1 * scrollView.contentInset.top
                     scrollView.setContentOffset(contentOffset, animated: false)
                 }
+            }
+        })
+        
+        self.isLoadingCancellable = data.$isLoading.sink(receiveValue: { [weak self] isLoading in
+            
+            guard let self = self else {
+                return
+            }
+            
+            let loadableShiftingSubview = self.customNavigationViewSubviews.first { $0 is Loadable } as? Loadable
+            
+            if isLoading {
+                loadableShiftingSubview?.startLoading()
+            } else {
+                loadableShiftingSubview?.stopLoading()
             }
         })
     }

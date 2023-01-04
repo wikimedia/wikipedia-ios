@@ -30,14 +30,8 @@ class TalkPageViewController: ThemeableViewController, CustomNavigationContainin
     lazy var barView: ShiftingNavigationBarView = {
         var items: [UINavigationItem] = []
         navigationController?.viewControllers.forEach({ items.append($0.navigationItem) })
-        let config = ShiftingNavigationBarView.Config(reappearOnScrollUp: true, shiftOnScrollUp: true, needsProgressView: true)
+        let config = ShiftingNavigationBarView.Config(reappearOnScrollUp: true, shiftOnScrollUp: true)
         return ShiftingNavigationBarView(order: 1, config: config, navigationItems: items, popDelegate: self)
-    }()
-    
-    lazy private(set) var fakeProgressController: FakeProgressController = {
-        let progressController = FakeProgressController(progress: barView, delegate: barView)
-        progressController.delay = 0.0
-        return progressController
     }()
     
     var scrollingToIndexPath: IndexPath?
@@ -151,14 +145,14 @@ class TalkPageViewController: ThemeableViewController, CustomNavigationContainin
     }
 
     fileprivate func fetchTalkPage() {
-        fakeProgressController.start()
+        navigationViewChildViewController?.data.isLoading = true
         viewModel.fetchTalkPage { [weak self] result in
 
             guard let self = self else {
                 return
             }
 
-            self.fakeProgressController.stop()
+            self.navigationViewChildViewController?.data.isLoading = false
             switch result {
             case .success:
                 self.setupHeaderView()
@@ -458,8 +452,7 @@ class TalkPageViewController: ThemeableViewController, CustomNavigationContainin
     }
     
     fileprivate func pushToArchivesSwiftUI() {
-        let viewModel = TalkPageArchivesViewModel(pageTitle: viewModel.pageTitle, siteURL: viewModel.siteURL)
-        let vc = TalkPageArchivesHostingContainingController(theme: theme, viewModel: viewModel, tempOldViewModel: self.viewModel)
+        let vc = TalkPageArchivesHostingContainingController(theme: theme, tempOldViewModel: self.viewModel)
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -911,10 +904,10 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self.replyComposeController.closeAndReset()
                 
                 // Try to refresh page
-                self.fakeProgressController.start()
+                self.navigationViewChildViewController?.data.isLoading = true
                 self.viewModel.fetchTalkPage { [weak self] result in
                     
-                    self?.fakeProgressController.stop()
+                    self?.navigationViewChildViewController?.data.isLoading = false
 
                     switch result {
                     case .success:
@@ -974,10 +967,10 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                 }
                 
                 // Try to refresh page
-                self?.fakeProgressController.start()
+                self?.navigationViewChildViewController?.data.isLoading = true
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     
-                    self?.fakeProgressController.stop()
+                    self?.navigationViewChildViewController?.data.isLoading = false
                     
                     switch result {
                     case .success:
