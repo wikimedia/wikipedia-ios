@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 class TalkPageArchivesViewModel: ObservableObject {
     
     struct Item {
@@ -35,29 +36,14 @@ class TalkPageArchivesViewModel: ObservableObject {
     }
     
     func fetchArchives() async {
-        await setIsLoading(true)
+        isLoading = true
         do {
             let response = try await fetcher.fetchArchives(pageTitle: pageTitle, siteURL: siteURL)
-            await processSuccess(response: response)
+            isLoading = false
+            self.items = response.query?.pages?.compactMap {  Item(title: $0.title, displayTitle: $0.displaytitle, pageID: $0.pageid) } ?? []
         } catch {
-            await processFailure(error: error)
+            isLoading = false
+            self.error = error
         }
-    }
-    
-    @MainActor
-    private func setIsLoading(_ isLoading: Bool) {
-        self.isLoading = isLoading
-    }
-    
-    @MainActor
-    private func processSuccess(response: TalkPageArchivesFetcher.APIResponse) {
-        setIsLoading(false)
-        self.items = response.query?.pages?.compactMap {  Item(title: $0.title, displayTitle: $0.displaytitle, pageID: $0.pageid) } ?? []
-    }
-    
-    @MainActor
-    private func processFailure(error: Error) {
-        setIsLoading(false)
-        self.error = error
     }
 }
