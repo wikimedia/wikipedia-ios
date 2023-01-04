@@ -50,7 +50,13 @@ struct TalkPageArchivesView: View {
                             didTapItem(item)
                         }
                 }
+  
+                // Bizarre extra space needed if content size is too small to avoid ui jumpiness when top bouncing
+//                if items.count == 1 {
+//                    Color.clear.frame(width: 100, height: 200)
+//                }
             }
+            
         }
         .onAppear {
             task = Task(priority: .userInitiated) {
