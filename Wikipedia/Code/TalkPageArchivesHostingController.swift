@@ -37,7 +37,9 @@ class TalkPageArchivesHostingContainingController: UIViewController, CustomNavig
             self.didTapItem(item)
         }
         
-        setup(shiftingSubviews: [barView], shadowBehavior: .showUponScroll, swiftuiView: rootView, observableTheme: observableTheme)
+        setup(shiftingSubviews: [barView], shadowBehavior: .alwaysShow, swiftuiView: rootView, observableTheme: observableTheme)
+        
+        apply(theme: observableTheme.theme)
     }
     
     func didTapItem(_ item: TalkPageArchivesItem) {
@@ -52,5 +54,6 @@ class TalkPageArchivesHostingContainingController: UIViewController, CustomNavig
     func apply(theme: Theme) {
         navigationViewChildViewController?.apply(theme: theme)
         observableTheme.theme = theme
+        view.backgroundColor = theme.colors.paperBackground
     }
 }

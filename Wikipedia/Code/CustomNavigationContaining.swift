@@ -61,10 +61,10 @@ extension CustomNavigationContaining {
         view.addSubview(childHostingVC.view)
 
         NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: childHostingVC.view.topAnchor),
-            view.leadingAnchor.constraint(equalTo: childHostingVC.view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: childHostingVC.view.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: childHostingVC.view.bottomAnchor)
+            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: childHostingVC.view.topAnchor),
+            view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: childHostingVC.view.leadingAnchor),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: childHostingVC.view.trailingAnchor),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: childHostingVC.view.bottomAnchor)
         ])
 
         addChild(childHostingVC)
@@ -85,6 +85,7 @@ extension CustomNavigationContaining {
         addChild(childNavigationViewVC)
         childNavigationViewVC.didMove(toParent: self)
         self.navigationViewChildViewController = childNavigationViewVC
+        childHostingVC.view.backgroundColor = observableTheme.theme.colors.paperBackground
     }
     
     func setup(shiftingSubviews: [CustomNavigationViewShiftingSubview], shadowBehavior: CustomNavigationChildViewController.ShadowBehavior, scrollView: UIScrollView, theme: Theme) {

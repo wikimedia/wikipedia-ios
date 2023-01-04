@@ -18,6 +18,46 @@ struct TalkPageArchivesItem {
     }
 }
 
+// TODO: Generalize more
+struct TalkPageArchivesButton: View {
+    
+    let action: (TalkPageArchivesItem) -> Void
+    let item: TalkPageArchivesItem
+    @EnvironmentObject var observableTheme: ObservableTheme
+    
+    var body: some View {
+        Button(action: { action(item) }) {
+            VStack(spacing: 0) {
+                HStack {
+                    Text(item.displayTitle)
+                        .foregroundColor(Color(observableTheme.theme.colors.primaryText))
+                        .font(.callout)
+                        .fontWeight(.semibold)
+                    Spacer(minLength: 12)
+                    Image(systemName: "chevron.right").font(Font.system(.footnote).weight(.semibold))
+                        .foregroundColor(Color(observableTheme.theme.colors.secondaryText))
+                }
+                .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
+                Divider()
+                    .frame(height: 1)
+                    .background(Color(observableTheme.theme.colors.midBackground))
+            }
+        }
+        .buttonStyle(BackgroundHighlightingButtonStyle())
+    }
+}
+
+struct BackgroundHighlightingButtonStyle: ButtonStyle {
+    
+    @EnvironmentObject var observableTheme: ObservableTheme
+
+    func makeBody(configuration: SwiftUI.ButtonStyle.Configuration) -> some View {
+        configuration.label
+            .background(configuration.isPressed ? Color(observableTheme.theme.colors.midBackground) : Color(observableTheme.theme.colors.paperBackground))
+    }
+
+}
+
 struct TalkPageArchivesView: View {
     
     @SwiftUI.State private var task: Task<Void, Never>?
@@ -42,22 +82,14 @@ struct TalkPageArchivesView: View {
             axes: [.vertical],
             showsIndicators: true
         ) {
-            LazyVStack(alignment: .leading) {
+            LazyVStack(alignment: .leading, spacing: 0) {
                 ForEach(items, id: \.pageID) { item in
-                    Text(item.displayTitle)
-                        .background(observableTheme.theme.isDark ? Color.blue : Color.red)
-                        .onTapGesture {
-                            didTapItem(item)
-                        }
+                    TalkPageArchivesButton(action: didTapItem, item: item)
                 }
-  
-                // Bizarre extra space needed if content size is too small to avoid ui jumpiness when top bouncing
-//                if items.count == 1 {
-//                    Color.clear.frame(width: 100, height: 200)
-//                }
             }
             
         }
+        .background(Color(observableTheme.theme.colors.paperBackground))
         .onAppear {
             task = Task(priority: .userInitiated) {
                 data.isLoading = true

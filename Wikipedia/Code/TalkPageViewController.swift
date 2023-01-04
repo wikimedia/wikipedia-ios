@@ -186,7 +186,7 @@ class TalkPageViewController: ThemeableViewController, CustomNavigationContainin
 
         talkPageView.emptyView.scrollView.delegate = self
         
-        setup(shiftingSubviews: [barView], shadowBehavior: .showUponScroll, scrollView: talkPageView.collectionView, theme: theme)
+        setup(shiftingSubviews: [barView], shadowBehavior: .alwaysShow, scrollView: talkPageView.collectionView, theme: theme)
 
         fetchTalkPage()
         setupToolbar()
