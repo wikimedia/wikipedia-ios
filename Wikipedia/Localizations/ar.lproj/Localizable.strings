@@ -665,6 +665,7 @@
 "notifications-center-type-title-thanks" = "شكر";
 "notifications-center-type-title-user-rights-change" = "تغييرات صلاحيات المستخدم";
 "notifications-center-type-title-user-talk-page-messsage" = "رسالة صفحة نقاش";
+"notifications-center-type-title-welcome" = "مرحبًا";
 "notifications-push-fallback-body-text" = "نشاط جديد على ويكيبيديا";
 "number-billions" = "$1 مليار";
 "number-millions" = "$1 مليون";
@@ -1023,6 +1024,7 @@
 "vanish-account-additional-information-field" = "معلومات إضافية";
 "vanish-account-additional-information-placeholder" = "اختياري";
 "vanish-account-back-confirm-keep-editing" = "واصل التعديل";
+"vanish-account-warning-title" = "تحذير";
 "variants-alert-dismiss-button" = "لا شكرًا";
 "variants-alert-preferences-button" = "راجع تفضيلاتك";
 "welcome-exploration-explore-feed-description" = "القراءة الموصى بها والمقالات اليومية من مجتمعنا";
