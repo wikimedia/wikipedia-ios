@@ -49,6 +49,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     override func deleteAll() {
         do {
             try dataStore.viewContext.clearReadHistory()
+            dataStore.clearMemoryCache()
         } catch let error {
             showError(error)
         }
