@@ -1,8 +1,9 @@
 import Foundation
 import UIKit
+import SwiftUI
 import Combine
 
-class TalkPageArchivesHostingContainingController: UIViewController, CustomNavigationContaining {
+class TalkPageArchivesHostingContainingController: UIViewController, CustomNavigationContaining, Themeable {
     lazy var barView: ShiftingNavigationBarView = {
         var items: [UINavigationItem] = []
         navigationController?.viewControllers.forEach({ items.append($0.navigationItem) })
@@ -13,9 +14,11 @@ class TalkPageArchivesHostingContainingController: UIViewController, CustomNavig
     private let tempOldViewModel: TalkPageViewModel
     
     var navigationViewChildViewController: CustomNavigationChildViewController?
+    private var observableTheme: ObservableTheme
     
     init(theme: Theme, tempOldViewModel: TalkPageViewModel) {
         self.tempOldViewModel = tempOldViewModel
+        self.observableTheme = ObservableTheme(theme: theme)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,7 +37,7 @@ class TalkPageArchivesHostingContainingController: UIViewController, CustomNavig
             self.didTapItem(item)
         }
         
-        setup(shiftingSubviews: [barView], shadowBehavior: .showUponScroll, swiftuiView: rootView)
+        setup(shiftingSubviews: [barView], shadowBehavior: .showUponScroll, swiftuiView: rootView, observableTheme: observableTheme)
     }
     
     func didTapItem(_ item: TalkPageArchivesItem) {
@@ -42,7 +45,12 @@ class TalkPageArchivesHostingContainingController: UIViewController, CustomNavig
             showGenericError()
             return
         }
-        let vc = TalkPageViewController(viewModel: viewModel, theme: .light)
+        let vc = TalkPageViewController(viewModel: viewModel, theme: observableTheme.theme)
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func apply(theme: Theme) {
+        navigationViewChildViewController?.apply(theme: theme)
+        observableTheme.theme = theme
     }
 }

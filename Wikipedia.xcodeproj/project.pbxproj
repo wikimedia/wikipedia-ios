@@ -693,6 +693,10 @@
 		6779D45924007AF0002840CA /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */; };
 		6779D45A2400822B002840CA /* MWKImageInfoFetcher.h in Sources */ = {isa = PBXBuildFile; fileRef = B0E8065F1C0CE9030065EBC0 /* MWKImageInfoFetcher.h */; };
 		6779D45D24008654002840CA /* MWKImageInfoFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8065F1C0CE9030065EBC0 /* MWKImageInfoFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6780CF182965E8A800D45927 /* ObservableTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780CF172965E8A800D45927 /* ObservableTheme.swift */; };
+		6780CF192965E8A800D45927 /* ObservableTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780CF172965E8A800D45927 /* ObservableTheme.swift */; };
+		6780CF1A2965E8A800D45927 /* ObservableTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780CF172965E8A800D45927 /* ObservableTheme.swift */; };
+		6780CF1B2965E8A800D45927 /* ObservableTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780CF172965E8A800D45927 /* ObservableTheme.swift */; };
 		6780D5B4237A1F490087A5D1 /* DiffResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* DiffResponse.json */; };
 		6780D5B5237A1F490087A5D1 /* DiffResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* DiffResponse.json */; };
 		6780D5B6237A1F490087A5D1 /* DiffResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5B3237A1F480087A5D1 /* DiffResponse.json */; };
@@ -4181,6 +4185,7 @@
 		6779CBCB293E88FA00B25F3E /* TalkPageArchivesHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageArchivesHostingController.swift; sourceTree = "<group>"; };
 		6779D45023F60903002840CA /* CacheFileWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFileWriter.swift; sourceTree = "<group>"; };
 		6779D45223F6EC2D002840CA /* CacheFetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFetching.swift; sourceTree = "<group>"; };
+		6780CF172965E8A800D45927 /* ObservableTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableTheme.swift; sourceTree = "<group>"; };
 		6780D5B3237A1F480087A5D1 /* DiffResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DiffResponse.json; sourceTree = "<group>"; };
 		6780D5B9237AF8A10087A5D1 /* DiffToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffToolbarView.swift; sourceTree = "<group>"; };
 		6780D5BF237AF8AE0087A5D1 /* DiffToolbarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffToolbarView.xib; sourceTree = "<group>"; };
@@ -8292,6 +8297,7 @@
 				007F5C6C275AA74200E4B02C /* StackedImageLabelView.swift */,
 				0010F93827A49C7700D77848 /* HorizontalSpacerView.swift */,
 				67C78F7028B6DA1300AC207A /* SwiftUITextView.swift */,
+				6780CF172965E8A800D45927 /* ObservableTheme.swift */,
 			);
 			name = "UI Components";
 			sourceTree = "<group>";
@@ -11319,6 +11325,7 @@
 				6747117E250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift in Sources */,
 				B0EFCD6D1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				67DC5BE923A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,
+				6780CF182965E8A800D45927 /* ObservableTheme.swift in Sources */,
 				B0CD9DD61F70997300051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				67E2E48F250452E60070F12D /* ArticleAsLivingDocHeaderView.swift in Sources */,
 				B0524B6F214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
@@ -12283,6 +12290,7 @@
 				830D71D21F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				83AE1C831F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
 				67DC5BEC23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,
+				6780CF1B2965E8A800D45927 /* ObservableTheme.swift in Sources */,
 				B0EFCD701EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				B0CD9DEB1F70997500051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0524B72214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
@@ -12997,6 +13005,7 @@
 				67B64D5E2507E9FD00FA27F3 /* ArticleAsLivingDocSmallEventCollectionViewCell.swift in Sources */,
 				B0524B66214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				6782DB922343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
+				6780CF1A2965E8A800D45927 /* ObservableTheme.swift in Sources */,
 				6780D5BB237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */,
 				6782DC0C23453D7D003FA21B /* DiffHeaderCompareItemView.swift in Sources */,
 				0042811B25E6E841004945B3 /* NYTPhotosOverlayView.m in Sources */,
@@ -13587,6 +13596,7 @@
 				B0524B67214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				6782DB932343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
 				6780D5BC237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */,
+				6780CF192965E8A800D45927 /* ObservableTheme.swift in Sources */,
 				6782DC0D23453D7D003FA21B /* DiffHeaderCompareItemView.swift in Sources */,
 				D8EC3E181E9BDA35006712EB /* UIView+WMFSnapshotting.m in Sources */,
 				0042811A25E6E841004945B3 /* NYTPhotosOverlayView.m in Sources */,

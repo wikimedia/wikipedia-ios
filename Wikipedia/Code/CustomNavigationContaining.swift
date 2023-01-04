@@ -39,12 +39,16 @@ class NavigationBarHidingHostingVC<Content: View>: UIHostingController<Content> 
 
 extension CustomNavigationContaining {
     
-    func setup(shiftingSubviews: [CustomNavigationViewShiftingSubview], shadowBehavior: CustomNavigationChildViewController.ShadowBehavior, swiftuiView: some View) {
+    func setup(shiftingSubviews: [CustomNavigationViewShiftingSubview], shadowBehavior: CustomNavigationChildViewController.ShadowBehavior, swiftuiView: some View, observableTheme: ObservableTheme) {
+        
+        navigationController?.isNavigationBarHidden = true
 
         let childNavigationViewVC = CustomNavigationChildViewController(shadowBehavior: shadowBehavior)
         
         // Add hosting child VC
-        let finalSwiftUIView = swiftuiView.environmentObject(childNavigationViewVC.data)
+        let finalSwiftUIView = swiftuiView
+            .environmentObject(childNavigationViewVC.data)
+            .environmentObject(observableTheme)
         let childHostingVC: UIViewController
         
         if #available(iOS 16, *) {
@@ -69,6 +73,7 @@ extension CustomNavigationContaining {
         // Add navigation child VC
         childNavigationViewVC.view.translatesAutoresizingMaskIntoConstraints = false
         childNavigationViewVC.addShiftingSubviews(views: shiftingSubviews)
+        childNavigationViewVC.apply(theme: observableTheme.theme)
         view.addSubview(childNavigationViewVC.view)
         
         NSLayoutConstraint.activate([
@@ -80,11 +85,9 @@ extension CustomNavigationContaining {
         addChild(childNavigationViewVC)
         childNavigationViewVC.didMove(toParent: self)
         self.navigationViewChildViewController = childNavigationViewVC
-        
-        navigationController?.isNavigationBarHidden = true
     }
     
-    func setup(shiftingSubviews: [CustomNavigationViewShiftingSubview], shadowBehavior: CustomNavigationChildViewController.ShadowBehavior, scrollView: UIScrollView) {
+    func setup(shiftingSubviews: [CustomNavigationViewShiftingSubview], shadowBehavior: CustomNavigationChildViewController.ShadowBehavior, scrollView: UIScrollView, theme: Theme) {
         
         navigationController?.isNavigationBarHidden = true
         
@@ -105,6 +108,7 @@ extension CustomNavigationContaining {
         let childNavigationViewVC = CustomNavigationChildViewController(shadowBehavior: shadowBehavior)
         childNavigationViewVC.view.translatesAutoresizingMaskIntoConstraints = false
         childNavigationViewVC.addShiftingSubviews(views: shiftingSubviews)
+        childNavigationViewVC.apply(theme: theme)
         view.addSubview(childNavigationViewVC.view)
         
         NSLayoutConstraint.activate([

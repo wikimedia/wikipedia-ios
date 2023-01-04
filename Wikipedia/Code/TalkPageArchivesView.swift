@@ -24,6 +24,7 @@ struct TalkPageArchivesView: View {
     @SwiftUI.State private var items: [TalkPageArchivesItem] = []
     @SwiftUI.State private var error: Error? = nil
     @EnvironmentObject var data: CustomNavigationViewData
+    @EnvironmentObject var observableTheme: ObservableTheme
     
     private let pageTitle: String
     private let siteURL: URL
@@ -44,6 +45,7 @@ struct TalkPageArchivesView: View {
             LazyVStack(alignment: .leading) {
                 ForEach(items, id: \.pageID) { item in
                     Text(item.displayTitle)
+                        .background(observableTheme.theme.isDark ? Color.blue : Color.red)
                         .onTapGesture {
                             didTapItem(item)
                         }

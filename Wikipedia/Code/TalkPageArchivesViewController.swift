@@ -1,6 +1,6 @@
 import UIKit
 
-class TalkPageArchivesViewController: UIViewController, CustomNavigationContaining, UITableViewDelegate {
+class TalkPageArchivesViewController: ThemeableViewController, CustomNavigationContaining, UITableViewDelegate {
     var items: [String] = []
     
     var navigationViewChildViewController: CustomNavigationChildViewController?
@@ -22,6 +22,15 @@ class TalkPageArchivesViewController: UIViewController, CustomNavigationContaini
         return ShiftingNavigationBarView(order: 0, config: config, navigationItems: items, popDelegate: self)
     }()
     
+    init(theme: Theme) {
+        super.init(nibName: nil, bundle: nil)
+        self.theme = theme
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,7 +40,7 @@ class TalkPageArchivesViewController: UIViewController, CustomNavigationContaini
         tableView.dataSource = self
         tableView.delegate = self
         
-        setup(shiftingSubviews: [barView, blueView, greenView], shadowBehavior: .showUponScroll, scrollView: tableView)
+        setup(shiftingSubviews: [barView, blueView, greenView], shadowBehavior: .showUponScroll, scrollView: tableView, theme: theme)
         
         self.navigationViewChildViewController?.data.isLoading = true
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) { [self] in
@@ -47,6 +56,13 @@ class TalkPageArchivesViewController: UIViewController, CustomNavigationContaini
             
             tableView.reloadData()
         }
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
+        tableView.backgroundColor = theme.colors.paperBackground
+        navigationViewChildViewController?.apply(theme: theme)
     }
 }
 

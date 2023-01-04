@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-class CustomNavigationChildViewController: UIViewController, Themeable {
+class CustomNavigationChildViewController: ThemeableViewController {
     
     private let stackView: UIStackView = {
         let stackView = UIStackView(frame: .zero)
@@ -139,6 +139,8 @@ class CustomNavigationChildViewController: UIViewController, Themeable {
                 loadableShiftingSubview?.stopLoading()
             }
         })
+        
+        apply(theme: theme)
     }
     
     override func viewDidLayoutSubviews() {
@@ -189,7 +191,8 @@ class CustomNavigationChildViewController: UIViewController, Themeable {
         data.scrollAmount = scrollAmount
     }
     
-    func apply(theme: Theme) {
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
         stackView.backgroundColor = theme.colors.paperBackground
         stackView.arrangedSubviews.forEach({ ($0 as? Themeable)?.apply(theme: theme) })

@@ -131,8 +131,8 @@ class TalkPageViewController: ThemeableViewController, CustomNavigationContainin
 
     init(viewModel: TalkPageViewModel, theme: Theme) {
         self.viewModel = viewModel
-        // self.theme = theme
         super.init(nibName: nil, bundle: nil)
+        self.theme = theme
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -186,7 +186,7 @@ class TalkPageViewController: ThemeableViewController, CustomNavigationContainin
 
         talkPageView.emptyView.scrollView.delegate = self
         
-        setup(shiftingSubviews: [barView], shadowBehavior: .showUponScroll, scrollView: talkPageView.collectionView)
+        setup(shiftingSubviews: [barView], shadowBehavior: .showUponScroll, scrollView: talkPageView.collectionView, theme: theme)
 
         fetchTalkPage()
         setupToolbar()
@@ -336,8 +336,8 @@ class TalkPageViewController: ThemeableViewController, CustomNavigationContainin
         talkPageView.apply(theme: theme)
         talkPageView.collectionView.reloadData()
         replyComposeController.apply(theme: theme)
-
         findInPageState.keyboardBar?.apply(theme: theme)
+        navigationViewChildViewController?.apply(theme: theme)
     }
 
     func rethemeVisibleCells() {
@@ -447,7 +447,7 @@ class TalkPageViewController: ThemeableViewController, CustomNavigationContainin
     }
     
     fileprivate func pushToArchivesUIKit() {
-        let vc = TalkPageArchivesViewController()
+        let vc = TalkPageArchivesViewController(theme: theme)
         navigationController?.pushViewController(vc, animated: true)
     }
     
