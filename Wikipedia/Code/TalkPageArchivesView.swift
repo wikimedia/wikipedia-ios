@@ -91,6 +91,10 @@ struct TalkPageArchivesView: View {
         }
         .background(Color(observableTheme.theme.colors.paperBackground))
         .onAppear {
+            guard items.isEmpty else {
+                return
+            }
+            
             task = Task(priority: .userInitiated) {
                 data.isLoading = true
                 do {
