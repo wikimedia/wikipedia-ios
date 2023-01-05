@@ -55,8 +55,26 @@ struct BackgroundHighlightingButtonStyle: ButtonStyle {
         configuration.label
             .background(configuration.isPressed ? Color(observableTheme.theme.colors.midBackground) : Color(observableTheme.theme.colors.paperBackground))
     }
-
 }
+
+struct TalkPageArchivesInformationalTextModifier: ViewModifier {
+    @EnvironmentObject var observableTheme: ObservableTheme
+    
+    func body(content: Content) -> some View {
+        content
+            .multilineTextAlignment(.center)
+            .font(.body)
+            .foregroundColor(Color(observableTheme.theme.colors.secondaryText))
+            .padding(EdgeInsets(top: 30, leading: 16, bottom: 30, trailing: 16))
+    }
+}
+
+private extension View {
+    func informationalStyle() -> some View {
+        self.modifier(TalkPageArchivesInformationalTextModifier())
+    }
+}
+
 
 struct TalkPageArchivesView: View {
     
@@ -83,17 +101,19 @@ struct TalkPageArchivesView: View {
             axes: [.vertical],
             showsIndicators: true
         ) {
-            if items.isEmpty && didFetch {
+            if items.isEmpty && didFetch && error == nil {
                 Text(WMFLocalizedString("talk-pages-archives-empty-title", value: "No archived pages found.", comment: "Text displayed when no talk page archive pages were found."))
-                    .font(.body)
-                    .foregroundColor(Color(observableTheme.theme.colors.secondaryText))
-                    .padding(EdgeInsets(top: 30, leading: 16, bottom: 30, trailing: 16))
-            } else {
+                    .informationalStyle()
+                    
+            } else if !items.isEmpty {
                 LazyVStack(alignment: .leading, spacing: 0) {
                     ForEach(items, id: \.pageID) { item in
                         TalkPageArchivesButton(action: didTapItem, item: item)
                     }
                 }
+            } else if error != nil {
+                Text(CommonStrings.genericErrorDescription)
+                    .informationalStyle()
             }
             
         }
@@ -115,6 +135,8 @@ struct TalkPageArchivesView: View {
                     data.isLoading = false
                     didFetch = true
                     self.error = error
+                    let userInfo = [Notification.Name.showErrorBannerNSErrorKey: error]
+                    NotificationCenter.default.post(name: .showErrorBanner, object: nil, userInfo: userInfo)
                 }
             }
         }
