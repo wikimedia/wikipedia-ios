@@ -1,6 +1,26 @@
 import UIKit
 import Combine
 
+class CustomNavigationChildView: UIView {
+    
+    var customNavigationViewSubviews: [CustomNavigationViewShiftingSubview] = []
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        guard !UIAccessibility.isVoiceOverRunning else {
+            return super.point(inside: point, with: event)
+        }
+        
+        for subview in customNavigationViewSubviews {
+            let convertedPoint = convert(point, to: subview)
+            if subview.point(inside: convertedPoint, with: event) {
+                return true
+            }
+        }
+
+        return false
+    }
+}
+
 class CustomNavigationChildViewController: ThemeableViewController {
     
     private let stackView: UIStackView = {
@@ -19,6 +39,10 @@ class CustomNavigationChildViewController: ThemeableViewController {
         view.alpha = 0
         return view
     }()
+    
+    private var childView: CustomNavigationChildView {
+        return view as! CustomNavigationChildView
+    }
     
     enum ShadowBehavior {
         case alwaysShow
@@ -52,6 +76,11 @@ class CustomNavigationChildViewController: ThemeableViewController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        let childView = CustomNavigationChildView(frame: .zero)
+        view = childView
     }
 
     override func viewDidLoad() {
@@ -175,11 +204,13 @@ class CustomNavigationChildViewController: ThemeableViewController {
     
     func removeShiftingSubview(_ removingSubview: CustomNavigationViewShiftingSubview) {
         customNavigationViewSubviews = customNavigationViewSubviews.filter { $0 !== removingSubview }
+        childView.customNavigationViewSubviews = customNavigationViewSubviews
         removingSubview.removeFromSuperview()
     }
     
     func addShiftingSubviews(views: [CustomNavigationViewShiftingSubview]) {
         customNavigationViewSubviews.append(contentsOf: views)
+        childView.customNavigationViewSubviews = customNavigationViewSubviews
         views.forEach { stackView.addArrangedSubview($0) }
         
         stackView.setNeedsLayout()

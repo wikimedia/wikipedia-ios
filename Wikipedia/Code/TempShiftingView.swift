@@ -1,6 +1,7 @@
 import Foundation
 
 class TempShiftingView: SetupView, CustomNavigationViewShiftingSubview {
+    
     let order: Int
     let color: UIColor
     
@@ -84,6 +85,7 @@ class TempShiftingView: SetupView, CustomNavigationViewShiftingSubview {
 }
 
 class TempShiftingTalkPageHeaderView: SetupView, CustomNavigationViewShiftingSubview {
+    
     let order: Int
     let viewModel: TalkPageViewModel
     private(set) var theme: Theme
@@ -172,5 +174,14 @@ class TempShiftingTalkPageHeaderView: SetupView, CustomNavigationViewShiftingSub
     func apply(theme: Theme) {
         self.theme = theme
         headerView.apply(theme: theme)
+    }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        guard !UIAccessibility.isVoiceOverRunning else {
+            return super.point(inside: point, with: event)
+        }
+        
+        let convertedPoint = self.convert(point, to: headerView)
+        return headerView.point(inside: convertedPoint, with: event)
     }
 }
