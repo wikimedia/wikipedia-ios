@@ -1047,6 +1047,7 @@
 "talk-page-unsubscription-failed-alert" = "Text for the unsubscription failure alert";
 "talk-page-user-about" = "Title for menu option for information on user talk pages";
 "talk-page-user-contributions" = "Title for menu option for information on the user's contributions. Please prioritize for de, ar and zh wikis.";
+"talk-pages-archives-empty-title" = "Text displayed when no talk page archive pages were found.";
 "talk-pages-archives-view-title" = "Title of talk page archive list view.";
 "talk-pages-coffee-roll-read-more" = "Title of user and article talk pages button to read more of the coffee roll.";
 "talk-pages-comment-added-alert-title" = "Title for alert informing that the user's new comment was successfully published. Please prioritize for de, ar and zh wikis.";

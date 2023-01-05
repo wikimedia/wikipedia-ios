@@ -34,7 +34,7 @@ struct TrackingScrollView<Content: View>: View {
                     .padding(.top, data.totalHeight)
                 
                 // Maybe here: Fixes occasional bug where system offset resets back to zero in small content sizes, when bouncing at bottom.
-                // Color.clear.frame(width: 0, height: 200)
+                Color.clear.frame(width: 0, height: 200)
             }
         }
         .coordinateSpace(name: "scrollView")

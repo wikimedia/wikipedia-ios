@@ -69,6 +69,7 @@ struct TalkPageArchivesView: View {
     private let pageTitle: String
     private let siteURL: URL
     private let fetcher = TalkPageArchivesFetcher()
+    @SwiftUI.State private var didFetch = false
     
     var didTapItem: (TalkPageArchivesItem) -> Void = { _ in }
     
@@ -82,16 +83,23 @@ struct TalkPageArchivesView: View {
             axes: [.vertical],
             showsIndicators: true
         ) {
-            LazyVStack(alignment: .leading, spacing: 0) {
-                ForEach(items, id: \.pageID) { item in
-                    TalkPageArchivesButton(action: didTapItem, item: item)
+            if items.isEmpty && didFetch {
+                Text(WMFLocalizedString("talk-pages-archives-empty-title", value: "No archived pages found.", comment: "Text displayed when no talk page archive pages were found."))
+                    .font(.body)
+                    .foregroundColor(Color(observableTheme.theme.colors.secondaryText))
+                    .padding(EdgeInsets(top: 30, leading: 16, bottom: 30, trailing: 16))
+            } else {
+                LazyVStack(alignment: .leading, spacing: 0) {
+                    ForEach(items, id: \.pageID) { item in
+                        TalkPageArchivesButton(action: didTapItem, item: item)
+                    }
                 }
             }
             
         }
         .background(Color(observableTheme.theme.colors.paperBackground))
         .onAppear {
-            guard items.isEmpty else {
+            guard !didFetch else {
                 return
             }
             
@@ -100,9 +108,12 @@ struct TalkPageArchivesView: View {
                 do {
                     let response = try await fetcher.fetchArchives(pageTitle: pageTitle, siteURL: siteURL)
                     data.isLoading = false
-                    self.items = response.query?.pages?.compactMap {  TalkPageArchivesItem(title: $0.title, displayTitle: $0.displaytitle, pageID: $0.pageid) } ?? []
+                    didFetch = true
+                    let items = response.query?.pages?.compactMap {  TalkPageArchivesItem(title: $0.title, displayTitle: $0.displaytitle, pageID: $0.pageid) } ?? []
+                    self.items = items.filter { $0.title != pageTitle }
                 } catch {
                     data.isLoading = false
+                    didFetch = true
                     self.error = error
                 }
             }

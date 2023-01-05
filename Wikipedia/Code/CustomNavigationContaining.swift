@@ -85,7 +85,7 @@ extension CustomNavigationContaining {
         addChild(childNavigationViewVC)
         childNavigationViewVC.didMove(toParent: self)
         self.navigationViewChildViewController = childNavigationViewVC
-        childHostingVC.view.backgroundColor = observableTheme.theme.colors.paperBackground
+        childHostingVC.view.backgroundColor = .clear
     }
     
     func setup(shiftingSubviews: [CustomNavigationViewShiftingSubview], shadowBehavior: CustomNavigationChildViewController.ShadowBehavior, scrollView: UIScrollView, theme: Theme) {
