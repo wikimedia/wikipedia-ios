@@ -867,6 +867,10 @@
 		679A23FF2968DAB9008D7686 /* ShiftingTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */; };
 		679A24002968DAB9008D7686 /* ShiftingTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */; };
 		679A24012968DAB9008D7686 /* ShiftingTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */; };
+		679A24032968DBFC008D7686 /* ShiftingNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A24022968DBFC008D7686 /* ShiftingNavigationBarView.swift */; };
+		679A24042968DBFC008D7686 /* ShiftingNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A24022968DBFC008D7686 /* ShiftingNavigationBarView.swift */; };
+		679A24052968DBFC008D7686 /* ShiftingNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A24022968DBFC008D7686 /* ShiftingNavigationBarView.swift */; };
+		679A24062968DBFC008D7686 /* ShiftingNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A24022968DBFC008D7686 /* ShiftingNavigationBarView.swift */; };
 		679F0AA92456FADE00EF4A6A /* ArticleCacheReadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AA82456FADE00EF4A6A /* ArticleCacheReadingTests.swift */; };
 		679F0AAD24574AD400EF4A6A /* ArticleViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */; };
 		679FA104242E651C0095F3C6 /* ArticleManualPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */; };
@@ -4245,6 +4249,7 @@
 		67985A852524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocHintViewController.swift; sourceTree = "<group>"; };
 		679A23F82968D865008D7686 /* ShiftingTopViewsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftingTopViewsData.swift; sourceTree = "<group>"; };
 		679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftingTopView.swift; sourceTree = "<group>"; };
+		679A24022968DBFC008D7686 /* ShiftingNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftingNavigationBarView.swift; sourceTree = "<group>"; };
 		679F0AA82456FADE00EF4A6A /* ArticleCacheReadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheReadingTests.swift; sourceTree = "<group>"; };
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManualPerformanceTests.swift; sourceTree = "<group>"; };
@@ -7184,6 +7189,7 @@
 				6780CF3229676DE300D45927 /* ShiftingTopViewsStack.swift */,
 				679A23F82968D865008D7686 /* ShiftingTopViewsData.swift */,
 				679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */,
+				679A24022968DBFC008D7686 /* ShiftingNavigationBarView.swift */,
 			);
 			name = "Shifting Top Views";
 			sourceTree = "<group>";
@@ -11386,6 +11392,7 @@
 				B0C7A0801F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				00E75B6C27EB92DE00A45B78 /* NotificationsCenterDetailHeaderCell.swift in Sources */,
 				8382F8D320D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
+				679A24032968DBFC008D7686 /* ShiftingNavigationBarView.swift in Sources */,
 				D88FCADF1E4B74D300505A9F /* WikidataFetcher+Places.swift in Sources */,
 				B0432344210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				FFD7B85924B3CA7A005C2471 /* ReferenceShowing.swift in Sources */,
@@ -12354,6 +12361,7 @@
 				678D79ED235E595A006161FF /* DiffListChangeItemViewModel.swift in Sources */,
 				00E75B6F27EB92DE00A45B78 /* NotificationsCenterDetailHeaderCell.swift in Sources */,
 				D8A42A641E815A9C00D8E281 /* WMFAuthButton.swift in Sources */,
+				679A24062968DBFC008D7686 /* ShiftingNavigationBarView.swift in Sources */,
 				B0432347210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				7A20AE0B2057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				D8A42A651E815A9C00D8E281 /* WMFReferencePanelViewController.swift in Sources */,
@@ -13123,6 +13131,7 @@
 				6734115522735789005B31DA /* OldTalkPageFetcher.swift in Sources */,
 				67CE5D20222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */,
 				D8CE25651E698E2400DAE2E0 /* AboutViewController.m in Sources */,
+				679A24052968DBFC008D7686 /* ShiftingNavigationBarView.swift in Sources */,
 				00AA5AAE276BF2AE005295B0 /* TextBarButtonItem.swift in Sources */,
 				B0CD9DE11F70997400051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				7AFA21BC20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
@@ -13717,6 +13726,7 @@
 				BA7683C81F30D87E00A487AA /* ProminentSwitch.swift in Sources */,
 				83FBE9711F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				673411562273578A005B31DA /* OldTalkPageFetcher.swift in Sources */,
+				679A24042968DBFC008D7686 /* ShiftingNavigationBarView.swift in Sources */,
 				00AA5AAD276BF2AE005295B0 /* TextBarButtonItem.swift in Sources */,
 				67CE5D22222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */,
 				D8EC3E521E9BDA35006712EB /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
