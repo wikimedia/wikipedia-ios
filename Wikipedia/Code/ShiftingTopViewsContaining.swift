@@ -5,8 +5,20 @@ protocol ShiftingTopViewsContaining: UIViewController {
     var shiftingTopViewsStack: ShiftingTopViewsStack? { get set }
 }
 
+// Note: This subclass only seems necessary for proper nav bar hiding in iOS 14 & 15. It can be removed and switched to raw UIHostingControllers for iOS16+
+private class NavigationBarHidingHostingVC<Content: View>: UIHostingController<Content> {
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.navigationController?.isNavigationBarHidden = true
+    }
+}
+
 extension ShiftingTopViewsContaining {
     func setup(shiftingTopViews: [ShiftingTopView], swiftuiView: some View, observableTheme: ObservableTheme) {
+        
+        navigationController?.isNavigationBarHidden = true
         
         let shiftingTopViewsStack = ShiftingTopViewsStack()
 
@@ -15,8 +27,14 @@ extension ShiftingTopViewsContaining {
             .environmentObject(shiftingTopViewsStack.data)
             .environmentObject(observableTheme)
         
-        let childHostingVC = UIHostingController(rootView: finalSwiftUIView)
+        let childHostingVC: UIViewController
 
+        if #available(iOS 16, *) {
+            childHostingVC = UIHostingController(rootView: finalSwiftUIView)
+        } else {
+            childHostingVC = NavigationBarHidingHostingVC(rootView: finalSwiftUIView)
+        }
+        
         childHostingVC.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(childHostingVC.view)
 
