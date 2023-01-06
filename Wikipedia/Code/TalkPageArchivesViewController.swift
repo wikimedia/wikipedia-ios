@@ -7,6 +7,7 @@ import WMF
 class TalkPageArchivesViewController: UIViewController, Themeable, ShiftingTopViewsContaining {
 
     private var observableTheme: ObservableTheme
+    var shiftingTopViewsStack: ShiftingTopViewsStack?
 
     init(theme: Theme) {
         self.observableTheme = ObservableTheme(theme: theme)
@@ -32,5 +33,6 @@ class TalkPageArchivesViewController: UIViewController, Themeable, ShiftingTopVi
     func apply(theme: Theme) {
         observableTheme.theme = theme
         view.backgroundColor = theme.colors.paperBackground
+        shiftingTopViewsStack?.apply(theme: theme)
     }
 }

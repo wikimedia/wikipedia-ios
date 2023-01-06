@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 protocol ShiftingTopViewsContaining: UIViewController {
-    
+    var shiftingTopViewsStack: ShiftingTopViewsStack? { get set }
 }
 
 extension ShiftingTopViewsContaining {
@@ -26,5 +26,18 @@ extension ShiftingTopViewsContaining {
         addChild(childHostingVC)
         childHostingVC.didMove(toParent: self)
         childHostingVC.view.backgroundColor = .clear
+
+        // Add shiftingTopViewsStack
+        let shiftingTopViewsStack = ShiftingTopViewsStack()
+        view.addSubview(shiftingTopViewsStack)
+
+        NSLayoutConstraint.activate([
+            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: shiftingTopViewsStack.topAnchor),
+            view.leadingAnchor.constraint(equalTo: shiftingTopViewsStack.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: shiftingTopViewsStack.trailingAnchor)
+        ])
+
+        shiftingTopViewsStack.apply(theme: observableTheme.theme)
+        self.shiftingTopViewsStack = shiftingTopViewsStack
     }
 }
