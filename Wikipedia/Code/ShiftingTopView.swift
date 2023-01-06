@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 
 class ShiftingTopView: SetupView {
     typealias AmountShifted = CGFloat
@@ -19,6 +20,15 @@ class ShiftingTopView: SetupView {
         super.setup()
 
         translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        if stackView == nil {
+            DDLogError("Missing stackView assignment in ShiftingSubview, which could potentially cause incorrect content inset/padding calculations.")
+        }
+        stackView?.calculateTotalHeight()
     }
 
     var contentHeight: CGFloat {

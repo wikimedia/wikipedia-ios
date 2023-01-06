@@ -7,10 +7,14 @@ protocol ShiftingTopViewsContaining: UIViewController {
 
 extension ShiftingTopViewsContaining {
     func setup(shiftingTopViews: [ShiftingTopView], swiftuiView: some View, observableTheme: ObservableTheme) {
+        
+        let shiftingTopViewsStack = ShiftingTopViewsStack()
 
-        // Embed SwiftUI hosting view controller
+        // Add needed environment objects to SwiftUI view, then embed hosting view controller, then embed SwiftUI hosting view controller
         let finalSwiftUIView = swiftuiView
+            .environmentObject(shiftingTopViewsStack.data)
             .environmentObject(observableTheme)
+        
         let childHostingVC = UIHostingController(rootView: finalSwiftUIView)
 
         childHostingVC.view.translatesAutoresizingMaskIntoConstraints = false
@@ -28,7 +32,6 @@ extension ShiftingTopViewsContaining {
         childHostingVC.view.backgroundColor = .clear
 
         // Add shiftingTopViewsStack
-        let shiftingTopViewsStack = ShiftingTopViewsStack()
         view.addSubview(shiftingTopViewsStack)
 
         NSLayoutConstraint.activate([

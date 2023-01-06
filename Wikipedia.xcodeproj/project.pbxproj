@@ -871,6 +871,10 @@
 		679A24042968DBFC008D7686 /* ShiftingNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A24022968DBFC008D7686 /* ShiftingNavigationBarView.swift */; };
 		679A24052968DBFC008D7686 /* ShiftingNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A24022968DBFC008D7686 /* ShiftingNavigationBarView.swift */; };
 		679A24062968DBFC008D7686 /* ShiftingNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A24022968DBFC008D7686 /* ShiftingNavigationBarView.swift */; };
+		679A24082968E0D0008D7686 /* ShiftingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A24072968E0D0008D7686 /* ShiftingScrollView.swift */; };
+		679A24092968E0D0008D7686 /* ShiftingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A24072968E0D0008D7686 /* ShiftingScrollView.swift */; };
+		679A240A2968E0D0008D7686 /* ShiftingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A24072968E0D0008D7686 /* ShiftingScrollView.swift */; };
+		679A240B2968E0D0008D7686 /* ShiftingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A24072968E0D0008D7686 /* ShiftingScrollView.swift */; };
 		679F0AA92456FADE00EF4A6A /* ArticleCacheReadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AA82456FADE00EF4A6A /* ArticleCacheReadingTests.swift */; };
 		679F0AAD24574AD400EF4A6A /* ArticleViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */; };
 		679FA104242E651C0095F3C6 /* ArticleManualPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */; };
@@ -4250,6 +4254,7 @@
 		679A23F82968D865008D7686 /* ShiftingTopViewsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftingTopViewsData.swift; sourceTree = "<group>"; };
 		679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftingTopView.swift; sourceTree = "<group>"; };
 		679A24022968DBFC008D7686 /* ShiftingNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftingNavigationBarView.swift; sourceTree = "<group>"; };
+		679A24072968E0D0008D7686 /* ShiftingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftingScrollView.swift; sourceTree = "<group>"; };
 		679F0AA82456FADE00EF4A6A /* ArticleCacheReadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheReadingTests.swift; sourceTree = "<group>"; };
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManualPerformanceTests.swift; sourceTree = "<group>"; };
@@ -7190,6 +7195,7 @@
 				679A23F82968D865008D7686 /* ShiftingTopViewsData.swift */,
 				679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */,
 				679A24022968DBFC008D7686 /* ShiftingNavigationBarView.swift */,
+				679A24072968E0D0008D7686 /* ShiftingScrollView.swift */,
 			);
 			name = "Shifting Top Views";
 			sourceTree = "<group>";
@@ -11825,6 +11831,7 @@
 				7A70797D223AB69000A2BDFC /* WelcomePanelLabelContentViewController.swift in Sources */,
 				B0E8054E1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				B0524AF12144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
+				679A24082968E0D0008D7686 /* ShiftingScrollView.swift in Sources */,
 				0E9B9E331CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				7A998AC11FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift in Sources */,
 				D81E5F881E5F2C8400E1A80C /* UIApplication+SystemSettings.swift in Sources */,
@@ -12794,6 +12801,7 @@
 				7A16C4E9212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				83F1096723D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift in Sources */,
 				7AF49F83204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
+				679A240B2968E0D0008D7686 /* ShiftingScrollView.swift in Sources */,
 				D8A42B701E815A9C00D8E281 /* NSAttributedString+WMFModify.m in Sources */,
 				7A2FE55F20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				BA45241B1F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
@@ -13459,6 +13467,7 @@
 				D8CE26081E698E2400DAE2E0 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				D8CE260A1E698E2400DAE2E0 /* WMFLoginFunnel.m in Sources */,
 				D88C70191EE595E90022A26A /* MapView.swift in Sources */,
+				679A240A2968E0D0008D7686 /* ShiftingScrollView.swift in Sources */,
 				67DAEDDB27E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift in Sources */,
 				670F766022B0C48E00D87545 /* FakeProgressLoading.swift in Sources */,
 				834CC34C21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
@@ -14054,6 +14063,7 @@
 				D8EC3F071E9BDA35006712EB /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				830AD2BA24D1D615003EEFE6 /* WebPageUserScript.swift in Sources */,
 				7AEBAD472102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
+				679A24092968E0D0008D7686 /* ShiftingScrollView.swift in Sources */,
 				67DAEDDA27E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift in Sources */,
 				670F766122B0C48F00D87545 /* FakeProgressLoading.swift in Sources */,
 				D8EC3F091E9BDA35006712EB /* WMFLoginFunnel.m in Sources */,

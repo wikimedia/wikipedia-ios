@@ -6,7 +6,7 @@ struct TalkPageArchivesView: View {
     @EnvironmentObject var observableTheme: ObservableTheme
     
     var body: some View {
-        ScrollView {
+        ShiftingScrollView {
             LazyVStack {
                 ForEach((1...100), id: \.self) {
                    Text("\($0)")
