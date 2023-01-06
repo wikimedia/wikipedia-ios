@@ -863,6 +863,10 @@
 		679A23FA2968D865008D7686 /* ShiftingTopViewsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A23F82968D865008D7686 /* ShiftingTopViewsData.swift */; };
 		679A23FB2968D865008D7686 /* ShiftingTopViewsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A23F82968D865008D7686 /* ShiftingTopViewsData.swift */; };
 		679A23FC2968D865008D7686 /* ShiftingTopViewsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A23F82968D865008D7686 /* ShiftingTopViewsData.swift */; };
+		679A23FE2968DAB9008D7686 /* ShiftingTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */; };
+		679A23FF2968DAB9008D7686 /* ShiftingTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */; };
+		679A24002968DAB9008D7686 /* ShiftingTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */; };
+		679A24012968DAB9008D7686 /* ShiftingTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */; };
 		679F0AA92456FADE00EF4A6A /* ArticleCacheReadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AA82456FADE00EF4A6A /* ArticleCacheReadingTests.swift */; };
 		679F0AAD24574AD400EF4A6A /* ArticleViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */; };
 		679FA104242E651C0095F3C6 /* ArticleManualPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */; };
@@ -4240,6 +4244,7 @@
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		67985A852524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocHintViewController.swift; sourceTree = "<group>"; };
 		679A23F82968D865008D7686 /* ShiftingTopViewsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftingTopViewsData.swift; sourceTree = "<group>"; };
+		679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftingTopView.swift; sourceTree = "<group>"; };
 		679F0AA82456FADE00EF4A6A /* ArticleCacheReadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheReadingTests.swift; sourceTree = "<group>"; };
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManualPerformanceTests.swift; sourceTree = "<group>"; };
@@ -7178,6 +7183,7 @@
 				6780CF2C29676AB000D45927 /* ShiftingTopViewsContaining.swift */,
 				6780CF3229676DE300D45927 /* ShiftingTopViewsStack.swift */,
 				679A23F82968D865008D7686 /* ShiftingTopViewsData.swift */,
+				679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */,
 			);
 			name = "Shifting Top Views";
 			sourceTree = "<group>";
@@ -11413,6 +11419,7 @@
 				83023C1F20E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				67CEF263235110F700D5CA6C /* DiffNetworkModels.swift in Sources */,
 				7A23CECF211A24FC00441A79 /* FeedFunnel.swift in Sources */,
+				679A23FE2968DAB9008D7686 /* ShiftingTopView.swift in Sources */,
 				7AC19E322301EF7D00E25B83 /* PageHistoryFilterCountsViewController.swift in Sources */,
 				676070A2227CE60800A81F09 /* TalkPageReplyFooterView.swift in Sources */,
 				BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */,
@@ -12380,6 +12387,7 @@
 				677129A324FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift in Sources */,
 				83DAA9B323FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */,
 				D8A42A751E815A9C00D8E281 /* UIViewController+WMFAlerts.swift in Sources */,
+				679A24012968DAB9008D7686 /* ShiftingTopView.swift in Sources */,
 				7A49A20421231510005C574C /* CollectionViewFooter.swift in Sources */,
 				67CEF26C2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */,
 				83B4CDC220E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
@@ -12944,6 +12952,7 @@
 				D8CE24F11E698E2400DAE2E0 /* WikidataFetcher+Places.swift in Sources */,
 				67C9FC0128C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */,
 				D8CE24F21E698E2400DAE2E0 /* UIButton+WMFButton.m in Sources */,
+				679A24002968DAB9008D7686 /* ShiftingTopView.swift in Sources */,
 				D8CE24F31E698E2400DAE2E0 /* TableOfContentsAnimator.swift in Sources */,
 				7AEC985A219F529000BEF62B /* DefaultEditToolbarView.swift in Sources */,
 				D82E956B1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
@@ -13537,6 +13546,7 @@
 				D8EC3DE91E9BDA35006712EB /* UIButton+WMFButton.m in Sources */,
 				67C9FC0028C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */,
 				67B64D582507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift in Sources */,
+				679A23FF2968DAB9008D7686 /* ShiftingTopView.swift in Sources */,
 				D82E956C1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
 				7AEC985B219F529000BEF62B /* DefaultEditToolbarView.swift in Sources */,
 				D8EC3DEA1E9BDA35006712EB /* TableOfContentsAnimator.swift in Sources */,
