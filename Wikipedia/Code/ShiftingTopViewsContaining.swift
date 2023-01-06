@@ -6,7 +6,7 @@ protocol ShiftingTopViewsContaining: UIViewController {
 }
 
 extension ShiftingTopViewsContaining {
-    func setup(swiftuiView: some View, observableTheme: ObservableTheme) {
+    func setup(shiftingTopViews: [ShiftingTopView], swiftuiView: some View, observableTheme: ObservableTheme) {
 
         // Embed SwiftUI hosting view controller
         let finalSwiftUIView = swiftuiView
@@ -37,6 +37,7 @@ extension ShiftingTopViewsContaining {
             view.trailingAnchor.constraint(equalTo: shiftingTopViewsStack.trailingAnchor)
         ])
 
+        shiftingTopViewsStack.addShiftingTopViews(shiftingTopViews)
         shiftingTopViewsStack.apply(theme: observableTheme.theme)
         self.shiftingTopViewsStack = shiftingTopViewsStack
     }
