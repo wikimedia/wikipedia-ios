@@ -13,6 +13,10 @@ class TalkPageArchivesViewController: UIViewController, Themeable, ShiftingTopVi
         let items = navigationController?.viewControllers.map({ $0.navigationItem }) ?? []
         return ShiftingNavigationBarView(shiftOrder: 1, navigationItems: items, popDelegate: self)
     }()
+    
+    lazy var demoHeaderView: DemoShiftingThreeLineHeaderView = {
+        return DemoShiftingThreeLineHeaderView(shiftOrder: 0, theme: observableTheme.theme)
+    }()
 
     init(theme: Theme) {
         self.observableTheme = ObservableTheme(theme: theme)
@@ -30,7 +34,7 @@ class TalkPageArchivesViewController: UIViewController, Themeable, ShiftingTopVi
 
         let archivesView = TalkPageArchivesView()
         
-        setup(shiftingTopViews: [barView], swiftuiView: archivesView, observableTheme: observableTheme)
+        setup(shiftingTopViews: [barView, demoHeaderView], swiftuiView: archivesView, observableTheme: observableTheme)
 
         apply(theme: observableTheme.theme)
     }
