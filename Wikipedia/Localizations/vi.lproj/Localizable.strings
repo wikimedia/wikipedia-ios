@@ -13,6 +13,7 @@
 // Author: Nghiemtrongdai VN
 // Author: Ngoxuannguyenchuong
 // Author: NguyenHung
+// Author: Nguyenphutrong2
 // Author: Nguyên Lê
 // Author: Phjtieudoc
 // Author: TARGET6tidiem
@@ -926,6 +927,9 @@
 "unknown-generic-text" = "Không rõ";
 "uzbek-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Uzbek là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\noʻzbekcha lotin Uzbek chữ Latinh (uz-latin)\nўзбекча кирилл Uzbek chữ Kirin (uz-cyrl)";
 "uzbek-variants-alert-title" = "Cập nhật hỗ trợ biến thể trong tiếng Uzbek";
+"vanish-modal-item" = "Nếu bạn đã hoàn thành yêu cầu biến mất của mình, vui lòng đợi vài ngày để quản trị viên xử lý yêu cầu";
+"vanish-modal-item-3" = "Nếu bạn có thêm câu hỏi về biến mất, vui lòng truy cập Meta:Right_to_nguyenphutrong2";
+"vanish-modal-item-3-ios15" = "Nếu bạn có thêm câu hỏi về biến mất, vui lòng truy cập $1Meta:Right_to_nguyenphutrong2$2$3";
 "variants-alert-dismiss-button" = "Thôi";
 "variants-alert-preferences-button" = "Xem tùy chọn cá nhân của bạn";
 "welcome-exploration-explore-feed-description" = "Các bài đọc được cộng đồng gợi ý hằng ngày";
