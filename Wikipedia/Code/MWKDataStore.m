@@ -242,6 +242,10 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     NSDictionary *userInfo = note.userInfo;
     NSArray<NSString *> *keys = @[NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey, NSRefreshedObjectsKey, NSInvalidatedObjectsKey];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    // NSInvalidatedAllObjectsKey is present when NSManagedObjectContext.reset() is called
+    if (userInfo[NSInvalidatedAllObjectsKey]) {
+        [self clearMemoryCache];
+    }
     for (NSString *key in keys) {
         NSSet<NSManagedObject *> *changedObjects = userInfo[key];
         for (NSManagedObject *object in changedObjects) {
