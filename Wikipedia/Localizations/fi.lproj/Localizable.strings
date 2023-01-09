@@ -1017,6 +1017,7 @@
 "talk-pages-topic-compose-close-confirmation-title" = "Haluatko varmasti hylätä tämän uuden aiheen?";
 "talk-pages-topic-compose-navbar-title" = "Aihe";
 "talk-pages-topic-compose-title-placeholder" = "Otsikko";
+"talk-pages-topic-reply-onboarding-title" = "Keskustelusivut";
 "talk-pages-user-groups" = "Käyttäjäryhmät";
 "talk-pages-user-logs" = "Lokit";
 "talk-pages-view-title" = "Keskustelu";
@@ -1041,6 +1042,7 @@
 "vanish-account-back-confirm-discard" = "Hylkää pyyntö";
 "vanish-account-back-confirm-keep-editing" = "Jatka muokkaamista";
 "vanish-account-button-text" = "Lähetä pyyntö";
+"vanish-account-continue-button-title" = "Jatka";
 "vanish-account-learn-more-text" = "Lue lisää";
 "vanish-account-username-field" = "Käyttäjänimi ja käyttäjäsivu";
 "vanish-account-warning-title" = "Varoitus";
