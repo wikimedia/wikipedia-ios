@@ -167,6 +167,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = true
+        navigationBar.allowsUnderbarHitsFallThrough = true
 
         layoutManager.register(PageHistoryCollectionViewCell.self, forCellWithReuseIdentifier: PageHistoryCollectionViewCell.identifier, addPlaceholder: true)
         collectionView.dataSource = self

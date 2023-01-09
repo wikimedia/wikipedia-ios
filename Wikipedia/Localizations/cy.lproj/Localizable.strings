@@ -1,5 +1,6 @@
 // Messages for Welsh (Cymraeg)
 // Exported from translatewiki.net
+// Author: Afalau
 // Author: Cymrodor
 // Author: Nemo bis
 // Author: Robin Owain
@@ -44,7 +45,7 @@
 "article-languages-others" = "Ieithoedd eraill";
 "article-languages-yours" = "Eich ieithoedd";
 "back-button-accessibility-label" = "Yn ôl";
-"button-next" = "Nesa";
+"button-next" = "Nesaf";
 "button-ok" = "Iawn";
 "button-publish" = "Cyhoeddi";
 "button-read-now" = "Darllen nawr";
