@@ -148,12 +148,24 @@ class URLParsingAndRoutingTests: XCTestCase {
 
     func testSpecialCharactersEncodedOffWiki() {
         let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
-        XCTAssertEqual(url.resolvingRelativeWikiHref("//www.p%C3%BCzzledpint.com")?.absoluteString, "https://www.p%C3%BCzzledpint.com")
+        
+        // Both strings below are valid. Output depends on iOS version
+        let resolved = [
+            "https://www.p%C3%BCzzledpint.com",
+            "https://www.xn--pzzledpint-9db.com"
+        ]
+        XCTAssertTrue(resolved.contains(url.resolvingRelativeWikiHref("//www.p%C3%BCzzledpint.com")?.absoluteString ?? ""))
     }
 
     func testSpecialCharactersUnencodedOffWiki() {
         let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
-        XCTAssertEqual(url.resolvingRelativeWikiHref("//www.püzzledpint.com")?.absoluteString, "https://www.p%C3%BCzzledpint.com")
+        
+        // Both strings below are valid. Output depends on iOS version
+        let resolved = [
+            "https://www.p%C3%BCzzledpint.com",
+            "https://www.xn--pzzledpint-9db.com"
+        ]
+        XCTAssertTrue(resolved.contains(url.resolvingRelativeWikiHref("//www.püzzledpint.com")?.absoluteString ?? ""))
     }
 
     func testQuestionMark() {
@@ -169,6 +181,11 @@ class URLParsingAndRoutingTests: XCTestCase {
     func testSpecialCharactersUnencodedWithQuestionMark() {
         let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
         XCTAssertEqual(url.resolvingRelativeWikiHref("//commons.wikimedia.org/wiki/Category:COVID-19_pandemic_in_Baden-Württemberg?uselang=de")?.absoluteString, "https://commons.wikimedia.org/wiki/Category:COVID-19_pandemic_in_Baden-W%C3%BCrttemberg?uselang=de")
+    }
+    
+    func testQuestionMarkInPath() {
+        let url = URL(string: "https://en.wikipedia.org/wiki/Main_Page")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("./Who's_the_Man%3F")?.absoluteString, "https://en.wikipedia.org/wiki/Who's_the_Man%3F")
     }
     
     func testLanguageVariantCodeProperty() {
