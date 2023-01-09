@@ -533,6 +533,7 @@
 "icon-shortcut-random-title" = "Случайная статья";
 "icon-shortcut-search-title" = "Поиск по Википедии";
 "image-gallery-unknown-owner" = "Автор неизвестен.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Не сейчас";
 "in-the-news-sub-title-from-language-wikipedia" = "Раздел Википедии: $1";
 "in-the-news-sub-title-from-wikipedia" = "Из Википедии";
 "in-the-news-title" = "В новостях";
