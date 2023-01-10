@@ -67,7 +67,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
-         super.viewWillHaveFirstAppearance(animated)
+        super.viewWillHaveFirstAppearance(animated)
         setupFetchedResultsController()
     }
     
