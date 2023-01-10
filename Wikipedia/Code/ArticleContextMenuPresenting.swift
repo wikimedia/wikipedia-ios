@@ -23,10 +23,8 @@ enum ContextMenuCompletionType {
 /// More details: https://phabricator.wikimedia.org/T253891#6173598
 extension ArticleContextMenuPresenting {
     func contextMenuConfigurationForElement(_ elementInfo: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
-        let nullConfig = UIContextMenuConfiguration(identifier: nil, previewProvider: nil)
-
         let nullCompletion = {
-            completionHandler(nullConfig)
+            completionHandler(nil)
         }
 
         // This "N/A" part is pretty hacky. But we don't want to do a preview for "view article in browser", and this is the URL that is sent
