@@ -278,6 +278,10 @@
 		00D46DAC2889B9250015DE9B /* TalkPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D46DA92889B9250015DE9B /* TalkPageCell.swift */; };
 		00D46DAD2889B9250015DE9B /* TalkPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D46DA92889B9250015DE9B /* TalkPageCell.swift */; };
 		00D4B1B4282996A2008C705C /* EchoModelVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D4B1B3282996A2008C705C /* EchoModelVersion.swift */; };
+		00D9276B29511E95004ECBEA /* PageHistoryCountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9276A29511E95004ECBEA /* PageHistoryCountsView.swift */; };
+		00D9276C29511E95004ECBEA /* PageHistoryCountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9276A29511E95004ECBEA /* PageHistoryCountsView.swift */; };
+		00D9276D29511E95004ECBEA /* PageHistoryCountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9276A29511E95004ECBEA /* PageHistoryCountsView.swift */; };
+		00D9276E29511E95004ECBEA /* PageHistoryCountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9276A29511E95004ECBEA /* PageHistoryCountsView.swift */; };
 		00DEE61928AD6C9500A60DF9 /* TalkPageCellCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00DEE61828AD6C9500A60DF9 /* TalkPageCellCommentViewModel.swift */; };
 		00DEE61A28AD6C9500A60DF9 /* TalkPageCellCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00DEE61828AD6C9500A60DF9 /* TalkPageCellCommentViewModel.swift */; };
 		00DEE61B28AD6C9500A60DF9 /* TalkPageCellCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00DEE61828AD6C9500A60DF9 /* TalkPageCellCommentViewModel.swift */; };
@@ -3975,6 +3979,7 @@
 		00D46DA92889B9250015DE9B /* TalkPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCell.swift; sourceTree = "<group>"; };
 		00D4B1B3282996A2008C705C /* EchoModelVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EchoModelVersion.swift; sourceTree = "<group>"; };
 		00D5593424DB152300C78F08 /* WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsExtension.entitlements; sourceTree = "<group>"; };
+		00D9276A29511E95004ECBEA /* PageHistoryCountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageHistoryCountsView.swift; sourceTree = "<group>"; };
 		00DEE61828AD6C9500A60DF9 /* TalkPageCellCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCellCommentViewModel.swift; sourceTree = "<group>"; };
 		00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellStyle.swift; sourceTree = "<group>"; };
 		00E2EA8D26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellDisplayState.swift; sourceTree = "<group>"; };
@@ -7549,6 +7554,7 @@
 				7AC19E432301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.swift */,
 				7AC19E442301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.xib */,
 				7AB20A0B22FC8432006FECB4 /* PageHistoryCountsViewController.xib */,
+				00D9276A29511E95004ECBEA /* PageHistoryCountsView.swift */,
 			);
 			name = Counts;
 			sourceTree = "<group>";
@@ -11804,6 +11810,7 @@
 				7AF56C3521DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				83C0656B23D23220001821BC /* TableOfContentsItem.swift in Sources */,
 				672F0558222F24FB00FB1084 /* IconBarButtonItem.swift in Sources */,
+				00D9276B29511E95004ECBEA /* PageHistoryCountsView.swift in Sources */,
 				D88C70181EE595E90022A26A /* MapView.swift in Sources */,
 				7AFEB1BC1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
 				834CC34B21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
@@ -12765,6 +12772,7 @@
 				7ADEAB061FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */,
 				D8A42B871E815A9C00D8E281 /* WMFLoginFunnel.m in Sources */,
 				B0408C582127F2C100AC76CE /* WMFImageGalleryGradientViews.swift in Sources */,
+				00D9276E29511E95004ECBEA /* PageHistoryCountsView.swift in Sources */,
 				83C0656E23D23220001821BC /* TableOfContentsItem.swift in Sources */,
 				7A29A5CB1F6C405900E8F42B /* HistoryViewController.swift in Sources */,
 				7AF56C3821DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
@@ -13376,6 +13384,7 @@
 				670F766022B0C48E00D87545 /* FakeProgressLoading.swift in Sources */,
 				834CC34C21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
 				83B01F7323DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */,
+				00D9276D29511E95004ECBEA /* PageHistoryCountsView.swift in Sources */,
 				0010F93B27A49C7700D77848 /* HorizontalSpacerView.swift in Sources */,
 				8320331C22B90528004A9EDA /* NavigationStateController.swift in Sources */,
 				D8CE260C1E698E2400DAE2E0 /* MapUtilities.swift in Sources */,
@@ -13963,6 +13972,7 @@
 				670F766122B0C48F00D87545 /* FakeProgressLoading.swift in Sources */,
 				D8EC3F091E9BDA35006712EB /* WMFLoginFunnel.m in Sources */,
 				83B01F7423DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */,
+				00D9276C29511E95004ECBEA /* PageHistoryCountsView.swift in Sources */,
 				0010F93A27A49C7700D77848 /* HorizontalSpacerView.swift in Sources */,
 				8320331D22B90529004A9EDA /* NavigationStateController.swift in Sources */,
 				D8EC3F0B1E9BDA35006712EB /* MapUtilities.swift in Sources */,
