@@ -3,6 +3,16 @@
 
 @implementation NSBundle (WMFLocalization)
 
+// A mapping of Chinese language variant codes to preferred NSLocale identifiers. The values map to an existing Xcode localization project (.lproj)
+NSDictionary<NSString*, NSString*> *chineseVariantLocalizationMappings = @{
+    @"zh-hans": @"zh-hans",
+    @"zh-hk": @"zh-hant",
+    @"zh-mo": @"zh-hant",
+    @"zh-my": @"zh-hans",
+    @"zh-sg": @"zh-hans",
+    @"zh-tw": @"zh-hant",
+};
+
 + (NSBundle *)wmf_localizationBundle {
     return [NSBundle wmf];
 }
@@ -18,7 +28,9 @@
 
 - (nonnull NSString *)wmf_languageBundleNameForWikipediaLanguageCode:(nonnull NSString *)languageCode {
     NSString *bundleName = languageCode;
-    if ([languageCode isEqualToString:@"zh"]) {
+    if ([chineseVariantLocalizationMappings valueForKey:languageCode]) {
+        bundleName = [chineseVariantLocalizationMappings valueForKey:languageCode];
+    } else if ([languageCode isEqualToString:@"zh"]) {
         bundleName = @"zh-hans";
         for (NSString *code in [NSLocale wmf_preferredLanguageCodes]) {
             if (![code hasPrefix:@"zh"]) {
@@ -29,7 +41,6 @@
                 bundleName = [code lowercaseString];
                 break;
             }
-            
         }
     } else if ([languageCode isEqualToString:@"sr"]) {
         bundleName = @"sr-ec";
