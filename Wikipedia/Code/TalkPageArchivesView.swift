@@ -23,27 +23,35 @@ struct TalkPageArchivesView: View {
     
     var body: some View {
         ShiftingScrollView {
-            LazyVStack {
-                ForEach(items) { item in
-                    Text("\(item.displayTitle)")
-                        .foregroundColor(Color(observableTheme.theme.colors.primaryText))
-                        .font(Font(itemFont))
-                        .onAppear {
-                            if itemIsLast(item) {
-                                nextPageFetchTask?.cancel()
-                                nextPageFetchTask = Task(priority: .userInitiated) {
-                                    do {
-                                        if let response = try await fetcher.fetchNextPage() {
-                                            let items = processResponse(response)
-                                            self.items.append(contentsOf: items)
+            
+            if items.isEmpty && didFetchFirstPage {
+               Text(WMFLocalizedString("talk-pages-archives-empty-title", value: "No archived pages found.", comment: "Text displayed when no talk page archive pages were found."))
+                   .font(Font(infoFont))
+                   .foregroundColor(Color(observableTheme.theme.colors.secondaryText))
+                   .padding(EdgeInsets(top: 30, leading: 16, bottom: 30, trailing: 16))
+            } else {
+                LazyVStack {
+                    ForEach(items) { item in
+                        Text("\(item.displayTitle)")
+                            .foregroundColor(Color(observableTheme.theme.colors.primaryText))
+                            .font(Font(itemFont))
+                            .onAppear {
+                                if itemIsLast(item) {
+                                    nextPageFetchTask?.cancel()
+                                    nextPageFetchTask = Task(priority: .userInitiated) {
+                                        do {
+                                            if let response = try await fetcher.fetchNextPage() {
+                                                let items = processResponse(response)
+                                                self.items.append(contentsOf: items)
+                                            }
+                                        } catch {
+                                            // TODO: Error handling
                                         }
-                                    } catch {
-                                        // TODO: Error handling
                                     }
                                 }
                             }
-                        }
-               }
+                    }
+                }
             }
         }
         .background(Color(observableTheme.theme.colors.paperBackground))
@@ -75,6 +83,10 @@ struct TalkPageArchivesView: View {
     
     private var itemFont: UIFont {
         return UIFont.wmf_scaledSystemFont(forTextStyle: .callout, weight: .semibold, size: 16)
+    }
+    
+    private var infoFont: UIFont {
+        return UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 17)
     }
     
     private func itemIsLast(_ item: TalkPageArchivesItem) -> Bool {
