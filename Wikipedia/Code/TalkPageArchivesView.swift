@@ -26,10 +26,7 @@ struct TalkPageArchivesView: View {
         ShiftingScrollView {
             
             if items.isEmpty && didFetchFirstPage && firstPageFetchError == nil {
-               Text(WMFLocalizedString("talk-pages-archives-empty-title", value: "No archived pages found.", comment: "Text displayed when no talk page archive pages were found."))
-                   .font(Font(infoFont))
-                   .foregroundColor(Color(observableTheme.theme.colors.secondaryText))
-                   .padding(EdgeInsets(top: 30, leading: 16, bottom: 30, trailing: 16))
+                TalkPageArchivesInfoText(info: WMFLocalizedString("talk-pages-archives-empty-title", value: "No archived pages found.", comment: "Text displayed when no talk page archive pages were found."))
             } else if !items.isEmpty {
                 LazyVStack {
                     ForEach(items) { item in
@@ -55,10 +52,7 @@ struct TalkPageArchivesView: View {
                     }
                 }
             } else if firstPageFetchError != nil {
-                Text(CommonStrings.genericErrorDescription)
-                    .font(Font(infoFont))
-                    .foregroundColor(Color(observableTheme.theme.colors.secondaryText))
-                    .padding(EdgeInsets(top: 30, leading: 16, bottom: 30, trailing: 16))
+                TalkPageArchivesInfoText(info: CommonStrings.genericErrorDescription)
             }
         }
         .background(Color(observableTheme.theme.colors.paperBackground))
@@ -94,10 +88,6 @@ struct TalkPageArchivesView: View {
         return UIFont.wmf_scaledSystemFont(forTextStyle: .callout, weight: .semibold, size: 16)
     }
     
-    private var infoFont: UIFont {
-        return UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 17)
-    }
-    
     private func itemIsLast(_ item: TalkPageArchivesItem) -> Bool {
         return items.firstIndex(of: item) == items.count - 1
     }
@@ -105,5 +95,26 @@ struct TalkPageArchivesView: View {
     private func processResponse(_ response: TalkPageArchivesFetcher.APIResponse) -> [TalkPageArchivesItem] {
         let items = response.query?.pages?.compactMap {  TalkPageArchivesItem(pageID: $0.pageID, title: $0.title, displayTitle: $0.displayTitle) } ?? []
         return items.filter { $0.title != pageTitle }
+    }
+}
+
+// MARK: Subviews
+
+private struct TalkPageArchivesInfoText: View {
+    
+    @EnvironmentObject var observableTheme: ObservableTheme
+    @Environment(\.sizeCategory) var sizeCategory: ContentSizeCategory
+    let info: String
+
+    var body: some View {
+        Text(info)
+            .multilineTextAlignment(.center)
+            .font(Font(infoFont))
+            .foregroundColor(Color(observableTheme.theme.colors.secondaryText))
+            .padding(EdgeInsets(top: 30, leading: 16, bottom: 30, trailing: 16))
+    }
+    
+    private var infoFont: UIFont {
+        return UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 17)
     }
 }
