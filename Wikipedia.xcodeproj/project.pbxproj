@@ -1110,6 +1110,10 @@
 		67FBE336297056EB00A2E4AD /* TalkPageArchivesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FBE334297056EB00A2E4AD /* TalkPageArchivesFetcher.swift */; };
 		67FBE337297056EB00A2E4AD /* TalkPageArchivesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FBE334297056EB00A2E4AD /* TalkPageArchivesFetcher.swift */; };
 		67FBE338297056EB00A2E4AD /* TalkPageArchivesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FBE334297056EB00A2E4AD /* TalkPageArchivesFetcher.swift */; };
+		67FBE33A29705FC200A2E4AD /* TalkPageArchivesItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FBE33929705FC200A2E4AD /* TalkPageArchivesItem.swift */; };
+		67FBE33B29705FC200A2E4AD /* TalkPageArchivesItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FBE33929705FC200A2E4AD /* TalkPageArchivesItem.swift */; };
+		67FBE33C29705FC200A2E4AD /* TalkPageArchivesItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FBE33929705FC200A2E4AD /* TalkPageArchivesItem.swift */; };
+		67FBE33D29705FC200A2E4AD /* TalkPageArchivesItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FBE33929705FC200A2E4AD /* TalkPageArchivesItem.swift */; };
 		67FF9C6B28076ADA000963D1 /* NSError+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF9C6A28076ADA000963D1 /* NSError+Utilities.swift */; };
 		7004A5BA268CEE680029C46B /* MetricsClientBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7004A5B9268CEE680029C46B /* MetricsClientBridge.swift */; };
 		702096B9256C3D5700E27041 /* SamplingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702096B8256C3D5700E27041 /* SamplingController.swift */; };
@@ -4367,6 +4371,7 @@
 		67F73E742267B9070079DEEF /* TalkPageReplyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyListViewController.swift; sourceTree = "<group>"; };
 		67F73E782267B9500079DEEF /* TalkPageTopicNewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageTopicNewViewController.swift; sourceTree = "<group>"; };
 		67FBE334297056EB00A2E4AD /* TalkPageArchivesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageArchivesFetcher.swift; sourceTree = "<group>"; };
+		67FBE33929705FC200A2E4AD /* TalkPageArchivesItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageArchivesItem.swift; sourceTree = "<group>"; };
 		67FF8E2C2550BB6F0048E741 /* ArticleAsLivingDocFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocFunnel.swift; sourceTree = "<group>"; };
 		67FF9C6A28076ADA000963D1 /* NSError+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSError+Utilities.swift"; sourceTree = "<group>"; };
 		7004A5B9268CEE680029C46B /* MetricsClientBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsClientBridge.swift; sourceTree = "<group>"; };
@@ -7194,6 +7199,7 @@
 				6780CF222967683800D45927 /* TalkPageArchivesViewController.swift */,
 				6780CF272967690200D45927 /* TalkPageArchivesView.swift */,
 				67FBE334297056EB00A2E4AD /* TalkPageArchivesFetcher.swift */,
+				67FBE33929705FC200A2E4AD /* TalkPageArchivesItem.swift */,
 			);
 			name = Archives;
 			sourceTree = "<group>";
@@ -11836,6 +11842,7 @@
 				7ADF853623516CF500500ADC /* PageHistoryHintController.swift in Sources */,
 				B0C6BE421E413B3F0033BD6E /* WMFAccountCreationViewController.swift in Sources */,
 				7AB7DEC8227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
+				67FBE33A29705FC200A2E4AD /* TalkPageArchivesItem.swift in Sources */,
 				7A16C4E6212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				7A2FE55C20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				B0E804C81C0CE0B40065EBC0 /* NSAttributedString+WMFModify.m in Sources */,
@@ -12808,6 +12815,7 @@
 				FF921888252F7EA500C39A8F /* ThanksGiving.swift in Sources */,
 				D8A42B691E815A9C00D8E281 /* WMFImageGalleryViewController.m in Sources */,
 				6782DC142346920B003FA21B /* DiffContainerViewModel.swift in Sources */,
+				67FBE33D29705FC200A2E4AD /* TalkPageArchivesItem.swift in Sources */,
 				7ADF853923516CF500500ADC /* PageHistoryHintController.swift in Sources */,
 				D80ED25F1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,
 				D8A42B6D1E815A9C00D8E281 /* WMFAccountCreationViewController.swift in Sources */,
@@ -13403,6 +13411,7 @@
 				D8CE25E11E698E2400DAE2E0 /* ArticlePopoverViewController.swift in Sources */,
 				7ABE170D2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */,
 				D8CE25E21E698E2400DAE2E0 /* WMFLogFormatter.m in Sources */,
+				67FBE33C29705FC200A2E4AD /* TalkPageArchivesItem.swift in Sources */,
 				B031032E1F677BEC00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
 				009C8EC429071E720056A3AC /* NSString+Range.swift in Sources */,
 				7A2432BF1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
@@ -14001,6 +14010,7 @@
 				7ABE170E2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */,
 				D8EC3EDF1E9BDA35006712EB /* ArticlePopoverViewController.swift in Sources */,
 				7A2432C01FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
+				67FBE33B29705FC200A2E4AD /* TalkPageArchivesItem.swift in Sources */,
 				D8EC3EE01E9BDA35006712EB /* WMFLogFormatter.m in Sources */,
 				009C8EC329071E720056A3AC /* NSString+Range.swift in Sources */,
 				D818FEBD21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,

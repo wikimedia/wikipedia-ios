@@ -6,7 +6,10 @@ import WMF
 
 class TalkPageArchivesViewController: UIViewController, Themeable, ShiftingTopViewsContaining {
 
+    private var siteURL: URL
+    private var pageTitle: String
     private var observableTheme: ObservableTheme
+
     var shiftingTopViewsStack: ShiftingTopViewsStack?
     
     lazy var barView: ShiftingNavigationBarView = {
@@ -18,7 +21,9 @@ class TalkPageArchivesViewController: UIViewController, Themeable, ShiftingTopVi
         return DemoShiftingThreeLineHeaderView(shiftOrder: 0, theme: observableTheme.theme)
     }()
 
-    init(theme: Theme) {
+    init(siteURL: URL, pageTitle: String, theme: Theme) {
+        self.siteURL = siteURL
+        self.pageTitle = pageTitle
         self.observableTheme = ObservableTheme(theme: theme)
         super.init(nibName: nil, bundle: nil)
     }
@@ -32,7 +37,7 @@ class TalkPageArchivesViewController: UIViewController, Themeable, ShiftingTopVi
 
         self.title = WMFLocalizedString("talk-pages-archives-view-title", value: "Archives", comment: "Title of talk page archive list view.")
 
-        let archivesView = TalkPageArchivesView()
+        let archivesView = TalkPageArchivesView(pageTitle: pageTitle, siteURL: siteURL)
         
         setup(shiftingTopViews: [barView, demoHeaderView], swiftuiView: archivesView, observableTheme: observableTheme)
 
