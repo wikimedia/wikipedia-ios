@@ -15,6 +15,7 @@ struct TalkPageArchivesView: View {
     @SwiftUI.State private var nextPageFetchTask: Task<Void, Never>?
     @SwiftUI.State private var didFetchFirstPage = false
     @SwiftUI.State private var items: [TalkPageArchivesItem] = []
+    @SwiftUI.State private var firstPageFetchError: Error? = nil
     
     init(pageTitle: String, siteURL: URL) {
         self.pageTitle = pageTitle
@@ -24,12 +25,12 @@ struct TalkPageArchivesView: View {
     var body: some View {
         ShiftingScrollView {
             
-            if items.isEmpty && didFetchFirstPage {
+            if items.isEmpty && didFetchFirstPage && firstPageFetchError == nil {
                Text(WMFLocalizedString("talk-pages-archives-empty-title", value: "No archived pages found.", comment: "Text displayed when no talk page archive pages were found."))
                    .font(Font(infoFont))
                    .foregroundColor(Color(observableTheme.theme.colors.secondaryText))
                    .padding(EdgeInsets(top: 30, leading: 16, bottom: 30, trailing: 16))
-            } else {
+            } else if !items.isEmpty {
                 LazyVStack {
                     ForEach(items) { item in
                         Text("\(item.displayTitle)")
@@ -45,13 +46,19 @@ struct TalkPageArchivesView: View {
                                                 self.items.append(contentsOf: items)
                                             }
                                         } catch {
-                                            // TODO: Error handling
+                                            let userInfo = [Notification.Name.showErrorBannerNSErrorKey: error]
+                                            NotificationCenter.default.post(name: .showErrorBanner, object: nil, userInfo: userInfo)
                                         }
                                     }
                                 }
                             }
                     }
                 }
+            } else if firstPageFetchError != nil {
+                Text(CommonStrings.genericErrorDescription)
+                    .font(Font(infoFont))
+                    .foregroundColor(Color(observableTheme.theme.colors.secondaryText))
+                    .padding(EdgeInsets(top: 30, leading: 16, bottom: 30, trailing: 16))
             }
         }
         .background(Color(observableTheme.theme.colors.paperBackground))
@@ -67,7 +74,9 @@ struct TalkPageArchivesView: View {
                     self.items = processResponse(response)
                 } catch {
                     didFetchFirstPage = true
-                    // TODO: Error handling
+                    self.firstPageFetchError = error
+                    let userInfo = [Notification.Name.showErrorBannerNSErrorKey: error]
+                    NotificationCenter.default.post(name: .showErrorBanner, object: nil, userInfo: userInfo)
                 }
             }
         }
