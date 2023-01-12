@@ -5,6 +5,9 @@ struct TalkPageArchivesView: View {
     
     @EnvironmentObject var observableTheme: ObservableTheme
     
+    // This will trigger body() again upon dynamic type size change, so that font sizes can scale up
+    @Environment(\.sizeCategory) var sizeCategory: ContentSizeCategory
+    
     private let pageTitle: String
     private let fetcher: TalkPageArchivesFetcher
     
@@ -24,6 +27,7 @@ struct TalkPageArchivesView: View {
                 ForEach(items) { item in
                     Text("\(item.displayTitle)")
                         .foregroundColor(Color(observableTheme.theme.colors.primaryText))
+                        .font(Font(itemFont))
                         .onAppear {
                             if itemIsLast(item) {
                                 nextPageFetchTask?.cancel()
@@ -68,6 +72,10 @@ struct TalkPageArchivesView: View {
     }
     
     // MARK: Private Helpers
+    
+    private var itemFont: UIFont {
+        return UIFont.wmf_scaledSystemFont(forTextStyle: .callout, weight: .semibold, size: 16)
+    }
     
     private func itemIsLast(_ item: TalkPageArchivesItem) -> Bool {
         return items.firstIndex(of: item) == items.count - 1
