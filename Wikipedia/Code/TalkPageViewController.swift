@@ -474,7 +474,8 @@ class TalkPageViewController: ViewController {
     }
     
     fileprivate func pushToArchives() {
-        let archivesVC = TalkPageArchivesViewController(siteURL: viewModel.siteURL, pageTitle: viewModel.pageTitle, theme: theme)
+        let archivesViewModel = TalkPageArchivesViewModel(talkPageViewModel: viewModel)
+        let archivesVC = TalkPageArchivesViewController(viewModel: archivesViewModel, theme: theme)
         navigationController?.pushViewController(archivesVC, animated: true)
     }
     

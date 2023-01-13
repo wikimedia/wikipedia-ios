@@ -17,10 +17,11 @@ struct TalkPageArchivesView: View {
     @SwiftUI.State private var items: [TalkPageArchivesItem] = []
     @SwiftUI.State private var firstPageFetchError: Error? = nil
     
-    let itemAction: (TalkPageArchivesItem) -> Void = { _ in }
+    let didTapItem: (TalkPageArchivesItem) -> Void
     
-    init(pageTitle: String, siteURL: URL) {
+    init(pageTitle: String, siteURL: URL, didTapItem: @escaping (TalkPageArchivesItem) -> Void) {
         self.pageTitle = pageTitle
+        self.didTapItem = didTapItem
         self.fetcher = TalkPageArchivesFetcher(siteURL: siteURL, pageTitle: pageTitle)
     }
     
@@ -32,7 +33,7 @@ struct TalkPageArchivesView: View {
             } else if !items.isEmpty {
                 LazyVStack(alignment: .leading, spacing: 0) {
                     ForEach(items) { item in
-                        DisclosureButton(item: item, action: itemAction)
+                        DisclosureButton(item: item, action: didTapItem)
                             .onAppear {
                                 if itemIsLast(item) {
                                     nextPageFetchTask?.cancel()

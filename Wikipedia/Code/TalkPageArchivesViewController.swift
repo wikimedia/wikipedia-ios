@@ -4,10 +4,27 @@ import SwiftUI
 import Combine
 import WMF
 
+struct TalkPageArchivesViewModel {
+    let siteURL: URL
+    let pageTitle: String
+    let pageType: TalkPageType
+    let articleSummaryController: ArticleSummaryController
+    let authenticationManager: WMFAuthenticationManager
+    let languageLinkController: MWKLanguageLinkController
+    
+    init(talkPageViewModel: TalkPageViewModel) {
+        self.siteURL = talkPageViewModel.siteURL
+        self.pageTitle = talkPageViewModel.pageTitle
+        self.pageType = talkPageViewModel.pageType
+        self.articleSummaryController = talkPageViewModel.dataController.articleSummaryController
+        self.authenticationManager = talkPageViewModel.authenticationManager
+        self.languageLinkController = talkPageViewModel.languageLinkController
+    }
+}
+
 class TalkPageArchivesViewController: UIViewController, Themeable, ShiftingTopViewsContaining {
 
-    private var siteURL: URL
-    private var pageTitle: String
+    private let viewModel: TalkPageArchivesViewModel
     private var observableTheme: ObservableTheme
 
     var shiftingTopViewsStack: ShiftingTopViewsStack?
@@ -21,9 +38,8 @@ class TalkPageArchivesViewController: UIViewController, Themeable, ShiftingTopVi
         return DemoShiftingThreeLineHeaderView(shiftOrder: 0, theme: observableTheme.theme)
     }()
 
-    init(siteURL: URL, pageTitle: String, theme: Theme) {
-        self.siteURL = siteURL
-        self.pageTitle = pageTitle
+    init(viewModel: TalkPageArchivesViewModel, theme: Theme) {
+        self.viewModel = viewModel
         self.observableTheme = ObservableTheme(theme: theme)
         super.init(nibName: nil, bundle: nil)
     }
@@ -37,7 +53,7 @@ class TalkPageArchivesViewController: UIViewController, Themeable, ShiftingTopVi
 
         self.title = WMFLocalizedString("talk-pages-archives-view-title", value: "Archives", comment: "Title of talk page archive list view.")
 
-        let archivesView = TalkPageArchivesView(pageTitle: pageTitle, siteURL: siteURL)
+        let archivesView = TalkPageArchivesView(pageTitle: viewModel.pageTitle, siteURL: viewModel.siteURL, didTapItem: didTapItem)
         
         setup(shiftingTopViews: [barView, demoHeaderView], swiftuiView: archivesView, observableTheme: observableTheme)
 
@@ -49,4 +65,13 @@ class TalkPageArchivesViewController: UIViewController, Themeable, ShiftingTopVi
         view.backgroundColor = theme.colors.paperBackground
         shiftingTopViewsStack?.apply(theme: theme)
     }
+    
+    private func didTapItem(_ item: TalkPageArchivesItem) {
+        guard let viewModel = TalkPageViewModel(pageType: viewModel.pageType, pageTitle: item.title, siteURL: viewModel.siteURL, source: .talkPageArchives, articleSummaryController: viewModel.articleSummaryController, authenticationManager: viewModel.authenticationManager, languageLinkController: viewModel.languageLinkController) else {
+                showGenericError()
+                return
+            }
+        let vc = TalkPageViewController(theme: observableTheme.theme, viewModel: viewModel)
+            navigationController?.pushViewController(vc, animated: true)
+        }
 }
