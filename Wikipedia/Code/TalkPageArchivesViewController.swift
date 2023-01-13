@@ -51,7 +51,7 @@ class TalkPageArchivesViewController: UIViewController, Themeable, ShiftingTopVi
 
         let archivesView = TalkPageArchivesView(pageTitle: viewModel.pageTitle, siteURL: viewModel.siteURL, didTapItem: didTapItem)
         
-        setup(shiftingTopViews: [barView], swiftuiView: archivesView, observableTheme: observableTheme)
+        setup(shiftingTopViews: [barView], shadowBehavior: .show, swiftuiView: archivesView, observableTheme: observableTheme)
 
         apply(theme: observableTheme.theme)
     }
