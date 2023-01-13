@@ -17,6 +17,8 @@ struct TalkPageArchivesView: View {
     @SwiftUI.State private var items: [TalkPageArchivesItem] = []
     @SwiftUI.State private var firstPageFetchError: Error? = nil
     
+    let itemAction: (TalkPageArchivesItem) -> Void = { _ in }
+    
     init(pageTitle: String, siteURL: URL) {
         self.pageTitle = pageTitle
         self.fetcher = TalkPageArchivesFetcher(siteURL: siteURL, pageTitle: pageTitle)
@@ -28,11 +30,9 @@ struct TalkPageArchivesView: View {
             if items.isEmpty && didFetchFirstPage && firstPageFetchError == nil {
                 TalkPageArchivesInfoText(info: WMFLocalizedString("talk-pages-archives-empty-title", value: "No archived pages found.", comment: "Text displayed when no talk page archive pages were found."))
             } else if !items.isEmpty {
-                LazyVStack {
+                LazyVStack(alignment: .leading, spacing: 0) {
                     ForEach(items) { item in
-                        Text("\(item.displayTitle)")
-                            .foregroundColor(Color(observableTheme.theme.colors.primaryText))
-                            .font(Font(itemFont))
+                        DisclosureButton(item: item, action: itemAction)
                             .onAppear {
                                 if itemIsLast(item) {
                                     nextPageFetchTask?.cancel()

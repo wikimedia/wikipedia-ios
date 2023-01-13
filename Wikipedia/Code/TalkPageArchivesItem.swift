@@ -1,6 +1,6 @@
 import Foundation
 
-struct TalkPageArchivesItem: Equatable, Identifiable {
+struct TalkPageArchivesItem: Equatable, Identifiable, CustomStringConvertible {
     
     let pageID: Int
     let title: String
@@ -30,5 +30,11 @@ struct TalkPageArchivesItem: Equatable, Identifiable {
     
     static func ==(lhs: TalkPageArchivesItem, rhs: TalkPageArchivesItem) -> Bool {
         return lhs.pageID == rhs.pageID
+    }
+    
+    // MARK: CustomStringConvertible
+    
+    var description: String {
+        return displayTitle
     }
 }

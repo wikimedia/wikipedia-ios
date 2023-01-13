@@ -996,6 +996,14 @@
 		67D6C01D2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D6C01B2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift */; };
 		67D6C0202405B3D2005709B1 /* CacheGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D6C01E2405B3D2005709B1 /* CacheGroup+CoreDataClass.swift */; };
 		67D6C0212405B3D2005709B1 /* CacheGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D6C01F2405B3D2005709B1 /* CacheGroup+CoreDataProperties.swift */; };
+		67D9D1F02970D88E00BFCD4F /* DisclosureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D9D1EF2970D88E00BFCD4F /* DisclosureButton.swift */; };
+		67D9D1F12970D88E00BFCD4F /* DisclosureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D9D1EF2970D88E00BFCD4F /* DisclosureButton.swift */; };
+		67D9D1F22970D88E00BFCD4F /* DisclosureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D9D1EF2970D88E00BFCD4F /* DisclosureButton.swift */; };
+		67D9D1F32970D88E00BFCD4F /* DisclosureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D9D1EF2970D88E00BFCD4F /* DisclosureButton.swift */; };
+		67D9D1F62970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D9D1F52970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift */; };
+		67D9D1F72970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D9D1F52970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift */; };
+		67D9D1F82970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D9D1F52970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift */; };
+		67D9D1F92970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D9D1F52970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift */; };
 		67DA31882720957B0035D40F /* RemoteNotificationsPagingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DA31872720957A0035D40F /* RemoteNotificationsPagingOperation.swift */; };
 		67DAEDA123CD1BC9003AA208 /* CacheGatekeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDA023CD1BC9003AA208 /* CacheGatekeeper.swift */; };
 		67DAEDA323CE24DA003AA208 /* SavedArticlesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDA223CE24DA003AA208 /* SavedArticlesFetcher.swift */; };
@@ -4322,6 +4330,8 @@
 		67D6C01B2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CacheItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		67D6C01E2405B3D2005709B1 /* CacheGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CacheGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
 		67D6C01F2405B3D2005709B1 /* CacheGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CacheGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		67D9D1EF2970D88E00BFCD4F /* DisclosureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclosureButton.swift; sourceTree = "<group>"; };
+		67D9D1F52970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundHighlightingButtonStyle.swift; sourceTree = "<group>"; };
 		67DA31872720957A0035D40F /* RemoteNotificationsPagingOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsPagingOperation.swift; sourceTree = "<group>"; };
 		67DAEDA023CD1BC9003AA208 /* CacheGatekeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheGatekeeper.swift; sourceTree = "<group>"; };
 		67DAEDA223CE24DA003AA208 /* SavedArticlesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesFetcher.swift; sourceTree = "<group>"; };
@@ -7384,6 +7394,14 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		67D9D1F42970D8B000BFCD4F /* Button Styles */ = {
+			isa = PBXGroup;
+			children = (
+				67D9D1F52970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift */,
+			);
+			name = "Button Styles";
+			sourceTree = "<group>";
+		};
 		67DB110822613EF700F789B0 /* SchemeHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -8427,6 +8445,8 @@
 		BC45D56C1C32E910007C72F3 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				67D9D1F42970D8B000BFCD4F /* Button Styles */,
+				67D9D1EF2970D88E00BFCD4F /* DisclosureButton.swift */,
 				672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */,
 				7A4B333B2136EDED00C6C820 /* UnderlineButton.swift */,
 				B0E803CA1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.h */,
@@ -11802,6 +11822,7 @@
 				6782DBC12343FDCA003FA21B /* DiffListChangeCell.swift in Sources */,
 				7A32078821E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
 				00AA5AA7276BF29E005295B0 /* StatusTextBarButtonItem.swift in Sources */,
+				67D9D1F02970D88E00BFCD4F /* DisclosureButton.swift in Sources */,
 				6782DC0B23453D7D003FA21B /* DiffHeaderCompareItemView.swift in Sources */,
 				B04C444B1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
 				D8940CEF1DB56C8A00E17F9E /* NewsViewController.swift in Sources */,
@@ -11914,6 +11935,7 @@
 				7A9F06192266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
 				83C06893292EEF4A00DF1403 /* TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift in Sources */,
 				FFD7B84624AEAB3F005C2471 /* ArticleScrolling.swift in Sources */,
+				67D9D1F62970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift in Sources */,
 				8367A27F20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				7AEBAD452102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				83F1095F23D09F80003F3E9E /* ArticleViewController+WIconPopover.swift in Sources */,
@@ -12775,6 +12797,7 @@
 				7A1469C0220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
 				6798332C22C3F2950073CE6F /* UITextView+Extensions.swift in Sources */,
 				00AA5AAA276BF29E005295B0 /* StatusTextBarButtonItem.swift in Sources */,
+				67D9D1F32970D88E00BFCD4F /* DisclosureButton.swift in Sources */,
 				7A27E85521B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				D8421B56203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */,
 				6782DBC42343FDCA003FA21B /* DiffListChangeCell.swift in Sources */,
@@ -12887,6 +12910,7 @@
 				7AB20A0F22FC8432006FECB4 /* PageHistoryCountsViewController.swift in Sources */,
 				83C06896292EEF4A00DF1403 /* TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift in Sources */,
 				FFD7B84924AEB04A005C2471 /* ArticleScrolling.swift in Sources */,
+				67D9D1F92970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift in Sources */,
 				8367A28220D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				7AEBAD482102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				7A9F061C2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
@@ -13042,6 +13066,7 @@
 				7A610CB8220A30C900C266AE /* HintViewController.swift in Sources */,
 				83E3E7262440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */,
 				FF555565277287F300925099 /* CollectionViewContextMenuShowing.swift in Sources */,
+				67D9D1F82970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift in Sources */,
 				00BCB71F26DEE1C7002C3F72 /* VerticalSpacerView.swift in Sources */,
 				D8CE25091E698E2400DAE2E0 /* PlaceSearchSuggestionController.swift in Sources */,
 				7AF8CEEE22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
@@ -13420,6 +13445,7 @@
 				D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				7AE1D33A1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				D8CE25E51E698E2400DAE2E0 /* NSString+FormattedAttributedString.m in Sources */,
+				67D9D1F22970D88E00BFCD4F /* DisclosureButton.swift in Sources */,
 				67E8B088226A57E900537BC9 /* TalkPageReplyListViewController.swift in Sources */,
 				7AF56C3621DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				7A610CBE220A582A00C266AE /* HintController.swift in Sources */,
@@ -13641,6 +13667,7 @@
 				7A610CB9220A30C900C266AE /* HintViewController.swift in Sources */,
 				83E3E7272440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */,
 				D8E27BA31F82B38100F9D2B3 /* RMessageView.m in Sources */,
+				67D9D1F72970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift in Sources */,
 				FF555566277287F400925099 /* CollectionViewContextMenuShowing.swift in Sources */,
 				00BCB71E26DEE1C7002C3F72 /* VerticalSpacerView.swift in Sources */,
 				D8B1668E1FD97FE000097D8B /* WMFViewController.m in Sources */,
@@ -14019,6 +14046,7 @@
 				7AE1D33B1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				830D71D11F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				67E8B08F226A57E900537BC9 /* TalkPageReplyListViewController.swift in Sources */,
+				67D9D1F12970D88E00BFCD4F /* DisclosureButton.swift in Sources */,
 				7AF56C3721DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				D8EC3EE41E9BDA35006712EB /* NSString+FormattedAttributedString.m in Sources */,
 				7A610CBF220A582A00C266AE /* HintController.swift in Sources */,
