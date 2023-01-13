@@ -875,10 +875,6 @@
 		679A24092968E0D0008D7686 /* ShiftingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A24072968E0D0008D7686 /* ShiftingScrollView.swift */; };
 		679A240A2968E0D0008D7686 /* ShiftingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A24072968E0D0008D7686 /* ShiftingScrollView.swift */; };
 		679A240B2968E0D0008D7686 /* ShiftingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A24072968E0D0008D7686 /* ShiftingScrollView.swift */; };
-		679A240D2968E3A0008D7686 /* DemoShiftingThreeLineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A240C2968E3A0008D7686 /* DemoShiftingThreeLineHeaderView.swift */; };
-		679A240E2968E3A0008D7686 /* DemoShiftingThreeLineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A240C2968E3A0008D7686 /* DemoShiftingThreeLineHeaderView.swift */; };
-		679A240F2968E3A0008D7686 /* DemoShiftingThreeLineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A240C2968E3A0008D7686 /* DemoShiftingThreeLineHeaderView.swift */; };
-		679A24102968E3A1008D7686 /* DemoShiftingThreeLineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A240C2968E3A0008D7686 /* DemoShiftingThreeLineHeaderView.swift */; };
 		679F0AA92456FADE00EF4A6A /* ArticleCacheReadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AA82456FADE00EF4A6A /* ArticleCacheReadingTests.swift */; };
 		679F0AAD24574AD400EF4A6A /* ArticleViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */; };
 		679FA104242E651C0095F3C6 /* ArticleManualPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */; };
@@ -4275,7 +4271,6 @@
 		679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftingTopView.swift; sourceTree = "<group>"; };
 		679A24022968DBFC008D7686 /* ShiftingNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftingNavigationBarView.swift; sourceTree = "<group>"; };
 		679A24072968E0D0008D7686 /* ShiftingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftingScrollView.swift; sourceTree = "<group>"; };
-		679A240C2968E3A0008D7686 /* DemoShiftingThreeLineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoShiftingThreeLineHeaderView.swift; sourceTree = "<group>"; };
 		679F0AA82456FADE00EF4A6A /* ArticleCacheReadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheReadingTests.swift; sourceTree = "<group>"; };
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManualPerformanceTests.swift; sourceTree = "<group>"; };
@@ -7222,7 +7217,6 @@
 				679A23F82968D865008D7686 /* ShiftingTopViewsData.swift */,
 				679A23FD2968DAB9008D7686 /* ShiftingTopView.swift */,
 				679A24022968DBFC008D7686 /* ShiftingNavigationBarView.swift */,
-				679A240C2968E3A0008D7686 /* DemoShiftingThreeLineHeaderView.swift */,
 				679A24072968E0D0008D7686 /* ShiftingScrollView.swift */,
 			);
 			name = "Shifting Top Views";
@@ -11456,7 +11450,6 @@
 				FF59DF4D2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
 				83EDC4C128B424B5007D0192 /* VanishAccountPopUpAlertView.swift in Sources */,
 				7A610CBD220A582A00C266AE /* HintController.swift in Sources */,
-				679A240D2968E3A0008D7686 /* DemoShiftingThreeLineHeaderView.swift in Sources */,
 				7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				6780CF282967690200D45927 /* TalkPageArchivesView.swift in Sources */,
 				67C6F7AB27E8D22400B9C864 /* NotificationsCenterDetailViewModel.swift in Sources */,
@@ -12431,7 +12424,6 @@
 				FF59DF502555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
 				83EDC4C428B424B6007D0192 /* VanishAccountPopUpAlertView.swift in Sources */,
 				D8A42A6F1E815A9C00D8E281 /* UIApplication+RTL.swift in Sources */,
-				679A24102968E3A1008D7686 /* DemoShiftingThreeLineHeaderView.swift in Sources */,
 				672285732540B56D0038E332 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */,
 				6780CF2B2967690200D45927 /* TalkPageArchivesView.swift in Sources */,
 				67C6F7AE27E8D22400B9C864 /* NotificationsCenterDetailViewModel.swift in Sources */,
@@ -13010,7 +13002,6 @@
 				7AC19E332301EF7D00E25B83 /* PageHistoryFilterCountsViewController.swift in Sources */,
 				7A29A5CF1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				83510B0928F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */,
-				679A240F2968E3A0008D7686 /* DemoShiftingThreeLineHeaderView.swift in Sources */,
 				7A715662226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				D818D38C1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				7A71567A22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
@@ -13611,7 +13602,6 @@
 				7A29A5D01F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				7A715663226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				83510B0828F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */,
-				679A240E2968E3A0008D7686 /* DemoShiftingThreeLineHeaderView.swift in Sources */,
 				D8EC3DE51E9BDA35006712EB /* WMFReferencePanelViewController.swift in Sources */,
 				7A71567B22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D8EC3DE81E9BDA35006712EB /* WikidataFetcher+Places.swift in Sources */,
