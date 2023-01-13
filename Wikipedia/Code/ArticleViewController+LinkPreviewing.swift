@@ -106,10 +106,23 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
 
     func getPeekViewController(for destination: Router.Destination) -> UIViewController? {
         switch destination {
-        case .article(let articleURL):
-            let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+        case .article(let newArticleURL):
+            guard var currentArticleWithoutFragment = URLComponents(url: articleURL, resolvingAgainstBaseURL: false),
+                  var newArticleWithoutFragment = URLComponents(url: newArticleURL, resolvingAgainstBaseURL: false) else {
+                // Not a valid URL
+              return nil
+            }
+            currentArticleWithoutFragment.fragment = nil
+            newArticleWithoutFragment.fragment = nil
+
+            let isDestinationReferenceForCurrentArticle = currentArticleWithoutFragment == newArticleWithoutFragment
+            guard !isDestinationReferenceForCurrentArticle else {
+              return nil
+            }
+
+            let articleVC = ArticleViewController(articleURL: newArticleURL, dataStore: dataStore, theme: theme)
             articleVC?.articlePreviewingDelegate = self
-            articleVC?.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
+            articleVC?.wmf_addPeekableChildViewController(for: newArticleURL, dataStore: dataStore, theme: theme)
             return articleVC
         default:
             return nil
