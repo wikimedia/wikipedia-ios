@@ -11,6 +11,7 @@ NSString *const WMFArticleDeletedNotificationUserInfoArticleKeyKey = @"WMFArticl
 NSString *const WMFBackgroundContextDidSave = @"WMFBackgroundContextDidSave";
 NSString *const WMFFeedImportContextDidSave = @"WMFFeedImportContextDidSave";
 NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
+NSString *const WMFViewContextDidResetNotification = @"WMFViewContextDidResetNotification";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
 static const NSInteger WMFCurrentLibraryVersion = 14;
@@ -242,6 +243,11 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     NSDictionary *userInfo = note.userInfo;
     NSArray<NSString *> *keys = @[NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey, NSRefreshedObjectsKey, NSInvalidatedObjectsKey];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    // NSInvalidatedAllObjectsKey is present when NSManagedObjectContext.reset() is called
+    if (userInfo[NSInvalidatedAllObjectsKey]) {
+        [self clearMemoryCache];
+        [nc postNotificationName:WMFViewContextDidResetNotification object: nil];
+    }
     for (NSString *key in keys) {
         NSSet<NSManagedObject *> *changedObjects = userInfo[key];
         for (NSManagedObject *object in changedObjects) {
