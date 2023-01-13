@@ -36,6 +36,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDeleted(_:)), name: NSNotification.Name.WMFArticleDeleted, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(viewContextDidReset(_:)), name: NSNotification.Name.WMFViewContextDidReset, object: nil)
 
 #if UI_TEST
         if UserDefaults.standard.wmf_isFastlaneSnapshotInProgress() {
@@ -66,7 +67,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
-         super.viewWillHaveFirstAppearance(animated)
+        super.viewWillHaveFirstAppearance(animated)
         setupFetchedResultsController()
     }
     
@@ -1012,6 +1013,10 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             return
         }
         layoutCache.invalidateArticleKey(articleKey)
+    }
+    
+    @objc func viewContextDidReset(_ note: Notification) {
+        collectionView.reloadData()
     }
 
     private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
