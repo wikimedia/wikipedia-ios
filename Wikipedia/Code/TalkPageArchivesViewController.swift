@@ -31,7 +31,7 @@ class TalkPageArchivesViewController: UIViewController, Themeable, ShiftingTopVi
     
     lazy var barView: ShiftingNavigationBarView = {
         let items = navigationController?.viewControllers.map({ $0.navigationItem }) ?? []
-        return ShiftingNavigationBarView(shiftOrder: 1, navigationItems: items, popDelegate: self)
+        return ShiftingNavigationBarView(shiftOrder: 1, navigationItems: items, hidesOnScroll: true, popDelegate: self)
     }()
 
     init(viewModel: TalkPageArchivesViewModel, theme: Theme) {

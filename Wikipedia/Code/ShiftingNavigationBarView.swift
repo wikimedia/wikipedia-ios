@@ -3,6 +3,7 @@ import UIKit
 class ShiftingNavigationBarView: ShiftingTopView, Themeable, Loadable {
 
     private let navigationItems: [UINavigationItem]
+    private let hidesOnScroll: Bool
     private weak var popDelegate: UIViewController? // Navigation back actions will be forwarded to this view controller
     
     private var topConstraint: NSLayoutConstraint?
@@ -13,6 +14,8 @@ class ShiftingNavigationBarView: ShiftingTopView, Themeable, Loadable {
         bar.delegate = self
         return bar
     }()
+    
+    // MARK: Loading bar properties
     
     private lazy var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: self, delegate: self)
@@ -26,9 +29,16 @@ class ShiftingNavigationBarView: ShiftingTopView, Themeable, Loadable {
         progressView.progressViewStyle = .bar
         return progressView
     }()
-
-    init(shiftOrder: Int, navigationItems: [UINavigationItem], popDelegate: UIViewController) {
+    
+    // MARK: Tracking properties for reappearance upon flick up
+    
+    private var lastAmount: CGFloat = 0
+    private var amountWhenDirectionChanged: CGFloat = 0
+    private var scrollingUp = false
+    
+    init(shiftOrder: Int, navigationItems: [UINavigationItem], hidesOnScroll: Bool, popDelegate: UIViewController) {
         self.navigationItems = navigationItems
+        self.hidesOnScroll = hidesOnScroll
         self.popDelegate = popDelegate
         super.init(shiftOrder: shiftOrder)
     }
@@ -74,11 +84,85 @@ class ShiftingNavigationBarView: ShiftingTopView, Themeable, Loadable {
     private var isFullyHidden: Bool {
        return -(topConstraint?.constant ?? 0) == contentHeight
     }
+    
+    private var isFullyShowing: Bool {
+       return -(topConstraint?.constant ?? 0) == 0
+    }
 
     override func shift(amount: CGFloat) -> ShiftingTopView.AmountShifted {
+        
+        defer {
+            lastAmount = amount
+        }
+        
+        // Early exit if navigation bar shouldn't move.
+        guard hidesOnScroll else {
+            return 0
+        }
+
+        // Calculate amountWhenDirectionChanged, so that new hiding offsets can begin from wherever user flicked up
+        let oldScrollingUp = scrollingUp
+        scrollingUp = lastAmount > amount
+
+        if oldScrollingUp != scrollingUp {
+
+            // Clear out if it's near the top...otherwise it throws off top bouncing calculations
+            if amount <= contentHeight {
+                amountWhenDirectionChanged = 0
+            } else {
+
+                if isFullyShowing || isFullyHidden { // If it is in the middle of collapsing, resetting this property thows things off. Only set change direction amount if it's already fully collapsed or expanded
+                    amountWhenDirectionChanged = lastAmount
+                }
+            }
+        }
+
+        // Adjust constant for sensitivity
+        let flickingUp = (lastAmount - amount) > 8
+
+        // If flicking up and fully collapsed, animate nav bar back in
+        if flickingUp && isFullyHidden {
+            topConstraint?.constant = 0
+
+            setNeedsLayout()
+            UIView.animate(withDuration: 0.2) {
+                self.alpha = 1.0
+                let resetTransform = CGAffineTransform.identity
+                for subview in self.bar.subviews {
+                    for subview in subview.subviews {
+                        subview.transform = resetTransform
+                    }
+                }
+                self.layoutIfNeeded()
+            }
+            return contentHeight
+        }
+
+        // Various cases where it helps to bail early
+        
+        // Do not re-appear if slowly scrolling up when further down the scroll view. But when slowly going up near the top (amount <= contentHeight), allow it to go through and adjust height constraint.
+        if scrollingUp && isFullyHidden && amount > contentHeight {
+           return contentHeight
+        }
+
+        // If scrolling up and already showing, don't do anything.
+        if scrollingUp && isFullyShowing {
+            return contentHeight
+        }
+
+        // If scrolling down and fully collapsed, don't do anything
+       if !scrollingUp && isFullyHidden {
+           return contentHeight
+       }
+
+        var adjustedAmount = amount
+        // Adjust shift amount to be against wherever direction last changed, if needed. This is so that bar can slowly disappear again when scrolling down further in the view after flicking to show it
+        if amount > contentHeight {
+            adjustedAmount = amount - amountWhenDirectionChanged
+        }
 
         // Only allow navigation bar to move just out of frame
-        let limitedShiftAmount = max(0, min(amount, contentHeight))
+        let limitedShiftAmount = max(0, min(adjustedAmount, contentHeight))
 
         // Shrink and fade
         let percent = limitedShiftAmount / contentHeight
