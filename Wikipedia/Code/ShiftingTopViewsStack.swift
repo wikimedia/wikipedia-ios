@@ -7,7 +7,7 @@ class ShiftingTopViewsStack: UIStackView, Themeable {
     private var shiftingTopViews: [ShiftingTopView] = []
     
     private var scrollAmountCancellable: AnyCancellable?
-    private var totalHeightCancellable: AnyCancellable?
+    private var isLoadingCancellable: AnyCancellable?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,6 +45,21 @@ class ShiftingTopViewsStack: UIStackView, Themeable {
                 offset -= shiftedAmount
             }
         }
+        
+        self.isLoadingCancellable = data.$isLoading.sink(receiveValue: { [weak self] isLoading in
+
+            guard let self = self else {
+                return
+            }
+
+            let loadableShiftingSubview = self.shiftingTopViews.first { $0 is Loadable } as? Loadable
+
+            if isLoading {
+                loadableShiftingSubview?.startLoading()
+            } else {
+                loadableShiftingSubview?.stopLoading()
+            }
+        })
     }
     
     func calculateTotalHeight() {

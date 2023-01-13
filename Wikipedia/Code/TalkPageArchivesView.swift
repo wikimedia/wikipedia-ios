@@ -4,6 +4,7 @@ import WMF
 struct TalkPageArchivesView: View {
     
     @EnvironmentObject var observableTheme: ObservableTheme
+    @EnvironmentObject var data: ShiftingTopViewsData
     
     // This will trigger body() again upon dynamic type size change, so that font sizes can scale up
     @Environment(\.sizeCategory) var sizeCategory: ContentSizeCategory
@@ -63,11 +64,14 @@ struct TalkPageArchivesView: View {
             }
 
             firstPageFetchTask = Task(priority: .userInitiated) {
+                data.isLoading = true
                 do {
                     let response = try await fetcher.fetchFirstPage()
+                    data.isLoading = false
                     didFetchFirstPage = true
                     self.items = processResponse(response)
                 } catch {
+                    data.isLoading = false
                     didFetchFirstPage = true
                     self.firstPageFetchError = error
                     let userInfo = [Notification.Name.showErrorBannerNSErrorKey: error]

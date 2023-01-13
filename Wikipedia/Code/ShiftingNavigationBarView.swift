@@ -1,6 +1,6 @@
 import UIKit
 
-class ShiftingNavigationBarView: ShiftingTopView, Themeable {
+class ShiftingNavigationBarView: ShiftingTopView, Themeable, Loadable {
 
     private let navigationItems: [UINavigationItem]
     private weak var popDelegate: UIViewController? // Navigation back actions will be forwarded to this view controller
@@ -12,6 +12,19 @@ class ShiftingNavigationBarView: ShiftingTopView, Themeable {
         bar.translatesAutoresizingMaskIntoConstraints = false
         bar.delegate = self
         return bar
+    }()
+    
+    private lazy var fakeProgressController: FakeProgressController = {
+        let progressController = FakeProgressController(progress: self, delegate: self)
+        progressController.delay = 0.0
+        return progressController
+    }()
+
+    private lazy var progressView: UIProgressView = {
+        let progressView = UIProgressView()
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.progressViewStyle = .bar
+        return progressView
     }()
 
     init(shiftOrder: Int, navigationItems: [UINavigationItem], popDelegate: UIViewController) {
@@ -34,12 +47,17 @@ class ShiftingNavigationBarView: ShiftingTopView, Themeable {
         let bottom = bottomAnchor.constraint(equalTo: bar.bottomAnchor)
         let leading = bar.leadingAnchor.constraint(equalTo: leadingAnchor)
         let trailing = trailingAnchor.constraint(equalTo: bar.trailingAnchor)
-
+        
+        addSubview(progressView)
+        
         NSLayoutConstraint.activate([
             top,
             bottom,
             leading,
-            trailing
+            trailing,
+            progressView.leadingAnchor.constraint(equalTo: bar.leadingAnchor),
+            progressView.trailingAnchor.constraint(equalTo: bar.trailingAnchor),
+            progressView.bottomAnchor.constraint(equalTo: bar.bottomAnchor)
         ])
 
         self.topConstraint = top
@@ -89,10 +107,25 @@ class ShiftingNavigationBarView: ShiftingTopView, Themeable {
         bar.barTintColor = theme.colors.chromeBackground
         bar.shadowImage = theme.navigationBarShadowImage
         bar.tintColor = theme.colors.chromeText
+        
+        progressView.progressViewStyle = .bar
+        progressView.trackTintColor = .clear
+        progressView.progressTintColor = theme.colors.link
+    }
+    
+    // MARK: Loadable
+    
+    func startLoading() {
+        progressView.transform = CGAffineTransform(a: 1.0, b: 0.0, c: 0.0, d: 1.0, tx: 0.0, ty: 0.0)
+        fakeProgressController.start()
+    }
+
+    func stopLoading() {
+        fakeProgressController.stop()
     }
 }
 
-// MARK: Themeable
+// MARK: UINavigationBarDelegate
 
 extension ShiftingNavigationBarView: UINavigationBarDelegate {
     func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
@@ -112,6 +145,34 @@ extension ShiftingNavigationBarView: UINavigationBarDelegate {
            let navController = popDelegate?.navigationController,
            let tappedViewController = navController.viewControllers.first(where: {$0.navigationItem == topNavigationItem}) {
             popDelegate?.navigationController?.popToViewController(tappedViewController, animated: true)
+        }
+    }
+}
+
+// MARK: FakeProgressReceiving, FakeProgressDelegate
+
+extension ShiftingNavigationBarView: FakeProgressReceiving, FakeProgressDelegate {
+    func setProgressHidden(_ hidden: Bool, animated: Bool) {
+        let changes = {
+            self.progressView.alpha = hidden ? 0 : 1
+        }
+        if animated {
+            UIView.animate(withDuration: 0.2, animations: changes)
+        } else {
+            changes()
+        }
+    }
+
+    func setProgress(_ progress: Float, animated: Bool) {
+        progressView.setProgress(progress, animated: animated)
+    }
+
+    var progress: Float {
+        get {
+            return progressView.progress
+        }
+        set {
+            progressView.progress = newValue
         }
     }
 }
