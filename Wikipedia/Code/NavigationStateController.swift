@@ -128,39 +128,9 @@ final class NavigationStateController: NSObject {
                 let accountVC = AccountViewController()
                 accountVC.dataStore = dataStore
                 pushOrPresent(accountVC, navigationController: navigationController, presentation: viewController.presentation)
-            case (.talkPage, let info?):
-                guard
-                    let siteURLString = info.talkPageSiteURLString,
-                    let siteURL = URL(string: siteURLString),
-                    let title = info.talkPageTitle,
-                    let typeRawValue = info.talkPageTypeRawValue,
-                    let type = OldTalkPageType(rawValue: typeRawValue)
-                else {
-                    return
-                }
-                
-                if FeatureFlags.needsNewTalkPage {
-                    assertionFailure("Need to set up state restoration for new talk pages.")
-                    return
-                } else {
-                    let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: type, dataStore: dataStore, theme: theme)
-                    navigationController.pushViewController(talkPageContainer, animated: false)
-                }
-                
-                navigationController.isNavigationBarHidden = true
-            case (.talkPageReplyList, let info?):
-                if FeatureFlags.needsNewTalkPage {
-                    DDLogDebug("Attempted to restore old talk page reply list. Ignoring.")
-                    return
-                } else {
-                    guard
-                        let talkPageTopic = managedObject(with: info.contentGroupIDURIString, in: moc) as? TalkPageTopic,
-                        let talkPageContainerVC = navigationController.viewControllers.last as? TalkPageContainerViewController
-                    else {
-                        return
-                    }
-                    talkPageContainerVC.pushToReplyThread(topic: talkPageTopic, animated: false)
-                }
+            case (.talkPage, _):
+                assertionFailure("Need to set up state restoration for new talk pages.")
+                return
             case (.readingListDetail, let info?):
                 guard let readingList = managedObject(with: info.readingListURIString, in: moc) as? ReadingList else {
                     return
@@ -243,13 +213,6 @@ final class NavigationStateController: NSObject {
             kind = .account
             info = nil
             shouldAttemptLogin = true
-        case let talkPageContainerVC as TalkPageContainerViewController:
-            let result = determineKindInfoForArticleOrTalk(obj: talkPageContainerVC)
-            kind = result.kind
-            info = result.info
-        case let talkPageReplyListVC as TalkPageReplyListViewController:
-            kind = .talkPageReplyList
-            info = Info(contentGroupIDURIString: talkPageReplyListVC.topic.objectID.uriRepresentation().absoluteString)
         case let readingListDetailVC as ReadingListDetailViewController:
             kind = .readingListDetail
             info = Info(readingListURIString: readingListDetailVC.readingList.objectID.uriRepresentation().absoluteString)
@@ -277,9 +240,6 @@ final class NavigationStateController: NSObject {
         case let articleViewController as ArticleViewController:
             kind = obj is RandomArticleViewController ? .random : .article
             info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey)
-        case let talkPageContainerVC as TalkPageContainerViewController:
-            kind = .talkPage
-            info = Info(talkPageSiteURLString: talkPageContainerVC.siteURL.absoluteString, talkPageTitle: talkPageContainerVC.talkPageTitle, talkPageTypeRawValue: talkPageContainerVC.type.rawValue)
         default:
             kind = nil
             info = nil
