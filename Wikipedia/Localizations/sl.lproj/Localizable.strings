@@ -51,7 +51,7 @@
 "about-places-maps-license" = "Licenca zemljevida krajev";
 "about-places-maps-license-details" = "Kraji uporabljajo zemljevide, ki jih zagotavlja Apple Maps. $1.";
 "about-places-maps-license-details-link-text" = "Za podrobnosti o licenci glejte tukaj";
-"about-product-of" = "Ustvarila $1 s pomočjo prostovoljcev, kot ste vi";
+"about-product-of" = "Ustvarila $1 v sodelovanju s prostovoljci, kot ste vi";
 "about-repositories" = "Shrambe";
 "about-repositories-app-source-license" = "Izvorna koda je na voljo pod licenco $1.";
 "about-repositories-app-source-license-mit" = "MIT licenca";
@@ -207,9 +207,9 @@
 "description-welcome-descriptions-title" = "Opisi člankov";
 "description-welcome-promise-title" = "Ob začetku obljubljam, da te možnosti ne bom zlorabil_a";
 "description-welcome-start-editing-button" = "Začetek urejanja";
-"diff-compare-header-from-info-heading" = "Od:";
+"diff-compare-header-from-info-heading" = "Iz:";
 "diff-compare-header-heading" = "Primerjava redakcij";
-"diff-compare-header-to-info-heading" = "Do:";
+"diff-compare-header-to-info-heading" = "V:";
 "diff-compare-title" = "Primerjava redakcij";
 "diff-context-lines-collapsed-button-title" = "Pokaži";
 "diff-context-lines-expanded-button-title" = "Skrij";
@@ -242,8 +242,8 @@
 "edit-bold-accessibility-label" = "Dodaj krepko oblikovanje";
 "edit-bold-remove-accessibility-label" = "Odstrani krepko oblikovanje";
 "edit-clear-formatting-accessibility-label" = "Odstrani oblikovanje";
-"edit-comment-accessibility-label" = "Dodaj komentar sintakso";
-"edit-comment-remove-accessibility-label" = "Odstrani komentar sintakso";
+"edit-comment-accessibility-label" = "Dodajte skladnjo komentarja";
+"edit-comment-remove-accessibility-label" = "Odstranite skladnjo komentarja";
 "edit-decrease-indent-depth-accessibility-label" = "Zmanjšaj zamik globine";
 "edit-direction-down-accessibility-label" = "Premakni kazalec navzdol";
 "edit-direction-left-accessibility-label" = "Premakni kazalec levo";
@@ -518,11 +518,11 @@
 "insert-media-media-settings-title" = "Nastavitve predstavnosti";
 "insert-media-title" = "Vstavi predstavnost";
 "insert-media-uploaded-image-title" = "Naložite sliko";
-"intermediate-edits-count" = "({{PLURAL:$1|Ena vmesna redakcija|Dve vmesni redakciji|$1 vmesne redakcije|$1 vmesnih redakcij}} {{PLURAL:$1|ni prikazana|nista prikazani|niso prikazane|ni prikazanih}})";
+"intermediate-edits-count" = "({{PLURAL:$1|Ena vmesna redakcija ni prikazana|Dve vmesni redakciji nista prikazani|$1 vmesne redakcije niso prikazane|$1 vmesnih redakcij ni prikazanih}}";
 "intermediate-edits-count-limited" = "$1+ vmesnih redakcij ni prikazanih";
-"intermediate-edits-editors-count" = "({{PLURAL:$1|1=Ena vmesna redakcija|Dve vmesni redakciji|$1 vmesne redakcije|$1 vmesnih redakcij}} {{PLURAL:$2|1=drugega uporabnika|$2 uporabnikov}} {{PLURAL:$1|ni prikazana|nista prikazani|niso prikazane|ni prikazanih}})";
+"intermediate-edits-editors-count" = "({{PLURAL:$1|$1 vmesna redakcija {{PLURAL:$2|$2 uporabnika|$2 uporabnikov}} ni prikazana|$1 vmesni redakciji {{PLURAL:$2|$2 uporabnika|$2 uporabnikov}} nista prikazani|$1 vmesne redakcije {{PLURAL:$2|$2 uporabnika|$2 uporabnikov}} niso prikazane|$1 vmesnih redakcij {{PLURAL:$2|$2 uporabnika|$2 uporabnikov}} ni prikazanih}})";
 "intermediate-edits-editors-count-limited" = "$1+ vmesnih redakcij $2+ uporabnikov ni prikazanih";
-"intermediate-edits-editors-limited-count" = "({{PLURAL:$1|Ena vmesna redakcija|Dve vmesni redakciji|$1 vmesne redakcije|$1 vmesnih redakcij}} $2+ uporabnikov {{PLURAL:$1|ni prikazana|nista prikazani|niso prikazane|ni prikazanih}})";
+"intermediate-edits-editors-limited-count" = "({{PLURAL:$1|Ena vmesna redakcija $2+ uporabnikov ni prikazana|Dve vmesni redakciji $2+ uporabnikov nista prikazani|$1 vmesne redakcije $2+ uporabnikov niso prikazane|$1 vmesnih redakcij $2+ uporabnikov ni prikazanih}}";
 "intermediate-edits-limited-editors-count" = "$1+ vmesnih redakcij {{PLURAL:$2|$2 uporabnika|$2 uporabnikov}} ni prikazanih";
 "inuktitut-variants-alert-body" = "Aplikacija Wikipedia zdaj podpira naslednji različici inuktituta kot osnovni ali sekundarno jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ – inuktitut, zlogovno (ike-cans)\nInuktitut ilisautik – inuktitut, latinica (ike-latn)";
 "inuktitut-variants-alert-title" = "Posodobitve podpore za inuktitutske različice";
@@ -1053,6 +1053,7 @@
 "talk-page-unsubscription-failed-alert" = "Odnaročilo teme ni uspelo, poskusite znova.";
 "talk-page-user-about" = "O uporabniških pogovornih straneh";
 "talk-page-user-contributions" = "Prispevki";
+"talk-pages-archives-view-title" = "Arhivi";
 "talk-pages-coffee-roll-read-more" = "Preberi več";
 "talk-pages-comment-added-alert-title" = "Vaš komentar je dodan";
 "talk-pages-compose-close-confirmation-keep" = "Nadaljujte urejanje";

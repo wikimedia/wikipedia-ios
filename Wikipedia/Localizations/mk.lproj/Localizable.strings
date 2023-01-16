@@ -489,10 +489,8 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "Не сега";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Пополнете ја анкетата";
 "import-shared-reading-list-survey-prompt-footer" = "ПОгледајте ја нашата $1изјава за личните податоци$2. Анкетата ја овозможува трето лице. Погледајте ги нивните $3правила за личните податоци$4.";
-// Fuzzy
-"import-shared-reading-list-survey-prompt-subtitle" = "Споделени списоци за читање е пробна функција и ни тербаат ваши мислења за да ја подобриме или отстраниме.";
-// Fuzzy
-"import-shared-reading-list-survey-prompt-title" = "Дали би ни помогнале да ја подобриме оваа функција, пополнувајќи анкета за неа?";
+"import-shared-reading-list-survey-prompt-subtitle" = "„Сподели списоци за читање“ е пробна функција и ни требаат ваши мислења за да ја подобриме или отстраниме.";
+"import-shared-reading-list-survey-prompt-title" = "Можете ли да ни помогнете да ја подобриме „Сподели списоци за читање“?";
 "import-shared-reading-list-title" = "Увези споделен список за читање";
 "in-the-news-sub-title-from-language-wikipedia" = "Од Википедија на $1";
 "in-the-news-sub-title-from-wikipedia" = "Од Википедија";
@@ -1061,6 +1059,7 @@
 "talk-page-unsubscription-failed-alert" = "Отпишувањето од темата не успеа. Обидете се повторно.";
 "talk-page-user-about" = "За корисничките разговорни страници";
 "talk-page-user-contributions" = "Придонеси";
+"talk-pages-archives-view-title" = "Архиви";
 "talk-pages-coffee-roll-read-more" = "Прочитајте повеќе";
 "talk-pages-comment-added-alert-title" = "Вашиот коментар е додаден";
 "talk-pages-compose-close-confirmation-keep" = "Продолжи со уредување";
@@ -1122,10 +1121,8 @@
 "vanish-account-warning-title" = "Предупредување";
 "vanish-modal-item" = "Ако го завршивте барањето за отстранување, дајте ни пар денови за да го обработи администратор.";
 "vanish-modal-item-2" = "Ако не сте сигурни дали сме го примиле барањето, проверете го вашиот прилог Пошта";
-// Fuzzy
-"vanish-modal-item-3" = "Ако имате други прашања во врска со остранувањето на сметки, појдете на Википедија:Право на исчезнување";
-// Fuzzy
-"vanish-modal-item-3-ios15" = "If you have further questions about vanishing please visit $1Википедија:Право на исчезнување$2$3.";
+"vanish-modal-item-3" = "Ако имате други прашања во врска со остранувањето на сметки, појдете на Meta:Right_to_vanish";
+"vanish-modal-item-3-ios15" = "Ако имате уште прашања за исчезнувањето, посетете ја страницата $1Meta:Right_to_vanish$2$3";
 "vanish-modal-title" = "Барање за поништување";
 "vanishing-request-email-title" = "Побарај исчезнување";
 "variants-alert-dismiss-button" = "Не, благодарам";
