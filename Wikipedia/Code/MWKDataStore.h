@@ -40,6 +40,7 @@ extern NSString *const WMFArticleDeletedNotificationUserInfoArticleKeyKey; // Us
 extern NSString *const WMFBackgroundContextDidSave;
 extern NSString *const WMFFeedImportContextDidSave;
 extern NSString *const WMFViewContextDidSave;
+extern NSString *const WMFViewContextDidResetNotification;
 
 typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
     RemoteConfigOptionReadingLists = 1 << 0,

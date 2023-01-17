@@ -9,6 +9,7 @@
 // Author: FabianRM
 // Author: Festina90
 // Author: Hex
+// Author: Jillids
 // Author: JurgenNL
 // Author: Klaas van Buiten
 // Author: KlaasZ4usV
@@ -513,7 +514,13 @@
 "icon-shortcut-random-title" = "Willekeurige pagina";
 "icon-shortcut-search-title" = "Zoeken in Wikipedia";
 "image-gallery-unknown-owner" = "Auteur onbekend.";
+"import-shared-reading-list-default-title" = "Mijn leeslijst";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Nu niet";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Vragenlijst beantwoorden";
+"import-shared-reading-list-survey-prompt-footer" = "Bekijk onze $1privacyverklaring$2. Enquête mogelijk gemaakt door een derde partij. Bekijk hun $3privacybeleid$4.";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Leeslijsten delen\" is een testfunctie en we hebben uw feedback nodig om deze te verbeteren of te verwijderen.";
+"import-shared-reading-list-survey-prompt-title" = "Kunt u ons helpen om \"Leeslijsten delen\" te verbeteren?";
+"import-shared-reading-list-title" = "Importeer gedeelde leeslijst";
 "in-the-news-sub-title-from-language-wikipedia" = "Van Wikipedia in het $1";
 "in-the-news-sub-title-from-wikipedia" = "Uit Wikipedia";
 "in-the-news-title" = "Actueel";
@@ -1008,11 +1015,13 @@
 "tachelhit-variants-alert-title" = "Updates voor ondersteuning van Tashelhiytse variant";
 "tajik-variants-alert-body" = "De Wikipedia app ondersteund nu de volgende varianten van Tadzjieks als primaire of secundaire talen in de app, wat het makkelijker maakt artikelen te lezen, zoeken en bewerken in deze varianten:";
 "tajik-variants-alert-title" = "Updates voor ondersteuning van Tadzjiekse variant";
+"talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 actieve gebruiker|$1 actieve gebruikers}}";
 "talk-page-add-discussion-accessibility-label" = "Onderwerp toevoegen";
 "talk-page-add-topic-button" = "Onderwerp toevoegen";
 "talk-page-archives" = "Archieven";
 "talk-page-article-about" = "Over overlegpagina's";
 "talk-page-change-language" = "Taal wijzigen";
+"talk-page-collapse-thread-button" = "Gesprekken inklappen";
 "talk-page-discussion-accessibility-hint" = "Dubbelklik om discussie thread te openen";
 "talk-page-discussion-read-accessibility-label" = "Lezen";
 "talk-page-discussion-unread-accessibility-label" = "Ongelezen";
@@ -1022,6 +1031,7 @@
 "talk-page-error-loading-title" = "Kan overlegpagina niet laden";
 "talk-page-error-unable-to-post-reply" = "Geen internetverbinding. Het was niet mogelijk een antwoord te plaatsen.";
 "talk-page-error-unable-to-post-topic" = "Geen internetverbinding. Het was niet mogelijk de discussie te plaatsen.";
+"talk-page-expand-thread-button" = "Gesprekken uitklappen";
 "talk-page-find-in-page-button" = "Zoeken in pagina";
 "talk-page-info-active-conversations" = "Actieve gesprekken op Wikipedia in het $1";
 "talk-page-info-active-conversations-generic" = "Actieve gesprekken op Wikipedia";
@@ -1041,6 +1051,8 @@
 "talk-page-new-topic-body-placeholder-text" = "Start een nieuwe discussie";
 "talk-page-new-topic-success-text" = "Uw reactie is succesvol gepubliceerd";
 "talk-page-new-topic-title" = "Nieuw overleg";
+"talk-page-onboarding-button-accessibility-label" = "Dubbel tikken om terug te keren naar het antwoord";
+"talk-page-overflow-menu-accessibility" = "Meer overlegpagina opties";
 "talk-page-page-info" = "Paginagegevens";
 "talk-page-permanent-link" = "Permanente koppeling";
 "talk-page-publish-reply-error-subtitle" = "Controleer uw internetverbinding.";
@@ -1049,11 +1061,15 @@
 "talk-page-publish-topic-error-title" = "Kan nieuw onderwerp niet publiceren.";
 "talk-page-read-in-web" = "Op het web lezen";
 "talk-page-related-links" = "Koppelingen naar deze pagina";
+"talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1 antwoord|$1 antwoorden}}";
 "talk-page-reply-button" = "Reageren";
+"talk-page-reply-button-accessibility-label" = "Reageren op $1";
+"talk-page-reply-depth-accessibility-label" = "Antwoorddiepte: $1";
 "talk-page-reply-placeholder-format" = "Reageren op $1";
 "talk-page-reply-terms-and-licenses" = "Let op: uw antwoord wordt automatisch ondertekend met uw gebruikersnaam. Door wijzigingen op te slaan, gaat u akkoord met de $1Gebruiksvoorwaarden$2, en gaat u ermee akkoord uw bijdrage vrij te geven onder de $3CC BY-SA 3.0$4 en de $5GFDL$6-licenties.";
 "talk-page-reply-title" = "Reageren";
 "talk-page-revision-history" = "Versiegeschiedenis";
+"talk-page-rply-close-button-accessibility-hint" = "Antwoordweergave sluiten";
 "talk-page-share-button" = "Overlegpagina delen";
 "talk-page-subscribe-to-topic" = "Abonneren";
 "talk-page-subscribed-alert-subtitle" = "U zult meldingen krijgen van nieuwe reacties in dit onderwerp.";
@@ -1061,6 +1077,7 @@
 "talk-page-subscription-failed-alert" = "Abonneren op het onderwerp is mislukt, probeer het opnieuw.";
 "talk-page-title-article-talk" = "Artikeloverleg";
 "talk-page-title-user-talk" = "Gebruikersoverleg";
+"talk-page-topic-close-button-hint" = "Sluit het nieuwe onderwerp";
 "talk-page-topic-compose-terms-and-licenses" = "Door wijzigingen te publiceren, gaat u akkoord met de $1Gebruiksvoorwaarden$2 en stemt u er onherroepelijk mee in uw bijdrage vrij te geven onder de $3CC BY-SA 3.0-licentie$4 en de$5 GFDL-licentie$6.";
 "talk-page-topic-title" = "Overleg";
 "talk-page-unsubscribe-to-topic" = "Uitschrijven";
@@ -1069,6 +1086,7 @@
 "talk-page-unsubscription-failed-alert" = "Afmelden voor het onderwerp is mislukt, probeer het opnieuw.";
 "talk-page-user-about" = "Over overlegpagina's van gebruikers";
 "talk-page-user-contributions" = "Bijdragen";
+"talk-pages-archives-view-title" = "Archieven";
 "talk-pages-coffee-roll-read-more" = "Meer lezen";
 "talk-pages-comment-added-alert-title" = "Uw reactie is toegevoegd";
 "talk-pages-compose-close-confirmation-keep" = "Doorgaan met bewerken";
@@ -1082,11 +1100,14 @@
 "talk-pages-reply-compose-close-confirmation-title" = "Weet u zeker dat u dit nieuwe antwoord wilt weggooien?";
 "talk-pages-topic-added-alert-title" = "Uw onderwerp is toegevoegd";
 "talk-pages-topic-compose-body-placeholder" = "Beschrijving";
+"talk-pages-topic-compose-body-placeholder-accessibility" = "Beschrijving van het onderwerp";
 "talk-pages-topic-compose-close-confirmation-discard" = "Antwoord weggooien";
 "talk-pages-topic-compose-close-confirmation-title" = "Weet u zeker dat u dit nieuwe onderwerp wilt weggooien?";
 "talk-pages-topic-compose-navbar-title" = "Onderwerp";
 "talk-pages-topic-compose-title-placeholder" = "Onderwerptitel";
 "talk-pages-topic-reply-onboarding-body" = "Op overlegpagina's wordt besproken hoe we de inhoud van Wikipedia zo goed mogelijk kunnen maken. Voeg een nieuw discussieonderwerp toe om contact te maken en samen te werken met uw mede-Wikipedianen.\n\nHou het a.u.b. wel gezellig, we zijn hier ook allemaal maar mensen.";
+"talk-pages-topic-reply-onboarding-body-ios15" = "Overlegpagina's zijn waar $1mensen bespreken hoe ze inhoud op Wikipedia zo goed mogelijk kunnen maken. $1 Voeg een nieuw discussieonderwerp toe om in contact te komen en samen te werken met een community van Wikipedianen.";
+"talk-pages-topic-reply-onboarding-body-note-ios15" = "Wees alsjeblieft vriendelijk, we zijn hier allemaal mensen.";
 "talk-pages-topic-reply-onboarding-title" = "Overlegpagina's";
 "talk-pages-user-groups" = "Gebruikersgroepen";
 "talk-pages-user-logs" = "Logboeken";
@@ -1123,6 +1144,7 @@
 "vanish-account-learn-more-text" = "Meer lezen";
 "vanish-account-title" = "Verdwijnproces";
 "vanish-account-username-field" = "Gebruikersnaam en gebruikerspagina";
+"vanish-account-warning-body" = "Verdwijnen is een **laatste redmiddel** en moet je **alleen gebruiken als je voor altijd wilt stoppen met bewerken** en ook om zoveel mogelijk van je vroegere associaties te verbergen.\n\nAccountverwijdering op Wikipedia is voltooid door uw accountnaam te wijzigen zodat anderen uw bijdragen niet kunnen herkennen in een proces dat accountverdwijning wordt genoemd. **Verdwijnen garandeert geen volledige anonimiteit en verwijdert geen bijdragen aan de projecten**.";
 "vanish-account-warning-title" = "Waarschuwing";
 "vanish-modal-item" = "Als u uw verdwijnverzoek heeft voltooid, duurt het een paar dagen voordat het verzoek is verwerkt door een beheerder";
 "vanish-modal-item-2" = "Als u niet zeker weet of uw verzoek is aangekomen, controleer dan uw mail-app";
