@@ -99,7 +99,7 @@ struct TalkPageArchivesView: View {
     
     private func processResponse(_ response: TalkPageArchivesFetcher.APIResponse) -> [TalkPageArchivesItem] {
         let items = response.query?.pages?.compactMap {  TalkPageArchivesItem(pageID: $0.pageID, title: $0.title, displayTitle: $0.displayTitle) } ?? []
-        return items.filter { $0.title != pageTitle }
+        return items.filter { $0.title != pageTitle && !self.items.contains($0) }
     }
 }
 
