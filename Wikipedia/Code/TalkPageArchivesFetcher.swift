@@ -75,7 +75,7 @@ class TalkPageArchivesFetcher: Fetcher {
             "prop": "info",
             "generator": "prefixsearch",
             "inprop": "varianttitles|displaytitle",
-            "gpssearch": pageTitle,
+            "gpssearch": "\(pageTitle)/",
             "gpslimit": 30,
             "errorformat": "html",
             "errorsuselocal": 1,
