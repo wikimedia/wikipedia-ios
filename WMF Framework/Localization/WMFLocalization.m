@@ -3,14 +3,26 @@
 
 @implementation NSBundle (WMFLocalization)
 
-// A mapping of Chinese language variant codes to preferred NSLocale identifiers. The values map to an existing Xcode localization project (.lproj)
-NSDictionary<NSString*, NSString*> *chineseVariantLocalizationMappings = @{
-    @"zh-hans": @"zh-hans",
+// A mapping of language variant content codes to available native `NSLocale` bundle identifiers. The values map to existing .lproj folders.
+NSDictionary<NSString*, NSString*> *variantContentCodeToLocalizationBundleMapping = @{
+    // Chinese variants
     @"zh-hk": @"zh-hant",
     @"zh-mo": @"zh-hant",
     @"zh-my": @"zh-hans",
     @"zh-sg": @"zh-hans",
     @"zh-tw": @"zh-hant",
+
+    // Serbian variants
+    // no-op - both variants are natively available iOS localizations
+
+    // Kurdish variants
+    @"ku-arab": @"ckb",
+
+    // Tajik variants
+    @"tg-latn": @"tg",
+
+    // Uzbek variants
+    @"uz-cyrl": @"uz",
 };
 
 + (NSBundle *)wmf_localizationBundle {
@@ -28,8 +40,8 @@ NSDictionary<NSString*, NSString*> *chineseVariantLocalizationMappings = @{
 
 - (nonnull NSString *)wmf_languageBundleNameForWikipediaLanguageCode:(nonnull NSString *)languageCode {
     NSString *bundleName = languageCode;
-    if ([chineseVariantLocalizationMappings valueForKey:languageCode]) {
-        bundleName = [chineseVariantLocalizationMappings valueForKey:languageCode];
+    if ([variantContentCodeToLocalizationBundleMapping valueForKey:languageCode]) {
+        bundleName = [variantContentCodeToLocalizationBundleMapping valueForKey:languageCode];
     } else if ([languageCode isEqualToString:@"zh"]) {
         bundleName = @"zh-hans";
         for (NSString *code in [NSLocale wmf_preferredLanguageCodes]) {
