@@ -28,8 +28,17 @@ struct ShiftingScrollView<Content: View>: View {
                     )
                 }
                 .frame(width: 0, height: 0)
-                content
-                    .padding(.top, data.totalHeight)
+                VStack(spacing: 0) {
+                    Spacer()
+                        .frame(width: 0, height: data.totalHeight)
+                        .id("padding")
+                    ZStack(alignment: .topLeading) {
+                        Color.green
+                            .frame(width: 0, height: 0)
+                            .id("content")
+                        content
+                    }
+                }
             }
         }
         .coordinateSpace(name: "scrollView")

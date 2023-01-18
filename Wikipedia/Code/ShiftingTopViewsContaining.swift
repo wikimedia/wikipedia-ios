@@ -28,6 +28,10 @@ extension ShiftingTopViewsContaining {
             .environmentObject(observableTheme)
         
         let childHostingVC: UIViewController
+        
+        // idea: fallthrough/pannable content view that is added first, then childhostingVC is embedded onto that.
+        // when offset starts to slow down (small delta in either direction? debounced offset publisher?) AND gesture is not between began & ended, kickoff snap animation (i.e. offset >= half of entire shifting stack view. ideally if we could figure out not to snap if there's not enough content at the bottom, that'd be great.
+        // when gesture changes to ended and offset is not producing (time of last offset not too long ago? or delta between this offset and last small enough?), 
 
         if #available(iOS 16, *) {
             childHostingVC = UIHostingController(rootView: finalSwiftUIView)
