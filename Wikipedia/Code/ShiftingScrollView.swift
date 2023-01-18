@@ -30,8 +30,8 @@ struct ShiftingScrollView<Content: View>: View {
                 .frame(width: 0, height: 0)
                 VStack(spacing: 0) {
                     Spacer()
-                        .frame(width: 0, height: data.totalHeight)
-                        .id("padding")
+                        .frame(height: data.totalHeight)
+                        .id("topInset")
                     ZStack(alignment: .topLeading) {
                         Color.green
                             .frame(width: 0, height: 0)

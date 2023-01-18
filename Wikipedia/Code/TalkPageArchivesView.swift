@@ -30,67 +30,54 @@ struct TalkPageArchivesView: View {
         GeometryReader { geometry in
             ScrollViewReader { proxy in
                 ShiftingScrollView {
-                    
-                    //            if items.isEmpty && didFetchFirstPage && firstPageFetchError == nil {
-                    //                TalkPageArchivesInfoText(info: WMFLocalizedString("talk-pages-archives-empty-title", value: "No archived pages found.", comment: "Text displayed when no talk page archive pages were found."))
-                    //            } else if !items.isEmpty {
-                    //                LazyVStack(alignment: .leading, spacing: 0) {
-                    //                    ForEach(items) { item in
-                    //                        DisclosureButton(item: item, action: didTapItem)
-                    //                            .onAppear {
-                    //                                if itemIsLast(item) {
-                    //                                    nextPageFetchTask?.cancel()
-                    //                                    nextPageFetchTask = Task(priority: .userInitiated) {
-                    //                                        do {
-                    //                                            if let response = try await fetcher.fetchNextPage() {
-                    //                                                let items = processResponse(response)
-                    //                                                self.items.append(contentsOf: items)
-                    //                                            }
-                    //                                        } catch {
-                    //                                            let userInfo = [Notification.Name.showErrorBannerNSErrorKey: error]
-                    //                                            NotificationCenter.default.post(name: .showErrorBanner, object: nil, userInfo: userInfo)
-                    //                                        }
-                    //                                    }
-                    //                                }
-                    //                            }
-                    //                    }
-                    //                }
-                    //            } else if firstPageFetchError != nil {
-                    //                TalkPageArchivesInfoText(info: CommonStrings.genericErrorDescription)
-                    //            }
-                    
-                    LazyVStack(alignment: .leading, spacing: 0) {
-                        
-                        ForEach((1...10), id: \.self) {
-                            Text("\($0)…")
-                                .id("\($0)")
-                        }
-                        
-                        Button(action: {
-                            withAnimation {
-                                let unitPoint = UnitPoint(x: 0.0, y: 0.0)
-                                proxy.scrollTo("padding", anchor: unitPoint)
+        
+                    if items.isEmpty && didFetchFirstPage && firstPageFetchError == nil {
+                        TalkPageArchivesInfoText(info: WMFLocalizedString("talk-pages-archives-empty-title", value: "No archived pages found.", comment: "Text displayed when no talk page archive pages were found."))
+                    } else if !items.isEmpty {
+                        LazyVStack(alignment: .leading, spacing: 0) {
+                            
+                            Button(action: {
+                                withAnimation {
+                                    proxy.scrollTo("topInset", anchor: .top)
+                                }
+                                
+                            }) {
+                                Text("Snap open")
                             }
                             
-                        }) {
-                            Text("Snap open")
-                        }
-                        
-                        Button(action: {
-                            withAnimation {
-                                let testYPointSize = data.totalHeight / geometry.size.height
-                                let unitPoint = UnitPoint(x: 0.0, y: testYPointSize)
-                                proxy.scrollTo("content", anchor: unitPoint)
+                            Button(action: {
+                                withAnimation {
+                                    let testYPointSize = data.totalHeight / geometry.size.height
+                                    let unitPoint = UnitPoint(x: 0.0, y: testYPointSize)
+                                    proxy.scrollTo("content", anchor: unitPoint)
+                                }
+                                
+                            }) {
+                                Text("Snap closed")
                             }
                             
-                        }) {
-                            Text("Snap closed")
+                            ForEach(items) { item in
+                                DisclosureButton(item: item, action: didTapItem)
+                                    .onAppear {
+                                        if itemIsLast(item) {
+                                            nextPageFetchTask?.cancel()
+                                            nextPageFetchTask = Task(priority: .userInitiated) {
+                                                do {
+                                                    if let response = try await fetcher.fetchNextPage() {
+                                                        let items = processResponse(response)
+                                                        self.items.append(contentsOf: items)
+                                                    }
+                                                } catch {
+                                                    let userInfo = [Notification.Name.showErrorBannerNSErrorKey: error]
+                                                    NotificationCenter.default.post(name: .showErrorBanner, object: nil, userInfo: userInfo)
+                                                }
+                                            }
+                                        }
+                                    }
+                            }
                         }
-                        
-                        ForEach((11...100), id: \.self) {
-                            Text("\($0)…")
-                                .id("\($0)")
-                        }
+                    } else if firstPageFetchError != nil {
+                        TalkPageArchivesInfoText(info: CommonStrings.genericErrorDescription)
                     }
                 }
                 .background(Color(observableTheme.theme.colors.paperBackground))
