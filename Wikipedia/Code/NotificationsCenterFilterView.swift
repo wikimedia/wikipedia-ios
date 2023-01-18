@@ -143,14 +143,17 @@ struct NotificationsCenterFilterView: View {
                             .foregroundColor(Color(viewModel.theme.colors.primaryText))
                         }
             )
-            .background(Color(viewModel.theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
+            .listBackgroundColor(Color(viewModel.theme.colors.baseBackground))
             .navigationBarTitle(Text(WMFLocalizedString("notifications-center-filters-title", value: "Filters", comment: "Navigation bar title text for the filters view presented from notifications center. Allows for filtering by read status and notification type.")), displayMode: .inline)
             .onAppear(perform: {
+                if #unavailable(iOS 16) {
                     UITableView.appearance().backgroundColor = UIColor.clear
+                }
             })
             .onDisappear(perform: {
-                
-                UITableView.appearance().backgroundColor = UIColor.systemGroupedBackground
+                if #unavailable(iOS 16) {
+                    UITableView.appearance().backgroundColor = UIColor.systemGroupedBackground
+                }
             })
     }
 }
