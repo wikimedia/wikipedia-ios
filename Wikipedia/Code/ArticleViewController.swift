@@ -443,12 +443,20 @@ class ArticleViewController: ViewController, HintPresenting {
             callLoadCompletionIfNecessary()
         }
         
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, revisionID: revisionID, scheme: schemeHandler.scheme, cachePolicy: cachePolicy, isPageView: true) else {
+        guard var request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, revisionID: revisionID, scheme: schemeHandler.scheme, cachePolicy: cachePolicy, isPageView: true) else {
             showGenericError()
             state = .error
             return
         }
 
+        // Add the URL fragment to request, if the fragment exists
+        if let articleFragment = URLComponents(url: articleURL, resolvingAgainstBaseURL: true)?.fragment,
+           let url = request.url,
+           var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true) {
+            urlComponents.fragment = articleFragment
+            request.url = urlComponents.url
+        }
+        
         articleAsLivingDocController.articleContentWillBeginLoading(traitCollection: traitCollection, theme: theme)
 
         webView.load(request)
@@ -786,6 +794,7 @@ class ArticleViewController: ViewController, HintPresenting {
         }
         
         articleAsLivingDocController.handleArticleAsLivingDocLinkForAnchor(anchor, articleURL: articleURL)
+        scroll(to: anchor, animated: true)
     }
     
     // MARK: Table of contents
