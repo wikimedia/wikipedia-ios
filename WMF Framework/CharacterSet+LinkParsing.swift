@@ -7,8 +7,9 @@ extension CharacterSet {
         return NSCharacterSet.wmf_relativePathAndFragmentAllowed()
     }
     
-    public static var ascii: CharacterSet {
-        return CharacterSet(charactersIn: Unicode.Scalar(0)..<Unicode.Scalar(128))
+    // RFC 3986 reserved + unreserved characters + percent (%)
+    public static var rfc3986Allowed: CharacterSet {
+        return CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?#[]@!$&'()*+,;=%")
     }
     
     static let urlQueryComponentAllowed: CharacterSet = {

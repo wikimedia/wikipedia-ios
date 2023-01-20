@@ -30,11 +30,11 @@ extension URL {
     /// Resolves a relative href from a wiki page against the callee.
     /// The callee should be a standardized page URL generated with wmf_databaseURL, non-article namespaces are OK
     public func resolvingRelativeWikiHref(_ href: String) -> URL? {
-        // The link is sometimes encoded, and sometimes unencoded. (In some cases, this depends on
+        // The link is sometimes encoded, and sometimes unencoded (In some cases, this depends on
         // whether an editor put an escaped or unescaped version of the URL). We percent-encode
-        // non-ASCII characters first because URLComponents cannot ingest strings with
-        // international chacters in some versions of iOS (e.g. 15.5).
-        let urlComponentsString = href.addingPercentEncoding(withAllowedCharacters: .ascii) ?? href
+        // certain characters first because URLComponents cannot ingest strings with these chacters
+        // in some versions of iOS (e.g. 15.5).
+        let urlComponentsString = href.addingPercentEncoding(withAllowedCharacters: .rfc3986Allowed) ?? href
         var components = URLComponents(string: urlComponentsString)
         
         // Encode the URL if it is relative
