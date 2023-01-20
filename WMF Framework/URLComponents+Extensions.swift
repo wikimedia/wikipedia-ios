@@ -80,20 +80,6 @@ extension URLComponents {
         percentEncodedPath = fullComponents.joined(separator: "/") // NSString.path(with: components) removes the trailing slash that the reading list API needs
     }
     
-    /// Encodes charcters in each component that are not allowed for that component (also encodes non-ASCII characters)
-    mutating func encodeByComponent() {
-        // The getters remove percent-encoding, then the setters add encoding
-        // where necessary for that component
-        scheme = scheme
-        host = host // may use punycode in some versions of iOS
-        port = port
-        path = path
-        query = query
-        fragment = fragment
-        user = user
-        password = password
-    }
-    
     public func wmf_URLWithLanguageVariantCode(_ code: String?) -> URL? {
         return (self as NSURLComponents).wmf_URL(withLanguageVariantCode: code)
     }

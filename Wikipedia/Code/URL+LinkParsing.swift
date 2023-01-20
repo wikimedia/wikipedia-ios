@@ -37,11 +37,6 @@ extension URL {
         let urlComponentsString = href.addingPercentEncoding(withAllowedCharacters: .rfc3986Allowed) ?? href
         var components = URLComponents(string: urlComponentsString)
         
-        // Encode the URL if it is relative
-        if href.hasPrefix(".") || href.hasPrefix("/") {
-            components?.encodeByComponent() // handle unsafe/disallowed characters
-        }
-        
         // Encode this URL to handle titles with forward slashes, otherwise URLComponents thinks they're separate path components
         let encodedBaseURL = encodedWikiURL
         var resolvedURL = components?.url(relativeTo: encodedBaseURL)?.absoluteURL
