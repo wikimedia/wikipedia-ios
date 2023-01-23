@@ -1,5 +1,6 @@
 import Foundation
 import WMF
+import CocoaLumberjackSwift
 
 /// Class that coordinates network fetches for talk pages.
 /// Leans on file persistence for offline mode as-needed.
@@ -51,7 +52,9 @@ class TalkPageDataController {
         
         fetchArticleSummaryIfNeeded(dispatchGroup: group) { articleSummary, errors in
             finalArticleSummary = articleSummary
-            finalErrors.append(contentsOf: errors)
+            if errors.count > 0 {
+                DDLogError("Error fetching article summary for talk page header. Ignoring.")
+            }
         }
         
         fetchLatestRevisionID(dispatchGroup: group) { revisionID in
