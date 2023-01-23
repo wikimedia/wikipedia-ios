@@ -3,6 +3,28 @@
 
 @implementation NSBundle (WMFLocalization)
 
+// A mapping of language variant content codes to available native `NSLocale` bundle identifiers. The values map to existing .lproj folders.
+NSDictionary<NSString*, NSString*> *variantContentCodeToLocalizationBundleMapping = @{
+    // Chinese variants
+    @"zh-hk": @"zh-hant",
+    @"zh-mo": @"zh-hant",
+    @"zh-my": @"zh-hans",
+    @"zh-sg": @"zh-hans",
+    @"zh-tw": @"zh-hant",
+
+    // Serbian variants
+    // no-op - both variants are natively available iOS localizations
+
+    // Kurdish variants
+    @"ku-arab": @"ckb",
+
+    // Tajik variants
+    @"tg-latn": @"tg",
+
+    // Uzbek variants
+    @"uz-cyrl": @"uz",
+};
+
 + (NSBundle *)wmf_localizationBundle {
     return [NSBundle wmf];
 }
@@ -18,7 +40,9 @@
 
 - (nonnull NSString *)wmf_languageBundleNameForWikipediaLanguageCode:(nonnull NSString *)languageCode {
     NSString *bundleName = languageCode;
-    if ([languageCode isEqualToString:@"zh"]) {
+    if ([variantContentCodeToLocalizationBundleMapping valueForKey:languageCode]) {
+        bundleName = [variantContentCodeToLocalizationBundleMapping valueForKey:languageCode];
+    } else if ([languageCode isEqualToString:@"zh"]) {
         bundleName = @"zh-hans";
         for (NSString *code in [NSLocale wmf_preferredLanguageCodes]) {
             if (![code hasPrefix:@"zh"]) {
@@ -29,7 +53,6 @@
                 bundleName = [code lowercaseString];
                 break;
             }
-            
         }
     } else if ([languageCode isEqualToString:@"sr"]) {
         bundleName = @"sr-ec";

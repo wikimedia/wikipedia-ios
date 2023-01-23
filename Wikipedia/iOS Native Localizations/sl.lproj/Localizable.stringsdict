@@ -243,7 +243,7 @@
 	<key>intermediate-edits-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>(%#@v1@ %#@v1@)</string>
+		<string>(%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -251,40 +251,31 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>ni prikazana</string>
+			<string>Ena vmesna redakcija ni prikazana</string>
 			<key>other</key>
-			<string>ni prikazanih</string>
+			<string>%1$d vmesnih redakcij ni prikazanih</string>
 		</dict>
 	</dict>
 	<key>intermediate-edits-editors-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>(%#@v1@ %#@v2@ %#@v1@)</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>ni prikazana</string>
-			<key>other</key>
-			<string>ni prikazanih</string>
-		</dict>
+		<string>({{PLURAL:%1$d|%1$d vmesna redakcija %#@v2@ ni prikazana|%1$d vmesni redakciji %#@v2@ nista prikazani|%1$d vmesne redakcije %#@v2@ niso prikazane|%1$d vmesnih redakcij %#@v2@)</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%2$d uporabnika</string>
 			<key>other</key>
-			<string>%2$d uporabnikov</string>
+			<string>%2$d uporabnikov}} ni prikazanih</string>
 		</dict>
 	</dict>
 	<key>intermediate-edits-editors-limited-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>(%#@v1@ %2$d+ uporabnikov %#@v1@)</string>
+		<string>(%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -292,9 +283,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>ni prikazana</string>
+			<string>Ena vmesna redakcija %2$d+ uporabnikov ni prikazana</string>
 			<key>other</key>
-			<string>ni prikazanih</string>
+			<string>%1$d vmesnih redakcij %2$d+ uporabnikov ni prikazanih</string>
 		</dict>
 	</dict>
 	<key>intermediate-edits-limited-editors-count</key>
