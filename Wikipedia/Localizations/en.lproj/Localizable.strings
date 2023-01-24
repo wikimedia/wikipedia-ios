@@ -1047,6 +1047,7 @@
 "talk-page-unsubscription-failed-alert" = "Unsubscribing to the topic failed, please try again.";
 "talk-page-user-about" = "About user talk pages";
 "talk-page-user-contributions" = "Contributions";
+"talk-pages-archives-empty-title" = "No archived pages found.";
 "talk-pages-archives-view-title" = "Archives";
 "talk-pages-coffee-roll-read-more" = "Read more";
 "talk-pages-comment-added-alert-title" = "Your comment was added";

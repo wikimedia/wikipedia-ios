@@ -250,6 +250,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(voiceOverStatusDidChange)
                                                  name:UIAccessibilityVoiceOverStatusDidChangeNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(showErrorBanner:)
+                                                     name:NSNotification.showErrorBanner
+                                                   object:nil];
 
     [self setupReadingListsHelpers];
     self.editHintController = [[WMFEditHintController alloc] init];
@@ -522,6 +527,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (void)voiceOverStatusDidChange {
     [self.exploreViewController updateNavigationBarVisibility];
+}
+
+- (void)showErrorBanner:(NSNotification *)notification {
+    if ([notification.userInfo[NSNotification.showErrorBannerNSErrorKey] isKindOfClass:[NSError class]]) {
+        NSError *error = notification.userInfo[NSNotification.showErrorBannerNSErrorKey];
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:nil];
+    }
 }
 
 #pragma mark - Explore feed preferences
