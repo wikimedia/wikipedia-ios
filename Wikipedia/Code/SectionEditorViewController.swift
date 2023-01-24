@@ -429,7 +429,7 @@ class SectionEditorViewController: ViewController {
 
     fileprivate func showAlert() {
         let alert = UIAlertController(title: CommonStrings.editorExitConfirmationTitle, message: CommonStrings.editorExitConfirmationBody, preferredStyle: .alert)
-        let confirmClose = UIAlertAction(title: CommonStrings.discardEditsActionTitle, style: .default) { _ in
+        let confirmClose = UIAlertAction(title: CommonStrings.discardEditsActionTitle, style: .destructive) { _ in
             self.closeEditor()
         }
         alert.addAction(confirmClose)
