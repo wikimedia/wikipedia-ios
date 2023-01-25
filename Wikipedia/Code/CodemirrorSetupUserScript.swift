@@ -9,10 +9,10 @@ class CodemirrorSetupUserScript: PageUserScript, WKScriptMessageHandler {
     let messageHandlerName = "wmfCodemirrorReady"
     let completion: () -> Void
     
-    init(languageCode: String, direction: CodemirrorDirection, theme: Theme, textSizeAdjustment: Int, isSyntaxHighlighted: Bool, completion: @escaping () -> Void) {
+    init(languageCode: String, direction: CodemirrorDirection, theme: Theme, textSizeAdjustment: Int, isSyntaxHighlighted: Bool, readOnly: Bool, completion: @escaping () -> Void) {
         self.completion = completion
         let source = """
-        wmf.setup('\(languageCode)', '\(direction.rawValue)', '\(theme.webName)', \(textSizeAdjustment), \(isSyntaxHighlighted), () => {
+        wmf.setup('\(languageCode)', '\(direction.rawValue)', '\(theme.webName)', \(textSizeAdjustment), \(isSyntaxHighlighted), \(readOnly), () => {
             window.webkit.messageHandlers.\(messageHandlerName).postMessage({})
         })
         """

@@ -41,7 +41,6 @@ class SectionEditorViewController: ViewController {
     private var needsSelectLastSelection: Bool = false
     
     @objc var editFunnel = EditFunnel.shared
-    
 
     private var isInFindReplaceActionSheetMode = false
     
@@ -185,7 +184,8 @@ class SectionEditorViewController: ViewController {
         let contentLanguageCode: String = articleURL.wmf_contentLanguageCode ?? dataStore.languageLinkController.preferredLanguageVariantCode(forLanguageCode: languageCode) ?? languageCode
         let layoutDirection = MWKLanguageLinkController.layoutDirection(forContentLanguageCode: contentLanguageCode)
         let isSyntaxHighlighted = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
-        let setupUserScript = CodemirrorSetupUserScript(languageCode: languageCode, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: layoutDirection) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment, isSyntaxHighlighted: isSyntaxHighlighted) { [weak self] in
+
+        let setupUserScript = CodemirrorSetupUserScript(languageCode: languageCode, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: layoutDirection) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment, isSyntaxHighlighted: isSyntaxHighlighted, readOnly: false) { [weak self] in
             self?.isCodemirrorReady = true
         }
         
