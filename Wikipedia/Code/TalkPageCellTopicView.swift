@@ -454,6 +454,7 @@ extension TalkPageCellTopicView: Themeable {
 
         topicTitleTextView.attributedText = viewModel?.topicTitleAttributedString(traitCollection: traitCollection, theme: theme)
         topicTitleTextView.backgroundColor = theme.colors.paperBackground
+        topicTitleTextView.linkTextAttributes = [.foregroundColor: theme.colors.link]
         
         timestampLabel.textColor = theme.colors.secondaryText
 
@@ -462,7 +463,8 @@ extension TalkPageCellTopicView: Themeable {
         } else if viewModel?.otherContentHtml != nil {
             topicCommentTextView.attributedText = viewModel?.otherContentAttributedString(traitCollection: traitCollection, theme: theme)
         }
-        
+
+        topicCommentTextView.linkTextAttributes = [.foregroundColor: theme.colors.link]
         topicCommentTextView.backgroundColor = theme.colors.paperBackground
 
         applyTextHighlightIfNecessary(theme: theme)
