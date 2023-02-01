@@ -260,6 +260,16 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                     let errorCode = self.articleDescriptionController.errorCodeFromError(nsError)
                     self.editFunnel?.logTitleDescriptionSaveError(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: self.articleDescriptionController.articleLanguageCode, errorText: errorCode)
 
+                    if let wikidataError = error as? WikidataFetcher.WikidataPublishingError {
+                        switch wikidataError {
+                        case .apiBlocked(let blockedError):
+                            self.presentBlockedPanel(blockedError: blockedError)
+                            return
+                        default:
+                            break
+                        }
+                    }
+
                     let errorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
                     switch errorType {
                     case .blocked:
