@@ -325,7 +325,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             if errorType == .abuseFilterDisallowed {
                 mode = .abuseFilterDisallow
                 abuseFilterCode = displayError.code
-                
+
                 wmf_showAbuseFilterDisallowPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: false)
                 
             } else {
