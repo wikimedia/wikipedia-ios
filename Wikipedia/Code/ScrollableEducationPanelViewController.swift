@@ -42,7 +42,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var closeButton: UIButton!
     @IBOutlet fileprivate weak var imageView: UIImageView!
     @IBOutlet fileprivate weak var headingLabel: UILabel!
-    @IBOutlet fileprivate weak var subheadingLabel: UILabel!
+    @IBOutlet fileprivate weak var subheadingTextView: UITextView!
     
     // use as an indication of what triggered a dismissal
     private var lastAction: LastAction = .none
@@ -115,47 +115,24 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
     var subheading:String? {
         get {
-            return subheadingLabel.text
+            return subheadingTextView.attributedText.string
         }
         set {
-            subheadingLabel.text = newValue
-            view.setNeedsLayout()
+            subheadingHTML = newValue
+            updateSubheadingHTML()
         }
     }
 
     var subheadingHTML: String? {
         didSet {
-            guard let html = subheadingHTML else {
-                subheadingLabel.attributedText = nil
-                return
-            }
-            let attributedText = html.byAttributingHTML(with: .subheadline,
-                                                        boldWeight: .bold,
-                                                        matching: traitCollection,
-                                                        color: theme.colors.primaryText,
-                                                        tagMapping: ["em": "i"], // em tags are generally italicized by default, match this behavior
-                                                        additionalTagAttributes: [
-                "u": [
-                    NSAttributedString.Key.underlineColor: theme.colors.error,
-                    NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)
-                ],
-                "strong": [
-                    NSAttributedString.Key.foregroundColor: theme.colors.primaryText
-                ]
-            ])
-            
-            var attributes: [NSAttributedString.Key : Any] = [:]
-            if let subheadingParagraphStyle = subheadingParagraphStyle {
-                attributes[NSAttributedString.Key.paragraphStyle] = subheadingParagraphStyle
-            }
-            attributedText.addAttributes(attributes, range: NSRange(location: 0, length: attributedText.length))
-            subheadingLabel.attributedText = attributedText
+            updateSubheadingHTML()
+            view.setNeedsLayout()
         }
     }
-
+    
     var subheadingTextAlignment: NSTextAlignment = .center {
         didSet {
-            subheadingLabel.textAlignment = subheadingTextAlignment
+            updateSubheadingHTML()
         }
     }
 
@@ -203,11 +180,46 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     }
 
     var footerLinkAction: ((URL) -> Void)? = nil
+    var subheadingLinkAction: ((URL) -> Void)? = nil
     
     var subheadingParagraphStyle: NSParagraphStyle? {
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineHeightMultiple = 1.2
+        pStyle.alignment = subheadingTextAlignment
         return pStyle.copy() as? NSParagraphStyle
+    }
+    
+    private func updateSubheadingHTML() {
+        guard let subheadingHTML = subheadingHTML else {
+            subheadingTextView.attributedText = nil
+            return
+        }
+        
+        let attributedText = subheadingHTML.byAttributingHTML(with: .subheadline,
+                                                                    boldWeight: .bold,
+                                                                    matching: traitCollection,
+                                                                    color: theme.colors.primaryText,
+                                                                    handlingLinks: true,
+                                                                    linkColor: theme.colors.link,
+                                                                    tagMapping: ["em": "i"], // em tags are generally italicized by default, match this behavior)
+                                                                    additionalTagAttributes: [
+                                                                        "u": [
+                                                                          NSAttributedString.Key.underlineColor: theme.colors.error,
+                                                                          NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)
+                                                                        ],
+                                                                        "strong": [
+                                                                          NSAttributedString.Key.foregroundColor: theme.colors.primaryText
+                                                                        ]
+                                                                    ])
+        
+        var attributes: [NSAttributedString.Key : Any] = [:]
+        if let subheadingParagraphStyle = subheadingParagraphStyle {
+            attributes[NSAttributedString.Key.paragraphStyle] = subheadingParagraphStyle
+        }
+        attributedText.addAttributes(attributes, range: NSRange(location: 0, length: attributedText.length))
+        
+        subheadingTextView.attributedText = attributedText.removingRepetitiveNewlineCharacters()
+        subheadingTextView.tintColor = theme.colors.link
     }
     
     var footerParagraphStyle: NSParagraphStyle? {
@@ -315,6 +327,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         stackView.spacing = spacing
 
         footerTextView.delegate = self
+        subheadingTextView.delegate = self
         
         apply(theme: theme)
     }
@@ -332,7 +345,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     fileprivate func reset() {
         imageView.image = nil
         headingLabel.text = nil
-        subheadingLabel.text = nil
+        subheadingTextView.attributedText = nil
         primaryButton.setTitle(nil, for: .normal)
         secondaryButton.setTitle(nil, for: .normal)
         footerTextView.text = nil
@@ -375,7 +388,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         adjustImageViewVisibility(for: traitCollection.verticalSizeClass)
         // Collapse stack view cells for labels/buttons if no text.
         headingLabel.isHidden = !headingLabel.wmf_hasAnyNonWhitespaceText
-        subheadingLabel.isHidden = !subheadingLabel.wmf_hasAnyNonWhitespaceText
+        subheadingTextView.isHidden = !subheadingTextView.wmf_hasAnyNonWhitespaceText
         footerTextView.isHidden = !footerTextView.wmf_hasAnyNonWhitespaceText
         primaryButton.isHidden = !primaryButton.wmf_hasAnyNonWhitespaceText
         secondaryButton.isHidden = !secondaryButton.wmf_hasAnyNonWhitespaceText
@@ -434,8 +447,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             return
         }
         headingLabel?.textColor = theme.colors.primaryText
-        subheadingLabel?.textColor = theme.colors.primaryText
-        footerTextView?.textColor = theme.colors.secondaryText
         closeButton.tintColor = theme.colors.primaryText
         primaryButton?.tintColor = theme.colors.link
         secondaryButton?.tintColor = theme.colors.secondaryText
@@ -454,13 +465,19 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             roundedCornerContainer.layer.borderWidth = 0
         }
         roundedCornerContainer.backgroundColor = theme.colors.cardBackground
+        updateSubheadingHTML()
         updateFooterHTML()
     }
 }
 
 extension ScrollableEducationPanelViewController: UITextViewDelegate {
     public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        footerLinkAction?(URL)
+        if textView == footerTextView {
+            footerLinkAction?(URL)
+        } else if textView == subheadingTextView {
+            subheadingLinkAction?(URL)
+        }
+        
         return false
     }
 }
