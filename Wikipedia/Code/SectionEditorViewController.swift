@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import WMF
 
 protocol SectionEditorViewControllerDelegate: AnyObject {
     func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController)
@@ -19,7 +20,7 @@ class SectionEditorViewController: ViewController {
     private var selectedTextEditInfo: SelectedTextEditInfo?
     private var dataStore: MWKDataStore
 
-    private var webView: SectionEditorWebView!
+    private var webView: SectionEditorWebView?
     private let sectionFetcher: SectionFetcher
     
     private var inputViewsController: SectionEditorInputViewsController!
@@ -83,19 +84,37 @@ class SectionEditorViewController: ViewController {
     }
     
     override func viewDidLoad() {
-        loadWikitext()
         
         navigationItemController = SectionEditorNavigationItemController(navigationItem: navigationItem)
         navigationItemController.delegate = self
         
-        configureWebView()
-        
-        dataStore.authenticationManager.loginWithSavedCredentials { (_) in }
-        
-        webView.scrollView.delegate = self
-        scrollView = webView.scrollView
+        loadWikitext { [weak self] blockedError in
+            
+            guard let self else {
+                return
+            }
+            
+            if let blockedError {
+                self.configureWebView(readOnly: true)
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) { // helps prevent flash as wikitext is loaded
+                    self.presentErrorMessage(blockedError: blockedError)
+                }
+                
+            } else {
+                self.configureWebView(readOnly: false)
+            }
+            
+            self.dataStore.authenticationManager.loginWithSavedCredentials { (_) in }
+            
+            self.webView?.scrollView.delegate = self
+            self.scrollView = self.webView?.scrollView
 
-        setupFocusNavigationView()
+            self.setupFocusNavigationView()
+            
+            self.apply(theme: self.theme)
+        }
+        
         super.viewDidLoad()
     }
     
@@ -171,7 +190,7 @@ class SectionEditorViewController: ViewController {
         }
     }
     
-    private func configureWebView() {
+    private func configureWebView(readOnly: Bool) {
         let configuration = WKWebViewConfiguration()
         configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         let textSizeAdjustment = UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue
@@ -185,7 +204,7 @@ class SectionEditorViewController: ViewController {
         let layoutDirection = MWKLanguageLinkController.layoutDirection(forContentLanguageCode: contentLanguageCode)
         let isSyntaxHighlighted = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
 
-        let setupUserScript = CodemirrorSetupUserScript(languageCode: languageCode, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: layoutDirection) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment, isSyntaxHighlighted: isSyntaxHighlighted, readOnly: false) { [weak self] in
+        let setupUserScript = CodemirrorSetupUserScript(languageCode: languageCode, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: layoutDirection) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment, isSyntaxHighlighted: isSyntaxHighlighted, readOnly: readOnly) { [weak self] in
             self?.isCodemirrorReady = true
         }
         
@@ -206,7 +225,7 @@ class SectionEditorViewController: ViewController {
         addScriptMessageHandlers(to: contentController)
         
         configuration.userContentController = contentController
-        webView = SectionEditorWebView(frame: .zero, configuration: configuration)
+        let webView = SectionEditorWebView(frame: .zero, configuration: configuration)
         
         webView.navigationDelegate = self
         webView.isHidden = true // hidden until wikitext is set
@@ -226,6 +245,11 @@ class SectionEditorViewController: ViewController {
         let bottomConstraint = view.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
         
         NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, webViewTopConstraint, bottomConstraint])
+        
+        // Fixes UI glitch where web view content animates in from the top left
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+        
         let folderURL = Bundle.wmf.assetsFolderURL
         let fileURL = folderURL.appendingPathComponent("codemirror/codemirror-index.html")
         webView.loadFileURL(fileURL, allowingReadAccessTo: folderURL)
@@ -236,6 +260,7 @@ class SectionEditorViewController: ViewController {
         menuItemsController.delegate = self
         webView.menuItemsDataSource = menuItemsController
         webView.menuItemsDelegate = menuItemsController
+        self.webView = webView
     }
 
     @objc var shouldFocusWebView = true {
@@ -308,8 +333,8 @@ class SectionEditorViewController: ViewController {
         guard didSetWikitextToWebView else {
             return
         }
-        webView.isHidden = false
-        webView.becomeFirstResponder()
+        webView?.isHidden = false
+        webView?.becomeFirstResponder()
         messagingController.focus {
             assert(Thread.isMainThread)
             self.delegate?.sectionEditorDidFinishLoadingWikitext(self)
@@ -327,14 +352,19 @@ class SectionEditorViewController: ViewController {
         messagingController.setWikitext(wikitext, completionHandler: completionHandler)
     }
 
-    private func loadWikitext() {
+    private func loadWikitext(completion: @escaping (MediaWikiAPIBlockedDisplayError?) -> Void) {
         let isShowingStatusMessage = shouldFocusWebView
         if isShowingStatusMessage {
             let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
             WMFAlertManager.sharedInstance.showAlert(message, sticky: true, dismissPreviousAlerts: true)
         }
-        sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { (result) in
+        sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { [weak self] (result) in
             DispatchQueue.main.async {
+                
+                guard let self else {
+                    return
+                }
+                
                 if isShowingStatusMessage {
                     WMFAlertManager.sharedInstance.dismissAlert()
                 }
@@ -343,12 +373,28 @@ class SectionEditorViewController: ViewController {
                     self.didFocusWebViewCompletion = {
                         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
                     }
+                    completion(nil)
                 case .success(let response):
                     self.wikitext = response.wikitext
                     self.handle(protection: response.protection)
+                    
+                    if let blockedError = response.blockedError {
+                        completion(blockedError)
+                    } else {
+                        completion(nil)
+                    }
                 }
             }
         }
+    }
+    
+    private func presentErrorMessage(blockedError: MediaWikiAPIBlockedDisplayError) {
+        
+        guard let currentTitle = articleURL.wmf_title else {
+            return
+        }
+        
+        wmf_showBlockedPanel(messageHtml: blockedError.messageHtml, linkBaseURL: blockedError.linkBaseURL, currentTitle: currentTitle, theme: theme)
     }
     
     private func handle(protection: [SectionFetcher.Protection]) {
@@ -405,10 +451,14 @@ class SectionEditorViewController: ViewController {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
-        webView.scrollView.backgroundColor = theme.colors.paperBackground
-        webView.backgroundColor = theme.colors.paperBackground
-        messagingController.applyTheme(theme: theme)
-        inputViewsController.apply(theme: theme)
+        webView?.scrollView.backgroundColor = theme.colors.paperBackground
+        webView?.backgroundColor = theme.colors.paperBackground
+        
+        if webView != nil {
+            messagingController.applyTheme(theme: theme)
+            inputViewsController.apply(theme: theme)
+        }
+        
         navigationItemController.apply(theme: theme)
         apply(presentationTheme: theme)
         focusNavigationView.apply(theme: theme)
@@ -433,7 +483,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
         messagingController.getWikitext { [weak self] (result, error) in
             
             guard let self = self else { return }
-            self.webView.resignFirstResponder()
+            self.webView?.resignFirstResponder()
             
             if let error = error {
                 assertionFailure(error.localizedDescription)
@@ -474,7 +524,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
         
-        webView.resignFirstResponder()
+        webView?.resignFirstResponder()
         inputViewsController.suppressMenus = true
         
         showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
@@ -640,7 +690,7 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
         else {
             return
         }
-        self.webView.scrollView.setContentOffset(newContentOffset, animated: true)
+        self.webView?.scrollView.setContentOffset(newContentOffset, animated: true)
     }
 }
 
@@ -759,7 +809,7 @@ extension SectionEditorViewController {
         inputViewsController.textFormattingProvidingDidTapFindInPage()
     }
     
-    var webViewForTesting: WKWebView {
+    var webViewForTesting: WKWebView? {
         return webView
     }
     
