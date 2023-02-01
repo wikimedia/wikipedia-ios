@@ -93,7 +93,7 @@ class RandomArticleViewController: ArticleViewController {
                     let articleURL = articleURL,
                     let randomVC = RandomArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme)
                 else {
-                    self.alertManager.showErrorAlert(error ?? RequestError.unexpectedResponse, sticky: true, dismissPreviousAlerts: true)
+                    WMFAlertManager.sharedInstance.showErrorAlert(error ?? RequestError.unexpectedResponse, sticky: true, dismissPreviousAlerts: true)
                     return
                 }
                 self.secondToolbar.items = []

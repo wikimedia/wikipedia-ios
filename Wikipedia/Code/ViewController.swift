@@ -549,18 +549,6 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
         navigationController?.popToRootViewController(animated: true)
     }
     
-    // MARK: Errors
-    
-    internal let alertManager: WMFAlertManager = WMFAlertManager.sharedInstance
-    
-    func showError(_ error: Error, sticky: Bool = false) {
-        alertManager.showErrorAlert(error, sticky: sticky, dismissPreviousAlerts: false, viewController: self)
-    }
-    
-    func showGenericError() {
-        showError(RequestError.unknown)
-    }
-    
     // MARK: Gestures
     
     func setupGestureRecognizerDependencies() {

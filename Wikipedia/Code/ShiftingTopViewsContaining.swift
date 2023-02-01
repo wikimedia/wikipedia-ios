@@ -16,11 +16,11 @@ private class NavigationBarHidingHostingVC<Content: View>: UIHostingController<C
 }
 
 extension ShiftingTopViewsContaining {
-    func setup(shiftingTopViews: [ShiftingTopView], swiftuiView: some View, observableTheme: ObservableTheme) {
+    func setup(shiftingTopViews: [ShiftingTopView], shadowBehavior: ShiftingTopViewsStack.ShadowBehavior, swiftuiView: some View, observableTheme: ObservableTheme) {
         
         navigationController?.isNavigationBarHidden = true
         
-        let shiftingTopViewsStack = ShiftingTopViewsStack()
+        let shiftingTopViewsStack = ShiftingTopViewsStack(shadowBehavior: shadowBehavior)
 
         // Add needed environment objects to SwiftUI view, then embed hosting view controller, then embed SwiftUI hosting view controller
         let finalSwiftUIView = swiftuiView
