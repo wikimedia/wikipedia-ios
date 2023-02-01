@@ -134,7 +134,9 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
     
     func testFindResultsStartingFromMidArticleUpdateToMatchLabel() {
         
-        let webView = sectionEditorViewController.webViewForTesting
+        guard let webView = sectionEditorViewController.webViewForTesting else {
+            return
+        }
         
         let cursorExpectation = expectation(description: "Waiting for set cursor callback")
         
@@ -229,7 +231,10 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         
         wait(for: [findExpectation], timeout: timeout)
         
-        let webView = sectionEditorViewController.webViewForTesting
+        guard let webView = sectionEditorViewController.webViewForTesting else {
+            return
+        }
+        
         let userContentController = webView.configuration.userContentController
         
         // get current search cursor before tapping next
@@ -315,7 +320,10 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         
         wait(for: [findExpectation], timeout: timeout)
         
-        let webView = sectionEditorViewController.webViewForTesting
+        guard let webView = sectionEditorViewController.webViewForTesting else {
+            return
+        }
+        
         let userContentController = webView.configuration.userContentController
         
         // get current search cursor before tapping next
