@@ -337,6 +337,17 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         case .server, .unknown:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             editFunnel?.logSectionSaveError(source: editFunnelSource, language: languageCode, errorText: "other")
+        case .blocked:
+            
+            WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
+            
+            guard let blockedError = nsError.userInfo[NSErrorUserInfoBlockedDisplayError] as? MediaWikiAPIBlockedDisplayError,
+                  let currentTitle = articleURL?.wmf_title else {
+                return
+            }
+            
+            wmf_showBlockedPanel(messageHtml: blockedError.messageHtml, linkBaseURL: blockedError.linkBaseURL, currentTitle: currentTitle, theme: theme)
+            
         default:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             editFunnel?.logSectionSaveError(source: editFunnelSource, language: languageCode, errorText: "other")
