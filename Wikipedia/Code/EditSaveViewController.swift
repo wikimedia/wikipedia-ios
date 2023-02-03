@@ -163,7 +163,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
         setupButtonsAndTitle()
         mode = .preview
-        setupSemanticContentAttibute()
+
         for dividerHeightContraint in dividerHeightConstraits {
             dividerHeightContraint.constant = 1.0 / UIScreen.main.scale
         }
@@ -235,6 +235,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         licenseTitleTextView.attributedText = licenseTitleTextViewAttributedString
         licenseLoginTextView.attributedText = licenseLoginTextViewAttributedString
         applyThemeToTextViews()
+        setupSemanticContentAttibute()
     }
     
     @IBAction public func licenseLoginLabelTapped(_ recognizer: UIGestureRecognizer?) {
