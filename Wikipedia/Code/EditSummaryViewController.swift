@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 protocol EditSummaryViewDelegate: AnyObject {
     func summaryChanged(newSummary: String)
@@ -27,6 +28,8 @@ class EditSummaryViewController: UIViewController, Themeable {
     
     public var theme: Theme = .standard
 
+    public var languageCode: String? = "en"
+
     public weak var delegate: EditSummaryViewDelegate?
     
     @IBOutlet private weak var addSummaryLabel: UILabel!
@@ -38,28 +41,45 @@ class EditSummaryViewController: UIViewController, Themeable {
     @IBOutlet private weak var addedLinksButton: UIButton!
     @IBOutlet private var cannedEditSummaryButtons: [UIButton]!
 
-    private let placeholderText = WMFLocalizedString("edit-summary-placeholder-text", value: "How did you improve the article?", comment: "Placeholder text which appears initially in the free-form edit summary text box")
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var labelStackView: UIStackView!
+
+    private(set) var semanticContentAttribute: UISemanticContentAttribute?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let placeholderText = WMFLocalizedString("edit-summary-placeholder-text", languageCode: languageCode, value: "How did you improve the article?", comment: "Placeholder text which appears initially in the free-form edit summary text box")
 
         cannedEditSummaryButtons.compactMap { $0.titleLabel }.forEach {
             $0.numberOfLines = 1
             $0.setContentCompressionResistancePriority(.required, for: .horizontal)
         }
 
-        addSummaryLabel.text = WMFLocalizedString("edit-summary-add-summary-text", value: "Add an edit summary", comment: "Text for add summary label")
-        learnMoreButton.setTitle(WMFLocalizedString("edit-summary-learn-more-text", value: "Learn more", comment: "Text for learn more button"), for: .normal)
+        addSummaryLabel.text = WMFLocalizedString("edit-summary-add-summary-text", languageCode: languageCode, value: "Add an edit summary", comment: "Text for add summary label")
+        learnMoreButton.setTitle(WMFLocalizedString("edit-summary-learn-more-text", languageCode: languageCode, value: "Learn more", comment: "Text for learn more button"), for: .normal)
         summaryTextField.placeholder = placeholderText
         summaryTextField.delegate = self
         summaryTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: .editingChanged)
-        fixedTypoButton.setTitle(WMFLocalizedString("edit-summary-choice-fixed-typos", value: "Fixed typo", comment: "Button text for quick 'fixed typos' edit summary selection"), for: .normal)
-        fixedGrammarButton.setTitle(WMFLocalizedString("edit-summary-choice-fixed-grammar", value: "Fixed grammar", comment: "Button text for quick 'improved grammar' edit summary selection"), for: .normal)
-        addedLinksButton.setTitle(WMFLocalizedString("edit-summary-choice-linked-words", value: "Added links", comment: "Button text for quick 'link addition' edit summary selection"), for: .normal)
-        
+        fixedTypoButton.setTitle(WMFLocalizedString("edit-summary-choice-fixed-typos", languageCode: languageCode, value: "Fixed typo", comment: "Button text for quick 'fixed typos' edit summary selection"), for: .normal)
+        fixedGrammarButton.setTitle(WMFLocalizedString("edit-summary-choice-fixed-grammar", languageCode: languageCode, value: "Fixed grammar", comment: "Button text for quick 'improved grammar' edit summary selection"), for: .normal)
+        addedLinksButton.setTitle(WMFLocalizedString("edit-summary-choice-linked-words", languageCode: languageCode, value: "Added links", comment: "Button text for quick 'link addition' edit summary selection"), for: .normal)
+
+        setupSemanticContentAttibute()
         apply(theme: theme)
     }
-        
+
+    func setupSemanticContentAttibute() {
+        let semanticContentAttibute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: languageCode)
+
+        for subview in stackView.subviews {
+            subview.semanticContentAttribute = semanticContentAttibute
+        }
+
+        summaryTextField.semanticContentAttribute = semanticContentAttibute
+        summaryTextField.textAlignment = semanticContentAttibute == .forceRightToLeft ? .right : .left
+    }
+
     @IBAction private func learnMoreButtonTapped(sender: UIButton) {
         delegate?.learnMoreButtonTapped(sender: sender)
     }
@@ -86,6 +106,14 @@ class EditSummaryViewController: UIViewController, Themeable {
         summaryTextField.text = text
         notifyDelegateOfSummaryChange()
     }
+
+    public func setLanguage(for pageURL: URL?) {
+        if let pageURL {
+            self.languageCode = pageURL.wmf_languageCode
+
+        }
+    }
+
 
     public func apply(theme: Theme) {
         self.theme = theme
