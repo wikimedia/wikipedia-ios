@@ -30,7 +30,7 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
 
     weak var delegate: SectionEditorNavigationItemControllerDelegate?
 
-    private class BarButtonItem: UIBarButtonItem, Themeable {
+    class BarButtonItem: UIBarButtonItem, Themeable {
         var tintColorKeyPath: KeyPath<Theme, UIColor>?
 
         convenience init(title: String?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>) {
@@ -62,7 +62,7 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
         }
     }
 
-    private lazy var progressButton: BarButtonItem = {
+    private(set) lazy var progressButton: BarButtonItem = {
         return BarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)), tintColorKeyPath: \Theme.colors.link)
     }()
 
@@ -70,7 +70,7 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
         return BarButtonItem(image: #imageLiteral(resourceName: "redo"), style: .plain, target: self, action: #selector(redo(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.redo)
     }()
 
-    private lazy var undoButton: BarButtonItem = {
+    private(set) lazy var undoButton: BarButtonItem = {
         return BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(undo(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.undo)
     }()
     
