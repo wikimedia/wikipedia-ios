@@ -1081,6 +1081,7 @@
 "talk-page-unsubscription-failed-alert" = "Le désabonnement du sujet a échoué, veuillez essayer à nouveau.";
 "talk-page-user-about" = "À propos des pages de discussion des utilisateurs";
 "talk-page-user-contributions" = "Contributions";
+"talk-pages-archives-empty-title" = "Aucune page archivée trouvée.";
 "talk-pages-archives-view-title" = "Archives";
 "talk-pages-coffee-roll-read-more" = "Lire davantage";
 "talk-pages-comment-added-alert-title" = "Votre commentaire a été ajouté";
