@@ -20,4 +20,12 @@ extension UIViewController {
         present(alert, animated: true, completion: completion)
     }
     
+    func showError(_ error: Error, sticky: Bool = false) {
+        WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: sticky, dismissPreviousAlerts: false, viewController: self)
+    }
+
+    func showGenericError() {
+        showError(RequestError.unknown)
+    }
+    
 }

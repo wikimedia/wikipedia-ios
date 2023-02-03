@@ -171,6 +171,16 @@ class URLParsingAndRoutingTests: XCTestCase {
         XCTAssertEqual(url.resolvingRelativeWikiHref("//commons.wikimedia.org/wiki/Category:COVID-19_pandemic_in_Baden-Württemberg?uselang=de")?.absoluteString, "https://commons.wikimedia.org/wiki/Category:COVID-19_pandemic_in_Baden-W%C3%BCrttemberg?uselang=de")
     }
     
+    func testQuestionMarkInPath() {
+        let url = URL(string: "https://en.wikipedia.org/wiki/Main_Page")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("./Who's_the_Man%3F")?.absoluteString, "https://en.wikipedia.org/wiki/Who's_the_Man%3F")
+    }
+    
+    func testCaret() {
+        let url = URL(string: "https://en.wikipedia.org/wiki/Main_Page")!
+        XCTAssertEqual(url.resolvingRelativeWikiHref("//commons.wikimedia.org/wiki/File:^8_Schickelgruber._He_was_sick_two_days_last_week_-_NARA_-_535224.jpg")?.absoluteString, "https://commons.wikimedia.org/wiki/File:%5E8_Schickelgruber._He_was_sick_two_days_last_week_-_NARA_-_535224.jpg")
+    }
+    
     func testLanguageVariantCodeProperty() {
         var url = URL(string: "https://zh.wikipedia.org")!
         XCTAssertNil(url.wmf_languageVariantCode)

@@ -15,6 +15,7 @@ final class TalkPagesFunnel: EventLoggingFunnel, EventLoggingStandardEventProvid
     
     private enum Source: String, Codable {
         case talkPage = "talk_page"
+        case talkPageArchives = "talk_page_archives"
         case article
         case notificationsCenter = "notifications_center"
         case deepLink = "deep_link"
@@ -26,6 +27,7 @@ final class TalkPagesFunnel: EventLoggingFunnel, EventLoggingStandardEventProvid
         init(routingSource: RoutingUserInfoSourceValue) {
             switch routingSource {
             case .talkPage: self = .talkPage
+            case .talkPageArchives: self = .talkPageArchives
             case .article: self = .article
             case .notificationsCenter: self = .notificationsCenter
             case .deepLink: self = .deepLink

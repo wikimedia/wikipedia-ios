@@ -4,6 +4,7 @@
 // Author: Bencemac
 // Author: Csega
 // Author: Dj
+// Author: Eukarióta
 // Author: Hanna Tardos
 // Author: Macofe
 // Author: MeskoBalazs
@@ -687,6 +688,7 @@
 "talk-page-title-article-talk" = "Szócikk Vitalap";
 "talk-page-title-user-talk" = "Szerkesztővita";
 "talk-page-unsubscribe-to-topic" = "Leiratkozás";
+"talk-pages-archives-view-title" = "Archívumok";
 "talk-pages-coffee-roll-read-more" = "Továbbolvas";
 "talk-pages-reply-button-title" = "Válasz erre a témára";
 "theme-black-display-name" = "Fekete";

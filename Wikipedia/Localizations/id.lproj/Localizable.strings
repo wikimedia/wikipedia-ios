@@ -1,6 +1,7 @@
 // Messages for Indonesian (Bahasa Indonesia)
 // Exported from translatewiki.net
 // Author: AJBot2
+// Author: Agam Riyandana
 // Author: Akmaie Ajam
 // Author: Arief
 // Author: Arifin.wijaya
@@ -508,8 +509,8 @@
 "icon-shortcut-random-title" = "Artikel acak";
 "icon-shortcut-search-title" = "Telusuri Wikipedia";
 "image-gallery-unknown-owner" = "Pembuat tidak diketahui.";
-"import-shared-reading-list-survey-prompt-subtitle" = "\"Share reading lists\" is a test feature and we need your feedback to improve or remove it.";
-"import-shared-reading-list-survey-prompt-title" = "Could you help us improve \"Share reading lists\"?";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Nanti";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Ikuti survei";
 "in-the-news-sub-title-from-language-wikipedia" = "Dari Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Dari Wikipedia";
 "in-the-news-title" = "Peristiwa terkini";
@@ -757,6 +758,7 @@
 "page-similar-titles" = "Halaman yang serupa";
 "panel-compare-revisions-text" = "Membandingkan revisi membantu menunjukkan bagaimana artikel telah berubah dari waktu ke waktu. Membandingkan dua revisi artikel akan menunjukkan perbedaan antara revisi tersebut dengan menyoroti konten apa pun yang diubah.";
 "panel-compare-revisions-title" = "Membandingkan revisi";
+"panel-not-logged-in-title" = "Anda belum masuk log";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Hapus penelusuran tersimpan";
 "places-accessibility-group" = "$1 artikel";
@@ -1001,11 +1003,13 @@
 "tachelhit-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tachelhit";
 "tajik-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Tajik berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nтоҷикӣ кирилликӣ Tajik, Sirilik (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
 "tajik-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tajik";
+"talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 pengguna aktif}}";
 "talk-page-add-discussion-accessibility-label" = "Tambahkan diskusi";
 "talk-page-add-topic-button" = "Tambahkan topik";
 "talk-page-archives" = "Arsip";
 "talk-page-article-about" = "Tentang halaman pembicaraan";
 "talk-page-change-language" = "Ganti bahasa";
+"talk-page-collapse-thread-button" = "Tutup utas";
 "talk-page-discussion-accessibility-hint" = "Ketuk ganda untuk membuka utas diskusi";
 "talk-page-discussion-read-accessibility-label" = "Baca";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
@@ -1040,6 +1044,7 @@
 "talk-page-read-in-web" = "Baca di web";
 "talk-page-related-links" = "Pranala balik";
 "talk-page-reply-button" = "Balas";
+"talk-page-reply-button-accessibility-label" = "Balas ke $1";
 "talk-page-reply-placeholder-format" = "Balas ke $1";
 "talk-page-reply-title" = "Balas";
 "talk-page-revision-history" = "Riwayat revisi";
@@ -1057,11 +1062,17 @@
 "talk-pages-coffee-roll-read-more" = "Baca lebih lanjut";
 "talk-pages-comment-added-alert-title" = "Komentar Anda telah ditambahkan";
 "talk-pages-compose-close-confirmation-keep" = "Lanjutkan penyuntingan";
+"talk-pages-empty-view-button-article-add-topic" = "Tambahkan topik baru";
+"talk-pages-empty-view-button-user-start-discussion" = "Mulai sebuah diskusi";
+"talk-pages-empty-view-header-article" = "Percakapan dimulai di sini";
+"talk-pages-empty-view-header-user" = "Mulai diskusi dengan $1";
 "talk-pages-reply-button-title" = "Balas diskusi ini";
 "talk-pages-topic-added-alert-title" = "Topik Anda telah ditambahkan";
 "talk-pages-topic-compose-body-placeholder" = "Deskripsi";
+"talk-pages-topic-compose-close-confirmation-discard" = "Buang balasan";
 "talk-pages-topic-compose-navbar-title" = "Topik";
 "talk-pages-topic-compose-title-placeholder" = "Judul topik";
+"talk-pages-topic-reply-onboarding-title" = "Halaman pembicaraan";
 "talk-pages-user-groups" = "Kelompok pengguna";
 "talk-pages-user-logs" = "Log";
 "talk-pages-view-title" = "Pembicaraan";
@@ -1087,11 +1098,14 @@
 "vanish-account-additional-information-placeholder" = "Opsional";
 "vanish-account-back-confirm-discard" = "Buang Permintaan";
 "vanish-account-back-confirm-keep-editing" = "Lanjutkan penyuntingan";
+"vanish-account-continue-button-title" = "Lanjutkan";
+"vanish-account-email-text" = "Halo,\nIni adalah sebuah permintaan untuk menghapus akun Wikipedia saya.";
 "vanish-account-learn-more-text" = "Pelajari lebih lanjut";
 "vanish-account-username-field" = "Nama pengguna dan halaman pengguna";
-"vanish-modal-item" = "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator";
-"vanish-modal-item-3" = "If you have further questions about vanishing please visit Meta:Right_to_vanish";
-"vanish-modal-item-3-ios15" = "If you have further questions about vanishing please visit $1Meta:Right_to_vanish$2$3";
+"vanish-account-warning-title" = "Peringatan";
+"vanish-modal-item" = "Jika Anda telah menyelesaikan permintaan menghilang, harap tunggu beberapa hari agar permintaan tersebut diproses oleh administrator";
+"vanish-modal-item-3" = "Jika Anda memiliki pertanyaan lebih lanjut tentang menghilang, silakan kunjungi Meta:Right_to_vanish";
+"vanish-modal-item-3-ios15" = "Jika Anda memiliki pertanyaan lebih lanjut tentang menghilang, silakan kunjungi $1 Meta:Right_to_vanish $2 $3";
 "variants-alert-dismiss-button" = "Tidak, terima kasih";
 "variants-alert-preferences-button" = "Tinjau preferensi Anda";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disarankan dan artikel harian dari komunitas kami";

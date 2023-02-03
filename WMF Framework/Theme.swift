@@ -696,7 +696,6 @@ public class Colors: NSObject {
     }
 }
 
-
 @objc(WMFTheme)
 public class Theme: NSObject {
     
@@ -893,4 +892,13 @@ public class Theme: NSObject {
 public protocol Themeable: AnyObject {
     @objc(applyTheme:)
     func apply(theme: Theme) // this might be better as a var theme: Theme { get set } - common VC superclasses could check for viewIfLoaded and call an update method in the setter. This would elminate the need for the viewIfLoaded logic in every applyTheme:
+}
+
+// Use for SwiftUI environment objects
+public final class ObservableTheme: ObservableObject {
+    @Published public var theme: Theme
+
+    public init(theme: Theme) {
+        self.theme = theme
+    }
 }

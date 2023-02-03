@@ -196,6 +196,29 @@ open class Fetcher: NSObject {
     }
 }
 
+// MARK: Modern Swift Concurrency APIs
+
+extension Fetcher {
+    
+    public func performDecodableMediaWikiAPIGet<T: Decodable>(for URL: URL, with queryParameters: [String: Any]?) async throws -> T {
+        guard let url = configuration.mediaWikiAPIURLForURL(URL, with: queryParameters) else {
+            throw RequestError.invalidParameters
+        }
+
+        let (data, response) = try await session.data(for: url)
+
+        guard let httpResponse = (response as? HTTPURLResponse) else {
+            throw RequestError.unexpectedResponse
+        }
+
+        guard HTTPStatusCode.isSuccessful(httpResponse.statusCode) else {
+            throw RequestError.http(httpResponse.statusCode)
+        }
+
+        return try JSONDecoder().decode(T.self, from: data)
+    }
+}
+
 // These are for bridging to Obj-C only
 @objc public extension Fetcher {
     @objc class var unexpectedResponseError: NSError {
