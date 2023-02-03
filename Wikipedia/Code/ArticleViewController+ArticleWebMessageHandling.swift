@@ -114,6 +114,5 @@ extension ArticleViewController: ArticleWebMessageHandling {
     
     func handleAaaLDInsertOnScreenEvent() {
         surveyTimerController?.userDidScrollPastLivingDocArticleContentInsert(withState: state)
-        ArticleAsLivingDocFunnel.shared.logArticleContentInsertShown()
     }
 }
