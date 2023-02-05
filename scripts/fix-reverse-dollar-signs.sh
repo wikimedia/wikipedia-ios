@@ -8,4 +8,4 @@ if [[ `uname -s` != "Darwin" ]]; then
   exit 1
 fi
 
-find Wikipedia/Localizations -iname '*.strings' -print | xargs -L 1 sed -E -i '' 's:\%([1-9]+)\$:$\1:g;s:([1-9]+)\$:$\1:g;s:\%([1-9]+):$\1:g'
+find Wikipedia/Localizations -iname '*.strings' -print0 | xargs -0 sed -E -i '' 's:\%([1-9]+)\$:$\1:g;s:([1-9]+)\$:$\1:g;s:\%([1-9]+):$\1:g'

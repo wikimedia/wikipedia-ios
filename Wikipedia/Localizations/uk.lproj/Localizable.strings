@@ -1074,6 +1074,8 @@
 "talk-page-unsubscription-failed-alert" = "Не вдалося відписатися від теми, повторіть спробу.";
 "talk-page-user-about" = "Про сторінки обговорення користувачів";
 "talk-page-user-contributions" = "Внесок";
+"talk-pages-archives-empty-title" = "Архівованих сторінок не знайдено.";
+"talk-pages-archives-view-title" = "Архіви";
 "talk-pages-coffee-roll-read-more" = "Читати більше";
 "talk-pages-comment-added-alert-title" = "Ваш коментар був доданий";
 "talk-pages-compose-close-confirmation-keep" = "Продовжити Редагування";

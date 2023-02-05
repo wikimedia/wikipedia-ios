@@ -16,7 +16,7 @@ protocol ArticleDetailsShowing: AnyObject {
     func goToHistory()
     func goToDiff(revisionId: UInt, parentId: UInt, diffType: DiffContainerViewModel.DiffType)
     func showTalkPageWithSectionName(_ sectionName: String?)
-    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool, livingDocLoggingValues: ArticleAsLivingDocLoggingValues)
+    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool)
 }
 
 class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
@@ -64,8 +64,6 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         if let viewModel = delegate?.articleAsLivingDocViewModel {
             addInitialSections(sections: viewModel.sections)
         }
-        
-        self.navigationController?.presentationController?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -289,7 +287,6 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
     
     @objc private func closeButtonPressed() {
-        ArticleAsLivingDocFunnel.shared.logModalCloseButtonTapped()
         dismiss(animated: true, completion: nil)
     }
     
@@ -322,14 +319,12 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
     
     @objc func tappedViewFullHistoryButtonInFooter() {
-        
-        ArticleAsLivingDocFunnel.shared.logModalViewFullHistoryBottomButtonTapped()
+
         tappedViewFullHistoryButton()
     }
     
     @objc func tappedViewFullHistoryButtonInHeader() {
-        
-        ArticleAsLivingDocFunnel.shared.logModalViewFullHistoryTopButtonTapped()
+
         tappedViewFullHistoryButton()
     }
 
@@ -478,8 +473,8 @@ extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
         push(historyVC)
     }
 
-    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool, livingDocLoggingValues: ArticleAsLivingDocLoggingValues) {
-        self.tappedThank(for: revisionID, isUserAnonymous: isUserAnonymous, livingDocLoggingValues: livingDocLoggingValues)
+    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool) {
+        self.tappedThank(for: revisionID, isUserAnonymous: isUserAnonymous)
     }
 }
 
@@ -532,11 +527,5 @@ extension ArticleAsLivingDocViewController: ThanksGiving {
         }
 
         dataSource.apply(currentSnapshot, animatingDifferences: true)
-    }
-}
-
-extension ArticleAsLivingDocViewController: UIAdaptivePresentationControllerDelegate {
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        ArticleAsLivingDocFunnel.shared.logModalSwipedToDismiss()
     }
 }

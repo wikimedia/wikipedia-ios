@@ -11,13 +11,7 @@ protocol ThanksGiving: HintPresenting {
 
 enum ThanksGivingSource {
     case diff
-    case articleAsLivingDoc
     case unknown
-}
-
-struct ArticleAsLivingDocLoggingValues {
-    let position: Int
-    let eventTypes: [ArticleAsLivingDocFunnel.EventType]
 }
 
 extension ThanksGiving where Self: ViewController {
@@ -25,8 +19,6 @@ extension ThanksGiving where Self: ViewController {
     var source: ThanksGivingSource {
         
         switch self {
-        case is ArticleAsLivingDocViewController:
-            return .articleAsLivingDoc
         case is DiffContainerViewController:
             return .diff
         default:
@@ -39,7 +31,7 @@ extension ThanksGiving where Self: ViewController {
         return MWKDataStore.shared().authenticationManager.isLoggedIn
     }
 
-    func tappedThank(for revisionID: Int?, isUserAnonymous: Bool, livingDocLoggingValues: ArticleAsLivingDocLoggingValues? = nil) {
+    func tappedThank(for revisionID: Int?, isUserAnonymous: Bool) {
         guard let revisionID = revisionID, let siteURL = url else {
             return
         }
@@ -47,10 +39,7 @@ extension ThanksGiving where Self: ViewController {
         switch source {
         case .diff:
             EditHistoryCompareFunnel.shared.logThankTry(siteURL: siteURL)
-        case .articleAsLivingDoc:
-            if let livingDocLoggingValues = livingDocLoggingValues {
-                ArticleAsLivingDocFunnel.shared.logModalThankTryButtonTapped(position: livingDocLoggingValues.position, types: livingDocLoggingValues.eventTypes)
-            }
+
         default:
             break
         }
@@ -59,10 +48,6 @@ extension ThanksGiving where Self: ViewController {
             switch self.source {
             case .diff:
                 EditHistoryCompareFunnel.shared.logThankFail(siteURL: siteURL)
-            case .articleAsLivingDoc:
-                if let livingDocLoggingValues = livingDocLoggingValues {
-                    ArticleAsLivingDocFunnel.shared.logModalThankFail(position: livingDocLoggingValues.position, types: livingDocLoggingValues.eventTypes)
-                }
             default:
                 break
             }
@@ -98,10 +83,6 @@ extension ThanksGiving where Self: ViewController {
                 switch self.source {
                 case .diff:
                     EditHistoryCompareFunnel.shared.logThankSuccess(siteURL: siteURL)
-                case .articleAsLivingDoc:
-                    if let livingDocLoggingValues = livingDocLoggingValues {
-                        ArticleAsLivingDocFunnel.shared.logModalThankSuccess(position: livingDocLoggingValues.position, types: livingDocLoggingValues.eventTypes)
-                    }
                 default:
                     break
                 }
