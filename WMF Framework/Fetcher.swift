@@ -157,21 +157,32 @@ open class Fetcher: NSObject {
     public func resolveMediaWikiError(from apiErrors: [MediaWikiAPIError], siteURL: URL, completion: @escaping (MediaWikiAPIDisplayError?) -> Void) {
         
         let blockedApiErrors = apiErrors.filter { $0.code.contains("block") }
-        let firstApiErrorWithInfo = blockedApiErrors.first(where: { $0.data?.blockinfo != nil })
-        let fallbackApiError = blockedApiErrors.first(where: { !$0.html.isEmpty })
+        let firstBlockedApiErrorWithInfo = blockedApiErrors.first(where: { $0.data?.blockinfo != nil })
+        let fallbackBlockedApiError = blockedApiErrors.first(where: { !$0.html.isEmpty })
+        
+        let firstAbuseFilterError = apiErrors.first(where: { $0.code.contains("abusefilter") && !$0.html.isEmpty })
         
         let fallbackCompletion: () -> Void = {
-            guard let fallbackApiError else {
-                completion(nil)
+            
+            
+            guard let fallbackBlockedApiError else {
+                
+                guard let firstAbuseFilterError else {
+                    completion(nil)
+                    return
+                }
+                
+                let displayError = MediaWikiAPIDisplayError(messageHtml: firstAbuseFilterError.html, linkBaseURL: siteURL, code: firstAbuseFilterError.code)
+                completion(displayError)
                 return
             }
             
-            let displayError = MediaWikiAPIDisplayError(messageHtml: fallbackApiError.html, linkBaseURL: siteURL, code: fallbackApiError.code)
+            let displayError = MediaWikiAPIDisplayError(messageHtml: fallbackBlockedApiError.html, linkBaseURL: siteURL, code: fallbackBlockedApiError.code)
             completion(displayError)
             return
         }
         
-        guard let blockedApiError = firstApiErrorWithInfo,
+        guard let blockedApiError = firstBlockedApiErrorWithInfo,
         let blockedApiInfo = blockedApiError.data?.blockinfo else {
             
             fallbackCompletion()
