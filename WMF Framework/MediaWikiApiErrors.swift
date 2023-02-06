@@ -10,7 +10,7 @@ import Foundation
     public let linkBaseURL: URL
     
     // Error code, passed through from original MediaWikiAPIError. Currently used for logging.
-    public let code: String
+    @objc public let code: String
     
     public init(messageHtml: String, linkBaseURL: URL, code: String) {
         self.messageHtml = messageHtml
