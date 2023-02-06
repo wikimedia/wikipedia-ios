@@ -2322,14 +2322,6 @@
 		B0BCF0BC202537D800986F72 /* Panels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0B8202537D800986F72 /* Panels.swift */; };
 		B0BDA58220B09A090098DB65 /* XCUIApplication+SnapshotUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BDA58120B09A090098DB65 /* XCUIApplication+SnapshotUtilities.swift */; };
 		B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */; };
-		B0C17B9321FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0C17B9221FAB048009ED5C3 /* AbuseFilterAlertView.xib */; };
-		B0C17B9421FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0C17B9221FAB048009ED5C3 /* AbuseFilterAlertView.xib */; };
-		B0C17B9521FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0C17B9221FAB048009ED5C3 /* AbuseFilterAlertView.xib */; };
-		B0C17B9621FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0C17B9221FAB048009ED5C3 /* AbuseFilterAlertView.xib */; };
-		B0C17B9921FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C17B9821FAB060009ED5C3 /* AbuseFilterAlertView.swift */; };
-		B0C17B9A21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C17B9821FAB060009ED5C3 /* AbuseFilterAlertView.swift */; };
-		B0C17B9B21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C17B9821FAB060009ED5C3 /* AbuseFilterAlertView.swift */; };
-		B0C17B9C21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C17B9821FAB060009ED5C3 /* AbuseFilterAlertView.swift */; };
 		B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */; };
 		B0C6BE421E413B3F0033BD6E /* WMFAccountCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */; };
 		B0C6BE481E428C940033BD6E /* WMFAccountCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE471E428C940033BD6E /* WMFAccountCreator.swift */; };
@@ -4846,8 +4838,6 @@
 		B0BCF0B8202537D800986F72 /* Panels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Panels.swift; sourceTree = "<group>"; };
 		B0BDA58120B09A090098DB65 /* XCUIApplication+SnapshotUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+SnapshotUtilities.swift"; sourceTree = "<group>"; };
 		B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+AsyncMapTests.swift"; sourceTree = "<group>"; };
-		B0C17B9221FAB048009ED5C3 /* AbuseFilterAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AbuseFilterAlertView.xib; sourceTree = "<group>"; };
-		B0C17B9821FAB060009ED5C3 /* AbuseFilterAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbuseFilterAlertView.swift; sourceTree = "<group>"; };
 		B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFLoginViewController.swift; path = Wikipedia/Code/WMFLoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFAccountCreationViewController.swift; path = Wikipedia/Code/WMFAccountCreationViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE471E428C940033BD6E /* WMFAccountCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAccountCreator.swift; sourceTree = "<group>"; };
@@ -8193,8 +8183,6 @@
 				B0E804031C0CDE480065EBC0 /* EditSaveViewController.storyboard */,
 				B0F4761921F921D300C4E254 /* EditSummaryViewController.swift */,
 				B0F4761A21F921D300C4E254 /* EditSummaryViewController.xib */,
-				B0C17B9821FAB060009ED5C3 /* AbuseFilterAlertView.swift */,
-				B0C17B9221FAB048009ED5C3 /* AbuseFilterAlertView.xib */,
 			);
 			name = Save;
 			sourceTree = "<group>";
@@ -10623,7 +10611,6 @@
 				D8D92B5B1DF22E1700B95311 /* NotificationBackgroundError@2x.png in Resources */,
 				0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				7AE1D3331FCD057200393471 /* Saved.storyboard in Resources */,
-				B0C17B9321FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */,
 				D8E27BAD1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07E2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */,
@@ -10760,7 +10747,6 @@
 				D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				6782DC1A2347EE5A003FA21B /* DiffListChangeCell.xib in Resources */,
 				7AE1D3361FCD057200393471 /* Saved.storyboard in Resources */,
-				B0C17B9621FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */,
 				D8E27BB01F82B54E00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA0812022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				6782DC0823453D6B003FA21B /* DiffHeaderCompareItemView.xib in Resources */,
@@ -10886,7 +10872,6 @@
 				D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				6782DC182347EE59003FA21B /* DiffListChangeCell.xib in Resources */,
 				7AE1D3341FCD057200393471 /* Saved.storyboard in Resources */,
-				B0C17B9421FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */,
 				D8E27BAE1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07F2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				6782DC0623453D6B003FA21B /* DiffHeaderCompareItemView.xib in Resources */,
@@ -11012,7 +10997,6 @@
 				D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				6782DC192347EE59003FA21B /* DiffListChangeCell.xib in Resources */,
 				7AE1D3351FCD057200393471 /* Saved.storyboard in Resources */,
-				B0C17B9521FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */,
 				D8E27BAF1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA0802022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				6782DC0723453D6B003FA21B /* DiffHeaderCompareItemView.xib in Resources */,
@@ -11553,7 +11537,6 @@
 				00E2EA8926E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */,
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */,
-				B0C17B9921FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
 				B0421AA2206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
 				B0F4761B21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
 				B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */,
@@ -12530,7 +12513,6 @@
 				00E2EA8C26E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */,
 				D8A42A9B1E815A9C00D8E281 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				673411572273578A005B31DA /* OldTalkPageFetcher.swift in Sources */,
-				B0C17B9C21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
 				D8A42A9D1E815A9C00D8E281 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0F4761E21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
 				B0421AA5206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
@@ -13325,7 +13307,6 @@
 				D8CE259F1E698E2400DAE2E0 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				B0524B52214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
 				D81446021E7094290078D71E /* WMFAuthButton.swift in Sources */,
-				B0C17B9A21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
 				0042813325E6E841004945B3 /* NYTPhotosDataSource.m in Sources */,
 				41CCB67521CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */,
 				8350FC4D20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
@@ -13926,7 +13907,6 @@
 				6761AEE72704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */,
 				B0524B53214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
 				BA69725A1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */,
-				B0C17B9B21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
 				41CCB67621CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */,
 				0042813225E6E841004945B3 /* NYTPhotosDataSource.m in Sources */,
 				8350FC4E20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,

@@ -364,18 +364,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
     }
     
-    private func showAbuseFilterAlert(for type: AbuseFilterAlertType) {
-        if let abuseFilterAlertView = AbuseFilterAlertView.wmf_viewFromClassNib() {
-            abuseFilterAlertView.type = type
-            abuseFilterAlertView.apply(theme: theme)
-            abuseFilterAlertView.isHidden = true
-            view.wmf_addSubviewWithConstraintsToEdges(abuseFilterAlertView)
-            dispatchOnMainQueueAfterDelayInSeconds(0.3) {
-                abuseFilterAlertView.isHidden = false
-            }
-        }
-    }
-    
     internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let solution = captchaViewController?.solution {
             if !solution.isEmpty {

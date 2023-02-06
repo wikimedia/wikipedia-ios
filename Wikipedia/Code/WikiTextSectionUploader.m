@@ -228,9 +228,6 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
 
             // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
             error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WikiTextSectionUploaderErrorTypeNeedsCaptcha userInfo:errorDict];
-        } else if (responseObject[@"edit"][@"code"]) {
-            NSString *abuseFilterCode = responseObject[@"edit"][@"code"];
-            WikiTextSectionUploaderErrorType errorType = WikiTextSectionUploaderErrorTypeUnknown;
         }
     }
 
