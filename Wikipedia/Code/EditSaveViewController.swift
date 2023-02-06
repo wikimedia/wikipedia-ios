@@ -315,24 +315,34 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
             }
         case .abuseFilterDisallowed, .abuseFilterWarning, .abuseFilterOther:
-            // NSString *warningHtml = error.userInfo[@"warning"];
-
             wmf_hideKeyboard()
+            WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
             
-            if errorType == .abuseFilterDisallowed {
-                WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                mode = .abuseFilterDisallow
-                abuseFilterCode = nsError.userInfo["code"] as! String
-                editFunnel?.logAbuseFilterErrorForSectionEdit(abuseFilterName: abuseFilterCode, source: editFunnelSource, language: languageCode)
-            } else {
-                WMFAlertManager.sharedInstance.showWarningAlert(nsError.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                mode = .abuseFilterWarning
-                abuseFilterCode = nsError.userInfo["code"] as! String
-                editFunnel?.logAbuseFilterWarningForSectionEdit(abuseFilterName: abuseFilterCode, source: editFunnelSource, language: languageCode)
+            guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
+                  let currentTitle = articleURL?.wmf_title else {
+                return
             }
             
-            let alertType: AbuseFilterAlertType = (errorType == .abuseFilterDisallowed) ? .disallow : .warning
-            showAbuseFilterAlert(for: alertType)
+            if errorType == .abuseFilterDisallowed {
+                mode = .abuseFilterDisallow
+                abuseFilterCode = displayError.code
+                editFunnel?.logAbuseFilterErrorForSectionEdit(abuseFilterName: abuseFilterCode, source: editFunnelSource, language: languageCode)
+                
+                wmf_showAbuseFilterDisallowPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme)
+                
+            } else {
+                mode = .abuseFilterWarning
+                abuseFilterCode = displayError.code
+                editFunnel?.logAbuseFilterWarningForSectionEdit(abuseFilterName: abuseFilterCode, source: editFunnelSource, language: languageCode)
+                
+                wmf_showAbuseFilterWarningPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, publishAnywayTapHandler: { [weak self] _ in
+                    
+                    self?.dismiss(animated: true) {
+                        self?.save()
+                    }
+                    
+                })
+            }
             
         case .server, .unknown:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -341,12 +351,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             
             WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
             
-            guard let blockedError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
+            guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
                   let currentTitle = articleURL?.wmf_title else {
                 return
             }
             
-            wmf_showBlockedPanel(messageHtml: blockedError.messageHtml, linkBaseURL: blockedError.linkBaseURL, currentTitle: currentTitle, theme: theme)
+            wmf_showBlockedPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme)
             
         default:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
