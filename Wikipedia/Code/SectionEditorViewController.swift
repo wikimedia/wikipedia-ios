@@ -20,7 +20,11 @@ class SectionEditorViewController: ViewController {
     private var dataStore: MWKDataStore
 
     private var webView: SectionEditorWebView!
+
+    private let initialFetchGroup: WMFTaskGroup = WMFTaskGroup()
     private let sectionFetcher: SectionFetcher
+    private let editNoticesFetcher: EditNoticesFetcher
+    private var editNoticesViewModel: EditNoticesViewModel? = nil
     
     private var inputViewsController: SectionEditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
@@ -76,6 +80,7 @@ class SectionEditorViewController: ViewController {
         self.messagingController = messagingController ?? SectionEditorWebViewMessagingController()
         languageCode = articleURL.wmf_languageCode ?? NSLocale.current.languageCode ?? "en"
         self.sectionFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        self.editNoticesFetcher = EditNoticesFetcher(session: dataStore.session, configuration: dataStore.configuration)
         super.init(theme: theme)
     }
     
@@ -84,6 +89,7 @@ class SectionEditorViewController: ViewController {
     }
     
     override func viewDidLoad() {
+        loadEditNotices()
         loadWikitext()
         
         navigationItemController = SectionEditorNavigationItemController(navigationItem: navigationItem)
@@ -102,7 +108,13 @@ class SectionEditorViewController: ViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        selectLastSelectionIfNeeded()
+
+        initialFetchGroup.waitInBackground {
+            self.presentEditNoticesIfNecessary()
+            self.selectLastSelectionIfNeeded()
+
+        }
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -116,6 +128,24 @@ class SectionEditorViewController: ViewController {
     
     @objc func keyboardDidHide() {
         inputViewsController.resetFormattingAndStyleSubmenus()
+    }
+
+    private func presentEditNoticesIfNecessary() {
+        guard UserDefaults.standard.wmf_alwaysDisplayEditNotices else {
+            return
+        }
+
+        presentEditNoticesIfAvailable()
+    }
+
+    private func presentEditNoticesIfAvailable() {
+        guard let editNoticesViewModel = self.editNoticesViewModel else {
+            return
+        }
+
+        let editNoticesViewController = EditNoticesViewController(theme: self.theme, viewModel: editNoticesViewModel)
+        editNoticesViewController.delegate = self
+        present(editNoticesViewController, animated: true)
     }
     
     private func setupFocusNavigationView() {
@@ -327,7 +357,24 @@ class SectionEditorViewController: ViewController {
         messagingController.setWikitext(wikitext, completionHandler: completionHandler)
     }
 
+    private func loadEditNotices() {
+        initialFetchGroup.enter()
+        editNoticesFetcher.fetchNotices(for: articleURL) { (result) in
+            if case let .success(notices) = result, !notices.isEmpty, let siteURL = self.articleURL.wmf_site {
+                self.editNoticesViewModel = EditNoticesViewModel(siteURL: siteURL, notices: notices)
+
+                DispatchQueue.main.async {
+                    self.navigationItemController.addEditNoticesButton()
+                    self.navigationItemController.apply(theme: self.theme)
+                }
+            }
+
+            self.initialFetchGroup.leave()
+        }
+    }
+
     private func loadWikitext() {
+        initialFetchGroup.enter()
         let isShowingStatusMessage = shouldFocusWebView
         if isShowingStatusMessage {
             let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
@@ -342,15 +389,17 @@ class SectionEditorViewController: ViewController {
                 case .failure(let error):
                     self.didFocusWebViewCompletion = {
                         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
+                        self.initialFetchGroup.leave()
                     }
                 case .success(let response):
                     self.wikitext = response.wikitext
                     self.handle(protection: response.protection)
+                    self.initialFetchGroup.leave()
                 }
             }
         }
     }
-    
+
     private func handle(protection: [SectionFetcher.Protection]) {
         let allowedGroups = protection.map { $0.level }
         guard !allowedGroups.isEmpty else {
@@ -470,6 +519,10 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
         messagingController.redo()
+    }
+
+    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem) {
+        presentEditNoticesIfAvailable()
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
@@ -750,6 +803,16 @@ extension SectionEditorViewController: InsertMediaViewControllerDelegate {
 
 extension SectionEditorViewController: EditingFlowViewController {
     
+}
+
+extension SectionEditorViewController: EditNoticesViewControllerDelegate {
+
+    func editNoticesControllerUserTapped(url: URL) {
+        dismiss(animated: true) { [weak self] in
+            self?.navigate(to: url)
+        }
+    }
+
 }
 
 #if (TEST)
