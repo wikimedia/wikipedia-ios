@@ -35,7 +35,7 @@ public enum ArticleDescriptionSource: String {
         let query: Query?
     }
     
-    public func wikidataBlockedInfo(forEntity entity: String, completion: @escaping (MediaWikiAPIBlockedDisplayError?) -> Void) {
+    public func wikidataBlockedInfo(forEntity entity: String, completion: @escaping (MediaWikiAPIDisplayError?) -> Void) {
         
         let parameters: [String: Any] = [
             "action": "query",
@@ -75,7 +75,7 @@ public enum ArticleDescriptionSource: String {
                     return
                 }
                 
-                self.resolveMediaWikiBlockedError(from: editErrors, siteURL: siteURL, completion: completion)
+                self.resolveMediaWikiError(from: editErrors, siteURL: siteURL, completion: completion)
             default:
                 completion(nil)
             }
@@ -90,7 +90,7 @@ public enum ArticleDescriptionSource: String {
         case invalidArticleURL
         case apiResultNotParsedCorrectly
         case notEditable
-        case apiBlocked(blockedError: MediaWikiAPIBlockedDisplayError)
+        case apiBlocked(blockedError: MediaWikiAPIDisplayError)
         case apiOther(error: MediaWikiAPIError)
         case unknown
         
@@ -189,7 +189,7 @@ public enum ArticleDescriptionSource: String {
         if let errors = result.errors,
            let siteURL = siteURL {
             
-            self.resolveMediaWikiBlockedError(from: errors, siteURL: siteURL) { displayError in
+            self.resolveMediaWikiError(from: errors, siteURL: siteURL) { displayError in
                 
                 guard let displayError else {
                     if let firstError = errors.first {

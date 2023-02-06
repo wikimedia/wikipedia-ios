@@ -1,7 +1,7 @@
 #import "WikiTextSectionUploader.h"
 @import WMF;
 
-NSString *const NSErrorUserInfoBlockedDisplayError = @"blockedDisplayError";
+NSString *const NSErrorUserInfoDisplayError = @"displayError";
 
 @implementation WikiTextSectionUploader
 
@@ -160,7 +160,7 @@ NSString *const NSErrorUserInfoBlockedDisplayError = @"blockedDisplayError";
         }
         
         // Try handling block errors first, else fallback to legacy error handling
-        [self resolveMediaWikiApiBlockErrorFromResult:responseObject siteURL:articleURL completionHandler:^(MediaWikiAPIBlockedDisplayError *blockedError) {
+        [self resolveMediaWikiApiErrorFromResult:responseObject siteURL:articleURL completionHandler:^(MediaWikiAPIDisplayError *blockedError) {
             
             if (blockedError.messageHtml == nil) {
                 [self handleErrorCodeLegacyWithResponseObject:responseObject captchaWord:captchaWord completion:completion];
@@ -169,7 +169,7 @@ NSString *const NSErrorUserInfoBlockedDisplayError = @"blockedDisplayError";
             
             NSError *error = nil;
             NSMutableDictionary *errorDict = [@{} mutableCopy];
-            errorDict[NSErrorUserInfoBlockedDisplayError] = blockedError;
+            errorDict[NSErrorUserInfoDisplayError] = blockedError;
             error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WikiTextSectionUploaderErrorTypeBlocked userInfo:errorDict];
             completion(responseObject, error);
         }];

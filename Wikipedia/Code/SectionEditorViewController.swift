@@ -352,7 +352,7 @@ class SectionEditorViewController: ViewController {
         messagingController.setWikitext(wikitext, completionHandler: completionHandler)
     }
 
-    private func loadWikitext(completion: @escaping (MediaWikiAPIBlockedDisplayError?) -> Void) {
+    private func loadWikitext(completion: @escaping (MediaWikiAPIDisplayError?) -> Void) {
         let isShowingStatusMessage = shouldFocusWebView
         if isShowingStatusMessage {
             let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
@@ -388,7 +388,7 @@ class SectionEditorViewController: ViewController {
         }
     }
     
-    private func presentErrorMessage(blockedError: MediaWikiAPIBlockedDisplayError) {
+    private func presentErrorMessage(blockedError: MediaWikiAPIDisplayError) {
         
         guard let currentTitle = articleURL.wmf_title else {
             return

@@ -286,14 +286,14 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     }
     
     private func presentBlockedPanelFromError(_ nsError: NSError) {
-        guard let blockedError = nsError.userInfo[NSErrorUserInfoBlockedDisplayError] as? MediaWikiAPIBlockedDisplayError else {
+        guard let blockedError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError else {
             return
         }
         
         presentBlockedPanel(blockedError: blockedError)
     }
     
-    private func presentBlockedPanel(blockedError: MediaWikiAPIBlockedDisplayError) {
+    private func presentBlockedPanel(blockedError: MediaWikiAPIDisplayError) {
         
         guard let currentTitle = self.articleDescriptionController?.articleDisplayTitle else {
             return

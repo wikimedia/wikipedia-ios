@@ -341,7 +341,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             
             WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
             
-            guard let blockedError = nsError.userInfo[NSErrorUserInfoBlockedDisplayError] as? MediaWikiAPIBlockedDisplayError,
+            guard let blockedError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
                   let currentTitle = articleURL?.wmf_title else {
                 return
             }

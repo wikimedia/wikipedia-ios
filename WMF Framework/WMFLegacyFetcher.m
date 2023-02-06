@@ -60,8 +60,8 @@
     return [self.fetcher performMediaWikiAPIGETForURLRequest:urlRequest cancellationKey:cancellationKey completionHandler:completionHandler];
 }
 
-- (void)resolveMediaWikiApiBlockErrorFromResult: (NSDictionary<NSString *, id> *)result siteURL:(NSURL *)siteURL completionHandler:(void (^)(MediaWikiAPIBlockedDisplayError * blockedDisplayError)) completionHandler {
-    [self.fetcher resolveMediaWikiApiBlockErrorFromResult:result siteURL:siteURL completionHandler:completionHandler];
+- (void)resolveMediaWikiApiErrorFromResult: (NSDictionary<NSString *, id> *)result siteURL:(NSURL *)siteURL completionHandler:(void (^)(MediaWikiAPIDisplayError * displayError)) completionHandler {
+    [self.fetcher resolveMediaWikiApiErrorFromResult:result siteURL:siteURL completionHandler:completionHandler];
 }
 
 - (void)cancelAllFetches {

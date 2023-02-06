@@ -48,7 +48,7 @@ class SectionFetcher: Fetcher {
         let wikitext: String
         let revisionID: Int
         let protection: [Protection]
-        let blockedError: MediaWikiAPIBlockedDisplayError?
+        let blockedError: MediaWikiAPIDisplayError?
     }
     
     func fetchSection(with sectionID: Int, articleURL: URL, completion: @escaping (Result<Response, Error>) -> Void) {
@@ -97,7 +97,7 @@ class SectionFetcher: Fetcher {
                     return
                 }
                 
-                self.resolveMediaWikiBlockedError(from: editErrors, siteURL: articleURL) { blockedError in
+                self.resolveMediaWikiError(from: editErrors, siteURL: articleURL) { blockedError in
                     
                     guard let blockedError else {
                         completion(.success(Response(wikitext: wikitext, revisionID: revisionID, protection: protection, blockedError: nil)))

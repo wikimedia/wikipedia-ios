@@ -1,7 +1,7 @@
 import Foundation
 
-/// An object that is passed through from fetchers to view controllers, for reference when displaying blocked errors in a BlockedPanelViewController.
-@objc public class MediaWikiAPIBlockedDisplayError: NSObject {
+/// An object that is passed through from fetchers to view controllers, for reference when displaying errors in a panel.
+@objc public class MediaWikiAPIDisplayError: NSObject {
     
     // Fully resolved html to display in the blocked panel.
     @objc public let messageHtml: String

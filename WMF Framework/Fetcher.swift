@@ -125,14 +125,14 @@ open class Fetcher: NSObject {
         return task
     }
     
-// MARK: Resolving MediaWiki Block Errors
+// MARK: Resolving MediaWiki Errors For Display
     
     /// Chain from MediaWiki API response if you want to resolve a set of error messages into a full html string for display. Use this method for raw dictionary responses. For Swift Codable responses, use resolveMediaWikiBlockedError(from apiErrors: [MediaWikiAPIError]...).
     /// - Parameters:
     ///   - result: Serialized dictionary from MediaWiki API response
-    ///   - completionHandler: Completion handler called when full html is determined, which is packaged up in a MediaWikiAPIBlockedDisplayError object.
-    @objc(resolveMediaWikiApiBlockErrorFromResult:siteURL:completionHandler:)
-    func resolveMediaWikiApiBlockErrorFromResult(_ result: [String: Any], siteURL: URL, completionHandler: @escaping (MediaWikiAPIBlockedDisplayError?) -> Void) {
+    ///   - completionHandler: Completion handler called when full html is determined, which is packaged up in a MediaWikiAPIDisplayError object.
+    @objc(resolveMediaWikiApiErrorFromResult:siteURL:completionHandler:)
+    func resolveMediaWikiApiErrorFromResult(_ result: [String: Any], siteURL: URL, completionHandler: @escaping (MediaWikiAPIDisplayError?) -> Void) {
 
         var apiErrors: [MediaWikiAPIError] = []
         
@@ -147,14 +147,14 @@ open class Fetcher: NSObject {
             }
         }
         
-        resolveMediaWikiBlockedError(from: apiErrors, siteURL: siteURL, completion: completionHandler)
+        resolveMediaWikiError(from: apiErrors, siteURL: siteURL, completion: completionHandler)
     }
     
     /// Chain from MediaWiki API response if you want to resolve a set of error messages into a full html string for display. Use from Swift Codable responses that capture a collection of [MediaWikiAPIError] items.
     /// - Parameters:
     ///   - apiErrors: Decoded MediaWikiAPIError items from API response
-    ///   - completion: Called when full html is determined, which is packaged up in a MediaWikiAPIBlockedDisplayError object.
-    public func resolveMediaWikiBlockedError(from apiErrors: [MediaWikiAPIError], siteURL: URL, completion: @escaping (MediaWikiAPIBlockedDisplayError?) -> Void) {
+    ///   - completion: Called when full html is determined, which is packaged up in a MediaWikiAPIDisplayError object.
+    public func resolveMediaWikiError(from apiErrors: [MediaWikiAPIError], siteURL: URL, completion: @escaping (MediaWikiAPIDisplayError?) -> Void) {
         
         let blockedApiErrors = apiErrors.filter { $0.code.contains("block") }
         let firstApiErrorWithInfo = blockedApiErrors.first(where: { $0.data?.blockinfo != nil })
@@ -166,7 +166,7 @@ open class Fetcher: NSObject {
                 return
             }
             
-            let displayError = MediaWikiAPIBlockedDisplayError(messageHtml: fallbackApiError.html, linkBaseURL: siteURL, code: fallbackApiError.code)
+            let displayError = MediaWikiAPIDisplayError(messageHtml: fallbackApiError.html, linkBaseURL: siteURL, code: fallbackApiError.code)
             completion(displayError)
             return
         }
@@ -189,7 +189,7 @@ open class Fetcher: NSObject {
         }
     }
     
-    private func resolveMediaWikiApiBlockError(siteURL: URL, code: String, html: String, blockInfo: MediaWikiAPIError.Data.BlockInfo,  completionHandler: @escaping (MediaWikiAPIBlockedDisplayError?) -> Void) {
+    private func resolveMediaWikiApiBlockError(siteURL: URL, code: String, html: String, blockInfo: MediaWikiAPIError.Data.BlockInfo,  completionHandler: @escaping (MediaWikiAPIDisplayError?) -> Void) {
         
         // First turn blockReason into html, if needed
         let group = DispatchGroup()
@@ -252,7 +252,7 @@ open class Fetcher: NSObject {
             let blockedTimestampDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockedtimestamp, siteURL: linkBaseURL)
             templateHtml = templateHtml.replacingOccurrences(of: "$8", with: blockedTimestampDisplayDate)
             
-            let displayError = MediaWikiAPIBlockedDisplayError(messageHtml: templateHtml, linkBaseURL: linkBaseURL, code: code)
+            let displayError = MediaWikiAPIDisplayError(messageHtml: templateHtml, linkBaseURL: linkBaseURL, code: code)
             completionHandler(displayError)
         }
         
