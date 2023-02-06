@@ -667,7 +667,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         let lastUserInfoIdAdditions = isLast ? " id='significant-changes-userInfo-last'" : ""
         
-        return "<li id='\(liElementIdName)'><p class='significant-changes-timestamp'>\(timestampForDisplay)</p><p class='significant-changes-description'>\(eventDescription)</p><p class='significant-changes-userInfo'\(lastUserInfoIdAdditions)>\(userInfo)</p></li>"
+        return "<li id='\(liElementIdName)'><p class='significant-changes-timestamp'>\(timestampForDisplay)</p><p class='significant-changes-description'>\(eventDescription ?? NSAttributedString(string: ""))</p><p class='significant-changes-userInfo'\(lastUserInfoIdAdditions)>\(userInfo)</p></li>"
     }
     
     private var htmlSignificantEventsLinkEndingTag: String {
