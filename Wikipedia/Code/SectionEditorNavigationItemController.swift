@@ -4,6 +4,7 @@ protocol SectionEditorNavigationItemControllerDelegate: AnyObject {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem)
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem)
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem)
+    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem)
 }
 
 class SectionEditorNavigationItemController: NSObject, Themeable {
@@ -73,6 +74,10 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
     private lazy var undoButton: BarButtonItem = {
         return BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(undo(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.undo)
     }()
+
+    private lazy var editNoticesButton: BarButtonItem = {
+        return BarButtonItem(image: UIImage(systemName: "exclamationmark.circle.fill") , style: .plain, target: self, action: #selector(editNotices(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.editNotices)
+    }()
     
     private lazy var readingThemesControlsButton: BarButtonItem = {
         return BarButtonItem(image: #imageLiteral(resourceName: "settings-appearance"), style: .plain, target: self, action: #selector(showReadingThemesControls(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.readingThemesControls)
@@ -100,9 +105,20 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
     @objc private func redo(_ sender: UIBarButtonItem) {
         delegate?.sectionEditorNavigationItemController(self, didTapRedoButton: sender)
     }
+
+    @objc private func editNotices(_ sender: UIBarButtonItem) {
+        delegate?.sectionEditorNavigationItemController(self, didTapEditNoticesButton: sender)
+    }
     
     @objc private func showReadingThemesControls(_ sender: UIBarButtonItem) {
          delegate?.sectionEditorNavigationItemController(self, didTapReadingThemesControlsButton: sender)
+    }
+
+    func addEditNoticesButton() {
+        navigationItem?.rightBarButtonItems?.append(contentsOf: [
+            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
+            editNoticesButton
+        ])
     }
 
     private func configureNavigationButtonItems() {
