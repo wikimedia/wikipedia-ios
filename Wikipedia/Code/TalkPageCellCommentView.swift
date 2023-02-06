@@ -188,6 +188,7 @@ extension TalkPageCellCommentView: Themeable {
         replyDepthView.apply(theme: theme)
 
         commentTextView.attributedText = viewModel?.commentAttributedString(traitCollection: traitCollection, theme: theme)
+        commentTextView.linkTextAttributes = [.foregroundColor: theme.colors.link]
         commentTextView.backgroundColor = theme.colors.paperBackground
         applyTextHighlightIfNecessary(theme: theme)
 
