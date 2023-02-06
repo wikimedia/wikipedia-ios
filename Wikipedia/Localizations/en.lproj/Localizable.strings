@@ -256,6 +256,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "The text that you selected could not be located";
 "edit-minor-learn-more-text" = "Learn more about minor edits";
 "edit-minor-text" = "This is a minor edit";
+"edit-notices" = "Edit notices";
+"edit-notices-always-display" = "Always display edit notices";
+"edit-notices-please-read" = "Please read before editing";
 "edit-ordered-list-accessibility-label" = "Make current line ordered list";
 "edit-ordered-list-remove-accessibility-label" = "Remove ordered list from current line";
 "edit-published" = "Edit published";

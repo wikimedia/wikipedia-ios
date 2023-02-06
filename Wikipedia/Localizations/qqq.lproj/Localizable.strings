@@ -256,6 +256,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Title for alert informing user their text selection could not be located in the article wikitext.";
 "edit-minor-learn-more-text" = "Text for minor edits learn more button";
 "edit-minor-text" = "Text for minor edit label";
+"edit-notices" = "Title text and accessibility label for edit notices button.";
+"edit-notices-always-display" = "Title for toggle switch label in edit notices view.";
+"edit-notices-please-read" = "Subtitle displayed in edit notices view.";
 "edit-ordered-list-accessibility-label" = "Accessibility label for ordered list button";
 "edit-ordered-list-remove-accessibility-label" = "Accessibility label for remove ordered list button";
 "edit-published" = "Title edit published panel letting user know their edit was saved.";
