@@ -77,6 +77,7 @@ final class TalkPageCoffeeRollView: SetupView {
     
     private func updateFonts() {
         textView.attributedText = viewModel.coffeeRollText?.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters().removingRepetitiveNewlineCharacters()
+        textView.linkTextAttributes = [.foregroundColor: theme.colors.link]
     }
     
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
