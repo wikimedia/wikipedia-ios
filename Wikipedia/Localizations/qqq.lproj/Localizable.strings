@@ -142,9 +142,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back. {{Identical|Back}}";
 "back-button-popover-title" = "Title for popover explaining the 'W' icon may be tapped to go back.";
+"button-go-back" = "Button text for Go back button used in various places";
 "button-next" = "Button text for next button used in various places. {{Identical|Next}}";
 "button-ok" = "Button text for ok button used in various places {{Identical|OK}}";
 "button-publish" = "Button text for publish button used in various places. Please prioritize for de, ar and zh wikis. {{Identical|Publish}}";
+"button-publish-anyway" = "Button text for publish button used when first warned against publishing.";
 "button-read-now" = "Read now button text used in various places.";
 "button-report-a-bug" = "Button text for reporting a bug";
 "button-save-for-later" = "Longer button text for save button used in various places.";
