@@ -716,6 +716,8 @@
 "page-similar-titles" = "Samankaltaiset sivut";
 "panel-compare-revisions-text" = "Muutosten vertailulla on helppo saada kuva artikkeliin tehdyistä muutoksista. Toiminto korostaa artikkelista kohdat, joihin on tehty muutoksia.";
 "panel-compare-revisions-title" = "Versioiden vertailu";
+"panel-not-logged-in-continue-edit-action-title" = "Muokkaa kirjautumatta sisään";
+"panel-not-logged-in-title" = "Et ole kirjautunut sisään";
 "pictured" = "kuvassa";
 "places-accessibility-clear-saved-searches" = "Tyhjennä tallennetut haut";
 "places-accessibility-group" = "$1 artikkelia";
@@ -961,6 +963,7 @@
 "talk-page-discussion-accessibility-hint" = "Kaksoisnapauta avataksesi keskusteluketjun";
 "talk-page-discussion-read-accessibility-label" = "Lue";
 "talk-page-discussion-unread-accessibility-label" = "Lukematon";
+"talk-page-error-loading-title" = "Keskustelusivun lataaminen epäonnistui";
 "talk-page-error-unable-to-post-reply" = "Ei Internet-yhteyttä. Vastausta ei voi lähettää.";
 "talk-page-error-unable-to-post-topic" = "Ei Internet-yhteyttä. Keskustelua ei voi lähettää.";
 "talk-page-find-in-page-button" = "Etsi sivulta";
@@ -1001,6 +1004,7 @@
 "talk-page-unsubscribe-to-topic" = "Peruuta tilaus";
 "talk-page-user-about" = "Tietoja käyttäjien keskustelusivuista";
 "talk-page-user-contributions" = "Muokkaukset";
+"talk-pages-archives-view-title" = "Arkistot";
 "talk-pages-coffee-roll-read-more" = "Lue lisää";
 "talk-pages-comment-added-alert-title" = "Kommenttisi lisättiin";
 "talk-pages-compose-close-confirmation-keep" = "Jatka muokkaamista";

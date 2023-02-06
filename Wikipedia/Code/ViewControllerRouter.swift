@@ -22,6 +22,7 @@ struct RoutingUserInfoKeys {
 
 enum RoutingUserInfoSourceValue: String {
     case talkPage
+    case talkPageArchives
     case article
     case notificationsCenter
     case deepLink

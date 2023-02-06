@@ -26,11 +26,14 @@
 "aaald-article-insert-last-updated" = "Последње ажурирање";
 "aaald-article-insert-new-changes" = "Нове промене";
 "aaald-article-insert-read-more" = "Читај још додавања";
+"aaald-deleted-text-description-2" = "Обрисано $1";
 "aaald-error-subitle" = "Освежи";
+"aaald-many-sections-description" = "у $1 одељака";
 "aaald-new-book-reference-title" = "Књига";
 "aaald-new-discussion" = "Нова дискусија";
 "aaald-new-journal-reference-database" = "преко $1";
 "aaald-new-news-reference-title" = "Новости";
+"aaald-new-talk-topic-description-format" = "$1 о овом чланку";
 "aaald-new-website-reference-title" = "Веб-сајт";
 "aaald-one-section-description" = "У одељку $1";
 "aaald-view-full-history-button" = "Прикажи целу историју чланка";
@@ -114,6 +117,7 @@
 "action-update" = "Ажурирај";
 "add-articles-to-reading-list" = "Додај {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";
 "add-citation-title" = "Додавање референце";
+"additional-information-email-title" = "Додатне информације";
 "announcements-dismiss" = "Одбаци";
 "app-store-keywords" = "Википедија, референце, вики, енциклопедија, инфо, знање, истраживање, информације, истражи, научи";
 "app-store-release-notes" = "Потпуно прилагодљив и читљивији фид „Истражи“. Побољшања локализације, перформанси и исправке грешака.";
@@ -288,6 +292,7 @@
 "empty-no-feed-message" = "Препоручене чланке ћете видети када будете онлајн";
 "empty-no-history-message" = "Овде пратите све што сте читали";
 "empty-no-history-title" = "Нема историје";
+"empty-no-other-article-languages-title" = "Нема других језика";
 "empty-no-reading-lists-message" = "Правите листе о местима која желите да посетите, омиљеним темама и друго";
 "empty-no-reading-lists-title" = "Организујте сачуване чланке помоћу листа за читање";
 "empty-no-saved-pages-in-reading-list-message" = "Странице се појављују овде када их сачувате на листу";
@@ -381,6 +386,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Језик Википедије: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Са Википедије";
 "explore-randomizer" = "Случајни чланак";
+"featured-widget-from-language-wikipedia" = "Са Википедије ($1)";
 "featured-widget-from-wikipedia" = "С Википедије";
 "featured-widget-title" = "Сјајан чланак";
 "fetcher-error-generic" = "Нешто је кренуло наопако. Покушајте поново касније.";
@@ -509,9 +515,16 @@
 "no-internet-connection" = "Нема интернет везе";
 "no-internet-connection-article-reload" = "Новија верзија овог чланка је можда доступна, али не може бити учитана без интернет конекције.";
 "no-internet-connection-article-reload-button" = "Врати се на претходно сачувану верзију";
+"notifications-center-agent-description-from-format" = "Од $1";
+"notifications-center-change-password" = "Промени лозинку";
+"notifications-center-destination-app" = "У апликацији";
+"notifications-center-destination-web" = "На вебу";
+"notifications-center-empty-no-messages" = "Немате нових порука";
 "notifications-center-feed-news-notification-button-text" = "Укључи обавештења";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Не сада";
 "notifications-center-filters-read-status-item-title-all" = "Све";
 "notifications-center-filters-read-status-item-title-read" = "Читај";
+"notifications-center-filters-read-status-item-title-unread" = "Непрочитано";
 "notifications-center-filters-types-item-title-all" = "Све врсте";
 "notifications-center-filters-types-section-title" = "Врсте обавештења";
 "notifications-center-go-to-article" = "Чланак";
@@ -528,6 +541,7 @@
 "notifications-center-mark-as-read" = "Означи као прочитано";
 "notifications-center-mark-as-unread" = "Означи као непрочитано";
 "notifications-center-more-action-accessibility-label" = "Више";
+"notifications-center-notifications-settings" = "Поставке обавештања";
 "notifications-center-onboarding-modal-continue-action" = "Настави";
 "notifications-center-onboarding-panel-secondary-button" = "Не, хвала";
 "notifications-center-status-all" = "Све";
@@ -546,6 +560,7 @@
 "notifications-center-type-item-description-welcome-verbose" = "Порука добродошлице";
 "notifications-center-type-title-login-success" = "Успешно сте пријављени";
 "notifications-center-type-title-thanks" = "Захвалница";
+"notifications-center-type-title-user-talk-page-messsage" = "Порука на страници за разговор";
 "notifications-center-type-title-welcome" = "Добро дошли";
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1 мил.";
@@ -553,6 +568,7 @@
 "on-this-day-detail-header-date-range" = "$1–$2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 историјски догађај|$1 историјска догађаја|$1 историјских догађаја}}";
 "on-this-day-footer" = "Више историјских догађаја на данашњи дан";
+"on-this-day-no-internet-error" = "Нема података";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 са $2 Википедије";
 "on-this-day-title" = "На данашњи дан";
 "original-tab-button-popover-description" = "Додирните „W” да бисте се вратили на почетну картицу";
@@ -573,6 +589,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 измена|$1 измене}} од $2";
 "page-history-user-edits" = "измене корисника";
 "page-issues" = "Проблеми са страницом";
+"page-location" = "Прикажи на мапи";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
 "page-protected-can-not-edit" = "Немате права да уређујете ову страницу";
 "page-protected-can-not-edit-title" = "Ова страница је заштићена";
@@ -821,6 +838,7 @@
 "talk-page-discussion-accessibility-hint" = "Притисните два пута да бисте отворили низ дискусије";
 "talk-page-discussion-read-accessibility-label" = "Прочитано";
 "talk-page-discussion-unread-accessibility-label" = "Непрочитано";
+"talk-page-error-loading-title" = "Страница за разговор није учитана";
 "talk-page-error-unable-to-post-reply" = "Нема интернет везе. Није могуће објавити одговор.";
 "talk-page-error-unable-to-post-topic" = "Нема интернет везе. Није могуће објавити дискусију.";
 "talk-page-info-active-conversations" = "Активне конверзације на $1 Википедији";
@@ -845,6 +863,8 @@
 "talk-page-publish-terms-and-licenses" = "Чувањем измена прихватате $1услове коришћења$2 и неопозиво објављивање свог доприноса под лиценцама $3CC BY-SA 3.0$4 и $5GFDL$6.";
 "talk-page-related-links" = "Шта води овамо";
 "talk-page-reply-button" = "Одговори";
+"talk-page-reply-button-accessibility-label" = "Одговор $1";
+"talk-page-reply-placeholder-format" = "Одговор $1";
 "talk-page-reply-title" = "Одговори";
 "talk-page-title-article-talk" = "Страница за разговор чланка";
 "talk-page-title-user-talk" = "Корисничка страница за разговор";
@@ -853,10 +873,14 @@
 "talk-page-unsubscribed-alert-subtitle" = "Више нећете добијати обавештења о новим коментарима.";
 "talk-page-user-about" = "О корисничким страницама за разговор";
 "talk-page-user-contributions" = "Доприноси";
+"talk-pages-archives-empty-title" = "Нема архивираних страница.";
+"talk-pages-archives-view-title" = "Архиве";
 "talk-pages-coffee-roll-read-more" = "Прочитај још";
 "talk-pages-compose-close-confirmation-keep" = "Настави уређивање";
 "talk-pages-reply-button-title" = "Одговори на ову дискусију";
 "talk-pages-topic-compose-body-placeholder" = "Опис";
+"talk-pages-topic-compose-navbar-title" = "Тема";
+"talk-pages-topic-reply-onboarding-title" = "Странице за разговор";
 "talk-pages-user-groups" = "Корисничке групе";
 "talk-pages-user-logs" = "Дневници";
 "talk-pages-view-title" = "Разговор";
@@ -875,6 +899,9 @@
 "two-factor-login-with-regular-code" = "Користите кôд за верификацију";
 "unable-to-load-talk-page-title" = "Није могуће учитати страницу за разговор";
 "unknown-generic-text" = "Непознато";
+"vanish-account-additional-information-placeholder" = "Необавезно";
+"vanish-account-back-confirm-keep-editing" = "Настави уређивање";
+"vanish-account-continue-button-title" = "Настави";
 "vanish-account-learn-more-text" = "Сазнајте више";
 "vanish-account-warning-title" = "Упозорење";
 "variants-alert-dismiss-button" = "Не, хвала";
@@ -905,6 +932,7 @@
 "welcome-send-data-sub-title" = "Помозите Задужбини Викимедија да побољша апликацију слањем информација о употреби. Прикупљени подаци су анонимни.";
 "welcome-volunteer-send-usage-reports" = "Шаљи извештаје о употреби";
 "widget-onthisday-placeholder-article-snippet" = "Слободна онлајн енциклопедија коју свако може уређивати";
+"widget-onthisday-placeholder-event-snippet" = "Википедија, слободна енциклопедија, иде онлајн.";
 "wikitext-downloading" = "Учитавам садржај…";
 "wikitext-preview-changes" = "Преузимање прегледа ваших промена…";
 "wikitext-preview-changes-none" = "Нема промена за преглед.";

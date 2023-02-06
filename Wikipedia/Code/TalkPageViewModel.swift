@@ -21,7 +21,7 @@ final class TalkPageViewModel {
     let authenticationManager: WMFAuthenticationManager
     let languageLinkController: MWKLanguageLinkController
     var deepLinkData: DeepLinkData?
-    private let dataController: TalkPageDataController
+    let dataController: TalkPageDataController
     
     private var dateFormatter: DateFormatter?
     private(set) var semanticContentAttribute: UISemanticContentAttribute

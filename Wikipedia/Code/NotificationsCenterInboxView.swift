@@ -77,14 +77,17 @@ struct NotificationsCenterInboxView: View {
                         }
             )
             .padding(.horizontal, horizontalSizeClass == .regular ? (UIFont.preferredFont(forTextStyle: .body).pointSize) : 0)
-            .background(Color(viewModel.theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
+            .listBackgroundColor(Color(viewModel.theme.colors.baseBackground))
             .navigationBarTitle(Text(WMFLocalizedString("notifications-center-inbox-title", value: "Projects", comment: "Navigation bar title text for the inbox view presented from notifications center. Allows for filtering out notifications by Wikimedia project type.")), displayMode: .inline)
             .onAppear(perform: {
+                if #unavailable(iOS 16) {
                     UITableView.appearance().backgroundColor = UIColor.clear
+                }
             })
             .onDisappear(perform: {
-                
-                UITableView.appearance().backgroundColor = UIColor.systemGroupedBackground
+                if #unavailable(iOS 16) {
+                    UITableView.appearance().backgroundColor = UIColor.systemGroupedBackground
+                }
             })
     }
 }

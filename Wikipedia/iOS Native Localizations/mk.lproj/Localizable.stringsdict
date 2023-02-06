@@ -159,9 +159,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d поднаслов</string>
+			<string>%1$d оддел</string>
 			<key>other</key>
-			<string>%1$d поднаслови</string>
+			<string>%1$d оддели</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-editor-number-edits-format</key>

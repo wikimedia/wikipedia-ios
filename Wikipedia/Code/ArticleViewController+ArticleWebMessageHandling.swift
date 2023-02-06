@@ -43,8 +43,11 @@ extension ArticleViewController: ArticleWebMessageHandling {
         let titleItem = TableOfContentsItem(id: 0, titleHTML: article.displayTitleHTML, anchor: "", rootItemId: 0, indentationLevel: 0)
         var allItems: [TableOfContentsItem] = [titleItem]
         allItems.append(contentsOf: items)
-        let aboutThisArticleTitle = CommonStrings.aboutThisArticleTitle(with: articleLanguageCode)
-        let readMoreTitle = CommonStrings.readMoreTitle(with: articleLanguageCode)
+
+        // While `items` includes strings localized to the language of the article, our additional appended strings here are not. We need to specify we want localized strings for a local `.lproj` we actually have (which unfortunately doesn't always match the article itself). Here, we send the full language variant code to hint to pull the most accurate localized string we may have available based on the language variant of the article itself.
+        let languageCode = articleURL.wmf_contentLanguageCode ?? articleLanguageCode
+        let aboutThisArticleTitle = CommonStrings.aboutThisArticleTitle(with: languageCode)
+        let readMoreTitle = CommonStrings.readMoreTitle(with: languageCode)
         let aboutThisArticleItem = TableOfContentsItem(id: -2, titleHTML: aboutThisArticleTitle, anchor: PageContentService.Footer.Menu.fragment, rootItemId: -2, indentationLevel: 0)
         allItems.append(aboutThisArticleItem)
         let readMoreItem = TableOfContentsItem(id: -3, titleHTML: readMoreTitle, anchor: PageContentService.Footer.ReadMore.fragment, rootItemId: -3, indentationLevel: 0)
@@ -111,6 +114,5 @@ extension ArticleViewController: ArticleWebMessageHandling {
     
     func handleAaaLDInsertOnScreenEvent() {
         surveyTimerController?.userDidScrollPastLivingDocArticleContentInsert(withState: state)
-        ArticleAsLivingDocFunnel.shared.logArticleContentInsertShown()
     }
 }

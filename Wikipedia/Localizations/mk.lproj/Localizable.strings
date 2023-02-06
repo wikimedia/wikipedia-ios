@@ -20,7 +20,7 @@
 "aaald-deleted-text-description-2" = "Избиришани $1";
 "aaald-error-subitle" = "Превчитајте за да пробате пак";
 "aaald-error-title" = "Не можев да ја вчитам воредната историја на статијата";
-"aaald-many-sections-description" = "во $1 поднаслови";
+"aaald-many-sections-description" = "во $1 оддели";
 "aaald-multiple-changes-description" = "Направени повеќе промени";
 "aaald-multiple-references-added-description" = "Додадени повеќе наводи";
 "aaald-new-book-reference-title" = "Книга";
@@ -35,13 +35,13 @@
 "aaald-new-website-reference-archive-url-text" = "Адреса на Archive.org";
 "aaald-new-website-reference-title" = "Мреж. место";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=Додадени 0 наводи|Додаден $1 навод|Додадени $1 наводи}}";
-"aaald-one-section-description" = "во поднасловот $1";
+"aaald-one-section-description" = "во одделот $1";
 "aaald-revision-by-anonymous" = "Уредување на анонимен корисник";
 "aaald-revision-userInfo" = "Уредување на $1 ($2 уредувања)";
 "aaald-single-reference-added-description" = "Додаден навод";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Нема ситни промени|Направена $1 ситна промена|Направени $1 ситни промени}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 промени|$1 промена|$1 промени}} од {{PLURAL:$2|0=0 уредници|$2 уредник|$2 уредници}} за {{PLURAL:$3|0=0 дена|$3 ден|$3 дена}}";
-"aaald-two-sections-description" = "во поднасловите $1 и $2";
+"aaald-two-sections-description" = "во одделите $1 и $2";
 "aaald-vandalism-revert-description" = "Отповикан осомничен вандализам";
 "aaald-view-full-history-button" = "Целосна историја на статијата";
 "about-content-license" = "Лиценца на содржината";
@@ -222,7 +222,7 @@
 "diff-paragraph-moved-direction-down" = "надолу";
 "diff-paragraph-moved-direction-up" = "нагоре";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 ред|$1 реда}}";
-"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 поднаслов|$1 поднаслови}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 оддел|$1 оддели}}";
 "diff-paragraph-moved-format" = "Пасусот е преместен $2 $1";
 "diff-revision-error-title" = "Не можам да ја вчитам преработката";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 уредување|$1 уредувања}}";
@@ -981,7 +981,7 @@
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-heading" = "Содржина";
 "table-of-contents-hide-button-label" = "Скриј содржина";
-"table-of-contents-subheading-label" = "Поднаслов $1";
+"table-of-contents-subheading-label" = "Подзаглавие $1";
 "tachelhit-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве шилхански варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\n\nⵜⴰⵛⵍⵃⵉⵜ — шилхански со старолибиско писмо (shi-tfng)\nTaclḥit — шилхански на латиница (shi-latn)";
 "tachelhit-variants-alert-title" = "Новост за поддршка на шилхански варијанти";
 "tajik-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве таџички варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nтоҷикӣ кирилликӣ — таџички на кирилица (tg-cyrl)\ntojikī lotinī — таџички на латиница (tg-latn)";
@@ -1059,6 +1059,7 @@
 "talk-page-unsubscription-failed-alert" = "Отпишувањето од темата не успеа. Обидете се повторно.";
 "talk-page-user-about" = "За корисничките разговорни страници";
 "talk-page-user-contributions" = "Придонеси";
+"talk-pages-archives-empty-title" = "Нема архивирани страници.";
 "talk-pages-archives-view-title" = "Архиви";
 "talk-pages-coffee-roll-read-more" = "Прочитајте повеќе";
 "talk-pages-comment-added-alert-title" = "Вашиот коментар е додаден";
