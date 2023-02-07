@@ -90,7 +90,10 @@ public enum ArticleDescriptionSource: String {
         case invalidArticleURL
         case apiResultNotParsedCorrectly
         case notEditable
-        case apiBlocked(blockedError: MediaWikiAPIDisplayError)
+        case apiBlocked(error: MediaWikiAPIDisplayError)
+        case apiAbuseFilterDisallow(error: MediaWikiAPIDisplayError)
+        case apiAbuseFilterWarn(error: MediaWikiAPIDisplayError)
+        case apiAbuseFilterOther(error: MediaWikiAPIDisplayError)
         case apiOther(error: MediaWikiAPIError)
         case unknown
         
@@ -193,6 +196,7 @@ public enum ArticleDescriptionSource: String {
                 
                 guard let displayError else {
                     if let firstError = errors.first {
+                        
                         completion(WikidataPublishingError.apiOther(error: firstError))
                     } else {
                         completion(WikidataPublishingError.unknown)
@@ -201,7 +205,18 @@ public enum ArticleDescriptionSource: String {
                     return
                 }
                 
-                completion(WikidataPublishingError.apiBlocked(blockedError: displayError))
+                if displayError.code.contains("block") {
+                    completion(WikidataPublishingError.apiBlocked(error: displayError))
+                } else if displayError.code.contains("abusefilter") {
+                    switch displayError.code {
+                    case "abusefilter-disallowed":
+                        completion(WikidataPublishingError.apiAbuseFilterDisallow(error: displayError))
+                    case "abusefilter-warning":
+                        completion(WikidataPublishingError.apiAbuseFilterWarn(error: displayError))
+                    default:
+                        completion(WikidataPublishingError.apiAbuseFilterOther(error: displayError))
+                    }
+                }
             }
             
             return

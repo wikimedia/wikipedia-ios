@@ -265,6 +265,12 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                         case .apiBlocked(let blockedError):
                             self.presentBlockedPanel(error: blockedError)
                             return
+                        case .apiAbuseFilterDisallow(let error):
+                            self.presentAbuseFilterDisallowedPanel(error: error)
+                            return
+                        case .apiAbuseFilterWarn(let error), .apiAbuseFilterOther(let error):
+                            self.presentAbuseFilterWarningPanel(error: error)
+                            return
                         default:
                             break
                         }
