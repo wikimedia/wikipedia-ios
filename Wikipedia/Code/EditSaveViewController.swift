@@ -328,14 +328,14 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 abuseFilterCode = displayError.code
                 editFunnel?.logAbuseFilterErrorForSectionEdit(abuseFilterName: abuseFilterCode, source: editFunnelSource, language: languageCode)
                 
-                wmf_showAbuseFilterDisallowPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme)
+                wmf_showAbuseFilterDisallowPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: false)
                 
             } else {
                 mode = .abuseFilterWarning
                 abuseFilterCode = displayError.code
                 editFunnel?.logAbuseFilterWarningForSectionEdit(abuseFilterName: abuseFilterCode, source: editFunnelSource, language: languageCode)
                 
-                wmf_showAbuseFilterWarningPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, publishAnywayTapHandler: { [weak self] _ in
+                wmf_showAbuseFilterWarningPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: false, publishAnywayTapHandler: { [weak self] _ in
                     
                     self?.dismiss(animated: true) {
                         self?.save()

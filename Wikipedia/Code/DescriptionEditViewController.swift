@@ -80,7 +80,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             
             if let blockedError {
                 self.disableTextFieldAndPublish()
-                self.presentBlockedPanel(blockedError: blockedError)
+                self.presentBlockedPanel(error: blockedError)
             }
         }
         
@@ -263,7 +263,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                     if let wikidataError = error as? WikidataFetcher.WikidataPublishingError {
                         switch wikidataError {
                         case .apiBlocked(let blockedError):
-                            self.presentBlockedPanel(blockedError: blockedError)
+                            self.presentBlockedPanel(error: blockedError)
                             return
                         default:
                             break
@@ -271,35 +271,63 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                     }
 
                     let errorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
-                    switch errorType {
-                    case .blocked:
-                        self.presentBlockedPanelFromError(nsError)
+                    
+                    guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError else {
+                        WMFAlertManager.sharedInstance.showErrorAlert(nsError as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                         return
-                    default:
-                        break
                     }
                     
-                    WMFAlertManager.sharedInstance.showErrorAlert(nsError as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    switch errorType {
+                    case .blocked:
+                        self.presentBlockedPanel(error: displayError)
+                        return
+                    case .abuseFilterDisallowed:
+                        self.presentAbuseFilterDisallowedPanel(error: displayError)
+                    case .abuseFilterWarning, .abuseFilterOther:
+                        self.presentAbuseFilterWarningPanel(error: displayError)
+                    default:
+                        WMFAlertManager.sharedInstance.showErrorAlert(nsError as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    }
+                    
+                    
                 }
             }
         }
     }
     
-    private func presentBlockedPanelFromError(_ nsError: NSError) {
-        guard let blockedError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError else {
-            return
-        }
-        
-        presentBlockedPanel(blockedError: blockedError)
-    }
-    
-    private func presentBlockedPanel(blockedError: MediaWikiAPIDisplayError) {
+    private func presentBlockedPanel(error: MediaWikiAPIDisplayError) {
         
         guard let currentTitle = self.articleDescriptionController?.articleDisplayTitle else {
             return
         }
         
-        wmf_showBlockedPanel(messageHtml: blockedError.messageHtml, linkBaseURL: blockedError.linkBaseURL, currentTitle: currentTitle, theme: theme)
+        wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme)
+        
+    }
+    
+    private func presentAbuseFilterDisallowedPanel(error: MediaWikiAPIDisplayError) {
+        
+        guard let currentTitle = self.articleDescriptionController?.articleDisplayTitle else {
+            return
+        }
+        
+        wmf_showAbuseFilterDisallowPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: true)
+        
+    }
+    
+    private func presentAbuseFilterWarningPanel(error: MediaWikiAPIDisplayError) {
+        
+        guard let currentTitle = self.articleDescriptionController?.articleDisplayTitle else {
+            return
+        }
+        
+        wmf_showAbuseFilterWarningPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: true, publishAnywayTapHandler: { [weak self] _ in
+            
+            self?.dismiss(animated: true) {
+                self?.save()
+            }
+            
+        })
         
     }
     

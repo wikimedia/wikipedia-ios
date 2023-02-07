@@ -542,21 +542,31 @@ extension UIViewController {
     ///   - linkBaseURL: base URL that relative links within messageHtml will reference
     ///   - currentTitle: Wiki title representing the article the user is currently working against. Used to help resolve relative links against.
     ///   - theme: initial theme for panel.
-    func wmf_showAbuseFilterDisallowPanel(messageHtml: String, linkBaseURL: URL, currentTitle: String, theme: Theme) {
+    ///   - goBackIsOnlyDismiss: Bool - Boolean for if the primary tap handler should dismiss the panel only, or dismiss and navigate the user two screens back. True is dismiss only, false also pops back two screens.
+    func wmf_showAbuseFilterDisallowPanel(messageHtml: String, linkBaseURL: URL, currentTitle: String, theme: Theme, goBackIsOnlyDismiss: Bool) {
         
-        let panel = ErrorPanelViewController(messageHtml: messageHtml, button1Title: CommonStrings.goBackTitle, button2Title: nil, primaryButtonTapHandler: { [weak self] sender in
-            self?.dismiss(animated: true) {
-                
-                guard let viewControllers = self?.navigationController?.viewControllers,
-                      viewControllers.count > 2 else {
-                    return
-                }
-                
-                let remaining = viewControllers.prefix(viewControllers.count - 2)
-                
-                self?.navigationController?.setViewControllers(Array(remaining), animated: true)
+        let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler
+        
+        if goBackIsOnlyDismiss {
+            primaryButtonTapHandler = { [weak self] sender in
+                self?.dismiss(animated: true)
             }
-        }, secondaryButtonTapHandler: nil, subheadingLinkAction: { [weak self] url in
+        } else {
+            primaryButtonTapHandler = { [weak self] sender in
+                self?.dismiss(animated: true) {
+                    
+                    guard let viewControllers = self?.navigationController?.viewControllers,
+                          viewControllers.count > 2 else {
+                        return
+                    }
+                    
+                    let remaining = viewControllers.prefix(viewControllers.count - 2)
+                    
+                    self?.navigationController?.setViewControllers(Array(remaining), animated: true)
+                }
+            }
+        }
+        let panel = ErrorPanelViewController(messageHtml: messageHtml, button1Title: CommonStrings.goBackTitle, button2Title: nil, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, subheadingLinkAction: { [weak self] url in
 
             guard let baseURL = linkBaseURL.wmf_URL(withTitle: currentTitle) else {
                 return
@@ -579,7 +589,9 @@ extension UIViewController {
     ///   - linkBaseURL: base URL that relative links within messageHtml will reference
     ///   - currentTitle: Wiki title representing the article the user is currently working against. Used to help resolve relative links against.
     ///   - theme: initial theme for panel.
-    func wmf_showAbuseFilterWarningPanel(messageHtml: String, linkBaseURL: URL, currentTitle: String, theme: Theme, publishAnywayTapHandler: @escaping ScrollableEducationPanelButtonTapHandler) {
+    ///   - goBackIsOnlyDismiss: Bool - Boolean for if the primary tap handler should dismiss the panel only, or dismiss and navigate the user two screens back. True is dismiss only, false also pops back two screens.
+    ///   - publishAnywayTapHandler: Handler triggered when the user taps "Publish anyway". Invoke the view controller's edit save method again.
+    func wmf_showAbuseFilterWarningPanel(messageHtml: String, linkBaseURL: URL, currentTitle: String, theme: Theme, goBackIsOnlyDismiss: Bool, publishAnywayTapHandler: @escaping ScrollableEducationPanelButtonTapHandler) {
         
         let panel = ErrorPanelViewController(messageHtml: messageHtml, button1Title: CommonStrings.goBackTitle, button2Title: CommonStrings.publishAnywayTitle, primaryButtonTapHandler: { [weak self] sender in
             self?.dismiss(animated: true) {
