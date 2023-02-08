@@ -476,12 +476,26 @@ class SectionEditorViewController: ViewController {
         previousContentInset = newContentInset
         messagingController.setAdjustedContentInset(newInset: newContentInset)
     }
+
+    fileprivate func showAlert() {
+        let alert = UIAlertController(title: CommonStrings.editorExitConfirmationTitle, message: CommonStrings.editorExitConfirmationBody, preferredStyle: .alert)
+        let confirmClose = UIAlertAction(title: CommonStrings.discardEditsActionTitle, style: .destructive) { _ in
+            self.closeEditor()
+        }
+        alert.addAction(confirmClose)
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .default)
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
+
+    fileprivate func closeEditor() {
+        delegate?.sectionEditorDidCancelEditing(self)
+    }
 }
 
 extension SectionEditorViewController: SectionEditorNavigationItemControllerDelegate {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
         messagingController.getWikitext { [weak self] (result, error) in
-            
             guard let self = self else { return }
             self.webView?.resignFirstResponder()
             
@@ -511,7 +525,11 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
-        delegate?.sectionEditorDidCancelEditing(self)
+        if navigationItemController.progressButton.isEnabled && navigationItemController.undoButton.isEnabled {
+            showAlert()
+        } else {
+            closeEditor()
+        }
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {

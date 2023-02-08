@@ -1076,6 +1076,8 @@
 "talk-page-unsubscription-failed-alert" = "Misslyckades att sluta prenumerera på ämne, försök igen.";
 "talk-page-user-about" = "Om användardiskussionssidor";
 "talk-page-user-contributions" = "Bidrag";
+"talk-pages-archives-empty-title" = "Inga arkivsidor hittades.";
+"talk-pages-archives-view-title" = "Arkiv";
 "talk-pages-coffee-roll-read-more" = "Läs mer";
 "talk-pages-comment-added-alert-title" = "Din kommentar lades till";
 "talk-pages-compose-close-confirmation-keep" = "Fortsätt redigera";

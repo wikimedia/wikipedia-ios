@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,7 +14,9 @@
                 <outlet property="addedLinksButton" destination="XFh-HH-sUX" id="47D-UM-Q6q"/>
                 <outlet property="fixedGrammarButton" destination="WbA-2G-gXe" id="I20-AY-f9b"/>
                 <outlet property="fixedTypoButton" destination="mqy-lh-5zo" id="ElI-7T-dib"/>
+                <outlet property="labelStackView" destination="OaO-gp-C2I" id="bPx-5K-p9b"/>
                 <outlet property="learnMoreButton" destination="zHK-us-xbV" id="uR5-Cg-E3z"/>
+                <outlet property="stackView" destination="OaO-gp-C2I" id="hgX-7S-oev"/>
                 <outlet property="summaryTextField" destination="fTI-kM-ZnK" id="nqe-lW-bvZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="cannedEditSummaryButtons" destination="mqy-lh-5zo" collectionClass="NSMutableArray" id="FmM-3v-SXq"/>
@@ -36,14 +36,14 @@
                             <rect key="frame" x="0.0" y="0.0" width="379" height="69"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zty-gx-vvg">
-                                    <rect key="frame" x="0.0" y="0.0" width="379" height="38"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="379" height="50"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="999" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHK-us-xbV" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="39" width="379" height="30"/>
+                                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="999" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHK-us-xbV" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="51" width="379" height="18"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                     <state key="normal" title="Button"/>
@@ -59,7 +59,6 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="F5s-Eu-1Te"/>
                             </constraints>
-                            <nil key="textColor"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
@@ -74,13 +73,13 @@
                             <rect key="frame" x="0.0" y="116" width="379" height="45"/>
                             <subviews>
                                 <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="SlK-YP-NSk" userLabel="Container view">
-                                    <rect key="frame" x="0.0" y="0.0" width="130" height="27"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="124" height="38.5"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c9k-al-4Mv">
-                                            <rect key="frame" x="0.0" y="0.0" width="130" height="27"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="124" height="38.5"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqy-lh-5zo" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="38" height="27"/>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqy-lh-5zo" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="36" height="38.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <inset key="titleEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
@@ -95,8 +94,8 @@
                                                         <action selector="cannedSummaryButtonTappedWithSender:" destination="-1" eventType="touchUpInside" id="Qti-ut-OCH"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbA-2G-gXe" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                    <rect key="frame" x="46" y="0.0" width="38" height="27"/>
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbA-2G-gXe" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                    <rect key="frame" x="44" y="0.0" width="36" height="38.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <inset key="titleEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
@@ -111,8 +110,8 @@
                                                         <action selector="cannedSummaryButtonTappedWithSender:" destination="-1" eventType="touchUpInside" id="IUE-cM-Qhv"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFh-HH-sUX" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                    <rect key="frame" x="92" y="0.0" width="38" height="27"/>
+                                                <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFh-HH-sUX" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                    <rect key="frame" x="88" y="0.0" width="36" height="38.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <inset key="titleEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
@@ -158,6 +157,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </stackView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="9qV-Rj-Pqa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Y7e-nN-6HF"/>
@@ -168,8 +168,21 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="135.19999999999999" y="-73.313343328335833"/>
         </view>
     </objects>
+    <designables>
+        <designable name="WbA-2G-gXe">
+            <size key="intrinsicContentSize" width="36" height="38.5"/>
+        </designable>
+        <designable name="XFh-HH-sUX">
+            <size key="intrinsicContentSize" width="36" height="38.5"/>
+        </designable>
+        <designable name="mqy-lh-5zo">
+            <size key="intrinsicContentSize" width="36" height="38.5"/>
+        </designable>
+        <designable name="zHK-us-xbV">
+            <size key="intrinsicContentSize" width="46" height="18"/>
+        </designable>
+    </designables>
 </document>

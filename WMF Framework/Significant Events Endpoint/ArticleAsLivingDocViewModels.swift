@@ -659,7 +659,6 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     
     func articleInsertHtmlSnippet(isFirst: Bool = false, isLast: Bool = false, indexPath: IndexPath) -> String? {
         guard let timestampForDisplay = self.fullyRelativeTimestampForDisplay(),
-              let eventDescription = eventDescriptionHtmlSnippet(indexPath: indexPath),
               let userInfo = userInfoHtmlSnippet() else {
             return nil
         }
@@ -671,75 +670,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         return "<li id='\(liElementIdName)'><p class='significant-changes-timestamp'>\(timestampForDisplay)</p><p class='significant-changes-description'>\(eventDescription)</p><p class='significant-changes-userInfo'\(lastUserInfoIdAdditions)>\(userInfo)</p></li>"
     }
     
-    private func htmlSignificantEventsLinkOpeningTagForIndexPath(_ indexPath: IndexPath, loggingDescriptionType: ArticleAsLivingDocFunnel.ArticleContentInsertEventDescriptionType) -> String {
-        return "<a href='#significant-events-\(indexPath.item)-\(indexPath.section)-\(loggingDescriptionType.rawValue)'>"
-    }
-    
     private var htmlSignificantEventsLinkEndingTag: String {
         return "</a>"
-    }
-    
-    private func eventDescriptionHtmlSnippet(indexPath: IndexPath) -> String? {
-        
-        let sections = sectionsSet()
-        let sectionsHtml = localizedSectionHtmlSnippet(sectionsSet: sections)
-        
-        let eventDescription: String
-        switch typedEvent {
-        case .newTalkPageTopic:
-            let discussionText = htmlSignificantEventsLinkOpeningTagForIndexPath(indexPath, loggingDescriptionType: .discussion) + CommonStrings.newTalkTopicDiscussion + htmlSignificantEventsLinkEndingTag
-            eventDescription = String.localizedStringWithFormat(CommonStrings.newTalkTopicDescriptionFormat, discussionText)
-        case .vandalismRevert:
-            let event = htmlSignificantEventsLinkOpeningTagForIndexPath(indexPath, loggingDescriptionType: .vandalism) + CommonStrings.vandalismRevertDescription + htmlSignificantEventsLinkEndingTag
-            if let sectionsHtml = sectionsHtml {
-                eventDescription = event + sectionsHtml
-            } else {
-                eventDescription = event
-            }
-        case .large(let largeChange):
-            
-            guard let mergedDescription = mergedDescriptionForTypedChanges(largeChange.typedChanges, htmlInsertIndexPath: indexPath) else {
-                assertionFailure("This should not happen")
-                return nil
-            }
-            
-            if let sectionsHtml = sectionsHtml {
-                eventDescription = mergedDescription + sectionsHtml
-            } else {
-                eventDescription = mergedDescription
-            }
-            
-        case .small:
-            assertionFailure("This should not happen")
-            return nil
-        }
-        
-        return eventDescription
-    }
-    
-    private func mergedDescriptionForTypedChanges(_ changes: [SignificantEvents.TypedChange], htmlInsertIndexPath: IndexPath?) -> String? {
-        
-        let individualDescriptions = self.individualDescriptionsForTypedChanges(changes)
-        let sortedDescriptions = individualDescriptions.sorted { $0.priority < $1.priority }
-        
-        // Slightly different logic when creating this for the article content html insert.
-        // We need to wrap individual descriptions into links, and condense multiple changes into "Multiple changes made" link.
-        
-        if let htmlInsertIndexPath = htmlInsertIndexPath {
-            switch sortedDescriptions.count {
-            case 0:
-                assertionFailure("This should not happen")
-                return nil
-            case 1:
-                let description = sortedDescriptions[0].text
-                return htmlSignificantEventsLinkOpeningTagForIndexPath(htmlInsertIndexPath, loggingDescriptionType: .single) + description + htmlSignificantEventsLinkEndingTag
-            default:
-                return htmlSignificantEventsLinkOpeningTagForIndexPath(htmlInsertIndexPath, loggingDescriptionType: .multiple) + CommonStrings.multipleChangesMadeDescription + htmlSignificantEventsLinkEndingTag
-            }
-        }
-        
-        let mergedDescription = ListFormatter.localizedString(byJoining: sortedDescriptions.map { $0.text })
-        return mergedDescription.isEmpty ? nil : mergedDescription
     }
     
     // if trait collection or theme is different from the last time attributed strings were generated,
@@ -758,61 +690,6 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         lastTraitCollection = traitCollection
         lastTheme = theme
-    }
-    
-    func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
-        
-        if let eventDescription = eventDescription {
-            return eventDescription
-        }
-        
-        let sections = sectionsSet()
-        let sectionsAttributedString = localizedSectionAttributedString(sectionsSet: sections, traitCollection: traitCollection, theme: theme)
-        
-        let font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-        let attributes = [NSAttributedString.Key.font: font,
-                          NSAttributedString.Key.foregroundColor: theme.colors.primaryText]
-        
-        let eventDescriptionMutableAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: "")
-        switch typedEvent {
-        case .newTalkPageTopic:
-            let localizedString = String.localizedStringWithFormat(CommonStrings.newTalkTopicDescriptionFormat, CommonStrings.newTalkTopicDiscussion)
-            let eventAttributedString = NSAttributedString(string: localizedString, attributes: attributes)
-            eventDescriptionMutableAttributedString.append(eventAttributedString)
-            
-        case .vandalismRevert:
-            
-            let event = CommonStrings.vandalismRevertDescription
-            
-            let eventAttributedString = NSAttributedString(string: event, attributes: attributes)
-            eventDescriptionMutableAttributedString.append(eventAttributedString)
-        
-        case .large(let largeChange):
-            
-            guard let mergedDescription = mergedDescriptionForTypedChanges(largeChange.typedChanges, htmlInsertIndexPath: nil) else {
-                assertionFailure("This should not happen")
-                break
-            }
-            
-            let mergedDescriptionAttributedString = NSAttributedString(string: mergedDescription, attributes: attributes)
-            eventDescriptionMutableAttributedString.append(mergedDescriptionAttributedString)
-            
-        case .small:
-            assertionFailure("Unexpected timeline event type")
-            break
-        }
-        
-        if let sectionsAttributedString = sectionsAttributedString {
-            eventDescriptionMutableAttributedString.append(sectionsAttributedString)
-        }
-        
-        guard let finalEventAttributedString = eventDescriptionMutableAttributedString.copy() as? NSAttributedString else {
-            assertionFailure("This should not happen")
-            return nil
-        }
-        
-        eventDescription = finalEventAttributedString
-        return finalEventAttributedString
     }
     
     struct IndividualDescription {
