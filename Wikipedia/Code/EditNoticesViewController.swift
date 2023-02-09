@@ -4,7 +4,7 @@ protocol EditNoticesViewControllerDelegate: AnyObject {
     func editNoticesControllerUserTapped(url: URL)
 }
 
-class EditNoticesViewController: ViewController {
+class EditNoticesViewController: ThemeableViewController {
 
     // MARK: - Properties
 
@@ -20,7 +20,8 @@ class EditNoticesViewController: ViewController {
 
     init(theme: Theme, viewModel: EditNoticesViewModel) {
         self.viewModel = viewModel
-        super.init(theme: theme)
+        super.init(nibName: nil, bundle: nil)
+        self.theme = theme
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -30,9 +31,6 @@ class EditNoticesViewController: ViewController {
     override func loadView() {
         let editNoticesView = EditNoticesView(frame: UIScreen.main.bounds)
         view = editNoticesView
-        scrollView = editNoticesView.scrollView
-        scrollView?.automaticallyAdjustsScrollIndicatorInsets = false
-
         editNoticesView.configure(viewModel: viewModel, theme: theme)
 
         editNoticesView.doneButton.addTarget(self, action: #selector(dismissView), for: .primaryActionTriggered)
