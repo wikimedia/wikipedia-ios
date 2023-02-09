@@ -29,8 +29,6 @@ class SectionFetcher: Fetcher {
                     let expiry: String?
                 }
                 
-                let pageid: Int?
-                let ns: Int?
                 let title: String?
                 let revisions: [Revision]?
                 let protection: [Protection]?

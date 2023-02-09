@@ -23,8 +23,6 @@ public enum ArticleDescriptionSource: String {
 
         struct Query: Codable {
             struct Page: Codable {
-                let pageid: Int?
-                let ns: Int?
                 let title: String?
                 let actions: [String: [MediaWikiAPIError]]?
             }
