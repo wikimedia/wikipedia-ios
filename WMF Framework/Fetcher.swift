@@ -223,8 +223,8 @@ open class Fetcher: NSObject {
             // Replace encoded placeholders first, before replacing them with blocked text.
             templateHtml = templateHtml.replacingOccurrences(of: "%241", with: "$1")
             templateHtml = templateHtml.replacingOccurrences(of: "%242", with: "$2")
-            templateHtml = templateHtml.replacingOccurrences(of: "%243", with: "$3")
-            templateHtml = templateHtml.replacingOccurrences(of: "%244", with: "$4")
+            templateHtml = templateHtml.replacingOccurrences(of: "%243", with: "") // stripped out below
+            templateHtml = templateHtml.replacingOccurrences(of: "%244", with: "") // stripped out below
             templateHtml = templateHtml.replacingOccurrences(of: "%245", with: "$5")
             templateHtml = templateHtml.replacingOccurrences(of: "%246", with: "$6")
             templateHtml = templateHtml.replacingOccurrences(of: "%247", with: "$7")
@@ -238,8 +238,7 @@ open class Fetcher: NSObject {
             }
             
             templateHtml = templateHtml.replacingOccurrences(of: "$3", with: "") // IP Address
-            
-            // $4 not used
+            templateHtml = templateHtml.replacingOccurrences(of: "$4", with: "") // unknown parameter (unused?)
             
             templateHtml = templateHtml.replacingOccurrences(of: "$5", with: String(blockInfo.blockid))
             
