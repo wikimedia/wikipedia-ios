@@ -1,7 +1,7 @@
 import CocoaLumberjackSwift
 
 protocol SectionEditorViewControllerDelegate: AnyObject {
-    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController)
+    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController, navigateToURL: URL?)
     func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, result: Result<SectionEditorChanges, Error>)
     func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController)
 }
@@ -421,7 +421,7 @@ class SectionEditorViewController: ViewController {
     // MARK: - Accessibility
     
     override func accessibilityPerformEscape() -> Bool {
-        delegate?.sectionEditorDidCancelEditing(self)
+        delegate?.sectionEditorDidCancelEditing(self, navigateToURL: nil)
         return true
     }
     
@@ -476,10 +476,10 @@ class SectionEditorViewController: ViewController {
         messagingController.setAdjustedContentInset(newInset: newContentInset)
     }
 
-    fileprivate func showAlert() {
+    fileprivate func showDestructiveDismissAlert(navigateToURLOnCompletion url: URL? = nil) {
         let alert = UIAlertController(title: CommonStrings.editorExitConfirmationTitle, message: CommonStrings.editorExitConfirmationBody, preferredStyle: .alert)
         let confirmClose = UIAlertAction(title: CommonStrings.discardEditsActionTitle, style: .destructive) { _ in
-            self.closeEditor()
+            self.closeEditor(navigateToURL: url)
         }
         alert.addAction(confirmClose)
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .default)
@@ -487,8 +487,8 @@ class SectionEditorViewController: ViewController {
         present(alert, animated: true)
     }
 
-    fileprivate func closeEditor() {
-        delegate?.sectionEditorDidCancelEditing(self)
+    fileprivate func closeEditor(navigateToURL url: URL? = nil) {
+        delegate?.sectionEditorDidCancelEditing(self, navigateToURL: url)
     }
 }
 
@@ -525,7 +525,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
         if navigationItemController.progressButton.isEnabled && navigationItemController.undoButton.isEnabled {
-            showAlert()
+            showDestructiveDismissAlert()
         } else {
             closeEditor()
         }
@@ -826,12 +826,7 @@ extension SectionEditorViewController: EditingFlowViewController {
 extension SectionEditorViewController: EditNoticesViewControllerDelegate {
 
     func editNoticesControllerUserTapped(url: URL) {
-        showAlert()
-
-
-        dismiss(animated: true) { [weak self] in
-            self?.navigate(to: url)
-        }
+        showDestructiveDismissAlert(navigateToURLOnCompletion: url)
     }
 
 }

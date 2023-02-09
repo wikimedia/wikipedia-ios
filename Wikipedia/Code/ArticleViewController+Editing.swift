@@ -195,8 +195,10 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
         }
     }
     
-    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController) {
-        dismiss(animated: true)
+    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController, navigateToURL url: URL?) {
+        dismiss(animated: true) {
+            self.navigate(to: url)
+        }
     }
 
     func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController) {
