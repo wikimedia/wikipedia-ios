@@ -156,6 +156,14 @@ final class EditNoticesView: SetupView {
         return textView
     }()
 
+    // MARK: - Private Properties
+
+    private var doneButtonTrailingConstraint: NSLayoutConstraint!
+
+    private var doneButtonTrailingMargin: CGFloat {
+        return traitCollection.verticalSizeClass == .compact ? -20 : -8
+    }
+
     // MARK: - Override
 
     override func setup() {
@@ -163,6 +171,7 @@ final class EditNoticesView: SetupView {
 
         addSubview(doneContainer)
         doneContainer.addSubview(doneButton)
+        doneButtonTrailingConstraint = doneButton.trailingAnchor.constraint(equalTo: doneContainer.readableContentGuide.trailingAnchor, constant: doneButtonTrailingMargin)
 
         // Primary content container, scrollable
 
@@ -192,7 +201,7 @@ final class EditNoticesView: SetupView {
             doneContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
             doneContainer.bottomAnchor.constraint(equalTo: contentContainer.topAnchor),
 
-            doneButton.trailingAnchor.constraint(equalTo: doneContainer.trailingAnchor, constant: -16),
+            doneButtonTrailingConstraint,
             doneButton.topAnchor.constraint(equalTo: doneContainer.topAnchor, constant: 16),
             doneButton.bottomAnchor.constraint(equalTo: doneContainer.bottomAnchor, constant: -5),
 
@@ -221,6 +230,15 @@ final class EditNoticesView: SetupView {
             footerStack.bottomAnchor.constraint(equalTo: footerContainer.readableContentGuide.bottomAnchor)
         ])
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        doneButtonTrailingConstraint.constant = doneButtonTrailingMargin
+        doneContainer.setNeedsLayout()
+    }
+
+    // MARK: - Public
 
     func configure(viewModel: EditNoticesViewModel, theme: Theme) {
         let attributedNoticeString = NSMutableAttributedString()
