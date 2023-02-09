@@ -157,7 +157,7 @@ open class Fetcher: NSObject {
     public func resolveMediaWikiBlockedError(from apiErrors: [MediaWikiAPIError], siteURL: URL, completion: @escaping (MediaWikiAPIBlockedDisplayError?) -> Void) {
         
         let blockedApiErrors = apiErrors.filter { $0.code.contains("block") }
-        let firstApiErrorWithInfo = blockedApiErrors.first(where: { $0.data?.blockinfo != nil })
+        let firstApiErrorWithInfo = blockedApiErrors.first(where: { $0.data?.blockInfo != nil })
         let fallbackApiError = blockedApiErrors.first(where: { !$0.html.isEmpty })
         
         let fallbackCompletion: () -> Void = {
@@ -172,7 +172,7 @@ open class Fetcher: NSObject {
         }
         
         guard let blockedApiError = firstApiErrorWithInfo,
-        let blockedApiInfo = blockedApiError.data?.blockinfo else {
+        let blockedApiInfo = blockedApiError.data?.blockInfo else {
             
             fallbackCompletion()
             return
@@ -199,13 +199,13 @@ open class Fetcher: NSObject {
         var templateSiteURL: URL?
         
         group.enter()
-        parseBlockReason(siteURL: siteURL, blockReason: blockInfo.blockreason) { text in
+        parseBlockReason(siteURL: siteURL, blockReason: blockInfo.blockReason) { text in
             blockReasonHtml = text
             group.leave()
         }
         
         group.enter()
-        fetchBlockedTextTemplate(isPartial: blockInfo.blockpartial, siteURL: siteURL) { text, siteURL in
+        fetchBlockedTextTemplate(isPartial: blockInfo.blockPartial, siteURL: siteURL) { text, siteURL in
             templateHtml = text
             templateSiteURL = siteURL
             group.leave()
@@ -231,7 +231,7 @@ open class Fetcher: NSObject {
             templateHtml = templateHtml.replacingOccurrences(of: "%248", with: "$8")
             
             // Replace placeholders with blocked text
-            templateHtml = templateHtml.replacingOccurrences(of: "$1", with: blockInfo.blockedby)
+            templateHtml = templateHtml.replacingOccurrences(of: "$1", with: blockInfo.blockedBy)
             
             if let blockReasonHtml {
                 templateHtml = templateHtml.replacingOccurrences(of: "$2", with: blockReasonHtml)
@@ -240,15 +240,15 @@ open class Fetcher: NSObject {
             templateHtml = templateHtml.replacingOccurrences(of: "$3", with: "") // IP Address
             templateHtml = templateHtml.replacingOccurrences(of: "$4", with: "") // unknown parameter (unused?)
             
-            templateHtml = templateHtml.replacingOccurrences(of: "$5", with: String(blockInfo.blockid))
+            templateHtml = templateHtml.replacingOccurrences(of: "$5", with: String(blockInfo.blockID))
             
-            let blockExpiryDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockexpiry, siteURL: linkBaseURL)
+            let blockExpiryDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockExpiry, siteURL: linkBaseURL)
             templateHtml = templateHtml.replacingOccurrences(of: "$6", with: blockExpiryDisplayDate)
             
             let username = MWKDataStore.shared().authenticationManager.loggedInUsername ?? ""
             templateHtml = templateHtml.replacingOccurrences(of: "$7", with: username)
 
-            let blockedTimestampDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockedtimestamp, siteURL: linkBaseURL)
+            let blockedTimestampDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockedTimestamp, siteURL: linkBaseURL)
             templateHtml = templateHtml.replacingOccurrences(of: "$8", with: blockedTimestampDisplayDate)
             
             let displayError = MediaWikiAPIBlockedDisplayError(messageHtml: templateHtml, linkBaseURL: linkBaseURL, code: code)

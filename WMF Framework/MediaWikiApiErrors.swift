@@ -26,12 +26,21 @@ public struct MediaWikiAPIError: Codable {
  
     public struct Data: Codable {
         public struct BlockInfo: Codable {
-            let blockreason: String
-            let blockpartial: Bool
-            let blockedby: String
-            let blockid: Int64
-            let blockexpiry: String
-            let blockedtimestamp: String
+            let blockReason: String
+            let blockPartial: Bool
+            let blockedBy: String
+            let blockID: Int64
+            let blockExpiry: String
+            let blockedTimestamp: String
+            
+            enum CodingKeys: String, CodingKey {
+                case blockReason = "blockreason"
+                case blockPartial = "blockpartial"
+                case blockedBy = "blockedby"
+                case blockID = "blockid"
+                case blockExpiry = "blockexpiry"
+                case blockedTimestamp = "blockedtimestamp"
+            }
             
             init?(dict: [String: Any]) {
                 
@@ -44,25 +53,29 @@ public struct MediaWikiAPIError: Codable {
                     return nil
                 }
                 
-                self.blockreason = blockReason
-                self.blockpartial = blockPartial
-                self.blockedby = blockedBy
-                self.blockid = blockID
-                self.blockexpiry = blockExpiry
-                self.blockedtimestamp = blockedTimestamp
+                self.blockReason = blockReason
+                self.blockPartial = blockPartial
+                self.blockedBy = blockedBy
+                self.blockID = blockID
+                self.blockExpiry = blockExpiry
+                self.blockedTimestamp = blockedTimestamp
             }
         }
         
-        let blockinfo: BlockInfo?
+        let blockInfo: BlockInfo?
+        
+        enum CodingKeys: String, CodingKey {
+            case blockInfo = "blockinfo"
+        }
         
         init?(dict: [String: Any]) {
             
             guard let blockInfoDict = dict["blockinfo"] as? [String: Any] else {
-                self.blockinfo = nil
+                self.blockInfo = nil
                 return
             }
             
-            self.blockinfo = BlockInfo(dict: blockInfoDict)
+            self.blockInfo = BlockInfo(dict: blockInfoDict)
         }
     }
     
