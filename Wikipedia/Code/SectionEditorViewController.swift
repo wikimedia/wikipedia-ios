@@ -389,8 +389,8 @@ class SectionEditorViewController: ViewController {
                 case .failure(let error):
                     self.didFocusWebViewCompletion = {
                         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
-                        self.initialFetchGroup.leave()
                     }
+                    self.initialFetchGroup.leave()
                 case .success(let response):
                     self.wikitext = response.wikitext
                     self.handle(protection: response.protection)
@@ -826,6 +826,9 @@ extension SectionEditorViewController: EditingFlowViewController {
 extension SectionEditorViewController: EditNoticesViewControllerDelegate {
 
     func editNoticesControllerUserTapped(url: URL) {
+        showAlert()
+
+
         dismiss(animated: true) { [weak self] in
             self?.navigate(to: url)
         }
