@@ -2,6 +2,16 @@ import UIKit
 import WMF
 import SwiftUI
 
+extension Notification.Name {
+    static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
+    static let showErrorBannerNSErrorKey = "nserror"
+}
+
+@objc extension NSNotification {
+    public static let showErrorBanner = Notification.Name.showErrorBanner
+    static let showErrorBannerNSErrorKey = Notification.Name.showErrorBannerNSErrorKey
+}
+
 extension WMFAppViewController {
 
     // MARK: - Language Variant Migration Alerts

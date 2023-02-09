@@ -80,10 +80,6 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
             return
         }
         
-        if let loggingPosition = smallEvent?.loggingPosition {
-            ArticleAsLivingDocFunnel.shared.logModalSmallEventsLinkTapped(position: loggingPosition)
-        }
-        
         let diffType: DiffContainerViewModel.DiffType = (smallEvent?.smallChanges.count ?? 0) > 1 ? .compare : .single
         
         delegate?.goToDiff(revisionId: revisionID, parentId: parentId, diffType: diffType)
