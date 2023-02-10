@@ -71,6 +71,7 @@ class SectionEditorViewController: ViewController {
     private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
 
     private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
+    private var lastBlockedDisplayError: MediaWikiAPIBlockedDisplayError?
     
     init(articleURL: URL, sectionID: Int, messagingController: SectionEditorWebViewMessagingController? = nil, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo? = nil, theme: Theme = Theme.standard) {
         self.articleURL = articleURL
@@ -149,7 +150,7 @@ class SectionEditorViewController: ViewController {
     }
 
     private func presentEditNoticesIfNecessary() {
-        guard UserDefaults.standard.wmf_alwaysDisplayEditNotices else {
+        guard UserDefaults.standard.wmf_alwaysDisplayEditNotices && lastBlockedDisplayError == nil else {
             return
         }
 
@@ -427,13 +428,16 @@ class SectionEditorViewController: ViewController {
                 case .success(let response):
                     self.wikitext = response.wikitext
                     self.handle(protection: response.protection)
-                    self.initialFetchGroup.leave()
                     
                     if let blockedError = response.blockedError {
+                        self.lastBlockedDisplayError = blockedError
                         completion(blockedError)
                     } else {
+                        self.lastBlockedDisplayError = nil
                         completion(nil)
                     }
+                    
+                    self.initialFetchGroup.leave()
                 }
             }
         }
