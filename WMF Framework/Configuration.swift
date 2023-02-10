@@ -166,6 +166,7 @@ public class Configuration: NSObject {
         public static let appsLabs = "mobileapps.wmflabs.org" // Product Infrastructure team's labs instance
         public static let localhost = "localhost"
         public static let englishWikipedia = "en.wikipedia.org"
+        public static let testWikipedia = "test.wikipedia.org"
         public static let wikimedia = "wikimedia.org"
         public static let metaWiki = "meta.wikimedia.org"
         public static let wikimediafoundation = "wikimediafoundation.org"

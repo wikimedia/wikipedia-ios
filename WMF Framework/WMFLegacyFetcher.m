@@ -60,6 +60,10 @@
     return [self.fetcher performMediaWikiAPIGETForURLRequest:urlRequest cancellationKey:cancellationKey completionHandler:completionHandler];
 }
 
+- (void)resolveMediaWikiApiBlockErrorFromResult: (NSDictionary<NSString *, id> *)result siteURL:(NSURL *)siteURL completionHandler:(void (^)(MediaWikiAPIBlockedDisplayError * blockedDisplayError)) completionHandler {
+    [self.fetcher resolveMediaWikiApiBlockErrorFromResult:result siteURL:siteURL completionHandler:completionHandler];
+}
+
 - (void)cancelAllFetches {
     [self.fetcher cancelAllTasks];
 }

@@ -59,6 +59,7 @@ public class Router: NSObject {
         let namespaceAndTitle = path.namespaceAndTitleOfWikiResourcePath(with: language)
         let namespace = namespaceAndTitle.0
         let title = namespaceAndTitle.1
+        
         switch namespace {
         case .talk:
             if FeatureFlags.needsNewTalkPage && project.supportsNativeUserTalkPages {
@@ -69,6 +70,22 @@ public class Router: NSObject {
         case .userTalk:
             return project.supportsNativeUserTalkPages ? .userTalk(url) : nil
         case .special:
+            
+            // TODO: Fix to work across languages, not just EN. Fetch special page aliases per site and add to a set of local json files.
+            // https://en.wikipedia.org/w/api.php?action=query&format=json&meta=siteinfo&formatversion=2&siprop=specialpagealiases
+            if language.uppercased() == "EN" || language.uppercased() == "TEST",
+                title == "MyTalk",
+               let username = MWKDataStore.shared().authenticationManager.loggedInUsername,
+               let newURL = url.wmf_URL(withTitle: "User_talk:\(username)") {
+                return .userTalk(newURL)
+            }
+            
+            if language.uppercased() == "EN" || language.uppercased() == "TEST",
+                title == "MyContributions",
+               let username = MWKDataStore.shared().authenticationManager.loggedInUsername,
+               let newURL = url.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) {
+                return .inAppLink(newURL)
+            }
             
             if title == "ReadingLists",
                let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
