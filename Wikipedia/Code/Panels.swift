@@ -169,6 +169,38 @@ class EnableReadingListSyncPanelViewController : ScrollableEducationPanelViewCon
     }
 }
 
+class BlockedPanelViewController : ScrollableEducationPanelViewController {
+    
+    private let messageHtml: String
+    
+    init(messageHtml: String, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, subheadingLinkAction: ((URL) -> Void)?, theme: Theme) {
+        self.messageHtml = messageHtml
+        super.init(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, traceableDismissHandler: nil, theme: theme)
+        self.subheadingLinkAction = subheadingLinkAction
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "error-icon-large")
+        subheadingHTML = messageHtml
+        primaryButtonTitle = CommonStrings.okTitle
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        evaluateConstraintsOnNewSize(view.frame.size)
+    }
+
+    private func evaluateConstraintsOnNewSize(_ size: CGSize) {
+        width = size.width * 0.9
+    }
+}
+
 class AddSavedArticlesToReadingListPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -469,6 +501,33 @@ extension UIViewController {
         , traceableDismissHandler: { lastAction in
             traceableDismissHandler?(lastAction)
         }, theme: theme)
+        present(panel, animated: true)
+    }
+    
+    /// Displays a blocked panel message, for use with fully resolved MediaWiki API blocked errors.
+    /// - Parameters:
+    ///   - messageHtml: Fully resolved message HTML to display
+    ///   - linkBaseURL: base URL that relative links within messageHtml will reference
+    ///   - currentTitle: Wiki title representing the article the user is currently working against. Used to help resolve relative links against.
+    ///   - theme: initial theme for panel.
+    func wmf_showBlockedPanel(messageHtml: String, linkBaseURL: URL, currentTitle: String, theme: Theme) {
+        
+        let panel = BlockedPanelViewController(messageHtml: messageHtml, primaryButtonTapHandler: { [weak self] sender in
+            self?.dismiss(animated: true)
+        }, subheadingLinkAction: { [weak self] url in
+
+            guard let baseURL = linkBaseURL.wmf_URL(withTitle: currentTitle) else {
+                return
+            }
+
+            let fullURL = baseURL.resolvingRelativeWikiHref(url.relativeString)
+
+            self?.presentingViewController?.dismiss(animated: true) {
+                self?.navigate(to: fullURL)
+            }
+
+        }, theme: theme)
+        
         present(panel, animated: true)
     }
     
