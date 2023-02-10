@@ -405,7 +405,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
 }
 
 extension SectionEditorFindAndReplaceTests: SectionEditorViewControllerDelegate {
-    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController) {
+    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController, navigateToURL: URL?) {
         // no-op
     }
     
