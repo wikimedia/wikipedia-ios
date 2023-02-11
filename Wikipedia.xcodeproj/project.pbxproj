@@ -7401,6 +7401,13 @@
 			name = UITextView;
 			sourceTree = "<group>";
 		};
+		679DF5252998215300714376 /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ci_scripts;
+			sourceTree = "<group>";
+		};
 		679FA102242E64FC0095F3C6 /* Article Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -9076,6 +9083,7 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
+				679DF5252998215300714376 /* ci_scripts */,
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				D801C8501EB8E131001FA294 /* Localizations */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
