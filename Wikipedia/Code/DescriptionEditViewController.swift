@@ -61,7 +61,8 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         apply(theme: theme)
         
         isPlaceholderLabelHidden = false
-        articleDescriptionController.currentDescription { [weak self] (description) in
+        hideAllWarningLabels()
+        articleDescriptionController.currentDescription { [weak self] (description, blockedError) in
 
             guard let self = self else {
                 return
@@ -76,7 +77,11 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
 
             self.isPlaceholderLabelHidden = self.shouldHidePlaceholder()
             self.updateWarningLabels()
-
+            
+            if let blockedError {
+                self.disableTextFieldAndPublish()
+                self.presentBlockedPanel(blockedError: blockedError)
+            }
         }
         
         descriptionTextView.textContainer.lineFragmentPadding = 0
@@ -231,8 +236,14 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 return
         }
         
-        articleDescriptionController.publishDescription(descriptionToSave) { (result) in
+        articleDescriptionController.publishDescription(descriptionToSave) { [weak self] (result) in
+            
             DispatchQueue.main.async {
+
+                guard let self else {
+                    return
+                }
+
                 let presentingVC = self.presentingViewController
                 self.enableProgressiveButton(true)
                 switch result {
@@ -244,12 +255,58 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                         NotificationCenter.default.post(name: DescriptionEditViewController.didPublishNotification, object: nil)
                     }
                 case .failure(let error):
-                    let errorText = self.articleDescriptionController.errorTextFromError(error)
-                    self.editFunnel?.logTitleDescriptionSaveError(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: self.articleDescriptionController.articleLanguageCode, errorText: errorText)
-                    WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+
+                    let nsError = error as NSError
+                    let errorCode = self.articleDescriptionController.errorCodeFromError(nsError)
+                    self.editFunnel?.logTitleDescriptionSaveError(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: self.articleDescriptionController.articleLanguageCode, errorText: errorCode)
+
+                    if let wikidataError = error as? WikidataFetcher.WikidataPublishingError {
+                        switch wikidataError {
+                        case .apiBlocked(let blockedError):
+                            self.presentBlockedPanel(blockedError: blockedError)
+                            return
+                        default:
+                            break
+                        }
+                    }
+
+                    let errorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
+                    switch errorType {
+                    case .blocked:
+                        self.presentBlockedPanelFromError(nsError)
+                        return
+                    default:
+                        break
+                    }
+                    
+                    WMFAlertManager.sharedInstance.showErrorAlert(nsError as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                 }
             }
         }
+    }
+    
+    private func presentBlockedPanelFromError(_ nsError: NSError) {
+        guard let blockedError = nsError.userInfo[NSErrorUserInfoBlockedDisplayError] as? MediaWikiAPIBlockedDisplayError else {
+            return
+        }
+        
+        presentBlockedPanel(blockedError: blockedError)
+    }
+    
+    private func presentBlockedPanel(blockedError: MediaWikiAPIBlockedDisplayError) {
+        
+        guard let currentTitle = self.articleDescriptionController?.articleDisplayTitle else {
+            return
+        }
+        
+        wmf_showBlockedPanel(messageHtml: blockedError.messageHtml, linkBaseURL: blockedError.linkBaseURL, currentTitle: currentTitle, theme: theme)
+        
+    }
+    
+    private func hideAllWarningLabels() {
+        warningCharacterCountLabel.isHidden = true
+        lengthWarningLabel.isHidden = true
+        casingWarningLabel.isHidden = true
     }
     
     private func updateWarningLabels() {
@@ -261,6 +318,11 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         warningCharacterCountLabel.textColor = warningTypes.contains(.length) ? theme.colors.descriptionWarning : theme.colors.secondaryText
         lengthWarningLabel.isHidden = !warningTypes.contains(.length)
         casingWarningLabel.isHidden = !warningTypes.contains(.casing)
+    }
+    
+    private func disableTextFieldAndPublish() {
+        self.descriptionTextView.isEditable = false
+        self.publishDescriptionButton.isEnabled = false
     }
     
     public func textViewDidChange(_ textView: UITextView) {
