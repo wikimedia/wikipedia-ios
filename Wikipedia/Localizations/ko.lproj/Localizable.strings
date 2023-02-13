@@ -114,6 +114,7 @@
 "account-creation-saving" = "저장 중...";
 "account-creation-title" = "새 계정 만들기";
 "account-group-title" = "내 계정";
+"account-request-vanishing" = "계정 지우기";
 "account-talk-page-title" = "내 사용자토론";
 "account-talk-preferences-auto-sign-discussions" = "토론 자동 서명";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "토론 자동 서명은 서명 설정에 정의된 서명을 사용합니다";
@@ -292,6 +293,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "선택한 텍스트를 찾을 수 없습니다";
 "edit-minor-learn-more-text" = "사소한 편집에 대해 더 알아보기";
 "edit-minor-text" = "사소한 편집입니다";
+"edit-notices" = "편집 알림";
+"edit-notices-always-display" = "항상 편집 알림 표시";
+"edit-notices-please-read" = "편집하기 전에 읽어 주십시오";
 "edit-ordered-list-accessibility-label" = "현재 줄을 순서 리스트로 만들기";
 "edit-ordered-list-remove-accessibility-label" = "현재 줄에서 순서 리스트 제거";
 "edit-published" = "편집이 게시됐습니다";
@@ -440,6 +444,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 위키백과에서";
 "explore-random-article-sub-heading-from-wikipedia" = "위키백과에서";
 "explore-randomizer" = "임의의 문서 보기";
+"export-user-data-confirmation-message" = "앱 라이브러리 공유에는 귀하의 읽기 목록 및 기록, 환경설정 및 탐색 피드 내용에 대한 데이터가 포함됩니다. 이 데이터 파일은 기술 진단 목적으로 신뢰할 수 있는 수신자와만 공유해야 합니다.";
 "export-user-data-confirmation-title" = "앱 라이브러리를 공유하시겠습니까?";
 "export-user-data-generic-error" = "데이터를 내보내는 동안 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
 "export-user-data-space-error" = "사용자 데이터를 내보낼 장치 공간이 부족합니다. 나중에 다시 시도해 주십시오.";
@@ -511,6 +516,7 @@
 "import-shared-reading-list-default-title" = "내 읽기 목록";
 "import-shared-reading-list-survey-prompt-button-cancel" = "지금은 괜찮습니다";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "설문 조사에 참가하기";
+"import-shared-reading-list-survey-prompt-footer" = "저희의 $1개인정보 정책$2을 확인하세요. 설문조사는 제3자가 제공합니다. 제3자의 $3개인정보 정책$4을 확인하세요.";
 "import-shared-reading-list-survey-prompt-title" = "\"읽기 목록 공유\" 개선에 도움을 주시겠습니까?";
 "import-shared-reading-list-title" = "공유된 읽기 목록 가져오기";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 위키백과에서";
@@ -1044,6 +1050,7 @@
 "talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1개 답변}}";
 "talk-page-reply-button" = "답변";
 "talk-page-reply-button-accessibility-label" = "$1님에게 답변하기";
+"talk-page-reply-depth-accessibility-label" = "답변 깊이: $1";
 "talk-page-reply-placeholder-format" = "$1님에게 답변하기";
 "talk-page-reply-title" = "답장";
 "talk-page-revision-history" = "편집 역사";
@@ -1063,6 +1070,8 @@
 "talk-page-unsubscription-failed-alert" = "주제의 구독을 해지하지 못했습니다. 다시 시도해 주십시오.";
 "talk-page-user-about" = "사용자 토론 페이지 정보";
 "talk-page-user-contributions" = "기여";
+"talk-pages-archives-empty-title" = "보존된 문서가 없습니다.";
+"talk-pages-archives-view-title" = "보존";
 "talk-pages-coffee-roll-read-more" = "더 읽어보기";
 "talk-pages-comment-added-alert-title" = "댓글이 추가되었습니다";
 "talk-pages-compose-close-confirmation-keep" = "편집 계속";

@@ -9,12 +9,13 @@ class SectionFetcher: Fetcher {
             struct Page: Codable {
                 struct Revision: Codable {
                     struct Slot: Codable {
-                        let contentmodel: String?
-                        let contentformat: String?
+                        let contentModel: String?
+                        let contentFormat: String?
                         let content: String?
+                        
                         enum CodingKeys: String, CodingKey {
-                            case contentmodel
-                            case contentformat
+                            case contentModel = "contentmodel"
+                            case contentFormat = "contentformat"
                             case content
                         }
                     }
@@ -29,13 +30,19 @@ class SectionFetcher: Fetcher {
                     let expiry: String?
                 }
                 
-                let pageid: Int?
-                let ns: Int?
                 let title: String?
                 let revisions: [Revision]?
                 let protection: [Protection]?
-                let restrictiontypes: [String]?
+                let restrictionTypes: [String]?
                 let actions: [String: [MediaWikiAPIError]]?
+                
+                enum CodingKeys: String, CodingKey {
+                    case title
+                    case revisions
+                    case protection
+                    case restrictionTypes = "restrictiontypes"
+                    case actions
+                }
             }
             
             let pages: [Page]?

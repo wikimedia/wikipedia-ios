@@ -2,7 +2,7 @@ import CocoaLumberjackSwift
 import WMF
 
 protocol SectionEditorViewControllerDelegate: AnyObject {
-    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController)
+    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController, navigateToURL: URL?)
     func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, result: Result<SectionEditorChanges, Error>)
     func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController)
 }
@@ -21,7 +21,11 @@ class SectionEditorViewController: ViewController {
     private var dataStore: MWKDataStore
 
     private var webView: SectionEditorWebView?
+    private let initialFetchGroup: WMFTaskGroup = WMFTaskGroup()
+    
     private let sectionFetcher: SectionFetcher
+    private let editNoticesFetcher: EditNoticesFetcher
+    private var editNoticesViewModel: EditNoticesViewModel? = nil
     
     private var inputViewsController: SectionEditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
@@ -67,6 +71,7 @@ class SectionEditorViewController: ViewController {
     private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
 
     private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
+    private var lastBlockedDisplayError: MediaWikiAPIBlockedDisplayError?
     
     init(articleURL: URL, sectionID: Int, messagingController: SectionEditorWebViewMessagingController? = nil, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo? = nil, theme: Theme = Theme.standard) {
         self.articleURL = articleURL
@@ -76,6 +81,7 @@ class SectionEditorViewController: ViewController {
         self.messagingController = messagingController ?? SectionEditorWebViewMessagingController()
         languageCode = articleURL.wmf_languageCode ?? NSLocale.current.languageCode ?? "en"
         self.sectionFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        self.editNoticesFetcher = EditNoticesFetcher(session: dataStore.session, configuration: dataStore.configuration)
         super.init(theme: theme)
     }
     
@@ -88,6 +94,7 @@ class SectionEditorViewController: ViewController {
         navigationItemController = SectionEditorNavigationItemController(navigationItem: navigationItem)
         navigationItemController.delegate = self
         
+        loadEditNotices()
         loadWikitext { [weak self] blockedError in
             
             guard let self else {
@@ -120,7 +127,13 @@ class SectionEditorViewController: ViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        selectLastSelectionIfNeeded()
+
+        initialFetchGroup.waitInBackground {
+            self.presentEditNoticesIfNecessary()
+            self.selectLastSelectionIfNeeded()
+
+        }
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -134,6 +147,24 @@ class SectionEditorViewController: ViewController {
     
     @objc func keyboardDidHide() {
         inputViewsController.resetFormattingAndStyleSubmenus()
+    }
+
+    private func presentEditNoticesIfNecessary() {
+        guard UserDefaults.standard.wmf_alwaysDisplayEditNotices && lastBlockedDisplayError == nil else {
+            return
+        }
+
+        presentEditNoticesIfAvailable()
+    }
+
+    private func presentEditNoticesIfAvailable() {
+        guard let editNoticesViewModel = self.editNoticesViewModel else {
+            return
+        }
+
+        let editNoticesViewController = EditNoticesViewController(theme: self.theme, viewModel: editNoticesViewModel)
+        editNoticesViewController.delegate = self
+        present(editNoticesViewController, animated: true)
     }
     
     private func setupFocusNavigationView() {
@@ -351,8 +382,26 @@ class SectionEditorViewController: ViewController {
     func setWikitextToWebView(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
         messagingController.setWikitext(wikitext, completionHandler: completionHandler)
     }
+    
+    private func loadEditNotices() {
+        initialFetchGroup.enter()
+        editNoticesFetcher.fetchNotices(for: articleURL) { (result) in
+            if case let .success(notices) = result, !notices.isEmpty, let siteURL = self.articleURL.wmf_site {
+                self.editNoticesViewModel = EditNoticesViewModel(siteURL: siteURL, notices: notices)
 
-    private func loadWikitext(completion: @escaping (MediaWikiAPIDisplayError?) -> Void) {
+                DispatchQueue.main.async {
+                    self.navigationItemController.addEditNoticesButton()
+                    self.navigationItemController.apply(theme: self.theme)
+                }
+            }
+
+            self.initialFetchGroup.leave()
+        }
+    }
+
+    private func loadWikitext(completion: @escaping (MediaWikiAPIBlockedDisplayError?) -> Void) {
+
+        initialFetchGroup.enter()
         let isShowingStatusMessage = shouldFocusWebView
         if isShowingStatusMessage {
             let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
@@ -373,16 +422,22 @@ class SectionEditorViewController: ViewController {
                     self.didFocusWebViewCompletion = {
                         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
                     }
+                    
+                    self.initialFetchGroup.leave()
                     completion(nil)
                 case .success(let response):
                     self.wikitext = response.wikitext
                     self.handle(protection: response.protection)
                     
                     if let blockedError = response.blockedError {
+                        self.lastBlockedDisplayError = blockedError
                         completion(blockedError)
                     } else {
+                        self.lastBlockedDisplayError = nil
                         completion(nil)
                     }
+                    
+                    self.initialFetchGroup.leave()
                 }
             }
         }
@@ -418,7 +473,7 @@ class SectionEditorViewController: ViewController {
     // MARK: - Accessibility
     
     override func accessibilityPerformEscape() -> Bool {
-        delegate?.sectionEditorDidCancelEditing(self)
+        delegate?.sectionEditorDidCancelEditing(self, navigateToURL: nil)
         return true
     }
     
@@ -476,12 +531,26 @@ class SectionEditorViewController: ViewController {
         previousContentInset = newContentInset
         messagingController.setAdjustedContentInset(newInset: newContentInset)
     }
+
+    fileprivate func showDestructiveDismissAlert(navigateToURLOnCompletion url: URL? = nil) {
+        let alert = UIAlertController(title: CommonStrings.editorExitConfirmationTitle, message: CommonStrings.editorExitConfirmationBody, preferredStyle: .alert)
+        let confirmClose = UIAlertAction(title: CommonStrings.discardEditsActionTitle, style: .destructive) { _ in
+            self.closeEditor(navigateToURL: url)
+        }
+        alert.addAction(confirmClose)
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .default)
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
+
+    fileprivate func closeEditor(navigateToURL url: URL? = nil) {
+        delegate?.sectionEditorDidCancelEditing(self, navigateToURL: url)
+    }
 }
 
 extension SectionEditorViewController: SectionEditorNavigationItemControllerDelegate {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
         messagingController.getWikitext { [weak self] (result, error) in
-            
             guard let self = self else { return }
             self.webView?.resignFirstResponder()
             
@@ -511,7 +580,11 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
-        delegate?.sectionEditorDidCancelEditing(self)
+        if navigationItemController.progressButton.isEnabled && navigationItemController.undoButton.isEnabled {
+            showDestructiveDismissAlert()
+        } else {
+            closeEditor()
+        }
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
@@ -520,6 +593,10 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
         messagingController.redo()
+    }
+
+    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem) {
+        presentEditNoticesIfAvailable()
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
@@ -800,6 +877,14 @@ extension SectionEditorViewController: InsertMediaViewControllerDelegate {
 
 extension SectionEditorViewController: EditingFlowViewController {
     
+}
+
+extension SectionEditorViewController: EditNoticesViewControllerDelegate {
+
+    func editNoticesControllerUserTapped(url: URL) {
+        showDestructiveDismissAlert(navigateToURLOnCompletion: url)
+    }
+
 }
 
 #if (TEST)

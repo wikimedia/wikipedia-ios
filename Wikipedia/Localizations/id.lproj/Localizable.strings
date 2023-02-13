@@ -23,6 +23,7 @@
 // Author: Kenrick95
 // Author: Macofe
 // Author: Mas ady
+// Author: Mnam23
 // Author: Naufal06
 // Author: Nemo bis
 // Author: Polos
@@ -114,6 +115,7 @@
 "account-creation-saving" = "Sedang menyimpan...";
 "account-creation-title" = "Buat akun baru";
 "account-group-title" = "Akun Anda";
+"account-request-vanishing" = "Hilangkan akun";
 "account-talk-page-title" = "Halaman pembicaraan Anda";
 "account-talk-preferences-auto-sign-discussions" = "Otomatis tanda tangani diskusi";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Tanda tangan otomatis diskusi akan menggunakan tanda tangan yang didefinisikan dalam setting Tanda Tangan";
@@ -509,8 +511,13 @@
 "icon-shortcut-random-title" = "Artikel acak";
 "icon-shortcut-search-title" = "Telusuri Wikipedia";
 "image-gallery-unknown-owner" = "Pembuat tidak diketahui.";
+"import-shared-reading-list-default-title" = "Daftar Bacaan Saya";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Nanti";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Ikuti survei";
+"import-shared-reading-list-survey-prompt-footer" = "Lihat $1 pernyataan privasi $2 kami. Survei didukung oleh pihak ketiga. Lihat $3kebijakan privasi$4 mereka.";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Bagikan daftar bacaan\" adalah fitur pengujian dan kami membutuhkan umpan balik Anda untuk meningkatkan atau menghapusnya.";
+"import-shared-reading-list-survey-prompt-title" = "Bisakah Anda membantu kami meningkatkan \"Bagikan daftar bacaan\"?";
+"import-shared-reading-list-title" = "Impor daftar bacaan bersama";
 "in-the-news-sub-title-from-language-wikipedia" = "Dari Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Dari Wikipedia";
 "in-the-news-title" = "Peristiwa terkini";
@@ -758,6 +765,8 @@
 "page-similar-titles" = "Halaman yang serupa";
 "panel-compare-revisions-text" = "Membandingkan revisi membantu menunjukkan bagaimana artikel telah berubah dari waktu ke waktu. Membandingkan dua revisi artikel akan menunjukkan perbedaan antara revisi tersebut dengan menyoroti konten apa pun yang diubah.";
 "panel-compare-revisions-title" = "Membandingkan revisi";
+"panel-not-logged-in-continue-edit-action-title" = "Sunting tanpa masuk log";
+"panel-not-logged-in-subtitle" = "Untuk saat ini, alamat IP Anda akan bisa dilihat secara umum ketika Anda membuat suntingan apa pun. Jika Anda $1masuk log$2 atau $3membuat akun$4, suntingan Anda akan diatribusikan kepada sebuah nama pengguna, serta mendapat keuntungan-keuntungan lainnya.";
 "panel-not-logged-in-title" = "Anda belum masuk log";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Hapus penelusuran tersimpan";
@@ -1015,10 +1024,13 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
 "talk-page-discussion-unread-accessibility-label" = "Belum dibaca";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
+"talk-page-error-alert-subtitle" = "Aplikasi menerima respons yang tidak terduga dari server. Silakan coba lagi nanti.";
+"talk-page-error-alert-title" = "Galat yang tidak diduga";
 "talk-page-error-loading-subtitle" = "Ada yang salah.";
 "talk-page-error-loading-title" = "Tidak dapat memuat halaman pembicaraan";
 "talk-page-error-unable-to-post-reply" = "Tidak ada koneksi internet. Tidak dapat memposting balasan.";
 "talk-page-error-unable-to-post-topic" = "Tidak ada koneksi internet. Tidak dapat memposting diskusi.";
+"talk-page-expand-thread-button" = "Perluas utas";
 "talk-page-find-in-page-button" = "Cari di halaman";
 "talk-page-info-active-conversations" = "Percakapan aktif di Wikipedia $1";
 "talk-page-info-active-conversations-generic" = "Percakapan aktif di Wikipedia";
@@ -1038,40 +1050,64 @@
 "talk-page-new-topic-body-placeholder-text" = "Susun tanggapan baru";
 "talk-page-new-topic-success-text" = "Diskusi anda telah diterbitkan";
 "talk-page-new-topic-title" = "Diskusi baru";
+"talk-page-onboarding-button-accessibility-label" = "Ketuk dua kali untuk kembali membalas";
+"talk-page-overflow-menu-accessibility" = "Opsi Halaman Pembicaraan Lebih Banyak";
 "talk-page-page-info" = "Informasi halaman";
 "talk-page-permanent-link" = "Pranala permanen";
+"talk-page-publish-reply-error-subtitle" = "Silakan periksa koneksi internet Anda.";
+"talk-page-publish-reply-error-title" = "Tidak dapat memublikasikan komentar Anda.";
 "talk-page-publish-terms-and-licenses" = "Dengan menyimpan perubahan, anda menyetujui $1Syarat Penggunaan$2, dan setuju untuk menerbitkan kontribusi anda dibawah lisensi $3CC BY-SA 3.0$4 dan $5GFDL.";
+"talk-page-publish-topic-error-title" = "Tidak dapat memublikasikan topik baru.";
 "talk-page-read-in-web" = "Baca di web";
 "talk-page-related-links" = "Pranala balik";
+"talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1 balasan}}";
 "talk-page-reply-button" = "Balas";
 "talk-page-reply-button-accessibility-label" = "Balas ke $1";
+"talk-page-reply-depth-accessibility-label" = "Kedalaman balasan: $1";
 "talk-page-reply-placeholder-format" = "Balas ke $1";
+"talk-page-reply-terms-and-licenses" = "Perhatikan bahwa balasan Anda akan ditandatangani secara otomatis dengan nama pengguna Anda. Dengan menyimpan perubahan, Anda menyetujui $1Persyaratan Penggunaan$2 , dan setuju untuk melepaskan kontribusi Anda di bawah lisensi $3CC BY-SA 3.0$4 dan $5GFDL$6.";
 "talk-page-reply-title" = "Balas";
 "talk-page-revision-history" = "Riwayat revisi";
+"talk-page-rply-close-button-accessibility-hint" = "Tutup tampilan balasan";
 "talk-page-share-button" = "Bagikan halaman pembicaraan";
 "talk-page-subscribe-to-topic" = "Berlangganan";
 "talk-page-subscribed-alert-subtitle" = "Anda akan menerima pemberitahuan komentar baru dalam topik ini.";
 "talk-page-subscribed-alert-title" = "Anda telah berlangganan!";
+"talk-page-subscription-failed-alert" = "Berlangganan ke topik gagal, silakan coba lagi.";
 "talk-page-title-article-talk" = "Pembicaraan Artikel";
 "talk-page-title-user-talk" = "Pembicaraan pengguna";
+"talk-page-topic-close-button-hint" = "Tutup topik baru";
+"talk-page-topic-compose-terms-and-licenses" = "Dengan menyimpan perubahan, anda menyetujui $1Syarat Penggunaan$2, dan setuju untuk menerbitkan kontribusi anda dibawah lisensi $3CC BY-SA 3.0$4 dan $5GFDL$6.";
 "talk-page-topic-title" = "Diskusi";
 "talk-page-unsubscribe-to-topic" = "Berhenti berlangganan";
+"talk-page-unsubscribed-alert-subtitle" = "Anda tidak akan menerima lagi pemberitahuan tentang komentar baru di topik ini.";
 "talk-page-unsubscribed-alert-title" = "Anda telah berhenti berlangganan";
+"talk-page-unsubscription-failed-alert" = "Gagal berhenti berlangganan topik, harap coba lagi.";
 "talk-page-user-about" = "Tentang halaman pembicaraan pengguna";
 "talk-page-user-contributions" = "Kontribusi";
+"talk-pages-archives-empty-title" = "Halaman yang diarsipkan tidak ditemukan.";
+"talk-pages-archives-view-title" = "Arsip";
 "talk-pages-coffee-roll-read-more" = "Baca lebih lanjut";
 "talk-pages-comment-added-alert-title" = "Komentar Anda telah ditambahkan";
 "talk-pages-compose-close-confirmation-keep" = "Lanjutkan penyuntingan";
+"talk-pages-empty-view-body-article" = "Laman pembicaraan adalah tempat orang berdiskusi tentang cara membuat konten Wikipedia sebaik mungkin. **Mulailah dengan menambahkan topik diskusi baru** untuk terhubung dan berkolaborasi dengan komunitas Wikipediawan.";
+"talk-pages-empty-view-body-user" = "Laman pembicaraan adalah tempat orang mendiskusikan cara membuat konten di Wikipedia sebaik mungkin. Mulai diskusi baru untuk terhubung dan berkolaborasi dengan $1. Apa yang Anda katakan di sini akan terlihat oleh publik.";
 "talk-pages-empty-view-button-article-add-topic" = "Tambahkan topik baru";
 "talk-pages-empty-view-button-user-start-discussion" = "Mulai sebuah diskusi";
 "talk-pages-empty-view-header-article" = "Percakapan dimulai di sini";
 "talk-pages-empty-view-header-user" = "Mulai diskusi dengan $1";
 "talk-pages-reply-button-title" = "Balas diskusi ini";
+"talk-pages-reply-compose-close-confirmation-title" = "Apakah Anda yakin ingin membuang balasan baru ini?";
 "talk-pages-topic-added-alert-title" = "Topik Anda telah ditambahkan";
 "talk-pages-topic-compose-body-placeholder" = "Deskripsi";
+"talk-pages-topic-compose-body-placeholder-accessibility" = "Deskripsi Topik";
 "talk-pages-topic-compose-close-confirmation-discard" = "Buang balasan";
+"talk-pages-topic-compose-close-confirmation-title" = "Apakah Anda yakin ingin membuang topik baru ini?";
 "talk-pages-topic-compose-navbar-title" = "Topik";
 "talk-pages-topic-compose-title-placeholder" = "Judul topik";
+"talk-pages-topic-reply-onboarding-body" = "Laman pembicaraan adalah tempat orang mendiskusikan cara membuat konten di Wikipedia sebaik mungkin. Tambahkan topik diskusi baru untuk terhubung dan berkolaborasi dengan komunitas Wikipediawan.\n\nMohon berbaik hati, kita semua manusia di sini.";
+"talk-pages-topic-reply-onboarding-body-ios15" = "Laman pembicaraan adalah tempat $1 orang mendiskusikan cara membuat konten di Wikipedia sebaik mungkin. $1 Tambahkan topik diskusi baru untuk terhubung dan berkolaborasi dengan komunitas Wikipediawan.";
+"talk-pages-topic-reply-onboarding-body-note-ios15" = "Harap berbaik hati, kita semua manusia di sini.";
 "talk-pages-topic-reply-onboarding-title" = "Halaman pembicaraan";
 "talk-pages-user-groups" = "Kelompok pengguna";
 "talk-pages-user-logs" = "Log";
@@ -1098,6 +1134,7 @@
 "vanish-account-additional-information-placeholder" = "Opsional";
 "vanish-account-back-confirm-discard" = "Buang Permintaan";
 "vanish-account-back-confirm-keep-editing" = "Lanjutkan penyuntingan";
+"vanish-account-back-confirm-title" = "Apakah Anda yakin ingin membuang permintaan menghilang ini?";
 "vanish-account-continue-button-title" = "Lanjutkan";
 "vanish-account-email-text" = "Halo,\nIni adalah sebuah permintaan untuk menghapus akun Wikipedia saya.";
 "vanish-account-learn-more-text" = "Pelajari lebih lanjut";

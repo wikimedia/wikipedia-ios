@@ -4,6 +4,7 @@ protocol SectionEditorNavigationItemControllerDelegate: AnyObject {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem)
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem)
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem)
+    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem)
 }
 
 class SectionEditorNavigationItemController: NSObject, Themeable {
@@ -30,7 +31,7 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
 
     weak var delegate: SectionEditorNavigationItemControllerDelegate?
 
-    private class BarButtonItem: UIBarButtonItem, Themeable {
+    class BarButtonItem: UIBarButtonItem, Themeable {
         var tintColorKeyPath: KeyPath<Theme, UIColor>?
 
         convenience init(title: String?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>) {
@@ -62,7 +63,7 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
         }
     }
 
-    private lazy var progressButton: BarButtonItem = {
+    private(set) lazy var progressButton: BarButtonItem = {
         return BarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)), tintColorKeyPath: \Theme.colors.link)
     }()
 
@@ -70,8 +71,12 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
         return BarButtonItem(image: #imageLiteral(resourceName: "redo"), style: .plain, target: self, action: #selector(redo(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.redo)
     }()
 
-    private lazy var undoButton: BarButtonItem = {
+    private(set) lazy var undoButton: BarButtonItem = {
         return BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(undo(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.undo)
+    }()
+
+    private lazy var editNoticesButton: BarButtonItem = {
+        return BarButtonItem(image: UIImage(systemName: "exclamationmark.circle.fill") , style: .plain, target: self, action: #selector(editNotices(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.editNotices)
     }()
     
     private lazy var readingThemesControlsButton: BarButtonItem = {
@@ -100,9 +105,20 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
     @objc private func redo(_ sender: UIBarButtonItem) {
         delegate?.sectionEditorNavigationItemController(self, didTapRedoButton: sender)
     }
+
+    @objc private func editNotices(_ sender: UIBarButtonItem) {
+        delegate?.sectionEditorNavigationItemController(self, didTapEditNoticesButton: sender)
+    }
     
     @objc private func showReadingThemesControls(_ sender: UIBarButtonItem) {
          delegate?.sectionEditorNavigationItemController(self, didTapReadingThemesControlsButton: sender)
+    }
+
+    func addEditNoticesButton() {
+        navigationItem?.rightBarButtonItems?.append(contentsOf: [
+            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
+            editNoticesButton
+        ])
     }
 
     private func configureNavigationButtonItems() {

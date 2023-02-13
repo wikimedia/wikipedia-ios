@@ -186,7 +186,7 @@
 "description-help-about-description" = "Opisi člankov povzamejo članek tako, da lahko bralci razumejo temo že ob prvem pogledu";
 "description-help-about-title" = "O projektu";
 "description-help-about-wikidata" = "O Wikipodatkih";
-"description-help-more-info-description" = "Opisi so shranjeni in vzdrževani v Wikipodatkih, projektu Fundacije Wikimedia, ki zagotavlja prosto, sodelovalno, večjezično, sekundarno zbirko podatkov, ki podpira Wikipedijo in druge projekte.";
+"description-help-more-info-description" = "Opisi so shranjeni in vzdrževani v Wikipodatkih, projektu Fundacije Wikimedia, ki zagotavlja prosto, sodelovalno, večjezično, sekundarno podatkovno zbirko, ki podpira Wikipedijo in druge projekte.";
 "description-help-more-info-title" = "Več informacij";
 "description-help-tips-description" = "Idealno bi bilo, da bi opisi ustrezali eni vrstici in bili dolgi od dveh do dvanajst besed. Ne pišejo se z veliko začetnico, razen če je prva beseda lastno ime.";
 "description-help-tips-example-description-one" = "opis članka za članek o Moni Lizi";
@@ -264,6 +264,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Besedila, ki ste ga izbrali, ni bilo mogoče najti.";
 "edit-minor-learn-more-text" = "Več o manjših urejanjih";
 "edit-minor-text" = "Manjše urejanje";
+"edit-notices" = "Obvestila o urejanju";
+"edit-notices-always-display" = "Vedno prikaži obvestila o urejanju";
+"edit-notices-please-read" = "Prosimo, preberite pred urejanjem";
 "edit-ordered-list-accessibility-label" = "Spremenite trenutno vrstico v oštevilčeni seznam";
 "edit-ordered-list-remove-accessibility-label" = "Odstranite oštevilčeni seznam iz trenutne vrstice";
 "edit-published" = "Uredi objavljeno";
@@ -628,7 +631,7 @@
 "notifications-center-onboarding-modal-learn-more-action" = "Več o obvestilih";
 "notifications-center-onboarding-modal-notifications-alerts-message" = "Obvestila vas seznanjajo z dejavnostjo, povezano z vašimi urejanji in računom.";
 "notifications-center-onboarding-modal-notifications-alerts-title" = "Obvestila in opomniki";
-"notifications-center-onboarding-modal-project-inboxes-message" = "Oglejte si vsa vaša neprebrana sporočila iz Wikipedij in projektov Wikimedije v različnih jezikih na enem mestu.";
+"notifications-center-onboarding-modal-project-inboxes-message" = "Oglejte si vsa svoja neprebrana sporočila iz vikipedij in projektov Wikimedie v različnih jezikih na enem mestu.";
 "notifications-center-onboarding-modal-project-inboxes-title" = "Projektni nabiralniki";
 "notifications-center-onboarding-modal-push-notifications-message" = "Prijavite se za potisna obvestila, da boste na tekočem s svojimi sporočili o urejanju in opomniki tudi, ko boste na poti.";
 "notifications-center-onboarding-modal-push-notifications-title" = "Potisna obvestila";
@@ -1053,6 +1056,7 @@
 "talk-page-unsubscription-failed-alert" = "Odnaročilo teme ni uspelo, poskusite znova.";
 "talk-page-user-about" = "O uporabniških pogovornih straneh";
 "talk-page-user-contributions" = "Prispevki";
+"talk-pages-archives-empty-title" = "Ni najdenih arhivskih strani.";
 "talk-pages-archives-view-title" = "Arhivi";
 "talk-pages-coffee-roll-read-more" = "Preberi več";
 "talk-pages-comment-added-alert-title" = "Vaš komentar je dodan";

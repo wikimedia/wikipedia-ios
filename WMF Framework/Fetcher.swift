@@ -157,13 +157,12 @@ open class Fetcher: NSObject {
     public func resolveMediaWikiError(from apiErrors: [MediaWikiAPIError], siteURL: URL, completion: @escaping (MediaWikiAPIDisplayError?) -> Void) {
         
         let blockedApiErrors = apiErrors.filter { $0.code.contains("block") }
-        let firstBlockedApiErrorWithInfo = blockedApiErrors.first(where: { $0.data?.blockinfo != nil })
+        let firstBlockedApiErrorWithInfo = blockedApiErrors.first(where: { $0.data?.blockInfo != nil })
         let fallbackBlockedApiError = blockedApiErrors.first(where: { !$0.html.isEmpty })
         
         let firstAbuseFilterError = apiErrors.first(where: { $0.code.contains("abusefilter") && !$0.html.isEmpty })
         
         let fallbackCompletion: () -> Void = {
-            
             
             guard let fallbackBlockedApiError else {
                 
@@ -183,7 +182,7 @@ open class Fetcher: NSObject {
         }
         
         guard let blockedApiError = firstBlockedApiErrorWithInfo,
-        let blockedApiInfo = blockedApiError.data?.blockinfo else {
+        let blockedApiInfo = blockedApiError.data?.blockInfo else {
             
             fallbackCompletion()
             return
@@ -210,13 +209,13 @@ open class Fetcher: NSObject {
         var templateSiteURL: URL?
         
         group.enter()
-        parseBlockReason(siteURL: siteURL, blockReason: blockInfo.blockreason) { text in
+        parseBlockReason(siteURL: siteURL, blockReason: blockInfo.blockReason) { text in
             blockReasonHtml = text
             group.leave()
         }
         
         group.enter()
-        fetchBlockedTextTemplate(isPartial: blockInfo.blockpartial, siteURL: siteURL) { text, siteURL in
+        fetchBlockedTextTemplate(isPartial: blockInfo.blockPartial, siteURL: siteURL) { text, siteURL in
             templateHtml = text
             templateSiteURL = siteURL
             group.leave()
@@ -234,33 +233,32 @@ open class Fetcher: NSObject {
             // Replace encoded placeholders first, before replacing them with blocked text.
             templateHtml = templateHtml.replacingOccurrences(of: "%241", with: "$1")
             templateHtml = templateHtml.replacingOccurrences(of: "%242", with: "$2")
-            templateHtml = templateHtml.replacingOccurrences(of: "%243", with: "$3")
-            templateHtml = templateHtml.replacingOccurrences(of: "%244", with: "$4")
+            templateHtml = templateHtml.replacingOccurrences(of: "%243", with: "") // stripped out below
+            templateHtml = templateHtml.replacingOccurrences(of: "%244", with: "") // stripped out below
             templateHtml = templateHtml.replacingOccurrences(of: "%245", with: "$5")
             templateHtml = templateHtml.replacingOccurrences(of: "%246", with: "$6")
             templateHtml = templateHtml.replacingOccurrences(of: "%247", with: "$7")
             templateHtml = templateHtml.replacingOccurrences(of: "%248", with: "$8")
             
             // Replace placeholders with blocked text
-            templateHtml = templateHtml.replacingOccurrences(of: "$1", with: blockInfo.blockedby)
+            templateHtml = templateHtml.replacingOccurrences(of: "$1", with: blockInfo.blockedBy)
             
             if let blockReasonHtml {
                 templateHtml = templateHtml.replacingOccurrences(of: "$2", with: blockReasonHtml)
             }
             
             templateHtml = templateHtml.replacingOccurrences(of: "$3", with: "") // IP Address
+            templateHtml = templateHtml.replacingOccurrences(of: "$4", with: "") // unknown parameter (unused?)
             
-            // $4 not used
+            templateHtml = templateHtml.replacingOccurrences(of: "$5", with: String(blockInfo.blockID))
             
-            templateHtml = templateHtml.replacingOccurrences(of: "$5", with: String(blockInfo.blockid))
-            
-            let blockExpiryDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockexpiry, siteURL: linkBaseURL)
+            let blockExpiryDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockExpiry, siteURL: linkBaseURL)
             templateHtml = templateHtml.replacingOccurrences(of: "$6", with: blockExpiryDisplayDate)
             
             let username = MWKDataStore.shared().authenticationManager.loggedInUsername ?? ""
             templateHtml = templateHtml.replacingOccurrences(of: "$7", with: username)
 
-            let blockedTimestampDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockedtimestamp, siteURL: linkBaseURL)
+            let blockedTimestampDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockedTimestamp, siteURL: linkBaseURL)
             templateHtml = templateHtml.replacingOccurrences(of: "$8", with: blockedTimestampDisplayDate)
             
             let displayError = MediaWikiAPIDisplayError(messageHtml: templateHtml, linkBaseURL: linkBaseURL, code: code)

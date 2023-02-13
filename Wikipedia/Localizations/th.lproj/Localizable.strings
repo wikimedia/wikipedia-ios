@@ -25,6 +25,7 @@
 "aaald-characters-text-description" = "{{PLURAL:$1|0=อักขระ|อักขระ|อักขระ}}";
 "aaald-deleted-text-description-2" = "ลบ $1 แล้ว";
 "aaald-error-subitle" = "รีเฟรชเพื่อลองอีกครั้ง";
+"aaald-error-title" = "ไม่สามารถโหลดประวัติบทความแบบอินไลน์ได้";
 "aaald-many-sections-description" = "ใน $1 ส่วน";
 "aaald-multiple-changes-description" = "มีการเปลี่ยนแปลงหลายจุด";
 "aaald-multiple-references-added-description" = "มีการเพิ่มการอ้างอิงหลายจุด";
@@ -162,6 +163,7 @@
 "button-skip" = "ข้าม";
 "cancel" = "ยกเลิก";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-title" = "การปรับปรุงการรองรับภาษาจีนรูปแบบต่างๆ";
 "clear-title-accessibility-label" = "ล้าง";
 "close-button-accessibility-label" = "ปิด";
 "compass-direction" = "ที่ $1 นาฬิกา";
@@ -169,8 +171,7 @@
 "continue-reading-empty-title" = "ไม่มีบทความที่อ่านล่าสุด";
 "data-migration-status" = "กำลังอัปเดต...";
 "description-add-title" = "เพิ่มคำอธิบาย";
-// Fuzzy
-"description-edit-for-article" = "คำอธิบายชื่อเรื่องสำหรับ $1";
+"description-edit-for-article" = "คำอธิบายบทความสำหรับ $1";
 "description-edit-learn-more" = "เรียนรู้เพิ่มเติม";
 "description-edit-length-warning" = "$1 / $2";
 // Fuzzy
@@ -181,23 +182,20 @@
 "description-edit-publish" = "เผยแพร่คำอธิบาย";
 "description-edit-title" = "แก้ไขคำอธิบาย";
 "description-edit-warning" = "พยายามเขียนคำอธิบายอย่างสั้น ๆ เพื่อให้ผู้ใช้เข้าใจหัวข้อบทความได้อย่างรวดเร็ว";
-// Fuzzy
-"description-help-about-description" = "คำอธิบายชื่อเรื่องใช้สรุปบทความเพื่อช่วยให้ผู้อ่านเข้าใจบทความได้อย่างรวดเร็ว";
+"description-help-about-description" = "คำอธิบายบทความใช้สรุปบทความเพื่อช่วยให้ผู้อ่านเข้าใจบทความได้อย่างรวดเร็ว";
 "description-help-about-title" = "เกี่ยวกับ";
 "description-help-about-wikidata" = "เกี่ยวกับวิกิสนเทศ";
 "description-help-more-info-description" = "คำอธิบายจะถูกเก็บและรักษาไว้บนวิกิสนเทศ ซึ่งเป็นโครงการของมูลนิธิวิกิมีเดียซึ่งจัดเตรียมฐานข้อมูลเสรีหลายภาษาที่ใช้งานร่วมกับวิกิพีเดียและโครงการอื่น ๆ";
 "description-help-more-info-title" = "ข้อมูลเพิ่มเติม";
 "description-help-tips-description" = "ควรเขียนคำอธิบายให้พอดีหนึ่งบรรทัด และควรมีความยาวตั้งแต่ 2-12 คำ และไม่ควรเขียนด้วยอักษรตัวพิมพ์ใหญ่หากไม่ใช่วิสามานยนาม";
-// Fuzzy
-"description-help-tips-example-description-one" = "คำอธิบายชื่อเรื่องสำหรับบทความเกี่ยวกับโมนาลิซา";
+"description-help-tips-example-description-one" = "คำอธิบายบทความสำหรับบทความเกี่ยวกับโมนาลิซา";
 // Fuzzy
 "description-help-tips-example-description-two" = "คำอธิบายชื่อเรื่องสำหรับบทความเกี่ยวกับยอดเขาเอเวอเรสต์";
 "description-help-tips-example-title-one" = "ภาพวาดโดยเลโอนาร์โด ดา วินชี";
 "description-help-tips-example-title-two" = "ภูเขาที่สูงที่สุดในโลก";
 "description-help-tips-for-example" = "ตัวอย่าง:";
 "description-help-tips-title" = "คำแนะนำการเขียนคำอธิบาย";
-// Fuzzy
-"description-help-title" = "วิธีเขียนคำอธิบายชื่อเรื่อง";
+"description-help-title" = "วิธีเขียนคำอธิบายบทความ";
 "description-help-wikidata-guide" = "คู่มือวิกิสนเทศเกี่ยวกับการเขียนคำอธิบาย";
 "description-published-button-title" = "เสร็จสิ้น";
 "description-published-footer" = "คุณยังสามารถแก้ไขบทความในแอปนี้ได้ ลองแก้ไขคำที่พิมพ์ผิดและประโยคสั้น ๆ โดยคลิกที่ไอคอนดินสอครั้งถัดไป";
@@ -206,8 +204,7 @@
 "description-welcome-concise-sub-title" = "ควรเขียนให้พอดีหนึ่งบรรทัด และเขียนตั้งแต่ 2-12 คำ";
 "description-welcome-concise-title" = "ควรเขียนสั้น ๆ";
 "description-welcome-descriptions-sub-title" = "ใช้สรุปบทความเพื่อช่วยให้ผู้อ่านเข้าใจบทความได้อย่างรวดเร็ว";
-// Fuzzy
-"description-welcome-descriptions-title" = "คำอธิบายชื่อเรื่อง";
+"description-welcome-descriptions-title" = "คำอธิบายบทความ";
 "description-welcome-promise-title" = "ฉันสัญญาว่าจะไม่ใช้คุณลักษณะนี้ในทางที่ผิด";
 "description-welcome-start-editing-button" = "เริ่มแก้ไข";
 "diff-compare-header-from-info-heading" = "จาก:";
@@ -222,6 +219,7 @@
 "diff-paragraph-moved-direction-up" = "ขึ้น";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 บรรทัด|$1 บรรทัด}}";
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 ส่วน|$1 ส่วน}}";
+"diff-paragraph-moved-format" = "ย้ายย่อหน้า$1ไป $2แล้ว";
 "diff-revision-error-title" = "ไม่สามารถดึงข้อมูลรุ่น";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|การแก้ไข $1 ครั้ง|การแก้ไข $1 ครั้ง}}";
 "diff-single-header-editor-title" = "ข้อมูลผู้แก้ไข";
@@ -245,6 +243,7 @@
 "edit-clear-formatting-accessibility-label" = "ลบการจัดรูปแบบ";
 "edit-comment-accessibility-label" = "เพิ่มไวยากรณ์ความเห็น";
 "edit-comment-remove-accessibility-label" = "เอาไวยากรณ์ความเห็นออก";
+"edit-decrease-indent-depth-accessibility-label" = "ลดความลึกการเยื้อง";
 "edit-direction-down-accessibility-label" = "ย้ายเคอร์เซอร์ไปด้านล่าง";
 "edit-direction-left-accessibility-label" = "ย้ายเคอร์เซอร์ไปด้านซ้าย";
 "edit-direction-right-accessibility-label" = "ย้ายเคอร์เซอร์ไปด้านขวา";
@@ -262,6 +261,8 @@
 "edit-menu-item" = "แก้ไข";
 "edit-minor-learn-more-text" = "เรียนรู้เพิ่มเกี่ยวกับการแก้ไขเล็กน้อย";
 "edit-minor-text" = "เป็นการแก้ไขเล็กน้อย";
+"edit-ordered-list-accessibility-label" = "ทำให้บรรทัดปัจจุบันเป็นรายการที่เรียงลำดับ";
+"edit-ordered-list-remove-accessibility-label" = "เอารายการที่เรียงลำดับออกจากบรรทัดปัจจุบัน";
 "edit-published" = "เผยแพร่การแก้ไขแล้ว";
 "edit-published-subtitle" = "คุณทำให้วิกิพีเดียดีขึ้นสำหรับทุกคน";
 "edit-reference-accessibility-label" = "เพิ่มไวยากรณ์แหล่งอ้างอิง";
@@ -290,6 +291,8 @@
 "edit-text-style-accessibility-label" = "แสดงเมนูลักษณะข้อความ";
 "edit-underline-accessibility-label" = "เพิ่มขีดเส้นใต้";
 "edit-underline-remove-accessibility-label" = "เอาขีดเส้นใต้ออก";
+"edit-unordered-list-accessibility-label" = "ทำให้บรรทัดปัจจุบันเป็นรายการที่ไม่เรียงลำดับ";
+"edit-unordered-list-remove-accessibility-label" = "เอารายการที่ไม่เรียงลำดับออกจากบรรทัดปัจจุบัน";
 "edit-watch-list-learn-more-text" = "เรียนรู้เพิ่มเติมเกี่ยวกับรายการเฝ้าดู";
 "edit-watch-this-page-text" = "เฝ้าดูหน้านี้";
 "editing-welcome-be-bold-title" = "เสียงของคุณสำคัญ";
@@ -301,6 +304,8 @@
 "empty-no-feed-message" = "คุณสามารถดูบทความที่แนะนำของคุณได้เมื่อคุณมีอินเทอร์เน็ต";
 "empty-no-history-message" = "ติดตามสิ่งที่คุณได้อ่านที่นี่";
 "empty-no-history-title" = "ไม่มีประวัติที่จะแสดง";
+"empty-no-other-article-languages-message" = "บทความนี้ยังไม่ได้ถูกเขียนในภาษาอื่นใด";
+"empty-no-other-article-languages-title" = "ไม่มีในภาษาอื่น";
 "empty-no-reading-lists-message" = "สร้างรายการสำหรับสถานที่ที่อยากไป หัวข้อโปรด และอื่นๆ";
 "empty-no-reading-lists-title" = "จัดระเบียบบทความที่บันทึกไว้ด้วยรายการอ่าน";
 "empty-no-saved-pages-in-reading-list-message" = "บันทึกหน้าลงในรายการนี้เพื่อให้สามารถดูได้จากที่นี่";
@@ -334,15 +339,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "เปิดทั้งหมด";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "เปิด";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "เปิด $1";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "ซ่อนทั้งหมด %@ การ์ดอยู่";
+"explore-feed-preferences-feed-cards-hidden-title" = "ซ่อนการ์ด $1 ทั้งหมดแล้ว";
 "explore-feed-preferences-global-card-footer-text" = "การ์ดนี้ไม่เจาะจงภาษาใด การปิดการ์ดนี้จะเป็นการเอาการ์ดนี้ออกจากฟีดสำรวจของคุณ";
 "explore-feed-preferences-global-cards-description" = "การ์ดที่ไม่เจาะจงภาษา";
 "explore-feed-preferences-global-cards-subtitle" = "ไม่เจาะจงภาษา";
 "explore-feed-preferences-global-cards-title" = "การ์ดทุกภาษา";
 "explore-feed-preferences-hide-card-action-title" = "ซ่อนการ์ดนี้";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "ซ่อนการ์ด “%@” ทั้งหมด";
+"explore-feed-preferences-hide-feed-cards-action-title" = "ซ่อนการ์ด “$1” ทั้งหมด";
 "explore-feed-preferences-in-the-news-description" = "บทความเกี่ยวกับเหตุการณ์ปัจจุบัน";
 "explore-feed-preferences-languages-footer-text" = "การซ่อนการ์ดในฟีดสำรวจในภาษาทั้งหมดของคุณจะปิดแท็บสำรวจ";
 "explore-feed-preferences-on-this-day-description" = "เหตุการณ์ในประวัติศาสตร์ของวันนี้ในอดีต";
@@ -510,7 +513,6 @@
 "main-menu-title" = "เพิ่มเติม";
 "main-menu-zero-faq" = "คำถามที่พบบ่อยเกี่ยวกับ Wikipedia Zero";
 "menu-cancel-accessibility-label" = "ยกเลิก";
-// Fuzzy
 "more-languages-tooltip-description" = "ค้นหาวิกิพีเดียในกว่า 300 ภาษา";
 "more-languages-tooltip-title" = "เพิ่มภาษา";
 "move-articles-to-reading-list" = "ย้าย {{PLURAL:$1|$1 บทความ}}ลงในรายการอ่าน";

@@ -283,6 +283,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "לא ניתן לאתר את הטקסט שבחרת";
 "edit-minor-learn-more-text" = "מידע נוסף על עריכות משניות";
 "edit-minor-text" = "זוהי עריכה משנית";
+"edit-notices" = "הודעות לעורכים";
+"edit-notices-always-display" = "תמיד להציג את ההודעות לעורכים";
+"edit-notices-please-read" = "נא לקרוא לפני עריכה";
 "edit-ordered-list-accessibility-label" = "הגדרת השורה הנוכחית כרשימה ממוספרת";
 "edit-ordered-list-remove-accessibility-label" = "הסרת רשימה ממוספרת מהשורה הנוכחית";
 "edit-published" = "העריכה פורסמה";
@@ -318,7 +321,7 @@
 "edit-watch-list-learn-more-text" = "מידע נוסף על רשימות מעקב";
 "edit-watch-this-page-text" = "מעקב אחר דף זה";
 "editing-welcome-be-bold-subtitle" = "היו נועזים, אבל לא פזיזים מדי בעדכון ערכים. אל תפחדו יותר מדי מטעויות: כל הגרסאות הקודמות של הדף נשמרות, ושגיאות יכולות להיות מתוקנות בקלות על־ידי הקהילה שלנו.";
-"editing-welcome-be-bold-title" = "הקול שלך עושה הבדל";
+"editing-welcome-be-bold-title" = "הקול שלך עושה את ההבדל";
 "editing-welcome-citations-subtitle" = "כל התוכן צריך להיות בר־בדיקה. בעת הוספת מידע חדש לערך, עורכים צריכים לספק ציטוט למקור אמין שמאשר את תרומת התוכן.";
 "editing-welcome-citations-title" = "לצטט מקורות מהימנים";
 "editing-welcome-impartial-tone-subtitle" = "אנחנו שואפים לכך שערכים ייכתבו בנימה חסרת פניות. בעת עריכה, יש להשתדל לייצוג הוגן של העולם כפי שהוא מתואר במקורות אמינים.";
@@ -1074,6 +1077,7 @@
 "talk-page-unsubscription-failed-alert" = "ביטול הרישום לפריט נכשל, נא לנסות שוב.";
 "talk-page-user-about" = "אודות דפי שיחת משתמש";
 "talk-page-user-contributions" = "תרומות";
+"talk-pages-archives-empty-title" = "לא נמצאו דפים בארכיון.";
 "talk-pages-archives-view-title" = "ארכיונים";
 "talk-pages-coffee-roll-read-more" = "לקרוא עוד";
 "talk-pages-comment-added-alert-title" = "התגובה שלך נוספה";

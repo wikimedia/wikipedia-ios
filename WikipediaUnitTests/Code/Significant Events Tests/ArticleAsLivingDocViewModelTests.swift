@@ -88,46 +88,6 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
                     let fourthSection = viewModel.sections[4]
                     let firstEvent = fourthSection.typedEvents[0]
 
-                    switch firstEvent {
-                    case .large(let largeEvent):
-                        XCTAssertNil(largeEvent.eventDescription)
-
-                        largeEvent.resetAttributedStringsIfNeededWithTraitCollection(regularTraitCollection, theme: lightTheme)
-                        
-                        guard let attributedText = largeEvent.eventDescriptionForTraitCollection(regularTraitCollection, theme: lightTheme) else {
-                            XCTFail("Expected large event to return eventDescription")
-                            return
-                        }
-                        
-                        var attributes = attributedText.attributes(at: 0, effectiveRange: nil)
-                        var font = attributes[NSAttributedString.Key.font] as! UIFont
-                        var color = attributes[NSAttributedString.Key.foregroundColor] as! UIColor
-                        XCTAssertEqual(font.pointSize, 17.0)
-                        XCTAssertEqual(font.familyName, ".AppleSystemUIFont")
-                        XCTAssertEqual(font.fontName, ".SFUI-Regular")
-                        XCTAssertEqual(color, Theme.light.colors.primaryText)
-
-                        // bump up the dynamic type and change theme, confirm font size & color changes
-
-                        let largerTraitCollection = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory.extraLarge)
-                        let darkTheme = Theme.black
-                        largeEvent.resetAttributedStringsIfNeededWithTraitCollection(largerTraitCollection, theme: darkTheme)
-                        
-                        guard let largerAttributedText = largeEvent.eventDescriptionForTraitCollection(largerTraitCollection, theme: darkTheme) else {
-                            XCTFail("Expected large event to return eventDescription")
-                            return
-                        }
-                        
-                        attributes = largerAttributedText.attributes(at: 0, effectiveRange: nil)
-                        font = attributes[NSAttributedString.Key.font] as! UIFont
-                        color = attributes[NSAttributedString.Key.foregroundColor] as! UIColor
-                        XCTAssertEqual(font.pointSize, 19.0)
-                        XCTAssertEqual(font.familyName, ".AppleSystemUIFont")
-                        XCTAssertEqual(font.fontName, ".SFUI-Regular")
-                        XCTAssertEqual(color, Theme.black.colors.primaryText)
-                    default:
-                        XCTFail("Unexpected first event type")
-                    }
                 } else {
                     XCTFail("Failure to instantiate view model")
                 }

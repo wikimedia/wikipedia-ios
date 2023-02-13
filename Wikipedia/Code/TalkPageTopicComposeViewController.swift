@@ -342,7 +342,8 @@ class TalkPageTopicComposeViewController: ViewController {
         divView.backgroundColor = theme.colors.chromeShadow
         
         finePrintTextView.backgroundColor = theme.colors.midBackground
-        finePrintTextView.attributedText = licenseTitleTextViewAttributedString // TODO: not working? Link colors are off.
+        finePrintTextView.linkTextAttributes = [.foregroundColor: theme.colors.link]
+        finePrintTextView.attributedText = licenseTitleTextViewAttributedString
         
         // Calling here to ensure text alignment is set properly after attributed strings are set
         updateSemanticContentAttribute(semanticContentAttribute: viewModel.semanticContentAttribute)

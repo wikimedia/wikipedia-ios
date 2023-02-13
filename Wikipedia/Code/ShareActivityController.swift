@@ -159,14 +159,15 @@ class ShareActivityController: UIActivityViewController {
 
     @objc init(customActivities: [UIActivity], article: WMFArticle, textActivitySource: WMFArticleTextActivitySource) {
         var items = [Any]()
-        items.append(textActivitySource)
+        items.append(WMFItemSourceWrapperExcludingActivityTypes(itemSource: textActivitySource, excludedActivityTypes: [.copyToPasteboard]))
 
+        // shareURL is the only item that should be included in the UIActivity.ActivityType.copyToPasteboard activity.
         if let shareURL = article.url?.wmf_URLForTextSharing {
             items.append(shareURL)
         }
 
         if let mapItem = article.mapItem {
-            items.append(mapItem)
+            items.append(WMFItemSourceExcludingActivityTypes(item: mapItem, excludedActivityTypes: [.copyToPasteboard]))
         }
 
         articleApplicationActivities.append(contentsOf: customActivities)
@@ -176,14 +177,15 @@ class ShareActivityController: UIActivityViewController {
     
     @objc init(article: WMFArticle, textActivitySource: WMFArticleTextActivitySource) {
         var items = [Any]()
-        items.append(textActivitySource)
+        items.append(WMFItemSourceWrapperExcludingActivityTypes(itemSource: textActivitySource, excludedActivityTypes: [.copyToPasteboard]))
         
+        // shareURL is the only item that should be included in the UIActivity.ActivityType.copyToPasteboard activity.
         if let shareURL = article.url?.wmf_URLForTextSharing {
             items.append(shareURL)
         }
         
         if let mapItem = article.mapItem {
-            items.append(mapItem)
+            items.append(WMFItemSourceExcludingActivityTypes(item: mapItem, excludedActivityTypes: [.copyToPasteboard]))
         }
         
         super.init(activityItems: items, applicationActivities: articleApplicationActivities)
