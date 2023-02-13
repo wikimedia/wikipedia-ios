@@ -38,7 +38,7 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
 
         // Save action
         let logReadingListsSaveIfNeeded = { [weak self] in
-            guard let delegate = self?.articlePreviewingDelegate as? EventLoggingEventValuesProviding else {
+            guard let delegate = self?.articlePreviewingDelegate as? MEPEventsProviding else {
                 return
             }
             self?.readingListsFunnel.logSave(category: delegate.eventLoggingCategory, label: delegate.eventLoggingLabel, articleURL: self?.articleURL)
