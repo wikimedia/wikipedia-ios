@@ -253,6 +253,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Текст који сте одабрали не може бити пронађен";
 "edit-minor-learn-more-text" = "Сазнајте више о мањим изменама";
 "edit-minor-text" = "Ова измена је мања";
+"edit-notices" = "Уређивачка обавештења";
+"edit-notices-always-display" = "Увек приказује уређивачка обавештења";
+"edit-notices-please-read" = "Прочитајте пре уређивања";
 "edit-published" = "Измена је објављена";
 "edit-published-subtitle" = "Управо сте учинили Википедију бољом за свакога";
 "edit-reference-accessibility-label" = "Додај синтаксу референце";

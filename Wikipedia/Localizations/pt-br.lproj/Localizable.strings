@@ -295,6 +295,8 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "O texto que você selecionou não pôde ser localizado";
 "edit-minor-learn-more-text" = "Saiba mais sobre edições menores";
 "edit-minor-text" = "Esta é uma edição menor";
+"edit-notices" = "Avisos de edição";
+"edit-notices-please-read" = "Por favor, leia antes de editar";
 "edit-ordered-list-accessibility-label" = "Tornar a lista ordenada da linha atual";
 "edit-ordered-list-remove-accessibility-label" = "Remover lista ordenada da linha atual";
 "edit-published" = "Editar publicado";

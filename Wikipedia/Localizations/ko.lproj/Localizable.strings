@@ -293,6 +293,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "선택한 텍스트를 찾을 수 없습니다";
 "edit-minor-learn-more-text" = "사소한 편집에 대해 더 알아보기";
 "edit-minor-text" = "사소한 편집입니다";
+"edit-notices" = "편집 알림";
+"edit-notices-always-display" = "항상 편집 알림 표시";
+"edit-notices-please-read" = "편집하기 전에 읽어 주십시오";
 "edit-ordered-list-accessibility-label" = "현재 줄을 순서 리스트로 만들기";
 "edit-ordered-list-remove-accessibility-label" = "현재 줄에서 순서 리스트 제거";
 "edit-published" = "편집이 게시됐습니다";
