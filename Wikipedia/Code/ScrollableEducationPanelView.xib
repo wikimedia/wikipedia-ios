@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,9 +23,9 @@
                 <outlet property="stackView" destination="zdf-Q2-cLc" id="tUG-MZ-nEX"/>
                 <outlet property="stackViewLeadingConstraint" destination="7CU-RZ-a8R" id="EWM-2O-YSE"/>
                 <outlet property="stackViewTrailingConstraint" destination="crP-8H-B4A" id="k91-ZL-SI1"/>
-                <outlet property="subheadingBottomConstraint" destination="UTL-Ke-Fwz" id="GWI-2O-HR4"/>
-                <outlet property="subheadingLabel" destination="Ka1-Ou-kwY" id="OLQ-hq-5Wx"/>
-                <outlet property="subheadingTopConstraint" destination="R5q-SI-oOQ" id="vPW-JK-oDm"/>
+                <outlet property="subheadingBottomConstraint" destination="bl1-Qj-Ohc" id="b0B-hi-Fmg"/>
+                <outlet property="subheadingTextView" destination="agu-fy-XDy" id="oE2-MM-YjK"/>
+                <outlet property="subheadingTopConstraint" destination="cCN-ob-P2q" id="vxC-eI-suv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="widthConstraint" destination="EvZ-1i-fo7" id="dCt-Zy-4zi"/>
             </connections>
@@ -35,13 +36,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtK-Db-J92" userLabel="Rounded Corner Container">
-                    <rect key="frame" x="9" y="20" width="280" height="489"/>
+                    <rect key="frame" x="9" y="0.0" width="280" height="529"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3o-Ht-LDd">
-                            <rect key="frame" x="0.0" y="0.0" width="280" height="489"/>
+                            <rect key="frame" x="0.0" y="0.0" width="280" height="529"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-b3-oKp" userLabel="Scroll Container">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="547"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="562.5"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Evj-R4-67a">
                                             <rect key="frame" x="0.0" y="30" width="280" height="15"/>
@@ -60,7 +61,7 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q2-cLc">
-                                            <rect key="frame" x="15" y="45" width="250" height="472"/>
+                                            <rect key="frame" x="15" y="45" width="250" height="487.5"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-auth-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="rFJ-kb-kte">
                                                     <rect key="frame" x="0.0" y="0.0" width="250" height="95"/>
@@ -69,31 +70,31 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="This is a reasonably long sample TITLE for this panel. It is probably the best thing ever." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cta-dZ-grZ">
-                                                    <rect key="frame" x="0.0" y="109" width="250" height="55"/>
+                                                    <rect key="frame" x="0.0" y="109" width="250" height="64.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z8r-Yc-5tI">
-                                                    <rect key="frame" x="0.0" y="178" width="250" height="92"/>
+                                                    <rect key="frame" x="0.0" y="187.5" width="250" height="92"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" text="This is a reasonably long sample SUBITITLE for this panel. It is probably the best thing ever." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ka1-Ou-kwY">
+                                                        <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="This is a reasonably long sample SUBITITLE for this panel. It is probably the best thing ever." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="agu-fy-XDy">
                                                             <rect key="frame" x="0.0" y="0.0" width="250" height="92"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                            <color key="textColor" systemColor="labelColor"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        </textView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="Ka1-Ou-kwY" firstAttribute="top" secondItem="Z8r-Yc-5tI" secondAttribute="top" id="R5q-SI-oOQ"/>
-                                                        <constraint firstAttribute="bottom" secondItem="Ka1-Ou-kwY" secondAttribute="bottom" id="UTL-Ke-Fwz"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Ka1-Ou-kwY" secondAttribute="trailing" id="ahO-q6-8TA"/>
-                                                        <constraint firstItem="Ka1-Ou-kwY" firstAttribute="leading" secondItem="Z8r-Yc-5tI" secondAttribute="leading" id="p2h-vz-vcq"/>
+                                                        <constraint firstAttribute="trailing" secondItem="agu-fy-XDy" secondAttribute="trailing" id="RVt-eb-Yh0"/>
+                                                        <constraint firstItem="agu-fy-XDy" firstAttribute="leading" secondItem="Z8r-Yc-5tI" secondAttribute="leading" id="SoY-Yz-yVH"/>
+                                                        <constraint firstAttribute="bottom" secondItem="agu-fy-XDy" secondAttribute="bottom" id="bl1-Qj-Ohc"/>
+                                                        <constraint firstItem="agu-fy-XDy" firstAttribute="top" secondItem="Z8r-Yc-5tI" secondAttribute="top" id="cCN-ob-P2q"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8tf-7a-eXe">
-                                                    <rect key="frame" x="0.0" y="284" width="250" height="110"/>
+                                                    <rect key="frame" x="0.0" y="293.5" width="250" height="110"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hqs-XP-LEE">
                                                             <rect key="frame" x="0.0" y="0.0" width="250" height="110"/>
@@ -144,7 +145,7 @@
                                                     </constraints>
                                                 </view>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="This is a reasonably long sample DESCRIPTION for this panel. It is probably the best thing ever." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jJo-Ko-Gi1">
-                                                    <rect key="frame" x="0.0" y="408" width="250" height="64"/>
+                                                    <rect key="frame" x="0.0" y="417.5" width="250" height="70"/>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -199,11 +200,13 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="Uav-e0-rZq"/>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.3964041095890411" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="qtK-Db-J92" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="CEg-BQ-0wI"/>
+                <constraint firstItem="Uav-e0-rZq" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="qtK-Db-J92" secondAttribute="bottom" id="D0E-4R-KkK"/>
                 <constraint firstItem="qtK-Db-J92" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="UNg-4R-dZR"/>
-                <constraint firstItem="qtK-Db-J92" firstAttribute="height" relation="lessThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="height" constant="-40" id="a56-zA-1jd"/>
+                <constraint firstItem="qtK-Db-J92" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Uav-e0-rZq" secondAttribute="top" id="tBL-BK-xsA"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -229,7 +232,7 @@
         <image name="places-auth-arrow" width="193" height="193"/>
         <image name="places-auth-close" width="11" height="11"/>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

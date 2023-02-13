@@ -22,6 +22,7 @@
 // Author: Macofe
 // Author: Maxan
 // Author: McDutchie
+// Author: Mello25
 // Author: Mordecool
 // Author: Nemo bis
 // Author: Nharateh
@@ -515,6 +516,7 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "Agora não";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Participar da pesquisa";
 "import-shared-reading-list-survey-prompt-footer" = "Ver a nossa $1política de privacidade$2. Pesquisa conduzida por uma entidade terceira. Ver a $3política de privacidade$4 dessa entidade.";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Compartilhar listas de leitura\" é um recurso de teste e precisamos do seu feedback para melhorá-lo ou removê-lo.";
 "import-shared-reading-list-survey-prompt-title" = "Podia ajudar-nos a melhorar \"Compartilhar listas de leitura\"?";
 "import-shared-reading-list-title" = "Importar lista de leitura compartilhada";
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipédia em $1";
@@ -765,6 +767,7 @@
 "panel-compare-revisions-text" = "Comparar revisões ajuda a mostrar como um artigo mudou ao longo do tempo. A comparação de duas revisões de um artigo mostrará a diferença entre essas revisões, destacando qualquer conteúdo que foi alterado.";
 "panel-compare-revisions-title" = "Comparando revisões";
 "panel-not-logged-in-continue-edit-action-title" = "Edite sem entrar";
+"panel-not-logged-in-subtitle" = "Seu endereço IP ficará visível publicamente se você fizer qualquer edição. Se você $1log in$2 ou $3create uma account$4, suas edições serão atribuídas ao seu nome de usuário, juntamente com outros benefícios.";
 "panel-not-logged-in-title" = "Não tem entrado";
 "pictured" = "Retratado";
 "places-accessibility-clear-saved-searches" = "Limpar pesquisas salvas";
@@ -1010,6 +1013,7 @@
 "tachelhit-variants-alert-title" = "Atualizações para o suporte da variante Tachelhit";
 "tajik-variants-alert-body" = "O aplicativo da Wikipédia agora suporta as seguintes variantes tadjique como idiomas principais ou secundários dentro do aplicativo, tornando mais fácil ler, editar e pesquisar em suas variantes preferidas:\n\nтоҷикӣ кирилликӣ Tajik, Cirílico (tg-cyrl)\ntojikī lotinī Tajik, Latino (tg-latn)";
 "tajik-variants-alert-title" = "Atualizações para o suporte da variante tajique";
+"talk-page-active-users-accessibilty-label" = "$1 {{PLURAL:$1|usuário ativo|usuários ativos}}";
 "talk-page-add-discussion-accessibility-label" = "Adicionar discussão";
 "talk-page-add-topic-button" = "Adicionar tópico";
 "talk-page-archives" = "Arquivos";
@@ -1021,8 +1025,13 @@
 "talk-page-discussion-read-ipa-accessibility-attribute" = "ˈlidu";
 "talk-page-discussion-unread-accessibility-label" = "Não lidas";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ˈnɐ̃w̃  ˈlidu";
+"talk-page-error-alert-subtitle" = "O aplicativo recebeu uma resposta inesperada do servidor. Por favor, tente novamente mais tarde.";
+"talk-page-error-alert-title" = "Erro inesperado";
+"talk-page-error-loading-subtitle" = "Algo deu errado.";
+"talk-page-error-loading-title" = "Não foi possível carregar a página de discussão";
 "talk-page-error-unable-to-post-reply" = "Nenhuma conexão com a internet. Não é possível postar resposta.";
 "talk-page-error-unable-to-post-topic" = "Nenhuma conexão com a internet. Não é possível postar a discussão.";
+"talk-page-expand-thread-button" = "Expandir tópicos";
 "talk-page-find-in-page-button" = "Encontrar na página";
 "talk-page-info-active-conversations" = "Conversas ativas em $1 Wikipédia";
 "talk-page-info-active-conversations-generic" = "Conversas ativas na Wikipédia";
@@ -1042,8 +1051,11 @@
 "talk-page-new-topic-body-placeholder-text" = "Compor nova discussão";
 "talk-page-new-topic-success-text" = "Sua discussão foi publicada com sucesso";
 "talk-page-new-topic-title" = "Nova discussão";
+"talk-page-onboarding-button-accessibility-label" = "Dois toques para voltar à resposta";
+"talk-page-overflow-menu-accessibility" = "Mais opções da página de discussão";
 "talk-page-page-info" = "Informações da página";
 "talk-page-permanent-link" = "Link permanente";
+"talk-page-publish-reply-error-subtitle" = "Verifique a sua conexão com a internet, por favor.";
 "talk-page-publish-reply-error-title" = "Não foi possível publicar o seu comentário.";
 "talk-page-publish-terms-and-licenses" = "Ao salvar as alterações, você concorda com os $1Termos de Uso$2 e concorda em liberar sua contribuição sob as licenças de $3CC BY-SA 3.0 $4 e $5GFDL$6.";
 "talk-page-publish-topic-error-title" = "Não foi possível publicar o tópico novo.";
@@ -1062,6 +1074,7 @@
 "talk-page-subscribe-to-topic" = "Inscrever";
 "talk-page-subscribed-alert-subtitle" = "Você receberá notificações sobre novos comentários neste tópico";
 "talk-page-subscribed-alert-title" = "Você se inscreveu!";
+"talk-page-subscription-failed-alert" = "Ocorreu uma falha ao se inscrever no tópico. Tente novamente, por favor.";
 "talk-page-title-article-talk" = "Discussão de artigo";
 "talk-page-title-user-talk" = "Discussão do usuário";
 "talk-page-topic-close-button-hint" = "Fechar novo tópico";
@@ -1070,6 +1083,7 @@
 "talk-page-unsubscribe-to-topic" = "Cancelar inscrição";
 "talk-page-unsubscribed-alert-subtitle" = "Você não receberá mais notificações sobre novos comentários neste tópico";
 "talk-page-unsubscribed-alert-title" = "Cancelar inscrição.";
+"talk-page-unsubscription-failed-alert" = "Ocorreu uma falha ao cancelar sua inscrever no tópico. Tente novamente, por favor.";
 "talk-page-user-about" = "Sobre as páginas de discussão dos usuários";
 "talk-page-user-contributions" = "Contribuições";
 "talk-pages-archives-empty-title" = "Nenhuma página arquivada encontrada.";
@@ -1084,6 +1098,7 @@
 "talk-pages-empty-view-header-article" = "A conversa começa aqui";
 "talk-pages-empty-view-header-user" = "Começar uma conversa com $1";
 "talk-pages-reply-button-title" = "Responder a esta discussão";
+"talk-pages-reply-compose-close-confirmation-title" = "Tem certeza de que deseja descartar esta nova resposta?";
 "talk-pages-topic-added-alert-title" = "O seu tópico foi adicionado";
 "talk-pages-topic-compose-body-placeholder" = "Descrição";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Descrição do tópico";
@@ -1092,6 +1107,7 @@
 "talk-pages-topic-compose-navbar-title" = "Tópico";
 "talk-pages-topic-compose-title-placeholder" = "Título do tópico";
 "talk-pages-topic-reply-onboarding-body" = "É nas páginas de discussão que as pessoas debatem como tornar o conteúdo da Wikipédia o melhor possível. Adicione um tópico de discussão novo para estabelecer um link e colaborar com uma comunidade de wikipedistas.\n\nSeja gentil e cortês, por favor; aqui somos todos humanos.";
+"talk-pages-topic-reply-onboarding-body-ios15" = "As páginas de discussão são onde $1people discutem como tornar o conteúdo da Wikipédia o melhor possível.$1 Adicione um novo tópico de discussão para se conectar e colaborar com uma comunidade de Wikipedanos.";
 "talk-pages-topic-reply-onboarding-body-note-ios15" = "Por favor, seja gentil, somos todos humanos aqui.";
 "talk-pages-topic-reply-onboarding-title" = "Páginas de discussão";
 "talk-pages-user-groups" = "Grupos de usuários";
@@ -1124,19 +1140,17 @@
 "vanish-account-bottom-text-with-link" = "A eliminação da conta na Wikipédia é feita alterando o nome da sua conta para que as outras pessoas não possam reconhecer as suas contribuições, num processo chamado desaparecimento da conta. Pode usar o formulário abaixo para pedir um $1desaparecimento de cortesia$2$3. O desaparecimento não garante o anonimato completo nem remove as contribuições para os projetos.";
 "vanish-account-button-text" = "Enviar pedido";
 "vanish-account-continue-button-title" = "Continuar";
-// Fuzzy
-"vanish-account-description" = "O desaparecimento é um recurso de última instância e só deve ser usado quando pretende parar de editar para sempre e também ocultar o máximo possível das suas associações anteriores.\n\nPara iniciar o processo de desaparecimento forneça o seguinte, por favor:";
+"vanish-account-description" = "Para iniciar o processo de desaparecimento, forneça o seguinte:";
 "vanish-account-email-text" = "Olá,\nEste pedido é para fazer desaparecer a minha conta da Wikipédia.";
 "vanish-account-learn-more-text" = "Saiba mais";
 "vanish-account-title" = "Processo de desaparecimento";
 "vanish-account-username-field" = "Nome de usuário e página de usuário";
+"vanish-account-warning-body" = "Desaparecer é um **último recurso** e deve **ser usado apenas quando você deseja parar de editar para sempre** e também para ocultar o máximo possível de suas associações anteriores.\n\nA exclusão da conta na Wikipédia é feita alterando o nome da sua conta para que outras pessoas não possam reconhecer suas contribuições em um processo chamado desaparecimento de conta. **O desaparecimento não garante o anonimato completo nem remove as contribuições aos projetos**.";
 "vanish-account-warning-title" = "Aviso";
 "vanish-modal-item" = "Se preencheu o seu pedido de desaparecimento, aguarde alguns dias para que o pedido seja processado por um administrador.";
 "vanish-modal-item-2" = "Se não tem a certeza se o seu pedido foi aprovado, verifique o seu aplicativo de e-mail.";
-// Fuzzy
-"vanish-modal-item-3" = "Se tem dúvidas sobre o desaparecimento, visite Wikipédia:Direito a desaparecer";
-// Fuzzy
-"vanish-modal-item-3-ios15" = "Se tem dúvidas acerca do desaparecimento, visite $1Wikipédia:Direito a desaparecer$2$3.";
+"vanish-modal-item-3" = "Se você tiver mais perguntas sobre desaparecimento, visite Meta:Right_to_vanish";
+"vanish-modal-item-3-ios15" = "Se tem dúvidas acerca do desaparecimento, por favor visite $1Meta:Right_to_vanish$2$3";
 "vanish-modal-title" = "Pedido de desaparecimento";
 "vanishing-request-email-title" = "Pedido de desaparecimento de cortesia";
 "variants-alert-dismiss-button" = "Não, obrigado";

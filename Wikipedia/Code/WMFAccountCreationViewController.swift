@@ -294,6 +294,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     fileprivate func createAccount() {
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         
+        let siteURL = dataStore.primarySiteURL
+        
         let creationFailure: WMFErrorHandler = {error in
             DispatchQueue.main.async {
                 self.setViewControllerUserInteraction(enabled: true)
@@ -313,6 +315,21 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                         return
                     case .wrongCaptcha:
                         self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
+                    case .blockedError(let parsedMessage):
+                        
+                        guard let linkBaseURL = siteURL else {
+                            break
+                        }
+                        
+                        WMFAlertManager.sharedInstance.dismissAlert()
+                        
+                        self.wmf_showBlockedPanel(messageHtml: parsedMessage, linkBaseURL: linkBaseURL, currentTitle: "Special:CreateAccount", theme: self.theme)
+
+                        self.funnel?.logError(error.localizedDescription)
+                        self.enableProgressiveButtonIfNecessary()
+                        return
+                        
+                        
                     default: break
                     }
                 }
@@ -324,7 +341,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
         
         self.setViewControllerUserInteraction(enabled: false)
-        let siteURL = dataStore.primarySiteURL
         accountCreator.createAccount(username: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, siteURL: siteURL!, success: {_ in
             DispatchQueue.main.async {
                 self.login()

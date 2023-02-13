@@ -125,6 +125,232 @@ open class Fetcher: NSObject {
         return task
     }
     
+// MARK: Resolving MediaWiki Block Errors
+    
+    /// Chain from MediaWiki API response if you want to resolve a set of error messages into a full html string for display. Use this method for raw dictionary responses. For Swift Codable responses, use resolveMediaWikiBlockedError(from apiErrors: [MediaWikiAPIError]...).
+    /// - Parameters:
+    ///   - result: Serialized dictionary from MediaWiki API response
+    ///   - completionHandler: Completion handler called when full html is determined, which is packaged up in a MediaWikiAPIBlockedDisplayError object.
+    @objc(resolveMediaWikiApiBlockErrorFromResult:siteURL:completionHandler:)
+    func resolveMediaWikiApiBlockErrorFromResult(_ result: [String: Any], siteURL: URL, completionHandler: @escaping (MediaWikiAPIBlockedDisplayError?) -> Void) {
+
+        var apiErrors: [MediaWikiAPIError] = []
+        
+        guard let errorsDict = result["errors"] as? [[String: Any]] else {
+            completionHandler(nil)
+            return
+        }
+        
+        for errorDict in errorsDict {
+            if let error = MediaWikiAPIError(dict: errorDict) {
+                apiErrors.append(error)
+            }
+        }
+        
+        resolveMediaWikiBlockedError(from: apiErrors, siteURL: siteURL, completion: completionHandler)
+    }
+    
+    /// Chain from MediaWiki API response if you want to resolve a set of error messages into a full html string for display. Use from Swift Codable responses that capture a collection of [MediaWikiAPIError] items.
+    /// - Parameters:
+    ///   - apiErrors: Decoded MediaWikiAPIError items from API response
+    ///   - completion: Called when full html is determined, which is packaged up in a MediaWikiAPIBlockedDisplayError object.
+    public func resolveMediaWikiBlockedError(from apiErrors: [MediaWikiAPIError], siteURL: URL, completion: @escaping (MediaWikiAPIBlockedDisplayError?) -> Void) {
+        
+        let blockedApiErrors = apiErrors.filter { $0.code.contains("block") }
+        let firstApiErrorWithInfo = blockedApiErrors.first(where: { $0.data?.blockInfo != nil })
+        let fallbackApiError = blockedApiErrors.first(where: { !$0.html.isEmpty })
+        
+        let fallbackCompletion: () -> Void = {
+            guard let fallbackApiError else {
+                completion(nil)
+                return
+            }
+            
+            let displayError = MediaWikiAPIBlockedDisplayError(messageHtml: fallbackApiError.html, linkBaseURL: siteURL, code: fallbackApiError.code)
+            completion(displayError)
+            return
+        }
+        
+        guard let blockedApiError = firstApiErrorWithInfo,
+        let blockedApiInfo = blockedApiError.data?.blockInfo else {
+            
+            fallbackCompletion()
+            return
+        }
+        
+        resolveMediaWikiApiBlockError(siteURL: siteURL, code: blockedApiError.code, html: blockedApiError.html, blockInfo: blockedApiInfo) { displayError in
+                
+            guard let displayError = displayError else {
+                fallbackCompletion()
+                return
+            }
+            
+            completion(displayError)
+        }
+    }
+    
+    private func resolveMediaWikiApiBlockError(siteURL: URL, code: String, html: String, blockInfo: MediaWikiAPIError.Data.BlockInfo,  completionHandler: @escaping (MediaWikiAPIBlockedDisplayError?) -> Void) {
+        
+        // First turn blockReason into html, if needed
+        let group = DispatchGroup()
+        
+        var blockReasonHtml: String?
+        var templateHtml: String?
+        var templateSiteURL: URL?
+        
+        group.enter()
+        parseBlockReason(siteURL: siteURL, blockReason: blockInfo.blockReason) { text in
+            blockReasonHtml = text
+            group.leave()
+        }
+        
+        group.enter()
+        fetchBlockedTextTemplate(isPartial: blockInfo.blockPartial, siteURL: siteURL) { text, siteURL in
+            templateHtml = text
+            templateSiteURL = siteURL
+            group.leave()
+        }
+    
+        group.notify(queue: DispatchQueue.global(qos: .default)) {
+            
+            guard var templateHtml = templateHtml else {
+                completionHandler(nil)
+                return
+            }
+            
+            let linkBaseURL = templateSiteURL ?? siteURL
+            
+            // Replace encoded placeholders first, before replacing them with blocked text.
+            templateHtml = templateHtml.replacingOccurrences(of: "%241", with: "$1")
+            templateHtml = templateHtml.replacingOccurrences(of: "%242", with: "$2")
+            templateHtml = templateHtml.replacingOccurrences(of: "%243", with: "") // stripped out below
+            templateHtml = templateHtml.replacingOccurrences(of: "%244", with: "") // stripped out below
+            templateHtml = templateHtml.replacingOccurrences(of: "%245", with: "$5")
+            templateHtml = templateHtml.replacingOccurrences(of: "%246", with: "$6")
+            templateHtml = templateHtml.replacingOccurrences(of: "%247", with: "$7")
+            templateHtml = templateHtml.replacingOccurrences(of: "%248", with: "$8")
+            
+            // Replace placeholders with blocked text
+            templateHtml = templateHtml.replacingOccurrences(of: "$1", with: blockInfo.blockedBy)
+            
+            if let blockReasonHtml {
+                templateHtml = templateHtml.replacingOccurrences(of: "$2", with: blockReasonHtml)
+            }
+            
+            templateHtml = templateHtml.replacingOccurrences(of: "$3", with: "") // IP Address
+            templateHtml = templateHtml.replacingOccurrences(of: "$4", with: "") // unknown parameter (unused?)
+            
+            templateHtml = templateHtml.replacingOccurrences(of: "$5", with: String(blockInfo.blockID))
+            
+            let blockExpiryDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockExpiry, siteURL: linkBaseURL)
+            templateHtml = templateHtml.replacingOccurrences(of: "$6", with: blockExpiryDisplayDate)
+            
+            let username = MWKDataStore.shared().authenticationManager.loggedInUsername ?? ""
+            templateHtml = templateHtml.replacingOccurrences(of: "$7", with: username)
+
+            let blockedTimestampDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockedTimestamp, siteURL: linkBaseURL)
+            templateHtml = templateHtml.replacingOccurrences(of: "$8", with: blockedTimestampDisplayDate)
+            
+            let displayError = MediaWikiAPIBlockedDisplayError(messageHtml: templateHtml, linkBaseURL: linkBaseURL, code: code)
+            completionHandler(displayError)
+        }
+        
+    }
+    
+    private func blockedDateForDisplay(iso8601DateString: String, siteURL: URL) -> String {
+        var formattedDateString: String? = nil
+        if let date = (iso8601DateString as NSString).wmf_iso8601Date() {
+            
+            let dateFormatter = DateFormatter.wmf_localCustomShortDateFormatterWithTime(for: NSLocale.wmf_locale(for: siteURL.wmf_languageCode))
+            
+            formattedDateString = dateFormatter?.string(from: date)
+        }
+        
+        return formattedDateString ?? ""
+    }
+    
+    private func parseBlockReason(attempt: Int = 1, siteURL: URL, blockReason: String, completion: @escaping (String?) -> Void) {
+        
+        let params: [String: Any] = [
+            "action": "parse",
+            "prop": "text",
+            "mobileformat": 1,
+            "text": blockReason,
+            "errorformat": "html",
+            "erroruselocal": 1,
+            "format": "json",
+            "formatversion": 2
+        ]
+        
+        performMediaWikiAPIGET(for: siteURL, with: params, cancellationKey: nil) { [weak self] result, response, error in
+
+            
+            guard let parse = result?["parse"] as? [String: Any],
+                  let text = parse["text"] as? String else {
+                
+                // If unable to find, try app language once. Otherwise return nil.
+                guard attempt == 1 else {
+                    completion(nil)
+                    return
+                }
+
+                guard let appLangSiteURL = MWKDataStore.shared().languageLinkController.appLanguage?.siteURL else {
+                    completion(nil)
+                    return
+                }
+                
+                self?.parseBlockReason(attempt: attempt + 1, siteURL: appLangSiteURL, blockReason: blockReason, completion: completion)
+                return
+            }
+            
+            completion(text)
+        }
+    }
+    
+    private func fetchBlockedTextTemplate(isPartial: Bool = false, attempt: Int = 1, siteURL: URL, completion: @escaping (String?, URL) -> Void) {
+        
+        // Note: Not enough languages seem to have MediaWiki:Blockedtext-partial, so forcing MediaWiki:Blockedtext for now.
+        
+        let templateName = "MediaWiki:Blockedtext"
+        if let parseText = templateName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            let params: [String: Any] = [
+                "action": "parse",
+                "prop": "text",
+                "mobileformat": 1,
+                "page": parseText,
+                "errorformat": "html",
+                "erroruselocal": 1,
+                "format": "json",
+                "formatversion": 2
+            ]
+            
+            performMediaWikiAPIGET(for: siteURL, with: params, cancellationKey: nil) { [weak self] result, response, error in
+
+                guard let parse = result?["parse"] as? [String: Any],
+                      let text = parse["text"] as? String else {
+                    
+                    // If unable to find, try app language once. Otherwise return nil.
+                    guard attempt == 1 else {
+                        completion(nil, siteURL)
+                        return
+                    }
+
+                    guard let appLangSiteURL = MWKDataStore.shared().languageLinkController.appLanguage?.siteURL else {
+                        completion(nil, siteURL)
+                        return
+                    }
+                    
+                    self?.fetchBlockedTextTemplate(isPartial: isPartial, attempt: attempt + 1, siteURL: appLangSiteURL, completion: completion)
+                    return
+                }
+                
+                completion(text, siteURL)
+            }
+        }
+    }
+    
+// MARK: Decodable
+    
     @discardableResult public func performDecodableMediaWikiAPIGET<T: Decodable>(for URL: URL?, with queryParameters: [String: Any]?, cancellationKey: CancellationKey? = nil, completionHandler: @escaping (Result<T, Error>) -> Swift.Void) -> CancellationKey? {
         let url = configuration.mediaWikiAPIURLForURL(URL, with: queryParameters)
         let key = cancellationKey ?? UUID().uuidString
@@ -159,6 +385,8 @@ open class Fetcher: NSObject {
         track(task: task, for: key)
         return task
     }
+    
+// MARK: Tracking
     
     @objc(trackTask:forKey:)
     public func track(task: URLSessionTask?, for key: String) {
