@@ -552,18 +552,21 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilitySavedNotification)
-                ReadingListsFunnel.shared.logSaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
+                if let date = contentGroup?.midnightUTCDate {
+                    ReadingListsFunnel.shared.logSaveInFeed(label: getLabelfor(contentGroup), measureAge: date, articleURL: articleURL, index: action.indexPath.item)
+                }
                 return true
             }
         case .unsave:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.removeEntry(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilityUnsavedNotification)
-                ReadingListsFunnel.shared.logUnsaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
+                if let date = contentGroup?.midnightUTCDate {
+                    ReadingListsFunnel.shared.logUnsaveInFeed(label: getLabelfor(contentGroup), measureAge: date, articleURL: articleURL, index: action.indexPath.item)
+                }
                 return true
             }
         case .share:
-            FeedFunnel.shared.logFeedShareTapped(for: FeedFunnelContext(contentGroup), index: indexPath.item)
             return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
         default:
             return false
@@ -689,14 +692,15 @@ extension ExploreCardViewController: Themeable {
     }
 }
 
-extension ExploreCardViewController: EventLoggingEventValuesProviding {
-    var eventLoggingLabel: EventLoggingLabel? {
-        return contentGroup?.eventLoggingLabel
+extension ExploreCardViewController: MEPEventsProviding {
+    var eventLoggingLabel: EventLabelMEP? {
+        return getLabelfor(contentGroup)
     }
     
-    var eventLoggingCategory: EventLoggingCategory {
-        return EventLoggingCategory.feed
+    var eventLoggingCategory: EventCategoryMEP {
+        return .feed
     }
+
 }
 
 // MARK: - Context Menu
@@ -711,5 +715,45 @@ extension ExploreCardViewController {
 
     public func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         delegate?.willCommitPreview(with: animator)
+    }
+}
+
+// MARK: - MEP analytics extension
+extension ExploreCardViewController {
+    func getLabelfor(_ contentGroup: WMFContentGroup?) -> EventLabelMEP? {
+        if let contentGroup {
+            switch contentGroup.contentGroupKind {
+            case .featuredArticle:
+                return .featuredArticle
+            case .topRead:
+                return .topRead
+            case .onThisDay:
+                return .onThisDay
+            case .random:
+                return .random
+            case .news:
+                return .news
+            case .relatedPages:
+                return .relatedPages
+            case .continueReading:
+                return .continueReading
+            case .locationPlaceholder:
+                fallthrough
+            case .location:
+                return .location
+            case .mainPage:
+                return .mainPage
+            case .pictureOfTheDay:
+                return .pictureOfTheDay
+            case .announcement:
+                guard let announcement = contentGroup.contentPreview as? WMFAnnouncement else {
+                    return .announcement
+                }
+                return announcement.placement == "article" ? .articleAnnouncement : .announcement
+            default:
+                return nil
+            }
+        }
+        return nil
     }
 }

@@ -1,9 +1,9 @@
-extension ArticleViewController: EventLoggingEventValuesProviding {
-    var eventLoggingLabel: EventLoggingLabel? {
+extension ArticleViewController: MEPEventsProviding {
+    var eventLoggingLabel: EventLabelMEP? {
         return .outLink
     }
     
-    var eventLoggingCategory: EventLoggingCategory {
+    var eventLoggingCategory: EventCategoryMEP {
         return .article
     }
 }

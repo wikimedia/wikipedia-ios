@@ -4,13 +4,14 @@ class ArticleURLListViewController: ArticleCollectionViewController, DetailPrese
     let articleURLs: [URL]
     private let articleKeys: Set<String>
     let contentGroupIDURIString: String?
+    private let contentGroup: WMFContentGroup?
 
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
         self.articleKeys = Set<String>(articleURLs.compactMap { $0.wmf_databaseKey })
+        self.contentGroup = contentGroup
         self.contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         super.init()
-        feedFunnelContext = FeedFunnelContext(contentGroup)
         self.theme = theme
         self.dataStore = dataStore
     }
@@ -55,19 +56,12 @@ class ArticleURLListViewController: ArticleCollectionViewController, DetailPrese
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if isMovingFromParent {
-            FeedFunnel.shared.logFeedCardClosed(for: feedFunnelContext, maxViewed: maxViewed)
-        }
-    }
-    
-    override var eventLoggingCategory: EventLoggingCategory {
+    override var eventLoggingCategory: EventCategoryMEP {
         return .feed
     }
     
-    override var eventLoggingLabel: EventLoggingLabel? {
-        return feedFunnelContext?.label
+    override var eventLoggingLabel: EventLabelMEP? {
+        return getLabelfor(contentGroup)
     }
 
     override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
@@ -76,30 +70,20 @@ class ArticleURLListViewController: ArticleCollectionViewController, DetailPrese
     
     
     override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
-        FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndexPath?.item)
         super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
     }
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
-        push(articleController, context: feedFunnelContext, index: previewedIndexPath?.item, animated: true)
+        push(articleController, animated: true)
     }
 
     // MARK: - CollectionViewContextMenuShowing
     override func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
         let vc = super.previewingViewController(for: indexPath, at: location)
-        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: previewedIndexPath?.item)
         return vc
     }
 
-    override var poppingIntoVCCompletion: () -> Void {
-        return { [weak self] in
-            guard let self = self else {
-                return
-            }
-            FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: self.feedFunnelContext, index: self.previewedIndexPath?.item, maxViewed: self.maxViewed)
-        }
-    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -117,15 +101,53 @@ extension ArticleURLListViewController {
 extension ArticleURLListViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         super.collectionView(collectionView, didSelectItemAt: indexPath)
-        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: indexPath.item, maxViewed: maxViewed)
+
     }
 }
 
 extension ArticleURLListViewController {
     override func didPerformAction(_ action: Action) -> Bool {
-        if action.type == .share {
-            FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: action.indexPath.item)
-        }
         return super.didPerformAction(action)
+    }
+}
+
+// MARK: - MEP Analytics extension
+
+extension ArticleURLListViewController {
+    func getLabelfor(_ contentGroup: WMFContentGroup?) -> EventLabelMEP? {
+        if let contentGroup {
+            switch contentGroup.contentGroupKind {
+            case .featuredArticle:
+                return .featuredArticle
+            case .topRead:
+                return .topRead
+            case .onThisDay:
+                return .onThisDay
+            case .random:
+                return .random
+            case .news:
+                return .news
+            case .relatedPages:
+                return .relatedPages
+            case .continueReading:
+                return .continueReading
+            case .locationPlaceholder:
+                fallthrough
+            case .location:
+                return .location
+            case .mainPage:
+                return .mainPage
+            case .pictureOfTheDay:
+                return .pictureOfTheDay
+            case .announcement:
+                guard let announcement = contentGroup.contentPreview as? WMFAnnouncement else {
+                    return .announcement
+                }
+                return announcement.placement == "article" ? .articleAnnouncement : .announcement
+            default:
+                return nil
+            }
+        }
+        return nil
     }
 }
