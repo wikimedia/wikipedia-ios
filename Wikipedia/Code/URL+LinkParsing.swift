@@ -97,6 +97,10 @@ extension URL {
     public var wmf_isEnglishWikipedia: Bool {
         host == Configuration.Domain.englishWikipedia
     }
+    
+    public var wmf_isTestWikipedia: Bool {
+        host == Configuration.Domain.testWikipedia
+    }
 
     public var wmf_wiki: String? {
         return wmf_languageCode?.replacingOccurrences(of: "-", with: "_").appending("wiki")

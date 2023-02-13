@@ -429,12 +429,13 @@
       }
     }
 
-    const setupCodemirror = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => {
+    const setupCodemirror = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, readOnly, callback) => {
       applyTheme(themeName)
       if (!isSyntaxHighlighted) {
           toggleSyntaxColors()
       }
       scaleBodyText(textSizeAdjustment)
+
       let xhr = new XMLHttpRequest()
       let url = `config/codemirror-config-${language}.json`
       xhr.open('GET', url, true)
@@ -452,6 +453,7 @@
           }, 
           inputStyle: 'contenteditable',
           direction: direction,
+          readOnly: setupReadOnly(readOnly),
           autocorrect: true,
           autocapitalize: true,
           spellcheck: false,
@@ -462,6 +464,12 @@
       };
       xhr.send()
     }
+
+	  const setupReadOnly = (readOnly) => {
+		  if (readOnly) {
+			   return "nocursor"
+		  }
+	  }
       
     const wrapSelectionWith = (openingMarkup, closingMarkup) => {
       if (closingMarkup === undefined) {
@@ -883,7 +891,7 @@
         completion()
       })
     }
-    wmf.setup = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => setupCodemirror(language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback)
+    wmf.setup = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, readOnly, callback) => setupCodemirror(language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, readOnly, callback)
     wmf.applyTheme = (themeName) => applyTheme(themeName)
     wmf.highlightAndScrollToWikitextForSelectedAndAdjacentText = highlightAndScrollToWikitextForSelectedAndAdjacentText
 
