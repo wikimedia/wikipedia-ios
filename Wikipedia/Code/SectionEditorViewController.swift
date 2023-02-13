@@ -71,7 +71,7 @@ class SectionEditorViewController: ViewController {
     private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
 
     private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
-    private var lastBlockedDisplayError: MediaWikiAPIBlockedDisplayError?
+    private var lastBlockedDisplayError: MediaWikiAPIDisplayError?
     
     init(articleURL: URL, sectionID: Int, messagingController: SectionEditorWebViewMessagingController? = nil, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo? = nil, theme: Theme = Theme.standard) {
         self.articleURL = articleURL
@@ -399,7 +399,7 @@ class SectionEditorViewController: ViewController {
         }
     }
 
-    private func loadWikitext(completion: @escaping (MediaWikiAPIBlockedDisplayError?) -> Void) {
+    private func loadWikitext(completion: @escaping (MediaWikiAPIDisplayError?) -> Void) {
 
         initialFetchGroup.enter()
         let isShowingStatusMessage = shouldFocusWebView
