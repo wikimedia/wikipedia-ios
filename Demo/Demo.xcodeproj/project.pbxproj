@@ -24,6 +24,7 @@
 		6771E7B6299C00060012002D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6771E7B9299C00060012002D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6771E7BB299C00060012002D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6771E7C1299C004C0012002D /* wikipedia-ios-ui-components */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "wikipedia-ios-ui-components"; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +41,7 @@
 		6771E7A1299C00050012002D = {
 			isa = PBXGroup;
 			children = (
+				6771E7C1299C004C0012002D /* wikipedia-ios-ui-components */,
 				6771E7AC299C00050012002D /* Demo */,
 				6771E7AB299C00050012002D /* Products */,
 			);
