@@ -210,9 +210,8 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
     }
     private var _sessionID: String?
 
-    private var isAnon: Int {
-        let isAnonimous = dataStore.authenticationManager.isLoggedIn ? 1 : 0
-        return isAnonimous
+    private var isAnon: Bool {
+        return dataStore.authenticationManager.isLoggedIn
     }
 
     private var primaryLanguage: String {
@@ -494,13 +493,15 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
         let event: E
 
         /**
-         * add doc
+         * Required field for all iOS schemas
+         * False for logged in users
         **/
 
-        let isAnon: Int
+        let isAnon: Bool
 
         /**
-         * add doc
+         * Required field for all iOS schemas
+         * Represents the app's primary language
         **/
         let primaryLanguage: String
 

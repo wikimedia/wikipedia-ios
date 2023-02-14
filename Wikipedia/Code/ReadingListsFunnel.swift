@@ -1,6 +1,6 @@
 import WMF
 
-@objc final class ReadingListsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+@objc final class ReadingListsFunnel: NSObject {
     @objc public static let shared = ReadingListsFunnel()
     
     private enum Action: String, Codable {
@@ -30,7 +30,6 @@ import WMF
         let event = ReadingListsFunnel.Event(action: action, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge)
         EventPlatformClient.shared.submit(stream: .readingLists, event: event)
     }
-
 
     // - MARK: Article
     

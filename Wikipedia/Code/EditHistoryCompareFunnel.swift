@@ -1,6 +1,6 @@
 import Foundation
 
-final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+final class EditHistoryCompareFunnel {
     private enum Action: String, Codable {
         case showHistory = "show_history"
         case revisionView = "revision_view"
@@ -15,19 +15,12 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
     private struct Event: EventInterface {
         static let schema: EventPlatformClient.Schema = .editHistoryCompare
         let action: Action
-        let primary_language: String
-        let is_anon: Bool
     }
     
     public static let shared = EditHistoryCompareFunnel()
-
-    private func event(action: Action) -> [String: Any] {
-        let event: [String: Any] = ["action": action.rawValue, "primary_language": primaryLanguage(), "is_anon": isAnon]
-        return event
-    }
     
     private func logEvent(action: Action, domain: String?) {
-        let event = Event(action: action, primary_language: primaryLanguage(), is_anon: isAnon.boolValue)
+        let event = Event(action: action)
         EventPlatformClient.shared.submit(stream: .editHistoryCompare, event: event, domain: domain)
     }
     
