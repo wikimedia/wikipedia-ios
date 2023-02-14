@@ -292,6 +292,7 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "選択したテキストが見つかりませんでした。";
 "edit-minor-learn-more-text" = "細部の編集とは";
 "edit-minor-text" = "これは細部の編集です";
+"edit-notices-please-read" = "編集する前にお読みください";
 "edit-ordered-list-accessibility-label" = "この行を数字付きリストにする";
 "edit-ordered-list-remove-accessibility-label" = "この行を標準の文に戻す";
 "edit-published" = "公開しました!";

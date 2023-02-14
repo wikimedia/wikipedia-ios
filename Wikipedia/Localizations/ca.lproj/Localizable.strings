@@ -282,6 +282,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "No s’ha pogut trobar el text que heu seleccionat";
 "edit-minor-learn-more-text" = "Més informació sobre les modificacions menors";
 "edit-minor-text" = "Aquesta és una modificació menor";
+"edit-notices" = "Avisos de modificacions";
+"edit-notices-always-display" = "Mostra sempre els avisos de modificacions";
+"edit-notices-please-read" = "Llegiu-ho abans de modificar-ho";
 "edit-ordered-list-accessibility-label" = "Fes la línia actual part d'una llista ordenada";
 "edit-ordered-list-remove-accessibility-label" = "Treu la línia actual de la llista ordenada";
 "edit-published" = "S'ha publicat la modificació";
@@ -1073,6 +1076,8 @@
 "talk-page-unsubscription-failed-alert" = "La desubscripció al tema ha fallat. Torneu-ho a provar.";
 "talk-page-user-about" = "Quant a les pàgines de discussió d'usuari";
 "talk-page-user-contributions" = "Contribucions";
+"talk-pages-archives-empty-title" = "No s'ha trobat cap pàgina arxivada.";
+"talk-pages-archives-view-title" = "Arxius";
 "talk-pages-coffee-roll-read-more" = "Més informació";
 "talk-pages-comment-added-alert-title" = "S'ha afegit el vostre comentari";
 "talk-pages-compose-close-confirmation-keep" = "Continua l'edició";

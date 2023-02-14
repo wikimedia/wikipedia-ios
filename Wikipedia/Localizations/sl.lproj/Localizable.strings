@@ -264,6 +264,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Besedila, ki ste ga izbrali, ni bilo mogoče najti.";
 "edit-minor-learn-more-text" = "Več o manjših urejanjih";
 "edit-minor-text" = "Manjše urejanje";
+"edit-notices" = "Obvestila o urejanju";
+"edit-notices-always-display" = "Vedno prikaži obvestila o urejanju";
+"edit-notices-please-read" = "Prosimo, preberite pred urejanjem";
 "edit-ordered-list-accessibility-label" = "Spremenite trenutno vrstico v oštevilčeni seznam";
 "edit-ordered-list-remove-accessibility-label" = "Odstranite oštevilčeni seznam iz trenutne vrstice";
 "edit-published" = "Uredi objavljeno";
