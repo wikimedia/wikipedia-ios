@@ -58,10 +58,8 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
     public static let shared: EventPlatformClient = {
         return EventPlatformClient()
     }()
-    
-    // SINGLETONTODO
-    /// Session for requesting data
-    let session = MWKDataStore.shared().session
+
+    let dataStore = MWKDataStore.shared()
     let samplingController: SamplingController
     let storageManager: StorageManager?
 
@@ -212,6 +210,17 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
     }
     private var _sessionID: String?
 
+    private var isAnon: Int {
+        let isAnonimous = dataStore.authenticationManager.isLoggedIn ? 1 : 0
+        return isAnonimous
+    }
+
+    private var primaryLanguage: String {
+        if let appLanguage = dataStore.languageLinkController.appLanguage {
+            return appLanguage.languageCode
+        }
+        return "en"
+    }
 
     // MARK: - Methods
 
@@ -484,6 +493,17 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
          */
         let event: E
 
+        /**
+         * add doc
+        **/
+
+        let isAnon: Int
+
+        /**
+         * add doc
+        **/
+        let primaryLanguage: String
+
         enum CodingKeys: String, CodingKey {
             case schema = "$schema"
             case meta
@@ -491,6 +511,8 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
             case appSessionID = "app_session_id"
             case dt
             case event
+            case isAnon
+            case primaryLanguage = "primary_language"
         }
         
         func encode(to encoder: Encoder) throws {
@@ -501,6 +523,8 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
                 try container.encode(appSessionID, forKey: .appSessionID)
                 try container.encode(dt, forKey: .dt)
                 try container.encode(E.schema, forKey: .schema)
+                try container.encode(isAnon, forKey: .isAnon)
+                try container.encode(primaryLanguage, forKey: .primaryLanguage)
                 try event.encode(to: encoder)
             } catch let error {
                 DDLogError("EPC: Error encoding event body: \(error)")
@@ -589,7 +613,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
 
         let meta = EventBody<E>.Meta(stream: stream, id: UUID(), domain: domain)
 
-        let eventPayload = EventBody(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, dt: date, event: event)
+        let eventPayload = EventBody(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, dt: date, event: event, isAnon: isAnon, primaryLanguage: primaryLanguage)
         do {
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .iso8601
@@ -690,8 +714,8 @@ private extension EventPlatformClient {
      */
     private func httpPost(url: URL, body: Data? = nil, completion: @escaping ((Result<Void, PostEventError>) -> Void)) {
         DDLogDebug("EPC: Attempting to POST events")
-        let request = session.request(with: url, method: .post, bodyData: body, bodyEncoding: .json)
-        let task = session.dataTask(with: request, completionHandler: { (_, response, error) in
+        let request = dataStore.session.request(with: url, method: .post, bodyData: body, bodyEncoding: .json)
+        let task = dataStore.session.dataTask(with: request, completionHandler: { (_, response, error) in
             let fail: (PostEventError) -> Void = { error in
                 DDLogDebug("EPC: An error occurred sending the request: \(error)")
                 completion(.failure(error))
@@ -722,7 +746,7 @@ private extension EventPlatformClient {
         DDLogDebug("EPC: Attempting to GET data from \(url.absoluteString)")
         var request = URLRequest.init(url: url) // httpMethod = "GET" by default
         request.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
-        let task = session.dataTask(with: request, completionHandler: completion)
+        let task = dataStore.session.dataTask(with: request, completionHandler: completion)
         task?.resume()
     }
 }
