@@ -297,6 +297,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "De door u geselecteerde tekst kon niet worden gevonden";
 "edit-minor-learn-more-text" = "Meer informatie over kleine bewerkingen";
 "edit-minor-text" = "Dit is een kleine bewerking";
+"edit-notices" = "Bewerkingsmeldingen";
+"edit-notices-always-display" = "Altijd bewerkingsberichten weergeven";
+"edit-notices-please-read" = "Gelieve te lezen alvorens te bewerken";
 "edit-ordered-list-accessibility-label" = "Maak huidige regelen een gesorteerde lijst";
 "edit-ordered-list-remove-accessibility-label" = "Verwijder gesorteerde lijst van huidige regel";
 "edit-published" = "Bewerking gepubliceerd";
