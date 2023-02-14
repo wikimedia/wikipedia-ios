@@ -44,8 +44,7 @@ class SectionEditorViewController: ViewController {
     private var didFocusWebViewCompletion: (() -> Void)?
     
     private var needsSelectLastSelection: Bool = false
-    
-    @objc var editFunnel = EditFunnel.shared
+
 
     private var isInFindReplaceActionSheetMode = false
     
@@ -299,7 +298,6 @@ class SectionEditorViewController: ViewController {
             guard shouldFocusWebView else {
                 return
             }
-            logSectionReadyToEdit()
             focusWebViewIfReady()
         }
     }
@@ -329,7 +327,6 @@ class SectionEditorViewController: ViewController {
     }
     
     private func showCouldNotFindSelectionInWikitextAlert() {
-        editFunnel.logSectionHighlightToEditError(language: languageCode)
         let alertTitle = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-title", value:"The text that you selected could not be located", comment:"Title for alert informing user their text selection could not be located in the article wikitext.")
         let alertMessage = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-message", value:"This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted", comment:"Description of possible reasons the user text selection could not be located in the article wikitext.")
         let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
@@ -484,21 +481,6 @@ class SectionEditorViewController: ViewController {
             self.focusNavigationView.updateLayout(for: newCollection)
         }
     }
-
-    // MARK: Event logging
-
-    private var loggedEditActions: NSMutableSet = []
-    private func logSectionReadyToEdit() {
-        guard !loggedEditActions.contains(EditFunnel.Action.ready) else {
-            return
-        }
-        editFunnel.logSectionReadyToEdit(from: editFunnelSource, language: languageCode)
-        loggedEditActions.add(EditFunnel.Action.ready)
-    }
-
-    private var editFunnelSource: EditFunnelSource {
-        return selectedTextEditInfo == nil ? .pencil : .highlight
-    }
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
@@ -567,9 +549,6 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     vc.languageCode = self.languageCode
                     vc.wikitext = wikitext
                     vc.delegate = self
-                    vc.editFunnel = self.editFunnel
-                    vc.loggedEditActions = self.loggedEditActions
-                    vc.editFunnelSource = self.editFunnelSource
                     self.navigationController?.pushViewController(vc, animated: true)
                 } else {
                     let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
@@ -707,9 +686,6 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         vc.wikitext = editPreviewViewController.wikitext
         vc.delegate = self
         vc.theme = self.theme
-        vc.editFunnel = self.editFunnel
-        vc.editFunnelSource = editFunnelSource
-        vc.loggedEditActions = loggedEditActions
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

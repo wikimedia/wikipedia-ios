@@ -10,10 +10,6 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
     var articleURL: URL
     var languageCode: String?
     var wikitext = ""
-    var editFunnel: EditFunnel?
-    var loggedEditActions: NSMutableSet?
-    var editFunnelSource: EditFunnelSource = .unknown
-    var savedPagesFunnel: SavedPagesFunnel?
     
     weak var delegate: EditPreviewViewControllerDelegate?
     
@@ -96,12 +92,6 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
-
-        if let loggedEditActions = loggedEditActions,
-            !loggedEditActions.contains(EditFunnel.Action.preview) {
-            editFunnel?.logEditPreviewForArticle(from: editFunnelSource, language: languageCode)
-            loggedEditActions.add(EditFunnel.Action.preview)
-        }
         apply(theme: theme)
         previewWebViewContainer.webView.uiDelegate = self
     }

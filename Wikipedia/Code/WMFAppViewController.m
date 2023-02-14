@@ -15,8 +15,6 @@
 
 #import "AppDelegate.h"
 
-#import "WMFDailyStatsLoggingFunnel.h"
-
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
 
@@ -925,8 +923,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (void)finishResumingApp {
-
-    [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
 
     WMFTaskGroup *resumeAndAnnouncementsCompleteGroup = [WMFTaskGroup new];
     [resumeAndAnnouncementsCompleteGroup enter];

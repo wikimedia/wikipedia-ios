@@ -7,7 +7,6 @@
 #import "AboutViewController.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFDailyStatsLoggingFunnel.h"
 
 #pragma mark - Static URLs
 
@@ -197,7 +196,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             if (isOn) {
                 [eventLoggingService reset];
                 [metricsClientBridge reset];
-                [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
                 [[SessionsFunnel shared] logSessionStart];
                 [[UserHistoryFunnel shared] logStartingSnapshot];
             } else {

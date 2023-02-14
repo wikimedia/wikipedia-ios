@@ -18,20 +18,18 @@ extension ArticleViewController {
 
         if let text = selectedText, !text.isEmpty {
             let shareAFactActivity = CustomShareActivity(title: "Share-a-fact", imageName: "share-a-fact", action: {
-                self.shareFunnel?.logHighlight()
                 self.shareAFact(with: text)
             })
             activities.append(shareAFactActivity)
         }
 
-        guard let vc = sharingActivityViewController(with: selectedText, button: toolbarController.shareButton, shareFunnel: shareFunnel, customActivities: activities) else {
+        guard let vc = sharingActivityViewController(with: selectedText, button: toolbarController.shareButton, customActivities: activities) else {
             return
         }
         present(vc, animated: true)
     }
     
-    func sharingActivityViewController(with textSnippet: String?, button: UIBarButtonItem, shareFunnel: WMFShareFunnel?, customActivities: [UIActivity]?) -> ShareActivityController? {
-        shareFunnel?.logShareButtonTappedResulting(inSelection: textSnippet)
+    func sharingActivityViewController(with textSnippet: String?, button: UIBarButtonItem, customActivities: [UIActivity]?) -> ShareActivityController? {
         let vc: ShareActivityController
         let textActivitySource = WMFArticleTextActivitySource(article: article, shareText: textSnippet)
         if let customActivities = customActivities, !customActivities.isEmpty {

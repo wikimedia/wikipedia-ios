@@ -70,7 +70,7 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
                 return
             }
             let customActivity = self.addToReadingListActivity(with: presenter, eventLogAction: logReadingListsSaveIfNeeded)
-            guard let shareActivityViewController = self.sharingActivityViewController(with: nil, button: self.toolbarController.shareButton, shareFunnel: self.shareFunnel, customActivities: [customActivity]) else {
+            guard let shareActivityViewController = self.sharingActivityViewController(with: nil, button: self.toolbarController.shareButton, customActivities: [customActivity]) else {
                 return
             }
             self.articlePreviewingDelegate?.shareArticlePreviewActionSelected(with: self, shareActivityController: shareActivityViewController)

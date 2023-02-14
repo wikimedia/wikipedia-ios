@@ -2,11 +2,11 @@
 
 @objc final class LoginFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     @objc public static let shared = LoginFunnel()
-    
+
     private override init() {
         super.init(schema: "MobileWikiAppiOSLoginAction", version: 18121305)
     }
-    
+
     private enum Action: String {
         case impression
         case loginStart = "login_start"
@@ -15,11 +15,11 @@
         case createAccountStart = "createaccount_start"
         case createAccountSuccess = "createaccount_success"
     }
-    
+
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Double? = nil) -> [String: Any] {
         let category = category.rawValue
         let action = action.rawValue
-        
+
         var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage(), "is_anon": isAnon]
         if let label = label?.rawValue {
             event["label"] = label
@@ -29,11 +29,11 @@
         }
         return event
     }
-    
+
     override func preprocessData(_ eventData: [AnyHashable: Any]) -> [AnyHashable: Any] {
         return wholeEvent(with: eventData)
     }
-    
+
     // MARK: - Feed
     
     @objc public func logLoginImpressionInFeed() {

@@ -29,8 +29,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     fileprivate var theme = Theme.standard
     
-    public var funnel: CreateAccountFunnel?
-    
     private var startDate: Date? // to calculate time elapsed between account creation start and account creation success
     
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
@@ -118,7 +116,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             DispatchQueue.main.async {
                 self.captchaViewController?.captcha = info.captcha
                 if info.captcha != nil {
-                    self.funnel?.logCaptchaShown()
                 }
                 self.updateEmailFieldReturnKeyType()
                 self.enableProgressiveButtonIfNecessary()
@@ -310,7 +307,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                         self.usernameAlertLabel.isHidden = false
                         self.usernameField.textColor = self.theme.colors.error
                         self.usernameField.keyboardAppearance = self.theme.keyboardAppearance
-                        self.funnel?.logError(error.localizedDescription)
                         WMFAlertManager.sharedInstance.dismissAlert()
                         return
                     case .wrongCaptcha:
@@ -325,16 +321,14 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                         
                         self.wmf_showBlockedPanel(messageHtml: parsedMessage, linkBaseURL: linkBaseURL, currentTitle: "Special:CreateAccount", theme: self.theme)
 
-                        self.funnel?.logError(error.localizedDescription)
                         self.enableProgressiveButtonIfNecessary()
                         return
                         
-                        
-                    default: break
+                    default:
+                        break
                     }
                 }
                 
-                self.funnel?.logError(error.localizedDescription)
                 self.enableProgressiveButtonIfNecessary()
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             }

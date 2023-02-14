@@ -20,7 +20,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         case .footerItem(let type, let payload):
             handleFooterItem(type: type, payload: payload)
         case .edit(let sectionID, let descriptionSource):
-            showEditorForSectionOrTitleDescription(with: sectionID, descriptionSource: descriptionSource, funnelSource: .pencil)
+            showEditorForSectionOrTitleDescription(with: sectionID, descriptionSource: descriptionSource)
         case .backLink(let referenceId, let referenceText, let backLinks):
             showReferenceBackLinks(backLinks, referenceId: referenceId, referenceText: referenceText)
         case .reference(let index, let group):
@@ -28,7 +28,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         case .image(let src, let href, let width, let height):
             showImage(src: src, href: href, width: width, height: height)
         case .addTitleDescription:
-            showTitleDescriptionEditor(with: .none, funnelSource: .titleDescription)
+            showTitleDescriptionEditor(with: .none)
         case .scrollToAnchor(let anchor, let rect):
             scrollToAnchorCompletions.popLast()?(anchor, rect)
             scrollToAnchorCompletions.removeAll()
