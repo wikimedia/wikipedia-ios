@@ -238,7 +238,6 @@ extension ArticleCollectionViewController: ActionDelegate {
         case .save:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
-                // MARINA TODO fix dates here
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilitySavedNotification)
                 ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: Date(), measurePosition: indexPath.item)
                 return true

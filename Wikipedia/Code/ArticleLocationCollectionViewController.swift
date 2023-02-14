@@ -78,7 +78,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     }
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
-        guard let context = contentGroup else {
+        guard contentGroup != nil else {
             super.readMoreArticlePreviewActionSelected(with: articleController)
             return
         }
@@ -91,11 +91,12 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
             super.saveArticlePreviewActionSelected(with: articleController, didSave: didSave, articleURL: articleURL)
             return
         }
-        if didSave {
-            // Todo MArina - safely unwrap the date first
-            ReadingListsFunnel.shared.logSaveInFeed(label: getLabelfor(context), measureAge: context.midnightUTCDate ?? Date(), articleURL: articleURL, index: previewedIndexPath?.item)
-        } else {
-            ReadingListsFunnel.shared.logUnsaveInFeed(label: getLabelfor(context), measureAge: context.midnightUTCDate ?? Date(), articleURL: articleURL, index: previewedIndexPath?.item)
+        if let date = context.midnightUTCDate {
+            if didSave {
+                ReadingListsFunnel.shared.logSaveInFeed(label: getLabelfor(context), measureAge: date, articleURL: articleURL, index: previewedIndexPath?.item)
+            } else {
+                ReadingListsFunnel.shared.logUnsaveInFeed(label: getLabelfor(context), measureAge: date, articleURL: articleURL, index: previewedIndexPath?.item)
+            }
         }
     }
 
