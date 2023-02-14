@@ -1,1 +1,3 @@
-# wikipedia-ios-ui-components
+# UIComponents
+
+A description of this package.
