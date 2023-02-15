@@ -212,7 +212,9 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
             return sID
         }
     }
+
     private var _sessionID: String?
+
 
     private var isAnon: Bool {
         return dataStore.authenticationManager.isLoggedIn
@@ -296,10 +298,23 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
         resetSession()
     }
 
+    public var sessionStartDate: Date? {
+        queue.sync {
+            guard let sessionStart = _sessionStartDate else {
+                let newStart = Date()
+                _sessionStartDate = newStart
+                return newStart
+            }
+            return sessionStart
+        }
+    }
+
+    private var _sessionStartDate: Date?
+
     /**
      * Unset the session
      */
-    private func resetSession() {
+    public func resetSession() {
         queue.async {
             self._sessionID = nil
         }

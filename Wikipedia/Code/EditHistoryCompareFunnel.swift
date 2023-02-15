@@ -11,7 +11,6 @@ final class EditHistoryCompareFunnel {
         case thankFail = "thank_fail"
     }
     
-    
     private struct Event: EventInterface {
         static let schema: EventPlatformClient.Schema = .editHistoryCompare
         let action: Action

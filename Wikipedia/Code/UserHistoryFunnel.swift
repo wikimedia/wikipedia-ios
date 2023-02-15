@@ -1,4 +1,3 @@
-import WMF
 private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, loggingCode: String)
 
 @objc public final class UserHistoryFunnel: NSObject {

@@ -1,5 +1,3 @@
-import WMF
-
 @objc final class ReadingListsFunnel: NSObject {
     @objc public static let shared = ReadingListsFunnel()
     
