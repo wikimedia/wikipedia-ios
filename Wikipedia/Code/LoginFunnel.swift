@@ -1,13 +1,7 @@
-// https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSLoginAction
-
-@objc final class LoginFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+@objc final class LoginFunnel: NSObject {
     @objc public static let shared = LoginFunnel()
-
-    private override init() {
-        super.init(schema: "MobileWikiAppiOSLoginAction", version: 18121305)
-    }
-
-    private enum Action: String {
+    
+    private enum Action: String, Codable {
         case impression
         case loginStart = "login_start"
         case logout
@@ -16,66 +10,61 @@
         case createAccountSuccess = "createaccount_success"
     }
 
-    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Double? = nil) -> [String: Any] {
-        let category = category.rawValue
-        let action = action.rawValue
-
-        var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage(), "is_anon": isAnon]
-        if let label = label?.rawValue {
-            event["label"] = label
-        }
-        if let measure = measure {
-            event["measure_time"] = Int(round(measure))
-        }
-        return event
+    private struct Event: EventInterface {
+        static let schema: EventPlatformClient.Schema = .login
+        let measure_time: Int?
+        let action: Action?
+        let label: EventLabelMEP?
+        let category: EventCategoryMEP?
     }
 
-    override func preprocessData(_ eventData: [AnyHashable: Any]) -> [AnyHashable: Any] {
-        return wholeEvent(with: eventData)
+    private func logEvent(category: EventCategoryMEP, label: EventLabelMEP?, action: Action, measure: Double? = nil) {
+        let event = LoginFunnel.Event(measure_time: Int(round(measure ?? Double())), action: action, label: label, category: category)
+        EventPlatformClient.shared.submit(stream: .login, event: event)
     }
 
     // MARK: - Feed
     
     @objc public func logLoginImpressionInFeed() {
-        log(event(category: .feed, label: .syncEducation, action: .impression))
+        logEvent(category: .feed, label: .syncEducation, action: .impression)
     }
     
     @objc public func logLoginStartInFeed() {
-        log(event(category: .feed, label: .syncEducation, action: .loginStart))
+        logEvent(category: .feed, label: .syncEducation, action: .loginStart)
     }
     
     // MARK: - Login screen
     
     public func logSuccess(timeElapsed: Double?) {
-        log(event(category: .login, label: nil, action: .loginSuccess, measure: timeElapsed))
+        logEvent(category: .login, label: nil, action: .loginSuccess, measure: timeElapsed)
     }
     
     @objc public func logCreateAccountAttempt() {
-        log(event(category: .login, label: nil, action: .createAccountStart))
+        logEvent(category: .login, label: nil, action: .createAccountStart)
     }
     
     public func logCreateAccountSuccess(timeElapsed: Double?) {
-        log(event(category: .login, label: nil, action: .createAccountSuccess, measure: timeElapsed))
+        logEvent(category: .login, label: nil, action: .createAccountSuccess, measure: timeElapsed)
     }
     
     // MARK: - Settings
     
     @objc public func logLoginStartInSettings() {
-        log(event(category: .setting, label: .login, action: .loginStart))
+        logEvent(category: .setting, label: .login, action: .loginStart)
     }
     
     @objc public func logLogoutInSettings() {
-        log(event(category: .setting, label: .login, action: .logout))
+        logEvent(category: .setting, label: .login, action: .logout)
     }
     
     // MARK: - Sync popovers
     
     public func logLoginImpressionInSyncPopover() {
-        log(event(category: .loginToSyncPopover, label: nil, action: .impression))
+        logEvent(category: .loginToSyncPopover, label: nil, action: .impression)
     }
     
     public func logLoginStartInSyncPopover() {
-        log(event(category: .loginToSyncPopover, label: nil, action: .loginStart))
+        logEvent(category: .loginToSyncPopover, label: nil, action: .loginStart)
     }
     
 }
