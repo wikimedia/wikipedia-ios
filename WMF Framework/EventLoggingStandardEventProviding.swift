@@ -18,7 +18,7 @@ public extension EventLoggingStandardEventProviding where Self: EventLoggingFunn
         }
         return ["app_install_id": aii, "session_id": si, "event_dt": timestamp]
     }
-    
+
     func wholeEvent(with event: [AnyHashable: Any]) -> [String: Any] {
         guard let event = event as? [String: Any] else {
             assertionFailure("Expected dictionary with keys of type String")
