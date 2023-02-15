@@ -243,7 +243,7 @@ final class EditNoticesView: SetupView {
     func configure(viewModel: EditNoticesViewModel, theme: Theme) {
         let attributedNoticeString = NSMutableAttributedString()
         for notice in viewModel.notices {
-            let noticeString = notice.description.byAttributingHTML(with: .callout, matching: traitCollection, color: theme.colors.primaryText, handlingLinks: true)
+            let noticeString = notice.description.byAttributingHTML(with: .subheadline, matching: traitCollection, color: theme.colors.primaryText, handlingLinks: true)
             attributedNoticeString.append(noticeString)
         }
 
