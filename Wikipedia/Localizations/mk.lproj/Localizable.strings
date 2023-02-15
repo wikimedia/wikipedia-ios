@@ -268,6 +268,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Не можев да го пронајдам избраниот текст";
 "edit-minor-learn-more-text" = "Дознајте повеќе за ситните уредувања";
 "edit-minor-text" = "Ова е ситно уредување";
+"edit-notices" = "Известувања за уредување";
+"edit-notices-always-display" = "Секогаш прикажувај известувања за уредување";
+"edit-notices-please-read" = "Прочитајте пред да уредувате";
 "edit-ordered-list-accessibility-label" = "Направи го тековниот ред подреден список";
 "edit-ordered-list-remove-accessibility-label" = "Отстрани подреден список од тековниот ред";
 "edit-published" = "Уредувањето е објавено";

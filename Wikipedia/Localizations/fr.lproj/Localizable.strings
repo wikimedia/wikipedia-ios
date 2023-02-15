@@ -290,6 +290,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Le texte que vous avez sélectionné n’a pas pu être situé";
 "edit-minor-learn-more-text" = "En savoir plus sur les modifications mineures";
 "edit-minor-text" = "C’est une modification mineure";
+"edit-notices" = "Avertissements de modification";
+"edit-notices-always-display" = "Toujours afficher les avertissements de modification";
+"edit-notices-please-read" = "Veuillez lire avant de modifier";
 "edit-ordered-list-accessibility-label" = "Faire de la ligne actuelle une liste ordonnée";
 "edit-ordered-list-remove-accessibility-label" = "Supprimer la liste ordonnée de la ligne actuelle";
 "edit-published" = "Modification publiée";

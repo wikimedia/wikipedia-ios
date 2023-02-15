@@ -74,11 +74,42 @@ class ShortDescriptionController: ArticleDescriptionControlling {
         }
     }
     
-    func currentDescription(completion: @escaping (String?) -> Void) {
-        delegate?.currentDescription(completion: completion)
+    func currentDescription(completion: @escaping (String?, MediaWikiAPIDisplayError?) -> Void) {
+        
+        let group = DispatchGroup()
+        
+        var blockedError: MediaWikiAPIDisplayError?
+        var currentDescription: String?
+        
+        // Populate current description
+        group.enter()
+        delegate?.currentDescription(completion: { description in
+            currentDescription = description
+            group.leave()
+        })
+        
+        // Populate blocked error
+        group.enter()
+        sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { (result) in
+            
+            defer {
+                group.leave()
+            }
+            
+            switch result {
+            case .success(let result):
+                blockedError = result.blockedError
+            case .failure:
+                break
+            }
+        }
+        
+        group.notify(queue: DispatchQueue.main) {
+            completion(currentDescription, blockedError)
+        }
     }
     
-    func errorTextFromError(_ error: Error) -> String {
+    func errorCodeFromError(_ error: Error) -> String {
         let errorText = "\((error as NSError).domain)-\((error as NSError).code)"
         return errorText
     }

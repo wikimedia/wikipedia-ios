@@ -35,7 +35,7 @@ extension URL {
         // certain characters first because URLComponents cannot ingest strings with these chacters
         // in some versions of iOS (e.g. 15.5).
         let urlComponentsString = href.addingPercentEncoding(withAllowedCharacters: .rfc3986Allowed) ?? href
-        var components = URLComponents(string: urlComponentsString)
+        let components = URLComponents(string: urlComponentsString)
         
         // Encode this URL to handle titles with forward slashes, otherwise URLComponents thinks they're separate path components
         let encodedBaseURL = encodedWikiURL
@@ -96,6 +96,10 @@ extension URL {
     /// returns true if host is en.wikipedia.org. Assumes desktop Wikipedia production format, i.e. that "en.wikipedia.org" is the host component and not in the path.
     public var wmf_isEnglishWikipedia: Bool {
         host == Configuration.Domain.englishWikipedia
+    }
+    
+    public var wmf_isTestWikipedia: Bool {
+        host == Configuration.Domain.testWikipedia
     }
 
     public var wmf_wiki: String? {

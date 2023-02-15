@@ -7,10 +7,13 @@ typedef NS_ENUM(NSInteger, WikiTextSectionUploaderErrorType) {
     WikiTextSectionUploaderErrorTypeNeedsCaptcha = 2,
     WikiTextSectionUploaderErrorTypeAbuseFilterDisallowed = 3,
     WikiTextSectionUploaderErrorTypeAbuseFilterWarning = 4,
-    WikiTextSectionUploaderErrorTypeAbuseFilterOther = 5
+    WikiTextSectionUploaderErrorTypeAbuseFilterOther = 5,
+    WikiTextSectionUploaderErrorTypeBlocked = 6,
 };
 
 NS_ASSUME_NONNULL_BEGIN
+
+extern NSString *const NSErrorUserInfoDisplayError;
 
 @interface WikiTextSectionUploader : WMFLegacyFetcher
 // Note: "section" parameter needs to be a string because the
