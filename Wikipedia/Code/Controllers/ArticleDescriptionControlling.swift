@@ -18,7 +18,7 @@ protocol ArticleDescriptionControlling {
     var article: WMFArticle { get }
     var articleLanguageCode: String { get }
     func publishDescription(_ description: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void)
-    func currentDescription(completion: @escaping (String?, MediaWikiAPIBlockedDisplayError?) -> Void)
+    func currentDescription(completion: @escaping (String?, MediaWikiAPIDisplayError?) -> Void)
     func errorCodeFromError(_ error: Error) -> String
     func learnMoreViewControllerWithTheme(_ theme: Theme) -> UIViewController?
     func warningTypesForDescription(_ description: String?) -> ArticleDescriptionWarningTypes
