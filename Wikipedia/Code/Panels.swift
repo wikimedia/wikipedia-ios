@@ -169,13 +169,17 @@ class EnableReadingListSyncPanelViewController : ScrollableEducationPanelViewCon
     }
 }
 
-class BlockedPanelViewController : ScrollableEducationPanelViewController {
+class ErrorPanelViewController : ScrollableEducationPanelViewController {
     
     private let messageHtml: String
+    private let button1Title: String
+    private let button2Title: String?
     
-    init(messageHtml: String, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, subheadingLinkAction: ((URL) -> Void)?, theme: Theme) {
+    init(messageHtml: String, button1Title: String, button2Title: String?, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, subheadingLinkAction: ((URL) -> Void)?, theme: Theme) {
         self.messageHtml = messageHtml
-        super.init(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, traceableDismissHandler: nil, theme: theme)
+        self.button1Title = button1Title
+        self.button2Title = button2Title
+        super.init(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, traceableDismissHandler: nil, theme: theme)
         self.subheadingLinkAction = subheadingLinkAction
     }
     
@@ -187,7 +191,8 @@ class BlockedPanelViewController : ScrollableEducationPanelViewController {
         super.viewDidLoad()
         image = UIImage(named: "error-icon-large")
         subheadingHTML = messageHtml
-        primaryButtonTitle = CommonStrings.okTitle
+        primaryButtonTitle = button1Title
+        secondaryButtonTitle = button2Title
     }
     
     override func viewDidLayoutSubviews() {
@@ -512,9 +517,95 @@ extension UIViewController {
     ///   - theme: initial theme for panel.
     func wmf_showBlockedPanel(messageHtml: String, linkBaseURL: URL, currentTitle: String, theme: Theme) {
         
-        let panel = BlockedPanelViewController(messageHtml: messageHtml, primaryButtonTapHandler: { [weak self] sender in
+        let panel = ErrorPanelViewController(messageHtml: messageHtml, button1Title: CommonStrings.okTitle, button2Title: nil, primaryButtonTapHandler: { [weak self] sender in
             self?.dismiss(animated: true)
-        }, subheadingLinkAction: { [weak self] url in
+        }, secondaryButtonTapHandler: nil, subheadingLinkAction: { [weak self] url in
+
+            guard let baseURL = linkBaseURL.wmf_URL(withTitle: currentTitle) else {
+                return
+            }
+
+            let fullURL = baseURL.resolvingRelativeWikiHref(url.relativeString)
+
+            self?.presentingViewController?.dismiss(animated: true) {
+                self?.navigate(to: fullURL)
+            }
+
+        }, theme: theme)
+        
+        present(panel, animated: true)
+    }
+    
+    /// Displays a panel message when abuse filter disallow error code is triggered, for use with fully resolved MediaWiki API blocked errors.
+    /// - Parameters:
+    ///   - messageHtml: Fully resolved message HTML to display
+    ///   - linkBaseURL: base URL that relative links within messageHtml will reference
+    ///   - currentTitle: Wiki title representing the article the user is currently working against. Used to help resolve relative links against.
+    ///   - theme: initial theme for panel.
+    ///   - goBackIsOnlyDismiss: Bool - Boolean for if the primary tap handler should dismiss the panel only, or dismiss and navigate the user two screens back. True is dismiss only, false also pops back two screens.
+    func wmf_showAbuseFilterDisallowPanel(messageHtml: String, linkBaseURL: URL, currentTitle: String, theme: Theme, goBackIsOnlyDismiss: Bool) {
+        
+        let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler
+        
+        if goBackIsOnlyDismiss {
+            primaryButtonTapHandler = { [weak self] sender in
+                self?.dismiss(animated: true)
+            }
+        } else {
+            primaryButtonTapHandler = { [weak self] sender in
+                self?.dismiss(animated: true) {
+                    
+                    guard let viewControllers = self?.navigationController?.viewControllers,
+                          viewControllers.count > 2 else {
+                        return
+                    }
+                    
+                    let remaining = viewControllers.prefix(viewControllers.count - 2)
+                    
+                    self?.navigationController?.setViewControllers(Array(remaining), animated: true)
+                }
+            }
+        }
+        let panel = ErrorPanelViewController(messageHtml: messageHtml, button1Title: CommonStrings.goBackTitle, button2Title: nil, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, subheadingLinkAction: { [weak self] url in
+
+            guard let baseURL = linkBaseURL.wmf_URL(withTitle: currentTitle) else {
+                return
+            }
+
+            let fullURL = baseURL.resolvingRelativeWikiHref(url.relativeString)
+
+            self?.presentingViewController?.dismiss(animated: true) {
+                self?.navigate(to: fullURL)
+            }
+
+        }, theme: theme)
+        
+        present(panel, animated: true)
+    }
+    
+    /// Displays a panel message when abuse filter warning error code is triggered, for use with fully resolved MediaWiki API blocked errors.
+    /// - Parameters:
+    ///   - messageHtml: Fully resolved message HTML to display
+    ///   - linkBaseURL: base URL that relative links within messageHtml will reference
+    ///   - currentTitle: Wiki title representing the article the user is currently working against. Used to help resolve relative links against.
+    ///   - theme: initial theme for panel.
+    ///   - goBackIsOnlyDismiss: Bool - Boolean for if the primary tap handler should dismiss the panel only, or dismiss and navigate the user two screens back. True is dismiss only, false also pops back two screens.
+    ///   - publishAnywayTapHandler: Handler triggered when the user taps "Publish anyway". Invoke the view controller's edit save method again.
+    func wmf_showAbuseFilterWarningPanel(messageHtml: String, linkBaseURL: URL, currentTitle: String, theme: Theme, goBackIsOnlyDismiss: Bool, publishAnywayTapHandler: @escaping ScrollableEducationPanelButtonTapHandler) {
+        
+        let panel = ErrorPanelViewController(messageHtml: messageHtml, button1Title: CommonStrings.goBackTitle, button2Title: CommonStrings.publishAnywayTitle, primaryButtonTapHandler: { [weak self] sender in
+            self?.dismiss(animated: true) {
+                
+                guard let viewControllers = self?.navigationController?.viewControllers,
+                      viewControllers.count > 2 else {
+                    return
+                }
+                
+                let remaining = viewControllers.prefix(viewControllers.count - 2)
+                
+                self?.navigationController?.setViewControllers(Array(remaining), animated: true)
+            }
+        }, secondaryButtonTapHandler: publishAnywayTapHandler, subheadingLinkAction: { [weak self] url in
 
             guard let baseURL = linkBaseURL.wmf_URL(withTitle: currentTitle) else {
                 return

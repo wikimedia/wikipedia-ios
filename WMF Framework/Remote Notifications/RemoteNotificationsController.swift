@@ -288,7 +288,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
         }
         
         let count = try modelController.numberOfUnreadNotifications()
-        return NSNumber.init(value: count)
+        return NSNumber(value: count)
     }
     
     /// Fetches a count of all notifications from the local database. Uses the viewContext and must be called from the main thread

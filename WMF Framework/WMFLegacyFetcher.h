@@ -5,7 +5,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class WMFSession;
 @class WMFConfiguration;
 @class WMFFetcher;
-@class MediaWikiAPIBlockedDisplayError;
+@class MediaWikiAPIDisplayError;
 
 // Bridge from old Obj-C fetcher classes to new Swift fetcher class
 @interface WMFLegacyFetcher : NSObject
@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLSessionTask *)performCancelableMediaWikiAPIGETForURL:(NSURL *)URL cancellationKey:(NSString *)cancellationKey withQueryParameters:(NSDictionary<NSString *, id> *)queryParameters completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler;
 - (NSURLSessionTask *)performMediaWikiAPIPOSTForURL:(NSURL *)URL withBodyParameters:(NSDictionary<NSString *, id> *)bodyParameters completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error))completionHandler;
 
-- (void)resolveMediaWikiApiBlockErrorFromResult: (NSDictionary<NSString *, id> *)result siteURL:(NSURL *)siteURL completionHandler:(void (^)(MediaWikiAPIBlockedDisplayError * blockedDisplayError)) completionHandler;
+- (void)resolveMediaWikiApiErrorFromResult: (NSDictionary<NSString *, id> *)result siteURL:(NSURL *)siteURL completionHandler:(void (^)(MediaWikiAPIDisplayError * displayError)) completionHandler;
 
 - (void)cancelAllFetches; // only cancels tasks started with the methods provided by WMFLegacyFetcher - tasks started directly on the session are not canceled
 - (void)cancelTaskWithCancellationKey:(NSString *)cancellationKey;
