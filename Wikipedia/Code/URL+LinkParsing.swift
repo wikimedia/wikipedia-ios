@@ -35,7 +35,7 @@ extension URL {
         // certain characters first because URLComponents cannot ingest strings with these chacters
         // in some versions of iOS (e.g. 15.5).
         let urlComponentsString = href.addingPercentEncoding(withAllowedCharacters: .rfc3986Allowed) ?? href
-        var components = URLComponents(string: urlComponentsString)
+        let components = URLComponents(string: urlComponentsString)
         
         // Encode this URL to handle titles with forward slashes, otherwise URLComponents thinks they're separate path components
         let encodedBaseURL = encodedWikiURL

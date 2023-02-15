@@ -186,7 +186,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case unknown(href: String)
     }
     
-    /// PCSActions are receieved from the JS bridge and converted into actions
+    // PCSActions are receieved from the JS bridge and converted into actions
     // Handle both _clicked and non-clicked variants in case the names change
     private enum PCSAction: String {
         case setup
