@@ -16,6 +16,7 @@ final class RemoteNotificationsFunnel {
         let selection_token: String?
         let device_level_enabled: String
     }
+    
     private func logEvent(notificationId: Int, notificationWiki: String, notificationType: String, action: NotificationsCenterActionData.LoggingLabel?, selectionToken: String?) {
         
         guard let action else {

@@ -59,6 +59,10 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
         return EventPlatformClient()
     }()
 
+    public var isEnabled: Bool {
+        return UserDefaults.standard.wmf_sendUsageReports
+    }
+
     let dataStore = MWKDataStore.shared()
     let samplingController: SamplingController
     let storageManager: StorageManager?

@@ -59,7 +59,10 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         
         return eventLoggingService
     }()
-    
+
+    // remove
+    // onleave utils here
+
     @objc
     public func log(event: [String: Any], schema: String, revision: Int, wiki: String) {
         let event: NSDictionary = ["event": event, "schema": schema, "revision": revision, "wiki": wiki]
@@ -137,7 +140,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             self.save(moc)
         }
     }
-    
+    // remove
     @objc
     private func tryPostEvents(_ completion: (() -> Void)? = nil) {
         let operation = AsyncBlockOperation { (operation) in
@@ -228,7 +231,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             self.save(moc)
         }
     }
-    
+    // remove
     private func postEvents(_ eventRecords: [EventRecord], onlyWiFi: Bool, completion: @escaping () -> Void) {
         DDLogDebug("EventLoggingService: Posting \(eventRecords.count) events!")
         

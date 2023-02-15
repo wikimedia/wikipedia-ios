@@ -1,8 +1,7 @@
-// https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
-
+import WMF
 private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, loggingCode: String)
 
-@objc final class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+@objc public final class UserHistoryFunnel: NSObject {
     private let targetCountries: Set<String> = Set<String>(arrayLiteral:
         "US", "DE", "GB", "FR", "IT", "CA", "JP", "AU", "IN", "RU", "NL", "ES", "CH", "SE", "MX",
         "CN", "BR", "AT", "BE", "UA", "NO", "DK", "PL", "HK", "KR", "SA", "CZ", "IR", "IE", "SG",
@@ -17,127 +16,190 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         }
         return targetCountries.contains(countryCode)
     }
-    
+
     let dataStore: MWKDataStore
     required init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
-        super.init(schema: "MobileWikiAppiOSUserHistory", version: 22479505)
     }
-    
-    private func event(authorizationStatus: UNAuthorizationStatus?) -> [String: Any] {
+
+    private let sharedCache = SharedContainerCache<UserHistorySnapshotCache>.init(fileName: "User History Funnel Snapshot", defaultCache: {
+        UserHistorySnapshotCache(snapshot: UserHistoryFunnel.Event(measure_readinglist_listcount: nil, measure_readinglist_itemcount: nil, measure_font_size: nil, readinglist_sync: nil, readinglist_showdefault: nil, theme: nil, feed_disabled: nil, search_tab: nil, feed_enabled_list: nil, inbox_count: nil, device_level_enabled: nil))
+    })
+
+    public struct FeedEnabledList: Codable, Equatable {
+        let featuredArticle: ItemLanguages?
+        let topRead: ItemLanguages?
+        let onThisDay: ItemLanguages?
+        let inTheNews: ItemLanguages?
+        let places: ItemLanguages?
+        let randomizer: ItemLanguages?
+        let relatedPages: Bool?
+        let continueReading: Bool?
+        let pictureOfTheDay: Bool?
+
+        enum CodingKeys: String, CodingKey {
+            case featuredArticle = "fa"
+            case topRead = "tr"
+            case onThisDay = "od"
+            case inTheNews = "ns"
+            case places = "pl"
+            case randomizer = "rd"
+            case relatedPages  = "rp"
+            case continueReading = "cr"
+            case pictureOfTheDay = "pd"
+        }
+
+        public static func == (lhs: UserHistoryFunnel.FeedEnabledList, rhs: UserHistoryFunnel.FeedEnabledList) -> Bool {
+            return lhs.featuredArticle == rhs.featuredArticle
+            && lhs.topRead == rhs.topRead
+            && lhs.onThisDay == rhs.onThisDay
+            && lhs.inTheNews == rhs.inTheNews
+            && lhs.places == rhs.places
+            && lhs.randomizer == rhs.randomizer
+            && lhs.relatedPages == rhs.relatedPages
+            && lhs.continueReading == rhs.continueReading
+            && lhs.pictureOfTheDay == rhs.pictureOfTheDay
+        }
+    }
+
+    public struct ItemLanguages: Codable, Equatable {
+        let on: [String]?
+        let off: [String]?
+    }
+
+    public struct Event: EventInterface, Equatable {
+        public static let schema: EventPlatformClient.Schema = .userHistory
+        let measure_readinglist_listcount: Int?
+        let measure_readinglist_itemcount: Int?
+        let measure_font_size: Int?
+        let readinglist_sync: Bool?
+        let readinglist_showdefault: Bool?
+        let theme: String?
+        let feed_disabled: Bool?
+        let search_tab: Bool?
+        let feed_enabled_list: FeedEnabledList?
+        let inbox_count: Int?
+        let device_level_enabled: String?
+
+        public static func == (lhs: UserHistoryFunnel.Event, rhs: UserHistoryFunnel.Event) -> Bool {
+            return lhs.measure_readinglist_listcount == lhs.measure_readinglist_listcount
+            && lhs.measure_readinglist_itemcount == rhs.measure_readinglist_itemcount
+            && lhs.measure_font_size == rhs.measure_font_size
+            && lhs.readinglist_sync == rhs.readinglist_sync
+            && lhs.readinglist_showdefault == rhs.readinglist_showdefault
+            && lhs.theme == rhs.theme
+            && lhs.feed_disabled == rhs.feed_disabled
+            && lhs.feed_enabled_list == rhs.feed_enabled_list
+            && lhs.inbox_count == rhs.inbox_count
+            && lhs.device_level_enabled == rhs.device_level_enabled
+        }
+    }
+
+
+    private func getLanguagesForItemInFeed(code: String?) -> ItemLanguages? {
+        guard let code else { return nil }
+        let itemNumber = getUserHistorySchemaNumber(code: code)
+        if let itemNumber {
+            let kind = WMFContentGroupKind(rawValue: Int32(itemNumber))
+            if let kind, kind.isInFeed {
+                return ItemLanguages(on: Array(kind.contentLanguageCodes), off: Array(kind.offLanguageCodes))
+            }
+            return nil
+        }
+        return nil
+    }
+
+    private func getItemInFeed(code: String?) -> Bool? {
+        guard let code else { return false }
+        let itemNumber = getUserHistorySchemaNumber(code: code)
+        if let itemNumber {
+            let kind = WMFContentGroupKind(rawValue: Int32(itemNumber))
+            if let kind, kind.isInFeed {
+                return true
+            }
+            return false
+        }
+        return false
+    }
+
+    private func getFeedEnabledList() -> FeedEnabledList? {
+        let feedItem = FeedEnabledList(
+            featuredArticle: getLanguagesForItemInFeed(code: "fa"),
+            topRead: getLanguagesForItemInFeed(code: "tr"),
+            onThisDay: getLanguagesForItemInFeed(code: "od"),
+            inTheNews: getLanguagesForItemInFeed(code: "ns"),
+            places: getLanguagesForItemInFeed(code: "pl"),
+            randomizer: getLanguagesForItemInFeed(code: "rd"),
+            relatedPages: getItemInFeed(code: "rp"),
+            continueReading: getItemInFeed(code: "cr"),
+            pictureOfTheDay: getItemInFeed(code: "pd"))
+        return feedItem
+    }
+
+    @discardableResult
+    private func logEvent(authorizationStatus: UNAuthorizationStatus?) -> Event {
         let userDefaults = UserDefaults.standard
-        
-        let fontSize = UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue
         let theme = userDefaults.themeAnalyticsName
         let isFeedDisabled = userDefaults.defaultTabType != .explore
-        let isNewsNotificationEnabled = false
         let appOpensOnSearchTab = UserDefaults.standard.wmf_openAppOnSearchTab
-
-        var event: [String: Any] = ["primary_language": primaryLanguage(), "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme, "feed_disabled": isFeedDisabled, "trend_notify": isNewsNotificationEnabled, "search_tab": appOpensOnSearchTab]
-        
+        let inboxCount = try? dataStore.remoteNotificationsController.numberOfAllNotifications()
+        let fontSize = UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue
         let savedArticlesCount = dataStore.savedPageList.numberOfItems()
-        event["measure_readinglist_itemcount"] = savedArticlesCount
-        
         let isSyncEnabled = dataStore.readingListsController.isSyncEnabled
         let isDefaultListEnabled = dataStore.readingListsController.isDefaultListEnabled
-        event["readinglist_sync"] = isSyncEnabled
-        event["readinglist_showdefault"] = isDefaultListEnabled
-        
-        if let readingListCount = try? dataStore.viewContext.allReadingListsCount() {
-            event["measure_readinglist_listcount"] = readingListCount
-        }
+        let readingListCount = try? dataStore.viewContext.allReadingListsCount()
+        let status = authorizationStatus?.getAuthorizationStatusString()
 
-        event["feed_enabled_list"] = feedEnabledListPayload()
-        
-        if let articleAsLivingDocBucket = dataStore.abTestsController.bucketForExperiment(.articleAsLivingDoc) {
-            event["test_group"] = articleAsLivingDocBucket.rawValue
-        }
-        
-        if let status = authorizationStatus {
-            event["device_level_enabled"] = status.getAuthorizationStatusString()
-        }
-        
-        let inboxCount = try? dataStore.remoteNotificationsController.numberOfAllNotifications()
-        event["inbox_count"] = inboxCount ?? 0
-
-        return wholeEvent(with: event)
+        let event = Event(measure_readinglist_listcount: savedArticlesCount, measure_readinglist_itemcount: readingListCount, measure_font_size: fontSize, readinglist_sync: isSyncEnabled, readinglist_showdefault: isDefaultListEnabled, theme: theme, feed_disabled: isFeedDisabled, search_tab: appOpensOnSearchTab, feed_enabled_list: getFeedEnabledList(), inbox_count: inboxCount, device_level_enabled: status)
+        EventPlatformClient.shared.submit(stream: .userHistory, event: event)
+        return event
     }
     
-    private func feedEnabledListPayload() -> [String: Any] {
-        let contentGroupKindAndLoggingCodeFromNumber:(NSNumber) -> ContentGroupKindAndLoggingCode? = { kindNumber in
-            // The MobileWikiAppiOSUserHistory schema only specifies that we log certain card types for `feed_enabled_list`.
-            // If `userHistorySchemaCode` returns nil for a given WMFContentGroupKind we don't add an entry to `feed_enabled_list`.
-            guard let kind = WMFContentGroupKind(rawValue: kindNumber.int32Value), let loggingCode = kind.userHistorySchemaCode else {
-                return nil
-            }
-            return (kind: kind, loggingCode: loggingCode)
-        }
-        
-        var feedEnabledList = [String: Any]()
-        
-        WMFExploreFeedContentController.globalContentGroupKindNumbers().compactMap(contentGroupKindAndLoggingCodeFromNumber).forEach {
-            feedEnabledList[$0.loggingCode] = $0.kind.isInFeed
-        }
-        
-        WMFExploreFeedContentController.customizableContentGroupKindNumbers().compactMap(contentGroupKindAndLoggingCodeFromNumber).forEach {
-            feedEnabledList[$0.loggingCode] = $0.kind.userHistorySchemaLanguageInfo
-        }
-
-        return feedEnabledList
-    }
-    
-    override func logged(_ eventData: [AnyHashable: Any]) {
-        guard let eventData = eventData as? [String: Any] else {
-            return
-        }
-        EventLoggingService.shared?.lastLoggedSnapshot = eventData as NSCoding
-        UserDefaults.standard.wmf_lastAppVersion = WikipediaAppUtils.appVersion()
-    }
-    
-    private var latestSnapshot: [String: Any]? {
-        return EventLoggingService.shared?.lastLoggedSnapshot as? [String: Any]
+    private var latestSnapshot: Event? {
+        return sharedCache.loadCache().snapshot
     }
     
     @objc public func logSnapshot() {
-        guard EventLoggingService.shared?.isEnabled ?? false else {
+        guard EventPlatformClient.shared.isEnabled else {
             return
         }
         
         guard isTarget else {
             return
         }
-        
+
+        var cache = self.sharedCache.loadCache()
+
         dataStore.notificationsController.notificationPermissionsStatus { [weak self] authorizationStatus in
-            
             guard let self = self else {
                 return
             }
-            
+
             DispatchQueue.main.async {
                 guard let lastAppVersion = UserDefaults.standard.wmf_lastAppVersion else {
-                    self.log(self.event(authorizationStatus: authorizationStatus))
+                    self.logEvent(authorizationStatus: authorizationStatus)
                     return
                 }
                 guard let latestSnapshot = self.latestSnapshot else {
                     return
                 }
                 
-                let newSnapshot = self.event(authorizationStatus: authorizationStatus)
-                
-                guard !newSnapshot.wmf_isEqualTo(latestSnapshot, excluding: self.standardEvent.keys) || lastAppVersion != WikipediaAppUtils.appVersion() else {
-                    // DDLogDebug("User History snapshots are identical; logging new User History snapshot aborted")
+                let newSnapshot = self.logEvent(authorizationStatus: authorizationStatus)
+
+                guard !(newSnapshot == latestSnapshot) || lastAppVersion != WikipediaAppUtils.appVersion() else {
                     return
                 }
-                // DDLogDebug("User History snapshots are different; logging new User History snapshot")
-                self.log(self.event(authorizationStatus: authorizationStatus))
+                let events = self.logEvent(authorizationStatus: authorizationStatus)
+
+                cache.snapshot = events
+                self.sharedCache.saveCache(cache)
             }
         }
     }
     
     @objc public func logStartingSnapshot() {
         guard latestSnapshot == nil else {
-            // DDLogDebug("Starting User History snapshot was already recorded; logging new User History snapshot aborted")
-            logSnapshot() // call standard log snapshot in case version changed, should be logged on session start
+            logSnapshot()
             return
         }
         guard isTarget else {
@@ -150,12 +212,38 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             }
             
             DispatchQueue.main.async {
-                self.log(self.event(authorizationStatus: authorizationStatus))
-                // DDLogDebug("Attempted to log starting User History snapshot")
+                self.logEvent(authorizationStatus: authorizationStatus)
             }
         }
-        
     }
+}
+
+extension UserHistoryFunnel {
+    func getUserHistorySchemaNumber(code: String) -> Int? {
+        switch code {
+        case "fa":
+            return 7
+        case "tr":
+            return 8
+        case "od":
+            return 13
+        case "ns":
+            return 9
+        case "rp":
+            return 3
+        case "cr":
+            return 1
+        case "pl":
+            return 4
+        case "rd":
+            return 6
+        case "pd":
+            return 5
+        default:
+            return nil
+        }
+    }
+
 }
 
 private extension WMFContentGroupKind {
@@ -163,34 +251,7 @@ private extension WMFContentGroupKind {
         let preferredContentLangCodes = MWKDataStore.shared().languageLinkController.preferredLanguages.map {$0.contentLanguageCode}
         return Set(preferredContentLangCodes).subtracting(contentLanguageCodes)
     }
-    
-    // codes define by: https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
-    var userHistorySchemaCode: String? {
-        switch self {
-        case .featuredArticle:
-            return "fa"
-        case .topRead:
-            return "tr"
-        case .onThisDay:
-            return "od"
-        case .news:
-            return "ns"
-        case .relatedPages:
-            return "rp"
-        case .continueReading:
-            return "cr"
-        case .location:
-            return "pl"
-        case .random:
-            return "rd"
-        case .pictureOfTheDay:
-            return "pd"
-        default:
-            return nil
-        }
-    }
-    
-    // "on" / "off" define by: https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
+
     var userHistorySchemaLanguageInfo: [String: [String]] {
         var info = [String: [String]]()
         if !contentLanguageCodes.isEmpty {
@@ -202,3 +263,4 @@ private extension WMFContentGroupKind {
         return info
     }
 }
+

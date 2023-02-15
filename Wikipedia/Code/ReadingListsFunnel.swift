@@ -22,12 +22,12 @@ import WMF
         let category: EventCategoryMEP
         let label: EventLabelMEP?
         let measure: Int?
-        let measurePosition: Int?
-        let measureAge: Int?
+        let measure_position: Int?
+        let measure_age: Int?
     }
 
     private func logEvent(action: Action, category: EventCategoryMEP, label: EventLabelMEP?, measure: Int? = nil, measurePosition: Int? = nil, measureAge: Int? = nil ) {
-        let event = ReadingListsFunnel.Event(action: action, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge)
+        let event = ReadingListsFunnel.Event(action: action, category: category, label: label, measure: measure, measure_position: measurePosition, measure_age: measureAge)
         EventPlatformClient.shared.submit(stream: .readingLists, event: event)
     }
 
