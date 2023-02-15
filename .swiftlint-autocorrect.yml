@@ -31,6 +31,7 @@ disabled_rules:
     - type_name
     - unneeded_break_in_switch
     - unused_closure_parameter
+    - notification_center_detachment
 
 vertical_whitespace:
     max_empty_lines: 2
