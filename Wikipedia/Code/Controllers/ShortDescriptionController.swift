@@ -74,11 +74,11 @@ class ShortDescriptionController: ArticleDescriptionControlling {
         }
     }
     
-    func currentDescription(completion: @escaping (String?, MediaWikiAPIBlockedDisplayError?) -> Void) {
+    func currentDescription(completion: @escaping (String?, MediaWikiAPIDisplayError?) -> Void) {
         
         let group = DispatchGroup()
         
-        var blockedError: MediaWikiAPIBlockedDisplayError?
+        var blockedError: MediaWikiAPIDisplayError?
         var currentDescription: String?
         
         // Populate current description

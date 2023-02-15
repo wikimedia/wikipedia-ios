@@ -1,7 +1,7 @@
 import Foundation
 
-/// An object that is passed through from fetchers to view controllers, for reference when displaying blocked errors in a BlockedPanelViewController.
-@objc public class MediaWikiAPIBlockedDisplayError: NSObject {
+/// An object that is passed through from fetchers to view controllers, for reference when displaying errors in a panel.
+@objc public class MediaWikiAPIDisplayError: NSObject {
     
     // Fully resolved html to display in the blocked panel.
     @objc public let messageHtml: String
@@ -10,7 +10,7 @@ import Foundation
     public let linkBaseURL: URL
     
     // Error code, passed through from original MediaWikiAPIError. Currently used for logging.
-    public let code: String
+    @objc public let code: String
     
     public init(messageHtml: String, linkBaseURL: URL, code: String) {
         self.messageHtml = messageHtml

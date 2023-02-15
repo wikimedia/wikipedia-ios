@@ -24,7 +24,7 @@ class WikidataDescriptionController: ArticleDescriptionControlling {
         self.wikiDataID = wikiDataID
     }
     
-    func currentDescription(completion: @escaping (String?, MediaWikiAPIBlockedDisplayError?) -> Void) {
+    func currentDescription(completion: @escaping (String?, MediaWikiAPIDisplayError?) -> Void) {
         
         fetcher.wikidataBlockedInfo(forEntity: wikiDataID) { blockedError in
             DispatchQueue.main.async {
