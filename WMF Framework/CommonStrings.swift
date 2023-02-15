@@ -145,6 +145,8 @@ public class CommonStrings: NSObject {
     @objc public static let skipTitle = WMFLocalizedString("button-skip", value: "Skip", comment: "Button text for skip button used in various places.")
     @objc public static let okTitle = WMFLocalizedString("button-ok", value: "OK", comment: "Button text for ok button used in various places {{Identical|OK}}")
     @objc public static let doneTitle = WMFLocalizedString("description-published-button-title", value: "Done", comment: "Title for description panel done button.")
+    public static let goBackTitle = WMFLocalizedString("button-go-back", value: "Go back", comment: "Button text for Go back button used in various places")
+    public static let publishAnywayTitle = WMFLocalizedString("button-publish-anyway", value: "Publish anyway", comment: "Button text for publish button used when first warned against publishing.")
 
     @objc public static let editNotices = WMFLocalizedString("edit-notices", value: "Edit notices", comment: "Title text and accessibility label for edit notices button.")
     @objc public static let undo = WMFLocalizedString("action-undo", value: "Undo", comment: "Title text and accessibility label for undo action on buttons or info sheets.")

@@ -55,15 +55,6 @@
 "about-translators-details" = "Description of volunteer translation. $1 is translatewiki url.";
 "about-wikimedia-foundation" = "Name of the Wikimedia Foundation. Used by the message {{Msg-wikimedia|wikipedia-ios-about-product-of}}.";
 "about-wikipedia" = "Wikipedia {{Identical|Wikipedia}}";
-"abuse-filter-disallow-heading" = "Header text for disallowed edit warning.";
-"abuse-filter-disallow-unconstructive" = "Label text for unconstructive edit description";
-"abuse-filter-warning-blanking" = "Label text for blanking sections or articles";
-"abuse-filter-warning-caps" = "Label text for typing in all capitals";
-"abuse-filter-warning-heading" = "Header text for unconstructive edit warning";
-"abuse-filter-warning-irrelevant" = "Label text for irrelevant external links and images";
-"abuse-filter-warning-repeat" = "Label text for repeating characters";
-"abuse-filter-warning-spam" = "Label text for adding spam to articles";
-"abuse-filter-warning-subheading" = "Subheading text for potentially unconstructive edit warning";
 "account-creation-captcha-cannot-see-image" = "Text asking the user if they cannot see the captcha image. $1 is the message {{msg-wm|Wikipedia-ios-account-creation-captcha-request-account}}";
 "account-creation-captcha-obtaining" = "Alert shown when user wants a new captcha when creating account";
 "account-creation-captcha-request-account" = "Text for link to 'Request an account' page.";
@@ -142,9 +133,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back. {{Identical|Back}}";
 "back-button-popover-title" = "Title for popover explaining the 'W' icon may be tapped to go back.";
+"button-go-back" = "Button text for Go back button used in various places";
 "button-next" = "Button text for next button used in various places. {{Identical|Next}}";
 "button-ok" = "Button text for ok button used in various places {{Identical|OK}}";
 "button-publish" = "Button text for publish button used in various places. Please prioritize for de, ar and zh wikis. {{Identical|Publish}}";
+"button-publish-anyway" = "Button text for publish button used when first warned against publishing.";
 "button-read-now" = "Read now button text used in various places.";
 "button-report-a-bug" = "Button text for reporting a bug";
 "button-save-for-later" = "Longer button text for save button used in various places.";

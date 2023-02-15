@@ -13,7 +13,7 @@ typedef NS_ENUM(NSInteger, WikiTextSectionUploaderErrorType) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString *const NSErrorUserInfoBlockedDisplayError;
+extern NSString *const NSErrorUserInfoDisplayError;
 
 @interface WikiTextSectionUploader : WMFLegacyFetcher
 // Note: "section" parameter needs to be a string because the
