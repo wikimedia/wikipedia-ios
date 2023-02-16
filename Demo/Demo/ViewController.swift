@@ -1,11 +1,11 @@
 import UIKit
-import UIComponents
+import Components
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(UIComponents().text)
+        print(Components().text)
     }
 
 

@@ -1,3 +1,3 @@
-# UIComponents
+# Components
 
 A description of this package.

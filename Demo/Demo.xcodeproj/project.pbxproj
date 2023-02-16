@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		67359891299ED732002EE8D1 /* Components in Frameworks */ = {isa = PBXBuildFile; productRef = 67359890299ED732002EE8D1 /* Components */; };
 		6771E7AE299C00050012002D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771E7AD299C00050012002D /* AppDelegate.swift */; };
 		6771E7B0299C00050012002D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771E7AF299C00050012002D /* SceneDelegate.swift */; };
 		6771E7B2299C00050012002D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771E7B1299C00050012002D /* ViewController.swift */; };
 		6771E7B5299C00050012002D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6771E7B3299C00050012002D /* Main.storyboard */; };
 		6771E7B7299C00060012002D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6771E7B6299C00060012002D /* Assets.xcassets */; };
 		6771E7BA299C00060012002D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6771E7B8299C00060012002D /* LaunchScreen.storyboard */; };
-		6771E7C4299C007A0012002D /* UIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 6771E7C3299C007A0012002D /* UIComponents */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6735988F299ED71F002EE8D1 /* wikipedia-ios-components */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "wikipedia-ios-components"; path = ..; sourceTree = "<group>"; };
 		6771E7AA299C00050012002D /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6771E7AD299C00050012002D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6771E7AF299C00050012002D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -25,7 +26,6 @@
 		6771E7B6299C00060012002D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6771E7B9299C00060012002D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6771E7BB299C00060012002D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6771E7C1299C004C0012002D /* wikipedia-ios-ui-components */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "wikipedia-ios-ui-components"; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,7 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6771E7C4299C007A0012002D /* UIComponents in Frameworks */,
+				67359891299ED732002EE8D1 /* Components in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,7 +43,7 @@
 		6771E7A1299C00050012002D = {
 			isa = PBXGroup;
 			children = (
-				6771E7C1299C004C0012002D /* wikipedia-ios-ui-components */,
+				6735988F299ED71F002EE8D1 /* wikipedia-ios-components */,
 				6771E7AC299C00050012002D /* Demo */,
 				6771E7AB299C00050012002D /* Products */,
 				6771E7C2299C007A0012002D /* Frameworks */,
@@ -96,7 +96,7 @@
 			);
 			name = Demo;
 			packageProductDependencies = (
-				6771E7C3299C007A0012002D /* UIComponents */,
+				67359890299ED732002EE8D1 /* Components */,
 			);
 			productName = Demo;
 			productReference = 6771E7AA299C00050012002D /* Demo.app */;
@@ -383,9 +383,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6771E7C3299C007A0012002D /* UIComponents */ = {
+		67359890299ED732002EE8D1 /* Components */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = UIComponents;
+			productName = Components;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
