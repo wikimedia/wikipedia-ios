@@ -676,6 +676,10 @@
 		6771C9552509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771C9532509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib */; };
 		6771C9562509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771C9532509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib */; };
 		6771C9572509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771C9532509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib */; };
+		6771E7C7299C02110012002D /* UIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 6771E7C6299C02110012002D /* UIComponents */; };
+		6771E7C9299C02560012002D /* UIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 6771E7C8299C02560012002D /* UIComponents */; };
+		6771E7CB299C025F0012002D /* UIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 6771E7CA299C025F0012002D /* UIComponents */; };
+		6771E7CD299C02660012002D /* UIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 6771E7CC299C02660012002D /* UIComponents */; };
 		6773B1FE240F02E40022A70E /* PermanentlyPersistableURLCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B1FD240F02E40022A70E /* PermanentlyPersistableURLCache.swift */; };
 		6773B2022411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */; };
 		6773B2042411DCF50022A70E /* ArticleCacheResourceDBWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6773B2032411DCF50022A70E /* ArticleCacheResourceDBWriting.swift */; };
@@ -5783,6 +5787,7 @@
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
+				6771E7C7299C02110012002D /* UIComponents in Frameworks */,
 				D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */,
 				041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */,
 			);
@@ -5815,6 +5820,7 @@
 				D8A42BA71E815A9C00D8E281 /* CoreData.framework in Frameworks */,
 				D8A42BAA1E815A9C00D8E281 /* CoreGraphics.framework in Frameworks */,
 				D8A42BAD1E815A9C00D8E281 /* UIKit.framework in Frameworks */,
+				6771E7CD299C02660012002D /* UIComponents in Frameworks */,
 				D8A42BAF1E815A9C00D8E281 /* Foundation.framework in Frameworks */,
 				D8A42BB01E815A9C00D8E281 /* MapKit.framework in Frameworks */,
 			);
@@ -5837,6 +5843,7 @@
 				D8CE262B1E698E2400DAE2E0 /* CoreData.framework in Frameworks */,
 				D8CE262E1E698E2400DAE2E0 /* CoreGraphics.framework in Frameworks */,
 				D8CE26321E698E2400DAE2E0 /* UIKit.framework in Frameworks */,
+				6771E7CB299C025F0012002D /* UIComponents in Frameworks */,
 				D8CE26351E698E2400DAE2E0 /* Foundation.framework in Frameworks */,
 				D8CE26361E698E2400DAE2E0 /* MapKit.framework in Frameworks */,
 			);
@@ -5852,6 +5859,7 @@
 				D8EC3F2D1E9BDA35006712EB /* CoreData.framework in Frameworks */,
 				D8EC3F301E9BDA35006712EB /* CoreGraphics.framework in Frameworks */,
 				D8EC3F341E9BDA35006712EB /* UIKit.framework in Frameworks */,
+				6771E7C9299C02560012002D /* UIComponents in Frameworks */,
 				D8EC3F361E9BDA35006712EB /* Foundation.framework in Frameworks */,
 				D8EC3F371E9BDA35006712EB /* MapKit.framework in Frameworks */,
 			);
@@ -10085,6 +10093,9 @@
 				676C864A26D40AEB00A704C1 /* PBXTargetDependency */,
 			);
 			name = Wikipedia;
+			packageProductDependencies = (
+				6771E7C6299C02110012002D /* UIComponents */,
+			);
 			productName = "Wikipedia-iOS";
 			productReference = D4991435181D51DE00E6073C /* Wikipedia.app */;
 			productType = "com.apple.product-type.application";
@@ -10161,6 +10172,9 @@
 				D8A42A4E1E815A9C00D8E281 /* PBXTargetDependency */,
 			);
 			name = "User Testing";
+			packageProductDependencies = (
+				6771E7CC299C02660012002D /* UIComponents */,
+			);
 			productName = "Wikipedia-iOS";
 			productReference = D8A42C2B1E815A9C00D8E281 /* User Testing.app */;
 			productType = "com.apple.product-type.application";
@@ -10203,6 +10217,9 @@
 				676C867526D4170100A704C1 /* PBXTargetDependency */,
 			);
 			name = Experimental;
+			packageProductDependencies = (
+				6771E7CA299C025F0012002D /* UIComponents */,
+			);
 			productName = "Wikipedia-iOS";
 			productReference = D8CE26AF1E698E2400DAE2E0 /* Experimental.app */;
 			productType = "com.apple.product-type.application";
@@ -10226,6 +10243,9 @@
 				676C867226D416FB00A704C1 /* PBXTargetDependency */,
 			);
 			name = Staging;
+			packageProductDependencies = (
+				6771E7C8299C02560012002D /* UIComponents */,
+			);
 			productName = "Wikipedia-iOS";
 			productReference = D8EC3FB41E9BDA35006712EB /* Staging.app */;
 			productType = "com.apple.product-type.application";
@@ -10476,6 +10496,7 @@
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
 				67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
+				6771E7C5299C02110012002D /* XCRemoteSwiftPackageReference "wikipedia-ios-ui-components" */,
 			);
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
 			projectDirPath = "";
@@ -20142,6 +20163,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6771E7C5299C02110012002D /* XCRemoteSwiftPackageReference "wikipedia-ios-ui-components" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wikimedia/wikipedia-ios-ui-components.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
@@ -20153,6 +20182,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6771E7C6299C02110012002D /* UIComponents */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6771E7C5299C02110012002D /* XCRemoteSwiftPackageReference "wikipedia-ios-ui-components" */;
+			productName = UIComponents;
+		};
+		6771E7C8299C02560012002D /* UIComponents */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6771E7C5299C02110012002D /* XCRemoteSwiftPackageReference "wikipedia-ios-ui-components" */;
+			productName = UIComponents;
+		};
+		6771E7CA299C025F0012002D /* UIComponents */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6771E7C5299C02110012002D /* XCRemoteSwiftPackageReference "wikipedia-ios-ui-components" */;
+			productName = UIComponents;
+		};
+		6771E7CC299C02660012002D /* UIComponents */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6771E7C5299C02110012002D /* XCRemoteSwiftPackageReference "wikipedia-ios-ui-components" */;
+			productName = UIComponents;
+		};
 		67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
