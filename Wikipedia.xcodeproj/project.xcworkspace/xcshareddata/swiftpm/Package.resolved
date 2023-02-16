@@ -19,12 +19,12 @@
       }
     },
     {
-      "identity" : "wikipedia-ios-ui-components",
+      "identity" : "wikipedia-ios-components",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/wikimedia/wikipedia-ios-ui-components.git",
+      "location" : "https://github.com/wikimedia/wikipedia-ios-components.git",
       "state" : {
         "branch" : "main",
-        "revision" : "f15851852a829c16c4925136652194a5b970e48f"
+        "revision" : "24c3418574903b1daab5cccfd266283360ac6d94"
       }
     }
   ],
