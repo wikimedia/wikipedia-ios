@@ -59,10 +59,6 @@
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WMFRandomDiceButton.h"
 
-// Diagnostics
-#import "WMFSearchFunnel.h"
-
-
 // Third Party
 #import "TUSafariActivity.h"
 #import "DDLog+WMFLogger.h"

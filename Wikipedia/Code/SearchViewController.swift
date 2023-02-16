@@ -42,7 +42,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        funnel.logSearchStart(from: source)
+        SearchFunnel.shared.logSearchStart(source: source)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
         if !animated && shouldBecomeFirstResponder {
             searchBar.becomeFirstResponder()
@@ -165,7 +165,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
                 }
                 self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
                 self.resultsViewController.results = []
-                self.funnel.logShowSearchError(withTypeOf: type, elapsedTime: Date().timeIntervalSince(start), source: self.source)
+                SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: self.source)
             }
         }
         
@@ -184,8 +184,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
                 guard !suggested else {
                     return
                 }
-                self.funnel.logSearchResults(withTypeOf: type, resultCount: UInt(resultsArray.count), elapsedTime: Date().timeIntervalSince(start), source: self.source)
-
+                SearchFunnel.shared.logSearchResults(with: type, resultCount: Int(resultsArray.count), elapsedTime: Date().timeIntervalSince(start), source: self.source)
             }
         }
         
@@ -242,16 +241,12 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
        return WMFSearchFetcher()
     }()
     
-    lazy var funnel: WMFSearchFunnel = {
-        return WMFSearchFunnel()
-    }()
-    
-    
     func didCancelSearch() {
         resultsViewController.emptyViewType = .none
         resultsViewController.results = []
         searchBar.text = nil
         fakeProgressController.stop()
+        SearchFunnel.shared.logSearchCancel(source: source)
     }
     
     @objc func clear() {
@@ -646,7 +641,7 @@ extension SearchViewController: CollectionViewHeaderDelegate {
 
 extension SearchViewController: ArticleCollectionViewControllerDelegate {
     func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
-        funnel.logSearchResultTap(at: indexPath.item, source: source)
+        SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: source)
         saveLastSearch()
         guard delegatesSelection else {
             return
@@ -657,7 +652,7 @@ extension SearchViewController: ArticleCollectionViewControllerDelegate {
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String) {
-        funnel.logSearchLangSwitch(source)
+        SearchFunnel.shared.logSearchLangSwitch(source: source)
         search()
     }
 }
