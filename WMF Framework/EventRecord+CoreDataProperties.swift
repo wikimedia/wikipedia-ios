@@ -15,5 +15,5 @@ extension EventRecord {
     @NSManaged public var postAttempts: Int16
     @NSManaged public var failed: Bool
 
-    
+
 }

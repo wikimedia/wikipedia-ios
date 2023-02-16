@@ -48,3 +48,6 @@ public protocol MEPEventsProviding {
     var eventLoggingLabel: EventLabelMEP? { get }
 }
 
+public protocol MEPEventsSearchProviding {
+    var searchSource: String { get }
+}

@@ -52,14 +52,14 @@ import CocoaLumberjackSwift
  * - `app_session_id`: the ID of the session at the time of the event when it was
  *   originally submitted
  */
-public class EventPlatformClient: NSObject, SamplingControllerDelegate {
+@objc public class EventPlatformClient: NSObject, SamplingControllerDelegate {
     // MARK: - Properties
 
-    public static let shared: EventPlatformClient = {
+    @objc public static let shared: EventPlatformClient = {
         return EventPlatformClient()
     }()
 
-    public var isEnabled: Bool {
+    @objc public var isEnabled: Bool {
         return UserDefaults.standard.wmf_sendUsageReports
     }
 

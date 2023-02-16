@@ -669,7 +669,7 @@ extension SearchViewController {
             return "search_tab"
         }
         let penultimateViewController = viewControllers[viewControllersCount - 2]
-        if let searchSourceProviding = penultimateViewController as? EventLoggingSearchSourceProviding {
+        if let searchSourceProviding = penultimateViewController as? MEPEventsSearchProviding {
             return searchSourceProviding.searchSource
         }
         return "unknown"

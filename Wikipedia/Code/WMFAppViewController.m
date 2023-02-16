@@ -292,14 +292,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.periodicWorkerController = [[WMFPeriodicWorkerController alloc] initWithInterval:30 initialDelay:1 leeway:15];
     self.periodicWorkerController.delegate = self;
     [self.periodicWorkerController add:self.dataStore.readingListsController];
-    [self.periodicWorkerController add:[WMFEventLoggingService sharedInstance]];
     [self.periodicWorkerController add:[WMFMetricsClientBridge sharedInstance]];
 
     self.backgroundFetcherController = [[WMFBackgroundFetcherController alloc] init];
     self.backgroundFetcherController.delegate = self;
     [self.backgroundFetcherController add:self.dataStore.readingListsController];
     [self.backgroundFetcherController add:(id<WMFBackgroundFetcher>)self.dataStore.feedContentController];
-    [self.backgroundFetcherController add:[WMFEventLoggingService sharedInstance]];
     [self.backgroundFetcherController add:[WMFMetricsClientBridge sharedInstance]];
 }
 

@@ -1073,8 +1073,8 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     
 }
 
-// MARK: - EventLoggingSearchSourceProviding
-extension ExploreViewController: EventLoggingSearchSourceProviding {
+// MARK: - MEPEventsSEarchProviding
+extension ExploreViewController: MEPEventsSearchProviding {
     var searchSource: String {
         return "top_of_feed"
     }
