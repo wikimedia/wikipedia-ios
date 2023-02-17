@@ -193,6 +193,7 @@ class ErrorPanelViewController : ScrollableEducationPanelViewController {
         subheadingHTML = messageHtml
         primaryButtonTitle = button1Title
         secondaryButtonTitle = button2Title
+        imageHeightConstraint.constant = 50
     }
     
     override func viewDidLayoutSubviews() {
@@ -200,9 +201,15 @@ class ErrorPanelViewController : ScrollableEducationPanelViewController {
         
         evaluateConstraintsOnNewSize(view.frame.size)
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        evaluateConstraintsOnNewSize(view.frame.size)
+    }
 
     private func evaluateConstraintsOnNewSize(_ size: CGSize) {
-        width = size.width * 0.9
+        width = traitCollection.horizontalSizeClass == .compact ? 280 : size.width * 0.9
     }
 }
 

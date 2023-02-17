@@ -82,6 +82,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     private var primaryButtonTapped = false
     var theme: Theme = Theme.standard
 
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     @IBOutlet private var widthConstraint: NSLayoutConstraint!
     @IBOutlet private var buttonTopSpacingConstraint: NSLayoutConstraint!
     @IBOutlet private var stackViewLeadingConstraint: NSLayoutConstraint!
@@ -218,7 +219,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
         attributedText.addAttributes(attributes, range: NSRange(location: 0, length: attributedText.length))
         
-        subheadingTextView.attributedText = attributedText.removingRepetitiveNewlineCharacters()
+        subheadingTextView.attributedText = attributedText.removingInitialNewlineCharacters().removingRepetitiveNewlineCharacters()
         subheadingTextView.linkTextAttributes = [.foregroundColor: theme.colors.link]
     }
     

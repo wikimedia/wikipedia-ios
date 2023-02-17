@@ -15,6 +15,7 @@
                 <outlet property="closeButton" destination="BAe-h0-y6b" id="eXa-fB-phT"/>
                 <outlet property="footerTextView" destination="jJo-Ko-Gi1" id="Uaf-PG-xyV"/>
                 <outlet property="headingLabel" destination="Cta-dZ-grZ" id="rDC-RM-LOF"/>
+                <outlet property="imageHeightConstraint" destination="jWo-IS-JDh" id="J8v-l9-Y3i"/>
                 <outlet property="imageView" destination="rFJ-kb-kte" id="Dmh-26-vvR"/>
                 <outlet property="primaryButton" destination="cUm-ox-sR8" id="YUn-nC-fRX"/>
                 <outlet property="roundedCornerContainer" destination="qtK-Db-J92" id="bNO-Ae-oHN"/>
