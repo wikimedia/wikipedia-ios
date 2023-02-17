@@ -12,18 +12,23 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScrollableEducationPanelViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="buttonTopSpacingConstraint" destination="wIB-c0-etL" id="kwm-yu-jPn"/>
-                <outlet property="closeButton" destination="BAe-h0-y6b" id="eXa-fB-phT"/>
+                <outlet property="contentStackView" destination="zdf-Q2-cLc" id="Brs-3c-Hfy"/>
                 <outlet property="footerTextView" destination="jJo-Ko-Gi1" id="Uaf-PG-xyV"/>
                 <outlet property="headingLabel" destination="Cta-dZ-grZ" id="rDC-RM-LOF"/>
                 <outlet property="imageHeightConstraint" destination="jWo-IS-JDh" id="J8v-l9-Y3i"/>
                 <outlet property="imageView" destination="rFJ-kb-kte" id="Dmh-26-vvR"/>
-                <outlet property="primaryButton" destination="cUm-ox-sR8" id="YUn-nC-fRX"/>
+                <outlet property="inlineActionButtonContainerView" destination="8tf-7a-eXe" id="LrL-ba-Bmb"/>
+                <outlet property="inlineCloseButton" destination="BAe-h0-y6b" id="pFf-lE-gc6"/>
+                <outlet property="inlineCloseButtonStackView" destination="Evj-R4-67a" id="Jxf-XH-9AE"/>
+                <outlet property="inlinePrimaryButton" destination="cUm-ox-sR8" id="qTB-br-DAp"/>
+                <outlet property="inlineSecondaryButton" destination="hB2-ah-QwX" id="qKA-ng-WZB"/>
+                <outlet property="pinnedActionButtonContainerView" destination="3hr-CH-OgV" id="zwG-PG-2bK"/>
+                <outlet property="pinnedCloseButton" destination="dnI-9Q-77X" id="HVu-U0-qk1"/>
+                <outlet property="pinnedCloseButtonStackView" destination="mYC-yH-YX8" id="p2j-N6-BsP"/>
+                <outlet property="pinnedPrimaryButton" destination="HGY-CD-FTJ" id="z72-zB-23O"/>
+                <outlet property="pinnedSecondaryButton" destination="lj0-nN-ABj" id="3FE-EH-b1F"/>
                 <outlet property="roundedCornerContainer" destination="qtK-Db-J92" id="bNO-Ae-oHN"/>
                 <outlet property="scrollViewContainer" destination="BhM-b3-oKp" id="ynz-78-85I"/>
-                <outlet property="secondaryButton" destination="hB2-ah-QwX" id="WJa-gl-cPm"/>
-                <outlet property="stackView" destination="zdf-Q2-cLc" id="tUG-MZ-nEX"/>
-                <outlet property="stackViewLeadingConstraint" destination="7CU-RZ-a8R" id="EWM-2O-YSE"/>
-                <outlet property="stackViewTrailingConstraint" destination="crP-8H-B4A" id="k91-ZL-SI1"/>
                 <outlet property="subheadingBottomConstraint" destination="bl1-Qj-Ohc" id="b0B-hi-Fmg"/>
                 <outlet property="subheadingTextView" destination="agu-fy-XDy" id="oE2-MM-YjK"/>
                 <outlet property="subheadingTopConstraint" destination="cCN-ob-P2q" id="vxC-eI-suv"/>
@@ -45,123 +50,126 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-b3-oKp" userLabel="Scroll Container">
                                     <rect key="frame" x="0.0" y="0.0" width="280" height="529"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Evj-R4-67a">
-                                            <rect key="frame" x="0.0" y="30" width="280" height="15"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1lp-Zw-jU3">
+                                            <rect key="frame" x="0.0" y="30" width="280" height="469"/>
                                             <subviews>
-                                                <button opaque="NO" tag="1" contentMode="scaleToFill" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAe-h0-y6b">
-                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="15"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" priority="999" constant="40" id="C4N-RO-Pf1"/>
-                                                        <constraint firstAttribute="height" priority="999" constant="15" id="jNS-Hb-YCs"/>
-                                                    </constraints>
-                                                    <state key="normal" image="places-auth-close"/>
-                                                    <connections>
-                                                        <action selector="close:" destination="-1" eventType="touchUpInside" id="5Lo-Ac-Q3z"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                        </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q2-cLc">
-                                            <rect key="frame" x="15" y="45" width="250" height="454"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-auth-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="rFJ-kb-kte">
-                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="95"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" priority="999" constant="95" id="jWo-IS-JDh"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="This is a reasonably long sample TITLE for this panel. It is probably the best thing ever." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cta-dZ-grZ">
-                                                    <rect key="frame" x="0.0" y="109" width="250" height="64.5"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z8r-Yc-5tI">
-                                                    <rect key="frame" x="0.0" y="187.5" width="250" height="92"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Evj-R4-67a" userLabel="Inline Close Button Stack View">
+                                                    <rect key="frame" x="0.0" y="0.0" width="280" height="15"/>
                                                     <subviews>
-                                                        <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="This is a reasonably long sample SUBITITLE for this panel. It is probably the best thing ever." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="agu-fy-XDy">
-                                                            <rect key="frame" x="0.0" y="0.0" width="250" height="92"/>
+                                                        <button opaque="NO" tag="1" contentMode="scaleToFill" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAe-h0-y6b">
+                                                            <rect key="frame" x="0.0" y="0.0" width="40" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" priority="999" constant="40" id="C4N-RO-Pf1"/>
+                                                                <constraint firstAttribute="height" priority="999" constant="15" id="jNS-Hb-YCs"/>
+                                                            </constraints>
+                                                            <state key="normal" image="places-auth-close"/>
+                                                            <connections>
+                                                                <action selector="close:" destination="-1" eventType="touchUpInside" id="5Lo-Ac-Q3z"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q2-cLc">
+                                                    <rect key="frame" x="0.0" y="15" width="280" height="454"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-auth-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="rFJ-kb-kte">
+                                                            <rect key="frame" x="15" y="0.0" width="250" height="95"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" priority="999" constant="95" id="jWo-IS-JDh"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="This is a reasonably long sample TITLE for this panel. It is probably the best thing ever." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cta-dZ-grZ">
+                                                            <rect key="frame" x="15" y="109" width="250" height="64.5"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z8r-Yc-5tI">
+                                                            <rect key="frame" x="15" y="187.5" width="250" height="92"/>
+                                                            <subviews>
+                                                                <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="This is a reasonably long sample SUBITITLE for this panel. It is probably the best thing ever." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="agu-fy-XDy">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="92"/>
+                                                                    <color key="textColor" systemColor="labelColor"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                </textView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="agu-fy-XDy" secondAttribute="trailing" id="RVt-eb-Yh0"/>
+                                                                <constraint firstItem="agu-fy-XDy" firstAttribute="leading" secondItem="Z8r-Yc-5tI" secondAttribute="leading" id="SoY-Yz-yVH"/>
+                                                                <constraint firstAttribute="bottom" secondItem="agu-fy-XDy" secondAttribute="bottom" id="bl1-Qj-Ohc"/>
+                                                                <constraint firstItem="agu-fy-XDy" firstAttribute="top" secondItem="Z8r-Yc-5tI" secondAttribute="top" id="cCN-ob-P2q"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8tf-7a-eXe" userLabel="Inline Action Button Container View">
+                                                            <rect key="frame" x="15" y="293.5" width="250" height="76.5"/>
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hqs-XP-LEE">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="76.5"/>
+                                                                    <subviews>
+                                                                        <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUm-ox-sR8" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="250" height="46.5"/>
+                                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                            <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                    <real key="value" value="5"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                    <integer key="value" value="0"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                    <color key="value" red="0.20000000000000001" green="0.40085786579999999" blue="0.79973679779999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                            <connections>
+                                                                                <action selector="primaryButtonTapped:" destination="-1" eventType="touchUpInside" id="uCd-V8-oNv"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hB2-ah-QwX" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="56.5" width="250" height="20"/>
+                                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                                            <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                    <real key="value" value="5"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                    <real key="value" value="0.0"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                            <connections>
+                                                                                <action selector="secondaryButtonTapped:" destination="-1" eventType="touchUpInside" id="TWe-gh-Z12"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                </stackView>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="hqs-XP-LEE" firstAttribute="leading" secondItem="8tf-7a-eXe" secondAttribute="leading" id="dXl-Ue-udb"/>
+                                                                <constraint firstAttribute="trailing" secondItem="hqs-XP-LEE" secondAttribute="trailing" id="hv0-e2-dU0"/>
+                                                                <constraint firstAttribute="bottom" secondItem="hqs-XP-LEE" secondAttribute="bottom" id="pFA-wg-YFP"/>
+                                                                <constraint firstItem="hqs-XP-LEE" firstAttribute="top" secondItem="8tf-7a-eXe" secondAttribute="top" id="wIB-c0-etL"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="This is a reasonably long sample DESCRIPTION for this panel. It is probably the best thing ever." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jJo-Ko-Gi1">
+                                                            <rect key="frame" x="15" y="384" width="250" height="70"/>
                                                             <color key="textColor" systemColor="labelColor"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="agu-fy-XDy" secondAttribute="trailing" id="RVt-eb-Yh0"/>
-                                                        <constraint firstItem="agu-fy-XDy" firstAttribute="leading" secondItem="Z8r-Yc-5tI" secondAttribute="leading" id="SoY-Yz-yVH"/>
-                                                        <constraint firstAttribute="bottom" secondItem="agu-fy-XDy" secondAttribute="bottom" id="bl1-Qj-Ohc"/>
-                                                        <constraint firstItem="agu-fy-XDy" firstAttribute="top" secondItem="Z8r-Yc-5tI" secondAttribute="top" id="cCN-ob-P2q"/>
-                                                    </constraints>
-                                                </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8tf-7a-eXe">
-                                                    <rect key="frame" x="0.0" y="293.5" width="250" height="76.5"/>
-                                                    <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hqs-XP-LEE">
-                                                            <rect key="frame" x="0.0" y="0.0" width="250" height="76.5"/>
-                                                            <subviews>
-                                                                <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUm-ox-sR8" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="46.5"/>
-                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                                    <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                            <real key="value" value="5"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                            <integer key="value" value="0"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                            <color key="value" red="0.20000000000000001" green="0.40085786579999999" blue="0.79973679779999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                    <connections>
-                                                                        <action selector="primaryButtonTapped:" destination="-1" eventType="touchUpInside" id="uCd-V8-oNv"/>
-                                                                    </connections>
-                                                                </button>
-                                                                <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hB2-ah-QwX" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="56.5" width="250" height="20"/>
-                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                                                    <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                            <real key="value" value="5"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                            <real key="value" value="0.0"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                    <connections>
-                                                                        <action selector="secondaryButtonTapped:" destination="-1" eventType="touchUpInside" id="TWe-gh-Z12"/>
-                                                                    </connections>
-                                                                </button>
-                                                            </subviews>
-                                                        </stackView>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="hqs-XP-LEE" firstAttribute="leading" secondItem="8tf-7a-eXe" secondAttribute="leading" id="dXl-Ue-udb"/>
-                                                        <constraint firstAttribute="trailing" secondItem="hqs-XP-LEE" secondAttribute="trailing" id="hv0-e2-dU0"/>
-                                                        <constraint firstAttribute="bottom" secondItem="hqs-XP-LEE" secondAttribute="bottom" id="pFA-wg-YFP"/>
-                                                        <constraint firstItem="hqs-XP-LEE" firstAttribute="top" secondItem="8tf-7a-eXe" secondAttribute="top" id="wIB-c0-etL"/>
-                                                    </constraints>
-                                                </view>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="This is a reasonably long sample DESCRIPTION for this panel. It is probably the best thing ever." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jJo-Ko-Gi1">
-                                                    <rect key="frame" x="0.0" y="384" width="250" height="70"/>
-                                                    <color key="textColor" systemColor="labelColor"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
+                                                    <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="15" bottom="0.0" trailing="15"/>
+                                                </stackView>
                                             </subviews>
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="zdf-Q2-cLc" firstAttribute="top" secondItem="Evj-R4-67a" secondAttribute="bottom" id="06h-rf-lHy"/>
-                                        <constraint firstAttribute="trailing" secondItem="Evj-R4-67a" secondAttribute="trailing" id="6Cg-Jh-Ds6"/>
-                                        <constraint firstItem="zdf-Q2-cLc" firstAttribute="leading" secondItem="BhM-b3-oKp" secondAttribute="leading" constant="15" id="7CU-RZ-a8R"/>
-                                        <constraint firstItem="Evj-R4-67a" firstAttribute="leading" secondItem="BhM-b3-oKp" secondAttribute="leading" id="KNk-Au-DKq"/>
-                                        <constraint firstItem="Evj-R4-67a" firstAttribute="top" secondItem="BhM-b3-oKp" secondAttribute="top" constant="30" id="LHX-JW-L5j"/>
-                                        <constraint firstAttribute="trailing" secondItem="zdf-Q2-cLc" secondAttribute="trailing" constant="15" id="crP-8H-B4A"/>
-                                        <constraint firstAttribute="bottom" secondItem="zdf-Q2-cLc" secondAttribute="bottom" constant="30" id="rCR-qx-yj8"/>
+                                        <constraint firstItem="1lp-Zw-jU3" firstAttribute="leading" secondItem="BhM-b3-oKp" secondAttribute="leading" id="0yH-Xa-j7U"/>
+                                        <constraint firstAttribute="bottom" secondItem="1lp-Zw-jU3" secondAttribute="bottom" constant="30" id="36G-Hn-CX2"/>
+                                        <constraint firstItem="1lp-Zw-jU3" firstAttribute="top" secondItem="BhM-b3-oKp" secondAttribute="top" constant="30" id="Dz1-uW-1wr"/>
+                                        <constraint firstAttribute="trailing" secondItem="1lp-Zw-jU3" secondAttribute="trailing" id="iIa-RA-cEv"/>
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -169,14 +177,87 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
+                                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="mYC-yH-YX8" userLabel="Pinned Close Button Stack View">
+                                    <rect key="frame" x="0.0" y="30" width="280" height="15"/>
+                                    <subviews>
+                                        <button opaque="NO" tag="1" contentMode="scaleToFill" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dnI-9Q-77X">
+                                            <rect key="frame" x="0.0" y="0.0" width="40" height="15"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" priority="999" constant="15" id="O7T-HJ-DWl"/>
+                                                <constraint firstAttribute="width" priority="999" constant="40" id="aC0-Df-e7r"/>
+                                            </constraints>
+                                            <state key="normal" image="places-auth-close"/>
+                                            <connections>
+                                                <action selector="close:" destination="-1" eventType="touchUpInside" id="bzK-v4-6rZ"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hr-CH-OgV" userLabel="Pinned Action Button Container View">
+                                    <rect key="frame" x="15" y="449" width="250" height="80"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nMH-Tf-8g1">
+                                            <rect key="frame" x="0.0" y="0.0" width="250" height="50"/>
+                                            <subviews>
+                                                <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGY-CD-FTJ" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="20"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <integer key="value" value="0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" red="0.20000000000000001" green="0.40085786579999999" blue="0.79973679779999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="primaryButtonTapped:" destination="-1" eventType="touchUpInside" id="29U-ts-rtY"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lj0-nN-ABj" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="30" width="250" height="20"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                    <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="secondaryButtonTapped:" destination="-1" eventType="touchUpInside" id="s3u-vP-XoR"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="nMH-Tf-8g1" firstAttribute="top" secondItem="3hr-CH-OgV" secondAttribute="top" id="37c-5g-v3S"/>
+                                        <constraint firstAttribute="trailing" secondItem="nMH-Tf-8g1" secondAttribute="trailing" id="4Lg-Zo-BYT"/>
+                                        <constraint firstItem="nMH-Tf-8g1" firstAttribute="leading" secondItem="3hr-CH-OgV" secondAttribute="leading" id="XYd-2g-hLD"/>
+                                        <constraint firstAttribute="bottom" secondItem="nMH-Tf-8g1" secondAttribute="bottom" constant="30" id="dkP-q4-YMa"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <constraints>
+                                <constraint firstItem="mYC-yH-YX8" firstAttribute="trailing" secondItem="Evj-R4-67a" secondAttribute="trailing" id="2Xa-HS-ggm"/>
                                 <constraint firstItem="byo-ea-ogC" firstAttribute="leading" secondItem="BhM-b3-oKp" secondAttribute="leading" id="6Zv-cf-mCb"/>
                                 <constraint firstItem="BhM-b3-oKp" firstAttribute="height" secondItem="dvu-0e-liQ" secondAttribute="height" priority="250" id="Bo0-6D-ODX"/>
+                                <constraint firstItem="mYC-yH-YX8" firstAttribute="leading" secondItem="Evj-R4-67a" secondAttribute="leading" id="P1i-WV-J9b"/>
                                 <constraint firstItem="BhM-b3-oKp" firstAttribute="bottom" secondItem="byo-ea-ogC" secondAttribute="bottom" id="XDH-E6-noi"/>
+                                <constraint firstItem="8tf-7a-eXe" firstAttribute="leading" secondItem="3hr-CH-OgV" secondAttribute="leading" id="byb-Zb-FSR"/>
+                                <constraint firstItem="dvu-0e-liQ" firstAttribute="bottom" secondItem="3hr-CH-OgV" secondAttribute="bottom" id="dfD-Sx-4Qa"/>
                                 <constraint firstItem="byo-ea-ogC" firstAttribute="top" secondItem="BhM-b3-oKp" secondAttribute="top" id="fSW-Ew-Rme"/>
                                 <constraint firstItem="BhM-b3-oKp" firstAttribute="width" secondItem="dvu-0e-liQ" secondAttribute="width" id="me5-Aq-WlW"/>
                                 <constraint firstItem="BhM-b3-oKp" firstAttribute="trailing" secondItem="byo-ea-ogC" secondAttribute="trailing" id="mmU-rY-JAa"/>
+                                <constraint firstItem="8tf-7a-eXe" firstAttribute="trailing" secondItem="3hr-CH-OgV" secondAttribute="trailing" id="oCB-LU-3Ld"/>
+                                <constraint firstItem="mYC-yH-YX8" firstAttribute="top" secondItem="dvu-0e-liQ" secondAttribute="top" constant="30" id="tw8-bK-WBI"/>
                             </constraints>
                             <viewLayoutGuide key="contentLayoutGuide" id="byo-ea-ogC"/>
                             <viewLayoutGuide key="frameLayoutGuide" id="dvu-0e-liQ"/>
@@ -219,10 +300,16 @@
         </view>
     </objects>
     <designables>
+        <designable name="HGY-CD-FTJ">
+            <size key="intrinsicContentSize" width="28" height="20"/>
+        </designable>
         <designable name="cUm-ox-sR8">
             <size key="intrinsicContentSize" width="28" height="20"/>
         </designable>
         <designable name="hB2-ah-QwX">
+            <size key="intrinsicContentSize" width="28" height="20"/>
+        </designable>
+        <designable name="lj0-nN-ABj">
             <size key="intrinsicContentSize" width="28" height="20"/>
         </designable>
     </designables>

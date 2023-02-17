@@ -179,7 +179,7 @@ class ErrorPanelViewController : ScrollableEducationPanelViewController {
         self.messageHtml = messageHtml
         self.button1Title = button1Title
         self.button2Title = button2Title
-        super.init(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, traceableDismissHandler: nil, theme: theme)
+        super.init(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, traceableDismissHandler: nil, hasPinnedButtons: true, theme: theme)
         self.subheadingLinkAction = subheadingLinkAction
     }
     
