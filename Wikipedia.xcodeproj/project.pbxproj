@@ -2492,7 +2492,6 @@
 		B0FFFB2C21C9BED1001E787E /* TextFormattingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FFFB2921C9BED0001E787E /* TextFormattingButton.swift */; };
 		B0FFFB2D21C9BED1001E787E /* TextFormattingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FFFB2921C9BED0001E787E /* TextFormattingButton.swift */; };
 		B37B38F01E5F432F00FE11BD /* WMFDatabaseHousekeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B38EF1E5F432F00FE11BD /* WMFDatabaseHousekeeper.swift */; };
-		B37B6FE91EEAFE11007CBB12 /* EventLoggingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B6FE81EEAFE11007CBB12 /* EventLoggingServiceTests.swift */; };
 		B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */; };
 		B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
 		B39427441E71F79700D3146D /* NSDictionaryBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B39427411E71F79700D3146D /* NSDictionaryBlocksKitTest.m */; };
@@ -5063,7 +5062,6 @@
 		B0F92C811E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAuthAccountCreationInfoFetcher.swift; sourceTree = "<group>"; };
 		B0FFFB2921C9BED0001E787E /* TextFormattingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFormattingButton.swift; sourceTree = "<group>"; };
 		B37B38EF1E5F432F00FE11BD /* WMFDatabaseHousekeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHousekeeper.swift; sourceTree = "<group>"; };
-		B37B6FE81EEAFE11007CBB12 /* EventLoggingServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventLoggingServiceTests.swift; sourceTree = "<group>"; };
 		B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHousekeeperTests.swift; sourceTree = "<group>"; };
 		B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFMapsActivity.swift; path = Wikipedia/Code/WMFMapsActivity.swift; sourceTree = SOURCE_ROOT; };
 		B39427411E71F79700D3146D /* NSDictionaryBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionaryBlocksKitTest.m; sourceTree = "<group>"; };
@@ -8899,7 +8897,6 @@
 				B02F96651DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift */,
 				D8800CB01E2FF5B70035D2DB /* QuadKeyTests.swift */,
 				B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */,
-				B37B6FE81EEAFE11007CBB12 /* EventLoggingServiceTests.swift */,
 				830ECAD51FBDE77F0080B1EF /* ReadingListsTests.swift */,
 				B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */,
 				670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */,
@@ -11268,7 +11265,6 @@
 				B0E808831C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m in Sources */,
 				004281B425E6EFC4004945B3 /* LSNocilla.m in Sources */,
 				67C6F77A27E2E78800B9C864 /* NotificationsCenterCellViewModelEditRevertedTests.swift in Sources */,
-				B37B6FE91EEAFE11007CBB12 /* EventLoggingServiceTests.swift in Sources */,
 				B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */,
 				830ECAD61FBDE77F0080B1EF /* ReadingListsTests.swift in Sources */,
 				67C6F74E27E2919B00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift in Sources */,
