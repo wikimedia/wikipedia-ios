@@ -490,6 +490,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         inlinePrimaryButton?.tintColor = theme.colors.link
         pinnedPrimaryButton?.tintColor = theme.colors.link
         inlineSecondaryButton?.tintColor = theme.colors.secondaryText
+        pinnedSecondaryButton?.tintColor = theme.colors.secondaryText
         inlinePrimaryButton?.layer.borderColor = theme.colors.link.cgColor
         pinnedPrimaryButton?.layer.borderColor = theme.colors.link.cgColor
 
