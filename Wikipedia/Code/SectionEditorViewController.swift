@@ -102,10 +102,10 @@ class SectionEditorViewController: ViewController {
             }
             
             if let blockedError {
-                self.configureWebView(readOnly: true)
+                self.presentErrorMessage(blockedError: blockedError)
                 
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) { // helps prevent flash as wikitext is loaded
-                    self.presentErrorMessage(blockedError: blockedError)
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { // helps prevent flash as wikitext is loaded
+                    self.configureWebView(readOnly: true)
                 }
                 
             } else {
