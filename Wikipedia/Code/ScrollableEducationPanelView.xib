@@ -28,6 +28,7 @@
                 <outlet property="pinnedPrimaryButton" destination="HGY-CD-FTJ" id="z72-zB-23O"/>
                 <outlet property="pinnedSecondaryButton" destination="lj0-nN-ABj" id="3FE-EH-b1F"/>
                 <outlet property="roundedCornerContainer" destination="qtK-Db-J92" id="bNO-Ae-oHN"/>
+                <outlet property="scrollView" destination="6JR-s8-77s" id="lmu-oP-tXU"/>
                 <outlet property="scrollViewContainer" destination="BhM-b3-oKp" id="ynz-78-85I"/>
                 <outlet property="subheadingBottomConstraint" destination="bl1-Qj-Ohc" id="b0B-hi-Fmg"/>
                 <outlet property="subheadingTextView" destination="agu-fy-XDy" id="oE2-MM-YjK"/>
@@ -238,9 +239,9 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="nMH-Tf-8g1" firstAttribute="top" secondItem="3hr-CH-OgV" secondAttribute="top" id="37c-5g-v3S"/>
                                         <constraint firstAttribute="trailing" secondItem="nMH-Tf-8g1" secondAttribute="trailing" id="4Lg-Zo-BYT"/>
                                         <constraint firstItem="nMH-Tf-8g1" firstAttribute="leading" secondItem="3hr-CH-OgV" secondAttribute="leading" id="XYd-2g-hLD"/>
+                                        <constraint firstItem="nMH-Tf-8g1" firstAttribute="top" secondItem="3hr-CH-OgV" secondAttribute="top" id="bJc-Z0-1gX"/>
                                         <constraint firstAttribute="bottom" secondItem="nMH-Tf-8g1" secondAttribute="bottom" constant="30" id="dkP-q4-YMa"/>
                                     </constraints>
                                 </view>

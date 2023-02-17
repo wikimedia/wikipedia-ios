@@ -200,6 +200,9 @@ class ErrorPanelViewController : ScrollableEducationPanelViewController {
         super.viewDidLayoutSubviews()
         
         evaluateConstraintsOnNewSize(view.frame.size)
+        if scrollView.bounces {
+            scrollView.flashScrollIndicators()
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

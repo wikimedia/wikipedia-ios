@@ -74,6 +74,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var pinnedSecondaryButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet fileprivate weak var footerTextView: UITextView!
 
+    @IBOutlet private(set) weak var scrollView: UIScrollView!
     @IBOutlet fileprivate weak var scrollViewContainer: UIView!
     @IBOutlet fileprivate weak var roundedCornerContainer: UIView!
 
