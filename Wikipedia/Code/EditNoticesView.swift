@@ -226,8 +226,8 @@ final class EditNoticesView: SetupView {
 
             footerStack.leadingAnchor.constraint(equalTo: footerContainer.readableContentGuide.leadingAnchor, constant: 20),
             footerStack.trailingAnchor.constraint(equalTo: footerContainer.readableContentGuide.trailingAnchor, constant: -20),
-            footerStack.topAnchor.constraint(equalTo: footerContainer.topAnchor, constant: 20),
-            footerStack.bottomAnchor.constraint(equalTo: footerContainer.readableContentGuide.bottomAnchor)
+            footerStack.topAnchor.constraint(equalTo: footerContainer.topAnchor, constant: 16),
+            footerStack.bottomAnchor.constraint(equalTo: footerContainer.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
     }
 
