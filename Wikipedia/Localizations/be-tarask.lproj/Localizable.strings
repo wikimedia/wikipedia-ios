@@ -19,14 +19,6 @@
 "about-translators-details" = "Перакладзенае дабраахвотнікамі на $1";
 "about-wikimedia-foundation" = "Фундацыя Вікімэдыя";
 "about-wikipedia" = "Вікіпэдыя";
-"abuse-filter-disallow-heading" = "Вы ня можаце апублікаваць гэтае рэдагаваньне.";
-"abuse-filter-disallow-unconstructive" = "Аўтаматычны фільтар распазнаў гэтае рэдагаваньне як патэнцыйна дэструктыўнае ці як спробу вандалізму.";
-"abuse-filter-warning-blanking" = "Выдаленьне разьдзелаў ці артыкулаў цалкам";
-"abuse-filter-warning-caps" = "Тэкст вялікімі літарамі";
-"abuse-filter-warning-heading" = "Гэтае рэдагаваньне можа быць неканструктыўным, вы ўпэўненыя, што жадаеце яго апублікаваць?";
-"abuse-filter-warning-irrelevant" = "Неадпаведныя вонкавыя спасылкі ці выявы";
-"abuse-filter-warning-repeat" = "Паўтарэньне сымбаляў";
-"abuse-filter-warning-subheading" = "Вашае рэдагаваньне можа ўтрымліваць:";
 "account-creation-captcha-obtaining" = "Атрымліваем новую CAPTCHA…";
 "account-creation-logging-in" = "Уваход у сыстэму...";
 "account-creation-missing-fields" = "Вам неабходна ўвесьці імя ўдзельніка, пароль і пацьвердзіць пароль, каб стварыць рахунак.";

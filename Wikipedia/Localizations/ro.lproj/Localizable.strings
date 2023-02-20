@@ -70,15 +70,6 @@
 "about-translators-details" = "Tradusă de traducătorii voluntari de la $1";
 "about-wikimedia-foundation" = "Fundația Wikimedia";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Nu puteți publica această modificare";
-"abuse-filter-disallow-unconstructive" = "Un filtru automat a identificat această modificare ca fiind potențial neconstructivă sau ca o tentativă de vandalism. Vă rugăm să vă întoarceți și să modificați editarea dvs.";
-"abuse-filter-warning-blanking" = "Ștergerea secțiunilor sau a articolelor complete";
-"abuse-filter-warning-caps" = "Scrierea INTEGRALĂ CU MAJUSCULE";
-"abuse-filter-warning-heading" = "Acesta arată ca o editare neconstructivă, sunteți sigur că doriți să o publicați?";
-"abuse-filter-warning-irrelevant" = "Legături externe sau imagini irelevante";
-"abuse-filter-warning-repeat" = "Repetarea caracterelor";
-"abuse-filter-warning-spam" = "Adăugarea de spam în articole";
-"abuse-filter-warning-subheading" = "Modificarea dumnevoastră poate conține:";
 "account-creation-captcha-cannot-see-image" = "Nu pot vedea imaginea? $1";
 "account-creation-captcha-obtaining" = "Se obține un nou CAPTCHA...";
 "account-creation-captcha-request-account" = "Cereți un cont.";

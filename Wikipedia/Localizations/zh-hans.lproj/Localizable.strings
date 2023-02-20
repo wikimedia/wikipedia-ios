@@ -116,15 +116,6 @@
 "about-translators-details" = "由$1的志愿者翻译";
 "about-wikimedia-foundation" = "维基媒体基金会";
 "about-wikipedia" = "维基百科";
-"abuse-filter-disallow-heading" = "您不能发布该编辑";
-"abuse-filter-disallow-unconstructive" = "自动过滤器已认定此编辑可能不具建设性或存在破坏企图。请返回并检查您的编辑。";
-"abuse-filter-warning-blanking" = "删除段落或条目全文";
-"abuse-filter-warning-caps" = "全部大写文本";
-"abuse-filter-warning-heading" = "这看起来是没有建设性的编辑，您确定要发布它？";
-"abuse-filter-warning-irrelevant" = "无关的外部链接或图像";
-"abuse-filter-warning-repeat" = "重复文字";
-"abuse-filter-warning-spam" = "条目添加了垃圾信息";
-"abuse-filter-warning-subheading" = "您的编辑可能含有：";
 "account-creation-captcha-cannot-see-image" = "看不到图像么？$1";
 "account-creation-captcha-obtaining" = "获得新验证码...";
 "account-creation-captcha-request-account" = "请求账户。";

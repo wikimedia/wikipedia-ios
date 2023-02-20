@@ -41,15 +41,6 @@
 "about-translators-details" = "Tuta app je so wot dobrowólnych přełožowarjow na $1 přełožiła";
 "about-wikimedia-foundation" = "załožby Wikimedije";
 "about-wikipedia" = "Wikipedija";
-"abuse-filter-disallow-heading" = "Njemóžeš tutu změnu wozjewić.";
-"abuse-filter-disallow-unconstructive" = "Awtomatiski filter je tute wobdźěłanje jako potencielnje njekonstruktiwnu abo jako pospyt wandalizma identifikował. Prošu dźi wróćo a změń twoje wobdźěłanje.";
-"abuse-filter-warning-blanking" = "Wotstronjenje wotrězkow abo cyłych zapiskow";
-"abuse-filter-warning-caps" = "Tekst we wulkich pismikach";
-"abuse-filter-warning-heading" = "Tuta změna wupada njekonstruktiwna. Chceš ju woprawdźe wozjewić?";
-"abuse-filter-warning-irrelevant" = "Njerelewantne wotkazy abo wobrazy";
-"abuse-filter-warning-repeat" = "Wospjetowace so znamješka";
-"abuse-filter-warning-spam" = "Spam do zapiskow přidaty";
-"abuse-filter-warning-subheading" = "Twoja změna móhła wobsahować:";
 "account-creation-captcha-cannot-see-image" = "Njemóžeš wobraz widźeć? $1";
 "account-creation-captcha-obtaining" = "Wobstaraj sej nowy CAPTCHA...";
 "account-creation-captcha-title" = "CAPTCHA wěstotne pruwowanje";

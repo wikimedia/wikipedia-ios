@@ -43,9 +43,6 @@
 "about-title" = "Haqida";
 "about-translators" = "Tarjimonlar";
 "about-wikipedia" = "Vikipediya";
-"abuse-filter-disallow-heading" = "Siz bu tahrirni chop eta olmaysiz";
-"abuse-filter-warning-blanking" = "Maqolani to‘liq yoki uning qismini o‘chirish";
-"abuse-filter-warning-spam" = "Maqolalarga spam qo‘shish";
 "account-creation-captcha-cannot-see-image" = "Rasmni ko‘rmayapsizmi? $1";
 "account-creation-captcha-obtaining" = "Yangi CAPTCHA olinmoqda ...";
 "account-creation-captcha-title" = "CAPTCHA xavsizlik tekshiruvi";
