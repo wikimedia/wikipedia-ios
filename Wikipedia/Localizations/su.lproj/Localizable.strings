@@ -26,20 +26,6 @@
 "about-translators-details" = "Ditarjamahkeun ku rélawan di $1";
 "about-wikimedia-foundation" = "Yayasan Wikimédia";
 "about-wikipedia" = "Wikipédia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Anjeun teu bisa medalkeun ieu éditan. Pék balik deui tuluy robah.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Panyaring otomatis geus ngidéntifikasi ieu éditan minangka poténsial teu konstruktif, atawa tarékah vandalismeu.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Ngosongkeun artikel atawa spam";
-// Fuzzy
-"abuse-filter-warning-caps" = "Ngetik ku HURUP KAPITAL KABÉH";
-"abuse-filter-warning-heading" = "Kawasna mah ieu éditan téh teu konstruktif, anjeun yakin rék medalkeunna?";
-"abuse-filter-warning-irrelevant" = "Tutumbu luar atawa gambar teu luyu";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Karakter puuuulang anting";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Éditan anjeun bisa waé ngandung hiji atawa leuwih hal ieu:";
 "account-creation-captcha-cannot-see-image" = "Teu bisa nempo gambar? $1";
 "account-creation-captcha-obtaining" = "Nyokot CAPTCHA anyar...";
 "account-creation-captcha-request-account" = "Ménta akun.";

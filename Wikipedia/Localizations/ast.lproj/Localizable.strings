@@ -32,15 +32,6 @@
 "about-translators-details" = "Traducida por voluntarios en $1";
 "about-wikimedia-foundation" = "Fundación Wikimedia";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Nun puedes espublizar esta edición";
-"abuse-filter-disallow-unconstructive" = "Un filtru automático identificó esta edición como potencialmente non constructiva o como intentu de vandalismu. Vuelvi atrás y cambia la edición.";
-"abuse-filter-warning-blanking" = "Desaniciar secciones o artículos completos";
-"abuse-filter-warning-caps" = "Testu too en mayúscules";
-"abuse-filter-warning-heading" = "Esto nun paez una edición constructiva. ¿Tas seguro de que quies espublizala?";
-"abuse-filter-warning-irrelevant" = "Enllaces o imaxes esternos irrelevantes";
-"abuse-filter-warning-repeat" = "Caráuteres repetíos";
-"abuse-filter-warning-spam" = "Añadir puxarra a artículos";
-"abuse-filter-warning-subheading" = "La to edición puede contener:";
 "account-creation-captcha-cannot-see-image" = "¿Nun puedes ver la imaxe? $1";
 "account-creation-captcha-obtaining" = "Baxando un CAPTCHA nuevu...";
 "account-creation-captcha-request-account" = "Solicitar una cuenta.";

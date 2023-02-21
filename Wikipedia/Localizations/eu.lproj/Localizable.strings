@@ -36,14 +36,6 @@
 "about-translators-details" = "$1(e)n boluntarioek itzulita";
 "about-wikimedia-foundation" = "Wikimedia Fundazioa";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Ezin duzu aldaketa hau argitaratu";
-"abuse-filter-disallow-unconstructive" = "Iragazki automatizatu batek edizio hau kaltegarria edo bandalismozkoa izan daitekeela  identifikatu du.";
-"abuse-filter-warning-blanking" = "Artikulu osoak edo atalak ezabatu";
-"abuse-filter-warning-caps" = "Testua letra larrietan bakarrik";
-"abuse-filter-warning-heading" = "Hau editatze ezezaguna izan daiteke. Ziur al zaude argitaratu nahi duzula?";
-"abuse-filter-warning-irrelevant" = "Garrantzirik gabeko kanpo-loturak edo argazkiak";
-"abuse-filter-warning-repeat" = "Errepikatutako karaktereak";
-"abuse-filter-warning-subheading" = "Zure aldaketak hauetako bat eduki dezake:";
 "account-creation-captcha-cannot-see-image" = "Ezin duzu argazkia ikusi? $1";
 "account-creation-captcha-obtaining" = "CAPTCHA berria lortzen...";
 "account-creation-captcha-request-account" = "Eskatu kontua.";

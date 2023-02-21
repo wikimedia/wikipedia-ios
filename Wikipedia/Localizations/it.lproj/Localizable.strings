@@ -96,15 +96,6 @@
 "about-translators-details" = "Tradotto dai volontari di $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Non puoi pubblicare questa modifica";
-"abuse-filter-disallow-unconstructive" = "Un filtro automatico ha identificato questa modifica come potenzialmente inconcludente o come un tentativo di vandalismo. Torna indietro e cambia la tua modifica.";
-"abuse-filter-warning-blanking" = "Cancellazioni di sezioni o voci complete";
-"abuse-filter-warning-caps" = "Testo tutto in maiuscolo";
-"abuse-filter-warning-heading" = "Questa potrebbe essere una modifica inutile, sei sicuro di volerla salvare?";
-"abuse-filter-warning-irrelevant" = "Collegamenti esterni o immagini non pertinenti";
-"abuse-filter-warning-repeat" = "Caratteri ripetuti";
-"abuse-filter-warning-spam" = "Aggiunta di spam alle voci";
-"abuse-filter-warning-subheading" = "La tua modifica potrebbe contenere:";
 "account-creation-captcha-cannot-see-image" = "Non riesci a vedere l'immagine? $1";
 "account-creation-captcha-obtaining" = "Creazione di un nuovo CAPTCHA...";
 "account-creation-captcha-request-account" = "Richiedi utenza.";
@@ -176,9 +167,11 @@
 "article-share" = "Condividi";
 "back-button-accessibility-label" = "Indietro";
 "back-button-popover-title" = "Clicca per tornare indietro";
+"button-go-back" = "Torna indietro";
 "button-next" = "Successivo";
 "button-ok" = "OK";
 "button-publish" = "Pubblica";
+"button-publish-anyway" = "Pubblica comunque";
 "button-read-now" = "Leggi adesso";
 "button-report-a-bug" = "Segnala un errore";
 "button-save-for-later" = "Salva per dopo";

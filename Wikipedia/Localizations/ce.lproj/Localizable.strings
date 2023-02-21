@@ -7,18 +7,6 @@
 "aaald-revision-userInfo" = "Хийцам бина $1 ($2 нисдар)";
 // Fuzzy
 "about-testers" = "тестераш";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Хьуна цало хӀара нисдар Ӏалашдан. Дехар до, юху гӀой хийца и.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Авто-литтаро билгалдина хӀара нисдар зуламе.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "АгӀона чулацам я спам цӀамяр";
-// Fuzzy
-"abuse-filter-warning-caps" = "ДАКХИЙ ЭЛПАШЦАМ ЗОРБА";
-// Fuzzy
-"abuse-filter-warning-heading" = "ХӀара нисдар зуламе долчух тера ду. Лаьий хьуна и Ӏалашдан?";
-"abuse-filter-warning-irrelevant" = "Нийса йоцу арахьара хьажоргаш йа сурт";
-"abuse-filter-warning-repeat" = "Йух-йуха долу хьаьркаш";
 "account-creation-logging-in" = "Системин чудахар...";
 "action-previous-revision-accessibility" = "Хьалхара верси";
 "action-unsave" = "Ӏалашцайина";

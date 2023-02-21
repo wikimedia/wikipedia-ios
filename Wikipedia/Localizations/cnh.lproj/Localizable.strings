@@ -23,21 +23,6 @@
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
 // Fuzzy
-"abuse-filter-disallow-heading" = "Na remhnak hi na khong kho lai lo. Kir than law thleng than.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Seh nih na remhmi hi hrawhduhnak le thil thalo a tel a ti.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Cabia pingpalo asiloah cachia pawl";
-// Fuzzy
-"abuse-filter-warning-caps" = "CAFANG NGAN in tial dih";
-// Fuzzy
-"abuse-filter-warning-heading" = "Na remhning a dik deuh kho lo men. Na khon ko lai maw?";
-"abuse-filter-warning-irrelevant" = "A pehtlailomi link le hmanthlak";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Cafang a nawwwwwlh";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Na remhmi ah atanglei hi pakhat asiloah pakhat leng a tel:";
-// Fuzzy
 "account-creation-captcha-obtaining" = "CAPTCHA athar a lak lio";
 "account-creation-logging-in" = "A lut lio...";
 "account-creation-missing-fields" = "Account sernak ah na min, biathup le biathup fiahnak na telh hrim a hau.";
