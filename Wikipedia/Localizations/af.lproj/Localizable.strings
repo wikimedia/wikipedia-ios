@@ -26,20 +26,6 @@
 "about-translators-details" = "Vertaal deur vrywilligers by $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "U kan nie hierdie wysiging publiseer nie. Gaan asseblief terug en verander dit.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "'n Outomatiese filter het hierdie wysiging as potensiëel onkonstruktief, of 'n poging tot vandalisme geïdentifiseer.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Bladsye leeg maak of spam plaas";
-// Fuzzy
-"abuse-filter-warning-caps" = "Tik in HOOFLETTERS";
-"abuse-filter-warning-heading" = "Hierdie blyk ’n onkonstruktiewe wysiging te wees, is u seker u wil dit publiseer?";
-"abuse-filter-warning-irrelevant" = "Irrelevante eksterne skakels of beelde";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Herhaaaalende karakters";
-// Fuzzy
-"abuse-filter-warning-subheading" = "U wysiging mag een of meer van die volgende bevat:";
 "account-creation-captcha-obtaining" = "Verkry ’n nuwe CAPTCHA…";
 "account-creation-create-account" = "Skep u rekening";
 "account-creation-have-account" = "Alreeds ’n gebruiker? $1";

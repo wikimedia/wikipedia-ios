@@ -82,15 +82,6 @@
 "about-translators-details" = "Diese App wurde von freiwilligen Übersetzern auf $1 übersetzt";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Du kannst diese Bearbeitung nicht veröffentlichen.";
-"abuse-filter-disallow-unconstructive" = "Ein automatischer Filter hat diese Bearbeitung als potenziell unkonstruktiv oder als Vandalismusversuch identifiziert. Bitte gehe zurück und ändere deine Bearbeitung ab.";
-"abuse-filter-warning-blanking" = "Abschnitte oder ganze Artikel gelöscht";
-"abuse-filter-warning-caps" = "Text in Kapitalschrift";
-"abuse-filter-warning-heading" = "Dies sieht nach einer unkonstruktiven Bearbeitung aus. Bist du sicher, dass du sie veröffentlichen möchtest?";
-"abuse-filter-warning-irrelevant" = "Irrelevante Weblinks oder Bilder";
-"abuse-filter-warning-repeat" = "Zeichen wiederholt";
-"abuse-filter-warning-spam" = "Spam in Artikeln hinzugefügt";
-"abuse-filter-warning-subheading" = "Deine Bearbeitung könnte enthalten:";
 "account-creation-captcha-cannot-see-image" = "Kannst du das Bild nicht sehen? $1";
 "account-creation-captcha-obtaining" = "Rufe ein neues CAPTCHA ab …";
 "account-creation-captcha-request-account" = "Benutzerkonto beantragen.";

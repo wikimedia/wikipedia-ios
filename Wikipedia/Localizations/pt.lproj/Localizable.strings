@@ -78,15 +78,6 @@
 "about-translators-details" = "Traduzida por voluntários em $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipédia";
-"abuse-filter-disallow-heading" = "Não pode publicar esta edição";
-"abuse-filter-disallow-unconstructive" = "Um filtro automatizado identificou esta edição como pouco construtiva ou como tentativa de vandalismo. Volte atrás e altere-a, por favor.";
-"abuse-filter-warning-blanking" = "Apagamento de secções ou de artigos completos";
-"abuse-filter-warning-caps" = "Texto todo em maiúsculas";
-"abuse-filter-warning-heading" = "Esta edição poderá não ser construtiva. Tem a certeza de que pretende publicá-la?";
-"abuse-filter-warning-irrelevant" = "Hiperligações ou imagens externas irrelevantes";
-"abuse-filter-warning-repeat" = "Repetição de caracteres";
-"abuse-filter-warning-spam" = "Adição de spam a artigos";
-"abuse-filter-warning-subheading" = "A sua edição pode conter:";
 "account-creation-captcha-cannot-see-image" = "Não consegue ver a imagem? $1";
 "account-creation-captcha-obtaining" = "A obter um novo CAPTCHA...";
 "account-creation-captcha-request-account" = "Solicitar conta.";

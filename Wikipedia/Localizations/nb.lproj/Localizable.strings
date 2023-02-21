@@ -79,15 +79,6 @@
 "about-translators-details" = "Oversatt av frivillige på $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Du kan ikke publisere denne endringen.";
-"abuse-filter-disallow-unconstructive" = "Redigeringen har blitt automatisk identifisert som potensielt destruktiv eller forsøk på vandalisme. Vennligst gå tilbake og gjør endringer i den.";
-"abuse-filter-warning-blanking" = "Tømming av avsnitt eller hele artikkelen";
-"abuse-filter-warning-caps" = "Tekst skrevet med bare store bokstaver";
-"abuse-filter-warning-heading" = "Dette ser ut som en mindre konstruktiv redigering. Er du sikker på at du vil publisere den?";
-"abuse-filter-warning-irrelevant" = "Irrelevante eksterne lenker eller bilder";
-"abuse-filter-warning-repeat" = "Gjentagende tegn";
-"abuse-filter-warning-spam" = "Tilføyelse av spam til artikler";
-"abuse-filter-warning-subheading" = "Redigeringen din kan inneholde:";
 "account-creation-captcha-cannot-see-image" = "Ser du ikke bildet? $1";
 "account-creation-captcha-obtaining" = "Henter en ny CAPTCHA…";
 "account-creation-captcha-request-account" = " Opprett konto.";

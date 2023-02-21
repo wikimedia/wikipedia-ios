@@ -25,20 +25,6 @@
 "about-translators-details" = "Translatit bi volunteers at $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipaedia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Ye canna publish this eedit. Please gae back an cheenge it.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "An automatit filter haes identifee'd this eedit as potentially unconstructive or a vandalism attempt.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Blankin airticles or spammin";
-// Fuzzy
-"abuse-filter-warning-caps" = "Teepin in AW CAPS";
-"abuse-filter-warning-heading" = "This leuks lik an unconstructive eedit, are ye shuir ye want tae publish it?";
-"abuse-filter-warning-irrelevant" = "Irrelevant freemit airtins or eemages";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Repeeeeatin chairacters";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Yer eedit mey conteen ane or mair o the follaein:";
 "account-creation-captcha-cannot-see-image" = "Canna see the eemage? $1";
 "account-creation-captcha-obtaining" = "Obteenin a new CAPTCHA...";
 "account-creation-captcha-request-account" = "Request accoont.";

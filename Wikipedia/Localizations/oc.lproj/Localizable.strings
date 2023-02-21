@@ -24,10 +24,6 @@
 "about-translators-details" = "Aquesta aplicacion es estada traduita per de traductors benevòls sus $1";
 "about-wikimedia-foundation" = "Fondacion Wikimèdia";
 "about-wikipedia" = "Wikipèdia";
-// Fuzzy
-"abuse-filter-warning-caps" = "Tèxte en MAJUSCULAS";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Caractèrs repeeeetits";
 "account-creation-captcha-cannot-see-image" = "Impossible de veire l’imatge ? $1";
 "account-creation-captcha-obtaining" = "Obtencion d’un novèl CAPTCHA…";
 "account-creation-captcha-request-account" = "Demandar un compte.";
