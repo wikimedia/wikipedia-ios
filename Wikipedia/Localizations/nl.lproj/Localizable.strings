@@ -96,15 +96,6 @@
 "about-translators-details" = "Deze app is vertaald door de vrijwillige vertalers van $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "U kunt deze bewerking niet publiceren";
-"abuse-filter-disallow-unconstructive" = "Een geautomatiseerd filter heeft deze bewerking gemarkeerd als onconstructief of vandalism. Ga terug en wijzig uw bewerking.";
-"abuse-filter-warning-blanking" = "Secties of volledige artikelen verwijderen";
-"abuse-filter-warning-caps" = "Alle tekst in hoofdletters";
-"abuse-filter-warning-heading" = "Dit lijkt een niet-constructieve bewerking. Weet u zeker dat u die wilt publiceren?";
-"abuse-filter-warning-irrelevant" = "Irrelevante externe koppelingen of afbeeldingen";
-"abuse-filter-warning-repeat" = "Herhalende tekens";
-"abuse-filter-warning-spam" = "Spam toevoegen aan artikelen";
-"abuse-filter-warning-subheading" = "Uw bewerking kan het volgende bevatten:";
 "account-creation-captcha-cannot-see-image" = "Kunt u de afbeelding niet zien? $1";
 "account-creation-captcha-obtaining" = "Nieuwe CAPTCHA aan het ophalen...";
 "account-creation-captcha-request-account" = "Account aanvragen";
@@ -183,9 +174,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Thema's bekijken";
 "back-button-accessibility-label" = "Terug";
 "back-button-popover-title" = "Tik om terug te keren";
+"button-go-back" = "Teruggaan";
 "button-next" = "Volgende";
 "button-ok" = "OK";
 "button-publish" = "Publiceren";
+"button-publish-anyway" = "Toch publiceren";
 "button-read-now" = "Nu lezen";
 "button-report-a-bug" = "Probleem melden";
 "button-save-for-later" = "Opslaan voor later";

@@ -27,20 +27,6 @@
 "about-translators-details" = "$1 वर स्वयंसेवकांद्वारे भाषांतरीत";
 "about-wikimedia-foundation" = "विकीमेडिया प्रतिष्ठान";
 "about-wikipedia" = "विकिपीडिया";
-// Fuzzy
-"abuse-filter-disallow-heading" = "या संपादनाचे प्रकाशन करु शकत नाही.कृपया परत जाउन ते बदला.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "स्वयंचलित गाळणीने हे संपादन उच्च दर्जाचे अरचनात्मक किंवा उपद्रवी कृती म्हणून नोंदविलेले आहे.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "लेख कोरा करणे किंवा उपद्रव";
-// Fuzzy
-"abuse-filter-warning-caps" = "सर्व ठळक अक्षरे";
-"abuse-filter-warning-heading" = "हे एक अरचनात्मक संपादनासारखे दिसते. हे प्रकाशित करण्याबाबत आपण खात्री देता काय?";
-"abuse-filter-warning-irrelevant" = "असंबंधित बाह्य दूवे किंवा चित्रे";
-// Fuzzy
-"abuse-filter-warning-repeat" = "एकच वर्णाचे अनेक वेळ टंकन";
-// Fuzzy
-"abuse-filter-warning-subheading" = "आपल्या संपादनात खालीलपैकी एक किंवा अनेक बाबी असू शकतात:";
 "account-creation-captcha-obtaining" = "नविन कॅपचा मिळवित आहे...";
 "account-creation-logging-in" = "सनोंद प्रवेश करीत आहे...";
 "account-creation-missing-fields" = "खाते उघडण्यास आपण सदस्यनाव,परवलीचा शब्द व परवलीचा शब्दाचे नक्कीकरण टाकणे आवश्यक आहे.";

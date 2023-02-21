@@ -52,14 +52,6 @@
 "about-translators-details" = "$1 -এ স্বেচ্ছাসেবকদের দ্বারা অনূদিত";
 "about-wikimedia-foundation" = "উইকিমিডিয়া ফাউন্ডেশন";
 "about-wikipedia" = "উইকিপিডিয়া";
-"abuse-filter-disallow-heading" = "আপনি এই সম্পাদনা প্রকাশ করতে পারবেন না";
-"abuse-filter-disallow-unconstructive" = "একটি স্বয়ংক্রিয় ছাঁকনি এই সম্পাদনাকে সম্ভাব্য অ-গঠনমূলক বা ধ্বংসপ্রবণতার প্রচেষ্টা হিসেবে চিহ্নিত করেছে। অনুগ্রহ করে ফিরে চলুন ও আপনার সম্পাদনা পরিবর্তন করুন।";
-"abuse-filter-warning-blanking" = "অনুচ্ছেদ বা নিবন্ধ খালি করা";
-"abuse-filter-warning-caps" = "সব বড় হাতের অক্ষরে লেখা";
-"abuse-filter-warning-heading" = "এটি অ-গঠনমূলক সম্পাদনা বলে মনে হচ্ছে, আপনি কি নিশ্চিতভাবে এটি প্রকাশ করতে চান?";
-"abuse-filter-warning-irrelevant" = "অপ্রাসঙ্গিক বাহ্যিক লিঙ্ক বা চিত্র";
-"abuse-filter-warning-repeat" = "অক্ষরেররর পুনরাবৃত্তি";
-"abuse-filter-warning-subheading" = "আপনার সম্পাদনায় থাকতে পারে:";
 "account-creation-captcha-cannot-see-image" = "চিত্রটি দেখতে পাচ্ছেন না? $1";
 "account-creation-captcha-obtaining" = "একটি নতুন ক্যাপচা সংগ্রহ করা হচ্ছে...";
 "account-creation-captcha-request-account" = "অ্যাকাউন্টের অনুরোধ করুন।";
@@ -132,7 +124,7 @@
 "edit-published" = "সম্পাদনা প্রকাশিত হয়েছে";
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-typos" = "বানান ঠিক করা হয়েছে";
-"edit-summary-choice-linked-words" = "লিংক সংযোজন";
+"edit-summary-choice-linked-words" = "লিঙ্ক সংযোজন";
 "editor-exit-confirmation-title" = "সম্পাদনা মোড বাতিল করবেন?";
 "empty-no-article-message" = "দুঃখিত, নিবন্ধ লোড করা যায়নি";
 "empty-no-feed-action-message" = "আপনি এখনো সংরক্ষিত পাতা পাঠ করতে পারেন।";

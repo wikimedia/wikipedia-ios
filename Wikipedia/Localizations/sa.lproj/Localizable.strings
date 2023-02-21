@@ -23,21 +23,6 @@
 "about-wikimedia-foundation" = "विकिमीडिया फाउण्डेशन्";
 "about-wikipedia" = "विकिपीडिया";
 // Fuzzy
-"abuse-filter-disallow-heading" = "भवान्/भवती एतत् सम्पादनं रक्षितुं न शक्नोति । कृपया प्रतिनिवर्त्य परिवर्तयतु ।";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "स्वचालितशोधन्या भवतः/भवत्याः सम्पादनम् अरचनात्मकम् उत नाशकत्वं परिगण्यते ।";
-// Fuzzy
-"abuse-filter-warning-blanking" = "लेखं रिक्तीकरोति उत फल्गूकरोति";
-// Fuzzy
-"abuse-filter-warning-caps" = "बृहदाक्षरैः सर्वं लिखति";
-// Fuzzy
-"abuse-filter-warning-heading" = "एतत् सम्पादनम् अरचनात्मकं भाति । भवान्/भवती निश्चयेन एतत् रक्षितुम् इच्छति ?";
-"abuse-filter-warning-irrelevant" = "बाह्यपरिसन्धयः उत चित्राणि असङ्गतानि सन्ति";
-// Fuzzy
-"abuse-filter-warning-repeat" = "अक्षराणां पौनःपुन्येन लेखनम्";
-// Fuzzy
-"abuse-filter-warning-subheading" = "भवतः/भवत्याः सम्पादने एकम् उत एकाधिकं निम्नं वर्तते :";
-// Fuzzy
 "account-creation-captcha-obtaining" = "नवीनं संभेपूस्वसाट्यूप प्राप्तम् ।";
 "account-creation-logging-in" = "प्रवेशः भवति...";
 "account-creation-missing-fields" = "सदस्यता प्राप्त्यै भवता/भवत्या सदस्यनाम-कूटशब्दयोः लेखनं, कूटशब्दस्य पुष्टिकरणं च अनिवार्यत्वेन करणीयं भवति ।";

@@ -97,15 +97,6 @@
 "about-translators-details" = "由$1的志工翻譯";
 "about-wikimedia-foundation" = "維基媒體基金會";
 "about-wikipedia" = "維基百科";
-"abuse-filter-disallow-heading" = "您不能發布此編輯";
-"abuse-filter-disallow-unconstructive" = "自動過濾器已確定此編輯可能不具建設性或是具有破壞企圖。請返回並更改您的編輯。";
-"abuse-filter-warning-blanking" = "刪除段落或是整個條目";
-"abuse-filter-warning-caps" = "所有大寫文字";
-"abuse-filter-warning-heading" = "這可能是沒有建設性的編輯。你確定你想要發布它？";
-"abuse-filter-warning-irrelevant" = "不相關的外部連結或圖片";
-"abuse-filter-warning-repeat" = "重複字元";
-"abuse-filter-warning-spam" = "添加垃圾訊息在條目裡";
-"abuse-filter-warning-subheading" = "您的編輯可能包含：";
 "account-creation-captcha-cannot-see-image" = "看不見圖片嗎？$1";
 "account-creation-captcha-obtaining" = "取得新驗證碼中…";
 "account-creation-captcha-request-account" = "請求帳號。";
