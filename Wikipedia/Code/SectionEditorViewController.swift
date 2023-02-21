@@ -129,7 +129,9 @@ class SectionEditorViewController: ViewController {
         super.viewDidAppear(animated)
 
         initialFetchGroup.waitInBackground {
-            self.presentEditNoticesIfNecessary()
+            if !self.needsSelectLastSelection {
+                self.presentEditNoticesIfNecessary()
+            }
             self.selectLastSelectionIfNeeded()
         }
 
