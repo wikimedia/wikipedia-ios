@@ -62,15 +62,6 @@
 "about-translators-details" = "$1 تي رضاڪارن طرفان ترجمو ڪيل";
 "about-wikimedia-foundation" = "وڪيميڊيا تنظيم";
 "about-wikipedia" = "وڪيپيڊيا";
-"abuse-filter-disallow-heading" = "توهان هي سنوار نٿا ڇاپي سگهو.";
-"abuse-filter-disallow-unconstructive" = "ھڪ خودڪاربڻايل ڇاڻيءَ ھن سنوار کي ممڪنہ طور تي غيرتعميري يا ھڪ وحشياڻي ڪوشش طور سڃاتو آھي. مھرباني ڪري واپس وڃو ۽ پنھنجي سنوار کي بدلايو.";
-"abuse-filter-warning-blanking" = "حصا يا سڄا مضمون ڊاھيندي";
-"abuse-filter-warning-caps" = "وڏن اکر ۾ متن";
-"abuse-filter-warning-heading" = "هي هڪ غيرتعمير سنوار لڳي ٿي، ڇا توھان کي پڪ آھي تہ توهان انکي ڇاپڻ چاهيو ٿا؟";
-"abuse-filter-warning-irrelevant" = "اڻلاڳاپيل ٻاھريان ڳنڍڻا يا عڪس";
-"abuse-filter-warning-repeat" = "دهرائجندڙ نشانيون";
-"abuse-filter-warning-spam" = "صفحن ۾ گند وجھندي";
-"abuse-filter-warning-subheading" = "توهان جي سنوار ۾ ٿي سگهي ٿو:";
 "account-creation-captcha-cannot-see-image" = "عڪس نٿا ڏسي سگهو؟ $1";
 "account-creation-captcha-obtaining" = "ھڪ نئون  CAPTCHA حاصل ڪندي...";
 "account-creation-captcha-request-account" = "کاتي جي درخواست ڏيو.";

@@ -60,15 +60,6 @@
 "about-translators-details" = "Превели добровољци на сајту $1";
 "about-wikimedia-foundation" = "Задужбина Викимедија";
 "about-wikipedia" = "Википедија";
-"abuse-filter-disallow-heading" = "Не можете да објавите ову измену";
-"abuse-filter-disallow-unconstructive" = "Аутоматизовани филтер је утврдио да је ова измена  потенцијално неконструктивна или покушај вандализма. Вратите се и промените вашу измену.";
-"abuse-filter-warning-blanking" = "Брисање одељака или целих чланака";
-"abuse-filter-warning-caps" = "Текст великим словима";
-"abuse-filter-warning-heading" = "Ово личи на неконструктивну измену. Желите ли заиста да је објавите?";
-"abuse-filter-warning-irrelevant" = "Ирелевантни спољашњи линкови или слике";
-"abuse-filter-warning-repeat" = "Понављајући знакови";
-"abuse-filter-warning-spam" = "Додавање непожељног садржаја у чланке";
-"abuse-filter-warning-subheading" = "Ваша измена можда садржи:";
 "account-creation-captcha-cannot-see-image" = "Не видите слику? $1";
 "account-creation-captcha-obtaining" = "Преузимам нову CAPTCHA слику…";
 "account-creation-captcha-request-account" = "Захтевајте налог.";
@@ -145,9 +136,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Подешавања тема за читање";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Додирните да бисте се вратили";
+"button-go-back" = "Назад";
 "button-next" = "Следеће";
 "button-ok" = "У реду";
 "button-publish" = "Објави";
+"button-publish-anyway" = "Свеједно објави";
 "button-read-now" = "Прочитај одмах";
 "button-report-a-bug" = "Пријави грешку";
 "button-save-for-later" = "Сачувај за касније";
@@ -253,6 +246,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Текст који сте одабрали не може бити пронађен";
 "edit-minor-learn-more-text" = "Сазнајте више о мањим изменама";
 "edit-minor-text" = "Ова измена је мања";
+"edit-notices" = "Уређивачка обавештења";
+"edit-notices-always-display" = "Увек приказује уређивачка обавештења";
+"edit-notices-please-read" = "Прочитајте пре уређивања";
 "edit-published" = "Измена је објављена";
 "edit-published-subtitle" = "Управо сте учинили Википедију бољом за свакога";
 "edit-reference-accessibility-label" = "Додај синтаксу референце";

@@ -44,8 +44,6 @@
 "about-translators-details" = "$1 का स्वयंसेवकहरूद्वारा अनुवाद गरिएको";
 "about-wikimedia-foundation" = "विकिमिडिया फाउन्डेसन";
 "about-wikipedia" = "विकिपिडिया";
-// Fuzzy
-"abuse-filter-disallow-heading" = "यस सम्पादनलाई प्रकाशन गर्न सक्नुहुन्न। कृपया पछाडि जानुहोस् र यसलाई परिवर्तन गर्नुहोस्।";
 "account-creation-captcha-request-account" = "खाता अनुरोध गर्नुहोस् ।";
 "account-creation-create-account" = "खाता खोल्नुहोस्";
 "account-creation-log-in" = "प्रवेश गर्नुहोस्.";
@@ -95,7 +93,7 @@
 "article-languages-filter-placeholder" = "भाषा खोज्नुहोस्";
 "article-languages-label" = "भाषा छान्नुहोस्";
 "article-languages-others" = "अन्य भाषाहरू";
-"article-languages-yours" = "तपाईको भाषा";
+"article-languages-yours" = "तपाईंको भाषा";
 "article-read-more-title" = "थप पढ्नुहोस्";
 "article-reference-view-title" = "सन्दर्भ $1";
 "article-share" = "आदान-प्रदान गर्नुहोस्";

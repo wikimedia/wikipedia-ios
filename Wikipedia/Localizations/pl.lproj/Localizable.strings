@@ -86,15 +86,6 @@
 "about-translators-details" = "Przetłumaczono przez wolontariusza na $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Nie możesz opublikować tej edycji.";
-"abuse-filter-disallow-unconstructive" = "Zautomatyzowany filtr rozpoznał tę edycję jako potencjalnie niekonstruktywną lub jako próbę wandalizmu. Cofnij się i zmień swoją edycję.";
-"abuse-filter-warning-blanking" = "Usuwanie sekcji lub całych artykułów";
-"abuse-filter-warning-caps" = "Tekst pisany wielkimi literami";
-"abuse-filter-warning-heading" = "To wygląda na niekonstruktywną edycję, na pewno chcesz ją opublikować?";
-"abuse-filter-warning-irrelevant" = "Nieodpowiednie linki zewnętrzne lub obrazy";
-"abuse-filter-warning-repeat" = "Powtarzanie znaków";
-"abuse-filter-warning-spam" = "Dodawanie spamu do artykułów";
-"abuse-filter-warning-subheading" = "Twoja edycja może zawierać:";
 "account-creation-captcha-cannot-see-image" = "Nie widać obrazka? $1";
 "account-creation-captcha-obtaining" = "Uzyskiwanie nowego CAPTCHA...";
 "account-creation-captcha-request-account" = "Wniosek o założenie konta.";
@@ -936,8 +927,7 @@
 "talk-page-new-topic-title" = "Nowa dyskusja";
 "talk-page-publish-terms-and-licenses" = "Zapisując zmiany akceptujesz $1Zasady Użytkownika$2 i zgadzasz się na publikowanie twojego wkładu na licencji $3CC BY-SA 3.0$4 i $5GFDL$6";
 "talk-page-reply-title" = "Odpowiedz";
-// Fuzzy
-"talk-page-title-article-talk" = "dyskusja artykułu";
+"talk-page-title-article-talk" = "Dyskusja o artykule";
 "talk-page-title-user-talk" = "Dyskusja użytkownika";
 "talk-page-topic-close-button-hint" = "Zamknij nowy temat";
 "talk-page-topic-title" = "Dyskusja";

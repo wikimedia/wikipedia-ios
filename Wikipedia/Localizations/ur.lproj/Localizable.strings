@@ -38,15 +38,6 @@
 "about-translators-details" = "$1 پر رضاکاروں نے ترجمہ کیا ہے";
 "about-wikimedia-foundation" = "ویکیمیڈیا فاؤنڈیشن";
 "about-wikipedia" = "ویکیپیڈیا";
-"abuse-filter-disallow-heading" = "آپ اس ترمیم کو شائع نہیں کر سکتے۔";
-"abuse-filter-disallow-unconstructive" = "ایک خودکار فلٹر نے اس ترمیم کی امکانی طور پر غیرتعمیری یا تخریب کاری کی کوشش کے طور پر شناخت کی ہے۔ براہ مہرانی واپس جائیں اور اپنی ترمیم بدلیں۔";
-"abuse-filter-warning-blanking" = "زمرہ جات یا مضامین کو مکمل حذف کرنا";
-"abuse-filter-warning-caps" = "کل کیاپس متن";
-"abuse-filter-warning-heading" = "یہ ایک غیر تعمیری ترمیم ہو سکتی ہے۔ کیا آپ اسے یقینی طور پر محفوظ کرنا چاہتے ہیں؟";
-"abuse-filter-warning-irrelevant" = "غیر متعلقہ خارجی روابط یا تصاویر";
-"abuse-filter-warning-repeat" = "مکرر حروف یا رموز";
-"abuse-filter-warning-spam" = "مضمون میں غیر ضروری مواد کا اضافہ";
-"abuse-filter-warning-subheading" = "آپ کی ترمیم متحمل ہو سکتی ہے:";
 "account-creation-captcha-cannot-see-image" = "تصویر نہیں دیکھ سکے؟ $1";
 "account-creation-captcha-obtaining" = "نئی کیپچا حاصل کی جارہی ہے۔";
 "account-creation-captcha-request-account" = "درخواست برائے کھاتہ۔";

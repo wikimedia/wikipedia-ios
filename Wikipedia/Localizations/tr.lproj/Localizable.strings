@@ -101,15 +101,6 @@
 "about-translators-details" = "$1'deki gönüllülerce tercüme edilmiştir";
 "about-wikimedia-foundation" = "Wikimedia Vakfı";
 "about-wikipedia" = "Vikipedi";
-"abuse-filter-disallow-heading" = "Bu düzenlemeyi yayınlayamazsınız";
-"abuse-filter-disallow-unconstructive" = "Bir otomatik filtre, bu değişikliği, potansiyel olarak yıkıcı ya da vandalizm girişimi olarak belirledi. Lütfen geri dönün ve düzenlemenizi değiştirin.";
-"abuse-filter-warning-blanking" = "Bölümleri veya tüm maddeleri silme";
-"abuse-filter-warning-caps" = "Tümü büyük harfle yazım";
-"abuse-filter-warning-heading" = "Bu yapıcı olmayan bir düzenleme gibi görünüyor; yayınlamak istediğinize emin misiniz?";
-"abuse-filter-warning-irrelevant" = "Konu dışı dış bağlantılar veya resimler";
-"abuse-filter-warning-repeat" = "Tekrarlayan karakterler";
-"abuse-filter-warning-spam" = "Makalelere spam eklendi";
-"abuse-filter-warning-subheading" = "Değişikliğiniz şunları içeriyor olabilir:";
 "account-creation-captcha-cannot-see-image" = "Resmi göremiyor musunuz? $1";
 "account-creation-captcha-obtaining" = "Yeni CAPTCHA alınıyor...";
 "account-creation-captcha-request-account" = "Hesap iste.";
@@ -188,9 +179,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Okuma Tema Ayarları";
 "back-button-accessibility-label" = "Geri";
 "back-button-popover-title" = "Geri dönmek için dokunun";
+"button-go-back" = "Geri dön";
 "button-next" = "Sonraki";
 "button-ok" = "Tamam";
 "button-publish" = "Yayımla";
+"button-publish-anyway" = "Yine de yayımla";
 "button-read-now" = "Şimdi oku";
 "button-report-a-bug" = "Hata bildir";
 "button-save-for-later" = "Sonrası için kaydet";
@@ -518,6 +511,7 @@
 "icon-shortcut-random-title" = "Rastgele madde";
 "icon-shortcut-search-title" = "Vikipedi'de Ara";
 "image-gallery-unknown-owner" = "Yazar bilinmiyor.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Şimdi değil";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Vikipedi'den";
 "in-the-news-sub-title-from-wikipedia" = "Vikipedi'den";
 "in-the-news-title" = "Haberlerde";

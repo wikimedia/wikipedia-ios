@@ -81,15 +81,6 @@
 "about-translators-details" = "Traduït per voluntaris a $1";
 "about-wikimedia-foundation" = "Fundació Wikimedia";
 "about-wikipedia" = "Viquipèdia";
-"abuse-filter-disallow-heading" = "No podeu desar la modificació.";
-"abuse-filter-disallow-unconstructive" = "Un filtre automàtic ha identificat la modificació com a potencialment inconstructiva o bé com a intent de vandalisme. Torneu enrere i canvieu-la.";
-"abuse-filter-warning-blanking" = "Eliminació de seccions o d'articles sencers";
-"abuse-filter-warning-caps" = "Text només en majúscules";
-"abuse-filter-warning-heading" = "Això sembla una modificació no constructiva. Esteu segur que voleu desar-la?";
-"abuse-filter-warning-irrelevant" = "Enllaços externs o imatges no rellevants";
-"abuse-filter-warning-repeat" = "Caràcters repetits";
-"abuse-filter-warning-spam" = "Addició de brossa als articles";
-"abuse-filter-warning-subheading" = "La vostra modificació pot contenir:";
 "account-creation-captcha-cannot-see-image" = "No podeu veure la imatge? $1";
 "account-creation-captcha-obtaining" = "Obtenint un CAPTCHA nou...";
 "account-creation-captcha-request-account" = "Sol·licita un compte.";
@@ -282,6 +273,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "No s’ha pogut trobar el text que heu seleccionat";
 "edit-minor-learn-more-text" = "Més informació sobre les modificacions menors";
 "edit-minor-text" = "Aquesta és una modificació menor";
+"edit-notices" = "Avisos de modificacions";
+"edit-notices-always-display" = "Mostra sempre els avisos de modificacions";
+"edit-notices-please-read" = "Llegiu-ho abans de modificar-ho";
 "edit-ordered-list-accessibility-label" = "Fes la línia actual part d'una llista ordenada";
 "edit-ordered-list-remove-accessibility-label" = "Treu la línia actual de la llista ordenada";
 "edit-published" = "S'ha publicat la modificació";
@@ -1073,6 +1067,8 @@
 "talk-page-unsubscription-failed-alert" = "La desubscripció al tema ha fallat. Torneu-ho a provar.";
 "talk-page-user-about" = "Quant a les pàgines de discussió d'usuari";
 "talk-page-user-contributions" = "Contribucions";
+"talk-pages-archives-empty-title" = "No s'ha trobat cap pàgina arxivada.";
+"talk-pages-archives-view-title" = "Arxius";
 "talk-pages-coffee-roll-read-more" = "Més informació";
 "talk-pages-comment-added-alert-title" = "S'ha afegit el vostre comentari";
 "talk-pages-compose-close-confirmation-keep" = "Continua l'edició";

@@ -6,17 +6,17 @@ $:.unshift File.dirname(__FILE__)
 default_platform :ios
 
 configurations_to_test_on_pull = [
-  {device: 'iPhone 14 Pro', os: '16.0'},
-  {device: 'iPad Pro (12.9-inch) (5th generation)', os: '15.5'}
+  {device: 'iPhone 14 Pro', os: '16.3'},
+  {device: 'iPad Pro (12.9-inch) (5th generation)', os: '15.7.1'}
 ]
 
 def get_devices_by_scheme_from_options(options)
-  configs = options[:configurations] || [{device: 'iPhone 14 Pro', os: '16.0'}]
+  configs = options[:configurations] || [{device: 'iPhone 14 Pro', os: '16.3'}]
   devices_by_scheme = {}
   configs.each do |options|
     scheme = options[:scheme] || 'Wikipedia'
     device = options[:device] || 'iPhone 14 Pro'
-    os = options[:os]         || '16.0'
+    os = options[:os]         || '16.3'
     sim = "#{device} (#{os})"
     devices = devices_by_scheme[scheme] || []
     devices << sim

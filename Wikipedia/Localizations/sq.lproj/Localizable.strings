@@ -29,20 +29,6 @@
 "about-wikimedia-foundation" = "Fondacioni Wikimedia";
 "about-wikipedia" = "Wikipedia";
 // Fuzzy
-"abuse-filter-disallow-heading" = "Ju nuk mund ta publikoni këtë redaktim. Ju lutemi kthehuni prapa dhe ndryshojeni.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Një filter i automatizuar e ka indenftikuar këtë redaktim si potencialisht jokonstruktiv ose si një përpjekje për vandalizëm.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Zbrazje e artikujve ose spam";
-// Fuzzy
-"abuse-filter-warning-caps" = "Shkrim ME SHKRONJA TË MËDHA";
-"abuse-filter-warning-heading" = "Ky duket si një redaktim jokonstruktiv, jeni të sigurt që dëshironi ta publikoni?";
-"abuse-filter-warning-irrelevant" = "Imazhe ose lidhje të jashtme të papërshtatshme";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Përsëëëëëëritje karakteresh";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Redaktimi juaj mund të përmbajë një ose më shumë nga të mëposhtmet:";
-// Fuzzy
 "account-creation-captcha-obtaining" = "Duke marrë një CAPTCHA tjetër.";
 "account-creation-logging-in" = "Duke hyrë...";
 "account-creation-missing-fields" = "Ju duhet të fusni një emër përdoruesi, fjalëkalimin dhe konfirmimin e fjalëkalimit për të krijuar një llogari.";

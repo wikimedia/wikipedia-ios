@@ -1,4 +1,5 @@
 import Foundation
+import WMF
 
 class WikidataDescriptionController: ArticleDescriptionControlling {
 
@@ -23,8 +24,13 @@ class WikidataDescriptionController: ArticleDescriptionControlling {
         self.wikiDataID = wikiDataID
     }
     
-    func currentDescription(completion: @escaping (String?) -> Void) {
-        completion(wikidataDescription)
+    func currentDescription(completion: @escaping (String?, MediaWikiAPIDisplayError?) -> Void) {
+        
+        fetcher.wikidataBlockedInfo(forEntity: wikiDataID) { blockedError in
+            DispatchQueue.main.async {
+                completion(self.wikidataDescription, blockedError)
+            }
+        }
     }
     
     func publishDescription(_ description: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
@@ -39,8 +45,18 @@ class WikidataDescriptionController: ArticleDescriptionControlling {
         }
     }
     
-    func errorTextFromError(_ error: Error) -> String {
-        let apiErrorCode = (error as? WikidataAPIResult.APIError)?.code
+    func errorCodeFromError(_ error: Error) -> String {
+        var apiErrorCode: String?
+        if let publishError = error as? WikidataFetcher.WikidataPublishingError {
+            switch publishError {
+            case .apiOther(let error):
+                apiErrorCode = error.code
+            case .apiBlocked(let blockedError):
+                apiErrorCode = blockedError.code
+            default:
+                break
+            }
+        }
         let errorText = apiErrorCode ?? "\((error as NSError).domain)-\((error as NSError).code)"
         return errorText
     }

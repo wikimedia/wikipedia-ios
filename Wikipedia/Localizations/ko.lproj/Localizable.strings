@@ -92,15 +92,6 @@
 "about-translators-details" = "$1의 자원 번역자가 번역했습니다";
 "about-wikimedia-foundation" = "위키미디어 재단";
 "about-wikipedia" = "위키백과";
-"abuse-filter-disallow-heading" = "이 편집을 게시할 수 없습니다";
-"abuse-filter-disallow-unconstructive" = "자동화된 필터가 이 편집을 잠재적으로 비생산적이거나 훼손 시도를 한 것으로 식별합니다. 뒤로 돌아간 다음 편집을 수정해 주십시오.";
-"abuse-filter-warning-blanking" = "문서 전체 혹은 문단을 지움";
-"abuse-filter-warning-caps" = "모두 대문자";
-"abuse-filter-warning-heading" = "비생산적인 편집인 것 같습니다. 그래도 게시하겠습니까?";
-"abuse-filter-warning-irrelevant" = "관련 없는 외부 링크나 그림";
-"abuse-filter-warning-repeat" = "글자 반복";
-"abuse-filter-warning-spam" = "문서에 스팸 추가";
-"abuse-filter-warning-subheading" = "당신의 편집은 다음을 포함할 수 있습니다:";
 "account-creation-captcha-cannot-see-image" = "사진이 보이지 않습니까? $1";
 "account-creation-captcha-obtaining" = "새로운 캡차를 얻는 중입니다...";
 "account-creation-captcha-request-account" = "계정 요청.";
@@ -179,6 +170,7 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "읽기 테마 제어";
 "back-button-accessibility-label" = "뒤로 가기";
 "back-button-popover-title" = "뒤로 돌아가려면 탭하세요";
+"button-go-back" = "돌아가기";
 "button-next" = "다음";
 "button-ok" = "확인";
 "button-publish" = "게시";
@@ -293,6 +285,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "선택한 텍스트를 찾을 수 없습니다";
 "edit-minor-learn-more-text" = "사소한 편집에 대해 더 알아보기";
 "edit-minor-text" = "사소한 편집입니다";
+"edit-notices" = "편집 알림";
+"edit-notices-always-display" = "항상 편집 알림 표시";
+"edit-notices-please-read" = "편집하기 전에 읽어 주십시오";
 "edit-ordered-list-accessibility-label" = "현재 줄을 순서 리스트로 만들기";
 "edit-ordered-list-remove-accessibility-label" = "현재 줄에서 순서 리스트 제거";
 "edit-published" = "편집이 게시됐습니다";

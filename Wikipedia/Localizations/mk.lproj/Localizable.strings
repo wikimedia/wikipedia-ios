@@ -67,15 +67,6 @@
 "about-translators-details" = "Прилогов го преведоа доброволни преведувачи на $1";
 "about-wikimedia-foundation" = "Фондацијата Викимедија";
 "about-wikipedia" = "Википедија";
-"abuse-filter-disallow-heading" = "Не можете да го објавите уредувањево.";
-"abuse-filter-disallow-unconstructive" = "Автоматски филтер утврди дека ова урадување е потенцијално неконструктивно или претставува обид за вандализам. Навратете се и изменете го уредувањето.";
-"abuse-filter-warning-blanking" = "Бришење на делови или цели статии";
-"abuse-filter-warning-caps" = "Големи букви";
-"abuse-filter-warning-heading" = "Ова личи на неконструктивно уредување. Дали сигурно сакате да го објавите?";
-"abuse-filter-warning-irrelevant" = "Нерелевантни надворешни врски или слики";
-"abuse-filter-warning-repeat" = "Повторени знаци";
-"abuse-filter-warning-spam" = "Ставање спам во статии";
-"abuse-filter-warning-subheading" = "Вашето уредување може да содржи:";
 "account-creation-captcha-cannot-see-image" = "Не ја гледате сликата? $1";
 "account-creation-captcha-obtaining" = "Правам нова сликичка...";
 "account-creation-captcha-request-account" = "Побарајте сметка.";
@@ -154,9 +145,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Контроли за изгледите за читање";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Допрете за да се вратите";
+"button-go-back" = "Назад";
 "button-next" = "Следно";
 "button-ok" = "ОК";
 "button-publish" = "Објави";
+"button-publish-anyway" = "Сепак објави";
 "button-read-now" = "Прочитајте сега";
 "button-report-a-bug" = "Пријави грешка";
 "button-save-for-later" = "Зачувај за подоцна";
@@ -268,6 +261,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Не можев да го пронајдам избраниот текст";
 "edit-minor-learn-more-text" = "Дознајте повеќе за ситните уредувања";
 "edit-minor-text" = "Ова е ситно уредување";
+"edit-notices" = "Известувања за уредување";
+"edit-notices-always-display" = "Секогаш прикажувај известувања за уредување";
+"edit-notices-please-read" = "Прочитајте пред да уредувате";
 "edit-ordered-list-accessibility-label" = "Направи го тековниот ред подреден список";
 "edit-ordered-list-remove-accessibility-label" = "Отстрани подреден список од тековниот ред";
 "edit-published" = "Уредувањето е објавено";

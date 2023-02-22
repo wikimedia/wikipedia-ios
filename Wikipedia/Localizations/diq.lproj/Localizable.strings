@@ -16,10 +16,6 @@
 "about-title" = "Heqa";
 "about-translators" = "Çarnayoği";
 "about-wikipedia" = "Wikipediya";
-"abuse-filter-disallow-heading" = "Şıma nêşenê nê vurnayışi pêl derê";
-"abuse-filter-warning-blanking" = "Qısımi ya zi meqaleyi esterıti";
-"abuse-filter-warning-caps" = "Metın be herfanê gırdan ra";
-"abuse-filter-warning-spam" = "Spam kerd be meqaleyan";
 "account-creation-log-in" = "Cı kewe.";
 "account-creation-logging-in" = "Kewno cı...";
 "account-creation-saving" = "Qeyd beno...";
@@ -53,6 +49,7 @@
 "compass-direction" = "Hettê seate $1 ya";
 "description-help-tips-for-example" = " Mesela :";
 "diff-context-lines-collapsed-button-title" = "Bımocne";
+"diff-context-lines-expanded-button-title" = "Bınımne";
 "edit-bold-accessibility-label" = "Formatê qalındi cı ke";
 "edit-bold-remove-accessibility-label" = "Formatê qalındi wedare";
 "edit-decrease-indent-depth-accessibility-label" = "Xoriyiya cıkerdışi kemi ke";

@@ -62,15 +62,6 @@
 "about-translators-details" = "A $1 önkéntesei fordították";
 "about-wikimedia-foundation" = "Wikimédia Alapítvány";
 "about-wikipedia" = "Wikipédia";
-"abuse-filter-disallow-heading" = "Nem tudod közzétenni ezt a szerkesztést";
-"abuse-filter-disallow-unconstructive" = "Egy automatikus szűrő potenciálisan nem konstruktívként vagy vandalizmuskísérletként azonosította ezt a szerkesztést. Kérjük, lépj vissza, és módosítsd.";
-"abuse-filter-warning-blanking" = "Szócikkek tartalmának vagy egészének törlése";
-"abuse-filter-warning-caps" = "Csupa nagybetűs szöveg";
-"abuse-filter-warning-heading" = "Ez nem tűnik konstruktív szerkesztésnek, biztosan közzé akarod tenni?";
-"abuse-filter-warning-irrelevant" = "Nem releváns külső hivatkozások vagy képek";
-"abuse-filter-warning-repeat" = "Ismétlődő karakterek";
-"abuse-filter-warning-spam" = "Spam hozzáadása szócikkekhez";
-"abuse-filter-warning-subheading" = "A szerkesztésed a továbbiakat tartalmazhatja:";
 "account-creation-captcha-cannot-see-image" = "Nem látod a képet? $1";
 "account-creation-captcha-obtaining" = "Új CAPTCHA kérése…";
 "account-creation-captcha-request-account" = "Igényelj fiókot.";
@@ -408,8 +399,8 @@
 "insert-media-media-settings-title" = "Médiabeállítások";
 "insert-media-title" = "Média beszúrása";
 "insert-media-uploaded-image-title" = "Feltöltött kép";
-"intermediate-edits-count" = "{{PLURAL:$1|Egy közbenső módosítás|$1 közbenső módosítás}} nincs mutatva";
-"intermediate-edits-count-limited" = "$1+ közbenső változtatás nincs mutatva";
+"intermediate-edits-count" = "{{PLURAL:$1|Egy közbenső módosítást|$1 közbenső módosítást}} nem mutattunk";
+"intermediate-edits-count-limited" = "$1+ közbenső változtatást nem mutattunk";
 "kazakh-variants-alert-title" = "A kazak nyelvi változat támogatásának frissítése";
 "kurdish-variants-alert-title" = "A kurd nyelvi változat támogatásának frissítése";
 "languages-settings-title" = "Nyelvek";

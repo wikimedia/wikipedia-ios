@@ -24,21 +24,6 @@
 "about-translators-details" = "Övvesaz vun Freihwelleje op $1";
 "about-wikimedia-foundation" = "de Wikkimehdija Schtefftong";
 "about-wikipedia" = "Wikkipehdija";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Do kanns heh di Änderong nit faßhallde lohße. Jangk retuhr un änder se.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Enne Automaht hät di Änderonge als Schtuß udder velleisch esujaa Kapottmaacherei ennjeschtohf.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Atikelle läddesch maache, udder SPAM verbreijde.";
-// Fuzzy
-"abuse-filter-warning-caps" = "En GRUHẞSCHREFF jeschrevve";
-// Fuzzy
-"abuse-filter-warning-heading" = "Dat süht nit wi en johde Ännderong us. Wells De dat verhaftesch esu faßjehallde han?";
-"abuse-filter-warning-irrelevant" = "Bellder üdder Lengks noh ußerhallf ohne ene Wäät";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Zeische wohte reppeteeeeeeeeeehrt.";
-// Fuzzy
-"abuse-filter-warning-subheading" = "En Dinger Änderong kann et ein udder andere derbeij sin vun:";
 "account-creation-captcha-obtaining" = "Ben e neu Kaptscha aam holle ...";
 "account-creation-logging-in" = "Aam Enlogge …";
 "account-creation-missing-fields" = "Do moss ene Metmaacher_Nahme, e Paßwoot un en Beschtähtejong för et Paßwoot enjävve, öm ene Zohjang aanzelähje.";
