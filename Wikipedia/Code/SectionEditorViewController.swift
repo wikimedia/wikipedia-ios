@@ -156,7 +156,9 @@ class SectionEditorViewController: ViewController {
         }
 
         WKWebViewWithSettableInputViews.didSetKeyboardRequiresUserInteraction = true
-        presentEditNoticesIfAvailable()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.presentEditNoticesIfAvailable()
+        }
     }
 
     private func presentEditNoticesIfAvailable() {
