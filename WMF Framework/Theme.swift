@@ -110,7 +110,19 @@ public extension UIColor {
     
     static let accent50At10PercentAlpha = accent50.withAlphaComponent(0.1)
     static let accent50At25PercentAlpha = accent50.withAlphaComponent(0.25)
-    
+
+    // talk page colors
+    static let talkPageBackgroundLight = UIColor(0xF8F9FA)
+    static let talkPageBackgroundSepia = UIColor(0xF0E6D6)
+    static let talkPageBackgroundDark = UIColor(0x202122)
+    static let talkPageBackgroundBlack = UIColor(0x202122)
+
+    static let talkPageCoffeRollLight = UIColor(0xF8F1E3)
+    static let talkPageCoffeRollSepia = UIColor(0xE1DAD1)
+    static let talkPageCoffeRollDark = UIColor(0x101418)
+    static let talkPageCoffeRollBlack = UIColor(0x101418)
+
+
     @objc func wmf_hexStringIncludingAlpha(_ includeAlpha: Bool) -> String {
         var r: CGFloat = 0
         var g: CGFloat = 0
@@ -198,7 +210,9 @@ public class Colors: NSObject {
         diffContextItemBorder: .darkBase90,
         diffMoveParagraphBackground: .lightBorder,
         diffCompareAccent: .orange50,
-        diffCompareChangeHeading: .base100)
+        diffCompareChangeHeading: .base100,
+        talkPageErrorBackground: .talkPageBackgroundLight,
+        talkPageCoffeRollBackground: .talkPageCoffeRollLight)
     
     fileprivate static let sepia = Colors(
         baseBackground: .sepiaBase85,
@@ -265,7 +279,9 @@ public class Colors: NSObject {
         diffContextItemBorder: .sepiaBorder,
         diffMoveParagraphBackground: .sepiaBase90,
         diffCompareAccent: .orange50,
-        diffCompareChangeHeading: .base100)
+        diffCompareChangeHeading: .base100,
+        talkPageErrorBackground: .talkPageBackgroundSepia,
+        talkPageCoffeRollBackground: .talkPageCoffeRollSepia)
     
     fileprivate static let dark = Colors(
         baseBackground: .base10,
@@ -332,7 +348,9 @@ public class Colors: NSObject {
         diffContextItemBorder: .darkBase10,
         diffMoveParagraphBackground: .darkBase30,
         diffCompareAccent: .orange50,
-        diffCompareChangeHeading: .base0)
+        diffCompareChangeHeading: .base0,
+        talkPageErrorBackground: .talkPageBackgroundDark,
+        talkPageCoffeRollBackground: .talkPageCoffeRollDark)
     
     fileprivate static let black = Colors(
         baseBackground: .darkBase05,
@@ -399,7 +417,9 @@ public class Colors: NSObject {
         diffContextItemBorder: .base10,
         diffMoveParagraphBackground: .darkBase20,
         diffCompareAccent: .orange50,
-        diffCompareChangeHeading: .base0)
+        diffCompareChangeHeading: .base0,
+        talkPageErrorBackground: .talkPageBackgroundBlack,
+        talkPageCoffeRollBackground: .talkPageCoffeRollBlack)
     
     fileprivate static let widgetLight = Colors(
         baseBackground: .clear,
@@ -457,7 +477,7 @@ public class Colors: NSObject {
         pageIndicatorCurrent: .accent30,
         unreadIndicator: .green50,
         depthMarker: .base20)
-    
+
     fileprivate static let widgetDark = Colors(
         baseBackground: .clear,
         midBackground: .clear,
@@ -514,7 +534,7 @@ public class Colors: NSObject {
         pageIndicatorCurrent: .accent70,
         unreadIndicator: .green50,
         depthMarker: .base70)
-    
+
     @objc public let baseBackground: UIColor
     @objc public let midBackground: UIColor
     @objc public let subCellBackground: UIColor
@@ -608,9 +628,13 @@ public class Colors: NSObject {
     public let diffMoveParagraphBackground: UIColor
     public let diffCompareAccent: UIColor
     public let diffCompareChangeHeading: UIColor
+
+    public let talkPageBackground: UIColor
+    public let talkPageCoffeRollBackground: UIColor
+
     
     // Someday, when the app is all swift, make this class a struct.
-    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, hintWarningBackground: UIColor, animationBackground: UIColor, overlayText: UIColor, searchFieldBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardBackground: UIColor, selectedCardBackground: UIColor, cardBorder: UIColor, cardShadow: UIColor, cardButtonBackground: UIColor, cardButtonSelectedBackground: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffect.Style, blurEffectBackground: UIColor, tagText: UIColor, tagBackground: UIColor, tagSelectedBackground: UIColor, rankGradientStart: UIColor, rankGradientEnd: UIColor, distanceBorder: UIColor, descriptionBackground: UIColor, descriptionWarning: UIColor, inputAccessoryBackground: UIColor, inputAccessoryButtonTint: UIColor, pageIndicator: UIColor, pageIndicatorCurrent: UIColor, unreadIndicator: UIColor, depthMarker: UIColor, diffTextAdd: UIColor = .base10, diffTextDelete: UIColor = .base10, diffHighlightAdd: UIColor? = .green90, diffHighlightDelete: UIColor? = .red90, diffStrikethroughColor: UIColor = .base0, diffContextItemBackground: UIColor = .base90, diffContextItemBorder: UIColor = .darkBase90, diffMoveParagraphBackground: UIColor = .base90, diffCompareAccent: UIColor = .orange50, diffCompareChangeHeading: UIColor = .base100) {
+    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, hintWarningBackground: UIColor, animationBackground: UIColor, overlayText: UIColor, searchFieldBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardBackground: UIColor, selectedCardBackground: UIColor, cardBorder: UIColor, cardShadow: UIColor, cardButtonBackground: UIColor, cardButtonSelectedBackground: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffect.Style, blurEffectBackground: UIColor, tagText: UIColor, tagBackground: UIColor, tagSelectedBackground: UIColor, rankGradientStart: UIColor, rankGradientEnd: UIColor, distanceBorder: UIColor, descriptionBackground: UIColor, descriptionWarning: UIColor, inputAccessoryBackground: UIColor, inputAccessoryButtonTint: UIColor, pageIndicator: UIColor, pageIndicatorCurrent: UIColor, unreadIndicator: UIColor, depthMarker: UIColor, diffTextAdd: UIColor = .base10, diffTextDelete: UIColor = .base10, diffHighlightAdd: UIColor? = .green90, diffHighlightDelete: UIColor? = .red90, diffStrikethroughColor: UIColor = .base0, diffContextItemBackground: UIColor = .base90, diffContextItemBorder: UIColor = .darkBase90, diffMoveParagraphBackground: UIColor = .base90, diffCompareAccent: UIColor = .orange50, diffCompareChangeHeading: UIColor = .base100, talkPageErrorBackground: UIColor = .talkPageBackgroundLight, talkPageCoffeRollBackground: UIColor = .talkPageCoffeRollLight) {
         self.baseBackground = baseBackground
         self.midBackground = midBackground
         self.subCellBackground = subCellBackground
@@ -693,6 +717,8 @@ public class Colors: NSObject {
         self.diffMoveParagraphBackground = diffMoveParagraphBackground
         self.diffCompareAccent = diffCompareAccent
         self.diffCompareChangeHeading = diffCompareChangeHeading
+        self.talkPageBackground  = talkPageErrorBackground
+        self.talkPageCoffeRollBackground = talkPageCoffeRollBackground
     }
 }
 

@@ -115,22 +115,7 @@ final class TalkPageErrorStateView: SetupView {
 
 extension TalkPageErrorStateView: Themeable {
     func apply(theme: Theme) {
-        // TODO: Replace these once new theme colors are added/refreshed in the app
-        let baseBackground: UIColor!
-        switch theme {
-        case .light:
-            baseBackground = UIColor.wmf_colorWithHex(0xF8F9FA)
-        case .sepia:
-            baseBackground = UIColor.wmf_colorWithHex(0xF0E6D6)
-        case .dark:
-            baseBackground = UIColor.wmf_colorWithHex(0x202122)
-        case .black:
-            baseBackground = UIColor.wmf_colorWithHex(0x202122)
-        default:
-            baseBackground = UIColor.wmf_colorWithHex(0xF8F9FA)
-        }
-        
-        backgroundColor = baseBackground
+        backgroundColor = theme.colors.talkPageBackground
         button.setTitleColor(theme.colors.paperBackground, for: .normal)
         button.backgroundColor = theme.colors.link
         titleLabel.textColor = theme.colors.primaryText
