@@ -24,7 +24,7 @@
                 <outlet property="inlineSecondaryButton" destination="hB2-ah-QwX" id="qKA-ng-WZB"/>
                 <outlet property="pinnedActionButtonContainerView" destination="3hr-CH-OgV" id="zwG-PG-2bK"/>
                 <outlet property="pinnedCloseButton" destination="dnI-9Q-77X" id="HVu-U0-qk1"/>
-                <outlet property="pinnedCloseButtonStackView" destination="mYC-yH-YX8" id="p2j-N6-BsP"/>
+                <outlet property="pinnedCloseButtonContainerView" destination="DAm-Ul-qQX" id="xHH-gS-xYc"/>
                 <outlet property="pinnedPrimaryButton" destination="HGY-CD-FTJ" id="z72-zB-23O"/>
                 <outlet property="pinnedSecondaryButton" destination="lj0-nN-ABj" id="3FE-EH-b1F"/>
                 <outlet property="roundedCornerContainer" destination="qtK-Db-J92" id="bNO-Ae-oHN"/>
@@ -49,10 +49,10 @@
                             <rect key="frame" x="0.0" y="0.0" width="280" height="529"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-b3-oKp" userLabel="Scroll Container">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="529"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="532"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1lp-Zw-jU3">
-                                            <rect key="frame" x="0.0" y="30" width="280" height="469"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="1lp-Zw-jU3">
+                                            <rect key="frame" x="0.0" y="30" width="280" height="472"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Evj-R4-67a" userLabel="Inline Close Button Stack View">
                                                     <rect key="frame" x="0.0" y="0.0" width="280" height="15"/>
@@ -71,7 +71,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q2-cLc">
-                                                    <rect key="frame" x="0.0" y="15" width="280" height="454"/>
+                                                    <rect key="frame" x="0.0" y="18" width="280" height="454"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-auth-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="rFJ-kb-kte">
                                                             <rect key="frame" x="15" y="0.0" width="250" height="95"/>
@@ -178,22 +178,33 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
-                                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="mYC-yH-YX8" userLabel="Pinned Close Button Stack View">
-                                    <rect key="frame" x="0.0" y="30" width="280" height="15"/>
+                                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DAm-Ul-qQX" userLabel="Pinned Close Button Container View">
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="48"/>
                                     <subviews>
-                                        <button opaque="NO" tag="1" contentMode="scaleToFill" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dnI-9Q-77X">
-                                            <rect key="frame" x="0.0" y="0.0" width="40" height="15"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" priority="999" constant="15" id="O7T-HJ-DWl"/>
-                                                <constraint firstAttribute="width" priority="999" constant="40" id="aC0-Df-e7r"/>
-                                            </constraints>
-                                            <state key="normal" image="places-auth-close"/>
-                                            <connections>
-                                                <action selector="close:" destination="-1" eventType="touchUpInside" id="bzK-v4-6rZ"/>
-                                            </connections>
-                                        </button>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="mYC-yH-YX8" userLabel="Pinned Close Button Stack View">
+                                            <rect key="frame" x="0.0" y="30" width="280" height="15"/>
+                                            <subviews>
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dnI-9Q-77X">
+                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="15"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" priority="999" constant="15" id="O7T-HJ-DWl"/>
+                                                        <constraint firstAttribute="width" priority="999" constant="40" id="aC0-Df-e7r"/>
+                                                    </constraints>
+                                                    <state key="normal" image="places-auth-close"/>
+                                                    <connections>
+                                                        <action selector="close:" destination="-1" eventType="touchUpInside" id="bzK-v4-6rZ"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
-                                </stackView>
+                                    <constraints>
+                                        <constraint firstItem="mYC-yH-YX8" firstAttribute="leading" secondItem="DAm-Ul-qQX" secondAttribute="leading" id="3Q5-D8-XbE"/>
+                                        <constraint firstItem="mYC-yH-YX8" firstAttribute="top" secondItem="DAm-Ul-qQX" secondAttribute="top" constant="30" id="EnA-14-Wy1"/>
+                                        <constraint firstAttribute="bottom" secondItem="mYC-yH-YX8" secondAttribute="bottom" constant="3" id="kGg-gf-Qvi"/>
+                                        <constraint firstAttribute="trailing" secondItem="mYC-yH-YX8" secondAttribute="trailing" id="voC-ny-oG4"/>
+                                    </constraints>
+                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hr-CH-OgV" userLabel="Pinned Action Button Container View">
                                     <rect key="frame" x="15" y="449" width="250" height="80"/>
                                     <subviews>
@@ -247,18 +258,18 @@
                                 </view>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="mYC-yH-YX8" firstAttribute="trailing" secondItem="Evj-R4-67a" secondAttribute="trailing" id="2Xa-HS-ggm"/>
+                                <constraint firstItem="DAm-Ul-qQX" firstAttribute="leading" secondItem="Evj-R4-67a" secondAttribute="leading" id="42i-ud-s6a"/>
                                 <constraint firstItem="byo-ea-ogC" firstAttribute="leading" secondItem="BhM-b3-oKp" secondAttribute="leading" id="6Zv-cf-mCb"/>
                                 <constraint firstItem="BhM-b3-oKp" firstAttribute="height" secondItem="dvu-0e-liQ" secondAttribute="height" priority="250" id="Bo0-6D-ODX"/>
-                                <constraint firstItem="mYC-yH-YX8" firstAttribute="leading" secondItem="Evj-R4-67a" secondAttribute="leading" id="P1i-WV-J9b"/>
+                                <constraint firstItem="DAm-Ul-qQX" firstAttribute="trailing" secondItem="Evj-R4-67a" secondAttribute="trailing" id="KYC-c4-cGD"/>
                                 <constraint firstItem="BhM-b3-oKp" firstAttribute="bottom" secondItem="byo-ea-ogC" secondAttribute="bottom" id="XDH-E6-noi"/>
                                 <constraint firstItem="8tf-7a-eXe" firstAttribute="leading" secondItem="3hr-CH-OgV" secondAttribute="leading" id="byb-Zb-FSR"/>
                                 <constraint firstItem="dvu-0e-liQ" firstAttribute="bottom" secondItem="3hr-CH-OgV" secondAttribute="bottom" id="dfD-Sx-4Qa"/>
                                 <constraint firstItem="byo-ea-ogC" firstAttribute="top" secondItem="BhM-b3-oKp" secondAttribute="top" id="fSW-Ew-Rme"/>
                                 <constraint firstItem="BhM-b3-oKp" firstAttribute="width" secondItem="dvu-0e-liQ" secondAttribute="width" id="me5-Aq-WlW"/>
                                 <constraint firstItem="BhM-b3-oKp" firstAttribute="trailing" secondItem="byo-ea-ogC" secondAttribute="trailing" id="mmU-rY-JAa"/>
+                                <constraint firstItem="DAm-Ul-qQX" firstAttribute="top" secondItem="dvu-0e-liQ" secondAttribute="top" id="myK-Hm-4zV"/>
                                 <constraint firstItem="8tf-7a-eXe" firstAttribute="trailing" secondItem="3hr-CH-OgV" secondAttribute="trailing" id="oCB-LU-3Ld"/>
-                                <constraint firstItem="mYC-yH-YX8" firstAttribute="top" secondItem="dvu-0e-liQ" secondAttribute="top" constant="30" id="tw8-bK-WBI"/>
                             </constraints>
                             <viewLayoutGuide key="contentLayoutGuide" id="byo-ea-ogC"/>
                             <viewLayoutGuide key="frameLayoutGuide" id="dvu-0e-liQ"/>

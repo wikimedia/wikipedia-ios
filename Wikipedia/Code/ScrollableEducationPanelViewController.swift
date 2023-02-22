@@ -47,7 +47,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     
     @IBOutlet weak var inlineActionButtonContainerView: UIView!
     @IBOutlet weak var inlineCloseButtonStackView: UIStackView!
-    @IBOutlet weak var pinnedCloseButtonStackView: UIStackView!
+    @IBOutlet weak var pinnedCloseButtonContainerView: UIView!
     @IBOutlet weak var pinnedActionButtonContainerView: UIView!
     
     // use as an indication of what triggered a dismissal
@@ -353,12 +353,12 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         if hasPinnedButtons {
             inlineCloseButtonStackView.alpha = 0
             inlineActionButtonContainerView.alpha = 0
-            pinnedCloseButtonStackView.alpha = 1
+            pinnedCloseButtonContainerView.alpha = 1
             pinnedActionButtonContainerView.alpha = 1
         } else {
             inlineCloseButtonStackView.alpha = 1
             inlineActionButtonContainerView.alpha = 1
-            pinnedCloseButtonStackView.alpha = 0
+            pinnedCloseButtonContainerView.alpha = 0
             pinnedActionButtonContainerView.alpha = 0
         }
         
@@ -510,6 +510,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
         roundedCornerContainer.backgroundColor = theme.colors.cardBackground
         pinnedActionButtonContainerView.backgroundColor = theme.colors.cardBackground
+        pinnedCloseButtonContainerView.backgroundColor = theme.colors.cardBackground
         updateSubheadingHTML()
         updateFooterHTML()
     }
