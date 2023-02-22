@@ -2,7 +2,7 @@
 #import "NSString+FormattedAttributedString.h"
 @import WMF;
 
-static NSInteger const kTitleColor = 0x000000;
+//static NSInteger const kTitleColor = 0x000000;
 static CGFloat const kTitleFontSize = 21.0f;
 
 static NSInteger const kDescriptionColor = 0x777777;
@@ -32,7 +32,7 @@ static NSString *const kFormatString = @"$1$2$3$4$5";
     NSDictionary *titleAttribs =
         @{
             NSFontAttributeName: [UIFont systemFontOfSize:titleSizeMultiplier * kTitleFontSize],
-            NSForegroundColorAttributeName: [UIColor wmf_colorWithHex:kTitleColor]
+            NSForegroundColorAttributeName: [UIColor base0]
         };
 
     static NSDictionary *descripAttribs = nil;

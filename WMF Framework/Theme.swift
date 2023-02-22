@@ -36,7 +36,7 @@ public extension UIColor {
     // Wikimedia Style Guide Colors
     // https://design.wikimedia.org/style-guide/visual-style_colors.html
     
-    static let base0 = UIColor(0x000000)
+    @objc static let base0 = UIColor(0x000000)
     static let base10 = UIColor(0x202122)
     static let base20 = UIColor(0x54595D)
     static let base30 = UIColor(0x72777D) // formerly battleship grey
@@ -121,6 +121,19 @@ public extension UIColor {
     static let talkPageCoffeRollSepia = UIColor(0xE1DAD1)
     static let talkPageCoffeRollDark = UIColor(0x101418)
     static let talkPageCoffeRollBlack = UIColor(0x101418)
+
+    // settings colors
+    @objc static let settingsOrange = UIColor(0xFF8E2B)
+    @objc static let settingsOrange2 = UIColor(0xFEA13D)
+    @objc static let settingsGrey = UIColor(0x9AA0A7)
+    @objc static let settingsGrey2 = UIColor(0x99A1A7)
+    @objc static let settingsRed = UIColor(0xFF1B33)
+    @objc static let settingsBlueLight = UIColor(0x5ac8fa)
+    @objc static let settingsBlue = UIColor(0x1F95DE)
+    @objc static let settingsBlue2 = UIColor(0x00b4ce)
+    @objc static let settingsDarkBlue = UIColor(0x1F45DE)
+    @objc static let settingsPurple = UIColor(0x884FDC)
+    @objc static let settingsGreen = UIColor(0x95D15A)
 
 
     @objc func wmf_hexStringIncludingAlpha(_ includeAlpha: Bool) -> String {
