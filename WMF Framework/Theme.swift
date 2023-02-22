@@ -135,6 +135,19 @@ public extension UIColor {
     @objc static let settingsPurple = UIColor(0x884FDC)
     @objc static let settingsGreen = UIColor(0x95D15A)
 
+    @objc static let eraseArticleIconRed = UIColor(0xC52C2D)
+    @objc static let expandtableIconBlue = UIColor(0x5C97BF)
+
+    // attributed strings colors
+    @objc static let attributedStringGreyDescription = UIColor(0x777777)
+    @objc static let attributedStringGreyLanguage = UIColor(0x999999)
+
+    // third-party slider
+    @objc static let sliderGrey = UIColor(0x989898)
+    @objc static let sliderLightGrey = UIColor(0xDEDEDE)
+
+    // widget
+    @objc static let widgetBlue = UIColor(0x318CDB)
 
     @objc func wmf_hexStringIncludingAlpha(_ includeAlpha: Bool) -> String {
         var r: CGFloat = 0
