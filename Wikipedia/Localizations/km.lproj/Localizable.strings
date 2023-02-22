@@ -60,15 +60,6 @@
 "about-translators-details" = "ត្រូវបានបកប្រែដោយអ្នកស្ម័គ្រចិត្តនៅ $1";
 "about-wikimedia-foundation" = "មូលនិធិវិគីមេឌា";
 "about-wikipedia" = "វិគីភីឌា";
-"abuse-filter-disallow-heading" = "អ្នកមិនអាចបោះផ្សាយការកែប្រែនេះបានទេ";
-"abuse-filter-disallow-unconstructive" = "តម្រងស្វ័យប្រវត្តិបានសម្គាល់កំណែប្រែនេះថាជាទង្វើគ្មានការស្ថាបនាឬមានបំណងបំផ្លិចបំផ្លាញ។ សូមត្រឡប់ក្រោយរួចកែប្រែម្ដងទៀត។";
-"abuse-filter-warning-blanking" = "ការលុបខ្លឹមសារអត្ថបទមួយផ្នែកឬទាំងមូល";
-"abuse-filter-warning-caps" = "អត្ថបទជាអក្សរធំទាំងអស់";
-"abuse-filter-warning-heading" = "នេះប្រហែលជាការកែប្រែដែលគ្មានលក្ខណៈស្ថាបនាទេ។ តើអ្នកពិតជាចង់បោះផ្សាយវាមែនទេ?";
-"abuse-filter-warning-irrelevant" = "តំណភ្ជាប់ខាងក្រៅឬរូបភាពដែលមិនទាក់ទិន";
-"abuse-filter-warning-repeat" = "អក្សរស្ទួន";
-"abuse-filter-warning-spam" = "ការបន្ថែមស្ប៉ាមចូលក្នុងអត្ថបទ";
-"abuse-filter-warning-subheading" = "ការកែប្រែរបស់អ្នកប្រហែលជាមាន៖";
 "account-creation-captcha-cannot-see-image" = "មើលរូបភាពមិនឃើញមែនទេ? $1";
 "account-creation-captcha-obtaining" = "កំពុងយក CAPTCHA ថ្មី...";
 "account-creation-captcha-request-account" = "ស្នើសុំគណនី។";

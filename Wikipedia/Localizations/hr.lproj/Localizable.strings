@@ -25,14 +25,6 @@
 "about-translators" = "Prevoditelji";
 "about-wikimedia-foundation" = "Zaklada Wikimedija";
 "about-wikipedia" = "Wikipedija";
-"abuse-filter-disallow-heading" = "Ne možete objaviti ovu izmjenu";
-"abuse-filter-warning-blanking" = "Brisanje odjeljaka ili cijelih članaka";
-"abuse-filter-warning-caps" = "Tekst velikim slovima";
-"abuse-filter-warning-heading" = "Ovo izgleda kao nekonstruktivna izmjena, jeste li sigurni da je želite objaviti?";
-"abuse-filter-warning-irrelevant" = "Irelevantne vanjske poveznice ili slike";
-"abuse-filter-warning-repeat" = "Ponavljajući znakovi";
-"abuse-filter-warning-spam" = "Dodavanje neželjenog sadržaja u članke";
-"abuse-filter-warning-subheading" = "Vaše uređivanje možda sadrži:";
 "account-creation-captcha-cannot-see-image" = "Ne vidite sliku? $1";
 "account-creation-captcha-obtaining" = "Dobavljanje novog CAPTCHA kôda...";
 "account-creation-captcha-request-account" = "Zatražite račun.";

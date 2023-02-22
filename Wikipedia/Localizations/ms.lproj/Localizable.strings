@@ -61,15 +61,6 @@
 "about-translators-details" = "Aplikasi ini diterjemahkan oleh para penterjemah sukarela di $1";
 "about-wikimedia-foundation" = "Yayasan Wikimedia";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Suntingan ini tidak boleh diterbitkan";
-"abuse-filter-disallow-unconstructive" = "Penapis automatik telah mengenal pasti suntingan ini sebagai mungkin tidak membina ataupun sebagai cubaan laku musnah. Sila kembali dan suntingnya semula.";
-"abuse-filter-warning-blanking" = "Memadam bahagian atau rencana penuh";
-"abuse-filter-warning-caps" = "Serba huruf besar";
-"abuse-filter-warning-heading" = "Suntingan ini kelihatan tidak membina. Adakah anda betul-betul mahu menerbitkannya?";
-"abuse-filter-warning-irrelevant" = "Pautan-pautan luar atau gambar-gambar yang tidak relevan";
-"abuse-filter-warning-repeat" = "Aksara berulang";
-"abuse-filter-warning-spam" = "Menambah spam pada rencana";
-"abuse-filter-warning-subheading" = "Suntingan anda mungkin mengandungi:";
 "account-creation-captcha-cannot-see-image" = "Tidak boleh melihat imej? $1";
 "account-creation-captcha-obtaining" = "Mendapatkan CAPTCHA baru...";
 "account-creation-captcha-request-account" = "Mohon akaun.";

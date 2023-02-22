@@ -23,20 +23,6 @@
 "about-translators-details" = "ეს აპლიკაცია ნათარგმნია მოხალისეების მიერ $1-ზე";
 "about-wikimedia-foundation" = "ფონდი ვიკიმედია";
 "about-wikipedia" = "ვიკიპედია";
-// Fuzzy
-"abuse-filter-disallow-heading" = "ამ ცვლილების გამოქვეყნება არ შეგიძლიათ. დაბრუნდით უკან და შეცვალეთ.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "ავტომატურმა ფილტრმა ეს რედაქტირება მიიჩნია შესაძლო არაკონსტრუქციულად ან ვანდალიზმით მცდელობად.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "სტატიების დაცარიელება ან სპამი";
-// Fuzzy
-"abuse-filter-warning-caps" = "იკრიფება დიდ ასოებზე";
-"abuse-filter-warning-heading" = "თქვენი რედაქტირება არაკონსტრუქციულს ჰგავს, დარწმუნებული ხართ, რომ გსურთ მისი გამოქვეყნება?";
-"abuse-filter-warning-irrelevant" = "შეუსაბამო გარე ბმულები ან სურათები";
-// Fuzzy
-"abuse-filter-warning-repeat" = "სიმბოლოების გამეორება";
-// Fuzzy
-"abuse-filter-warning-subheading" = "თქვენი რედაქტირება შესაძლოა შეიცავდეს ერთ ან რამდენიმე შემდეგ ელემენტს:";
 "account-creation-captcha-obtaining" = "ახალი CAPTCHA-ს მიღება...";
 "account-creation-log-in" = "შესვლა.";
 "account-creation-logging-in" = "შედიხართ სისტემაში...";

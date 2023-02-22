@@ -41,14 +41,6 @@
 "about-translators-details" = "$1ত স্বেচ্ছাসেৱকৰ দ্বাৰা অনূদিত";
 "about-wikimedia-foundation" = "ৱিকিমিডিয়া ফাউণ্ডেশ্যন";
 "about-wikipedia" = "ৱিকিপিডিয়া";
-"abuse-filter-disallow-heading" = "আপুনি এই সম্পাদনা প্ৰকাশ কৰিব নোৱাৰে।";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "এটা স্বয়ংক্ৰিয় পৰিশোধকে এই সম্পাদনাটো সম্ভাব্য অগঠনমূলক বা ধ্বংসপ্ৰৱণতাৰ চেষ্টা হিচাপে চিহ্নিত কৰিছে।";
-// Fuzzy
-"abuse-filter-warning-blanking" = "প্ৰবন্ধ খালি কৰা বা স্পামিং কৰা";
-"abuse-filter-warning-heading" = "এইটো সম্ভৱ এটা অগঠনমূলক সম্পাদনা। আপুনি এইটো প্ৰকাশ কৰিব বুলি নিশ্চিতনে?";
-"abuse-filter-warning-irrelevant" = "অপ্ৰাসংগিক বাহ্যিক সংযোগ বা ছবি";
-"abuse-filter-warning-subheading" = "আপোনাৰ সম্পাদনাত থাকিব পাৰে:";
 "account-creation-captcha-cannot-see-image" = "ছবিখন দেখা পোৱা নাই? $1";
 "account-creation-captcha-obtaining" = "এটা নতুন কেপ্‌চা লোৱা হৈছে...";
 "account-creation-captcha-request-account" = "একাউণ্টৰ বাবে অনুৰোধ কৰক";
