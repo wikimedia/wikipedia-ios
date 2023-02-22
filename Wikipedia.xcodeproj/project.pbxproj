@@ -10145,7 +10145,6 @@
 				D870215C1EBA63EE000D02D6 /* Sources */,
 				D870215D1EBA63EE000D02D6 /* Frameworks */,
 				D870215E1EBA63EE000D02D6 /* CopyFiles */,
-				B033620620D0573A006BCDCE /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -11163,19 +11162,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n\tswiftlint --fix --config \".swiftlint-autocorrect.yml\" && swiftlint\nelse\n\techo \"warning: SwiftLint not installed, run \\\"scripts/brew_install\\\" script to install\"\nfi\n";
-		};
-		B033620620D0573A006BCDCE /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "cp -f `readlink ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}` \"${SRCROOT}/scripts/${PRODUCT_NAME}\"\n";
 		};
 		D87021721EBA69B7000D02D6 /* Update Localizations */ = {
 			isa = PBXShellScriptBuildPhase;
