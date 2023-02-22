@@ -86,15 +86,6 @@
 "about-translators-details" = "Käännöstyön tehneet vapaaehtoiset sivustolla $1";
 "about-wikimedia-foundation" = "Wikimedia-säätiö";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Et voi julkaista tätä muokkausta.";
-"abuse-filter-disallow-unconstructive" = "Automaattinen suodatin on tunnistanut tämän muokkauksen mahdollisesti haitalliseksi tai vandalismin yritykseksi.";
-"abuse-filter-warning-blanking" = "Osioiden tai kokonaisten artikkelien tyhjennystä";
-"abuse-filter-warning-caps" = "Kaikki teksti tikkukirjaimilla";
-"abuse-filter-warning-heading" = "Tämä saattaa olla haitallinen muokkaus. Haluatko varmasti julkaista sen?";
-"abuse-filter-warning-irrelevant" = "Aiheeseen liittymättömiä ulkoisia linkkejä tai kuvia";
-"abuse-filter-warning-repeat" = "Toistuvia merkkejä";
-"abuse-filter-warning-spam" = "Asiattoman sisällön lisääminen artikkeleihin";
-"abuse-filter-warning-subheading" = "Muokkauksesi saattaa sisältää:";
 "account-creation-captcha-cannot-see-image" = "Etkö näe kuvaa? $1";
 "account-creation-captcha-obtaining" = "Ladataan uutta kuvavarmennusta...";
 "account-creation-captcha-request-account" = "Pyydä käyttäjätunnusta.";

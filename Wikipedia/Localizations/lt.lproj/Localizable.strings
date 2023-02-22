@@ -32,12 +32,6 @@
 "about-translators-details" = "Išversta savanorių $1";
 "about-wikimedia-foundation" = "Vikimedijos fondas";
 "about-wikipedia" = "Vikipedija";
-"abuse-filter-disallow-heading" = "Jūs negalite paskelbti šio pakeitimo";
-// Fuzzy
-"abuse-filter-warning-caps" = "Rašyti DIDŽIOSIOMIS RAIDĖMIS";
-"abuse-filter-warning-heading" = "Panašu, kad šis pakeitimas nekonstruktyvus. Ar tikrai norite jį paskelbti?";
-"abuse-filter-warning-repeat" = "Pasikartojantys ženklai";
-"abuse-filter-warning-subheading" = "Jūsų keitimas gali turėti:";
 "account-creation-captcha-obtaining" = "Gaunamas naujas CAPTCHA...";
 "account-creation-captcha-request-account" = "Prašyti paskyros.";
 "account-creation-create-account" = "Sukurkite savo paskyrą";

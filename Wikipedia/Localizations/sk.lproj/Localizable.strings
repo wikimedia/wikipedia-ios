@@ -74,15 +74,6 @@
 "about-translators-details" = "Preložené dobrovoľníkmi na $1";
 "about-wikimedia-foundation" = "Nadáciou Wikimedia";
 "about-wikipedia" = "Wikipédia";
-"abuse-filter-disallow-heading" = "Túto úpravu nie je možné zverejniť";
-"abuse-filter-disallow-unconstructive" = "Automatický filter označil túto úpravu ako potencionálne nekonštruktívnu alebo ako pokus o vandalizmus. Prosím, vráťte sa a zmeňte svoju úpravu";
-"abuse-filter-warning-blanking" = "Vymazávanie sekcií alebo celých článkov";
-"abuse-filter-warning-caps" = "Píšete veľkými písmenami";
-"abuse-filter-warning-heading" = "Toto vyzerá ako nekonštruktívna úprava. Naozaj ju chcete uložiť?";
-"abuse-filter-warning-irrelevant" = "Irelevantné odkazy alebo obrázky";
-"abuse-filter-warning-repeat" = "Opakovanie znakov";
-"abuse-filter-warning-spam" = "Pridávanie spamu do článkov";
-"abuse-filter-warning-subheading" = "Vaša úprava možno obsahuje:";
 "account-creation-captcha-cannot-see-image" = "Nevidíte obrázok? $1";
 "account-creation-captcha-obtaining" = "Generuje sa nová CAPTCHA...";
 "account-creation-captcha-request-account" = "Požiadať o účet";

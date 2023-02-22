@@ -33,20 +33,6 @@
 "about-translators-details" = "Suqlen-t imttekkiyen di $1";
 "about-wikimedia-foundation" = "Tasbeddit Wikimédia";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Ur tezmireḍ ara ad tessuffɣeḍ taẓrigt-agi. Ma ulac aqilif, uɣal ar deffirsakin beddel-it.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Imzizdig awurman yufa-d d akken asnifel-agi mačči d ayen yelhan neɣ ahat d aɛraḍ n uhuddu.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Imagraden ilmawen neɣ ispamen";
-// Fuzzy
-"abuse-filter-warning-caps" = "Aḍris s USEKKIL MEQQREN";
-"abuse-filter-warning-heading" = "Ahat yezmer ad yili d asnifel ur nemɛin ara. Tebɣiḍ ad tessuffɣeḍ?";
-"abuse-filter-warning-irrelevant" = "Iseɣwan neɣ tugniwin ur nemɛin ara";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Tulsaaaaa n usekkil";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Asnifel-ik yezmer yegber yisen seg iferdisen-agi:";
 "account-creation-captcha-cannot-see-image" = "Ur tezmireḍ ara ad twalid tugna? $1";
 "account-creation-captcha-obtaining" = "Awway n CAPTCHA amaynut...";
 "account-creation-captcha-request-account" = "Suter amiḍan";
