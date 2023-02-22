@@ -248,7 +248,8 @@ final class EditNoticesView: SetupView {
         }
 
         textView.attributedText = attributedNoticeString.removingInitialNewlineCharacters().removingRepetitiveNewlineCharacters()
-
+        textView.textAlignment = viewModel.semanticContentAttribute == .forceRightToLeft ? .right : .left
+        
         // Update colors
         backgroundColor = theme.colors.paperBackground
         doneButton.setTitleColor(theme.colors.link, for: .normal)
