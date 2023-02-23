@@ -129,9 +129,10 @@ class SectionEditorViewController: ViewController {
         super.viewDidAppear(animated)
 
         initialFetchGroup.waitInBackground {
-            self.presentEditNoticesIfNecessary()
+            if !self.needsSelectLastSelection {
+                self.presentEditNoticesIfNecessary()
+            }
             self.selectLastSelectionIfNeeded()
-
         }
 
     }
@@ -154,17 +155,23 @@ class SectionEditorViewController: ViewController {
             return
         }
 
-        presentEditNoticesIfAvailable()
+        WKWebViewWithSettableInputViews.didSetKeyboardRequiresUserInteraction = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.presentEditNoticesIfAvailable()
+        }
     }
 
     private func presentEditNoticesIfAvailable() {
         guard let editNoticesViewModel = self.editNoticesViewModel else {
+            WKWebViewWithSettableInputViews.didSetKeyboardRequiresUserInteraction = false
             return
         }
 
         let editNoticesViewController = EditNoticesViewController(theme: self.theme, viewModel: editNoticesViewModel)
         editNoticesViewController.delegate = self
-        present(editNoticesViewController, animated: true)
+        present(editNoticesViewController, animated: true, completion: {
+            WKWebViewWithSettableInputViews.didSetKeyboardRequiresUserInteraction = false
+        })
     }
     
     private func setupFocusNavigationView() {

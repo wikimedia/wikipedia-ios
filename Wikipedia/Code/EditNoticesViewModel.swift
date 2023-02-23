@@ -14,4 +14,8 @@ final class EditNoticesViewModel {
         self.notices = notices
     }
 
+    var semanticContentAttribute: UISemanticContentAttribute {
+        return MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: siteURL.wmf_contentLanguageCode)
+    }
+
 }
