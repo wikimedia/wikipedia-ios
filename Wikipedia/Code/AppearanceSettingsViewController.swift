@@ -166,7 +166,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
             cell.disclosureSwitch.isOn = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
             cell.disclosureSwitch.addTarget(self, action: #selector(self.handleAutomaticTableOpenSwitchValueChange(_:)), for: .valueChanged)
             cell.iconName = "settings-tables-expand"
-            cell.iconBackgroundColor = UIColor.expandtableIconBlue
+            cell.iconBackgroundColor = UIColor.expandTableIconBlue
             cell.iconColor = .white
             cell.selectionStyle = .none
         } else {

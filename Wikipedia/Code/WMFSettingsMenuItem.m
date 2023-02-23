@@ -192,7 +192,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache", nil, nil, @"Clear cached data", @"Title for the 'Clear cached data' settings row")
                                                  iconName:@"settings-clear-cache"
-                                                iconColor:[UIColor base0]
+                                                iconColor:[UIColor settingsYellow]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_None
                                            disclosureText:nil
                                                isSwitchOn:NO];
