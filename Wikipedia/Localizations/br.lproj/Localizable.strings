@@ -32,14 +32,6 @@
 "about-translators-details" = "Troet eo bet an arload-mañ gant troerien a-youl vat e $1";
 "about-wikimedia-foundation" = "Diazezadur Wikimedia";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "N'hallit ket enrollañ ar c'hemm-mañ. Distroit ha kemmit anezhañ.";
-"abuse-filter-disallow-unconstructive" = "Hervez ur sil emgefreek e c’hallfe ar c’hemm-mañ bezañ didalvoud pe degas vandalerezh. Kit war gil ha grit ur c’hemm all mar plij.";
-"abuse-filter-warning-blanking" = "Dilemel rannbennadoù pe pennadoù en o fezh";
-"abuse-filter-warning-caps" = "Testenn e pennlizherennoù";
-"abuse-filter-warning-heading" = "Evit doare n'eo ket gwall dalvoudus ar c'hemmoù-se. Ha sur oc'h e fell deoc'h enrollañ anezho ?";
-"abuse-filter-warning-irrelevant" = "Liammoù pe skeudennoù diavaez diazaz";
-"abuse-filter-warning-repeat" = "Arouezennoù adskrivet";
-"abuse-filter-warning-subheading" = "En ho kemm e c'hallfe bezañ:";
 "account-creation-captcha-cannot-see-image" = "Dibosupl gwelet ar skeudenn ? $1";
 "account-creation-captcha-obtaining" = "Kaout ur C'HAPTCHA nevez...";
 "account-creation-captcha-request-account" = "Goulenn kaout ur gont.";
@@ -178,7 +170,7 @@
 "field-alert-username-unavailable" = "Ne c'haller ket kaout an anv implijer-mañ";
 "field-backup-token-title" = "Kod saveteiñ";
 "field-captcha-placeholder" = "Testenn Capcha";
-"field-captcha-title" = "Ebarzhiñ an destenn a welit amañ a-us";
+"field-captcha-title" = "Merkit an destenn a welit amañ a-us";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "Postel";
 "field-email-title-optional" = "Postel (diret)";

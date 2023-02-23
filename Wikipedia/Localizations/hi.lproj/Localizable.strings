@@ -78,15 +78,6 @@
 "about-translators-details" = "$1 पर स्वयंसेवकों द्वारा अनुवादित";
 "about-wikimedia-foundation" = "विकिमीडिया संस्था";
 "about-wikipedia" = "विकिपीडिया";
-"abuse-filter-disallow-heading" = "आप इस संपादन को प्रकाशित नहीं कर सकते";
-"abuse-filter-disallow-unconstructive" = "एक स्वचालित फ़िल्टर ने इस संपादन को संभावित रूप से असंरचित या बर्बरता के प्रयास के रूप में पहचाना है। कृपया वापस जाएं और अपना संपादन बदलें।";
-"abuse-filter-warning-blanking" = "अनुभाग या पूर्ण लेख हटाना";
-"abuse-filter-warning-caps" = "सारा कैपिटल टेक्स्ट";
-"abuse-filter-warning-heading" = "यह एक अरचनात्मक संपादन लगता है, क्या आप इसे प्रकाशित करने को लेकर निश्चित हैं?";
-"abuse-filter-warning-irrelevant" = "अनुपयुक्त बाहरी लिंक या चित्र";
-"abuse-filter-warning-repeat" = "दोहराए जाने वाले अक्षर";
-"abuse-filter-warning-spam" = "लेखों में स्पैम जोड़ा";
-"abuse-filter-warning-subheading" = "आपके संपादन में हो सकते हैं:";
 "account-creation-captcha-cannot-see-image" = "$1 चित्र को नहीं देख सकते?";
 "account-creation-captcha-obtaining" = "एक नया कैप्चा प्राप्त किया जा रहा है...";
 "account-creation-captcha-request-account" = "अकाउंट हेतु अनुरोध";
@@ -129,6 +120,7 @@
 "article-share" = "साझा करें";
 "article-toolbar-reading-themes-controls-toolbar-item" = "विषय नियंत्रण पढ़ रहा";
 "back-button-accessibility-label" = "पीछे";
+"button-go-back" = "वापस जाएँ";
 "button-next" = "अगला";
 "button-ok" = "ठीक है";
 "button-publish" = "प्रकाशित करें";

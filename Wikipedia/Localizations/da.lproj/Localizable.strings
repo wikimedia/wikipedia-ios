@@ -47,16 +47,6 @@
 "about-translators-details" = "Oversat af frivillige på $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Du kan ikke udgive denne redigering";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Et automatisk filter har identificeret denne redigering som potentielt ukonstruktiv eller forsøg på hærværk.";
-"abuse-filter-warning-blanking" = "Tømning af afsnit eller hele artikler";
-"abuse-filter-warning-caps" = "Tekst skrevet med store bogstaver";
-"abuse-filter-warning-heading" = "Dette ligner en redigering som ikke er konstruktiv. Er du sikker på at du ønsker at udgive den?";
-"abuse-filter-warning-irrelevant" = "Irrelevante eksterne links eller billeder";
-"abuse-filter-warning-repeat" = "Gentagende tegn";
-"abuse-filter-warning-spam" = "Tilføjelse af spam til artikler";
-"abuse-filter-warning-subheading" = "Din redigering kan indeholde:";
 "account-creation-captcha-cannot-see-image" = "Kan du ikke se billedet? $1";
 "account-creation-captcha-obtaining" = "Henter en ny CAPTCHA...";
 "account-creation-captcha-request-account" = "Anmod om konto.";

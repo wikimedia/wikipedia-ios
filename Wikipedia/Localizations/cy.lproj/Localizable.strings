@@ -56,7 +56,6 @@
 "about-translators-details" = "Cyfieithwyd gan wirfoddolwyr ar $1";
 "about-wikimedia-foundation" = "Sefydliad Wicimedia";
 "about-wikipedia" = "Wicipedia";
-"abuse-filter-disallow-heading" = "Ni allwch gyhoeddi'r golygiad hwn";
 "account-creation-create-account" = "Creer y cyfrif";
 "account-creation-have-account" = "Oes gen ti gyfrif? $1";
 "account-creation-log-in" = "Mewngofnodi";
@@ -113,6 +112,7 @@
 "article-share" = "Rhannu";
 "back-button-accessibility-label" = "Yn ôl";
 "back-button-popover-title" = "Tapiwch i fynd yn ôl";
+"button-go-back" = "Nôl";
 "button-next" = "Nesaf";
 "button-ok" = "Iawn";
 "button-publish" = "Cyhoeddi";
@@ -168,6 +168,7 @@
 "edit-link-remove-link-title" = "Dileu'r ddolen";
 "edit-link-title" = "Golygu dolen";
 "edit-menu-item" = "Golygu";
+"edit-notices" = "Hysbysiadau golygu";
 "edit-published" = "Wedi cyhoeddi'r golygiad";
 "edit-style-table-view-title" = "Arddull";
 "edit-summary-add-summary-text" = "Rhoi crynodeb golygu";
