@@ -212,7 +212,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Vu Wikipedia";
 "explore-randomizer" = "Zoufallsgenerator";
 "field-alert-captcha-invalid" = "Net valabele CAPTCHA";
-"field-alert-password-confirm-mismatch" = "D'Passwierder déi Dir aginn hutt sinn net identesch";
+"field-alert-password-confirm-mismatch" = "D'Passwierder, déi Dir aginn hutt, sinn net identesch";
 "field-alert-token-invalid" = "Net valabele Code";
 "field-alert-username-unavailable" = "Benotzernumm net disponibel";
 "field-backup-token-title" = "Backup-Code";

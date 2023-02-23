@@ -10,6 +10,7 @@
 // Author: ElmA
 // Author: Jack Phoenix
 // Author: Joquliina
+// Author: Kimberli Mäkäräinen (WMNO)
 // Author: Laurianttila
 // Author: MITO
 // Author: McSalama
@@ -177,7 +178,7 @@
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia kiinan kielen variantteja pääasiallisena tai toissijaisena sovelluksen kielenä, mikä tekee helpommaksi lukea, hakea ja muokata haluamallasi variantilla:\n\n简体 yksinkertaistettu kiina (zh-hans)\n香港繁體 Hong Kongin perinteinen kiina (zh-hk)\n澳門繁體 Macaon perinteinen kiina (zh-mo)\n大马简体 Malesian yksinkertaistettu kiina (zh-my)\n新加坡简体 Singaporen yksinkertaistettu kiina (zh-sg)\n臺灣正體 Taiwanin perinteinen kiina (zh-tw)";
 "chinese-variants-alert-title" = "Päivityksiä kiinan kielen kieliversiotukeen";
-"clear-title-accessibility-label" = "Kumita/putsaa/tyhjennä/puhdista";
+"clear-title-accessibility-label" = "Tyhjennä";
 "close-button-accessibility-label" = "Sulje";
 "compass-direction" = "klo $1";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
@@ -954,6 +955,7 @@
 "talk-page-discussion-accessibility-hint" = "Kaksoisnapauta avataksesi keskusteluketjun";
 "talk-page-discussion-read-accessibility-label" = "Lue";
 "talk-page-discussion-unread-accessibility-label" = "Lukematon";
+"talk-page-error-alert-title" = "Odottamaton virhe";
 "talk-page-error-loading-title" = "Keskustelusivun lataaminen epäonnistui";
 "talk-page-error-unable-to-post-reply" = "Ei Internet-yhteyttä. Vastausta ei voi lähettää.";
 "talk-page-error-unable-to-post-topic" = "Ei Internet-yhteyttä. Keskustelua ei voi lähettää.";

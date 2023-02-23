@@ -112,6 +112,7 @@
 "article-share" = "Rhannu";
 "back-button-accessibility-label" = "Yn ôl";
 "back-button-popover-title" = "Tapiwch i fynd yn ôl";
+"button-go-back" = "Nôl";
 "button-next" = "Nesaf";
 "button-ok" = "Iawn";
 "button-publish" = "Cyhoeddi";
@@ -167,6 +168,7 @@
 "edit-link-remove-link-title" = "Dileu'r ddolen";
 "edit-link-title" = "Golygu dolen";
 "edit-menu-item" = "Golygu";
+"edit-notices" = "Hysbysiadau golygu";
 "edit-published" = "Wedi cyhoeddi'r golygiad";
 "edit-style-table-view-title" = "Arddull";
 "edit-summary-add-summary-text" = "Rhoi crynodeb golygu";
