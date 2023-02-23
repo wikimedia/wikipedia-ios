@@ -38,15 +38,6 @@
 "about-translators-details" = "Esta aplicación foi traducida polos tradutores voluntarios en $1";
 "about-wikimedia-foundation" = "Fundación Wikimedia";
 "about-wikipedia" = "Galipedia";
-"abuse-filter-disallow-heading" = "Non pode publicar esta edición";
-"abuse-filter-disallow-unconstructive" = "Un filtro automático identificou esta edición como potencialmente non construtiva ou como un intento de vandalismo. Por favor, volva atrás e cambie a súa edición.";
-"abuse-filter-warning-blanking" = "Borrar seccións ou artigos completos";
-"abuse-filter-warning-caps" = "Texto todo en maiúsculas";
-"abuse-filter-warning-heading" = "Isto semella unha edición non construtiva, está seguro de querer publicala?";
-"abuse-filter-warning-irrelevant" = "Ligazóns ou imaxes externas irrelevantes";
-"abuse-filter-warning-repeat" = "Repetición de caracteres";
-"abuse-filter-warning-spam" = "Adición de publicidade a artigos";
-"abuse-filter-warning-subheading" = "A súa edición pode conter:";
 "account-creation-captcha-cannot-see-image" = "Non pode ver a imaxe? $1";
 "account-creation-captcha-obtaining" = "Obtendo un novo código CAPTCHA...";
 "account-creation-captcha-request-account" = "Solicitar unha conta.";

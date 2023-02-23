@@ -96,15 +96,6 @@
 "about-translators-details" = "このアプリは$1においてボランティアにより翻訳されました";
 "about-wikimedia-foundation" = "ウィキメディア財団";
 "about-wikipedia" = "ウィキペディア";
-"abuse-filter-disallow-heading" = "この編集は公開できません";
-"abuse-filter-disallow-unconstructive" = "自動フィルタがこの編集を非建設的あるいは荒らし行為の可能性があると判断しました。戻って編集内容を修正してください。";
-"abuse-filter-warning-blanking" = "記事の節もしくは全文の削除";
-"abuse-filter-warning-caps" = "すべて大文字で表記";
-"abuse-filter-warning-heading" = "これは建設的な編集ではないようです。それでも公開しますか?";
-"abuse-filter-warning-irrelevant" = "不適切な外部リンクや画像";
-"abuse-filter-warning-repeat" = "文字の無意味な繰り返し";
-"abuse-filter-warning-spam" = "記事にスパムを追加";
-"abuse-filter-warning-subheading" = "あなたの編集は以下に該当しているかもしれません。";
 "account-creation-captcha-cannot-see-image" = "画像が表示できませんか? $1";
 "account-creation-captcha-obtaining" = "新しい CAPTCHA を取得しています";
 "account-creation-captcha-request-account" = "アカウントをリクエストする。";
@@ -182,6 +173,7 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "テーマのコントロールを読み込む";
 "back-button-accessibility-label" = "戻る";
 "back-button-popover-title" = "ここをタップすると戻ります";
+"button-go-back" = "戻る";
 "button-next" = "次へ";
 "button-ok" = "OK";
 "button-publish" = "投稿";

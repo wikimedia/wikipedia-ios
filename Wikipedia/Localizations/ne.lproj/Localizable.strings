@@ -44,8 +44,6 @@
 "about-translators-details" = "$1 का स्वयंसेवकहरूद्वारा अनुवाद गरिएको";
 "about-wikimedia-foundation" = "विकिमिडिया फाउन्डेसन";
 "about-wikipedia" = "विकिपिडिया";
-// Fuzzy
-"abuse-filter-disallow-heading" = "यस सम्पादनलाई प्रकाशन गर्न सक्नुहुन्न। कृपया पछाडि जानुहोस् र यसलाई परिवर्तन गर्नुहोस्।";
 "account-creation-captcha-request-account" = "खाता अनुरोध गर्नुहोस् ।";
 "account-creation-create-account" = "खाता खोल्नुहोस्";
 "account-creation-log-in" = "प्रवेश गर्नुहोस्.";

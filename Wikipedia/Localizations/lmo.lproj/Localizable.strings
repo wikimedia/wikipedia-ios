@@ -60,15 +60,6 @@
 "about-translators-details" = "Tradot di volontari de $1";
 "about-wikimedia-foundation" = "Fondazzion Wikimedia";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Te podet minga publica 'sta modifega chì";
-"abuse-filter-disallow-unconstructive" = "On filter automatich l'ha riconossud questa modifega chì come potenzialment minga creative o come on tentativ de vandalismo. Torna indree e cambia la toa modifega.";
-"abuse-filter-warning-blanking" = "Scancellament de sezzion o de vos intreghe";
-"abuse-filter-warning-caps" = "Test tut in letere grande";
-"abuse-filter-warning-heading" = "Questa chì la par ona modifega minga creativa; te see propi sicur de volé publicalla?";
-"abuse-filter-warning-irrelevant" = "Ligam de foeura o imagin minga riguardante";
-"abuse-filter-warning-repeat" = "Carater de stampa scrivud do volte o pussee";
-"abuse-filter-warning-spam" = "Sgionta de ratatoja ai vos";
-"abuse-filter-warning-subheading" = "La toa modifega la podariss havégh denterː";
 "account-creation-captcha-cannot-see-image" = "Te riesset nò a vedé l'imagin? $1";
 "account-creation-captcha-obtaining" = "Adree a creà on CAPTCHA noeuv...";
 "account-creation-captcha-request-account" = "Domanda on cunt.";

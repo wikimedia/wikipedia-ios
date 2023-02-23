@@ -10,6 +10,7 @@
 // Author: ElmA
 // Author: Jack Phoenix
 // Author: Joquliina
+// Author: Kimberli Mäkäräinen (WMNO)
 // Author: Laurianttila
 // Author: MITO
 // Author: McSalama
@@ -86,15 +87,6 @@
 "about-translators-details" = "Käännöstyön tehneet vapaaehtoiset sivustolla $1";
 "about-wikimedia-foundation" = "Wikimedia-säätiö";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Et voi julkaista tätä muokkausta.";
-"abuse-filter-disallow-unconstructive" = "Automaattinen suodatin on tunnistanut tämän muokkauksen mahdollisesti haitalliseksi tai vandalismin yritykseksi.";
-"abuse-filter-warning-blanking" = "Osioiden tai kokonaisten artikkelien tyhjennystä";
-"abuse-filter-warning-caps" = "Kaikki teksti tikkukirjaimilla";
-"abuse-filter-warning-heading" = "Tämä saattaa olla haitallinen muokkaus. Haluatko varmasti julkaista sen?";
-"abuse-filter-warning-irrelevant" = "Aiheeseen liittymättömiä ulkoisia linkkejä tai kuvia";
-"abuse-filter-warning-repeat" = "Toistuvia merkkejä";
-"abuse-filter-warning-spam" = "Asiattoman sisällön lisääminen artikkeleihin";
-"abuse-filter-warning-subheading" = "Muokkauksesi saattaa sisältää:";
 "account-creation-captcha-cannot-see-image" = "Etkö näe kuvaa? $1";
 "account-creation-captcha-obtaining" = "Ladataan uutta kuvavarmennusta...";
 "account-creation-captcha-request-account" = "Pyydä käyttäjätunnusta.";
@@ -186,7 +178,7 @@
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia kiinan kielen variantteja pääasiallisena tai toissijaisena sovelluksen kielenä, mikä tekee helpommaksi lukea, hakea ja muokata haluamallasi variantilla:\n\n简体 yksinkertaistettu kiina (zh-hans)\n香港繁體 Hong Kongin perinteinen kiina (zh-hk)\n澳門繁體 Macaon perinteinen kiina (zh-mo)\n大马简体 Malesian yksinkertaistettu kiina (zh-my)\n新加坡简体 Singaporen yksinkertaistettu kiina (zh-sg)\n臺灣正體 Taiwanin perinteinen kiina (zh-tw)";
 "chinese-variants-alert-title" = "Päivityksiä kiinan kielen kieliversiotukeen";
-"clear-title-accessibility-label" = "Kumita/putsaa/tyhjennä/puhdista";
+"clear-title-accessibility-label" = "Tyhjennä";
 "close-button-accessibility-label" = "Sulje";
 "compass-direction" = "klo $1";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
@@ -963,6 +955,7 @@
 "talk-page-discussion-accessibility-hint" = "Kaksoisnapauta avataksesi keskusteluketjun";
 "talk-page-discussion-read-accessibility-label" = "Lue";
 "talk-page-discussion-unread-accessibility-label" = "Lukematon";
+"talk-page-error-alert-title" = "Odottamaton virhe";
 "talk-page-error-loading-title" = "Keskustelusivun lataaminen epäonnistui";
 "talk-page-error-unable-to-post-reply" = "Ei Internet-yhteyttä. Vastausta ei voi lähettää.";
 "talk-page-error-unable-to-post-topic" = "Ei Internet-yhteyttä. Keskustelua ei voi lähettää.";

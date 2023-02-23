@@ -84,15 +84,6 @@
 "about-translators-details" = "Denna app översattes av frivilliga översättare på $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Du kan inte publicera denna redigering.";
-"abuse-filter-disallow-unconstructive" = "Ett automatiskt filter har identifierat denna redigering som potentiellt icke-konstruktivt eller ett försök till vandalism. Var vänlig gå tillbaka och ändra din redigering.";
-"abuse-filter-warning-blanking" = "Borttagning av stycken eller hela artiklar";
-"abuse-filter-warning-caps" = "Text skriven helt med VERSALER";
-"abuse-filter-warning-heading" = "Detta ser ut som en icke-konstruktiv redigering. Är du säker på att du vill publicera den?";
-"abuse-filter-warning-irrelevant" = "Irrelevanta externa länkar eller bilder";
-"abuse-filter-warning-repeat" = "Upprepade tecken";
-"abuse-filter-warning-spam" = "Tillägg av skräp till artiklar";
-"abuse-filter-warning-subheading" = "Din redigering kan innehålla:";
 "account-creation-captcha-cannot-see-image" = "Kan du inte se bilden? $1";
 "account-creation-captcha-obtaining" = "Hämtar en ny CAPTCHA...";
 "account-creation-captcha-request-account" = "Begär konto.";
@@ -285,6 +276,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Texten du markerade kunde inte hittas";
 "edit-minor-learn-more-text" = "Läs mer om mindre redigeringar";
 "edit-minor-text" = "Detta är en mindre redigering";
+"edit-notices" = "Redigeringsnotiser";
+"edit-notices-always-display" = "Visa alltid redigeringsnotiser";
+"edit-notices-please-read" = "Var god läs detta innan du redigerar";
 "edit-ordered-list-accessibility-label" = "Gör nuvarande rad till en ordnad lista";
 "edit-ordered-list-remove-accessibility-label" = "Ta bort ordnad lista från nuvarande rad";
 "edit-published" = "Redigeringen publicerades";
