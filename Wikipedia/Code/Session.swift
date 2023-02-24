@@ -742,6 +742,8 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
                 }
                 
                 callbacks.removeValue(forKey: taskIdentifier)
+
+                return
             }
         }
         
