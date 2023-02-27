@@ -495,7 +495,9 @@
 "icon-shortcut-random-title" = "おまかせ記事";
 "icon-shortcut-search-title" = "ウィキペディア内を検索";
 "image-gallery-unknown-owner" = "作者不明。";
+"import-shared-reading-list-survey-prompt-button-cancel" = "今はしない";
 "import-shared-reading-list-survey-prompt-subtitle" = "''リーディングリストを共有''はテスト中です。改善または削除のため、フィードバックをください。";
+"import-shared-reading-list-title" = "共有されたあとで読むリストをインポート";
 "in-the-news-sub-title-from-language-wikipedia" = "$1版ウィキペディアより";
 "in-the-news-sub-title-from-wikipedia" = "ウィキペディアより";
 "in-the-news-title" = "ニュースに関する記事";
@@ -619,9 +621,10 @@
 "notifications-center-status-unread" = "未読";
 "notifications-center-subheader-email-from-other-user" = "新しいメール";
 "notifications-center-subheader-login-success-unknown-device" = "身に覚えのない端末からのログイン";
-"notifications-center-subheader-mention-failed" = "メンションに失敗しました";
-"notifications-center-subheader-mention-successful" = "メンションに成功しました";
+"notifications-center-subheader-mention-failed" = "言及に失敗しました";
+"notifications-center-subheader-mention-successful" = "言及に成功しました";
 "notifications-center-subheader-thanks" = "ありがとうございます";
+"notifications-center-subheader-user-rights-change" = "利用者権限の変更";
 "notifications-center-subheader-welcome" = "ようこそ!";
 "notifications-center-swipe-mark-as-read" = "既読にする";
 "notifications-center-swipe-mark-as-unread" = "未読にする";
