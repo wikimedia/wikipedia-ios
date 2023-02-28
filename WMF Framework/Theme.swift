@@ -790,7 +790,6 @@ public class Colors: NSObject {
         }
     }
     
-
     init(identifier: Identifier) {
         self.identifier = identifier
     }

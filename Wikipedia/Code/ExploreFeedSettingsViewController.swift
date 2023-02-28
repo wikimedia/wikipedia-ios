@@ -35,7 +35,7 @@ private class FeedCard: ExploreFeedSettingsItem {
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-featured-article-description", value: "Daily featured article on Wikipedia", comment: "Description of Featured article section of Explore feed")
             iconName = "featured-mini"
             iconColor = .yellow600
-            iconBackgroundColor = .yellow600
+            iconBackgroundColor = .yellow600.withAlphaComponent(0.3)
         case .topRead:
             title = CommonStrings.topReadTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-top-read-description", value: "Daily most read articles", comment: "Description of Top read section of Explore feed")
@@ -49,7 +49,7 @@ private class FeedCard: ExploreFeedSettingsItem {
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-places-description", value: "Wikipedia articles near your location", comment: "Description of Places section of Explore feed")
             iconName = "nearby-mini"
             iconColor = .green600
-            iconBackgroundColor = .green600
+            iconBackgroundColor = .green100
         case .random:
             title = CommonStrings.randomizerTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-randomizer-description", value: "Generate random articles to read", comment: "Description of Randomizer section of Explore feed")
@@ -61,7 +61,7 @@ private class FeedCard: ExploreFeedSettingsItem {
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-potd-description", value: "Daily featured image from Commons", comment: "Description of Picture of the day section of Explore feed")
             iconName = "potd-mini"
             iconColor = .purpleWiki
-            iconBackgroundColor = .purpleWiki.withAlphaComponent(0.5)
+            iconBackgroundColor = .purpleWiki.withAlphaComponent(0.3)
         case .continueReading:
             title = CommonStrings.continueReadingTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-continue-reading-description", value: "Quick link back to reading an open article", comment: "Description of Continue reading section of Explore feed")
