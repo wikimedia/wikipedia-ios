@@ -62,11 +62,11 @@ public extension UIColor {
     }
 
     @objc static var wmf_purple: UIColor {
-        return .purpleWiki
+        return .purple600
     }
 
     @objc static var wmf_orange: UIColor {
-        return .orangeWiki
+        return .orange600
     }
 
     @objc func wmf_hexStringIncludingAlpha(_ includeAlpha: Bool) -> String {
@@ -361,7 +361,7 @@ public class Colors: NSObject {
     @objc public var warning: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return .orangeWiki
+            return .orange600
         case .dark, .black, .widgetDark:
             return .blue300
         }
@@ -603,7 +603,7 @@ public class Colors: NSObject {
         case .light:
             return .yellow600
         case .sepia, .widgetLight:
-            return .orangeWiki
+            return .orange600
         case .dark, .black, .widgetDark:
             return .blue300
         }
@@ -612,7 +612,7 @@ public class Colors: NSObject {
     @objc public var descriptionWarning: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return .orangeWiki
+            return .orange600
         case .dark, .black, .widgetDark:
             return .blue300
         }
@@ -761,7 +761,7 @@ public class Colors: NSObject {
     }
 
     public var diffCompareAccent: UIColor {
-        return .orangeWiki
+        return .orange600
     }
 
     public var diffCompareChangeHeading: UIColor {

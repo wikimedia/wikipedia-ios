@@ -60,8 +60,8 @@ private class FeedCard: ExploreFeedSettingsItem {
             title = CommonStrings.pictureOfTheDayTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-potd-description", value: "Daily featured image from Commons", comment: "Description of Picture of the day section of Explore feed")
             iconName = "potd-mini"
-            iconColor = .purpleWiki
-            iconBackgroundColor = .purpleWiki.withAlphaComponent(0.3)
+            iconColor = .purple600
+            iconBackgroundColor = .purple600.withAlphaComponent(0.3)
         case .continueReading:
             title = CommonStrings.continueReadingTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-continue-reading-description", value: "Quick link back to reading an open article", comment: "Description of Continue reading section of Explore feed")

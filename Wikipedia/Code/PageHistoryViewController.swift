@@ -531,13 +531,13 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         let timeColor: UIColor
         // themeTODO: define a semantic color for this instead of checking isDark
         if theme.isDark {
-            backgroundColor = UIColor.orangeWiki.withAlphaComponent(0.15)
+            backgroundColor = UIColor.orange600.withAlphaComponent(0.15)
             timeColor = theme.colors.tertiaryText
         } else {
             backgroundColor = .yellow600
             timeColor = .gray500
         }
-        return SelectionThemeModel(selectedImage: UIImage(named: "selected-accent"), borderColor: UIColor.orangeWiki.withAlphaComponent(0.5), backgroundColor: backgroundColor, authorColor: UIColor.orangeWiki, commentColor: theme.colors.primaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
+        return SelectionThemeModel(selectedImage: UIImage(named: "selected-accent"), borderColor: UIColor.orange600.withAlphaComponent(0.5), backgroundColor: backgroundColor, authorColor: UIColor.orange600, commentColor: theme.colors.primaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
     }()
 
     private lazy var secondSelectionThemeModel: SelectionThemeModel = {
