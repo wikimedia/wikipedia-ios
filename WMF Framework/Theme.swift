@@ -33,7 +33,8 @@ public extension UIColor {
         }
         self.init(Int(int), alpha: alpha)
     }
-
+    
+    //Make colors accessible to @objc
     @objc static var wmf_blue_700: UIColor {
         return .blue700
     }
