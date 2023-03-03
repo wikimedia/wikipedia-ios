@@ -633,10 +633,7 @@ public class Colors: NSObject {
     }
     
     @objc public var unreadIndicator: UIColor {
-        switch identifier {
-        default:
-            return .green600
-        }
+        return .green600
     }
     
     @objc public var refreshControlTint: UIColor {
