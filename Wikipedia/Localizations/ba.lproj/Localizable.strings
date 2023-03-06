@@ -15,6 +15,7 @@
 "about-content-license" = "Эстәлек лицензияһы";
 "about-content-license-details" = "Башҡаһы күрһәтелмәһә, файл эсендәге нәмә $1 ярашлы асыҡ була.";
 "about-content-license-details-share-alike-license" = " Creative Commons Attribution-ShareAlike лицензияһы менән";
+"test" = "this is a test";
 "about-contributors" = "Авторҙар";
 "about-libraries" = "файҙаланған китапханалар";
 "about-libraries-complete-list" = "Тулы исемлек";

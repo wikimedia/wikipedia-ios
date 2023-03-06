@@ -113,5 +113,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>test row</key>
+	<string>a test</string>
 </dict>
 </plist>
