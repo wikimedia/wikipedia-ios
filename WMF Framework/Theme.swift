@@ -364,7 +364,7 @@ public class Colors: NSObject {
         case .light, .sepia, .widgetLight:
             return .orange600
         case .dark, .black, .widgetDark:
-            return .blue300
+            return .yellow600
         }
     }
     @objc public var error: UIColor {
@@ -581,7 +581,7 @@ public class Colors: NSObject {
     @objc public var tagSelectedBackground: UIColor {
         switch identifier {
         case .light:
-            return .blue600.withAlphaComponent(0.125)
+            return .blue600.withAlphaComponent(0.25)
         default:
             return .blue600
 
@@ -615,7 +615,7 @@ public class Colors: NSObject {
         case .light, .sepia, .widgetLight:
             return .orange600
         case .dark, .black, .widgetDark:
-            return .blue300
+            return .yellow600
         }
     }
     
@@ -673,9 +673,9 @@ public class Colors: NSObject {
     public var diffTextAdd: UIColor {
         switch identifier {
         case .light:
-            return .green100
+            return .gray700
         default:
-            return .clear
+            return .green600
         }
     }
 
