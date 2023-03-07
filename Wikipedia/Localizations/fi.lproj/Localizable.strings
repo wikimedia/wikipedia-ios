@@ -168,6 +168,7 @@
 "button-next" = "Seuraava";
 "button-ok" = "OK";
 "button-publish" = "Julkaise";
+"button-publish-anyway" = "Julkaise silti";
 "button-read-now" = "Lue nyt";
 "button-report-a-bug" = "Ilmoita ongelmasta";
 "button-save-for-later" = "Tallenna myöhemmäksi";
