@@ -29,7 +29,7 @@
 "aaald-new-talk-topic-description-format" = "$1 o tem članku";
 "aaald-new-website-reference-archive-date-text" = "iz izvirnika dne $1";
 "aaald-new-website-reference-archive-url-text" = "URL na archive.org";
-"aaald-new-website-reference-title" = "Spletna stran";
+"aaald-new-website-reference-title" = "Spletno mesto";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=Dodanih 0 sklicev|one=Dodan $1 sklic|two=Dodana $1 sklica|few=Dodani $1 sklici|Dodanih $1 sklicev}}";
 "aaald-one-section-description" = "v razdelku $1";
 "aaald-revision-by-anonymous" = "Urejanje anonimnega uporabnika";
