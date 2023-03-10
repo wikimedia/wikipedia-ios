@@ -57,7 +57,6 @@ open class WMFWelcomeAnimationView : UIView, Themeable {
                 backgroundColor = theme.colors.midBackground
                 layer.masksToBounds = true
             } else {
-                // backgroundColor = UIColor(0xdddddd)
                 backgroundColor = .clear
                 layer.masksToBounds = false
             }

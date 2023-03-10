@@ -399,8 +399,8 @@
 "insert-media-media-settings-title" = "Médiabeállítások";
 "insert-media-title" = "Média beszúrása";
 "insert-media-uploaded-image-title" = "Feltöltött kép";
-"intermediate-edits-count" = "{{PLURAL:$1|Egy közbenső módosítást|$1 közbenső módosítást}} nem mutattunk";
-"intermediate-edits-count-limited" = "$1+ közbenső változtatást nem mutattunk";
+"intermediate-edits-count" = "{{PLURAL:$1|Egy közbenső módosítás|$1 közbenső módosítás}} nincs mutatva";
+"intermediate-edits-count-limited" = "$1+ közbenső változtatás nincs mutatva";
 "kazakh-variants-alert-title" = "A kazak nyelvi változat támogatásának frissítése";
 "kurdish-variants-alert-title" = "A kurd nyelvi változat támogatásának frissítése";
 "languages-settings-title" = "Nyelvek";
