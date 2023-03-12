@@ -537,9 +537,6 @@ let WMFOneTimeForceExploreRefresh = "WMFOneTimeForceExploreRefresh"
     }
     
     @objc func wmf_oneTimeForceExploreRefresh() -> Bool {
-        if object(forKey: WMFOneTimeForceExploreRefresh) == nil {
-            return true
-        }
         return bool(forKey: WMFOneTimeForceExploreRefresh)
     }
     
