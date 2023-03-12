@@ -245,26 +245,54 @@
     return article;
 }
 
-- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithFeedPreview:(nullable WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews {
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithFeedPreview:(nullable WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews isFeatured:(BOOL)isFeatured {
     NSParameterAssert(articleURL);
     if (!articleURL) {
         return nil;
     }
 
     WMFArticle *preview = [self fetchOrCreateArticleWithURL:articleURL];
+    
+    BOOL featuredContentChanged = NO;
+    
     if ([feedPreview.displayTitleHTML length] > 0) {
+        
+        if (isFeatured && ![preview.displayTitleHTML isEqualToString:feedPreview.displayTitleHTML]) {
+            featuredContentChanged = YES;
+        }
+        
         preview.displayTitleHTML = feedPreview.displayTitleHTML;
     } else if ([feedPreview.displayTitle length] > 0) {
+        
+        if (isFeatured && ![preview.displayTitleHTML isEqualToString:feedPreview.displayTitle]) {
+            featuredContentChanged = YES;
+        }
+        
         preview.displayTitleHTML = feedPreview.displayTitle;
     }
     
     if ([feedPreview.wikidataDescription length] > 0) {
+        
+        if (isFeatured && ![preview.wikidataDescription isEqualToString:feedPreview.wikidataDescription]) {
+            featuredContentChanged = YES;
+        }
+        
         preview.wikidataDescription = feedPreview.wikidataDescription;
     }
     if ([feedPreview.snippet length] > 0) {
+        
+        if (isFeatured && ![preview.snippet isEqualToString:feedPreview.snippet]) {
+            featuredContentChanged = YES;
+        }
+        
         preview.snippet = feedPreview.snippet;
     }
     if (feedPreview.thumbnailURL != nil) {
+        
+        if (isFeatured && ![preview.thumbnailURL isEqual:feedPreview.thumbnailURL]) {
+            featuredContentChanged = YES;
+        }
+        
         preview.thumbnailURL = feedPreview.thumbnailURL;
     }
     if (pageViews != nil) {
@@ -275,6 +303,11 @@
         }
     }
     if (feedPreview.imageURLString != nil) {
+        
+        if (isFeatured && ![preview.imageURLString isEqualToString:feedPreview.imageURLString]) {
+            featuredContentChanged = YES;
+        }
+        
         preview.imageURLString = feedPreview.imageURLString;
     }
     if (feedPreview.imageWidth != nil) {
@@ -283,6 +316,11 @@
     if (feedPreview.imageHeight != nil) {
         preview.imageHeight = feedPreview.imageHeight;
     }
+    
+    if (featuredContentChanged) {
+        [SharedContainerCacheClearFeaturedArticleWrapper clearOutFeaturedArticleWidgetCache];
+    }
+    
     return preview;
 }
 

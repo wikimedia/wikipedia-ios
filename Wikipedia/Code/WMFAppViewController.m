@@ -960,14 +960,16 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDate *feedRefreshDate = [defaults wmf_feedRefreshDate];
     NSDate *now = [NSDate date];
+    BOOL oneTimeForcedRefresh = [defaults wmf_oneTimeForceExploreRefresh];
 
     BOOL locationAuthorized = [LocationManagerFactory coarseLocationManager].isAuthorized;
-    if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > [self timeBeforeRefreshingExploreFeed] || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
+    if (!feedRefreshDate || !oneTimeForcedRefresh || [now timeIntervalSinceDate:feedRefreshDate] > [self timeBeforeRefreshingExploreFeed] || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
         [resumeAndAnnouncementsCompleteGroup enter];
         [self.exploreViewController updateFeedSourcesWithDate:nil
                                                 userInitiated:NO
                                                    completion:^{
                                                        [resumeAndAnnouncementsCompleteGroup leave];
+                                                        [[NSUserDefaults standardUserDefaults] wmf_setOneTimeForceExploreRefresh:YES];
                                                    }];
     } else {
         if (locationAuthorized != [defaults wmf_locationAuthorized]) {

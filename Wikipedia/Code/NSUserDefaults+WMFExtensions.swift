@@ -32,6 +32,7 @@ let WMFDidShowNotificationsCenterPushOptInPanel = "WMFDidShowNotificationsCenter
 let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
 let WMFTappedToImportSharedReadingListSurvey = "WMFTappedToImportSharedReadingListSurvey"
 public let WMFAlwaysDisplayEditNotices = "WMFAlwaysDisplayEditNotices"
+let WMFOneTimeForceExploreRefresh = "WMFOneTimeForceExploreRefresh"
 
 @objc public enum WMFAppDefaultTabType: Int {
     case explore
@@ -534,7 +535,17 @@ public let WMFAlwaysDisplayEditNotices = "WMFAlwaysDisplayEditNotices"
             set(newValue, forKey: WMFAlwaysDisplayEditNotices)
         }
     }
-
+    
+    @objc func wmf_oneTimeForceExploreRefresh() -> Bool {
+        if object(forKey: WMFOneTimeForceExploreRefresh) == nil {
+            return true
+        }
+        return bool(forKey: WMFOneTimeForceExploreRefresh)
+    }
+    
+    @objc func wmf_setOneTimeForceExploreRefresh(_ newValue: Bool) {
+        set(newValue, forKey: WMFOneTimeForceExploreRefresh)
+    }
 
 #if UI_TEST
     @objc func wmf_isFastlaneSnapshotInProgress() -> Bool {
