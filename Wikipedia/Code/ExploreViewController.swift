@@ -746,7 +746,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     var eventLoggingLabel: EventLabelMEP? {
-        return getLabelfor(previewed.context)
+        return previewed.context?.getAnalyticsLabel()
     }
 
     // MARK: - For NestedCollectionViewContextMenuDelegate
@@ -837,9 +837,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
         if let date = previewed.context?.midnightUTCDate {
             if didSave {
-                ReadingListsFunnel.shared.logSaveInFeed(label: getLabelfor(previewed.context), measureAge: date, articleURL: articleURL, index: previewed.indexPathItem)
+                ReadingListsFunnel.shared.logSaveInFeed(label: previewed.context?.getAnalyticsLabel(), measureAge: date, articleURL: articleURL, index: previewed.indexPathItem)
             } else {
-                ReadingListsFunnel.shared.logUnsaveInFeed(label: getLabelfor(previewed.context), measureAge: date, articleURL: articleURL, index: previewed.indexPathItem)
+                ReadingListsFunnel.shared.logUnsaveInFeed(label: previewed.context?.getAnalyticsLabel(), measureAge: date, articleURL: articleURL, index: previewed.indexPathItem)
             }
         }
     }
@@ -1092,45 +1092,3 @@ extension ExploreViewController {
     }
 
 }
-
-// MARK: - MEP analytics extension
-
-extension ExploreViewController {
-    func getLabelfor(_ contentGroup: WMFContentGroup?) -> EventLabelMEP? {
-        if let contentGroup {
-            switch contentGroup.contentGroupKind {
-            case .featuredArticle:
-                return .featuredArticle
-            case .topRead:
-                return .topRead
-            case .onThisDay:
-                return .onThisDay
-            case .random:
-                return .random
-            case .news:
-                return .news
-            case .relatedPages:
-                return .relatedPages
-            case .continueReading:
-                return .continueReading
-            case .locationPlaceholder:
-                fallthrough
-            case .location:
-                return .location
-            case .mainPage:
-                return .mainPage
-            case .pictureOfTheDay:
-                return .pictureOfTheDay
-            case .announcement:
-                guard let announcement = contentGroup.contentPreview as? WMFAnnouncement else {
-                    return .announcement
-                }
-                return announcement.placement == "article" ? .articleAnnouncement : .announcement
-            default:
-                return nil
-            }
-        }
-        return nil
-    }
-}
-

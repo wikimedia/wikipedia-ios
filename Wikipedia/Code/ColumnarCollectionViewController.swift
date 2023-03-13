@@ -395,7 +395,6 @@ extension ColumnarCollectionViewController {
             return
         }
         animator.addCompletion { [weak self] in
-            (self as? CollectionViewContextMenuShowing)?.poppingIntoVCCompletion()
             previewedViewController.wmf_removePeekableChildViewControllers()
             self?.push(previewedViewController, animated: true)
         }

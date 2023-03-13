@@ -531,7 +531,7 @@ import CocoaLumberjackSwift
             case appSessionID = "app_session_id"
             case dt
             case event
-            case isAnon
+            case isAnon = "is_anon"
             case primaryLanguage = "primary_language"
         }
         

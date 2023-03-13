@@ -64,11 +64,11 @@
     }
 
     func logSearchResults(with type: WMFSearchType, resultCount: Int, elapsedTime: Double, source: String) {
-        logEvent(action: .results, source: source, searchType: type, numberOfResults: resultCount, timeToDisplay: Int(elapsedTime))
+        logEvent(action: .results, source: source, searchType: type, numberOfResults: resultCount, timeToDisplay: Int(elapsedTime * 1000))
     }
 
     func logShowSearchError(with type: WMFSearchType, elapsedTime: Double, source: String) {
-        logEvent(action: .error, source: source, searchType: type, timeToDisplay: Int(elapsedTime))
+        logEvent(action: .error, source: source, searchType: type, timeToDisplay: Int(elapsedTime * 1000))
     }
 
 }

@@ -22,7 +22,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     }
 
     private let sharedCache = SharedContainerCache<UserHistorySnapshotCache>.init(fileName: "User History Funnel Snapshot", defaultCache: {
-        UserHistorySnapshotCache(snapshot: UserHistoryFunnel.Event(measure_readinglist_listcount: nil, measure_readinglist_itemcount: nil, measure_font_size: nil, readinglist_sync: nil, readinglist_showdefault: nil, theme: nil, feed_disabled: nil, search_tab: nil, feed_enabled_list: nil, inbox_count: nil, device_level_enabled: nil))
+        UserHistorySnapshotCache(snapshot: UserHistoryFunnel.Event(measure_readinglist_listcount: nil, measure_readinglist_itemcount: nil, measure_font_size: nil, readinglist_sync: nil, readinglist_showdefault: nil, theme: nil, feed_disabled: nil, search_tab: nil, feed_enabled_list: nil, inbox_count: nil, device_level_enabled: nil, test_group: nil))
     })
 
     public struct FeedEnabledList: Codable, Equatable {
@@ -79,6 +79,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let feed_enabled_list: FeedEnabledList?
         let inbox_count: Int?
         let device_level_enabled: String?
+        let test_group: String?
 
         public static func == (lhs: UserHistoryFunnel.Event, rhs: UserHistoryFunnel.Event) -> Bool {
             return lhs.measure_readinglist_listcount == lhs.measure_readinglist_listcount
@@ -91,9 +92,9 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             && lhs.feed_enabled_list == rhs.feed_enabled_list
             && lhs.inbox_count == rhs.inbox_count
             && lhs.device_level_enabled == rhs.device_level_enabled
+            && lhs.test_group == rhs.test_group
         }
     }
-
 
     private func getLanguagesForItemInFeed(code: String?) -> ItemLanguages? {
         guard let code else { return nil }
@@ -135,8 +136,18 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         return feedItem
     }
 
-    @discardableResult
-    private func logEvent(authorizationStatus: UNAuthorizationStatus?) -> Event {
+
+    private func logEvent(event: Event) {
+        EventPlatformClient.shared.submit(stream: .userHistory, event: event)
+
+        var cache = self.sharedCache.loadCache()
+        cache.snapshot = event
+
+        UserDefaults.standard.wmf_lastAppVersion = WikipediaAppUtils.appVersion()
+        self.sharedCache.saveCache(cache)
+    }
+
+    private func event(authorizationStatus: UNAuthorizationStatus?) -> Event {
         let userDefaults = UserDefaults.standard
         let theme = userDefaults.themeAnalyticsName
         let isFeedDisabled = userDefaults.defaultTabType != .explore
@@ -149,8 +160,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let readingListCount = try? dataStore.viewContext.allReadingListsCount()
         let status = authorizationStatus?.getAuthorizationStatusString()
 
-        let event = Event(measure_readinglist_listcount: savedArticlesCount, measure_readinglist_itemcount: readingListCount, measure_font_size: fontSize, readinglist_sync: isSyncEnabled, readinglist_showdefault: isDefaultListEnabled, theme: theme, feed_disabled: isFeedDisabled, search_tab: appOpensOnSearchTab, feed_enabled_list: getFeedEnabledList(), inbox_count: inboxCount, device_level_enabled: status)
-        EventPlatformClient.shared.submit(stream: .userHistory, event: event)
+        let event = Event(measure_readinglist_listcount: savedArticlesCount, measure_readinglist_itemcount: readingListCount, measure_font_size: fontSize, readinglist_sync: isSyncEnabled, readinglist_showdefault: isDefaultListEnabled, theme: theme, feed_disabled: isFeedDisabled, search_tab: appOpensOnSearchTab, feed_enabled_list: getFeedEnabledList(), inbox_count: inboxCount, device_level_enabled: status, test_group: nil)
         return event
     }
     
@@ -167,8 +177,6 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             return
         }
 
-        var cache = self.sharedCache.loadCache()
-
         dataStore.notificationsController.notificationPermissionsStatus { [weak self] authorizationStatus in
             guard let self = self else {
                 return
@@ -176,22 +184,19 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
 
             DispatchQueue.main.async {
                 guard let lastAppVersion = UserDefaults.standard.wmf_lastAppVersion else {
-                    self.logEvent(authorizationStatus: authorizationStatus)
+                    let newEvent = self.event(authorizationStatus: authorizationStatus)
+                    self.logEvent(event: newEvent)
                     return
                 }
                 guard let latestSnapshot = self.latestSnapshot else {
                     return
                 }
                 
-                let newSnapshot = self.logEvent(authorizationStatus: authorizationStatus)
-
+                let newSnapshot = self.event(authorizationStatus: authorizationStatus)
                 guard !(newSnapshot == latestSnapshot) || lastAppVersion != WikipediaAppUtils.appVersion() else {
                     return
                 }
-                let events = self.logEvent(authorizationStatus: authorizationStatus)
-
-                cache.snapshot = events
-                self.sharedCache.saveCache(cache)
+                self.logEvent(event: newSnapshot)
             }
         }
     }
@@ -211,7 +216,8 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             }
             
             DispatchQueue.main.async {
-                self.logEvent(authorizationStatus: authorizationStatus)
+                let event = self.event(authorizationStatus: authorizationStatus)
+                self.logEvent(event: event)
             }
         }
     }

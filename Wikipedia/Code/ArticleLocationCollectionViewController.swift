@@ -9,7 +9,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     let dataStore: MWKDataStore
     fileprivate let locationManager = LocationManager()
     private var previewedIndexPath: IndexPath?
-    private var contentGroup: WMFContentGroup?
+    private let contentGroup: WMFContentGroup?
 
     let contentGroupIDURIString: String?
 
@@ -78,24 +78,18 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     }
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
-        guard let context = contentGroup else {
-            super.readMoreArticlePreviewActionSelected(with: articleController)
-            return
-        }
-        articleController.wmf_removePeekableChildViewControllers()
-        push(articleController, animated: true)
+        super.readMoreArticlePreviewActionSelected(with: articleController)
     }
 
     override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
-        guard let context = contentGroup else {
+        guard let context = contentGroup, let contextDate = context.midnightUTCDate else {
             super.saveArticlePreviewActionSelected(with: articleController, didSave: didSave, articleURL: articleURL)
             return
         }
         if didSave {
-            // Todo MArina - safely unwrap the date first
-            ReadingListsFunnel.shared.logSaveInFeed(label: getLabelfor(context), measureAge: context.midnightUTCDate ?? Date(), articleURL: articleURL, index: previewedIndexPath?.item)
+            ReadingListsFunnel.shared.logSaveInFeed(label: context.getAnalyticsLabel(), measureAge: contextDate, articleURL: articleURL, index: previewedIndexPath?.item)
         } else {
-            ReadingListsFunnel.shared.logUnsaveInFeed(label: getLabelfor(context), measureAge: context.midnightUTCDate ?? Date(), articleURL: articleURL, index: previewedIndexPath?.item)
+            ReadingListsFunnel.shared.logUnsaveInFeed(label: context.getAnalyticsLabel(), measureAge: contextDate, articleURL: articleURL, index: previewedIndexPath?.item)
         }
     }
 
@@ -198,10 +192,6 @@ extension ArticleLocationCollectionViewController: CollectionViewContextMenuShow
         return articleViewController
     }
 
-    var poppingIntoVCCompletion: () -> Void {
-        return {}
-        }
-    
 }
 
 // MARK: - Reading lists event logging
@@ -214,45 +204,3 @@ extension ArticleLocationCollectionViewController: MEPEventsProviding {
         return nil
     }
 }
-
-// MARK: - MEP analytics extension
-
-extension ArticleLocationCollectionViewController {
-    func getLabelfor(_ contentGroup: WMFContentGroup?) -> EventLabelMEP? {
-        if let contentGroup {
-            switch contentGroup.contentGroupKind {
-            case .featuredArticle:
-                return .featuredArticle
-            case .topRead:
-                return .topRead
-            case .onThisDay:
-                return .onThisDay
-            case .random:
-                return .random
-            case .news:
-                return .news
-            case .relatedPages:
-                return .relatedPages
-            case .continueReading:
-                return .continueReading
-            case .locationPlaceholder:
-                fallthrough
-            case .location:
-                return .location
-            case .mainPage:
-                return .mainPage
-            case .pictureOfTheDay:
-                return .pictureOfTheDay
-            case .announcement:
-                guard let announcement = contentGroup.contentPreview as? WMFAnnouncement else {
-                    return .announcement
-                }
-                return announcement.placement == "article" ? .articleAnnouncement : .announcement
-            default:
-                return nil
-            }
-        }
-        return nil
-    }
-}
-

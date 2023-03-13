@@ -3,15 +3,14 @@ import UIKit
 class ArticleURLListViewController: ArticleCollectionViewController, DetailPresentingFromContentGroup {
     let articleURLs: [URL]
     private let articleKeys: Set<String>
-    let contentGroupIDURIString: String?
-    private let contentGroup: WMFContentGroup?
+    var contentGroupIDURIString: String?
 
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
         self.articleKeys = Set<String>(articleURLs.compactMap { $0.wmf_databaseKey })
+        super.init()
         self.contentGroup = contentGroup
         self.contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
-        super.init()
         self.theme = theme
         self.dataStore = dataStore
     }
@@ -61,7 +60,10 @@ class ArticleURLListViewController: ArticleCollectionViewController, DetailPrese
     }
     
     override var eventLoggingLabel: EventLabelMEP? {
-        return getLabelfor(contentGroup)
+        if let contentGroup {
+            return contentGroup.getAnalyticsLabel()
+        }
+        return nil
     }
 
     override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
@@ -108,46 +110,5 @@ extension ArticleURLListViewController {
 extension ArticleURLListViewController {
     override func didPerformAction(_ action: Action) -> Bool {
         return super.didPerformAction(action)
-    }
-}
-
-// MARK: - MEP Analytics extension
-
-extension ArticleURLListViewController {
-    func getLabelfor(_ contentGroup: WMFContentGroup?) -> EventLabelMEP? {
-        if let contentGroup {
-            switch contentGroup.contentGroupKind {
-            case .featuredArticle:
-                return .featuredArticle
-            case .topRead:
-                return .topRead
-            case .onThisDay:
-                return .onThisDay
-            case .random:
-                return .random
-            case .news:
-                return .news
-            case .relatedPages:
-                return .relatedPages
-            case .continueReading:
-                return .continueReading
-            case .locationPlaceholder:
-                fallthrough
-            case .location:
-                return .location
-            case .mainPage:
-                return .mainPage
-            case .pictureOfTheDay:
-                return .pictureOfTheDay
-            case .announcement:
-                guard let announcement = contentGroup.contentPreview as? WMFAnnouncement else {
-                    return .announcement
-                }
-                return announcement.placement == "article" ? .articleAnnouncement : .announcement
-            default:
-                return nil
-            }
-        }
-        return nil
     }
 }

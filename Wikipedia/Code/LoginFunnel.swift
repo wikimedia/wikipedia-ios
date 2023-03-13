@@ -19,7 +19,13 @@
     }
 
     private func logEvent(category: EventCategoryMEP, label: EventLabelMEP?, action: Action, measure: Double? = nil) {
-        let event = LoginFunnel.Event(measure_time: Int(round(measure ?? Double())), action: action, label: label, category: category)
+        let measureTime: Int?
+        if let measure {
+            measureTime = Int(round(measure))
+        } else {
+            measureTime = nil
+        }
+        let event = LoginFunnel.Event(measure_time: measureTime, action: action, label: label, category: category)
         EventPlatformClient.shared.submit(stream: .login, event: event)
     }
 

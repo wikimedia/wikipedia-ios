@@ -553,7 +553,7 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilitySavedNotification)
                 if let date = contentGroup?.midnightUTCDate {
-                    ReadingListsFunnel.shared.logSaveInFeed(label: getLabelfor(contentGroup), measureAge: date, articleURL: articleURL, index: action.indexPath.item)
+                    ReadingListsFunnel.shared.logSaveInFeed(label: contentGroup?.getAnalyticsLabel(), measureAge: date, articleURL: articleURL, index: action.indexPath.item)
                 }
                 return true
             }
@@ -562,7 +562,7 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
                 dataStore.savedPageList.removeEntry(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilityUnsavedNotification)
                 if let date = contentGroup?.midnightUTCDate {
-                    ReadingListsFunnel.shared.logUnsaveInFeed(label: getLabelfor(contentGroup), measureAge: date, articleURL: articleURL, index: action.indexPath.item)
+                    ReadingListsFunnel.shared.logUnsaveInFeed(label: contentGroup?.getAnalyticsLabel(), measureAge: date, articleURL: articleURL, index: action.indexPath.item)
                 }
                 return true
             }
@@ -694,7 +694,7 @@ extension ExploreCardViewController: Themeable {
 
 extension ExploreCardViewController: MEPEventsProviding {
     var eventLoggingLabel: EventLabelMEP? {
-        return getLabelfor(contentGroup)
+        return contentGroup?.getAnalyticsLabel()
     }
     
     var eventLoggingCategory: EventCategoryMEP {
@@ -715,45 +715,5 @@ extension ExploreCardViewController {
 
     public func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         delegate?.willCommitPreview(with: animator)
-    }
-}
-
-// MARK: - MEP analytics extension
-extension ExploreCardViewController {
-    func getLabelfor(_ contentGroup: WMFContentGroup?) -> EventLabelMEP? {
-        if let contentGroup {
-            switch contentGroup.contentGroupKind {
-            case .featuredArticle:
-                return .featuredArticle
-            case .topRead:
-                return .topRead
-            case .onThisDay:
-                return .onThisDay
-            case .random:
-                return .random
-            case .news:
-                return .news
-            case .relatedPages:
-                return .relatedPages
-            case .continueReading:
-                return .continueReading
-            case .locationPlaceholder:
-                fallthrough
-            case .location:
-                return .location
-            case .mainPage:
-                return .mainPage
-            case .pictureOfTheDay:
-                return .pictureOfTheDay
-            case .announcement:
-                guard let announcement = contentGroup.contentPreview as? WMFAnnouncement else {
-                    return .announcement
-                }
-                return announcement.placement == "article" ? .articleAnnouncement : .announcement
-            default:
-                return nil
-            }
-        }
-        return nil
     }
 }

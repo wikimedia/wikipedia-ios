@@ -11,6 +11,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
     var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
 
     var editController: CollectionViewEditController!
+    var contentGroup: WMFContentGroup?
     
     @objc weak var delegate: ArticleCollectionViewControllerDelegate?
     
@@ -156,10 +157,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         return articleViewController
     }
 
-    var poppingIntoVCCompletion: () -> Void {
-        // Nothing special needs to be run for this VC.
-        return {}
-    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -238,16 +235,16 @@ extension ArticleCollectionViewController: ActionDelegate {
         case .save:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
-                // MARINA TODO fix dates here
+
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilitySavedNotification)
-                ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: Date(), measurePosition: indexPath.item)
+                ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: contentGroup?.midnightUTCDate ?? Date(), measurePosition: indexPath.item)
                 return true
             }
         case .unsave:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.removeEntry(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilityUnsavedNotification)
-                ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: Date(), measurePosition: indexPath.item)
+                ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: contentGroup?.midnightUTCDate ?? Date(), measurePosition: indexPath.item)
                 return true
             }
         case .share:

@@ -98,19 +98,19 @@
     }
     
     public func logUnsave(category: EventCategoryMEP, label: EventLabelMEP?, articleURL: URL?) {
-        logEvent(action: .save, category: category, label: label, measure: 1)
+        logEvent(action: .unsave, category: category, label: label, measure: 1)
     }
     
     private func logUnsave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, language: String?, measureAge: Int? = nil, measurePosition: Int? = nil) {
-        logEvent(action: .save, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge)
+        logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge)
     }
     
     private func logUnsave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
-        logEvent(action: .save, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge)
+        logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge)
     }
 
     public func logUnsave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, date: Date?, measurePosition: Int) {
-        logEvent(action: .save, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: daysSince(date))
+        logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: daysSince(date))
     }
 
     public func logSave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, date: Date?, measurePosition: Int) {
@@ -140,11 +140,11 @@
     // - MARK: Add articles to reading list
     
     public func logDeleteInAddToReadingList(readingListsCount: Int = 1) {
-        logEvent(action: .deleteList, category: .addToList, label: .lists, measure: readingListsCount)
+        logEvent(action: .deleteList, category: .addToList, label: nil, measure: readingListsCount)
     }
     
     public func logCreateInAddToReadingList() {
-        logEvent(action: .createList, category: .addToList, label: .lists, measure: 1)
+        logEvent(action: .createList, category: .addToList, label: nil, measure: 1)
     }
     
     // - MARK: Import Shared Reading Lists
@@ -154,7 +154,7 @@
     }
     
     public func logCancelImport() {
-        logEvent(action: .receiveCancel, category: .shared, label: nil, measure: 1)
+        logEvent(action: .receiveCancel, category: .shared, label: nil)
     }
     
     public func logCompletedImport(articlesCount: Int) {

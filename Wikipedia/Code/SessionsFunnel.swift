@@ -24,11 +24,19 @@
     }
 
     private func logEvent(category: EventCategoryMEP, label: EventLabelMEP?, action: Action?, measure: Double? = nil) {
-        let event1 = SessionsFunnel.Event(
-            category: category,
-            label: label, measure_time: Int(round(measure ?? Double())), page_load_latency_min: Int(round(pageLoadMin ?? Double())), page_load_latency_max: Int(round(pageLoadMax ?? Double())), page_load_latency_average: Int(round(pageLoadAverage ?? Double())) )
+        let measureTime: Int?
+        if let measure {
+            measureTime = Int(round(measure))
+        } else {
+            measureTime = nil
+        }
 
-        EventPlatformClient.shared.submit(stream: .sessions, event: event1)
+
+        let finalEvent = SessionsFunnel.Event(
+            category: category,
+            label: label, measure_time: measureTime, page_load_latency_min: Int(round(pageLoadMin ?? Double())), page_load_latency_max: Int(round(pageLoadMax ?? Double())), page_load_latency_average: Int(round(pageLoadAverage ?? Double())) )
+
+        EventPlatformClient.shared.submit(stream: .sessions, event: finalEvent)
     }
 
     @objc public func logSessionStart() {

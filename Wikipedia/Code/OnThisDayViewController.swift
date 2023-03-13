@@ -185,6 +185,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
+        push(articleController, animated: true)
     }
 }
 
@@ -293,12 +294,6 @@ extension OnThisDayViewController {
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath) {
-        let index: Int?
-        if let indexPath = collectionView.indexPath(for: sideScrollingCollectionViewCell) {
-            index = indexPath.section - 1
-        } else {
-            index = nil
-        }
         navigate(to: articleURL)
     }
 }

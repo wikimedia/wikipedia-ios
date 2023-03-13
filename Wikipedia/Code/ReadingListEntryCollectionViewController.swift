@@ -436,10 +436,6 @@ extension ReadingListEntryCollectionViewController: CollectionViewContextMenuSho
         return articleViewController
     }
 
-    var poppingIntoVCCompletion: () -> Void {
-        // Nothing custom needs to run for this VC
-        return {}
-    }
 }
 
 // MARK: - UICollectionViewDelegate

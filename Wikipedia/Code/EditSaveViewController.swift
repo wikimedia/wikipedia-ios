@@ -312,15 +312,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                   let currentTitle = articleURL?.wmf_title else {
                 return
             }
-            if errorType == .abuseFilterDisallowed {
-                WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                mode = .abuseFilterDisallow
-                abuseFilterCode = nsError.userInfo["code"] as! String
-            } else {
-                WMFAlertManager.sharedInstance.showWarningAlert(nsError.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                mode = .abuseFilterWarning
-                abuseFilterCode = nsError.userInfo["code"] as! String
-            }
             
             if errorType == .abuseFilterDisallowed {
                 mode = .abuseFilterDisallow
@@ -432,8 +423,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     func summaryChanged(newSummary: String) {
         summaryText = newSummary
     }
-    
-    func cannedButtonTapped(type: EditSummaryViewCannedButtonType) {}
     
     // Keep bottom divider and license/login labels at bottom of screen while remaining scrollable.
     // (Having these bits scrollable is important for landscape, being covered by keyboard, captcha appearance, small screen devices, etc.)
