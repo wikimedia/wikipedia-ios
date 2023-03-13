@@ -56,7 +56,7 @@
     }
 
     func logSearchCancel(source: String) {
-        logEvent(action: .click, source: source)
+        logEvent(action: .cancel, source: source)
     }
 
     func logSearchLangSwitch(source: String) {
