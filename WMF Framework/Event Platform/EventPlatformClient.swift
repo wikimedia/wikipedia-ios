@@ -189,12 +189,6 @@ import CocoaLumberjackSwift
     private var _streamConfigurations: [Stream: StreamConfiguration]? = nil
 
     /**
-     * Updated when app enters background, used for determining if the session has
-     * expired.
-     */
-    private var lastTimestamp: Date = Date()
-    
-    /**
      * Return a session identifier
      * - Returns: session ID
      *
@@ -203,28 +197,41 @@ import CocoaLumberjackSwift
      */
     internal var sessionID: String {
         queue.sync {
+            var _sessionID = UserDefaults.standard.wmf_sessionID
             guard let sID = _sessionID else {
                 let newID = generateID()
                 _sessionID = newID
                 return newID
             }
-
             return sID
         }
     }
 
-    private var _sessionID: String?
-
+    /**
+     * Checks if there is a valid session ID stored in user defaults
+     * - Returns: Bool
+     */
+    public var hasValidSessionID: Bool {
+        let _sessionID = UserDefaults.standard.wmf_sessionID
+        if let _sessionID {
+            return !_sessionID.isEmpty
+        }
+        return false
+    }
 
     private var isAnon: Bool {
         return dataStore.authenticationManager.isLoggedIn
     }
 
-    private var primaryLanguage: String {
+    private var _primaryLanguage: String {
         if let appLanguage = dataStore.languageLinkController.appLanguage {
             return appLanguage.languageCode
         }
         return "en"
+    }
+
+    public var primaryLanguage: String {
+        return _primaryLanguage
     }
 
     // MARK: - Methods
@@ -250,13 +257,14 @@ import CocoaLumberjackSwift
      * `applicationWillResignActive()` and disables event logging.
      */
     public func appInBackground() {
-        lastTimestamp = Date()
+        UserDefaults.standard.wmf_sessionLastTimestamp = Date()
     }
+
     /**
      * This method is called by the application delegate in
      * `applicationDidBecomeActive()` and re-enables event logging.
      *
-     * If it has been more than 15 minutes since the app entered background state,
+     * If it has been more than 30 minutes since the app entered background state,
      * a new session is started.
      */
     public func appInForeground() {
@@ -311,12 +319,14 @@ import CocoaLumberjackSwift
 
     private var _sessionStartDate: Date?
 
+    private var _sessionEndDate: Date?
+
     /**
      * Unset the session
      */
     public func resetSession() {
         queue.async {
-            self._sessionID = nil
+            UserDefaults.standard.wmf_sessionID = nil
         }
         samplingController.removeAllSamplingCache()
     }
@@ -324,14 +334,17 @@ import CocoaLumberjackSwift
     /**
      * Check if session expired, based on last active timestamp
      *
-     * A new session ID is required if it has been more than 15 minutes since the
+     * A new session ID is required if it has been more than 30 minutes since the
      * user was last active (e.g. when app entered background).
      */
     private func sessionTimedOut() -> Bool {
         /*
          * A TimeInterval value is always specified in seconds.
          */
-        return lastTimestamp.timeIntervalSinceNow < -900
+        if let lastTimestamp = UserDefaults.standard.wmf_sessionLastTimestamp {
+            return lastTimestamp.timeIntervalSinceNow < -1800
+        }
+        return true
     }
 
     /**

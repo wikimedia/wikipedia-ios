@@ -15,15 +15,11 @@
 
     public struct Event: EventInterface {
         public static let schema: EventPlatformClient.Schema = .sessions
-        let category: EventCategoryMEP
-        let label: EventLabelMEP?
-        let measure_time: Int?
-        let page_load_latency_min: Int?
-        let page_load_latency_max: Int?
-        let page_load_latency_average: Int?
+        let length_ms: Int?
+        let page_load_latency_ms: Int?
     }
 
-    private func logEvent(category: EventCategoryMEP, label: EventLabelMEP?, action: Action?, measure: Double? = nil) {
+    private func logEvent(measure: Double? = nil) {
         let measureTime: Int?
         if let measure {
             measureTime = Int(round(measure))
@@ -31,17 +27,13 @@
             measureTime = nil
         }
 
-
-        let finalEvent = SessionsFunnel.Event(
-            category: category,
-            label: label, measure_time: measureTime, page_load_latency_min: Int(round(pageLoadMin ?? Double())), page_load_latency_max: Int(round(pageLoadMax ?? Double())), page_load_latency_average: Int(round(pageLoadAverage ?? Double())) )
-
+        let finalEvent = SessionsFunnel.Event(length_ms: measureTime, page_load_latency_ms: Int(round(pageLoadAverage ?? Double())))
         EventPlatformClient.shared.submit(stream: .sessions, event: finalEvent)
     }
 
     @objc public func logSessionStart() {
         resetSession()
-        logEvent(category: .unknown, label: nil, action: .sessionStart)
+        logEvent()
     }
     
     private func resetSession() {
@@ -57,7 +49,7 @@
         
         calculatePageLoadMetrics()
         
-        logEvent(category: .unknown, label: nil, action: .sessionEnd, measure: fabs(sessionStartDate.timeIntervalSinceNow))
+        logEvent(measure: fabs(sessionStartDate.timeIntervalSinceNow))
     }
     
     // MARK: ArticleViewController Load Time Measurement Helpers
