@@ -398,22 +398,7 @@ extension TalkPageHeaderView: Themeable {
         projectLanguageLabel.textColor = theme.colors.secondaryText
         projectLanguageLabelContainer.layer.borderColor = theme.colors.secondaryText.cgColor
 
-        // TODO: Replace these once new theme colors are added/refreshed in the app
-        let coffeeRollContainerBackground: UIColor!
-        switch theme {
-        case .light:
-            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0xF8F1E3)
-        case .sepia:
-            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0xE1DAD1)
-        case .dark:
-            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0x101418)
-        case .black:
-            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0x101418)
-        default:
-            coffeeRollContainerBackground = UIColor.wmf_colorWithHex(0xF8F1E3)
-        }
-        coffeeRollContainer.backgroundColor = coffeeRollContainerBackground
-
+        coffeeRollContainer.backgroundColor = theme.colors.talkPageCoffeRollBackground
         coffeeRollSeparator.backgroundColor = theme.colors.tertiaryText
         coffeeRollReadMoreButton.setTitleColor(theme.colors.link, for: .normal)
         updateCoffeeRollText()

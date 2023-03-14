@@ -42,9 +42,11 @@
 "button-read-now" = "לייענען אצינד";
 "cancel" = "אַנולירן";
 "close-button-accessibility-label" = "פארמאכן";
+"diff-context-lines-expanded-button-title" = "באַהאַלטן";
 "edit-summary-choice-fixed-grammar" = "פארראכטן גראמאטיק";
 "edit-summary-choice-linked-words" = "צולייגן לינקען";
 "field-alert-token-invalid" = "אומגילטיקער קאד";
+"field-email-title" = "בליצפּאָסט";
 "forgot-password-button-title" = "צוריקשטעלן";
 "forgot-password-title" = "צוריקשטעלן פאַסווארט";
 "history-clear-all" = "אפליידיגן";
@@ -67,7 +69,7 @@
 "main-menu-nearby" = "דערבײ";
 "main-menu-privacy-policy" = "פּריוואַטקייט פּאליסי";
 "main-menu-terms-of-use" = "ניצבאדינגונגען";
-"main-menu-title" = "נאך";
+"main-menu-title" = "נאָך";
 "main-menu-zero-faq" = "וויקיפעדיע נול שאלות ותשובות";
 "menu-cancel-accessibility-label" = "אַנולירן";
 "more-languages-tooltip-title" = "צולייגן שפראַכן";
@@ -76,11 +78,14 @@
 "nearby-distance-label-km" = "$1 ק״מ";
 "nearby-distance-label-meters" = "$1 מ";
 "nearby-distance-label-miles" = "$1 מייל";
+"notifications-center-status-all" = "אַלע";
+"notifications-center-swipe-more" = "נאָך";
 "number-thousands" = "$1K";
 "page-protected-autoconfirmed" = "דער בלאט איז געווארן האלב געשיצט.";
 "page-protected-can-not-edit" = "איר האט נישט די רעכטן צו רעדאקטירן דעם בלאט";
 "page-protected-can-not-edit-title" = "דער בלאט איז געשיצט";
 "page-protected-sysop" = "דער בלאט איז געווארן גאנג געשיצט.";
+"places-accessibility-group" = "$1 אַרטיקלען";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 אַרטיקל|$1 אַרטיקלען}}";
 "places-search-default-text" = "זוכן ערטער";
 "preference-summary-eventlogging-opt-in" = "דערלויבן די וויקימעדיע פֿונדאציע צו זאמלען אינפארמאציע וויאזוי איר ניצט דעם אפ כדי צו פארבעסערן דעם אפ";

@@ -170,7 +170,7 @@
 "field-alert-username-unavailable" = "Ne c'haller ket kaout an anv implijer-mañ";
 "field-backup-token-title" = "Kod saveteiñ";
 "field-captcha-placeholder" = "Testenn Capcha";
-"field-captcha-title" = "Ebarzhiñ an destenn a welit amañ a-us";
+"field-captcha-title" = "Merkit an destenn a welit amañ a-us";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "Postel";
 "field-email-title-optional" = "Postel (diret)";

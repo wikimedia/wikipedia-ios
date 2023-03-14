@@ -135,7 +135,7 @@
 	<key>intermediate-edits-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ nem mutattunk</string>
+		<string>%#@v1@ nincs mutatva</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -143,9 +143,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Egy közbenső módosítást</string>
+			<string>Egy közbenső módosítás</string>
 			<key>other</key>
-			<string>%1$d közbenső módosítást</string>
+			<string>%1$d közbenső módosítás</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>

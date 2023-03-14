@@ -8,6 +8,7 @@
 // Author: Nemo bis
 // Author: Praveen Illa
 // Author: Ravichandra
+// Author: V Bhavya
 // Author: Veeven
 
 "aaald-added-text-description-2" = "$1 చేర్చాం";
@@ -138,9 +139,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "చదివే థీముల కంట్రోళ్ళు";
 "back-button-accessibility-label" = "వెనుకకు";
 "back-button-popover-title" = "వెనక్కెళ్ళేందుకు తట్టండి";
+"button-go-back" = "వెనక్కి వెళ్ళు";
 "button-next" = "తదుపరి";
 "button-ok" = "సరే";
 "button-publish" = "ప్రచురించు";
+"button-publish-anyway" = "ఏదేమైనప్పటికీ ప్రచురించు";
 "button-read-now" = "ఇప్పుడే చదవండి";
 "button-report-a-bug" = "ఒక దోషాన్ని నివేదించండి";
 "button-save-for-later" = "తరువాత చదివేందుకు భద్రపరచండి";
