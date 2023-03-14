@@ -116,7 +116,7 @@ import CocoaLumberjackSwift
         case readingLists = "/analytics/mobile_apps/ios_reading_lists/1.0.0"
         case userHistory = "/analytics/mobile_apps/ios_user_history/1.0.0"
         case search = "/analytics/mobile_apps/ios_search/1.0.0"
-        case sessions = "/analytics/mobile_apps/ios_sessions/1.0.0"
+        case sessions = "/analytics/mobile_apps/app_session/1.0.0"
         case settings = "/analytics/mobile_apps/ios_setting_action/1.0.0"
         case login = "/analytics/mobile_apps/ios_login_action/1.0.0"
     }
