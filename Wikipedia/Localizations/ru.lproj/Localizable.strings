@@ -195,6 +195,7 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Настройки темы для чтения";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Нажмите, чтобы вернуться назад";
+"button-go-back" = "Назад";
 "button-next" = "Далее";
 "button-ok" = "OK";
 "button-publish" = "Опубликовать";

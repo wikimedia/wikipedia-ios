@@ -894,7 +894,7 @@
 "settings-notifications-echo-failure-message" = "Došlo je do greške prilikom provjere pretplata na obavještenja u vezi s Vašim računom.";
 "settings-notifications-echo-failure-title" = "Nije moguće provjeriti pretplate na Echo obavještenja";
 "settings-notifications-echo-failure-try-again" = "Pokušaj ponovo";
-"settings-notifications-header" = "Budite upozoreni na aktivnosti povezane s Vašim računom, kao što su poruke od kolega saradnika, upozorenja i obavjesti. Sve ovo je obezbjeđeno uz poštovanje privatnosti i najnovijih podataka.";
+"settings-notifications-header" = "Budite upozoreni na aktivnosti povezane s Vašim računom, kao što su poruke od kolega saradnika, upozorenja i obavještenja. Sve ovo je obezbijeđeno uz poštovanje privatnosti i najnovijih podataka.";
 "settings-notifications-info" = "Budite obaviješteni o aktualnim i najčitanijim člancima na Wikipediji uz pomoć naših push obavještenja. Sve se nudi s najnovijim podacima, a pritom se poštuje Vaša privatnost.";
 "settings-notifications-learn-more" = "Detaljnije o obavještenjima";
 "settings-notifications-push-notifications" = "Push obavještenja";
