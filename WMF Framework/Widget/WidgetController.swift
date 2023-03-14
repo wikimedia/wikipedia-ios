@@ -40,6 +40,21 @@ public final class WidgetController: NSObject {
         WidgetCenter.shared.reloadAllTimelines()
 	}
     
+    public func reloadFeaturedArticleWidgetIfNecessary() {
+        guard !Bundle.main.isAppExtension else {
+            return
+        }
+
+        let dataStore = MWKDataStore.shared()
+        let appLanguage = dataStore.languageLinkController.appLanguage
+        if let siteURL = appLanguage?.siteURL, let languageCode = appLanguage?.languageCode {
+            let updatedWidgetSettings = WidgetSettings(siteURL: siteURL, languageCode: languageCode, languageVariantCode: appLanguage?.languageVariantCode)
+            updateCacheWith(settings: updatedWidgetSettings)
+        }
+        
+        WidgetCenter.shared.reloadTimelines(ofKind: SupportedWidget.featuredArticle.rawValue)
+    }
+    
     /// For requesting background time from widgets
     /// - Parameter userCompletion: the completion block to call with the result
     /// - Parameter task: block that takes the `MWKDataStore` to use for updates and the completion block to call when done as parameters
