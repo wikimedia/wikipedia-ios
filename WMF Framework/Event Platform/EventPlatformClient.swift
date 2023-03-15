@@ -207,18 +207,6 @@ import CocoaLumberjackSwift
         }
     }
 
-    /**
-     * Checks if there is a valid session ID stored in user defaults
-     * - Returns: Bool
-     */
-    public var hasValidSessionID: Bool {
-        let _sessionID = UserDefaults.standard.wmf_sessionID
-        if let _sessionID {
-            return !_sessionID.isEmpty
-        }
-        return false
-    }
-
     private var isAnon: Bool {
         return dataStore.authenticationManager.isLoggedIn
     }
@@ -276,12 +264,11 @@ import CocoaLumberjackSwift
      * This method is called by the application delegate in
      * `applicationWillTerminate()`
      *
-     * We do not persist session ID on app close because we have decided that a
-     * session ends when the user (or the OS) has closed the app or when 15
-     * minutes of inactivity have passed.
+     * We now persist session ID on app close to match session handling with Android
+     * session ends when 30 minutes of inactivity have passed.
      */
     public func appWillClose() {
-        // Placeholder for any onTerminate logic
+        UserDefaults.standard.wmf_sessionLastTimestamp = Date()
     }
 
     /**
@@ -342,10 +329,13 @@ import CocoaLumberjackSwift
          * A TimeInterval value is always specified in seconds.
          */
         if let lastTimestamp = UserDefaults.standard.wmf_sessionLastTimestamp {
-            return lastTimestamp.timeIntervalSinceNow < -1800
+            hasSessionTimedOut = lastTimestamp.timeIntervalSinceNow < -1800
+            return hasSessionTimedOut
         }
         return true
     }
+
+    public var hasSessionTimedOut: Bool = false
 
     /**
      * Fetch stream configuration from stream configuration service

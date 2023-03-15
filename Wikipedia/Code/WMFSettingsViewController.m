@@ -192,10 +192,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             NSUserDefaults.standardUserDefaults.wmf_sendUsageReports = isOn;
             if (isOn) {
                 [metricsClientBridge reset];
-                [[SessionsFunnel shared] logSessionStart];
+                [[SessionsFunnel shared] setSessionStart];
                 [[UserHistoryFunnel shared] logStartingSnapshot];
             } else {
-                [[SessionsFunnel shared] logSessionEnd];
+                [[SessionsFunnel shared] logSessionLastActivity];
                 [[UserHistoryFunnel shared] logSnapshot];
                 [metricsClientBridge reset];
             }

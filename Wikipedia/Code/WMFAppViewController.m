@@ -374,7 +374,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 // When the user launches from a terminated state, resume might not finish before didBecomeActive, so these tasks are held until both items complete
 - (void)performTasksThatShouldOccurAfterBecomeActiveAndResume {
-    [[SessionsFunnel shared] logSessionStart];
+    [[SessionsFunnel shared] setSessionStart];
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
@@ -1061,7 +1061,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #pragma mark - Logging
 
 - (void)logSessionEnd {
-    [[SessionsFunnel shared] logSessionEnd];
+    [[SessionsFunnel shared] logSessionLastActivity];
     [[UserHistoryFunnel shared] logSnapshot];
 }
 
