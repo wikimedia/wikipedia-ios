@@ -22,10 +22,11 @@
         let measure: Int?
         let measure_position: Int?
         let measure_age: Int?
+        let wiki_id: String?
     }
 
-    private func logEvent(action: Action, category: EventCategoryMEP, label: EventLabelMEP?, measure: Int? = nil, measurePosition: Int? = nil, measureAge: Int? = nil ) {
-        let event = ReadingListsFunnel.Event(action: action, category: category, label: label, measure: measure, measure_position: measurePosition, measure_age: measureAge)
+    private func logEvent(action: Action, category: EventCategoryMEP, label: EventLabelMEP?, measure: Int? = nil, measurePosition: Int? = nil, measureAge: Int? = nil, wiki_id: String? = nil) {
+        let event = ReadingListsFunnel.Event(action: action, category: category, label: label, measure: measure, measure_position: measurePosition, measure_age: measureAge, wiki_id: wiki_id)
         EventPlatformClient.shared.submit(stream: .readingLists, event: event)
     }
 
@@ -90,18 +91,18 @@
     }
     
     private func logSave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
-        logEvent(action: .save, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge)
+        logEvent(action: .save, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge, wiki_id: articleURL.wmf_languageCode ?? nil)
     }
     
     public func logSave(category: EventCategoryMEP, label: EventLabelMEP?, articleURL: URL?) {
-        logEvent(action: .save, category: category, label: label, measure: 1)
+        logEvent(action: .save, category: category, label: label, measure: 1, wiki_id: articleURL?.wmf_languageCode ?? nil)
     }
     
     public func logUnsave(category: EventCategoryMEP, label: EventLabelMEP?, articleURL: URL?) {
-        logEvent(action: .unsave, category: category, label: label, measure: 1)
+        logEvent(action: .unsave, category: category, label: label, measure: 1, wiki_id: articleURL?.wmf_languageCode ?? nil)
     }
     
-    private func logUnsave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, language: String?, measureAge: Int? = nil, measurePosition: Int? = nil) {
+    private func logUnsave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, wiki_id: String?, measureAge: Int? = nil, measurePosition: Int? = nil) {
         logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge)
     }
     
@@ -120,11 +121,11 @@
     // - MARK: Saved - default reading list
     
     public func logUnsaveInReadingList(articlesCount: Int = 1, language: String?) {
-        logUnsave(category: .saved, label: .items, measure: articlesCount, language: language)
+        logUnsave(category: .saved, label: .items, measure: articlesCount, wiki_id: language)
     }
     
     public func logReadStartIReadingList(_ articleURL: URL) {
-        logEvent(action: .readStart, category: .saved, label: .items, measure: 1)
+        logEvent(action: .readStart, category: .saved, label: .items, measure: 1, wiki_id: articleURL.wmf_languageCode)
     }
     
     // - MARK: Saved - reading lists
