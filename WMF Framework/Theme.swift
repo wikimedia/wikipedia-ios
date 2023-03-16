@@ -198,10 +198,10 @@ public class Colors: NSObject {
 
     @objc public var overlayBackground: UIColor {
         switch identifier {
-        case .light:
+            case .light, .widgetLight:
             return .black.withAlphaComponent(0.5)
         case .sepia:
-            return UIColor.taupe600.withAlphaComponent(0.6)
+            return .taupe600.withAlphaComponent(0.6)
         default:
             return .black.withAlphaComponent(0.75)
         }
@@ -274,7 +274,7 @@ public class Colors: NSObject {
 
     @objc public var secondaryText: UIColor {
         switch identifier {
-        case .light:
+            case .light, .widgetLight:
             return .gray500
         case .sepia:
             return .taupe600
