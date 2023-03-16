@@ -119,6 +119,7 @@
 "description-add-title" = "Beschreiwung derbäisetzen";
 "description-edit-for-article" = "Artikelbeschreiwung fir $1";
 "description-edit-learn-more" = "Fir méi ze wëssen";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-title" = "Artikelbeschreiwung änneren";
 "description-edit-placeholder-title" = "Kuerz Beschreiwunge sinn am beschten";
 "description-edit-publish" = "Beschreiwung verëffentlechen";
@@ -320,7 +321,7 @@
 "main-menu-about" = "Iwwer d'App";
 "main-menu-account-login" = "Aloggen";
 "main-menu-account-logout" = "Ausloggen";
-"main-menu-account-logout-are-you-sure" = "Sidd Dir sécher datt Dir Iech wëllt ausloggen?";
+"main-menu-account-logout-are-you-sure" = "Sidd Dir sécher, datt Dir Iech wëllt ausloggen?";
 "main-menu-account-logout-cancel" = "Ofbriechen";
 "main-menu-account-title-logged-in" = "Ageloggt als $1";
 "main-menu-heading-legal" = "Dateschutz a Konditiounen";
