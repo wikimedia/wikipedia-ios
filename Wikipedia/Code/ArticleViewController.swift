@@ -1039,7 +1039,7 @@ private extension ArticleViewController {
     }
     
     var isWidgetCachedFeaturedArticle: Bool {
-        let sharedCache = SharedContainerCache<WidgetCache>(fileName: "Widget Cache", defaultCache: { WidgetCache(settings: .default, featuredContent: nil) })
+        let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache, defaultCache: { WidgetCache(settings: .default, featuredContent: nil) })
         guard let widgetFeaturedArticleURLString = sharedCache.loadCache().featuredContent?.featuredArticle?.contentURL.desktop.page,
               let widgetFeaturedArticleURL = URL(string: widgetFeaturedArticleURLString) else {
             return false

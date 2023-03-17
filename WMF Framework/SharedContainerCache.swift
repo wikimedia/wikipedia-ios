@@ -3,6 +3,7 @@ import Foundation
 @objc public class SharedContainerCacheCommonNames: NSObject {
     @objc public static let pushNotificationsCache = "Push Notifications Cache"
     @objc public static let talkPageCache = "Talk Page Cache"
+    public static let widgetCache = "Widget Cache"
 }
 
 public final class SharedContainerCache<T: Codable>: SharedContainerCacheHousekeepingProtocol {
@@ -84,7 +85,7 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
 
 @objc public class SharedContainerCacheClearFeaturedArticleWrapper: NSObject {
     @objc public static func clearOutFeaturedArticleWidgetCache() {
-        let sharedCache = SharedContainerCache<WidgetCache>(fileName: "Widget Cache", defaultCache: { WidgetCache(settings: .default, featuredContent: nil) })
+        let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache, defaultCache: { WidgetCache(settings: .default, featuredContent: nil) })
         var updatedCache = sharedCache.loadCache()
         updatedCache.featuredContent = nil
         sharedCache.saveCache(updatedCache)
