@@ -210,7 +210,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         let configuration = UIImage.SymbolConfiguration(weight: .semibold)
         stack.imageView.image = UIImage(systemName: "envelope", withConfiguration: configuration)
-        stack.backgroundColor = .green100
+        stack.backgroundColor = .green600
         return stack
     }()
 

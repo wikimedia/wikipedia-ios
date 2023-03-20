@@ -198,7 +198,7 @@ public class Colors: NSObject {
 
     @objc public var overlayBackground: UIColor {
         switch identifier {
-            case .light, .widgetLight:
+        case .light, .widgetLight:
             return .black.withAlphaComponent(0.5)
         case .sepia:
             return .taupe600.withAlphaComponent(0.6)
@@ -222,7 +222,7 @@ public class Colors: NSObject {
         case .light, .sepia, .dark, .widgetLight:
             return .clear
         case .black, .widgetDark:
-            return UIColor.white.withAlphaComponent(0.2)
+            return .white.withAlphaComponent(0.2)
         }
     }
 
@@ -274,7 +274,7 @@ public class Colors: NSObject {
 
     @objc public var secondaryText: UIColor {
         switch identifier {
-            case .light, .widgetLight:
+        case .light, .widgetLight:
             return .gray500
         case .sepia:
             return .taupe600
@@ -343,12 +343,7 @@ public class Colors: NSObject {
     }
 
     @objc public var secondaryAction: UIColor {
-        switch identifier {
-        case .light, .sepia, .widgetLight:
-            return .blue700
-        case .dark, .black, .widgetDark:
-            return .blue100
-        }
+        return .blue700
     }
 
     @objc public var destructive: UIColor {
@@ -507,12 +502,7 @@ public class Colors: NSObject {
     }
     
     @objc public var searchFieldBackground: UIColor {
-        switch identifier {
-        case .light, .sepia, .widgetLight:
-            return .lightSearchFieldBackground
-        case .dark, .black, .widgetDark:
-            return .darkSearchFieldBackground
-        }
+        return .darkSearchFieldBackground
     }
 
     @objc public var keyboardBarSearchFieldBackground: UIColor {
@@ -759,7 +749,7 @@ public class Colors: NSObject {
     }
 
     public var diffCompareAccent: UIColor {
-        return .orange600
+        return .orange600.withAlphaComponent(0.3)
     }
 
     public var diffCompareChangeHeading: UIColor {
