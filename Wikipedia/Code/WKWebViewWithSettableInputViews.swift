@@ -5,6 +5,8 @@ class WKWebViewWithSettableInputViews: WKWebView {
     private var storedInputView: UIView?
     private var storedInputAccessoryView: UIView?
 
+    static var didSetKeyboardRequiresUserInteraction = false
+
     override init(frame: CGRect, configuration: WKWebViewConfiguration) {
         super.init(frame: frame, configuration: configuration)
         WKWebViewWithSettableInputViews.overrideUserInteractionRequirementForElementFocusIfNecessary()
@@ -92,8 +94,6 @@ class WKWebViewWithSettableInputViews: WKWebView {
 
 
 typealias ClosureType =  @convention(c) (Any, Selector, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void
-
-private var didSetKeyboardRequiresUserInteraction = false
 
 extension WKWebViewWithSettableInputViews {
     // Swizzle a WKWebView method to allow web elements to be focused without user interaction

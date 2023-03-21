@@ -6,6 +6,7 @@
 // Author: Nemo bis
 // Author: Robby
 // Author: Soued031
+// Author: Volvox
 
 "aaald-added-text-description-2" = "$1 derbäigesat";
 "aaald-article-description-updated-description" = "Beschreiwung vum Artikel aktualiséiert";
@@ -17,6 +18,7 @@
 "aaald-deleted-text-description-2" = "$1 geläscht";
 "aaald-error-subitle" = "Aktualiséiert fir nach eng Kéier ze probéieren";
 "aaald-new-book-reference-title" = "Buch";
+"aaald-new-discussion" = "Nei Diskussioun";
 "aaald-new-news-reference-title" = "Neiegkeeten";
 "aaald-new-talk-topic-description-format" = "$1 iwwer dësen Artikel";
 "aaald-new-website-reference-title" = "Internetsite";
@@ -41,15 +43,6 @@
 "about-translators-details" = "Vu Fräiwëllegen op $1 iwwersat";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Dir däerft dës Ännerung net verëffentlechen";
-"abuse-filter-disallow-unconstructive" = "En automatiséierte Filter huet dës Ännerung als méiglecherweis net konstruktiv respektiv als Vandalismus-Versuch identifizéiert. Gitt wgl. zréck an ännert Är Ännerung.";
-"abuse-filter-warning-blanking" = "Abschnitter oder komplett Artikele läschen";
-"abuse-filter-warning-caps" = "Alles mat grousse Buschtawen";
-"abuse-filter-warning-heading" = "Dëst gesäit no enger wéineg konstruktiver Ännerung aus, sidd Dir sécher datt Dir se verëffentleche wëllt?";
-"abuse-filter-warning-irrelevant" = "Irrelevant extern Linken oder Biller";
-"abuse-filter-warning-repeat" = "Zeeche widderholl";
-// Fuzzy
-"abuse-filter-warning-subheading" = "An Ärer Ännerung kéinte eng oder méi vun dëse Saachen dra sinn:";
 "account-creation-captcha-cannot-see-image" = "Kënnt Dir d'Bild net gesinn? $1";
 "account-creation-captcha-obtaining" = "En neie CAPTCHA kréien.";
 "account-creation-captcha-request-account" = "Benotzerkont ufroen.";
@@ -93,19 +86,23 @@
 "add-citation-title" = "Zitat derbäisetzen";
 "announcements-dismiss" = "Verwerfen";
 "app-store-subtitle" = "Déi fräi Enzyklopedie";
+"article-about-title" = "Iwwer dësen Artikel";
 "article-delete" = "Läschen";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Artikel|Artikele}} geläscht";
 "article-languages-filter-placeholder" = "Sprooch fannen";
 "article-languages-label" = "Sprooch eraussichen";
 "article-languages-others" = "Aner Sproochen";
 "article-languages-yours" = "Är Sprooch";
+"article-read-more-title" = "Liest méi";
 "article-reference-view-title" = "Referenz $1";
 "article-save-error-not-enough-space" = "Dir hutt net genuch op Ärem Apparat fir dësen Artikel ze späicheren";
 "article-share" = "Deelen";
 "back-button-accessibility-label" = "Zréck";
+"button-go-back" = "Zréck goen";
 "button-next" = "Weider";
 "button-ok" = "OK";
 "button-publish" = "Verëffentlechen";
+"button-publish-anyway" = "Trotzdeem publizéieren";
 "button-read-now" = "Elo liesen";
 "button-report-a-bug" = "E Feeler mellen";
 "button-save-for-later" = "Fir spéider späicheren";
@@ -120,15 +117,31 @@
 "continue-reading-empty-title" = "Keng rezent geliesen Artikelen";
 "data-migration-status" = "Aktualiséieren...";
 "description-add-title" = "Beschreiwung derbäisetzen";
+"description-edit-for-article" = "Artikelbeschreiwung fir $1";
 "description-edit-learn-more" = "Fir méi ze wëssen";
+"description-edit-length-warning" = "$1 / $2";
+"description-edit-pencil-title" = "Artikelbeschreiwung änneren";
+"description-edit-placeholder-title" = "Kuerz Beschreiwunge sinn am beschten";
 "description-edit-publish" = "Beschreiwung verëffentlechen";
 "description-edit-title" = "Beschreiwung änneren";
+"description-edit-warning" = "Probéiert d'Beschreiwunge kuerz ze halen, sou datt Benotzer d'Theema vum Artikel op ee Bléck erkenne kënnen";
+"description-help-about-description" = "Artikelbeschreiwunge resüméieren een Artikel, sou datt d'Lieser d'Theema op ee Bléck erkenne kënnen.";
 "description-help-about-title" = "Iwwer";
 "description-help-about-wikidata" = "Iwwer Wikidata";
 "description-help-more-info-title" = "Méi Informatiounen";
+"description-help-tips-example-description-one" = "Artikelbeschreiwung fir en Artikel iwwert d'Mona Lisa";
+"description-help-tips-example-description-two" = "Artikelbeschreiwung fir en Artikel iwwer de Mount Everest";
+"description-help-tips-example-title-one" = "Tablo vum Leonardo Da Vinci";
+"description-help-tips-example-title-two" = "héchste Bierg vun der Welt";
 "description-help-tips-for-example" = "Zum Beispill:";
+"description-help-title" = "Hëllef fir d'Artikelbeschreiwung";
+"description-help-wikidata-guide" = "Wikidata-Guide fir Beschreiwungen ze schreiwen";
 "description-published-button-title" = "Fäerdeg";
+"description-published-subtitle" = "Dir hutt grad d'Wikipedia fir jidderee besser gemaach";
+"description-published-title" = "Beschreiwung verëffentlecht!";
+"description-welcome-concise-sub-title" = "Idealerweis eng Zeil, tëscht zwee an zwielef Wierder";
 "description-welcome-concise-title" = "Haalt Iech kuerz";
+"description-welcome-descriptions-title" = "Artikelbeschreiwungen";
 "diff-compare-header-from-info-heading" = "Vum:";
 "diff-compare-header-heading" = "Versioune vergläichen";
 "diff-compare-header-to-info-heading" = "Fir:";
@@ -137,7 +150,9 @@
 "diff-context-lines-expanded-button-title" = "Verstoppen";
 "diff-multi-line-format" = "Linnen $1 - $2";
 "diff-paragraph-moved" = "Abschnitt geréckelt";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 Zeil|$1 Zeilen}}";
 "diff-revision-error-title" = "Versioun konnt net geluede ginn";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 Ännerung|$1 Ännerungen}}";
 "diff-single-intro-title" = "Aféierung";
 "diff-single-line-format" = "Linn $1";
 "diff-thanks-anonymous-no-thanks" = "Anonym Benotzer kënne kee Merci kréien";
@@ -163,6 +178,10 @@
 "edit-summary-choice-linked-words" = "Derbäigesat Linken";
 "edit-summary-learn-more-text" = "Fir méi ze wëssen";
 "edit-summary-placeholder-text" = "Wéi hutt Dir den Artikel verbessert?";
+"edit-text-formatting-accessibility-label" = "Textformatéierungsmenü weisen";
+"edit-text-formatting-table-view-title" = "Textformatéierung";
+"edit-text-size-table-view-title" = "Textgréisst";
+"edit-text-style-accessibility-label" = "Textstilmenü weisen";
 "edit-watch-list-learn-more-text" = "Méi iwwer Iwwerwaachungslëschte gewuer ginn";
 "edit-watch-this-page-text" = "Dës Säit iwwerwaachen";
 "editing-welcome-be-bold-title" = "Är Stëmm ass wichteg";
@@ -173,6 +192,7 @@
 "empty-no-feed-message" = "Dir kënnt Är recommandéiert Artikele gesi wann Dir Internet hutt.";
 "empty-no-history-message" = "Behaalt eng Trace vun deem wat Dir hei gelies hutt";
 "empty-no-history-title" = "Keen Historique vu Versioune weisen";
+"empty-no-other-article-languages-message" = "Dësen Artikel gouf nach op kenger anerer Sprooch geschriwwen";
 "empty-no-other-article-languages-title" = "Keng aner Sprooch disponibel";
 "empty-no-saved-pages-in-reading-list-message" = "Späichert Säiten an dëser Lëscht fir se hei ze gesinn";
 "empty-no-saved-pages-in-reading-list-title" = "An dëser Lëscht si keng Säite gespäichert";
@@ -218,7 +238,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Vu Wikipedia";
 "explore-randomizer" = "Zoufallsgenerator";
 "field-alert-captcha-invalid" = "Net valabele CAPTCHA";
-"field-alert-password-confirm-mismatch" = "D'Passwierder déi Dir aginn hutt sinn net identesch";
+"field-alert-password-confirm-mismatch" = "D'Passwierder, déi Dir aginn hutt, sinn net identesch";
 "field-alert-token-invalid" = "Net valabele Code";
 "field-alert-username-unavailable" = "Benotzernumm net disponibel";
 "field-backup-token-title" = "Backup-Code";
@@ -301,7 +321,7 @@
 "main-menu-about" = "Iwwer d'App";
 "main-menu-account-login" = "Aloggen";
 "main-menu-account-logout" = "Ausloggen";
-"main-menu-account-logout-are-you-sure" = "Sidd Dir sécher datt Dir Iech wëllt ausloggen?";
+"main-menu-account-logout-are-you-sure" = "Sidd Dir sécher, datt Dir Iech wëllt ausloggen?";
 "main-menu-account-logout-cancel" = "Ofbriechen";
 "main-menu-account-title-logged-in" = "Ageloggt als $1";
 "main-menu-heading-legal" = "Dateschutz a Konditiounen";

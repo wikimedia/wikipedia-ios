@@ -20,13 +20,6 @@
 "about-translators" = "Թարգմանիչներ";
 "about-wikimedia-foundation" = "Վիքիմեդիա Հիմնադրամ";
 "about-wikipedia" = "Վիքիպեդիա";
-"abuse-filter-disallow-heading" = "Դուք չեք կարող պահպանել այս խմբագրումը";
-"abuse-filter-warning-blanking" = "Որևէ բաժնի կամ ամբողջ հոդվածի ջնջում";
-"abuse-filter-warning-caps" = "Մեծատառերով";
-"abuse-filter-warning-heading" = "Այս խմբագրոմը ապակառուցողական է երևում։ Ցանկանո՞ւմ եք պահպանել:";
-"abuse-filter-warning-irrelevant" = "Ոչ տեղին արտաքին հղումներ կամ նկարներ";
-"abuse-filter-warning-repeat" = "Կրկնվող սիմվոլներ";
-"abuse-filter-warning-subheading" = "Ձեր խմբագրումը երևի պարունակում է՝";
 "account-creation-log-in" = "Մտնել";
 "account-creation-logging-in" = "Մուտք համակարգ...";
 "account-creation-missing-fields" = "Դուք պետք է մուտքագրեք մասնակցային անուն, գաղտնաբառ և գաղտնաբառի հաստատում մասնակցային հաշիվ ստեղծելու համար";
@@ -55,6 +48,7 @@
 "article-languages-yours" = "Ձեր լեզուն";
 "article-share" = "Կիսվել";
 "back-button-accessibility-label" = "Հետ";
+"button-go-back" = "Հետ գնալ";
 "button-next" = "Հաջորդ";
 "button-ok" = "Լավ";
 "button-publish" = "Հրապարակել";

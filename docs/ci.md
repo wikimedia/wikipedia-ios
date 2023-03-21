@@ -12,22 +12,12 @@ Similar to the [project's node setup for web dev](web_dev.md), we recommend usin
 These are the recommended steps for setting up Fastlane:
 
 #### Install [homebrew](https://brew.sh)
-[homebrew](https://brew.sh) should have been installed by `scripts/setup`, but if you didn't run that script or would like to manually install it:
-```
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
+[homebrew](https://brew.sh) should have been installed by `scripts/setup`. If you didn't run that script or would like to manually install it, please follow the installation instructions at https://brew.sh/.
 
 #### Install [rbenv](https://github.com/rbenv/rbenv)
-rbenv installs Ruby inside of your home folder so you don't have to modify the macOS ruby installation using root privileges. You can also manage multiple ruby versions on the same machine if you have other projects that depend on a different Ruby version. After [homebrew](https://brew.sh) is installed, install [rbenv](https://github.com/rbenv/rbenv) by running:
-```
-brew install rbenv
-```
+rbenv installs Ruby inside of your home folder so you don't have to modify the macOS ruby installation using root privileges. You can also manage multiple ruby versions on the same machine if you have other projects that depend on a different Ruby version. After [homebrew](https://brew.sh) is installed, follow the rbenv installation instructions at https://github.com/rbenv/rbenv.
 
-#### Update your ~/.bash_profile
-Once the install command completes, add `eval "$(rbenv init -)"` to your `~/.bash_profile` (create this file if it doesn't exist)
-
-#### Restart Terminal
-After terminal restarts, verify that [rbenv](https://github.com/rbenv/rbenv) is working properly by typing `which ruby` and verifying it shows a path inside your home folder.
+After installation, you can verify rbenv is working properly by typing `which ruby` and verifying it shows a path inside your home folder.
 
 #### Install the required ruby version
 First `cd` to the directory where you have this repository:

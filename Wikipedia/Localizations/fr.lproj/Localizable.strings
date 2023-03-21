@@ -89,15 +89,6 @@
 "about-translators-details" = "Traduite par des bénévoles sur $1";
 "about-wikimedia-foundation" = "Fondation Wikimedia";
 "about-wikipedia" = "Wikipédia";
-"abuse-filter-disallow-heading" = "Vous ne pouvez pas publier cette modification";
-"abuse-filter-disallow-unconstructive" = "Un filtre automatique a identifié cette modification comme potentiellement non constructive, ou comme une tentative de vandalisme. Veuillez revenir en arrière et changer votre modification.";
-"abuse-filter-warning-blanking" = "Suppression de sections ou d’articles entiers";
-"abuse-filter-warning-caps" = "Texte tout en majuscules";
-"abuse-filter-warning-heading" = "Cela semble être une modification non constructive, êtes-vous sûr de vouloir la publier ?";
-"abuse-filter-warning-irrelevant" = "Images ou liens externes non pertinents";
-"abuse-filter-warning-repeat" = "Répétition de caractères";
-"abuse-filter-warning-spam" = "Ajout de pourriel aux articles";
-"abuse-filter-warning-subheading" = "Votre modification semble contenir :";
 "account-creation-captcha-cannot-see-image" = "Impossible de voir l’image ? $1";
 "account-creation-captcha-obtaining" = "Obtention d’un nouveau CAPTCHA…";
 "account-creation-captcha-request-account" = "Demander un compte.";
@@ -176,9 +167,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Contrôles des thèmes de lecture";
 "back-button-accessibility-label" = "Retour";
 "back-button-popover-title" = "Taper pour revenir en arrière";
+"button-go-back" = "Retour";
 "button-next" = "Suivant";
 "button-ok" = "OK";
 "button-publish" = "Publier";
+"button-publish-anyway" = "Publier tout de même";
 "button-read-now" = "Lire maintenant";
 "button-report-a-bug" = "Signaler une anomalie";
 "button-save-for-later" = "Enregistrer pour plus tard";

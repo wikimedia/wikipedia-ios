@@ -179,7 +179,7 @@ class ErrorPanelViewController : ScrollableEducationPanelViewController {
         self.messageHtml = messageHtml
         self.button1Title = button1Title
         self.button2Title = button2Title
-        super.init(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, traceableDismissHandler: nil, theme: theme)
+        super.init(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, traceableDismissHandler: nil, hasPinnedButtons: true, theme: theme)
         self.subheadingLinkAction = subheadingLinkAction
     }
     
@@ -193,16 +193,26 @@ class ErrorPanelViewController : ScrollableEducationPanelViewController {
         subheadingHTML = messageHtml
         primaryButtonTitle = button1Title
         secondaryButtonTitle = button2Title
+        imageHeightConstraint.constant = 50
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         evaluateConstraintsOnNewSize(view.frame.size)
+        if scrollView.bounces {
+            scrollView.flashScrollIndicators()
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        evaluateConstraintsOnNewSize(view.frame.size)
     }
 
     private func evaluateConstraintsOnNewSize(_ size: CGSize) {
-        width = size.width * 0.9
+        width = traitCollection.horizontalSizeClass == .compact ? 280 : size.width * 0.9
     }
 }
 

@@ -31,15 +31,6 @@
 "about-translators-details" = "Dipertal déning sukarilawan ing $1";
 "about-wikimedia-foundation" = "Yeyasan Wikimedia";
 "about-wikipedia" = "Wikipédia";
-"abuse-filter-disallow-heading" = "Kowé ora bisa mbabar besutan iki.";
-"abuse-filter-disallow-unconstructive" = "Saringan otomatis ngonangi yèn besutan iki bokmanawa ora mbangun utawa rékadaya ngrusak. Mangga wurungaké lan owahi besutanmu.";
-"abuse-filter-warning-blanking" = "Mbusak pérangan utawa kabèh isining artikel";
-"abuse-filter-warning-caps" = "Tulisan mawa hurup gedhé";
-"abuse-filter-warning-heading" = "Iki prasasat besutan kang ora mbangun. Panjenengan yakin arep mbabar iki?";
-"abuse-filter-warning-irrelevant" = "Pranala njaba utawa gambar kang ora magepokan";
-"abuse-filter-warning-repeat" = "Karakter kang mbolan-mbalèni";
-"abuse-filter-warning-spam" = "Muwuhi sepam menyang artikel";
-"abuse-filter-warning-subheading" = "Besutanmu bokmanawa ngemu:";
 "account-creation-captcha-cannot-see-image" = "Ora bisa ndeleng gambar? $1";
 "account-creation-captcha-obtaining" = "Njupuk CAPTCHA anyar...";
 "account-creation-captcha-request-account" = "Nyuwun akun.";

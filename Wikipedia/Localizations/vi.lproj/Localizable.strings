@@ -77,15 +77,6 @@
 "about-translators-details" = "Biên dịch bởi những tình nguyện viên tại $1";
 "about-wikimedia-foundation" = "Quỹ Wikimedia";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Bạn không thể đăng sửa đổi này. Vui lòng quay lại và thay đổi nó.";
-"abuse-filter-disallow-unconstructive" = "Một bộ lọc sai phạm tự động đã xác định rằng sửa đổi này có thể không có tính xây dựng hoặc là một âm mưu phá hoại. Vui lòng quay lại và thay đổi sửa đổi của bạn.";
-"abuse-filter-warning-blanking" = "Xóa một phần hoặc toàn bộ bài viết";
-"abuse-filter-warning-caps" = "Viết toàn chữ hoa";
-"abuse-filter-warning-heading" = "Sửa đổi này có vẻ không có tính xây dựng. Bạn có chắc chắn muốn đăng nó?";
-"abuse-filter-warning-irrelevant" = "Đặt liên kết ngoài hoặc tập tin không có liên quan";
-"abuse-filter-warning-repeat" = "Lặp lại ký tự (nghịch cú pháp)";
-"abuse-filter-warning-spam" = "Thêm rác (spam) vào trang";
-"abuse-filter-warning-subheading" = "Sửa đổi của bạn có thể có những vấn đề sau:";
 "account-creation-captcha-cannot-see-image" = "Không thấy được hình này? $1";
 "account-creation-captcha-obtaining" = "Đang lấy CAPTCHA mới…";
 "account-creation-captcha-request-account" = "Yêu cầu tài khoản.";

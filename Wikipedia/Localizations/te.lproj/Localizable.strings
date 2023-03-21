@@ -8,6 +8,7 @@
 // Author: Nemo bis
 // Author: Praveen Illa
 // Author: Ravichandra
+// Author: V Bhavya
 // Author: Veeven
 
 "aaald-added-text-description-2" = "$1 చేర్చాం";
@@ -65,12 +66,6 @@
 "about-translators-details" = "$1 లో స్వచ్ఛంద కార్యకర్తలు అనువదించారు";
 "about-wikimedia-foundation" = "వికీమీడియా ఫౌండేషన్";
 "about-wikipedia" = "వికీపీడియా";
-"abuse-filter-disallow-heading" = "మీరీ దిద్దుబాటును ప్రచురించలేరు";
-"abuse-filter-warning-heading" = "చూడబోతే ఈ దిద్దుబాటు అంత నిర్మాణాత్మకంగా అనిపించడం లేదు, ప్రచురించాలనే నిశ్చయించుకున్నారా?";
-"abuse-filter-warning-irrelevant" = "సంబంధం లేని బయటి లింకులు, బొమ్మలు";
-"abuse-filter-warning-repeat" = "పునరుక్త కారెక్టర్లు";
-"abuse-filter-warning-spam" = "వ్యాసాల్లో స్పాము చేర్చడం";
-"abuse-filter-warning-subheading" = "మీ దిద్దుబాటులో ఇవి ఉండి ఉండవచ్చు:";
 "account-creation-captcha-cannot-see-image" = "బొమ్మ కనబడ్డం లేదా? $1";
 "account-creation-captcha-obtaining" = "కొత్త CAPTCHA తెస్తున్నాం...";
 "account-creation-captcha-request-account" = "ఖాతాను అభ్యర్ధించండి.";
@@ -144,9 +139,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "చదివే థీముల కంట్రోళ్ళు";
 "back-button-accessibility-label" = "వెనుకకు";
 "back-button-popover-title" = "వెనక్కెళ్ళేందుకు తట్టండి";
+"button-go-back" = "వెనక్కి వెళ్ళు";
 "button-next" = "తదుపరి";
 "button-ok" = "సరే";
 "button-publish" = "ప్రచురించు";
+"button-publish-anyway" = "ఏదేమైనప్పటికీ ప్రచురించు";
 "button-read-now" = "ఇప్పుడే చదవండి";
 "button-report-a-bug" = "ఒక దోషాన్ని నివేదించండి";
 "button-save-for-later" = "తరువాత చదివేందుకు భద్రపరచండి";

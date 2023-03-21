@@ -33,21 +33,6 @@
 "about-wikimedia-foundation" = "Викимедиа Фонды";
 "about-wikipedia" = "Википедия";
 // Fuzzy
-"abuse-filter-disallow-heading" = "Һеҙ был битте һаҡлай алмайһығыҙ, кире артҡа ҡайтып уны үҙгәртегеҙ";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Автоматлаштырылған фильтр был төҙәтеүҙе хаталы йәки емерергә маташыу тип билдәләй";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Буш мәҡәлә йәки спам";
-// Fuzzy
-"abuse-filter-warning-caps" = "Баш хәрефтәр менән баҫыу";
-// Fuzzy
-"abuse-filter-warning-heading" = "Был төҙәтеү хаталы. Һеҙ ысынлап та уны һаҡларға теләйһегеҙме?";
-"abuse-filter-warning-irrelevant" = "Әһәмиәтле булмаған тышҡы һылтанмалар йәки һүрәттәр";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Ҡабатланған символдар";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Һеҙҙең төҙәтеү түбәндәге бер йәки бер нисә ғәмәлде үҙ эсенә алырға мөмкин";
-// Fuzzy
 "account-creation-captcha-obtaining" = "Яңы CAPTCHA алыу";
 "account-creation-logging-in" = "Системаға инеү...";
 "account-creation-missing-fields" = "Иҫәп яҙмаһы булдырыу өсөн һеҙ ҡатнашыусының исемен, серһүҙҙе индеререргә һәм серһүҙҙе  раҫларға тейешһегеҙ";

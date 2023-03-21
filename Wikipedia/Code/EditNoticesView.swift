@@ -226,8 +226,8 @@ final class EditNoticesView: SetupView {
 
             footerStack.leadingAnchor.constraint(equalTo: footerContainer.readableContentGuide.leadingAnchor, constant: 20),
             footerStack.trailingAnchor.constraint(equalTo: footerContainer.readableContentGuide.trailingAnchor, constant: -20),
-            footerStack.topAnchor.constraint(equalTo: footerContainer.topAnchor, constant: 20),
-            footerStack.bottomAnchor.constraint(equalTo: footerContainer.readableContentGuide.bottomAnchor)
+            footerStack.topAnchor.constraint(equalTo: footerContainer.topAnchor, constant: 16),
+            footerStack.bottomAnchor.constraint(equalTo: footerContainer.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
     }
 
@@ -243,12 +243,13 @@ final class EditNoticesView: SetupView {
     func configure(viewModel: EditNoticesViewModel, theme: Theme) {
         let attributedNoticeString = NSMutableAttributedString()
         for notice in viewModel.notices {
-            let noticeString = notice.description.byAttributingHTML(with: .callout, matching: traitCollection, color: theme.colors.primaryText, handlingLinks: true)
+            let noticeString = notice.description.byAttributingHTML(with: .subheadline, matching: traitCollection, color: theme.colors.primaryText, handlingLinks: true)
             attributedNoticeString.append(noticeString)
         }
 
         textView.attributedText = attributedNoticeString.removingInitialNewlineCharacters().removingRepetitiveNewlineCharacters()
-
+        textView.textAlignment = viewModel.semanticContentAttribute == .forceRightToLeft ? .right : .left
+        
         // Update colors
         backgroundColor = theme.colors.paperBackground
         doneButton.setTitleColor(theme.colors.link, for: .normal)

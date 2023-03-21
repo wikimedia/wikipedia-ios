@@ -94,15 +94,6 @@
 "about-translators-details" = "ترجمه متطوعون في $1";
 "about-wikimedia-foundation" = "مؤسسة ويكيميديا";
 "about-wikipedia" = "ويكيبيديا";
-"abuse-filter-disallow-heading" = "لا يمكنك نشر هذا التعديل";
-"abuse-filter-disallow-unconstructive" = "لقد حدد أحد المرشحات الآلية أن هذا التعديل قد يكون غير مجدي أو محاولة تخريب. من فضلك عد وغير تعديلك.";
-"abuse-filter-warning-blanking" = "حذف أقسام أو مقالات كاملة";
-"abuse-filter-warning-caps" = "نص باستخدام أحرف كبيرة فقط";
-"abuse-filter-warning-heading" = "يبدو أن هذا التعديل غير مثمر، هل أنت متأكد من أنك ترغب في نشره؟";
-"abuse-filter-warning-irrelevant" = "وصلات أو صور خارجية لا صلة لها بالموضوع";
-"abuse-filter-warning-repeat" = "حروف متكررة";
-"abuse-filter-warning-spam" = "إضافة سبام إلى المقالات";
-"abuse-filter-warning-subheading" = "تعديلك ربما يحتوي على:";
 "account-creation-captcha-cannot-see-image" = "لا ترى الصورة؟ $1";
 "account-creation-captcha-obtaining" = "جار الحصول على كابتشا جديدة...";
 "account-creation-captcha-request-account" = "طلب حساب.";
@@ -660,6 +651,7 @@
 "notifications-center-title" = "الإشعارات";
 "notifications-center-toolbar-mark-accessibility-label" = "حدد الاشعارات المختارة";
 "notifications-center-type-item-description-welcome-verbose" = "رسالة ترحيب";
+"notifications-center-type-title-edit-summary-mention" = "إشارة في ملخص التعديل";
 "notifications-center-type-title-other" = "أخرى";
 "notifications-center-type-title-page-link" = "وصلة صفحة";
 "notifications-center-type-title-thanks" = "شكر";
@@ -1024,6 +1016,7 @@
 "vanish-account-additional-information-field" = "معلومات إضافية";
 "vanish-account-additional-information-placeholder" = "اختياري";
 "vanish-account-back-confirm-keep-editing" = "واصل التعديل";
+"vanish-account-learn-more-text" = "معرفة المزيد";
 "vanish-account-warning-title" = "تحذير";
 "variants-alert-dismiss-button" = "لا شكرًا";
 "variants-alert-preferences-button" = "راجع تفضيلاتك";

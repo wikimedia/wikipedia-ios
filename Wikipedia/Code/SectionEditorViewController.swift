@@ -101,10 +101,10 @@ class SectionEditorViewController: ViewController {
             }
             
             if let blockedError {
-                self.configureWebView(readOnly: true)
+                self.presentErrorMessage(blockedError: blockedError)
                 
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) { // helps prevent flash as wikitext is loaded
-                    self.presentErrorMessage(blockedError: blockedError)
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { // helps prevent flash as wikitext is loaded
+                    self.configureWebView(readOnly: true)
                 }
                 
             } else {
@@ -128,9 +128,10 @@ class SectionEditorViewController: ViewController {
         super.viewDidAppear(animated)
 
         initialFetchGroup.waitInBackground {
-            self.presentEditNoticesIfNecessary()
+            if !self.needsSelectLastSelection {
+                self.presentEditNoticesIfNecessary()
+            }
             self.selectLastSelectionIfNeeded()
-
         }
 
     }
@@ -153,17 +154,23 @@ class SectionEditorViewController: ViewController {
             return
         }
 
-        presentEditNoticesIfAvailable()
+        WKWebViewWithSettableInputViews.didSetKeyboardRequiresUserInteraction = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.presentEditNoticesIfAvailable()
+        }
     }
 
     private func presentEditNoticesIfAvailable() {
         guard let editNoticesViewModel = self.editNoticesViewModel else {
+            WKWebViewWithSettableInputViews.didSetKeyboardRequiresUserInteraction = false
             return
         }
 
         let editNoticesViewController = EditNoticesViewController(theme: self.theme, viewModel: editNoticesViewModel)
         editNoticesViewController.delegate = self
-        present(editNoticesViewController, animated: true)
+        present(editNoticesViewController, animated: true, completion: {
+            WKWebViewWithSettableInputViews.didSetKeyboardRequiresUserInteraction = false
+        })
     }
     
     private func setupFocusNavigationView() {

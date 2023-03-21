@@ -91,6 +91,12 @@ class ArticleTableOfContentsDisplayController: Themeable {
         delegate?.getVisibleSection(with: { (sectionId, _) in
             self.viewController.isVisible = true
             self.selectAndScroll(to: sectionId, animated: false)
+            
+            // Attempt to fix TOC presentation crashes.
+            guard !self.viewController.isBeingPresented && self.delegate !== self.viewController else {
+                return
+            }
+            
             self.delegate?.present(self.viewController, animated: animated)
         })
     }

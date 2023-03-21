@@ -28,9 +28,6 @@
 "about-translators-details" = "$1யில் தன்னார்வலர்களால் மொழிபெயர்க்கப்பட்டுள்ளது";
 "about-wikimedia-foundation" = "விக்கிமீடியா அறக்கட்டளை";
 "about-wikipedia" = "விக்கிப்பீடியா";
-"abuse-filter-disallow-heading" = "\nநீங்கள் இந்த தொகுப்பை பதிப்பிட முடியாது. தயவுசெய்து பின் சென்று அதை மாற்றவும்";
-"abuse-filter-warning-heading" = "இது ஆக்கபூர்வமற்ற தொகுப்பை போன்று தெரிகிறது, நீங்கள் நிச்சயம் பதிப்பிட வேண்டுமா ?";
-"abuse-filter-warning-repeat" = "திரும்பவரு எழுத்துருக்கள்";
 "account-creation-captcha-cannot-see-image" = "$1 படத்தை பார்க்க முடியவில்லையா?";
 "account-creation-captcha-obtaining" = "புதிய காப்ச்சா பெறப்படுகிறது...";
 "account-creation-captcha-request-account" = "கணக்கை கோருக.";

@@ -50,15 +50,6 @@
 "about-translators-details" = "$1 ရှိ စေတနာ့ဝန်ထမ်းများမှ ဘာသာပြန်ခဲ့သည်";
 "about-wikimedia-foundation" = "ဝီကီမီဒီယာ ဖောင်ဒေးရှင်း";
 "about-wikipedia" = "ဝီကီပီးဒီးယား";
-"abuse-filter-disallow-heading" = "ဤတည်းဖြတ်မှုအား မလွှင့်တင်နိုင်ပါ။";
-"abuse-filter-disallow-unconstructive" = "အလိုအလျောက်စစ်ထုတ်မှုစနစ်က ဤတည်းဖြတ်မှုကို အလွဲသုံးစားမှုတစ်ခုအဖြစ် စစ်ဆေးတွေ့ရှိခဲ့သည်။ ကျေးဇူးပြု၍ နောက်ပြန်သွားကာ သင်၏တည်းဖြတ်မှုကို ပြောင်းပါ။";
-"abuse-filter-warning-blanking" = "ဆောင်းပါးများတစ်ခုလုံး သို့မဟုတ် အပိုင်းလိုက် ဖျက်ပစ်ခြင်း";
-"abuse-filter-warning-caps" = "အကုန်လုံးစာလုံးကြီးများဖြင့် ရိုက်ထည့်";
-"abuse-filter-warning-heading" = "ဤတည်းဖြတ်မှုသည် အပြုသဘောမဆောင်သည့် တည်းဖြတ်မှု ဖြစ်နိုင်သည်။ ဤသည်ကို သိမ်းဆည်းရန်မှာ သေချာပါသလား?";
-"abuse-filter-warning-irrelevant" = "သင့်လျော်မှုမရှိသော ပြင်ပလင့်ခ်များ သို့မဟုတ် ပုံများ";
-"abuse-filter-warning-repeat" = "ထပ်ခါတလဲလဲ အက္ခရာများ";
-"abuse-filter-warning-spam" = "ဆောင်းပါးများသို့ လိုက်ဖွခြင်း";
-"abuse-filter-warning-subheading" = "သင်၏တည်းဖြတ်မှုတွင် ပါဝင်နိုင်သည်မှာ:";
 "account-creation-captcha-cannot-see-image" = "ပုံကို မမြင်ရပါသလား $1";
 "account-creation-captcha-obtaining" = "CAPTCHA အသစ် ရယူနေသည်...";
 "account-creation-captcha-request-account" = "အကောင့်တစ်ခု တောင်းဆိုရန်";

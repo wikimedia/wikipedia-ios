@@ -117,15 +117,6 @@
 "about-translators-details" = "Это приложение было переведено добровольцами на $1";
 "about-wikimedia-foundation" = "Фонд Викимедиа";
 "about-wikipedia" = "Википедия";
-"abuse-filter-disallow-heading" = "Вы не можете опубликовать эту правку";
-"abuse-filter-disallow-unconstructive" = "Автоматизированный фильтр определил эту правку как потенциально деструктивную или как попытку вандализма. Вернитесь назад и измените правку.";
-"abuse-filter-warning-blanking" = "Удаление частей или полных статей";
-"abuse-filter-warning-caps" = "Заглавными буквами";
-"abuse-filter-warning-heading" = "Эта выглядит как деструктивная правка. Вы уверены, что хотите опубликовать её?";
-"abuse-filter-warning-irrelevant" = "Нерелевантные внешние ссылки или изображения";
-"abuse-filter-warning-repeat" = "Повторяющиеся символы";
-"abuse-filter-warning-spam" = "Добавление спама в статьи";
-"abuse-filter-warning-subheading" = "Ваша правка может содержать:";
 "account-creation-captcha-cannot-see-image" = "Не видите изображение? $1";
 "account-creation-captcha-obtaining" = "Получение новой CAPTCHA...";
 "account-creation-captcha-request-account" = "Запрос учётной записи.";
@@ -204,6 +195,7 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Настройки темы для чтения";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Нажмите, чтобы вернуться назад";
+"button-go-back" = "Назад";
 "button-next" = "Далее";
 "button-ok" = "OK";
 "button-publish" = "Опубликовать";

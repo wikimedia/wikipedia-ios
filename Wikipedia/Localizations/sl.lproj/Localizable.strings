@@ -29,7 +29,7 @@
 "aaald-new-talk-topic-description-format" = "$1 o tem članku";
 "aaald-new-website-reference-archive-date-text" = "iz izvirnika dne $1";
 "aaald-new-website-reference-archive-url-text" = "URL na archive.org";
-"aaald-new-website-reference-title" = "Spletna stran";
+"aaald-new-website-reference-title" = "Spletno mesto";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=Dodanih 0 sklicev|one=Dodan $1 sklic|two=Dodana $1 sklica|few=Dodani $1 sklici|Dodanih $1 sklicev}}";
 "aaald-one-section-description" = "v razdelku $1";
 "aaald-revision-by-anonymous" = "Urejanje anonimnega uporabnika";
@@ -63,15 +63,6 @@
 "about-translators-details" = "Prevedli prostovoljci na $1";
 "about-wikimedia-foundation" = "Fundacija Wikimedia";
 "about-wikipedia" = "Wikipedija";
-"abuse-filter-disallow-heading" = "Tega urejanja ne morete objaviti.";
-"abuse-filter-disallow-unconstructive" = "Samodejni filter je to urejanje prepoznal kot potencialno nekonstruktivno ali poskus vandalizma. Vrnite se in spremenite svoje urejanje.";
-"abuse-filter-warning-blanking" = "Brisanje razdelkov ali celotnih člankov";
-"abuse-filter-warning-caps" = "Besedilo z velikimi črkami";
-"abuse-filter-warning-heading" = "To urejanje se zdi nekonstruktivno. Ali ga res želite objaviti?";
-"abuse-filter-warning-irrelevant" = "Nepomembne zunanje povezave ali slike";
-"abuse-filter-warning-repeat" = "Ponavljanje znakov";
-"abuse-filter-warning-spam" = "Dodajanje neželene vsebine člankom";
-"abuse-filter-warning-subheading" = "Vaše urejanje morda vsebuje:";
 "account-creation-captcha-cannot-see-image" = "Ne vidite slike? $1";
 "account-creation-captcha-obtaining" = "Pridobivanje novega CAPTCHA ...";
 "account-creation-captcha-request-account" = "Zahtevaj račun.";
@@ -150,9 +141,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Upravljanje bralnih tem";
 "back-button-accessibility-label" = "Nazaj";
 "back-button-popover-title" = "Tapnite, da se vrnete nazaj";
+"button-go-back" = "Nazaj";
 "button-next" = "Naprej";
 "button-ok" = "V redu";
 "button-publish" = "Objavi";
+"button-publish-anyway" = "Vseeno objavi";
 "button-read-now" = "Preberi zdaj";
 "button-report-a-bug" = "Prijavi hrošč";
 "button-save-for-later" = "Shrani za pozneje";

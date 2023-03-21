@@ -71,15 +71,6 @@
 "about-translators-details" = "Sinalin ng mga boluntaryo sa $1";
 "about-wikimedia-foundation" = "Pundasyong Wikimedia";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Di mo malalathala ang binagong ito";
-"abuse-filter-disallow-unconstructive" = "Natukoy ng isang agarang pagsalâ na maaaring walang kabuluhan o di kaya'y isang bandalismo ang edit na ito. Mangyaring bumalik at pakibago po ng iyong edit.";
-"abuse-filter-warning-blanking" = "Pagbubura sa mga bahagi o sa buong artikulo";
-"abuse-filter-warning-caps" = "Naka-caps na teksto";
-"abuse-filter-warning-heading" = "Mukha yatang walang kabuluhan ang edit na ito, sigurado ka bang ilalathala mo ito?";
-"abuse-filter-warning-irrelevant" = "Walang kabuluhang kawing panlabas o larawan";
-"abuse-filter-warning-repeat" = "Paulit-ulit na karakter";
-"abuse-filter-warning-spam" = "Pagdaragdag ng spam sa mga artikulo";
-"abuse-filter-warning-subheading" = "Maaaring naglalaman ang binago mo ng:";
 "account-creation-captcha-cannot-see-image" = "Di makita ang larawan? $1";
 "account-creation-captcha-obtaining" = "Kumukuha ng bagong CAPTCHA...";
 "account-creation-captcha-request-account" = "Humiling ng account";

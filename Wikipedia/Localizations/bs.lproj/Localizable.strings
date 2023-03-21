@@ -65,15 +65,6 @@
 "about-translators-details" = "Preveli dobrovoljci na $1";
 "about-wikimedia-foundation" = "Zadužbina Wikimedia";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Ne možete objaviti ovu izmjenu";
-"abuse-filter-disallow-unconstructive" = "Automatizirani filter utvrdio je da je ova izmjena potencijalno nekonstruktivna ili da predstavlja pokušaj vandalizma. Vratite se i promijenite izmjenu.";
-"abuse-filter-warning-blanking" = "Brisanje odlomaka ili cijelih članaka";
-"abuse-filter-warning-caps" = "Tekst velikim slovima";
-"abuse-filter-warning-heading" = "Ovo liči na nekonstruktivnu izmjenu, da li ste sigurni da je želite objaviti?";
-"abuse-filter-warning-irrelevant" = "Nerelevantni vanjski linkovi ili slike";
-"abuse-filter-warning-repeat" = "Ponavljajući znakovi";
-"abuse-filter-warning-spam" = "Dodavanje spama u članke";
-"abuse-filter-warning-subheading" = "Vaša izmjena možda sadrži:";
 "account-creation-captcha-cannot-see-image" = "Ne možete vidjeti sliku? $1";
 "account-creation-captcha-obtaining" = "Dobavljam novi CAPTCHA kôd...";
 "account-creation-captcha-request-account" = "Zatražite račun.";
@@ -87,8 +78,9 @@
 "account-creation-saving" = "Čuvam...";
 "account-creation-title" = "Napravi novi račun";
 "account-group-title" = "Vaš račun";
+"account-request-vanishing" = "Ugasi račun";
 "account-talk-page-title" = "Vaša stranica za razgovor";
-"account-talk-preferences-auto-sign-discussions" = "Automatski potpiši rasprave";
+"account-talk-preferences-auto-sign-discussions" = "Automatski potpis u razgovorima";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatsko potpisivanje rasprava će koristiti potpis definisan u postavkama potpisa";
 "account-talk-preferences-title" = "Podešavanja stranice za razgovor";
 "action-add-to" = "Dodaj u...";
@@ -122,6 +114,7 @@
 "action-update" = "Ažuriraj";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 članak|$1 članka|$1 članaka}} na spisak za čitanje";
 "add-citation-title" = "Dodaj referencu";
+"additional-information-email-title" = "Dodatne informacije";
 "announcements-dismiss" = "Odbaci";
 "app-store-keywords" = "Wikipedia, reference, wiki, enciklopedija, info, znanje, istraživanje, informacije, učenje";
 "app-store-release-notes" = "Poptuno prilagodljiva i lakša za čitanje stranica Istraži. Lokalizacija, poboljšanja performansi i ispravke programskih greški.";
@@ -150,9 +143,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrole tema za čitanje";
 "back-button-accessibility-label" = "Nazad";
 "back-button-popover-title" = "Dodirnite za povratak";
+"button-go-back" = "Nazad";
 "button-next" = "Sljedeće";
 "button-ok" = "U redu";
 "button-publish" = "Objavi";
+"button-publish-anyway" = "Ipak objavi";
 "button-read-now" = "Čitaj sada";
 "button-report-a-bug" = "Prijavi grešku";
 "button-save-for-later" = "Sačuvaj za kasnije";
@@ -264,6 +259,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Tekst koji ste odabrali ne može biti pronađen";
 "edit-minor-learn-more-text" = "Saznaj više o manjim izmjenama";
 "edit-minor-text" = "Ovo je manja izmjena";
+"edit-notices" = "Uređivačke napomene";
+"edit-notices-always-display" = "Uvijek prikaži uređivačke napomene";
+"edit-notices-please-read" = "Pročitajte prije uređivanja";
 "edit-ordered-list-accessibility-label" = "Napravi poredani spisak od trenutnog reda";
 "edit-ordered-list-remove-accessibility-label" = "Ukloni poredani spisak iz trenutne linije";
 "edit-published" = "Izmjena objavljena";
@@ -412,6 +410,8 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "s Wikipedije ($1)";
 "explore-random-article-sub-heading-from-wikipedia" = "s Wikipedije";
 "explore-randomizer" = "Nasumična stranica";
+"export-user-data-space-error" = "Nemate dovoljno prostora na uređaju za izvoz korisničkih podataka. Pokušajte ponovo kasnije.";
+"export-user-data-title" = "Izvezi korisničke podatke";
 "featured-widget-content-failure-for-date" = "Istaknuti članak nije dostupan za ovaj dan.";
 "featured-widget-description" = "Otkrijte najbolje članke na Wikipediji, koje svakodnevno bira naša zajednica.";
 "featured-widget-from-language-wikipedia" = "s Wikipedije ($1)";
@@ -476,6 +476,9 @@
 "icon-shortcut-random-title" = "Nasumičan članak";
 "icon-shortcut-search-title" = "Pretraži Wikipediju";
 "image-gallery-unknown-owner" = "Autor je nepoznat.";
+"import-shared-reading-list-default-title" = "Moj spisak za čitanje";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Ne sada";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Popuni anketu";
 "in-the-news-sub-title-from-language-wikipedia" = "s Wikipedije ($1)";
 "in-the-news-sub-title-from-wikipedia" = "s Wikipedije";
 "in-the-news-title" = "Vijesti";
@@ -663,6 +666,7 @@
 "notifications-center-toolbar-mark-accessibility-label" = "Označite odabrana obavještenja";
 "notifications-center-type-item-description-mentions" = "Spominjanja";
 "notifications-center-type-item-description-welcome-verbose" = "Poruka dobrodošlice";
+"notifications-center-type-title-welcome" = "Dobro došli";
 "notifications-push-fallback-body-text" = "Nova aktivnost na Wikipediji";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 nova poruka|$1 nove poruke|$1 novih poruka}} na $2";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Nova poruka|Nove poruke}}";
@@ -704,6 +708,7 @@
 "page-similar-titles" = "Slične stranice";
 "panel-compare-revisions-text" = "Poređenje verzija pomaže prikazati kako se članak mijenjao vremenom. Poređenje dvije verzije članka pokazuje razlika između tih verzija ističući bilo koji sadržaj koji je promijenjen.";
 "panel-compare-revisions-title" = "Poređenje verzija";
+"panel-not-logged-in-title" = "Niste prijavljeni";
 "pictured" = "na slici";
 "places-accessibility-clear-saved-searches" = "Očisti sačuvane pretrage";
 "places-accessibility-group" = "$1 članaka";
@@ -744,6 +749,7 @@
 "potd-widget-title" = "Slika dana";
 "preference-summary-eventlogging-opt-in" = "Dozvolite Zadužbini Wikimedia da prikupi informacije o tom kako koristite aplikaciju da bismo je poboljšali";
 "preference-title-eventlogging-opt-in" = "Šalji izvještaje o korištenju";
+"project-name-mediawiki" = "MediaWiki";
 "reading-list-add-generic-hint-title" = "Dodaj ovaj članak na spisak za čitanje?";
 "reading-list-add-hint-title" = "Dodaj \"$1\" na spisak za čitanje?";
 "reading-list-add-saved-button-title" = "Da, dodaj ih u moje spiskove za čitanje";
@@ -888,7 +894,7 @@
 "settings-notifications-echo-failure-message" = "Došlo je do greške prilikom provjere pretplata na obavještenja u vezi s Vašim računom.";
 "settings-notifications-echo-failure-title" = "Nije moguće provjeriti pretplate na Echo obavještenja";
 "settings-notifications-echo-failure-try-again" = "Pokušaj ponovo";
-"settings-notifications-header" = "Budite upozoreni na aktivnosti povezane s Vašim računom, kao što su poruke od kolega saradnika, upozorenja i napoemene. Sve je dato uz poštovanje privatnosti i najnovijih podataka.";
+"settings-notifications-header" = "Budite upozoreni na aktivnosti povezane s Vašim računom, kao što su poruke od kolega saradnika, upozorenja i obavještenja. Sve ovo je obezbijeđeno uz poštovanje privatnosti i najnovijih podataka.";
 "settings-notifications-info" = "Budite obaviješteni o aktualnim i najčitanijim člancima na Wikipediji uz pomoć naših push obavještenja. Sve se nudi s najnovijim podacima, a pritom se poštuje Vaša privatnost.";
 "settings-notifications-learn-more" = "Detaljnije o obavještenjima";
 "settings-notifications-push-notifications" = "Push obavještenja";
@@ -944,8 +950,12 @@
 "talk-page-discussion-accessibility-hint" = "Dvaput dodirnite da biste otvorili cijelu raspravu";
 "talk-page-discussion-read-accessibility-label" = "Pročitano";
 "talk-page-discussion-unread-accessibility-label" = "Nepročitano";
+"talk-page-error-alert-title" = "Neočekivana greška";
+"talk-page-error-loading-subtitle" = "Nešto nije u redu.";
+"talk-page-error-loading-title" = "Ne mogu učitati stranicu za razgovor";
 "talk-page-error-unable-to-post-reply" = "Nema internetske veze. Nije moguće poslati odgovor.";
 "talk-page-error-unable-to-post-topic" = "Nema internetske veze. Nije moguće objaviti raspravu.";
+"talk-page-find-in-page-button" = "Pronađi na stranici";
 "talk-page-info-active-conversations" = "Aktivni razgovori na Wikipediji ($1)";
 "talk-page-info-active-conversations-generic" = "Aktivni razgovori na Wikipediji";
 "talk-page-link-user-action-sheet-app" = "Pogledaj stranicu razgovora s korisnikom u aplikaciji";
@@ -953,7 +963,7 @@
 "talk-page-link-user-action-sheet-title" = "Korisničke stranice";
 "talk-page-new-banner-subtitle" = "Zapamtite, ovdje smo svi ljudi";
 "talk-page-new-banner-title" = "Budite ljubazni";
-"talk-page-new-body-textfield-accessibility-label" = "Tijelo rasprave";
+"talk-page-new-body-textfield-accessibility-label" = "Tijelo razgovora";
 "talk-page-new-reply-body-accessibility-label" = "Sastavite odgovor";
 "talk-page-new-reply-body-placeholder-text" = "Sastavite odgovor";
 "talk-page-new-reply-success-text" = "Vaš odgovor je uspješno objavljen";
@@ -963,6 +973,7 @@
 "talk-page-new-topic-body-placeholder-text" = "Sastavite novu raspravu";
 "talk-page-new-topic-success-text" = "Vaša rasprava je uspješno objavljena";
 "talk-page-new-topic-title" = "Nova rasprava";
+"talk-page-permanent-link" = "Trajni link";
 "talk-page-publish-terms-and-licenses" = "Spremanjem izmjena prihvatate $1uslove korištenja$2 i slažete se da svoj doprinos objavljujete pod licencama $3CC BY-SA 3.0$4 i $5GFDL$6.";
 "talk-page-reply-title" = "Odgovori";
 // Fuzzy
