@@ -8,6 +8,7 @@ protocol EditorInputViewsControllerDelegate: AnyObject {
     
     // Additional methods for native editor
     func editorInputViewsControllerDidChangeInputAccessoryView(_ editorInputViewsController: EditorInputViewsController, inputAccessoryView: UIView?)
+    func editorInputViewsControllerDidTapBold(_ editorInputViewsController: EditorInputViewsController)
 }
 
 class EditorInputViewsController: NSObject, EditorInputViewsSource, Themeable {
@@ -231,6 +232,7 @@ extension EditorInputViewsController: TextFormattingDelegate {
 
     func textFormattingProvidingDidTapBold() {
         webMessagingController?.toggleBoldSelection()
+        delegate?.editorInputViewsControllerDidTapBold(self)
     }
 
     func textFormattingProvidingDidTapItalics() {

@@ -779,11 +779,15 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
 }
 
 extension SectionEditorViewController: EditorInputViewsControllerDelegate {
-    func editorInputViewsControllerDidChangeInputAccessoryView(_ pageEditorInputViewsController: EditorInputViewsController, inputAccessoryView: UIView?) {
+    func editorInputViewsControllerDidTapBold(_ editorInputViewsController: EditorInputViewsController) {
         // nothing
     }
     
-    func editorInputViewsControllerDidTapMediaInsert(_ pageEditorInputViewsController: EditorInputViewsController) {
+    func editorInputViewsControllerDidChangeInputAccessoryView(_ editorInputViewsController: EditorInputViewsController, inputAccessoryView: UIView?) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidTapMediaInsert(_ editorInputViewsController: EditorInputViewsController) {
         let insertMediaViewController = InsertMediaViewController(articleTitle: articleURL.wmf_title, siteURL: articleURL.wmf_site)
         insertMediaViewController.delegate = self
         insertMediaViewController.apply(theme: theme)
@@ -816,7 +820,7 @@ extension SectionEditorViewController: EditorInputViewsControllerDelegate {
         }
     }
 
-    func editorInputViewsControllerDidTapLinkInsert(_ pageEditorInputViewsController: EditorInputViewsController) {
+    func editorInputViewsControllerDidTapLinkInsert(_ editorInputViewsController: EditorInputViewsController) {
         showLinkWizard()
     }
 }
