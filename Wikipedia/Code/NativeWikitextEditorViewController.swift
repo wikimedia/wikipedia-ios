@@ -8,7 +8,7 @@ class NativeWikitextEditorViewController: UIViewController {
     
     weak var delegate: NativeWikitextEditorDelegate?
     
-    var editorView: NativeWikitextEditorView {
+    private var editorView: NativeWikitextEditorView {
         return view as! NativeWikitextEditorView
     }
     
@@ -55,6 +55,14 @@ class NativeWikitextEditorViewController: UIViewController {
         }
         
         self.editorView.textView.text = text
+    }
+    
+    func undo() {
+        editorView.textView.undoManager?.undo()
+    }
+    
+    func redo() {
+        editorView.textView.undoManager?.redo()
     }
     
     @objc private func keyboardWillHide(_ notification: Notification) {

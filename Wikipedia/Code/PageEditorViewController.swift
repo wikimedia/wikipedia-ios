@@ -1,5 +1,9 @@
 import UIKit
 
+protocol PageEditorViewControllerDelegate: AnyObject {
+    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL: URL?)
+}
+
 class PageEditorViewController: UIViewController {
     
     lazy var wikitextEditor: NativeWikitextEditorViewController = {
@@ -12,12 +16,15 @@ class PageEditorViewController: UIViewController {
     private let sectionID: Int?
     private let selectedTextEditInfo: SelectedTextEditInfo?
     private let theme: Theme
+    private var navigationItemController: PageEditorNavigationItemController?
+    private weak var delegate: PageEditorViewControllerDelegate?
     
-    init(pageURL: URL, sectionID: Int?, wikitextFetcher: WikitextFetcher, selectedTextEditInfo: SelectedTextEditInfo? = nil, theme: Theme) {
+    init(pageURL: URL, sectionID: Int?, wikitextFetcher: WikitextFetcher, selectedTextEditInfo: SelectedTextEditInfo? = nil, delegate: PageEditorViewControllerDelegate, theme: Theme) {
         self.pageURL = pageURL
         self.sectionID = sectionID
         self.wikitextFetcher = wikitextFetcher
         self.selectedTextEditInfo = selectedTextEditInfo
+        self.delegate = delegate
         self.theme = theme
         super.init(nibName: nil, bundle: nil)
     }
@@ -28,8 +35,17 @@ class PageEditorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         addChildWikitextEditor()
         loadWikitext()
+        apply(theme: theme)
+    }
+    
+    private func setupNavigationBar() {
+        navigationItemController = PageEditorNavigationItemController(navigationItem: navigationItem)
+        navigationItemController?.delegate = self
+        navigationItemController?.undoButton.isEnabled = false
+        navigationItemController?.redoButton.isEnabled = false
     }
     
     private func addChildWikitextEditor() {
@@ -67,7 +83,45 @@ class PageEditorViewController: UIViewController {
 
 extension PageEditorViewController: NativeWikitextEditorDelegate {
     func wikitextViewDidChange(_ textView: UITextView) {
-        // enable publish button if length > 0
-        // enable undo/redo buttons
+        navigationItemController?.undoButton.isEnabled = (textView.undoManager?.canUndo ?? false)
+        navigationItemController?.redoButton.isEnabled = (textView.undoManager?.canRedo ?? false)
+    }
+}
+
+extension PageEditorViewController: PageEditorNavigationItemControllerDelegate {
+    func pageEditorNavigationItemController(_ pageEditorNavigationItemController: PageEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
+        print("progress")
+    }
+    
+    func pageEditorNavigationItemController(_ pageEditorNavigationItemController: PageEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
+        // todo: show destructive alert
+        // todo: pass along url if needed
+        delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
+    }
+    
+    func pageEditorNavigationItemController(_ pageEditorNavigationItemController: PageEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
+        wikitextEditor.undo()
+    }
+    
+    func pageEditorNavigationItemController(_ pageEditorNavigationItemController: PageEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
+        wikitextEditor.redo()
+    }
+    
+    func pageEditorNavigationItemController(_ pageEditorNavigationItemController: PageEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
+        print("show reading themes")
+    }
+    
+    func pageEditorNavigationItemController(_ pageEditorNavigationItemController: PageEditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem) {
+        print("show edit notices")
+    }
+}
+
+extension PageEditorViewController: Themeable {
+    func apply(theme: Theme) {
+        guard isViewLoaded else {
+            return
+        }
+        
+        navigationItemController?.apply(theme: theme)
     }
 }
