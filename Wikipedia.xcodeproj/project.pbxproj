@@ -589,6 +589,30 @@
 		67359898299EDA72002EE8D1 /* Components in Frameworks */ = {isa = PBXBuildFile; productRef = 67359897299EDA72002EE8D1 /* Components */; };
 		6735989A299EDA78002EE8D1 /* Components in Frameworks */ = {isa = PBXBuildFile; productRef = 67359899299EDA78002EE8D1 /* Components */; };
 		673612F224FD7210002A1989 /* ArticleAsLivingDocViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673612F124FD7210002A1989 /* ArticleAsLivingDocViewModelTests.swift */; };
+		6739902429CB87970002212F /* NativeWikitextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739902329CB87970002212F /* NativeWikitextEditorViewController.swift */; };
+		6739902529CB87970002212F /* NativeWikitextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739902329CB87970002212F /* NativeWikitextEditorViewController.swift */; };
+		6739902629CB87970002212F /* NativeWikitextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739902329CB87970002212F /* NativeWikitextEditorViewController.swift */; };
+		6739902729CB87970002212F /* NativeWikitextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739902329CB87970002212F /* NativeWikitextEditorViewController.swift */; };
+		6739902A29CB88A10002212F /* WMFSyntaxHighlightTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6739902829CB88A10002212F /* WMFSyntaxHighlightTextStorage.m */; };
+		6739902B29CB88A10002212F /* WMFSyntaxHighlightTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6739902829CB88A10002212F /* WMFSyntaxHighlightTextStorage.m */; };
+		6739902C29CB88A10002212F /* WMFSyntaxHighlightTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6739902829CB88A10002212F /* WMFSyntaxHighlightTextStorage.m */; };
+		6739902D29CB88A10002212F /* WMFSyntaxHighlightTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6739902829CB88A10002212F /* WMFSyntaxHighlightTextStorage.m */; };
+		6739903029CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6739902F29CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.m */; };
+		6739903129CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6739902F29CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.m */; };
+		6739903229CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6739902F29CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.m */; };
+		6739903329CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6739902F29CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.m */; };
+		6739903529CB89550002212F /* CustomAttributedStringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739903429CB89550002212F /* CustomAttributedStringKeys.swift */; };
+		6739903629CB89550002212F /* CustomAttributedStringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739903429CB89550002212F /* CustomAttributedStringKeys.swift */; };
+		6739903729CB89550002212F /* CustomAttributedStringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739903429CB89550002212F /* CustomAttributedStringKeys.swift */; };
+		6739903829CB89550002212F /* CustomAttributedStringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739903429CB89550002212F /* CustomAttributedStringKeys.swift */; };
+		6739903A29CB8DD80002212F /* NativeWikitextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739903929CB8DD80002212F /* NativeWikitextEditorView.swift */; };
+		6739903B29CB8DD80002212F /* NativeWikitextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739903929CB8DD80002212F /* NativeWikitextEditorView.swift */; };
+		6739903C29CB8DD80002212F /* NativeWikitextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739903929CB8DD80002212F /* NativeWikitextEditorView.swift */; };
+		6739903D29CB8DD80002212F /* NativeWikitextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739903929CB8DD80002212F /* NativeWikitextEditorView.swift */; };
+		6739903F29CB91520002212F /* PageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739903E29CB91520002212F /* PageEditorViewController.swift */; };
+		6739904029CB91520002212F /* PageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739903E29CB91520002212F /* PageEditorViewController.swift */; };
+		6739904129CB91520002212F /* PageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739903E29CB91520002212F /* PageEditorViewController.swift */; };
+		6739904229CB91520002212F /* PageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739903E29CB91520002212F /* PageEditorViewController.swift */; };
 		6739A182273061220063E0E0 /* RemoteNotificationsMarkAllAsReadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739A181273061220063E0E0 /* RemoteNotificationsMarkAllAsReadOperation.swift */; };
 		673FC3D0273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673FC3CF273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift */; };
 		673FC3D1273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673FC3CF273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift */; };
@@ -4199,6 +4223,14 @@
 		6734116F22773122005B31DA /* OldTalkPageReplyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldTalkPageReplyCell.swift; sourceTree = "<group>"; };
 		6734F051227B634900BDDB94 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		673612F124FD7210002A1989 /* ArticleAsLivingDocViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocViewModelTests.swift; sourceTree = "<group>"; };
+		6739902329CB87970002212F /* NativeWikitextEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWikitextEditorViewController.swift; sourceTree = "<group>"; };
+		6739902829CB88A10002212F /* WMFSyntaxHighlightTextStorage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFSyntaxHighlightTextStorage.m; sourceTree = "<group>"; };
+		6739902929CB88A10002212F /* WMFSyntaxHighlightTextStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFSyntaxHighlightTextStorage.h; sourceTree = "<group>"; };
+		6739902E29CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+WikitextEditingExtensions.h"; sourceTree = "<group>"; };
+		6739902F29CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+WikitextEditingExtensions.m"; sourceTree = "<group>"; };
+		6739903429CB89550002212F /* CustomAttributedStringKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAttributedStringKeys.swift; sourceTree = "<group>"; };
+		6739903929CB8DD80002212F /* NativeWikitextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWikitextEditorView.swift; sourceTree = "<group>"; };
+		6739903E29CB91520002212F /* PageEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEditorViewController.swift; sourceTree = "<group>"; };
 		6739A181273061220063E0E0 /* RemoteNotificationsMarkAllAsReadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsMarkAllAsReadOperation.swift; sourceTree = "<group>"; };
 		673FC3CF273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFTableHeaderFooterLabelView+Extensions.swift"; sourceTree = "<group>"; };
 		6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterDetailViewModel+ActionExtensions.swift"; sourceTree = "<group>"; };
@@ -7218,6 +7250,21 @@
 			path = "Article Description Tests";
 			sourceTree = "<group>";
 		};
+		6739902229CB877B0002212F /* Native Wikitext Editor */ = {
+			isa = PBXGroup;
+			children = (
+				6739902329CB87970002212F /* NativeWikitextEditorViewController.swift */,
+				6739903E29CB91520002212F /* PageEditorViewController.swift */,
+				6739903929CB8DD80002212F /* NativeWikitextEditorView.swift */,
+				6739902929CB88A10002212F /* WMFSyntaxHighlightTextStorage.h */,
+				6739902829CB88A10002212F /* WMFSyntaxHighlightTextStorage.m */,
+				6739902E29CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.h */,
+				6739902F29CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.m */,
+				6739903429CB89550002212F /* CustomAttributedStringKeys.swift */,
+			);
+			name = "Native Wikitext Editor";
+			sourceTree = "<group>";
+		};
 		676C864526D40AEB00A704C1 /* NotificationServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -8639,6 +8686,7 @@
 		BC45D58D1C32FD58007C72F3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				6739902229CB877B0002212F /* Native Wikitext Editor */,
 				6798035A24F94CAE00D765AA /* Article as a Living Document */,
 				67DC5BDB23A00DF500B03A84 /* Article */,
 				6782DB8F2343B691003FA21B /* Diff */,
@@ -11431,6 +11479,7 @@
 				00FCCBCF2900A6C500C9ECD2 /* NSMutableAttributedString+Highlight.swift in Sources */,
 				B0CD9DDB1F70997300051843 /* WMFWelcomeLanguagesAnimationView.swift in Sources */,
 				6782DB9D2343B7DB003FA21B /* DiffHeaderTitleView.swift in Sources */,
+				6739903F29CB91520002212F /* PageEditorViewController.swift in Sources */,
 				830D71CF1F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				6730FD0E28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */,
 				6747117E250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift in Sources */,
@@ -11438,6 +11487,7 @@
 				67DC5BE923A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,
 				B0CD9DD61F70997300051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				67E2E48F250452E60070F12D /* ArticleAsLivingDocHeaderView.swift in Sources */,
+				6739903A29CB8DD80002212F /* NativeWikitextEditorView.swift in Sources */,
 				B0524B6F214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				67F73E752267B9070079DEEF /* TalkPageReplyListViewController.swift in Sources */,
 				67E8B0742268DA8B00537BC9 /* OldTalkPageTopicCell.swift in Sources */,
@@ -11493,6 +11543,7 @@
 				83510B0728F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */,
 				D850A53A1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */,
+				6739903029CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.m in Sources */,
 				67C6F7A627E8CB9000B9C864 /* NotificationsCenterCommonViewModel+TextExtensions.swift in Sources */,
 				7A1469C5220BC223000A20F1 /* EditHintController.swift in Sources */,
 				007CCF0126D5A10200D5EA7C /* NotificationsCenterViewController.swift in Sources */,
@@ -11570,6 +11621,8 @@
 				832BD3BC28996B68002623CA /* VanishAccountContentView.swift in Sources */,
 				671DF9C925F2AE4F0011799E /* WikidataDescriptionController.swift in Sources */,
 				00474A2A28DD1AE2002E3C09 /* TalkPageCoffeeRollViewController.swift in Sources */,
+				6739902429CB87970002212F /* NativeWikitextEditorViewController.swift in Sources */,
+				6739902B29CB88A10002212F /* WMFSyntaxHighlightTextStorage.m in Sources */,
 				B0E803E61C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				7A4D227D21B1CD8600D889BD /* TextFormattingTableViewCell.swift in Sources */,
 				B0524B75214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
@@ -11866,6 +11919,7 @@
 				0E8DC0951C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D84F2BFC1D2FEE6300963D42 /* WMFRandomDiceButton.m in Sources */,
 				67985A862524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift in Sources */,
+				6739903529CB89550002212F /* CustomAttributedStringKeys.swift in Sources */,
 				67E5DA5C2761B0AB00CE827D /* NotificationsCenterFilterView.swift in Sources */,
 				7A6ED51720ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
 				7A1C4995227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift in Sources */,
@@ -12410,6 +12464,7 @@
 				00FCCBD22900A6C500C9ECD2 /* NSMutableAttributedString+Highlight.swift in Sources */,
 				B0CD9DF01F70997500051843 /* WMFWelcomeLanguagesAnimationView.swift in Sources */,
 				67B64D5A2507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift in Sources */,
+				6739904229CB91520002212F /* PageEditorViewController.swift in Sources */,
 				6782DBA02343B7DB003FA21B /* DiffHeaderTitleView.swift in Sources */,
 				6730FD1128998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */,
 				830D71D21F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
@@ -12417,6 +12472,7 @@
 				67DC5BEC23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,
 				B0EFCD701EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				B0CD9DEB1F70997500051843 /* WMFWelcomeAnimationView.swift in Sources */,
+				6739903D29CB8DD80002212F /* NativeWikitextEditorView.swift in Sources */,
 				B0524B72214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				830D71C61F703C980080078B /* ArticleURLListViewController.swift in Sources */,
 				7A7AC84921B6B89B003B849B /* SectionEditorViewController.swift in Sources */,
@@ -12472,6 +12528,7 @@
 				83510B0A28F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */,
 				D8A42A721E815A9C00D8E281 /* WMFWelcomePanelViewController.swift in Sources */,
 				7A1469C8220BC223000A20F1 /* EditHintController.swift in Sources */,
+				6739903329CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.m in Sources */,
 				67C6F7A927E8CB9000B9C864 /* NotificationsCenterCommonViewModel+TextExtensions.swift in Sources */,
 				83023C2220E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				007CCF0426D5A10200D5EA7C /* NotificationsCenterViewController.swift in Sources */,
@@ -12549,6 +12606,8 @@
 				832BD3BF28996B68002623CA /* VanishAccountContentView.swift in Sources */,
 				671DF9CC25F2AE4F0011799E /* WikidataDescriptionController.swift in Sources */,
 				00474A2D28DD1AE2002E3C09 /* TalkPageCoffeeRollViewController.swift in Sources */,
+				6739902729CB87970002212F /* NativeWikitextEditorViewController.swift in Sources */,
+				6739902D29CB88A10002212F /* WMFSyntaxHighlightTextStorage.m in Sources */,
 				7A4D228021B1CD8600D889BD /* TextFormattingTableViewCell.swift in Sources */,
 				B0524B78214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
 				D8A42A9A1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
@@ -12845,6 +12904,7 @@
 				6782DC0E23453D7D003FA21B /* DiffHeaderCompareItemView.swift in Sources */,
 				D8A42B4E1E815A9C00D8E281 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
 				7A32078B21E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
+				6739903829CB89550002212F /* CustomAttributedStringKeys.swift in Sources */,
 				67E5DA5F2761B0AB00CE827D /* NotificationsCenterFilterView.swift in Sources */,
 				D8A42B4F1E815A9C00D8E281 /* NewsViewController.swift in Sources */,
 				D8A42B501E815A9C00D8E281 /* main.m in Sources */,
@@ -13133,6 +13193,7 @@
 				67DC5BF023A1427D00B03A84 /* ActionHandlerScript.swift in Sources */,
 				D8CE251B1E698E2400DAE2E0 /* LoggingDefaults.swift in Sources */,
 				D8CE25201E698E2400DAE2E0 /* MWKTitleLanguageController.m in Sources */,
+				6739902629CB87970002212F /* NativeWikitextEditorViewController.swift in Sources */,
 				678D79F7235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				830378422940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift in Sources */,
 				D8CE25211E698E2400DAE2E0 /* UIView+WMFSnapshotting.m in Sources */,
@@ -13173,6 +13234,7 @@
 				83C0656C23D23220001821BC /* TableOfContentsItem.swift in Sources */,
 				7A0CD24121DFA34100066F68 /* TextFormattingToolbarView.swift in Sources */,
 				7A29A5C91F6C405900E8F42B /* HistoryViewController.swift in Sources */,
+				6739903729CB89550002212F /* CustomAttributedStringKeys.swift in Sources */,
 				D8CE25351E698E2400DAE2E0 /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				679A23FB2968D865008D7686 /* ShiftingTopViewsData.swift in Sources */,
 				7AA96D5D21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
@@ -13231,6 +13293,7 @@
 				D8CE25651E698E2400DAE2E0 /* AboutViewController.m in Sources */,
 				679A24052968DBFC008D7686 /* ShiftingNavigationBarView.swift in Sources */,
 				00AA5AAE276BF2AE005295B0 /* TextBarButtonItem.swift in Sources */,
+				6739903229CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.m in Sources */,
 				B0CD9DE11F70997400051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				7AFA21BC20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
 				67CEF26A2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */,
@@ -13244,6 +13307,7 @@
 				7A393282236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
 				7A9524CC22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B70214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
+				6739904129CB91520002212F /* PageEditorViewController.swift in Sources */,
 				7A2FE55D20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				7A6F560621AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
 				6730FD1028998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */,
@@ -13255,6 +13319,7 @@
 				0042813B25E6E841004945B3 /* NYTScalingImageView.m in Sources */,
 				6782DBAA2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				7A6ED51D20ADBF950001849F /* SettingsFunnel.swift in Sources */,
+				6739902C29CB88A10002212F /* WMFSyntaxHighlightTextStorage.m in Sources */,
 				00EBB7C927D6878E002025AC /* BarButtonImageStyle.swift in Sources */,
 				FFA0641B25A943EB00B9460B /* BasicLogger.swift in Sources */,
 				673FC3D2273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift in Sources */,
@@ -13530,6 +13595,7 @@
 				B0CD9DE31F70997400051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				7A82765A226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				B068EDE1206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
+				6739903C29CB8DD80002212F /* NativeWikitextEditorView.swift in Sources */,
 				83EE476B20D019A100A21F34 /* ExploreViewController.swift in Sources */,
 				B0BCF0BA202537D800986F72 /* Panels.swift in Sources */,
 				83B01F7D23DB0BA2001185F4 /* ArticleViewController+Editing.swift in Sources */,
@@ -13738,6 +13804,7 @@
 				67DC5BF123A1427D00B03A84 /* ActionHandlerScript.swift in Sources */,
 				D8EC3E0C1E9BDA35006712EB /* WMFSettingsTableViewCell.m in Sources */,
 				D8EC3E0D1E9BDA35006712EB /* UIView+WMFSubviews.swift in Sources */,
+				6739902529CB87970002212F /* NativeWikitextEditorViewController.swift in Sources */,
 				678D79F8235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				830378412940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift in Sources */,
 				D8EC3E0F1E9BDA35006712EB /* WMFReferencePopoverMessageViewController.m in Sources */,
@@ -13778,6 +13845,7 @@
 				83C0656D23D23220001821BC /* TableOfContentsItem.swift in Sources */,
 				B0421AA4206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
 				7A6ED51E20ADBF950001849F /* LoginFunnel.swift in Sources */,
+				6739903629CB89550002212F /* CustomAttributedStringKeys.swift in Sources */,
 				6771299024FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift in Sources */,
 				679A23FA2968D865008D7686 /* ShiftingTopViewsData.swift in Sources */,
 				7A0CD24221DFA34100066F68 /* TextFormattingToolbarView.swift in Sources */,
@@ -13836,6 +13904,7 @@
 				673411562273578A005B31DA /* OldTalkPageFetcher.swift in Sources */,
 				679A24042968DBFC008D7686 /* ShiftingNavigationBarView.swift in Sources */,
 				00AA5AAD276BF2AE005295B0 /* TextBarButtonItem.swift in Sources */,
+				6739903129CB890A0002212F /* NSMutableAttributedString+WikitextEditingExtensions.m in Sources */,
 				67CE5D22222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */,
 				D8EC3E521E9BDA35006712EB /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				D8EC3E531E9BDA35006712EB /* UIViewController+WMFEmptyView.m in Sources */,
@@ -13849,6 +13918,7 @@
 				7AFA21BD20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
 				7AB6F10122AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */,
 				7A393283236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
+				6739904029CB91520002212F /* PageEditorViewController.swift in Sources */,
 				7A9524CD22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B71214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				6730FD0F28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */,
@@ -13860,6 +13930,7 @@
 				0042813A25E6E841004945B3 /* NYTScalingImageView.m in Sources */,
 				6782DBAB2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				67282FBE24855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */,
+				6739902A29CB88A10002212F /* WMFSyntaxHighlightTextStorage.m in Sources */,
 				00EBB7C827D6878E002025AC /* BarButtonImageStyle.swift in Sources */,
 				FFA0641A25A943EB00B9460B /* BasicLogger.swift in Sources */,
 				673FC3D1273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift in Sources */,
@@ -14135,6 +14206,7 @@
 				D8EC3EFA1E9BDA35006712EB /* UIApplication+SystemSettings.swift in Sources */,
 				7A82765B226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				B068EDE2206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
+				6739903B29CB8DD80002212F /* NativeWikitextEditorView.swift in Sources */,
 				83EE476C20D019A100A21F34 /* ExploreViewController.swift in Sources */,
 				B0BCF0BB202537D800986F72 /* Panels.swift in Sources */,
 				83B01F7E23DB0BA2001185F4 /* ArticleViewController+Editing.swift in Sources */,

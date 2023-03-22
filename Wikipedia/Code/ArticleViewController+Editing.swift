@@ -13,10 +13,15 @@ extension ArticleViewController {
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
         editFunnel.logSectionEditingStart(from: funnelSource, language: articleLanguageCode)
         cancelWIconPopoverDisplay()
-        let sectionEditVC = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
-        sectionEditVC.delegate = self
-        sectionEditVC.editFunnel = editFunnel
-        let navigationController = WMFThemeableNavigationController(rootViewController: sectionEditVC, theme: theme)
+//        let sectionEditVC = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
+//        sectionEditVC.delegate = self
+//        sectionEditVC.editFunnel = editFunnel
+        
+        // todo: pass in sectionID
+        let wikitextFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        let pageEditorVC = PageEditorViewController(pageURL: articleURL, sectionID: nil, wikitextFetcher: wikitextFetcher, theme: theme)
+        
+        let navigationController = WMFThemeableNavigationController(rootViewController: pageEditorVC, theme: theme)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
 
         let needsIntro = !UserDefaults.standard.didShowEditingOnboarding

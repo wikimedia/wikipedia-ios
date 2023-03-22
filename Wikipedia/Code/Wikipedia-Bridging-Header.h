@@ -26,6 +26,9 @@
 #import "WMFShareFunnel.h"
 #import "WMFLanguagesViewControllerDelegate.h"
 
+#import "WMFSyntaxHighlightTextStorage.h"
+#import "NSMutableAttributedString+WikitextEditingExtensions.h"
+
 // Model
 #import "MWKLicense.h"
 #import "WMFArticleRevisionFetcher.h"
