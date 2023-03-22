@@ -16,7 +16,13 @@ class PageEditorViewController: UIViewController {
     private let sectionID: Int?
     private let selectedTextEditInfo: SelectedTextEditInfo?
     private let theme: Theme
-    private var navigationItemController: PageEditorNavigationItemController?
+    
+    private lazy var navigationItemController: PageEditorNavigationItemController = {
+        let navigationItemController = PageEditorNavigationItemController(navigationItem: navigationItem)
+        navigationItemController.delegate = self
+        return navigationItemController
+    }()
+    
     private weak var delegate: PageEditorViewControllerDelegate?
     
     init(pageURL: URL, sectionID: Int?, wikitextFetcher: WikitextFetcher, selectedTextEditInfo: SelectedTextEditInfo? = nil, delegate: PageEditorViewControllerDelegate, theme: Theme) {
@@ -42,10 +48,8 @@ class PageEditorViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        navigationItemController = PageEditorNavigationItemController(navigationItem: navigationItem)
-        navigationItemController?.delegate = self
-        navigationItemController?.undoButton.isEnabled = false
-        navigationItemController?.redoButton.isEnabled = false
+        navigationItemController.undoButton.isEnabled = false
+        navigationItemController.redoButton.isEnabled = false
     }
     
     private func addChildWikitextEditor() {
@@ -83,8 +87,8 @@ class PageEditorViewController: UIViewController {
 
 extension PageEditorViewController: NativeWikitextEditorDelegate {
     func wikitextViewDidChange(_ textView: UITextView) {
-        navigationItemController?.undoButton.isEnabled = (textView.undoManager?.canUndo ?? false)
-        navigationItemController?.redoButton.isEnabled = (textView.undoManager?.canRedo ?? false)
+        navigationItemController.undoButton.isEnabled = (textView.undoManager?.canUndo ?? false)
+        navigationItemController.redoButton.isEnabled = (textView.undoManager?.canRedo ?? false)
     }
 }
 
@@ -122,6 +126,6 @@ extension PageEditorViewController: Themeable {
             return
         }
         
-        navigationItemController?.apply(theme: theme)
+        navigationItemController.apply(theme: theme)
     }
 }

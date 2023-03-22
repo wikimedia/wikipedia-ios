@@ -13,15 +13,15 @@ extension ArticleViewController {
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
         editFunnel.logSectionEditingStart(from: funnelSource, language: articleLanguageCode)
         cancelWIconPopoverDisplay()
-//        let sectionEditVC = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
-//        sectionEditVC.delegate = self
-//        sectionEditVC.editFunnel = editFunnel
-        
+        let sectionEditVC = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
+        sectionEditVC.delegate = self
+        sectionEditVC.editFunnel = editFunnel
+//
         // todo: pass in sectionID
-        let wikitextFetcher = WikitextFetcher(session: dataStore.session, configuration: dataStore.configuration)
-        let pageEditorVC = PageEditorViewController(pageURL: articleURL, sectionID: nil, wikitextFetcher: wikitextFetcher, delegate: self, theme: theme)
+//        let wikitextFetcher = WikitextFetcher(session: dataStore.session, configuration: dataStore.configuration)
+//         let pageEditorVC = PageEditorViewController(pageURL: articleURL, sectionID: nil, wikitextFetcher: wikitextFetcher, delegate: self, theme: theme)
         
-        let navigationController = WMFThemeableNavigationController(rootViewController: pageEditorVC, theme: theme)
+        let navigationController = WMFThemeableNavigationController(rootViewController: sectionEditVC, theme: theme)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
 
         let needsIntro = !UserDefaults.standard.didShowEditingOnboarding
@@ -38,6 +38,23 @@ extension ArticleViewController {
         } else {
             present(navigationController, animated: true)
         }
+    }
+    
+    func showNativeEditor() {
+        // editFunnel.logSectionEditingStart(from: funnelSource, language: articleLanguageCode)
+        // cancelWIconPopoverDisplay()
+//        let sectionEditVC = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
+//        sectionEditVC.delegate = self
+//        sectionEditVC.editFunnel = editFunnel
+//
+        // todo: pass in sectionID
+        let wikitextFetcher = WikitextFetcher(session: dataStore.session, configuration: dataStore.configuration)
+         let pageEditorVC = PageEditorViewController(pageURL: articleURL, sectionID: nil, wikitextFetcher: wikitextFetcher, delegate: self, theme: theme)
+        
+        let navigationController = WMFThemeableNavigationController(rootViewController: pageEditorVC, theme: theme)
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+
+        present(navigationController, animated: true)
     }
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource, funnelSource: EditFunnelSource) {
@@ -93,11 +110,17 @@ extension ArticleViewController {
         }
         sheet.addAction(editTitleDescriptionAction)
         
-        let editLeadSectionTitle = WMFLocalizedString("description-edit-pencil-introduction", value: "Edit introduction", comment: "Title for button used to show article lead section editor")
+        let editLeadSectionTitle = WMFLocalizedString("description-edit-pencil-introduction", value: "Web section editor", comment: "Title for button used to show article lead section editor")
         let editLeadSectionAction = UIAlertAction(title: editLeadSectionTitle, style: .default) { (action) in
             self.showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
         }
         sheet.addAction(editLeadSectionAction)
+        
+        let editLeadSectionTitle1 = "Full native editor"
+        let editLeadSectionAction1 = UIAlertAction(title: editLeadSectionTitle1, style: .default) { (action) in
+            self.showNativeEditor()
+        }
+        sheet.addAction(editLeadSectionAction1)
         
         sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
 

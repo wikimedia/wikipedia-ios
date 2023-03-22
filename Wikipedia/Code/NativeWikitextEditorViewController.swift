@@ -8,13 +8,22 @@ class NativeWikitextEditorViewController: UIViewController {
     
     weak var delegate: NativeWikitextEditorDelegate?
     
+    private lazy var pageEditorInputViewsController: PageEditorInputViewsController = {
+        let inputViewsController = PageEditorInputViewsController(webView: nil, webMessagingController: nil, findAndReplaceDisplayDelegate: self)
+        inputViewsController.delegate = self
+        
+        return inputViewsController
+    }()
+    
     private var editorView: NativeWikitextEditorView {
         return view as! NativeWikitextEditorView
     }
     
     init(delegate: NativeWikitextEditorDelegate) {
         self.delegate = delegate
+        
         super.init(nibName: nil, bundle: nil)
+        
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillChangeFrame(_:)),
@@ -42,7 +51,11 @@ class NativeWikitextEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        
+    }
+    
+    override var inputViewController: UIInputViewController? {
+        return pageEditorInputViewsController.inputViewController
     }
     
     // MARK: Public
@@ -63,6 +76,10 @@ class NativeWikitextEditorViewController: UIViewController {
     
     func redo() {
         editorView.textView.undoManager?.redo()
+    }
+    
+    func setInputAccessoryView(_ inputAccessoryView: UIView?) {
+        editorView.textView.inputAccessoryView = inputAccessoryView
     }
     
     @objc private func keyboardWillHide(_ notification: Notification) {
@@ -96,7 +113,9 @@ extension NativeWikitextEditorViewController: NSTextContentStorageDelegate {
 }
 
 extension NativeWikitextEditorViewController: UITextViewDelegate {
+
     func textViewDidChange(_ textView: UITextView) {
+        // pageEditorInputViewsController.textSelectionDidChange(isRangeSelected: textView.selectedTextRange?.isEmpty ?? false)
         // todo: tell delegate that textView has changed. It can determine it's own publish button states. (in the case of talk page new topic, title field and this text view > 0, in the case of article editor, just this field > 0
         // publishButton.isEnabled = bodyTextView.textStorage.length == 0 ? false : true
         // formattingToolbarView.undoButton.isEnabled = textView.undoManager?.canUndo ?? false
@@ -105,7 +124,7 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
     }
     
     func textViewDidChangeSelection(_ textView: UITextView) {
-        
+        pageEditorInputViewsController.textSelectionDidChange(isRangeSelected: textView.selectedRange.length > 0)
 //        formattingToolbarView.boldButton.isSelected = selectedTextRangeOrCursorIsBoldAndItalic() || selectedTextRangeOrCursorIsBold()
 //        formattingToolbarView.italicsButton.isSelected = selectedTextRangeOrCursorIsBoldAndItalic() || selectedTextRangeOrCursorIsItalic()
 //        formattingToolbarView.linkButton.isSelected = selectedTextRangeOrCursorIsLink()
@@ -116,6 +135,36 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
 //        formattingToolbarView.bulletButton.isSelected = selectedTextRangeOrCursorIsBullet()
 //        formattingToolbarView.indentButton.isEnabled = selectedTextRangeOrCursorIsBullet()
 //        formattingToolbarView.unindentButton.isEnabled = selectedTextRangeOrCursorIsBullet()
+    }
+}
+
+
+extension NativeWikitextEditorViewController: PageEditorInputViewsControllerDelegate {
+    func pageEditorInputViewsControllerDidChangeInputAccessoryView(_ pageEditorInputViewsController: PageEditorInputViewsController, inputAccessoryView: UIView?) {
+        editorView.textView.inputAccessoryView = inputAccessoryView
+        editorView.textView.reloadInputViews()
+    }
+    
+    func pageEditorInputViewsControllerDidTapMediaInsert(_ pageEditorInputViewsController: PageEditorInputViewsController) {
+        print("tell delegate to present media insert)")
+    }
+    
+    func pageEditorInputViewsControllerDidTapLinkInsert(_ pageEditorInputViewsController: PageEditorInputViewsController) {
+        print("tell delegate to present link insert)")
+    }
+}
+
+extension NativeWikitextEditorViewController: FindAndReplaceKeyboardBarDisplayDelegate {
+    func keyboardBarDidTapReplaceSwitch(_ keyboardBar: FindAndReplaceKeyboardBar) {
+        print("replace in text storage")
+    }
+    
+    func keyboardBarDidShow(_ keyboardBar: FindAndReplaceKeyboardBar) {
+        print("??")
+    }
+    
+    func keyboardBarDidHide(_ keyboardBar: FindAndReplaceKeyboardBar) {
+        print("??")
     }
 }
 

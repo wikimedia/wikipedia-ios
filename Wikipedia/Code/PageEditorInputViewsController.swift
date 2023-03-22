@@ -5,11 +5,14 @@ protocol PageEditorInputViewsSource: AnyObject {
 protocol PageEditorInputViewsControllerDelegate: AnyObject {
     func pageEditorInputViewsControllerDidTapMediaInsert(_ pageEditorInputViewsController: PageEditorInputViewsController)
     func pageEditorInputViewsControllerDidTapLinkInsert(_ pageEditorInputViewsController: PageEditorInputViewsController)
+    
+    // Additional methods for native editor
+    func pageEditorInputViewsControllerDidChangeInputAccessoryView(_ pageEditorInputViewsController: PageEditorInputViewsController, inputAccessoryView: UIView?)
 }
 
 class PageEditorInputViewsController: NSObject, PageEditorInputViewsSource, Themeable {
-    let webView: SectionEditorWebView
-    let messagingController: SectionEditorWebViewMessagingController
+    let webView: SectionEditorWebView?
+    let webMessagingController: SectionEditorWebViewMessagingController?
 
     let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
     let defaultEditToolbarView = DefaultEditToolbarView.wmf_viewFromClassNib()
@@ -20,9 +23,9 @@ class PageEditorInputViewsController: NSObject, PageEditorInputViewsSource, Them
 
     weak var delegate: PageEditorInputViewsControllerDelegate?
 
-    init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController, findAndReplaceDisplayDelegate: FindAndReplaceKeyboardBarDisplayDelegate) {
+    init(webView: SectionEditorWebView?, webMessagingController: SectionEditorWebViewMessagingController?, findAndReplaceDisplayDelegate: FindAndReplaceKeyboardBarDisplayDelegate) {
         self.webView = webView
-        self.messagingController = messagingController
+        self.webMessagingController = webMessagingController
 
         super.init()
 
@@ -33,7 +36,7 @@ class PageEditorInputViewsController: NSObject, PageEditorInputViewsSource, Them
         findAndReplaceView?.displayDelegate = findAndReplaceDisplayDelegate
         findAndReplaceView?.isShowingReplace = true
 
-        messagingController.findInPageDelegate = self
+        webMessagingController?.findInPageDelegate = self
 
         inputViewType = nil
         inputAccessoryViewType = .default
@@ -44,7 +47,7 @@ class PageEditorInputViewsController: NSObject, PageEditorInputViewsSource, Them
 
         if inputViewType == nil {
             if inputAccessoryViewType == .findInPage {
-                messagingController.clearSearch()
+                webMessagingController?.clearSearch()
                 findAndReplaceView?.reset()
                 findAndReplaceView?.hide()
             }
@@ -105,7 +108,8 @@ class PageEditorInputViewsController: NSObject, PageEditorInputViewsSource, Them
     private(set) var inputAccessoryViewType: InputAccessoryViewType? {
         didSet {
             previousInputAccessoryViewType = oldValue
-            webView.setInputAccessoryView(inputAccessoryView)
+            webView?.setInputAccessoryView(inputAccessoryView)
+            delegate?.pageEditorInputViewsControllerDidChangeInputAccessoryView(self, inputAccessoryView: inputAccessoryView)
         }
     }
 
@@ -161,13 +165,13 @@ class PageEditorInputViewsController: NSObject, PageEditorInputViewsSource, Them
             return
         }
         
-        messagingController.clearSearch()
+        webMessagingController?.clearSearch()
         keyboardBar.reset()
         keyboardBar.hide()
         inputAccessoryViewType = previousInputAccessoryViewType
         if keyboardBar.isVisible {
-            messagingController.selectLastFocusedMatch()
-            messagingController.focusWithoutScroll()
+            webMessagingController?.selectLastFocusedMatch()
+            webMessagingController?.focusWithoutScroll()
         }
     }
 }
@@ -180,7 +184,7 @@ extension PageEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapTextSize(newSize: TextSizeType) {
-        messagingController.setTextSize(newSize: newSize.rawValue)
+        webMessagingController?.setTextSize(newSize: newSize.rawValue)
     }
 
     func textFormattingProvidingDidTapFindInPage() {
@@ -191,19 +195,19 @@ extension PageEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapCursorUp() {
-        messagingController.moveCursorUp()
+        webMessagingController?.moveCursorUp()
     }
 
     func textFormattingProvidingDidTapCursorDown() {
-        messagingController.moveCursorDown()
+        webMessagingController?.moveCursorDown()
     }
 
     func textFormattingProvidingDidTapCursorRight() {
-        messagingController.moveCursorRight()
+        webMessagingController?.moveCursorRight()
     }
 
     func textFormattingProvidingDidTapCursorLeft() {
-        messagingController.moveCursorLeft()
+        webMessagingController?.moveCursorLeft()
     }
 
     func textFormattingProvidingDidTapTextStyleFormatting() {
@@ -222,35 +226,35 @@ extension PageEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapHeading(depth: Int) {
-        messagingController.setHeadingSelection(depth: depth)
+        webMessagingController?.setHeadingSelection(depth: depth)
     }
 
     func textFormattingProvidingDidTapBold() {
-        messagingController.toggleBoldSelection()
+        webMessagingController?.toggleBoldSelection()
     }
 
     func textFormattingProvidingDidTapItalics() {
-        messagingController.toggleItalicSelection()
+        webMessagingController?.toggleItalicSelection()
     }
 
     func textFormattingProvidingDidTapUnderline() {
-        messagingController.toggleUnderline()
+        webMessagingController?.toggleUnderline()
     }
 
     func textFormattingProvidingDidTapStrikethrough() {
-        messagingController.toggleStrikethrough()
+        webMessagingController?.toggleStrikethrough()
     }
 
     func textFormattingProvidingDidTapReference() {
-        messagingController.toggleReferenceSelection()
+        webMessagingController?.toggleReferenceSelection()
     }
 
     func textFormattingProvidingDidTapTemplate() {
-        messagingController.toggleTemplateSelection()
+        webMessagingController?.toggleTemplateSelection()
     }
 
     func textFormattingProvidingDidTapComment() {
-        messagingController.toggleComment()
+        webMessagingController?.toggleComment()
     }
 
     func textFormattingProvidingDidTapLink() {
@@ -258,31 +262,31 @@ extension PageEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapIncreaseIndent() {
-        messagingController.increaseIndentDepth()
+        webMessagingController?.increaseIndentDepth()
     }
 
     func textFormattingProvidingDidTapDecreaseIndent() {
-        messagingController.decreaseIndentDepth()
+        webMessagingController?.decreaseIndentDepth()
     }
 
     func textFormattingProvidingDidTapOrderedList() {
-        messagingController.toggleOrderedListSelection()
+        webMessagingController?.toggleOrderedListSelection()
     }
 
     func textFormattingProvidingDidTapUnorderedList() {
-        messagingController.toggleUnorderedListSelection()
+        webMessagingController?.toggleUnorderedListSelection()
     }
 
     func textFormattingProvidingDidTapSuperscript() {
-        messagingController.toggleSuperscript()
+        webMessagingController?.toggleSuperscript()
     }
 
     func textFormattingProvidingDidTapSubscript() {
-        messagingController.toggleSubscript()
+        webMessagingController?.toggleSubscript()
     }
     
     func textFormattingProvidingDidTapClearFormatting() {
-        messagingController.clearFormatting()
+        webMessagingController?.clearFormatting()
     }
 }
 
@@ -300,7 +304,7 @@ extension PageEditorInputViewsController: SectionEditorWebViewMessagingControlle
         guard let matchID = matchID else {
             return
         }
-        webView.getScrollRectForHtmlElement(withId: matchID) { [weak self] (matchRect) in
+        webView?.getScrollRectForHtmlElement(withId: matchID) { [weak self] (matchRect) in
             guard
                 let findAndReplaceView = self?.findAndReplaceView,
                 let webView = self?.webView,
@@ -327,7 +331,7 @@ extension PageEditorInputViewsController: SectionEditorWebViewMessagingControlle
 
 extension PageEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
     func keyboardBarDidTapReturn(_ keyboardBar: FindAndReplaceKeyboardBar) {
-        messagingController.findNext()
+        webMessagingController?.findNext()
     }
     
     func keyboardBar(_ keyboardBar: FindAndReplaceKeyboardBar, didChangeSearchTerm searchTerm: String?) {
@@ -335,7 +339,7 @@ extension PageEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
         guard let searchTerm = searchTerm else {
             return
         }
-        messagingController.find(text: searchTerm)
+        webMessagingController?.find(text: searchTerm)
     }
     
     func keyboardBarDidTapClose(_ keyboardBar: FindAndReplaceKeyboardBar) {
@@ -343,24 +347,24 @@ extension PageEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
     }
     
     func keyboardBarDidTapClear(_ keyboardBar: FindAndReplaceKeyboardBar) {
-        messagingController.clearSearch()
+        webMessagingController?.clearSearch()
         keyboardBar.resetFind()
     }
     
     func keyboardBarDidTapPrevious(_ keyboardBar: FindAndReplaceKeyboardBar) {
-        messagingController.findPrevious()
+        webMessagingController?.findPrevious()
     }
     
     func keyboardBarDidTapNext(_ keyboardBar: FindAndReplaceKeyboardBar?) {
-        messagingController.findNext()
+        webMessagingController?.findNext()
     }
     
     func keyboardBarDidTapReplace(_ keyboardBar: FindAndReplaceKeyboardBar, replaceText: String, replaceType: ReplaceType) {
         switch replaceType {
         case .replaceSingle:
-            messagingController.replaceSingle(text: replaceText)
+            webMessagingController?.replaceSingle(text: replaceText)
         case .replaceAll:
-            messagingController.replaceAll(text: replaceText)
+            webMessagingController?.replaceAll(text: replaceText)
         }
     }
 }

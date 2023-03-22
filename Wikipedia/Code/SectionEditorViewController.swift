@@ -269,7 +269,7 @@ class SectionEditorViewController: ViewController {
         webView.isHidden = true // hidden until wikitext is set
         webView.scrollView.keyboardDismissMode = .interactive
         
-        inputViewsController = PageEditorInputViewsController(webView: webView, messagingController: messagingController, findAndReplaceDisplayDelegate: self)
+        inputViewsController = PageEditorInputViewsController(webView: webView, webMessagingController: messagingController, findAndReplaceDisplayDelegate: self)
         inputViewsController.delegate = self
         
         webView.inputViewsSource = inputViewsController
@@ -779,6 +779,10 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
 }
 
 extension SectionEditorViewController: PageEditorInputViewsControllerDelegate {
+    func pageEditorInputViewsControllerDidChangeInputAccessoryView(_ pageEditorInputViewsController: PageEditorInputViewsController, inputAccessoryView: UIView?) {
+        // nothing
+    }
+    
     func pageEditorInputViewsControllerDidTapMediaInsert(_ pageEditorInputViewsController: PageEditorInputViewsController) {
         let insertMediaViewController = InsertMediaViewController(articleTitle: articleURL.wmf_title, siteURL: articleURL.wmf_site)
         insertMediaViewController.delegate = self
