@@ -18,7 +18,7 @@ extension ArticleViewController {
 //        sectionEditVC.editFunnel = editFunnel
         
         // todo: pass in sectionID
-        let wikitextFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        let wikitextFetcher = WikitextFetcher(session: dataStore.session, configuration: dataStore.configuration)
         let pageEditorVC = PageEditorViewController(pageURL: articleURL, sectionID: nil, wikitextFetcher: wikitextFetcher, theme: theme)
         
         let navigationController = WMFThemeableNavigationController(rootViewController: pageEditorVC, theme: theme)

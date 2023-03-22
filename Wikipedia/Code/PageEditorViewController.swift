@@ -7,13 +7,13 @@ class PageEditorViewController: UIViewController {
         return editor
     }()
     
-    private let wikitextFetcher: SectionFetcher
+    private let wikitextFetcher: WikitextFetcher
     private let pageURL: URL
     private let sectionID: Int?
     private let selectedTextEditInfo: SelectedTextEditInfo?
     private let theme: Theme
     
-    init(pageURL: URL, sectionID: Int?, wikitextFetcher: SectionFetcher, selectedTextEditInfo: SelectedTextEditInfo? = nil, theme: Theme) {
+    init(pageURL: URL, sectionID: Int?, wikitextFetcher: WikitextFetcher, selectedTextEditInfo: SelectedTextEditInfo? = nil, theme: Theme) {
         self.pageURL = pageURL
         self.sectionID = sectionID
         self.wikitextFetcher = wikitextFetcher

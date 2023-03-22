@@ -1,6 +1,6 @@
 protocol SectionEditorWebViewMessagingControllerButtonMessageDelegate: AnyObject {
-    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorButton)
-    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorButton)
+    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: PageEditorButton)
+    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: PageEditorButton)
 }
 
 protocol SectionEditorWebViewMessagingControllerTextSelectionDelegate: AnyObject {
@@ -75,7 +75,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
                 guard let kind = buttonKind(from: element) else {
                     continue
                 }
-                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(self, button: SectionEditorButton(kind: kind))
+                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(self, button: PageEditorButton(kind: kind))
             }
 
             // Process 'disableTheseButtons' message.
@@ -83,7 +83,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
                 guard let kind = buttonKind(from: element) else {
                     continue
                 }
-                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(self, button: SectionEditorButton(kind: kind))
+                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(self, button: PageEditorButton(kind: kind))
             }
         case (Message.Name.codeMirrorSearchMessage, let message as [String: Any]):
             guard
@@ -100,30 +100,30 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         }
     }
 
-    func buttonKind(from dictionary: [String: Any]) -> SectionEditorButton.Kind? {
+    func buttonKind(from dictionary: [String: Any]) -> PageEditorButton.Kind? {
         guard let rawValue = dictionary[Message.Body.Key.button] as? String else {
             return nil
         }
         let info = buttonInfo(from: dictionary)
-        guard let kind = SectionEditorButton.Kind(rawValue: rawValue, info: info) else {
+        guard let kind = PageEditorButton.Kind(rawValue: rawValue, info: info) else {
             return nil
         }
         return kind
     }
 
-    func buttonInfo(from dictionary: [String: Any]) -> SectionEditorButton.Info? {
+    func buttonInfo(from dictionary: [String: Any]) -> PageEditorButton.Info? {
         guard let info = dictionary[Message.Body.Key.info] as? [String: Any] else {
             return nil
         }
-        let depth = info[SectionEditorButton.Info.depth] as? Int ?? 0
+        let depth = info[PageEditorButton.Info.depth] as? Int ?? 0
         let textStyleType = TextStyleType(rawValue: depth)
 
-        let size = info[SectionEditorButton.Info.size] as? String ?? "normal"
+        let size = info[PageEditorButton.Info.size] as? String ?? "normal"
         let textSizeType = TextSizeType(rawValue: size)
 
-        let ordered = info[SectionEditorButton.Info.ordered] as? Bool
+        let ordered = info[PageEditorButton.Info.ordered] as? Bool
 
-        return SectionEditorButton.Info(textStyleType: textStyleType, textSizeType: textSizeType, ordered: ordered)
+        return PageEditorButton.Info(textStyleType: textStyleType, textSizeType: textSizeType, ordered: ordered)
     }
 
     // MARK: - Sending messages

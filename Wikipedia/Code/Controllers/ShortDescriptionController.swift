@@ -12,7 +12,7 @@ protocol ShortDescriptionControllerDelegate: AnyObject {
 
 class ShortDescriptionController: ArticleDescriptionControlling {
     
-    private let sectionFetcher: SectionFetcher
+    private let sectionFetcher: WikitextFetcher
     private let sectionUploader: WikiTextSectionUploader
     
     private let articleURL: URL
@@ -37,7 +37,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     ///   - articleURL: URL of article that we want to update (from ArticleViewController)
     ///   - descriptionSource: ArticleDescriptionSource determined via .edit action across ArticleViewController js bridge
     ///   - delegate: Delegate that can extract the current description from the article content
-    init(sectionFetcher: SectionFetcher = SectionFetcher(), sectionUploader: WikiTextSectionUploader = WikiTextSectionUploader(), article: WMFArticle, articleLanguageCode: String, articleURL: URL, descriptionSource: ArticleDescriptionSource, delegate: ShortDescriptionControllerDelegate) {
+    init(sectionFetcher: WikitextFetcher = WikitextFetcher(), sectionUploader: WikiTextSectionUploader = WikiTextSectionUploader(), article: WMFArticle, articleLanguageCode: String, articleURL: URL, descriptionSource: ArticleDescriptionSource, delegate: ShortDescriptionControllerDelegate) {
         self.sectionFetcher = sectionFetcher
         self.sectionUploader = sectionUploader
         self.article = article

@@ -201,7 +201,7 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         
     }
 
-    override func buttonSelectionDidChange(button: SectionEditorButton) {
+    override func buttonSelectionDidChange(button: PageEditorButton) {
         super.buttonSelectionDidChange(button: button)
         textStyleFormattingTableViewController.buttonSelectionDidChange(button: button)
         textSizeFormattingTableViewController.buttonSelectionDidChange(button: button)
@@ -209,7 +209,7 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         textFormattingGroupedToolbarView?.selectButton(button)
     }
 
-    override func disableButton(button: SectionEditorButton) {
+    override func disableButton(button: PageEditorButton) {
         super.disableButton(button: button)
         textStyleFormattingTableViewController.disableButton(button: button)
         textSizeFormattingTableViewController.disableButton(button: button)

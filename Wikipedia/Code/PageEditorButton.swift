@@ -1,6 +1,6 @@
 import Foundation
 
-struct SectionEditorButton {
+struct PageEditorButton {
     enum Kind: Equatable {
         case li(ordered: Bool)
         case heading(type: TextStyleType)
@@ -194,7 +194,7 @@ struct SectionEditorButton {
             }
         }
         
-        init?(rawValue: String, info: SectionEditorButton.Info? = nil) {
+        init?(rawValue: String, info: PageEditorButton.Info? = nil) {
             if rawValue == "li", let ordered = info?.ordered {
                 self = .li(ordered: ordered)
             } else if rawValue == "heading", let textStyleType = info?.textStyleType {
