@@ -51,11 +51,8 @@ struct FeaturedArticleEntry: TimelineEntry {
 	}
 
 	var layoutDirection: LayoutDirection {
-		if let direction = content?.featuredArticle?.languageDirection {
-			return direction == "rtl" ? .rightToLeft : .leftToRight
-		}
-
-		return .leftToRight
+        let isRTL = content?.featuredArticle?.isRTL ?? false
+        return isRTL ? .rightToLeft : .leftToRight
 	}
 
 	var contentURL: URL? {
