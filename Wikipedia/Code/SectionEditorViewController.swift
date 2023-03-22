@@ -27,7 +27,7 @@ class SectionEditorViewController: ViewController {
     private let editNoticesFetcher: EditNoticesFetcher
     private var editNoticesViewModel: EditNoticesViewModel? = nil
     
-    private var inputViewsController: PageEditorInputViewsController!
+    private var inputViewsController: EditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
     private var menuItemsController: SectionEditorMenuItemsController!
     private var navigationItemController: PageEditorNavigationItemController!
@@ -269,7 +269,7 @@ class SectionEditorViewController: ViewController {
         webView.isHidden = true // hidden until wikitext is set
         webView.scrollView.keyboardDismissMode = .interactive
         
-        inputViewsController = PageEditorInputViewsController(webView: webView, webMessagingController: messagingController, findAndReplaceDisplayDelegate: self)
+        inputViewsController = EditorInputViewsController(webView: webView, webMessagingController: messagingController, findAndReplaceDisplayDelegate: self)
         inputViewsController.delegate = self
         
         webView.inputViewsSource = inputViewsController
@@ -626,10 +626,10 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTe
 }
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerButtonMessageDelegate {
-    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: PageEditorButton) {
+    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: EditorButton) {
         inputViewsController.buttonSelectionDidChange(button: button)
     }
-    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: PageEditorButton) {
+    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: EditorButton) {
         navigationItemController.disableButton(button: button)
         inputViewsController.disableButton(button: button)
     }
@@ -778,12 +778,12 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
     }
 }
 
-extension SectionEditorViewController: PageEditorInputViewsControllerDelegate {
-    func pageEditorInputViewsControllerDidChangeInputAccessoryView(_ pageEditorInputViewsController: PageEditorInputViewsController, inputAccessoryView: UIView?) {
+extension SectionEditorViewController: EditorInputViewsControllerDelegate {
+    func editorInputViewsControllerDidChangeInputAccessoryView(_ pageEditorInputViewsController: EditorInputViewsController, inputAccessoryView: UIView?) {
         // nothing
     }
     
-    func pageEditorInputViewsControllerDidTapMediaInsert(_ pageEditorInputViewsController: PageEditorInputViewsController) {
+    func editorInputViewsControllerDidTapMediaInsert(_ pageEditorInputViewsController: EditorInputViewsController) {
         let insertMediaViewController = InsertMediaViewController(articleTitle: articleURL.wmf_title, siteURL: articleURL.wmf_site)
         insertMediaViewController.delegate = self
         insertMediaViewController.apply(theme: theme)
@@ -816,7 +816,7 @@ extension SectionEditorViewController: PageEditorInputViewsControllerDelegate {
         }
     }
 
-    func pageEditorInputViewsControllerDidTapLinkInsert(_ pageEditorInputViewsController: PageEditorInputViewsController) {
+    func editorInputViewsControllerDidTapLinkInsert(_ pageEditorInputViewsController: EditorInputViewsController) {
         showLinkWizard()
     }
 }

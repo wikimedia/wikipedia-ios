@@ -1,5 +1,5 @@
 class SectionEditorWebView: WKWebViewWithSettableInputViews {
-    weak var inputViewsSource: PageEditorInputViewsSource?
+    weak var inputViewsSource: EditorInputViewsSource?
     weak var menuItemsDataSource: SectionEditorMenuItemsDataSource?
     weak var menuItemsDelegate: SectionEditorMenuItemsDelegate?
 

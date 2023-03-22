@@ -146,7 +146,7 @@ class PageEditorNavigationItemController: NSObject, Themeable {
         progressButton.isEnabled = true
     }
 
-    func disableButton(button: PageEditorButton) {
+    func disableButton(button: EditorButton) {
         switch button.kind {
         case .undo:
             undoButton.isEnabled = false

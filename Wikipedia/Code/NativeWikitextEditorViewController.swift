@@ -8,8 +8,8 @@ class NativeWikitextEditorViewController: UIViewController {
     
     weak var delegate: NativeWikitextEditorDelegate?
     
-    private lazy var pageEditorInputViewsController: PageEditorInputViewsController = {
-        let inputViewsController = PageEditorInputViewsController(webView: nil, webMessagingController: nil, findAndReplaceDisplayDelegate: self)
+    private lazy var pageEditorInputViewsController: EditorInputViewsController = {
+        let inputViewsController = EditorInputViewsController(webView: nil, webMessagingController: nil, findAndReplaceDisplayDelegate: self)
         inputViewsController.delegate = self
         
         return inputViewsController
@@ -139,17 +139,17 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
 }
 
 
-extension NativeWikitextEditorViewController: PageEditorInputViewsControllerDelegate {
-    func pageEditorInputViewsControllerDidChangeInputAccessoryView(_ pageEditorInputViewsController: PageEditorInputViewsController, inputAccessoryView: UIView?) {
+extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate {
+    func editorInputViewsControllerDidChangeInputAccessoryView(_ pageEditorInputViewsController: EditorInputViewsController, inputAccessoryView: UIView?) {
         editorView.textView.inputAccessoryView = inputAccessoryView
         editorView.textView.reloadInputViews()
     }
     
-    func pageEditorInputViewsControllerDidTapMediaInsert(_ pageEditorInputViewsController: PageEditorInputViewsController) {
+    func editorInputViewsControllerDidTapMediaInsert(_ pageEditorInputViewsController: EditorInputViewsController) {
         print("tell delegate to present media insert)")
     }
     
-    func pageEditorInputViewsControllerDidTapLinkInsert(_ pageEditorInputViewsController: PageEditorInputViewsController) {
+    func editorInputViewsControllerDidTapLinkInsert(_ pageEditorInputViewsController: EditorInputViewsController) {
         print("tell delegate to present link insert)")
     }
 }

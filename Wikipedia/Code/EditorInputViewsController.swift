@@ -1,16 +1,16 @@
-protocol PageEditorInputViewsSource: AnyObject {
+protocol EditorInputViewsSource: AnyObject {
     var inputViewController: UIInputViewController? { get }
 }
 
-protocol PageEditorInputViewsControllerDelegate: AnyObject {
-    func pageEditorInputViewsControllerDidTapMediaInsert(_ pageEditorInputViewsController: PageEditorInputViewsController)
-    func pageEditorInputViewsControllerDidTapLinkInsert(_ pageEditorInputViewsController: PageEditorInputViewsController)
+protocol EditorInputViewsControllerDelegate: AnyObject {
+    func editorInputViewsControllerDidTapMediaInsert(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerDidTapLinkInsert(_ editorInputViewsController: EditorInputViewsController)
     
     // Additional methods for native editor
-    func pageEditorInputViewsControllerDidChangeInputAccessoryView(_ pageEditorInputViewsController: PageEditorInputViewsController, inputAccessoryView: UIView?)
+    func editorInputViewsControllerDidChangeInputAccessoryView(_ editorInputViewsController: EditorInputViewsController, inputAccessoryView: UIView?)
 }
 
-class PageEditorInputViewsController: NSObject, PageEditorInputViewsSource, Themeable {
+class EditorInputViewsController: NSObject, EditorInputViewsSource, Themeable {
     let webView: SectionEditorWebView?
     let webMessagingController: SectionEditorWebViewMessagingController?
 
@@ -21,7 +21,7 @@ class PageEditorInputViewsController: NSObject, PageEditorInputViewsSource, Them
 
     private var isRangeSelected = false
 
-    weak var delegate: PageEditorInputViewsControllerDelegate?
+    weak var delegate: EditorInputViewsControllerDelegate?
 
     init(webView: SectionEditorWebView?, webMessagingController: SectionEditorWebViewMessagingController?, findAndReplaceDisplayDelegate: FindAndReplaceKeyboardBarDisplayDelegate) {
         self.webView = webView
@@ -61,13 +61,13 @@ class PageEditorInputViewsController: NSObject, PageEditorInputViewsSource, Them
         textFormattingInputViewController.textSelectionDidChange(isRangeSelected: isRangeSelected)
     }
 
-    func disableButton(button: PageEditorButton) {
+    func disableButton(button: EditorButton) {
         defaultEditToolbarView?.disableButton(button)
         contextualHighlightEditToolbarView?.disableButton(button)
         textFormattingInputViewController.disableButton(button: button)
     }
 
-    func buttonSelectionDidChange(button: PageEditorButton) {
+    func buttonSelectionDidChange(button: EditorButton) {
         defaultEditToolbarView?.selectButton(button)
         contextualHighlightEditToolbarView?.selectButton(button)
         textFormattingInputViewController.buttonSelectionDidChange(button: button)
@@ -109,7 +109,7 @@ class PageEditorInputViewsController: NSObject, PageEditorInputViewsSource, Them
         didSet {
             previousInputAccessoryViewType = oldValue
             webView?.setInputAccessoryView(inputAccessoryView)
-            delegate?.pageEditorInputViewsControllerDidChangeInputAccessoryView(self, inputAccessoryView: inputAccessoryView)
+            delegate?.editorInputViewsControllerDidChangeInputAccessoryView(self, inputAccessoryView: inputAccessoryView)
         }
     }
 
@@ -178,9 +178,9 @@ class PageEditorInputViewsController: NSObject, PageEditorInputViewsSource, Them
 
 // MARK: TextFormattingDelegate
 
-extension PageEditorInputViewsController: TextFormattingDelegate {
+extension EditorInputViewsController: TextFormattingDelegate {
     func textFormattingProvidingDidTapMediaInsert() {
-        delegate?.pageEditorInputViewsControllerDidTapMediaInsert(self)
+        delegate?.editorInputViewsControllerDidTapMediaInsert(self)
     }
 
     func textFormattingProvidingDidTapTextSize(newSize: TextSizeType) {
@@ -258,7 +258,7 @@ extension PageEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapLink() {
-        delegate?.pageEditorInputViewsControllerDidTapLinkInsert(self)
+        delegate?.editorInputViewsControllerDidTapLinkInsert(self)
     }
 
     func textFormattingProvidingDidTapIncreaseIndent() {
@@ -290,7 +290,7 @@ extension PageEditorInputViewsController: TextFormattingDelegate {
     }
 }
 
-extension PageEditorInputViewsController: SectionEditorWebViewMessagingControllerFindInPageDelegate {
+extension EditorInputViewsController: SectionEditorWebViewMessagingControllerFindInPageDelegate {
     func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, matchesCount: Int, matchIndex: Int, matchID: String?) {
         guard inputAccessoryViewType == .findInPage else {
             return
@@ -329,7 +329,7 @@ extension PageEditorInputViewsController: SectionEditorWebViewMessagingControlle
     }
 }
 
-extension PageEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
+extension EditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
     func keyboardBarDidTapReturn(_ keyboardBar: FindAndReplaceKeyboardBar) {
         webMessagingController?.findNext()
     }
@@ -371,7 +371,7 @@ extension PageEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
 
 #if (TEST)
 // MARK: Helpers for testing
-extension PageEditorInputViewsController {
+extension EditorInputViewsController {
     var findAndReplaceViewForTesting: FindAndReplaceKeyboardBar? {
         return findAndReplaceView
     }

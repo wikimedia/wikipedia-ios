@@ -129,7 +129,7 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         selectedTextSizeType = .normal
     }
 
-    open func buttonSelectionDidChange(button: PageEditorButton) {
+    open func buttonSelectionDidChange(button: EditorButton) {
         switch button.kind {
         case .heading(let type):
             selectedTextStyleType = type
@@ -140,7 +140,7 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         }
     }
 
-    open func disableButton(button: PageEditorButton) {
+    open func disableButton(button: EditorButton) {
         
     }
 }
