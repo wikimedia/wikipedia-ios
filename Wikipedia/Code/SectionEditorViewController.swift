@@ -27,7 +27,7 @@ class SectionEditorViewController: ViewController {
     private let editNoticesFetcher: EditNoticesFetcher
     private var editNoticesViewModel: EditNoticesViewModel? = nil
     
-    private var inputViewsController: SectionEditorInputViewsController!
+    private var inputViewsController: PageEditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
     private var menuItemsController: SectionEditorMenuItemsController!
     private var navigationItemController: PageEditorNavigationItemController!
@@ -269,7 +269,7 @@ class SectionEditorViewController: ViewController {
         webView.isHidden = true // hidden until wikitext is set
         webView.scrollView.keyboardDismissMode = .interactive
         
-        inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController, findAndReplaceDisplayDelegate: self)
+        inputViewsController = PageEditorInputViewsController(webView: webView, messagingController: messagingController, findAndReplaceDisplayDelegate: self)
         inputViewsController.delegate = self
         
         webView.inputViewsSource = inputViewsController
@@ -778,8 +778,8 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
     }
 }
 
-extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate {
-    func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
+extension SectionEditorViewController: PageEditorInputViewsControllerDelegate {
+    func pageEditorInputViewsControllerDidTapMediaInsert(_ pageEditorInputViewsController: PageEditorInputViewsController) {
         let insertMediaViewController = InsertMediaViewController(articleTitle: articleURL.wmf_title, siteURL: articleURL.wmf_site)
         insertMediaViewController.delegate = self
         insertMediaViewController.apply(theme: theme)
@@ -812,7 +812,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
         }
     }
 
-    func sectionEditorInputViewsControllerDidTapLinkInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
+    func pageEditorInputViewsControllerDidTapLinkInsert(_ pageEditorInputViewsController: PageEditorInputViewsController) {
         showLinkWizard()
     }
 }

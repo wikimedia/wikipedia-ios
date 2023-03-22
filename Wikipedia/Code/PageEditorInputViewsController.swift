@@ -1,13 +1,13 @@
-protocol SectionEditorInputViewsSource: AnyObject {
+protocol PageEditorInputViewsSource: AnyObject {
     var inputViewController: UIInputViewController? { get }
 }
 
-protocol SectionEditorInputViewsControllerDelegate: AnyObject {
-    func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController)
-    func sectionEditorInputViewsControllerDidTapLinkInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController)
+protocol PageEditorInputViewsControllerDelegate: AnyObject {
+    func pageEditorInputViewsControllerDidTapMediaInsert(_ pageEditorInputViewsController: PageEditorInputViewsController)
+    func pageEditorInputViewsControllerDidTapLinkInsert(_ pageEditorInputViewsController: PageEditorInputViewsController)
 }
 
-class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource, Themeable {
+class PageEditorInputViewsController: NSObject, PageEditorInputViewsSource, Themeable {
     let webView: SectionEditorWebView
     let messagingController: SectionEditorWebViewMessagingController
 
@@ -18,7 +18,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
 
     private var isRangeSelected = false
 
-    weak var delegate: SectionEditorInputViewsControllerDelegate?
+    weak var delegate: PageEditorInputViewsControllerDelegate?
 
     init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController, findAndReplaceDisplayDelegate: FindAndReplaceKeyboardBarDisplayDelegate) {
         self.webView = webView
@@ -174,9 +174,9 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
 
 // MARK: TextFormattingDelegate
 
-extension SectionEditorInputViewsController: TextFormattingDelegate {
+extension PageEditorInputViewsController: TextFormattingDelegate {
     func textFormattingProvidingDidTapMediaInsert() {
-        delegate?.sectionEditorInputViewsControllerDidTapMediaInsert(self)
+        delegate?.pageEditorInputViewsControllerDidTapMediaInsert(self)
     }
 
     func textFormattingProvidingDidTapTextSize(newSize: TextSizeType) {
@@ -254,7 +254,7 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapLink() {
-        delegate?.sectionEditorInputViewsControllerDidTapLinkInsert(self)
+        delegate?.pageEditorInputViewsControllerDidTapLinkInsert(self)
     }
 
     func textFormattingProvidingDidTapIncreaseIndent() {
@@ -286,7 +286,7 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     }
 }
 
-extension SectionEditorInputViewsController: SectionEditorWebViewMessagingControllerFindInPageDelegate {
+extension PageEditorInputViewsController: SectionEditorWebViewMessagingControllerFindInPageDelegate {
     func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, matchesCount: Int, matchIndex: Int, matchID: String?) {
         guard inputAccessoryViewType == .findInPage else {
             return
@@ -325,7 +325,7 @@ extension SectionEditorInputViewsController: SectionEditorWebViewMessagingContro
     }
 }
 
-extension SectionEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
+extension PageEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
     func keyboardBarDidTapReturn(_ keyboardBar: FindAndReplaceKeyboardBar) {
         messagingController.findNext()
     }
@@ -367,7 +367,7 @@ extension SectionEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
 
 #if (TEST)
 // MARK: Helpers for testing
-extension SectionEditorInputViewsController {
+extension PageEditorInputViewsController {
     var findAndReplaceViewForTesting: FindAndReplaceKeyboardBar? {
         return findAndReplaceView
     }
