@@ -137,6 +137,13 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
 
         editorInputViewsController.textSelectionDidChange(isRangeSelected: textView.selectedRange.length > 0)
         
+        // Disable buttons not yet supported
+        editorInputViewsController.disableButton(button: EditorButton(kind: .directionUp))
+        editorInputViewsController.disableButton(button: EditorButton(kind: .directionDown))
+        editorInputViewsController.disableButton(button: EditorButton(kind: .directionLeft))
+        editorInputViewsController.disableButton(button: EditorButton(kind: .directionRight))
+        editorInputViewsController.disableButton(button: EditorButton(kind: .clearFormatting))
+        
         let formattingValues = formattingValuesForSelectedTextRangeOrCursor()
         
         if formattingValues.isBold {
