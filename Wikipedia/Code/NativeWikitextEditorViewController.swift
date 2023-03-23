@@ -144,6 +144,10 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .italic))
         }
         
+        if  formattingValues.isLink {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .link))
+        }
+        
         if formattingValues.isTemplate {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .template))
         }
@@ -498,6 +502,7 @@ private extension NativeWikitextEditorViewController {
     struct SelectedTextRangeFormattingValues {
         let isBold: Bool
         let isItalic: Bool
+        let isLink: Bool
         let isH2: Bool
         let isH3: Bool
         let isH4: Bool
@@ -517,6 +522,7 @@ private extension NativeWikitextEditorViewController {
         
         var isBold: Bool = false
         var isItalic: Bool = false
+        var isLink: Bool = false
         var isH2: Bool = false
         var isH3: Bool = false
         var isH4: Bool = false
@@ -548,6 +554,10 @@ private extension NativeWikitextEditorViewController {
                 
                 if !isItalic && attributes[.wikitextItalic] != nil {
                     isItalic = true
+                }
+                
+                if attributes[.wikitextLink] !=  nil {
+                    isLink = true
                 }
                 
                 if attributes[.wikitextH2] != nil {
@@ -604,7 +614,7 @@ private extension NativeWikitextEditorViewController {
             }
         }
         
-        return SelectedTextRangeFormattingValues(isBold: isBold, isItalic: isItalic, isH2: isH2, isH3: isH3, isH4: isH4, isH5: isH5, isH6: isH6, isTemplate: isTemplate, isReference: isReference, isSuperscript: isSuperscript, isSubscript: isSubscript, isUnderline: isUnderline, isStrikethrough: isStrikethrough, isListBullet: isListBullet, isListNumber: isListNumber)
+        return SelectedTextRangeFormattingValues(isBold: isBold, isItalic: isItalic, isLink: isLink, isH2: isH2, isH3: isH3, isH4: isH4, isH5: isH5, isH6: isH6, isTemplate: isTemplate, isReference: isReference, isSuperscript: isSuperscript, isSubscript: isSubscript, isUnderline: isUnderline, isStrikethrough: isStrikethrough, isListBullet: isListBullet, isListNumber: isListNumber)
     }
 }
 
