@@ -2,12 +2,15 @@ import UIKit
 
 protocol NativeWikitextEditorDelegate: AnyObject {
     func wikitextViewDidChange(_ textView: UITextView)
+    var dataStore: MWKDataStore { get }
+    var siteURL: URL { get }
 }
 
 class NativeWikitextEditorViewController: UIViewController, Themeable {
     
     weak var delegate: NativeWikitextEditorDelegate?
     private let theme: Theme
+    private var preselectedTextRange: UITextRange?
     
     private lazy var editorInputViewsController: EditorInputViewsController = {
         let inputViewsController = EditorInputViewsController(webView: nil, webMessagingController: nil, findAndReplaceDisplayDelegate: self)
@@ -436,7 +439,29 @@ extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate
     }
     
     func editorInputViewsControllerDidTapLinkInsert(_ editorInputViewsController: EditorInputViewsController) {
-        print("tell delegate to present link insert)")
+        
+        expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: "[[", endingFormattingString: "]]")
+        
+        guard let linkInfo = extractLinkInfoFromSelectedRange(),
+              let link = Link(page: linkInfo.linkText, label: linkInfo.labelText, exists: linkInfo.linkExists),
+        let delegate = delegate else {
+            return
+        }
+
+        guard link.exists,
+              let editLinkViewController = EditLinkViewController(link: link, siteURL: delegate.siteURL, dataStore: delegate.dataStore) else {
+                  
+            let insertLinkViewController = InsertLinkViewController(link: link, siteURL: delegate.siteURL, dataStore: delegate.dataStore)
+              insertLinkViewController.delegate = self
+              let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
+              present(navigationController, animated: true)
+            return
+        }
+        
+        editLinkViewController.delegate = self
+        let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
+        navigationController.isNavigationBarHidden = true
+        present(navigationController, animated: true)
     }
 }
 
@@ -615,6 +640,108 @@ private extension NativeWikitextEditorViewController {
         }
         
         return SelectedTextRangeFormattingValues(isBold: isBold, isItalic: isItalic, isLink: isLink, isH2: isH2, isH3: isH3, isH4: isH4, isH5: isH5, isH6: isH6, isTemplate: isTemplate, isReference: isReference, isSuperscript: isSuperscript, isSubscript: isSubscript, isUnderline: isUnderline, isStrikethrough: isStrikethrough, isListBullet: isListBullet, isListNumber: isListNumber)
+    }
+}
+
+// MARK: Link Helpers
+
+private extension NativeWikitextEditorViewController {
+    
+    func extractLinkInfoFromSelectedRange() -> (linkText: String, labelText: String, linkExists: Bool)? {
+        
+        let textView = editorView.textView
+        guard let range =  textView.selectedTextRange else { return nil }
+        
+        // Need to save this off for later when user returns from insert & edit link view controllers
+        self.preselectedTextRange = range
+        
+        let text = textView.text(in: range)
+
+        guard let text else { return nil }
+
+        var doesLinkExist = false
+
+        if let start = textView.position(from: range.start, offset: -2),
+           let end = textView.position(from: range.end, offset: 2),
+           let newSelectedRange = textView.textRange(from: start, to: end) {
+
+            if let newText = textView.text(in: newSelectedRange) {
+                if newText.contains("[[") || newText.contains("]]") {
+                    doesLinkExist = true
+                } else {
+                    doesLinkExist = false
+                }
+            }
+        }
+
+        let index = text.firstIndex(of: "|") ?? text.endIndex
+        let beggining = text[..<index]
+
+        let ending = text[index...]
+
+        let newSearchTerm = String(beggining)
+        let newLabel = String(ending.dropFirst())
+
+        let linkText = doesLinkExist ? newSearchTerm : text
+        let labelText = doesLinkExist ? newLabel : text
+
+        return (linkText, labelText, doesLinkExist)
+    }
+    
+    func insertLink(page: String) {
+        
+        let textView = editorView.textView
+        guard let textRange = preselectedTextRange else {
+            return
+        }
+        
+        var content = "[[\(page)]]"
+
+        if let selectedText = textView.text(in: textRange) {
+            if selectedText.isEmpty || page == selectedText {
+                content = "[[\(page)]]"
+            } else if page != selectedText {
+                content = "[[\(page)|\(selectedText)]]"
+            }
+        }
+        textView.replace(textRange, withText: content)
+
+        let newStartPosition = textView.position(from: textRange.start, offset: 2)
+        let newEndPosition = textView.position(from: textRange.start, offset: content.count-2)
+        textView.selectedTextRange = textView.textRange(from: newStartPosition ?? textView.endOfDocument, to: newEndPosition ?? textView.endOfDocument)
+    }
+    
+    func editLink(page: String, label: String?) {
+        
+        let textView = editorView.textView
+        guard let textRange = preselectedTextRange else {
+            return
+        }
+        
+        if let label, !label.isEmpty {
+            textView.replace(textRange, withText: "\(page)|\(label)")
+        } else {
+            textView.replace(textRange, withText: "\(page)")
+        }
+    }
+    
+    func removeLink() {
+        let textView = editorView.textView
+        guard let range =  preselectedTextRange else {
+            return
+        }
+
+        guard let start = textView.position(from: range.start, offset: -2),
+              let end = textView.position(from: range.end, offset: 2),
+            let newSelectedRange = textView.textRange(from: start, to: end) else {
+              return
+          }
+               
+        textView.replace(newSelectedRange, withText: textView.text(in: range) ?? String())
+
+        let newStartPosition = textView.position(from: range.start, offset: -2)
+        let newEndPosition = textView.position(from: range.end, offset: -2)
+        textView.selectedTextRange = textView.textRange(from: newStartPosition ?? textView.endOfDocument, to: newEndPosition ?? textView.endOfDocument)
     }
 }
 
@@ -826,6 +953,43 @@ private extension NativeWikitextEditorViewController {
     
     func addStringFormattingCharacters(formattingString: String) {
         addStringFormattingCharacters(startingFormattingString: formattingString, endingFormattingString: formattingString)
+    }
+}
+
+extension NativeWikitextEditorViewController: InsertLinkViewControllerDelegate {
+    func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem) {
+        preselectedTextRange = nil
+        dismiss(animated: true)
+    }
+    
+    func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
+        insertLink(page: page)
+        preselectedTextRange = nil
+        dismiss(animated: true)
+    }
+}
+
+extension NativeWikitextEditorViewController: EditLinkViewControllerDelegate {
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didTapCloseButton button: UIBarButtonItem) {
+        preselectedTextRange = nil
+        dismiss(animated: true)
+    }
+    
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
+        editLink(page: linkTarget, label: displayText)
+        preselectedTextRange = nil
+        dismiss(animated: true)
+    }
+    
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFailToExtractArticleTitleFromArticleURL articleURL: URL) {
+        preselectedTextRange = nil
+        dismiss(animated: true)
+    }
+    
+    func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
+        removeLink()
+        preselectedTextRange = nil
+        dismiss(animated: true)
     }
 }
 

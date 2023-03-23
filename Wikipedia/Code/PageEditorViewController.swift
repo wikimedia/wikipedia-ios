@@ -11,6 +11,7 @@ class PageEditorViewController: UIViewController {
         return editor
     }()
     
+    internal let dataStore: MWKDataStore
     private let wikitextFetcher: WikitextFetcher
     private let pageURL: URL
     private let sectionID: Int?
@@ -25,10 +26,11 @@ class PageEditorViewController: UIViewController {
     
     private weak var delegate: PageEditorViewControllerDelegate?
     
-    init(pageURL: URL, sectionID: Int?, wikitextFetcher: WikitextFetcher, selectedTextEditInfo: SelectedTextEditInfo? = nil, delegate: PageEditorViewControllerDelegate, theme: Theme) {
+    init(pageURL: URL, sectionID: Int?, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo? = nil, delegate: PageEditorViewControllerDelegate, theme: Theme) {
         self.pageURL = pageURL
         self.sectionID = sectionID
-        self.wikitextFetcher = wikitextFetcher
+        self.wikitextFetcher = WikitextFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        self.dataStore = dataStore
         self.selectedTextEditInfo = selectedTextEditInfo
         self.delegate = delegate
         self.theme = theme
@@ -86,6 +88,10 @@ class PageEditorViewController: UIViewController {
 }
 
 extension PageEditorViewController: NativeWikitextEditorDelegate {
+    var siteURL: URL {
+        return self.pageURL
+    }
+    
     func wikitextViewDidChange(_ textView: UITextView) {
         navigationItemController.undoButton.isEnabled = (textView.undoManager?.canUndo ?? false)
         navigationItemController.redoButton.isEnabled = (textView.undoManager?.canRedo ?? false)

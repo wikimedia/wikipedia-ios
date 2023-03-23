@@ -49,7 +49,7 @@ extension ArticleViewController {
 //
         // todo: pass in sectionID
         let wikitextFetcher = WikitextFetcher(session: dataStore.session, configuration: dataStore.configuration)
-         let pageEditorVC = PageEditorViewController(pageURL: articleURL, sectionID: nil, wikitextFetcher: wikitextFetcher, delegate: self, theme: theme)
+        let pageEditorVC = PageEditorViewController(pageURL: articleURL, sectionID: nil, dataStore: self.dataStore, delegate: self, theme: theme)
         
         let navigationController = WMFThemeableNavigationController(rootViewController: pageEditorVC, theme: theme)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
