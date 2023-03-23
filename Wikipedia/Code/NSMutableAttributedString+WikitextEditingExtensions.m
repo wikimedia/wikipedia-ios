@@ -49,6 +49,8 @@
     NSString *underlineRegexStr = @"(<u>)\\s*.*?(<\\/u>)";
     NSString *strikethroughRegexStr = @"(<s>)\\s*.*?(<\\/s>)";
     
+    NSString *commentRegexStr = @"(<!--)\\s*.*?(-->)";
+    
     NSString *h2RegexStr = @"(={2})([^=]*)(={2})(?!=)"; // todo: why is beginning carat ^ flaky
     NSString *h3RegexStr = @"(={3})([^=]*)(={3})(?!=)"; // todo: why is beginning carat ^ flaky
     NSString *h4RegexStr = @"(={4})([^=]*)(={4})(?!=)"; // todo: why is beginning carat ^ flaky
@@ -72,6 +74,8 @@
     
     NSRegularExpression *underlineRegex = [NSRegularExpression regularExpressionWithPattern:underlineRegexStr options:0 error:nil];
     NSRegularExpression *strikethroughRegex = [NSRegularExpression regularExpressionWithPattern:strikethroughRegexStr options:0 error:nil];
+    
+    NSRegularExpression *commentRegex = [NSRegularExpression regularExpressionWithPattern:commentRegexStr options:0 error:nil];
     
     NSRegularExpression *listBulletRegex = [NSRegularExpression regularExpressionWithPattern:listBulletRegexStr options:0 error:nil];
     NSRegularExpression *listNumberRegex = [NSRegularExpression regularExpressionWithPattern:listNumberRegexStr options:0 error:nil];
@@ -104,6 +108,10 @@
 
     NSDictionary *htmlTagAttributes = @{
         NSForegroundColorAttributeName: theme.colors.nativeEditorHtmlTag
+    };
+    
+    NSDictionary *commentAttributes = @{
+        NSForegroundColorAttributeName: theme.colors.nativeEditorComment
     };
 
     NSDictionary *orangeFontAttributes = @{
@@ -174,6 +182,10 @@
     
     NSDictionary *wikitextSubAttributes = @{
         [WMFWikitextAttributedStringKeyWrapper subscriptKey]: [NSNumber numberWithBool:YES]
+    };
+    
+    NSDictionary *wikitextCommentAttributes = @{
+        [WMFWikitextAttributedStringKeyWrapper commentKey]: [NSNumber numberWithBool:YES]
     };
     
     NSDictionary *wikitextUnderlineAttributes = @{
@@ -360,6 +372,20 @@
 
                                 if (closingRange.location != NSNotFound) {
                                     [self addAttributes:htmlTagAttributes range:closingRange];
+                                }
+                            }];
+    
+    [commentRegex enumerateMatchesInString:self.string
+                               options:0
+                                 range:searchRange
+                            usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                NSRange matchRange = [result rangeAtIndex:0];
+                                NSRange openingRange = [result rangeAtIndex:1];
+                                NSRange closingRange = [result rangeAtIndex:2];
+
+                                if (matchRange.location != NSNotFound) {
+                                    [self addAttributes:commentAttributes range:matchRange];
+                                    [self addAttributes:wikitextCommentAttributes range:matchRange];
                                 }
                             }];
 

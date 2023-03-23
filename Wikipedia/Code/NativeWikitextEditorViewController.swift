@@ -183,6 +183,10 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .strikethrough))
         }
         
+        if formattingValues.isComment {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .comment))
+        }
+        
         if formattingValues.isListBullet {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .li(ordered: false)))
             // todo: why aren't indent buttons enabling?
@@ -253,6 +257,11 @@ extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate
     func editorInputViewsControllerDidTapSubscript(_ editorInputViewsController: EditorInputViewsController) {
         let isSubscript = formattingValuesForSelectedTextRangeOrCursor().isSubscript
         addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "<sub>", endingFormattingString: "</sub>", shouldAddFormatting: !isSubscript)
+    }
+    
+    func editorInputViewsControllerDidTapComment(_ editorInputViewsController: EditorInputViewsController) {
+        let isComment = formattingValuesForSelectedTextRangeOrCursor().isComment
+        addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "<!--", endingFormattingString: "-->", shouldAddFormatting: !isComment)
     }
     
     func editorInputViewsControllerDidTapUnderline(_ editorInputViewsController: EditorInputViewsController) {
@@ -563,6 +572,7 @@ private extension NativeWikitextEditorViewController {
         let isStrikethrough: Bool
         let isListBullet: Bool
         let isListNumber: Bool
+        let isComment: Bool
     }
     
     func formattingValuesForSelectedTextRangeOrCursor() -> SelectedTextRangeFormattingValues {
@@ -584,6 +594,7 @@ private extension NativeWikitextEditorViewController {
         var isStrikethrough: Bool = false
         var isListBullet: Bool = false
         var isListNumber: Bool = false
+        var isComment: Bool = false
         
         if let targetSelectionValues = targetSelectedRangeAndAttributedText() {
             
@@ -663,10 +674,14 @@ private extension NativeWikitextEditorViewController {
                 if attributes[.wikitextListNumber] != nil {
                     isListNumber = true
                 }
+                
+                if attributes[.wikitextComment] != nil {
+                    isComment = true
+                }
             }
         }
         
-        return SelectedTextRangeFormattingValues(isBold: isBold, isItalic: isItalic, isLink: isLink, isImage: isImage, isH2: isH2, isH3: isH3, isH4: isH4, isH5: isH5, isH6: isH6, isTemplate: isTemplate, isReference: isReference, isSuperscript: isSuperscript, isSubscript: isSubscript, isUnderline: isUnderline, isStrikethrough: isStrikethrough, isListBullet: isListBullet, isListNumber: isListNumber)
+        return SelectedTextRangeFormattingValues(isBold: isBold, isItalic: isItalic, isLink: isLink, isImage: isImage, isH2: isH2, isH3: isH3, isH4: isH4, isH5: isH5, isH6: isH6, isTemplate: isTemplate, isReference: isReference, isSuperscript: isSuperscript, isSubscript: isSubscript, isUnderline: isUnderline, isStrikethrough: isStrikethrough, isListBullet: isListBullet, isListNumber: isListNumber, isComment: isComment)
     }
 }
 

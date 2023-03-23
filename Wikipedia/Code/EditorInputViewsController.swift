@@ -15,6 +15,7 @@ protocol EditorInputViewsControllerDelegate: AnyObject {
     func editorInputViewsControllerDidTapReference(_ editorInputViewsController: EditorInputViewsController)
     func editorInputViewsControllerDidTapSuperscript(_ editorInputViewsController: EditorInputViewsController)
     func editorInputViewsControllerDidTapSubscript(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerDidTapComment(_ editorInputViewsController: EditorInputViewsController)
     func editorInputViewsControllerDidTapUnderline(_ editorInputViewsController: EditorInputViewsController)
     func editorInputViewsControllerDidTapStrikethrough(_ editorInputViewsController: EditorInputViewsController)
     func editorInputViewsControllerDidTapListBullet(_ editorInputViewsController: EditorInputViewsController)
@@ -49,6 +50,10 @@ extension EditorInputViewsControllerDelegate {
     }
     
     func editorInputViewsControllerDidTapSubscript(_ editorInputViewsController: EditorInputViewsController) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidTapComment(_ editorInputViewsController: EditorInputViewsController) {
         // nothing
     }
     
@@ -333,6 +338,7 @@ extension EditorInputViewsController: TextFormattingDelegate {
 
     func textFormattingProvidingDidTapComment() {
         webMessagingController?.toggleComment()
+        delegate?.editorInputViewsControllerDidTapComment(self)
     }
 
     func textFormattingProvidingDidTapLink() {

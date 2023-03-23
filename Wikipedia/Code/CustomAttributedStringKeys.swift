@@ -80,6 +80,10 @@ extension NSAttributedString.Key {
     public static var wikitextH6: NSAttributedString.Key {
         return NSAttributedString.Key("wikitextH6")
     }
+    
+    public static var wikitextComment: NSAttributedString.Key {
+        return NSAttributedString.Key("wikitextComment")
+    }
 }
 
 @objc class WMFWikitextAttributedStringKeyWrapper: NSObject {
@@ -161,5 +165,9 @@ extension NSAttributedString.Key {
     
     @objc static func h6Key() -> NSAttributedString.Key {
         return NSAttributedString.Key.wikitextH6
+    }
+    
+    @objc static func commentKey() -> NSAttributedString.Key {
+        return NSAttributedString.Key.wikitextComment
     }
 }

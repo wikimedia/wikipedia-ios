@@ -48,12 +48,14 @@
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper italicKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper boldAndItalicKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper linkKey] range:searchRange];
+    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper imageKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper templateKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper refKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper refWithAttributesKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper refSelfClosingKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper superscriptKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper subscriptKey] range:searchRange];
+    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper commentKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper underlineKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper strikethroughKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper h2Key] range:searchRange];
