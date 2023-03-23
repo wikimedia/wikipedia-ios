@@ -17,6 +17,10 @@ protocol EditorInputViewsControllerDelegate: AnyObject {
     func editorInputViewsControllerDidTapSubscript(_ editorInputViewsController: EditorInputViewsController)
     func editorInputViewsControllerDidTapUnderline(_ editorInputViewsController: EditorInputViewsController)
     func editorInputViewsControllerDidTapStrikethrough(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerDidTapListBullet(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerDidTapListNumber(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerDidTapIndent(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerDidTapUnindent(_ editorInputViewsController: EditorInputViewsController)
 }
 
 extension EditorInputViewsControllerDelegate {
@@ -53,6 +57,22 @@ extension EditorInputViewsControllerDelegate {
     }
     
     func editorInputViewsControllerDidTapStrikethrough(_ editorInputViewsController: EditorInputViewsController) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidTapListBullet(_ editorInputViewsController: EditorInputViewsController) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidTapListNumber(_ editorInputViewsController: EditorInputViewsController) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidTapIndent(_ editorInputViewsController: EditorInputViewsController) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidTapUnindent(_ editorInputViewsController: EditorInputViewsController) {
         // nothing
     }
     
@@ -321,18 +341,22 @@ extension EditorInputViewsController: TextFormattingDelegate {
 
     func textFormattingProvidingDidTapIncreaseIndent() {
         webMessagingController?.increaseIndentDepth()
+        delegate?.editorInputViewsControllerDidTapIndent(self)
     }
 
     func textFormattingProvidingDidTapDecreaseIndent() {
         webMessagingController?.decreaseIndentDepth()
+        delegate?.editorInputViewsControllerDidTapUnindent(self)
     }
 
     func textFormattingProvidingDidTapOrderedList() {
         webMessagingController?.toggleOrderedListSelection()
+        delegate?.editorInputViewsControllerDidTapListNumber(self)
     }
 
     func textFormattingProvidingDidTapUnorderedList() {
         webMessagingController?.toggleUnorderedListSelection()
+        delegate?.editorInputViewsControllerDidTapListBullet(self)
     }
 
     func textFormattingProvidingDidTapSuperscript() {

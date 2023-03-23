@@ -54,7 +54,7 @@
     NSString *h5RegexStr = @"(={5})([^=]*)(={5})(?!=)"; // todo: why is beginning carat ^ flaky
     NSString *h6RegexStr = @"(={6})([^=]*)(={6})(?!=)"; // todo: why is beginning carat ^ flaky
 
-    NSString *bulletPointRegexStr = @"^(\\*+)(.*)";
+    NSString *listBulletRegexStr = @"^(\\*+)(.*)";
     NSString *listNumberRegexStr = @"^(#+)(.*)";
 
     NSRegularExpression *boldItalicRegex = [NSRegularExpression regularExpressionWithPattern:boldItalicRegexStr options:0 error:nil];
@@ -71,13 +71,14 @@
     NSRegularExpression *underlineRegex = [NSRegularExpression regularExpressionWithPattern:underlineRegexStr options:0 error:nil];
     NSRegularExpression *strikethroughRegex = [NSRegularExpression regularExpressionWithPattern:strikethroughRegexStr options:0 error:nil];
     
+    NSRegularExpression *listBulletRegex = [NSRegularExpression regularExpressionWithPattern:listBulletRegexStr options:0 error:nil];
+    NSRegularExpression *listNumberRegex = [NSRegularExpression regularExpressionWithPattern:listNumberRegexStr options:0 error:nil];
+    
     NSRegularExpression *h2Regex = [NSRegularExpression regularExpressionWithPattern:h2RegexStr options:0 error:nil];
     NSRegularExpression *h3Regex = [NSRegularExpression regularExpressionWithPattern:h3RegexStr options:0 error:nil];
     NSRegularExpression *h4Regex = [NSRegularExpression regularExpressionWithPattern:h4RegexStr options:0 error:nil];
     NSRegularExpression *h5Regex = [NSRegularExpression regularExpressionWithPattern:h5RegexStr options:0 error:nil];
     NSRegularExpression *h6Regex = [NSRegularExpression regularExpressionWithPattern:h6RegexStr options:0 error:nil];
-    NSRegularExpression *bulletPointRegex = [NSRegularExpression regularExpressionWithPattern:bulletPointRegexStr options:0 error:nil];
-    NSRegularExpression *listNumberRegex = [NSRegularExpression regularExpressionWithPattern:listNumberRegexStr options:0 error:nil];
 
     NSDictionary *boldAttributes = @{
         NSFontAttributeName: boldFont,
@@ -205,8 +206,8 @@
         [WMFWikitextAttributedStringKeyWrapper h6Key]: [NSNumber numberWithBool:YES]
     };
 
-    NSDictionary *wikitextBulletAttributes = @{
-        [WMFWikitextAttributedStringKeyWrapper bulletKey]: [NSNumber numberWithBool:YES]
+    NSDictionary *wikitextListBulletAttributes = @{
+        [WMFWikitextAttributedStringKeyWrapper listBulletKey]: [NSNumber numberWithBool:YES]
     };
 
     NSDictionary *wikitextListNumberAttributes = @{
@@ -568,7 +569,7 @@
                                }
                            }];
 
-    [bulletPointRegex enumerateMatchesInString:self.string
+    [listBulletRegex enumerateMatchesInString:self.string
                                        options:0
                                          range:searchRange
                                     usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
@@ -580,7 +581,23 @@
                                         }
 
                                         if (allRange.location != NSNotFound) {
-                                            [self addAttributes:wikitextBulletAttributes range:allRange];
+                                            [self addAttributes:wikitextListBulletAttributes range:allRange];
+                                        }
+                                    }];
+    
+    [listNumberRegex enumerateMatchesInString:self.string
+                                       options:0
+                                         range:searchRange
+                                    usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                        NSRange allRange = [result rangeAtIndex:0];
+                                        NSRange bulletRange = [result rangeAtIndex:1];
+
+                                        if (bulletRange.location != NSNotFound) {
+                                            [self addAttributes:orangeFontAttributes range:bulletRange];
+                                        }
+
+                                        if (allRange.location != NSNotFound) {
+                                            [self addAttributes:wikitextListNumberAttributes range:allRange];
                                         }
                                     }];
 }

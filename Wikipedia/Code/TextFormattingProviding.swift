@@ -8,7 +8,9 @@ protocol TextFormattingButtonsProviding: TextFormattingProviding {
 
 extension TextFormattingButtonsProviding {
     func selectButton(_ button: EditorButton) {
-        buttons.lazy.first(where: { $0.kind == button.kind })?.isSelected = true
+        if let button = buttons.lazy.first(where: { $0.kind == button.kind }) {
+            button.isSelected = true
+        }
     }
 
     func disableButton(_ button: EditorButton) {

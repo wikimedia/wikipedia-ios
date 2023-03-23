@@ -49,6 +49,14 @@ extension NSAttributedString.Key {
         return NSAttributedString.Key("wikitextStrikethrough")
     }
     
+    public static var wikitextListBullet: NSAttributedString.Key {
+        return NSAttributedString.Key("wikitextListBullet")
+    }
+    
+    public static var wikitextListNumber: NSAttributedString.Key {
+        return NSAttributedString.Key("wikitextListNumber")
+    }
+    
     public static var wikitextH2: NSAttributedString.Key {
         return NSAttributedString.Key("wikitextH2")
     }
@@ -67,14 +75,6 @@ extension NSAttributedString.Key {
     
     public static var wikitextH6: NSAttributedString.Key {
         return NSAttributedString.Key("wikitextH6")
-    }
-    
-    public static var wikitextBullet: NSAttributedString.Key {
-        return NSAttributedString.Key("wikitextBullet")
-    }
-    
-    public static var wikitextListNumber: NSAttributedString.Key {
-        return NSAttributedString.Key("wikitextListNumber")
     }
 }
 
@@ -127,6 +127,14 @@ extension NSAttributedString.Key {
         return NSAttributedString.Key.wikitextStrikethrough
     }
     
+    @objc static func listBulletKey() -> NSAttributedString.Key {
+        return NSAttributedString.Key.wikitextListBullet
+    }
+    
+    @objc static func listNumberKey() -> NSAttributedString.Key {
+        return NSAttributedString.Key.wikitextListNumber
+    }
+    
     @objc static func h2Key() -> NSAttributedString.Key {
         return NSAttributedString.Key.wikitextH2
     }
@@ -145,13 +153,5 @@ extension NSAttributedString.Key {
     
     @objc static func h6Key() -> NSAttributedString.Key {
         return NSAttributedString.Key.wikitextH6
-    }
-    
-    @objc static func bulletKey() -> NSAttributedString.Key {
-        return NSAttributedString.Key.wikitextBullet
-    }
-    
-    @objc static func listNumberKey() -> NSAttributedString.Key {
-        return NSAttributedString.Key.wikitextListNumber
     }
 }

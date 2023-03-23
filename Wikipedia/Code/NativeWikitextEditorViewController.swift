@@ -165,6 +165,22 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .strikethrough))
         }
         
+        if selectedTextRangeOrCursorIsListBullet {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .li(ordered: false)))
+            // todo: why aren't indent buttons enabling?
+        } else {
+            editorInputViewsController.disableButton(button: EditorButton(kind: .increaseIndentDepth))
+            editorInputViewsController.disableButton(button: EditorButton(kind: .decreaseIndentDepth))
+        }
+        
+        if selectedTextRangeOrCursorIsListNumber {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .li(ordered: true)))
+            // todo: why aren't indent buttons enabling?
+        } else {
+            editorInputViewsController.disableButton(button: EditorButton(kind: .increaseIndentDepth))
+            editorInputViewsController.disableButton(button: EditorButton(kind: .decreaseIndentDepth))
+        }
+        
         if selectedTextRangeOrCursorIsH2 {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .heading(type: .heading)))
         }
@@ -229,6 +245,120 @@ extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate
     func editorInputViewsControllerDidTapStrikethrough(_ editorInputViewsController: EditorInputViewsController) {
         let isStrikethrough = selectedTextRangeOrCursorIsStrikethrough
         addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "<s>", endingFormattingString: "</s>", shouldAddFormatting: !isStrikethrough)
+    }
+    
+    func editorInputViewsControllerDidTapListBullet(_ editorInputViewsController: EditorInputViewsController) {
+        let textView = editorView.textView
+        
+        let nsString = textView.attributedText.string as NSString
+        let lineRange = nsString.lineRange(for: textView.selectedRange)
+        if selectedTextRangeOrCursorIsListBullet {
+            var numBullets = 0
+            for char in textView.textStorage.attributedSubstring(from: lineRange).string {
+                if char == "*" {
+                    numBullets += 1
+                }
+            }
+            textView.textStorage.replaceCharacters(in: NSRange(location: lineRange.location, length: numBullets), with: "")
+            // reset cursor so it doesn't move
+            if let selectedRange = textView.selectedTextRange {
+                if let newStart = textView.position(from: selectedRange.start, offset: -1*numBullets),
+                let newEnd = textView.position(from: selectedRange.end, offset: -1*numBullets) {
+                    textView.selectedTextRange = textView.textRange(from: newStart, to: newEnd)
+                }
+            }
+            
+        } else {
+            textView.textStorage.insert(NSAttributedString(string: "*"), at: lineRange.location)
+            // reset cursor so it doesn't move
+            if let selectedRange = textView.selectedTextRange {
+                if let newStart = textView.position(from: selectedRange.start, offset: 1),
+                let newEnd = textView.position(from: selectedRange.end, offset: 1) {
+                    textView.selectedTextRange = textView.textRange(from: newStart, to: newEnd)
+                }
+            }
+        }
+        
+        textViewDidChange(textView)
+        textViewDidChangeSelection(textView)
+    }
+    
+    func editorInputViewsControllerDidTapListNumber(_ editorInputViewsController: EditorInputViewsController) {
+        let textView = editorView.textView
+        
+        let nsString = textView.attributedText.string as NSString
+        let lineRange = nsString.lineRange(for: textView.selectedRange)
+        if selectedTextRangeOrCursorIsListNumber {
+            var numNumbers = 0
+            for char in textView.textStorage.attributedSubstring(from: lineRange).string {
+                if char == "#" {
+                    numNumbers += 1
+                }
+            }
+            textView.textStorage.replaceCharacters(in: NSRange(location: lineRange.location, length: numNumbers), with: "")
+            // reset cursor so it doesn't move
+            if let selectedRange = textView.selectedTextRange {
+                if let newStart = textView.position(from: selectedRange.start, offset: -1*numNumbers),
+                let newEnd = textView.position(from: selectedRange.end, offset: -1*numNumbers) {
+                    textView.selectedTextRange = textView.textRange(from: newStart, to: newEnd)
+                }
+            }
+            
+        } else {
+            textView.textStorage.insert(NSAttributedString(string: "#"), at: lineRange.location)
+            // reset cursor so it doesn't move
+            if let selectedRange = textView.selectedTextRange {
+                if let newStart = textView.position(from: selectedRange.start, offset: 1),
+                let newEnd = textView.position(from: selectedRange.end, offset: 1) {
+                    textView.selectedTextRange = textView.textRange(from: newStart, to: newEnd)
+                }
+            }
+        }
+        
+        textViewDidChange(textView)
+        textViewDidChangeSelection(textView)
+    }
+    
+    func editorInputViewsControllerDidTapIndent(_ editorInputViewsController: EditorInputViewsController) {
+        guard selectedTextRangeOrCursorIsListBullet || selectedTextRangeOrCursorIsListNumber else {
+            assertionFailure("Button should have been disabled")
+            return
+        }
+        
+        let textView = editorView.textView
+        
+        let nsString = textView.attributedText.string as NSString
+        let lineRange = nsString.lineRange(for: textView.selectedRange)
+        
+        textView.textStorage.insert(NSAttributedString(string: "*"), at: lineRange.location)
+        // reset cursor so it doesn't move
+        if let selectedRange = textView.selectedTextRange {
+            if let newStart = textView.position(from: selectedRange.start, offset: 1),
+            let newEnd = textView.position(from: selectedRange.end, offset: 1) {
+                textView.selectedTextRange = textView.textRange(from: newStart, to: newEnd)
+            }
+        }
+    }
+    
+    func editorInputViewsControllerDidTapUnindent(_ editorInputViewsController: EditorInputViewsController) {
+        guard selectedTextRangeOrCursorIsListNumber || selectedTextRangeOrCursorIsListNumber else {
+            assertionFailure("Button should have been disabled")
+            return
+        }
+        
+        let textView = editorView.textView
+        
+        let nsString = textView.attributedText.string as NSString
+        let lineRange = nsString.lineRange(for: textView.selectedRange)
+        
+        textView.textStorage.insert(NSAttributedString(string: ""), at: lineRange.location)
+        // reset cursor so it doesn't move
+        if let selectedRange = textView.selectedTextRange {
+            if let newStart = textView.position(from: selectedRange.start, offset: 1),
+            let newEnd = textView.position(from: selectedRange.end, offset: 1) {
+                textView.selectedTextRange = textView.textRange(from: newStart, to: newEnd)
+            }
+        }
     }
     
     func editorInputViewsControllerDidTapHeading(_ editorInputViewsController: EditorInputViewsController, depth: Int) {
@@ -432,6 +562,14 @@ private extension NativeWikitextEditorViewController {
     
     var selectedTextRangeOrCursorIsStrikethrough: Bool {
         return selectedTextRangeOrCursorIsAttributeKey(.wikitextStrikethrough)
+    }
+    
+    var selectedTextRangeOrCursorIsListBullet: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextListBullet)
+    }
+    
+    var selectedTextRangeOrCursorIsListNumber: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextListNumber)
     }
 }
 

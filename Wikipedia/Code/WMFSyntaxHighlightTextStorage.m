@@ -61,7 +61,7 @@
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper h4Key] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper h5Key] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper h6Key] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper bulletKey] range:searchRange];
+    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper listBulletKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper listNumberKey] range:searchRange];
 
     [self addWikitextSyntaxFormattingWithSearchRange:searchRange fontSizeTraitCollection:self.fontSizeTraitCollection needsColors:YES theme: self.theme];
