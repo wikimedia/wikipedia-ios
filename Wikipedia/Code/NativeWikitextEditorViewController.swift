@@ -132,10 +132,30 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
     
     func textViewDidChangeSelection(_ textView: UITextView) {
         editorInputViewsController.textSelectionDidChange(isRangeSelected: textView.selectedRange.length > 0)
-        let isBold = selectedTextRangeOrCursorIsBoldAndItalic() || selectedTextRangeOrCursorIsBold()
-        if isBold {
+        
+        if selectedTextRangeOrCursorIsBold {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .bold))
         }
+        if selectedTextRangeOrCursorIsH2 {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .heading(type: .heading)))
+        }
+        
+        if selectedTextRangeOrCursorIsH3 {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .heading(type: .subheading1)))
+        }
+        
+        if selectedTextRangeOrCursorIsH4 {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .heading(type: .subheading2)))
+        }
+        
+        if selectedTextRangeOrCursorIsH5 {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .heading(type: .subheading3)))
+        }
+        
+        if selectedTextRangeOrCursorIsH6 {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .heading(type: .subheading4)))
+        }
+        
 //        formattingToolbarView.italicsButton.isSelected = selectedTextRangeOrCursorIsBoldAndItalic() || selectedTextRangeOrCursorIsItalic()
 //        formattingToolbarView.linkButton.isSelected = selectedTextRangeOrCursorIsLink()
 //        formattingToolbarView.templateButton.isSelected = selectedTextRangeOrCursorIsTemplate()
@@ -152,13 +172,61 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
 extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate {
     func editorInputViewsControllerDidTapBold(_ editorInputViewsController: EditorInputViewsController) {
         let formattingString = "'''"
-        if selectedTextRangeOrCursorIsBold() || selectedTextRangeOrCursorIsBoldAndItalic() {
-            expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: formattingString, endingFormattingString: formattingString)
-            if selectedRangeIsSurroundedByFormattingString(formattingString: formattingString) {
-                removeSurroundingFormattingStringFromSelectedRange(formattingString: formattingString)
-            }
+        let isBold = selectedTextRangeOrCursorIsBold
+        addOrRemoveFormattingStringFromSelectedText(formattingString: formattingString, shouldAddFormatting: !isBold)
+    }
+    
+    func editorInputViewsControllerDidTapHeading(_ editorInputViewsController: EditorInputViewsController, depth: Int) {
+        
+        let isCurrentlyH2 = selectedTextRangeOrCursorIsH2
+        let isCurrentlyH3 = selectedTextRangeOrCursorIsH3
+        let isCurrentlyH4 = selectedTextRangeOrCursorIsH4
+        let isCurrentlyH5 = selectedTextRangeOrCursorIsH5
+        let isCurrentlyH6 = selectedTextRangeOrCursorIsH6
+        
+        let formattingToRemove: String?
+        if isCurrentlyH2 && depth != 2 {
+            formattingToRemove = "=="
+        } else if isCurrentlyH3 && depth != 3 {
+            formattingToRemove = "==="
+        } else if isCurrentlyH4 && depth != 4 {
+            formattingToRemove = "===="
+        } else if isCurrentlyH5 && depth != 5 {
+            formattingToRemove = "====="
+        } else if isCurrentlyH6 && depth != 6 {
+            formattingToRemove = "======"
         } else {
-            addStringFormattingCharacters(formattingString: formattingString)
+            formattingToRemove = nil
+        }
+        
+        let formattingToAdd: String?
+        if !isCurrentlyH2 && depth == 2 {
+            formattingToAdd = "=="
+        } else if !isCurrentlyH3 && depth == 3 {
+            formattingToAdd = "==="
+        } else if !isCurrentlyH4 && depth == 4 {
+            formattingToAdd = "===="
+        } else if !isCurrentlyH5 && depth == 5 {
+            formattingToAdd = "====="
+        } else if !isCurrentlyH6 && depth == 6 {
+            formattingToAdd = "======"
+        } else {
+            formattingToAdd = nil
+        }
+        
+        guard formattingToRemove != nil || formattingToAdd != nil else {
+            return
+        }
+        
+        if let formattingToRemove {
+            expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: formattingToRemove, endingFormattingString: formattingToRemove)
+            if selectedRangeIsSurroundedByFormattingString(formattingString: formattingToRemove) {
+                removeSurroundingFormattingStringFromSelectedRange(formattingString: formattingToRemove)
+            }
+        }
+        
+        if let formattingToAdd {
+            addStringFormattingCharacters(formattingString: formattingToAdd)
         }
     }
     
@@ -233,63 +301,72 @@ private extension NativeWikitextEditorViewController {
 //        } else {
             return (selectedRange, textView.attributedText)
         // }
-        
     }
     
-    func selectedTextRangeOrCursorIsBold() -> Bool {
-        
+    func selectedTextRangeOrCursorIsAttributeKey(_ attributeKey: NSAttributedString.Key) -> Bool {
         if let targetSelectionValues = targetSelectedRangeAndAttributedText() {
             
             let range = targetSelectionValues.0
             let attributedString = targetSelectionValues.1
             
-            var isBold = false
-            attributedString.enumerateAttribute(.wikitextBold, in: range, options: .longestEffectiveRangeNotRequired) { value, range, stop in
+            var isAttribute = false
+            attributedString.enumerateAttribute(attributeKey, in: range, options: .longestEffectiveRangeNotRequired) { value, range, stop in
                 if let value = value as? NSNumber,
                    value.boolValue == true {
-                    isBold = true
+                    isAttribute = true
                     stop.pointee = true
                 } else {
-                    isBold = false
+                    isAttribute = false
                     stop.pointee = true
                 }
             }
                     
-            return isBold
+            return isAttribute
         }
         
         return false
     }
     
-    func selectedTextRangeOrCursorIsBoldAndItalic() -> Bool {
-        
-        if let targetSelectionValues = targetSelectedRangeAndAttributedText() {
-            
-            let range = targetSelectionValues.0
-            let attributedString = targetSelectionValues.1
-            
-            var isBoldAndItalic = false
-            attributedString.enumerateAttribute(.wikitextBoldAndItalic, in: range, options: .longestEffectiveRangeNotRequired) { value, range, stop in
-                if let value = value as? NSNumber,
-                   value.boolValue == true {
-                    isBoldAndItalic = true
-                    stop.pointee = true
-                } else {
-                    isBoldAndItalic = false
-                    stop.pointee = true
-                }
-            }
-                    
-            return isBoldAndItalic
-        }
-        
-        return false
+    var selectedTextRangeOrCursorIsBold: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextBoldAndItalic) || selectedTextRangeOrCursorIsAttributeKey(.wikitextBold)
+    }
+    
+    var selectedTextRangeOrCursorIsH2: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextH2)
+    }
+    
+    var selectedTextRangeOrCursorIsH3: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextH3)
+    }
+    
+    var selectedTextRangeOrCursorIsH4: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextH4)
+    }
+    
+    var selectedTextRangeOrCursorIsH5: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextH5)
+    }
+    
+    var selectedTextRangeOrCursorIsH6: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextH6)
     }
 }
 
 // MARK: Programmatic Selection Methods
 
 private extension NativeWikitextEditorViewController {
+    
+    func addOrRemoveFormattingStringFromSelectedText(formattingString: String, shouldAddFormatting: Bool) {
+        if !shouldAddFormatting {
+            expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: formattingString, endingFormattingString: formattingString)
+            if selectedRangeIsSurroundedByFormattingString(formattingString: formattingString) {
+                removeSurroundingFormattingStringFromSelectedRange(formattingString: formattingString)
+            }
+        } else {
+            addStringFormattingCharacters(formattingString: formattingString)
+        }
+    }
+    
     func expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: String, endingFormattingString: String) {
         
         let textView = editorView.textView

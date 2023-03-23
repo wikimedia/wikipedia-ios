@@ -37,6 +37,18 @@ extension NSAttributedString.Key {
         return NSAttributedString.Key("wikitextH2")
     }
     
+    public static var wikitextH3: NSAttributedString.Key {
+        return NSAttributedString.Key("wikitextH3")
+    }
+    
+    public static var wikitextH4: NSAttributedString.Key {
+        return NSAttributedString.Key("wikitextH4")
+    }
+    
+    public static var wikitextH5: NSAttributedString.Key {
+        return NSAttributedString.Key("wikitextH5")
+    }
+    
     public static var wikitextH6: NSAttributedString.Key {
         return NSAttributedString.Key("wikitextH6")
     }
@@ -85,6 +97,18 @@ extension NSAttributedString.Key {
     
     @objc static func h2Key() -> NSAttributedString.Key {
         return NSAttributedString.Key.wikitextH2
+    }
+    
+    @objc static func h3Key() -> NSAttributedString.Key {
+        return NSAttributedString.Key.wikitextH3
+    }
+    
+    @objc static func h4Key() -> NSAttributedString.Key {
+        return NSAttributedString.Key.wikitextH4
+    }
+    
+    @objc static func h5Key() -> NSAttributedString.Key {
+        return NSAttributedString.Key.wikitextH5
     }
     
     @objc static func h6Key() -> NSAttributedString.Key {

@@ -14,8 +14,11 @@
     UIFont *italicFont = [UIFont fontWithDescriptor:italicFontDescriptor size:standardFont.pointSize];
     UIFont *boldItalicFont = [UIFont fontWithDescriptor:boldItalicFontDescriptor size:standardFont.pointSize];
 
-    UIFont *h2Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:36]];
-    UIFont *h6Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:24]];
+    UIFont *h2Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:26]];
+    UIFont *h3Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:24]];
+    UIFont *h4Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:22]];
+    UIFont *h5Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:20]];
+    UIFont *h6Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:18]];
     // UIFontMetrics(forTextStyle: style).scaledFont(for: UIFont.systemFont(ofSize: size, weight: weight))
 
     NSString *boldItalicRegexStr = @"('{5})([^']*(?:'(?!'''')[^']*)*)('{5})";
@@ -40,6 +43,9 @@
     NSString *refWithAttributesRegexStr = @"(<ref\\s+.+?>)\\s*.*?(<\\/ref>)";
     NSString *refSelfClosingRegexStr = @"<ref\\s[^>]+?\\s*\\/>";
     NSString *h2RegexStr = @"(={2})([^=]*)(={2})(?!=)"; // todo: why is beginning carat ^ flaky
+    NSString *h3RegexStr = @"(={3})([^=]*)(={3})(?!=)"; // todo: why is beginning carat ^ flaky
+    NSString *h4RegexStr = @"(={4})([^=]*)(={4})(?!=)"; // todo: why is beginning carat ^ flaky
+    NSString *h5RegexStr = @"(={5})([^=]*)(={5})(?!=)"; // todo: why is beginning carat ^ flaky
     NSString *h6RegexStr = @"(={6})([^=]*)(={6})(?!=)"; // todo: why is beginning carat ^ flaky
 
     NSString *bulletPointRegexStr = @"^(\\*+)(.*)";
@@ -54,6 +60,9 @@
     NSRegularExpression *refWithAttributesRegex = [NSRegularExpression regularExpressionWithPattern:refWithAttributesRegexStr options:0 error:nil];
     NSRegularExpression *refSelfClosingRegex = [NSRegularExpression regularExpressionWithPattern:refSelfClosingRegexStr options:0 error:nil];
     NSRegularExpression *h2Regex = [NSRegularExpression regularExpressionWithPattern:h2RegexStr options:0 error:nil];
+    NSRegularExpression *h3Regex = [NSRegularExpression regularExpressionWithPattern:h3RegexStr options:0 error:nil];
+    NSRegularExpression *h4Regex = [NSRegularExpression regularExpressionWithPattern:h4RegexStr options:0 error:nil];
+    NSRegularExpression *h5Regex = [NSRegularExpression regularExpressionWithPattern:h5RegexStr options:0 error:nil];
     NSRegularExpression *h6Regex = [NSRegularExpression regularExpressionWithPattern:h6RegexStr options:0 error:nil];
     NSRegularExpression *bulletPointRegex = [NSRegularExpression regularExpressionWithPattern:bulletPointRegexStr options:0 error:nil];
     NSRegularExpression *listNumberRegex = [NSRegularExpression regularExpressionWithPattern:listNumberRegexStr options:0 error:nil];
@@ -88,6 +97,18 @@
 
     NSDictionary *h2FontAttributes = @{
         NSFontAttributeName: h2Font,
+    };
+    
+    NSDictionary *h3FontAttributes = @{
+        NSFontAttributeName: h3Font,
+    };
+    
+    NSDictionary *h4FontAttributes = @{
+        NSFontAttributeName: h4Font,
+    };
+    
+    NSDictionary *h5FontAttributes = @{
+        NSFontAttributeName: h5Font,
     };
 
     NSDictionary *h6FontAttributes = @{
@@ -138,6 +159,18 @@
 
     NSDictionary *wikitextH2Attributes = @{
         [WMFWikitextAttributedStringKeyWrapper h2Key]: [NSNumber numberWithBool:YES]
+    };
+    
+    NSDictionary *wikitextH3Attributes = @{
+        [WMFWikitextAttributedStringKeyWrapper h3Key]: [NSNumber numberWithBool:YES]
+    };
+    
+    NSDictionary *wikitextH4Attributes = @{
+        [WMFWikitextAttributedStringKeyWrapper h4Key]: [NSNumber numberWithBool:YES]
+    };
+    
+    NSDictionary *wikitextH5Attributes = @{
+        [WMFWikitextAttributedStringKeyWrapper h5Key]: [NSNumber numberWithBool:YES]
     };
 
     NSDictionary *wikitextH6Attributes = @{
@@ -324,6 +357,78 @@
                                if (closingRange.location != NSNotFound) {
                                    [self addAttributes:orangeFontAttributes range:closingRange];
                                    [self addAttributes:h2FontAttributes range:closingRange];
+                               }
+                           }];
+    
+    [h3Regex enumerateMatchesInString:self.string
+                              options:0
+                                range:searchRange
+                           usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                               NSRange openingRange = [result rangeAtIndex:1];
+                               NSRange textRange = [result rangeAtIndex:2];
+                               NSRange closingRange = [result rangeAtIndex:3];
+
+                               if (textRange.location != NSNotFound) {
+                                   [self addAttributes:h5FontAttributes range:textRange];
+                                   [self addAttributes:wikitextH3Attributes range:textRange];
+                               }
+
+                               if (openingRange.location != NSNotFound) {
+                                   [self addAttributes:orangeFontAttributes range:openingRange];
+                                   [self addAttributes:h3FontAttributes range:openingRange];
+                               }
+
+                               if (closingRange.location != NSNotFound) {
+                                   [self addAttributes:orangeFontAttributes range:closingRange];
+                                   [self addAttributes:h3FontAttributes range:closingRange];
+                               }
+                           }];
+    
+    [h4Regex enumerateMatchesInString:self.string
+                              options:0
+                                range:searchRange
+                           usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                               NSRange openingRange = [result rangeAtIndex:1];
+                               NSRange textRange = [result rangeAtIndex:2];
+                               NSRange closingRange = [result rangeAtIndex:3];
+
+                               if (textRange.location != NSNotFound) {
+                                   [self addAttributes:h5FontAttributes range:textRange];
+                                   [self addAttributes:wikitextH4Attributes range:textRange];
+                               }
+
+                               if (openingRange.location != NSNotFound) {
+                                   [self addAttributes:orangeFontAttributes range:openingRange];
+                                   [self addAttributes:h4FontAttributes range:openingRange];
+                               }
+
+                               if (closingRange.location != NSNotFound) {
+                                   [self addAttributes:orangeFontAttributes range:closingRange];
+                                   [self addAttributes:h4FontAttributes range:closingRange];
+                               }
+                           }];
+    
+    [h5Regex enumerateMatchesInString:self.string
+                              options:0
+                                range:searchRange
+                           usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                               NSRange openingRange = [result rangeAtIndex:1];
+                               NSRange textRange = [result rangeAtIndex:2];
+                               NSRange closingRange = [result rangeAtIndex:3];
+
+                               if (textRange.location != NSNotFound) {
+                                   [self addAttributes:h5FontAttributes range:textRange];
+                                   [self addAttributes:wikitextH5Attributes range:textRange];
+                               }
+
+                               if (openingRange.location != NSNotFound) {
+                                   [self addAttributes:orangeFontAttributes range:openingRange];
+                                   [self addAttributes:h5FontAttributes range:openingRange];
+                               }
+
+                               if (closingRange.location != NSNotFound) {
+                                   [self addAttributes:orangeFontAttributes range:closingRange];
+                                   [self addAttributes:h5FontAttributes range:closingRange];
                                }
                            }];
 

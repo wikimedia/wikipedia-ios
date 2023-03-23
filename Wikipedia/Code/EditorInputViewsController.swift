@@ -9,6 +9,21 @@ protocol EditorInputViewsControllerDelegate: AnyObject {
     // Additional methods for native editor
     func editorInputViewsControllerDidChangeInputAccessoryView(_ editorInputViewsController: EditorInputViewsController, inputAccessoryView: UIView?)
     func editorInputViewsControllerDidTapBold(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerDidTapHeading(_ editorInputViewsController: EditorInputViewsController, depth: Int)
+}
+
+extension EditorInputViewsControllerDelegate {
+    func editorInputViewsControllerDidTapHeading(_ editorInputViewsController: EditorInputViewsController, depth: Int) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidTapBold(_ editorInputViewsController: EditorInputViewsController) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidChangeInputAccessoryView(_ editorInputViewsController: EditorInputViewsController, inputAccessoryView: UIView?) {
+        // nothing
+    }
 }
 
 class EditorInputViewsController: NSObject, EditorInputViewsSource, Themeable {
@@ -228,6 +243,7 @@ extension EditorInputViewsController: TextFormattingDelegate {
 
     func textFormattingProvidingDidTapHeading(depth: Int) {
         webMessagingController?.setHeadingSelection(depth: depth)
+        delegate?.editorInputViewsControllerDidTapHeading(self, depth: depth)
     }
 
     func textFormattingProvidingDidTapBold() {
