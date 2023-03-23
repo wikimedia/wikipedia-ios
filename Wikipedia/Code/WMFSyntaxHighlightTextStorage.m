@@ -1,5 +1,4 @@
 #import "WMFSyntaxHighlightTextStorage.h"
-#import "NSMutableAttributedString+WikitextEditingExtensions.h"
 #import "Wikipedia-Swift.h"
 
 @interface WMFSyntaxHighlightTextStorage ()
@@ -44,29 +43,29 @@
     [self removeAttribute:NSFontAttributeName range:searchRange];
     [self removeAttribute:NSForegroundColorAttributeName range:searchRange];
     [self removeAttribute:NSForegroundColorAttributeName range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper boldKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper italicKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper boldAndItalicKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper linkKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper imageKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper templateKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper refKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper refWithAttributesKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper refSelfClosingKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper superscriptKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper subscriptKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper commentKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper underlineKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper strikethroughKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper h2Key] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper h3Key] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper h4Key] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper h5Key] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper h6Key] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper listBulletKey] range:searchRange];
-    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper listNumberKey] range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextBold range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextItalic range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextBoldAndItalic range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextLink range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextImage range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextTemplate range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextRef range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextRefWithAttributes range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextRefSelfClosing range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextSuperscript range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextSubscript range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextComment range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextUnderline range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextStrikethrough range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextH2 range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextH3 range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextH4 range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextH5 range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextH6 range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextBullet range:searchRange];
+    [self removeAttribute:kCustomAttributedStringKeyWikitextNumber range:searchRange];
 
-    [self addWikitextSyntaxFormattingWithSearchRange:searchRange fontSizeTraitCollection:self.fontSizeTraitCollection needsColors:YES theme: self.theme];
+    [self.mutableAttributedStringHelper addWikitextSyntaxFormattingToNSMutableAttributedString:self searchRange:searchRange fontSizeTraitCollection:self.fontSizeTraitCollection needsColors:YES theme:self.theme];
 }
 
 - (void)performReplacementsForRange:(NSRange)changedRange {

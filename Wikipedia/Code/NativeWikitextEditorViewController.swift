@@ -10,6 +10,7 @@ class NativeWikitextEditorViewController: UIViewController, Themeable {
     
     weak var delegate: NativeWikitextEditorDelegate?
     private let theme: Theme
+    private let mutableAttributedStringHelper: NSMutableAttributedStringHelper
     private var preselectedTextRange: UITextRange?
     
     private lazy var editorInputViewsController: EditorInputViewsController = {
@@ -26,7 +27,7 @@ class NativeWikitextEditorViewController: UIViewController, Themeable {
     init(delegate: NativeWikitextEditorDelegate, theme: Theme) {
         self.delegate = delegate
         self.theme = theme
-        
+        self.mutableAttributedStringHelper = NSMutableAttributedStringHelper(theme: theme)
         super.init(nibName: nil, bundle: nil)
         
         
@@ -48,7 +49,8 @@ class NativeWikitextEditorViewController: UIViewController, Themeable {
         let editorView = NativeWikitextEditorView(theme: theme)
 //        if #available(iOS 16.0, *) {
 //            editorView.textView.textContentStorage?.delegate = self
-//        }
+//        } else
+        (editorView.textView.textStorage as? WMFSyntaxHighlightTextStorage)?.mutableAttributedStringHelper = self.mutableAttributedStringHelper
         editorView.textView.delegate = self
         view = editorView
     }
@@ -117,7 +119,7 @@ extension NativeWikitextEditorViewController: NSTextContentStorageDelegate {
             return nil
         }
         let textWithDisplayAttributes = NSMutableAttributedString(attributedString: originalText)
-        textWithDisplayAttributes.addWikitextSyntaxFormatting(withSearch: NSRange(location: 0, length: originalText.length), fontSizeTraitCollection: traitCollection, needsColors: true, theme: theme)
+        mutableAttributedStringHelper.addWikitextSyntaxFormatting(to: textWithDisplayAttributes, search: NSRange(location: 0, length: originalText.length), fontSizeTraitCollection: traitCollection, needsColors: true, theme: theme)
         return NSTextParagraph(attributedString: textWithDisplayAttributes)
     }
 }

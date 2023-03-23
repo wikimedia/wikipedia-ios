@@ -27,7 +27,7 @@
 #import "WMFLanguagesViewControllerDelegate.h"
 
 #import "WMFSyntaxHighlightTextStorage.h"
-#import "NSMutableAttributedString+WikitextEditingExtensions.h"
+#import "NSMutableAttributedStringHelper.h"
 
 // Model
 #import "MWKLicense.h"
