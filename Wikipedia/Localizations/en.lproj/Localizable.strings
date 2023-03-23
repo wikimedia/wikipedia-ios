@@ -161,7 +161,7 @@
 "description-edit-learn-more" = "Learn more";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "By changing the article description, I agree to the $1 and to irrevocably release my contributions under the $2 license.";
-"description-edit-pencil-introduction" = "Web section editor";
+"description-edit-pencil-introduction" = "Full web editor";
 "description-edit-pencil-title" = "Edit article description";
 "description-edit-placeholder-title" = "Short descriptions are best";
 "description-edit-publish" = "Publish description";

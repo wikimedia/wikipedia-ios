@@ -13,7 +13,7 @@ class SectionEditorViewController: ViewController {
 
     weak var delegate: SectionEditorViewControllerDelegate?
     
-    private let sectionID: Int
+    private let sectionID: Int?
     private let articleURL: URL
     private let languageCode: String
     
@@ -21,7 +21,7 @@ class SectionEditorViewController: ViewController {
     private var dataStore: MWKDataStore
 
     private var webView: SectionEditorWebView?
-    private let initialFetchGroup: WMFTaskGroup = WMFTaskGroup()
+    // private let initialFetchGroup: WMFTaskGroup = WMFTaskGroup()
     
     private let sectionFetcher: WikitextFetcher
     private let editNoticesFetcher: EditNoticesFetcher
@@ -73,7 +73,7 @@ class SectionEditorViewController: ViewController {
     private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
     private var lastBlockedDisplayError: MediaWikiAPIDisplayError?
     
-    init(articleURL: URL, sectionID: Int, messagingController: SectionEditorWebViewMessagingController? = nil, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo? = nil, theme: Theme = Theme.standard) {
+    init(articleURL: URL, sectionID: Int?, messagingController: SectionEditorWebViewMessagingController? = nil, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo? = nil, theme: Theme = Theme.standard) {
         self.articleURL = articleURL
         self.sectionID = sectionID
         self.dataStore = dataStore
@@ -94,7 +94,7 @@ class SectionEditorViewController: ViewController {
         navigationItemController = PageEditorNavigationItemController(navigationItem: navigationItem)
         navigationItemController.delegate = self
         
-        loadEditNotices()
+        // loadEditNotices()
         loadWikitext { [weak self] blockedError in
             
             guard let self else {
@@ -128,12 +128,12 @@ class SectionEditorViewController: ViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        initialFetchGroup.waitInBackground {
+        // initialFetchGroup.waitInBackground {
             if !self.needsSelectLastSelection {
                 self.presentEditNoticesIfNecessary()
             }
             self.selectLastSelectionIfNeeded()
-        }
+        // }
 
     }
     
@@ -390,25 +390,25 @@ class SectionEditorViewController: ViewController {
         messagingController.setWikitext(wikitext, completionHandler: completionHandler)
     }
     
-    private func loadEditNotices() {
-        initialFetchGroup.enter()
-        editNoticesFetcher.fetchNotices(for: articleURL) { (result) in
-            if case let .success(notices) = result, !notices.isEmpty, let siteURL = self.articleURL.wmf_site {
-                self.editNoticesViewModel = EditNoticesViewModel(siteURL: siteURL, notices: notices)
-
-                DispatchQueue.main.async {
-                    self.navigationItemController.addEditNoticesButton()
-                    self.navigationItemController.apply(theme: self.theme)
-                }
-            }
-
-            self.initialFetchGroup.leave()
-        }
-    }
+//    private func loadEditNotices() {
+//        initialFetchGroup.enter()
+//        editNoticesFetcher.fetchNotices(for: articleURL) { (result) in
+//            if case let .success(notices) = result, !notices.isEmpty, let siteURL = self.articleURL.wmf_site {
+//                self.editNoticesViewModel = EditNoticesViewModel(siteURL: siteURL, notices: notices)
+//
+//                DispatchQueue.main.async {
+//                    self.navigationItemController.addEditNoticesButton()
+//                    self.navigationItemController.apply(theme: self.theme)
+//                }
+//            }
+//
+//            self.initialFetchGroup.leave()
+//        }
+//    }
 
     private func loadWikitext(completion: @escaping (MediaWikiAPIDisplayError?) -> Void) {
 
-        initialFetchGroup.enter()
+        // initialFetchGroup.enter()
         let isShowingStatusMessage = shouldFocusWebView
         if isShowingStatusMessage {
             let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
@@ -430,7 +430,7 @@ class SectionEditorViewController: ViewController {
                         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
                     }
                     
-                    self.initialFetchGroup.leave()
+                    // self.initialFetchGroup.leave()
                     completion(nil)
                 case .success(let response):
                     self.wikitext = response.wikitext
@@ -444,7 +444,7 @@ class SectionEditorViewController: ViewController {
                         completion(nil)
                     }
                     
-                    self.initialFetchGroup.leave()
+                    // self.initialFetchGroup.leave()
                 }
             }
         }

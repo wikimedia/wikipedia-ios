@@ -10,7 +10,7 @@ extension ArticleViewController {
         }
     }
     
-    func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
+    func showEditorForSection(with id: Int?, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
         editFunnel.logSectionEditingStart(from: funnelSource, language: articleLanguageCode)
         cancelWIconPopoverDisplay()
         let sectionEditVC = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
@@ -110,9 +110,9 @@ extension ArticleViewController {
         }
         sheet.addAction(editTitleDescriptionAction)
         
-        let editLeadSectionTitle = WMFLocalizedString("description-edit-pencil-introduction", value: "Web section editor", comment: "Title for button used to show article lead section editor")
+        let editLeadSectionTitle = WMFLocalizedString("description-edit-pencil-introduction", value: "Full web editor", comment: "Title for button used to show article lead section editor")
         let editLeadSectionAction = UIAlertAction(title: editLeadSectionTitle, style: .default) { (action) in
-            self.showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
+            self.showEditorForSection(with: nil, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
         }
         sheet.addAction(editLeadSectionAction)
         
