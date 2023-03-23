@@ -131,41 +131,44 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
     }
     
     func textViewDidChangeSelection(_ textView: UITextView) {
+
         editorInputViewsController.textSelectionDidChange(isRangeSelected: textView.selectedRange.length > 0)
         
-        if selectedTextRangeOrCursorIsBold {
+        let formattingValues = formattingValuesForSelectedTextRangeOrCursor()
+        
+        if formattingValues.isBold {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .bold))
         }
         
-        if selectedTextRangeOrCursorIsItalic {
+        if formattingValues.isItalic {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .italic))
         }
         
-        if selectedTextRangeOrCursorIsTemplate {
+        if formattingValues.isTemplate {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .template))
         }
         
-        if selectedTextRangeOrCursorIsReference {
+        if formattingValues.isReference {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .reference))
         }
         
-        if selectedTextRangeOrCursorIsSuperscript {
+        if formattingValues.isSuperscript {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .superscript))
         }
         
-        if selectedTextRangeOrCursorIsSubscript {
+        if formattingValues.isSubscript {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .subscript))
         }
         
-        if selectedTextRangeOrCursorIsUnderline {
+        if formattingValues.isUnderline {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .underline))
         }
         
-        if selectedTextRangeOrCursorIsStrikethrough {
+        if formattingValues.isStrikethrough {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .strikethrough))
         }
         
-        if selectedTextRangeOrCursorIsListBullet {
+        if formattingValues.isListBullet {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .li(ordered: false)))
             // todo: why aren't indent buttons enabling?
         } else {
@@ -173,7 +176,7 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
             editorInputViewsController.disableButton(button: EditorButton(kind: .decreaseIndentDepth))
         }
         
-        if selectedTextRangeOrCursorIsListNumber {
+        if formattingValues.isListNumber {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .li(ordered: true)))
             // todo: why aren't indent buttons enabling?
         } else {
@@ -181,23 +184,23 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
             editorInputViewsController.disableButton(button: EditorButton(kind: .decreaseIndentDepth))
         }
         
-        if selectedTextRangeOrCursorIsH2 {
+        if formattingValues.isH2 {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .heading(type: .heading)))
         }
         
-        if selectedTextRangeOrCursorIsH3 {
+        if formattingValues.isH3 {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .heading(type: .subheading1)))
         }
         
-        if selectedTextRangeOrCursorIsH4 {
+        if formattingValues.isH4 {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .heading(type: .subheading2)))
         }
         
-        if selectedTextRangeOrCursorIsH5 {
+        if formattingValues.isH5 {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .heading(type: .subheading3)))
         }
         
-        if selectedTextRangeOrCursorIsH6 {
+        if formattingValues.isH6 {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .heading(type: .subheading4)))
         }
     }
@@ -207,43 +210,43 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
 extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate {
     func editorInputViewsControllerDidTapBold(_ editorInputViewsController: EditorInputViewsController) {
         let formattingString = "'''"
-        let isBold = selectedTextRangeOrCursorIsBold
+        let isBold = formattingValuesForSelectedTextRangeOrCursor().isBold
         addOrRemoveFormattingStringFromSelectedText(formattingString: formattingString, shouldAddFormatting: !isBold)
     }
     
     func editorInputViewsControllerDidTapItalic(_ editorInputViewsController: EditorInputViewsController) {
         let formattingString = "''"
-        let isItalic = selectedTextRangeOrCursorIsItalic
+        let isItalic = formattingValuesForSelectedTextRangeOrCursor().isItalic
         addOrRemoveFormattingStringFromSelectedText(formattingString: formattingString, shouldAddFormatting: !isItalic)
     }
     
     func editorInputViewsControllerDidTapTemplate(_ editorInputViewsController: EditorInputViewsController) {
-        let isTemplate = selectedTextRangeOrCursorIsTemplate
+        let isTemplate = formattingValuesForSelectedTextRangeOrCursor().isTemplate
         addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "{{", endingFormattingString: "}}", shouldAddFormatting: !isTemplate)
     }
     
     func editorInputViewsControllerDidTapReference(_ editorInputViewsController: EditorInputViewsController) {
-        let isReference = selectedTextRangeOrCursorIsReference
+        let isReference = formattingValuesForSelectedTextRangeOrCursor().isReference
         addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "<ref>", endingFormattingString: "</ref>", shouldAddFormatting: !isReference)
     }
     
     func editorInputViewsControllerDidTapSuperscript(_ editorInputViewsController: EditorInputViewsController) {
-        let isSuperscript = selectedTextRangeOrCursorIsSuperscript
+        let isSuperscript = formattingValuesForSelectedTextRangeOrCursor().isSuperscript
         addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "<sup>", endingFormattingString: "</sup>", shouldAddFormatting: !isSuperscript)
     }
     
     func editorInputViewsControllerDidTapSubscript(_ editorInputViewsController: EditorInputViewsController) {
-        let isSubscript = selectedTextRangeOrCursorIsSubscript
+        let isSubscript = formattingValuesForSelectedTextRangeOrCursor().isSubscript
         addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "<sub>", endingFormattingString: "</sub>", shouldAddFormatting: !isSubscript)
     }
     
     func editorInputViewsControllerDidTapUnderline(_ editorInputViewsController: EditorInputViewsController) {
-        let isUnderline = selectedTextRangeOrCursorIsUnderline
+        let isUnderline = formattingValuesForSelectedTextRangeOrCursor().isUnderline
         addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "<u>", endingFormattingString: "</u>", shouldAddFormatting: !isUnderline)
     }
     
     func editorInputViewsControllerDidTapStrikethrough(_ editorInputViewsController: EditorInputViewsController) {
-        let isStrikethrough = selectedTextRangeOrCursorIsStrikethrough
+        let isStrikethrough = formattingValuesForSelectedTextRangeOrCursor().isStrikethrough
         addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "<s>", endingFormattingString: "</s>", shouldAddFormatting: !isStrikethrough)
     }
     
@@ -252,7 +255,7 @@ extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate
         
         let nsString = textView.attributedText.string as NSString
         let lineRange = nsString.lineRange(for: textView.selectedRange)
-        if selectedTextRangeOrCursorIsListBullet {
+        if formattingValuesForSelectedTextRangeOrCursor().isListBullet {
             var numBullets = 0
             for char in textView.textStorage.attributedSubstring(from: lineRange).string {
                 if char == "*" {
@@ -288,7 +291,7 @@ extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate
         
         let nsString = textView.attributedText.string as NSString
         let lineRange = nsString.lineRange(for: textView.selectedRange)
-        if selectedTextRangeOrCursorIsListNumber {
+        if formattingValuesForSelectedTextRangeOrCursor().isListNumber {
             var numNumbers = 0
             for char in textView.textStorage.attributedSubstring(from: lineRange).string {
                 if char == "#" {
@@ -320,7 +323,8 @@ extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate
     }
     
     func editorInputViewsControllerDidTapIndent(_ editorInputViewsController: EditorInputViewsController) {
-        guard selectedTextRangeOrCursorIsListBullet || selectedTextRangeOrCursorIsListNumber else {
+        let formattingValues = formattingValuesForSelectedTextRangeOrCursor()
+        guard formattingValues.isListBullet || formattingValues.isListNumber else {
             assertionFailure("Button should have been disabled")
             return
         }
@@ -341,7 +345,8 @@ extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate
     }
     
     func editorInputViewsControllerDidTapUnindent(_ editorInputViewsController: EditorInputViewsController) {
-        guard selectedTextRangeOrCursorIsListNumber || selectedTextRangeOrCursorIsListNumber else {
+        let formattingValues = formattingValuesForSelectedTextRangeOrCursor()
+        guard formattingValues.isListBullet || formattingValues.isListNumber else {
             assertionFailure("Button should have been disabled")
             return
         }
@@ -363,11 +368,13 @@ extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate
     
     func editorInputViewsControllerDidTapHeading(_ editorInputViewsController: EditorInputViewsController, depth: Int) {
         
-        let isCurrentlyH2 = selectedTextRangeOrCursorIsH2
-        let isCurrentlyH3 = selectedTextRangeOrCursorIsH3
-        let isCurrentlyH4 = selectedTextRangeOrCursorIsH4
-        let isCurrentlyH5 = selectedTextRangeOrCursorIsH5
-        let isCurrentlyH6 = selectedTextRangeOrCursorIsH6
+        let formattingValues = formattingValuesForSelectedTextRangeOrCursor()
+        
+        let isCurrentlyH2 = formattingValues.isH2
+        let isCurrentlyH3 = formattingValues.isH3
+        let isCurrentlyH4 = formattingValues.isH4
+        let isCurrentlyH5 = formattingValues.isH5
+        let isCurrentlyH6 = formattingValues.isH6
         
         let formattingToRemove: String?
         if isCurrentlyH2 && depth != 2 {
@@ -488,88 +495,116 @@ private extension NativeWikitextEditorViewController {
         // }
     }
     
-    func selectedTextRangeOrCursorIsAttributeKey(_ attributeKey: NSAttributedString.Key) -> Bool {
+    struct SelectedTextRangeFormattingValues {
+        let isBold: Bool
+        let isItalic: Bool
+        let isH2: Bool
+        let isH3: Bool
+        let isH4: Bool
+        let isH5: Bool
+        let isH6: Bool
+        let isTemplate: Bool
+        let isReference: Bool
+        let isSuperscript: Bool
+        let isSubscript: Bool
+        let isUnderline: Bool
+        let isStrikethrough: Bool
+        let isListBullet: Bool
+        let isListNumber: Bool
+    }
+    
+    func formattingValuesForSelectedTextRangeOrCursor() -> SelectedTextRangeFormattingValues {
+        
+        var isBold: Bool = false
+        var isItalic: Bool = false
+        var isH2: Bool = false
+        var isH3: Bool = false
+        var isH4: Bool = false
+        var isH5: Bool = false
+        var isH6: Bool = false
+        var isTemplate: Bool = false
+        var isReference: Bool = false
+        var isSuperscript: Bool = false
+        var isSubscript: Bool = false
+        var isUnderline: Bool = false
+        var isStrikethrough: Bool = false
+        var isListBullet: Bool = false
+        var isListNumber: Bool = false
+        
         if let targetSelectionValues = targetSelectedRangeAndAttributedText() {
             
             let range = targetSelectionValues.0
             let attributedString = targetSelectionValues.1
             
-            var isAttribute = false
-            attributedString.enumerateAttribute(attributeKey, in: range, options: .longestEffectiveRangeNotRequired) { value, range, stop in
-                if let value = value as? NSNumber,
-                   value.boolValue == true {
-                    isAttribute = true
-                    stop.pointee = true
-                } else {
-                    isAttribute = false
-                    stop.pointee = true
+            attributedString.enumerateAttributes(in:range, options:.longestEffectiveRangeNotRequired) { attributes, range, stop in
+                if attributes[.wikitextBoldAndItalic] != nil {
+                    isBold = true
+                    isItalic = true
+                }
+                
+                if !isBold && attributes[.wikitextBold] != nil {
+                    isBold = true
+                }
+                
+                if !isItalic && attributes[.wikitextItalic] != nil {
+                    isItalic = true
+                }
+                
+                if attributes[.wikitextH2] != nil {
+                    isH2 = true
+                }
+                
+                if attributes[.wikitextH3] != nil {
+                    isH3 = true
+                }
+                
+                if attributes[.wikitextH4] != nil {
+                    isH4 = true
+                }
+                
+                if attributes[.wikitextH5] != nil {
+                    isH5 = true
+                }
+                
+                if attributes[.wikitextH6] != nil {
+                    isH6 = true
+                }
+                
+                if attributes[.wikitextTemplate] != nil {
+                    isTemplate = true
+                }
+                
+                if attributes[.wikitextRef] != nil {
+                    isReference = true
+                }
+                
+                if attributes[.wikitextSuperscript] != nil {
+                    isSuperscript = true
+                }
+                
+                if attributes[.wikitextSubscript] != nil {
+                    isSubscript = true
+                }
+                
+                if attributes[.wikitextUnderline] != nil {
+                    isUnderline = true
+                }
+                
+                if attributes[.wikitextStrikethrough] != nil {
+                    isStrikethrough = true
+                }
+                
+                if attributes[.wikitextListBullet] != nil {
+                    isListBullet = true
+                }
+                
+                if attributes[.wikitextListNumber] != nil {
+                    isListNumber = true
                 }
             }
-                    
-            return isAttribute
         }
         
-        return false
-    }
-    
-    var selectedTextRangeOrCursorIsBold: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextBoldAndItalic) || selectedTextRangeOrCursorIsAttributeKey(.wikitextBold)
-    }
-    
-    var selectedTextRangeOrCursorIsItalic: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextBoldAndItalic) || selectedTextRangeOrCursorIsAttributeKey(.wikitextItalic)
-    }
-    
-    var selectedTextRangeOrCursorIsH2: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextH2)
-    }
-    
-    var selectedTextRangeOrCursorIsH3: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextH3)
-    }
-    
-    var selectedTextRangeOrCursorIsH4: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextH4)
-    }
-    
-    var selectedTextRangeOrCursorIsH5: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextH5)
-    }
-    
-    var selectedTextRangeOrCursorIsH6: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextH6)
-    }
-    
-    var selectedTextRangeOrCursorIsTemplate: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextTemplate)
-    }
-    
-    var selectedTextRangeOrCursorIsReference: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextRef)
-    }
-    
-    var selectedTextRangeOrCursorIsSuperscript: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextSuperscript)
-    }
-    
-    var selectedTextRangeOrCursorIsSubscript: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextSubscript)
-    }
-    
-    var selectedTextRangeOrCursorIsUnderline: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextUnderline)
-    }
-    
-    var selectedTextRangeOrCursorIsStrikethrough: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextStrikethrough)
-    }
-    
-    var selectedTextRangeOrCursorIsListBullet: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextListBullet)
-    }
-    
-    var selectedTextRangeOrCursorIsListNumber: Bool {
-        return selectedTextRangeOrCursorIsAttributeKey(.wikitextListNumber)
+        return SelectedTextRangeFormattingValues(isBold: isBold, isItalic: isItalic, isH2: isH2, isH3: isH3, isH4: isH4, isH5: isH5, isH6: isH6, isTemplate: isTemplate, isReference: isReference, isSuperscript: isSuperscript, isSubscript: isSubscript, isUnderline: isUnderline, isStrikethrough: isStrikethrough, isListBullet: isListBullet, isListNumber: isListNumber)
     }
 }
 
