@@ -13,7 +13,7 @@ class PageEditorViewController: UIViewController {
     
     internal let dataStore: MWKDataStore
     private let wikitextFetcher: WikitextFetcher
-    private let pageURL: URL
+    internal let pageURL: URL
     private let sectionID: Int?
     private let selectedTextEditInfo: SelectedTextEditInfo?
     private let theme: Theme
@@ -88,10 +88,6 @@ class PageEditorViewController: UIViewController {
 }
 
 extension PageEditorViewController: NativeWikitextEditorDelegate {
-    var siteURL: URL {
-        return self.pageURL
-    }
-    
     func wikitextViewDidChange(_ textView: UITextView) {
         navigationItemController.undoButton.isEnabled = (textView.undoManager?.canUndo ?? false)
         navigationItemController.redoButton.isEnabled = (textView.undoManager?.canRedo ?? false)

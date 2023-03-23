@@ -3,7 +3,7 @@ import UIKit
 protocol NativeWikitextEditorDelegate: AnyObject {
     func wikitextViewDidChange(_ textView: UITextView)
     var dataStore: MWKDataStore { get }
-    var siteURL: URL { get }
+    var pageURL: URL { get }
 }
 
 class NativeWikitextEditorViewController: UIViewController, Themeable {
@@ -147,7 +147,15 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .italic))
         }
         
-        if  formattingValues.isLink {
+        if formattingValues.isLink {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .link))
+        }
+        
+        if formattingValues.isImage {
+            editorInputViewsController.disableButton(button: EditorButton(kind: .link))
+        }
+        
+        if formattingValues.isImage {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .link))
         }
         
@@ -435,7 +443,20 @@ extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate
     }
     
     func editorInputViewsControllerDidTapMediaInsert(_ editorInputViewsController: EditorInputViewsController) {
-        print("tell delegate to present media insert)")
+        guard let delegate,
+              let range =  editorView.textView.selectedTextRange else {
+            return
+        }
+        
+        // Need to save this off for later when user returns from insert media view controller
+        self.preselectedTextRange = range
+        
+        let insertMediaViewController = InsertMediaViewController(articleTitle: delegate.pageURL.wmf_title, siteURL: delegate.pageURL.wmf_site)
+        insertMediaViewController.delegate = self
+        insertMediaViewController.apply(theme: theme)
+        let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
+        navigationController.isNavigationBarHidden = true
+        present(navigationController, animated: true)
     }
     
     func editorInputViewsControllerDidTapLinkInsert(_ editorInputViewsController: EditorInputViewsController) {
@@ -449,9 +470,9 @@ extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate
         }
 
         guard link.exists,
-              let editLinkViewController = EditLinkViewController(link: link, siteURL: delegate.siteURL, dataStore: delegate.dataStore) else {
+              let editLinkViewController = EditLinkViewController(link: link, siteURL: delegate.pageURL.wmf_site, dataStore: delegate.dataStore) else {
                   
-            let insertLinkViewController = InsertLinkViewController(link: link, siteURL: delegate.siteURL, dataStore: delegate.dataStore)
+            let insertLinkViewController = InsertLinkViewController(link: link, siteURL: delegate.pageURL.wmf_site, dataStore: delegate.dataStore)
               insertLinkViewController.delegate = self
               let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
               present(navigationController, animated: true)
@@ -528,6 +549,7 @@ private extension NativeWikitextEditorViewController {
         let isBold: Bool
         let isItalic: Bool
         let isLink: Bool
+        let isImage: Bool
         let isH2: Bool
         let isH3: Bool
         let isH4: Bool
@@ -548,6 +570,7 @@ private extension NativeWikitextEditorViewController {
         var isBold: Bool = false
         var isItalic: Bool = false
         var isLink: Bool = false
+        var isImage: Bool = false
         var isH2: Bool = false
         var isH3: Bool = false
         var isH4: Bool = false
@@ -583,6 +606,10 @@ private extension NativeWikitextEditorViewController {
                 
                 if attributes[.wikitextLink] !=  nil {
                     isLink = true
+                }
+                
+                if attributes[.wikitextImage] !=  nil {
+                    isImage = true
                 }
                 
                 if attributes[.wikitextH2] != nil {
@@ -639,11 +666,11 @@ private extension NativeWikitextEditorViewController {
             }
         }
         
-        return SelectedTextRangeFormattingValues(isBold: isBold, isItalic: isItalic, isLink: isLink, isH2: isH2, isH3: isH3, isH4: isH4, isH5: isH5, isH6: isH6, isTemplate: isTemplate, isReference: isReference, isSuperscript: isSuperscript, isSubscript: isSubscript, isUnderline: isUnderline, isStrikethrough: isStrikethrough, isListBullet: isListBullet, isListNumber: isListNumber)
+        return SelectedTextRangeFormattingValues(isBold: isBold, isItalic: isItalic, isLink: isLink, isImage: isImage, isH2: isH2, isH3: isH3, isH4: isH4, isH5: isH5, isH6: isH6, isTemplate: isTemplate, isReference: isReference, isSuperscript: isSuperscript, isSubscript: isSubscript, isUnderline: isUnderline, isStrikethrough: isStrikethrough, isListBullet: isListBullet, isListNumber: isListNumber)
     }
 }
 
-// MARK: Link Helpers
+// MARK: Link and Image Helpers
 
 private extension NativeWikitextEditorViewController {
     
@@ -741,6 +768,19 @@ private extension NativeWikitextEditorViewController {
 
         let newStartPosition = textView.position(from: range.start, offset: -2)
         let newEndPosition = textView.position(from: range.end, offset: -2)
+        textView.selectedTextRange = textView.textRange(from: newStartPosition ?? textView.endOfDocument, to: newEndPosition ?? textView.endOfDocument)
+    }
+    
+    func insertImage(wikitext: String) {
+        let textView = editorView.textView
+        guard let textRange = preselectedTextRange else {
+            return
+        }
+        
+        textView.replace(textRange, withText: wikitext)
+
+        let newStartPosition = textView.position(from: textRange.start, offset: 2)
+        let newEndPosition = textView.position(from: textRange.start, offset: wikitext.count-2)
         textView.selectedTextRange = textView.textRange(from: newStartPosition ?? textView.endOfDocument, to: newEndPosition ?? textView.endOfDocument)
     }
 }
@@ -988,6 +1028,18 @@ extension NativeWikitextEditorViewController: EditLinkViewControllerDelegate {
     
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
         removeLink()
+        preselectedTextRange = nil
+        dismiss(animated: true)
+    }
+}
+
+extension NativeWikitextEditorViewController: InsertMediaViewControllerDelegate {
+    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didTapCloseButton button: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+
+    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String) {
+        insertImage(wikitext: wikitext)
         preselectedTextRange = nil
         dismiss(animated: true)
     }

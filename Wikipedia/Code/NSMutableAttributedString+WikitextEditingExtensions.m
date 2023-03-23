@@ -37,6 +37,7 @@
 
     NSString *italicRegexStr = @"('{2})([^']*(?:(?<!')'(?!')[^']*)*)('{2})";
     NSString *linkRegexStr = @"(\\[{2})[^\\[]*(?:\\[(?!\\[)[^'\\[]*)*(\\]{2})";
+    NSString *imageRegexStr = @"(\\[{2}File:)[^\\[]*(?:\\[(?!\\[)[^'\\[]*)*(\\]{2})";
     NSString *templateRegexStr = @"\\{{2}[^\\}]*\\}{2}";
 
     NSString *refRegexStr = @"(<ref>)\\s*.*?(<\\/ref>)";
@@ -61,6 +62,7 @@
     NSRegularExpression *boldRegex = [NSRegularExpression regularExpressionWithPattern:boldRegexStr options:0 error:nil];
     NSRegularExpression *italicRegex = [NSRegularExpression regularExpressionWithPattern:italicRegexStr options:0 error:nil];
     NSRegularExpression *linkRegex = [NSRegularExpression regularExpressionWithPattern:linkRegexStr options:0 error:nil];
+    NSRegularExpression *imageRegex = [NSRegularExpression regularExpressionWithPattern:imageRegexStr options:0 error:nil];
     NSRegularExpression *templateRegex = [NSRegularExpression regularExpressionWithPattern:templateRegexStr options:0 error:nil];
     NSRegularExpression *refRegex = [NSRegularExpression regularExpressionWithPattern:refRegexStr options:0 error:nil];
     NSRegularExpression *refWithAttributesRegex = [NSRegularExpression regularExpressionWithPattern:refWithAttributesRegexStr options:0 error:nil];
@@ -152,6 +154,10 @@
 
     NSDictionary *wikitextLinkAttributes = @{
         [WMFWikitextAttributedStringKeyWrapper linkKey]: [NSNumber numberWithBool:YES]
+    };
+    
+    NSDictionary *wikitextImageAttributes = @{
+        [WMFWikitextAttributedStringKeyWrapper imageKey]: [NSNumber numberWithBool:YES]
     };
 
     NSDictionary *wikitextTemplateAttributes = @{
@@ -446,6 +452,19 @@
                                  if (matchRange.location != NSNotFound) {
                                      [self addAttributes:linkAttributes range:matchRange];
                                      [self addAttributes:wikitextLinkAttributes range:matchRange];
+                                 }
+                             }];
+    
+    // Undo any link hits from above regex
+    [imageRegex enumerateMatchesInString:self.string
+                                options:0
+                                  range:searchRange
+                             usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                 NSRange matchRange = [result rangeAtIndex:0];
+
+                                 if (matchRange.location != NSNotFound) {
+                                     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper linkKey] range:matchRange];
+                                     [self addAttributes:wikitextImageAttributes range:matchRange];
                                  }
                              }];
 

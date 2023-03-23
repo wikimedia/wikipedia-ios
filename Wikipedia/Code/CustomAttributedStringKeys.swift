@@ -17,6 +17,10 @@ extension NSAttributedString.Key {
         return NSAttributedString.Key("WikitextLink")
     }
     
+    public static var wikitextImage: NSAttributedString.Key {
+        return NSAttributedString.Key("WikitextImage")
+    }
+    
     public static var wikitextTemplate: NSAttributedString.Key {
         return NSAttributedString.Key("wikitextTemplate")
     }
@@ -93,6 +97,10 @@ extension NSAttributedString.Key {
     
     @objc static func linkKey() -> NSAttributedString.Key {
         return NSAttributedString.Key.wikitextLink
+    }
+    
+    @objc static func imageKey() -> NSAttributedString.Key {
+        return NSAttributedString.Key.wikitextImage
     }
     
     @objc static func templateKey() -> NSAttributedString.Key {
