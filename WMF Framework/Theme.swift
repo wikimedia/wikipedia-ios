@@ -145,6 +145,14 @@ public extension UIColor {
 
     // widget
     @objc static let widgetBlue = UIColor(0x318CDB)
+    
+    // native editor
+    static let nativeEditorMidBlue = UIColor(0x6699FF)
+    static let nativeEditorDarkBlue = UIColor(0x3366CC)
+    static let nativeEditorGreen = UIColor(0x00AF89)
+    static let nativeEditorMidPurple = UIColor(0xC180BB)
+    static let nativeEditorDarkPurple = UIColor(0x97498F)
+    static let nativeEditorOrange = UIColor(0xFF9500)
 
     @objc func wmf_hexStringIncludingAlpha(_ includeAlpha: Bool) -> String {
         var r: CGFloat = 0
@@ -235,7 +243,11 @@ public class Colors: NSObject {
         diffCompareAccent: .orange50,
         diffCompareChangeHeading: .base100,
         talkPageBackground: .talkPageBackgroundLight,
-        talkPageCoffeRollBackground: .talkPageCoffeeRollLight)
+        talkPageCoffeRollBackground: .talkPageCoffeeRollLight,
+        nativeEditorLink: .nativeEditorDarkBlue,
+        nativeEditorShorthand: .nativeEditorOrange,
+        nativeEditorHtmlTag: .nativeEditorGreen,
+        nativeEditorTemplate: .nativeEditorDarkPurple)
     
     fileprivate static let sepia = Colors(
         baseBackground: .sepiaBase85,
@@ -304,7 +316,11 @@ public class Colors: NSObject {
         diffCompareAccent: .orange50,
         diffCompareChangeHeading: .base100,
         talkPageBackground: .talkPageBackgroundSepia,
-        talkPageCoffeRollBackground: .talkPageCoffeRollSepia)
+        talkPageCoffeRollBackground: .talkPageCoffeRollSepia,
+        nativeEditorLink: .nativeEditorDarkBlue,
+        nativeEditorShorthand: .nativeEditorOrange,
+        nativeEditorHtmlTag: .nativeEditorGreen,
+        nativeEditorTemplate: .nativeEditorDarkPurple)
     
     fileprivate static let dark = Colors(
         baseBackground: .base10,
@@ -373,7 +389,11 @@ public class Colors: NSObject {
         diffCompareAccent: .orange50,
         diffCompareChangeHeading: .base0,
         talkPageBackground: .talkPageBackgroundDark,
-        talkPageCoffeRollBackground: .talkPageCoffeRollDark)
+        talkPageCoffeRollBackground: .talkPageCoffeRollDark,
+        nativeEditorLink: .nativeEditorMidBlue,
+        nativeEditorShorthand: .nativeEditorOrange,
+        nativeEditorHtmlTag: .nativeEditorGreen,
+        nativeEditorTemplate: .nativeEditorMidPurple)
     
     fileprivate static let black = Colors(
         baseBackground: .darkBase05,
@@ -442,7 +462,11 @@ public class Colors: NSObject {
         diffCompareAccent: .orange50,
         diffCompareChangeHeading: .base0,
         talkPageBackground: .talkPageBackgroundBlack,
-        talkPageCoffeRollBackground: .talkPageCoffeRollBlack)
+        talkPageCoffeRollBackground: .talkPageCoffeRollBlack,
+        nativeEditorLink: .nativeEditorMidBlue,
+        nativeEditorShorthand: .nativeEditorOrange,
+        nativeEditorHtmlTag: .nativeEditorGreen,
+        nativeEditorTemplate: .nativeEditorMidPurple)
     
     fileprivate static let widgetLight = Colors(
         baseBackground: .clear,
@@ -499,7 +523,11 @@ public class Colors: NSObject {
         pageIndicator: .accent90,
         pageIndicatorCurrent: .accent30,
         unreadIndicator: .green50,
-        depthMarker: .base20)
+        depthMarker: .base20,
+        nativeEditorLink: .nativeEditorDarkBlue,
+        nativeEditorShorthand: .nativeEditorOrange,
+        nativeEditorHtmlTag: .nativeEditorGreen,
+        nativeEditorTemplate: .nativeEditorDarkPurple)
 
     fileprivate static let widgetDark = Colors(
         baseBackground: .clear,
@@ -556,7 +584,11 @@ public class Colors: NSObject {
         pageIndicator: .accent90,
         pageIndicatorCurrent: .accent70,
         unreadIndicator: .green50,
-        depthMarker: .base70)
+        depthMarker: .base70,
+        nativeEditorLink: .nativeEditorMidBlue,
+        nativeEditorShorthand: .nativeEditorOrange,
+        nativeEditorHtmlTag: .nativeEditorGreen,
+        nativeEditorTemplate: .nativeEditorMidPurple)
 
     @objc public let baseBackground: UIColor
     @objc public let midBackground: UIColor
@@ -654,10 +686,15 @@ public class Colors: NSObject {
 
     public let talkPageBackground: UIColor
     public let talkPageCoffeRollBackground: UIColor
+    
+    @objc public let nativeEditorLink: UIColor
+    @objc public let nativeEditorShorthand: UIColor
+    @objc public let nativeEditorHtmlTag: UIColor
+    @objc public let nativeEditorTemplate: UIColor
 
     
     // Someday, when the app is all swift, make this class a struct.
-    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, hintWarningBackground: UIColor, animationBackground: UIColor, overlayText: UIColor, searchFieldBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardBackground: UIColor, selectedCardBackground: UIColor, cardBorder: UIColor, cardShadow: UIColor, cardButtonBackground: UIColor, cardButtonSelectedBackground: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffect.Style, blurEffectBackground: UIColor, tagText: UIColor, tagBackground: UIColor, tagSelectedBackground: UIColor, rankGradientStart: UIColor, rankGradientEnd: UIColor, distanceBorder: UIColor, descriptionBackground: UIColor, descriptionWarning: UIColor, inputAccessoryBackground: UIColor, inputAccessoryButtonTint: UIColor, pageIndicator: UIColor, pageIndicatorCurrent: UIColor, unreadIndicator: UIColor, depthMarker: UIColor, diffTextAdd: UIColor = .base10, diffTextDelete: UIColor = .base10, diffHighlightAdd: UIColor? = .green90, diffHighlightDelete: UIColor? = .red90, diffStrikethroughColor: UIColor = .base0, diffContextItemBackground: UIColor = .base90, diffContextItemBorder: UIColor = .darkBase90, diffMoveParagraphBackground: UIColor = .base90, diffCompareAccent: UIColor = .orange50, diffCompareChangeHeading: UIColor = .base100, talkPageBackground: UIColor = .talkPageBackgroundLight, talkPageCoffeRollBackground: UIColor = .talkPageCoffeeRollLight) {
+    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, hintWarningBackground: UIColor, animationBackground: UIColor, overlayText: UIColor, searchFieldBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardBackground: UIColor, selectedCardBackground: UIColor, cardBorder: UIColor, cardShadow: UIColor, cardButtonBackground: UIColor, cardButtonSelectedBackground: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffect.Style, blurEffectBackground: UIColor, tagText: UIColor, tagBackground: UIColor, tagSelectedBackground: UIColor, rankGradientStart: UIColor, rankGradientEnd: UIColor, distanceBorder: UIColor, descriptionBackground: UIColor, descriptionWarning: UIColor, inputAccessoryBackground: UIColor, inputAccessoryButtonTint: UIColor, pageIndicator: UIColor, pageIndicatorCurrent: UIColor, unreadIndicator: UIColor, depthMarker: UIColor, diffTextAdd: UIColor = .base10, diffTextDelete: UIColor = .base10, diffHighlightAdd: UIColor? = .green90, diffHighlightDelete: UIColor? = .red90, diffStrikethroughColor: UIColor = .base0, diffContextItemBackground: UIColor = .base90, diffContextItemBorder: UIColor = .darkBase90, diffMoveParagraphBackground: UIColor = .base90, diffCompareAccent: UIColor = .orange50, diffCompareChangeHeading: UIColor = .base100, talkPageBackground: UIColor = .talkPageBackgroundLight, talkPageCoffeRollBackground: UIColor = .talkPageCoffeeRollLight, nativeEditorLink: UIColor, nativeEditorShorthand: UIColor, nativeEditorHtmlTag: UIColor, nativeEditorTemplate: UIColor) {
         self.baseBackground = baseBackground
         self.midBackground = midBackground
         self.subCellBackground = subCellBackground
@@ -742,6 +779,11 @@ public class Colors: NSObject {
         self.diffCompareChangeHeading = diffCompareChangeHeading
         self.talkPageBackground  = talkPageBackground
         self.talkPageCoffeRollBackground = talkPageCoffeRollBackground
+        
+        self.nativeEditorLink = nativeEditorLink
+        self.nativeEditorShorthand = nativeEditorShorthand
+        self.nativeEditorHtmlTag = nativeEditorHtmlTag
+        self.nativeEditorTemplate = nativeEditorTemplate
     }
 }
 

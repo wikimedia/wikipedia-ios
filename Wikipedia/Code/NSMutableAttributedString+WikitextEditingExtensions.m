@@ -3,17 +3,17 @@
 
 @implementation NSMutableAttributedString (WikitextEditingExtensions)
 
-- (void)addWikitextSyntaxFormattingWithSearchRange:(NSRange)searchRange fontSizeTraitCollection:(UITraitCollection *)fontSizeTraitCollection needsColors:(BOOL)needsColors {
+-(void)addWikitextSyntaxFormattingWithSearchRange: (NSRange)searchRange fontSizeTraitCollection: (UITraitCollection *)fontSizeTraitCollection needsColors: (BOOL)needsColors theme: (WMFTheme *)theme {
 
     UIFontDescriptor *fontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
     UIFontDescriptor *boldFontDescriptor = [fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
     UIFontDescriptor *italicFontDescriptor = [fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic];
     UIFontDescriptor *boldItalicFontDescriptor = [fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic | UIFontDescriptorTraitBold];
-    UIFont *boldFont = [UIFont fontWithDescriptor:boldFontDescriptor size:0];
-    UIFont *italicFont = [UIFont fontWithDescriptor:italicFontDescriptor size:0];
-    UIFont *boldItalicFont = [UIFont fontWithDescriptor:boldItalicFontDescriptor size:0];
+    UIFont *standardFont = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleBody] scaledFontForFont:[UIFont systemFontOfSize:16]];
+    UIFont *boldFont = [UIFont fontWithDescriptor:boldFontDescriptor size:standardFont.pointSize];
+    UIFont *italicFont = [UIFont fontWithDescriptor:italicFontDescriptor size:standardFont.pointSize];
+    UIFont *boldItalicFont = [UIFont fontWithDescriptor:boldItalicFontDescriptor size:standardFont.pointSize];
 
-    UIFont *normalFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody compatibleWithTraitCollection:fontSizeTraitCollection];
     UIFont *h2Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:36]];
     UIFont *h6Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:24]];
     // UIFontMetrics(forTextStyle: style).scaledFont(for: UIFont.systemFont(ofSize: size, weight: weight))
@@ -71,19 +71,19 @@
     };
 
     NSDictionary *linkAttributes = @{
-        NSForegroundColorAttributeName: [UIColor systemBlueColor]
+        NSForegroundColorAttributeName: theme.colors.nativeEditorLink
     };
 
     NSDictionary *templateAttributes = @{
-        NSForegroundColorAttributeName: [UIColor systemPurpleColor]
+        NSForegroundColorAttributeName: theme.colors.nativeEditorTemplate
     };
 
     NSDictionary *refAttributes = @{
-        NSForegroundColorAttributeName: [UIColor systemTealColor]
+        NSForegroundColorAttributeName: theme.colors.nativeEditorHtmlTag
     };
 
     NSDictionary *orangeFontAttributes = @{
-        NSForegroundColorAttributeName: [UIColor systemOrangeColor]
+        NSForegroundColorAttributeName: theme.colors.nativeEditorShorthand
     };
 
     NSDictionary *h2FontAttributes = @{
@@ -93,10 +93,15 @@
     NSDictionary *h6FontAttributes = @{
         NSFontAttributeName: h6Font,
     };
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:5];
+    [paragraphStyle setLineHeightMultiple:1.1];
 
-    NSDictionary *normalAttributes = @{
-        NSFontAttributeName: normalFont,
-        NSForegroundColorAttributeName: [UIColor blackColor]
+    NSDictionary *commonAttributes = @{
+        NSFontAttributeName: standardFont,
+        NSParagraphStyleAttributeName: paragraphStyle,
+        NSForegroundColorAttributeName: theme.colors.primaryText
     };
 
     NSDictionary *wikitextBoldAttributes = @{
@@ -147,7 +152,7 @@
         [WMFWikitextAttributedStringKeyWrapper listNumberKey]: [NSNumber numberWithBool:YES]
     };
 
-    [self addAttributes:normalAttributes range:searchRange];
+    [self addAttributes:commonAttributes range:searchRange];
 
     [refRegex enumerateMatchesInString:self.string
                                options:0
@@ -271,7 +276,7 @@
                                            [self removeAttribute:NSForegroundColorAttributeName range:fullMatch];
                                            [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper boldKey] range:fullMatch];
                                            [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper italicKey] range:fullMatch];
-                                           [self addAttributes:normalAttributes range:fullMatch];
+                                           [self addAttributes:commonAttributes range:fullMatch];
 
                                            [self addAttributes:boldItalicAttributes range:textRange];
                                            [self addAttributes:wikitextBoldAndItalicAttributes range:textRange];

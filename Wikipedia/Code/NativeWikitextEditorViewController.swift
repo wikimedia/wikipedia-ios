@@ -4,9 +4,10 @@ protocol NativeWikitextEditorDelegate: AnyObject {
     func wikitextViewDidChange(_ textView: UITextView)
 }
 
-class NativeWikitextEditorViewController: UIViewController {
+class NativeWikitextEditorViewController: UIViewController, Themeable {
     
     weak var delegate: NativeWikitextEditorDelegate?
+    private let theme: Theme
     
     private lazy var editorInputViewsController: EditorInputViewsController = {
         let inputViewsController = EditorInputViewsController(webView: nil, webMessagingController: nil, findAndReplaceDisplayDelegate: self)
@@ -19,8 +20,9 @@ class NativeWikitextEditorViewController: UIViewController {
         return view as! NativeWikitextEditorView
     }
     
-    init(delegate: NativeWikitextEditorDelegate) {
+    init(delegate: NativeWikitextEditorDelegate, theme: Theme) {
         self.delegate = delegate
+        self.theme = theme
         
         super.init(nibName: nil, bundle: nil)
         
@@ -40,10 +42,10 @@ class NativeWikitextEditorViewController: UIViewController {
     }
     
     override func loadView() {
-        let editorView = NativeWikitextEditorView()
-        if #available(iOS 16.0, *) {
-            editorView.textView.textContentStorage?.delegate = self
-        }
+        let editorView = NativeWikitextEditorView(theme: theme)
+//        if #available(iOS 16.0, *) {
+//            editorView.textView.textContentStorage?.delegate = self
+//        }
         editorView.textView.delegate = self
         view = editorView
     }
@@ -97,6 +99,11 @@ class NativeWikitextEditorViewController: UIViewController {
         editorView.textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
         editorView.textView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
     }
+    
+    func apply(theme: Theme) {
+        editorInputViewsController.apply(theme: theme)
+        editorView.apply(theme: theme)
+    }
 }
 
 extension NativeWikitextEditorViewController: NSTextContentStorageDelegate {
@@ -107,7 +114,7 @@ extension NativeWikitextEditorViewController: NSTextContentStorageDelegate {
             return nil
         }
         let textWithDisplayAttributes = NSMutableAttributedString(attributedString: originalText)
-        textWithDisplayAttributes.addWikitextSyntaxFormatting(withSearch: NSRange(location: 0, length: originalText.length), fontSizeTraitCollection: traitCollection, needsColors: true)
+        textWithDisplayAttributes.addWikitextSyntaxFormatting(withSearch: NSRange(location: 0, length: originalText.length), fontSizeTraitCollection: traitCollection, needsColors: true, theme: theme)
         return NSTextParagraph(attributedString: textWithDisplayAttributes)
     }
 }
@@ -202,30 +209,30 @@ private extension NativeWikitextEditorViewController {
             selectedRange = NSRange(location: textView.selectedRange.location - 1, length: 2)
         }
 
-        if #available(iOS 16.0, *) {
-
-            if let textRange = textView.textLayoutManager?.textSelections.first?.textRanges.first {
-
-                if let paragraphElement = textView.textLayoutManager?.textLayoutFragment(for: textRange.location)?.textElement as? NSTextParagraph,
-                   let contentManager = textView.textContentStorage {
-
-                    let targetAttributedText = paragraphElement.attributedString
-                    if let paragraphContentRange = paragraphElement.paragraphContentRange {
-                        let paragraphContentNSRange = NSRange(paragraphContentRange, in: contentManager)
-                        let targetSelectedRange = NSRange(location: selectedRange.location - paragraphContentNSRange.location, length: selectedRange.length)
-                        guard targetSelectedRange.location >= 0 else {
-                            return nil
-                        }
-                        return (targetSelectedRange, targetAttributedText)
-                    }
-                }
-            }
-
-            return nil
-
-        } else {
+//        if #available(iOS 16.0, *) {
+//
+//            if let textRange = textView.textLayoutManager?.textSelections.first?.textRanges.first {
+//
+//                if let paragraphElement = textView.textLayoutManager?.textLayoutFragment(for: textRange.location)?.textElement as? NSTextParagraph,
+//                   let contentManager = textView.textContentStorage {
+//
+//                    let targetAttributedText = paragraphElement.attributedString
+//                    if let paragraphContentRange = paragraphElement.paragraphContentRange {
+//                        let paragraphContentNSRange = NSRange(paragraphContentRange, in: contentManager)
+//                        let targetSelectedRange = NSRange(location: selectedRange.location - paragraphContentNSRange.location, length: selectedRange.length)
+//                        guard targetSelectedRange.location >= 0 else {
+//                            return nil
+//                        }
+//                        return (targetSelectedRange, targetAttributedText)
+//                    }
+//                }
+//            }
+//
+//            return nil
+//
+//        } else {
             return (selectedRange, textView.attributedText)
-        }
+        // }
         
     }
     

@@ -7,7 +7,7 @@ protocol PageEditorViewControllerDelegate: AnyObject {
 class PageEditorViewController: UIViewController {
     
     lazy var wikitextEditor: NativeWikitextEditorViewController = {
-        let editor = NativeWikitextEditorViewController(delegate: self)
+        let editor = NativeWikitextEditorViewController(delegate: self, theme: theme)
         return editor
     }()
     
@@ -126,6 +126,7 @@ extension PageEditorViewController: Themeable {
             return
         }
         
+        wikitextEditor.apply(theme: theme)
         navigationItemController.apply(theme: theme)
     }
 }

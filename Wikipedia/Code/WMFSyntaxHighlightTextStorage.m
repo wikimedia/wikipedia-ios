@@ -57,7 +57,7 @@
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper bulletKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper listNumberKey] range:searchRange];
 
-    [self addWikitextSyntaxFormattingWithSearchRange:searchRange fontSizeTraitCollection:self.fontSizeTraitCollection needsColors:YES];
+    [self addWikitextSyntaxFormattingWithSearchRange:searchRange fontSizeTraitCollection:self.fontSizeTraitCollection needsColors:YES theme: self.theme];
 }
 
 - (void)performReplacementsForRange:(NSRange)changedRange {
@@ -71,11 +71,11 @@
     [super processEditing];
 }
 
-//- (void)applyTheme:(WMFTheme *)theme {
-//    self.theme = theme;
-//    NSRange allRange = NSMakeRange(0, self.backingStore.length);
-//    [self applyStylesToRange:allRange];
-//}
+- (void)applyTheme:(WMFTheme *)theme { 
+    self.theme = theme;
+    NSRange allRange = NSMakeRange(0, self.backingStore.length);
+    [self applyStylesToRange:allRange];
+}
 
 - (void)applyFontSizeTraitCollection:(UITraitCollection *)fontSizeTraitCollection {
     self.fontSizeTraitCollection = fontSizeTraitCollection;
