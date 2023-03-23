@@ -42,6 +42,12 @@
     NSString *refRegexStr = @"(<ref>)\\s*.*?(<\\/ref>)";
     NSString *refWithAttributesRegexStr = @"(<ref\\s+.+?>)\\s*.*?(<\\/ref>)";
     NSString *refSelfClosingRegexStr = @"<ref\\s[^>]+?\\s*\\/>";
+    
+    NSString *supRegexStr = @"(<sup>)\\s*.*?(<\\/sup>)";
+    NSString *subRegexStr = @"(<sub>)\\s*.*?(<\\/sub>)";
+    NSString *underlineRegexStr = @"(<u>)\\s*.*?(<\\/u>)";
+    NSString *strikethroughRegexStr = @"(<s>)\\s*.*?(<\\/s>)";
+    
     NSString *h2RegexStr = @"(={2})([^=]*)(={2})(?!=)"; // todo: why is beginning carat ^ flaky
     NSString *h3RegexStr = @"(={3})([^=]*)(={3})(?!=)"; // todo: why is beginning carat ^ flaky
     NSString *h4RegexStr = @"(={4})([^=]*)(={4})(?!=)"; // todo: why is beginning carat ^ flaky
@@ -59,6 +65,12 @@
     NSRegularExpression *refRegex = [NSRegularExpression regularExpressionWithPattern:refRegexStr options:0 error:nil];
     NSRegularExpression *refWithAttributesRegex = [NSRegularExpression regularExpressionWithPattern:refWithAttributesRegexStr options:0 error:nil];
     NSRegularExpression *refSelfClosingRegex = [NSRegularExpression regularExpressionWithPattern:refSelfClosingRegexStr options:0 error:nil];
+    NSRegularExpression *supRegex = [NSRegularExpression regularExpressionWithPattern:supRegexStr options:0 error:nil];
+    NSRegularExpression *subRegex = [NSRegularExpression regularExpressionWithPattern:subRegexStr options:0 error:nil];
+    
+    NSRegularExpression *underlineRegex = [NSRegularExpression regularExpressionWithPattern:underlineRegexStr options:0 error:nil];
+    NSRegularExpression *strikethroughRegex = [NSRegularExpression regularExpressionWithPattern:strikethroughRegexStr options:0 error:nil];
+    
     NSRegularExpression *h2Regex = [NSRegularExpression regularExpressionWithPattern:h2RegexStr options:0 error:nil];
     NSRegularExpression *h3Regex = [NSRegularExpression regularExpressionWithPattern:h3RegexStr options:0 error:nil];
     NSRegularExpression *h4Regex = [NSRegularExpression regularExpressionWithPattern:h4RegexStr options:0 error:nil];
@@ -87,7 +99,7 @@
         NSForegroundColorAttributeName: theme.colors.nativeEditorTemplate
     };
 
-    NSDictionary *refAttributes = @{
+    NSDictionary *htmlTagAttributes = @{
         NSForegroundColorAttributeName: theme.colors.nativeEditorHtmlTag
     };
 
@@ -148,6 +160,22 @@
     NSDictionary *wikitextRefAttributes = @{
         [WMFWikitextAttributedStringKeyWrapper refKey]: [NSNumber numberWithBool:YES]
     };
+    
+    NSDictionary *wikitextSupAttributes = @{
+        [WMFWikitextAttributedStringKeyWrapper superscriptKey]: [NSNumber numberWithBool:YES]
+    };
+    
+    NSDictionary *wikitextSubAttributes = @{
+        [WMFWikitextAttributedStringKeyWrapper subscriptKey]: [NSNumber numberWithBool:YES]
+    };
+    
+    NSDictionary *wikitextUnderlineAttributes = @{
+        [WMFWikitextAttributedStringKeyWrapper underlineKey]: [NSNumber numberWithBool:YES]
+    };
+    
+    NSDictionary *wikitextStrikethroughAttributes = @{
+        [WMFWikitextAttributedStringKeyWrapper strikethroughKey]: [NSNumber numberWithBool:YES]
+    };
 
     NSDictionary *wikitextRefWithAttributesAttributes = @{
         [WMFWikitextAttributedStringKeyWrapper refWithAttributesKey]: [NSNumber numberWithBool:YES]
@@ -200,11 +228,11 @@
                                 }
 
                                 if (openingRange.location != NSNotFound) {
-                                    [self addAttributes:refAttributes range:openingRange];
+                                    [self addAttributes:htmlTagAttributes range:openingRange];
                                 }
 
                                 if (closingRange.location != NSNotFound) {
-                                    [self addAttributes:refAttributes range:closingRange];
+                                    [self addAttributes:htmlTagAttributes range:closingRange];
                                 }
                             }];
 
@@ -215,7 +243,7 @@
                                               NSRange matchRange = [result rangeAtIndex:0];
 
                                               if (matchRange.location != NSNotFound) {
-                                                  [self addAttributes:refAttributes range:matchRange];
+                                                  [self addAttributes:htmlTagAttributes range:matchRange];
                                                   [self addAttributes:wikitextRefWithAttributesAttributes range:matchRange];
                                               }
                                           }];
@@ -227,7 +255,7 @@
                                            NSRange matchRange = [result rangeAtIndex:0];
 
                                            if (matchRange.location != NSNotFound) {
-                                               [self addAttributes:refAttributes range:matchRange];
+                                               [self addAttributes:htmlTagAttributes range:matchRange];
                                                [self addAttributes:wikitextRefSelfClosingAttributes range:matchRange];
                                            }
                                        }];
@@ -243,6 +271,90 @@
                                          [self addAttributes:wikitextTemplateAttributes range:matchRange];
                                      }
                                  }];
+    
+    [supRegex enumerateMatchesInString:self.string
+                               options:0
+                                 range:searchRange
+                            usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                NSRange matchRange = [result rangeAtIndex:0];
+                                NSRange openingRange = [result rangeAtIndex:1];
+                                NSRange closingRange = [result rangeAtIndex:2];
+
+                                if (matchRange.location != NSNotFound) {
+                                    [self addAttributes:wikitextSupAttributes range:matchRange];
+                                }
+
+                                if (openingRange.location != NSNotFound) {
+                                    [self addAttributes:htmlTagAttributes range:openingRange];
+                                }
+
+                                if (closingRange.location != NSNotFound) {
+                                    [self addAttributes:htmlTagAttributes range:closingRange];
+                                }
+                            }];
+    
+    [subRegex enumerateMatchesInString:self.string
+                               options:0
+                                 range:searchRange
+                            usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                NSRange matchRange = [result rangeAtIndex:0];
+                                NSRange openingRange = [result rangeAtIndex:1];
+                                NSRange closingRange = [result rangeAtIndex:2];
+
+                                if (matchRange.location != NSNotFound) {
+                                    [self addAttributes:wikitextSubAttributes range:matchRange];
+                                }
+
+                                if (openingRange.location != NSNotFound) {
+                                    [self addAttributes:htmlTagAttributes range:openingRange];
+                                }
+
+                                if (closingRange.location != NSNotFound) {
+                                    [self addAttributes:htmlTagAttributes range:closingRange];
+                                }
+                            }];
+    
+    [underlineRegex enumerateMatchesInString:self.string
+                               options:0
+                                 range:searchRange
+                            usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                NSRange matchRange = [result rangeAtIndex:0];
+                                NSRange openingRange = [result rangeAtIndex:1];
+                                NSRange closingRange = [result rangeAtIndex:2];
+
+                                if (matchRange.location != NSNotFound) {
+                                    [self addAttributes:wikitextUnderlineAttributes range:matchRange];
+                                }
+
+                                if (openingRange.location != NSNotFound) {
+                                    [self addAttributes:htmlTagAttributes range:openingRange];
+                                }
+
+                                if (closingRange.location != NSNotFound) {
+                                    [self addAttributes:htmlTagAttributes range:closingRange];
+                                }
+                            }];
+    
+    [strikethroughRegex enumerateMatchesInString:self.string
+                               options:0
+                                 range:searchRange
+                            usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                NSRange matchRange = [result rangeAtIndex:0];
+                                NSRange openingRange = [result rangeAtIndex:1];
+                                NSRange closingRange = [result rangeAtIndex:2];
+
+                                if (matchRange.location != NSNotFound) {
+                                    [self addAttributes:wikitextStrikethroughAttributes range:matchRange];
+                                }
+
+                                if (openingRange.location != NSNotFound) {
+                                    [self addAttributes:htmlTagAttributes range:openingRange];
+                                }
+
+                                if (closingRange.location != NSNotFound) {
+                                    [self addAttributes:htmlTagAttributes range:closingRange];
+                                }
+                            }];
 
     [italicRegex enumerateMatchesInString:self.string
                                   options:0

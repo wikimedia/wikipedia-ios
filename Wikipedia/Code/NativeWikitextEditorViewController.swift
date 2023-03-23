@@ -136,6 +136,35 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
         if selectedTextRangeOrCursorIsBold {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .bold))
         }
+        
+        if selectedTextRangeOrCursorIsItalic {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .italic))
+        }
+        
+        if selectedTextRangeOrCursorIsTemplate {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .template))
+        }
+        
+        if selectedTextRangeOrCursorIsReference {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .reference))
+        }
+        
+        if selectedTextRangeOrCursorIsSuperscript {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .superscript))
+        }
+        
+        if selectedTextRangeOrCursorIsSubscript {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .subscript))
+        }
+        
+        if selectedTextRangeOrCursorIsUnderline {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .underline))
+        }
+        
+        if selectedTextRangeOrCursorIsStrikethrough {
+            editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .strikethrough))
+        }
+        
         if selectedTextRangeOrCursorIsH2 {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .heading(type: .heading)))
         }
@@ -155,16 +184,6 @@ extension NativeWikitextEditorViewController: UITextViewDelegate {
         if selectedTextRangeOrCursorIsH6 {
             editorInputViewsController.buttonSelectionDidChange(button: EditorButton(kind: .heading(type: .subheading4)))
         }
-        
-//        formattingToolbarView.italicsButton.isSelected = selectedTextRangeOrCursorIsBoldAndItalic() || selectedTextRangeOrCursorIsItalic()
-//        formattingToolbarView.linkButton.isSelected = selectedTextRangeOrCursorIsLink()
-//        formattingToolbarView.templateButton.isSelected = selectedTextRangeOrCursorIsTemplate()
-//        formattingToolbarView.refButton.isSelected = selectedTextRangeOrCursorIsRef()
-//        formattingToolbarView.h2Button.isSelected = selectedTextRangeOrCursorIsH2()
-//        formattingToolbarView.h6Button.isSelected = selectedTextRangeOrCursorIsH6()
-//        formattingToolbarView.bulletButton.isSelected = selectedTextRangeOrCursorIsBullet()
-//        formattingToolbarView.indentButton.isEnabled = selectedTextRangeOrCursorIsBullet()
-//        formattingToolbarView.unindentButton.isEnabled = selectedTextRangeOrCursorIsBullet()
     }
 }
 
@@ -174,6 +193,42 @@ extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate
         let formattingString = "'''"
         let isBold = selectedTextRangeOrCursorIsBold
         addOrRemoveFormattingStringFromSelectedText(formattingString: formattingString, shouldAddFormatting: !isBold)
+    }
+    
+    func editorInputViewsControllerDidTapItalic(_ editorInputViewsController: EditorInputViewsController) {
+        let formattingString = "''"
+        let isItalic = selectedTextRangeOrCursorIsItalic
+        addOrRemoveFormattingStringFromSelectedText(formattingString: formattingString, shouldAddFormatting: !isItalic)
+    }
+    
+    func editorInputViewsControllerDidTapTemplate(_ editorInputViewsController: EditorInputViewsController) {
+        let isTemplate = selectedTextRangeOrCursorIsTemplate
+        addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "{{", endingFormattingString: "}}", shouldAddFormatting: !isTemplate)
+    }
+    
+    func editorInputViewsControllerDidTapReference(_ editorInputViewsController: EditorInputViewsController) {
+        let isReference = selectedTextRangeOrCursorIsReference
+        addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "<ref>", endingFormattingString: "</ref>", shouldAddFormatting: !isReference)
+    }
+    
+    func editorInputViewsControllerDidTapSuperscript(_ editorInputViewsController: EditorInputViewsController) {
+        let isSuperscript = selectedTextRangeOrCursorIsSuperscript
+        addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "<sup>", endingFormattingString: "</sup>", shouldAddFormatting: !isSuperscript)
+    }
+    
+    func editorInputViewsControllerDidTapSubscript(_ editorInputViewsController: EditorInputViewsController) {
+        let isSubscript = selectedTextRangeOrCursorIsSubscript
+        addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "<sub>", endingFormattingString: "</sub>", shouldAddFormatting: !isSubscript)
+    }
+    
+    func editorInputViewsControllerDidTapUnderline(_ editorInputViewsController: EditorInputViewsController) {
+        let isUnderline = selectedTextRangeOrCursorIsUnderline
+        addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "<u>", endingFormattingString: "</u>", shouldAddFormatting: !isUnderline)
+    }
+    
+    func editorInputViewsControllerDidTapStrikethrough(_ editorInputViewsController: EditorInputViewsController) {
+        let isStrikethrough = selectedTextRangeOrCursorIsStrikethrough
+        addOrRemoveFormattingStringFromSelectedText(startingFormattingString: "<s>", endingFormattingString: "</s>", shouldAddFormatting: !isStrikethrough)
     }
     
     func editorInputViewsControllerDidTapHeading(_ editorInputViewsController: EditorInputViewsController, depth: Int) {
@@ -331,6 +386,10 @@ private extension NativeWikitextEditorViewController {
         return selectedTextRangeOrCursorIsAttributeKey(.wikitextBoldAndItalic) || selectedTextRangeOrCursorIsAttributeKey(.wikitextBold)
     }
     
+    var selectedTextRangeOrCursorIsItalic: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextBoldAndItalic) || selectedTextRangeOrCursorIsAttributeKey(.wikitextItalic)
+    }
+    
     var selectedTextRangeOrCursorIsH2: Bool {
         return selectedTextRangeOrCursorIsAttributeKey(.wikitextH2)
     }
@@ -350,6 +409,30 @@ private extension NativeWikitextEditorViewController {
     var selectedTextRangeOrCursorIsH6: Bool {
         return selectedTextRangeOrCursorIsAttributeKey(.wikitextH6)
     }
+    
+    var selectedTextRangeOrCursorIsTemplate: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextTemplate)
+    }
+    
+    var selectedTextRangeOrCursorIsReference: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextRef)
+    }
+    
+    var selectedTextRangeOrCursorIsSuperscript: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextSuperscript)
+    }
+    
+    var selectedTextRangeOrCursorIsSubscript: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextSubscript)
+    }
+    
+    var selectedTextRangeOrCursorIsUnderline: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextUnderline)
+    }
+    
+    var selectedTextRangeOrCursorIsStrikethrough: Bool {
+        return selectedTextRangeOrCursorIsAttributeKey(.wikitextStrikethrough)
+    }
 }
 
 // MARK: Programmatic Selection Methods
@@ -364,6 +447,17 @@ private extension NativeWikitextEditorViewController {
             }
         } else {
             addStringFormattingCharacters(formattingString: formattingString)
+        }
+    }
+    
+    func addOrRemoveFormattingStringFromSelectedText(startingFormattingString: String, endingFormattingString: String, shouldAddFormatting: Bool) {
+        if !shouldAddFormatting {
+            expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString)
+            if selectedRangeIsSurroundedByFormattingString(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString) {
+                removeSurroundingFormattingStringFromSelectedRange(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString)
+            }
+        } else {
+            addStringFormattingCharacters(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString)
         }
     }
     

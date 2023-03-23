@@ -52,7 +52,14 @@
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper refKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper refWithAttributesKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper refSelfClosingKey] range:searchRange];
+    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper superscriptKey] range:searchRange];
+    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper subscriptKey] range:searchRange];
+    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper underlineKey] range:searchRange];
+    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper strikethroughKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper h2Key] range:searchRange];
+    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper h3Key] range:searchRange];
+    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper h4Key] range:searchRange];
+    [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper h5Key] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper h6Key] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper bulletKey] range:searchRange];
     [self removeAttribute:[WMFWikitextAttributedStringKeyWrapper listNumberKey] range:searchRange];

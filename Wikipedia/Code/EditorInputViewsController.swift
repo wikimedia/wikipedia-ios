@@ -9,7 +9,14 @@ protocol EditorInputViewsControllerDelegate: AnyObject {
     // Additional methods for native editor
     func editorInputViewsControllerDidChangeInputAccessoryView(_ editorInputViewsController: EditorInputViewsController, inputAccessoryView: UIView?)
     func editorInputViewsControllerDidTapBold(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerDidTapItalic(_ editorInputViewsController: EditorInputViewsController)
     func editorInputViewsControllerDidTapHeading(_ editorInputViewsController: EditorInputViewsController, depth: Int)
+    func editorInputViewsControllerDidTapTemplate(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerDidTapReference(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerDidTapSuperscript(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerDidTapSubscript(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerDidTapUnderline(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerDidTapStrikethrough(_ editorInputViewsController: EditorInputViewsController)
 }
 
 extension EditorInputViewsControllerDelegate {
@@ -18,6 +25,34 @@ extension EditorInputViewsControllerDelegate {
     }
     
     func editorInputViewsControllerDidTapBold(_ editorInputViewsController: EditorInputViewsController) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidTapItalic(_ editorInputViewsController: EditorInputViewsController) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidTapTemplate(_ editorInputViewsController: EditorInputViewsController) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidTapReference(_ editorInputViewsController: EditorInputViewsController) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidTapSuperscript(_ editorInputViewsController: EditorInputViewsController) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidTapSubscript(_ editorInputViewsController: EditorInputViewsController) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidTapUnderline(_ editorInputViewsController: EditorInputViewsController) {
+        // nothing
+    }
+    
+    func editorInputViewsControllerDidTapStrikethrough(_ editorInputViewsController: EditorInputViewsController) {
         // nothing
     }
     
@@ -253,22 +288,27 @@ extension EditorInputViewsController: TextFormattingDelegate {
 
     func textFormattingProvidingDidTapItalics() {
         webMessagingController?.toggleItalicSelection()
+        delegate?.editorInputViewsControllerDidTapItalic(self)
     }
 
     func textFormattingProvidingDidTapUnderline() {
         webMessagingController?.toggleUnderline()
+        delegate?.editorInputViewsControllerDidTapUnderline(self)
     }
 
     func textFormattingProvidingDidTapStrikethrough() {
         webMessagingController?.toggleStrikethrough()
+        delegate?.editorInputViewsControllerDidTapStrikethrough(self)
     }
 
     func textFormattingProvidingDidTapReference() {
         webMessagingController?.toggleReferenceSelection()
+        delegate?.editorInputViewsControllerDidTapReference(self)
     }
 
     func textFormattingProvidingDidTapTemplate() {
         webMessagingController?.toggleTemplateSelection()
+        delegate?.editorInputViewsControllerDidTapTemplate(self)
     }
 
     func textFormattingProvidingDidTapComment() {
@@ -297,10 +337,12 @@ extension EditorInputViewsController: TextFormattingDelegate {
 
     func textFormattingProvidingDidTapSuperscript() {
         webMessagingController?.toggleSuperscript()
+        delegate?.editorInputViewsControllerDidTapSuperscript(self)
     }
 
     func textFormattingProvidingDidTapSubscript() {
         webMessagingController?.toggleSubscript()
+        delegate?.editorInputViewsControllerDidTapSubscript(self)
     }
     
     func textFormattingProvidingDidTapClearFormatting() {

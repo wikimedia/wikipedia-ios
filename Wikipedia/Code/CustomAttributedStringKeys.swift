@@ -33,6 +33,22 @@ extension NSAttributedString.Key {
         return NSAttributedString.Key("wikitextRefSelfClosing")
     }
     
+    public static var wikitextSuperscript: NSAttributedString.Key {
+        return NSAttributedString.Key("wikitextSuperscript")
+    }
+    
+    public static var wikitextSubscript: NSAttributedString.Key {
+        return NSAttributedString.Key("wikitextSubscript")
+    }
+    
+    public static var wikitextUnderline: NSAttributedString.Key {
+        return NSAttributedString.Key("wikitextUnderline")
+    }
+    
+    public static var wikitextStrikethrough: NSAttributedString.Key {
+        return NSAttributedString.Key("wikitextStrikethrough")
+    }
+    
     public static var wikitextH2: NSAttributedString.Key {
         return NSAttributedString.Key("wikitextH2")
     }
@@ -93,6 +109,22 @@ extension NSAttributedString.Key {
     
     @objc static func refSelfClosingKey() -> NSAttributedString.Key {
         return NSAttributedString.Key.wikitextRefSelfClosing
+    }
+    
+    @objc static func superscriptKey() -> NSAttributedString.Key {
+        return NSAttributedString.Key.wikitextSuperscript
+    }
+    
+    @objc static func subscriptKey() -> NSAttributedString.Key {
+        return NSAttributedString.Key.wikitextSubscript
+    }
+    
+    @objc static func underlineKey() -> NSAttributedString.Key {
+        return NSAttributedString.Key.wikitextUnderline
+    }
+    
+    @objc static func strikethroughKey() -> NSAttributedString.Key {
+        return NSAttributedString.Key.wikitextStrikethrough
     }
     
     @objc static func h2Key() -> NSAttributedString.Key {
