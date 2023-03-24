@@ -32,6 +32,10 @@ class NativeWikitextEditorView: SetupView, Themeable {
         return textView
     }()
     
+    var syntaxHighlightTextStorage: WMFSyntaxHighlightTextStorage? {
+        return textView.textStorage as? WMFSyntaxHighlightTextStorage
+    }
+    
     init(theme: Theme) {
         self.theme = theme
         super.init(frame: .zero)

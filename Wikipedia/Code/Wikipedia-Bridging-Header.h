@@ -28,6 +28,7 @@
 
 #import "WMFSyntaxHighlightTextStorage.h"
 #import "NSMutableAttributedStringHelper.h"
+#import "NSString+Ranges.h"
 
 // Model
 #import "MWKLicense.h"

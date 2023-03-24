@@ -11,7 +11,8 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.backingStore = [[NSMutableAttributedString alloc] init];
+        _backingStore = [[NSMutableAttributedString alloc] init];
+        _calculateSyntaxHighlightsUponEditEnabled = YES;
     }
     return self;
 }
@@ -35,6 +36,26 @@
     [self beginEditing];
     [self.backingStore setAttributes:attrs range:range];
     [self edited:NSTextStorageEditedAttributes range:range changeInLength:0];
+    [self endEditing];
+}
+
+- (void)removeAttribute:(NSAttributedStringKey)name rangeValues:(NSArray<NSValue *> *)rangeValues {
+    [self beginEditing];
+    for (NSValue *rangeValue in rangeValues) {
+        [self.backingStore removeAttribute:name range:rangeValue.rangeValue];
+        [self edited:NSTextStorageEditedAttributes range:rangeValue.rangeValue changeInLength:0];
+    }
+    
+    [self endEditing];
+}
+
+- (void)addAttributes:(NSDictionary<NSAttributedStringKey, id> *)attrs rangeValues:(NSArray<NSValue *> *)rangeValues {
+    [self beginEditing];
+    for (NSValue *rangeValue in rangeValues) {
+        [self.backingStore addAttributes:attrs range:rangeValue.rangeValue];
+        [self edited:NSTextStorageEditedAttributes range:rangeValue.rangeValue changeInLength:0];
+    }
+    
     [self endEditing];
 }
 
@@ -75,7 +96,9 @@
 }
 
 - (void)processEditing {
-    [self performReplacementsForRange:self.editedRange];
+    if (self.calculateSyntaxHighlightsUponEditEnabled) {
+        [self performReplacementsForRange:self.editedRange];
+    }
     [super processEditing];
 }
 

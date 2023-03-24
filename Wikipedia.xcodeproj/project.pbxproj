@@ -622,6 +622,12 @@
 		67449E4729CCFF7C0042B686 /* NSMutableAttributedStringHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 67449E4529CCFF7C0042B686 /* NSMutableAttributedStringHelper.m */; };
 		67449E4829CCFF7C0042B686 /* NSMutableAttributedStringHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 67449E4529CCFF7C0042B686 /* NSMutableAttributedStringHelper.m */; };
 		67449E4929CCFF7C0042B686 /* NSMutableAttributedStringHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 67449E4529CCFF7C0042B686 /* NSMutableAttributedStringHelper.m */; };
+		67449E4C29CE305D0042B686 /* NSString+Ranges.h in Headers */ = {isa = PBXBuildFile; fileRef = 67449E4A29CE305D0042B686 /* NSString+Ranges.h */; };
+		67449E4D29CE305D0042B686 /* NSString+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = 67449E4B29CE305D0042B686 /* NSString+Ranges.m */; };
+		67449E4E29CE305D0042B686 /* NSString+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = 67449E4B29CE305D0042B686 /* NSString+Ranges.m */; };
+		67449E4F29CE305D0042B686 /* NSString+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = 67449E4B29CE305D0042B686 /* NSString+Ranges.m */; };
+		67449E5029CE305D0042B686 /* NSString+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = 67449E4B29CE305D0042B686 /* NSString+Ranges.m */; };
+		67449E5129CE305D0042B686 /* NSString+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = 67449E4B29CE305D0042B686 /* NSString+Ranges.m */; };
 		6747117E250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747117D250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift */; };
 		6747117F250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747117D250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift */; };
 		67471180250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747117D250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift */; };
@@ -4234,6 +4240,8 @@
 		6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterDetailViewModel+ActionExtensions.swift"; sourceTree = "<group>"; };
 		67449E4429CCFF7C0042B686 /* NSMutableAttributedStringHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSMutableAttributedStringHelper.h; sourceTree = "<group>"; };
 		67449E4529CCFF7C0042B686 /* NSMutableAttributedStringHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSMutableAttributedStringHelper.m; sourceTree = "<group>"; };
+		67449E4A29CE305D0042B686 /* NSString+Ranges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Ranges.h"; sourceTree = "<group>"; };
+		67449E4B29CE305D0042B686 /* NSString+Ranges.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Ranges.m"; sourceTree = "<group>"; };
 		6747117D250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocReferenceCollectionViewCell.swift; sourceTree = "<group>"; };
 		674711822507253500287951 /* ArticleAsLivingDocSnippetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocSnippetCollectionViewCell.swift; sourceTree = "<group>"; };
 		6747118725072D1500287951 /* IconTitleBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTitleBadge.swift; sourceTree = "<group>"; };
@@ -6897,6 +6905,8 @@
 				833D4FFA20A9E20800B44E7C /* String+HTML.swift */,
 				B0E807321C0CED810065EBC0 /* WMFImageURLParsing.h */,
 				B0E807331C0CED810065EBC0 /* WMFImageURLParsing.m */,
+				67449E4A29CE305D0042B686 /* NSString+Ranges.h */,
+				67449E4B29CE305D0042B686 /* NSString+Ranges.m */,
 			);
 			name = "HTML Parsing";
 			sourceTree = "<group>";
@@ -10010,6 +10020,7 @@
 				83A933462514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h in Headers */,
 				D8FA18AD1E1BD891009675C3 /* NSDictionary+WMFPageViewsSortedByDate.h in Headers */,
 				83DF1D1424F53878007E08D8 /* WMFPreferredLanguageInfoProvider.h in Headers */,
+				67449E4C29CE305D0042B686 /* NSString+Ranges.h in Headers */,
 				D8FA18EA1E1BD8B9009675C3 /* WMFHashing.h in Headers */,
 				D8FA18B21E1BD891009675C3 /* WMFNumberOfExtractCharacters.h in Headers */,
 			);
@@ -11754,6 +11765,7 @@
 				7AFA21BB20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
 				83B01F8123DB1235001185F4 /* WikitextFetcher.swift in Sources */,
 				6782DBD92344EC86003FA21B /* DiffHeaderViewModels.swift in Sources */,
+				67449E4D29CE305D0042B686 /* NSString+Ranges.m in Sources */,
 				B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				D8533ED51ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
 				D876769F21E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
@@ -12428,6 +12440,7 @@
 				0042807225E6E395004945B3 /* NSError+MTLModelException.m in Sources */,
 				7A03130321542F5C0095C953 /* RemoteNotificationsOperationsController.swift in Sources */,
 				0E728D371DAEEAD60074EB4B /* MWKLocationSearchResult.m in Sources */,
+				67449E5129CE305D0042B686 /* NSString+Ranges.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12739,6 +12752,7 @@
 				83B01F8423DB1235001185F4 /* WikitextFetcher.swift in Sources */,
 				6782DBDC2344EC86003FA21B /* DiffHeaderViewModels.swift in Sources */,
 				D8B3D7691EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
+				67449E5029CE305D0042B686 /* NSString+Ranges.m in Sources */,
 				7AFA21BE20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
 				D8A42AE51E815A9C00D8E281 /* WMFWelcomeContainerViewController.swift in Sources */,
 				D87676A221E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
@@ -13457,6 +13471,7 @@
 				BAC6EEC81F1E519A00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				D8E6FF7D2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,
 				D82E95861F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
+				67449E4F29CE305D0042B686 /* NSString+Ranges.m in Sources */,
 				6761AEF92707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */,
 				672C35EC22D8E7D2007B8D46 /* EmptyViewController.swift in Sources */,
 				7A4FE5401FA00AEF009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
@@ -14068,6 +14083,7 @@
 				7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				D8E6FF7E2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,
 				D8EC3EAE1E9BDA35006712EB /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
+				67449E4E29CE305D0042B686 /* NSString+Ranges.m in Sources */,
 				6761AEF82707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */,
 				672C35ED22D8E7D2007B8D46 /* EmptyViewController.swift in Sources */,
 				67E2E490250452E60070F12D /* ArticleAsLivingDocHeaderView.swift in Sources */,

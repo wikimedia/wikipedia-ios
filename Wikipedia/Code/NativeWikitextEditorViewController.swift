@@ -55,7 +55,7 @@ class NativeWikitextEditorViewController: UIViewController, Themeable {
 //        if #available(iOS 16.0, *) {
 //            editorView.textView.textContentStorage?.delegate = self
 //        } else
-        (editorView.textView.textStorage as? WMFSyntaxHighlightTextStorage)?.mutableAttributedStringHelper = self.mutableAttributedStringHelper
+        editorView.syntaxHighlightTextStorage?.mutableAttributedStringHelper = self.mutableAttributedStringHelper
         editorView.textView.delegate = self
         view = editorView
     }
@@ -92,10 +92,10 @@ class NativeWikitextEditorViewController: UIViewController, Themeable {
     
     private func resetFindAndReplace() {
         guard let findMatches else { return }
-        for range in findMatches {
-            editorView.textView.textStorage.removeAttribute(NSAttributedString.Key.backgroundColor, range: range)
-            editorView.textView.textStorage.removeAttribute(NSAttributedString.Key.backgroundColor, range: range)
-        }
+        editorView.syntaxHighlightTextStorage?.calculateSyntaxHighlightsUponEditEnabled = false
+        let rangeValues = findMatches.map { NSValue(range: $0) }
+        editorView.syntaxHighlightTextStorage?.removeAttribute(NSAttributedString.Key.backgroundColor, rangeValues: rangeValues)
+        editorView.syntaxHighlightTextStorage?.calculateSyntaxHighlightsUponEditEnabled = true
         self.findMatches = nil
         findSelectedIndex = nil
     }
@@ -126,6 +126,7 @@ class NativeWikitextEditorViewController: UIViewController, Themeable {
         }
         
         let textView = editorView.textView
+        editorView.syntaxHighlightTextStorage?.calculateSyntaxHighlightsUponEditEnabled = false
         
         // reset old index to yellow
         if let oldSelectedIndex,
@@ -141,6 +142,7 @@ class NativeWikitextEditorViewController: UIViewController, Themeable {
         // highlight new index and scroll
         let newRange = findMatches[newSelectedIndex]
         textView.textStorage.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.green, range: newRange)
+        editorView.syntaxHighlightTextStorage?.calculateSyntaxHighlightsUponEditEnabled = true
         textView.scrollRangeToVisible(newRange)
         self.findSelectedIndex = newSelectedIndex
         
@@ -175,18 +177,18 @@ class NativeWikitextEditorViewController: UIViewController, Themeable {
     }
 }
 
-extension NativeWikitextEditorViewController: NSTextContentStorageDelegate {
-    @available(iOS 15.0, *)
-    func textContentStorage(_ textContentStorage: NSTextContentStorage, textParagraphWith range: NSRange) -> NSTextParagraph? {
-        guard let originalText = textContentStorage.textStorage?.attributedSubstring(from: range),
-              originalText.length > 0 else {
-            return nil
-        }
-        let textWithDisplayAttributes = NSMutableAttributedString(attributedString: originalText)
-        mutableAttributedStringHelper.addWikitextSyntaxFormatting(to: textWithDisplayAttributes, search: NSRange(location: 0, length: originalText.length), fontSizeTraitCollection: traitCollection, needsColors: true, theme: theme)
-        return NSTextParagraph(attributedString: textWithDisplayAttributes)
-    }
-}
+// extension NativeWikitextEditorViewController: NSTextContentStorageDelegate {
+//    @available(iOS 15.0, *)
+//    func textContentStorage(_ textContentStorage: NSTextContentStorage, textParagraphWith range: NSRange) -> NSTextParagraph? {
+//        guard let originalText = textContentStorage.textStorage?.attributedSubstring(from: range),
+//              originalText.length > 0 else {
+//            return nil
+//        }
+//        let textWithDisplayAttributes = NSMutableAttributedString(attributedString: originalText)
+//        mutableAttributedStringHelper.addWikitextSyntaxFormatting(to: textWithDisplayAttributes, search: NSRange(location: 0, length: originalText.length), fontSizeTraitCollection: traitCollection, needsColors: true, theme: theme)
+//        return NSTextParagraph(attributedString: textWithDisplayAttributes)
+//    }
+// }
 
 extension NativeWikitextEditorViewController: UITextViewDelegate {
 
@@ -570,20 +572,20 @@ extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate
     func editorInputViewsControllerFindInitiate(_ editorInputViewsController: EditorInputViewsController, searchTerm: String) {
         
         let textView = editorView.textView
-        let bridgedText = NSString(string: textView.attributedText.string)
+        let bridgedText = textView.attributedText.string as NSString
         // todo: maybe we can improve speed here
         resetFindAndReplace()
-        let findMatches = bridgedText.ranges(of: searchTerm)
+        let findMatchesValues = bridgedText.allRanges(ofSubstring: searchTerm)
         
-        if findMatches.isEmpty {
+        if findMatchesValues.isEmpty {
             editorInputViewsController.updateMatchCounts(index: -1, total: 0)
         }
         
-        for match in findMatches {
-            textView.textStorage.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.systemYellow, range: match)
-        }
+        editorView.syntaxHighlightTextStorage?.calculateSyntaxHighlightsUponEditEnabled = false
+        editorView.syntaxHighlightTextStorage?.addAttributes([NSAttributedString.Key.backgroundColor : UIColor.systemYellow], rangeValues: findMatchesValues)
+        editorView.syntaxHighlightTextStorage?.calculateSyntaxHighlightsUponEditEnabled = true
         
-        self.findMatches = findMatches
+        self.findMatches = findMatchesValues.map { $0.rangeValue }
         
         // highlight the first result
         editorInputViewsControllerFindNext(editorInputViewsController)

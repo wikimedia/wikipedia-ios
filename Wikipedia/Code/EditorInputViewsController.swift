@@ -150,12 +150,11 @@ class EditorInputViewsController: NSObject, EditorInputViewsSource, Themeable {
         inputAccessoryViewType = .default
         
         self.findSearchKeyboardInputSubscription = findSearchKeyboardInput
-            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
             .sink { [weak self] searchTerm in
                 guard let self = self else {
                     return
                 }
-                print("searching")
                 self.delegate?.editorInputViewsControllerFindInitiate(self, searchTerm: searchTerm)
             }
     }
