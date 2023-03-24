@@ -92,6 +92,16 @@ extension PageEditorViewController: NativeWikitextEditorDelegate {
         navigationItemController.undoButton.isEnabled = (textView.undoManager?.canUndo ?? false)
         navigationItemController.redoButton.isEnabled = (textView.undoManager?.canRedo ?? false)
     }
+    
+    func findKeyboardBarDidShow(_ keyboardBar: FindAndReplaceKeyboardBar) {
+        navigationItemController.progressButton.isEnabled = false
+        navigationItemController.readingThemesControlsToolbarItem.isEnabled = false
+    }
+    
+    func findKeyboardBarDidHide(_ keyboardBar: FindAndReplaceKeyboardBar) {
+        navigationItemController.progressButton.isEnabled = true
+        navigationItemController.readingThemesControlsToolbarItem.isEnabled = true
+    }
 }
 
 extension PageEditorViewController: PageEditorNavigationItemControllerDelegate {

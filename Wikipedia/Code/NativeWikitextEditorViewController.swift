@@ -4,6 +4,9 @@ protocol NativeWikitextEditorDelegate: AnyObject {
     func wikitextViewDidChange(_ textView: UITextView)
     var dataStore: MWKDataStore { get }
     var pageURL: URL { get }
+    
+    func findKeyboardBarDidShow(_ keyboardBar: FindAndReplaceKeyboardBar)
+    func findKeyboardBarDidHide(_ keyboardBar: FindAndReplaceKeyboardBar)
 }
 
 class NativeWikitextEditorViewController: UIViewController, Themeable {
@@ -12,6 +15,8 @@ class NativeWikitextEditorViewController: UIViewController, Themeable {
     private let theme: Theme
     private let mutableAttributedStringHelper: NSMutableAttributedStringHelper
     private var preselectedTextRange: UITextRange?
+    private var findMatches: [NSRange]?
+    private var findSelectedIndex: Int?
     
     private lazy var editorInputViewsController: EditorInputViewsController = {
         let inputViewsController = EditorInputViewsController(webView: nil, webMessagingController: nil, findAndReplaceDisplayDelegate: self)
@@ -85,7 +90,66 @@ class NativeWikitextEditorViewController: UIViewController, Themeable {
         editorView.textView.undoManager?.redo()
     }
     
-    func setInputAccessoryView(_ inputAccessoryView: UIView?) {
+    private func resetFindAndReplace() {
+        guard let findMatches else { return }
+        for range in findMatches {
+            editorView.textView.textStorage.removeAttribute(NSAttributedString.Key.backgroundColor, range: range)
+            editorView.textView.textStorage.removeAttribute(NSAttributedString.Key.backgroundColor, range: range)
+        }
+        self.findMatches = nil
+        findSelectedIndex = nil
+    }
+    
+    private func navigateFindAndReplace(isNext: Bool) {
+        guard let findMatches,
+              findMatches.count > 0 else {
+            return
+        }
+            
+        // grab new and old indexes
+        let oldSelectedIndex: Int?
+        let newSelectedIndex: Int
+        if let currentSelectedIndex = findSelectedIndex {
+            oldSelectedIndex = currentSelectedIndex
+            let potentialNewIndex = isNext ? currentSelectedIndex + 1 : currentSelectedIndex - 1
+            
+            // Loop back around if needed
+            if isNext {
+                newSelectedIndex = potentialNewIndex == findMatches.count ? 0 : potentialNewIndex
+            } else {
+                newSelectedIndex = potentialNewIndex == -1 ? findMatches.count - 1 : potentialNewIndex
+            }
+            
+        } else {
+            newSelectedIndex = 0
+            oldSelectedIndex = nil
+        }
+        
+        let textView = editorView.textView
+        
+        // reset old index to yellow
+        if let oldSelectedIndex,
+           findMatches.indices.contains(oldSelectedIndex) {
+            let oldRange = findMatches[oldSelectedIndex]
+            textView.textStorage.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.yellow, range: oldRange)
+        }
+        
+        guard findMatches.indices.contains(newSelectedIndex) else {
+            return
+        }
+        
+        // highlight new index and scroll
+        let newRange = findMatches[newSelectedIndex]
+        textView.textStorage.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.green, range: newRange)
+        textView.scrollRangeToVisible(newRange)
+        self.findSelectedIndex = newSelectedIndex
+        
+        editorInputViewsController.updateMatchCounts(index: newSelectedIndex, total: UInt(findMatches.count))
+    }
+    
+    // MARK: Private
+    
+    private func setInputAccessoryView(_ inputAccessoryView: UIView?) {
         editorView.textView.inputAccessoryView = inputAccessoryView
     }
     
@@ -502,6 +566,44 @@ extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate
         navigationController.isNavigationBarHidden = true
         present(navigationController, animated: true)
     }
+    
+    func editorInputViewsControllerFindInitiate(_ editorInputViewsController: EditorInputViewsController, searchTerm: String) {
+        
+        let textView = editorView.textView
+        let bridgedText = NSString(string: textView.attributedText.string)
+        // todo: maybe we can improve speed here
+        resetFindAndReplace()
+        let findMatches = bridgedText.ranges(of: searchTerm)
+        
+        if findMatches.isEmpty {
+            editorInputViewsController.updateMatchCounts(index: -1, total: 0)
+        }
+        
+        for match in findMatches {
+            textView.textStorage.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.systemYellow, range: match)
+        }
+        
+        self.findMatches = findMatches
+        
+        // highlight the first result
+        editorInputViewsControllerFindNext(editorInputViewsController)
+    }
+    func editorInputViewsControllerFindNext(_ editorInputViewsController: EditorInputViewsController) {
+        navigateFindAndReplace(isNext: true)
+    }
+    func editorInputViewsControllerFindPrevious(_ editorInputViewsController: EditorInputViewsController) {
+        navigateFindAndReplace(isNext: false)
+    }
+    
+    func editorInputViewsControllerFindClearSearch(_ editorInputViewsController: EditorInputViewsController) {
+        editorInputViewsController.resetFindAndReplace()
+        resetFindAndReplace()
+    }
+    
+    func editorInputViewsControllerFindClose(_ editorInputViewsController: EditorInputViewsController) {
+        editorInputViewsController.closeAndResetFindAndReplace()
+        resetFindAndReplace()
+    }
 }
 
 extension NativeWikitextEditorViewController: FindAndReplaceKeyboardBarDisplayDelegate {
@@ -510,11 +612,13 @@ extension NativeWikitextEditorViewController: FindAndReplaceKeyboardBarDisplayDe
     }
     
     func keyboardBarDidShow(_ keyboardBar: FindAndReplaceKeyboardBar) {
-        print("??")
+        delegate?.findKeyboardBarDidShow(keyboardBar)
+        editorView.textView.keyboardDismissMode = .none
     }
     
     func keyboardBarDidHide(_ keyboardBar: FindAndReplaceKeyboardBar) {
-        print("??")
+        delegate?.findKeyboardBarDidHide(keyboardBar)
+        editorView.textView.keyboardDismissMode = .interactive
     }
 }
 

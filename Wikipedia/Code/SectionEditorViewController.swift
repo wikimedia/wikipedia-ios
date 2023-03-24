@@ -761,7 +761,7 @@ extension SectionEditorViewController: ReadingThemesControlsResponding {
 extension SectionEditorViewController: FocusNavigationViewDelegate {
     func focusNavigationViewDidTapClose(_ focusNavigationView: FocusNavigationView) {
         hideFocusNavigationView()
-        inputViewsController.closeFindAndReplace()
+        inputViewsController.closeAndResetFindAndReplace()
     }
 }
 

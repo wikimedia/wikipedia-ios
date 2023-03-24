@@ -1,3 +1,5 @@
+import Combine
+
 protocol EditorInputViewsSource: AnyObject {
     var inputViewController: UIInputViewController? { get }
 }
@@ -22,67 +24,90 @@ protocol EditorInputViewsControllerDelegate: AnyObject {
     func editorInputViewsControllerDidTapListNumber(_ editorInputViewsController: EditorInputViewsController)
     func editorInputViewsControllerDidTapIndent(_ editorInputViewsController: EditorInputViewsController)
     func editorInputViewsControllerDidTapUnindent(_ editorInputViewsController: EditorInputViewsController)
+    
+    func editorInputViewsControllerFindInitiate(_ editorInputViewsController: EditorInputViewsController, searchTerm: String)
+    func editorInputViewsControllerFindNext(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerFindPrevious(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerFindClearSearch(_ editorInputViewsController: EditorInputViewsController)
+    func editorInputViewsControllerFindClose(_ editorInputViewsController: EditorInputViewsController)
 }
 
 extension EditorInputViewsControllerDelegate {
     func editorInputViewsControllerDidTapHeading(_ editorInputViewsController: EditorInputViewsController, depth: Int) {
-        // nothing
+        // no-op to make this optional
     }
     
     func editorInputViewsControllerDidTapBold(_ editorInputViewsController: EditorInputViewsController) {
-        // nothing
+        // no-op to make this optional
     }
     
     func editorInputViewsControllerDidTapItalic(_ editorInputViewsController: EditorInputViewsController) {
-        // nothing
+        // no-op to make this optional
     }
     
     func editorInputViewsControllerDidTapTemplate(_ editorInputViewsController: EditorInputViewsController) {
-        // nothing
+        // no-op to make this optional
     }
     
     func editorInputViewsControllerDidTapReference(_ editorInputViewsController: EditorInputViewsController) {
-        // nothing
+        // no-op to make this optional
     }
     
     func editorInputViewsControllerDidTapSuperscript(_ editorInputViewsController: EditorInputViewsController) {
-        // nothing
+        // no-op to make this optional
     }
     
     func editorInputViewsControllerDidTapSubscript(_ editorInputViewsController: EditorInputViewsController) {
-        // nothing
+        // no-op to make this optional
     }
     
     func editorInputViewsControllerDidTapComment(_ editorInputViewsController: EditorInputViewsController) {
-        // nothing
+        // no-op to make this optional
     }
     
     func editorInputViewsControllerDidTapUnderline(_ editorInputViewsController: EditorInputViewsController) {
-        // nothing
+        // no-op to make this optional
     }
     
     func editorInputViewsControllerDidTapStrikethrough(_ editorInputViewsController: EditorInputViewsController) {
-        // nothing
+        // no-op to make this optional
     }
     
     func editorInputViewsControllerDidTapListBullet(_ editorInputViewsController: EditorInputViewsController) {
-        // nothing
+        // no-op to make this optional
     }
     
     func editorInputViewsControllerDidTapListNumber(_ editorInputViewsController: EditorInputViewsController) {
-        // nothing
+        // no-op to make this optional
     }
     
     func editorInputViewsControllerDidTapIndent(_ editorInputViewsController: EditorInputViewsController) {
-        // nothing
+        // no-op to make this optional
     }
     
     func editorInputViewsControllerDidTapUnindent(_ editorInputViewsController: EditorInputViewsController) {
-        // nothing
+        // no-op to make this optional
     }
     
     func editorInputViewsControllerDidChangeInputAccessoryView(_ editorInputViewsController: EditorInputViewsController, inputAccessoryView: UIView?) {
-        // nothing
+        // no-op to make this optional
+    }
+    
+    func editorInputViewsControllerFindInitiate(_ editorInputViewsController: EditorInputViewsController, searchTerm: String) {
+        // no-op to make this optional
+    }
+    func editorInputViewsControllerFindNext(_ editorInputViewsController: EditorInputViewsController) {
+        // no-op to make this optional
+    }
+    func editorInputViewsControllerFindPrevious(_ editorInputViewsController: EditorInputViewsController) {
+        // no-op to make this optional
+    }
+    func editorInputViewsControllerFindClearSearch(_ editorInputViewsController: EditorInputViewsController) {
+        // no-op to make this optional
+    }
+    
+    func editorInputViewsControllerFindClose(_ editorInputViewsController: EditorInputViewsController) {
+        // no-op to make this optional
     }
 }
 
@@ -98,6 +123,9 @@ class EditorInputViewsController: NSObject, EditorInputViewsSource, Themeable {
     private var isRangeSelected = false
 
     weak var delegate: EditorInputViewsControllerDelegate?
+    
+    private let findSearchKeyboardInput = PassthroughSubject<String, Never>()
+    private var findSearchKeyboardInputSubscription: AnyCancellable?
 
     init(webView: SectionEditorWebView?, webMessagingController: SectionEditorWebViewMessagingController?, findAndReplaceDisplayDelegate: FindAndReplaceKeyboardBarDisplayDelegate) {
         self.webView = webView
@@ -110,12 +138,26 @@ class EditorInputViewsController: NSObject, EditorInputViewsSource, Themeable {
         contextualHighlightEditToolbarView?.delegate = self
         findAndReplaceView?.delegate = self
         findAndReplaceView?.displayDelegate = findAndReplaceDisplayDelegate
-        findAndReplaceView?.isShowingReplace = true
+        
+        if webView != nil && webMessagingController != nil {
+            // Native editor mode
+            findAndReplaceView?.isShowingReplace = true
+        }
 
         webMessagingController?.findInPageDelegate = self
 
         inputViewType = nil
         inputAccessoryViewType = .default
+        
+        self.findSearchKeyboardInputSubscription = findSearchKeyboardInput
+            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            .sink { [weak self] searchTerm in
+                guard let self = self else {
+                    return
+                }
+                print("searching")
+                self.delegate?.editorInputViewsControllerFindInitiate(self, searchTerm: searchTerm)
+            }
     }
 
     func textSelectionDidChange(isRangeSelected: Bool) {
@@ -235,7 +277,7 @@ class EditorInputViewsController: NSObject, EditorInputViewsSource, Themeable {
         inputAccessoryViewType = .default
     }
     
-    func closeFindAndReplace() {
+    func closeAndResetFindAndReplace() {
         
         guard let keyboardBar = findAndReplaceView else {
             return
@@ -249,6 +291,17 @@ class EditorInputViewsController: NSObject, EditorInputViewsSource, Themeable {
             webMessagingController?.selectLastFocusedMatch()
             webMessagingController?.focusWithoutScroll()
         }
+    }
+    
+    func resetFindAndReplace() {
+        findAndReplaceView?.reset()
+    }
+    
+    func updateMatchCounts(index: Int, total: UInt) {
+        guard inputAccessoryViewType == .findInPage else {
+            return
+        }
+        findAndReplaceView?.updateMatchCounts(index: index, total: total)
     }
 }
 
@@ -422,6 +475,7 @@ extension EditorInputViewsController: SectionEditorWebViewMessagingControllerFin
 extension EditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
     func keyboardBarDidTapReturn(_ keyboardBar: FindAndReplaceKeyboardBar) {
         webMessagingController?.findNext()
+        delegate?.editorInputViewsControllerFindNext(self)
     }
     
     func keyboardBar(_ keyboardBar: FindAndReplaceKeyboardBar, didChangeSearchTerm searchTerm: String?) {
@@ -430,23 +484,29 @@ extension EditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
             return
         }
         webMessagingController?.find(text: searchTerm)
+        
+        // todo: maybe debounce
+        findSearchKeyboardInput.send(searchTerm)
     }
     
     func keyboardBarDidTapClose(_ keyboardBar: FindAndReplaceKeyboardBar) {
-         // no-op, FindAndReplaceKeyboardBar not showing close button in Editor context
+        delegate?.editorInputViewsControllerFindClose(self)
     }
     
     func keyboardBarDidTapClear(_ keyboardBar: FindAndReplaceKeyboardBar) {
         webMessagingController?.clearSearch()
         keyboardBar.resetFind()
+        delegate?.editorInputViewsControllerFindClearSearch(self)
     }
     
     func keyboardBarDidTapPrevious(_ keyboardBar: FindAndReplaceKeyboardBar) {
         webMessagingController?.findPrevious()
+        delegate?.editorInputViewsControllerFindPrevious(self)
     }
     
     func keyboardBarDidTapNext(_ keyboardBar: FindAndReplaceKeyboardBar?) {
         webMessagingController?.findNext()
+        delegate?.editorInputViewsControllerFindNext(self)
     }
     
     func keyboardBarDidTapReplace(_ keyboardBar: FindAndReplaceKeyboardBar, replaceText: String, replaceType: ReplaceType) {
