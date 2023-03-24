@@ -194,9 +194,21 @@ public extension WidgetController {
         sharedCache.saveCache(updatedCache)
     }
 
-    // MARK: - Featured Article Widget
+    // MARK: - Utility
 
-    func fetchFeaturedContent(isSnapshot: Bool = false, completion: @escaping (WidgetContentFetcher.FeaturedContentResult) -> Void) {
+    /// Returns cached content if it's available for the current date in the current app selected language
+    private func cachedContentIfAvailable() -> WidgetFeaturedContent? {
+        let widgetCache = sharedCache.loadCache()
+        if let cachedContent = widgetCache.featuredContent, let fetchDate = cachedContent.fetchDate, Calendar.current.isDateInToday(fetchDate), let cachedLanguageCode = cachedContent.featuredArticle?.languageCode, cachedLanguageCode == widgetCache.settings.languageCode, widgetCache.settings.languageVariantCode == cachedContent.fetchedLanguageVariantCode {
+            return cachedContent
+        }
+
+        return nil
+    }
+
+    // MARK: - Fetch Featured Content
+
+    func fetchFeaturedContent(useCacheIfAvailable: Bool = true, completion: @escaping (WidgetContentFetcher.FeaturedContentResult) -> Void) {
         func performCompletion(result: WidgetContentFetcher.FeaturedContentResult) {
             DispatchQueue.main.async {
                 completion(result)
@@ -206,20 +218,53 @@ public extension WidgetController {
         let fetcher = WidgetContentFetcher.shared
         var widgetCache = sharedCache.loadCache()
 
-        guard !isSnapshot else {
-            let previewSnapshot = widgetCache.featuredContent ?? WidgetFeaturedContent.previewContent() ?? WidgetFeaturedContent(featuredArticle: nil)
-            performCompletion(result: .success(previewSnapshot))
-            return
-        }
-        
-        // If cached data is still relevant, use it
-        if let cachedContent = widgetCache.featuredContent, let fetchDate = cachedContent.fetchDate, Calendar.current.isDateInToday(fetchDate), let cachedLanguageCode = cachedContent.featuredArticle?.languageCode, cachedLanguageCode == widgetCache.settings.languageCode, widgetCache.settings.languageVariantCode == cachedContent.fetchedLanguageVariantCode {
+        if useCacheIfAvailable, let cachedContent = cachedContentIfAvailable() {
             performCompletion(result: .success(cachedContent))
             return
         }
 
-        // Fetch fresh feed content from network
+        // Fetch fresh featured content from network
         fetcher.fetchFeaturedContent(forDate: Date(), siteURL: widgetCache.settings.siteURL, languageCode: widgetCache.settings.languageCode, languageVariantCode: widgetCache.settings.languageVariantCode) { result in
+            switch result {
+            case .success(let featuredContent):
+                widgetCache.featuredContent = featuredContent
+                self.sharedCache.saveCache(widgetCache)
+                performCompletion(result: .success(featuredContent))
+            case .failure(let error):
+                self.sharedCache.saveCache(widgetCache)
+                performCompletion(result: .failure(error))
+            }
+        }
+    }
+
+    // MARK: - Fetch Featured Article Widget
+
+    func fetchFeaturedArticleContent(isSnapshot: Bool = false, completion: @escaping (WidgetContentFetcher.FeaturedArticleResult) -> Void) {
+        func performCompletion(result: WidgetContentFetcher.FeaturedArticleResult) {
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+
+        let fetcher = WidgetContentFetcher.shared
+        var widgetCache = sharedCache.loadCache()
+
+        guard !isSnapshot else {
+            let previewSnapshot = widgetCache.featuredContent ?? WidgetFeaturedContent.previewContent() ?? WidgetFeaturedContent()
+            if let previewArticle = previewSnapshot.featuredArticle {
+                performCompletion(result: .success(previewArticle))
+            } else {
+                performCompletion(result: .failure(.contentFailure))
+            }
+            return
+        }
+
+        guard WidgetFeaturedArticle.supportedLanguageCodes.contains(widgetCache.settings.languageCode) else {
+            performCompletion(result: .failure(.unsupportedLanguage))
+            return
+        }
+
+        fetchFeaturedContent { result in
             switch result {
             case .success(var featuredContent):
                 if let featuredArticleThumbnailImageSource = featuredContent.featuredArticle?.thumbnailImageSource {
@@ -227,15 +272,22 @@ public extension WidgetController {
                         featuredContent.featuredArticle?.thumbnailImageSource?.data = try? imageResult.get()
                         widgetCache.featuredContent = featuredContent
                         self.sharedCache.saveCache(widgetCache)
-                        performCompletion(result: .success(featuredContent))
+                        if let featureArticle = featuredContent.featuredArticle {
+                            performCompletion(result: .success(featureArticle))
+                        } else {
+                            performCompletion(result: .failure(.contentFailure))
+                        }
                     }
                 } else {
                     widgetCache.featuredContent = featuredContent
                     self.sharedCache.saveCache(widgetCache)
-                    performCompletion(result: .success(featuredContent))
+                    if let featureArticle = featuredContent.featuredArticle {
+                        performCompletion(result: .success(featureArticle))
+                    } else {
+                        performCompletion(result: .failure(.contentFailure))
+                    }
                 }
             case .failure(let error):
-                self.sharedCache.saveCache(widgetCache)
                 performCompletion(result: .failure(error))
             }
         }
