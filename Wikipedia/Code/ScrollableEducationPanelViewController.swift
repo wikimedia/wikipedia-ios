@@ -101,7 +101,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
     }
     
-    var image:UIImage? {
+    var image: UIImage? {
         get {
             return imageView.image
         }

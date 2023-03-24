@@ -32,6 +32,8 @@ class SectionEditorViewController: ViewController {
     private var menuItemsController: SectionEditorMenuItemsController!
     private var navigationItemController: SectionEditorNavigationItemController!
 
+    private var canUserEdit: Bool = false
+
     lazy var readingThemesControlsViewController: ReadingThemesControlsViewController = {
         return ReadingThemesControlsViewController.init(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
     }()
@@ -95,19 +97,30 @@ class SectionEditorViewController: ViewController {
         navigationItemController.delegate = self
         
         loadEditNotices()
-        loadWikitext { [weak self] blockedError in
+        loadWikitext { [weak self] resultError in
             
             guard let self else {
                 return
             }
             
-            if let blockedError {
-                self.presentErrorMessage(blockedError: blockedError)
-                
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { // helps prevent flash as wikitext is loaded
-                    self.configureWebView(readOnly: true)
+            if let error = resultError {
+                if error.code.contains("protectedpage") {
+                    self.presentProtectedPageWarning(error: error)
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { // helps prevent flash as wikitext is loaded
+
+                        self.configureWebView(readOnly: true)
+                    }
+                } else {
+                    self.presentErrorMessage(blockedError: error)
+
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { // helps prevent flash as wikitext is loaded
+
+                        self.configureWebView(readOnly: true)
+                    }
                 }
-                
+            } else if !self.canUserEdit {
+                self.configureWebView(readOnly: true)
+
             } else {
                 self.configureWebView(readOnly: false)
             }
@@ -434,15 +447,20 @@ class SectionEditorViewController: ViewController {
                     completion(nil)
                 case .success(let response):
                     self.wikitext = response.wikitext
-                    self.handle(protection: response.protection)
-                    
-                    if let blockedError = response.blockedError {
-                        self.lastBlockedDisplayError = blockedError
-                        completion(blockedError)
-                    } else {
-                        self.lastBlockedDisplayError = nil
-                        completion(nil)
-                    }
+                    self.canUserEdit = self.handle(protection: response.protection, userInfo: response.userInfo?.groups ?? [])
+
+                        if let error = response.apiError {
+                            if error.code.contains("protectedpage") {
+                                self.lastBlockedDisplayError = nil
+                                completion(error)
+                            } else {
+                                self.lastBlockedDisplayError = error
+                                completion(error)
+                            }
+                        } else {
+                            self.lastBlockedDisplayError = nil
+                            completion(nil)
+                        }
                     
                     self.initialFetchGroup.leave()
                 }
@@ -458,22 +476,28 @@ class SectionEditorViewController: ViewController {
         
         wmf_showBlockedPanel(messageHtml: blockedError.messageHtml, linkBaseURL: blockedError.linkBaseURL, currentTitle: currentTitle, theme: theme)
     }
-    
-    private func handle(protection: [SectionFetcher.Protection]) {
-        let allowedGroups = protection.map { $0.level }
-        guard !allowedGroups.isEmpty else {
+
+    private func presentProtectedPageWarning(error: MediaWikiAPIDisplayError) {
+        guard let currentTitle = articleURL.wmf_title else {
             return
         }
-        let message: String
-        if allowedGroups.contains("autoconfirmed") {
-            message = WMFLocalizedString("page-protected-autoconfirmed", value: "This page has been semi-protected.", comment: "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.")
-        } else if allowedGroups.contains("sysop") {
-            message = WMFLocalizedString("page-protected-sysop", value: "This page has been fully protected.", comment: "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.")
-        } else {
-            message = WMFLocalizedString("page-protected-other", value: "This page has been protected to the following levels: %1$@", comment: "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. %1$@ will refer to a list of protection levels.")
+
+        wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, image: UIImage(named: "error-icon"))
+
+    }
+    
+    private func handle(protection: [SectionFetcher.Protection], userInfo: [String]) -> Bool {
+        let allowedGroups = protection.map { $0.level }
+        guard !allowedGroups.isEmpty else {
+            return false
         }
-        self.didFocusWebViewCompletion = {
-            WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
+
+        let userGroups = userInfo.filter { allowedGroups.contains($0) }
+
+        if !userGroups.isEmpty {
+            return true
+        } else {
+            return false
         }
     }
     
