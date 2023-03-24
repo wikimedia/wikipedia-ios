@@ -1,6 +1,7 @@
 #import "NSMutableAttributedStringHelper.h"
 #import "Wikipedia-Swift.h"
 
+// Public keys, used to determine if cursor / selection is in a particular formatting range
 NSString * const kCustomAttributedStringKeyWikitextBold = @"kCustomAttributedStringKeyWikitextBold";
 NSString * const kCustomAttributedStringKeyWikitextItalic = @"kCustomAttributedStringKeyWikitextItalic";
 NSString * const kCustomAttributedStringKeyWikitextBoldAndItalic = @"kCustomAttributedStringKeyWikitextBoldAndItalic";
@@ -22,6 +23,23 @@ NSString * const kCustomAttributedStringKeyWikitextH4 = @"kCustomAttributedStrin
 NSString * const kCustomAttributedStringKeyWikitextH5 = @"kCustomAttributedStringKeyWikitextH5";
 NSString * const kCustomAttributedStringKeyWikitextH6 = @"kCustomAttributedStringKeyWikitextH6";
 NSString * const kCustomAttributedStringKeyWikitextComment = @"kCustomAttributedStringKeyWikitextComment";
+
+// Public keys, used only for theming adjustment
+NSString * const kCustomAttributedStringKeyColorLink = @"kCustomAttributedStringKeyColorLink";
+NSString * const kCustomAttributedStringKeyColorTempate = @"kCustomAttributedStringKeyColorTempate";
+NSString * const kCustomAttributedStringKeyColorHtmlTag = @"kCustomAttributedStringKeyColorHtmlTag";
+NSString * const kCustomAttributedStringKeyColorComment = @"kCustomAttributedStringKeyColorComment";
+NSString * const kCustomAttributedStringKeyColorShorthand = @"kCustomAttributedStringKeyColorShorthand";
+
+// Public keys, used only for font size adjustment
+NSString * const kCustomAttributedStringKeyFontBold = @"kCustomAttributedStringKeyFontBold";
+NSString * const kCustomAttributedStringKeyFontItalic = @"kCustomAttributedStringKeyFontItalic";
+NSString * const kCustomAttributedStringKeyFontBoldItalic = @"kCustomAttributedStringKeyFontBoldItalic";
+NSString * const kCustomAttributedStringKeyFontH2 = @"kCustomAttributedStringKeyFontH2";
+NSString * const kCustomAttributedStringKeyFontH3 = @"kCustomAttributedStringKeyFontH3";
+NSString * const kCustomAttributedStringKeyFontH4 = @"kCustomAttributedStringKeyFontH4";
+NSString * const kCustomAttributedStringKeyFontH5 = @"kCustomAttributedStringKeyFontH5";
+NSString * const kCustomAttributedStringKeyFontH6 = @"kCustomAttributedStringKeyFontH6";
 
 @interface NSMutableAttributedStringHelper ()
 
@@ -116,31 +134,49 @@ NSString * const kCustomAttributedStringKeyWikitextComment = @"kCustomAttributed
 @property (strong, nonatomic) NSDictionary *wikitextListBulletAttributes;
 @property (strong, nonatomic) NSDictionary *wikitextListNumberAttributes;
 
-@property (strong, nonatomic) WMFTheme *theme;
-
 @end
 
 @implementation NSMutableAttributedStringHelper
 
--(instancetype)initWithTheme:(WMFTheme *)theme {
+-(instancetype)initWithTheme:(WMFTheme *)theme andPreferredContentSizeCategory: (UIContentSizeCategory)preferredContentSizeCategory {
     self = [super init];
     if (self) {
         
-        _theme = theme;
-        _fontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
-        _boldFontDescriptor = [_fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
-        _italicFontDescriptor = [_fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic];
-        _boldItalicFontDescriptor = [_fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic | UIFontDescriptorTraitBold];
+        NSInteger standardSize;
+        if ([preferredContentSizeCategory isEqualToString:UIContentSizeCategoryExtraSmall]) {
+            standardSize = 10;
+        } else if ([preferredContentSizeCategory isEqualToString:UIContentSizeCategorySmall]) {
+            standardSize = 12;
+        }
+        else if ([preferredContentSizeCategory isEqualToString:UIContentSizeCategoryMedium]) {
+            standardSize = 14;
+       }
+        else if ([preferredContentSizeCategory isEqualToString:UIContentSizeCategoryLarge]) {
+            standardSize = 16;
+       } else if ([preferredContentSizeCategory isEqualToString:UIContentSizeCategoryExtraLarge]) {
+           standardSize = 18;
+       } else if ([preferredContentSizeCategory isEqualToString:UIContentSizeCategoryExtraExtraLarge]) {
+           standardSize = 20;
+       }
+       else if ([preferredContentSizeCategory isEqualToString:UIContentSizeCategoryExtraExtraExtraLarge]) {
+           standardSize = 22;
+       } else {
+           standardSize = 16;
+       }
+
         _standardFont = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleBody] scaledFontForFont:[UIFont systemFontOfSize:16]];
+        _boldFontDescriptor = [_standardFont.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
+        _italicFontDescriptor = [_standardFont.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic];
+        _boldItalicFontDescriptor = [_standardFont.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic | UIFontDescriptorTraitBold];
         _boldFont = [UIFont fontWithDescriptor:_boldFontDescriptor size:_standardFont.pointSize];
         _italicFont = [UIFont fontWithDescriptor:_italicFontDescriptor size:_standardFont.pointSize];
         _boldItalicFont = [UIFont fontWithDescriptor:_boldItalicFontDescriptor size:_standardFont.pointSize];
 
-        _h2Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:26]];
-        _h3Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:24]];
-        _h4Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:22]];
-        _h5Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:20]];
-        _h6Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:18]];
+        _h2Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:standardSize + 10]];
+        _h3Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:standardSize + 8]];
+        _h4Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:standardSize + 6]];
+        _h5Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:standardSize + 4]];
+        _h6Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:standardSize + 2]];
 
         _boldItalicRegexStr = @"('{5})([^']*(?:'(?!'''')[^']*)*)('{5})";
         _boldRegexStr = @"('{3})([^']*(?:'(?!'')[^']*)*)('{3})";
@@ -206,37 +242,55 @@ NSString * const kCustomAttributedStringKeyWikitextComment = @"kCustomAttributed
         _h4Regex = [NSRegularExpression regularExpressionWithPattern:_h4RegexStr options:0 error:nil];
         _h5Regex = [NSRegularExpression regularExpressionWithPattern:_h5RegexStr options:0 error:nil];
         _h6Regex = [NSRegularExpression regularExpressionWithPattern:_h6RegexStr options:0 error:nil];
+        
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [paragraphStyle setLineSpacing:5];
+        [paragraphStyle setLineHeightMultiple:1.1];
+
+        _commonAttributes = @{
+            NSFontAttributeName: _standardFont,
+            NSParagraphStyleAttributeName: paragraphStyle,
+            NSForegroundColorAttributeName: theme.colors.primaryText
+        };
 
         _boldAttributes = @{
             NSFontAttributeName: _boldFont,
+            kCustomAttributedStringKeyFontBold: [NSNumber numberWithBool:YES]
         };
 
         _italicAttributes = @{
             NSFontAttributeName: _italicFont,
+            kCustomAttributedStringKeyFontItalic: [NSNumber numberWithBool:YES]
         };
 
         _boldItalicAttributes = @{
             NSFontAttributeName: _boldItalicFont,
+            kCustomAttributedStringKeyFontBoldItalic: [NSNumber numberWithBool:YES]
         };
 
         _linkAttributes = @{
-            NSForegroundColorAttributeName: theme.colors.nativeEditorLink
+            NSForegroundColorAttributeName: theme.colors.nativeEditorLink,
+            kCustomAttributedStringKeyColorLink: [NSNumber numberWithBool:YES]
         };
 
         _templateAttributes = @{
-            NSForegroundColorAttributeName: theme.colors.nativeEditorTemplate
+            NSForegroundColorAttributeName: theme.colors.nativeEditorTemplate,
+            kCustomAttributedStringKeyColorTempate: [NSNumber numberWithBool:YES]
         };
 
         _htmlTagAttributes = @{
-            NSForegroundColorAttributeName: theme.colors.nativeEditorHtmlTag
+            NSForegroundColorAttributeName: theme.colors.nativeEditorHtmlTag,
+            kCustomAttributedStringKeyColorHtmlTag: [NSNumber numberWithBool:YES]
         };
         
         _commentAttributes = @{
-            NSForegroundColorAttributeName: theme.colors.nativeEditorComment
+            NSForegroundColorAttributeName: theme.colors.nativeEditorComment,
+            kCustomAttributedStringKeyColorComment: [NSNumber numberWithBool:YES]
         };
 
         _orangeFontAttributes = @{
-            NSForegroundColorAttributeName: theme.colors.nativeEditorShorthand
+            NSForegroundColorAttributeName: theme.colors.nativeEditorShorthand,
+            kCustomAttributedStringKeyColorShorthand: [NSNumber numberWithBool:YES]
         };
 
         _h2FontAttributes = @{
@@ -259,16 +313,6 @@ NSString * const kCustomAttributedStringKeyWikitextComment = @"kCustomAttributed
             NSFontAttributeName: _h6Font,
         };
         
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        [paragraphStyle setLineSpacing:5];
-        [paragraphStyle setLineHeightMultiple:1.1];
-
-        _commonAttributes = @{
-            NSFontAttributeName: _standardFont,
-            NSParagraphStyleAttributeName: paragraphStyle,
-            NSForegroundColorAttributeName: theme.colors.primaryText
-        };
-
         _wikitextBoldAttributes = @{
             kCustomAttributedStringKeyWikitextBold: [NSNumber numberWithBool:YES]
         };
@@ -356,7 +400,120 @@ NSString * const kCustomAttributedStringKeyWikitextComment = @"kCustomAttributed
     return self;
 }
 
--(void)addWikitextSyntaxFormattingToNSMutableAttributedString: (NSMutableAttributedString *)mutAttributedString searchRange: (NSRange)searchRange fontSizeTraitCollection: (UITraitCollection *)fontSizeTraitCollection needsColors: (BOOL)needsColors theme: (WMFTheme *)theme {
+- (void)recalculateAttributesAfterThemeOrFontSizeChangeWithTheme: (WMFTheme *)theme andPreferredContentSizeCategory: (UIContentSizeCategory)preferredContentSizeCategory {
+    
+    NSInteger standardSize;
+    if ([preferredContentSizeCategory isEqualToString:UIContentSizeCategoryExtraSmall]) {
+        standardSize = 10;
+    } else if ([preferredContentSizeCategory isEqualToString:UIContentSizeCategorySmall]) {
+        standardSize = 12;
+    }
+    else if ([preferredContentSizeCategory isEqualToString:UIContentSizeCategoryMedium]) {
+        standardSize = 14;
+   }
+    else if ([preferredContentSizeCategory isEqualToString:UIContentSizeCategoryLarge]) {
+        standardSize = 16;
+   } else if ([preferredContentSizeCategory isEqualToString:UIContentSizeCategoryExtraLarge]) {
+       standardSize = 18;
+   } else if ([preferredContentSizeCategory isEqualToString:UIContentSizeCategoryExtraExtraLarge]) {
+       standardSize = 20;
+   } else if ([preferredContentSizeCategory isEqualToString:UIContentSizeCategoryExtraExtraExtraLarge]) {
+       standardSize = 22;
+   } else {
+       standardSize = 16;
+   }
+    
+    self.standardFont = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleBody] scaledFontForFont:[UIFont systemFontOfSize:standardSize]];
+    self.boldFontDescriptor = [self.standardFont.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
+    self.italicFontDescriptor = [self.standardFont.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic];
+    self.boldItalicFontDescriptor = [self.standardFont.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic | UIFontDescriptorTraitBold];
+    self.boldFont = [UIFont fontWithDescriptor:self.boldFontDescriptor size:self.standardFont.pointSize];
+    self.italicFont = [UIFont fontWithDescriptor:self.italicFontDescriptor size:self.standardFont.pointSize];
+    self.boldItalicFont = [UIFont fontWithDescriptor:self.boldItalicFontDescriptor size:self.standardFont.pointSize];
+
+    self.h2Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:standardSize + 10]];
+    self.h3Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:standardSize + 8]];
+    self.h4Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:standardSize + 6]];
+    self.h5Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:standardSize + 4]];
+    self.h6Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:standardSize + 2]];
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:5];
+    [paragraphStyle setLineHeightMultiple:1.1];
+
+    self.commonAttributes = @{
+        NSFontAttributeName: self.standardFont,
+        NSParagraphStyleAttributeName: paragraphStyle,
+        NSForegroundColorAttributeName: theme.colors.primaryText
+    };
+
+    self.boldAttributes = @{
+        NSFontAttributeName: self.boldFont,
+        kCustomAttributedStringKeyFontBold: [NSNumber numberWithBool:YES]
+    };
+
+    self.italicAttributes = @{
+        NSFontAttributeName: self.italicFont,
+        kCustomAttributedStringKeyFontItalic: [NSNumber numberWithBool:YES]
+    };
+
+    self.boldItalicAttributes = @{
+        NSFontAttributeName: self.boldItalicFont,
+        kCustomAttributedStringKeyFontBoldItalic: [NSNumber numberWithBool:YES]
+    };
+
+    self.linkAttributes = @{
+        NSForegroundColorAttributeName: theme.colors.nativeEditorLink,
+        kCustomAttributedStringKeyColorLink: [NSNumber numberWithBool:YES]
+    };
+
+    self.templateAttributes = @{
+        NSForegroundColorAttributeName: theme.colors.nativeEditorTemplate,
+        kCustomAttributedStringKeyColorTempate: [NSNumber numberWithBool:YES]
+    };
+
+    self.htmlTagAttributes = @{
+        NSForegroundColorAttributeName: theme.colors.nativeEditorHtmlTag,
+        kCustomAttributedStringKeyColorHtmlTag: [NSNumber numberWithBool:YES]
+    };
+    
+    self.commentAttributes = @{
+        NSForegroundColorAttributeName: theme.colors.nativeEditorComment,
+        kCustomAttributedStringKeyColorComment: [NSNumber numberWithBool:YES]
+    };
+
+    self.orangeFontAttributes = @{
+        NSForegroundColorAttributeName: theme.colors.nativeEditorShorthand,
+        kCustomAttributedStringKeyColorShorthand: [NSNumber numberWithBool:YES]
+    };
+
+    self.h2FontAttributes = @{
+        NSFontAttributeName: _h2Font,
+        kCustomAttributedStringKeyFontH2: [NSNumber numberWithBool:YES]
+    };
+    
+    self.h3FontAttributes = @{
+        NSFontAttributeName: _h3Font,
+        kCustomAttributedStringKeyFontH3: [NSNumber numberWithBool:YES]
+    };
+    
+    self.h4FontAttributes = @{
+        NSFontAttributeName: _h4Font,
+        kCustomAttributedStringKeyFontH4: [NSNumber numberWithBool:YES]
+    };
+    
+    self.h5FontAttributes = @{
+        NSFontAttributeName: _h5Font,
+        kCustomAttributedStringKeyFontH5: [NSNumber numberWithBool:YES]
+    };
+
+    self.h6FontAttributes = @{
+        NSFontAttributeName: _h6Font,
+        kCustomAttributedStringKeyFontH6: [NSNumber numberWithBool:YES]
+    };
+}
+
+-(void)addWikitextSyntaxFormattingToNSMutableAttributedString: (NSMutableAttributedString *)mutAttributedString searchRange: (NSRange)searchRange theme: (WMFTheme *)theme {
     
     [mutAttributedString addAttributes:self.commonAttributes range:searchRange];
 
@@ -548,8 +705,9 @@ NSString * const kCustomAttributedStringKeyWikitextComment = @"kCustomAttributed
 
                                  if (textRange.location != NSNotFound) {
 
-                                     // helps to undo attributes from bold and italic single regex above.
+                                     // helps to undo attributes from italic above.
                                      [mutAttributedString removeAttribute:kCustomAttributedStringKeyWikitextItalic range:fullMatch];
+                                     [mutAttributedString removeAttribute:kCustomAttributedStringKeyFontItalic range:fullMatch];
 
                                      [mutAttributedString addAttributes:self.boldAttributes range:textRange];
                                      [mutAttributedString addAttributes:self.wikitextBoldAttributes range:textRange];
@@ -576,12 +734,13 @@ NSString * const kCustomAttributedStringKeyWikitextComment = @"kCustomAttributed
                                        if (textRange.location != NSNotFound) {
 
                                            // helps to undo attributes from bold and italic single regex above.
-                                           [mutAttributedString removeAttribute:NSFontAttributeName range:fullMatch];
-                                           [mutAttributedString removeAttribute:NSForegroundColorAttributeName range:fullMatch];
+//                                           [mutAttributedString removeAttribute:NSFontAttributeName range:fullMatch];
+//                                           [mutAttributedString removeAttribute:NSForegroundColorAttributeName range:fullMatch];
                                            [mutAttributedString removeAttribute:kCustomAttributedStringKeyWikitextBold range:fullMatch];
                                            [mutAttributedString removeAttribute:kCustomAttributedStringKeyWikitextItalic range:fullMatch];
-                                           [mutAttributedString addAttributes:self.commonAttributes range:fullMatch];
-
+                                           [mutAttributedString removeAttribute:kCustomAttributedStringKeyFontBold range:fullMatch];
+                                           [mutAttributedString removeAttribute:kCustomAttributedStringKeyFontItalic range:fullMatch];
+                                           
                                            [mutAttributedString addAttributes:self.boldItalicAttributes range:textRange];
                                            [mutAttributedString addAttributes:self.wikitextBoldAndItalicAttributes range:textRange];
                                        }

@@ -24,6 +24,10 @@ class PageEditorViewController: UIViewController {
         return navigationItemController
     }()
     
+    lazy var readingThemesControlsViewController: ReadingThemesControlsViewController = {
+        return ReadingThemesControlsViewController.init(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
+    }()
+    
     private weak var delegate: PageEditorViewControllerDelegate?
     
     init(pageURL: URL, sectionID: Int?, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo? = nil, delegate: PageEditorViewControllerDelegate, theme: Theme) {
@@ -124,7 +128,8 @@ extension PageEditorViewController: PageEditorNavigationItemControllerDelegate {
     }
     
     func pageEditorNavigationItemController(_ pageEditorNavigationItemController: PageEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
-        print("show reading themes")
+        
+        showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
     }
     
     func pageEditorNavigationItemController(_ pageEditorNavigationItemController: PageEditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem) {
@@ -141,4 +146,41 @@ extension PageEditorViewController: Themeable {
         wikitextEditor.apply(theme: theme)
         navigationItemController.apply(theme: theme)
     }
+}
+
+extension PageEditorViewController: ReadingThemesControlsResponding {
+    func updateWebViewTextSize(textSize: Int) {
+        wikitextEditor.updateTextSize()
+    }
+    
+    func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
+    }
+}
+
+extension PageEditorViewController: ReadingThemesControlsPresenting {
+    var shouldPassthroughNavBar: Bool {
+        return false
+    }
+    
+    var showsSyntaxHighlighting: Bool {
+        return true
+    }
+    
+    var readingThemesControlsToolbarItem: UIBarButtonItem {
+        return self.navigationItemController.readingThemesControlsToolbarItem
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+
+    }
+    
+    
 }

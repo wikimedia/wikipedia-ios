@@ -32,7 +32,8 @@ class NativeWikitextEditorViewController: UIViewController, Themeable {
     init(delegate: NativeWikitextEditorDelegate, theme: Theme) {
         self.delegate = delegate
         self.theme = theme
-        self.mutableAttributedStringHelper = NSMutableAttributedStringHelper(theme: theme)
+        
+        self.mutableAttributedStringHelper = NSMutableAttributedStringHelper(theme: theme, andPreferredContentSizeCategory: Self.preferredContentSizeCategory())
         super.init(nibName: nil, bundle: nil)
         
         
@@ -88,6 +89,11 @@ class NativeWikitextEditorViewController: UIViewController, Themeable {
     
     func redo() {
         editorView.textView.undoManager?.redo()
+    }
+    
+    func updateTextSize() {
+        mutableAttributedStringHelper.recalculateAttributesAfterThemeOrFontSizeChange(with: self.theme, andPreferredContentSizeCategory: Self.preferredContentSizeCategory())
+        editorView.syntaxHighlightTextStorage?.updateFontSize(withPreferredContentSize: Self.preferredContentSizeCategory())
     }
     
     private func resetFindAndReplace() {
@@ -151,6 +157,30 @@ class NativeWikitextEditorViewController: UIViewController, Themeable {
     
     // MARK: Private
     
+    static private func preferredContentSizeCategory() -> UIContentSizeCategory {
+        let textSizeAdjustment = UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue
+        var contentSizeCategory: UIContentSizeCategory = .large
+        switch textSizeAdjustment {
+        case WMFFontSizeMultiplier.extraSmall.rawValue:
+            contentSizeCategory = .extraSmall
+        case WMFFontSizeMultiplier.small.rawValue:
+            contentSizeCategory = .small
+        case WMFFontSizeMultiplier.medium.rawValue:
+            contentSizeCategory = .medium
+        case WMFFontSizeMultiplier.large.rawValue:
+            contentSizeCategory = .large
+        case WMFFontSizeMultiplier.extraLarge.rawValue:
+            contentSizeCategory = .extraLarge
+        case WMFFontSizeMultiplier.extraExtraLarge.rawValue:
+            contentSizeCategory = .extraExtraLarge
+        case WMFFontSizeMultiplier.extraExtraExtraLarge.rawValue:
+            contentSizeCategory = .extraExtraExtraLarge
+        default:
+            contentSizeCategory = .large
+        }
+        return contentSizeCategory
+    }
+    
     private func setInputAccessoryView(_ inputAccessoryView: UIView?) {
         editorView.textView.inputAccessoryView = inputAccessoryView
     }
@@ -173,6 +203,7 @@ class NativeWikitextEditorViewController: UIViewController, Themeable {
     
     func apply(theme: Theme) {
         editorInputViewsController.apply(theme: theme)
+        mutableAttributedStringHelper.recalculateAttributesAfterThemeOrFontSizeChange(with: theme, andPreferredContentSizeCategory: Self.preferredContentSizeCategory())
         editorView.apply(theme: theme)
     }
 }

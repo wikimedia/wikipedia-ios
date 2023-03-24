@@ -9,13 +9,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableAttributedStringHelper *mutableAttributedStringHelper;
 @property (nonatomic, strong) UITraitCollection *fontSizeTraitCollection;
-- (void)applyFontSizeTraitCollection:(UITraitCollection *)fontSizeTraitCollection;
 @property (strong, nonatomic, nonnull) WMFTheme *theme;
 @property (assign, nonatomic) BOOL calculateSyntaxHighlightsUponEditEnabled;
 - (void)applyTheme:(WMFTheme *)theme;
 
 - (void)removeAttribute:(NSAttributedStringKey)name rangeValues:(NSArray<NSValue *> *)rangeValues;
 - (void)addAttributes:(NSDictionary<NSAttributedStringKey, id> *)attrs rangeValues:(NSArray<NSValue *> *)rangeValues;
+
+- (void)updateFontSizeWithPreferredContentSize: (UIContentSizeCategory)preferredContentSizeCategory;
 
 @end
 
