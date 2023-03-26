@@ -2578,6 +2578,9 @@
 		D3CFFEC729D100A700D22C57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3CFFEC529D100A700D22C57 /* LaunchScreen.storyboard */; };
 		D3CFFED229D100DD00D22C57 /* locatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFED129D100DD00D22C57 /* locatorTests.swift */; };
 		D3CFFF0429D101B300D22C57 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFF0329D101B300D22C57 /* MainCoordinator.swift */; };
+		D3CFFF0729D1040900D22C57 /* LocationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFF0629D1040900D22C57 /* LocationsService.swift */; };
+		D3CFFF0A29D1044200D22C57 /* LocationsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFF0929D1044200D22C57 /* LocationsAPI.swift */; };
+		D3CFFF0C29D1056F00D22C57 /* LocationsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFF0B29D1056F00D22C57 /* LocationsDTO.swift */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -5222,6 +5225,9 @@
 		D3CFFED129D100DD00D22C57 /* locatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = locatorTests.swift; sourceTree = "<group>"; };
 		D3CFFED729D100DD00D22C57 /* locatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = locatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3CFFF0329D101B300D22C57 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		D3CFFF0629D1040900D22C57 /* LocationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsService.swift; sourceTree = "<group>"; };
+		D3CFFF0929D1044200D22C57 /* LocationsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsAPI.swift; sourceTree = "<group>"; };
+		D3CFFF0B29D1056F00D22C57 /* LocationsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsDTO.swift; sourceTree = "<group>"; };
 		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -9126,6 +9132,7 @@
 		D3CFFEB929D100A600D22C57 /* locator */ = {
 			isa = PBXGroup;
 			children = (
+				D3CFFF0829D1042A00D22C57 /* LocationsService */,
 				D3CFFF0529D1037400D22C57 /* Locations */,
 				D3CFFEBA29D100A600D22C57 /* AppDelegate.swift */,
 				D3CFFEBC29D100A600D22C57 /* SceneDelegate.swift */,
@@ -9151,6 +9158,16 @@
 				D3CFFEBE29D100A600D22C57 /* LocationsViewController.swift */,
 			);
 			path = Locations;
+			sourceTree = "<group>";
+		};
+		D3CFFF0829D1042A00D22C57 /* LocationsService */ = {
+			isa = PBXGroup;
+			children = (
+				D3CFFF0629D1040900D22C57 /* LocationsService.swift */,
+				D3CFFF0929D1044200D22C57 /* LocationsAPI.swift */,
+				D3CFFF0B29D1056F00D22C57 /* LocationsDTO.swift */,
+			);
+			path = LocationsService;
 			sourceTree = "<group>";
 		};
 		D499142C181D51DE00E6073C = {
@@ -11600,10 +11617,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3CFFF0C29D1056F00D22C57 /* LocationsDTO.swift in Sources */,
+				D3CFFF0729D1040900D22C57 /* LocationsService.swift in Sources */,
 				D3CFFEBF29D100A600D22C57 /* LocationsViewController.swift in Sources */,
 				D3CFFF0429D101B300D22C57 /* MainCoordinator.swift in Sources */,
 				D3CFFEBB29D100A600D22C57 /* AppDelegate.swift in Sources */,
 				D3CFFEBD29D100A600D22C57 /* SceneDelegate.swift in Sources */,
+				D3CFFF0A29D1044200D22C57 /* LocationsAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
