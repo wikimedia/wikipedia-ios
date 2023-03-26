@@ -1,6 +1,6 @@
 #import <WMF/NSUserActivity+WMFExtensions.h>
 #import <WMF/WMF-Swift.h>
-#import <WMF/CLLocation+WMFDictionary.h>
+#import <WMF/CLLocation+WMFLocation.h>
 
 @import CoreSpotlight;
 @import MobileCoreServices;

@@ -1,7 +1,7 @@
 #import <XCTest/XCTest.h>
-#import "CLLocation+WMFDictionary.h"
+#import "CLLocation+WMFLocation.h"
 
-@interface CLLocation_WMFDictionaryTests : XCTestCase
+@interface CLLocation_WMFLocationTests : XCTestCase
 
 @property (nonatomic, strong) WMFLocation empty;
 @property (nonatomic, strong) WMFLocation notFull;
@@ -10,7 +10,7 @@
 
 @end
 
-@implementation CLLocation_WMFDictionaryTests
+@implementation CLLocation_WMFLocationTests
 
 - (void)setUp {
     [super setUp];

@@ -1,6 +1,6 @@
-#import "CLLocation+WMFDictionary.h"
+#import "CLLocation+WMFLocation.h"
 
-@implementation CLLocation (WMFDictionary)
+@implementation CLLocation (WMFLocation)
 
 + (nullable instancetype)locationWithDictionary:(nullable WMFLocation)dictionary {
     if (dictionary == nil) {

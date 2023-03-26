@@ -1,6 +1,7 @@
 #import "WMFAppViewController.h"
 @import WMF;
 @import SystemConfiguration;
+@import CoreLocation;
 #import "Wikipedia-Swift.h"
 
 #define DEBUG_THEMES 1
@@ -1191,6 +1192,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                 // For "View on a map" action to succeed, view mode has to be set to map.
                 [[self placesViewController] updateViewModeToMap];
                 [[self placesViewController] showArticleURL:articleURL];
+            }
+            CLLocation *location = [CLLocation locationWithDictionary: activity.wmf_location];
+            if (location) {
+                [[self placesViewController] updateViewModeToMap];
+                [[self placesViewController] showLocation:location];
             }
         } break;
         case WMFUserActivityTypeContent: {
