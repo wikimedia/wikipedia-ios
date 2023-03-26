@@ -2,7 +2,7 @@
 
 @implementation CLLocation (WMFDictionary)
 
-+ (nullable instancetype)locationWithDictionary:(nullable NSDictionary<NSString *, NSNumber *> *)dictionary {
++ (nullable instancetype)locationWithDictionary:(nullable WMFLocation)dictionary {
     if (dictionary == nil) {
         return nil;
     }

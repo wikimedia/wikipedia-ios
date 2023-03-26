@@ -1,6 +1,8 @@
 @import Foundation;
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NSDictionary<NSString *, NSNumber *> *WMFLocation;
+
 typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
     WMFUserActivityTypeExplore,
     WMFUserActivityTypePlaces,
@@ -47,6 +49,8 @@ extern NSString *const WMFNavigateToActivityNotification;
 - (nullable NSURL *)wmf_linkURL;
 
 - (NSURL *)wmf_contentURL;
+
+- (nullable WMFLocation)wmf_location;
 
 + (NSURL *)wmf_baseURLForActivityOfType:(WMFUserActivityType)type;
 

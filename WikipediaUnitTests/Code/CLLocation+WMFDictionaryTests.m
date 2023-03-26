@@ -3,9 +3,9 @@
 
 @interface CLLocation_WMFDictionaryTests : XCTestCase
 
-@property (nonatomic, strong) NSDictionary<NSString *, NSNumber *> *empty;
-@property (nonatomic, strong) NSDictionary<NSString *, NSNumber *> *notFull;
-@property (nonatomic, strong) NSDictionary<NSString *, NSNumber *> *correct;
+@property (nonatomic, strong) WMFLocation empty;
+@property (nonatomic, strong) WMFLocation notFull;
+@property (nonatomic, strong) WMFLocation correct;
 @property (nonatomic, strong) CLLocation *correctLocation;
 
 @end
