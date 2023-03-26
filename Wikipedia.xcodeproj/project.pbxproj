@@ -2581,6 +2581,7 @@
 		D3CFFF0729D1040900D22C57 /* LocationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFF0629D1040900D22C57 /* LocationsService.swift */; };
 		D3CFFF0A29D1044200D22C57 /* LocationsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFF0929D1044200D22C57 /* LocationsAPI.swift */; };
 		D3CFFF0C29D1056F00D22C57 /* LocationsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFF0B29D1056F00D22C57 /* LocationsDTO.swift */; };
+		D3CFFF0E29D1068E00D22C57 /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFF0D29D1068E00D22C57 /* MainAssembly.swift */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -5228,6 +5229,7 @@
 		D3CFFF0629D1040900D22C57 /* LocationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsService.swift; sourceTree = "<group>"; };
 		D3CFFF0929D1044200D22C57 /* LocationsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsAPI.swift; sourceTree = "<group>"; };
 		D3CFFF0B29D1056F00D22C57 /* LocationsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsDTO.swift; sourceTree = "<group>"; };
+		D3CFFF0D29D1068E00D22C57 /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
 		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -9140,6 +9142,7 @@
 				D3CFFEC529D100A700D22C57 /* LaunchScreen.storyboard */,
 				D3CFFEC829D100A700D22C57 /* Info.plist */,
 				D3CFFF0329D101B300D22C57 /* MainCoordinator.swift */,
+				D3CFFF0D29D1068E00D22C57 /* MainAssembly.swift */,
 			);
 			path = locator;
 			sourceTree = "<group>";
@@ -11619,6 +11622,7 @@
 			files = (
 				D3CFFF0C29D1056F00D22C57 /* LocationsDTO.swift in Sources */,
 				D3CFFF0729D1040900D22C57 /* LocationsService.swift in Sources */,
+				D3CFFF0E29D1068E00D22C57 /* MainAssembly.swift in Sources */,
 				D3CFFEBF29D100A600D22C57 /* LocationsViewController.swift in Sources */,
 				D3CFFF0429D101B300D22C57 /* MainCoordinator.swift in Sources */,
 				D3CFFEBB29D100A600D22C57 /* AppDelegate.swift in Sources */,
