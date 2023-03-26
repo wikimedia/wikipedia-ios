@@ -2570,6 +2570,7 @@
 		BCD557BB1C45B1600060A51A /* UIApplication+VisualTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */; };
 		D3CFFEAD29D07C1F00D22C57 /* CLLocation+WMFDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CFFEAB29D07C1F00D22C57 /* CLLocation+WMFDictionary.h */; };
 		D3CFFEAE29D07C1F00D22C57 /* CLLocation+WMFDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFEAC29D07C1F00D22C57 /* CLLocation+WMFDictionary.m */; };
+		D3CFFEB029D0810800D22C57 /* CLLocation+WMFDictionaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFEAF29D0810800D22C57 /* CLLocation+WMFDictionaryTests.m */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -5188,6 +5189,7 @@
 		BCF012321AD2FA38008D3675 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		D3CFFEAB29D07C1F00D22C57 /* CLLocation+WMFDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CLLocation+WMFDictionary.h"; sourceTree = "<group>"; };
 		D3CFFEAC29D07C1F00D22C57 /* CLLocation+WMFDictionary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+WMFDictionary.m"; sourceTree = "<group>"; };
+		D3CFFEAF29D0810800D22C57 /* CLLocation+WMFDictionaryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+WMFDictionaryTests.m"; sourceTree = "<group>"; };
 		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -8999,6 +9001,7 @@
 				B0E8093A1C0D1A590065EBC0 /* WMFSafeAssignTests.m */,
 				B0E809401C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m */,
 				B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */,
+				D3CFFEAF29D0810800D22C57 /* CLLocation+WMFDictionaryTests.m */,
 				B0E8095D1C0D1B930065EBC0 /* WMFMTLModelSerializationTests.m */,
 				B0E8095F1C0D1BA30065EBC0 /* WMFSearchFetcherTests.m */,
 				BC52D0F61C207D3300F625A9 /* TWNStringsTests.m */,
@@ -11409,6 +11412,7 @@
 				6790AAF622D6861500D442D6 /* TalkPageTestHelpers.swift in Sources */,
 				004281C025E6EFC4004945B3 /* NSString+Matcheable.m in Sources */,
 				004281C425E6EFC4004945B3 /* LSRegexMatcher.m in Sources */,
+				D3CFFEB029D0810800D22C57 /* CLLocation+WMFDictionaryTests.m in Sources */,
 				004281C225E6EFC4004945B3 /* LSDataMatcher.m in Sources */,
 				004281C625E6EFC4004945B3 /* NSString+Nocilla.m in Sources */,
 			);
