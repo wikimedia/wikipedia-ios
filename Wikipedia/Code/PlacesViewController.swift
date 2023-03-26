@@ -1950,8 +1950,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     @objc public func showLocation(_ location: CLLocation) {
-        // TODO: disable recentering and show specified location
-        print(location)
+        panMapToNextLocationUpdate = false
+        zoomAndPanMapView(toLocation: location)
     }
     
     fileprivate func searchForFirstSearchSuggestion() {
