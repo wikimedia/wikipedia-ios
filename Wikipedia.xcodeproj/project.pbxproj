@@ -2568,6 +2568,8 @@
 		BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCB813C1C110702008BC602 /* NSDate+WMFPOTDTitle.m */; };
 		BCD3200A1C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */; };
 		BCD557BB1C45B1600060A51A /* UIApplication+VisualTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */; };
+		D3CFFEAD29D07C1F00D22C57 /* CLLocation+WMFDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CFFEAB29D07C1F00D22C57 /* CLLocation+WMFDictionary.h */; };
+		D3CFFEAE29D07C1F00D22C57 /* CLLocation+WMFDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFEAC29D07C1F00D22C57 /* CLLocation+WMFDictionary.m */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -5184,6 +5186,8 @@
 		BCD557B91C45B1600060A51A /* UIApplication+VisualTestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIApplication+VisualTestUtils.h"; path = "WikipediaUnitTests/Code/UIApplication+VisualTestUtils.h"; sourceTree = SOURCE_ROOT; };
 		BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+VisualTestUtils.m"; path = "WikipediaUnitTests/Code/UIApplication+VisualTestUtils.m"; sourceTree = SOURCE_ROOT; };
 		BCF012321AD2FA38008D3675 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		D3CFFEAB29D07C1F00D22C57 /* CLLocation+WMFDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CLLocation+WMFDictionary.h"; sourceTree = "<group>"; };
+		D3CFFEAC29D07C1F00D22C57 /* CLLocation+WMFDictionary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+WMFDictionary.m"; sourceTree = "<group>"; };
 		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -6557,6 +6561,8 @@
 				B0E804A91C0CE0B40065EBC0 /* NSString+WMFDistance.m */,
 				BCCFC44A1C84BAE0009D3613 /* CLLocation+WMFComparison.h */,
 				BCCFC44B1C84BAE0009D3613 /* CLLocation+WMFComparison.m */,
+				D3CFFEAB29D07C1F00D22C57 /* CLLocation+WMFDictionary.h */,
+				D3CFFEAC29D07C1F00D22C57 /* CLLocation+WMFDictionary.m */,
 			);
 			name = "Location Manager";
 			sourceTree = "<group>";
@@ -9952,6 +9958,7 @@
 				D844D9B71D6CB7940042D692 /* MWKRecentSearchList.h in Headers */,
 				0042807625E6E395004945B3 /* MTLMetamacros.h in Headers */,
 				0042807325E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.h in Headers */,
+				D3CFFEAD29D07C1F00D22C57 /* CLLocation+WMFDictionary.h in Headers */,
 				0042808C25E6E395004945B3 /* NSError+MTLModelException.h in Headers */,
 				0042807425E6E395004945B3 /* MTLEXTRuntimeExtensions.h in Headers */,
 				0042807525E6E395004945B3 /* MTLEXTScope.h in Headers */,
@@ -12063,6 +12070,7 @@
 				D8FA18B11E1BD891009675C3 /* NSBundle+WMFInfoUtils.m in Sources */,
 				D8FA18FB1E1BDA4C009675C3 /* UIImage+WMFStyle.m in Sources */,
 				8392E8681F55801B007E2EE2 /* NSTextAttachment+WMFExtras.swift in Sources */,
+				D3CFFEAE29D07C1F00D22C57 /* CLLocation+WMFDictionary.m in Sources */,
 				D8FA18F31E1BDA35009675C3 /* UIImageView+WMFContentOffset.m in Sources */,
 				D8FA18B61E1BD891009675C3 /* NSDictionary+WMFRequiredValueForKey.m in Sources */,
 				B0B423511EF32D2700D3DC4C /* WMFOnThisDayContentSource.m in Sources */,
