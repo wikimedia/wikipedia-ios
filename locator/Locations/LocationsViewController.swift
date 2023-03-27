@@ -118,9 +118,11 @@ private extension LocationsViewController {
     }
 
     func configureDataSource() {
-        let locationCell = UICollectionView.CellRegistration<UICollectionViewCell, Location> { cell, indexPath, _ in
-            guard let section = self.dataSource.sectionIdentifier(for: indexPath.section) else { return }
-            guard let location = self.currentState.locationFor(section: section, row: indexPath.row) else { return }
+        let inputCell = UICollectionView.CellRegistration<UICollectionViewCell, Location> { cell, indexPath, location in
+            cell.contentConfiguration = self.cardsFactory.makeInput(location: location)
+        }
+        
+        let locationCell = UICollectionView.CellRegistration<UICollectionViewCell, Location> { cell, indexPath, location in
             cell.contentConfiguration = self.cardsFactory.makeLocationCard(location, index: indexPath.row)
         }
         
@@ -134,7 +136,13 @@ private extension LocationsViewController {
             (collectionView: UICollectionView, indexPath: IndexPath, item: Location)
             -> UICollectionViewCell? in
             
-            collectionView.dequeueConfiguredReusableCell(using: locationCell, for: indexPath, item: item)
+            guard let section = self.dataSource.sectionIdentifier(for: indexPath.section) else { return nil }
+            switch section {
+            case .input:
+                return collectionView.dequeueConfiguredReusableCell(using: inputCell, for: indexPath, item: item)
+            case .locations:
+                return collectionView.dequeueConfiguredReusableCell(using: locationCell, for: indexPath, item: item)
+            }
         }
         
         dataSource.supplementaryViewProvider = { (_, _, index) in
