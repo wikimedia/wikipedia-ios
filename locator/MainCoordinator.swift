@@ -7,7 +7,13 @@ final class MainCoordinator {
     private let mainAssembly = MainAssembly()
     
     init() {
-        let initialVC = LocationsViewController()
+        let presenter = LocationsPresenterImpl(mainAssembly) { output in
+            switch output {
+            case .select(let location):
+                fatalError("not implemented")
+            }
+        }
+        let initialVC = LocationsViewController(presenter: presenter)
         self.topViewController = UINavigationController(rootViewController: initialVC)
         
         setAppearance()
