@@ -13,7 +13,7 @@ final class MainCoordinator {
                 fatalError("not implemented")
             }
         }
-        let initialVC = LocationsViewController(presenter: presenter)
+        let initialVC = LocationsViewController(presenter: presenter, cardsFactory: LocationsViewsFactoryImpl())
         self.topViewController = UINavigationController(rootViewController: initialVC)
         
         setAppearance()
