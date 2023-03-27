@@ -6,6 +6,8 @@ struct Location: Codable, Hashable {
     let lat: Double
     let long: Double
     
+    static let none: Location = .init(name: nil, lat: 0, long: 0)
+    
     enum CodingKeys: String, CodingKey {
         case name
         case lat
