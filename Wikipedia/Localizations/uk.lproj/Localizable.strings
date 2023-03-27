@@ -160,9 +160,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Налаштування тем для читання";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Натисніть, щоб повернутися";
+"button-go-back" = "Назад";
 "button-next" = "Далі";
 "button-ok" = "Гаразд";
 "button-publish" = "Зберегти";
+"button-publish-anyway" = "Опублікувати в будь-якому випадку";
 "button-read-now" = "Читати зараз";
 "button-report-a-bug" = "Повідомити про помилку";
 "button-save-for-later" = "Зберегти наперед";
@@ -274,6 +276,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Вибраний текст не знайдений";
 "edit-minor-learn-more-text" = "Дізнайтеся більше про незначні зміни";
 "edit-minor-text" = "Це незначна зміна";
+"edit-notices" = "Замітки по редагуванню";
+"edit-notices-always-display" = "Завжди відображати замітки по редагуваннях";
+"edit-notices-please-read" = "Будь ласка, прочитайте перед редагуванням";
 "edit-ordered-list-accessibility-label" = "Зробити нумерованим списком";
 "edit-ordered-list-remove-accessibility-label" = "Прибрати нумерований список";
 "edit-published" = "Редагування опубліковано";
