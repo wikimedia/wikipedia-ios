@@ -15,8 +15,7 @@ protocol LocationsPresenter {
     func select(location: Location)
 }
 
-final class LocationsPresenterImpl: LocationsPresenter {
-    
+final class LocationsPresenterImpl: LocationsPresenter, OpenLocationServiceProvider, OpenLocationService {
     typealias Dependencies = LocationsServiceProvider
     private let dependencies: Dependencies
     
@@ -29,7 +28,7 @@ final class LocationsPresenterImpl: LocationsPresenter {
         self.dependencies = dependencies
         
         dependencies.locationsService.locationsState.sink { [weak self] state in
-            let viewState = LocationsViewState(locations: state.locations, updateState: state.updateState)
+            let viewState = LocationsViewState(locations: state.locations, selectedLocation: nil, updateState: state.updateState)
             self?.state.send(viewState)
         }.store(in: &bag)
         
@@ -42,6 +41,13 @@ final class LocationsPresenterImpl: LocationsPresenter {
     
     func select(location: Location) {
         self.output(.select(location: location))
+        state.send(state.value.changingSelectedLocation(location))
     }
     
+    // MARK: - OpenLocationService
+    var openLocationService: OpenLocationService { self }
+    
+    func open(location: Location) {
+        select(location: location)
+    }
 }

@@ -13,7 +13,7 @@ final class MainCoordinator {
                 mainAssembly?.openLocationService.open(location: location)
             }
         }
-        let initialVC = LocationsViewController(presenter: presenter, cardsFactory: LocationsViewsFactoryImpl())
+        let initialVC = LocationsViewController(presenter: presenter, cardsFactory: LocationsViewsFactoryImpl(dependencies: presenter))
         self.topViewController = UINavigationController(rootViewController: initialVC)
         
         setAppearance()
