@@ -7,10 +7,10 @@ final class MainCoordinator {
     private let mainAssembly = MainAssembly()
     
     init() {
-        let presenter = LocationsPresenterImpl(mainAssembly) { output in
+        let presenter = LocationsPresenterImpl(mainAssembly) { [weak mainAssembly] output in
             switch output {
             case .select(let location):
-                fatalError("not implemented")
+                mainAssembly?.openLocationService.open(location: location)
             }
         }
         let initialVC = LocationsViewController(presenter: presenter, cardsFactory: LocationsViewsFactoryImpl())

@@ -2593,6 +2593,7 @@
 		D3CFFF2329D11B9900D22C57 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFF2229D11B9900D22C57 /* Layout.swift */; };
 		D3CFFF2529D11CF600D22C57 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFF2429D11CF600D22C57 /* UIKitExtensions.swift */; };
 		D3CFFF2729D1208000D22C57 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFF2629D1208000D22C57 /* HeaderView.swift */; };
+		D3CFFF2A29D126D300D22C57 /* OpenLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFFF2929D126D300D22C57 /* OpenLocation.swift */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -5252,6 +5253,7 @@
 		D3CFFF2229D11B9900D22C57 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		D3CFFF2429D11CF600D22C57 /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		D3CFFF2629D1208000D22C57 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		D3CFFF2929D126D300D22C57 /* OpenLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLocation.swift; sourceTree = "<group>"; };
 		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -9156,6 +9158,7 @@
 		D3CFFEB929D100A600D22C57 /* locator */ = {
 			isa = PBXGroup;
 			children = (
+				D3CFFF2829D126AF00D22C57 /* OpenLocationService */,
 				D3CFFF1529D1186900D22C57 /* Tools */,
 				D3CFFF0829D1042A00D22C57 /* LocationsService */,
 				D3CFFF0529D1037400D22C57 /* Locations */,
@@ -9212,6 +9215,14 @@
 				D3CFFF2429D11CF600D22C57 /* UIKitExtensions.swift */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		D3CFFF2829D126AF00D22C57 /* OpenLocationService */ = {
+			isa = PBXGroup;
+			children = (
+				D3CFFF2929D126D300D22C57 /* OpenLocation.swift */,
+			);
+			path = OpenLocationService;
 			sourceTree = "<group>";
 		};
 		D499142C181D51DE00E6073C = {
@@ -11669,6 +11680,7 @@
 				D3CFFF0729D1040900D22C57 /* LocationsAPIService.swift in Sources */,
 				D3CFFF2729D1208000D22C57 /* HeaderView.swift in Sources */,
 				D3CFFF0E29D1068E00D22C57 /* MainAssembly.swift in Sources */,
+				D3CFFF2A29D126D300D22C57 /* OpenLocation.swift in Sources */,
 				D3CFFF1B29D1191700D22C57 /* LocationsViewFactory.swift in Sources */,
 				D3CFFF1729D1187B00D22C57 /* StatefulView.swift in Sources */,
 				D3CFFEBF29D100A600D22C57 /* LocationsViewController.swift in Sources */,
