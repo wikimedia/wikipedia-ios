@@ -61,16 +61,3 @@ final class InputCardView: UITextField & UIContentView {
         text = configuration.cardPayload.location
     }
 }
-
-final class InputCardPresenter {
-    
-    typealias Dependencies = OpenLocationServiceProvider
-    private let dependencies: Dependencies
-    
-    init(dependencies: Dependencies) {
-        self.dependencies = dependencies
-    }
-    
-    func handleLocation(_ locationString: String?) {
-    }
-}
