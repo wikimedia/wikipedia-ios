@@ -9,6 +9,13 @@ extension UIImage {
         let image = UIImage(systemName: "goforward", withConfiguration: config)!
         return image
     }
+    
+    /// Location style sfSymbol image
+    static var sfLocation: UIImage {
+        let config = UIImage.SymbolConfiguration(textStyle: .caption1)
+        let image = UIImage(systemName: "location", withConfiguration: config)!
+        return image
+    }
 }
 
 extension UICollectionViewLayout {
