@@ -25,7 +25,7 @@ final class LocationsViewsFactoryImpl: LocationsViewsFactory {
     
     func makeInput(location: Location?) -> InputCard {
         let presenter = InputCardPresenter(dependencies: dependencies)
-        if let location = location {
+        if let location = location, location != .none {
             return InputCard(cardPayload: .init(location: "\(location.lat),\(location.long)"), ID: 0, presenter: presenter)
         }
         return InputCard(cardPayload: .init(location: nil), ID: 0, presenter: presenter)
