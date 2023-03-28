@@ -10,8 +10,9 @@ public final class WidgetContentFetcher {
 		case unsupportedLanguage
 	}
 
-	public typealias FeaturedContentResult = Result<WidgetFeaturedContent, WidgetContentFetcher.FetcherError>
-    public typealias FeaturedArticleResult = Result<WidgetFeaturedArticle, WidgetContentFetcher.FetcherError>
+	public typealias FeaturedContentResult = Result<WidgetFeaturedContent, FetcherError>
+    public typealias FeaturedArticleResult = Result<WidgetFeaturedArticle, FetcherError>
+    public typealias TopReadResult = Result<WidgetTopRead, FetcherError>
 
 	// MARK: - Properties
 

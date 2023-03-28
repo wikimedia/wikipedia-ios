@@ -5,6 +5,7 @@ public struct WidgetTopRead: Codable {
     // MARK: - Nested Types
 
     enum CodingKeys: String, CodingKey {
+        case dateString = "date"
         case elements = "articles"
     }
 
@@ -13,7 +14,7 @@ public struct WidgetTopRead: Codable {
         // MARK: - Nested Types
 
         public struct ViewHistoryDataPoint: Codable {
-            let views: Int
+            public let views: Int
         }
 
         enum CodingKeys: String, CodingKey {
@@ -22,6 +23,7 @@ public struct WidgetTopRead: Codable {
             case pageTitle = "title"
             case displayTitle = "displaytitle"
             case normalizedTitle = "normalizedtitle"
+            case description
             case timestamp
             case viewHistory = "view_history"
             case thumbnailImageSource = "thumbnail"
@@ -35,20 +37,21 @@ public struct WidgetTopRead: Codable {
 
         // MARK: - Properties
 
-        let views: Int
-        let titles: WidgetTitles
-        let pageTitle: String
-        let displayTitle: String
-        let normalizedTitle: String
-        let timestamp: String
-        let viewHistory: [ViewHistoryDataPoint] // ordered from oldest to newest
-        let thumbnailImageSource: WidgetImageSource?
-        let originalImageSource: WidgetImageSource?
-        let language: String
-        let languageDirection: String
-        let contentURL: WidgetContentURL
-        let extract: String
-        let extractHTML: String
+        public let views: Int
+        public let titles: WidgetTitles
+        public let pageTitle: String
+        public let displayTitle: String
+        public let normalizedTitle: String
+        public let description: String?
+        public let timestamp: String
+        public let viewHistory: [ViewHistoryDataPoint] // ordered from oldest to newest
+        public var thumbnailImageSource: WidgetImageSource?
+        public let originalImageSource: WidgetImageSource?
+        public let language: String
+        public let languageDirection: String
+        public let contentURL: WidgetContentURL
+        public let extract: String
+        public let extractHTML: String
 
         // MARK: - Computed Properties
 
@@ -60,6 +63,11 @@ public struct WidgetTopRead: Codable {
 
     // MARK: - Properties
 
-    public let elements: [Article]
+    public var dateString: String?
+    public var elements: [Article]
+
+    public var topFourElements: [Article] {
+        return Array(elements.prefix(4))
+    }
 
 }
