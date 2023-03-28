@@ -9,6 +9,7 @@
 
 "aaald-added-text-description-2" = "$1 ߓߘߊ߫ ߝߙߊ߬";
 "aaald-article-description-updated-description" = "ߞߎߡߘߊ ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ ߓߘߊ߫ ߟߊߞߎߘߦߊ߫";
+"aaald-article-insert-header" = "ߟߊ߬ߞߎ߬ߘߦߊ߬ߟߊ߫ ߞߘߐߡߊ ߟߎ߫";
 "aaald-article-insert-last-updated" = "ߟߏ߲ߘߐߦߊߟߌ ߞߐ߯ߟߕߊ";
 "aaald-article-insert-new-changes" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߞߎߘߊ ߟߎ߬";
 "aaald-article-insert-read-more" = "ߟߏ߲ߘߐߦߊߣߍ߲߫ ߜߘߍ߫ ߟߎ߫ ߘߐߞߊ߬ߙߊ߲߬";
@@ -22,6 +23,7 @@
 "aaald-new-book-reference-title" = "ߞߊ߬ߝߊ";
 "aaald-new-discussion" = "ߘߊߘߐߖߊߥߏ߫ ߞߎߘߊ";
 "aaald-new-journal-reference-database" = "$1 ߟߊ߫";
+"aaald-new-journal-reference-title" = "ߝߐ߰ߓߍ";
 "aaald-new-journal-reference-volume" = "ߢߊ߲ߞߊ߲ $1:";
 "aaald-new-news-reference-retrieved-date" = "ߟߊߛߐ߬ߘߐ߲߬ ߘߊ߫ $1";
 "aaald-new-news-reference-title" = "ߝߐ߰ߓߍ";
@@ -120,9 +122,11 @@
 "article-share" = "ߊ߬ ߟߊߖߍ߲ߛߍ߲߫";
 "back-button-accessibility-label" = "ߌ ߞߐߛߊ߬ߦߌ߬";
 "back-button-popover-title" = "ߊ߬ ߕߐߘߐ߲߫ ߞߵߌ ߞߐߛߊ߬ߦߌ߬";
+"button-go-back" = "ߌ ߞߐߛߊ߬ߦߌ߬";
 "button-next" = "ߢߍߕߊ";
 "button-ok" = "ߏ߬ߞߍ߫";
 "button-publish" = "ߟߊ߬ߥߊ߲߬ߞߊ߬ߟߌ";
+"button-publish-anyway" = "ߊ߬ ߟߊߥߊ߲߬ߞߊ߫ ߝߛߊߦߌ߫";
 "button-read-now" = "ߊ߬ ߘߐߞߊ߬ߙߊ߲߬ ߛߌߣߍ߲߬";
 "button-report-a-bug" = "ߝߍ߭ ߘߏ߫ ߟߊߞߏߝߐ߫";
 "button-save-for-later" = "ߊ߬ ߟߊߞߎ߲߬ߘߎ߫ ߞߐߝߍߟߊ ߦߋ߫";
@@ -130,6 +134,7 @@
 "button-saved-remove" = "ߊ߬ ߛߋ߲߬ߓߐ߫ ߟߊ߬ߞߎ߲߬ߘߎ߬ߣߍ߲ ߠߎ߬ ߘߐ߫";
 "button-skip" = "ߊ߬ ߟߊߜߊ߲߫";
 "cancel" = "ߊ߬ ߘߐߛߊ߬";
+"cc-zero" = "ߘߍ߬ߒ߬ߡߊ߬ ߛߌ߲ߘߟߌ ߘߐ߬ߞߏߟߏ߲";
 "chinese-variants-alert-body" = "ߥߞߌߔߋߘߌߦߊ ߟߥߊ߬ߟߌ߬ߟߊ߲ ߓߘߊ߫ ߛ߭ߌߣߌ߲ߞߊ߲ ߓߐߣߍ߲ߢߐ߲߯ߡߊ ߢߌ߲߬ ߠߎ߬ ߟߊߘߤߊ߬ ߞߊ߲߫ ߝߟߐ ߘߌ߫ ߥߟߊ߫ ߝߌߟߊߣߊ߲ ߘߌ߫ ߟߥߊ߬ߟߌ߬ߟߊ߲ ߠߊ߫߸ ߞߵߊ߬ ߘߐߞߊ߬ߙߊ߲ ߠߊߣߐ߰ߦߊ߫߸ ߞߵߊ߬ ߢߌߣߌ߲ߠߌ߲ ߣߴߊ߬ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߠߎ߬ ߟߊߣߐ߰ߦߊ߫ ߌ ߞߊ߬ߣߌ߲߬ߕߊ ߛߎ߯ߦߊ ߘߐ߫: \n\n简体 ߛ߭ߌߣߌ߲ߞߊ߲߸ ߠߊߣߐ߰ߦߊ߬ߣߍ߲ (zh-hans) \n香港繁體 ߤߐ߲ߞߐ߲߬ ߦߋߢߐ߲߯ߠߕߊ (zh-hk) \n澳門繁體 ߡߞߊߏ߫ ߦߋߢߐ߲߯ߠߕߊ (zh-mo)\n大马简体 ߡߊߟߍߛߌ߫ ߟߊߣߐ߰ߦߊ߬ߣߍ߲ (zh-my)\n新加坡简体 ߛߌ߲ߜ߭ߊߔߏߙߦ ߟߊߣߐ߰ߦߊ߬ߣߍ߲ (zh-sg)\n臺灣正體 ߕߊߌߥߊ߲ߞߊ ߦߋߢߐ߲߯ߠߕߊ (zh-tw)";
 "chinese-variants-alert-title" = "ߊ߬ ߟߊߞߎߘߦߊ߫ ߞߵߊ߬ ߓߌ߬ߟߊ߬ ߛ߭ߌߣߌ߲ߞߊ߲ ߦߌߟߡߊ ߟߊߘߌߢߍ߬ߕߊ ߟߊ߫";
 "clear-title-accessibility-label" = "ߊ߬ ߟߊߛߊ߬";
@@ -150,6 +155,7 @@
 "description-edit-placeholder-title" = "ߞߊ߲߬ߛߓߍ߬ߟߌ߬ ߛߎߘߎ߲ ߠߋ߬ ߦߋ߫ ߓߍ߬ߘߍ ߘߌ߫";
 "description-edit-publish" = "ߞߊ߲߬ߛߓߍߟߌ ߟߊߥߊ߲߬ߞߊ߫";
 "description-edit-title" = "ߞߊ߲߬ߛߓߍߟߌ ߡߊߦߟߍ߬ߡߊ߲߫";
+"description-edit-warning" = "ߌ ߞߊߘߊ߲߫ ߞߊ߬ ߞߊ߲߬ߛߓߍߟߌ ߟߎ߬ ߟߊߛߎ߬ߘߎ߲߬ߧߊ߫ ߛߊ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ߠߊ ߟߎ߬ ߘߌ߫ ߞߎߡߘߊ ߞߣߐߘߐ ߟߎ߬ ߢߊߦߋ߫ ߢߊߥߛߎ߫ ߞߏ߫ ߞߋߟߋ߲߫";
 "description-help-about-title" = "ߞߊ߬ ߓߍ߲߬";
 "description-help-about-wikidata" = "ߞߊ߬ ߓߍ߲߬ ߥߞߌߘߕߊ߫ ߡߊ߬";
 "description-help-more-info-title" = "ߞߌ߬ߓߊ߬ߙߏ߬ߦߊ߬ ߜߘߍ߫ ߟߎ߫";
@@ -406,21 +412,34 @@
 "notifications-center-change-password" = "ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊߝߊ߬ߟߋ߲߬";
 "notifications-center-empty-checking-for-notifications" = "ߊ߬ ߡߊߝߍߣߍ߲߫ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ߫ ߞߏ ߘߐ߫...";
 "notifications-center-empty-not-subscribed" = "ߌ ߕߐ߮ ߛߓߍߣߍ߲߫ ߕߍ߫ ߥߞߌߔߋߘߌߦߊ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ߫ ߛߌ߫ ߟߊ߫ ߕߊ߲߬.";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߓߌ߬ߟߴߊ߬ ߟߊ߫";
-// Fuzzy
-"notifications-center-go-to-diff" = "ߕߊ߯ ߓߐߣߍ߲ߢߐ߲߰ߡߊ ߞߊ߲߬";
-// Fuzzy
-"notifications-center-go-to-talk-page" = "ߥߊ߫ ߞߎߡߊ߫ ߞߐߜߍ ߞߊ߲߬";
-// Fuzzy
-"notifications-center-go-to-user-page" = "ߥߊ߫ $1 ߟߊ߫ ߟߊ߬ߓߊ߰ߙߊ߬ߟߌ߬ ߞߐߜߍ ߞߊ߲߬";
-// Fuzzy
-"notifications-center-go-to-wikidata-item" = "ߕߊ߯ ߥߞߌߘߕߊ ߝߌ߬ߛߌ ߞߊ߲߬";
-// Fuzzy
-"notifications-center-go-to-your-talk-page" = "ߕߊ߯ ߌ ߟߊ߫ ߞߎߡߊ߫ ߞߐߜߍ ߞߊ߲߬";
+"notifications-center-feed-card-title" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߘߌ߫ ߛߋ߫ ߡߊߛߐ߬ߙߐ߲߬ ߠߊ߫ ߕߊ߲߬";
+"notifications-center-feed-news-notification-button-text" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߕߎ߲߬ߕߎ߲߬ߠߌ߲ ߓߌ߬ߟߴߊ߬ ߟߊ߫";
+"notifications-center-feed-news-notification-dismiss-button-text" = "ߌߞߘߐߣߌ߲߬ ߕߴߏ ߘߌ߫";
+"notifications-center-filters-accessibility-label" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߛߍ߲ߛߍ߲ߟߊ߲";
+"notifications-center-filters-read-status-item-title-all" = "ߊ߬ ߓߍ߯";
+"notifications-center-filters-read-status-item-title-read" = "ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲";
+"notifications-center-filters-read-status-item-title-unread" = "ߘߐ߬ߞߊ߬ߙߊ߲߬ߓߊߟߌ";
+"notifications-center-filters-read-status-section-title" = "ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲ ߟߌ߬ߤߟߊ߬ߦߊ ߟߎ߫";
+"notifications-center-filters-title" = "ߛߍ߲ߛߍ߲ߟߊ߲ ߠߎ߬";
+"notifications-center-filters-types-item-title-all" = "\"ߛߎ߯ߦߊ\" ߓߍ߯";
+"notifications-center-filters-types-section-title" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߛߎ߯ߦߊ ߟߎ߬";
+"notifications-center-go-to-article" = "ߞߎߡߘߊ";
+"notifications-center-go-to-article-talk-format" = "ߞߎߡߊ߫ ߞߐߜߍ $1";
+"notifications-center-go-to-diff" = "ߘߊ߲߬ߝߘߊ߬ߓߐ";
+"notifications-center-go-to-talk-page" = "ߞߎߡߊ߫ ߞߐߜߍ";
+"notifications-center-go-to-user-page" = "$1 ߟߊ߫ ߞߎߡߊ߫ ߞߐߜߍ";
+"notifications-center-go-to-wikidata-item" = "ߥߞߌߘߕߊ ߝߌ߬ߛߌ";
+"notifications-center-go-to-your-talk-page" = "ߌ ߟߊ߫ ߞߎߡߊ߫ ߞߐߜߍ";
+"notifications-center-header-alert-from-agent" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߞߊ߬ ߝߘߊ߫ $1 ߟߊ߫";
+"notifications-center-inbox-title" = "ߖߊ߬ߕߋ߬ߘߐ߬ߛߌ߮ ߟߎ߫";
+"notifications-center-inbox-wikimedia-projects-section-footer" = "ߌ ߣߐ߬ ߦߋ߫ ߖߊ߬ߕߋ߬ߘߊ ߛߌ߲ߘߌ߫ ߟߊ߫ ߖߊ߬ߕߋ߬ߘߐ߬ߛߌ߮ ߡߍ߲ ߘߐߙߐ߲߫ ߞߊ߲ߡߊ߬߸ ߏ߬ ߟߋ ߞߎ߲߬ߓߐ߬ ߕߐ߫ ߦߋ߫ ߦߊ߲߬";
+"notifications-center-inbox-wikimedia-projects-section-title" = "ߥߞߌߡߋߘߌߦߊ ߖߊ߬ߕߋ߬ߘߐ߬ߛߌ߮ ߟߎ߫";
+"notifications-center-inbox-wikipedias-section-title" = "ߥߞߌߔߋߘߌߦߊ ߟߎ߫";
 "notifications-center-language-project-name-format" = "$2 $1";
 "notifications-center-login-notifications" = "ߜߊ߲߬ߞߎ߲߬ߠߌ߲ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߟߎ߬";
+"notifications-center-mark" = "ߢߊߣߐ";
 "notifications-center-mark-all-as-read" = "ߊ߬ ߓߍ߯ ߣߐ߬ߣߐ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲ ߘߌ߫";
+"notifications-center-mark-all-as-read-confirmation-format" = "ߊ߬ ߝߐ߫ ߌ ߘߍ߲߬ߞߣߍ߬ߦߊ߬ߣߍ߲߫ ߦߋ߫ ߞߴߌ ߦߴߊ߬ ߝߍ߬ ߞߊ߬ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ {{PLURAL:$1|ߗߋߛߓߍ $1|ߗߋߛߓߍ $1 ߟߎ߫}} ߓߍ߯ ߣߐ߬ߣߐ߬ ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲ ߠߎ߬ ߘߌ߫؟ ߌ ߟߊ߫ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߟߎ߬ ߘߌ߫ ߞߍ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲ ߘߴߌ ߟߊ߫ ߞߍߟߊ߲ ߠߎ߬ ߓߍ߯ ߞߣߐ߫.";
 "notifications-center-mark-as-read" = "ߊ߬ ߞߍ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲ ߘߌ߫";
 "notifications-center-mark-as-unread" = "ߊ߬ ߞߍ߫ ߞߊ߬ߙߊ߲߬ߓߊߟߌ ߘߌ߫";
 "notifications-center-notifications-settings" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߟߊ߬ߓߍ߲߬ߢߐ߲߰ߡߦߊ߬ߘߊ ߟߎ߬";
