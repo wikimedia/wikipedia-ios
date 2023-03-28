@@ -25,80 +25,51 @@ final class TopReadData {
 
     static let shared = TopReadData()
 
-    let maximumRankedArticles = 4
-
     var placeholder: TopReadEntry {
-        return TopReadEntry(date: Date())
+        return TopReadEntry(isPlaceholder: true, date: Date())
     }
 
-    func fetchLatestAvailableTopRead(usingCache: Bool = false, completion userCompletion: @escaping (TopReadEntry) -> Void) {
+    // MARK: - Public
+
+    func fetchTopReadEntryData(usingCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
         let widgetController = WidgetController.shared
-        widgetController.startWidgetUpdateTask(userCompletion) { (dataStore, widgetUpdateTaskCompletion) in
-            widgetController.fetchNewestWidgetContentGroup(with: .topRead, in: dataStore, isNetworkFetchAllowed: !usingCache) { (contentGroup) in
-                guard let contentGroup = contentGroup else {
-                    widgetUpdateTaskCompletion(self.placeholder)
-                    return
+        widgetController.fetchTopReadContent(isSnapshot: usingCache) { result in
+            switch result {
+            case .success(let topReadContent):
+                let topFourElements = topReadContent.topFourElements
+                let layoutDirection: LayoutDirection = (topFourElements.first?.isRTL ?? false) ? .rightToLeft : .leftToRight
+                var rankedElements: [TopReadEntry.RankedElement] = []
+
+                let midnightUTCDate: Date
+                let backupMidnightDate: Date = (Date() as NSDate).wmf_midnightUTCDateFromLocal ?? Date()
+                let utcDateFormatter = DateFormatter.wmf_utcMonthNameDayOfMonthNumber()
+
+                if let dateString = topReadContent.dateString {
+                    midnightUTCDate = utcDateFormatter?.date(from: dateString) ?? backupMidnightDate
+                } else {
+                    midnightUTCDate = backupMidnightDate
                 }
-                self.assembleTopReadFromContentGroup(contentGroup, with: dataStore, usingImageCache: usingCache, completion: widgetUpdateTaskCompletion)
-            }
-        }
-    }
 
-    // MARK: Private
-    
-    private func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, with dataStore: MWKDataStore, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
-        guard let articlePreviews = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
-            completion(placeholder)
-            return
-        }
+                let groupURL = WMFContentGroup.topReadURL(forSiteURL: widgetController.featuredContentSiteURL, midnightUTCDate: midnightUTCDate)
 
-        // The WMFContentGroup can only be accessed synchronously
-        // re-accessing it from the main queue or another queue might lead to unexpected behavior
-        let layoutDirection: LayoutDirection = topRead.isRTL ? .rightToLeft : .leftToRight
-        let groupURL = topRead.url
-        let isCurrent = topRead.isForToday // even though the top read data is from yesterday, the content group is for today
-        var rankedElements: [TopReadEntry.RankedElement] = []
+                for rankedElement in topFourElements {
+                    let title = rankedElement.displayTitle.removingHTML
+                    let description = rankedElement.description?.removingHTML ?? ""
+                    let url = URL(string: rankedElement.contentURL.desktop.page)
+                    let viewCounts: [NSNumber] = rankedElement.viewHistory.compactMap { NSNumber(value: $0.views) }
+                    var image: UIImage?
+                    if let imageData = rankedElement.thumbnailImageSource?.data {
+                        image = UIImage(data: imageData)
+                    }
 
-        for articlePreview in articlePreviews {
-            if let fetchedArticle = dataStore.fetchArticle(with: articlePreview.articleURL), let viewCounts = fetchedArticle.pageViewsSortedByDate {
-                let title = fetchedArticle.displayTitle ?? articlePreview.displayTitle
-                let description = fetchedArticle.wikidataDescription ?? articlePreview.wikidataDescription ?? fetchedArticle.snippet ?? articlePreview.snippet ?? ""
-                let rankedElement = TopReadEntry.RankedElement(title: title, description: description, articleURL: articlePreview.articleURL, thumbnailURL: articlePreview.thumbnailURL, viewCounts: viewCounts)
-                rankedElements.append(rankedElement)
-            }
-        }
-
-        rankedElements = Array(rankedElements.prefix(maximumRankedArticles))
-
-        let group = DispatchGroup()
-
-        for (index, element) in rankedElements.enumerated() {
-            group.enter()
-            guard let thumbnailURL = element.thumbnailURL else {
-                group.leave()
-                continue
-            }
-            
-            let fetcher = dataStore.cacheController.imageCache
-            
-            if usingImageCache {
-                if let cachedImage = fetcher.cachedImage(withURL: thumbnailURL) {
-                    rankedElements[index].image = cachedImage.staticImage
+                    let displayElement = TopReadEntry.RankedElement(title: title, description: description, articleURL: url, image: image, viewCounts: viewCounts)
+                    rankedElements.append(displayElement)
                 }
-                group.leave()
-                continue
+
+                completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: groupURL, contentLayoutDirection: layoutDirection))
+            case .failure:
+                completion(self.placeholder)
             }
-
-            fetcher.fetchImage(withURL: thumbnailURL, failure: { _ in
-                group.leave()
-            }, success: { fetchedImage in
-                rankedElements[index].image = fetchedImage.image.staticImage
-                group.leave()
-            })
-        }
-
-        group.notify(queue: .main) {
-            completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: groupURL, isCurrent: isCurrent, contentLayoutDirection: layoutDirection))
         }
     }
 
@@ -114,14 +85,14 @@ struct TopReadEntry: TimelineEntry {
         let description: String
         var articleURL: URL? = nil
         var image: UIImage? = nil
-        var thumbnailURL: URL? = nil
         let viewCounts: [NSNumber]
     }
+
+    var isPlaceholder: Bool = false
 
     let date: Date // for Timeline Entry
     var rankedElements: [RankedElement] = Array(repeating: RankedElement.init(title: "–", description: "–", image: nil, viewCounts: [.init(floatLiteral: 0)]), count: 4)
     var groupURL: URL? = nil
-    var isCurrent: Bool = false
     var contentLayoutDirection: LayoutDirection = .leftToRight
 }
 
@@ -144,22 +115,24 @@ struct TopReadProvider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<TopReadEntry>) -> Void) {
-        dataStore.fetchLatestAvailableTopRead { entry in
-            let isError = entry.groupURL == nil || !entry.isCurrent
+        dataStore.fetchTopReadEntryData { entry in
             let nextUpdate: Date
             let currentDate = Date()
-            if !isError {
-                nextUpdate = currentDate.randomDateShortlyAfterMidnight() ?? currentDate
-            } else {
+
+            // Schedule an earlier refresh if this is placeholder content or not valid for today
+            if entry.isPlaceholder || !(entry.date as NSDate).wmf_UTCDateIsTodayLocal() {
                 let components = DateComponents(hour: 2)
                 nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
+            } else {
+                nextUpdate = currentDate.randomDateShortlyAfterMidnight() ?? currentDate
             }
+
             completion(Timeline(entries: [entry], policy: .after(nextUpdate)))
         }
     }
 
     func getSnapshot(in context: Context, completion: @escaping (TopReadEntry) -> Void) {
-        dataStore.fetchLatestAvailableTopRead(usingCache: context.isPreview) { (entry) in
+        dataStore.fetchTopReadEntryData(usingCache: context.isPreview) { entry in
             completion(entry)
         }
     }
