@@ -181,21 +181,21 @@ NSString *const kCustomAttributedStringKeyFontH6 = @"kCustomAttributedStringKeyF
         _h5Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:standardSize + 4]];
         _h6Font = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleHeadline] scaledFontForFont:[UIFont systemFontOfSize:standardSize + 2]];
 
-        _boldItalicRegexStr = @"('{5})([^']*(?:'(?!'''')[^']*)*)('{5})";
-        _boldRegexStr = @"('{3})([^']*(?:'(?!'')[^']*)*)('{3})";
+        _boldItalicRegexStr = @"('{5})([^'\\n]*(?:'(?!'''')[^'\\n]*)*)('{5})";
+        _boldRegexStr = @"('{3})([^'\\n]*(?:'(?!'')[^'\\n]*)*)('{3})";
 
         // Explaining the most complicated example here, others (bold, italic, link) follow a similar pattern
         // ('{2})       - matches opening ''. Captures in group so it can be orangified.
         // (            - start of capturing group. The group that will be italisized.
-        // [^']*        - matches any character that isn't a ' zero or more times
+        // [^'\n]*        - matches any character that isn't a ' or line break zero or more times
         // (?:          - beginning of non-capturing group
         // (?<!')'(?!') - matches any ' that are NOT followed or preceded by another ' (so single apostrophes or words like "don't" still get formatted
-        // [^']*        - matches any character that isn't a ' zero or more times
+        // [^'\n]*        - matches any character that isn't a ' or line break zero or more times
         // )*           - end of non-capturing group, which can happen zero or more times (i.e. all single apostrophe logic)
         // )            - end of capturing group. End italisization
         // ('{2})       - matches ending ''. Captures in group so it can be orangified.
 
-        _italicRegexStr = @"('{2})([^']*(?:(?<!')'(?!')[^']*)*)('{2})";
+        _italicRegexStr = @"('{2})([^'\\n]*(?:(?<!')'(?!')[^'\\n]*)*)('{2})";
         _linkRegexStr = @"(\\[{2})[^\\[]*(?:\\[(?!\\[)[^'\\[]*)*(\\]{2})";
         _imageRegexStr = @"(\\[{2}File:)[^\\[]*(?:\\[(?!\\[)[^'\\[]*)*(\\]{2})";
 
