@@ -540,15 +540,21 @@ extension NativeWikitextEditorViewController: EditorInputViewsControllerDelegate
             return
         }
         
+        var removedFormatting = false
         if let formattingToRemove {
             expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: formattingToRemove, endingFormattingString: formattingToRemove)
             if selectedRangeIsSurroundedByFormattingString(formattingString: formattingToRemove) {
                 removeSurroundingFormattingStringFromSelectedRange(formattingString: formattingToRemove)
+                removedFormatting = true
             }
         }
         
         if let formattingToAdd {
-            addStringFormattingCharacters(formattingString: formattingToAdd)
+            if removedFormatting {
+                addStringFormattingCharacters(formattingString: formattingToAdd)
+            } else {
+                addStringFormattingCharacters(startingFormattingString: "\n\(formattingToAdd)", endingFormattingString: "\(formattingToAdd)\n")
+            }
         }
     }
     

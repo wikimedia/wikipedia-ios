@@ -208,11 +208,11 @@ NSString *const kCustomAttributedStringKeyFontH6 = @"kCustomAttributedStringKeyF
 
         _commentRegexStr = @"(<!--)\\s*.*?(-->)";
 
-        _h2RegexStr = @"(={2})([^=]*)(={2})(?!=)"; // todo: why is beginning carat ^ flaky
-        _h3RegexStr = @"(={3})([^=]*)(={3})(?!=)"; // todo: why is beginning carat ^ flaky
-        _h4RegexStr = @"(={4})([^=]*)(={4})(?!=)"; // todo: why is beginning carat ^ flaky
-        _h5RegexStr = @"(={5})([^=]*)(={5})(?!=)"; // todo: why is beginning carat ^ flaky
-        _h6RegexStr = @"(={6})([^=]*)(={6})(?!=)"; // todo: why is beginning carat ^ flaky
+        _h2RegexStr = @"^(={2})([^=]*)(={2})(?!=)$";
+        _h3RegexStr = @"^(={3})([^=]*)(={3})(?!=)$";
+        _h4RegexStr = @"^(={4})([^=]*)(={4})(?!=)$";
+        _h5RegexStr = @"^(={5})([^=]*)(={5})(?!=)$";
+        _h6RegexStr = @"^(={6})([^=]*)(={6})(?!=)$";
 
         _listBulletRegexStr = @"^(\\*+)(.*)";
         _listNumberRegexStr = @"^(#+)(.*)";
@@ -238,11 +238,11 @@ NSString *const kCustomAttributedStringKeyFontH6 = @"kCustomAttributedStringKeyF
         _listBulletRegex = [NSRegularExpression regularExpressionWithPattern:_listBulletRegexStr options:0 error:nil];
         _listNumberRegex = [NSRegularExpression regularExpressionWithPattern:_listNumberRegexStr options:0 error:nil];
 
-        _h2Regex = [NSRegularExpression regularExpressionWithPattern:_h2RegexStr options:0 error:nil];
-        _h3Regex = [NSRegularExpression regularExpressionWithPattern:_h3RegexStr options:0 error:nil];
-        _h4Regex = [NSRegularExpression regularExpressionWithPattern:_h4RegexStr options:0 error:nil];
-        _h5Regex = [NSRegularExpression regularExpressionWithPattern:_h5RegexStr options:0 error:nil];
-        _h6Regex = [NSRegularExpression regularExpressionWithPattern:_h6RegexStr options:0 error:nil];
+        _h2Regex = [NSRegularExpression regularExpressionWithPattern:_h2RegexStr options:NSRegularExpressionAnchorsMatchLines error:nil];
+        _h3Regex = [NSRegularExpression regularExpressionWithPattern:_h3RegexStr options:NSRegularExpressionAnchorsMatchLines error:nil];
+        _h4Regex = [NSRegularExpression regularExpressionWithPattern:_h4RegexStr options:NSRegularExpressionAnchorsMatchLines error:nil];
+        _h5Regex = [NSRegularExpression regularExpressionWithPattern:_h5RegexStr options:NSRegularExpressionAnchorsMatchLines error:nil];
+        _h6Regex = [NSRegularExpression regularExpressionWithPattern:_h6RegexStr options:NSRegularExpressionAnchorsMatchLines error:nil];
 
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         [paragraphStyle setLineSpacing:5];
