@@ -63,7 +63,6 @@ NSString *const kCustomAttributedStringKeyFontH6 = @"kCustomAttributedStringKeyF
 @property (strong, nonatomic) NSString *imageRegexStr;
 @property (strong, nonatomic) NSString *sameLineTemplateRegexStr;
 @property (strong, nonatomic) NSString *singleClosingTemplateRegexStr;
-@property (strong, nonatomic) NSString *singleClosingTemplateRegexAltStr;
 @property (strong, nonatomic) NSString *refRegexStr;
 @property (strong, nonatomic) NSString *refWithAttributesRegexStr;
 @property (strong, nonatomic) NSString *refSelfClosingRegexStr;
@@ -86,7 +85,6 @@ NSString *const kCustomAttributedStringKeyFontH6 = @"kCustomAttributedStringKeyF
 @property (strong, nonatomic) NSRegularExpression *imageRegex;
 @property (strong, nonatomic) NSRegularExpression *sameLineTemplateRegex;
 @property (strong, nonatomic) NSRegularExpression *singleClosingTemplateRegex;
-@property (strong, nonatomic) NSRegularExpression *singleClosingTemplateRegexAlt;
 @property (strong, nonatomic) NSRegularExpression *refRegex;
 @property (strong, nonatomic) NSRegularExpression *refWithAttributesRegex;
 @property (strong, nonatomic) NSRegularExpression *refSelfClosingRegex;
@@ -198,7 +196,6 @@ NSString *const kCustomAttributedStringKeyFontH6 = @"kCustomAttributedStringKeyF
         _imageRegexStr = @"(\\[{2}File:)[^\\[]*(?:\\[(?!\\[)[^'\\[]*)*(\\]{2})";
         _sameLineTemplateRegexStr = @"\\{{2}.*\\}{2}";
         _singleClosingTemplateRegexStr = @"^\\}{2}$";
-        _singleClosingTemplateRegexAltStr = @"\n\\}{2}\n";
 
         _refRegexStr = @"(<ref>)\\s*.*?(<\\/ref>)";
         _refWithAttributesRegexStr = @"(<ref\\s+.+?>)\\s*.*?(<\\/ref>)";
@@ -226,8 +223,7 @@ NSString *const kCustomAttributedStringKeyFontH6 = @"kCustomAttributedStringKeyF
         _linkRegex = [NSRegularExpression regularExpressionWithPattern:_linkRegexStr options:0 error:nil];
         _imageRegex = [NSRegularExpression regularExpressionWithPattern:_imageRegexStr options:0 error:nil];
         _sameLineTemplateRegex = [NSRegularExpression regularExpressionWithPattern:_sameLineTemplateRegexStr options:0 error:nil];
-        _singleClosingTemplateRegex = [NSRegularExpression regularExpressionWithPattern:_singleClosingTemplateRegexStr options:0 error:nil];
-        _singleClosingTemplateRegexAlt = [NSRegularExpression regularExpressionWithPattern:_singleClosingTemplateRegexAltStr options:0 error:nil];
+        _singleClosingTemplateRegex = [NSRegularExpression regularExpressionWithPattern:_singleClosingTemplateRegexStr options:NSRegularExpressionAnchorsMatchLines error:nil];
         _refRegex = [NSRegularExpression regularExpressionWithPattern:_refRegexStr options:0 error:nil];
         _refWithAttributesRegex = [NSRegularExpression regularExpressionWithPattern:_refWithAttributesRegexStr options:0 error:nil];
         _refSelfClosingRegex = [NSRegularExpression regularExpressionWithPattern:_refSelfClosingRegexStr options:0 error:nil];
@@ -588,18 +584,6 @@ NSString *const kCustomAttributedStringKeyFontH6 = @"kCustomAttributedStringKeyF
                                                            [mutAttributedString addAttributes:self.wikitextTemplateAttributes range:matchRange];
                                                        }
                                                    }];
-
-    [self.singleClosingTemplateRegexAlt enumerateMatchesInString:mutAttributedString.string
-                                                         options:0
-                                                           range:searchRange
-                                                      usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-                                                          NSRange matchRange = [result rangeAtIndex:0];
-
-                                                          if (matchRange.location != NSNotFound) {
-                                                              [mutAttributedString addAttributes:self.templateAttributes range:matchRange];
-                                                              [mutAttributedString addAttributes:self.wikitextTemplateAttributes range:matchRange];
-                                                          }
-                                                      }];
 
     // Test: temporarily replace same line template indicators with something else, then run multiline regex string
     //    NSMutableString *tempString = [[NSMutableString alloc] initWithString:mutAttributedString.string];
