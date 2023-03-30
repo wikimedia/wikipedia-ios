@@ -24,91 +24,34 @@ struct PictureOfTheDayWidget: Widget {
 final class PictureOfTheDayData {
 
     // MARK: Properties
+
     static var sampleEntry: PictureOfTheDayEntry {
         return PictureOfTheDayEntry(date: Date(), kind: .sample, image: UIImage(named: "PictureOfTheYear_2019"), imageDescription:  PictureOfTheDayWidget.LocalizedStrings.sampleEntryDescription)
     }
     
     static var placeholderEntry: PictureOfTheDayEntry {
-        return PictureOfTheDayEntry(date: Date(), kind: .placeholder, contentDate: nil, contentURL: nil, imageURL: nil, image: nil, imageDescription: nil)
+        return PictureOfTheDayEntry(date: Date(), kind: .placeholder, contentURL: nil, image: nil, imageDescription: nil)
     }
 
     // MARK: Public
 
-    static func fetchLatestAvailablePictureEntry(for imageSize: CGSize, usingCache: Bool = false, completion userCompletion: @escaping (PictureOfTheDayEntry) -> Void) {
+    static func fetchPictureOfTheDayEntryData(usingCache: Bool = false, completion: @escaping (PictureOfTheDayEntry) -> Void) {
         let widgetController = WidgetController.shared
-        widgetController.startWidgetUpdateTask(userCompletion) { (dataStore, widgetUpdateTaskCompletion) in
-            widgetController.fetchNewestWidgetContentGroup(with: .pictureOfTheDay, in: dataStore, isNetworkFetchAllowed: !usingCache, isAnyLanguageAllowed: true) { (contentGroup) in
-                guard let contentGroup = contentGroup else {
-                    widgetUpdateTaskCompletion(self.placeholderEntry)
-                    return
-                }
-                self.assemblePictureEntryFromContentGroup(contentGroup, dataStore: dataStore, imageSize: imageSize, usingImageCache: usingCache, completion: widgetUpdateTaskCompletion)
-            }
-        }
-    }
+        widgetController.fetchPictureOfTheDayContent(isSnapshot: usingCache) { result in
+            let midnightUTCDate: Date = (Date() as NSDate).wmf_midnightUTCDateFromLocal ?? Date()
+            let groupURL = WMFContentGroup.pictureOfTheDayContentGroupURL(forSiteURL: widgetController.featuredContentSiteURL, midnightUTCDate: midnightUTCDate)
 
-    // MARK: Private
+            if let pictureOfTheDay = try? result.get(), let imageData = pictureOfTheDay.originalImageSource?.data {
+                let image = UIImage(data: imageData)
+                let description = pictureOfTheDay.description.text
+                let license = pictureOfTheDay.license.code
 
-
-    private static func assemblePictureEntryFromContentGroup(_ contentGroup: WMFContentGroup, dataStore: MWKDataStore, imageSize: CGSize, usingImageCache: Bool = false, completion: @escaping (PictureOfTheDayEntry) -> Void) {
-        guard let imageContent = contentGroup.contentPreview as? WMFFeedImage else {
-            completion(sampleEntry)
-            return
-        }
-
-        let contentDate = contentGroup.date
-        let contentURL = contentGroup.url
-        let isCurrent = contentGroup.isForToday
-        let canonicalPageTitle = imageContent.canonicalPageTitle
-        let imageThumbnailURL: URL = imageContent.getImageURL(forWidth: Double(imageSize.width), height: Double(imageSize.height)) ?? imageContent.imageThumbURL
-        let imageDescription = imageContent.imageDescription
-
-        guard !usingImageCache else {
-            if let cachedImage = dataStore.cacheController.imageCache.cachedImage(withURL: imageThumbnailURL) {
-                let entry = PictureOfTheDayEntry(date: Date(), isCurrent: isCurrent, kind: .entry, contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: cachedImage.staticImage, imageDescription: imageDescription)
+                let entry = PictureOfTheDayEntry(date: Date(), kind: .entry, contentURL: groupURL, image: image, imageDescription: description, licenseCode: license)
                 completion(entry)
             } else {
-                completion(sampleEntry)
+                completion(PictureOfTheDayData.sampleEntry)
             }
-            return
         }
-
-        dataStore.cacheController.imageCache.fetchImage(withURL: imageThumbnailURL, failure: { _ in
-            completion(sampleEntry)
-        }, success: { fetchedImage in
-            self.fetchImageLicense(from: dataStore, canonicalPageTitle: canonicalPageTitle) { license in
-                let entry = PictureOfTheDayEntry(date: Date(), isCurrent: isCurrent, kind: .entry, contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: fetchedImage.image.staticImage, imageDescription: imageDescription, licenseCode: license?.code)
-                completion(entry)
-            }
-        })
-    }
-    
-    static var imageInfoFetcher: MWKImageInfoFetcher?
-    private static func fetchImageLicense(from dataStore: MWKDataStore, canonicalPageTitle: String, _ completion: @escaping (MWKLicense?) -> Void) {
-
-        guard let siteURL = NSURL.wmf_wikimediaCommons() else {
-            completion(nil)
-            return
-        }
-        let fetcher = MWKImageInfoFetcher(dataStore: dataStore)
-        imageInfoFetcher = fetcher // needs to be retained to complete the fetch
-        fetcher.fetchGalleryInfo(forImage: canonicalPageTitle, fromSiteURL: siteURL, failure: { _ in
-            self.imageInfoFetcher = nil
-            DispatchQueue.main.async {
-                completion(nil)
-            }
-        }, success: { imageInfo in
-            self.imageInfoFetcher = nil
-            guard let imageInfo = imageInfo as? MWKImageInfo, let license = imageInfo.license else {
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-                return
-            }
-            DispatchQueue.main.async {
-                completion(license)
-            }
-        })
     }
 
 }
@@ -133,11 +76,8 @@ struct PictureOfTheDayEntry: TimelineEntry {
     // MARK: Properties
     
 	let date: Date // for Timeline Entry
-    var isCurrent: Bool = false
     let kind: Kind
-	var contentDate: Date? = nil
 	var contentURL: URL? = nil
-	var imageURL: URL? = nil
 	var image: UIImage?
 	var imageDescription: String? = nil
 	var licenseCode: String? = nil // the system encodes this entry, avoiding bringing in the whole MWKLicense object and the Mantle dependency
@@ -176,10 +116,6 @@ struct PictureOfTheDayProvider: TimelineProvider {
 
     public typealias Entry = PictureOfTheDayEntry
 
-    // MARK: Properties
-
-    private let targetImageSize = CGSize(width: 1000, height: 1000)
-
     // MARK: TimelineProvider
 
     func placeholder(in: Context) -> PictureOfTheDayEntry {
@@ -187,23 +123,25 @@ struct PictureOfTheDayProvider: TimelineProvider {
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<PictureOfTheDayEntry>) -> Void) {
-        PictureOfTheDayData.fetchLatestAvailablePictureEntry(for: context.imageSize) { entry in
+        PictureOfTheDayData.fetchPictureOfTheDayEntryData { entry in
             let currentDate = Date()
             let nextUpdate: Date
-            if entry.kind == .entry && entry.isCurrent {
+
+            if entry.kind == .entry {
                 nextUpdate = currentDate.randomDateShortlyAfterMidnight() ?? currentDate
             } else {
                 let components = DateComponents(hour: 2)
                 nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
             }
-            let timeline = Timeline(entries: [entry.scalingImageTo(targetSize: targetImageSize)], policy: .after(nextUpdate))
+
+            let timeline = Timeline(entries: [entry.scalingImageTo(targetSize: WidgetController.shared.potdTargetImageSize)], policy: .after(nextUpdate))
             completion(timeline)
         }
     }
 
     func getSnapshot(in context: Context, completion: @escaping (PictureOfTheDayEntry) -> Void) {
-        PictureOfTheDayData.fetchLatestAvailablePictureEntry(for: context.imageSize, usingCache: context.isPreview) { entry in
-            completion(entry.scalingImageTo(targetSize: targetImageSize))
+        PictureOfTheDayData.fetchPictureOfTheDayEntryData(usingCache: context.isPreview) { entry in
+            completion(entry.scalingImageTo(targetSize: WidgetController.shared.potdTargetImageSize))
         }
     }
 

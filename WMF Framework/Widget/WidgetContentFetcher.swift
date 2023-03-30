@@ -13,6 +13,7 @@ public final class WidgetContentFetcher {
 	public typealias FeaturedContentResult = Result<WidgetFeaturedContent, FetcherError>
     public typealias FeaturedArticleResult = Result<WidgetFeaturedArticle, FetcherError>
     public typealias TopReadResult = Result<WidgetTopRead, FetcherError>
+    public typealias PictureOfTheDayResult = Result<WidgetPictureOfTheDay, FetcherError>
 
 	// MARK: - Properties
 
