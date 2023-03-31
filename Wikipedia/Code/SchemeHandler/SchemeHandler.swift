@@ -181,6 +181,13 @@ private extension SchemeHandler {
                         SessionsFunnel.shared.clearPageLoadStartTime()
                     }
                 } else {
+                    
+                    // May fix potential crashes if we have already called urlSchemeTask.didFinish() or webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) has already been called.
+                    // https://developer.apple.com/documentation/webkit/wkurlschemetask/2890839-didreceive
+                    guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
+                        return
+                    }
+                    
                     urlSchemeTask.didReceive(response)
                 }
             }

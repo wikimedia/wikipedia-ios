@@ -179,9 +179,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de los temas de lectura";
 "back-button-accessibility-label" = "Volver";
 "back-button-popover-title" = "Toque aquí para regresar";
+"button-go-back" = "Volver";
 "button-next" = "Siguiente";
 "button-ok" = "Aceptar";
 "button-publish" = "Publicar";
+"button-publish-anyway" = "Publicar de todos modos";
 "button-read-now" = "Leer ahora";
 "button-report-a-bug" = "Informar de un error";
 "button-save-for-later" = "Guardar para después";

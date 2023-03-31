@@ -63,6 +63,11 @@ extension WMFArticle {
             imageWidth = NSNumber(value: 0)
             imageHeight = NSNumber(value: 0)
         }
+        
+        if let thumbnail = summary.thumbnail {
+            thumbnailURLString = thumbnail.source
+            thumbnailURL = thumbnail.url
+        }
        
         wikidataDescription = summary.articleDescription
         wikidataID = summary.wikidataID
