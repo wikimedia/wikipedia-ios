@@ -32,7 +32,7 @@ class SectionEditorViewController: ViewController {
     private var menuItemsController: SectionEditorMenuItemsController!
     private var navigationItemController: SectionEditorNavigationItemController!
 
-    private var canUserEdit: Bool = false
+    private var userGroupLevelCanEdit: Bool = false
 
     lazy var readingThemesControlsViewController: ReadingThemesControlsViewController = {
         return ReadingThemesControlsViewController.init(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
@@ -108,7 +108,12 @@ class SectionEditorViewController: ViewController {
                     self.presentProtectedPageWarning(error: error)
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { // helps prevent flash as wikitext is loaded
 
-                        self.configureWebView(readOnly: true)
+                        if self.userGroupLevelCanEdit {
+                            self.configureWebView(readOnly: false)
+                            // show edit notice here
+                        } else {
+                            self.configureWebView(readOnly: true)
+                        }
                     }
                 } else {
                     self.presentErrorMessage(blockedError: error)
@@ -118,9 +123,6 @@ class SectionEditorViewController: ViewController {
                         self.configureWebView(readOnly: true)
                     }
                 }
-            } else if !self.canUserEdit {
-                self.configureWebView(readOnly: true)
-
             } else {
                 self.configureWebView(readOnly: false)
             }
@@ -442,26 +444,26 @@ class SectionEditorViewController: ViewController {
                     self.didFocusWebViewCompletion = {
                         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
                     }
-                    
+
                     self.initialFetchGroup.leave()
                     completion(nil)
                 case .success(let response):
                     self.wikitext = response.wikitext
-                    self.canUserEdit = self.handle(protection: response.protection, userInfo: response.userInfo?.groups ?? [])
+                    self.userGroupLevelCanEdit = self.checkUserGroupLevelCanEdit(protection: response.protection, userInfo: response.userInfo?.groups ?? [])
 
-                        if let error = response.apiError {
-                            if error.code.contains("protectedpage") {
-                                self.lastBlockedDisplayError = nil
-                                completion(error)
-                            } else {
-                                self.lastBlockedDisplayError = error
-                                completion(error)
-                            }
-                        } else {
+                    if let error = response.apiError {
+                        if error.code.contains("protectedpage") {
                             self.lastBlockedDisplayError = nil
-                            completion(nil)
+                            completion(error)
+                        } else {
+                            self.lastBlockedDisplayError = error
+                            completion(error)
                         }
-                    
+                    } else {
+                        self.lastBlockedDisplayError = nil
+                        completion(nil)
+                    }
+
                     self.initialFetchGroup.leave()
                 }
             }
@@ -486,18 +488,26 @@ class SectionEditorViewController: ViewController {
 
     }
     
-    private func handle(protection: [SectionFetcher.Protection], userInfo: [String]) -> Bool {
-        let allowedGroups = protection.map { $0.level }
-        guard !allowedGroups.isEmpty else {
-            return false
-        }
+    private func checkUserGroupLevelCanEdit(protection: [SectionFetcher.Protection], userInfo: [String]) -> Bool {
+        let findEditProtection = protection.map { $0.type == "edit"}
+        let articleHasEditProtection = findEditProtection.first ?? false
 
-        let userGroups = userInfo.filter { allowedGroups.contains($0) }
+        if articleHasEditProtection {
+            let allowedGroups = protection.map { $0.level }
 
-        if !userGroups.isEmpty {
-            return true
+            guard !allowedGroups.isEmpty else {
+                return true
+            }
+
+            let userGroups = userInfo.filter { allowedGroups.contains($0) }
+
+            if !userGroups.isEmpty {
+                return true
+            } else {
+                return false
+            }
         } else {
-            return false
+            return true
         }
     }
     

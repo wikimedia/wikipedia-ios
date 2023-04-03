@@ -121,13 +121,7 @@ class SectionFetcher: Fetcher {
                 }
                 
                 self.resolveMediaWikiError(from: editErrors, siteURL: articleURL) { blockedError in
-                    if let error = blockedError?.code, error.contains("protectedpage") {
-                        completion(.success(Response(wikitext: wikitext, revisionID: revisionID, protection: protection, apiError: blockedError, userInfo: userInfo)))
-
-                    } else {
-                        completion(.success(Response(wikitext: wikitext, revisionID: revisionID, protection: protection, apiError: blockedError, userInfo: userInfo)))
-                    }
-
+                    completion(.success(Response(wikitext: wikitext, revisionID: revisionID, protection: protection, apiError: blockedError, userInfo: userInfo)))
                 }
             }
         }
