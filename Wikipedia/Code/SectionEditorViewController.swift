@@ -107,19 +107,11 @@ class SectionEditorViewController: ViewController {
                 if error.code.contains("protectedpage") {
                     self.presentProtectedPageWarning(error: error)
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { // helps prevent flash as wikitext is loaded
-
-                        if self.userGroupLevelCanEdit {
-                            self.configureWebView(readOnly: false)
-                            // show edit notice here
-                        } else {
-                            self.configureWebView(readOnly: true)
-                        }
+                        self.configureWebView(readOnly: !self.userGroupLevelCanEdit)
                     }
                 } else {
                     self.presentErrorMessage(blockedError: error)
-
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { // helps prevent flash as wikitext is loaded
-
                         self.configureWebView(readOnly: true)
                     }
                 }
