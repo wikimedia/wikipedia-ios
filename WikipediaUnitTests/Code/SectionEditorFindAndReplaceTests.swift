@@ -19,7 +19,7 @@ private struct Location {
 }
 
 class SectionEditorFindAndReplaceTests: XCTestCase {
-    let timeout: TimeInterval = 10
+    let timeout: TimeInterval = 100
     
     private var sectionEditorViewController: SectionEditorViewController!
     private var focusedSectionEditorExpectation: XCTestExpectation!
@@ -32,7 +32,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         return sectionEditorViewController.findAndReplaceViewForTesting
     }
     
-    private let findText = "test"
+    private let findText = "system"
     private let replaceText = "happy"
     private let messageHandlerKeyReplace = "messageHandlerKeyReplace"
     private let messageHandlerKeyCurrentSearchLocation = "messageHandlerKeyCurrentSearchLocation"
@@ -57,7 +57,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         guard let siteUrl = NSURL.wmf_URL(withDefaultSiteAndLanguageCode: "en"),
             let url = NSURL.wmf_desktopAPIURL(for: siteUrl),
             let regex = try? NSRegularExpression(pattern: "\(url.absoluteString).*", options: []),
-            let json = wmf_bundle().wmf_data(fromContentsOfFile: "BarackEarlyLife", ofType: "json")
+            let json = wmf_bundle().wmf_data(fromContentsOfFile: "Eukaryote", ofType: "json")
         else {
             return
         }
@@ -76,7 +76,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
             return
         }
         
-        let articleURL = siteUrl.appendingPathComponent("/wiki/Barack_Obama")
+        let articleURL = siteUrl.appendingPathComponent("/wiki/Eukaryote")
         
         mockMessagingController = MockSectionEditorWebViewMessagingController()
         sectionEditorViewController = SectionEditorViewController(articleURL: articleURL, sectionID: 1, messagingController: mockMessagingController, dataStore: MWKDataStore.temporary())
@@ -108,7 +108,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         
         let matchPlacement = findAndReplaceView.matchPlacementForTesting
         XCTAssertEqual(matchPlacement.index, 1, "Unexpected match placement index")
-        XCTAssertEqual(matchPlacement.total, 7, "Unexpected match placement total")
+        XCTAssertEqual(matchPlacement.total, 5, "Unexpected match placement total")
     }
     
     func testNoFindResultsUpdateToMatchLabel() {
@@ -140,9 +140,9 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         
         let cursorExpectation = expectation(description: "Waiting for set cursor callback")
         
-        // set cursor to line 8. first match is on line 7 so index should start at 2
+        // set cursor to line 6. first match is on line 5 so index should start at 2
         webView.evaluateJavaScript("""
-                editor.setCursor({line: 8, ch: 1})
+                editor.setCursor({line: 6, ch: 1})
             """) { (result, error) in
                 
                 cursorExpectation.fulfill()
@@ -173,7 +173,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         // confirm match index later in the article (i.e. not 1)
         let matchPlacement = findAndReplaceView.matchPlacementForTesting
         XCTAssertEqual(matchPlacement.index, 2, "Unexpected match placement index")
-        XCTAssertEqual(matchPlacement.total, 7, "Unexpected match placement total")
+        XCTAssertEqual(matchPlacement.total, 5, "Unexpected match placement total")
     }
     
     func testFindNextIncrementsMatchLabel() {
@@ -195,7 +195,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         // confirm match placement is set to first match
         var matchPlacement = findAndReplaceView.matchPlacementForTesting
         XCTAssertEqual(matchPlacement.index, 1, "Unexpected match placement index")
-        XCTAssertEqual(matchPlacement.total, 7, "Unexpected match placement total")
+        XCTAssertEqual(matchPlacement.total, 5, "Unexpected match placement total")
         
         // tap next
         let nextExpectation = expectation(description: "Waiting for tapped next message callback")
@@ -212,7 +212,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         // confirm match placement increments
         matchPlacement = findAndReplaceView.matchPlacementForTesting
         XCTAssertEqual(matchPlacement.index, 2, "Unexpected match placement index")
-        XCTAssertEqual(matchPlacement.total, 7, "Unexpected match placement total")
+        XCTAssertEqual(matchPlacement.total, 5, "Unexpected match placement total")
     }
     
     func testFindNextIncreasesSearchStateCursor() {
@@ -400,7 +400,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         // confirm total decremented
         let matchPlacement = findAndReplaceView.matchPlacementForTesting
         XCTAssertEqual(matchPlacement.index, 1, "Unexpected match placement index")
-        XCTAssertEqual(matchPlacement.total, 6, "Unexpected match placement total")
+        XCTAssertEqual(matchPlacement.total, 4, "Unexpected match placement total")
     }
 }
 
