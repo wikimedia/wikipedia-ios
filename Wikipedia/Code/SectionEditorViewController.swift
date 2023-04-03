@@ -104,7 +104,7 @@ class SectionEditorViewController: ViewController {
             }
             
             if let error = resultError {
-                if error.code.contains("block"){
+                if error.code.contains("block") {
                     self.presentErrorMessage(blockedError: error)
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { // helps prevent flash as wikitext is loaded
                         self.configureWebView(readOnly: true)
