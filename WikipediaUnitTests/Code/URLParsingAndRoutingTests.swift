@@ -22,10 +22,42 @@ class URLParsingAndRoutingTests: XCTestCase {
     
     func testMainPage() {
         let enMainPageURL = URL(string: "https://en.m.wikipedia.org/wiki/Main_Page")!
-        let dest = router.destination(for: enMainPageURL)
+        let dest = router.destination(for: enMainPageURL, loggedInUsername: nil)
         switch dest {
         case .inAppLink(let linkURL):
             XCTAssertEqual(linkURL, enMainPageURL.canonical)
+        default:
+            XCTAssertTrue(false)
+        }
+    }
+    
+    func testSpecialDestinations() {
+        let myTalkURL = URL(string: "https://en.wikipedia.org/wiki/Special:MyTalk")!
+        let myTalkDest = router.destination(for: myTalkURL, loggedInUsername: "Jimbo Wales")
+        
+        switch myTalkDest {
+        case .userTalk:
+            XCTAssertTrue(true)
+        default:
+            XCTAssertTrue(false)
+        }
+        
+        let myContributionsURL = URL(string: "https://en.wikipedia.org/wiki/Special:MyContributions")!
+        let myContributionsDest = router.destination(for: myContributionsURL, loggedInUsername: "Jimbo Wales")
+        
+        switch myContributionsDest {
+        case .inAppLink:
+            XCTAssertTrue(true)
+        default:
+            XCTAssertTrue(false)
+        }
+        
+        let importReadingListsURL = URL(string: "https://en.wikipedia.org/wiki/Special:ReadingLists?limport=eyJsaXN0Ijp7ImVuIjpbMjE4NjksMzI3NDUsNDQ0NjksNDQ0NzQsODI3ODBdfX0=")!
+        let importReadingListsDest = router.destination(for: importReadingListsURL, loggedInUsername: nil)
+        
+        switch importReadingListsDest {
+        case .readingListsImport:
+            XCTAssertTrue(true)
         default:
             XCTAssertTrue(false)
         }
@@ -37,7 +69,7 @@ class URLParsingAndRoutingTests: XCTestCase {
             return
         }
         
-        var dest = router.destination(for: components.url!)
+        var dest = router.destination(for: components.url!, loggedInUsername: nil)
         switch dest {
         case .userTalk(let linkURL):
             XCTAssertEqual(linkURL, components.url!.canonical)
@@ -46,7 +78,7 @@ class URLParsingAndRoutingTests: XCTestCase {
         }
 
         components.path = "/wiki//æ/_raising"
-        dest = router.destination(for: components.url!)
+        dest = router.destination(for: components.url!, loggedInUsername: nil)
         switch dest {
         case .article(let linkURL):
             XCTAssertEqual(linkURL, components.url!.canonical)
@@ -56,7 +88,7 @@ class URLParsingAndRoutingTests: XCTestCase {
         
         components.host = "fr.m.wikipedia.org"
         components.path = "/wiki/France"
-        dest = router.destination(for: components.url!)
+        dest = router.destination(for: components.url!, loggedInUsername: nil)
         switch dest {
         case .article(let linkURL):
             XCTAssertEqual(linkURL, components.url!.canonical)
@@ -66,7 +98,7 @@ class URLParsingAndRoutingTests: XCTestCase {
         
         // Special should work on frwiki because it's a canonical namespace
         components.path = "/wiki/Special:MobileDiff/24601"
-        dest = router.destination(for: components.url!)
+        dest = router.destination(for: components.url!, loggedInUsername: nil)
         switch dest {
         case .articleDiffSingle(let linkURL, _, let toRevID):
             XCTAssertEqual(linkURL, components.url!.canonical)
@@ -77,7 +109,7 @@ class URLParsingAndRoutingTests: XCTestCase {
         
         components.host = "zh.m.wikipedia.org"
         components.path = "/wiki/特殊:MobileDiff/24601"
-        dest = router.destination(for: components.url!)
+        dest = router.destination(for: components.url!, loggedInUsername: nil)
         switch dest {
         case .articleDiffSingle(let linkURL, _, let toRevID):
             XCTAssertEqual(linkURL, components.url!.canonical)
