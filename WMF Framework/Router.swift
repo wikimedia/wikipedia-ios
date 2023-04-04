@@ -13,6 +13,7 @@ public class Router: NSObject {
         case audio(_: URL)
         case onThisDay(_: Int?)
         case readingListsImport(encodedPayload: String)
+        case login
     }
     
     unowned let configuration: Configuration
@@ -85,6 +86,11 @@ public class Router: NSObject {
                let username = loggedInUsername,
                let newURL = url.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) {
                 return .inAppLink(newURL)
+            }
+            
+            if language.uppercased() == "EN" || language.uppercased() == "TEST",
+               title == "UserLogin" {
+                return .login
             }
             
             if title == "ReadingLists",
@@ -183,6 +189,13 @@ public class Router: NSObject {
         
         guard let title = maybeTitle else {
             return nil
+        }
+        
+        let language = project.languageCode ?? "en"
+        
+        if language.uppercased() == "EN" || language.uppercased() == "TEST",
+           title == "Special:UserLogin" {
+            return .login
         }
         
         if maybeLimit != nil,

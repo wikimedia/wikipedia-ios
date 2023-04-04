@@ -52,6 +52,26 @@ class URLParsingAndRoutingTests: XCTestCase {
             XCTAssertTrue(false)
         }
         
+        let userLoginURL1 = URL(string: "https://en.wikipedia.org/wiki/Special:UserLogin")!
+        let userLoginDest1 = router.destination(for: userLoginURL1, loggedInUsername: nil)
+        
+        switch userLoginDest1 {
+        case .login:
+            XCTAssertTrue(true)
+        default:
+            XCTAssertTrue(false)
+        }
+        
+        let userLoginURL2 = URL(string: "https://en.wikipedia.org/w/index.php?title=Special:UserLogin")!
+        let userLoginDest2 = router.destination(for: userLoginURL2, loggedInUsername: nil)
+        
+        switch userLoginDest2 {
+        case .login:
+            XCTAssertTrue(true)
+        default:
+            XCTAssertTrue(false)
+        }
+        
         let importReadingListsURL = URL(string: "https://en.wikipedia.org/wiki/Special:ReadingLists?limport=eyJsaXN0Ijp7ImVuIjpbMjE4NjksMzI3NDUsNDQ0NjksNDQ0NzQsODI3ODBdfX0=")!
         let importReadingListsDest = router.destination(for: importReadingListsURL, loggedInUsername: nil)
         
