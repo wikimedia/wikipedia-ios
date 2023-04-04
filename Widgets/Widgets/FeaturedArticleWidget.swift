@@ -238,7 +238,7 @@ struct FeaturedArticleView: View {
 			} else {
 				ZStack {
 					Rectangle()
-						.foregroundColor(Color(UIColor("318CDB")))
+                        .foregroundColor(Color(UIColor.widgetBlue))
 					Text(entry.extract)
 						.font(.headline)
 						.fontWeight(.semibold)

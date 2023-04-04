@@ -25,7 +25,7 @@ extension EraseSavedArticlesView: Themeable {
         titleLabel.backgroundColor = theme.colors.paperBackground
         footerLabel.textColor = theme.colors.secondaryText
         imageView.tintColor = theme.colors.icon == nil ? .white : theme.colors.icon
-        imageView.backgroundColor = theme.colors.iconBackground == nil ? UIColor.wmf_colorWithHex(0xc52c2d) : theme.colors.iconBackground
+        imageView.backgroundColor = theme.colors.iconBackground == nil ? UIColor.eraseArticleIconRed : theme.colors.iconBackground
         separatorView.backgroundColor = theme.colors.border
         footerLabel.backgroundColor = theme.colors.paperBackground
         button.titleLabel?.backgroundColor = theme.colors.paperBackground

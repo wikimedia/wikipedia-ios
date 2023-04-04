@@ -10,6 +10,7 @@
 // Author: ElmA
 // Author: Jack Phoenix
 // Author: Joquliina
+// Author: Kimberli Mäkäräinen (WMNO)
 // Author: Laurianttila
 // Author: MITO
 // Author: McSalama
@@ -164,9 +165,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lukuteemojen ohjaimet";
 "back-button-accessibility-label" = "Takaisin";
 "back-button-popover-title" = "Napauta palataksesi";
+"button-go-back" = "Takaisin";
 "button-next" = "Seuraava";
 "button-ok" = "OK";
 "button-publish" = "Julkaise";
+"button-publish-anyway" = "Julkaise silti";
 "button-read-now" = "Lue nyt";
 "button-report-a-bug" = "Ilmoita ongelmasta";
 "button-save-for-later" = "Tallenna myöhemmäksi";
@@ -177,7 +180,7 @@
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia kiinan kielen variantteja pääasiallisena tai toissijaisena sovelluksen kielenä, mikä tekee helpommaksi lukea, hakea ja muokata haluamallasi variantilla:\n\n简体 yksinkertaistettu kiina (zh-hans)\n香港繁體 Hong Kongin perinteinen kiina (zh-hk)\n澳門繁體 Macaon perinteinen kiina (zh-mo)\n大马简体 Malesian yksinkertaistettu kiina (zh-my)\n新加坡简体 Singaporen yksinkertaistettu kiina (zh-sg)\n臺灣正體 Taiwanin perinteinen kiina (zh-tw)";
 "chinese-variants-alert-title" = "Päivityksiä kiinan kielen kieliversiotukeen";
-"clear-title-accessibility-label" = "Kumita/putsaa/tyhjennä/puhdista";
+"clear-title-accessibility-label" = "Tyhjennä";
 "close-button-accessibility-label" = "Sulje";
 "compass-direction" = "klo $1";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
@@ -424,6 +427,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Wikipedian kieliversiosta $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Wikipediasta";
 "explore-randomizer" = "Satunnaistaminen";
+"export-user-data-title" = "Vie käyttäjätiedot";
 "featured-widget-content-failure-for-date" = "Suositeltu artikkeli ei ole saatavilla tälle päivälle.";
 "featured-widget-description" = "Löydä parhaat Wikipedian artikkelit, joita yhteisömme valitsee päivittäin.";
 "featured-widget-from-language-wikipedia" = "Wikipedian kieliversiosta $1";
@@ -575,6 +579,7 @@
 "no-internet-connection" = "Ei Internet-yhteyttä";
 "no-internet-connection-article-reload" = "Uudempi versio tästä artikkelista saattaa olla saatavilla, mutta sitä ei voida ladata ilman yhteyttä Internetiin";
 "no-internet-connection-article-reload-button" = "Palaa viimeksi tallennettuun versioon";
+"notifications-center-cell-notification-type-accessibility-label-format" = "$1-ilmoitus";
 "notifications-center-change-password" = "Vaihda salasana";
 "notifications-center-checking-for-notifications" = "Tarkistetaan ilmoituksia...";
 "notifications-center-destination-app" = "Sovelluksessa";
@@ -660,6 +665,7 @@
 "notifications-center-toolbar-mark-accessibility-label" = "Merkitse valitut ilmoitukset";
 "notifications-center-type-item-description-mentions" = "Maininnat";
 "notifications-center-type-item-description-welcome-verbose" = "Tervetuloviesti";
+"notifications-center-type-title-connection-with-wikidata" = "Yhteys Wikidataan";
 "notifications-center-type-title-login-attempts" = "Kirjautumisyritykset";
 "notifications-center-type-title-login-success" = "Kirjautuminen onnistui";
 "notifications-center-type-title-other" = "Muu";
@@ -954,6 +960,8 @@
 "talk-page-discussion-accessibility-hint" = "Kaksoisnapauta avataksesi keskusteluketjun";
 "talk-page-discussion-read-accessibility-label" = "Lue";
 "talk-page-discussion-unread-accessibility-label" = "Lukematon";
+"talk-page-error-alert-title" = "Odottamaton virhe";
+"talk-page-error-loading-subtitle" = "Jotain meni vikaan.";
 "talk-page-error-loading-title" = "Keskustelusivun lataaminen epäonnistui";
 "talk-page-error-unable-to-post-reply" = "Ei Internet-yhteyttä. Vastausta ei voi lähettää.";
 "talk-page-error-unable-to-post-topic" = "Ei Internet-yhteyttä. Keskustelua ei voi lähettää.";

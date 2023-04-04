@@ -162,9 +162,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontroller för lästeman";
 "back-button-accessibility-label" = "Tillbaka";
 "back-button-popover-title" = "Tryck för att gå tillbaka";
+"button-go-back" = "Gå tillbaka";
 "button-next" = "Nästa";
 "button-ok" = "OK";
 "button-publish" = "Publicera";
+"button-publish-anyway" = "Publicera ändå";
 "button-read-now" = "Läs nu";
 "button-report-a-bug" = "Rapportera ett fel";
 "button-save-for-later" = "Spara till senare";
