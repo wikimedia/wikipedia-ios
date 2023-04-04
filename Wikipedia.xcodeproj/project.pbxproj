@@ -622,6 +622,10 @@
 		6754E44922773587005EEAD1 /* OldTalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* OldTalkPageReplyCell.swift */; };
 		6754E44A22773587005EEAD1 /* OldTalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* OldTalkPageReplyCell.swift */; };
 		6754E44B22773588005EEAD1 /* OldTalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* OldTalkPageReplyCell.swift */; };
+		6756B66C29DC80C8008E1958 /* AttributedStringImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6756B66B29DC80C8008E1958 /* AttributedStringImageViewController.swift */; };
+		6756B66D29DC80C8008E1958 /* AttributedStringImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6756B66B29DC80C8008E1958 /* AttributedStringImageViewController.swift */; };
+		6756B66E29DC80C8008E1958 /* AttributedStringImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6756B66B29DC80C8008E1958 /* AttributedStringImageViewController.swift */; };
+		6756B66F29DC80C8008E1958 /* AttributedStringImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6756B66B29DC80C8008E1958 /* AttributedStringImageViewController.swift */; };
 		675A7CFE227A3F7C0034D9D9 /* OldTalkPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A7CFD227A3F7C0034D9D9 /* OldTalkPageHeaderView.swift */; };
 		676070A2227CE60800A81F09 /* TalkPageReplyFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */; };
 		676070A42280987C00A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
@@ -4208,6 +4212,7 @@
 		674E8AB82382DEFF0053D206 /* DiffTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffTransformer.swift; sourceTree = "<group>"; };
 		675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisappearingCallbackNavigationController.swift; sourceTree = "<group>"; };
 		67540CA824D221E3008B2894 /* LocationManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerFactory.swift; sourceTree = "<group>"; };
+		6756B66B29DC80C8008E1958 /* AttributedStringImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringImageViewController.swift; sourceTree = "<group>"; };
 		675A7CFD227A3F7C0034D9D9 /* OldTalkPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldTalkPageHeaderView.swift; sourceTree = "<group>"; };
 		676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyFooterView.swift; sourceTree = "<group>"; };
 		676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageTopicNewViewController.xib; sourceTree = "<group>"; };
@@ -7218,6 +7223,14 @@
 			path = "Article Description Tests";
 			sourceTree = "<group>";
 		};
+		6756B66A29DC80AD008E1958 /* Attributed String Image Prototype */ = {
+			isa = PBXGroup;
+			children = (
+				6756B66B29DC80C8008E1958 /* AttributedStringImageViewController.swift */,
+			);
+			name = "Attributed String Image Prototype";
+			sourceTree = "<group>";
+		};
 		676C864526D40AEB00A704C1 /* NotificationServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -8639,6 +8652,7 @@
 		BC45D58D1C32FD58007C72F3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				6756B66A29DC80AD008E1958 /* Attributed String Image Prototype */,
 				6798035A24F94CAE00D765AA /* Article as a Living Document */,
 				67DC5BDB23A00DF500B03A84 /* Article */,
 				6782DB8F2343B691003FA21B /* Diff */,
@@ -11706,6 +11720,7 @@
 				D876769F21E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
 				B00DDEDD1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift in Sources */,
 				00FCB2BE26D8398700F5A47A /* NotificationsCenterCell.swift in Sources */,
+				6756B66C29DC80C8008E1958 /* AttributedStringImageViewController.swift in Sources */,
 				83F1097323D0F115003F3E9E /* HelpViewController.swift in Sources */,
 				67134A1728A73C0A00BA0BB9 /* TalkPageReplyComposeController.swift in Sources */,
 				83FBE96F1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
@@ -12685,6 +12700,7 @@
 				D87676A221E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
 				00FCB2C126D8398700F5A47A /* NotificationsCenterCell.swift in Sources */,
 				D8A42AE61E815A9C00D8E281 /* WMFAccountCreator.swift in Sources */,
+				6756B66F29DC80C8008E1958 /* AttributedStringImageViewController.swift in Sources */,
 				67134A1A28A73C0A00BA0BB9 /* TalkPageReplyComposeController.swift in Sources */,
 				83F1097623D0F115003F3E9E /* HelpViewController.swift in Sources */,
 				D8A42AE71E815A9C00D8E281 /* UIViewController+WMFHideKeyboard.swift in Sources */,
@@ -13534,6 +13550,7 @@
 				B0BCF0BA202537D800986F72 /* Panels.swift in Sources */,
 				83B01F7D23DB0BA2001185F4 /* ArticleViewController+Editing.swift in Sources */,
 				007CCF0E26D5A5E400D5EA7C /* NotificationsCenterViewModel.swift in Sources */,
+				6756B66E29DC80C8008E1958 /* AttributedStringImageViewController.swift in Sources */,
 				7A6ED51320ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
 				D8CE25FB1E698E2400DAE2E0 /* UIApplication+SystemSettings.swift in Sources */,
 				B0BCF0AC2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */,
@@ -14139,6 +14156,7 @@
 				B0BCF0BB202537D800986F72 /* Panels.swift in Sources */,
 				83B01F7E23DB0BA2001185F4 /* ArticleViewController+Editing.swift in Sources */,
 				007CCF0D26D5A5E400D5EA7C /* NotificationsCenterViewModel.swift in Sources */,
+				6756B66D29DC80C8008E1958 /* AttributedStringImageViewController.swift in Sources */,
 				7A6ED50F20ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
 				D8EC3EFD1E9BDA35006712EB /* WMFArticleRevision.m in Sources */,
 				B0BCF0AD2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */,

@@ -64,6 +64,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         detailTransitionSourceRect = nil
         logFeedImpressionAfterDelay()
         dataStore.remoteNotificationsController.loadNotifications(force: false)
+        
+        let attributedStringImageVC = AttributedStringImageViewController(nibName: nil, bundle: nil)
+        let navVC = WMFThemeableNavigationController(rootViewController: attributedStringImageVC)
+        present(navVC, animated: true)
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
