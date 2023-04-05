@@ -387,13 +387,11 @@ struct ArticleRectangleBox: View {
                     .font(.caption)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                if let description = description {
                     Text(description)
                         .font(.caption)
                         .lineLimit(1)
                         .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                         .frame(maxWidth: .infinity, alignment: .leading)
-                }
             }
             if let image = image {
                 Image(uiImage: image)
