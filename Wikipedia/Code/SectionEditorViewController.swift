@@ -158,7 +158,7 @@ class SectionEditorViewController: ViewController {
     }
 
     private func presentEditNoticesIfNecessary() {
-        guard UserDefaults.standard.wmf_alwaysDisplayEditNotices && lastBlockedDisplayError == nil else {
+        guard UserDefaults.standard.wmf_alwaysDisplayEditNotices && lastBlockedDisplayError == nil && self.userGroupLevelCanEdit else {
             return
         }
 
