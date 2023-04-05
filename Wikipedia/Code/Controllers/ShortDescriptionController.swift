@@ -98,7 +98,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
             
             switch result {
             case .success(let result):
-                blockedError = result.blockedError
+                blockedError = result.apiError
             case .failure:
                 break
             }

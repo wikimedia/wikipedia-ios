@@ -51,4 +51,24 @@ extension WMFArticle {
             savedDate = newValue ? Date() : nil
         }
     }
+    
+    @objc public func feedArticlePreview() -> WMFFeedArticlePreview? {
+        
+        var dictionary: [AnyHashable: Any] = [
+            "displayTitle": displayTitle as Any,
+            "displayTitleHTML": displayTitleHTML,
+            "thumbnailURL": thumbnailURL as Any,
+            "imageURLString": imageURLString as Any,
+            "wikidataDescription": wikidataDescription as Any,
+            "snippet": snippet as Any,
+            "imageWidth": imageWidth as Any,
+            "imageHeight": imageHeight as Any
+        ]
+        
+        if let articleURLString = key?.decomposedStringWithCanonicalMapping {
+            dictionary["articleURL"] = URL(string: articleURLString)
+        }
+        
+        return try? WMFFeedArticlePreview(dictionary: dictionary)
+    }
 }

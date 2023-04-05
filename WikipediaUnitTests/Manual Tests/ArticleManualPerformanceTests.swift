@@ -15,6 +15,7 @@ class ArticleManualPerformanceTests: XCTestCase {
     
     private var articleURL: URL! = URL(string: "https://en.wikipedia.org/wiki/Dog")
     private var appSchemeArticleURL: URL! = URL(string: "app://en.wikipedia.org/wiki/Dog")
+    private var contextMenuConfigAppSchemeArticleURL: URL! = URL(string: "app://en.wikipedia.org/wiki/Cat")
     
     override func setUp() {
         super.setUp()
@@ -66,7 +67,7 @@ class ArticleManualPerformanceTests: XCTestCase {
             
             let contextExpectation = expectation(description: "Waiting for context menu configuration call")
             
-            articleVC.contextMenuConfigurationForLinkURL(appSchemeArticleURL) { (completionType, menuConfig) in
+            articleVC.contextMenuConfigurationForLinkURL(contextMenuConfigAppSchemeArticleURL, ignoreTimeout: true) { (completionType, menuConfig) in
                 if completionType == .bail {
                    XCTFail("Menu config should not bail.")
                 }

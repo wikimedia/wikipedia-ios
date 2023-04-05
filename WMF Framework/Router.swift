@@ -13,6 +13,7 @@ public class Router: NSObject {
         case audio(_: URL)
         case onThisDay(_: Int?)
         case readingListsImport(encodedPayload: String)
+        case login
     }
     
     unowned let configuration: Configuration
@@ -24,7 +25,7 @@ public class Router: NSObject {
     // MARK: Public
     
     /// Gets the appropriate in-app destination for a given URL
-    public func destination(for url: URL) -> Destination {
+    public func destination(for url: URL, loggedInUsername: String?) -> Destination {
         
         guard let siteURL = url.wmf_site,
         let project = WikimediaProject(siteURL: siteURL) else {
@@ -36,11 +37,11 @@ public class Router: NSObject {
             return .audio(url.byMakingAudioFileCompatibilityAdjustments)
         }
         
-        return destinationForHostURL(url, project: project)
+        return destinationForHostURL(url, project: project, loggedInUsername: loggedInUsername)
     }
 
-    public func doesOpenInBrowser(for url: URL) -> Bool {
-        return [.externalLink(url), .inAppLink(url)].contains(destination(for: url))
+    public func doesOpenInBrowser(for url: URL, loggedInUsername: String?) -> Bool {
+        return [.externalLink(url), .inAppLink(url)].contains(destination(for: url, loggedInUsername: loggedInUsername))
     }
     
     
@@ -50,7 +51,7 @@ public class Router: NSObject {
     private let mobilediffRegexSingle = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)", options: .caseInsensitive)
     private let historyRegex = try! NSRegularExpression(pattern: "^history/(.*)", options: .caseInsensitive)
     
-    internal func destinationForWikiResourceURL(_ url: URL, project: WikimediaProject) -> Destination? {
+    internal func destinationForWikiResourceURL(_ url: URL, project: WikimediaProject, loggedInUsername: String?) -> Destination? {
         guard let path = url.wikiResourcePath else {
             return nil
         }
@@ -75,16 +76,21 @@ public class Router: NSObject {
             // https://en.wikipedia.org/w/api.php?action=query&format=json&meta=siteinfo&formatversion=2&siprop=specialpagealiases
             if language.uppercased() == "EN" || language.uppercased() == "TEST",
                 title == "MyTalk",
-               let username = MWKDataStore.shared().authenticationManager.loggedInUsername,
+               let username = loggedInUsername,
                let newURL = url.wmf_URL(withTitle: "User_talk:\(username)") {
                 return .userTalk(newURL)
             }
             
             if language.uppercased() == "EN" || language.uppercased() == "TEST",
                 title == "MyContributions",
-               let username = MWKDataStore.shared().authenticationManager.loggedInUsername,
+               let username = loggedInUsername,
                let newURL = url.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) {
                 return .inAppLink(newURL)
+            }
+            
+            if language.uppercased() == "EN" || language.uppercased() == "TEST",
+               title == "UserLogin" {
+                return .login
             }
             
             if title == "ReadingLists",
@@ -185,6 +191,13 @@ public class Router: NSObject {
             return nil
         }
         
+        let language = project.languageCode ?? "en"
+        
+        if language.uppercased() == "EN" || language.uppercased() == "TEST",
+           title == "Special:UserLogin" {
+            return .login
+        }
+        
         if maybeLimit != nil,
             maybeDir != nil,
             let action = maybeAction,
@@ -219,10 +232,10 @@ public class Router: NSObject {
         return nil
     }
     
-    internal func destinationForHostURL(_ url: URL, project: WikimediaProject) -> Destination {
+    internal func destinationForHostURL(_ url: URL, project: WikimediaProject, loggedInUsername: String?) -> Destination {
         let canonicalURL = url.canonical
         
-        if let wikiResourcePathInfo = destinationForWikiResourceURL(canonicalURL, project: project) {
+        if let wikiResourcePathInfo = destinationForWikiResourceURL(canonicalURL, project: project, loggedInUsername: loggedInUsername) {
             return wikiResourcePathInfo
         }
         
