@@ -19,8 +19,8 @@ extension ArticleCollectionViewCell: Themeable {
 extension ArticleRightAlignedImageCollectionViewCell {
     open override func apply(theme: Theme) {
         super.apply(theme: theme)
-        bottomSeparator.backgroundColor = theme.colors.border
-        topSeparator.backgroundColor = theme.colors.border
+        bottomSeparator.backgroundColor = theme.colors.baseBackground
+        topSeparator.backgroundColor = theme.colors.baseBackground
     }
 }
 

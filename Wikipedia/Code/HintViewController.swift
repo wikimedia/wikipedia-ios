@@ -136,7 +136,7 @@ extension HintViewController: Themeable {
         confirmationLabel?.textColor = primaryColor ?? theme.colors.link
         confirmationAccessoryButton.tintColor = primaryColor ?? theme.colors.link
         defaultImageView.tintColor = primaryColor ?? theme.colors.link
-        warningLabel?.textColor = primaryColor ?? theme.colors.warning
+        warningLabel?.textColor = primaryColor ?? theme.colors.hintWarningText
         warningSubtitleLabel?.textColor = primaryColor ?? theme.colors.primaryText
     }
 }

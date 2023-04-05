@@ -148,7 +148,7 @@ extension WelcomePageViewController: Themeable {
         pageControl?.pageIndicatorTintColor = theme.colors.pageIndicator
         pageControl?.currentPageIndicatorTintColor = theme.colors.pageIndicatorCurrent
         nextButton.tintColor = theme.colors.link
-        skipButton.tintColor = UIColor.base50
+        skipButton.tintColor = .gray400
         nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
     }
 }

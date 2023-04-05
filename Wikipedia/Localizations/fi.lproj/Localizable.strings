@@ -961,6 +961,7 @@
 "talk-page-discussion-read-accessibility-label" = "Lue";
 "talk-page-discussion-unread-accessibility-label" = "Lukematon";
 "talk-page-error-alert-title" = "Odottamaton virhe";
+"talk-page-error-loading-subtitle" = "Jotain meni vikaan.";
 "talk-page-error-loading-title" = "Keskustelusivun lataaminen epäonnistui";
 "talk-page-error-unable-to-post-reply" = "Ei Internet-yhteyttä. Vastausta ei voi lähettää.";
 "talk-page-error-unable-to-post-topic" = "Ei Internet-yhteyttä. Keskustelua ei voi lähettää.";
