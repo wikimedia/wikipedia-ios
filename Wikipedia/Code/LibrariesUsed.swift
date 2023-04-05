@@ -53,7 +53,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         
         self.apply(theme: self.theme)
-        view.backgroundColor = .base50
+        view.backgroundColor = .gray400
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: LibrariesUsedViewController.cellReuseIdentifier)
         tableView.estimatedRowHeight = 41
         tableView.rowHeight = UITableView.automaticDimension

@@ -19,7 +19,7 @@ class WMFAuthButton: AutoLayoutSafeMultiLineButton, Themeable {
     
     func apply(theme: Theme) {
         self.theme = theme
-        backgroundColor = theme.colors.cardButtonBackground
+        backgroundColor = theme.colors.baseBackground
         setTitleColor(theme.colors.unselected, for: .disabled)
         setNeedsDisplay()
     }
