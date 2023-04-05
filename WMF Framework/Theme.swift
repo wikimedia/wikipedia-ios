@@ -237,12 +237,19 @@ public class Colors: NSObject {
         }
     }
 
+    @objc public var hintWarningText: UIColor {
+        switch identifier {
+        case .light, .sepia, .widgetLight:
+            return .gray700
+        case .dark, .black, .widgetDark:
+            return .yellow600
+        }
+    }
+
     @objc public var hintWarningBackground: UIColor {
         switch identifier {
-        case .light:
-            return .yellow600
-        case .sepia:
-            return .beige400
+        case .light, .sepia:
+            return .orange600
         case .dark, .black:
             return  .gray700
         default:
