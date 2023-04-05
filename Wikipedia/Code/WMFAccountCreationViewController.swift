@@ -319,7 +319,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                         
                         WMFAlertManager.sharedInstance.dismissAlert()
                         
-                        self.wmf_showBlockedPanel(messageHtml: parsedMessage, linkBaseURL: linkBaseURL, currentTitle: "Special:CreateAccount", theme: self.theme)
+                            self.wmf_showBlockedPanel(messageHtml: parsedMessage, linkBaseURL: linkBaseURL, currentTitle: "Special:CreateAccount", theme: self.theme)
 
                         self.enableProgressiveButtonIfNecessary()
                         return

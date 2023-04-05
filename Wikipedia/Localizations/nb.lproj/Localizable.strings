@@ -437,8 +437,8 @@
 "field-captcha-placeholder" = "CAPTCHA-tekst";
 "field-captcha-title" = "Fyll inn teksten du ser ovenfor";
 "field-email-placeholder" = "eksempel@eksempel.org";
-"field-email-title" = "Epost";
-"field-email-title-optional" = "Epost (valgfritt)";
+"field-email-title" = "E-post";
+"field-email-title-optional" = "E-post (valgfritt)";
 "field-new-password-confirm-placeholder" = "gjenta nytt passord";
 "field-new-password-confirm-title" = "Bekreeft nytt passord";
 "field-new-password-placeholder" = "fyll inn nytt passord";
@@ -458,8 +458,8 @@
 "find-replace-header-close-accessibility" = "Lukk søk og erstatt";
 "find-textfield-accessibility" = "Søk";
 "forgot-password-button-title" = "Tilbakestill";
-"forgot-password-email-sent" = "Epost med instruksjoner for å tilbakestille passordet har blitt sendt deg";
-"forgot-password-instructions" = "Fyll inn et av feltene under for å motta instruksjoner for tilbakestilling av passord per epost";
+"forgot-password-email-sent" = "Vi har sendt deg n e-post med instruksjoner for å tilbakestille passordet";
+"forgot-password-instructions" = "Fyll inn et av feltene under for å motta instruksjoner for tilbakestilling av passord per e-post";
 "forgot-password-title" = "Tilbakestill passord";
 "forgot-password-username-or-email-title" = "Eller";
 "gan-variants-alert-body" = "Wikipedia-appen støtter nå følgende gan-varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\n贛語 原文 gan (gan)\n赣语 简体 forenklet gan (gan-hans)\n贛語 繁體 tradisjonell gan (gan-hant)";
