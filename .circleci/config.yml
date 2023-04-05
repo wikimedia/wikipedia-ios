@@ -3,6 +3,12 @@
 
 version: 2.1
 
+executors:
+  xcode:
+    macos:
+      xcode: 14.3.0
+    resource_class: macos.x86.medium.gen2
+
 commands:
   install_dependencies:
     description: "Install dependencies"
@@ -23,9 +29,7 @@ commands:
 
 jobs:
   test_pr:
-    macos:
-      xcode: 14.3.0
-    resource_class: macos.x86.medium.gen2
+    executor: xcode
     steps:
       - checkout
       - install_dependencies
