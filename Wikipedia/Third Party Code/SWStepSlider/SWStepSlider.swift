@@ -24,16 +24,16 @@ open class SWStepSlider: UIControl {
     
     let trackLayer = CALayer()
     var trackHeight: CGFloat = 1
-    var trackColor = UIColor.sliderGrey
+    var trackColor = UIColor.gray400
     
     var tickHeight: CGFloat = 8
     var tickWidth: CGFloat = 1
-    var tickColor = UIColor.sliderGrey
+    var tickColor = UIColor.gray400
 
     
     let thumbLayer = CAShapeLayer()
     var thumbFillColor = UIColor.white
-    var thumbStrokeColor = UIColor.sliderLightGrey
+    var thumbStrokeColor = UIColor.gray200
     var thumbDimension: CGFloat = 28
 
     var stepWidth: CGFloat {

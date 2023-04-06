@@ -127,7 +127,7 @@ extension OldTalkPageReplyCell: Themeable {
         self.theme = theme
         titleTextView.textColor = theme.colors.primaryText
         titleTextView.backgroundColor = theme.colors.paperBackground
-        depthMarker.backgroundColor = theme.colors.depthMarker
+        depthMarker.backgroundColor = .gray
         contentView.backgroundColor = theme.colors.paperBackground
     }
 }

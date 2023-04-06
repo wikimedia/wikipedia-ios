@@ -582,10 +582,6 @@
 		6734EE7C22976BA300F00B05 /* TalkPageHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6706A21822927D63004774E2 /* TalkPageHintViewController.swift */; };
 		6734EE7D22976BA300F00B05 /* TalkPageHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6706A21822927D63004774E2 /* TalkPageHintViewController.swift */; };
 		6734F052227B634900BDDB94 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734F051227B634900BDDB94 /* ActionButton.swift */; };
-		67359894299ED915002EE8D1 /* Components in Frameworks */ = {isa = PBXBuildFile; productRef = 67359893299ED915002EE8D1 /* Components */; };
-		67359896299EDA6C002EE8D1 /* Components in Frameworks */ = {isa = PBXBuildFile; productRef = 67359895299EDA6C002EE8D1 /* Components */; };
-		67359898299EDA72002EE8D1 /* Components in Frameworks */ = {isa = PBXBuildFile; productRef = 67359897299EDA72002EE8D1 /* Components */; };
-		6735989A299EDA78002EE8D1 /* Components in Frameworks */ = {isa = PBXBuildFile; productRef = 67359899299EDA78002EE8D1 /* Components */; };
 		673612F224FD7210002A1989 /* ArticleAsLivingDocViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673612F124FD7210002A1989 /* ArticleAsLivingDocViewModelTests.swift */; };
 		6739A182273061220063E0E0 /* RemoteNotificationsMarkAllAsReadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739A181273061220063E0E0 /* RemoteNotificationsMarkAllAsReadOperation.swift */; };
 		673FC3D0273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673FC3CF273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift */; };
@@ -2136,6 +2132,7 @@
 		83FDE79A293564AC006D55FE /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FDE798293564AC006D55FE /* Link.swift */; };
 		83FDE79B293564AC006D55FE /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FDE798293564AC006D55FE /* Link.swift */; };
 		83FDE79C293564AC006D55FE /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FDE798293564AC006D55FE /* Link.swift */; };
+		83FFFFBA29AEC094005506A0 /* Components in Frameworks */ = {isa = PBXBuildFile; productRef = 83FFFFB929AEC094005506A0 /* Components */; };
 		982800D624D302BF004B1850 /* EventPlatformClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982800D524D302BF004B1850 /* EventPlatformClient.swift */; };
 		A452F9F824081A5500D8ED09 /* MockCLLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452F9F624081A5500D8ED09 /* MockCLLocationManager.swift */; };
 		A452F9F924081A5500D8ED09 /* MockCLHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452F9F724081A5500D8ED09 /* MockCLHeading.swift */; };
@@ -5701,7 +5698,6 @@
 			files = (
 				D844D9731D6CB2600042D692 /* WMF.framework in Frameworks */,
 				83AF34F724D3341E000046D6 /* BackgroundTasks.framework in Frameworks */,
-				67359894299ED915002EE8D1 /* Components in Frameworks */,
 				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
@@ -5715,6 +5711,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83FFFFBA29AEC094005506A0 /* Components in Frameworks */,
 				83B019D624F6C31B0014B5EF /* WidgetKit.framework in Frameworks */,
 				D8CD975E1E83F65700ECCA9D /* UserNotifications.framework in Frameworks */,
 				67A770C8251BFE0400F94EF9 /* CocoaLumberjackSwift in Frameworks */,
@@ -5734,7 +5731,6 @@
 			files = (
 				D8A42BA81E815A9C00D8E281 /* WMF.framework in Frameworks */,
 				83AF34FA24D3343B000046D6 /* BackgroundTasks.framework in Frameworks */,
-				6735989A299EDA78002EE8D1 /* Components in Frameworks */,
 				D8A42B9D1E815A9C00D8E281 /* QuartzCore.framework in Frameworks */,
 				D8A42BA71E815A9C00D8E281 /* CoreData.framework in Frameworks */,
 				D8A42BAA1E815A9C00D8E281 /* CoreGraphics.framework in Frameworks */,
@@ -5757,7 +5753,6 @@
 			files = (
 				D8CE262C1E698E2400DAE2E0 /* WMF.framework in Frameworks */,
 				83AF34F924D33432000046D6 /* BackgroundTasks.framework in Frameworks */,
-				67359898299EDA72002EE8D1 /* Components in Frameworks */,
 				D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */,
 				D8CE262B1E698E2400DAE2E0 /* CoreData.framework in Frameworks */,
 				D8CE262E1E698E2400DAE2E0 /* CoreGraphics.framework in Frameworks */,
@@ -5773,7 +5768,6 @@
 			files = (
 				D8EC3F2E1E9BDA35006712EB /* WMF.framework in Frameworks */,
 				83AF34F824D33428000046D6 /* BackgroundTasks.framework in Frameworks */,
-				67359896299EDA6C002EE8D1 /* Components in Frameworks */,
 				D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */,
 				D8EC3F2D1E9BDA35006712EB /* CoreData.framework in Frameworks */,
 				D8EC3F301E9BDA35006712EB /* CoreGraphics.framework in Frameworks */,
@@ -9958,7 +9952,6 @@
 			);
 			name = Wikipedia;
 			packageProductDependencies = (
-				67359893299ED915002EE8D1 /* Components */,
 			);
 			productName = "Wikipedia-iOS";
 			productReference = D4991435181D51DE00E6073C /* Wikipedia.app */;
@@ -9982,6 +9975,7 @@
 			name = WMF;
 			packageProductDependencies = (
 				67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */,
+				83FFFFB929AEC094005506A0 /* Components */,
 			);
 			productName = WMF;
 			productReference = D844D96C1D6CB2600042D692 /* WMF.framework */;
@@ -10009,7 +10003,6 @@
 				D870215C1EBA63EE000D02D6 /* Sources */,
 				D870215D1EBA63EE000D02D6 /* Frameworks */,
 				D870215E1EBA63EE000D02D6 /* CopyFiles */,
-				B033620620D0573A006BCDCE /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -10037,7 +10030,6 @@
 			);
 			name = "User Testing";
 			packageProductDependencies = (
-				67359899299EDA78002EE8D1 /* Components */,
 			);
 			productName = "Wikipedia-iOS";
 			productReference = D8A42C2B1E815A9C00D8E281 /* User Testing.app */;
@@ -10082,7 +10074,6 @@
 			);
 			name = Experimental;
 			packageProductDependencies = (
-				67359897299EDA72002EE8D1 /* Components */,
 			);
 			productName = "Wikipedia-iOS";
 			productReference = D8CE26AF1E698E2400DAE2E0 /* Experimental.app */;
@@ -10108,7 +10099,6 @@
 			);
 			name = Staging;
 			packageProductDependencies = (
-				67359895299EDA6C002EE8D1 /* Components */,
 			);
 			productName = "Wikipedia-iOS";
 			productReference = D8EC3FB41E9BDA35006712EB /* Staging.app */;
@@ -11027,19 +11017,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n\tswiftlint --fix --config \".swiftlint-autocorrect.yml\" && swiftlint\nelse\n\techo \"warning: SwiftLint not installed, run \\\"scripts/brew_install\\\" script to install\"\nfi\n";
-		};
-		B033620620D0573A006BCDCE /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "cp -f `readlink ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}` \"${SRCROOT}/scripts/${PRODUCT_NAME}\"\n";
 		};
 		D87021721EBA69B7000D02D6 /* Update Localizations */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -19995,30 +19972,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		67359893299ED915002EE8D1 /* Components */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 67359892299ED915002EE8D1 /* XCRemoteSwiftPackageReference "wikipedia-ios-components" */;
-			productName = Components;
-		};
-		67359895299EDA6C002EE8D1 /* Components */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 67359892299ED915002EE8D1 /* XCRemoteSwiftPackageReference "wikipedia-ios-components" */;
-			productName = Components;
-		};
-		67359897299EDA72002EE8D1 /* Components */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 67359892299ED915002EE8D1 /* XCRemoteSwiftPackageReference "wikipedia-ios-components" */;
-			productName = Components;
-		};
-		67359899299EDA78002EE8D1 /* Components */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 67359892299ED915002EE8D1 /* XCRemoteSwiftPackageReference "wikipedia-ios-components" */;
-			productName = Components;
-		};
 		67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
 			productName = CocoaLumberjackSwift;
+		};
+		83FFFFB929AEC094005506A0 /* Components */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 67359892299ED915002EE8D1 /* XCRemoteSwiftPackageReference "wikipedia-ios-components" */;
+			productName = Components;
 		};
 /* End XCSwiftPackageProductDependency section */
 
