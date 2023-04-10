@@ -364,11 +364,8 @@
 "on-this-day-title" = "لەم ڕۆژەدا";
 "page-history-bot-edits" = "دەستکارییەکانی بۆت";
 "page-history-revision-history-title" = "مێژووی پێداچوونەوە";
-"page-protected-autoconfirmed" = "ئەم پەڕەیە نیمچە-پارێزراوە.";
 "page-protected-can-not-edit" = "تۆ مەفەکانی دەستکاریکردنی ئەم پەڕەیەت نییە.";
 "page-protected-can-not-edit-title" = "ئەم پەڕەیە پارێزراوە";
-"page-protected-other" = "ئەم پەڕەیە پارێزراوە بۆ ئەم ئاستانە: $1";
-"page-protected-sysop" = "ئەم پەڕەیە بە تەواوی پارێزراوە.";
 "pictured" = "وێنەکراو";
 "places-accessibility-clear-saved-searches" = "سڕینەوەی گەڕانە خەزنکراوەکان";
 "places-accessibility-group" = "$1 وتار";

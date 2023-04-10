@@ -152,11 +152,8 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
-"page-protected-autoconfirmed" = "ਇਹ ਸਫ਼ਾ ਨੀਮ-ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
 "page-protected-can-not-edit" = "ਤੁਹਾਡੇ ਕੋਲ਼ ਇਸ ਸਫ਼ੇ ਦੀ ਸੁਧਾਈ ਕਰਨ ਦੇ ਹੱਕ ਨਹੀਂ ਹਨ";
 "page-protected-can-not-edit-title" = "ਇਹ ਸਫ਼ਾ ਸੁਰੱਖਿਅਤ ਹੈ";
-"page-protected-other" = "ਇਸ ਸਫ਼ੇ ਨੂੰ ਇਹਨਾਂ ਤਹਿਆਂ ਤੱਕ ਸੁਰੱਖਿਅਤ ਕੀਤਾ ਗਿਆ ਹੈ: $1";
-"page-protected-sysop" = "ਇਹ ਸਫ਼ਾ ਪੂਰਾ ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
 "places-title" = "ਥਾਂਵਾਂ";
 "potd-description-prefix" = "$1 ਲਈ ਦਿਨ ਦੀ ਤਸਵੀਰ";
 "potd-empty-error-description" = "$1 ਲਈ ਦਿਨ ਦੀ ਤਸਵੀਰ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਫਲ";

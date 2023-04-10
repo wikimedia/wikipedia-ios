@@ -632,11 +632,8 @@
 "page-history-user-edits" = "người dùng sửa đổi";
 "page-issues" = "Vấn đề trang";
 "page-location" = "Xem trên bản đồ";
-"page-protected-autoconfirmed" = "Trang này đã bị bán khóa.";
 "page-protected-can-not-edit" = "Bạn không có quyền sửa đổi trang này.";
 "page-protected-can-not-edit-title" = "Trang này bị khóa";
-"page-protected-other" = "Trang này đã bị khóa ở các mức độ sau: $1";
-"page-protected-sysop" = "Trang này đã bị khóa hẳn.";
 "page-similar-titles" = "Trang tương tự";
 "panel-compare-revisions-title" = "Đang so sánh các phiên bản";
 "pictured" = "hình";
