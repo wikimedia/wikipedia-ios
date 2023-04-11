@@ -22,11 +22,13 @@
 }
 
 + (NSString *)iOSLocalizationsDirectory {
-    return [SOURCE_ROOT_DIR stringByAppendingPathComponent:@"Wikipedia/iOS Native Localizations"];
+    NSString *sourceRoot = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"SourceRoot"];
+    return [sourceRoot stringByAppendingPathComponent:@"Wikipedia/iOS Native Localizations"];
 }
 
 + (NSString *)twnLocalizationsDirectory {
-    return [SOURCE_ROOT_DIR stringByAppendingPathComponent:@"Wikipedia/Localizations"];
+    NSString *sourceRoot = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"SourceRoot"];
+    return [sourceRoot stringByAppendingPathComponent:@"Wikipedia/Localizations"];
 }
 
 + (NSString *)bundleRoot {
