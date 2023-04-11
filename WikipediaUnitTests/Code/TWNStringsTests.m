@@ -24,8 +24,12 @@
 + (NSString *)iOSLocalizationsDirectory {
     NSString *sourceRoot = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"SourceRoot"];
     NSLog(@"sourceRoot: %@", sourceRoot);
+    NSArray *sourceRootFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:sourceRoot error:nil];
+    NSLog(@"sourceRootFiles: %@", sourceRootFiles);
     NSString *finalPath = [sourceRoot stringByAppendingPathComponent:@"Wikipedia/iOS Native Localizations"];
     NSLog(@"finalPath: %@", finalPath);
+    NSArray *finalPathFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:finalPath error:nil];
+    NSLog(@"finalPathFiles: %@", finalPathFiles);
     return finalPath;
 }
 
@@ -88,7 +92,6 @@
     static NSArray *tempFiles;
     dispatch_once(&onceToken, ^{
         tempFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.iOSLocalizationsDirectory error:nil];
-        NSLog(@"tempFiles: %@", tempFiles);
         iOSLprojFiles = [[tempFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]] valueForKey:@"lowercaseString"];
     });
     return iOSLprojFiles;
@@ -114,7 +117,7 @@
 
 - (void)testLprojCount {
     XCTAssert(TWNStringsTests.iOSLprojFiles.count > 0);
-    //XCTAssert(TWNStringsTests.twnLprojFiles.count > 0);
+    // XCTAssert(TWNStringsTests.twnLprojFiles.count > 0);
 }
 
 + (NSRegularExpression *)reverseiOSTokenRegex {
@@ -179,7 +182,7 @@
 
 - (void)assertLprojFiles:(NSArray *)lprojFiles withTranslationStringsInDirectory:(NSString *)directory doesNotContain:(NSString *)banned {
     XCTAssertNotNil(banned);
-    NSString * bannedUpper = [banned uppercaseString];
+    NSString *bannedUpper = [banned uppercaseString];
     for (NSString *lprojFileName in lprojFiles) {
         if (![TWNStringsTests localeForLprojFilenameIsAvailableOniOS:lprojFileName]) {
             continue;
@@ -337,7 +340,7 @@
 }
 
 + (BOOL)localeForLprojFilenameIsAvailableOniOS:(NSString *)lprojFileName {
-    NSString *localeIdentifier = [[lprojFileName substringToIndex:lprojFileName.length - 6] lowercaseString]; //remove .lproj suffix
+    NSString *localeIdentifier = [[lprojFileName substringToIndex:lprojFileName.length - 6] lowercaseString]; // remove .lproj suffix
     return [[TWNStringsTests supportedLocales] containsObject:localeIdentifier];
 }
 
