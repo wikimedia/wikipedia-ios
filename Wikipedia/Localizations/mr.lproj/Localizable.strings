@@ -109,11 +109,8 @@
 "number-billions" = "$1कोटी";
 "number-millions" = "$1लक्ष";
 "number-thousands" = "$1हजार";
-"page-protected-autoconfirmed" = "हे पान अर्ध-सुरक्षित आहे.";
 "page-protected-can-not-edit" = "तुम्हाला हे पान संपादन करण्याचा अधिकार नाही";
 "page-protected-can-not-edit-title" = "हे पान संरक्षित आहे";
-"page-protected-other" = "हे पान खालील स्तरांपर्यंत सुरक्षित आहे:$1";
-"page-protected-sysop" = "हे पान पूर्णत: सुरक्षित आहे.";
 "potd-description-prefix" = "$1 साठी आजचे चित्र";
 "potd-empty-error-description" = "$1 साठी आजचे चित्र आणण्यात अयशस्वी";
 // Fuzzy

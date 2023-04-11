@@ -700,11 +700,8 @@
 "page-history-user-edits" = "korisničke izmjene";
 "page-issues" = "Problemi stranice";
 "page-location" = "Prikaži na karti";
-"page-protected-autoconfirmed" = "Ova stranica je poluzaštićena.";
 "page-protected-can-not-edit" = "Nemate pravo da uređujete ovu stranicu";
 "page-protected-can-not-edit-title" = "Ova stranica je zaštićena";
-"page-protected-other" = "Ova stranica je zaštićena na sljedećim nivoima: $1";
-"page-protected-sysop" = "Ova stranica je potpuno zaštićena.";
 "page-similar-titles" = "Slične stranice";
 "panel-compare-revisions-text" = "Poređenje verzija pomaže prikazati kako se članak mijenjao vremenom. Poređenje dvije verzije članka pokazuje razlika između tih verzija ističući bilo koji sadržaj koji je promijenjen.";
 "panel-compare-revisions-title" = "Poređenje verzija";

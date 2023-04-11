@@ -630,11 +630,8 @@
 "page-history-user-edits" = "واپرائيندڙ سنوارون";
 "page-issues" = "صفحي جا مسئلا";
 "page-location" = "نقشي تي ڏسو";
-"page-protected-autoconfirmed" = "هيءُ صفحو نيم تحفظيل آهي.";
 "page-protected-can-not-edit" = "توهان کي هيءُ صفحو سنوارڻ جا حق حاصل نہ آهن";
 "page-protected-can-not-edit-title" = "هيءُ صفحو تحفظيل آهي";
-"page-protected-other" = "هيءُ صفحو هيٺين سطحن تائين تحفظيل آهي: $1";
-"page-protected-sysop" = "هيءُ صفحو پوريءَ ريت تحفظيل آهي.";
 "page-similar-titles" = "ملندڙ صفحا";
 "panel-compare-revisions-title" = "ورجاءَ ڀيٽيندي";
 "pictured" = "تصوير لڳل";

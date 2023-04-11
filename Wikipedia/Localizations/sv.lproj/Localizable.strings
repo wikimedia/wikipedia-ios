@@ -744,11 +744,8 @@
 "page-history-user-edits" = "användarredigeringar";
 "page-issues" = "Sidproblem";
 "page-location" = "Visa på en karta";
-"page-protected-autoconfirmed" = "Denna sida är halvskyddad.";
 "page-protected-can-not-edit" = "Du saknar rättigheter för att redigera denna sida.";
 "page-protected-can-not-edit-title" = "Denna sida är skrivskyddad";
-"page-protected-other" = "Denna sida har skyddats för följande nivåer: $1";
-"page-protected-sysop" = "Denna sida är fullt skrivskyddad.";
 "page-similar-titles" = "Liknande sidor";
 "panel-compare-revisions-text" = "Jämför sidversioner för att se hur en artikel har ändrats med tiden. När två sidversioner av en artikel jämförs kommer skillnaden mellan dessa sidversioner visas genom att färgmarkera innehållet som ändrades.";
 "panel-compare-revisions-title" = "Jämför sidversioner";

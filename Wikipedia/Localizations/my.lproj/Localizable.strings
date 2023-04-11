@@ -490,11 +490,8 @@
 "page-history-user-edits" = "အသုံးပြုသူ တည်းဖြတ်မှု";
 "page-issues" = "စာမျက်နှာ ကိစ္စရပ်များ";
 "page-location" = "မြေပုံပေါ်တွင် ကြည့်ရန်";
-"page-protected-autoconfirmed" = "ဤစာမျက်နှာအား တစ်စိတ်တစ်ပိုင်း ကာကွယ်ထားသည်။";
 "page-protected-can-not-edit" = "ဤစာမျက်နှာကို တည်းဖြတ်ခွင့်မရှိပါ";
 "page-protected-can-not-edit-title" = "ဤစာမျက်နှာအား ကာကွယ်ထားသည်";
-"page-protected-other" = "ဤစာမျက်နှာအား အောက်ပါအဆင့်များသို့ ကာကွယ်ထားသည်: $1";
-"page-protected-sysop" = "ဤစာမျက်နှာအား အပြည့်အဝ ကာကွယ်ထားသည်။";
 "page-similar-titles" = "ဆင်တူစာမျက်နှာများ";
 "places-accessibility-clear-saved-searches" = "သိမ်းဆည်းခဲ့သော ရှာဖွေမှုများကို ရှင်းရန်";
 "places-accessibility-group" = "ဆောင်းပါး $1 များ";

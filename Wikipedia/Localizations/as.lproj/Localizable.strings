@@ -220,11 +220,8 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 ৱিকিপিডিয়াৰ পৰা $1";
 "on-this-day-title" = "আজিৰ দিনটোত";
 "page-history-revision-history-title" = "সংশোধনৰ ইতিহাস";
-"page-protected-autoconfirmed" = "এই পৃষ্ঠাটো অৰ্ধ-সুৰক্ষিত কৰা হৈছে।";
 "page-protected-can-not-edit" = "আপোনাৰ এই পৃষ্ঠা সম্পাদনা কৰাৰ অধিকাৰ নাই";
 "page-protected-can-not-edit-title" = "এই পৃষ্ঠাটো সুৰক্ষিত";
-"page-protected-other" = "এই পৃষ্ঠাটো তলৰ স্তৰলৈ সুৰক্ষিত কৰা হৈছে: $1";
-"page-protected-sysop" = "এই পৃষ্ঠাটো সম্পূৰ্ণ সুৰক্ষিত কৰা হৈছে।";
 "page-similar-titles" = "একে ধৰণৰ পৃষ্ঠা";
 "places-empty-search-title" = "ৱিকিপিডিয়াৰ ভৌগোলিক অৱস্থানযুক্ত প্ৰবন্ধসমূহ অনুসন্ধান কৰক";
 // Fuzzy
