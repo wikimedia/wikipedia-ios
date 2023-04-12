@@ -472,7 +472,7 @@
 "import-shared-reading-list-default-title" = "Default title of a reading list imported through a shared link.";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Title of cancel button on import shared reading list survey prompt, which dismisses the prompt.";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Title of action button on import reading list survey prompt, which takes user to external survey.";
-"import-shared-reading-list-survey-prompt-footer" = "Title";
+"import-shared-reading-list-survey-prompt-footer" = "Title of footer button on import shared reading list survey prompt, which takes user to the privacy policy. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting";
 "import-shared-reading-list-survey-prompt-subtitle" = "Subtitle of prompt to take a survey, displayed after user successfully imports a shared reading list.";
 "import-shared-reading-list-survey-prompt-title" = "Title of prompt to take a survey, displayed after user successfully imports a shared reading list.";
 "import-shared-reading-list-title" = "Title of screen that imports a shared reading list.";
