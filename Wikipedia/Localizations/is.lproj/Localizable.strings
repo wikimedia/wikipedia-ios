@@ -696,11 +696,8 @@
 "page-history-user-edits" = "breytingar notanda";
 "page-issues" = "Vandamál varðandi síðu";
 "page-location" = "Skoða á korti";
-"page-protected-autoconfirmed" = "Þessi síða er varin að hluta til.";
 "page-protected-can-not-edit" = "Þú hefur ekki réttindi á að breyta þessari síðu";
 "page-protected-can-not-edit-title" = "Þessi síða er varin";
-"page-protected-other" = "Þessi síða er varin upp á eftirfarandi stig: $1";
-"page-protected-sysop" = "Þessi síða er varin í heild.";
 "page-similar-titles" = "Áþekkar síður";
 "panel-compare-revisions-text" = "Að bera saman útgáfur hjálpar til við að sjá hvernig grein hefur breyst í tímans rás. Þegar tvær útgáfur greinar eru bornar saman, er munurinn á þeim sýndur með áherslulitun á því sem hefur verið breytt.";
 "panel-compare-revisions-title" = "Bera saman útgáfur";

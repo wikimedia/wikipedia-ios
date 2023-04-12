@@ -216,11 +216,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 n tedyant tamazrayt|$1 n tidyanin timazrayin}}";
 "on-this-day-footer" = "Ugar n tidyanin timazrayin ass-a";
 "on-this-day-title" = "Ass-a";
-"page-protected-autoconfirmed" = "Asebter-agi yettumesten s uzgen.";
 "page-protected-can-not-edit" = "Ur ɣur-k ara azref n usnifel n usebtre-agi";
 "page-protected-can-not-edit-title" = "Asebter-agi yettummesten";
-"page-protected-other" = "Asebter-agi yettummesten i yiswiren-agi: $1";
-"page-protected-sysop" = "Asebter-agi yettummesten meṛṛa.";
 "pictured" = "s tugna";
 "places-accessibility-clear-saved-searches" = "Sfeḍ inadiyen yettwaskelsen";
 "places-accessibility-group" = "$1 n imagraden";

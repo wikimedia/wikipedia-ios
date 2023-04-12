@@ -208,11 +208,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 kajadian sajarah|$1 kajadian sajarah}}";
 "on-this-day-footer" = "Kajadian sajarah lianna dina poé ieu";
 "on-this-day-title" = "Dina poé ieu";
-"page-protected-autoconfirmed" = "Ieu kaca geus rada-dilindungan";
 "page-protected-can-not-edit" = "Anjeun teu miboga hak pikeun ngédit ieu kaca";
 "page-protected-can-not-edit-title" = "Ieu kaca dilindungan";
-"page-protected-other" = "Ieu kaca geus dilinsungan pikeun lévél di handap: $1";
-"page-protected-sysop" = "Ieu kaca geus dilindungan sagemblengna";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Bersihkeun pamaluruhan kasimpen";
 "places-accessibility-group" = "$1 artikel";

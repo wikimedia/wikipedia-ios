@@ -182,11 +182,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 வரலாற்று நிகழ்வு|$1 வரலாற்று நிகழ்வுகள்}}";
 "on-this-day-footer" = "மேலும் இந்த நாளின் வரலாற்று நிகழ்வுகள்";
 "on-this-day-title" = "இந்த நாளில்";
-"page-protected-autoconfirmed" = "இந்த பக்கம் அரைப் பாதுகாக்கபட்டுள்ளது.";
 "page-protected-can-not-edit" = "உங்களுக்கு இந்த பக்கத்தை தொகுக்கும் உரிமைகள் இல்லை";
 "page-protected-can-not-edit-title" = "இந்த பக்கம் பாதுகாக்கப்பட்டுள்ளது.";
-"page-protected-other" = "இந்தப்பக்கம் பின்வரும் நிலைகளில் பாதுகாக்கப்பட்டுள்ளது: $1";
-"page-protected-sysop" = "இந்த பக்கம் முழுமையாகப் பாதுகாக்கப்பட்டுள்ளது.";
 "pictured" = "படம்";
 "places-accessibility-clear-saved-searches" = "சேமிக்கப்பட்ட தேடல்களை அழிக்கவும்";
 "places-accessibility-group" = "$1 கட்டுரைகள்";

@@ -711,11 +711,8 @@
 "page-history-user-edits" = "modificări ale utilizatorului";
 "page-issues" = "Probleme de pagină";
 "page-location" = "Vezi pe o hartă";
-"page-protected-autoconfirmed" = "Această pagină a fost semiprotejată.";
 "page-protected-can-not-edit" = "Nu aveți drepturi pentru a modifica această pagină";
 "page-protected-can-not-edit-title" = "Această pagină este protejată";
-"page-protected-other" = "Această pagină a fost protejată pentru următoarele niveluri: $1";
-"page-protected-sysop" = "Această pagină a fost protejată.";
 "page-similar-titles" = "Pagini similare";
 "panel-compare-revisions-text" = "Compararea versiunilor vă ajută să arătați cum s-a schimbat un articol în timp. Compararea a două versiuni ale unui articol va arăta diferența dintre aceste versiuni prin evidențierea oricărui conținut modificat.";
 "panel-compare-revisions-title" = "Compararea reviziilor";

@@ -487,11 +487,8 @@
 "page-history-minor-edits" = "edicións menores";
 "page-history-revision-author-accessibility-label" = "Autor: $1";
 "page-history-revision-history-title" = "Historial de revisións";
-"page-protected-autoconfirmed" = "Esta páxina está semiprotexida.";
 "page-protected-can-not-edit" = "Non ten os permisos necesarios para editar esta páxina";
 "page-protected-can-not-edit-title" = "Esta páxina está protexida";
-"page-protected-other" = "Esta páxina está protexida para os seguintes niveis: $1";
-"page-protected-sysop" = "Esta páxina está totalmente protexida.";
 "pictured" = "retratado";
 "places-accessibility-clear-saved-searches" = "Limpar as procuras gardadas";
 "places-accessibility-group" = "$1 artigos";

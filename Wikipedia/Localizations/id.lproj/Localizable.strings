@@ -753,11 +753,8 @@
 "page-history-user-edits" = "suntingan pengguna";
 "page-issues" = "Masalah halaman";
 "page-location" = "Lihat di peta";
-"page-protected-autoconfirmed" = "Halaman ini telah dilindungi sebagian.";
 "page-protected-can-not-edit" = "Anda tidak memiliki hak untuk menyunting halaman ini";
 "page-protected-can-not-edit-title" = "Halaman ini dilindungi";
-"page-protected-other" = "Halaman ini telah dilindungi dengan tingkat sebagai berikut: $1";
-"page-protected-sysop" = "Halaman ini telah sepenuhnya dilindungi.";
 "page-similar-titles" = "Halaman yang serupa";
 "panel-compare-revisions-text" = "Membandingkan revisi membantu menunjukkan bagaimana artikel telah berubah dari waktu ke waktu. Membandingkan dua revisi artikel akan menunjukkan perbedaan antara revisi tersebut dengan menyoroti konten apa pun yang diubah.";
 "panel-compare-revisions-title" = "Membandingkan revisi";

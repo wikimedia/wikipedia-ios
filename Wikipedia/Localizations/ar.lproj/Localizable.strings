@@ -687,11 +687,8 @@
 "page-history-user-edits" = "تعديلات المستخدم";
 "page-issues" = "مشاكل الصفحة";
 "page-location" = "أظهر على الخريطة";
-"page-protected-autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
 "page-protected-can-not-edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
 "page-protected-can-not-edit-title" = "هذه الصفحة محمية";
-"page-protected-other" = "تمت حماية هذه الصفحة إلى المستويات التالية: $1";
-"page-protected-sysop" = "تمت حماية هذه الصفحة بالكامل.";
 "page-similar-titles" = "صفحات مشابهة";
 "panel-compare-revisions-text" = "تساعد مقارنة المراجعات في إظهار كيف تم تغيير مقالة بمرور الوقت، ستوضح المقارنة بين مراجعتين لمقالة ما الفرق بين تلك المراجعات من خلال إبراز أي محتوى تم تغييره.";
 "panel-compare-revisions-title" = "مقارنة المراجعات";
@@ -739,6 +736,7 @@
 "project-name-wikidata" = "ويكي بيانات";
 "project-name-wikimedia-commons" = "ويكيميديا كومنز";
 "project-name-wikinews" = "ويكي الأخبار";
+"project-name-wikiquote" = "ويكي الاقتباس";
 "project-name-wikisource" = "ويكي مصدر";
 "project-name-wikiversity" = "ويكي الجامعة";
 "project-name-wikivoyage" = "ويكي الرحلات";
@@ -963,6 +961,7 @@
 "talk-page-read-in-web" = "اقرأ في الويب";
 "talk-page-related-links" = "ماذا يصل هنا";
 "talk-page-reply-button" = "ردّ";
+"talk-page-reply-button-accessibility-label" = "رد على $1";
 "talk-page-reply-placeholder-format" = "رد على $1";
 "talk-page-reply-terms-and-licenses" = "لاحظ أنه سيتم توقيع ردك تلقائيًا باسم المستخدم الخاص بك. بحفظ التغييرات، فإنك توافق على $1شروط الاستخدام$2، وتوافق على نشر مساهمتك بموجب تراخيص $3CC BY-SA 3.0$4 و $5GFDL$6.";
 "talk-page-reply-title" = "رد";

@@ -758,11 +758,8 @@
 "page-history-user-edits" = "使用者編輯數";
 "page-issues" = "頁面問題";
 "page-location" = "在地圖上檢視";
-"page-protected-autoconfirmed" = "此頁面已受半保護。";
 "page-protected-can-not-edit" = "您沒有權限編輯此頁面";
 "page-protected-can-not-edit-title" = "此頁面受到保護";
-"page-protected-other" = "此頁面已受到以下層級的保護：$1";
-"page-protected-sysop" = "此頁面已受全保護。";
 "page-similar-titles" = "相似的頁面";
 "panel-compare-revisions-text" = "比較修訂能協助顯示出條目隨著時間的內容變化，比較條目裡的兩個修訂時，會透過凸顯出所更改過的內容，來顯示出這些修訂間的差異。";
 "panel-compare-revisions-title" = "比較修訂";

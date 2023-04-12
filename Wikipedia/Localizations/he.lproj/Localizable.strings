@@ -742,11 +742,8 @@
 "page-history-user-edits" = "עריכות משתמש";
 "page-issues" = "בעיות בדף";
 "page-location" = "הצגה על מפה";
-"page-protected-autoconfirmed" = "על הדף הזה הופעלה הגנה חלקית.";
 "page-protected-can-not-edit" = "אין לך הרשאה לערוך את הדף הזה";
 "page-protected-can-not-edit-title" = "הדף הזה מוגן";
-"page-protected-other" = "הדף הזה הוגן לרמות הבאות: $1";
-"page-protected-sysop" = "הדף הזה הוגן באופן מלא.";
 "page-similar-titles" = "דפים דומים";
 "panel-compare-revisions-text" = "השוואת גרסאות עוזרת להראות איך ערך השתנה לאורך זמן. השוואת שתי גרסאות של ערך תציג את ההבדל בין שתי הגרסאות האלה באמצעות הדגשת התוכן שהשתנה.";
 "panel-compare-revisions-title" = "גרסאות מושוות";

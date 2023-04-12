@@ -563,11 +563,8 @@
 "page-history-revision-history-title" = "Sejarah semakan";
 "page-history-revision-minor-edit-accessibility-label" = "Suntingan kecil";
 "page-history-user-edits" = "suntingan pengguna";
-"page-protected-autoconfirmed" = "Laman ini telah diberi perlindungan separa.";
 "page-protected-can-not-edit" = "Anda tidak mempunyai izin untuk menyunting laman ini";
 "page-protected-can-not-edit-title" = "Halaman ini dilindungi";
-"page-protected-other" = "Laman ini dilindungi kepada tahap-tahap berikut: $1";
-"page-protected-sysop" = "Laman ini telah diberi perlindungan penuh.";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Padamkan carian tersimpan";
 "places-accessibility-group" = "$1 rencana";

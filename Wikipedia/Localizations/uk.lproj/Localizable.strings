@@ -742,11 +742,8 @@
 "page-history-user-edits" = "редагування користувачів";
 "page-issues" = "Проблеми сторінки";
 "page-location" = "Переглянути на мапі";
-"page-protected-autoconfirmed" = "Ця сторінка частково захищена.";
 "page-protected-can-not-edit" = "Ви не маєте повноважень редагувати цю сторінку";
 "page-protected-can-not-edit-title" = "Сторінку захищено";
-"page-protected-other" = "Цю сторінку захищено на таких рівнях: $1";
-"page-protected-sysop" = "Ця сторінка повністю захищена.";
 "page-similar-titles" = "Сторінки із схожими назвами";
 "panel-compare-revisions-text" = "Порівняння версій допомагає показати, як стаття змінювалася з часом. Порівняння двох версій статті показує різницю між версіями завдяки підсвічуванню того вмісту, який змінився.";
 "panel-compare-revisions-title" = "Порівняння версій";

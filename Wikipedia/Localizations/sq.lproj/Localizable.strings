@@ -87,10 +87,8 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
-"page-protected-autoconfirmed" = "Kjo faqe ka qenë gjysmë e mbrojtur.";
 "page-protected-can-not-edit" = "Ju nuk keni të drejtë të redaktoni këtë faqe";
 "page-protected-can-not-edit-title" = "Kjo faqe është e mbrojtur";
-"page-protected-sysop" = "Kjo faqe ka qenë e mbrojtur plotësisht.";
 // Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Ditë|Dje|$1 ditë më parë}}";
 "search-did-you-mean" = "Mos kishit në mendje $1?";
