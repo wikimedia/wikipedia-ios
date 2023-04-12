@@ -5,7 +5,8 @@ if [[ ${CI_XCODEBUILD_ACTION} == "build-for-testing" ]]; then
     SOURCEROOT="${CI_WORKSPACE}/ci_scripts"
     plutil -replace SourceRoot -string $SOURCEROOT Info.plist
     plutil -p Info.plist
-    cp -a "${CI_WORKSPACE}/Wikipedia/iOS Native Localizations". "${CI_WORKSPACE}/ci_scripts/Wikipedia/iOS Native Localizations"
+    mkdir ci_scripts/Wikipedia
+    cp -R "${CI_WORKSPACE}/Wikipedia/iOS Native Localizations" "${CI_WORKSPACE}/ci_scripts/Wikipedia/iOS Native Localizations"
     echo "CI_WORKSPACE value successfully copied into Info.plist SourceRoot key."
     exit 0
 else
