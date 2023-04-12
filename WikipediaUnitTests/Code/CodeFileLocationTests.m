@@ -31,9 +31,8 @@
     NSPredicate *extensionsPredicate =
         [NSPredicate predicateWithFormat:@"pathExtension IN %@", extensionsToKeepOutOfRoot];
 
-    NSString *sourceRoot = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"SourceRoot"];
     NSArray *filesWhichShouldNotBeInRoot =
-        [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:sourceRoot error:nil] filteredArrayUsingPredicate:extensionsPredicate];
+        [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:SOURCE_ROOT_DIR error:nil] filteredArrayUsingPredicate:extensionsPredicate];
 
     XCTAssertEqual(filesWhichShouldNotBeInRoot.count, 0);
 }

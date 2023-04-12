@@ -22,13 +22,11 @@
 }
 
 + (NSString *)iOSLocalizationsDirectory {
-    NSString *sourceRoot = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"SourceRoot"];
-    return [sourceRoot stringByAppendingPathComponent:@"Wikipedia/iOS Native Localizations"];
+    return [SOURCE_ROOT_DIR stringByAppendingPathComponent:@"Wikipedia/iOS Native Localizations"];
 }
 
 + (NSString *)twnLocalizationsDirectory {
-    NSString *sourceRoot = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"SourceRoot"];
-    return [sourceRoot stringByAppendingPathComponent:@"Wikipedia/Localizations"];
+    return [SOURCE_ROOT_DIR stringByAppendingPathComponent:@"Wikipedia/Localizations"];
 }
 
 + (NSString *)bundleRoot {
@@ -82,10 +80,8 @@
 + (NSArray *)iOSLprojFiles {
     static dispatch_once_t onceToken;
     static NSArray *iOSLprojFiles;
-    static NSArray *tempFiles;
     dispatch_once(&onceToken, ^{
-        tempFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.iOSLocalizationsDirectory error:nil];
-        iOSLprojFiles = [[tempFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]] valueForKey:@"lowercaseString"];
+        iOSLprojFiles = [[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.iOSLocalizationsDirectory error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]] valueForKey:@"lowercaseString"];
     });
     return iOSLprojFiles;
 }
