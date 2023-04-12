@@ -23,14 +23,7 @@
 
 + (NSString *)iOSLocalizationsDirectory {
     NSString *sourceRoot = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"SourceRoot"];
-    NSLog(@"sourceRoot: %@", sourceRoot);
-    NSArray *sourceRootFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:sourceRoot error:nil];
-    NSLog(@"sourceRootFiles: %@", sourceRootFiles);
-    NSString *finalPath = [sourceRoot stringByAppendingPathComponent:@"Wikipedia/iOS Native Localizations"];
-    NSLog(@"finalPath: %@", finalPath);
-    NSArray *finalPathFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:finalPath error:nil];
-    NSLog(@"finalPathFiles: %@", finalPathFiles);
-    return finalPath;
+    return [sourceRoot stringByAppendingPathComponent:@"Wikipedia/iOS Native Localizations"];
 }
 
 + (NSString *)twnLocalizationsDirectory {
@@ -117,7 +110,7 @@
 
 - (void)testLprojCount {
     XCTAssert(TWNStringsTests.iOSLprojFiles.count > 0);
-    // XCTAssert(TWNStringsTests.twnLprojFiles.count > 0);
+    XCTAssert(TWNStringsTests.twnLprojFiles.count > 0);
 }
 
 + (NSRegularExpression *)reverseiOSTokenRegex {
