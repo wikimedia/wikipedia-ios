@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Sinorê yew hesabi ra %#@v1@ ra.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d meqale vêrd</string>
+			<key>other</key>
+			<string>%1$d meqaleyi vêrdi</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Sinorê yew hesabi ra %#@v1@ ra.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d lista wendışi vêrde</string>
+			<key>other</key>
+			<string>%1$d listeyê wendışi vêrdi</string>
+		</dict>
+	</dict>
+	<key>relative-date-days-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Vızêri</string>
+			<key>other</key>
+			<string>%1$d roci raver</string>
+			<key>zero</key>
+			<string>Ewro</string>
+		</dict>
+	</dict>
+	<key>relative-date-years-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Par</string>
+			<key>other</key>
+			<string>%1$d serri raver</string>
+			<key>zero</key>
+			<string>Emseri</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>aaald-characters-text-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߛߓߍߘߋ߲߫ ߟߎ߬</string>
+			<key>other</key>
+			<string>ߛߓߍߘߋ߲ ߠߎ߬</string>
+		</dict>
+	</dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ ߝߙߊ߬ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ ߛߙߍߘߍ ߡߊ߬</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߞߎߡߘߊ %1$d</string>
+			<key>other</key>
+			<string>ߞߎߡߘߊ %1$d ߟߎ߬</string>
+		</dict>
+	</dict>
+	<key>article-deleted-accessibility-notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ ߖߏ߰ߛߌ߬</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߞߎߡߘߊ %1$d</string>
+			<key>other</key>
+			<string>ߞߎߡߘߊ %1$d ߟߎ߬</string>
+		</dict>
+	</dict>
+	<key>diff-paragraph-moved-distance-line</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߛߌ߬ߕߊ߬ߙߌ߬ %1$d</string>
+			<key>other</key>
+			<string>ߛߌ߬ߕߊ߬ߙߌ %1$d ߟߎ߬</string>
+		</dict>
+	</dict>
+	<key>diff-paragraph-moved-distance-section</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߕߍߕߍ߯ %1$d</string>
+			<key>other</key>
+			<string>ߕߍߕߍ߮ %1$d ߟߎ߬</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-editor-number-edits-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ %1$d</string>
+			<key>other</key>
+			<string>ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ %1$dߠߎ߬</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-subtitle-bytes-added</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>byte %1$d ߓߘߊ߫ ߝߙߊ߬</string>
+			<key>other</key>
+			<string>bytes %1$d ߟߎ߫ ߓߘߊ߫ ߝߙߊ߬</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-subtitle-bytes-removed</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>byte %1$d ߓߘߊ߫ ߛߋ߲߬ߓߐ߫</string>
+			<key>other</key>
+			<string>bytes %1$d ߟߎ߫ ߓߘߊ߫ ߛߋ߲߬ߓߐ߫</string>
+		</dict>
+	</dict>
+	<key>diff-unedited-lines-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߛߌ߬ߕߊ߬ߙߌ߬ ߡߊߦߟߍ߬ߡߊ߲߬ߓߊߟߌ %1$d</string>
+			<key>other</key>
+			<string>ߛߌ߬ߕߊ߬ߙߌ߬ ߡߊߦߟߍ߬ߡߊ߲߬ߓߊߟߌ %1$d ߟߎ߫</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ ߛߋ߲߬ߓߐ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ ߛߙߍߘߍ ߘߐ߫</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߞߎߡߘߊ %1$d</string>
+			<key>other</key>
+			<string>ߞߎߡߘߊ %1$d ߟߎ߬</string>
+		</dict>
+	</dict>
+	<key>notifications-center-mark-all-as-read-confirmation-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ߊ߬ ߝߐ߫ ߌ ߘߍ߲߬ߞߣߍ߬ߦߊ߬ߣߍ߲߫ ߦߋ߫ ߞߴߌ ߦߴߊ߬ ߝߍ߬ ߞߊ߬ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ %#@v1@ ߓߍ߯ ߣߐ߬ߣߐ߬ ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲ ߠߎ߬ ߘߌ߫؟ ߌ ߟߊ߫ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߟߎ߬ ߘߌ߫ ߞߍ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲ ߘߴߌ ߟߊ߫ ߞߍߟߊ߲ ߠߎ߬ ߓߍ߯ ߞߣߐ߫.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߗߋߛߓߍ %1$d</string>
+			<key>other</key>
+			<string>ߗߋߛߓߍ %1$d ߟߎ߫</string>
+		</dict>
+	</dict>
+	<key>on-this-day-detail-header-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߖߊ߲߬ߖߏ߲ ߘߝߐ߬ߟߊ߬ߞߊ %1$d</string>
+			<key>other</key>
+			<string>ߖߊ߲߬ߖߏ߲߫ ߘߝߐ߬ߟߊ߬ߞߊ %1$d ߟߎ߬</string>
+		</dict>
+	</dict>
+	<key>on-this-day-footer-showing-event-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ ߟߏ߲ ߣߌ߲߬ ߡߊ߬</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߘߝߐ߬ߟߊ߬ߞߊ ߖߊ߲߬ߖߏ߲߬ ߜߘߍ߫ %1$d</string>
+			<key>other</key>
+			<string>ߘߝߐ߬ߟߊ߬ߞߊ ߖߊ߲߬ߖߏ߲߬ ߜߘߍ߫ %1$d ߟߎ߫</string>
+		</dict>
+	</dict>
+	<key>page-history-revision-size-diff-addition</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ ߝߙߊ߬ߣߍ߲</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>byte %1$d</string>
+			<key>other</key>
+			<string>bytes %1$d</string>
+		</dict>
+	</dict>
+	<key>page-history-revision-size-diff-subtraction</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ ߓߘߊ߫ ߢߌ߬ߣߊ߬ߓߐ߫</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߓߌߕ %1$d</string>
+			<key>other</key>
+			<string>ߓߌߕ %1$d ߟߎ߫</string>
+		</dict>
+	</dict>
+	<key>page-history-stats-text</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ ߞߊ߬ߦߌ߯ %2$@ ߟߊ߫</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ %1$d</string>
+			<key>other</key>
+			<string>ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ %1$d ߟߎ߫</string>
+		</dict>
+	</dict>
+	<key>places-filter-top-articles-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߞߎߡߘߊ %1$d</string>
+			<key>other</key>
+			<string>ߞߎߡߘߊ %1$d ߟߎ߬</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
