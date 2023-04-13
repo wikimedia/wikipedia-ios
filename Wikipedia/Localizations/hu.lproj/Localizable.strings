@@ -500,11 +500,8 @@
 "page-history-revision-time-accessibility-label" = "Változtatás közzétéve ekkor: $1";
 "page-history-stats-text" = "{{PLURAL:$1|$Egy szerkesztés|$1 szerkesztés}} $2-óta";
 "page-location" = "Megtekintés térképen";
-"page-protected-autoconfirmed" = "Ez a lap félig védett.";
 "page-protected-can-not-edit" = "Nincs jogosultságod a lap szerkesztéséhez";
 "page-protected-can-not-edit-title" = "Ez a lap védett";
-"page-protected-other" = "Ez a lap az alábbi szinten védett: $1";
-"page-protected-sysop" = "Ez a lap teljesen védett.";
 "page-similar-titles" = "Hasonló oldalak";
 "panel-compare-revisions-title" = "Változatok összehasonlítása";
 "pictured" = "képpel";

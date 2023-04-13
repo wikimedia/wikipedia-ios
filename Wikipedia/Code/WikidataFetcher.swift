@@ -148,7 +148,7 @@ public enum ArticleDescriptionSource: String {
         session.jsonDecodableTask(with: languageCodeComponents.url) { (siteInfo: MediaWikiSiteInfoResult?, _, _) in
             
             let normalizedLanguage = siteInfo?.query.general.lang ?? "en"
-            let queryParameters = ["action": "wbsetdescription",
+            let queryParameters: [String: Any] = ["action": "wbsetdescription",
                                    "errorformat": "html",
                                    "erroruselocal": 1,
                                    "format": "json",

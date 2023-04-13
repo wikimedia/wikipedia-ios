@@ -603,11 +603,8 @@
 "page-history-revision-size-diff-subtraction" = "เอา {{PLURAL:$1|$1 ไบต์}}ออกแล้ว";
 "page-issues" = "ปัญหาในหน้า";
 "page-location" = "ดูบนแผนที่";
-"page-protected-autoconfirmed" = "หน้านี้ถูกล็อกแบบกึ่งล็อก";
 "page-protected-can-not-edit" = "คุณไม่มีสิทธิ์แก้ไขหน้านี้";
 "page-protected-can-not-edit-title" = "หน้านี้ถูกล็อก";
-"page-protected-other" = "หน้านี้ถูกป้องกันในระดับ: $1";
-"page-protected-sysop" = "หน้านี้ถูกล็อกแบบสมบูรณ์";
 "panel-compare-revisions-title" = "เปรียบเทียบรุ่นแก้ไข";
 "panel-not-logged-in-continue-edit-action-title" = "แก้ไขโดยไม่เข้าสู่ระบบ";
 "panel-not-logged-in-title" = "คุณยังไม่ได้เข้าสู่ระบบ";

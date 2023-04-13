@@ -292,11 +292,8 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 $2 Wikipediatik";
 "on-this-day-title" = "Gaurkoan";
 "original-tab-button-popover-description" = "Sakatu 'W' jatorrizko lehiatilara bueltatzeko";
-"page-protected-autoconfirmed" = "Orri hau erdi babestua dago.";
 "page-protected-can-not-edit" = "Ez duzu orrialde hau aldatzeko baimenik";
 "page-protected-can-not-edit-title" = "Orrialde hau babestuta dago";
-"page-protected-other" = "Orrialde hau ondoren mailetan babestu da: $1";
-"page-protected-sysop" = "Orri hau erabat babestua dago.";
 "pictured" = "Irudikatuta";
 "places-accessibility-clear-saved-searches" = "Garbitu gordetako bilaketak";
 "places-accessibility-group" = "$1 artikulu";

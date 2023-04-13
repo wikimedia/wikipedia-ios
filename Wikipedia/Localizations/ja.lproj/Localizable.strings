@@ -715,11 +715,8 @@
 "page-history-user-edits" = "利用者の編集";
 "page-issues" = "ページの問題点";
 "page-location" = "地図で見る";
-"page-protected-autoconfirmed" = "このページは半保護されています。";
 "page-protected-can-not-edit" = "このページを編集する権限がありません";
 "page-protected-can-not-edit-title" = "このページは保護されています";
-"page-protected-other" = "このページは、次のレベルに保護されています:$1";
-"page-protected-sysop" = "このページは全保護されています。";
 "page-similar-titles" = "類似したページ";
 "panel-compare-revisions-text" = "版を比較すると、記事が時間の経過とともにどのように変更されたかを示すのに役立ちます。記事の2つの版を比較すると、変更されたコンテンツが強調表示されることで、これらの版の違いが示されます。";
 "panel-compare-revisions-title" = "版を比較";

@@ -756,11 +756,8 @@
 "page-history-user-edits" = "gebruikersbewerkingen";
 "page-issues" = "Paginaproblemen";
 "page-location" = "Op een kaart bekijken";
-"page-protected-autoconfirmed" = "Deze pagina is semibeveiligd.";
 "page-protected-can-not-edit" = "U hebt geen rechten om deze pagina te bewerken";
 "page-protected-can-not-edit-title" = "Deze pagina is beveiligd";
-"page-protected-other" = "Deze pagina is beveiligd op de volgende niveaus: $1";
-"page-protected-sysop" = "Deze pagina is volledig beveiligd.";
 "page-similar-titles" = "Vergelijkbare pagina's";
 "panel-compare-revisions-text" = "Het vergelijken van revisies helpt om te laten zien hoe een artikel in de loop van de tijd is veranderd. Als u twee revisies van een artikel vergelijkt, wordt het verschil tussen die revisies weergegeven door de inhoud te markeren die is gewijzigd.";
 "panel-compare-revisions-title" = "Versies vergelijken";

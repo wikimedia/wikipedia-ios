@@ -66,11 +66,8 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "meng $1";
-"page-protected-autoconfirmed" = "Hi cahmai hi tlawmpal kilven a si.";
 "page-protected-can-not-edit" = "Hi cahmai remhnak nawl na ngei lo.";
 "page-protected-can-not-edit-title" = "Hi cahmai hi kilvenpiak a si.";
-"page-protected-other" = "Hi cahmai atanglei dotning in kilven a si: $1";
-"page-protected-sysop" = "Hi cahmai hi kilvenpiak a si.";
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "App na hmannak ah a that deuh nakhga Wikimedia kha thil sining pawl laknak nawl pe";
 "preference-title-eventlogging-opt-in" = "Hmannak ripawt kua";

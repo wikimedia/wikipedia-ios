@@ -259,11 +259,8 @@
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1 мөл.";
 "number-thousands" = "$1 тыһ.";
-"page-protected-autoconfirmed" = "Бу сирэй сорҕото хатанна.";
 "page-protected-can-not-edit" = "Бу сирэйи уларытар кыаҕыҥ суох эбит";
 "page-protected-can-not-edit-title" = "Бу сирэй хатанан турар";
-"page-protected-other" = "Бу сирэй маннык таһымнарга хатанна: $1";
-"page-protected-sysop" = "Бу сирэй толору хатанна.";
 "pictured" = "ойууланна";
 "places-accessibility-clear-saved-searches" = "Тиһиликтэн бүтэһик көрдөөһүннэри соттор";
 "places-accessibility-group" = "$1 ыстатыйа";
