@@ -53,6 +53,8 @@ import CocoaLumberjackSwift
  *   originally submitted
  */
 @objc public class EventPlatformClient: NSObject, SamplingControllerDelegate {
+
+
     // MARK: - Properties
 
     @objc public static let shared: EventPlatformClient = {
@@ -66,7 +68,16 @@ import CocoaLumberjackSwift
     let dataStore = MWKDataStore.shared()
     let samplingController: SamplingController
     let storageManager: StorageManager?
+    let userSessionSingleton = UserSession.shared //rename
 
+    var sessionID: String {
+        return userSessionSingleton.sessionID
+    }
+
+    public func resetSession() {
+        userSessionSingleton.resetSession()
+        samplingController.removeAllSamplingCache()
+    }
     /**
      * Store events until the library is finished initializing
      *
@@ -188,24 +199,6 @@ import CocoaLumberjackSwift
     }
     private var _streamConfigurations: [Stream: StreamConfiguration]? = nil
 
-    /**
-     * Return a session identifier
-     * - Returns: session ID
-     *
-     * The identifier is a string of 20 zero-padded hexadecimal digits
-     * representing a uniformly random 80-bit integer.
-     */
-    internal var sessionID: String {
-        queue.sync {
-            var _sessionID = UserDefaults.standard.wmf_sessionID
-            guard let sID = _sessionID else {
-                let newID = generateID()
-                _sessionID = newID
-                return newID
-            }
-            return sID
-        }
-    }
 
     private var isAnon: Bool {
         return dataStore.authenticationManager.isLoggedIn
@@ -256,7 +249,7 @@ import CocoaLumberjackSwift
      * a new session is started.
      */
     public func appInForeground() {
-        if sessionTimedOut() {
+        if userSessionSingleton.sessionTimedOut() {
             resetSession()
         }
     }
@@ -271,71 +264,6 @@ import CocoaLumberjackSwift
         UserDefaults.standard.wmf_sessionLastTimestamp = Date()
     }
 
-    /**
-     * Generates a new identifier using the same algorithm as EPC libraries for
-     * web and Android
-     */
-    private func generateID() -> String {
-        var id: String = ""
-        for _ in 1...5 {
-            id += String(format: "%04x", arc4random_uniform(65535))
-        }
-        return id
-    }
-    
-    /**
-     * Called when user toggles logging permissions in Settings
-     *
-     * This assumes storageManager's deviceID will be reset separately by a
-     * different owner (EventLoggingService's `reset()` method)
-     */
-    public func reset() {
-        resetSession()
-    }
-
-    public var sessionStartDate: Date? {
-        queue.sync {
-            guard let sessionStart = _sessionStartDate else {
-                let newStart = Date()
-                _sessionStartDate = newStart
-                return newStart
-            }
-            return sessionStart
-        }
-    }
-
-    private var _sessionStartDate: Date?
-
-    private var _sessionEndDate: Date?
-
-    /**
-     * Unset the session
-     */
-    public func resetSession() {
-        queue.async {
-            UserDefaults.standard.wmf_sessionID = nil
-        }
-        samplingController.removeAllSamplingCache()
-    }
-
-    /**
-     * Check if session expired, based on last active timestamp
-     *
-     * A new session ID is required if it has been more than 30 minutes since the
-     * user was last active (e.g. when app entered background).
-     */
-    private func sessionTimedOut() -> Bool {
-        /*
-         * A TimeInterval value is always specified in seconds.
-         */
-        if let lastTimestamp = UserDefaults.standard.wmf_sessionLastTimestamp {
-            hasSessionTimedOut = lastTimestamp.timeIntervalSinceNow < -1800
-            return hasSessionTimedOut
-        }
-        return true
-    }
-
-    public var hasSessionTimedOut: Bool = false
 
     /**
      * Fetch stream configuration from stream configuration service

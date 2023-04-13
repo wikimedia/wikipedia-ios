@@ -1857,6 +1857,7 @@
 		836BF56F2869F9C200B98321 /* TalkPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56D2869F9C200B98321 /* TalkPageViewController.swift */; };
 		836BF5702869F9C200B98321 /* TalkPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56D2869F9C200B98321 /* TalkPageViewController.swift */; };
 		836BF5712869F9C200B98321 /* TalkPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56D2869F9C200B98321 /* TalkPageViewController.swift */; };
+		836CB7A229DF45F10058A454 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836CB7A129DF45F10058A454 /* UserSession.swift */; };
 		837A15F328DA591E00AAC3FC /* TalkPageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A15F228DA591E00AAC3FC /* TalkPageCache.swift */; };
 		837A15F428DA591E00AAC3FC /* TalkPageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A15F228DA591E00AAC3FC /* TalkPageCache.swift */; };
 		837A15F528DA591E00AAC3FC /* TalkPageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A15F228DA591E00AAC3FC /* TalkPageCache.swift */; };
@@ -4576,6 +4577,7 @@
 		8368BB8324129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ArticleErrorHandling.swift"; sourceTree = "<group>"; };
 		836BF56B2869EC2600B98321 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		836BF56D2869F9C200B98321 /* TalkPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageViewController.swift; sourceTree = "<group>"; };
+		836CB7A129DF45F10058A454 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		83703A7724DC44C600EE98EA /* RemoteNotifications 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RemoteNotifications 2.xcdatamodel"; sourceTree = "<group>"; };
 		837A15F228DA591E00AAC3FC /* TalkPageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCache.swift; sourceTree = "<group>"; };
 		8380753620DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutInfo.swift; sourceTree = "<group>"; };
@@ -9269,6 +9271,7 @@
 				6779618C29245BF300C2A65F /* PageIDToURLFetcher.swift */,
 				6779618E29246BC900C2A65F /* NSUserActivity+Extensions.swift */,
 				67B7E7792988768C00708A81 /* MediaWikiApiErrors.swift */,
+				836CB7A129DF45F10058A454 /* UserSession.swift */,
 			);
 			path = "WMF Framework";
 			sourceTree = "<group>";
@@ -12203,6 +12206,7 @@
 				D8FA18AF1E1BD891009675C3 /* NSNumberFormatter+WMFExtras.swift in Sources */,
 				D844DA091D6CC4D40042D692 /* MWKLanguageFilter.m in Sources */,
 				67F1A180286F34A5000D0F74 /* FeatureFlags.swift in Sources */,
+				836CB7A229DF45F10058A454 /* UserSession.swift in Sources */,
 				0042807225E6E395004945B3 /* NSError+MTLModelException.m in Sources */,
 				7A03130321542F5C0095C953 /* RemoteNotificationsOperationsController.swift in Sources */,
 				0E728D371DAEEAD60074EB4B /* MWKLocationSearchResult.m in Sources */,
