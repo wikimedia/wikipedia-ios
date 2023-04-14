@@ -1061,7 +1061,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #pragma mark - Logging
 
 - (void)logSessionEnd {
-    [[SessionsFunnel shared] logSessionLastActivity];
+    [[UserSession shared] logSessionEndTimestamp];
     [[UserHistoryFunnel shared] logSnapshot];
 }
 

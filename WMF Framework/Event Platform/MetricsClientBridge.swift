@@ -4,25 +4,26 @@ import Foundation
 public class MetricsClientBridge: NSObject {
     
     let client = EventPlatformClient.shared
+    let session = UserSession.shared
     
     @objc(sharedInstance) public static let shared: MetricsClientBridge = {
         return MetricsClientBridge()
     }()
     
     @objc public func appInBackground() {
-        client.appInBackground()
+        session.logSessionEndTimestamp()
     }
     
     @objc public func appInForeground() {
-        client.appInForeground()
+        session.appInForeground()
     }
     
     @objc public func appWillClose() {
-        client.appWillClose()
+        session.appWillClose()
     }
     
     @objc public func reset() {
-        client.reset()
+        session.reset()
     }
     
 }

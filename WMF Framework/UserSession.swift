@@ -1,13 +1,17 @@
 import Foundation
 
-/// Write doc for this TODO
-final class UserSession {
+/// *User Session*  - handles user session ID creation and elimination
+/// Session ID format and duration follow the standars agreed upon the Analytics and Apps teams
+/// Note: Not to be confused with *Session * class that handles URL sessions
+public final class UserSession: NSObject {
     
-    public static let shared: UserSession = {
+    @objc public static let shared: UserSession = {
         return UserSession()
     }()
 
     private let queue = DispatchQueue(label: "UserSessionClient-" + UUID().uuidString)
+
+    public var hasSessionTimedOut: Bool = false
 
     /**
      * Return a session identifier
@@ -27,6 +31,7 @@ final class UserSession {
             return sID
         }
     }
+
     /**
      * Generates a new identifier using the same algorithm as EPC libraries for
      * web and Android
@@ -49,6 +54,9 @@ final class UserSession {
         resetSession()
     }
 
+    /**
+     * Sets the session start date if there is no valid session
+     */
     public var sessionStartDate: Date? {
         queue.sync {
             guard let sessionStart = _sessionStartDate else {
@@ -62,8 +70,6 @@ final class UserSession {
 
     private var _sessionStartDate: Date?
 
-    private var _sessionEndDate: Date?
-
     /**
      * Unset the session
      */
@@ -71,7 +77,6 @@ final class UserSession {
         queue.async {
             UserDefaults.standard.wmf_sessionID = nil
         }
-        
     }
 
     /**
@@ -91,6 +96,37 @@ final class UserSession {
         return true
     }
 
-    public var hasSessionTimedOut: Bool = false
+    /**
+     * This method is called by the application delegate in
+     * `applicationDidBecomeActive()` and re-enables event logging.
+     *
+     * If it has been more than 30 minutes since the app entered background state,
+     * a new session is started.
+     */
+    public func appInForeground() {
+        if sessionTimedOut() {
+            resetSession()
+        }
+    }
+
+    /**
+     * This method is called by the application delegate in
+     * `applicationWillTerminate()`
+     *
+     * We now persist session ID on app close to match session handling with Android
+     * session ends when 30 minutes of inactivity have passed.
+     */
+    public func appWillClose() {
+        UserDefaults.standard.wmf_sessionLastTimestamp = Date()
+    }
+
+    /**
+     * This method is called by the application delegate in
+     * `applicationWillResignActive()` and disables event logging.
+     */
+    @objc public func logSessionEndTimestamp() {
+        UserDefaults.standard.wmf_sessionLastTimestamp = Date()
+
+    }
 
 }

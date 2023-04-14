@@ -32,7 +32,7 @@
     }
 
     @objc public func setSessionStart() {
-        if EventPlatformClient.shared.hasSessionTimedOut {
+        if UserSession.shared.hasSessionTimedOut {
             defer {
                 resetSession()
             }
@@ -42,18 +42,19 @@
     
     private func resetSession() {
         resetPageLoadMetrics()
-        EventPlatformClient.shared.resetSession()
+        UserSession.shared.resetSession()
+        EventPlatformClient.shared.resetCaching()
     }
 
     @objc public func logSessionLastActivity() {
-        EventPlatformClient.shared.appInBackground()
+        UserSession.shared.logSessionEndTimestamp()
     }
 
     /**
      * To match Android, we now log the previous Session when a new session starts
      */
     @objc public func logPreviousSessionEnd() {
-        guard let sessionStartDate = EventPlatformClient.shared.sessionStartDate else {
+        guard let sessionStartDate = UserSession.shared.sessionStartDate else {
             assertionFailure("Session start date cannot be nil")
             return
         }

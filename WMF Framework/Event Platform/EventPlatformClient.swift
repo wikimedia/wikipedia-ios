@@ -68,14 +68,13 @@ import CocoaLumberjackSwift
     let dataStore = MWKDataStore.shared()
     let samplingController: SamplingController
     let storageManager: StorageManager?
-    let userSessionSingleton = UserSession.shared //rename
+    let userSession = UserSession.shared
 
     var sessionID: String {
-        return userSessionSingleton.sessionID
+        return userSession.sessionID
     }
 
-    public func resetSession() {
-        userSessionSingleton.resetSession()
+    public func resetCaching() {
         samplingController.removeAllSamplingCache()
     }
     /**
@@ -106,7 +105,7 @@ import CocoaLumberjackSwift
         case readingLists = "ios.reading_lists"
         case userHistory = "ios.user_history"
         case search = "ios.search"
-        case sessions = "ios.sessions"
+        case sessions = "app_session"
         case settings = "ios.setting_action"
         case login = "ios.login_action"
     }
@@ -128,8 +127,8 @@ import CocoaLumberjackSwift
         case userHistory = "/analytics/mobile_apps/ios_user_history/1.0.0"
         case search = "/analytics/mobile_apps/ios_search/2.0.0"
         case sessions = "/analytics/mobile_apps/app_session/1.0.0"
-        case settings = "/analytics/mobile_apps/ios_setting_action/1.0.1"
-        case login = "/analytics/mobile_apps/ios_login_action/1.0.0"
+        case settings = "/analytics/mobile_apps/ios_setting_action/1.0.0"
+        case login = "/analytics/mobile_apps/ios_login_action/1.0.1"
     }
 
     /**
@@ -231,37 +230,6 @@ import CocoaLumberjackSwift
         }
 
         self.fetchStreamConfiguration(retries: 10, retryDelay: 30)
-    }
-
-    /**
-     * This method is called by the application delegate in
-     * `applicationWillResignActive()` and disables event logging.
-     */
-    public func appInBackground() {
-        UserDefaults.standard.wmf_sessionLastTimestamp = Date()
-    }
-
-    /**
-     * This method is called by the application delegate in
-     * `applicationDidBecomeActive()` and re-enables event logging.
-     *
-     * If it has been more than 30 minutes since the app entered background state,
-     * a new session is started.
-     */
-    public func appInForeground() {
-        if userSessionSingleton.sessionTimedOut() {
-            resetSession()
-        }
-    }
-    /**
-     * This method is called by the application delegate in
-     * `applicationWillTerminate()`
-     *
-     * We now persist session ID on app close to match session handling with Android
-     * session ends when 30 minutes of inactivity have passed.
-     */
-    public func appWillClose() {
-        UserDefaults.standard.wmf_sessionLastTimestamp = Date()
     }
 
 
