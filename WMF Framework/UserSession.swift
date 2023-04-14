@@ -1,6 +1,6 @@
 import Foundation
 
-/// *User Session*  - handles user session ID creation and elimination
+/// *User Session*  - handles user session ID creation
 /// Session ID format and duration follow the standars agreed upon the Analytics and Apps teams
 /// Note: Not to be confused with *Session * class that handles URL sessions
 public final class UserSession: NSObject {
