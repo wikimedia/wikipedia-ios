@@ -91,15 +91,15 @@
     }
     
     private func logSave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
-        logEvent(action: .save, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge, wiki_id: articleURL.wmf_languageCode ?? nil)
+        logEvent(action: .save, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge, wiki_id: articleURL.wmf_languageCode)
     }
     
     public func logSave(category: EventCategoryMEP, label: EventLabelMEP?, articleURL: URL?) {
-        logEvent(action: .save, category: category, label: label, measure: 1, wiki_id: articleURL?.wmf_languageCode ?? nil)
+        logEvent(action: .save, category: category, label: label, measure: 1, wiki_id: articleURL?.wmf_languageCode)
     }
     
     public func logUnsave(category: EventCategoryMEP, label: EventLabelMEP?, articleURL: URL?) {
-        logEvent(action: .unsave, category: category, label: label, measure: 1, wiki_id: articleURL?.wmf_languageCode ?? nil)
+        logEvent(action: .unsave, category: category, label: label, measure: 1, wiki_id: articleURL?.wmf_languageCode)
     }
     
     private func logUnsave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, wiki_id: String?, measureAge: Int? = nil, measurePosition: Int? = nil) {
@@ -107,15 +107,15 @@
     }
     
     private func logUnsave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
-        logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge)
+        logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge, wiki_id: articleURL.wmf_languageCode)
     }
 
     public func logUnsave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, date: Date?, measurePosition: Int) {
-        logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: daysSince(date))
+        logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: daysSince(date), wiki_id: articleURL.wmf_languageCode)
     }
 
     public func logSave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, date: Date?, measurePosition: Int) {
-        logEvent(action: .save, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: daysSince(date))
+        logEvent(action: .save, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: daysSince(date), wiki_id: articleURL.wmf_languageCode)
     }
     
     // - MARK: Saved - default reading list
