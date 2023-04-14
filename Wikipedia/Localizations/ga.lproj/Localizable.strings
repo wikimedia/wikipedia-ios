@@ -324,9 +324,7 @@
 "on-this-day-title" = "Ar an lá seo";
 "original-tab-button-popover-description" = "Tapáil ar an 'W' le fill ar an táb inar thosaigh tú";
 "page-history-revision-author-accessibility-label" = "Údar: $1";
-"page-protected-autoconfirmed" = "Tá an leathanach seo leath-chosanta.";
 "page-protected-can-not-edit-title" = "Tá an leathanach seo cosanta.";
-"page-protected-sysop" = "Tá an leathanach seo cosanta go hiomlán.";
 "pictured" = "sa phictiúr";
 "places-accessibility-clear-saved-searches" = "Glan cuardaigh shábháilte";
 "places-accessibility-group" = "$1 alt";

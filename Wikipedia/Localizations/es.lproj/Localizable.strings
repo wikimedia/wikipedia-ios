@@ -649,11 +649,8 @@
 "page-history-user-edits" = "ediciones del usuario";
 "page-issues" = "Problemas de la página";
 "page-location" = "Ver en un mapa";
-"page-protected-autoconfirmed" = "Esta página está semiprotegida.";
 "page-protected-can-not-edit" = "No tienes permisos para editar esta página";
 "page-protected-can-not-edit-title" = "Esta página está protegida";
-"page-protected-other" = "Esta página ha sido protegida a los siguientes niveles: $1";
-"page-protected-sysop" = "Esta página está totalmente protegida.";
 "page-similar-titles" = "Páginas similares";
 "panel-compare-revisions-text" = "Comparar revisiones ayuda a ver cómo ha cambiado un artículo a lo largo del tiempo. Comparar dos revisiones de un artículo mostrará la diferencia entre esas revisiones al resaltar cualquier contenido que fue cambiado.";
 "panel-compare-revisions-title" = "Comparando revisiones";

@@ -133,11 +133,8 @@
 "number-billions" = "$1 მლრდ.";
 "number-millions" = "$1 მლნ.";
 "number-thousands" = "$1 ათ.";
-"page-protected-autoconfirmed" = "ეს გვერდი ნახევრად დაცულია.";
 "page-protected-can-not-edit" = "თქვენ არ გაქვთ ამ გვერდის რედაქტირების უფლება";
 "page-protected-can-not-edit-title" = "ეს გვერდი დაცულია";
-"page-protected-other" = "ეს გვერდი დაცულია შემდეგ დონეებზე: $1";
-"page-protected-sysop" = "ეს გვერდი სრულად დაცულია.";
 "places-accessibility-group" = "$1 სტატიები";
 "places-accessibility-show-as-list" = "სიის სახით ჩვენება";
 "places-accessibility-show-as-map" = "რუკის სახით ჩვენება";

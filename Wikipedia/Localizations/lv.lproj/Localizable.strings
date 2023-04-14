@@ -162,7 +162,6 @@
 "page-history-revision-minor-edit-accessibility-label" = "Maznozīmīgs labojums";
 "page-history-stats-text" = "{{PLURAL:$1|$1 labojumi|$1 labojums|$1 labojumi}} kopš $2";
 "page-protected-can-not-edit-title" = "Šī lapa ir aizsargāta";
-"page-protected-sysop" = "Šī lapa ir pilnībā aizsargāta.";
 "panel-compare-revisions-title" = "Versiju salīdzināšana";
 "places-accessibility-group" = "$1 rakstu";
 "places-enable-location-action-button-title" = "Iespējot atrašanās vietu";

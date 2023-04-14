@@ -587,11 +587,8 @@
 "page-history-user-edits" = "измене корисника";
 "page-issues" = "Проблеми са страницом";
 "page-location" = "Прикажи на мапи";
-"page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
 "page-protected-can-not-edit" = "Немате права да уређујете ову страницу";
 "page-protected-can-not-edit-title" = "Ова страница је заштићена";
-"page-protected-other" = "Ова страница је заштићена на следећим нивоима: $1";
-"page-protected-sysop" = "Ова страница је потпуно заштићена.";
 "page-similar-titles" = "Сличне странице";
 "panel-compare-revisions-text" = "Упоређивање измена помаже да се покаже како се чланак временом мењао. Упоређивање две измене чланка показаће разлику између тих ревизија истицањем било ког садржаја који је промењен.";
 "panel-compare-revisions-title" = "Упоређивање измена";

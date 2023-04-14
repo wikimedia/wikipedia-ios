@@ -51,8 +51,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 amerikonsk miles";
-"page-protected-autoconfirmed" = "Henda síðan er blivin hálv-vard.";
-"page-protected-sysop" = "Henda síðan hevur fulla verju.";
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "Loyv Wikimedia at savna kunning um hvussu tú nýtir appina fyri at gera hana betri.";
 "preference-title-eventlogging-opt-in" = "Send frágreiðingar um nýtslu";
