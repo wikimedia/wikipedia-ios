@@ -196,6 +196,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                 [[UserHistoryFunnel shared] logStartingSnapshot];
             } else {
                 [[SessionsFunnel shared] logSessionLastActivity];
+                [[SessionsFunnel shared] logPreviousSessionEnd];
                 [[UserHistoryFunnel shared] logSnapshot];
                 [metricsClientBridge reset];
             }

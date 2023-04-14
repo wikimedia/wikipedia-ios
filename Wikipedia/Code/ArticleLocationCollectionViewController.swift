@@ -72,14 +72,6 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     }
     
     // MARK: ArticlePreviewingDelegate
-    
-    override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
-        super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
-    }
-
-    override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
-        super.readMoreArticlePreviewActionSelected(with: articleController)
-    }
 
     override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
         guard let context = contentGroup, let contextDate = context.midnightUTCDate else {

@@ -16,6 +16,10 @@
     public struct Event: EventInterface {
         public static let schema: EventPlatformClient.Schema = .sessions
         let length_ms: Int?
+        let session_data: SessionData?
+    }
+
+    public struct SessionData: Codable {
         let page_load_latency_ms: Int?
     }
 
@@ -27,7 +31,9 @@
             measureTime = nil
         }
 
-        let finalEvent = SessionsFunnel.Event(length_ms: measureTime, page_load_latency_ms: Int(round(pageLoadAverage ?? Double())))
+        let pageLatency = SessionData(page_load_latency_ms: Int(round(pageLoadAverage ?? Double())))
+
+        let finalEvent = SessionsFunnel.Event(length_ms: measureTime, session_data: pageLatency)
         EventPlatformClient.shared.submit(stream: .sessions, event: finalEvent)
     }
 
