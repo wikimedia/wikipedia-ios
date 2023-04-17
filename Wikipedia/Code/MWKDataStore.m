@@ -98,6 +98,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 - (instancetype)initWithContainerURL:(NSURL *)containerURL {
     self = [super init];
     if (self) {
+        DDLogError(@"MWKDataStore initWithContainerURL - Begin");
         WMFConfiguration *configuration = [WMFConfiguration current];
         WMFSession *session = [[WMFSession alloc] initWithConfiguration:configuration];
         session.authenticationDelegate = self;
@@ -121,6 +122,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self languageLinkController:self.languageLinkController];
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:session configuration:configuration dataStore:self];
         self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
+        DDLogError(@"MWKDataStore initWithContainerURL - End");
     }
     return self;
 }
@@ -386,9 +388,11 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 }
 
 - (void)performUpdatesFromLibraryVersion:(NSUInteger)currentLibraryVersion inManagedObjectContext:(NSManagedObjectContext *)moc {
+    DDLogError(@"performUpdatesFromLibraryVersion - Begin");
     NSError *migrationError = nil;
 
     if (currentLibraryVersion < 5) {
+        DDLogError(@"performUpdatesFromLibraryVersion - (currentLibraryVersion < 5)");
         if (![self migrateToReadingListsInManagedObjectContext:moc error:&migrationError]) {
             DDLogError(@"Error during migration: %@", migrationError);
             return;
@@ -396,6 +400,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
 
     if (currentLibraryVersion < 6) {
+        DDLogError(@"performUpdatesFromLibraryVersion - (currentLibraryVersion < 6)");
         if (![self migrateMainPageContentGroupInManagedObjectContext:moc error:&migrationError]) {
             DDLogError(@"Error during migration: %@", migrationError);
             return;
@@ -403,6 +408,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
 
     if (currentLibraryVersion < 8) {
+        DDLogError(@"performUpdatesFromLibraryVersion - (currentLibraryVersion < 8)");
         NSUserDefaults *ud = [[NSUserDefaults alloc] initWithSuiteName:WMFApplicationGroupIdentifier];
         [ud removeObjectForKey:@"WMFOpenArticleURLKey"];
         [ud removeObjectForKey:@"WMFOpenArticleTitleKey"];
@@ -415,6 +421,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
 
     if (currentLibraryVersion < 9) {
+        DDLogError(@"performUpdatesFromLibraryVersion - (currentLibraryVersion < 9)");
         [self markAllDownloadedArticlesInManagedObjectContextAsNeedingConversionFromMobileview:moc];
         [moc wmf_setValue:@(9) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
@@ -424,6 +431,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
 
     if (currentLibraryVersion < 10) {
+        DDLogError(@"performUpdatesFromLibraryVersion - (currentLibraryVersion < 10)");
         [self migrateToStandardUserDefaults];
         [moc wmf_setValue:@(10) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
@@ -438,6 +446,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
 
     if (currentLibraryVersion < 11) {
+        DDLogError(@"performUpdatesFromLibraryVersion - (currentLibraryVersion < 11)");
         [MWKLanguageLinkController migratePreferredLanguagesToManagedObjectContext:moc];
         [moc wmf_setValue:@(11) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
@@ -447,6 +456,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
 
     if (currentLibraryVersion < 12) {
+        DDLogError(@"performUpdatesFromLibraryVersion - (currentLibraryVersion < 12)");
         [[WMFEventLoggingService sharedInstance] migrateShareUsageAndInstallIDToUserDefaults];
         [self migrateToLanguageVariantsForLibraryVersion:12 inManagedObjectContext:moc];
         [moc wmf_setValue:@(12) forKey:WMFLibraryVersionKey];
@@ -457,6 +467,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
 
     if (currentLibraryVersion < 13) {
+        DDLogError(@"performUpdatesFromLibraryVersion - (currentLibraryVersion < 13)");
         [self.languageLinkController migrateToUniquedPreferredLanguagesInManagedObjectContext:moc];
         [moc wmf_setValue:@(13) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
@@ -466,6 +477,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
 
     if (currentLibraryVersion < 14) {
+        DDLogError(@"performUpdatesFromLibraryVersion - (currentLibraryVersion < 14)");
         [self.remoteNotificationsController deleteLegacyDatabaseFilesAndReturnError:nil];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [moc removeAllContentGroupsOfKind:WMFContentGroupKindNotification];
@@ -478,12 +490,14 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         }
     }
 
+    DDLogError(@"performUpdatesFromLibraryVersion - End");
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
 }
 
 /// Library updates are separate from Core Data migration and can be used to orchestrate migrations that are more complex than automatic Core Data migration allows.
 /// They can also be used to perform migrations when the underlying Core Data model has not changed version but the apps' logic has changed in a way that requires data migration.
 - (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock {
+    DDLogError(@"performLibraryUpdates - Begin");
     dispatch_block_t combinedCompletion = ^{
         [WMFPermanentCacheController setupCoreDataStack:^(NSManagedObjectContext *_Nullable moc, NSError *_Nullable error) {
             if (error) {
@@ -495,9 +509,11 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
             if (completion) {
                 completion();
             }
+            DDLogError(@"performLibraryUpdates - combinedCompletion");
         }];
     };
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
+    DDLogError(@"performLibraryUpdates, libraryVersionNumber: %@", libraryVersionNumber);
     // If the library value doesn't exist, it's a new library and can be set to the latest version
     if (!libraryVersionNumber) {
         [self performInitialLibrarySetup];
@@ -519,12 +535,14 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 }
 
 - (void)performInitialLibrarySetup {
+    DDLogError(@"performInitialLibrarySetup - Begin");
     [self.viewContext wmf_fetchOrCreateDefaultReadingList];
     [self.viewContext wmf_setValue:@(WMFCurrentLibraryVersion) forKey:WMFLibraryVersionKey];
     NSError *setupError = nil;
     if (![self.viewContext save:&setupError]) {
         DDLogError(@"Error performing initial library setup: %@", setupError);
     }
+    DDLogError(@"performInitialLibrarySetup - End");
 }
 
 #if TEST

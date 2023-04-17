@@ -539,9 +539,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #pragma mark - Explore feed preferences
 
 - (void)updateDefaultTab {
+    DDLogError(@"updateDefaultTab - Begin");
     dispatch_async(dispatch_get_main_queue(), ^{
         dispatch_block_t update = ^{
             [self setSelectedIndex:WMFAppTabTypeSearch];
+            DDLogError(@"updateDefaultTab - popToRootViewControllerAnimated:NO");
             [self.navigationController popToRootViewControllerAnimated:NO];
             [self configureTabController];
         };
@@ -792,6 +794,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #pragma mark - Launch
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
+    DDLogError(@"launchAppInWindow - Start");
     self.waitingToResumeApp = waitToResumeApp;
 
     WMFRootNavigationController *articleNavigationController = [[WMFRootNavigationController alloc] initWithRootViewController:self];
@@ -816,10 +819,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self showSplashView];
 
     [self migrateIfNecessary];
+    DDLogError(@"launchAppInWindow - End");
 }
 
 - (void)migrateIfNecessary {
+    DDLogError(@"migrateIfNecessary - Begin");
     if (self.isMigrationComplete || self.isMigrationActive) {
+        DDLogError(@"isMigrationComplete || isMigrationActive, returning");
         return;
     }
 
@@ -842,6 +848,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self.dataStore
         performLibraryUpdates:^{
             dispatch_async(dispatch_get_main_queue(), ^{
+                DDLogError(@"migrateIfNecessary - performLibraryUpdatesCompletionBlock");
                 self.migrationComplete = YES;
                 self.migrationActive = NO;
                 [self endMigrationBackgroundTask];
@@ -862,15 +869,18 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #pragma mark - Start/Pause/Resume App
 
 - (void)hideSplashScreenAndResumeApp {
+    DDLogError(@"hideSplashScreenAndResumeApp - Begin");
     self.waitingToResumeApp = NO;
     if (self.isMigrationComplete) {
         [self resumeApp:NULL];
     }
+    DDLogError(@"hideSplashScreenAndResumeApp - End");
 }
 
 // resumeApp: should be called once and only once for every launch from a fully terminated state.
 // It should only be called when the app is active and being shown to the user
 - (void)resumeApp:(dispatch_block_t)completion {
+    DDLogError(@"resumeApp - Begin");
     [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
         [self loadMainUI];
         dispatch_block_t done = ^{
@@ -885,39 +895,49 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                     });
                 }];
             });
+            DDLogError(@"resumeApp - done completion block");
         };
 
         if (self.notificationUserInfoToShow) {
+            DDLogError(@"resumeApp - self.notificationUserInfoToShow");
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self showNotificationCenterForNotificationInfo:self.notificationUserInfoToShow];
             self.notificationUserInfoToShow = nil;
             done();
         } else if (self.unprocessedUserActivity) {
+            DDLogError(@"resumeApp - self.unprocessedUserActivity");
             [self processUserActivity:self.unprocessedUserActivity
                              animated:NO
                            completion:^{
+                                DDLogError(@"resumeApp - processUserActivity completion");
                                [self hideSplashViewAnimated:!didShowOnboarding];
                                done();
                            }];
         } else if (self.unprocessedShortcutItem) {
+            DDLogError(@"resumeApp - self.unprocessedShortcutItem");
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self processShortcutItem:self.unprocessedShortcutItem
                            completion:^(BOOL didProcess) {
+                                DDLogError(@"resumeApp - processShortcutItem completion");
                                done();
                            }];
         } else if (NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume) {
+            DDLogError(@"resumeApp - NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume");
             [self.navigationStateController restoreNavigationStateFor:self.navigationController
                                                                    in:self.dataStore.viewContext
                                                                  with:self.theme
                                                            completion:^{
+                                                                DDLogError(@"resumeApp - restoreNavigationStateFor completion");
                                                                [self hideSplashViewAnimated:!didShowOnboarding];
                                                                done();
                                                            }];
         } else if ([self shouldShowExploreScreenOnLaunch]) {
+            DDLogError(@"resumeApp - [self shouldShowExploreScreenOnLaunch]");
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self showExplore];
             done();
         } else {
+            DDLogError(@"resumeApp - else");
             [self hideSplashViewAnimated:true];
             done();
         }
@@ -926,6 +946,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (void)finishResumingApp {
 
+    DDLogError(@"finishResumingApp - Begin");
     [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
 
     WMFTaskGroup *resumeAndAnnouncementsCompleteGroup = [WMFTaskGroup new];
@@ -987,6 +1008,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
 
     [resumeAndAnnouncementsCompleteGroup waitInBackgroundWithCompletion:^{
+        DDLogError(@"finishResumingApp - resumeAndAnnouncementsCompleteGroup");
         [self performTasksThatShouldOccurAfterAnnouncementsUpdated];
     }];
 
@@ -1012,6 +1034,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                                                     }];
                                          }];
 #endif
+    DDLogError(@"finishResumingApp - End");
 }
 
 - (NSTimeInterval)timeBeforeRefreshingExploreFeed {
@@ -1163,6 +1186,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (BOOL)processUserActivity:(NSUserActivity *)activity animated:(BOOL)animated completion:(dispatch_block_t)done {
+    DDLogError(@"processUserActivity - Begin");
     if (![self canProcessUserActivity:activity]) {
         done();
         return NO;
@@ -1178,11 +1202,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     switch (type) {
         case WMFUserActivityTypeExplore:
+            DDLogError(@"processUserActivity - WMFUserActivityTypeExplore");
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
             [self.navigationController popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypePlaces: {
+            DDLogError(@"processUserActivity - WMFUserActivityTypePlaces");
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypePlaces];
             [self.navigationController popToRootViewControllerAnimated:animated];
@@ -1194,6 +1220,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             }
         } break;
         case WMFUserActivityTypeContent: {
+            DDLogError(@"processUserActivity - WMFUserActivityTypeContent");
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
             UINavigationController *navController = self.navigationController;
@@ -1231,30 +1258,36 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
         } break;
         case WMFUserActivityTypeSavedPages:
+            DDLogError(@"processUserActivity - WMFUserActivityTypeSavedPages");
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeSaved];
             [self.navigationController popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypeHistory:
+            DDLogError(@"processUserActivity - WMFUserActivityTypeHistory");
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeRecent];
             [self.navigationController popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypeSearch:
+            DDLogError(@"processUserActivity - WMFUserActivityTypeSearch");
             [self showSearchInCurrentNavigationController];
             break;
         case WMFUserActivityTypeSearchResults:
+            DDLogError(@"processUserActivity - WMFUserActivityTypeSearchResults");
             [self dismissPresentedViewControllers];
             [self.searchViewController searchAndMakeResultsVisibleForSearchTerm:[activity wmf_searchTerm] animated:animated];
             [self switchToSearchAnimated:animated];
             break;
         case WMFUserActivityTypeSettings:
+            DDLogError(@"processUserActivity - WMFUserActivityTypeSettings");
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
             [self.navigationController popToRootViewControllerAnimated:NO];
             [self showSettingsAnimated:animated];
             break;
         case WMFUserActivityTypeAppearanceSettings: {
+            DDLogError(@"processUserActivity - WMFUserActivityTypeAppearanceSettings");
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
             [self.navigationController popToRootViewControllerAnimated:NO];
@@ -1263,6 +1296,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
         case WMFUserActivityTypeNotificationSettings: {
+            DDLogError(@"processUserActivity - WMFUserActivityTypeNotificationSettings");
             WMFPushNotificationsSettingsViewController *pushNotificationsVC = [[WMFPushNotificationsSettingsViewController alloc] initWithAuthenticationManager:self.dataStore.authenticationManager notificationsController:self.notificationsController];
             [pushNotificationsVC applyTheme:self.theme];
             [self dismissPresentedViewControllers];
@@ -1279,6 +1313,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             }
         } break;
         default: {
+            DDLogError(@"processUserActivity - default");
             NSURL *linkURL = [activity wmf_linkURL];
             // Ensure incoming link is fetched in user's preferred variant if applicable
             if (!linkURL.wmf_languageVariantCode) {
@@ -1286,14 +1321,17 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             }
             if (!linkURL) {
                 done();
+                DDLogError(@"processUserActivity - End");
                 return NO;
             }
             [NSUserActivity wmf_makeActivityActive:activity];
+            DDLogError(@"processUserActivity - End. Asking router to route linkURL");
             return [self.router routeURL:linkURL userInfo:activity.userInfo completion:done];
         }
     }
     done();
     [NSUserActivity wmf_makeActivityActive:activity];
+    DDLogError(@"processUserActivity - End");
     return YES;
 }
 
@@ -1415,10 +1453,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (context == &kvo_SavedArticlesFetcher_progress) {
+        DDLogDebug(@"observeValueForKeyPath - kvo_SavedArticlesFetcher_progress");
         [ProgressContainer shared].articleFetcherProgress = _savedArticlesFetcher.progress;
     } else if (context == &kvo_NSUserDefaults_defaultTabType) {
+        DDLogDebug(@"observeValueForKeyPath - kvo_NSUserDefaults_defaultTabType");
         [self updateDefaultTab];
     } else {
+        DDLogDebug(@"observeValueForKeyPath - else");
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
@@ -1556,18 +1597,24 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Splash
 
 - (void)showSplashView {
+    DDLogError(@"showSplashView - Begin");
     [(WMFRootNavigationController *)self.navigationController showSplashView];
+    DDLogError(@"showSplashView - End");
 }
 
 - (void)hideSplashViewAnimated:(BOOL)animated {
+    DDLogError(@"hideSplashViewAnimated - Begin");
     [(WMFRootNavigationController *)self.navigationController hideSplashViewAnimated:animated];
+    DDLogError(@"hideSplashViewAnimated - End");
 }
 
 #pragma mark - Explore VC
 
 - (void)showExplore {
+    DDLogError(@"showExplore - Begin");
     [self setSelectedIndex:WMFAppTabTypeMain];
     [self.navigationController popToRootViewControllerAnimated:NO];
+    DDLogError(@"showExplore - End");
 }
 
 #pragma mark - Last Read Article
@@ -1609,10 +1656,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)showNearbyAnimated:(BOOL)animated {
+    DDLogError(@"showNearbyAnimated - Begin");
     [self dismissPresentedViewControllers];
     [self setSelectedIndex:WMFAppTabTypePlaces];
     [self.navigationController popToRootViewControllerAnimated:NO];
     [[self placesViewController] showNearbyArticles];
+    DDLogError(@"showNearbyAnimated - End");
 }
 
 #pragma mark - App config
@@ -1992,12 +2041,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)showImportedReadingList:(ReadingList *)readingList {
+    DDLogError(@"showImportedReadingList - Begin");
     [self dismissPresentedViewControllers];
     [self setSelectedIndex:WMFAppTabTypeSaved];
     [self.navigationController popToRootViewControllerAnimated:NO];
     [self.savedViewController toggleCurrentView:WMFSavedViewControllerView.readingListsViewRawValue];
     ReadingListDetailViewController *detailVC = [[ReadingListDetailViewController alloc] initFor:readingList with:self.dataStore fromImport:YES theme:self.theme];
     [self.navigationController pushViewController:detailVC animated:YES];
+    DDLogError(@"showImportedReadingList - End");
 }
 
 - (nonnull WMFSettingsViewController *)settingsViewController {
