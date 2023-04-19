@@ -1,4 +1,6 @@
 import Foundation
+import MetricKit
+import CocoaLumberjackSwift
 
 @objc public class SharedContainerCacheCommonNames: NSObject {
     @objc public static let pushNotificationsCache = "Push Notifications Cache"
@@ -89,5 +91,40 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
         var updatedCache = sharedCache.loadCache()
         updatedCache.featuredContent = nil
         sharedCache.saveCache(updatedCache)
+    }
+}
+
+@objc public class SharedContainerCacheMetricKitWrapper: NSObject {
+    @objc public static func saveBackgroundExitData(payloads: [MXMetricPayload]) {
+        let containerURL = FileManager.default.wmf_containerURL()
+        let fileURL = containerURL.appendingPathComponent("metricKitBackgroundExitData").appendingPathExtension("json")
+        var mutableArray = NSMutableArray()
+        for payload in payloads {
+            var exitData = NSMutableDictionary()
+            exitData["timeStampBegin"] = DateFormatter.wmf_iso8601().string(from: payload.timeStampBegin)
+            exitData["timeStampEnd"] = DateFormatter.wmf_iso8601().string(from: payload.timeStampEnd)
+            exitData["cumulativeNormalAppExitCount"] = payload.applicationExitMetrics?.backgroundExitData.cumulativeNormalAppExitCount
+            exitData["cumulativeMemoryResourceLimitExitCount"] = payload.applicationExitMetrics?.backgroundExitData.cumulativeMemoryResourceLimitExitCount
+            exitData["cumulativeMemoryPressureExitCount"] = payload.applicationExitMetrics?.backgroundExitData.cumulativeMemoryPressureExitCount
+            exitData["cumulativeBadAccessExitCount"] = payload.applicationExitMetrics?.backgroundExitData.cumulativeBadAccessExitCount
+            exitData["cumulativeAbnormalExitCount"] = payload.applicationExitMetrics?.backgroundExitData.cumulativeAbnormalExitCount
+            exitData["cumulativeIllegalInstructionExitCount"] = payload.applicationExitMetrics?.backgroundExitData.cumulativeIllegalInstructionExitCount
+            exitData["cumulativeAppWatchdogExitCount"] = payload.applicationExitMetrics?.backgroundExitData.cumulativeAppWatchdogExitCount
+            exitData["cumulativeSuspendedWithLockedFileExitCount"] = payload.applicationExitMetrics?.backgroundExitData.cumulativeSuspendedWithLockedFileExitCount
+            exitData["cumulativeBackgroundTaskAssertionTimeoutExitCount"] = payload.applicationExitMetrics?.backgroundExitData.cumulativeBackgroundTaskAssertionTimeoutExitCount
+            exitData["cumulativeCPUResourceLimitExitCount"] = payload.applicationExitMetrics?.backgroundExitData.cumulativeCPUResourceLimitExitCount
+            mutableArray.add(NSDictionary(dictionary: exitData))
+        }
+        do {
+            if let data = try? Data(contentsOf: fileURL),
+               let currentExitData = try? JSONSerialization.jsonObject(with: data, options: []) as? [Any] {
+                mutableArray.addObjects(from: currentExitData)
+            }
+            try? FileManager.default.removeItem(at: fileURL)
+            let data = try JSONSerialization.data(withJSONObject: NSArray(array: mutableArray), options: [.prettyPrinted])
+            try data.write(to: fileURL, options: [.atomicWrite])
+        } catch {
+            DDLogError("Error saving metric payload: \(error)")
+        }
     }
 }
