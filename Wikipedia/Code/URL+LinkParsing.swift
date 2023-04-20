@@ -205,7 +205,8 @@ extension URL {
     }
 
     public var doesOpenInBrowser: Bool {
-        return Configuration.current.router.doesOpenInBrowser(for: self)
+        let loggedInUsername = MWKDataStore.shared().authenticationManager.loggedInUsername
+        return Configuration.current.router.doesOpenInBrowser(for: self, loggedInUsername: loggedInUsername)
     }
 }
 

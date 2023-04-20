@@ -159,9 +159,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controls dels temes de lectura";
 "back-button-accessibility-label" = "Enrere";
 "back-button-popover-title" = "Feu un toc per anar enrere";
+"button-go-back" = "Torna";
 "button-next" = "Següent";
 "button-ok" = "D’acord";
 "button-publish" = "Desa";
+"button-publish-anyway" = "Publica-ho igualment";
 "button-read-now" = "Llegeix-ho ara";
 "button-report-a-bug" = "Informa d'un error";
 "button-save-for-later" = "Desa-ho per a més tard";
@@ -739,11 +741,8 @@
 "page-history-user-edits" = "edicions d'usuaris";
 "page-issues" = "Incidències de la pàgina";
 "page-location" = "Mostra al mapa";
-"page-protected-autoconfirmed" = "La pàgina ha estat semiprotegida.";
 "page-protected-can-not-edit" = "No teniu permisos per modificar la pàgina";
 "page-protected-can-not-edit-title" = "La pàgina està protegida";
-"page-protected-other" = "La pàgina ha estat protegida als nivells següents: $1";
-"page-protected-sysop" = "La pàgina està protegida.";
 "page-similar-titles" = "Pàgines similars";
 "panel-compare-revisions-text" = "Comparar revisions ajuda a mostrar com canvia un article al llarg del temps. Comparar dues revisions d'un article mostrarà la diferència entre les revisions ressaltant el contingut que hagi canviat.";
 "panel-compare-revisions-title" = "Comparació de revisions";

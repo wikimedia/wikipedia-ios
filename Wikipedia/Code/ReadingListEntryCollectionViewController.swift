@@ -6,7 +6,7 @@ protocol ReadingListEntryCollectionViewControllerDelegate: NSObjectProtocol {
     func readingListEntryCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController)
 }
 
-class ReadingListEntryCollectionViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection, SearchableCollection, ActionDelegate, EventLoggingEventValuesProviding {
+class ReadingListEntryCollectionViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection, SearchableCollection, ActionDelegate, MEPEventsProviding {
     let dataStore: MWKDataStore
     var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>?
     var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>?
@@ -285,14 +285,14 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         collectionView.reloadItems(at: visibleIndexPathsWithChanges)
     }
     
-    // MARK: - EventLoggingEventValuesProviding
+    // MARK: -
     
-    var eventLoggingLabel: EventLoggingLabel? {
+    var eventLoggingLabel: EventLabelMEP? {
         return nil
     }
     
-    var eventLoggingCategory: EventLoggingCategory {
-        return EventLoggingCategory.saved
+    var eventLoggingCategory: EventCategoryMEP {
+        return .saved
     }
 }
 
@@ -436,10 +436,6 @@ extension ReadingListEntryCollectionViewController: CollectionViewContextMenuSho
         return articleViewController
     }
 
-    var poppingIntoVCCompletion: () -> Void {
-        // Nothing custom needs to run for this VC
-        return {}
-    }
 }
 
 // MARK: - UICollectionViewDelegate

@@ -270,11 +270,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 prastawa historis}}";
 "on-this-day-footer" = "Prastawa historis liyané ing dina iki";
 "on-this-day-title" = "Ing dina iki";
-"page-protected-autoconfirmed" = "Kaca iki wis semu direksa.";
 "page-protected-can-not-edit" = "Panjenengan ora duwé hak mbesut kaca iki";
 "page-protected-can-not-edit-title" = "Kaca iki direksa";
-"page-protected-other" = "Kaca iki wis direksa tumeka tataran iki: $1";
-"page-protected-sysop" = "Kaca iki wis kareksa wutuh.";
 "pictured" = "digambar";
 "places-accessibility-clear-saved-searches" = "Busak golèkan simpenan";
 "places-accessibility-group" = "$1 artikel";

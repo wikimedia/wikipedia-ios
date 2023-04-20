@@ -1,7 +1,7 @@
 import Foundation
 
-@objc public extension WMFContentGroup {
-    var eventLoggingLabel: EventLoggingLabel? {
+public extension WMFContentGroup {
+    func getAnalyticsLabel() -> EventLabelMEP? {
         switch contentGroupKind {
         case .featuredArticle:
             return .featuredArticle
@@ -35,4 +35,3 @@ import Foundation
         }
     }
 }
-

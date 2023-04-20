@@ -366,11 +366,8 @@
 "page-history-revision-minor-edit-accessibility-label" = "Mindre ændring";
 "page-history-revision-size-diff-addition" = "Tilføjede {{PLURAL:$1|$1 byte|$1 bytes}}";
 "page-history-user-edits" = "brugerredigeringer";
-"page-protected-autoconfirmed" = "Denne side er delvis beskyttet.";
 "page-protected-can-not-edit" = "Du har ikke rettigheder til at redigere denne side";
 "page-protected-can-not-edit-title" = "Denne side er beskyttet";
-"page-protected-other" = "Denne side er beskyttet til følgende niveauer: $1";
-"page-protected-sysop" = "Denne side er beskyttet.";
 "page-similar-titles" = "Lignende sider";
 "pictured" = "billedet";
 "places-accessibility-clear-saved-searches" = "Ryd gemte søgninger";

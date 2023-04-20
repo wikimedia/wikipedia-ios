@@ -7,6 +7,7 @@
 // Author: Amire80
 // Author: Angrydog001
 // Author: Chixvv
+// Author: Cookai1205
 // Author: Crowley666
 // Author: Cwek
 // Author: Davidzdh
@@ -249,7 +250,7 @@
 "description-welcome-descriptions-title" = "条目描述";
 "description-welcome-promise-title" = "我保证在编辑时不滥用此功能";
 "description-welcome-start-editing-button" = "开始编辑";
-"diff-compare-header-from-info-heading" = "来自：";
+"diff-compare-header-from-info-heading" = "从：";
 "diff-compare-header-heading" = "比较不同修订版本";
 "diff-compare-header-to-info-heading" = "至：";
 "diff-compare-title" = "比较不同修订版本";
@@ -733,11 +734,8 @@
 "page-history-user-edits" = "用户编辑数";
 "page-issues" = "页面问题";
 "page-location" = "在地图上查看";
-"page-protected-autoconfirmed" = "此页面已半保护。";
 "page-protected-can-not-edit" = "您没有权限编辑此页";
 "page-protected-can-not-edit-title" = "此页面受到保护";
-"page-protected-other" = "此页面受到以下保护：$1";
-"page-protected-sysop" = "此页面已全保护。";
 "page-similar-titles" = "类似页面";
 "panel-compare-revisions-text" = "比较修订版本有助于显示一个条目随着时间的推移发生了哪些变化。比较一篇条目的两个修订版本，可以通过高亮显示任何被修改的内容来显示这些修订版本之间的差异。";
 "panel-compare-revisions-title" = "比较不同修订版本";

@@ -81,10 +81,8 @@
 "notifications-center-status-all" = "אַלע";
 "notifications-center-swipe-more" = "נאָך";
 "number-thousands" = "$1K";
-"page-protected-autoconfirmed" = "דער בלאט איז געווארן האלב געשיצט.";
 "page-protected-can-not-edit" = "איר האט נישט די רעכטן צו רעדאקטירן דעם בלאט";
 "page-protected-can-not-edit-title" = "דער בלאט איז געשיצט";
-"page-protected-sysop" = "דער בלאט איז געווארן גאנג געשיצט.";
 "places-accessibility-group" = "$1 אַרטיקלען";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 אַרטיקל|$1 אַרטיקלען}}";
 "places-search-default-text" = "זוכן ערטער";
