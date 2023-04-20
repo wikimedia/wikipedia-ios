@@ -1,18 +1,18 @@
 import Foundation
 
-@objc(WMFMetricsClientBridge)
-public class MetricsClientBridge: NSObject {
+@objc(WMFEventPlatformClientWorker)
+public class EventPlatformClientWorker: NSObject {
     
     let client = EventPlatformClient.shared
     
-    @objc(sharedInstance) public static let shared: MetricsClientBridge = {
-        return MetricsClientBridge()
+    @objc(sharedInstance) public static let shared: EventPlatformClientWorker = {
+        return EventPlatformClientWorker()
     }()
 }
 
 // MARK: PeriodicWorker
 
-extension MetricsClientBridge: PeriodicWorker {
+extension EventPlatformClientWorker: PeriodicWorker {
     public func doPeriodicWork(_ completion: @escaping () -> Void) {
         guard let storageManager = self.client.storageManager else {
             return
@@ -25,7 +25,7 @@ extension MetricsClientBridge: PeriodicWorker {
 
 // MARK: BackgroundFetcher
 
-extension MetricsClientBridge: BackgroundFetcher {
+extension EventPlatformClientWorker: BackgroundFetcher {
     public func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
         doPeriodicWork {
             completion(.noData)
