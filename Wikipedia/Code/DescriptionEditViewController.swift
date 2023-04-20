@@ -23,10 +23,6 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     private var theme = Theme.standard
 
     var delegate: DescriptionEditViewControllerDelegate? = nil
-
-    // MARK: Event logging
-    @objc var editFunnel: EditFunnel?
-    @objc var editFunnelSource: EditFunnelSource = .unknown
     
     private var articleDescriptionController: ArticleDescriptionControlling!
     
@@ -210,7 +206,6 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     }
 
     @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
-        editFunnel?.logTitleDescriptionSaveAttempt(source: editFunnelSource, isAddingNewTitleDescription: isAddingNewTitleDescription, language: articleDescriptionController.articleLanguageCode)
         save()
     }
 
@@ -248,17 +243,13 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 self.enableProgressiveButton(true)
                 switch result {
                 case .success(let result):
-                    self.editFunnel?.logTitleDescriptionSaved(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: self.articleDescriptionController.articleLanguageCode)
                     self.delegate?.descriptionEditViewControllerEditSucceeded(self, result: result)
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
                         NotificationCenter.default.post(name: DescriptionEditViewController.didPublishNotification, object: nil)
                     }
                 case .failure(let error):
-
                     let nsError = error as NSError
-                    let errorCode = self.articleDescriptionController.errorCodeFromError(nsError)
-                    self.editFunnel?.logTitleDescriptionSaveError(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: self.articleDescriptionController.articleLanguageCode, errorText: errorCode)
 
                     if let wikidataError = error as? WikidataFetcher.WikidataPublishingError {
                         switch wikidataError {

@@ -21,10 +21,10 @@ extension ArticleViewController {
 
             if editInfo.isSelectedTextInTitleDescription, let descriptionSource = editInfo.descriptionSource, descriptionSource == .central {
                 // Only show the description editor if the description is from Wikidata (descriptionSource == .central)
-                self.showTitleDescriptionEditor(with: .unknown, funnelSource: .highlight)
+                self.showTitleDescriptionEditor(with: .unknown)
             } else {
                 // Otherwise it needs to be changed in the section editor by editing the {{Short description}} template
-                self.showEditorForSection(with: editInfo.sectionID, selectedTextEditInfo: editInfo, funnelSource: .highlight)
+                self.showEditorForSection(with: editInfo.sectionID, selectedTextEditInfo: editInfo)
             }
         }
     }

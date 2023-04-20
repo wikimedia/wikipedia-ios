@@ -1,9 +1,7 @@
-// https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSReadingLists
-
-@objc final class ReadingListsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+@objc final class ReadingListsFunnel: NSObject {
     @objc public static let shared = ReadingListsFunnel()
     
-    private enum Action: String {
+    private enum Action: String, Codable {
         case save
         case unsave
         case createList = "createlist"
@@ -15,35 +13,23 @@
         case surveyShown = "survey_shown"
         case surveyClicked = "survey_clicked"
     }
-    
-    private override init() {
-        super.init(schema: "MobileWikiAppiOSReadingLists", version: 24086844)
+
+    private struct Event: EventInterface {
+        static var schema: EventPlatformClient.Schema = .readingLists
+        let action: Action
+        let category: EventCategoryMEP
+        let label: EventLabelMEP?
+        let measure: Int?
+        let measure_position: Int?
+        let measure_age: Int?
+        let wiki_id: String?
     }
-    
-    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int? = nil, measureAge: Int? = nil, measurePosition: Int? = nil) -> [String: Any] {
-        let category = category.rawValue
-        let action = action.rawValue
-        
-        var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage(), "is_anon": isAnon]
-        if let label = label?.rawValue {
-            event["label"] = label
-        }
-        if let measure = measure {
-            event["measure"] = measure
-        }
-        if let measurePosition = measurePosition {
-            event["measure_position"] = measurePosition
-        }
-        if let measureAge = measureAge {
-            event["measure_age"] = measureAge
-        }
-        return event
+
+    private func logEvent(action: Action, category: EventCategoryMEP, label: EventLabelMEP?, measure: Int? = nil, measurePosition: Int? = nil, measureAge: Int? = nil, wiki_id: String? = nil) {
+        let event = ReadingListsFunnel.Event(action: action, category: category, label: label, measure: measure, measure_position: measurePosition, measure_age: measureAge, wiki_id: wiki_id)
+        EventPlatformClient.shared.submit(stream: .readingLists, event: event)
     }
-    
-    override func preprocessData(_ eventData: [AnyHashable: Any]) -> [AnyHashable: Any] {
-        return wholeEvent(with: eventData)
-    }
-    
+
     // - MARK: Article
     
     @objc public func logArticleSaveInCurrentArticle(_ articleURL: URL) {
@@ -74,12 +60,12 @@
         logUnsave(category: .feed, label: saveButton?.eventLoggingLabel, articleURL: articleURL, measureAge: daysSince(date), measurePosition: index)
     }
     
-    public func logSaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int?) {
-        logSave(category: .feed, label: context?.label ?? .none, articleURL: articleURL, measureAge: daysSince(context?.midnightUTCDate), measurePosition: index)
+    public func logSaveInFeed(label: EventLabelMEP?, measureAge: Date, articleURL: URL, index: Int?) {
+        logSave(category: .feed, label: label ?? .none, articleURL: articleURL, measureAge: daysSince(measureAge), measurePosition: index)
     }
     
-    public func logUnsaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int?) {
-        logUnsave(category: .feed, label: context?.label, articleURL: articleURL, measureAge: daysSince(context?.midnightUTCDate), measurePosition: index)
+    public func logUnsaveInFeed(label: EventLabelMEP?, measureAge: Date, articleURL: URL, index: Int?) {
+        logUnsave(category: .feed, label: label ?? .none, articleURL: articleURL, measureAge: daysSince(measureAge), measurePosition: index)
     }
 
     private func daysSince(_ date: Date?) -> Int? {
@@ -100,87 +86,88 @@
     
     // - MARK: Generic article save & unsave actions
     
-    private func logSave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, language: String?, measureAge: Int? = nil, measurePosition: Int? = nil) {
-        log(event(category: category, label: label, action: .save, measure: measure, measureAge: measureAge, measurePosition: measurePosition), language: language)
+    private func logSave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, language: String?, measureAge: Int? = nil, measurePosition: Int? = nil) {
+        logEvent(action: .save, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge, wiki_id: language)
     }
     
-    private func logSave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
-        log(event(category: category, label: label, action: .save, measure: measure, measureAge: measureAge, measurePosition: measurePosition), language: articleURL.wmf_languageCode)
+    private func logSave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
+        logEvent(action: .save, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge, wiki_id: articleURL.wmf_languageCode)
     }
     
-    @objc public func logSave(category: EventLoggingCategory, label: EventLoggingLabel?, articleURL: URL?) {
-        log(event(category: category, label: label, action: .save, measure: 1), language: articleURL?.wmf_languageCode)
+    public func logSave(category: EventCategoryMEP, label: EventLabelMEP?, articleURL: URL?) {
+        logEvent(action: .save, category: category, label: label, measure: 1, wiki_id: articleURL?.wmf_languageCode)
     }
     
-    @objc public func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel?, articleURL: URL?) {
-        log(event(category: category, label: label, action: .unsave, measure: 1), language: articleURL?.wmf_languageCode)
+    public func logUnsave(category: EventCategoryMEP, label: EventLabelMEP?, articleURL: URL?) {
+        logEvent(action: .unsave, category: category, label: label, measure: 1, wiki_id: articleURL?.wmf_languageCode)
     }
     
-    private func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, language: String?, measureAge: Int? = nil, measurePosition: Int? = nil) {
-        log(event(category: category, label: label, action: .unsave, measure: measure, measureAge: measureAge, measurePosition: measurePosition), language: language)
+    private func logUnsave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, wiki_id: String?, measureAge: Int? = nil, measurePosition: Int? = nil) {
+        logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge)
     }
     
-    private func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
-        log(event(category: category, label: label, action: .unsave, measure: measure, measureAge: measureAge, measurePosition: measurePosition), language: articleURL.wmf_languageCode)
+    private func logUnsave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
+        logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge, wiki_id: articleURL.wmf_languageCode)
     }
 
-    public func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, date: Date?, measurePosition: Int) {
-        log(event(category: category, label: label, action: .unsave, measure: measure, measureAge: daysSince(date), measurePosition: measurePosition), language: articleURL.wmf_languageCode)
+    public func logUnsave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, date: Date?, measurePosition: Int) {
+        logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: daysSince(date), wiki_id: articleURL.wmf_languageCode)
     }
 
-    public func logSave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, date: Date?, measurePosition: Int) {
-        log(event(category: category, label: label, action: .save, measure: measure, measureAge: daysSince(date), measurePosition: measurePosition), language: articleURL.wmf_languageCode)
+    public func logSave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, date: Date?, measurePosition: Int) {
+        logEvent(action: .save, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: daysSince(date), wiki_id: articleURL.wmf_languageCode)
     }
     
     // - MARK: Saved - default reading list
     
     public func logUnsaveInReadingList(articlesCount: Int = 1, language: String?) {
-        logUnsave(category: .saved, label: .items, measure: articlesCount, language: language)
+        logUnsave(category: .saved, label: .items, measure: articlesCount, wiki_id: language)
     }
     
     public func logReadStartIReadingList(_ articleURL: URL) {
-        log(event(category: .saved, label: .items, action: .readStart, measure: 1), language: articleURL.wmf_languageCode)
+        logEvent(action: .readStart, category: .saved, label: .items, measure: 1, wiki_id: articleURL.wmf_languageCode)
     }
     
     // - MARK: Saved - reading lists
     
     public func logDeleteInReadingLists(readingListsCount: Int = 1) {
-        log(event(category: .saved, label: .lists, action: .deleteList, measure: readingListsCount))
+        logEvent(action: .deleteList, category: .saved, label: .lists, measure: readingListsCount)
     }
     
     public func logCreateInReadingLists() {
-        log(event(category: .saved, label: .lists, action: .createList, measure: 1))
+        logEvent(action: .createList, category: .saved, label: .lists, measure: 1)
     }
     
     // - MARK: Add articles to reading list
     
     public func logDeleteInAddToReadingList(readingListsCount: Int = 1) {
-        log(event(category: .addToList, label: nil, action: .deleteList, measure: readingListsCount))
+        logEvent(action: .deleteList, category: .addToList, label: nil, measure: readingListsCount)
     }
     
     public func logCreateInAddToReadingList() {
-        log(event(category: .addToList, label: nil, action: .createList, measure: 1))
+        logEvent(action: .createList, category: .addToList, label: nil, measure: 1)
     }
     
     // - MARK: Import Shared Reading Lists
     
     public func logStartImport(articlesCount: Int) {
-        log(event(category: .shared, label: nil, action: .receiveStart, measure: articlesCount))
+        logEvent(action: .receiveStart, category: .shared, label: nil, measure: articlesCount)
     }
     
     public func logCancelImport() {
-        log(event(category: .shared, label: nil, action: .receiveCancel))
+        logEvent(action: .receiveCancel, category: .shared, label: nil)
     }
     
     public func logCompletedImport(articlesCount: Int) {
-        log(event(category: .shared, label: nil, action: .receiveFinish, measure: articlesCount))
+        logEvent(action: .receiveFinish, category: .shared, label: nil, measure: articlesCount)
     }
     
     public func logPresentedSurveyPrompt() {
-        log(event(category: .shared, label: nil, action: .surveyShown))
+        logEvent(action: .surveyShown, category: .shared, label: nil)
     }
     
     public func logTappedTakeSurvey() {
-        log(event(category: .shared, label: nil, action: .surveyClicked))
+        logEvent(action: .surveyClicked, category: .shared, label: nil)
     }
 }
+

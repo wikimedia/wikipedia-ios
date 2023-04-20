@@ -41,8 +41,6 @@ protocol TableOfContentsViewControllerDelegate : UIViewController {
 class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TableOfContentsAnimatorDelegate, Themeable {
     
     fileprivate var theme = Theme.standard
-    
-    let tableOfContentsFunnel: ToCInteractionFunnel
 
     var semanticContentAttributeOverride: UISemanticContentAttribute {
         return delegate?.tableOfContentsSemanticContentAttribute ?? .unspecified
@@ -99,7 +97,6 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         self.theme = theme
         self.delegate = delegate
         self.displaySide = displaySide
-        tableOfContentsFunnel = ToCInteractionFunnel()
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .custom
         transitioningDelegate = animator
@@ -176,7 +173,6 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
     // MARK: - Selection
     
     private func didRequestClose(_ controller: TableOfContentsAnimator?) -> Bool {
-        tableOfContentsFunnel.logClose()
         delegate?.tableOfContentsControllerDidCancel(self)
         return delegate != nil
     }
@@ -225,7 +221,6 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.delegate?.tableOfContentsControllerWillDisplay(self)
-        tableOfContentsFunnel.logOpen()
     }
     
     // MARK: - UITableViewDataSource
@@ -289,7 +284,6 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        tableOfContentsFunnel.logClick()
         let index = indexPath.row
         selectItem(at: index)
         delegate?.tableOfContentsController(self, didSelectItem: items[index])

@@ -23,7 +23,6 @@
 #import "WMFWebView.h"
 
 #import "WikiTextSectionUploader.h"
-#import "WMFShareFunnel.h"
 #import "WMFLanguagesViewControllerDelegate.h"
 
 // Model
@@ -59,13 +58,6 @@
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WMFRandomDiceButton.h"
-
-// Diagnostics
-#import "WMFSearchFunnel.h"
-#import "ToCInteractionFunnel.h"
-#import "WMFLoginFunnel.h"
-#import "CreateAccountFunnel.h"
-#import "SavedPagesFunnel.h"
 
 // Third Party
 #import "TUSafariActivity.h"

@@ -447,7 +447,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
 
     if (currentLibraryVersion < 12) {
-        [[WMFEventLoggingService sharedInstance] migrateShareUsageAndInstallIDToUserDefaults];
         [self migrateToLanguageVariantsForLibraryVersion:12 inManagedObjectContext:moc];
         [moc wmf_setValue:@(12) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {

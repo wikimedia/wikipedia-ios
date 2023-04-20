@@ -230,6 +230,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         
         subheadingTextView.attributedText = attributedText.removingInitialNewlineCharacters().removingRepetitiveNewlineCharacters()
         subheadingTextView.linkTextAttributes = [.foregroundColor: theme.colors.link]
+        subheadingTextView.tintColor = theme.colors.link
     }
     
     var footerParagraphStyle: NSParagraphStyle? {
