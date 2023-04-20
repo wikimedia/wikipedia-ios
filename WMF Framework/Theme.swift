@@ -756,7 +756,7 @@ public class Colors: NSObject {
     }
 
     public var diffCompareAccent: UIColor {
-        return .orange600.withAlphaComponent(0.3)
+        return .orange600
     }
 
     public var diffCompareChangeHeading: UIColor {

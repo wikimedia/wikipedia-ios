@@ -229,6 +229,10 @@ extension TalkPageCell: Themeable {
         rootContainer.backgroundColor = theme.colors.paperBackground
         rootContainer.layer.borderColor = theme.colors.border.cgColor
 
+        if theme == Theme.light {
+            rootContainer.layer.borderColor = theme.colors.baseBackground.cgColor
+        }
+
         stackView.arrangedSubviews.forEach { ($0 as? Themeable)?.apply(theme: theme) }
 
         leadReplyButton.setTitleColor(theme.colors.paperBackground, for: .normal)
