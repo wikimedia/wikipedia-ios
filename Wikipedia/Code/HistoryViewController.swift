@@ -91,7 +91,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         }
     }
     
-    override var eventLoggingCategory: EventLoggingCategory {
+    override var eventLoggingCategory: EventCategoryMEP {
         return .history
     }
 }

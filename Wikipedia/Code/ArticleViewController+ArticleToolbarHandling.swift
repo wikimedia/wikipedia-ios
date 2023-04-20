@@ -14,10 +14,8 @@ extension ArticleViewController: ArticleToolbarHandling {
     func toggleSave(from controller: ArticleToolbarController) {
         let isSaved = dataStore.savedPageList.toggleSavedPage(for: articleURL)
         if isSaved {
-            savedPagesFunnel.logSaveNew(withArticleURL: articleURL)
             readingListsFunnel.logArticleSaveInCurrentArticle(articleURL)
         } else {
-            savedPagesFunnel.logDelete(withArticleURL: articleURL)
             readingListsFunnel.logArticleUnsaveInCurrentArticle(articleURL)
         }
     }

@@ -32,6 +32,7 @@ let WMFDidShowNotificationsCenterPushOptInPanel = "WMFDidShowNotificationsCenter
 let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
 let WMFTappedToImportSharedReadingListSurvey = "WMFTappedToImportSharedReadingListSurvey"
 public let WMFAlwaysDisplayEditNotices = "WMFAlwaysDisplayEditNotices"
+let WMFLastSessionDate =  "WMFLastSessionDate"
 
 @objc public enum WMFAppDefaultTabType: Int {
     case explore
@@ -532,6 +533,24 @@ public let WMFAlwaysDisplayEditNotices = "WMFAlwaysDisplayEditNotices"
         }
         set {
             set(newValue, forKey: WMFAlwaysDisplayEditNotices)
+        }
+    }
+
+    @objc var wmf_sessionLastTimestamp: Date? {
+        get {
+            return object(forKey: WMFLastSessionDate) as? Date
+        }
+        set {
+            set(newValue, forKey: WMFLastSessionDate)
+        }
+    }
+
+    @objc var wmf_sessionID: String? {
+        get {
+            return string(forKey: "WMFSessionID")
+        }
+        set {
+            set(newValue, forKey: "WMFSessionID")
         }
     }
 
