@@ -227,11 +227,7 @@ extension TalkPageCell: Themeable {
 
     func apply(theme: Theme) {
         rootContainer.backgroundColor = theme.colors.paperBackground
-        rootContainer.layer.borderColor = theme.colors.border.cgColor
-
-        if theme == Theme.light {
-            rootContainer.layer.borderColor = theme.colors.baseBackground.cgColor
-        }
+        rootContainer.layer.borderColor = theme.colors.midCardBorder.cgColor
 
         stackView.arrangedSubviews.forEach { ($0 as? Themeable)?.apply(theme: theme) }
 
