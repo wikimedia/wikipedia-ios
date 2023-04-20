@@ -89,14 +89,10 @@ public final class UserSession: NSObject {
      * user was last active (e.g. when app entered background).
      */
     private func hasSessionTimedOut() -> Bool {
-        
-        /*
-         * A TimeInterval value is always specified in seconds.
-         */
-        
-        if let lastTimestamp = UserDefaults.standard.wmf_sessionBackgroundTimestamp {
-            return lastTimestamp.timeIntervalSinceNow < -1800
+        guard let lastTimestamp = UserDefaults.standard.wmf_sessionBackgroundTimestamp else {
+            return false
         }
-        return true
+        
+        return lastTimestamp.timeIntervalSinceNow < -100
     }
 }

@@ -188,13 +188,21 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn {
     switch (type) {
         case WMFSettingsMenuItemType_SendUsageReports: {
-            NSUserDefaults.standardUserDefaults.wmf_sendUsageReports = isOn;
             if (isOn) {
+                NSUserDefaults.standardUserDefaults.wmf_sendUsageReports = YES;
                 [[UserHistoryFunnel shared] logStartingSnapshot];
             } else {
                 [[UserHistoryFunnel shared] logSnapshot];
                 [[SessionsFunnel shared] settingsLoggingToggledOff];
+                
+                // Give funnels a little bit of time to log event before disabling.
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    NSUserDefaults.standardUserDefaults.wmf_sendUsageReports = NO;
+                });
             }
+            
+            
+            
         } break;
         default:
             break;
