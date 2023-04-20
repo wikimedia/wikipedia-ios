@@ -26,6 +26,7 @@ public final class UserSession: NSObject {
             guard let sID = _sessionID else {
                 let newID = generateID()
                 _sessionID = newID
+                UserDefaults.standard.wmf_sessionID = _sessionID
                 return newID
             }
             return sID
