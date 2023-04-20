@@ -104,7 +104,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFLocationSearchFetcher.h>
 #import <WMF/MWKLocationSearchResult.h>
 
-#import <WMF/EventLoggingFunnel.h>
 #import <WMF/MWKSearchResult.h>
 
 #import <WMF/WMFArticle+Extensions.h>

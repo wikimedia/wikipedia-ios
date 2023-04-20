@@ -4,7 +4,6 @@ import WMF
 protocol EditSummaryViewDelegate: AnyObject {
     func summaryChanged(newSummary: String)
     func learnMoreButtonTapped(sender: UIButton)
-    func cannedButtonTapped(type: EditSummaryViewCannedButtonType)
 }
 
 // Int because we use `tag` from storyboard buttons.
@@ -93,13 +92,11 @@ class EditSummaryViewController: UIViewController, Themeable {
     }
 
     @IBAction private func cannedSummaryButtonTapped(sender: UIButton) {
-        guard let senderLabel = sender.titleLabel?.text,
-              let buttonType = EditSummaryViewCannedButtonType(rawValue: sender.tag) else {
+        guard let senderLabel = sender.titleLabel?.text else {
             assertionFailure("Expected button information not found")
             return
         }
         updateInputText(to: senderLabel)
-        delegate?.cannedButtonTapped(type: buttonType)
     }
 
     func updateInputText(to text: String) {
@@ -110,7 +107,6 @@ class EditSummaryViewController: UIViewController, Themeable {
     public func setLanguage(for pageURL: URL?) {
         if let pageURL {
             self.languageCode = pageURL.wmf_languageCode
-
         }
     }
 

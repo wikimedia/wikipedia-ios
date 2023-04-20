@@ -24,8 +24,6 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     
     fileprivate var theme = Theme.standard
     
-    public var funnel: WMFLoginFunnel?
-    
     public var userName:String?
     public var password:String?
     public var captchaID:String?
@@ -275,7 +273,6 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                 self.dismiss(animated: true, completion: {
                     presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
                 })
-                self.funnel?.logSuccess()
             case .failure(let error):
                 if let error = error as? WMFAccountLoginError {
                     switch error {
@@ -286,7 +283,6 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                     case .wrongToken:
                         self.tokenAlertLabel.text = error.localizedDescription
                         self.tokenAlertLabel.isHidden = false
-                        self.funnel?.logError(error.localizedDescription)
                         WMFAlertManager.sharedInstance.dismissAlert()
                         return
                     default:
@@ -294,7 +290,6 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                     }
                     self.enableProgressiveButton(true)
                     WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-                    self.funnel?.logError(error.localizedDescription)
                     self.oathTokenFields.forEach {$0.text = nil}
                     self.backupOathTokenField.text = nil
                     self.makeAppropriateFieldFirstResponder()

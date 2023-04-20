@@ -6,62 +6,19 @@ public struct WidgetFeaturedContent: Codable {
 
 	enum CodingKeys: String, CodingKey {
 		case featuredArticle = "tfa"
+        case topRead = "mostread"
+        case onThisDay = "onthisday"
+        case pictureOfTheDay = "image"
 		case fetchDate
 		case fetchedLanguageVariantCode
 	}
 
-	public struct FeaturedArticleContent: Codable {
-
-		// MARK: - Featured Article - Nested Types
-
-		enum CodingKeys: String, CodingKey {
-			case displayTitle = "displaytitle"
-			case description
-			case extract
-			case languageCode = "lang"
-			case languageDirection = "dir"
-			case contentURL = "content_urls"
-			case thumbnailImageSource = "thumbnail"
-			case originalImageSource = "originalimage"
-		}
-
-		public struct ContentURL: Codable {
-			public struct PageURL: Codable {
-				public let page: String
-			}
-
-			public let desktop: PageURL
-		}
-
-		public struct ImageSource: Codable {
-			enum CodingKeys: String, CodingKey {
-				case source
-				case width
-				case height
-				case data
-			}
-
-			public let source: String
-			public let width: Int
-			public let height: Int
-			public var data: Data?
-		}
-
-		// MARK: - Featured Article - Properties
-
-		public var displayTitle: String
-		public let description: String?
-		public let extract: String
-		public let languageCode: String
-		public let languageDirection: String
-		public let contentURL: ContentURL
-		public var thumbnailImageSource: ImageSource?
-		public var originalImageSource: ImageSource?
-	}
-
 	// MARK: - Properties
 
-	public var featuredArticle: FeaturedArticleContent?
+	public var featuredArticle: WidgetFeaturedArticle?
+    public var topRead: WidgetTopRead?
+    public var onThisDay: [WidgetOnThisDayElement]?
+    public var pictureOfTheDay: WidgetPictureOfTheDay?
 
 	// MARK: - Properties - Network Fetch Metadata
 
@@ -71,7 +28,7 @@ public struct WidgetFeaturedContent: Codable {
 	// MARK: - Public
 
 	public static func previewContent() -> WidgetFeaturedContent? {
-		if let previewContentFilePath = Bundle.main.path(forResource: "Featured Article Widget Preview Content", ofType: "json"), let jsonData = try? String(contentsOfFile: previewContentFilePath).data(using: .utf8) {
+		if let previewContentFilePath = Bundle.main.path(forResource: "Widget Featured Content Preview", ofType: "json"), let jsonData = try? String(contentsOfFile: previewContentFilePath).data(using: .utf8) {
 			return try? JSONDecoder().decode(WidgetFeaturedContent.self, from: jsonData)
 		}
 		
