@@ -188,17 +188,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn {
     switch (type) {
         case WMFSettingsMenuItemType_SendUsageReports: {
-            WMFMetricsClientBridge *metricsClientBridge = [WMFMetricsClientBridge sharedInstance];
             NSUserDefaults.standardUserDefaults.wmf_sendUsageReports = isOn;
             if (isOn) {
-                [metricsClientBridge reset];
-                [[SessionsFunnel shared] setSessionStart];
                 [[UserHistoryFunnel shared] logStartingSnapshot];
             } else {
-                [[SessionsFunnel shared] logSessionLastActivity];
-                [[SessionsFunnel shared] logPreviousSessionEnd];
                 [[UserHistoryFunnel shared] logSnapshot];
-                [metricsClientBridge reset];
+                [[SessionsFunnel shared] settingsLoggingToggledOff];
             }
         } break;
         default:

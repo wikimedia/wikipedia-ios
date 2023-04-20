@@ -73,10 +73,25 @@ import CocoaLumberjackSwift
     var sessionID: String {
         return userSession.sessionID
     }
-
-    public func resetCaching() {
-        samplingController.removeAllSamplingCache()
+    
+    public var sessionStartDate: Date? {
+        return userSession.sessionStartDate
     }
+        
+    public func reset() {
+        samplingController.removeAllSamplingCache()
+        userSession.reset()
+    }
+    
+    public typealias DidResetSession = Bool
+    public func appDidBecomeActive() -> DidResetSession {
+        return userSession.appDidBecomeActive()
+    }
+    
+    public func appDidBackground() {
+        userSession.appDidBackground()
+    }
+    
     /**
      * Store events until the library is finished initializing
      *

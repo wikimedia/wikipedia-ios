@@ -37,36 +37,42 @@
         EventPlatformClient.shared.submit(stream: .sessions, event: finalEvent)
     }
 
-    @objc public func setSessionStart() {
-        if UserSession.shared.hasSessionTimedOut {
-            defer {
-                resetSession()
-            }
+    @objc public func appDidBecomeActive() {
+        let didReset = EventPlatformClient.shared.appDidBecomeActive()
+        if didReset {
             logPreviousSessionEnd()
+            resetPageLoadMetrics()
+            EventPlatformClient.shared.reset()
         }
     }
     
-    private func resetSession() {
-        resetPageLoadMetrics()
-        UserSession.shared.resetSession()
-        EventPlatformClient.shared.resetCaching()
+    @objc public func appDidBackground() {
+        EventPlatformClient.shared.appDidBackground()
     }
-
-    @objc public func logSessionLastActivity() {
-        UserSession.shared.logSessionEndTimestamp()
+    
+    @objc public func settingsLoggingToggledOff() {
+        
+        // Order is important here - logPreviousSessionEnd uses EventPlatformClient.sessionStartDate, which the reset call in the next line clears out.
+        
+        logPreviousSessionEnd()
+        resetPageLoadMetrics()
+        EventPlatformClient.shared.reset()
     }
 
     /**
      * To match Android, we now log the previous Session when a new session starts
      */
-    @objc public func logPreviousSessionEnd() {
-        guard let sessionStartDate = UserSession.shared.sessionStartDate else {
+    private func logPreviousSessionEnd() {
+        guard let sessionStartDate = EventPlatformClient.shared.sessionStartDate else {
             assertionFailure("Session start date cannot be nil")
             return
         }
         
         calculatePageLoadMetrics()
         logEvent(measure: fabs(sessionStartDate.timeIntervalSinceNow))
+        
+        // Should we do this? Feels weird to mix funnels.
+        // UserHistoryFunnel.shared.logSnapshot()
     }
     
     // MARK: ArticleViewController Load Time Measurement Helpers
