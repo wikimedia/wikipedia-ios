@@ -8,11 +8,6 @@
     private var pageLoadTimes: [Double] = []
     private var pageLoadAverage: Double?
 
-    private enum Action: String, Codable {
-        case sessionStart = "session_start"
-        case sessionEnd = "session_end"
-    }
-
     public struct Event: EventInterface {
         public static let schema: EventPlatformClient.Schema = .sessions
         let length_ms: Int?
@@ -23,17 +18,17 @@
         let page_load_latency_ms: Int?
     }
 
-    private func logEvent(measure: Double? = nil, completion: @escaping () -> Void) {
-        let measureTime: Int?
-        if let measure {
-            measureTime = Int(round(measure))
+    private func logEvent(sessionMilliseconds: Double? = nil, completion: @escaping () -> Void) {
+        let lengthMS: Int?
+        if let sessionMilliseconds {
+            lengthMS = Int(round(sessionMilliseconds))
         } else {
-            measureTime = nil
+            lengthMS = nil
         }
 
         let pageLatency = SessionData(page_load_latency_ms: Int(round(pageLoadAverage ?? Double())))
 
-        let finalEvent = SessionsFunnel.Event(length_ms: measureTime, session_data: pageLatency)
+        let finalEvent = SessionsFunnel.Event(length_ms: lengthMS, session_data: pageLatency)
         EventPlatformClient.shared.submit(stream: .sessions, event: finalEvent, completion: completion)
     }
 
@@ -86,7 +81,7 @@
         let sessionSeconds = fabs(sessionStartDate.timeIntervalSince(compareDate))
         let sessionMilliseconds = sessionSeconds * 1000
         
-        logEvent(measure: sessionMilliseconds) {
+        logEvent(sessionMilliseconds: sessionMilliseconds) {
             UserHistoryFunnel.shared.logSnapshot()
             completion()
         }
