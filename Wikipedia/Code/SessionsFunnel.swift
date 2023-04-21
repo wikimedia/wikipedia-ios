@@ -23,7 +23,7 @@
         let page_load_latency_ms: Int?
     }
 
-    private func logEvent(measure: Double? = nil) {
+    private func logEvent(measure: Double? = nil, completion: @escaping () -> Void) {
         let measureTime: Int?
         if let measure {
             measureTime = Int(round(measure))
@@ -34,15 +34,18 @@
         let pageLatency = SessionData(page_load_latency_ms: Int(round(pageLoadAverage ?? Double())))
 
         let finalEvent = SessionsFunnel.Event(length_ms: measureTime, session_data: pageLatency)
-        EventPlatformClient.shared.submit(stream: .sessions, event: finalEvent)
+        EventPlatformClient.shared.submit(stream: .sessions, event: finalEvent, completion: completion)
     }
 
     @objc public func appDidBecomeActive() {
-        let didReset = EventPlatformClient.shared.appDidBecomeActive()
-        if didReset {
-            logPreviousSessionEnd()
-            resetPageLoadMetrics()
-            EventPlatformClient.shared.reset()
+        if EventPlatformClient.shared.needsReset() {
+            logPreviousSessionEnd {
+                DispatchQueue.main.async {
+                    self.resetPageLoadMetrics()
+                    EventPlatformClient.shared.reset()
+                }
+            }
+            
         }
     }
     
@@ -50,29 +53,43 @@
         EventPlatformClient.shared.appDidBackground()
     }
     
-    @objc public func settingsLoggingToggledOff() {
+    @objc public func settingsLoggingToggledOn() {
+        UserDefaults.standard.wmf_sendUsageReports = true
+        EventPlatformClient.shared.generateSessionID()
+    }
+    
+    @objc public func settingsLoggingToggledOff(completion: @escaping () -> Void) {
         
-        // Order is important here - logPreviousSessionEnd uses EventPlatformClient.sessionStartDate, which the reset call in the next line clears out.
-        
-        logPreviousSessionEnd()
-        resetPageLoadMetrics()
-        EventPlatformClient.shared.reset()
+        logPreviousSessionEnd {
+            DispatchQueue.main.async {
+                self.resetPageLoadMetrics()
+                EventPlatformClient.shared.reset()
+                UserDefaults.standard.wmf_sendUsageReports = false
+                completion()
+            }
+        }
     }
 
     /**
      * To match Android, we now log the previous Session when a new session starts
      */
-    private func logPreviousSessionEnd() {
+    private func logPreviousSessionEnd(completion: @escaping () -> Void) {
         guard let sessionStartDate = EventPlatformClient.shared.sessionStartDate else {
             assertionFailure("Session start date cannot be nil")
             return
         }
-        
+
         calculatePageLoadMetrics()
-        logEvent(measure: fabs(sessionStartDate.timeIntervalSinceNow))
         
-        // Should we do this? Feels weird to mix funnels.
-        // UserHistoryFunnel.shared.logSnapshot()
+        // ignore time backgrounded from session time
+        let compareDate = UserDefaults.standard.wmf_sessionBackgroundTimestamp ?? Date()
+        let sessionSeconds = fabs(sessionStartDate.timeIntervalSince(compareDate))
+        let sessionMilliseconds = sessionSeconds * 1000
+        
+        logEvent(measure: sessionMilliseconds) {
+            UserHistoryFunnel.shared.logSnapshot()
+            completion()
+        }
     }
     
     // MARK: ArticleViewController Load Time Measurement Helpers

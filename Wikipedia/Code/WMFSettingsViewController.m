@@ -179,32 +179,26 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)disclosureSwitchChanged:(UISwitch *)disclosureSwitch {
     WMFSettingsMenuItemType type = (WMFSettingsMenuItemType)disclosureSwitch.tag;
-    [self updateStateForMenuItemType:type isSwitchOnValue:disclosureSwitch.isOn];
-    [self loadSections];
+    [self updateStateForMenuItemType:type isSwitchOnValue:disclosureSwitch.isOn completion:^{
+        [self loadSections];
+    }];
 }
 
 #pragma mark - Switch tap handling
 
-- (void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn {
+- (void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn completion:(void (^)(void))completion {
     switch (type) {
         case WMFSettingsMenuItemType_SendUsageReports: {
             if (isOn) {
-                NSUserDefaults.standardUserDefaults.wmf_sendUsageReports = YES;
+                [[SessionsFunnel shared] settingsLoggingToggledOn];
                 [[UserHistoryFunnel shared] logStartingSnapshot];
             } else {
                 [[UserHistoryFunnel shared] logSnapshot];
-                [[SessionsFunnel shared] settingsLoggingToggledOff];
-                
-                // Give funnels a little bit of time to log event before disabling.
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                    NSUserDefaults.standardUserDefaults.wmf_sendUsageReports = NO;
-                });
+                [[SessionsFunnel shared] settingsLoggingToggledOffWithCompletion:completion];
             }
-            
-            
-            
         } break;
         default:
+            completion();
             break;
     }
 }

@@ -33,6 +33,10 @@ public final class UserSession: NSObject {
     var sessionStartDate: Date? {
         return UserDefaults.standard.wmf_sessionStartTimestamp
     }
+    
+    func generateSessionID() {
+        _ = self.sessionID
+    }
 
     /**
      * Reset the session ID
@@ -47,14 +51,8 @@ public final class UserSession: NSObject {
      * If it has been more than 30 minutes since the app entered background state,
      * a new session is started.
      */
-    typealias DidResetSession = Bool
-    func appDidBecomeActive() -> DidResetSession {
-        if self.hasSessionTimedOut() {
-            self.reset()
-            return true
-        }
-        
-        return false
+    func needsReset() -> Bool {
+        return self.hasSessionTimedOut()
     }
 
     /**
@@ -93,6 +91,6 @@ public final class UserSession: NSObject {
             return false
         }
         
-        return lastTimestamp.timeIntervalSinceNow < -100
+        return lastTimestamp.timeIntervalSinceNow < -1800
     }
 }

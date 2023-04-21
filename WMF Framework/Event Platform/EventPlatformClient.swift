@@ -83,9 +83,12 @@ import CocoaLumberjackSwift
         userSession.reset()
     }
     
-    public typealias DidResetSession = Bool
-    public func appDidBecomeActive() -> DidResetSession {
-        return userSession.appDidBecomeActive()
+    public func generateSessionID() {
+        userSession.generateSessionID()
+    }
+    
+    public func needsReset() -> Bool {
+        return userSession.needsReset()
     }
     
     public func appDidBackground() {
@@ -521,10 +524,11 @@ import CocoaLumberjackSwift
      *   1st preferred language – in which case use
      *   `MWKLanguageLinkController.sharedInstance().appLanguage.siteURL().host`
      */
-    public func submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil) {
+    public func submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil, completion: (() -> Void)? = nil) {
         let date = Date() // Record the date synchronously so there's no delay
         encodeQueue.async {
             self._submit(stream: stream, event: event, date: date, domain: domain)
+            completion?()
         }
     }
 
