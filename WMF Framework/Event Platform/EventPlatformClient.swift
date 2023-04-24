@@ -222,7 +222,7 @@ import CocoaLumberjackSwift
 
 
     private var isAnon: Bool {
-        return dataStore.authenticationManager.isLoggedIn
+        return !dataStore.authenticationManager.isLoggedIn
     }
 
     private var _primaryLanguage: String {
