@@ -256,6 +256,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             assertionFailure("Could not get url of section to be edited")
             return
         }
+        EditAttemptFunnel.shared.logSaveAttempt(articleURL: editURL)
         
         wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: "\(sectionID)", summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, completion: { (result, error) in
             DispatchQueue.main.async {
@@ -347,6 +348,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             
         default:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        }
+        if let articleURL {
+            EditAttemptFunnel.shared.logSaveFailure(articleURL: articleURL)
         }
     }
     

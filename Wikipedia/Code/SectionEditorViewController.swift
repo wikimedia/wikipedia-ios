@@ -503,6 +503,7 @@ class SectionEditorViewController: ViewController {
     
     override func accessibilityPerformEscape() -> Bool {
         delegate?.sectionEditorDidCancelEditing(self, navigateToURL: nil)
+        EditAttemptFunnel.shared.logAbort(articleURL: articleURL)
         return true
     }
     
@@ -550,6 +551,7 @@ class SectionEditorViewController: ViewController {
         let alert = UIAlertController(title: CommonStrings.editorExitConfirmationTitle, message: CommonStrings.editorExitConfirmationBody, preferredStyle: .alert)
         let confirmClose = UIAlertAction(title: CommonStrings.discardEditsActionTitle, style: .destructive) { _ in
             self.closeEditor(navigateToURL: url)
+            EditAttemptFunnel.shared.logAbort(articleURL: self.articleURL)
         }
         alert.addAction(confirmClose)
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .default)
@@ -559,6 +561,7 @@ class SectionEditorViewController: ViewController {
 
     fileprivate func closeEditor(navigateToURL url: URL? = nil) {
         delegate?.sectionEditorDidCancelEditing(self, navigateToURL: url)
+        EditAttemptFunnel.shared.logAbort(articleURL: articleURL)
     }
 }
 
@@ -582,6 +585,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     vc.wikitext = wikitext
                     vc.delegate = self
                     self.navigationController?.pushViewController(vc, animated: true)
+                    EditAttemptFunnel.shared.logSaveIntent(articleURL: self.articleURL)
                 } else {
                     let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
                     WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
@@ -595,6 +599,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
             showDestructiveDismissAlert()
         } else {
             closeEditor()
+            EditAttemptFunnel.shared.logAbort(articleURL: articleURL)
         }
     }
     

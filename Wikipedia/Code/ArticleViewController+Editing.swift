@@ -8,6 +8,7 @@ extension ArticleViewController {
         } else {
             showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
         }
+        EditAttemptFunnel.shared.logInit(articleURL: articleURL)
     }
     
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
@@ -30,6 +31,7 @@ extension ArticleViewController {
         } else {
             present(navigationController, animated: true)
         }
+        EditAttemptFunnel.shared.logInit(articleURL: articleURL)
     }
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource) {
@@ -178,15 +180,18 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
         switch result {
         case .failure(let error):
             showError(error)
+            EditAttemptFunnel.shared.logSaveFailure(articleURL: self.articleURL)
         case .success(let changes):
             dismiss(animated: true)
             waitForNewContentAndRefresh(changes.newRevisionID)
+            EditAttemptFunnel.shared.logSaveSucess(articleURL: self.articleURL)
         }
     }
     
     func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController, navigateToURL url: URL?) {
         dismiss(animated: true) {
             self.navigate(to: url)
+            EditAttemptFunnel.shared.logAbort(articleURL: self.articleURL)
         }
     }
 
