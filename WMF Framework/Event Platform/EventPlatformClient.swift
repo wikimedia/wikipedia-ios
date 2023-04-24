@@ -78,9 +78,9 @@ import CocoaLumberjackSwift
         return userSession.sessionStartDate
     }
         
-    public func reset() {
+    public func resetAll() {
         samplingController.removeAllSamplingCache()
-        userSession.reset()
+        userSession.resetAll()
     }
     
     public func generateSessionID() {
@@ -89,6 +89,10 @@ import CocoaLumberjackSwift
     
     public func needsReset() -> Bool {
         return userSession.needsReset()
+    }
+    
+    public func resetBackgroundTimestamp() {
+        userSession.resetBackgroundTimestamp()
     }
     
     public func appDidBackground() {

@@ -37,10 +37,11 @@
             logPreviousSessionEnd {
                 DispatchQueue.main.async {
                     self.resetPageLoadMetrics()
-                    EventPlatformClient.shared.reset()
+                    EventPlatformClient.shared.resetAll()
                 }
             }
-            
+        } else {
+            EventPlatformClient.shared.resetBackgroundTimestamp()
         }
     }
     
@@ -58,7 +59,7 @@
         logPreviousSessionEnd {
             DispatchQueue.main.async {
                 self.resetPageLoadMetrics()
-                EventPlatformClient.shared.reset()
+                EventPlatformClient.shared.resetAll()
                 UserDefaults.standard.wmf_sendUsageReports = false
                 completion()
             }
@@ -71,6 +72,7 @@
     private func logPreviousSessionEnd(completion: @escaping () -> Void) {
         guard let sessionStartDate = EventPlatformClient.shared.sessionStartDate else {
             assertionFailure("Session start date cannot be nil")
+            completion()
             return
         }
 

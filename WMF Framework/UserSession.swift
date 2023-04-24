@@ -41,7 +41,7 @@ public final class UserSession: NSObject {
     /**
      * Reset the session ID
      */
-    func reset() {
+    func resetAll() {
         UserDefaults.standard.wmf_sessionID = nil
         UserDefaults.standard.wmf_sessionStartTimestamp = nil
         UserDefaults.standard.wmf_sessionBackgroundTimestamp = nil
@@ -53,6 +53,10 @@ public final class UserSession: NSObject {
      */
     func needsReset() -> Bool {
         return self.hasSessionTimedOut()
+    }
+    
+    func resetBackgroundTimestamp() {
+        UserDefaults.standard.wmf_sessionBackgroundTimestamp = nil
     }
 
     /**
