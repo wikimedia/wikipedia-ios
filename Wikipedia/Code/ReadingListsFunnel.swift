@@ -103,7 +103,7 @@
     }
     
     private func logUnsave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, wiki_id: String?, measureAge: Int? = nil, measurePosition: Int? = nil) {
-        logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge)
+        logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge, wiki_id: wiki_id)
     }
     
     private func logUnsave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
