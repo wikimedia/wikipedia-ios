@@ -6858,7 +6858,7 @@
 			name = "Article Footer";
 			sourceTree = "<group>";
 		};
-		0E7AAEEA1C21F4160046B5B6 /* WIkimedia Event Logging */ = {
+		0E7AAEEA1C21F4160046B5B6 /* Wikimedia Event Logging */ = {
 			isa = PBXGroup;
 			children = (
 				7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */,
@@ -6872,7 +6872,7 @@
 				676E813229380D8A00F15258 /* TalkPagesFunnel.swift */,
 				83AE025B299D9CDD00C45F73 /* SearchFunnel.swift */,
 			);
-			name = "WIkimedia Event Logging";
+			name = "Wikimedia Event Logging";
 			sourceTree = "<group>";
 		};
 		0E8380661D64989F0076EDE4 /* ContinueReadingWidget */ = {
@@ -9031,7 +9031,7 @@
 		D4B0ADFF19365F4600F0AC90 /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
-				0E7AAEEA1C21F4160046B5B6 /* WIkimedia Event Logging */,
+				0E7AAEEA1C21F4160046B5B6 /* Wikimedia Event Logging */,
 			);
 			name = Analytics;
 			sourceTree = "<group>";
