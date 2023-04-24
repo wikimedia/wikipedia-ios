@@ -111,11 +111,13 @@
     }
 
     public func logUnsave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, date: Date?, measurePosition: Int) {
-        logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: daysSince(date), wiki_id: articleURL.wmf_languageCode)
+        let measureAge = date == nil ? nil : daysSince(date)
+        logEvent(action: .unsave, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge, wiki_id: articleURL.wmf_languageCode)
     }
 
     public func logSave(category: EventCategoryMEP, label: EventLabelMEP? = nil, measure: Int = 1, articleURL: URL, date: Date?, measurePosition: Int) {
-        logEvent(action: .save, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: daysSince(date), wiki_id: articleURL.wmf_languageCode)
+        let measureAge = date == nil ? nil : daysSince(date)
+        logEvent(action: .save, category: category, label: label, measure: measure, measurePosition: measurePosition, measureAge: measureAge, wiki_id: articleURL.wmf_languageCode)
     }
     
     // - MARK: Saved - default reading list
