@@ -134,6 +134,12 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
     }
     
     func updateSavedState() {
+        guard let key = activeKey else {
+            return
+        }
+
+        _ = dataStore.savedPageList.toggleSavedPage(forKey: key.databaseKey, variant: key.languageVariantCode)
+        
         notifyDelegateArticleSavedStateChanged()
     }
     
