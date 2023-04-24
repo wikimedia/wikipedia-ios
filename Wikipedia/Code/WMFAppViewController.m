@@ -252,11 +252,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(voiceOverStatusDidChange)
                                                  name:UIAccessibilityVoiceOverStatusDidChangeNotification
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(showErrorBanner:)
-                                                     name:NSNotification.showErrorBanner
-                                                   object:nil];
+                                             selector:@selector(showErrorBanner:)
+                                                 name:NSNotification.showErrorBanner
+                                               object:nil];
 
     [self setupReadingListsHelpers];
     self.editHintController = [[WMFEditHintController alloc] init];
@@ -264,7 +264,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
 
     self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
-    
+
     self.metricManager = [MXMetricManager sharedManager];
     [self.metricManager addSubscriber:self];
 }
@@ -725,11 +725,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (self.remoteConfigCheckBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
         return;
     }
-    self.remoteConfigCheckBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        if (expirationHandler) {
-            expirationHandler();
-        }
-    }];
+    self.remoteConfigCheckBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"com.wikipedia.background.task.remote.config.check"
+                                                                                                  expirationHandler:^{
+                                                                                                      if (expirationHandler) {
+                                                                                                          expirationHandler();
+                                                                                                      }
+                                                                                                  }];
 }
 
 - (void)endRemoteConfigCheckBackgroundTask {
@@ -745,9 +746,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (self.pauseAppBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
         return;
     }
-    self.pauseAppBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        [self endPauseAppBackgroundTask];
-    }];
+    self.pauseAppBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"com.wikipedia.background.task.pause.app"
+                                                                                         expirationHandler:^{
+                                                                                             [self endPauseAppBackgroundTask];
+                                                                                         }];
 }
 
 - (void)endPauseAppBackgroundTask {
@@ -763,11 +765,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (self.migrationBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
         return;
     }
-    self.migrationBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        if (expirationHandler) {
-            expirationHandler();
-        }
-    }];
+    self.migrationBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"com.wikipedia.background.task.migration"
+                                                                                          expirationHandler:^{
+                                                                                              if (expirationHandler) {
+                                                                                                  expirationHandler();
+                                                                                              }
+                                                                                          }];
 }
 
 - (void)endMigrationBackgroundTask {
@@ -914,7 +917,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self processUserActivity:self.unprocessedUserActivity
                              animated:NO
                            completion:^{
-                                DDLogError(@"resumeApp - processUserActivity completion");
+                               DDLogError(@"resumeApp - processUserActivity completion");
                                [self hideSplashViewAnimated:!didShowOnboarding];
                                done();
                            }];
@@ -923,7 +926,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self processShortcutItem:self.unprocessedShortcutItem
                            completion:^(BOOL didProcess) {
-                                DDLogError(@"resumeApp - processShortcutItem completion");
+                               DDLogError(@"resumeApp - processShortcutItem completion");
                                done();
                            }];
         } else if (NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume) {
@@ -932,7 +935,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                                    in:self.dataStore.viewContext
                                                                  with:self.theme
                                                            completion:^{
-                                                                DDLogError(@"resumeApp - restoreNavigationStateFor completion");
+                                                               DDLogError(@"resumeApp - restoreNavigationStateFor completion");
                                                                [self hideSplashViewAnimated:!didShowOnboarding];
                                                                done();
                                                            }];
@@ -1562,12 +1565,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)shouldShowOnboarding {
-    
+
     if (self.unprocessedUserActivity.shouldSkipOnboarding) {
         [self setDidShowOnboarding];
         return NO;
     }
-    
+
     NSNumber *didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
 }
