@@ -788,17 +788,35 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return;
     }
 
-    UIBackgroundTaskIdentifier currentTaskIdentifier = self.feedContentFetchBackgroundTaskIdentifier;
-    if (self.dataStore.feedContentController.isBusy && currentTaskIdentifier == UIBackgroundTaskInvalid) {
-        self.feedContentFetchBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"com.wikipedia.background.task.feed.content"
-                                                                                                     expirationHandler:^{
-                                                                                                         [self.dataStore.feedContentController cancelAllFetches];
-                                                                                                     }];
-    } else if (!self.dataStore.feedContentController.isBusy && currentTaskIdentifier != UIBackgroundTaskInvalid) {
-        self.feedContentFetchBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
-        [[UIApplication sharedApplication] endBackgroundTask:currentTaskIdentifier];
+    if (self.dataStore.feedContentController.isBusy) {
+        [self startFeedContentFetchBackgroundTask];
+    } else if (!self.dataStore.feedContentController.isBusy) {
+        [self endFeedContentFetchBackgroundTask];
     }
 }
+
+- (void)startFeedContentFetchBackgroundTask {
+    if (self.feedContentFetchBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
+        return;
+    }
+
+    self.feedContentFetchBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"com.wikipedia.background.task.feed.content"
+                                                                                                 expirationHandler:^{
+                                                                                                     [self.dataStore.feedContentController cancelAllFetches];
+                                                                                                     [self endFeedContentFetchBackgroundTask];
+                                                                                                 }];
+}
+
+- (void)endFeedContentFetchBackgroundTask {
+    if (self.feedContentFetchBackgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+        return;
+    }
+
+    UIBackgroundTaskIdentifier backgroundTaskToStop = self.feedContentFetchBackgroundTaskIdentifier;
+    self.feedContentFetchBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskToStop];
+}
+
 #pragma mark - Launch
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
