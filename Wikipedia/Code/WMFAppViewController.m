@@ -858,6 +858,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     __block BOOL migrationsAllowed = YES;
     [self startMigrationBackgroundTask:^{
         migrationsAllowed = NO;
+        [self endMigrationBackgroundTask];
     }];
 
     //    TODO: pass the cancellationChecker into performLibraryUpdates to allow it to bail early if the background task is ended
