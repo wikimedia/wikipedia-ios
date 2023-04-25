@@ -26,7 +26,12 @@
             lengthMS = nil
         }
 
-        let pageLatency = SessionData(page_load_latency_ms: Int(round(pageLoadAverage ?? Double())))
+        let pageLatency: SessionData?
+        if let pageLoadAverage {
+            pageLatency = SessionData(page_load_latency_ms: Int(round(pageLoadAverage)))
+        } else {
+            pageLatency = nil
+        }
 
         let finalEvent = SessionsFunnel.Event(length_ms: lengthMS, session_data: pageLatency)
         EventPlatformClient.shared.submit(stream: .sessions, event: finalEvent, completion: completion)
