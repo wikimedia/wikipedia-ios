@@ -47,7 +47,12 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
     }
     
     @IBAction func toggleAnalytics(withSender sender: UISwitch) {
-        UserDefaults.standard.wmf_sendUsageReports = sender.isOn
+        if sender.isOn {
+            SessionsFunnel.shared.settingsLoggingToggledOn()
+        } else {
+            SessionsFunnel.shared.settingsLoggingToggledOff(completion: {})
+        }
+        
         updateToggleLabelTitleForUsageReportsIsOn(sender.isOn)
     }
     

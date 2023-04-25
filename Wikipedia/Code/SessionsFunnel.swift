@@ -8,11 +8,6 @@
     private var pageLoadTimes: [Double] = []
     private var pageLoadAverage: Double?
 
-    private enum Action: String, Codable {
-        case sessionStart = "session_start"
-        case sessionEnd = "session_end"
-    }
-
     public struct Event: EventInterface {
         public static let schema: EventPlatformClient.Schema = .sessions
         let length_ms: Int?
@@ -23,50 +18,75 @@
         let page_load_latency_ms: Int?
     }
 
-    private func logEvent(measure: Double? = nil) {
-        let measureTime: Int?
-        if let measure {
-            measureTime = Int(round(measure))
+    private func logEvent(sessionMilliseconds: Double? = nil, completion: @escaping () -> Void) {
+        let lengthMS: Int?
+        if let sessionMilliseconds {
+            lengthMS = Int(round(sessionMilliseconds))
         } else {
-            measureTime = nil
+            lengthMS = nil
         }
 
         let pageLatency = SessionData(page_load_latency_ms: Int(round(pageLoadAverage ?? Double())))
 
-        let finalEvent = SessionsFunnel.Event(length_ms: measureTime, session_data: pageLatency)
-        EventPlatformClient.shared.submit(stream: .sessions, event: finalEvent)
+        let finalEvent = SessionsFunnel.Event(length_ms: lengthMS, session_data: pageLatency)
+        EventPlatformClient.shared.submit(stream: .sessions, event: finalEvent, completion: completion)
     }
 
-    @objc public func setSessionStart() {
-        if UserSession.shared.hasSessionTimedOut {
-            defer {
-                resetSession()
+    @objc public func appDidBecomeActive() {
+        if EventPlatformClient.shared.needsReset() {
+            logPreviousSessionEnd {
+                DispatchQueue.main.async {
+                    self.resetPageLoadMetrics()
+                    EventPlatformClient.shared.resetAll()
+                }
             }
-            logPreviousSessionEnd()
+        } else {
+            EventPlatformClient.shared.resetBackgroundTimestamp()
         }
     }
     
-    private func resetSession() {
-        resetPageLoadMetrics()
-        UserSession.shared.resetSession()
-        EventPlatformClient.shared.resetCaching()
+    @objc public func appDidBackground() {
+        EventPlatformClient.shared.appDidBackground()
     }
-
-    @objc public func logSessionLastActivity() {
-        UserSession.shared.logSessionEndTimestamp()
+    
+    @objc public func settingsLoggingToggledOn() {
+        UserDefaults.standard.wmf_sendUsageReports = true
+        EventPlatformClient.shared.generateSessionID()
+    }
+    
+    @objc public func settingsLoggingToggledOff(completion: @escaping () -> Void) {
+        
+        logPreviousSessionEnd {
+            DispatchQueue.main.async {
+                self.resetPageLoadMetrics()
+                EventPlatformClient.shared.resetAll()
+                UserDefaults.standard.wmf_sendUsageReports = false
+                completion()
+            }
+        }
     }
 
     /**
      * To match Android, we now log the previous Session when a new session starts
      */
-    @objc public func logPreviousSessionEnd() {
-        guard let sessionStartDate = UserSession.shared.sessionStartDate else {
+    private func logPreviousSessionEnd(completion: @escaping () -> Void) {
+        guard let sessionStartDate = EventPlatformClient.shared.sessionStartDate else {
             assertionFailure("Session start date cannot be nil")
+            completion()
             return
         }
-        
+
         calculatePageLoadMetrics()
-        logEvent(measure: fabs(sessionStartDate.timeIntervalSinceNow))
+        
+        // ignore time backgrounded from session time
+        let compareDate = UserDefaults.standard.wmf_sessionBackgroundTimestamp ?? Date()
+        let sessionSeconds = fabs(sessionStartDate.timeIntervalSince(compareDate))
+        let sessionMilliseconds = sessionSeconds * 1000
+        
+        logEvent(sessionMilliseconds: sessionMilliseconds) {
+            UserHistoryFunnel.shared.logSnapshot()
+            completion()
+        }
     }
     
     // MARK: ArticleViewController Load Time Measurement Helpers
