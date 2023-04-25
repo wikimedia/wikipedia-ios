@@ -18,7 +18,7 @@ final class SavedArticlesFetcher: NSObject {
     }
     
     private let dataStore: MWKDataStore
-    private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
+    private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
     
     private let articleCacheController: ArticleCacheController
     private let spotlightManager: WMFSavedPageSpotlightManager
@@ -142,10 +142,9 @@ private extension SavedArticlesFetcher {
             return
         }
         
-        if let backgroundTaskIdentifier = backgroundTaskIdentifier {
-            self.backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
-            UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
-        }
+        let backgroundTaskIdentifier = self.backgroundTaskIdentifier
+        self.backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
+        UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
     }
     
     @objc func _update() {
@@ -377,7 +376,7 @@ private extension SavedArticlesFetcher {
 @objc(WMFMobileViewToMobileHTMLMigrationController)
 class MobileViewToMobileHTMLMigrationController: NSObject {
     private let dataStore: MWKDataStore
-    private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
+    private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
     
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -404,10 +403,9 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
             return
         }
         
-        if let backgroundTaskIdentifier = backgroundTaskIdentifier {
-            self.backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
-            UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
-        }
+        let backgroundTaskIdentifier = self.backgroundTaskIdentifier
+        self.backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
+        UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
     }
     
     private func convertOneArticleIfNecessary() {
