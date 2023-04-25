@@ -13,7 +13,7 @@
 
 @end
 
-static uint64_t bundleHash() {
+static uint64_t bundleHash(void) {
     static dispatch_once_t onceToken;
     static uint64_t bundleHash;
     dispatch_once(&onceToken, ^{

@@ -47,7 +47,7 @@ fileprivate class MockArticleRevisionFetcher: WMFArticleRevisionFetcher {
                          "size": 61252]
                         ],
                      "title": "Benty Grange helmet"
-                    ]
+                    ] as [String : Any]
                     ]
             ]
         ]

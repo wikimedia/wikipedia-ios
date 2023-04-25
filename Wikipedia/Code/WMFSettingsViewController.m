@@ -179,29 +179,26 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)disclosureSwitchChanged:(UISwitch *)disclosureSwitch {
     WMFSettingsMenuItemType type = (WMFSettingsMenuItemType)disclosureSwitch.tag;
-    [self updateStateForMenuItemType:type isSwitchOnValue:disclosureSwitch.isOn];
-    [self loadSections];
+    [self updateStateForMenuItemType:type isSwitchOnValue:disclosureSwitch.isOn completion:^{
+        [self loadSections];
+    }];
 }
 
 #pragma mark - Switch tap handling
 
-- (void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn {
+- (void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn completion:(void (^)(void))completion {
     switch (type) {
         case WMFSettingsMenuItemType_SendUsageReports: {
-            WMFMetricsClientBridge *metricsClientBridge = [WMFMetricsClientBridge sharedInstance];
-            NSUserDefaults.standardUserDefaults.wmf_sendUsageReports = isOn;
             if (isOn) {
-                [metricsClientBridge reset];
-                [[SessionsFunnel shared] setSessionStart];
+                [[SessionsFunnel shared] settingsLoggingToggledOn];
                 [[UserHistoryFunnel shared] logStartingSnapshot];
             } else {
-                [[SessionsFunnel shared] logSessionLastActivity];
-                [[SessionsFunnel shared] logPreviousSessionEnd];
                 [[UserHistoryFunnel shared] logSnapshot];
-                [metricsClientBridge reset];
+                [[SessionsFunnel shared] settingsLoggingToggledOffWithCompletion:completion];
             }
         } break;
         default:
+            completion();
             break;
     }
 }

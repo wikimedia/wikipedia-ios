@@ -292,13 +292,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.periodicWorkerController = [[WMFPeriodicWorkerController alloc] initWithInterval:30 initialDelay:1 leeway:15];
     self.periodicWorkerController.delegate = self;
     [self.periodicWorkerController add:self.dataStore.readingListsController];
-    [self.periodicWorkerController add:[WMFMetricsClientBridge sharedInstance]];
+    [self.periodicWorkerController add:[WMFEventPlatformClientWorker sharedInstance]];
 
     self.backgroundFetcherController = [[WMFBackgroundFetcherController alloc] init];
     self.backgroundFetcherController.delegate = self;
     [self.backgroundFetcherController add:self.dataStore.readingListsController];
     [self.backgroundFetcherController add:(id<WMFBackgroundFetcher>)self.dataStore.feedContentController];
-    [self.backgroundFetcherController add:[WMFMetricsClientBridge sharedInstance]];
+    [self.backgroundFetcherController add:[WMFEventPlatformClientWorker sharedInstance]];
 }
 
 - (void)loadMainUI {
@@ -374,7 +374,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 // When the user launches from a terminated state, resume might not finish before didBecomeActive, so these tasks are held until both items complete
 - (void)performTasksThatShouldOccurAfterBecomeActiveAndResume {
-    [[SessionsFunnel shared] setSessionStart];
+    [[SessionsFunnel shared] appDidBecomeActive];
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
@@ -1019,7 +1019,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (void)pauseApp {
-    [self logSessionEnd];
+    [[SessionsFunnel shared] appDidBackground];
 
     if (![self uiIsLoaded]) {
         [self endPauseAppBackgroundTask];
@@ -1056,13 +1056,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [super didReceiveMemoryWarning];
     self.settingsViewController = nil;
     [self.dataStore clearMemoryCache];
-}
-
-#pragma mark - Logging
-
-- (void)logSessionEnd {
-    [[UserSession shared] logSessionEndTimestamp];
-    [[UserHistoryFunnel shared] logSnapshot];
 }
 
 #pragma mark - Shortcut

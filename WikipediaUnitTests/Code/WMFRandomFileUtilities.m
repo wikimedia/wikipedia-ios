@@ -1,6 +1,6 @@
 #import "WMFRandomFileUtilities.h"
 
-NSString *WMFRandomTemporaryPath() {
+NSString *WMFRandomTemporaryPath(void) {
     return [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
 }
 

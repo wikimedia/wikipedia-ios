@@ -73,10 +73,32 @@ import CocoaLumberjackSwift
     var sessionID: String {
         return userSession.sessionID
     }
-
-    public func resetCaching() {
-        samplingController.removeAllSamplingCache()
+    
+    public var sessionStartDate: Date? {
+        return userSession.sessionStartDate
     }
+        
+    public func resetAll() {
+        samplingController.removeAllSamplingCache()
+        userSession.resetAll()
+    }
+    
+    public func generateSessionID() {
+        userSession.generateSessionID()
+    }
+    
+    public func needsReset() -> Bool {
+        return userSession.needsReset()
+    }
+    
+    public func resetBackgroundTimestamp() {
+        userSession.resetBackgroundTimestamp()
+    }
+    
+    public func appDidBackground() {
+        userSession.appDidBackground()
+    }
+    
     /**
      * Store events until the library is finished initializing
      *
@@ -202,7 +224,7 @@ import CocoaLumberjackSwift
 
 
     private var isAnon: Bool {
-        return dataStore.authenticationManager.isLoggedIn
+        return !dataStore.authenticationManager.isLoggedIn
     }
 
     private var _primaryLanguage: String {
@@ -508,10 +530,11 @@ import CocoaLumberjackSwift
      *   1st preferred language – in which case use
      *   `MWKLanguageLinkController.sharedInstance().appLanguage.siteURL().host`
      */
-    public func submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil) {
+    public func submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil, completion: (() -> Void)? = nil) {
         let date = Date() // Record the date synchronously so there's no delay
         encodeQueue.async {
             self._submit(stream: stream, event: event, date: date, domain: domain)
+            completion?()
         }
     }
 
