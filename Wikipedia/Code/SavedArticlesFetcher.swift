@@ -374,10 +374,25 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
         convertOneArticleIfNecessary()
     }
     
-    @objc func stop() {
+    private func startBackgroundTask() {
+        guard backgroundTaskIdentifier == UIBackgroundTaskIdentifier.invalid else {
+            return
+        }
+        
+        backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(withName: "MobileviewToMobileHTMLConverter", expirationHandler: { [weak self] in
+            self?.stopBackgroundTask()
+        })
+    }
+    
+    private func stopBackgroundTask() {
+        
+        guard backgroundTaskIdentifier != UIBackgroundTaskIdentifier.invalid else {
+            return
+        }
+        
         if let backgroundTaskIdentifier = backgroundTaskIdentifier {
+            self.backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
             UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
-            self.backgroundTaskIdentifier = nil
         }
     }
     
@@ -408,9 +423,9 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
     }()
 
     @objc private func _convertOneArticleIfNecessary() {
-        if backgroundTaskIdentifier == nil {
-            backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(withName: "MobileviewToMobileHTMLConverter", expirationHandler: stop)
-        }
+        
+        startBackgroundTask()
+        
         let moc = dataStore.viewContext
         var article: WMFArticle?
         do {
@@ -420,10 +435,10 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
         }
 
         guard let nonNilArticle = article else {
-            stop()
             // No more articles to convert, ensure the legacy folder is deleted
             DispatchQueue.global(qos: .background).async {
                 self.dataStore.removeAllLegacyArticleData()
+                self.stopBackgroundTask()
             }
             return
         }
@@ -434,14 +449,15 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
                     // No more articles to convert, ensure the legacy folder is deleted
                     DispatchQueue.global(qos: .background).async {
                         self.dataStore.removeAllLegacyArticleData()
+                        self.stopBackgroundTask()
                     }
-                    self.stop()
                     return
                 }
+                self.stopBackgroundTask()
                 self.convertOneArticleIfNecessaryAgain()
             } catch let error {
                 DDLogError("Error counting number of article to be converted: \(error)")
-                self.stop()
+                self.stopBackgroundTask()
             }
         }
     }
