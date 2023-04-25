@@ -1961,16 +1961,25 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - WMFWorkerControllerDelegate
 
 - (void)workerControllerWillStart:(WMFWorkerController *)workerController workWithIdentifier:(NSString *)identifier {
+    [self beginBackgroundTaskTaskWithWorkerController:workerController identifier:identifier];
+}
+
+- (void)workerControllerDidEnd:(WMFWorkerController *)workerController workWithIdentifier:(NSString *)identifier {
+    [self endBackgroundTaskWithWorkerController:workerController identifier:identifier];
+}
+
+- (void)beginBackgroundTaskTaskWithWorkerController:(WMFWorkerController *)workerController identifier:(NSString *)identifier {
     NSString *name = [@[NSStringFromClass([workerController class]), identifier] componentsJoinedByString:@"-"];
     UIBackgroundTaskIdentifier backgroundTaskIdentifier = [UIApplication.sharedApplication beginBackgroundTaskWithName:name
                                                                                                      expirationHandler:^{
                                                                                                          DDLogWarn(@"Ending background task with name: %@", name);
                                                                                                          [workerController cancelWorkWithIdentifier:identifier];
+                                                                                                         [self endBackgroundTaskWithWorkerController:workerController identifier:identifier];
                                                                                                      }];
     [self setBackgroundTaskIdentifier:backgroundTaskIdentifier forKey:identifier];
 }
 
-- (void)workerControllerDidEnd:(WMFWorkerController *)workerController workWithIdentifier:(NSString *)identifier {
+- (void)endBackgroundTaskWithWorkerController:(WMFWorkerController *)workerController identifier:(NSString *)identifier {
     UIBackgroundTaskIdentifier backgroundTaskIdentifier = [self backgroundTaskIdentifierForKey:identifier];
     if (backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
         return;
