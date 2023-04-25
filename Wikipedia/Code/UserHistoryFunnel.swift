@@ -101,8 +101,12 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let itemNumber = getUserHistorySchemaNumber(code: code)
         if let itemNumber {
             let kind = WMFContentGroupKind(rawValue: Int32(itemNumber))
-            if let kind, kind.isInFeed {
-                return ItemLanguages(on: Array(kind.contentLanguageCodes), off: Array(kind.offLanguageCodes))
+            if let kind {
+                if kind.isInFeed {
+                    return ItemLanguages(on: Array(kind.contentLanguageCodes), off: Array(kind.offLanguageCodes))
+                } else {
+                    return ItemLanguages(on: [], off: Array(kind.offLanguageCodes))
+                }
             }
             return nil
         }
