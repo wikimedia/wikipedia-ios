@@ -1,4 +1,5 @@
 #import <XCTest/XCTest.h>
+#import "WMFTestConstants.h"
 
 @interface CodeFileLocationTests : XCTestCase
 
@@ -31,8 +32,9 @@
     NSPredicate *extensionsPredicate =
         [NSPredicate predicateWithFormat:@"pathExtension IN %@", extensionsToKeepOutOfRoot];
 
+    NSString *sourceRootPath = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:WMFSourceRootDirKey];
     NSArray *filesWhichShouldNotBeInRoot =
-        [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:SOURCE_ROOT_DIR error:nil] filteredArrayUsingPredicate:extensionsPredicate];
+        [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:sourceRootPath error:nil] filteredArrayUsingPredicate:extensionsPredicate];
 
     XCTAssertEqual(filesWhichShouldNotBeInRoot.count, 0);
 }
