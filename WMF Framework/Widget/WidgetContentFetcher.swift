@@ -49,7 +49,7 @@ public final class WidgetContentFetcher {
 		dataTask.resume()
 	}
 
-	public func fetchImageDataFrom(imageSource: WidgetFeaturedContent.FeaturedArticleContent.ImageSource, completion: @escaping (Result<Data, FetcherError>) -> Void) {
+	public func fetchImageDataFrom(imageSource: WidgetImageSource, completion: @escaping (Result<Data, FetcherError>) -> Void) {
 		guard let imageURL = URL(string: imageSource.source) else {
 			completion(.failure(.urlFailure))
 			return

@@ -15,8 +15,6 @@
 
 #import "AppDelegate.h"
 
-#import "WMFDailyStatsLoggingFunnel.h"
-
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
 
@@ -294,15 +292,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.periodicWorkerController = [[WMFPeriodicWorkerController alloc] initWithInterval:30 initialDelay:1 leeway:15];
     self.periodicWorkerController.delegate = self;
     [self.periodicWorkerController add:self.dataStore.readingListsController];
-    [self.periodicWorkerController add:[WMFEventLoggingService sharedInstance]];
-    [self.periodicWorkerController add:[WMFMetricsClientBridge sharedInstance]];
+    [self.periodicWorkerController add:[WMFEventPlatformClientWorker sharedInstance]];
 
     self.backgroundFetcherController = [[WMFBackgroundFetcherController alloc] init];
     self.backgroundFetcherController.delegate = self;
     [self.backgroundFetcherController add:self.dataStore.readingListsController];
     [self.backgroundFetcherController add:(id<WMFBackgroundFetcher>)self.dataStore.feedContentController];
-    [self.backgroundFetcherController add:[WMFEventLoggingService sharedInstance]];
-    [self.backgroundFetcherController add:[WMFMetricsClientBridge sharedInstance]];
+    [self.backgroundFetcherController add:[WMFEventPlatformClientWorker sharedInstance]];
 }
 
 - (void)loadMainUI {
@@ -378,7 +374,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 // When the user launches from a terminated state, resume might not finish before didBecomeActive, so these tasks are held until both items complete
 - (void)performTasksThatShouldOccurAfterBecomeActiveAndResume {
-    [[SessionsFunnel shared] logSessionStart];
+    [[SessionsFunnel shared] appDidBecomeActive];
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
@@ -926,8 +922,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (void)finishResumingApp {
 
-    [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
-
     WMFTaskGroup *resumeAndAnnouncementsCompleteGroup = [WMFTaskGroup new];
     [resumeAndAnnouncementsCompleteGroup enter];
     [self.dataStore.authenticationManager
@@ -1025,7 +1019,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (void)pauseApp {
-    [self logSessionEnd];
+    [[SessionsFunnel shared] appDidBackground];
 
     if (![self uiIsLoaded]) {
         [self endPauseAppBackgroundTask];
@@ -1062,13 +1056,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [super didReceiveMemoryWarning];
     self.settingsViewController = nil;
     [self.dataStore clearMemoryCache];
-}
-
-#pragma mark - Logging
-
-- (void)logSessionEnd {
-    [[SessionsFunnel shared] logSessionEnd];
-    [[UserHistoryFunnel shared] logSnapshot];
 }
 
 #pragma mark - Shortcut
@@ -1650,10 +1637,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self wmf_hideKeyboard];
 }
 
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-    [self logTappedTabBarItem:item inTabBar:tabBar];
-}
-
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     if (viewController == tabBarController.selectedViewController) {
         switch (tabBarController.selectedIndex) {
@@ -2109,38 +2092,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                    [authenticationManager userDidAcknowledgeUnintentionalLogout];
                                }];
     });
-}
-
-#pragma mark - Navigation logging
-
-- (void)logTappedTabBarItem:(UITabBarItem *)item inTabBar:(UITabBar *)tabBar {
-    if (tabBar.items.count != self.viewControllers.count || self.tabBar != tabBar) {
-        NSAssert(false, @"Unexpected tab bar setup for logging tap events.");
-        return;
-    }
-
-    NSInteger index = [self.tabBar.items indexOfObject:item];
-    if (index != NSNotFound) {
-        UIViewController *selectedViewController = self.viewControllers[index];
-
-        if ([selectedViewController isKindOfClass:[ExploreViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeExplore) {
-            [[WMFNavigationEventsFunnel shared] logTappedExplore];
-        } else if ([selectedViewController isKindOfClass:[WMFSettingsViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
-            [[WMFNavigationEventsFunnel shared] logTappedSettingsFromTabBar];
-        } else if ([selectedViewController isKindOfClass:[WMFPlacesViewController class]]) {
-            [[WMFNavigationEventsFunnel shared] logTappedPlaces];
-        } else if ([selectedViewController isKindOfClass:[WMFSavedViewController class]]) {
-            [[WMFNavigationEventsFunnel shared] logTappedSaved];
-        } else if ([selectedViewController isKindOfClass:[WMFHistoryViewController class]]) {
-            [[WMFNavigationEventsFunnel shared] logTappedHistory];
-        } else if ([selectedViewController isKindOfClass:[SearchViewController class]]) {
-            [[WMFNavigationEventsFunnel shared] logTappedSearch];
-        }
-    }
-}
-
-- (void)logTappedSettingsFromExplore {
-    [[WMFNavigationEventsFunnel shared] logTappedSettingsFromExplore];
 }
 
 @end

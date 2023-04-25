@@ -9,7 +9,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     let dataStore: MWKDataStore
     let midnightUTCDate: Date
     var initialEvent: WMFFeedOnThisDayEvent?
-    let feedFunnelContext: FeedFunnelContext
+
     let contentGroupIDURIString: String?
     var shouldShowNavigationBar: Bool = false {
         didSet {
@@ -43,7 +43,6 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
         self.dataStore = dataStore
         self.midnightUTCDate = midnightUTCDate
         self.isDateVisibleInTitle = false
-        feedFunnelContext = FeedFunnelContext(contentGroup)
         self.contentGroupIDURIString = contentGroup.objectID.uriRepresentation().absoluteString
         super.init()
         self.theme = theme
@@ -108,13 +107,6 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         initialEvent = nil
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if isMovingFromParent {
-            FeedFunnel.shared.logFeedCardClosed(for: feedFunnelContext, maxViewed: maxViewed)
-        }
     }
 
     private func addUnderBarHeader() {
@@ -187,14 +179,13 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     // MARK: ArticlePreviewingDelegate
     
     override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
-        FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndex)
         super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
         previewedIndex = nil
     }
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
-        push(articleController, context: feedFunnelContext, index: previewedIndex, animated: true)
+        push(articleController, animated: true)
     }
 }
 
@@ -303,24 +294,17 @@ extension OnThisDayViewController {
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath) {
-        let index: Int?
-        if let indexPath = collectionView.indexPath(for: sideScrollingCollectionViewCell) {
-            index = indexPath.section - 1
-        } else {
-            index = nil
-        }
-        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: index, maxViewed: maxViewed)
         navigate(to: articleURL)
     }
 }
 
 // MARK: - EventLoggingEventValuesProviding
-extension OnThisDayViewController: EventLoggingEventValuesProviding {
-    var eventLoggingCategory: EventLoggingCategory {
+extension OnThisDayViewController: MEPEventsProviding {
+    var eventLoggingCategory: EventCategoryMEP {
         return .feed
     }
     
-    var eventLoggingLabel: EventLoggingLabel? {
+    var eventLoggingLabel: EventLabelMEP? {
         return .onThisDay
     }
 }
@@ -339,7 +323,6 @@ extension OnThisDayViewController: NestedCollectionViewContextMenuDelegate {
         }
 
         previewedIndex = itemIndex
-        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: itemIndex)
 
         let previewProvider: () -> UIViewController? = {
             return vc
@@ -366,7 +349,6 @@ extension OnThisDayViewController: NestedCollectionViewContextMenuDelegate {
             guard let self = self else {
                 return
             }
-            FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: self.feedFunnelContext, index: self.previewedIndex, maxViewed: self.maxViewed)
             self.push(previewedViewController, animated: true)
             self.previewedIndex = nil
         }

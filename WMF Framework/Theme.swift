@@ -453,6 +453,19 @@ public class Colors: NSObject {
         }
     }
 
+    @objc public var midCardBorder: UIColor {
+        switch identifier {
+        case .light, .widgetLight:
+            return .gray200
+        case .sepia:
+            return .taupe200
+        case .dark, .widgetDark:
+            return .gray650
+        case .black:
+            return .gray675
+        }
+    }
+
     @objc public var cardShadow: UIColor {
         switch identifier {
         case .light:
@@ -756,7 +769,7 @@ public class Colors: NSObject {
     }
 
     public var diffCompareAccent: UIColor {
-        return .orange600.withAlphaComponent(0.3)
+        return .orange600
     }
 
     public var diffCompareChangeHeading: UIColor {
