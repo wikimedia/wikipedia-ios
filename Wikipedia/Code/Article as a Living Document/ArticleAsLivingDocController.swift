@@ -67,8 +67,8 @@ class ArticleAsLivingDocController: NSObject {
     var articleAsLivingDocEditMetrics: [NSNumber]?
     
     var articleAsLivingDocViewController: ArticleAsLivingDocViewController?
-    
-    let shouldAttemptToShowArticleAsLivingDoc = false
+
+    var shouldAttemptToShowArticleAsLivingDoc = false
     
     var shouldShowArticleAsLivingDoc: Bool {
         if let articleAsLivingDocViewModel = articleAsLivingDocViewModel,

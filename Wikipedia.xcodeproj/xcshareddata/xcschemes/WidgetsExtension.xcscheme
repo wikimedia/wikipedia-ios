@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1420"
+   LastUpgradeVersion = "1430"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -80,7 +80,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "_XCWidgetKind"
-            value = "org.wikimedia.wikipedia.widgets.featuredArticle"
+            value = "org.wikimedia.wikipedia.widgets.topRead"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable

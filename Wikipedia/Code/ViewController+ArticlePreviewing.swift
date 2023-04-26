@@ -6,7 +6,7 @@ extension ViewController: ArticlePreviewingDelegate {
     }
     
     @objc func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
-        guard let eventLoggingEventValuesProviding = self as? EventLoggingEventValuesProviding else {
+        guard let eventLoggingEventValuesProviding = self as? MEPEventsProviding else {
             return
         }
         

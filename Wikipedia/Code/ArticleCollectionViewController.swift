@@ -6,15 +6,14 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController, EditableCollection, EventLoggingEventValuesProviding, CollectionViewContextMenuShowing {
+class ArticleCollectionViewController: ColumnarCollectionViewController, EditableCollection, MEPEventsProviding, CollectionViewContextMenuShowing {
     @objc var dataStore: MWKDataStore!
     var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
 
     var editController: CollectionViewEditController!
+    var contentGroup: WMFContentGroup?
     
     @objc weak var delegate: ArticleCollectionViewControllerDelegate?
-
-    var feedFunnelContext: FeedFunnelContext?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,12 +95,12 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
     
     // MARK: - EventLoggingEventValuesProviding
     
-    var eventLoggingCategory: EventLoggingCategory {
+    var eventLoggingCategory: EventCategoryMEP {
         assertionFailure("Subclassers should override this property")
         return .unknown
     }
     
-    var eventLoggingLabel: EventLoggingLabel? {
+    var eventLoggingLabel: EventLabelMEP? {
         return nil
     }
 
@@ -158,10 +157,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         return articleViewController
     }
 
-    var poppingIntoVCCompletion: () -> Void {
-        // Nothing special needs to be run for this VC.
-        return {}
-    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -240,15 +235,16 @@ extension ArticleCollectionViewController: ActionDelegate {
         case .save:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
+
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilitySavedNotification)
-                ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: feedFunnelContext?.midnightUTCDate, measurePosition: indexPath.item)
+                ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: contentGroup?.midnightUTCDate, measurePosition: indexPath.item)
                 return true
             }
         case .unsave:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.removeEntry(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilityUnsavedNotification)
-                ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: feedFunnelContext?.midnightUTCDate, measurePosition: indexPath.item)
+                ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: contentGroup?.midnightUTCDate, measurePosition: indexPath.item)
                 return true
             }
         case .share:

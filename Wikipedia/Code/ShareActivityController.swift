@@ -31,8 +31,8 @@ class CustomShareActivity: UIActivity {
 protocol ShareableArticlesProvider: NSObjectProtocol {
 }
 
-extension ShareableArticlesProvider where Self: UIViewController & EventLoggingEventValuesProviding {
-    func share(article: WMFArticle?, articleURL: URL?, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme, eventLoggingCategory: EventLoggingCategory? = nil, eventLoggingLabel: EventLoggingLabel? = nil, sourceView: UIView?) -> Bool {
+extension ShareableArticlesProvider where Self: UIViewController & MEPEventsProviding {
+    func share(article: WMFArticle?, articleURL: URL?, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme, eventLoggingCategory: EventCategoryMEP? = nil, eventLoggingLabel: EventLabelMEP? = nil, sourceView: UIView?) -> Bool {
         if let article = article {
             return createAndPresentShareActivityController(for: article, at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
         } else if let articleURL = articleURL, let key = articleURL.wmf_inMemoryKey {
@@ -47,7 +47,7 @@ extension ShareableArticlesProvider where Self: UIViewController & EventLoggingE
         return false
     }
     
-    fileprivate func createAndPresentShareActivityController(for article: WMFArticle, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme, eventLoggingCategory: EventLoggingCategory?, eventLoggingLabel: EventLoggingLabel?, sourceView: UIView?) -> Bool {
+    fileprivate func createAndPresentShareActivityController(for article: WMFArticle, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme, eventLoggingCategory: EventCategoryMEP?, eventLoggingLabel: EventLabelMEP?, sourceView: UIView?) -> Bool {
         var customActivities: [UIActivity] = []
         let addToReadingListActivity = AddToReadingListActivity {
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
