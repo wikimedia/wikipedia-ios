@@ -8,7 +8,7 @@
 @implementation CircularBitwiseRotationTests
 
 - (void)testMatchesCorrespondingPowerOfTwo {
-    for (NSUInteger rotation; rotation < NSUINT_BIT; rotation++) {
+    for (NSUInteger rotation = 0; rotation < NSUINT_BIT; rotation++) {
         NSUInteger actualResult = flipBitsWithAdditionalRotation(1, rotation);
         // add by NSUINT_BIT_2 to model the "flipping," then modulo for rotation
         NSUInteger exponent = (rotation + NSUINT_BIT_2) % NSUINT_BIT;
@@ -20,9 +20,9 @@
 }
 
 - (void)testSymmetrical {
-    for (NSUInteger i; i < 50; i++) {
+    for (NSUInteger i = 0; i < 50; i++) {
         NSUInteger testValue = arc4random();
-        for (NSUInteger rotation; rotation < NSUINT_BIT; rotation++) {
+        for (NSUInteger rotation = 0; rotation < NSUINT_BIT; rotation++) {
             NSUInteger symmetricalRotation = rotation + NSUINT_BIT;
             NSUInteger original = flipBitsWithAdditionalRotation(testValue, rotation);
             NSUInteger symmetrical = flipBitsWithAdditionalRotation(testValue, symmetricalRotation);

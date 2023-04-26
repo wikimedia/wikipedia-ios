@@ -1,46 +1,37 @@
-// https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSSettingAction
-
-class SettingsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+@objc class SettingsFunnel: NSObject {
     @objc public static let shared = SettingsFunnel()
     
-    private enum Action: String {
+    private enum Action: String, Codable {
         case impression
         case sync
         case unsync
     }
-    
-    private override init() {
-        super.init(schema: "MobileWikiAppiOSSettingAction", version: 18064085)
+
+    private struct Event: EventInterface {
+        static let schema: EventPlatformClient.Schema = .settings
+        let action: Action
+        let category: EventCategoryMEP
+        let label: EventLabelMEP?
     }
-    
-    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action) -> [String: Any] {
-        let category = category.rawValue
-        let action = action.rawValue
-        
-        var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage(), "is_anon": isAnon]
-        if let label = label?.rawValue {
-            event["label"] = label
-        }
-        return event
+
+    private func logEvent(category: EventCategoryMEP, label: EventLabelMEP?, action: Action) {
+        let event = SettingsFunnel.Event(action: action, category: category, label: label)
+        EventPlatformClient.shared.submit(stream: .settings, event: event)
     }
-    
-    override func preprocessData(_ eventData: [AnyHashable: Any]) -> [AnyHashable: Any] {
-        return wholeEvent(with: eventData)
-    }
-    
+
     public func logSyncEnabledInSettings() {
-        log(event(category: .setting, label: .syncArticle, action: .sync))
+        logEvent(category: .setting, label: .syncArticle, action: .sync)
     }
     
     public func logSyncDisabledInSettings() {
-        log(event(category: .setting, label: .syncArticle, action: .unsync))
+        logEvent(category: .setting, label: .syncArticle, action: .unsync)
     }
     
     public func logEnableSyncPopoverImpression() {
-        log(event(category: .enableSyncPopover, label: nil, action: .impression))
+        logEvent(category: .enableSyncPopover, label: nil, action: .impression)
     }
     
     public func logEnableSyncPopoverSyncEnabled() {
-        log(event(category: .enableSyncPopover, label: nil, action: .sync))
+        logEvent(category: .enableSyncPopover, label: nil, action: .sync)
     }
 }

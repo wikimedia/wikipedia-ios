@@ -32,6 +32,8 @@ class SectionEditorViewController: ViewController {
     private var menuItemsController: SectionEditorMenuItemsController!
     private var navigationItemController: SectionEditorNavigationItemController!
 
+    private var userGroupLevelCanEdit: Bool = false
+
     lazy var readingThemesControlsViewController: ReadingThemesControlsViewController = {
         return ReadingThemesControlsViewController.init(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
     }()
@@ -44,8 +46,7 @@ class SectionEditorViewController: ViewController {
     private var didFocusWebViewCompletion: (() -> Void)?
     
     private var needsSelectLastSelection: Bool = false
-    
-    @objc var editFunnel = EditFunnel.shared
+
 
     private var isInFindReplaceActionSheetMode = false
     
@@ -95,19 +96,24 @@ class SectionEditorViewController: ViewController {
         navigationItemController.delegate = self
         
         loadEditNotices()
-        loadWikitext { [weak self] blockedError in
+        loadWikitext { [weak self] resultError in
             
             guard let self else {
                 return
             }
             
-            if let blockedError {
-                self.presentErrorMessage(blockedError: blockedError)
-                
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { // helps prevent flash as wikitext is loaded
-                    self.configureWebView(readOnly: true)
+            if let error = resultError {
+                if error.code.contains("block") {
+                    self.presentErrorMessage(blockedError: error)
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { // helps prevent flash as wikitext is loaded
+                        self.configureWebView(readOnly: true)
+                    }
+                } else if error.code.contains("protectedpage") {
+                    self.presentProtectedPageWarning(error: error)
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { // helps prevent flash as wikitext is loaded
+                        self.configureWebView(readOnly: !self.userGroupLevelCanEdit)
+                    }
                 }
-                
             } else {
                 self.configureWebView(readOnly: false)
             }
@@ -151,7 +157,7 @@ class SectionEditorViewController: ViewController {
     }
 
     private func presentEditNoticesIfNecessary() {
-        guard UserDefaults.standard.wmf_alwaysDisplayEditNotices && lastBlockedDisplayError == nil else {
+        guard UserDefaults.standard.wmf_alwaysDisplayEditNotices && lastBlockedDisplayError == nil && self.userGroupLevelCanEdit else {
             return
         }
 
@@ -306,7 +312,6 @@ class SectionEditorViewController: ViewController {
             guard shouldFocusWebView else {
                 return
             }
-            logSectionReadyToEdit()
             focusWebViewIfReady()
         }
     }
@@ -336,7 +341,6 @@ class SectionEditorViewController: ViewController {
     }
     
     private func showCouldNotFindSelectionInWikitextAlert() {
-        editFunnel.logSectionHighlightToEditError(language: languageCode)
         let alertTitle = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-title", value:"The text that you selected could not be located", comment:"Title for alert informing user their text selection could not be located in the article wikitext.")
         let alertMessage = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-message", value:"This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted", comment:"Description of possible reasons the user text selection could not be located in the article wikitext.")
         let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
@@ -429,21 +433,26 @@ class SectionEditorViewController: ViewController {
                     self.didFocusWebViewCompletion = {
                         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
                     }
-                    
+
                     self.initialFetchGroup.leave()
                     completion(nil)
                 case .success(let response):
                     self.wikitext = response.wikitext
-                    self.handle(protection: response.protection)
-                    
-                    if let blockedError = response.blockedError {
-                        self.lastBlockedDisplayError = blockedError
-                        completion(blockedError)
+                    self.userGroupLevelCanEdit = self.checkUserGroupLevelCanEdit(protection: response.protection, userInfo: response.userInfo?.groups ?? [])
+
+                    if let error = response.apiError {
+                        if error.code.contains("protectedpage") {
+                            self.lastBlockedDisplayError = nil
+                            completion(error)
+                        } else {
+                            self.lastBlockedDisplayError = error
+                            completion(error)
+                        }
                     } else {
                         self.lastBlockedDisplayError = nil
                         completion(nil)
                     }
-                    
+
                     self.initialFetchGroup.leave()
                 }
             }
@@ -458,22 +467,35 @@ class SectionEditorViewController: ViewController {
         
         wmf_showBlockedPanel(messageHtml: blockedError.messageHtml, linkBaseURL: blockedError.linkBaseURL, currentTitle: currentTitle, theme: theme)
     }
-    
-    private func handle(protection: [SectionFetcher.Protection]) {
-        let allowedGroups = protection.map { $0.level }
-        guard !allowedGroups.isEmpty else {
+
+    private func presentProtectedPageWarning(error: MediaWikiAPIDisplayError) {
+        guard let currentTitle = articleURL.wmf_title else {
             return
         }
-        let message: String
-        if allowedGroups.contains("autoconfirmed") {
-            message = WMFLocalizedString("page-protected-autoconfirmed", value: "This page has been semi-protected.", comment: "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.")
-        } else if allowedGroups.contains("sysop") {
-            message = WMFLocalizedString("page-protected-sysop", value: "This page has been fully protected.", comment: "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.")
+
+        wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, image: UIImage(named: "warning-icon"))
+    }
+    
+    private func checkUserGroupLevelCanEdit(protection: [SectionFetcher.Protection], userInfo: [String]) -> Bool {
+        let findEditProtection = protection.map { $0.type == "edit"}
+        let articleHasEditProtection = findEditProtection.first ?? false
+
+        if articleHasEditProtection {
+            let allowedGroups = protection.map { $0.level }
+
+            guard !allowedGroups.isEmpty else {
+                return true
+            }
+
+            let userGroups = userInfo.filter { allowedGroups.contains($0) }
+
+            if !userGroups.isEmpty {
+                return true
+            } else {
+                return false
+            }
         } else {
-            message = WMFLocalizedString("page-protected-other", value: "This page has been protected to the following levels: %1$@", comment: "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. %1$@ will refer to a list of protection levels.")
-        }
-        self.didFocusWebViewCompletion = {
-            WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
+            return true
         }
     }
     
@@ -490,21 +512,6 @@ class SectionEditorViewController: ViewController {
             self.inputViewsController.didTransitionToNewCollection()
             self.focusNavigationView.updateLayout(for: newCollection)
         }
-    }
-
-    // MARK: Event logging
-
-    private var loggedEditActions: NSMutableSet = []
-    private func logSectionReadyToEdit() {
-        guard !loggedEditActions.contains(EditFunnel.Action.ready) else {
-            return
-        }
-        editFunnel.logSectionReadyToEdit(from: editFunnelSource, language: languageCode)
-        loggedEditActions.add(EditFunnel.Action.ready)
-    }
-
-    private var editFunnelSource: EditFunnelSource {
-        return selectedTextEditInfo == nil ? .pencil : .highlight
     }
     
     override func apply(theme: Theme) {
@@ -574,9 +581,6 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     vc.languageCode = self.languageCode
                     vc.wikitext = wikitext
                     vc.delegate = self
-                    vc.editFunnel = self.editFunnel
-                    vc.loggedEditActions = self.loggedEditActions
-                    vc.editFunnelSource = self.editFunnelSource
                     self.navigationController?.pushViewController(vc, animated: true)
                 } else {
                     let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
@@ -714,9 +718,6 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         vc.wikitext = editPreviewViewController.wikitext
         vc.delegate = self
         vc.theme = self.theme
-        vc.editFunnel = self.editFunnel
-        vc.editFunnelSource = editFunnelSource
-        vc.loggedEditActions = loggedEditActions
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

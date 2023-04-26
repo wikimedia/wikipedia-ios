@@ -5,7 +5,9 @@ import UIKit
     func saveButtonDidReceiveAddToReadingListAction(_ saveButton: SaveButton) -> Bool
 }
 
-@objc(WMFSaveButton) public class SaveButton: AlignedImageButton, EventLoggingEventValuesProviding {
+@objc(WMFSaveButton) public class SaveButton: AlignedImageButton, MEPEventsProviding {
+
+
     @objc(WMFSaveButtonState)
     public enum SaveButtonState: Int {
         case shortSaved
@@ -16,9 +18,9 @@ import UIKit
 
     static let saveImage = UIImage(named: "unsaved", in: Bundle.wmf, compatibleWith:nil)
     static let savedImage = UIImage(named: "saved", in: Bundle.wmf, compatibleWith:nil)
-    
-    public var eventLoggingLabel: EventLoggingLabel? = nil
-    public var eventLoggingCategory: EventLoggingCategory = .feed
+
+    public var eventLoggingCategory: EventCategoryMEP = .feed
+    public var eventLoggingLabel: EventLabelMEP? = nil
 
     public var showImage: Bool = true
     public var showTitle: Bool = true

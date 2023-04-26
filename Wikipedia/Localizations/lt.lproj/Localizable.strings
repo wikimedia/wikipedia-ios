@@ -9,6 +9,7 @@
 // Author: Manvydasz
 // Author: Nemo bis
 // Author: Nersip
+// Author: Nokeoo
 // Author: Pavel1513
 // Author: Pofka
 // Author: Techwebpd
@@ -156,9 +157,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 istorinis įvykis|$1 istoriniai įvykiai|$1 istorinių įvykių}}";
 "on-this-day-title" = "Šią dieną";
 "page-history-revision-minor-edit-accessibility-label" = "Smulkus keitimas";
-"page-protected-autoconfirmed" = "Šis puslapis buvo pusiau apsaugotas.";
 "page-protected-can-not-edit-title" = "Šis puslapis užrakintas";
-"page-protected-sysop" = "Šis puslapis buvo pilnai užrakintas.";
 "places-accessibility-group" = "$1 straipsniai";
 "places-accessibility-show-as-list" = "Rodyti kaip sąrašą";
 "places-accessibility-show-as-map" = "Rodyti kaip žemėlapį";

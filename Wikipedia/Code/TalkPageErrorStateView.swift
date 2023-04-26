@@ -115,7 +115,7 @@ final class TalkPageErrorStateView: SetupView {
 
 extension TalkPageErrorStateView: Themeable {
     func apply(theme: Theme) {
-        backgroundColor = theme.colors.talkPageBackground
+        backgroundColor = theme.colors.midBackground
         button.setTitleColor(theme.colors.paperBackground, for: .normal)
         button.backgroundColor = theme.colors.link
         titleLabel.textColor = theme.colors.primaryText

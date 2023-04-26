@@ -92,8 +92,14 @@ class ArticleTableOfContentsDisplayController: Themeable {
             self.viewController.isVisible = true
             self.selectAndScroll(to: sectionId, animated: false)
             
-            // Attempt to fix TOC presentation crashes.
-            guard !self.viewController.isBeingPresented && self.delegate !== self.viewController else {
+            // Attempts to fix TOC presentation crashes. Error message target is in comments.
+            guard
+                !self.viewController.isBeingPresented && // Application tried to present modally a view controller %@ that is already being presented by %@.
+                    self.delegate?.presentedViewController == nil && // Attempt to present %@ on %@ (from %@) which is already presenting %@.
+                    self.delegate !== self.viewController && // Application tried to present modal view controller on itself.
+                    self.viewController.parent == nil && // Application tried to present modally a view controller %@ that has a parent view controller %@.
+                    (self.delegate?.isViewLoaded ?? false) // Attempt to present %@ on %@ (from %@) whose view is not in the window hierarchy.
+            else {
                 return
             }
             
@@ -180,5 +186,4 @@ class ArticleTableOfContentsDisplayController: Themeable {
         viewController.selectItem(at: index)
         viewController.scrollToItem(at: index)
     }
-
 }

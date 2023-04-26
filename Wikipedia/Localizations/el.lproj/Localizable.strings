@@ -321,11 +321,8 @@
 "on-this-day-footer" = "Περισσότερα ιστορικά γεγονότα αυτής της μέρας";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 από $2 Βικιπαίδεια";
 "on-this-day-title" = "Αυτήν την μέρα";
-"page-protected-autoconfirmed" = "Αυτή η σελίδα είναι ημιπροστατευμένη";
 "page-protected-can-not-edit" = "Δεν έχετε την άδεια να επεξεργαστείτε αυτή τη σελίδα";
 "page-protected-can-not-edit-title" = "Αυτή η σελίδα είναι προστατευμένη";
-"page-protected-other" = "Αυτή η σελίδα έχει προστατευτεί στα ακόλουθα επίπεδα: $1";
-"page-protected-sysop" = "Αυτή η σελίδα είναι πλήρως προσταστατευμένη.";
 "pictured" = "εικονογραφημένο";
 "places-accessibility-clear-saved-searches" = "Εκκαθάριση αποθηκευμένων αναζητήσεων";
 "places-accessibility-group" = "$1 άρθρα";

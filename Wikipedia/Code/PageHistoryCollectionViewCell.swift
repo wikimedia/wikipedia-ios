@@ -281,8 +281,7 @@ extension PageHistoryCollectionViewCell: Themeable {
             }
         } else {
             // themeTODO: define a semantic color for this instead of checking isDark
-            roundedContent.layer.borderColor = theme.isDark ? UIColor
-                .base70.cgColor : theme.colors.border.cgColor
+            roundedContent.layer.borderColor = theme.isDark ? UIColor.gray300.cgColor : theme.colors.border.cgColor
             roundedContent.backgroundColor = theme.colors.paperBackground
             authorButton.setTitleColor(theme.colors.link, for: .normal)
             authorButton.tintColor = theme.colors.link

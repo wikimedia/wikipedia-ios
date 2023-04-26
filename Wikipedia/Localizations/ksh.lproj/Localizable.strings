@@ -97,11 +97,8 @@
 "nearby-distance-label-meters" = "$1 Mehter";
 "nearby-distance-label-miles" = "$1 Meile";
 "no-email-account-alert" = "Bes esu johd un donn op Dingem Apparahd en Adräß för de e-mail ennreeschte.";
-"page-protected-autoconfirmed" = "Heh di Sigg es hallef jeschöz.";
 "page-protected-can-not-edit" = "Do häs nit dat Rääsch, heh di Sigg ze ändere";
 "page-protected-can-not-edit-title" = "Heh di Sigg es jeschöz.";
-"page-protected-other" = "Heh di Sigg es jeschöß woode op Nivvoh: $1";
-"page-protected-sysop" = "Heh di Sigg es jeschöz.";
 "potd-description-prefix" = "Et Beld vum Daach för $1";
 "potd-empty-error-description" = "Kunnd et Beld vum Daach nit lahde för $1";
 // Fuzzy

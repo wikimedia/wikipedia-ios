@@ -235,7 +235,7 @@ struct FeaturedArticleView: View {
 			} else {
 				ZStack {
 					Rectangle()
-                        .foregroundColor(Color(UIColor.widgetBlue))
+                        .foregroundColor(Color(UIColor.blue600))
 					Text(entry.extract)
 						.font(.headline)
 						.fontWeight(.semibold)
@@ -250,7 +250,7 @@ struct FeaturedArticleView: View {
 
 	func noContent(message: String) -> some View {
 		Rectangle()
-			.foregroundColor(Color(UIColor.base30))
+			.foregroundColor(Color(UIColor.gray500))
 			.overlay(
 				Text(message)
 					.font(.caption)

@@ -205,11 +205,11 @@ private extension HelpViewController {
         urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Event Logging"))
         urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Event Platform"))
         urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Library"))
-        urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Push Notifications Cache").appendingPathExtension("json"))
+        urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent(SharedContainerCacheCommonNames.pushNotificationsCache).appendingPathExtension("json"))
         urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("RemoteNotifications").appendingPathExtension("sqlite"))
         urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("RemoteNotifications").appendingPathExtension("sqlite-shm"))
         urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("RemoteNotifications").appendingPathExtension("sqlite-wal"))
-        urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Widget Cache").appendingPathExtension("json"))
+        urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent(SharedContainerCacheCommonNames.widgetCache).appendingPathExtension("json"))
         for url in urlsToRemove {
             do {
                 try fileManager.removeItem(at: url)

@@ -21,7 +21,7 @@ public final class WidgetController: NSObject {
     // MARK: Properties
 
 	@objc public static let shared = WidgetController()
-    private let sharedCache = SharedContainerCache<WidgetCache>(fileName: "Widget Cache", defaultCache: { WidgetCache(settings: .default, featuredContent: nil) })
+    private let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache, defaultCache: { WidgetCache(settings: .default, featuredContent: nil) })
 
     // MARK: Public
 
@@ -39,6 +39,21 @@ public final class WidgetController: NSObject {
 
         WidgetCenter.shared.reloadAllTimelines()
 	}
+    
+    public func reloadFeaturedArticleWidgetIfNecessary() {
+        guard !Bundle.main.isAppExtension else {
+            return
+        }
+
+        let dataStore = MWKDataStore.shared()
+        let appLanguage = dataStore.languageLinkController.appLanguage
+        if let siteURL = appLanguage?.siteURL, let languageCode = appLanguage?.languageCode {
+            let updatedWidgetSettings = WidgetSettings(siteURL: siteURL, languageCode: languageCode, languageVariantCode: appLanguage?.languageVariantCode)
+            updateCacheWith(settings: updatedWidgetSettings)
+        }
+        
+        WidgetCenter.shared.reloadTimelines(ofKind: SupportedWidget.featuredArticle.rawValue)
+    }
     
     /// For requesting background time from widgets
     /// - Parameter userCompletion: the completion block to call with the result

@@ -12,8 +12,6 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
     @IBOutlet fileprivate var saveButton: WMFAuthButton!
     
     fileprivate var theme: Theme = Theme.standard
-    
-    public var funnel: WMFLoginFunnel?
 
     public var userName:String?
     
@@ -115,11 +113,9 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.dismiss(animated: true, completion: nil)
-                self.funnel?.logSuccess()
             case .failure(let error):
                 self.enableProgressiveButton(true)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-                self.funnel?.logError(error.localizedDescription)
                 if let error = error as? URLError {
                     if error.code != .notConnectedToInternet {
                         self.passwordField.text = nil

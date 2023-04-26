@@ -756,11 +756,8 @@
 "page-history-user-edits" = "ویرایش‌های کاربر";
 "page-issues" = "مشکلات صفحه";
 "page-location" = "مشاهده بر روی نقشه";
-"page-protected-autoconfirmed" = "این صفحه به طور نیمه حفاظت شده‌است.";
 "page-protected-can-not-edit" = "شما دسترسی لازم را برای ویرایش این صفحه ندارید";
 "page-protected-can-not-edit-title" = "این صفحه محافظت شده‌است";
-"page-protected-other" = "این صفحه در سطح‌های روبرو حفاظت شده‌است: $1";
-"page-protected-sysop" = "این صفحه به طور کامل حفاظت شده‌است.";
 "page-similar-titles" = "صفحه‌های مشابه";
 "panel-compare-revisions-text" = "مقایسهٔ نسخه‌ها به نمایش چگونگی تغییر یک مقاله در طول زمان کمک می‌کند. مقایسهٔ دو نسخه از یک مقاله، به‌واسطهٔ مشخص‌کردن محتوای تغییریافته تفاوت میان آن نسخه‌ها را نمایش می‌دهد.";
 "panel-compare-revisions-title" = "مقایسه‌کردن نسخه‌ها";

@@ -263,11 +263,8 @@
 "page-history-minor-edits" = "kichik tahrirlar";
 "page-history-revision-author-accessibility-label" = "Muallif: $1";
 "page-history-revision-minor-edit-accessibility-label" = "Kichik tahrir";
-"page-protected-autoconfirmed" = "Bu sahifa yarim himoyalangan.";
 "page-protected-can-not-edit" = "Ushbu sahifani tahrirlash uchun yetarli huquqingiz yoʻq";
 "page-protected-can-not-edit-title" = "Bu sahifa himoyalangan";
-"page-protected-other" = "Bu sahifa quyidagi darajalarda himoyalangan: $1";
-"page-protected-sysop" = "Bu sahifa toʻliq himoyalangan.";
 "places-filter-button-title" = "Filtr";
 "places-filter-saved-articles" = "Saqlangan maqolalar";
 "places-filter-top-read-articles" = "Koʻp oʻqilgan maqolalar";

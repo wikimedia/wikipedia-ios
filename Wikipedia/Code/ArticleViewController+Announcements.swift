@@ -49,9 +49,7 @@ extension ArticleViewController {
             dismiss()
             return
         }
-        
-        let context = FeedFunnelContext(contentGroup)
-        FeedFunnel.shared.logFeedImpression(for: context)
+
         wmf_showAnnouncementPanel(announcement: announcement, primaryButtonTapHandler: { (sender) in
             self.navigate(to: actionURL, useSafari: true)
             // dismiss handler is called

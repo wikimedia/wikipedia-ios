@@ -7,11 +7,11 @@ import UIKit
 
 struct OnThisDayColors {
     static func blueColor(_ colorScheme: ColorScheme) -> Color {
-        return colorScheme == .light ? Color(UIColor.blue50) : Color(UIColor.blue70)
+        return colorScheme == .light ? Color(.blue600) : Color(.blue300)
     }
 
     static func grayColor(_ colorScheme: ColorScheme) -> Color {
-        return colorScheme == .light ? Color(UIColor.base30) : Color(UIColor.base70)
+        return colorScheme == .light ? Color(.gray500) : Color(.gray300)
     }
 
     static func widgetBackgroundColor(_ colorScheme: ColorScheme) -> Color {
@@ -19,11 +19,11 @@ struct OnThisDayColors {
     }
 
     static func boxShadowColor(_ colorScheme: ColorScheme) -> Color {
-        return colorScheme == .light ? Color(UIColor.base70At55PercentAlpha) : .clear
+        return colorScheme == .light ? Color(.gray300.withAlphaComponent(0.55)) : .clear
     }
 
     static func boxBackgroundColor(_ colorScheme: ColorScheme) -> Color {
-        return colorScheme == .light ? .white : Color(red: 34/255, green: 34/255, blue: 34/255)
+        return colorScheme == .light ? .white : Color(.gray700)
     }
 }
 
@@ -387,13 +387,11 @@ struct ArticleRectangleBox: View {
                     .font(.caption)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                if let description = description {
-                    Text(description)
-                        .font(.caption)
-                        .lineLimit(1)
-                        .foregroundColor(OnThisDayColors.grayColor(colorScheme))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
+                Text(description)
+                    .font(.caption)
+                    .lineLimit(1)
+                    .foregroundColor(OnThisDayColors.grayColor(colorScheme))
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             if let image = image {
                 Image(uiImage: image)

@@ -66,11 +66,8 @@
 "nearby-distance-label-km" = "$1 कि.मी.";
 "nearby-distance-label-meters" = "$1 मि.";
 "nearby-distance-label-miles" = "$1 माइल्स्";
-"page-protected-autoconfirmed" = "एतत् पृष्ठम् अर्धसंरक्षितम् अस्ति ।";
 "page-protected-can-not-edit" = "एतस्मिन् पृष्ठे सम्पादनं कर्तुं भवतः/भवत्याः पार्श्वे अधिकाराः न सन्ति ।";
 "page-protected-can-not-edit-title" = "एतत् पृष्ठं संरक्षितचरम् अस्ति";
-"page-protected-other" = "$1 स्तरं यावत् एतत् पृष्ठं संरक्षितम् अस्ति ।";
-"page-protected-sysop" = "एतत् पृष्ठं पूर्णतया संरक्षितम् अस्ति ।";
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "अनुप्रयोगे आवश्यकपरिवर्तनं कर्तुं भवान्/भवती विकिपीडिया-अनुप्रयोगस्य कथम् उपयोगं करोति इत्यस्य सूचनां क्रोडीकर्तुं विकिपीडिया-जालाय अनुमतिं ददातु ।";
 "preference-title-eventlogging-opt-in" = "उपयोगस्य वृत्तान्तं प्रेषयतु";

@@ -174,13 +174,16 @@ class ErrorPanelViewController : ScrollableEducationPanelViewController {
     private let messageHtml: String
     private let button1Title: String
     private let button2Title: String?
+    private let errorImage: UIImage?
     
-    init(messageHtml: String, button1Title: String, button2Title: String?, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, subheadingLinkAction: ((URL) -> Void)?, theme: Theme) {
+    init(messageHtml: String, image: UIImage? = UIImage(named: "error-icon-large"), button1Title: String, button2Title: String?, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, subheadingLinkAction: ((URL) -> Void)?, theme: Theme) {
         self.messageHtml = messageHtml
         self.button1Title = button1Title
         self.button2Title = button2Title
+        self.errorImage = image
         super.init(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, traceableDismissHandler: nil, hasPinnedButtons: true, theme: theme)
         self.subheadingLinkAction = subheadingLinkAction
+
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -189,7 +192,7 @@ class ErrorPanelViewController : ScrollableEducationPanelViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        image = UIImage(named: "error-icon-large")
+        image = errorImage
         subheadingHTML = messageHtml
         primaryButtonTitle = button1Title
         secondaryButtonTitle = button2Title
@@ -525,9 +528,9 @@ extension UIViewController {
     ///   - linkBaseURL: base URL that relative links within messageHtml will reference
     ///   - currentTitle: Wiki title representing the article the user is currently working against. Used to help resolve relative links against.
     ///   - theme: initial theme for panel.
-    func wmf_showBlockedPanel(messageHtml: String, linkBaseURL: URL, currentTitle: String, theme: Theme) {
+    func wmf_showBlockedPanel(messageHtml: String, linkBaseURL: URL, currentTitle: String, theme: Theme, image: UIImage? = UIImage(named: "error-icon-large")) {
         
-        let panel = ErrorPanelViewController(messageHtml: messageHtml, button1Title: CommonStrings.okTitle, button2Title: nil, primaryButtonTapHandler: { [weak self] sender in
+        let panel = ErrorPanelViewController(messageHtml: messageHtml, image: image, button1Title: CommonStrings.okTitle, button2Title: nil, primaryButtonTapHandler: { [weak self] sender in
             self?.dismiss(animated: true)
         }, secondaryButtonTapHandler: nil, subheadingLinkAction: { [weak self] url in
 

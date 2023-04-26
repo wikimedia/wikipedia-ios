@@ -637,11 +637,8 @@
 "page-history-user-edits" = "modifeghe de l'utent";
 "page-issues" = "Problema de la pagina";
 "page-location" = "Varda in su la mapa";
-"page-protected-autoconfirmed" = "Questa pagina chì l'è stada protensgiuda a mità";
 "page-protected-can-not-edit" = "Te gh'hee minga i dirit de fàgh di cambiament a questa pagina chì";
 "page-protected-can-not-edit-title" = "Questa pagina chì l'è protensgiuda";
-"page-protected-other" = "Questa pagina chì l'è stada protesgiuda a quii livei chì: %s";
-"page-protected-sysop" = "Questa pagina chì l'è stada protengiuda del tut.";
 "page-similar-titles" = "Pagine compagne";
 "panel-compare-revisions-text" = "el paragon in fra i version l'ajuta a fà vedé comè che ona vos l'è cambiada in del cors del temp. A paragonà do version d'ona vos i sarann fade vedé i diferenza in fra de lor cont el marcà tucc i contegnud che a inn stad cambiad.";
 "panel-compare-revisions-title" = "Paragon in fra i version";

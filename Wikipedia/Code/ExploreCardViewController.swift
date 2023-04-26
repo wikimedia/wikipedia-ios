@@ -552,18 +552,21 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilitySavedNotification)
-                ReadingListsFunnel.shared.logSaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
+                if let date = contentGroup?.midnightUTCDate {
+                    ReadingListsFunnel.shared.logSaveInFeed(label: contentGroup?.getAnalyticsLabel(), measureAge: date, articleURL: articleURL, index: action.indexPath.item)
+                }
                 return true
             }
         case .unsave:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.removeEntry(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilityUnsavedNotification)
-                ReadingListsFunnel.shared.logUnsaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
+                if let date = contentGroup?.midnightUTCDate {
+                    ReadingListsFunnel.shared.logUnsaveInFeed(label: contentGroup?.getAnalyticsLabel(), measureAge: date, articleURL: articleURL, index: action.indexPath.item)
+                }
                 return true
             }
         case .share:
-            FeedFunnel.shared.logFeedShareTapped(for: FeedFunnelContext(contentGroup), index: indexPath.item)
             return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
         default:
             return false
@@ -689,14 +692,15 @@ extension ExploreCardViewController: Themeable {
     }
 }
 
-extension ExploreCardViewController: EventLoggingEventValuesProviding {
-    var eventLoggingLabel: EventLoggingLabel? {
-        return contentGroup?.eventLoggingLabel
+extension ExploreCardViewController: MEPEventsProviding {
+    var eventLoggingLabel: EventLabelMEP? {
+        return contentGroup?.getAnalyticsLabel()
     }
     
-    var eventLoggingCategory: EventLoggingCategory {
-        return EventLoggingCategory.feed
+    var eventLoggingCategory: EventCategoryMEP {
+        return .feed
     }
+
 }
 
 // MARK: - Context Menu

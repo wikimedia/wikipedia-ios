@@ -287,11 +287,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 تاریخی واقعہ|$1 تاریخی واقعات}}";
 "on-this-day-footer" = "اس دن کے مزید تاریخی واقعات";
 "on-this-day-title" = "آج کے دن";
-"page-protected-autoconfirmed" = "یہ صفحہ نیم محفوظ رہا ہے۔";
 "page-protected-can-not-edit" = "آپ کے پاس اس صفحہ کو ترمیم کرنے کے حقوق نہیں ہیں";
 "page-protected-can-not-edit-title" = "یہ محفوظ کردہ صفحہ ہے";
-"page-protected-other" = "یہ صفحہ مندرجہ سطح تک محفوظ کیا گیا ہے:$1";
-"page-protected-sysop" = "یہ صفحہ مکمل طور پر محفوظ رہا ہے۔";
 "pictured" = "تصویر";
 "places-accessibility-clear-saved-searches" = "محقوظ شدہ تلاش مضامین صاف کر دیں";
 "places-accessibility-group" = "$1 مضامین";

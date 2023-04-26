@@ -495,11 +495,8 @@
 "page-history-revisions-comparison-warning" = "Samo dve izmene mogu biti odabrane";
 "page-history-stats-text" = "{{PLURAL:$1|$1 izmena|$1 izmene}} od $2";
 "page-history-user-edits" = "izmene korisnika";
-"page-protected-autoconfirmed" = "Ova stranica je poluzaštićena.";
 "page-protected-can-not-edit" = "Nemate prava da uređujete ovu stranicu";
 "page-protected-can-not-edit-title" = "Ova stranica je zaštićena";
-"page-protected-other" = "Ova stranica je zaštićena na sledećim nivoima: $1";
-"page-protected-sysop" = "Ova stranica je potpuno zaštićena.";
 "panel-compare-revisions-text" = "Upoređivanje izmena pomaže da se pokaže kako se članak vremenom menjao. Upoređivanje dve izmene članka pokazaće razliku između tih revizija isticanjem bilo kog sadržaja koji je promenjen.";
 "panel-compare-revisions-title" = "Upoređivanje izmena";
 "pictured" = "na slici";
