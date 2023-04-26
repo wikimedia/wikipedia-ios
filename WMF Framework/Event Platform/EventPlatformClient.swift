@@ -88,7 +88,7 @@ import CocoaLumberjackSwift
     }
     
     public func needsReset() -> Bool {
-        return userSession.needsReset()
+        return userSession.needsReset() && isEnabled
     }
     
     public func resetBackgroundTimestamp() {
