@@ -1,5 +1,4 @@
 #import "WMFAppViewController.h"
-@import MetricKit;
 @import WMF;
 @import SystemConfiguration;
 #import "Wikipedia-Swift.h"
@@ -20,6 +19,7 @@
 
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
+
 /**
  *  Enums for each tab in the main tab bar.
  */
@@ -52,7 +52,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAlertsLibraryVersion";
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, WMFWorkerControllerDelegate, WMFThemeableNavigationControllerDelegate, WMFAppTabBarDelegate, MXMetricManagerSubscriber>
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, WMFWorkerControllerDelegate, WMFThemeableNavigationControllerDelegate, WMFAppTabBarDelegate>
 
 @property (nonatomic, strong) WMFPeriodicWorkerController *periodicWorkerController;
 @property (nonatomic, strong) WMFBackgroundFetcherController *backgroundFetcherController;
@@ -112,8 +112,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic, strong) WMFConfiguration *configuration;
 @property (nonatomic, strong) WMFViewControllerRouter *router;
-
-@property (nonatomic, strong) MXMetricManager *metricManager;
 
 @end
 
@@ -264,9 +262,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
 
     self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
-    
-    self.metricManager = [MXMetricManager sharedManager];
-    [self.metricManager addSubscriber:self];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -2197,12 +2192,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)logTappedSettingsFromExplore {
     [[WMFNavigationEventsFunnel shared] logTappedSettingsFromExplore];
-}
-
-// MARK: MXMetricSubscriber
-
-- (void)didReceiveMetricPayloads:(NSArray<MXMetricPayload *> *)payloads {
-    [SharedContainerCacheMetricKitWrapper saveBackgroundExitDataWithPayloads:payloads];
 }
 
 @end

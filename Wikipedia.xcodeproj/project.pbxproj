@@ -659,7 +659,6 @@
 		676E813429380D8A00F15258 /* TalkPagesFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E813229380D8A00F15258 /* TalkPagesFunnel.swift */; };
 		676E813529380D8A00F15258 /* TalkPagesFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E813229380D8A00F15258 /* TalkPagesFunnel.swift */; };
 		676E813629380D8A00F15258 /* TalkPagesFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E813229380D8A00F15258 /* TalkPagesFunnel.swift */; };
-		676EF3FE29F04FFC00327F62 /* MetricKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 676EF3FD29F04FFB00327F62 /* MetricKit.framework */; };
 		676F39282745FB2000F4D33D /* NotificationsCenterFiltersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F39272745FB1F00F4D33D /* NotificationsCenterFiltersViewModel.swift */; };
 		676F39292745FB2000F4D33D /* NotificationsCenterFiltersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F39272745FB1F00F4D33D /* NotificationsCenterFiltersViewModel.swift */; };
 		676F392A2745FB2000F4D33D /* NotificationsCenterFiltersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F39272745FB1F00F4D33D /* NotificationsCenterFiltersViewModel.swift */; };
@@ -4234,7 +4233,6 @@
 		676C868626D4545D00A704C1 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+WindowWorkarounds.swift"; sourceTree = "<group>"; };
 		676E813229380D8A00F15258 /* TalkPagesFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPagesFunnel.swift; sourceTree = "<group>"; };
-		676EF3FD29F04FFB00327F62 /* MetricKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetricKit.framework; path = System/Library/Frameworks/MetricKit.framework; sourceTree = SDKROOT; };
 		676F39272745FB1F00F4D33D /* NotificationsCenterFiltersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterFiltersViewModel.swift; sourceTree = "<group>"; };
 		6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		6771299324FF775E00E89CA5 /* ArticleAsLivingDocLargeEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocLargeEventCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -5791,7 +5789,6 @@
 				67359894299ED915002EE8D1 /* Components in Frameworks */,
 				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
-				676EF3FE29F04FFC00327F62 /* MetricKit.framework in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
 				D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */,
@@ -9121,7 +9118,6 @@
 		D4991437181D51DE00E6073C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				676EF3FD29F04FFB00327F62 /* MetricKit.framework */,
 				83B019D524F6C31B0014B5EF /* WidgetKit.framework */,
 				83AF34F624D3341D000046D6 /* BackgroundTasks.framework */,
 				B09BE6A01FB3DA45007F52E3 /* WebKit.framework */,
