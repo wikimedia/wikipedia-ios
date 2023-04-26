@@ -35,6 +35,7 @@ class SectionFetcher: Fetcher {
                 let protection: [Protection]?
                 let restrictionTypes: [String]?
                 let actions: [String: [MediaWikiAPIError]]?
+
                 
                 enum CodingKeys: String, CodingKey {
                     case title
@@ -42,10 +43,17 @@ class SectionFetcher: Fetcher {
                     case protection
                     case restrictionTypes = "restrictiontypes"
                     case actions
+
                 }
             }
             
             let pages: [Page]?
+            let userInfo: UserInfo?
+
+            enum CodingKeys: String, CodingKey {
+                case pages
+                case userInfo = "userinfo"
+            }
         }
         
         let query: Query?
@@ -55,7 +63,12 @@ class SectionFetcher: Fetcher {
         let wikitext: String
         let revisionID: Int
         let protection: [Protection]
-        let blockedError: MediaWikiAPIDisplayError?
+        let apiError: MediaWikiAPIDisplayError?
+        let userInfo: UserInfo?
+    }
+
+    struct UserInfo: Codable {
+        let groups: [String]?
     }
     
     func fetchSection(with sectionID: Int, articleURL: URL, completion: @escaping (Result<Response, Error>) -> Void) {
@@ -73,6 +86,7 @@ class SectionFetcher: Fetcher {
             "titles": title,
             "inprop": "protection",
             "meta": "userinfo", // we need the local user ID for event logging
+            "uiprop": "groups",
             "continue": "",
             "format": "json",
             "formatversion": 2,
@@ -80,6 +94,7 @@ class SectionFetcher: Fetcher {
             "errorsuselocal": "1",
             "intestactions": "edit", // needed for fully resolved protection error.
             "intestactionsdetail": "full" // needed for fully resolved protection error.
+
         ]
 
         performDecodableMediaWikiAPIGET(for: articleURL, with: parameters) { [weak self] (result: Result<APIResponse, Error>) in
@@ -91,6 +106,7 @@ class SectionFetcher: Fetcher {
                 guard
                     let self,
                     let page = apiResponse.query?.pages?.first,
+                    let userInfo = apiResponse.query?.userInfo,
                     let wikitext = page.revisions?.first?.slots?["main"]?.content,
                     let protection = page.protection,
                     let revisionID = page.revisions?.first?.revid
@@ -98,20 +114,14 @@ class SectionFetcher: Fetcher {
                     completion(.failure(RequestError.unexpectedResponse))
                     return
                 }
-                
+
                 guard let editErrors = page.actions?["edit"] as? [MediaWikiAPIError] else {
-                    completion(.success(Response(wikitext: wikitext, revisionID: revisionID, protection: protection, blockedError: nil)))
+                    completion(.success(Response(wikitext: wikitext, revisionID: revisionID, protection: protection, apiError: nil, userInfo: userInfo)))
                     return
                 }
                 
                 self.resolveMediaWikiError(from: editErrors, siteURL: articleURL) { blockedError in
-                    
-                    guard let blockedError else {
-                        completion(.success(Response(wikitext: wikitext, revisionID: revisionID, protection: protection, blockedError: nil)))
-                        return
-                    }
-                    
-                    completion(.success(Response(wikitext: wikitext, revisionID: revisionID, protection: protection, blockedError: blockedError)))
+                    completion(.success(Response(wikitext: wikitext, revisionID: revisionID, protection: protection, apiError: blockedError, userInfo: userInfo)))
                 }
             }
         }

@@ -78,11 +78,8 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 міл";
-"page-protected-autoconfirmed" = "Гэтая старонка была часткова абароненая.";
 "page-protected-can-not-edit" = "Вы ня маеце правоў рэдагаваць гэтую старонку";
 "page-protected-can-not-edit-title" = "Гэтая старонка абароненая";
-"page-protected-other" = "Гэтая старонка была абароненая на наступных узроўнях: $1";
-"page-protected-sysop" = "Гэтая старонка была поўнасьцю абароненая.";
 "potd-description-prefix" = "Выява дня за $1";
 "potd-empty-error-description" = "Выява дня за $1 не была атрыманая";
 "preference-summary-eventlogging-opt-in" = "Дазволіць фундацыі «Вікімэдыя» зьбіраць інфармацыю пра тое, як вы выкарыстоўваеце праграму, каб палепшыць яе";

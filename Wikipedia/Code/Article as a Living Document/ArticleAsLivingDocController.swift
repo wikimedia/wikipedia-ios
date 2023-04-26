@@ -67,28 +67,8 @@ class ArticleAsLivingDocController: NSObject {
     var articleAsLivingDocEditMetrics: [NSNumber]?
     
     var articleAsLivingDocViewController: ArticleAsLivingDocViewController?
-    
-    var shouldAttemptToShowArticleAsLivingDoc: Bool {
-        
-        guard let delegate = delegate,
-              delegate.articleURL.wmf_isEnglishWikipedia,
-              let view = delegate.view,
-              view.effectiveUserInterfaceLayoutDirection == .leftToRight
-               else {
-            return false
-        }
-        
-        let isInExperimentBucket: Bool
-        if let bucket = delegate.abTestsController.bucketForExperiment(.articleAsLivingDoc) {
-            isInExperimentBucket = bucket == .articleAsLivingDocTest
-        } else {
-            isInExperimentBucket = false
-        }
-        
-        let shouldAttemptToShowArticleAsLivingDoc = articleTitleAndSiteURL() != nil && delegate.isInValidSurveyCampaignAndArticleList && isInExperimentBucket
-        
-        return shouldAttemptToShowArticleAsLivingDoc
-    }
+
+    var shouldAttemptToShowArticleAsLivingDoc = false
     
     var shouldShowArticleAsLivingDoc: Bool {
         if let articleAsLivingDocViewModel = articleAsLivingDocViewModel,

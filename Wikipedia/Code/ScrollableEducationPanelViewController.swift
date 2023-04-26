@@ -101,7 +101,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
     }
     
-    var image:UIImage? {
+    var image: UIImage? {
         get {
             return imageView.image
         }
@@ -230,6 +230,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         
         subheadingTextView.attributedText = attributedText.removingInitialNewlineCharacters().removingRepetitiveNewlineCharacters()
         subheadingTextView.linkTextAttributes = [.foregroundColor: theme.colors.link]
+        subheadingTextView.tintColor = theme.colors.link
     }
     
     var footerParagraphStyle: NSParagraphStyle? {
@@ -331,7 +332,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         pinnedPrimaryButton.titleLabel?.textAlignment = .center
         inlineSecondaryButton.titleLabel?.textAlignment = .center
         pinnedSecondaryButton.titleLabel?.textAlignment = .center
-        
+
         inlineCloseButton.isHidden = !showCloseButton
         pinnedCloseButton.isHidden = !showCloseButton
         [self.view, self.roundedCornerContainer].forEach {view in
@@ -493,14 +494,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         pinnedSecondaryButton?.tintColor = theme.colors.secondaryText
         inlinePrimaryButton?.layer.borderColor = theme.colors.link.cgColor
         pinnedPrimaryButton?.layer.borderColor = theme.colors.link.cgColor
-
-        if theme == .sepia {
-            inlinePrimaryButton.backgroundColor = theme.colors.baseBackground
-            pinnedPrimaryButton.backgroundColor = theme.colors.baseBackground
-        } else {
-            inlinePrimaryButton.backgroundColor = theme.colors.cardButtonBackground
-            pinnedPrimaryButton.backgroundColor = theme.colors.cardButtonBackground
-        }
+        inlinePrimaryButton.backgroundColor = theme.colors.baseBackground
+        pinnedPrimaryButton.backgroundColor = theme.colors.baseBackground
 
         if isUrgent {
             roundedCornerContainer.layer.borderWidth = 3

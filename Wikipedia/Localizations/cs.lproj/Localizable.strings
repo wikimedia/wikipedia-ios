@@ -635,11 +635,8 @@
 "page-history-user-edits" = "editace uživatelů";
 "page-issues" = "Nedostatky stránky";
 "page-location" = "Zobrazit na mapě";
-"page-protected-autoconfirmed" = "Tato stránka je polozamčena.";
 "page-protected-can-not-edit" = "Nemáte oprávnění editovat tuto stránku";
 "page-protected-can-not-edit-title" = "Tato stránka je zamčena";
-"page-protected-other" = "Tato stránka je zamčena pro následující úrovně: $1";
-"page-protected-sysop" = "Tato stránka je zamčena.";
 "page-similar-titles" = "Podobné stránky";
 "panel-compare-revisions-text" = "Porovnávání revizí zobrazuje, jak se článek měnil v průběhu času. Porovnávání dvou revizí článku zobrazí rozdíl mezi danými revizemi se zvýrazněním jakéhokoliv obsahu, který byl změněn.";
 "panel-compare-revisions-title" = "Porovnávání revizí";

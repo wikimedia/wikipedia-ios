@@ -68,9 +68,9 @@ final class OnThisDayData {
         var errorColor: Color {
             switch self {
             case .featureNotSupportedInLanguage:
-                return Color(UIColor.base30)
+                return Color(.gray500)
             case .noInternet:
-                return Color(white: 22/255)
+                return Color(.gray800)
             }
         }
 

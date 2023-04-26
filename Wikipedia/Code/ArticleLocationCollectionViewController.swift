@@ -8,20 +8,18 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     }
     let dataStore: MWKDataStore
     fileprivate let locationManager = LocationManager()
-    private var feedFunnelContext: FeedFunnelContext?
     private var previewedIndexPath: IndexPath?
+    private let contentGroup: WMFContentGroup?
 
     let contentGroupIDURIString: String?
 
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
         self.articleURLs = articleURLs
         self.dataStore = dataStore
+        self.contentGroup = contentGroup
         contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         super.init()
         self.theme = theme
-        if contentGroup != nil {
-            self.feedFunnelContext = FeedFunnelContext(contentGroup)
-        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,9 +43,6 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
         super.viewDidDisappear(animated)
         locationManager.delegate = nil
         locationManager.stopMonitoringLocation()
-        if isMovingFromParent, let context = feedFunnelContext {
-            FeedFunnel.shared.logFeedCardClosed(for: context, maxViewed: maxViewed)
-        }
     }
     
     func articleURL(at indexPath: IndexPath) -> URL {
@@ -77,34 +72,16 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     }
     
     // MARK: ArticlePreviewingDelegate
-    
-    override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
-        guard let context = feedFunnelContext else {
-            super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
-            return
-        }
-        super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
-        FeedFunnel.shared.logFeedDetailShareTapped(for: context, index: previewedIndexPath?.item, midnightUTCDate: context.midnightUTCDate)
-    }
-
-    override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
-        guard let context = feedFunnelContext else {
-            super.readMoreArticlePreviewActionSelected(with: articleController)
-            return
-        }
-        articleController.wmf_removePeekableChildViewControllers()
-        push(articleController, context: context, index: previewedIndexPath?.item, animated: true)
-    }
 
     override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
-        guard let context = feedFunnelContext else {
+        guard let context = contentGroup, let contextDate = context.midnightUTCDate else {
             super.saveArticlePreviewActionSelected(with: articleController, didSave: didSave, articleURL: articleURL)
             return
         }
         if didSave {
-            ReadingListsFunnel.shared.logSaveInFeed(context: context, articleURL: articleURL, index: previewedIndexPath?.item)
+            ReadingListsFunnel.shared.logSaveInFeed(label: context.getAnalyticsLabel(), measureAge: contextDate, articleURL: articleURL, index: previewedIndexPath?.item)
         } else {
-            ReadingListsFunnel.shared.logUnsaveInFeed(context: context, articleURL: articleURL, index: previewedIndexPath?.item)
+            ReadingListsFunnel.shared.logUnsaveInFeed(label: context.getAnalyticsLabel(), measureAge: contextDate, articleURL: articleURL, index: previewedIndexPath?.item)
         }
     }
 
@@ -183,9 +160,6 @@ extension ArticleLocationCollectionViewController: LocationManagerDelegate {
 // MARK: - UICollectionViewDelegate
 extension ArticleLocationCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let context = feedFunnelContext {
-            FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: indexPath.item, maxViewed: maxViewed)
-        }
         navigate(to: articleURLs[indexPath.item])
     }
 }
@@ -205,29 +179,20 @@ extension ArticleLocationCollectionViewController: CollectionViewContextMenuShow
         let articleURL = articleViewController.articleURL
         articleViewController.articlePreviewingDelegate = self
         articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
-        if let context = feedFunnelContext {
-            FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: context, index: indexPath.item)
-        }
+
         previewedIndexPath = indexPath
         return articleViewController
     }
 
-    var poppingIntoVCCompletion: () -> Void {
-        return {
-            if let context = self.feedFunnelContext {
-                FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: self.previewedIndexPath?.item, maxViewed: self.maxViewed)
-            }
-        }
-    }
 }
 
 // MARK: - Reading lists event logging
-extension ArticleLocationCollectionViewController: EventLoggingEventValuesProviding {
-    var eventLoggingCategory: EventLoggingCategory {
+extension ArticleLocationCollectionViewController: MEPEventsProviding {
+    var eventLoggingCategory: EventCategoryMEP {
         return .places
     }
     
-    var eventLoggingLabel: EventLoggingLabel? {
+    var eventLoggingLabel: EventLabelMEP? {
         return nil
     }
 }

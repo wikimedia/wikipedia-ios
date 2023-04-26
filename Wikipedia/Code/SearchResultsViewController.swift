@@ -34,7 +34,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
         return !results.isEmpty && (searchSiteURL as NSURL).wmf_isEqual(toIgnoringScheme: siteURL) && searchResults.searchTerm == searchTerm
     }
     
-    override var eventLoggingCategory: EventLoggingCategory {
+    override var eventLoggingCategory: EventCategoryMEP {
         return .search
     }
     

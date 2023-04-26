@@ -356,10 +356,7 @@
 "page-history-user-edits" = "ကေားသုင်ꩻသား မွဉ်းဖျင်မုꩻဖိုင်ႏ";
 "page-issues" = "လိတ်မဲ့ငါ ခရာႏဖုံႏ";
 "page-location" = "ထွားဟံႏပုင်ႏကို";
-"page-protected-autoconfirmed" = "လိတ်မဲ့ငါယိုဗာႏနဝ်ꩻ အဝ်ႏရဲးသေꩻခါꩻထွူလဲန်း တခူးတခဝ်။";
 "page-protected-can-not-edit-title" = "လိတ်မဲ့ငါယိုဗာႏနဝ်ꩻ အဝ်ႏရဲးကမ်းသေꩻခါꩻဩ";
-"page-protected-other" = "လိတ်မဲ့ငါယိုဗာႏနောဝ်ꩻ အောဝ်ႏရဲးခါꩻသေꩻ ဗꩻလဲန်းအရန်းဖုံႏနုဲင်းယို: %s";
-"page-protected-sysop" = "လိတ်မဲ့ငါယိုဗာႏနောဝ်ꩻ အောဝ်ႏရဲးဗဉ်ႏခါꩻလဲန်း။";
 "page-similar-titles" = "ဗိုန်ပီလိတ်မဲ့ငါဖိုင်ႏ";
 "places-accessibility-group" = "ရောမ်ဖြုဲင်ꩻ $1";
 "places-accessibility-show-as-list" = "အွောန်ႏနယ်နေးစာႏရင်ꩻ";
@@ -472,8 +469,7 @@
 "settings-support" = "စွဲးကမ်း ဝီခီပီးဒီးယား";
 "settings-title" = "အဖျင်အဆင်ဖိုင်ႏ";
 "share-a-fact-made-with" = "မာꩻထူႏတောမ်ႏ ဝီခီပီးဒီးယား အဲပ်";
-// Fuzzy
-"share-article-name-on-wikipedia" = "\"$1\" @Wikipediaကို:";
+"share-article-name-on-wikipedia" = "\"$1\" အဝ်ႏဝီခီပီးဒီးယားကို:";
 "share-default-format" = "“$1” အဝ်ႏ “$2”: $3 ကို";
 "share-email-format" = "“$1”\n\nအဝ်ႏ “$2”\n\n$3 ကို";
 "share-get-directions-in-maps" = "ထူႏယီးနယ်ချက်ဖိုင်ႏ";

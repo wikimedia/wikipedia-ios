@@ -73,3 +73,10 @@ If you need to do more intensive build server work - like updating Xcode on the 
 To rotate App Store Connect credentials, log into the build server via the `Jenkins` account and update the files in the account's home directory. 
 
 To rotate GitHub credentials, update them via the Jenkins web interface.
+
+## Xcode Cloud
+- We are currently using two Xcode Cloud workflows for our builds
+- They can be triggered on Xcode: on the sidebar, click builds -> Cloud -> Look for the chosen build (Main or Experimental) -> right-click on the selected workflow (I.e., Nightly Build) -> Start build, or on App Store Connect
+
+- **Beta** - We currently use Xcode Cloud to run our nightly Beta build. It runs every day at 03:00AM PST or 10:00AM UTC. This one is automated. 
+- **Experimental** - We have an Experimental build that allows building a specific branch. This was designed to allow for Design review before merging. It can be triggered manually. After clicking `Start Build`, choose a branch, local or remote, to build. It will be deployed to TestFlight

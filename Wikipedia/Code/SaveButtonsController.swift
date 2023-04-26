@@ -18,7 +18,6 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
     var visibleUserInfo = [Int: Any]()
     
     let dataStore: MWKDataStore
-    let savedPagesFunnel = SavedPagesFunnel()
     var activeSender: SaveButton?
     var activeKey: WMFInMemoryURLKey?
     
@@ -139,13 +138,8 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
             return
         }
 
-        let isSaved = dataStore.savedPageList.toggleSavedPage(forKey: key.databaseKey, variant: key.languageVariantCode)
+        _ = dataStore.savedPageList.toggleSavedPage(forKey: key.databaseKey, variant: key.languageVariantCode)
         
-        if isSaved {
-            savedPagesFunnel.logSaveNew(withArticleURL: updatedArticle?.url)
-        } else {
-            savedPagesFunnel.logDelete(withArticleURL: updatedArticle?.url)
-        }
         notifyDelegateArticleSavedStateChanged()
     }
     

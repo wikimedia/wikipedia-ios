@@ -155,7 +155,8 @@ open class Fetcher: NSObject {
     ///   - apiErrors: Decoded MediaWikiAPIError items from API response
     ///   - completion: Called when full html is determined, which is packaged up in a MediaWikiAPIDisplayError object.
     public func resolveMediaWikiError(from apiErrors: [MediaWikiAPIError], siteURL: URL, completion: @escaping (MediaWikiAPIDisplayError?) -> Void) {
-        
+
+        let protectedPageError = apiErrors.filter { $0.code.contains("protectedpage") }
         let blockedApiErrors = apiErrors.filter { $0.code.contains("block") }
         let firstBlockedApiErrorWithInfo = blockedApiErrors.first(where: { $0.data?.blockInfo != nil })
         let fallbackBlockedApiError = blockedApiErrors.first(where: { !$0.html.isEmpty })
@@ -175,30 +176,32 @@ open class Fetcher: NSObject {
                 completion(displayError)
                 return
             }
-            
+
             let displayError = MediaWikiAPIDisplayError(messageHtml: fallbackBlockedApiError.html, linkBaseURL: siteURL, code: fallbackBlockedApiError.code)
             completion(displayError)
             return
         }
-        
-        guard let blockedApiError = firstBlockedApiErrorWithInfo,
-        let blockedApiInfo = blockedApiError.data?.blockInfo else {
-            
-            fallbackCompletion()
-            return
-        }
-        
-        resolveMediaWikiApiBlockError(siteURL: siteURL, code: blockedApiError.code, html: blockedApiError.html, blockInfo: blockedApiInfo) { displayError in
-                
-            guard let displayError = displayError else {
-                fallbackCompletion()
-                return
+
+        if let blockedApiError = firstBlockedApiErrorWithInfo,
+        let blockedApiInfo = blockedApiError.data?.blockInfo {
+            resolveMediaWikiApiBlockError(siteURL: siteURL, code: blockedApiError.code, html: blockedApiError.html, blockInfo: blockedApiInfo) { displayError in
+
+                guard let displayError = displayError else {
+                    fallbackCompletion()
+                    return
+                }
+                completion(displayError)
             }
-            
+
+        } else if let protectedPageError = protectedPageError.first(where: {!$0.html.isEmpty}) {
+            let displayError = MediaWikiAPIDisplayError(messageHtml: protectedPageError.html, linkBaseURL: siteURL, code: protectedPageError.code)
             completion(displayError)
+
+        } else {
+            fallbackCompletion()
         }
     }
-    
+
     private func resolveMediaWikiApiBlockError(siteURL: URL, code: String, html: String, blockInfo: MediaWikiAPIError.Data.BlockInfo,  completionHandler: @escaping (MediaWikiAPIDisplayError?) -> Void) {
         
         // First turn blockReason into html, if needed

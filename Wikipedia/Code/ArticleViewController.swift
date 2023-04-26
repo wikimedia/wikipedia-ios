@@ -418,8 +418,14 @@ class ArticleViewController: ViewController, HintPresenting {
             return
         }
         
+        var oldFeedPreview: WMFFeedArticlePreview?
+        if isWidgetCachedFeaturedArticle {
+            oldFeedPreview = article.feedArticlePreview()
+        }
+        
         articleLoadWaitGroup?.enter()
         let cachePolicy: URLRequest.CachePolicy? = oldState == .reloading ? .reloadRevalidatingCacheData : nil
+        
         self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
             defer {
                 self.articleLoadWaitGroup?.leave()
@@ -429,6 +435,14 @@ class ArticleViewController: ViewController, HintPresenting {
                 return
             }
             self.article = article
+            
+            if let oldFeedPreview,
+               let newFeedPreview = article.feedArticlePreview(),
+            oldFeedPreview != newFeedPreview {
+                SharedContainerCacheClearFeaturedArticleWrapper.clearOutFeaturedArticleWidgetCache()
+                WidgetController.shared.reloadFeaturedArticleWidgetIfNecessary()
+            }
+            
             // Handle redirects
             guard let newKey = article.inMemoryKey, newKey != key, let newURL = article.url else {
                 return
@@ -881,9 +895,6 @@ class ArticleViewController: ViewController, HintPresenting {
     
     // MARK: Analytics
     
-    internal lazy var editFunnel: EditFunnel = EditFunnel.shared
-    internal lazy var shareFunnel: WMFShareFunnel? = WMFShareFunnel(article: article)
-    internal lazy var savedPagesFunnel: SavedPagesFunnel = SavedPagesFunnel()
     internal lazy var readingListsFunnel = ReadingListsFunnel.shared
 }
 
@@ -1022,6 +1033,16 @@ private extension ArticleViewController {
         toolbarController.apply(theme: theme)
         toolbarController.setSavedState(isSaved: article.isAnyVariantSaved)
         setToolbarHidden(false, animated: false)
+    }
+    
+    var isWidgetCachedFeaturedArticle: Bool {
+        let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache, defaultCache: { WidgetCache(settings: .default, featuredContent: nil) })
+        guard let widgetFeaturedArticleURLString = sharedCache.loadCache().featuredContent?.featuredArticle?.contentURL.desktop.page,
+              let widgetFeaturedArticleURL = URL(string: widgetFeaturedArticleURLString) else {
+            return false
+        }
+        
+        return widgetFeaturedArticleURL == articleURL
     }
     
 }

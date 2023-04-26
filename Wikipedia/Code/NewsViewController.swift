@@ -7,10 +7,10 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
     
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
-    let feedFunnelContext: FeedFunnelContext
     let cellImageViewHeight: CGFloat = 170
 
     let contentGroupIDURIString: String?
+    let contentGroup: WMFContentGroup?
 
     // For NestedCollectionViewContextMenuDelegate
     private var previewedIndex: Int?
@@ -18,8 +18,8 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
     @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
         self.stories = stories
         self.dataStore = dataStore
+        self.contentGroup = contentGroup
         contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
-        feedFunnelContext = FeedFunnelContext(contentGroup)
         super.init()
         self.theme = theme
         title = CommonStrings.inTheNewsTitle
@@ -34,13 +34,6 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
         layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: true)
         layoutManager.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
         collectionView.allowsSelection = false
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if isMovingFromParent {
-            FeedFunnel.shared.logFeedCardClosed(for: feedFunnelContext, maxViewed: maxViewed)
-        }
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
@@ -83,13 +76,12 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
     // MARK: ArticlePreviewingDelegate
     
     override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
-        FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndex)
         super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
     }
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
-        push(articleController, context: feedFunnelContext, index: previewedIndex, animated: true)
+        push(articleController, animated: true)
         previewedIndex = nil
     }
 
@@ -186,24 +178,17 @@ extension NewsViewController {
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension NewsViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath) {
-        let index: Int?
-        if let indexPath = collectionView.indexPath(for: sideScrollingCollectionViewCell) {
-            index = indexPath.section - 1
-        } else {
-            index = nil
-        }
-        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: index, maxViewed: maxViewed)
         navigate(to: articleURL)
     }
 }
 
 // MARK: - EventLoggingEventValuesProviding
-extension NewsViewController: EventLoggingEventValuesProviding {
-    var eventLoggingCategory: EventLoggingCategory {
+extension NewsViewController: MEPEventsProviding {
+    var eventLoggingCategory: EventCategoryMEP {
         return .feed
     }
     
-    var eventLoggingLabel: EventLoggingLabel? {
+    var eventLoggingLabel: EventLabelMEP? {
         return .news
     }
 }
@@ -217,7 +202,6 @@ extension NewsViewController: NestedCollectionViewContextMenuDelegate {
         vc.articlePreviewingDelegate = self
         vc.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
         previewedIndex = itemIndex
-        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: itemIndex)
 
         let previewProvider: () -> UIViewController? = {
             return vc
@@ -244,7 +228,6 @@ extension NewsViewController: NestedCollectionViewContextMenuDelegate {
             guard let self = self else {
                 return
             }
-            FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: self.feedFunnelContext, index: self.previewedIndex, maxViewed: self.maxViewed)
             self.push(previewedViewController, animated: true)
             self.previewedIndex = nil
         }

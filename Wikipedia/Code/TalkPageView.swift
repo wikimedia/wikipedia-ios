@@ -86,7 +86,7 @@ extension TalkPageView: Themeable {
 
     func apply(theme: Theme) {
 
-        collectionView.backgroundColor = theme.colors.talkPageBackground
+        collectionView.backgroundColor = theme.colors.midBackground
         emptyView.apply(theme: theme)
         errorView.apply(theme: theme)
     }

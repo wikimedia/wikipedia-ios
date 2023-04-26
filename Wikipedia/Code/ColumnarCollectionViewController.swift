@@ -371,33 +371,6 @@ extension ColumnarCollectionViewController: UICollectionViewDelegate {
     
 }
 
-extension ColumnarCollectionViewController {
-    func push(_ viewController: UIViewController, context: FeedFunnelContext?, index: Int?, animated: Bool) {
-        logFeedEventIfNeeded(for: context, index: index, pushedViewController: viewController)
-        push(viewController, animated: animated)
-    }
-
-    func logFeedEventIfNeeded(for context: FeedFunnelContext?, index: Int?, pushedViewController: UIViewController) {
-        guard navigationController != nil,  let viewControllers = navigationController?.viewControllers else {
-            return
-        }
-        let isFirstViewControllerExplore = viewControllers.first is ExploreViewController
-        let isPushedFromExplore = viewControllers.count == 1 && isFirstViewControllerExplore
-        let isPushedFromExploreDetail = viewControllers.count == 2 && isFirstViewControllerExplore
-        if isPushedFromExplore {
-            let isArticle = pushedViewController is ArticleViewController
-            if isArticle {
-                FeedFunnel.shared.logFeedCardReadingStarted(for: context, index: index)
-            } else {
-                FeedFunnel.shared.logFeedCardOpened(for: context)
-            }
-        } else if isPushedFromExploreDetail {
-            FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: index, maxViewed: maxViewed)
-        }
-
-    }
-}
-
 // MARK: - CollectionViewContextMenuShowing
 extension ColumnarCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
@@ -422,7 +395,6 @@ extension ColumnarCollectionViewController {
             return
         }
         animator.addCompletion { [weak self] in
-            (self as? CollectionViewContextMenuShowing)?.poppingIntoVCCompletion()
             previewedViewController.wmf_removePeekableChildViewControllers()
             self?.push(previewedViewController, animated: true)
         }

@@ -18,8 +18,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     
     public var loginSuccessCompletion: (() -> Void)?
     public var loginDismissedCompletion: (() -> Void)?
-    
-    @objc public var funnel: WMFLoginFunnel?
 
     private var startDate: Date? // to calculate time elapsed between login start and login success
     
@@ -172,7 +170,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 self.loginSuccessCompletion?()
                 self.setViewControllerUserInteraction(enabled: true)
                 self.dismiss(animated: true)
-                self.funnel?.logSuccess()
 
                 if let start = self.startDate {
                     LoginFunnel.shared.logSuccess(timeElapsed: fabs(start.timeIntervalSinceNow))
@@ -201,7 +198,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                         self.passwordAlertLabel.isHidden = false
                         self.passwordField.textColor = self.theme.colors.error
                         self.passwordField.keyboardAppearance = self.theme.keyboardAppearance
-                        self.funnel?.logError(error.localizedDescription)
                         WMFAlertManager.sharedInstance.dismissAlert()
                         return
                     default: break
@@ -210,7 +206,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
                 self.enableProgressiveButtonIfNecessary()
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-                self.funnel?.logError(error.localizedDescription)
             default:
                 break
             }
@@ -275,11 +270,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             return
         }
         createAcctVC.apply(theme: theme)
-        funnel?.logCreateAccountAttempt()
-        LoginFunnel.shared.logCreateAccountAttempt()
         dismiss(animated: true, completion: {
-            createAcctVC.funnel = CreateAccountFunnel()
-            createAcctVC.funnel?.logStart(fromLogin: self.funnel?.loginSessionToken)
             let navigationController = WMFThemeableNavigationController(rootViewController: createAcctVC, theme: self.theme, style: .sheet)
             presenter.present(navigationController, animated: true, completion: nil)
         })
@@ -289,7 +280,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         let captchaFailure: WMFErrorHandler = {error in
             DispatchQueue.main.async {
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-                self.funnel?.logError(error.localizedDescription)
             }
         }
         let siteURL = dataStore.primarySiteURL
