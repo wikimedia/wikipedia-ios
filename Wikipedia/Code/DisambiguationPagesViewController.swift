@@ -60,11 +60,11 @@ class DisambiguationPagesViewController: ArticleFetchedResultsViewController {
         return false
     }
     
-    override var eventLoggingLabel: EventLoggingLabel? {
+    override var eventLoggingLabel: EventLabelMEP? {
         return .similarPage
     }
     
-    override var eventLoggingCategory: EventLoggingCategory {
+    override var eventLoggingCategory: EventCategoryMEP {
         return .article
     }
 }

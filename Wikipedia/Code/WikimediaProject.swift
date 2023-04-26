@@ -113,8 +113,6 @@ public enum WikimediaProject: Hashable {
             self = .wikibooks(languageCode, localizedLanguageName)
         } else if siteURLString.contains(Configuration.Domain.wiktionary) {
             self = .wiktionary(languageCode, localizedLanguageName)
-        } else if siteURLString.contains(Configuration.Domain.wiktionary) {
-            self = .wiktionary(languageCode, localizedLanguageName)
         } else if siteURLString.contains(Configuration.Domain.wikisource) {
             self = .wikisource(languageCode, localizedLanguageName)
         } else if siteURLString.contains(Configuration.Domain.wikinews) {

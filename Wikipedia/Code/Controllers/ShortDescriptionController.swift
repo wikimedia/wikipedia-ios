@@ -98,7 +98,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
             
             switch result {
             case .success(let result):
-                blockedError = result.blockedError
+                blockedError = result.apiError
             case .failure:
                 break
             }
@@ -108,12 +108,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
             completion(currentDescription, blockedError)
         }
     }
-    
-    func errorCodeFromError(_ error: Error) -> String {
-        let errorText = "\((error as NSError).domain)-\((error as NSError).code)"
-        return errorText
-    }
-    
+
     func learnMoreViewControllerWithTheme(_ theme: Theme) -> UIViewController? {
         guard let url = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:Short_description") else {
             return nil

@@ -325,11 +325,8 @@
 "on-this-day-title" = "आजको दिनमा";
 "page-history-bot-edits" = "यन्त्रका सम्पादनहरू";
 "page-history-compare-title" = "तुलना गर्नुहोस्";
-"page-protected-autoconfirmed" = "यो पृष्ठ अर्ध सुरक्षित गरिएको छ";
 "page-protected-can-not-edit" = "तपाईंलाई यो पृष्ठ सम्पादन गर्ने अधिकार छैन";
 "page-protected-can-not-edit-title" = "यो पृष्ठ सुरक्षण गरिएको छ";
-"page-protected-other" = "निम्न स्तरसम्म यस पृष्ठलाई सुरक्षण गरिएको छ: $1";
-"page-protected-sysop" = "यो पृष्ठ पूर्ण सुरक्षित गरिएको छ ।";
 "pictured" = "तस्विरमा";
 "places-accessibility-clear-saved-searches" = "सङ्ग्रह गरिएका खोजहरू हटाउनुहोस्";
 "places-accessibility-group" = "$1 लेखहरू";

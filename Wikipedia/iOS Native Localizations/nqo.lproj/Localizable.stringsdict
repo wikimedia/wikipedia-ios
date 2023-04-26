@@ -162,6 +162,22 @@
 			<string>ߞߎߡߘߊ %1$d ߟߎ߬</string>
 		</dict>
 	</dict>
+	<key>notifications-center-mark-all-as-read-confirmation-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ߊ߬ ߝߐ߫ ߌ ߘߍ߲߬ߞߣߍ߬ߦߊ߬ߣߍ߲߫ ߦߋ߫ ߞߴߌ ߦߴߊ߬ ߝߍ߬ ߞߊ߬ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ %#@v1@ ߓߍ߯ ߣߐ߬ߣߐ߬ ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲ ߠߎ߬ ߘߌ߫؟ ߌ ߟߊ߫ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߟߎ߬ ߘߌ߫ ߞߍ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲ ߘߴߌ ߟߊ߫ ߞߍߟߊ߲ ߠߎ߬ ߓߍ߯ ߞߣߐ߫.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߗߋߛߓߍ %1$d</string>
+			<key>other</key>
+			<string>ߗߋߛߓߍ %1$d ߟߎ߫</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

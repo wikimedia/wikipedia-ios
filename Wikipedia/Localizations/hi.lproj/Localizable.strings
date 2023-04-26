@@ -287,11 +287,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटना|$1 ऐतिहासिक घटनाओं}}";
 "on-this-day-footer" = "इस दिन की अधिक ऐतिहासिक घटनाएं";
 "on-this-day-title" = "आज के दिन";
-"page-protected-autoconfirmed" = "यह पृष्ठ अर्ध-सुरक्षित है।";
 "page-protected-can-not-edit" = "इस पेज को सम्पादित करने के लिए आपके पास अधिकार नहीं हैं";
 "page-protected-can-not-edit-title" = "यह पृष्ठ सुरक्षित है";
-"page-protected-other" = "इस पेज को निम्न स्तरों तक सुरक्षित किया गया है: $1";
-"page-protected-sysop" = "यह पृष्ठ पूर्ण सुरक्षित है।";
 "pictured" = "चित्रित";
 "places-accessibility-clear-saved-searches" = "सहेजी गईं खोजों को साफ करें";
 "places-accessibility-group" = "$1 लेख";

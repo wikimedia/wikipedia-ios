@@ -641,11 +641,8 @@
 "page-history-user-edits" = "వాడుకరి దిద్దుబాట్లు";
 "page-issues" = "పేజీ సమస్యలు";
 "page-location" = "మ్యాపులో చూడండి";
-"page-protected-autoconfirmed" = "ఈ పేజి సగం-రక్షించబడింది.";
 "page-protected-can-not-edit" = "ఈ పేజీలో దిద్దుబాటు చేసే అనుమతులు మీకు లేవు";
 "page-protected-can-not-edit-title" = "ఈ పేజీ సంరక్షించబడింది";
-"page-protected-other" = "ఈ పేజి ఈ స్థాయిలలో రక్షించబడింది: $1";
-"page-protected-sysop" = "ఈ పేజీ సంపూర్ణ రక్షణలో ఉంది.";
 "page-similar-titles" = "ఇలాంటి పేజీలు";
 "panel-compare-revisions-title" = "కూర్పులను పోల్చడం";
 "pictured" = "చిత్రం తీసినది";

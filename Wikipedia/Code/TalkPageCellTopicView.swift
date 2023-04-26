@@ -376,7 +376,7 @@ final class TalkPageCellTopicView: SetupView {
     // MARK: - Find in page
 
     private func applyTextHighlightIfNecessary(theme: Theme) {
-        let activeHighlightBackgroundColor: UIColor = .yellow50
+        let activeHighlightBackgroundColor: UIColor = .yellow600
         let backgroundHighlightColor: UIColor
         let foregroundHighlightColor: UIColor
 

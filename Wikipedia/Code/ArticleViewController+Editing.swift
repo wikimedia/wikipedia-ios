@@ -1,27 +1,24 @@
 import CocoaLumberjackSwift
 
 extension ArticleViewController {
-    func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
+    func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
         /// If this is a first section with an existing description, show the dialog box. (This is reported as a `central` or `local` description source.) Otherwise, just show the editor for the section. (A first section without an article description has an `Add article description` button, and thus doesn't need the dialog box.)
         if let descriptionSource = descriptionSource, (descriptionSource == .central || descriptionSource == .local) {
-            showEditSectionOrTitleDescriptionDialogForSection(with: id, descriptionSource: descriptionSource, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
+            showEditSectionOrTitleDescriptionDialogForSection(with: id, descriptionSource: descriptionSource, selectedTextEditInfo: selectedTextEditInfo)
         } else {
-            showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
+            showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
         }
     }
     
-    func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
-        editFunnel.logSectionEditingStart(from: funnelSource, language: articleLanguageCode)
+    func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
         cancelWIconPopoverDisplay()
         let sectionEditVC = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
         sectionEditVC.delegate = self
-        sectionEditVC.editFunnel = editFunnel
         let navigationController = WMFThemeableNavigationController(rootViewController: sectionEditVC, theme: theme)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
 
         let needsIntro = !UserDefaults.standard.didShowEditingOnboarding
         if needsIntro {
-            editFunnel.logOnboardingPresentation(initiatedBy: funnelSource, language: articleLanguageCode)
             let editingWelcomeViewController = EditingWelcomeViewController(theme: theme) {
                 self.present(navigationController, animated: true)
             }
@@ -35,9 +32,7 @@ extension ArticleViewController {
         }
     }
     
-    func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource, funnelSource: EditFunnelSource) {
-
-        editFunnel.logTitleDescriptionEditingStart(from: funnelSource, language: articleLanguageCode)
+    func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource) {
 
         let maybeDescriptionController: ArticleDescriptionControlling? = (articleURL.wmf_isEnglishWikipedia || articleURL.wmf_isTestWikipedia) ? ShortDescriptionController(article: article, articleLanguageCode: articleLanguageCode, articleURL: articleURL, descriptionSource: descriptionSource, delegate: self) : WikidataDescriptionController(article: article, articleLanguageCode: articleLanguageCode, descriptionSource: descriptionSource)
 
@@ -48,8 +43,6 @@ extension ArticleViewController {
         
         let editVC = DescriptionEditViewController.with(dataStore: dataStore, theme: theme, articleDescriptionController: descriptionController)
         editVC.delegate = self
-        editVC.editFunnel = editFunnel
-        editVC.editFunnelSource = funnelSource
         let navigationController = WMFThemeableNavigationController(rootViewController: editVC, theme: theme)
         navigationController.modalPresentationStyle = .overCurrentContext
         navigationController.view.isOpaque = false
@@ -59,10 +52,8 @@ extension ArticleViewController {
            navigationController.view.alpha = 0
        }
         let showIntro: (() -> Void)? = {
-            self.editFunnel.logOnboardingPresentation(initiatedBy: funnelSource, language: self.articleLanguageCode)
             let welcomeVC = DescriptionWelcomeInitialViewController.wmf_viewControllerFromDescriptionWelcomeStoryboard()
             welcomeVC.completionBlock = {
-                self.editFunnel.logTitleDescriptionReadyToEditFrom(from: funnelSource, isAddingNewTitleDescription: descriptionSource == .none, language: self.articleLanguageCode)
             }
             welcomeVC.apply(theme: self.theme)
             navigationController.present(welcomeVC, animated: true) {
@@ -73,24 +64,22 @@ extension ArticleViewController {
         present(navigationController, animated: !needsIntro) {
             if needsIntro {
                 showIntro?()
-            } else {
-                self.editFunnel.logTitleDescriptionReadyToEditFrom(from: funnelSource, isAddingNewTitleDescription: descriptionSource == .none, language: self.articleLanguageCode)
             }
         }
     }
     
-    func showEditSectionOrTitleDescriptionDialogForSection(with id: Int, descriptionSource: ArticleDescriptionSource, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
+    func showEditSectionOrTitleDescriptionDialogForSection(with id: Int, descriptionSource: ArticleDescriptionSource, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         
         let editTitleDescriptionTitle = WMFLocalizedString("description-edit-pencil-title", value: "Edit article description", comment: "Title for button used to show article description editor")
         let editTitleDescriptionAction = UIAlertAction(title: editTitleDescriptionTitle, style: .default) { (action) in
-            self.showTitleDescriptionEditor(with: descriptionSource, funnelSource: funnelSource)
+            self.showTitleDescriptionEditor(with: descriptionSource)
         }
         sheet.addAction(editTitleDescriptionAction)
         
         let editLeadSectionTitle = WMFLocalizedString("description-edit-pencil-introduction", value: "Edit introduction", comment: "Title for button used to show article lead section editor")
         let editLeadSectionAction = UIAlertAction(title: editLeadSectionTitle, style: .default) { (action) in
-            self.showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
+            self.showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
         }
         sheet.addAction(editLeadSectionAction)
         
