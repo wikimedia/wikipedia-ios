@@ -408,10 +408,11 @@ public extension WidgetController {
         fetchFeaturedContent { result in
             switch result {
             case .success(var featuredContent):
-                if let imageSource = featuredContent.pictureOfTheDay?.originalImageSource {
+                if var imageSource = featuredContent.pictureOfTheDay?.originalImageSource {
+                    imageSource.source = WMFChangeImageSourceURLSizePrefix(imageSource.source, Int(self.potdTargetImageSize.width))
+                    featuredContent.pictureOfTheDay?.originalImageSource = imageSource
                     fetcher.fetchImageDataFrom(imageSource: imageSource) { imageResult in
                         featuredContent.pictureOfTheDay?.originalImageSource?.data = try? imageResult.get()
-                        featuredContent.pictureOfTheDay?.originalImageSource?.source = WMFChangeImageSourceURLSizePrefix(imageSource.source, Int(self.potdTargetImageSize.width))
                         widgetCache.featuredContent = featuredContent
                         self.sharedCache.saveCache(widgetCache)
 
