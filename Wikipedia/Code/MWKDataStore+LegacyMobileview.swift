@@ -10,11 +10,9 @@ enum MigrateMobileviewToMobileHTMLIfNecessaryError: Error {
 extension MWKDataStore {
     // TODO: use this method's completion block when loading articles (in case a mobileview conversion hasn't happened yet for that article's saved data for any reason)
     func migrateMobileviewToMobileHTMLIfNecessary(article: WMFArticle, completionHandler: @escaping ((Error?) -> Void)) {
-        DDLogError("migrateMobileviewToMobileHTMLIfNecessary - Begin")
         guard article.isConversionFromMobileViewNeeded == true else {
             // If conversion was previously attempted don't try again.
             completionHandler(nil)
-            DDLogError("migrateMobileviewToMobileHTMLIfNecessary - End 1")
             return
         }
         
@@ -24,7 +22,6 @@ extension MWKDataStore {
                     article.isDownloaded = false
                     article.isConversionFromMobileViewNeeded = false
                     try self.save()
-                    DDLogError("migrateMobileviewToMobileHTMLIfNecessary - handleConversionFailure save")
                 } catch let error {
                     DDLogError("Error updating article: \(error)")
                 }
@@ -35,7 +32,6 @@ extension MWKDataStore {
             assertionFailure("Could not get article url")
             disableOfflineConversion()
             completionHandler(MigrateMobileviewToMobileHTMLIfNecessaryError.noArticleURL)
-                DDLogError("migrateMobileviewToMobileHTMLIfNecessary - End 2")
             return
         }
         
@@ -44,7 +40,6 @@ extension MWKDataStore {
         guard let legacyArticle = LegacyArticle(articleFolderURL: articleFolderURL) else {
             disableOfflineConversion()
             completionHandler(MigrateMobileviewToMobileHTMLIfNecessaryError.noLegacyArticleData)
-                    DDLogError("migrateMobileviewToMobileHTMLIfNecessary - End 3")
             return
         }
         
@@ -63,14 +58,12 @@ extension MWKDataStore {
                 removeArticleMobileviewSavedDataFolder()
                 disableOfflineConversion()
                 completionHandler(error)
-                DDLogError("migrateMobileviewToMobileHTMLIfNecessary - End 4")
                 return
             }
             guard let mobileHTML = result as? String else {
                 removeArticleMobileviewSavedDataFolder()
                 disableOfflineConversion()
                 completionHandler(MigrateMobileviewToMobileHTMLIfNecessaryError.noMobileHTML)
-                DDLogError("migrateMobileviewToMobileHTMLIfNecessary - End 5")
                 return
             }
 
@@ -81,7 +74,6 @@ extension MWKDataStore {
                     do {
                         article.isConversionFromMobileViewNeeded = false
                         try self.save()
-                        DDLogError("migrateMobileviewToMobileHTMLIfNecessary - cacheFromMigration save")
                     } catch let error {
                         completionHandler(error)
                         DDLogError("Error updating article: \(error)")
@@ -89,7 +81,6 @@ extension MWKDataStore {
                     }
                     
                     completionHandler(nil)
-                    DDLogError("migrateMobileviewToMobileHTMLIfNecessary - completion")
                 }
             }
         }

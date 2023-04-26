@@ -568,7 +568,7 @@ private extension PermanentlyPersistableURLCache {
         guard let responseHeaderData = FileManager.default.contents(atPath: CacheFileWriterHelper.fileURL(for: responseHeaderFileName).path) else {
             return nil
         }
-        return try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(responseHeaderData) as? [String: String]
+        return try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSDictionary.self, NSString.self], from: responseHeaderData) as? [String: String]
     }
     
     func permanentlyCachedResponse(for request: URLRequest) -> CachedURLResponse? {
@@ -636,7 +636,7 @@ private extension PermanentlyPersistableURLCache {
     
         var responseHeaders: [String: String]?
         do {
-            if let unarchivedHeaders = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(responseHeaderData) as? [String: String] {
+            if let unarchivedHeaders = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSDictionary.self, NSString.self], from: responseHeaderData) as? [String: String] {
                 responseHeaders = unarchivedHeaders
             }
         } catch {

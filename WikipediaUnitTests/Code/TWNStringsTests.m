@@ -1,4 +1,5 @@
 #import <XCTest/XCTest.h>
+#import "WMFTestConstants.h"
 
 @import WMF;
 
@@ -22,11 +23,13 @@
 }
 
 + (NSString *)iOSLocalizationsDirectory {
-    return [SOURCE_ROOT_DIR stringByAppendingPathComponent:@"Wikipedia/iOS Native Localizations"];
+    NSString *sourceRootPath = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:WMFSourceRootDirKey];
+    return [sourceRootPath stringByAppendingPathComponent:@"Wikipedia/iOS Native Localizations"];
 }
 
 + (NSString *)twnLocalizationsDirectory {
-    return [SOURCE_ROOT_DIR stringByAppendingPathComponent:@"Wikipedia/Localizations"];
+    NSString *sourceRootPath = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:WMFSourceRootDirKey];
+    return [sourceRootPath stringByAppendingPathComponent:@"Wikipedia/Localizations"];
 }
 
 + (NSString *)bundleRoot {
@@ -171,7 +174,7 @@
 
 - (void)assertLprojFiles:(NSArray *)lprojFiles withTranslationStringsInDirectory:(NSString *)directory doesNotContain:(NSString *)banned {
     XCTAssertNotNil(banned);
-    NSString * bannedUpper = [banned uppercaseString];
+    NSString *bannedUpper = [banned uppercaseString];
     for (NSString *lprojFileName in lprojFiles) {
         if (![TWNStringsTests localeForLprojFilenameIsAvailableOniOS:lprojFileName]) {
             continue;
@@ -329,7 +332,7 @@
 }
 
 + (BOOL)localeForLprojFilenameIsAvailableOniOS:(NSString *)lprojFileName {
-    NSString *localeIdentifier = [[lprojFileName substringToIndex:lprojFileName.length - 6] lowercaseString]; //remove .lproj suffix
+    NSString *localeIdentifier = [[lprojFileName substringToIndex:lprojFileName.length - 6] lowercaseString]; // remove .lproj suffix
     return [[TWNStringsTests supportedLocales] containsObject:localeIdentifier];
 }
 
