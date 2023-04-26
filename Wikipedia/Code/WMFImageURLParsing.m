@@ -2,7 +2,7 @@
 #import <WMF/WMFLogging.h>
 #import <WMF/WMF-Swift.h>
 
-static NSRegularExpression *WMFImageURLParsingRegex() {
+static NSRegularExpression *WMFImageURLParsingRegex(void) {
     static NSRegularExpression *imageNameFromURLRegex = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

@@ -63,7 +63,6 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    DDLogError(@"didFinishLaunchingWithOptions - Start");
     [self registerBackgroundTasksForApplication:application];
 
 #if DEBUG
@@ -90,7 +89,6 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
 
     [self updateDynamicIconShortcutItems];
 
-    DDLogError(@"didFinishLaunchingWithOptions - End");
     return YES;
 }
 
@@ -112,12 +110,10 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
 #pragma mark - AppVC Resume
 
 - (void)resumeAppIfNecessary {
-    DDLogError(@"resumeAppIfNecessary - Begin");
     if (self.appNeedsResume) {
         [self.appViewController hideSplashScreenAndResumeApp];
         self.appNeedsResume = false;
     }
-    DDLogError(@"resumeAppIfNecessary - End");
 }
 
 - (BOOL)shouldRestoreNavigationStackOnResumeAfterBecomingActive {
@@ -136,7 +132,6 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *__nullable restorableObjects))restorationHandler {
-    DDLogError(@"application:continueUserActivity:restorationHandler - Begin");
     [self.appViewController showSplashView];
 
     // Assign deep link user info source before routing
@@ -154,7 +149,6 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
                                                            [self.appViewController hideSplashViewAnimated:YES];
                                                        }
                                                    }];
-    DDLogError(@"application:continueUserActivity:restorationHandler - End");
     return result;
 }
 
@@ -171,7 +165,6 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary<NSString *, id> *)options {
-    DDLogError(@"application:openURL:options: - Begin");
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url] ?: [NSUserActivity wmf_activityForURL:url];
     if (activity) {
         [self.appViewController showSplashView];
@@ -184,11 +177,9 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
                                                                [self.appViewController hideSplashViewAnimated:YES];
                                                            }
                                                        }];
-        DDLogError(@"application:openURL:options: - End");
         return result;
     } else {
         [self resumeAppIfNecessary];
-        DDLogError(@"application:openURL:options: - End");
         return NO;
     }
 }
@@ -196,28 +187,22 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    DDLogError(@"applicationWillResignActive - Begin");
     [[NSUserDefaults standardUserDefaults] wmf_setAppResignActiveDate:[NSDate date]];
     [[WMFMetricsClientBridge sharedInstance] appInBackground];
-    DDLogError(@"applicationWillResignActive - End");
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    DDLogError(@"applicationDidEnterBackground - Begin");
     [self updateDynamicIconShortcutItems];
     [self scheduleBackgroundAppRefreshTask];
     [self scheduleDatabaseHousekeeperTask];
-    DDLogError(@"applicationDidEnterBackground - End");
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    DDLogError(@"applicationWillTerminate - Begin");
     [self updateDynamicIconShortcutItems];
     [[WMFMetricsClientBridge sharedInstance] appWillClose];
-    DDLogError(@"applicationWillTerminate - End");
 }
 
 #pragma mark - Background Fetch
