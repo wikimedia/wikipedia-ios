@@ -196,6 +196,14 @@ public final class WidgetController: NSObject {
 /// When the old widget data loading model is removed, this should be moved out of this extension into the class itself and refactored (e.g. the properties here don't need to be computed).
 public extension WidgetController {
 
+    // MARK: - Computed Properties
+
+    var featuredContentSiteURL: URL {
+        return sharedCache.loadCache().settings.siteURL
+    }
+
+    // MARK: - Utility
+
     /// This is currently unused. It will be useful when we update the main app to also update the widget's cache when it performs any updates to the featured content in the explore feed.
     func updateCacheWith(featuredContent: WidgetFeaturedContent) {
         var updatedCache = sharedCache.loadCache()
@@ -209,8 +217,6 @@ public extension WidgetController {
         sharedCache.saveCache(updatedCache)
     }
 
-    // MARK: - Utility
-
     /// Returns cached content if it's available for the current date in the current app selected language
     private func cachedContentIfAvailable() -> WidgetFeaturedContent? {
         let widgetCache = sharedCache.loadCache()
@@ -223,7 +229,7 @@ public extension WidgetController {
 
     // MARK: - Fetch Featured Content
 
-    func fetchFeaturedContent(useCacheIfAvailable: Bool = true, completion: @escaping (WidgetContentFetcher.FeaturedContentResult) -> Void) {
+    private func fetchFeaturedContent(useCacheIfAvailable: Bool = true, completion: @escaping (WidgetContentFetcher.FeaturedContentResult) -> Void) {
         func performCompletion(result: WidgetContentFetcher.FeaturedContentResult) {
             DispatchQueue.main.async {
                 completion(result)
@@ -252,7 +258,72 @@ public extension WidgetController {
         }
     }
 
-    // MARK: - Fetch Featured Article Widget
+    // MARK: - Fetch Top Read Widget Content
+
+    func fetchTopReadContent(isSnapshot: Bool = false, completion: @escaping (WidgetContentFetcher.TopReadResult) -> Void) {
+        func performCompletion(result: WidgetContentFetcher.TopReadResult) {
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+
+        let fetcher = WidgetContentFetcher.shared
+        var widgetCache = sharedCache.loadCache()
+
+        guard !isSnapshot else {
+            let previewSnapshot = widgetCache.featuredContent ?? WidgetFeaturedContent.previewContent() ?? WidgetFeaturedContent()
+            if let previewTopRead = previewSnapshot.topRead {
+                performCompletion(result: .success(previewTopRead))
+            } else {
+                performCompletion(result: .failure(.contentFailure))
+            }
+            return
+        }
+
+        fetchFeaturedContent { result in
+            switch result {
+            case .success(var featuredContent):
+                if var topRead = featuredContent.topRead {
+                    // Fetch images, if available, for the top four elements
+                    let group = DispatchGroup()
+                    for (index, element) in topRead.topFourElements.enumerated() {
+                        group.enter()
+                        guard let thumbnailImageSource = element.thumbnailImageSource else {
+                            group.leave()
+                            continue
+                        }
+
+                        fetcher.fetchImageDataFrom(imageSource: thumbnailImageSource) { result in
+                            switch result {
+                            case .success(let imageData):
+                                topRead.elements[index].thumbnailImageSource?.data = imageData
+                                group.leave()
+                            case .failure:
+                                group.leave()
+                            }
+                        }
+                    }
+
+                    group.notify(queue: .main) {
+                        featuredContent.topRead = topRead
+                        widgetCache.featuredContent = featuredContent
+                        self.sharedCache.saveCache(widgetCache)
+                        if let featuredTopReadContent = featuredContent.topRead {
+                            performCompletion(result: .success(featuredTopReadContent))
+                        } else {
+                            performCompletion(result: .failure(.contentFailure))
+                        }
+                    }
+                } else {
+                    performCompletion(result: .failure(.contentFailure))
+                }
+            case .failure(let error):
+                performCompletion(result: .failure(error))
+            }
+        }
+    }
+
+    // MARK: - Fetch Featured Article Widget Content
 
     func fetchFeaturedArticleContent(isSnapshot: Bool = false, completion: @escaping (WidgetContentFetcher.FeaturedArticleResult) -> Void) {
         func performCompletion(result: WidgetContentFetcher.FeaturedArticleResult) {
