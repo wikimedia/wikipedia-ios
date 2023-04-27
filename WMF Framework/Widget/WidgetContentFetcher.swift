@@ -11,6 +11,7 @@ public final class WidgetContentFetcher {
 	}
 
 	public typealias FeaturedContentResult = Result<WidgetFeaturedContent, WidgetContentFetcher.FetcherError>
+    public typealias FeaturedArticleResult = Result<WidgetFeaturedArticle, WidgetContentFetcher.FetcherError>
 
 	// MARK: - Properties
 
@@ -18,36 +19,30 @@ public final class WidgetContentFetcher {
 
 	let session = Session(configuration: .current)
 
-	// From supported language list at https://www.mediawiki.org/wiki/Wikifeeds
-	private let supportedFeaturedArticleLanguageCodes = ["bg", "bn", "bs", "cs", "de", "el", "en", "fa", "he", "hu", "ja", "la", "no", "sco", "sd", "sv", "ur", "vi", "zh"]
+    // MARK: - Public - Featured Content
 
-	// MARK: - Public - Featured Article Widget
+    public func fetchFeaturedContent(forDate date: Date, siteURL: URL, languageCode: String, languageVariantCode: String? = nil, completion: @escaping (FeaturedContentResult) -> Void) {
+        var featuredURL = WMFFeedContentFetcher.feedContentURL(forSiteURL: siteURL, on: date, configuration: .current)
+        featuredURL.wmf_languageVariantCode = languageVariantCode
 
-	public func fetchFeaturedContent(forDate date: Date, siteURL: URL, languageCode: String, languageVariantCode: String? = nil, completion: @escaping (FeaturedContentResult) -> Void) {
-		guard supportedFeaturedArticleLanguageCodes.contains(languageCode) else {
-			completion(.failure(.unsupportedLanguage))
-			return
-		}
-		
-		var featuredURL = WMFFeedContentFetcher.feedContentURL(forSiteURL: siteURL, on: date, configuration: .current)
-		featuredURL.wmf_languageVariantCode = languageVariantCode
-		
-		let task = session.dataTask(with: featuredURL) { data, _, error in
-			if let data = data, var decoded = try? JSONDecoder().decode(WidgetFeaturedContent.self, from: data) {
-				decoded.fetchDate = Date()
-				completion(.success(decoded))
-			} else {
-				completion(.failure(.contentFailure))
-			}
-		}
+        let task = session.dataTask(with: featuredURL) { data, _, error in
+            if let data = data, var decoded = try? JSONDecoder().decode(WidgetFeaturedContent.self, from: data) {
+                decoded.fetchDate = Date()
+                completion(.success(decoded))
+            } else {
+                completion(.failure(.contentFailure))
+            }
+        }
 
-		guard let dataTask = task else {
-			completion(.failure(.urlFailure))
-			return
-		}
+        guard let dataTask = task else {
+            completion(.failure(.urlFailure))
+            return
+        }
 
-		dataTask.resume()
-	}
+        dataTask.resume()
+    }
+
+    // MARK: - Public - Utility
 
 	public func fetchImageDataFrom(imageSource: WidgetImageSource, completion: @escaping (Result<Data, FetcherError>) -> Void) {
 		guard let imageURL = URL(string: imageSource.source) else {

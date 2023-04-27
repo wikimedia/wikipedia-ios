@@ -17,6 +17,9 @@ public struct WidgetFeaturedArticle: Codable {
 
     // MARK: - Properties
 
+    // From supported language list at https://www.mediawiki.org/wiki/Wikifeeds
+    static let supportedLanguageCodes = ["bg", "bn", "bs", "cs", "de", "el", "en", "fa", "he", "hu", "ja", "la", "no", "sco", "sd", "sv", "ur", "vi", "zh"]
+
     public var displayTitle: String
     public let description: String?
     public let extract: String
