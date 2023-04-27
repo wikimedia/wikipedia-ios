@@ -316,9 +316,14 @@
 "explore-random-article-sub-heading-from-wikipedia" = "A Wikipédiáról";
 "explore-randomizer" = "Randomizáló";
 "export-user-data-confirmation-title" = "Megosztod az alkalmazáskönyvtárat?";
+"export-user-data-generic-error" = "Hiba történet az adatok exportálása során. Kérlek próbáld újra később.";
+"export-user-data-space-error" = "Nincs elég tárterület az eszközön a felhasználói adatok exportálásához. Kérlek, próbáld újra később.";
 "export-user-data-title" = "Felhasználói adatok exportálása";
+"featured-widget-from-language-wikipedia" = "A(z) $1 Wikipédiáról";
+"featured-widget-from-wikipedia" = "A Wikipédiáról";
 "featured-widget-title" = "Kiemelt szócikk";
 "fetcher-error-generic" = "Valami félresikerült. Kérlek próbáld újra később.";
+"fetcher-error-unexpected-response" = "Az alkalmazás váratlan választ kapott a szervertől. Kérlek, próbáld újra később.";
 "field-alert-captcha-invalid" = "Érvénytelen CAPTCHA";
 "field-alert-password-confirm-mismatch" = "A jelszavak nem egyeznek";
 "field-alert-token-invalid" = "Érvénytelen kód";
@@ -372,6 +377,8 @@
 "icon-shortcut-random-title" = "Lap találomra";
 "icon-shortcut-search-title" = "Keresés a Wikipédiában";
 "image-gallery-unknown-owner" = "Ismeretlen szerző.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Ne most";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Kérdőív kitöltése";
 "in-the-news-sub-title-from-language-wikipedia" = "A(z) $1 Wikipédiáról";
 "in-the-news-sub-title-from-wikipedia" = "A Wikipédiáról";
 "in-the-news-title" = "A hírekben";
@@ -384,6 +391,7 @@
 "insert-media-caption-title" = "Képaláírás";
 "insert-media-image-position-setting-center" = "Középre";
 "insert-media-image-position-setting-left" = "Balra";
+"insert-media-image-position-setting-none" = "Nincs";
 "insert-media-image-position-setting-right" = "Jobbra";
 "insert-media-image-position-settings-title" = "A kép pozíciója";
 "insert-media-image-preview-more-information-action-title" = "További információk";
@@ -392,6 +400,7 @@
 "insert-media-image-size-setting-default" = "Alapértelmezett";
 "insert-media-image-size-settings-px-unit-name" = "pixel";
 "insert-media-image-size-settings-title" = "Képméret";
+"insert-media-image-type-setting-basic" = "Egyszerű";
 "insert-media-image-type-setting-frame" = "Keret";
 "insert-media-image-type-setting-frameless" = "Keret nélkül";
 "insert-media-image-type-setting-thumbnail" = "Bélyegkép";
@@ -401,6 +410,7 @@
 "insert-media-uploaded-image-title" = "Feltöltött kép";
 "intermediate-edits-count" = "{{PLURAL:$1|Egy közbenső módosítás|$1 közbenső módosítás}} nincs mutatva";
 "intermediate-edits-count-limited" = "$1+ közbenső változtatás nincs mutatva";
+"intermediate-edits-editors-count" = "{{PLURAL:$1|Egy közbenső módosítás|$1 közbenső módosítás}}, amit {{PLURAL:$2|egy másik szerkesztő végzett|$2 másik szerkesztő végzett}}, nincs mutatva";
 "kazakh-variants-alert-title" = "A kazak nyelvi változat támogatásának frissítése";
 "kurdish-variants-alert-title" = "A kurd nyelvi változat támogatásának frissítése";
 "languages-settings-title" = "Nyelvek";

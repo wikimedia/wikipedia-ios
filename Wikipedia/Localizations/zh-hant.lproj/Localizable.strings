@@ -270,7 +270,7 @@
 "edit-bold-accessibility-label" = "添加粗體格式";
 "edit-bold-remove-accessibility-label" = "移除粗體格式";
 "edit-clear-formatting-accessibility-label" = "移除格式";
-"edit-comment-accessibility-label" = "添加註釋語法";
+"edit-comment-accessibility-label" = "新增註解語法";
 "edit-comment-remove-accessibility-label" = "移除註釋語法";
 "edit-decrease-indent-depth-accessibility-label" = "減少縮排深度";
 "edit-direction-down-accessibility-label" = "移動游標往下";
@@ -281,7 +281,7 @@
 "edit-indent-accessibility-label" = "縮排目前的列";
 "edit-italic-accessibility-label" = "添加斜體格式";
 "edit-italic-remove-accessibility-label" = "移除斜體格式";
-"edit-link-accessibility-label" = "添加連結語法";
+"edit-link-accessibility-label" = "新增連結語法";
 "edit-link-display-text-title" = "顯示文字";
 "edit-link-link-target-title" = "連結目標";
 "edit-link-remove-accessibility-label" = "移除連結語法";
@@ -301,7 +301,7 @@
 "edit-published-subtitle" = "謝謝您！您剛剛已令維基百科變得更完善，所有人都會受惠";
 "edit-reference-accessibility-label" = "添加參考資料語法";
 "edit-reference-remove-accessibility-label" = "移除參考資料語法";
-"edit-signature-accessibility-label" = "添加簽名語法";
+"edit-signature-accessibility-label" = "新增簽名語法";
 "edit-signature-remove-accessibility-label" = "移除簽名語法";
 "edit-strikethrough-accessibility-label" = "添加刪除線";
 "edit-strikethrough-remove-accessibility-label" = "移除刪除線";
@@ -316,7 +316,7 @@
 "edit-summary-placeholder-text" = "您如何改善此條目？";
 "edit-superscript-accessibility-label" = "添加上標格式";
 "edit-superscript-remove-accessibility-label" = "移除上標格式";
-"edit-template-accessibility-label" = "添加模板語法";
+"edit-template-accessibility-label" = "新增模板語法";
 "edit-template-remove-accessibility-label" = "移除模板語法";
 "edit-text-clear-formatting" = "清除格式";
 "edit-text-formatting-accessibility-label" = "顯示文字格式選單";
@@ -370,7 +370,7 @@
 "explore-featured-article-sub-heading-from-wikipedia" = "來自維基百科";
 "explore-feed-customize-accessibility-title" = "自訂";
 "explore-feed-language-settings" = "探索摘要語言設定";
-"explore-feed-preferences-additional-languages-footer-text" = "額外的語言可添加在「我的語言」設定頁面。";
+"explore-feed-preferences-additional-languages-footer-text" = "額外的語言可至「我的語言」設定頁面新增。";
 "explore-feed-preferences-card-hidden-title" = "卡片已隱藏";
 "explore-feed-preferences-continue-reading-description" = "返回到閱讀已開啟條目的快速連結";
 "explore-feed-preferences-customize-explore-feed" = "自訂探索摘要";
@@ -1015,7 +1015,7 @@
 "talk-page-add-topic-button" = "新增主題";
 "talk-page-archives" = "封存";
 "talk-page-article-about" = "關於討論頁面";
-"talk-page-change-language" = "更改語言";
+"talk-page-change-language" = "變更語言";
 "talk-page-collapse-thread-button" = "折疊討論串";
 "talk-page-discussion-accessibility-hint" = "輕觸兩次來開啟討論串";
 "talk-page-discussion-read-accessibility-label" = "已讀";
