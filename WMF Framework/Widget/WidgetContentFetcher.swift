@@ -2,7 +2,7 @@ import Foundation
 
 public final class WidgetContentFetcher {
 
-	// MARK: - Nested Types
+    // MARK: - Nested Types
 
 	public enum FetcherError: Error {
 		case urlFailure
