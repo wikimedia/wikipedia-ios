@@ -202,6 +202,10 @@ public extension WidgetController {
         return sharedCache.loadCache().settings.siteURL
     }
 
+    var potdTargetImageSize: CGSize {
+        CGSize(width: 1000, height: 1000)
+    }
+
     // MARK: - Utility
 
     /// This is currently unused. It will be useful when we update the main app to also update the widget's cache when it performs any updates to the featured content in the explore feed.
@@ -372,6 +376,56 @@ public extension WidgetController {
                     } else {
                         performCompletion(result: .failure(.contentFailure))
                     }
+                }
+            case .failure(let error):
+                performCompletion(result: .failure(error))
+            }
+        }
+    }
+
+    // MARK: - Fetch Picture of the Day Widget Content
+
+    func fetchPictureOfTheDayContent(isSnapshot: Bool = false, completion: @escaping (WidgetContentFetcher.PictureOfTheDayResult) -> Void) {
+        func performCompletion(result: WidgetContentFetcher.PictureOfTheDayResult) {
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+
+        let fetcher = WidgetContentFetcher.shared
+        var widgetCache = sharedCache.loadCache()
+
+        guard !isSnapshot else {
+            let previewSnapshot = widgetCache.featuredContent ?? WidgetFeaturedContent.previewContent() ?? WidgetFeaturedContent()
+            if let previewPictureOfTheDay = previewSnapshot.pictureOfTheDay {
+                performCompletion(result: .success(previewPictureOfTheDay))
+            } else {
+                performCompletion(result: .failure(.contentFailure))
+            }
+            return
+        }
+
+        fetchFeaturedContent { result in
+            switch result {
+            case .success(var featuredContent):
+                if var imageSource = featuredContent.pictureOfTheDay?.originalImageSource {
+                    imageSource.source = WMFChangeImageSourceURLSizePrefix(imageSource.source, Int(self.potdTargetImageSize.width))
+                    featuredContent.pictureOfTheDay?.originalImageSource = imageSource
+                    fetcher.fetchImageDataFrom(imageSource: imageSource) { imageResult in
+                        featuredContent.pictureOfTheDay?.originalImageSource?.data = try? imageResult.get()
+                        widgetCache.featuredContent = featuredContent
+                        self.sharedCache.saveCache(widgetCache)
+
+                        if let pictureOftheDay = featuredContent.pictureOfTheDay {
+                            performCompletion(result: .success(pictureOftheDay))
+                        } else {
+                            performCompletion(result: .failure(.contentFailure))
+                        }
+                    }
+                } else {
+                    widgetCache.featuredContent = featuredContent
+                    self.sharedCache.saveCache(widgetCache)
+                    performCompletion(result: .failure(.contentFailure))
                 }
             case .failure(let error):
                 performCompletion(result: .failure(error))
