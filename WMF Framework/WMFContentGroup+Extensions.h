@@ -70,6 +70,8 @@ typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
 + (nullable NSURL *)articleURLForRelatedPagesContentGroupURL:(nullable NSURL *)url;
 + (nullable NSURL *)announcementURLForSiteURL:(NSURL *)siteURL identifier:(NSString *)identifier;
 + (nullable NSURL *)randomContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate;
++ (nullable NSURL *)pictureOfTheDayContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate;
++ (nullable NSURL *)topReadContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate;
 + (nullable NSURL *)onThisDayContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate;
 + (nullable NSURL *)locationContentGroupURLForLocation:(CLLocation *)location languageVariantCode:(NSString *)languageVariantCode;
 + (nullable NSURL *)locationPlaceholderContentGroupURLWithLanguageVariantCode:(NSString *)languageVariantCode;

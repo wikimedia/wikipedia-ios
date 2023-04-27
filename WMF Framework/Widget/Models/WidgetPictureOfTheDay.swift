@@ -12,8 +12,9 @@ public struct WidgetPictureOfTheDay: Codable {
     }
 
     public struct License: Codable {
-        let type: String
-        let url: String
+        public let type: String?
+        public let code: String?
+        public let url: String?
     }
 
     public struct Description: Codable {
@@ -23,16 +24,16 @@ public struct WidgetPictureOfTheDay: Codable {
             case language = "lang"
         }
 
-        let text: String
-        let html: String
-        let language: String
+        public let text: String
+        public let html: String
+        public let language: String
     }
 
     // MARK: - Properties
 
-    let description: Description
-    let license: License
-    let thumbnailImageSource: WidgetImageSource? // thumbnail
-    let originalImageSource: WidgetImageSource? // image
+    public let description: Description
+    public let license: License
+    public var thumbnailImageSource: WidgetImageSource?
+    public var originalImageSource: WidgetImageSource?
 
 }
