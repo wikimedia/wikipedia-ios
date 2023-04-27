@@ -40,6 +40,7 @@
     self.navigationBar.standardAppearance = appearance;
     self.navigationBar.scrollEdgeAppearance = appearance;
     self.navigationBar.compactAppearance = appearance;
+    self.overrideUserInterfaceStyle = theme.isDark ? UIUserInterfaceStyleDark : UIUserInterfaceStyleLight;
 
     if (@available(iOS 15.0, *)) {
         //do nothing

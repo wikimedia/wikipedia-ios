@@ -1,0 +1,37 @@
+name: Tag Latest Beta
+
+on:
+  schedule:
+    - cron: '0 10 * * *' # run at 10AM UTC
+
+jobs:
+  Tag-Latest-Beta:
+    runs-on: macOS-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Get tags
+        run: git fetch --tags origin
+      - name: Checkout and pull latest
+        run: |
+            git checkout main
+            git pull origin main
+      - name: Move latest_beta tag
+        run: |
+          LATESTBETATAG='latest_beta'
+          LASTBETASHA=$(git rev-parse $LATESTBETATAG)
+          CURRENTSHA=$(git rev-parse HEAD) #origin/main?
+          echo "${LASTBETASHA}"
+          echo "${CURRENTSHA}"
+          if [ ${LASTBETASHA} != ${CURRENTSHA} ]; then
+            echo "New commit on main. Moving latest_beta tag."
+            echo "Deleting old tag and pushing"
+            git tag -d ${LATESTBETATAG}
+            git push origin :refs/tags/${LATESTBETATAG}
+            echo "Creating new tag and pushing"
+            git tag ${LATESTBETATAG}
+            git push --tags
+          else
+            echo "No new commits determined. Exiting."
+          fi
+      - run: echo "This job's status is ${{ job.status }}."
