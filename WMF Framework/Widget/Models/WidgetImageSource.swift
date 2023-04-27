@@ -13,7 +13,7 @@ public struct WidgetImageSource: Codable {
 
     // MARK: - Properties
 
-    public let source: String
+    public var source: String
     public let width: Int
     public let height: Int
 
