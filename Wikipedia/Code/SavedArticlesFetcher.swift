@@ -18,7 +18,7 @@ final class SavedArticlesFetcher: NSObject {
     }
     
     private let dataStore: MWKDataStore
-    private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
+    private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
     
     private let articleCacheController: ArticleCacheController
     private let spotlightManager: WMFSavedPageSpotlightManager
@@ -125,6 +125,28 @@ private extension SavedArticlesFetcher {
         perform(#selector(_update), with: nil, afterDelay: 0.5)
     }
     
+    private func startBackgroundTask(expirationHandler: @escaping () -> Void) {
+        guard backgroundTaskIdentifier == UIBackgroundTaskIdentifier.invalid else {
+            return
+        }
+        
+        backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(withName: "SavedArticlesFetch", expirationHandler: { [weak self] in
+            expirationHandler()
+            self?.endBackgroundTask()
+        })
+    }
+    
+    private func endBackgroundTask() {
+        
+        guard backgroundTaskIdentifier != UIBackgroundTaskIdentifier.invalid else {
+            return
+        }
+        
+        let backgroundTaskIdentifier = self.backgroundTaskIdentifier
+        self.backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
+        UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
+    }
+    
     @objc func _update() {
         if isUpdating || !isRunning {
             updateCountOfFetchesInProcess()
@@ -133,19 +155,9 @@ private extension SavedArticlesFetcher {
         
         isUpdating = true
         
-        let endBackgroundTask = {
-            if let backgroundTaskIdentifier = self.backgroundTaskIdentifier {
-                UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
-                self.backgroundTaskIdentifier = nil
-            }
-        }
-        
-        if backgroundTaskIdentifier == nil {
-            self.backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(withName: "SavedArticlesFetch", expirationHandler: {
-                self.cancelAllRequests()
-                self.stop()
-                endBackgroundTask()
-            })
+        startBackgroundTask {
+            self.cancelAllRequests()
+            self.stop()
         }
         
         assert(Thread.isMainThread)
@@ -166,6 +178,7 @@ private extension SavedArticlesFetcher {
         let updateAgain = {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                 self.isUpdating = false
+                self.endBackgroundTask()
                 self.update()
             }
         }
@@ -213,7 +226,7 @@ private extension SavedArticlesFetcher {
             let noArticleToDeleteCompletion = {
                 self.isUpdating = false
                 self.updateCountOfFetchesInProcess()
-                endBackgroundTask()
+                self.endBackgroundTask()
             }
             
             if let articleToDelete = articleToDelete {
@@ -363,7 +376,7 @@ private extension SavedArticlesFetcher {
 @objc(WMFMobileViewToMobileHTMLMigrationController)
 class MobileViewToMobileHTMLMigrationController: NSObject {
     private let dataStore: MWKDataStore
-    private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
+    private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
     
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -374,11 +387,25 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
         convertOneArticleIfNecessary()
     }
     
-    @objc func stop() {
-        if let backgroundTaskIdentifier = backgroundTaskIdentifier {
-            UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
-            self.backgroundTaskIdentifier = nil
+    private func startBackgroundTask() {
+        guard backgroundTaskIdentifier == UIBackgroundTaskIdentifier.invalid else {
+            return
         }
+        
+        backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(withName: "MobileviewToMobileHTMLConverter", expirationHandler: { [weak self] in
+            self?.endBackgroundTask()
+        })
+    }
+    
+    private func endBackgroundTask() {
+        
+        guard backgroundTaskIdentifier != UIBackgroundTaskIdentifier.invalid else {
+            return
+        }
+        
+        let backgroundTaskIdentifier = self.backgroundTaskIdentifier
+        self.backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
+        UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
     }
     
     private func convertOneArticleIfNecessary() {
@@ -408,9 +435,9 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
     }()
 
     @objc private func _convertOneArticleIfNecessary() {
-        if backgroundTaskIdentifier == nil {
-            backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(withName: "MobileviewToMobileHTMLConverter", expirationHandler: stop)
-        }
+        
+        startBackgroundTask()
+        
         let moc = dataStore.viewContext
         var article: WMFArticle?
         do {
@@ -420,10 +447,10 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
         }
 
         guard let nonNilArticle = article else {
-            stop()
             // No more articles to convert, ensure the legacy folder is deleted
             DispatchQueue.global(qos: .background).async {
                 self.dataStore.removeAllLegacyArticleData()
+                self.endBackgroundTask()
             }
             return
         }
@@ -434,14 +461,15 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
                     // No more articles to convert, ensure the legacy folder is deleted
                     DispatchQueue.global(qos: .background).async {
                         self.dataStore.removeAllLegacyArticleData()
+                        self.endBackgroundTask()
                     }
-                    self.stop()
                     return
                 }
+                self.endBackgroundTask()
                 self.convertOneArticleIfNecessaryAgain()
             } catch let error {
                 DDLogError("Error counting number of article to be converted: \(error)")
-                self.stop()
+                self.endBackgroundTask()
             }
         }
     }
