@@ -167,6 +167,7 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
     func sourceEditorViewControllerDidTapFind(sourceEditorViewController: Components.WKSourceEditorViewController) {
         navigationItemController.progressButton.isEnabled = false
         navigationItemController.readingThemesControlsToolbarItem.isEnabled = false
+        showFocusNavigationView()
     }
 }
 
@@ -204,6 +205,7 @@ extension PageEditorViewController: PageEditorNavigationItemControllerDelegate {
 extension PageEditorViewController: FocusNavigationViewDelegate {
     func focusNavigationViewDidTapClose(_ focusNavigationView: FocusNavigationView) {
         sourceEditor.closeFind()
+        hideFocusNavigationView()
     }
 }
 
