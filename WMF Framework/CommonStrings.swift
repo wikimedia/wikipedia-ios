@@ -468,3 +468,17 @@ public extension CommonStrings {
 	static let tachelhitVariantsAlertBody = WMFLocalizedString("tachelhit-variants-alert-body", value: "The Wikipedia app now supports the following Tachelhit variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)", comment: "Body text of alert used to inform users about Tachelhit variant support. Please do not translate the newlines (\n) or Tachelhit characters (ⵜⴰⵛⵍⵃⵉⵜ, etc.).")
 
 }
+
+// Editor Strings
+
+public extension CommonStrings {
+    static let editorInputViewTextFormattingTitle = WMFLocalizedString("edit-text-formatting-table-view-title", value: "Text formatting", comment: "Title for text formatting menu in the editing interface")
+    static let editorInputViewStyleTitle = WMFLocalizedString("edit-style-table-view-title", value: "Style", comment: "Title for the text style menu in the editing interface")
+    static let editorClearFormatting = WMFLocalizedString("edit-text-clear-formatting", value: "Clear formatting", comment: "Title for the button that clears formatting from the selected range")
+    static let editorInputViewHeaderTypeParagraph = WMFLocalizedString("edit-text-header-paragraph", value: "Paragraph", comment: "Title for button that changes text header type to paragraph.")
+    static let editorInputViewHeaderTypeHeading = WMFLocalizedString("edit-text-header-paragraph", value: "Paragraph", comment: "Title for button that changes text header type to heading.")
+    static let editorInputViewHeaderTypeSubhead1 = WMFLocalizedString("edit-text-header-paragraph", value: "Paragraph", comment: "Title for button that changes text header type to subheading 1.")
+    static let editorInputViewHeaderTypeSubhead2 = WMFLocalizedString("edit-text-header-paragraph", value: "Paragraph", comment: "Title for button that changes text header type to subheading 2.")
+    static let editorInputViewHeaderTypeSubhead3 = WMFLocalizedString("edit-text-header-paragraph", value: "Paragraph", comment: "Title for button that changes text header type to subheading 3.")
+    static let editorInputViewHeaderTypeSubhead4 = WMFLocalizedString("edit-text-header-paragraph", value: "Paragraph", comment: "Title for button that changes text header type to subheading 4.")
+}

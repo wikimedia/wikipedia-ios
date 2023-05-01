@@ -1,7 +1,7 @@
 class TextFormattingTableViewController: TextFormattingProvidingTableViewController {
 
     override var titleLabelText: String? {
-        return WMFLocalizedString("edit-text-formatting-table-view-title", value: "Text formatting", comment: "Title for text formatting menu in the editing interface")
+        return CommonStrings.editorInputViewTextFormattingTitle
     }
 
     private struct Content {
@@ -78,7 +78,7 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
     }
     
     private lazy var clearFormatting: Item = {
-        let content = Content(type: .destructiveAction, title: WMFLocalizedString("edit-text-clear-formatting", value: "Clear formatting", comment: "Title for the button that clears formatting from the selected range"), detailText: nil, customView: nil)
+        let content = Content(type: .destructiveAction, title: CommonStrings.editorClearFormatting, detailText: nil, customView: nil)
         let clearFormatting: () -> Void = { [weak self] in
           self?.didSelectClearFormatting()
         }

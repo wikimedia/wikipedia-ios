@@ -9,17 +9,17 @@ enum TextStyleType: Int {
     var name: String {
         switch self {
         case .paragraph:
-            return "Paragraph"
+            return CommonStrings.editorInputViewHeaderTypeParagraph
         case .heading:
-            return "Heading"
+            return CommonStrings.editorInputViewHeaderTypeHeading
         case .subheading1:
-            return "Sub-heading 1"
+            return CommonStrings.editorInputViewHeaderTypeSubhead1
         case .subheading2:
-            return "Sub-heading 2"
+            return return CommonStrings.editorInputViewHeaderTypeSubhead2
         case .subheading3:
-            return "Sub-heading 3"
+            return return CommonStrings.editorInputViewHeaderTypeSubhead3
         case .subheading4:
-            return "Sub-heading 4"
+            return return CommonStrings.editorInputViewHeaderTypeSubhead4
         }
     }
 }
