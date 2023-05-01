@@ -15,11 +15,11 @@ enum TextStyleType: Int {
         case .subheading1:
             return CommonStrings.editorInputViewHeaderTypeSubhead1
         case .subheading2:
-            return return CommonStrings.editorInputViewHeaderTypeSubhead2
+            return CommonStrings.editorInputViewHeaderTypeSubhead2
         case .subheading3:
-            return return CommonStrings.editorInputViewHeaderTypeSubhead3
+            return CommonStrings.editorInputViewHeaderTypeSubhead3
         case .subheading4:
-            return return CommonStrings.editorInputViewHeaderTypeSubhead4
+            return CommonStrings.editorInputViewHeaderTypeSubhead4
         }
     }
 }

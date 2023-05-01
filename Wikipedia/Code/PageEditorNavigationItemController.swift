@@ -45,7 +45,7 @@ class PageEditorNavigationItemController: NSObject {
         }
     }
     
-    //MARK: - Button Properties
+    // MARK: - Button Properties
     
     private(set) lazy var progressButton: BarButtonItem = {
         return BarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)), tintColorKeyPath: \Theme.colors.link)
@@ -74,7 +74,7 @@ class PageEditorNavigationItemController: NSObject {
         return button
     }()
     
-    //MARK: Other properties
+    // MARK: Other properties
     
     weak var navigationItem: UINavigationItem?
     weak var delegate: PageEditorNavigationItemControllerDelegate?

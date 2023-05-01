@@ -157,6 +157,7 @@ extension PageEditorViewController: Themeable {
         }
         
         navigationItemController.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
     }
 }
 

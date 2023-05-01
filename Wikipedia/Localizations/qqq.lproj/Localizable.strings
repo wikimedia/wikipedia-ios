@@ -278,6 +278,7 @@
 "edit-text-clear-formatting" = "Title for the button that clears formatting from the selected range";
 "edit-text-formatting-accessibility-label" = "Accessibility label for text formatting menu";
 "edit-text-formatting-table-view-title" = "Title for text formatting menu in the editing interface";
+"edit-text-header-paragraph" = "Title for button that changes text header type to heading.";
 "edit-text-size-table-view-title" = "Title for text size menu in the editing interface";
 "edit-text-style-accessibility-label" = "Accessibility label for text style menu";
 "edit-underline-accessibility-label" = "Accessibility label for add underline button";
