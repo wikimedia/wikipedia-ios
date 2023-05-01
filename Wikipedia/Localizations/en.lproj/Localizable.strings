@@ -278,7 +278,12 @@
 "edit-text-clear-formatting" = "Clear formatting";
 "edit-text-formatting-accessibility-label" = "Show text formatting menu";
 "edit-text-formatting-table-view-title" = "Text formatting";
+"edit-text-header-heading" = "Heading";
 "edit-text-header-paragraph" = "Paragraph";
+"edit-text-header-subheading1" = "Sub-heading 1";
+"edit-text-header-subheading2" = "Sub-heading 2";
+"edit-text-header-subheading3" = "Sub-heading 3";
+"edit-text-header-subheading4" = "Sub-heading 4";
 "edit-text-size-table-view-title" = "Text size";
 "edit-text-style-accessibility-label" = "Show text style menu";
 "edit-underline-accessibility-label" = "Add underline";
