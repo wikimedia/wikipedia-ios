@@ -37,8 +37,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(articleDeleted(_:)), name: NSNotification.Name.WMFArticleDeleted, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(viewContextDidReset(_:)), name: NSNotification.Name.WMFViewContextDidReset, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive(_:)), name: UIApplication.willResignActiveNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
 
 #if UI_TEST
         if UserDefaults.standard.wmf_isFastlaneSnapshotInProgress() {
@@ -1014,14 +1012,6 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     
     @objc func viewContextDidReset(_ note: Notification) {
         collectionView.reloadData()
-    }
-    
-    @objc func applicationWillEnterForeground(_ note: Notification) {
-        isGranularUpdatingEnabled = true
-    }
-    
-    @objc func applicationWillResignActive(_ note: Notification) {
-        isGranularUpdatingEnabled = false
     }
 
     private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
