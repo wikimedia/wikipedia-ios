@@ -138,6 +138,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.theme = [[NSUserDefaults standardUserDefaults] themeCompatibleWith:self.traitCollection];
+    [self setWKAppEnvironmentThemeWithTheme:self.theme];
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
 
@@ -1853,6 +1854,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (self.theme != theme) {
         [self applyTheme:theme];
         [self.settingsViewController loadSections];
+        [self setWKAppEnvironmentThemeWithTheme: theme];
     }
 }
 
