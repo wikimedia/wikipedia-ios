@@ -12,9 +12,17 @@ extension ArticleViewController {
     
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
         cancelWIconPopoverDisplay()
-        let sectionEditVC = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
-        sectionEditVC.delegate = self
-        let navigationController = WMFThemeableNavigationController(rootViewController: sectionEditVC, theme: theme)
+        let editorViewController: UIViewController
+        if FeatureFlags.needsNativeSourceEditor {
+            let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: id, dataStore: dataStore, delegate: self, theme: theme)
+            editorViewController = pageEditorViewController
+        } else {
+            let sectionEditViewController = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
+            sectionEditViewController.delegate = self
+            editorViewController = sectionEditViewController
+        }
+        
+        let navigationController = WMFThemeableNavigationController(rootViewController: editorViewController, theme: theme)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
 
         let needsIntro = !UserDefaults.standard.didShowEditingOnboarding
@@ -192,6 +200,13 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
 
     func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController) {
         
+    }
+}
+
+extension ArticleViewController: PageEditorViewControllerDelegate {
+    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL: URL?) {
+        dismiss(animated: true) {
+        }
     }
 }
 
