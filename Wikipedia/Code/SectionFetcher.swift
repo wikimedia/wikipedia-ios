@@ -71,18 +71,17 @@ class SectionFetcher: Fetcher {
         let groups: [String]?
     }
     
-    func fetchSection(with sectionID: Int, articleURL: URL, completion: @escaping (Result<Response, Error>) -> Void) {
+    func fetchSection(with sectionID: Int?, articleURL: URL, completion: @escaping (Result<Response, Error>) -> Void) {
         guard let title = articleURL.wmf_title else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
-        let parameters: [String: Any] = [
+        var parameters: [String: Any] = [
             "action": "query",
             "prop": "revisions|info",
             "rvprop": "content|ids",
             "rvlimit": 1,
             "rvslots": "main",
-            "rvsection": sectionID,
             "titles": title,
             "inprop": "protection",
             "meta": "userinfo", // we need the local user ID for event logging
@@ -94,8 +93,11 @@ class SectionFetcher: Fetcher {
             "errorsuselocal": "1",
             "intestactions": "edit", // needed for fully resolved protection error.
             "intestactionsdetail": "full" // needed for fully resolved protection error.
-
         ]
+        
+        if let sectionID {
+            parameters["rvsection"] = sectionID
+        }
 
         performDecodableMediaWikiAPIGET(for: articleURL, with: parameters) { [weak self] (result: Result<APIResponse, Error>) in
             
