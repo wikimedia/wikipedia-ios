@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/wikimedia/wikipedia-ios-components.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "e9d5031d5c75492be55b4143b397cd43227de7ed"
+        "branch" : "source-editor",
+        "revision" : "385182b043a58642e74a041048baad5f9189e388"
       }
     }
   ],
