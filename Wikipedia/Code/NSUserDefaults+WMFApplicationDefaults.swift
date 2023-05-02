@@ -11,6 +11,25 @@ let WMFArticleFontSizeMultiplierKey = "WMFArticleFontSizeMultiplier"
     case extraLarge = 125
     case extraExtraLarge = 150
     case extraExtraExtraLarge = 175
+    
+    var contentSizeCategory: UIContentSizeCategory {
+        switch self {
+        case .extraSmall:
+            return UIContentSizeCategory.extraSmall
+        case .small:
+            return UIContentSizeCategory.small
+        case .medium:
+            return UIContentSizeCategory.medium
+        case .large:
+            return UIContentSizeCategory.large
+        case .extraLarge:
+            return UIContentSizeCategory.extraLarge
+        case .extraExtraLarge:
+            return UIContentSizeCategory.extraExtraLarge
+        case .extraExtraExtraLarge:
+            return UIContentSizeCategory.extraExtraExtraLarge
+        }
+    }
 }
 
 extension UserDefaults {

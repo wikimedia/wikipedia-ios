@@ -51,6 +51,8 @@ class PageEditorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         setupNavigationBar()
         setupFocusNavigationView()
         loadWikitext()
@@ -62,6 +64,12 @@ class PageEditorViewController: UIViewController {
 // MARK: - Private
 
 private extension PageEditorViewController {
+    
+    func syncArticleEditorFontSize() {
+        let textSizeAdjustment =  WMFFontSizeMultiplier(rawValue: UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue) ?? .large
+        WKAppEnvironment.current.set(articleAndEditorPreferredFontSize: textSizeAdjustment.contentSizeCategory)
+    }
+    
     func setupNavigationBar() {
         navigationItemController.undoButton.isEnabled = false
         navigationItemController.redoButton.isEnabled = false
@@ -213,6 +221,7 @@ extension PageEditorViewController: FocusNavigationViewDelegate {
 
 extension PageEditorViewController: ReadingThemesControlsResponding {
     func updateWebViewTextSize(textSize: Int) {
+        syncArticleEditorFontSize()
     }
     
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
