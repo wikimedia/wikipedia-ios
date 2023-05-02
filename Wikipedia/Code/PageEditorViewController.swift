@@ -52,7 +52,7 @@ class PageEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        syncArticleEditorFontSize()
         setupNavigationBar()
         setupFocusNavigationView()
         loadWikitext()
