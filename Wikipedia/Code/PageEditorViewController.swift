@@ -51,7 +51,7 @@ class PageEditorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupFocusNavigationView()
         loadWikitext()
         
