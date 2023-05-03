@@ -248,11 +248,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(voiceOverStatusDidChange)
                                                  name:UIAccessibilityVoiceOverStatusDidChangeNotification
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(showErrorBanner:)
-                                                     name:NSNotification.showErrorBanner
-                                                   object:nil];
+                                             selector:@selector(showErrorBanner:)
+                                                 name:NSNotification.showErrorBanner
+                                               object:nil];
 
     [self setupReadingListsHelpers];
     self.editHintController = [[WMFEditHintController alloc] init];
@@ -714,11 +714,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (self.remoteConfigCheckBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
         return;
     }
-    self.remoteConfigCheckBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        if (expirationHandler) {
-            expirationHandler();
-        }
-    }];
+    self.remoteConfigCheckBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"com.wikipedia.background.task.remote.config.check"
+                                                                                                  expirationHandler:^{
+                                                                                                      if (expirationHandler) {
+                                                                                                          expirationHandler();
+                                                                                                      }
+                                                                                                  }];
 }
 
 - (void)endRemoteConfigCheckBackgroundTask {
@@ -734,9 +735,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (self.pauseAppBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
         return;
     }
-    self.pauseAppBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        [self endPauseAppBackgroundTask];
-    }];
+    self.pauseAppBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"com.wikipedia.background.task.pause.app"
+                                                                                         expirationHandler:^{
+                                                                                             [self endPauseAppBackgroundTask];
+                                                                                         }];
 }
 
 - (void)endPauseAppBackgroundTask {
@@ -752,11 +754,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (self.migrationBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
         return;
     }
-    self.migrationBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        if (expirationHandler) {
-            expirationHandler();
-        }
-    }];
+    self.migrationBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"com.wikipedia.background.task.migration"
+                                                                                          expirationHandler:^{
+                                                                                              if (expirationHandler) {
+                                                                                                  expirationHandler();
+                                                                                              }
+                                                                                          }];
 }
 
 - (void)endMigrationBackgroundTask {
@@ -774,17 +777,35 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return;
     }
 
-    UIBackgroundTaskIdentifier currentTaskIdentifier = self.feedContentFetchBackgroundTaskIdentifier;
-    if (self.dataStore.feedContentController.isBusy && currentTaskIdentifier == UIBackgroundTaskInvalid) {
-        self.feedContentFetchBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"com.wikipedia.background.task.feed.content"
-                                                                                                     expirationHandler:^{
-                                                                                                         [self.dataStore.feedContentController cancelAllFetches];
-                                                                                                     }];
-    } else if (!self.dataStore.feedContentController.isBusy && currentTaskIdentifier != UIBackgroundTaskInvalid) {
-        self.feedContentFetchBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
-        [[UIApplication sharedApplication] endBackgroundTask:currentTaskIdentifier];
+    if (self.dataStore.feedContentController.isBusy) {
+        [self startFeedContentFetchBackgroundTask];
+    } else if (!self.dataStore.feedContentController.isBusy) {
+        [self endFeedContentFetchBackgroundTask];
     }
 }
+
+- (void)startFeedContentFetchBackgroundTask {
+    if (self.feedContentFetchBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
+        return;
+    }
+
+    self.feedContentFetchBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"com.wikipedia.background.task.feed.content"
+                                                                                                 expirationHandler:^{
+                                                                                                     [self.dataStore.feedContentController cancelAllFetches];
+                                                                                                     [self endFeedContentFetchBackgroundTask];
+                                                                                                 }];
+}
+
+- (void)endFeedContentFetchBackgroundTask {
+    if (self.feedContentFetchBackgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+        return;
+    }
+
+    UIBackgroundTaskIdentifier backgroundTaskToStop = self.feedContentFetchBackgroundTaskIdentifier;
+    self.feedContentFetchBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskToStop];
+}
+
 #pragma mark - Launch
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
@@ -822,6 +843,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     __block BOOL migrationsAllowed = YES;
     [self startMigrationBackgroundTask:^{
         migrationsAllowed = NO;
+        [self endMigrationBackgroundTask];
     }];
 
     //    TODO: pass the cancellationChecker into performLibraryUpdates to allow it to bail early if the background task is ended
@@ -1503,12 +1525,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)shouldShowOnboarding {
-    
+
     if (self.unprocessedUserActivity.shouldSkipOnboarding) {
         [self setDidShowOnboarding];
         return NO;
     }
-    
+
     NSNumber *didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
 }
@@ -1868,16 +1890,25 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - WMFWorkerControllerDelegate
 
 - (void)workerControllerWillStart:(WMFWorkerController *)workerController workWithIdentifier:(NSString *)identifier {
+    [self beginBackgroundTaskTaskWithWorkerController:workerController identifier:identifier];
+}
+
+- (void)workerControllerDidEnd:(WMFWorkerController *)workerController workWithIdentifier:(NSString *)identifier {
+    [self endBackgroundTaskWithWorkerController:workerController identifier:identifier];
+}
+
+- (void)beginBackgroundTaskTaskWithWorkerController:(WMFWorkerController *)workerController identifier:(NSString *)identifier {
     NSString *name = [@[NSStringFromClass([workerController class]), identifier] componentsJoinedByString:@"-"];
     UIBackgroundTaskIdentifier backgroundTaskIdentifier = [UIApplication.sharedApplication beginBackgroundTaskWithName:name
                                                                                                      expirationHandler:^{
                                                                                                          DDLogWarn(@"Ending background task with name: %@", name);
                                                                                                          [workerController cancelWorkWithIdentifier:identifier];
+                                                                                                         [self endBackgroundTaskWithWorkerController:workerController identifier:identifier];
                                                                                                      }];
     [self setBackgroundTaskIdentifier:backgroundTaskIdentifier forKey:identifier];
 }
 
-- (void)workerControllerDidEnd:(WMFWorkerController *)workerController workWithIdentifier:(NSString *)identifier {
+- (void)endBackgroundTaskWithWorkerController:(WMFWorkerController *)workerController identifier:(NSString *)identifier {
     UIBackgroundTaskIdentifier backgroundTaskIdentifier = [self backgroundTaskIdentifierForKey:identifier];
     if (backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
         return;
