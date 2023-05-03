@@ -67,7 +67,7 @@ private extension PageEditorViewController {
     
     func syncArticleEditorFontSize() {
         let textSizeAdjustment =  WMFFontSizeMultiplier(rawValue: UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue) ?? .large
-        WKAppEnvironment.current.set(articleAndEditorPreferredFontSize: textSizeAdjustment.contentSizeCategory)
+        WKAppEnvironment.current.set(articleAndEditorTextSize: textSizeAdjustment.contentSizeCategory)
     }
     
     func setupNavigationBar() {
