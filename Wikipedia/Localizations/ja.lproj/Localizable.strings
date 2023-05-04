@@ -343,7 +343,7 @@
 "empty-diff-single-title" = "目に見える変更はされませんでした";
 "empty-insert-media-title" = "ウィキメディアコモンズからファイルを選択";
 "empty-no-article-message" = "申し訳ありませんが、記事を読み込むことができませんでした";
-"empty-no-feed-action-message" = "保存したページはそうでなくても読むことができます";
+"empty-no-feed-action-message" = "保存したページの閲覧はできます";
 "empty-no-feed-message" = "おすすめの記事は、インターネットに接続されているときに見ることができます";
 "empty-no-history-message" = "ここには、あなたが閲読した記事の履歴が表示されます";
 "empty-no-history-title" = "表示する履歴がありません";
@@ -486,7 +486,7 @@
 "find-textfield-accessibility" = "検索";
 "forgot-password-button-title" = "リセット";
 "forgot-password-email-sent" = "パスワードリセットの指示が記載されたメールが送信されました";
-"forgot-password-instructions" = "下記のいずれかのフィールドを入力して、電子メールでパスワードリセットの指示を受け取ります";
+"forgot-password-instructions" = "下記のいずれかのフィールドを入力して、メールでパスワードリセットの指示を受け取ります";
 "forgot-password-title" = "パスワードをリセット";
 "forgot-password-username-or-email-title" = "または";
 "history-clear-all" = "消去";
@@ -808,7 +808,7 @@
 "reading-list-login-or-create-account-title" = "ログインして保存した記事を同期する";
 "reading-list-login-subtitle" = "ログインもしくはアカウントを作成して、保存した記事とあとで読むリストをデバイス間で同期し、ユーザー設定に保存しましょう。";
 "reading-list-login-title" = "保存した記事を同期しますか?";
-"reading-list-name-user-created-annotation" = "_[ユーザー名]";
+"reading-list-name-user-created-annotation" = "_[利用者が作成]";
 "reading-list-new-list-description-placeholder" = "短い説明(オプション)";
 "reading-list-new-list-name-placeholder" = "あとで読むリスト名";
 "reading-list-sync-disabled-panel-message" = "あなたのウィキペディアアカウントに対するあとで読むリストの同期は別デバイス上で向こうにされました。設定を更新することで、同期を有効に戻すことができます。";

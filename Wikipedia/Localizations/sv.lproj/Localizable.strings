@@ -315,11 +315,11 @@
 "edit-unordered-list-remove-accessibility-label" = "Ta bort oordnad lista från nuvarande rad";
 "edit-watch-list-learn-more-text" = "Läs mer om bevakningslistor";
 "edit-watch-this-page-text" = "Bevaka denna sida";
-"editing-welcome-be-bold-subtitle" = "Var djärv men inte vårdslös med att uppdatera artiklar. Plåga inte dig själv om du gör något misstag då varje föregående sidversion sparas, så misstag kan enkelt korrigeras av vår gemenskap.";
+"editing-welcome-be-bold-subtitle" = "Var djärv men inte vårdslös med att uppdatera artiklar. Var inte för hård mot dig själv om du gör något misstag då varje föregående sidversion sparas, så misstag kan enkelt korrigeras av vår gemenskap.";
 "editing-welcome-be-bold-title" = "Din röst är viktig";
 "editing-welcome-citations-subtitle" = "Allt innehåll måste kunna verifieras. När ny information läggs till i en artikel måste redigerare kunna inkludera en fotnot till en pålitlig källa som stöder bidraget.";
 "editing-welcome-citations-title" = "Citera pålitliga källor";
-"editing-welcome-impartial-tone-subtitle" = "Vi strävar mot att artiklar ska skrivas med en neutral ton. Sikta mot att göra en rättvis representation av världen som pålitliga källor beskriver den när du redigerar.";
+"editing-welcome-impartial-tone-subtitle" = "Vi strävar mot att artiklar ska skrivas med en neutral ton. Försök att göra en rättvis representation av världen som pålitliga källor beskriver den när du redigerar.";
 "editing-welcome-impartial-tone-title" = "Skriv med en neutral ton";
 "editing-welcome-set-knowledge-free-subtitle" = "För att alla ska få åtkomst till världens kunskap vill vi att du deltar genom att läsa, redigera och bidra till de ämnen som betyder mest för dig.";
 "editing-welcome-set-knowledge-free-title" = "Frigör kunskap";
@@ -1003,7 +1003,7 @@
 "talk-page-article-about" = "Om diskussionssidor";
 "talk-page-change-language" = "Ändra språk";
 "talk-page-collapse-thread-button" = "Minimera tråd";
-"talk-page-discussion-accessibility-hint" = "Dubbelknacka för att öppna diskussionstråden";
+"talk-page-discussion-accessibility-hint" = "Tryck två gånger för att öppna diskussionstråden";
 "talk-page-discussion-read-accessibility-label" = "Läst";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "lɛ'st";
 "talk-page-discussion-unread-accessibility-label" = "Oläst";
@@ -1128,7 +1128,7 @@
 "vanish-account-learn-more-text" = "Läs mer";
 "vanish-account-title" = "Process för att försvinna";
 "vanish-account-username-field" = "Användarnamn och användarsida";
-"vanish-account-warning-body" = "Att försvinna är en **sista utväg** och bör **endast användas när du vill sluta redigera för alltid** och även för att dölja så många av dina tidigare associationer som möjligt.\n\nKonton raderas på Wikipedia genom att ändra kontonamnet för att göra så att andra inte kan känna igen bidragen i en process som kallas kontoförsvinnande. **Försvinnande garanterar inte fullständig anonymitet eller tar inte bort bidrag på projekten**.";
+"vanish-account-warning-body" = "Att försvinna är en **sista utväg** och bör **endast användas när du vill sluta redigera för alltid** och även för att dölja så många av dina tidigare associationer som möjligt.\n\nKonton raderas på Wikipedia genom att ändra kontonamnet för att göra så att andra inte kan känna igen bidragen i en process som kallas kontoförsvinnande. **Försvinnande garanterar inte fullständig anonymitet eller att bidrag tas bort från projekten**.";
 "vanish-account-warning-title" = "Varning";
 "vanish-modal-item" = "Om du slutförde din begäran om att försvinna, vänta några dagar för begäran att behandlas av en administratör";
 "vanish-modal-item-2" = "Om du är osäker på om din begäran gick igenom, se din e-postapp";
