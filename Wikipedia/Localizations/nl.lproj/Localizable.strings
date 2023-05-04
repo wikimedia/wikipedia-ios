@@ -41,7 +41,7 @@
 
 "aaald-added-text-description-2" = "$1 toegevoegd";
 "aaald-article-description-updated-description" = "Artikelbeschrijving gewijzigd";
-"aaald-article-insert-header" = "Belangrijke Wijzigingen";
+"aaald-article-insert-header" = "Belangrijke wijzigingen";
 "aaald-article-insert-last-updated" = "Laatst bijgewerkt";
 "aaald-article-insert-new-changes" = "Nieuwe wijzigingen";
 "aaald-article-insert-read-more" = "Lees meer updates";
@@ -93,7 +93,7 @@
 "about-testers-details" = "Getest door $1";
 "about-title" = "Over";
 "about-translators" = "Vertalers";
-"about-translators-details" = "Deze app is vertaald door de vrijwillige vertalers van $1";
+"about-translators-details" = "Vertaald door vrijwilligers van $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
 "account-creation-captcha-cannot-see-image" = "Kunt u de afbeelding niet zien? $1";
