@@ -484,7 +484,7 @@
 "notifications-center-mark-as-unread" = "ߊ߬ ߞߍ߫ ߞߊ߬ߙߊ߲߬ߓߊߟߌ ߘߌ߫";
 "notifications-center-more-action-accessibility-label" = "ߡߊ߬ߞߊ߬ߝߏ߬ ߜߘߍ ߟߎ߬";
 "notifications-center-notifications-settings" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߟߊ߬ߓߍ߲߬ߢߐ߲߰ߡߦߊ߬ߘߊ ߟߎ߬";
-"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|ߗߋߛߓߍ $1|ߗߋߛߓߍ $1 ߟߎ߫}}";
+"notifications-center-num-selected-messages-format" = "ߗߋߛߓߍ߫{{PLURAL:$1|ߗߋߛߓߍ߫ $1 ߟߎ߫}}";
 "notifications-center-onboarding-modal-continue-action" = "ߊ߬ ߘߊߓߊ߲߫";
 "notifications-center-onboarding-modal-filters-title" = "ߛߍ߲ߛߍ߲ߟߊ߲ ߠߎ߬";
 "notifications-center-onboarding-modal-learn-more-action" = "ߘߏߜߘߍ߫ ߟߎ߫ ߘߐߞߊ߬ߙߊ߲߫ ߞߊ߬ ߓߍ߲߬ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߡߊ߬";
@@ -643,7 +643,7 @@
 "reading-list-deleted-accessibility-notification" = "ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߫ ߛߙߍߘߍ ߓߘߊ߫ ߖߏ߰ߛߌ߬";
 "reading-list-do-not-keep-button-title" = "ߒ߬ߒ߫߸ ߞߎߡߘߊ ߟߎ߫ ߖߏ߰ߛߌ߬ ߞߍߟߊ߲ ߞߣߐ߫";
 "reading-list-entry-limit-exceeded-message" = "ߌ ߟߊ߫ ߞߎߡߘߊ ߟߎ߬ ߦߙߌߞߊ ߡߊߖߌ߰ ߛߙߍߘߍ ߣߌ߲߬ ߘߐ߫ $1 ߘߐ߫ ߖߊ߰ߣߌ߲߫߸ ߞߊ߬ ߛߙߍߘߍ ߣߌ߲߬ ߞߎߡߘߊ ߟߎ߬ ߓߍ߯ ߕߎ߬ߡߊ߬ߢߐ߲߰ߦߊ ߘߊߡߌ߬ߣߊ߬.";
-"reading-list-entry-limit-exceeded-title" = "ߌ ߓߘߊ߫ ߕߊ߬ߡߌ߲߬  {{PLURAL:$1|ߞߎߡߘߊ $1|ߞߎߡߘߊ߫ $1 ߟߎ߫}} ߞߐߘߊ߲ ߠߊ߫ ߖߊ߬ߕߋ߬ߘߊ ߡߊ߬.";
+"reading-list-entry-limit-exceeded-title" = "ߌ ߓߘߊ߫ ߕߊ߬ߡߌ߲߬  {{PLURAL:|ߞߎߡߘߊ $1|ߞߎߡߘߊ߫ $1 ߟߎ߫}} ߞߐߘߊ߲ ߠߊ߫ ߖߊ߬ߕߋ߬ߘߊ ߡߊ߬.";
 "reading-list-exists-with-same-name" = "ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߫ ߛߙߍߘߍ ߓߘߊ߫ ߓߊ߲߫ ߟߊߓߊ߯ߙߊ߫ ߟߊ߫ ߞߘߐ߬ߡߊ߲߫";
 "reading-list-generic-error" = "ߝߟߌ߬ ߡߊߟߐ߲ߓߊߟߌ ߘߏ߫ ߓߘߊ߫ ߓߌ߬ߟߴߊ߬ ߘߐ߫ ߞߵߊ߬ ߕߘߍ߬ ߌ ߟߊ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߫ ߛߙߍߘߍ ߟߊߞߎߘߦߊ ߦߴߌ ߘߐ߫";
 "reading-list-keep-button-title" = "ߞߏߛߓߍ߫߸ ߞߎߡߘߊ ߟߎ߬ ߟߊߡߙߊ߬ ߞߍߟߊ߲ ߞߣߐ߫";
