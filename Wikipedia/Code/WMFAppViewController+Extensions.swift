@@ -264,7 +264,7 @@ extension WMFAppViewController: CreateReadingListDelegate {
         }
     }
     
-    @objc func setWKAppEnvironmentTheme(theme: Theme) {
+    @objc func setWKAppEnvironmentTheme(theme: Theme, traitCollection: UITraitCollection) {
         let wkTheme: WKTheme
         switch theme.name {
         case "light":
@@ -278,6 +278,6 @@ extension WMFAppViewController: CreateReadingListDelegate {
         default:
             wkTheme = WKTheme.light
         }
-        WKAppEnvironment.current.set(theme: wkTheme)
+        WKAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
     }
 }

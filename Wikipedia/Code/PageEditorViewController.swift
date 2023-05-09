@@ -5,7 +5,7 @@ protocol PageEditorViewControllerDelegate: AnyObject {
     func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL: URL?)
 }
 
-class PageEditorViewController: UIViewController {
+final class PageEditorViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -157,7 +157,7 @@ extension PageEditorViewController: Themeable {
 // MARK: - WKSourceEditorViewControllerDelegate
 
 extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
-    func sourceEditorViewControllerDidTapFind(sourceEditorViewController: Components.WKSourceEditorViewController) {
+    func sourceEditorViewControllerDidTapFind(sourceEditorViewController: WKSourceEditorViewController) {
         navigationItemController.progressButton.isEnabled = false
         navigationItemController.readingThemesControlsToolbarItem.isEnabled = false
         showFocusNavigationView()
