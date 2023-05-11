@@ -203,6 +203,62 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     }
 }
 
+- (void)logNavigationEventsForMenuType:(WMFSettingsMenuItemType)type {
+
+    switch (type) {
+        case WMFSettingsMenuItemType_LoginAccount:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsLoginLogout];
+            break;
+        case WMFSettingsMenuItemType_SearchLanguage:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsLanguages];
+            break;
+        case WMFSettingsMenuItemType_Search:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsSearch];
+            break;
+        case WMFSettingsMenuItemType_ExploreFeed:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsExploreFeed];
+            break;
+        case WMFSettingsMenuItemType_Notifications:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsNotifications];
+            break;
+        case WMFSettingsMenuItemType_Appearance:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsReadingPreferences];
+            break;
+        case WMFSettingsMenuItemType_StorageAndSyncing:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsArticleStorageAndSyncing];
+            break;
+        case WMFSettingsMenuItemType_StorageAndSyncingDebug:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsReadingListDangerZone];
+            break;
+        case WMFSettingsMenuItemType_Support:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsSupportWikipedia];
+            break;
+        case WMFSettingsMenuItemType_PrivacyPolicy:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsPrivacyPolicy];
+            break;
+        case WMFSettingsMenuItemType_Terms:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsTermsOfUse];
+            break;
+        case WMFSettingsMenuItemType_RateApp:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsRateTheApp];
+            break;
+        case WMFSettingsMenuItemType_SendFeedback:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsHelp];
+            break;
+        case WMFSettingsMenuItemType_About:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsAbout];
+            break;
+        case WMFSettingsMenuItemType_ClearCache:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsClearCachedData];
+            break;
+        case WMFSettingsMenuItemType_SendUsageReports:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsSendUsageReports];
+            break;
+        default:
+            break;
+    }
+}
+
 #pragma mark - Cell tap handling
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -265,6 +321,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         default:
             break;
     }
+
+    if (cell.tag != WMFSettingsMenuItemType_SendUsageReports) {
+            [self logNavigationEventsForMenuType:cell.tag];
+        }
 
     [self.tableView deselectRowAtIndexPath:indexPath
                                   animated:YES];
