@@ -103,6 +103,7 @@ class SavedViewController: ViewController {
                 activeEditableCollection = savedArticlesViewController
                 extendedNavBarViewType = isCurrentViewEmpty ? .none : .search
                 evaluateEmptyState()
+                ReadingListsFunnel.shared.logTappedAllArticlesTab()
             case .readingLists :
                 readingListsViewController?.editController.navigationDelegate = self
                 savedArticlesViewController?.editController.navigationDelegate = nil
@@ -113,6 +114,7 @@ class SavedViewController: ViewController {
                 activeEditableCollection = readingListsViewController
                 extendedNavBarViewType = isCurrentViewEmpty ? .none : .createNewReadingList
                 evaluateEmptyState()
+                ReadingListsFunnel.shared.logTappedReadingListsTab()
             }
         }
     }
@@ -314,6 +316,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) {
         defer {
             navigationBar.updateNavigationItems()
+            ReadingListsFunnel.shared.logTappedEditButton()
         }
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
