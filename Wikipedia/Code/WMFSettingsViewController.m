@@ -324,7 +324,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     if (cell.tag != WMFSettingsMenuItemType_SendUsageReports) {
             [self logNavigationEventsForMenuType:cell.tag];
-        }
+    }
 
     [self.tableView deselectRowAtIndexPath:indexPath
                                   animated:YES];
