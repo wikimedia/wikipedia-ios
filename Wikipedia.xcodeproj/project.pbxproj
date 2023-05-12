@@ -298,6 +298,7 @@
 		00D46DAC2889B9250015DE9B /* TalkPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D46DA92889B9250015DE9B /* TalkPageCell.swift */; };
 		00D46DAD2889B9250015DE9B /* TalkPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D46DA92889B9250015DE9B /* TalkPageCell.swift */; };
 		00D4B1B4282996A2008C705C /* EchoModelVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D4B1B3282996A2008C705C /* EchoModelVersion.swift */; };
+		00D780EE2A0D983400BD9D02 /* WKData in Frameworks */ = {isa = PBXBuildFile; productRef = 00D780ED2A0D983400BD9D02 /* WKData */; };
 		00D9276B29511E95004ECBEA /* PageHistoryCountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9276A29511E95004ECBEA /* PageHistoryCountsView.swift */; };
 		00D9276C29511E95004ECBEA /* PageHistoryCountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9276A29511E95004ECBEA /* PageHistoryCountsView.swift */; };
 		00D9276D29511E95004ECBEA /* PageHistoryCountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9276A29511E95004ECBEA /* PageHistoryCountsView.swift */; };
@@ -369,6 +370,10 @@
 		00F5AED127C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */; };
 		00F5AED227C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */; };
 		00F5AED327C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */; };
+		00F83D812A0EA724008A4905 /* MediawikiNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83D802A0EA724008A4905 /* MediawikiNetworkService.swift */; };
+		00F83D822A0EA724008A4905 /* MediawikiNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83D802A0EA724008A4905 /* MediawikiNetworkService.swift */; };
+		00F83D832A0EA724008A4905 /* MediawikiNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83D802A0EA724008A4905 /* MediawikiNetworkService.swift */; };
+		00F83D842A0EA724008A4905 /* MediawikiNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83D802A0EA724008A4905 /* MediawikiNetworkService.swift */; };
 		00FCB2BE26D8398700F5A47A /* NotificationsCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */; };
 		00FCB2BF26D8398700F5A47A /* NotificationsCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */; };
 		00FCB2C026D8398700F5A47A /* NotificationsCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */; };
@@ -4032,6 +4037,7 @@
 		00EBB7C627D6878E002025AC /* BarButtonImageStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtonImageStyle.swift; sourceTree = "<group>"; };
 		00EBB7CB27D6A86A002025AC /* SettingsPresentationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresentationDelegate.swift; sourceTree = "<group>"; };
 		00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsSettingsViewController.swift; sourceTree = "<group>"; };
+		00F83D802A0EA724008A4905 /* MediawikiNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediawikiNetworkService.swift; sourceTree = "<group>"; };
 		00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCell.swift; sourceTree = "<group>"; };
 		00FCB2C226D839A500F5A47A /* NotificationsCenterCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModel.swift; sourceTree = "<group>"; };
 		00FCCBC4290082C200C9ECD2 /* TalkPageFindInPageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageFindInPageState.swift; sourceTree = "<group>"; };
@@ -5722,6 +5728,7 @@
 				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
+				00D780EE2A0D983400BD9D02 /* WKData in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
 				D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */,
 				041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */,
@@ -6265,6 +6272,14 @@
 				67C1757528AD4D6000C5ABA4 /* TalkPageDataController.swift */,
 			);
 			name = "Talk Pages";
+			sourceTree = "<group>";
+		};
+		00D780EF2A0D986000BD9D02 /* Data Flow */ = {
+			isa = PBXGroup;
+			children = (
+				00F83D802A0EA724008A4905 /* MediawikiNetworkService.swift */,
+			);
+			name = "Data Flow";
 			sourceTree = "<group>";
 		};
 		00E5B39D28EB8E0600D2C51A /* Onboarding */ = {
@@ -6917,6 +6932,7 @@
 		0E98805F1DA2A0C00058D7F2 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				00D780EF2A0D986000BD9D02 /* Data Flow */,
 				83EE476920D019A100A21F34 /* ExploreViewController.swift */,
 				7A49A20021231510005C574C /* CollectionViewFooter.swift */,
 				8351CE7720D4424100E32FC1 /* CollectionViewHeader.swift */,
@@ -9983,6 +9999,7 @@
 			);
 			name = Wikipedia;
 			packageProductDependencies = (
+				00D780ED2A0D983400BD9D02 /* WKData */,
 			);
 			productName = "Wikipedia-iOS";
 			productReference = D4991435181D51DE00E6073C /* Wikipedia.app */;
@@ -10384,6 +10401,7 @@
 			packageReferences = (
 				67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 				67359892299ED915002EE8D1 /* XCRemoteSwiftPackageReference "wikipedia-ios-components" */,
+				00D780EC2A0D983400BD9D02 /* XCRemoteSwiftPackageReference "wikipedia-ios-data" */,
 			);
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
 			projectDirPath = "";
@@ -11563,6 +11581,7 @@
 				67E0691B223B32F1008550AC /* FocusNavigationView.swift in Sources */,
 				83DAA9B023FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */,
 				00FCCBCA2900848300C9ECD2 /* TalkPageViewController+FindInPage.swift in Sources */,
+				00F83D812A0EA724008A4905 /* MediawikiNetworkService.swift in Sources */,
 				7A4FE53F1FA00AEF009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				8382F8D920D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,
 				00EBB7CC27D6A86A002025AC /* SettingsPresentationDelegate.swift in Sources */,
@@ -12535,6 +12554,7 @@
 				D8A42ADF1E815A9C00D8E281 /* AboutViewController.m in Sources */,
 				00FCCBCD2900848300C9ECD2 /* TalkPageViewController+FindInPage.swift in Sources */,
 				7A4FE5421FA00AF1009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
+				00F83D842A0EA724008A4905 /* MediawikiNetworkService.swift in Sources */,
 				8361474E24223689003E49D3 /* ArticleViewController+Announcements.swift in Sources */,
 				00EBB7CF27D6A86A002025AC /* SettingsPresentationDelegate.swift in Sources */,
 				D8B1668F1FD97FE000097D8B /* WMFViewController.m in Sources */,
@@ -13147,6 +13167,7 @@
 				00B0B3D22978745400DD7893 /* EditNoticesFetcher.swift in Sources */,
 				D8BDA8BE1E71B8C90031F4BF /* WMFDeleteBackwardReportingTextField.swift in Sources */,
 				83023C0720E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
+				00F83D832A0EA724008A4905 /* MediawikiNetworkService.swift in Sources */,
 				D8CE25771E698E2400DAE2E0 /* MWKLanguageLinkFetcher.m in Sources */,
 				7ABE173C2239DEF0006BA309 /* WelcomeAnimationView.swift in Sources */,
 				7A196F5B21BF199500D9E4B5 /* SectionEditorWebView.swift in Sources */,
@@ -13742,6 +13763,7 @@
 				00B0B3D12978745400DD7893 /* EditNoticesFetcher.swift in Sources */,
 				674711842507253500287951 /* ArticleAsLivingDocSnippetCollectionViewCell.swift in Sources */,
 				D8EC3E671E9BDA35006712EB /* WeakScriptMessageDelegate.swift in Sources */,
+				00F83D822A0EA724008A4905 /* MediawikiNetworkService.swift in Sources */,
 				D8EC3E6D1E9BDA35006712EB /* UIView+Animations.swift in Sources */,
 				7ABE173D2239DEF0006BA309 /* WelcomeAnimationView.swift in Sources */,
 				D8EC3E6E1E9BDA35006712EB /* WMFDeleteBackwardReportingTextField.swift in Sources */,
@@ -20044,11 +20066,19 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		00D780EC2A0D983400BD9D02 /* XCRemoteSwiftPackageReference "wikipedia-ios-data" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wikimedia/wikipedia-ios-data";
+			requirement = {
+				branch = "data-flow-exploration";
+				kind = branch;
+			};
+		};
 		67359892299ED915002EE8D1 /* XCRemoteSwiftPackageReference "wikipedia-ios-components" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wikimedia/wikipedia-ios-components.git";
 			requirement = {
-				branch = main;
+				branch = "data-flow-exploration";
 				kind = branch;
 			};
 		};
@@ -20063,6 +20093,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		00D780ED2A0D983400BD9D02 /* WKData */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00D780EC2A0D983400BD9D02 /* XCRemoteSwiftPackageReference "wikipedia-ios-data" */;
+			productName = WKData;
+		};
 		67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;

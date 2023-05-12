@@ -1,6 +1,8 @@
 import UIKit
 import WMF
 import CocoaLumberjackSwift
+import Components
+import WKData
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding {
 
@@ -43,6 +45,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             collectionView.decelerationRate = .fast
         }
 #endif
+
+        let mediawikiNetworkService = MediawikiNetworkService(session: dataStore.session, configuration: dataStore.configuration)
+        let viewController = NoticeViewController(viewModel: NoticeViewModel(networkService: mediawikiNetworkService))
+        present(viewController, animated: true)
     }
     
     @objc var isGranularUpdatingEnabled: Bool = true {
