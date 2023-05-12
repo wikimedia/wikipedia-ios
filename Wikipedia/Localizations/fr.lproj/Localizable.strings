@@ -596,7 +596,7 @@
 "notifications-center-alert" = "Alerte";
 "notifications-center-applied-filters-accessibility-label" = "Filtrage des notifications : a des filtres appliqués";
 "notifications-center-applied-project-filters-accessibility-label" = "Filtrage des projets : a des filtres appliqués";
-"notifications-center-badge-button-accessibility-label" = "Notifications avec un badge non lu";
+"notifications-center-badge-button-accessibility-label" = "Notifications avec un insigne non lu";
 "notifications-center-cell-notification-type-accessibility-label-format" = "notification $1";
 "notifications-center-change-password" = "Modifier le mot de passe";
 "notifications-center-checking-for-notifications" = "Vérification des notifications...";

@@ -2,10 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>add-articles-to-reading-list</key>
+	<key>aaald-characters-text-description</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ouzhpennañ %#@v1@ d'ar roll lenn</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -13,9 +13,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d pennad</string>
+			<string>знак</string>
 			<key>other</key>
-			<string>%1$d pennad</string>
+			<string>знака</string>
+			<key>zero</key>
+			<string>знака</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
@@ -28,11 +30,13 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%1$d ред</string>
 			<key>other</key>
-			<string>%1$d linenn</string>
+			<string>%1$d реда</string>
 		</dict>
 	</dict>
-	<key>notifications-center-empty-state-num-filters</key>
+	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@</string>
@@ -42,8 +46,74 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%1$d раздел</string>
 			<key>other</key>
-			<string>%1$d sil</string>
+			<string>%1$d раздела</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-editor-number-edits-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d редакция</string>
+			<key>other</key>
+			<string>%1$d редакции</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-subtitle-bytes-added</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d байт е добавен</string>
+			<key>other</key>
+			<string>%1$d байта са добавени</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-subtitle-bytes-removed</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d байт е премахнат</string>
+			<key>other</key>
+			<string>%1$d байта са премахнати</string>
+		</dict>
+	</dict>
+	<key>diff-unedited-lines-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>няма промяна в %1$d ред</string>
+			<key>other</key>
+			<string>няма промяна в %1$d реда</string>
 		</dict>
 	</dict>
 	<key>notifications-center-num-selected-messages-format</key>
@@ -57,9 +127,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d gemennadenn</string>
+			<string>%1$d съобщение</string>
 			<key>other</key>
-			<string>%1$d kemennadenn</string>
+			<string>%1$d съобщения</string>
 		</dict>
 	</dict>
 	<key>notifications-center-status-in-projects</key>
@@ -72,8 +142,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>В 1 проект</string>
 			<key>other</key>
-			<string>E %1$d raktres</string>
+			<string>В %1$d проекта</string>
 		</dict>
 	</dict>
 	<key>notifications-center-status-in-projects-plain</key>
@@ -86,11 +158,13 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>1 проект</string>
 			<key>other</key>
-			<string>Raktres</string>
+			<string>%1$d проекта</string>
 		</dict>
 	</dict>
-	<key>places-filter-top-articles-count</key>
+	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@</string>
@@ -101,12 +175,12 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d pennad</string>
+			<string>1 тип</string>
 			<key>other</key>
-			<string>%1$d pennad</string>
+			<string>%1$d типа</string>
 		</dict>
 	</dict>
-	<key>relative-date-hours-ago</key>
+	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@</string>
@@ -116,13 +190,13 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Добавен е %1$d байт</string>
 			<key>other</key>
-			<string>%1$d eur zo</string>
-			<key>zero</key>
-			<string>Nevez zo</string>
+			<string>Добавени са %1$d байта</string>
 		</dict>
 	</dict>
-	<key>relative-date-hrs-ago</key>
+	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@</string>
@@ -132,74 +206,26 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Премахнат е %1$d байт</string>
 			<key>other</key>
-			<string>%1$d eur zo</string>
-			<key>zero</key>
-			<string>Nevez zo</string>
+			<string>Премахнати са %1$d байта</string>
 		</dict>
 	</dict>
-	<key>relative-date-min-ago</key>
+	<key>relative-date-hours-ago-abbreviated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>преди %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%1$d час</string>
 			<key>other</key>
-			<string>%1$d munutenn zo</string>
-			<key>zero</key>
-			<string>Bremañ</string>
-		</dict>
-	</dict>
-	<key>relative-date-minutes-ago</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d munutenn zo</string>
-			<key>zero</key>
-			<string>Nevez zo</string>
-		</dict>
-	</dict>
-	<key>relative-date-months-ago</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d miz zo</string>
-			<key>zero</key>
-			<string>Er miz-mañ</string>
-		</dict>
-	</dict>
-	<key>relative-date-years-ago</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d bloaz zo</string>
-			<key>zero</key>
-			<string>Er bloaz-mañ</string>
+			<string>%1$d часа</string>
 		</dict>
 	</dict>
 </dict>
