@@ -31,16 +31,16 @@ final internal class NavigationEventsFunnel: NSObject {
         case settingsRate = "setting_rate"
         case settingsHelp = "setting_help"
         case settingsAbout = "setting_about"
-        case article_toolbar_toc
-        case article_toolbar_lang
-        case article_toolbar_lang_success
-        case article_toolbar_save
-        case article_toolbar_save_success
-        case article_toolbar_share
-        case article_toolbar_share_success
-        case article_toolbar_appearance
-        case article_toolbar_search
-        case article_toolbar_search_success
+        case articleToolbarTOC = "article_toolbar_toc"
+        case articleToolbarLang = "article_toolbar_lang"
+        case articleToolbarLangSuccess = "article_toolbar_lang_success"
+        case articleToolbarSave = "article_toolbar_save"
+        case articleToolbarSaveSuccess = "article_toolbar_save_success"
+        case articleToolbarShare = "article_toolbar_share"
+        case articleToolbarShareSuccess = "article_toolbar_share_success"
+        case articleToolbarAppearence = "article_toolbar_appearance"
+        case articleToolbarSearch = "article_toolbar_search"
+        case articleToolbarSearchSuccess = "article_toolbar_search_success"
     }
 
     private struct Event: EventInterface {

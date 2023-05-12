@@ -6,6 +6,7 @@ extension ArticleViewController {
                 return
             }
             self.shareArticle(with: selectedText)
+            NavigationEventsFunnel.shared.logEvent(action: .articleToolbarShareSuccess)
         })
     }
     
