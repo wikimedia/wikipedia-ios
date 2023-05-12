@@ -107,11 +107,8 @@
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
 "no-email-account-alert" = "Үҙегеҙҙең ҡоролмала электрон почтаның иҫәп яҙмаһын көйләгеҙ һәм тағы бер тапҡыр эшләп ҡарағыҙ.";
-"page-protected-autoconfirmed" = "Был бит өлөшләтә һаҡланған ине.";
 "page-protected-can-not-edit" = "Һеҙҙең был битте мөхәррирләргә оҡуғыҙ юҡ";
 "page-protected-can-not-edit-title" = "Был бит һаҡланған";
-"page-protected-other" = "Был бит тулыһынса һаҡланған ине: $1";
-"page-protected-sysop" = "Был бит тулыһынса һаҡланған ине.";
 "potd-description-prefix" = " $1 - гә көн һүрәте";
 "potd-empty-error-description" = "$1-гә көн һүрәтен алып булманы";
 // Fuzzy

@@ -143,9 +143,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Stýringar lestrarþemu";
 "back-button-accessibility-label" = "Til baka";
 "back-button-popover-title" = "Banka til að fara til baka";
+"button-go-back" = "Fara til baka";
 "button-next" = "Áfram";
 "button-ok" = "Í lagi";
 "button-publish" = "Gefa út";
+"button-publish-anyway" = "Gefa samt út";
 "button-read-now" = "Lesa núna";
 "button-report-a-bug" = "Tilkynna um villu";
 "button-save-for-later" = "Vista til síðari tíma";
@@ -255,6 +257,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Ekki tókst að staðsetja textann sem þú valdir";
 "edit-minor-learn-more-text" = "Fræðast meira um minniháttar breytingar";
 "edit-minor-text" = "Þetta er minniháttar breyting";
+"edit-notices" = "Tilkynningar vegna breytinga";
+"edit-notices-always-display" = "Alltaf birta tilkynningar vegna breytinga";
+"edit-notices-please-read" = "Lestu þetta áður en þú byrjar að breyta";
 "edit-ordered-list-accessibility-label" = "Gerðu núverandi línu að röðuðum lista";
 "edit-ordered-list-remove-accessibility-label" = "Fjarlægðu raðaðan lista úr núverandi línu";
 "edit-published" = "Breyta útgefnu";
@@ -403,6 +408,8 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Af $1 Wikipedia";
 "explore-random-article-sub-heading-from-wikipedia" = "Af Wikipedia";
 "explore-randomizer" = "Slembið";
+"export-user-data-confirmation-title" = "Deila forritasafni?";
+"export-user-data-generic-error" = "Villa kom upp við að flytja út gögnin þín. Reyndu aftur seinna.";
 "export-user-data-title" = "Flytja út notandagögn";
 "featured-widget-content-failure-for-date" = "Engin forsíðugrein er tiltæk fyrir þessa dagsetningu.";
 "featured-widget-description" = "Uppgötvaðu bestu greinarnar á Wikipedia, valdar af þátttakendunum okkar.";
@@ -470,6 +477,8 @@
 "import-shared-reading-list-default-title" = "Leslistinn minn";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ekki núna";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Taka þátt í könnun";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Deila leslistum\" er prófunareiginleiki og við þurfum álit þitt til að bæta eða fjarlægja hann.";
+"import-shared-reading-list-survey-prompt-title" = "Gætirðu hjálpað okkur að bæta „Deila leslistum“?";
 "import-shared-reading-list-title" = "Flytja inn sameiginlegan leslista";
 "in-the-news-sub-title-from-language-wikipedia" = "Af $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "Af Wikipedia";
@@ -696,15 +705,13 @@
 "page-history-user-edits" = "breytingar notanda";
 "page-issues" = "Vandamál varðandi síðu";
 "page-location" = "Skoða á korti";
-"page-protected-autoconfirmed" = "Þessi síða er varin að hluta til.";
 "page-protected-can-not-edit" = "Þú hefur ekki réttindi á að breyta þessari síðu";
 "page-protected-can-not-edit-title" = "Þessi síða er varin";
-"page-protected-other" = "Þessi síða er varin upp á eftirfarandi stig: $1";
-"page-protected-sysop" = "Þessi síða er varin í heild.";
 "page-similar-titles" = "Áþekkar síður";
 "panel-compare-revisions-text" = "Að bera saman útgáfur hjálpar til við að sjá hvernig grein hefur breyst í tímans rás. Þegar tvær útgáfur greinar eru bornar saman, er munurinn á þeim sýndur með áherslulitun á því sem hefur verið breytt.";
 "panel-compare-revisions-title" = "Bera saman útgáfur";
 "panel-not-logged-in-continue-edit-action-title" = "Gera breytingar án þess að skrá inn";
+"panel-not-logged-in-subtitle" = "Vistfang þitt verður sýnt opinberlega ef þú gerir einhverjar breytingar. Ef þú $1 skráir þig inn$2 eða $3stofnar aðgang$4 munu breytingarnar þínar vera tengdar við notandanafn þitt, ásamt öðrum kostum.";
 "panel-not-logged-in-title" = "Þú ert ekki skráð/ur inn.";
 "pictured" = "fjallað um";
 "places-accessibility-clear-saved-searches" = "Hreinsa vistaðar leitir";

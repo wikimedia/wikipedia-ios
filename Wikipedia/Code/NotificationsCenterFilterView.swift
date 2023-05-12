@@ -33,9 +33,9 @@ struct NotificationsCenterFilterItemView: View {
 
                     let iconColor = theme.colors.paperBackground
                     let iconBackgroundColor = type.imageBackgroundColorWithTheme(theme)
-                    if let iconName = type.imageName {
-                        NotificationsCenterIconImage(iconName: iconName, iconColor: Color(iconColor), iconBackgroundColor: Color(iconBackgroundColor), padding: 0)
-                    }
+                    
+                    let iconName = type.imageName
+                    NotificationsCenterIconImage(iconName: iconName, iconColor: Color(iconColor), iconBackgroundColor: Color(iconBackgroundColor), padding: 0)
                     
                     let customBinding = $itemViewModel.isSelected.didSet { (state) in
                         itemViewModel.toggleSelectionForToggleType()

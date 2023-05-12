@@ -114,11 +114,8 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milya";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 mula sa Wikipediang $2";
-"page-protected-autoconfirmed" = "Bahagyang naipasanggalang ang pahinang ito.";
 "page-protected-can-not-edit" = "Wala kang karapatang baguhin ang pahinang ito";
 "page-protected-can-not-edit-title" = "Nakasanggalang ang pahinang ito";
-"page-protected-other" = "Naka-protekta ang pahinang ito sa sumusunod na mga antas: $1";
-"page-protected-sysop" = "Buong naipasanggalang ang pahinang ito.";
 "places-accessibility-group" = "$1 mga artikulo";
 "places-accessibility-recenter-map-on-user-location" = "Igitna ang iyong lokasyon";
 "places-accessibility-show-as-map" = "Ipakita sa mapa";

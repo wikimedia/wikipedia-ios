@@ -42,6 +42,12 @@ class ViewControllerRouter: NSObject {
         self.appViewController = appViewController
         self.router = router
     }
+    
+    private func presentLoginViewController(with completion: @escaping () -> Void) -> Bool {
+        
+        appViewController.wmf_showLoginViewController(theme: appViewController.theme)
+        return true
+    }
 
     private func presentOrPush(_ viewController: UIViewController, with completion: @escaping () -> Void) -> Bool {
         guard let navigationController = appViewController.currentNavigationController else {
@@ -89,7 +95,8 @@ class ViewControllerRouter: NSObject {
     @objc(routeURL:userInfo:completion:)
     public func route(_ url: URL, userInfo: [AnyHashable: Any]? = nil, completion: @escaping () -> Void) -> Bool {
         let theme = appViewController.theme
-        let destination = router.destination(for: url)
+        let loggedInUsername = MWKDataStore.shared().authenticationManager.loggedInUsername
+        let destination = router.destination(for: url, loggedInUsername: loggedInUsername)
         switch destination {
         case .article(let articleURL):
             appViewController.swiftCompatibleShowArticle(with: articleURL, animated: true, completion: completion)
@@ -177,6 +184,8 @@ class ViewControllerRouter: NSObject {
             let createReadingListVC = CreateReadingListViewController(theme: theme, articles: [], encodedPageIds: encodedPayload, dataStore: appViewController.dataStore)
             createReadingListVC.delegate = appViewController
             return presentOrPush(createReadingListVC, with: completion)
+        case .login:
+            return presentLoginViewController(with: completion)
         default:
             completion()
             return false

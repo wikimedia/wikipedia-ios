@@ -715,6 +715,10 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         
+        defer {
+            completionHandler(.allow)
+        }
+        
         if let httpResponse = response as? HTTPURLResponse {
             
             var shouldCheckPersistentCache = false
@@ -747,9 +751,6 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
             }
         }
         
-        defer {
-            completionHandler(.allow)
-        }
         guard let callback = callbacks[dataTask.taskIdentifier]?.response else {
             return
         }

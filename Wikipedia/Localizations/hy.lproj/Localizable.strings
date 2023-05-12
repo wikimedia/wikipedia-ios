@@ -157,10 +157,8 @@
 "page-history-minor-edits" = "չնչին խմբագրումներ";
 "page-history-revision-author-accessibility-label" = "Հեղինակ. 1";
 "page-history-revision-minor-edit-accessibility-label" = "չնչին խմբագրում";
-"page-protected-autoconfirmed" = "Այս էջը մասամբ պաշտպանված է:";
 "page-protected-can-not-edit" = "Դուք իրավունք չունեք խմբագրել այս էջը:";
 "page-protected-can-not-edit-title" = "Այս էջը պաշտպանված է";
-"page-protected-sysop" = "Այս էջն ամբողջությամբ պաշտպանված է։";
 "places-accessibility-group" = "$1 հոդվածներ";
 "places-filter-button-title" = "Զտիչ";
 "places-search-default-text" = "Որոնել վայրեր";

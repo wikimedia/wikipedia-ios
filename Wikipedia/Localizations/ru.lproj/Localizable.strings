@@ -526,6 +526,7 @@
 "icon-shortcut-search-title" = "Поиск по Википедии";
 "image-gallery-unknown-owner" = "Автор неизвестен.";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Не сейчас";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Участие в опросе";
 "in-the-news-sub-title-from-language-wikipedia" = "Раздел Википедии: $1";
 "in-the-news-sub-title-from-wikipedia" = "Из Википедии";
 "in-the-news-title" = "В новостях";
@@ -752,11 +753,8 @@
 "page-history-user-edits" = "правки участников";
 "page-issues" = "Проблемы страницы";
 "page-location" = "Посмотреть на карте";
-"page-protected-autoconfirmed" = "Эта страница была частично защищена.";
 "page-protected-can-not-edit" = "У вас нет прав на редактирование этой страницы";
 "page-protected-can-not-edit-title" = "Эта страница защищена";
-"page-protected-other" = "Эта страница были защищена на следующих уровнях: $1";
-"page-protected-sysop" = "Эта страница была полностью защищена.";
 "page-similar-titles" = "Похожие страницы";
 "panel-compare-revisions-text" = "Сравнение редакций помогает показать, как статья менялась с течением времени. Сравнение двух редакций статьи покажет разницу между этими редакциями, выделив все содержание, которое было изменено.";
 "panel-compare-revisions-title" = "Сравнение версий";
@@ -1047,6 +1045,7 @@
 "talk-page-related-links" = "Ссылки сюда";
 "talk-page-reply-button" = "Ответить";
 "talk-page-reply-button-accessibility-label" = "Ответить $1";
+"talk-page-reply-depth-accessibility-label" = "Глубина ответа: $1";
 "talk-page-reply-placeholder-format" = "Ответить $1";
 "talk-page-reply-title" = "Ответ";
 "talk-page-revision-history" = "История изменений";
@@ -1056,6 +1055,7 @@
 "talk-page-subscribed-alert-title" = "Вы подписались!";
 "talk-page-title-article-talk" = "Обсуждение статьи";
 "talk-page-title-user-talk" = "Обсуждение участника";
+"talk-page-topic-close-button-hint" = "Закрыть новую тему";
 "talk-page-topic-compose-terms-and-licenses" = "Сохраняя изменения, вы соглашаетесь с $1Условиями использования$2 и безвозвратно соглашаетесь опубликовать свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6.";
 "talk-page-topic-title" = "Обсуждение";
 "talk-page-unsubscribe-to-topic" = "Отписаться";

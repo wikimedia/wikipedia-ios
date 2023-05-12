@@ -723,11 +723,8 @@
 "page-history-user-edits" = "urejanja uporabnika";
 "page-issues" = "Težave s stranjo";
 "page-location" = "Prikaži na karti";
-"page-protected-autoconfirmed" = "Ta stran je delno zaščitena.";
 "page-protected-can-not-edit" = "Nimate pravic za urejanje te strani.";
 "page-protected-can-not-edit-title" = "Ta stran je zaščitena";
-"page-protected-other" = "Ta stran je zaščitena za naslednje ravni: $1";
-"page-protected-sysop" = "Ta stran je popolnoma zaščitena.";
 "page-similar-titles" = "Podobne strani";
 "panel-compare-revisions-text" = "Primerjava redakcij pomaga prikazati, kako se je članek spreminjal skozi čas. Primerjava dveh redakcij članka bo prikazala razliko med tema redakcijama tako, da bo označena katera koli vsebina, ki je bila spremenjena.";
 "panel-compare-revisions-title" = "Primerjava redakcij";

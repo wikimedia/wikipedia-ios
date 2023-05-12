@@ -168,11 +168,8 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 uit Wikipedia in $2";
 "on-this-day-title" = "Op dié dag";
 "original-tab-button-popover-description" = "Raak op die 'W' om terug te gaan na die eerste oortjie";
-"page-protected-autoconfirmed" = "Hierdie blad is semi-beskerm.";
 "page-protected-can-not-edit" = "U het nie die regte om hierdie blad te wysig nie";
 "page-protected-can-not-edit-title" = "Hierdie blad is beskerm";
-"page-protected-other" = "Hierdie blad is beskerm tot die volgende vlakke: $1";
-"page-protected-sysop" = "Hierdie blad is volledig beskerm.";
 "places-accessibility-group" = "$1 artikels";
 "places-accessibility-show-as-list" = "Toon as lys";
 "places-accessibility-show-as-map" = "Toon as vouer";

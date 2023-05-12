@@ -421,11 +421,8 @@
 "page-history-revision-size-diff-addition" = "({{PLURAL:$1|1 Byte|$1 Byten}}) derbäigesat";
 "page-history-stats-text" = "{{PLURAL:$1|1 Ännerung|$1 Ännerungen}} zanter $2";
 "page-location" = "Op enger Kaart weisen";
-"page-protected-autoconfirmed" = "Dës Säit ass hallef gespaart.";
 "page-protected-can-not-edit" = "Dir hutt net d'Recht fir dës Säit z'änneren";
 "page-protected-can-not-edit-title" = "Dës Säit ass gespaart";
-"page-protected-other" = "Dës Säit gouf fir dës Niveaue gespaart: $1";
-"page-protected-sysop" = "Dës Säit ass komplett gespaart.";
 "page-similar-titles" = "Änlech Säiten";
 "panel-not-logged-in-title" = "Dir sidd net ageloggt";
 "pictured" = "als Bild";

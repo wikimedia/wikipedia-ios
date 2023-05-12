@@ -1,4 +1,5 @@
 #import <XCTest/XCTest.h>
+#import "WMFTestConstants.h"
 
 @import WMF;
 
@@ -22,11 +23,13 @@
 }
 
 + (NSString *)iOSLocalizationsDirectory {
-    return [SOURCE_ROOT_DIR stringByAppendingPathComponent:@"Wikipedia/iOS Native Localizations"];
+    NSString *sourceRootPath = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:WMFSourceRootDirKey];
+    return [sourceRootPath stringByAppendingPathComponent:@"Wikipedia/iOS Native Localizations"];
 }
 
 + (NSString *)twnLocalizationsDirectory {
-    return [SOURCE_ROOT_DIR stringByAppendingPathComponent:@"Wikipedia/Localizations"];
+    NSString *sourceRootPath = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:WMFSourceRootDirKey];
+    return [sourceRootPath stringByAppendingPathComponent:@"Wikipedia/Localizations"];
 }
 
 + (NSString *)bundleRoot {
@@ -171,7 +174,7 @@
 
 - (void)assertLprojFiles:(NSArray *)lprojFiles withTranslationStringsInDirectory:(NSString *)directory doesNotContain:(NSString *)banned {
     XCTAssertNotNil(banned);
-    NSString * bannedUpper = [banned uppercaseString];
+    NSString *bannedUpper = [banned uppercaseString];
     for (NSString *lprojFileName in lprojFiles) {
         if (![TWNStringsTests localeForLprojFilenameIsAvailableOniOS:lprojFileName]) {
             continue;
@@ -329,14 +332,18 @@
 }
 
 + (BOOL)localeForLprojFilenameIsAvailableOniOS:(NSString *)lprojFileName {
-    NSString *localeIdentifier = [[lprojFileName substringToIndex:lprojFileName.length - 6] lowercaseString]; //remove .lproj suffix
+    NSString *localeIdentifier = [[lprojFileName substringToIndex:lprojFileName.length - 6] lowercaseString]; // remove .lproj suffix
     return [[TWNStringsTests supportedLocales] containsObject:localeIdentifier];
 }
 
 - (void)testAllSupportedTranslatedLanguagesWereAddedToProjectLocalizations {
-    // Fails if any supported languages have translations (in "Localizable.strings") but are
+    // Fails if any supported languages have TWN translations (in "Wikipedia/Localizations/Localizable.strings") but are
     // not yet bundled in the project.
     // So, if this test fails, the languages listed will need to be added these to the project's localizations.
+    // To do this:
+    // 1. Go to the project editor, select the project name under Project, and click Info. Under Localizations, click the Add button (+), then choose a language combination from the pop-up menu.
+    // 2. Then in the project navigator, click the "Localizable" file in the "Localizations" group, and add a checkmark to your language in the file inspector.
+    // If you get warnings about existing localizations in previous two steps, choose option to use existing files.
     NSArray *files = [self.unbundledLprojFilesWithTranslations mutableCopy];
     for (NSString *file in files) {
         XCTAssert(![TWNStringsTests localeForLprojFilenameIsAvailableOniOS:file], @"Missing supported translation for %@", file);

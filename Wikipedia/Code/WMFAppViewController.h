@@ -48,7 +48,6 @@ extern NSString *const WMFLanguageVariantAlertsLibraryVersion; // NSNumber
 @interface WMFAppViewController (SwiftInterfaces)
 - (void)dismissPresentedViewControllers;
 - (void)showSettingsAnimated:(BOOL)animated;
-- (void)logTappedSettingsFromExplore;
 @end
 
 NS_ASSUME_NONNULL_END

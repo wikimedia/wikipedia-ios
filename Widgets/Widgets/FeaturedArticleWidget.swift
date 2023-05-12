@@ -25,41 +25,38 @@ struct FeaturedArticleEntry: TimelineEntry {
 	// MARK: - Properties
 
 	var date: Date
-	var content: WidgetFeaturedContent?
+	var content: WidgetFeaturedArticle?
 	var fetchError: WidgetContentFetcher.FetcherError?
 
 	// MARK: - Computed Properties
 
 	var hasDisplayableContent: Bool {
-		return fetchError == nil && content?.featuredArticle != nil
+		return fetchError == nil && content != nil
 	}
 
 	var fetchedLanguageCode: String? {
-		return content?.featuredArticle?.languageCode
+		return content?.languageCode
 	}
 
 	var title: String {
-		return (content?.featuredArticle?.displayTitle as NSString?)?.wmf_stringByRemovingHTML() ?? ""
+		return (content?.displayTitle as NSString?)?.wmf_stringByRemovingHTML() ?? ""
 	}
 
 	var description: String {
-		return content?.featuredArticle?.description ?? ""
+		return content?.description ?? ""
 	}
 
 	var extract: String {
-		return content?.featuredArticle?.extract ?? ""
+		return content?.extract ?? ""
 	}
 
 	var layoutDirection: LayoutDirection {
-		if let direction = content?.featuredArticle?.languageDirection {
-			return direction == "rtl" ? .rightToLeft : .leftToRight
-		}
-
-		return .leftToRight
+        let isRTL = content?.isRTL ?? false
+        return isRTL ? .rightToLeft : .leftToRight
 	}
 
 	var contentURL: URL? {
-		guard let page = content?.featuredArticle?.contentURL.desktop.page else {
+		guard let page = content?.contentURL.desktop.page else {
 			return nil
 		}
 
@@ -67,7 +64,7 @@ struct FeaturedArticleEntry: TimelineEntry {
 	}
 
 	var imageData: Data? {
-		return content?.featuredArticle?.thumbnailImageSource?.data
+		return content?.thumbnailImageSource?.data
 	}
 
 }
@@ -82,7 +79,7 @@ struct FeaturedArticleProvider: TimelineProvider {
 	}
 
 	func getSnapshot(in context: Context, completion: @escaping (FeaturedArticleEntry) -> Void) {
-		WidgetController.shared.fetchFeaturedContent(isSnapshot: context.isPreview) { result in
+		WidgetController.shared.fetchFeaturedArticleContent(isSnapshot: context.isPreview) { result in
 			let currentDate = Date()
 			switch result {
 			case .success(let featuredContent):
@@ -94,7 +91,7 @@ struct FeaturedArticleProvider: TimelineProvider {
 	}
 
 	func getTimeline(in context: Context, completion: @escaping (Timeline<FeaturedArticleEntry>) -> Void) {
-		WidgetController.shared.fetchFeaturedContent { result in
+		WidgetController.shared.fetchFeaturedArticleContent { result in
 			let currentDate = Date()
 			switch result {
 			case .success(let featuredContent):
@@ -238,7 +235,7 @@ struct FeaturedArticleView: View {
 			} else {
 				ZStack {
 					Rectangle()
-                        .foregroundColor(Color(UIColor.widgetBlue))
+                        .foregroundColor(Color(UIColor.blue600))
 					Text(entry.extract)
 						.font(.headline)
 						.fontWeight(.semibold)
@@ -253,7 +250,7 @@ struct FeaturedArticleView: View {
 
 	func noContent(message: String) -> some View {
 		Rectangle()
-			.foregroundColor(Color(UIColor.base30))
+			.foregroundColor(Color(UIColor.gray500))
 			.overlay(
 				Text(message)
 					.font(.caption)

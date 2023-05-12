@@ -41,7 +41,7 @@
 
 "aaald-added-text-description-2" = "$1 toegevoegd";
 "aaald-article-description-updated-description" = "Artikelbeschrijving gewijzigd";
-"aaald-article-insert-header" = "Belangrijke Wijzigingen";
+"aaald-article-insert-header" = "Belangrijke wijzigingen";
 "aaald-article-insert-last-updated" = "Laatst bijgewerkt";
 "aaald-article-insert-new-changes" = "Nieuwe wijzigingen";
 "aaald-article-insert-read-more" = "Lees meer updates";
@@ -93,7 +93,7 @@
 "about-testers-details" = "Getest door $1";
 "about-title" = "Over";
 "about-translators" = "Vertalers";
-"about-translators-details" = "Deze app is vertaald door de vrijwillige vertalers van $1";
+"about-translators-details" = "Vertaald door vrijwilligers van $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
 "account-creation-captcha-cannot-see-image" = "Kunt u de afbeelding niet zien? $1";
@@ -756,11 +756,8 @@
 "page-history-user-edits" = "gebruikersbewerkingen";
 "page-issues" = "Paginaproblemen";
 "page-location" = "Op een kaart bekijken";
-"page-protected-autoconfirmed" = "Deze pagina is semibeveiligd.";
 "page-protected-can-not-edit" = "U hebt geen rechten om deze pagina te bewerken";
 "page-protected-can-not-edit-title" = "Deze pagina is beveiligd";
-"page-protected-other" = "Deze pagina is beveiligd op de volgende niveaus: $1";
-"page-protected-sysop" = "Deze pagina is volledig beveiligd.";
 "page-similar-titles" = "Vergelijkbare pagina's";
 "panel-compare-revisions-text" = "Het vergelijken van revisies helpt om te laten zien hoe een artikel in de loop van de tijd is veranderd. Als u twee revisies van een artikel vergelijkt, wordt het verschil tussen die revisies weergegeven door de inhoud te markeren die is gewijzigd.";
 "panel-compare-revisions-title" = "Versies vergelijken";

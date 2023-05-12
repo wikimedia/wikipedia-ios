@@ -715,11 +715,8 @@
 "page-history-user-edits" = "user edits";
 "page-issues" = "Page issues";
 "page-location" = "View on a map";
-"page-protected-autoconfirmed" = "This page has been semi-protected.";
 "page-protected-can-not-edit" = "You do not have the rights to edit this page";
 "page-protected-can-not-edit-title" = "This page is protected";
-"page-protected-other" = "This page has been protected to the following levels: $1";
-"page-protected-sysop" = "This page has been fully protected.";
 "page-similar-titles" = "Similar pages";
 "panel-compare-revisions-text" = "Comparing revisions helps to show how an article has changed over time. Comparing two revisions of an article will show the difference between those revisions by highlighting any content that was changed.";
 "panel-compare-revisions-title" = "Comparing revisions";

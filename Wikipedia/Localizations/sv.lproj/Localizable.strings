@@ -315,11 +315,11 @@
 "edit-unordered-list-remove-accessibility-label" = "Ta bort oordnad lista från nuvarande rad";
 "edit-watch-list-learn-more-text" = "Läs mer om bevakningslistor";
 "edit-watch-this-page-text" = "Bevaka denna sida";
-"editing-welcome-be-bold-subtitle" = "Var djärv men inte vårdslös med att uppdatera artiklar. Plåga inte dig själv om du gör något misstag då varje föregående sidversion sparas, så misstag kan enkelt korrigeras av vår gemenskap.";
+"editing-welcome-be-bold-subtitle" = "Var djärv men inte vårdslös med att uppdatera artiklar. Var inte för hård mot dig själv om du gör något misstag då varje föregående sidversion sparas, så misstag kan enkelt korrigeras av vår gemenskap.";
 "editing-welcome-be-bold-title" = "Din röst är viktig";
 "editing-welcome-citations-subtitle" = "Allt innehåll måste kunna verifieras. När ny information läggs till i en artikel måste redigerare kunna inkludera en fotnot till en pålitlig källa som stöder bidraget.";
 "editing-welcome-citations-title" = "Citera pålitliga källor";
-"editing-welcome-impartial-tone-subtitle" = "Vi strävar mot att artiklar ska skrivas med en neutral ton. Sikta mot att göra en rättvis representation av världen som pålitliga källor beskriver den när du redigerar.";
+"editing-welcome-impartial-tone-subtitle" = "Vi strävar mot att artiklar ska skrivas med en neutral ton. Försök att göra en rättvis representation av världen som pålitliga källor beskriver den när du redigerar.";
 "editing-welcome-impartial-tone-title" = "Skriv med en neutral ton";
 "editing-welcome-set-knowledge-free-subtitle" = "För att alla ska få åtkomst till världens kunskap vill vi att du deltar genom att läsa, redigera och bidra till de ämnen som betyder mest för dig.";
 "editing-welcome-set-knowledge-free-title" = "Frigör kunskap";
@@ -395,8 +395,8 @@
 "explore-feed-preferences-show-randomizer-footer-text" = "När kortet Slumpartikel inaktiveras kommer kortet inaktiveras på alla tillgängliga språk.";
 "explore-feed-preferences-show-randomizer-title" = "Visa kortet Slumpartikel";
 "explore-feed-preferences-show-related-pages-title" = "Visa kortet Eftersom du läste";
-"explore-feed-preferences-show-top-read-footer-text" = "När kortet Populära läsningar inaktiveras kommer kortet inaktiveras på alla tillgängliga språk.";
-"explore-feed-preferences-show-top-read-title" = "Visa kortet Populära läsningar";
+"explore-feed-preferences-show-top-read-footer-text" = "När kortet Mest lästa inaktiveras kommer kortet inaktiveras på alla tillgängliga språk.";
+"explore-feed-preferences-show-top-read-title" = "Visa kortet Mest lästa";
 "explore-feed-preferences-top-read-description" = "Dagens mest lästa artiklar";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Inaktivera utforskarflödet";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "När alla kort i utforskarflödet döljs kommer utforskarfliken inaktiveras och ersättas med en inställningsflik";
@@ -414,7 +414,7 @@
 "explore-main-page-heading" = "Idag på Wikipedia";
 "explore-most-read-footer" = "Alla mest lästa artiklar";
 "explore-most-read-generic-heading" = "Mest lästa";
-"explore-most-read-more-list-title-for-date" = "Populärt den $1";
+"explore-most-read-more-list-title-for-date" = "Mest läst den $1";
 "explore-most-read-sub-heading-on-language-wikipedia" = "Från Wikipedia på $1";
 "explore-most-read-sub-heading-on-wikipedia" = "På Wikipedia";
 "explore-nearby-heading" = "Platser i närheten";
@@ -744,11 +744,8 @@
 "page-history-user-edits" = "användarredigeringar";
 "page-issues" = "Sidproblem";
 "page-location" = "Visa på en karta";
-"page-protected-autoconfirmed" = "Denna sida är halvskyddad.";
 "page-protected-can-not-edit" = "Du saknar rättigheter för att redigera denna sida.";
 "page-protected-can-not-edit-title" = "Denna sida är skrivskyddad";
-"page-protected-other" = "Denna sida har skyddats för följande nivåer: $1";
-"page-protected-sysop" = "Denna sida är fullt skrivskyddad.";
 "page-similar-titles" = "Liknande sidor";
 "panel-compare-revisions-text" = "Jämför sidversioner för att se hur en artikel har ändrats med tiden. När två sidversioner av en artikel jämförs kommer skillnaden mellan dessa sidversioner visas genom att färgmarkera innehållet som ändrades.";
 "panel-compare-revisions-title" = "Jämför sidversioner";
@@ -771,7 +768,7 @@
 "places-filter-button-title" = "Filtrera";
 "places-filter-no-saved-places" = "Du har inte några sparade platser";
 "places-filter-saved-articles" = "Sparade artiklar";
-"places-filter-top-articles" = "Populära läsningar";
+"places-filter-top-articles" = "Mest lästa";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artiklar}}";
 "places-filter-top-read-articles" = "Mest lästa artiklar";
 "places-location-enabled" = "Plats aktiverad";
@@ -783,7 +780,7 @@
 "places-search-saved-articles" = "Alla sparade artiklar";
 "places-search-suggested-searches-header" = "Förslag på sökningar";
 "places-search-this-area" = "Resultat i detta område";
-"places-search-top-articles" = "Alla populära artiklar";
+"places-search-top-articles" = "Alla mest lästa artiklar";
 "places-search-top-articles-that-match-scope" = "I närheten";
 "places-search-your-current-location" = "Din aktuella position";
 "places-title" = "Platser";
@@ -951,7 +948,7 @@
 "settings-notifications-echo-failure-title" = "Kunde inte kontrollera prenumerationer på Echo-aviseringar";
 "settings-notifications-echo-failure-try-again" = "Försök igen";
 "settings-notifications-header" = "Meddelas om aktiviteter som rör ditt konto, till exempel meddelanden från andra bidragsgivare, varningar och meddelanden. Allt tillhandahålls med hänsyn till integritet och aktuell och uppdaterad data.";
-"settings-notifications-info" = "Bli meddelad om trender och populära artiklar på Wikipedia med våra push-notiser. Allting tillhandahålls med respekt för integritet och uppdaterad data.";
+"settings-notifications-info" = "Bli meddelad om populära och mest lästa artiklar på Wikipedia med våra push-notiser. Allting tillhandahålls med respekt för integritet och uppdaterad data.";
 "settings-notifications-learn-more" = "Läs mer om notiser";
 "settings-notifications-push-notifications" = "Push-notiser";
 "settings-notifications-system-turn-on" = "Aktivera notiser";
@@ -1006,7 +1003,7 @@
 "talk-page-article-about" = "Om diskussionssidor";
 "talk-page-change-language" = "Ändra språk";
 "talk-page-collapse-thread-button" = "Minimera tråd";
-"talk-page-discussion-accessibility-hint" = "Dubbelknacka för att öppna diskussionstråden";
+"talk-page-discussion-accessibility-hint" = "Tryck två gånger för att öppna diskussionstråden";
 "talk-page-discussion-read-accessibility-label" = "Läst";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "lɛ'st";
 "talk-page-discussion-unread-accessibility-label" = "Oläst";
@@ -1107,7 +1104,7 @@
 "theme-sepia-display-name" = "Sepia";
 "top-read-widget-description" = "Ta reda på vad världen läser i dag på Wikipedia.";
 "top-read-widget-readers-count" = "$1 läsare";
-"top-read-widget-title" = "Populära läsningar";
+"top-read-widget-title" = "Mest lästa";
 "two-factor-login-continue" = "Fortsätt att logga in";
 "two-factor-login-instructions" = "Ange tvåstegsverifieringskod";
 "two-factor-login-title" = "Logga in på ditt konto";
@@ -1131,7 +1128,7 @@
 "vanish-account-learn-more-text" = "Läs mer";
 "vanish-account-title" = "Process för att försvinna";
 "vanish-account-username-field" = "Användarnamn och användarsida";
-"vanish-account-warning-body" = "Att försvinna är en **sista utväg** och bör **endast användas när du vill sluta redigera för alltid** och även för att dölja så många av dina tidigare associationer som möjligt.\n\nKonton raderas på Wikipedia genom att ändra kontonamnet för att göra så att andra inte kan känna igen bidragen i en process som kallas kontoförsvinnande. **Försvinnande garanterar inte fullständig anonymitet eller tar inte bort bidrag på projekten**.";
+"vanish-account-warning-body" = "Att försvinna är en **sista utväg** och bör **endast användas när du vill sluta redigera för alltid** och även för att dölja så många av dina tidigare associationer som möjligt.\n\nKonton raderas på Wikipedia genom att ändra kontonamnet för att göra så att andra inte kan känna igen bidragen i en process som kallas kontoförsvinnande. **Försvinnande garanterar inte fullständig anonymitet eller att bidrag tas bort från projekten**.";
 "vanish-account-warning-title" = "Varning";
 "vanish-modal-item" = "Om du slutförde din begäran om att försvinna, vänta några dagar för begäran att behandlas av en administratör";
 "vanish-modal-item-2" = "Om du är osäker på om din begäran gick igenom, se din e-postapp";

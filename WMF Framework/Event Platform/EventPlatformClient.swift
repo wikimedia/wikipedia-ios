@@ -52,19 +52,53 @@ import CocoaLumberjackSwift
  * - `app_session_id`: the ID of the session at the time of the event when it was
  *   originally submitted
  */
-public class EventPlatformClient: NSObject, SamplingControllerDelegate {
+@objc public class EventPlatformClient: NSObject, SamplingControllerDelegate {
+
+
     // MARK: - Properties
 
-    public static let shared: EventPlatformClient = {
+    @objc public static let shared: EventPlatformClient = {
         return EventPlatformClient()
     }()
-    
-    // SINGLETONTODO
-    /// Session for requesting data
-    let session = MWKDataStore.shared().session
+
+    @objc public var isEnabled: Bool {
+        return UserDefaults.standard.wmf_sendUsageReports
+    }
+
+    let dataStore = MWKDataStore.shared()
     let samplingController: SamplingController
     let storageManager: StorageManager?
+    let userSession = UserSession.shared
 
+    var sessionID: String {
+        return userSession.sessionID
+    }
+    
+    public var sessionStartDate: Date? {
+        return userSession.sessionStartDate
+    }
+        
+    public func resetAll() {
+        samplingController.removeAllSamplingCache()
+        userSession.resetAll()
+    }
+    
+    public func generateSessionID() {
+        userSession.generateSessionID()
+    }
+    
+    public func needsReset() -> Bool {
+        return userSession.needsReset()
+    }
+    
+    public func resetBackgroundTimestamp() {
+        userSession.resetBackgroundTimestamp()
+    }
+    
+    public func appDidBackground() {
+        userSession.appDidBackground()
+    }
+    
     /**
      * Store events until the library is finished initializing
      *
@@ -90,6 +124,12 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
         case editHistoryCompare = "ios.edit_history_compare"
         case remoteNotificationsInteraction = "ios.notification_interaction"
         case talkPagesInteraction = "ios.talk_page_interaction"
+        case readingLists = "ios.reading_lists"
+        case userHistory = "ios.user_history"
+        case search = "ios.search"
+        case sessions = "app_session"
+        case settings = "ios.setting_action"
+        case login = "ios.login_action"
     }
     
     /**
@@ -105,6 +145,12 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
         case editHistoryCompare = "/analytics/mobile_apps/ios_edit_history_compare/2.1.0"
         case remoteNotificationsInteraction = "/analytics/mobile_apps/ios_notification_interaction/2.1.0"
         case talkPages = "/analytics/mobile_apps/ios_talk_page_interaction/1.0.0"
+        case readingLists = "/analytics/mobile_apps/ios_reading_lists/2.0.0"
+        case userHistory = "/analytics/mobile_apps/ios_user_history/1.0.0"
+        case search = "/analytics/mobile_apps/ios_search/2.0.0"
+        case sessions = "/analytics/mobile_apps/app_session/1.0.0"
+        case settings = "/analytics/mobile_apps/ios_setting_action/1.0.0"
+        case login = "/analytics/mobile_apps/ios_login_action/1.0.1"
     }
 
     /**
@@ -174,32 +220,21 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
     }
     private var _streamConfigurations: [Stream: StreamConfiguration]? = nil
 
-    /**
-     * Updated when app enters background, used for determining if the session has
-     * expired.
-     */
-    private var lastTimestamp: Date = Date()
-    
-    /**
-     * Return a session identifier
-     * - Returns: session ID
-     *
-     * The identifier is a string of 20 zero-padded hexadecimal digits
-     * representing a uniformly random 80-bit integer.
-     */
-    internal var sessionID: String {
-        queue.sync {
-            guard let sID = _sessionID else {
-                let newID = generateID()
-                _sessionID = newID
-                return newID
-            }
 
-            return sID
-        }
+    private var isAnon: Bool {
+        return !dataStore.authenticationManager.isLoggedIn
     }
-    private var _sessionID: String?
 
+    private var _primaryLanguage: String {
+        if let appLanguage = dataStore.languageLinkController.appLanguage {
+            return appLanguage.languageCode
+        }
+        return "en"
+    }
+
+    public var primaryLanguage: String {
+        return _primaryLanguage
+    }
 
     // MARK: - Methods
 
@@ -219,81 +254,6 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
         self.fetchStreamConfiguration(retries: 10, retryDelay: 30)
     }
 
-    /**
-     * This method is called by the application delegate in
-     * `applicationWillResignActive()` and disables event logging.
-     */
-    public func appInBackground() {
-        lastTimestamp = Date()
-    }
-    /**
-     * This method is called by the application delegate in
-     * `applicationDidBecomeActive()` and re-enables event logging.
-     *
-     * If it has been more than 15 minutes since the app entered background state,
-     * a new session is started.
-     */
-    public func appInForeground() {
-        if sessionTimedOut() {
-            resetSession()
-        }
-    }
-    /**
-     * This method is called by the application delegate in
-     * `applicationWillTerminate()`
-     *
-     * We do not persist session ID on app close because we have decided that a
-     * session ends when the user (or the OS) has closed the app or when 15
-     * minutes of inactivity have passed.
-     */
-    public func appWillClose() {
-        // Placeholder for any onTerminate logic
-    }
-
-    /**
-     * Generates a new identifier using the same algorithm as EPC libraries for
-     * web and Android
-     */
-    private func generateID() -> String {
-        var id: String = ""
-        for _ in 1...5 {
-            id += String(format: "%04x", arc4random_uniform(65535))
-        }
-        return id
-    }
-    
-    /**
-     * Called when user toggles logging permissions in Settings
-     *
-     * This assumes storageManager's deviceID will be reset separately by a
-     * different owner (EventLoggingService's `reset()` method)
-     */
-    public func reset() {
-        resetSession()
-    }
-
-    /**
-     * Unset the session
-     */
-    private func resetSession() {
-        queue.async {
-            self._sessionID = nil
-        }
-        samplingController.removeAllSamplingCache()
-    }
-
-    /**
-     * Check if session expired, based on last active timestamp
-     *
-     * A new session ID is required if it has been more than 15 minutes since the
-     * user was last active (e.g. when app entered background).
-     */
-    private func sessionTimedOut() -> Bool {
-        /*
-         * A TimeInterval value is always specified in seconds.
-         */
-        return lastTimestamp.timeIntervalSinceNow < -900
-    }
 
     /**
      * Fetch stream configuration from stream configuration service
@@ -472,6 +432,19 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
          */
         let event: E
 
+        /**
+         * Required field for all iOS schemas
+         * False for logged in users
+        **/
+
+        let isAnon: Bool
+
+        /**
+         * Required field for all iOS schemas
+         * Represents the app's primary language
+        **/
+        let primaryLanguage: String
+
         enum CodingKeys: String, CodingKey {
             case schema = "$schema"
             case meta
@@ -479,6 +452,8 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
             case appSessionID = "app_session_id"
             case dt
             case event
+            case isAnon = "is_anon"
+            case primaryLanguage = "primary_language"
         }
         
         func encode(to encoder: Encoder) throws {
@@ -489,6 +464,8 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
                 try container.encode(appSessionID, forKey: .appSessionID)
                 try container.encode(dt, forKey: .dt)
                 try container.encode(E.schema, forKey: .schema)
+                try container.encode(isAnon, forKey: .isAnon)
+                try container.encode(primaryLanguage, forKey: .primaryLanguage)
                 try event.encode(to: encoder)
             } catch let error {
                 DDLogError("EPC: Error encoding event body: \(error)")
@@ -551,10 +528,11 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      *   1st preferred language – in which case use
      *   `MWKLanguageLinkController.sharedInstance().appLanguage.siteURL().host`
      */
-    public func submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil) {
+    public func submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil, completion: (() -> Void)? = nil) {
         let date = Date() // Record the date synchronously so there's no delay
         encodeQueue.async {
             self._submit(stream: stream, event: event, date: date, domain: domain)
+            completion?()
         }
     }
 
@@ -577,7 +555,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
 
         let meta = EventBody<E>.Meta(stream: stream, id: UUID(), domain: domain)
 
-        let eventPayload = EventBody(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, dt: date, event: event)
+        let eventPayload = EventBody(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, dt: date, event: event, isAnon: isAnon, primaryLanguage: primaryLanguage)
         do {
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .iso8601
@@ -678,8 +656,8 @@ private extension EventPlatformClient {
      */
     private func httpPost(url: URL, body: Data? = nil, completion: @escaping ((Result<Void, PostEventError>) -> Void)) {
         DDLogDebug("EPC: Attempting to POST events")
-        let request = session.request(with: url, method: .post, bodyData: body, bodyEncoding: .json)
-        let task = session.dataTask(with: request, completionHandler: { (_, response, error) in
+        let request = dataStore.session.request(with: url, method: .post, bodyData: body, bodyEncoding: .json)
+        let task = dataStore.session.dataTask(with: request, completionHandler: { (_, response, error) in
             let fail: (PostEventError) -> Void = { error in
                 DDLogDebug("EPC: An error occurred sending the request: \(error)")
                 completion(.failure(error))
@@ -710,7 +688,7 @@ private extension EventPlatformClient {
         DDLogDebug("EPC: Attempting to GET data from \(url.absoluteString)")
         var request = URLRequest.init(url: url) // httpMethod = "GET" by default
         request.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
-        let task = session.dataTask(with: request, completionHandler: completion)
+        let task = dataStore.session.dataTask(with: request, completionHandler: completion)
         task?.resume()
     }
 }

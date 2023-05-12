@@ -302,11 +302,8 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 উইকিপিডিয়া থেকে $1";
 "on-this-day-title" = "আজকের এই দিনে";
 "page-history-minor-edits" = "অনুল্লেখ্য সম্পাদনা";
-"page-protected-autoconfirmed" = "এই পাতাটি অর্ধ-সুরক্ষিত।";
 "page-protected-can-not-edit" = "এই পাতা সম্পাদনা করার অধিকার আপনার নেই।";
 "page-protected-can-not-edit-title" = "এই পাতাটি সুরক্ষিত";
-"page-protected-other" = "এই পাতাটি নিম্নের মাত্রা অনুযায়ী সুরক্ষিত: $1";
-"page-protected-sysop" = "এই পাতটি সম্পূর্ণ সুরক্ষিত।";
 "places-accessibility-clear-saved-searches" = "সংরক্ষিত অনুসন্ধানগুলি সাফ করুন";
 "places-accessibility-group" = "$1টি নিবন্ধ";
 "places-accessibility-recenter-map-on-user-location" = "আপনার অবস্থান পুন:চিহ্নিত করুন";
