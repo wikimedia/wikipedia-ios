@@ -395,8 +395,8 @@
 "explore-feed-preferences-show-randomizer-footer-text" = "När kortet Slumpartikel inaktiveras kommer kortet inaktiveras på alla tillgängliga språk.";
 "explore-feed-preferences-show-randomizer-title" = "Visa kortet Slumpartikel";
 "explore-feed-preferences-show-related-pages-title" = "Visa kortet Eftersom du läste";
-"explore-feed-preferences-show-top-read-footer-text" = "När kortet Populära läsningar inaktiveras kommer kortet inaktiveras på alla tillgängliga språk.";
-"explore-feed-preferences-show-top-read-title" = "Visa kortet Populära läsningar";
+"explore-feed-preferences-show-top-read-footer-text" = "När kortet Mest lästa inaktiveras kommer kortet inaktiveras på alla tillgängliga språk.";
+"explore-feed-preferences-show-top-read-title" = "Visa kortet Mest lästa";
 "explore-feed-preferences-top-read-description" = "Dagens mest lästa artiklar";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Inaktivera utforskarflödet";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "När alla kort i utforskarflödet döljs kommer utforskarfliken inaktiveras och ersättas med en inställningsflik";
@@ -414,7 +414,7 @@
 "explore-main-page-heading" = "Idag på Wikipedia";
 "explore-most-read-footer" = "Alla mest lästa artiklar";
 "explore-most-read-generic-heading" = "Mest lästa";
-"explore-most-read-more-list-title-for-date" = "Populärt den $1";
+"explore-most-read-more-list-title-for-date" = "Mest läst den $1";
 "explore-most-read-sub-heading-on-language-wikipedia" = "Från Wikipedia på $1";
 "explore-most-read-sub-heading-on-wikipedia" = "På Wikipedia";
 "explore-nearby-heading" = "Platser i närheten";
@@ -768,7 +768,7 @@
 "places-filter-button-title" = "Filtrera";
 "places-filter-no-saved-places" = "Du har inte några sparade platser";
 "places-filter-saved-articles" = "Sparade artiklar";
-"places-filter-top-articles" = "Populära läsningar";
+"places-filter-top-articles" = "Mest lästa";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artiklar}}";
 "places-filter-top-read-articles" = "Mest lästa artiklar";
 "places-location-enabled" = "Plats aktiverad";
@@ -780,7 +780,7 @@
 "places-search-saved-articles" = "Alla sparade artiklar";
 "places-search-suggested-searches-header" = "Förslag på sökningar";
 "places-search-this-area" = "Resultat i detta område";
-"places-search-top-articles" = "Alla populära artiklar";
+"places-search-top-articles" = "Alla mest lästa artiklar";
 "places-search-top-articles-that-match-scope" = "I närheten";
 "places-search-your-current-location" = "Din aktuella position";
 "places-title" = "Platser";
@@ -948,7 +948,7 @@
 "settings-notifications-echo-failure-title" = "Kunde inte kontrollera prenumerationer på Echo-aviseringar";
 "settings-notifications-echo-failure-try-again" = "Försök igen";
 "settings-notifications-header" = "Meddelas om aktiviteter som rör ditt konto, till exempel meddelanden från andra bidragsgivare, varningar och meddelanden. Allt tillhandahålls med hänsyn till integritet och aktuell och uppdaterad data.";
-"settings-notifications-info" = "Bli meddelad om trender och populära artiklar på Wikipedia med våra push-notiser. Allting tillhandahålls med respekt för integritet och uppdaterad data.";
+"settings-notifications-info" = "Bli meddelad om populära och mest lästa artiklar på Wikipedia med våra push-notiser. Allting tillhandahålls med respekt för integritet och uppdaterad data.";
 "settings-notifications-learn-more" = "Läs mer om notiser";
 "settings-notifications-push-notifications" = "Push-notiser";
 "settings-notifications-system-turn-on" = "Aktivera notiser";
@@ -1104,7 +1104,7 @@
 "theme-sepia-display-name" = "Sepia";
 "top-read-widget-description" = "Ta reda på vad världen läser i dag på Wikipedia.";
 "top-read-widget-readers-count" = "$1 läsare";
-"top-read-widget-title" = "Populära läsningar";
+"top-read-widget-title" = "Mest lästa";
 "two-factor-login-continue" = "Fortsätt att logga in";
 "two-factor-login-instructions" = "Ange tvåstegsverifieringskod";
 "two-factor-login-title" = "Logga in på ditt konto";
