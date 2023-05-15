@@ -2113,9 +2113,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
-- (void)logTappedSettingsFromExplore {
-    [[WMFNavigationEventsFunnel shared] logTappedSettingsFromExplore];
-}
 
 #pragma mark - User was logged out
 

@@ -326,7 +326,6 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) {
         defer {
             navigationBar.updateNavigationItems()
-            ReadingListsFunnel.shared.logTappedEditButton()
         }
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
@@ -347,6 +346,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         if searchBar.isFirstResponder {
             searchBar.resignFirstResponder()
         }
+        ReadingListsFunnel.shared.logTappedEditButton()
     }
     
     func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonItem.SystemItem) -> EditingState {

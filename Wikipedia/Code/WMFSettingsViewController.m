@@ -131,6 +131,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)closeButtonPressed {
+    [[WMFNavigationEventsFunnel shared] logTappedSettingsCloseButton];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -179,6 +180,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)disclosureSwitchChanged:(UISwitch *)disclosureSwitch {
     WMFSettingsMenuItemType type = (WMFSettingsMenuItemType)disclosureSwitch.tag;
+    [self logNavigationEventsForMenuType:type];
     [self updateStateForMenuItemType:type isSwitchOnValue:disclosureSwitch.isOn completion:^{
         [self loadSections];
     }];
