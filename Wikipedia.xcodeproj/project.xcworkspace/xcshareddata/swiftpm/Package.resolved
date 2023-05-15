@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/wikimedia/wikipedia-ios-components.git",
       "state" : {
-        "branch" : "data-flow-exploration",
-        "revision" : "8e7232fe11a2ed4ad49d7e43ea03de21a883503c"
+        "branch" : "data-flow-exploration-1",
+        "revision" : "4afa01d7ff72148e66adcda777b65e7019476a9f"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/wikimedia/wikipedia-ios-data",
       "state" : {
-        "branch" : "data-flow-exploration",
-        "revision" : "454535ff0e2ad199f5e278a95bfa477b5546cab6"
+        "branch" : "data-flow-exploration-1",
+        "revision" : "5078d53b11334e2e284fe0864d0920a2df2776e0"
       }
     }
   ],

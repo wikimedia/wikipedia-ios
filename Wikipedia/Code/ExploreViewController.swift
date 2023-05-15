@@ -47,7 +47,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 #endif
 
         let mediawikiNetworkService = MediawikiNetworkService(session: dataStore.session, configuration: dataStore.configuration)
-        let viewController = NoticeViewController(viewModel: NoticeViewModel(networkService: mediawikiNetworkService))
+        WKDataEnvironment.current.mediawikiNetworkService = mediawikiNetworkService
+
+        let viewController = NoticeViewController(viewModel: NoticeViewModel(title: "Space"))
         present(viewController, animated: true)
     }
     

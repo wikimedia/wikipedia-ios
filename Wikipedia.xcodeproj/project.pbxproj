@@ -20070,7 +20070,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wikimedia/wikipedia-ios-data";
 			requirement = {
-				branch = "data-flow-exploration";
+				branch = "data-flow-exploration-1";
 				kind = branch;
 			};
 		};
@@ -20078,7 +20078,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wikimedia/wikipedia-ios-components.git";
 			requirement = {
-				branch = "data-flow-exploration";
+				branch = "data-flow-exploration-1";
 				kind = branch;
 			};
 		};
