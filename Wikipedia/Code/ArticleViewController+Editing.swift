@@ -84,8 +84,9 @@ extension ArticleViewController {
         }
         sheet.addAction(editLeadSectionAction)
         
-        sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
-
+        sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
+            EditAttemptFunnel.shared.logAbort(articleURL: self.articleURL)
+        })
         present(sheet, animated: true)
     }
 
