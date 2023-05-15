@@ -291,11 +291,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private func handleEditFailure(with error: Error) {
         let nsError = error as NSError
         let errorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
+
+        if let articleURL {
+            EditAttemptFunnel.shared.logSaveFailure(articleURL: articleURL)
+        }
         
         switch errorType {
         case .needsCaptcha:
-
-            
             let captchaUrl = URL(string: nsError.userInfo["captchaUrl"] as? String ?? "")
             let captchaId = nsError.userInfo["captchaId"] as? String ?? ""
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -344,13 +346,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 return
             }
             
-                wmf_showBlockedPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, image: UIImage(named: "error-icon"))
+            wmf_showBlockedPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, image: UIImage(named: "error-icon"))
             
         default:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-        }
-        if let articleURL {
-            EditAttemptFunnel.shared.logSaveFailure(articleURL: articleURL)
         }
     }
     

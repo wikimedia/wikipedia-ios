@@ -31,7 +31,6 @@ extension ArticleViewController {
         } else {
             present(navigationController, animated: true)
         }
-        EditAttemptFunnel.shared.logInit(articleURL: articleURL)
     }
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource) {
@@ -184,7 +183,7 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
         case .success(let changes):
             dismiss(animated: true)
             waitForNewContentAndRefresh(changes.newRevisionID)
-            EditAttemptFunnel.shared.logSaveSucess(articleURL: self.articleURL)
+            EditAttemptFunnel.shared.logSaveSuccess(articleURL: self.articleURL)
         }
     }
     

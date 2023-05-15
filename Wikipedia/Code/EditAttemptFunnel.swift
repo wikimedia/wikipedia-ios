@@ -6,7 +6,7 @@ public final class EditAttemptFunnel {
     static let shared = EditAttemptFunnel()
 
     private struct Event: EventInterface {
-        static let schema: EventPlatformClient.Schema = .editAttempt // check if should do it like this
+        static let schema: EventPlatformClient.Schema = .editAttempt
         let action: EditAction
         let editing_session_id: String
         let editor_interface: String
@@ -57,7 +57,7 @@ public final class EditAttemptFunnel {
         logEvent(articleURL: articleURL, action: .saveAttempt)
     }
 
-    func logSaveSucess(articleURL: URL) {
+    func logSaveSuccess(articleURL: URL) {
         logEvent(articleURL: articleURL, action: .saveSuccess)
     }
 

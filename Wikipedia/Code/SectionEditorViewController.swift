@@ -503,7 +503,6 @@ class SectionEditorViewController: ViewController {
     
     override func accessibilityPerformEscape() -> Bool {
         delegate?.sectionEditorDidCancelEditing(self, navigateToURL: nil)
-        logCancelEdit()
         return true
     }
     
@@ -551,7 +550,6 @@ class SectionEditorViewController: ViewController {
         let alert = UIAlertController(title: CommonStrings.editorExitConfirmationTitle, message: CommonStrings.editorExitConfirmationBody, preferredStyle: .alert)
         let confirmClose = UIAlertAction(title: CommonStrings.discardEditsActionTitle, style: .destructive) { _ in
             self.closeEditor(navigateToURL: url)
-            self.logCancelEdit()
         }
         alert.addAction(confirmClose)
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .default)
@@ -559,13 +557,8 @@ class SectionEditorViewController: ViewController {
         present(alert, animated: true)
     }
 
-    fileprivate func logCancelEdit() {
-        EditAttemptFunnel.shared.logAbort(articleURL: articleURL)
-    }
-
     fileprivate func closeEditor(navigateToURL url: URL? = nil) {
         delegate?.sectionEditorDidCancelEditing(self, navigateToURL: url)
-        logCancelEdit()
     }
 }
 
@@ -603,7 +596,6 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
             showDestructiveDismissAlert()
         } else {
             closeEditor()
-            logCancelEdit()
         }
     }
     
