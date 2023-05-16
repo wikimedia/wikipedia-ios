@@ -8,6 +8,7 @@ extension ArticleViewController {
         } else {
             showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
         }
+        EditAttemptFunnel.shared.logInit(articleURL: articleURL)
     }
     
     func showEditorForFullSource(selectedTextEditInfo: SelectedTextEditInfo? = nil) {
@@ -102,8 +103,9 @@ extension ArticleViewController {
         }
         sheet.addAction(editLeadSectionAction)
         
-        sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
-
+        sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
+            EditAttemptFunnel.shared.logAbort(articleURL: self.articleURL)
+        })
         present(sheet, animated: true)
     }
 
@@ -197,15 +199,18 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
         switch result {
         case .failure(let error):
             showError(error)
+            EditAttemptFunnel.shared.logSaveFailure(articleURL: self.articleURL)
         case .success(let changes):
             dismiss(animated: true)
             waitForNewContentAndRefresh(changes.newRevisionID)
+            EditAttemptFunnel.shared.logSaveSuccess(articleURL: self.articleURL)
         }
     }
     
     func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController, navigateToURL url: URL?) {
         dismiss(animated: true) {
             self.navigate(to: url)
+            EditAttemptFunnel.shared.logAbort(articleURL: self.articleURL)
         }
     }
 

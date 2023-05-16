@@ -453,7 +453,7 @@ extension ReadingListEntryCollectionViewController {
             return
         }
         navigate(to: articleURL)
-        ReadingListsFunnel.shared.logReadStartIReadingList(articleURL)
+        ReadingListsFunnel.shared.logReadStartReadingList(articleURL)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
