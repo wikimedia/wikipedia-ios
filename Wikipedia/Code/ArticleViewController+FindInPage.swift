@@ -56,6 +56,7 @@ extension ArticleViewController {
         view.delegate = self
         view.apply(theme: theme)
         findInPage.view = view
+        NavigationEventsFunnel.shared.logEvent(action: .articleToolbarSearchSuccess)
     }
     
     func showFindInPage() {
