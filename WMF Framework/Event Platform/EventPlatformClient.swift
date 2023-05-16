@@ -130,6 +130,7 @@ import CocoaLumberjackSwift
         case sessions = "app_session"
         case settings = "ios.setting_action"
         case login = "ios.login_action"
+        case editAttempt = "eventlogging_EditAttemptStep"
     }
     
     /**
@@ -151,6 +152,7 @@ import CocoaLumberjackSwift
         case sessions = "/analytics/mobile_apps/app_session/1.0.0"
         case settings = "/analytics/mobile_apps/ios_setting_action/1.0.0"
         case login = "/analytics/mobile_apps/ios_login_action/1.0.1"
+        case editAttempt = "/analytics/legacy/editattemptstep/1.4.0"
     }
 
     /**

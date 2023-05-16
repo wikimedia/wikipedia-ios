@@ -137,6 +137,7 @@
 "button-next" = "Seterusnya";
 "button-ok" = "OK";
 "button-publish" = "Terbitkan";
+"button-publish-anyway" = "Tetap terbitkan";
 "button-read-now" = "Baca sekarang";
 "button-report-a-bug" = "Laporkan pepijat";
 "button-save-for-later" = "Simpan untuk nanti";
@@ -231,7 +232,10 @@
 "edit-italic-accessibility-label" = "Tambah pemformatan italik";
 "edit-italic-remove-accessibility-label" = "Buang pemformatan italik";
 "edit-link-accessibility-label" = "Tambah sintaks pautan";
+"edit-link-display-text-title" = "Teks paparan";
+"edit-link-link-target-title" = "Sasaran pautan";
 "edit-link-remove-accessibility-label" = "Buang sintaks pautan";
+"edit-link-remove-link-title" = "Buang pautan";
 "edit-link-title" = "Sunting pautan";
 "edit-menu-item" = "Sunting";
 "edit-minor-learn-more-text" = "Ketahui lebih lanjut mengenai suntingan kecil";
@@ -398,6 +402,7 @@
 "field-token-title" = "Token";
 "field-username-placeholder" = "masukkan nama pengguna";
 "field-username-title" = "Nama pengguna";
+"find-clear-button-accessibility" = "Kosongkan pencarian";
 "find-infolabel-number-matches" = "$1 / $2";
 "find-next-button-accessibility" = "Hasil carian berikutnya";
 "find-previous-button-accessibility" = "Hasil carian sebelumnya";
@@ -431,6 +436,7 @@
 "icon-shortcut-search-title" = "Cari dalam Wikipedia";
 "image-gallery-unknown-owner" = "Pengarang tidak dikenali.";
 "import-shared-reading-list-default-title" = "Senarai Bacaan Saya";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Sertai tinjauan";
 "in-the-news-sub-title-from-language-wikipedia" = "Dari Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Dari Wikipedia";
 "in-the-news-title" = "Berita terkini";
@@ -499,10 +505,14 @@
 "no-internet-connection-article-reload-button" = "Kembali ke versi terakhir yang disimpan";
 "notifications-center-agent-description-from-format" = "Daripada $1";
 "notifications-center-cell-notification-type-accessibility-label-format" = "Pemberitahuan $1";
+"notifications-center-change-password" = "Tukar katalaluan";
+"notifications-center-destination-app" = "Dalam ap";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Hidupkan pemberitahuan";
 "notifications-center-filters-read-status-item-title-all" = "Semua";
 "notifications-center-filters-read-status-item-title-read" = "Baca";
+"notifications-center-filters-read-status-item-title-unread" = "Awabaca";
+"notifications-center-filters-read-status-section-title" = "Status Baca";
 "notifications-center-filters-title" = "Penapis";
 "notifications-center-filters-types-item-title-all" = "Semua jenis";
 "notifications-center-filters-types-section-title" = "Jenis pemberitahuan";
@@ -514,7 +524,9 @@
 "notifications-center-go-to-wikidata-item" = "Butir Wikidata";
 "notifications-center-go-to-your-talk-page" = "Laman perbincangan anda";
 "notifications-center-inbox-title" = "Projek";
+"notifications-center-inbox-wikipedias-section-title" = "Wikipedia";
 "notifications-center-login-notifications" = "Pemberitahuan log masuk";
+"notifications-center-mark" = "Tanda";
 "notifications-center-mark-as-read" = "Tanda sebagai Dibaca";
 "notifications-center-mark-as-unread" = "Tanda sebagai Awabaca";
 "notifications-center-more-action-accessibility-label" = "Lebih";

@@ -52,6 +52,44 @@
 			<string> تم إجراء %1$d من التغييرات الطفيفة</string>
 		</dict>
 	</dict>
+	<key>aaald-summary-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ بواسطة %#@v2@ في %#@v3@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> تغيير %1$d </string>
+			<key>other</key>
+			<string> يتغير %1$d </string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> محرر %2$d </string>
+			<key>other</key>
+			<string> المحررين %2$d </string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> يوم %3$d </string>
+			<key>other</key>
+			<string> %3$d أيام</string>
+		</dict>
+	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -315,6 +353,80 @@
 			<string> رسائل %1$d </string>
 		</dict>
 	</dict>
+	<key>notifications-center-status-in-projects</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string> في مشاريع %1$d </string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-projects-plain</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string> مشاريع %1$d </string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-types</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string> %1$d من الأنواع</string>
+		</dict>
+	</dict>
+	<key>notifications-push-talk-body-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ على %2$@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> رسالة جديدة %1$d </string>
+			<key>other</key>
+			<string> رسائل جديدة %1$d </string>
+		</dict>
+	</dict>
+	<key>notifications-push-talk-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> رسالة جديدة </string>
+			<key>other</key>
+			<string> رسائل جديدة</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -329,6 +441,22 @@
 			<string>%1$d حدث تاريخي</string>
 			<key>other</key>
 			<string>%1$d أحداث تاريخية</string>
+		</dict>
+	</dict>
+	<key>on-this-day-footer-showing-event-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ في هذا اليوم</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> حدث تاريخي آخر بقيمة %1$d </string>
+			<key>other</key>
+			<string> %1$d من الأحداث التاريخية الأخرى</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-addition</key>
@@ -550,6 +678,38 @@
 			<string>مؤخرا</string>
 		</dict>
 	</dict>
+	<key>relative-date-hrs-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> قبل %1$d ساعة </string>
+			<key>other</key>
+			<string> قبل %1$d ساعة</string>
+		</dict>
+	</dict>
+	<key>relative-date-min-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> قبل %1$d دقيقة </string>
+			<key>other</key>
+			<string> قبل %1$d دقيقة</string>
+		</dict>
+	</dict>
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -650,6 +810,22 @@
 			<string>مقالة</string>
 			<key>other</key>
 			<string>مقالات</string>
+		</dict>
+	</dict>
+	<key>talk-page-replies-count-accessibilty-label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> رد %1$d </string>
+			<key>other</key>
+			<string> ردود %1$d </string>
 		</dict>
 	</dict>
 </dict>
