@@ -74,6 +74,7 @@ class SavedViewController: ViewController {
         toggleButtons.first { $0.tag != sender.tag }?.isSelected = false
         sender.isSelected = true
         currentView = View(rawValue: sender.tag) ?? .savedArticles
+        logTappedView(currentView)
     }
 
     @objc func toggleCurrentView(_ newViewRawValue: Int) {
@@ -103,6 +104,7 @@ class SavedViewController: ViewController {
                 activeEditableCollection = savedArticlesViewController
                 extendedNavBarViewType = isCurrentViewEmpty ? .none : .search
                 evaluateEmptyState()
+                ReadingListsFunnel.shared.logTappedAllArticlesTab()
             case .readingLists :
                 readingListsViewController?.editController.navigationDelegate = self
                 savedArticlesViewController?.editController.navigationDelegate = nil
@@ -113,6 +115,7 @@ class SavedViewController: ViewController {
                 activeEditableCollection = readingListsViewController
                 extendedNavBarViewType = isCurrentViewEmpty ? .none : .createNewReadingList
                 evaluateEmptyState()
+                ReadingListsFunnel.shared.logTappedReadingListsTab()
             }
         }
     }
@@ -165,6 +168,15 @@ class SavedViewController: ViewController {
         vc.view.removeFromSuperview()
         vc.willMove(toParent: nil)
         vc.removeFromParent()
+    }
+
+    private func logTappedView(_ view: View) {
+        switch view {
+        case .savedArticles:
+            NavigationEventsFunnel.shared.logEvent(action: .savedAll)
+        case .readingLists:
+            NavigationEventsFunnel.shared.logEvent(action: .savedLists)
+        }
     }
     
     // MARK: - View lifecycle
@@ -334,6 +346,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         if searchBar.isFirstResponder {
             searchBar.resignFirstResponder()
         }
+        ReadingListsFunnel.shared.logTappedEditButton()
     }
     
     func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonItem.SystemItem) -> EditingState {

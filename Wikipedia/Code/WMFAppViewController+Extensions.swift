@@ -102,6 +102,9 @@ extension WMFAppViewController {
 extension WMFAppViewController: SettingsPresentationDelegate {
 
     public func userDidTapSettings(from viewController: UIViewController?) {
+        if viewController is ExploreViewController {
+            NavigationEventsFunnel.shared.logTappedSettingsFromExplore()
+        }
         showSettings(animated: true)
     }
 
