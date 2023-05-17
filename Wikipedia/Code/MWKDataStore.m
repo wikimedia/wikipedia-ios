@@ -46,8 +46,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 @property (nonatomic, strong) MWKLanguageLinkController *languageLinkController;
 @property (nonatomic, strong) WMFNotificationsController *notificationsController;
 
-@property (nonatomic, strong) MobileviewToMobileHTMLConverter *mobileviewConverter;
-
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
 
@@ -120,7 +118,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:session configuration:configuration languageLinkController:self.languageLinkController authManager:authenticationManager];
         self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self languageLinkController:self.languageLinkController];
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:session configuration:configuration dataStore:self];
-        self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
     }
     return self;
 }

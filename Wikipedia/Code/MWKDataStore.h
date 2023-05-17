@@ -1,4 +1,5 @@
 @import Foundation;
+@import WebKit;
 #import <WMF/WMFBlockDefinitions.h>
 
 @class MWKSavedPageList;
@@ -97,8 +98,6 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 @property (readonly, copy, nonatomic, nullable) NSURL *primarySiteURL;
 
 #pragma mark - Caching
-
-@property (readonly, strong, nonatomic) MobileviewToMobileHTMLConverter *mobileviewConverter;
 
 - (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock;
 
