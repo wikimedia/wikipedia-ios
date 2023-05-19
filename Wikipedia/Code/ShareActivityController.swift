@@ -144,7 +144,7 @@ class ShareActivityController: UIActivityViewController {
             items.append(text)
         }
         
-        if let shareURL = article.url?.wmf_URLForTextSharing {
+        if let shareURL = article.url?.wmf_URL(withOptionalFragment: article.viewedFragment)?.wmf_URLForTextSharing {
             items.append(shareURL)
         }
 
@@ -162,7 +162,7 @@ class ShareActivityController: UIActivityViewController {
         items.append(WMFItemSourceWrapperExcludingActivityTypes(itemSource: textActivitySource, excludedActivityTypes: [.copyToPasteboard]))
 
         // shareURL is the only item that should be included in the UIActivity.ActivityType.copyToPasteboard activity.
-        if let shareURL = article.url?.wmf_URLForTextSharing {
+        if let shareURL = article.url?.wmf_URL(withOptionalFragment: article.viewedFragment)?.wmf_URLForTextSharing {
             items.append(shareURL)
         }
 
@@ -180,7 +180,7 @@ class ShareActivityController: UIActivityViewController {
         items.append(WMFItemSourceWrapperExcludingActivityTypes(itemSource: textActivitySource, excludedActivityTypes: [.copyToPasteboard]))
         
         // shareURL is the only item that should be included in the UIActivity.ActivityType.copyToPasteboard activity.
-        if let shareURL = article.url?.wmf_URLForTextSharing {
+        if let shareURL = article.url?.wmf_URL(withOptionalFragment: article.viewedFragment)?.wmf_URLForTextSharing {
             items.append(shareURL)
         }
         
@@ -202,7 +202,7 @@ class ShareActivityController: UIActivityViewController {
             items.append(image)
             shareURL = article.url?.wmf_URLForImageSharing
         } else {
-            shareURL = article.url?.wmf_URLForTextSharing
+            shareURL = article.url?.wmf_URL(withOptionalFragment: article.viewedFragment)?.wmf_URLForTextSharing
         }
         
         if let shareURL = shareURL {
