@@ -22,15 +22,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-FOUNDATION_EXPORT NSString *const MWKDataStoreValidImageSitePrefix;
-
-/**
- * Creates an image URL by appending @c path to @c MWKDataStoreValidImageSitePrefix.
- * @param path The relative path to an image <b>without the leading slash</b>. For example,
- *             <code>@"File.jpg/440px-File.jpg"</code>.
- */
-extern NSString *MWKCreateImageURLWithPath(NSString *path);
-
 /**
  * Subscribe to get notifications when a WMFArticle is
  * added to saved pages, history, etc…
@@ -104,8 +95,6 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 @property (nonatomic, strong, readonly) WMFExploreFeedContentController *feedContentController;
 
 - (void)teardownFeedImportContext;
-
-- (void)prefetchArticles; // fill the article cache to speed up initial feed load
 
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;

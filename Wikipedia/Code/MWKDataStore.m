@@ -16,8 +16,6 @@ NSString *const WMFViewContextDidResetNotification = @"WMFViewContextDidResetNot
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
 static const NSInteger WMFCurrentLibraryVersion = 15;
 
-NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
-
 NSString *const WMFCoreDataSynchronizerInfoFileName = @"Wikipedia.info";
 
 NSString *const WMFMainContextCrossProcessNotificiationChannelNameKey = @"CrossProcessNotificiationChannelName";
@@ -25,10 +23,6 @@ NSString *const WMFMainContextCrossProcessNotificationChannelNamePrefix = @"org.
 
 NSString *const WMFCacheContextCrossProcessNotificiationChannelNameKey = @"CacheContextCrossProcessNotificiationChannelName";
 NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"org.wikimedia.wikipedia.cache-cd-cpn-";
-
-NSString *MWKCreateImageURLWithPath(NSString *path) {
-    return [MWKDataStoreValidImageSitePrefix stringByAppendingString:path];
-}
 
 @interface MWKDataStore () <WMFAuthenticationManagerDelegate, WMFSessionAuthenticationDelegate>
 
@@ -631,42 +625,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return [[NSFileManager defaultManager] moveItemAtURL:legacyDirectory toURL:newDirectory error:error];
 }
 
-- (void)markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:(NSManagedObjectContext *)moc {
-    NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES"];
-    request.fetchLimit = 500;
-    NSError *fetchError = nil;
-    NSArray *downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
-    if (fetchError) {
-        DDLogError(@"Error fetching downloaded articles: %@", fetchError);
-        return;
-    }
-
-    while (downloadedArticles.count > 0) {
-        @autoreleasepool {
-            for (WMFArticle *article in downloadedArticles) {
-                article.isDownloaded = NO;
-            }
-
-            if ([moc hasChanges]) {
-                NSError *saveError = nil;
-                [moc save:&saveError];
-                if (saveError) {
-                    DDLogError(@"Error saving downloaded articles: %@", fetchError);
-                    return;
-                }
-                [moc reset];
-            }
-        }
-
-        downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
-        if (fetchError) {
-            DDLogError(@"Error fetching downloaded articles: %@", fetchError);
-            return;
-        }
-    }
-}
-
 #pragma mark - Memory
 
 - (void)didReceiveMemoryWarningWithNotification:(NSNotification *)note {
@@ -695,17 +653,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 }
 
 #pragma mark - Legacy DataStore
-
-+ (NSString *)mainDataStorePath {
-    NSString *documentsFolder = [[NSFileManager defaultManager] wmf_containerPath];
-    return [documentsFolder stringByAppendingPathComponent:@"Data"];
-}
-
-+ (NSString *)appSpecificMainDataStorePath { // deprecated, use the group folder from mainDataStorePath
-    NSString *documentsFolder =
-        [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    return [documentsFolder stringByAppendingPathComponent:@"Data"];
-}
 
 - (void)setupLegacyDataStore {
     NSString *pathToExclude = [self pathForSites];
@@ -818,13 +765,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return dict[@"entries"];
 }
 
-#pragma mark - helper methods
-
-- (NSInteger)sitesDirectorySize {
-    NSURL *sitesURL = [NSURL fileURLWithPath:[self pathForSites]];
-    return (NSInteger)[[NSFileManager defaultManager] sizeOfDirectoryAt:sitesURL];
-}
-
 #pragma mark - Deletion
 
 - (NSError *)removeFolderAtBasePath {
@@ -834,22 +774,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 }
 
 #pragma mark - Cache
-
-- (void)prefetchArticles {
-    NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.fetchLimit = 1000;
-    NSManagedObjectContext *moc = self.viewContext;
-    NSArray<WMFArticle *> *prefetchedArticles = [moc executeFetchRequest:request error:nil];
-    for (WMFArticle *article in prefetchedArticles) {
-        NSString *key = article.key;
-        if (!key) {
-            continue;
-        }
-        NSString *variant = article.variant;
-        WMFInMemoryURLKey *cacheKey = [[WMFInMemoryURLKey alloc] initWithDatabaseKey:key languageVariantCode:variant];
-        [self.articleCache setObject:article forKey:cacheKey];
-    }
-}
 
 - (void)clearMemoryCache {
     @synchronized(self.articleCache) {

@@ -1379,10 +1379,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return NO;
 }
 
-- (BOOL)mainViewControllerIsDisplayingContent {
-    return self.navigationController.viewControllers.count > 1;
-}
-
 - (WMFArticleViewController *)visibleArticleViewController {
     UINavigationController *navVC = self.navigationController;
     UIViewController *topVC = navVC.topViewController;
@@ -1390,10 +1386,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return (WMFArticleViewController *)topVC;
     }
     return nil;
-}
-
-- (UIViewController *)viewControllerForTab:(WMFAppTabType)tab {
-    return self.viewControllers[tab];
 }
 
 #pragma mark - Accessors
