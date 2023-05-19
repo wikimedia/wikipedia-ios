@@ -569,7 +569,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 
 - (void)markAllNeedingConversionFromMobileviewArticlesAsNotDownloaded:(NSManagedObjectContext *)moc {
     NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES && isConversionFromMobileViewNeeded == YES"];
+    request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isDownloaded == YES && isConversionFromMobileViewNeeded == YES"];
     request.fetchLimit = 500;
     request.propertiesToFetch = @[];
     NSError *fetchError = nil;
@@ -581,7 +581,9 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     while (articles.count > 0) {
         @autoreleasepool {
             for (WMFArticle *article in articles) {
+                // This will put article in a savedDate = {date} and isDownloaded = NO state, which allows SavedArticlesFetcher to pick it up for online downloading.
                 article.isDownloaded = NO;
+                article.isConversionFromMobileViewNeeded = NO;
             }
             if ([moc hasChanges]) {
                 NSError *saveError = nil;
