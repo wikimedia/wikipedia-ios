@@ -459,6 +459,7 @@ class TalkPageViewController: ViewController {
     
     fileprivate func pushToRevisionHistory() {
         let historyVC = PageHistoryViewController(pageTitle: viewModel.pageTitle, pageURL: viewModel.siteURL)
+        historyVC.apply(theme: theme)
         navigationController?.pushViewController(historyVC, animated: true)
     }
     
