@@ -165,7 +165,8 @@ final class NavigationStateController: NSObject {
                 guard let readingList = managedObject(with: info.readingListURIString, in: moc) as? ReadingList else {
                     return
                 }
-                let readingListDetailVC =  ReadingListDetailViewController(for: readingList, with: dataStore)
+                let displayType = navigationController.viewControllers.count == 0 ? ReadingListDetailDisplayType.modal : ReadingListDetailDisplayType.pushed
+                let readingListDetailVC =  ReadingListDetailViewController(for: readingList, with: dataStore, displayType: displayType)
                 pushOrPresent(readingListDetailVC, navigationController: navigationController, presentation: viewController.presentation)
             case (.detail, let info?):
                 guard
