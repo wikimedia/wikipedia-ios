@@ -924,7 +924,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                done();
                            }];
         } else if (NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume) {
-            [self.navigationStateController restoreNavigationStateFor:self.navigationController
+            [self.navigationStateController restoreLastArticleFor:self.navigationController
                                                                    in:self.dataStore.viewContext
                                                                  with:self.theme
                                                            completion:^{
