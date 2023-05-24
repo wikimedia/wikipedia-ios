@@ -4,9 +4,13 @@ import Foundation
 /// https://github.com/wikimedia/schemas-event-secondary/blob/master/jsonschema/analytics/legacy/editattemptstep/current.yaml
 public final class EditAttemptFunnel {
     static let shared = EditAttemptFunnel()
-
-    private struct Event: EventInterface {
+    
+    private struct EventContainer: EventInterface {
         static let schema: EventPlatformClient.Schema = .editAttempt
+        let event: Event
+    }
+
+    private struct Event: Codable {
         let action: EditAction
         let editing_session_id: String
         let editor_interface: String
@@ -40,9 +44,9 @@ public final class EditAttemptFunnel {
         let userId = getUserID(articleURL: articleURL)
 
         let event = Event(action: action, editing_session_id: "", editor_interface: editorInterface, integration: integrationID, mw_version: "", platform: platform, user_editcount: 0, user_id: userId, version: 1, page_title: articleURL.wmf_title, page_ns: articleURL.namespace?.rawValue)
-
-        EventPlatformClient.shared.submit(stream: .editAttempt, event: event)
-
+        
+        let container = EventContainer(event: event)
+        EventPlatformClient.shared.submit(stream: .editAttempt, event: container)
     }
 
     func logInit(articleURL: URL) {
