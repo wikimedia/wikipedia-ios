@@ -46,7 +46,7 @@ public final class EditAttemptFunnel {
         let event = Event(action: action, editing_session_id: "", editor_interface: editorInterface, integration: integrationID, mw_version: "", platform: platform, user_editcount: 0, user_id: userId, version: 1, page_title: articleURL.wmf_title, page_ns: articleURL.namespace?.rawValue)
         
         let container = EventContainer(event: event)
-        EventPlatformClient.shared.submit(stream: .editAttempt, event: container)
+        EventPlatformClient.shared.submit(stream: .editAttempt, event: container, needsMinimal: true)
     }
 
     func logInit(articleURL: URL) {
