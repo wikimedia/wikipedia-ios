@@ -10,10 +10,17 @@ We have a Github Action [workflow](../.github/workflows/localization.yml) that a
 
 Our PR unit tests are run in an Xcode Cloud workflow named "Run Tests". This kicks off any time a PR is opened or changed against any branch.
 
-Note: In order to get our [localization tests](../WikipediaUnitTests/Code/TWNStringsTests.m) to run properly, some workarounds were needed to make the localization source code (files within `Wikipedia/iOS Native Localizations` and `Wikipedia/Localizations`) available in the Xcode Cloud environment.
 
-1. We made references to source root directory dynamic, depending on if tests are running locally or within the Xcode Cloud context. This source root directory is referenced when pulling the resources referenced in "Wikipedia/iOS Native Localizations" or "Wikipedia/Localizations" for evaluations in tests. We are using `SOURCE_ROOT_DIR` key in the unit tests Info.plist [file](../WikipediaUnitTests/Info.plist) which has value of $(SRCROOT) by default, to run locally. This key's value is then updated before tests are run in the Xcode Cloud environment, via [ci_pre_xcodebuild.sh](../ci_scripts/ci_pre-xcodebuild.sh) and our [copy_sourceroot.sh](../ci_scripts/copy_sourceroot.sh) script.
-2. We added a relative symlink to the `Wikipedia/iOS Native Localizations` and `Wikipedia/Localizations` directories from the `ci_scripts` directory.
+#### Localization Tests
+
+In order to get our [localization tests](../WikipediaUnitTests/Code/TWNStringsTests.m) to run properly, some workarounds were needed to make the localization source code (files within `Wikipedia/iOS Native Localizations` and `Wikipedia/Localizations`) available in the Xcode Cloud environment.
+
+1. We made references to source root directory dynamic, depending on if tests are running locally or within the Xcode Cloud context. This source root directory is referenced when pulling the resources referenced in `Wikipedia/iOS Native Localizations` or `Wikipedia/Localizations` for evaluations in these tests. We are using `SOURCE_ROOT_DIR` key in the unit tests Info.plist [file](../WikipediaUnitTests/Info.plist) which has value of $(SRCROOT) by default, to run locally. This key's value is then updated before tests are run in the Xcode Cloud environment, via [ci_pre_xcodebuild.sh](../ci_scripts/ci_pre_xcodebuild.sh) and our [copy_sourceroot.sh](../ci_scripts/copy_sourceroot.sh) script.
+2. We added a relative symlink from `ci_scripts` to the localizations directories. First a `Wikipedia` directory was made in `ci_scripts`, then symlinks were added from that directory like this:
+
+`ln -s ../../Wikipedia/"iOS Native Localizations" "iOS Native Localizations"`
+
+Changes were then committed to git ([example](https://github.com/wikimedia/wikipedia-ios/pull/4507/commits/86d9f3150c2e5a021910eba0a3e21a96ad0a27e6)). 
 
 ## Nightly Production Build
 
@@ -21,13 +28,13 @@ Our CI process distributes a new production Wikipedia app to TestFlight for inte
 
 ### GitHub Action
 
-Every night, we run a Github [Action]((../.github/workflows/tag_latest_beta.yml)) titled "Tag Latest Beta". This script moves the git tag `latest_beta` to the latest commit in our `main` branch. If the `latest_beta` tag is already located at the last commit, it does nothing.
+Every night, we run a Github [Action](../.github/workflows/tag_latest_beta.yml) titled "Tag Latest Beta". This script moves the git tag `latest_beta` to the latest commit in our `main` branch. If the `latest_beta` tag is already located at the last commit, it does nothing.
 
 ### Xcode Cloud
 
 Xcode Cloud has a workflow titled "Nightly Build" that is set to trigger a build distribution whenever the `latest_beta` tag changes.
 
-Once a build completes in this workflow, it pushes a git tag entitled `betas/{build number}` to repository, so that we know which commit a nightly build was made against. It performs this task via [ci_post_xcodebuild.sh](../ci_scripts/ci_post-xcodebuild.sh) and our [tag_script_xcodebuild.sh](../ci_scripts/tag_script_xcodebuild.sh) script.
+Once a build completes in this workflow, it pushes a git tag entitled `betas/{build number}` to the repository, so that we know which commit a nightly build is built against. It performs this task via [ci_post_xcodebuild.sh](../.ci_scripts/ci_post-xcodebuild.sh) and our [tag_script_xcodebuild.sh](../.ci_scripts/tag_script_xcodebuild.sh) script.
 
 ## Weekly Staging Build
 
