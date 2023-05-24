@@ -552,11 +552,4 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
             set(newValue, forKey: "WMFSessionID")
         }
     }
-
-
-#if UI_TEST
-    @objc func wmf_isFastlaneSnapshotInProgress() -> Bool {
-        return bool(forKey: "FASTLANE_SNAPSHOT")
-    }
-#endif
 }
