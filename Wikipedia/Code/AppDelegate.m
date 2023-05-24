@@ -71,12 +71,6 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
           [[NSFileManager defaultManager] wmf_containerPath]);
 #endif
 
-#if UI_TEST
-    if ([[NSUserDefaults standardUserDefaults] wmf_isFastlaneSnapshotInProgress]) {
-        [UIView setAnimationsEnabled:NO];
-    }
-#endif
-
     [[NSUserDefaults standardUserDefaults] wmf_migrateFontSizeMultiplier];
     NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume = [self shouldRestoreNavigationStackOnResumeAfterBecomingActive];
 

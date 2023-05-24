@@ -37,12 +37,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(articleDeleted(_:)), name: NSNotification.Name.WMFArticleDeleted, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(viewContextDidReset(_:)), name: NSNotification.Name.WMFViewContextDidReset, object: nil)
-
-#if UI_TEST
-        if UserDefaults.standard.wmf_isFastlaneSnapshotInProgress() {
-            collectionView.decelerationRate = .fast
-        }
-#endif
     }
     
     @objc var isGranularUpdatingEnabled: Bool = true {
@@ -433,10 +427,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         isLoadingNewContent = true
         if date == nil, let refreshControl = collectionView.refreshControl, !refreshControl.isRefreshing {
-            #if UI_TEST
-            #else
             refreshControl.beginRefreshing()
-            #endif
             if numberOfSectionsInExploreFeed == 0 {
                 scrollToTop()
             }

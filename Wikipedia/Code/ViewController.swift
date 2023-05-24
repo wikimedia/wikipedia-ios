@@ -613,16 +613,6 @@ extension ViewController: UIScrollViewDelegate {
         scrollView.fixAdjustedContentInsetMismatchBugIfNecessary()
     }
     
-    #if UI_TEST
-    // Needed because XCUIApplication's `pressforDuration:thenDragTo:` method causes inertial scrolling if the
-    // distance scrolled exceeds a certain amount. When we use `pressforDuration:thenDragTo:` to scroll an
-    // element to the top of the screen this can be problematic because the extra inertia can cause the element
-    // to be scrolled beyond the top of the screen.
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        scrollView.setContentOffset(scrollView.contentOffset, animated: false)
-    }
-    #endif
-    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidEndDecelerating(scrollView)
     }

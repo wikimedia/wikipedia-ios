@@ -61,12 +61,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNotificationBannerDidDisplayInForeground:) name:NSNotification.pushNotificationBannerDidDisplayInForeground object:nil];
-
-#if UI_TEST
-    if ([[NSUserDefaults standardUserDefaults] wmf_isFastlaneSnapshotInProgress]) {
-        self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
-    }
-#endif
 }
 
 - (void)dealloc {
