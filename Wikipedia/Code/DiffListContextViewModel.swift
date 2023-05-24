@@ -65,6 +65,14 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
     var expandButtonTitle: String {
         return isExpanded ? WMFLocalizedString("diff-context-lines-expanded-button-title", value:"Hide", comment:"Expand button title in diff compare context section when section is in expanded state.") : WMFLocalizedString("diff-context-lines-collapsed-button-title", value:"Show", comment:"Expand button title in diff compare context section when section is in collapsed state.")
     }
+
+    var expandButtonImage: UIImage {
+        guard let image = UIImage(systemName: isExpanded ? "chevron.up" : "chevron.down") else {
+            fatalError("SF Symbol not found")
+        }
+
+        return image
+    }
     
     private(set) var contextFont: UIFont {
         didSet {
