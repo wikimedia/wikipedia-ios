@@ -27,6 +27,8 @@ Every night, we run a Github [Action]((../.github/workflows/tag_latest_beta.yml)
 
 Xcode Cloud has a workflow titled "Nightly Build" that is set to trigger a build distribution whenever the `latest_beta` tag changes.
 
+Once a build completes in this workflow, it pushes a git tag entitled `betas/{build number}` to repository, so that we know which commit a nightly build was made against. It performs this task via [ci_post_xcodebuild.sh](../ci_scripts/ci_post-xcodebuild.sh) and our [tag_script_xcodebuild.sh](../ci_scripts/tag_script_xcodebuild.sh) script.
+
 ## Weekly Staging Build
 
 Our CI process distributes a new staging Wikipedia app to TestFlight for internal testers once a week on Sundays. This staging app is pointed to various staging server environments, as well as has feature flags turned on for in-development feature testing.
