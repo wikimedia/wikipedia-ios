@@ -52,6 +52,7 @@
 "about-repositories" = "ߟߊ߬ߡߙߊ߬ߦߙߐ";
 "about-repositories-app-source-license" = "ߛߎ߲ ߘߏߝߙߍߕߍ ߦߋ߫ $1 ߟߊߓߌ߬ߟߊ ߟߋ߬ ߘߐ߫.";
 "about-send-feedback" = "ߟߥߊ߬ߟߌ߬ߟߊ߲ ߟߢߊ߬ߟߌ߬ ߗߋߛߓߍ ߗߋ߫";
+"about-testers-details" = "ߛߎ߯ߦߊ ߟߊߘߍ߲߬ߞߣߍ߬ߦߊ ߞߘߐߓߐߣߍ߲߫ ߦߋ߫ $1 ߟߋ߬ ߓߟߏ߫";
 "about-title" = "ߞߊ߬ ߓߍ߲߬";
 "about-translators" = "ߘߟߊߡߌߘߊߟߊ ߟߎ߬";
 "about-translators-details" = "ߓߐߒߖߘߍߘߐߟߊ ߟߎ߬ ߟߊ߫ ߘߟߊߡߌߘߊߟߌ $1 ߞߊ߲߬";
@@ -70,7 +71,10 @@
 "account-creation-saving" = "ߟߊ߬ߞߎ߲߬ߘߎ߬ߟߌ ߦߴߌ ߘߐ߫...";
 "account-creation-title" = "ߖߊ߬ߕߋ߬ߘߊ߬ ߞߎߘߊ߫ ߛߌ߲ߘߌ߫";
 "account-group-title" = "ߌ ߟߊ߫ ߕߊ߬ߡߌ߲߬ߞߊ߲";
+"account-request-vanishing" = "ߖߊ߬ߕߋ߬ߘߊ ߟߊߕߎߣߎ߲߫";
 "account-talk-page-title" = "ߌ ߟߊ߫ ߞߎߡߊ߫ ߞߐߜߍ";
+"account-talk-preferences-auto-sign-discussions" = "ߞߊ߬ ߘߊߘߐߖߊߥߏ ߞߟߊ߬ߣߐ߬ߦߴߊ߬ ߖߘߍ߬ߡߊ߬";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "ߘߊߘߐߖߊߥߏ ߞߟߊ߬ߣߐ߬ߦߊ߬ߟߌ߫ ߖߘߍ߬ߦߋ ߓߐߒߠߊߟߌ ߘߌ߫ ߣߊ߬ ߞߟߊ߬ߣߐ ߟߊߓߊ߯ߙߊ ߕߏ߫ ߞߟߊ߬ߣߐ ߟߊ߬ߓߍ߲߬ߢߐ߲߰ߡߦߊ߬ߘߊ ߘߐ߫";
 "account-talk-preferences-title" = "ߞߎߡߊ߫ ߞߐߜߍ ߝߌ߬ߛߊ߬ߡߊ߲߬ߕߋ";
 "action-add-to" = "ߊ߬ ߝߙߊ߬...";
 "action-add-to-reading-list" = "ߊ߬ ߟߊߘߏ߲߬ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ ߛߙߍߘߍ ߘߐ߫";
