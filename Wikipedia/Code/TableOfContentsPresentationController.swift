@@ -122,7 +122,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
             return
         }
         
-        // Add the dimming view and the presented view to the heirarchy
+        // Add the dimming view and the presented view to the hierarchy
         self.backgroundView.frame = containerView.bounds
         updateStatusBarBackgroundFrame()
 

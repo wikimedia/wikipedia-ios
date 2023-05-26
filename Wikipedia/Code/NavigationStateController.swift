@@ -92,7 +92,7 @@ final class NavigationStateController: NSObject {
         return childArticleViewController ?? articleViewController
     }
     
-    /// Attempts to restore user's entire heirarchy, included presented modal navigation stacks. Currently not in use in preference of restoreLastArticle to improve loading times.
+    /// Attempts to restore user's entire hierarchy, including presented modal navigation stacks. Currently not in use in preference of restoreLastArticle to improve loading times.
     @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme, completion: @escaping () -> Void) {
         guard let tabBarController = navigationController.viewControllers.first as? UITabBarController else {
             assertionFailure("Expected root view controller to be UITabBarController")
