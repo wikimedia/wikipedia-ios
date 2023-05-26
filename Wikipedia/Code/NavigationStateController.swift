@@ -21,6 +21,78 @@ final class NavigationStateController: NSObject {
     private typealias Presentation = ViewController.Presentation
     private typealias Info = ViewController.Info
 
+    /// Finds the topmost article from persisted NavigationState and pushes it onto navigationController
+    @objc func restoreLastArticle(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme, completion: @escaping () -> Void) {
+        guard navigationController.viewControllers.first is UITabBarController else {
+            assertionFailure("Expected root view controller to be UITabBarController")
+            completion()
+            return
+        }
+        guard let navigationState = moc.navigationState else {
+            completion()
+            return
+        }
+        
+        self.theme = theme
+        
+        var articleViewControllers: [NavigationState.ViewController] = []
+        for viewController in navigationState.viewControllers {
+            if let articleViewController = topmostArticleViewControllerFromViewController(viewController) {
+                articleViewControllers.append(articleViewController)
+            }
+        }
+        
+        guard let last = articleViewControllers.last,
+        let articleInfo = last.info else {
+            completion()
+            return
+        }
+        
+        let articleKind = last.kind
+        
+        guard let articleURL = articleURL(from: articleInfo) else {
+            completion()
+            return
+        }
+        
+        let viewControllerToPush: ArticleViewController?
+        if articleKind == .random {
+            viewControllerToPush = RandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+        } else {
+            viewControllerToPush = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+        }
+        
+        guard let viewControllerToPush else {
+            completion()
+            return
+        }
+        
+        viewControllerToPush.isRestoringState = true
+        pushOrPresent(viewControllerToPush, navigationController: navigationController, presentation: .push)
+        completion()
+    }
+    
+    private func topmostArticleViewControllerFromViewController(_ viewController: NavigationState.ViewController) -> NavigationState.ViewController? {
+        
+        var articleViewController: NavigationState.ViewController?
+        switch (viewController.kind, viewController.info) {
+        case (.article, _):
+            articleViewController = viewController
+        case (.random, _):
+            articleViewController = viewController
+        default:
+            break
+        }
+        
+        var childArticleViewController: NavigationState.ViewController?
+        for child in viewController.children {
+            childArticleViewController = topmostArticleViewControllerFromViewController(child)
+        }
+        
+        return childArticleViewController ?? articleViewController
+    }
+    
+    /// Attempts to restore user's entire hierarchy, including presented modal navigation stacks. Currently not in use in preference of restoreLastArticle to improve loading times.
     @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme, completion: @escaping () -> Void) {
         guard let tabBarController = navigationController.viewControllers.first as? UITabBarController else {
             assertionFailure("Expected root view controller to be UITabBarController")
@@ -165,7 +237,8 @@ final class NavigationStateController: NSObject {
                 guard let readingList = managedObject(with: info.readingListURIString, in: moc) as? ReadingList else {
                     return
                 }
-                let readingListDetailVC =  ReadingListDetailViewController(for: readingList, with: dataStore)
+                let displayType = navigationController.viewControllers.count == 0 ? ReadingListDetailDisplayType.modal : ReadingListDetailDisplayType.pushed
+                let readingListDetailVC =  ReadingListDetailViewController(for: readingList, with: dataStore, displayType: displayType)
                 pushOrPresent(readingListDetailVC, navigationController: navigationController, presentation: viewController.presentation)
             case (.detail, let info?):
                 guard
