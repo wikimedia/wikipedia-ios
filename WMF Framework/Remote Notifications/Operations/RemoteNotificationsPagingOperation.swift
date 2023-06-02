@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 
 /// Base class for operations that deal with fetching and persisting user notifications. Operation will recursively call the next page, with overrideable hooks to adjust this behavior.
 class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
@@ -67,17 +68,20 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
     }
     
     private func recursivelyFetchAndSaveNotifications(continueId: String? = nil) {
+        DDLogError("Notifications_Auth_Debug - recursivelyFetchAndSaveNotifications enter for \(project.notificationsApiWikiIdentifier) RemoteNotificationsPagingOperation")
         apiController.getAllNotifications(from: project, needsCrossWikiSummary: needsCrossWikiSummary, filter: filter, continueId: continueId) { [weak self] apiResult, error in
             guard let self = self else {
                 return
             }
 
             if let error = error {
+                DDLogError("Notifications_Auth_Debug - recursivelyFetchAndSaveNotifications error: \(error) for \(project.notificationsApiWikiIdentifier) RemoteNotificationsPagingOperation")
                 self.finish(with: error)
                 return
             }
 
             guard let fetchedNotifications = apiResult?.list else {
+                DDLogError("Notifications_Auth_Debug - recursivelyFetchAndSaveNotifications no fetchedNOtifications/unexpected response for \(project.notificationsApiWikiIdentifier) RemoteNotificationsPagingOperation")
                 self.finish(with: RequestError.unexpectedResponse)
                 return
             }
@@ -116,6 +120,8 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
                 switch result {
                 case .success:
                     
+                    DDLogError("Notifications_Auth_Debug - success creating new notifications in modelcontroller. project: \(project.notificationsApiWikiIdentifier) RemoteNotificationsPagingOperation")
+                    
                     guard let newContinueId = apiResult?.continueId,
                           newContinueId != continueId,
                           self.shouldContinueToPage(lastNotification: lastNotification) else {
@@ -128,6 +134,7 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
                     self.recursivelyFetchAndSaveNotifications(continueId: newContinueId)
                     
                 case .failure(let error):
+                    DDLogError("Notifications_Auth_Debug - failure creating new notifications in modelcontroller: \(error). project: \(project.notificationsApiWikiIdentifier) RemoteNotificationsPagingOperation")
                     self.finish(with: error)
                 }
             })

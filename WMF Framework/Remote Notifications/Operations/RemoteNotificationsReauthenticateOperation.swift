@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 
 class RemoteNotificationsReauthenticateOperation: AsyncOperation {
     
@@ -18,19 +19,24 @@ class RemoteNotificationsReauthenticateOperation: AsyncOperation {
             return
         }
 
+        DDLogError("Notifications_Auth_Debug - reauthenticating in RemoteNotificationsReauthenticateOperation")
         self.authManager.loginWithSavedCredentials { [weak self] result in
             
             guard let self = self else {
+                DDLogError("Notifications_Auth_Debug - reauthenticating in RemoteNotificationsReauthenticateOperation. early exit self.")
                 return
             }
             
             switch result {
             case .success:
+                DDLogError("Notifications_Auth_Debug - reauthenticating in RemoteNotificationsReauthenticateOperation. success")
                 self.didReauthenticate = true
                 self.finish()
             case .alreadyLoggedIn:
+                DDLogError("Notifications_Auth_Debug - reauthenticating in RemoteNotificationsReauthenticateOperation. alreadyLoggedIn")
                 self.finish()
             case .failure(let error):
+                DDLogError("Notifications_Auth_Debug - reauthenticating in RemoteNotificationsReauthenticateOperation. error: \(error)")
                 self.finish(with: error)
             }
         }

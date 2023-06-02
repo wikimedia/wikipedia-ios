@@ -92,6 +92,8 @@ public class Session: NSObject {
     
     public func cloneCentralAuthCookies() {
         // centralauth_ cookies work for any central auth domain - this call copies the centralauth_* cookies from .wikipedia.org to an explicit list of domains. This is  hardcoded because we only want to copy ".wikipedia.org" cookies regardless of WMFDefaultSiteDomain
+        DDLogError("Notifications_Auth_Debug - enter cloneCentralAuthCookies on Session")
+        DDLogError("Notifications_Auth_Debug - Session - is cookie storage nil: \(defaultURLSession.configuration.httpCookieStorage == nil)")
         defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: configuration.centralAuthCookieSourceDomain, to: configuration.centralAuthCookieTargetDomains)
         cacheQueue.async(flags: .barrier) {
             self._isAuthenticated = nil
@@ -99,11 +101,14 @@ public class Session: NSObject {
     }
     
     @objc public func removeAllCookies() {
+        DDLogError("Notifications_Auth_Debug - entering removeAllCookies. Session.")
         guard let storage = defaultURLSession.configuration.httpCookieStorage else {
+            DDLogError("Notifications_Auth_Debug - removeAllCookies, no cookie storage, early exit. Session.")
             return
         }
         // Cookie reminders:
         //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
+        DDLogError("Notifications_Auth_Debug - removeAllCookies, deleting \(storage.cookies?.count ?? 0) cookies. Session.")
         storage.cookies?.forEach { cookie in
             storage.deleteCookie(cookie)
         }

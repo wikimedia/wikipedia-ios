@@ -149,14 +149,18 @@ import CocoaLumberjackSwift
      */
     public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, reattemptOn401Response: Bool = false, completion: @escaping AuthenticationResultHandler) {
         guard let siteURL = loginSiteURL else {
+            DDLogError("Notifications_Auth_Debug - unable to get loginSiteURL on WMFAuthenticationManager")
             DispatchQueue.main.async {
                 completion(.failure(AuthenticationError.missingLoginURL))
             }
             return
         }
+        DDLogError("Notifications_Auth_Debug - logging in on WMFAuthenticationManager. username isEmpty: \(username.isEmpty), password isEmpty: \(password.isEmpty)")
         accountLogin.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, reattemptOn401Response: reattemptOn401Response, success: {result in
             DispatchQueue.main.async {
                 let normalizedUserName = result.username
+                
+                DDLogError("Notifications_Auth_Debug - logging in on WMFAuthenticationManager. success. normalizedUserName isEmpty: \(normalizedUserName.isEmpty), password isEmpty: \(password.isEmpty), normalizedUserName not equal to param username: \(normalizedUserName != username)")
                 self.loggedInUsername = normalizedUserName
                 KeychainCredentialsManager.shared.username = normalizedUserName
                 KeychainCredentialsManager.shared.password = password
@@ -164,8 +168,10 @@ import CocoaLumberjackSwift
                 self.delegate?.authenticationManagerDidLogin()
                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                 completion(.success(result))
+                DDLogError("Notifications_Auth_Debug - logging in on WMFAuthenticationManager. success.")
             }
         }, failure: { (error) in
+            DDLogError("Notifications_Auth_Debug - logging in on WMFAuthenticationManager. failure. error: \(error)")
             DispatchQueue.main.async {
                 completion(.failure(error))
             }
@@ -179,56 +185,77 @@ import CocoaLumberjackSwift
      *  @param completion
      */
     public func loginWithSavedCredentials(reattemptOn401Response: Bool = false, completion: @escaping AuthenticationResultHandler) {
+        DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials - enter. WMFAuthenticationManager")
         
+        DDLogError("Notifications_Auth_Debug - hasKeychainCredentials: \(hasKeychainCredentials). WMFAuthenticationManager")
+        DDLogError("Notifications_Auth_Debug - userName is empty: \((KeychainCredentialsManager.shared.username ?? "").isEmpty). WMFAuthenticationManager")
+        DDLogError("Notifications_Auth_Debug - password is empty: \((KeychainCredentialsManager.shared.password ?? "").isEmpty). WMFAuthenticationManager")
+        DDLogError("Notifications_Auth_Debug - hasKeychainCredentials: \(hasKeychainCredentials). WMFAuthenticationManager")
         guard hasKeychainCredentials,
             let userName = KeychainCredentialsManager.shared.username,
             let password = KeychainCredentialsManager.shared.password
             else {
+                DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, blankUsernameOrPassword. WMFAuthenticationManager")
                 let error = WMFCurrentlyLoggedInUserFetcherError.blankUsernameOrPassword
                 completion(.failure(error))
                 return
         }
         
         guard let siteURL = loginSiteURL else {
+            DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, missingLoginURL. WMFAuthenticationManager")
             completion(.failure(AuthenticationError.missingLoginURL))
             return
         }
         
+        DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, fetching currentlyLoggedInUser. WMFAuthenticationManager")
         currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { result in
+            DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, fetching currentlyLoggedInUser. success WMFAuthenticationManager")
             DispatchQueue.main.async {
                 if let host = siteURL.host {
                     self.loggedInUserCache[host] = result
                 }
                 self.loggedInUsername = result.name
                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
+                DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, fetching currentlyLoggedInUser. success, completing with alreadyLoggedIn. WMFAuthenticationManager")
                 completion(.alreadyLoggedIn(result))
             }
         }, failure: { error in
+            DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, fetching currentlyLoggedInUser. failure: \(error) WMFAuthenticationManager")
             DispatchQueue.main.async {
                 guard !(error is URLError) else {
+                    DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, fetching currentlyLoggedInUser. failure from URLError. WMFAuthenticationManager")
                     self.loggedInUsername = userName
                     NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                     let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
+                    DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, fetching currentlyLoggedInUser. failure from URLError. Completing with .success(offline). WMFAuthenticationManager")
                     completion(.success(loginResult))
                     return
                 }
+                
+                DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, try logging in from saved userName and password from keychain. WMFAuthenticationManager")
                 self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, reattemptOn401Response: reattemptOn401Response, completion: { (loginResult) in
+                    DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, completed logging in from saved userName and password from keychain. WMFAuthenticationManager")
                     DispatchQueue.main.async {
                         switch loginResult {
                         case .success(let result):
+                            DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, completing with success. status: \(result.status). WMFAuthenticationManager")
                             completion(.success(result))
                         case .failure(let error):
                             guard !(error is URLError) else {
+                                DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, completing with failure \(error), URLError. WMFAuthenticationManager")
                                 self.loggedInUsername = userName
                                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                                 let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
+                                DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, Completing with .success(offline) WMFAuthenticationManager")
                                 completion(.success(loginResult))
                                 return
                             }
                             self.loggedInUsername = nil
                             self.logout(initiatedBy: .app)
+                            DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, nilled out loggedInUsername, calling logout(initiatedBy: .app). WMFAuthenticationManager")
                             completion(.failure(error))
                         default:
+                            DDLogError("Notifications_Auth_Debug - loginWithSavedCredentials, default case from loginResult, breaking. WMFAuthenticationManager,")
                             break
                         }
                     }
@@ -238,6 +265,7 @@ import CocoaLumberjackSwift
     }
     
     fileprivate func resetLocalUserLoginSettings() {
+        DDLogError("Notifications_Auth_Debug - entering resetLocaluserLoginSettings. WMFAuthenticationManager")
         KeychainCredentialsManager.shared.username = nil
         KeychainCredentialsManager.shared.password = nil
         self.loggedInUsername = nil
@@ -256,24 +284,28 @@ import CocoaLumberjackSwift
      */
     @objc(logoutInitiatedBy:completion:)
     public func logout(initiatedBy logoutInitiator: LogoutInitiator, completion: @escaping () -> Void = {}) {
+        DDLogError("Notifications_Auth_Debug - entering logout with initiator: \(logoutInitiator.rawValue), WMFAuthenticationManager.")
         delegate?.authenticationManagerWillLogOut {
             if logoutInitiator == .app || logoutInitiator == .server {
+                DDLogError("Notifications_Auth_Debug - logging out, setting isUserUnawareOfLogout = true. WMFAuthenticationManager.")
                 self.isUserUnawareOfLogout = true
             }
             let postDidLogOutNotification = {
                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogOutNotification, object: nil)
             }
+            DDLogError("Notifications_Auth_Debug - performing POST logout call. WMFAuthenticationManager.")
             self.performTokenizedMediaWikiAPIPOST(to: self.loginSiteURL, with: ["action": "logout", "format": "json"], reattemptLoginOn401Response: false) { (result, response, error) in
                 DispatchQueue.main.async {
                     if let error = error {
+                        DDLogError("Notifications_Auth_Debug - performing POST logout call completion. error: \(error) WMFAuthenticationManager.")
                         // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
-                        DDLogDebug("Failed to log out, delete login tokens and other browser cookies: \(error)")
+                        DDLogError("Notifications_Auth_Debug - Failed to log out, delete login tokens and other browser cookies: \(error) WMFAuthenticationManager")
                         self.resetLocalUserLoginSettings()
                         completion()
                         postDidLogOutNotification()
                         return
                     }
-                    DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
+                    DDLogError("Notifications_Auth_Debug - Successfully logged out, deleted login tokens and other browser cookies. WMFAuthenticationManager")
                     // It's best to call "action=logout" API *before* clearing local login settings...
                     self.resetLocalUserLoginSettings()
                     completion()

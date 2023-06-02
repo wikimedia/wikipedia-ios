@@ -1,4 +1,5 @@
 import UIKit
+import CocoaLumberjackSwift
 
 class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate, Themeable {
     // SINGLETONTODO
@@ -126,6 +127,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         usernameField.becomeFirstResponder()
+        DDLogError("Notifications_Auth_Debug - WMFLoginViewController viewDidAppear")
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -162,9 +164,11 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             assertionFailure("One or more of the required parameters are nil")
             return
         }
+        DDLogError("Notifications_Auth_Debug - tapped Log In on WMFLoginViewController")
         dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution) { (loginResult) in
             switch loginResult {
             case .success:
+                DDLogError("Notifications_Auth_Debug - successful loginResult on WMFLoginViewController")
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.loginSuccessCompletion?()
@@ -177,6 +181,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                     assertionFailure("startDate is nil; startDate is required to calculate timeElapsed")
                 }
             case .failure(let error):
+                DDLogError("Notifications_Auth_Debug - failure loginResult on WMFLoginViewController: \(error)")
                 self.setViewControllerUserInteraction(enabled: true)
 
                 // Captcha's appear to be one-time, so always try to get a new one on failure.
@@ -185,15 +190,19 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 if let error = error as? WMFAccountLoginError {
                     switch error {
                     case .temporaryPasswordNeedsChange:
+                        DDLogError("Notifications_Auth_Debug - failure loginResult on WMFLoginViewController, temporaryPasswordNeedsChange")
                         self.showChangeTempPasswordViewController()
                         return
                     case .needsOathTokenFor2FA:
+                        DDLogError("Notifications_Auth_Debug - failure loginResult on WMFLoginViewController, needsOathTokenFor2FA")
                         self.showTwoFactorViewController()
                         return
                     case .statusNotPass:
+                        DDLogError("Notifications_Auth_Debug - failure loginResult on WMFLoginViewController, statusNotPass")
                         self.passwordField.text = nil
                         self.passwordField.becomeFirstResponder()
                     case .wrongPassword:
+                        DDLogError("Notifications_Auth_Debug - failure loginResult on WMFLoginViewController, wrongPassword")
                         self.passwordAlertLabel.text = error.localizedDescription
                         self.passwordAlertLabel.isHidden = false
                         self.passwordField.textColor = self.theme.colors.error

@@ -1,3 +1,5 @@
+import CocoaLumberjackSwift
+
 public enum WMFAccountLoginError: LocalizedError {
     case cannotExtractLoginStatus
     case statusNotPass(String?)
@@ -44,6 +46,8 @@ public class WMFAccountLoginResult: NSObject {
 public class WMFAccountLogin: Fetcher {
     public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler) {
         
+        DDLogError("Notifications_Auth_Debug - entering login. WMFAccountLogin")
+        
         var parameters = [
             "action": "clientlogin",
             "username": username,
@@ -54,22 +58,27 @@ public class WMFAccountLogin: Fetcher {
         ]
         
         if let retypePassword = retypePassword {
+            DDLogError("Notifications_Auth_Debug - logging in on WMFAccountLogin. retypePassword populated.")
             parameters["retype"] = retypePassword
             parameters["logincontinue"] = "1"
         }
 
         if let oathToken = oathToken {
+            DDLogError("Notifications_Auth_Debug - logging in on WMFAccountLogin. oathToken populated.")
             parameters["OATHToken"] = oathToken
             parameters["logincontinue"] = "1"
         }
         
         if let captchaID = captchaID {
+            DDLogError("Notifications_Auth_Debug - logging in on WMFAccountLogin. captchaID populated.")
             parameters["captchaId"] = captchaID
         }
         if let captchaWord = captchaWord {
+            DDLogError("Notifications_Auth_Debug - logging in on WMFAccountLogin. captchaWord populated.")
             parameters["captchaWord"] = captchaWord
         }
 
+        DDLogError("Notifications_Auth_Debug - performing Login POST. WMFAccountLogin")
         performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: parameters, reattemptLoginOn401Response:  reattemptOn401Response) { (result, response, error) in
             if let error = error {
                 failure(error)
@@ -79,21 +88,25 @@ public class WMFAccountLogin: Fetcher {
                 let clientlogin = result?["clientlogin"] as? [String : Any],
                 let status = clientlogin["status"] as? String
                 else {
+                    DDLogError("Notifications_Auth_Debug - logging in on WMFAccountLogin. Unable to extract login status. ")
                     failure(WMFAccountLoginError.cannotExtractLoginStatus)
                     return
             }
             let message = clientlogin["message"] as? String ?? nil
             guard status == "PASS" else {
-                
+                DDLogError("Notifications_Auth_Debug - logging in on WMFAccountLogin. status not PASS")
                 if let messageCode = clientlogin["messagecode"] as? String {
                     switch messageCode {
                     case "wrongpassword":
+                        DDLogError("Notifications_Auth_Debug - logging in on WMFAccountLogin. status not PASS. wrongpassword messagecode")
                         failure(WMFAccountLoginError.wrongPassword(message))
                         return
                     case "oathauth-login-failed":
+                        DDLogError("Notifications_Auth_Debug - logging in on WMFAccountLogin. status not PASS. oathauth-login-failed messagecode")
                         failure(WMFAccountLoginError.wrongToken)
                         return
-                    default: break
+                    default:
+                        DDLogError("Notifications_Auth_Debug - logging in on WMFAccountLogin. status not PASS. unknown messagecode")
                     }
                 }
 
@@ -101,6 +114,7 @@ public class WMFAccountLogin: Fetcher {
                     status == "UI",
                     let requests = clientlogin["requests"] as? [AnyObject]
                 {
+                    DDLogError("Notifications_Auth_Debug - logging in on WMFAccountLogin. status not PASS. status UI with requests")
                     if let passwordAuthRequest = requests.first(where: { request in
                         guard let id = request["id"] as? String else {
                             return false
@@ -110,6 +124,7 @@ public class WMFAccountLogin: Fetcher {
                         let fields = passwordAuthRequest["fields"] as? [String : AnyObject],
                         fields["password"] as? [String : AnyObject] != nil,
                         fields["retype"] as? [String : AnyObject] != nil {
+                        DDLogError("Notifications_Auth_Debug - logging in on WMFAccountLogin. status UI with requests: temporaryPasswordNeedsChange")
                         failure(WMFAccountLoginError.temporaryPasswordNeedsChange(message))
                         return
                     }
@@ -121,15 +136,18 @@ public class WMFAccountLogin: Fetcher {
                     }),
                         let fields = OATHTokenRequest["fields"] as? [String : AnyObject],
                         fields["OATHToken"] as? [String : AnyObject] != nil {
+                        DDLogError("Notifications_Auth_Debug - logging in on WMFAccountLogin. status UI with requests: needsOathTokenFor2FA")
                         failure(WMFAccountLoginError.needsOathTokenFor2FA(message))
                         return
                     }
                 }
                 
+                DDLogError("Notifications_Auth_Debug - logging in on WMFAccountLogin. Passing back statusNotPass.")
                 failure(WMFAccountLoginError.statusNotPass(message))
                 return
             }
             let normalizedUsername = clientlogin["username"] as? String ?? username
+            DDLogError("Notifications_Auth_Debug - logging in on WMFAccountLogin. success.")
             success(WMFAccountLoginResult.init(status: status, username: normalizedUsername, message: message))
         }
     }

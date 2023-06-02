@@ -1,3 +1,5 @@
+import CocoaLumberjackSwift
+
 struct WMFKeychainCredentials {
     
     // Based on:
@@ -15,15 +17,19 @@ struct WMFKeychainCredentials {
     public var userName: String? {
         get {
             do {
+                DDLogError("Notifications_Auth_Debug - begin try get userName on WMFKeychainCredentials")
                 return try getValue(forKey: userNameKey)
-            } catch {
+            } catch let error {
+                DDLogError("Notifications_Auth_Debug - failure try get userName on WMFKeychainCredentials: \(error)")
                 return nil
             }
         }
         set(newUserName) {
             do {
+                DDLogError("Notifications_Auth_Debug - begin try set userName on WMFKeychainCredentials, usernameKey: \(userNameKey)")
                 return try set(value: newUserName, forKey: userNameKey)
             } catch let error {
+                DDLogError("Notifications_Auth_Debug - error setting userName on WMFKeychainCredentials: \(error)")
                 assertionFailure("\(error)")
             }
         }
@@ -32,15 +38,19 @@ struct WMFKeychainCredentials {
     public var password: String? {
         get {
             do {
+                DDLogError("Notifications_Auth_Debug - begin try get password on WMFKeychainCredentials")
                 return try getValue(forKey: passwordKey)
-            } catch {
+            } catch let error {
+                DDLogError("Notifications_Auth_Debug - failure try get password on WMFKeychainCredentials: \(error)")
                 return nil
             }
         }
         set(newPassword) {
             do {
+                DDLogError("Notifications_Auth_Debug - begin try set password on WMFKeychainCredentials, passwordKey: \(passwordKey)")
                 return try set(value: newPassword, forKey: passwordKey)
             } catch {
+                DDLogError("Notifications_Auth_Debug - error setting password on WMFKeychainCredentials: \(error)")
                 assertionFailure("\(error)")
             }
         }
@@ -68,6 +78,19 @@ struct WMFKeychainCredentials {
         case unexpectedData
         case couldNotDeleteData
         case unhandledError(status: OSStatus)
+        
+        var localizedDescription: String {
+            switch self {
+            case .noValue:
+                return "WMFKeychainCredentialsError.noValue"
+            case .unexpectedData:
+                return "WMFKeychainCredentialsError.unexpectedData"
+            case .couldNotDeleteData:
+                return "WMFKeychainCredentialsError.couldNotDeleteData"
+            case .unhandledError(let status):
+                return "WMFKeychainCredentialsError.unhandledError: \(status)"
+            }
+        }
     }
 
     fileprivate func commonConfigurationDictionary(forKey key:String) -> [String : AnyObject] {
@@ -80,6 +103,7 @@ struct WMFKeychainCredentials {
     }
 
     fileprivate func getValue(forKey key:String) throws -> String {
+        DDLogError("Notifications_Auth_Debug - getValue enter on WMFKeychainCredentials")
         var query = commonConfigurationDictionary(forKey: key)
         query[kSecMatchLimit as String] = kSecMatchLimitOne
         query[kSecReturnData as String] = kCFBooleanTrue
@@ -101,9 +125,15 @@ struct WMFKeychainCredentials {
         
         // update accessibility of value from kSecAttrAccessibleWhenUnlocked to kSecAttrAccessibleAfterFirstUnlock
         if let attrAccessible = dictionary[kSecAttrAccessible as String] as? String, attrAccessible == (kSecAttrAccessibleWhenUnlocked as String) {
-            try? update(value: value, forKey: key)
+            DDLogError("Notifications_Auth_Debug - getValue, entered attrAccessible conditional WMFKeychainCredentials")
+            do {
+                try update(value: value, forKey: key)
+            } catch let error {
+                DDLogError("Notifications_Auth_Debug - getValue, entered attrAccessible conditional WMFKeychainCredentials, failure updating value: \(error)")
+            }
         }
         
+        DDLogError("Notifications_Auth_Debug - returning value. isEmpty: \(value.isEmpty). in WMFKeychainCredentials")
         return value
     }
     
@@ -117,8 +147,10 @@ struct WMFKeychainCredentials {
         // nil value causes the key/value pair to be removed from the keychain
         guard let value = value else {
             do {
+                DDLogError("Notifications_Auth_Debug - set(value), nil, attempting to delete value in WMFKeychainCredentials")
                 try deleteValue(forKey: key)
             } catch {
+                DDLogError("Notifications_Auth_Debug - set(value), failure deleting value in WMFKeychainCredentials")
                 throw WMFKeychainCredentialsError.couldNotDeleteData
             }
             return
@@ -132,21 +164,26 @@ struct WMFKeychainCredentials {
         let status = SecItemAdd(query as CFDictionary, nil)
 
         guard status != errSecSuccess else {
+            DDLogError("Notifications_Auth_Debug - set(value), status == errSecSuccess, returning. in WMFKeychainCredentials")
             return
         }
         
         if status == errSecDuplicateItem {
             do {
+                DDLogError("Notifications_Auth_Debug - set(value), status == errSecDuplicateItem, calling try update. in WMFKeychainCredentials")
                 return try update(value: value, forKey: key)
             } catch {
+                DDLogError("Notifications_Auth_Debug - set(value), status == errSecDuplicateItem, failure after try update. in WMFKeychainCredentials")
                 throw WMFKeychainCredentialsError.unhandledError(status: status)
             }
         } else {
+            DDLogError("Notifications_Auth_Debug - set(value), status != errSecSuccess, throwing unhandledError: \(status). in WMFKeychainCredentials")
             throw WMFKeychainCredentialsError.unhandledError(status: status)
         }
     }
     
     fileprivate func update(value:String, forKey key:String) throws {
+        DDLogError("Notifications_Auth_Debug - update(value) entered, in WMFKeychainCredentials")
         let query = commonConfigurationDictionary(forKey: key)
         var dataDict = [String : AnyObject]()
         let valueData = value.data(using: String.Encoding.utf8)
@@ -154,6 +191,7 @@ struct WMFKeychainCredentials {
         dataDict[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
         let status = SecItemUpdate(query as CFDictionary, dataDict as CFDictionary)
         if status != errSecSuccess {
+            DDLogError("Notifications_Auth_Debug - update(value), throwing error, status != errSecSuccess: \(status), in WMFKeychainCredentials")
             throw WMFKeychainCredentialsError.unhandledError(status: status)
         }
     }

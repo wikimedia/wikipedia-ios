@@ -257,6 +257,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 completion(nil, error)
                 return
             }
+            DDLogError("Notifications_Auth_Debug - project: \(project.notificationsApiWikiIdentifier), api error code: \(result?.error?.code ?? "none")")
             completion(result?.query?.notifications, result?.error)
         }
         

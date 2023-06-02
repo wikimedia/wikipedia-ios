@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import SwiftUI
+import CocoaLumberjackSwift
 
 @objc
 final class NotificationsCenterViewController: ViewController {
@@ -116,6 +117,8 @@ final class NotificationsCenterViewController: ViewController {
         
         viewModel.markAllAsSeen()
         presentOnboardingEducationModalIfNecessary()
+        
+        DDLogError("Notifications_Auth_Debug - NotificationsCenterViewController viewDidAppear")
     }
 
     override func viewWillDisappear(_ animated: Bool) {
