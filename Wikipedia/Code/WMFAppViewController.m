@@ -260,6 +260,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
 
     self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
+    
+    [self setupWKDataEnvironment];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -433,6 +435,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)preferredLanguagesDidChange:(NSNotification *)note {
     [self updateExploreFeedPreferencesIfNecessaryForChange:note];
     [self.dataStore.feedContentController updateContentSources];
+    [self updateWKDataEnvironmentFromLanguagesDidChange];
 }
 
 /**
