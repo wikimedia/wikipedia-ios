@@ -478,7 +478,7 @@ extension Fetcher {
 
 @objc(WMFTokenType)
 public enum TokenType: Int {
-    case csrf, login, createAccount
+    case csrf, login, createAccount, watch
     var stringValue: String {
         switch self {
         case .login:
@@ -487,6 +487,8 @@ public enum TokenType: Int {
             return "createaccount"
         case .csrf:
             return "csrf"
+        case .watch:
+            return "watch"
         }
     }
     var parameterName: String {
