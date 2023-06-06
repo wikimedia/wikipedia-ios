@@ -458,6 +458,7 @@
 		1A0B9B562A2DEABA0016BD42 /* PlaceInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0B9B542A2DEABA0016BD42 /* PlaceInfoModel.swift */; };
 		1A0B9B572A2DEABA0016BD42 /* PlaceInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0B9B542A2DEABA0016BD42 /* PlaceInfoModel.swift */; };
 		1A0B9B582A2DEABA0016BD42 /* PlaceInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0B9B542A2DEABA0016BD42 /* PlaceInfoModel.swift */; };
+		1ADF79A52A2F672500E59F40 /* PlaceInfoModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADF79A42A2F672500E59F40 /* PlaceInfoModelTests.swift */; };
 		41CCB67421CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67521CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67621CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
@@ -4127,6 +4128,7 @@
 		0EF863501C19E4F100006D2D /* WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFEmptyView.m; path = Wikipedia/Code/WMFEmptyView.m; sourceTree = SOURCE_ROOT; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		1A0B9B542A2DEABA0016BD42 /* PlaceInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceInfoModel.swift; sourceTree = "<group>"; };
+		1ADF79A42A2F672500E59F40 /* PlaceInfoModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoModelTests.swift; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
 		41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListEntryCollectionViewController.swift; sourceTree = "<group>"; };
 		533AB8AD259792A9003A43D9 /* wikipedia-language-variants.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wikipedia-language-variants.json"; sourceTree = "<group>"; };
@@ -8927,6 +8929,7 @@
 				BC90DE781C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m */,
 				B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */,
 				19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */,
+				1ADF79A42A2F672500E59F40 /* PlaceInfoModelTests.swift */,
 				B02F96651DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift */,
 				D8800CB01E2FF5B70035D2DB /* QuadKeyTests.swift */,
 				B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */,
@@ -11291,6 +11294,7 @@
 				D8800CB11E2FF5B70035D2DB /* QuadKeyTests.swift in Sources */,
 				8386BDE723857F87007EE89D /* URLParsingAndRoutingTests.swift in Sources */,
 				67DAEDED27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelWikidataConnectionTests.swift in Sources */,
+				1ADF79A52A2F672500E59F40 /* PlaceInfoModelTests.swift in Sources */,
 				BCD557BB1C45B1600060A51A /* UIApplication+VisualTestUtils.m in Sources */,
 				B0E809091C0D18BC0065EBC0 /* NSString+WMFHTMLParsingTests.m in Sources */,
 				19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */,

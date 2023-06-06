@@ -53,16 +53,22 @@
 }
 
 - (void)testPlacesURL {
+    // Given
     NSURL *url = [NSURL URLWithString:@"wikipedia://places"];
+    // When
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+    // Then
     XCTAssertEqual(activity.wmf_type, WMFUserActivityTypePlaces);
     XCTAssertEqual(activity.userInfo.count, 1);
     XCTAssertNil(activity.userInfo[@"placeInfo"]);
 }
 
 - (void)testPlacesURLWithParameters {
+    // Given
     NSURL *url = [NSURL URLWithString:@"wikipedia://places?latitude=52.3547498&longitude=4.8339215"];
+    // When
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+    // Then
     XCTAssertEqual(activity.wmf_type, WMFUserActivityTypePlaces);
     XCTAssertNotNil(activity.userInfo[@"placeInfo"]);
     XCTAssertEqual([activity.userInfo[@"placeInfo"] count], 2);
