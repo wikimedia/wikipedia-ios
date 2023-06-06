@@ -1203,7 +1203,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             } else {
                 PlaceInfoModel *model = [[PlaceInfoModel alloc] init:activity.userInfo];
                 if (model) {
-                    [[self placesViewController] updateViewModeToMap];
                     [[self placesViewController] showWithPlaceInfo:model];
                 }
             }

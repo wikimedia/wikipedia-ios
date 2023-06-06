@@ -1951,7 +1951,14 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     
     @objc public func show(placeInfo: PlaceInfoModel) {
         
+        loadViewIfNeeded()
+        updateViewModeToMap()
+        
         let location = CLLocation(latitude: placeInfo.latitude, longitude: placeInfo.longitude)
+        
+        let region = [location.coordinate].wmf_boundingRegion(with: 10000)
+        performDefaultSearch(withRegion: region)
+        
         zoomAndPanMapView(toLocation: location)
     }
     

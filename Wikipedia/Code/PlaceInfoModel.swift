@@ -8,8 +8,8 @@ import Foundation
     @objc init?(_ dictionary: [String: Any]?) {
         
         let anyToDouble: (Any?) -> Double? = { input in
-            (input as? LosslessStringConvertible)
-                .flatMap { String(describing:$0) }
+            return input
+                .flatMap(String.init(describing:))
                 .flatMap(Double.init)
         }
         guard let placeInfo = dictionary?["placeInfo"] as? [String: Any],
