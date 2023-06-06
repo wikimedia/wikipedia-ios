@@ -62,15 +62,25 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
 + (instancetype)wmf_placesActivityWithURL:(NSURL *)activityURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:activityURL resolvingAgainstBaseURL:NO];
     NSURL *articleURL = nil;
+    
+    NSMutableDictionary<NSString *, NSString *>* placeInfo = [NSMutableDictionary<NSString *, NSString *> new];
+
     for (NSURLQueryItem *item in components.queryItems) {
-        if ([item.name isEqualToString:@"WMFArticleURL"]) {
+        if (item.value) {
+            [placeInfo setObject:item.value forKey:item.name];
+        }
+        if ([item.name isEqualToString:@"WMFArticleURL"] && articleURL == nil) {
             NSString *articleURLString = item.value;
             articleURL = [NSURL URLWithString:articleURLString];
-            break;
         }
     }
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Places"];
+    
+    NSMutableDictionary *userInfo = [activity.userInfo ? : @{} mutableCopy];
+    userInfo[@"placeInfo"] = placeInfo;
+    
     activity.webpageURL = articleURL;
+    activity.userInfo = userInfo;
     return activity;
 }
 
