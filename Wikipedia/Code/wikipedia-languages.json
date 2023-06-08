@@ -525,6 +525,11 @@
     "localName" : "Gujarati"
   },
   {
+    "languageCode" : "gur",
+    "languageName" : "farefare",
+    "localName" : "Gurene"
+  },
+  {
     "languageCode" : "guw",
     "languageName" : "gungbe",
     "localName" : "Gun"

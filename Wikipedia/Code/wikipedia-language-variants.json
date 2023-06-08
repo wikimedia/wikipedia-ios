@@ -127,6 +127,15 @@
             "languageCode": "ku"
         }
     ],
+    "shi" : [
+        {
+            "languageVariantCode": "shi-tfng",
+            "languageName": "ⵜⴰⵛⵍⵃⵉⵜ ",
+            "localName": "Tachelhit (Tifinagh/ⵜⴰⵛⵍⵃⵉⵜ)",
+            "languageCode": "shi"
+
+        }
+    ],
     "tg": [
         {
             "languageVariantCode": "tg-cyrl",
