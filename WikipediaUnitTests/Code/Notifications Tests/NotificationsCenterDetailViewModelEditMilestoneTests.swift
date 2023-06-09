@@ -35,7 +35,7 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
     
     private func testEditMilestoneOneOnUserPageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
         XCTAssertEqual(detailViewModel.headerTitle, "Editing milestone", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "4/2/19", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Editing milestone", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "You just made your first edit; thank you, and welcome!", "Invalid contentBody")
@@ -60,7 +60,7 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
     
     private func testEditMilestoneTenOnArticleText(detailViewModel: NotificationsCenterDetailViewModel) throws {
         XCTAssertEqual(detailViewModel.headerTitle, "Editing milestone", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "4/16/19", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Editing milestone", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "You just made your tenth edit; thank you, and please keep going!", "Invalid contentBody")
@@ -71,7 +71,7 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 0, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Article"
+        let expectedPrimaryText = "Article".localized
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Blue_Bird")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"
@@ -81,7 +81,7 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
     
     private func testEditMilestoneHundredOnUserTalkPageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
         XCTAssertEqual(detailViewModel.headerTitle, "Editing milestone", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "7/16/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Editing milestone", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "You just made your hundredth edit; thank you very much!", "Invalid contentBody")
@@ -92,7 +92,7 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 0, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Talk page"
+        let expectedPrimaryText = "Talk page".localized
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"

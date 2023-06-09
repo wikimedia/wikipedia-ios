@@ -23,7 +23,7 @@ class NotificationsCenterCellViewModelLoginIssuesTests: NotificationsCenterViewM
         XCTAssertEqual(cellViewModel.headerText, "Multiple failed log in attempts", "Invalid headerText")
         XCTAssertEqual(cellViewModel.subheaderText, "Alert", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "There have been 5 failed attempts to log in to your account since the last time you logged in. If it wasn\'t you, please make sure your account has a strong password.")
-        XCTAssertEqual(cellViewModel.footerText, "Change password")
+        XCTAssertEqual(cellViewModel.footerText, "Change password".localized)
         XCTAssertEqual(cellViewModel.dateText, "7/16/21", "Invalid dateText")
         XCTAssertEqual(cellViewModel.projectText, "EN", "Invalid projectText")
     }
@@ -37,26 +37,26 @@ class NotificationsCenterCellViewModelLoginIssuesTests: NotificationsCenterViewM
 
         XCTAssertEqual(cellViewModel.sheetActions.count, 4, "Invalid sheetActionsCount")
         
-        let expectedText0 = "Mark as unread"
+        let expectedText0 = "Mark as unread".localized
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
         let expectedDestinationText0: String? = nil
         let expectedAction0: NotificationsCenterActionData.LoggingLabel = .markUnread
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true, actionType: expectedAction0)
 
-        let expectedText1 = "Change password"
+        let expectedText1 = "Change password".localized
         let expectedURL1: URL? = URL(string: "https://mediawiki.org/wiki/Special:ChangeCredentials")!
         let expectedIcon1: NotificationsCenterIconType = .lock
         let expectedDestinationText1 = "On web"
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: .changePassword)
 
-        let expectedText2 = "Login notifications"
+        let expectedText2 = "Login notifications".localized
         let expectedURL2: URL? = URL(string: "https://www.mediawiki.org/wiki/Help:Login_notifications")!
         let expectedIcon2: NotificationsCenterIconType = .document
         let expectedDestinationText2 = "On web"
         try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: cellViewModel.sheetActions[2], actionType: .login)
 
-        let expectedText3 = "Notification settings"
+        let expectedText3 = "Notification settings".localized
         let expectedURL3: URL? = nil
         let expectedIcon3: NotificationsCenterIconType? = nil
         let expectedDestinationText4: String? = nil

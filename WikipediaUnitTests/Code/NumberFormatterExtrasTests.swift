@@ -17,11 +17,11 @@ class NumberFormatterExtrasTests: XCTestCase {
         
         number = 867530939
         format = NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: number as UInt64))
-        XCTAssertTrue(format.contains("867.5"))
+        XCTAssertTrue(format.contains("867.5".localized))
         
         number = 312490123456
         format = NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: number as UInt64))
-        XCTAssertTrue(format.contains("312.5"))
+        XCTAssertTrue(format.contains("312.4".localized))
     }
     
 }

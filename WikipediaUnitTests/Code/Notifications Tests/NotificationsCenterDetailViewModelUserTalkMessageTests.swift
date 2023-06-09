@@ -57,8 +57,8 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
     }
     
     private func testUserTalkPageGenericMessageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Jack The Cat", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Jack The Cat".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "4/11/19", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Talk page message", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Message on your talk page", "Invalid contentBody")
@@ -73,14 +73,14 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Your talk page"
+        let expectedPrimaryText = "Your talk page".localized
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
-        let expectedText0 = "Jack The Cat's user page"
+        let expectedText0 = "Jack The Cat's user page".localized
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
@@ -96,8 +96,8 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
     }
     
     private func testUserTalkPageGenericAnonymousMessageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From 47.184.10.84", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From 47.184.10.84".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "5/30/19", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Talk page message", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Message on your talk page", "Invalid contentBody")
@@ -108,14 +108,14 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Your talk page"
+        let expectedPrimaryText = "Your talk page".localized
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
-        let expectedText0 = "47.184.10.84's user page"
+        let expectedText0 = "47.184.10.84's user page".localized
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:47.184.10.84")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
@@ -131,8 +131,8 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
     }
     
     private func testUserTalkPageSpecificMessageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Jack The Cat", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Jack The Cat".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "4/11/19", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Hello", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Reply text", "Invalid contentBody")
@@ -143,14 +143,14 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Your talk page"
+        let expectedPrimaryText = "Your talk page".localized
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Hello")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
-        let expectedText0 = "Jack The Cat's user page"
+        let expectedText0 = "Jack The Cat's user page".localized
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
@@ -166,8 +166,8 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
     }
     
     private func testUserTalkPageSpecificAnonymousMessageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From 47.184.10.84", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From 47.184.10.84".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "6/11/19", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Section Title", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Reply text", "Invalid contentBody")
@@ -178,14 +178,14 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Your talk page"
+        let expectedPrimaryText = "Your talk page".localized
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
-        let expectedText0 = "47.184.10.84's user page"
+        let expectedText0 = "47.184.10.84's user page".localized
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:47.184.10.84")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
@@ -201,8 +201,8 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
     }
     
     private func testUserTalkPageSpecificTruncatedMessageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "3/9/22", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Section Title", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing elit ut aliq...", "Invalid contentBody")
@@ -213,14 +213,14 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Your talk page"
+        let expectedPrimaryText = "Your talk page".localized
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Jack_The_Cat#Section_Title")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
-        let expectedText0 = "Fred The Bird's user page"
+        let expectedText0 = "Fred The Bird's user page".localized
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
@@ -236,8 +236,8 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
     }
     
     private func testUserTalkPageMediaWikiMessageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From MediaWiki message delivery", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From MediaWiki message delivery".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "10/7/19", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Talk page message", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Message on your talk page", "Invalid contentBody")
@@ -248,14 +248,14 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Your talk page"
+        let expectedPrimaryText = "Your talk page".localized
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
-        let expectedText0 = "MediaWiki message delivery's user page"
+        let expectedText0 = "MediaWiki message delivery's user page".localized
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:MediaWiki_message_delivery")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"

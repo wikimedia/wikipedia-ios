@@ -18,7 +18,7 @@ class NotificationsCenterDetailViewModelLoginIssuesTests: NotificationsCenterVie
     
     private func testLoginFailKnownDeviceText(detailViewModel: NotificationsCenterDetailViewModel) throws {
         XCTAssertEqual(detailViewModel.headerTitle, "Alert", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "7/16/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Multiple failed log in attempts", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "There have been 5 failed attempts to log in to your account since the last time you logged in. If it wasn\'t you, please make sure your account has a strong password.", "Invalid contentBody")
@@ -33,13 +33,13 @@ class NotificationsCenterDetailViewModelLoginIssuesTests: NotificationsCenterVie
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 1, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Change password"
+        let expectedPrimaryText = "Change password".localized
         let expectedPrimaryURL: URL? = URL(string: "https://mediawiki.org/wiki/Special:ChangeCredentials")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .lock
         let expectedPrimaryDestinationText = "On web"
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: .changePassword)
         
-        let expectedText0 = "Login notifications"
+        let expectedText0 = "Login notifications".localized
         let expectedURL0: URL? = URL(string: "https://www.mediawiki.org/wiki/Help:Login_notifications")!
         let expectedIcon0: NotificationsCenterIconType = .document
         let expectedDestinationText0 = "On web"

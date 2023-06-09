@@ -36,7 +36,7 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
 
                     switch firstSection.typedEvents[0] {
                     case .small(let smallEvent):
-                        XCTAssertEqual(smallEvent.eventDescription, "1 small change made", "Unexpected small change event description")
+                        XCTAssertEqual(smallEvent.eventDescription, "1 small change made".localized, "Unexpected small change event description")
 
                     default:
                         XCTFail("Unexpected first event type")

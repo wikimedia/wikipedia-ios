@@ -78,8 +78,8 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
     }
     
     private func testMentionInUserTalkText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "7/16/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Section Title", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Reply text mention in talk page User:Jack The Cat", "Invalid contentBody")
@@ -94,14 +94,14 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 3, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Talk page"
+        let expectedPrimaryText = "Talk page".localized
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
-        let expectedText0 = "Fred The Bird's user page"
+        let expectedText0 = "Fred The Bird's user page".localized
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
@@ -115,7 +115,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         let expectedAction1: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expectedAction1)
         
-        let expectedText2 = "Talk page"
+        let expectedText2 = "Talk page".localized
         let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         let expectedIcon2: NotificationsCenterIconType = .document
         let expectedDestinationText2 = "In app"
@@ -124,8 +124,8 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
     }
     
     private func testMentionInUserTalkEditSummaryText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "7/16/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Mention in edit summary", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Edit Summary Text: User:Jack The Cat", "Invalid contentBody")
@@ -147,14 +147,14 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
-        let expectedText0 = "Fred The Bird's user page"
+        let expectedText0 = "Fred The Bird's user page".localized
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
         let expectedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
         
-        let expectedText1 = "Talk page"
+        let expectedText1 = "Talk page".localized
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"
@@ -163,8 +163,8 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
     }
     
     private func testMentionInArticleTalkText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "3/14/22", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Section Title", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Jack The Cat Reply text mention in talk page.", "Invalid contentBody")
@@ -179,14 +179,14 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 3, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Talk page"
+        let expectedPrimaryText = "Talk page".localized
         let expectedPrimaryURL: URL? = URL(string: "https://test.wikipedia.org/wiki/Talk:Blue_Bird#Section_Title")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .articleTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
-        let expectedText0 = "Fred The Bird's user page"
+        let expectedText0 = "Fred The Bird's user page".localized
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
@@ -200,7 +200,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         let expectedAction1: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expectedAction1)
         
-        let expectedText2 = "Article"
+        let expectedText2 = "Article".localized
         let expectedURL2: URL? = URL(string: "https://test.wikipedia.org/wiki/Blue_Bird")!
         let expectedIcon2: NotificationsCenterIconType = .document
         let expectedDestinationText2 = "In app"
@@ -209,8 +209,8 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
     }
     
     private func testMentionInArticleTalkEditSummaryText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "1/6/22", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Mention in edit summary", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Edit Summary Text User:Jack The Cat", "Invalid contentBody")
@@ -232,14 +232,14 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
-        let expectedText0 = "Fred The Bird's user page"
+        let expectedText0 = "Fred The Bird's user page".localized
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
         let expectedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
         
-        let expectedText1 = "Article"
+        let expectedText1 = "Article".localized
         let expectedURL1: URL? = URL(string: "https://test.wikipedia.org/wiki/Black_Cat")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"
@@ -249,7 +249,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
     
     private func testMentionFailureAnonymousText(detailViewModel: NotificationsCenterDetailViewModel) throws {
         XCTAssertEqual(detailViewModel.headerTitle, "Mentions", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "7/16/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Failed mention", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Your mention of 47.188.91.144 was not sent because the user is anonymous.", "Invalid contentBody")
@@ -260,7 +260,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 0, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Talk page"
+        let expectedPrimaryText = "Talk page".localized
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"
@@ -270,7 +270,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
     
     private func testMentionFailureNotFoundText(detailViewModel: NotificationsCenterDetailViewModel) throws {
         XCTAssertEqual(detailViewModel.headerTitle, "Mentions", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "1/6/22", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Failed mention", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Your mention of Fredirufjdjd was not sent because the user was not found.", "Invalid contentBody")
@@ -285,7 +285,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 0, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Talk page"
+        let expectedPrimaryText = "Talk page".localized
         let expectedPrimaryURL: URL? = URL(string: "https://test.wikipedia.org/wiki/User_talk:Jack_The_Cat#Section_Title")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"
@@ -295,7 +295,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
     
     private func testMentionSuccessText(detailViewModel: NotificationsCenterDetailViewModel) throws {
         XCTAssertEqual(detailViewModel.headerTitle, "Mentions", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "7/16/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Successful mention", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Your mention of Jack The Cat was sent.", "Invalid contentBody")
@@ -310,7 +310,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 0, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Talk page"
+        let expectedPrimaryText = "Talk page".localized
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"
@@ -331,7 +331,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 0, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Talk page"
+        let expectedPrimaryText = "Talk page".localized
         let expectedPrimaryURL: URL? = URL(string: "https://wikidata.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"
@@ -340,8 +340,8 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
     }
     
     private func testMentionInArticleTalkZhWikiquoteText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "Simplified Chinese Wikiquote", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "Simplified Chinese Wikiquote".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "3/14/22", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Section Title", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Jack The Cat Reply text mention in talk page.", "Invalid contentBody")
@@ -352,14 +352,14 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 3, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Talk page"
+        let expectedPrimaryText = "Talk page".localized
         let expectedPrimaryURL: URL? = URL(string: "https://zh.wikiquote.org/wiki/Talk:Blue_Bird#Section_Title")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .articleTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
-        let expectedText0 = "Fred The Bird's user page"
+        let expectedText0 = "Fred The Bird's user page".localized
         let expectedURL0: URL? = URL(string: "https://zh.wikiquote.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"

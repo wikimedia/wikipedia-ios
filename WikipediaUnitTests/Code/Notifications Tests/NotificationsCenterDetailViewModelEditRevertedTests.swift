@@ -26,10 +26,10 @@ class NotificationsCenterDetailViewModelEditRevertedTests: NotificationsCenterVi
     }
     
     private func testEditRevertedOnUserTalkEditText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "7/19/21", "Invalid headerDate")
-        XCTAssertEqual(detailViewModel.contentTitle, "Edit reverted", "Invalid contentTitle")
+        XCTAssertEqual(detailViewModel.contentTitle, "Edit reverted".localized, "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Your edit was reverted", "Invalid contentBody")
     }
     
@@ -49,21 +49,21 @@ class NotificationsCenterDetailViewModelEditRevertedTests: NotificationsCenterVi
         let expetedAction: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expetedAction)
         
-        let expectedText0 = "Fred The Bird's user page"
+        let expectedText0 = "Fred The Bird's user page".localized
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
         let expetedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expetedAction0)
         
-        let expectedText1 = "Talk page"
+        let expectedText1 = "Talk page".localized
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"
         let expetedAction1: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expetedAction1)
         
-        let expectedText2 = "Talk page"
+        let expectedText2 = "Talk page".localized
         let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedIcon2: NotificationsCenterIconType = .document
         let expectedDestinationText2 = "In app"
@@ -72,10 +72,10 @@ class NotificationsCenterDetailViewModelEditRevertedTests: NotificationsCenterVi
     }
     
     private func testEditRevertedOnArticleEditText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "9/2/21", "Invalid headerDate")
-        XCTAssertEqual(detailViewModel.contentTitle, "Edit reverted", "Invalid contentTitle")
+        XCTAssertEqual(detailViewModel.contentTitle, "Edit reverted".localized, "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Your edit was reverted", "Invalid contentBody")
     }
     
@@ -95,21 +95,21 @@ class NotificationsCenterDetailViewModelEditRevertedTests: NotificationsCenterVi
         let expetedAction: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expetedAction)
         
-        let expectedText0 = "Fred The Bird's user page"
+        let expectedText0 = "Fred The Bird's user page".localized
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
         let expetedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expetedAction0)
         
-        let expectedText1 = "Talk page"
+        let expectedText1 = "Talk page".localized
         let expectedURL1: URL? = URL(string: "https://test.wikipedia.org/wiki/Talk:Blue_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"
         let expetedAction1: NotificationsCenterActionData.LoggingLabel = .articleTalk
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expetedAction1)
         
-        let expectedText2 = "Article"
+        let expectedText2 = "Article".localized
         let expectedURL2: URL? = URL(string: "https://test.wikipedia.org/wiki/Blue_Bird")!
         let expectedIcon2: NotificationsCenterIconType = .document
         let expectedDestinationText2 = "In app"

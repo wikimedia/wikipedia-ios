@@ -34,8 +34,8 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
     }
     
     private func testPageReviewText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "7/20/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Alert", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "A reviewer suggested improvements to the page Bird. Tags: notability, blp sources.", "Invalid contentBody")
@@ -70,8 +70,8 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
     }
     
     private func testFlowReplyText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "7/20/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Fred The Bird replied in \"Section Title\".", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Reply text", "Invalid contentBody")
@@ -92,7 +92,7 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
         let expectedPrimaryDestinationText = "On web"
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: .linkNonspecific)
         
-        let expectedText0 = "Fred The Bird's user page"
+        let expectedText0 = "Fred The Bird's user page".localized
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
@@ -101,10 +101,10 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
     }
 
     private func testFlowTopicRenamedText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From 47.234.198.142", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From 47.234.198.142".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "1/30/22", "Invalid headerDate")
-        XCTAssertEqual(detailViewModel.contentTitle, "Notice", "Invalid contentTitle")
+        XCTAssertEqual(detailViewModel.contentTitle, "Notice".localized, "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "The topic \"Topic:Section Title\" was renamed to \"Section Title 2\".", "Invalid contentBody")
     }
     
@@ -119,7 +119,7 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
         let expectedPrimaryDestinationText = "On web"
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: .linkNonspecific)
         
-        let expectedText0 = "47.234.198.142's user page"
+        let expectedText0 = "47.234.198.142's user page".localized
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:47.234.198.142")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"

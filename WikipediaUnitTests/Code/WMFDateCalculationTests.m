@@ -1,5 +1,6 @@
 #import <XCTest/XCTest.h>
 #import "NSCalendar+WMFCommonCalendars.h"
+#import "NSString+Localized.h"
 
 @interface WMFDateCalculationTests : XCTestCase
 
@@ -179,23 +180,24 @@
 
 - (void)testRelativeDateStringYesterday {
     NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
-
+    
     NSDateComponents *fromDateComponents = [[NSDateComponents alloc] init];
     fromDateComponents.year = 2016;
     fromDateComponents.month = 9;
     fromDateComponents.day = 30;
     fromDateComponents.hour = 9;
-
+    
     NSDateComponents *toDateComponents = [[NSDateComponents alloc] init];
     toDateComponents.year = 2016;
     toDateComponents.month = 10;
     toDateComponents.day = 1;
     toDateComponents.hour = 8;
-
+    
     NSDate *fromDate = [calendar dateFromComponents:fromDateComponents];
     NSDate *toDate = [calendar dateFromComponents:toDateComponents];
     NSString *string = [fromDate wmf_localizedRelativeDateStringFromLocalDateToLocalDate:toDate];
-    XCTAssert([string isEqualToString:@"Yesterday"]);
+    
+    XCTAssert([string isEqualToString: [@"Yesterday" localized]]);
 }
 
 - (void)testRelativeDateStringTwoDaysAgo {
@@ -216,7 +218,7 @@
     NSDate *fromDate = [calendar dateFromComponents:fromDateComponents];
     NSDate *toDate = [calendar dateFromComponents:toDateComponents];
     NSString *string = [fromDate wmf_localizedRelativeDateStringFromLocalDateToLocalDate:toDate];
-    XCTAssert([string isEqualToString:@"2 days ago"]);
+    XCTAssert([string isEqualToString:[@"2 days ago" localized]]);
 }
 
 - (void)testRelativeDateStringDifferentDayUnder24Hours {
@@ -237,7 +239,7 @@
     NSDate *fromDate = [calendar dateFromComponents:fromDateComponents];
     NSDate *toDate = [calendar dateFromComponents:toDateComponents];
     NSString *string = [fromDate wmf_localizedRelativeDateStringFromLocalDateToLocalDate:toDate];
-    XCTAssert([string isEqualToString:@"Yesterday"]);
+    XCTAssert([string isEqualToString:[@"Yesterday" localized]]);
 }
 
 - (void)testRelativeDateStringSameDayUnder24Hours {
@@ -258,7 +260,7 @@
     NSDate *fromDate = [calendar dateFromComponents:fromDateComponents];
     NSDate *toDate = [calendar dateFromComponents:toDateComponents];
     NSString *string = [fromDate wmf_localizedRelativeDateStringFromLocalDateToLocalDate:toDate];
-    XCTAssert([string isEqualToString:@"Today"]);
+    XCTAssert([string isEqualToString:[@"Today" localized]]);
 }
 
 - (void)testRelativeDateStringSameDayUnder12Hours {
@@ -279,7 +281,7 @@
     NSDate *fromDate = [calendar dateFromComponents:fromDateComponents];
     NSDate *toDate = [calendar dateFromComponents:toDateComponents];
     NSString *string = [fromDate wmf_localizedRelativeDateStringFromLocalDateToLocalDate:toDate];
-    XCTAssert([string isEqualToString:@"3 hours ago"]);
+    XCTAssert([string isEqualToString:[@"3 hours ago" localized]]);
 }
 
 - (void)testRelativeDateStringSameDayUnder12HoursSingular {
@@ -300,7 +302,7 @@
     NSDate *fromDate = [calendar dateFromComponents:fromDateComponents];
     NSDate *toDate = [calendar dateFromComponents:toDateComponents];
     NSString *string = [fromDate wmf_localizedRelativeDateStringFromLocalDateToLocalDate:toDate];
-    XCTAssert([string isEqualToString:@"1 hour ago"]);
+    XCTAssert([string isEqualToString:[@"1 hour ago" localized]]);
 }
 
 - (void)testRelativeDateStringSameDayUnder1Hour {
@@ -323,7 +325,7 @@
     NSDate *fromDate = [calendar dateFromComponents:fromDateComponents];
     NSDate *toDate = [calendar dateFromComponents:toDateComponents];
     NSString *string = [fromDate wmf_localizedRelativeDateStringFromLocalDateToLocalDate:toDate];
-    XCTAssert([string isEqualToString:@"5 minutes ago"]);
+    XCTAssert([string isEqualToString:[@"5 minutes ago" localized]]);
 }
 
 - (void)testRelativeDateStringSameDayUnder1Minute {
@@ -348,7 +350,7 @@
     NSDate *fromDate = [calendar dateFromComponents:fromDateComponents];
     NSDate *toDate = [calendar dateFromComponents:toDateComponents];
     NSString *string = [fromDate wmf_localizedRelativeDateStringFromLocalDateToLocalDate:toDate];
-    XCTAssert([string isEqualToString:@"Just now"]);
+    XCTAssert([string isEqualToString:[@"Just now" localized]]);
 }
 
 @end

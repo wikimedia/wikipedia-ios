@@ -20,7 +20,7 @@ class NotificationsCenterCellViewModelPageLinkTests: NotificationsCenterViewMode
     
     private func testPageLinkText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Page link", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "From Jack The Cat", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "From Jack The Cat".localized, "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "A link was made from Black Cat to Blue Bird.", "Invalid bodyText")
         XCTAssertEqual(cellViewModel.footerText, "Blue Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "1/25/20", "Invalid dateText")
@@ -36,7 +36,7 @@ class NotificationsCenterCellViewModelPageLinkTests: NotificationsCenterViewMode
 
         XCTAssertEqual(cellViewModel.sheetActions.count, 6, "Invalid sheetActionsCount")
         
-        let expectedText0 = "Mark as unread"
+        let expectedText0 = "Mark as unread".localized
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
         let expectedDestinationText0: String? = nil
@@ -50,7 +50,7 @@ class NotificationsCenterCellViewModelPageLinkTests: NotificationsCenterViewMode
         let expectedAction1: NotificationsCenterActionData.LoggingLabel = .linkedFromArticle
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: expectedAction1)
 
-        let expectedText2 = "Jack The Cat\'s user page"
+        let expectedText2 = "Jack The Cat\'s user page".localized
         let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
         let expectedIcon2: NotificationsCenterIconType = .person
         let expectedDestinationText2 = "On web"
@@ -71,7 +71,7 @@ class NotificationsCenterCellViewModelPageLinkTests: NotificationsCenterViewMode
         let expectedAction4: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[4], actionType: expectedAction4)
         
-        let expectedText5 = "Notification settings"
+        let expectedText5 = "Notification settings".localized
         let expectedURL5: URL? = nil
         let expectedIcon5: NotificationsCenterIconType? = nil
         let expectedDestinationText5: String? = nil

@@ -56,11 +56,11 @@ class Date_ExtensionTests: XCTestCase {
         let oneMonthAgoDate = Calendar.current.date(byAdding: DateComponents(month: -1), to: testDate)! as NSDate
         let futureDate = Calendar.current.date(byAdding: DateComponents(month: 1), to: testDate)! as NSDate
 
-        XCTAssertEqual((testDate as NSDate).wmf_localizedShortDateStringRelative(to: testDate), "Now")
-        XCTAssertEqual(oneMinuteAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "1 min ago")
-        XCTAssertEqual(thirtyMinutesAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "30 mins ago")
-        XCTAssertEqual(oneHourAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "1 hr ago")
-        XCTAssertEqual(tenHoursAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "10 hrs ago")
+        XCTAssertEqual((testDate as NSDate).wmf_localizedShortDateStringRelative(to: testDate), "Now".localized)
+        XCTAssertEqual(oneMinuteAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "1 min ago".localized)
+        XCTAssertEqual(thirtyMinutesAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "30 mins ago".localized)
+        XCTAssertEqual(oneHourAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "1 hr ago".localized)
+        XCTAssertEqual(tenHoursAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "10 hrs ago".localized)
         XCTAssertEqual(twentyFourHoursAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "10/19/21")
         XCTAssertEqual(oneDayAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "10/19/21")
         XCTAssertEqual(oneMonthAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "9/20/21")

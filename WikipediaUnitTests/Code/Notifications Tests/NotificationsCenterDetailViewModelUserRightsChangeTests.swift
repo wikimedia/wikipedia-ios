@@ -16,8 +16,8 @@ class NotificationsCenterDetailViewModelUserGroupRightsChangeTests: Notification
     }
     
     private func testUserRightsChangeText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Jack The Cat", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Jack The Cat".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "5/13/20", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "User rights change", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Your user rights were changed. You have been added to: Confirmed users.", "Invalid contentBody")
@@ -46,7 +46,7 @@ class NotificationsCenterDetailViewModelUserGroupRightsChangeTests: Notification
         let expectedAction0: NotificationsCenterActionData.LoggingLabel = .listGroupRights
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
         
-        let expectedText1 = "Jack The Cat's user page"
+        let expectedText1 = "Jack The Cat's user page".localized
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
         let expectedIcon1: NotificationsCenterIconType = .person
         let expectedDestinationText1 = "On web"

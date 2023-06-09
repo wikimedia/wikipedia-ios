@@ -25,10 +25,10 @@ class NotificationsCenterDetailViewModelThanksTests: NotificationsCenterViewMode
     }
     
     private func testThanksOnUserTalkEditText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "7/19/21", "Invalid headerDate")
-        XCTAssertEqual(detailViewModel.contentTitle, "Thanks", "Invalid contentTitle")
+        XCTAssertEqual(detailViewModel.contentTitle, "Thanks".localized, "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Fred The Bird thanked you for your edit on User talk:Fred The Bird.", "Invalid contentBody")
     }
     
@@ -48,14 +48,14 @@ class NotificationsCenterDetailViewModelThanksTests: NotificationsCenterViewMode
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
-        let expectedText0 = "Fred The Bird's user page"
+        let expectedText0 = "Fred The Bird's user page".localized
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
         let expectedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
         
-        let expectedText1 = "Talk page"
+        let expectedText1 = "Talk page".localized
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"
@@ -64,10 +64,10 @@ class NotificationsCenterDetailViewModelThanksTests: NotificationsCenterViewMode
     }
     
     private func testThanksOnArticleEditText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "3/13/20", "Invalid headerDate")
-        XCTAssertEqual(detailViewModel.contentTitle, "Thanks", "Invalid contentTitle")
+        XCTAssertEqual(detailViewModel.contentTitle, "Thanks".localized, "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Fred The Bird thanked you for your edit on Blue Bird.", "Invalid contentBody")
     }
     
@@ -83,14 +83,14 @@ class NotificationsCenterDetailViewModelThanksTests: NotificationsCenterViewMode
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
-        let expectedText0 = "Fred The Bird's user page"
+        let expectedText0 = "Fred The Bird's user page".localized
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
         let expectedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
         
-        let expectedText1 = "Article"
+        let expectedText1 = "Article".localized
         let expectedURL1: URL? = URL(string: "https://test.wikipedia.org/wiki/Blue_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"

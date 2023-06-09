@@ -16,8 +16,8 @@ class NotificationsCenterDetailViewModelPageLinkTests: NotificationsCenterViewMo
     }
     
     private func testPageLinkText(detailViewModel: NotificationsCenterDetailViewModel) throws {
-        XCTAssertEqual(detailViewModel.headerTitle, "From Jack The Cat", "Invalid headerTitle")
-        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
+        XCTAssertEqual(detailViewModel.headerTitle, "From Jack The Cat".localized, "Invalid headerTitle")
+        XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia".localized, "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "1/25/20", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Page link", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "A link was made from Black Cat to Blue Bird.", "Invalid contentBody")
@@ -39,7 +39,7 @@ class NotificationsCenterDetailViewModelPageLinkTests: NotificationsCenterViewMo
         let expectedAction: NotificationsCenterActionData.LoggingLabel = .linkedFromArticle
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
-        let expectedText0 = "Jack The Cat's user page"
+        let expectedText0 = "Jack The Cat's user page".localized
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"

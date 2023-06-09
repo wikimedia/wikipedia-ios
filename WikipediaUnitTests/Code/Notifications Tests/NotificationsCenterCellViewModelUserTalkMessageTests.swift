@@ -81,7 +81,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
     
     private func testUserTalkPageGenericMessageText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Message on your talk page", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "From Jack The Cat", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "From Jack The Cat".localized, "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, nil)
         XCTAssertEqual(cellViewModel.footerText, "User talk:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "4/11/19", "Invalid dateText")
@@ -97,21 +97,21 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
 
         XCTAssertEqual(cellViewModel.sheetActions.count, 5, "Invalid sheetActionsCount")
         
-        let expectedText0 = "Mark as unread"
+        let expectedText0 = "Mark as unread".localized
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
         let expectedDestinationText0: String? = nil
         let expectedAction0: NotificationsCenterActionData.LoggingLabel = .markUnread
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true, actionType: expectedAction0)
 
-        let expectedText1 = "Your talk page"
+        let expectedText1 = "Your talk page".localized
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"
         let expectedAction1: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: expectedAction1)
 
-        let expectedText2 = "Jack The Cat\'s user page"
+        let expectedText2 = "Jack The Cat\'s user page".localized
         let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
         let expectedIcon2: NotificationsCenterIconType = .person
         let expectedDestinationText2 = "On web"
@@ -125,7 +125,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
         let expectedAction3: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText3, actionToTest: cellViewModel.sheetActions[3], actionType: expectedAction3)
 
-        let expectedText4 = "Notification settings"
+        let expectedText4 = "Notification settings".localized
         let expectedURL4: URL? = nil
         let expectedIcon4: NotificationsCenterIconType? = nil
         let expectedDestinationText4: String? = nil
@@ -135,7 +135,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
     
     private func testUserTalkPageGenericAnonymousMessageText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Message on your talk page", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "From 47.184.10.84", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "From 47.184.10.84".localized, "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, nil)
         XCTAssertEqual(cellViewModel.footerText, "User talk:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "5/30/19", "Invalid dateText")
@@ -151,21 +151,21 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
 
         XCTAssertEqual(cellViewModel.sheetActions.count, 5, "Invalid sheetActionsCount")
         
-        let expectedText0 = "Mark as unread"
+        let expectedText0 = "Mark as unread".localized
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
         let expectedDestinationText0: String? = nil
         let expectedAction0: NotificationsCenterActionData.LoggingLabel = .markUnread
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true, actionType: expectedAction0)
 
-        let expectedText1 = "Your talk page"
+        let expectedText1 = "Your talk page".localized
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"
         let expectedAction1: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: expectedAction1)
 
-        let expectedText2 = "47.184.10.84\'s user page"
+        let expectedText2 = "47.184.10.84\'s user page".localized
         let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User:47.184.10.84")!
         let expectedIcon2: NotificationsCenterIconType = .person
         let expectedDestinationText2 = "On web"
@@ -179,7 +179,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
         let expectedAction3: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText3, actionToTest: cellViewModel.sheetActions[3], actionType: expectedAction3)
 
-        let expectedText4 = "Notification settings"
+        let expectedText4 = "Notification settings".localized
         let expectedURL4: URL? = nil
         let expectedIcon4: NotificationsCenterIconType? = nil
         let expectedDestinationText4: String? = nil
@@ -189,7 +189,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
     
     private func testUserTalkPageSpecificMessageText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Hello", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "From Jack The Cat", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "From Jack The Cat".localized, "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "Reply text")
         XCTAssertEqual(cellViewModel.footerText, "User talk:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "4/11/19", "Invalid dateText")
@@ -205,21 +205,21 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
 
         XCTAssertEqual(cellViewModel.sheetActions.count, 5, "Invalid sheetActionsCount")
         
-        let expectedText0 = "Mark as unread"
+        let expectedText0 = "Mark as unread".localized
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
         let expectedDestinationText0: String? = nil
         let expectedAction0: NotificationsCenterActionData.LoggingLabel = .markUnread
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true, actionType: expectedAction0)
 
-        let expectedText1 = "Your talk page"
+        let expectedText1 = "Your talk page".localized
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Hello")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"
         let expectedAction1: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: expectedAction1)
 
-        let expectedText2 = "Jack The Cat\'s user page"
+        let expectedText2 = "Jack The Cat\'s user page".localized
         let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
         let expectedIcon2: NotificationsCenterIconType = .person
         let expectedDestinationText2 = "On web"
@@ -233,7 +233,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
         let expectedAction3: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText3, actionToTest: cellViewModel.sheetActions[3], actionType: expectedAction3)
         
-        let expectedText4 = "Notification settings"
+        let expectedText4 = "Notification settings".localized
         let expectedURL4: URL? = nil
         let expectedIcon4: NotificationsCenterIconType? = nil
         let expectedDestinationText4: String? = nil
@@ -243,7 +243,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
     
     private func testUserTalkPageSpecificAnonymousMessageText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Section Title", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "From 47.184.10.84", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "From 47.184.10.84".localized, "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "Reply text")
         XCTAssertEqual(cellViewModel.footerText, "User talk:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "6/11/19", "Invalid dateText")
@@ -259,21 +259,21 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
 
         XCTAssertEqual(cellViewModel.sheetActions.count, 5, "Invalid sheetActionsCount")
         
-        let expectedText0 = "Mark as unread"
+        let expectedText0 = "Mark as unread".localized
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
         let expectedDestinationText0: String? = nil
         let expectedAction0: NotificationsCenterActionData.LoggingLabel = .markUnread
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true, actionType: expectedAction0)
 
-        let expectedText1 = "Your talk page"
+        let expectedText1 = "Your talk page".localized
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"
         let expectedAction1: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: expectedAction1)
 
-        let expectedText2 = "47.184.10.84\'s user page"
+        let expectedText2 = "47.184.10.84\'s user page".localized
         let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User:47.184.10.84")!
         let expectedIcon2: NotificationsCenterIconType = .person
         let expectedDestinationText2 = "On web"
@@ -287,7 +287,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
         let expectedAction3: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText3, actionToTest: cellViewModel.sheetActions[3], actionType: expectedAction3)
 
-        let expectedText4 = "Notification settings"
+        let expectedText4 = "Notification settings".localized
         let expectedURL4: URL? = nil
         let expectedIcon4: NotificationsCenterIconType? = nil
         let expectedDestinationText4: String? = nil
@@ -297,7 +297,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
     
     private func testUserTalkPageSpecificTruncatedMessageText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Section Title", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "From Fred The Bird", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "From Fred The Bird".localized, "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing elit ut aliq...")
         XCTAssertEqual(cellViewModel.footerText, "User talk:Jack The Cat", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "3/9/22", "Invalid dateText")
@@ -313,21 +313,21 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
 
         XCTAssertEqual(cellViewModel.sheetActions.count, 5, "Invalid sheetActionsCount")
         
-        let expectedText0 = "Mark as unread"
+        let expectedText0 = "Mark as unread".localized
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
         let expectedDestinationText0: String? = nil
         let expectedAction0: NotificationsCenterActionData.LoggingLabel = .markUnread
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true, actionType: expectedAction0)
 
-        let expectedText1 = "Your talk page"
+        let expectedText1 = "Your talk page".localized
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Jack_The_Cat#Section_Title")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"
         let expectedAction1: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: expectedAction1)
 
-        let expectedText2 = "Fred The Bird\'s user page"
+        let expectedText2 = "Fred The Bird\'s user page".localized
         let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon2: NotificationsCenterIconType = .person
         let expectedDestinationText2 = "On web"
@@ -341,7 +341,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
         let expectedAction3: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText3, actionToTest: cellViewModel.sheetActions[3], actionType: expectedAction3)
         
-        let expectedText4 = "Notification settings"
+        let expectedText4 = "Notification settings".localized
         let expectedURL4: URL? = nil
         let expectedIcon4: NotificationsCenterIconType? = nil
         let expectedDestinationText4: String? = nil
@@ -350,7 +350,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
     
     private func testUserTalkPageMediaWikiMessageText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Message on your talk page", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "From MediaWiki message delivery", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "From MediaWiki message delivery".localized, "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, nil)
         XCTAssertEqual(cellViewModel.footerText, "User talk:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "10/7/19", "Invalid dateText")
@@ -366,21 +366,21 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
 
         XCTAssertEqual(cellViewModel.sheetActions.count, 5, "Invalid sheetActionsCount")
         
-        let expectedText0 = "Mark as unread"
+        let expectedText0 = "Mark as unread".localized
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
         let expectedPrimaryDestinationText: String? = nil
         let expectedAction0: NotificationsCenterActionData.LoggingLabel = .markUnread
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true, actionType: expectedAction0)
 
-        let expectedText1 = "Your talk page"
+        let expectedText1 = "Your talk page".localized
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"
         let expectedAction1: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: expectedAction1)
 
-        let expectedText2 = "MediaWiki message delivery\'s user page"
+        let expectedText2 = "MediaWiki message delivery\'s user page".localized
         let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User:MediaWiki_message_delivery")!
         let expectedIcon2: NotificationsCenterIconType = .person
         let expectedDestinationText2 = "On web"
@@ -394,12 +394,11 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
         let expectedAction3: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText3, actionToTest: cellViewModel.sheetActions[3], actionType: expectedAction3)
         
-        let expectedText4 = "Notification settings"
+        let expectedText4 = "Notification settings".localized
         let expectedURL4: URL? = nil
         let expectedIcon4: NotificationsCenterIconType? = nil
         let expectedDestinationText4: String? = nil
         let expectedAction4: NotificationsCenterActionData.LoggingLabel = .settings
         try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[4], isNotificationSettings: true, actionType: expectedAction4)
-        
     }
 }

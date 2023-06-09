@@ -20,8 +20,8 @@ class NotificationsCenterCellViewModelWelcomeTests: NotificationsCenterViewModel
     }
     
     private func testWelcomeText(cellViewModel: NotificationsCenterCellViewModel) throws {
-        XCTAssertEqual(cellViewModel.headerText, "Welcome!", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "English Wikipedia", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.headerText, "Welcome!".localized, "Invalid headerText")
+        XCTAssertEqual(cellViewModel.subheaderText, "English Wikipedia".localized, "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "Welcome to Wikipedia, Jack The Cat! We\'re glad you\'re here.")
         XCTAssertEqual(cellViewModel.footerText, nil)
         XCTAssertEqual(cellViewModel.dateText, "12/19/18", "Invalid dateText")
@@ -37,14 +37,14 @@ class NotificationsCenterCellViewModelWelcomeTests: NotificationsCenterViewModel
 
         XCTAssertEqual(cellViewModel.sheetActions.count, 2, "Invalid sheetActionsCount")
         
-        let expectedText0 = "Mark as unread"
+        let expectedText0 = "Mark as unread".localized
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
         let expectedDestinationText0: String? = nil
         let expectedAction0: NotificationsCenterActionData.LoggingLabel = .markUnread
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true, actionType: expectedAction0)
         
-        let expectedText1 = "Notification settings"
+        let expectedText1 = "Notification settings".localized
         let expectedURL1: URL? = nil
         let expectedIcon1: NotificationsCenterIconType? = nil
         let expectedDestinationText1: String? = nil
