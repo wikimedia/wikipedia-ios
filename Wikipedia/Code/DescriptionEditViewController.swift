@@ -329,7 +329,6 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     }
     
     private func hideAllWarningLabels() {
-        warningCharacterCountLabel.isHidden = true
         lengthWarningLabel.isHidden = true
         casingWarningLabel.isHidden = true
     }
