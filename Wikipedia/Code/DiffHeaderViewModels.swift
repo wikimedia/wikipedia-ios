@@ -15,12 +15,7 @@ final class DiffHeaderViewModel: Themeable {
     static let dateFormatter = DateFormatter()
     
     var isExtendedViewHidingEnabled: Bool {
-        switch headerType {
-        case .compare:
-            return false
-        case .single:
-            return true
-        }
+        return true
     }
     
     init?(diffType: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, articleTitle: String, byteDifference: Int?, theme: Theme) {
