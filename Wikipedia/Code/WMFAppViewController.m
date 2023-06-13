@@ -902,7 +902,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                done();
                            }];
         } else if (NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume) {
-            [self.navigationStateController restoreNavigationStateFor:self.navigationController
+            [self.navigationStateController restoreLastArticleFor:self.navigationController
                                                                    in:self.dataStore.viewContext
                                                                  with:self.theme
                                                            completion:^{
@@ -1637,6 +1637,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self wmf_hideKeyboard];
 }
 
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+    [self logTappedTabBarItem:item inTabBar:tabBar];
+}
+
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     if (viewController == tabBarController.selectedViewController) {
         switch (tabBarController.selectedIndex) {
@@ -2058,6 +2062,35 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)setRemoteNotificationRegistrationStatusWithDeviceToken:(nullable NSData *)deviceToken error:(nullable NSError *)error {
     [self.notificationsController setRemoteNotificationRegistrationStatusWithDeviceToken:deviceToken error:error];
 }
+
+#pragma mark - Navigation logging
+
+- (void)logTappedTabBarItem:(UITabBarItem *)item inTabBar:(UITabBar *)tabBar {
+    if (tabBar.items.count != self.viewControllers.count || self.tabBar != tabBar) {
+        NSAssert(false, @"Unexpected tab bar setup for logging tap events.");
+        return;
+    }
+
+    NSInteger index = [self.tabBar.items indexOfObject:item];
+    if (index != NSNotFound) {
+        UIViewController *selectedViewController = self.viewControllers[index];
+
+        if ([selectedViewController isKindOfClass:[ExploreViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeExplore) {
+            [[WMFNavigationEventsFunnel shared] logTappedExplore];
+        } else if ([selectedViewController isKindOfClass:[WMFSettingsViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsFromTabBar];
+        } else if ([selectedViewController isKindOfClass:[WMFPlacesViewController class]]) {
+            [[WMFNavigationEventsFunnel shared] logTappedPlaces];
+        } else if ([selectedViewController isKindOfClass:[WMFSavedViewController class]]) {
+            [[WMFNavigationEventsFunnel shared] logTappedSaved];
+        } else if ([selectedViewController isKindOfClass:[WMFHistoryViewController class]]) {
+            [[WMFNavigationEventsFunnel shared] logTappedHistory];
+        } else if ([selectedViewController isKindOfClass:[SearchViewController class]]) {
+            [[WMFNavigationEventsFunnel shared] logTappedSearch];
+        }
+    }
+}
+
 
 #pragma mark - User was logged out
 

@@ -134,6 +134,7 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "ការកំណត់រចនាបថអំណាន";
 "back-button-accessibility-label" = "ត្រឡប់ក្រោយ";
 "back-button-popover-title" = "ចុចដើម្បីត្រឡប់ក្រោយ";
+"button-go-back" = "ត្រឡប់​ក្រោយ";
 "button-next" = "បន្ទាប់";
 "button-ok" = "យល់ព្រម";
 "button-publish" = "បោះផ្សាយ";
@@ -236,6 +237,7 @@
 "edit-menu-item" = "កែប្រែ";
 "edit-minor-learn-more-text" = "ស្វែងយល់បន្ថែមអំពីកំណែប្រែតិចតួច";
 "edit-minor-text" = "នេះជា​កំណែប្រែតិចតួចប៉ុណ្ណោះ";
+"edit-notices-please-read" = "សូមអានមុនពេលធ្វើការកែប្រែ";
 "edit-ordered-list-accessibility-label" = "ដាក់លេខរាងបន្ទាត់នេះ";
 "edit-ordered-list-remove-accessibility-label" = "ដកលេខរាងបន្ទាត់នេះ";
 "edit-published" = "បានបោះផ្សាយកំណែប្រែបានសម្រេច";
@@ -619,6 +621,7 @@
 "page-similar-titles" = "ទំព័រស្រដៀង";
 "panel-compare-revisions-text" = "ការប្រៀបធៀបកំណែនានាអាចជួយបង្ហាញថាអត្ថបទនេះបានប្រែប្រួលបែបណា។ ការប្រៀបធៀបកំណែ២របស់អត្ថបទតែមួយនឹងបង្ហាញពីចំនុចខុសគ្នារបស់កំណែទាំង២នោះ ដោយផាត់ពណ៌លើខ្លឹមសារដែលបានផ្លាស់ប្ដូរ។";
 "panel-compare-revisions-title" = "ប្រៀបធៀបកំណែ";
+"panel-not-logged-in-title" = "អ្នកមិនទាន់កត់ឈ្មោះចូលទេ";
 "pictured" = "រូបគូរ";
 "places-accessibility-clear-saved-searches" = "ជម្រះពាក្យស្វែងរកដែលបានរក្សាទុក";
 "places-accessibility-group" = "$1 អត្ថបទ";

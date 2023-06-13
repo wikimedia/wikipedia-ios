@@ -582,6 +582,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     vc.wikitext = wikitext
                     vc.delegate = self
                     self.navigationController?.pushViewController(vc, animated: true)
+                    EditAttemptFunnel.shared.logSaveIntent(articleURL: self.articleURL)
                 } else {
                     let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
                     WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)

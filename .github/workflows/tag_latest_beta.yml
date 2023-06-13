@@ -3,6 +3,7 @@ name: Tag Latest Beta
 on:
   schedule:
     - cron: '0 10 * * *' # run at 10AM UTC
+  workflow_dispatch: # allows workflow to be triggered manually
 
 jobs:
   Tag-Latest-Beta:

@@ -12,6 +12,9 @@
         case receiveFinish = "receive_finish"
         case surveyShown = "survey_shown"
         case surveyClicked = "survey_clicked"
+        case allArticlesTab = "all_articles_tab"
+        case readingListsTab = "reading_lists_tab"
+        case editButton = "edit_tab"
     }
 
     private struct Event: EventInterface {
@@ -126,7 +129,7 @@
         logUnsave(category: .saved, label: .items, measure: articlesCount, wiki_id: language)
     }
     
-    public func logReadStartIReadingList(_ articleURL: URL) {
+    public func logReadStartReadingList(_ articleURL: URL) {
         logEvent(action: .readStart, category: .saved, label: .items, measure: 1, wiki_id: articleURL.wmf_languageCode)
     }
     
@@ -170,6 +173,18 @@
     
     public func logTappedTakeSurvey() {
         logEvent(action: .surveyClicked, category: .shared, label: nil)
+    }
+
+    public func logTappedAllArticlesTab() {
+        logEvent(action: .allArticlesTab, category: .saved, label: nil)
+    }
+
+    public func logTappedReadingListsTab() {
+        logEvent(action: .readingListsTab, category: .saved, label: nil)
+    }
+
+    public func logTappedEditButton() {
+        logEvent(action: .editButton, category: .saved, label: nil)
     }
 }
 
