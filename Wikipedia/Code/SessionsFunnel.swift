@@ -30,7 +30,7 @@
         if let pageLoadAverage {
             pageLatency = SessionData(page_load_latency_ms: Int(round(pageLoadAverage)))
         } else {
-            pageLatency = nil
+            pageLatency = SessionData(page_load_latency_ms: nil)
         }
 
         let finalEvent = SessionsFunnel.Event(length_ms: lengthMS, session_data: pageLatency)
