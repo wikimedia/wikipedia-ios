@@ -22,6 +22,7 @@ public final class EditAttemptFunnel {
         let version: Int
         let page_title: String?
         let page_ns: Int?
+        let revision_id: Int?
     }
 
     private enum EditAction: String, Codable {
@@ -36,14 +37,14 @@ public final class EditAttemptFunnel {
         case abort = "abort"
     }
 
-    private func logEvent(articleURL: URL, action: EditAction) {
+    private func logEvent(articleURL: URL, action: EditAction, revisionId: Int? = nil) {
         let editorInterface = "wikitext"
         let integrationID = "app-ios"
         let platform = UIDevice.current.userInterfaceIdiom == .pad ? "tablet" : "phone"
 
         let userId = getUserID(articleURL: articleURL)
 
-        let event = Event(action: action, editing_session_id: "", editor_interface: editorInterface, integration: integrationID, mw_version: "", platform: platform, user_editcount: 0, user_id: userId, version: 1, page_title: articleURL.wmf_title, page_ns: articleURL.namespace?.rawValue)
+        let event = Event(action: action, editing_session_id: "", editor_interface: editorInterface, integration: integrationID, mw_version: "", platform: platform, user_editcount: 0, user_id: userId, version: 1, page_title: articleURL.wmf_title, page_ns: articleURL.namespace?.rawValue, revision_id: revisionId)
         
         let container = EventContainer(event: event)
         EventPlatformClient.shared.submit(stream: .editAttempt, event: container, needsMinimal: true)
@@ -61,8 +62,8 @@ public final class EditAttemptFunnel {
         logEvent(articleURL: articleURL, action: .saveAttempt)
     }
 
-    func logSaveSuccess(articleURL: URL) {
-        logEvent(articleURL: articleURL, action: .saveSuccess)
+    func logSaveSuccess(articleURL: URL, revisionId: Int) {
+        logEvent(articleURL: articleURL, action: .saveSuccess, revisionId: revisionId)
     }
 
     func logSaveFailure(articleURL: URL) {
