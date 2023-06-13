@@ -7,7 +7,6 @@ import Foundation
         
         let urls = try deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController)
 
-        try deleteStaleTalkPages(moc)
         try deleteStaleAnnouncements(moc)
 
         return urls
@@ -32,26 +31,6 @@ import Foundation
         }
     }
 
-    /**
-     
-     We only persist the last 50 most recently accessed talk pages, delete all others.
-     
-    */
-    private func deleteStaleTalkPages(_ moc: NSManagedObjectContext) throws {
-        let request: NSFetchRequest<NSFetchRequestResult> = TalkPage.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "dateAccessed", ascending: false)]
-        request.fetchOffset = 50
-        let batchRequest = NSBatchDeleteRequest(fetchRequest: request)
-        batchRequest.resultType = .resultTypeObjectIDs
-        
-        let result = try moc.execute(batchRequest) as? NSBatchDeleteResult
-        let objectIDArray = result?.result as? [NSManagedObjectID]
-        let changes: [AnyHashable : Any] = [NSDeletedObjectsKey : objectIDArray as Any]
-        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [moc])
-        
-        try moc.removeUnlinkedTalkPageTopicContent()
-    }
-    
     private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
         
         /**
