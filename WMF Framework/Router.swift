@@ -63,7 +63,7 @@ public class Router: NSObject {
         
         switch namespace {
         case .talk:
-            if FeatureFlags.needsNewTalkPage && project.supportsNativeUserTalkPages {
+            if project.supportsNativeUserTalkPages {
                 return .talk(url)
             } else {
                 return nil
