@@ -184,7 +184,7 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
         case .success(let changes):
             dismiss(animated: true)
             waitForNewContentAndRefresh(changes.newRevisionID)
-            EditAttemptFunnel.shared.logSaveSuccess(articleURL: self.articleURL)
+            EditAttemptFunnel.shared.logSaveSuccess(articleURL: self.articleURL, revisionId: Int(changes.newRevisionID))
         }
     }
     
