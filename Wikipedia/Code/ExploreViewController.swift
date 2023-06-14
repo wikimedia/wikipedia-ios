@@ -1075,13 +1075,6 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     
 }
 
-// MARK: - MEPEventsSEarchProviding
-extension ExploreViewController: MEPEventsSearchProviding {
-    var searchSource: String {
-        return "top_of_feed"
-    }
-}
-
 // MARK: - Notifications Center
 extension ExploreViewController {
 
