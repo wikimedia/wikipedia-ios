@@ -519,6 +519,16 @@
                                       range:range];
         }
     }];
+
+    NSDictionary *listAttributes = font != nil ? @{NSFontAttributeName: font} : @{};
+    __block NSInteger offset = 0;
+    [lists enumerateObjectsUsingBlock:^(WMFHTMLElement *_Nonnull list, NSUInteger idx, BOOL *_Nonnull stop) {
+        offset += [attributedString performReplacementsForListElement:list currentList:list withAttributes:listAttributes listIndex:0 replacementOffset:offset];
+        NSString *newline = @"\n";
+        NSAttributedString *attributedNewline = [[NSAttributedString alloc] initWithString:newline attributes:attributes];
+        [attributedString insertAttributedString:attributedNewline atIndex:list.endLocation + offset];
+        offset += attributedNewline.length;
+    }];
     
     [imageSrcStrings enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         NSNumber *imageIndex = imageTagIndexes[idx];
@@ -529,16 +539,7 @@
         NSMutableAttributedString *linkedImageAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:imageAttriutedString];
         [linkedImageAttributedString addAttribute:NSLinkAttributeName value:[NSURL URLWithString:obj] range: NSMakeRange(0, linkedImageAttributedString.length)];
         [attributedString insertAttributedString:linkedImageAttributedString atIndex:[imageIndex integerValue]];
-    }];
-
-    NSDictionary *listAttributes = font != nil ? @{NSFontAttributeName: font} : @{};
-    __block NSInteger offset = 0;
-    [lists enumerateObjectsUsingBlock:^(WMFHTMLElement *_Nonnull list, NSUInteger idx, BOOL *_Nonnull stop) {
-        offset += [attributedString performReplacementsForListElement:list currentList:list withAttributes:listAttributes listIndex:0 replacementOffset:offset];
-        NSString *newline = @"\n";
-        NSAttributedString *attributedNewline = [[NSAttributedString alloc] initWithString:newline attributes:attributes];
-        [attributedString insertAttributedString:attributedNewline atIndex:list.endLocation + offset];
-        offset += attributedNewline.length;
+        // Insert another attributed string here that says "view image"
     }];
 
     return attributedString;
