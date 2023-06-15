@@ -329,6 +329,8 @@
     NSMutableSet<NSURL *> *currentLinks = [NSMutableSet setWithCapacity:1];
     NSMutableArray<NSSet<NSString *> *> *tags = [NSMutableArray arrayWithCapacity:1];
     NSMutableArray<NSSet<NSURL *> *> *links = [NSMutableArray arrayWithCapacity:1];
+    NSMutableArray<NSString *> *imageSrcStrings = [NSMutableArray arrayWithCapacity:1];
+    NSMutableArray<NSNumber *> *imageTagIndexes = [NSMutableArray arrayWithCapacity:1];
 
     NSMutableArray<WMFHTMLElement *> *lists = [NSMutableArray arrayWithCapacity:1];
     NSMutableArray<WMFHTMLElement *> *unclosedListElements = [NSMutableArray arrayWithCapacity:1];
@@ -374,7 +376,24 @@
         } else {
             startLocation = currentLocation;
             [currentTags addObject:HTMLTagName];
-            if (handlingLinks && [HTMLTagName isEqualToString:@"a"]) {
+            if ([HTMLTagName isEqualToString:@"img"]) {
+                //src\=(?:\"|\')(.+?)(?:\"|\')
+                
+                NSString *hrefPattern = @"src\\=(?:\\\"|\\')(.+?)(?:\\\"|\\')";
+                NSRegularExpression *hrefRegex = [NSRegularExpression regularExpressionWithPattern:hrefPattern options:NSRegularExpressionCaseInsensitive error:nil];
+                
+                __block NSString *sourceString;
+                [hrefRegex enumerateMatchesInString:HTMLTagAttributes
+                                            options:0
+                                              range:NSMakeRange(0, HTMLTagAttributes.length)
+                                         usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                    NSRange sourceStringRange = [result rangeAtIndex:1];
+                    sourceString = [HTMLTagAttributes substringWithRange:sourceStringRange];
+                }];
+                
+                [imageSrcStrings addObject:sourceString];
+                [imageTagIndexes addObject:[NSNumber numberWithInt:currentLocation]];
+            } else if (handlingLinks && [HTMLTagName isEqualToString:@"a"]) {
                 [hrefRegex enumerateMatchesInString:HTMLTagAttributes
                                             options:0
                                               range:NSMakeRange(0, HTMLTagAttributes.length)
@@ -499,6 +518,17 @@
             [attributedString addAttributes:attributes
                                       range:range];
         }
+    }];
+    
+    [imageSrcStrings enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        NSNumber *imageIndex = imageTagIndexes[idx];
+        
+        NSTextAttachment *imageAttachment = [[NSTextAttachment alloc] init];
+        imageAttachment.image = [UIImage systemImageNamed:@"photo"];
+        NSAttributedString *imageAttriutedString = [NSAttributedString attributedStringWithAttachment:imageAttachment];
+        NSMutableAttributedString *linkedImageAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:imageAttriutedString];
+        [linkedImageAttributedString addAttribute:NSLinkAttributeName value:[NSURL URLWithString:obj] range: NSMakeRange(0, linkedImageAttributedString.length)];
+        [attributedString insertAttributedString:linkedImageAttributedString atIndex:[imageIndex integerValue]];
     }];
 
     NSDictionary *listAttributes = font != nil ? @{NSFontAttributeName: font} : @{};
