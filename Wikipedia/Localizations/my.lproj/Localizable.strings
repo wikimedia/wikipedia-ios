@@ -132,13 +132,11 @@
 "continue-reading-empty-title" = "လတ်တလော ဖတ်ရှုစာမျက်နှာများ မရှိပါ";
 "data-migration-status" = "မွမ်းမံနေသည်...";
 "description-add-title" = "ဖော်ပြချက်ထည့်သွင်းပါ";
-// Fuzzy
-"description-edit-for-article" = "$1အတွက် ခေါင်းစဉ်ဖော်ပြချက်";
+"description-edit-for-article" = "$1အတွက် ဆောင်းပါးဖော်ပြချက်";
 "description-edit-learn-more" = "ထပ်မံ လေ့လာရန်";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "မိတ်ဆက် တည်းဖြတ်ရန်";
-// Fuzzy
-"description-edit-pencil-title" = "ခေါင်းစဉ်ဖော်ပြချက် တည်းဖြတ်ရန်";
+"description-edit-pencil-title" = "ဆောင်းပါးဖော်ပြချက်ကို တည်းဖြတ်ရန်";
 "description-edit-placeholder-title" = "ဖော်ပြချက်တိုများသည် အကောင်းဆုံးဖြစ်သည်";
 "description-edit-publish" = "ဖော်ပြချက် လွှင့်တင်ရန်";
 "description-edit-title" = "ဖော်ပြချက် တည်းဖြတ်ရန်";
