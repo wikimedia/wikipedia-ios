@@ -667,12 +667,11 @@ extension SearchViewController {
         let viewControllersCount = viewControllers.count
         if viewControllersCount == 1 {
             return "search_tab"
+        } else if viewControllersCount == 2 {
+            return "top_of_feed"
+        } else {
+            return "article"
         }
-        let penultimateViewController = viewControllers[viewControllersCount - 2]
-        if let searchSourceProviding = penultimateViewController as? MEPEventsSearchProviding {
-            return searchSourceProviding.searchSource
-        }
-        return "unknown"
     }
 }
 
