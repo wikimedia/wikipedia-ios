@@ -105,8 +105,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong) WMFEditHintController *editHintController;
 
 @property (nonatomic, strong) WMFNavigationStateController *navigationStateController;
-@property (nonatomic, strong) WMFTalkPageReplyHintController *talkPageReplyHintController;
-@property (nonatomic, strong) WMFTalkPageTopicHintController *talkPageTopicHintController;
 
 @property (nonatomic, strong) WMFConfiguration *configuration;
 @property (nonatomic, strong) WMFViewControllerRouter *router;
@@ -229,16 +227,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(descriptionEditWasPublished:)
                                                  name:[DescriptionEditViewController didPublishNotification]
                                                object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(talkPageReplyWasPublished:)
-                                                 name:WMFTalkPageContainerViewController.WMFReplyPublishedNotificationName
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(talkPageTopicWasPublished:)
-                                                 name:WMFTalkPageContainerViewController.WMFTopicPublishedNotificationName
-                                               object:nil];
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(referenceLinkTapped:)
                                                  name:WMFReferenceLinkTappedNotification
@@ -256,8 +244,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     [self setupReadingListsHelpers];
     self.editHintController = [[WMFEditHintController alloc] init];
-    self.talkPageReplyHintController = [[WMFTalkPageReplyHintController alloc] init];
-    self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
 
     self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
 }
@@ -574,14 +560,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
     [self toggleHint:self.editHintController
              context:nil];
-}
-
-- (void)talkPageReplyWasPublished:(NSNotification *)note {
-    [self toggleHint:self.talkPageReplyHintController context:nil];
-}
-
-- (void)talkPageTopicWasPublished:(NSNotification *)note {
-    [self toggleHint:self.talkPageTopicHintController context:nil];
 }
 
 - (void)referenceLinkTapped:(NSNotification *)note {
