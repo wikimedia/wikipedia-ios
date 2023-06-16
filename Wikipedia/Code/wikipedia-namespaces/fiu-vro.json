@@ -42,6 +42,8 @@
     "TALLITUSLEHEKÜLG" : -1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "TÖÖRIIST" : 2300,
     "TÖÖRIISTA ARUTELU" : 2301,
     "TÖÖRIISTA MÄÄRATLUS" : 2302,
@@ -51,6 +53,7 @@
     "WIKIPEDIA" : 4,
     "WIKIPEDIA AROTUS" : 5,
     "WIKIPEDIA ARUTELU" : 5,
-    "WIKIPEDIA TALK" : 5
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }

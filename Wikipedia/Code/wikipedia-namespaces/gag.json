@@ -53,6 +53,8 @@
     "TARTIŞMA" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "USER" : 2,
     "USER TALK" : 3,
     "VIKIPEDIYA" : 4,
@@ -60,6 +62,7 @@
     "VIKIPEDIYANIN LAFLANMASI" : 5,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
+    "WP" : 4,
     "YARDIM" : 12,
     "YARDIM DARTIŞMA" : 13,
     "YARDIM TARTIŞMA" : 13
