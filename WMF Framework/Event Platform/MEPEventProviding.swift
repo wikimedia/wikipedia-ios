@@ -47,7 +47,3 @@ public protocol MEPEventsProviding {
     var eventLoggingCategory: EventCategoryMEP { get }
     var eventLoggingLabel: EventLabelMEP? { get }
 }
-
-public protocol MEPEventsSearchProviding {
-    var searchSource: String { get }
-}
