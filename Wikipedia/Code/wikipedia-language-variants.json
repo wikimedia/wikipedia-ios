@@ -131,9 +131,15 @@
         {
             "languageVariantCode": "shi-tfng",
             "languageName": "ⵜⴰⵛⵍⵃⵉⵜ ",
-            "localName": "Tachelhit (Tifinagh/ⵜⴰⵛⵍⵃⵉⵜ)",
+            "localName": "Tachelhit (Tifinagh)",
             "languageCode": "shi"
 
+        },
+        {
+            "languageVariantCode": "shi-latn",
+            "languageName": "Taclḥit",
+            "localName": "Tachelhit (Latin)",
+            "languageCode": "shi"
         }
     ],
     "tg": [
