@@ -14,9 +14,7 @@ NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 NSString *const WMFViewContextDidResetNotification = @"WMFViewContextDidResetNotification";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 14;
-
-NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
+static const NSInteger WMFCurrentLibraryVersion = 15;
 
 NSString *const WMFCoreDataSynchronizerInfoFileName = @"Wikipedia.info";
 
@@ -25,10 +23,6 @@ NSString *const WMFMainContextCrossProcessNotificationChannelNamePrefix = @"org.
 
 NSString *const WMFCacheContextCrossProcessNotificiationChannelNameKey = @"CacheContextCrossProcessNotificiationChannelName";
 NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"org.wikimedia.wikipedia.cache-cd-cpn-";
-
-NSString *MWKCreateImageURLWithPath(NSString *path) {
-    return [MWKDataStoreValidImageSitePrefix stringByAppendingString:path];
-}
 
 @interface MWKDataStore () <WMFAuthenticationManagerDelegate, WMFSessionAuthenticationDelegate>
 
@@ -45,8 +39,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 @property (nonatomic, strong) WMFArticleSummaryController *articleSummaryController;
 @property (nonatomic, strong) MWKLanguageLinkController *languageLinkController;
 @property (nonatomic, strong) WMFNotificationsController *notificationsController;
-
-@property (nonatomic, strong) MobileviewToMobileHTMLConverter *mobileviewConverter;
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
@@ -120,7 +112,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:session configuration:configuration languageLinkController:self.languageLinkController authManager:authenticationManager];
         self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self languageLinkController:self.languageLinkController];
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:session configuration:configuration dataStore:self];
-        self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
     }
     return self;
 }
@@ -476,6 +467,15 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
             return;
         }
     }
+    
+    if (currentLibraryVersion < 15) {
+        [self markAllNeedingConversionFromMobileviewArticlesAsNotDownloaded:moc];
+        [moc wmf_setValue:@(15) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
 
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
 }
@@ -567,6 +567,42 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
 }
 
+- (void)markAllNeedingConversionFromMobileviewArticlesAsNotDownloaded:(NSManagedObjectContext *)moc {
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isDownloaded == YES && isConversionFromMobileViewNeeded == YES"];
+    request.fetchLimit = 500;
+    request.propertiesToFetch = @[];
+    NSError *fetchError = nil;
+    NSArray *articles = [moc executeFetchRequest:request error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching needing conversion from mobileview articles: %@", fetchError);
+        return;
+    }
+    while (articles.count > 0) {
+        @autoreleasepool {
+            for (WMFArticle *article in articles) {
+                // This will put article in a savedDate = {date} and isDownloaded = NO state, which allows SavedArticlesFetcher to pick it up for online downloading.
+                article.isDownloaded = NO;
+                article.isConversionFromMobileViewNeeded = NO;
+            }
+            if ([moc hasChanges]) {
+                NSError *saveError = nil;
+                [moc save:&saveError];
+                if (saveError) {
+                    DDLogError(@"Error marking needs conversion from mobileview articles as not downloaded: %@", fetchError);
+                    return;
+                }
+                [moc reset];
+            }
+        }
+        articles = [moc executeFetchRequest:request error:&fetchError];
+        if (fetchError) {
+            DDLogError(@"Error fetching needs conversion from mobileview articles: %@", fetchError);
+            return;
+        }
+    }
+}
+
 - (void)migrateToStandardUserDefaults {
     NSUserDefaults *wmfDefaults = [[NSUserDefaults alloc] initWithSuiteName:WMFApplicationGroupIdentifier];
     if (!wmfDefaults) {
@@ -589,42 +625,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
     // move legacy image cache to new non-image path name
     return [[NSFileManager defaultManager] moveItemAtURL:legacyDirectory toURL:newDirectory error:error];
-}
-
-- (void)markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:(NSManagedObjectContext *)moc {
-    NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES"];
-    request.fetchLimit = 500;
-    NSError *fetchError = nil;
-    NSArray *downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
-    if (fetchError) {
-        DDLogError(@"Error fetching downloaded articles: %@", fetchError);
-        return;
-    }
-
-    while (downloadedArticles.count > 0) {
-        @autoreleasepool {
-            for (WMFArticle *article in downloadedArticles) {
-                article.isDownloaded = NO;
-            }
-
-            if ([moc hasChanges]) {
-                NSError *saveError = nil;
-                [moc save:&saveError];
-                if (saveError) {
-                    DDLogError(@"Error saving downloaded articles: %@", fetchError);
-                    return;
-                }
-                [moc reset];
-            }
-        }
-
-        downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
-        if (fetchError) {
-            DDLogError(@"Error fetching downloaded articles: %@", fetchError);
-            return;
-        }
-    }
 }
 
 #pragma mark - Memory
@@ -655,17 +655,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 }
 
 #pragma mark - Legacy DataStore
-
-+ (NSString *)mainDataStorePath {
-    NSString *documentsFolder = [[NSFileManager defaultManager] wmf_containerPath];
-    return [documentsFolder stringByAppendingPathComponent:@"Data"];
-}
-
-+ (NSString *)appSpecificMainDataStorePath { // deprecated, use the group folder from mainDataStorePath
-    NSString *documentsFolder =
-        [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    return [documentsFolder stringByAppendingPathComponent:@"Data"];
-}
 
 - (void)setupLegacyDataStore {
     NSString *pathToExclude = [self pathForSites];
@@ -778,13 +767,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return dict[@"entries"];
 }
 
-#pragma mark - helper methods
-
-- (NSInteger)sitesDirectorySize {
-    NSURL *sitesURL = [NSURL fileURLWithPath:[self pathForSites]];
-    return (NSInteger)[[NSFileManager defaultManager] sizeOfDirectoryAt:sitesURL];
-}
-
 #pragma mark - Deletion
 
 - (NSError *)removeFolderAtBasePath {
@@ -794,22 +776,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 }
 
 #pragma mark - Cache
-
-- (void)prefetchArticles {
-    NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.fetchLimit = 1000;
-    NSManagedObjectContext *moc = self.viewContext;
-    NSArray<WMFArticle *> *prefetchedArticles = [moc executeFetchRequest:request error:nil];
-    for (WMFArticle *article in prefetchedArticles) {
-        NSString *key = article.key;
-        if (!key) {
-            continue;
-        }
-        NSString *variant = article.variant;
-        WMFInMemoryURLKey *cacheKey = [[WMFInMemoryURLKey alloc] initWithDatabaseKey:key languageVariantCode:variant];
-        [self.articleCache setObject:article forKey:cacheKey];
-    }
-}
 
 - (void)clearMemoryCache {
     @synchronized(self.articleCache) {
