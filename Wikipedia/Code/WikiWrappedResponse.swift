@@ -30,7 +30,7 @@ class WikiWrappedAPIResponse {
         self.articles = articles
     }
     
-    static var mockResponse: WikiWrappedAPIResponse = {
+    static let mockResponse: WikiWrappedAPIResponse = {
         
         let topic1 = WikiWrappedArticle.Topic.init(name: "History and Society.Education", weight: 991)
         let topic2 = WikiWrappedArticle.Topic.init(name: "History and Society.Society", weight: 900)
@@ -42,5 +42,5 @@ class WikiWrappedAPIResponse {
         let article2 = WikiWrappedArticle.init(title: "Space", topics: [topic3, topic4])
         
         return WikiWrappedAPIResponse(articles: [article1, article2])
-    }
+    }()
 }
