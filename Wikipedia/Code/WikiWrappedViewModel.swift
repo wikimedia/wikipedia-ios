@@ -8,7 +8,9 @@ public struct WikiWrappedViewModel {
 
         for article in articles {
             for topic in article.topics {
-                topics.append(topic.name)
+                if topic.name.contains("*") || topic.weight > 900 {
+                    topics.append(topic.name)
+                }
             }
         }
 

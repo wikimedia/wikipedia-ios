@@ -16,13 +16,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
 
-        let arrayOfThings = WikiWrappedAPIResponse.mockResponse
-
-        let viewModel = WikiWrappedViewModel()
-        let count = viewModel.getTopicCount(articles: arrayOfThings.articles)
-
-        print(count, "🐙")
-
         navigationItem.titleView = titleView
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.isUnderBarViewHidingEnabled = true
@@ -73,14 +66,19 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         dataStore.remoteNotificationsController.loadNotifications(force: false)
         
         let fetcher = WikiWrappedFetcher()
+
         fetcher.fetchWikiWrapped { result in
             switch result {
             case .success(let response):
                 print(response)
+                let vm = WikiWrappedViewModel()
+                let count  = vm.getTopicCount(articles: response.articles)
+                print(count, "🍎")
             case .failure(let error):
                 print(error)
             }
         }
+
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
