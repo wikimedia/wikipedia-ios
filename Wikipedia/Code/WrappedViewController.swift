@@ -73,7 +73,7 @@ final class WrappedView: SetupView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 15
+        stackView.spacing = 20
         return stackView
     }()
     
@@ -130,9 +130,8 @@ final class WrappedView: SetupView {
             let label = UILabel()
             label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
             label.numberOfLines = 0
-            label.text = "\(key) \(value)"
+            label.text = "\(value) - \(key)"
             verticalStack.addArrangedSubview(label)
-
         }
             
     }
