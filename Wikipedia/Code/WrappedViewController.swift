@@ -4,7 +4,6 @@ final class WrappedViewController: ViewController {
     
     let wrappedView = WrappedView()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
                         
@@ -17,7 +16,7 @@ final class WrappedViewController: ViewController {
                 let vm = WikiWrappedViewModel()
                 let count  = vm.getTopicCount(articles: response.articles)
                 DispatchQueue.main.async {
-                    self.wrappedView.configure(topics: count)
+                    self.wrappedView.configure(title: vm.title, topics: count)
                 }
                 
             case .failure(let error):
@@ -123,7 +122,12 @@ final class WrappedView: SetupView {
     
     }
     
-    func configure(topics: [String: Int]) {        
+    func configure(title: NSAttributedString, topics: [String: Int]) {
+        
+        let titleLabel = UILabel()
+        titleLabel.attributedText = title
+        verticalStack.addArrangedSubview(titleLabel)
+        
         for topic in topics {
             let label = UILabel()
             label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
