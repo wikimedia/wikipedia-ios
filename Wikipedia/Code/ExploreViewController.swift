@@ -117,19 +117,30 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     @objc func updateNotificationsCenterButton() {
-        if self.dataStore.authenticationManager.isLoggedIn {
-            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-            let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
-            let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)
-            let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
-            notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
-            navigationItem.leftBarButtonItem = notificationsBarButton
-            navigationBar.displayType = .centeredLargeTitle
-        } else {
-            navigationItem.leftBarButtonItem = nil
-            navigationBar.displayType = .largeTitle
-        }
+//        if self.dataStore.authenticationManager.isLoggedIn {
+//            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+//            let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
+//            let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)
+//            let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
+//            notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
+//            navigationItem.leftBarButtonItem = notificationsBarButton
+//            navigationBar.displayType = .centeredLargeTitle
+//        } else {
+//            navigationItem.leftBarButtonItem = nil
+//            navigationBar.displayType = .largeTitle
+//        }
+//        navigationBar.updateNavigationItems()
+        let wrappedButton = UIBarButtonItem(image: UIImage(systemName: "gift"), style: .plain, target: self, action: #selector(userDidTapWrapped))
+        navigationItem.leftBarButtonItem = wrappedButton
+        wrappedButton.tintColor = theme.colors.link
+        navigationBar.displayType = .centeredLargeTitle
+        
         navigationBar.updateNavigationItems()
+    }
+    
+    @objc func userDidTapWrapped() {
+        let viewController = WrappedViewController()
+        present(viewController, animated: true)
     }
 
     @objc public func updateNavigationBarVisibility() {
