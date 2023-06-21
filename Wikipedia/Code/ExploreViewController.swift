@@ -16,6 +16,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
 
+        let arrayOfThings = WikiWrappedAPIResponse.mockResponse
+
+        let viewModel = WikiWrappedViewModel()
+        let count = viewModel.getTopicCount(articles: arrayOfThings.articles)
+
+        print(count, "🐙")
+
         navigationItem.titleView = titleView
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.isUnderBarViewHidingEnabled = true

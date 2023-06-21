@@ -39,7 +39,7 @@ class WikiWrappedAPIResponse {
         let topic4 = WikiWrappedArticle.Topic.init(name: "STEM.Physics", weight: 900)
         
         let article1 = WikiWrappedArticle.init(title: "Barack Obama", topics: [topic1, topic2])
-        let article2 = WikiWrappedArticle.init(title: "Space", topics: [topic3, topic4])
+        let article2 = WikiWrappedArticle.init(title: "Space", topics: [topic3, topic4, topic1, topic2])
         
         return WikiWrappedAPIResponse(articles: [article1, article2])
     }()
