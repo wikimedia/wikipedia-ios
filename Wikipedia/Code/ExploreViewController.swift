@@ -64,6 +64,16 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         detailTransitionSourceRect = nil
         logFeedImpressionAfterDelay()
         dataStore.remoteNotificationsController.loadNotifications(force: false)
+        
+        let fetcher = WikiWrappedFetcher()
+        fetcher.fetchWikiWrapped { result in
+            switch result {
+            case .success(let response):
+                print(response)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
