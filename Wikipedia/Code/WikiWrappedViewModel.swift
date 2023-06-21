@@ -1,6 +1,17 @@
 import Foundation
 
 public struct WikiWrappedViewModel {
+    
+    let title: NSAttributedString = {
+        let string = "Recap[2023]"
+        let attributedString = NSMutableAttributedString(string: string)
+
+        attributedString.setAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)], range: NSRange(location: 0, length: string.count))
+        
+        attributedString.setAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10), NSAttributedString.Key.baselineOffset: 10], range: NSRange(location: 5, length: 6))
+        
+        return attributedString
+    }()
 
     func getTopicCount(articles: [WikiWrappedAPIResponse.WikiWrappedArticle]) -> [String: Int] {
 
