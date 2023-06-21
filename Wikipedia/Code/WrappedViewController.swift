@@ -73,6 +73,7 @@ final class WrappedView: SetupView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 15
         return stackView
     }()
     
@@ -88,30 +89,31 @@ final class WrappedView: SetupView {
     lazy var headerTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 32, weight: .semibold)
-        label.text = "Recap[2023]"
+
         return label
     }()
     
     override func setup() {
         layer.cornerCurve = .continuous
-        layer.cornerRadius = 16
+        layer.cornerRadius = 8
         layer.masksToBounds = true
         layer.borderWidth = 1
         layer.shadowColor = UIColor.gray100.cgColor
         layer.shadowRadius = 20
-        layer.borderColor = UIColor.red.cgColor
+        layer.borderColor = UIColor.gray100.cgColor
         
         backgroundColor = .white
-        
+                
         addSubview(verticalStack)
+        verticalStack.addArrangedSubview(headerStack)
         
         NSLayoutConstraint.activate([
             headerImageView.widthAnchor.constraint(equalToConstant: 55),
             headerImageView.heightAnchor.constraint(equalToConstant: 55)
         ])
     
-//        headerStack.addArrangedSubview(headerImageView)
-//        headerStack.addArrangedSubview(headerTitleLabel)
+        headerStack.addArrangedSubview(headerImageView)
+        headerStack.addArrangedSubview(headerTitleLabel)
         
         NSLayoutConstraint.activate([
             verticalStack.topAnchor.constraint(equalTo: topAnchor),
@@ -119,23 +121,20 @@ final class WrappedView: SetupView {
             verticalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
             verticalStack.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-    
     }
     
     func configure(title: NSAttributedString, topics: [String: Int]) {
+        headerTitleLabel.attributedText = title
         
-        let titleLabel = UILabel()
-        titleLabel.attributedText = title
-        verticalStack.addArrangedSubview(titleLabel)
-        
-        for topic in topics {
+        for (key, value) in topics.sorted(by: { $0.value > $1.value}) {
             let label = UILabel()
-            label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+            label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
             label.numberOfLines = 0
-            label.text = "\(topic)"
+            label.text = "\(key) \(value)"
             verticalStack.addArrangedSubview(label)
+
         }
-    
+            
     }
     
 }

@@ -7047,6 +7047,7 @@
 		67353B812A42EFFA005D123B /* WikiWrapped */ = {
 			isa = PBXGroup;
 			children = (
+				001ADC4A2A430F1600DC34E2 /* WrappedViewController.swift */,
 				67353B7C2A42EFE3005D123B /* WikiWrappedFetcher.swift */,
 				67353B822A42F0BB005D123B /* WikiWrappedResponse.swift */,
 				8369C83F2A42F5180020B83E /* WikiWrappedViewModel.swift */,
@@ -8992,7 +8993,6 @@
 			isa = PBXGroup;
 			children = (
 				7AE1D3321FCD057200393471 /* Saved.storyboard */,
-				001ADC4A2A430F1600DC34E2 /* WrappedViewController.swift */,
 				83E52BBE1F682E3E0045E776 /* LicenseView.swift */,
 				BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */,
 				7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */,
