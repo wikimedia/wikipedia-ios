@@ -1985,6 +1985,11 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             self.isWaitingForSearchSuggestionUpdate = false
             return
         }
+
+        fetchPlaceSuggestions(for: text, completion: nil)
+    }
+
+    private func fetchPlaceSuggestions(for text: String, completion: (() -> Void)? = nil) {
         let siteURL = self.siteURL
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
             DispatchQueue.main.async {
@@ -1993,23 +1998,26 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 }
                 self.updateSearchSuggestions(withCompletions: [], isSearchDone: false)
                 self.isWaitingForSearchSuggestionUpdate = false
+                completion?()
             }
         }) { (searchResult) in
             DispatchQueue.main.async {
+
                 guard text == self.searchBar.text else {
                     return
                 }
-                
+
                 if let suggestion = searchResult.searchSuggestion {
                     DDLogDebug("got suggestion! \(suggestion)")
                 }
-                
+
                 let completions = self.handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)
                 self.isWaitingForSearchSuggestionUpdate = false
                 guard completions.count < 10 else {
+                    completion?()
                     return
                 }
-                
+
                 let center = self.mapView.userLocation.coordinate
                 let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
                 self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: .links, resultLimit: 24, completion: { (locationSearchResults) in
@@ -2021,9 +2029,22 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                         let newResults = locationSearchResults.results as [MWKSearchResult]
                         combinedResults.append(contentsOf: newResults)
                         _ = self.handleCompletion(searchResults: combinedResults, siteURL: siteURL)
+                        completion?()
                     }
-                }) { (error) in }
+                }) { (error) in
+                }
             }
+        }
+    }
+
+
+    /// A function which takes a search place as an input and shows that location on map
+    /// - Parameter text: A text string representing place to search on map
+    @objc func showPlaceFor(text: String) {
+        searchBar.text = text
+        performDefaultSearchOnNextMapRegionUpdate = false
+        self.fetchPlaceSuggestions(for: text) { [weak self] in
+            self?.searchForFirstSearchSuggestion()
         }
     }
     

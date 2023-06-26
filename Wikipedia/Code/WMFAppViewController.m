@@ -1171,10 +1171,22 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self setSelectedIndex:WMFAppTabTypePlaces];
             [self.navigationController popToRootViewControllerAnimated:animated];
             NSURL *articleURL = activity.wmf_linkURL;
+
             if (articleURL) {
-                // For "View on a map" action to succeed, view mode has to be set to map.
-                [[self placesViewController] updateViewModeToMap];
-                [[self placesViewController] showArticleURL:articleURL];
+
+                NSString *placeName = articleURL.lastPathComponent;
+
+                // If the incoming URL does not mention the place to navigate to,
+                // perform the default behavior
+                if (!placeName || [placeName.lowercaseString isEqualToString:@"wiki"]) {
+                    // For "View on a map" action to succeed, view mode has to be set to map.
+                    [[self placesViewController] updateViewModeToMap];
+                    [[self placesViewController] showArticleURL:articleURL];
+                } else {
+                    // If there is a place specified in the URL, extract it,
+                    // And show on the map
+                    [[self placesViewController] showPlaceForText:placeName];
+                }
             }
         } break;
         case WMFUserActivityTypeContent: {
