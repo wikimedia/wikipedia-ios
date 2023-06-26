@@ -17,7 +17,7 @@
 "aaald-added-text-description-2" = "$1 өҫтәлгән";
 "aaald-article-description-updated-description" = "Мәҡәлә тасүирламаһы яңыртылған";
 "aaald-article-insert-header" = "Әһәмиәтле яңыртыуҙар";
-"aaald-article-insert-last-updated" = "Һуңғы яңыртыу %s";
+"aaald-article-insert-last-updated" = "Һуңғы яңыртыу";
 "aaald-article-insert-new-changes" = "Яңы үҙгәрештәр";
 "aaald-article-insert-read-more" = "Яңыртылғандарҙы күберәк уҡырға";
 "aaald-characters-text-description" = "{{PLURAL:$1|0=символ|символ|символ|символдар}}";
