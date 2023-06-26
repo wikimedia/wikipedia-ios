@@ -93,9 +93,14 @@
 "account-group-title" = "आपका खाता";
 "account-request-vanishing" = "गायब खाता";
 "account-talk-page-title" = "आपका वार्ता पृष्ठ";
+"action-add-to-reading-list-short" = "सूची में जोड़ें";
 "action-cancel" = "रद्द करें";
 "action-find-in-page" = "पृष्ठ में ढूंढें";
 "action-read" = "पढ़ें";
+"action-remove" = "हटाएँ";
+"action-replace" = "बदलें";
+"action-replace-all" = "सभी बदलें";
+"action-retry" = "पुनः प्रयास करें";
 "action-save" = "सहेजें";
 "action-saved" = "सहेजा गया";
 "action-saved-accessibility" = "रक्षित किया गया। हटाने के लिए सक्रिय करें।";
@@ -103,8 +108,10 @@
 "action-share" = "साझा करें";
 "action-share-accessibility" = "साझा करें";
 "action-sort" = "क्रमबद्ध करें";
+"action-undo" = "पूर्ववत करें";
 "action-unsave" = "न सहेजें";
 "action-unsaved-accessibility-notification" = "असुरक्षित लेख";
+"action-update" = "अद्यतन";
 "announcements-dismiss" = "रद्द करें";
 "appearance-settings-adjust-text-sizing" = "लेख में शब्दों का आकार व्यवस्थित करें";
 "appearance-settings-image-dimming-footer" = "गहरे और काले रंग की विषयवस्तुओं पर छवियों की अस्पष्टता घटाएँ";
