@@ -43,11 +43,11 @@
     
     NSString *themeName = [[NSUserDefaults standardUserDefaults] themeName];
     if ([WMFTheme isDefaultThemeName:themeName]) {
-     self.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
+        self.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
     } else if ([WMFTheme isDarkThemeName:themeName]) {
-     self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+        self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
     } else {
-     self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+        self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
     }
 
     if (@available(iOS 15.0, *)) {
