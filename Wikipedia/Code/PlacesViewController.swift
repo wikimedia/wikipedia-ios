@@ -468,7 +468,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     func performDefaultSearchIfNecessary(withRegion region: MKCoordinateRegion?) {
-        guard currentSearch == nil else {
+        guard currentSearch == nil, searchBar.text == nil else {
             return
         }
         performDefaultSearch(withRegion: region)
@@ -1797,6 +1797,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
 
     fileprivate func updateSearchBarText(forSearch search: PlaceSearch) {
+
         if isDefaultSearch(search) {
             searchBar.text = nil
         } else {
