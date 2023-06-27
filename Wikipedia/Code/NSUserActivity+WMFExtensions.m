@@ -66,6 +66,13 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
         if ([item.name isEqualToString:@"WMFArticleURL"]) {
             NSString *articleURLString = item.value;
             articleURL = [NSURL URLWithString:articleURLString];
+
+            // articleURL is nil if the place name has special characters
+            if (!articleURL) {
+                // If the place name has special characters, we need to encode the special characters
+                NSString *encodedArticleURLString = [articleURLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+                articleURL = [NSURL URLWithString:encodedArticleURLString];
+            }
             break;
         }
     }

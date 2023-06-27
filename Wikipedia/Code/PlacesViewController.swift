@@ -2002,7 +2002,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             }
         }) { (searchResult) in
             DispatchQueue.main.async {
-
                 guard text == self.searchBar.text else {
                     return
                 }
@@ -2031,8 +2030,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                         _ = self.handleCompletion(searchResults: combinedResults, siteURL: siteURL)
                         completion?()
                     }
-                }) { (error) in
-                }
+                }) { (error) in }
             }
         }
     }
