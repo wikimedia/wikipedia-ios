@@ -127,6 +127,21 @@
             "languageCode": "ku"
         }
     ],
+    "shi": [
+        {
+            "languageVariantCode": "shi-latn",
+            "languageName": "Taclḥit",
+            "localName": "Tachelhit (Latin)",
+            "languageCode": "shi"
+        },
+        {
+            "languageVariantCode": "shi-tfng",
+            "languageName": "ⵜⴰⵛⵍⵃⵉⵜ ",
+            "localName": "Tachelhit (Tifinagh)",
+            "languageCode": "shi"
+
+        },
+    ],
     "tg": [
         {
             "languageVariantCode": "tg-cyrl",
