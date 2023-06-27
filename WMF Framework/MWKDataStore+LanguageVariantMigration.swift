@@ -157,6 +157,7 @@ extension MWKDataStore {
     private func newlyAddedVariantLanguageCodes(for libraryVersion: Int) -> [String] {
         switch libraryVersion {
         case 12: return ["crh", "gan", "iu", "kk", "ku", "sr", "tg", "uz", "zh"]
+        case 16: return ["shi"]
         default: return []
         }
     }
