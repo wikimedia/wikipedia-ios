@@ -821,7 +821,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             DDLogError("Did You Mean search is unset")
             return
         }
-        
+        SearchFunnel.shared.logSearchDidYouMean(source: "places")
         performSearch(search)
     }
     

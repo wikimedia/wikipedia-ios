@@ -67,8 +67,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic, strong) WMFSavedArticlesFetcher *savedArticlesFetcher;
 
-@property (nonatomic, strong) WMFMobileViewToMobileHTMLMigrationController *mobileViewToMobileHTMLMigrationController;
-
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
 @property (nonatomic) BOOL isPresentingOnboarding;
@@ -105,8 +103,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong) WMFEditHintController *editHintController;
 
 @property (nonatomic, strong) WMFNavigationStateController *navigationStateController;
-@property (nonatomic, strong) WMFTalkPageReplyHintController *talkPageReplyHintController;
-@property (nonatomic, strong) WMFTalkPageTopicHintController *talkPageTopicHintController;
 
 @property (nonatomic, strong) WMFConfiguration *configuration;
 @property (nonatomic, strong) WMFViewControllerRouter *router;
@@ -229,16 +225,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(descriptionEditWasPublished:)
                                                  name:[DescriptionEditViewController didPublishNotification]
                                                object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(talkPageReplyWasPublished:)
-                                                 name:WMFTalkPageContainerViewController.WMFReplyPublishedNotificationName
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(talkPageTopicWasPublished:)
-                                                 name:WMFTalkPageContainerViewController.WMFTopicPublishedNotificationName
-                                               object:nil];
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(referenceLinkTapped:)
                                                  name:WMFReferenceLinkTappedNotification
@@ -256,8 +242,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     [self setupReadingListsHelpers];
     self.editHintController = [[WMFEditHintController alloc] init];
-    self.talkPageReplyHintController = [[WMFTalkPageReplyHintController alloc] init];
-    self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
 
     self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
     
@@ -380,7 +364,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
-    [self.mobileViewToMobileHTMLMigrationController start];
 }
 
 - (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
@@ -577,14 +560,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
     [self toggleHint:self.editHintController
              context:nil];
-}
-
-- (void)talkPageReplyWasPublished:(NSNotification *)note {
-    [self toggleHint:self.talkPageReplyHintController context:nil];
-}
-
-- (void)talkPageTopicWasPublished:(NSNotification *)note {
-    [self toggleHint:self.talkPageTopicHintController context:nil];
 }
 
 - (void)referenceLinkTapped:(NSNotification *)note {
@@ -1385,10 +1360,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return NO;
 }
 
-- (BOOL)mainViewControllerIsDisplayingContent {
-    return self.navigationController.viewControllers.count > 1;
-}
-
 - (WMFArticleViewController *)visibleArticleViewController {
     UINavigationController *navVC = self.navigationController;
     UIViewController *topVC = navVC.topViewController;
@@ -1396,10 +1367,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return (WMFArticleViewController *)topVC;
     }
     return nil;
-}
-
-- (UIViewController *)viewControllerForTab:(WMFAppTabType)tab {
-    return self.viewControllers[tab];
 }
 
 #pragma mark - Accessors
@@ -1413,16 +1380,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:&kvo_SavedArticlesFetcher_progress];
     }
     return _savedArticlesFetcher;
-}
-
-- (WMFMobileViewToMobileHTMLMigrationController *)mobileViewToMobileHTMLMigrationController {
-    if (![self uiIsLoaded]) {
-        return nil;
-    }
-    if (!_mobileViewToMobileHTMLMigrationController) {
-        _mobileViewToMobileHTMLMigrationController = [[WMFMobileViewToMobileHTMLMigrationController alloc] initWithDataStore:self.dataStore];
-    }
-    return _mobileViewToMobileHTMLMigrationController;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
