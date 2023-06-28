@@ -24,7 +24,7 @@
       "location" : "https://github.com/wikimedia/wikipedia-ios-components.git",
       "state" : {
         "branch" : "watchlist-api-1",
-        "revision" : "22e2fa0ec27799ad9ec5f4751be2153fbe162a84"
+        "revision" : "d1317481748565ec66fa5a72b2476ddc6ebda789"
       }
     },
     {
@@ -33,7 +33,7 @@
       "location" : "https://github.com/wikimedia/wikipedia-ios-data.git",
       "state" : {
         "branch" : "watchlist-api-1",
-        "revision" : "d3feae0f5365d048b7c433f2be84a7e93e8ec106"
+        "revision" : "59d9af8a48f979288c00cf1dbf53ed5d5c69a500"
       }
     }
   ],

@@ -6,6 +6,8 @@ private extension WKNetworkRequest.TokenType {
         switch self {
         case .watch:
             return .watch
+        case .rollback:
+            return .rollback
         }
     }
 }
