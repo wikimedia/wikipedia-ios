@@ -138,8 +138,8 @@
         XCTFail(@"Test being run with Uzbek included in OS preferred languages: '%@'", NSLocale.preferredLanguages[foundIndex]);
     }
     
-    NSString *chineseLanguageVariantCode = @"zh-my";
-    NSString *uzbekLanguageVariantCode = @"uz-latin";
+    NSString *chineseLanguageVariantCode = @"zh-Hans";
+    NSString *uzbekLanguageVariantCode = @"uz-Latn";
 
     MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"zh" pageTitleText:@"" name:@"Malaysia Simplified" localizedName:@"大马简体" languageVariantCode:chineseLanguageVariantCode altISOCode:nil];
     
