@@ -4,6 +4,8 @@ import WKData
 private extension WKNetworkRequest.TokenType {
     var wmfTokenType: TokenType {
         switch self {
+        case .csrf:
+            return .csrf
         case .watch:
             return .watch
         case .rollback:

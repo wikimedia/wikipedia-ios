@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import CocoaLumberjackSwift
+import Components
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding {
 
@@ -64,6 +65,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         detailTransitionSourceRect = nil
         logFeedImpressionAfterDelay()
         dataStore.remoteNotificationsController.loadNotifications(force: false)
+        
+        let viewModel = WKWatchlistViewModel()
+        let watchlist = WKWatchlistViewController(viewModel: viewModel)
+        present(watchlist, animated: true)
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
