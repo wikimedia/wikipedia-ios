@@ -46,18 +46,6 @@ class DiffHeaderExtendedView: UIView {
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
-    func configureHeight(beginSquishYOffset: CGFloat, scrollYOffset: CGFloat) {
-        guard let viewModel = viewModel else {
-            return
-        }
-        
-        switch viewModel.headerType {
-        case .compare:
-            compareView.configureHeight(beginSquishYOffset: beginSquishYOffset, scrollYOffset: scrollYOffset)
-        default: break
-        }
-    }
-    
     func update(_ new: DiffHeaderViewModel) {
         
         self.viewModel = new
