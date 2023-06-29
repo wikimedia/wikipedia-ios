@@ -192,9 +192,10 @@
 "description-welcome-descriptions-title" = "Article descriptions";
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
-"diff-compare-header-from-info-heading" = "From:";
+"diff-article-edit-history" = "Article Edit History";
+"diff-compare-header-from-info-heading" = "From";
 "diff-compare-header-heading" = "Compare Revisions";
-"diff-compare-header-to-info-heading" = "To:";
+"diff-compare-header-to-info-heading" = "To";
 "diff-compare-title" = "Compare Revisions";
 "diff-context-lines-collapsed-button-title" = "Show";
 "diff-context-lines-expanded-button-title" = "Hide";
@@ -206,6 +207,9 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 section|$1 sections}}";
 "diff-paragraph-moved-format" = "Paragraph moved $1 $2";
 "diff-revision-error-title" = "Unable to load revision";
+"diff-rollback" = "Rollback";
+"diff-rollback-alert-message" = "Are you sure you want to rollback the edits?";
+"diff-rollback-alert-title" = "Rollback edits";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 edit|$1 edits}}";
 "diff-single-header-editor-title" = "Editor information";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte added|$1 bytes added}}";
@@ -222,6 +226,7 @@
 "diff-thanks-sent" = "Your 'Thanks' was sent to $1";
 "diff-thanks-sent-already" = "You’ve already sent a ‘Thanks’ for this edit";
 "diff-thanks-sent-cannot-unsend" = "Thanks cannot be unsent";
+"diff-undo-message" = "This will undo the changes made by the revisions(s) of the article shown here. To continue, please provide a reason for undoing this edit.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 line unedited|$1 lines unedited}}";
 "dim-images" = "Dim images";
 "edit-bold-accessibility-label" = "Add bold formatting";
@@ -506,12 +511,6 @@
 "insert-media-media-settings-title" = "Media settings";
 "insert-media-title" = "Insert media";
 "insert-media-uploaded-image-title" = "Uploaded image";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 intermediate revision|$1 intermediate revisions}} not shown";
-"intermediate-edits-count-limited" = "$1+ intermediate revisions not shown";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 intermediate revision|$1 intermediate revisions}} by {{PLURAL:$2|$2 user|$2 users}} not shown";
-"intermediate-edits-editors-count-limited" = "$1+ intermediate revisions by $2+ users not shown";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 intermediate revision|$1 intermediate revisions}} by $2+ users not shown";
-"intermediate-edits-limited-editors-count" = "$1+ intermediate revisions by {{PLURAL:$2|$2 user|$2 users}} not shown";
 "inuktitut-variants-alert-body" = "The Wikipedia app now supports the following Inuktitut variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Updates to Inuktitut variant support";
 "kazakh-variants-alert-body" = "The Wikipedia app now supports the following Kazakh variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -546,6 +545,7 @@
 "menu-cancel-accessibility-label" = "Cancel";
 "more-languages-tooltip-description" = "Search Wikipedia in over 300 languages";
 "more-languages-tooltip-title" = "Add languages";
+"more-menu" = "More";
 "move-articles-to-reading-list" = "Move {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "navbar-title-mode-edit-wikitext-preview" = "Preview";
 "nearby-distance-label-feet" = "$1 feet";
@@ -1109,6 +1109,7 @@
 "vanishing-request-email-title" = "Request for courtesy vanishing";
 "variants-alert-dismiss-button" = "No thanks";
 "variants-alert-preferences-button" = "Review your preferences";
+"watchlist" = "Watchlist";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";
 "welcome-exploration-explore-feed-title" = "Explore feed";
 "welcome-exploration-on-this-day-description" = "Travel back in time to learn what happened today in history";

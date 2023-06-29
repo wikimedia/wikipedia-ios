@@ -192,6 +192,7 @@
 "description-welcome-descriptions-title" = "Title text explaining article descriptions";
 "description-welcome-promise-title" = "Title text asking user to edit descriptions responsibly";
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
+"diff-article-edit-history" = "Label for article edit history menu item in diff more menu.";
 "diff-compare-header-from-info-heading" = "Heading label in from revision info box when comparing two revisions.";
 "diff-compare-header-heading" = "Heading label in header when comparing two revisions.";
 "diff-compare-header-to-info-heading" = "Heading label in to revision info box when comparing two revisions.";
@@ -206,6 +207,9 @@
 "diff-paragraph-moved-distance-section" = "Diff view distance moved in sections when a paragraph has moved across sections - $1 is replaced with the number of sections a paragraph has moved across.";
 "diff-paragraph-moved-format" = "Label in moved paragraph source location on diff view for indicating how far and what direction a pargraph has moved. $1 is replaced by the move direction (e.g. 'up' or 'down') and $2 is replaced by the move type and move distance (e.g. '2 lines', '4 sections')";
 "diff-revision-error-title" = "Text for placeholder label visible when there has been an error while fetching the diff.";
+"diff-rollback" = "Title for rollback toolbar button.";
+"diff-rollback-alert-message" = "Message in alert when user taps rollback in diff toolbar.";
+"diff-rollback-alert-title" = "Title of alert when user taps rollback in diff toolbar.";
 "diff-single-header-editor-number-edits-format" = "Label to show the number of total edits made by the editor when viewing a single revision. $1 is replaced with the editor's number of edits.";
 "diff-single-header-editor-title" = "Title label in header editor view when viewing a single revision.";
 "diff-single-header-subtitle-bytes-added" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were added in this revision.";
@@ -222,6 +226,7 @@
 "diff-thanks-sent" = "Message indicating thanks was sent. Parameters:\n* $1 - name of user who was thanked";
 "diff-thanks-sent-already" = "Message indicating thanks was already sent";
 "diff-thanks-sent-cannot-unsend" = "Message indicating thanks cannot be unsent";
+"diff-undo-message" = "Message showed in alert when user taps undo in diff toolbar.";
 "diff-unedited-lines-format" = "Label in diff to indicate how many lines are not displayed because they were not changed. $1 is replaced by the number of unedited lines.";
 "dim-images" = "Label for image dimming setting";
 "edit-bold-accessibility-label" = "Accessibility label for the button that adds bold formatting to the current selection";
@@ -506,12 +511,6 @@
 "insert-media-media-settings-title" = "Title for media settings view";
 "insert-media-title" = "Title for the view in charge of inserting media into an article";
 "insert-media-uploaded-image-title" = "Title that appears next to an image in media settings";
-"intermediate-edits-count" = "Subtitle for the number of revisions that were made between two chosen revisions. $1 is replaced with the number of intermediate revisions.";
-"intermediate-edits-count-limited" = "Subtitle for the number of revisions that were made between two chosen revisions. $1 is replaced with the number of intermediate revisions. The number of intermediate revisions is followed by the '+' to indicate that the actual number of revisions exceeds the displayed number.";
-"intermediate-edits-editors-count" = "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. $1 is replaced with the number of intermediate revisions and $2 is replaced with the number of editors who created those revisions.";
-"intermediate-edits-editors-count-limited" = "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. $1 is replaced with the number of intermediate revisions and $2 is replaced with the number of editors who created those revisions. The numbers are followed by the '+' to indicate that the actual numbers exceed the displayed numbers.";
-"intermediate-edits-editors-limited-count" = "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. $1 is replaced with the number of intermediate revisions and $2 is replaced with the number of editors who created those revisions. The number of editors is followed by the '+' to indicate that the actual number of editors exceeds the displayed number.";
-"intermediate-edits-limited-editors-count" = "Subtitle for the number of revisions that were made between two chosen revisions. It also includes the number of editors who created those revisions. $1 is replaced with the number of intermediate revisions and $2 is replaced with the number of editors who created those revisions. The number of intermediate revisions is followed by the '+' to indicate that the actual number of intermediate revisions exceeds the displayed number.";
 "inuktitut-variants-alert-body" = "Body text of alert used to inform users about Inuktitut variant support. Please do not translate the newlines (\n) or Inuktitut characters (ᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ, etc.).";
 "inuktitut-variants-alert-title" = "Title of alert used to inform users about Inuktitut variant support.";
 "kazakh-variants-alert-body" = "Body text of alert used to inform users about Kazakh variant support. Please do not translate the newlines (\n) or Kazakh characters (Қазақша, etc.).";
@@ -546,6 +545,7 @@
 "menu-cancel-accessibility-label" = "Accessible label text for toolbar cancel button {{Identical|Cancel}}";
 "more-languages-tooltip-description" = "Description for tooltip explaining the 'More' button may be tapped to add more languages.";
 "more-languages-tooltip-title" = "Title for tooltip explaining the 'More' button may be tapped to add more languages.";
+"more-menu" = "Accessibility title for more button in toolbar.";
 "move-articles-to-reading-list" = "Title for the view in charge of moving articles to a reading list - $1 is replaced with the number of articles to move";
 "navbar-title-mode-edit-wikitext-preview" = "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}";
 "nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* $1 - the number of feet. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
@@ -1109,6 +1109,7 @@
 "vanishing-request-email-title" = "Title for vanishing request email";
 "variants-alert-dismiss-button" = "Dismiss button on alert used to inform users about variant support.";
 "variants-alert-preferences-button" = "Action button on alert used to inform users about variant support.";
+"watchlist" = "Title for watchlist feature.";
 "welcome-exploration-explore-feed-description" = "Description for Explore feed";
 "welcome-exploration-explore-feed-title" = "Title for Explore feed";
 "welcome-exploration-on-this-day-description" = "Description for On this day";

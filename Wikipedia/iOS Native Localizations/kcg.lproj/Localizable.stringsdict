@@ -196,49 +196,6 @@
 			<string>Á̱ turung a̱yaabait %1$d</string>
 		</dict>
 	</dict>
-	<key>intermediate-edits-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ nang á̱ tsa a̱ni bah</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Khwifeang a̱tyia̱ka̱u %1$d</string>
-			<key>other</key>
-			<string>Nkhwifeang a̱tyia̱ka̱u %1$d</string>
-		</dict>
-	</dict>
-	<key>intermediate-edits-editors-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Á̱ tsa %#@v1@ mbwak  %#@v2@ bah</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>khwifeang a̱tyia̱ka̱u %1$d</string>
-			<key>other</key>
-			<string>nkhwifeang a̱tyia̱ka̱u %1$d</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>a̱tyuta̱m %2$d</string>
-			<key>other</key>
-			<string>á̱nienta̱m %2$d</string>
-		</dict>
-	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
