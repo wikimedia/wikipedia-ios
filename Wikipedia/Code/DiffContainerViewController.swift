@@ -874,27 +874,20 @@ private extension DiffContainerViewController {
     }
     
     func setupToolbarIfNeeded() {
-        
-        switch type {
-        case .single:
-            if diffToolbarView == nil {
-                let toolbarView = DiffToolbarView(frame: .zero)
-                self.diffToolbarView = toolbarView
-                toolbarView.delegate = self
-                toolbarView.translatesAutoresizingMaskIntoConstraints = false
-                view.insertSubview(toolbarView, aboveSubview: navigationBar)
-                let bottom = view.bottomAnchor.constraint(equalTo: toolbarView.bottomAnchor)
-                let leading = view.leadingAnchor.constraint(equalTo: toolbarView.leadingAnchor)
-                let trailing = view.trailingAnchor.constraint(equalTo: toolbarView.trailingAnchor)
-                NSLayoutConstraint.activate([bottom, leading, trailing])
-                toolbarView.apply(theme: theme)
-                toolbarView.setPreviousButtonState(isEnabled: false)
-                toolbarView.setNextButtonState(isEnabled: false)
-            }
-        default:
-            break
+        if diffToolbarView == nil {
+            let toolbarView = DiffToolbarView(frame: .zero)
+            self.diffToolbarView = toolbarView
+            toolbarView.delegate = self
+            toolbarView.translatesAutoresizingMaskIntoConstraints = false
+            view.insertSubview(toolbarView, aboveSubview: navigationBar)
+            let bottom = view.bottomAnchor.constraint(equalTo: toolbarView.bottomAnchor)
+            let leading = view.leadingAnchor.constraint(equalTo: toolbarView.leadingAnchor)
+            let trailing = view.trailingAnchor.constraint(equalTo: toolbarView.trailingAnchor)
+            NSLayoutConstraint.activate([bottom, leading, trailing])
+            toolbarView.apply(theme: theme)
+            toolbarView.setPreviousButtonState(isEnabled: false)
+            toolbarView.setNextButtonState(isEnabled: false)
         }
-        
     }
     
     func setupDiffListViewControllerIfNeeded() {
