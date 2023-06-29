@@ -619,8 +619,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             }
             
             let fromRevision = pageHistorySections[safeIndex: indexPath.section + sectionOffset]?.items[safeIndex: fromItemIndex]
-            
-            showDiff(from: fromRevision, to: toRevision, type: .single)
+
+            if fromRevision == nil {
+                showDiff(from: fromRevision, to: toRevision, type: .single)
+            } else {
+                showDiff(from: fromRevision, to: toRevision, type: .compare)
+            }
         }
     }
 
