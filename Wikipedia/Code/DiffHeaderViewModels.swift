@@ -12,7 +12,7 @@ final class DiffHeaderViewModel: Themeable {
     let headerType: DiffHeaderType
     private let articleTitle: String
     private let byteDifference: Int?
-    static let dateFormatter = DateFormatter()
+    static var dateFormatter = DateFormatter()
     
     var isExtendedViewHidingEnabled: Bool {
         return true
@@ -25,7 +25,9 @@ final class DiffHeaderViewModel: Themeable {
         self.byteDifference = byteDifference
         
         DiffHeaderViewModel.dateFormatter.timeZone = TimeZone(identifier: "UTC")
-        let formatString: String
+        DiffHeaderViewModel.dateFormatter.dateStyle = .medium
+        DiffHeaderViewModel.dateFormatter.timeStyle = .short
+
         let titleViewModel: DiffHeaderTitleViewModel
         
         switch diffType {
@@ -34,10 +36,7 @@ final class DiffHeaderViewModel: Themeable {
             guard let byteDifference = byteDifference else {
                     return nil
             }
-            
-            formatString = "HH:mm zzz, dd MMM yyyy" // tonitodo: "UTC" instead of "GMT" in result?
-            DiffHeaderViewModel.dateFormatter.dateFormat = formatString
-            
+
             var heading: String?
             var title: String?
             if let toDate = toModel.revisionDate as NSDate? {
@@ -70,10 +69,7 @@ final class DiffHeaderViewModel: Themeable {
             titleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, editCounts: nil)
             
             self.title = titleViewModel
-            
-            let formatString = "HH:mm, dd MMM yyyy"
-            DiffHeaderViewModel.dateFormatter.dateFormat = formatString
-            
+
             let compareModel = DiffHeaderCompareViewModel(fromModel: fromModel, toModel: toModel, dateFormatter: DiffHeaderViewModel.dateFormatter, theme: theme)
             let navBarTitle = WMFLocalizedString("diff-compare-title", value: "Compare Revisions", comment: "Title label that shows in the navigation bar when scrolling and comparing revisions.")
             self.headerType = .compare(compareViewModel: compareModel, navBarTitle: navBarTitle)
