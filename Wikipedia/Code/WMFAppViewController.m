@@ -831,25 +831,24 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     //    };
 
     self.migrationActive = YES;
-
-    [self.dataStore
-        performLibraryUpdates:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.migrationComplete = YES;
-                self.migrationActive = NO;
-                [self endMigrationBackgroundTask];
-                [self checkRemoteAppConfigIfNecessary];
-                [self setupControllers];
-                if (!self.isWaitingToResumeApp) {
-                    [self resumeApp:NULL];
-                }
-            });
-        }
-        needsMigrateBlock:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [(WMFRootNavigationController *)self.navigationController triggerMigratingAnimation];
-            });
-        }];
+    [(WMFRootNavigationController *)self.navigationController triggerMigratingAnimation];
+    
+    MWKDataStore *dataStore = self.dataStore; // Triggers init
+    [dataStore finishSetup:^{
+        [dataStore
+            performLibraryUpdates:^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.migrationComplete = YES;
+                    self.migrationActive = NO;
+                    [self endMigrationBackgroundTask];
+                    [self checkRemoteAppConfigIfNecessary];
+                    [self setupControllers];
+                    if (!self.isWaitingToResumeApp) {
+                        [self resumeApp:NULL];
+                    }
+                });
+            }];
+    }];
 }
 
 #pragma mark - Start/Pause/Resume App
