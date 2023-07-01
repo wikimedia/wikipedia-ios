@@ -87,7 +87,7 @@
     },
     "shi": {
         "default": {
-            "default": "shi",
+            "default": "shi-Latn",
         },
         "tfng" : {
             "default": "shi-Tfng",
