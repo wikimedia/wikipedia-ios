@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Create a data store which persists objects in a random folder in the application's @c tmp directory.
  * @see WMFRandomTemporaryDirectoryPath()
  */
-+ (instancetype)temporaryDataStore;
++ (void)createTemporaryDataStoreWithCompletion:(void (^)(MWKDataStore *))completion;
 
 @end
 
