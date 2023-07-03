@@ -53,8 +53,32 @@ extension MWKDataStore {
         }
         
         // Ensure any settings that currently use 'nb' are updated to use 'no'
+        // Ensure that that settings using the old format codes are updated to the BCP47 format
         var languageCodeMigrationMapping = migrationMapping
         languageCodeMigrationMapping["nb"] = "no"
+        languageCodeMigrationMapping["zh-hans"] = "zh-Hans-CN"
+        languageCodeMigrationMapping["zh-hk"] = "zh-Hant-HK"
+        languageCodeMigrationMapping["zh-mo"] = "zh-Hant-MO"
+        languageCodeMigrationMapping["zh-my"] = "zh-Hans-MY"
+        languageCodeMigrationMapping["zh-sg"] = "zh-Hans-SG"
+        languageCodeMigrationMapping["zh-tw"] = "zh-Hant-TW"
+        languageCodeMigrationMapping["sr-ec"] = "sr-Cyrl"
+        languageCodeMigrationMapping["sr-el"] = "sr-Latn"
+        languageCodeMigrationMapping["crh-latn"] = "crh-Latn"
+        languageCodeMigrationMapping["crh-cyrl"] = "crh-Cyrl"
+        languageCodeMigrationMapping["gan-hans"] = "gan-Hans"
+        languageCodeMigrationMapping["gan-hant"] = "gan-Hant"
+        languageCodeMigrationMapping["ike-latn"] = "ike-Latn"
+        languageCodeMigrationMapping["ike-cans"] = "ike-Cans"
+        languageCodeMigrationMapping["kk-cyrl"] = "kk-Cyrl"
+        languageCodeMigrationMapping["kk-latn"] = "kk-Latn"
+        languageCodeMigrationMapping["kk-arab"] = "kk-Arab"
+        languageCodeMigrationMapping["ku-latn"] = "ku-Latn"
+        languageCodeMigrationMapping["ku-arab"] = "ku-Arab"
+        languageCodeMigrationMapping["tg-cyrl"] = "tg-Cyrl"
+        languageCodeMigrationMapping["tg-Latn"] = "tg-Latn"
+        languageCodeMigrationMapping["uz-cyrl"] = "uz-Cyrl"
+        languageCodeMigrationMapping["uz-latn"] = "uz-Latn"
         
         languageLinkController.migratePreferredLanguages(toLanguageVariants: languageCodeMigrationMapping, in: moc)
         feedContentController.migrateExploreFeedSettings(toLanguageVariants: languageCodeMigrationMapping, in: moc)
