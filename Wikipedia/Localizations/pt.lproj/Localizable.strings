@@ -156,9 +156,11 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controlos dos temas de leitura";
 "back-button-accessibility-label" = "Retroceder";
 "back-button-popover-title" = "Tocar para voltar atrás";
+"button-go-back" = "Voltar";
 "button-next" = "Seguinte";
 "button-ok" = "OK";
 "button-publish" = "Publicar";
+"button-publish-anyway" = "Publicar na mesma";
 "button-read-now" = "Ler agora";
 "button-report-a-bug" = "Reportar um erro";
 "button-save-for-later" = "Guardar para mais tarde";
@@ -270,6 +272,9 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Não foi possível localizar o texto que selecionou";
 "edit-minor-learn-more-text" = "Saiba mais sobre as edições menores";
 "edit-minor-text" = "Esta é uma edição menor";
+"edit-notices" = "Avisos de edição";
+"edit-notices-always-display" = "Mostrar sempre avisos de edição";
+"edit-notices-please-read" = "É favor ler antes de editar";
 "edit-ordered-list-accessibility-label" = "Tornar a linha corrente numa lista ordenada";
 "edit-ordered-list-remove-accessibility-label" = "Remover lista ordenada da linha corrente";
 "edit-published" = "Edição publicada";
@@ -1036,6 +1041,8 @@
 "talk-page-unsubscription-failed-alert" = "Ocorreu uma falha ao cancelar a subscrição de um tópico. Tente novamente, por favor.";
 "talk-page-user-about" = "Sobre as páginas de discussão dos utilizadores";
 "talk-page-user-contributions" = "Contribuições";
+"talk-pages-archives-empty-title" = "Não foi encontrada nenhuma página arquivada.";
+"talk-pages-archives-view-title" = "Arquivos";
 "talk-pages-coffee-roll-read-more" = "Ler mais";
 "talk-pages-comment-added-alert-title" = "O seu comentário foi adicionado";
 "talk-pages-compose-close-confirmation-keep" = "Continuar a editar";
@@ -1096,10 +1103,8 @@
 "vanish-account-warning-title" = "Aviso";
 "vanish-modal-item" = "Se preencheu o seu pedido de desaparecimento, aguarde alguns dias para que o pedido seja processado por um administrador.";
 "vanish-modal-item-2" = "Se não tem a certeza se o seu pedido foi aprovado, verifique a sua aplicação de correio.";
-// Fuzzy
-"vanish-modal-item-3" = "Se tem dúvidas acerca do desaparecimento, visite Wikipédia:Direito a desaparecer";
-// Fuzzy
-"vanish-modal-item-3-ios15" = "Se tem dúvidas acerca do desaparecimento, visite $1Wikipédia:Direito a desaparecer$2$3.";
+"vanish-modal-item-3" = "Se tem dúvidas acerca do desaparecimento, visite Meta:Right_to_vanish/pt";
+"vanish-modal-item-3-ios15" = "Se tem dúvidas acerca do desaparecimento, visite $1Meta:Right_to_vanish/pt$2$3";
 "vanish-modal-title" = "Pedido de desaparecimento";
 "vanishing-request-email-title" = "Pedido de desaparecimento de cortesia";
 "variants-alert-dismiss-button" = "Não, obrigado";

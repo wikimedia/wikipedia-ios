@@ -3,9 +3,12 @@
 // Author: Saraiki
 
 "aaald-added-text-description-2" = "$1 شامل تھی ڳیا";
+"aaald-article-description-updated-description" = "مضمون تفصیل اپ ڈیٹ تھی ڳئی";
+"aaald-article-insert-header" = "نمایاں اپ ڈیٹاں";
 "aaald-article-insert-last-updated" = "چھیکڑی اپ ڈیٹ تھیا";
 "aaald-article-insert-new-changes" = "نویاں تبدیلیاں";
 "aaald-article-insert-read-more" = "ٻیاں اپ ڈیٹاں پڑھو";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=حروف|حرف|حروف}}";
 "aaald-deleted-text-description-2" = "$1 مٹ ڳیا";
 "aaald-new-book-reference-title" = "کتاب";
 "aaald-new-discussion" = "نویں بحث";
@@ -19,6 +22,7 @@
 "about-libraries-license" = "لائیسنس";
 "about-title" = "تعارف";
 "about-translators" = "مترجمین";
+"about-wikimedia-foundation" = "وکی میڈیا فاؤنڈیشن";
 "about-wikipedia" = "وکیپیڈیا";
 "account-creation-captcha-request-account" = "کھاتے دی ارداس۔";
 "account-creation-create-account" = "اپݨاں کھاتا کھولو";
@@ -287,6 +291,8 @@
 "notifications-center-title" = "اطلاع نامے";
 "notifications-center-type-item-description-mentions" = "ذکر کرݨ";
 "notifications-center-type-item-description-notice" = "نوٹس";
+"notifications-center-type-item-description-welcome-verbose" = "ست بسم اللہ سنیہا";
+"notifications-center-type-title-login-attempts" = "لاگ ان کوششاں";
 "notifications-center-type-title-login-success" = "لاگ ان کامیاب";
 "notifications-center-type-title-other" = "ٻیا";
 "notifications-center-type-title-page-link" = "ورقہ لنک";
@@ -304,6 +310,8 @@
 "page-history-revision-history-title" = "دہرائی دا ریکارڈ";
 "page-history-revision-minor-edit-accessibility-label" = "معمولی تبدیلی";
 "page-history-revision-size-diff-addition" = "({{PLURAL:$1|1 بائٹ|$1 بائٹاں}}) شامل تھئے";
+"page-issues" = "ورقے دے مسئلے";
+"page-location" = "نقشے تے ݙیکھو";
 "page-similar-titles" = "ہکوجہے ورقے";
 "places-accessibility-group" = "$1 مضمون";
 "places-accessibility-show-as-list" = "تندیر ݙکھاؤ";
@@ -411,8 +419,10 @@
 "theme-dark-display-name" = "گہرا";
 "theme-default-display-name" = "پہلے کنوں طے تھیا ہویا";
 "theme-light-display-name" = "پھکّا";
+"theme-sepia-display-name" = "بھورا";
 "top-read-widget-readers-count" = "$1 قارئین";
 "unknown-generic-text" = "نامعلوم";
+"vanish-account-additional-information-field" = "ٻیاں معلومات";
 "vanish-account-additional-information-placeholder" = "اختیاری";
 "vanish-account-continue-button-title" = "جاری رکھو";
 "vanish-account-learn-more-text" = "ٻیا سِکھو";
@@ -424,6 +434,7 @@
 "welcome-intro-free-encyclopedia-more" = "وکی پیڈیا بارے ٻیا سکھو";
 "welcome-intro-free-encyclopedia-more-about" = "وکیپیڈیا دا تعارف";
 "welcome-languages-add-button" = "ٻئی زبان رلاؤ";
+"wikitext-downloading" = "مواد لوڈ تھیندا پئے۔۔۔";
 "wikitext-preview-link-external-preview-title" = "ٻاہرلا لنک";
 "wikitext-preview-save-changes-title" = "تبدیلیاں محفوظ کرو";
 "wikitext-upload-save" = "شائع تھیندا پئے۔۔۔";
