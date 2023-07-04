@@ -331,6 +331,7 @@
     NSMutableArray<NSSet<NSURL *> *> *links = [NSMutableArray arrayWithCapacity:1];
     NSMutableArray<NSString *> *imageSrcStrings = [NSMutableArray arrayWithCapacity:1];
     NSMutableArray<NSNumber *> *imageTagIndexes = [NSMutableArray arrayWithCapacity:1];
+    NSMutableArray<NSString *> *imageHeights = [NSMutableArray arrayWithCapacity:1];
 
     NSMutableArray<WMFHTMLElement *> *lists = [NSMutableArray arrayWithCapacity:1];
     NSMutableArray<WMFHTMLElement *> *unclosedListElements = [NSMutableArray arrayWithCapacity:1];
@@ -531,15 +532,38 @@
     }];
     
     [imageSrcStrings enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+
         NSNumber *imageIndex = imageTagIndexes[idx];
-        
-        NSTextAttachment *imageAttachment = [[NSTextAttachment alloc] init];
-        imageAttachment.image = [UIImage systemImageNamed:@"photo"];
-        NSAttributedString *imageAttriutedString = [NSAttributedString attributedStringWithAttachment:imageAttachment];
-        NSMutableAttributedString *linkedImageAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:imageAttriutedString];
-        [linkedImageAttributedString addAttribute:NSLinkAttributeName value:[NSURL URLWithString:obj] range: NSMakeRange(0, linkedImageAttributedString.length)];
-        [attributedString insertAttributedString:linkedImageAttributedString atIndex:[imageIndex integerValue]];
-        // Insert another attributed string here that says "view image"
+        NSString *imgHeightString = imageHeights[idx];
+
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+        NSNumber *heightNumber = [numberFormatter numberFromString:imgHeightString];
+        NSNumber *heightLimitForIcon = @60; //arbitrary number to check if image is an icon
+
+        if (heightNumber.intValue <= heightLimitForIcon.intValue) {
+            NSTextAttachment *imageAttachment = [[NSTextAttachment alloc] init];
+            imageAttachment.image = [UIImage systemImageNamed:@"info.circle.fill"];
+            NSAttributedString *imageAttributedString = [NSAttributedString attributedStringWithAttachment:imageAttachment];
+            NSMutableAttributedString *linkedImageAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:imageAttributedString];
+            [attributedString insertAttributedString:linkedImageAttributedString atIndex:[imageIndex integerValue]];
+        } else {
+            NSTextAttachment *imageAttachment = [[NSTextAttachment alloc] init];
+            imageAttachment.image = [UIImage systemImageNamed:@"photo"];
+            NSAttributedString *imageAttributedString = [NSAttributedString attributedStringWithAttachment:imageAttachment];
+            NSAttributedString *viewImageString = [[NSAttributedString alloc] initWithString:@"\nView Image\n"]; //TODO localization
+            NSMutableAttributedString *linkedImageAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:imageAttributedString];
+            [linkedImageAttributedString addAttribute:NSLinkAttributeName value:[NSURL URLWithString:obj] range: NSMakeRange(0, linkedImageAttributedString.length)];
+
+            NSAttributedString *escapeChar = [[NSAttributedString alloc] initWithString:@"\n"];
+
+            if (imageIndex.intValue > 1) {
+                [attributedString insertAttributedString:escapeChar atIndex:[imageIndex integerValue] - 1];
+            }
+            [attributedString insertAttributedString:linkedImageAttributedString atIndex:[imageIndex integerValue]];
+            [attributedString insertAttributedString:viewImageString atIndex:[imageIndex integerValue] + 1];
+        }
+
     }];
 
     return attributedString;
