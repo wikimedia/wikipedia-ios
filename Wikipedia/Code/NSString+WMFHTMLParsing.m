@@ -389,10 +389,26 @@
                     NSRange sourceStringRange = [result rangeAtIndex:1];
                     sourceString = [HTMLTagAttributes substringWithRange:sourceStringRange];
                 }];
-                
+
                 [imageSrcStrings addObject:sourceString];
                 NSNumber *locationIndex = @(currentLocation);
                 [imageTagIndexes addObject:locationIndex];
+
+                //get image height to exclude icons
+                NSString *imageHeightPattern = @"height\\=(?:\\\"|\\')(.+?)(?:\\\"|\\')";
+                NSRegularExpression *heightRegex = [NSRegularExpression regularExpressionWithPattern:imageHeightPattern options:NSRegularExpressionCaseInsensitive error:nil];
+
+                __block NSString *heightString;
+                [heightRegex enumerateMatchesInString:HTMLTagAttributes
+                                            options:0
+                                              range:NSMakeRange(0, HTMLTagAttributes.length)
+                                         usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                    NSRange heightStringRange = [result rangeAtIndex:1];
+                    heightString = [HTMLTagAttributes substringWithRange:heightStringRange];
+                }];
+
+                [imageHeights addObject:heightString];
+
             } else if (handlingLinks && [HTMLTagName isEqualToString:@"a"]) {
                 [hrefRegex enumerateMatchesInString:HTMLTagAttributes
                                             options:0
