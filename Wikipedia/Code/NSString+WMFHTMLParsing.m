@@ -378,8 +378,6 @@
             startLocation = currentLocation;
             [currentTags addObject:HTMLTagName];
             if ([HTMLTagName isEqualToString:@"img"]) {
-                //src\=(?:\"|\')(.+?)(?:\"|\')
-                
                 NSString *hrefPattern = @"src\\=(?:\\\"|\\')(.+?)(?:\\\"|\\')";
                 NSRegularExpression *hrefRegex = [NSRegularExpression regularExpressionWithPattern:hrefPattern options:NSRegularExpressionCaseInsensitive error:nil];
                 
@@ -393,7 +391,8 @@
                 }];
                 
                 [imageSrcStrings addObject:sourceString];
-                [imageTagIndexes addObject:[NSNumber numberWithInt:currentLocation]];
+                NSNumber *locationIndex = @(currentLocation);
+                [imageTagIndexes addObject:locationIndex];
             } else if (handlingLinks && [HTMLTagName isEqualToString:@"a"]) {
                 [hrefRegex enumerateMatchesInString:HTMLTagAttributes
                                             options:0
