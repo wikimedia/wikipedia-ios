@@ -1043,6 +1043,7 @@
 "talk-pages-topic-reply-onboarding-title" = "Title of user education onboarding view for user and article talk pages.";
 "talk-pages-user-groups" = "Title for menu option for information on the user's user groups. Please prioritize for de, ar and zh wikis.";
 "talk-pages-user-logs" = "Title for menu option to consult the user's public logs. Please prioritize for de, ar and zh wikis.";
+"talk-pages-view-image" = "Text for view image link on talk pages. Please do not translate new line characters (\n)";
 "talk-pages-view-title" = "Title of user and article talk pages view. Please prioritize for de, ar and zh wikis.";
 "theme-black-display-name" = "Black theme name presented to the user";
 "theme-dark-display-name" = "Dark theme name presented to the user";

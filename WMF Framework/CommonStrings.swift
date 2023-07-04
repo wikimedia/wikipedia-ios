@@ -82,6 +82,8 @@ public class CommonStrings: NSObject {
     public static let notificationsCenterWelcome = WMFLocalizedString("notifications-center-type-title-welcome", value: "Welcome", comment: "Title of \"welcome\" notification type. Used on filters view toggles and the notification detail view.")
     public static let notificationsCenterOtherFilter = WMFLocalizedString("notifications-center-type-title-other", value: "Other", comment: "Title of \"other\" notifications filter. Used on filter toggles.")
 
+    public static let viewImageTalkPage = WMFLocalizedString("talk-pages-view-image", value: "\nView Image\n\n", comment: "Text for view image link on talk pages. Please do not translate new line characters (\n)")
+
     @objc public static let exploreFeedTitle = WMFLocalizedString("welcome-exploration-explore-feed-title", value:"Explore feed", comment:"Title for Explore feed")
     @objc public static let featuredArticleTitle = WMFLocalizedString("explore-featured-article-heading", value: "Featured article", comment: "Text for 'Featured article' header")
     @objc public static let onThisDayTitle = CommonStrings.onThisDayTitle()

@@ -549,18 +549,25 @@
         } else {
             NSTextAttachment *imageAttachment = [[NSTextAttachment alloc] init];
             imageAttachment.image = [UIImage systemImageNamed:@"photo"];
+            imageAttachment.image = [imageAttachment.image imageWithTintColor: UIColor.grayColor]; // TODO get secondary color
             NSAttributedString *imageAttributedString = [NSAttributedString attributedStringWithAttachment:imageAttachment];
-            NSAttributedString *viewImageString = [[NSAttributedString alloc] initWithString:@"\nView Image\n"]; //TODO localization
-            NSMutableAttributedString *linkedImageAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:imageAttributedString];
-            [linkedImageAttributedString addAttribute:NSLinkAttributeName value:[NSURL URLWithString:obj] range: NSMakeRange(0, linkedImageAttributedString.length)];
+            NSMutableAttributedString *viewImageString = [[NSMutableAttributedString alloc] initWithString:@"\nView Image\n\n" attributes:attributes]; // TODO localization
 
             NSAttributedString *escapeChar = [[NSAttributedString alloc] initWithString:@"\n"];
 
+            //WIP: ranges are thrown off in galeries
             if (imageIndex.intValue > 1) {
                 [attributedString insertAttributedString:escapeChar atIndex:[imageIndex integerValue] - 1];
             }
-            [attributedString insertAttributedString:linkedImageAttributedString atIndex:[imageIndex integerValue]];
+            [attributedString insertAttributedString:imageAttributedString atIndex:[imageIndex integerValue]];
             [attributedString insertAttributedString:viewImageString atIndex:[imageIndex integerValue] + 1];
+
+            NSURL *linkURL = [NSURL URLWithString:obj];
+            if (linkURL) {
+                [currentLinks addObject:linkURL];
+                [attributedString addAttribute:NSLinkAttributeName value:linkURL range:NSMakeRange(0, viewImageString.length)];
+                [attributedString addAttribute:NSForegroundColorAttributeName value:linkColor range:NSMakeRange(0, viewImageString.length)];
+            }
         }
 
     }];
