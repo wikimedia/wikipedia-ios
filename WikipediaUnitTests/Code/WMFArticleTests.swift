@@ -2,7 +2,15 @@ import XCTest
 @testable import WMF
 
 class WMFArticleTests: XCTestCase {
-    let dataStore: MWKDataStore = MWKDataStore.temporary()
+    
+    var dataStore: MWKDataStore!
+    
+    override func setUp(completion: @escaping (Error?) -> Void) {
+        MWKDataStore.createTemporaryDataStore(completion: { dataStore in
+            self.dataStore = dataStore
+            completion(nil)
+        })
+    }
     
     var a: WMFArticle!
     var b: WMFArticle!
