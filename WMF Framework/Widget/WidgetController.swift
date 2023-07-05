@@ -128,8 +128,6 @@ public final class WidgetController: NSObject {
                 self.completions.forEach { $0(dataStore) }
                 self.completions.removeAll()
             }
-        } needsMigrateBlock: {
-            DDLogDebug("Needed a migration from the widgets")
         }
     }
     

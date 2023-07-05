@@ -128,18 +128,12 @@ class AccountViewController: SubSettingsViewController {
                 return
             }
             
-            let title = OldTalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
-            
-            if FeatureFlags.needsNewTalkPage {
+            let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
+
                 if let viewModel = TalkPageViewModel(pageType: .user, pageTitle: title, siteURL: siteURL, source: .account, articleSummaryController: dataStore.articleSummaryController, authenticationManager: dataStore.authenticationManager, languageLinkController: dataStore.languageLinkController) {
                     let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
                     self.navigationController?.pushViewController(newTalkPage, animated: true)
                 }
-            } else {
-                let title = OldTalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
-                let loadingFlowController = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL,  type: .user, dataStore: dataStore, theme: theme)
-                self.navigationController?.pushViewController(loadingFlowController, animated: true)
-            }
             
         case .vanishAccount:
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)

@@ -4,9 +4,11 @@ class ReadingListsTests: XCTestCase {
     
     var dataStore: MWKDataStore!
     
-    override func setUp() {
-        super.setUp()
-        dataStore = MWKDataStore.temporary()
+    override func setUp(completion: @escaping (Error?) -> Void) {
+        MWKDataStore.createTemporaryDataStore(completion: { dataStore in
+            self.dataStore = dataStore
+            completion(nil)
+        })
     }
     
     override func tearDown() {

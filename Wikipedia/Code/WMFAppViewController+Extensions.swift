@@ -235,7 +235,7 @@ extension EditingFlowViewController {
 protocol NotificationsCenterFlowViewController where Self: UIViewController {
     
     // hook called after the user taps a push notification while in the foregound.
-    // use if needed to tweak the view heirarchy to display the Notifications Center
+    // use if needed to tweak the view hierarchy to display the Notifications Center
     func tappedPushNotification()
 }
 
