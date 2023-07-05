@@ -28,7 +28,7 @@ final class TalkPageCellCommentViewModel: Identifiable {
     }
     
     func commentAttributedString(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
-        return html.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+        return html.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, secondaryColor: theme.colors.secondaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, optionalText: CommonStrings.viewImageTalkPage).removingInitialNewlineCharacters()
     }
 }
 

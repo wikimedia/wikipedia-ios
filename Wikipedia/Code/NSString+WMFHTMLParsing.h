@@ -36,12 +36,14 @@ NS_ASSUME_NONNULL_BEGIN
                                                          italicFont:(nullable UIFont *)italicFont
                                                      boldItalicFont:(nullable UIFont *)boldItalicFont
                                                               color:(nullable UIColor *)color
+                                                     secondaryColor:(nullable UIColor *)color
                                                           linkColor:(nullable UIColor *)color
                                                       handlingLinks:(BOOL)handlingLinks
                                                       handlingLists:(BOOL)handlingLists
                                             handlingSuperSubscripts:(BOOL)handlingSuperSubscripts
                                                          tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping
-                                            additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes;
+                                            additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes
+                                                       optionalText:(nullable NSString *)optionalText;
 
 @end
 

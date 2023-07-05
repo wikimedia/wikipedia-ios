@@ -314,7 +314,7 @@
     return [self wmf_stringByRemovingHTMLWithParsingBlock:NULL];
 }
 
-- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *)color linkColor:(nullable UIColor *)linkColor handlingLinks:(BOOL)handlingLinks handlingLists:(BOOL)handlingLists handlingSuperSubscripts:(BOOL)handlingSuperSubscripts tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes {
+- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *)color secondaryColor:(nullable UIColor *)secondaryColor linkColor:(nullable UIColor *)linkColor handlingLinks:(BOOL)handlingLinks handlingLists:(BOOL)handlingLists handlingSuperSubscripts:(BOOL)handlingSuperSubscripts tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes optionalText:(nullable NSString *)optionalText {
     boldFont = boldFont ?: font;
     italicFont = italicFont ?: font;
     boldItalicFont = boldItalicFont ?: font;
@@ -556,18 +556,22 @@
         NSNumber *heightNumber = [numberFormatter numberFromString:imgHeightString];
         NSNumber *heightLimitForIcon = @60; //arbitrary number to check if image is an icon
 
+        UIColor *attachmentColor = secondaryColor ?: UIColor.grayColor;
+
         if (heightNumber.intValue <= heightLimitForIcon.intValue) {
             NSTextAttachment *imageAttachment = [[NSTextAttachment alloc] init];
             imageAttachment.image = [UIImage systemImageNamed:@"info.circle.fill"];
+            imageAttachment.image = [imageAttachment.image imageWithTintColor: attachmentColor];
             NSAttributedString *imageAttributedString = [NSAttributedString attributedStringWithAttachment:imageAttachment];
             NSMutableAttributedString *linkedImageAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:imageAttributedString];
             [attributedString insertAttributedString:linkedImageAttributedString atIndex:[imageIndex integerValue]];
         } else {
+            NSString *viewImageLinkText = optionalText ?: @"";
             NSTextAttachment *imageAttachment = [[NSTextAttachment alloc] init];
             imageAttachment.image = [UIImage systemImageNamed:@"photo"];
-            imageAttachment.image = [imageAttachment.image imageWithTintColor: UIColor.grayColor]; // TODO get secondary color
+            imageAttachment.image = [imageAttachment.image imageWithTintColor: attachmentColor];
             NSAttributedString *imageAttributedString = [NSAttributedString attributedStringWithAttachment:imageAttachment];
-            NSMutableAttributedString *viewImageString = [[NSMutableAttributedString alloc] initWithString:@"\nView Image\n\n" attributes:attributes]; // TODO localization
+            NSMutableAttributedString *viewImageString = [[NSMutableAttributedString alloc] initWithString:viewImageLinkText attributes:attributes];
 
             NSAttributedString *escapeChar = [[NSAttributedString alloc] initWithString:@"\n"];
 

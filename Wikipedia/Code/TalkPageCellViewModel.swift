@@ -70,7 +70,7 @@ final class TalkPageCellViewModel: Identifiable {
     func leadCommentAttributedString(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         if let leadComment = leadComment {
             let commentColor = isThreadExpanded ? theme.colors.primaryText : theme.colors.secondaryText
-            return leadComment.html.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+            return leadComment.html.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, optionalText: CommonStrings.viewImageTalkPage).removingInitialNewlineCharacters()
         }
         
         return nil
@@ -78,7 +78,7 @@ final class TalkPageCellViewModel: Identifiable {
     
     func otherContentAttributedString(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         if let otherContentHtml = otherContentHtml {
-            return otherContentHtml.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.secondaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+            return otherContentHtml.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.secondaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, optionalText: CommonStrings.viewImageTalkPage).removingInitialNewlineCharacters()
         }
         
         return nil

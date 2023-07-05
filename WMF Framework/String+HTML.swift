@@ -16,12 +16,12 @@ extension String {
     /// - Parameter tagMapping: Lowercase string tag name to another lowercase string tag name - converts tags, for example, @{@"a":@"b"} will turn <a></a> tags to <b></b> tags
     /// - Parameter additionalTagAttributes: Additional text attributes for given tags - lowercase tag name to attribute key/value pairs
     /// - Returns: the resulting NSMutableAttributedString with styles applied to match the limited set of HTML tags that were parsed
-    public func byAttributingHTML(with textStyle: DynamicTextStyle, boldWeight: UIFont.Weight = .semibold, matching traitCollection: UITraitCollection, color: UIColor? = nil, handlingLinks: Bool = true, linkColor: UIColor? = nil, handlingLists: Bool = false, handlingSuperSubscripts: Bool = false, tagMapping: [String: String]? = nil, additionalTagAttributes: [String: [NSAttributedString.Key: Any]]? = nil) -> NSMutableAttributedString {
+    public func byAttributingHTML(with textStyle: DynamicTextStyle, boldWeight: UIFont.Weight = .semibold, matching traitCollection: UITraitCollection, color: UIColor? = nil, secondaryColor: UIColor? = nil, handlingLinks: Bool = true, linkColor: UIColor? = nil, handlingLists: Bool = false, handlingSuperSubscripts: Bool = false, tagMapping: [String: String]? = nil, additionalTagAttributes: [String: [NSAttributedString.Key: Any]]? = nil, optionalText: String? = nil) -> NSMutableAttributedString {
         let font = UIFont.wmf_font(textStyle, compatibleWithTraitCollection: traitCollection)
         let boldFont = UIFont.wmf_font(textStyle.with(weight: boldWeight), compatibleWithTraitCollection: traitCollection)
         let italicFont = UIFont.wmf_font(textStyle.with(traits: [.traitItalic]), compatibleWithTraitCollection: traitCollection)
         let boldItalicFont = UIFont.wmf_font(textStyle.with(weight: boldWeight, traits: [.traitItalic]), compatibleWithTraitCollection: traitCollection)
-        return (self as NSString).wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: italicFont, boldItalicFont: boldItalicFont, color: color, linkColor: linkColor, handlingLinks: handlingLinks, handlingLists: handlingLists, handlingSuperSubscripts: handlingSuperSubscripts, tagMapping: tagMapping, additionalTagAttributes: additionalTagAttributes)
+        return (self as NSString).wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: italicFont, boldItalicFont: boldItalicFont, color: color, secondaryColor: secondaryColor, linkColor: linkColor, handlingLinks: handlingLinks, handlingLists: handlingLists, handlingSuperSubscripts: handlingSuperSubscripts, tagMapping: tagMapping, additionalTagAttributes: additionalTagAttributes, optionalText:optionalText)
     }
     
     public var removingHTML: String {
