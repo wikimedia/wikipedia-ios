@@ -5,6 +5,8 @@ protocol DiffToolbarViewDelegate: AnyObject {
     func tappedNext()
     func tappedShare(_ sender: UIBarButtonItem)
     func tappedThankButton()
+    func tappedUndo()
+    func tappedRollback()
     var isLoggedIn: Bool { get }
 }
 
@@ -31,6 +33,29 @@ class DiffToolbarView: UIView {
         let item = IconBarButtonItem(iconName: "chevron-up", target: self, action: #selector(tappedNext(_:)), for: .touchUpInside)
         item.accessibilityLabel = WMFLocalizedString("action-next-revision-accessibility", value: "Next Revision", comment: "Accessibility title for the 'Next Revision' action button when viewing a single revision diff.")
         item.customView?.widthAnchor.constraint(equalToConstant: 38).isActive = true
+        return item
+    }()
+
+    lazy var moreButton: IconBarButtonItem = {
+        // DIFFTODO: Add menu item images
+        let menu = UIMenu(title: "", options: .displayInline, children: [
+                UIAction(title: CommonStrings.rollback, attributes: [.destructive], handler: { [weak self] _ in self?.tappedRollback() }),
+                UIAction(title: CommonStrings.shortShareTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { _ in }),
+                // DIFFTODO: Add when Watchlist ships
+                // UIAction(title: CommonStrings.watchlist, handler: { _ in }),
+                UIAction(title: CommonStrings.diffArticleEditHistory, handler: { _ in })
+            ]
+        )
+        
+        let item = IconBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
+
+        item.accessibilityLabel = CommonStrings.moreButton
+        return item
+    }()
+
+    lazy var undoButton: IconBarButtonItem = {
+        let item = IconBarButtonItem(iconName: "Revert", target: self, action: #selector(tappedUndo(_:)), for: .touchUpInside)
+        item.accessibilityLabel = CommonStrings.undo
         return item
     }()
 
@@ -81,8 +106,16 @@ class DiffToolbarView: UIView {
         
         setItems()
     }
+
+    @objc func tappedUndo(_ sender: UIBarButtonItem) {
+        delegate?.tappedUndo()
+    }
+
+    @objc func tappedRollback() {
+        delegate?.tappedRollback()
+    }
     
-   @objc func tappedPrevious(_ sender: UIBarButtonItem) {
+    @objc func tappedPrevious(_ sender: UIBarButtonItem) {
         delegate?.tappedPrevious()
     }
     
@@ -105,28 +138,9 @@ class DiffToolbarView: UIView {
     }
 
     private func setItems() {
-        let trailingMarginSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
-        case (.regular, .regular):
-            trailingMarginSpacing.width = 58
-        default:
-            trailingMarginSpacing.width = 24
-        }
-        
-        let leadingMarginSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
-        case (.regular, .regular):
-            leadingMarginSpacing.width = 42
-        default:
-            leadingMarginSpacing.width = 0
-        }
-        
-        let largeFixedSize = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        largeFixedSize.width = 30
-        
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
-        toolbar.items = [leadingMarginSpacing, nextButton, previousButton, spacer, thankButton, largeFixedSize, shareButton, trailingMarginSpacing]
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+
+        toolbar.items = [nextButton, flexibleSpace, previousButton, flexibleSpace, undoButton, flexibleSpace, thankButton, flexibleSpace, moreButton]
     }
     
     func setPreviousButtonState(isEnabled: Bool) {
@@ -172,7 +186,9 @@ extension DiffToolbarView: Themeable {
         previousButton.apply(theme: theme)
         nextButton.apply(theme: theme)
         shareButton.apply(theme: theme)
+        undoButton.apply(theme: theme)
         thankButton.apply(theme: theme)
+        moreButton.apply(theme: theme)
         
         if let delegate = delegate,
             !delegate.isLoggedIn {

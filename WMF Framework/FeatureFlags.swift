@@ -15,11 +15,7 @@ public struct FeatureFlags {
     }
 
     public static var updatedDiffsEnabled: Bool {
-        #if WMF_STAGING
         return true
-        #else
-        return false
-        #endif
     }
     
 }
