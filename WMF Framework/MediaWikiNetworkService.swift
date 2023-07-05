@@ -18,6 +18,7 @@ public final class MediaWikiNetworkService: Fetcher, WKNetworkService {
 
     enum ServiceError: Error {
         case invalidRequest
+        case mediaWikiError(MediaWikiAPIDisplayError)
     }
 
     public func perform(request: WKNetworkRequest, tokenType: WKNetworkRequest.TokenType?, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
@@ -42,11 +43,25 @@ public final class MediaWikiNetworkService: Fetcher, WKNetworkService {
                 return
             }
             
-            performTokenizedMediaWikiAPIPOST(tokenType: tokenType.wmfTokenType, to: url, with: stringParamters) { result, response, error in
+            performTokenizedMediaWikiAPIPOST(tokenType: tokenType.wmfTokenType, to: url, with: stringParamters) { [weak self] result, response, error in
+                
                 if let error = error {
                     completion(.failure(error))
-                } else {
+                    return
+                }
+                
+                guard let result,
+                let self else {
                     completion(.success(result))
+                    return
+                }
+                
+                self.resolveMediaWikiApiErrorFromResult(result, siteURL: url) { displayError in
+                    if let displayError {
+                        completion(.failure(ServiceError.mediaWikiError(displayError)))
+                    } else {
+                        completion(.success(result))
+                    }
                 }
             }
         default:
