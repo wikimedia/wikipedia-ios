@@ -221,8 +221,10 @@
 "description-welcome-descriptions-title" = "Artikelbeskrivningar";
 "description-welcome-promise-title" = "Genom att börja lovar jag att inte missbruka denna funktion";
 "description-welcome-start-editing-button" = "Börja redigera";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Från:";
 "diff-compare-header-heading" = "Jämför versioner";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Till:";
 "diff-compare-title" = "Jämför versioner";
 "diff-context-lines-collapsed-button-title" = "Visa";
@@ -535,12 +537,6 @@
 "insert-media-media-settings-title" = "Mediainställningar";
 "insert-media-title" = "Infoga media";
 "insert-media-uploaded-image-title" = "Uppladdad bild";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 mellanliggande version|$1 mellanliggande versioner}} visas inte";
-"intermediate-edits-count-limited" = "$1+ mellanliggande sidversioner visas inte";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 mellanliggande version|$1 mellanliggande versioner}} av {{PLURAL:$2|en annan användare|$2 användare}} visas inte";
-"intermediate-edits-editors-count-limited" = "$1+ mellanliggande versioner av $2+ användare visas inte";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 mellanliggande version|$1 mellanliggande versioner}} av $2+ användare visas inte";
-"intermediate-edits-limited-editors-count" = "$1+ mellanliggande versioner av {{PLURAL:$2|$2 användare}} visas inte";
 "inuktitut-variants-alert-body" = "Wikipediaappen stödjer följande inuktitut varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuktitut, stavelseskrift (ike-cans)\nInuktitut ilisautik, inuktitut, latinska (ike-latn)";
 "inuktitut-variants-alert-title" = "Uppdaterades till stöd för inuktitut varianter";
 "kazakh-variants-alert-body" = "Wikipediaappen stödjer följande kazakiska varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nҚазақша kazakiska (kk)\nҚазақша Кирил kazakiska, kyrilliska (kk-cyrl)\nqazaqşa latin kazakiska, latinska (kk-latn)\nتوتە قازاقشا kazakiska, arabiska (kk-arab)";

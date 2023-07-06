@@ -239,8 +239,10 @@
 "description-welcome-descriptions-title" = "Descripciones de títulos";
 "description-welcome-promise-title" = "Para empezar, prometo no abusar de esta característica";
 "description-welcome-start-editing-button" = "Empezar a editar";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "De:";
 "diff-compare-header-heading" = "Comparar revisiones";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "A:";
 "diff-compare-title" = "Comparar revisiones";
 "diff-context-lines-collapsed-button-title" = "Mostrar";
@@ -540,12 +542,6 @@
 "insert-media-media-settings-title" = "Configuración multimedia";
 "insert-media-title" = "Insertar multimedia";
 "insert-media-uploaded-image-title" = "Imagen cargada";
-"intermediate-edits-count" = "No se {{PLURAL:$1|muestra $1 revisión intermedia|muestran $1 revisiones intermedias}}";
-"intermediate-edits-count-limited" = "No se muestran $1+ revisiones intermedias";
-"intermediate-edits-editors-count" = "No se {{PLURAL:$1|muestra una revisión intermedia|muestran $1 revisiones intermedias}} de {{PLURAL:$2|otro usuario|$2 usuarios}}";
-"intermediate-edits-editors-count-limited" = "$1+ revisiones intermedias de $2+ usuarios no mostradas";
-"intermediate-edits-editors-limited-count" = "No se {{PLURAL:$1|muestra una revisión intermedia|muestran $1 revisiones intermedias}} de $2+ usuarios";
-"intermediate-edits-limited-editors-count" = "No se muestran $1+ revisiones intermedias de {{PLURAL:$2|$2 usuario|$2 usuarios}}";
 "inuktitut-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del inuit siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuit, silabarios (ike-cans)\nInuktitut ilisautik, inuit, latino (ike-latn)";
 "inuktitut-variants-alert-title" = "Actualizaciones a soporte de variantes del inuit";
 "kazakh-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del kazajo siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nҚазақша kazajo (kk)\nҚазақша Кирил kazajo, cirílico (kk-cyrl)\nqazaqşa latin kazajo, latino (kk-latn)\nتوتە قازاقشا kazajo, árabe (kk-arab)";

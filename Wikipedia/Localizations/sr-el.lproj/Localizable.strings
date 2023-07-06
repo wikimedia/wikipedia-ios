@@ -158,8 +158,10 @@
 "description-welcome-descriptions-title" = "Opisi naslova";
 "description-welcome-promise-title" = "Započinjanjem, obećavam da neću zloupotrebiti ovu funkciju";
 "description-welcome-start-editing-button" = "Počni sa uređivanjem";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Od:";
 "diff-compare-header-heading" = "Uporedi izmene";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Za:";
 "diff-compare-title" = "Uporedi izmene";
 "diff-context-lines-collapsed-button-title" = "Prikaži";

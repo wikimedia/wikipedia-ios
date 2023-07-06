@@ -215,8 +215,10 @@
 "description-welcome-descriptions-title" = "Descrições de artigos";
 "description-welcome-promise-title" = "Ao começar, prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "De:";
 "diff-compare-header-heading" = "Comparar revisões";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Para:";
 "diff-compare-title" = "Comparar revisões";
 "diff-context-lines-collapsed-button-title" = "Mostrar";
@@ -529,12 +531,6 @@
 "insert-media-media-settings-title" = "Configurações multimédia";
 "insert-media-title" = "Inserir multimédia";
 "insert-media-uploaded-image-title" = "Imagem carregada";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 revisão intermédia não mostrada|$1 revisões intermédias não mostradas}}";
-"intermediate-edits-count-limited" = "Mais de $1 revisões intermédias não mostradas";
-"intermediate-edits-editors-count" = "$1 {{PLURAL:$1|revisão intermédia|revisões intermédias}} de $2 {{PLURAL:$2|utilizador|utilizadores}} não {{PLURAL:$1|mostrada|mostradas}}";
-"intermediate-edits-editors-count-limited" = "Mais de $1 revisões intermédias de mais de $2 utilizadores não mostradas";
-"intermediate-edits-editors-limited-count" = "$1 {{PLURAL:$1|revisão intermédia|revisões intermédias}} de mais de $2 utilizadores não {{PLURAL:$1|mostrada|mostradas}}";
-"intermediate-edits-limited-editors-count" = "Mais de $1 revisões intermédias de $2 {{PLURAL:$2|utilizador|utilizadores}} não mostradas";
 "inuktitut-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua ''inuktitut'' como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ - Inuktitut silábico (ike-cans)\nInuktitut ilisautik - Inuktitut latino (ike-latn)";
 "inuktitut-variants-alert-title" = "Atualizações ao suporte de variantes do ''inuktitut''";
 "kazakh-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua cazaque como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nҚазақша - Cazaque (kk)\nҚазақша Кирил - Cazaque cirílico (kk-cyrl)\nqazaqşa latin - Cazaque latino (kk-latn)\nتوتە قازاقشا - Cazaque árabe (kk-arab)";

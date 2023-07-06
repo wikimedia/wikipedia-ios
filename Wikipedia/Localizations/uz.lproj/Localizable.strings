@@ -114,7 +114,9 @@
 "description-help-tips-for-example" = "Misol uchun:";
 "description-published-button-title" = "Bajarildi";
 "description-welcome-start-editing-button" = "Tahrirlashni boshlash";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Kimdan:";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Kimga:";
 "diff-context-lines-collapsed-button-title" = "Koʻrsatish";
 "diff-context-lines-expanded-button-title" = "Yashirish";

@@ -214,8 +214,10 @@
 "description-welcome-descriptions-title" = "Tóm lược bài viết";
 "description-welcome-promise-title" = "Với việc bắt đầu sửa đổi lời tóm lược, tôi hứa sẽ không lạm dụng tính năng này";
 "description-welcome-start-editing-button" = "Bắt đầu sửa đổi";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Từ:";
 "diff-compare-header-heading" = "So sánh các Phiên bản";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Đến:";
 "diff-compare-title" = "So sánh các Phiên bản";
 "diff-context-lines-collapsed-button-title" = "Hiện";
@@ -507,12 +509,6 @@
 "insert-media-media-settings-title" = "Tùy chọn phương tiện";
 "insert-media-title" = "Chèn phương tiện";
 "insert-media-uploaded-image-title" = "Hình đã tải lên";
-"intermediate-edits-count" = "Không hiển thị $1 phiên bản ở giữa";
-"intermediate-edits-count-limited" = "Không hiển thị $1+ phiên bản ở giữa";
-"intermediate-edits-editors-count" = "Không hiển thị $1 phiên bản ở giữa bởi $2 người dùng";
-"intermediate-edits-editors-count-limited" = "Không hiển thị $1+ phiên bản ở giữa bởi $2+ người dùng";
-"intermediate-edits-editors-limited-count" = "Không hiển thị $1 phiên bản ở giữa bởi $2+ người dùng";
-"intermediate-edits-limited-editors-count" = "Không hiển thị $1+ phiên bản ở giữa bởi $2 người dùng";
 "inuktitut-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Inuktitut là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut chữ tượng thanh âm tiết (ike-cans)\nInuktitut ilisautik, Inuktitut chữ Latinh (ike-latn)";
 "inuktitut-variants-alert-title" = "Cập nhật hỗ trợ hệ chữ viết trong tiếng Inuktitut";
 "kazakh-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Kazakh là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh chữ Kirin (kk-cyrl)\nqazaqşa latin Kazakh chữ Latinh (kk-latn)\nتوتە قازاقشا Kazakh chữ Ả Rập (kk-arab)";

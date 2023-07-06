@@ -20,6 +20,7 @@
 "about-contributors" = "ونگاراں";
 "about-libraries-complete-list" = "مکمل فہرست";
 "about-libraries-license" = "لائیسنس";
+"about-repositories-app-source-license-mit" = "ایم آئی ٹی لائسنس";
 "about-title" = "تعارف";
 "about-translators" = "مترجمین";
 "about-wikimedia-foundation" = "وکی میڈیا فاؤنڈیشن";
@@ -104,12 +105,14 @@
 "description-published-button-title" = "تھی ڳیا";
 "description-welcome-descriptions-title" = "عنوان دی تفصیل";
 "description-welcome-start-editing-button" = "لکھݨ شروع کرو";
-"diff-compare-header-from-info-heading" = "کنوں:";
-"diff-compare-header-to-info-heading" = "کوں:";
+"diff-compare-header-from-info-heading" = "کنوں";
+"diff-compare-header-to-info-heading" = "کوں";
 "diff-context-lines-collapsed-button-title" = "ݙِکھاؤ";
 "diff-context-lines-expanded-button-title" = "لُکاؤ";
 "diff-paragraph-moved-direction-down" = "تلے";
 "diff-paragraph-moved-direction-up" = "اُتے";
+"diff-rollback" = "پچھاں واپس کرو";
+"diff-rollback-alert-title" = "تبدیلیاں پچھلی حالت تے واپس کرو";
 "diff-single-header-summary-heading" = "تبدیلی دا خلاصہ";
 "diff-single-intro-title" = "تعارف";
 "diff-single-line-format" = "سطر $1";
@@ -183,6 +186,8 @@
 "field-username-placeholder" = "ورتݨ آلا ناں درج کرو";
 "field-username-title" = "ورتݨ آلا ناں";
 "find-infolabel-number-matches" = "$1 / $2";
+"find-replace-header" = "لبھو تے تبدیل کرو";
+"find-replace-header-close-accessibility" = "فائل بند کرو تے تبدیل کرو";
 "find-textfield-accessibility" = "لبھو";
 "forgot-password-button-title" = "ولدا ٹھیک کرو";
 "forgot-password-title" = "پاس ورڈ ولدا ٹھیک کرو";
@@ -240,6 +245,7 @@
 "main-menu-title" = "ٻئے";
 "menu-cancel-accessibility-label" = "منسوخ";
 "more-languages-tooltip-title" = "زباناں شامل کرو";
+"more-menu" = "ٻئے";
 "navbar-title-mode-edit-wikitext-preview" = "پیشگی ݙکھالا";
 "nearby-distance-label-feet" = "$1 فٹ";
 "nearby-distance-label-km" = "$1 کلو میٹر";
@@ -248,6 +254,7 @@
 "new-password-title" = "پاس ورڈ درج کرو";
 "notifications-center-agent-description-from-format" = "$1 کنوں";
 "notifications-center-alert" = "الرٹ";
+"notifications-center-cell-notification-type-accessibility-label-format" = "$1 اطلاعہ نامہ";
 "notifications-center-change-password" = "پاس ورڈ وٹاؤ";
 "notifications-center-destination-app" = "ایپ وچ";
 "notifications-center-destination-web" = "ویب تے";
@@ -302,6 +309,7 @@
 "number-millions" = "$1 ملین";
 "number-thousands" = "$1 ہزار";
 "on-this-day-detail-header-date-range" = " $1 توں - $2";
+"on-this-day-no-internet-error" = "کوئی ڈیٹا دستیاب کائنی";
 "on-this-day-title" = "ایں ݙینہ کوں";
 "page-history-bot-edits" = "ٻوٹ تبدیلیاں";
 "page-history-minor-edits" = "معمولی تبدیلیاں";
@@ -318,6 +326,7 @@
 "places-accessibility-show-as-map" = "نقشہ ݙکھاؤ";
 "places-accessibility-show-more" = "ٻئے مضمون ݙکھاؤ";
 "places-filter-button-title" = "چھاݨاں";
+"places-filter-saved-articles" = "محفوظ تھئے مضامین";
 "places-search-saved-articles" = "سارے محفوظ مضمون";
 "places-search-top-articles-that-match-scope" = "نیڑے";
 "places-title" = "جاہیں";
@@ -370,6 +379,7 @@
 // Fuzzy
 "settings-notifications" = "اطلاع نامے";
 "settings-notifications-echo-failure-try-again" = "ولدا کوشش کرو";
+"settings-notifications-system-turn-on" = "اطلاع نامے چالو کرو";
 "settings-primary-language" = "ابتدائی";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "مٹاؤ";
 "settings-title" = "ترتیباں";
@@ -421,6 +431,9 @@
 "theme-light-display-name" = "پھکّا";
 "theme-sepia-display-name" = "بھورا";
 "top-read-widget-readers-count" = "$1 قارئین";
+"two-factor-login-continue" = "لاگ ان جاری رکھو";
+"two-factor-login-title" = "آپݨے کھاتے وچ لاگ ان تھیوو";
+"two-factor-login-with-regular-code" = "تصدیقی کوڈ ورتو";
 "unknown-generic-text" = "نامعلوم";
 "vanish-account-additional-information-field" = "ٻیاں معلومات";
 "vanish-account-additional-information-placeholder" = "اختیاری";
@@ -428,6 +441,7 @@
 "vanish-account-learn-more-text" = "ٻیا سِکھو";
 "vanish-account-warning-title" = "ݙراوا";
 "variants-alert-dismiss-button" = "کو، شکریہ";
+"watchlist" = "پارھا تندیر";
 "welcome-exploration-on-this-day-title" = "ایں ݙینہ کوں";
 "welcome-explore-continue-button" = "شروع کرو";
 "welcome-explore-tell-me-more-done-button" = "گھن گھندا";
@@ -436,6 +450,7 @@
 "welcome-languages-add-button" = "ٻئی زبان رلاؤ";
 "wikitext-downloading" = "مواد لوڈ تھیندا پئے۔۔۔";
 "wikitext-preview-link-external-preview-title" = "ٻاہرلا لنک";
+"wikitext-preview-link-not-found-preview-title" = "کوئی اندرلا لنک کائنی لبھا";
 "wikitext-preview-save-changes-title" = "تبدیلیاں محفوظ کرو";
 "wikitext-upload-save" = "شائع تھیندا پئے۔۔۔";
 "wikitext-upload-save-sign-in" = "لاگ ان تھیوو";

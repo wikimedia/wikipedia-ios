@@ -191,8 +191,10 @@
 "description-welcome-descriptions-title" = "Описи чланака";
 "description-welcome-promise-title" = "Започињањем, обећавам да нећу злоупотребити ову функцију";
 "description-welcome-start-editing-button" = "Почни са уређивањем";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Од:";
 "diff-compare-header-heading" = "Упореди измене";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "За:";
 "diff-compare-title" = "Упореди измене";
 "diff-context-lines-collapsed-button-title" = "Прикажи";

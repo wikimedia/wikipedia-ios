@@ -95,7 +95,9 @@
 "description-published-button-title" = "কৰা হ'ল";
 "description-published-subtitle" = "আপুনি সকলোৰে বাবে ৱিকিপিডিয়া উন্নত কৰি তুলিছে";
 "description-welcome-concise-title" = "সংক্ষিপ্ত ৰাখক";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "প্ৰেৰক:";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "প্ৰতি:";
 "diff-context-lines-collapsed-button-title" = "দেখুৱাওক";
 "diff-context-lines-expanded-button-title" = "লুকুৱাওক";

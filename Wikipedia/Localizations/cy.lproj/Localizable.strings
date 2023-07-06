@@ -160,8 +160,10 @@
 "description-welcome-concise-title" = "Cadwch hi'n fyr";
 "description-welcome-descriptions-title" = "Disgrifiadau erthygl";
 "description-welcome-start-editing-button" = "Dechrau golygu";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "O:";
 "diff-compare-header-heading" = "Cymharu Golygiadau";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "I:";
 "diff-compare-title" = "Cymharu Golygiadau";
 "diff-context-lines-collapsed-button-title" = "Dangos";

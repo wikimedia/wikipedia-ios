@@ -169,7 +169,9 @@
 "description-welcome-descriptions-title" = "ခေါင်းစဉ် ဖော်ပြချက်များ";
 "description-welcome-promise-title" = "စတင်ခြင်းဖြင့် ဤသွင်ပြင်လက္ခဏာကို အလွဲသုံးစားမလုပ်ပါကြောင်း ကတိပြုပါသည်";
 "description-welcome-start-editing-button" = "စတင် တည်းဖြတ်ခြင်း";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "မှ -";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "သို့ -";
 "diff-context-lines-collapsed-button-title" = "ပြသရန်";
 "diff-context-lines-expanded-button-title" = "ဝှက်ရန်";

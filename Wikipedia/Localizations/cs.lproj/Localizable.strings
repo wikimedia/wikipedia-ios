@@ -220,8 +220,10 @@
 "description-welcome-descriptions-title" = "Popis článku";
 "description-welcome-promise-title" = "Spuštěním slibuji, že této funkce nezneužiji";
 "description-welcome-start-editing-button" = "Začít editovat";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Od:";
 "diff-compare-header-heading" = "Porovnat revize";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Do:";
 "diff-compare-title" = "Porovnat revize";
 "diff-context-lines-collapsed-button-title" = "Zobrazit";
@@ -521,12 +523,6 @@
 "insert-media-media-settings-title" = "Nastavení médií";
 "insert-media-title" = "Vložit soubor";
 "insert-media-uploaded-image-title" = "Nahraný obrázek";
-"intermediate-edits-count" = "{{PLURAL:$1|Jedna mezilehlá editace|$1 mezilehlé editace|$1 mezilehlých editací}} {{PLURAL:$1|není zobrazena|nejsou zobrazeny|není zobrazeno}}";
-"intermediate-edits-count-limited" = "Více než $1 mezilehlých editací není zobrazeno";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|Jedna mezilehlá editace|$1 mezilehlé editace|$1 mezilehlých editací}} od {{PLURAL:$2|jednoho uživatele|$2 uživatelů}} {{PLURAL:$1|není zobrazena|nejsou zobrazeny|není zobrazeno}}";
-"intermediate-edits-editors-count-limited" = "Více než $1 mezilehlých editací od více než $2 uživatelů není zobrazeno";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Jedna mezilehlá editace|$1 mezilehlé editace|$1 mezilehlých editací}} od více než $2 uživatelů {{PLURAL:$1|není zobrazena|nejsou zobrazeny|není zobrazeno}}";
-"intermediate-edits-limited-editors-count" = "Více než $1 mezilehlých editací od {{PLURAL:$2|$2 uživatele|$2 uživatelů}} není zobrazeno";
 "languages-settings-title" = "Jazyky";
 "languages-title" = "Změnit jazyk";
 "languages-wikipedia" = "Jazyk Wikipedie";

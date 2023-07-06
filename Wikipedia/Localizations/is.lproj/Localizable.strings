@@ -200,8 +200,10 @@
 "description-welcome-descriptions-title" = "Lýsingar greina";
 "description-welcome-promise-title" = "Ef ég byrja, lofa ég að misnota ekki þennan eiginleika";
 "description-welcome-start-editing-button" = "Byrja að breyta";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Frá:";
 "diff-compare-header-heading" = "Bera saman útgáfur";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Til:";
 "diff-compare-title" = "Bera saman útgáfur";
 "diff-context-lines-collapsed-button-title" = "Sýna";
@@ -510,12 +512,6 @@
 "insert-media-media-settings-title" = "Stillingar margmiðlunargagna";
 "insert-media-title" = "Settu inn margmiðlunargögn";
 "insert-media-uploaded-image-title" = "Innsend mynd";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 millibreyting|$1 millibreytingar}} ekki birt";
-"intermediate-edits-count-limited" = "$1+ millibreytingar ekki sýndar";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 millibreyting ekki birt|$1 millibreytingar ekki birtar}} frá {{PLURAL:$2|$2 notanda|$2 notendum}}";
-"intermediate-edits-editors-count-limited" = "$1+ millibreytingar frá $2+ notendum ekki birtar";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 millibreyting ekki birt|$1 millibreytingar ekki birtar}} frá $2+ notendum";
-"intermediate-edits-limited-editors-count" = "$1+ millibreytingar frá {{PLURAL:$2|$2 notanda|$2 notendum}} ekki birtar";
 "inuktitut-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði Inuktitut";
 "kazakh-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði kasakísku";
 "kurdish-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði kúrdísku";
