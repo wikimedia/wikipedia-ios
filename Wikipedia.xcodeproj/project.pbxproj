@@ -19791,7 +19791,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wikimedia/wikipedia-ios-components.git";
 			requirement = {
-				branch = "watchlist-api-1";
+				branch = main;
 				kind = branch;
 			};
 		};
