@@ -183,8 +183,10 @@
 "description-welcome-descriptions-title" = "ចំណារពន្យល់អំពីអត្ថបទ";
 "description-welcome-promise-title" = "ខ្ញុំសន្យាថានឹងមិនប្រើមុខងារនេះខុសក្បួនទេ";
 "description-welcome-start-editing-button" = "ចាប់ផ្ដើមកែប្រែ";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "ពី៖";
 "diff-compare-header-heading" = "ប្រៀបធៀបកំណែប្រែ";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "ទៅកាន់៖";
 "diff-compare-title" = "ប្រៀបធៀបកំណែប្រែ";
 "diff-context-lines-collapsed-button-title" = "បង្ហាញ";
@@ -468,12 +470,6 @@
 "insert-media-media-settings-title" = "ការ​កំណត់​មេឌា";
 "insert-media-title" = "បញ្ចូលមេឌា";
 "insert-media-uploaded-image-title" = "ផ្ទុករូបភាពឡើង";
-"intermediate-edits-count" = "មិនបង្ហាញ{{PLURAL:$1|កំណែនៅចន្លោះចំនួន$1|កំណែនៅចន្លោះចំនួន$1}}ទេ";
-"intermediate-edits-count-limited" = "មិនបង្ហាញកំណែនៅចន្លោះចំនួនច្រើនជាង$1ទេ";
-"intermediate-edits-editors-count" = "មិនបង្ហាញ{{PLURAL:$1|កំណែនៅចន្លោះចំនួន$1|កំណែនៅចន្លោះចំនួន$1}}ធ្វើដោយ{{PLURAL:$2|អ្នកប្រើប្រាស់ចំនួន$2នាក់|អ្នកប្រើប្រាស់ចំនួន$2នាក់}}ទេ";
-"intermediate-edits-editors-count-limited" = "មិនបង្ហាញកំណែនៅចន្លោះចំនួនច្រើនជាង$1ធ្វើដោយអ្នកប្រើប្រាស់ចំនួនច្រើនជាង$2ទេ";
-"intermediate-edits-editors-limited-count" = "មិនបង្ហាញ{{PLURAL:$1|កំណែនៅចន្លោះចំនួន$1|កំណែនៅចន្លោះចំនួន$1}}ធ្វើដោយអ្នកប្រើប្រាស់ចំនួនច្រើនជាង$2នាក់ទេ";
-"intermediate-edits-limited-editors-count" = "មិនបង្ហាញកំណែនៅចន្លោះចំនួនច្រើនជាង$1ធ្វើដោយ{{PLURAL:$2|អ្នកប្រើប្រាស់ចំនួន$2នាក់|អ្នកប្រើប្រាស់ចំនួន$2នាក់}}ទេ";
 "languages-settings-title" = "ភាសា";
 "languages-title" = "ប្ដូរភាសា";
 "languages-wikipedia" = "ភាសាវិគីភីឌា";

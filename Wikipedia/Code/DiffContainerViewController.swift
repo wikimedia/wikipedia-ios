@@ -87,21 +87,7 @@ class DiffContainerViewController: ViewController {
     }
     
     private var byteDifference: Int? {
-        guard let toModel = toModel,
-            type == .single else {
-                return nil
-        }
-        
-        if toModel.revisionSize == 0 { // indication that this has not been calculated yet from Page History, need fromModel for calculation
-            
-            guard let fromModel = fromModel else {
-                return isOnFirstRevisionInHistory ? toModel.articleSizeAtRevision : nil
-            }
-            
-            return toModel.articleSizeAtRevision - fromModel.articleSizeAtRevision
-        } else {
-            return toModel.revisionSize
-        }
+        return (toModel?.articleSizeAtRevision ?? 0) - (fromModel?.articleSizeAtRevision ?? 0)
     }
     
     init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, type: DiffContainerViewModel.DiffType, articleTitle: String?, needsSetNavDelegate: Bool = false) {
@@ -221,10 +207,6 @@ class DiffContainerViewController: ViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        if let scrollView = diffListViewController?.scrollView {
-            configureExtendedViewSquishing(scrollView: scrollView)
-        }
 
         if let emptyViewController = scrollingEmptyViewController {
             navigationBar.setNeedsLayout()
@@ -670,7 +652,8 @@ private extension DiffContainerViewController {
             let articleTitle = articleTitle else {
                 return
             }
-            let newTitleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, editCounts: editCounts)
+
+            let newTitleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, byteDifference: byteDifference)
             headerViewModel.title = newTitleViewModel
             headerTitleView?.update(newTitleViewModel)
         case .single:
@@ -771,18 +754,7 @@ private extension DiffContainerViewController {
             }
         }
     }
-    
-    func configureExtendedViewSquishing(scrollView: UIScrollView) {
-        guard let headerTitleView = headerTitleView,
-        let headerExtendedView = headerExtendedView else {
-            return
-        }
-        
-        let beginSquishYOffset = headerTitleView.frame.height
-        let scrollYOffset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
-        headerExtendedView.configureHeight(beginSquishYOffset: beginSquishYOffset, scrollYOffset: scrollYOffset)
-    }
-    
+
     func setupHeaderViewIfNeeded() {
         
         guard let headerViewModel = containerViewModel.headerViewModel else {
@@ -874,27 +846,20 @@ private extension DiffContainerViewController {
     }
     
     func setupToolbarIfNeeded() {
-        
-        switch type {
-        case .single:
-            if diffToolbarView == nil {
-                let toolbarView = DiffToolbarView(frame: .zero)
-                self.diffToolbarView = toolbarView
-                toolbarView.delegate = self
-                toolbarView.translatesAutoresizingMaskIntoConstraints = false
-                view.insertSubview(toolbarView, aboveSubview: navigationBar)
-                let bottom = view.bottomAnchor.constraint(equalTo: toolbarView.bottomAnchor)
-                let leading = view.leadingAnchor.constraint(equalTo: toolbarView.leadingAnchor)
-                let trailing = view.trailingAnchor.constraint(equalTo: toolbarView.trailingAnchor)
-                NSLayoutConstraint.activate([bottom, leading, trailing])
-                toolbarView.apply(theme: theme)
-                toolbarView.setPreviousButtonState(isEnabled: false)
-                toolbarView.setNextButtonState(isEnabled: false)
-            }
-        default:
-            break
+        if diffToolbarView == nil {
+            let toolbarView = DiffToolbarView(frame: .zero)
+            self.diffToolbarView = toolbarView
+            toolbarView.delegate = self
+            toolbarView.translatesAutoresizingMaskIntoConstraints = false
+            view.insertSubview(toolbarView, aboveSubview: navigationBar)
+            let bottom = view.bottomAnchor.constraint(equalTo: toolbarView.bottomAnchor)
+            let leading = view.leadingAnchor.constraint(equalTo: toolbarView.leadingAnchor)
+            let trailing = view.trailingAnchor.constraint(equalTo: toolbarView.trailingAnchor)
+            NSLayoutConstraint.activate([bottom, leading, trailing])
+            toolbarView.apply(theme: theme)
+            toolbarView.setPreviousButtonState(isEnabled: false)
+            toolbarView.setNextButtonState(isEnabled: false)
         }
-        
     }
     
     func setupDiffListViewControllerIfNeeded() {
@@ -969,8 +934,6 @@ private extension DiffContainerViewController {
 extension DiffContainerViewController: DiffListDelegate {
     func diffListScrollViewDidScroll(_ scrollView: UIScrollView) {
         self.scrollViewDidScroll(scrollView)
-        
-        configureExtendedViewSquishing(scrollView: scrollView)
     }
 }
 
@@ -1119,8 +1082,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 return
         }
         
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
-        replaceLastAndPush(with: singleDiffVC)
+        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .compare, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
+        replaceLastAndPush(with: diffVC)
     }
     
     func tappedNext() {
@@ -1133,8 +1096,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
-        replaceLastAndPush(with: singleDiffVC)
+        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .compare, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
+        replaceLastAndPush(with: diffVC)
     }
     
     func tappedShare(_ sender: UIBarButtonItem) {
@@ -1151,12 +1114,46 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
 
     func tappedThankButton() {
-        guard type == .single else {
-            return
-        }
         let isUserAnonymous = toModel?.isAnon ?? true
         tappedThank(for: toModelRevisionID, isUserAnonymous: isUserAnonymous)
     }
+
+    func tappedUndo() {
+        let message = WMFLocalizedString("diff-undo-message", value: "This will undo the changes made by the revisions(s) of the article shown here. To continue, please provide a reason for undoing this edit.", comment: "Message showed in alert when user taps undo in diff toolbar.")
+
+        let alertController = UIAlertController(title: CommonStrings.undo, message: message, preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.clearButtonMode = .always
+        }
+
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        let undo = UIAlertAction(title: CommonStrings.undo, style: .destructive)
+        undo.isEnabled = false
+
+        // DIFFTODO: Hook up undo action and enable only if textfield is non-empty
+
+        alertController.addAction(cancel)
+        alertController.addAction(undo)
+
+        present(alertController, animated: true)
+    }
+
+    func tappedRollback() {
+        let title = WMFLocalizedString("diff-rollback-alert-title", value: "Rollback edits", comment: "Title of alert when user taps rollback in diff toolbar.")
+        let message = WMFLocalizedString("diff-rollback-alert-message", value: "Are you sure you want to rollback the edits?", comment: "Message in alert when user taps rollback in diff toolbar.")
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        let rollback = UIAlertAction(title: CommonStrings.rollback, style: .destructive)
+
+        // DIFFTODO: Hook up rollback action
+
+        alertController.addAction(cancel)
+        alertController.addAction(rollback)
+
+        present(alertController, animated: true)
+    }
+
 }
 
 extension DiffContainerViewController: UINavigationControllerDelegate {

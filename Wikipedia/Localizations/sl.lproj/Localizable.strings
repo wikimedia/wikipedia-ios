@@ -200,9 +200,10 @@
 "description-welcome-descriptions-title" = "Opisi člankov";
 "description-welcome-promise-title" = "Ob začetku obljubljam, da te možnosti ne bom zlorabil_a";
 "description-welcome-start-editing-button" = "Začetek urejanja";
-"diff-compare-header-from-info-heading" = "Iz:";
+"diff-article-edit-history" = "Zgodovina urejanja članka";
+"diff-compare-header-from-info-heading" = "Iz";
 "diff-compare-header-heading" = "Primerjava redakcij";
-"diff-compare-header-to-info-heading" = "V:";
+"diff-compare-header-to-info-heading" = "V";
 "diff-compare-title" = "Primerjava redakcij";
 "diff-context-lines-collapsed-button-title" = "Pokaži";
 "diff-context-lines-expanded-button-title" = "Skrij";
@@ -214,6 +215,9 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 razdelek|$1 razdelka|$1 razdelki|$1 razdelkov}}";
 "diff-paragraph-moved-format" = "Odstavek premaknjen $2 $1";
 "diff-revision-error-title" = "Redakcije ni mogoče naložiti.";
+"diff-rollback" = "Vrni";
+"diff-rollback-alert-message" = "Ali res želite vrniti urejanja?";
+"diff-rollback-alert-title" = "Vrnitev urejanj";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 urejanje|$1 urejanji|$1 urejanja|$1 urejanj}}";
 "diff-single-header-editor-title" = "Podatki o urejevalcu";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 zlog dodan|$1 zloga dodana|$1 zlogi dodani|$1 zlogov dodanih}}";
@@ -230,6 +234,7 @@
 "diff-thanks-sent" = "Vaša zahvala je bila poslana $1";
 "diff-thanks-sent-already" = "Za to urejanje ste že poslali zahvalo";
 "diff-thanks-sent-cannot-unsend" = "Zahval ni mogoče preklicati.";
+"diff-undo-message" = "To bo razveljavilo spremembe, narejene z redakcijo(ami) članka, prikazanega tukaj. Če želite nadaljevati, navedite razlog za razveljavitev tega urejanja.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 vrstica neurejena|$1 vrstici neurejeni|$1 vrstice neurejene|$1 vrstic neurejenih}}";
 "dim-images" = "Zatemnjene slike";
 "edit-bold-accessibility-label" = "Dodaj krepko oblikovanje";
@@ -514,12 +519,6 @@
 "insert-media-media-settings-title" = "Nastavitve predstavnosti";
 "insert-media-title" = "Vstavi predstavnost";
 "insert-media-uploaded-image-title" = "Naložite sliko";
-"intermediate-edits-count" = "({{PLURAL:$1|Ena vmesna redakcija ni prikazana|Dve vmesni redakciji nista prikazani|$1 vmesne redakcije niso prikazane|$1 vmesnih redakcij ni prikazanih}}";
-"intermediate-edits-count-limited" = "$1+ vmesnih redakcij ni prikazanih";
-"intermediate-edits-editors-count" = "({{PLURAL:$1|$1 vmesna redakcija {{PLURAL:$2|$2 uporabnika|$2 uporabnikov}} ni prikazana|$1 vmesni redakciji {{PLURAL:$2|$2 uporabnika|$2 uporabnikov}} nista prikazani|$1 vmesne redakcije {{PLURAL:$2|$2 uporabnika|$2 uporabnikov}} niso prikazane|$1 vmesnih redakcij {{PLURAL:$2|$2 uporabnika|$2 uporabnikov}} ni prikazanih}})";
-"intermediate-edits-editors-count-limited" = "$1+ vmesnih redakcij $2+ uporabnikov ni prikazanih";
-"intermediate-edits-editors-limited-count" = "({{PLURAL:$1|Ena vmesna redakcija $2+ uporabnikov ni prikazana|Dve vmesni redakciji $2+ uporabnikov nista prikazani|$1 vmesne redakcije $2+ uporabnikov niso prikazane|$1 vmesnih redakcij $2+ uporabnikov ni prikazanih}}";
-"intermediate-edits-limited-editors-count" = "$1+ vmesnih redakcij {{PLURAL:$2|$2 uporabnika|$2 uporabnikov}} ni prikazanih";
 "inuktitut-variants-alert-body" = "Aplikacija Wikipedia zdaj podpira naslednji različici inuktituta kot osnovni ali sekundarno jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ – inuktitut, zlogovno (ike-cans)\nInuktitut ilisautik – inuktitut, latinica (ike-latn)";
 "inuktitut-variants-alert-title" = "Posodobitve podpore za inuktitutske različice";
 "kazakh-variants-alert-body" = "Aplikacija Wikipedija zdaj podpira naslednje različice kazaščine kot osnovni ali sekundarni jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\nҚазақша – kazaščina (kk)\nҚазақша Кирил – kazaščina, cirilica (kk-cyrl)\nqazaqşa latinica — kazaščina, latinica (kk-latn)\nتوتە قازاقشا – kazaščina, arabska pisava (kk-arab)";
@@ -554,6 +553,7 @@
 "menu-cancel-accessibility-label" = "Prekliči";
 "more-languages-tooltip-description" = "Iščite v Wikipediji v več kot 300 jezikih";
 "more-languages-tooltip-title" = "Dodaj jezike";
+"more-menu" = "Več";
 "move-articles-to-reading-list" = "Premakni {{PLURAL:$1|$1 članek|$1 članka|$1 članke|$1 člankov}} na bralni seznam";
 "navbar-title-mode-edit-wikitext-preview" = "Predogled";
 "nearby-distance-label-feet" = "$1 čevljev";
@@ -1094,6 +1094,7 @@
 "vanishing-request-email-title" = "Prošnja za uslugo izginotja";
 "variants-alert-dismiss-button" = "Ne, hvala";
 "variants-alert-preferences-button" = "Preglejte svoje nastavitve";
+"watchlist" = "Spisek nadzorov";
 "welcome-exploration-explore-feed-description" = "Priporočeno branje in dnevni članki iz naše skupnosti";
 "welcome-exploration-explore-feed-title" = "Vir Raziskuj";
 "welcome-exploration-on-this-day-description" = "Potujte v preteklost in spoznajte, kaj se je v zgodovini zgodilo na današnji dan";

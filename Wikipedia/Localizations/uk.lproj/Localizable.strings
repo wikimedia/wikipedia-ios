@@ -219,8 +219,10 @@
 "description-welcome-descriptions-title" = "Описи статей";
 "description-welcome-promise-title" = "Розпочинаючи використання, я обіцяю не зловживати цією можливістю";
 "description-welcome-start-editing-button" = "Почати редагування";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Від:";
 "diff-compare-header-heading" = "Порівняння версій";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Кому:";
 "diff-compare-title" = "Порівняння версій";
 "diff-context-lines-collapsed-button-title" = "Показати";
@@ -533,12 +535,6 @@
 "insert-media-media-settings-title" = "Параметри медіафайлу";
 "insert-media-title" = "Вставити медіафайл";
 "insert-media-uploaded-image-title" = "Завантажене зображення";
-"intermediate-edits-count" = "{{PLURAL:$1|Не показується $1 проміжна версія|Не показуються $1 проміжні версії|Не показується $1 проміжних версій}}";
-"intermediate-edits-count-limited" = "Не показується $1+ проміжних версій";
-"intermediate-edits-editors-count" = "Не {{PLURAL:$1|показана $1 проміжна версія|показано $1 проміжні версії|показані $1 проміжних версій}} {{PLURAL:$2|ще одного користувача|$2 користувачів}}";
-"intermediate-edits-editors-count-limited" = "Не показано $1+ проміжних версій $2+ користувачів";
-"intermediate-edits-editors-limited-count" = "Не {{PLURAL:$1|показано $1 проміжну версію|показані $1 проміжні версії|показано $1 проміжних версій}} $2+ користувачів";
-"intermediate-edits-limited-editors-count" = "Не показано $1+ проміжних версій {{PLURAL:$2|$2 користувача|$2 користувачів}}";
 "inuktitut-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови інуктитут як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ інуктитут, складове письмо (ike-cans)\nInuktitut ilisautik, інуктитут, латинка (ike-latn)";
 "inuktitut-variants-alert-title" = "Оновлення щодо підтримки варіантів інуктитуту";
 "kazakh-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти казахської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nҚазақша казахська (kk)\nҚазақша Кирил казахська, кирилиця (kk-cyrl)\nqazaqşa latin казахська, латинка (kk-latn)\nتوتە قازاقشا казахська, арабиця (kk-arab)";

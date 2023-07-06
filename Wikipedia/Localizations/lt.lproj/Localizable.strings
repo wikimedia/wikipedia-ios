@@ -195,8 +195,10 @@
 "description-welcome-descriptions-title" = "Straipsnių aprašymai";
 "description-welcome-promise-title" = "Pradėdamas prižadu naudoti šią funkciją geranoriškai";
 "description-welcome-start-editing-button" = "Pradėti redagavimą";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Nuo:";
 "diff-compare-header-heading" = "Lyginti versijas";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Kam:";
 "diff-compare-title" = "Lyginti versijas";
 "diff-context-lines-collapsed-button-title" = "Rodyti";

@@ -33,7 +33,7 @@
       "location" : "https://github.com/wikimedia/wikipedia-ios-data.git",
       "state" : {
         "branch" : "watchlist-api-1",
-        "revision" : "9e312aba1a790f6aabee83ced1cf94207399454a"
+        "revision" : "eb164e6a987202be2ccaef03518e8fa3310f26f4"
       }
     }
   ],

@@ -192,8 +192,10 @@
 "description-welcome-descriptions-title" = "مضمونن جون تشريحون";
 "description-welcome-promise-title" = "شروع ڪرڻ سان، آئون واعدو ڪريان ٿو تہ هن خصوصيت جو غلط استعمال نہ ڪندس";
 "description-welcome-start-editing-button" = "سنوارڻ شروع ڪريو";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "طرفان:";
 "diff-compare-header-heading" = "ورجاءَ ڀيٽيو";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "ڏانھن:";
 "diff-compare-title" = "ورجاءَ ڀيٽيو";
 "diff-context-lines-collapsed-button-title" = "ڏيکاريو";
@@ -483,7 +485,6 @@
 "insert-media-media-settings-title" = "ميڊيا ترتيبون";
 "insert-media-title" = "ميڊيا وجھو";
 "insert-media-uploaded-image-title" = "عڪس چاڙھيو";
-"intermediate-edits-count-limited" = "$1+ وچيان ورجاءَ ڏيکاريل ناھن";
 "languages-settings-title" = "ٻوليون";
 "languages-title" = "ٻولي بدلايو";
 "languages-wikipedia" = "وڪيپيڊيا ٻوليون";

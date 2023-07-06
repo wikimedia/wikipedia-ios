@@ -157,7 +157,9 @@
 "description-welcome-descriptions-title" = "Artikelbeskrivelser";
 "description-welcome-promise-title" = "Begynder du at redigere, så lover du samtidig ikke at misbruge denne funktion";
 "description-welcome-start-editing-button" = "Start med at redigere";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Fra:";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Til:";
 "diff-context-lines-collapsed-button-title" = "Vis";
 "diff-context-lines-expanded-button-title" = "Skjul";

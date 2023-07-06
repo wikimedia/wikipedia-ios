@@ -192,8 +192,10 @@
 "description-welcome-descriptions-title" = "Huraian rencana";
 "description-welcome-promise-title" = "Dengan bermula, saya berjanji tidak menyalahgunakan ciri ini";
 "description-welcome-start-editing-button" = "Mula suntingan";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Daripada:";
 "diff-compare-header-heading" = "Bandingkan Semakan";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Kepada:";
 "diff-compare-title" = "Bandingkan Semakan";
 "diff-context-lines-collapsed-button-title" = "Tunjukkan";

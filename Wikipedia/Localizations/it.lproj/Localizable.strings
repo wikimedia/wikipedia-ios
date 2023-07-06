@@ -216,9 +216,9 @@
 "description-welcome-descriptions-title" = "Descrizioni delle voci";
 "description-welcome-promise-title" = "Per iniziare, prometto di non abusare di questa funzione";
 "description-welcome-start-editing-button" = "Inizia a modificare";
-"diff-compare-header-from-info-heading" = "Da:";
+"diff-compare-header-from-info-heading" = "Da";
 "diff-compare-header-heading" = "Confronta versioni";
-"diff-compare-header-to-info-heading" = "A:";
+"diff-compare-header-to-info-heading" = "A";
 "diff-compare-title" = "Confronta versioni";
 "diff-context-lines-collapsed-button-title" = "Mostra";
 "diff-context-lines-expanded-button-title" = "Nascondi";
@@ -230,6 +230,7 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 sezione|$1 sezioni}}";
 "diff-paragraph-moved-format" = "Paragrafo spostato $1 $2";
 "diff-revision-error-title" = "Impossibile caricare i dati della versione";
+"diff-rollback-alert-message" = "Sei sicuro di voler annullare le modifiche?";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 modifica|$1 modifiche}}";
 "diff-single-header-editor-title" = "Informazioni sul contributore";
 "diff-single-header-subtitle-bytes-added" = "$1 byte {{PLURAL:$1|aggiunto|aggiunti}}";
@@ -420,12 +421,6 @@
 "insert-media-media-settings-title" = "Impostazioni file multimediali";
 "insert-media-title" = "Inserisci un file multimediale";
 "insert-media-uploaded-image-title" = "Immagine caricata";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 versione intermedia|$1 versioni intermedie}} non {{PLURAL:$1|è mostrata|sono mostrate}}";
-"intermediate-edits-count-limited" = "Più di $1 versioni intermedie non sono mostrate";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 versione intermedia|$1 versioni intermedie}} di {{PLURAL:$2|$2 utente|$2 utenti}} non {{PLURAL:$1|è mostrata|sono mostrate}}";
-"intermediate-edits-editors-count-limited" = "Più di $1 versioni intermedie di più di $2 utenti non sono mostrate";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 versione intermedia|$1 versioni intermedie}} di più di $2 utenti non {{PLURAL:$1|è mostrata|sono mostrate}}";
-"intermediate-edits-limited-editors-count" = "Più di $1 versioni intermedie di più di {{PLURAL:$2|$2 utente|$2 utenti}} non sono mostrate";
 "languages-settings-title" = "Lingue";
 "languages-title" = "Cambia lingua";
 "languages-wikipedia" = "Lingue di Wikipedia";
@@ -451,6 +446,7 @@
 "menu-cancel-accessibility-label" = "Annulla";
 "more-languages-tooltip-description" = "Cerca in Wikipedia in più di 300 lingue";
 "more-languages-tooltip-title" = "Aggiungi lingue";
+"more-menu" = "Altro";
 "move-articles-to-reading-list" = "Sposta $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "navbar-title-mode-edit-wikitext-preview" = "Anteprima";
 "nearby-distance-label-feet" = "$1 piedi";
@@ -767,6 +763,7 @@
 "vanish-account-learn-more-text" = "Ulteriori informazioni";
 "vanish-account-username-field" = "Nome utente e pagina utente";
 "variants-alert-dismiss-button" = "No, grazie";
+"watchlist" = "Osservati speciali";
 "welcome-exploration-explore-feed-description" = "Letture consigliate e voci quotidiane della nostra comunità";
 "welcome-exploration-explore-feed-title" = "Esplora feed";
 "welcome-exploration-on-this-day-description" = "Viaggia indietro nel tempo per sapere cosa è successo oggi nella storia";

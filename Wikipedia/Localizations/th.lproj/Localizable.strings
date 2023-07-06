@@ -200,8 +200,10 @@
 "description-welcome-descriptions-title" = "คำอธิบายบทความ";
 "description-welcome-promise-title" = "ฉันสัญญาว่าจะไม่ใช้คุณลักษณะนี้ในทางที่ผิด";
 "description-welcome-start-editing-button" = "เริ่มแก้ไข";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "จาก:";
 "diff-compare-header-heading" = "เปรียบเทียบรุ่นแก้ไข";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "ถึง:";
 "diff-compare-title" = "เปรียบเทียบรุ่นแก้ไข";
 "diff-context-lines-collapsed-button-title" = "แสดง";

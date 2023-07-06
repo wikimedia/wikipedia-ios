@@ -65,6 +65,7 @@
 "close-button-accessibility-label" = "Aizvērt";
 "description-edit-learn-more" = "Uzzināt vairāk";
 "description-published-button-title" = "Gatavs";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "No:";
 "diff-compare-title" = "Salīdzināt versijas";
 "diff-single-intro-title" = "Ievads";

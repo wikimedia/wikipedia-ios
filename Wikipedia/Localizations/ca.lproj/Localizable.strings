@@ -218,8 +218,10 @@
 "description-welcome-descriptions-title" = "Descripcions d'article";
 "description-welcome-promise-title" = "En començar prometo no fer mal ús d'aquesta funcionalitat";
 "description-welcome-start-editing-button" = "Comença a editar-hi";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "De:";
 "diff-compare-header-heading" = "Compara les revisions";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "A:";
 "diff-compare-title" = "Compara les revisions";
 "diff-context-lines-collapsed-button-title" = "Mostra";
@@ -532,12 +534,6 @@
 "insert-media-media-settings-title" = "Configuració multimèdia";
 "insert-media-title" = "Insereix fitxer multimèdia";
 "insert-media-uploaded-image-title" = "Imatge carregada";
-"intermediate-edits-count" = "No {{PLURAL:$1|s'ha mostrat $1 revisió intermèdia|s'han mostrat $1 revisions intermèdies}}";
-"intermediate-edits-count-limited" = "No s'han mostrat $1+ revisions intermèdies";
-"intermediate-edits-editors-count" = "No {{PLURAL:$1|s'ha mostrat $1 revisió intermèdia|s'han mostrat $1 revisions intermèdies}} de {{PLURAL:$2|$2 usuari|$2 usuaris}}";
-"intermediate-edits-editors-count-limited" = "$1+ revisions intermèdies per $2+ usuaris no mostrats";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 revisió intermèdia|$1 revisions intermèdies}} per $2+ usuaris no mostrats";
-"intermediate-edits-limited-editors-count" = "$1+ revisions intermèdies per {{PLURAL:$2|$2 usuari|$2 usuaris}} no mostrades";
 "inuktitut-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants inuktitut com a llengües principals o secundàries de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides: \n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, síl·labes (ike-cans)\nInuktitut ilisautik, Inuktitut, llatí ( ike-latn)";
 "inuktitut-variants-alert-title" = "Actualitzacions del suport a les variants Inuktitut";
 "kazakh-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants kazakhs com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\nҚазақша kazakh (kk)\nҚазақша Кирил Kazakh, ciríl·lic (kk-cyrl)\nqazaqşa llatí kazakh, llatí (kk-latn)\nتوتە قازاقشا kazakh, àrab (kk-arab)";
