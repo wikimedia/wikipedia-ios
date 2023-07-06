@@ -375,7 +375,6 @@ private extension DiffContainerViewController {
         populateNewHeaderViewModel()
         setupHeaderViewIfNeeded()
         setupDiffListViewControllerIfNeeded()
-        fetchIntermediateCountIfNeeded()
         fetchEditCountIfNeeded()
         setupBackButton()
         apply(theme: theme)
@@ -607,40 +606,6 @@ private extension DiffContainerViewController {
                 }
             }
         case .compare:
-            break
-        }
-    }
-    
-    func fetchIntermediateCountIfNeeded() {
-        
-        guard let toModel = toModel,
-        let articleTitle = articleTitle else {
-            return
-        }
-        
-        switch type {
-        case .compare:
-            if let fromModel = fromModel {
-                let fromID = fromModel.revisionID
-                let toID = toModel.revisionID
-                diffController.fetchIntermediateCounts(for: articleTitle, pageURL: siteURL, from: fromID, to: toID) { [weak self] (result) in
-                    switch result {
-                    case .success(let editCounts):
-                        guard let self = self else {
-                            return
-                        }
-                        DispatchQueue.main.async {
-                            self.updateHeaderWithIntermediateCounts(editCounts)
-                            self.diffListViewController?.updateScrollViewInsets()
-                        }
-                    default:
-                        break
-                    }
-                }
-            } else {
-                assertionFailure("Expect compare type to have fromModel for fetching intermediate count")
-            }
-        case .single:
             break
         }
     }
