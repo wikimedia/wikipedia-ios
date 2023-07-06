@@ -223,9 +223,9 @@
 "description-welcome-descriptions-title" = "Artikkelin kuvaukset";
 "description-welcome-promise-title" = "Aloittamalla, lupaan etten väärinkäytä tätä ominaisuutta";
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
-"diff-compare-header-from-info-heading" = "Alkuperäinen:";
+"diff-compare-header-from-info-heading" = "Alkuperäinen";
 "diff-compare-header-heading" = "Versioiden vertailu";
-"diff-compare-header-to-info-heading" = "Muokattu:";
+"diff-compare-header-to-info-heading" = "Muokattu";
 "diff-compare-title" = "Versioiden vertailu";
 "diff-context-lines-collapsed-button-title" = "Näytä";
 "diff-context-lines-expanded-button-title" = "Piilota";
@@ -237,6 +237,7 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 kappale|$1 kappaletta}}";
 "diff-paragraph-moved-format" = "Kappale siirretty $2 $1";
 "diff-revision-error-title" = "Versiohistorian näyttäminen epäonnistui";
+"diff-rollback" = "Palauta";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 muokkaus|$1 muokkausta}}";
 "diff-single-header-editor-title" = "Muokkaajan tiedot";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 merkki lisätty|$1 merkkiä lisätty}}";
@@ -535,12 +536,6 @@
 "insert-media-media-settings-title" = "Media-asetukset";
 "insert-media-title" = "Lisää media";
 "insert-media-uploaded-image-title" = "Tallennettu kuva";
-"intermediate-edits-count" = "{{PLURAL:$1|Yhtä välissä olevaa versiota|$1 välissä olevaa versiota}} ei näytetä";
-"intermediate-edits-count-limited" = "$1+ välissä olevaa versiota ei näytetä";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|Yhtä välissä olevaa versiota|$1 välissä olevaa versiota}} {{PLURAL:$2|toisen käyttäjän tekemänä|$2 käyttäjän tekeminä}} ei näytetä";
-"intermediate-edits-editors-count-limited" = "$1+ välissä olevaa versiota $2+ käyttäjän tekeminä ei näytetä";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Yhtä välissä olevaa versiota|$1 välissä olevaa versiota}} $2+ käyttäjän tekeminä ei näytetä";
-"intermediate-edits-limited-editors-count" = "$1+ välissä olevaa versiota {{PLURAL:$2|toisen käyttäjän tekemänä|$2 käyttäjän tekeminä}} ei näytetä";
 "inuktitut-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia inuktitut-muunnelmia ensi- tai toissijaisina kielinä sovelluksessa, mikä helpottaa lukemista, etsimistä ja muokkaamista näillä versioilla:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, tavumerkistö (ike-cans)\nInuktitut ilisautik, Inuktitut, latinalaiset aakkoset (ike-latn)";
 "inuktitut-variants-alert-title" = "Päivitykset Inuktitut-varianttien tukeen";
 "kazakh-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia kazakin muunnelmia ensi- tai toissijaisina kielinä sovelluksessa, mikä helpottaa lukemista, etsimistä ja muokkaamista näillä versioilla:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, kyrillinen kirjaimisto (kk-cyrl)\nqazaqşa latina kazakstani, latinalainen kirjaimisto (kk-latn)\nتوتە قازاقشا Kazakh, arabialainen kirjaimisto (kk-arab)";

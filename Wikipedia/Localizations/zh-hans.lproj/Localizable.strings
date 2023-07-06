@@ -250,8 +250,9 @@
 "description-welcome-descriptions-title" = "条目描述";
 "description-welcome-promise-title" = "我保证在编辑时不滥用此功能";
 "description-welcome-start-editing-button" = "开始编辑";
-"diff-compare-header-from-info-heading" = "从：";
+"diff-compare-header-from-info-heading" = "从";
 "diff-compare-header-heading" = "比较不同修订版本";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "至：";
 "diff-compare-title" = "比较不同修订版本";
 "diff-context-lines-collapsed-button-title" = "显示";
@@ -264,6 +265,8 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1个章节|$1个章节}}";
 "diff-paragraph-moved-format" = "段落$1移动$2";
 "diff-revision-error-title" = "无法加载修订版本";
+"diff-rollback" = "回退";
+"diff-rollback-alert-title" = "回退编辑";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1次编辑|$1次编辑}}";
 "diff-single-header-editor-title" = "编者信息";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|增加了$1个字节|增加了$1个字节}}";
@@ -549,12 +552,6 @@
 "insert-media-media-settings-title" = "媒体设定";
 "insert-media-title" = "插入媒体";
 "insert-media-uploaded-image-title" = "上传图像";
-"intermediate-edits-count" = "未显示{{PLURAL:$1|$1个中间修订版|$1个中间修订版}}";
-"intermediate-edits-count-limited" = "未显示$1+个中间修订版";
-"intermediate-edits-editors-count" = "未显示{{PLURAL:$2|$2位用户|$2位用户}}的{{PLURAL:$1|$1个中间修订版本|$1个中间修订版本}}";
-"intermediate-edits-editors-count-limited" = "未显示$2+位用户的$1+个中间修订版本";
-"intermediate-edits-editors-limited-count" = "未显示$2+位用户的{{PLURAL:$1|$1个中间修订版本|$1个中间修订版本}}";
-"intermediate-edits-limited-editors-count" = "未显示{{PLURAL:$2|$2位用户|$2位用户}}的$1个中间修订版本";
 "inuktitut-variants-alert-body" = "维基百科应用现在支持以下因纽特语变体作为应用程序内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "更新因纽特语变体支持";
 "kazakh-variants-alert-body" = "维基百科应用现在支持以下哈萨克语变体作为应用内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -588,6 +585,7 @@
 "menu-cancel-accessibility-label" = "取消";
 "more-languages-tooltip-description" = "在超过300种语言中搜索维基百科";
 "more-languages-tooltip-title" = "添加语言";
+"more-menu" = "更多";
 "move-articles-to-reading-list" = "移动{{PLURAL:$1|$1个条目}}至阅读列表";
 "navbar-title-mode-edit-wikitext-preview" = "预览";
 "nearby-distance-label-feet" = "$1英尺";

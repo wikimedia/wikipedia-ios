@@ -178,8 +178,10 @@
 "description-welcome-concise-title" = "ߊ߬ ߕߏ߫ ߛߎ߬ߘߎ߲߬ߧߊ ߘߐ߫";
 "description-welcome-descriptions-title" = "ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ ߟߎ߬";
 "description-welcome-start-editing-button" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߘߊߡߌ߬ߣߊ߬";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "ߞߊ߬ ߝߘߊ߫:";
 "diff-compare-header-heading" = "ߟߢߊ߬ߟߌ ߟߎ߬ ߟߊ߫ ߢߐ߲߯ߡߊ߬";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "ߞߊ߬ ߕߊ߯:";
 "diff-compare-title" = "ߟߢߊ߬ߟߌ ߟߎ߬ ߟߊߢߐ߲߯ߡߊ߬";
 "diff-context-lines-collapsed-button-title" = "ߊ߬ ߦߌ߬ߘߊ߬";

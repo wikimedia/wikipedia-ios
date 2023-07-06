@@ -232,8 +232,10 @@
 "description-welcome-descriptions-title" = "Descrições de artigos";
 "description-welcome-promise-title" = "Ao iniciar, eu prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "De:";
 "diff-compare-header-heading" = "Comparar revisões";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Para:";
 "diff-compare-title" = "Comparar revisões";
 "diff-context-lines-collapsed-button-title" = "Exibir";
@@ -545,12 +547,6 @@
 "insert-media-media-settings-title" = "Configurações de mídia";
 "insert-media-title" = "Inserir mídia";
 "insert-media-uploaded-image-title" = "Imagem carregada";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 revisão intermediária|$1 revisões intermediárias}} não mostrado";
-"intermediate-edits-count-limited" = "$1+ revisões intermediárias não mostradas";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 revisão intermediária|$1 revisões intermediárias}} por {{PLURAL:$2|$2 usuário|$2 usuários}} não mostrados";
-"intermediate-edits-editors-count-limited" = "$1+ revisões intermediárias de mais de $2 usuários não mostrados";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 revisão intermediária|$1 revisões intermediárias}} por $2+ usuários não mostrados";
-"intermediate-edits-limited-editors-count" = "$1+ revisões intermediárias por {{PLURAL:$2|$2 usuário|$2 usuários}} não mostrado";
 "inuktitut-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes do Inuctitute como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuctitute silábico (ike-cans)\nInuktitut ilisautik, inuctitute latino (ike-latn)";
 "inuktitut-variants-alert-title" = "Atualizações para suporte a variantes de inuctitute";
 "kazakh-variants-alert-body" = "O aplicativo Wikipedia agora oferece suporte às seguintes variantes do Cazaque como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nҚазақша Cazaque (kk)\nҚазақша Кирил Cazaque cirílico (kk-cyrl)\nqazaqşa latin Cazaque latino (kk-latn)\nتوتە قازاقشا Cazaque árabe (kk-arab)";

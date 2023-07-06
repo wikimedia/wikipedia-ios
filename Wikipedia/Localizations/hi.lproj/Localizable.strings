@@ -219,9 +219,11 @@
 "description-welcome-descriptions-title" = "लेख विवरण";
 "description-welcome-promise-title" = "शुरू करने से, मैं यह वादा करता हूँ कि इस सुविधा का दुरुपयोग नहीं करूँगा(गी)।";
 "description-welcome-start-editing-button" = "संपादन शुरू करें";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "मूल";
 "diff-compare-header-heading" = "अवतरणों की तुलना करें";
-"diff-compare-header-to-info-heading" = "परिवर्तित";
+// Fuzzy
+"diff-compare-header-to-info-heading" = "परिवर्तित:";
 "diff-compare-title" = "अवतरणों की तुलना करें";
 "diff-context-lines-collapsed-button-title" = "दिखाएँ";
 "diff-context-lines-expanded-button-title" = "छिपाएँ";

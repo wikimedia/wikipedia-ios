@@ -142,8 +142,10 @@
 "description-welcome-concise-sub-title" = "Idealerweis eng Zeil, tëscht zwee an zwielef Wierder";
 "description-welcome-concise-title" = "Haalt Iech kuerz";
 "description-welcome-descriptions-title" = "Artikelbeschreiwungen";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Vum:";
 "diff-compare-header-heading" = "Versioune vergläichen";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Fir:";
 "diff-compare-title" = "Versioune vergläichen";
 "diff-context-lines-collapsed-button-title" = "Weisen";

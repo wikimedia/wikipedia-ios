@@ -235,8 +235,10 @@
 "description-welcome-descriptions-title" = "條目描述";
 "description-welcome-promise-title" = "首先，我保證不會濫用此功能。";
 "description-welcome-start-editing-button" = "開始編輯";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "從：";
 "diff-compare-header-heading" = "比較修訂";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "到：";
 "diff-compare-title" = "比較修訂";
 "diff-context-lines-collapsed-button-title" = "顯示";
@@ -549,12 +551,6 @@
 "insert-media-media-settings-title" = "媒體設定";
 "insert-media-title" = "插入媒體";
 "insert-media-uploaded-image-title" = "已上傳圖片";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 個中間修訂}}未顯示出";
-"intermediate-edits-count-limited" = "$1+ 個以上中間修訂未顯示出";
-"intermediate-edits-editors-count" = "由 {{PLURAL:$2|$2 名使用者}}所做出 {{PLURAL:$1|$1 個中間修訂}}未顯示出";
-"intermediate-edits-editors-count-limited" = "由 $2 名以上使用者所做出 $1+ 個以上中間修訂未顯示出";
-"intermediate-edits-editors-limited-count" = "由 $2+ 名以上使用者所做出 {{PLURAL:$1|$1 個中間修訂}}未顯示出";
-"intermediate-edits-limited-editors-count" = "由 {{PLURAL:$2|$2 名使用者}}所做出 $1+ 個以上中間修訂未顯示出";
 "inuktitut-variants-alert-body" = "維基百科應用程式現在支援下列伊努克提圖特語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ，音節文字伊努克提圖特語（ike-cans）\nInuktitut ilisautik，拉丁字母伊努克提圖特語（ike-latn）";
 "inuktitut-variants-alert-title" = "伊努克提圖特語異體字支援更新";
 "kazakh-variants-alert-body" = "維基百科應用程式現在支援下列哈薩克語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nҚазақша，哈薩克語（kk）\nҚазақша Кирил，西里爾字母哈薩克語（kk-cyrl）\nqazaqşa latin，拉丁字母哈薩克語（kk-latin）\nتوتە قازاقشا，阿拉伯字母哈薩克語（kk-arab）";

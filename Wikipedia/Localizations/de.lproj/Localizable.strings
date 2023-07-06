@@ -211,8 +211,10 @@
 "description-welcome-descriptions-title" = "Artikelbeschreibungen";
 "description-welcome-promise-title" = "Mit dem Anfangen verspreche ich, diese Funktion nicht zu missbrauchen.";
 "description-welcome-start-editing-button" = "Jetzt bearbeiten";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Von:";
 "diff-compare-header-heading" = "Versionen vergleichen";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Zu:";
 "diff-compare-title" = "Versionsvergleich";
 "diff-context-lines-collapsed-button-title" = "Zeigen";
@@ -510,8 +512,6 @@
 "insert-media-media-settings-title" = "Medieneinstellungen";
 "insert-media-title" = "Medium einfügen";
 "insert-media-uploaded-image-title" = "Hochgeladenes Bild";
-"intermediate-edits-count" = "{{PLURAL:$1|Dazwischenliegende Version|$1 Dazwischenliegende Versionen}} nicht angezeigt";
-"intermediate-edits-count-limited" = "$1+ dazwischenliegende Versionen nicht angezeigt";
 "languages-settings-title" = "Sprachen";
 "languages-title" = "Sprache ändern";
 "languages-wikipedia" = "Wikipedia-Sprachen";

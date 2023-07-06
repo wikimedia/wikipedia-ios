@@ -132,7 +132,9 @@
 "description-published-subtitle" = "तपाईंले विकिपिडियालाई सबैको लागि अझ राम्रो बनाउनु भएकाे छ";
 "description-welcome-concise-title" = "यसलाई छोटो राख्नुहोस्";
 "description-welcome-start-editing-button" = "सम्पादन सुरुवात गर्नुहोस्";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "देखि:";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "लाई:";
 "diff-compare-title" = "संशोधनहरू तुलना गर्नुहोस्";
 "diff-context-lines-collapsed-button-title" = "देखाउनुहोस्";

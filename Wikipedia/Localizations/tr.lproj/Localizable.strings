@@ -238,8 +238,10 @@
 "description-welcome-descriptions-title" = "Madde açıklamaları";
 "description-welcome-promise-title" = "Başlayarak bu özelliği kötüye kullanmamaya söz veriyorum";
 "description-welcome-start-editing-button" = "Düzenlemeye başla";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Gönderen:";
 "diff-compare-header-heading" = "Düzeltmeleri Karşılaştır";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Alıcı:";
 "diff-compare-title" = "Düzeltmeleri Karşılaştır";
 "diff-context-lines-collapsed-button-title" = "Göster";
@@ -552,12 +554,6 @@
 "insert-media-media-settings-title" = "Dosya ayarları";
 "insert-media-title" = "Dosyayı ekle";
 "insert-media-uploaded-image-title" = "Yüklenen görüntü";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 ara revizyonu|$1 ara revizyonu}} gösterilmemiş";
-"intermediate-edits-count-limited" = "$1+ ara revizyonlar gösterilmemiştir";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 orta revizyon|$1 orta revizyon}} tarafından {{PLURAL:$2|$2 kullanıcı |$2 kullanıcı}} gösterilmiyor";
-"intermediate-edits-editors-count-limited" = "$2+ kullanıcı tarafından yapılan $1+ revizyonlar gösterilmiyor";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 orta revizyon|$1 orta revizyon}} tarafından $2+ kullanıcı gösterilmedi";
-"intermediate-edits-limited-editors-count" = "$1+ {{PLURAL:$2|$2 kullanıcı|$2 kullanıcı}} tarafından yapılan ara revizyonlar gösterilmez";
 "inuktitut-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Inuktitut biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Heceli (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Inuktitut biçim desteği güncellemeleri";
 "kazakh-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Kazakça biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nҚазақша Kazakça (kk)\nҚазақша Кирил Kazakça, Kiril (kk-cyrl)\nqazaqşa latin Kazakça, Latin (kk-latn)\nتوتە قازاقشا Kazakça, Arap (kk-arab)";

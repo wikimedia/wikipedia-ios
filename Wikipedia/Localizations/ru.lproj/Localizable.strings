@@ -254,9 +254,9 @@
 "description-welcome-descriptions-title" = "Описания статей";
 "description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
 "description-welcome-start-editing-button" = "Начать редактирование";
-"diff-compare-header-from-info-heading" = "От:";
+"diff-compare-header-from-info-heading" = "От";
 "diff-compare-header-heading" = "Сравнить версии";
-"diff-compare-header-to-info-heading" = "Кому:";
+"diff-compare-header-to-info-heading" = "Кому";
 "diff-compare-title" = "Сравнить версии";
 "diff-context-lines-collapsed-button-title" = "Показать";
 "diff-context-lines-expanded-button-title" = "Скрыть";
@@ -268,6 +268,7 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 раздел|$1 раздела|$1 разделов}}";
 "diff-paragraph-moved-format" = "Абзац перемещен $1 $2";
 "diff-revision-error-title" = "Не удалось загрузить ревизию";
+"diff-rollback" = "Откатить";
 "diff-single-header-editor-number-edits-format" = "$1 {{PLURAL:$1|правка|правки|правок}}";
 "diff-single-header-editor-title" = "Информация редактора";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 байт добавлен|$1 байта добавлено|$1 байтов добавлено}}";
@@ -560,12 +561,6 @@
 "insert-media-media-settings-title" = "Параметры медиафайла";
 "insert-media-title" = "Вставить медиа-файл";
 "insert-media-uploaded-image-title" = "Загруженное изображение";
-"intermediate-edits-count" = "Подзаголовок для количества изменений, которые были сделаны между двумя выбранными изменениями.  $ 1 заменяется количеством промежуточных ревизий.";
-"intermediate-edits-count-limited" = "Промежуточных ревизий не показано: $1+";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 промежуточная ревизия|$1 промежуточные ревизии|$1 промежуточных ревизий}} от {{PLURAL:$2|$2 пользователя|$2 пользователей}} не показано";
-"intermediate-edits-editors-count-limited" = "$1+ промежуточные версии от $2+ пользователей не показаны";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 промежуточная ревизия|$1 промежуточные ревизии|$1 промежуточных ревизий}} от $2+ пользователей не показано";
-"intermediate-edits-limited-editors-count" = "$1+ промежуточных ревизий от {{PLURAL:$2|$2 пользователя|$2 пользователей}} не показано";
 "inuktitut-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты Инуктитут в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Обновления поддержки вариантов Инуктитут";
 "kazakh-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты казахского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nҚазақша Kazakh (kk)\nҚазақша Kazakh, Cyrillic (kk-cyrl)\nqazaqşa Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -1101,6 +1096,7 @@
 "vanish-modal-title" = "Запрос на исчезновение";
 "variants-alert-dismiss-button" = "Нет, спасибо";
 "variants-alert-preferences-button" = "Просмотреть свои настройки";
+"watchlist" = "Список наблюдения";
 "welcome-exploration-explore-feed-description" = "Рекомендованные записи и ежедневные статьи от нашего сообщества";
 "welcome-exploration-explore-feed-title" = "Лента";
 "welcome-exploration-on-this-day-description" = "Перенеситесь назад во времени, чтобы узнать, что произошло сегодня в истории";
