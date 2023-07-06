@@ -72,6 +72,7 @@ class DiffHeaderCompareView: SetupView {
                 WKMenuButton.Configuration.MenuItem(title: "User talk page"),
                 WKMenuButton.Configuration.MenuItem(title: "User contributions")
             ]))
+        button.delegate = self
         return button
     }()
 
@@ -84,10 +85,12 @@ class DiffHeaderCompareView: SetupView {
                 WKMenuButton.Configuration.MenuItem(title: "User talk page"),
                 WKMenuButton.Configuration.MenuItem(title: "User contributions")
             ]))
+        button.delegate = self
         return button
     }()
 
     weak var delegate: DiffHeaderActionDelegate?
+    private var viewModel: DiffHeaderCompareViewModel?
 
     override func setup() {
         addSubview(stackView)
@@ -140,6 +143,7 @@ class DiffHeaderCompareView: SetupView {
     }
 
     func update(_ viewModel: DiffHeaderCompareViewModel) {
+        self.viewModel = viewModel
         fromHeadingLabel.text = viewModel.fromModel.heading.localizedUppercase
         fromTimestampLabel.text = viewModel.fromModel.timestampString
         
@@ -214,5 +218,28 @@ extension DiffHeaderCompareView: Themeable {
         toHeadingLabel.textColor = theme.colors.secondaryText
         toTimestampLabel.textColor = theme.colors.warning
         toDescriptionLabel.textColor = theme.colors.primaryText
+    }
+}
+
+extension DiffHeaderCompareView: WKMenuButtonDelegate {
+    func wkMenuButton(_ sender: Components.WKMenuButton, didTapMenuItem item: Components.WKMenuButton.MenuItem) {
+        
+        guard let viewModel else {
+            return
+        }
+        
+        let username: String? = sender == toMenuButton ? viewModel.toModel.username : viewModel.fromModel.username
+        
+        guard let username else {
+            return
+        }
+        
+        if item == sender.configuration.menuItems[0] {
+            delegate?.tappedUsername(username: username, destination: .userPage)
+        } else if item == sender.configuration.menuItems[1] {
+            delegate?.tappedUsername(username: username, destination: .userTalkPage)
+        } else if item == sender.configuration.menuItems[2] {
+            delegate?.tappedUsername(username: username, destination: .userContributions)
+        }
     }
 }

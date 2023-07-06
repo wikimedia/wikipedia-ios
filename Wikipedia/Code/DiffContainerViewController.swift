@@ -948,11 +948,24 @@ extension DiffContainerViewController: EmptyViewControllerDelegate {
 }
 
 extension DiffContainerViewController: DiffHeaderActionDelegate {
-    func tappedUsername(username: String) {
-        if let username = username.normalizedPageTitle {
-            let userPageURL = siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true)
-            navigate(to: userPageURL)
+    
+    func tappedUsername(username: String, destination: DiffHeaderUsernameDestination) {
+        
+        guard let username = username.normalizedPageTitle else {
+            return
         }
+        
+        let url: URL?
+        switch destination {
+        case .userContributions:
+            url = siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true)
+        case .userTalkPage:
+            url = siteURL.wmf_URL(withPath: "/wiki/User_talk:\(username)", isMobile: true)
+        case .userPage:
+            url = siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true)
+        }
+        
+        navigate(to: url)
     }
     
     func tappedRevision(revisionID: Int) {

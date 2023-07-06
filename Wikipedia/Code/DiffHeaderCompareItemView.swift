@@ -123,7 +123,7 @@ class DiffHeaderCompareItemView: UIView {
     @objc func tappedElementWithSender(_ sender: UITapGestureRecognizer) {
         if let username = viewModel?.username,
             sender == userAndSummaryTapGestureRecognizer {
-            delegate?.tappedUsername(username: username)
+            delegate?.tappedUsername(username: username, destination: .userPage)
         } else if let revisionID = viewModel?.revisionID,
             sender == headingAndTimestampTapGestureRecognizer {
             delegate?.tappedRevision(revisionID: revisionID)
