@@ -64,9 +64,10 @@ class DiffHeaderCompareView: SetupView {
     }()
 
     lazy var fromMenuButton = {
-        // DIFFTODO: Populate with user info
-        let button = WKMenuButton(configuration: .init(title: "From User 1", image: UIImage(systemName: "person.fill"), primaryColor: \.link, menuItems:
+        // DIFFTODO: Maybe better form of post-init configuration
+        let button = WKMenuButton(configuration: .init(image: UIImage(systemName: "person.fill"), primaryColor: \.link, menuItems:
             [
+                // DIFFTODO: Icons, localized strings
                 WKMenuButton.Configuration.MenuItem(title: "User page"),
                 WKMenuButton.Configuration.MenuItem(title: "User talk page"),
                 WKMenuButton.Configuration.MenuItem(title: "User contributions")
@@ -75,9 +76,10 @@ class DiffHeaderCompareView: SetupView {
     }()
 
     lazy var toMenuButton = {
-        // DIFFTODO: Populate with user info
-        let button = WKMenuButton(configuration: .init(title: "To User 2", image: UIImage(systemName: "person.fill"), primaryColor: \.diffCompareAccent, menuItems:
+        // DIFFTODO: Maybe better form of post-init configuration
+        let button = WKMenuButton(configuration: .init(image: UIImage(systemName: "person.fill"), primaryColor: \.diffCompareAccent, menuItems:
             [
+                // DIFFTODO: Icons, localized strings
                 WKMenuButton.Configuration.MenuItem(title: "User page"),
                 WKMenuButton.Configuration.MenuItem(title: "User talk page"),
                 WKMenuButton.Configuration.MenuItem(title: "User contributions")
@@ -140,6 +142,9 @@ class DiffHeaderCompareView: SetupView {
     func update(_ viewModel: DiffHeaderCompareViewModel) {
         fromHeadingLabel.text = viewModel.fromModel.heading.localizedUppercase
         fromTimestampLabel.text = viewModel.fromModel.timestampString
+        
+        // DIFFTODO: Maybe better form of post-init configuration
+        fromMenuButton.updateTitle(viewModel.fromModel.username)
 
         if viewModel.fromModel.isMinor {
             fromDescriptionLabel.attributedText = minorEditAttributedAttachment(summary: viewModel.fromModel.summary)
@@ -149,6 +154,9 @@ class DiffHeaderCompareView: SetupView {
 
         toHeadingLabel.text = viewModel.toModel.heading.localizedUppercase
         toTimestampLabel.text = viewModel.toModel.timestampString
+        
+        // DIFFTODO: Maybe better form of post-init configuration
+        toMenuButton.updateTitle(viewModel.toModel.username)
 
         if viewModel.toModel.isMinor {
             toDescriptionLabel.attributedText = minorEditAttributedAttachment(summary: viewModel.toModel.summary)
@@ -207,6 +215,4 @@ extension DiffHeaderCompareView: Themeable {
         toTimestampLabel.textColor = theme.colors.warning
         toDescriptionLabel.textColor = theme.colors.primaryText
     }
-
 }
-
