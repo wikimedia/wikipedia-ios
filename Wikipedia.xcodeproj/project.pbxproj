@@ -19787,7 +19787,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wikimedia/wikipedia-ios-components.git";
 			requirement = {
-				branch = main;
+				branch = "menu-button-post-init-config";
 				kind = branch;
 			};
 		};
