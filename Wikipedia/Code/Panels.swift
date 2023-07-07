@@ -540,7 +540,8 @@ extension UIViewController {
 
             let fullURL = baseURL.resolvingRelativeWikiHref(url.relativeString)
 
-            self?.presentingViewController?.dismiss(animated: true) {
+            let viewController = self?.presentingViewController ?? self?.presentedViewController
+            viewController?.dismiss(animated: true) {
                 self?.navigate(to: fullURL)
             }
 

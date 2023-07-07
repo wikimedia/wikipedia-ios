@@ -227,6 +227,7 @@
 "diff-thanks-sent-already" = "You’ve already sent a ‘Thanks’ for this edit";
 "diff-thanks-sent-cannot-unsend" = "Thanks cannot be unsent";
 "diff-undo-message" = "This will undo the changes made by the revisions(s) of the article shown here. To continue, please provide a reason for undoing this edit.";
+"diff-undo-rollback-success" = "Success!";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 line unedited|$1 lines unedited}}";
 "dim-images" = "Dim images";
 "edit-bold-accessibility-label" = "Add bold formatting";

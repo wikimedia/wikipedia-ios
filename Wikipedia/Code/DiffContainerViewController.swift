@@ -1,5 +1,6 @@
 import UIKit
 import CocoaLumberjackSwift
+import WKData
 
 struct StubRevisionModel {
     let revisionId: Int
@@ -32,6 +33,7 @@ class DiffContainerViewController: ViewController {
     private var toModel: WMFPageHistoryRevision?
     private let toModelRevisionID: Int?
     private let siteURL: URL
+    private let wkProject: WKProject?
     private var articleTitle: String?
     private let needsSetNavDelegate: Bool
     private let safeAreaBottomAlignView = UIView()
@@ -88,9 +90,13 @@ class DiffContainerViewController: ViewController {
         return (toModel?.articleSizeAtRevision ?? 0) - (fromModel?.articleSizeAtRevision ?? 0)
     }
     
+    private weak var undoAlertUndoAction: UIAlertAction?
+    private weak var undoAlertSummaryTextField: UITextField?
+    
     init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController) {
     
         self.siteURL = siteURL
+        self.wkProject = WikimediaProject(siteURL: siteURL)?.wkProject
         self.type = .compare
         self.articleTitle = articleTitle
         self.toModelRevisionID = toRevisionID
@@ -124,6 +130,7 @@ class DiffContainerViewController: ViewController {
         self.articleTitle = articleTitle
         self.revisionRetrievingDelegate = revisionRetrievingDelegate
         self.siteURL = siteURL
+        self.wkProject = WikimediaProject(siteURL: siteURL)?.wkProject
         self.firstRevision = firstRevision
 
         self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: pageHistoryFetcher, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type, articleSummaryController: articleSummaryController)
@@ -399,6 +406,7 @@ private extension DiffContainerViewController {
         
         // Still need models for enabling/disabling prev/next buttons
         populatePrevNextModelsForToolbar()
+        diffToolbarView?.undoButton.isEnabled = wkProject != nil
     }
     
     func setThankAndShareState(isEnabled: Bool) {
@@ -1126,23 +1134,66 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
 
     func tappedUndo() {
+        
+        guard let wkProject else {
+            assertionFailure("WKProject must be populated before attempting undo call.")
+            return
+        }
+        
         let message = WMFLocalizedString("diff-undo-message", value: "This will undo the changes made by the revisions(s) of the article shown here. To continue, please provide a reason for undoing this edit.", comment: "Message showed in alert when user taps undo in diff toolbar.")
 
         let alertController = UIAlertController(title: CommonStrings.undo, message: message, preferredStyle: .alert)
         alertController.addTextField { textField in
             textField.clearButtonMode = .always
+            textField.addTarget(self, action: #selector(self.undoSummaryTextfieldDidChange), for: .editingChanged)
+            self.undoAlertSummaryTextField = textField
         }
 
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
-        let undo = UIAlertAction(title: CommonStrings.undo, style: .destructive)
+        let undo = UIAlertAction(title: CommonStrings.undo, style: .destructive) { [weak self] (action) in
+            self?.performUndo()
+        }
         undo.isEnabled = false
-
-        // DIFFTODO: Hook up undo action and enable only if textfield is non-empty
+        undoAlertUndoAction = undo
 
         alertController.addAction(cancel)
         alertController.addAction(undo)
 
         present(alertController, animated: true)
+    }
+    
+    @objc private func undoSummaryTextfieldDidChange() {
+        undoAlertUndoAction?.isEnabled = (undoAlertSummaryTextField?.text?.count ?? 0) > 0
+    }
+    
+    private func performUndo() {
+        guard let wkProject = wkProject,
+              let title = articleTitle,
+        let revisionID = toModelRevisionID,
+        let username = toModel?.user,
+        let summary = undoAlertSummaryTextField?.text else {
+            return
+        }
+        
+        WKWatchlistService().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { result in
+            
+            DispatchQueue.main.async {
+                switch result {
+                case .success(()):
+                    // DIFFTODO: Better success message display?
+                    WMFAlertManager.sharedInstance.showSuccessAlert(CommonStrings.diffActionSuccess, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                case .failure(let error):
+                    
+                    guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
+                       let mediaWikiDisplayError = serviceError.mediaWikiDisplayError else {
+                            WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                            return
+                    }
+                        
+                    self.wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: self.articleTitle ?? "", theme: self.theme)
+                }
+            }
+        }
     }
 
     func tappedRollback() {

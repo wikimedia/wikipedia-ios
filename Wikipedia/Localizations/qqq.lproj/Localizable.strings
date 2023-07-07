@@ -227,6 +227,7 @@
 "diff-thanks-sent-already" = "Message indicating thanks was already sent";
 "diff-thanks-sent-cannot-unsend" = "Message indicating thanks cannot be unsent";
 "diff-undo-message" = "Message showed in alert when user taps undo in diff toolbar.";
+"diff-undo-rollback-success" = "Success message shown to user when they successfully reverted or rolled back an edit.";
 "diff-unedited-lines-format" = "Label in diff to indicate how many lines are not displayed because they were not changed. $1 is replaced by the number of unedited lines.";
 "dim-images" = "Label for image dimming setting";
 "edit-bold-accessibility-label" = "Accessibility label for the button that adds bold formatting to the current selection";
