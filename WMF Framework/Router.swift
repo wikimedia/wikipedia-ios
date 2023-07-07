@@ -214,12 +214,25 @@ public class Router: NSObject {
             let fromRevID = Int(oldIDString) {
             return .articleDiff(url, fromRevID: fromRevID, toRevID: toRevID)
         } else if let diff = maybeDiff,
+            diff == "prev",
+            let oldIDString = maybeOldID,
+            let toRevID = Int(oldIDString) {
+            return .articleDiff(url, fromRevID: nil, toRevID: toRevID)
+        } else if let diff = maybeDiff,
+            diff == "next",
+            let oldIDString = maybeOldID,
+                  let fromRevID = Int(oldIDString) {
+            return .articleDiff(url, fromRevID: fromRevID, toRevID: nil)
+        } else if let diff = maybeDiff,
                   let toRevID = Int(diff) {
             var fromRevID: Int? = nil
             if let maybeOldID {
                 fromRevID = Int(maybeOldID)
             }
             return .articleDiff(url, fromRevID: fromRevID, toRevID: toRevID)
+        } else if let oldIDString = maybeOldID,
+            let toRevID = Int(oldIDString) {
+            return .articleDiff(url, fromRevID: nil, toRevID: toRevID)
         }
         
         return nil
