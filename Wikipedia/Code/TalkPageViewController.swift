@@ -507,7 +507,9 @@ class TalkPageViewController: ViewController {
             showGenericError()
             return
         }
-        
+        if let lastViewDidAppearDate {
+            TalkPagesFunnel.shared.logTappedContributions(routingSource: .talkPage, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
+        }
         navigate(to: url)
     }
     
