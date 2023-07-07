@@ -9,6 +9,10 @@ enum DiffError: Error {
     case unrecognizedHardcodedIdsForIntermediateCounts
     case failureToPopulateModelsFromDeepLink
     case failureToVerifyRevisionIDs
+    case leadImageUnableToPullLanguageCode
+    case leadImageUnableToGenerateInMemoryKey
+    case leadImageNonMainNamespace
+    case leadImageMissing
     
     var localizedDescription: String {
         return CommonStrings.genericErrorDescription
@@ -25,15 +29,17 @@ class DiffController {
     let diffFetcher: DiffFetcher
     let pageHistoryFetcher: PageHistoryFetcher?
     let globalUserInfoFetcher: GlobalUserInfoFetcher
+    let articleSummaryController: ArticleSummaryController
     let siteURL: URL
     let type: DiffContainerViewModel.DiffType
     private weak var revisionRetrievingDelegate: DiffRevisionRetrieving?
     let transformer: DiffTransformer
 
-    init(siteURL: URL, diffFetcher: DiffFetcher = DiffFetcher(), pageHistoryFetcher: PageHistoryFetcher?, revisionRetrievingDelegate: DiffRevisionRetrieving?, type: DiffContainerViewModel.DiffType) {
+    init(siteURL: URL, diffFetcher: DiffFetcher = DiffFetcher(), pageHistoryFetcher: PageHistoryFetcher?, revisionRetrievingDelegate: DiffRevisionRetrieving?, type: DiffContainerViewModel.DiffType, articleSummaryController: ArticleSummaryController) {
 
         self.diffFetcher = diffFetcher
         self.pageHistoryFetcher = pageHistoryFetcher
+        self.articleSummaryController = articleSummaryController
         self.globalUserInfoFetcher = GlobalUserInfoFetcher()
         self.siteURL = siteURL
         self.revisionRetrievingDelegate = revisionRetrievingDelegate
@@ -44,6 +50,43 @@ class DiffController {
     func fetchEditCount(guiUser: String, completion: @escaping ((Result<Int, Error>) -> Void)) {
 
         globalUserInfoFetcher.fetchEditCount(guiUser: guiUser, siteURL: siteURL, completion: completion)
+    }
+    
+    func fetchLeadImageURL(siteURL: URL, articleTitle: String, completion: @escaping (Result<URL, Error>) -> Void) {
+        guard let languageCode = siteURL.wmf_languageCode else {
+            completion(.failure(DiffError.leadImageUnableToPullLanguageCode))
+            return
+        }
+        
+        let namespaceAndTitle = articleTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode)
+        guard namespaceAndTitle.namespace == .main else {
+            completion(.failure(DiffError.leadImageNonMainNamespace))
+            return
+        }
+        
+        guard let mainNamespacePageURL = siteURL.wmf_URL(withTitle: namespaceAndTitle.title),
+              let inMemoryKey = mainNamespacePageURL.wmf_inMemoryKey else {
+            completion(.failure(DiffError.leadImageUnableToGenerateInMemoryKey))
+            return
+        }
+        
+        articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: inMemoryKey) { article, error in
+            DispatchQueue.main.async {
+                
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                let imageSideLength = 80
+                guard let leadImageURL = article?.imageURL(forWidth: imageSideLength * Int(UIScreen.main.scale)) else {
+                    completion(.failure(DiffError.leadImageMissing))
+                    return
+                }
+                
+                completion(.success(leadImageURL))
+            }
+        }
     }
     
     func fetchFirstRevisionModel(articleTitle: String, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
