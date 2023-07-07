@@ -455,7 +455,7 @@ extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
             return
         }
         
-        let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: Int(parentId), toRevisionID: Int(revisionId), type: diffType, articleTitle: title, needsSetNavDelegate: true)
+        let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: Int(parentId), toRevisionID: Int(revisionId), articleTitle: title, needsSetNavDelegate: true)
 
         delegate?.livingDocViewWillPush()
         push(diffContainerVC)

@@ -108,21 +108,13 @@ class ViewControllerRouter: NSObject {
         case .articleHistory(let linkURL, let articleTitle):
             let pageHistoryVC = PageHistoryViewController(pageTitle: articleTitle, pageURL: linkURL)
             return presentOrPush(pageHistoryVC, with: completion)
-        case .articleDiffCompare(let linkURL, let fromRevID, let toRevID):
+        case .articleDiff(let linkURL, let fromRevID, let toRevID):
             guard let siteURL = linkURL.wmf_site,
                   (fromRevID != nil || toRevID != nil) else {
                 completion()
                 return false
             }
-            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .compare, articleTitle: nil)
-            return presentOrPush(diffContainerVC, with: completion)
-        case .articleDiffSingle(let linkURL, let fromRevID, let toRevID):
-            guard let siteURL = linkURL.wmf_site,
-                  (fromRevID != nil || toRevID != nil) else {
-                completion()
-                return false
-            }
-            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .single, articleTitle: nil)
+            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil)
             return presentOrPush(diffContainerVC, with: completion)
         case .inAppLink(let linkURL):
             let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)

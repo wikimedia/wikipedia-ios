@@ -36,7 +36,7 @@ class DiffContainerViewController: ViewController {
     private let needsSetNavDelegate: Bool
     private let safeAreaBottomAlignView = UIView()
     
-    private let type: DiffContainerViewModel.DiffType
+    private var type: DiffContainerViewModel.DiffType
     
     private let revisionRetrievingDelegate: DiffRevisionRetrieving?
     private var firstRevision: WMFPageHistoryRevision?
@@ -63,8 +63,7 @@ class DiffContainerViewController: ViewController {
     }
     
     private var isOnFirstRevisionInHistory: Bool {
-            if type == .single,
-                let toModel = toModel,
+            if let toModel = toModel,
                 let firstRevision = firstRevision,
                 fromModel == nil,
                 toModel.revisionID == firstRevision.revisionID {
@@ -75,8 +74,7 @@ class DiffContainerViewController: ViewController {
     }
     
     private var isOnSecondRevisionInHistory: Bool {
-            if type == .single,
-                toModel != nil,
+            if toModel != nil,
                 let fromModel = fromModel,
                 let firstRevision = firstRevision,
                 fromModel.revisionID == firstRevision.revisionID {
@@ -90,10 +88,10 @@ class DiffContainerViewController: ViewController {
         return (toModel?.articleSizeAtRevision ?? 0) - (fromModel?.articleSizeAtRevision ?? 0)
     }
     
-    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, type: DiffContainerViewModel.DiffType, articleTitle: String?, needsSetNavDelegate: Bool = false) {
+    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, needsSetNavDelegate: Bool = false) {
     
         self.siteURL = siteURL
-        self.type = type
+        self.type = .compare
         self.articleTitle = articleTitle
         self.toModelRevisionID = toRevisionID
         self.fromModelRevisionID = fromRevisionID
@@ -116,9 +114,9 @@ class DiffContainerViewController: ViewController {
         }
     }
     
-    init(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, needsSetNavDelegate: Bool = false) {
+    init(articleTitle: String, siteURL: URL, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, needsSetNavDelegate: Bool = false) {
 
-        self.type = type
+        self.type = .compare
         
         self.fromModel = fromModel
         self.toModel = toModel
@@ -155,6 +153,10 @@ class DiffContainerViewController: ViewController {
         let onLoad = { [weak self] in
             
             guard let self = self else { return }
+            
+            if self.isOnFirstRevisionInHistory {
+                self.type = .single
+            }
             
             if self.fromModel == nil {
                 self.fetchFromModelAndFinishSetup()
@@ -954,7 +956,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
         
         EditHistoryCompareFunnel.shared.logRevisionView(url: siteURL)
         
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
         push(singleDiffVC, animated: true)
     }
 }
@@ -1060,7 +1062,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 return
         }
         
-        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .compare, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
+        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
         replaceLastAndPush(with: diffVC)
     }
     
@@ -1074,7 +1076,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
-        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .compare, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
+        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
         replaceLastAndPush(with: diffVC)
     }
     
