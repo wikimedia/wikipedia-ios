@@ -108,7 +108,7 @@
 "button-saved-for-later" = "တွၼ်ႈတႃႇဝၢႆးလင် သိမ်းဝႆႉယဝ်ႉ";
 "button-saved-remove" = "ထွၼ်ပႅတ်ႈၵႃႈတီႈ သိမ်းဝႆႉ";
 "button-skip" = "ၶၢမ်ႈ";
-"cancel" = "ဢမ်ႇႁဵတ်း";
+"cancel" = "ယုၵ်ႉလိူၵ်ႈ";
 "cc-zero" = "လွင်ႈၶူင်သၢင်ႈၽုင်ႇ CC0";
 "clear-title-accessibility-label" = "ၽဵဝ်ႈလၢင်ႉ";
 "close-button-accessibility-label" = "ႁပ်း";
@@ -371,7 +371,7 @@
 "forgot-password-title" = "ၶိုၼ်းမႄးတင်ႈ ၶေႃႈလပ်ႉ";
 "forgot-password-username-or-email-title" = "ဢမ်ႇၼၼ်";
 "history-clear-all" = "ၽဵဝ်ႈလၢင်ႉ";
-"history-clear-cancel" = "ဢမ်ႇႁဵတ်း";
+"history-clear-cancel" = "ယုၵ်ႉလိူၵ်ႈ";
 "history-clear-confirmation-heading" = "ၸဝ်ႈၵဝ်ႇတေၶႂ်ႈမွတ်ႇပႅတ်ႈတင်းသဵင်ႈၼႆ လပ်ႉလွင်းယဝ်ႉႁႃႉ?";
 "history-clear-delete-all" = "ၸႂ်ႈယဝ်ႉ၊ မွတ်ႇပႅတ်ႈသဵင်ႈသဵင်ႈ";
 "history-title" = "ပိုၼ်း";
@@ -436,7 +436,7 @@
 "main-menu-account-login" = "လွၵ်ႉဢိၼ်ႇ";
 "main-menu-account-logout" = "လွၵ်ႉဢွၵ်ႉ";
 "main-menu-account-logout-are-you-sure" = "ၸဝ်ႈၵဝ်ႇတေလွၵ်ႉဢွၵ်ႉၼႆ လပ်ႉလွင်းယဝ်ႉႁႃႉ?";
-"main-menu-account-logout-cancel" = "ဢမ်ႇႁဵတ်း";
+"main-menu-account-logout-cancel" = "ယုၵ်ႉလိူၵ်ႈ";
 "main-menu-account-title-logged-in" = "ၶဝ်ႈလွၵ်ႉဢိၼ်ႇဝႆႉၼင်ႇ $1";
 "main-menu-heading-legal" = "လွင်ႈႁူမ်ႇလူမ်ႈသုၼ်ႇတူဝ်လႄႈ ၶေႃႈမၼ်ႈၸႂ်";
 "main-menu-nearby" = "ႁိမ်းႁွမ်း";

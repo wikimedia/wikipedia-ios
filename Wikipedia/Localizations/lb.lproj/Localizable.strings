@@ -142,11 +142,9 @@
 "description-welcome-concise-sub-title" = "Idealerweis eng Zeil, tëscht zwee an zwielef Wierder";
 "description-welcome-concise-title" = "Haalt Iech kuerz";
 "description-welcome-descriptions-title" = "Artikelbeschreiwungen";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Vum:";
+"diff-compare-header-from-info-heading" = "Vum";
 "diff-compare-header-heading" = "Versioune vergläichen";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Fir:";
+"diff-compare-header-to-info-heading" = "Fir";
 "diff-compare-title" = "Versioune vergläichen";
 "diff-context-lines-collapsed-button-title" = "Weisen";
 "diff-context-lines-expanded-button-title" = "Verstoppen";
@@ -336,6 +334,7 @@
 "menu-cancel-accessibility-label" = "Ofbriechen";
 "more-languages-tooltip-description" = "Op Wikipedia a méi wéi 300 Sprooche sichen";
 "more-languages-tooltip-title" = "Sproochen derbäisetzen";
+"more-menu" = "Méi";
 "navbar-title-mode-edit-wikitext-preview" = "Kucken ouni ofzespäicheren";
 "nearby-distance-label-feet" = "$1 Féiss";
 "nearby-distance-label-km" = "$1 km";

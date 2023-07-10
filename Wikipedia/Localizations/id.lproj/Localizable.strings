@@ -230,11 +230,10 @@
 "description-welcome-descriptions-title" = "Deskripsi artikel";
 "description-welcome-promise-title" = "Dengan memulai, saya berjanji untuk tidak menyalahgunakan fitur ini";
 "description-welcome-start-editing-button" = "Mulai menyunting";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Dari:";
+"diff-article-edit-history" = "Riwayat Penyuntingan Artikel";
+"diff-compare-header-from-info-heading" = "Dari";
 "diff-compare-header-heading" = "Bandingkan Revisi";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Untuk:";
+"diff-compare-header-to-info-heading" = "Untuk";
 "diff-compare-title" = "Bandingkan Revisi";
 "diff-context-lines-collapsed-button-title" = "Tampilkan";
 "diff-context-lines-expanded-button-title" = "Sembunyikan";
@@ -246,6 +245,9 @@
 "diff-paragraph-moved-distance-section" = "$1 bagian";
 "diff-paragraph-moved-format" = "Paragraf dipindahkan $1 $2";
 "diff-revision-error-title" = "Tidak bisa memuat revisi.";
+"diff-rollback" = "Kembalikan";
+"diff-rollback-alert-message" = "Apakah Anda yakin ingin mengembalikan suntingan?";
+"diff-rollback-alert-title" = "Kembalikan suntingan";
 "diff-single-header-editor-number-edits-format" = "$1 suntingan";
 "diff-single-header-editor-title" = "Informasi penyunting";
 "diff-single-header-subtitle-bytes-added" = "$1 bita ditambahkan";
@@ -262,6 +264,7 @@
 "diff-thanks-sent" = "'Terima kasih' anda telah dikirim kepada $1";
 "diff-thanks-sent-already" = "Anda sudah mengirimkan 'Terima kasih' untuk penyuntingan ini";
 "diff-thanks-sent-cannot-unsend" = "Terima kasih tidak bisa dikembalikan";
+"diff-undo-message" = "Ini akan membatalkan perubahan yang dibuat sesuai revisi artikel yang ditampilkan di sini. Untuk melanjutkan, berikan alasan untuk mengembalikan penyuntingan ini.";
 "diff-unedited-lines-format" = "$1 baris tidak disunting";
 "dim-images" = "Redupkan gambar";
 "edit-bold-accessibility-label" = "Tambahkan pemformatan tebal";
@@ -580,6 +583,7 @@
 "menu-cancel-accessibility-label" = "Batal";
 "more-languages-tooltip-description" = "Cari Wikipedia dalam lebih dari 300 bahasa";
 "more-languages-tooltip-title" = "Tambah bahasa";
+"more-menu" = "Selengkapnya";
 "move-articles-to-reading-list" = "Pindahkan {{PLURAL:$1|$1 artikel|$1 artikel}} ke daftar bacaan";
 "navbar-title-mode-edit-wikitext-preview" = "Pratayang";
 "nearby-distance-label-feet" = "$1 kaki";
@@ -1120,6 +1124,7 @@
 "vanishing-request-email-title" = "Permintaan moksa secara hormat";
 "variants-alert-dismiss-button" = "Tidak, terima kasih";
 "variants-alert-preferences-button" = "Tinjau preferensi Anda";
+"watchlist" = "Daftar pantauan";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disarankan dan artikel harian dari komunitas kami";
 "welcome-exploration-explore-feed-title" = "Umpan Jelajahi";
 "welcome-exploration-on-this-day-description" = "Berpergian kembali ke masa lalu untuk mempelajari apa yang terjadi hari ini dalam sejarah";
