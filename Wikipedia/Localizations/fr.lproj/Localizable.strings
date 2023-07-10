@@ -20,6 +20,7 @@
 // Author: Orlodrim
 // Author: Oupsa
 // Author: Selhom
+// Author: SleaY
 // Author: Solucer
 // Author: The RedBurn
 // Author: Thibaut120094
@@ -226,11 +227,10 @@
 "description-welcome-descriptions-title" = "Descriptions d’articles";
 "description-welcome-promise-title" = "En commençant, je promets de ne pas faire mauvais emploi de cette fonctionnalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "De :";
+"diff-article-edit-history" = "Historique de modifications de l’article";
+"diff-compare-header-from-info-heading" = "De";
 "diff-compare-header-heading" = "Comparer les versions";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "À :";
+"diff-compare-header-to-info-heading" = "À";
 "diff-compare-title" = "Comparer les versions";
 "diff-context-lines-collapsed-button-title" = "Afficher";
 "diff-context-lines-expanded-button-title" = "Masquer";
@@ -242,6 +242,9 @@
 "diff-paragraph-moved-distance-section" = "$1 section{{PLURAL:$1||s}}";
 "diff-paragraph-moved-format" = "Paragraphe déplacé vers le $1 de $2";
 "diff-revision-error-title" = "Impossible de charger la révision";
+"diff-rollback" = "Révoquer";
+"diff-rollback-alert-message" = "Voulez-vous vraiment révoquer ces modifications ?";
+"diff-rollback-alert-title" = "Révoquer les modifications";
 "diff-single-header-editor-number-edits-format" = "$1 modification{{PLURAL:$1||s}}";
 "diff-single-header-editor-title" = "Informations sur l’éditeur";
 "diff-single-header-subtitle-bytes-added" = "$1 octet{{PLURAL:$1||s}} ajouté{{PLURAL:$1||s}}";
@@ -258,6 +261,7 @@
 "diff-thanks-sent" = "Votre « Merci » a été envoyé à $1";
 "diff-thanks-sent-already" = "Vous avez déjà envoyé un « Merci » pour cette modification";
 "diff-thanks-sent-cannot-unsend" = "Les remerciements ne peuvent pas être retirés";
+"diff-undo-message" = "Cela annulera les modifications faites par les révisions de l’article affichées ici. Pour poursuivre, veuillez fournir un motif pour annuler cette modification.";
 "diff-unedited-lines-format" = "$1 ligne{{PLURAL:$1||s}} restaurée{{PLURAL:$1||s}}";
 "dim-images" = "Assombrir les images";
 "edit-bold-accessibility-label" = "Ajouter une mise en forme en gras";
@@ -576,6 +580,7 @@
 "menu-cancel-accessibility-label" = "Annuler";
 "more-languages-tooltip-description" = "Rechercher sur Wikipédia dans plus de 300 langues";
 "more-languages-tooltip-title" = "Ajouter des langues";
+"more-menu" = "Plus";
 "move-articles-to-reading-list" = "Placer $1 article{{PLURAL:$1||s}} dans la liste de lecture";
 "navbar-title-mode-edit-wikitext-preview" = "Aperçu";
 "nearby-distance-label-feet" = "$1 pied(s)";
@@ -1116,6 +1121,7 @@
 "vanishing-request-email-title" = "Demande de droit de disparaître";
 "variants-alert-dismiss-button" = "Non merci";
 "variants-alert-preferences-button" = "Revoir vos préférences";
+"watchlist" = "Liste de suivi";
 "welcome-exploration-explore-feed-description" = "Lecture recommandée et articles du jour de notre communauté";
 "welcome-exploration-explore-feed-title" = "Explorer le fil";
 "welcome-exploration-on-this-day-description" = "Revenir dans le temps pour apprendre ce qui s’est passé aujourd’hui dans l’histoire";
