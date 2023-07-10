@@ -13,9 +13,5 @@ public struct FeatureFlags {
         return false
         #endif
     }
-
-    public static var updatedDiffsEnabled: Bool {
-        return true
-    }
     
 }
