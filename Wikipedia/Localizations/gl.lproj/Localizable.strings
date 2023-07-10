@@ -166,8 +166,10 @@
 "description-welcome-descriptions-title" = "Descricións do título";
 "description-welcome-promise-title" = "Ó comezar, prometo non utilizar de forma irresponsable esta funcionalidade";
 "description-welcome-start-editing-button" = "Comezar a editar";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "De:";
 "diff-compare-header-heading" = "Comparar revisións";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Para:";
 "diff-compare-title" = "Comparar revisións";
 "diff-context-lines-collapsed-button-title" = "Amosar";

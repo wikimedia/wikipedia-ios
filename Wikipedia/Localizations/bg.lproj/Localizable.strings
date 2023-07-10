@@ -154,8 +154,10 @@
 "description-welcome-descriptions-title" = "Описания на статии";
 "description-welcome-promise-title" = "Започвайки, обещавам да не злоупотребявам с тази възможност";
 "description-welcome-start-editing-button" = "Започване на редактирането";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "От:";
 "diff-compare-header-heading" = "Сравняване на версии";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "До:";
 "diff-compare-title" = "Сравняване на версии";
 "diff-context-lines-collapsed-button-title" = "Показване";
@@ -325,12 +327,6 @@
 "insert-media-media-settings-title" = "Мултимедийни настройки";
 "insert-media-title" = "Вмъкване на медиен файл";
 "insert-media-uploaded-image-title" = "Качено изображение";
-"intermediate-edits-count" = "{{PLURAL:$1| $1 междинна версия|$1 междинни версии}} не са показани";
-"intermediate-edits-count-limited" = "$1+ междинни версии не са показани";
-"intermediate-edits-editors-count" = "({{PLURAL:$1|Не е показана една междинна версия|Не са показани $1 междинни версии}} от {{PLURAL:$2|$2 потребител|$2 потребителя}})";
-"intermediate-edits-editors-count-limited" = "$1+ междинни версии от $2+ потребителя не са показани";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Не е показана една междинна версия|Не са показани $1 междинни версии}} от $2+ потребителя";
-"intermediate-edits-limited-editors-count" = "Не са показани $1+ междинни версии от {{PLURAL:$2|един потребител|$2 потребителя}}";
 "languages-settings-title" = "Езици";
 "languages-title" = "Промяна на езика";
 "languages-wikipedia" = "Езици на Уикипедия";

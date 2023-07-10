@@ -132,10 +132,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d юл</string>
 			<key>other</key>
-			<string>%1$d юлдар</string>
+			<string>%1$d юл</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-section</key>
@@ -148,10 +146,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d бүлек</string>
 			<key>other</key>
-			<string>%1$d бүлектәр</string>
+			<string>%1$d бүлек</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-editor-number-edits-format</key>
@@ -165,7 +161,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>төҙәтмә</string>
+			<string>төҙәтеү</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-added</key>

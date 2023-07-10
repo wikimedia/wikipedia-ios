@@ -194,8 +194,10 @@
 "description-welcome-descriptions-title" = "Descrizzion de l'articol";
 "description-welcome-promise-title" = "Per comenzà, prometi de minga drovà mal questa fonzion chì";
 "description-welcome-start-editing-button" = "Taca a modifegà";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Da:";
 "diff-compare-header-heading" = "Confronta io version";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "A:";
 "diff-compare-title" = "Confronta i version";
 "diff-context-lines-collapsed-button-title" = "Fà vedé";
@@ -449,12 +451,6 @@
 "insert-media-media-settings-title" = "Impostazzion di fail audiovisiv";
 "insert-media-title" = "Mèt denter on fail audiovisiv";
 "insert-media-uploaded-image-title" = "Imagin caregada";
-"intermediate-edits-count" = "({{PLURAL:$1|$1 revision de mez|$1 revision de mez}} ming anostrade)";
-"intermediate-edits-count-limited" = "Pussee de $1 revision de mez minga mostrade";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 revision de mez|$1 revision de mez}} de {{PLURAL:$2|$2 utent|$2 utent}} a {{PLURAL:$1|l'è mostrada|inn mostrade}}";
-"intermediate-edits-editors-count-limited" = "Pussee de $1 revision de mez de pussee de $2 utent a inn minga mostrade";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 revision de mez|$1 revision de mez}} de pussee de $2 utent a {{PLURAL:$1|l'è mostrada|a inn mostrade}}";
-"intermediate-edits-limited-editors-count" = "Pussee de $1 revision de mez de pussee de {{PLURAL:$2|$2 utent|$2 utent}} a inn minga mostrade";
 "inuktitut-variants-alert-body" = "L'aplicazzion Wikipedia adess la suporta queste variante chì de l'Inuktitut come lengua primaria o secondaria dedent de l'app, per fà in manera de fa vegnì pussee facil la letura, la ricerca e la modifega in di to variante preferide:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Atualizazzion al suport di variant inukitut noeuve";
 "kazakh-variants-alert-body" = "L'aplicazzion Wikipedia adess la suporta queste variante chì de l'kazach come lengua primaria o secondaria dedent de l'aplicazzion, per fà in manera de fà vegnì pussee facil la letura, la ricerca e la modifega in di to variante preferide:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cirillich (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabo (kk-arab)";

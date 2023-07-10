@@ -236,8 +236,10 @@
 "description-welcome-descriptions-title" = "記事の説明";
 "description-welcome-promise-title" = "この機能を誤用しないように約束します";
 "description-welcome-start-editing-button" = "編集を開始";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "差出人:";
 "diff-compare-header-heading" = "版を比較";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "宛先:";
 "diff-compare-title" = "版を比較";
 "diff-context-lines-collapsed-button-title" = "表示";
@@ -250,6 +252,7 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1節}}";
 "diff-paragraph-moved-format" = "段落が$1に$2移動";
 "diff-revision-error-title" = "版を読み込めませんでした。";
+"diff-rollback" = "巻き戻し";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 件の編集}}";
 "diff-single-header-editor-title" = "編集者の情報";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1バイト追加}}";
@@ -546,10 +549,6 @@
 "insert-media-media-settings-title" = "メディア設定";
 "insert-media-title" = "メディアを挿入";
 "insert-media-uploaded-image-title" = "アップロード済み画像";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 件の中間の版}}は表示されていません";
-"intermediate-edits-count-limited" = "$1 件以上の中間の版は表示されていません";
-"intermediate-edits-editors-count" = "{{PLURAL:$2|$2 人の利用者}}による {{PLURAL:$1|$1 件の中間の版}}は表示されていません";
-"intermediate-edits-editors-count-limited" = "$2 人以上の利用者による $1 件以上の中間の版は表示されません";
 "languages-settings-title" = "言語";
 "languages-title" = "言語を変更";
 "languages-wikipedia" = "ウィキペディアの言語";

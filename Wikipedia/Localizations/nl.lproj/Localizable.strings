@@ -233,8 +233,10 @@
 "description-welcome-descriptions-title" = "Artikelbeschrijvingen";
 "description-welcome-promise-title" = "Door te beginnen beloof ik om deze functie niet te misbruiken";
 "description-welcome-start-editing-button" = "Begin met bewerken";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Van:";
 "diff-compare-header-heading" = "Versies vergelijken";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Tot:";
 "diff-compare-title" = "Versies vergelijken";
 "diff-context-lines-collapsed-button-title" = "Weergeven";
@@ -547,12 +549,6 @@
 "insert-media-media-settings-title" = "Mediainstellingen";
 "insert-media-title" = "Media invoegen";
 "insert-media-uploaded-image-title" = "Geplaatste afbeelding";
-"intermediate-edits-count" = "{{PLURAL:$1|Een tussenliggende versie|$1 tussenliggende versies}} niet weergegeven";
-"intermediate-edits-count-limited" = "$1+ tussenliggende versies niet weergegeven";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|Een tussenliggende versie|$1 tussenliggende versies}} door {{PLURAL:$2|$2 gebruiker|$2 gebruikers}} niet weergegeven";
-"intermediate-edits-editors-count-limited" = "$1+ tussenliggende versies door $2+ gebruikers niet weergegeven";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Een tussenliggende versie|$1 tussenliggende versies}} door $2+ gebruikers niet weergegeven";
-"intermediate-edits-limited-editors-count" = "$1+ tussenliggende versies door {{PLURAL:$2|$2 gebruiker|$2 gebruikers}} niet weergegeven";
 "inuktitut-variants-alert-body" = "De Wikipedia app ondersteund nu de volgende varianten van Inuktitut als primaire of secundaire talen in de app, wat het makkelijker maakt artikelen te lezen, zoeken en bewerken in deze varianten:";
 "inuktitut-variants-alert-title" = "Updates voor ondersteuning van Inuktitutse variant";
 "kazakh-variants-alert-body" = "De Wikipedia-app ondersteunt nu de volgende Kazachse varianten als primaire of secundaire talen binnen de app, waardoor het makkelijker wordt om te lezen, zoeken en bewerken in uw voorkeursvarianten:\n\nҚазақша Kazachs (kk)\nҚазақша Кирил Kazachs, Cyrillisch (kk-cyrl)\nqazaqşa latin Kazachs, Latijn (kk-latn)\nتوتە قازاقشا Kazachs, Arabisch (kk-arabisch)";

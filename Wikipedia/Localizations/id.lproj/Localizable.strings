@@ -230,8 +230,10 @@
 "description-welcome-descriptions-title" = "Deskripsi artikel";
 "description-welcome-promise-title" = "Dengan memulai, saya berjanji untuk tidak menyalahgunakan fitur ini";
 "description-welcome-start-editing-button" = "Mulai menyunting";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Dari:";
 "diff-compare-header-heading" = "Bandingkan Revisi";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Untuk:";
 "diff-compare-title" = "Bandingkan Revisi";
 "diff-context-lines-collapsed-button-title" = "Tampilkan";
@@ -544,12 +546,6 @@
 "insert-media-media-settings-title" = "Pengaturan media";
 "insert-media-title" = "Sisipkan media";
 "insert-media-uploaded-image-title" = "Gambar yang diunggah";
-"intermediate-edits-count" = "$1 revisi antara tidak ditampilkan";
-"intermediate-edits-count-limited" = "$1+ revisi antara tidak ditampilkan";
-"intermediate-edits-editors-count" = "$1 revisi antara oleh $2 pengguna tidak ditampilkan";
-"intermediate-edits-editors-count-limited" = "$1+ revisi antara oleh $2+ pengguna tidak ditampilkan";
-"intermediate-edits-editors-limited-count" = "$1 revisi antara oleh $2+ pengguna tidak ditampilkan";
-"intermediate-edits-limited-editors-count" = "$1+ revisi antara oleh $2 pengguna tidak ditampilkan";
 "inuktitut-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Inuktitut berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Silabis (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Inuktitut";
 "kazakh-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Kazakh berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Sirilik (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arab (kk-arab)";

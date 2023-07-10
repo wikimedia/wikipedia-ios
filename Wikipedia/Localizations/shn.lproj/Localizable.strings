@@ -158,7 +158,9 @@
 "description-welcome-descriptions-title" = "ၶေႃႈသပ်းလႅင်း ႁူဝ်ၶေႃႈ";
 "description-welcome-promise-title" = "ပေႃးတႄႇၼႆႉၵႂႃႇ၊ ၵဝ်ၶႃႈပၼ်ၶေႃႈမၼ်ႈၵႅၼ်ႇဝႃႈ တေဢမ်ႇဢဝ် လၢႆးႁဵတ်းၵၢၼ်ၼႆႉ ၸႂ်ႉၽိတ်းတီႈမၼ်း";
 "description-welcome-start-editing-button" = "တႄႇလွင်ႈမႄးထတ်း";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "မႃးတီႈ :";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "ထိုင်:";
 "diff-context-lines-collapsed-button-title" = "ၼႄ";
 "diff-context-lines-expanded-button-title" = "သိူင်ႇ";

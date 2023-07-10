@@ -216,8 +216,10 @@
 "description-welcome-descriptions-title" = "Artikkelbeskrivelser";
 "description-welcome-promise-title" = "Gjennom å starte lover jeg å ikke misbruke denne funksjonen";
 "description-welcome-start-editing-button" = "Begynn å redigere";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Fra:";
 "diff-compare-header-heading" = "Sammenlign revisjoner";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Til:";
 "diff-compare-title" = "Sammenlign revisjoner";
 "diff-context-lines-collapsed-button-title" = "Vis";
@@ -530,12 +532,6 @@
 "insert-media-media-settings-title" = "Medieinnstillinger";
 "insert-media-title" = "Sett inn media";
 "insert-media-uploaded-image-title" = "Opplastet bilde";
-"intermediate-edits-count" = "$1 mellomliggende {{PLURAL:$1|revisjon|revisjoner}} ikke vist";
-"intermediate-edits-count-limited" = "$1+ mellomliggende revisjoner ikke vist";
-"intermediate-edits-editors-count" = "$1 mellomliggende {{PLURAL:$1|revisjon|revisjoner}} av $2 {{PLURAL:$2|bruker|brukere}} ikke vist";
-"intermediate-edits-editors-count-limited" = "$1+ mellomliggende revisjoner av $2+ brukere ikke vist";
-"intermediate-edits-editors-limited-count" = "$1 mellomliggende {{PLURAL:$1|revisjon|revisjoner}} av $2+ brukere ikke vist";
-"intermediate-edits-limited-editors-count" = "$1+ mellomliggende revisjoner av $2 {{PLURAL:$2|bruker|brukere}} ikke vist";
 "inuktitut-variants-alert-body" = "Wikipedia-appen støtter nå følgende inuktitut-varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuktitut med stavelsesskrift (ike-cans)\nInuktitut ilisautik, inuktitut med latinsk skrift (ike-latn)";
 "inuktitut-variants-alert-title" = "Oppdateringer i støtte for inkutitut-varianter";
 "kazakh-variants-alert-body" = "Wikipedia-appen støtter nå følgende kasakhiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nҚазақша kasakhisk (kk)\nҚазақша Кирил kyrillisk kasakhisk (kk-cyrl)\nqazaqşa latin latinsk kasakhisk (kk-latn)\nتوتە قازاقشا arabisk kasakhisk (kk-arab)";

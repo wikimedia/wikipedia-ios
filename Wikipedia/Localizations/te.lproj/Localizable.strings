@@ -189,8 +189,10 @@
 "description-welcome-descriptions-title" = "వ్యాస వివరణలు";
 "description-welcome-promise-title" = "ఈ అంశాన్ని దురుపయోగం చెయ్యనని మాటిస్తూ మొదలెడుతున్నాను.";
 "description-welcome-start-editing-button" = "దిద్దుబాటు మొదలు పెట్టండి";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "నుండి:";
 "diff-compare-header-heading" = "కూర్పులను పోల్చు";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "వరకు:";
 "diff-compare-title" = "కూర్పులను పోల్చు";
 "diff-context-lines-collapsed-button-title" = "చూపించు";
@@ -470,12 +472,6 @@
 "insert-media-image-type-settings-title" = "బొమ్మ రకం";
 "insert-media-media-settings-title" = "మీడియా అమరికలు";
 "insert-media-uploaded-image-title" = "బొమ్మను ఎక్కించు";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 మధ్యంతర కూర్పును|$1 మధ్యంతర కూర్పులను}} చూపించలేదు";
-"intermediate-edits-count-limited" = "$1+ మధ్యంతర కూర్పులను చూపించలేదు";
-"intermediate-edits-editors-count" = "{{PLURAL:$2|$2 వాడుకరి|$2 వాడుకరులు}} చేసిన {{PLURAL:$1|$1 మధ్యంతర కూర్పును|$1 మధ్యంతర కూర్పులను}} చూపించలేదు";
-"intermediate-edits-editors-count-limited" = "$2+ వాడుకరులు చేసిన $1+ మధ్యంతర కూర్పులను చూపించలేదు";
-"intermediate-edits-editors-limited-count" = "$2+ వాడుకరులు చేసిన {{PLURAL:$1|$1 మధ్యంతర కూర్పును|$1 మధ్యంతర కూర్పులను}} చూపించలేదు";
-"intermediate-edits-limited-editors-count" = "{{PLURAL:$2|$2 వాడుకరి|$2 వాడుకరులు}} చేసిన $1+ మధ్యంతర కూర్పులను చూపించలేదు";
 "languages-settings-title" = "భాషలు";
 "languages-title" = "భాష మార్పు";
 "languages-wikipedia" = "వికీపీడియా భాషలు";

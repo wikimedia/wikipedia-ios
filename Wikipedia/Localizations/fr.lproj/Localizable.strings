@@ -226,8 +226,10 @@
 "description-welcome-descriptions-title" = "Descriptions d’articles";
 "description-welcome-promise-title" = "En commençant, je promets de ne pas faire mauvais emploi de cette fonctionnalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "De :";
 "diff-compare-header-heading" = "Comparer les versions";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "À :";
 "diff-compare-title" = "Comparer les versions";
 "diff-context-lines-collapsed-button-title" = "Afficher";
@@ -540,12 +542,6 @@
 "insert-media-media-settings-title" = "Paramètres du média";
 "insert-media-title" = "Insérer le média";
 "insert-media-uploaded-image-title" = "Image téléversée";
-"intermediate-edits-count" = "$1 version{{PLURAL:$1||s}} intermédiaire{{PLURAL:$1||s}} non affichée{{PLURAL:$1||s}}";
-"intermediate-edits-count-limited" = "$1+ versions intermédiaires non affichées";
-"intermediate-edits-editors-count" = "$1 version{{PLURAL:$1||s}} intermédiaire{{PLURAL:$1||s}} par $2 utilisateur{{PLURAL:$2||s}} non affichée{{PLURAL:$1||s}}";
-"intermediate-edits-editors-count-limited" = "$1+ révisions intermédiaires par $2+ utilisateurs non affichées";
-"intermediate-edits-editors-limited-count" = "$1 version{{PLURAL:$1||s}} intermédiaire{{PLURAL:$1||s}} par $2+ utilisateurs non affichée{{PLURAL:$1||s}}";
-"intermediate-edits-limited-editors-count" = "$1+ versions intermédiaires par $2 utilisateur{{PLURAL:$2||s}} non affichées";
 "inuktitut-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes de l’inuktitut comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ – inuktitut syllabique (ike-cans)\nInuktitut ilisautik – inuktitut latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Mises à jour de la prise en charge des variantes de l’inuktitut";
 "kazakh-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du kazakhe comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nҚазақша – kazakhe (kk)\nҚазақша Кирил – kazakhe cyrillique (kk-cyrl)\nqazaqşa latin – kazakhe latin (kk-latn)\nتوتە قازاقشا – kazakhe arabe (kk-arab)";

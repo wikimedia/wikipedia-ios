@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import SwiftUI
+import WKData
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -264,5 +265,21 @@ extension WMFAppViewController: CreateReadingListDelegate {
                 createReadingListViewController.createReadingListButton.isEnabled = true
             }
         }
+    }
+}
+
+// MARK: WKData setup
+
+extension WMFAppViewController {
+    @objc func setupWKDataEnvironment() {
+        WKDataEnvironment.current.mediaWikiNetworkService = MediaWikiNetworkService(session: dataStore.session, configuration: dataStore.configuration)
+        
+        let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
+        WKDataEnvironment.current.appData = WKAppData(appLanguages: languages)
+    }
+    
+    @objc func updateWKDataEnvironmentFromLanguagesDidChange() {
+        let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
+        WKDataEnvironment.current.appData = WKAppData(appLanguages: languages)
     }
 }

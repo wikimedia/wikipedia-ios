@@ -146,10 +146,10 @@ import CocoaLumberjackSwift
     public enum Schema: String, Codable {
         case editHistoryCompare = "/analytics/mobile_apps/ios_edit_history_compare/2.1.0"
         case remoteNotificationsInteraction = "/analytics/mobile_apps/ios_notification_interaction/2.1.0"
-        case talkPages = "/analytics/mobile_apps/ios_talk_page_interaction/1.0.0"
+        case talkPages = "/analytics/mobile_apps/ios_talk_page_interaction/2.0.0"
         case readingLists = "/analytics/mobile_apps/ios_reading_lists/2.1.0"
         case userHistory = "/analytics/mobile_apps/ios_user_history/1.0.0"
-        case search = "/analytics/mobile_apps/ios_search/2.0.0"
+        case search = "/analytics/mobile_apps/ios_search/2.1.0"
         case sessions = "/analytics/mobile_apps/app_session/1.0.0"
         case settings = "/analytics/mobile_apps/ios_setting_action/1.0.0"
         case login = "/analytics/mobile_apps/ios_login_action/1.0.1"

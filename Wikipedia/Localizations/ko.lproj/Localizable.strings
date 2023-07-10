@@ -229,8 +229,10 @@
 "description-welcome-descriptions-title" = "문서 설명";
 "description-welcome-promise-title" = "시작함으로써 나는 이 기능을 오용하지 않을 것을 약속합니다";
 "description-welcome-start-editing-button" = "편집 시작";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "보내는이:";
 "diff-compare-header-heading" = "판 비교";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "받는이:";
 "diff-compare-title" = "판 비교";
 "diff-context-lines-collapsed-button-title" = "표시";
@@ -542,12 +544,6 @@
 "insert-media-media-settings-title" = "미디어 설정";
 "insert-media-title" = "미디어 추가";
 "insert-media-uploaded-image-title" = "업로드한 이미지";
-"intermediate-edits-count" = "{{PLURAL:$1|중간 판 $1개}}는 보이지 않습니다";
-"intermediate-edits-count-limited" = "$1개 이상의 중간 판은 보이지 않습니다";
-"intermediate-edits-editors-count" = "{{PLURAL:$2|$2명의}} {{PLURAL:$1|중간 판 $1개}}는 보이지 않습니다";
-"intermediate-edits-editors-count-limited" = "$2명 이상의 중간 판 $1개 이상은 보이지 않습니다";
-"intermediate-edits-editors-limited-count" = "$2명 이상의 {{PLURAL:$1|중간 판 $1개 이상}}은 보이지 않습니다";
-"intermediate-edits-limited-editors-count" = "{{PLURAL:$2|$2명}}의 중간 판 $1개는 보이지 않습니다";
 "inuktitut-variants-alert-body" = "이제 위키백과 앱에서 아래의 이누이트어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ 이누이트어 음절문자 (ike-cans)\nInuktitut ilisautik, 이누이트어 라틴 (ike-latn)";
 "inuktitut-variants-alert-title" = "이누이트어 변이형 지원 업데이트";
 "kazakh-variants-alert-body" = "이제 위키백과 앱에서 아래의 카자흐어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nҚазақша 카자흐어 (kk)\nҚазақша Кирил 카자흐어 키릴 (kk-cyrl)\nqazaqşa latin 카자흐어 라틴 (kk-latn)\nتوتە قازاقشا 카자흐어 아랍 (kk-arab)";

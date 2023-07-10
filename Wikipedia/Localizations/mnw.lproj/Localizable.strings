@@ -160,8 +160,10 @@
 "description-welcome-descriptions-title" = "က္ဍိုပ်လိက် မဗမံက်ထ္ၜး";
 "description-welcome-promise-title" = "နပွစကေတ်, အဲကဵုကတိ ဟွံသ္ဂောအ်ကဵုသုၚ်စောဲလိက်ပရေၚ်ဏအ် ဒၞဲါဗၠေတ်";
 "description-welcome-start-editing-button" = "စပလေဝ်ဒါန်ဒၟံၚ်";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "နူ:";
 "diff-compare-header-heading" = "ပတောအ်ၜတ် မူတၟိဂမၠိုင်";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "ဗ္စိုပ်:";
 "diff-compare-title" = "ပတောအ်ၜတ် မူတၟိဂမၠိုင်";
 "diff-context-lines-collapsed-button-title" = "ထ္ၜး";
@@ -448,12 +450,6 @@
 "insert-media-media-settings-title" = "ဖျေဟ်ဒၞာဲ မဳဒဳယာ";
 "insert-media-title" = "စုတ် မဳဒဳယာ";
 "insert-media-uploaded-image-title" = "ပတိုန်ပၠုပ် ဗီု";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 intermediate revision|$1 မူတၟိ အကြာတအ်}} ဟွံထ္ၜး";
-"intermediate-edits-count-limited" = "$1+ မူတၟိ အကြာတအ်ဂှ် ဟွံထ္ၜး";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 intermediate revision|$1 မူတၟိ အကြာ}} နကဵုby {{PLURAL:$2|$2 ညးလွပ်|$2 ညးလွပ်}} ဟွံထ္ၜး";
-"intermediate-edits-editors-count-limited" = "$1+ မူတၟိ အကြာ မချူလဝ် နကဵု ညးလွပ် $2+ ဟွံထ္ၜး";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 intermediate revision|$1 မူတၟိ အကြာ}}နကဵု ညးလွပ် $2+တအ်ဂှ် ဟွံထ္ၜး";
-"intermediate-edits-limited-editors-count" = "$1+ မူတၟိ အကြာ နကဵု {PLURAL:$2|$2 ညးလွပ်|$2 ညးလွပ်တအ်}} ဟွံထ္ၜး";
 "languages-settings-title" = "အရေဝ်ဘာသာဂမၠိုင်";
 "languages-title" = "သၠာဲ အရေဝ်ဘာသာ";
 "languages-wikipedia" = "အရေဝ်ဘာသာ ဝဳကဳပဳဒဳယာဂမၠိုင်";

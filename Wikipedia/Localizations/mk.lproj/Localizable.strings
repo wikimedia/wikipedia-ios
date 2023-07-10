@@ -204,9 +204,10 @@
 "description-welcome-descriptions-title" = "Описи на статии";
 "description-welcome-promise-title" = "Почнувајќи ја употребата, ветувам дека нема да ја злоупотребувам оваа можност";
 "description-welcome-start-editing-button" = "Почнете со уредување";
-"diff-compare-header-from-info-heading" = "Од:";
+"diff-article-edit-history" = "Историја на уредување на статијата";
+"diff-compare-header-from-info-heading" = "Од";
 "diff-compare-header-heading" = "Спореди преработки";
-"diff-compare-header-to-info-heading" = "До:";
+"diff-compare-header-to-info-heading" = "До";
 "diff-compare-title" = "Спореди преработки";
 "diff-context-lines-collapsed-button-title" = "Прикажи";
 "diff-context-lines-expanded-button-title" = "Скриј";
@@ -218,6 +219,9 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 оддел|$1 оддели}}";
 "diff-paragraph-moved-format" = "Пасусот е преместен $2 $1";
 "diff-revision-error-title" = "Не можам да ја вчитам преработката";
+"diff-rollback" = "Отповикување";
+"diff-rollback-alert-message" = "Дали сигурно сакате да ги отповикате уредувањата?";
+"diff-rollback-alert-title" = "Отповикај промени";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 уредување|$1 уредувања}}";
 "diff-single-header-editor-title" = "Информации за уредникот";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|Додаден $1 бајт|Додадени $1 бајти}}";
@@ -234,6 +238,7 @@
 "diff-thanks-sent" = "Вашата благодарница е испратена на $1";
 "diff-thanks-sent-already" = "Веќе се заблагодаривте за ова уредување";
 "diff-thanks-sent-cannot-unsend" = "Благорадниците не можат да се отповикуваат";
+"diff-undo-message" = "Ова ќе ги поништи промените направени во преработката на статијата прикажани овде. За да продолжите, наведете причина за поништувањето на ова уредување.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 неуреден ред|$1 неуредени реда}}";
 "dim-images" = "Пригушени слики";
 "edit-bold-accessibility-label" = "Стави задебелено форматирање";
@@ -518,12 +523,6 @@
 "insert-media-media-settings-title" = "Поставки за слики и снимки";
 "insert-media-title" = "Вметнување на слика или снимка";
 "insert-media-uploaded-image-title" = "Подигни слика";
-"intermediate-edits-count" = "{{PLURAL:$1|Не е прикажана $1 меѓувремена преработка|Не се прикажани $1 меѓувремени преработки}}";
-"intermediate-edits-count-limited" = "Не се прикажани $1+ меѓувремени преработки";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|Не е прикажана $1 меѓувремена преработка|Не се прикажани $1 меѓувремени преработки}} на {{PLURAL:$2|$2 корисник|$2 корисници}}";
-"intermediate-edits-editors-count-limited" = "Не се прикажани $1+ меѓувремени преработки на $2+ корисници";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Не е прикажана $1 меѓувремена преработка|Не се прикажани $1 меѓувремени преработки}} на $2+ корисници";
-"intermediate-edits-limited-editors-count" = "Не се прикажани $1+ меѓувремени преработки на {{PLURAL:$2|$2 корисник|$2 корисници}}";
 "inuktitut-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве варијанти на инуктитут како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ — инуктитут со слоговница (ike-cans)\nInuktitut ilisautik — инкуктитут на латиница (ike-latn)";
 "inuktitut-variants-alert-title" = "Новост за поддршка на варијанти на инуктитут";
 "kazakh-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве варијанти на казашкиот како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nҚазақша — казашки(kk)\nҚазақша Кирил — казашки на кирилица (kk-cyrl)\nqazaqşa latin — казашки на латиница (kk-latn)\nتوتە قازاقشا — казашки на арабица (kk-arab)";
@@ -558,6 +557,7 @@
 "menu-cancel-accessibility-label" = "Откажи";
 "more-languages-tooltip-description" = "Пребарајте ја Википедија на преку 300 јазици";
 "more-languages-tooltip-title" = "Додај јазици";
+"more-menu" = "Повеќе";
 "move-articles-to-reading-list" = "Преместување на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
 "nearby-distance-label-feet" = "$1 стапки";
@@ -1098,6 +1098,7 @@
 "vanishing-request-email-title" = "Побарај исчезнување";
 "variants-alert-dismiss-button" = "Не, благодарам";
 "variants-alert-preferences-button" = "Прегледајте ги вашите поставки";
+"watchlist" = "Набљудувања";
 "welcome-exploration-explore-feed-description" = "Препорачано читање и дневни статии од нашата заедница";
 "welcome-exploration-explore-feed-title" = "Тековник „Истражи“";
 "welcome-exploration-on-this-day-description" = "Вратете се во времето за да дознаете што се случило на денешен ден во минатото";

@@ -207,8 +207,10 @@
 "description-welcome-descriptions-title" = "Popis článkov";
 "description-welcome-promise-title" = "Sľubujem, že nezneužijem túto funkciu.";
 "description-welcome-start-editing-button" = "Začať editovať";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Od:";
 "diff-compare-header-heading" = "Porovnať revízie";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Komu:";
 "diff-compare-title" = "Porovnať revízie";
 "diff-context-lines-collapsed-button-title" = "Zobraziť";
@@ -508,12 +510,6 @@
 "insert-media-media-settings-title" = "Nastavenie multimédií";
 "insert-media-title" = "Vložiť súbor";
 "insert-media-uploaded-image-title" = "Nahraný obrázok";
-"intermediate-edits-count" = "{{PLURAL:$1|Jedna medziľahlá úprava|$1 medziľahlé úpravy|$1 medziľahlých úprav}} {{PLURAL:$1|nie je zobrazená|nie sú zobrazené|nie je zobrazených}}";
-"intermediate-edits-count-limited" = "$1+ medziľahlých úprav nie je zobrazených";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|Jedna medziľahlá úprava|$1 medziľahlé úpravy|$1 medziľahlých úprav}} od {{PLURAL:$2|$2 používateľa|$2 používateľov}} {{PLURAL:$1|nie je zobrazená|nie sú zobrazené|nie je zobrazených}}";
-"intermediate-edits-editors-count-limited" = "$1+ medziľahlých úprav od $2+ používateľov nie je zobrazených";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Jedna medziľahlá úprava|$1 medziľahlé úpravy|$1 medziľahlých úprav}} od $2+ používateľov {{PLURAL:$1|nie je zobrazená|nie sú zobrazené|nie je zobrazených}}";
-"intermediate-edits-limited-editors-count" = "$1+ medziľahlých úprav od {{PLURAL:$2|$2 používateľa|$2 používateľov}} nie je zobrazených";
 "inuktitut-variants-alert-body" = "Wikipédia teraz podporuje aj varianty jazyka inuktitu ako primárny a sekundárny jazyka aplikácie:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Aktualizácie podpory variánt jazyka inuktitut";
 "kazakh-variants-alert-body" = "Wikipédia teraz podporuje aj varianty kazašského jazyka ako primárny a sekundárny jazyk aplikácie:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
