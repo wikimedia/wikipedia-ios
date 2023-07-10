@@ -19771,7 +19771,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wikimedia/wikipedia-ios-components.git";
 			requirement = {
-				branch = main;
+				branch = "remove-undo-rollback";
 				kind = branch;
 			};
 		};

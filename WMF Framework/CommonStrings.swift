@@ -291,7 +291,9 @@ public class CommonStrings: NSObject {
 
     public static let diffMultiLineFormat = WMFLocalizedString("diff-multi-line-format", value:"Lines %1$d - %2$d", comment:"Label in diff to indicate how many lines a change section encompases. This format is for multiple change lines. %1$d is replaced by the starting line number and %2$d is replaced by the ending line number.")
     
-    public static let diffActionSuccess = WMFLocalizedString("diff-undo-rollback-success", value:"Success!", comment:"Success message shown to user when they successfully reverted or rolled back an edit.")
+    public static let diffUndoSuccess = WMFLocalizedString("diff-undo-success", value:"The revision was undone.", comment:"Success message shown to user when they successfully undid an edit.")
+    
+    public static let diffRollbackSuccess = WMFLocalizedString("diff-rollback-success", value:"Edits reverted.", comment:"Success message shown to user when they successfully rolled back an edit.")
 
     public static let compareTitle = WMFLocalizedString("page-history-compare-title", value: "Compare", comment: "Title for action button that allows users to contrast different items")
     public static let maxRevisionsSelectedWarningTitle = WMFLocalizedString("page-history-revisions-comparison-warning", value: "Only two revisions can be selected", comment: "Text telling the user how many revisions can be selected for comparison")

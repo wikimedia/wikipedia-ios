@@ -12,6 +12,7 @@ struct StubRevisionModel {
 protocol DiffRevisionRetrieving: AnyObject {
     func retrievePreviousRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
     func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
+    func refreshRevisions()
 }
 
 class DiffContainerViewController: ViewController {
@@ -1162,6 +1163,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         let isUserAnonymous = toModel?.isAnon ?? true
         tappedThank(for: toModelRevisionID, isUserAnonymous: isUserAnonymous)
     }
+    
+    // MARK: Undo and Rollback
 
     func tappedUndo() {
         
@@ -1205,23 +1208,11 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
-        WKWatchlistService().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { result in
-            
+        fakeProgressController.start()
+        WKWatchlistService().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
+
             DispatchQueue.main.async {
-                switch result {
-                case .success(()):
-                    // DIFFTODO: Better success message display?
-                    WMFAlertManager.sharedInstance.showSuccessAlert(CommonStrings.diffActionSuccess, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                case .failure(let error):
-                    
-                    guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
-                       let mediaWikiDisplayError = serviceError.mediaWikiDisplayError else {
-                            WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
-                            return
-                    }
-                        
-                    self.wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: self.articleTitle ?? "", theme: self.theme)
-                }
+                self?.completeRollbackOrUndo(result: result, isRollback: false)
             }
         }
     }
@@ -1249,23 +1240,39 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
-        WKWatchlistService().rollback(title: title, project: wkProject, username: username) { result in
+        fakeProgressController.start()
+        WKWatchlistService().rollback(title: title, project: wkProject, username: username) { [weak self] result in
             DispatchQueue.main.async {
-                switch result {
-                case .success(()):
-                    // DIFFTODO: Better success message display?
-                    WMFAlertManager.sharedInstance.showSuccessAlert(CommonStrings.diffActionSuccess, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                case .failure(let error):
-                    
-                    guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
-                          let mediaWikiDisplayError = serviceError.mediaWikiDisplayError else {
-                        WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
-                        return
-                    }
-                    
-                    self.wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: self.articleTitle ?? "", theme: self.theme)
-                }
+                self?.completeRollbackOrUndo(result: result, isRollback: true)
             }
+        }
+    }
+    
+    private func completeRollbackOrUndo(result: Result<WKUndoOrRollbackResult, Error>, isRollback: Bool) {
+        fakeProgressController.stop()
+        
+        switch result {
+        case .success(let result):
+            
+            let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController)
+            animateDirection = .up
+            replaceLastAndPush(with: diffVC)
+            revisionRetrievingDelegate?.refreshRevisions()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                let message = isRollback ? CommonStrings.diffRollbackSuccess : CommonStrings.diffUndoSuccess
+                WMFAlertManager.sharedInstance.showSuccessAlert(message, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+            }
+            
+        case .failure(let error):
+            
+            guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
+               let mediaWikiDisplayError = serviceError.mediaWikiDisplayError else {
+                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                    return
+            }
+                
+            wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: articleTitle ?? "", theme: theme)
         }
     }
 }
