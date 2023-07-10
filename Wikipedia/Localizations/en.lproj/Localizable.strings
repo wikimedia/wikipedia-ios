@@ -1061,6 +1061,7 @@
 "two-factor-login-with-regular-code" = "Use verification code";
 "unable-to-load-talk-page-title" = "Unable to load talk page";
 "unknown-generic-text" = "Unknown";
+"unwatch" = "Unwatch";
 "uzbek-variants-alert-body" = "The Wikipedia app now supports the following Uzbek variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Updates to Uzbek variant support";
 "vanish-account-additional-information-field" = "Additional information";
@@ -1087,6 +1088,7 @@
 "vanishing-request-email-title" = "Request for courtesy vanishing";
 "variants-alert-dismiss-button" = "No thanks";
 "variants-alert-preferences-button" = "Review your preferences";
+"watch" = "Watch";
 "watchlist" = "Watchlist";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";
 "welcome-exploration-explore-feed-title" = "Explore feed";

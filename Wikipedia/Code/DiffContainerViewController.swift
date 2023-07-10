@@ -385,6 +385,7 @@ private extension DiffContainerViewController {
         setupHeaderViewIfNeeded()
         setupDiffListViewControllerIfNeeded()
         fetchLeadImageIfNeeded()
+        fetchWatchAndRollbackStatus()
         fetchEditCountIfNeeded()
         setupBackButton()
         apply(theme: theme)
@@ -618,6 +619,35 @@ private extension DiffContainerViewController {
             }
         case .compare:
             break
+        }
+    }
+    
+    func fetchWatchAndRollbackStatus() {
+        
+        guard let articleTitle, let wkProject else {
+            return
+        }
+        
+        WKWatchlistService().fetchWatchStatus(title: articleTitle, project: wkProject, needsRollbackRights: true) { result in
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                switch result {
+                case .success(let status):
+                    
+                    let needsWatchButton = !status.watched && FeatureFlags.watchlistEnabled
+                    let needsUnwatchButton = status.watched && FeatureFlags.watchlistEnabled
+                    let needsArticleEditHistoryButton = !(revisionRetrievingDelegate is PageHistoryViewController) && FeatureFlags.watchlistEnabled
+                    
+                    self.diffToolbarView?.updateMoreButton(needsRollbackButton: (status.userHasRollbackRights ?? false), needsWatchButton: needsWatchButton, needsUnwatchButton: needsUnwatchButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
+                case .failure:
+                    break
+                }
+            }
+            
         }
     }
     
@@ -1135,7 +1165,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
 
     func tappedUndo() {
         
-        guard let wkProject else {
+        guard wkProject != nil else {
             assertionFailure("WKProject must be populated before attempting undo call.")
             return
         }
@@ -1202,16 +1232,42 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
-        let rollback = UIAlertAction(title: CommonStrings.rollback, style: .destructive)
-
-        // DIFFTODO: Hook up rollback action
-
+        let rollback = UIAlertAction(title: CommonStrings.rollback, style: .destructive) { [weak self] (action) in
+            self?.performRollback()
+        }
+        
         alertController.addAction(cancel)
         alertController.addAction(rollback)
 
         present(alertController, animated: true)
     }
-
+    
+    private func performRollback() {
+        guard let wkProject = wkProject,
+              let title = articleTitle,
+              let username = toModel?.user else {
+            return
+        }
+        
+        WKWatchlistService().rollback(title: title, project: wkProject, username: username) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(()):
+                    // DIFFTODO: Better success message display?
+                    WMFAlertManager.sharedInstance.showSuccessAlert(CommonStrings.diffActionSuccess, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                case .failure(let error):
+                    
+                    guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
+                          let mediaWikiDisplayError = serviceError.mediaWikiDisplayError else {
+                        WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                        return
+                    }
+                    
+                    self.wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: self.articleTitle ?? "", theme: self.theme)
+                }
+            }
+        }
+    }
 }
 
 extension DiffContainerViewController: UINavigationControllerDelegate {

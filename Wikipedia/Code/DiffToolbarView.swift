@@ -37,20 +37,7 @@ class DiffToolbarView: UIView {
     }()
 
     lazy var moreButton: IconBarButtonItem = {
-        // DIFFTODO: Add menu item images
-        let menu = UIMenu(title: "", options: .displayInline, children: [
-                UIAction(title: CommonStrings.rollback, attributes: [.destructive], handler: { [weak self] _ in self?.tappedRollback() }),
-                UIAction(title: CommonStrings.shortShareTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { _ in }),
-                // DIFFTODO: Add when Watchlist ships
-                // UIAction(title: CommonStrings.watchlist, handler: { _ in }),
-                UIAction(title: CommonStrings.diffArticleEditHistory, handler: { _ in })
-            ]
-        )
-        
-        let item = IconBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
-
-        item.accessibilityLabel = CommonStrings.moreButton
-        return item
+        return createMoreButton()
     }()
 
     lazy var undoButton: IconBarButtonItem = {
@@ -136,12 +123,46 @@ class DiffToolbarView: UIView {
         
         setItems()
     }
+    
+    func updateMoreButton(needsRollbackButton: Bool = false, needsWatchButton: Bool = false, needsUnwatchButton: Bool = false, needsArticleEditHistoryButton: Bool = false) {
+        self.moreButton = createMoreButton(needsRollbackButton: needsRollbackButton, needsWatchButton: needsWatchButton, needsUnwatchButton: needsUnwatchButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
+        setItems()
+    }
+    
+    private func createMoreButton(needsRollbackButton: Bool = false, needsWatchButton: Bool = false, needsUnwatchButton: Bool = false, needsArticleEditHistoryButton: Bool = false) -> IconBarButtonItem {
+        
+        // DIFFTODO: Add menu item images
+        
+        var actions: [UIAction] = []
+        if needsRollbackButton {
+            actions.append(UIAction(title: CommonStrings.rollback, attributes: [.destructive], handler: { [weak self] _ in self?.tappedRollback() }))
+        }
+        actions.append(UIAction(title: CommonStrings.shortShareTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { _ in }))
+
+       if needsWatchButton {
+           actions.append(UIAction(title: CommonStrings.watch, handler: { _ in }))
+       } else if needsUnwatchButton {
+           actions.append(UIAction(title: CommonStrings.unwatch, handler: { _ in }))
+       }
+           
+       if needsArticleEditHistoryButton {
+           actions.append(UIAction(title: CommonStrings.diffArticleEditHistory, handler: { _ in }))
+       }
+        
+        let menu = UIMenu(title: "", options: .displayInline, children: actions)
+        
+        let item = IconBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
+
+        item.accessibilityLabel = CommonStrings.moreButton
+        return item
+    }
 
     private func setItems() {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 
         toolbar.items = [nextButton, flexibleSpace, previousButton, flexibleSpace, undoButton, flexibleSpace, thankButton, flexibleSpace, moreButton]
     }
+    
     
     func setPreviousButtonState(isEnabled: Bool) {
         previousButton.isEnabled = isEnabled
