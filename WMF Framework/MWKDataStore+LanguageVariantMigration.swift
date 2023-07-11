@@ -82,8 +82,17 @@ extension MWKDataStore {
         
         languageLinkController.migratePreferredLanguages(toLanguageVariants: languageCodeMigrationMapping, in: moc)
         feedContentController.migrateExploreFeedSettings(toLanguageVariants: languageCodeMigrationMapping, in: moc)
-        migrateSearchLanguageSetting(toLanguageVariants: languageCodeMigrationMapping)
+        migrateSearchLanguageSetting(toLanguageVariants: migrationMapping)
+        migrateLanguageCodeSearchLanguage(toLanguageVariants: languageCodeMigrationMapping)
         migrateWikipediaEntities(toLanguageVariants: migrationMapping, in: moc)
+    }
+
+    private func migrateLanguageCodeSearchLanguage(toLanguageVariants languageMapping: [String:String]) {
+        let defaults = UserDefaults.standard
+        if let currentSelectedSearchCode = defaults.wmf_currentSearchContentLanguageCode() {
+            let newSearchCode = languageMapping[currentSelectedSearchCode] ?? currentSelectedSearchCode
+            defaults.wmf_setCurrentSearchContentLanguageCode(newSearchCode)
+        }
     }
     
     private func migrateSearchLanguageSetting(toLanguageVariants languageMapping: [String:String]) {
