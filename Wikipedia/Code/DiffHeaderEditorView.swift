@@ -67,7 +67,7 @@ class DiffHeaderEditorView: UIView {
     
     @objc func tappedUserWithSender(_ sender: UITapGestureRecognizer) {
         if let username = viewModel?.username {
-            delegate?.tappedUsername(username: username)
+            delegate?.tappedUsername(username: username, destination: .userPage)
         }
     }
 }
