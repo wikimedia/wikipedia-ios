@@ -85,6 +85,7 @@ extension MWKDataStore {
         migrateSearchLanguageSetting(toLanguageVariants: migrationMapping)
         migrateLanguageCodeSearchLanguage(toLanguageVariants: languageCodeMigrationMapping)
         migrateWikipediaEntities(toLanguageVariants: migrationMapping, in: moc)
+        migrateNewVariants(toLanguageVariants: migrationMapping, in: moc)
     }
 
     private func migrateLanguageCodeSearchLanguage(toLanguageVariants languageMapping: [String:String]) {
@@ -103,6 +104,49 @@ extension MWKDataStore {
             defaults.wmf_setCurrentSearchContentLanguageCode(searchLanguageCode)
             defaults.removeObject(forKey: WMFSearchURLKey)
         }
+    }
+
+    private func migrateNewVariants(toLanguageVariants languageMapping: [String:String], in moc: NSManagedObjectContext) { // TODO better func name
+        for (oldLanguageVariantCode, newLanguageVariantCode) in languageMapping {
+
+            // Update content groups to new variants
+            let contentGroupFetchRequest: NSFetchRequest<WMFContentGroup> = WMFContentGroup.fetchRequest()
+            contentGroupFetchRequest.predicate = NSPredicate(format: "variant == %@", oldLanguageVariantCode) // not fetching correctly by variant
+            do {
+                let groups = try moc.fetch(contentGroupFetchRequest)
+                for group in groups {
+                    group.variant = newLanguageVariantCode
+                }
+            } catch let error {
+                DDLogError("Error migrating entities to new variant codes: \(error)")
+            }
+
+            // Update articles to new variants
+            let articleGroupFetchRequest: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+            articleGroupFetchRequest.predicate = NSPredicate(format: "variant == %@", oldLanguageVariantCode)
+            do {
+                let articles = try moc.fetch(articleGroupFetchRequest)
+                for article in articles {
+                    article.variant = newLanguageVariantCode
+                }
+            } catch let error {
+                DDLogError("Error migrating saved articles to new variant codes: \(error)")
+            }
+
+            // Update reading lists to new variants
+            let listsGroupFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+            listsGroupFetchRequest.predicate = NSPredicate(format: "variant == %@", oldLanguageVariantCode)
+            do {
+                let entries = try moc.fetch(listsGroupFetchRequest)
+                for entry in entries {
+                    entry.variant = newLanguageVariantCode
+                }
+            } catch let error {
+                DDLogError("Error migrating reading lists to new variant codes: \(error)")
+            }
+
+        }
+
     }
     
     private func migrateWikipediaEntities(toLanguageVariants languageMapping: [String:String], in moc: NSManagedObjectContext) {
