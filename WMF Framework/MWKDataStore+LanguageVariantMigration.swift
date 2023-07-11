@@ -85,7 +85,7 @@ extension MWKDataStore {
         migrateSearchLanguageSetting(toLanguageVariants: migrationMapping)
         migrateLanguageCodeSearchLanguage(toLanguageVariants: languageCodeMigrationMapping)
         migrateWikipediaEntities(toLanguageVariants: migrationMapping, in: moc)
-        migrateNewVariants(toLanguageVariants: migrationMapping, in: moc)
+        migrateNewVariants(toLanguageVariants: languageCodeMigrationMapping, in: moc)
     }
 
     private func migrateLanguageCodeSearchLanguage(toLanguageVariants languageMapping: [String:String]) {
@@ -145,6 +145,14 @@ extension MWKDataStore {
                 DDLogError("Error migrating reading lists to new variant codes: \(error)")
             }
 
+        }
+
+        if moc.hasChanges {
+            do {
+                try moc.save()
+            } catch let error {
+                DDLogError("Error saving new code variant migrations: \(error)")
+            }
         }
 
     }
