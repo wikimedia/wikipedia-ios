@@ -106,12 +106,12 @@ extension MWKDataStore {
         }
     }
 
-    private func migrateNewVariants(toLanguageVariants languageMapping: [String:String], in moc: NSManagedObjectContext) { // TODO better func name
+    private func migrateNewVariants(toLanguageVariants languageMapping: [String:String], in moc: NSManagedObjectContext) {
         for (oldLanguageVariantCode, newLanguageVariantCode) in languageMapping {
 
             // Update content groups to new variants
             let contentGroupFetchRequest: NSFetchRequest<WMFContentGroup> = WMFContentGroup.fetchRequest()
-            contentGroupFetchRequest.predicate = NSPredicate(format: "variant == %@", oldLanguageVariantCode) // not fetching correctly by variant
+            contentGroupFetchRequest.predicate = NSPredicate(format: "variant == %@", oldLanguageVariantCode)
             do {
                 let groups = try moc.fetch(contentGroupFetchRequest)
                 for group in groups {
