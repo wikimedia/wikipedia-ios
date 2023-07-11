@@ -63,28 +63,22 @@ class DiffHeaderCompareView: SetupView {
         return label
     }()
 
+    lazy var userButtonMenuItems: [WKMenuButton.MenuItem] = {
+        [
+            WKMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonContributions, image: UIImage(named: "user-contributions")),
+            WKMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right")),
+            WKMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonPage, image: UIImage(systemName: "person"))
+        ]
+    }()
+
     lazy var fromMenuButton = {
-        // DIFFTODO: Maybe better form of post-init configuration
-        let button = WKMenuButton(configuration: .init(image: UIImage(systemName: "person.fill"), primaryColor: \.link, menuItems:
-            [
-                // DIFFTODO: Icons, localized strings
-                WKMenuButton.Configuration.MenuItem(title: "User page"),
-                WKMenuButton.Configuration.MenuItem(title: "User talk page"),
-                WKMenuButton.Configuration.MenuItem(title: "User contributions")
-            ]))
+        let button = WKMenuButton(configuration: WKMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.link, menuItems: userButtonMenuItems))
         button.delegate = self
         return button
     }()
 
     lazy var toMenuButton = {
-        // DIFFTODO: Maybe better form of post-init configuration
-        let button = WKMenuButton(configuration: .init(image: UIImage(systemName: "person.fill"), primaryColor: \.diffCompareAccent, menuItems:
-            [
-                // DIFFTODO: Icons, localized strings
-                WKMenuButton.Configuration.MenuItem(title: "User page"),
-                WKMenuButton.Configuration.MenuItem(title: "User talk page"),
-                WKMenuButton.Configuration.MenuItem(title: "User contributions")
-            ]))
+        let button = WKMenuButton(configuration: WKMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.diffCompareAccent, menuItems: userButtonMenuItems))
         button.delegate = self
         return button
     }()
@@ -146,8 +140,7 @@ class DiffHeaderCompareView: SetupView {
         self.viewModel = viewModel
         fromHeadingLabel.text = viewModel.fromModel.heading.localizedUppercase
         fromTimestampLabel.text = viewModel.fromModel.timestampString
-        
-        // DIFFTODO: Maybe better form of post-init configuration
+
         fromMenuButton.updateTitle(viewModel.fromModel.username)
 
         if viewModel.fromModel.isMinor {
@@ -158,8 +151,7 @@ class DiffHeaderCompareView: SetupView {
 
         toHeadingLabel.text = viewModel.toModel.heading.localizedUppercase
         toTimestampLabel.text = viewModel.toModel.timestampString
-        
-        // DIFFTODO: Maybe better form of post-init configuration
+
         toMenuButton.updateTitle(viewModel.toModel.username)
 
         if viewModel.toModel.isMinor {
@@ -233,13 +225,13 @@ extension DiffHeaderCompareView: WKMenuButtonDelegate {
         guard let username else {
             return
         }
-        
-        if item == sender.configuration.menuItems[0] {
-            delegate?.tappedUsername(username: username, destination: .userPage)
-        } else if item == sender.configuration.menuItems[1] {
-            delegate?.tappedUsername(username: username, destination: .userTalkPage)
-        } else if item == sender.configuration.menuItems[2] {
+
+        if item == userButtonMenuItems[0] {
             delegate?.tappedUsername(username: username, destination: .userContributions)
+        } else if item == userButtonMenuItems[1] {
+            delegate?.tappedUsername(username: username, destination: .userTalkPage)
+        } else if item == userButtonMenuItems[2] {
+            delegate?.tappedUsername(username: username, destination: .userPage)
         }
     }
 }
