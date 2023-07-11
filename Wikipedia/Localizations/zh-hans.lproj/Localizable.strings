@@ -252,8 +252,7 @@
 "description-welcome-start-editing-button" = "开始编辑";
 "diff-compare-header-from-info-heading" = "从";
 "diff-compare-header-heading" = "比较不同修订版本";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "至：";
+"diff-compare-header-to-info-heading" = "至";
 "diff-compare-title" = "比较不同修订版本";
 "diff-context-lines-collapsed-button-title" = "显示";
 "diff-context-lines-expanded-button-title" = "隐藏";
