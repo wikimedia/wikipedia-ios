@@ -11,8 +11,7 @@ public class Configuration: NSObject {
         public let rawValue: Int
 
         public static let appsLabsforPCS = StagingOptions(rawValue: 1 << 0)
-        public static let deploymentLabsForEventLogging = StagingOptions(rawValue: 1 << 1)
-        public static let betaCluster = StagingOptions(rawValue: 1 << 2) // note, this will force beta cluster for PCS (thus ignoring an appsLabsforPCS value if also set) and force deploymentLabsForEventLogging
+        public static let betaCluster = StagingOptions(rawValue: 1 << 2) // note, this will force beta cluster for PCS (thus ignoring an appsLabsforPCS value if also set)
         
         public init(rawValue: Int) {
             self.rawValue = rawValue
@@ -44,13 +43,12 @@ public class Configuration: NSObject {
         #elseif WMF_STAGING
 		
 		/* NOTE: .betaCluster attempts to point to the MediaWiki beta cluster for all possible endpoints.
-		Change this to .appsLabsForPCS and/or .deploymentLabsForEventLogging for alternative staging environments.
-		Example: Configuration.staging(options: [.appsLabsForPCS, .deploymentLabsForEventLogging])
+		Change this to .appsLabsForPCS for alternative staging environments.
+		Example: Configuration.staging(options: [.appsLabsForPCS])
 			.appsLabsForPCS = Product Infrastructure team's labs instance for PCS endpoints
-			.deploymentLabsForEventLogging = labs instance for testing event logging endpoints
 			All other endpoints would point to production */
 		
-        return Configuration.staging(options: [.deploymentLabsForEventLogging])
+        return Configuration.staging(options: [.betaCluster])
         #else
         return .production
         #endif
@@ -59,7 +57,6 @@ public class Configuration: NSObject {
     private let pageContentServiceAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
     private let feedContentAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
     private let announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
-    private let eventLoggingAPIType: APIURLComponentsBuilder.EventLogging.BuilderType
     private let mediaWikiRestAPIType = APIURLComponentsBuilder.MediaWiki.BuilderType.productionRest
     private let mediaWikiAPIType = APIURLComponentsBuilder.MediaWiki.BuilderType.production
     private let wikidataAPIType: APIURLComponentsBuilder.Wikidata.BuilderType
@@ -94,8 +91,7 @@ public class Configuration: NSObject {
             feedContentAPIType: .production,
             announcementsAPIType: .production,
             wikidataAPIType: .production,
-            commonsAPIType: .production,
-            eventLoggingAPIType: .production)
+            commonsAPIType: .production)
     }()
     
     private static func staging(options: StagingOptions) -> Configuration {
@@ -110,8 +106,6 @@ public class Configuration: NSObject {
         let pcsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.appsLabsforPCS) && !options.contains(.betaCluster) ? .stagingAppsLabsPCS : .production
         let wikidataApiType: APIURLComponentsBuilder.Wikidata.BuilderType = options.contains(.betaCluster) ? .betaLabs : .production
         let commonsApiType: APIURLComponentsBuilder.Commons.BuilderType = options.contains(.betaCluster) ? .betaLabs : .production
-        let eventLoggingApiType: APIURLComponentsBuilder.EventLogging
-            .BuilderType = options.contains(.deploymentLabsForEventLogging) || options.contains(.betaCluster) ? .staging : .production
         
         return Configuration(
             environment: .staging(options),
@@ -122,8 +116,7 @@ public class Configuration: NSObject {
             feedContentAPIType: .production,
             announcementsAPIType: .production,
             wikidataAPIType: wikidataApiType,
-            commonsAPIType: commonsApiType,
-            eventLoggingAPIType: eventLoggingApiType
+            commonsAPIType: commonsApiType
         )
     }
     
@@ -143,8 +136,7 @@ public class Configuration: NSObject {
             feedContentAPIType: .production,
             announcementsAPIType: announcementsApiType,
             wikidataAPIType: .production,
-            commonsAPIType: .production,
-            eventLoggingAPIType: .production)
+            commonsAPIType: .production)
     }
     
     // MARK: Constants
@@ -214,8 +206,7 @@ public class Configuration: NSObject {
                   feedContentAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
                   announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
                   wikidataAPIType: APIURLComponentsBuilder.Wikidata.BuilderType,
-                  commonsAPIType: APIURLComponentsBuilder.Commons.BuilderType,
-                  eventLoggingAPIType: APIURLComponentsBuilder.EventLogging.BuilderType) {
+                  commonsAPIType: APIURLComponentsBuilder.Commons.BuilderType) {
         self.environment = environment
         self.defaultSiteDomain = defaultSiteDomain
         var components = URLComponents()
@@ -233,7 +224,6 @@ public class Configuration: NSObject {
         self.announcementsAPIType = announcementsAPIType
         self.wikidataAPIType = wikidataAPIType
         self.commonsAPIType = commonsAPIType
-        self.eventLoggingAPIType = eventLoggingAPIType
     }
     
     // MARK: Page Content Service
@@ -294,15 +284,6 @@ public class Configuration: NSObject {
         let builder = announcementsAPIType.builder(withWikiHost: url?.host)
         let components = builder.components(byAppending: pathComponents)
         return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
-    }
-    
-    // MARK: Event Logging
-    
-    @objc(eventLoggingAPIURLWithPayload:)
-    public func eventLoggingAPIURL(with payload: NSObject) -> URL? {
-        let builder = eventLoggingAPIType.builder()
-        let components = try? builder.components(byAssigningPayloadToPercentEncodedQuery: payload)
-        return components?.url
     }
     
     // MARK: MediaWiki Rest
