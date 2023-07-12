@@ -113,9 +113,11 @@
 "article-share" = "မျှဝေ";
 "back-button-accessibility-label" = "နောက်သို့";
 "back-button-popover-title" = "နောက်သို့ပြန်သွားရန်";
+"button-go-back" = "နောက်သို့ ပြန်သွားရန်";
 "button-next" = "ရှေ့";
 "button-ok" = "အိုကေ";
 "button-publish" = "လွှင့်တင်ရန်";
+"button-publish-anyway" = "မည်သို့ပင်ဖြစ်စေ လွှင့်တင်ရန်";
 "button-read-now" = "ယခု ဖတ်ရန်";
 "button-report-a-bug" = "အခက်အခဲများ သတင်းပို့ရန်";
 "button-save-for-later" = "နောင်မှ သိမ်းဆည်းရန်";
@@ -130,13 +132,11 @@
 "continue-reading-empty-title" = "လတ်တလော ဖတ်ရှုစာမျက်နှာများ မရှိပါ";
 "data-migration-status" = "မွမ်းမံနေသည်...";
 "description-add-title" = "ဖော်ပြချက်ထည့်သွင်းပါ";
-// Fuzzy
-"description-edit-for-article" = "$1အတွက် ခေါင်းစဉ်ဖော်ပြချက်";
+"description-edit-for-article" = "$1အတွက် ဆောင်းပါးဖော်ပြချက်";
 "description-edit-learn-more" = "ထပ်မံ လေ့လာရန်";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "မိတ်ဆက် တည်းဖြတ်ရန်";
-// Fuzzy
-"description-edit-pencil-title" = "ခေါင်းစဉ်ဖော်ပြချက် တည်းဖြတ်ရန်";
+"description-edit-pencil-title" = "ဆောင်းပါးဖော်ပြချက်ကို တည်းဖြတ်ရန်";
 "description-edit-placeholder-title" = "ဖော်ပြချက်တိုများသည် အကောင်းဆုံးဖြစ်သည်";
 "description-edit-publish" = "ဖော်ပြချက် လွှင့်တင်ရန်";
 "description-edit-title" = "ဖော်ပြချက် တည်းဖြတ်ရန်";
@@ -169,7 +169,9 @@
 "description-welcome-descriptions-title" = "ခေါင်းစဉ် ဖော်ပြချက်များ";
 "description-welcome-promise-title" = "စတင်ခြင်းဖြင့် ဤသွင်ပြင်လက္ခဏာကို အလွဲသုံးစားမလုပ်ပါကြောင်း ကတိပြုပါသည်";
 "description-welcome-start-editing-button" = "စတင် တည်းဖြတ်ခြင်း";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "မှ -";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "သို့ -";
 "diff-context-lines-collapsed-button-title" = "ပြသရန်";
 "diff-context-lines-expanded-button-title" = "ဝှက်ရန်";
@@ -674,28 +676,22 @@
 "table-of-contents-close-accessibility-label" = "မာတိကာ ပိတ်ရန်";
 "table-of-contents-heading" = "မာတိကာ";
 "table-of-contents-hide-button-label" = "မာတိကာ ဝှက်ရန်";
-"talk-page-add-discussion-accessibility-label" = "ဆွေးနွေးချက် ပေါင်းထည့်ရန်";
+"talk-page-article-about" = "ဆွေးနွေးချက် စာမျက်နှာများအကြောင်း";
+"talk-page-change-language" = "ဘာသာစကား ပြောင်းလဲရန်";
 "talk-page-discussion-read-accessibility-label" = "ဖတ်ရန်";
-"talk-page-discussion-read-ipa-accessibility-attribute" = "ဖတ်ပြီး";
 "talk-page-discussion-unread-accessibility-label" = "မဖတ်ရသေး";
-"talk-page-discussion-unread-ipa-accessibility-attribute" = "မဖတ်ရသေး";
-"talk-page-error-unable-to-post-reply" = "အင်တာနက်ကွန်နက်ရှင် မရှိပါ။ အကြောင်းမပြန်နိုင်ပါ။";
-"talk-page-error-unable-to-post-topic" = "အင်တာနက်ကွန်နက်ရှင် မရှိပါ။ ဆွေးနွေးချက် မတင်နိုင်ပါ။";
-"talk-page-link-user-action-sheet-safari" = "အသုံးပြုသူစာမျက်နှာကို ဆာဖာရီတွင်ကြည့်ရန်";
-"talk-page-link-user-action-sheet-title" = "အသုံးပြုသူ စာမျက်နှာများ";
 "talk-page-new-banner-subtitle" = "မိမိတို့အားလုံးသည် လူသားများဖြစ်ကြသည်ကို သတိရပါ";
 "talk-page-new-banner-title" = "ကျေးဇူးပြု၍ ကြင်နာပါ";
 "talk-page-new-reply-success-text" = "သင်၏အကြောင်းပြန်စာကို အောင်မြင်စွာလွှင့်တင်ခဲ့သည်";
-"talk-page-new-subject-placeholder-text" = "အကြောင်းအရာ";
-"talk-page-new-subject-textfield-accessibility-label" = "အကြောင်းအရာ";
 "talk-page-new-topic-success-text" = "သင်၏ဆွေးနွေးချက်ကို အောင်မြင်စွာလွှင့်တင်ခဲ့သည်";
-"talk-page-new-topic-title" = "ဆွေးနွေးချက် အသစ်";
-"talk-page-reply-title" = "အကြောင်းပြန်ရန်";
+"talk-page-subscribe-to-topic" = "စာရင်းသွင်းပါ";
 "talk-page-title-article-talk" = "ဆောင်းပါး ဆွေးနွေးချက်";
 "talk-page-title-user-talk" = "အသုံးပြုသူ ဆွေးနွေးချက်";
-"talk-page-topic-title" = "ဆွေးနွေးချက်";
+"talk-page-unsubscribe-to-topic" = "စာရင်းမှဖြုတ်ပါ";
+"talk-page-user-contributions" = "ပံ့ပိုးထားမှုများ";
 "talk-pages-coffee-roll-read-more" = "ပိုမို ဖတ်ရန်";
-"talk-pages-reply-button-title" = "ဤဆွေးနွေးချက်သို့ အကြောင်းပြန်ရန်";
+"talk-pages-compose-close-confirmation-keep" = "တည်းဖြတ်မှု ဆက်လုပ်ရန်";
+"talk-pages-topic-compose-body-placeholder" = "ဖော်ပြချက်";
 "theme-black-display-name" = "အနက်";
 "theme-dark-display-name" = "အမှောင်";
 "theme-default-display-name" = "နဂိုအတိုင်း";
@@ -706,6 +702,13 @@
 "two-factor-login-with-regular-code" = "အတည်ပြုကုဒ်အား အသုံးချပါ";
 "unable-to-load-talk-page-title" = "ဆွေးနွေးချက်စာမျက်နှာကို ဝန်မဆွဲတင်နိုင်ပါ";
 "unknown-generic-text" = "အမည်မသိ";
+"vanish-account-additional-information-field" = "နောက်ထပ်အချက်အလက်များ";
+"vanish-account-additional-information-placeholder" = "ထည့်လိုပါက";
+"vanish-account-back-confirm-keep-editing" = "တည်းဖြတ်မှု ဆက်လုပ်ရန်";
+"vanish-account-continue-button-title" = "ဆက်လက်";
+"vanish-account-learn-more-text" = "ပိုမို လေ့လာရန်";
+"vanish-account-username-field" = "အသုံးပြုသူအမည်နှင့် အသုံးပြုသူစာမျက်နှာ";
+"vanish-account-warning-title" = "သတိပေးချက်";
 "variants-alert-dismiss-button" = "မလိုပါ၊ ကျေးဇူးတင်ပါသည်။";
 "welcome-exploration-explore-feed-description" = "ကျွန်ုပ်တို့၏အသိုင်းအဝိုင်းမှ အကြံပြု‌ထောက်ခံထားသော ဖတ်ရှုရန်နေ့စဉ်ဆောင်းပါးများ";
 "welcome-exploration-on-this-day-title" = "ယနေ့";

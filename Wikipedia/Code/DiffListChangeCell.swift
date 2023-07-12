@@ -58,8 +58,6 @@ class DiffListChangeCell: UICollectionViewCell {
         
         updateTextLabels(in: textStackView, newViewModel: viewModel)
 
-        innerView.borderWidth = 1
-        
         self.viewModel = viewModel
         
         apply(theme: viewModel.theme)
@@ -201,11 +199,7 @@ extension DiffListChangeCell: Themeable {
         contentView.backgroundColor = theme.colors.paperBackground
         
         if let viewModel = viewModel {
-            innerView.borderColor = viewModel.borderColor
-            innerView.layer.cornerRadius = viewModel.innerViewClipsToBounds ? 7 : 0
             innerView.clipsToBounds = viewModel.innerViewClipsToBounds
-            
-            headingContainerView.backgroundColor = viewModel.borderColor
             headingLabel.attributedText = viewModel.headingAttributedString
         }
         

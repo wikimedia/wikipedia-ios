@@ -1,5 +1,5 @@
 {
-  "mainpage" : "PÁGINA PRENCIPAL",
+  "mainpage" : "GÜIQUIPEDIA:PORTÁ",
   "namespace" : {
     "" : 0,
     "ACCESORIO" : 2300,
@@ -24,8 +24,9 @@
     "GADGET DEFINITION" : 2302,
     "GADGET DEFINITION TALK" : 2303,
     "GADGET TALK" : 2301,
+    "GÜIQUIPEDIA" : 4,
+    "GÜIQUIPEDIA CARABA" : 5,
     "GÜIQUIPEYA" : 4,
-    "GÜIQUIPEYA CARABA" : 5,
     "HELP" : 12,
     "HELP TALK" : 13,
     "IMAGE" : 6,

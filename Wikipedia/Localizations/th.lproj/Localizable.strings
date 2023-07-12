@@ -200,8 +200,10 @@
 "description-welcome-descriptions-title" = "คำอธิบายบทความ";
 "description-welcome-promise-title" = "ฉันสัญญาว่าจะไม่ใช้คุณลักษณะนี้ในทางที่ผิด";
 "description-welcome-start-editing-button" = "เริ่มแก้ไข";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "จาก:";
 "diff-compare-header-heading" = "เปรียบเทียบรุ่นแก้ไข";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "ถึง:";
 "diff-compare-title" = "เปรียบเทียบรุ่นแก้ไข";
 "diff-context-lines-collapsed-button-title" = "แสดง";
@@ -784,21 +786,13 @@
 "table-of-contents-close-accessibility-hint" = "ปิด";
 "table-of-contents-close-accessibility-label" = "ปิดสารบัญ";
 "table-of-contents-heading" = "เนื้อหา";
-"talk-page-add-discussion-accessibility-label" = "เพิ่มการอภิปราย";
 "talk-page-add-topic-button" = "เพิ่มหัวข้อ";
 "talk-page-archives" = "กรุ";
 "talk-page-article-about" = "เกี่ยวกับหน้าพูดคุย";
 "talk-page-change-language" = "เปลี่ยนภาษา";
 "talk-page-discussion-read-accessibility-label" = "อ่านแล้ว";
 "talk-page-discussion-unread-accessibility-label" = "ยังไม่ได้อ่าน";
-"talk-page-error-unable-to-post-reply" = "ไม่มีอินเทอร์เน็ต พิมไม่ติด";
-"talk-page-error-unable-to-post-topic" = "ไม่มีอินเทอร์เน็ต ไม่สามารถเผยแพร่การอภิปราย";
-"talk-page-link-user-action-sheet-title" = "หน้าผู้ใช้";
 "talk-page-menu-open-all" = "เปิดกระทู้ทั้งหมด";
-"talk-page-new-subject-placeholder-text" = "หัวเรื่อง";
-"talk-page-new-subject-textfield-accessibility-label" = "หัวเรื่อง";
-"talk-page-new-topic-body-placeholder-text" = "เขียนการอภิปรายใหม่";
-"talk-page-new-topic-title" = "การอภิปรายใหม่";
 "talk-page-page-info" = "สารสนเทศหน้า";
 "talk-page-permanent-link" = "ลิงก์ถาวร";
 "talk-page-publish-reply-error-subtitle" = "โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ";
@@ -807,15 +801,12 @@
 "talk-page-reply-button" = "ตอบกลับ";
 "talk-page-reply-button-accessibility-label" = "ตอบกลับ $1";
 "talk-page-reply-placeholder-format" = "ตอบกลับ $1";
-"talk-page-reply-title" = "ตอบกลับ";
 "talk-page-revision-history" = "ประวัติหน้า";
 "talk-page-subscribe-to-topic" = "สมัครรับ";
 "talk-page-title-user-talk" = "คุยกับผู้ใช้";
-"talk-page-topic-title" = "การอภิปราย";
 "talk-page-user-contributions" = "ส่วนร่วม";
 "talk-pages-archives-view-title" = "กรุ";
 "talk-pages-coffee-roll-read-more" = "อ่านเพิ่มเติม";
-"talk-pages-reply-button-title" = "ตอบกลับการอภิปรายนี้";
 "talk-pages-topic-compose-body-placeholder" = "คำอธิบาย";
 "talk-pages-topic-compose-navbar-title" = "หัวข้อ";
 "talk-pages-topic-compose-title-placeholder" = "ชื่อหัวข้อ";

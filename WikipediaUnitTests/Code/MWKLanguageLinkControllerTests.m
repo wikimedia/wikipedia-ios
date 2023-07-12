@@ -13,10 +13,8 @@
 
 @implementation MWKLanguageLinkControllerTests
 
-- (void)setUp {
-    [super setUp];
-
-    // force language link controller to grab device language, not previous values set by another test
+- (void)setUpWithCompletionHandler:(void (^)(NSError * _Nullable))completion {
+    
     [[NSUserDefaults standardUserDefaults] wmf_resetToDefaultValues];
 
     NSAssert([[NSLocale preferredLanguages] containsObject:@"en-US"] || [[NSLocale preferredLanguages] containsObject:@"en"],
@@ -24,10 +22,13 @@
               " Instead, these were the preferred languages: %@",
              [NSLocale preferredLanguages]);
 
-    // all tests must start w/ a clean slate
-    self.controller = MWKDataStore.temporaryDataStore.languageLinkController;
-    self.filter = [[MWKLanguageFilter alloc] initWithLanguageDataSource:self.controller];
-    [self.controller resetPreferredLanguages];
+    
+    [MWKDataStore createTemporaryDataStoreWithCompletion:^(MWKDataStore * _Nonnull dataStore) {
+        self.controller = dataStore.languageLinkController;
+        self.filter = [[MWKLanguageFilter alloc] initWithLanguageDataSource:self.controller];
+        [self.controller resetPreferredLanguages];
+        completion(nil);
+    }];
 }
 
 - (void)testReadPreviouslySelectedLanguagesReturnsEmpty {
@@ -68,7 +69,6 @@
 }
 
 - (void)testLanguagesPropertiesAreNonnull {
-    self.controller = MWKDataStore.temporaryDataStore.languageLinkController;
     XCTAssertTrue(self.controller.allLanguages.count > 0);
     XCTAssertTrue(self.controller.otherLanguages.count > 0);
     XCTAssertTrue(self.controller.preferredLanguages.count > 0);
@@ -138,8 +138,8 @@
         XCTFail(@"Test being run with Uzbek included in OS preferred languages: '%@'", NSLocale.preferredLanguages[foundIndex]);
     }
     
-    NSString *chineseLanguageVariantCode = @"zh-my";
-    NSString *uzbekLanguageVariantCode = @"uz-latin";
+    NSString *chineseLanguageVariantCode = @"zh-Hans";
+    NSString *uzbekLanguageVariantCode = @"uz-Latn";
 
     MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"zh" pageTitleText:@"" name:@"Malaysia Simplified" localizedName:@"大马简体" languageVariantCode:chineseLanguageVariantCode altISOCode:nil];
     

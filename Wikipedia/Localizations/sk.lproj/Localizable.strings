@@ -207,8 +207,10 @@
 "description-welcome-descriptions-title" = "Popis článkov";
 "description-welcome-promise-title" = "Sľubujem, že nezneužijem túto funkciu.";
 "description-welcome-start-editing-button" = "Začať editovať";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Od:";
 "diff-compare-header-heading" = "Porovnať revízie";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Komu:";
 "diff-compare-title" = "Porovnať revízie";
 "diff-context-lines-collapsed-button-title" = "Zobraziť";
@@ -508,12 +510,6 @@
 "insert-media-media-settings-title" = "Nastavenie multimédií";
 "insert-media-title" = "Vložiť súbor";
 "insert-media-uploaded-image-title" = "Nahraný obrázok";
-"intermediate-edits-count" = "{{PLURAL:$1|Jedna medziľahlá úprava|$1 medziľahlé úpravy|$1 medziľahlých úprav}} {{PLURAL:$1|nie je zobrazená|nie sú zobrazené|nie je zobrazených}}";
-"intermediate-edits-count-limited" = "$1+ medziľahlých úprav nie je zobrazených";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|Jedna medziľahlá úprava|$1 medziľahlé úpravy|$1 medziľahlých úprav}} od {{PLURAL:$2|$2 používateľa|$2 používateľov}} {{PLURAL:$1|nie je zobrazená|nie sú zobrazené|nie je zobrazených}}";
-"intermediate-edits-editors-count-limited" = "$1+ medziľahlých úprav od $2+ používateľov nie je zobrazených";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Jedna medziľahlá úprava|$1 medziľahlé úpravy|$1 medziľahlých úprav}} od $2+ používateľov {{PLURAL:$1|nie je zobrazená|nie sú zobrazené|nie je zobrazených}}";
-"intermediate-edits-limited-editors-count" = "$1+ medziľahlých úprav od {{PLURAL:$2|$2 používateľa|$2 používateľov}} nie je zobrazených";
 "inuktitut-variants-alert-body" = "Wikipédia teraz podporuje aj varianty jazyka inuktitu ako primárny a sekundárny jazyka aplikácie:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Aktualizácie podpory variánt jazyka inuktitut";
 "kazakh-variants-alert-body" = "Wikipédia teraz podporuje aj varianty kazašského jazyka ako primárny a sekundárny jazyk aplikácie:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -966,38 +962,15 @@
 "tachelhit-variants-alert-title" = "Aktualizácie podpory variánt jazyka tachelhit";
 "tajik-variants-alert-body" = "Wikipédia teraz podporuje aj varianty tajik ako primárny a sekundárny jazyk aplikácie:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
 "tajik-variants-alert-title" = "Aktualizácie podpory variánt jazyka tajik";
-"talk-page-add-discussion-accessibility-label" = "Pridať diskusiu";
-"talk-page-discussion-accessibility-hint" = "Ťuknite dvakrát pre založenie nového vlákna";
 "talk-page-discussion-read-accessibility-label" = "Prečítané";
-"talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
 "talk-page-discussion-unread-accessibility-label" = "Neprečítané";
-"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
-"talk-page-error-unable-to-post-reply" = "Žiadne internetové pripojenie. Nedá sa odoslať odpoveď.";
-"talk-page-error-unable-to-post-topic" = "Žiadne internetové pripojenie. Nedá sa zverejniť diskusiu.";
-"talk-page-info-active-conversations" = "Aktívne diskusie na Wikipédii v jazyku $1";
-"talk-page-info-active-conversations-generic" = "Aktívne diskusie na Wikipédii";
-"talk-page-link-user-action-sheet-app" = "Zobraziť diskusnú stránku používateľa v aplikácii";
-"talk-page-link-user-action-sheet-safari" = "Zobraziť diskusnú stránku používateľa v Safari";
-"talk-page-link-user-action-sheet-title" = "Stránky používateľa";
 "talk-page-new-banner-subtitle" = "Pamätajte, všetci sme tu ľudia";
 "talk-page-new-banner-title" = "Buďte milí";
-"talk-page-new-body-textfield-accessibility-label" = "Text diskusie";
-"talk-page-new-reply-body-accessibility-label" = "Odpovedať";
-"talk-page-new-reply-body-placeholder-text" = "Odpovedať";
 "talk-page-new-reply-success-text" = "Vaša odpoveď bola úspešne zverejnená";
-"talk-page-new-subject-clear-button-accessibility" = "Vymazať predmet";
-"talk-page-new-subject-placeholder-text" = "Predmet";
-"talk-page-new-subject-textfield-accessibility-label" = "Predmet";
-"talk-page-new-topic-body-placeholder-text" = "Vytvoriť novú diskusiu";
 "talk-page-new-topic-success-text" = "Vaša diskusia bola úspešne zverejnená";
-"talk-page-new-topic-title" = "Nová diskusia";
-"talk-page-publish-terms-and-licenses" = "Uložením zmien vyjadrujete súhlas s $1Podmienkami použitia$2 a súhlasíte s uvoľnením vášho príspevku pod licenciami $3CC BY-SA 3.0$4 a $5GFDL$6.";
-"talk-page-reply-title" = "Odpovedať";
 // Fuzzy
 "talk-page-title-article-talk" = "Diskusia k článku";
 "talk-page-title-user-talk" = "Diskusia s redaktorom";
-"talk-page-topic-title" = "Diskusia";
-"talk-pages-reply-button-title" = "Odpovedať na túto diskusiu";
 "theme-black-display-name" = "Čierna";
 "theme-dark-display-name" = "Tmavá";
 "theme-default-display-name" = "Predvolená";

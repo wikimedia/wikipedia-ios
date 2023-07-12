@@ -158,8 +158,10 @@
 "description-welcome-descriptions-title" = "Opisi naslova";
 "description-welcome-promise-title" = "Započinjanjem, obećavam da neću zloupotrebiti ovu funkciju";
 "description-welcome-start-editing-button" = "Počni sa uređivanjem";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Od:";
 "diff-compare-header-heading" = "Uporedi izmene";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Za:";
 "diff-compare-title" = "Uporedi izmene";
 "diff-context-lines-collapsed-button-title" = "Prikaži";
@@ -717,35 +719,15 @@
 "table-of-contents-close-accessibility-hint" = "Zatvori";
 "table-of-contents-close-accessibility-label" = "Zatvori sadržaj";
 "table-of-contents-heading" = "Sadržaj";
-"talk-page-add-discussion-accessibility-label" = "Dodaj diskusiju";
-"talk-page-discussion-accessibility-hint" = "Pritisnite dva puta da biste otvorili niz diskusije";
 "talk-page-discussion-read-accessibility-label" = "Pročitano";
 "talk-page-discussion-unread-accessibility-label" = "Nepročitano";
-"talk-page-error-unable-to-post-reply" = "Nema internet veze. Nije moguće objaviti odgovor.";
-"talk-page-error-unable-to-post-topic" = "Nema internet veze. Nije moguće objaviti diskusiju.";
-"talk-page-info-active-conversations" = "Aktivne konverzacije na $1 Vikipediji";
-"talk-page-info-active-conversations-generic" = "Aktivne konverzacije na Vikipediji";
-"talk-page-link-user-action-sheet-app" = "Pogledaj korisničku stranicu za razgovor u aplikaciji";
-"talk-page-link-user-action-sheet-safari" = "Pogledaj korisničku stranicu u Safariju";
-"talk-page-link-user-action-sheet-title" = "Korisničke stranice";
 "talk-page-new-banner-subtitle" = "Zapamtite, svi smo mi ovde ljudska bića";
 "talk-page-new-banner-title" = "Budite ljubazni";
-"talk-page-new-body-textfield-accessibility-label" = "Telo diskusije";
-"talk-page-new-reply-body-accessibility-label" = "Sastavi odgovor";
-"talk-page-new-reply-body-placeholder-text" = "Sastavi odgovor";
 "talk-page-new-reply-success-text" = "Vaš odgovor je uspešno objavljen";
-"talk-page-new-subject-clear-button-accessibility" = "Očisti temu";
-"talk-page-new-subject-placeholder-text" = "Tema";
-"talk-page-new-subject-textfield-accessibility-label" = "Tema";
-"talk-page-new-topic-body-placeholder-text" = "Sastavi novu diskusiju";
 "talk-page-new-topic-success-text" = "Vaša diskusija je uspešno objavljena";
-"talk-page-new-topic-title" = "Nova diskusija";
-"talk-page-reply-title" = "Odgovori";
 // Fuzzy
 "talk-page-title-article-talk" = "stranica za razgovor članka";
 "talk-page-title-user-talk" = "Korisnička stranica za razgovor";
-"talk-page-topic-title" = "Diskusija";
-"talk-pages-reply-button-title" = "Odgovori na ovu diskusiju";
 "theme-black-display-name" = "Crna";
 "theme-dark-display-name" = "Tamna";
 "theme-default-display-name" = "Podrazumevana";

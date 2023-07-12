@@ -166,8 +166,10 @@
 "description-welcome-descriptions-title" = "Descricións do título";
 "description-welcome-promise-title" = "Ó comezar, prometo non utilizar de forma irresponsable esta funcionalidade";
 "description-welcome-start-editing-button" = "Comezar a editar";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "De:";
 "diff-compare-header-heading" = "Comparar revisións";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Para:";
 "diff-compare-title" = "Comparar revisións";
 "diff-context-lines-collapsed-button-title" = "Amosar";
@@ -705,38 +707,15 @@
 "table-of-contents-close-accessibility-hint" = "Pechar";
 "table-of-contents-close-accessibility-label" = "Pechar táboa de contidos";
 "table-of-contents-heading" = "Contidos";
-"talk-page-add-discussion-accessibility-label" = "Engadir unha conversa";
-"talk-page-discussion-accessibility-hint" = "Prema dúas veces para abrir o fío da conversa";
 "talk-page-discussion-read-accessibility-label" = "Ler";
-"talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
 "talk-page-discussion-unread-accessibility-label" = "Non lido";
-"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
-"talk-page-error-unable-to-post-reply" = "Non hai conexión a Internet. Non é posible enviar a resposta.";
-"talk-page-error-unable-to-post-topic" = "Non hai conexión a Internet. Non é posible enviar a conversa.";
-"talk-page-info-active-conversations" = "Conversas activas na Wikipedia en $1";
-"talk-page-info-active-conversations-generic" = "Conversas activas na Wikipedia";
-"talk-page-link-user-action-sheet-app" = "Ver a páxina de conversa do usuario na aplicación";
-"talk-page-link-user-action-sheet-safari" = "Ver a páxina de usuario en Safari";
-"talk-page-link-user-action-sheet-title" = "Páxinas de usuario";
 "talk-page-new-banner-subtitle" = "Lembre, aquí todos somos persoas";
 "talk-page-new-banner-title" = "Por favor, sexa amable";
-"talk-page-new-body-textfield-accessibility-label" = "Corpo da conversa";
-"talk-page-new-reply-body-accessibility-label" = "Redactar unha resposta";
-"talk-page-new-reply-body-placeholder-text" = "Redacte unha resposta";
 "talk-page-new-reply-success-text" = "A súa resposta foi publicada correctamente";
-"talk-page-new-subject-clear-button-accessibility" = "Limpar o asunto";
-"talk-page-new-subject-placeholder-text" = "Asunto";
-"talk-page-new-subject-textfield-accessibility-label" = "Asunto";
-"talk-page-new-topic-body-placeholder-text" = "Redactar unha nova conversa";
 "talk-page-new-topic-success-text" = "A súa conversa foi publicada correctamente";
-"talk-page-new-topic-title" = "Nova conversa";
-"talk-page-publish-terms-and-licenses" = "Ó gardar os cambios, vostede concorda cos $1Termos de Uso$2, e concorda liberar as súas contribucións baixo as licenzas $3CC BY-SA 3.0$4 e $5GFDL$6.";
-"talk-page-reply-title" = "Responder";
 // Fuzzy
 "talk-page-title-article-talk" = "conversa de artigo";
 "talk-page-title-user-talk" = "Conversa de usuario";
-"talk-page-topic-title" = "Conversa";
-"talk-pages-reply-button-title" = "Resposta a esta conversa";
 "theme-black-display-name" = "Escuro";
 "theme-dark-display-name" = "Escuro";
 "theme-default-display-name" = "Por defecto";

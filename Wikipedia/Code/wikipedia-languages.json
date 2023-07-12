@@ -60,6 +60,11 @@
     "localName" : "Old English"
   },
   {
+    "languageCode" : "anp",
+    "languageName" : "अंगिका",
+    "localName" : "Angika"
+  },
+  {
     "languageCode" : "ar",
     "languageName" : "العربية",
     "localName" : "Arabic"
@@ -261,7 +266,7 @@
   },
   {
     "languageCode" : "cho",
-    "languageName" : "Chahta Anumpa",
+    "languageName" : "Chahta anumpa",
     "localName" : "Choctaw"
   },
   {
@@ -415,9 +420,14 @@
     "localName" : "Persian"
   },
   {
+    "languageCode" : "fat",
+    "languageName" : "mfantse",
+    "localName" : "Fanti"
+  },
+  {
     "languageCode" : "ff",
     "languageName" : "Fulfulde",
-    "localName" : "Fulah"
+    "localName" : "Fula"
   },
   {
     "languageCode" : "fi",
@@ -523,6 +533,16 @@
     "languageCode" : "gu",
     "languageName" : "ગુજરાતી",
     "localName" : "Gujarati"
+  },
+  {
+    "languageCode" : "guc",
+    "languageName" : "wayuunaiki",
+    "localName" : "Wayuu"
+  },
+  {
+    "languageCode" : "gur",
+    "languageName" : "farefare",
+    "localName" : "Frafra"
   },
   {
     "languageCode" : "guw",
@@ -661,7 +681,7 @@
   },
   {
     "languageCode" : "iu",
-    "languageName" : "ᐃᓄᒃᑎᑐᑦ\/inuktitut",
+    "languageName" : "ᐃᓄᒃᑎᑐᑦ \/ inuktitut",
     "localName" : "Inuktitut"
   },
   {
@@ -922,7 +942,7 @@
   {
     "languageCode" : "mi",
     "languageName" : "Māori",
-    "localName" : "Maori"
+    "localName" : "Māori"
   },
   {
     "languageCode" : "min",
@@ -1263,7 +1283,7 @@
   {
     "languageCode" : "sah",
     "languageName" : "саха тыла",
-    "localName" : "Sakha"
+    "localName" : "Yakut"
   },
   {
     "languageCode" : "sat",
@@ -1507,7 +1527,7 @@
   },
   {
     "languageCode" : "tt",
-    "languageName" : "татарча\/tatarça",
+    "languageName" : "татарча \/ tatarça",
     "localName" : "Tatar"
   },
   {
@@ -1552,7 +1572,7 @@
   },
   {
     "languageCode" : "uz",
-    "languageName" : "oʻzbekcha\/ўзбекча",
+    "languageName" : "oʻzbekcha \/ ўзбекча",
     "localName" : "Uzbek"
   },
   {

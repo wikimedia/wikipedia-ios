@@ -119,7 +119,7 @@ final class DiffListChangeItemViewModel {
             let trailing: CGFloat = (diffItemType == .moveSource || diffItemType == .moveDestination) ? 10 : 0
             return (NSDirectionalEdgeInsets(top: top, leading: leading, bottom: bottom, trailing: trailing), inBetweenSpacing)
         case .compareRevision:
-            return (NSDirectionalEdgeInsets(top: top, leading: 10, bottom: bottom, trailing: 10), inBetweenSpacing)
+            return (NSDirectionalEdgeInsets(top: top, leading: 0, bottom: bottom, trailing: 0), inBetweenSpacing)
         }
     }
     

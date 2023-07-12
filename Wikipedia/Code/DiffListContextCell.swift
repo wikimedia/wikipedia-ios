@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 protocol DiffListContextCellDelegate: AnyObject {
     func didTapContextExpand(indexPath: IndexPath)
@@ -40,10 +41,12 @@ class DiffListContextCell: UICollectionViewCell {
         headingLabel.text = viewModel.heading
         
         if self.viewModel == nil {
-            expandButton.setTitle(viewModel.expandButtonTitle, for: .normal)
+            expandButton.setTitle(nil, for: .normal)
+            expandButton.setImage(viewModel.expandButtonImage, for: .normal)
         } else {
             expandButton.alpha = 0
-            expandButton.setTitle(viewModel.expandButtonTitle, for: .normal)
+            expandButton.setTitle(nil, for: .normal)
+            expandButton.setImage(viewModel.expandButtonImage, for: .normal)
             UIView.animate(withDuration: 0.2) {
                 self.expandButton.alpha = 1
             }

@@ -1,6 +1,7 @@
 // Messages for Romanian (română)
 // Exported from translatewiki.net
 // Author: ANDROBETA
+// Author: Alesaru
 // Author: Andreyyshore
 // Author: Cleinman
 // Author: GabiBil
@@ -203,6 +204,7 @@
 "description-welcome-descriptions-title" = "Descrierea articolelor";
 "description-welcome-promise-title" = "Începând, promit să nu folosesc greșit această caracteristică";
 "description-welcome-start-editing-button" = "Începeți să modificați";
+"diff-article-edit-history" = "istoricul editării articolului";
 "diff-compare-header-from-info-heading" = "De la:";
 "diff-compare-header-heading" = "Comparați Versiunile";
 "diff-compare-header-to-info-heading" = "La:";
@@ -217,6 +219,9 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 secțiune|$1 secțiuni}}";
 "diff-paragraph-moved-format" = "Paragraful a mutat $1 $2";
 "diff-revision-error-title" = "Nu pot încărca versiunile";
+"diff-rollback" = "Rollback";
+"diff-rollback-alert-message" = "Sigur doriți să anulați modificările?";
+"diff-rollback-alert-title" = "Redactarea editărilor";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 modificare|$1 modificări}}";
 "diff-single-header-editor-title" = "Informații editor";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 bit adăugat|$1 biți adăugat}}";
@@ -233,6 +238,7 @@
 "diff-thanks-sent" = "„Mulțumirile” dvs. au fost trimise către $1";
 "diff-thanks-sent-already" = "Ați trimis deja o „Mulțumire” pentru această editare";
 "diff-thanks-sent-cannot-unsend" = "Mulțumirile nu pot fi ignorate";
+"diff-undo-message" = "Acest lucru va anula modificările făcute de revizuirile articolului afișat aici. Pentru a continua, furnizați un motiv pentru anularea acestei modificări.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 linie nemodificată|$1 linii nemodificate}}";
 "dim-images" = "Întunecarea imaginilor";
 "edit-bold-accessibility-label" = "Adăugați formatare aldin";
@@ -502,12 +508,6 @@
 "insert-media-media-settings-title" = "Setări media";
 "insert-media-title" = "Introduceți media";
 "insert-media-uploaded-image-title" = "Imagine încărcată";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 versiune intermediară|$1 versiuni intermediare}} nu sunt arătate";
-"intermediate-edits-count-limited" = "$1 versiuni intermediare nu sunt afișate";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 versiune intermediară|$1 versiuni intermediare}} de {{PLURAL:$2|$2 utilizator|$2 utilizatori}} nu sunt afișate";
-"intermediate-edits-editors-count-limited" = "$1+ versiuni intermediare de $2+ utilizatori nu sunt afișate";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 versiune intermediară|$1 versiuni intermediare}} de $2+ utilizatori nu sunt afișate";
-"intermediate-edits-limited-editors-count" = "$1+ versiuni intermediare de {{PLURAL:$2|$2 utilizator|$2 utilizatori}} nu sunt afișate";
 "inuktitut-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante inuktitut ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Actualizări ale suportului pentru varianta Inuktitut";
 "kazakh-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante kazahe ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -542,6 +542,7 @@
 "menu-cancel-accessibility-label" = "Revocare";
 "more-languages-tooltip-description" = "Căutați Wikipedia în peste 300 de limbi";
 "more-languages-tooltip-title" = "Adaugă limbi";
+"more-menu" = "Mai mult";
 "move-articles-to-reading-list" = "Mută {{PLURAL:$1|$1 articol|$1 articole}} la lista de citit";
 "navbar-title-mode-edit-wikitext-preview" = "Previzualizare";
 "nearby-distance-label-feet" = "$1 picioare";
@@ -960,36 +961,15 @@
 "tachelhit-variants-alert-title" = "Actualizări ale suportului pentru varianta Tachelhit";
 "tajik-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante tajik ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
 "tajik-variants-alert-title" = "Actualizări pentru sprijin varianta tadjică";
-"talk-page-add-discussion-accessibility-label" = "Adăugă discuție";
-"talk-page-discussion-accessibility-hint" = "Atingeți de două ori pentru a deschide un subiect de discuție";
 "talk-page-discussion-read-accessibility-label" = "Citește";
 "talk-page-discussion-unread-accessibility-label" = "Necitit";
-"talk-page-error-unable-to-post-reply" = "Fără conexiune internet. Nu se poate publica răspunsul.";
-"talk-page-error-unable-to-post-topic" = "Fără conexiune internet. Imposibil de postat discuțiile.";
-"talk-page-info-active-conversations" = "Conversații active pe Wikipedia $1";
-"talk-page-info-active-conversations-generic" = "Conversații active pe Wikipedia";
-"talk-page-link-user-action-sheet-app" = "Vizualizați pagina de discuție utilizator în aplicație";
-"talk-page-link-user-action-sheet-safari" = "Vizualizați Pagina de Utilizator în Safari";
-"talk-page-link-user-action-sheet-title" = "Pagini de utilizator";
 "talk-page-new-banner-subtitle" = "Amintiți-vă, suntem toți oameni aici";
 "talk-page-new-banner-title" = "Vă rugăm să fiți amabili";
-"talk-page-new-body-textfield-accessibility-label" = "Corpul de discuții";
-"talk-page-new-reply-body-accessibility-label" = "Compune răspunsul";
-"talk-page-new-reply-body-placeholder-text" = "Compuneți răspunsul";
 "talk-page-new-reply-success-text" = "Răspunsul dvs. a fost publicat cu succes";
-"talk-page-new-subject-clear-button-accessibility" = "Șterge subiectul";
-"talk-page-new-subject-placeholder-text" = "Subiect";
-"talk-page-new-subject-textfield-accessibility-label" = "Subiect";
-"talk-page-new-topic-body-placeholder-text" = "Compuneți o nouă discuție";
 "talk-page-new-topic-success-text" = "Discuția dvs. a fost publicată cu succes";
-"talk-page-new-topic-title" = "Discuție nouă";
-"talk-page-publish-terms-and-licenses" = "Prin salvarea modificărilor, sunteți de acord cu $1Termeni de utilizare$2, și sunteți de acord să eliberați contribuția dvs. sub licențele $3CC BY-SA 3.0$4 și li $5GFDL$6.";
-"talk-page-reply-title" = "Răspunde";
 // Fuzzy
 "talk-page-title-article-talk" = "discuție articol";
 "talk-page-title-user-talk" = "Discuție Utilizator";
-"talk-page-topic-title" = "Discuție";
-"talk-pages-reply-button-title" = "Răspundeți la această discuție";
 "theme-black-display-name" = "Negru";
 "theme-dark-display-name" = "Închisă";
 "theme-default-display-name" = "Implicit";
@@ -1010,6 +990,7 @@
 "uzbek-variants-alert-title" = "Actualizări ale suportului pentru varianta uzbekă";
 "variants-alert-dismiss-button" = "Nu mulțumesc";
 "variants-alert-preferences-button" = "Examinați-vă preferințele";
+"watchlist" = "Lista de urmrire";
 "welcome-exploration-explore-feed-description" = "Recomandări de citire și articole zilnice din comunitatea noastră";
 "welcome-exploration-explore-feed-title" = "Fluxul Explore";
 "welcome-exploration-on-this-day-description" = "Călătoriți înapoi în timp pentru a afla ce s-a întâmplat astăzi în istorie";

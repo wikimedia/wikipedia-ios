@@ -458,7 +458,7 @@ class TalkPageViewController: ViewController {
     }
     
     fileprivate func pushToRevisionHistory() {
-        let historyVC = PageHistoryViewController(pageTitle: viewModel.pageTitle, pageURL: viewModel.siteURL)
+        let historyVC = PageHistoryViewController(pageTitle: viewModel.pageTitle, pageURL: viewModel.siteURL, articleSummaryController: viewModel.dataController.articleSummaryController)
         historyVC.apply(theme: theme)
         navigationController?.pushViewController(historyVC, animated: true)
     }
@@ -507,7 +507,9 @@ class TalkPageViewController: ViewController {
             showGenericError()
             return
         }
-        
+        if let lastViewDidAppearDate {
+            TalkPagesFunnel.shared.logTappedContributions(routingSource: .talkPage, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
+        }
         navigate(to: url)
     }
     

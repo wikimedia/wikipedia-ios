@@ -2,14 +2,21 @@
 // Exported from translatewiki.net
 // Author: Bsitzmann
 // Author: Nemo bis
+// Author: Абдуллах Саад
 // Author: Умар
 
+"aaald-article-insert-new-changes" = "Керла хийцамаш";
+"aaald-article-insert-read-more" = "Дукха цӏиндарш деша";
+"aaald-new-website-reference-title" = "Веб-сайт";
 "aaald-revision-userInfo" = "Хийцам бина $1 ($2 нисдар)";
 // Fuzzy
 "about-testers" = "тестераш";
+"about-wikipedia" = "Википеди";
 "account-creation-logging-in" = "Системин чудахар...";
+"account-group-title" = "Хьан хьесапан запись";
 "action-previous-revision-accessibility" = "Хьалхара верси";
-"action-unsave" = "Ӏалашцайина";
+"action-save" = "Ӏалашйан";
+"action-unsave" = "Ӏалаш ца йина";
 "add-articles-to-reading-list" = "ТӀетоха {{PLURAL:$1|$1 йаззам}} бешаран могӀаме";
 // Fuzzy
 "article-languages-filter-placeholder" = "Меттанийн луьттург";
@@ -20,6 +27,7 @@
 "cancel" = "Йухайаккха";
 "description-edit-title" = "Нисбе хаам";
 "edit-summary-choice-fixed-grammar" = "Нийсайаздар";
+"edit-summary-choice-fixed-typos" = "Гӏалат нисдина";
 "insert-media-image-position-setting-right" = "Аьтту";
 "languages-settings-title" = "Меттанаш";
 // Fuzzy

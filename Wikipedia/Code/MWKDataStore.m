@@ -14,9 +14,7 @@ NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 NSString *const WMFViewContextDidResetNotification = @"WMFViewContextDidResetNotification";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 14;
-
-NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
+static const NSInteger WMFCurrentLibraryVersion = 16;
 
 NSString *const WMFCoreDataSynchronizerInfoFileName = @"Wikipedia.info";
 
@@ -25,10 +23,6 @@ NSString *const WMFMainContextCrossProcessNotificationChannelNamePrefix = @"org.
 
 NSString *const WMFCacheContextCrossProcessNotificiationChannelNameKey = @"CacheContextCrossProcessNotificiationChannelName";
 NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"org.wikimedia.wikipedia.cache-cd-cpn-";
-
-NSString *MWKCreateImageURLWithPath(NSString *path) {
-    return [MWKDataStoreValidImageSitePrefix stringByAppendingString:path];
-}
 
 @interface MWKDataStore () <WMFAuthenticationManagerDelegate, WMFSessionAuthenticationDelegate>
 
@@ -46,12 +40,10 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 @property (nonatomic, strong) MWKLanguageLinkController *languageLinkController;
 @property (nonatomic, strong) WMFNotificationsController *notificationsController;
 
-@property (nonatomic, strong) MobileviewToMobileHTMLConverter *mobileviewConverter;
-
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
 
-@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong) NSPersistentContainer *persistentContainer;
 @property (nonatomic, strong) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong) NSManagedObjectContext *feedImportContext;
 
@@ -109,20 +101,26 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         self.containerURL = containerURL;
         self.basePath = [self.containerURL URLByAppendingPathComponent:@"Data" isDirectory:YES].path;
         [self setupLegacyDataStore];
-        [self setupCoreDataStackWithContainerURL:containerURL];
-        [self setupCoreDataSynchronizersWithContainerURL:containerURL];
+    }
+    return self;
+}
+
+- (void)finishSetup:(nullable dispatch_block_t)completion {
+    [self setupCoreDataStackWithContainerURL:self.containerURL completion:^{
+        [self setupCoreDataSynchronizersWithContainerURL:self.containerURL];
         [self startSynchronizingLibraryContexts];
         [self setupHistoryAndSavedPageLists];
         self.languageLinkController = [[MWKLanguageLinkController alloc] initWithManagedObjectContext:self.viewContext];
         self.feedContentController = [[WMFExploreFeedContentController alloc] initWithDataStore:self];
         [self.feedContentController updateContentSources];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:session configuration:configuration languageLinkController:self.languageLinkController authManager:authenticationManager];
+        self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:self.session configuration:self.configuration languageLinkController:self.languageLinkController authManager:self.authenticationManager];
         self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self languageLinkController:self.languageLinkController];
-        self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:session configuration:configuration dataStore:self];
-        self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
-    }
-    return self;
+        self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:self.session configuration:self.configuration dataStore:self];
+        if (completion) {
+            completion();
+        }
+    }];
 }
 
 - (void)teardown:(nullable dispatch_block_t)completion {
@@ -201,42 +199,43 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return [NSKeyedUnarchiver unarchivedObjectOfClasses:allowedClasses fromData:data error:error];
 }
 
-- (void)setupCoreDataStackWithContainerURL:(NSURL *)containerURL {
-    NSURL *modelURL = [[NSBundle wmf] URLForResource:@"Wikipedia" withExtension:@"momd"];
+- (void)setupCoreDataStackWithContainerURL:(NSURL *)containerURL completion:(nullable dispatch_block_t)completion {
+    NSString *modelName = @"Wikipedia";
+    NSURL *modelURL = [[NSBundle wmf] URLForResource:modelName withExtension:@"momd"];
     NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     NSString *coreDataDBName = @"Wikipedia.sqlite";
 
+    NSPersistentContainer *container = [[NSPersistentContainer alloc] initWithName:modelName managedObjectModel:model];
     NSURL *coreDataDBURL = [containerURL URLByAppendingPathComponent:coreDataDBName isDirectory:NO];
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES,
-                              NSInferMappingModelAutomaticallyOption: @YES};
-    NSError *persistentStoreError = nil;
-    if (nil == [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:options error:&persistentStoreError]) {
-        // TODO: Metrics
-        DDLogError(@"Error adding persistent store: %@", persistentStoreError);
-        NSError *moveError = nil;
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *uuid = [[NSUUID UUID] UUIDString];
-        NSURL *moveURL = [[containerURL URLByAppendingPathComponent:uuid] URLByAppendingPathExtension:@"sqlite"];
-        [fileManager moveItemAtURL:coreDataDBURL toURL:moveURL error:&moveError];
-        if (moveError) {
+    NSPersistentStoreDescription *description = [[NSPersistentStoreDescription alloc] initWithURL:coreDataDBURL];
+    [description setOption:@YES forKey:NSMigratePersistentStoresAutomaticallyOption];
+    [description setOption:@YES forKey:NSInferMappingModelAutomaticallyOption];
+    description.shouldAddStoreAsynchronously = YES;
+    container.persistentStoreDescriptions = @[description];
+    
+    [container loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription * _Nonnull description, NSError * _Nullable error) {
+        if (error) {
             // TODO: Metrics
-            [fileManager removeItemAtURL:coreDataDBURL error:nil];
+            DDLogError(@"Error adding persistent store: %@", error);
+            if (completion) {
+                completion();
+            }
+            return;
         }
-        persistentStoreError = nil;
-        if (nil == [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:options error:&persistentStoreError]) {
-            // TODO: Metrics
-            DDLogError(@"Second error after adding persistent store: %@", persistentStoreError);
-        }
-    }
-
-    self.persistentStoreCoordinator = persistentStoreCoordinator;
-    self.viewContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
-    self.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-    self.viewContext.automaticallyMergesChangesFromParent = YES;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
+        
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            self.persistentContainer = container;
+            self.viewContext = container.viewContext;
+            self.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+            self.viewContext.automaticallyMergesChangesFromParent = YES;
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
+            
+            if (completion) {
+                completion();
+            }
+        });
+    }];
 }
 
 - (void)viewContextDidChange:(NSNotification *)note {
@@ -286,8 +285,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
 - (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock {
     WMFAssertMainThread(@"Background Core Data operations must be started from the main thread.");
-    NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    backgroundContext.persistentStoreCoordinator = _persistentStoreCoordinator;
+    NSManagedObjectContext *backgroundContext = self.persistentContainer.newBackgroundContext;
     backgroundContext.automaticallyMergesChangesFromParent = YES;
     backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -301,8 +299,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 - (NSManagedObjectContext *)feedImportContext {
     WMFAssertMainThread(@"feedImportContext must be created on the main thread");
     if (!_feedImportContext) {
-        _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        _feedImportContext.persistentStoreCoordinator = _persistentStoreCoordinator;
+        _feedImportContext = self.persistentContainer.newBackgroundContext;
         _feedImportContext.automaticallyMergesChangesFromParent = YES;
         _feedImportContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
@@ -476,13 +473,31 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
             return;
         }
     }
+    
+    if (currentLibraryVersion < 15) {
+        [self markAllNeedingConversionFromMobileviewArticlesAsNotDownloaded:moc];
+        [moc wmf_setValue:@(15) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+
+    if (currentLibraryVersion < 16) {
+        [self migrateToLanguageVariantsForLibraryVersion:16 inManagedObjectContext:moc];
+        [moc wmf_setValue:@(16) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
 
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
 }
 
 /// Library updates are separate from Core Data migration and can be used to orchestrate migrations that are more complex than automatic Core Data migration allows.
 /// They can also be used to perform migrations when the underlying Core Data model has not changed version but the apps' logic has changed in a way that requires data migration.
-- (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock {
+- (void)performLibraryUpdates:(dispatch_block_t)completion {
     dispatch_block_t combinedCompletion = ^{
         [WMFPermanentCacheController setupCoreDataStack:^(NSManagedObjectContext *_Nullable moc, NSError *_Nullable error) {
             if (error) {
@@ -510,7 +525,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         return;
     }
 
-    needsMigrateBlock();
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
         [self performUpdatesFromLibraryVersion:currentUserLibraryVersion inManagedObjectContext:moc];
         combinedCompletion();
@@ -567,6 +581,42 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
 }
 
+- (void)markAllNeedingConversionFromMobileviewArticlesAsNotDownloaded:(NSManagedObjectContext *)moc {
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isDownloaded == YES && isConversionFromMobileViewNeeded == YES"];
+    request.fetchLimit = 500;
+    request.propertiesToFetch = @[];
+    NSError *fetchError = nil;
+    NSArray *articles = [moc executeFetchRequest:request error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching needing conversion from mobileview articles: %@", fetchError);
+        return;
+    }
+    while (articles.count > 0) {
+        @autoreleasepool {
+            for (WMFArticle *article in articles) {
+                // This will put article in a savedDate = {date} and isDownloaded = NO state, which allows SavedArticlesFetcher to pick it up for online downloading.
+                article.isDownloaded = NO;
+                article.isConversionFromMobileViewNeeded = NO;
+            }
+            if ([moc hasChanges]) {
+                NSError *saveError = nil;
+                [moc save:&saveError];
+                if (saveError) {
+                    DDLogError(@"Error marking needs conversion from mobileview articles as not downloaded: %@", fetchError);
+                    return;
+                }
+                [moc reset];
+            }
+        }
+        articles = [moc executeFetchRequest:request error:&fetchError];
+        if (fetchError) {
+            DDLogError(@"Error fetching needs conversion from mobileview articles: %@", fetchError);
+            return;
+        }
+    }
+}
+
 - (void)migrateToStandardUserDefaults {
     NSUserDefaults *wmfDefaults = [[NSUserDefaults alloc] initWithSuiteName:WMFApplicationGroupIdentifier];
     if (!wmfDefaults) {
@@ -589,42 +639,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
     // move legacy image cache to new non-image path name
     return [[NSFileManager defaultManager] moveItemAtURL:legacyDirectory toURL:newDirectory error:error];
-}
-
-- (void)markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:(NSManagedObjectContext *)moc {
-    NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES"];
-    request.fetchLimit = 500;
-    NSError *fetchError = nil;
-    NSArray *downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
-    if (fetchError) {
-        DDLogError(@"Error fetching downloaded articles: %@", fetchError);
-        return;
-    }
-
-    while (downloadedArticles.count > 0) {
-        @autoreleasepool {
-            for (WMFArticle *article in downloadedArticles) {
-                article.isDownloaded = NO;
-            }
-
-            if ([moc hasChanges]) {
-                NSError *saveError = nil;
-                [moc save:&saveError];
-                if (saveError) {
-                    DDLogError(@"Error saving downloaded articles: %@", fetchError);
-                    return;
-                }
-                [moc reset];
-            }
-        }
-
-        downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
-        if (fetchError) {
-            DDLogError(@"Error fetching downloaded articles: %@", fetchError);
-            return;
-        }
-    }
 }
 
 #pragma mark - Memory
@@ -655,17 +669,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 }
 
 #pragma mark - Legacy DataStore
-
-+ (NSString *)mainDataStorePath {
-    NSString *documentsFolder = [[NSFileManager defaultManager] wmf_containerPath];
-    return [documentsFolder stringByAppendingPathComponent:@"Data"];
-}
-
-+ (NSString *)appSpecificMainDataStorePath { // deprecated, use the group folder from mainDataStorePath
-    NSString *documentsFolder =
-        [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    return [documentsFolder stringByAppendingPathComponent:@"Data"];
-}
 
 - (void)setupLegacyDataStore {
     NSString *pathToExclude = [self pathForSites];
@@ -778,13 +781,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return dict[@"entries"];
 }
 
-#pragma mark - helper methods
-
-- (NSInteger)sitesDirectorySize {
-    NSURL *sitesURL = [NSURL fileURLWithPath:[self pathForSites]];
-    return (NSInteger)[[NSFileManager defaultManager] sizeOfDirectoryAt:sitesURL];
-}
-
 #pragma mark - Deletion
 
 - (NSError *)removeFolderAtBasePath {
@@ -794,22 +790,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 }
 
 #pragma mark - Cache
-
-- (void)prefetchArticles {
-    NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.fetchLimit = 1000;
-    NSManagedObjectContext *moc = self.viewContext;
-    NSArray<WMFArticle *> *prefetchedArticles = [moc executeFetchRequest:request error:nil];
-    for (WMFArticle *article in prefetchedArticles) {
-        NSString *key = article.key;
-        if (!key) {
-            continue;
-        }
-        NSString *variant = article.variant;
-        WMFInMemoryURLKey *cacheKey = [[WMFInMemoryURLKey alloc] initWithDatabaseKey:key languageVariantCode:variant];
-        [self.articleCache setObject:article forKey:cacheKey];
-    }
-}
 
 - (void)clearMemoryCache {
     @synchronized(self.articleCache) {
