@@ -1130,6 +1130,9 @@
 "variants-alert-dismiss-button" = "不用了，謝謝";
 "variants-alert-preferences-button" = "檢視您的偏好設定";
 "watchlist" = "監視清單";
+"watchlist-user-button-user-contributions" = "使用者貢獻";
+"watchlist-user-button-user-page" = "使用者頁面";
+"watchlist-user-button-user-talk-page" = "使用者討論頁";
 "welcome-exploration-explore-feed-description" = "來自我們社群推薦的讀物及每日條目";
 "welcome-exploration-explore-feed-title" = "探索摘要";
 "welcome-exploration-on-this-day-description" = "返回時間來了解在歷史上的今天發生了什麼事";
