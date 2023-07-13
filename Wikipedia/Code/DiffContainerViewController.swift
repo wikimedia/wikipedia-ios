@@ -483,12 +483,14 @@ private extension DiffContainerViewController {
             return nil
         }
         
+        let oldID = fromModel?.revisionID ?? toModel.parentID
+        
         var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
         components?.path = "/w/index.php"
         components?.queryItems = [
             URLQueryItem(name: "title", value: articleTitle),
             URLQueryItem(name: "diff", value: String(toModel.revisionID)),
-            URLQueryItem(name: "oldid", value: String(toModel.parentID))
+            URLQueryItem(name: "oldid", value: String(oldID))
         ]
         return components?.url
     }
