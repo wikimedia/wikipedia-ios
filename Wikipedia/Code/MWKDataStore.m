@@ -14,7 +14,7 @@ NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 NSString *const WMFViewContextDidResetNotification = @"WMFViewContextDidResetNotification";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 15;
+static const NSInteger WMFCurrentLibraryVersion = 16;
 
 NSString *const WMFCoreDataSynchronizerInfoFileName = @"Wikipedia.info";
 
@@ -477,6 +477,15 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     if (currentLibraryVersion < 15) {
         [self markAllNeedingConversionFromMobileviewArticlesAsNotDownloaded:moc];
         [moc wmf_setValue:@(15) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+
+    if (currentLibraryVersion < 16) {
+        [self migrateToLanguageVariantsForLibraryVersion:16 inManagedObjectContext:moc];
+        [moc wmf_setValue:@(16) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
             return;
