@@ -1091,6 +1091,9 @@
 "variants-alert-preferences-button" = "Review your preferences";
 "watch" = "Watch";
 "watchlist" = "Watchlist";
+"watchlist-user-button-user-contributions" = "User contributions";
+"watchlist-user-button-user-page" = "User page";
+"watchlist-user-button-user-talk-page" = "User talk page";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";
 "welcome-exploration-explore-feed-title" = "Explore feed";
 "welcome-exploration-on-this-day-description" = "Travel back in time to learn what happened today in history";

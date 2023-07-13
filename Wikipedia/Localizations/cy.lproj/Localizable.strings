@@ -160,10 +160,8 @@
 "description-welcome-concise-title" = "Cadwch hi'n fyr";
 "description-welcome-descriptions-title" = "Disgrifiadau erthygl";
 "description-welcome-start-editing-button" = "Dechrau golygu";
-// Fuzzy
 "diff-compare-header-from-info-heading" = "O:";
 "diff-compare-header-heading" = "Cymharu Golygiadau";
-// Fuzzy
 "diff-compare-header-to-info-heading" = "I:";
 "diff-compare-title" = "Cymharu Golygiadau";
 "diff-context-lines-collapsed-button-title" = "Dangos";
@@ -176,6 +174,7 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 adran}}";
 "diff-paragraph-moved-format" = "Symudwyd y paragraff $1 $2";
 "diff-revision-error-title" = "Ni ellir llwytho golygiad";
+"diff-rollback" = "Gwrthdroi";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 golygiadau|$1 golygiad|$1 olygiad|$1 golygiad}}";
 "diff-single-header-editor-title" = "Gwybodaeth am y golygydd";
 "diff-single-header-summary-heading" = "Crynodeb golygu";
@@ -365,6 +364,7 @@
 "menu-cancel-accessibility-label" = "Canslo";
 "more-languages-tooltip-description" = "Chwilio Wicipedia mewn dros 300 o ieithoedd";
 "more-languages-tooltip-title" = "Ychwanegu ieithoedd";
+"more-menu" = "Rhagor";
 "navbar-title-mode-edit-wikitext-preview" = "Rhagolwg";
 "nearby-distance-label-feet" = "$1 troedfedd";
 "nearby-distance-label-km" = "$1 km";
@@ -611,6 +611,7 @@
 "vanish-account-warning-title" = "Rhybudd";
 "vanish-modal-title" = "Cais gorchuddio";
 "variants-alert-dismiss-button" = "Dim diolch";
+"watchlist" = "Rhestr wylio";
 "welcome-exploration-explore-feed-title" = "Ffrwd Archwilio";
 "welcome-exploration-on-this-day-title" = "Ar y dydd hwn";
 "welcome-exploration-places-title" = "Tab Lleoliadau";

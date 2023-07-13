@@ -191,11 +191,10 @@
 "description-welcome-descriptions-title" = "Описи чланака";
 "description-welcome-promise-title" = "Започињањем, обећавам да нећу злоупотребити ову функцију";
 "description-welcome-start-editing-button" = "Почни са уређивањем";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Од:";
+"diff-article-edit-history" = "Историја";
+"diff-compare-header-from-info-heading" = "Од";
 "diff-compare-header-heading" = "Упореди измене";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "За:";
+"diff-compare-header-to-info-heading" = "За";
 "diff-compare-title" = "Упореди измене";
 "diff-context-lines-collapsed-button-title" = "Прикажи";
 "diff-context-lines-expanded-button-title" = "Сакриј";
@@ -207,6 +206,7 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 одељак|$1 одељци}}";
 "diff-paragraph-moved-format" = "Параграф премештен $1 $2";
 "diff-revision-error-title" = "Није могуће учитати измену";
+"diff-rollback" = "Врати";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 измена|$1 измене}}";
 "diff-single-header-editor-title" = "Информација о уреднику";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 бајт додат|$1 бајтова додато}}";
@@ -502,6 +502,7 @@
 "menu-cancel-accessibility-label" = "Откажи";
 "more-languages-tooltip-description" = "Претражујте Википедију на преко 300 језика";
 "more-languages-tooltip-title" = "Додај језике";
+"more-menu" = "Више";
 "move-articles-to-reading-list" = "Премести {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
 "nearby-distance-label-feet" = "$1 стопа";
@@ -881,6 +882,7 @@
 "vanish-account-warning-title" = "Упозорење";
 "variants-alert-dismiss-button" = "Не, хвала";
 "variants-alert-preferences-button" = "Прегледајте своја подешавања";
+"watchlist" = "Списак надгледања";
 "welcome-exploration-explore-feed-description" = "Препоручени и дневни чланци од наше заједнице";
 "welcome-exploration-explore-feed-title" = "Фид „Истражи“";
 "welcome-exploration-on-this-day-description" = "Вратите се назад кроз време да бисте сазнали шта се одиграло на данашњи дан";

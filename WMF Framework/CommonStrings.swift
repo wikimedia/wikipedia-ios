@@ -281,6 +281,12 @@ public class CommonStrings: NSObject {
 
     public static let rollback = WMFLocalizedString("diff-rollback", value: "Rollback", comment: "Title for rollback toolbar button.")
 
+    public static let userButtonPage = WMFLocalizedString("watchlist-user-button-user-page", value: "User page", comment: "Title shown for user page action in user menu button in diff and watchlist views.")
+
+    public static let userButtonTalkPage = WMFLocalizedString("watchlist-user-button-user-talk-page", value: "User talk page", comment: "Title shown for user talk page action in user menu button in diff and watchlist views.")
+
+    public static let userButtonContributions = WMFLocalizedString("watchlist-user-button-user-contributions", value: "User contributions", comment: "Title shown for user contributions action in user menu button in diff and watchlist views.")
+    
     public static let diffFromHeading = WMFLocalizedString("diff-compare-header-from-info-heading", value: "From", comment: "Heading label in from revision info box when comparing two revisions.")
 
     public static let diffToHeading = WMFLocalizedString("diff-compare-header-to-info-heading", value: "To", comment: "Heading label in to revision info box when comparing two revisions.")

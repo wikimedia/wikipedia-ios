@@ -451,6 +451,7 @@ class LanguageVariantEducationalPanelViewController: ScrollableEducationPanelVie
         case "tg": return CommonStrings.tajikVariantsAlertTitle
         case "uz": return CommonStrings.uzbekVariantsAlertTitle
         case "zh": return CommonStrings.chineseVariantsAlertTitle
+        case "shi": return CommonStrings.tachelhitVariantsAlertTitle
         default:
             assertionFailure("No language variant alert title for language code '\(languageCode)'")
             return ""
@@ -468,6 +469,7 @@ class LanguageVariantEducationalPanelViewController: ScrollableEducationPanelVie
         case "tg": return CommonStrings.tajikVariantsAlertBody
         case "uz": return CommonStrings.uzbekVariantsAlertBody
         case "zh": return CommonStrings.chineseVariantsAlertBody
+        case "shi": return CommonStrings.tachelhitVariantsAlertBody
         default:
             assertionFailure("No language variant alert body for language code '\(languageCode)'")
             return ""

@@ -3,10 +3,11 @@ import UIKit
 protocol DiffToolbarViewDelegate: AnyObject {
     func tappedPrevious()
     func tappedNext()
-    func tappedShare(_ sender: UIBarButtonItem)
+    func tappedShare()
     func tappedThankButton()
     func tappedUndo()
     func tappedRollback()
+    func tappedEditHistory()
     var isLoggedIn: Bool { get }
 }
 
@@ -43,13 +44,6 @@ class DiffToolbarView: UIView {
     lazy var undoButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "Revert", target: self, action: #selector(tappedUndo(_:)), for: .touchUpInside)
         item.accessibilityLabel = CommonStrings.undo
-        return item
-    }()
-
-    lazy var shareButton: IconBarButtonItem = {
-        let item = IconBarButtonItem(iconName: "share", target: self, action: #selector(tappedShare(_:)), for: .touchUpInside)
-        item.accessibilityLabel = CommonStrings.accessibilityShareTitle
-
         return item
     }()
 
@@ -110,8 +104,12 @@ class DiffToolbarView: UIView {
         delegate?.tappedNext()
     }
     
-    @objc func tappedShare(_ sender: UIBarButtonItem) {
-        delegate?.tappedShare(shareButton)
+    @objc func tappedShare() {
+        delegate?.tappedShare()
+    }
+
+    @objc func tappedEditHistory() {
+        delegate?.tappedEditHistory()
     }
     
     @objc func tappedThank(_ sender: UIBarButtonItem) {
@@ -131,13 +129,11 @@ class DiffToolbarView: UIView {
     
     private func createMoreButton(needsRollbackButton: Bool = false, needsWatchButton: Bool = false, needsUnwatchButton: Bool = false, needsArticleEditHistoryButton: Bool = false) -> IconBarButtonItem {
         
-        // DIFFTODO: Add menu item images
-        
         var actions: [UIAction] = []
         if needsRollbackButton {
-            actions.append(UIAction(title: CommonStrings.rollback, attributes: [.destructive], handler: { [weak self] _ in self?.tappedRollback() }))
+            actions.append(UIAction(title: CommonStrings.rollback, image: UIImage(systemName: "arrow.uturn.backward.circle"), attributes: [.destructive], handler: { [weak self] _ in self?.tappedRollback() }))
         }
-        actions.append(UIAction(title: CommonStrings.shortShareTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { _ in }))
+        actions.append(UIAction(title: CommonStrings.shortShareTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { [weak self] _ in self?.tappedShare()}))
 
        if needsWatchButton {
            actions.append(UIAction(title: CommonStrings.watch, handler: { _ in }))
@@ -146,7 +142,7 @@ class DiffToolbarView: UIView {
        }
            
        if needsArticleEditHistoryButton {
-           actions.append(UIAction(title: CommonStrings.diffArticleEditHistory, handler: { _ in }))
+           actions.append(UIAction(title: CommonStrings.diffArticleEditHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedEditHistory() }))
        }
         
         let menu = UIMenu(title: "", options: .displayInline, children: actions)
@@ -175,9 +171,9 @@ class DiffToolbarView: UIView {
     func setThankButtonState(isEnabled: Bool) {
         thankButton.isEnabled = isEnabled
     }
-    
-    func setShareButtonState(isEnabled: Bool) {
-        shareButton.isEnabled = isEnabled
+
+    func setMoreButtonState(isEnabled: Bool) {
+        moreButton.isEnabled = isEnabled
     }
 }
 
@@ -206,7 +202,6 @@ extension DiffToolbarView: Themeable {
         
         previousButton.apply(theme: theme)
         nextButton.apply(theme: theme)
-        shareButton.apply(theme: theme)
         undoButton.apply(theme: theme)
         thankButton.apply(theme: theme)
         moreButton.apply(theme: theme)
@@ -217,6 +212,5 @@ extension DiffToolbarView: Themeable {
                 button.tintColor = theme.colors.disabledLink
             }
         }
-        shareButton.tintColor = theme.colors.link
     }
 }
