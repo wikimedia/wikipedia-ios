@@ -1049,6 +1049,8 @@
 "variants-alert-dismiss-button" = "いいえ";
 "variants-alert-preferences-button" = "設定を確認する";
 "watchlist" = "ウォッチリスト";
+"watchlist-user-button-user-contributions" = "投稿記録";
+"watchlist-user-button-user-page" = "利用者ページ";
 "welcome-exploration-explore-feed-description" = "私たちコミュニティからの読書のおすすめと毎日の記事";
 "welcome-exploration-explore-feed-title" = "探索フィード";
 "welcome-exploration-on-this-day-description" = "歴史の中で今日起こったことを学ぶために時間を遡ります。";

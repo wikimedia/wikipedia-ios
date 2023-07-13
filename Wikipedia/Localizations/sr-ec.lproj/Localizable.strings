@@ -207,6 +207,8 @@
 "diff-paragraph-moved-format" = "Параграф премештен $1 $2";
 "diff-revision-error-title" = "Није могуће учитати измену";
 "diff-rollback" = "Врати";
+"diff-rollback-alert-message" = "Сигурно врати измене?";
+"diff-rollback-alert-title" = "Враћање измена";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 измена|$1 измене}}";
 "diff-single-header-editor-title" = "Информација о уреднику";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 бајт додат|$1 бајтова додато}}";
@@ -883,6 +885,9 @@
 "variants-alert-dismiss-button" = "Не, хвала";
 "variants-alert-preferences-button" = "Прегледајте своја подешавања";
 "watchlist" = "Списак надгледања";
+"watchlist-user-button-user-contributions" = "Кориснички доприноси";
+"watchlist-user-button-user-page" = "Корисничка страница";
+"watchlist-user-button-user-talk-page" = "Корисничка страница за разговор";
 "welcome-exploration-explore-feed-description" = "Препоручени и дневни чланци од наше заједнице";
 "welcome-exploration-explore-feed-title" = "Фид „Истражи“";
 "welcome-exploration-on-this-day-description" = "Вратите се назад кроз време да бисте сазнали шта се одиграло на данашњи дан";
