@@ -37,7 +37,7 @@ public final class EditAttemptFunnel {
         case abort = "abort"
     }
 
-    private func logEvent(articleURL: URL, action: EditAction, revisionId: Int? = nil, pageNamespace: Int? = nil) {
+    private func logEvent(articleURL: URL, action: EditAction, revisionId: Int? = nil) {
         let editorInterface = "wikitext"
         let integrationID = "app-ios"
         let platform = UIDevice.current.userInterfaceIdiom == .pad ? "tablet" : "phone"
@@ -74,7 +74,7 @@ public final class EditAttemptFunnel {
         logEvent(articleURL: articleURL, action: .abort)
     }
 
-    func getUserID(articleURL: URL) -> Int {
+    fileprivate func getUserID(articleURL: URL) -> Int {
         let isAnon = !MWKDataStore.shared().authenticationManager.isLoggedIn
 
         if isAnon {

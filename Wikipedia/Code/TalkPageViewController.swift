@@ -281,7 +281,7 @@ class TalkPageViewController: ViewController {
     // MARK: - Coffee Roll
 
     @objc private func userDidTapCoffeeRollReadMoreButton() {
-        let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: getTalkPageURL(encoded: true), semanticContentAttribute: viewModel.semanticContentAttribute)
+        let coffeeRollViewModel = TalkPageCoffeeRollViewModel(coffeeRollText: viewModel.coffeeRollText, talkPageURL: viewModel.getTalkPageURL(encoded: true), semanticContentAttribute: viewModel.semanticContentAttribute)
         let coffeeViewController = TalkPageCoffeeRollViewController(theme: theme, viewModel: coffeeRollViewModel)
         push(coffeeViewController, animated: true)
     }
@@ -386,20 +386,9 @@ class TalkPageViewController: ViewController {
     
     // MARK: - Toolbar actions
 
-    fileprivate func getTalkPageURL(encoded shouldPercentEncodeURL: Bool) -> URL? {
-        var talkPageURLComponents = URLComponents(url: viewModel.siteURL, resolvingAgainstBaseURL: false)
-        guard let encodedTitle = viewModel.pageTitle.percentEncodedPageTitleForPathComponents else {
-            return nil
-        }
-
-        let talkPageTitle = shouldPercentEncodeURL ? encodedTitle : viewModel.pageTitle
-        talkPageURLComponents?.path = "/wiki/\(talkPageTitle)"
-
-        return talkPageURLComponents?.url
-    }
     
     @objc fileprivate func userDidTapShareButton() {
-        guard let talkPageURL = getTalkPageURL(encoded: false) else {
+        guard let talkPageURL = viewModel.getTalkPageURL(encoded: false) else {
             return
         }
 
@@ -426,10 +415,13 @@ class TalkPageViewController: ViewController {
         if let lastViewDidAppearDate = lastViewDidAppearDate {
             TalkPagesFunnel.shared.logTappedNewTopic(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
         }
-        let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute, siteURL: viewModel.siteURL)
+        let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute, siteURL: viewModel.siteURL, pageLink: viewModel.getTalkPageURL(encoded: false))
         let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, authenticationManager: viewModel.authenticationManager, theme: theme)
         topicComposeVC.delegate = self
         inputAccessoryViewType = .format
+        if let url = viewModel.getTalkPageURL(encoded: false) {
+            EditAttemptFunnel.shared.logInit(articleURL: url)
+        }
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
         navVC.presentationController?.delegate = self
@@ -924,10 +916,18 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
             if UIAccessibility.isVoiceOverRunning {
                 UIAccessibility.post(notification: .screenChanged, argument: focusView)
             }
+            if let talkPageURL = self.viewModel.getTalkPageURL(encoded: false) {
+                EditAttemptFunnel.shared.logAbort(articleURL: talkPageURL)
+            }
         }
     }
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
+
+        if let talkPageURL = viewModel.getTalkPageURL(encoded: false) {
+            EditAttemptFunnel.shared.logSaveAttempt(articleURL: talkPageURL)
+        }
+
         let oldCellViewModel = commentViewModel.cellViewModel
         let oldCommentViewModels = oldCellViewModel?.allCommentViewModels
         
@@ -952,10 +952,13 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                     self?.fakeProgressController.stop()
 
                     switch result {
-                    case .success:
+                    case .success(let revID):
                         self?.updateEmptyStateVisibility()
                         self?.talkPageView.collectionView.reloadData()
                         self?.handleNewTopicOrCommentAlert(isNewTopic: false)
+                        if let talkPageURL = self?.viewModel.getTalkPageURL(encoded: false) {
+                            EditAttemptFunnel.shared.logSaveSuccess(articleURL: talkPageURL, revisionId: revID)
+                        }
 
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self?.scrollToNewComment(oldCellViewModel: oldCellViewModel, oldCommentViewModels: oldCommentViewModels)
@@ -1023,6 +1026,9 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                         self?.updateEmptyStateVisibility()
                         self?.talkPageView.collectionView.reloadData()
                         self?.scrollToLastTopic()
+                        if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {
+                            EditAttemptFunnel.shared.logSaveSuccess(articleURL: pageURL, revisionId: viewModel.latestRevisionID)
+                        }
                     case .failure:
                         break
                     }
@@ -1111,7 +1117,7 @@ protocol TalkPageTextViewLinkHandling: AnyObject {
 
 extension TalkPageViewController: TalkPageTextViewLinkHandling {
     func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        guard let url = URL(string: url.absoluteString, relativeTo: getTalkPageURL(encoded: true)) else {
+        guard let url = URL(string: url.absoluteString, relativeTo: viewModel.getTalkPageURL(encoded: true)) else {
             return
         }
         
