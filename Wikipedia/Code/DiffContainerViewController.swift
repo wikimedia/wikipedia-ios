@@ -401,9 +401,9 @@ private extension DiffContainerViewController {
         populatePrevNextModelsForToolbar()
     }
     
-    func setThankAndShareState(isEnabled: Bool) {
+    func setThankAndMoreState(isEnabled: Bool) {
         diffToolbarView?.setThankButtonState(isEnabled: isEnabled)
-        diffToolbarView?.setShareButtonState(isEnabled: isEnabled)
+        diffToolbarView?.setMoreButtonState(isEnabled: isEnabled)
         diffToolbarView?.apply(theme: theme)
     }
     
@@ -483,12 +483,14 @@ private extension DiffContainerViewController {
             return nil
         }
         
+        let oldID = fromModel?.revisionID ?? toModel.parentID
+        
         var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
         components?.path = "/w/index.php"
         components?.queryItems = [
             URLQueryItem(name: "title", value: articleTitle),
             URLQueryItem(name: "diff", value: String(toModel.revisionID)),
-            URLQueryItem(name: "oldid", value: String(toModel.parentID))
+            URLQueryItem(name: "oldid", value: String(oldID))
         ]
         return components?.url
     }
@@ -521,7 +523,7 @@ private extension DiffContainerViewController {
             fakeProgressController.start()
             scrollingEmptyViewController?.view.isHidden = true
             diffListViewController?.view.isHidden = true
-            setThankAndShareState(isEnabled: false)
+            setThankAndMoreState(isEnabled: false)
         case .empty:
             fakeProgressController.stop()
             setupScrollingEmptyViewControllerIfNeeded()
@@ -539,7 +541,7 @@ private extension DiffContainerViewController {
             }
             
             diffListViewController?.view.isHidden = true
-            setThankAndShareState(isEnabled: true)
+            setThankAndMoreState(isEnabled: true)
         case .error(let error):
             fakeProgressController.stop()
             showNoInternetConnectionAlertOrOtherWarning(from: error)
@@ -552,7 +554,7 @@ private extension DiffContainerViewController {
             }
             scrollingEmptyViewController?.view.isHidden = false
             diffListViewController?.view.isHidden = true
-            setThankAndShareState(isEnabled: false)
+            setThankAndMoreState(isEnabled: false)
         case .data:
             fakeProgressController.stop()
             scrollingEmptyViewController?.view.isHidden = true
@@ -563,7 +565,7 @@ private extension DiffContainerViewController {
                 diffListViewController?.view.isHidden = false
             }
             
-            setThankAndShareState(isEnabled: true)
+            setThankAndMoreState(isEnabled: true)
         }
     }
     
@@ -1107,17 +1109,21 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         replaceLastAndPush(with: diffVC)
     }
     
-    func tappedShare(_ sender: UIBarButtonItem) {
+    func tappedShare() {
         guard let diffURL = fullRevisionDiffURL() else {
             assertionFailure("Couldn't get full revision diff URL")
             return
         }
         
         let activityViewController = UIActivityViewController(activityItems: [diffURL], applicationActivities: [TUSafariActivity()])
-        activityViewController.popoverPresentationController?.barButtonItem = sender
+        activityViewController.popoverPresentationController?.barButtonItem = diffToolbarView?.moreButton
         activityViewController.excludedActivityTypes = [.addToReadingList]
         
         present(activityViewController, animated: true)
+    }
+
+    func tappedEditHistory() {
+        // DIFFTODO: Push PageHistoryViewController
     }
 
     func tappedThankButton() {
