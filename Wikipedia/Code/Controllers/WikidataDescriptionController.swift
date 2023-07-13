@@ -34,14 +34,22 @@ class WikidataDescriptionController: ArticleDescriptionControlling {
     }
     
     func publishDescription(_ description: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
-        
+
         fetcher.publish(newWikidataDescription: description, from: descriptionSource, forWikidataID: wikiDataID, languageCode: articleLanguageCode) { (error) in
-            if let error = error {
-                completion(.failure(error))
-                return
+            DispatchQueue.main.async {
+
+                if let error = error {
+                    if let articleURL = self.article.url {
+                        EditAttemptFunnel.shared.logSaveFailure(articleURL: articleURL)
+                    }
+                    completion(.failure(error))
+                    return
+                }
+                if let articleURL = self.article.url {
+                    EditAttemptFunnel.shared.logSaveSuccess(articleURL: articleURL, revisionId: nil)
+                }
+                completion(.success(ArticleDescriptionPublishResult(newRevisionID: nil, newDescription: description)))
             }
-            
-            completion(.success(ArticleDescriptionPublishResult(newRevisionID: nil, newDescription: description)))
         }
     }
 

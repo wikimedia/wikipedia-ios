@@ -37,7 +37,7 @@ public final class EditAttemptFunnel {
         case abort = "abort"
     }
 
-    private func logEvent(articleURL: URL, action: EditAction, revisionId: Int? = nil) {
+    private func logEvent(articleURL: URL, action: EditAction, revisionId: Int? = nil, pageNamespace: Int? = nil) {
         let editorInterface = "wikitext"
         let integrationID = "app-ios"
         let platform = UIDevice.current.userInterfaceIdiom == .pad ? "tablet" : "phone"
@@ -62,7 +62,7 @@ public final class EditAttemptFunnel {
         logEvent(articleURL: articleURL, action: .saveAttempt)
     }
 
-    func logSaveSuccess(articleURL: URL, revisionId: Int) {
+    func logSaveSuccess(articleURL: URL, revisionId: Int?) {
         logEvent(articleURL: articleURL, action: .saveSuccess, revisionId: revisionId)
     }
 
