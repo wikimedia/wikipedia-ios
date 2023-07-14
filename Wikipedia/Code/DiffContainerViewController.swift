@@ -94,7 +94,7 @@ class DiffContainerViewController: ViewController {
     private weak var undoAlertUndoAction: UIAlertAction?
     private weak var undoAlertSummaryTextField: UITextField?
     
-    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController) {
+    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
     
         self.siteURL = siteURL
         self.wkProject = WikimediaProject(siteURL: siteURL)?.wkProject
@@ -103,7 +103,7 @@ class DiffContainerViewController: ViewController {
         self.toModelRevisionID = toRevisionID
         self.fromModelRevisionID = fromRevisionID
         
-        self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: nil, revisionRetrievingDelegate: nil, type: type, articleSummaryController: articleSummaryController)
+        self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: nil, revisionRetrievingDelegate: nil, type: type, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager)
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: nil, toModel: nil, listViewModel: nil, articleTitle: articleTitle, byteDifference: nil, theme: theme)
         
         self.firstRevision = nil
@@ -121,7 +121,7 @@ class DiffContainerViewController: ViewController {
         }
     }
     
-    init(articleTitle: String, siteURL: URL, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController) {
+    init(articleTitle: String, siteURL: URL, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
 
         self.type = .compare
         
@@ -134,7 +134,7 @@ class DiffContainerViewController: ViewController {
         self.wkProject = WikimediaProject(siteURL: siteURL)?.wkProject
         self.firstRevision = firstRevision
 
-        self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: pageHistoryFetcher, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type, articleSummaryController: articleSummaryController)
+        self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: pageHistoryFetcher, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager)
 
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, listViewModel: nil, articleTitle: articleTitle, byteDifference: nil, theme: theme)
         
@@ -1024,7 +1024,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
         
         EditHistoryCompareFunnel.shared.logRevisionView(url: siteURL)
         
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController)
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
         push(singleDiffVC, animated: true)
     }
 }
@@ -1130,7 +1130,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 return
         }
         
-        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController)
+        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
         replaceLastAndPush(with: diffVC)
     }
     
@@ -1144,7 +1144,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
-        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController)
+        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
         replaceLastAndPush(with: diffVC)
     }
     
@@ -1266,7 +1266,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         switch result {
         case .success(let result):
             
-            let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController)
+            let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
             animateDirection = .up
             replaceLastAndPush(with: diffVC)
             revisionRetrievingDelegate?.refreshRevisions()

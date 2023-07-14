@@ -24,6 +24,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private let pageHistoryFetcher = PageHistoryFetcher()
     private var pageHistoryFetcherParams: PageHistoryRequestParameters
     private let articleSummaryController: ArticleSummaryController
+    private let authenticationManager: WMFAuthenticationManager
 
     private var batchComplete = false
     private var isLoadingData = false
@@ -49,11 +50,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         return comparisonSelectionViewController
     }()
 
-    init(pageTitle: String, pageURL: URL, articleSummaryController: ArticleSummaryController) {
+    init(pageTitle: String, pageURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
         self.pageTitle = pageTitle
         self.pageURL = pageURL
         self.pageHistoryFetcherParams = PageHistoryRequestParameters(title: pageTitle)
         self.articleSummaryController = articleSummaryController
+        self.authenticationManager = authenticationManager
         super.init()
     }
 
@@ -336,7 +338,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 EditHistoryCompareFunnel.shared.logRevisionView(url: pageURL)
             }
             
-            let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision, articleSummaryController: articleSummaryController)
+            let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager)
             push(diffContainerVC, animated: true)
         }
     }

@@ -48,7 +48,7 @@ class ArticleViewController: ViewController, HintPresenting {
         return dataStore.configuration
     }
     
-    private var authManager: WMFAuthenticationManager {
+    internal var authManager: WMFAuthenticationManager {
         return dataStore.authenticationManager
     }
     

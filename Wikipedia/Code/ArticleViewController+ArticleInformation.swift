@@ -32,7 +32,7 @@ extension ArticleViewController {
         
         EditHistoryCompareFunnel.shared.logShowHistory(articleURL: articleURL)
         
-        let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL, articleSummaryController: dataStore.articleSummaryController)
+        let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL, articleSummaryController: dataStore.articleSummaryController, authenticationManager: dataStore.authenticationManager)
         historyVC.apply(theme: theme)
         push(historyVC)
     }
