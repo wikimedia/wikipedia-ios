@@ -227,7 +227,7 @@
 "description-welcome-descriptions-title" = "Descriptions d’articles";
 "description-welcome-promise-title" = "En commençant, je promets de ne pas faire mauvais emploi de cette fonctionnalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
-"diff-article-edit-history" = "Historique de modifications de l’article";
+"diff-article-edit-history" = "Historique des modifications de l’article";
 "diff-compare-header-from-info-heading" = "De";
 "diff-compare-header-heading" = "Comparer les versions";
 "diff-compare-header-to-info-heading" = "À";
@@ -1122,6 +1122,9 @@
 "variants-alert-dismiss-button" = "Non merci";
 "variants-alert-preferences-button" = "Revoir vos préférences";
 "watchlist" = "Liste de suivi";
+"watchlist-user-button-user-contributions" = "Contributions de l’utilisateur";
+"watchlist-user-button-user-page" = "Page de l’utilisateur";
+"watchlist-user-button-user-talk-page" = "Page de discussion de l’utilisateur";
 "welcome-exploration-explore-feed-description" = "Lecture recommandée et articles du jour de notre communauté";
 "welcome-exploration-explore-feed-title" = "Explorer le fil";
 "welcome-exploration-on-this-day-description" = "Revenir dans le temps pour apprendre ce qui s’est passé aujourd’hui dans l’histoire";

@@ -841,6 +841,9 @@
 "unknown-generic-text" = "తెలియని";
 "variants-alert-dismiss-button" = "వద్దులే";
 "variants-alert-preferences-button" = "మీ అభిరుచులను సమీక్షించండి";
+"watchlist-user-button-user-contributions" = "వాడుకరి రచనలు";
+"watchlist-user-button-user-page" = "వాడుకరి పేజీ";
+"watchlist-user-button-user-talk-page" = "వాడుకరి చర్చ పేజీ";
 "welcome-exploration-explore-feed-title" = "ఫీడ్‌లో శోధించండి";
 "welcome-exploration-on-this-day-description" = "చరిత్రలో వెనక్కి ప్రయాణించి, ఈ తేదీన ఏం జరిగిందో తెలుసుకోండి";
 "welcome-exploration-on-this-day-title" = "ఈ రోజున";

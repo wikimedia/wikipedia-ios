@@ -1114,6 +1114,9 @@
 "variants-alert-dismiss-button" = "לא, תודה";
 "variants-alert-preferences-button" = "סקירת ההעדפות שלך";
 "watchlist" = "רשימת המעקב";
+"watchlist-user-button-user-contributions" = "תרומות המשתמש";
+"watchlist-user-button-user-page" = "דף משתמש";
+"watchlist-user-button-user-talk-page" = "דף שיחת משתמש";
 "welcome-exploration-explore-feed-description" = "קריאה מומלצת וערכים יומיים מהקהילה שלנו";
 "welcome-exploration-explore-feed-title" = "הזנת לחקור";
 "welcome-exploration-on-this-day-description" = "חזרו אחורה בזמן כדי ללמוד מה קרה היום בהיסטוריה";
