@@ -1092,6 +1092,13 @@
 "variants-alert-preferences-button" = "Action button on alert used to inform users about variant support.";
 "watch" = "Title for watch toolbar button.";
 "watchlist" = "Title for watchlist feature.";
+"watchlist-added-toast-change-expiration" = "Title in toast after a user successfully adds an article to their watchlist. Tapping will allow them to change their watchlist item expiration date.";
+"watchlist-added-toast-one-month" = "Title in toast after a user successfully adds an article to their watchlist, which expires in one month.";
+"watchlist-added-toast-one-week" = "Title in toast after a user successfully adds an article to their watchlist, which expires in one week.";
+"watchlist-added-toast-permanently" = "Title in toast after a user successfully adds an article to their watchlist, with no expiration.";
+"watchlist-added-toast-six-months" = "Title in toast after a user successfully adds an article to their watchlist, which expires in 6 months.";
+"watchlist-added-toast-three-months" = "Title in toast after a user successfully adds an article to their watchlist, which expires in three months.";
+"watchlist-removed" = "Title in toast after a user successfully removes an article from their watchlist.";
 "watchlist-user-button-user-contributions" = "Title shown for user contributions action in user menu button in diff and watchlist views.";
 "watchlist-user-button-user-page" = "Title shown for user page action in user menu button in diff and watchlist views.";
 "watchlist-user-button-user-talk-page" = "Title shown for user talk page action in user menu button in diff and watchlist views.";
