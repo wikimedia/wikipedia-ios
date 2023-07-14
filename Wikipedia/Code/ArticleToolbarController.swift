@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 protocol ArticleToolbarHandling: AnyObject {
     func toggleSave(from controller: ArticleToolbarController)
@@ -9,6 +10,8 @@ protocol ArticleToolbarHandling: AnyObject {
     func showLanguagePicker(from controller: ArticleToolbarController)
     func showFindInPage(from controller: ArticleToolbarController)
     func share(from controller: ArticleToolbarController)
+    func showRevisionHistory(from controller: ArticleToolbarController)
+    func showArticleTalkPage(from controller: ArticleToolbarController)
     var isTableOfContentsVisible: Bool { get }
 }
 
@@ -71,6 +74,39 @@ class ArticleToolbarController: Themeable {
         item.apply(theme: theme)
         return item
     }()
+    
+    lazy var moreButton: IconBarButtonItem = {
+        return createMoreButton()
+    }()
+    
+    private func createMoreButton(needsWatchButton: Bool = false, needsUnwatchButton: Bool = false) -> IconBarButtonItem {
+        var actions: [UIAction] = []
+        
+        actions.append(UIAction(title: CommonStrings.revisionHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedRevisionHistory() }))
+        
+        // WATCHLISTTODO: Icon
+        actions.append(UIAction(title: CommonStrings.articleTalkPage, image: nil, handler: { [weak self] _ in self?.tappedArticleTalkPage() }))
+        
+        if needsWatchButton {
+           actions.append(UIAction(title: CommonStrings.watch, handler: { _ in }))
+        } else if needsUnwatchButton {
+           actions.append(UIAction(title: CommonStrings.unwatch, handler: { _ in }))
+        }
+
+        actions.append(UIAction(title: CommonStrings.shortShareTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { [weak self] _ in self?.share()}))
+        
+        let menu = UIMenu(title: "", options: .displayInline, children: actions)
+        
+        let item = IconBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
+
+        item.accessibilityLabel = CommonStrings.moreButton
+        return item
+    }
+    
+    func updateMoreButton(needsWatchButton: Bool = false, needsUnwatchButton: Bool = false) {
+        self.moreButton = createMoreButton(needsWatchButton: needsWatchButton, needsUnwatchButton: needsUnwatchButton)
+        update()
+    }
 
     init(toolbar: UIToolbar, delegate: ArticleToolbarHandling) {
         self.toolbar = toolbar
@@ -115,6 +151,14 @@ class ArticleToolbarController: Themeable {
         delegate?.showFindInPage(from: self)
     }
     
+    @objc func tappedArticleTalkPage() {
+        delegate?.showArticleTalkPage(from: self)
+    }
+    
+    @objc func tappedRevisionHistory() {
+        delegate?.showRevisionHistory(from: self)
+    }
+    
     // MARK: State
     
     func setSavedState(isSaved: Bool) {
@@ -145,22 +189,42 @@ class ArticleToolbarController: Themeable {
     }
     
     func update() {
+        
         let tocItem = delegate?.isTableOfContentsVisible ?? false ? hideTableOfContentsButton : showTableOfContentsButton
-        toolbar.items = [
-            UIBarButtonItem.flexibleSpaceToolbar(),
-            tocItem,
-            UIBarButtonItem.flexibleSpaceToolbar(),
-            languagesButton,
-            UIBarButtonItem.flexibleSpaceToolbar(),
-            saveButton,
-            UIBarButtonItem.flexibleSpaceToolbar(),
-            shareButton,
-            UIBarButtonItem.flexibleSpaceToolbar(),
-            themeButton,
-            UIBarButtonItem.flexibleSpaceToolbar(),
-            findInPageButton,
-            UIBarButtonItem.flexibleSpaceToolbar()
-        ]
+        
+        if FeatureFlags.watchlistEnabled {
+            toolbar.items = [
+                UIBarButtonItem.flexibleSpaceToolbar(),
+                tocItem,
+                UIBarButtonItem.flexibleSpaceToolbar(),
+                languagesButton,
+                UIBarButtonItem.flexibleSpaceToolbar(),
+                saveButton,
+                UIBarButtonItem.flexibleSpaceToolbar(),
+                findInPageButton,
+                UIBarButtonItem.flexibleSpaceToolbar(),
+                themeButton,
+                UIBarButtonItem.flexibleSpaceToolbar(),
+                moreButton,
+                UIBarButtonItem.flexibleSpaceToolbar()
+            ]
+        } else {
+            toolbar.items = [
+                UIBarButtonItem.flexibleSpaceToolbar(),
+                tocItem,
+                UIBarButtonItem.flexibleSpaceToolbar(),
+                languagesButton,
+                UIBarButtonItem.flexibleSpaceToolbar(),
+                saveButton,
+                UIBarButtonItem.flexibleSpaceToolbar(),
+                shareButton,
+                UIBarButtonItem.flexibleSpaceToolbar(),
+                themeButton,
+                UIBarButtonItem.flexibleSpaceToolbar(),
+                findInPageButton,
+                UIBarButtonItem.flexibleSpaceToolbar()
+            ]
+        }
     }
 
     func setToolbarButtons(enabled: Bool) {

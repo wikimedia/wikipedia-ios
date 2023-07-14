@@ -1,4 +1,5 @@
 extension ArticleViewController: ArticleToolbarHandling {
+    
     func showTableOfContents(from controller: ArticleToolbarController) {
         showTableOfContents()
         NavigationEventsFunnel.shared.logEvent(action: .articleToolbarTOC)
@@ -49,5 +50,13 @@ extension ArticleViewController: ArticleToolbarHandling {
     func showFindInPage(from controller: ArticleToolbarController) {
         NavigationEventsFunnel.shared.logEvent(action: .articleToolbarSearch)
         showFindInPage()
+    }
+    
+    func showRevisionHistory(from controller: ArticleToolbarController) {
+        showEditHistory()
+    }
+    
+    func showArticleTalkPage(from controller: ArticleToolbarController) {
+        showTalkPage()
     }
 }
