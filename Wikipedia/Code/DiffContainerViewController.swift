@@ -271,7 +271,20 @@ class DiffContainerViewController: ViewController {
 // MARK: Private
 
 private extension DiffContainerViewController {
-    
+
+    func fetchPageURL() -> URL? {
+        guard let articleTitle = articleTitle, let languageCode = siteURL.wmf_languageCode else {
+            return nil
+        }
+        
+        let namespaceAndTitle = articleTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode)
+        guard let url = siteURL.wmf_URL(withTitle: namespaceAndTitle.title) else {
+            return nil
+        }
+        
+        return url
+    }
+
     func populateNewHeaderViewModel() {
         guard let toModel = toModel,
             let articleTitle = articleTitle else {
@@ -1162,7 +1175,12 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
 
     func tappedEditHistory() {
-        // DIFFTODO: Push PageHistoryViewController
+        guard let pageURL = fetchPageURL(), let pageTitle = pageURL.wmf_title else {
+            return
+        }
+
+        let historyViewController = PageHistoryViewController(pageTitle: pageTitle, pageURL: pageURL, articleSummaryController: diffController.articleSummaryController)
+        push(historyViewController, animated: true)
     }
 
     func tappedThankButton() {
