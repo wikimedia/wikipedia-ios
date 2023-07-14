@@ -12,6 +12,8 @@ protocol ArticleToolbarHandling: AnyObject {
     func share(from controller: ArticleToolbarController)
     func showRevisionHistory(from controller: ArticleToolbarController)
     func showArticleTalkPage(from controller: ArticleToolbarController)
+    func watch(from controller: ArticleToolbarController)
+    func unwatch(from controller: ArticleToolbarController)
     var isTableOfContentsVisible: Bool { get }
 }
 
@@ -84,13 +86,12 @@ class ArticleToolbarController: Themeable {
         
         actions.append(UIAction(title: CommonStrings.revisionHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedRevisionHistory() }))
         
-        // WATCHLISTTODO: Icon
-        actions.append(UIAction(title: CommonStrings.articleTalkPage, image: nil, handler: { [weak self] _ in self?.tappedArticleTalkPage() }))
+        actions.append(UIAction(title: CommonStrings.articleTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right"), handler: { [weak self] _ in self?.tappedArticleTalkPage() }))
         
         if needsWatchButton {
-           actions.append(UIAction(title: CommonStrings.watch, handler: { _ in }))
+           actions.append(UIAction(title: CommonStrings.watch, image: UIImage(systemName: "star"), handler: { [weak self] _ in self?.tappedWatch() }))
         } else if needsUnwatchButton {
-           actions.append(UIAction(title: CommonStrings.unwatch, handler: { _ in }))
+            actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.fill"), handler: { [weak self] _ in self?.tappedUnwatch()}))
         }
 
         actions.append(UIAction(title: CommonStrings.shortShareTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { [weak self] _ in self?.share()}))
@@ -153,6 +154,14 @@ class ArticleToolbarController: Themeable {
     
     @objc func tappedArticleTalkPage() {
         delegate?.showArticleTalkPage(from: self)
+    }
+    
+    @objc func tappedWatch() {
+        delegate?.watch(from: self)
+    }
+    
+    @objc func tappedUnwatch() {
+        delegate?.unwatch(from: self)
     }
     
     @objc func tappedRevisionHistory() {

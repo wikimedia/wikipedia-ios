@@ -56,6 +56,14 @@ extension ArticleViewController: ArticleToolbarHandling {
         showEditHistory()
     }
     
+    func watch(from controller: ArticleToolbarController) {
+        watch()
+    }
+    
+    func unwatch(from controller: ArticleToolbarController) {
+        unwatch()
+    }
+    
     func showArticleTalkPage(from controller: ArticleToolbarController) {
         showTalkPage()
     }
