@@ -1095,6 +1095,9 @@
 "variants-alert-dismiss-button" = "Ne, hvala";
 "variants-alert-preferences-button" = "Preglejte svoje nastavitve";
 "watchlist" = "Spisek nadzorov";
+"watchlist-user-button-user-contributions" = "Uporabniški prispevki";
+"watchlist-user-button-user-page" = "Uporabniška stran";
+"watchlist-user-button-user-talk-page" = "Uporabniška pogovorna stran";
 "welcome-exploration-explore-feed-description" = "Priporočeno branje in dnevni članki iz naše skupnosti";
 "welcome-exploration-explore-feed-title" = "Vir Raziskuj";
 "welcome-exploration-on-this-day-description" = "Potujte v preteklost in spoznajte, kaj se je v zgodovini zgodilo na današnji dan";
