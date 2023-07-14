@@ -29,6 +29,11 @@ class DiffContainerViewController: ViewController {
     private var diffListViewController: DiffListViewController?
     private var diffToolbarView: DiffToolbarView?
     private let diffController: DiffController
+    
+    internal lazy var watchlistController: WatchlistController = {
+        return WatchlistController(delegate: self)
+    }()
+    
     private var fromModel: WMFPageHistoryRevision?
     private var fromModelRevisionID: Int?
     private var toModel: WMFPageHistoryRevision?
@@ -1171,9 +1176,23 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
     
     func tappedWatch() {
+        
+        guard let articleTitle else {
+            showGenericError()
+            return
+        }
+        
+        watchlistController.watch(pageTitle: articleTitle, siteURL: siteURL, viewController: self, authenticationManager: diffController.authenticationManager, theme: theme)
     }
     
     func tappedUnwatch() {
+        
+        guard let articleTitle else {
+            showGenericError()
+            return
+        }
+        
+        watchlistController.unwatch(pageTitle: articleTitle, siteURL: siteURL, viewController: self, authenticationManager: diffController.authenticationManager, theme: theme)
     }
     
     // MARK: Undo and Rollback
@@ -1308,5 +1327,15 @@ extension DiffContainerViewController: DiffRevisionAnimating {
         case .empty, .error:
             return scrollingEmptyViewController
         }
+    }
+}
+
+extension DiffContainerViewController: WatchlistControllerDelegate {
+    func didSuccessfullyWatch(_ controller: WatchlistController) {
+        diffToolbarView?.updateMoreButton(needsWatchButton: false, needsUnwatchButton: true, needsArticleEditHistoryButton: true)
+    }
+    
+    func didSuccessfullyUnwatch(_ controller: WatchlistController) {
+        diffToolbarView?.updateMoreButton(needsWatchButton: true, needsUnwatchButton: false, needsArticleEditHistoryButton: true)
     }
 }

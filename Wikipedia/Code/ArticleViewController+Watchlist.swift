@@ -34,8 +34,34 @@ extension ArticleViewController {
     }
     
     func watch() {
+        
+        guard let title = articleURL.wmf_title,
+        let siteURL = articleURL.wmf_site else {
+            showGenericError()
+            return
+        }
+        
+        watchlistController.watch(pageTitle: title, siteURL: siteURL, viewController: self, authenticationManager: authManager, theme: theme)
     }
     
     func unwatch() {
+        
+        guard let title = articleURL.wmf_title,
+        let siteURL = articleURL.wmf_site else {
+            showGenericError()
+            return
+        }
+        
+        watchlistController.unwatch(pageTitle: title, siteURL: siteURL, viewController: self, authenticationManager: authManager, theme: theme)
+    }
+}
+
+extension ArticleViewController: WatchlistControllerDelegate {
+    func didSuccessfullyWatch(_ controller: WatchlistController) {
+        toolbarController.updateMoreButton(needsWatchButton: false, needsUnwatchButton: true)
+    }
+    
+    func didSuccessfullyUnwatch(_ controller: WatchlistController) {
+        toolbarController.updateMoreButton(needsWatchButton: true, needsUnwatchButton: false)
     }
 }
