@@ -7,6 +7,8 @@ protocol WatchlistControllerDelegate: AnyObject {
     func didSuccessfullyUnwatch(_ controller: WatchlistController)
 }
 
+
+/// This controller contains reusable logic for watching, updating expiry, and unwatching a page. It triggers the network service calls, as well as displays the appropriate toasts and action sheets based on the response.
 class WatchlistController {
     
     private let service = WKWatchlistService()
@@ -16,7 +18,7 @@ class WatchlistController {
         self.delegate = delegate
     }
     
-    func watch(pageTitle: String, siteURL: URL, expiry: WKWatchlistExpiryType = .never, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme) {
+    func watch(pageTitle: String, siteURL: URL, expiry: WKWatchlistExpiryType = .never, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem) {
         
         guard authenticationManager.isLoggedIn else {
             viewController.wmf_showLoginViewController(theme: theme)
@@ -36,7 +38,7 @@ class WatchlistController {
                 
                 switch result {
                 case .success:
-                    self.displayWatchSuccessMessageWithExpiry(expiry)
+                    self.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, allowChangeExpiry: true)
                     self.delegate?.didSuccessfullyWatch(self)
                 case .failure(let error):
                     WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
@@ -45,25 +47,83 @@ class WatchlistController {
         }
     }
     
-    private func displayWatchSuccessMessageWithExpiry(_ expiry: WKWatchlistExpiryType) {
+    private func displayWatchSuccessMessage(pageTitle: String, wkProject: WKProject, expiry: WKWatchlistExpiryType, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem, allowChangeExpiry: Bool) {
         let statusTitle: String
         let image = UIImage(systemName: "star.fill")
         switch expiry {
         case .never:
-            statusTitle = WMFLocalizedString("watchlist-added-toast-permanently", value: "Added to Watchlist permanently", comment: "Title in toast after a user successfully adds an article to their watchlist, with no expiration.")
+            statusTitle = WMFLocalizedString("watchlist-added-toast-permanently", value: "Added to Watchlist permanently.", comment: "Title in toast after a user successfully adds an article to their watchlist, with no expiration.")
         case .oneWeek:
-            statusTitle = WMFLocalizedString("watchlist-added-toast-one-week", value: "Added to Watchlist for 1 week", comment: "Title in toast after a user successfully adds an article to their watchlist, which expires in one week.")
+            statusTitle = WMFLocalizedString("watchlist-added-toast-one-week", value: "Added to Watchlist for 1 week.", comment: "Title in toast after a user successfully adds an article to their watchlist, which expires in one week.")
         case .oneMonth:
-            statusTitle = WMFLocalizedString("watchlist-added-toast-one-month", value: "Added to Watchlist for 1 month", comment: "Title in toast after a user successfully adds an article to their watchlist, which expires in one month.")
+            statusTitle = WMFLocalizedString("watchlist-added-toast-one-month", value: "Added to Watchlist for 1 month.", comment: "Title in toast after a user successfully adds an article to their watchlist, which expires in one month.")
         case .threeMonths:
-            statusTitle = WMFLocalizedString("watchlist-added-toast-three-months", value: "Added to Watchlist for 3 months", comment: "Title in toast after a user successfully adds an article to their watchlist, which expires in three months.")
+            statusTitle = WMFLocalizedString("watchlist-added-toast-three-months", value: "Added to Watchlist for 3 months.", comment: "Title in toast after a user successfully adds an article to their watchlist, which expires in three months.")
         case .sixMonths:
-            statusTitle = WMFLocalizedString("watchlist-added-toast-six-months", value: "Added to Watchlist for 6 months", comment: "Title in toast after a user successfully adds an article to their watchlist, which expires in 6 months.")
+            statusTitle = WMFLocalizedString("watchlist-added-toast-six-months", value: "Added to Watchlist for 6 months.", comment: "Title in toast after a user successfully adds an article to their watchlist, which expires in 6 months.")
         }
         
-        let promptTitle = WMFLocalizedString("watchlist-added-toast-change-expiration", value: "Change expiration date?", comment: "Title in toast after a user successfully adds an article to their watchlist. Tapping will allow them to change their watchlist item expiration date.")
+        let promptTitle = allowChangeExpiry ? WMFLocalizedString("watchlist-added-toast-change-expiration", value: "\nChange expiration date?", comment: "Title in toast after a user successfully adds an article to their watchlist. Tapping will allow them to change their watchlist item expiration date.") : ""
         
-        WMFAlertManager.sharedInstance.showBottomAlertWithMessage("\(statusTitle)\n\(promptTitle)", subtitle: nil, image: image, type: .custom, customTypeName: "subscription-success", dismissPreviousAlerts: true)
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage("\(statusTitle)\(promptTitle)", subtitle: nil, image: image, type: .custom, customTypeName: "subscription-success", dismissPreviousAlerts: true, tapCallBack: { [weak self] in
+            guard allowChangeExpiry else {
+                return
+            }
+            self?.presentExpiryUpdateActionSheet(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender)
+        })
+    }
+    
+    private func presentExpiryUpdateActionSheet(pageTitle: String, wkProject: WKProject, expiry: WKWatchlistExpiryType, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem) {
+        
+        WMFAlertManager.sharedInstance.dismissAllAlerts()
+        
+        let title = WMFLocalizedString("watchlist-change-expiry-title", value: "Watchlist expiry", comment: "Title of modal that allows a user to change the expiry setting of a page they are watching.")
+        let message = WMFLocalizedString("watchlist-change-expiry-subtitle", value: "Change Watchlist time period", comment: "Subtitle in modal that allows a user to change the expiry setting of a page they are watching.")
+        
+        let expiryOptionPermanent = WMFLocalizedString("watchlist-change-expiry-option-permanent", value: "Permanent", comment: "Title of button in expiry change modal that permanently watches a page.")
+        
+        let expiryOptionOneWeek = WMFLocalizedString("watchlist-change-expiry-option-one-week", value: "1 week", comment: "Title of button in expiry change modal that watches a page for one week.")
+        
+        let expiryOptionOneMonth = WMFLocalizedString("watchlist-change-expiry-option-one-month", value: "1 month", comment: "Title of button in expiry change modal that watches a page for one month.")
+        
+        let expiryOptionThreeMonths = WMFLocalizedString("watchlist-change-expiry-option-three-months", value: "3 months", comment: "Title of button in expiry change modal that watches a page for three months.")
+        
+        let expiryOptionSixMonths = WMFLocalizedString("watchlist-change-expiry-option-six-months", value: "6 months", comment: "Title of button in expiry change modal that watches a page for six months.")
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        let titles = [expiryOptionPermanent, expiryOptionOneWeek, expiryOptionOneMonth, expiryOptionThreeMonths, expiryOptionSixMonths]
+        let expirys: [WKWatchlistExpiryType] = [.never, .oneWeek, .oneMonth, .threeMonths, .sixMonths]
+        
+        for (title, expiry) in zip(titles, expirys) {
+            
+            let action = UIAlertAction(title: title, style: .default) { [weak self] (action) in
+                self?.service.watch(title: pageTitle, project: wkProject, expiry: expiry, completion: { result in
+                    switch result {
+                    case .success(()):
+                        self?.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, allowChangeExpiry: false)
+                    case .failure(let error):
+                        WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                    }
+                })
+            }
+            
+            alertController.addAction(action)
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
+        
+        alertController.addAction(cancelAction)
+        
+        if let popoverController = alertController.popoverPresentationController {
+            // WATCHLISTTODO: Positioning problem on iPad
+            popoverController.barButtonItem = sender
+        }
+        
+        alertController.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
+        
+        viewController.present(alertController, animated: true)
     }
     
     func unwatch(pageTitle: String, siteURL: URL, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme) {

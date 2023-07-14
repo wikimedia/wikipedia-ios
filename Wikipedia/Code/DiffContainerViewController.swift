@@ -1177,12 +1177,13 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     
     func tappedWatch() {
         
-        guard let articleTitle else {
+        guard let articleTitle,
+        let sender = diffToolbarView?.moreButton else {
             showGenericError()
             return
         }
         
-        watchlistController.watch(pageTitle: articleTitle, siteURL: siteURL, viewController: self, authenticationManager: diffController.authenticationManager, theme: theme)
+        watchlistController.watch(pageTitle: articleTitle, siteURL: siteURL, viewController: self, authenticationManager: diffController.authenticationManager, theme: theme, sender: sender)
     }
     
     func tappedUnwatch() {
