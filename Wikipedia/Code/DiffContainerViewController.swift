@@ -643,7 +643,7 @@ private extension DiffContainerViewController {
                     
                     let needsWatchButton = !status.watched && FeatureFlags.watchlistEnabled
                     let needsUnwatchButton = status.watched && FeatureFlags.watchlistEnabled
-                    let needsArticleEditHistoryButton = !(revisionRetrievingDelegate is PageHistoryViewController) && FeatureFlags.watchlistEnabled
+                    let needsArticleEditHistoryButton = true
                     
                     self.diffToolbarView?.updateMoreButton(needsRollbackButton: (status.userHasRollbackRights ?? false), needsWatchButton: needsWatchButton, needsUnwatchButton: needsUnwatchButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
                 case .failure:
