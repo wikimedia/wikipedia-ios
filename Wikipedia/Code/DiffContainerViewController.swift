@@ -270,10 +270,6 @@ private extension DiffContainerViewController {
         }
         
         let namespaceAndTitle = articleTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode)
-        guard namespaceAndTitle.namespace == .main else {
-            return nil
-        }
-        
         guard let url = siteURL.wmf_URL(withTitle: namespaceAndTitle.title) else {
             return nil
         }
@@ -1140,11 +1136,11 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
 
     func tappedEditHistory() {
-        guard let articleTitle = articleTitle, let pageURL = fetchPageURL() else {
+        guard let pageURL = fetchPageURL(), let pageTitle = pageURL.wmf_title else {
             return
         }
 
-        let historyViewController = PageHistoryViewController(pageTitle: articleTitle, pageURL: pageURL, articleSummaryController: diffController.articleSummaryController)
+        let historyViewController = PageHistoryViewController(pageTitle: pageTitle, pageURL: pageURL, articleSummaryController: diffController.articleSummaryController)
         push(historyViewController, animated: true)
     }
 
