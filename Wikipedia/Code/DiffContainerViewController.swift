@@ -1170,6 +1170,12 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         tappedThank(for: toModelRevisionID, isUserAnonymous: isUserAnonymous)
     }
     
+    func tappedWatch() {
+    }
+    
+    func tappedUnwatch() {
+    }
+    
     // MARK: Undo and Rollback
 
     func tappedUndo() {

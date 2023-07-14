@@ -8,6 +8,8 @@ protocol DiffToolbarViewDelegate: AnyObject {
     func tappedUndo()
     func tappedRollback()
     func tappedEditHistory()
+    func tappedWatch()
+    func tappedUnwatch()
     var isLoggedIn: Bool { get }
 }
 
@@ -107,6 +109,14 @@ class DiffToolbarView: UIView {
     @objc func tappedShare() {
         delegate?.tappedShare()
     }
+    
+    @objc func tappedWatch() {
+        delegate?.tappedWatch()
+    }
+    
+    @objc func tappedUnwatch() {
+        delegate?.tappedUnwatch()
+    }
 
     @objc func tappedEditHistory() {
         delegate?.tappedEditHistory()
@@ -122,23 +132,27 @@ class DiffToolbarView: UIView {
         setItems()
     }
     
-    func updateMoreButton(needsRollbackButton: Bool = false, needsWatchButton: Bool = false, needsUnwatchButton: Bool = false, needsArticleEditHistoryButton: Bool = false) {
-        self.moreButton = createMoreButton(needsRollbackButton: needsRollbackButton, needsWatchButton: needsWatchButton, needsUnwatchButton: needsUnwatchButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
+    func updateMoreButton(needsRollbackButton: Bool? = nil, needsWatchButton: Bool = false, needsUnwatchButton: Bool = false, needsArticleEditHistoryButton: Bool = false) {
+        
+        let resolvedNeedsRollback = needsRollbackButton ?? currentlyHasRollback ?? false
+        self.moreButton = createMoreButton(needsRollbackButton: resolvedNeedsRollback, needsWatchButton: needsWatchButton, needsUnwatchButton: needsUnwatchButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
         setItems()
     }
     
+    private var currentlyHasRollback: Bool?
     private func createMoreButton(needsRollbackButton: Bool = false, needsWatchButton: Bool = false, needsUnwatchButton: Bool = false, needsArticleEditHistoryButton: Bool = false) -> IconBarButtonItem {
         
         var actions: [UIAction] = []
         if needsRollbackButton {
             actions.append(UIAction(title: CommonStrings.rollback, image: UIImage(systemName: "arrow.uturn.backward.circle"), attributes: [.destructive], handler: { [weak self] _ in self?.tappedRollback() }))
         }
+        currentlyHasRollback = needsRollbackButton
         actions.append(UIAction(title: CommonStrings.shortShareTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { [weak self] _ in self?.tappedShare()}))
 
        if needsWatchButton {
-           actions.append(UIAction(title: CommonStrings.watch, handler: { _ in }))
+           actions.append(UIAction(title: CommonStrings.watch, image: UIImage(systemName: "star"), handler: { [weak self] _ in self?.tappedWatch() }))
        } else if needsUnwatchButton {
-           actions.append(UIAction(title: CommonStrings.unwatch, handler: { _ in }))
+           actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.fill"), handler: { [weak self] _ in self?.tappedUnwatch()}))
        }
            
        if needsArticleEditHistoryButton {
