@@ -235,11 +235,10 @@
 "description-welcome-descriptions-title" = "條目描述";
 "description-welcome-promise-title" = "首先，我保證不會濫用此功能。";
 "description-welcome-start-editing-button" = "開始編輯";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "從：";
+"diff-article-edit-history" = "條目編輯歷史";
+"diff-compare-header-from-info-heading" = "從";
 "diff-compare-header-heading" = "比較修訂";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "到：";
+"diff-compare-header-to-info-heading" = "到";
 "diff-compare-title" = "比較修訂";
 "diff-context-lines-collapsed-button-title" = "顯示";
 "diff-context-lines-expanded-button-title" = "隱藏";
@@ -251,6 +250,9 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 個段落}}";
 "diff-paragraph-moved-format" = "章節已移動$1 $2";
 "diff-revision-error-title" = "無法載入修訂";
+"diff-rollback" = "回退";
+"diff-rollback-alert-message" = "您確定要回退這些編輯嗎？";
+"diff-rollback-alert-title" = "回退編輯";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 次編輯|$1 次編輯}}";
 "diff-single-header-editor-title" = "編者資訊";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 位元組已添加|$1 位元組已添加}}";
@@ -267,6 +269,7 @@
 "diff-thanks-sent" = "您的感謝已發送給$1";
 "diff-thanks-sent-already" = "您已曾為此編輯發送過感謝";
 "diff-thanks-sent-cannot-unsend" = "感謝無法撤回發送";
+"diff-undo-message" = "這將撤消此處顯示的條目修訂所做出的更改。若要繼續，請提供撤消此編輯的原因。";
 "diff-unedited-lines-format" = "{{PLURAL:$1|共$1行尚未編輯}}";
 "dim-images" = "調暗圖片";
 "edit-bold-accessibility-label" = "添加粗體格式";
@@ -585,6 +588,7 @@
 "menu-cancel-accessibility-label" = "取消";
 "more-languages-tooltip-description" = "在超過 300 種語言的維基百科裡搜尋";
 "more-languages-tooltip-title" = "新增語言";
+"more-menu" = "更多";
 "move-articles-to-reading-list" = "移動 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
 "navbar-title-mode-edit-wikitext-preview" = "預覽";
 "nearby-distance-label-feet" = "$1 英尺";
@@ -1125,6 +1129,10 @@
 "vanishing-request-email-title" = "禮貌性請求隱退";
 "variants-alert-dismiss-button" = "不用了，謝謝";
 "variants-alert-preferences-button" = "檢視您的偏好設定";
+"watchlist" = "監視清單";
+"watchlist-user-button-user-contributions" = "使用者貢獻";
+"watchlist-user-button-user-page" = "使用者頁面";
+"watchlist-user-button-user-talk-page" = "使用者討論頁";
 "welcome-exploration-explore-feed-description" = "來自我們社群推薦的讀物及每日條目";
 "welcome-exploration-explore-feed-title" = "探索摘要";
 "welcome-exploration-on-this-day-description" = "返回時間來了解在歷史上的今天發生了什麼事";

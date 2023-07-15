@@ -216,11 +216,10 @@
 "description-welcome-descriptions-title" = "Artikkelbeskrivelser";
 "description-welcome-promise-title" = "Gjennom å starte lover jeg å ikke misbruke denne funksjonen";
 "description-welcome-start-editing-button" = "Begynn å redigere";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Fra:";
+"diff-article-edit-history" = "Artikkelredigeringshistorikk";
+"diff-compare-header-from-info-heading" = "Fra";
 "diff-compare-header-heading" = "Sammenlign revisjoner";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Til:";
+"diff-compare-header-to-info-heading" = "Til";
 "diff-compare-title" = "Sammenlign revisjoner";
 "diff-context-lines-collapsed-button-title" = "Vis";
 "diff-context-lines-expanded-button-title" = "Skjul";
@@ -232,6 +231,9 @@
 "diff-paragraph-moved-distance-section" = "$1 {{PLURAL:$1|seksjon|seksjoner}}";
 "diff-paragraph-moved-format" = "Avsnitt flyttet $1 $2";
 "diff-revision-error-title" = "Kunne ikke laste revisjon";
+"diff-rollback" = "Tilbakestill";
+"diff-rollback-alert-message" = "Er du sikker på at du vil tilbakestille redigeringene?";
+"diff-rollback-alert-title" = "Tilbakestill redigeringer";
 "diff-single-header-editor-number-edits-format" = "$1 {{PLURAL:$1|redigering|redigeringer}}";
 "diff-single-header-editor-title" = "Bidragsyterinformasjon";
 "diff-single-header-subtitle-bytes-added" = "$1 {{PLURAL:$1|byte}} lagt til";
@@ -248,6 +250,7 @@
 "diff-thanks-sent" = "Takket ditt ble sendt til $1";
 "diff-thanks-sent-already" = "Du har allerede takket for denne redigeringen";
 "diff-thanks-sent-cannot-unsend" = "Takk kan ikke gjøres om";
+"diff-undo-message" = "Dette angrer endringer gjort ved sideversjonen(e) til artikkelen vist her. For å fortsette, angi en grunn til å omgjøre denne redigeringen.";
 "diff-unedited-lines-format" = "$1 {{PLURAL:$1|linje|linjer}} uredigert";
 "dim-images" = "Mørklegg bilder";
 "edit-bold-accessibility-label" = "Bruk fet tekstformatering";
@@ -566,6 +569,7 @@
 "menu-cancel-accessibility-label" = "Avbryt";
 "more-languages-tooltip-description" = "Søk i Wikipedia på over 300 språk";
 "more-languages-tooltip-title" = "Legg til språk";
+"more-menu" = "Mer";
 "move-articles-to-reading-list" = "Flytt {{PLURAL:$1|$1 artikkel|$1 artikler}} til leselisten";
 "navbar-title-mode-edit-wikitext-preview" = "Forhåndsvis";
 "nearby-distance-label-feet" = "$1 fot";
@@ -1106,6 +1110,7 @@
 "vanishing-request-email-title" = "Forespørsel om kontoforsvinning";
 "variants-alert-dismiss-button" = "Nei takk";
 "variants-alert-preferences-button" = "Gå gjennom innstillingene dine";
+"watchlist" = "Overvåkningsliste";
 "welcome-exploration-explore-feed-description" = "Anbefalt lesning og daglige artikler utvalgt av fellesskapet";
 "welcome-exploration-explore-feed-title" = "Utforskingsside";
 "welcome-exploration-on-this-day-description" = "Reis tilbake i tid for å lære hva som skjedde på dagens dato i historien";

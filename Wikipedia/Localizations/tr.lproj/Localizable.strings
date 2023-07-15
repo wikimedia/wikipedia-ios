@@ -238,11 +238,10 @@
 "description-welcome-descriptions-title" = "Madde açıklamaları";
 "description-welcome-promise-title" = "Başlayarak bu özelliği kötüye kullanmamaya söz veriyorum";
 "description-welcome-start-editing-button" = "Düzenlemeye başla";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Gönderen:";
+"diff-article-edit-history" = "Madde Düzenleme Geçmişi";
+"diff-compare-header-from-info-heading" = "Gönderen";
 "diff-compare-header-heading" = "Düzeltmeleri Karşılaştır";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Alıcı:";
+"diff-compare-header-to-info-heading" = "Alıcı";
 "diff-compare-title" = "Düzeltmeleri Karşılaştır";
 "diff-context-lines-collapsed-button-title" = "Göster";
 "diff-context-lines-expanded-button-title" = "Gizle";
@@ -254,6 +253,9 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 bölüm|$1 bölüm}}";
 "diff-paragraph-moved-format" = "Paragraf taşındı $1 $2";
 "diff-revision-error-title" = "Revizyon yüklenemedi";
+"diff-rollback" = "Geri döndürme";
+"diff-rollback-alert-message" = "Değişiklikleri geri döndürmek istediğinizden emin misiniz?";
+"diff-rollback-alert-title" = "Değişiklikleri geri döndür";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 düzenleme|$1 düzenleme}}";
 "diff-single-header-editor-title" = "Düzenleyici bilgisi";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 bayt eklendi|$1 bayt eklendi}}";
@@ -270,6 +272,7 @@
 "diff-thanks-sent" = "'Teşekkürün' $1 olarak ayarlandı";
 "diff-thanks-sent-already" = "Bu düzenleme için zaten bir 'Teşekkür' gönderdiniz";
 "diff-thanks-sent-cannot-unsend" = "Teşekkürler gönderilemez";
+"diff-undo-message" = "Bu, burada gösterilen maddenin sürüm(ler)iyle yapılan değişiklikleri geri alacaktır. Devam etmek için lütfen bu düzenlemeyi geri alma nedeninizi belirtin.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 düzenlenmemiş çizgi|$1 düzenlenmemiş çizgi}}";
 "dim-images" = "Resimleri karart";
 "edit-bold-accessibility-label" = "Kalın formatı ekle";
@@ -588,6 +591,7 @@
 "menu-cancel-accessibility-label" = "İptal";
 "more-languages-tooltip-description" = "Vikipedi'yi 300'den fazla dilde arayın";
 "more-languages-tooltip-title" = "Dil ekle";
+"more-menu" = "Daha fazla";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine taşıyın";
 "navbar-title-mode-edit-wikitext-preview" = "Önizleme";
 "nearby-distance-label-feet" = "$1 fit";
@@ -1128,6 +1132,10 @@
 "vanishing-request-email-title" = "Gayriresmi yok olma isteği";
 "variants-alert-dismiss-button" = "Hayır teşekkürler";
 "variants-alert-preferences-button" = "Tercihlerinizi gözden geçirin";
+"watchlist" = "İzleme listesi";
+"watchlist-user-button-user-contributions" = "Kullanıcı katkıları";
+"watchlist-user-button-user-page" = "Kullanıcı sayfası";
+"watchlist-user-button-user-talk-page" = "Kullanıcı mesaj sayfası";
 "welcome-exploration-explore-feed-description" = "Önerilen okumalar ve topluluğumuzdan günlük maddeler";
 "welcome-exploration-explore-feed-title" = "Keşfet bölümü";
 "welcome-exploration-on-this-day-description" = "Tarihte bugün neler olduğunu öğrenmek için geçmişe yolculuk yap";

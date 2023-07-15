@@ -36,7 +36,7 @@ class DiffContainerViewController: ViewController {
     private let needsSetNavDelegate: Bool
     private let safeAreaBottomAlignView = UIView()
     
-    private let type: DiffContainerViewModel.DiffType
+    private var type: DiffContainerViewModel.DiffType
     
     private let revisionRetrievingDelegate: DiffRevisionRetrieving?
     private var firstRevision: WMFPageHistoryRevision?
@@ -63,8 +63,7 @@ class DiffContainerViewController: ViewController {
     }
     
     private var isOnFirstRevisionInHistory: Bool {
-            if type == .single,
-                let toModel = toModel,
+            if let toModel = toModel,
                 let firstRevision = firstRevision,
                 fromModel == nil,
                 toModel.revisionID == firstRevision.revisionID {
@@ -75,8 +74,7 @@ class DiffContainerViewController: ViewController {
     }
     
     private var isOnSecondRevisionInHistory: Bool {
-            if type == .single,
-                toModel != nil,
+            if toModel != nil,
                 let fromModel = fromModel,
                 let firstRevision = firstRevision,
                 fromModel.revisionID == firstRevision.revisionID {
@@ -90,15 +88,15 @@ class DiffContainerViewController: ViewController {
         return (toModel?.articleSizeAtRevision ?? 0) - (fromModel?.articleSizeAtRevision ?? 0)
     }
     
-    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, type: DiffContainerViewModel.DiffType, articleTitle: String?, needsSetNavDelegate: Bool = false) {
+    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController) {
     
         self.siteURL = siteURL
-        self.type = type
+        self.type = .compare
         self.articleTitle = articleTitle
         self.toModelRevisionID = toRevisionID
         self.fromModelRevisionID = fromRevisionID
         
-        self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: nil, revisionRetrievingDelegate: nil, type: type)
+        self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: nil, revisionRetrievingDelegate: nil, type: type, articleSummaryController: articleSummaryController)
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: nil, toModel: nil, listViewModel: nil, articleTitle: articleTitle, byteDifference: nil, theme: theme)
         
         self.firstRevision = nil
@@ -116,9 +114,9 @@ class DiffContainerViewController: ViewController {
         }
     }
     
-    init(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, needsSetNavDelegate: Bool = false) {
+    init(articleTitle: String, siteURL: URL, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController) {
 
-        self.type = type
+        self.type = .compare
         
         self.fromModel = fromModel
         self.toModel = toModel
@@ -128,7 +126,7 @@ class DiffContainerViewController: ViewController {
         self.siteURL = siteURL
         self.firstRevision = firstRevision
 
-        self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: pageHistoryFetcher, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type)
+        self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: pageHistoryFetcher, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type, articleSummaryController: articleSummaryController)
 
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, listViewModel: nil, articleTitle: articleTitle, byteDifference: nil, theme: theme)
         
@@ -155,6 +153,10 @@ class DiffContainerViewController: ViewController {
         let onLoad = { [weak self] in
             
             guard let self = self else { return }
+            
+            if self.isOnFirstRevisionInHistory {
+                self.type = .single
+            }
             
             if self.fromModel == nil {
                 self.fetchFromModelAndFinishSetup()
@@ -261,7 +263,20 @@ class DiffContainerViewController: ViewController {
 // MARK: Private
 
 private extension DiffContainerViewController {
-    
+
+    func fetchPageURL() -> URL? {
+        guard let articleTitle = articleTitle, let languageCode = siteURL.wmf_languageCode else {
+            return nil
+        }
+        
+        let namespaceAndTitle = articleTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode)
+        guard let url = siteURL.wmf_URL(withTitle: namespaceAndTitle.title) else {
+            return nil
+        }
+        
+        return url
+    }
+
     func populateNewHeaderViewModel() {
         guard let toModel = toModel,
             let articleTitle = articleTitle else {
@@ -375,7 +390,7 @@ private extension DiffContainerViewController {
         populateNewHeaderViewModel()
         setupHeaderViewIfNeeded()
         setupDiffListViewControllerIfNeeded()
-        fetchIntermediateCountIfNeeded()
+        fetchLeadImageIfNeeded()
         fetchEditCountIfNeeded()
         setupBackButton()
         apply(theme: theme)
@@ -399,9 +414,9 @@ private extension DiffContainerViewController {
         populatePrevNextModelsForToolbar()
     }
     
-    func setThankAndShareState(isEnabled: Bool) {
+    func setThankAndMoreState(isEnabled: Bool) {
         diffToolbarView?.setThankButtonState(isEnabled: isEnabled)
-        diffToolbarView?.setShareButtonState(isEnabled: isEnabled)
+        diffToolbarView?.setMoreButtonState(isEnabled: isEnabled)
         diffToolbarView?.apply(theme: theme)
     }
     
@@ -481,12 +496,14 @@ private extension DiffContainerViewController {
             return nil
         }
         
+        let oldID = fromModel?.revisionID ?? toModel.parentID
+        
         var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
         components?.path = "/w/index.php"
         components?.queryItems = [
             URLQueryItem(name: "title", value: articleTitle),
             URLQueryItem(name: "diff", value: String(toModel.revisionID)),
-            URLQueryItem(name: "oldid", value: String(toModel.parentID))
+            URLQueryItem(name: "oldid", value: String(oldID))
         ]
         return components?.url
     }
@@ -519,7 +536,7 @@ private extension DiffContainerViewController {
             fakeProgressController.start()
             scrollingEmptyViewController?.view.isHidden = true
             diffListViewController?.view.isHidden = true
-            setThankAndShareState(isEnabled: false)
+            setThankAndMoreState(isEnabled: false)
         case .empty:
             fakeProgressController.stop()
             setupScrollingEmptyViewControllerIfNeeded()
@@ -537,7 +554,7 @@ private extension DiffContainerViewController {
             }
             
             diffListViewController?.view.isHidden = true
-            setThankAndShareState(isEnabled: true)
+            setThankAndMoreState(isEnabled: true)
         case .error(let error):
             fakeProgressController.stop()
             showNoInternetConnectionAlertOrOtherWarning(from: error)
@@ -550,7 +567,7 @@ private extension DiffContainerViewController {
             }
             scrollingEmptyViewController?.view.isHidden = false
             diffListViewController?.view.isHidden = true
-            setThankAndShareState(isEnabled: false)
+            setThankAndMoreState(isEnabled: false)
         case .data:
             fakeProgressController.stop()
             scrollingEmptyViewController?.view.isHidden = true
@@ -561,7 +578,7 @@ private extension DiffContainerViewController {
                 diffListViewController?.view.isHidden = false
             }
             
-            setThankAndShareState(isEnabled: true)
+            setThankAndMoreState(isEnabled: true)
         }
     }
     
@@ -611,38 +628,30 @@ private extension DiffContainerViewController {
         }
     }
     
-    func fetchIntermediateCountIfNeeded() {
+    func fetchLeadImageIfNeeded() {
         
-        guard let toModel = toModel,
-        let articleTitle = articleTitle else {
+        guard let articleTitle else {
             return
         }
         
-        switch type {
-        case .compare:
-            if let fromModel = fromModel {
-                let fromID = fromModel.revisionID
-                let toID = toModel.revisionID
-                diffController.fetchIntermediateCounts(for: articleTitle, pageURL: siteURL, from: fromID, to: toID) { [weak self] (result) in
-                    switch result {
-                    case .success(let editCounts):
-                        guard let self = self else {
-                            return
-                        }
-                        DispatchQueue.main.async {
-                            self.updateHeaderWithIntermediateCounts(editCounts)
-                            self.diffListViewController?.updateScrollViewInsets()
-                        }
-                    default:
-                        break
-                    }
-                }
-            } else {
-                assertionFailure("Expect compare type to have fromModel for fetching intermediate count")
+        diffController.fetchLeadImageURL(siteURL: siteURL, articleTitle: articleTitle) { [weak self] result in
+            
+            guard let self else {
+                return
             }
-        case .single:
-            break
+            
+            switch result {
+            case .success(let leadImageURL):
+                self.updateHeaderWithLeadImageURL(leadImageURL)
+            default:
+                break
+            }
         }
+    }
+    
+    func updateHeaderWithLeadImageURL(_ leadImageURL: URL) {
+        // DIFFTODO: Populate header lead image
+        print(leadImageURL)
     }
 
     func updateHeaderWithIntermediateCounts(_ editCounts: EditCountsGroupedByType) {
@@ -948,11 +957,24 @@ extension DiffContainerViewController: EmptyViewControllerDelegate {
 }
 
 extension DiffContainerViewController: DiffHeaderActionDelegate {
-    func tappedUsername(username: String) {
-        if let username = username.normalizedPageTitle {
-            let userPageURL = siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true)
-            navigate(to: userPageURL)
+    
+    func tappedUsername(username: String, destination: DiffHeaderUsernameDestination) {
+        
+        guard let username = username.normalizedPageTitle else {
+            return
         }
+        
+        let url: URL?
+        switch destination {
+        case .userContributions:
+            url = siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true)
+        case .userTalkPage:
+            url = siteURL.wmf_URL(withPath: "/wiki/User_talk:\(username)", isMobile: true)
+        case .userPage:
+            url = siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true)
+        }
+        
+        navigate(to: url)
     }
     
     func tappedRevision(revisionID: Int) {
@@ -976,7 +998,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
         
         EditHistoryCompareFunnel.shared.logRevisionView(url: siteURL)
         
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController)
         push(singleDiffVC, animated: true)
     }
 }
@@ -1082,7 +1104,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 return
         }
         
-        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .compare, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
+        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController)
         replaceLastAndPush(with: diffVC)
     }
     
@@ -1096,21 +1118,30 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
-        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .compare, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
+        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController)
         replaceLastAndPush(with: diffVC)
     }
     
-    func tappedShare(_ sender: UIBarButtonItem) {
+    func tappedShare() {
         guard let diffURL = fullRevisionDiffURL() else {
             assertionFailure("Couldn't get full revision diff URL")
             return
         }
         
         let activityViewController = UIActivityViewController(activityItems: [diffURL], applicationActivities: [TUSafariActivity()])
-        activityViewController.popoverPresentationController?.barButtonItem = sender
+        activityViewController.popoverPresentationController?.barButtonItem = diffToolbarView?.moreButton
         activityViewController.excludedActivityTypes = [.addToReadingList]
         
         present(activityViewController, animated: true)
+    }
+
+    func tappedEditHistory() {
+        guard let pageURL = fetchPageURL(), let pageTitle = pageURL.wmf_title else {
+            return
+        }
+
+        let historyViewController = PageHistoryViewController(pageTitle: pageTitle, pageURL: pageURL, articleSummaryController: diffController.articleSummaryController)
+        push(historyViewController, animated: true)
     }
 
     func tappedThankButton() {

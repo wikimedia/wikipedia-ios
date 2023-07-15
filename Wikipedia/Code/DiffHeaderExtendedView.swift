@@ -1,8 +1,14 @@
 import UIKit
 
 protocol DiffHeaderActionDelegate: AnyObject {
-    func tappedUsername(username: String)
+    func tappedUsername(username: String, destination: DiffHeaderUsernameDestination)
     func tappedRevision(revisionID: Int)
+}
+
+enum DiffHeaderUsernameDestination {
+    case userContributions
+    case userTalkPage
+    case userPage
 }
 
 class DiffHeaderExtendedView: UIView {

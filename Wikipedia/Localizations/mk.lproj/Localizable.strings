@@ -1099,6 +1099,9 @@
 "variants-alert-dismiss-button" = "Не, благодарам";
 "variants-alert-preferences-button" = "Прегледајте ги вашите поставки";
 "watchlist" = "Набљудувања";
+"watchlist-user-button-user-contributions" = "Кориснички придонеси";
+"watchlist-user-button-user-page" = "Корисничка страница";
+"watchlist-user-button-user-talk-page" = "Корисничка разговорна страница";
 "welcome-exploration-explore-feed-description" = "Препорачано читање и дневни статии од нашата заедница";
 "welcome-exploration-explore-feed-title" = "Тековник „Истражи“";
 "welcome-exploration-on-this-day-description" = "Вратете се во времето за да дознаете што се случило на денешен ден во минатото";

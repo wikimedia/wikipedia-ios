@@ -18,6 +18,7 @@
 // Author: Fatemi127
 // Author: Freshman404
 // Author: Hadi
+// Author: Havadar-hvac
 // Author: Hosseinblue
 // Author: Huji
 // Author: Iriman
@@ -1123,6 +1124,9 @@
 "vanishing-request-email-title" = "درخواست ناپدیدسازی با حسن نیت";
 "variants-alert-dismiss-button" = "نه ممنون";
 "variants-alert-preferences-button" = "ترجیحات خود را مرور کنید";
+"watchlist-user-button-user-contributions" = "مشارکت‌های کاربر";
+"watchlist-user-button-user-page" = "صفحهٔ کاربری";
+"watchlist-user-button-user-talk-page" = "نمایه بحث کاربر";
 "welcome-exploration-explore-feed-description" = "مقاله‌های پیشنهادی روزانه برگرفته از نظر اجتماع";
 "welcome-exploration-explore-feed-title" = "خوراک بازدید";
 "welcome-exploration-on-this-day-description" = "سفر به گذشته برای آگاهی از رویدادهایی که در چنین روزی رخ داده‌است";

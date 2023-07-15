@@ -17,6 +17,7 @@
 // Author: LaMagiaaa
 // Author: Los688
 // Author: Macofe
+// Author: MagicAho
 // Author: MathXplore
 // Author: Nemo bis
 // Author: Omotecho
@@ -236,10 +237,9 @@
 "description-welcome-descriptions-title" = "記事の説明";
 "description-welcome-promise-title" = "この機能を誤用しないように約束します";
 "description-welcome-start-editing-button" = "編集を開始";
-// Fuzzy
+"diff-article-edit-history" = "記事の編集履歴";
 "diff-compare-header-from-info-heading" = "差出人:";
 "diff-compare-header-heading" = "版を比較";
-// Fuzzy
 "diff-compare-header-to-info-heading" = "宛先:";
 "diff-compare-title" = "版を比較";
 "diff-context-lines-collapsed-button-title" = "表示";
@@ -253,6 +253,8 @@
 "diff-paragraph-moved-format" = "段落が$1に$2移動";
 "diff-revision-error-title" = "版を読み込めませんでした。";
 "diff-rollback" = "巻き戻し";
+"diff-rollback-alert-message" = "本当に編集を巻き戻しますか？";
+"diff-rollback-alert-title" = "編集を巻き戻し";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 件の編集}}";
 "diff-single-header-editor-title" = "編集者の情報";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1バイト追加}}";
@@ -269,6 +271,7 @@
 "diff-thanks-sent" = "あなたの感謝は $1 に送られました。";
 "diff-thanks-sent-already" = "すでにこの編集に対して '感謝' を送信しています";
 "diff-thanks-sent-cannot-unsend" = "感謝は取り消すことはできません";
+"diff-undo-message" = "これにより、ここに示されている記事のリビジョンによって加えられた変更が元に戻されます。続行するには、この編集を元に戻す理由を入力してください。";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1行が未編集}}";
 "dim-images" = "暗い画像";
 "edit-bold-accessibility-label" = "太字にする";
@@ -576,6 +579,7 @@
 "menu-cancel-accessibility-label" = "キャンセル";
 "more-languages-tooltip-description" = "300言語超えのウィキペディアを検索";
 "more-languages-tooltip-title" = "言語を追加";
+"more-menu" = "もっと見る";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 件の記事}}をあとで読むリストに移動";
 "navbar-title-mode-edit-wikitext-preview" = "プレビュー";
 "nearby-distance-label-feet" = "$1 フィート";
@@ -1044,6 +1048,9 @@
 "vanish-modal-item-3-ios15" = "削除依頼についてさらに質問がある場合は$1Meta:Right_to_vanish$2$3をご覧ください。";
 "variants-alert-dismiss-button" = "いいえ";
 "variants-alert-preferences-button" = "設定を確認する";
+"watchlist" = "ウォッチリスト";
+"watchlist-user-button-user-contributions" = "投稿記録";
+"watchlist-user-button-user-page" = "利用者ページ";
 "welcome-exploration-explore-feed-description" = "私たちコミュニティからの読書のおすすめと毎日の記事";
 "welcome-exploration-explore-feed-title" = "探索フィード";
 "welcome-exploration-on-this-day-description" = "歴史の中で今日起こったことを学ぶために時間を遡ります。";
