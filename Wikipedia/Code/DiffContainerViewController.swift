@@ -1184,6 +1184,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         }
         
         watchlistController.watch(pageTitle: articleTitle, siteURL: siteURL, viewController: self, authenticationManager: diffController.authenticationManager, theme: theme, sender: sender)
+        print("whyyy")
     }
     
     func tappedUnwatch() {
