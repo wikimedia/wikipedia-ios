@@ -283,7 +283,17 @@ class ArticleViewController: ViewController, HintPresenting {
         stashOffsetPercentage()
         super.viewWillTransition(to: size, with: coordinator)
         let marginUpdater: ((UIViewControllerTransitionCoordinatorContext) -> Void) = { _ in self.updateArticleMargins() }
-        coordinator.animate(alongsideTransition: marginUpdater)
+        
+        coordinator.animate(alongsideTransition: marginUpdater) { [weak self] _ in
+            
+            // Upon rotation completion, recalculate more button popover position
+            
+            guard let self else {
+                return
+            }
+            
+            self.watchlistController.calculatePopoverPosition(sender: self.toolbarController.moreButton, sourceView: self.toolbarController.moreButtonSourceView, sourceRect: self.toolbarController.moreButtonSourceRect)
+        }
     }
     
     // MARK: Loading

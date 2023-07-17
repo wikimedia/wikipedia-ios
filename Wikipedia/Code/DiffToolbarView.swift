@@ -166,6 +166,20 @@ class DiffToolbarView: UIView {
         item.accessibilityLabel = CommonStrings.moreButton
         return item
     }
+    
+    var moreButtonSourceView: UIView {
+        return self
+    }
+    
+    var moreButtonSourceRect: CGRect? {
+        
+        guard let undoButtonView = undoButton.customView,
+              let thankButtonView = thankButton.customView else {
+            return nil
+        }
+        
+        return WatchlistController.calculateToolbarFifthButtonSourceRect(toolbarView: self, thirdButtonView: undoButtonView, fourthButtonView: thankButtonView)
+    }
 
     private func setItems() {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)

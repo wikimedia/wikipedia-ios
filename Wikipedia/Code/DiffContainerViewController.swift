@@ -235,6 +235,21 @@ class DiffContainerViewController: ViewController {
         }
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        // Upon rotation completion, recalculate more button popover position
+        coordinator.animate(alongsideTransition: nil) { [weak self] (context) in
+            
+            guard let self,
+                  let diffToolbarView = self.diffToolbarView else {
+                return
+            }
+            
+            watchlistController.calculatePopoverPosition(sender: diffToolbarView.moreButton, sourceView: diffToolbarView.moreButtonSourceView, sourceRect: diffToolbarView.moreButtonSourceRect)
+        }
+    }
+    
     override func apply(theme: Theme) {
         
         super.apply(theme: theme)
@@ -1201,7 +1216,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
-        watchlistController.watch(pageTitle: articleTitle, siteURL: siteURL, viewController: self, authenticationManager: diffController.authenticationManager, theme: theme, sender: sender)
+        watchlistController.watch(pageTitle: articleTitle, siteURL: siteURL, viewController: self, authenticationManager: diffController.authenticationManager, theme: theme, sender: sender, sourceView: diffToolbarView?.moreButtonSourceView, sourceRect: diffToolbarView?.moreButtonSourceRect)
     }
     
     func tappedUnwatch() {

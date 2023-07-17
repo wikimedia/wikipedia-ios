@@ -13,12 +13,13 @@ class WatchlistController {
     
     private let service = WKWatchlistService()
     private weak var delegate: WatchlistControllerDelegate?
+    private weak var lastPopoverPresentationController: UIPopoverPresentationController?
     
     init(delegate: WatchlistControllerDelegate) {
         self.delegate = delegate
     }
     
-    func watch(pageTitle: String, siteURL: URL, expiry: WKWatchlistExpiryType = .never, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem) {
+    func watch(pageTitle: String, siteURL: URL, expiry: WKWatchlistExpiryType = .never, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
         
         guard authenticationManager.isLoggedIn else {
             viewController.wmf_showLoginViewController(theme: theme)
@@ -38,7 +39,7 @@ class WatchlistController {
                 
                 switch result {
                 case .success:
-                    self.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, allowChangeExpiry: true)
+                    self.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, allowChangeExpiry: true)
                     self.delegate?.didSuccessfullyWatch(self)
                 case .failure(let error):
                     WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
@@ -47,7 +48,7 @@ class WatchlistController {
         }
     }
     
-    private func displayWatchSuccessMessage(pageTitle: String, wkProject: WKProject, expiry: WKWatchlistExpiryType, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem, allowChangeExpiry: Bool) {
+    private func displayWatchSuccessMessage(pageTitle: String, wkProject: WKProject, expiry: WKWatchlistExpiryType, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, allowChangeExpiry: Bool) {
         let statusTitle: String
         let image = UIImage(systemName: "star.fill")
         switch expiry {
@@ -69,11 +70,11 @@ class WatchlistController {
             guard allowChangeExpiry else {
                 return
             }
-            self?.presentExpiryUpdateActionSheet(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender)
+            self?.presentExpiryUpdateActionSheet(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
         })
     }
     
-    private func presentExpiryUpdateActionSheet(pageTitle: String, wkProject: WKProject, expiry: WKWatchlistExpiryType, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem) {
+    private func presentExpiryUpdateActionSheet(pageTitle: String, wkProject: WKProject, expiry: WKWatchlistExpiryType, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
         
         WMFAlertManager.sharedInstance.dismissAllAlerts()
         
@@ -101,7 +102,7 @@ class WatchlistController {
                 self?.service.watch(title: pageTitle, project: wkProject, expiry: expiry, completion: { result in
                     switch result {
                     case .success(()):
-                        self?.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, allowChangeExpiry: false)
+                        self?.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, allowChangeExpiry: false)
                     case .failure(let error):
                         WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
                     }
@@ -117,8 +118,8 @@ class WatchlistController {
         alertController.addAction(cancelAction)
         
         if let popoverController = alertController.popoverPresentationController {
-            // WATCHLISTTODO: Positioning problem on iPad
-            popoverController.barButtonItem = sender
+            lastPopoverPresentationController = popoverController
+            calculatePopoverPosition(sender: sender, sourceView: sourceView, sourceRect: sourceRect)
         }
         
         alertController.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
@@ -157,5 +158,30 @@ class WatchlistController {
                 }
             }
         }
+    }
+    
+    func calculatePopoverPosition(sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
+        guard let lastPopoverPresentationController else {
+            return
+        }
+        
+        if let sourceView = sourceView,
+           let sourceRect = sourceRect {
+            lastPopoverPresentationController.sourceView = sourceView
+            lastPopoverPresentationController.sourceRect = sourceRect
+        } else {
+            lastPopoverPresentationController.barButtonItem = sender
+        }
+    }
+    
+    static func calculateToolbarFifthButtonSourceRect(toolbarView: UIView, thirdButtonView: UIView, fourthButtonView: UIView) -> CGRect {
+        
+        let thirdButtonFrame = toolbarView.convert(thirdButtonView.frame, from: thirdButtonView.superview)
+        let fourthButtonFrame = toolbarView.convert(fourthButtonView.frame, from: fourthButtonView.superview)
+        
+        let spacing = fourthButtonFrame.maxX - thirdButtonFrame.maxX
+        
+        let fifthFrame = CGRect(x: fourthButtonFrame.minX + spacing + 5, y: fourthButtonFrame.minY - 5, width: fourthButtonFrame.width, height: fourthButtonFrame.height)
+        return fifthFrame
     }
 }

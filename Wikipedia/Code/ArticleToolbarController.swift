@@ -108,6 +108,20 @@ class ArticleToolbarController: Themeable {
         self.moreButton = createMoreButton(needsWatchButton: needsWatchButton, needsUnwatchButton: needsUnwatchButton)
         update()
     }
+    
+    var moreButtonSourceView: UIView {
+        return toolbar
+    }
+    
+    var moreButtonSourceRect: CGRect? {
+        
+        guard let findInPageButtonView = findInPageButton.customView,
+              let themeButtonView = themeButton.customView else {
+            return nil
+        }
+        
+        return WatchlistController.calculateToolbarFifthButtonSourceRect(toolbarView: toolbar, thirdButtonView: findInPageButtonView, fourthButtonView: themeButtonView)
+    }
 
     init(toolbar: UIToolbar, delegate: ArticleToolbarHandling) {
         self.toolbar = toolbar
