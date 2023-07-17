@@ -210,6 +210,7 @@
 "diff-rollback" = "Title for rollback toolbar button.";
 "diff-rollback-alert-message" = "Message in alert when user taps rollback in diff toolbar.";
 "diff-rollback-alert-title" = "Title of alert when user taps rollback in diff toolbar.";
+"diff-rollback-success" = "Success message shown to user when they successfully rolled back an edit.";
 "diff-single-header-editor-number-edits-format" = "Label to show the number of total edits made by the editor when viewing a single revision. $1 is replaced with the editor's number of edits.";
 "diff-single-header-editor-title" = "Title label in header editor view when viewing a single revision.";
 "diff-single-header-subtitle-bytes-added" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were added in this revision.";
@@ -227,6 +228,7 @@
 "diff-thanks-sent-already" = "Message indicating thanks was already sent";
 "diff-thanks-sent-cannot-unsend" = "Message indicating thanks cannot be unsent";
 "diff-undo-message" = "Message showed in alert when user taps undo in diff toolbar.";
+"diff-undo-success" = "Success message shown to user when they successfully undid an edit.";
 "diff-unedited-lines-format" = "Label in diff to indicate how many lines are not displayed because they were not changed. $1 is replaced by the number of unedited lines.";
 "dim-images" = "Label for image dimming setting";
 "edit-bold-accessibility-label" = "Accessibility label for the button that adds bold formatting to the current selection";
@@ -1060,6 +1062,7 @@
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
 "unable-to-load-talk-page-title" = "Text for placeholder label visible when talk page can't be loaded";
 "unknown-generic-text" = "Default text used in places where no contextual information is provided";
+"unwatch" = "Title for unwatch toolbar button.";
 "uzbek-variants-alert-body" = "Body text of alert used to inform users about Uzbek variant support. Please do not translate the newlines (\n) or Uzbek characters (ўзбекча кирилл, etc.).";
 "uzbek-variants-alert-title" = "Title of alert used to inform users about Uzbek variant support.";
 "vanish-account-additional-information-field" = "Title for the additional information form field";
@@ -1086,6 +1089,7 @@
 "vanishing-request-email-title" = "Title for vanishing request email";
 "variants-alert-dismiss-button" = "Dismiss button on alert used to inform users about variant support.";
 "variants-alert-preferences-button" = "Action button on alert used to inform users about variant support.";
+"watch" = "Title for watch toolbar button.";
 "watchlist" = "Title for watchlist feature.";
 "watchlist-user-button-user-contributions" = "Title shown for user contributions action in user menu button in diff and watchlist views.";
 "watchlist-user-button-user-page" = "Title shown for user page action in user menu button in diff and watchlist views.";
