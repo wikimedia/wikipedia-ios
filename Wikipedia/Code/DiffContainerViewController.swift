@@ -22,7 +22,8 @@ class DiffContainerViewController: ViewController {
     
     private var containerViewModel: DiffContainerViewModel
     private var headerExtendedView: DiffHeaderExtendedView?
-    private var headerTitleView: DiffHeaderTitleView?
+//    private var headerTitleView: DiffHeaderTitleView?
+    private var diffHeaderView: DiffHeaderView?
     private var scrollingEmptyViewController: EmptyViewController?
     private var diffListViewController: DiffListViewController?
     private var diffToolbarView: DiffToolbarView?
@@ -35,6 +36,7 @@ class DiffContainerViewController: ViewController {
     private var articleTitle: String?
     private let needsSetNavDelegate: Bool
     private let safeAreaBottomAlignView = UIView()
+    private var imageURL: URL?
     
     private var type: DiffContainerViewModel.DiffType
     
@@ -97,7 +99,7 @@ class DiffContainerViewController: ViewController {
         self.fromModelRevisionID = fromRevisionID
         
         self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: nil, revisionRetrievingDelegate: nil, type: type, articleSummaryController: articleSummaryController)
-        self.containerViewModel = DiffContainerViewModel(type: type, fromModel: nil, toModel: nil, listViewModel: nil, articleTitle: articleTitle, byteDifference: nil, theme: theme)
+        self.containerViewModel = DiffContainerViewModel(type: type, fromModel: nil, toModel: nil, listViewModel: nil, articleTitle: articleTitle, imageURL: imageURL, byteDifference: nil, theme: theme)
         
         self.firstRevision = nil
         self.revisionRetrievingDelegate = nil
@@ -128,7 +130,7 @@ class DiffContainerViewController: ViewController {
 
         self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: pageHistoryFetcher, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type, articleSummaryController: articleSummaryController)
 
-        self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, listViewModel: nil, articleTitle: articleTitle, byteDifference: nil, theme: theme)
+        self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, listViewModel: nil, articleTitle: articleTitle, imageURL: nil, byteDifference: nil, theme: theme)
         
         self.needsSetNavDelegate = needsSetNavDelegate
         
@@ -237,7 +239,7 @@ class DiffContainerViewController: ViewController {
             view.backgroundColor = theme.colors.paperBackground
         }
         
-        headerTitleView?.apply(theme: theme)
+        diffHeaderView?.apply(theme: theme)
         headerExtendedView?.apply(theme: theme)
         diffListViewController?.apply(theme: theme)
         scrollingEmptyViewController?.apply(theme: theme)
@@ -270,8 +272,10 @@ private extension DiffContainerViewController {
             assertionFailure("tomModel and articleTitle need to be in place for generating header.")
             return
         }
+
+        fetchLeadImageIfNeeded()
         
-        self.containerViewModel.headerViewModel = DiffHeaderViewModel(diffType: type, fromModel: self.fromModel, toModel: toModel, articleTitle: articleTitle, byteDifference: byteDifference, theme: self.theme)
+        self.containerViewModel.headerViewModel = DiffHeaderViewModel(diffType: type, fromModel: self.fromModel, toModel: toModel, articleTitle: articleTitle, imageURL: imageURL, byteDifference: byteDifference, theme: self.theme)
     }
     
     func resetPrevNextAnimateState() {
@@ -620,13 +624,13 @@ private extension DiffContainerViewController {
         guard let articleTitle else {
             return
         }
-        
+
         diffController.fetchLeadImageURL(siteURL: siteURL, articleTitle: articleTitle) { [weak self] result in
-            
+
             guard let self else {
                 return
             }
-            
+
             switch result {
             case .success(let leadImageURL):
                 self.updateHeaderWithLeadImageURL(leadImageURL)
@@ -635,10 +639,14 @@ private extension DiffContainerViewController {
             }
         }
     }
-    
+
     func updateHeaderWithLeadImageURL(_ leadImageURL: URL) {
-        // DIFFTODO: Populate header lead image
-        print(leadImageURL)
+        guard let headerVM = containerViewModel.headerViewModel else {
+            return
+        }
+        headerVM.imageURL = leadImageURL
+
+        diffHeaderView?.updateImageView(with: headerVM)
     }
 
     func updateHeaderWithIntermediateCounts(_ editCounts: EditCountsGroupedByType) {
@@ -651,7 +659,7 @@ private extension DiffContainerViewController {
 
             let newTitleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, byteDifference: byteDifference)
             headerViewModel.title = newTitleViewModel
-            headerTitleView?.update(newTitleViewModel)
+            diffHeaderView?.updateTitleView(with: newTitleViewModel)
         case .single:
             assertionFailure("Should not call this method for the compare type.")
         }
@@ -757,17 +765,17 @@ private extension DiffContainerViewController {
             return
         }
         
-        if self.headerTitleView == nil {
-            let headerTitleView = DiffHeaderTitleView(frame: .zero)
-            headerTitleView.translatesAutoresizingMaskIntoConstraints = false
+        if self.diffHeaderView == nil {
+            let headerView = DiffHeaderView(frame: .zero)
+            headerView.translatesAutoresizingMaskIntoConstraints = false
             
             navigationBar.isUnderBarViewHidingEnabled = true
             navigationBar.allowsUnderbarHitsFallThrough = true
-            navigationBar.addUnderNavigationBarView(headerTitleView)
+            navigationBar.addUnderNavigationBarView(headerView)
             navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
             navigationBar.isShadowShowing = false
             
-            self.headerTitleView = headerTitleView
+            self.diffHeaderView = headerView
         }
         
         if self.headerExtendedView == nil {
@@ -791,8 +799,7 @@ private extension DiffContainerViewController {
         default:
             break
         }
-        
-        headerTitleView?.update(headerViewModel.title)
+        diffHeaderView?.configure(with: headerViewModel)
         headerExtendedView?.update(headerViewModel)
         navigationBar.isExtendedViewHidingEnabled = headerViewModel.isExtendedViewHidingEnabled
     }

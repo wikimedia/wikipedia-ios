@@ -25,15 +25,14 @@ class DiffHeaderTitleView: UIView {
         
         headingLabel.text = viewModel.heading
         titleLabel.text = viewModel.title
-        
+
         if let subtitle = viewModel.subtitle {
             subtitleLabel.text = subtitle
             subtitleLabel.isHidden = false
         } else {
             subtitleLabel.isHidden = true
         }
-        
-        
+
         updateFonts(with: traitCollection)
 
     }
