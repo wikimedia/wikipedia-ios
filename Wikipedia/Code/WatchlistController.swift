@@ -7,7 +7,6 @@ protocol WatchlistControllerDelegate: AnyObject {
     func didSuccessfullyUnwatch(_ controller: WatchlistController)
 }
 
-
 /// This controller contains reusable logic for watching, updating expiry, and unwatching a page. It triggers the network service calls, as well as displays the appropriate toasts and action sheets based on the response.
 class WatchlistController {
     
@@ -39,7 +38,7 @@ class WatchlistController {
                 
                 switch result {
                 case .success:
-                    self.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, allowChangeExpiry: true)
+                    self.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, allowChangeExpiry: true)
                     self.delegate?.didSuccessfullyWatch(self)
                 case .failure(let error):
                     WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
@@ -48,7 +47,7 @@ class WatchlistController {
         }
     }
     
-    private func displayWatchSuccessMessage(pageTitle: String, wkProject: WKProject, expiry: WKWatchlistExpiryType, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, allowChangeExpiry: Bool) {
+    private func displayWatchSuccessMessage(pageTitle: String, wkProject: WKProject, expiry: WKWatchlistExpiryType, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, allowChangeExpiry: Bool) {
         let statusTitle: String
         let image = UIImage(systemName: "star.fill")
         switch expiry {
@@ -70,11 +69,11 @@ class WatchlistController {
             guard allowChangeExpiry else {
                 return
             }
-            self?.presentExpiryUpdateActionSheet(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
+            self?.presentExpiryUpdateActionSheet(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
         })
     }
     
-    private func presentExpiryUpdateActionSheet(pageTitle: String, wkProject: WKProject, expiry: WKWatchlistExpiryType, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
+    private func presentExpiryUpdateActionSheet(pageTitle: String, wkProject: WKProject, expiry: WKWatchlistExpiryType, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
         
         WMFAlertManager.sharedInstance.dismissAllAlerts()
         
@@ -102,7 +101,7 @@ class WatchlistController {
                 self?.service.watch(title: pageTitle, project: wkProject, expiry: expiry, completion: { result in
                     switch result {
                     case .success(()):
-                        self?.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, allowChangeExpiry: false)
+                        self?.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, allowChangeExpiry: false)
                     case .failure(let error):
                         WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
                     }
