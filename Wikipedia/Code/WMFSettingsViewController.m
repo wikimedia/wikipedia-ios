@@ -386,6 +386,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 [self.dataStore clearTemporaryCache];
+                                                WMFDatabaseHousekeeper *databaseHousekeeper = [WMFDatabaseHousekeeper new];
+                                                WMFNavigationStateController *navigationStateController = [[WMFNavigationStateController alloc] initWithDataStore:self.dataStore];
+                                                NSError *housekeepingError = nil;
+                                                [databaseHousekeeper performHousekeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:navigationStateController cleanupLevel:WMFCleanupLevelHigh error:&housekeepingError];
+                                                if (housekeepingError) {
+                                                    DDLogError(@"Error on cleanup: %@", housekeepingError);
+                                                    housekeepingError = nil;
+                                                }
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-cancel", nil, nil, @"Cancel", @"Cancel action to clear cached data {{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
 
