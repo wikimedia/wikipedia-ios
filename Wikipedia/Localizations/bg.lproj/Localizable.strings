@@ -154,11 +154,9 @@
 "description-welcome-descriptions-title" = "Описания на статии";
 "description-welcome-promise-title" = "Започвайки, обещавам да не злоупотребявам с тази възможност";
 "description-welcome-start-editing-button" = "Започване на редактирането";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "От:";
+"diff-compare-header-from-info-heading" = "От";
 "diff-compare-header-heading" = "Сравняване на версии";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "До:";
+"diff-compare-header-to-info-heading" = "До";
 "diff-compare-title" = "Сравняване на версии";
 "diff-context-lines-collapsed-button-title" = "Показване";
 "diff-context-lines-expanded-button-title" = "Скриване";
@@ -488,6 +486,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Оцветяване на синтаксиса";
 "reading-themes-controls-syntax-highlighting" = "Оцветяване на синтаксиса";
 "reference-title" = "Източник $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Днес|1=Вчера|преди $1 дни}}";
 "relative-date-hours-ago-abbreviated" = "преди {{PLURAL:$1|$1 час|$1 часа}}";
 "replace-infolabel-method-replace" = "Замяна";
 "replace-infolabel-method-replace-all" = "Замяна на всички";
@@ -587,6 +586,7 @@
 "theme-default-explanation" = "Съвпада със системния облик";
 "theme-light-display-name" = "Светъл";
 "theme-sepia-display-name" = "Сепия";
+"top-read-widget-description" = "Научете какво чете светът днес в Уикипедия.";
 "top-read-widget-readers-count" = "$1 читатели";
 "top-read-widget-title" = "Най-четени";
 "two-factor-login-continue" = "Продължаване с влизането";
@@ -604,6 +604,7 @@
 "vanish-account-warning-title" = "Предупреждение";
 "variants-alert-dismiss-button" = "Не, благодаря";
 "variants-alert-preferences-button" = "Преглед на настройките";
+"welcome-exploration-on-this-day-description" = "Пътувайте назад във времето, за да научите какво се е случило днес в историята";
 "welcome-exploration-on-this-day-title" = "На този ден";
 "welcome-explore-continue-button" = "Начало";
 "welcome-explore-new-ways-title" = "Нови начини за откриване";
