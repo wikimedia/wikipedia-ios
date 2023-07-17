@@ -1261,7 +1261,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
     
     @objc private func undoSummaryTextfieldDidChange() {
-        undoAlertUndoAction?.isEnabled = (undoAlertSummaryTextField?.text?.count ?? 0) > 0
+        undoAlertUndoAction?.isEnabled = !(undoAlertSummaryTextField?.text?.isEmpty ?? false)
     }
     
     private func performUndo() {
