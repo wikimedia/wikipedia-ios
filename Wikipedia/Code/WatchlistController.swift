@@ -64,9 +64,9 @@ class WatchlistController {
             statusTitle = WMFLocalizedString("watchlist-added-toast-six-months", value: "Added to Watchlist for 6 months.", comment: "Title in toast after a user successfully adds an article to their watchlist, which expires in 6 months.")
         }
         
-        let promptTitle = allowChangeExpiry ? WMFLocalizedString("watchlist-added-toast-change-expiration", value: "\nChange expiration date?", comment: "Title in toast after a user successfully adds an article to their watchlist. Tapping will allow them to change their watchlist item expiration date.") : ""
+        let promptTitle = allowChangeExpiry ? WMFLocalizedString("watchlist-added-toast-change-expiration", value: "Change expiration date?", comment: "Title in toast after a user successfully adds an article to their watchlist. Tapping will allow them to change their watchlist item expiration date.") : nil
         
-        WMFAlertManager.sharedInstance.showBottomAlertWithMessage("\(statusTitle)\(promptTitle)", subtitle: nil, image: image, type: .custom, customTypeName: "subscription-success", dismissPreviousAlerts: true, tapCallBack: { [weak self] in
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(statusTitle, subtitle: nil, image: image, type: .custom, customTypeName: "subscription-success", dismissPreviousAlerts: true, buttonTitle: promptTitle, buttonCallBack: { [weak self] in
             guard allowChangeExpiry else {
                 return
             }

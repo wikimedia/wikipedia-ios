@@ -766,7 +766,7 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)setupIconImageView
 {
-  self.iconImageView.contentMode = UIViewContentModeScaleToFill;
+  self.iconImageView.contentMode = UIViewContentModeScaleAspectFill;
   self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
 
   NSLayoutConstraint *imgViewCenterY = [NSLayoutConstraint constraintWithItem:self.iconImageView

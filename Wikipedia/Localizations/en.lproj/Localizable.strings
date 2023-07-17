@@ -1092,7 +1092,7 @@
 "variants-alert-preferences-button" = "Review your preferences";
 "watch" = "Watch";
 "watchlist" = "Watchlist";
-"watchlist-added-toast-change-expiration" = "\nChange expiration date?";
+"watchlist-added-toast-change-expiration" = "Change expiration date?";
 "watchlist-added-toast-one-month" = "Added to Watchlist for 1 month.";
 "watchlist-added-toast-one-week" = "Added to Watchlist for 1 week.";
 "watchlist-added-toast-permanently" = "Added to Watchlist permanently.";
