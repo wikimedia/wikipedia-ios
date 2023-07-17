@@ -13,14 +13,29 @@ class WatchlistController {
     private let service = WKWatchlistService()
     private weak var delegate: WatchlistControllerDelegate?
     private weak var lastPopoverPresentationController: UIPopoverPresentationController?
+    private var performAfterLoginBlock: (() -> Void)?
     
     init(delegate: WatchlistControllerDelegate) {
         self.delegate = delegate
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogIn), name:WMFAuthenticationManager.didLogInNotification, object: nil)
+    }
+    
+    @objc private func didLogIn() {
+        
+        // Delay a little bit to allow login view controller dismissal to complete
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            self?.performAfterLoginBlock?()
+            self?.performAfterLoginBlock = nil
+        }
+        
     }
     
     func watch(pageTitle: String, siteURL: URL, expiry: WKWatchlistExpiryType = .never, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
         
         guard authenticationManager.isLoggedIn else {
+            performAfterLoginBlock = { [weak self] in
+                self?.watch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
+            }
             viewController.wmf_showLoginViewController(theme: theme)
             return
         }
@@ -41,7 +56,10 @@ class WatchlistController {
                     self.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, allowChangeExpiry: true)
                     self.delegate?.didSuccessfullyWatch(self)
                 case .failure(let error):
-                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                    
+                    self.evaluateServerError(error: error, viewController: viewController, theme: theme, performAfterLoginBlock: { [weak self] in
+                        self?.watch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
+                    })
                 }
             }
         }
@@ -129,6 +147,9 @@ class WatchlistController {
     func unwatch(pageTitle: String, siteURL: URL, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme) {
         
         guard authenticationManager.isLoggedIn else {
+            performAfterLoginBlock = { [weak self] in
+                self?.unwatch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme)
+            }
             viewController.wmf_showLoginViewController(theme: theme)
             return
         }
@@ -153,10 +174,24 @@ class WatchlistController {
                     WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "subscription-success", dismissPreviousAlerts: true)
                     self.delegate?.didSuccessfullyUnwatch(self)
                 case .failure(let error):
-                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                    self.evaluateServerError(error: error, viewController: viewController, theme: theme, performAfterLoginBlock: { [weak self] in
+                        self?.unwatch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme)
+                    })
                 }
             }
         }
+    }
+    
+    private func evaluateServerError(error: Error, viewController: UIViewController, theme: Theme, performAfterLoginBlock: @escaping () -> Void) {
+        guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
+           let mediaWikiDisplayError = serviceError.mediaWikiDisplayError,
+              mediaWikiDisplayError.code == "notloggedin" else {
+                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                return
+        }
+        
+        self.performAfterLoginBlock = performAfterLoginBlock
+        viewController.wmf_showLoginViewController(theme: theme)
     }
     
     func calculatePopoverPosition(sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
