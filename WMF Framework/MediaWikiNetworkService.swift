@@ -16,9 +16,27 @@ private extension WKNetworkRequest.TokenType {
 
 public final class MediaWikiNetworkService: Fetcher, WKNetworkService {
 
-    enum ServiceError: Error {
+    public enum ServiceError: LocalizedError {
         case invalidRequest
         case mediaWikiError(MediaWikiAPIDisplayError)
+        
+        public var errorDescription: String? {
+            switch self {
+            case .mediaWikiError(let displayError):
+                return displayError.messageHtml
+            default:
+                return CommonStrings.genericErrorDescription
+            }
+        }
+        
+        public var mediaWikiDisplayError: MediaWikiAPIDisplayError? {
+            switch self {
+            case .mediaWikiError(let displayError):
+                return displayError
+            default:
+                return nil
+            }
+        }
     }
 
     public func perform(request: WKNetworkRequest, tokenType: WKNetworkRequest.TokenType?, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
