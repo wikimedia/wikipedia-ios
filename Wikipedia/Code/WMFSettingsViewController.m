@@ -394,19 +394,34 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)clearCache {
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showClearCacheInProgressBanner) object:nil];
+    [self performSelector:@selector(showClearCacheInProgressBanner) withObject:nil afterDelay:1.0];
+    
     [self.dataStore clearTemporaryCache];
     
     WMFDatabaseHousekeeper *databaseHousekeeper = [WMFDatabaseHousekeeper new];
     WMFNavigationStateController *navigationStateController = [[WMFNavigationStateController alloc] initWithDataStore:self.dataStore];
     
-    NSError *housekeepingError = nil;
-    [databaseHousekeeper performHousekeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:navigationStateController cleanupLevel:WMFCleanupLevelHigh error:&housekeepingError];
-    if (housekeepingError) {
-        DDLogError(@"Error on cleanup: %@", housekeepingError);
-        housekeepingError = nil;
-    }
-    
+    [self.dataStore performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext * _Nonnull moc) {
+        NSError *housekeepingError = nil;
+        [databaseHousekeeper performHousekeepingOnManagedObjectContext:moc navigationStateController:navigationStateController cleanupLevel:WMFCleanupLevelHigh error:&housekeepingError];
+        if (housekeepingError) {
+            DDLogError(@"Error on cleanup: %@", housekeepingError);
+            housekeepingError = nil;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showClearCacheInProgressBanner) object:nil];
+            [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"clearing-cache-complete", nil, nil, @"Clearing cache complete.", @"Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.") sticky:NO dismissPreviousAlerts:YES tapCallBack:nil];
+        });
+    }];
+
     [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.talkPageCache cleanupLevel:WMFCleanupLevelHigh];
+}
+
+- (void)showClearCacheInProgressBanner {
+    [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"clearing-cache-in-progress", nil, nil, @"Clearing cache in progress.", @"Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.") sticky:NO dismissPreviousAlerts:YES tapCallBack:nil];
 }
 
 - (void)logout {

@@ -102,7 +102,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     @objc private func databaseHousekeeperDidComplete() {
-        refresh()
+        DispatchQueue.main.async {
+            self.refresh()
+        }
     }
 
     @objc func updateNotificationsCenterButton() {

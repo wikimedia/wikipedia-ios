@@ -149,6 +149,8 @@
 "chinese-variants-alert-body" = "The Wikipedia app now supports the following Chinese variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n简体 Chinese, Simplified (zh-hans)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
 "chinese-variants-alert-title" = "Updates to Chinese variant support";
 "clear-title-accessibility-label" = "Clear";
+"clearing-cache-complete" = "Clearing cache complete.";
+"clearing-cache-in-progress" = "Clearing cache in progress.";
 "close-button-accessibility-label" = "Close";
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
