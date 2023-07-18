@@ -171,6 +171,8 @@ import WMF
             try moc.save()
         }
         
+        NotificationCenter.default.post(name: .databaseHousekeeperDidComplete, object: nil)
+        
         return urls
     }
 }
