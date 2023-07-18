@@ -1,9 +1,5 @@
 import Foundation
-
-@objc enum WMFCleanupLevel: Int {
-    case low
-    case high
-}
+import WMF
 
 @objc class WMFDatabaseHousekeeper : NSObject {
     

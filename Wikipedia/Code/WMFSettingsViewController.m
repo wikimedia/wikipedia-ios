@@ -385,19 +385,31 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-ok", nil, nil, @"Clear cache", @"Confirm action to clear cached data")
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [self.dataStore clearTemporaryCache];
-                                                WMFDatabaseHousekeeper *databaseHousekeeper = [WMFDatabaseHousekeeper new];
-                                                WMFNavigationStateController *navigationStateController = [[WMFNavigationStateController alloc] initWithDataStore:self.dataStore];
-                                                NSError *housekeepingError = nil;
-                                                [databaseHousekeeper performHousekeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:navigationStateController cleanupLevel:WMFCleanupLevelHigh error:&housekeepingError];
-                                                if (housekeepingError) {
-                                                    DDLogError(@"Error on cleanup: %@", housekeepingError);
-                                                    housekeepingError = nil;
+                                                @weakify(self);
+                                                if (!self) {
+                                                    return;
                                                 }
+                                                [self clearCache];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-cancel", nil, nil, @"Cancel", @"Cancel action to clear cached data {{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
 
     [self presentViewController:sheet animated:YES completion:NULL];
+}
+
+- (void)clearCache {
+    [self.dataStore clearTemporaryCache];
+    
+    WMFDatabaseHousekeeper *databaseHousekeeper = [WMFDatabaseHousekeeper new];
+    WMFNavigationStateController *navigationStateController = [[WMFNavigationStateController alloc] initWithDataStore:self.dataStore];
+    
+    NSError *housekeepingError = nil;
+    [databaseHousekeeper performHousekeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:navigationStateController cleanupLevel:WMFCleanupLevelHigh error:&housekeepingError];
+    if (housekeepingError) {
+        DDLogError(@"Error on cleanup: %@", housekeepingError);
+        housekeepingError = nil;
+    }
+    
+    [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.talkPageCache cleanupLevel:WMFCleanupLevelHigh];
 }
 
 - (void)logout {
