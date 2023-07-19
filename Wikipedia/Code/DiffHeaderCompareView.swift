@@ -83,6 +83,18 @@ class DiffHeaderCompareView: SetupView {
         return button
     }()
 
+    lazy var fromMenuButtonStack = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        return stackView
+    }()
+
+    lazy var toMenuButtonStack = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        return stackView
+    }()
+
     weak var delegate: DiffHeaderActionDelegate?
     private var viewModel: DiffHeaderCompareViewModel?
 
@@ -94,11 +106,16 @@ class DiffHeaderCompareView: SetupView {
         fromStackView.addArrangedSubview(fromHeadingLabel)
         fromStackView.addArrangedSubview(fromTimestampLabel)
         fromStackView.addArrangedSubview(fromDescriptionLabel)
-        fromStackView.addArrangedSubview(fromMenuButton)
+        fromStackView.addArrangedSubview(fromMenuButtonStack)
+        fromMenuButtonStack.addArrangedSubview(fromMenuButton)
+        fromMenuButtonStack.addArrangedSubview(FillingHorizontalSpacerView.spacerWith(minimumSpace: 10))
+
         toStackView.addArrangedSubview(toHeadingLabel)
         toStackView.addArrangedSubview(toTimestampLabel)
         toStackView.addArrangedSubview(toDescriptionLabel)
-        toStackView.addArrangedSubview(toMenuButton)
+        toStackView.addArrangedSubview(toMenuButtonStack)
+        toMenuButtonStack.addArrangedSubview(toMenuButton)
+        toMenuButtonStack.addArrangedSubview(FillingHorizontalSpacerView.spacerWith(minimumSpace: 10))
 
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: 10),

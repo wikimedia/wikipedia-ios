@@ -1,5 +1,6 @@
 import UIKit
 import CocoaLumberjackSwift
+import WKData
 
 struct StubRevisionModel {
     let revisionId: Int
@@ -11,6 +12,7 @@ struct StubRevisionModel {
 protocol DiffRevisionRetrieving: AnyObject {
     func retrievePreviousRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
     func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
+    func refreshRevisions()
 }
 
 class DiffContainerViewController: ViewController {
@@ -32,6 +34,7 @@ class DiffContainerViewController: ViewController {
     private var toModel: WMFPageHistoryRevision?
     private let toModelRevisionID: Int?
     private let siteURL: URL
+    private let wkProject: WKProject?
     private var articleTitle: String?
     private let needsSetNavDelegate: Bool
     private let safeAreaBottomAlignView = UIView()
@@ -88,9 +91,13 @@ class DiffContainerViewController: ViewController {
         return (toModel?.articleSizeAtRevision ?? 0) - (fromModel?.articleSizeAtRevision ?? 0)
     }
     
+    private weak var undoAlertUndoAction: UIAlertAction?
+    private weak var undoAlertSummaryTextField: UITextField?
+    
     init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController) {
     
         self.siteURL = siteURL
+        self.wkProject = WikimediaProject(siteURL: siteURL)?.wkProject
         self.type = .compare
         self.articleTitle = articleTitle
         self.toModelRevisionID = toRevisionID
@@ -124,6 +131,7 @@ class DiffContainerViewController: ViewController {
         self.articleTitle = articleTitle
         self.revisionRetrievingDelegate = revisionRetrievingDelegate
         self.siteURL = siteURL
+        self.wkProject = WikimediaProject(siteURL: siteURL)?.wkProject
         self.firstRevision = firstRevision
 
         self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: pageHistoryFetcher, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type, articleSummaryController: articleSummaryController)
@@ -263,7 +271,20 @@ class DiffContainerViewController: ViewController {
 // MARK: Private
 
 private extension DiffContainerViewController {
-    
+
+    func fetchPageURL() -> URL? {
+        guard let articleTitle = articleTitle, let languageCode = siteURL.wmf_languageCode else {
+            return nil
+        }
+        
+        let namespaceAndTitle = articleTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode)
+        guard let url = siteURL.wmf_URL(withTitle: namespaceAndTitle.title) else {
+            return nil
+        }
+        
+        return url
+    }
+
     func populateNewHeaderViewModel() {
         guard let toModel = toModel,
             let articleTitle = articleTitle else {
@@ -378,6 +399,7 @@ private extension DiffContainerViewController {
         setupHeaderViewIfNeeded()
         setupDiffListViewControllerIfNeeded()
         fetchLeadImageIfNeeded()
+        fetchWatchAndRollbackStatus()
         fetchEditCountIfNeeded()
         setupBackButton()
         apply(theme: theme)
@@ -399,11 +421,12 @@ private extension DiffContainerViewController {
         
         // Still need models for enabling/disabling prev/next buttons
         populatePrevNextModelsForToolbar()
+        diffToolbarView?.undoButton.isEnabled = wkProject != nil
     }
     
-    func setThankAndShareState(isEnabled: Bool) {
+    func setThankAndMoreState(isEnabled: Bool) {
         diffToolbarView?.setThankButtonState(isEnabled: isEnabled)
-        diffToolbarView?.setShareButtonState(isEnabled: isEnabled)
+        diffToolbarView?.setMoreButtonState(isEnabled: isEnabled)
         diffToolbarView?.apply(theme: theme)
     }
     
@@ -483,12 +506,14 @@ private extension DiffContainerViewController {
             return nil
         }
         
+        let oldID = fromModel?.revisionID ?? toModel.parentID
+        
         var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
         components?.path = "/w/index.php"
         components?.queryItems = [
             URLQueryItem(name: "title", value: articleTitle),
             URLQueryItem(name: "diff", value: String(toModel.revisionID)),
-            URLQueryItem(name: "oldid", value: String(toModel.parentID))
+            URLQueryItem(name: "oldid", value: String(oldID))
         ]
         return components?.url
     }
@@ -521,7 +546,7 @@ private extension DiffContainerViewController {
             fakeProgressController.start()
             scrollingEmptyViewController?.view.isHidden = true
             diffListViewController?.view.isHidden = true
-            setThankAndShareState(isEnabled: false)
+            setThankAndMoreState(isEnabled: false)
         case .empty:
             fakeProgressController.stop()
             setupScrollingEmptyViewControllerIfNeeded()
@@ -539,7 +564,7 @@ private extension DiffContainerViewController {
             }
             
             diffListViewController?.view.isHidden = true
-            setThankAndShareState(isEnabled: true)
+            setThankAndMoreState(isEnabled: true)
         case .error(let error):
             fakeProgressController.stop()
             showNoInternetConnectionAlertOrOtherWarning(from: error)
@@ -552,7 +577,7 @@ private extension DiffContainerViewController {
             }
             scrollingEmptyViewController?.view.isHidden = false
             diffListViewController?.view.isHidden = true
-            setThankAndShareState(isEnabled: false)
+            setThankAndMoreState(isEnabled: false)
         case .data:
             fakeProgressController.stop()
             scrollingEmptyViewController?.view.isHidden = true
@@ -563,7 +588,7 @@ private extension DiffContainerViewController {
                 diffListViewController?.view.isHidden = false
             }
             
-            setThankAndShareState(isEnabled: true)
+            setThankAndMoreState(isEnabled: true)
         }
     }
     
@@ -610,6 +635,35 @@ private extension DiffContainerViewController {
             }
         case .compare:
             break
+        }
+    }
+    
+    func fetchWatchAndRollbackStatus() {
+        
+        guard let articleTitle, let wkProject else {
+            return
+        }
+        
+        WKWatchlistService().fetchWatchStatus(title: articleTitle, project: wkProject, needsRollbackRights: true) { result in
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                switch result {
+                case .success(let status):
+                    
+                    let needsWatchButton = !status.watched && FeatureFlags.watchlistEnabled
+                    let needsUnwatchButton = status.watched && FeatureFlags.watchlistEnabled
+                    let needsArticleEditHistoryButton = true
+                    
+                    self.diffToolbarView?.updateMoreButton(needsRollbackButton: (status.userHasRollbackRights ?? false), needsWatchButton: needsWatchButton, needsUnwatchButton: needsUnwatchButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
+                case .failure:
+                    break
+                }
+            }
+            
         }
     }
     
@@ -1107,42 +1161,84 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         replaceLastAndPush(with: diffVC)
     }
     
-    func tappedShare(_ sender: UIBarButtonItem) {
+    func tappedShare() {
         guard let diffURL = fullRevisionDiffURL() else {
             assertionFailure("Couldn't get full revision diff URL")
             return
         }
         
         let activityViewController = UIActivityViewController(activityItems: [diffURL], applicationActivities: [TUSafariActivity()])
-        activityViewController.popoverPresentationController?.barButtonItem = sender
+        activityViewController.popoverPresentationController?.barButtonItem = diffToolbarView?.moreButton
         activityViewController.excludedActivityTypes = [.addToReadingList]
         
         present(activityViewController, animated: true)
+    }
+
+    func tappedEditHistory() {
+        guard let pageURL = fetchPageURL(), let pageTitle = pageURL.wmf_title else {
+            return
+        }
+
+        let historyViewController = PageHistoryViewController(pageTitle: pageTitle, pageURL: pageURL, articleSummaryController: diffController.articleSummaryController)
+        push(historyViewController, animated: true)
     }
 
     func tappedThankButton() {
         let isUserAnonymous = toModel?.isAnon ?? true
         tappedThank(for: toModelRevisionID, isUserAnonymous: isUserAnonymous)
     }
+    
+    // MARK: Undo and Rollback
 
     func tappedUndo() {
+        
+        guard wkProject != nil else {
+            assertionFailure("WKProject must be populated before attempting undo call.")
+            return
+        }
+        
         let message = WMFLocalizedString("diff-undo-message", value: "This will undo the changes made by the revisions(s) of the article shown here. To continue, please provide a reason for undoing this edit.", comment: "Message showed in alert when user taps undo in diff toolbar.")
 
         let alertController = UIAlertController(title: CommonStrings.undo, message: message, preferredStyle: .alert)
         alertController.addTextField { textField in
             textField.clearButtonMode = .always
+            textField.addTarget(self, action: #selector(self.undoSummaryTextfieldDidChange), for: .editingChanged)
+            self.undoAlertSummaryTextField = textField
         }
 
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
-        let undo = UIAlertAction(title: CommonStrings.undo, style: .destructive)
+        let undo = UIAlertAction(title: CommonStrings.undo, style: .destructive) { [weak self] (action) in
+            self?.performUndo()
+        }
         undo.isEnabled = false
-
-        // DIFFTODO: Hook up undo action and enable only if textfield is non-empty
+        undoAlertUndoAction = undo
 
         alertController.addAction(cancel)
         alertController.addAction(undo)
 
         present(alertController, animated: true)
+    }
+    
+    @objc private func undoSummaryTextfieldDidChange() {
+        undoAlertUndoAction?.isEnabled = !(undoAlertSummaryTextField?.text?.isEmpty ?? false)
+    }
+    
+    private func performUndo() {
+        guard let wkProject = wkProject,
+              let title = articleTitle,
+        let revisionID = toModelRevisionID,
+        let username = toModel?.user,
+        let summary = undoAlertSummaryTextField?.text else {
+            return
+        }
+        
+        fakeProgressController.start()
+        WKWatchlistService().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
+
+            DispatchQueue.main.async {
+                self?.completeRollbackOrUndo(result: result, isRollback: false)
+            }
+        }
     }
 
     func tappedRollback() {
@@ -1151,16 +1247,58 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
-        let rollback = UIAlertAction(title: CommonStrings.rollback, style: .destructive)
-
-        // DIFFTODO: Hook up rollback action
-
+        let rollback = UIAlertAction(title: CommonStrings.rollback, style: .destructive) { [weak self] (action) in
+            self?.performRollback()
+        }
+        
         alertController.addAction(cancel)
         alertController.addAction(rollback)
 
         present(alertController, animated: true)
     }
-
+    
+    private func performRollback() {
+        guard let wkProject = wkProject,
+              let title = articleTitle,
+              let username = toModel?.user else {
+            return
+        }
+        
+        fakeProgressController.start()
+        WKWatchlistService().rollback(title: title, project: wkProject, username: username) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.completeRollbackOrUndo(result: result, isRollback: true)
+            }
+        }
+    }
+    
+    private func completeRollbackOrUndo(result: Result<WKUndoOrRollbackResult, Error>, isRollback: Bool) {
+        fakeProgressController.stop()
+        
+        switch result {
+        case .success(let result):
+            
+            let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController)
+            animateDirection = .up
+            replaceLastAndPush(with: diffVC)
+            revisionRetrievingDelegate?.refreshRevisions()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                let message = isRollback ? CommonStrings.diffRollbackSuccess : CommonStrings.diffUndoSuccess
+                WMFAlertManager.sharedInstance.showSuccessAlert(message, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+            }
+            
+        case .failure(let error):
+            
+            guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
+               let mediaWikiDisplayError = serviceError.mediaWikiDisplayError else {
+                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                    return
+            }
+                
+            wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: articleTitle ?? "", theme: theme)
+        }
+    }
 }
 
 extension DiffContainerViewController: UINavigationControllerDelegate {
