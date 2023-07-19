@@ -843,5 +843,10 @@ extension PageHistoryViewController: DiffRevisionRetrieving {
         
     }
     
+    func refreshRevisions() {
+        self.pageHistorySections.removeAll()
+        self.collectionView.reloadData()
+        self.getPageHistory()
+    }
     
 }
