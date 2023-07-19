@@ -132,6 +132,7 @@ import CocoaLumberjackSwift
         case login = "ios.login_action"
         case navigation = "ios.navigation_events"
         case editAttempt = "eventlogging_EditAttemptStep"
+        case watchlist = "ios.watchlists"
     }
     
     /**
@@ -155,6 +156,7 @@ import CocoaLumberjackSwift
         case login = "/analytics/mobile_apps/ios_login_action/1.0.1"
         case navigation = "/analytics/mobile_apps/ios_navigation_events/1.0.0"
         case editAttempt = "/analytics/legacy/editattemptstep/1.4.0"
+        case watchlist = "/analytics/mobile_apps/ios_watchlists/1.0.0"
     }
 
     /**
