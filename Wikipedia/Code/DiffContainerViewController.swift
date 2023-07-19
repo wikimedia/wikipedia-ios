@@ -1191,6 +1191,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
 
+        WatchlistFunnel.shared.logDiffToolbarMoreTapArticleEditHistory(project: wikimediaProject)
         let historyViewController = PageHistoryViewController(pageTitle: pageTitle, pageURL: pageURL, articleSummaryController: diffController.articleSummaryController)
         push(historyViewController, animated: true)
     }
