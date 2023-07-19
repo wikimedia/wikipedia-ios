@@ -244,10 +244,25 @@ extension DiffHeaderCompareView: WKMenuButtonDelegate {
         }
 
         if item == userButtonMenuItems[0] {
+            
+            if let project = viewModel.project {
+                WatchlistFunnel.shared.logDiffTapUserContributions(project: project)
+            }
+            
             delegate?.tappedUsername(username: username, destination: .userContributions)
         } else if item == userButtonMenuItems[1] {
+            
+            if let project = viewModel.project {
+                WatchlistFunnel.shared.logDiffTapUserTalk(project: project)
+            }
+            
             delegate?.tappedUsername(username: username, destination: .userTalkPage)
         } else if item == userButtonMenuItems[2] {
+            
+            if let project = viewModel.project {
+                WatchlistFunnel.shared.logDiffTapUserPage(project: project)
+            }
+            
             delegate?.tappedUsername(username: username, destination: .userPage)
         }
     }
