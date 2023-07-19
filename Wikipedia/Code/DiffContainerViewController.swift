@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 import CocoaLumberjackSwift
 import WKData
 
@@ -34,7 +35,7 @@ class DiffContainerViewController: ViewController {
     private var toModel: WMFPageHistoryRevision?
     private let toModelRevisionID: Int?
     private let siteURL: URL
-    private let wkProject: WKProject?
+    private let wikimediaProject: WikimediaProject?
     private var articleTitle: String?
     private let needsSetNavDelegate: Bool
     private let safeAreaBottomAlignView = UIView()
@@ -45,6 +46,10 @@ class DiffContainerViewController: ViewController {
     private var firstRevision: WMFPageHistoryRevision?
     
     var animateDirection: DiffRevisionTransition.Direction?
+    
+    private var wkProject: WKProject? {
+        return wikimediaProject?.wkProject
+    }
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -97,7 +102,8 @@ class DiffContainerViewController: ViewController {
     init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController) {
     
         self.siteURL = siteURL
-        self.wkProject = WikimediaProject(siteURL: siteURL)?.wkProject
+        let wikimediaProject = WikimediaProject(siteURL: siteURL)
+        self.wikimediaProject = wikimediaProject
         self.type = .compare
         self.articleTitle = articleTitle
         self.toModelRevisionID = toRevisionID
@@ -131,7 +137,7 @@ class DiffContainerViewController: ViewController {
         self.articleTitle = articleTitle
         self.revisionRetrievingDelegate = revisionRetrievingDelegate
         self.siteURL = siteURL
-        self.wkProject = WikimediaProject(siteURL: siteURL)?.wkProject
+        self.wikimediaProject = WikimediaProject(siteURL: siteURL)
         self.firstRevision = firstRevision
 
         self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: pageHistoryFetcher, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type, articleSummaryController: articleSummaryController)
@@ -155,6 +161,10 @@ class DiffContainerViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let project = wikimediaProject {
+            WatchlistFunnel.shared.logDiffOpen(project: project)
+        }
 
         setupBackButton()
 
