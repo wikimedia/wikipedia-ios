@@ -244,39 +244,22 @@ extension DiffHeaderCompareView: WKMenuButtonDelegate {
         }
 
         if item == userButtonMenuItems[0] {
-            
-            if let project = viewModel.project {
-                WatchlistFunnel.shared.logDiffTapUserContributions(project: project)
-            }
-            
+            WatchlistFunnel.shared.logDiffTapUserContributions(project: viewModel.project)
             delegate?.tappedUsername(username: username, destination: .userContributions)
         } else if item == userButtonMenuItems[1] {
-            
-            if let project = viewModel.project {
-                WatchlistFunnel.shared.logDiffTapUserTalk(project: project)
-            }
-            
+            WatchlistFunnel.shared.logDiffTapUserTalk(project: viewModel.project)
             delegate?.tappedUsername(username: username, destination: .userTalkPage)
         } else if item == userButtonMenuItems[2] {
-            
-            if let project = viewModel.project {
-                WatchlistFunnel.shared.logDiffTapUserPage(project: project)
-            }
-            
+            WatchlistFunnel.shared.logDiffTapUserPage(project: viewModel.project)
             delegate?.tappedUsername(username: username, destination: .userPage)
         }
     }
     
     func wkMenuButtonDidTap(_ sender: WKMenuButton) {
-        
-        guard let project = viewModel?.project else {
-            return
-        }
-        
         if sender == fromMenuButton {
-            WatchlistFunnel.shared.logDiffTapCompareFromEditorName(project: project)
+            WatchlistFunnel.shared.logDiffTapCompareFromEditorName(project: viewModel?.project)
         } else if sender == toMenuButton {
-            WatchlistFunnel.shared.logDiffTapCompareToEditorName(project: project)
+            WatchlistFunnel.shared.logDiffTapCompareToEditorName(project: viewModel?.project)
         }
     }
 }

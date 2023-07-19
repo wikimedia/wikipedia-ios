@@ -84,10 +84,7 @@ extension ThanksGiving where Self: ViewController {
                 switch self.source {
                 case .diff:
                     EditHistoryCompareFunnel.shared.logThankSuccess(siteURL: siteURL)
-                    
-                    if let project = WikimediaProject(siteURL: siteURL) {
-                        WatchlistFunnel.shared.logDiffThanksDisplaySuccessToast(project: project)
-                    }
+                    WatchlistFunnel.shared.logDiffThanksDisplaySuccessToast(project: WikimediaProject(siteURL: siteURL))
                 default:
                     break
                 }
@@ -103,16 +100,14 @@ extension ThanksGiving where Self: ViewController {
         }
 
         wmf_showThankRevisionAuthorEducationPanel(theme: theme) { sender in
-            if case .diff = source,
-               let project = WikimediaProject(siteURL: siteURL) {
-                WatchlistFunnel.shared.logDiffThanksAlertTapSend(project: project)
+            if case .diff = self.source {
+                WatchlistFunnel.shared.logDiffThanksAlertTapSend(project: WikimediaProject(siteURL: siteURL))
             }
             self.thankRevisionAuthor(for: revisionID, completion: thankCompletion)
         } cancelHandler: { sender in
             
-            if case .diff = source,
-               let project = WikimediaProject(siteURL: siteURL) {
-                WatchlistFunnel.shared.logDiffThanksAlertTapCancel(project: project)
+            if case .diff = self.source {
+                WatchlistFunnel.shared.logDiffThanksAlertTapCancel(project: WikimediaProject(siteURL: siteURL))
             }
             self.dismiss(animated: true)
         }

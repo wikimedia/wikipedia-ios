@@ -163,10 +163,7 @@ class DiffContainerViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let project = wikimediaProject {
-            WatchlistFunnel.shared.logDiffOpen(project: project)
-        }
-
+        WatchlistFunnel.shared.logDiffOpen(project: wikimediaProject)
         setupBackButton()
 
         let onLoad = { [weak self] in
@@ -1154,9 +1151,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 return
         }
         
-        if let project = self.wikimediaProject {
-            WatchlistFunnel.shared.logDiffToolbarTapPrevious(project: project)
-        }
+        WatchlistFunnel.shared.logDiffToolbarTapPrevious(project: wikimediaProject)
         
         let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController)
         replaceLastAndPush(with: diffVC)
@@ -1172,9 +1167,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
-        if let project = self.wikimediaProject {
-            WatchlistFunnel.shared.logDiffToolbarTapNext(project: project)
-        }
+        WatchlistFunnel.shared.logDiffToolbarTapNext(project: wikimediaProject)
         
         let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController)
         replaceLastAndPush(with: diffVC)
@@ -1205,9 +1198,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     func tappedThankButton() {
         let isUserAnonymous = toModel?.isAnon ?? true
         
-        if let project = wikimediaProject {
-            WatchlistFunnel.shared.logDiffToolbarTapThank(project: project)
-        }
+        WatchlistFunnel.shared.logDiffToolbarTapThank(project: wikimediaProject)
         
         tappedThank(for: toModelRevisionID, isUserAnonymous: isUserAnonymous)
     }
@@ -1221,9 +1212,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
-        if let project = wikimediaProject {
-            WatchlistFunnel.shared.logDiffToolbarTapUndo(project: project)
-        }
+        WatchlistFunnel.shared.logDiffToolbarTapUndo(project: wikimediaProject)
         
         let message = WMFLocalizedString("diff-undo-message", value: "This will undo the changes made by the revisions(s) of the article shown here. To continue, please provide a reason for undoing this edit.", comment: "Message showed in alert when user taps undo in diff toolbar.")
 
@@ -1237,9 +1226,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         let undo = UIAlertAction(title: CommonStrings.undo, style: .destructive) { [weak self] (action) in
             
-            if let project = self?.wikimediaProject {
-                WatchlistFunnel.shared.logDiffUndoAlertTapUndo(project: project)
-            }
+            WatchlistFunnel.shared.logDiffUndoAlertTapUndo(project: self?.wikimediaProject)
             
             self?.performUndo()
         }
@@ -1320,12 +1307,10 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 let message = isRollback ? CommonStrings.diffRollbackSuccess : CommonStrings.diffUndoSuccess
                 WMFAlertManager.sharedInstance.showSuccessAlert(message, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 
-                if let project = self.wikimediaProject {
-                    if isRollback {
-                        
-                    } else {
-                        WatchlistFunnel.shared.logDiffUndoDisplaySuccessToast(project: project)
-                    }
+                if isRollback {
+                    
+                } else {
+                    WatchlistFunnel.shared.logDiffUndoDisplaySuccessToast(project: self.wikimediaProject)
                 }
             }
             
