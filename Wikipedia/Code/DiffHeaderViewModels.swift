@@ -75,7 +75,7 @@ final class DiffHeaderViewModel: Themeable {
 
             self.title = titleViewModel
 
-            let compareModel = DiffHeaderCompareViewModel(fromModel: fromModel, toModel: toModel, dateFormatter: DiffHeaderViewModel.dateFormatter, theme: theme)
+            let compareModel = DiffHeaderCompareViewModel(fromModel: fromModel, toModel: toModel, dateFormatter: DiffHeaderViewModel.dateFormatter, theme: theme, project: project)
             let navBarTitle = WMFLocalizedString("diff-compare-title", value: "Compare Revisions", comment: "Title label that shows in the navigation bar when scrolling and comparing revisions.")
             self.headerType = .compare(compareViewModel: compareModel, navBarTitle: navBarTitle)
         }
@@ -156,10 +156,12 @@ final class DiffHeaderEditorViewModel {
 final class DiffHeaderCompareViewModel: Themeable {
     let fromModel: DiffHeaderCompareItemViewModel
     let toModel: DiffHeaderCompareItemViewModel
+    let project: WikimediaProject?
     
-    init(fromModel: WMFPageHistoryRevision, toModel: WMFPageHistoryRevision, dateFormatter: DateFormatter, theme: Theme) {
+    init(fromModel: WMFPageHistoryRevision, toModel: WMFPageHistoryRevision, dateFormatter: DateFormatter, theme: Theme, project: WikimediaProject?) {
         self.fromModel = DiffHeaderCompareItemViewModel(type: .from, model: fromModel, dateFormatter: dateFormatter, theme: theme, revisionID: fromModel.revisionID)
         self.toModel = DiffHeaderCompareItemViewModel(type: .to, model: toModel, dateFormatter: dateFormatter, theme: theme, revisionID: toModel.revisionID)
+        self.project = project
     }
     
     func apply(theme: Theme) {

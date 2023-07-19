@@ -251,4 +251,17 @@ extension DiffHeaderCompareView: WKMenuButtonDelegate {
             delegate?.tappedUsername(username: username, destination: .userPage)
         }
     }
+    
+    func wkMenuButtonDidTap(_ sender: WKMenuButton) {
+        
+        guard let project = viewModel?.project else {
+            return
+        }
+        
+        if sender == fromMenuButton {
+            WatchlistFunnel.shared.logDiffTapCompareFromEditorName(project: project)
+        } else if sender == toMenuButton {
+            WatchlistFunnel.shared.logDiffTapCompareToEditorName(project: project)
+        }
+    }
 }
