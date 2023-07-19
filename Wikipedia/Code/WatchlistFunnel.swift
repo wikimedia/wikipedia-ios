@@ -74,7 +74,7 @@ final class WatchlistFunnel {
         logEvent(action: .diffUserContribution, project: project)
     }
     
-    func logDiffTapPrevious(project: WikimediaProject) {
+    func logDiffToolbarTapPrevious(project: WikimediaProject) {
         logEvent(action: .diffNavPrevious, project: project)
     }
     

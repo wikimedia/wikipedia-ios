@@ -1154,6 +1154,10 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 return
         }
         
+        if let project = self.wikimediaProject {
+            WatchlistFunnel.shared.logDiffToolbarTapPrevious(project: project)
+        }
+        
         let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController)
         replaceLastAndPush(with: diffVC)
     }
@@ -1166,6 +1170,10 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         let articleTitle = articleTitle else {
             assertionFailure("Expecting nextModel and articleTitle to be populated. Next button should have been disabled if there's no model.")
             return
+        }
+        
+        if let project = self.wikimediaProject {
+            WatchlistFunnel.shared.logDiffToolbarTapNext(project: project)
         }
         
         let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController)
