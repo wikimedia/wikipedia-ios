@@ -693,7 +693,6 @@ private extension DiffContainerViewController {
             return
         }
         headerViewModel.imageURL = leadImageURL
-
         diffHeaderView?.updateImageView(with: headerViewModel)
     }
 
