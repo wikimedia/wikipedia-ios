@@ -1,4 +1,5 @@
 import Foundation
+import WMF
 
 protocol ThanksGiving: HintPresenting {
     var url: URL? { get }
@@ -83,6 +84,10 @@ extension ThanksGiving where Self: ViewController {
                 switch self.source {
                 case .diff:
                     EditHistoryCompareFunnel.shared.logThankSuccess(siteURL: siteURL)
+                    
+                    if let project = WikimediaProject(siteURL: siteURL) {
+                        WatchlistFunnel.shared.logDiffThanksDisplaySuccessToast(project: project)
+                    }
                 default:
                     break
                 }
@@ -97,12 +102,20 @@ extension ThanksGiving where Self: ViewController {
             return
         }
 
-        wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: {_ in
-            UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
-            self.dismiss(animated: true, completion: {
-                self.thankRevisionAuthor(for: revisionID, completion: thankCompletion)
-            })
-        })
+        wmf_showThankRevisionAuthorEducationPanel(theme: theme) { sender in
+            if case .diff = source,
+               let project = WikimediaProject(siteURL: siteURL) {
+                WatchlistFunnel.shared.logDiffThanksAlertTapSend(project: project)
+            }
+            self.thankRevisionAuthor(for: revisionID, completion: thankCompletion)
+        } cancelHandler: { sender in
+            
+            if case .diff = source,
+               let project = WikimediaProject(siteURL: siteURL) {
+                WatchlistFunnel.shared.logDiffThanksAlertTapCancel(project: project)
+            }
+            self.dismiss(animated: true)
+        }
     }
 
     private func show(hintViewController: HintViewController) {

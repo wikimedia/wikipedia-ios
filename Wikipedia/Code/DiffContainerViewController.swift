@@ -1204,6 +1204,11 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
 
     func tappedThankButton() {
         let isUserAnonymous = toModel?.isAnon ?? true
+        
+        if let project = wikimediaProject {
+            WatchlistFunnel.shared.logDiffToolbarTapThank(project: project)
+        }
+        
         tappedThank(for: toModelRevisionID, isUserAnonymous: isUserAnonymous)
     }
     

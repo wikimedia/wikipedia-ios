@@ -846,11 +846,8 @@ extension UIViewController {
         present(panelVC, animated: true)
     }
 
-    func wmf_showThankRevisionAuthorEducationPanel(theme: Theme, sendThanksHandler: @escaping ScrollableEducationPanelButtonTapHandler) {
-        let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
-            self.presentedViewController?.dismiss(animated: true)
-        }
-        let panelVC = ThankRevisionAuthorEducationPanelViewController(showCloseButton: false, primaryButtonTapHandler: sendThanksHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: nil, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
+    func wmf_showThankRevisionAuthorEducationPanel(theme: Theme, sendThanksHandler: @escaping ScrollableEducationPanelButtonTapHandler, cancelHandler: ScrollableEducationPanelButtonTapHandler) {
+        let panelVC = ThankRevisionAuthorEducationPanelViewController(showCloseButton: false, primaryButtonTapHandler: sendThanksHandler, secondaryButtonTapHandler: cancelHandler, dismissHandler: nil, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
         present(panelVC, animated: true)
     }
     

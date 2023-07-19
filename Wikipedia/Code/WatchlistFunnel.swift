@@ -107,7 +107,7 @@ final class WatchlistFunnel {
     }
     
     func logDiffThanksLogin(project: WikimediaProject) {
-        logEvent(action: .diffThankCancel, project: project)
+        logEvent(action: .diffThankLogin, project: project)
     }
     
     func logDiffThanksCreateAccount(project: WikimediaProject) {
