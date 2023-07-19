@@ -38,7 +38,6 @@ class DiffContainerViewController: ViewController {
     private var articleTitle: String?
     private let needsSetNavDelegate: Bool
     private let safeAreaBottomAlignView = UIView()
-    private var imageURL: URL?
     
     private var type: DiffContainerViewModel.DiffType
     
@@ -105,7 +104,7 @@ class DiffContainerViewController: ViewController {
         self.fromModelRevisionID = fromRevisionID
         
         self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: nil, revisionRetrievingDelegate: nil, type: type, articleSummaryController: articleSummaryController)
-        self.containerViewModel = DiffContainerViewModel(type: type, fromModel: nil, toModel: nil, listViewModel: nil, articleTitle: articleTitle, imageURL: imageURL, byteDifference: nil, theme: theme)
+        self.containerViewModel = DiffContainerViewModel(type: type, fromModel: nil, toModel: nil, listViewModel: nil, articleTitle: articleTitle, imageURL: nil, byteDifference: nil, theme: theme)
         
         self.firstRevision = nil
         self.revisionRetrievingDelegate = nil
@@ -292,10 +291,8 @@ private extension DiffContainerViewController {
             assertionFailure("tomModel and articleTitle need to be in place for generating header.")
             return
         }
-
-        fetchLeadImageIfNeeded()
         
-        self.containerViewModel.headerViewModel = DiffHeaderViewModel(diffType: type, fromModel: self.fromModel, toModel: toModel, articleTitle: articleTitle, imageURL: imageURL, byteDifference: byteDifference, theme: self.theme)
+        self.containerViewModel.headerViewModel = DiffHeaderViewModel(diffType: type, fromModel: self.fromModel, toModel: toModel, articleTitle: articleTitle, imageURL: nil, byteDifference: byteDifference, theme: self.theme)
     }
     
     func resetPrevNextAnimateState() {
@@ -692,12 +689,12 @@ private extension DiffContainerViewController {
     }
 
     func updateHeaderWithLeadImageURL(_ leadImageURL: URL) {
-        guard let headerVM = containerViewModel.headerViewModel else {
+        guard let headerViewModel = containerViewModel.headerViewModel else {
             return
         }
-        headerVM.imageURL = leadImageURL
+        headerViewModel.imageURL = leadImageURL
 
-        diffHeaderView?.updateImageView(with: headerVM)
+        diffHeaderView?.updateImageView(with: headerViewModel)
     }
 
     func updateHeaderWithIntermediateCounts(_ editCounts: EditCountsGroupedByType) {
