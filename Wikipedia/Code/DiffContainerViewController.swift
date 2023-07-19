@@ -1216,6 +1216,10 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
+        if let project = wikimediaProject {
+            WatchlistFunnel.shared.logDiffToolbarTapUndo(project: project)
+        }
+        
         let message = WMFLocalizedString("diff-undo-message", value: "This will undo the changes made by the revisions(s) of the article shown here. To continue, please provide a reason for undoing this edit.", comment: "Message showed in alert when user taps undo in diff toolbar.")
 
         let alertController = UIAlertController(title: CommonStrings.undo, message: message, preferredStyle: .alert)
@@ -1227,6 +1231,11 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
 
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         let undo = UIAlertAction(title: CommonStrings.undo, style: .destructive) { [weak self] (action) in
+            
+            if let project = self?.wikimediaProject {
+                WatchlistFunnel.shared.logDiffUndoAlertTapUndo(project: project)
+            }
+            
             self?.performUndo()
         }
         undo.isEnabled = false
@@ -1305,6 +1314,14 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 let message = isRollback ? CommonStrings.diffRollbackSuccess : CommonStrings.diffUndoSuccess
                 WMFAlertManager.sharedInstance.showSuccessAlert(message, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                
+                if let project = self.wikimediaProject {
+                    if isRollback {
+                        
+                    } else {
+                        WatchlistFunnel.shared.logDiffUndoDisplaySuccessToast(project: project)
+                    }
+                }
             }
             
         case .failure(let error):
