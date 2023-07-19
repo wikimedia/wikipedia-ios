@@ -24,7 +24,6 @@ class DiffContainerViewController: ViewController {
     
     private var containerViewModel: DiffContainerViewModel
     private var headerExtendedView: DiffHeaderExtendedView?
-//    private var headerTitleView: DiffHeaderTitleView?
     private var diffHeaderView: DiffHeaderView?
     private var scrollingEmptyViewController: EmptyViewController?
     private var diffListViewController: DiffListViewController?
