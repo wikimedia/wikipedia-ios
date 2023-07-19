@@ -1179,9 +1179,15 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
+        WatchlistFunnel.shared.logDiffToolbarMoreTapShare(project: wikimediaProject)
         let activityViewController = UIActivityViewController(activityItems: [diffURL], applicationActivities: [TUSafariActivity()])
         activityViewController.popoverPresentationController?.barButtonItem = diffToolbarView?.moreButton
         activityViewController.excludedActivityTypes = [.addToReadingList]
+        activityViewController.completionWithItemsHandler = { [weak self] (_, completed, _, _) in
+            if completed {
+                WatchlistFunnel.shared.logDiffShareSuccess(project: self?.wikimediaProject)
+            }
+        }
         
         present(activityViewController, animated: true)
     }
