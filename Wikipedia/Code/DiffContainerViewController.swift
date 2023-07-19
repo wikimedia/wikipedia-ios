@@ -1269,12 +1269,14 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
 
     func tappedRollback() {
+        WatchlistFunnel.shared.logDiffToolbarMoreTapRollback(project: wikimediaProject)
         let title = WMFLocalizedString("diff-rollback-alert-title", value: "Rollback edits", comment: "Title of alert when user taps rollback in diff toolbar.")
         let message = WMFLocalizedString("diff-rollback-alert-message", value: "Are you sure you want to rollback the edits?", comment: "Message in alert when user taps rollback in diff toolbar.")
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         let rollback = UIAlertAction(title: CommonStrings.rollback, style: .destructive) { [weak self] (action) in
+            WatchlistFunnel.shared.logDiffRollbackAlertTapRollback(project: self?.wikimediaProject)
             self?.performRollback()
         }
         
@@ -1315,7 +1317,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 WMFAlertManager.sharedInstance.showSuccessAlert(message, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 
                 if isRollback {
-                    
+                    WatchlistFunnel.shared.logDiffRollbackDisplaySuccessToast(project: self.wikimediaProject)
                 } else {
                     WatchlistFunnel.shared.logDiffUndoDisplaySuccessToast(project: self.wikimediaProject)
                 }
