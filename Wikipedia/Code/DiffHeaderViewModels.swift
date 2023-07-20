@@ -77,11 +77,9 @@ final class DiffHeaderViewModel: Themeable {
             self.title = titleViewModel
 
             let compareModel = DiffHeaderCompareViewModel(fromModel: fromModel, toModel: toModel, dateFormatter: DiffHeaderViewModel.dateFormatter, theme: theme)
-            let navBarTitle = WMFLocalizedString("diff-compare-title", value: "Compare Revisions", comment: "Title label that shows in the navigation bar when scrolling and comparing revisions.")
-            self.headerType = .compare(compareViewModel: compareModel, navBarTitle: navBarTitle)
+            self.headerType = .compare(compareViewModel: compareModel, navBarTitle: CommonStrings.compareRevisionsTitle)
         }
-        
-        
+
         apply(theme: theme)
     }
     

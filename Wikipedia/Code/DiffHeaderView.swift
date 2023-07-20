@@ -36,6 +36,7 @@ final class DiffHeaderView: SetupView {
         addSubview(horizontalStackView)
         horizontalStackView.addArrangedSubview(headerTitleView)
 
+        imageView.isAccessibilityElement = false
 
             NSLayoutConstraint.activate([
                 horizontalStackView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
