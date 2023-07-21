@@ -9,7 +9,7 @@ final class DiffHeaderView: SetupView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.alignment = .center
+        stackView.alignment = .top
 
         return stackView
     }()
