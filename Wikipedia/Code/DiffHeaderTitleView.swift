@@ -19,6 +19,14 @@ class DiffHeaderTitleView: UIView {
         commonInit()
     }
     
+    fileprivate func configureAccessibilityLabel(hasSubtitle: Bool) {
+        if hasSubtitle {
+            contentView.accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [headingLabel.text, titleLabel.text, subtitleLabel.text])
+        } else {
+            contentView.accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [headingLabel.text, titleLabel.text])
+        }
+    }
+
     func update(_ viewModel: DiffHeaderTitleViewModel) {
         
         self.viewModel = viewModel
@@ -29,13 +37,11 @@ class DiffHeaderTitleView: UIView {
         if let subtitle = viewModel.subtitle {
             subtitleLabel.text = subtitle
             subtitleLabel.isHidden = false
-            subtitleLabel.accessibilityLabel = subtitleLabel.text
+            configureAccessibilityLabel(hasSubtitle: true)
         } else {
             subtitleLabel.isHidden = true
+            configureAccessibilityLabel(hasSubtitle: false)
         }
-
-        headingLabel.accessibilityLabel = headingLabel.text
-        titleLabel.accessibilityLabel = titleLabel.text
         updateFonts(with: traitCollection)
     }
     
@@ -59,10 +65,8 @@ private extension DiffHeaderTitleView {
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         updateFonts(with: traitCollection)
+        contentView.isAccessibilityElement = true
 
-        if let headingLabel, let titleLabel, let subtitleLabel {
-            self.accessibilityElements = [headingLabel, titleLabel, subtitleLabel]
-        }
     }
     
     func updateFonts(with traitCollection: UITraitCollection) {
