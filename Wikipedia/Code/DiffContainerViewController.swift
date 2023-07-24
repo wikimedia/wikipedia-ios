@@ -1196,6 +1196,10 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             assertionFailure("WKProject must be populated before attempting undo call.")
             return
         }
+
+        if let pageURL = fetchPageURL() {
+            EditAttemptFunnel.shared.logInit(articleURL: pageURL)
+        }
         
         let message = WMFLocalizedString("diff-undo-message", value: "This will undo the changes made by the revisions(s) of the article shown here. To continue, please provide a reason for undoing this edit.", comment: "Message showed in alert when user taps undo in diff toolbar.")
 
@@ -1206,7 +1210,12 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             self.undoAlertSummaryTextField = textField
         }
 
-        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { [weak self] action in
+            if let pageURL = self?.fetchPageURL() {
+                EditAttemptFunnel.shared.logAbort(articleURL: pageURL)
+            }
+        }
+
         let undo = UIAlertAction(title: CommonStrings.undo, style: .destructive) { [weak self] (action) in
             self?.performUndo()
         }
@@ -1226,16 +1235,20 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     private func performUndo() {
         guard let wkProject = wkProject,
               let title = articleTitle,
-        let revisionID = toModelRevisionID,
-        let username = toModel?.user,
-        let summary = undoAlertSummaryTextField?.text else {
+              let revisionID = toModelRevisionID,
+              let username = toModel?.user,
+              let summary = undoAlertSummaryTextField?.text else {
             return
         }
-        
         fakeProgressController.start()
-        WKWatchlistService().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
-
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            if let pageURL = self.fetchPageURL() {
+                EditAttemptFunnel.shared.logSaveIntent(articleURL: pageURL)
+            }
+            WKWatchlistService().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
+                if let pageURL = self?.fetchPageURL() {
+                    EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
+                }
                 self?.completeRollbackOrUndo(result: result, isRollback: false)
             }
         }
@@ -1263,10 +1276,16 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
               let username = toModel?.user else {
             return
         }
-        
+
         fakeProgressController.start()
-        WKWatchlistService().rollback(title: title, project: wkProject, username: username) { [weak self] result in
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            if let pageURL = self.fetchPageURL() {
+                EditAttemptFunnel.shared.logSaveIntent(articleURL: pageURL)
+            }
+            WKWatchlistService().rollback(title: title, project: wkProject, username: username) { [weak self] result in
+                if let pageURL = self?.fetchPageURL() {
+                    EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
+                }
                 self?.completeRollbackOrUndo(result: result, isRollback: true)
             }
         }
@@ -1277,25 +1296,30 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         
         switch result {
         case .success(let result):
-            
             let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController)
             animateDirection = .up
             replaceLastAndPush(with: diffVC)
             revisionRetrievingDelegate?.refreshRevisions()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                if let pageURL = self.fetchPageURL() {
+                    EditAttemptFunnel.shared.logSaveSuccess(articleURL: pageURL, revisionId: result.newRevisionID)
+                }
                 let message = isRollback ? CommonStrings.diffRollbackSuccess : CommonStrings.diffUndoSuccess
                 WMFAlertManager.sharedInstance.showSuccessAlert(message, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             }
             
         case .failure(let error):
-            
             guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
                let mediaWikiDisplayError = serviceError.mediaWikiDisplayError else {
                     WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
                     return
             }
-                
+            DispatchQueue.main.async {
+                if let pageURL = self.fetchPageURL() {
+                    EditAttemptFunnel.shared.logSaveFailure(articleURL: pageURL)
+                }
+            }
             wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: articleTitle ?? "", theme: theme)
         }
     }
