@@ -3,10 +3,11 @@ import UIKit
 protocol DiffToolbarViewDelegate: AnyObject {
     func tappedPrevious()
     func tappedNext()
-    func tappedShare(_ sender: UIBarButtonItem)
+    func tappedShare()
     func tappedThankButton()
     func tappedUndo()
     func tappedRollback()
+    func tappedEditHistory()
     var isLoggedIn: Bool { get }
 }
 
@@ -37,20 +38,7 @@ class DiffToolbarView: UIView {
     }()
 
     lazy var moreButton: IconBarButtonItem = {
-        // DIFFTODO: Add menu item images
-        let menu = UIMenu(title: "", options: .displayInline, children: [
-                UIAction(title: CommonStrings.rollback, attributes: [.destructive], handler: { [weak self] _ in self?.tappedRollback() }),
-                UIAction(title: CommonStrings.shortShareTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { _ in }),
-                // DIFFTODO: Add when Watchlist ships
-                // UIAction(title: CommonStrings.watchlist, handler: { _ in }),
-                UIAction(title: CommonStrings.diffArticleEditHistory, handler: { _ in })
-            ]
-        )
-        
-        let item = IconBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
-
-        item.accessibilityLabel = CommonStrings.moreButton
-        return item
+        return createMoreButton()
     }()
 
     lazy var undoButton: IconBarButtonItem = {
@@ -59,15 +47,8 @@ class DiffToolbarView: UIView {
         return item
     }()
 
-    lazy var shareButton: IconBarButtonItem = {
-        let item = IconBarButtonItem(iconName: "share", target: self, action: #selector(tappedShare(_:)), for: .touchUpInside)
-        item.accessibilityLabel = CommonStrings.accessibilityShareTitle
-
-        return item
-    }()
-
     lazy var thankButton: IconBarButtonItem = {
-        let item = IconBarButtonItem(iconName: "diff-smile", target: self, action: #selector(tappedThank(_:)), for: .touchUpInside , iconInsets: UIEdgeInsets(top: 5.0, left: 0, bottom: -5.0, right: 0))
+        let item = IconBarButtonItem(iconName: "diff-smile", target: self, action: #selector(tappedThank(_:)), for: .touchUpInside , iconInsets: UIEdgeInsets(top: 2.0, left: 0, bottom: -2.0, right: 0))
         item.accessibilityLabel = WMFLocalizedString("action-thank-user-accessibility", value: "Thank User", comment: "Accessibility title for the 'Thank User' action button when viewing a single revision diff.")
         
         return item
@@ -123,8 +104,12 @@ class DiffToolbarView: UIView {
         delegate?.tappedNext()
     }
     
-    @objc func tappedShare(_ sender: UIBarButtonItem) {
-        delegate?.tappedShare(shareButton)
+    @objc func tappedShare() {
+        delegate?.tappedShare()
+    }
+
+    @objc func tappedEditHistory() {
+        delegate?.tappedEditHistory()
     }
     
     @objc func tappedThank(_ sender: UIBarButtonItem) {
@@ -136,12 +121,44 @@ class DiffToolbarView: UIView {
         
         setItems()
     }
+    
+    func updateMoreButton(needsRollbackButton: Bool = false, needsWatchButton: Bool = false, needsUnwatchButton: Bool = false, needsArticleEditHistoryButton: Bool = false) {
+        self.moreButton = createMoreButton(needsRollbackButton: needsRollbackButton, needsWatchButton: needsWatchButton, needsUnwatchButton: needsUnwatchButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
+        setItems()
+    }
+    
+    private func createMoreButton(needsRollbackButton: Bool = false, needsWatchButton: Bool = false, needsUnwatchButton: Bool = false, needsArticleEditHistoryButton: Bool = false) -> IconBarButtonItem {
+        
+        var actions: [UIAction] = []
+        if needsRollbackButton {
+            actions.append(UIAction(title: CommonStrings.rollback, image: UIImage(systemName: "arrow.uturn.backward.circle"), attributes: [.destructive], handler: { [weak self] _ in self?.tappedRollback() }))
+        }
+        actions.append(UIAction(title: CommonStrings.shortShareTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { [weak self] _ in self?.tappedShare()}))
+
+       if needsWatchButton {
+           actions.append(UIAction(title: CommonStrings.watch, handler: { _ in }))
+       } else if needsUnwatchButton {
+           actions.append(UIAction(title: CommonStrings.unwatch, handler: { _ in }))
+       }
+           
+       if needsArticleEditHistoryButton {
+           actions.append(UIAction(title: CommonStrings.diffArticleEditHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedEditHistory() }))
+       }
+        
+        let menu = UIMenu(title: "", options: .displayInline, children: actions)
+        
+        let item = IconBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
+
+        item.accessibilityLabel = CommonStrings.moreButton
+        return item
+    }
 
     private func setItems() {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 
         toolbar.items = [nextButton, flexibleSpace, previousButton, flexibleSpace, undoButton, flexibleSpace, thankButton, flexibleSpace, moreButton]
     }
+    
     
     func setPreviousButtonState(isEnabled: Bool) {
         previousButton.isEnabled = isEnabled
@@ -154,9 +171,9 @@ class DiffToolbarView: UIView {
     func setThankButtonState(isEnabled: Bool) {
         thankButton.isEnabled = isEnabled
     }
-    
-    func setShareButtonState(isEnabled: Bool) {
-        shareButton.isEnabled = isEnabled
+
+    func setMoreButtonState(isEnabled: Bool) {
+        moreButton.isEnabled = isEnabled
     }
 }
 
@@ -185,7 +202,6 @@ extension DiffToolbarView: Themeable {
         
         previousButton.apply(theme: theme)
         nextButton.apply(theme: theme)
-        shareButton.apply(theme: theme)
         undoButton.apply(theme: theme)
         thankButton.apply(theme: theme)
         moreButton.apply(theme: theme)
@@ -196,6 +212,5 @@ extension DiffToolbarView: Themeable {
                 button.tintColor = theme.colors.disabledLink
             }
         }
-        shareButton.tintColor = theme.colors.link
     }
 }

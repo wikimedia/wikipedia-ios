@@ -1133,6 +1133,9 @@
 "variants-alert-dismiss-button" = "Hayır teşekkürler";
 "variants-alert-preferences-button" = "Tercihlerinizi gözden geçirin";
 "watchlist" = "İzleme listesi";
+"watchlist-user-button-user-contributions" = "Kullanıcı katkıları";
+"watchlist-user-button-user-page" = "Kullanıcı sayfası";
+"watchlist-user-button-user-talk-page" = "Kullanıcı mesaj sayfası";
 "welcome-exploration-explore-feed-description" = "Önerilen okumalar ve topluluğumuzdan günlük maddeler";
 "welcome-exploration-explore-feed-title" = "Keşfet bölümü";
 "welcome-exploration-on-this-day-description" = "Tarihte bugün neler olduğunu öğrenmek için geçmişe yolculuk yap";

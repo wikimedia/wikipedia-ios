@@ -612,6 +612,9 @@
 "vanish-modal-title" = "Cais gorchuddio";
 "variants-alert-dismiss-button" = "Dim diolch";
 "watchlist" = "Rhestr wylio";
+"watchlist-user-button-user-contributions" = "Cyfraniadau defnyddiwr";
+"watchlist-user-button-user-page" = "Tudalen ddefnyddiwr";
+"watchlist-user-button-user-talk-page" = "Tudalen sgwrs defnyddiwr";
 "welcome-exploration-explore-feed-title" = "Ffrwd Archwilio";
 "welcome-exploration-on-this-day-title" = "Ar y dydd hwn";
 "welcome-exploration-places-title" = "Tab Lleoliadau";
