@@ -37,17 +37,42 @@ final class WatchlistFunnel {
         case diffRollbackFail = "diff_rollback_fail"
     }
     
+    private struct ActionData: Codable {
+        
+        enum EditType: String, Codable {
+            case undo
+            case rollback
+        }
+        
+        let revisionID: String?
+        let editType: EditType?
+        let errorReason: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case revisionID = "revision_id"
+            case editType = "edit_type"
+            case errorReason = "error_reason"
+        }
+    }
+    
     private struct Event: EventInterface {
         static let schema: EventPlatformClient.Schema = .watchlist
         let action: Action
-        let wiki_id: String
+        let actionData: ActionData?
+        let wikiID: String
+        
+        enum CodingKeys: String, CodingKey {
+            case action = "action"
+            case actionData = "action_data"
+            case wikiID = "wiki_id"
+        }
     }
    
-    private func logEvent(action: WatchlistFunnel.Action, project: WikimediaProject) {
+    private func logEvent(action: WatchlistFunnel.Action, actionData: ActionData? = nil, project: WikimediaProject) {
         
         let wikiID = project.notificationsApiWikiIdentifier
         
-        let event: WatchlistFunnel.Event = WatchlistFunnel.Event(action: action, wiki_id: wikiID)
+        let event: WatchlistFunnel.Event = WatchlistFunnel.Event(action: action, actionData: actionData, wikiID: wikiID)
         EventPlatformClient.shared.submit(stream: .watchlist, event: event)
     }
     
@@ -142,18 +167,18 @@ final class WatchlistFunnel {
         logEvent(action: .diffUndoConfirm, project: project)
     }
     
-    func logDiffUndoSuccess(project: WikimediaProject?) {
+    func logDiffUndoSuccess(revisionID: Int, project: WikimediaProject?) {
         guard let project else {
             return
         }
-        logEvent(action: .diffUndoSuccess, project: project)
+        logEvent(action: .diffUndoSuccess, actionData: ActionData(revisionID: String(revisionID), editType: .undo, errorReason: nil), project: project)
     }
     
-    func logDiffUndoFail(project: WikimediaProject?) {
+    func logDiffUndoFail(errorCode: String, project: WikimediaProject?) {
         guard let project else {
             return
         }
-        logEvent(action: .diffUndoFail, project: project)
+        logEvent(action: .diffUndoFail, actionData: ActionData(revisionID: nil, editType: .undo, errorReason: errorCode), project: project)
     }
 
     func logDiffToolbarTapThank(project: WikimediaProject?) {
@@ -240,17 +265,17 @@ final class WatchlistFunnel {
         logEvent(action: .diffRollbackConfirm, project: project)
     }
     
-    func logDiffRollbackSuccess(project: WikimediaProject?) {
+    func logDiffRollbackSuccess(revisionID: Int, project: WikimediaProject?) {
         guard let project else {
             return
         }
-        logEvent(action: .diffRollbackSuccess, project: project)
+        logEvent(action: .diffRollbackSuccess, actionData: ActionData(revisionID: String(revisionID), editType: .rollback, errorReason: nil), project: project)
     }
     
-    func logDiffRollbackFail(project: WikimediaProject?) {
+    func logDiffRollbackFail(errorCode: String, project: WikimediaProject?) {
         guard let project else {
             return
         }
-        logEvent(action: .diffRollbackFail, project: project)
+        logEvent(action: .diffRollbackFail, actionData: ActionData(revisionID: nil, editType: .rollback, errorReason: errorCode), project: project)
     }
 }

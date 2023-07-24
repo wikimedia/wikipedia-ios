@@ -1314,9 +1314,9 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         case .success(let result):
             
             if isRollback {
-                WatchlistFunnel.shared.logDiffRollbackSuccess(project: self.wikimediaProject)
+                WatchlistFunnel.shared.logDiffRollbackSuccess(revisionID: result.newRevisionID, project: self.wikimediaProject)
             } else {
-                WatchlistFunnel.shared.logDiffUndoSuccess(project: self.wikimediaProject)
+                WatchlistFunnel.shared.logDiffUndoSuccess(revisionID: result.newRevisionID, project: self.wikimediaProject)
             }
             
             let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController)
@@ -1340,20 +1340,22 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
                let mediaWikiDisplayError = serviceError.mediaWikiDisplayError else {
                 
-                    if isRollback {
-                        WatchlistFunnel.shared.logDiffRollbackFail(project: self.wikimediaProject)
-                    } else {
-                        WatchlistFunnel.shared.logDiffUndoFail(project: self.wikimediaProject)
-                    }
-                
-                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
-                    return
+                let errorCode = String((error as NSError).code)
+            
+                if isRollback {
+                    WatchlistFunnel.shared.logDiffRollbackFail(errorCode: errorCode, project: self.wikimediaProject)
+                } else {
+                    WatchlistFunnel.shared.logDiffUndoFail(errorCode: errorCode, project: self.wikimediaProject)
+                }
+            
+                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                return
             }
             
             if isRollback {
-                WatchlistFunnel.shared.logDiffRollbackFail(project: self.wikimediaProject)
+                WatchlistFunnel.shared.logDiffRollbackFail(errorCode: mediaWikiDisplayError.code, project: self.wikimediaProject)
             } else {
-                WatchlistFunnel.shared.logDiffUndoFail(project: self.wikimediaProject)
+                WatchlistFunnel.shared.logDiffUndoFail(errorCode: mediaWikiDisplayError.code, project: self.wikimediaProject)
             }
                 
             wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: articleTitle ?? "", theme: theme)
