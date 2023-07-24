@@ -253,6 +253,7 @@
 "diff-rollback" = "回退";
 "diff-rollback-alert-message" = "您確定要回退這些編輯嗎？";
 "diff-rollback-alert-title" = "回退編輯";
+"diff-rollback-success" = "已回退編輯。";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 次編輯|$1 次編輯}}";
 "diff-single-header-editor-title" = "編者資訊";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 位元組已添加|$1 位元組已添加}}";
@@ -270,6 +271,7 @@
 "diff-thanks-sent-already" = "您已曾為此編輯發送過感謝";
 "diff-thanks-sent-cannot-unsend" = "感謝無法撤回發送";
 "diff-undo-message" = "這將撤消此處顯示的條目修訂所做出的更改。若要繼續，請提供撤消此編輯的原因。";
+"diff-undo-success" = "已撤銷修訂。";
 "diff-unedited-lines-format" = "{{PLURAL:$1|共$1行尚未編輯}}";
 "dim-images" = "調暗圖片";
 "edit-bold-accessibility-label" = "添加粗體格式";
@@ -1103,6 +1105,7 @@
 "two-factor-login-with-regular-code" = "使用驗證代碼";
 "unable-to-load-talk-page-title" = "無法載入討論頁";
 "unknown-generic-text" = "未知";
+"unwatch" = "取消監視";
 "uzbek-variants-alert-body" = "維基百科應用程式現在支援下列烏茲別克語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\noʻzbekcha lotin，拉丁字母烏茲別克語（uz-latin）\nўзбекча кирилл，西里爾字母烏茲別克語（uz-cyrl）";
 "uzbek-variants-alert-title" = "烏茲別克語異體字支援更新";
 "vanish-account-additional-information-field" = "額外資訊";
@@ -1129,6 +1132,7 @@
 "vanishing-request-email-title" = "禮貌性請求隱退";
 "variants-alert-dismiss-button" = "不用了，謝謝";
 "variants-alert-preferences-button" = "檢視您的偏好設定";
+"watch" = "監視";
 "watchlist" = "監視清單";
 "watchlist-user-button-user-contributions" = "使用者貢獻";
 "watchlist-user-button-user-page" = "使用者頁面";
