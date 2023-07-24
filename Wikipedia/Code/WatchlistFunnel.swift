@@ -174,11 +174,11 @@ final class WatchlistFunnel {
         logEvent(action: .diffUndoSuccess, actionData: ActionData(revisionID: String(revisionID), editType: .undo, errorReason: nil), project: project)
     }
     
-    func logDiffUndoFail(errorCode: String, project: WikimediaProject?) {
+    func logDiffUndoFail(errorReason: String, project: WikimediaProject?) {
         guard let project else {
             return
         }
-        logEvent(action: .diffUndoFail, actionData: ActionData(revisionID: nil, editType: .undo, errorReason: errorCode), project: project)
+        logEvent(action: .diffUndoFail, actionData: ActionData(revisionID: nil, editType: .undo, errorReason: errorReason), project: project)
     }
 
     func logDiffToolbarTapThank(project: WikimediaProject?) {
@@ -272,10 +272,10 @@ final class WatchlistFunnel {
         logEvent(action: .diffRollbackSuccess, actionData: ActionData(revisionID: String(revisionID), editType: .rollback, errorReason: nil), project: project)
     }
     
-    func logDiffRollbackFail(errorCode: String, project: WikimediaProject?) {
+    func logDiffRollbackFail(errorReason: String, project: WikimediaProject?) {
         guard let project else {
             return
         }
-        logEvent(action: .diffRollbackFail, actionData: ActionData(revisionID: nil, editType: .rollback, errorReason: errorCode), project: project)
+        logEvent(action: .diffRollbackFail, actionData: ActionData(revisionID: nil, editType: .rollback, errorReason: errorReason), project: project)
     }
 }

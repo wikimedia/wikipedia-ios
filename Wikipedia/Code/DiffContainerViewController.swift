@@ -1340,22 +1340,24 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
                let mediaWikiDisplayError = serviceError.mediaWikiDisplayError else {
                 
-                let errorCode = String((error as NSError).code)
+                let errorReason = (error as NSError).domain + "." + String((error as NSError).code)
             
                 if isRollback {
-                    WatchlistFunnel.shared.logDiffRollbackFail(errorCode: errorCode, project: self.wikimediaProject)
+                    WatchlistFunnel.shared.logDiffRollbackFail(errorReason: errorReason, project: self.wikimediaProject)
                 } else {
-                    WatchlistFunnel.shared.logDiffUndoFail(errorCode: errorCode, project: self.wikimediaProject)
+                    WatchlistFunnel.shared.logDiffUndoFail(errorReason: errorReason, project: self.wikimediaProject)
                 }
             
                 WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
                 return
             }
             
+            let errorReason = mediaWikiDisplayError.loggingErrorReasonDomain + "." + mediaWikiDisplayError.code
+            
             if isRollback {
-                WatchlistFunnel.shared.logDiffRollbackFail(errorCode: mediaWikiDisplayError.code, project: self.wikimediaProject)
+                WatchlistFunnel.shared.logDiffRollbackFail(errorReason: errorReason, project: self.wikimediaProject)
             } else {
-                WatchlistFunnel.shared.logDiffUndoFail(errorCode: mediaWikiDisplayError.code, project: self.wikimediaProject)
+                WatchlistFunnel.shared.logDiffUndoFail(errorReason: errorReason, project: self.wikimediaProject)
             }
                 
             wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: articleTitle ?? "", theme: theme)
