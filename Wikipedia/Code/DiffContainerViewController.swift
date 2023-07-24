@@ -1230,13 +1230,17 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             self.undoAlertSummaryTextField = textField
         }
 
-        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { [weak self] (action) in
+            WatchlistFunnel.shared.logDiffUndoAlertTapCancel(project: self?.wikimediaProject)
+        }
+        
         let undo = UIAlertAction(title: CommonStrings.undo, style: .destructive) { [weak self] (action) in
             
             WatchlistFunnel.shared.logDiffUndoAlertTapUndo(project: self?.wikimediaProject)
             
             self?.performUndo()
         }
+        
         undo.isEnabled = false
         undoAlertUndoAction = undo
 
@@ -1274,7 +1278,9 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         let message = WMFLocalizedString("diff-rollback-alert-message", value: "Are you sure you want to rollback the edits?", comment: "Message in alert when user taps rollback in diff toolbar.")
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { [weak self] (action) in
+            WatchlistFunnel.shared.logDiffRollbackAlertTapCancel(project: self?.wikimediaProject)
+        }
         let rollback = UIAlertAction(title: CommonStrings.rollback, style: .destructive) { [weak self] (action) in
             WatchlistFunnel.shared.logDiffRollbackAlertTapRollback(project: self?.wikimediaProject)
             self?.performRollback()
@@ -1307,6 +1313,12 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         switch result {
         case .success(let result):
             
+            if isRollback {
+                WatchlistFunnel.shared.logDiffRollbackSuccess(project: self.wikimediaProject)
+            } else {
+                WatchlistFunnel.shared.logDiffUndoSuccess(project: self.wikimediaProject)
+            }
+            
             let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController)
             animateDirection = .up
             replaceLastAndPush(with: diffVC)
@@ -1327,8 +1339,21 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             
             guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
                let mediaWikiDisplayError = serviceError.mediaWikiDisplayError else {
+                
+                    if isRollback {
+                        WatchlistFunnel.shared.logDiffRollbackFail(project: self.wikimediaProject)
+                    } else {
+                        WatchlistFunnel.shared.logDiffUndoFail(project: self.wikimediaProject)
+                    }
+                
                     WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
                     return
+            }
+            
+            if isRollback {
+                WatchlistFunnel.shared.logDiffRollbackFail(project: self.wikimediaProject)
+            } else {
+                WatchlistFunnel.shared.logDiffUndoFail(project: self.wikimediaProject)
             }
                 
             wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: articleTitle ?? "", theme: theme)

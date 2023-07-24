@@ -71,7 +71,16 @@ extension ThanksGiving where Self: ViewController {
         }
 
         guard isLoggedIn else {
-            wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: {
+            let tapLoginHandler: (() -> Void)?
+            switch source {
+            case .diff:
+                tapLoginHandler = {
+                    WatchlistFunnel.shared.logDiffThanksLogin(project: WikimediaProject(siteURL: siteURL))
+                }
+            case .unknown:
+                tapLoginHandler = nil
+            }
+            wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: theme, dismissHandler: nil, tapLoginHandler: tapLoginHandler, loginSuccessCompletion: {
                 self.didLogIn()
             }, loginDismissedCompletion: nil)
             return

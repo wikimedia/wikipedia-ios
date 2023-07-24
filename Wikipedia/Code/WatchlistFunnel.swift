@@ -16,20 +16,25 @@ final class WatchlistFunnel {
         case diffNavPrevious = "diff_nav_previous"
         case diffNavNext = "diff_nav_next"
         case diffNavUndo = "diff_nav_undo"
-        case diffNavThank = "diff_nav_thank"
         case diffUndo = "diff_undo"
+        case diffUndoCancel = "diff_undo_cancel"
         case diffUndoConfirm = "diff_undo_confirm"
+        case diffUndoSuccess = "diff_undo_success"
+        case diffUndoFail = "diff_undo_fail"
+        case diffNavThank = "diff_nav_thank"
         case diffThankSend = "diff_thank_send"
         case diffThankCancel = "diff_thank_cancel"
         case diffThankLogin = "diff_thank_login"
-        case diffThankCreate = "diff_thank_create"
         case diffThankConfirm = "diff_thank_confirm"
         case diffOverHistory = "diff_over_history"
         case diffOverShare = "diff_over_share"
         case diffOverShareConfirm = "diff_over_share_confirm"
         case diffOverRollback = "diff_over_rollback"
         case diffRollback = "diff_rollback"
+        case diffRollbackCancel = "diff_rollback_cancel"
         case diffRollbackConfirm = "diff_rollback_confirm"
+        case diffRollbackSuccess = "diff_rollback_success"
+        case diffRollbackFail = "diff_rollback_fail"
     }
     
     private struct Event: EventInterface {
@@ -116,13 +121,6 @@ final class WatchlistFunnel {
         logEvent(action: .diffNavUndo, project: project)
     }
     
-    func logDiffToolbarTapThank(project: WikimediaProject?) {
-        guard let project else {
-            return
-        }
-        logEvent(action: .diffNavThank, project: project)
-    }
-    
     func logDiffUndoAlertTapUndo(project: WikimediaProject?) {
         guard let project else {
             return
@@ -130,11 +128,39 @@ final class WatchlistFunnel {
         logEvent(action: .diffUndo, project: project)
     }
     
+    func logDiffUndoAlertTapCancel(project: WikimediaProject?) {
+        guard let project else {
+            return
+        }
+        logEvent(action: .diffUndoCancel, project: project)
+    }
+    
     func logDiffUndoDisplaySuccessToast(project: WikimediaProject?) {
         guard let project else {
             return
         }
         logEvent(action: .diffUndoConfirm, project: project)
+    }
+    
+    func logDiffUndoSuccess(project: WikimediaProject?) {
+        guard let project else {
+            return
+        }
+        logEvent(action: .diffUndoSuccess, project: project)
+    }
+    
+    func logDiffUndoFail(project: WikimediaProject?) {
+        guard let project else {
+            return
+        }
+        logEvent(action: .diffUndoFail, project: project)
+    }
+
+    func logDiffToolbarTapThank(project: WikimediaProject?) {
+        guard let project else {
+            return
+        }
+        logEvent(action: .diffNavThank, project: project)
     }
     
     func logDiffThanksAlertTapSend(project: WikimediaProject?) {
@@ -156,13 +182,6 @@ final class WatchlistFunnel {
             return
         }
         logEvent(action: .diffThankLogin, project: project)
-    }
-    
-    func logDiffThanksCreateAccount(project: WikimediaProject?) {
-        guard let project else {
-            return
-        }
-        logEvent(action: .diffThankCreate, project: project)
     }
     
     func logDiffThanksDisplaySuccessToast(project: WikimediaProject?) {
@@ -207,10 +226,31 @@ final class WatchlistFunnel {
         logEvent(action: .diffRollback, project: project)
     }
     
+    func logDiffRollbackAlertTapCancel(project: WikimediaProject?) {
+        guard let project else {
+            return
+        }
+        logEvent(action: .diffRollbackCancel, project: project)
+    }
+    
     func logDiffRollbackDisplaySuccessToast(project: WikimediaProject?) {
         guard let project else {
             return
         }
         logEvent(action: .diffRollbackConfirm, project: project)
+    }
+    
+    func logDiffRollbackSuccess(project: WikimediaProject?) {
+        guard let project else {
+            return
+        }
+        logEvent(action: .diffRollbackSuccess, project: project)
+    }
+    
+    func logDiffRollbackFail(project: WikimediaProject?) {
+        guard let project else {
+            return
+        }
+        logEvent(action: .diffRollbackFail, project: project)
     }
 }
