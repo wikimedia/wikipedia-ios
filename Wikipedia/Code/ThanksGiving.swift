@@ -72,15 +72,19 @@ extension ThanksGiving where Self: ViewController {
 
         guard isLoggedIn else {
             let tapLoginHandler: (() -> Void)?
+            let category: EventCategoryMEP?
             switch source {
             case .diff:
                 tapLoginHandler = {
                     WatchlistFunnel.shared.logDiffThanksLogin(project: WikimediaProject(siteURL: siteURL))
+                    LoginFunnel.shared.logLoginStartFromDiff()
                 }
+                category = .diff
             case .unknown:
                 tapLoginHandler = nil
+                category = nil
             }
-            wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: theme, dismissHandler: nil, tapLoginHandler: tapLoginHandler, loginSuccessCompletion: {
+            wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(category: category, theme: theme, dismissHandler: nil, tapLoginHandler: tapLoginHandler, loginSuccessCompletion: {
                 self.didLogIn()
             }, loginDismissedCompletion: nil)
             return
@@ -112,7 +116,12 @@ extension ThanksGiving where Self: ViewController {
             if case .diff = self.source {
                 WatchlistFunnel.shared.logDiffThanksAlertTapSend(project: WikimediaProject(siteURL: siteURL))
             }
-            self.thankRevisionAuthor(for: revisionID, completion: thankCompletion)
+            
+            UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
+            self.dismiss(animated: true, completion: {
+                self.thankRevisionAuthor(for: revisionID, completion: thankCompletion)
+            })
+            
         } cancelHandler: { sender in
             
             if case .diff = self.source {

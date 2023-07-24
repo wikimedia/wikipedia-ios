@@ -41,16 +41,22 @@
     
     // MARK: - Login screen
     
-    public func logSuccess(timeElapsed: Double?) {
-        logEvent(category: .login, label: nil, action: .loginSuccess, measure: timeElapsed)
+    public func logSuccess(category: EventCategoryMEP?, timeElapsed: Double?) {
+        logEvent(category: category ?? .login, label: nil, action: .loginSuccess, measure: timeElapsed)
     }
     
-    @objc public func logCreateAccountAttempt() {
-        logEvent(category: .login, label: nil, action: .createAccountStart)
+    public func logCreateAccountAttempt(category: EventCategoryMEP?) {
+        logEvent(category: category ?? .login, label: nil, action: .createAccountStart)
     }
     
-    public func logCreateAccountSuccess(timeElapsed: Double?) {
-        logEvent(category: .login, label: nil, action: .createAccountSuccess, measure: timeElapsed)
+    public func logCreateAccountSuccess(category: EventCategoryMEP?, timeElapsed: Double?) {
+        logEvent(category: category ?? .login, label: nil, action: .createAccountSuccess, measure: timeElapsed)
+    }
+    
+    // MARK: - Diff
+    
+    public func logLoginStartFromDiff() {
+        logEvent(category: .diff, label: nil, action: .loginStart)
     }
     
     // MARK: - Settings

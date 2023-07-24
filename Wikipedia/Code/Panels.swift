@@ -751,13 +751,14 @@ extension UIViewController {
         present(panelVC, animated: true, completion: nil)
     }
     
-    @objc func wmf_showLoginViewController(theme: Theme, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
+    func wmf_showLoginViewController(category: EventCategoryMEP? = nil, theme: Theme, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
         guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
             assertionFailure("Expected view controller(s) not found")
             return
         }
         loginVC.loginSuccessCompletion = loginSuccessCompletion
         loginVC.loginDismissedCompletion = loginDismissedCompletion
+        loginVC.category = category
         loginVC.apply(theme: theme)
         present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true)
     }
@@ -829,12 +830,12 @@ extension UIViewController {
         present(panelVC, animated: true)
     }
 
-    @objc func wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: Theme, dismissHandler: ScrollableEducationPanelDismissHandler? = nil, tapLoginHandler: (() -> Void)? = nil, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
+    func wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(category: EventCategoryMEP? = nil, theme: Theme, dismissHandler: ScrollableEducationPanelDismissHandler? = nil, tapLoginHandler: (() -> Void)? = nil, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
 
         let loginToThankTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             tapLoginHandler?()
             self.presentedViewController?.dismiss(animated: true, completion: {
-                self.wmf_showLoginViewController(theme: theme, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: loginDismissedCompletion)
+                self.wmf_showLoginViewController(category: category, theme: theme, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: loginDismissedCompletion)
             })
         }
         
