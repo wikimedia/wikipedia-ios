@@ -19781,7 +19781,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wikimedia/wikipedia-ios-components.git";
 			requirement = {
-				branch = T341896;
+				branch = main;
 				kind = branch;
 			};
 		};
