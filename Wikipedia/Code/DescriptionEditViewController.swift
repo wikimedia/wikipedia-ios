@@ -84,9 +84,6 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         descriptionTextView.textContainerInset = .zero
         
         updateFonts()
-        if let articleURL = articleDescriptionController.article.url {
-            EditAttemptFunnel.shared.logInit(articleURL: articleURL)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -216,7 +213,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     }
 
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
-        if let articleURL = self.articleDescriptionController.article.url {
+        if let articleURL = articleDescriptionController.article.url {
             EditAttemptFunnel.shared.logAbort(articleURL: articleURL)
         }
         dismiss(animated: true, completion: nil)
@@ -267,7 +264,9 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                     }
                 case .failure(let error):
                     let nsError = error as NSError
-
+                    if let articleURL = self.articleDescriptionController.article.url {
+                        EditAttemptFunnel.shared.logSaveFailure(articleURL: articleURL)
+                    }
                     if let wikidataError = error as? WikidataFetcher.WikidataPublishingError {
                         switch wikidataError {
                         case .apiBlocked(let blockedError):
@@ -301,9 +300,6 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                         self.presentAbuseFilterWarningPanel(error: displayError)
                     default:
                         WMFAlertManager.sharedInstance.showErrorAlert(nsError as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-                    }
-                    if let articleURL = self.articleDescriptionController.article.url {
-                        EditAttemptFunnel.shared.logSaveFailure(articleURL: articleURL)
                     }
                 }
             }

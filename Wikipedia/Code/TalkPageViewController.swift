@@ -950,7 +950,6 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self.viewModel.fetchTalkPage { [weak self] result in
                     
                     self?.fakeProgressController.stop()
-
                     switch result {
                     case .success(let revID):
                         self?.updateEmptyStateVisibility()
@@ -959,18 +958,22 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                         if let talkPageURL = self?.viewModel.getTalkPageURL(encoded: false) {
                             EditAttemptFunnel.shared.logSaveSuccess(articleURL: talkPageURL, revisionId: revID)
                         }
-
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self?.scrollToNewComment(oldCellViewModel: oldCellViewModel, oldCommentViewModels: oldCommentViewModels)
                         }
 
                     case .failure:
-                        break
+                        if let talkPageURL = self?.viewModel.getTalkPageURL(encoded: false) {
+                            EditAttemptFunnel.shared.logSaveFailure(articleURL: talkPageURL)
+                        }
                     }
                 }
             case .failure(let error):
                 DDLogError("Failure publishing reply: \(error)")
                 self.replyComposeController.isLoading = false
+                if let talkPageURL = self.viewModel.getTalkPageURL(encoded: false) {
+                    EditAttemptFunnel.shared.logSaveFailure(articleURL: talkPageURL)
+                }
 
                 if (error as NSError).wmf_isNetworkConnectionError() {
                     let title = TalkPageLocalizedStrings.replyFailedAlertTitle

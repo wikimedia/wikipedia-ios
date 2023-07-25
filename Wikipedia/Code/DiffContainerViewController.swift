@@ -1243,30 +1243,33 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         fakeProgressController.start()
         DispatchQueue.main.async {
             if let pageURL = self.fetchPageURL() {
-                EditAttemptFunnel.shared.logSaveIntent(articleURL: pageURL)
+                EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
             }
-            WKWatchlistService().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
-                if let pageURL = self?.fetchPageURL() {
-                    EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
-                }
-                self?.completeRollbackOrUndo(result: result, isRollback: false)
-            }
+        }
+        WKWatchlistService().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
+            self?.completeRollbackOrUndo(result: result, isRollback: false)
         }
     }
 
     func tappedRollback() {
+        if let pageURL = fetchPageURL() {
+            EditAttemptFunnel.shared.logInit(articleURL: pageURL)
+        }
         let title = WMFLocalizedString("diff-rollback-alert-title", value: "Rollback edits", comment: "Title of alert when user taps rollback in diff toolbar.")
         let message = WMFLocalizedString("diff-rollback-alert-message", value: "Are you sure you want to rollback the edits?", comment: "Message in alert when user taps rollback in diff toolbar.")
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { [weak self] action in
+            if let pageURL = self?.fetchPageURL() {
+                EditAttemptFunnel.shared.logAbort(articleURL: pageURL)
+            }
+        }
         let rollback = UIAlertAction(title: CommonStrings.rollback, style: .destructive) { [weak self] (action) in
             self?.performRollback()
         }
         
         alertController.addAction(cancel)
         alertController.addAction(rollback)
-
         present(alertController, animated: true)
     }
     
@@ -1280,12 +1283,9 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         fakeProgressController.start()
         DispatchQueue.main.async {
             if let pageURL = self.fetchPageURL() {
-                EditAttemptFunnel.shared.logSaveIntent(articleURL: pageURL)
+                EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
             }
             WKWatchlistService().rollback(title: title, project: wkProject, username: username) { [weak self] result in
-                if let pageURL = self?.fetchPageURL() {
-                    EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
-                }
                 self?.completeRollbackOrUndo(result: result, isRollback: true)
             }
         }
