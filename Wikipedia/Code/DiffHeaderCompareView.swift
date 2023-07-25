@@ -231,6 +231,10 @@ extension DiffHeaderCompareView: Themeable {
 }
 
 extension DiffHeaderCompareView: WKMenuButtonDelegate {
+    func wkMenuButtonDidTap(_ sender: Components.WKMenuButton) {
+        // waiting for https://github.com/wikimedia/wikipedia-ios/pull/4581 to be merged
+    }
+
     func wkMenuButton(_ sender: Components.WKMenuButton, didTapMenuItem item: Components.WKMenuButton.MenuItem) {
         
         guard let viewModel else {
