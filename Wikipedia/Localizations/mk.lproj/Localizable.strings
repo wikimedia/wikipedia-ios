@@ -222,6 +222,7 @@
 "diff-rollback" = "Отповикување";
 "diff-rollback-alert-message" = "Дали сигурно сакате да ги отповикате уредувањата?";
 "diff-rollback-alert-title" = "Отповикај промени";
+"diff-rollback-success" = "Уредувањата се отповикани.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 уредување|$1 уредувања}}";
 "diff-single-header-editor-title" = "Информации за уредникот";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|Додаден $1 бајт|Додадени $1 бајти}}";
@@ -239,6 +240,7 @@
 "diff-thanks-sent-already" = "Веќе се заблагодаривте за ова уредување";
 "diff-thanks-sent-cannot-unsend" = "Благорадниците не можат да се отповикуваат";
 "diff-undo-message" = "Ова ќе ги поништи промените направени во преработката на статијата прикажани овде. За да продолжите, наведете причина за поништувањето на ова уредување.";
+"diff-undo-success" = "Преработката е вратена.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 неуреден ред|$1 неуредени реда}}";
 "dim-images" = "Пригушени слики";
 "edit-bold-accessibility-label" = "Стави задебелено форматирање";
@@ -1072,6 +1074,7 @@
 "two-factor-login-with-regular-code" = "Користи потврден код";
 "unable-to-load-talk-page-title" = "Не можам да ја вчитам разговорната страница";
 "unknown-generic-text" = "Непознато";
+"unwatch" = "Прекини набљудување";
 "uzbek-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве узбечки варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\noʻzbekcha lotin — узбечки на латиница (uz-latin)\nўзбекча кирилл — узбечки на кирилица (uz-cyrl)";
 "uzbek-variants-alert-title" = "Новост за поддршка на узбечки варијанти";
 "vanish-account-additional-information-field" = "Дополнителни информации";
@@ -1098,6 +1101,7 @@
 "vanishing-request-email-title" = "Побарај исчезнување";
 "variants-alert-dismiss-button" = "Не, благодарам";
 "variants-alert-preferences-button" = "Прегледајте ги вашите поставки";
+"watch" = "Набљудувај";
 "watchlist" = "Набљудувања";
 "watchlist-user-button-user-contributions" = "Кориснички придонеси";
 "watchlist-user-button-user-page" = "Корисничка страница";

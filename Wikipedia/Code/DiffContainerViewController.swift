@@ -1182,6 +1182,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         }
 
         let historyViewController = PageHistoryViewController(pageTitle: pageTitle, pageURL: pageURL, articleSummaryController: diffController.articleSummaryController)
+        historyViewController.theme = theme
         push(historyViewController, animated: true)
     }
 
