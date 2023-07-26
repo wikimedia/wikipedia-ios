@@ -48,7 +48,14 @@ class AccountViewController: SubSettingsViewController {
         let watchlist = Item(title: CommonStrings.watchlist, subtitle: nil, iconName: "watchlist-star", iconColor: .white, iconBackgroundColor: .yellow600, type: .watchlist)
         let vanishAccount = Item(title: CommonStrings.vanishAccount, subtitle: nil, iconName: "vanish-account", iconColor: .white, iconBackgroundColor: .red, type: .vanishAccount)
 
-        let account = Section(items: [logout, talkPage, watchlist, vanishAccount], headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
+        let sectionItems: [Item]
+        if FeatureFlags.watchlistEnabled {
+            sectionItems = [logout, talkPage, watchlist, vanishAccount]
+        } else {
+            sectionItems = [logout, talkPage, vanishAccount]
+        }
+
+        let account = Section(items: sectionItems, headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
 
         let autoSignDiscussions = Item(title: WMFLocalizedString("account-talk-preferences-auto-sign-discussions", value: "Auto-sign discussions", comment: "Title for talk page preference that configures adding signature to new posts"), subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .talkPageAutoSignDiscussions)
         let talkPagePreferences = Section(items: [autoSignDiscussions], headerTitle: WMFLocalizedString("account-talk-preferences-title", value: "Talk page preferences", comment: "Title for talk page preference sections in account settings"), footerTitle: WMFLocalizedString("account-talk-preferences-auto-sign-discussions-setting-explanation", value: "Auto-signing of discussions will use the signature defined in Signature settings", comment: "Text explaining how setting the auto-signing of talk page discussions preference works"))
@@ -102,7 +109,7 @@ class AccountViewController: SubSettingsViewController {
             cell.disclosureSwitch.isOn = UserDefaults.standard.autoSignTalkPageDiscussions
             cell.disclosureSwitch.addTarget(self, action: #selector(autoSignTalkPageDiscussions(_:)), for: .valueChanged)
         case .watchlist:
-            cell.disclosureType = .viewController            
+            cell.disclosureType = .viewController
         case .vanishAccount:
             cell.disclosureType = .viewController
             cell.accessibilityTraits = .button
@@ -139,7 +146,7 @@ class AccountViewController: SubSettingsViewController {
                     let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
                     self.navigationController?.pushViewController(newTalkPage, animated: true)
                 }
-            
+
         case .vanishAccount:
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
             warningViewController.delegate = self
