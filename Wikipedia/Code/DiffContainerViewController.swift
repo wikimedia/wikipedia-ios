@@ -1313,16 +1313,17 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             }
             
         case .failure(let error):
+            
+            if let pageURL = self.fetchPageURL() {
+                EditAttemptFunnel.shared.logSaveFailure(articleURL: pageURL)
+            }
+            
             guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
                let mediaWikiDisplayError = serviceError.mediaWikiDisplayError else {
                     WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
                     return
             }
-            DispatchQueue.main.async {
-                if let pageURL = self.fetchPageURL() {
-                    EditAttemptFunnel.shared.logSaveFailure(articleURL: pageURL)
-                }
-            }
+
             wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: articleTitle ?? "", theme: theme)
         }
     }
