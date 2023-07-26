@@ -254,9 +254,15 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 switch result {
                 case .success(let result):
                     self.delegate?.descriptionEditViewControllerEditSucceeded(self, result: result)
-
-                    if let revID = result.newRevisionID, let articleURL = self.articleDescriptionController.article.url {
-                        EditAttemptFunnel.shared.logSaveSuccess(articleURL: articleURL, revisionId: Int(revID))
+                    
+                    if let articleURL = self.articleDescriptionController.article.url {
+                        
+                        var revisionID: Int?
+                        if let uintRevisionID = result.newRevisionID {
+                            revisionID = Int(uintRevisionID)
+                        }
+                        
+                        EditAttemptFunnel.shared.logSaveSuccess(articleURL: articleURL, revisionId: revisionID)
                     }
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
