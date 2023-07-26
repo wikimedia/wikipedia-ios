@@ -1033,13 +1033,19 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                             EditAttemptFunnel.shared.logSaveSuccess(articleURL: pageURL, revisionId: viewModel.latestRevisionID)
                         }
                     case .failure:
-                        break
+                        if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {
+                            EditAttemptFunnel.shared.logSaveFailure(articleURL: pageURL)
+                        }
                     }
                 }
             case .failure(let error):
                 
                 DDLogError("Failure publishing topic: \(error)")
                 composeViewController.setupNavigationBar(isPublishing: false)
+
+                if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {
+                    EditAttemptFunnel.shared.logSaveFailure(articleURL: pageURL)
+                }
                 
                 if (error as NSError).wmf_isNetworkConnectionError() {
                     let title = TalkPageLocalizedStrings.newTopicFailedAlertTitle
