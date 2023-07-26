@@ -22,6 +22,8 @@ class DiffListUneditedCell: UICollectionViewCell {
         textLabel.text = viewModel.text
         
         apply(theme: viewModel.theme)
+
+        textLabel.isAccessibilityElement = false
     }
 }
 

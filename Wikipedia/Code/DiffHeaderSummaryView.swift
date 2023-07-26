@@ -35,7 +35,7 @@ class DiffHeaderSummaryView: UIView, Themeable {
             } else {
                 summaryLabel.text = viewModel.summary
             }
-            summaryLabel.accessibilityLabel = " SUMMARY \(summary)" // TODO LOCALIZE IT
+            summaryLabel.accessibilityLabel = summary
         }
         
         updateFonts(with: traitCollection)
