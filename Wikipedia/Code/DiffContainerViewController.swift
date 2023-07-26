@@ -1285,20 +1285,34 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             replaceLastAndPush(with: diffVC)
             revisionRetrievingDelegate?.refreshRevisions()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                let message = isRollback ? CommonStrings.diffRollbackSuccess : CommonStrings.diffUndoSuccess
-                WMFAlertManager.sharedInstance.showSuccessAlert(message, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+
+            let message = isRollback ? CommonStrings.diffRollbackSuccess : CommonStrings.diffUndoSuccess
+            if UIAccessibility.isVoiceOverRunning {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: message)
+                }
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    WMFAlertManager.sharedInstance.showSuccessAlert(message, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                }
             }
             
         case .failure(let error):
-            
-            guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
-               let mediaWikiDisplayError = serviceError.mediaWikiDisplayError else {
+            if let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
+               let mediaWikiDisplayError = serviceError.mediaWikiDisplayError {
+
+                wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: articleTitle ?? "", theme: theme)
+
+            } else {
+                if UIAccessibility.isVoiceOverRunning {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.unknownError)
+                    }
+                } else {
                     WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
-                    return
+
+                }
             }
-                
-            wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: articleTitle ?? "", theme: theme)
         }
     }
 }
