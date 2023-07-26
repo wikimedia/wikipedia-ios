@@ -80,6 +80,13 @@ final class DiffHeaderView: SetupView {
         headerTitleView.update(viewModel)
     }
 
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        guard !UIAccessibility.isVoiceOverRunning else {
+            return super.point(inside: point, with: event)
+        }
+        return false
+    }
+
 }
 
 extension DiffHeaderView: Themeable {
