@@ -1093,8 +1093,8 @@ class RevisionAuthorThankedHintVC: HintViewController {
     }
     override func configureSubviews() {
         viewType = .default
-        let thanksMessage = WMFLocalizedString("diff-thanks-sent", value: "Your 'Thanks' was sent to %1$@", comment: "Message indicating thanks was sent. Parameters:\n* %1$@ - name of user who was thanked")
-        let thanksMessageWithRecipient = String.localizedStringWithFormat(thanksMessage, recipient)
+        
+        let thanksMessageWithRecipient = String.localizedStringWithFormat(CommonStrings.thanksMessage, recipient)
         defaultImageView.image = UIImage(named: "selected")
         defaultLabel.text = thanksMessageWithRecipient
     }
