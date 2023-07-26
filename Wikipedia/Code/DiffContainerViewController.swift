@@ -1242,13 +1242,14 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         fakeProgressController.start()
-        DispatchQueue.main.async {
-            if let pageURL = self.fetchPageURL() {
-                EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
-            }
+
+        if let pageURL = self.fetchPageURL() {
+            EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
         }
         WKWatchlistService().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
-            self?.completeRollbackOrUndo(result: result, isRollback: false)
+            DispatchQueue.main.async {
+                self?.completeRollbackOrUndo(result: result, isRollback: false)
+            }
         }
     }
 
@@ -1282,11 +1283,12 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         }
 
         fakeProgressController.start()
-        DispatchQueue.main.async {
-            if let pageURL = self.fetchPageURL() {
-                EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
-            }
-            WKWatchlistService().rollback(title: title, project: wkProject, username: username) { [weak self] result in
+        if let pageURL = self.fetchPageURL() {
+            EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
+        }
+
+        WKWatchlistService().rollback(title: title, project: wkProject, username: username) { [weak self] result in
+            DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: true)
             }
         }

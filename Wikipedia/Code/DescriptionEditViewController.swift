@@ -236,17 +236,17 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 textViewDidChange(descriptionTextView)
                 return
         }
+
+
+        if let articleURL = self.articleDescriptionController.article.url {
+            EditAttemptFunnel.shared.logSaveAttempt(articleURL: articleURL)
+        }
         
         articleDescriptionController.publishDescription(descriptionToSave) { [weak self] (result) in
 
             DispatchQueue.main.async {
-
                 guard let self else {
                     return
-                }
-
-                if let articleURL = self.articleDescriptionController.article.url {
-                    EditAttemptFunnel.shared.logSaveAttempt(articleURL: articleURL)
                 }
 
                 let presentingVC = self.presentingViewController

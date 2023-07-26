@@ -67,16 +67,9 @@ class ShortDescriptionController: ArticleDescriptionControlling {
                     let wikitext = response.wikitext
                     let revisionID = response.revisionID
 
-                    if let articleURL = self.article.url {
-                        EditAttemptFunnel.shared.logSaveSuccess(articleURL: articleURL, revisionId: revisionID)
-                    }
-
                     self.uploadNewDescriptionToWikitext(wikitext, baseRevisionID: revisionID, newDescription: description, completion: completion)
 
                 case .failure(let error):
-                    if let articleURL = self.article.url {
-                        EditAttemptFunnel.shared.logSaveFailure(articleURL: articleURL)
-                    }
                     completion(.failure(error))
                 }
             }

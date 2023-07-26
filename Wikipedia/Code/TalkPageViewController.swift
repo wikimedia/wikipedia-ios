@@ -898,6 +898,11 @@ extension TalkPageViewController: TalkPageCellReplyDelegate {
     func tappedReply(commentViewModel: TalkPageCellCommentViewModel, accessibilityFocusView: UIView?) {
         hideFindInPage(releaseKeyboardBar: true)
         inputAccessoryViewType = .format
+
+        if let url = viewModel.getTalkPageURL(encoded: false) {
+            EditAttemptFunnel.shared.logInit(articleURL: url)
+        }
+
         if !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
             presentTopicReplyOnboarding()
         }
