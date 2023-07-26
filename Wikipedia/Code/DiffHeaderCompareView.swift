@@ -244,11 +244,22 @@ extension DiffHeaderCompareView: WKMenuButtonDelegate {
         }
 
         if item == userButtonMenuItems[0] {
+            WatchlistFunnel.shared.logDiffTapUserContributions(project: viewModel.project)
             delegate?.tappedUsername(username: username, destination: .userContributions)
         } else if item == userButtonMenuItems[1] {
+            WatchlistFunnel.shared.logDiffTapUserTalk(project: viewModel.project)
             delegate?.tappedUsername(username: username, destination: .userTalkPage)
         } else if item == userButtonMenuItems[2] {
+            WatchlistFunnel.shared.logDiffTapUserPage(project: viewModel.project)
             delegate?.tappedUsername(username: username, destination: .userPage)
+        }
+    }
+    
+    func wkMenuButtonDidTap(_ sender: WKMenuButton) {
+        if sender == fromMenuButton {
+            WatchlistFunnel.shared.logDiffTapCompareFromEditorName(project: viewModel?.project)
+        } else if sender == toMenuButton {
+            WatchlistFunnel.shared.logDiffTapCompareToEditorName(project: viewModel?.project)
         }
     }
 }
