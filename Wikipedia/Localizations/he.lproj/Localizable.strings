@@ -237,6 +237,7 @@
 "diff-rollback" = "שחזור";
 "diff-rollback-alert-message" = "האם ברצונך באמת לשחזר את העריכות?";
 "diff-rollback-alert-title" = "שחזור עריכות";
+"diff-rollback-success" = "העריכות שוחזרו.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|עריכה אחת|$1 עריכות}}";
 "diff-single-header-editor-title" = "פרטי העורך";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|בית אחד נוסף|$1 בתים נוספו}}";
@@ -254,6 +255,7 @@
 "diff-thanks-sent-already" = "כבר שלחת \"תודה\" על העריכה הזאת";
 "diff-thanks-sent-cannot-unsend" = "לא ניתן לבטל שליחת תודה";
 "diff-undo-message" = "הפעולה הזאת תבטל את השינויים שנעשו על־ידי העריכות של הערך המוצגות כאן. כדי להמשיך, נא לספק סיבה לביטול העריכה הזאת.";
+"diff-undo-success" = "הגרסה בוטלה.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|שורה שלא נערכה|$1 שורות שלא נערכו}}";
 "dim-images" = "עמעום תמונות";
 "edit-bold-accessibility-label" = "הוספת עיצוב בולט";
@@ -1087,6 +1089,7 @@
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
 "unable-to-load-talk-page-title" = "לא ניתן לטעון את דף השיחה";
 "unknown-generic-text" = "לא ידוע";
+"unwatch" = "הפסקת מעקב";
 "uzbek-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\noʻzbekcha lotin אוזבקית, לטינית (uz-latin)\nўзбекча кирилл אוזבקית, קירילית (uz-cyrl)";
 "uzbek-variants-alert-title" = "עדכונים לתמיכה בהגוונים של אוזבקית";
 "vanish-account-additional-information-field" = "מידע נוסף";
@@ -1113,6 +1116,7 @@
 "vanishing-request-email-title" = "בקשת היעלמות אישית";
 "variants-alert-dismiss-button" = "לא, תודה";
 "variants-alert-preferences-button" = "סקירת ההעדפות שלך";
+"watch" = "מעקב";
 "watchlist" = "רשימת המעקב";
 "watchlist-user-button-user-contributions" = "תרומות המשתמש";
 "watchlist-user-button-user-page" = "דף משתמש";
