@@ -1289,7 +1289,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
 
             let message = isRollback ? CommonStrings.diffRollbackSuccess : CommonStrings.diffUndoSuccess
             if UIAccessibility.isVoiceOverRunning {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: message)
                 }
             } else {
