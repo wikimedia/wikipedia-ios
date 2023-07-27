@@ -21,6 +21,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
     private var startDate: Date? // to calculate time elapsed between login start and login success
     
+    var category: EventCategoryMEP?
     fileprivate var theme: Theme = Theme.standard
     
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
@@ -172,7 +173,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 self.dismiss(animated: true)
 
                 if let start = self.startDate {
-                    LoginFunnel.shared.logSuccess(timeElapsed: fabs(start.timeIntervalSinceNow))
+                    LoginFunnel.shared.logSuccess(category: self.category, timeElapsed: fabs(start.timeIntervalSinceNow))
                 } else {
                     assertionFailure("startDate is nil; startDate is required to calculate timeElapsed")
                 }
@@ -269,8 +270,9 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             assertionFailure("Expected view controller(s) not found")
             return
         }
+        createAcctVC.category = category
         createAcctVC.apply(theme: theme)
-        LoginFunnel.shared.logCreateAccountAttempt()
+        LoginFunnel.shared.logCreateAccountAttempt(category: category)
         dismiss(animated: true, completion: {
             let navigationController = WMFThemeableNavigationController(rootViewController: createAcctVC, theme: self.theme, style: .sheet)
             presenter.present(navigationController, animated: true, completion: nil)

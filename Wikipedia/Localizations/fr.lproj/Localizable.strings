@@ -12,6 +12,7 @@
 // Author: Hydros
 // Author: John Trololo
 // Author: Macofe
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Nharateh
 // Author: Niridya
@@ -43,7 +44,7 @@
 "aaald-deleted-text-description-2" = "$1 supprimé";
 "aaald-error-subitle" = "Actualisez pour essayer à nouveau";
 "aaald-error-title" = "Impossible de charger l’historique en ligne de l’article";
-"aaald-many-sections-description" = "Dans les sections $1";
+"aaald-many-sections-description" = "dans $1 sections";
 "aaald-multiple-changes-description" = "Changements multiples réalisés";
 "aaald-multiple-references-added-description" = "Multiples références ajoutées";
 "aaald-new-book-reference-title" = "Livre";

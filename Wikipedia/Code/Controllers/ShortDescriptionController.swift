@@ -54,22 +54,24 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     func publishDescription(_ description: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { [weak self] (result) in
-            
-            guard let self = self else {
-                completion(.failure(ShortDescriptionControllerError.missingSelf))
-                return
-            }
-            
-            switch result {
-            case .success(let response):
-                
-                let wikitext = response.wikitext
-                let revisionID = response.revisionID
-                
-                self.uploadNewDescriptionToWikitext(wikitext, baseRevisionID: revisionID, newDescription: description, completion: completion)
-                
-            case .failure(let error):
-                completion(.failure(error))
+            DispatchQueue.main.async {
+
+                guard let self = self else {
+                    completion(.failure(ShortDescriptionControllerError.missingSelf))
+                    return
+                }
+
+                switch result {
+                case .success(let response):
+
+                    let wikitext = response.wikitext
+                    let revisionID = response.revisionID
+
+                    self.uploadNewDescriptionToWikitext(wikitext, baseRevisionID: revisionID, newDescription: description, completion: completion)
+
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
         }
     }
