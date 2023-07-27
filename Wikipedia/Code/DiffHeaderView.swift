@@ -9,7 +9,7 @@ final class DiffHeaderView: SetupView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.alignment = .center
+        stackView.alignment = .top
 
         return stackView
     }()
@@ -79,6 +79,13 @@ final class DiffHeaderView: SetupView {
 
     func updateTitleView(with viewModel: DiffHeaderTitleViewModel) {
         headerTitleView.update(viewModel)
+    }
+
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        guard !UIAccessibility.isVoiceOverRunning else {
+            return super.point(inside: point, with: event)
+        }
+        return false
     }
 
 }

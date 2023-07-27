@@ -142,6 +142,7 @@ class DiffContainerViewController: ViewController {
         self.firstRevision = firstRevision
 
         self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: pageHistoryFetcher, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type, articleSummaryController: articleSummaryController)
+
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, listViewModel: nil, articleTitle: articleTitle, imageURL: nil, byteDifference: nil, theme: theme, project: project)
         
         self.needsSetNavDelegate = needsSetNavDelegate
