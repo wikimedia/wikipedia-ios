@@ -1220,6 +1220,10 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             assertionFailure("WKProject must be populated before attempting undo call.")
             return
         }
+
+        if let pageURL = fetchPageURL() {
+            EditAttemptFunnel.shared.logInit(articleURL: pageURL)
+        }
         
         WatchlistFunnel.shared.logDiffToolbarTapUndo(project: wikimediaProject)
         
@@ -1234,6 +1238,9 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
 
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { [weak self] (action) in
             WatchlistFunnel.shared.logDiffUndoAlertTapCancel(project: self?.wikimediaProject)
+            if let pageURL = self?.fetchPageURL() {
+                EditAttemptFunnel.shared.logAbort(articleURL: pageURL)
+            }
         }
         
         let undo = UIAlertAction(title: CommonStrings.undo, style: .destructive) { [weak self] (action) in
@@ -1264,10 +1271,12 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
               let summary = undoAlertSummaryTextField?.text else {
             return
         }
-        
         fakeProgressController.start()
-        WKWatchlistService().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
 
+        if let pageURL = self.fetchPageURL() {
+            EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
+        }
+        WKWatchlistService().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: false)
             }
@@ -1275,6 +1284,9 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
 
     func tappedRollback() {
+        if let pageURL = fetchPageURL() {
+            EditAttemptFunnel.shared.logInit(articleURL: pageURL)
+        }
         WatchlistFunnel.shared.logDiffToolbarMoreTapRollback(project: wikimediaProject)
         let title = WMFLocalizedString("diff-rollback-alert-title", value: "Rollback edits", comment: "Title of alert when user taps rollback in diff toolbar.")
         let message = WMFLocalizedString("diff-rollback-alert-message", value: "Are you sure you want to rollback the edits?", comment: "Message in alert when user taps rollback in diff toolbar.")
@@ -1282,6 +1294,9 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
 
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { [weak self] (action) in
             WatchlistFunnel.shared.logDiffRollbackAlertTapCancel(project: self?.wikimediaProject)
+            if let pageURL = self?.fetchPageURL() {
+                EditAttemptFunnel.shared.logAbort(articleURL: pageURL)
+            }
         }
         let rollback = UIAlertAction(title: CommonStrings.rollback, style: .destructive) { [weak self] (action) in
             WatchlistFunnel.shared.logDiffRollbackAlertTapRollback(project: self?.wikimediaProject)
@@ -1290,7 +1305,6 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         
         alertController.addAction(cancel)
         alertController.addAction(rollback)
-
         present(alertController, animated: true)
     }
     
@@ -1300,8 +1314,12 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
               let username = toModel?.user else {
             return
         }
-        
+
         fakeProgressController.start()
+        if let pageURL = self.fetchPageURL() {
+            EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
+        }
+
         WKWatchlistService().rollback(title: title, project: wkProject, username: username) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: true)
@@ -1321,12 +1339,15 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 WatchlistFunnel.shared.logDiffUndoSuccess(revisionID: result.newRevisionID, project: self.wikimediaProject)
             }
             
+            if let pageURL = self.fetchPageURL() {
+                    EditAttemptFunnel.shared.logSaveSuccess(articleURL: pageURL, revisionId: result.newRevisionID)
+            }
+
             let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController)
             animateDirection = .up
             replaceLastAndPush(with: diffVC)
             revisionRetrievingDelegate?.refreshRevisions()
             
-
             let message = isRollback ? CommonStrings.diffRollbackSuccess : CommonStrings.diffUndoSuccess
             if UIAccessibility.isVoiceOverRunning {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {

@@ -448,7 +448,7 @@
 "menu-cancel-accessibility-label" = "ဢမ်ႇႁဵတ်း";
 // Fuzzy
 "more-languages-tooltip-description" = "ၶူၼ်ႉႁႃ ဝီႇၶီႇၽီးတီးယႃး ၼႂ်းၽႃႇသႃႇၵႂၢမ်း ၸမ် 300";
-"more-languages-tooltip-title" = "ထႅမ်သႂ်ႇ ၽႃႇသႃႇၵႂၢမ်း";
+"more-languages-tooltip-title" = "ထႅမ်သႂ်ႇ ၽႃႇသႃႇ";
 "move-articles-to-reading-list" = "ၶၢႆႉ {{PLURAL:$1|$1 ပွင်ႈၵႂၢမ်း|$1 ပွင်ႈၵႂၢမ်း}} ၸူး သဵၼ်ႈမၢႆလူ";
 "navbar-title-mode-edit-wikitext-preview" = "တူၺ်းတူဝ်ယၢင်ႇ";
 "nearby-distance-label-feet" = "$1 ထတ်း";
