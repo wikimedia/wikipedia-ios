@@ -11,6 +11,7 @@ final class DiffHeaderViewModel: Themeable {
     var title: DiffHeaderTitleViewModel
     let diffType: DiffContainerViewModel.DiffType
     let headerType: DiffHeaderType
+    var imageURL: URL?
     private let articleTitle: String
     private let byteDifference: Int?
     static var dateFormatter = DateFormatter()
@@ -28,10 +29,11 @@ final class DiffHeaderViewModel: Themeable {
 
     }
     
-    init?(diffType: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, articleTitle: String, byteDifference: Int?, theme: Theme, project: WikimediaProject?) {
+    init?(diffType: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, articleTitle: String, imageURL: URL?, byteDifference: Int?, theme: Theme, project: WikimediaProject?) {
         
         self.diffType = diffType
         self.articleTitle = articleTitle
+        self.imageURL = imageURL
         self.byteDifference = byteDifference
         
         DiffHeaderViewModel.dateFormatter.timeZone = TimeZone(identifier: "UTC")
@@ -106,7 +108,7 @@ final class DiffHeaderTitleViewModel {
     let subtitle: String?
     let subtitleTextStyle: DynamicTextStyle
     var subtitleColor: UIColor?
-    
+
     init(heading: String?, title: String?, subtitle: String?, subtitleTextStyle: DynamicTextStyle, subtitleColor: UIColor?) {
         self.heading = heading?.localizedUppercase
         self.title = title
