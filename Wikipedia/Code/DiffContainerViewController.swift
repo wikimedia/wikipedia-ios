@@ -1358,6 +1358,11 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             }
             
         case .failure(let error):
+            
+            if let pageURL = self.fetchPageURL() {
+                EditAttemptFunnel.shared.logSaveFailure(articleURL: pageURL)
+            }
+            
             guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
                let mediaWikiDisplayError = serviceError.mediaWikiDisplayError else {
                 
@@ -1380,11 +1385,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             } else {
                 WatchlistFunnel.shared.logDiffUndoFail(errorReason: errorReason, project: self.wikimediaProject)
             }
-            DispatchQueue.main.async {
-                if let pageURL = self.fetchPageURL() {
-                    EditAttemptFunnel.shared.logSaveFailure(articleURL: pageURL)
-                }
-            }
+
             wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: articleTitle ?? "", theme: theme)
         }
     }
