@@ -1,7 +1,7 @@
 import UIKit
 
 class DiffHeaderSummaryView: UIView, Themeable {
-    
+
     @IBOutlet var contentView: UIView!
     @IBOutlet var headingLabel: UILabel!
     @IBOutlet var summaryLabel: UILabel!
@@ -19,21 +19,23 @@ class DiffHeaderSummaryView: UIView, Themeable {
     func update(_ viewModel: DiffHeaderEditSummaryViewModel) {
 
         headingLabel.text = viewModel.heading
-        
-        if viewModel.isMinor,
-            let minorImage = UIImage(named: "minor-edit") {
-            let imageAttachment = NSTextAttachment()
-            imageAttachment.image = minorImage
-            let attributedText = NSMutableAttributedString(attachment: imageAttachment)
-            attributedText.addAttributes([NSAttributedString.Key.baselineOffset: -1], range: NSRange(location: 0, length: 1))
-            
-            if let summary = viewModel.summary {
+        headingLabel.accessibilityLabel = viewModel.heading
+
+        if let summary = viewModel.summary {
+            if viewModel.isMinor,
+               let minorImage = UIImage(named: "minor-edit") {
+                let imageAttachment = NSTextAttachment()
+                imageAttachment.image = minorImage
+                let attributedText = NSMutableAttributedString(attachment: imageAttachment)
+                attributedText.addAttributes([NSAttributedString.Key.baselineOffset: -1], range: NSRange(location: 0, length: 1))
+
                 attributedText.append(NSAttributedString(string: "  \(summary)"))
+
+                summaryLabel.attributedText = attributedText
+            } else {
+                summaryLabel.text = viewModel.summary
             }
-            
-            summaryLabel.attributedText = attributedText
-        } else {
-            summaryLabel.text = viewModel.summary
+            summaryLabel.accessibilityLabel = summary
         }
         
         updateFonts(with: traitCollection)
@@ -61,14 +63,14 @@ class DiffHeaderSummaryView: UIView, Themeable {
 }
 
 private extension DiffHeaderSummaryView {
-    
+
     func commonInit() {
         Bundle.main.loadNibNamed(DiffHeaderSummaryView.wmf_nibName(), owner: self, options: nil)
             addSubview(contentView)
             contentView.frame = self.bounds
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
-    
+
     func updateFonts(with traitCollection: UITraitCollection) {
         headingLabel.font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
         summaryLabel.font = UIFont.wmf_font(DynamicTextStyle.subheadline, compatibleWithTraitCollection: traitCollection)

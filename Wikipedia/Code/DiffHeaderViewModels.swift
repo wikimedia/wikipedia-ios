@@ -81,8 +81,7 @@ final class DiffHeaderViewModel: Themeable {
             let navBarTitle = WMFLocalizedString("diff-compare-title", value: "Compare Revisions", comment: "Title label that shows in the navigation bar when scrolling and comparing revisions.")
             self.headerType = .compare(compareViewModel: compareModel, navBarTitle: navBarTitle)
         }
-        
-        
+
         apply(theme: theme)
     }
     

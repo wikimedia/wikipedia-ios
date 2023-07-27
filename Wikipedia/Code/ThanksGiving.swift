@@ -154,10 +154,23 @@ extension ThanksGiving where Self: ViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let result):
-                    self.show(hintViewController: RevisionAuthorThankedHintVC(recipient: result.recipient))
+                    if UIAccessibility.isVoiceOverRunning {
+                        let accessibilityText = String.localizedStringWithFormat(CommonStrings.thanksMessage, result.recipient)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: accessibilityText)
+                        }
+                    } else {
+                        self.show(hintViewController: RevisionAuthorThankedHintVC(recipient: result.recipient))
+                    }
                     completion(nil)
                 case .failure(let error as NSError):
-                    self.show(hintViewController: RevisionAuthorThanksErrorHintVC(error: error))
+                    if UIAccessibility.isVoiceOverRunning {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: error.alertMessage())
+                        }
+                    } else {
+                        self.show(hintViewController: RevisionAuthorThanksErrorHintVC(error: error))
+                    }
                     completion(error)
                 }
             }

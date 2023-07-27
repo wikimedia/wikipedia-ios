@@ -71,23 +71,23 @@ class DiffContainerViewController: ViewController {
     }
     
     private var isOnFirstRevisionInHistory: Bool {
-            if let toModel = toModel,
-                let firstRevision = firstRevision,
-                fromModel == nil,
-                toModel.revisionID == firstRevision.revisionID {
-                return true
-            }
+        if let toModel = toModel,
+           let firstRevision = firstRevision,
+           fromModel == nil,
+           toModel.revisionID == firstRevision.revisionID {
+            return true
+        }
         
         return false
     }
     
     private var isOnSecondRevisionInHistory: Bool {
-            if toModel != nil,
-                let fromModel = fromModel,
-                let firstRevision = firstRevision,
-                fromModel.revisionID == firstRevision.revisionID {
-                return true
-            }
+        if toModel != nil,
+           let fromModel = fromModel,
+           let firstRevision = firstRevision,
+           fromModel.revisionID == firstRevision.revisionID {
+            return true
+        }
         
         return false
     }
@@ -100,7 +100,7 @@ class DiffContainerViewController: ViewController {
     private weak var undoAlertSummaryTextField: UITextField?
     
     init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController) {
-    
+
         self.siteURL = siteURL
         let wikimediaProject = WikimediaProject(siteURL: siteURL)
         self.wikimediaProject = wikimediaProject
@@ -119,7 +119,7 @@ class DiffContainerViewController: ViewController {
         self.needsSetNavDelegate = needsSetNavDelegate
         
         super.init()
-        
+        self.isAccessibilityElement = false
         self.theme = theme
         
         self.containerViewModel.stateHandler = { [weak self] oldState in
@@ -295,7 +295,7 @@ private extension DiffContainerViewController {
 
     func populateNewHeaderViewModel() {
         guard let toModel = toModel,
-            let articleTitle = articleTitle else {
+              let articleTitle = articleTitle else {
             assertionFailure("tomModel and articleTitle need to be in place for generating header.")
             return
         }
@@ -333,7 +333,7 @@ private extension DiffContainerViewController {
     
     func fetchToModelAndFinishSetup() {
         guard let fromModel = fromModel,
-        let articleTitle = articleTitle else {
+              let articleTitle = articleTitle else {
             assertionFailure("fromModel and articleTitle must be populated for fetching toModel")
             return
         }
@@ -357,7 +357,7 @@ private extension DiffContainerViewController {
     func fetchFromModelAndFinishSetup() {
         
         guard let toModel = toModel,
-        let articleTitle = articleTitle else {
+              let articleTitle = articleTitle else {
             assertionFailure("toModel and articleTitle must be populated for fetching fromModel")
             return
         }
@@ -416,9 +416,9 @@ private extension DiffContainerViewController {
     func completeSetup() {
         
         guard toModel != nil,
-            (fromModel != nil || isOnFirstRevisionInHistory) else {
-                assertionFailure("Both models must be populated at this point or needs to be on the first revision.")
-                return
+              (fromModel != nil || isOnFirstRevisionInHistory) else {
+            assertionFailure("Both models must be populated at this point or needs to be on the first revision.")
+            return
         }
         
         if isOnFirstRevisionInHistory {
@@ -441,10 +441,10 @@ private extension DiffContainerViewController {
     func populatePrevNextModelsForToolbar() {
         
         guard let toModel = toModel,
-            let articleTitle = articleTitle,
-        (fromModel != nil || isOnFirstRevisionInHistory) else {
-                assertionFailure("Both models and articleTitle must be populated at this point or needs to be on the first revision.")
-                return
+              let articleTitle = articleTitle,
+              (fromModel != nil || isOnFirstRevisionInHistory) else {
+            assertionFailure("Both models and articleTitle must be populated at this point or needs to be on the first revision.")
+            return
         }
         
         // populate nextModel for enabling previous/next button
@@ -708,7 +708,7 @@ private extension DiffContainerViewController {
         switch type {
         case .compare:
             guard let headerViewModel = containerViewModel.headerViewModel,
-            let articleTitle = articleTitle else {
+                  let articleTitle = articleTitle else {
                 return
             }
 
@@ -741,7 +741,7 @@ private extension DiffContainerViewController {
     
     func fetchFirstDiff() {
         guard let toModel = toModel,
-         isOnFirstRevisionInHistory else {
+              isOnFirstRevisionInHistory else {
             return
         }
         
@@ -787,7 +787,7 @@ private extension DiffContainerViewController {
     func fetchDiff() {
         
         guard let toModel = toModel,
-        let fromModel = fromModel else {
+              let fromModel = fromModel else {
             return
         }
         
@@ -867,7 +867,7 @@ private extension DiffContainerViewController {
 
         scrollingEmptyViewController = EmptyViewController(nibName: "EmptyViewController", bundle: nil)
         if let emptyViewController = scrollingEmptyViewController,
-            let emptyView = emptyViewController.view {
+           let emptyView = emptyViewController.view {
             emptyViewController.canRefresh = false
             emptyViewController.theme = theme
             
@@ -928,7 +928,7 @@ private extension DiffContainerViewController {
             switch type {
             case .single:
                 if let listView = diffListViewController.view,
-                    let toolbarView = diffToolbarView {
+                   let toolbarView = diffToolbarView {
                     addChild(diffListViewController)
                     listView.translatesAutoresizingMaskIntoConstraints = false
                     view.insertSubview(listView, belowSubview: navigationBar)
@@ -973,7 +973,7 @@ private extension DiffContainerViewController {
             
             if UIAccessibility.isVoiceOverRunning {
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: diffError.localizedDescription)
-             } else {
+            } else {
                 WMFAlertManager.sharedInstance.showWarningAlert(diffError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
             }
             
@@ -1029,8 +1029,8 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
     func tappedRevision(revisionID: Int) {
         
         guard let fromModel = fromModel,
-        let toModel = toModel,
-        let articleTitle = articleTitle else {
+              let toModel = toModel,
+              let articleTitle = articleTitle else {
             assertionFailure("Revision tapping is not supported on a page without models or articleTitle.")
             return
         }
@@ -1101,8 +1101,8 @@ class RevisionAuthorThankedHintVC: HintViewController {
     }
     override func configureSubviews() {
         viewType = .default
-        let thanksMessage = WMFLocalizedString("diff-thanks-sent", value: "Your 'Thanks' was sent to %1$@", comment: "Message indicating thanks was sent. Parameters:\n* %1$@ - name of user who was thanked")
-        let thanksMessageWithRecipient = String.localizedStringWithFormat(thanksMessage, recipient)
+        
+        let thanksMessageWithRecipient = String.localizedStringWithFormat(CommonStrings.thanksMessage, recipient)
         defaultImageView.image = UIImage(named: "selected")
         defaultLabel.text = thanksMessageWithRecipient
     }
@@ -1139,18 +1139,18 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         animateDirection = .down
         
         guard prevModel != nil ||
-            isOnSecondRevisionInHistory else {
-                assertionFailure("Expecting either a prevModel populated to push or a firstRevision to push.")
-                return
+                isOnSecondRevisionInHistory else {
+            assertionFailure("Expecting either a prevModel populated to push or a firstRevision to push.")
+            return
         }
         
         let fromModel = prevModel?.from
         let maybeToModel = prevModel?.to ?? firstRevision
         
         guard let toModel = maybeToModel,
-        let articleTitle = articleTitle else {
-                assertionFailure("toModel and articleTitle before pushing on new DiffContainerVC")
-                return
+              let articleTitle = articleTitle else {
+            assertionFailure("toModel and articleTitle before pushing on new DiffContainerVC")
+            return
         }
         
         WatchlistFunnel.shared.logDiffToolbarTapPrevious(project: wikimediaProject)
@@ -1164,7 +1164,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         animateDirection = .up
         
         guard let nextModel = nextModel,
-        let articleTitle = articleTitle else {
+              let articleTitle = articleTitle else {
             assertionFailure("Expecting nextModel and articleTitle to be populated. Next button should have been disabled if there's no model.")
             return
         }
@@ -1340,55 +1340,64 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 WatchlistFunnel.shared.logDiffUndoSuccess(revisionID: result.newRevisionID, project: self.wikimediaProject)
             }
             
+            if let pageURL = self.fetchPageURL() {
+                    EditAttemptFunnel.shared.logSaveSuccess(articleURL: pageURL, revisionId: result.newRevisionID)
+            }
+
             let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController)
             animateDirection = .up
             replaceLastAndPush(with: diffVC)
             revisionRetrievingDelegate?.refreshRevisions()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                if let pageURL = self.fetchPageURL() {
-                    EditAttemptFunnel.shared.logSaveSuccess(articleURL: pageURL, revisionId: result.newRevisionID)
+            let message = isRollback ? CommonStrings.diffRollbackSuccess : CommonStrings.diffUndoSuccess
+            if UIAccessibility.isVoiceOverRunning {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: message)
                 }
-                let message = isRollback ? CommonStrings.diffRollbackSuccess : CommonStrings.diffUndoSuccess
-                WMFAlertManager.sharedInstance.showSuccessAlert(message, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                
-                if isRollback {
-                    WatchlistFunnel.shared.logDiffRollbackDisplaySuccessToast(project: self.wikimediaProject)
-                } else {
-                    WatchlistFunnel.shared.logDiffUndoDisplaySuccessToast(project: self.wikimediaProject)
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    WMFAlertManager.sharedInstance.showSuccessAlert(message, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 }
+            }
+            if isRollback {
+                WatchlistFunnel.shared.logDiffRollbackDisplaySuccessToast(project: self.wikimediaProject)
+            } else {
+                WatchlistFunnel.shared.logDiffUndoDisplaySuccessToast(project: self.wikimediaProject)
             }
             
         case .failure(let error):
-            
             if let pageURL = self.fetchPageURL() {
                 EditAttemptFunnel.shared.logSaveFailure(articleURL: pageURL)
             }
-            
-            guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
-               let mediaWikiDisplayError = serviceError.mediaWikiDisplayError else {
-                
-                let errorReason = (error as NSError).domain + "." + String((error as NSError).code)
-            
+            if let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
+               let mediaWikiDisplayError = serviceError.mediaWikiDisplayError {
+
+                let errorReason = mediaWikiDisplayError.loggingErrorReasonDomain + "." + mediaWikiDisplayError.code
+
                 if isRollback {
                     WatchlistFunnel.shared.logDiffRollbackFail(errorReason: errorReason, project: self.wikimediaProject)
                 } else {
                     WatchlistFunnel.shared.logDiffUndoFail(errorReason: errorReason, project: self.wikimediaProject)
                 }
-            
-                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
-                return
-            }
-            
-            let errorReason = mediaWikiDisplayError.loggingErrorReasonDomain + "." + mediaWikiDisplayError.code
-            
-            if isRollback {
-                WatchlistFunnel.shared.logDiffRollbackFail(errorReason: errorReason, project: self.wikimediaProject)
-            } else {
-                WatchlistFunnel.shared.logDiffUndoFail(errorReason: errorReason, project: self.wikimediaProject)
-            }
 
-            wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: articleTitle ?? "", theme: theme)
+                wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: articleTitle ?? "", theme: theme)
+
+            } else {
+                let errorReason = (error as NSError).domain + "." + String((error as NSError).code)
+
+                if isRollback {
+                    WatchlistFunnel.shared.logDiffRollbackFail(errorReason: errorReason, project: self.wikimediaProject)
+                } else {
+                    WatchlistFunnel.shared.logDiffUndoFail(errorReason: errorReason, project: self.wikimediaProject)
+                }
+                if UIAccessibility.isVoiceOverRunning {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.unknownError)
+                    }
+                } else {
+                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                }
+            }
         }
     }
 }
