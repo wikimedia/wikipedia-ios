@@ -142,7 +142,7 @@
 "action-thank-user-accessibility" = "Gebruiker bedanken";
 "action-undo" = "Ongedaan maken";
 "action-unsave" = "Wissen";
-"action-unsaved-accessibility-notification" = "Artikel terug opgeslagen";
+"action-unsaved-accessibility-notification" = "Artikel niet meer opgeslagen";
 "action-update" = "Bijwerken";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 artikel|$1 artikelen}} aan leeslijst toevoegen";
 "add-citation-title" = "Citaat toevoegen";
