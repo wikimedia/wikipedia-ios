@@ -231,6 +231,7 @@ extension DiffHeaderCompareView: Themeable {
 }
 
 extension DiffHeaderCompareView: WKMenuButtonDelegate {
+
     func wkMenuButton(_ sender: Components.WKMenuButton, didTapMenuItem item: Components.WKMenuButton.MenuItem) {
         
         guard let viewModel else {

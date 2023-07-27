@@ -62,7 +62,7 @@ public final class EditAttemptFunnel {
         logEvent(articleURL: articleURL, action: .saveAttempt)
     }
 
-    func logSaveSuccess(articleURL: URL, revisionId: Int) {
+    func logSaveSuccess(articleURL: URL, revisionId: Int?) {
         logEvent(articleURL: articleURL, action: .saveSuccess, revisionId: revisionId)
     }
 
@@ -74,7 +74,7 @@ public final class EditAttemptFunnel {
         logEvent(articleURL: articleURL, action: .abort)
     }
 
-    func getUserID(articleURL: URL) -> Int {
+    fileprivate func getUserID(articleURL: URL) -> Int {
         let isAnon = !MWKDataStore.shared().authenticationManager.isLoggedIn
 
         if isAnon {
