@@ -196,6 +196,7 @@
 "diff-compare-header-from-info-heading" = "From";
 "diff-compare-header-heading" = "Compare Revisions";
 "diff-compare-header-to-info-heading" = "To";
+"diff-compare-title" = "Compare Revisions";
 "diff-context-lines-collapsed-button-title" = "Show";
 "diff-context-lines-expanded-button-title" = "Hide";
 "diff-header-revision-accessibility-text" = "Revision made at";

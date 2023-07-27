@@ -27,6 +27,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     let accountCreationInfoFetcher = WMFAuthAccountCreationInfoFetcher()
     let accountCreator = WMFAccountCreator()
     
+    var category: EventCategoryMEP?
     fileprivate var theme = Theme.standard
     
     private var startDate: Date? // to calculate time elapsed between account creation start and account creation success
@@ -220,7 +221,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 if let start = self.startDate {
-                    LoginFunnel.shared.logCreateAccountSuccess(timeElapsed: fabs(start.timeIntervalSinceNow))
+                    LoginFunnel.shared.logCreateAccountSuccess(category: self.category, timeElapsed: fabs(start.timeIntervalSinceNow))
                 } else {
                     assertionFailure("startDate is nil; startDate is required to calculate timeElapsed")
                 }

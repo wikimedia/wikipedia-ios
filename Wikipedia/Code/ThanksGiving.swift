@@ -1,4 +1,5 @@
 import Foundation
+import WMF
 
 protocol ThanksGiving: HintPresenting {
     var url: URL? { get }
@@ -70,7 +71,20 @@ extension ThanksGiving where Self: ViewController {
         }
 
         guard isLoggedIn else {
-            wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: {
+            let tapLoginHandler: (() -> Void)?
+            let category: EventCategoryMEP?
+            switch source {
+            case .diff:
+                tapLoginHandler = {
+                    WatchlistFunnel.shared.logDiffThanksLogin(project: WikimediaProject(siteURL: siteURL))
+                    LoginFunnel.shared.logLoginStartFromDiff()
+                }
+                category = .diff
+            case .unknown:
+                tapLoginHandler = nil
+                category = nil
+            }
+            wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(category: category, theme: theme, dismissHandler: nil, tapLoginHandler: tapLoginHandler, loginSuccessCompletion: {
                 self.didLogIn()
             }, loginDismissedCompletion: nil)
             return
@@ -83,6 +97,7 @@ extension ThanksGiving where Self: ViewController {
                 switch self.source {
                 case .diff:
                     EditHistoryCompareFunnel.shared.logThankSuccess(siteURL: siteURL)
+                    WatchlistFunnel.shared.logDiffThanksDisplaySuccessToast(project: WikimediaProject(siteURL: siteURL))
                 default:
                     break
                 }
@@ -97,12 +112,23 @@ extension ThanksGiving where Self: ViewController {
             return
         }
 
-        wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: {_ in
+        wmf_showThankRevisionAuthorEducationPanel(theme: theme) { sender in
+            if case .diff = self.source {
+                WatchlistFunnel.shared.logDiffThanksAlertTapSend(project: WikimediaProject(siteURL: siteURL))
+            }
+            
             UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
             self.dismiss(animated: true, completion: {
                 self.thankRevisionAuthor(for: revisionID, completion: thankCompletion)
             })
-        })
+            
+        } cancelHandler: { sender in
+            
+            if case .diff = self.source {
+                WatchlistFunnel.shared.logDiffThanksAlertTapCancel(project: WikimediaProject(siteURL: siteURL))
+            }
+            self.dismiss(animated: true)
+        }
     }
 
     private func show(hintViewController: HintViewController) {

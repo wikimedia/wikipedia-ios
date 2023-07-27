@@ -196,6 +196,7 @@
 "diff-compare-header-from-info-heading" = "Heading label in from revision info box when comparing two revisions.";
 "diff-compare-header-heading" = "Heading label in header when comparing two revisions.";
 "diff-compare-header-to-info-heading" = "Heading label in to revision info box when comparing two revisions.";
+"diff-compare-title" = "Title label that shows in the navigation bar when scrolling and comparing revisions.";
 "diff-context-lines-collapsed-button-title" = "Expand button title in diff compare context section when section is in collapsed state.";
 "diff-context-lines-expanded-button-title" = "Expand button title in diff compare context section when section is in expanded state.";
 "diff-header-revision-accessibility-text" = "Accessibility text to provide more context to users of assistive tecnologies about the revision date";
