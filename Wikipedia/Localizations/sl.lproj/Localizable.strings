@@ -207,6 +207,7 @@
 "diff-compare-title" = "Primerjava redakcij";
 "diff-context-lines-collapsed-button-title" = "Pokaži";
 "diff-context-lines-expanded-button-title" = "Skrij";
+"diff-header-revision-accessibility-text" = "Datum redakcije:";
 "diff-multi-line-format" = "Vrstice $1–$2";
 "diff-paragraph-moved" = "Odstavek prestavljen";
 "diff-paragraph-moved-direction-down" = "navzdol";
@@ -238,6 +239,7 @@
 "diff-undo-message" = "To bo razveljavilo spremembe, narejene z redakcijo(ami) članka, prikazanega tukaj. Če želite nadaljevati, navedite razlog za razveljavitev tega urejanja.";
 "diff-undo-success" = "Redakcija je razveljavljena.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 vrstica neurejena|$1 vrstici neurejeni|$1 vrstice neurejene|$1 vrstic neurejenih}}";
+"diff-user-button-accessibility-text" = "Dvokliknite, da odprete meni";
 "dim-images" = "Zatemnjene slike";
 "edit-bold-accessibility-label" = "Dodaj krepko oblikovanje";
 "edit-bold-remove-accessibility-label" = "Odstrani krepko oblikovanje";
