@@ -193,9 +193,9 @@
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
 "diff-article-edit-history" = "Article Edit History";
-"diff-compare-header-from-info-heading" = "From";
+"diff-compare-header-from-info-heading" = "Previous Edit";
 "diff-compare-header-heading" = "Compare Revisions";
-"diff-compare-header-to-info-heading" = "To";
+"diff-compare-header-to-info-heading" = "Displayed Edit";
 "diff-compare-title" = "Compare Revisions";
 "diff-context-lines-collapsed-button-title" = "Show";
 "diff-context-lines-expanded-button-title" = "Hide";
