@@ -244,8 +244,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.editHintController = [[WMFEditHintController alloc] init];
 
     self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
-    
-    [self setupWKDataEnvironment];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -846,6 +844,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                     [self endMigrationBackgroundTask];
                     [self checkRemoteAppConfigIfNecessary];
                     [self setupControllers];
+                    [self setupWKDataEnvironment];
                     if (!self.isWaitingToResumeApp) {
                         [self resumeApp:NULL];
                     }
