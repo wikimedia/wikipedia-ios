@@ -574,11 +574,13 @@
 "two-factor-login-with-backup-code" = "Ober gant unan eus ho kodoù saveteiñ";
 "two-factor-login-with-regular-code" = "Ober gant ur c'hod gwiriekaat";
 "unknown-generic-text" = "Dianav";
+"unwatch" = "Paouez da evezhiañ";
 "vanish-account-additional-information-placeholder" = "Diret";
 "vanish-account-continue-button-title" = "Kenderc'hel";
 "vanish-account-learn-more-text" = "Gouzout hiroc'h";
 "vanish-account-warning-title" = "Diwallit";
 "variants-alert-dismiss-button" = "Nann, trugarez";
+"watch" = "Evezhiañ";
 "watchlist" = "Roll evezhiañ";
 "watchlist-user-button-user-contributions" = "Degasadennoù an implijer";
 "watchlist-user-button-user-page" = "Pajenn implijer";

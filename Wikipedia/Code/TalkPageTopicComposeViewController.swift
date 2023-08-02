@@ -8,6 +8,7 @@ protocol TalkPageTopicComposeViewControllerDelegate: AnyObject {
 struct TalkPageTopicComposeViewModel {
     let semanticContentAttribute: UISemanticContentAttribute
     let siteURL: URL
+    let pageLink: URL?
 }
 
 class TalkPageTopicComposeViewController: ViewController {
@@ -281,6 +282,9 @@ class TalkPageTopicComposeViewController: ViewController {
     func presentDismissConfirmationActionSheet() {
         let alertController = UIAlertController(title: Self.TopicComposeStrings.closeConfirmationTitle, message: nil, preferredStyle: .actionSheet)
         let discardAction = UIAlertAction(title: Self.TopicComposeStrings.closeConfirmationDiscard, style: .destructive) { _ in
+            if let talkPageURL = self.viewModel.pageLink {
+                EditAttemptFunnel.shared.logAbort(articleURL: talkPageURL)
+            }
             self.dismiss(animated: true)
         }
         
@@ -400,6 +404,9 @@ class TalkPageTopicComposeViewController: ViewController {
     @objc private func tappedClose() {
         
         guard shouldBlockDismissal else {
+            if let talkPageURL = viewModel.pageLink {
+                EditAttemptFunnel.shared.logAbort(articleURL: talkPageURL)
+            }
             dismiss(animated: true)
             return
         }
@@ -408,6 +415,10 @@ class TalkPageTopicComposeViewController: ViewController {
     }
     
     @objc private func tappedPublish() {
+        if let talkPageURL = viewModel.pageLink {
+            EditAttemptFunnel.shared.logSaveIntent(articleURL: talkPageURL)
+        }
+
         guard let title = titleTextField.text,
               let body = bodyTextView.text,
               !title.isEmpty && !body.isEmpty else {
@@ -416,7 +427,10 @@ class TalkPageTopicComposeViewController: ViewController {
         }
         
         view.endEditing(true)
-        
+        if let talkPageURL = viewModel.pageLink {
+            EditAttemptFunnel.shared.logSaveAttempt(articleURL: talkPageURL)
+        }
+
         guard let authenticationManager = authenticationManager,
         !authenticationManager.isLoggedIn else {
             setupNavigationBar(isPublishing: true)

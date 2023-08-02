@@ -34,13 +34,12 @@ class WikidataDescriptionController: ArticleDescriptionControlling {
     }
     
     func publishDescription(_ description: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
-        
+
         fetcher.publish(newWikidataDescription: description, from: descriptionSource, forWikidataID: wikiDataID, languageCode: articleLanguageCode) { (error) in
             if let error = error {
                 completion(.failure(error))
                 return
             }
-            
             completion(.success(ArticleDescriptionPublishResult(newRevisionID: nil, newDescription: description)))
         }
     }

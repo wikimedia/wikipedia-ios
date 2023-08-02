@@ -17,6 +17,7 @@
 // Author: Nguyenphutrong2
 // Author: Nguyên Lê
 // Author: Phjtieudoc
+// Author: Pisceskaze
 // Author: TARGET6tidiem
 // Author: Thanhtai2009
 // Author: Vinhtantran
@@ -230,6 +231,7 @@
 "diff-paragraph-moved-distance-section" = "$1 phần";
 "diff-paragraph-moved-format" = "Đoạn văn đã được di chuyển $1 $2";
 "diff-revision-error-title" = "Không thể tải dữ liệu phiên bản.";
+"diff-rollback-success" = "Đã lùi các sửa đổi.";
 "diff-single-header-editor-number-edits-format" = "$1 sửa đổi";
 "diff-single-header-editor-title" = "Thông tin người dùng";
 "diff-single-header-subtitle-bytes-added" = "$1 ký tự được thêm";
