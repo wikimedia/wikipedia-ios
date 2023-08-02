@@ -6,7 +6,7 @@ final class WatchlistFunnel {
     static let shared = WatchlistFunnel()
     
     private enum Action: String, Codable {
-        case openDiff = "open_diff"
+        case diffOpen = "diff_open"
         case diffUserMenu = "diff_user_menu"
         case diffUserMenuFrom = "diff_user_menu_from"
         case diffUserMenuTo = "diff_user_menu_to"
@@ -80,7 +80,7 @@ final class WatchlistFunnel {
         guard let project else {
             return
         }
-        logEvent(action: .openDiff, project: project)
+        logEvent(action: .diffOpen, project: project)
     }
     
     func logDiffTapSingleEditorName(project: WikimediaProject?) {
