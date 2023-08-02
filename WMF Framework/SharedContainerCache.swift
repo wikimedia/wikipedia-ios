@@ -56,13 +56,13 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
     }
 
     /// Persist only the last 50 visited talk pages
-    @objc public static func deleteStaleCachedItems(in subdirectoryPathComponent: String) {
+    @objc public static func deleteStaleCachedItems(in subdirectoryPathComponent: String, cleanupLevel: WMFCleanupLevel) {
         let folderURL = cacheDirectoryContainerURL.appendingPathComponent(subdirectoryPathComponent)
 
         if let urlArray = try? FileManager.default.contentsOfDirectory(at: folderURL,
                                                                        includingPropertiesForKeys: [.contentModificationDateKey],
                                                                        options: .skipsHiddenFiles) {
-            let maxCacheSize = 50
+            let maxCacheSize = cleanupLevel == .high ? 0 : 50
             if urlArray.count > maxCacheSize {
                 let sortedArray =  urlArray.map { url in
                     (url, (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date.distantPast)
@@ -80,7 +80,7 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
 }
 
 @objc public protocol SharedContainerCacheHousekeepingProtocol: AnyObject {
-    static func deleteStaleCachedItems(in subdirectoryPathComponent: String)
+    static func deleteStaleCachedItems(in subdirectoryPathComponent: String, cleanupLevel: WMFCleanupLevel)
 }
 
 @objc public class SharedContainerCacheClearFeaturedArticleWrapper: NSObject {
