@@ -8,8 +8,8 @@ final class WatchlistFunnel {
     private enum Action: String, Codable {
         case diffOpen = "diff_open"
         case diffUserMenu = "diff_user_menu"
-        case diffUserMenuFrom = "diff_user_menu_from"
-        case diffUserMenuTo = "diff_user_menu_to"
+        case diffUserMenuPrevious = "diff_user_menu_previous"
+        case diffUserMenuDisplay = "diff_user_menu_display"
         case diffUserPage = "diff_user_page"
         case diffUserTalk = "diff_user_talk"
         case diffUserContribution = "diff_user_contribution"
@@ -94,14 +94,14 @@ final class WatchlistFunnel {
         guard let project else {
             return
         }
-        logEvent(action: .diffUserMenuFrom, project: project)
+        logEvent(action: .diffUserMenuPrevious, project: project)
     }
     
     func logDiffTapCompareToEditorName(project: WikimediaProject?) {
         guard let project else {
             return
         }
-        logEvent(action: .diffUserMenuTo, project: project)
+        logEvent(action: .diffUserMenuDisplay, project: project)
     }
     
     func logDiffTapUserPage(project: WikimediaProject?) {
