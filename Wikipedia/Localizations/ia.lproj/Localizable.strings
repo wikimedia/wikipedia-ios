@@ -395,7 +395,7 @@
 "page-history-compare-accessibility-hint" = "Tocca pro seliger duo versiones a comparar";
 "page-history-compare-title" = "Comparar";
 "page-history-minor-edits" = "modificationes minor";
-"page-history-revision-author-accessibility-label" = "Autor: %1";
+"page-history-revision-author-accessibility-label" = "Autor: $1";
 "page-history-revision-history-title" = "Historia de versiones";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|1 byte|$1 bytes}} addite";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|1 byte|$1 bytes}} removite";
