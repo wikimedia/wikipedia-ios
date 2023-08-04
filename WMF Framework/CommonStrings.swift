@@ -274,6 +274,8 @@ public class CommonStrings: NSObject {
     public static let moreButton = WMFLocalizedString("more-menu", value: "More", comment: "Accessibility title for more button in toolbar.")
 
     public static let watchlist = WMFLocalizedString("watchlist", value: "Watchlist", comment: "Title for watchlist feature.")
+
+    public static let watchlistFilter = WMFLocalizedString("watchlist-filter", value: "Filter", comment: "Title for filter button in watchlist.")
     
     public static let watch = WMFLocalizedString("watch", value: "Watch", comment: "Title for watch toolbar button.")
     

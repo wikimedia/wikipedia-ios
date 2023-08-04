@@ -1095,6 +1095,7 @@
 "variants-alert-preferences-button" = "Action button on alert used to inform users about variant support.";
 "watch" = "Title for watch toolbar button.";
 "watchlist" = "Title for watchlist feature.";
+"watchlist-filter" = "Title for filter button in watchlist.";
 "watchlist-user-button-user-contributions" = "Title shown for user contributions action in user menu button in diff and watchlist views.";
 "watchlist-user-button-user-page" = "Title shown for user page action in user menu button in diff and watchlist views.";
 "watchlist-user-button-user-talk-page" = "Title shown for user talk page action in user menu button in diff and watchlist views.";

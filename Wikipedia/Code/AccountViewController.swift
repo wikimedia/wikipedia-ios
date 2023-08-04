@@ -1,6 +1,7 @@
 import UIKit
 import SwiftUI
 import WMF
+import Components
 
 @objc(WMFAccountViewControllerDelegate)
 protocol AccountViewControllerDelegate: AnyObject {
@@ -146,7 +147,11 @@ class AccountViewController: SubSettingsViewController {
                     let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
                     self.navigationController?.pushViewController(newTalkPage, animated: true)
                 }
-
+        case .watchlist:
+            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter)
+            let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings)
+            let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, delegate: self)
+            self.navigationController?.pushViewController(watchlistViewController, animated: true)
         case .vanishAccount:
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
             warningViewController.delegate = self
@@ -219,5 +224,12 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
         let viewController = VanishAccountContainerViewController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
         navigationController?.pushViewController(viewController, animated: true)
     }
+
+}
+
+extension AccountViewController: WKWatchlistDelegate {
+
+    func watchlistDidDismiss() {}
+    func watchlistDidTapDiff() {}
 
 }
