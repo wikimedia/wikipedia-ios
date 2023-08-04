@@ -4091,6 +4091,8 @@
 		676C864826D40AEB00A704C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		676C868626D4545D00A704C1 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+WindowWorkarounds.swift"; sourceTree = "<group>"; };
+		676E08142A7DA0DA00F7632D /* ia */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ia; path = ia.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		676E08152A7DA10900F7632D /* ia */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ia; path = ia.lproj/Localizable.strings; sourceTree = "<group>"; };
 		676E813229380D8A00F15258 /* TalkPagesFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPagesFunnel.swift; sourceTree = "<group>"; };
 		676F39272745FB1F00F4D33D /* NotificationsCenterFiltersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterFiltersViewModel.swift; sourceTree = "<group>"; };
 		6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -10209,6 +10211,7 @@
 				kcg,
 				"kcg-Latn",
 				bg,
+				ia,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
@@ -13997,6 +14000,7 @@
 				FF6A77E8258D68E7006FA238 /* nqo */,
 				FF0261872627B2D800CBD55F /* kcg */,
 				67D4AD602A03EF7600F3D066 /* bg */,
+				676E08142A7DA0DA00F7632D /* ia */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -14101,6 +14105,7 @@
 				FF338A0A258D572900292602 /* nqo */,
 				FF19C1AB260548FD000AC20B /* kcg */,
 				67D4AD612A03EFA700F3D066 /* bg */,
+				676E08152A7DA10900F7632D /* ia */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
