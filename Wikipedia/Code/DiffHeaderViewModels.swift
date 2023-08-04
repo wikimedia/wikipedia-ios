@@ -1,4 +1,5 @@
 import Foundation
+import WMF
 
 final class DiffHeaderViewModel: Themeable {
     
@@ -10,6 +11,7 @@ final class DiffHeaderViewModel: Themeable {
     var title: DiffHeaderTitleViewModel
     let diffType: DiffContainerViewModel.DiffType
     let headerType: DiffHeaderType
+    var imageURL: URL?
     private let articleTitle: String
     private let byteDifference: Int?
     static var dateFormatter = DateFormatter()
@@ -27,10 +29,11 @@ final class DiffHeaderViewModel: Themeable {
 
     }
     
-    init?(diffType: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, articleTitle: String, byteDifference: Int?, theme: Theme) {
+    init?(diffType: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, articleTitle: String, imageURL: URL?, byteDifference: Int?, theme: Theme, project: WikimediaProject?) {
         
         self.diffType = diffType
         self.articleTitle = articleTitle
+        self.imageURL = imageURL
         self.byteDifference = byteDifference
         
         DiffHeaderViewModel.dateFormatter.timeZone = TimeZone(identifier: "UTC")
@@ -59,7 +62,7 @@ final class DiffHeaderViewModel: Themeable {
             
             let summaryViewModel = DiffHeaderEditSummaryViewModel(heading: WMFLocalizedString("diff-single-header-summary-heading", value: "Edit summary", comment: "Heading label in header summary view when viewing a single revision."), isMinor: toModel.isMinor, summary: toModel.parsedComment)
             
-            let editorViewModel = DiffHeaderEditorViewModel(heading: WMFLocalizedString("diff-single-header-editor-title", value: "Editor information", comment: "Title label in header editor view when viewing a single revision."), username: toModel.user)
+            let editorViewModel = DiffHeaderEditorViewModel(heading: WMFLocalizedString("diff-single-header-editor-title", value: "Editor information", comment: "Title label in header editor view when viewing a single revision."), username: toModel.user, project: project)
             
             self.title = titleViewModel
             self.headerType = .single(editorViewModel: editorViewModel, summaryViewModel: summaryViewModel)
@@ -74,12 +77,11 @@ final class DiffHeaderViewModel: Themeable {
 
             self.title = titleViewModel
 
-            let compareModel = DiffHeaderCompareViewModel(fromModel: fromModel, toModel: toModel, dateFormatter: DiffHeaderViewModel.dateFormatter, theme: theme)
+            let compareModel = DiffHeaderCompareViewModel(fromModel: fromModel, toModel: toModel, dateFormatter: DiffHeaderViewModel.dateFormatter, theme: theme, project: project)
             let navBarTitle = WMFLocalizedString("diff-compare-title", value: "Compare Revisions", comment: "Title label that shows in the navigation bar when scrolling and comparing revisions.")
             self.headerType = .compare(compareViewModel: compareModel, navBarTitle: navBarTitle)
         }
-        
-        
+
         apply(theme: theme)
     }
     
@@ -105,7 +107,7 @@ final class DiffHeaderTitleViewModel {
     let subtitle: String?
     let subtitleTextStyle: DynamicTextStyle
     var subtitleColor: UIColor?
-    
+
     init(heading: String?, title: String?, subtitle: String?, subtitleTextStyle: DynamicTextStyle, subtitleColor: UIColor?) {
         self.heading = heading?.localizedUppercase
         self.title = title
@@ -143,20 +145,24 @@ final class DiffHeaderEditorViewModel {
     }
     private(set) var numberOfEditsForDisplay: String?
     private let numberOfEditsFormat = WMFLocalizedString("diff-single-header-editor-number-edits-format", value:"{{PLURAL:%1$d|%1$d edit|%1$d edits}}", comment:"Label to show the number of total edits made by the editor when viewing a single revision. %1$d is replaced with the editor's number of edits.")
+    let project: WikimediaProject?
     
-    init(heading: String, username: String?) {
+    init(heading: String, username: String?, project: WikimediaProject?) {
         self.heading = heading
         self.username = username
+        self.project = project
     }
 }
 
 final class DiffHeaderCompareViewModel: Themeable {
     let fromModel: DiffHeaderCompareItemViewModel
     let toModel: DiffHeaderCompareItemViewModel
+    let project: WikimediaProject?
     
-    init(fromModel: WMFPageHistoryRevision, toModel: WMFPageHistoryRevision, dateFormatter: DateFormatter, theme: Theme) {
+    init(fromModel: WMFPageHistoryRevision, toModel: WMFPageHistoryRevision, dateFormatter: DateFormatter, theme: Theme, project: WikimediaProject?) {
         self.fromModel = DiffHeaderCompareItemViewModel(type: .from, model: fromModel, dateFormatter: dateFormatter, theme: theme, revisionID: fromModel.revisionID)
         self.toModel = DiffHeaderCompareItemViewModel(type: .to, model: toModel, dateFormatter: dateFormatter, theme: theme, revisionID: toModel.revisionID)
+        self.project = project
     }
     
     func apply(theme: Theme) {

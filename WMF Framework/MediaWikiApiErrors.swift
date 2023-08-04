@@ -17,6 +17,10 @@ import Foundation
         self.linkBaseURL = linkBaseURL
         self.code = code
     }
+    
+    public var loggingErrorReasonDomain: String {
+        return "MediaWikiAPIResponseError"
+    }
 }
 
 

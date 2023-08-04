@@ -100,7 +100,7 @@ final class TalkPageViewModel {
         return authenticationManager.isLoggedIn
     }
 
-    func fetchTalkPage(completion: @escaping (Result<Void, Error>) -> Void) {
+    func fetchTalkPage(completion: @escaping (Result<Int?, Error>) -> Void) {
         dataController.fetchTalkPage { [weak self] result in
             
             guard let self = self else {
@@ -116,7 +116,7 @@ final class TalkPageViewModel {
                 self.updateSubscriptionForTopic(topicNames: result.subscribedTopicNames)
                 self.shouldShowErrorState = false
                 self.latestRevisionID = result.latestRevisionID
-                completion(.success(()))
+                completion(.success(result.latestRevisionID))
             case .failure(let error):
                 DDLogError("Failure fetching talk page: \(error)")
                 self.shouldShowErrorState = true
@@ -153,6 +153,19 @@ final class TalkPageViewModel {
                 }
             }
         }
+    }
+
+
+    func getTalkPageURL(encoded shouldPercentEncodeURL: Bool) -> URL? {
+        var talkPageURLComponents = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
+        guard let encodedTitle = pageTitle.percentEncodedPageTitleForPathComponents else {
+            return nil
+        }
+
+        let talkPageTitle = shouldPercentEncodeURL ? encodedTitle : pageTitle
+        talkPageURLComponents?.path = "/wiki/\(talkPageTitle)"
+
+        return talkPageURLComponents?.url
     }
     
     // MARK: - Private
@@ -224,7 +237,7 @@ final class TalkPageViewModel {
             
             let firstReplyHtml = firstReply.html
             
-            guard let leadCommentViewModel = TalkPageCellCommentViewModel(commentId: firstReply.id, html: firstReplyHtml, author: firstReply.author, authorTalkPageURL: "", timestamp: firstReply.timestamp, replyDepth: firstReply.level) else {
+            guard let leadCommentViewModel = TalkPageCellCommentViewModel(commentId: firstReply.id, html: firstReplyHtml, author: firstReply.author, authorTalkPageURL: "", timestamp: firstReply.timestamp, replyDepth: firstReply.level, talkPageURL: getTalkPageURL(encoded: false)) else {
                 DDLogWarn("Unable to parse lead comment. Skipping topic.")
                 continue
             }
@@ -244,7 +257,7 @@ final class TalkPageViewModel {
                 
                 let remainingReplyHtml = $0.html
                 
-                return TalkPageCellCommentViewModel(commentId: $0.id, html: remainingReplyHtml, author: $0.author, authorTalkPageURL: "", timestamp: $0.timestamp, replyDepth: replyDepth)
+                return TalkPageCellCommentViewModel(commentId: $0.id, html: remainingReplyHtml, author: $0.author, authorTalkPageURL: "", timestamp: $0.timestamp, replyDepth: replyDepth, talkPageURL: getTalkPageURL(encoded: false))
             }
             
             let activeUsersCount = activeUsersCount(topic: topic)
