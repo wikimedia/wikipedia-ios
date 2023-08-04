@@ -211,6 +211,7 @@
 "diff-compare-title" = "Спореди преработки";
 "diff-context-lines-collapsed-button-title" = "Прикажи";
 "diff-context-lines-expanded-button-title" = "Скриј";
+"diff-header-revision-accessibility-text" = "Преработката е направена во";
 "diff-multi-line-format" = "Редови $1 - $2";
 "diff-paragraph-moved" = "Пасусот е преместен";
 "diff-paragraph-moved-direction-down" = "надолу";
@@ -242,6 +243,7 @@
 "diff-undo-message" = "Ова ќе ги поништи промените направени во преработката на статијата прикажани овде. За да продолжите, наведете причина за поништувањето на ова уредување.";
 "diff-undo-success" = "Преработката е вратена.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 неуреден ред|$1 неуредени реда}}";
+"diff-user-button-accessibility-text" = "Допрете двапати за да го отворите менито";
 "dim-images" = "Пригушени слики";
 "edit-bold-accessibility-label" = "Стави задебелено форматирање";
 "edit-bold-remove-accessibility-label" = "Отстрани задебелено форматирање";

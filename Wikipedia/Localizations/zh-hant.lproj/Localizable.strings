@@ -242,6 +242,7 @@
 "diff-compare-title" = "比較修訂";
 "diff-context-lines-collapsed-button-title" = "顯示";
 "diff-context-lines-expanded-button-title" = "隱藏";
+"diff-header-revision-accessibility-text" = "修訂建立於";
 "diff-multi-line-format" = "第$1到$2行";
 "diff-paragraph-moved" = "章節已移動";
 "diff-paragraph-moved-direction-down" = "向下";
@@ -273,6 +274,7 @@
 "diff-undo-message" = "這將撤消此處顯示的條目修訂所做出的更改。若要繼續，請提供撤消此編輯的原因。";
 "diff-undo-success" = "已撤銷修訂。";
 "diff-unedited-lines-format" = "{{PLURAL:$1|共$1行尚未編輯}}";
+"diff-user-button-accessibility-text" = "輕觸兩次來開啟選單";
 "dim-images" = "調暗圖片";
 "edit-bold-accessibility-label" = "添加粗體格式";
 "edit-bold-remove-accessibility-label" = "移除粗體格式";

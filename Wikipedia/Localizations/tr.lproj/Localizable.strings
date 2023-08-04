@@ -245,6 +245,7 @@
 "diff-compare-title" = "Düzeltmeleri Karşılaştır";
 "diff-context-lines-collapsed-button-title" = "Göster";
 "diff-context-lines-expanded-button-title" = "Gizle";
+"diff-header-revision-accessibility-text" = "Sürüm tarihi";
 "diff-multi-line-format" = "Çizgiler $1 - $2";
 "diff-paragraph-moved" = "Paragraf taşındı";
 "diff-paragraph-moved-direction-down" = "aşağı";
@@ -276,6 +277,7 @@
 "diff-undo-message" = "Bu, burada gösterilen maddenin sürüm(ler)iyle yapılan değişiklikleri geri alacaktır. Devam etmek için lütfen bu düzenlemeyi geri alma nedeninizi belirtin.";
 "diff-undo-success" = "Sürüm geri alındı.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 düzenlenmemiş çizgi|$1 düzenlenmemiş çizgi}}";
+"diff-user-button-accessibility-text" = "Menüyü açmak için iki kez dokunun";
 "dim-images" = "Resimleri karart";
 "edit-bold-accessibility-label" = "Kalın formatı ekle";
 "edit-bold-remove-accessibility-label" = "Kalın formatı kaldır";

@@ -222,6 +222,7 @@
 "diff-compare-title" = "Confronta versioni";
 "diff-context-lines-collapsed-button-title" = "Mostra";
 "diff-context-lines-expanded-button-title" = "Nascondi";
+"diff-header-revision-accessibility-text" = "Versione del";
 "diff-multi-line-format" = "Righe $1 - $2";
 "diff-paragraph-moved" = "Paragrafo spostato";
 "diff-paragraph-moved-direction-down" = "giù";

@@ -235,6 +235,7 @@
 "diff-compare-title" = "Comparer les versions";
 "diff-context-lines-collapsed-button-title" = "Afficher";
 "diff-context-lines-expanded-button-title" = "Masquer";
+"diff-header-revision-accessibility-text" = "Révision faite le";
 "diff-multi-line-format" = "Lignes $1–$2";
 "diff-paragraph-moved" = "Paragraphe déplacé";
 "diff-paragraph-moved-direction-down" = "bas";
@@ -266,6 +267,7 @@
 "diff-undo-message" = "Cela annulera les modifications faites par les révisions de l’article affichées ici. Pour poursuivre, veuillez fournir un motif pour annuler cette modification.";
 "diff-undo-success" = "La révision a été annulée.";
 "diff-unedited-lines-format" = "$1 ligne{{PLURAL:$1||s}} restaurée{{PLURAL:$1||s}}";
+"diff-user-button-accessibility-text" = "Taper deux fois pour ouvrir le menu";
 "dim-images" = "Assombrir les images";
 "edit-bold-accessibility-label" = "Ajouter une mise en forme en gras";
 "edit-bold-remove-accessibility-label" = "Supprimer la mise en forme en gras";
@@ -361,7 +363,7 @@
 "error-unknown" = "Une erreur inconnue est survenue";
 "explore-another-random" = "Un autre article au hasard";
 "explore-because-you-read" = "Parce que vous avez lu";
-"explore-because-you-read-footer" = "Articles supplémentaires associés";
+"explore-because-you-read-footer" = "Autres articles associés";
 "explore-continue-reading-heading" = "Continuer à lire";
 "explore-detail-back-button-title" = "Retour au fil d’exploration";
 "explore-enable-location-title" = "Explorer les articles proches de votre emplacement actuel";

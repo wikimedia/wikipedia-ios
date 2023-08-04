@@ -226,6 +226,7 @@
 "diff-compare-title" = "השוואת גרסאות";
 "diff-context-lines-collapsed-button-title" = "הצגה";
 "diff-context-lines-expanded-button-title" = "הסתרה";
+"diff-header-revision-accessibility-text" = "הגרסה נעשתה ב־";
 "diff-multi-line-format" = "שורות ‏$1 - $2";
 "diff-paragraph-moved" = "הפסקה הועברה";
 "diff-paragraph-moved-direction-down" = "מטה";
@@ -257,6 +258,7 @@
 "diff-undo-message" = "הפעולה הזאת תבטל את השינויים שנעשו על־ידי העריכות של הערך המוצגות כאן. כדי להמשיך, נא לספק סיבה לביטול העריכה הזאת.";
 "diff-undo-success" = "הגרסה בוטלה.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|שורה שלא נערכה|$1 שורות שלא נערכו}}";
+"diff-user-button-accessibility-text" = "יש להקיש פעמיים כדי לפתוח את התפריט";
 "dim-images" = "עמעום תמונות";
 "edit-bold-accessibility-label" = "הוספת עיצוב בולט";
 "edit-bold-remove-accessibility-label" = "הסרת עיצוב בולט";
@@ -863,7 +865,7 @@
 "reading-lists-article-save-to-disk-failed" = "הגעת למגבלה של המכשיר, לא ניתן לסנכרן את הערך";
 "reading-lists-article-save-to-disk-recovery-suggestion" = "באפשרותך לנקות שטח אחסון מהמכשיר שלך ולאחר מכן לנסות שוב";
 "reading-lists-articles-not-synced-limit-exceeded" = "כמה ערכים לא סונכרנו משום שעברת את המגבלה";
-"reading-lists-conflicting-reading-list-name-updated" = "שם הרשימה '$1' שוּנה לשם '$2'";
+"reading-lists-conflicting-reading-list-name-updated" = "שם הרשימה \"$1\" שוּנה לשם \"$2\"";
 "reading-lists-count" = "{{PLURAL:$1|רשימת קריאה אחת|$1 רשימות קריאה}}";
 "reading-lists-default-list-description" = "רשימת ברירת מחדל לערכים השמורים שלך";
 "reading-lists-default-list-title" = "נשמר";
