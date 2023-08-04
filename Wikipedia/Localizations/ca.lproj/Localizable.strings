@@ -218,11 +218,10 @@
 "description-welcome-descriptions-title" = "Descripcions d'article";
 "description-welcome-promise-title" = "En començar prometo no fer mal ús d'aquesta funcionalitat";
 "description-welcome-start-editing-button" = "Comença a editar-hi";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "De:";
+"diff-article-edit-history" = "Historial de modificació de l'article";
+"diff-compare-header-from-info-heading" = "De";
 "diff-compare-header-heading" = "Compara les revisions";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "A:";
+"diff-compare-header-to-info-heading" = "A";
 "diff-compare-title" = "Compara les revisions";
 "diff-context-lines-collapsed-button-title" = "Mostra";
 "diff-context-lines-expanded-button-title" = "Amaga";
@@ -234,6 +233,9 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 secció|$1 seccions}}";
 "diff-paragraph-moved-format" = "El paràgraf s'ha mogut $1 $2";
 "diff-revision-error-title" = "No s'ha pogut carregar la revisió";
+"diff-rollback" = "Reverteix";
+"diff-rollback-alert-message" = "Esteu segur que voleu revertir les modificacions?";
+"diff-rollback-alert-title" = "Reverteix les modificacions";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 edició|$1 edicions}}";
 "diff-single-header-editor-title" = "Informació de l'editor";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|S'ha afegit $1 byte|S'han afegit $1 bytes}}";
@@ -250,6 +252,7 @@
 "diff-thanks-sent" = "S'ha enviat el vostre agraïment a $1";
 "diff-thanks-sent-already" = "Ja heu enviat un agraïment per aquesta edició";
 "diff-thanks-sent-cannot-unsend" = "No poden desfer-se els agraïments enviats";
+"diff-undo-message" = "Això desfarà els canvis fets per les revisions de l'article tal com es mostren aquí. Per a continuar, proporcioneu un motiu per a desfer la modificació.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 línia sense editar|$1 línies sense editar}}";
 "dim-images" = "Atenuació d'imatges";
 "edit-bold-accessibility-label" = "Afegeix format en negreta";
@@ -568,6 +571,7 @@
 "menu-cancel-accessibility-label" = "Cancel·la";
 "more-languages-tooltip-description" = "Cerca a la Viquipèdia en més de 300 llengües";
 "more-languages-tooltip-title" = "Afegeix llengües";
+"more-menu" = "Més";
 "move-articles-to-reading-list" = "Mou {{PLURAL:$1|$1 article|$1 articles}} a la llista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualitza";
 "nearby-distance-label-feet" = "$1 peus";
@@ -1108,6 +1112,10 @@
 "vanishing-request-email-title" = "Sol·licitud de desaparició de cortesia";
 "variants-alert-dismiss-button" = "No, gràcies";
 "variants-alert-preferences-button" = "Reviseu les vostres preferències";
+"watchlist" = "Llista de seguiment";
+"watchlist-user-button-user-contributions" = "Contribucions de l'usuari";
+"watchlist-user-button-user-page" = "Pàgina d'usuari";
+"watchlist-user-button-user-talk-page" = "Pàgina de discussió de l'usuari";
 "welcome-exploration-explore-feed-description" = "Lectura recomanada i articles diaris de la nostra comunitat";
 "welcome-exploration-explore-feed-title" = "Canal Exploreu!";
 "welcome-exploration-on-this-day-description" = "Aneu enrere en el temps per a saber què va passar avui al llarg de la història";

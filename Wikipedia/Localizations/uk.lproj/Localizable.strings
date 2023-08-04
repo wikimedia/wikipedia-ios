@@ -3,6 +3,7 @@
 // Author: Alex Khimich
 // Author: Andrew J.Kurbiko
 // Author: Andriykopanytsia
+// Author: Anntinomy
 // Author: Base
 // Author: Choomaq
 // Author: DDPAT
@@ -235,6 +236,8 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 розділ|$1 розділи|$1 розділів}}";
 "diff-paragraph-moved-format" = "Абзац переміщено $1 на $2";
 "diff-revision-error-title" = "Неможливо завантажити версію";
+"diff-rollback" = "Відкинути";
+"diff-rollback-alert-title" = "Відкинути редагування";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 редагування|$1 редагування|$1 редагувань}}";
 "diff-single-header-editor-title" = "Інформація редактора";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 байт додано|$1 байти додано|$1 байтів додано}}";

@@ -142,7 +142,7 @@
 "action-thank-user-accessibility" = "Gebruiker bedanken";
 "action-undo" = "Ongedaan maken";
 "action-unsave" = "Wissen";
-"action-unsaved-accessibility-notification" = "Artikel terug opgeslagen";
+"action-unsaved-accessibility-notification" = "Artikel niet meer opgeslagen";
 "action-update" = "Bijwerken";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 artikel|$1 artikelen}} aan leeslijst toevoegen";
 "add-citation-title" = "Citaat toevoegen";
@@ -1114,7 +1114,7 @@
 "vanish-account-username-field" = "Gebruikersnaam en gebruikerspagina";
 "vanish-account-warning-body" = "Verdwijnen is een **laatste redmiddel** en moet je **alleen gebruiken als je voor altijd wilt stoppen met bewerken** en ook om zoveel mogelijk van je vroegere associaties te verbergen.\n\nAccountverwijdering op Wikipedia is voltooid door uw accountnaam te wijzigen zodat anderen uw bijdragen niet kunnen herkennen in een proces dat accountverdwijning wordt genoemd. **Verdwijnen garandeert geen volledige anonimiteit en verwijdert geen bijdragen aan de projecten**.";
 "vanish-account-warning-title" = "Waarschuwing";
-"vanish-modal-item" = "Als u uw verdwijnverzoek heeft voltooid, duurt het een paar dagen voordat het verzoek is verwerkt door een beheerder";
+"vanish-modal-item" = "Als u uw verdwijnverzoek heeft voltooid, duurt het een paar dagen voordat het verzoek is verwerkt door een moderator";
 "vanish-modal-item-2" = "Als u niet zeker weet of uw verzoek is aangekomen, controleer dan uw mail-app";
 "vanish-modal-item-3" = "Als u nog vragen heeft over het opheffen van uw account, ga dan naar Meta:Right_to_vanish";
 "vanish-modal-item-3-ios15" = "Als u nog vragen heeft over het opheffen van uw account, ga dan naar $1Meta:Right_to_vanish$2$3";

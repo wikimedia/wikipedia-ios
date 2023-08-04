@@ -12,6 +12,7 @@
 // Author: Hydros
 // Author: John Trololo
 // Author: Macofe
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Nharateh
 // Author: Niridya
@@ -43,7 +44,7 @@
 "aaald-deleted-text-description-2" = "$1 supprimé";
 "aaald-error-subitle" = "Actualisez pour essayer à nouveau";
 "aaald-error-title" = "Impossible de charger l’historique en ligne de l’article";
-"aaald-many-sections-description" = "Dans les sections $1";
+"aaald-many-sections-description" = "dans $1 sections";
 "aaald-multiple-changes-description" = "Changements multiples réalisés";
 "aaald-multiple-references-added-description" = "Multiples références ajoutées";
 "aaald-new-book-reference-title" = "Livre";
@@ -245,6 +246,7 @@
 "diff-rollback" = "Révoquer";
 "diff-rollback-alert-message" = "Voulez-vous vraiment révoquer ces modifications ?";
 "diff-rollback-alert-title" = "Révoquer les modifications";
+"diff-rollback-success" = "Modifications annulées.";
 "diff-single-header-editor-number-edits-format" = "$1 modification{{PLURAL:$1||s}}";
 "diff-single-header-editor-title" = "Informations sur l’éditeur";
 "diff-single-header-subtitle-bytes-added" = "$1 octet{{PLURAL:$1||s}} ajouté{{PLURAL:$1||s}}";
@@ -262,6 +264,7 @@
 "diff-thanks-sent-already" = "Vous avez déjà envoyé un « Merci » pour cette modification";
 "diff-thanks-sent-cannot-unsend" = "Les remerciements ne peuvent pas être retirés";
 "diff-undo-message" = "Cela annulera les modifications faites par les révisions de l’article affichées ici. Pour poursuivre, veuillez fournir un motif pour annuler cette modification.";
+"diff-undo-success" = "La révision a été annulée.";
 "diff-unedited-lines-format" = "$1 ligne{{PLURAL:$1||s}} restaurée{{PLURAL:$1||s}}";
 "dim-images" = "Assombrir les images";
 "edit-bold-accessibility-label" = "Ajouter une mise en forme en gras";
@@ -1095,6 +1098,7 @@
 "two-factor-login-with-regular-code" = "Utiliser un code de vérification";
 "unable-to-load-talk-page-title" = "Impossible de charger la page de discussion";
 "unknown-generic-text" = "Inconnu";
+"unwatch" = "Ne plus suivre";
 "uzbek-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes de l’ouzbek comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\noʻzbekcha lotin – ouzbek latin (uz-latin)\nўзбекча кирилл – ouzbek cyrillique (uz-cyrl)";
 "uzbek-variants-alert-title" = "Mises à jour de la prise en charge des variantes de l’ouzbek";
 "vanish-account-additional-information-field" = "Informations supplémentaires";
@@ -1121,6 +1125,7 @@
 "vanishing-request-email-title" = "Demande de droit de disparaître";
 "variants-alert-dismiss-button" = "Non merci";
 "variants-alert-preferences-button" = "Revoir vos préférences";
+"watch" = "Suivre";
 "watchlist" = "Liste de suivi";
 "watchlist-user-button-user-contributions" = "Contributions de l’utilisateur";
 "watchlist-user-button-user-page" = "Page de l’utilisateur";

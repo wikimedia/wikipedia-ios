@@ -597,7 +597,7 @@
 // Fuzzy
 "reading-lists-large-sync-completed" = "$1 artigos e $2 listas de lectura sincronizados dende a súa conta";
 "reading-lists-list-not-synced-limit-exceeded" = "A lista non foi sincronizada, o límite foi excedido";
-"reading-lists-sort-saved-articles" = "Ordear os artigos gardados";
+"reading-lists-sort-saved-articles" = "Ordenar os artigos gardados";
 "reading-lists-split-notification" = "Hai un linde de $1 artigos por listaxe de lectura. As listaxes actuais que superan este linde foran divididas en varias listaxes.";
 "reading-lists-sync-error-no-internet-connection" = "A sincronización continuará cando estea dispoñible a conexión a Internet";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema escuro";

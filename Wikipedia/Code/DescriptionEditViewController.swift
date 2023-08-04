@@ -206,10 +206,16 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     }
 
     @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
+        if let articleURL = articleDescriptionController.article.url {
+            EditAttemptFunnel.shared.logSaveIntent(articleURL: articleURL)
+        }
         save()
     }
 
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
+        if let articleURL = articleDescriptionController.article.url {
+            EditAttemptFunnel.shared.logAbort(articleURL: articleURL)
+        }
         dismiss(animated: true, completion: nil)
     }
 
@@ -230,11 +236,15 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 textViewDidChange(descriptionTextView)
                 return
         }
+
+
+        if let articleURL = self.articleDescriptionController.article.url {
+            EditAttemptFunnel.shared.logSaveAttempt(articleURL: articleURL)
+        }
         
         articleDescriptionController.publishDescription(descriptionToSave) { [weak self] (result) in
-            
-            DispatchQueue.main.async {
 
+            DispatchQueue.main.async {
                 guard let self else {
                     return
                 }
@@ -244,13 +254,25 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 switch result {
                 case .success(let result):
                     self.delegate?.descriptionEditViewControllerEditSucceeded(self, result: result)
+                    
+                    if let articleURL = self.articleDescriptionController.article.url {
+                        
+                        var revisionID: Int?
+                        if let uintRevisionID = result.newRevisionID {
+                            revisionID = Int(uintRevisionID)
+                        }
+                        
+                        EditAttemptFunnel.shared.logSaveSuccess(articleURL: articleURL, revisionId: revisionID)
+                    }
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
                         NotificationCenter.default.post(name: DescriptionEditViewController.didPublishNotification, object: nil)
                     }
                 case .failure(let error):
                     let nsError = error as NSError
-
+                    if let articleURL = self.articleDescriptionController.article.url {
+                        EditAttemptFunnel.shared.logSaveFailure(articleURL: articleURL)
+                    }
                     if let wikidataError = error as? WikidataFetcher.WikidataPublishingError {
                         switch wikidataError {
                         case .apiBlocked(let blockedError):
@@ -285,8 +307,6 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                     default:
                         WMFAlertManager.sharedInstance.showErrorAlert(nsError as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                     }
-                    
-                    
                 }
             }
         }

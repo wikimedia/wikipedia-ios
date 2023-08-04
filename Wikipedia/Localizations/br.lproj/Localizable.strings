@@ -146,14 +146,15 @@
 "description-welcome-descriptions-title" = "Deskrivadurioù ar pennad";
 "description-welcome-promise-title" = "Stagañ a ran ganti ha reiñ a ran ma ger da chom hep drougimplij an arc'hwel-mañ";
 "description-welcome-start-editing-button" = "Kregiñ da gemmañ";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Digant:";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Da:";
+"diff-compare-header-from-info-heading" = "Digant";
+"diff-compare-header-to-info-heading" = "Da";
 "diff-context-lines-collapsed-button-title" = "Diskouez";
 "diff-context-lines-expanded-button-title" = "Kuzhat";
 "diff-multi-line-format" = "Linennoù $1 - $2";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 linenn}}";
+"diff-rollback" = "Disteuler";
+"diff-rollback-alert-message" = "Ha sur oc'h e fell deoc'h disteurel ar c'hemmoù ?";
+"diff-rollback-alert-title" = "Disteuler ar c'hemmoù";
 "diff-single-intro-title" = "Rakskrid";
 "diff-single-line-format" = "Linenn $1";
 "diff-thanks-anonymous-no-thanks" = "Ne c'hall ket an implijerien dizanav bezañ trugarekaet";
@@ -332,6 +333,7 @@
 "menu-cancel-accessibility-label" = "Nullañ";
 "more-languages-tooltip-description" = "Klask e Wikipedia e muioc’h evit 300 yezh";
 "more-languages-tooltip-title" = "Ouzhpennañ yezhoù";
+"more-menu" = "Muioc'h";
 "navbar-title-mode-edit-wikitext-preview" = "Rakwelet";
 "nearby-distance-label-feet" = "$1 troad";
 "nearby-distance-label-km" = "$1 km";
@@ -572,11 +574,17 @@
 "two-factor-login-with-backup-code" = "Ober gant unan eus ho kodoù saveteiñ";
 "two-factor-login-with-regular-code" = "Ober gant ur c'hod gwiriekaat";
 "unknown-generic-text" = "Dianav";
+"unwatch" = "Paouez da evezhiañ";
 "vanish-account-additional-information-placeholder" = "Diret";
 "vanish-account-continue-button-title" = "Kenderc'hel";
 "vanish-account-learn-more-text" = "Gouzout hiroc'h";
 "vanish-account-warning-title" = "Diwallit";
 "variants-alert-dismiss-button" = "Nann, trugarez";
+"watch" = "Evezhiañ";
+"watchlist" = "Roll evezhiañ";
+"watchlist-user-button-user-contributions" = "Degasadennoù an implijer";
+"watchlist-user-button-user-page" = "Pajenn implijer";
+"watchlist-user-button-user-talk-page" = "Pajenn gaozeal an implijer";
 "welcome-explore-continue-button" = "Kregiñ";
 "welcome-explore-new-ways-title" = "Hentoù nevez da vezañ ergerzhet";
 "welcome-explore-tell-me-more-done-button" = "Dibat evit";
