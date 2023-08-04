@@ -402,6 +402,20 @@
 			<string>%1$d个条目</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您已超过每账号%#@v1@的限制。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d个条目</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -414,6 +428,20 @@
 			<string>d</string>
 			<key>other</key>
 			<string>条目</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您已超过每账号%#@v1@的限制。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d个阅读列表</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -452,15 +480,22 @@
 	<key>reading-lists-large-sync-completed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>{{PLURAL:%1$d|%1$d个条目|%1$d个条目}和%#@v2@已从您的账户同步</string>
+		<string>%#@v1@和%#@v2@已从您的账号同步</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d个条目</string>
+		</dict>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%2$d个阅读列表</string>
 			<key>other</key>
 			<string>%2$d个阅读列表</string>
 		</dict>

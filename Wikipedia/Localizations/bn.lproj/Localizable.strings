@@ -121,6 +121,8 @@
 "description-welcome-start-editing-button" = "সম্পাদনা শুরু করুন";
 "diff-rollback" = "পুনর্বহাল";
 "diff-rollback-alert-title" = "সম্পাদনা পুনর্বহাল";
+"diff-rollback-success" = "সম্পাদনা পুনর্বহাল করা হয়েছে।";
+"diff-undo-success" = "সংশোধনটি পূর্বাবস্থায় ফেরানো হয়েছে।";
 "dim-images" = "অনুজ্জ্বল ছবি";
 "edit-link-title" = "সংযোগ সম্পাদনা";
 "edit-published" = "সম্পাদনা প্রকাশিত হয়েছে";
@@ -407,7 +409,9 @@
 "two-factor-login-title" = "আপনার অ্যাকাউন্টে প্রবেশ করুন";
 "two-factor-login-with-backup-code" = "আপনার ব্যাকআপ কোডগুলির একটি ব্যবহার করুন";
 "two-factor-login-with-regular-code" = "যাচাইকরণ কোড ব্যবহার করুন";
+"unwatch" = "নজর সরান";
 "variants-alert-dismiss-button" = "না, ধন্যবাদ";
+"watch" = "নজর রাখুন";
 "watchlist" = "নজরতালিকা";
 "welcome-exploration-explore-feed-description" = "আমাদের সম্প্রদায়ের প্রস্তাবিত পাঠ এবং দৈনিক নিবন্ধ";
 "welcome-exploration-explore-feed-title" = "ফিড অন্বেষণ করুন";
