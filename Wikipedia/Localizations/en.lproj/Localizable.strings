@@ -149,6 +149,8 @@
 "chinese-variants-alert-body" = "The Wikipedia app now supports the following Chinese variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n简体 Chinese, Simplified (zh-hans)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
 "chinese-variants-alert-title" = "Updates to Chinese variant support";
 "clear-title-accessibility-label" = "Clear";
+"clearing-cache-complete" = "Clearing cache complete.";
+"clearing-cache-in-progress" = "Clearing cache in progress.";
 "close-button-accessibility-label" = "Close";
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
@@ -193,12 +195,13 @@
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
 "diff-article-edit-history" = "Article Edit History";
-"diff-compare-header-from-info-heading" = "From";
+"diff-compare-header-from-info-heading" = "Previous Edit";
 "diff-compare-header-heading" = "Compare Revisions";
-"diff-compare-header-to-info-heading" = "To";
+"diff-compare-header-to-info-heading" = "Displayed Edit";
 "diff-compare-title" = "Compare Revisions";
 "diff-context-lines-collapsed-button-title" = "Show";
 "diff-context-lines-expanded-button-title" = "Hide";
+"diff-header-revision-accessibility-text" = "Revision made at";
 "diff-multi-line-format" = "Lines $1 - $2";
 "diff-paragraph-moved" = "Paragraph moved";
 "diff-paragraph-moved-direction-down" = "down";
@@ -230,6 +233,7 @@
 "diff-undo-message" = "This will undo the changes made by the revisions(s) of the article shown here. To continue, please provide a reason for undoing this edit.";
 "diff-undo-success" = "The revision was undone.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 line unedited|$1 lines unedited}}";
+"diff-user-button-accessibility-text" = "Double tap to open menu";
 "dim-images" = "Dim images";
 "edit-bold-accessibility-label" = "Add bold formatting";
 "edit-bold-remove-accessibility-label" = "Remove bold formatting";

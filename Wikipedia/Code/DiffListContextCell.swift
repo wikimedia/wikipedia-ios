@@ -24,6 +24,11 @@ class DiffListContextCell: UICollectionViewCell {
     weak var delegate: DiffListContextCellDelegate?
     
     func update(_ viewModel: DiffListContextViewModel, indexPath: IndexPath?) {
+        self.isAccessibilityElement = false
+        contentView.isAccessibilityElement = false
+        headingLabel.isAccessibilityElement = false
+        expandButton.isAccessibilityElement = false
+        contextItemStackView.isAccessibilityElement = false
         
         if let indexPath = indexPath {
             self.indexPath = indexPath
@@ -130,6 +135,7 @@ private extension DiffListContextCell {
             if let item = newViewModel.items[safeIndex: index] as? DiffListContextItemViewModel,
             let label = subview.subviews.first as? UILabel {
                 label.attributedText = item.textAttributedString
+                label.isAccessibilityElement = false
             }
         }
     }
