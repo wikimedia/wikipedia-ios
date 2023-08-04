@@ -762,6 +762,7 @@
 		6782DC182347EE59003FA21B /* DiffListChangeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6782DC162347EE59003FA21B /* DiffListChangeCell.xib */; };
 		6782DC192347EE59003FA21B /* DiffListChangeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6782DC162347EE59003FA21B /* DiffListChangeCell.xib */; };
 		6782DC1A2347EE5A003FA21B /* DiffListChangeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6782DC162347EE59003FA21B /* DiffListChangeCell.xib */; };
+		6785FCC92A66D8DB0078FAF2 /* WMFCleanLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6785FCC82A66D8DB0078FAF2 /* WMFCleanLevel.swift */; };
 		6785FCCB2A6840880078FAF2 /* WatchlistFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6785FCCA2A6840880078FAF2 /* WatchlistFunnel.swift */; };
 		6785FCCC2A6840880078FAF2 /* WatchlistFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6785FCCA2A6840880078FAF2 /* WatchlistFunnel.swift */; };
 		6785FCCD2A6840880078FAF2 /* WatchlistFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6785FCCA2A6840880078FAF2 /* WatchlistFunnel.swift */; };
@@ -4132,6 +4133,7 @@
 		6782DBEF23453799003FA21B /* DiffHeaderCompareView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffHeaderCompareView.xib; sourceTree = "<group>"; };
 		6782DC102346920B003FA21B /* DiffContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffContainerViewModel.swift; sourceTree = "<group>"; };
 		6782DC162347EE59003FA21B /* DiffListChangeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListChangeCell.xib; sourceTree = "<group>"; };
+		6785FCC82A66D8DB0078FAF2 /* WMFCleanLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFCleanLevel.swift; sourceTree = "<group>"; };
 		6785FCCA2A6840880078FAF2 /* WatchlistFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistFunnel.swift; sourceTree = "<group>"; };
 		678C7C2923BE67F0001AC4D5 /* CacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheController.swift; sourceTree = "<group>"; };
 		678C7C2D23BE705C001AC4D5 /* CacheDBWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDBWriting.swift; sourceTree = "<group>"; };
@@ -9347,6 +9349,7 @@
 				678C7C2823BE6766001AC4D5 /* Cache */,
 				D8CC94D721789763007293E7 /* Wikipedia */,
 				D8CC94D9217897FB007293E7 /* NSManagedObject+Extensions.swift */,
+				6785FCC82A66D8DB0078FAF2 /* WMFCleanLevel.swift */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -12003,6 +12006,7 @@
 				D8FA18D11E1BD891009675C3 /* WMFMath.m in Sources */,
 				678F512B23A7EE6600CE5357 /* ArticleFetcher.swift in Sources */,
 				0042808925E6E395004945B3 /* MTLModel.m in Sources */,
+				6785FCC92A66D8DB0078FAF2 /* WMFCleanLevel.swift in Sources */,
 				0042807B25E6E395004945B3 /* MTLModel+NSCoding.m in Sources */,
 				D8FA18B41E1BD891009675C3 /* NSCalendar+WMFCommonCalendars.m in Sources */,
 				B085536C2399E368002100F8 /* UIAccessibility+Grouping.swift in Sources */,
@@ -19796,8 +19800,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wikimedia/wikipedia-ios-components.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = revision;
+				revision = 814aa5c20634409ffb23c112f4f36a101b09d1bc;
 			};
 		};
 		67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {

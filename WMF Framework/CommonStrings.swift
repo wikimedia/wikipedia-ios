@@ -274,6 +274,8 @@ public class CommonStrings: NSObject {
     public static let moreButton = WMFLocalizedString("more-menu", value: "More", comment: "Accessibility title for more button in toolbar.")
 
     public static let watchlist = WMFLocalizedString("watchlist", value: "Watchlist", comment: "Title for watchlist feature.")
+
+    public static let watchlistFilter = WMFLocalizedString("watchlist-filter", value: "Filter", comment: "Title for filter button in watchlist.")
     
     public static let watch = WMFLocalizedString("watch", value: "Watch", comment: "Title for watch toolbar button.")
     
@@ -289,9 +291,9 @@ public class CommonStrings: NSObject {
 
     public static let thanksMessage = WMFLocalizedString("diff-thanks-sent", value: "Your 'Thanks' was sent to %1$@", comment: "Message indicating thanks was sent. Parameters:\n* %1$@ - name of user who was thanked")
     
-    public static let diffFromHeading = WMFLocalizedString("diff-compare-header-from-info-heading", value: "From", comment: "Heading label in from revision info box when comparing two revisions.")
+    public static let diffFromHeading = WMFLocalizedString("diff-compare-header-from-info-heading", value: "Previous Edit", comment: "Heading label in info box for previous revision when comparing two revisions.")
 
-    public static let diffToHeading = WMFLocalizedString("diff-compare-header-to-info-heading", value: "To", comment: "Heading label in to revision info box when comparing two revisions.")
+    public static let diffToHeading = WMFLocalizedString("diff-compare-header-to-info-heading", value: "Displayed Edit", comment: "Heading label in info box for current revision when comparing two revisions.")
 
     public static let diffArticleEditHistory = WMFLocalizedString("diff-article-edit-history", value: "Article Edit History", comment: "Label for article edit history menu item in diff more menu.")
 
