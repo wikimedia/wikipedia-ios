@@ -12,7 +12,7 @@ class NotificationService: UNNotificationServiceExtension {
         let controller = RemoteNotificationsAPIController(session: session, configuration: configuration)
         return controller
     }()
-    private let sharedCache = SharedContainerCache<PushNotificationsCache>.init(fileName: SharedContainerCacheCommonNames.pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
+    private let sharedCache = SharedContainerCache<PushNotificationsCache>.init(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
     
     private let fallbackPushContent = WMFLocalizedString("notifications-push-fallback-body-text", value: "New activity on Wikipedia", comment: "Fallback body content of a push notification whose content cannot be determined. Could be either due multiple notifications represented or errors.")
 
@@ -32,7 +32,7 @@ class NotificationService: UNNotificationServiceExtension {
             return
         }
         
-        let cache = sharedCache.loadCache()
+        let cache = sharedCache.loadCache() ?? PushNotificationsCache(settings: .default, notifications: [])
         let project = WikimediaProject.wikipedia(cache.settings.primaryLanguageCode, cache.settings.primaryLocalizedName, nil)
         
         let fallbackPushContent = self.fallbackPushContent

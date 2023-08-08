@@ -10,12 +10,10 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
 
     private let fileName: String
     private let subdirectoryPathComponent: String?
-    private let defaultCache: () -> T
     
-    public init(fileName: String, subdirectoryPathComponent: String? = nil, defaultCache: @escaping () -> T) {
+    public init(fileName: String, subdirectoryPathComponent: String? = nil) {
         self.fileName = fileName
         self.subdirectoryPathComponent = subdirectoryPathComponent
-        self.defaultCache = defaultCache
     }
     
     private static var cacheDirectoryContainerURL: URL {
@@ -34,11 +32,11 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
         return Self.cacheDirectoryContainerURL.appendingPathComponent(subdirectoryPathComponent, isDirectory: true)
     }
 
-    public func loadCache() -> T {
+    public func loadCache() -> T? {
         if let data = try? Data(contentsOf: cacheDataFileURL), let decodedCache = try? JSONDecoder().decode(T.self, from: data) {
             return decodedCache
         }
-        return defaultCache()
+        return nil
     }
 
     public func saveCache(_ cache: T) {
@@ -85,8 +83,8 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
 
 @objc public class SharedContainerCacheClearFeaturedArticleWrapper: NSObject {
     @objc public static func clearOutFeaturedArticleWidgetCache() {
-        let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache, defaultCache: { WidgetCache(settings: .default, featuredContent: nil) })
-        var updatedCache = sharedCache.loadCache()
+        let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache)
+        var updatedCache = sharedCache.loadCache() ?? WidgetCache(settings: .default, featuredContent: nil)
         updatedCache.featuredContent = nil
         sharedCache.saveCache(updatedCache)
     }
