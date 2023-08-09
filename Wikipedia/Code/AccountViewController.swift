@@ -271,6 +271,9 @@ extension AccountViewController: WKOnboardingViewDelegate {
     }
 
     func didClickSecondaryButton() {
+
+        //TODO: get correct URL
+        
         if let presentedViewController {
             presentedViewController.dismiss(animated: true) {
                 let siteURL = self.dataStore.primarySiteURL
