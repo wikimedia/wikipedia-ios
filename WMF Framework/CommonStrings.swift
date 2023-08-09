@@ -329,6 +329,28 @@ public class CommonStrings: NSObject {
 
     public static let compareRevisionsTitle = WMFLocalizedString("diff-compare-header-heading", value: "Compare Revisions", comment: "Heading label in header when comparing two revisions.")
 
+    public static let watchlistOnboardingTitle = WMFLocalizedString("watchlist-onboarding-title", value: "Introducing your Watchlist", comment: "watchlists onboarding modal title")
+
+    public static let watchlistTrackChangesTitle = WMFLocalizedString("watchlits-track-title", value: "Track changes", comment: "Watchlists onboarding modal track changes section title")
+
+    public static let watchlistTrackChangesSubtitle = WMFLocalizedString("watchlits-track-subtitle", value: "The Watchlist is a tool that lets you keep track of changes made to pages or articles you're interested in", comment: "Watchlists onboarding modal track changes section subtitle")
+
+    public static let watchlistWatchChangesTitle = WMFLocalizedString("watchlits-watch-title", value: "Watch articles", comment: "Watchlists onboarding modal watch articles section title")
+
+    public static let watchlistWatchChangesSubitle = WMFLocalizedString("watchlits-watch-subtitle", value: "By tapping the star or \"Watch\" action in the bottom toolbar of an article, you can add that page to your Watchlist.", comment: "Watchlists onboarding modal watch articles section subtitle")
+
+    public static let watchlistSetExpirationTitle = WMFLocalizedString("watchlits-expiration-title", value: "Set expiration", comment: "Watchlists onboarding modal set expiration section title")
+
+    public static let watchlistSetExpirationSubtitle = WMFLocalizedString("watchlits-expiration-subtitle", value: "Pages remain by default, but options exist for temporary watching ranging from one week to six months.", comment: "Watchlists onboarding modal set expiration section subtitle")
+
+    public static let watchlistViewUpdatesTitle = WMFLocalizedString("watchlits-updates-title", value: "View updates", comment: "Watchlists onboarding modal view updates section title")
+
+    public static let watchlistViewUpdatesSubitle = WMFLocalizedString("watchlits-updates-subtitle", value: "The Watchlist of the pages you've added, like edits or discussions, can be accessed via Settings → Account", comment: "Watchlists onboarding modal view updates section subtitle")
+
+    public static let watchlistOnboardingLearnMore = WMFLocalizedString("watchlist-onboarding-button-title", value: "Learn more about the Watchlist", comment: "Watchlists onboarding modal learn more button title")
+
+    public static let continueButton = WMFLocalizedString("continue-button-title", value: "Continue", comment: "Continue button title")
+
     // Article As A Living Doucment Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
 
     public static let viewFullHistoryText = WMFLocalizedString("aaald-view-full-history-button", value: "View full article history", comment: "Text displayed in a button for pushing to the full article history view on the article as a living document screen.")

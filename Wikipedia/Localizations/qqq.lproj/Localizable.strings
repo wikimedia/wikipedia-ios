@@ -153,6 +153,7 @@
 "clearing-cache-in-progress" = "Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.";
 "close-button-accessibility-label" = "Accessibility label for a button that closes a dialog. {{Identical|Close}}";
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
+"continue-button-title" = "Continue button title";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
 "crimean-tatar-variants-alert-body" = "Body text of alert used to inform users about Crimean Tatar variant support. Please do not translate the newlines (\n) or Crimean Tatar characters (къырымтатарджа, etc.).";
@@ -1096,9 +1097,19 @@
 "watch" = "Title for watch toolbar button.";
 "watchlist" = "Title for watchlist feature.";
 "watchlist-filter" = "Title for filter button in watchlist.";
+"watchlist-onboarding-button-title" = "Watchlists onboarding modal learn more button title";
+"watchlist-onboarding-title" = "watchlists onboarding modal title";
 "watchlist-user-button-user-contributions" = "Title shown for user contributions action in user menu button in diff and watchlist views.";
 "watchlist-user-button-user-page" = "Title shown for user page action in user menu button in diff and watchlist views.";
 "watchlist-user-button-user-talk-page" = "Title shown for user talk page action in user menu button in diff and watchlist views.";
+"watchlits-expiration-subtitle" = "Watchlists onboarding modal set expiration section subtitle";
+"watchlits-expiration-title" = "Watchlists onboarding modal set expiration section title";
+"watchlits-track-subtitle" = "Watchlists onboarding modal track changes section subtitle";
+"watchlits-track-title" = "Watchlists onboarding modal track changes section title";
+"watchlits-updates-subtitle" = "Watchlists onboarding modal view updates section subtitle";
+"watchlits-updates-title" = "Watchlists onboarding modal view updates section title";
+"watchlits-watch-subtitle" = "Watchlists onboarding modal watch articles section subtitle";
+"watchlits-watch-title" = "Watchlists onboarding modal watch articles section title";
 "welcome-exploration-explore-feed-description" = "Description for Explore feed";
 "welcome-exploration-explore-feed-title" = "Title for Explore feed";
 "welcome-exploration-on-this-day-description" = "Description for On this day";
