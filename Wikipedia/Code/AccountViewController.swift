@@ -272,12 +272,12 @@ extension AccountViewController: WKOnboardingViewDelegate {
 
     func didClickSecondaryButton() {
 
-        //TODO: get correct URL
-        
+        // TODO: get correct URL
+
         if let presentedViewController {
             presentedViewController.dismiss(animated: true) {
                 let siteURL = self.dataStore.primarySiteURL
-                guard let url = siteURL?.wmf_URL(withPath: "/wiki/Special:Watchlist", isMobile: true) else {
+                guard let url = siteURL?.wmf_URL(withPath: "/wiki/Help:Watchlist", isMobile: true) else {
                     self.showGenericError()
                     return
                 }
