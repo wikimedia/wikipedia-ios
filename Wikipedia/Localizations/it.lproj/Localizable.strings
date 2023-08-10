@@ -216,9 +216,9 @@
 "description-welcome-descriptions-title" = "Descrizioni delle voci";
 "description-welcome-promise-title" = "Per iniziare, prometto di non abusare di questa funzione";
 "description-welcome-start-editing-button" = "Inizia a modificare";
-"diff-compare-header-from-info-heading" = "Da";
+"diff-compare-header-from-info-heading" = "Modifica precedente";
 "diff-compare-header-heading" = "Confronta versioni";
-"diff-compare-header-to-info-heading" = "A";
+"diff-compare-header-to-info-heading" = "Modifica visualizzata";
 "diff-compare-title" = "Confronta versioni";
 "diff-context-lines-collapsed-button-title" = "Mostra";
 "diff-context-lines-expanded-button-title" = "Nascondi";

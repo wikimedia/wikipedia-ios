@@ -23,6 +23,7 @@
 // Author: Kenrick95
 // Author: Macofe
 // Author: Mas ady
+// Author: McDutchie
 // Author: Mnam23
 // Author: Naufal06
 // Author: Nemo bis
@@ -231,8 +232,10 @@
 "description-welcome-promise-title" = "Dengan memulai, saya berjanji untuk tidak menyalahgunakan fitur ini";
 "description-welcome-start-editing-button" = "Mulai menyunting";
 "diff-article-edit-history" = "Riwayat Penyuntingan Artikel";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Dari";
 "diff-compare-header-heading" = "Bandingkan Revisi";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Untuk";
 "diff-compare-title" = "Bandingkan Revisi";
 "diff-context-lines-collapsed-button-title" = "Tampilkan";
@@ -465,7 +468,7 @@
 "field-backup-token-title" = "Kode cadangan";
 "field-captcha-placeholder" = "Teks CAPTCHA";
 "field-captcha-title" = "Masukkan teks yang Anda lihat di atas";
-"field-email-placeholder" = "contoh@contoh.org";
+"field-email-placeholder" = "contoh@example.org";
 "field-email-title" = "Surel";
 "field-email-title-optional" = "Alamat surel (Opsional)";
 "field-new-password-confirm-placeholder" = "masukkan kembali kata sandi baru";

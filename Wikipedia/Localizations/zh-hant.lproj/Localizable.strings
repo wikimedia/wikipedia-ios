@@ -192,6 +192,8 @@
 "chinese-variants-alert-body" = "維基百科應用程式現在支援下列中文變體作為應用程式裡的主要語言或次要語言，使用您偏好的變體以更容易地閱讀、搜尋、編輯：\n\n简体（zh-hans）\n香港繁體（zh-hk）\n澳門繁體（zh-mo）\n大马简体（zh-my）\n新加坡简体（zh-sg）\n臺灣正體（zh-tw）";
 "chinese-variants-alert-title" = "中文變體支援更新";
 "clear-title-accessibility-label" = "清除";
+"clearing-cache-complete" = "清除快取完成。";
+"clearing-cache-in-progress" = "正在清除快取。";
 "close-button-accessibility-label" = "關閉";
 "compass-direction" = "在 $1 時";
 "continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";
@@ -236,9 +238,9 @@
 "description-welcome-promise-title" = "首先，我保證不會濫用此功能。";
 "description-welcome-start-editing-button" = "開始編輯";
 "diff-article-edit-history" = "條目編輯歷史";
-"diff-compare-header-from-info-heading" = "從";
+"diff-compare-header-from-info-heading" = "上一次編輯";
 "diff-compare-header-heading" = "比較修訂";
-"diff-compare-header-to-info-heading" = "到";
+"diff-compare-header-to-info-heading" = "顯示編輯";
 "diff-compare-title" = "比較修訂";
 "diff-context-lines-collapsed-button-title" = "顯示";
 "diff-context-lines-expanded-button-title" = "隱藏";
@@ -1136,6 +1138,7 @@
 "variants-alert-preferences-button" = "檢視您的偏好設定";
 "watch" = "監視";
 "watchlist" = "監視清單";
+"watchlist-filter" = "篩選";
 "watchlist-user-button-user-contributions" = "使用者貢獻";
 "watchlist-user-button-user-page" = "使用者頁面";
 "watchlist-user-button-user-talk-page" = "使用者討論頁";

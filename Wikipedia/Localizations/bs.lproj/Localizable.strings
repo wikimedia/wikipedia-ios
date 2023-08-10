@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Edinwiki
 // Author: Macofe
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Semso98
 // Author: Srdjan m
@@ -429,7 +430,7 @@
 "field-backup-token-title" = "Rezervni kôd";
 "field-captcha-placeholder" = "Tekst CAPTCHA-e";
 "field-captcha-title" = "Upišite tekst koji vidite iznad";
-"field-email-placeholder" = "primjer@primjer.org";
+"field-email-placeholder" = "primjer@example.org";
 "field-email-title" = "E-pošta";
 "field-email-title-optional" = "E-pošta (neobavezno)";
 "field-new-password-confirm-placeholder" = "ponovo upišite novu lozinku";

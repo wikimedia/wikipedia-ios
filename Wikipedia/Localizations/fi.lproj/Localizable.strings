@@ -13,6 +13,7 @@
 // Author: Kimberli Mäkäräinen (WMNO)
 // Author: Laurianttila
 // Author: MITO
+// Author: McDutchie
 // Author: McSalama
 // Author: Mediawikitranslator
 // Author: Moottori
@@ -223,8 +224,10 @@
 "description-welcome-descriptions-title" = "Artikkelin kuvaukset";
 "description-welcome-promise-title" = "Aloittamalla, lupaan etten väärinkäytä tätä ominaisuutta";
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Alkuperäinen";
 "diff-compare-header-heading" = "Versioiden vertailu";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Muokattu";
 "diff-compare-title" = "Versioiden vertailu";
 "diff-context-lines-collapsed-button-title" = "Näytä";
@@ -451,7 +454,7 @@
 "field-backup-token-title" = "Varmuuskopiointikoodi";
 "field-captcha-placeholder" = "Kuvavarmennuksen teksti";
 "field-captcha-title" = "Kirjoita yllä oleva teksti";
-"field-email-placeholder" = "esimerkki@esimerkki.org";
+"field-email-placeholder" = "esimerkki@example.org";
 "field-email-title" = "Sähköposti";
 "field-email-title-optional" = "Sähköposti (vapaaehtoinen)";
 "field-new-password-confirm-placeholder" = "anna uusi salasana uudelleen";
@@ -1058,6 +1061,10 @@
 "vanish-account-warning-title" = "Varoitus";
 "variants-alert-dismiss-button" = "Ei kiitos";
 "variants-alert-preferences-button" = "Tarkista asetuksesi";
+"watch" = "Tarkkaile";
+"watchlist" = "Tarkkailulista";
+"watchlist-user-button-user-contributions" = "Käyttäjän muokkaukset";
+"watchlist-user-button-user-page" = "Käyttäjäsivu";
 "welcome-exploration-explore-feed-description" = "Suositellut luettavat ja pävittäiset artikkelit yhteisöstämme";
 "welcome-exploration-explore-feed-title" = "Tutki syötettä";
 "welcome-exploration-on-this-day-description" = "Matkusta takaisin ajassa ja opi mitä tapahtui tänä päivänä historiassa";

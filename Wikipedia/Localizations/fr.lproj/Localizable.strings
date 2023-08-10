@@ -185,6 +185,8 @@
 "chinese-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du chinois comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher et modifier dans vos variantes préférées :\n\n简体 – chinois simplifié (zh-hans)\n香港繁體 – chinois de Hong-Kong traditionnel (zh-hk)\n澳門繁體 – chinois macanais traditionnel (zh-mo)\n大马简体 – chinois malaisien simplifié (zh-my)\n新加坡简体 – chinois singapourien simplifié (zh-sg)\n臺灣正體 – chinois taïwanais traditionnel (zh-tw)";
 "chinese-variants-alert-title" = "Mises à jour de la prise en charge des variantes du chinois";
 "clear-title-accessibility-label" = "Effacer";
+"clearing-cache-complete" = "Nettoyage du cache terminé.";
+"clearing-cache-in-progress" = "Nettoyage du cache en cours.";
 "close-button-accessibility-label" = "Fermer";
 "compass-direction" = "à $1 heures";
 "continue-reading-empty-description" = "Explorer Wikipédia pour plus d’articles à lire";
@@ -229,9 +231,9 @@
 "description-welcome-promise-title" = "En commençant, je promets de ne pas faire mauvais emploi de cette fonctionnalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
 "diff-article-edit-history" = "Historique des modifications de l’article";
-"diff-compare-header-from-info-heading" = "De";
+"diff-compare-header-from-info-heading" = "Modification précédente";
 "diff-compare-header-heading" = "Comparer les versions";
-"diff-compare-header-to-info-heading" = "À";
+"diff-compare-header-to-info-heading" = "Modification affichée";
 "diff-compare-title" = "Comparer les versions";
 "diff-context-lines-collapsed-button-title" = "Afficher";
 "diff-context-lines-expanded-button-title" = "Masquer";
@@ -1129,6 +1131,7 @@
 "variants-alert-preferences-button" = "Revoir vos préférences";
 "watch" = "Suivre";
 "watchlist" = "Liste de suivi";
+"watchlist-filter" = "Filtrer";
 "watchlist-user-button-user-contributions" = "Contributions de l’utilisateur";
 "watchlist-user-button-user-page" = "Page de l’utilisateur";
 "watchlist-user-button-user-talk-page" = "Page de discussion de l’utilisateur";

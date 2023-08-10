@@ -154,8 +154,10 @@
 "description-welcome-descriptions-title" = "Описания на статии";
 "description-welcome-promise-title" = "Започвайки, обещавам да не злоупотребявам с тази възможност";
 "description-welcome-start-editing-button" = "Започване на редактирането";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "От";
 "diff-compare-header-heading" = "Сравняване на версии";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "До";
 "diff-compare-title" = "Сравняване на версии";
 "diff-context-lines-collapsed-button-title" = "Показване";

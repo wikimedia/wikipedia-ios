@@ -9,6 +9,7 @@
 // Author: Joseagush
 // Author: Kurniasan
 // Author: Macofe
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Tofeiku
 // Author: Ultron90
@@ -392,7 +393,7 @@
 "field-backup-token-title" = "Kod sandaran";
 "field-captcha-placeholder" = "Teks CAPTCHA";
 "field-captcha-title" = "Masukkan teks yang anda lihat di atas";
-"field-email-placeholder" = "contoh@contoh.org";
+"field-email-placeholder" = "contoh@example.org";
 "field-email-title" = "E-mel";
 "field-email-title-optional" = "E-mel (pilihan)";
 "field-new-password-confirm-placeholder" = "masukkan semula kata laluan baru";

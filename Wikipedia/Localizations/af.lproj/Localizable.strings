@@ -3,6 +3,7 @@
 // Author: Arnobarnard
 // Author: Fwolff
 // Author: Joris Darlington Quarshie
+// Author: McDutchie
 // Author: Naudefj
 // Author: Nemo bis
 // Author: Puvircho
@@ -97,7 +98,7 @@
 "field-backup-token-title" = "Rugsteunkode";
 "field-captcha-placeholder" = "CAPTCHA-teks";
 "field-captcha-title" = "Voer die bostaande teks in";
-"field-email-placeholder" = "voorbeeld@voorbeeld.org";
+"field-email-placeholder" = "voorbeeld@example.org";
 "field-email-title" = "E-pos";
 "field-email-title-optional" = "E-pos (opsioneel)";
 "field-new-password-confirm-placeholder" = "voer u wagwoord weer in";

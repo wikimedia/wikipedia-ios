@@ -18,6 +18,7 @@
 // Author: Kghbln
 // Author: Killarnee
 // Author: Lucas Werkmeister
+// Author: McDutchie
 // Author: Metalhead64
 // Author: Mhurd
 // Author: Mirzali
@@ -225,8 +226,10 @@
 "description-welcome-promise-title" = "Mit dem Anfangen verspreche ich, diese Funktion nicht zu missbrauchen.";
 "description-welcome-start-editing-button" = "Jetzt bearbeiten";
 "diff-article-edit-history" = "Versionsgeschichte des Artikels";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Von";
 "diff-compare-header-heading" = "Versionen vergleichen";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Zu";
 "diff-compare-title" = "Versionsvergleich";
 "diff-context-lines-collapsed-button-title" = "Zeigen";
@@ -457,7 +460,7 @@
 "field-backup-token-title" = "Backup-Code";
 "field-captcha-placeholder" = "CAPTCHA-Text";
 "field-captcha-title" = "Gib den Text ein, den du oben siehst.";
-"field-email-placeholder" = "beispiel@beispiel.org";
+"field-email-placeholder" = "beispiel@example.org";
 "field-email-title" = "E-Mail-Adresse";
 "field-email-title-optional" = "E-Mail-Adresse (optional)";
 "field-new-password-confirm-placeholder" = "Neues Passwort erneut eingeben";

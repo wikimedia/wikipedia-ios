@@ -210,8 +210,10 @@
 "description-welcome-promise-title" = "Файҙалана башлап, мин был мөмкинлекте яуыз ниәттә файҙаланмайым тип вәғәҙә бирәм";
 "description-welcome-start-editing-button" = "Мөхәррирләй башларға";
 "diff-article-edit-history" = "Мәҡәләне мөхәррирләү тарихы";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Нимәнән";
 "diff-compare-header-heading" = "Версияларҙы сағыштырырға";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Нимәгә";
 "diff-compare-title" = "Версияларҙы сағыштырырға";
 "diff-context-lines-collapsed-button-title" = "Күрһәтергә";

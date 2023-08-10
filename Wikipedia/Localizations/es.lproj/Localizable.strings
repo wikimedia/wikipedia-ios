@@ -37,6 +37,7 @@
 // Author: MadriCR
 // Author: Marcelo9987
 // Author: MarcoAurelio
+// Author: McDutchie
 // Author: Mcervera
 // Author: Mgpena
 // Author: Mynor Archila
@@ -241,8 +242,10 @@
 "description-welcome-descriptions-title" = "Descripciones de títulos";
 "description-welcome-promise-title" = "Para empezar, prometo no abusar de esta característica";
 "description-welcome-start-editing-button" = "Empezar a editar";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "De";
 "diff-compare-header-heading" = "Comparar revisiones";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "A";
 "diff-compare-title" = "Comparar revisiones";
 "diff-context-lines-collapsed-button-title" = "Mostrar";
@@ -420,7 +423,7 @@
 "explore-feed-preferences-turn-off-explore-tab-message" = "\nLa pestaña Explorar se puede reactivar en los ajustes del canal Explorar";
 "explore-feed-preferences-turn-off-explore-tab-title" = "¿Quieres desactivar la pestaña Explorar?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Desactivar la pestaña Explorar la reemplazará por la pestaña Ajustes";
-"explore-feed-preferences-turn-on-explore-feed-alert-message" = "\nAl elegir mostrar tarjetas de Explorar activarás la pestaña Explorar";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Al elegir mostrar tarjetas de Explorar activarás la pestaña Explorar";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Activar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Esto reemplazará la pestaña Ajustes con la pestaña Explorar, puedes acceder a Ajustes tocando el icono de la rueda dentada en la parte superior de Explorar";
 "explore-feed-preferences-turn-on-explore-tab-title" = "¿Quieres activar la pestaña Explorar?";
@@ -457,7 +460,7 @@
 "field-backup-token-title" = "Código de respaldo";
 "field-captcha-placeholder" = "Texto CAPTCHA";
 "field-captcha-title" = "Escribe el texto que ves arriba";
-"field-email-placeholder" = "ejemplo@ejemplo.org";
+"field-email-placeholder" = "ejemplo@example.org";
 "field-email-title" = "Correo electrónico";
 "field-email-title-optional" = "Correo electrónico (opcional)";
 "field-new-password-confirm-placeholder" = "confirma la contraseña nueva";

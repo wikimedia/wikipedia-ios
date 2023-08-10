@@ -13,6 +13,7 @@
 // Author: Lluis tgn
 // Author: Maceleiro
 // Author: Macofe
+// Author: McDutchie
 // Author: Mguix
 // Author: Nemo bis
 // Author: Rbndev
@@ -219,8 +220,10 @@
 "description-welcome-promise-title" = "En començar prometo no fer mal ús d'aquesta funcionalitat";
 "description-welcome-start-editing-button" = "Comença a editar-hi";
 "diff-article-edit-history" = "Historial de modificació de l'article";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "De";
 "diff-compare-header-heading" = "Compara les revisions";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "A";
 "diff-compare-title" = "Compara les revisions";
 "diff-context-lines-collapsed-button-title" = "Mostra";
@@ -451,7 +454,7 @@
 "field-backup-token-title" = "Codi de còpia de seguretat";
 "field-captcha-placeholder" = "Text del CAPTCHA";
 "field-captcha-title" = "Escriviu el text que veieu a sobre";
-"field-email-placeholder" = "exemple@exemple.org";
+"field-email-placeholder" = "exemple@example.org";
 "field-email-title" = "Adreça electrònica";
 "field-email-title-optional" = "Adreça electrònica (opcional)";
 "field-new-password-confirm-placeholder" = "torneu a introduir la contrasenya nova";
