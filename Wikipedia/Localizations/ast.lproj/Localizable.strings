@@ -3,6 +3,7 @@
 // Author: Enolp
 // Author: Fitoschido
 // Author: Macofe
+// Author: McDutchie
 // Author: Mhurd
 // Author: Nemo bis
 // Author: Tokvo
@@ -274,7 +275,7 @@
 "field-backup-token-title" = "Códigu de respaldu";
 "field-captcha-placeholder" = "Testu CAPTCHA";
 "field-captcha-title" = "Escribe'l testu que ves arriba";
-"field-email-placeholder" = "exemplu@exemplu.ast";
+"field-email-placeholder" = "exemplu@example.org";
 "field-email-title" = "Corréu electrónicu";
 "field-email-title-optional" = "Corréu electrónicu (opcional)";
 "field-new-password-confirm-placeholder" = "escribe otra vuelta la contraseña nueva";

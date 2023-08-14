@@ -7,6 +7,7 @@
 // Author: Fendo99
 // Author: Kizule
 // Author: MarinaSimic
+// Author: McDutchie
 // Author: Mhurd
 // Author: Milicevic01
 // Author: Nemo bis
@@ -38,6 +39,7 @@
 "aaald-new-talk-topic-description-format" = "$1 о овом чланку";
 "aaald-new-website-reference-title" = "Веб-сајт";
 "aaald-one-section-description" = "У одељку $1";
+"aaald-single-reference-added-description" = "Додата референца";
 "aaald-view-full-history-button" = "Прикажи целу историју чланка";
 "about-content-license" = "Лиценца садржаја";
 "about-content-license-details" = "Осим ако није другачије наведено, садржај је доступан под $1.";
@@ -153,6 +155,8 @@
 "cancel" = "Откажи";
 "cc-zero" = "Creative Commons CC0";
 "clear-title-accessibility-label" = "Чисто";
+"clearing-cache-complete" = "Чишћење кеша завршено.";
+"clearing-cache-in-progress" = "Чишћење кеша у току.";
 "close-button-accessibility-label" = "Затвори";
 "compass-direction" = "у $1 ч.";
 "continue-reading-empty-description" = "Истражите Википедију да бисте нашли још чланака за читање";
@@ -194,9 +198,9 @@
 "description-welcome-promise-title" = "Започињањем, обећавам да нећу злоупотребити ову функцију";
 "description-welcome-start-editing-button" = "Почни са уређивањем";
 "diff-article-edit-history" = "Историја";
-"diff-compare-header-from-info-heading" = "Од";
+"diff-compare-header-from-info-heading" = "Претходна измена";
 "diff-compare-header-heading" = "Упореди измене";
-"diff-compare-header-to-info-heading" = "За";
+"diff-compare-header-to-info-heading" = "Приказана измена";
 "diff-compare-title" = "Упореди измене";
 "diff-context-lines-collapsed-button-title" = "Прикажи";
 "diff-context-lines-expanded-button-title" = "Сакриј";
@@ -404,7 +408,7 @@
 "field-backup-token-title" = "Резервни кôд";
 "field-captcha-placeholder" = "CAPTCHA текст";
 "field-captcha-title" = "Унесите горенаведени текст";
-"field-email-placeholder" = "primer@primer.org";
+"field-email-placeholder" = "primer@example.org";
 "field-email-title" = "Имејл";
 "field-email-title-optional" = "Имејл (опционално)";
 "field-new-password-confirm-placeholder" = "поново унесите нову лозинку";
@@ -550,11 +554,14 @@
 "notifications-center-more-action-accessibility-label" = "Више";
 "notifications-center-notifications-settings" = "Поставке обавештања";
 "notifications-center-onboarding-modal-continue-action" = "Настави";
+"notifications-center-onboarding-modal-filters-title" = "Филтери";
+"notifications-center-onboarding-modal-learn-more-action" = "Сазнајте више о обавештењима";
 "notifications-center-onboarding-panel-secondary-button" = "Не, хвала";
 "notifications-center-status-all" = "Све";
 "notifications-center-status-all-notifications" = "Сва обавештења";
 "notifications-center-status-double-concatenation" = "$1 на $2";
 "notifications-center-status-read" = "Прочитано";
+"notifications-center-status-triple-concatenation" = "$1 и $2 у $3";
 "notifications-center-status-unread" = "Непрочитано";
 "notifications-center-subheader-edit-reverted" = "Ваша измена је поништена";
 "notifications-center-subheader-email-from-other-user" = "Нови имејл";
@@ -612,6 +619,7 @@
 "panel-compare-revisions-text" = "Упоређивање измена помаже да се покаже како се чланак временом мењао. Упоређивање две измене чланка показаће разлику између тих ревизија истицањем било ког садржаја који је промењен.";
 "panel-compare-revisions-title" = "Упоређивање измена";
 "panel-not-logged-in-continue-edit-action-title" = "Уреди без пријаве";
+"panel-not-logged-in-subtitle" = "Ваша IP адреса биће јавно видљива ако начините било какву измену. $1Пријавите се$2 или $3отворите налог$4. Тиме ће Ваши доприноси бити приписивани корисничком имену које одаберете и стећи ћете многе погодности.";
 "panel-not-logged-in-title" = "Нисте пријављени";
 "pictured" = "на слици";
 "places-accessibility-clear-saved-searches" = "Обриши недавне претраге";
@@ -844,6 +852,7 @@
 "table-of-contents-close-accessibility-label" = "Затвори садржај";
 "table-of-contents-heading" = "Садржај";
 "table-of-contents-hide-button-label" = "Сакриј садржај";
+"table-of-contents-subheading-label" = "Поднаслов $1";
 "talk-page-add-topic-button" = "Додај тему";
 "talk-page-archives" = "Архиве";
 "talk-page-article-about" = "О страницама за разговор";
@@ -953,6 +962,7 @@
 "welcome-send-data-learn-more" = "Сазнајте више о прикупљању података";
 "welcome-send-data-sub-title" = "Помозите Задужбини Викимедија да побољша апликацију слањем информација о употреби. Прикупљени подаци су анонимни.";
 "welcome-volunteer-send-usage-reports" = "Шаљи извештаје о употреби";
+"widget-onthisday-description" = "Шта се десило на данашњи дан.";
 "widget-onthisday-placeholder-article-snippet" = "Слободна онлајн енциклопедија коју свако може уређивати";
 "widget-onthisday-placeholder-event-snippet" = "Википедија, слободна енциклопедија, иде онлајн.";
 "wikitext-downloading" = "Учитавам садржај…";

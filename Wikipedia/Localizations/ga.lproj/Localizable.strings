@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: GBeecham
 // Author: Kwekubo
+// Author: McDutchie
 // Author: Smirkybec
 // Author: Tem
 
@@ -218,7 +219,7 @@
 "field-backup-token-title" = "Cód cúltaca";
 "field-captcha-placeholder" = "Téacs ón CAPTCHA";
 "field-captcha-title" = "Iontráil an téacs a bhfeiceann tú thuas";
-"field-email-placeholder" = "sampla@sampla.org";
+"field-email-placeholder" = "sampla@example.org";
 "field-email-title" = "Ríomhphost";
 "field-email-title-optional" = "Ríomhphost (Roghnach)";
 "field-new-password-confirm-placeholder" = "athiontráil pasfhocal nua";

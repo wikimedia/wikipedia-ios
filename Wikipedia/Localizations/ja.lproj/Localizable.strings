@@ -238,9 +238,9 @@
 "description-welcome-promise-title" = "この機能を誤用しないように約束します";
 "description-welcome-start-editing-button" = "編集を開始";
 "diff-article-edit-history" = "記事の編集履歴";
-"diff-compare-header-from-info-heading" = "差出人:";
+"diff-compare-header-from-info-heading" = "前の編集";
 "diff-compare-header-heading" = "版を比較";
-"diff-compare-header-to-info-heading" = "宛先:";
+"diff-compare-header-to-info-heading" = "表示されている編集";
 "diff-compare-title" = "版を比較";
 "diff-context-lines-collapsed-button-title" = "表示";
 "diff-context-lines-expanded-button-title" = "隠す";
@@ -1035,6 +1035,7 @@
 "two-factor-login-with-regular-code" = "確認コードを使用する";
 "unable-to-load-talk-page-title" = "ノートページを読み込めませんでした";
 "unknown-generic-text" = "不明";
+"unwatch" = "ウォッチ解除";
 "vanish-account-additional-information-field" = "追加情報";
 "vanish-account-back-confirm-discard" = "リクエストを破棄";
 "vanish-account-back-confirm-keep-editing" = "編集を続行";
@@ -1048,6 +1049,7 @@
 "vanish-modal-item-3-ios15" = "削除依頼についてさらに質問がある場合は$1Meta:Right_to_vanish$2$3をご覧ください。";
 "variants-alert-dismiss-button" = "いいえ";
 "variants-alert-preferences-button" = "設定を確認する";
+"watch" = "ウォッチ";
 "watchlist" = "ウォッチリスト";
 "watchlist-user-button-user-contributions" = "投稿記録";
 "watchlist-user-button-user-page" = "利用者ページ";

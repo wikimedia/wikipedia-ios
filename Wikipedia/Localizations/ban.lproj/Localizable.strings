@@ -3,6 +3,7 @@
 // Author: Carma Citrawati
 // Author: Chinamoonroll
 // Author: Joseagush
+// Author: McDutchie
 
 "aaald-added-text-description-2" = "$1 katambahin";
 "aaald-article-description-updated-description" = "Pidarta suratan kaanyarin";
@@ -148,8 +149,10 @@
 "description-welcome-concise-title" = "Jaga mangda cutet";
 "description-welcome-start-editing-button" = "Ngawit nguahin";
 "diff-article-edit-history" = "Babad Uahan Suratan";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Saking";
 "diff-compare-header-heading" = "Bina révisi";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Antuk";
 "diff-compare-title" = "Bina révisi";
 "diff-context-lines-collapsed-button-title" = "Sinahang";
@@ -219,7 +222,7 @@
 "featured-widget-from-wikipedia" = "Saking Wikipédia";
 "featured-widget-title" = "Suratan utama";
 "field-captcha-placeholder" = "Téks CAPTCHA";
-"field-email-placeholder" = "conto@conto.org";
+"field-email-placeholder" = "conto@example.org";
 "field-email-title" = "Rerepél";
 "field-email-title-optional" = "Rerepél (opsional)";
 "field-new-password-confirm-placeholder" = "Manjingang malih kruna sandi anyar";

@@ -8,6 +8,7 @@
 // Author: LaG roiL
 // Author: Macofe
 // Author: Matanya
+// Author: McDutchie
 // Author: Mhurd
 // Author: N100a
 // Author: Nemo bis
@@ -176,6 +177,8 @@
 "chinese-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בהגוונים הבאים של סינית בתור השפה הראשית או המשנית ביישום, כדי שיהיה קל יותר לקרוא, לחפש, ולערוך בהגוונים המועדפים עליך:\n\n简体 סינית, מפושטת (zh-hans)\n香港繁體 הונג קונג מסורתית (zh-hk)\n澳門繁體 מקאו מסורתית (zh-mo)\n大马简体 מלזיה מפושטת (zh-my)\n新加坡简体 סינגפור מפושטת (zh-sg)\n臺灣正體 טאיוואן מסורתית (zh-tw)";
 "chinese-variants-alert-title" = "עדכונים לתמיכה בהגוונים של סינית";
 "clear-title-accessibility-label" = "ניקוי";
+"clearing-cache-complete" = "ניקוי המטמון הושלם.";
+"clearing-cache-in-progress" = "ניקוי המטמון מתבצע.";
 "close-button-accessibility-label" = "סגירה";
 "compass-direction" = "בשעה $1";
 "continue-reading-empty-description" = "לחקור את ויקיפדיה כדי למצוא ערכים נוספים לקריאה";
@@ -220,9 +223,9 @@
 "description-welcome-promise-title" = "תחילת העבודה היא ההבטחה שלי לא להשתמש באפשרות הזאת לרעה";
 "description-welcome-start-editing-button" = "להתחיל לערוך";
 "diff-article-edit-history" = "היסטוריית העריכה של הערך";
-"diff-compare-header-from-info-heading" = "מהגרסה";
+"diff-compare-header-from-info-heading" = "העריכה הקודמת";
 "diff-compare-header-heading" = "השוואת גרסאות";
-"diff-compare-header-to-info-heading" = "עד";
+"diff-compare-header-to-info-heading" = "העריכה המוצגת";
 "diff-compare-title" = "השוואת גרסאות";
 "diff-context-lines-collapsed-button-title" = "הצגה";
 "diff-context-lines-expanded-button-title" = "הסתרה";
@@ -456,7 +459,7 @@
 "field-backup-token-title" = "קוד גיבוי";
 "field-captcha-placeholder" = "טקסט אימות אנושיות";
 "field-captcha-title" = "נא להזין את הטקסט שמוצג לעיל";
-"field-email-placeholder" = "shaked@dugma.org.il";
+"field-email-placeholder" = "shaked@example.org";
 "field-email-title" = "כתובת דוא\"ל";
 "field-email-title-optional" = "דואר אלקטרוני (לא חובה)";
 "field-new-password-confirm-placeholder" = "נא להזין את הסיסמה החדשה";
@@ -1120,6 +1123,7 @@
 "variants-alert-preferences-button" = "סקירת ההעדפות שלך";
 "watch" = "מעקב";
 "watchlist" = "רשימת המעקב";
+"watchlist-filter" = "סינון";
 "watchlist-user-button-user-contributions" = "תרומות המשתמש";
 "watchlist-user-button-user-page" = "דף משתמש";
 "watchlist-user-button-user-talk-page" = "דף שיחת משתמש";

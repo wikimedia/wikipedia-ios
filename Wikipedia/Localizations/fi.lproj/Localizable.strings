@@ -13,6 +13,7 @@
 // Author: Kimberli Mäkäräinen (WMNO)
 // Author: Laurianttila
 // Author: MITO
+// Author: McDutchie
 // Author: McSalama
 // Author: Mediawikitranslator
 // Author: Moottori
@@ -223,8 +224,10 @@
 "description-welcome-descriptions-title" = "Artikkelin kuvaukset";
 "description-welcome-promise-title" = "Aloittamalla, lupaan etten väärinkäytä tätä ominaisuutta";
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Alkuperäinen";
 "diff-compare-header-heading" = "Versioiden vertailu";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Muokattu";
 "diff-compare-title" = "Versioiden vertailu";
 "diff-context-lines-collapsed-button-title" = "Näytä";
@@ -451,7 +454,7 @@
 "field-backup-token-title" = "Varmuuskopiointikoodi";
 "field-captcha-placeholder" = "Kuvavarmennuksen teksti";
 "field-captcha-title" = "Kirjoita yllä oleva teksti";
-"field-email-placeholder" = "esimerkki@esimerkki.org";
+"field-email-placeholder" = "esimerkki@example.org";
 "field-email-title" = "Sähköposti";
 "field-email-title-optional" = "Sähköposti (vapaaehtoinen)";
 "field-new-password-confirm-placeholder" = "anna uusi salasana uudelleen";
@@ -780,7 +783,7 @@
 "reading-list-add-generic-hint-title" = "Lisätäänkö artikkeli lukulistaan?";
 "reading-list-add-hint-title" = "Lisäätäänkö “$1” lukulistaan?";
 "reading-list-add-saved-button-title" = "Kyllä, lisää ne lukulistoihini";
-"reading-list-add-saved-subtitle" = "Nämä ovat Wikipedia-sovellukseesi tallennettuja artikkeleita. Haluaisitko pitää ne ja yhdistää tunnuksellesi synkronoituihin lukulistoihin.";
+"reading-list-add-saved-subtitle" = "Nämä ovat Wikipedia-sovellukseesi tallennettuja artikkeleita. Säilytetäänkö ne tunnukselle tallennettujen artikkelien rinnalla?";
 "reading-list-add-saved-title" = "Löydetyt tallennetut artikkelit";
 "reading-list-api-error-entry-limit" = "Tätä merkintää ei ole synkronoitu koska olet saavuttanut merkintöjen lukumäärän rajan tässä listassa.";
 "reading-list-api-error-generic" = "Odottamaton virhe tapahtui lukulistaasi synkronoidessa.";
@@ -797,7 +800,7 @@
 "reading-list-exists-with-same-name" = "Lukulistan nimi on jo käytössä";
 "reading-list-generic-error" = "Odottamaton virhe tapahtui lukulistaasi päivittäessä.";
 "reading-list-keep-button-title" = "Kyllä, säilytä artikkelit laitteessa";
-"reading-list-keep-subtitle" = "Artikkelit on synkronoitu Wikipedia-tunnukseesi. Haluaisitko säilyttää ne tässä laitteessa uloskirjautumisen jälkeen?";
+"reading-list-keep-subtitle" = "Artikkelit on synkronoitu Wikipedia-tunnukseesi. Säilytetäänkö ne tässä laitteessa uloskirjautumisen jälkeen?";
 "reading-list-keep-sync-disabled-additional-subtitle" = "Synkronoinnin poistaminen käytöstä poistaa nämä artikkelit tunnukseltasi. Jos poistat ne laitteeltasi, niitä ei voida palauttaa kytkemällä synkronointia takaisin päälle myöhemmin.";
 "reading-list-keep-sync-disabled-remove-article-button-title" = "Ei, poista artikkelit laitteesta ja Wikipedia-tunnukseltani";
 "reading-list-keep-title" = "Säilytetäänkö tallennetut artikkelit laitteessa?";
@@ -984,7 +987,7 @@
 "talk-page-publish-reply-error-subtitle" = "Tarkista internetyhteytesi.";
 "talk-page-publish-reply-error-title" = "Kommenttiasi ei voitu julkaista.";
 "talk-page-publish-topic-error-title" = "Uutta aihetta ei voitu julkaista.";
-"talk-page-read-in-web" = "Lue verkossa";
+"talk-page-read-in-web" = "Lue selaimessa";
 "talk-page-related-links" = "Tänne viittaavat sivut";
 "talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1 vastaus|$1 vastausta}}";
 "talk-page-reply-button" = "Vastaa";
@@ -1013,8 +1016,8 @@
 "talk-pages-coffee-roll-read-more" = "Lue lisää";
 "talk-pages-comment-added-alert-title" = "Kommenttisi lisättiin";
 "talk-pages-compose-close-confirmation-keep" = "Jatka muokkaamista";
-"talk-pages-empty-view-body-article" = "Keskustelusivut ovat paikkoja, jossa ihmiset keskustelevat siitä, miten tehdä Wikipedian sisällöstä parhainta mahdollista. **Aloita lisäämällä uusi keskusteluaihe** saadaksesi yhteyden muihin Wikipedian käyttäjäyhteisön jäseniin ja tehdäksesi yhteistyötä heidän kanssaan.";
-"talk-pages-empty-view-body-user" = "Keskustelusivut ovat paikkoja, jossa ihmiset keskustelevat siitä, miten tehdä Wikipedian sisällöstä parhainta mahdollista. Aloita lisäämällä uusi keskusteluaihe saadaksesi yhteyden käyttäjään $1 ja tehdäksesi yhteistyötä hänen kanssaan. Sanomisesi tässä tulee julkisesti muiden nähtäville.";
+"talk-pages-empty-view-body-article" = "Parhaat Wikipedia-artikkelit syntyvät yhteistyöllä. Näillä sivuilla käyttäjät keskustella artikkelin sisällöstä ja kehittämisestä. **Aloita luomalla uusi aihe**.";
+"talk-pages-empty-view-body-user" = "Parhaat Wikipedia-artikkelit syntyvät yhteistyöllä. Tällä sivulla voit keskustella julkisesti käyttäjän $1 kanssa, ja myös muut voivat osallistua keskusteluun.";
 "talk-pages-empty-view-button-article-add-topic" = "Lisää uusi aihe";
 "talk-pages-empty-view-button-user-start-discussion" = "Aloita keskustelu";
 "talk-pages-empty-view-header-article" = "Keskustelu alkaa tästä";
@@ -1058,6 +1061,10 @@
 "vanish-account-warning-title" = "Varoitus";
 "variants-alert-dismiss-button" = "Ei kiitos";
 "variants-alert-preferences-button" = "Tarkista asetuksesi";
+"watch" = "Tarkkaile";
+"watchlist" = "Tarkkailulista";
+"watchlist-user-button-user-contributions" = "Käyttäjän muokkaukset";
+"watchlist-user-button-user-page" = "Käyttäjäsivu";
 "welcome-exploration-explore-feed-description" = "Suositellut luettavat ja pävittäiset artikkelit yhteisöstämme";
 "welcome-exploration-explore-feed-title" = "Tutki syötettä";
 "welcome-exploration-on-this-day-description" = "Matkusta takaisin ajassa ja opi mitä tapahtui tänä päivänä historiassa";

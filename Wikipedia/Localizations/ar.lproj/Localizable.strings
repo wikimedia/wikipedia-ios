@@ -1121,6 +1121,7 @@
 "variants-alert-dismiss-button" = "لا شكرًا";
 "variants-alert-preferences-button" = "راجع تفضيلاتك";
 "watchlist" = "قائمة المراقبة";
+"watchlist-user-button-user-contributions" = "مساهمات المستخدم";
 "watchlist-user-button-user-talk-page" = "نقاش صفحة المستخدم";
 "welcome-exploration-explore-feed-description" = "القراءة الموصى بها والمقالات اليومية من مجتمعنا";
 "welcome-exploration-explore-feed-title" = "خلاصة الاستكشاف";
