@@ -45,27 +45,10 @@ class WatchlistController {
             return
         }
         
-        service.watch(title: pageTitle, project: wkProject, expiry: expiry) { [weak self] result in
-            DispatchQueue.main.async {
-                guard let self else {
-                    return
-                }
-                
-                switch result {
-                case .success:
-                    self.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, allowChangeExpiry: true)
-                    self.delegate?.didSuccessfullyWatch(self)
-                case .failure(let error):
-                    
-                    self.evaluateServerError(error: error, viewController: viewController, theme: theme, performAfterLoginBlock: { [weak self] in
-                        self?.watch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
-                    })
-                }
-            }
-        }
+        presentChooseExpiryActionSheet(pageTitle: pageTitle, siteURL: siteURL, wkProject: wkProject, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, authenticationManager: authenticationManager)
     }
     
-    private func displayWatchSuccessMessage(pageTitle: String, wkProject: WKProject, expiry: WKWatchlistExpiryType, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, allowChangeExpiry: Bool) {
+    private func displayWatchSuccessMessage(pageTitle: String, wkProject: WKProject, expiry: WKWatchlistExpiryType, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
         let statusTitle: String
         let image = UIImage(systemName: "star.fill")
         switch expiry {
@@ -83,22 +66,19 @@ class WatchlistController {
             statusTitle = WMFLocalizedString("watchlist-added-toast-one-year", value: "Added to Watchlist for 1 year.", comment: "Title in toast after a user successfully adds an article to their watchlist, which expires in 1 year.")
         }
         
-        let promptTitle = allowChangeExpiry ? WMFLocalizedString("watchlist-added-toast-change-expiration", value: "Change expiration date?", comment: "Title in toast after a user successfully adds an article to their watchlist. Tapping will allow them to change their watchlist item expiration date.") : nil
+        let promptTitle = WMFLocalizedString("watchlist-added-toast-view-watchlist", value: "View Watchlist", comment: "Button in toast after a user successfully adds an article to their watchlist. Tapping will take them to their watchlist.")
         
         WMFAlertManager.sharedInstance.showBottomAlertWithMessage(statusTitle, subtitle: nil, image: image, type: .custom, customTypeName: "subscription-success", dismissPreviousAlerts: true, buttonTitle: promptTitle, buttonCallBack: { [weak self] in
-            guard allowChangeExpiry else {
-                return
-            }
-            self?.presentExpiryUpdateActionSheet(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
+            // TODO: Present watchlist from settings
         })
     }
     
-    private func presentExpiryUpdateActionSheet(pageTitle: String, wkProject: WKProject, expiry: WKWatchlistExpiryType, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
+    private func presentChooseExpiryActionSheet(pageTitle: String, siteURL: URL, wkProject: WKProject, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, authenticationManager: WMFAuthenticationManager) {
         
         WMFAlertManager.sharedInstance.dismissAllAlerts()
         
         let title = WMFLocalizedString("watchlist-change-expiry-title", value: "Watchlist expiry", comment: "Title of modal that allows a user to change the expiry setting of a page they are watching.")
-        let message = WMFLocalizedString("watchlist-change-expiry-subtitle", value: "Change Watchlist time period", comment: "Subtitle in modal that allows a user to change the expiry setting of a page they are watching.")
+        let message = WMFLocalizedString("watchlist-change-expiry-subtitle", value: "Choose Watchlist time period", comment: "Subtitle in modal that allows a user to choose the expiry setting of a page they are watching.")
         
         let expiryOptionPermanent = WMFLocalizedString("watchlist-change-expiry-option-permanent", value: "Permanent", comment: "Title of button in expiry change modal that permanently watches a page.")
         
@@ -120,13 +100,24 @@ class WatchlistController {
         for (title, expiry) in zip(titles, expirys) {
             
             let action = UIAlertAction(title: title, style: .default) { [weak self] (action) in
-                self?.service.watch(title: pageTitle, project: wkProject, expiry: expiry, completion: { result in
-                    switch result {
-                    case .success(()):
-                        self?.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, allowChangeExpiry: false)
-                    case .failure(let error):
-                        WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                self?.service.watch(title: pageTitle, project: wkProject, expiry: expiry, completion: { [weak self] result in
+                    
+                    DispatchQueue.main.async {
+                        guard let self else {
+                            return
+                        }
+                        
+                        switch result {
+                        case .success(()):
+                            self.delegate?.didSuccessfullyWatch(self)
+                            self.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
+                        case .failure(let error):
+                            self.evaluateServerError(error: error, viewController: viewController, theme: theme, performAfterLoginBlock: { [weak self] in
+                                self?.watch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
+                            })
+                        }
                     }
+                    
                 })
             }
             
