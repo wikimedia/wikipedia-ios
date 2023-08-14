@@ -13,6 +13,7 @@
 // Author: Josve05a
 // Author: Lokal Profil
 // Author: Macofe
+// Author: McDutchie
 // Author: Mhurd
 // Author: Mjälten
 // Author: Nemo bis
@@ -451,7 +452,7 @@
 "field-backup-token-title" = "Reservkod";
 "field-captcha-placeholder" = "CAPTCHA-text";
 "field-captcha-title" = "Skriv texten du ser ovan";
-"field-email-placeholder" = "exempel@exempel.org";
+"field-email-placeholder" = "exempel@example.org";
 "field-email-title" = "E-post";
 "field-email-title-optional" = "E-post (valfritt)";
 "field-new-password-confirm-placeholder" = "ange nytt lösenord igen";

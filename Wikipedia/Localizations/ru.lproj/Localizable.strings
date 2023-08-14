@@ -254,8 +254,10 @@
 "description-welcome-descriptions-title" = "Описания статей";
 "description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
 "description-welcome-start-editing-button" = "Начать редактирование";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "От";
 "diff-compare-header-heading" = "Сравнить версии";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Кому";
 "diff-compare-title" = "Сравнить версии";
 "diff-context-lines-collapsed-button-title" = "Показать";
@@ -269,6 +271,9 @@
 "diff-paragraph-moved-format" = "Абзац перемещен $1 $2";
 "diff-revision-error-title" = "Не удалось загрузить ревизию";
 "diff-rollback" = "Откатить";
+"diff-rollback-alert-message" = "Вы уверены, что хотите откатить эти правки?";
+"diff-rollback-alert-title" = "Откатить правки";
+"diff-rollback-success" = "Совершён откат правок.";
 "diff-single-header-editor-number-edits-format" = "$1 {{PLURAL:$1|правка|правки|правок}}";
 "diff-single-header-editor-title" = "Информация редактора";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 байт добавлен|$1 байта добавлено|$1 байтов добавлено}}";
@@ -1097,6 +1102,9 @@
 "variants-alert-dismiss-button" = "Нет, спасибо";
 "variants-alert-preferences-button" = "Просмотреть свои настройки";
 "watchlist" = "Список наблюдения";
+"watchlist-user-button-user-contributions" = "Вклад участника";
+"watchlist-user-button-user-page" = "Страница участника";
+"watchlist-user-button-user-talk-page" = "Страница обсуждения участника";
 "welcome-exploration-explore-feed-description" = "Рекомендованные записи и ежедневные статьи от нашего сообщества";
 "welcome-exploration-explore-feed-title" = "Лента";
 "welcome-exploration-on-this-day-description" = "Перенеситесь назад во времени, чтобы узнать, что произошло сегодня в истории";

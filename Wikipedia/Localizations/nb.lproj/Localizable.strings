@@ -12,6 +12,7 @@
 // Author: Kingu
 // Author: Laaknor
 // Author: Macofe
+// Author: McDutchie
 // Author: Mhurd
 // Author: Nemo bis
 // Author: Orf3us
@@ -217,8 +218,10 @@
 "description-welcome-promise-title" = "Gjennom å starte lover jeg å ikke misbruke denne funksjonen";
 "description-welcome-start-editing-button" = "Begynn å redigere";
 "diff-article-edit-history" = "Artikkelredigeringshistorikk";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Fra";
 "diff-compare-header-heading" = "Sammenlign revisjoner";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Til";
 "diff-compare-title" = "Sammenlign revisjoner";
 "diff-context-lines-collapsed-button-title" = "Vis";
@@ -449,7 +452,7 @@
 "field-backup-token-title" = "Reservekode";
 "field-captcha-placeholder" = "CAPTCHA-tekst";
 "field-captcha-title" = "Fyll inn teksten du ser ovenfor";
-"field-email-placeholder" = "eksempel@eksempel.org";
+"field-email-placeholder" = "eksempel@example.org";
 "field-email-title" = "E-post";
 "field-email-title-optional" = "E-post (valgfritt)";
 "field-new-password-confirm-placeholder" = "gjenta nytt passord";

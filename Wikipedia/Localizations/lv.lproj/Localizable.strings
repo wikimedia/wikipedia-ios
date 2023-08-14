@@ -1,5 +1,6 @@
 // Messages for Latvian (latviešu)
 // Exported from translatewiki.net
+// Author: McDutchie
 // Author: Mhurd
 // Author: Nemo bis
 // Author: Papuass
@@ -98,7 +99,7 @@
 "field-alert-captcha-invalid" = "Nederīgs CAPTCHA";
 "field-alert-token-invalid" = "Nederīgs kods";
 "field-captcha-placeholder" = "CAPTCHA teksts";
-"field-email-placeholder" = "piemers@piemers.org";
+"field-email-placeholder" = "piemers@example.org";
 "field-email-title" = "E-pasts";
 "field-email-title-optional" = "E-pasts (nav obligāti)";
 "field-new-password-title" = "Jaunā parole";

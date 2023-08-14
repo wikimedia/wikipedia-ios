@@ -7,6 +7,7 @@
 // Author: Joedalton
 // Author: Macofe
 // Author: Mads Haupt
+// Author: McDutchie
 // Author: Mortenelling
 // Author: Nemo bis
 // Author: Rho
@@ -256,7 +257,7 @@
 "field-backup-token-title" = "Reservekode";
 "field-captcha-placeholder" = "CAPTCHA-tekst";
 "field-captcha-title" = "Indtast den tekst, du ser ovenfor";
-"field-email-placeholder" = "eksempel@eksempel.org";
+"field-email-placeholder" = "eksempel@example.org";
 "field-email-title" = "E-mail";
 "field-email-title-optional" = "E-mail (valgfri)";
 "field-new-password-confirm-placeholder" = "genindtast ny adgangskode";

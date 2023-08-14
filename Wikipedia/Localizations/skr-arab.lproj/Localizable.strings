@@ -116,7 +116,8 @@
 "description-published-title" = "تفصیل شائع تھی ڳئی!";
 "description-welcome-descriptions-title" = "عنوان دی تفصیل";
 "description-welcome-start-editing-button" = "لکھݨ شروع کرو";
-"diff-compare-header-from-info-heading" = "کنوں";
+"diff-compare-header-from-info-heading" = "پچھلی تبدیلی";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "کوں";
 "diff-context-lines-collapsed-button-title" = "ݙِکھاؤ";
 "diff-context-lines-expanded-button-title" = "لُکاؤ";

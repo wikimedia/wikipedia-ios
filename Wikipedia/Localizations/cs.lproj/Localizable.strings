@@ -19,6 +19,7 @@
 // Author: Luky001
 // Author: Marek Pavlica
 // Author: Matěj Suchánek
+// Author: McDutchie
 // Author: Meliganai
 // Author: Mhurd
 // Author: Mirek2
@@ -201,10 +202,8 @@
 "description-help-more-info-description" = "Popisy jsou uloženy a spravovány na Wikidatech, projektu nadace Wikimedia, která poskytují bezplatnou, kolaborativní a mnohojazyčnou databázi podporující Wikipedii a další projekty";
 "description-help-more-info-title" = "Více informací";
 "description-help-tips-description" = "Ideální popis se vejde na jeden řádek a je 2 až 12 slov dlouhý. Nezačíná velkým písmenem, tím začíná, jen pokud je prvním slovem popisu vlastní podstatné jméno.";
-// Fuzzy
 "description-help-tips-example-description-one" = "popis článku o Mona Lise";
-// Fuzzy
-"description-help-tips-example-description-two" = "popis titulku pro článek o Mount Everestu";
+"description-help-tips-example-description-two" = "popis článku o Mount Everestu";
 "description-help-tips-example-title-one" = "obraz Leonarda da Vinciho";
 "description-help-tips-example-title-two" = "nejvyšší hora na Zemi";
 "description-help-tips-for-example" = "Například:";
@@ -222,10 +221,10 @@
 "description-welcome-promise-title" = "Spuštěním slibuji, že této funkce nezneužiji";
 "description-welcome-start-editing-button" = "Začít editovat";
 // Fuzzy
-"diff-compare-header-from-info-heading" = "Od:";
+"diff-compare-header-from-info-heading" = "Od";
 "diff-compare-header-heading" = "Porovnat revize";
 // Fuzzy
-"diff-compare-header-to-info-heading" = "Do:";
+"diff-compare-header-to-info-heading" = "Do";
 "diff-compare-title" = "Porovnat revize";
 "diff-context-lines-collapsed-button-title" = "Zobrazit";
 "diff-context-lines-expanded-button-title" = "Skrýt";
@@ -447,7 +446,7 @@
 "field-backup-token-title" = "Záložní kód";
 "field-captcha-placeholder" = "CAPTCHA text";
 "field-captcha-title" = "Zadejte výše uvedený text";
-"field-email-placeholder" = "priklad@priklad.cz";
+"field-email-placeholder" = "priklad@example.org";
 "field-email-title" = "E-mail";
 "field-email-title-optional" = "E-mail (nepovinný)";
 "field-new-password-confirm-placeholder" = "znovu zadejte nové heslo";
@@ -576,6 +575,7 @@
 "notifications-center-filters-read-status-item-title-all" = "Vše";
 "notifications-center-filters-read-status-section-title" = "Stav čtení";
 "notifications-center-filters-title" = "Filtry";
+"notifications-center-go-to-user-page" = "$1 uživatelská stránka";
 "notifications-center-go-to-wikidata-item" = "Položka Wikidat";
 "notifications-center-mark" = "Označit";
 "notifications-center-mark-all-as-read" = "Označit vše jako přečtené";
@@ -846,8 +846,7 @@
 "share-on-twitter-sign-off" = "přes Wikipedii";
 "share-open-in-maps" = "Otevřít v Mapách";
 "share-social-format" = "„$1“ na Wikipedii: $2";
-// Fuzzy
-"share-social-mention-format" = "„$1“ na @Wikipedia: $2";
+"share-social-mention-format" = "„$1“ na Wikipedii: $2";
 "sort-by-recently-added-action" = "Nedávno přidáno";
 "sort-by-title-action" = "Název";
 "table-of-contents-button-label" = "Obsah";
@@ -868,6 +867,7 @@
 "talk-pages-empty-view-body-user" = "Diskusní stránky jsou místa, kde lidé diskutují o tom, jak udělat obsah na Wikipedii co nejlepší. Zahajte novou diskusi a připojte se a spolupracujte s $1. To, co zde řeknete, bude pro ostatní veřejné.";
 "talk-pages-empty-view-button-article-add-topic" = "Přidat nové téma";
 "talk-pages-empty-view-button-user-start-discussion" = "Zahájit diskusi";
+"talk-pages-empty-view-header-article" = "Rozhovor začíná zde";
 "talk-pages-reply-compose-close-confirmation-title" = "Opravdu chcete tuto novou odpověď zahodit?";
 "theme-black-display-name" = "Černé";
 "theme-dark-display-name" = "Tmavé";
