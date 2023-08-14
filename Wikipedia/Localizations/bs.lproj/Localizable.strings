@@ -202,8 +202,10 @@
 "description-welcome-descriptions-title" = "Opisi članaka";
 "description-welcome-promise-title" = "Započinjanjem, obećavam da neću zloupotrijebiti ovu mogućnost.";
 "description-welcome-start-editing-button" = "Počni uređivati";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Od:";
 "diff-compare-header-heading" = "Poređenje verzija";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Za:";
 "diff-compare-title" = "Poređenje verzija";
 "diff-context-lines-collapsed-button-title" = "Prikaži";
@@ -509,12 +511,6 @@
 "insert-media-media-settings-title" = "Postavke medija";
 "insert-media-title" = "Umetnite medij";
 "insert-media-uploaded-image-title" = "Postavljena slika";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 međuizmjena nije prikazana|$1 međuizmjene nisu prikazane|$1 međuizmjena nije prikazano}}";
-"intermediate-edits-count-limited" = "Nije prikazano $1+ međuverzija";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|Nije prikazana $1 međuverzija|Nisu prikazane $1 međuverzije|Nije prikazano $1 međuverzija}} od $2 korisnika";
-"intermediate-edits-editors-count-limited" = "Nije prikazano $1+ međuverzija od $2+ korisnika";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Nije prikazana $1 međuverzija|Nisu prikazane $1 međuverzije|Nije prikazano $1 međuverzija}} od $2+ korisnika";
-"intermediate-edits-limited-editors-count" = "{{PLURAL:$1|Nije prikazana $1+ međuverzija|Nisu prikazane $1+ međuverzije|Nije prikazano $1+ međuverzija}} od $2 korisnika";
 "inuktitut-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante inuktitut jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuktitut, slogovi (ike-cans)\nInuktitut ilisautik, inuktitut, latinica (ike-latn)";
 "inuktitut-variants-alert-title" = "Ažuriranja podrške za varijantu inuktitut jezika";
 "kazakh-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante kazaškog jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nҚазақша kazaški (kk)\nҚазақша Кирил kazaški, ćirilica (kk-cyrl)\nqazaqşa latin kazaški, latinica (kk-latn)\nتوتە قازاقشا kazaški, arapski (kk-arab)";
@@ -943,41 +939,20 @@
 "tachelhit-variants-alert-title" = "Ažuriranja podrške za varijantu tachelhit jezika";
 "tajik-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante tadžičkog jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nтоҷикӣ кирилликӣ tadžički, ćirilica (tg-cyrl)\ntojikī lotinī tadžički, latinica (tg-latn)";
 "tajik-variants-alert-title" = "Ažuriranja podrške za varijantu tadžičkog jezika";
-"talk-page-add-discussion-accessibility-label" = "Dodaj raspravu";
-"talk-page-discussion-accessibility-hint" = "Dvaput dodirnite da biste otvorili cijelu raspravu";
 "talk-page-discussion-read-accessibility-label" = "Pročitano";
 "talk-page-discussion-unread-accessibility-label" = "Nepročitano";
 "talk-page-error-alert-title" = "Neočekivana greška";
 "talk-page-error-loading-subtitle" = "Nešto nije u redu.";
 "talk-page-error-loading-title" = "Ne mogu učitati stranicu za razgovor";
-"talk-page-error-unable-to-post-reply" = "Nema internetske veze. Nije moguće poslati odgovor.";
-"talk-page-error-unable-to-post-topic" = "Nema internetske veze. Nije moguće objaviti raspravu.";
 "talk-page-find-in-page-button" = "Pronađi na stranici";
-"talk-page-info-active-conversations" = "Aktivni razgovori na Wikipediji ($1)";
-"talk-page-info-active-conversations-generic" = "Aktivni razgovori na Wikipediji";
-"talk-page-link-user-action-sheet-app" = "Pogledaj stranicu razgovora s korisnikom u aplikaciji";
-"talk-page-link-user-action-sheet-safari" = "Pogledaj korisničku stranicu u Safariju";
-"talk-page-link-user-action-sheet-title" = "Korisničke stranice";
 "talk-page-new-banner-subtitle" = "Zapamtite, ovdje smo svi ljudi";
 "talk-page-new-banner-title" = "Budite ljubazni";
-"talk-page-new-body-textfield-accessibility-label" = "Tijelo razgovora";
-"talk-page-new-reply-body-accessibility-label" = "Sastavite odgovor";
-"talk-page-new-reply-body-placeholder-text" = "Sastavite odgovor";
 "talk-page-new-reply-success-text" = "Vaš odgovor je uspješno objavljen";
-"talk-page-new-subject-clear-button-accessibility" = "Očisti temu";
-"talk-page-new-subject-placeholder-text" = "Tema";
-"talk-page-new-subject-textfield-accessibility-label" = "Tema";
-"talk-page-new-topic-body-placeholder-text" = "Sastavite novu raspravu";
 "talk-page-new-topic-success-text" = "Vaša rasprava je uspješno objavljena";
-"talk-page-new-topic-title" = "Nova rasprava";
 "talk-page-permanent-link" = "Trajni link";
-"talk-page-publish-terms-and-licenses" = "Spremanjem izmjena prihvatate $1uslove korištenja$2 i slažete se da svoj doprinos objavljujete pod licencama $3CC BY-SA 3.0$4 i $5GFDL$6.";
-"talk-page-reply-title" = "Odgovori";
 // Fuzzy
 "talk-page-title-article-talk" = "stranica za razgovor članka";
 "talk-page-title-user-talk" = "Razgovor s korisnikom";
-"talk-page-topic-title" = "Razgovor";
-"talk-pages-reply-button-title" = "Odgovorite na ovu raspravu";
 "theme-black-display-name" = "Crna";
 "theme-dark-display-name" = "Tamna";
 "theme-default-display-name" = "Predodređeno";

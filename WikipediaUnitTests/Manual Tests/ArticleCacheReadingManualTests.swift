@@ -3,11 +3,12 @@
 import XCTest
 
 class ArticleCacheReadingManualTests: XCTestCase {
-
-    override func setUp() {
-        super.setUp()
-        
-        ArticleTestHelpers.pullDataFromFixtures(inBundle: wmf_bundle())
+    
+    override func setUp(completion: @escaping (Error?) -> Void) {
+        ArticleTestHelpers.setup {
+            ArticleTestHelpers.pullDataFromFixtures(inBundle: self.wmf_bundle())
+            completion(nil)
+        }
     }
     
     override func tearDown() {
@@ -18,7 +19,7 @@ class ArticleCacheReadingManualTests: XCTestCase {
     
     func testBasicNetworkNoConnectionWithCachedArticle() {
 
-        XCTFail("Reminder: these tests need to be on device and in airplane mode, otherwise they won't work. Comment out this failure once this is done and re-run.")
+       XCTFail("Reminder: these tests need to be on device and in airplane mode, otherwise they won't work. Comment out this failure once this is done and re-run.")
 
         ArticleTestHelpers.writeCachedPiecesToCachingSystem()
 

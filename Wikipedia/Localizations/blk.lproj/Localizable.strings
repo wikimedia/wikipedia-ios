@@ -489,24 +489,15 @@
 "table-of-contents-heading" = "ဟော်ꩻထွားရီးတာႏ";
 "table-of-contents-hide-button-label" = "ပလို့ꩻ ဟော်ꩻထွားရီးတာႏ";
 "table-of-contents-subheading-label" = "ကတူႏရဲန်ႏဖြယ် $1";
-"talk-page-add-discussion-accessibility-label" = "ထဲမ်သော့ꩻ အိုင်ကိုမ်ချက်ခရာႏ";
 "talk-page-discussion-read-accessibility-label" = "ဟော်ꩻ";
 "talk-page-discussion-unread-accessibility-label" = "ဟော်ꩻဗာႏဒွိုန်း";
-"talk-page-link-user-action-sheet-title" = "ကေားသုင်ꩻသား လိတ်မဲ့ငါဖိုင်ႏ";
 "talk-page-new-banner-subtitle" = "နီသွောန်းသီးကားကအဝ်ႏယို ထွာဒျာႏလိုꩻဖိုင်ႏကရိုꩻနဝ်ꩻ ယူႏလꩻပါသွော့သြ";
 "talk-page-new-banner-title" = "ယေန်ႏကေႏသꩻညင်ꩻ ရက်သွော့ဝင်ꩻသြ";
 "talk-page-new-reply-success-text" = "နာꩻလဝ်းပြန်ႏချာချက်နဝ်ꩻ ဒင်ႏထင်ႏအောင်ႏလဲဉ်းသွူ";
-"talk-page-new-subject-clear-button-accessibility" = "သျင်ꩻထိုꩻ အကျောင်ꩻခရာႏ";
-"talk-page-new-subject-placeholder-text" = "အကျောင်ꩻခရာႏ";
-"talk-page-new-subject-textfield-accessibility-label" = "အကျောင်ꩻခရာႏ";
 "talk-page-new-topic-success-text" = "နာꩻအိုင်ကိုမ်ချက်နဝ်ꩻ ဒင်ႏထင်ႏအောင်ႏလဲဉ်းသွူ";
-"talk-page-new-topic-title" = "အိုင်ကိုမ်ချက်တသာ";
-"talk-page-reply-title" = "လဝ်းပြန်ႏချာ";
 // Fuzzy
 "talk-page-title-article-talk" = "ရောမ်ဖြုဲင်ꩻ အိုင်ကိုမ်ဒေါ့ꩻရီ";
 "talk-page-title-user-talk" = "ကေားသုင်ꩻသား အိုင်ကိုမ်ချက်";
-"talk-page-topic-title" = "အိုင်ကိုမ်ချက်";
-"talk-pages-reply-button-title" = "လဝ်းပြန်ႏချာ အိုင်ကိုမ်ချက်ယို";
 "theme-black-display-name" = "အဖြေင်း";
 "theme-dark-display-name" = "အခေ့ꩻ";
 "theme-default-display-name" = "နုဲင်းမူလအတွိုင်ꩻ";

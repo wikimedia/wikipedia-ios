@@ -83,6 +83,118 @@ class URLParsingAndRoutingTests: XCTestCase {
         }
     }
     
+    func testDiffDestinations() {
+        guard var desktopComponents = URLComponents(string: "https://en.wikipedia.org") else {
+            XCTAssertTrue(false)
+            return
+        }
+        
+        guard var mobileComponents = URLComponents(string: "https://en.m.wikipedia.org") else {
+            XCTAssertTrue(false)
+            return
+        }
+        
+        // Special page diff path with only "to" revision ID
+        
+        desktopComponents.path = "/wiki/Special:MobileDiff/24601"
+        var dest = router.destination(for: desktopComponents.url!, loggedInUsername: nil)
+        switch dest {
+        case .articleDiff(let linkURL, let fromRevID, let toRevID):
+            XCTAssertEqual(linkURL, desktopComponents.url!.canonical)
+            XCTAssertNil(fromRevID)
+            XCTAssertEqual(toRevID, 24601)
+        default:
+            XCTAssertTrue(false)
+        }
+        
+        mobileComponents.path = "/wiki/Special:MobileDiff/24601"
+        dest = router.destination(for: mobileComponents.url!, loggedInUsername: nil)
+        switch dest {
+        case .articleDiff(let linkURL, let fromRevID, let toRevID):
+            XCTAssertEqual(linkURL, mobileComponents.url!.canonical)
+            XCTAssertNil(fromRevID)
+            XCTAssertEqual(toRevID, 24601)
+        default:
+            XCTAssertTrue(false)
+        }
+        
+        // Special page diff path with both "from" and "to" revision IDs
+        
+        desktopComponents.path = "/wiki/Special:MobileDiff/1150823759...1162159587"
+        dest = router.destination(for: desktopComponents.url!, loggedInUsername: nil)
+        switch dest {
+        case .articleDiff(let linkURL, let fromRevID, let toRevID):
+            XCTAssertEqual(linkURL, desktopComponents.url!.canonical)
+            XCTAssertEqual(fromRevID, 1150823759)
+            XCTAssertEqual(toRevID, 1162159587)
+        default:
+            XCTAssertTrue(false)
+        }
+        
+        mobileComponents.path = "/wiki/Special:MobileDiff/1150823759...1162159587"
+        dest = router.destination(for: mobileComponents.url!, loggedInUsername: nil)
+        switch dest {
+        case .articleDiff(let linkURL,let fromRevID, let toRevID):
+            XCTAssertEqual(linkURL, mobileComponents.url!.canonical)
+            XCTAssertEqual(fromRevID, 1150823759)
+            XCTAssertEqual(toRevID, 1162159587)
+        default:
+            XCTAssertTrue(false)
+        }
+        
+        // w/index.php-style diff path with only "to" revision ID
+        
+        desktopComponents.path = "/w/index.php"
+        desktopComponents.query = "title=Chernobyl&diff=24601"
+        dest = router.destination(for: desktopComponents.url!, loggedInUsername: nil)
+        switch dest {
+        case .articleDiff(let linkURL, let fromRevID, let toRevID):
+            XCTAssertEqual(linkURL, desktopComponents.url!.canonical)
+            XCTAssertNil(fromRevID)
+            XCTAssertEqual(toRevID, 24601)
+        default:
+            XCTAssertTrue(false)
+        }
+        
+        mobileComponents.path = "/w/index.php"
+        mobileComponents.query = "title=Chernobyl&diff=24601"
+        dest = router.destination(for: mobileComponents.url!, loggedInUsername: nil)
+        switch dest {
+        case .articleDiff(let linkURL, let fromRevID, let toRevID):
+            XCTAssertEqual(linkURL, mobileComponents.url!.canonical)
+            XCTAssertNil(fromRevID)
+            XCTAssertEqual(toRevID, 24601)
+        default:
+            XCTAssertTrue(false)
+        }
+        
+        // w/index.php-style diff path with both "from" and "to" revision IDs
+        
+        desktopComponents.path = "/w/index.php"
+        desktopComponents.query = "title=Chernobyl&diff=24601&oldid=24600"
+        dest = router.destination(for: desktopComponents.url!, loggedInUsername: nil)
+        switch dest {
+        case .articleDiff(let linkURL, let fromRevID, let toRevID):
+            XCTAssertEqual(linkURL, desktopComponents.url!.canonical)
+            XCTAssertEqual(fromRevID, 24600)
+            XCTAssertEqual(toRevID, 24601)
+        default:
+            XCTAssertTrue(false)
+        }
+        
+        mobileComponents.path = "/w/index.php"
+        mobileComponents.query = "title=Chernobyl&diff=24601&oldid=24600"
+        dest = router.destination(for: mobileComponents.url!, loggedInUsername: nil)
+        switch dest {
+        case .articleDiff(let linkURL, let fromRevID, let toRevID):
+            XCTAssertEqual(linkURL, mobileComponents.url!.canonical)
+            XCTAssertEqual(fromRevID, 24600)
+            XCTAssertEqual(toRevID, 24601)
+        default:
+            XCTAssertTrue(false)
+        }
+    }
+    
     func testWikiResourcePathActivity() {
         guard var components = URLComponents(string: "//en.wikipedia.org/wiki/User_talk:Pink_Bull") else {
             XCTAssertTrue(false)
@@ -120,7 +232,7 @@ class URLParsingAndRoutingTests: XCTestCase {
         components.path = "/wiki/Special:MobileDiff/24601"
         dest = router.destination(for: components.url!, loggedInUsername: nil)
         switch dest {
-        case .articleDiffSingle(let linkURL, _, let toRevID):
+        case .articleDiff(let linkURL, _, let toRevID):
             XCTAssertEqual(linkURL, components.url!.canonical)
             XCTAssertEqual(toRevID, 24601)
         default:
@@ -131,7 +243,7 @@ class URLParsingAndRoutingTests: XCTestCase {
         components.path = "/wiki/特殊:MobileDiff/24601"
         dest = router.destination(for: components.url!, loggedInUsername: nil)
         switch dest {
-        case .articleDiffSingle(let linkURL, _, let toRevID):
+        case .articleDiff(let linkURL, _, let toRevID):
             XCTAssertEqual(linkURL, components.url!.canonical)
             XCTAssertEqual(toRevID, 24601)
         default:

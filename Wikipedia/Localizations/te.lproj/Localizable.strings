@@ -189,8 +189,10 @@
 "description-welcome-descriptions-title" = "వ్యాస వివరణలు";
 "description-welcome-promise-title" = "ఈ అంశాన్ని దురుపయోగం చెయ్యనని మాటిస్తూ మొదలెడుతున్నాను.";
 "description-welcome-start-editing-button" = "దిద్దుబాటు మొదలు పెట్టండి";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "నుండి:";
 "diff-compare-header-heading" = "కూర్పులను పోల్చు";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "వరకు:";
 "diff-compare-title" = "కూర్పులను పోల్చు";
 "diff-context-lines-collapsed-button-title" = "చూపించు";
@@ -470,12 +472,6 @@
 "insert-media-image-type-settings-title" = "బొమ్మ రకం";
 "insert-media-media-settings-title" = "మీడియా అమరికలు";
 "insert-media-uploaded-image-title" = "బొమ్మను ఎక్కించు";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 మధ్యంతర కూర్పును|$1 మధ్యంతర కూర్పులను}} చూపించలేదు";
-"intermediate-edits-count-limited" = "$1+ మధ్యంతర కూర్పులను చూపించలేదు";
-"intermediate-edits-editors-count" = "{{PLURAL:$2|$2 వాడుకరి|$2 వాడుకరులు}} చేసిన {{PLURAL:$1|$1 మధ్యంతర కూర్పును|$1 మధ్యంతర కూర్పులను}} చూపించలేదు";
-"intermediate-edits-editors-count-limited" = "$2+ వాడుకరులు చేసిన $1+ మధ్యంతర కూర్పులను చూపించలేదు";
-"intermediate-edits-editors-limited-count" = "$2+ వాడుకరులు చేసిన {{PLURAL:$1|$1 మధ్యంతర కూర్పును|$1 మధ్యంతర కూర్పులను}} చూపించలేదు";
-"intermediate-edits-limited-editors-count" = "{{PLURAL:$2|$2 వాడుకరి|$2 వాడుకరులు}} చేసిన $1+ మధ్యంతర కూర్పులను చూపించలేదు";
 "languages-settings-title" = "భాషలు";
 "languages-title" = "భాష మార్పు";
 "languages-wikipedia" = "వికీపీడియా భాషలు";
@@ -817,38 +813,18 @@
 "table-of-contents-heading" = "విషయాలు";
 "table-of-contents-hide-button-label" = "విషయ సూచికను దాచు";
 "table-of-contents-subheading-label" = "ఉప శీర్షిక $1";
-"talk-page-add-discussion-accessibility-label" = "చర్చను చేర్చు";
-"talk-page-discussion-accessibility-hint" = "చర్చ తీగను తెరిచేందుకు రెండుసార్లు తట్టండి";
 "talk-page-discussion-read-accessibility-label" = "చదివేసినవి";
 "talk-page-discussion-unread-accessibility-label" = "చదవనివి";
-"talk-page-error-unable-to-post-reply" = "అంతర్జాల కనెక్షను లేదు. సమాధానాన్ని పంపలేకున్నాం.";
-"talk-page-error-unable-to-post-topic" = "అంతర్జాల కనెక్షను లేదు. చర్చను పంపలేకున్నాం.";
-"talk-page-info-active-conversations" = "$1 వికీపీడియాలో క్రియాశీల సంభాషణలు";
-"talk-page-info-active-conversations-generic" = "వికీపీడియాలో క్రియాశీల సంభాషణలు";
-"talk-page-link-user-action-sheet-app" = "యాప్‌లో వాడుకరి చర్చ పేజీని చూడండి";
-"talk-page-link-user-action-sheet-safari" = "వాడుకరి పేజీని సఫారీలో చూడండి";
-"talk-page-link-user-action-sheet-title" = "వాడుకరి పేజీలు";
 "talk-page-new-banner-subtitle" = "గుర్తుంచుకోండి, ఇక్కడ ఉన్నవాళ్ళందరం మనుషులమే";
 "talk-page-new-banner-title" = "సహానుభూతితో ఉండండి";
-"talk-page-new-body-textfield-accessibility-label" = "చర్చ బాడీ";
-"talk-page-new-reply-body-accessibility-label" = "సమాధానం రాయండి";
-"talk-page-new-reply-body-placeholder-text" = "సమాధానం రాయండి";
 "talk-page-new-reply-success-text" = "మీ సమాధానాన్ని విజయవంతంగా ప్రచురించాం";
-"talk-page-new-subject-placeholder-text" = "విషయం";
-"talk-page-new-subject-textfield-accessibility-label" = "విషయం";
-"talk-page-new-topic-body-placeholder-text" = "కొత్త చర్చ రాయండి";
 "talk-page-new-topic-success-text" = "మీ చర్చను విజయవంతంగా ప్రచురించాం";
-"talk-page-new-topic-title" = "కొత్త చర్చ";
-"talk-page-publish-terms-and-licenses" = "మార్పులను భద్రపరిస్తే మీరు, $1వాడుకరి నియమాలనూ$2, మీ రచనను $3CC BY-SA 3.0$4, $5GFDL$6 లైసెన్సుల కింద విడుదల చేసేందుకూ అంగీకరిస్తున్నట్లే.";
-"talk-page-reply-title" = "సమాధానం";
 "talk-page-subscribed-alert-title" = "మీరు చందా కట్టారు!";
 // Fuzzy
 "talk-page-title-article-talk" = "వ్యాసం చర్చ";
 "talk-page-title-user-talk" = "వాడుకరి చర్చ";
-"talk-page-topic-title" = "చర్చ";
 "talk-page-unsubscribed-alert-title" = "మీరు చందా విరమించుకున్నారు.";
 "talk-pages-empty-view-button-user-start-discussion" = "ఒక చర్చను మొదలుపెట్టండి";
-"talk-pages-reply-button-title" = "ఈ చర్చకు సమాధానమివ్వండి";
 "theme-black-display-name" = "నలుపు";
 "theme-dark-display-name" = "చీకటి";
 "theme-default-display-name" = "అప్రమేయం";
@@ -865,6 +841,9 @@
 "unknown-generic-text" = "తెలియని";
 "variants-alert-dismiss-button" = "వద్దులే";
 "variants-alert-preferences-button" = "మీ అభిరుచులను సమీక్షించండి";
+"watchlist-user-button-user-contributions" = "వాడుకరి రచనలు";
+"watchlist-user-button-user-page" = "వాడుకరి పేజీ";
+"watchlist-user-button-user-talk-page" = "వాడుకరి చర్చ పేజీ";
 "welcome-exploration-explore-feed-title" = "ఫీడ్‌లో శోధించండి";
 "welcome-exploration-on-this-day-description" = "చరిత్రలో వెనక్కి ప్రయాణించి, ఈ తేదీన ఏం జరిగిందో తెలుసుకోండి";
 "welcome-exploration-on-this-day-title" = "ఈ రోజున";

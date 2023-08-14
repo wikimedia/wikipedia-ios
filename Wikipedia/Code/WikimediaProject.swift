@@ -1,4 +1,5 @@
 import Foundation
+import WKData
 
 public enum WikimediaProject: Hashable {
     public typealias LanguageCode = String
@@ -71,6 +72,19 @@ public enum WikimediaProject: Hashable {
         case .mediawiki:
             return nil
         case .wikispecies:
+            return nil
+        }
+    }
+    
+    public var wkProject: WKProject? {
+        switch self {
+        case .commons:
+            return WKProject.commons
+        case .wikidata:
+            return WKProject.wikidata
+        case .wikipedia(let languageCode, _, let languageVariantCode):
+            return WKProject.wikipedia(WKLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
+        default:
             return nil
         }
     }

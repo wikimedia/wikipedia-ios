@@ -1,13 +1,18 @@
 import Foundation
+import WMF
 
 @objc class WMFDatabaseHousekeeper : NSObject {
     
     // Returns deleted URLs
-    @discardableResult @objc func performHousekeepingOnManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
+    // Note: A cleanupLevel of high will attempt to do additional scrubbing in the case of vandalism.
+    @discardableResult @objc func performHousekeepingOnManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController, cleanupLevel: WMFCleanupLevel) throws -> [URL] {
         
-        let urls = try deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController)
+        if cleanupLevel == .high {
+            moc.navigationState = nil
+        }
+        
+        let urls = try deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController, cleanupLevel: cleanupLevel)
 
-        try deleteStaleTalkPages(moc)
         try deleteStaleAnnouncements(moc)
 
         return urls
@@ -32,27 +37,7 @@ import Foundation
         }
     }
 
-    /**
-     
-     We only persist the last 50 most recently accessed talk pages, delete all others.
-     
-    */
-    private func deleteStaleTalkPages(_ moc: NSManagedObjectContext) throws {
-        let request: NSFetchRequest<NSFetchRequestResult> = TalkPage.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "dateAccessed", ascending: false)]
-        request.fetchOffset = 50
-        let batchRequest = NSBatchDeleteRequest(fetchRequest: request)
-        batchRequest.resultType = .resultTypeObjectIDs
-        
-        let result = try moc.execute(batchRequest) as? NSBatchDeleteResult
-        let objectIDArray = result?.result as? [NSManagedObjectID]
-        let changes: [AnyHashable : Any] = [NSDeletedObjectsKey : objectIDArray as Any]
-        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [moc])
-        
-        try moc.removeUnlinkedTalkPageTopicContent()
-    }
-    
-    private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
+    private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController, cleanupLevel: WMFCleanupLevel = .low) throws -> [URL] {
         
         /**
  
@@ -60,8 +45,9 @@ import Foundation
  
         */
         
+        let finalMaxDays = cleanupLevel == .high ? 0 : WMFExploreFeedMaximumNumberOfDays
         let today = Date() as NSDate
-        guard let oldestFeedDateMidnightUTC = today.wmf_midnightUTCDateFromLocalDate(byAddingDays: 0 - WMFExploreFeedMaximumNumberOfDays) else {
+        guard let oldestFeedDateMidnightUTC = today.wmf_midnightUTCDateFromLocalDate(byAddingDays: 0 - finalMaxDays) else {
             assertionFailure("Calculating midnight UTC on the oldest feed date failed")
             return []
         }
@@ -72,7 +58,11 @@ import Foundation
         var referencedArticleKeys = Set<String>(minimumCapacity: allContentGroups.count * 5 + 1)
         
         for group in allContentGroups {
-            if group.midnightUTCDate?.compare(oldestFeedDateMidnightUTC) == .orderedAscending {
+            if cleanupLevel == .high && (group.midnightUTCDate?.compare(oldestFeedDateMidnightUTC) == .orderedAscending ||
+                                  group.midnightUTCDate?.compare(oldestFeedDateMidnightUTC) == .orderedSame) {
+                moc.delete(group)
+                continue
+            } else if group.midnightUTCDate?.compare(oldestFeedDateMidnightUTC) == .orderedAscending {
                 moc.delete(group)
                 continue
             }
@@ -149,7 +139,7 @@ import Foundation
         
         let articlesToDeleteFetchRequest = WMFArticle.fetchRequest()
         // savedDate == NULL && isDownloaded == YES will be picked up by SavedArticlesFetcher for deletion
-        let articlesToDeletePredicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && isDownloaded == NO && placesSortOrder == 0 && isExcludedFromFeed == NO")
+        let articlesToDeletePredicate = cleanupLevel == .high ? NSPredicate(format: "savedDate == NULL && isDownloaded == NO && placesSortOrder == 0 && isExcludedFromFeed == NO") : NSPredicate(format: "viewedDate == NULL && savedDate == NULL && isDownloaded == NO && placesSortOrder == 0 && isExcludedFromFeed == NO")
         
         if let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) {
             referencedArticleKeys.formUnion(preservedArticleKeys)
@@ -162,7 +152,7 @@ import Foundation
         
         var urls: [URL] = []
         for obj in articlesToDelete {
-            guard obj.isFault else { // only delete articles that are faults. prevents deletion of articles that are being actively viewed. repro steps: open disambiguation pages view -> exit app -> re-enter app
+            guard cleanupLevel != .high && obj.isFault else { // only delete articles that are faults. prevents deletion of articles that are being actively viewed. repro steps: open disambiguation pages view -> exit app -> re-enter app
                 continue
             }
             
@@ -180,6 +170,8 @@ import Foundation
         if moc.hasChanges {
             try moc.save()
         }
+        
+        NotificationCenter.default.post(name: .databaseHousekeeperDidComplete, object: nil)
         
         return urls
     }

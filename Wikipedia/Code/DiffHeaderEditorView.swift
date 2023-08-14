@@ -66,8 +66,10 @@ class DiffHeaderEditorView: UIView {
     }
     
     @objc func tappedUserWithSender(_ sender: UITapGestureRecognizer) {
-        if let username = viewModel?.username {
-            delegate?.tappedUsername(username: username)
+        if let viewModel,
+           let username = viewModel.username {
+            WatchlistFunnel.shared.logDiffTapSingleEditorName(project: viewModel.project)
+            delegate?.tappedUsername(username: username, destination: .userPage)
         }
     }
 }

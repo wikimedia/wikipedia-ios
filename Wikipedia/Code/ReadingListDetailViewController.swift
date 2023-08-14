@@ -340,6 +340,16 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
         }
         viewController.updateScrollViewInsets()
     }
+    
+    func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController) {
+        if displayType == .modal {
+            dismiss(animated: true) { [weak self] in
+                self?.navigate(to: articleURL)
+            }
+        } else {
+            navigate(to: articleURL)
+        }
+    }
 }
 
 

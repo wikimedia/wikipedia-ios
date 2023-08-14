@@ -52,6 +52,7 @@
 "about-repositories" = "ߟߊ߬ߡߙߊ߬ߦߙߐ";
 "about-repositories-app-source-license" = "ߛߎ߲ ߘߏߝߙߍߕߍ ߦߋ߫ $1 ߟߊߓߌ߬ߟߊ ߟߋ߬ ߘߐ߫.";
 "about-send-feedback" = "ߟߥߊ߬ߟߌ߬ߟߊ߲ ߟߢߊ߬ߟߌ߬ ߗߋߛߓߍ ߗߋ߫";
+"about-testers-details" = "ߛߎ߯ߦߊ ߟߊߘߍ߲߬ߞߣߍ߬ߦߊ ߞߘߐߓߐߣߍ߲߫ ߦߋ߫ $1 ߟߋ߬ ߓߟߏ߫";
 "about-title" = "ߞߊ߬ ߓߍ߲߬";
 "about-translators" = "ߘߟߊߡߌߘߊߟߊ ߟߎ߬";
 "about-translators-details" = "ߓߐߒߖߘߍߘߐߟߊ ߟߎ߬ ߟߊ߫ ߘߟߊߡߌߘߊߟߌ $1 ߞߊ߲߬";
@@ -70,7 +71,10 @@
 "account-creation-saving" = "ߟߊ߬ߞߎ߲߬ߘߎ߬ߟߌ ߦߴߌ ߘߐ߫...";
 "account-creation-title" = "ߖߊ߬ߕߋ߬ߘߊ߬ ߞߎߘߊ߫ ߛߌ߲ߘߌ߫";
 "account-group-title" = "ߌ ߟߊ߫ ߕߊ߬ߡߌ߲߬ߞߊ߲";
+"account-request-vanishing" = "ߖߊ߬ߕߋ߬ߘߊ ߟߊߕߎߣߎ߲߫";
 "account-talk-page-title" = "ߌ ߟߊ߫ ߞߎߡߊ߫ ߞߐߜߍ";
+"account-talk-preferences-auto-sign-discussions" = "ߞߊ߬ ߘߊߘߐߖߊߥߏ ߞߟߊ߬ߣߐ߬ߦߴߊ߬ ߖߘߍ߬ߡߊ߬";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "ߘߊߘߐߖߊߥߏ ߞߟߊ߬ߣߐ߬ߦߊ߬ߟߌ߫ ߖߘߍ߬ߦߋ ߓߐߒߠߊߟߌ ߘߌ߫ ߣߊ߬ ߞߟߊ߬ߣߐ ߟߊߓߊ߯ߙߊ ߕߏ߫ ߞߟߊ߬ߣߐ ߟߊ߬ߓߍ߲߬ߢߐ߲߰ߡߦߊ߬ߘߊ ߘߐ߫";
 "account-talk-preferences-title" = "ߞߎߡߊ߫ ߞߐߜߍ ߝߌ߬ߛߊ߬ߡߊ߲߬ߕߋ";
 "action-add-to" = "ߊ߬ ߝߙߊ߬...";
 "action-add-to-reading-list" = "ߊ߬ ߟߊߘߏ߲߬ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ ߛߙߍߘߍ ߘߐ߫";
@@ -174,8 +178,10 @@
 "description-welcome-concise-title" = "ߊ߬ ߕߏ߫ ߛߎ߬ߘߎ߲߬ߧߊ ߘߐ߫";
 "description-welcome-descriptions-title" = "ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ ߟߎ߬";
 "description-welcome-start-editing-button" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߘߊߡߌ߬ߣߊ߬";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "ߞߊ߬ ߝߘߊ߫:";
 "diff-compare-header-heading" = "ߟߢߊ߬ߟߌ ߟߎ߬ ߟߊ߫ ߢߐ߲߯ߡߊ߬";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "ߞߊ߬ ߕߊ߯:";
 "diff-compare-title" = "ߟߢߊ߬ߟߌ ߟߎ߬ ߟߊߢߐ߲߯ߡߊ߬";
 "diff-context-lines-collapsed-button-title" = "ߊ߬ ߦߌ߬ߘߊ߬";
@@ -262,14 +268,18 @@
 "editing-welcome-be-bold-title" = "ߌ ߡߊ߲߬ߞߊ߲ ߢߊ߬ߕߣߐ ߦߴߊ߬ ߟߊ߫";
 "editing-welcome-citations-title" = "ߓߐߖߎ߫ ߜߋ߲߬ߞߘߎ߬ߕߊ ߟߊߞߏߝߐ߫";
 "editing-welcome-set-knowledge-free-title" = "ߟߐ߲ߕߊ ߛߙߊ߬ߓߊߟߌ ߟߊߘߏ߲߬";
+"editor-exit-confirmation-title" = "ߞߊ߬ ߓߙߐߕߐ߫ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߞߍߗߏ߯ ߘߐ߫؟";
 "empty-diff-compare-title" = "ߘߊ߲߬ߝߘߊ߬ߓߐ߬ ߕߍ߫ ߟߢߊ߬ߟߌ߬ ߟߎ߬ ߕߍ߫";
 "empty-diff-single-title" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲߬ ߦߋߕߊ ߝߋ߲߫ ߡߊ߫ ߛߌ߲ߘߌ߫";
 "empty-insert-media-title" = "ߞߐߕߐ߮ ߘߏ߫ ߓߊߕߐ߬ߡߐ߲߬ ߞߊ߬ ߝߘߊ߫ ߥߞߌߡߋߘߌߦߊ߫ ߞߐߡߐ߲ߛ ߟߊ߫";
 "empty-no-article-message" = "ߤߊߞߍ߬ߕߏ߫߸ ߊ߬ ߕߴߛߋ߫ ߞߎߡߘߊ ߟߊߢߎ߲߫ ߠߊ߫";
 "empty-no-feed-action-message" = "ߌ ߘߌ߫ ߛߋ߫ ߕߏ߫ ߟߊ߫ ߞߐߜߍ߫ ߟߊߞߎ߲߬ߘߎ߬ߣߍ߲ ߠߎ߬ ߘߐߞߊ߬ߙߊ߲߬ ߠߊ߫";
 "empty-no-feed-message" = "ߌ ߘߌ߫ ߛߴߌ ߟߊ߫ ߞߎߡߘߊ߫ ߡߊߢߌ߬ߣߌ߲߬ߞߊ߬ߣߍ߲ ߠߎ߬ ߦߋ߫ ߟߊ߫ ߣߴߌ ߞߊ߬ ߓߟߐߟߐ ߛߐ߬ߘߐ߲߫";
+"empty-no-history-message" = "ߝߏ߲߬ߝߏ߲ ߘߏ߫ ߟߊߡߊ߬ߙߊ߫ ߌ ߟߊ߫ ߦߊ߲߬ ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲ ߠߎ߬ ߟߊ߫.";
 "empty-no-history-title" = "ߘߐ߬ߝߐ߫ ߦߋߕߊ߫ ߕߴߦߋ߲߬";
+"empty-no-other-article-languages-message" = "ߞߎߡߘߊ ߣߌ߲߬ ߡߊ߫ ߛߓߍ߫ ߞߊ߲߫ ߜߘߍ߫ ߛߌ߫ ߘߐ߫ ߡߎߣߎ߲߬";
 "empty-no-other-article-languages-title" = "ߞߊ߲߫ ߜߘߍ߫ ߕߴߦߋ߲߬";
+"empty-no-reading-lists-message" = "ߛߙߍߘߍ ߘߏ߫ ߛߌ߲ߘߌ߫ ߌ ߟߊ߫ ߦߙߐ߫ ߓߐߒߡߕߊ ߟߎ߬ ߦߋ߫߸ ߘߌߦߊߣߊ߲߫ ߞߎߡߘߊ ߟߎ߬ ߣߌ߫ ߛߌߦߊߡߊ߲߫ ߜߘߍ߫ ߟߎ߫";
 "empty-no-reading-lists-title" = "ߞߎߡߘߊ߫ ߟߊߞߎ߲߬ߘߎ߬ߣߍ߲ ߠߎ߬ ߛߌ߲߬ߝߏ߲߬ߧߊ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ ߛߙߍߘߍ ߘߐ߫";
 "empty-no-saved-pages-in-reading-list-message" = "ߞߐߜߍ ߟߎ߬ ߟߊߞߎ߲߬ߘߎ߫ ߛߙߍߘߍ ߣߌ߲߬ ߘߐ߫ ߞߵߊ߬ߟߎ߬ ߞߎ߲߬ߓߐ߬ߣߍ߲ ߦߋ߫ ߦߊ߲߬";
 "empty-no-saved-pages-in-reading-list-title" = "ߞߐߜߍ߫ ߟߊߞߎ߲߬ߘߎ߬ߣߍ߲ ߕߍ߫ ߛߙߍߘߍ ߣߌ߲߬ ߘߐ߫";
@@ -675,7 +685,22 @@
 "reading-lists-article-save-to-disk-failed" = "ߕߊ߬ߡߌ߲߬ ߓߘߊ߫ ߞߍ߫ ߞߍߟߊ߲ ߘߊ߲߭ ߠߊ߫ ߸ ߞߎߡߘߊ ߕߍ߫ ߛߐ߲߬ ߕߎ߬ߡߊ߬ߢߐ߲߰ߦߊ߫ ߟߊ߫";
 "reading-lists-articles-not-synced-limit-exceeded" = "ߞߎߡߘߊ ߘߏ߫ ߟߎ߫ ߡߊ߫ ߓߌ߬ߟߊ߬ ߢߐ߲߯ ߡߊ߬ ߸ ߊ߬ ߓߘߊ߫ ߕߊ߬ߡߴߊ߬ ߘߊ߲߭ ߠߊ߫";
 "reading-lists-list-not-synced-limit-exceeded" = "ߛߙߍߘߍ ߡߊ߫ ߓߌ߬ߟߊ߬ ߢߐ߲߯ ߡߊ߬ ߸ߊ߬ ߓߘߊ߫ ߕߊ߬ߡߌ߲߬ ߊ߬ ߘߊ߲߭ ߠߊ߫";
+"replace-clear-button-accessibility" = "ߣߘߐ߬ߓߌߟߊ ߖߏ߰ߛߌ߫";
+"replace-infolabel-method-replace" = "ߊ߬ ߣߐ߬ߘߐߓߌ߬ߟߊ߬";
+"replace-infolabel-method-replace-all" = "ߊ߬ ߓߍ߯ ߣߐ߬ߘߐߓߌ߬ߟߊ߬";
 "saved-reading-lists-title" = "ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ ߛߙߍߘߍ";
 "saved-search-default-text" = "ߞߎߡߘߊ߫ ߟߊߞߎ߲߬ߘߎ߬ߣߍ߲ ߠߎ߬ ߢߌߣߌ߲߫";
 "saved-title" = "ߟߊ߬ߞߎ߲߬ߘߎ߬ߣߍ߲";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "ߞߎߡߘߊ{{PLURAL:$1|ߟߎ߫}} ߞߊ߫ ߟߊߞߎ߲߬ߘߎ߫؟";
+"search-button-accessibility-label" = "ߢߌߣߌ߲ߠߌ߲ ߞߍ߫ ߥߞߌߔߋߘߌߦߊ ߞߣߐ߫";
+"search-clear-title" = "ߊ߬ ߟߊߛߊ߬";
+"search-did-you-mean" = "ߌ ߞߊ߲߫ ߦߋ߫ $1 ߟߋ߬ ߡߊ߬؟";
+"search-field-placeholder-text" = "ߢߌߣߌ߲ߠߌ߲ ߞߍ߫ ߥߞߌߔߋߘߌߦߊ ߞߣߐ߫";
+"search-reading-list-placeholder-text" = "ߢߌߣߌ߲ߠߌ߲ ߞߍ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߫ ߛߙߍߘߍ ߘߐ߫";
+"search-recent-clear-cancel" = "ߊ߬ ߘߐߛߊ߬";
+"search-recent-clear-confirmation-heading" = "ߞߊ߬ ߞߐ߯ߟߊ߫ ߡߊߦߟߍߡߊ߲ߠߌ߲ ߠߎ߬ ߓߍ߯ ߖߏ߰ߛߌ߫؟";
+"search-recent-clear-confirmation-sub-heading" = "ߋ߫ ߗߍ߬߸ ߏ߬ ߕߍ߫ ߛߐ߲߬ ߘߐߛߊ߬ ߟߊ߫ ߘߋ߬߳߹";
+"search-recent-clear-delete-all" = "ߊ߬ ߓߍ߯ ߖߏ߰ߛߌ߬";
+"search-recent-empty" = "ߒ߬ߒ߫߸ ߞߐ߯ߟߊ߫ ߢߌߣߌ߲ߠߌ߲ ߘߐߙߐ߲߫ ߡߎߣߎ߲߬";
+"search-recent-title" = "ߢߌߣߌ߲ߣߌ߲߫ ߠߊߓߊ߲";
 "talk-pages-view-title" = "ߞߎߡߊߢߐ߲߯ߦߊ";

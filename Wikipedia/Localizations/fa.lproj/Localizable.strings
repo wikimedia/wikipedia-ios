@@ -18,6 +18,7 @@
 // Author: Fatemi127
 // Author: Freshman404
 // Author: Hadi
+// Author: Havadar-hvac
 // Author: Hosseinblue
 // Author: Huji
 // Author: Iriman
@@ -234,8 +235,10 @@
 "description-welcome-descriptions-title" = "توضیحات مقاله";
 "description-welcome-promise-title" = "با آغاز ویرایش، تعهد می‌دهم که از این ویژگی سوءاستفاده نکنم";
 "description-welcome-start-editing-button" = "ویرایش را آغاز کنید";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "از:";
 "diff-compare-header-heading" = "مقایسهٔ نسخه‌ها";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "به:";
 "diff-compare-title" = "مقایسهٔ نسخه‌ها";
 "diff-context-lines-collapsed-button-title" = "نشان بده";
@@ -547,12 +550,6 @@
 "insert-media-media-settings-title" = "تنظیمات رسانه";
 "insert-media-title" = "درج رسانه";
 "insert-media-uploaded-image-title" = "تصویر بارگذاری‌شده";
-"intermediate-edits-count" = "{{PLURAL:$1|$1 نسخهٔ میانی|$1 نسخهٔ میانی}} نمایش داده نشده‌است";
-"intermediate-edits-count-limited" = "بیش از $1 نسخهٔ میانی نشان داده نشده‌است";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 نسخهٔ میانی|$1 نسخه‌ٔ میانی}} توسط {{PLURAL:$2|$2 کاربر|$2 کاربر}} نشان داده نشده‌است";
-"intermediate-edits-editors-count-limited" = "بیش از $1 نسخهٔ میانی توسط بیش از $2 کاربر نمایش داده نشده‌است";
-"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 نسخهٔ میانی|$1 نسخهٔ میانی}} توسط بیش از $2 کاربر نمایش داده نشده‌است";
-"intermediate-edits-limited-editors-count" = "بیش از $1 نسخهٔ میانی توسط {{PLURAL:$2|$2 کاربر|$2 کاربر}} نمایش داده نشده‌است";
 "inuktitut-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان اینوکتیتوت به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان اینوکتیتوت";
 "kazakh-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان قزاقی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -1009,48 +1006,30 @@
 "tajik-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تاجیکی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
 "tajik-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های تاجیکی";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 کاربر فعال}}";
-"talk-page-add-discussion-accessibility-label" = "افزودن بحث";
 "talk-page-add-topic-button" = "افزودن مبحث";
 "talk-page-archives" = "بایگانی‌ها";
 "talk-page-article-about" = "دربارهٔ صفحه‌های بحث";
 "talk-page-change-language" = "تغییر زبان";
 "talk-page-collapse-thread-button" = "نهفتن ریسه";
-"talk-page-discussion-accessibility-hint" = "برای باز کردن ریسهٔ بحث، اینجا را دوبار لمس کنید";
 "talk-page-discussion-read-accessibility-label" = "خوانده‌شده";
 "talk-page-discussion-unread-accessibility-label" = "خوانده‌نشده";
 "talk-page-error-alert-subtitle" = "نرم‌افزار پاسخی دور از انتظار از سرور دریافت کرد. لطفاً بعداً دوباره تلاش کنید.";
 "talk-page-error-alert-title" = "خطای غیرمنتظره";
 "talk-page-error-loading-subtitle" = "مشکلی وجود دارد.";
 "talk-page-error-loading-title" = "ناتوان در بارگیری صفحهٔ بحث";
-"talk-page-error-unable-to-post-reply" = "عدم اتصال به اینترنت. ناتوان در ارسال پاسخ.";
-"talk-page-error-unable-to-post-topic" = "عدم اتصال به اینترنت. ناتوان در ارسال بحث.";
 "talk-page-expand-thread-button" = "گسترش ریسه";
 "talk-page-find-in-page-button" = "جستجو در صفحه";
-"talk-page-info-active-conversations" = "گفتگوهای فعال در ویکی‌پدیای $1";
-"talk-page-info-active-conversations-generic" = "گفتگوهای فعال در ویکی‌پدیا";
-"talk-page-link-user-action-sheet-app" = "مشاهدهٔ بحث کاربر در نرم‌افزار";
-"talk-page-link-user-action-sheet-safari" = "مشاهدهٔ صفحۀ کاربر در مرورگر سافاری";
-"talk-page-link-user-action-sheet-title" = "صفحه‌های کاربر";
 "talk-page-menu-open-all" = "گشودن تمام ریسه‌ها";
 "talk-page-new-banner-subtitle" = "فراموش نکنید که در این‌جا همهٔ ما انسانیم";
 "talk-page-new-banner-title" = "لطفاً مهربان باشید";
-"talk-page-new-body-textfield-accessibility-label" = "بدنهٔ بحث و گفتگو";
-"talk-page-new-reply-body-accessibility-label" = "نوشتن پاسخ";
-"talk-page-new-reply-body-placeholder-text" = "نوشتن پاسخ";
 "talk-page-new-reply-success-text" = "پاسخ شما با موفقیت منتشر شد";
-"talk-page-new-subject-clear-button-accessibility" = "پاک‌سازی موضوع";
-"talk-page-new-subject-placeholder-text" = "موضوع";
-"talk-page-new-subject-textfield-accessibility-label" = "عنوان";
-"talk-page-new-topic-body-placeholder-text" = "نوشتن بحث جدید";
 "talk-page-new-topic-success-text" = "بحث شما با موفقیت منتشر شد";
-"talk-page-new-topic-title" = "بحث تازه";
 "talk-page-onboarding-button-accessibility-label" = "برای بازگشت به پاسخ، دوبار ضربه بزنید";
 "talk-page-overflow-menu-accessibility" = "گزینه‌های بیشتر برای صفحهٔ بحث";
 "talk-page-page-info" = "اطلاعات صفحه";
 "talk-page-permanent-link" = "پیوند پایدار";
 "talk-page-publish-reply-error-subtitle" = "لطفاً اتصال خود به اینترنت را بررسی کنید.";
 "talk-page-publish-reply-error-title" = "ناتوان در انتشار نظر شما.";
-"talk-page-publish-terms-and-licenses" = "با دخیره‌سازی تغییرات، $1شرایط استفاده$2 را می‌پذیرید و قبول می‌کنید که مشارکت‌های خود را تحت اجازه‌نامه‌های $3CC BY-SA 3.0$4 و $55GFDL$6 منتشر کنید.";
 "talk-page-publish-topic-error-title" = "ناتوان در انتشار مبحث تازه.";
 "talk-page-read-in-web" = "خواندن در وب";
 "talk-page-related-links" = "پیوندها به این صفحه";
@@ -1060,7 +1039,6 @@
 "talk-page-reply-depth-accessibility-label" = "عمق پاسخ: $1";
 "talk-page-reply-placeholder-format" = "پاسخ به $1";
 "talk-page-reply-terms-and-licenses" = "دقت کنید که پاسخ شما به‌طور خودکار با نام کاربری شما امضا می‌شود. با انتشار تغییرات، شما با $1شرایط استفاده$2 موافقت می‌کنید و می‌پذیرید که مشارکت‌های خود را تحت اجازه‌نامه‌های $3CC BY-SA 3.0$4 و $5GFDL$6 منتشر کنید.";
-"talk-page-reply-title" = "پاسخ دادن";
 "talk-page-revision-history" = "تاریخچهٔ نسخه‌ها";
 "talk-page-rply-close-button-accessibility-hint" = "بستن نمای پاسخ";
 "talk-page-share-button" = "اشتراک‌گذاری صفحهٔ بحث";
@@ -1072,7 +1050,6 @@
 "talk-page-title-user-talk" = "بحث کاربر";
 "talk-page-topic-close-button-hint" = "بستن مبحث تازه";
 "talk-page-topic-compose-terms-and-licenses" = "با انتشار تغییرات، شما $1شرایط استفاده$2 را می‌پذیرید و به‌طور غیرقابل بازگشتی با انتشار مشارکت خود تحت اجازه‌نامه‌های $3CC BY-SA 3.0$4 و $5GFDL$6 موافقت می‌کنید.";
-"talk-page-topic-title" = "بحث";
 "talk-page-unsubscribe-to-topic" = "لغو اشتراک";
 "talk-page-unsubscribed-alert-subtitle" = "در آینده دیگر برای هر نظر ارسال‌شده در این مبحث آگاه‌سازی‌‌هایی دریافت نخواهید کرد.";
 "talk-page-unsubscribed-alert-title" = "اشتراک شما لغو شد.";
@@ -1088,7 +1065,6 @@
 "talk-pages-empty-view-button-user-start-discussion" = "آغاز یک گفتگو";
 "talk-pages-empty-view-header-article" = "گفتگو از اینجا آغاز می‌شود";
 "talk-pages-empty-view-header-user" = "آغاز یک گفتگو با $1";
-"talk-pages-reply-button-title" = "پاسخ به این بحث";
 "talk-pages-reply-compose-close-confirmation-title" = "آیا از انحلال این پاسخ مطمئن هستید؟";
 "talk-pages-topic-added-alert-title" = "مبحث شما افزوده شد";
 "talk-pages-topic-compose-body-placeholder" = "توضیحات";
@@ -1148,6 +1124,9 @@
 "vanishing-request-email-title" = "درخواست ناپدیدسازی با حسن نیت";
 "variants-alert-dismiss-button" = "نه ممنون";
 "variants-alert-preferences-button" = "ترجیحات خود را مرور کنید";
+"watchlist-user-button-user-contributions" = "مشارکت‌های کاربر";
+"watchlist-user-button-user-page" = "صفحهٔ کاربری";
+"watchlist-user-button-user-talk-page" = "نمایه بحث کاربر";
 "welcome-exploration-explore-feed-description" = "مقاله‌های پیشنهادی روزانه برگرفته از نظر اجتماع";
 "welcome-exploration-explore-feed-title" = "خوراک بازدید";
 "welcome-exploration-on-this-day-description" = "سفر به گذشته برای آگاهی از رویدادهایی که در چنین روزی رخ داده‌است";

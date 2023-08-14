@@ -116,6 +116,22 @@
 			<string>няма промяна в %1$d реда</string>
 		</dict>
 	</dict>
+	<key>notifications-center-empty-state-num-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d филтър</string>
+			<key>other</key>
+			<string>%1$d филтъра</string>
+		</dict>
+	</dict>
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -210,6 +226,24 @@
 			<string>Премахнат е %1$d байт</string>
 			<key>other</key>
 			<string>Премахнати са %1$d байта</string>
+		</dict>
+	</dict>
+	<key>relative-date-days-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Вчера</string>
+			<key>other</key>
+			<string>преди %1$d дни</string>
+			<key>zero</key>
+			<string>Днес</string>
 		</dict>
 	</dict>
 	<key>relative-date-hours-ago-abbreviated</key>

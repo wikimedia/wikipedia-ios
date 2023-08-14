@@ -36,7 +36,9 @@
 "cancel" = "Пӯшидан";
 "description-add-title" = "Тавзеҳот илова намудан";
 "description-published-button-title" = "Карда шуд";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Аз:";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Ба:";
 "diff-context-lines-collapsed-button-title" = "Нишон додан";
 "diff-context-lines-expanded-button-title" = "Пинҳон";

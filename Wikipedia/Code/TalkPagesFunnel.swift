@@ -11,6 +11,7 @@ final class TalkPagesFunnel {
         case refresh
         case langChange = "lang_change"
         case submit
+        case contributions = "overflow_contributions"
     }
     
     private enum Source: String, Codable {
@@ -81,5 +82,9 @@ final class TalkPagesFunnel {
     
     public func logTappedPublishNewTopicOrInlineReply(routingSource: RoutingUserInfoSourceValue, project: WikimediaProject, talkPageType: TalkPageType, lastViewDidAppearDate: Date) {
         logEvent(action: .submit, routingSource: routingSource, project: project, talkPageType: talkPageType, lastViewDidAppearDate: lastViewDidAppearDate)
+    }
+
+    public func logTappedContributions(routingSource: RoutingUserInfoSourceValue, project: WikimediaProject, talkPageType: TalkPageType, lastViewDidAppearDate: Date) {
+        logEvent(action: .contributions, routingSource: routingSource, project: project, talkPageType: talkPageType, lastViewDidAppearDate: lastViewDidAppearDate)
     }
 }

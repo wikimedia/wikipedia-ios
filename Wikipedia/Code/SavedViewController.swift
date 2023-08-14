@@ -57,6 +57,7 @@ class SavedViewController: ViewController {
             }
             title = CommonStrings.savedTabTitle
             savedArticlesViewController = SavedArticlesCollectionViewController(with: newValue)
+            savedArticlesViewController?.delegate = self
         }
     }
     
@@ -249,6 +250,7 @@ class SavedViewController: ViewController {
         if let dataStore = dataStore,
             savedArticlesViewController == nil {
             savedArticlesViewController = SavedArticlesCollectionViewController(with: dataStore)
+            savedArticlesViewController?.delegate = self
             savedArticlesViewController?.apply(theme: theme)
         }
     }
@@ -393,4 +395,15 @@ extension SavedViewController: UISearchBarDelegate {
     }
 }
 
-
+extension SavedViewController: ReadingListEntryCollectionViewControllerDelegate {
+    func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView) {
+    }
+    
+    func readingListEntryCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController) {
+    }
+    
+    func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController) {
+        navigate(to: articleURL)
+    }
+    
+}

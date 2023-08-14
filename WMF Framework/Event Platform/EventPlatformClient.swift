@@ -132,6 +132,7 @@ import CocoaLumberjackSwift
         case login = "ios.login_action"
         case navigation = "ios.navigation_events"
         case editAttempt = "eventlogging_EditAttemptStep"
+        case watchlist = "ios.watchlists"
     }
     
     /**
@@ -146,15 +147,16 @@ import CocoaLumberjackSwift
     public enum Schema: String, Codable {
         case editHistoryCompare = "/analytics/mobile_apps/ios_edit_history_compare/2.1.0"
         case remoteNotificationsInteraction = "/analytics/mobile_apps/ios_notification_interaction/2.1.0"
-        case talkPages = "/analytics/mobile_apps/ios_talk_page_interaction/1.0.0"
+        case talkPages = "/analytics/mobile_apps/ios_talk_page_interaction/2.0.0"
         case readingLists = "/analytics/mobile_apps/ios_reading_lists/2.1.0"
         case userHistory = "/analytics/mobile_apps/ios_user_history/1.0.0"
-        case search = "/analytics/mobile_apps/ios_search/2.0.0"
+        case search = "/analytics/mobile_apps/ios_search/2.1.0"
         case sessions = "/analytics/mobile_apps/app_session/1.0.0"
         case settings = "/analytics/mobile_apps/ios_setting_action/1.0.0"
-        case login = "/analytics/mobile_apps/ios_login_action/1.0.1"
+        case login = "/analytics/mobile_apps/ios_login_action/1.0.2"
         case navigation = "/analytics/mobile_apps/ios_navigation_events/1.0.0"
         case editAttempt = "/analytics/legacy/editattemptstep/1.4.0"
+        case watchlist = "/analytics/mobile_apps/ios_watchlists/3.0.0"
     }
 
     /**
@@ -393,22 +395,65 @@ import CocoaLumberjackSwift
         }
     }
     
+    /// Codable struct of additional metadata, embedded in the structure of EventBody and MinimalEventBody.
+    struct Meta: Codable {
+        let stream: Stream
+
+        /**
+         * meta.id is *optional* and should only be done in case the client is
+         * known to send duplicates of events, otherwise we don't need to
+         * make the payload any heavier than it already is
+         */
+        let id: UUID
+        let domain: String?
+    }
+    
+    /// MinimalEventBody is used to encode event data into the POST body of a request to the Modern Event Platform. It is the same as EventBody, minus some apps-specfic requirements like appInstallID, appSessionID, isAnon and primaryLanguage. It is used for posting to general cross-platform schemas like EditAttemptStep.
+    struct MinimalEventBody<E>: Encodable where E: EventInterface {
+        /// EventGate needs to know which version of the schema to validate against
+        var meta: Meta
+
+        /**
+         * The top-level field `dt` is for recording the time the event
+         * was generated. EventGate sets `meta.dt` during ingestion, so for
+         * analytics events that field is used as "timestamp of reception" and
+         * is used for partitioning the events in the database. See Phab:T240460
+         * for more information.
+         */
+        let dt: Date
+        
+        /**
+         * Event represents the client-provided event data.
+         * The event is encoded at the top level of the resulting structure.
+         * If any of the `CodingKeys` conflict with keys defined by `EventBody`,
+         * the values from `event` will be used.
+         */
+        let event: E
+
+        enum CodingKeys: String, CodingKey {
+            case schema = "$schema"
+            case meta
+            case dt
+            case event
+        }
+        
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            do {
+                try container.encode(meta, forKey: .meta)
+                try container.encode(dt, forKey: .dt)
+                try container.encode(E.schema, forKey: .schema)
+                try event.encode(to: encoder)
+            } catch let error {
+                DDLogError("EPC: Error encoding event body: \(error)")
+            }
+        }
+    }
+    
     /// EventBody is used to encode event data into the POST body of a request to the Modern Event Platform
     struct EventBody<E>: Encodable where E: EventInterface {
         /// EventGate needs to know which version of the schema to validate against
         var meta: Meta
-
-        struct Meta: Codable {
-            let stream: Stream
-
-            /**
-             * meta.id is *optional* and should only be done in case the client is
-             * known to send duplicates of events, otherwise we don't need to
-             * make the payload any heavier than it already is
-             */
-            let id: UUID
-            let domain: String?
-        }
 
         let appInstallID: String
 
@@ -532,16 +577,16 @@ import CocoaLumberjackSwift
      *   1st preferred language – in which case use
      *   `MWKLanguageLinkController.sharedInstance().appLanguage.siteURL().host`
      */
-    public func submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil, completion: (() -> Void)? = nil) {
+    public func submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil, needsMinimal: Bool = false, completion: (() -> Void)? = nil) {
         let date = Date() // Record the date synchronously so there's no delay
         encodeQueue.async {
-            self._submit(stream: stream, event: event, date: date, domain: domain)
+            self._submit(stream: stream, event: event, date: date, domain: domain, needsMinimal: needsMinimal)
             completion?()
         }
     }
 
     /// Private, synchronous version of `submit`.
-    private func _submit<E: EventInterface>(stream: Stream, event: E, date: Date, domain: String? = nil) {
+    private func _submit<E: EventInterface>(stream: Stream, event: E, date: Date, domain: String? = nil, needsMinimal: Bool = false) {
         guard let storageManager = self.storageManager else {
             return
         }
@@ -556,10 +601,9 @@ import CocoaLumberjackSwift
             DDLogWarn("EPC: App install ID is unset. This shouldn't happen.")
             return
         }
-
-        let meta = EventBody<E>.Meta(stream: stream, id: UUID(), domain: domain)
-
-        let eventPayload = EventBody(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, dt: date, event: event, isAnon: isAnon, primaryLanguage: primaryLanguage)
+        
+        let meta = Meta(stream: stream, id: UUID(), domain: domain)
+        let eventPayload: Encodable = needsMinimal ? MinimalEventBody<E>(meta: meta, dt: date, event: event) : EventBody<E>(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, dt: date, event: event, isAnon: isAnon, primaryLanguage: primaryLanguage)
         do {
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .iso8601

@@ -37,7 +37,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(articleDeleted(_:)), name: NSNotification.Name.WMFArticleDeleted, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(viewContextDidReset(_:)), name: NSNotification.Name.WMFViewContextDidReset, object: nil)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
 #if UI_TEST
         if UserDefaults.standard.wmf_isFastlaneSnapshotInProgress() {
             collectionView.decelerationRate = .fast
@@ -99,6 +99,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         dataStore.feedContentController.dismissCollapsedContentGroups()
         stopMonitoringReachability()
         isGranularUpdatingEnabled = false
+    }
+    
+    @objc private func databaseHousekeeperDidComplete() {
+        DispatchQueue.main.async {
+            self.refresh()
+        }
     }
 
     @objc func updateNotificationsCenterButton() {
@@ -1073,13 +1079,6 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         save()
     }
     
-}
-
-// MARK: - MEPEventsSEarchProviding
-extension ExploreViewController: MEPEventsSearchProviding {
-    var searchSource: String {
-        return "top_of_feed"
-    }
 }
 
 // MARK: - Notifications Center

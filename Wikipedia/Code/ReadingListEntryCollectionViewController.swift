@@ -4,6 +4,7 @@ import CocoaLumberjackSwift
 protocol ReadingListEntryCollectionViewControllerDelegate: NSObjectProtocol {
     func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView)
     func readingListEntryCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController)
+    func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController)
 }
 
 class ReadingListEntryCollectionViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection, SearchableCollection, ActionDelegate, MEPEventsProviding {
@@ -452,7 +453,7 @@ extension ReadingListEntryCollectionViewController {
         guard let articleURL = articleURL(at: indexPath) else {
             return
         }
-        navigate(to: articleURL)
+        delegate?.readingListEntryCollectionViewControllerDidSelectArticleURL(articleURL, viewController: self)
         ReadingListsFunnel.shared.logReadStartReadingList(articleURL)
     }
     

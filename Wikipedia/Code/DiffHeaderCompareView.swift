@@ -1,105 +1,277 @@
 import UIKit
+import Components
 
-class DiffHeaderCompareView: UIView {
+class DiffHeaderCompareView: SetupView {
 
-    @IBOutlet var contentView: UIView!
-    @IBOutlet var stackViewContainerView: UIView!
-    @IBOutlet var fromItemView: DiffHeaderCompareItemView!
-    @IBOutlet var toItemView: DiffHeaderCompareItemView!
-    @IBOutlet var divView: UIView!
-    @IBOutlet var innerHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var stackView: UIStackView!
-    private var maxHeight: CGFloat = 0
-    private var minHeight: CGFloat = 0
-    
-    private var beginSquishYOffset: CGFloat = 0
-    private var scrollYOffset: CGFloat = 0
-    
-    var delegate: DiffHeaderActionDelegate? {
-        get {
-            return fromItemView.delegate
-        }
-        set {
-            fromItemView.delegate = newValue
-            toItemView.delegate = newValue
-        }
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        maxHeight = stackView.frame.height
-        minHeight = max(fromItemView.minHeight, toItemView.minHeight)
+    // MARK: - UI Elements
 
-        configureHeight(beginSquishYOffset: beginSquishYOffset, scrollYOffset: scrollYOffset)
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = traitCollection.horizontalSizeClass == .compact ? .vertical : .horizontal
+        stackView.spacing = 16
+        return stackView
+    }()
+
+    lazy var fromStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 6
+        return stackView
+    }()
+
+    lazy var toStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 6
+        return stackView
+    }()
+
+    lazy var fromHeadingLabel = {
+        let label = UILabel()
+        label.text = CommonStrings.diffFromHeading.localizedUppercase
+        return label
+    }()
+
+    lazy var toHeadingLabel = {
+        let label = UILabel()
+        label.text = CommonStrings.diffToHeading.localizedLowercase
+        return label
+    }()
+
+    lazy var fromTimestampLabel = {
+        let label = UILabel()
+        return label
+    }()
+
+    lazy var toTimestampLabel = {
+        let label = UILabel()
+        return label
+    }()
+
+    lazy var fromDescriptionLabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        return label
+    }()
+
+    lazy var toDescriptionLabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        return label
+    }()
+
+    lazy var userButtonMenuItems: [WKMenuButton.MenuItem] = {
+        [
+            WKMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonContributions, image: UIImage(named: "user-contributions")),
+            WKMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right")),
+            WKMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonPage, image: UIImage(systemName: "person"))
+        ]
+    }()
+
+    lazy var fromMenuButton = {
+        let button = WKMenuButton(configuration: WKMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.link, menuItems: userButtonMenuItems))
+        button.delegate = self
+        return button
+    }()
+
+    lazy var toMenuButton = {
+        let button = WKMenuButton(configuration: WKMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.diffCompareAccent, menuItems: userButtonMenuItems))
+        button.delegate = self
+        return button
+    }()
+
+    lazy var fromMenuButtonStack = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        return stackView
+    }()
+
+    lazy var toMenuButtonStack = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        return stackView
+    }()
+
+    weak var delegate: DiffHeaderActionDelegate?
+    private var viewModel: DiffHeaderCompareViewModel?
+
+    override func setup() {
+        addSubview(stackView)
+        stackView.addArrangedSubview(fromStackView)
+        stackView.addArrangedSubview(toStackView)
+
+        fromStackView.addArrangedSubview(fromHeadingLabel)
+        fromStackView.addArrangedSubview(fromTimestampLabel)
+        fromStackView.addArrangedSubview(fromDescriptionLabel)
+        fromStackView.addArrangedSubview(fromMenuButtonStack)
+        fromMenuButtonStack.addArrangedSubview(fromMenuButton)
+        fromMenuButtonStack.addArrangedSubview(FillingHorizontalSpacerView.spacerWith(minimumSpace: 10))
+
+        toStackView.addArrangedSubview(toHeadingLabel)
+        toStackView.addArrangedSubview(toTimestampLabel)
+        toStackView.addArrangedSubview(toDescriptionLabel)
+        toStackView.addArrangedSubview(toMenuButtonStack)
+        toMenuButtonStack.addArrangedSubview(toMenuButton)
+        toMenuButtonStack.addArrangedSubview(FillingHorizontalSpacerView.spacerWith(minimumSpace: 10))
+
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            stackView.leadingAnchor.constraint(equalTo:  layoutMarginsGuide.leadingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -10)
+        ])
     }
-    
-    private func commonInit() {
-        Bundle.main.loadNibNamed(DiffHeaderCompareView.wmf_nibName(), owner: self, options: nil)
-            addSubview(contentView)
-            contentView.frame = self.bounds
-            contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        accessibilityElements = [fromItemView, toItemView].compactMap { $0 as Any }
-    }
-    
-    func configureHeight(beginSquishYOffset: CGFloat, scrollYOffset: CGFloat) {
-        
-        self.beginSquishYOffset = beginSquishYOffset
-        self.scrollYOffset = scrollYOffset
-        
-        let amountToSquish = scrollYOffset - beginSquishYOffset
-        let heightDelta = maxHeight - minHeight
-        
-        let changePercentage = min(1, max(0,(amountToSquish / heightDelta)))
-        
-        innerHeightConstraint.constant = maxHeight - (heightDelta * changePercentage)
-        fromItemView.squish(by: changePercentage)
-        toItemView.squish(by: changePercentage)
-    }
-    
-    func update(_ viewModel: DiffHeaderCompareViewModel) {
-        
-        fromItemView.update(viewModel.fromModel)
-        toItemView.update(viewModel.toModel)
-    }
-    
+
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        let fromConvertedPoint = self.convert(point, to: fromItemView)
-        if fromItemView.point(inside: fromConvertedPoint, with: event) {
+        let fromConvertedPoint = self.convert(point, to: fromMenuButton)
+        if fromMenuButton.point(inside: fromConvertedPoint, with: event) {
             return true
         }
-        
-        let toConvertedPoint = self.convert(point, to: toItemView)
-        if toItemView.point(inside: toConvertedPoint, with: event) {
+
+        let toConvertedPoint = self.convert(point, to: toMenuButton)
+        if toMenuButton.point(inside: toConvertedPoint, with: event) {
             return true
         }
-        
+
         return false
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if traitCollection.horizontalSizeClass == .compact {
+            stackView.axis = .vertical
+        } else {
+            stackView.axis = .horizontal
+        }
+        stackView.setNeedsLayout()
+        stackView.layoutIfNeeded()
+
+        updateFonts(with: traitCollection)
+    }
+
+    func update(_ viewModel: DiffHeaderCompareViewModel) {
+        self.viewModel = viewModel
+        fromHeadingLabel.text = viewModel.fromModel.heading.localizedUppercase
+        fromTimestampLabel.text = viewModel.fromModel.timestampString
+
+        fromMenuButton.updateTitle(viewModel.fromModel.username)
+
+        if viewModel.fromModel.isMinor {
+            fromDescriptionLabel.attributedText = minorEditAttributedAttachment(summary: viewModel.fromModel.summary)
+        } else {
+            fromDescriptionLabel.text = viewModel.fromModel.summary
+        }
+
+        toHeadingLabel.text = viewModel.toModel.heading.localizedUppercase
+        toTimestampLabel.text = viewModel.toModel.timestampString
+
+        toMenuButton.updateTitle(viewModel.toModel.username)
+
+        if viewModel.toModel.isMinor {
+            toDescriptionLabel.attributedText = minorEditAttributedAttachment(summary: viewModel.toModel.summary)
+        } else {
+            toDescriptionLabel.text = viewModel.toModel.summary
+        }
+
+        updateFonts(with: traitCollection)
+        updateAccessibilityLabels(viewModel: viewModel)
+    }
+
+    fileprivate func minorEditAttributedAttachment(summary: String?) -> NSAttributedString {
+        let minorImage = UIImage(named: "minor-edit")
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = minorImage
+        let attributedText = NSMutableAttributedString(attachment: imageAttachment)
+        attributedText.addAttributes([NSAttributedString.Key.baselineOffset: -1], range: NSRange(location: 0, length: 1))
+
+        if let summary = summary {
+            attributedText.append(NSAttributedString(string: "  \(summary)"))
+            return attributedText
+        } else {
+            return attributedText
+        }
+    }
+
+    fileprivate func updateFonts(with traitCollection: UITraitCollection) {
+        toHeadingLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        fromHeadingLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        toTimestampLabel.font = UIFont.wmf_font(DynamicTextStyle.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
+        fromTimestampLabel.font = UIFont.wmf_font(DynamicTextStyle.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
+        toDescriptionLabel.font = UIFont.wmf_font(DynamicTextStyle.subheadline, compatibleWithTraitCollection: traitCollection)
+        fromDescriptionLabel.font = UIFont.wmf_font(DynamicTextStyle.subheadline, compatibleWithTraitCollection: traitCollection)
+    }
+
+    // MARK: Accessibility labels
+
+     func updateAccessibilityLabels(viewModel: DiffHeaderCompareViewModel) {
+         let revisionAccessibilityText = WMFLocalizedString("diff-header-revision-accessibility-text", value: "Revision made at", comment: "Accessibility text to provide more context to users of assistive tecnologies about the revision date")
+         let userMenuButtonAccesibilityText = WMFLocalizedString("diff-user-button-accessibility-text", value: "Double tap to open menu", comment: "Accessibility text to provide more context to users of assistive tecnologies about the user button actions")
+
+         // from stack view
+         let fromIsMinorAccessibilityString = viewModel.fromModel.isMinor ? CommonStrings.minorEditTitle : ""
+         let fromAuthorString = String.localizedStringWithFormat(CommonStrings.authorTitle, viewModel.fromModel.username ?? CommonStrings.unknownTitle)
+         fromStackView.isAccessibilityElement = true
+         fromStackView.accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [fromHeadingLabel.text, revisionAccessibilityText,fromTimestampLabel.text, fromAuthorString, fromIsMinorAccessibilityString, viewModel.fromModel.summary, userMenuButtonAccesibilityText])
+
+         // to stack view
+         let toIsMinorAccessibilityString = viewModel.toModel.isMinor ? CommonStrings.minorEditTitle : ""
+         let toAuthorString = String.localizedStringWithFormat(CommonStrings.authorTitle, viewModel.toModel.username ?? CommonStrings.unknownTitle)
+         toStackView.isAccessibilityElement = true
+         toStackView.accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [toHeadingLabel.text, revisionAccessibilityText, toTimestampLabel.text, toAuthorString, toIsMinorAccessibilityString, viewModel.toModel.summary, userMenuButtonAccesibilityText])
+     }
+
 }
 
 extension DiffHeaderCompareView: Themeable {
+
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
-        contentView.backgroundColor = theme.colors.paperBackground
-        stackViewContainerView.backgroundColor = theme.colors.paperBackground
-        stackView.backgroundColor = theme.colors.paperBackground
-        divView.backgroundColor = theme.colors.chromeShadow
-        fromItemView.apply(theme: theme)
-        toItemView.apply(theme: theme)
+
+        fromHeadingLabel.textColor = theme.colors.secondaryText
+        fromTimestampLabel.textColor = theme.colors.link
+        fromDescriptionLabel.textColor = theme.colors.primaryText
+
+        toHeadingLabel.textColor = theme.colors.secondaryText
+        toTimestampLabel.textColor = theme.colors.warning
+        toDescriptionLabel.textColor = theme.colors.primaryText
+    }
+}
+
+extension DiffHeaderCompareView: WKMenuButtonDelegate {
+
+    func wkMenuButton(_ sender: Components.WKMenuButton, didTapMenuItem item: Components.WKMenuButton.MenuItem) {
+        
+        guard let viewModel else {
+            return
+        }
+        
+        let username: String? = sender == toMenuButton ? viewModel.toModel.username : viewModel.fromModel.username
+        
+        guard let username else {
+            return
+        }
+
+        if item == userButtonMenuItems[0] {
+            WatchlistFunnel.shared.logDiffTapUserContributions(project: viewModel.project)
+            delegate?.tappedUsername(username: username, destination: .userContributions)
+        } else if item == userButtonMenuItems[1] {
+            WatchlistFunnel.shared.logDiffTapUserTalk(project: viewModel.project)
+            delegate?.tappedUsername(username: username, destination: .userTalkPage)
+        } else if item == userButtonMenuItems[2] {
+            WatchlistFunnel.shared.logDiffTapUserPage(project: viewModel.project)
+            delegate?.tappedUsername(username: username, destination: .userPage)
+        }
+    }
+    
+    func wkMenuButtonDidTap(_ sender: WKMenuButton) {
+        if sender == fromMenuButton {
+            WatchlistFunnel.shared.logDiffTapCompareFromEditorName(project: viewModel?.project)
+        } else if sender == toMenuButton {
+            WatchlistFunnel.shared.logDiffTapCompareToEditorName(project: viewModel?.project)
+        }
     }
 }

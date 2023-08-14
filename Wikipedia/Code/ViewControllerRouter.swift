@@ -59,10 +59,10 @@ class ViewControllerRouter: NSObject {
             if viewController is AVPlayerViewController {
                 navigationController.present(viewController, animated: true, completion: completion)
             } else if let createReadingListVC = viewController as? CreateReadingListViewController,
-                       createReadingListVC.isInImportingMode {
+                      createReadingListVC.isInImportingMode {
 
-                 let createReadingListNavVC = WMFThemeableNavigationController(rootViewController: createReadingListVC, theme: self.appViewController.theme)
-                 navigationController.present(createReadingListNavVC, animated: true, completion: completion)
+                let createReadingListNavVC = WMFThemeableNavigationController(rootViewController: createReadingListVC, theme: self.appViewController.theme)
+                navigationController.present(createReadingListNavVC, animated: true, completion: completion)
             } else {
                 navigationController.pushViewController(viewController, animated: true)
                 completion()
@@ -106,23 +106,15 @@ class ViewControllerRouter: NSObject {
             completion()
             return true
         case .articleHistory(let linkURL, let articleTitle):
-            let pageHistoryVC = PageHistoryViewController(pageTitle: articleTitle, pageURL: linkURL)
+            let pageHistoryVC = PageHistoryViewController(pageTitle: articleTitle, pageURL: linkURL, articleSummaryController: appViewController.dataStore.articleSummaryController)
             return presentOrPush(pageHistoryVC, with: completion)
-        case .articleDiffCompare(let linkURL, let fromRevID, let toRevID):
+        case .articleDiff(let linkURL, let fromRevID, let toRevID):
             guard let siteURL = linkURL.wmf_site,
-              (fromRevID != nil || toRevID != nil) else {
+                  (fromRevID != nil || toRevID != nil) else {
                 completion()
                 return false
             }
-            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .compare, articleTitle: nil)
-            return presentOrPush(diffContainerVC, with: completion)
-        case .articleDiffSingle(let linkURL, let fromRevID, let toRevID):
-            guard let siteURL = linkURL.wmf_site,
-                (fromRevID != nil || toRevID != nil) else {
-                completion()
-                return false
-            }
-            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, type: .single, articleTitle: nil)
+            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil, articleSummaryController: appViewController.dataStore.articleSummaryController)
             return presentOrPush(diffContainerVC, with: completion)
         case .inAppLink(let linkURL):
             let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)
@@ -147,27 +139,20 @@ class ViewControllerRouter: NSObject {
             let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
             return presentOrPush(newTalkPage, with: completion)
         case .userTalk(let linkURL):
-            if FeatureFlags.needsNewTalkPage {
-                
-                let source = source(from: userInfo)
-                guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
-                    completion()
-                    return false
-                }
-                
-                if let deepLinkData = talkPageDeepLinkData(linkURL: linkURL, userInfo: userInfo) {
-                    viewModel.deepLinkData = deepLinkData
-                }
-                
-                let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
-                return presentOrPush(newTalkPage, with: completion)
-            } else {
-                guard let talkPageVC = TalkPageContainerViewController.userTalkPageContainer(url: linkURL, dataStore: appViewController.dataStore, theme: theme) else {
-                    completion()
-                    return false
-                }
-                return presentOrPush(talkPageVC, with: completion)
+
+
+            let source = source(from: userInfo)
+            guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
+                completion()
+                return false
             }
+
+            if let deepLinkData = talkPageDeepLinkData(linkURL: linkURL, userInfo: userInfo) {
+                viewModel.deepLinkData = deepLinkData
+            }
+
+            let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
+            return presentOrPush(newTalkPage, with: completion)
 
         case .onThisDay(let indexOfSelectedEvent):
             let dataStore = appViewController.dataStore
@@ -206,7 +191,7 @@ class ViewControllerRouter: NSObject {
         }
         
         let replyText = userInfo?[RoutingUserInfoKeys.talkPageReplyText] as? String
-            
+
         let deepLinkData = TalkPageViewModel.DeepLinkData(topicTitle: topicTitle, replyText: replyText)
         return deepLinkData
     }

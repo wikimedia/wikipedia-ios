@@ -1,88 +1,99 @@
 {
     "zh": {
         "default": {
-            "default": "zh-hans",
-            "hk": "zh-hk",
-            "mo": "zh-mo",
-            "my": "zh-my",
-            "sg": "zh-sg",
-            "tw": "zh-tw"
+            "default": "zh-Hans",
+            "hk": "zh-Hant-HK",
+            "mo": "zh-Hant-MO",
+            "my": "zh-Hans-MY",
+            "sg": "zh-Hans-SG",
+            "tw": "zh-Hant-TW"
         },
         "hans": {
-            "default": "zh-hans",
-            "hk": "zh-hk",
-            "mo": "zh-mo",
-            "my": "zh-my",
-            "sg": "zh-sg",
-            "tw": "zh-tw"
+            "default": "zh-Hans",
+            "hk": "zh-Hant-HK",
+            "mo": "zh-Hant-MO",
+            "my": "zh-Hans-MY",
+            "sg": "zh-Hans-SG",
+            "tw": "zh-Hant-TW"
         },
         "hant": {
-            "default": "zh-hk",
-            "hk": "zh-hk",
-            "mo": "zh-mo",
-            "my": "zh-my",
-            "sg": "zh-sg",
-            "tw": "zh-tw"
+            "default": "zh-Hant-HK",
+            "hk": "zh-Hant-HK",
+            "mo": "zh-Hant-MO",
+            "my": "zh-Hans-MY",
+            "sg": "zh-Hans-SG",
+            "tw": "zh-Hant-TW"
         }
     },
     "sr": {
         "default": {
-            "default": "sr-ec"
+            "default": "sr-Cyrl"
         },
         "cyrl": {
-            "default": "sr-ec"
+            "default": "sr-Cyrl"
         },
         "latn": {
-            "default": "sr-el"
+            "default": "sr-Latn"
         }
     },
     "crh": {
         "default": {
-            "default": "crh-latn"
+            "default": "crh-Latn"
         }
     },
     "gan": {
         "default": {
-            "default": "gan-hans"
+            "default": "gan-Hans"
         }
     },
     "ku": {
         "default": {
-            "default": "ku-latn",
+            "default": "ku-Latn",
         }
     },
     "kk": {
         "default": {
-            "default": "kk-cyrl"
+            "default": "kk-Cyrl"
         }
     },
     "tg": {
         "default": {
-            "default": "tg-cyrl",
+            "default": "tg-Cyrl",
         }
     },
     "iu": {
         "default": {
-            "default": "ike-cans",
+            "default": "ike-Cans",
         }
     },
     "uz": {
         "cyrl": {
-            "default": "uz-cyrl",
+            "default": "uz-Cyrl",
         },
         "default": {
-            "default": "uz-latin",
+            "default": "uz-Latn",
         },
         "arab": {
-            "default": "uz-latin",
+            "default": "uz-Latn",
         },
         "latn": {
-            "default": "uz-latin",
+            "default": "uz-Latn",
         }
     },
     "nb": {
         "default": {
             "default": "no",
+        }
+    },
+    "shi": {
+        "default": {
+            "default": "shi-Latn",
+        },
+        "tfng" : {
+            "default": "shi-Tfng",
+        },
+        "latn": {
+            "default": "shi-Latn",
         }
     }
 }

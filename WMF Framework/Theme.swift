@@ -773,16 +773,7 @@ public class Colors: NSObject {
     }
 
     public var diffCompareChangeHeading: UIColor {
-        switch identifier {
-        case .light:
-            return .white
-        case .sepia:
-            return .beige100
-        case .black, .dark:
-            return .black
-        default:
-             return .clear
-        }
+        return secondaryText
     }
 
     public var talkPageCoffeRollBackground: UIColor {

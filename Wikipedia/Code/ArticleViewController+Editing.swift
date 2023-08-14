@@ -203,7 +203,7 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
         case .success(let changes):
             dismiss(animated: true)
             waitForNewContentAndRefresh(changes.newRevisionID)
-            EditAttemptFunnel.shared.logSaveSuccess(articleURL: self.articleURL)
+            EditAttemptFunnel.shared.logSaveSuccess(articleURL: self.articleURL, revisionId: Int(changes.newRevisionID))
         }
     }
     
@@ -233,7 +233,7 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
             guard let self = self else {
                 return
             }
-            
+
             switch injectResult {
             case .failure(let error):
                 DDLogError("Failure injecting new description into article content, refreshing instead: \(error)")

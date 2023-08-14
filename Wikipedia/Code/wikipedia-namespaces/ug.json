@@ -1,5 +1,5 @@
 {
-  "mainpage" : "ئۇيغۇرچە ۋىكىپىدىيە",
+  "mainpage" : "باش بەت",
   "namespace" : {
     "" : 0,
     "CATEGORY" : 14,
@@ -26,11 +26,14 @@
     "TALK" : 1,
     "TEMPLATE" : 10,
     "TEMPLATE TALK" : 11,
+    "TIMEDTEXT" : 710,
+    "TIMEDTEXT TALK" : 711,
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
     "WIKIPEDIAمۇنازىرىسى" : 5,
+    "WP" : 4,
     "ئالاھىدە" : -1,
     "ئىشلەتكۈچى" : 2,
     "ئىشلەتكۈچى مۇنازىرىسى" : 3,

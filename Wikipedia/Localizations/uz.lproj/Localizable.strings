@@ -114,7 +114,9 @@
 "description-help-tips-for-example" = "Misol uchun:";
 "description-published-button-title" = "Bajarildi";
 "description-welcome-start-editing-button" = "Tahrirlashni boshlash";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Kimdan:";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Kimga:";
 "diff-context-lines-collapsed-button-title" = "Koʻrsatish";
 "diff-context-lines-expanded-button-title" = "Yashirish";
@@ -147,7 +149,7 @@
 "explore-featured-article-sub-heading-from-wikipedia" = "Vikipediyadan";
 "explore-feed-customize-accessibility-title" = "Moslash";
 "explore-main-page-heading" = "Vikipediyada bugun";
-"explore-most-read-generic-heading" = "Koʻp oʻqilgan";
+"explore-most-read-generic-heading" = "Koʻp oʻqilayotgan";
 "explore-most-read-sub-heading-on-language-wikipedia" = "$1 Vikipediyada";
 "explore-most-read-sub-heading-on-wikipedia" = "Vikipediya";
 "explore-nearby-placeholder-heading" = "Joylar";
@@ -297,14 +299,6 @@
 "settings-clear-cache-ok" = "Keshni tozalash";
 "settings-title" = "Sozlamalar";
 "table-of-contents-heading" = "Mundarija";
-"talk-page-add-discussion-accessibility-label" = "Munozara qoʻshish";
-"talk-page-new-subject-clear-button-accessibility" = "Mavzuni tozalash";
-"talk-page-new-subject-placeholder-text" = "Mavzu";
-"talk-page-new-subject-textfield-accessibility-label" = "Mavzu";
-"talk-page-new-topic-title" = "Yangi munozara";
-"talk-page-reply-title" = "Javob berish";
-"talk-page-topic-title" = "Munozara";
-"talk-pages-reply-button-title" = "Bu munozaraga javob berish";
 "theme-black-display-name" = "Qora";
 "theme-dark-display-name" = "Toʻq qora";
 "theme-default-display-name" = "Sukut boʻyicha";

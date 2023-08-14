@@ -17,6 +17,7 @@
 // Author: LaMagiaaa
 // Author: Los688
 // Author: Macofe
+// Author: MagicAho
 // Author: MathXplore
 // Author: Nemo bis
 // Author: Omotecho
@@ -34,6 +35,7 @@
 // Author: Takot
 // Author: Tamaki Wakita
 // Author: Thibaut120094
+// Author: Tsevener
 // Author: Wat
 // Author: Wicklo
 // Author: WwLMvmT
@@ -52,7 +54,7 @@
 "aaald-article-insert-last-updated" = "最終更新";
 "aaald-article-insert-new-changes" = "新しい変更";
 "aaald-article-insert-read-more" = "更新の詳細を読む";
-"aaald-characters-text-description" = "$1文字";
+"aaald-characters-text-description" = "{{PLURAL:$1|文字}}";
 "aaald-deleted-text-description-2" = "$1は削除されました";
 "aaald-error-subitle" = "リフレッシュして再試行";
 "aaald-many-sections-description" = "節 \"$1\"";
@@ -69,12 +71,12 @@
 "aaald-new-website-reference-archive-date-text" = "$1 にあるオリジナルから";
 "aaald-new-website-reference-archive-url-text" = "Archive.orgのURL";
 "aaald-new-website-reference-title" = "ウェブサイト";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|$1つの参考文献}}を追加しました";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|$1 件の参考文献}}を追加しました";
 "aaald-revision-by-anonymous" = "匿名利用者による編集";
 "aaald-revision-userInfo" = "$1（$2編集数）による編集";
 "aaald-single-reference-added-description" = "参考文献を追加しました";
 "aaald-small-change-description" = "{{PLURAL:$1|0=小さな変更をしていません|$1個の小さな変更をしました}}";
-"aaald-summary-title" = "$3日間で$2による$1の変更";
+"aaald-summary-title" = "{{PLURAL:$3|$3日間}}で {{PLURAL:$2|$2 人の編集者}}による {{PLURAL:$1|$1 件の変更}}";
 "aaald-view-full-history-button" = "すべての記事履歴を表示";
 "about-content-license" = "コンテンツのライセンス";
 "about-content-license-details" = "特記がない場合、コンテンツは$1で利用可能です。";
@@ -145,7 +147,7 @@
 "action-unsave" = "リストから削除";
 "action-unsaved-accessibility-notification" = "記事をリストから削除しました";
 "action-update" = "更新";
-"add-articles-to-reading-list" = "$1記事をあとで読むリストに追加";
+"add-articles-to-reading-list" = "{{PLURAL:$1|$1 件の記事}}をあとで読むリストに追加";
 "add-citation-title" = "引用を追加";
 "additional-information-email-title" = "追加情報";
 "announcements-dismiss" = "断る";
@@ -235,6 +237,7 @@
 "description-welcome-descriptions-title" = "記事の説明";
 "description-welcome-promise-title" = "この機能を誤用しないように約束します";
 "description-welcome-start-editing-button" = "編集を開始";
+"diff-article-edit-history" = "記事の編集履歴";
 "diff-compare-header-from-info-heading" = "差出人:";
 "diff-compare-header-heading" = "版を比較";
 "diff-compare-header-to-info-heading" = "宛先:";
@@ -249,14 +252,17 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1節}}";
 "diff-paragraph-moved-format" = "段落が$1に$2移動";
 "diff-revision-error-title" = "版を読み込めませんでした。";
-"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1編集}}";
+"diff-rollback" = "巻き戻し";
+"diff-rollback-alert-message" = "本当に編集を巻き戻しますか？";
+"diff-rollback-alert-title" = "編集を巻き戻し";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 件の編集}}";
 "diff-single-header-editor-title" = "編集者の情報";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1バイト追加}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1バイト除去}}";
 "diff-single-header-summary-heading" = "編集の要約";
 "diff-single-intro-title" = "イントロ";
 "diff-single-line-format" = "$1行目:";
-"diff-thanks-anonymous-no-thanks" = "匿名利用者に感謝することはできません";
+"diff-thanks-anonymous-no-thanks" = "匿名利用者には感謝できません";
 "diff-thanks-login-subtitle" = "'感謝' はウィキペディアを編集する編集者へ感謝を示す簡単な方法です。'感謝' を送信するにはログインする必要があります。";
 "diff-thanks-login-title" = "ログインして感謝を送信";
 "diff-thanks-send-button-title" = "感謝を示す";
@@ -265,7 +271,8 @@
 "diff-thanks-sent" = "あなたの感謝は $1 に送られました。";
 "diff-thanks-sent-already" = "すでにこの編集に対して '感謝' を送信しています";
 "diff-thanks-sent-cannot-unsend" = "感謝は取り消すことはできません";
-"diff-unedited-lines-format" = "{{PLURAL:$1|$1行が未編集|$1行が未編集}}";
+"diff-undo-message" = "これにより、ここに示されている記事のリビジョンによって加えられた変更が元に戻されます。続行するには、この編集を元に戻す理由を入力してください。";
+"diff-unedited-lines-format" = "{{PLURAL:$1|$1行が未編集}}";
 "dim-images" = "暗い画像";
 "edit-bold-accessibility-label" = "太字にする";
 "edit-bold-remove-accessibility-label" = "太字の解除";
@@ -356,7 +363,7 @@
 "empty-no-saved-pages-message" = "ページを保存することで、オフラインでも閲覧できます";
 "empty-no-saved-pages-title" = "保存したページはまだありません";
 "empty-no-search-results-message" = "申し訳ありませんが、該当するものはありません。";
-"empty-talk-page-title" = "このユーザーにはまだメッセージが投稿されていません";
+"empty-talk-page-title" = "この利用者にはまだメッセージが投稿されていません";
 "error-generic-recovery-suggestion" = "しばらくしてから再度、操作をしてください";
 "error-unknown" = "不明なエラーが発生しました";
 "explore-another-random" = "おまかせで別の記事";
@@ -446,7 +453,7 @@
 "export-user-data-confirmation-message" = "アプリ ライブラリの共有には、閲覧リストと履歴、設定、Explore フィード コンテンツに関するデータが含まれます。このデータ ファイルは、技術的な診断目的で使用するために、信頼できる受信者とのみ共有する必要があります。";
 "export-user-data-confirmation-title" = "アプリ ライブラリを共有しますか？";
 "export-user-data-generic-error" = "データのエクスポート中にエラーが発生しました。後でもう一度やり直してください。";
-"export-user-data-space-error" = "ユーザー データをエクスポートするための十分なデバイス容量がありません。後でもう一度やり直してください。";
+"export-user-data-space-error" = "利用者データをエクスポートするための十分なデバイス容量がありません。後でもう一度やり直してください。";
 "export-user-data-title" = "利用者データをエクスポート";
 "featured-widget-content-failure-for-date" = "この日の秀逸な記事は利用できません。";
 "featured-widget-description" = "コミュニティから選ばれた、ウィキペディアの秀逸な記事を探索しましょう。";
@@ -459,7 +466,7 @@
 "field-alert-captcha-invalid" = "CAPTCHAが無効です";
 "field-alert-password-confirm-mismatch" = "パスワードが一致していません";
 "field-alert-token-invalid" = "無効なコード";
-"field-alert-username-unavailable" = "ユーザー名は利用できません";
+"field-alert-username-unavailable" = "利用者名は利用できません";
 "field-backup-token-title" = "バックアップコード";
 "field-captcha-placeholder" = "CAPTCHA テキスト";
 "field-captcha-title" = "上記のテキストを入力してください";
@@ -475,8 +482,8 @@
 "field-password-placeholder" = "パスワードを入力";
 "field-password-title" = "パスワード";
 "field-token-title" = "検証コード";
-"field-username-placeholder" = "ユーザー名を入力";
-"field-username-title" = "ユーザー名";
+"field-username-placeholder" = "利用者名を入力";
+"field-username-title" = "利用者名";
 "find-clear-button-accessibility" = "検索をクリア";
 "find-infolabel-number-matches" = "$1 / $2";
 "find-next-button-accessibility" = "次の検索結果";
@@ -501,9 +508,9 @@
 "home-nearby-footer" = "付近の記事をもっと見る";
 "home-nearby-location-footer" = "$1 付近についてもっと詳しく";
 "home-news-footer" = "ニュースについてもっと読む";
-"home-reading-list-prompt" = "保存した記事は、あとで読むリストとしてまとめて、デバイス間で同期することができるようになりました。ログインして、ユーザー設定にあとで読むリストを同期してみましょう。";
+"home-reading-list-prompt" = "保存した記事は、あとで読むリストとしてまとめて、デバイス間で同期できるようになりました。ログインして、個人設定にあとで読むリストを同期してみましょう。";
 "home-themes-action-title" = "設定の管理";
-"home-themes-prompt" = "記事のツールバーやユーザー設定で、テキストのサイズやテーマなどの読書設定を調整して、より快適な読書体験を実現します。";
+"home-themes-prompt" = "記事のツールバーや設定で、テキストのサイズやテーマなどの読書設定を調整して、より快適な読書体験を実現します。";
 "home-title" = "探索";
 "home-title-accessibility-label" = "ウィキペディア、探索の文頭に移動";
 "icon-shortcut-nearby-title" = "付近についての記事";
@@ -545,10 +552,6 @@
 "insert-media-media-settings-title" = "メディア設定";
 "insert-media-title" = "メディアを挿入";
 "insert-media-uploaded-image-title" = "アップロード済み画像";
-"intermediate-edits-count" = "$1の中間リビジョンは表示されていません";
-"intermediate-edits-count-limited" = "$1以上の中間リビジョンは表示されていません";
-"intermediate-edits-editors-count" = "$2のユーザーの$1の中間リビジョンは表示されていません";
-"intermediate-edits-editors-count-limited" = "$2以上のユーザーの$1以上の中間リビジョンは表示されません";
 "languages-settings-title" = "言語";
 "languages-title" = "言語を変更";
 "languages-wikipedia" = "ウィキペディアの言語";
@@ -576,7 +579,8 @@
 "menu-cancel-accessibility-label" = "キャンセル";
 "more-languages-tooltip-description" = "300言語超えのウィキペディアを検索";
 "more-languages-tooltip-title" = "言語を追加";
-"move-articles-to-reading-list" = "{{PLURAL:$1|$1記事|$1記事}}をあとで読むリストに移動";
+"more-menu" = "もっと見る";
+"move-articles-to-reading-list" = "{{PLURAL:$1|$1 件の記事}}をあとで読むリストに移動";
 "navbar-title-mode-edit-wikitext-preview" = "プレビュー";
 "nearby-distance-label-feet" = "$1 フィート";
 "nearby-distance-label-km" = "$1 km";
@@ -641,7 +645,7 @@
 "notifications-center-project-filters-accessibility-label" = "プロジェクト フィルター";
 "notifications-center-status-all" = "すべて";
 "notifications-center-status-all-notifications" = "すべての通知";
-"notifications-center-status-in-projects-plain" = "$1プロジェクト";
+"notifications-center-status-in-projects-plain" = "{{PLURAL:$1|$1 件のプロジェクト}}";
 "notifications-center-status-in-types" = "$1タイプ";
 "notifications-center-status-read" = "既読";
 "notifications-center-status-unread" = "未読";
@@ -689,9 +693,9 @@
 "number-millions" = "$1";
 "number-thousands" = "$1千";
 "on-this-day-detail-header-date-range" = "$1 - $2から";
-"on-this-day-detail-header-title" = "{{PLURAL:$1|$1件の歴史上の出来事|$1件の歴史上の出来事}}";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 件の歴史上の出来事}}";
 "on-this-day-footer" = "この日の多くの歴史的出来事";
-"on-this-day-footer-showing-event-count" = "今日の$1件の歴史的な出来事";
+"on-this-day-footer-showing-event-count" = "今日の{{PLURAL:$1|その他の $1 件の歴史上の出来事}}";
 "on-this-day-language-does-not-support-error" = "あなたのウィキペディアのメイン言語は秀逸な記事をサポートしていません。アプリの設定メニューからウィキペディアのメイン言語を切り替えることができます。";
 "on-this-day-no-internet-error" = "利用できるデータがありません";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2版ウィキペディアより$1の記事";
@@ -708,7 +712,7 @@
 "page-history-revision-history-title" = "変更履歴";
 "page-history-revision-minor-edit-accessibility-label" = "細部の編集";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1バイト}}の追加";
-"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|バイト}}の除去";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 バイト}}の除去";
 "page-history-revision-time-accessibility-label" = "$1に変更";
 "page-history-revisions-comparison-warning" = "2つの版しか選べません";
 "page-history-stats-text" = "$2以降に{{PLURAL:$1|$1回の編集}}";
@@ -740,7 +744,7 @@
 "places-filter-no-saved-places" = "保存した場所がありません";
 "places-filter-saved-articles" = "保存済みの記事";
 "places-filter-top-articles" = "よく読まれている記事";
-"places-filter-top-articles-count" = "{{PLURAL:$1|$1件}}";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 件の記事}}";
 "places-filter-top-read-articles" = "よく読まれている記事";
 "places-location-enabled" = "位置情報を有効にしました";
 "places-no-saved-articles-have-location" = "保存した記事のいずれも位置情報を持っていません";
@@ -788,7 +792,7 @@
 "reading-list-deleted-accessibility-notification" = "あとで読むリストを削除しました";
 "reading-list-do-not-keep-button-title" = "いいえ、デバイスから記事を削除します";
 "reading-list-entry-limit-exceeded-message" = "このリスト内の記事数を$1まで減らしてから、リストの記事の同期を再開してください。";
-"reading-list-entry-limit-exceeded-title" = "1アカウントあたりに保存できる記事の上限{{PLURAL:$1|$1 件}}を超えました。";
+"reading-list-entry-limit-exceeded-title" = "アカウントに保存できる記事の上限{{PLURAL:$1|$1 件}}を超えました。";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|記事|記事}}はリストに追加できませんでした。リスト$3に対する$2記事の上限に達しました。";
 "reading-list-exists-with-same-name" = "そのあとで読むリストの名前は使用中です";
 "reading-list-generic-error" = "あとで読むリストの更新中に予期せぬエラーが発生しました";
@@ -797,16 +801,16 @@
 "reading-list-keep-sync-disabled-additional-subtitle" = "同期をオフにすると、これらの記事は紐付けられたあなたのアカウントからも削除されます。つまり、このデバイスからその記事を削除すると、将来もう一度同期をオンにしても復元はできません。";
 "reading-list-keep-sync-disabled-remove-article-button-title" = "いいえ、デバイス内からもウィキペディアのアカウントからも記事を削除します。";
 "reading-list-keep-title" = "アプリ内の保存した記事を残しますか?";
-"reading-list-limit-hit-for-unsorted-articles-button-title" = "記事を並び替え";
-"reading-list-limit-hit-for-unsorted-articles-subtitle" = "並び替えしてない記事については5000件の上限があります。既存の記事をリストに並び替えしてから、並び替えてない記事の同期を続けてください。";
-"reading-list-limit-hit-for-unsorted-articles-title" = "並び替えてない記事数の上限に達しました";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "記事を並べ替え";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "並べ替えしてない記事については5000件の上限があります。既存の記事をリストに並べ替えしてから、並べ替えてない記事の同期を続けてください。";
+"reading-list-limit-hit-for-unsorted-articles-title" = "並べ替えない記事数の上限に達しました";
 "reading-list-list-limit-exceeded-message" = "このあとで読むリストと、そこに保存された記事は同期されません。リストの数を$1まで減らしてから、このリストの同期を再開してください。";
-"reading-list-list-limit-exceeded-title" = "アカウントごとに保存できるあとで読むリストの上限の$1を超えました。";
+"reading-list-list-limit-exceeded-title" = "アカウントに保存できるあとで読むリストの上限 {{PLURAL:$1|$1 件}}を超えました。";
 "reading-list-list-limit-reached" = "1アカウントあたりに保存できるあとで読むリスト数の上限の$1件に達しました。";
 "reading-list-login-button-title" = "ログインして保存した記事を同期する";
 "reading-list-login-or-create-account-button-title" = "ログインまたはアカウント作成";
 "reading-list-login-or-create-account-title" = "ログインして保存した記事を同期する";
-"reading-list-login-subtitle" = "ログインもしくはアカウントを作成して、保存した記事とあとで読むリストをデバイス間で同期し、ユーザー設定に保存しましょう。";
+"reading-list-login-subtitle" = "ログインまたはアカウントを作成して、保存した記事とあとで読むリストをデバイス間で同期し、個人設定に保存しましょう。";
 "reading-list-login-title" = "保存した記事を同期しますか?";
 "reading-list-name-user-created-annotation" = "_[利用者が作成]";
 "reading-list-new-list-description-placeholder" = "短い説明(オプション)";
@@ -834,14 +838,14 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "デバイスの空き容量を確保してから再開してください";
 "reading-lists-articles-not-synced-limit-exceeded" = "上限に達したため同期できなかった記事があります";
 "reading-lists-conflicting-reading-list-name-updated" = "リスト「$1」の名前を「$2」に変更しました";
-"reading-lists-count" = "{{PLURAL:$1|$1あとで読むリスト|$1あとで読むリスト}}";
+"reading-lists-count" = "{{PLURAL:$1|$1 件のあとで読むリスト}}";
 "reading-lists-default-list-description" = "保存した記事の、既定のリスト";
 "reading-lists-default-list-title" = "とりあえず";
 "reading-lists-delete-reading-list-alert-message" = "この操作は取り消せません。{{PLURAL:$1|このリスト|これらのリスト}}に保存された記事だけが削除されます。";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|リスト|リスト}}を削除しますか?";
-"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1記事}}と{{PLURAL:$2|$2あとで読むリスト}}があなたのアカウントから同期されました";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 件の記事}}と {{PLURAL:$2|$2 件のあとで読むリスト}}があなたのアカウントから同期されました";
 "reading-lists-list-not-synced-limit-exceeded" = "上限に達したためリストが同期できませんでした";
-"reading-lists-sort-saved-articles" = "保存した記事を並び替え";
+"reading-lists-sort-saved-articles" = "保存した記事を並べ替え";
 "reading-lists-split-notification" = "あとで読むリストに登録できる項目数は$1件以下です。既存のリストでこの上限をオーバーしたものは分割されました。";
 "reading-lists-sync-error-no-internet-connection" = "インターネット接続が利用可能になると同期は再開されます";
 "reading-themes-controls-accessibility-black-theme-button" = "黒のテーマ";
@@ -855,7 +859,7 @@
 "reference-title" = "情報源 $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=今日|1=昨日|$1日前}}";
 "relative-date-hours-abbreviated" = "$1時間";
-"relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$11時間前|$1時間前}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1時間前}}";
 "relative-date-hours-ago-abbreviated" = "$1時間前";
 "relative-date-hrs-ago" = "{{PLURAL:$1|0=最近|$1時間前}}";
 "relative-date-min-ago" = "{{PLURAL:$1|0=たった今|$1分前}}";
@@ -873,7 +877,7 @@
 "replace-infolabel-method-replace" = "置換";
 "replace-infolabel-method-replace-all" = "すべて置換";
 "replace-method-button-accessibility" = "置換方法。現在$1に設定されています。選択して変更。";
-"replace-replace-all-results-count" = "$1件置換しました";
+"replace-replace-all-results-count" = "{{PLURAL:$1|$1 件置換しました}}";
 "replace-textfield-accessibility" = "置換";
 "replace-textfield-placeholder" = "置換後の文字列";
 "reverted-edit-title" = "差し戻された編集";
@@ -924,7 +928,7 @@
 "settings-primary-language-details" = "このリストの先頭の言語が、このアプリのメインの言語として使用されます。";
 "settings-search-footer-text" = "アプリ起動の際に、探索タブの代わりに検索タブを開きます";
 "settings-search-open-app-on-search" = "アプリ起動時に検索タブを表示";
-"settings-storage-and-syncing-enable-sync-footer-text" = "ログインして同期した際に、ウィキメディア財団が、あなたのユーザー設定に保存した記事とあとで読むリストを保存することを許可する";
+"settings-storage-and-syncing-enable-sync-footer-text" = "ログインして同期した際に、ウィキメディア財団が、あなたの個人設定に保存した記事とあとで読むリストを保存することを許可する。";
 "settings-storage-and-syncing-enable-sync-title" = "保存した記事とリストの同期";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "同期を有効にしている場合、保存した記事を消去すると、あなたのアカウントからとこのデバイスの両方から消去されます。この操作は取り消せません。";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "保存した記事をすべて削除しますか?";
@@ -959,63 +963,40 @@
 "table-of-contents-heading" = "目次";
 "table-of-contents-hide-button-label" = "目次を非表示にする";
 "table-of-contents-subheading-label" = "小見出し $1";
-"talk-page-add-discussion-accessibility-label" = "議論を追加";
 "talk-page-add-topic-button" = "トピックを追加";
 "talk-page-archives" = "アーカイブ";
 "talk-page-article-about" = "トークページについて";
 "talk-page-change-language" = "言語を変更";
 "talk-page-collapse-thread-button" = "スレッドを折りたたむ";
-"talk-page-discussion-accessibility-hint" = "ダブルタップすると議論のスレッドが開きます";
 "talk-page-discussion-read-accessibility-label" = "既読";
-"talk-page-discussion-read-ipa-accessibility-attribute" = "kʲidokɯ";
 "talk-page-discussion-unread-accessibility-label" = "未読";
-"talk-page-discussion-unread-ipa-accessibility-attribute" = "mʲidokɯ̹";
 "talk-page-error-alert-subtitle" = "サーバから異常な応答がありました。しばらくしてから再度、操作してください。";
 "talk-page-error-alert-title" = "予期しないエラー";
 "talk-page-error-loading-subtitle" = "エラーが発生しました";
 "talk-page-error-loading-title" = "トークページを読み込めません";
-"talk-page-error-unable-to-post-reply" = "インターネット接続がないため返信を投稿できません。";
-"talk-page-error-unable-to-post-topic" = "インターネット接続がないため議論を投稿できません。";
 "talk-page-expand-thread-button" = "スレッドを展開";
 "talk-page-find-in-page-button" = "ページ内検索";
-"talk-page-info-active-conversations" = "$1ウィキペディア上でのアクティブな会話";
-"talk-page-info-active-conversations-generic" = "ウィキペディア上でのアクティブな会話";
-"talk-page-link-user-action-sheet-app" = "アプリ内で利用者の会話ページを表示";
-"talk-page-link-user-action-sheet-safari" = "利用者ページをSafariで見る";
-"talk-page-link-user-action-sheet-title" = "利用者ページ";
 "talk-page-menu-open-all" = "すべてのスレッドを開く";
 "talk-page-new-banner-subtitle" = "ここではみな同じ人類であることを忘れないでください";
 "talk-page-new-banner-title" = "親切であってください";
-"talk-page-new-body-textfield-accessibility-label" = "議論の本文";
-"talk-page-new-reply-body-accessibility-label" = "返事を書く";
-"talk-page-new-reply-body-placeholder-text" = "返事を書く";
 "talk-page-new-reply-success-text" = "返事は無事公開されました";
-"talk-page-new-subject-clear-button-accessibility" = "件名を消去";
-"talk-page-new-subject-placeholder-text" = "件名";
-"talk-page-new-subject-textfield-accessibility-label" = "件名";
-"talk-page-new-topic-body-placeholder-text" = "新しい議論を組み立てる";
 "talk-page-new-topic-success-text" = "議論は無事公開されました";
-"talk-page-new-topic-title" = "新規議論";
 "talk-page-onboarding-button-accessibility-label" = "返信に戻るにはダブルタップします";
 "talk-page-overflow-menu-accessibility" = "その他のトークページオプション";
 "talk-page-page-info" = "ページ情報";
 "talk-page-permanent-link" = "固定リンク";
 "talk-page-publish-reply-error-subtitle" = "インターネット接続を確認してください。";
 "talk-page-publish-reply-error-title" = "コメントを公開できません。";
-"talk-page-publish-terms-and-licenses" = "変更を保存すると、 $1利用規約$2 に同意し、投稿を $3CC BY-SA 3.0$4 及び $5GFDL$6 ライセンスの下にリリースすることに同意したものとみなされます。";
 "talk-page-read-in-web" = "ウェブで読む";
 "talk-page-related-links" = "リンク元";
 "talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1件の返信}}";
 "talk-page-reply-button" = "返信";
 "talk-page-reply-placeholder-format" = "「$1」への返信";
-"talk-page-reply-title" = "返信";
 "talk-page-revision-history" = "変更履歴";
 "talk-page-share-button" = "トークページを共有";
 "talk-page-subscribe-to-topic" = "購読";
-// Fuzzy
 "talk-page-title-article-talk" = "記事の議論";
 "talk-page-title-user-talk" = "利用者の議論";
-"talk-page-topic-title" = "議論";
 "talk-page-unsubscribe-to-topic" = "購読解除";
 "talk-page-user-contributions" = "投稿記録";
 "talk-pages-archives-view-title" = "アーカイブ";
@@ -1027,7 +1008,6 @@
 "talk-pages-empty-view-button-user-start-discussion" = "新しい議論を始める";
 "talk-pages-empty-view-header-article" = "議論を始める";
 "talk-pages-empty-view-header-user" = "$1と議論を開始";
-"talk-pages-reply-button-title" = "この議論に返信する";
 "talk-pages-reply-compose-close-confirmation-title" = "この新しい返信を破棄してもよろしいですか?";
 "talk-pages-topic-added-alert-title" = "トピックが追加されました";
 "talk-pages-topic-compose-body-placeholder" = "説明";
@@ -1041,7 +1021,7 @@
 "talk-pages-view-title" = "トーク";
 "theme-black-display-name" = "ブラック";
 "theme-dark-display-name" = "ダーク";
-"theme-default-display-name" = "デフォルト";
+"theme-default-display-name" = "既定";
 "theme-default-explanation" = "システムのテーマと合わせる";
 "theme-light-display-name" = "ライト";
 "theme-sepia-display-name" = "セピア";
@@ -1061,13 +1041,16 @@
 "vanish-account-button-text" = "リクエストを送信";
 "vanish-account-continue-button-title" = "続行";
 "vanish-account-learn-more-text" = "もっと詳しく";
-"vanish-account-username-field" = "ユーザー名とユーザーページ";
+"vanish-account-username-field" = "利用者名と利用者ページ";
 "vanish-account-warning-title" = "警告";
 "vanish-modal-item" = "削除依頼を出してから、管理者によって処理されるまで数日かかります。";
 "vanish-modal-item-3" = "削除依頼についてさらに質問がある場合はMeta:Right_to_vanishをご覧ください。";
 "vanish-modal-item-3-ios15" = "削除依頼についてさらに質問がある場合は$1Meta:Right_to_vanish$2$3をご覧ください。";
 "variants-alert-dismiss-button" = "いいえ";
 "variants-alert-preferences-button" = "設定を確認する";
+"watchlist" = "ウォッチリスト";
+"watchlist-user-button-user-contributions" = "投稿記録";
+"watchlist-user-button-user-page" = "利用者ページ";
 "welcome-exploration-explore-feed-description" = "私たちコミュニティからの読書のおすすめと毎日の記事";
 "welcome-exploration-explore-feed-title" = "探索フィード";
 "welcome-exploration-on-this-day-description" = "歴史の中で今日起こったことを学ぶために時間を遡ります。";

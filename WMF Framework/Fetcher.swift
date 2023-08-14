@@ -162,13 +162,21 @@ open class Fetcher: NSObject {
         let fallbackBlockedApiError = blockedApiErrors.first(where: { !$0.html.isEmpty })
         
         let firstAbuseFilterError = apiErrors.first(where: { $0.code.contains("abusefilter") && !$0.html.isEmpty })
+        let firstDisplayableError = apiErrors.first(where: { !$0.html.isEmpty })
         
         let fallbackCompletion: () -> Void = {
             
             guard let fallbackBlockedApiError else {
                 
                 guard let firstAbuseFilterError else {
-                    completion(nil)
+                    
+                    guard let firstDisplayableError else {
+                        completion(nil)
+                        return
+                    }
+                    
+                    let displayError = MediaWikiAPIDisplayError(messageHtml: firstDisplayableError.html, linkBaseURL: siteURL, code: firstDisplayableError.code)
+                    completion(displayError)
                     return
                 }
                 
@@ -478,7 +486,7 @@ extension Fetcher {
 
 @objc(WMFTokenType)
 public enum TokenType: Int {
-    case csrf, login, createAccount
+    case csrf, login, createAccount, watch, rollback
     var stringValue: String {
         switch self {
         case .login:
@@ -487,6 +495,10 @@ public enum TokenType: Int {
             return "createaccount"
         case .csrf:
             return "csrf"
+        case .watch:
+            return "watch"
+        case .rollback:
+            return "rollback"
         }
     }
     var parameterName: String {

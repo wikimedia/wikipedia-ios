@@ -1,6 +1,7 @@
 import UIKit
 import SwiftUI
 import WMF
+import Components
 
 @objc(WMFAccountViewControllerDelegate)
 protocol AccountViewControllerDelegate: AnyObject {
@@ -11,6 +12,7 @@ private enum ItemType {
     case logout
     case talkPage
     case talkPageAutoSignDiscussions
+    case watchlist
     case vanishAccount
 }
 
@@ -44,8 +46,17 @@ class AccountViewController: SubSettingsViewController {
         
         let logout = Item(title: username, subtitle: CommonStrings.logoutTitle, iconName: "settings-user", iconColor: .white, iconBackgroundColor: UIColor.orange600, type: .logout)
         let talkPage = Item(title: WMFLocalizedString("account-talk-page-title", value: "Your talk page", comment: "Title for button and page letting user view their account page."), subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: .blue600 , type: .talkPage)
+        let watchlist = Item(title: CommonStrings.watchlist, subtitle: nil, iconName: "watchlist-star", iconColor: .white, iconBackgroundColor: .yellow600, type: .watchlist)
         let vanishAccount = Item(title: CommonStrings.vanishAccount, subtitle: nil, iconName: "vanish-account", iconColor: .white, iconBackgroundColor: .red, type: .vanishAccount)
-        let account = Section(items: [logout, talkPage, vanishAccount], headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
+
+        let sectionItems: [Item]
+        if FeatureFlags.watchlistEnabled {
+            sectionItems = [logout, talkPage, watchlist, vanishAccount]
+        } else {
+            sectionItems = [logout, talkPage, vanishAccount]
+        }
+
+        let account = Section(items: sectionItems, headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
 
         let autoSignDiscussions = Item(title: WMFLocalizedString("account-talk-preferences-auto-sign-discussions", value: "Auto-sign discussions", comment: "Title for talk page preference that configures adding signature to new posts"), subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .talkPageAutoSignDiscussions)
         let talkPagePreferences = Section(items: [autoSignDiscussions], headerTitle: WMFLocalizedString("account-talk-preferences-title", value: "Talk page preferences", comment: "Title for talk page preference sections in account settings"), footerTitle: WMFLocalizedString("account-talk-preferences-auto-sign-discussions-setting-explanation", value: "Auto-signing of discussions will use the signature defined in Signature settings", comment: "Text explaining how setting the auto-signing of talk page discussions preference works"))
@@ -98,6 +109,8 @@ class AccountViewController: SubSettingsViewController {
             cell.selectionStyle = .none
             cell.disclosureSwitch.isOn = UserDefaults.standard.autoSignTalkPageDiscussions
             cell.disclosureSwitch.addTarget(self, action: #selector(autoSignTalkPageDiscussions(_:)), for: .valueChanged)
+        case .watchlist:
+            cell.disclosureType = .viewController
         case .vanishAccount:
             cell.disclosureType = .viewController
             cell.accessibilityTraits = .button
@@ -128,19 +141,17 @@ class AccountViewController: SubSettingsViewController {
                 return
             }
             
-            let title = OldTalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
-            
-            if FeatureFlags.needsNewTalkPage {
+            let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
+
                 if let viewModel = TalkPageViewModel(pageType: .user, pageTitle: title, siteURL: siteURL, source: .account, articleSummaryController: dataStore.articleSummaryController, authenticationManager: dataStore.authenticationManager, languageLinkController: dataStore.languageLinkController) {
                     let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
                     self.navigationController?.pushViewController(newTalkPage, animated: true)
                 }
-            } else {
-                let title = OldTalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
-                let loadingFlowController = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL,  type: .user, dataStore: dataStore, theme: theme)
-                self.navigationController?.pushViewController(loadingFlowController, animated: true)
-            }
-            
+        case .watchlist:
+            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter)
+            let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings)
+            let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, delegate: self)
+            self.navigationController?.pushViewController(watchlistViewController, animated: true)
         case .vanishAccount:
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
             warningViewController.delegate = self
@@ -213,5 +224,12 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
         let viewController = VanishAccountContainerViewController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
         navigationController?.pushViewController(viewController, animated: true)
     }
+
+}
+
+extension AccountViewController: WKWatchlistDelegate {
+
+    func watchlistDidDismiss() {}
+    func watchlistDidTapDiff() {}
 
 }

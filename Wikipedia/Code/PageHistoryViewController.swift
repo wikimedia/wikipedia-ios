@@ -23,6 +23,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     private let pageHistoryFetcher = PageHistoryFetcher()
     private var pageHistoryFetcherParams: PageHistoryRequestParameters
+    private let articleSummaryController: ArticleSummaryController
 
     private var batchComplete = false
     private var isLoadingData = false
@@ -48,10 +49,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         return comparisonSelectionViewController
     }()
 
-    init(pageTitle: String, pageURL: URL) {
+    init(pageTitle: String, pageURL: URL, articleSummaryController: ArticleSummaryController) {
         self.pageTitle = pageTitle
         self.pageURL = pageURL
         self.pageHistoryFetcherParams = PageHistoryRequestParameters(title: pageTitle)
+        self.articleSummaryController = articleSummaryController
         super.init()
     }
 
@@ -334,7 +336,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 EditHistoryCompareFunnel.shared.logRevisionView(url: pageURL)
             }
             
-            let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, type: type, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision)
+            let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision, articleSummaryController: articleSummaryController)
             push(diffContainerVC, animated: true)
         }
     }
@@ -619,8 +621,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             }
             
             let fromRevision = pageHistorySections[safeIndex: indexPath.section + sectionOffset]?.items[safeIndex: fromItemIndex]
-            
-            showDiff(from: fromRevision, to: toRevision, type: .single)
+
+            if fromRevision == nil {
+                showDiff(from: fromRevision, to: toRevision, type: .single)
+            } else {
+                showDiff(from: fromRevision, to: toRevision, type: .compare)
+            }
         }
     }
 
@@ -837,5 +843,10 @@ extension PageHistoryViewController: DiffRevisionRetrieving {
         
     }
     
+    func refreshRevisions() {
+        self.pageHistorySections.removeAll()
+        self.collectionView.reloadData()
+        self.getPageHistory()
+    }
     
 }

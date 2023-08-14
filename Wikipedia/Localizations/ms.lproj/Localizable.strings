@@ -3,6 +3,8 @@
 // Author: Anakmalaysia
 // Author: Arifin.wijaya
 // Author: Aviator
+// Author: Bebudak
+// Author: Hakimi97
 // Author: Jeluang Terluang
 // Author: Joseagush
 // Author: Kurniasan
@@ -191,8 +193,10 @@
 "description-welcome-descriptions-title" = "Huraian rencana";
 "description-welcome-promise-title" = "Dengan bermula, saya berjanji tidak menyalahgunakan ciri ini";
 "description-welcome-start-editing-button" = "Mula suntingan";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Daripada:";
 "diff-compare-header-heading" = "Bandingkan Semakan";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Kepada:";
 "diff-compare-title" = "Bandingkan Semakan";
 "diff-context-lines-collapsed-button-title" = "Tunjukkan";
@@ -360,8 +364,8 @@
 "explore-hide-card-prompt" = "Sembunyikan kad ini";
 "explore-main-page-description" = "Halaman utama projek-projek Wikimedia";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
-"explore-most-read-footer" = "Semua rencana bacaan teratas";
-"explore-most-read-generic-heading" = "Bacaan teratas";
+"explore-most-read-footer" = "Semua rencana bacaan tersohor";
+"explore-most-read-generic-heading" = "Bacaan tersohor";
 "explore-most-read-more-list-title-for-date" = "Teratas pada $1";
 "explore-most-read-sub-heading-on-language-wikipedia" = "Di Wikipedia $1";
 "explore-most-read-sub-heading-on-wikipedia" = "Di Wikipedia";
@@ -593,9 +597,9 @@
 "places-filter-button-title" = "Penapis";
 "places-filter-no-saved-places" = "Anda tidak mempunyai tempat yang disimpan";
 "places-filter-saved-articles" = "Rencana tersimpan";
-"places-filter-top-articles" = "Bacaan teratas";
+"places-filter-top-articles" = "Bacaan tersohor";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 rencana|$1 rencana}}";
-"places-filter-top-read-articles" = "Rencana bacaan teratas";
+"places-filter-top-read-articles" = "Rencana bacaan tersohor";
 "places-location-enabled" = "Lokasi didayakan";
 "places-no-saved-articles-have-location" = "Tiada artikel tersimpan anda mempunyai maklumat terperinci";
 "places-search-articles-that-match" = "$1 yang hampir sama “$2”";
@@ -619,7 +623,7 @@
 "project-name-wikiquote" = "Wikipetikan";
 "project-name-wikisource" = "Wikisumber";
 "project-name-wikiversity" = "Wikiversiti";
-"project-name-wikivoyage" = "Wikikembara";
+"project-name-wikivoyage" = "Wikilayar";
 "project-name-wiktionary" = "Wikikamus";
 "reading-list-add-generic-hint-title" = "Tambahkan rencana ini ke dalam senarai bacaan?";
 "reading-list-add-hint-title" = "Tambahkan “$1” ke senarai bacaan?";
@@ -797,21 +801,16 @@
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "table-of-contents-close-accessibility-label" = "Tutup jadual isi kandungan";
 "table-of-contents-heading" = "Kandungan";
-"talk-page-add-discussion-accessibility-label" = "Tambah perbincangan";
 "talk-page-discussion-read-accessibility-label" = "Baca";
 "talk-page-discussion-unread-accessibility-label" = "Awabaca";
-"talk-page-link-user-action-sheet-title" = "Laman pengguna";
-"talk-page-new-topic-title" = "Perbincangan baru";
-"talk-page-reply-title" = "Balas";
 "talk-page-title-user-talk" = "Perbincangan Pengguna";
-"talk-page-topic-title" = "Perbincangan";
 "talk-pages-archives-view-title" = "Arkib";
-"talk-pages-reply-button-title" = "Balas perbincangan ini";
 "theme-black-display-name" = "Hitam";
 "theme-dark-display-name" = "Gelap";
 "theme-default-display-name" = "Asali";
 "theme-light-display-name" = "Terang";
 "theme-sepia-display-name" = "Sepia";
+"top-read-widget-title" = "Bacaan tersohor";
 "two-factor-login-continue" = "Teruskan log masuk";
 "two-factor-login-instructions" = "Sila masukkan kod pengesahan dua faktor";
 "two-factor-login-title" = "Log masuk ke akaun anda";

@@ -3,6 +3,7 @@
 // Author: Brion
 // Author: Darcy Le
 // Author: Dinhxuanduyet
+// Author: Flyplanevn27
 // Author: Harriettruong3
 // Author: KhangND
 // Author: Leducthn
@@ -16,6 +17,7 @@
 // Author: Nguyenphutrong2
 // Author: Nguyên Lê
 // Author: Phjtieudoc
+// Author: Pisceskaze
 // Author: TARGET6tidiem
 // Author: Thanhtai2009
 // Author: Vinhtantran
@@ -213,8 +215,10 @@
 "description-welcome-descriptions-title" = "Tóm lược bài viết";
 "description-welcome-promise-title" = "Với việc bắt đầu sửa đổi lời tóm lược, tôi hứa sẽ không lạm dụng tính năng này";
 "description-welcome-start-editing-button" = "Bắt đầu sửa đổi";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Từ:";
 "diff-compare-header-heading" = "So sánh các Phiên bản";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Đến:";
 "diff-compare-title" = "So sánh các Phiên bản";
 "diff-context-lines-collapsed-button-title" = "Hiện";
@@ -227,6 +231,7 @@
 "diff-paragraph-moved-distance-section" = "$1 phần";
 "diff-paragraph-moved-format" = "Đoạn văn đã được di chuyển $1 $2";
 "diff-revision-error-title" = "Không thể tải dữ liệu phiên bản.";
+"diff-rollback-success" = "Đã lùi các sửa đổi.";
 "diff-single-header-editor-number-edits-format" = "$1 sửa đổi";
 "diff-single-header-editor-title" = "Thông tin người dùng";
 "diff-single-header-subtitle-bytes-added" = "$1 ký tự được thêm";
@@ -506,12 +511,6 @@
 "insert-media-media-settings-title" = "Tùy chọn phương tiện";
 "insert-media-title" = "Chèn phương tiện";
 "insert-media-uploaded-image-title" = "Hình đã tải lên";
-"intermediate-edits-count" = "Không hiển thị $1 phiên bản ở giữa";
-"intermediate-edits-count-limited" = "Không hiển thị $1+ phiên bản ở giữa";
-"intermediate-edits-editors-count" = "Không hiển thị $1 phiên bản ở giữa bởi $2 người dùng";
-"intermediate-edits-editors-count-limited" = "Không hiển thị $1+ phiên bản ở giữa bởi $2+ người dùng";
-"intermediate-edits-editors-limited-count" = "Không hiển thị $1 phiên bản ở giữa bởi $2+ người dùng";
-"intermediate-edits-limited-editors-count" = "Không hiển thị $1+ phiên bản ở giữa bởi $2 người dùng";
 "inuktitut-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Inuktitut là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut chữ tượng thanh âm tiết (ike-cans)\nInuktitut ilisautik, Inuktitut chữ Latinh (ike-latn)";
 "inuktitut-variants-alert-title" = "Cập nhật hỗ trợ hệ chữ viết trong tiếng Inuktitut";
 "kazakh-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Kazakh là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh chữ Kirin (kk-cyrl)\nqazaqşa latin Kazakh chữ Latinh (kk-latn)\nتوتە قازاقشا Kazakh chữ Ả Rập (kk-arab)";
@@ -896,43 +895,22 @@
 "tachelhit-variants-alert-title" = "Cập nhật hỗ trợ hệ chữ viết trong tiếng Shilha";
 "tajik-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Tajik là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nтоҷикӣ кирилликӣ Tajik chữ Kirin (tg-cyrl)\ntojikī lotinī Tajik chữ Latinh (tg-latn)";
 "tajik-variants-alert-title" = "Cập nhật hỗ trợ biến thể trong tiếng Tajik";
-"talk-page-add-discussion-accessibility-label" = "Thêm đề tài";
 "talk-page-change-language" = "Thay đổi ngôn ngữ";
-"talk-page-discussion-accessibility-hint" = "Chạm đúp để mở đề tài thảo luận";
 "talk-page-discussion-read-accessibility-label" = "Đã đọc";
 "talk-page-discussion-unread-accessibility-label" = "Chưa đọc";
-"talk-page-error-unable-to-post-reply" = "Không có kết nối Internet, nên không thể đăng trả lời.";
-"talk-page-error-unable-to-post-topic" = "Không có kết nối Internet, nên không thể đăng đề tài.";
 "talk-page-find-in-page-button" = "Tìm trong trang";
-"talk-page-info-active-conversations" = "Thảo luận tích cực tại Wikipedia $1";
-"talk-page-info-active-conversations-generic" = "Thảo luận tích cực tại Wikipedia";
-"talk-page-link-user-action-sheet-app" = "Xem trang thảo luận của người dùng trong ứng dụng";
-"talk-page-link-user-action-sheet-safari" = "Xem trang cá nhân trong Safari";
-"talk-page-link-user-action-sheet-title" = "Trang cá nhân";
 "talk-page-new-banner-subtitle" = "Hãy nhớ, chúng tôi đều là con người";
 "talk-page-new-banner-title" = "Hãy bình tĩnh";
-"talk-page-new-body-textfield-accessibility-label" = "Nội dung Thảo luận";
-"talk-page-new-reply-body-accessibility-label" = "Nhập câu trả lời";
-"talk-page-new-reply-body-placeholder-text" = "Nhập câu trả lời";
 "talk-page-new-reply-success-text" = "Đã đăng câu trả lời của bạn thành công";
-"talk-page-new-subject-clear-button-accessibility" = "Xóa sạch tiêu đề";
-"talk-page-new-subject-placeholder-text" = "Tiêu đề";
-"talk-page-new-subject-textfield-accessibility-label" = "Tiêu đề";
-"talk-page-new-topic-body-placeholder-text" = "Soạn thảo đề tài mới";
 "talk-page-new-topic-success-text" = "Đã đăng đề tài của bạn thành công";
-"talk-page-new-topic-title" = "Đề tài mới";
 "talk-page-page-info" = "Thông tin trang";
-"talk-page-publish-terms-and-licenses" = "Với việc lưu các thay đổi, bạn chấp nhận các $1Điều khoản sử dụng$2 và đồng ý phát hành đóng góp của bạn theo các giấy phép $3CC BY-SA 3.0$4 và $5GFDL$6.";
 "talk-page-reply-button" = "Trả lời";
 "talk-page-reply-button-accessibility-label" = "Trả lời $1";
-"talk-page-reply-title" = "Trả lời";
 "talk-page-subscribe-to-topic" = "Theo dõi";
 "talk-page-title-article-talk" = "Thảo luận Bài viết";
 "talk-page-title-user-talk" = "Thảo luận Người dùng";
-"talk-page-topic-title" = "Đề tài thảo luận";
 "talk-page-user-contributions" = "Đóng góp";
 "talk-pages-coffee-roll-read-more" = "Đọc thêm";
-"talk-pages-reply-button-title" = "Trả lời đề tài này";
 "talk-pages-view-title" = "Thảo luận";
 "theme-black-display-name" = "Đen";
 "theme-dark-display-name" = "Tối";

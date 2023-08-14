@@ -477,27 +477,6 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
         }
     }
     
-    var talkPageForceRefreshRevisionIDs: Set<Int>? {
-        get {
-            guard let arrayValue = array(forKey: UserDefaults.Key.talkPageForceRefreshRevisionIDs) as? [Int],
-                !arrayValue.isEmpty else {
-                return nil
-            }
-            return Set<Int>(arrayValue)
-        }
-        set {
-            
-            guard let newValue = newValue,
-                !newValue.isEmpty else {
-                removeObject(forKey: UserDefaults.Key.talkPageForceRefreshRevisionIDs)
-                return
-            }
-            
-            let arrayValue = Array(newValue)
-            set(arrayValue, forKey: UserDefaults.Key.talkPageForceRefreshRevisionIDs)
-        }
-    }
-    
     private var systemDarkModeEnabled: Bool {
         get {
             return bool(forKey: "SystemDarkMode")

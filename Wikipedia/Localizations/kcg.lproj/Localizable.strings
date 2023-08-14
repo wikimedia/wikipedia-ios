@@ -175,8 +175,10 @@
 // Fuzzy
 "description-welcome-descriptions-title" = "Wa̱i a̱lyiat a̱lyoot";
 "description-welcome-start-editing-button" = "Tsa jhyuk";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Neet:";
 "diff-compare-header-heading" = "Mak Nkhwifeang";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Naat:";
 "diff-compare-title" = "Mak Nkhwifeang";
 "diff-context-lines-collapsed-button-title" = "Tsa";
@@ -409,9 +411,6 @@
 "insert-media-media-settings-title" = "A̱yaaseti midya";
 "insert-media-title" = "Swat midya";
 "insert-media-uploaded-image-title" = "Ghwughwu nang á̱ ku kpa̱t a̱ni";
-"intermediate-edits-count" = "{{PLURAL:$1|Khwifeang a̱tyia̱ka̱u $1|Nkhwifeang a̱tyia̱ka̱u $1}} nang á̱ tsa a̱ni bah";
-"intermediate-edits-count-limited" = "$1+ nkhwifeang a̱tyia̱ka̱u nang á̱ tsa a̱ni bah";
-"intermediate-edits-editors-count" = "Á̱ tsa {{PLURAL:$1|khwifeang a̱tyia̱ka̱u $1|nkhwifeang a̱tyia̱ka̱u $1}} mbwak  {{PLURAL:$2|a̱tyuta̱m $2|á̱nienta̱m $2}} bah";
 "inuktitut-variants-alert-body" = "Ap Wikipidya wu ndi̱n a̱ma zwályiat a̱lyem Inuktitut jinii ma̱ninika nang lilyem kuntyin ku nfeang a̱ni mami ap wu, ku si̱ yet doot a kin fang, zop a̱wot a bu jhyuk ma̱ hyohyoot a̱hyoot di̱ zwályiat lan-cat ang ji:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Swang a̱tyong (ike-cans)\nInuktitut ilisautik, Inuktitut, Lati̱n (ike-latn)";
 "inuktitut-variants-alert-title" = "Á̱fai nkhang mi̱ li̱n a̱ma zwalyiat A̱lyem Inuktitut";
 "kazakh-variants-alert-body" = "Ap Wikipidya wu ndi̱n a̱ma zwályiat a̱lyem Ka̱zak jinii ma̱ninika nang lilyem kuntyin ku nfeang a̱ni mami ap wu, ku si̱ yet doot a kin fang, zop a̱wot a bu jhyuk ma̱ hyohyoot a̱hyoot di̱ zwályiat lan-cat ang ji:\n\nҚазақша Kazak (kk)\nҚазақша Кирил Kazak, Kirilut (kk-cyrl)\nqazaqşa latin Kazak, Lati̱n (kk-latn)\nتوتە قازاقشا Kazak, La̱ra̱ba (kk-arab)";
@@ -479,12 +478,9 @@
 "tachelhit-variants-alert-body" = "Ap Wikipidya wu ndi̱n a̱ma zwályiat a̱lyem Tacelhit jinii ma̱ninika nang lilyem kuntyin ku nfeang a̱ni mami ap wu, ku si̱ yet doot a kin fang, zop a̱wot a bu jhyuk ma̱ hyohyoot a̱hyoot di̱ zwályiat lan-cat ang ji:\n\nⵜⴰⵛⵍⵃⵉⵜ Tacelhit, Tifinagh (shi-tfng)\nTaclḥit Tacelhit, Lati̱n (shi-latn)";
 "tachelhit-variants-alert-title" = "Á̱fai nkhang mi̱ li̱n a̱ma zwalyiat A̱lyem Tacelhit";
 "tajik-variants-alert-title" = "Á̱fai nkhang mi̱ li̱n a̱ma zwalyiat A̱lyem Taji̱k";
-"talk-page-reply-title" = "Kaat";
 // Fuzzy
 "talk-page-title-article-talk" = "A̱lyiat a̱ti̱kut";
 "talk-page-title-user-talk" = "A̱lyiat A̱tyuta̱m";
-"talk-page-topic-title" = "Bwoi a̱lyiat";
-"talk-pages-reply-button-title" = "Kaat bwoi a̱lyiat huni";
 "theme-black-display-name" = "A̱dyundyung";
 "theme-dark-display-name" = "A̱duduu";
 "theme-default-display-name" = "Gbangbang";

@@ -12,8 +12,9 @@ public enum EventCategoryMEP: String, Codable {
     case shared
     case login
     case setting
-    case enableSyncPopover = "enable_to_sync_popover"
+    case enableSyncPopover = "enable_sync_popover"
     case loginToSyncPopover = "login_to_sync_popover"
+    case diff
     case unknown
 }
 
@@ -46,8 +47,4 @@ public enum EventLabelMEP: String, Codable {
 public protocol MEPEventsProviding {
     var eventLoggingCategory: EventCategoryMEP { get }
     var eventLoggingLabel: EventLabelMEP? { get }
-}
-
-public protocol MEPEventsSearchProviding {
-    var searchSource: String { get }
 }

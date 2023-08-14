@@ -154,8 +154,10 @@
 "description-welcome-descriptions-title" = "Descripciones del títulu";
 "description-welcome-promise-title" = "De mano, prometo nun abusar d'esta carauterística";
 "description-welcome-start-editing-button" = "Principiar a editar";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "De:";
 "diff-compare-header-heading" = "Comparar revisiones";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "A:";
 "diff-compare-title" = "Comparar revisiones";
 "diff-context-lines-collapsed-button-title" = "Amosar";

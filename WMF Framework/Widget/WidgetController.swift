@@ -121,15 +121,15 @@ public final class WidgetController: NSObject {
         isCreatingDataStore = true
         backgroundActivity = ProcessInfo.processInfo.beginActivity(options: [.background, .suddenTerminationDisabled, .automaticTerminationDisabled], reason: "Wikipedia Extension - " + UUID().uuidString)
         let dataStore = MWKDataStore()
-        dataStore.performLibraryUpdates {
-            DispatchQueue.main.async {
-                self._dataStore = dataStore
-                self.isCreatingDataStore = false
-                self.completions.forEach { $0(dataStore) }
-                self.completions.removeAll()
+        dataStore.finishSetup {
+            dataStore.performLibraryUpdates {
+                DispatchQueue.main.async {
+                    self._dataStore = dataStore
+                    self.isCreatingDataStore = false
+                    self.completions.forEach { $0(dataStore) }
+                    self.completions.removeAll()
+                }
             }
-        } needsMigrateBlock: {
-            DDLogDebug("Needed a migration from the widgets")
         }
     }
     

@@ -1107,28 +1107,7 @@ extension ArticleViewController {
     }
     
     func articleLoadDidFail(with error: Error) {
-        // Convert from mobileview if necessary
-        guard article.isConversionFromMobileViewNeeded else {
-            handleArticleLoadFailure(with: error, showEmptyView: !article.isSaved)
-            return
-        }
-        dataStore.migrateMobileviewToMobileHTMLIfNecessary(article: article) { [weak self] (migrationError) in
-            DispatchQueue.main.async {
-                self?.oneOffArticleMigrationDidFinish(with: migrationError)
-            }
-        }
-    }
-    
-    func oneOffArticleMigrationDidFinish(with migrationError: Error?) {
-        if let error = migrationError {
-            handleArticleLoadFailure(with: error, showEmptyView: true)
-            return
-        }
-        guard !article.isConversionFromMobileViewNeeded else {
-            handleArticleLoadFailure(with: RequestError.unexpectedResponse, showEmptyView: true)
-            return
-        }
-        loadPage()
+        handleArticleLoadFailure(with: error, showEmptyView: !article.isSaved)
     }
 }
 

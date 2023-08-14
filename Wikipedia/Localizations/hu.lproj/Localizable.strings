@@ -189,8 +189,10 @@
 "description-welcome-descriptions-title" = "Cikkleírások";
 "description-welcome-promise-title" = "Mielőtt nekifognék, megígérem, hogy nem élek vissza ezzel a funkcióval";
 "description-welcome-start-editing-button" = "Szerkesztés elkezdése";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Ettől:";
 "diff-compare-header-heading" = "Változatok összehasonlítása";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Eddig:";
 "diff-compare-title" = "Változatok összehasonlítása";
 "diff-context-lines-collapsed-button-title" = "Mutat";
@@ -411,9 +413,6 @@
 "insert-media-media-settings-title" = "Médiabeállítások";
 "insert-media-title" = "Média beszúrása";
 "insert-media-uploaded-image-title" = "Feltöltött kép";
-"intermediate-edits-count" = "{{PLURAL:$1|Egy közbenső módosítás|$1 közbenső módosítás}} nincs mutatva";
-"intermediate-edits-count-limited" = "$1+ közbenső változtatás nincs mutatva";
-"intermediate-edits-editors-count" = "{{PLURAL:$1|Egy közbenső módosítás|$1 közbenső módosítás}}, amit {{PLURAL:$2|egy másik szerkesztő végzett|$2 másik szerkesztő végzett}}, nincs mutatva";
 "kazakh-variants-alert-title" = "A kazak nyelvi változat támogatásának frissítése";
 "kurdish-variants-alert-title" = "A kurd nyelvi változat támogatásának frissítése";
 "languages-settings-title" = "Nyelvek";
@@ -673,25 +672,14 @@
 "tajik-variants-alert-title" = "A tadzsik nyelvi változat támogatásának frissítése";
 "talk-page-discussion-read-accessibility-label" = "Olvasott";
 "talk-page-discussion-unread-accessibility-label" = "Olvasatlan";
-"talk-page-error-unable-to-post-reply" = "Nincs internetkapcsolat, nem sikerült elküldeni a választ.";
-"talk-page-link-user-action-sheet-app" = "Felhasználói lap megtekintése az alkalmazásban";
-"talk-page-link-user-action-sheet-safari" = "Felhasználói lap megtekintése Safarival";
-"talk-page-new-reply-body-accessibility-label" = "Válasz írása";
-"talk-page-new-reply-body-placeholder-text" = "Válasz írása";
 "talk-page-new-reply-success-text" = "A válaszod közzétéve";
-"talk-page-new-subject-clear-button-accessibility" = "Téma törlése";
-"talk-page-new-subject-placeholder-text" = "Tárgy";
-"talk-page-new-subject-textfield-accessibility-label" = "Tárgy";
-"talk-page-new-topic-title" = "Új téma";
 "talk-page-reply-button" = "Válasz";
-"talk-page-reply-title" = "Válasz";
 "talk-page-subscribe-to-topic" = "Feliratkozás";
 "talk-page-title-article-talk" = "Szócikk Vitalap";
 "talk-page-title-user-talk" = "Szerkesztővita";
 "talk-page-unsubscribe-to-topic" = "Leiratkozás";
 "talk-pages-archives-view-title" = "Archívumok";
 "talk-pages-coffee-roll-read-more" = "Továbbolvas";
-"talk-pages-reply-button-title" = "Válasz erre a témára";
 "theme-black-display-name" = "Fekete";
 "theme-dark-display-name" = "Sötét";
 "theme-default-display-name" = "Alapértelmezés";

@@ -14,7 +14,6 @@
         case start
         case results
         case didYouMean = "didyoumean"
-        case autoSwitch = "autoswitch"
         case error
         case click
         case cancel
@@ -48,10 +47,6 @@
     func logSearchStart(source: String) {
         _searchSessionToken = nil
         logEvent(action: .start, source: source, wikiId: searchLanguage)
-    }
-
-    func logSearchAutoSwitch(source: String) {
-        logEvent(action: .autoSwitch, source: source, wikiId: searchLanguage)
     }
 
     func logSearchDidYouMean(source: String) {

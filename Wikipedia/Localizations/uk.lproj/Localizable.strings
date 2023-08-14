@@ -3,6 +3,7 @@
 // Author: Alex Khimich
 // Author: Andrew J.Kurbiko
 // Author: Andriykopanytsia
+// Author: Anntinomy
 // Author: Base
 // Author: Choomaq
 // Author: DDPAT
@@ -219,8 +220,10 @@
 "description-welcome-descriptions-title" = "Описи статей";
 "description-welcome-promise-title" = "Розпочинаючи використання, я обіцяю не зловживати цією можливістю";
 "description-welcome-start-editing-button" = "Почати редагування";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Від:";
 "diff-compare-header-heading" = "Порівняння версій";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Кому:";
 "diff-compare-title" = "Порівняння версій";
 "diff-context-lines-collapsed-button-title" = "Показати";
@@ -233,6 +236,8 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 розділ|$1 розділи|$1 розділів}}";
 "diff-paragraph-moved-format" = "Абзац переміщено $1 на $2";
 "diff-revision-error-title" = "Неможливо завантажити версію";
+"diff-rollback" = "Відкинути";
+"diff-rollback-alert-title" = "Відкинути редагування";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 редагування|$1 редагування|$1 редагувань}}";
 "diff-single-header-editor-title" = "Інформація редактора";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 байт додано|$1 байти додано|$1 байтів додано}}";
@@ -533,12 +538,6 @@
 "insert-media-media-settings-title" = "Параметри медіафайлу";
 "insert-media-title" = "Вставити медіафайл";
 "insert-media-uploaded-image-title" = "Завантажене зображення";
-"intermediate-edits-count" = "{{PLURAL:$1|Не показується $1 проміжна версія|Не показуються $1 проміжні версії|Не показується $1 проміжних версій}}";
-"intermediate-edits-count-limited" = "Не показується $1+ проміжних версій";
-"intermediate-edits-editors-count" = "Не {{PLURAL:$1|показана $1 проміжна версія|показано $1 проміжні версії|показані $1 проміжних версій}} {{PLURAL:$2|ще одного користувача|$2 користувачів}}";
-"intermediate-edits-editors-count-limited" = "Не показано $1+ проміжних версій $2+ користувачів";
-"intermediate-edits-editors-limited-count" = "Не {{PLURAL:$1|показано $1 проміжну версію|показані $1 проміжні версії|показано $1 проміжних версій}} $2+ користувачів";
-"intermediate-edits-limited-editors-count" = "Не показано $1+ проміжних версій {{PLURAL:$2|$2 користувача|$2 користувачів}}";
 "inuktitut-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови інуктитут як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ інуктитут, складове письмо (ike-cans)\nInuktitut ilisautik, інуктитут, латинка (ike-latn)";
 "inuktitut-variants-alert-title" = "Оновлення щодо підтримки варіантів інуктитуту";
 "kazakh-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти казахської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nҚазақша казахська (kk)\nҚазақша Кирил казахська, кирилиця (kk-cyrl)\nqazaqşa latin казахська, латинка (kk-latn)\nتوتە قازاقشا казахська, арабиця (kk-arab)";
@@ -995,50 +994,30 @@
 "tajik-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти таджицької мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nтоҷикӣ кирилликӣ таджицька, кирилиця (tg-cyrl)\ntojikī lotinī таджицька, латинка (tg-latn)";
 "tajik-variants-alert-title" = "Оновлення щодо підтримки варіантів таджицької";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 активний користувач|$1 активних користувачів}}";
-"talk-page-add-discussion-accessibility-label" = "Додати обговорення";
 "talk-page-add-topic-button" = "Додати тему";
 "talk-page-archives" = "Архіви";
 "talk-page-article-about" = "Про сторінки обговорення";
 "talk-page-change-language" = "Змінити мову";
 "talk-page-collapse-thread-button" = "Згорнути ланцюжок";
-"talk-page-discussion-accessibility-hint" = "Натисніть двічі, щоб відкрити гілку обговорення";
 "talk-page-discussion-read-accessibility-label" = "Прочитане";
-"talk-page-discussion-read-ipa-accessibility-attribute" = "прочитане";
 "talk-page-discussion-unread-accessibility-label" = "Непрочитане";
-"talk-page-discussion-unread-ipa-accessibility-attribute" = "непрочитане";
 "talk-page-error-alert-subtitle" = "Додаток отримав непередбачену відповідь від сервера. Будь ласка, спробуйте ще раз пізніше.";
 "talk-page-error-alert-title" = "Неочікувана помилка";
 "talk-page-error-loading-subtitle" = "Щось пішло не так";
 "talk-page-error-loading-title" = "Неможливо завантажити сторінку обговорення";
-"talk-page-error-unable-to-post-reply" = "Нема підключення до Інтернету. Неможливо оприлюднити відповідь.";
-"talk-page-error-unable-to-post-topic" = "Нема підключення до Інтернету. Неможливо оприлюднити нове обговорення.";
 "talk-page-expand-thread-button" = "Розгорнути ланцюжок";
 "talk-page-find-in-page-button" = "Знайти на сторінці";
-"talk-page-info-active-conversations" = "Активні обговорення у Вікіпедії мовою $1";
-"talk-page-info-active-conversations-generic" = "Активні обговорення у Вікіпедії";
-"talk-page-link-user-action-sheet-app" = "Переглянути сторінку обговорення користувача в додатку";
-"talk-page-link-user-action-sheet-safari" = "Переглянути сторінку користувача в Safari";
-"talk-page-link-user-action-sheet-title" = "Сторінки користувача";
 "talk-page-menu-open-all" = "Відкрити всі ланцюжки";
 "talk-page-new-banner-subtitle" = "Не забувайте, що всі ми тут — люди";
 "talk-page-new-banner-title" = "Будьте ввічливими";
-"talk-page-new-body-textfield-accessibility-label" = "Текст обговорення";
-"talk-page-new-reply-body-accessibility-label" = "Відповісти";
-"talk-page-new-reply-body-placeholder-text" = "Відповісти";
 "talk-page-new-reply-success-text" = "Ваша відповідь успішно оприлюднена";
-"talk-page-new-subject-clear-button-accessibility" = "Очистити тему";
-"talk-page-new-subject-placeholder-text" = "Тема";
-"talk-page-new-subject-textfield-accessibility-label" = "Тема";
-"talk-page-new-topic-body-placeholder-text" = "Створити нове обговорення";
 "talk-page-new-topic-success-text" = "Ваше обговорення успішно оприлюднене";
-"talk-page-new-topic-title" = "Нове обговорення";
 "talk-page-onboarding-button-accessibility-label" = "Двічі торкніться, щоб повернутися до відповіді";
 "talk-page-overflow-menu-accessibility" = "Більше параметрів сторінки обговорення";
 "talk-page-page-info" = "Інформація про сторінку";
 "talk-page-permanent-link" = "Постійне посилання";
 "talk-page-publish-reply-error-subtitle" = "Перевірте підключення до Інтернету.";
 "talk-page-publish-reply-error-title" = "Не вдалося опублікувати ваш коментар.";
-"talk-page-publish-terms-and-licenses" = "Зберігаючи зміни, ви погоджуєтеся з $1Умовами використання$2 та оприлюднюєте свій внесок за ліцензіями $3CC BY-SA 3.0$4 і $5GFDL$6.";
 "talk-page-publish-topic-error-title" = "Не вдалося опублікувати нову тему.";
 "talk-page-read-in-web" = "Читати в мережі";
 "talk-page-related-links" = "Посилання сюди";
@@ -1048,7 +1027,6 @@
 "talk-page-reply-depth-accessibility-label" = "Глибина відповіді: $1";
 "talk-page-reply-placeholder-format" = "Відповісти $1";
 "talk-page-reply-terms-and-licenses" = "Ваша відповідь буде автоматично підписана вашим іменем користувача. Зберігаючи зміни, ви погоджуєтеся з $1Умовами використання$2 і видаєте свій внесок згідно з ліцензіями $3CC BY-SA 3.0$4 і $5GFDL$6.";
-"talk-page-reply-title" = "Відповісти";
 "talk-page-revision-history" = "Історія редагувань";
 "talk-page-rply-close-button-accessibility-hint" = "Закрити вікно відповіді";
 "talk-page-share-button" = "Поділитися сторінкою обговорення";
@@ -1060,7 +1038,6 @@
 "talk-page-title-user-talk" = "Обговорення користувача";
 "talk-page-topic-close-button-hint" = "Закрити нову тему";
 "talk-page-topic-compose-terms-and-licenses" = "Публікуючи зміни, ви погоджуєтеся з $1Умовами використання$2 та невідклично оприлюднюєте свій внесок за ліцензіями $3CC BY-SA 3.0$4 і $5GFDL$6.";
-"talk-page-topic-title" = "Обговорення";
 "talk-page-unsubscribe-to-topic" = "Відписатись";
 "talk-page-unsubscribed-alert-subtitle" = "Ви більше не будете отримувати сповіщення про нові коментарі в цій темі.";
 "talk-page-unsubscribed-alert-title" = "Ви скасували підписку.";
@@ -1078,7 +1055,6 @@
 "talk-pages-empty-view-button-user-start-discussion" = "Розпочати дискусію";
 "talk-pages-empty-view-header-article" = "Розмова починається тут";
 "talk-pages-empty-view-header-user" = "Почніть обговорення з $1";
-"talk-pages-reply-button-title" = "Відповісти в цьому обговоренні";
 "talk-pages-reply-compose-close-confirmation-title" = "Ви впевнені, що бажаєте відхилити цю нову відповідь?";
 "talk-pages-topic-added-alert-title" = "Вашу тему додано";
 "talk-pages-topic-compose-body-placeholder" = "Опис";

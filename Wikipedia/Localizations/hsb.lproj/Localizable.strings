@@ -149,8 +149,10 @@
 "description-welcome-descriptions-sub-title" = "Zjima zapisk, zo by čitarjam při zrozumjenju temy pomhał";
 "description-welcome-descriptions-title" = "Wopisy zapiskow";
 "description-welcome-start-editing-button" = "Nětko wobdźěłać";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Wot:";
 "diff-compare-header-heading" = "Wersiji přirunać";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Na:";
 "diff-compare-title" = "Wersije přirunać";
 "diff-context-lines-collapsed-button-title" = "Pokazać";
@@ -417,7 +419,6 @@
 // Fuzzy
 "share-on-twitter-sign-off" = "přez @Wikipedia";
 "share-social-format" = "„$1“ přez Wikipediju: $2";
-"talk-page-info-active-conversations" = "Aktiwne diskusije we Wikipediji ($1)";
 "welcome-exploration-on-this-day-description" = "Pućuj w času wróćo, zo by {{GENDER:$1|zhonił|zhoniła|zhoniła}}, što je so na tutym dnju w stawiznach stało.";
 "welcome-exploration-on-this-day-title" = "Na tutym dnju";
 "welcome-intro-free-encyclopedia-more" = "Wjace wo Wikipediji zhonić";

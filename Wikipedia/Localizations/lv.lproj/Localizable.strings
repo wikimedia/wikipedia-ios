@@ -65,6 +65,7 @@
 "close-button-accessibility-label" = "Aizvērt";
 "description-edit-learn-more" = "Uzzināt vairāk";
 "description-published-button-title" = "Gatavs";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "No:";
 "diff-compare-title" = "Salīdzināt versijas";
 "diff-single-intro-title" = "Ievads";
@@ -223,14 +224,8 @@
 "table-of-contents-close-accessibility-label" = "Aizvērt satura rādītāju";
 "table-of-contents-heading" = "Saturs";
 "talk-page-new-banner-title" = "Lūdzu, esi jauks";
-"talk-page-new-subject-clear-button-accessibility" = "Notīrīt tematu";
-"talk-page-new-subject-placeholder-text" = "Temats";
-"talk-page-new-subject-textfield-accessibility-label" = "Temats";
-"talk-page-new-topic-title" = "Jauna diskusija";
-"talk-page-reply-title" = "Atbildēt";
 // Fuzzy
 "talk-page-title-article-talk" = "raksta diskusija";
-"talk-page-topic-title" = "Diskusija";
 "theme-default-display-name" = "Noklusējuma";
 "theme-sepia-display-name" = "Sēpija";
 "welcome-exploration-on-this-day-title" = "Šajā dienā";

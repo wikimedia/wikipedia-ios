@@ -138,7 +138,9 @@
 "description-published-button-title" = "کرا";
 "description-welcome-concise-title" = "با کورت بێت";
 "description-welcome-descriptions-sub-title" = "وتارەکە کورت دەکاتەوە بۆ یارمەتیدانی خوێنەران لە تێگەیشتنی بابەتەکە بە سەیرکردنێکی";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "لە:";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "بۆ:";
 "diff-context-lines-collapsed-button-title" = "نیشان بدە";
 "diff-context-lines-expanded-button-title" = "بشارەوە";

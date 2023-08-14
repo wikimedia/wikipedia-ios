@@ -6,6 +6,7 @@
 // Author: Bsitzmann
 // Author: Chrumps
 // Author: CiaPan
+// Author: Czupirek
 // Author: DeRudySoulStorm
 // Author: Debeet
 // Author: Devwebtel
@@ -220,9 +221,9 @@
 "description-welcome-descriptions-title" = "Opisy artykułów";
 "description-welcome-promise-title" = "Na początek obiecuję, że nie będę niewłaściwie używać tej funkcji";
 "description-welcome-start-editing-button" = "Rozpocznij edycję";
-"diff-compare-header-from-info-heading" = "Od:";
+"diff-compare-header-from-info-heading" = "Od";
 "diff-compare-header-heading" = "Porównaj wersje";
-"diff-compare-header-to-info-heading" = "Do:";
+"diff-compare-header-to-info-heading" = "Do";
 "diff-compare-title" = "Porównaj wersje";
 "diff-context-lines-collapsed-button-title" = "Pokaż";
 "diff-context-lines-expanded-button-title" = "Ukryj";
@@ -518,8 +519,6 @@
 "insert-media-media-settings-title" = "Ustawienia multimediów";
 "insert-media-title" = "Wstaw media";
 "insert-media-uploaded-image-title" = "Przesłany obraz";
-"intermediate-edits-count-limited" = "Nie pokazano $1+ wersji";
-"intermediate-edits-editors-count" = "Nie pokazano {{PLURAL:$1|$1 wersji utworzonej|$1 wersji utworzonych}} przez {{PLURAL:$2|jednego użytkownika|$2 użytkowników}}";
 "inuktitut-variants-alert-title" = "Aktualizacje obsługi wariantów Inuktitut";
 "kazakh-variants-alert-title" = "Aktualizacje obsługi wariantu kazachskiego";
 "kurdish-variants-alert-title" = "Aktualizacje obsługi wariantu kurdyjskiego";
@@ -890,48 +889,26 @@
 "table-of-contents-hide-button-label" = "Ukryj spis treści";
 "tachelhit-variants-alert-title" = "Aktualizacje obsługi wariantów Tachelhit";
 "tajik-variants-alert-title" = "Aktualizacje obsługi wariantów tadżyckich";
-"talk-page-add-discussion-accessibility-label" = "Dodaj nowy wątek w dyskusji";
 "talk-page-add-topic-button" = "Dodaj temat";
 "talk-page-change-language" = "Zmień język";
-"talk-page-discussion-accessibility-hint" = "Kliknij dwukrotnie, aby otworzyć wątek dyskusji";
 "talk-page-discussion-read-accessibility-label" = "Czytaj";
-"talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
 "talk-page-discussion-unread-accessibility-label" = "Nieprzeczytane";
-"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
 "talk-page-error-alert-title" = "Niespodziewany błąd";
 "talk-page-error-loading-subtitle" = "Coś poszło nie tak.";
 "talk-page-error-loading-title" = "Nie można wczytać strony dyskusji";
-"talk-page-error-unable-to-post-reply" = "Brak połączenia z internetem. Nie można wysłać odpowiedzi.";
-"talk-page-error-unable-to-post-topic" = "Brak połączenia z internetem. Nie można opublikować dyskusji.";
 "talk-page-expand-thread-button" = "Rozwiń wątek";
 "talk-page-find-in-page-button" = "Znajdź na stronie";
-"talk-page-info-active-conversations" = "Aktywne dyskusje na $1 Wikipedii";
-"talk-page-info-active-conversations-generic" = "Aktywne dyskusje na Wikipedii";
-"talk-page-link-user-action-sheet-app" = "Zobacz stronę dyskusji użytkownika w aplikacji";
-"talk-page-link-user-action-sheet-safari" = "Zobacz stronę użytkownika w Safari";
-"talk-page-link-user-action-sheet-title" = "Strony użytkowników";
 "talk-page-menu-open-all" = "Otwórz wszystkie wątki";
 "talk-page-new-banner-subtitle" = "Pamiętaj, wszyscy jesteśmy ludźmi";
 "talk-page-new-banner-title" = "Zachowuj się uprzejmie";
-"talk-page-new-reply-body-accessibility-label" = "Utwórz odpowiedź";
-"talk-page-new-reply-body-placeholder-text" = "Utwórz odpowiedź";
 "talk-page-new-reply-success-text" = "Twoja odpowiedź została pomyślnie opublikowana";
-"talk-page-new-subject-clear-button-accessibility" = "Wyczyść temat";
-"talk-page-new-subject-placeholder-text" = "Temat";
-"talk-page-new-subject-textfield-accessibility-label" = "Temat";
-"talk-page-new-topic-body-placeholder-text" = "Utwórz nową dyskusję";
 "talk-page-new-topic-success-text" = "Twoja dyskusja została pomyślnie opublikowana";
-"talk-page-new-topic-title" = "Nowa dyskusja";
-"talk-page-publish-terms-and-licenses" = "Zapisując zmiany akceptujesz $1Zasady Użytkownika$2 i zgadzasz się na publikowanie twojego wkładu na licencji $3CC BY-SA 3.0$4 i $5GFDL$6";
-"talk-page-reply-title" = "Odpowiedz";
 "talk-page-title-article-talk" = "Dyskusja o artykule";
 "talk-page-title-user-talk" = "Dyskusja użytkownika";
 "talk-page-topic-close-button-hint" = "Zamknij nowy temat";
-"talk-page-topic-title" = "Dyskusja";
 "talk-pages-coffee-roll-read-more" = "Czytaj więcej";
 "talk-pages-comment-added-alert-title" = "Twój komentarz został dodany";
 "talk-pages-empty-view-button-user-start-discussion" = "Rozpocznij dyskusję";
-"talk-pages-reply-button-title" = "Odpowiedz na tę dyskusję";
 "talk-pages-topic-compose-body-placeholder" = "Opis";
 "talk-pages-view-title" = "Dyskusja";
 "theme-black-display-name" = "Czarny";

@@ -23,7 +23,7 @@ class NotificationsCenterViewModelTests: XCTestCase {
     private var data: Data!
     private var networkModels: [RemoteNotificationsAPIController.NotificationsResult.Notification]!
 
-    let dataStore = MWKDataStore.temporary()
+    var dataStore: MWKDataStore!
 
     lazy var languageLinkController = {
         dataStore.languageLinkController
@@ -35,50 +35,54 @@ class NotificationsCenterViewModelTests: XCTestCase {
     private let modelController: RemoteNotificationsModelController! = try? RemoteNotificationsModelController.temporaryModelController()
 
     override func setUp(completion: @escaping (Error?) -> Void) {
-
-        if let gmtTimeZone = TimeZone(abbreviation: "GMT") {
-            NSTimeZone.default = gmtTimeZone
-        }
         
-        guard modelController != nil else {
-            completion(TestError.failureSettingUpModelController)
-            return
-        }
-
-        if let data = wmf_bundle().wmf_data(fromContentsOfFile: dataFileName, ofType: "json") {
-            self.data = data
-        } else {
-            completion(TestError.failurePullingFixtures)
-            return
-        }
-
-        let decoder = JSONDecoder()
-        let networkResult: RemoteNotificationsAPIController.NotificationsResult
-
-        do {
-            networkResult = try decoder.decode(RemoteNotificationsAPIController.NotificationsResult.self, from: data)
-        } catch {
-            completion(TestError.failureConvertingDataToNotificationsResult)
-            return
-        }
-
-        guard let networkModels = networkResult.query?.notifications?.list,
-              networkModels.count > 0 else {
-            completion(TestError.failurePullingNetworkNotificationModels)
-            return
-        }
-
-        self.networkModels = networkModels
-
-        saveNetworkModels(networkModels: networkModels) { result in
-
-            switch result {
-            case .success:
-                completion(nil)
-            case .failure:
-                completion(TestError.failureSavingNetworkNotificationModelsToDatabase)
+        MWKDataStore.createTemporaryDataStore(completion: { dataStore in
+            self.dataStore = dataStore
+            
+            if let gmtTimeZone = TimeZone(abbreviation: "GMT") {
+                NSTimeZone.default = gmtTimeZone
             }
-        }
+            
+            guard self.modelController != nil else {
+                completion(TestError.failureSettingUpModelController)
+                return
+            }
+
+            if let data = self.wmf_bundle().wmf_data(fromContentsOfFile: self.dataFileName, ofType: "json") {
+                self.data = data
+            } else {
+                completion(TestError.failurePullingFixtures)
+                return
+            }
+
+            let decoder = JSONDecoder()
+            let networkResult: RemoteNotificationsAPIController.NotificationsResult
+
+            do {
+                networkResult = try decoder.decode(RemoteNotificationsAPIController.NotificationsResult.self, from: self.data)
+            } catch {
+                completion(TestError.failureConvertingDataToNotificationsResult)
+                return
+            }
+
+            guard let networkModels = networkResult.query?.notifications?.list,
+                  networkModels.count > 0 else {
+                completion(TestError.failurePullingNetworkNotificationModels)
+                return
+            }
+
+            self.networkModels = networkModels
+
+            self.saveNetworkModels(networkModels: networkModels) { result in
+
+                switch result {
+                case .success:
+                    completion(nil)
+                case .failure:
+                    completion(TestError.failureSavingNetworkNotificationModelsToDatabase)
+                }
+            }
+        })
     }
     
     override func tearDown(completion: @escaping (Error?) -> Void) {

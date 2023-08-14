@@ -83,7 +83,7 @@ class WikipediaLanguageCommandLineUtilityAPI {
         }.eraseToAnyPublisher()
     }
     
-    private let jsonExtractionRegex = try! NSRegularExpression(pattern: #"(?:mw\.config\.set\()(.*?)(?:\);\n*\}\);)"#, options: [.dotMatchesLineSeparators])
+    private let jsonExtractionRegex = try! NSRegularExpression(pattern: #"(?:mw\.config\.set\()(.*?)(?:\)\n*;\n*\}\);)"#, options: [.dotMatchesLineSeparators])
     
     private func extractJSONString(from responseString: String) -> String? {
         let results = jsonExtractionRegex.matches(in: responseString, range: NSRange(responseString.startIndex..., in: responseString))
