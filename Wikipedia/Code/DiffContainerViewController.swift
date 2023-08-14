@@ -652,7 +652,7 @@ private extension DiffContainerViewController {
             return
         }
         
-        WKWatchlistService().fetchWatchStatus(title: articleTitle, project: wkProject, needsRollbackRights: true) { result in
+        WKWatchlistDataController().fetchWatchStatus(title: articleTitle, project: wkProject, needsRollbackRights: true) { result in
             DispatchQueue.main.async { [weak self] in
                 
                 guard let self else {
@@ -1277,7 +1277,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         if let pageURL = self.fetchPageURL() {
             EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
         }
-        WKWatchlistService().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
+        WKWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: false)
             }
@@ -1321,7 +1321,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
         }
 
-        WKWatchlistService().rollback(title: title, project: wkProject, username: username) { [weak self] result in
+        WKWatchlistDataController().rollback(title: title, project: wkProject, username: username) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: true)
             }
@@ -1369,8 +1369,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             if let pageURL = self.fetchPageURL() {
                 EditAttemptFunnel.shared.logSaveFailure(articleURL: pageURL)
             }
-            if let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
-               let mediaWikiDisplayError = serviceError.mediaWikiDisplayError {
+            if let fetcherError = error as? WMF.MediaWikiFetcher.MediaWikiFetcherError,
+               let mediaWikiDisplayError = fetcherError.mediaWikiDisplayError {
 
                 let errorReason = mediaWikiDisplayError.loggingErrorReasonDomain + "." + mediaWikiDisplayError.code
 

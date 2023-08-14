@@ -272,7 +272,7 @@ extension WMFAppViewController: CreateReadingListDelegate {
 
 extension WMFAppViewController {
     @objc func setupWKDataEnvironment() {
-        WKDataEnvironment.current.mediaWikiNetworkService = MediaWikiNetworkService(session: dataStore.session, configuration: dataStore.configuration)
+        WKDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
         
         let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
         WKDataEnvironment.current.appData = WKAppData(appLanguages: languages)
