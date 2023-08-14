@@ -1105,6 +1105,7 @@
 "watchlist-added-toast-three-months" = "Added to Watchlist for 3 months.";
 "watchlist-change-expiry-option-one-month" = "1 month";
 "watchlist-change-expiry-option-one-week" = "1 week";
+"watchlist-change-expiry-option-one-year" = "1 year";
 "watchlist-change-expiry-option-permanent" = "Permanent";
 "watchlist-change-expiry-option-six-months" = "6 months";
 "watchlist-change-expiry-option-three-months" = "3 months";

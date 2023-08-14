@@ -110,10 +110,12 @@ class WatchlistController {
         
         let expiryOptionSixMonths = WMFLocalizedString("watchlist-change-expiry-option-six-months", value: "6 months", comment: "Title of button in expiry change modal that watches a page for six months.")
         
+        let expiryOptionOneYear = WMFLocalizedString("watchlist-change-expiry-option-one-year", value: "1 year", comment: "Title of button in expiry change modal that watches a page for one year.")
+        
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
-        let titles = [expiryOptionPermanent, expiryOptionOneWeek, expiryOptionOneMonth, expiryOptionThreeMonths, expiryOptionSixMonths]
-        let expirys: [WKWatchlistExpiryType] = [.never, .oneWeek, .oneMonth, .threeMonths, .sixMonths]
+        let titles = [expiryOptionPermanent, expiryOptionOneWeek, expiryOptionOneMonth, expiryOptionThreeMonths, expiryOptionSixMonths, expiryOptionOneYear]
+        let expirys: [WKWatchlistExpiryType] = [.never, .oneWeek, .oneMonth, .threeMonths, .sixMonths, .oneYear]
         
         for (title, expiry) in zip(titles, expirys) {
             
