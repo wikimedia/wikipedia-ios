@@ -14,6 +14,7 @@ class WatchlistController {
     private weak var delegate: WatchlistControllerDelegate?
     private weak var lastPopoverPresentationController: UIPopoverPresentationController?
     private var performAfterLoginBlock: (() -> Void)?
+    private let toastCustomTypeName = "watchlist-add-remove-success"
     
     init(delegate: WatchlistControllerDelegate) {
         self.delegate = delegate
@@ -68,7 +69,7 @@ class WatchlistController {
         
         let promptTitle = WMFLocalizedString("watchlist-added-toast-view-watchlist", value: "View Watchlist", comment: "Button in toast after a user successfully adds an article to their watchlist. Tapping will take them to their watchlist.")
         
-        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(statusTitle, subtitle: nil, image: image, type: .custom, customTypeName: "subscription-success", dismissPreviousAlerts: true, buttonTitle: promptTitle, buttonCallBack: { [weak self] in
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(statusTitle, subtitle: nil, image: image, type: .custom, customTypeName: toastCustomTypeName, dismissPreviousAlerts: true, buttonTitle: promptTitle, buttonCallBack: { [weak self] in
             // TODO: Present watchlist from settings
         })
     }
@@ -166,7 +167,7 @@ class WatchlistController {
                 case .success:
                     let title = WMFLocalizedString("watchlist-removed", value: "Removed from your watchlist", comment: "Title in toast after a user successfully removes an article from their watchlist.")
                     let image = UIImage(systemName: "star")
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "subscription-success", dismissPreviousAlerts: true)
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: self.toastCustomTypeName, dismissPreviousAlerts: true)
                     self.delegate?.didSuccessfullyUnwatch(self)
                 case .failure(let error):
                     self.evaluateServerError(error: error, viewController: viewController, theme: theme, performAfterLoginBlock: { [weak self] in
