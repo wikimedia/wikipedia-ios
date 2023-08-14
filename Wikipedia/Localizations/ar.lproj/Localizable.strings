@@ -234,6 +234,7 @@
 "description-welcome-descriptions-title" = "وصف المقالة";
 "description-welcome-promise-title" = "بالبدء، أنا أعد بعدم إساءة استخدام هذه الخاصية";
 "description-welcome-start-editing-button" = "البدء بالتعديل";
+"diff-article-edit-history" = "تاريخ تعديل الصفحة";
 // Fuzzy
 "diff-compare-header-from-info-heading" = "من:";
 "diff-compare-header-heading" = "مقارنة المراجعات";
@@ -1119,6 +1120,9 @@
 "vanishing-request-email-title" = "طلب اختفاء مجاملة";
 "variants-alert-dismiss-button" = "لا شكرًا";
 "variants-alert-preferences-button" = "راجع تفضيلاتك";
+"watchlist" = "قائمة المراقبة";
+"watchlist-user-button-user-contributions" = "مساهمات المستخدم";
+"watchlist-user-button-user-talk-page" = "نقاش صفحة المستخدم";
 "welcome-exploration-explore-feed-description" = "القراءة الموصى بها والمقالات اليومية من مجتمعنا";
 "welcome-exploration-explore-feed-title" = "خلاصة الاستكشاف";
 "welcome-exploration-on-this-day-description" = "سافر عائدا في الزمن لمعرفة ما حدث اليوم في التاريخ";

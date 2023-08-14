@@ -8,6 +8,7 @@
 // Author: LaG roiL
 // Author: Macofe
 // Author: Matanya
+// Author: McDutchie
 // Author: Mhurd
 // Author: N100a
 // Author: Nemo bis
@@ -176,6 +177,8 @@
 "chinese-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בהגוונים הבאים של סינית בתור השפה הראשית או המשנית ביישום, כדי שיהיה קל יותר לקרוא, לחפש, ולערוך בהגוונים המועדפים עליך:\n\n简体 סינית, מפושטת (zh-hans)\n香港繁體 הונג קונג מסורתית (zh-hk)\n澳門繁體 מקאו מסורתית (zh-mo)\n大马简体 מלזיה מפושטת (zh-my)\n新加坡简体 סינגפור מפושטת (zh-sg)\n臺灣正體 טאיוואן מסורתית (zh-tw)";
 "chinese-variants-alert-title" = "עדכונים לתמיכה בהגוונים של סינית";
 "clear-title-accessibility-label" = "ניקוי";
+"clearing-cache-complete" = "ניקוי המטמון הושלם.";
+"clearing-cache-in-progress" = "ניקוי המטמון מתבצע.";
 "close-button-accessibility-label" = "סגירה";
 "compass-direction" = "בשעה $1";
 "continue-reading-empty-description" = "לחקור את ויקיפדיה כדי למצוא ערכים נוספים לקריאה";
@@ -220,12 +223,13 @@
 "description-welcome-promise-title" = "תחילת העבודה היא ההבטחה שלי לא להשתמש באפשרות הזאת לרעה";
 "description-welcome-start-editing-button" = "להתחיל לערוך";
 "diff-article-edit-history" = "היסטוריית העריכה של הערך";
-"diff-compare-header-from-info-heading" = "מהגרסה";
+"diff-compare-header-from-info-heading" = "העריכה הקודמת";
 "diff-compare-header-heading" = "השוואת גרסאות";
-"diff-compare-header-to-info-heading" = "עד";
+"diff-compare-header-to-info-heading" = "העריכה המוצגת";
 "diff-compare-title" = "השוואת גרסאות";
 "diff-context-lines-collapsed-button-title" = "הצגה";
 "diff-context-lines-expanded-button-title" = "הסתרה";
+"diff-header-revision-accessibility-text" = "הגרסה נעשתה ב־";
 "diff-multi-line-format" = "שורות ‏$1 - $2";
 "diff-paragraph-moved" = "הפסקה הועברה";
 "diff-paragraph-moved-direction-down" = "מטה";
@@ -237,6 +241,7 @@
 "diff-rollback" = "שחזור";
 "diff-rollback-alert-message" = "האם ברצונך באמת לשחזר את העריכות?";
 "diff-rollback-alert-title" = "שחזור עריכות";
+"diff-rollback-success" = "העריכות שוחזרו.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|עריכה אחת|$1 עריכות}}";
 "diff-single-header-editor-title" = "פרטי העורך";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|בית אחד נוסף|$1 בתים נוספו}}";
@@ -254,7 +259,9 @@
 "diff-thanks-sent-already" = "כבר שלחת \"תודה\" על העריכה הזאת";
 "diff-thanks-sent-cannot-unsend" = "לא ניתן לבטל שליחת תודה";
 "diff-undo-message" = "הפעולה הזאת תבטל את השינויים שנעשו על־ידי העריכות של הערך המוצגות כאן. כדי להמשיך, נא לספק סיבה לביטול העריכה הזאת.";
+"diff-undo-success" = "הגרסה בוטלה.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|שורה שלא נערכה|$1 שורות שלא נערכו}}";
+"diff-user-button-accessibility-text" = "יש להקיש פעמיים כדי לפתוח את התפריט";
 "dim-images" = "עמעום תמונות";
 "edit-bold-accessibility-label" = "הוספת עיצוב בולט";
 "edit-bold-remove-accessibility-label" = "הסרת עיצוב בולט";
@@ -452,7 +459,7 @@
 "field-backup-token-title" = "קוד גיבוי";
 "field-captcha-placeholder" = "טקסט אימות אנושיות";
 "field-captcha-title" = "נא להזין את הטקסט שמוצג לעיל";
-"field-email-placeholder" = "shaked@dugma.org.il";
+"field-email-placeholder" = "shaked@example.org";
 "field-email-title" = "כתובת דוא\"ל";
 "field-email-title-optional" = "דואר אלקטרוני (לא חובה)";
 "field-new-password-confirm-placeholder" = "נא להזין את הסיסמה החדשה";
@@ -861,7 +868,7 @@
 "reading-lists-article-save-to-disk-failed" = "הגעת למגבלה של המכשיר, לא ניתן לסנכרן את הערך";
 "reading-lists-article-save-to-disk-recovery-suggestion" = "באפשרותך לנקות שטח אחסון מהמכשיר שלך ולאחר מכן לנסות שוב";
 "reading-lists-articles-not-synced-limit-exceeded" = "כמה ערכים לא סונכרנו משום שעברת את המגבלה";
-"reading-lists-conflicting-reading-list-name-updated" = "שם הרשימה '$1' שוּנה לשם '$2'";
+"reading-lists-conflicting-reading-list-name-updated" = "שם הרשימה \"$1\" שוּנה לשם \"$2\"";
 "reading-lists-count" = "{{PLURAL:$1|רשימת קריאה אחת|$1 רשימות קריאה}}";
 "reading-lists-default-list-description" = "רשימת ברירת מחדל לערכים השמורים שלך";
 "reading-lists-default-list-title" = "נשמר";
@@ -1087,6 +1094,7 @@
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
 "unable-to-load-talk-page-title" = "לא ניתן לטעון את דף השיחה";
 "unknown-generic-text" = "לא ידוע";
+"unwatch" = "הפסקת מעקב";
 "uzbek-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\noʻzbekcha lotin אוזבקית, לטינית (uz-latin)\nўзбекча кирилл אוזבקית, קירילית (uz-cyrl)";
 "uzbek-variants-alert-title" = "עדכונים לתמיכה בהגוונים של אוזבקית";
 "vanish-account-additional-information-field" = "מידע נוסף";
@@ -1113,7 +1121,9 @@
 "vanishing-request-email-title" = "בקשת היעלמות אישית";
 "variants-alert-dismiss-button" = "לא, תודה";
 "variants-alert-preferences-button" = "סקירת ההעדפות שלך";
+"watch" = "מעקב";
 "watchlist" = "רשימת המעקב";
+"watchlist-filter" = "סינון";
 "watchlist-user-button-user-contributions" = "תרומות המשתמש";
 "watchlist-user-button-user-page" = "דף משתמש";
 "watchlist-user-button-user-talk-page" = "דף שיחת משתמש";

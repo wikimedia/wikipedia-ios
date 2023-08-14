@@ -207,7 +207,7 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
             guard let self = self else {
                 return
             }
-            
+
             switch injectResult {
             case .failure(let error):
                 DDLogError("Failure injecting new description into article content, refreshing instead: \(error)")

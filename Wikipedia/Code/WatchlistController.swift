@@ -79,6 +79,8 @@ class WatchlistController {
             statusTitle = WMFLocalizedString("watchlist-added-toast-three-months", value: "Added to Watchlist for 3 months.", comment: "Title in toast after a user successfully adds an article to their watchlist, which expires in three months.")
         case .sixMonths:
             statusTitle = WMFLocalizedString("watchlist-added-toast-six-months", value: "Added to Watchlist for 6 months.", comment: "Title in toast after a user successfully adds an article to their watchlist, which expires in 6 months.")
+        case .oneYear:
+            statusTitle = WMFLocalizedString("watchlist-added-toast-one-year", value: "Added to Watchlist for 1 year.", comment: "Title in toast after a user successfully adds an article to their watchlist, which expires in 1 year.")
         }
         
         let promptTitle = allowChangeExpiry ? WMFLocalizedString("watchlist-added-toast-change-expiration", value: "Change expiration date?", comment: "Title in toast after a user successfully adds an article to their watchlist. Tapping will allow them to change their watchlist item expiration date.") : nil

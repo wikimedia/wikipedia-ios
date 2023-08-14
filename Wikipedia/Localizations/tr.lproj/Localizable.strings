@@ -23,6 +23,7 @@
 // Author: Mavrikant
 // Author: Mavrikant2
 // Author: McAang
+// Author: McDutchie
 // Author: Meelo
 // Author: Melissadilara
 // Author: Mirzali
@@ -195,6 +196,8 @@
 "chinese-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Çince biçimlerini birincil veya ikincil olarak uygulama içinde, tercih ettiğiniz biçim ile okumayı, aramayı veya değişiklik yapmayı kolaylaştırmak için destekliyor.\n\n简体 Çince, Basitleştirilmiş (zh-hans)\n香港繁體 Geleneksel Hong Kong (zh-hk)\n澳門繁體 Geleneksel Makao (zh-mo)\n大马简体 Basitleştirilmiş Malezya (zh-my)\n新加坡简体 Basitleştirilmiş Singapur (zh-sg)\n臺灣正體 Geleneksel Tayvan (zh-tw)";
 "chinese-variants-alert-title" = "Çince biçim desteği güncellemeleri";
 "clear-title-accessibility-label" = "Temizle";
+"clearing-cache-complete" = "Önbellek temizliği tamamlandı.";
+"clearing-cache-in-progress" = "Önbellek temizleniyor.";
 "close-button-accessibility-label" = "Kapat";
 "compass-direction" = "saat $1 yönünde";
 "continue-reading-empty-description" = "Daha fazla madde okumak için Vikipedi'yi keşfedin";
@@ -239,12 +242,13 @@
 "description-welcome-promise-title" = "Başlayarak bu özelliği kötüye kullanmamaya söz veriyorum";
 "description-welcome-start-editing-button" = "Düzenlemeye başla";
 "diff-article-edit-history" = "Madde Düzenleme Geçmişi";
-"diff-compare-header-from-info-heading" = "Gönderen";
+"diff-compare-header-from-info-heading" = "Önceki Düzenleme";
 "diff-compare-header-heading" = "Düzeltmeleri Karşılaştır";
-"diff-compare-header-to-info-heading" = "Alıcı";
+"diff-compare-header-to-info-heading" = "Görüntülenen Düzenleme";
 "diff-compare-title" = "Düzeltmeleri Karşılaştır";
 "diff-context-lines-collapsed-button-title" = "Göster";
 "diff-context-lines-expanded-button-title" = "Gizle";
+"diff-header-revision-accessibility-text" = "Sürüm tarihi";
 "diff-multi-line-format" = "Çizgiler $1 - $2";
 "diff-paragraph-moved" = "Paragraf taşındı";
 "diff-paragraph-moved-direction-down" = "aşağı";
@@ -256,6 +260,7 @@
 "diff-rollback" = "Geri döndürme";
 "diff-rollback-alert-message" = "Değişiklikleri geri döndürmek istediğinizden emin misiniz?";
 "diff-rollback-alert-title" = "Değişiklikleri geri döndür";
+"diff-rollback-success" = "Değişiklikler geri alındı.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 düzenleme|$1 düzenleme}}";
 "diff-single-header-editor-title" = "Düzenleyici bilgisi";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 bayt eklendi|$1 bayt eklendi}}";
@@ -273,7 +278,9 @@
 "diff-thanks-sent-already" = "Bu düzenleme için zaten bir 'Teşekkür' gönderdiniz";
 "diff-thanks-sent-cannot-unsend" = "Teşekkürler gönderilemez";
 "diff-undo-message" = "Bu, burada gösterilen maddenin sürüm(ler)iyle yapılan değişiklikleri geri alacaktır. Devam etmek için lütfen bu düzenlemeyi geri alma nedeninizi belirtin.";
+"diff-undo-success" = "Sürüm geri alındı.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 düzenlenmemiş çizgi|$1 düzenlenmemiş çizgi}}";
+"diff-user-button-accessibility-text" = "Menüyü açmak için iki kez dokunun";
 "dim-images" = "Resimleri karart";
 "edit-bold-accessibility-label" = "Kalın formatı ekle";
 "edit-bold-remove-accessibility-label" = "Kalın formatı kaldır";
@@ -471,7 +478,7 @@
 "field-backup-token-title" = "Yedek kod";
 "field-captcha-placeholder" = "CAPTCHA metni";
 "field-captcha-title" = "Yukarıda gördüğünüz metni girin";
-"field-email-placeholder" = "ornek@ornek.org";
+"field-email-placeholder" = "ornek@example.org";
 "field-email-title" = "E-posta";
 "field-email-title-optional" = "E-posta (isteğe bağlı)";
 "field-new-password-confirm-placeholder" = "yeni parolayı tekrar girin";
@@ -1106,6 +1113,7 @@
 "two-factor-login-with-regular-code" = "Doğrulama kodu kullanın";
 "unable-to-load-talk-page-title" = "Tartışma sayfası yüklenemiyor";
 "unknown-generic-text" = "Bilinmiyor";
+"unwatch" = "İzlemeyi durdur";
 "uzbek-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Özbekçe biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\noʻzbekcha lotin Özbekçe, Latin (uz-latin)\nўзбекча кирилл Özbekçe, Kiril (uz-cyrl)";
 "uzbek-variants-alert-title" = "Özbekçe biçim desteği güncellemeleri";
 "vanish-account-additional-information-field" = "Ek bilgi";
@@ -1132,7 +1140,9 @@
 "vanishing-request-email-title" = "Gayriresmi yok olma isteği";
 "variants-alert-dismiss-button" = "Hayır teşekkürler";
 "variants-alert-preferences-button" = "Tercihlerinizi gözden geçirin";
+"watch" = "İzle";
 "watchlist" = "İzleme listesi";
+"watchlist-filter" = "Filtrele";
 "watchlist-user-button-user-contributions" = "Kullanıcı katkıları";
 "watchlist-user-button-user-page" = "Kullanıcı sayfası";
 "watchlist-user-button-user-talk-page" = "Kullanıcı mesaj sayfası";

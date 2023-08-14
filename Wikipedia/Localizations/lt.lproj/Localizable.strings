@@ -7,6 +7,7 @@
 // Author: Macofe
 // Author: Mantak111
 // Author: Manvydasz
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Nersip
 // Author: Nokeoo
@@ -403,7 +404,7 @@
 "field-backup-token-title" = "Atsarginis kodas";
 "field-captcha-placeholder" = "CAPTCHA tekstas";
 "field-captcha-title" = "Įveskite tekstą, kurį matote aukščiau";
-"field-email-placeholder" = "pavyzdys@pavyzdys.org";
+"field-email-placeholder" = "pavyzdys@example.org";
 "field-email-title" = "El. paštas";
 "field-email-title-optional" = "El. paštas (neprivaloma)";
 "field-new-password-confirm-placeholder" = "pakartokite naują slaptažodį";

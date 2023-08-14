@@ -157,6 +157,8 @@
 "chinese-variants-alert-body" = "Aplikacija Wikipedija zdaj podpira naslednje različice kitajščine kot osnovni ali sekundarni jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\n简体 – kitajščina, poenostavljeno (zh-hans)\n香港繁體 – Hongkong, tradicionalno (zh-hk)\n澳門繁體 – Makav, tradicionalno (zh-mo)\n大马简体 – Malezija, poenostavljeno (zh-my)\n新加坡简体 – Singapur, poenostavljeno (zh-sg)\n臺灣正體 – Tajvan, tradicionalno (zh-tw)";
 "chinese-variants-alert-title" = "Posodobitve podpore za kitajske različice";
 "clear-title-accessibility-label" = "Počisti";
+"clearing-cache-complete" = "Čiščenje predpomnilnika je končano.";
+"clearing-cache-in-progress" = "Poteka čiščenje predpomnilnika.";
 "close-button-accessibility-label" = "Zapri";
 "compass-direction" = "ob $1 uri";
 "continue-reading-empty-description" = "Raziščite Wikipedijo za več člankov, ki jih lahko preberete";
@@ -201,12 +203,13 @@
 "description-welcome-promise-title" = "Ob začetku obljubljam, da te možnosti ne bom zlorabil_a";
 "description-welcome-start-editing-button" = "Začetek urejanja";
 "diff-article-edit-history" = "Zgodovina urejanja članka";
-"diff-compare-header-from-info-heading" = "Iz";
+"diff-compare-header-from-info-heading" = "Prejšnje urejanje";
 "diff-compare-header-heading" = "Primerjava redakcij";
-"diff-compare-header-to-info-heading" = "V";
+"diff-compare-header-to-info-heading" = "Prikazano urejanje";
 "diff-compare-title" = "Primerjava redakcij";
 "diff-context-lines-collapsed-button-title" = "Pokaži";
 "diff-context-lines-expanded-button-title" = "Skrij";
+"diff-header-revision-accessibility-text" = "Datum redakcije:";
 "diff-multi-line-format" = "Vrstice $1–$2";
 "diff-paragraph-moved" = "Odstavek prestavljen";
 "diff-paragraph-moved-direction-down" = "navzdol";
@@ -218,6 +221,7 @@
 "diff-rollback" = "Vrni";
 "diff-rollback-alert-message" = "Ali res želite vrniti urejanja?";
 "diff-rollback-alert-title" = "Vrnitev urejanj";
+"diff-rollback-success" = "Urejanje vrnjeno.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 urejanje|$1 urejanji|$1 urejanja|$1 urejanj}}";
 "diff-single-header-editor-title" = "Podatki o urejevalcu";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 zlog dodan|$1 zloga dodana|$1 zlogi dodani|$1 zlogov dodanih}}";
@@ -235,7 +239,9 @@
 "diff-thanks-sent-already" = "Za to urejanje ste že poslali zahvalo";
 "diff-thanks-sent-cannot-unsend" = "Zahval ni mogoče preklicati.";
 "diff-undo-message" = "To bo razveljavilo spremembe, narejene z redakcijo(ami) članka, prikazanega tukaj. Če želite nadaljevati, navedite razlog za razveljavitev tega urejanja.";
+"diff-undo-success" = "Redakcija je razveljavljena.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 vrstica neurejena|$1 vrstici neurejeni|$1 vrstice neurejene|$1 vrstic neurejenih}}";
+"diff-user-button-accessibility-text" = "Dvokliknite, da odprete meni";
 "dim-images" = "Zatemnjene slike";
 "edit-bold-accessibility-label" = "Dodaj krepko oblikovanje";
 "edit-bold-remove-accessibility-label" = "Odstrani krepko oblikovanje";
@@ -1068,6 +1074,7 @@
 "two-factor-login-with-regular-code" = "Uporabite kodo za preverjanje";
 "unable-to-load-talk-page-title" = "Pogovorne strani ni mogoče naložiti";
 "unknown-generic-text" = "Neznano";
+"unwatch" = "Odopazuj";
 "uzbek-variants-alert-body" = "Aplikacija Wikipedija zdaj podpira naslednji različici uzbeščine kot osnovni ali sekundarni jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\noʻzbekcha lotin – uzbeščina, latinica (uz-latin)\nўзбекча кирилл – uzbeščina, cirilica (uz-cyrl)";
 "uzbek-variants-alert-title" = "Posodobitve podpore za uzbeške različice";
 "vanish-account-additional-information-field" = "Dodatne informacije";
@@ -1094,7 +1101,9 @@
 "vanishing-request-email-title" = "Prošnja za uslugo izginotja";
 "variants-alert-dismiss-button" = "Ne, hvala";
 "variants-alert-preferences-button" = "Preglejte svoje nastavitve";
+"watch" = "Opazuj";
 "watchlist" = "Spisek nadzorov";
+"watchlist-filter" = "Filter";
 "watchlist-user-button-user-contributions" = "Uporabniški prispevki";
 "watchlist-user-button-user-page" = "Uporabniška stran";
 "watchlist-user-button-user-talk-page" = "Uporabniška pogovorna stran";

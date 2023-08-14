@@ -116,7 +116,8 @@
 "description-published-title" = "تفصیل شائع تھی ڳئی!";
 "description-welcome-descriptions-title" = "عنوان دی تفصیل";
 "description-welcome-start-editing-button" = "لکھݨ شروع کرو";
-"diff-compare-header-from-info-heading" = "کنوں";
+"diff-compare-header-from-info-heading" = "پچھلی تبدیلی";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "کوں";
 "diff-context-lines-collapsed-button-title" = "ݙِکھاؤ";
 "diff-context-lines-expanded-button-title" = "لُکاؤ";
@@ -125,6 +126,7 @@
 "diff-paragraph-moved-direction-up" = "اُتے";
 "diff-rollback" = "پچھاں واپس کرو";
 "diff-rollback-alert-title" = "تبدیلیاں پچھلی حالت تے واپس کرو";
+"diff-rollback-success" = "تبدیلیاں واپس تھی ڳیاں۔";
 "diff-single-header-summary-heading" = "تبدیلی دا خلاصہ";
 "diff-single-intro-title" = "تعارف";
 "diff-single-line-format" = "سطر $1";
@@ -471,6 +473,7 @@
 "vanish-account-learn-more-text" = "ٻیا سِکھو";
 "vanish-account-warning-title" = "ݙراوا";
 "variants-alert-dismiss-button" = "کو، شکریہ";
+"watch" = "پارھا ݙیوو";
 "watchlist" = "پارھا تندیر";
 "watchlist-user-button-user-contributions" = "ورتݨ آلے دیاں ونگاراں";
 "watchlist-user-button-user-page" = "ورتݨ آلے دا ورقہ";

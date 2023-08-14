@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Dipusparaga
 // Author: Kandar
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Uchup19
 // Author: WikiKaruhun
@@ -126,7 +127,7 @@
 "field-backup-token-title" = "Kodeu cadangan";
 "field-captcha-placeholder" = "Téks CAPTCHA";
 "field-captcha-title" = "Asupkeun nu ku anjeun katempo di luhur";
-"field-email-placeholder" = "conto@conto.org";
+"field-email-placeholder" = "conto@example.org";
 "field-email-title" = "Surélék";
 "field-email-title-optional" = "Surélék (teu wajib)";
 "field-new-password-confirm-placeholder" = "asupkeun deui kecap sandi anyar";

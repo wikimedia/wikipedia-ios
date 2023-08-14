@@ -23,6 +23,7 @@
 // Author: Kenrick95
 // Author: Macofe
 // Author: Mas ady
+// Author: McDutchie
 // Author: Mnam23
 // Author: Naufal06
 // Author: Nemo bis
@@ -231,8 +232,10 @@
 "description-welcome-promise-title" = "Dengan memulai, saya berjanji untuk tidak menyalahgunakan fitur ini";
 "description-welcome-start-editing-button" = "Mulai menyunting";
 "diff-article-edit-history" = "Riwayat Penyuntingan Artikel";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Dari";
 "diff-compare-header-heading" = "Bandingkan Revisi";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Untuk";
 "diff-compare-title" = "Bandingkan Revisi";
 "diff-context-lines-collapsed-button-title" = "Tampilkan";
@@ -248,6 +251,7 @@
 "diff-rollback" = "Kembalikan";
 "diff-rollback-alert-message" = "Apakah Anda yakin ingin mengembalikan suntingan?";
 "diff-rollback-alert-title" = "Kembalikan suntingan";
+"diff-rollback-success" = "Suntingan yang dibalikkan";
 "diff-single-header-editor-number-edits-format" = "$1 suntingan";
 "diff-single-header-editor-title" = "Informasi penyunting";
 "diff-single-header-subtitle-bytes-added" = "$1 bita ditambahkan";
@@ -265,6 +269,7 @@
 "diff-thanks-sent-already" = "Anda sudah mengirimkan 'Terima kasih' untuk penyuntingan ini";
 "diff-thanks-sent-cannot-unsend" = "Terima kasih tidak bisa dikembalikan";
 "diff-undo-message" = "Ini akan membatalkan perubahan yang dibuat sesuai revisi artikel yang ditampilkan di sini. Untuk melanjutkan, berikan alasan untuk mengembalikan penyuntingan ini.";
+"diff-undo-success" = "Revisi telah dibatalkan.";
 "diff-unedited-lines-format" = "$1 baris tidak disunting";
 "dim-images" = "Redupkan gambar";
 "edit-bold-accessibility-label" = "Tambahkan pemformatan tebal";
@@ -463,7 +468,7 @@
 "field-backup-token-title" = "Kode cadangan";
 "field-captcha-placeholder" = "Teks CAPTCHA";
 "field-captcha-title" = "Masukkan teks yang Anda lihat di atas";
-"field-email-placeholder" = "contoh@contoh.org";
+"field-email-placeholder" = "contoh@example.org";
 "field-email-title" = "Surel";
 "field-email-title-optional" = "Alamat surel (Opsional)";
 "field-new-password-confirm-placeholder" = "masukkan kembali kata sandi baru";
@@ -1098,6 +1103,7 @@
 "two-factor-login-with-regular-code" = "Gunakan kode verifikasi";
 "unable-to-load-talk-page-title" = "Tidak bisa memuat halaman pembicaraan";
 "unknown-generic-text" = "Tidak diketahui";
+"unwatch" = "Batal pantau";
 "uzbek-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Uzbek berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Sirilik (uz-cyrl)";
 "uzbek-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Uzbek";
 "vanish-account-additional-information-field" = "Informasi tambahan";
@@ -1124,6 +1130,7 @@
 "vanishing-request-email-title" = "Permintaan moksa secara hormat";
 "variants-alert-dismiss-button" = "Tidak, terima kasih";
 "variants-alert-preferences-button" = "Tinjau preferensi Anda";
+"watch" = "Pantau";
 "watchlist" = "Daftar pantauan";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disarankan dan artikel harian dari komunitas kami";
 "welcome-exploration-explore-feed-title" = "Umpan Jelajahi";

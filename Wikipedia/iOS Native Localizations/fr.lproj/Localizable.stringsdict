@@ -295,7 +295,7 @@
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dans 1 projet%#@v1@</string>
+		<string>Dans %1$d projet%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -311,7 +311,7 @@
 	<key>notifications-center-status-in-projects-plain</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>1 projet%#@v1@</string>
+		<string>%1$d projet%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -327,7 +327,7 @@
 	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>1 type%#@v1@</string>
+		<string>%1$d type%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

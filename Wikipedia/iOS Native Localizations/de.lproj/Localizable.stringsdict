@@ -38,6 +38,66 @@
 			<string>0 Referenzen</string>
 		</dict>
 	</dict>
+	<key>aaald-small-change-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d kleine Änderung vorgenommen</string>
+			<key>other</key>
+			<string>%1$d kleine Änderungen vorgenommen</string>
+			<key>zero</key>
+			<string>Keine kleinen Änderungen vorgenommen</string>
+		</dict>
+	</dict>
+	<key>aaald-summary-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ von %#@v2@ in %#@v3@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Änderung</string>
+			<key>other</key>
+			<string>%1$d Änderungen</string>
+			<key>zero</key>
+			<string>0 Änderungen</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d Benutzer</string>
+			<key>other</key>
+			<string>%2$d Benutzern</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %3$d Tag</string>
+			<key>other</key>
+			<string> %3$d Tagen</string>
+			<key>zero</key>
+			<string>0 Tagen</string>
+		</dict>
+	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -180,6 +240,20 @@
 			<string>%1$d</string>
 		</dict>
 	</dict>
+	<key>notifications-center-empty-state-num-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d Filter</string>
+		</dict>
+	</dict>
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -226,6 +300,54 @@
 			<string>1 Projekt</string>
 			<key>other</key>
 			<string>%1$d Projekte</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-types</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1 Typ</string>
+			<key>other</key>
+			<string>%1$d Typen</string>
+		</dict>
+	</dict>
+	<key>notifications-push-talk-body-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ auf %2$@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d neue Nachricht</string>
+			<key>other</key>
+			<string>%1$d neue Nachrichten</string>
+		</dict>
+	</dict>
+	<key>notifications-push-talk-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Neue Nachricht</string>
+			<key>other</key>
+			<string>Neue Nachrichten</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -590,6 +712,22 @@
 			<string>d</string>
 			<key>other</key>
 			<string>Artikel</string>
+		</dict>
+	</dict>
+	<key>talk-page-replies-count-accessibilty-label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Antwort</string>
+			<key>other</key>
+			<string>%1$d Antworten</string>
 		</dict>
 	</dict>
 </dict>
