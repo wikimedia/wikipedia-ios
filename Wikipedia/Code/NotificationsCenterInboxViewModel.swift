@@ -1,80 +1,22 @@
 import Foundation
 import WMF
 import UIKit
+import Components
+import Combine
 
 class NotificationsCenterInboxViewModel: ObservableObject {
     
-    class SectionViewModel: Identifiable {
-        let id = UUID()
-        let header: String
-        let footer: String
-        let items: [ItemViewModel]
-        
-        init(header: String, footer: String, items: [ItemViewModel]) {
-            self.header = header
-            self.footer = footer
-            self.items = items
-        }
-    }
-    
-    class ItemViewModel: ObservableObject, Identifiable {
-                
-        let id = UUID()
-        let title: String
-        @Published var isSelected: Bool {
-            didSet {
-                if isSelected {
-                    removeProjectFromFilter(self.project)
-                } else {
-                    appendProjectToFilter(self.project)
-                }
-            }
-        }
-        let iconName: String?
-        let project: WikimediaProject
-        let remoteNotificationsController: RemoteNotificationsController
-        
-        init(title: String, isSelected: Bool, iconName: String?, project: WikimediaProject, remoteNotificationsController: RemoteNotificationsController) {
-            self.title = title
-            self.isSelected = isSelected
-            self.iconName = iconName
-            self.remoteNotificationsController = remoteNotificationsController
-            self.project = project
-        }
-        
-        private func appendProjectToFilter(_ project: WikimediaProject) {
-            
-            let currentFilterState = remoteNotificationsController.filterState
-            
-            var newProjects = currentFilterState.offProjects
-            newProjects.insert(project)
-            
-            let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, offTypes: currentFilterState.offTypes, offProjects: newProjects)
-            remoteNotificationsController.filterState = newFilterState
-        }
-        
-        private func removeProjectFromFilter(_ project: WikimediaProject) {
-            
-            let currentFilterState = remoteNotificationsController.filterState
-            
-            var newProjects = currentFilterState.offProjects
-            newProjects.remove(project)
-            
-            let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, offTypes: currentFilterState.offTypes, offProjects: newProjects)
-            remoteNotificationsController.filterState = newFilterState
-        }
-    }
-    
-    let sections: [SectionViewModel]
     @Published var theme: Theme
     let remoteNotificationsController: RemoteNotificationsController
+    let formViewModel: WKFormViewModel
+    private var subscribers: Set<AnyCancellable> = []
  
     init?(remoteNotificationsController: RemoteNotificationsController, allInboxProjects: Set<WikimediaProject>, theme: Theme) {
      
+        self.theme = theme
         let filterState = remoteNotificationsController.filterState
         
         self.remoteNotificationsController = remoteNotificationsController
-        self.theme = theme
         
         let unselectedProjects = Set(filterState.offProjects)
         
@@ -100,16 +42,80 @@ class NotificationsCenterInboxViewModel: ObservableObject {
             return lhs.projectName(shouldReturnCodedFormat: false) < rhs.projectName(shouldReturnCodedFormat: false)
         }
         
-        let firstSectionItems = nonLanguageProjects.map { ItemViewModel(title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0), iconName: $0.projectIconName, project: $0, remoteNotificationsController: remoteNotificationsController) }
+        let firstSectionItems: [WKFormItemSelectViewModel] = nonLanguageProjects.compactMap {
+            
+            guard let projectIconName = $0.projectIconName else {
+                return nil
+            }
+            
+            let item = WKFormItemSelectViewModel.init(image: UIImage(named: projectIconName), title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0))
+            
+            return item
+        }
         
-        let secondSectionItems = alphabeticalAppLanguageProjects.map { ItemViewModel(title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0), iconName: nil, project: $0, remoteNotificationsController: remoteNotificationsController) }
+        let secondSectionItems: [WKFormItemSelectViewModel] = alphabeticalAppLanguageProjects.compactMap {
+            
+            let item = WKFormItemSelectViewModel.init(image: nil, title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0))
+            
+            return item
+            
+        }
         
         let wikipediasSectionTitle = CommonStrings.wikipediasHeader
         let wikimediaProjectsSectionTitle = CommonStrings.wikimediaProjectsHeader
         let wikimediaProjectsSectionFooter = CommonStrings.wikimediaProjectsFooter
         
-        let firstSection = SectionViewModel(header: wikimediaProjectsSectionTitle.uppercased(with: NSLocale.current), footer: wikimediaProjectsSectionFooter, items: firstSectionItems)
-        let secondSection = SectionViewModel(header: wikipediasSectionTitle.uppercased(with: NSLocale.current), footer: "", items: secondSectionItems)
-        self.sections = [firstSection, secondSection]
+        let firstSection = WKFormSectionSelectViewModel(header: wikimediaProjectsSectionTitle.uppercased(with: NSLocale.current), footer: wikimediaProjectsSectionFooter, items: firstSectionItems, selectType: .multi)
+        let secondSection = WKFormSectionSelectViewModel(header: wikipediasSectionTitle.uppercased(with: NSLocale.current), items: secondSectionItems, selectType: .multi)
+
+        self.formViewModel = WKFormViewModel(sections: [firstSection, secondSection])
+        
+        for (project, sectionItem) in zip(nonLanguageProjects, firstSectionItems) {
+
+            sectionItem.$isSelected.sink { [weak self] isSelected in
+
+                if isSelected {
+                    self?.removeProjectFromFilter(project)
+                } else {
+                    self?.appendProjectToFilter(project)
+                }
+
+            }.store(in: &subscribers)
+        }
+        
+        for (project, sectionItem) in zip(alphabeticalAppLanguageProjects, secondSectionItems) {
+
+            sectionItem.$isSelected.sink { [weak self] isSelected in
+
+                if isSelected {
+                    self?.removeProjectFromFilter(project)
+                } else {
+                    self?.appendProjectToFilter(project)
+                }
+
+            }.store(in: &subscribers)
+        }
+    }
+    
+    private func appendProjectToFilter(_ project: WikimediaProject) {
+        
+        let currentFilterState = remoteNotificationsController.filterState
+        
+        var newProjects = currentFilterState.offProjects
+        newProjects.insert(project)
+        
+        let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, offTypes: currentFilterState.offTypes, offProjects: newProjects)
+        remoteNotificationsController.filterState = newFilterState
+    }
+    
+    private func removeProjectFromFilter(_ project: WikimediaProject) {
+        
+        let currentFilterState = remoteNotificationsController.filterState
+        
+        var newProjects = currentFilterState.offProjects
+        newProjects.remove(project)
+        
+        let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, offTypes: currentFilterState.offTypes, offProjects: newProjects)
+        remoteNotificationsController.filterState = newFilterState
     }
 }
