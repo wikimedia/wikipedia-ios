@@ -13,6 +13,7 @@ public class Router: NSObject {
         case onThisDay(_: Int?)
         case readingListsImport(encodedPayload: String)
         case login
+        case watchlist
     }
     
     unowned let configuration: Configuration
@@ -99,6 +100,10 @@ public class Router: NSObject {
                let encodedPayload = firstQueryItem.value {
 
                 return .readingListsImport(encodedPayload: encodedPayload)
+            }
+            
+            if title == "Watchlist" {
+                return .watchlist
             }
             
             guard project.supportsNativeDiffPages else {

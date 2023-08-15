@@ -1,5 +1,6 @@
 import UIKit
 import AVKit
+import Components
 
 // Wrapper class for access in Objective-C
 @objc class WMFRoutingUserInfoKeys: NSObject {
@@ -178,6 +179,21 @@ class ViewControllerRouter: NSObject {
             return presentOrPush(createReadingListVC, with: completion)
         case .login:
             return presentLoginViewController(with: completion)
+        case .watchlist:
+            var targetNavigationController = appViewController.navigationController
+            if let presentedNavigationController = appViewController.presentedViewController as? UINavigationController,
+               let _ = presentedNavigationController.viewControllers[0] as? WMFSettingsViewController {
+                targetNavigationController = presentedNavigationController
+            }
+            
+            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter)
+            let configuration = WKWatchlistViewModel.Configuration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
+            let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings, configuration: configuration)
+            let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, delegate: appViewController)
+            
+            targetNavigationController?.pushViewController(watchlistViewController, animated: true)
+            completion()
+            return true
         default:
             completion()
             return false

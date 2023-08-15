@@ -49,7 +49,7 @@ class WatchlistController {
         presentChooseExpiryActionSheet(pageTitle: pageTitle, siteURL: siteURL, wkProject: wkProject, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, authenticationManager: authenticationManager)
     }
     
-    private func displayWatchSuccessMessage(pageTitle: String, wkProject: WKProject, expiry: WKWatchlistExpiryType, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
+    private func displayWatchSuccessMessage(pageTitle: String, wkProject: WKProject, siteURL: URL, expiry: WKWatchlistExpiryType, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
         let statusTitle: String
         let image = UIImage(systemName: "star.fill")
         switch expiry {
@@ -69,8 +69,13 @@ class WatchlistController {
         
         let promptTitle = WMFLocalizedString("watchlist-added-toast-view-watchlist", value: "View Watchlist", comment: "Button in toast after a user successfully adds an article to their watchlist. Tapping will take them to their watchlist.")
         
-        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(statusTitle, subtitle: nil, image: image, type: .custom, customTypeName: toastCustomTypeName, dismissPreviousAlerts: true, buttonTitle: promptTitle, buttonCallBack: { [weak self] in
-            // TODO: Present watchlist from settings
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(statusTitle, subtitle: nil, image: image, type: .custom, customTypeName: toastCustomTypeName, dismissPreviousAlerts: true, buttonTitle: promptTitle, buttonCallBack: {
+            guard let linkURL = siteURL.wmf_URL(withTitle: "Special:Watchlist"),
+            let userActivity = NSUserActivity.wmf_activity(for: linkURL) else {
+                return
+            }
+            
+            NSUserActivity.wmf_navigate(to: userActivity)
         })
     }
     
@@ -111,7 +116,7 @@ class WatchlistController {
                         switch result {
                         case .success(()):
                             self.delegate?.didSuccessfullyWatch(self)
-                            self.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, expiry: expiry, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
+                            self.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, siteURL: siteURL, expiry: expiry, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
                         case .failure(let error):
                             self.evaluateServerError(error: error, viewController: viewController, theme: theme, performAfterLoginBlock: { [weak self] in
                                 self?.watch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
