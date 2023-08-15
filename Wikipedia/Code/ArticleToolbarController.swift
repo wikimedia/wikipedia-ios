@@ -98,7 +98,8 @@ class ArticleToolbarController: Themeable {
         
         let menu = UIMenu(title: "", options: .displayInline, children: actions)
         
-        let item = IconBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
+        let moreImage = UIImage(systemName: "ellipsis.circle", withConfiguration: UIImage.SymbolConfiguration(weight: .light))
+        let item = IconBarButtonItem(title: nil, image: moreImage, primaryAction: nil, menu: menu)
 
         item.accessibilityLabel = CommonStrings.moreButton
         return item
