@@ -712,7 +712,7 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)setupSubTitleLabel
 {
-  [_subtitleLabel setHidden:_title == NULL];
+  [_subtitleLabel setHidden:_subtitle == NULL];
   id subTitleFontSizeValue = [_messageViewDesignDictionary valueForKey:@"subTitleFontSize"];
   if (!subTitleFontSizeValue) {
     subTitleFontSizeValue = [_messageViewDesignDictionary valueForKey:@"subtitleFontSize"];
