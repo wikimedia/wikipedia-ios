@@ -30,7 +30,7 @@ static NSMutableDictionary *globalDesignDictionary;
 @property (nonatomic, weak) IBOutlet UIButton *button;
 @property (nonatomic, weak) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleSubtitleContainerViewLeadingConstraint;
-@property (weak, nonatomic) IBOutlet UIImageView *closeImageView;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
 @property (nonatomic, strong) UIImageView *iconImageView;
 @property (nonatomic, strong) UIImageView *backgroundImageView;
@@ -266,9 +266,12 @@ static NSMutableDictionary *globalDesignDictionary;
       }
       
     if (dismissingEnabled) {
+        [self.closeButton setTitle:nil forState:UIControlStateNormal];
+        [self.closeButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+        [self.closeButton addTarget:self action:@selector(closeButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
       [self setupGestureRecognizers];
     } else {
-      self.closeImageView.hidden = YES;
+        self.closeButton.hidden = YES;
     }
   }
   return self;
@@ -311,7 +314,7 @@ static NSMutableDictionary *globalDesignDictionary;
 - (void)setCloseIconColor:(UIColor *)closeIconColor
 {
     _closeIconColor = closeIconColor;
-    [self.closeImageView setTintColor:closeIconColor];
+    [self.closeButton setTintColor:closeIconColor];
 }
 
 
@@ -833,6 +836,14 @@ static NSMutableDictionary *globalDesignDictionary;
   if (self.delegate && [self.delegate respondsToSelector:@selector(didTapMessageView:)]) {
     [self.delegate didTapMessageView:self];
   }
+}
+
+- (void)closeButtonTapped:(UIButton *)sender {
+
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didTapCloseButtonOnMessageView:)]) {
+      [self.delegate didTapCloseButtonOnMessageView:self];
+    }
+
 }
 
 #pragma mark - Presentation Methods

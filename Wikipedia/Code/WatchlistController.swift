@@ -69,14 +69,16 @@ class WatchlistController {
         
         let promptTitle = WMFLocalizedString("watchlist-added-toast-view-watchlist", value: "View Watchlist", comment: "Button in toast after a user successfully adds an article to their watchlist. Tapping will take them to their watchlist.")
         
-        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(statusTitle, subtitle: nil, image: image, type: .custom, customTypeName: toastCustomTypeName, dismissPreviousAlerts: true, buttonTitle: promptTitle, buttonCallBack: {
+        let navigateToWatchlistBlock: (() -> Void) = {
             guard let linkURL = siteURL.wmf_URL(withTitle: "Special:Watchlist"),
             let userActivity = NSUserActivity.wmf_activity(for: linkURL) else {
                 return
             }
             
             NSUserActivity.wmf_navigate(to: userActivity)
-        })
+        }
+        
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(statusTitle, subtitle: nil, image: image, type: .custom, customTypeName: toastCustomTypeName, dismissPreviousAlerts: true, callback: navigateToWatchlistBlock, buttonTitle: promptTitle, buttonCallBack: navigateToWatchlistBlock)
     }
     
     private func presentChooseExpiryActionSheet(pageTitle: String, siteURL: URL, wkProject: WKProject, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, authenticationManager: WMFAuthenticationManager) {
