@@ -23,9 +23,10 @@ extension ArticleViewController {
                 case .success(let status):
                     
                     let needsWatchButton = !status.watched
-                    let needsUnwatchButton = status.watched
+                    let needsUnwatchHalfButton = status.watched && status.watchlistExpiry != nil
+                    let needsUnwatchFullButton = status.watched && status.watchlistExpiry == nil
                     
-                    self.toolbarController.updateMoreButton(needsWatchButton: needsWatchButton, needsUnwatchButton: needsUnwatchButton)
+                    self.toolbarController.updateMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton)
                 case .failure:
                     break
                 }
@@ -57,11 +58,15 @@ extension ArticleViewController {
 }
 
 extension ArticleViewController: WatchlistControllerDelegate {
-    func didSuccessfullyWatch(_ controller: WatchlistController) {
-        toolbarController.updateMoreButton(needsWatchButton: false, needsUnwatchButton: true)
+    func didSuccessfullyWatchTemporarily(_ controller: WatchlistController) {
+        toolbarController.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: true, needsUnwatchFullButton: false)
+    }
+    
+    func didSuccessfullyWatchPermanently(_ controller: WatchlistController) {
+        toolbarController.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: false, needsUnwatchFullButton: true)
     }
     
     func didSuccessfullyUnwatch(_ controller: WatchlistController) {
-        toolbarController.updateMoreButton(needsWatchButton: true, needsUnwatchButton: false)
+        toolbarController.updateMoreButton(needsWatchButton: true, needsUnwatchHalfButton: false, needsUnwatchFullButton: false)
     }
 }

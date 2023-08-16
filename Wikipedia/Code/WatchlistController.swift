@@ -3,7 +3,8 @@ import WMF
 import WKData
 
 protocol WatchlistControllerDelegate: AnyObject {
-    func didSuccessfullyWatch(_ controller: WatchlistController)
+    func didSuccessfullyWatchTemporarily(_ controller: WatchlistController)
+    func didSuccessfullyWatchPermanently(_ controller: WatchlistController)
     func didSuccessfullyUnwatch(_ controller: WatchlistController)
 }
 
@@ -51,7 +52,7 @@ class WatchlistController {
     
     private func displayWatchSuccessMessage(pageTitle: String, wkProject: WKProject, siteURL: URL, expiry: WKWatchlistExpiryType, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
         let statusTitle: String
-        let image = UIImage(systemName: "star.fill")
+        let image = expiry == .never ? UIImage(systemName: "star.fill") : UIImage(systemName: "star.leadinghalf.filled")
         switch expiry {
         case .never:
             statusTitle = WMFLocalizedString("watchlist-added-toast-permanently", value: "Added to your Watchlist permanently.", comment: "Title in toast after a user successfully adds an article to their watchlist, with no expiration.")
@@ -117,7 +118,11 @@ class WatchlistController {
                         
                         switch result {
                         case .success(()):
-                            self.delegate?.didSuccessfullyWatch(self)
+                            if expiry == .never {
+                                self.delegate?.didSuccessfullyWatchPermanently(self)
+                            } else {
+                                self.delegate?.didSuccessfullyWatchTemporarily(self)
+                            }
                             self.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, siteURL: siteURL, expiry: expiry, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
                         case .failure(let error):
                             self.evaluateServerError(error: error, viewController: viewController, theme: theme, performAfterLoginBlock: { [weak self] in

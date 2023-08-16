@@ -81,7 +81,7 @@ class ArticleToolbarController: Themeable {
         return createMoreButton()
     }()
     
-    private func createMoreButton(needsWatchButton: Bool = false, needsUnwatchButton: Bool = false) -> IconBarButtonItem {
+    private func createMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false) -> IconBarButtonItem {
         var actions: [UIAction] = []
         
         actions.append(UIAction(title: CommonStrings.revisionHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedRevisionHistory() }))
@@ -90,7 +90,9 @@ class ArticleToolbarController: Themeable {
         
         if needsWatchButton {
            actions.append(UIAction(title: CommonStrings.watch, image: UIImage(systemName: "star"), handler: { [weak self] _ in self?.tappedWatch() }))
-        } else if needsUnwatchButton {
+        } else if needsUnwatchHalfButton {
+            actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.leadinghalf.filled"), handler: { [weak self] _ in self?.tappedUnwatch()}))
+        } else if needsUnwatchFullButton {
             actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.fill"), handler: { [weak self] _ in self?.tappedUnwatch()}))
         }
 
@@ -105,8 +107,8 @@ class ArticleToolbarController: Themeable {
         return item
     }
     
-    func updateMoreButton(needsWatchButton: Bool = false, needsUnwatchButton: Bool = false) {
-        self.moreButton = createMoreButton(needsWatchButton: needsWatchButton, needsUnwatchButton: needsUnwatchButton)
+    func updateMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false) {
+        self.moreButton = createMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton)
         update()
     }
     

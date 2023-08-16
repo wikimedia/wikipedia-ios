@@ -682,10 +682,11 @@ private extension DiffContainerViewController {
                 case .success(let status):
                     
                     let needsWatchButton = !status.watched && FeatureFlags.watchlistEnabled
-                    let needsUnwatchButton = status.watched && FeatureFlags.watchlistEnabled
+                    let needsUnwatchHalfButton = status.watched && status.watchlistExpiry != nil && FeatureFlags.watchlistEnabled
+                    let needsUnwatchFullButton = status.watched && status.watchlistExpiry == nil && FeatureFlags.watchlistEnabled
                     let needsArticleEditHistoryButton = true
                     
-                    self.diffToolbarView?.updateMoreButton(needsRollbackButton: (status.userHasRollbackRights ?? false), needsWatchButton: needsWatchButton, needsUnwatchButton: needsUnwatchButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
+                    self.diffToolbarView?.updateMoreButton(needsRollbackButton: (status.userHasRollbackRights ?? false), needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
                 case .failure:
                     break
                 }
@@ -1469,11 +1470,15 @@ extension DiffContainerViewController: DiffRevisionAnimating {
 }
 
 extension DiffContainerViewController: WatchlistControllerDelegate {
-    func didSuccessfullyWatch(_ controller: WatchlistController) {
-        diffToolbarView?.updateMoreButton(needsWatchButton: false, needsUnwatchButton: true, needsArticleEditHistoryButton: true)
+    func didSuccessfullyWatchTemporarily(_ controller: WatchlistController) {
+        diffToolbarView?.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: true, needsUnwatchFullButton: false, needsArticleEditHistoryButton: true)
+    }
+    
+    func didSuccessfullyWatchPermanently(_ controller: WatchlistController) {
+        diffToolbarView?.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: false, needsUnwatchFullButton: true, needsArticleEditHistoryButton: true)
     }
     
     func didSuccessfullyUnwatch(_ controller: WatchlistController) {
-        diffToolbarView?.updateMoreButton(needsWatchButton: true, needsUnwatchButton: false, needsArticleEditHistoryButton: true)
+        diffToolbarView?.updateMoreButton(needsWatchButton: true, needsUnwatchHalfButton: false, needsUnwatchFullButton: false, needsArticleEditHistoryButton: true)
     }
 }

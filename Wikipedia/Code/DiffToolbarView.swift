@@ -132,15 +132,15 @@ class DiffToolbarView: UIView {
         setItems()
     }
     
-    func updateMoreButton(needsRollbackButton: Bool? = nil, needsWatchButton: Bool = false, needsUnwatchButton: Bool = false, needsArticleEditHistoryButton: Bool = false) {
+    func updateMoreButton(needsRollbackButton: Bool? = nil, needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, needsArticleEditHistoryButton: Bool = false) {
         
         let resolvedNeedsRollback = needsRollbackButton ?? currentlyHasRollback ?? false
-        self.moreButton = createMoreButton(needsRollbackButton: resolvedNeedsRollback, needsWatchButton: needsWatchButton, needsUnwatchButton: needsUnwatchButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
+        self.moreButton = createMoreButton(needsRollbackButton: resolvedNeedsRollback, needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
         setItems()
     }
     
     private var currentlyHasRollback: Bool?
-    private func createMoreButton(needsRollbackButton: Bool = false, needsWatchButton: Bool = false, needsUnwatchButton: Bool = false, needsArticleEditHistoryButton: Bool = false) -> IconBarButtonItem {
+    private func createMoreButton(needsRollbackButton: Bool = false, needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, needsArticleEditHistoryButton: Bool = false) -> IconBarButtonItem {
         
         var actions: [UIAction] = []
         if needsRollbackButton {
@@ -151,7 +151,9 @@ class DiffToolbarView: UIView {
 
        if needsWatchButton {
            actions.append(UIAction(title: CommonStrings.watch, image: UIImage(systemName: "star"), handler: { [weak self] _ in self?.tappedWatch() }))
-       } else if needsUnwatchButton {
+       } else if needsUnwatchHalfButton {
+           actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.leadinghalf.filled"), handler: { [weak self] _ in self?.tappedUnwatch()}))
+       } else if needsUnwatchFullButton {
            actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.fill"), handler: { [weak self] _ in self?.tappedUnwatch()}))
        }
            
