@@ -19829,7 +19829,7 @@
 			repositoryURL = "https://github.com/wikimedia/wikipedia-ios-components.git";
 			requirement = {
 				kind = revision;
-				revision = b59568b0fb9089ef260713f8a525ded931ed55d1;
+				revision = 8cb3709b28ed83040bce1152733de978e53c67dd;
 			};
 		};
 		67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
