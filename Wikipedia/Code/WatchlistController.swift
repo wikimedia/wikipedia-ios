@@ -177,7 +177,7 @@ class WatchlistController {
                 
                 switch result {
                 case .success:
-                    let title = WMFLocalizedString("watchlist-removed", value: "Removed from your watchlist", comment: "Title in toast after a user successfully removes an article from their watchlist.")
+                    let title = WMFLocalizedString("watchlist-removed", value: "Removed from your Watchlist", comment: "Title in toast after a user successfully removes an article from their watchlist.")
                     let image = UIImage(systemName: "star")
                     WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: self.toastCustomTypeName, dismissPreviousAlerts: true)
                     self.delegate?.didSuccessfullyUnwatch(self)

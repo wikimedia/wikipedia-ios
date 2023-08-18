@@ -267,7 +267,9 @@ public class CommonStrings: NSObject {
     }
     @objc public static let talkPageReplyAccessibilityText = WMFLocalizedString("talk-page-reply-button-accessibility-label", value: "Reply to %@", comment: "Accessibility text for reply button. The %@ will be replaced with the name of the user whose comment is being responded")
 
-    public static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for option that leads to page revision history.")
+    public static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for for menu option that leads to page revision history.")
+    
+    public static let articleRevisionHistory = WMFLocalizedString("article-revision-history", value: "Article revision history", comment: "Title for menu option that leads to article revision history.")
 
     public static let defaultThemeDisplayName = WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user")
 
@@ -283,7 +285,7 @@ public class CommonStrings: NSObject {
 
     public static let rollback = WMFLocalizedString("diff-rollback", value: "Rollback", comment: "Title for rollback toolbar button.")
     
-    public static let articleTalkPage = WMFLocalizedString("article-talk-page", value: "Article Talk Page", comment: "Title for article talk page button")
+    public static let articleTalkPage = WMFLocalizedString("article-talk-page", value: "Article talk page", comment: "Title for article talk page button")
 
     public static let userButtonPage = WMFLocalizedString("watchlist-user-button-user-page", value: "User page", comment: "Title shown for user page action in user menu button in diff and watchlist views.")
 

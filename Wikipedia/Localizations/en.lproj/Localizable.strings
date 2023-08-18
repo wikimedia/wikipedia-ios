@@ -128,9 +128,10 @@
 "article-languages-yours" = "Your languages";
 "article-read-more-title" = "Read more";
 "article-reference-view-title" = "Reference $1";
+"article-revision-history" = "Article revision history";
 "article-save-error-not-enough-space" = "You do not have enough space on your device to save this article";
 "article-share" = "Share";
-"article-talk-page" = "Article Talk Page";
+"article-talk-page" = "Article talk page";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Reading Themes Controls";
 "back-button-accessibility-label" = "Back";
 "back-button-popover-title" = "Tap to go back";
@@ -1112,7 +1113,7 @@
 "watchlist-change-expiry-subtitle" = "Choose Watchlist time period";
 "watchlist-change-expiry-title" = "Watchlist expiry";
 "watchlist-filter" = "Filter";
-"watchlist-removed" = "Removed from your watchlist";
+"watchlist-removed" = "Removed from your Watchlist";
 "watchlist-user-button-user-contributions" = "User contributions";
 "watchlist-user-button-user-page" = "User page";
 "watchlist-user-button-user-talk-page" = "User talk page";

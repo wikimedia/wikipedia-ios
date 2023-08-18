@@ -84,7 +84,7 @@ class ArticleToolbarController: Themeable {
     private func createMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false) -> IconBarButtonItem {
         var actions: [UIAction] = []
         
-        actions.append(UIAction(title: CommonStrings.revisionHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedRevisionHistory() }))
+        actions.append(UIAction(title: CommonStrings.articleRevisionHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedRevisionHistory() }))
         
         actions.append(UIAction(title: CommonStrings.articleTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right"), handler: { [weak self] _ in self?.tappedArticleTalkPage() }))
         
