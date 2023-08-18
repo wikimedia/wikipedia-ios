@@ -4,10 +4,12 @@
 When composing a pull request, link to the phabricator ticket that the work relates to. Also apply GitHub labels where appropriate.
 
 ### Labels
-#### Update branch before merging
-Pull request contains changes from another pull request. Updating from main after the dependent PR is merged will clean up the diff.
+#### Dependent PR
+Pull request contains changes from another pull request. This dependent PR must be merged first. After dependent PR is merged, be sure to update from the base branch before merging.
 #### Question/Design Question
 Pull request has a question that needs answering.
+#### Design Review
+Pull request is in design review, meaning further commits might trickle in to address design feedback. PR can still be reviewed in this state.
 
 For Work in Progress or pull requests on Hold, [mark your PR as draft](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests#draft-pull-requests) via the GitHub UI.
 
