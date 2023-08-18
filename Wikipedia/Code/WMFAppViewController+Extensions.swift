@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import SwiftUI
 import WKData
+import Components
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -282,4 +283,14 @@ extension WMFAppViewController {
         let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
         WKDataEnvironment.current.appData = WKAppData(appLanguages: languages)
     }
+}
+
+// MARK: Components App Environment
+extension WMFAppViewController {
+
+    @objc func appEnvironmentDidChange(theme: Theme, traitCollection: UITraitCollection) {
+        let wkTheme = Theme.wkTheme(from: theme)
+        WKAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
+    }
+
 }
