@@ -148,7 +148,7 @@ class AccountViewController: SubSettingsViewController {
                     self.navigationController?.pushViewController(newTalkPage, animated: true)
                 }
         case .watchlist:
-            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter)
+            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, byte: CommonStrings.watchlistByte, bytes: CommonStrings.watchlistBytes)
             let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings)
             let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, delegate: self)
             self.navigationController?.pushViewController(watchlistViewController, animated: true)
