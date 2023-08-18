@@ -140,7 +140,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
             } else if messageView.customTypeName == "subscription-error" {
                 messageView.imageViewTintColor = theme.colors.warning
             } else if messageView.customTypeName == "watchlist-add-remove-success" {
-                messageView.buttonFont = UIFont.systemFont(ofSize: 14, weight: .bold)
+                messageView.buttonFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
             }
         default:
             messageView.titleTextColor = theme.colors.link
