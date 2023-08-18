@@ -1095,6 +1095,8 @@
 "variants-alert-preferences-button" = "Review your preferences";
 "watch" = "Watch";
 "watchlist" = "Watchlist";
+"watchlist-byte" = "byte";
+"watchlist-bytes" = "bytes";
 "watchlist-filter" = "Filter";
 "watchlist-user-button-user-contributions" = "User contributions";
 "watchlist-user-button-user-page" = "User page";
