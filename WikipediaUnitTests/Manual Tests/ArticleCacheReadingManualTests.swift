@@ -59,7 +59,7 @@ class ArticleCacheReadingManualTests: XCTestCase {
             }
         }
 
-        UIApplication.shared.workaroundKeyWindow?.rootViewController = basicVC
+        basicVC.loadViewIfNeeded()
 
         wait(for: [htmlExpectation], timeout: 10)
         wait(for: [imageExpectation], timeout: 10)
@@ -110,7 +110,7 @@ class ArticleCacheReadingManualTests: XCTestCase {
             }
         }
 
-       UIApplication.shared.workaroundKeyWindow?.rootViewController = basicVC
+       basicVC.loadViewIfNeeded()
 
         wait(for: [htmlExpectation], timeout: 10)
         wait(for: [imageExpectation], timeout: 10)

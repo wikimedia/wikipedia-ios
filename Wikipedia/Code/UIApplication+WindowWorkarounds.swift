@@ -2,7 +2,11 @@ import Foundation
 
 extension UIApplication {
     var workaroundKeyWindow: UIWindow? {
-        return windows.first { $0.isKeyWindow }
+        return UIApplication
+            .shared
+            .connectedScenes
+            .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
+            .last { $0.isKeyWindow }
     }
     
     var workaroundStatusBarFrame: CGRect {
