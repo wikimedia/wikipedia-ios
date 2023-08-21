@@ -211,6 +211,8 @@
 "chinese-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие китайские варианты в качестве основных или вторичных языков в приложении, что облегчает чтение, поиск и редактирование в ваших предпочтительных вариантах:\n\nКитайский, Упрощенный\nГонконгский традиционный\nТрадиционный Макао\nМалайзия Упрощенная\nСингапур Упрощенный\nТайваньская традиционная";
 "chinese-variants-alert-title" = "Обновления поддержки вариантов Китайского";
 "clear-title-accessibility-label" = "Очистить";
+"clearing-cache-complete" = "Очистка кэша завершена.";
+"clearing-cache-in-progress" = "В процессе очистки кэша.";
 "close-button-accessibility-label" = "Закрыть";
 "compass-direction" = "на $1 часов";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтобы найти больше статей для чтения";
@@ -254,14 +256,14 @@
 "description-welcome-descriptions-title" = "Описания статей";
 "description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
 "description-welcome-start-editing-button" = "Начать редактирование";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "От";
+"diff-article-edit-history" = "История редактирования статьи";
+"diff-compare-header-from-info-heading" = "Предыдущая правка";
 "diff-compare-header-heading" = "Сравнить версии";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Кому";
+"diff-compare-header-to-info-heading" = "Отображаемая правка";
 "diff-compare-title" = "Сравнить версии";
 "diff-context-lines-collapsed-button-title" = "Показать";
 "diff-context-lines-expanded-button-title" = "Скрыть";
+"diff-header-revision-accessibility-text" = "Изменения внесены";
 "diff-multi-line-format" = "Строки $1 - $2";
 "diff-paragraph-moved" = "Абзац перемещен";
 "diff-paragraph-moved-direction-down" = "вниз";
@@ -290,7 +292,9 @@
 "diff-thanks-sent" = "Ваше 'Спасибо' отправлено $1";
 "diff-thanks-sent-already" = "Вы уже отправили 'Спасибо' за это изменение";
 "diff-thanks-sent-cannot-unsend" = "Отправка благодарности не может быть отменена";
+"diff-undo-success" = "Эта версия была отменена.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 строка не изменилась|$1 строки не изменилось|$1 строк не изменилось}}";
+"diff-user-button-accessibility-text" = "Нажмите дважды, чтобы открыть меню";
 "dim-images" = "Делать изображения менее яркими";
 "edit-bold-accessibility-label" = "Добавить полужирное начертание";
 "edit-bold-remove-accessibility-label" = "Убрать полужирное начертание";
@@ -317,6 +321,8 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Выбранный текст не найден";
 "edit-minor-learn-more-text" = "Узнать подробнее о малых правках";
 "edit-minor-text" = "Это малая правка";
+"edit-notices" = "Уведомления о редактировании";
+"edit-notices-always-display" = "Всегда отображать уведомления о редактировании";
 "edit-notices-please-read" = "Пожалуйста, прочтите перед редактированием";
 "edit-ordered-list-accessibility-label" = "Сделать нумерованным списком";
 "edit-ordered-list-remove-accessibility-label" = "Убрать нумерованный список";
@@ -1102,6 +1108,7 @@
 "variants-alert-dismiss-button" = "Нет, спасибо";
 "variants-alert-preferences-button" = "Просмотреть свои настройки";
 "watchlist" = "Список наблюдения";
+"watchlist-filter" = "Фильтр";
 "watchlist-user-button-user-contributions" = "Вклад участника";
 "watchlist-user-button-user-page" = "Страница участника";
 "watchlist-user-button-user-talk-page" = "Страница обсуждения участника";
