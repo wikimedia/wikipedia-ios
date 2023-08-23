@@ -187,8 +187,8 @@ class ViewControllerRouter: NSObject {
             }
             
             let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter)
-            let configuration = WKWatchlistViewModel.Configuration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
-            let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings, configuration: configuration)
+            let presentationConfiguration = WKWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
+            let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
             let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, delegate: appViewController)
             
             targetNavigationController?.pushViewController(watchlistViewController, animated: true)
