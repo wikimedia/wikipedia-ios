@@ -7,14 +7,17 @@
 // Author: Vlad5250
 // Author: Vodnokon4e
 
+"aaald-added-text-description-2" = "$1 добавени";
 "aaald-article-description-updated-description" = "Описанието на статията е актуализирано";
 "aaald-article-insert-header" = "Значителни актуализации";
 "aaald-article-insert-last-updated" = "Последно обновяване";
 "aaald-article-insert-new-changes" = "Нови промени";
 "aaald-article-insert-read-more" = "Прочетете повече актуализации";
 "aaald-characters-text-description" = "{{PLURAL:$1|0=знака|знак|знака}}";
+"aaald-deleted-text-description-2" = "$1 изтрити";
 "aaald-error-subitle" = "Опреснете, за да опитате отново";
 "aaald-error-title" = "Не може да се зареди вградена хронология на статиите";
+"aaald-many-sections-description" = "в $1 раздела";
 "aaald-multiple-changes-description" = "Направени са множество промени";
 "aaald-multiple-references-added-description" = "Добавени са множество препратки";
 "aaald-new-book-reference-title" = "Книга";
@@ -24,8 +27,13 @@
 "aaald-new-journal-reference-volume" = "Том $1:";
 "aaald-new-news-reference-retrieved-date" = "Извлечено на $1";
 "aaald-new-news-reference-title" = "Новини";
+"aaald-new-talk-topic-description-format" = "$1 за тази статия";
+"aaald-new-website-reference-archive-url-text" = "Archive.org URL адрес";
 "aaald-new-website-reference-title" = "Уебсайт";
+"aaald-revision-by-anonymous" = "Редакция от анонимен потребител";
+"aaald-revision-userInfo" = "Редакция от $1 ($2 редакции)";
 "aaald-single-reference-added-description" = "Добавени източници";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Няма малки промени|$1 малка промяна|$1 малки промени}}";
 "about-content-license" = "Лиценз на съдържанието";
 "about-content-license-details-share-alike-license" = "Криейтив Комънс Признание-Споделяне на споделеното";
 "about-contributors" = "Сътрудници";
@@ -154,11 +162,9 @@
 "description-welcome-descriptions-title" = "Описания на статии";
 "description-welcome-promise-title" = "Започвайки, обещавам да не злоупотребявам с тази възможност";
 "description-welcome-start-editing-button" = "Започване на редактирането";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "От";
+"diff-compare-header-from-info-heading" = "Предишна редакция";
 "diff-compare-header-heading" = "Сравняване на версии";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "До";
+"diff-compare-header-to-info-heading" = "Визуализирана редакция";
 "diff-compare-title" = "Сравняване на версии";
 "diff-context-lines-collapsed-button-title" = "Показване";
 "diff-context-lines-expanded-button-title" = "Скриване";
@@ -211,9 +217,17 @@
 "editor-exit-confirmation-body" = "Сигурни ли сте, че искате да напуснете режима за редактиране, без да публикувате промените?";
 "empty-diff-compare-title" = "Няма разлики между версиите";
 "empty-insert-media-title" = "Изберете файл от Общомедия";
+"empty-no-history-title" = "Няма история за показване";
+"empty-no-other-article-languages-message" = "Тази статия все още не е написана на други езици";
+"empty-no-other-article-languages-title" = "Няма налични други езици";
 "empty-no-reading-lists-message" = "Създавайте списъци с места за пътуване, любими теми и много други";
+"empty-no-reading-lists-title" = "Организирайте запазените статии в списъци за четене";
+"empty-no-saved-pages-in-reading-list-message" = "Запазете страници в този списък, за да ги видите тук";
+"empty-no-saved-pages-in-reading-list-title" = "Няма запазени страници в този списък";
+"empty-no-saved-pages-message" = "Запазвайте страници, за да ги видите по-късно, дори офлайн";
 "empty-no-saved-pages-title" = "Все още няма съхранени страници";
 "empty-no-search-results-message" = "Не бяха открити резултати";
+"empty-talk-page-title" = "Все още няма публикувани съобщения за този потребител";
 "error-generic-recovery-suggestion" = "Моля, опитайте по-късно";
 "error-unknown" = "Възникна неизвестна грешка";
 "explore-another-random" = "Друга случайна статия";
@@ -619,9 +633,16 @@
 "welcome-languages-description" = "Намерихме следните езици на Вашето устройство:";
 "welcome-languages-search-title" = "Търсете на над 300 езика";
 "welcome-notifications-tell-me-more-title" = "Повече за известията";
+"welcome-send-data-helps-title" = "Помогнете да направим приложението по-добро";
+"welcome-send-data-learn-more" = "Научете повече за събраните данни";
+"welcome-send-data-sub-title" = "Помогнете за подобряването на приложението, като уведомите Фондация Уикимедия как го използвате. Събираните данни са анонимни.";
 "welcome-volunteer-send-usage-reports" = "Изпращане на доклади за употребата";
+"widget-onthisday-description" = "Прегледайте какво се е случило на този ден в историята.";
+"widget-onthisday-placeholder-article-snippet" = "Безплатна онлайн енциклопедия, която всеки може да редактира";
+"widget-onthisday-placeholder-event-snippet" = "Уикипедия, безплатната енциклопедия с уики съдържание, става онлайн.";
 "wikitext-downloading" = "Зареждане на съдържание...";
 "wikitext-preview-link-external-preview-title" = "Външна препратка";
+"wikitext-preview-link-not-found-preview-title" = "Няма намерена вътрешна препратка";
 "wikitext-preview-link-preview-title" = "Преглед на препратката";
 "wikitext-preview-save-changes-title" = "Съхраняване на промените";
 "wikitext-upload-captcha-error" = "Грешка при проверката на CAPTCHA.";
