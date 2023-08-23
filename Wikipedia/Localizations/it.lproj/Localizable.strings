@@ -26,6 +26,7 @@
 // Author: Macofe
 // Author: Manfredi26
 // Author: Martinligabue
+// Author: McDutchie
 // Author: Nastoshka
 // Author: Nemo bis
 // Author: Nivit
@@ -216,9 +217,9 @@
 "description-welcome-descriptions-title" = "Descrizioni delle voci";
 "description-welcome-promise-title" = "Per iniziare, prometto di non abusare di questa funzione";
 "description-welcome-start-editing-button" = "Inizia a modificare";
-"diff-compare-header-from-info-heading" = "Da";
+"diff-compare-header-from-info-heading" = "Modifica precedente";
 "diff-compare-header-heading" = "Confronta versioni";
-"diff-compare-header-to-info-heading" = "A";
+"diff-compare-header-to-info-heading" = "Modifica visualizzata";
 "diff-compare-title" = "Confronta versioni";
 "diff-context-lines-collapsed-button-title" = "Mostra";
 "diff-context-lines-expanded-button-title" = "Nascondi";
@@ -769,7 +770,7 @@
 "watchlist-user-button-user-page" = "Pagina utente";
 "watchlist-user-button-user-talk-page" = "Pagina di discussione dell'utente";
 "welcome-exploration-explore-feed-description" = "Letture consigliate e voci quotidiane della nostra comunità";
-"welcome-exploration-explore-feed-title" = "Esplora feed";
+"welcome-exploration-explore-feed-title" = "Feed Esplora";
 "welcome-exploration-on-this-day-description" = "Viaggia indietro nel tempo per sapere cosa è successo oggi nella storia";
 "welcome-exploration-on-this-day-title" = "In questo giorno";
 "welcome-exploration-places-description" = "Scopri i punti di riferimento vicino a te o cerca posti in tutto il mondo";

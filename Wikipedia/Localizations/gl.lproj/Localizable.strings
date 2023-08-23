@@ -12,6 +12,7 @@
 // Author: Iváns
 // Author: Macofe
 // Author: Maria zaos
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Toliño
 
@@ -158,9 +159,9 @@
 "description-welcome-descriptions-title" = "Descricións de artigos";
 "description-welcome-promise-title" = "Ó comezar, prometo non utilizar de forma irresponsable esta funcionalidade";
 "description-welcome-start-editing-button" = "Comezar a editar";
-"diff-compare-header-from-info-heading" = "De";
+"diff-compare-header-from-info-heading" = "Edición anterior";
 "diff-compare-header-heading" = "Comparar revisións";
-"diff-compare-header-to-info-heading" = "Para";
+"diff-compare-header-to-info-heading" = "Edición amosada";
 "diff-compare-title" = "Comparar revisións";
 "diff-context-lines-collapsed-button-title" = "Amosar";
 "diff-context-lines-expanded-button-title" = "Agochar";
@@ -345,7 +346,7 @@
 "field-backup-token-title" = "Código de copia de seguridade";
 "field-captcha-placeholder" = "Texto CAPTCHA";
 "field-captcha-title" = "Insira o texto que ve abaixo";
-"field-email-placeholder" = "exemplo@exemplo.gal";
+"field-email-placeholder" = "exemplo@example.org";
 "field-email-title" = "Enderezo de correo electrónico";
 "field-email-title-optional" = "Enderezo de correo electrónico (opcional)";
 "field-new-password-confirm-placeholder" = "insira de novo o novo contrasinal";

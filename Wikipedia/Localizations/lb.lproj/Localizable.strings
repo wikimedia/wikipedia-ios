@@ -3,6 +3,7 @@
 // Author: JoeWalshWMF
 // Author: Les Meloures
 // Author: Macofe
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Robby
 // Author: Soued031
@@ -142,8 +143,9 @@
 "description-welcome-concise-sub-title" = "Idealerweis eng Zeil, tëscht zwee an zwielef Wierder";
 "description-welcome-concise-title" = "Haalt Iech kuerz";
 "description-welcome-descriptions-title" = "Artikelbeschreiwungen";
-"diff-compare-header-from-info-heading" = "Vum";
+"diff-compare-header-from-info-heading" = "Vireg Ännerung";
 "diff-compare-header-heading" = "Versioune vergläichen";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Fir";
 "diff-compare-title" = "Versioune vergläichen";
 "diff-context-lines-collapsed-button-title" = "Weisen";
@@ -244,7 +246,7 @@
 "field-backup-token-title" = "Backup-Code";
 "field-captcha-placeholder" = "CAPTCHA-Text";
 "field-captcha-title" = "Gitt den Text an deen Dir hei driwwer gesitt";
-"field-email-placeholder" = "beispill@beispill.org";
+"field-email-placeholder" = "beispill@example.org";
 "field-email-title" = "E-Mail";
 "field-email-title-optional" = "E-Mail (Fakultativ)";
 "field-new-password-confirm-placeholder" = "neit Passwuert nees aginn";

@@ -157,6 +157,8 @@
 "chinese-variants-alert-body" = "Aplikacija Wikipedija zdaj podpira naslednje različice kitajščine kot osnovni ali sekundarni jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\n简体 – kitajščina, poenostavljeno (zh-hans)\n香港繁體 – Hongkong, tradicionalno (zh-hk)\n澳門繁體 – Makav, tradicionalno (zh-mo)\n大马简体 – Malezija, poenostavljeno (zh-my)\n新加坡简体 – Singapur, poenostavljeno (zh-sg)\n臺灣正體 – Tajvan, tradicionalno (zh-tw)";
 "chinese-variants-alert-title" = "Posodobitve podpore za kitajske različice";
 "clear-title-accessibility-label" = "Počisti";
+"clearing-cache-complete" = "Čiščenje predpomnilnika je končano.";
+"clearing-cache-in-progress" = "Poteka čiščenje predpomnilnika.";
 "close-button-accessibility-label" = "Zapri";
 "compass-direction" = "ob $1 uri";
 "continue-reading-empty-description" = "Raziščite Wikipedijo za več člankov, ki jih lahko preberete";
@@ -201,9 +203,9 @@
 "description-welcome-promise-title" = "Ob začetku obljubljam, da te možnosti ne bom zlorabil_a";
 "description-welcome-start-editing-button" = "Začetek urejanja";
 "diff-article-edit-history" = "Zgodovina urejanja članka";
-"diff-compare-header-from-info-heading" = "Iz";
+"diff-compare-header-from-info-heading" = "Prejšnje urejanje";
 "diff-compare-header-heading" = "Primerjava redakcij";
-"diff-compare-header-to-info-heading" = "V";
+"diff-compare-header-to-info-heading" = "Prikazano urejanje";
 "diff-compare-title" = "Primerjava redakcij";
 "diff-context-lines-collapsed-button-title" = "Pokaži";
 "diff-context-lines-expanded-button-title" = "Skrij";
@@ -1101,6 +1103,7 @@
 "variants-alert-preferences-button" = "Preglejte svoje nastavitve";
 "watch" = "Opazuj";
 "watchlist" = "Spisek nadzorov";
+"watchlist-filter" = "Filter";
 "watchlist-user-button-user-contributions" = "Uporabniški prispevki";
 "watchlist-user-button-user-page" = "Uporabniška stran";
 "watchlist-user-button-user-talk-page" = "Uporabniška pogovorna stran";

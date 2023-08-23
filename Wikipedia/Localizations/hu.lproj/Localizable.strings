@@ -7,6 +7,7 @@
 // Author: Eukarióta
 // Author: Hanna Tardos
 // Author: Macofe
+// Author: McDutchie
 // Author: MeskoBalazs
 // Author: Misibacsi
 // Author: Máté
@@ -336,7 +337,7 @@
 "field-backup-token-title" = "Visszaállítási kód";
 "field-captcha-placeholder" = "CAPTCHA-szöveg";
 "field-captcha-title" = "Írd be a fent látható szöveget";
-"field-email-placeholder" = "pelda@minta.hu";
+"field-email-placeholder" = "pelda@example.org";
 "field-email-title" = "E-mail-cím";
 "field-email-title-optional" = "E-mail-cím (opcionális)";
 "field-new-password-confirm-placeholder" = "add meg az új jelszavad még egyszer";

@@ -161,6 +161,8 @@
 "chinese-variants-alert-body" = "Википедииниот прилог сега ги поддржува следниве кинески варијанти како главни и споредни јазици во него, олеснувајќи го читањето, пребарувањето и уредувањето на вашата претпочитана варијанта:\n\n简体 — кинески, упростено (zh-hans)\n香港繁體 — хонгконшки традиционално (zh-hk)\n澳門繁體 — макајски традиционално (zh-mo)\n大马简体 — малезиски упростено (zh-my)\n新加坡简体 — сингапурски упростено (zh-sg)\n臺灣正體 — тајвански традиционално (zh-tw)";
 "chinese-variants-alert-title" = "Новост за поддршка на кинески варијанти";
 "clear-title-accessibility-label" = "Исчисти";
+"clearing-cache-complete" = "Чистењето на меѓускладот е завршено.";
+"clearing-cache-in-progress" = "Чистењето на меѓускладот е во тек.";
 "close-button-accessibility-label" = "Затвори";
 "compass-direction" = "во $1 часот";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
@@ -205,9 +207,9 @@
 "description-welcome-promise-title" = "Почнувајќи ја употребата, ветувам дека нема да ја злоупотребувам оваа можност";
 "description-welcome-start-editing-button" = "Почнете со уредување";
 "diff-article-edit-history" = "Историја на уредување на статијата";
-"diff-compare-header-from-info-heading" = "Од";
+"diff-compare-header-from-info-heading" = "Претходно уредување";
 "diff-compare-header-heading" = "Спореди преработки";
-"diff-compare-header-to-info-heading" = "До";
+"diff-compare-header-to-info-heading" = "Прикажано уредување";
 "diff-compare-title" = "Спореди преработки";
 "diff-context-lines-collapsed-button-title" = "Прикажи";
 "diff-context-lines-expanded-button-title" = "Скриј";
@@ -1105,6 +1107,7 @@
 "variants-alert-preferences-button" = "Прегледајте ги вашите поставки";
 "watch" = "Набљудувај";
 "watchlist" = "Набљудувања";
+"watchlist-filter" = "Филтрирај";
 "watchlist-user-button-user-contributions" = "Кориснички придонеси";
 "watchlist-user-button-user-page" = "Корисничка страница";
 "watchlist-user-button-user-talk-page" = "Корисничка разговорна страница";
