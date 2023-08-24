@@ -267,7 +267,7 @@ public class CommonStrings: NSObject {
     }
     @objc public static let talkPageReplyAccessibilityText = WMFLocalizedString("talk-page-reply-button-accessibility-label", value: "Reply to %@", comment: "Accessibility text for reply button. The %@ will be replaced with the name of the user whose comment is being responded")
 
-    public static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for for menu option that leads to page revision history.")
+    public static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for menu option that leads to page revision history.")
     
     public static let articleRevisionHistory = WMFLocalizedString("article-revision-history", value: "Article revision history", comment: "Title for menu option that leads to article revision history.")
 

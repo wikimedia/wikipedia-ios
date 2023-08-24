@@ -1009,7 +1009,7 @@
 "talk-page-reply-depth-accessibility-label" = "Accessibility label for the reply depth indicator. This indicator suggests which reply the text is replying to. $1 is replaced with the depth number.";
 "talk-page-reply-placeholder-format" = "Placeholder text that displays in the talk page reply text view. Parameters:\n* $1 - the username of the comment the user is replying to. Please prioritize for de, ar and zh wikis.";
 "talk-page-reply-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
-"talk-page-revision-history" = "Title for for menu option that leads to page revision history.";
+"talk-page-revision-history" = "Title for menu option that leads to page revision history.";
 "talk-page-rply-close-button-accessibility-hint" = "Accessibility hint for the reply screen close button";
 "talk-page-share-button" = "Title for share talk page button";
 "talk-page-subscribe-to-topic" = "Text used on button to subscribe to talk page topic. Please prioritize for de, ar and zh wikis.";
