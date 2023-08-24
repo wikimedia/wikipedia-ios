@@ -148,7 +148,14 @@ class AccountViewController: SubSettingsViewController {
                     self.navigationController?.pushViewController(newTalkPage, animated: true)
                 }
         case .watchlist:
-            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, byte: CommonStrings.watchlistByte, bytes: CommonStrings.watchlistBytes)
+            let localizedByteChange: (Int) -> String = { bytes in
+                String.localizedStringWithFormat(
+                    WMFLocalizedString("watchlist-byte-change", value:"{{PLURAL:%1$d|%1$d byte|%1$d bytes}}", comment: "Amount of bytes changed for a revision displayed in watchlist - %1$@ is replaced with the number of bytes."),
+                        bytes
+                )
+            }
+
+            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, byteChange: localizedByteChange)
             let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings)
             let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, delegate: self)
             self.navigationController?.pushViewController(watchlistViewController, animated: true)

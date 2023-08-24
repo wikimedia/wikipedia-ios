@@ -1096,6 +1096,7 @@
 "watch" = "Watch";
 "watchlist" = "Watchlist";
 "watchlist-byte" = "byte";
+"watchlist-byte-change" = "{{PLURAL:$1|$1 byte|$1 bytes}}";
 "watchlist-bytes" = "bytes";
 "watchlist-filter" = "Filter";
 "watchlist-user-button-user-contributions" = "User contributions";
