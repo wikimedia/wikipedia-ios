@@ -113,6 +113,11 @@ extension UIView {
 
 extension UIButton {
     public override func wmf_sizeThatFits(_ maximumSize: CGSize) -> CGSize {
+        
+        let contentEdgeInsets = (self as DeprecatedButton).deprecatedContentEdgeInsets
+        let imageEdgeInsets = (self as DeprecatedButton).deprecatedImageEdgeInsets
+        let titleEdgeInsets = (self as DeprecatedButton).deprecatedTitleEdgeInsets
+        
         var buttonAdjustedSize = maximumSize
         var heightAdjustment = contentEdgeInsets.top + contentEdgeInsets.bottom
         var widthAdjustment = contentEdgeInsets.left + contentEdgeInsets.right
