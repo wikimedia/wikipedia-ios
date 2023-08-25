@@ -32,6 +32,8 @@
 "aaald-deleted-text-description-2" = "Обрисано $1";
 "aaald-error-subitle" = "Освежи";
 "aaald-many-sections-description" = "у $1 одељака";
+"aaald-multiple-changes-description" = "Направљено више измена";
+"aaald-multiple-references-added-description" = "Додато више референци";
 "aaald-new-book-reference-title" = "Књига";
 "aaald-new-discussion" = "Нова дискусија";
 "aaald-new-journal-reference-database" = "преко $1";
@@ -297,6 +299,7 @@
 "edit-watch-this-page-text" = "Надгледај ову страницу";
 "editing-welcome-be-bold-title" = "Ваш глас је важан";
 "editing-welcome-impartial-tone-title" = "Пишите непристрасним тоном";
+"editing-welcome-set-knowledge-free-title" = "Учините знање слободним";
 "empty-diff-compare-title" = "Нема разлика између измена";
 "empty-diff-single-title" = "Нема направљених видљивих промена";
 "empty-insert-media-title" = "Изаберите датотеку са Викимедијине оставе";
