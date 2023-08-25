@@ -1104,6 +1104,7 @@
 "watchlist-added-toast-six-months" = "Title in toast after a user successfully adds an article to their watchlist, which expires in 6 months.";
 "watchlist-added-toast-three-months" = "Title in toast after a user successfully adds an article to their watchlist, which expires in three months.";
 "watchlist-added-toast-view-watchlist" = "Button in toast after a user successfully adds an article to their watchlist. Tapping will take them to their watchlist.";
+"watchlist-byte-change" = "Amount of bytes changed for a revision displayed in watchlist - $1 is replaced with the number of bytes.";
 "watchlist-change-expiry-option-one-month" = "Title of button in expiry change modal that watches a page for one month.";
 "watchlist-change-expiry-option-one-week" = "Title of button in expiry change modal that watches a page for one week.";
 "watchlist-change-expiry-option-one-year" = "Title of button in expiry change modal that watches a page for one year.";

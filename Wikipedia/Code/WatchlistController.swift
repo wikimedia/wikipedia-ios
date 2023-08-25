@@ -117,7 +117,7 @@ class WatchlistController {
                         }
                         
                         switch result {
-                        case .success(()):
+                        case .success:
                             if expiry == .never {
                                 self.delegate?.didSuccessfullyWatchPermanently(self)
                             } else {

@@ -296,3 +296,13 @@ extension WMFAppViewController {
         WKDataEnvironment.current.appData = WKAppData(appLanguages: languages)
     }
 }
+
+// MARK: Components App Environment
+extension WMFAppViewController {
+
+    @objc func appEnvironmentDidChange(theme: Theme, traitCollection: UITraitCollection) {
+        let wkTheme = Theme.wkTheme(from: theme)
+        WKAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
+    }
+
+}

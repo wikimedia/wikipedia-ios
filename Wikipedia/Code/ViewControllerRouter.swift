@@ -182,11 +182,18 @@ class ViewControllerRouter: NSObject {
         case .watchlist:
             var targetNavigationController = appViewController.navigationController
             if let presentedNavigationController = appViewController.presentedViewController as? UINavigationController,
-               let _ = presentedNavigationController.viewControllers[0] as? WMFSettingsViewController {
+               presentedNavigationController.viewControllers[0] is WMFSettingsViewController {
                 targetNavigationController = presentedNavigationController
             }
-            
-            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter)
+
+            let localizedByteChange: (Int) -> String = { bytes in
+                String.localizedStringWithFormat(
+                    WMFLocalizedString("watchlist-byte-change", value:"{{PLURAL:%1$d|%1$d byte|%1$d bytes}}", comment: "Amount of bytes changed for a revision displayed in watchlist - %1$@ is replaced with the number of bytes."),
+                    bytes
+                )
+            }
+
+            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, byteChange: localizedByteChange)
             let presentationConfiguration = WKWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
             let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
             let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, delegate: appViewController)
