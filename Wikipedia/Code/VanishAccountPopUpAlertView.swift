@@ -108,8 +108,8 @@ struct BulletListView: View {
         static let firstItem = WMFLocalizedString("vanish-modal-item", value: "If you completed your vanishing request, please allow a couple of days for the request to be processed by an administrator", comment: "Text indicating that the process of vanishing might take days to be completed")
         static let secondItem = WMFLocalizedString("vanish-modal-item-2", value: "If you are unsure if your request went through please check your Mail app", comment: "Text indicating that the user should check if their email was sent in the Mail app used to send the message")
         static let thirdItem = WMFLocalizedString("vanish-modal-item-3", value: "If you have further questions about vanishing please visit Meta:Right_to_vanish", comment: "Informative text indicating more information is available at the Meta-wiki page Right to vanish")
-        @available(iOS 15, *)
-        static var thirdItemiOS15: AttributedString? = {
+        
+        static var thirdItemAttributedString: AttributedString? = {
             
             let localizedString = WMFLocalizedString("vanish-modal-item-3-ios15", value: "If you have further questions about vanishing please visit %1$@Meta:Right_to_vanish%2$@%3$@", comment: "Informative text indicating more information is available at a Wikipedia page, contains link to page. The parameters do not require translation, as they are used for markdown formatting. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting")
             
@@ -146,8 +146,7 @@ struct BulletListView: View {
             }
             HStack {
                 BulletView(theme: theme, height: 44)
-                if #available(iOS 15, *) {
-                    if let text = LocalizedStrings.thirdItemiOS15 {
+                    if let text = LocalizedStrings.thirdItemAttributedString {
                         Text(text)
                             .fixedSize(horizontal: false, vertical: true)
                             .font(Font(bodyFont))
@@ -162,15 +161,6 @@ struct BulletListView: View {
                             .foregroundColor(Color(theme.colors.primaryText))
                             .padding(.bottom, 10)
                     }
-                } else {
-                    Text(LocalizedStrings.thirdItem)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .font(Font(bodyFont))
-                        .frame(maxWidth: .infinity, minHeight: 70, alignment: .leading)
-                        .foregroundColor(Color(theme.colors.primaryText))
-                        .padding(.bottom, 10)
-                }
-                
             }
         }
     }
