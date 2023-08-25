@@ -278,10 +278,6 @@ public class CommonStrings: NSObject {
     public static let watchlist = WMFLocalizedString("watchlist", value: "Watchlist", comment: "Title for watchlist feature.")
 
     public static let watchlistFilter = WMFLocalizedString("watchlist-filter", value: "Filter", comment: "Title for filter button in watchlist.")
-
-    public static let watchlistByte = WMFLocalizedString("watchlist-byte", value: "byte", comment: "Displayed in watchlist view to indicate a single or no byte change in a revision.")
-
-    public static let watchlistBytes = WMFLocalizedString("watchlist-bytes", value: "bytes", comment: "Displayed in watchlist view to indicate many byte changes in a revision.")
     
     public static let watch = WMFLocalizedString("watch", value: "Watch", comment: "Title for watch toolbar button.")
     
