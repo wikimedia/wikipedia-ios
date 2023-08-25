@@ -1096,6 +1096,7 @@
 "variants-alert-preferences-button" = "Review your preferences";
 "watch" = "Watch";
 "watchlist" = "Watchlist";
+"watchlist-byte-change" = "{{PLURAL:$1|$1 byte|$1 bytes}}";
 "watchlist-filter" = "Filter";
 "watchlist-filter-activity-header" = "Watchlist Activity";
 "watchlist-filter-activity-options-seen-changes" = "Seen changes";

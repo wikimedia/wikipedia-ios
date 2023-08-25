@@ -149,8 +149,16 @@ class AccountViewController: SubSettingsViewController {
                     self.navigationController?.pushViewController(newTalkPage, animated: true)
                 }
         case .watchlist:
-            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter)
-            let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings)
+            let localizedByteChange: (Int) -> String = { bytes in
+                String.localizedStringWithFormat(
+                    WMFLocalizedString("watchlist-byte-change", value:"{{PLURAL:%1$d|%1$d byte|%1$d bytes}}", comment: "Amount of bytes changed for a revision displayed in watchlist - %1$@ is replaced with the number of bytes."),
+                        bytes
+                )
+            }
+
+            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, byteChange: localizedByteChange)
+            let presentationConfiguration = WKWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
+            let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
             
             let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, delegate: self)
             self.navigationController?.pushViewController(watchlistViewController, animated: true)
@@ -220,9 +228,9 @@ class AccountViewController: SubSettingsViewController {
         localizedProjectNames[.commons] = WikimediaProject.commons.projectName(shouldReturnCodedFormat: false)
         
         let localizedStrings = WKWatchlistFilterViewModel.LocalizedStrings(title: CommonStrings.watchlistFilter,
+                                                                                          doneTitle: CommonStrings.doneTitle,
                                                                                           localizedProjectNames: localizedProjectNames,
                                                                                           wikimediaProjectsHeader: CommonStrings.wikimediaProjectsHeader,
-                                                                                          wikimediaProjectsFooter: CommonStrings.wikimediaProjectsFooter,
                                                                                           wikipediasHeader: CommonStrings.wikipediasHeader,
                                                                                           commonAll: CommonStrings.filterOptionsAll,
                                                                                           latestRevisionsHeader: CommonStrings.watchlistFilterLatestRevisionsHeader,

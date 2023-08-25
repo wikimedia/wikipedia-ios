@@ -1096,6 +1096,7 @@
 "variants-alert-preferences-button" = "Action button on alert used to inform users about variant support.";
 "watch" = "Title for watch toolbar button.";
 "watchlist" = "Title for watchlist feature.";
+"watchlist-byte-change" = "Amount of bytes changed for a revision displayed in watchlist - $1 is replaced with the number of bytes.";
 "watchlist-filter" = "Title for filter button in watchlist.";
 "watchlist-filter-activity-header" = "Header of watchlist filter adjustment view \"Watchlist Activity\" section.";
 "watchlist-filter-activity-options-seen-changes" = "Option in the watchlist filter adjustment view \"Watchlist Activity\" section. When selected, this option only displays seen revisions in the user's watchlist.";
