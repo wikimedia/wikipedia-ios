@@ -12,8 +12,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>символ</string>
 			<key>other</key>
 			<string>символдар</string>
 			<key>zero</key>
@@ -30,10 +28,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d иҫкәрмә</string>
 			<key>other</key>
-			<string>%1$d иҫкәрмәләр</string>
+			<string>%1$d иҫкәрмә</string>
 			<key>zero</key>
 			<string>0 иҫкәрмә</string>
 		</dict>

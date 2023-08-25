@@ -196,11 +196,10 @@
 "description-welcome-descriptions-title" = "Straipsnių aprašymai";
 "description-welcome-promise-title" = "Pradėdamas prižadu naudoti šią funkciją geranoriškai";
 "description-welcome-start-editing-button" = "Pradėti redagavimą";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Nuo:";
+"diff-article-edit-history" = "Straipsnio keitimo istorija";
+"diff-compare-header-from-info-heading" = "Ankstesnis keitimas";
 "diff-compare-header-heading" = "Lyginti versijas";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Kam:";
+"diff-compare-header-to-info-heading" = "Rodomas keitimas";
 "diff-compare-title" = "Lyginti versijas";
 "diff-context-lines-collapsed-button-title" = "Rodyti";
 "diff-context-lines-expanded-button-title" = "Slėpti";
@@ -208,8 +207,18 @@
 "diff-paragraph-moved" = "Pastraipa perkelta";
 "diff-paragraph-moved-direction-down" = "žemyn";
 "diff-paragraph-moved-direction-up" = "aukštyn";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 linija|$1 linijos}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 skyrius|$1 skyriai}}";
 "diff-paragraph-moved-format" = "Pastraipa perkelta $1 $2";
 "diff-revision-error-title" = "Nepavyko įkelti versijos";
+"diff-rollback" = "Atmesti";
+"diff-rollback-alert-message" = "Ar tikrai norite atmesti keitimus?";
+"diff-rollback-alert-title" = "Atmesti keitimus";
+"diff-rollback-success" = "Keitimai atmesti.";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 keitimas|$1 keitimai}}";
+"diff-single-header-editor-title" = "Redaktoriaus informacija";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|pridėtas $1 baitas|pridėta $1 baitai}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|pašalintas $1 baitas|pašalinta $1 baitai}}";
 "diff-single-header-summary-heading" = "Keitimo santrauka";
 "diff-single-intro-title" = "Įvadas";
 "diff-single-line-format" = "Eilutė $1";
@@ -222,6 +231,8 @@
 "diff-thanks-sent" = "Jūsų padėka išsiųsta $1";
 "diff-thanks-sent-already" = "Už šį keitimą jau padėkojote";
 "diff-thanks-sent-cannot-unsend" = "Padėkos negali būti atšauktos";
+"diff-undo-success" = "Keitimas atmestas.";
+"diff-user-button-accessibility-text" = "Dukart palieskite, kad atidarytumėte meniu";
 "edit-bold-accessibility-label" = "Pridėti paryškintą formatavimą";
 "edit-bold-remove-accessibility-label" = "Pašalinti paryškintą formatavimą";
 "edit-clear-formatting-accessibility-label" = "Pašalinti formatavimą";
@@ -246,6 +257,7 @@
 "edit-notices" = "Redagavimo pranešimai";
 "edit-notices-always-display" = "Visada rodyti redagavimo pranešimus";
 "edit-notices-please-read" = "Prašome perskaityti prieš redaguodami";
+"edit-published" = "Redaguoti paskelbtą";
 "edit-published-subtitle" = "Jūs ką tik padarėte Vikipediją geresne visiems";
 "edit-reference-accessibility-label" = "Pridėti išnašos sintaksę";
 "edit-reference-remove-accessibility-label" = "Pašalinti išnašos sintaksę";
@@ -254,12 +266,16 @@
 "edit-strikethrough-accessibility-label" = "Pridėti perbraukimą";
 "edit-strikethrough-remove-accessibility-label" = "Pašalinti perbraukimą";
 "edit-style-table-view-title" = "Stilius";
+"edit-subscript-accessibility-label" = "Pridėti apatinio indekso formatavimą";
+"edit-subscript-remove-accessibility-label" = "Pašalinti apatinio indekso formatavimą";
 "edit-summary-add-summary-text" = "Pridėti keitimo santrauką";
 "edit-summary-choice-fixed-grammar" = "Pataisyta gramatika";
 "edit-summary-choice-fixed-typos" = "Pataisyta rašyba";
 "edit-summary-choice-linked-words" = "Pridėtos nuorodos";
 "edit-summary-learn-more-text" = "Sužinokite daugiau";
 "edit-summary-placeholder-text" = "Kaip patobulinote straipsnį?";
+"edit-superscript-accessibility-label" = "Pridėti viršutinio indekso formatavimą";
+"edit-superscript-remove-accessibility-label" = "Pašalinti viršutinio indekso formatavimą";
 "edit-template-accessibility-label" = "Pridėti šablono sintaksę";
 "edit-template-remove-accessibility-label" = "Pašalinti šablono sintaksę";
 "edit-text-clear-formatting" = "Valyti formatavimą";
@@ -520,6 +536,8 @@
 "menu-cancel-accessibility-label" = "Atšaukti";
 "more-languages-tooltip-description" = "Ieškokite Vikipedijoje daugiau nei 300 kalbų";
 "more-languages-tooltip-title" = "Pridėti kalbas";
+"more-menu" = "Daugiau";
+"move-articles-to-reading-list" = "Perkelti {{PLURAL:$1|$1 straipsnį| $1 straipsnius}} į skaitinių sąrašą";
 "navbar-title-mode-edit-wikitext-preview" = "Peržiūra";
 "nearby-distance-label-feet" = "$1 pėdų";
 "nearby-distance-label-km" = "$1 km";
@@ -546,6 +564,7 @@
 "notifications-center-empty-not-subscribed" = "Šiuo metu neprenumeruojate jokių Vikipedijos pranešimų";
 "notifications-center-empty-state-filters-subtitle" = "Pakeiskite $1, kad matytumėte daugiau žinučių";
 "notifications-center-empty-state-no-projects-selected" = "Pridėkite projektų, kad matytumėte daugiau žinučių";
+"notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtras|$1 filtrai}}";
 "notifications-center-feed-card-title" = "Pranešimų redagavimas dabar prieinamas";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Įjungti pranešimus";
@@ -575,11 +594,13 @@
 "notifications-center-login-notifications" = "Prisijungimo pranešimai";
 "notifications-center-mark" = "Pažymėti";
 "notifications-center-mark-all-as-read" = "Pažymėti kaip perskaitytą";
+"notifications-center-mark-all-as-read-confirmation-format" = "Ar tikrai norite pažymėti {{PLURAL:$1|$1 savo pranešimų žinutę kaip skaitytą|visas $1 savo pranešimų žinutes kaip skaitytas}}? Jūsų pranešimai bus pažymėti kaip skaityti visuose jūsų įrenginiuose.";
 "notifications-center-mark-all-as-read-missing-number" = "Ar tikrai norite pažymėti visus pranešimus kaip skaitytus? Jūsų pranešimai bus pažymėti kaip skaityti visuose jūsų įrenginiuose.";
 "notifications-center-mark-as-read" = "Žymėti skaitytu";
 "notifications-center-mark-as-unread" = "Žymėti neskaitytu";
 "notifications-center-more-action-accessibility-label" = "Daugiau";
 "notifications-center-notifications-settings" = "Pranešimų nustatymai";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 pranešimas|$1 pranešimai}}";
 "notifications-center-onboarding-modal-continue-action" = "Tęsti";
 "notifications-center-onboarding-modal-filters-message" = "Filtruokite savo pranešimus pagal perskaitymo būseną ir tipą, kad lengvai susiarintumėte savo gautuosius.";
 "notifications-center-onboarding-modal-filters-title" = "Filtrai";
@@ -595,9 +616,14 @@
 "notifications-center-status-all-notifications" = "Visi pranešimai";
 "notifications-center-status-double-concatenation" = "$1 $2";
 "notifications-center-status-filtered-by" = "Filtruojama";
+"notifications-center-status-in-projects" = "{{PLURAL:$1|1=1 projekte|$1 projektuose}}";
+"notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1 projekte|$1 projektuose}}";
+"notifications-center-status-in-types" = "{{PLURAL:$1|1=1 tipas|$1 tipai}}";
 "notifications-center-status-read" = "Skaityta";
 "notifications-center-status-triple-concatenation" = "$1 ir $2 $3";
 "notifications-center-status-unread" = "Neskaityta";
+"notifications-center-subheader-edit-milestone" = "Keitimų pasiekimas";
+"notifications-center-subheader-edit-reverted" = "Jūsų keitimas atmestas";
 "notifications-center-subheader-email-from-other-user" = "Naujas el. laiškas";
 "notifications-center-subheader-login-fail-known-device" = "Keli nepavykę prisijungimo bandymai";
 "notifications-center-subheader-login-fail-unknown-device" = "Nepavykęs prisijungimo bandymas";
@@ -611,6 +637,7 @@
 "notifications-center-subheader-page-link" = "Puslapio nuoroda";
 "notifications-center-subheader-page-reviewed" = "Puslapis peržiūrėtas";
 "notifications-center-subheader-thanks" = "Padėka";
+"notifications-center-subheader-translate-milestone" = "Vertimo pasiekimas";
 "notifications-center-subheader-user-rights-change" = "Naudotojo teisių pakeitimai";
 "notifications-center-subheader-welcome" = "Sveiki atvykę!";
 "notifications-center-subheader-wikidata-connection" = "Vikiduomenų ryšys sukurtas";
@@ -623,6 +650,8 @@
 "notifications-center-type-item-description-notice" = "Pranešimas";
 "notifications-center-type-item-description-welcome-verbose" = "Sveikinimo žinutė";
 "notifications-center-type-title-connection-with-wikidata" = "Ryšys su Vikiduomenimis";
+"notifications-center-type-title-edit-milestone" = "Keitimų pasiekimas";
+"notifications-center-type-title-edit-reverted" = "Keitimas atmestas";
 "notifications-center-type-title-edit-summary-mention" = "Keitimo santraukos paminėjimas";
 "notifications-center-type-title-email-from-other-user" = "El. laiškas iš kito naudotojo";
 "notifications-center-type-title-login-attempts" = "Prisijungimo bandymai";
@@ -635,16 +664,20 @@
 "notifications-center-type-title-sent-mention-success" = "Pavykęs išsiųstas paminėjimas";
 "notifications-center-type-title-talk-page-mention" = "Aptarimo puslapio paminėjimas";
 "notifications-center-type-title-thanks" = "Padėka";
+"notifications-center-type-title-translation-milestone" = "Vertimo pasiekimas";
 "notifications-center-type-title-user-rights-change" = "Naudotojo teisių pakeitimai";
 "notifications-center-type-title-user-talk-page-messsage" = "Aptarimo puslapio žinutė";
 "notifications-center-type-title-welcome" = "Sveikinimas";
 "notifications-push-fallback-body-text" = "Nauja veikla Vikipedijoje";
+"notifications-push-talk-body-format" = "{{PLURAL:$1|$1 nauja žinutė|$1 naujos žinutės}} $2";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Nauja žinutė|Naujos žinutės}}";
 "number-billions" = "$1 mlrd.";
 "number-millions" = "$1 mln.";
 "number-thousands" = "$1 tūkst.";
 "on-this-day-detail-header-date-range" = "nuo $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 istorinis įvykis|$1 istoriniai įvykiai|$1 istorinių įvykių}}";
 "on-this-day-footer" = "Daugiau šios dienos istorinių įvykių";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|dar $1 istorinis įvykis|$1 istoriniai įvykiai}} šią dieną";
 "on-this-day-language-does-not-support-error" = "Jūsų pagrindinė Vikipedijos kalba nepalaiko šios dienos įvykių. Galite atnaujinti savo pagrindinę Vikipediją savo programėlės nustatymų meniu.";
 "on-this-day-no-internet-error" = "Nėra duomenų";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 iš $2 Vikipedijos";
@@ -660,7 +693,10 @@
 "page-history-revision-comment-accessibility-label" = "Komentara $1";
 "page-history-revision-history-title" = "Versijų istorija";
 "page-history-revision-minor-edit-accessibility-label" = "Smulkus keitimas";
+"page-history-revision-size-diff-addition" = "Pridėta {{PLURAL:$1|$1 baitas|$1 baitai}}";
+"page-history-revision-size-diff-subtraction" = "Pašalinta {{PLURAL:$1|$1 baitas|$1 baitai}}";
 "page-history-revisions-comparison-warning" = "Galima pasirinkti tik dvi versijas";
+"page-history-stats-text" = "{{PLURAL:$1|$1 keitimas|$1 keitimai}} nuo $2";
 "page-history-user-edits" = "naudotojų keitimai";
 "page-issues" = "Puslapio problemos";
 "page-location" = "Žiūrėti žemėlapyje";
@@ -693,6 +729,7 @@
 "places-filter-top-read-articles" = "Daugiausiai skaitomi straipsniai";
 "places-location-enabled" = "Vietovė įjungta";
 "places-no-saved-articles-have-location" = "Nei vienas iš jūsų išsaugotų straipsnių neturi vietos informacijos";
+"places-search-articles-that-match" = "$1 atitinka „$2“";
 "places-search-default-text" = "Ieškoti vietų";
 "places-search-did-you-mean" = "Ar turėjote omenyje $1?";
 "places-search-recently-searched-header" = "Neseniai ieškota";
@@ -736,6 +773,8 @@
 "reading-list-deleted-accessibility-notification" = "Skaitymo sąrašas ištrintas";
 "reading-list-do-not-keep-button-title" = "Ne, ištrinti straipsnius iš įrenginio";
 "reading-list-entry-limit-exceeded-message" = "Sumažinkite straipsnių skaičių šiame sąraše iki $1, kad būtų tęsiamas visų straipsnių šiame sąraše sinchronizavimas.";
+"reading-list-entry-limit-exceeded-title" = "Viršijote {{PLURAL:$1|$1 straipsnio|$1 straipsnių}} limitą vienai paskyrai.";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|Straipsnis negali būti įtrauktas|Straipsniai negali būti įtraukti}} į šį sąrašą. Pasiekėte $2 straipsnių limitą vienam skaitymo sąrašui $3";
 "reading-list-exists-with-same-name" = "Skaitymo sąrašo pavadinimas jau naudojamas";
 "reading-list-generic-error" = "Atnaujinant jūsų skaitymo sąrašus įvyko netikėta klaida.";
 "reading-list-keep-button-title" = "Taip, išlaikyti straipsnius įrenginyje";
@@ -747,6 +786,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Yra 5000 nerūšiuotų straipsnių limitas. Prašome išrūšiuoti savo egzistuojančius straipsnius į sąrašas, kad toliau būtų sinchronizuojami neišrūšiuoti straipsniai.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Pasiekimas nerūšiuotų straipsnių limitas";
 "reading-list-list-limit-exceeded-message" = "Šis skaitymo sąrašas ir jame išsaugoti straipsniai nebus sinchronizuojami, prašome sumažinti sąrašų skaičių iki $1, kad būtų tęsiamas šio sąrašo sinchronizavimas.";
+"reading-list-list-limit-exceeded-title" = "Viršijote {{PLURAL:$1|$1 skaitymo sąrašo|$1 skaitymo sąrašų}} limitą vienai paskyrai.";
 "reading-list-list-limit-reached" = "Pasiekėte paskyros skaitymo sąrašo limitą $1";
 "reading-list-login-button-title" = "Prisijunkite, kad sinchronizuotumėte savo išsaugotos straipsnius";
 "reading-list-login-or-create-account-button-title" = "Prisijunkite arba sukurkite paskyrą";
@@ -778,8 +818,11 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Išvalykite vietą savo įrenginyje ir bandykite dar kartą";
 "reading-lists-articles-not-synced-limit-exceeded" = "Kai kurie straipsniai nesinchronizuoti, viršytas limitas";
 "reading-lists-conflicting-reading-list-name-updated" = "Jūsų sąrašas '$1' parvadintas į '$2'";
+"reading-lists-count" = "{{PLURAL:$1|$1 skaitymo sąrašas|$1 skaitymo sąrašai}}";
 "reading-lists-default-list-description" = "Numatytasis sąrašas jūsų išsaugotiems straipsniams";
 "reading-lists-default-list-title" = "Išsaugota";
+"reading-lists-delete-reading-list-alert-title" = "Ištrinti {{PLURAL:$1|sąrašą|sąrašus}}?";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 straipsnis|$1 straipsniai}} ir {{PLURAL:$2|$2 skaitymo sąrašas|$2 skaitymo sąrašai}} sinchronizuoti iš jūsų paskyros";
 "reading-lists-list-not-synced-limit-exceeded" = "Sąrašas nesinchronizuojamas, viršytas limitas";
 "reading-lists-sort-saved-articles" = "Rūšiuoti išsaugotus straipsnius";
 "reading-lists-split-notification" = "Yra skaitymo sąrašo limitas, $1 straipsnių sąraše. Egzistuojantys sąrašai su daugiau, nei limitas, buvo perskirti į kelis sąrašus.";
@@ -798,8 +841,11 @@
 "relative-date-hours-abbreviated" = "$1 val.";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Neseniai|Prieš $1 valandą|Prieš $1 valandas|Prieš $1 valandų}}";
 "relative-date-hours-ago-abbreviated" = "prieš $1 val.";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=Neseniai|prieš $1 val.}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=Dabar|prieš $1 min.}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Ką tik|Prieš $1 minutę|Prieš $1 minutes|Prieš $1 minučių}}";
 "relative-date-minutes-ago-abbreviated" = "prieš $1m";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Šį mėnesį|1=Praeitą mėnesį|prieš $1 mėnesius}}";
 "relative-date-seconds-ago-abbreviated" = "prieš $1s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Šiais metais|1=Praeitais metais|Prieš $1 metus|Prieš $1 metų}}";
 "replace-button-accessibility" = "Vykdyti $1.";
@@ -809,8 +855,10 @@
 "replace-infolabel-method-replace" = "Pakeisti";
 "replace-infolabel-method-replace-all" = "Pakeisti visus";
 "replace-method-button-accessibility" = "Pakeitimo metodas. Nustatyta į $1. Pasirinkite, kad pakeistumėte.";
+"replace-replace-all-results-count" = "{{PLURAL:$1|$1 elementas pakeistas|$1 elementai pakeisti}}";
 "replace-textfield-accessibility" = "Pakeisti";
 "replace-textfield-placeholder" = "Pakeisti su…";
+"reverted-edit-title" = "Atmesti keitimai";
 "saved-all-articles-title" = "Visi straipsniai";
 "saved-default-reading-list-tag" = "Šis sąrašas negali būti ištrintas";
 "saved-pages-image-download-error" = "Nepavyko atsisiųsti paveikslėliųų šiam išsaugotam puslapiui.";
@@ -862,6 +910,7 @@
 "settings-storage-and-syncing-full-sync" = "Jūsų skaitymo sąrašai bus sinchronizuojami fone";
 "settings-storage-and-syncing-server-sync-footer-text" = "Prašyti savo sinchronizuojamų straipsnių ir skaitymo sąrašų atnaujinimo.";
 "settings-storage-and-syncing-server-sync-title" = "Atnaujinti sinchronizuojamus skaitymo sąrašus";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Rodyti išsaugotą skaitymo sąrašą";
 "settings-storage-and-syncing-title" = "Straipsnių talpinimas ir sinchronizavimas";
 "settings-support" = "Paremti Vikipediją";
 "settings-title" = "Nustatymai";
@@ -889,6 +938,7 @@
 "tachelhit-variants-alert-title" = "Šilhų k. varianto palaikymo atnaujinimai";
 "tajik-variants-alert-body" = "Vikipedijos programėlė dabar palaiko šiuos tadžikų k. variantus kaip pirmines ar antrines programėlės kalbas ir tai suteikia galimybę lengviau skaityti, ieškoti ir redaguoti jūsų norimais variantais:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
 "tajik-variants-alert-title" = "Tadžikų k. varianto palaikymo atnaujinimai";
+"talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 aktyvus naudotojas|$1 aktyvūs naudotojai}}";
 "talk-page-add-topic-button" = "Pridėti temą";
 "talk-page-archives" = "Archyvai";
 "talk-page-article-about" = "Apie aptarimo puslapius";
@@ -916,6 +966,7 @@
 "talk-page-publish-topic-error-title" = "Nepavyko paskelbti naujos temos.";
 "talk-page-read-in-web" = "Skaityti naršyklėje";
 "talk-page-related-links" = "Nuorodos, vedančios į čia";
+"talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1 atsakymas|$1 atsakymai}}";
 "talk-page-reply-button" = "Atsakyti";
 "talk-page-reply-button-accessibility-label" = "Atsakyti į $1";
 "talk-page-reply-depth-accessibility-label" = "Atsakymo gylis: $1";
@@ -974,11 +1025,13 @@
 "top-read-widget-readers-count" = "$1 skaitytojai";
 "top-read-widget-title" = "Populiariausi skaitiniai";
 "two-factor-login-continue" = "Tęsti prisijungimą";
+"two-factor-login-instructions" = "Įveskite dviejų veiksnių patvirtinimo kodą";
 "two-factor-login-title" = "Prisijunkite prie savo paskyros";
 "two-factor-login-with-backup-code" = "Naudoti viena iš savo atsarginių kodų";
 "two-factor-login-with-regular-code" = "Naudoti patvirtinimo kodą";
 "unable-to-load-talk-page-title" = "Nepavyko įkelti aptarimo puslapio";
 "unknown-generic-text" = "Nežinoma";
+"unwatch" = "Nebestebėti";
 "uzbek-variants-alert-body" = "Vikipedijos programėlė dabar palaiko šiuos uzbekų kalbos variantus kaip pirmines ar antrines programėlės kalbas ir tai suteikia galimybę lengviau skaityti, ieškoti ir redaguoti jūsų norimais variantais:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Uzbekų k. varianto palaikymo atnaujinimai";
 "vanish-account-additional-information-field" = "Papildoma informacija";
@@ -993,6 +1046,12 @@
 "vanish-modal-item-2" = "Jei nežinote ar jūsų prašymas pateiktas, patikrinkite savo pašto programėlę";
 "variants-alert-dismiss-button" = "Ne, ačiū";
 "variants-alert-preferences-button" = "Peržiūrėkite savo nustatymus";
+"watch" = "Stebėti";
+"watchlist" = "Stebimųjų sąrašas";
+"watchlist-filter" = "Filtras";
+"watchlist-user-button-user-contributions" = "Naudotojo indėlis";
+"watchlist-user-button-user-page" = "Naudotojo puslapis";
+"watchlist-user-button-user-talk-page" = "Naudotojo aptarimo puslapis";
 "welcome-exploration-explore-feed-description" = "Mūsų bendruomenės rekomenduojami ir kasdieniai skaitiniai";
 "welcome-exploration-explore-feed-title" = "Naršyti srautą";
 "welcome-exploration-on-this-day-description" = "Keliaukite atgal laiku, kad sužinotumėte kas šią dieną nutiko istorijoje";

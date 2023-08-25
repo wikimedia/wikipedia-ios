@@ -202,6 +202,18 @@ extension WMFAppViewController {
     }
 }
 
+// MARK: - Watchlist
+
+extension WMFAppViewController: WKWatchlistDelegate {
+    public func watchlistDidDismiss() {
+        
+    }
+    
+    public func watchlistDidTapDiff() {
+        
+    }
+}
+
 fileprivate extension UIViewController {
     
     /// Returns self or embedded view controller (if self is a UINavigationController) if conforming to NotificationsCenterFlowViewController

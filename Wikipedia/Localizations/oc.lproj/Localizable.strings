@@ -1,5 +1,6 @@
 // Messages for Occitan (occitan)
 // Exported from translatewiki.net
+// Author: BrennodAloisi
 // Author: Cedric31
 // Author: Guilhelma
 // Author: Macofe
@@ -186,6 +187,7 @@
 "table-of-contents-close-accessibility-label" = "Tampar l'ensenhador";
 "table-of-contents-heading" = "Contenguts";
 "two-factor-login-title" = "Se connectar a vòstre compte";
+"watchlist-filter" = "Filtrar";
 "welcome-explore-continue-button" = "Començar";
 "welcome-explore-tell-me-more-done-button" = "L’obténer";
 "welcome-languages-add-button" = "Apondre una autra lenga";
