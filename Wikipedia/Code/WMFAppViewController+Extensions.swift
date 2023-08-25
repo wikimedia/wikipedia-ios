@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import SwiftUI
 import WKData
+import Components
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -197,6 +198,18 @@ extension WMFAppViewController {
         alertController.addAction(cancelAction)
         
         viewController.present(alertController, animated: true, completion: nil)
+        
+    }
+}
+
+// MARK: - Watchlist
+
+extension WMFAppViewController: WKWatchlistDelegate {
+    public func watchlistDidDismiss() {
+        
+    }
+    
+    public func watchlistDidTapDiff() {
         
     }
 }

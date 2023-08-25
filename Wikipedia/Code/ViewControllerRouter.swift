@@ -1,5 +1,6 @@
 import UIKit
 import AVKit
+import Components
 
 // Wrapper class for access in Objective-C
 @objc class WMFRoutingUserInfoKeys: NSObject {
@@ -106,7 +107,7 @@ class ViewControllerRouter: NSObject {
             completion()
             return true
         case .articleHistory(let linkURL, let articleTitle):
-            let pageHistoryVC = PageHistoryViewController(pageTitle: articleTitle, pageURL: linkURL, articleSummaryController: appViewController.dataStore.articleSummaryController)
+            let pageHistoryVC = PageHistoryViewController(pageTitle: articleTitle, pageURL: linkURL, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager)
             return presentOrPush(pageHistoryVC, with: completion)
         case .articleDiff(let linkURL, let fromRevID, let toRevID):
             guard let siteURL = linkURL.wmf_site,
@@ -114,7 +115,7 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return false
             }
-            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil, articleSummaryController: appViewController.dataStore.articleSummaryController)
+            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager)
             return presentOrPush(diffContainerVC, with: completion)
         case .inAppLink(let linkURL):
             let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)
@@ -178,6 +179,21 @@ class ViewControllerRouter: NSObject {
             return presentOrPush(createReadingListVC, with: completion)
         case .login:
             return presentLoginViewController(with: completion)
+        case .watchlist:
+            var targetNavigationController = appViewController.navigationController
+            if let presentedNavigationController = appViewController.presentedViewController as? UINavigationController,
+               let _ = presentedNavigationController.viewControllers[0] as? WMFSettingsViewController {
+                targetNavigationController = presentedNavigationController
+            }
+            
+            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter)
+            let presentationConfiguration = WKWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
+            let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
+            let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, delegate: appViewController)
+            
+            targetNavigationController?.pushViewController(watchlistViewController, animated: true)
+            completion()
+            return true
         default:
             completion()
             return false

@@ -407,6 +407,10 @@ static NSLock *mLock, *nLock;
   }];
 }
 
+- (void)didTapCloseButtonOnMessageView:(RMessageView *)messageView {
+    [messageView dismissWithCompletion:nil];
+}
+
 + (void)interfaceDidRotate
 {
   [mLock lock];
