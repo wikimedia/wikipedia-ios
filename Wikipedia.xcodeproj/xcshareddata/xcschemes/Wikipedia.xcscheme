@@ -113,9 +113,6 @@
             isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
-      <DeviceAppData
-         resolvedPath = "../4.0.6 extreme memory test data.xcappdata">
-      </DeviceAppData>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
