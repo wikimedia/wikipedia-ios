@@ -3,7 +3,6 @@ import WMF
 import SwiftUI
 import Components
 import WKData
-import Components
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
