@@ -26,6 +26,7 @@
 // Author: Macofe
 // Author: Manfredi26
 // Author: Martinligabue
+// Author: McDutchie
 // Author: Nastoshka
 // Author: Nemo bis
 // Author: Nivit
@@ -216,9 +217,9 @@
 "description-welcome-descriptions-title" = "Descrizioni delle voci";
 "description-welcome-promise-title" = "Per iniziare, prometto di non abusare di questa funzione";
 "description-welcome-start-editing-button" = "Inizia a modificare";
-"diff-compare-header-from-info-heading" = "Da";
+"diff-compare-header-from-info-heading" = "Modifica precedente";
 "diff-compare-header-heading" = "Confronta versioni";
-"diff-compare-header-to-info-heading" = "A";
+"diff-compare-header-to-info-heading" = "Modifica visualizzata";
 "diff-compare-title" = "Confronta versioni";
 "diff-context-lines-collapsed-button-title" = "Mostra";
 "diff-context-lines-expanded-button-title" = "Nascondi";
@@ -765,11 +766,24 @@
 "vanish-account-username-field" = "Nome utente e pagina utente";
 "variants-alert-dismiss-button" = "No, grazie";
 "watchlist" = "Osservati speciali";
+"watchlist-added-toast-one-month" = "Aggiunta ai tuoi osservati speciali per 1 mese.";
+"watchlist-added-toast-one-week" = "Aggiunta ai tuoi osservati speciali per 1 settimana.";
+"watchlist-added-toast-one-year" = "Aggiunta ai tuoi osservati speciali per 1 anno.";
+"watchlist-added-toast-permanently" = "Aggiunta ai tuoi osservati speciali permanentemente.";
+"watchlist-added-toast-six-months" = "Aggiunta ai tuoi osservati speciali per 6 mesi.";
+"watchlist-byte-change" = "{{PLURAL:$1|$1 byte}}";
+"watchlist-change-expiry-option-one-month" = "1 mese";
+"watchlist-change-expiry-option-one-week" = "1 settimana";
+"watchlist-change-expiry-option-one-year" = "1 anno";
+"watchlist-change-expiry-option-permanent" = "Permanentemente";
+"watchlist-change-expiry-option-six-months" = "6 mesi";
+"watchlist-change-expiry-option-three-months" = "3 mesi";
+"watchlist-removed" = "Rimossa dai tuoi osservati speciali";
 "watchlist-user-button-user-contributions" = "Contributi dell'utente";
 "watchlist-user-button-user-page" = "Pagina utente";
 "watchlist-user-button-user-talk-page" = "Pagina di discussione dell'utente";
 "welcome-exploration-explore-feed-description" = "Letture consigliate e voci quotidiane della nostra comunità";
-"welcome-exploration-explore-feed-title" = "Esplora feed";
+"welcome-exploration-explore-feed-title" = "Feed Esplora";
 "welcome-exploration-on-this-day-description" = "Viaggia indietro nel tempo per sapere cosa è successo oggi nella storia";
 "welcome-exploration-on-this-day-title" = "In questo giorno";
 "welcome-exploration-places-description" = "Scopri i punti di riferimento vicino a te o cerca posti in tutto il mondo";

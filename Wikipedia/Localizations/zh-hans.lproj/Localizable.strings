@@ -251,8 +251,10 @@
 "description-welcome-descriptions-title" = "条目描述";
 "description-welcome-promise-title" = "我保证在编辑时不滥用此功能";
 "description-welcome-start-editing-button" = "开始编辑";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "从";
 "diff-compare-header-heading" = "比较不同修订版本";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "至";
 "diff-compare-title" = "比较不同修订版本";
 "diff-context-lines-collapsed-button-title" = "显示";

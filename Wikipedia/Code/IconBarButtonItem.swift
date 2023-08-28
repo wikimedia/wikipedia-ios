@@ -3,17 +3,32 @@ class IconBarButtonItem: UIBarButtonItem {
     
     private var theme: Theme?
 
-    @objc convenience init(iconName: String, target: Any?, action: Selector, for controlEvents: UIControl.Event) {
+    convenience init(iconName: String, target: Any?, action: Selector, for controlEvents: UIControl.Event) {
         self.init(iconName: iconName, target: target, action: action, for: controlEvents, iconInsets: .zero)
     }
     
-    @objc convenience init(iconName: String, target: Any?, action: Selector, for controlEvents: UIControl.Event, iconInsets: UIEdgeInsets) {
+    convenience init(iconName: String, target: Any?, action: Selector, for controlEvents: UIControl.Event, iconInsets: UIEdgeInsets) {
         let image = UIImage(named: iconName)
         let customView = UIButton(type: .system)
         customView.setImage(image, for: .normal)
         customView.addTarget(target, action: action, for: controlEvents)
         customView.adjustsImageWhenDisabled = false
         if iconInsets != .zero { customView.imageEdgeInsets = iconInsets }
+        self.init(customView: customView)
+    }
+    
+    convenience init(image: UIImage?, iconInsets: UIEdgeInsets = .zero, menu: UIMenu) {
+        
+        let customView = UIButton(type: .system)
+        customView.setImage(image, for: .normal)
+        customView.adjustsImageWhenDisabled = false
+        if iconInsets != .zero {
+            customView.imageEdgeInsets = iconInsets
+        }
+        
+        customView.menu = menu
+        customView.showsMenuAsPrimaryAction = true
+        
         self.init(customView: customView)
     }
 

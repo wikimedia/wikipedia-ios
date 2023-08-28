@@ -8,6 +8,7 @@
 // Author: EukeneFL
 // Author: Fitoschido
 // Author: Gorkaazk
+// Author: McDutchie
 // Author: Mikel Ibaiba
 // Author: Nemo bis
 // Author: Sator
@@ -205,7 +206,7 @@
 "field-backup-token-title" = "Babeskopia kodea";
 "field-captcha-placeholder" = "CAPTCHA testua";
 "field-captcha-title" = "Goian ikusten duzun testua idatzi";
-"field-email-placeholder" = "adibidea@adibidea.eus";
+"field-email-placeholder" = "adibidea@example.org";
 "field-email-title" = "Helbide elektronikoa";
 "field-email-title-optional" = "Helbide elektronikoa (aukerakoa)";
 "field-new-password-confirm-placeholder" = "Idatzi berriz pasahitz berria";

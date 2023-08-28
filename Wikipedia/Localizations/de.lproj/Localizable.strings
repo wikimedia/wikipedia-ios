@@ -18,6 +18,7 @@
 // Author: Kghbln
 // Author: Killarnee
 // Author: Lucas Werkmeister
+// Author: McDutchie
 // Author: Metalhead64
 // Author: Mhurd
 // Author: Mirzali
@@ -225,9 +226,9 @@
 "description-welcome-promise-title" = "Mit dem Anfangen verspreche ich, diese Funktion nicht zu missbrauchen.";
 "description-welcome-start-editing-button" = "Jetzt bearbeiten";
 "diff-article-edit-history" = "Versionsgeschichte des Artikels";
-"diff-compare-header-from-info-heading" = "Von";
+"diff-compare-header-from-info-heading" = "Vorherige Bearbeitung";
 "diff-compare-header-heading" = "Versionen vergleichen";
-"diff-compare-header-to-info-heading" = "Zu";
+"diff-compare-header-to-info-heading" = "Angezeigte Bearbeitung";
 "diff-compare-title" = "Versionsvergleich";
 "diff-context-lines-collapsed-button-title" = "Zeigen";
 "diff-context-lines-expanded-button-title" = "Ausblenden";
@@ -457,7 +458,7 @@
 "field-backup-token-title" = "Backup-Code";
 "field-captcha-placeholder" = "CAPTCHA-Text";
 "field-captcha-title" = "Gib den Text ein, den du oben siehst.";
-"field-email-placeholder" = "beispiel@beispiel.org";
+"field-email-placeholder" = "beispiel@example.org";
 "field-email-title" = "E-Mail-Adresse";
 "field-email-title-optional" = "E-Mail-Adresse (optional)";
 "field-new-password-confirm-placeholder" = "Neues Passwort erneut eingeben";
@@ -616,7 +617,7 @@
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Nur Projekte, für die du ein Konto erstellt hast, erscheinen hier";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedia-Projekte";
 "notifications-center-inbox-wikipedias-section-title" = "Wikipedias";
-"notifications-center-language-project-name-format" = "$1 $2";
+"notifications-center-language-project-name-format" = "$2 auf $1";
 "notifications-center-login-notifications" = "Anmeldungsbenachrichtigungen";
 "notifications-center-mark" = "Markieren";
 "notifications-center-mark-all-as-read" = "Alle als gelesen markieren";
@@ -681,6 +682,8 @@
 "notifications-center-type-title-user-talk-page-messsage" = "Nachricht auf Diskussionsseite";
 "notifications-center-type-title-welcome" = "Willkommen";
 "notifications-push-fallback-body-text" = "Neue Aktivität auf Wikipedia";
+"notifications-push-talk-body-format" = "{{PLURAL:$1|$1 neue Nachricht|$1 neue Nachrichten}} auf $2";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Neue Nachricht|Neue Nachrichten}}";
 "number-billions" = "$1 Mrd.";
 "number-millions" = "$1 Mio.";
 "number-thousands" = "$1 T";
@@ -964,42 +967,59 @@
 "talk-page-publish-reply-error-subtitle" = "Bitte überprüfe deine Internetverbindung.";
 "talk-page-read-in-web" = "Im Browser lesen";
 "talk-page-related-links" = "Was hier verlinkt";
+"talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1 Antwort|$1 Antworten}}";
 "talk-page-reply-button" = "Antworten";
+"talk-page-reply-button-accessibility-label" = "$1 antworten";
+"talk-page-reply-depth-accessibility-label" = "Antworttiefe: $1";
 "talk-page-reply-placeholder-format" = "$1 antworten";
 "talk-page-reply-terms-and-licenses" = "Bitte beachte, dass deine Antwort automatisch mit deinem Benutzernamen signiert wird. Indem du die Änderungen speicherst, stimmst du $1den Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den Lizenzen $3CC BY-SA 3.0$4 und $5GFDL$6 zu veröffentlichen.";
 "talk-page-revision-history" = "Versionsgeschichte";
+"talk-page-rply-close-button-accessibility-hint" = "Antwortansicht schließen";
 "talk-page-share-button" = "Diskussionsseite teilen";
 "talk-page-subscribe-to-topic" = "Abonnieren";
 "talk-page-subscribed-alert-subtitle" = "Du wirst über neue Kommentare in diesem Thema benachrichtigt.";
 "talk-page-subscribed-alert-title" = "Du hast dich eingetragen!";
+"talk-page-subscription-failed-alert" = "Das Abonnieren des Themas ist fehlgeschlagen. Bitte versuche es erneut.";
 "talk-page-title-article-talk" = "Artikeldiskussionsseite";
 "talk-page-title-user-talk" = "Benutzerdiskussionsseite";
+"talk-page-topic-close-button-hint" = "Neues Thema schließen";
 "talk-page-topic-compose-terms-and-licenses" = "Indem du die Änderungen speicherst, stimmst du den $1Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den $3CC BY-SA 3.0$4 und den $5GFDL$6 Lizenzen zu veröffentlichen.";
 "talk-page-unsubscribe-to-topic" = "Abbestellen";
 "talk-page-unsubscribed-alert-subtitle" = "Du wirst keine Benachrichtigungen mehr über neue Kommentare in diesem Thema erhalten.";
 "talk-page-unsubscribed-alert-title" = "Du hast dich ausgetragen";
+"talk-page-unsubscription-failed-alert" = "Das Abbestellen des Themas ist fehlgeschlagen. Bitte versuche es erneut.";
 "talk-page-user-about" = "Über Benutzer-Diskussionsseiten";
 "talk-page-user-contributions" = "Beiträge";
+"talk-pages-archives-empty-title" = "Keine archivierten Seiten gefunden.";
+"talk-pages-archives-view-title" = "Archive";
 "talk-pages-coffee-roll-read-more" = "Mehr lesen";
 "talk-pages-comment-added-alert-title" = "Dein Kommentar wurde hinzugefügt";
 "talk-pages-compose-close-confirmation-keep" = "Weiter bearbeiten";
+"talk-pages-empty-view-button-user-start-discussion" = "Eine Diskussion beginnen";
+"talk-pages-empty-view-header-article" = "Die Diskussion beginnt hier";
+"talk-pages-empty-view-header-user" = "Beginne eine Diskussion mit $1";
 "talk-pages-reply-compose-close-confirmation-title" = "Bist du sicher, dass du diese neue Antwort verwerfen willst?";
 "talk-pages-topic-added-alert-title" = "Dein Thema wurde hinzugefügt";
 "talk-pages-topic-compose-body-placeholder" = "Beschreibung";
+"talk-pages-topic-compose-body-placeholder-accessibility" = "Themenbeschreibung";
 "talk-pages-topic-compose-close-confirmation-discard" = "Antwort verwerfen";
+"talk-pages-topic-compose-close-confirmation-title" = "Möchtest du dieses neue Thema wirklich verwerfen?";
 "talk-pages-topic-compose-navbar-title" = "Thema";
 "talk-pages-topic-compose-title-placeholder" = "Thementitel";
 "talk-pages-topic-reply-onboarding-body-ios15" = "Auf den Diskussionsseiten diskutieren $1Menschen darüber, wie man den Inhalt von Wikipedia so gut wie möglich gestalten kann.$1 Füge ein neues Diskussionsthema hinzu, um dich mit einer Gemeinschaft von Wikipedianern zu verbinden und zusammenzuarbeiten.";
 "talk-pages-topic-reply-onboarding-body-note-ios15" = "Bitte sei freundlich, wir sind hier alle Menschen.";
+"talk-pages-topic-reply-onboarding-title" = "Diskussionsseiten";
 "talk-pages-user-groups" = "Benutzergruppen";
 "talk-pages-user-logs" = "Logs";
 "talk-pages-view-title" = "Diskussion";
 "theme-black-display-name" = "Schwarz";
 "theme-dark-display-name" = "Dunkel";
 "theme-default-display-name" = "Standard";
+"theme-default-explanation" = "Entspricht dem Systemthema";
 "theme-light-display-name" = "Hell";
 "theme-sepia-display-name" = "Sepia";
 "top-read-widget-description" = "Erfahre auf Wikipedia, was die Welt heute liest.";
+"top-read-widget-readers-count" = "$1 Leser";
 "top-read-widget-title" = "Meistgelesen";
 "two-factor-login-continue" = "Mit der Anmeldung fortfahren";
 "two-factor-login-instructions" = "Bitte gib einen Zwei-Faktor-Verifikationscode ein";
@@ -1008,11 +1028,23 @@
 "two-factor-login-with-regular-code" = "Verifizierungscode verwenden";
 "unable-to-load-talk-page-title" = "Diskussionsseite kann nicht geladen werden";
 "unknown-generic-text" = "Unbekannt";
+"unwatch" = "Nicht mehr beobachten";
 "vanish-account-additional-information-placeholder" = "Optional";
+"vanish-account-back-confirm-discard" = "Anfrage verwerfen";
+"vanish-account-back-confirm-keep-editing" = "Weiter bearbeiten";
+"vanish-account-button-text" = "Anfrage senden";
+"vanish-account-continue-button-title" = "Fortfahren";
 "vanish-account-learn-more-text" = "Mehr erfahren";
 "vanish-account-username-field" = "Benutzername und Benutzerseite";
+"vanish-account-warning-title" = "Warnung";
 "variants-alert-dismiss-button" = "Nein danke";
 "variants-alert-preferences-button" = "Überprüfe deine Einstellungen";
+"watch" = "Beobachten";
+"watchlist" = "Beobachtungsliste";
+"watchlist-filter" = "Filter";
+"watchlist-user-button-user-contributions" = "Benutzerbeiträge";
+"watchlist-user-button-user-page" = "Benutzerseite";
+"watchlist-user-button-user-talk-page" = "Benutzerdiskussionsseite";
 "welcome-exploration-explore-feed-description" = "Empfohlener Lesestoff und täglich wechselnde Artikel aus unserer Gemeinschaft";
 "welcome-exploration-explore-feed-title" = "Entdecken-Feed";
 "welcome-exploration-on-this-day-description" = "Reise in der Zeit zurück, um zu erfahren, was heute in der Vergangenheit passiert ist.";
