@@ -24,9 +24,10 @@ class IconBarButtonItem: UIBarButtonItem {
         
         let customView = UIButton(type: .system)
         customView.setImage(image, for: .normal)
-        customView.adjustsImageWhenDisabled = false
+        var deprecatedCustomView = customView as DeprecatedButton
+        deprecatedCustomView.deprecatedAdjustsImageWhenDisabled = false
         if iconInsets != .zero {
-            customView.imageEdgeInsets = iconInsets
+            deprecatedCustomView.deprecatedImageEdgeInsets = iconInsets
         }
         
         customView.menu = menu
