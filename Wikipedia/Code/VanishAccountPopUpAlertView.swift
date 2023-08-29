@@ -40,24 +40,6 @@ struct VanishAccountPopUpAlertView: View {
                                 .background(Color(theme.colors.paperBackground))
                                 .padding([.top, .leading, .trailing], 20)
                                 .frame(maxWidth: .infinity, minHeight: 240, alignment: .leading)
-                            if #unavailable(iOS 15) {
-                                HStack {
-                                    Button(action: {
-                                        goToVanishPage()
-                                    }, label: {
-                                        Text(LocalizedStrings.learnMoreButtonText)
-                                            .font(Font(bodyFont))
-                                            .foregroundColor(Color(theme.colors.link))
-                                            .frame(height: 25, alignment: .center)
-                                            .background(Color(theme.colors.paperBackground))
-                                    })
-                                    .padding(.bottom, 20)
-                                    .frame(height: 25, alignment: .center)
-                                    Spacer()
-                                }
-                                .padding(30)
-                                .frame(maxHeight: 25)
-                            }
                             Divider()
                             Button(action: {
                                 withAnimation(.linear(duration: 0.3)) {
@@ -81,12 +63,6 @@ struct VanishAccountPopUpAlertView: View {
                     Spacer()
                 }
             }.frame(minHeight: geometry.size.height)
-        }
-    }
-    
-    func goToVanishPage() {
-        if let url = URL(string: "https://meta.wikimedia.org/wiki/Right_to_vanish") {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
     
