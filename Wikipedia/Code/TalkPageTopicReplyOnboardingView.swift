@@ -18,7 +18,7 @@ struct TalkPageTopicReplyOnboardingView: View {
             return try? AttributedString(markdown: attributedString)
         }()
 
-        static var bodySecondPartiOS15 = WMFLocalizedString("talk-pages-topic-reply-onboarding-body-note-ios15", value: "Please be kind, we are all humans here.", comment: "Body text for user education onboarding view for user and article talk pageson iOS 15")
+        static var bodySecondPartiOS15 = WMFLocalizedString("talk-pages-topic-reply-onboarding-body-note-ios15", value: "Please be kind, we are all humans here.", comment: "Body text for user education onboarding view for user and article talk pages on iOS 15+")
     }
 
     // MARK: - Properties
