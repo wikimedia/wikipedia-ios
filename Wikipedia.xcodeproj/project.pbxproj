@@ -2477,6 +2477,18 @@
 		BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCB813C1C110702008BC602 /* NSDate+WMFPOTDTitle.m */; };
 		BCD3200A1C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */; };
 		BCD557BB1C45B1600060A51A /* UIApplication+VisualTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */; };
+		C4196F9C2AA0A2C1008595EE /* TapBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4196F9B2AA0A2C1008595EE /* TapBar.swift */; };
+		C4196F9E2AA0A493008595EE /* SearchingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4196F9D2AA0A493008595EE /* SearchingScreen.swift */; };
+		C4196FA22AA0D4A7008595EE /* ModelOfBusinessSearchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4196FA12AA0D4A7008595EE /* ModelOfBusinessSearchScreen.swift */; };
+		C4196FA42AA0D50F008595EE /* HistoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4196FA32AA0D50F008595EE /* HistoryScreen.swift */; };
+		C4196FA62AA0D54D008595EE /* AboutApplicationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4196FA52AA0D54D008595EE /* AboutApplicationScreen.swift */; };
+		C4196FA82AA0D5AC008595EE /* TopReadScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4196FA72AA0D5AC008595EE /* TopReadScreen.swift */; };
+		C4196FAA2AA0D5D3008595EE /* WatchPlacesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4196FA92AA0D5D3008595EE /* WatchPlacesScreen.swift */; };
+		C4196FAC2AA0E393008595EE /* BrowserScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4196FAB2AA0E393008595EE /* BrowserScreen.swift */; };
+		C494D9BC2A9FBFC800B93C72 /* UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C494D9BB2A9FBFC800B93C72 /* UITests.swift */; };
+		C494D9BE2A9FBFFC00B93C72 /* FeedScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C494D9BD2A9FBFFC00B93C72 /* FeedScreen.swift */; };
+		C494D9C02A9FC02B00B93C72 /* BaseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C494D9BF2A9FC02B00B93C72 /* BaseScreen.swift */; };
+		C494D9C22A9FC06800B93C72 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C494D9C12A9FC06800B93C72 /* SettingsScreen.swift */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -5028,6 +5040,18 @@
 		BCD557B91C45B1600060A51A /* UIApplication+VisualTestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIApplication+VisualTestUtils.h"; path = "WikipediaUnitTests/Code/UIApplication+VisualTestUtils.h"; sourceTree = SOURCE_ROOT; };
 		BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+VisualTestUtils.m"; path = "WikipediaUnitTests/Code/UIApplication+VisualTestUtils.m"; sourceTree = SOURCE_ROOT; };
 		BCF012321AD2FA38008D3675 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		C4196F9B2AA0A2C1008595EE /* TapBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBar.swift; sourceTree = "<group>"; };
+		C4196F9D2AA0A493008595EE /* SearchingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingScreen.swift; sourceTree = "<group>"; };
+		C4196FA12AA0D4A7008595EE /* ModelOfBusinessSearchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelOfBusinessSearchScreen.swift; sourceTree = "<group>"; };
+		C4196FA32AA0D50F008595EE /* HistoryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreen.swift; sourceTree = "<group>"; };
+		C4196FA52AA0D54D008595EE /* AboutApplicationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApplicationScreen.swift; sourceTree = "<group>"; };
+		C4196FA72AA0D5AC008595EE /* TopReadScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopReadScreen.swift; sourceTree = "<group>"; };
+		C4196FA92AA0D5D3008595EE /* WatchPlacesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPlacesScreen.swift; sourceTree = "<group>"; };
+		C4196FAB2AA0E393008595EE /* BrowserScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserScreen.swift; sourceTree = "<group>"; };
+		C494D9BB2A9FBFC800B93C72 /* UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITests.swift; sourceTree = "<group>"; };
+		C494D9BD2A9FBFFC00B93C72 /* FeedScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedScreen.swift; sourceTree = "<group>"; };
+		C494D9BF2A9FC02B00B93C72 /* BaseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScreen.swift; sourceTree = "<group>"; };
+		C494D9C12A9FC06800B93C72 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -7911,6 +7935,8 @@
 				B0606EB020AA6FF0006EC6B9 /* SnapshotRecorderTests.swift */,
 				B0606EC420AA955B006EC6B9 /* SnapshotHelper.swift */,
 				B0BDA58120B09A090098DB65 /* XCUIApplication+SnapshotUtilities.swift */,
+				C494D9B92A9FBF6C00B93C72 /* Screens */,
+				C494D9BA2A9FBF8000B93C72 /* Tests */,
 				B0606EB220AA6FF0006EC6B9 /* Info.plist */,
 			);
 			path = WikipediaUITests;
@@ -8812,6 +8838,32 @@
 				B0E804FD1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.m */,
 			);
 			name = "Face Detection";
+			sourceTree = "<group>";
+		};
+		C494D9B92A9FBF6C00B93C72 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				C4196FA52AA0D54D008595EE /* AboutApplicationScreen.swift */,
+				C494D9BF2A9FC02B00B93C72 /* BaseScreen.swift */,
+				C4196FAB2AA0E393008595EE /* BrowserScreen.swift */,
+				C494D9BD2A9FBFFC00B93C72 /* FeedScreen.swift */,
+				C4196FA32AA0D50F008595EE /* HistoryScreen.swift */,
+				C4196FA12AA0D4A7008595EE /* ModelOfBusinessSearchScreen.swift */,
+				C4196F9D2AA0A493008595EE /* SearchingScreen.swift */,
+				C494D9C12A9FC06800B93C72 /* SettingsScreen.swift */,
+				C4196F9B2AA0A2C1008595EE /* TapBar.swift */,
+				C4196FA72AA0D5AC008595EE /* TopReadScreen.swift */,
+				C4196FA92AA0D5D3008595EE /* WatchPlacesScreen.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		C494D9BA2A9FBF8000B93C72 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C494D9BB2A9FBFC800B93C72 /* UITests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		D499142C181D51DE00E6073C = {
@@ -10988,9 +11040,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4196FAA2AA0D5D3008595EE /* WatchPlacesScreen.swift in Sources */,
 				B0606EB120AA6FF0006EC6B9 /* SnapshotRecorderTests.swift in Sources */,
+				C4196FAC2AA0E393008595EE /* BrowserScreen.swift in Sources */,
+				C4196FA62AA0D54D008595EE /* AboutApplicationScreen.swift in Sources */,
+				C4196FA42AA0D50F008595EE /* HistoryScreen.swift in Sources */,
+				C4196F9E2AA0A493008595EE /* SearchingScreen.swift in Sources */,
+				C494D9BC2A9FBFC800B93C72 /* UITests.swift in Sources */,
+				C494D9C02A9FC02B00B93C72 /* BaseScreen.swift in Sources */,
 				B0606EC520AA955C006EC6B9 /* SnapshotHelper.swift in Sources */,
 				B0BDA58220B09A090098DB65 /* XCUIApplication+SnapshotUtilities.swift in Sources */,
+				C4196FA22AA0D4A7008595EE /* ModelOfBusinessSearchScreen.swift in Sources */,
+				C494D9C22A9FC06800B93C72 /* SettingsScreen.swift in Sources */,
+				C4196FA82AA0D5AC008595EE /* TopReadScreen.swift in Sources */,
+				C494D9BE2A9FBFFC00B93C72 /* FeedScreen.swift in Sources */,
+				C4196F9C2AA0A2C1008595EE /* TapBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
