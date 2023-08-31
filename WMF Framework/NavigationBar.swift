@@ -856,12 +856,13 @@ extension NavigationBar: UINavigationBarDelegate {
         let navVC = delegate.navigationController else {
             return
         }
-        /// During iOS 14's long press to access back history, this function is called *after* the unneeded navigationItems have been popped off.
-        /// However, with our custom navBar the actual articleVC isn't changed. So we need to find the articleVC for the top navItem, and pop to it.
-        /// This should be in `shouldPop`, but as of iOS 14.0, `shouldPop` isn't called when long pressing a back button. Once this is fixed by Apple,
-        /// we should move this to `shouldPop` to improve animations. (Update: A bug tracker was filed w/ Apple, and this won't be fixed anytime soon.
-        /// Apple: "This is expected behavior. Due to side effects that many clients have in the shouldPop handler, we do not consult it when using the back
-        /// button menu. We instead recommend that you hide the back button when you wish to disallow popping past a particular point in the navigation stack.")
+        
+        // During iOS 14's long press to access back history, this function is called *after* the unneeded navigationItems have been popped off.
+        // However, with our custom navBar the actual articleVC isn't changed. So we need to find the articleVC for the top navItem, and pop to it.
+        // This should be in `shouldPop`, but as of iOS 14.0, `shouldPop` isn't called when long pressing a back button. Once this is fixed by Apple,
+        // we should move this to `shouldPop` to improve animations. (Update: A bug tracker was filed w/ Apple, and this won't be fixed anytime soon.
+        // Apple: "This is expected behavior. Due to side effects that many clients have in the shouldPop handler, we do not consult it when using the back
+        // button menu. We instead recommend that you hide the back button when you wish to disallow popping past a particular point in the navigation stack.")
         
         // If items are down to root, pop to root without title checking
         if let items = navigationBar.items,
