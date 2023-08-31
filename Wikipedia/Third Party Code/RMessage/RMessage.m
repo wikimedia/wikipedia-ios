@@ -259,6 +259,15 @@ static NSLock *mLock, *nLock;
   return YES;
 }
 
++ (RMessageView *)currentMessageView {
+    if ([RMessage sharedMessage].messages.count > 0) {
+        RMessageView *currentMessage = [RMessage sharedMessage].messages[0];
+        return currentMessage;
+    }
+    
+    return nil;
+}
+
 + (BOOL)dismissAllNotificationsWithCompletion:(void (^)(void))completionBlock {
     [mLock lock];
     NSMutableArray *messages = [RMessage sharedMessage].messages;
