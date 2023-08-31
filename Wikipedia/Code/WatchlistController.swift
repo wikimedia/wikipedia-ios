@@ -79,7 +79,15 @@ class WatchlistController {
             NSUserActivity.wmf_navigate(to: userActivity)
         }
         
-        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(statusTitle, subtitle: nil, image: image, type: .custom, customTypeName: toastCustomTypeName, dismissPreviousAlerts: true, callback: navigateToWatchlistBlock, buttonTitle: promptTitle, buttonCallBack: navigateToWatchlistBlock)
+        let duration: TimeInterval? = UIAccessibility.isVoiceOverRunning ? 10 : 5
+        
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(statusTitle, subtitle: nil, image: image, type: .custom, customTypeName: toastCustomTypeName, duration: duration, dismissPreviousAlerts: true, callback: navigateToWatchlistBlock, buttonTitle: promptTitle, buttonCallBack: navigateToWatchlistBlock)
+        
+        if UIAccessibility.isVoiceOverRunning {
+            DispatchQueue.main.async {
+                UIAccessibility.post(notification: .layoutChanged, argument: [statusTitle, WMFAlertManager.sharedInstance.topMessageView()] as [Any])
+            }
+        }
     }
     
     private func presentChooseExpiryActionSheet(pageTitle: String, siteURL: URL, wkProject: WKProject, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, authenticationManager: WMFAuthenticationManager) {
@@ -179,7 +187,13 @@ class WatchlistController {
                 case .success:
                     let title = WMFLocalizedString("watchlist-removed", value: "Removed from your Watchlist", comment: "Title in toast after a user successfully removes an article from their watchlist.")
                     let image = UIImage(systemName: "star")
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: self.toastCustomTypeName, dismissPreviousAlerts: true)
+                    
+                    if !UIAccessibility.isVoiceOverRunning {
+                        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: self.toastCustomTypeName, dismissPreviousAlerts: true)
+                    } else {
+                        UIAccessibility.post(notification: .layoutChanged, argument: [title] as [Any])
+                    }
+                    
                     self.delegate?.didSuccessfullyUnwatch(self)
                 case .failure(let error):
                     self.evaluateServerError(error: error, viewController: viewController, theme: theme, performAfterLoginBlock: { [weak self] in
@@ -193,7 +207,11 @@ class WatchlistController {
     private func evaluateServerError(error: Error, viewController: UIViewController, theme: Theme, performAfterLoginBlock: @escaping () -> Void) {
         
         let fallback: (Error) -> Void = { error in
-            WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: .layoutChanged, argument: [(error as NSError).alertMessage()] as [Any])
+            } else {
+                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+            }
         }
         
         guard let dataControllerError = error as? WKData.WKDataControllerError else {
