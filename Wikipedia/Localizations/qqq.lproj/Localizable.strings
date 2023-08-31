@@ -1048,7 +1048,7 @@
 "talk-pages-topic-compose-title-placeholder" = "Placeholder text in topic title field of the talk page topic compose screen. Please prioritize for de, ar and zh wikis.";
 "talk-pages-topic-reply-onboarding-body" = "Body text for user education onboarding view for user and article talk pages.";
 "talk-pages-topic-reply-onboarding-body-ios15" = "Body text for user education onboarding view for user and article talk pages. Parameters:\n* $1 - app-specific non-text formatting";
-"talk-pages-topic-reply-onboarding-body-note-ios15" = "Body text for user education onboarding view for user and article talk pageson iOS 15";
+"talk-pages-topic-reply-onboarding-body-note-ios15" = "Body text for user education onboarding view for user and article talk pages on iOS 15+";
 "talk-pages-topic-reply-onboarding-title" = "Title of user education onboarding view for user and article talk pages.";
 "talk-pages-user-groups" = "Title for menu option for information on the user's user groups. Please prioritize for de, ar and zh wikis.";
 "talk-pages-user-logs" = "Title for menu option to consult the user's public logs. Please prioritize for de, ar and zh wikis.";
