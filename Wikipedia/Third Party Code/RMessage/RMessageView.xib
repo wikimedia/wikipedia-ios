@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,10 +15,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49I-AE-5sP">
-                    <rect key="frame" x="14" y="14" width="292" height="88"/>
+                    <rect key="frame" x="14" y="34" width="292" height="68"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="KnX-yz-VaF">
-                            <rect key="frame" x="0.0" y="0.0" width="267" height="88"/>
+                            <rect key="frame" x="0.0" y="0.0" width="267" height="68"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJU-tq-cfR">
                                     <rect key="frame" x="0.0" y="0.0" width="267" height="20.5"/>
@@ -27,32 +27,32 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Subtitle" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86Q-SR-N4H">
-                                    <rect key="frame" x="0.0" y="31.5" width="267" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="25.5" width="267" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRl-SV-1p2">
-                                    <rect key="frame" x="0.0" y="58" width="267" height="30"/>
+                                    <rect key="frame" x="0.0" y="47.5" width="267" height="20.5"/>
                                     <state key="normal" title="Button"/>
                                 </button>
                             </subviews>
                         </stackView>
-                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="SYg-rc-Dhl">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yzy-Ma-vlx" userLabel="Close Button">
                             <rect key="frame" x="272" y="0.0" width="20" height="20"/>
-                            <color key="tintColor" systemColor="darkTextColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="20" id="hGq-XR-tNx"/>
-                                <constraint firstAttribute="width" constant="20" id="qEH-8l-Ked"/>
+                                <constraint firstAttribute="width" constant="20" id="7Zc-X8-t4j"/>
+                                <constraint firstAttribute="height" constant="20" id="V2g-lk-zec"/>
                             </constraints>
-                        </imageView>
+                            <buttonConfiguration key="configuration" style="plain" image="close"/>
+                        </button>
                     </subviews>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Yzy-Ma-vlx" secondAttribute="trailing" id="0Kf-zi-Qr6"/>
                         <constraint firstAttribute="bottom" secondItem="KnX-yz-VaF" secondAttribute="bottom" id="2WF-Me-AxC"/>
-                        <constraint firstAttribute="trailing" secondItem="SYg-rc-Dhl" secondAttribute="trailing" id="8a9-zF-t2X"/>
-                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="top" secondItem="49I-AE-5sP" secondAttribute="top" id="GV3-lT-qko"/>
                         <constraint firstItem="KnX-yz-VaF" firstAttribute="leading" secondItem="49I-AE-5sP" secondAttribute="leading" id="Psh-zG-NIA"/>
-                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="leading" secondItem="KnX-yz-VaF" secondAttribute="trailing" constant="5" id="pQl-AO-K6b"/>
+                        <constraint firstItem="Yzy-Ma-vlx" firstAttribute="leading" secondItem="KnX-yz-VaF" secondAttribute="trailing" constant="5" id="Wf5-ht-mqE"/>
+                        <constraint firstItem="Yzy-Ma-vlx" firstAttribute="top" secondItem="49I-AE-5sP" secondAttribute="top" id="hMf-NT-VRH"/>
                         <constraint firstItem="KnX-yz-VaF" firstAttribute="top" secondItem="49I-AE-5sP" secondAttribute="top" id="xVg-7N-L0W"/>
                     </constraints>
                 </view>
@@ -68,7 +68,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="button" destination="FRl-SV-1p2" id="5Bm-b3-Ggn"/>
-                <outlet property="closeImageView" destination="SYg-rc-Dhl" id="MJ5-uy-cj7"/>
+                <outlet property="closeButton" destination="Yzy-Ma-vlx" id="XIE-nw-mrJ"/>
                 <outlet property="stackView" destination="KnX-yz-VaF" id="6Ra-5E-Cad"/>
                 <outlet property="subtitleLabel" destination="86Q-SR-N4H" id="b36-f7-jMs"/>
                 <outlet property="titleLabel" destination="bJU-tq-cfR" id="cQG-kC-CBc"/>
@@ -80,8 +80,5 @@
     </objects>
     <resources>
         <image name="close" width="18" height="18"/>
-        <systemColor name="darkTextColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

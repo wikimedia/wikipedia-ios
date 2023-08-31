@@ -61,5 +61,14 @@
     "subTitleFontSize": 14,
     "subTitleTextColor": "#222222",
     "blurBackground": 0
+  },
+  "watchlist-add-remove-success": {
+      "backgroundColor": "#F8F9FA",
+      "backgroundColorAlpha": 1.0,
+      "titleTextColor": "#222222",
+      "titleFontSize": 14,
+      "subTitleFontSize": 12,
+      "subTitleTextColor": "#222222",
+      "blurBackground": 0
   }
 }

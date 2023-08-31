@@ -1,5 +1,6 @@
 import UIKit
 import AVKit
+import Components
 
 // Wrapper class for access in Objective-C
 @objc class WMFRoutingUserInfoKeys: NSObject {
@@ -106,7 +107,7 @@ class ViewControllerRouter: NSObject {
             completion()
             return true
         case .articleHistory(let linkURL, let articleTitle):
-            let pageHistoryVC = PageHistoryViewController(pageTitle: articleTitle, pageURL: linkURL, articleSummaryController: appViewController.dataStore.articleSummaryController)
+            let pageHistoryVC = PageHistoryViewController(pageTitle: articleTitle, pageURL: linkURL, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager)
             return presentOrPush(pageHistoryVC, with: completion)
         case .articleDiff(let linkURL, let fromRevID, let toRevID):
             guard let siteURL = linkURL.wmf_site,
@@ -114,7 +115,7 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return false
             }
-            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil, articleSummaryController: appViewController.dataStore.articleSummaryController)
+            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager)
             return presentOrPush(diffContainerVC, with: completion)
         case .inAppLink(let linkURL):
             let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)
@@ -178,6 +179,28 @@ class ViewControllerRouter: NSObject {
             return presentOrPush(createReadingListVC, with: completion)
         case .login:
             return presentLoginViewController(with: completion)
+        case .watchlist:
+            var targetNavigationController = appViewController.navigationController
+            if let presentedNavigationController = appViewController.presentedViewController as? UINavigationController,
+               presentedNavigationController.viewControllers[0] is WMFSettingsViewController {
+                targetNavigationController = presentedNavigationController
+            }
+
+            let localizedByteChange: (Int) -> String = { bytes in
+                String.localizedStringWithFormat(
+                    WMFLocalizedString("watchlist-byte-change", value:"{{PLURAL:%1$d|%1$d byte|%1$d bytes}}", comment: "Amount of bytes changed for a revision displayed in watchlist - %1$@ is replaced with the number of bytes."),
+                    bytes
+                )
+            }
+
+            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, byteChange: localizedByteChange)
+            let presentationConfiguration = WKWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
+            let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
+            let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, delegate: appViewController)
+            
+            targetNavigationController?.pushViewController(watchlistViewController, animated: true)
+            completion()
+            return true
         default:
             completion()
             return false

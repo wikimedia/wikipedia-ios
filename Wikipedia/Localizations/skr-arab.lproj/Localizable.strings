@@ -475,6 +475,13 @@
 "variants-alert-dismiss-button" = "کو، شکریہ";
 "watch" = "پارھا ݙیوو";
 "watchlist" = "پارھا تندیر";
+"watchlist-added-toast-view-watchlist" = "پارھاتندیر ݙیکھو";
+"watchlist-change-expiry-option-one-month" = "ہک مہیناں";
+"watchlist-change-expiry-option-one-week" = "ہک ہفتہ";
+"watchlist-change-expiry-option-one-year" = "ہک سال";
+"watchlist-change-expiry-option-permanent" = "مستقل";
+"watchlist-change-expiry-option-six-months" = "٦ مہینے";
+"watchlist-change-expiry-option-three-months" = "ترائے مہینے";
 "watchlist-user-button-user-contributions" = "ورتݨ آلے دیاں ونگاراں";
 "watchlist-user-button-user-page" = "ورتݨ آلے دا ورقہ";
 "watchlist-user-button-user-talk-page" = "ورتݨ آلے دا ڳالھ مہاڑ ورقہ";
