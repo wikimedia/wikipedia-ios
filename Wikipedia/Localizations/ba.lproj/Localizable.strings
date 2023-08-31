@@ -147,6 +147,7 @@
 "article-reference-view-title" = "Иҫкәрмәләр $1";
 "article-save-error-not-enough-space" = "Был мәҡәләне һаҡлар өсөн ҡоролмағыҙҙа урын етмәй";
 "article-share" = "Уртаҡлашырға";
+"article-talk-page" = "Мәҡәләнең фекер алышыу бите";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Уҡыу темаһын көйләү";
 "back-button-accessibility-label" = "Кирегә";
 "back-button-popover-title" = "Ҡире ҡайтыу өсөн баҫығыҙ";
@@ -166,6 +167,8 @@
 "chinese-variants-alert-body" = "Wikipedia ҡушымтаһы хәҙер түбәндәге ҡытай теле вариаттарын, ҡушымтала төп һәм икенсел тел булараҡ уҡый ала, был һеҙ һайлаған форматта уҡыу, эҙләү йәки үҙгәрештәр индереүҙе еңеләйтә:\n\nҠытай, ябайлаштырылған\nГонконг традицион\nМакао ғәҙәти \nМалайзия ябайлаштырылған\nСингапур ябайлаштырылған\nТайвань традицион";
 "chinese-variants-alert-title" = "Ҡытай теле вариаттарына ярҙамды яңыртыу";
 "clear-title-accessibility-label" = "Таҙартырға";
+"clearing-cache-complete" = "Кэшты таҙартыу тамамланды";
+"clearing-cache-in-progress" = "Кэш таҙартыу бара";
 "close-button-accessibility-label" = "Ябырға";
 "compass-direction" = "$1 сәғәткә";
 "continue-reading-empty-description" = "Күберәк мәҡәләләр уҡыу өсөн Википедияны өйрәнегеҙ";
@@ -227,6 +230,7 @@
 "diff-rollback" = "Кире ҡайтарырға";
 "diff-rollback-alert-message" = "Үҙгәрештәрҙе кире ҡағырға теләйһегеҙме?";
 "diff-rollback-alert-title" = "Үҙгәртеүҙәрҙе кире ҡайтарырға";
+"diff-rollback-success" = "Төҙәтеүҙәр кире алынған";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|төҙәтеү}}";
 "diff-single-header-editor-title" = "Мөхәррир тураһында мәғлүмәт";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 байт өҫтәлгән}}";
@@ -244,7 +248,9 @@
 "diff-thanks-sent-already" = "Был үҙгәртеү өсөн 'Рәхмәт' ебәрҙегеҙ";
 "diff-thanks-sent-cannot-unsend" = "Рәхмәт ебәреүҙе кире алып булмай";
 "diff-undo-message" = "Был ғәмәл мәҡәләгә индергән үҙгәреште юҡҡа сығара. Артабан дауам итер өсөн, зинһар, төҙәтеүҙең сәбәбен күрһәтегеҙ.";
+"diff-undo-success" = "Был өлгө кире алынған";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 юл үҙгәрмәне|$1 юлдар үҙгәрмәне}}";
+"diff-user-button-accessibility-text" = "Менюны асыу өсөн ике мәртәбә баҫығыҙ";
 "dim-images" = "Һүрәттәрҙе тоноҡландырырға";
 "edit-bold-accessibility-label" = "Ярым ҡалын формат өҫтәргә";
 "edit-bold-remove-accessibility-label" = "Ярым ҡалын форматты юйырға";
@@ -493,7 +499,7 @@
 "image-gallery-unknown-owner" = "Авторы билдәһеҙ";
 "import-shared-reading-list-default-title" = "Уҡыу исемлегем";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Хәҙер түгел";
-"import-shared-reading-list-survey-prompt-button-take-survey" = "Һорау алыуҙа ҡатнашыу";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Һорауламала ҡатнашыу";
 "import-shared-reading-list-survey-prompt-subtitle" = "«Уҡыу исемлектәре менән бүлешергә» -  тест функцияһы, һәм беҙгә уны яҡшыртыу йәки алып ташлау өсөн һеҙҙең фекер кәрәк.";
 "import-shared-reading-list-survey-prompt-title" = "\"Уҡыу исемлектәре менән уртаҡлашыу\" функцияһын яҡшыртыуҙа ярҙам итә алмаҫһығыҙмы?";
 "import-shared-reading-list-title" = "Дөйөм уҡыу исемлеген импортлау";
