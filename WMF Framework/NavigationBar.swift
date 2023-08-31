@@ -667,11 +667,14 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             self.titleView?.transform = CGAffineTransform(scaleX: titleScale, y: titleScale)
         }
         
-        for subview in self.bar.subviews {
-            for subview in subview.subviews {
-                subview.transform = barScaleTransform
+        if #unavailable(iOS 17) {
+            for subview in self.bar.subviews {
+                for subview in subview.subviews {
+                    subview.transform = barScaleTransform
+                }
             }
         }
+        
         self.bar.alpha = min(backgroundAlpha, (1.0 - 2.0 * navigationBarPercentHidden).wmf_normalizedPercentage)
         self.titleBar.alpha = self.bar.alpha
         
