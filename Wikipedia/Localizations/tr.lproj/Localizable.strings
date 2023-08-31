@@ -23,6 +23,7 @@
 // Author: Mavrikant
 // Author: Mavrikant2
 // Author: McAang
+// Author: McDutchie
 // Author: Meelo
 // Author: Melissadilara
 // Author: Mirzali
@@ -174,8 +175,10 @@
 "article-languages-yours" = "Dilleriniz";
 "article-read-more-title" = "Devamını oku";
 "article-reference-view-title" = "$1 kaynağı";
+"article-revision-history" = "Madde sürüm geçmişi";
 "article-save-error-not-enough-space" = "Bu maddeyi kaydetmek için cihazınızda yeterli alan yok";
 "article-share" = "Paylaş";
+"article-talk-page" = "Madde tartışma sayfası";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Okuma Tema Ayarları";
 "back-button-accessibility-label" = "Geri";
 "back-button-popover-title" = "Geri dönmek için dokunun";
@@ -195,6 +198,8 @@
 "chinese-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Çince biçimlerini birincil veya ikincil olarak uygulama içinde, tercih ettiğiniz biçim ile okumayı, aramayı veya değişiklik yapmayı kolaylaştırmak için destekliyor.\n\n简体 Çince, Basitleştirilmiş (zh-hans)\n香港繁體 Geleneksel Hong Kong (zh-hk)\n澳門繁體 Geleneksel Makao (zh-mo)\n大马简体 Basitleştirilmiş Malezya (zh-my)\n新加坡简体 Basitleştirilmiş Singapur (zh-sg)\n臺灣正體 Geleneksel Tayvan (zh-tw)";
 "chinese-variants-alert-title" = "Çince biçim desteği güncellemeleri";
 "clear-title-accessibility-label" = "Temizle";
+"clearing-cache-complete" = "Önbellek temizliği tamamlandı.";
+"clearing-cache-in-progress" = "Önbellek temizleniyor.";
 "close-button-accessibility-label" = "Kapat";
 "compass-direction" = "saat $1 yönünde";
 "continue-reading-empty-description" = "Daha fazla madde okumak için Vikipedi'yi keşfedin";
@@ -239,9 +244,9 @@
 "description-welcome-promise-title" = "Başlayarak bu özelliği kötüye kullanmamaya söz veriyorum";
 "description-welcome-start-editing-button" = "Düzenlemeye başla";
 "diff-article-edit-history" = "Madde Düzenleme Geçmişi";
-"diff-compare-header-from-info-heading" = "Gönderen";
+"diff-compare-header-from-info-heading" = "Önceki Düzenleme";
 "diff-compare-header-heading" = "Düzeltmeleri Karşılaştır";
-"diff-compare-header-to-info-heading" = "Alıcı";
+"diff-compare-header-to-info-heading" = "Görüntülenen Düzenleme";
 "diff-compare-title" = "Düzeltmeleri Karşılaştır";
 "diff-context-lines-collapsed-button-title" = "Göster";
 "diff-context-lines-expanded-button-title" = "Gizle";
@@ -475,7 +480,7 @@
 "field-backup-token-title" = "Yedek kod";
 "field-captcha-placeholder" = "CAPTCHA metni";
 "field-captcha-title" = "Yukarıda gördüğünüz metni girin";
-"field-email-placeholder" = "ornek@ornek.org";
+"field-email-placeholder" = "ornek@example.org";
 "field-email-title" = "E-posta";
 "field-email-title-optional" = "E-posta (isteğe bağlı)";
 "field-new-password-confirm-placeholder" = "yeni parolayı tekrar girin";
@@ -1139,6 +1144,24 @@
 "variants-alert-preferences-button" = "Tercihlerinizi gözden geçirin";
 "watch" = "İzle";
 "watchlist" = "İzleme listesi";
+"watchlist-added-toast-one-month" = "1 ay boyunca İzleme Listenize eklendi.";
+"watchlist-added-toast-one-week" = "1 hafta boyunca İzleme Listenize eklendi.";
+"watchlist-added-toast-one-year" = "1 yıl boyunca İzleme Listenize eklendi.";
+"watchlist-added-toast-permanently" = "İzleme Listenize kalıcı olarak eklendi.";
+"watchlist-added-toast-six-months" = "6 ay boyunca İzleme Listenize eklendi.";
+"watchlist-added-toast-three-months" = "3 ay boyunca İzleme Listenize eklendi.";
+"watchlist-added-toast-view-watchlist" = "İzleme Listesini Görüntüle";
+"watchlist-byte-change" = "{{PLURAL:$1|$1 bayt}}";
+"watchlist-change-expiry-option-one-month" = "1 ay";
+"watchlist-change-expiry-option-one-week" = "1 hafta";
+"watchlist-change-expiry-option-one-year" = "1 yıl";
+"watchlist-change-expiry-option-permanent" = "Kalıcı";
+"watchlist-change-expiry-option-six-months" = "6 ay";
+"watchlist-change-expiry-option-three-months" = "3 ay";
+"watchlist-change-expiry-subtitle" = "İzleme listesi dönemini seçin";
+"watchlist-change-expiry-title" = "İzleme Listesinin sona ermesi";
+"watchlist-filter" = "Filtrele";
+"watchlist-removed" = "İzleme Listenizden kaldırıldı";
 "watchlist-user-button-user-contributions" = "Kullanıcı katkıları";
 "watchlist-user-button-user-page" = "Kullanıcı sayfası";
 "watchlist-user-button-user-talk-page" = "Kullanıcı mesaj sayfası";

@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: BadDog
 // Author: Kizule
+// Author: McDutchie
 // Author: Milicevic01
 
 "about-content-license" = "Licenca sadržaja";
@@ -354,7 +355,7 @@
 "field-backup-token-title" = "Rezervni kôd";
 "field-captcha-placeholder" = "CAPTCHA tekst";
 "field-captcha-title" = "Unesite gorenavedeni tekst";
-"field-email-placeholder" = "primer@primer.org";
+"field-email-placeholder" = "primer@example.org";
 "field-email-title" = "Imejl";
 "field-email-title-optional" = "Imejl (opcionalno)";
 "field-new-password-confirm-placeholder" = "ponovo unesite novu lozinku";
