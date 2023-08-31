@@ -264,7 +264,7 @@ class ViewControllerRouter: NSObject {
                                                                                           significanceMinorEdits: CommonStrings.watchlistFilterSignificanceOptionMinorEdits,
                                                                                           significanceNonMinorEdits: CommonStrings.watchlistFilterSignificanceOptionNonMinorEdits,
                                                                                           userRegistrationHeader: CommonStrings.watchlistFilterUserRegistrationHeader,
-                                                                                          userRegistrationUnregistered: CommonStrings.watchlistFilterUserRegistrationHeader,
+                                                                                          userRegistrationUnregistered: CommonStrings.watchlistFilterUserRegistrationOptionUnregistered,
                                                                                           userRegistrationRegistered: CommonStrings.watchlistFilterUserRegistrationOptionRegistered,
                                                                                           typeOfChangeHeader: CommonStrings.watchlistFilterTypeOfChangeHeader,
                                                                                           typeOfChangePageEdits: CommonStrings.watchlistFilterTypeOfChangeOptionPageEdits,
