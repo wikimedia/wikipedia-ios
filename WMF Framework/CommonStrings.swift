@@ -267,29 +267,37 @@ public class CommonStrings: NSObject {
     }
     @objc public static let talkPageReplyAccessibilityText = WMFLocalizedString("talk-page-reply-button-accessibility-label", value: "Reply to %@", comment: "Accessibility text for reply button. The %@ will be replaced with the name of the user whose comment is being responded")
 
-    public static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for option that leads to talk pages revision history. Please prioritize for de, ar and zh wikis.")
+    public static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for menu option that leads to page revision history.")
+    
+    public static let articleRevisionHistory = WMFLocalizedString("article-revision-history", value: "Article revision history", comment: "Title for menu option that leads to article revision history.")
 
     public static let defaultThemeDisplayName = WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user")
 
     public static let moreButton = WMFLocalizedString("more-menu", value: "More", comment: "Accessibility title for more button in toolbar.")
 
     public static let watchlist = WMFLocalizedString("watchlist", value: "Watchlist", comment: "Title for watchlist feature.")
+
+    public static let watchlistFilter = WMFLocalizedString("watchlist-filter", value: "Filter", comment: "Title for filter button in watchlist.")
     
     public static let watch = WMFLocalizedString("watch", value: "Watch", comment: "Title for watch toolbar button.")
     
     public static let unwatch = WMFLocalizedString("unwatch", value: "Unwatch", comment: "Title for unwatch toolbar button.")
 
     public static let rollback = WMFLocalizedString("diff-rollback", value: "Rollback", comment: "Title for rollback toolbar button.")
+    
+    public static let articleTalkPage = WMFLocalizedString("article-talk-page", value: "Article talk page", comment: "Title for article talk page button")
 
     public static let userButtonPage = WMFLocalizedString("watchlist-user-button-user-page", value: "User page", comment: "Title shown for user page action in user menu button in diff and watchlist views.")
 
     public static let userButtonTalkPage = WMFLocalizedString("watchlist-user-button-user-talk-page", value: "User talk page", comment: "Title shown for user talk page action in user menu button in diff and watchlist views.")
 
     public static let userButtonContributions = WMFLocalizedString("watchlist-user-button-user-contributions", value: "User contributions", comment: "Title shown for user contributions action in user menu button in diff and watchlist views.")
-    
-    public static let diffFromHeading = WMFLocalizedString("diff-compare-header-from-info-heading", value: "From", comment: "Heading label in from revision info box when comparing two revisions.")
 
-    public static let diffToHeading = WMFLocalizedString("diff-compare-header-to-info-heading", value: "To", comment: "Heading label in to revision info box when comparing two revisions.")
+    public static let thanksMessage = WMFLocalizedString("diff-thanks-sent", value: "Your 'Thanks' was sent to %1$@", comment: "Message indicating thanks was sent. Parameters:\n* %1$@ - name of user who was thanked")
+    
+    public static let diffFromHeading = WMFLocalizedString("diff-compare-header-from-info-heading", value: "Previous Edit", comment: "Heading label in info box for previous revision when comparing two revisions.")
+
+    public static let diffToHeading = WMFLocalizedString("diff-compare-header-to-info-heading", value: "Displayed Edit", comment: "Heading label in info box for current revision when comparing two revisions.")
 
     public static let diffArticleEditHistory = WMFLocalizedString("diff-article-edit-history", value: "Article Edit History", comment: "Label for article edit history menu item in diff more menu.")
 

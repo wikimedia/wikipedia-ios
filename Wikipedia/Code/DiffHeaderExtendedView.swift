@@ -50,6 +50,7 @@ class DiffHeaderExtendedView: UIView {
             addSubview(contentView)
             contentView.frame = self.bounds
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        
     }
     
     func update(_ new: DiffHeaderViewModel) {

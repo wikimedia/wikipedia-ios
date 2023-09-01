@@ -35,6 +35,9 @@ class DiffListChangeCell: UICollectionViewCell {
     weak var delegate: DiffListChangeCellDelegate?
     
     func update(_ viewModel: DiffListChangeViewModel) {
+
+        textStackView.isAccessibilityElement = false
+        headingLabel.isAccessibilityElement = false
         
         textLeadingConstraint.constant = viewModel.stackViewPadding.leading
         textTrailingConstraint.constant = viewModel.stackViewPadding.trailing
@@ -59,7 +62,7 @@ class DiffListChangeCell: UICollectionViewCell {
         updateTextLabels(in: textStackView, newViewModel: viewModel)
 
         self.viewModel = viewModel
-        
+
         apply(theme: viewModel.theme)
     }
     
@@ -176,6 +179,7 @@ private extension DiffListChangeCell {
         for (index, label) in textLabels.enumerated() {
             if let item = newViewModel.items[safeIndex: index] {
                 label.attributedText = item.textAttributedString
+                label.isAccessibilityElement = false
             }
         }
     }

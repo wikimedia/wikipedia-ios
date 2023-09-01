@@ -134,6 +134,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.theme = [[NSUserDefaults standardUserDefaults] themeCompatibleWith:self.traitCollection];
+    [self appEnvironmentDidChangeWithTheme:self.theme traitCollection:self.traitCollection];
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
 
@@ -244,8 +245,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.editHintController = [[WMFEditHintController alloc] init];
 
     self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
-    
-    [self setupWKDataEnvironment];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -616,14 +615,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     WMFDatabaseHousekeeper *housekeeper = [WMFDatabaseHousekeeper new];
 
     NSError *housekeepingError = nil;
-    [housekeeper performHousekeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
+    [housekeeper performHousekeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController cleanupLevel:WMFCleanupLevelLow error:&housekeepingError];
     if (housekeepingError) {
         DDLogError(@"Error on cleanup: %@", housekeepingError);
         housekeepingError = nil;
     }
 
     /// Housekeeping for the new talk page cache
-    [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.talkPageCache];
+    [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.talkPageCache cleanupLevel:WMFCleanupLevelLow];
 
     completion(housekeepingError);
 }
@@ -846,6 +845,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                     [self endMigrationBackgroundTask];
                     [self checkRemoteAppConfigIfNecessary];
                     [self setupControllers];
+                    [self setupWKDataEnvironment];
                     if (!self.isWaitingToResumeApp) {
                         [self resumeApp:NULL];
                     }
@@ -1816,6 +1816,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (self.theme != theme) {
         [self applyTheme:theme];
         [self.settingsViewController loadSections];
+        [self appEnvironmentDidChangeWithTheme:theme traitCollection:self.navigationController.traitCollection];
     }
 }
 

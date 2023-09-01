@@ -86,9 +86,9 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         })
     }
     
-    @objc func showBottomAlertWithMessage(_ message: String, subtitle: String?, image: UIImage?, type: RMessageType, customTypeName: String?, dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)? = nil) {
+    @objc func showBottomAlertWithMessage(_ message: String, subtitle: String?, image: UIImage?, type: RMessageType, customTypeName: String?, dismissPreviousAlerts:Bool, callback: (() -> Void)? = nil, buttonTitle: String? = nil, buttonCallBack: (() -> Void)? = nil) {
         showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            RMessage.showNotification(withTitle: message, subtitle: subtitle, iconImage: image, type: type, customTypeName: customTypeName, duration: 5, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .bottom, canBeDismissedByUser: true)
+            RMessage.showNotification(withTitle: message, subtitle: subtitle, iconImage: image, type: type, customTypeName: customTypeName, duration: 5, callback: callback, buttonTitle: buttonTitle, buttonCallback: buttonCallBack, at: .bottom, canBeDismissedByUser: true)
         })
     }
     
@@ -139,6 +139,8 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
                 messageView.buttonFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
             } else if messageView.customTypeName == "subscription-error" {
                 messageView.imageViewTintColor = theme.colors.warning
+            } else if messageView.customTypeName == "watchlist-add-remove-success" {
+                messageView.buttonFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
             }
         default:
             messageView.titleTextColor = theme.colors.link

@@ -3,7 +3,7 @@
 // Author: Lifeway
 
 "aaald-added-text-description-2" = "$1 ешаралтын";
-"aaald-article-description-updated-description" = "Статьям возен ончыктымым уэмдыме";
+"aaald-article-description-updated-description" = "Статьян возен ончыктымашыжым уэмдыме";
 "aaald-article-insert-header" = "Кугу уэмдымаш";
 "aaald-article-insert-last-updated" = "Пытартыш уэмдымаш";
 "aaald-article-insert-new-changes" = "У вашталтыш";
@@ -160,11 +160,11 @@
 "description-help-tips-example-title-two" = "Мландын эн кугу кӱкшытшӧ";
 "description-help-tips-for-example" = "Мутлан:";
 "description-help-tips-title" = "Возен ончыктымашым ышташлан каҥаш";
-"description-help-title" = "Статьям возен ончыктымаш дене полыш";
+"description-help-title" = "Статьян возен ончыктымашыже дене полыш";
 "description-published-button-title" = "Ямде";
 "description-published-title" = "Возен ончыктымаш савыкталтын!";
 "description-welcome-concise-title" = "Порылий, кӱчыкын";
-"description-welcome-descriptions-title" = "Статьям возен ончыктымаш";
+"description-welcome-descriptions-title" = "Статьян возен ончыктымашыже";
 "description-welcome-start-editing-button" = "Тӧрлытымашым тӱҥалаш";
 "diff-article-edit-history" = "Статьям тӧрлатымаш историй";
 "diff-compare-header-heading" = "Версий-влакым таҥастараш";
@@ -183,7 +183,7 @@
 "diff-single-header-editor-title" = "Редакторын информацийже";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 байтым ешарыме}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 байтым кораҥдыме}}";
-"diff-single-header-summary-heading" = "Вашталтыш-влакым возен ончыктымаш";
+"diff-single-header-summary-heading" = "Вашталтыш-влакын возен ончыктымашышт";
 "diff-single-intro-title" = "Тӱҥалтыш";
 "diff-single-line-format" = "$1 корно";
 "diff-thanks-anonymous-no-thanks" = "Лӱмдымӧ ушнышылан тауштымашым колташ огеш лий";
@@ -457,6 +457,7 @@
 "notifications-center-destination-app" = "Приложенийыште";
 "notifications-center-destination-web" = "Интернетыште";
 "notifications-center-empty-checking-for-notifications" = "Шижтарымашым тергымаш…";
+"notifications-center-empty-no-messages" = "Тыйын серыш уке";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Кызыт огыл";
 "notifications-center-filters-accessibility-label" = "Шижтарымаш фильтр";
 "notifications-center-filters-read-status-item-title-all" = "Чыла";
@@ -485,3 +486,8 @@
 "notifications-center-mark-as-unread" = "Луддымо семын палемдаш";
 "notifications-center-more-action-accessibility-label" = "Шукырак";
 "notifications-center-notifications-settings" = "Шижтарымашым келыштараш";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 серыш}}";
+"notifications-center-subheader-message-user-talk-page" = "Тыйын каҥашымаш велыжыштет серыш";
+"notifications-center-type-item-description-welcome-verbose" = "Саламлыме серыш";
+"notifications-center-type-title-user-talk-page-messsage" = "Каҥашымаш велыжыште серыш";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|У серыш|У серыш-влак}}";

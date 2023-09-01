@@ -30,6 +30,7 @@
 // Author: Peter Fernando
 // Author: Raphaelras
 // Author: Rodrigo codignoli
+// Author: Stephanyb76
 // Author: Tks4Fish
 // Author: Tooguether
 // Author: Trooper57
@@ -232,8 +233,7 @@
 "description-welcome-descriptions-title" = "Descrições de artigos";
 "description-welcome-promise-title" = "Ao iniciar, eu prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "De:";
+"diff-compare-header-from-info-heading" = "Edição anterior";
 "diff-compare-header-heading" = "Comparar revisões";
 // Fuzzy
 "diff-compare-header-to-info-heading" = "Para:";
@@ -264,6 +264,7 @@
 "diff-thanks-sent" = "O seu 'Obrigado' foi enviado para $1";
 "diff-thanks-sent-already" = "Você já enviou um \"Obrigado\" por esta edição";
 "diff-thanks-sent-cannot-unsend" = "Os agradecimentos enviados não podem ser desfeitos";
+"diff-undo-success" = "A revisão foi desfeita.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 linha não editada|$1 linhas não editadas}}";
 "dim-images" = "Imagens fracas";
 "edit-bold-accessibility-label" = "Adicionar formatação em negrito";
@@ -581,6 +582,7 @@
 "menu-cancel-accessibility-label" = "Cancelar";
 "more-languages-tooltip-description" = "Pesquise na Wikipédia em mais de 300 idiomas";
 "more-languages-tooltip-title" = "Adicionar idiomas";
+"more-menu" = "Mais";
 "move-articles-to-reading-list" = "Mover $1 {{PLURAL:$1|artigo|artigos}} para a lista de leitura";
 "navbar-title-mode-edit-wikitext-preview" = "Pré-visualizar";
 "nearby-distance-label-feet" = "$1 pés";
@@ -1121,6 +1123,9 @@
 "vanishing-request-email-title" = "Pedido de desaparecimento de cortesia";
 "variants-alert-dismiss-button" = "Não, obrigado";
 "variants-alert-preferences-button" = "Revise suas preferências";
+"watchlist-filter" = "Filtro";
+"watchlist-user-button-user-contributions" = "Contribuições do usuário";
+"watchlist-user-button-user-page" = "Página de usuário";
 "welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";
 "welcome-exploration-explore-feed-title" = "Feed de explorar";
 "welcome-exploration-on-this-day-description" = "Volte no tempo para aprender o que aconteceu hoje na história";

@@ -15,6 +15,9 @@ class ArticleViewController: ViewController, HintPresenting {
     internal lazy var toolbarController: ArticleToolbarController = {
         return ArticleToolbarController(toolbar: toolbar, delegate: self)
     }()
+    internal lazy var watchlistController: WatchlistController = {
+        return WatchlistController(delegate: self)
+    }()
     
     /// Article holds article metadata (displayTitle, description, etc) and user state (isSaved, viewedDate, viewedFragment, etc)
     internal var article: WMFArticle
@@ -48,7 +51,7 @@ class ArticleViewController: ViewController, HintPresenting {
         return dataStore.configuration
     }
     
-    private var authManager: WMFAuthenticationManager {
+    internal var authManager: WMFAuthenticationManager {
         return dataStore.authenticationManager
     }
     
@@ -280,7 +283,17 @@ class ArticleViewController: ViewController, HintPresenting {
         stashOffsetPercentage()
         super.viewWillTransition(to: size, with: coordinator)
         let marginUpdater: ((UIViewControllerTransitionCoordinatorContext) -> Void) = { _ in self.updateArticleMargins() }
-        coordinator.animate(alongsideTransition: marginUpdater)
+        
+        coordinator.animate(alongsideTransition: marginUpdater) { [weak self] _ in
+            
+            // Upon rotation completion, recalculate more button popover position
+            
+            guard let self else {
+                return
+            }
+            
+            self.watchlistController.calculatePopoverPosition(sender: self.toolbarController.moreButton, sourceView: self.toolbarController.moreButtonSourceView, sourceRect: self.toolbarController.moreButtonSourceRect)
+        }
     }
     
     // MARK: Loading
@@ -317,6 +330,7 @@ class ArticleViewController: ViewController, HintPresenting {
         setup()
         super.viewDidLoad()
         setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
+        loadWatchStatusAndUpdateToolbar()
         setupForStateRestorationIfNecessary()
         surveyTimerController?.timerFireBlock = { [weak self] in
             guard let self = self,

@@ -12,6 +12,7 @@
 // Author: Iváns
 // Author: Macofe
 // Author: Maria zaos
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Toliño
 
@@ -124,36 +125,29 @@
 "continue-reading-empty-description" = "Explorar Wikipedia para atopar máis artigos para ler";
 "continue-reading-empty-title" = "Non hai artigos lidos recentemente";
 "description-add-title" = "Engadir unha descrición";
-// Fuzzy
-"description-edit-for-article" = "Descrición de título para $1";
+"description-edit-for-article" = "Descrición do artigo $1";
 "description-edit-learn-more" = "Máis información";
 "description-edit-length-warning" = "$1 / $2";
-// Fuzzy
-"description-edit-license" = "Ó alterar o título de descrición, concordo co $1 e publico irrevogablemente as miñas contribucións coa licenza $2.";
+"description-edit-license" = "Ó alterar a descrición do artigo, acepto os $1 e publico irrevogablemente as miñas contribucións baixo a licenza $2.";
 "description-edit-pencil-introduction" = "Editar introdución";
-// Fuzzy
-"description-edit-pencil-title" = "Editar descrición de título";
+"description-edit-pencil-title" = "Editar a descrición do artigo";
 "description-edit-placeholder-title" = "As descricións curtas son mellores";
 "description-edit-publish" = "Publicar descrición";
 "description-edit-title" = "Editar descrición";
 "description-edit-warning" = "Probe a manter as descricións curtas, así os usuarios poden entender o tema do artigo nunha ollada";
-// Fuzzy
-"description-help-about-description" = "Os títulos de descrición resumen o artigo para axudar ós lectores a entender o tema inmediatamente.";
+"description-help-about-description" = "As descricións dos artigos resumen os artigos para axudar ós lectores a entender o tema inmediatamente.";
 "description-help-about-title" = "Acerca de";
 "description-help-about-wikidata" = "Sobre Wikidata";
 "description-help-more-info-description" = "As descricións están almacenadas e mantidas en Wikidata, un proxecto da Fundación Wikimedia que proporciona unha base de datos secundaria, gratuíta, colaborativa, multilingüe, que soporta a Wikipedia e outros proxectos.";
 "description-help-more-info-title" = "Máis información";
 "description-help-tips-description" = "As descricións deberían coller nunha liña, e ter entre dúas e doce palabras. Non usan maiúsculas, a non ser que a primeira palabra sexa un nome propio.";
-// Fuzzy
-"description-help-tips-example-description-one" = "descrición de título para un artigo sobre a Mona Lisa";
-// Fuzzy
-"description-help-tips-example-description-two" = "descrición de título para un artigo sobre o monte Everest";
+"description-help-tips-example-description-one" = "descrición do artigo para un artigo sobre a Mona Lisa";
+"description-help-tips-example-description-two" = "descrición do artigo para un artigo sobre o monte Everest";
 "description-help-tips-example-title-one" = "pintura de Leonardo da Vinci";
 "description-help-tips-example-title-two" = "A montaña máis alta da Terra";
 "description-help-tips-for-example" = "Por exemploː";
 "description-help-tips-title" = "Consellos para crear descricións";
-// Fuzzy
-"description-help-title" = "Axuda da descrición do título";
+"description-help-title" = "Axuda coa descrición do artigo";
 "description-help-wikidata-guide" = "Guía de Wikidata para escribir descricións";
 "description-published-button-title" = "Feito";
 "description-published-footer" = "Tamén pode editar artigos con esta aplicación. A próxima vez, tente amañar erros ortográficos e pequenas frases premendo na icona do lapis.";
@@ -162,15 +156,12 @@
 "description-welcome-concise-sub-title" = "Idealmente unha liña, entre dúas e doce palabras";
 "description-welcome-concise-title" = "Concisa";
 "description-welcome-descriptions-sub-title" = "Resume un artigo para axudar ós lectores a entender o tema nunha primeira ollada";
-// Fuzzy
-"description-welcome-descriptions-title" = "Descricións do título";
+"description-welcome-descriptions-title" = "Descricións de artigos";
 "description-welcome-promise-title" = "Ó comezar, prometo non utilizar de forma irresponsable esta funcionalidade";
 "description-welcome-start-editing-button" = "Comezar a editar";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "De:";
+"diff-compare-header-from-info-heading" = "Edición anterior";
 "diff-compare-header-heading" = "Comparar revisións";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Para:";
+"diff-compare-header-to-info-heading" = "Edición amosada";
 "diff-compare-title" = "Comparar revisións";
 "diff-context-lines-collapsed-button-title" = "Amosar";
 "diff-context-lines-expanded-button-title" = "Agochar";
@@ -254,7 +245,7 @@
 "empty-no-history-title" = "Non hai ningún historial para amosar";
 "empty-no-reading-lists-message" = "Crear listas de lugares a visitar, os seus temas favoritos e moito máis";
 "empty-no-reading-lists-title" = "Organizar os artigos gardados mediante listas de lectura";
-"empty-no-saved-pages-in-reading-list-message" = "Garde páxinas nesta listaxe pra velas apareceren aquí";
+"empty-no-saved-pages-in-reading-list-message" = "Garde páxinas nesta listaxe para velas aparecer aquí";
 "empty-no-saved-pages-in-reading-list-title" = "Non foran gardadas páxinas nesta listaxe";
 "empty-no-saved-pages-message" = "Gardar páxinas para velas máis tarde, incluso sen conexión";
 "empty-no-saved-pages-title" = "Aínda non hai páxinas gardadas";
@@ -266,7 +257,7 @@
 "explore-because-you-read" = "Porque vostede leu";
 "explore-because-you-read-footer" = "Artigos relacionados adicionais";
 "explore-continue-reading-heading" = "Continuar lendo";
-"explore-detail-back-button-title" = "Voltar á canle de exploración";
+"explore-detail-back-button-title" = "Volver á canle de exploración";
 "explore-enable-location-title" = "Explorar artigos preto da súa localización actual";
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipedia en $1";
@@ -285,15 +276,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "En todas";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Activado";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "En $1";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "Tódalas tarxetas %@ ocultas";
+"explore-feed-preferences-feed-cards-hidden-title" = "Tódalas tarxetas $1 están ocultas";
 "explore-feed-preferences-global-card-footer-text" = "Esta tarxeta non depende da lingua, desactivándoa eliminaraa da súa canle de exploración.";
 "explore-feed-preferences-global-cards-description" = "Tarxetas independentes da lingua";
 "explore-feed-preferences-global-cards-subtitle" = "Independente da lingua";
 "explore-feed-preferences-global-cards-title" = "Tarxetas globais";
 "explore-feed-preferences-hide-card-action-title" = "Ocultar esta tarxeta";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Agochar tódalas tarxetas “%@”";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Agochar tódalas tarxetas “$1”";
 "explore-feed-preferences-in-the-news-description" = "Artigos sobre eventos actuais";
 "explore-feed-preferences-languages-footer-text" = "Ocultar tódalas tarxetas da canle de exploración en tódalas súas linguas, desactivará a pestana de exploración.";
 "explore-feed-preferences-on-this-day-description" = "Acontecementos históricos neste día";
@@ -357,7 +346,7 @@
 "field-backup-token-title" = "Código de copia de seguridade";
 "field-captcha-placeholder" = "Texto CAPTCHA";
 "field-captcha-title" = "Insira o texto que ve abaixo";
-"field-email-placeholder" = "exemplo@exemplo.gal";
+"field-email-placeholder" = "exemplo@example.org";
 "field-email-title" = "Enderezo de correo electrónico";
 "field-email-title-optional" = "Enderezo de correo electrónico (opcional)";
 "field-new-password-confirm-placeholder" = "insira de novo o novo contrasinal";
@@ -459,8 +448,7 @@
 "main-menu-title" = "Máis";
 "main-menu-zero-faq" = "Preguntas frecuentes sobre a Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Cancelar";
-// Fuzzy
-"more-languages-tooltip-description" = "Procurar en Wikipedia en case 300 linguas";
+"more-languages-tooltip-description" = "Procurar en Wikipedia en máis de 300 linguas";
 "more-languages-tooltip-title" = "Engadir linguas";
 "move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 artigo|$1 artigos}} á lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Vista previa";
@@ -474,8 +462,7 @@
 "no-internet-connection" = "Sen conexión a Internet";
 "no-internet-connection-article-reload" = "Pode haber unha nova versión deste artigo, pero non pode cargarse sen unha conexión a Internet.";
 "no-internet-connection-article-reload-button" = "Volver á última versión gardada";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "Activar notificacións";
+"notifications-center-feed-news-notification-button-text" = "Activar as notificacións de tipo push";
 "number-billions" = "$1";
 "number-millions" = "$1M";
 "number-thousands" = "$1 mil";
@@ -550,7 +537,7 @@
 "reading-list-keep-button-title" = "Si, mantener os artigos no dispositivo";
 "reading-list-keep-subtitle" = "Hai artigos sincronizados na súa conta de Wikipedia. Quere mantelos neste dispositivo despois de desconectarse da súa conta?";
 "reading-list-keep-sync-disabled-additional-subtitle" = "Desactivar a sincronización fará eliminar estes artigos da sua conta. Se os elimina do seu dispositivo, eles non serán recuperábeis voltando a activar a sincronización no futuro.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Non, eliminar artigos do dispositivo e da miña conta da Wikipédia";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Non, eliminar artigos do dispositivo e da miña conta da Wikipedia";
 "reading-list-keep-title" = "Manter os artigos gardados no dispositivo?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordenar artigos";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Hai un límite de 5000 artigos para ordenar. Por favor, ordene os seus artigos existentes en listas para continuar a sincronización dos artigos sen ordenar.";
@@ -566,12 +553,12 @@
 "reading-list-name-user-created-annotation" = "_[creada polo usuario]";
 "reading-list-new-list-description-placeholder" = "descrición breve opcional";
 "reading-list-new-list-name-placeholder" = "título da lista de lectura";
-"reading-list-sync-disabled-panel-message" = "A sincronización das listaxes de lectura foi desativada pra a súa conta da Wikipédia noutro dispositivo. Pode reativar a sincronización mudando os seus axustes.";
+"reading-list-sync-disabled-panel-message" = "A sincronización das listaxes de lectura foi desactivada para a súa conta da Wikipedia noutro dispositivo. Pode reactivar a sincronización mudando os seus axustes.";
 "reading-list-sync-disabled-panel-title" = "Sincronización desactivada";
 "reading-list-sync-enable-button-title" = "Activar a sincronización";
 "reading-list-sync-enable-subtitle" = "Os seus artigos gardados e as súas listas de lectura agora poden ser gardadas na súa conta de Wikipedia e sincronizadas entre aplicacións de Wikipedia.";
 "reading-list-sync-enable-title" = "Activar a sincronización das listas de lectura?";
-"reading-list-sync-enabled-panel-message" = "A sincronización das listaxes de lectura está activada pra esta conta. Pra deter a sincronización, desactive a sincronización pra esta conta, ó actualizar os seus axustes.";
+"reading-list-sync-enabled-panel-message" = "A sincronización das listaxes de lectura está activada para esta conta. Para deter a sincronización, desactive a sincronización para esta conta mudando os seus axustes.";
 "reading-list-sync-enabled-panel-title" = "A sincronización atópase activada nesta conta";
 "reading-list-unable-to-add-entry" = "Houbo un erro inesperado ó engadir unha entrada á lista de lectura. Inténteo de novo máis tarde.";
 "reading-list-unable-to-create" = "Houbo un erro ó crear a lista de lectura. Inténteo de novo máis tarde.";
@@ -594,10 +581,9 @@
 "reading-lists-default-list-title" = "Gardado";
 "reading-lists-delete-reading-list-alert-message" = "Esta acción non pode desfacerse. Tódolos artigos gardados só {{PLURAL:$1|nesta lista|nestas listas}} deixarán de ser gardados.";
 "reading-lists-delete-reading-list-alert-title" = "Eliminar {{PLURAL:$1|a lista|as listas}}?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1 artigos e $2 listas de lectura sincronizados dende a súa conta";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 artigo|$1 artigos}} e {{PLURAL:$2|$2 lista|$2 listas}} de lectura sincronizados dende a súa conta";
 "reading-lists-list-not-synced-limit-exceeded" = "A lista non foi sincronizada, o límite foi excedido";
-"reading-lists-sort-saved-articles" = "Ordear os artigos gardados";
+"reading-lists-sort-saved-articles" = "Ordenar os artigos gardados";
 "reading-lists-split-notification" = "Hai un linde de $1 artigos por listaxe de lectura. As listaxes actuais que superan este linde foran divididas en varias listaxes.";
 "reading-lists-sync-error-no-internet-connection" = "A sincronización continuará cando estea dispoñible a conexión a Internet";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema escuro";
@@ -660,8 +646,7 @@
 "settings-language-bar" = "Amosar as linguas ó procurar";
 "settings-languages-feed-customization" = "Pode xestionar que linguas se amosan na súa canle de exploración personalizando os parámetros da canle.";
 "settings-my-languages" = "As miñas linguas";
-// Fuzzy
-"settings-notifications" = "Notificacións";
+"settings-notifications" = "Notificacións de tipo push";
 "settings-notifications-info" = "Ter alertas co noso sistema de notificacións sobre tendencias e artigos máis lidos na Wikipedia. Todo respectando a súa privacidade e actualizado coa última información dispoñible.";
 "settings-notifications-learn-more" = "Saber máis sobre as notificacións";
 "settings-notifications-push-notifications" = "Notificacións tipo push";
@@ -687,20 +672,17 @@
 "settings-support" = "Apoie a Wikipedia";
 "settings-title" = "Configuración";
 "share-a-fact-made-with" = "Feito coa aplicación de Wikipedia";
-// Fuzzy
-"share-article-name-on-wikipedia" = "\"$1\" en @Wikipedia:";
+"share-article-name-on-wikipedia" = "\"$1\" en Wikipedia:";
 "share-building" = "Creando unha tarxeta comparte-un-feito...";
 "share-default-format" = "“$1” de “$2”: $3";
 "share-email-format" = "“$1”\n\nde “$2”\n\n$3";
 "share-get-directions-in-maps" = "Obter as direccións";
 "share-menu-item" = "Compartir…";
 "share-message-format" = "“$1” $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "vía @Wikipedia";
+"share-on-twitter-sign-off" = "a través de Wikipedia";
 "share-open-in-maps" = "Abrir en Maps";
 "share-social-format" = "“$1” vía Wikipedia: $2";
-// Fuzzy
-"share-social-mention-format" = "“$1” vía @Wikipedia: $2";
+"share-social-mention-format" = "“$1” a través de Wikipedia: $2";
 "sort-by-recently-added-action" = "Engadidos recentemente";
 "sort-by-title-action" = "Título";
 "table-of-contents-button-label" = "Táboa de contidos";
@@ -713,8 +695,7 @@
 "talk-page-new-banner-title" = "Por favor, sexa amable";
 "talk-page-new-reply-success-text" = "A súa resposta foi publicada correctamente";
 "talk-page-new-topic-success-text" = "A súa conversa foi publicada correctamente";
-// Fuzzy
-"talk-page-title-article-talk" = "conversa de artigo";
+"talk-page-title-article-talk" = "Conversa do artigo";
 "talk-page-title-user-talk" = "Conversa de usuario";
 "theme-black-display-name" = "Escuro";
 "theme-dark-display-name" = "Escuro";
@@ -738,8 +719,7 @@
 "welcome-explore-continue-button" = "Comezar";
 "welcome-explore-new-ways-title" = "Novas formas de explorar";
 "welcome-explore-tell-me-more-done-button" = "Entendido";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Wikipedia está escrita de forma colaborativa por voluntarios e consta de máis de 40 millóns de artigos en preto de 300 linguas.";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia está escrita de forma colaborativa por voluntarios e consta de máis de 40 millóns de artigos en máis de 300 linguas.";
 "welcome-intro-free-encyclopedia-more" = "Saber máis sobre Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Sobre Wikipedia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia é un proxecto mundial para crear enciclopedias libres en tódalas linguas do planeta. Virtualmente calquera persoa que conte con acceso a Internet está invitada a achegar información neutral e respaldada con referencias.";
@@ -747,8 +727,7 @@
 "welcome-languages-add-button" = "Engadir outra lingua";
 "welcome-languages-add-or-edit-button" = "Engadir ou modificar as linguas preferidas";
 "welcome-languages-description" = "Atopamos as seguintes linguaxes no seu dispositivoː";
-// Fuzzy
-"welcome-languages-search-title" = "Procurar en preto de 300 linguas";
+"welcome-languages-search-title" = "Procurar en máis de 300 linguas";
 "welcome-notifications-tell-me-more-creation" = "As notificacións son creadas e enviadas ó seu dispositivo pola aplicación, non polos nosos servidores (nin de terceiros).";
 "welcome-notifications-tell-me-more-storage" = "As preferencias das notificacións gárdanse no dispositivo e non están baseadas na información ou actividade persoal.";
 "welcome-notifications-tell-me-more-title" = "Máis sobre notificacións";

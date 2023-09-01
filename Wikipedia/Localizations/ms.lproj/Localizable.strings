@@ -4,10 +4,12 @@
 // Author: Arifin.wijaya
 // Author: Aviator
 // Author: Bebudak
+// Author: Hakimi97
 // Author: Jeluang Terluang
 // Author: Joseagush
 // Author: Kurniasan
 // Author: Macofe
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Tofeiku
 // Author: Ultron90
@@ -391,7 +393,7 @@
 "field-backup-token-title" = "Kod sandaran";
 "field-captcha-placeholder" = "Teks CAPTCHA";
 "field-captcha-title" = "Masukkan teks yang anda lihat di atas";
-"field-email-placeholder" = "contoh@contoh.org";
+"field-email-placeholder" = "contoh@example.org";
 "field-email-title" = "E-mel";
 "field-email-title-optional" = "E-mel (pilihan)";
 "field-new-password-confirm-placeholder" = "masukkan semula kata laluan baru";
@@ -622,7 +624,7 @@
 "project-name-wikiquote" = "Wikipetikan";
 "project-name-wikisource" = "Wikisumber";
 "project-name-wikiversity" = "Wikiversiti";
-"project-name-wikivoyage" = "Wikikembara";
+"project-name-wikivoyage" = "Wikilayar";
 "project-name-wiktionary" = "Wikikamus";
 "reading-list-add-generic-hint-title" = "Tambahkan rencana ini ke dalam senarai bacaan?";
 "reading-list-add-hint-title" = "Tambahkan “$1” ke senarai bacaan?";
