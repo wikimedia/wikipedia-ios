@@ -7,6 +7,7 @@
 // Author: Eukarióta
 // Author: Hanna Tardos
 // Author: Macofe
+// Author: McDutchie
 // Author: MeskoBalazs
 // Author: Misibacsi
 // Author: Máté
@@ -189,11 +190,9 @@
 "description-welcome-descriptions-title" = "Cikkleírások";
 "description-welcome-promise-title" = "Mielőtt nekifognék, megígérem, hogy nem élek vissza ezzel a funkcióval";
 "description-welcome-start-editing-button" = "Szerkesztés elkezdése";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Ettől:";
+"diff-compare-header-from-info-heading" = "Előző szerkesztés";
 "diff-compare-header-heading" = "Változatok összehasonlítása";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Eddig:";
+"diff-compare-header-to-info-heading" = "Megjelenített szerkesztés";
 "diff-compare-title" = "Változatok összehasonlítása";
 "diff-context-lines-collapsed-button-title" = "Mutat";
 "diff-context-lines-expanded-button-title" = "Elrejtés";
@@ -203,7 +202,10 @@
 "diff-paragraph-moved-direction-up" = "föl";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|Egy sor|$1 sor}}";
 "diff-revision-error-title" = "A lapváltozat betöltése sikertelen";
+"diff-rollback" = "Visszaállítás";
+"diff-rollback-alert-message" = "Biztosan vissza akarod vonni a szerkesztéseket?";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|Egy szerkesztés|$1 szerkesztés}}";
+"diff-single-header-editor-title" = "Járőr információk";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|Egy bájt|$1 bájt}} hozzáadva";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|Egy bájt|$1 bájt}} eltávolítva";
 "diff-single-header-summary-heading" = "Szerkesztési összefoglaló";
@@ -212,7 +214,9 @@
 "diff-thanks-anonymous-no-thanks" = "Anonim szerkesztőknek nem küldhető köszönet";
 "diff-thanks-login-title" = "Köszönet küldéséhez jelentkezz be";
 "diff-thanks-send-button-title" = "Köszönet küldése";
+"diff-thanks-send-title" = "Nyilvános köszönetküldés";
 "diff-thanks-sent" = "Köszönetedet elküldted $1 szerkesztőnek";
+"diff-thanks-sent-already" = "Már küldtél köszönetet ezért a szerkesztésért";
 "diff-thanks-sent-cannot-unsend" = "A köszönetek nem visszavonhatóak";
 "diff-unedited-lines-format" = "{{PLURAL:$1|Egy változatlan sor|$1 változatlan sor}}";
 "dim-images" = "Képek sötétítése";
@@ -240,6 +244,8 @@
 "edit-ordered-list-remove-accessibility-label" = "Számozott lista eltávolítása az aktuális sorról";
 "edit-published" = "Szerkesztés közzétéve";
 "edit-published-subtitle" = "Épp jobbá tetted a Wikipédiát mindenkinek";
+"edit-strikethrough-accessibility-label" = "Áthúzás hozzáadása";
+"edit-strikethrough-remove-accessibility-label" = "Áthúzás eltávolítása";
 "edit-style-table-view-title" = "Megjelenés";
 "edit-summary-add-summary-text" = "Szerkesztési összefoglaló hozzáadása";
 "edit-summary-choice-fixed-grammar" = "Nyelvtani javítás";
@@ -288,6 +294,7 @@
 "explore-feed-preferences-featured-article-description" = "A Wikipédia napi kiemelt cikke";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Ki";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Mindegyiken";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "Be";
 "explore-feed-preferences-feed-cards-hidden-title" = "Minden $1 kártya elrejtve";
 "explore-feed-preferences-global-cards-description" = "Nem nyelv-specifikus kártyák";
 "explore-feed-preferences-global-cards-subtitle" = "Nem nyelv-specifikus";
@@ -336,7 +343,7 @@
 "field-backup-token-title" = "Visszaállítási kód";
 "field-captcha-placeholder" = "CAPTCHA-szöveg";
 "field-captcha-title" = "Írd be a fent látható szöveget";
-"field-email-placeholder" = "pelda@minta.hu";
+"field-email-placeholder" = "pelda@example.org";
 "field-email-title" = "E-mail-cím";
 "field-email-title-optional" = "E-mail-cím (opcionális)";
 "field-new-password-confirm-placeholder" = "add meg az új jelszavad még egyszer";
@@ -554,6 +561,17 @@
 "potd-widget-title" = "A nap képe";
 "preference-summary-eventlogging-opt-in" = "A Wikimédia Alapítvány adatokat gyűjthet arról, hogy hogyan használod az alkalmazást, hogy még jobbá tehessük.";
 "preference-title-eventlogging-opt-in" = "Használati jelentések küldése";
+"project-name-mediawiki" = "MediaWiki";
+"project-name-wikibooks" = "Wikikönyvek";
+"project-name-wikidata" = "Wikidata";
+"project-name-wikimedia-commons" = "Wikimédia Commons";
+"project-name-wikinews" = "Wikihírek";
+"project-name-wikiquote" = "Wikidézet";
+"project-name-wikisource" = "Wikiforrás";
+"project-name-wikispecies" = "Wikifajok";
+"project-name-wikiversity" = "Wikiegyetem";
+"project-name-wikivoyage" = "Wikivoyage";
+"project-name-wiktionary" = "Wikiszótár";
 "reading-list-add-generic-hint-title" = "Szócikket olvasólistára?";
 "reading-list-add-hint-title" = "„$1” hozzáadása egy olvasólistához?";
 "reading-list-add-saved-button-title" = "Igen, vedd fel az olvasólistáimhoz";
@@ -701,6 +719,12 @@
 "vanish-account-username-field" = "Felhasználónév és felhasználói oldal";
 "variants-alert-dismiss-button" = "Nem, köszönöm";
 "variants-alert-preferences-button" = "Beállításaid áttekintése";
+"watchlist-change-expiry-option-one-month" = "1 hónap";
+"watchlist-change-expiry-option-one-week" = "1 hét";
+"watchlist-change-expiry-option-one-year" = "1 év";
+"watchlist-change-expiry-option-permanent" = "Állandó";
+"watchlist-change-expiry-option-six-months" = "6 hónap";
+"watchlist-change-expiry-option-three-months" = "3 hónap";
 "welcome-exploration-explore-feed-description" = "A közösség által napi olvasásra ajánlott szócikk";
 "welcome-exploration-explore-feed-title" = "Felfedezés csatorna";
 "welcome-exploration-on-this-day-description" = "Mi történt a mai napon a történelemben";

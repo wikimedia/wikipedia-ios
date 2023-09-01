@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Afalau
 // Author: Cymrodor
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Robin Owain
 
@@ -176,8 +177,10 @@
 "description-welcome-descriptions-title" = "Disgrifiadau erthygl";
 "description-welcome-start-editing-button" = "Dechrau golygu";
 "diff-article-edit-history" = "Hanes golygu'r erthygl";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "O:";
 "diff-compare-header-heading" = "Cymharu Golygiadau";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "I:";
 "diff-compare-title" = "Cymharu Golygiadau";
 "diff-context-lines-collapsed-button-title" = "Dangos";
@@ -346,7 +349,7 @@
 "field-backup-token-title" = "Cod wrth gefn";
 "field-captcha-placeholder" = "Testun CAPTCHA";
 "field-captcha-title" = "Teipiwch y testun a welwch uchod";
-"field-email-placeholder" = "enghraifft@enghraifft.org";
+"field-email-placeholder" = "enghraifft@example.org";
 "field-email-title" = "Cyfeiriad e-bost";
 "field-email-title-optional" = "Cyfeiriad e-bost (dewisol)";
 "field-new-password-confirm-placeholder" = "Ail-deipiwch eich cyfrinair";

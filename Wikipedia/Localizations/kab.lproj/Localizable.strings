@@ -3,6 +3,7 @@
 // Author: Belkacem77
 // Author: Bilalbill
 // Author: Macofe
+// Author: McDutchie
 // Author: Mhenni
 // Author: SlimaneAmiri
 
@@ -136,7 +137,7 @@
 "field-backup-token-title" = "Tangalt n tririt";
 "field-captcha-placeholder" = "Aḍris CAPTCHA";
 "field-captcha-title" = "Sekcem aḍris ara twaliḍ daw-a";
-"field-email-placeholder" = "amedya@amedya.org";
+"field-email-placeholder" = "amedya@example.org";
 "field-email-title" = "Imayl";
 "field-email-title-optional" = "Imayl (Afrayan)";
 "field-new-password-confirm-placeholder" = "Ales asekcem n wawal uffir amaynut";

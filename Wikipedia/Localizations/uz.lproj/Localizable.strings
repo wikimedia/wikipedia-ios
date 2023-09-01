@@ -3,6 +3,7 @@
 // Author: 6ahodir
 // Author: Jamshiduralovofficial
 // Author: Malikxan
+// Author: McDutchie
 // Author: Mhurd
 // Author: Nemo bis
 // Author: Ochilov
@@ -167,7 +168,7 @@
 "field-alert-captcha-invalid" = "Yaroqsiz CAPTCHA";
 "field-alert-token-invalid" = "Yaroqsiz kod";
 "field-captcha-placeholder" = "CAPTCHA matni";
-"field-email-placeholder" = "misol@misol.org";
+"field-email-placeholder" = "misol@example.org";
 "field-email-title" = "E-pochta";
 "field-new-password-placeholder" = "yangi parolni kiriting";
 "field-new-password-title" = "Yangi parol";

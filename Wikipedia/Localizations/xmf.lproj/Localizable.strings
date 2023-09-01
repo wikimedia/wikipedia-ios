@@ -13,7 +13,9 @@
 "article-languages-filter-placeholder" = "ნინაშ ფილტრი";
 "article-languages-label" = "გეგშაგორით ნინა";
 "diff-article-edit-history" = "სტატიაშ რედაქტირაფაშ ისტორია";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "მაჯღონალი:";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "ადრესატი";
 "edit-summary-choice-linked-words" = "გეძინელი რსხუეფი";
 "empty-no-other-article-languages-message" = "თე სტატია დიო ვა რე ჭარილი შხვა ნინაშა";

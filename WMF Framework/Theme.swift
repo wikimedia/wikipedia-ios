@@ -1010,3 +1010,27 @@ public final class ObservableTheme: ObservableObject {
         self.theme = theme
     }
 }
+
+public extension Theme {
+
+    // Convert App `Theme` to Components framework `WKTheme`
+    static func wkTheme(from theme: Theme) -> WKTheme {
+        let wkTheme: Components.WKTheme
+
+        switch theme {
+        case .light:
+            wkTheme = .light
+        case .dark:
+            wkTheme = .dark
+        case .black:
+            wkTheme = .black
+        case .sepia:
+            wkTheme = .sepia
+        default:
+            wkTheme = .light
+        }
+
+        return wkTheme
+    }
+
+}

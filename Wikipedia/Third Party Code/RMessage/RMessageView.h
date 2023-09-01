@@ -26,6 +26,8 @@
 
 - (void)didTapMessageView:(RMessageView *)messageView;
 
+- (void)didTapCloseButtonOnMessageView:(RMessageView *)messageView;
+
 @end
 
 NS_SWIFT_NAME(RMessageSuppressing)

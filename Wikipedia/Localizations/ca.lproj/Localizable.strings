@@ -13,6 +13,7 @@
 // Author: Lluis tgn
 // Author: Maceleiro
 // Author: Macofe
+// Author: McDutchie
 // Author: Mguix
 // Author: Nemo bis
 // Author: Rbndev
@@ -175,6 +176,8 @@
 "chinese-variants-alert-body" = "L'aplicació de Viquipèdia ara funciona amb les variants xineses a continuació com a llengües primàries o secundàries. Això facilita la lectura, la cerca i l'edició en les vostres variants preferides:\n\n简体 Xinès, simplificat (zh-hans)\n香港繁體 Tradicional de Hong Kong (zh-hk)\n澳門繁體 Tradicional de Macau (zh-mo)\n大马简体 Simplificat de Malàisia (zh-my)\n新加坡简体 Simplificat de Singapur (zh-sg)\n臺灣正體 Tradicional taiwanès (zh-tw)";
 "chinese-variants-alert-title" = "Actualitzacions per a l'admissió de variants xineses";
 "clear-title-accessibility-label" = "Neteja";
+"clearing-cache-complete" = "Neteja de la memòria cau completa.";
+"clearing-cache-in-progress" = "Neteja de la memòria cau en curs.";
 "close-button-accessibility-label" = "Tanca";
 "compass-direction" = "a les $1 en punt";
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
@@ -219,12 +222,13 @@
 "description-welcome-promise-title" = "En començar prometo no fer mal ús d'aquesta funcionalitat";
 "description-welcome-start-editing-button" = "Comença a editar-hi";
 "diff-article-edit-history" = "Historial de modificació de l'article";
-"diff-compare-header-from-info-heading" = "De";
+"diff-compare-header-from-info-heading" = "Edició anterior";
 "diff-compare-header-heading" = "Compara les revisions";
-"diff-compare-header-to-info-heading" = "A";
+"diff-compare-header-to-info-heading" = "Edició actual";
 "diff-compare-title" = "Compara les revisions";
 "diff-context-lines-collapsed-button-title" = "Mostra";
 "diff-context-lines-expanded-button-title" = "Amaga";
+"diff-header-revision-accessibility-text" = "Revisió feta el";
 "diff-multi-line-format" = "Línies $1 - $2";
 "diff-paragraph-moved" = "S'ha mogut el paràgraf";
 "diff-paragraph-moved-direction-down" = "avall";
@@ -236,6 +240,7 @@
 "diff-rollback" = "Reverteix";
 "diff-rollback-alert-message" = "Esteu segur que voleu revertir les modificacions?";
 "diff-rollback-alert-title" = "Reverteix les modificacions";
+"diff-rollback-success" = "S'han revertit les edicions.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 edició|$1 edicions}}";
 "diff-single-header-editor-title" = "Informació de l'editor";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|S'ha afegit $1 byte|S'han afegit $1 bytes}}";
@@ -253,7 +258,9 @@
 "diff-thanks-sent-already" = "Ja heu enviat un agraïment per aquesta edició";
 "diff-thanks-sent-cannot-unsend" = "No poden desfer-se els agraïments enviats";
 "diff-undo-message" = "Això desfarà els canvis fets per les revisions de l'article tal com es mostren aquí. Per a continuar, proporcioneu un motiu per a desfer la modificació.";
+"diff-undo-success" = "S'ha desfet la revisió.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 línia sense editar|$1 línies sense editar}}";
+"diff-user-button-accessibility-text" = "Fes doble toc per a obrir el menú";
 "dim-images" = "Atenuació d'imatges";
 "edit-bold-accessibility-label" = "Afegeix format en negreta";
 "edit-bold-remove-accessibility-label" = "Suprimeix format en negreta";
@@ -451,7 +458,7 @@
 "field-backup-token-title" = "Codi de còpia de seguretat";
 "field-captcha-placeholder" = "Text del CAPTCHA";
 "field-captcha-title" = "Escriviu el text que veieu a sobre";
-"field-email-placeholder" = "exemple@exemple.org";
+"field-email-placeholder" = "exemple@example.org";
 "field-email-title" = "Adreça electrònica";
 "field-email-title-optional" = "Adreça electrònica (opcional)";
 "field-new-password-confirm-placeholder" = "torneu a introduir la contrasenya nova";
@@ -1086,6 +1093,7 @@
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
 "unable-to-load-talk-page-title" = "No es pot carregar la pàgina de discussió";
 "unknown-generic-text" = "Desconegut";
+"unwatch" = "Deixa de vigilar";
 "uzbek-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants uzbekes com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides: \n\noʻzbekcha lotin uzbek, llatí (uz-latin)\nўзбекча кирилл Uzbek, ciríl·lic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualitzacions del suport a les variants Uzbek";
 "vanish-account-additional-information-field" = "Informació adicional";
@@ -1112,7 +1120,9 @@
 "vanishing-request-email-title" = "Sol·licitud de desaparició de cortesia";
 "variants-alert-dismiss-button" = "No, gràcies";
 "variants-alert-preferences-button" = "Reviseu les vostres preferències";
+"watch" = "Vigila";
 "watchlist" = "Llista de seguiment";
+"watchlist-filter" = "Filtra";
 "watchlist-user-button-user-contributions" = "Contribucions de l'usuari";
 "watchlist-user-button-user-page" = "Pàgina d'usuari";
 "watchlist-user-button-user-talk-page" = "Pàgina de discussió de l'usuari";
