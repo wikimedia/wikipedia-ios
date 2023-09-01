@@ -59,7 +59,8 @@ import UIKit
             if showImage {
                 setImage(saveImage, for: .normal)
             }
-            adjustsImageWhenHighlighted = false
+            var deprecatedSelf = self as DeprecatedButton
+            deprecatedSelf.deprecatedAdjustsImageWhenHighlighted = false
         }
     }
     

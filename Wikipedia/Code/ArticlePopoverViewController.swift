@@ -58,7 +58,8 @@ class ArticlePopoverViewController: UIViewController {
         showSaveAndShareTitles = shareButtonSize.width < widthToCheck && saveButtonSize.width < widthToCheck && readButtonSize.width < widthToCheck
         if !showSaveAndShareTitles {
             shareButton.setTitle(nil, for: .normal)
-            shareButton.imageEdgeInsets = .zero
+            var deprecatedShareButton = shareButton as DeprecatedButton
+            deprecatedShareButton.deprecatedImageEdgeInsets = .zero
             saveButton.setTitle(nil, for: .normal)
             buttonStackView.distribution = .fillProportionally
         }
@@ -91,7 +92,8 @@ class ArticlePopoverViewController: UIViewController {
         saveButton.showTitle = showSaveAndShareTitles
         saveButton.saveButtonState = article.isAnyVariantSaved ? .shortSaved : .shortSave
         if !saveButton.showTitle {
-            saveButton.imageEdgeInsets = .zero
+            var deprecatedSaveButton = saveButton as DeprecatedButton
+            deprecatedSaveButton.deprecatedImageEdgeInsets = .zero
         }
 
         let saveTitle = article.isAnyVariantSaved ? CommonStrings.shortUnsaveTitle : CommonStrings.shortSaveTitle
