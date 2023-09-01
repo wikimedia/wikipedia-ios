@@ -19,7 +19,7 @@ extension NotificationsCenterCommonViewModel {
             return nil
         }
 
-        let format = WMFLocalizedString("notifications-center-go-to-user-page", value: "%1$@'s user page", comment: "Button text in Notifications Center that routes to a web view of the user page of the sender that triggered the notification. %1$@ is replaced with the sender's username.")
+        let format = CommonStrings.notificationsUserPageFormat
         let text = String.localizedStringWithFormat(format, agentName)
 
         let data = NotificationsCenterActionData(text: text, url: url, iconType: .person, destinationText: destinationText(for: url), actionType: .senderPage)
