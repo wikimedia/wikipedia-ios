@@ -14,7 +14,9 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationExploreColl
         authorizeButton.layer.cornerRadius = 5
         authorizeButton.titleLabel?.numberOfLines = 2
         authorizeButton.titleLabel?.textAlignment = .center
-        authorizeButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
+        
+        var deprecatedAuthorizeButton = authorizeButton as DeprecatedButton
+        deprecatedAuthorizeButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         authorizeButton.addTarget(self, action: #selector(authorizeButtonPressed(_:)), for: .touchUpInside)
         addSubview(authorizeButton)
         

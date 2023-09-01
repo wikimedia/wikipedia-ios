@@ -8,8 +8,11 @@
  *
  */
 - (CGSize)sizeByAddingInsetsToSize:(CGSize)size {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     return CGSizeMake(size.width + self.titleEdgeInsets.left + self.titleEdgeInsets.right,
                       size.height + self.titleEdgeInsets.top + self.titleEdgeInsets.bottom);
+#pragma clang diagnostic pop
 }
 
 - (CGSize)intrinsicContentSize {

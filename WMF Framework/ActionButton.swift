@@ -6,7 +6,8 @@ class ActionButton: SetupButton {
     
     override func setup() {
         super.setup()
-        contentEdgeInsets = UIEdgeInsets(top: layoutMargins.top + 1, left: layoutMargins.left + 7, bottom: layoutMargins.bottom + 1, right: layoutMargins.right + 7)
+        var deprecatedSelf = self as DeprecatedButton
+        deprecatedSelf.deprecatedContentEdgeInsets = UIEdgeInsets(top: layoutMargins.top + 1, left: layoutMargins.left + 7, bottom: layoutMargins.bottom + 1, right: layoutMargins.right + 7)
         titleLabel?.numberOfLines = 0
         updateFonts(with: traitCollection)
     }

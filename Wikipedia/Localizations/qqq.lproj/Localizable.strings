@@ -576,6 +576,7 @@
 "notifications-center-checking-for-notifications" = "Status text displayed in Notifications Center when checking for notifications.";
 "notifications-center-destination-app" = "Informational text next to each notification center action on the detail screen, informing the user that the action will take them to a native view within the app.";
 "notifications-center-destination-web" = "Informational text next to each notification center action on the detail screen, informing the user that the action will take them to a web view or outside of the app.";
+"notifications-center-detail-title" = "Title of notification detail view, displayed after tapping a notification in Notifications Center.";
 "notifications-center-empty-checking-for-notifications" = "Text displayed when Notifications Center is checking for notifications.";
 "notifications-center-empty-no-messages" = "Text displayed when no Notifications Center notifications are available.";
 "notifications-center-empty-not-subscribed" = "Text displayed when user has not subscribed to any Wikipedia notifications.";

@@ -3,6 +3,7 @@
 @import MobileCoreServices;
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMF-Swift.h>
+@import UniformTypeIdentifiers;
 
 @implementation NSString (WMFExtras)
 
@@ -41,10 +42,7 @@
 }
 
 - (NSString *)wmf_asMIMEType {
-    NSString *UTI = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
-                                                                                        (__bridge CFStringRef)self,
-                                                                                        NULL);
-    return (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)UTI, kUTTagClassMIMEType);
+    return [[UTType typeWithFilenameExtension:self] preferredMIMEType];
 }
 
 - (nullable NSDate *)wmf_iso8601Date {

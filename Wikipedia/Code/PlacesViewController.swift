@@ -177,7 +177,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         locationManager.delegate = self
     
         // Setup Redo search button
-        redoSearchButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+        var deprecatedRedoSearchButton = (redoSearchButton as DeprecatedButton)
+        deprecatedRedoSearchButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         redoSearchButton.setTitleColor(.white, for: .normal)
         redoSearchButton.setTitle(WMFLocalizedString("places-search-this-area", value:"Results in this area", comment:"A button title that indicates the search will be redone in the visible area"), for: .normal)
         redoSearchButton.isHidden = true
@@ -190,7 +191,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
 
         // Setup recenter button
         recenterOnUserLocationButton.accessibilityLabel = WMFLocalizedString("places-accessibility-recenter-map-on-user-location", value:"Recenter on your location", comment:"Accessibility label for the recenter map on the user's location button")
-        recenterOnUserLocationButton.imageEdgeInsets = UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 1)
+        var deprecatedRecenterOnUserLocationButton = (recenterOnUserLocationButton as DeprecatedButton)
+        deprecatedRecenterOnUserLocationButton.deprecatedImageEdgeInsets = UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 1)
 
         listAndSearchOverlayContainerView.corners = [.topLeft, .topRight, .bottomLeft, .bottomRight]
         

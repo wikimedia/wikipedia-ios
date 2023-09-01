@@ -31,6 +31,18 @@ final class NotificationsCenterDetailViewController: ViewController {
         detailView.tableView.dataSource = self
         detailView.tableView.delegate = self
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupNavigationBar()
+    }
+    
+    private func setupNavigationBar() {
+        
+        let detailTitle = WMFLocalizedString("notifications-center-detail-title", value: "Notification Detail", comment: "Title of notification detail view, displayed after tapping a notification in Notifications Center.")
+        
+        navigationItem.configureForEmptyNavBarTitle(backTitle: detailTitle)
+    }
 
     // MARK: - Themeable
 
