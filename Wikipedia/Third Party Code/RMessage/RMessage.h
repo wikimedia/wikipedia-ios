@@ -287,6 +287,4 @@ typedef NS_ENUM(NSInteger, RMessageDuration) { RMessageDurationAutomatic = 0, RM
  */
 + (void)interfaceDidRotate;
 
-+ (RMessageView *)currentMessageView;
-
 @end
