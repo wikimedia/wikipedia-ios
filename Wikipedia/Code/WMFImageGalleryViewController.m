@@ -4,6 +4,7 @@
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "WMFImageGalleryDetailOverlayView.h"
 @import CoreServices;
+@import UniformTypeIdentifiers;
 
 // SINGLETONTODO - this whole file, find [MWKDataStore shared]
 
@@ -89,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString *)imageDataUTType {
-    return self.isGIF ? (NSString *)kUTTypeGIF : nil;
+    return self.isGIF ? [UTTypeGIF preferredMIMEType] : nil;
 }
 
 @end

@@ -527,16 +527,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     WMFTableHeaderFooterLabelView *header = (WMFTableHeaderFooterLabelView *)[self tableView:tableView viewForHeaderInSection:section];
     if (header) {
-
-        if (@available(iOS 15.0, *)) {
-
-        } else {
-            // Hides odd content inset bug in iOS 13 & 14
-            if (section == 0) {
-                return 0;
-            }
-        }
-
         return UITableViewAutomaticDimension;
     }
 

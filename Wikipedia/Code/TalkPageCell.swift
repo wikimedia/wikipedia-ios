@@ -189,15 +189,16 @@ final class TalkPageCell: UICollectionViewCell {
             subview.semanticContentAttribute = semanticContentAttribute
         }
         
+        var deprecatedLeadReplyButton = leadReplyButton as DeprecatedButton
         switch semanticContentAttribute {
         case .forceRightToLeft:
-            leadReplyButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
-            leadReplyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
-            leadReplyButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+            deprecatedLeadReplyButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+            deprecatedLeadReplyButton.deprecatedImageEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+            deprecatedLeadReplyButton.deprecatedTitleEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
         default:
-            leadReplyButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
-            leadReplyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
-            leadReplyButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+            deprecatedLeadReplyButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+            deprecatedLeadReplyButton.deprecatedImageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+            deprecatedLeadReplyButton.deprecatedTitleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
         }
     }
 

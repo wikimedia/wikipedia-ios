@@ -84,6 +84,14 @@ extension URL {
     public func wmf_URL(withFragment fragment: String) -> URL? {
         return (self as NSURL).wmf_URL(withFragment: fragment)
     }
+
+    public func wmf_URL(withOptionalFragment fragment: String?) -> URL? {
+        if let fragment {
+            return self.wmf_URL(withFragment: fragment)
+        } else {
+            return self
+        }
+    }
     
     public func wmf_URL(withPath path: String, isMobile: Bool) -> URL? {
         return (self as NSURL).wmf_URL(withPath: path, isMobile: isMobile)

@@ -6,10 +6,6 @@ extension UITabBar: Themeable {
         isTranslucent = false
         let appearance = UITabBarAppearance.appearanceForTheme(theme)
         self.standardAppearance = appearance
-        if #available(iOS 15.0, *) {
-            self.scrollEdgeAppearance = appearance
-        } else {
-            self.barTintColor = theme.colors.chromeBackground
-        }
+        self.scrollEdgeAppearance = appearance
     }
 }

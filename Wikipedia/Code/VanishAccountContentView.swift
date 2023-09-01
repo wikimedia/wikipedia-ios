@@ -28,11 +28,7 @@ struct VanishAccountContentView: View {
 
     private var extraBottomPadding: CGFloat {
         // Extra padding to accommodate the one or two (depending on OS version) floating bottom buttons
-        if #available(iOS 15, *) {
-            return 100
-        } else {
-            return 200
-        }
+        return 100
     }
 
     var body: some View {
@@ -126,18 +122,6 @@ struct VanishAccountContentView: View {
                             .cornerRadius(8)
                     })
                     .padding(16)
-                    if #unavailable(iOS 15) {
-                        Button(action: {
-                            goToVanishPage()
-                        }, label: {
-                            Text(LocalizedStrings.learnMoreButtonText)
-                                .font(Font(buttonFont))
-                                .foregroundColor(Color(theme.colors.link))
-                                .frame(minWidth: 335)
-                                .frame(height: 46)
-                                .background(Color(theme.colors.baseBackground))
-                        })
-                    }
                 }
                 .padding(0)
             }
@@ -168,12 +152,6 @@ struct VanishAccountContentView: View {
 
         shouldShowModalOnForeground = true
         UIApplication.shared.open(mailtoURL)
-    }
-    
-    func goToVanishPage() {
-        if let url = URL(string: "https://meta.wikimedia.org/wiki/Right_to_vanish") {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
     }
     
 }

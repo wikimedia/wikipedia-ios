@@ -46,11 +46,13 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         captionTextView.delegate = self
         contentView.addSubview(captionTextView)
         
-        actionButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
+        var deprecatedActionButton = actionButton as DeprecatedButton
+        deprecatedActionButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         actionButton.titleLabel?.numberOfLines = 0
         actionButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
 
-        dismissButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 15, bottom: 8, right: 15)
+        var deprecatedDismissButton = actionButton as DeprecatedButton
+        deprecatedDismissButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 5, left: 15, bottom: 8, right: 15)
         dismissButton.titleLabel?.numberOfLines = 0
         dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
         
