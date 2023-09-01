@@ -152,9 +152,17 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public func updateNavigationItems() {
         var items: [UINavigationItem] = []
         if displayType == .backVisible, let vc = delegate, let nc = vc.navigationController {
-            nc.viewControllers.forEach({ items.append($0.navigationItem) })
+            
+            nc.viewControllers.forEach({
+                if let newItem = $0.navigationItem.copy() as? UINavigationItem {
+                    items.append(newItem)
+                }
+            })
         } else if let item = delegate?.navigationItem {
-            items.append(item)
+            
+            if let newItem = item.copy() as? UINavigationItem {
+                items.append(newItem)
+            }
         }
         
         if (displayType == .largeTitle || displayType == .centeredLargeTitle), let navigationItem = items.last {
@@ -659,11 +667,14 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             self.titleView?.transform = CGAffineTransform(scaleX: titleScale, y: titleScale)
         }
         
-        for subview in self.bar.subviews {
-            for subview in subview.subviews {
-                subview.transform = barScaleTransform
+        if #unavailable(iOS 17) {
+            for subview in self.bar.subviews {
+                for subview in subview.subviews {
+                    subview.transform = barScaleTransform
+                }
             }
         }
+        
         self.bar.alpha = min(backgroundAlpha, (1.0 - 2.0 * navigationBarPercentHidden).wmf_normalizedPercentage)
         self.titleBar.alpha = self.bar.alpha
         
@@ -843,16 +854,39 @@ extension NavigationBar: UINavigationBarDelegate {
     }
 
     public func navigationBar(_ navigationBar: UINavigationBar, didPop item: UINavigationItem) {
-        /// During iOS 14's long press to access back history, this function is called *after* the unneeded navigationItems have been popped off.
-        /// However, with our custom navBar the actual articleVC isn't changed. So we need to find the articleVC for the top navItem, and pop to it.
-        /// This should be in `shouldPop`, but as of iOS 14.0, `shouldPop` isn't called when long pressing a back button. Once this is fixed by Apple,
-        /// we should move this to `shouldPop` to improve animations. (Update: A bug tracker was filed w/ Apple, and this won't be fixed anytime soon.
-        /// Apple: "This is expected behavior. Due to side effects that many clients have in the shouldPop handler, we do not consult it when using the back
-        /// button menu. We instead recommend that you hide the back button when you wish to disallow popping past a particular point in the navigation stack.")
-        if let topNavigationItem = navigationBar.items?.last,
-           let navController = delegate?.navigationController,
-           let tappedViewController = navController.viewControllers.first(where: {$0.navigationItem == topNavigationItem}) {
-            delegate?.navigationController?.popToViewController(tappedViewController, animated: true)
+        
+        guard let delegate,
+        let navVC = delegate.navigationController else {
+            return
+        }
+        
+        // During iOS 14's long press to access back history, this function is called *after* the unneeded navigationItems have been popped off.
+        // However, with our custom navBar the actual articleVC isn't changed. So we need to find the articleVC for the top navItem, and pop to it.
+        // This should be in `shouldPop`, but as of iOS 14.0, `shouldPop` isn't called when long pressing a back button. Once this is fixed by Apple,
+        // we should move this to `shouldPop` to improve animations. (Update: A bug tracker was filed w/ Apple, and this won't be fixed anytime soon.
+        // Apple: "This is expected behavior. Due to side effects that many clients have in the shouldPop handler, we do not consult it when using the back
+        // button menu. We instead recommend that you hide the back button when you wish to disallow popping past a particular point in the navigation stack.")
+        
+        // If items are down to root, pop to root without title checking
+        if let items = navigationBar.items,
+           items.count == 1 {
+            navVC.popToRootViewController(animated: true)
+        }
+        // If items are off by one, do a simple pop without title checking.
+        else if let items = navigationBar.items,
+            items.count == (navVC.viewControllers.count - 1) {
+            navVC.popViewController(animated: true)
+        }
+        // Otherwise pop based on title
+        else {
+            if let topNavigationItem = navigationBar.items?.last {
+                var viewControllers = navVC.viewControllers
+                viewControllers.removeFirst()
+                
+                if let tappedViewController = viewControllers.first(where: {$0.navigationItem.title == topNavigationItem.title}) {
+                    navVC.popToViewController(tappedViewController, animated: true)
+                }
+            }
         }
     }
 }

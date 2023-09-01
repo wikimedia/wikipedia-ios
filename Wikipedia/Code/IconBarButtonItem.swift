@@ -1,4 +1,6 @@
 import UIKit
+import WMF
+
 class IconBarButtonItem: UIBarButtonItem {
     
     private var theme: Theme?
@@ -12,8 +14,9 @@ class IconBarButtonItem: UIBarButtonItem {
         let customView = UIButton(type: .system)
         customView.setImage(image, for: .normal)
         customView.addTarget(target, action: action, for: controlEvents)
-        customView.adjustsImageWhenDisabled = false
-        if iconInsets != .zero { customView.imageEdgeInsets = iconInsets }
+        var deprecatedCustomView = customView as DeprecatedButton
+        deprecatedCustomView.deprecatedAdjustsImageWhenDisabled = false
+        if iconInsets != .zero { deprecatedCustomView.deprecatedImageEdgeInsets = iconInsets }
         self.init(customView: customView)
     }
     
@@ -21,9 +24,10 @@ class IconBarButtonItem: UIBarButtonItem {
         
         let customView = UIButton(type: .system)
         customView.setImage(image, for: .normal)
-        customView.adjustsImageWhenDisabled = false
+        var deprecatedCustomView = customView as DeprecatedButton
+        deprecatedCustomView.deprecatedAdjustsImageWhenDisabled = false
         if iconInsets != .zero {
-            customView.imageEdgeInsets = iconInsets
+            deprecatedCustomView.deprecatedImageEdgeInsets = iconInsets
         }
         
         customView.menu = menu
