@@ -623,6 +623,7 @@
 "notifications-center-checking-for-notifications" = "Bildirimler kontrol ediliyor...";
 "notifications-center-destination-app" = "Uygulamada";
 "notifications-center-destination-web" = "Web'de";
+"notifications-center-detail-title" = "Bildirim Ayrıntıları";
 "notifications-center-empty-checking-for-notifications" = "Bildirimler kontrol ediliyor...";
 "notifications-center-empty-no-messages" = "Mesajınız yok";
 "notifications-center-empty-not-subscribed" = "Herhangi bir Vikipedi Bildirimine üye değilsiniz";

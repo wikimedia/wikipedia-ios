@@ -582,6 +582,7 @@
 "notifications-center-checking-for-notifications" = "Controlo de notificationes…";
 "notifications-center-destination-app" = "In application";
 "notifications-center-destination-web" = "Sur le web";
+"notifications-center-detail-title" = "Detalios del notification";
 "notifications-center-empty-checking-for-notifications" = "Controlo de notificationes…";
 "notifications-center-empty-no-messages" = "Tu non ha messages";
 "notifications-center-empty-not-subscribed" = "Tu non es actualmente abonate a alcun notification de Wikipedia";
