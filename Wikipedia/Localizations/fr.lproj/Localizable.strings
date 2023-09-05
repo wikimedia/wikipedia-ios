@@ -612,6 +612,7 @@
 "notifications-center-checking-for-notifications" = "Vérification des notifications...";
 "notifications-center-destination-app" = "Dans l’appli";
 "notifications-center-destination-web" = "Sur le web";
+"notifications-center-detail-title" = "Détail de la notification";
 "notifications-center-empty-checking-for-notifications" = "Vérification des notifications...";
 "notifications-center-empty-no-messages" = "Vous n’avez aucun message";
 "notifications-center-empty-not-subscribed" = "Vous n’êtes actuellement abonné à aucune notification de Wikipédia.";

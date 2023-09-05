@@ -9,8 +9,6 @@ The official Wikipedia iOS app.
 * **Planning (bugs & features)**: https://phabricator.wikimedia.org/project/view/782/
 * **Team page**: https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS
 
-**Note: The latest `main` branch is set up to build with Xcode 14.2.0.**
-
 ## Building and Running
 
 In the directory, run `./scripts/setup`.  Note: going to `scripts` directory and running `setup` will not work due to relative paths.
@@ -78,7 +76,7 @@ Covered in the [CI document](docs/ci.md).
 Covered in the [event logging document](docs/event_logging.md).
 
 ### Web Development
-The article view and several other components of the app rely on web components. Instructions for working on these components is covered in the [web development document](docs/web_dev.md).
+The article view and several other components of the app rely on web components. Instructions for working on these components are covered in the [web development document](docs/web_dev.md).
 
 ### Contact Us
 If you have any questions or comments, you can email us at mobile-ios-wikipedia[at]wikimedia dot org. We'll also gladly accept any [bug reports](https://phabricator.wikimedia.org/maniphest/task/edit/form/1/?title=[BUG]&projects=wikipedia-ios-app-product-backlog,ios-app-bugs&description=%3D%3D%3D+How+many+times+were+you+able+to+reproduce+it?%0D%0A%0D%0A%3D%3D%3D+Steps+to+reproduce%0D%0A%23+%0D%0A%23+%0D%0A%23+%0D%0A%0D%0A%3D%3D%3D+Expected+results%0D%0A%0D%0A%3D%3D%3D+Actual+results%0D%0A%0D%0A%3D%3D%3D+Screenshots%0D%0A%0D%0A%3D%3D%3D+Environments+observed%0D%0A**App+version%3A+**+%0D%0A**OS+versions%3A**+%0D%0A**Device+model%3A**+%0D%0A**Device+language%3A**+%0D%0A**App+language%3A**+%0D%0A%0D%0A%3D%3D%3D+Regression?+%0D%0A%0D%0A+Tag++task+with+%23Regression+%0A).

@@ -290,8 +290,8 @@ class DiffContainerViewController: ViewController {
             let dateString = toDate.wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
             buttonTitle = String.localizedStringWithFormat(CommonStrings.revisionMadeFormat, dateString.lowercased())
         }
-        navigationItem.backButtonTitle = buttonTitle
-        navigationItem.backButtonDisplayMode = .generic
+        
+        navigationItem.configureForEmptyNavBarTitle(backTitle: buttonTitle)
     }
 }
 

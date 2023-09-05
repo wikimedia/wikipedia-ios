@@ -130,7 +130,7 @@ public extension RemoteNotificationType {
 }
 
 /// Interruption levels and and relevance scores
-@available(iOS 15.0, *) public extension RemoteNotificationType {
+public extension RemoteNotificationType {
 
     typealias Priority = (interruptionLevel: UNNotificationInterruptionLevel, relevanceScore: Double)
 

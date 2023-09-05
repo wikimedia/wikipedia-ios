@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 @objc protocol SearchLanguagesBarViewControllerDelegate: AnyObject {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String)
@@ -83,8 +84,10 @@ class SearchLanguageButton: UnderlineButton {
         ])
 
         let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
-
-        titleEdgeInsets = UIEdgeInsets(
+        
+        var deprecatedSelf = self as DeprecatedButton
+        let titleEdgeInsets = deprecatedSelf.deprecatedTitleEdgeInsets
+        deprecatedSelf.deprecatedTitleEdgeInsets = UIEdgeInsets(
             top: titleEdgeInsets.top,
             left: titleEdgeInsets.left + (isRTL ? 4 : 18),
             bottom: titleEdgeInsets.bottom,
@@ -163,7 +166,12 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         super.viewDidLoad()
         otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items. {{Identical|More}}"), for: .normal)
         otherLanguagesButton?.titleLabel?.font = UIFont.wmf_font(.subheadline)
-        otherLanguagesButton?.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0)
+        
+        if let otherLanguagesButton {
+            var deprecatedOtherLanguagesButton = otherLanguagesButton as DeprecatedButton
+            deprecatedOtherLanguagesButton.deprecatedTitleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0)
+        }
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(appLanguageDidChange(_:)), name: NSNotification.Name.WMFAppLanguageDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(preferredLanguagesDidChange(_:)), name: NSNotification.Name.WMFPreferredLanguagesDidChange, object: nil)

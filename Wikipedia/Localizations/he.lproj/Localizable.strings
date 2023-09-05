@@ -604,6 +604,7 @@
 "notifications-center-checking-for-notifications" = "בדיקת התראות...";
 "notifications-center-destination-app" = "ביישום";
 "notifications-center-destination-web" = "באתר";
+"notifications-center-detail-title" = "פרטי התראה";
 "notifications-center-empty-checking-for-notifications" = "בדיקת התראות...";
 "notifications-center-empty-no-messages" = "אין לך הודעות";
 "notifications-center-empty-not-subscribed" = "אינך מנוי על שום התראות ויקיפדיה";

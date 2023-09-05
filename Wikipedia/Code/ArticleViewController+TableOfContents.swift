@@ -66,6 +66,8 @@ extension ArticleViewController : ArticleTableOfContentsDisplayControllerDelegat
                 }
             }
         }
+
+        article.viewedFragment = item.anchor
     }
 
     public func tableOfContentsControllerDidCancel(_ controller: TableOfContentsViewController) {
