@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 typealias ScrollableEducationPanelButtonTapHandler = ((_ sender: Any) -> Void)
 typealias ScrollableEducationPanelDismissHandler = (() -> Void)
@@ -287,8 +288,10 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
     var primaryButtonTitleEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14) {
         didSet {
-            inlinePrimaryButton.titleEdgeInsets = primaryButtonTitleEdgeInsets
-            pinnedPrimaryButton.titleEdgeInsets = primaryButtonTitleEdgeInsets
+            var deprecatedInlinePrimaryButton = inlinePrimaryButton as DeprecatedButton
+            var deprecatedPinnedPrimaryButton = pinnedPrimaryButton as DeprecatedButton
+            deprecatedInlinePrimaryButton.deprecatedTitleEdgeInsets = primaryButtonTitleEdgeInsets
+            deprecatedPinnedPrimaryButton.deprecatedTitleEdgeInsets = primaryButtonTitleEdgeInsets
         }
     }
 

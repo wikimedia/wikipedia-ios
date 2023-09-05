@@ -3,6 +3,7 @@
 // Author: Arifin.wijaya
 // Author: Diki Ananta
 // Author: Macofe
+// Author: McDutchie
 // Author: N219
 // Author: Nemo bis
 // Author: NoiX180
@@ -187,7 +188,7 @@
 "field-backup-token-title" = "Kodhe sèrep";
 "field-captcha-placeholder" = "Tèks CAPTCHA";
 "field-captcha-title" = "Lebokaké tèks sing katon ing ndhuwur";
-"field-email-placeholder" = "conto@conto.org";
+"field-email-placeholder" = "conto@example.org";
 "field-email-title" = "Layang-èl";
 "field-email-title-optional" = "Layang-èl (manasuka)";
 "field-new-password-confirm-placeholder" = "isi manèh tembung sandi anyar";

@@ -3,6 +3,7 @@
 // Author: JoeWalshWMF
 // Author: Les Meloures
 // Author: Macofe
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Robby
 // Author: Soued031
@@ -97,6 +98,7 @@
 "article-reference-view-title" = "Referenz $1";
 "article-save-error-not-enough-space" = "Dir hutt net genuch op Ärem Apparat fir dësen Artikel ze späicheren";
 "article-share" = "Deelen";
+"article-talk-page" = "Diskussiounssäit vum Artikel";
 "back-button-accessibility-label" = "Zréck";
 "button-go-back" = "Zréck goen";
 "button-next" = "Weider";
@@ -142,8 +144,9 @@
 "description-welcome-concise-sub-title" = "Idealerweis eng Zeil, tëscht zwee an zwielef Wierder";
 "description-welcome-concise-title" = "Haalt Iech kuerz";
 "description-welcome-descriptions-title" = "Artikelbeschreiwungen";
-"diff-compare-header-from-info-heading" = "Vum";
+"diff-compare-header-from-info-heading" = "Vireg Ännerung";
 "diff-compare-header-heading" = "Versioune vergläichen";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Fir";
 "diff-compare-title" = "Versioune vergläichen";
 "diff-context-lines-collapsed-button-title" = "Weisen";
@@ -244,7 +247,7 @@
 "field-backup-token-title" = "Backup-Code";
 "field-captcha-placeholder" = "CAPTCHA-Text";
 "field-captcha-title" = "Gitt den Text an deen Dir hei driwwer gesitt";
-"field-email-placeholder" = "beispill@beispill.org";
+"field-email-placeholder" = "beispill@example.org";
 "field-email-title" = "E-Mail";
 "field-email-title-optional" = "E-Mail (Fakultativ)";
 "field-new-password-confirm-placeholder" = "neit Passwuert nees aginn";
@@ -611,6 +614,21 @@
 "variants-alert-dismiss-button" = "Nee, merci";
 "variants-alert-preferences-button" = "Kuckt Är Astellungen no";
 "watchlist" = "Iwwerwaachungslëscht";
+"watchlist-added-toast-one-month" = "Fir 1 Mount op Är Iwwerwaachungslëscht gesat.";
+"watchlist-added-toast-one-week" = "Fir 1 Woch op Är Iwwerwaachungslëscht gesat.";
+"watchlist-added-toast-one-year" = "Fir 1 Joer op Är Iwwerwaachungslëscht gesat.";
+"watchlist-added-toast-permanently" = "Dauerhaft op Är Iwwerwaachungslëscht gesat.";
+"watchlist-added-toast-six-months" = "Fir 6 Méint op Är Iwwerwaachungslëscht gesat.";
+"watchlist-added-toast-three-months" = "Fir 3 Méint op Är Iwwerwaachungslëscht gesat.";
+"watchlist-added-toast-view-watchlist" = "Iwwerwaachungslëscht weisen";
+"watchlist-byte-change" = "({{PLURAL:$1|1 Byte|$1 Byte}})";
+"watchlist-change-expiry-option-one-month" = "1 Mount";
+"watchlist-change-expiry-option-one-week" = "1 Woch";
+"watchlist-change-expiry-option-one-year" = "1 Joer";
+"watchlist-change-expiry-option-permanent" = "Dauerhaft";
+"watchlist-change-expiry-option-six-months" = "6 Méint";
+"watchlist-change-expiry-option-three-months" = "3 Méint";
+"watchlist-removed" = "Vun Ärer Iwwerwaachungslëscht erofgeholl";
 "watchlist-user-button-user-contributions" = "Benotzerkontributiounen";
 "watchlist-user-button-user-page" = "Benotzersäit";
 "watchlist-user-button-user-talk-page" = "Benotzerdiskussiounssäit";

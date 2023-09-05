@@ -182,10 +182,13 @@ class AccountViewController: SubSettingsViewController {
     }
 
     @objc func goToWatchlist() {
-        let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter)
-        let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings)
-        let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, delegate: self)
-        self.navigationController?.pushViewController(watchlistViewController, animated: true)
+        
+        guard let linkURL = dataStore.primarySiteURL?.wmf_URL(withTitle: "Special:Watchlist"),
+        let userActivity = NSUserActivity.wmf_activity(for: linkURL) else {
+            return
+        }
+        
+        NSUserActivity.wmf_navigate(to: userActivity)
     }
     
     @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -251,14 +254,6 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
         let viewController = VanishAccountContainerViewController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
         navigationController?.pushViewController(viewController, animated: true)
     }
-
-}
-
-extension AccountViewController: WKWatchlistDelegate {
-
-    func watchlistDidDismiss() {}
-    func watchlistDidTapDiff() {}
-
 }
 
 extension AccountViewController: WKOnboardingViewDelegate {

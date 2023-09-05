@@ -1,5 +1,6 @@
 // Messages for Lombard (lombard)
 // Exported from translatewiki.net
+// Author: McDutchie
 // Author: Salvemm el lombard
 // Author: Tsevener
 
@@ -378,7 +379,7 @@
 "field-alert-username-unavailable" = "Nom de l'utent minga disponibil";
 "field-captcha-placeholder" = "Test CAPTCHA";
 "field-captcha-title" = "Mèt dent el test che te vedet de sora";
-"field-email-placeholder" = "esempi@esempi.org";
+"field-email-placeholder" = "esempi@example.org";
 "field-email-title" = "Posta eletronica";
 "field-email-title-optional" = "Posta eletronica (opzional)";
 "field-new-password-confirm-placeholder" = "mèt dent an'mò la parolola ciav noeuva";

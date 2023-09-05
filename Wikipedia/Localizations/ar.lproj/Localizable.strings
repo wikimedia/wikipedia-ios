@@ -585,6 +585,7 @@
 "menu-cancel-accessibility-label" = "ألغ";
 "more-languages-tooltip-description" = "ابحث في ويكيبيديا بما يقرب من 300 لغة";
 "more-languages-tooltip-title" = "أضف لغات";
+"more-menu" = "المزيد";
 "move-articles-to-reading-list" = "نقل {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
 "navbar-title-mode-edit-wikitext-preview" = "معاينة";
 "nearby-distance-label-feet" = "$1 قدم";
@@ -806,6 +807,7 @@
 "project-name-wikinews" = "ويكي الأخبار";
 "project-name-wikiquote" = "ويكي الاقتباس";
 "project-name-wikisource" = "ويكي مصدر";
+"project-name-wikispecies" = "ويكي الأنواع";
 "project-name-wikiversity" = "ويكي الجامعة";
 "project-name-wikivoyage" = "ويكي الرحلات";
 "project-name-wiktionary" = "ويكاموس";
@@ -1121,6 +1123,8 @@
 "variants-alert-dismiss-button" = "لا شكرًا";
 "variants-alert-preferences-button" = "راجع تفضيلاتك";
 "watchlist" = "قائمة المراقبة";
+"watchlist-user-button-user-contributions" = "مساهمات المستخدم";
+"watchlist-user-button-user-page" = "صفحة المستخدم";
 "watchlist-user-button-user-talk-page" = "نقاش صفحة المستخدم";
 "welcome-exploration-explore-feed-description" = "القراءة الموصى بها والمقالات اليومية من مجتمعنا";
 "welcome-exploration-explore-feed-title" = "خلاصة الاستكشاف";

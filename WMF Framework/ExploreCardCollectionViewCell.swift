@@ -51,9 +51,10 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundVi
         subtitleLabel.numberOfLines = 0
         contentView.addSubview(subtitleLabel)
         customizationButton.setImage(ExploreCardCollectionViewCell.overflowImage, for: .normal)
-        customizationButton.contentEdgeInsets = .zero
-        customizationButton.imageEdgeInsets = .zero
-        customizationButton.titleEdgeInsets = .zero
+        var deprecatedCustomizationButton = customizationButton as DeprecatedButton
+        deprecatedCustomizationButton.deprecatedContentEdgeInsets = .zero
+        deprecatedCustomizationButton.deprecatedImageEdgeInsets = .zero
+        deprecatedCustomizationButton.deprecatedTitleEdgeInsets = .zero
         customizationButton.titleLabel?.textAlignment = .center
         customizationButton.addTarget(self, action: #selector(customizationButtonPressed), for: .touchUpInside)
         cardBackgroundView.layer.cornerRadius = cardCornerRadius

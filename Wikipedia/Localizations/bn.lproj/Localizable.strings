@@ -413,6 +413,9 @@
 "variants-alert-dismiss-button" = "না, ধন্যবাদ";
 "watch" = "নজর রাখুন";
 "watchlist" = "নজরতালিকা";
+"watchlist-added-toast-view-watchlist" = "নজরতালিকা দেখুন";
+"watchlist-change-expiry-option-one-month" = "১ মাস";
+"watchlist-change-expiry-option-one-year" = "১ বছর";
 "welcome-exploration-explore-feed-description" = "আমাদের সম্প্রদায়ের প্রস্তাবিত পাঠ এবং দৈনিক নিবন্ধ";
 "welcome-exploration-explore-feed-title" = "ফিড অন্বেষণ করুন";
 "welcome-exploration-on-this-day-title" = "আজকের এই দিনে";

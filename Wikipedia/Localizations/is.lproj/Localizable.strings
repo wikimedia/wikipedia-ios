@@ -4,6 +4,7 @@
 // Author: LoveIceLang
 // Author: Macofe
 // Author: Maxí
+// Author: McDutchie
 // Author: MyraMidnight
 // Author: Nemo bis
 // Author: Sveinn í Felli
@@ -201,13 +202,14 @@
 "description-welcome-promise-title" = "Ef ég byrja, lofa ég að misnota ekki þennan eiginleika";
 "description-welcome-start-editing-button" = "Byrja að breyta";
 // Fuzzy
-"diff-compare-header-from-info-heading" = "Frá:";
+"diff-compare-header-from-info-heading" = "Frá";
 "diff-compare-header-heading" = "Bera saman útgáfur";
 // Fuzzy
-"diff-compare-header-to-info-heading" = "Til:";
+"diff-compare-header-to-info-heading" = "Til";
 "diff-compare-title" = "Bera saman útgáfur";
 "diff-context-lines-collapsed-button-title" = "Sýna";
 "diff-context-lines-expanded-button-title" = "Fela";
+"diff-header-revision-accessibility-text" = "Endurskoðun gerð";
 "diff-multi-line-format" = "Línur $1 - $2";
 "diff-paragraph-moved" = "Málsgrein færð";
 "diff-paragraph-moved-direction-down" = "niður";
@@ -216,6 +218,10 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 hluti|$1 hlutar}}";
 "diff-paragraph-moved-format" = "Málsgrein færð $1 $2";
 "diff-revision-error-title" = "Tókst ekki að ná í útgáfu";
+"diff-rollback" = "Taka til baka";
+"diff-rollback-alert-message" = "Ertu viss um að þú viljir afturkalla breytingarnar?";
+"diff-rollback-alert-title" = "Afturkalla breytingar";
+"diff-rollback-success" = "Breytingar afturkallaðar.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|breyting|breytingar}}";
 "diff-single-header-editor-title" = "Upplýsingar um ritil";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 bæti bætt við|$1 bætum bætt við}}";
@@ -232,6 +238,7 @@
 "diff-thanks-sent" = "Þakkarskilaboðin þín voru send til $1";
 "diff-thanks-sent-already" = "Þú ert þegar búin/n að senda þakkir fyrir þessa breytingu";
 "diff-thanks-sent-cannot-unsend" = "Þakkir er ekki hægt að afturkalla";
+"diff-undo-success" = "Yfirferðin var afturkölluð.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 lína óbreytt|$1 línur óbreyttar}}";
 "dim-images" = "Dekkja myndir";
 "edit-bold-accessibility-label" = "Bættu við feitletrun";
@@ -428,7 +435,7 @@
 "field-backup-token-title" = "Öryggiskóði";
 "field-captcha-placeholder" = "CAPTCHA-texti";
 "field-captcha-title" = "Settu inn textann sem þú sérð hér að ofan";
-"field-email-placeholder" = "notandi@vefur.is";
+"field-email-placeholder" = "notandi@example.org";
 "field-email-title" = "Tölvupóstur";
 "field-email-title-optional" = "Tölvupóstfang (valfrjálst)";
 "field-new-password-confirm-placeholder" = "settu aftur inn nýja lykilorðið";
@@ -542,6 +549,7 @@
 "menu-cancel-accessibility-label" = "Hætta við";
 "more-languages-tooltip-description" = "Leita í Wikipedia á yfir 300 tungumálum";
 "more-languages-tooltip-title" = "Bæta við tungumálum";
+"more-menu" = "Meira";
 "move-articles-to-reading-list" = "Færa {{PLURAL:$1|$1 grein|$1 greinar}} á leslista";
 "navbar-title-mode-edit-wikitext-preview" = "Forskoðun";
 "nearby-distance-label-feet" = "$1 fet";
@@ -1065,6 +1073,11 @@
 "vanishing-request-email-title" = "Beiðni um að hverfa á kurteisan máta";
 "variants-alert-dismiss-button" = "Nei, takk";
 "variants-alert-preferences-button" = "Yfirfarðu kjörstillingarnar þínar";
+"watch" = "Vakta";
+"watchlist" = "Vaktlisti";
+"watchlist-user-button-user-contributions" = "Framlög notanda";
+"watchlist-user-button-user-page" = "Notandasíða";
+"watchlist-user-button-user-talk-page" = "Spjallsíða notanda";
 "welcome-exploration-explore-feed-description" = "Lesefni sem mælt er með og daglegar greinar frá samfélaginu okkar";
 "welcome-exploration-explore-feed-title" = "'Uppgötva'-streymið";
 "welcome-exploration-on-this-day-description" = "Ferðastu aftur í tímann til að læra hvað gerðist á þessum degi í sögulegu samhengi";

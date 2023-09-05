@@ -30,6 +30,11 @@ class DiffContainerViewController: ViewController {
     private var diffListViewController: DiffListViewController?
     private var diffToolbarView: DiffToolbarView?
     private let diffController: DiffController
+    
+    internal lazy var watchlistController: WatchlistController = {
+        return WatchlistController(delegate: self)
+    }()
+    
     private var fromModel: WMFPageHistoryRevision?
     private var fromModelRevisionID: Int?
     private var toModel: WMFPageHistoryRevision?
@@ -99,8 +104,7 @@ class DiffContainerViewController: ViewController {
     private weak var undoAlertUndoAction: UIAlertAction?
     private weak var undoAlertSummaryTextField: UITextField?
     
-    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController) {
-
+    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
         self.siteURL = siteURL
         let wikimediaProject = WikimediaProject(siteURL: siteURL)
         self.wikimediaProject = wikimediaProject
@@ -109,7 +113,7 @@ class DiffContainerViewController: ViewController {
         self.toModelRevisionID = toRevisionID
         self.fromModelRevisionID = fromRevisionID
         
-        self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: nil, revisionRetrievingDelegate: nil, type: type, articleSummaryController: articleSummaryController)
+        self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: nil, revisionRetrievingDelegate: nil, type: type, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager)
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: nil, toModel: nil, listViewModel: nil, articleTitle: articleTitle, imageURL: nil, byteDifference: nil, theme: theme, project: wikimediaProject)
         
         self.firstRevision = nil
@@ -127,7 +131,7 @@ class DiffContainerViewController: ViewController {
         }
     }
     
-    init(articleTitle: String, siteURL: URL, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController) {
+    init(articleTitle: String, siteURL: URL, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
 
         self.type = .compare
         
@@ -141,7 +145,7 @@ class DiffContainerViewController: ViewController {
         self.wikimediaProject = project
         self.firstRevision = firstRevision
 
-        self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: pageHistoryFetcher, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type, articleSummaryController: articleSummaryController)
+        self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: pageHistoryFetcher, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager)
 
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, listViewModel: nil, articleTitle: articleTitle, imageURL: nil, byteDifference: nil, theme: theme, project: project)
         
@@ -238,6 +242,21 @@ class DiffContainerViewController: ViewController {
         }
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        // Upon rotation completion, recalculate more button popover position
+        coordinator.animate(alongsideTransition: nil) { [weak self] (context) in
+            
+            guard let self,
+                  let diffToolbarView = self.diffToolbarView else {
+                return
+            }
+            
+            watchlistController.calculatePopoverPosition(sender: diffToolbarView.moreButton, sourceView: diffToolbarView.moreButtonSourceView, sourceRect: diffToolbarView.moreButtonSourceRect)
+        }
+    }
+    
     override func apply(theme: Theme) {
         
         super.apply(theme: theme)
@@ -271,8 +290,8 @@ class DiffContainerViewController: ViewController {
             let dateString = toDate.wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
             buttonTitle = String.localizedStringWithFormat(CommonStrings.revisionMadeFormat, dateString.lowercased())
         }
-        navigationItem.backButtonTitle = buttonTitle
-        navigationItem.backButtonDisplayMode = .generic
+        
+        navigationItem.configureForEmptyNavBarTitle(backTitle: buttonTitle)
     }
 }
 
@@ -663,10 +682,11 @@ private extension DiffContainerViewController {
                 case .success(let status):
                     
                     let needsWatchButton = !status.watched && FeatureFlags.watchlistEnabled
-                    let needsUnwatchButton = status.watched && FeatureFlags.watchlistEnabled
+                    let needsUnwatchHalfButton = status.watched && status.watchlistExpiry != nil && FeatureFlags.watchlistEnabled
+                    let needsUnwatchFullButton = status.watched && status.watchlistExpiry == nil && FeatureFlags.watchlistEnabled
                     let needsArticleEditHistoryButton = true
                     
-                    self.diffToolbarView?.updateMoreButton(needsRollbackButton: (status.userHasRollbackRights ?? false), needsWatchButton: needsWatchButton, needsUnwatchButton: needsUnwatchButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
+                    self.diffToolbarView?.updateMoreButton(needsRollbackButton: (status.userHasRollbackRights ?? false), needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
                 case .failure:
                     break
                 }
@@ -1047,7 +1067,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
         
         EditHistoryCompareFunnel.shared.logRevisionView(url: siteURL)
         
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController)
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
         push(singleDiffVC, animated: true)
     }
 }
@@ -1155,7 +1175,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         
         WatchlistFunnel.shared.logDiffToolbarTapPrevious(project: wikimediaProject)
         
-        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController)
+        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
+
         replaceLastAndPush(with: diffVC)
     }
     
@@ -1171,7 +1192,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         
         WatchlistFunnel.shared.logDiffToolbarTapNext(project: wikimediaProject)
         
-        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController)
+        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
+
         replaceLastAndPush(with: diffVC)
     }
     
@@ -1200,8 +1222,9 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         }
 
         WatchlistFunnel.shared.logDiffToolbarMoreTapArticleEditHistory(project: wikimediaProject)
-        let historyViewController = PageHistoryViewController(pageTitle: pageTitle, pageURL: pageURL, articleSummaryController: diffController.articleSummaryController)
+        let historyViewController = PageHistoryViewController(pageTitle: pageTitle, pageURL: pageURL, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
         historyViewController.theme = theme
+
         push(historyViewController, animated: true)
     }
 
@@ -1211,6 +1234,27 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         WatchlistFunnel.shared.logDiffToolbarTapThank(project: wikimediaProject)
         
         tappedThank(for: toModelRevisionID, isUserAnonymous: isUserAnonymous)
+    }
+    
+    func tappedWatch() {
+        
+        guard let articleTitle,
+        let sender = diffToolbarView?.moreButton else {
+            showGenericError()
+            return
+        }
+        
+        watchlistController.watch(pageTitle: articleTitle, siteURL: siteURL, viewController: self, authenticationManager: diffController.authenticationManager, theme: theme, sender: sender, sourceView: diffToolbarView?.moreButtonSourceView, sourceRect: diffToolbarView?.moreButtonSourceRect)
+    }
+    
+    func tappedUnwatch() {
+        
+        guard let articleTitle else {
+            showGenericError()
+            return
+        }
+        
+        watchlistController.unwatch(pageTitle: articleTitle, siteURL: siteURL, viewController: self, authenticationManager: diffController.authenticationManager, theme: theme)
     }
     
     // MARK: Undo and Rollback
@@ -1344,7 +1388,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                     EditAttemptFunnel.shared.logSaveSuccess(articleURL: pageURL, revisionId: result.newRevisionID)
             }
 
-            let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController)
+            let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
+
             animateDirection = .up
             replaceLastAndPush(with: diffVC)
             revisionRetrievingDelegate?.refreshRevisions()
@@ -1421,5 +1466,19 @@ extension DiffContainerViewController: DiffRevisionAnimating {
         case .empty, .error:
             return scrollingEmptyViewController
         }
+    }
+}
+
+extension DiffContainerViewController: WatchlistControllerDelegate {
+    func didSuccessfullyWatchTemporarily(_ controller: WatchlistController) {
+        diffToolbarView?.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: true, needsUnwatchFullButton: false, needsArticleEditHistoryButton: true)
+    }
+    
+    func didSuccessfullyWatchPermanently(_ controller: WatchlistController) {
+        diffToolbarView?.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: false, needsUnwatchFullButton: true, needsArticleEditHistoryButton: true)
+    }
+    
+    func didSuccessfullyUnwatch(_ controller: WatchlistController) {
+        diffToolbarView?.updateMoreButton(needsWatchButton: true, needsUnwatchHalfButton: false, needsUnwatchFullButton: false, needsArticleEditHistoryButton: true)
     }
 }

@@ -146,7 +146,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     lazy var longTitleButton: UIButton = {
         let longTitleButton = UIButton(type: .custom)
-        longTitleButton.adjustsImageWhenHighlighted = true
+        var deprecatedLongTitleButton = longTitleButton as DeprecatedButton
+        deprecatedLongTitleButton.deprecatedAdjustsImageWhenHighlighted = true
         longTitleButton.setImage(UIImage(named: "wikipedia"), for: .normal)
         longTitleButton.sizeToFit()
         longTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)

@@ -8,6 +8,7 @@
 // Author: LaG roiL
 // Author: Macofe
 // Author: Matanya
+// Author: McDutchie
 // Author: Mhurd
 // Author: N100a
 // Author: Nemo bis
@@ -92,7 +93,7 @@
 "account-creation-logging-in" = "כניסה...";
 "account-creation-missing-fields" = "יש להזין שם משתמש, סיסמה ואישור סיסמה כדי ליצור חשבון.";
 "account-creation-passwords-mismatched" = "הסיסמאות אינן זהות.";
-"account-creation-saving" = "שמירה...";
+"account-creation-saving" = "מתבצעת שמירה...";
 "account-creation-title" = "יצירת חשבון חדש";
 "account-group-title" = "החשבון שלך";
 "account-request-vanishing" = "העלמת החשבון שלך";
@@ -155,8 +156,10 @@
 "article-languages-yours" = "השפות שלך";
 "article-read-more-title" = "מידע נוסף";
 "article-reference-view-title" = "הערת שוליים $1";
+"article-revision-history" = "היסטוריית גרסאות של ערך";
 "article-save-error-not-enough-space" = "אין מספיק נפח אחסון במכשיר שלך כדי לשמור את הערך";
 "article-share" = "שיתוף";
+"article-talk-page" = "דף שיחה של ערך";
 "article-toolbar-reading-themes-controls-toolbar-item" = "בקרי ערכות נושא לקריאה";
 "back-button-accessibility-label" = "חזרה";
 "back-button-popover-title" = "יש ללחוץ כדי לחזור";
@@ -176,6 +179,8 @@
 "chinese-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בהגוונים הבאים של סינית בתור השפה הראשית או המשנית ביישום, כדי שיהיה קל יותר לקרוא, לחפש, ולערוך בהגוונים המועדפים עליך:\n\n简体 סינית, מפושטת (zh-hans)\n香港繁體 הונג קונג מסורתית (zh-hk)\n澳門繁體 מקאו מסורתית (zh-mo)\n大马简体 מלזיה מפושטת (zh-my)\n新加坡简体 סינגפור מפושטת (zh-sg)\n臺灣正體 טאיוואן מסורתית (zh-tw)";
 "chinese-variants-alert-title" = "עדכונים לתמיכה בהגוונים של סינית";
 "clear-title-accessibility-label" = "ניקוי";
+"clearing-cache-complete" = "ניקוי המטמון הושלם.";
+"clearing-cache-in-progress" = "ניקוי המטמון מתבצע.";
 "close-button-accessibility-label" = "סגירה";
 "compass-direction" = "בשעה $1";
 "continue-reading-empty-description" = "לחקור את ויקיפדיה כדי למצוא ערכים נוספים לקריאה";
@@ -220,9 +225,9 @@
 "description-welcome-promise-title" = "תחילת העבודה היא ההבטחה שלי לא להשתמש באפשרות הזאת לרעה";
 "description-welcome-start-editing-button" = "להתחיל לערוך";
 "diff-article-edit-history" = "היסטוריית העריכה של הערך";
-"diff-compare-header-from-info-heading" = "מהגרסה";
+"diff-compare-header-from-info-heading" = "העריכה הקודמת";
 "diff-compare-header-heading" = "השוואת גרסאות";
-"diff-compare-header-to-info-heading" = "עד";
+"diff-compare-header-to-info-heading" = "העריכה המוצגת";
 "diff-compare-title" = "השוואת גרסאות";
 "diff-context-lines-collapsed-button-title" = "הצגה";
 "diff-context-lines-expanded-button-title" = "הסתרה";
@@ -456,7 +461,7 @@
 "field-backup-token-title" = "קוד גיבוי";
 "field-captcha-placeholder" = "טקסט אימות אנושיות";
 "field-captcha-title" = "נא להזין את הטקסט שמוצג לעיל";
-"field-email-placeholder" = "shaked@dugma.org.il";
+"field-email-placeholder" = "shaked@example.org";
 "field-email-title" = "כתובת דוא\"ל";
 "field-email-title-optional" = "דואר אלקטרוני (לא חובה)";
 "field-new-password-confirm-placeholder" = "נא להזין את הסיסמה החדשה";
@@ -509,7 +514,7 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "לא עכשיו";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "מילוי סקר";
 "import-shared-reading-list-survey-prompt-footer" = "צפייה בהצהרת הפרטיות של $1שלנו$2. הסקר מופעל על־ידי צד שלישי. צפייה במדיניות הפרטיות $3שלהם$4.";
-"import-shared-reading-list-survey-prompt-subtitle" = "\"שיתוף רשימות קריאה\" היא תכונת הבדיקה ואנחנו זקוקים למשוב שלך כדי לשפר או להסיר אותה.";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"שיתוף רשימות קריאה\" היא תכונה בבדיקה ואנחנו זקוקים למשוב שלך כדי לשפר או להסיר אותה.";
 "import-shared-reading-list-survey-prompt-title" = "אפשר לבקש ממך לעזור לנו לשפר את התכונה \"שיתוף רשימות קריאה\"?";
 "import-shared-reading-list-title" = "יבוא רשימת קריאה משותפת";
 "in-the-news-sub-title-from-language-wikipedia" = "מתוך ויקיפדיה ב$1";
@@ -599,6 +604,7 @@
 "notifications-center-checking-for-notifications" = "בדיקת התראות...";
 "notifications-center-destination-app" = "ביישום";
 "notifications-center-destination-web" = "באתר";
+"notifications-center-detail-title" = "פרטי התראה";
 "notifications-center-empty-checking-for-notifications" = "בדיקת התראות...";
 "notifications-center-empty-no-messages" = "אין לך הודעות";
 "notifications-center-empty-not-subscribed" = "אינך מנוי על שום התראות ויקיפדיה";
@@ -764,7 +770,7 @@
 "places-empty-search-description" = "לגלות ערים, מדינות, יבשות, אתרי טבע, אירועים היסטוריים, בניינים, ועוד.";
 "places-empty-search-title" = "חיפוש ערכי ויקיפדיה עם מקומות גאוגרפיים";
 "places-enable-location-action-button-title" = "להפעיל מיקום";
-"places-enable-location-description" = "גישה למיקומך אפשרית רק כשהיישום או אחת הרכיבים שלו נראים על המסך.";
+"places-enable-location-description" = "גישה למיקומך אפשרית רק כשהיישום או אחד הרכיבים שלו נראים על המסך.";
 "places-enable-location-title" = "לגלות ערכים בסביבתך באמצעות הפעלת גישה למיקום";
 "places-filter-articles-action-sheet-title" = "סינון הערכים";
 "places-filter-button-title" = "סינון";
@@ -1120,6 +1126,24 @@
 "variants-alert-preferences-button" = "סקירת ההעדפות שלך";
 "watch" = "מעקב";
 "watchlist" = "רשימת המעקב";
+"watchlist-added-toast-one-month" = "נוסף לרשימת המעקב שלך לחודש.";
+"watchlist-added-toast-one-week" = "נוסף לרשימת המעקב שלך לשבוע.";
+"watchlist-added-toast-one-year" = "נוסף לרשימת המעקב שלך לשנה.";
+"watchlist-added-toast-permanently" = "נוסף לרשימת המעקב שלך לתמיד.";
+"watchlist-added-toast-six-months" = "נוסף לרשימת המעקב שלך ל־6 חודשים.";
+"watchlist-added-toast-three-months" = "נוסף לרשימת המעקב שלך ל־3 חודשים.";
+"watchlist-added-toast-view-watchlist" = "צפייה ברשימת המעקב";
+"watchlist-byte-change" = "({{PLURAL:$1|בית אחד|$1 בתים}})";
+"watchlist-change-expiry-option-one-month" = "חודש";
+"watchlist-change-expiry-option-one-week" = "שבוע";
+"watchlist-change-expiry-option-one-year" = "שנה";
+"watchlist-change-expiry-option-permanent" = "לתמיד";
+"watchlist-change-expiry-option-six-months" = "6 חודשים";
+"watchlist-change-expiry-option-three-months" = "3 חודשים";
+"watchlist-change-expiry-subtitle" = "נא לבחור את הזמן לשמירה ברשימת המעקב";
+"watchlist-change-expiry-title" = "תוקף ברשימת המעקב";
+"watchlist-filter" = "סינון";
+"watchlist-removed" = "הוסר מרשימת המעקב שלך";
 "watchlist-user-button-user-contributions" = "תרומות המשתמש";
 "watchlist-user-button-user-page" = "דף משתמש";
 "watchlist-user-button-user-talk-page" = "דף שיחת משתמש";

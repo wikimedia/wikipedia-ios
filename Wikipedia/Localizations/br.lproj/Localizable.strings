@@ -146,7 +146,9 @@
 "description-welcome-descriptions-title" = "Deskrivadurioù ar pennad";
 "description-welcome-promise-title" = "Stagañ a ran ganti ha reiñ a ran ma ger da chom hep drougimplij an arc'hwel-mañ";
 "description-welcome-start-editing-button" = "Kregiñ da gemmañ";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Digant";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Da";
 "diff-context-lines-collapsed-button-title" = "Diskouez";
 "diff-context-lines-expanded-button-title" = "Kuzhat";

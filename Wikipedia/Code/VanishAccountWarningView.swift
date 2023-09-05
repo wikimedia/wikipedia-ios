@@ -10,7 +10,6 @@ struct VanishAccountWarningView: View {
         static let body = WMFLocalizedString("vanish-account-warning-body", value: "Vanishing is a **last resort** and should **only be used when you wish to stop editing forever** and also to hide as many of your past associations as possible.\n\nAccount deletion on Wikipedia is done by changing your account name to make it so others cannot recognize your contributions in a process called account vanishing. **Vanishing does not guarantee complete anonymity or remove contributions to the projects**.", comment: "Body text of vanish account warning view. Please do not translate or remove the `**` characters as these indicate which region of the text to display in bold.")
         static let continueButton = WMFLocalizedString("vanish-account-continue-button-title", value: "Continue", comment: "Title of button presented in the vanish account warning view.")
 
-        @available(iOS 15, *)
         static var attributedBody: AttributedString? {
             return try? AttributedString(markdown: LocalizedStrings.body, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace))
         }
@@ -67,13 +66,8 @@ struct VanishAccountWarningView: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color(theme.colors.primaryText))
                     Spacer(minLength: 50)
-                    if #available(iOS 15, *) {
                         Text(LocalizedStrings.attributedBody ?? AttributedString(fallbackBodyString))
                             .foregroundColor(Color(theme.colors.primaryText))
-                    } else {
-                        Text(fallbackBodyString)
-                            .foregroundColor(Color(theme.colors.primaryText))
-                    }
                 }
                 .padding(sizeClassPadding)
             }

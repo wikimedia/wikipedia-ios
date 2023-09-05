@@ -50,12 +50,6 @@
         self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
     }
 
-    if (@available(iOS 15.0, *)) {
-        //do nothing
-    } else {
-        self.navigationBar.barTintColor = theme.colors.chromeBackground;
-    }
-
     if (self.style == WMFThemeableNavigationControllerStyleGallery) {
         self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         [self setNavigationBarHidden:YES animated:NO];
