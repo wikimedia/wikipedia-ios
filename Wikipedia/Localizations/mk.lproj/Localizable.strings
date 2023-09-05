@@ -588,6 +588,7 @@
 "notifications-center-checking-for-notifications" = "Проверувам известувања...";
 "notifications-center-destination-app" = "Во прилог";
 "notifications-center-destination-web" = "Во прелистувач";
+"notifications-center-detail-title" = "Подробно за известувањето";
 "notifications-center-empty-checking-for-notifications" = "Проверувам известувања...";
 "notifications-center-empty-no-messages" = "Немате пораки.";
 "notifications-center-empty-not-subscribed" = "Не следите никакви известувања од Википедија";
@@ -628,7 +629,7 @@
 "notifications-center-mark-as-read" = "Означи како прочитано";
 "notifications-center-mark-as-unread" = "Означи како непрочитано";
 "notifications-center-more-action-accessibility-label" = "Повеќе";
-"notifications-center-notifications-settings" = "Нагодувања за ивестувања`";
+"notifications-center-notifications-settings" = "Нагодувања за известувања`";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 порака|$1 пораки}}";
 "notifications-center-onboarding-modal-continue-action" = "Продолжи";
 "notifications-center-onboarding-modal-filters-message" = "Филтрирајте ги известувањата според состојба на прочитаност и вид за полесно да го сосредоточите сандачето.";

@@ -584,6 +584,7 @@
 "notifications-center-checking-for-notifications" = "Iskanje obvestil ...";
 "notifications-center-destination-app" = "V aplikaciji";
 "notifications-center-destination-web" = "Na spletu";
+"notifications-center-detail-title" = "Podrobnost obvestila";
 "notifications-center-empty-checking-for-notifications" = "Iskanje obvestil ...";
 "notifications-center-empty-no-messages" = "Nimate novih sporočil";
 "notifications-center-empty-not-subscribed" = "Trenutno niste naročeni na nobena obvestila Wikipedije";
