@@ -171,7 +171,7 @@ class AccountViewController: SubSettingsViewController {
         let setExpiration = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "set-expiration"), title: CommonStrings.watchlistSetExpirationTitle, subtitle: CommonStrings.watchlistSetExpirationSubtitle)
         let viewUpdates = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "view-updates"), title: CommonStrings.watchlistViewUpdatesTitle, subtitle: CommonStrings.watchlistSetExpirationSubtitle)
 
-        let viewModel = WKOnboardingViewModel(title: CommonStrings.watchlistOnboardingTitle, cells: [trackChanges, watchArticles, setExpiration, viewUpdates], mainButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.watchlistOnboardingLearnMore)
+        let viewModel = WKOnboardingViewModel(title: CommonStrings.watchlistOnboardingTitle, cells: [trackChanges, watchArticles, setExpiration, viewUpdates], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.watchlistOnboardingLearnMore)
 
         let viewController = WKOnboardingViewController(viewModel: viewModel)
         viewController.hostingController.delegate = self
