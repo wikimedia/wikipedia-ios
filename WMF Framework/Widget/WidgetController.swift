@@ -21,7 +21,11 @@ public final class WidgetController: NSObject {
     // MARK: Properties
 
 	@objc public static let shared = WidgetController()
-    private let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache, defaultCache: { WidgetCache(settings: .default, featuredContent: nil) })
+    private let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache)
+    
+    private var widgetCache: WidgetCache {
+        return sharedCache.loadCache() ?? WidgetCache(settings: .default, featuredContent: nil)
+    }
 
     // MARK: Public
 
@@ -199,7 +203,7 @@ public extension WidgetController {
     // MARK: - Computed Properties
 
     var featuredContentSiteURL: URL {
-        return sharedCache.loadCache().settings.siteURL
+        return widgetCache.settings.siteURL
     }
 
     var potdTargetImageSize: CGSize {
@@ -210,20 +214,20 @@ public extension WidgetController {
 
     /// This is currently unused. It will be useful when we update the main app to also update the widget's cache when it performs any updates to the featured content in the explore feed.
     func updateCacheWith(featuredContent: WidgetFeaturedContent) {
-        var updatedCache = sharedCache.loadCache()
+        var updatedCache = widgetCache
         updatedCache.featuredContent = featuredContent
         sharedCache.saveCache(updatedCache)
     }
 
     func updateCacheWith(settings: WidgetSettings) {
-        var updatedCache = sharedCache.loadCache()
+        var updatedCache = widgetCache
         updatedCache.settings = settings
         sharedCache.saveCache(updatedCache)
     }
 
     /// Returns cached content if it's available for the current date in the current app selected language
     private func cachedContentIfAvailable() -> WidgetFeaturedContent? {
-        let widgetCache = sharedCache.loadCache()
+        let widgetCache = widgetCache
         if let cachedContent = widgetCache.featuredContent, let fetchDate = cachedContent.fetchDate, Calendar.current.isDateInToday(fetchDate), let cachedLanguageCode = cachedContent.featuredArticle?.languageCode, cachedLanguageCode == widgetCache.settings.languageCode, widgetCache.settings.languageVariantCode == cachedContent.fetchedLanguageVariantCode {
             return cachedContent
         }
@@ -241,7 +245,7 @@ public extension WidgetController {
         }
 
         let fetcher = WidgetContentFetcher.shared
-        var widgetCache = sharedCache.loadCache()
+        var widgetCache = widgetCache
 
         if useCacheIfAvailable, let cachedContent = cachedContentIfAvailable() {
             performCompletion(result: .success(cachedContent))
@@ -272,7 +276,7 @@ public extension WidgetController {
         }
 
         let fetcher = WidgetContentFetcher.shared
-        var widgetCache = sharedCache.loadCache()
+        var widgetCache = widgetCache
 
         guard !isSnapshot else {
             let previewSnapshot = widgetCache.featuredContent ?? WidgetFeaturedContent.previewContent() ?? WidgetFeaturedContent()
@@ -337,7 +341,7 @@ public extension WidgetController {
         }
 
         let fetcher = WidgetContentFetcher.shared
-        var widgetCache = sharedCache.loadCache()
+        var widgetCache = widgetCache
 
         guard !isSnapshot else {
             let previewSnapshot = widgetCache.featuredContent ?? WidgetFeaturedContent.previewContent() ?? WidgetFeaturedContent()
@@ -393,7 +397,7 @@ public extension WidgetController {
         }
 
         let fetcher = WidgetContentFetcher.shared
-        var widgetCache = sharedCache.loadCache()
+        var widgetCache = widgetCache
 
         guard !isSnapshot else {
             let previewSnapshot = widgetCache.featuredContent ?? WidgetFeaturedContent.previewContent() ?? WidgetFeaturedContent()
