@@ -11,7 +11,7 @@ protocol WatchlistControllerDelegate: AnyObject {
 /// This controller contains reusable logic for watching, updating expiry, and unwatching a page. It triggers the network service calls, as well as displays the appropriate toasts and action sheets based on the response.
 class WatchlistController {
     
-    private let service = WKWatchlistService()
+    private let dataController = WKWatchlistDataController()
     private weak var delegate: WatchlistControllerDelegate?
     private weak var lastPopoverPresentationController: UIPopoverPresentationController?
     private var performAfterLoginBlock: (() -> Void)?
@@ -109,7 +109,7 @@ class WatchlistController {
         for (title, expiry) in zip(titles, expirys) {
             
             let action = UIAlertAction(title: title, style: .default) { [weak self] (action) in
-                self?.service.watch(title: pageTitle, project: wkProject, expiry: expiry, completion: { [weak self] result in
+                self?.dataController.watch(title: pageTitle, project: wkProject, expiry: expiry, completion: { [weak self] result in
                     
                     DispatchQueue.main.async {
                         guard let self else {
@@ -167,7 +167,7 @@ class WatchlistController {
             return
         }
         
-        service.unwatch(title: pageTitle, project: wkProject) { [weak self] result in
+        dataController.unwatch(title: pageTitle, project: wkProject) { [weak self] result in
             
             DispatchQueue.main.async {
                 
@@ -191,15 +191,43 @@ class WatchlistController {
     }
     
     private func evaluateServerError(error: Error, viewController: UIViewController, theme: Theme, performAfterLoginBlock: @escaping () -> Void) {
-        guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
-           let mediaWikiDisplayError = serviceError.mediaWikiDisplayError,
-              mediaWikiDisplayError.code == "notloggedin" else {
-                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
-                return
+        
+        let fallback: (Error) -> Void = { error in
+            WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
         }
         
-        self.performAfterLoginBlock = performAfterLoginBlock
-        viewController.wmf_showLoginViewController(theme: theme)
+        guard let dataControllerError = error as? WKData.WKDataControllerError else {
+            fallback(error)
+            return
+        }
+        
+        switch dataControllerError {
+        case .serviceError(let error):
+
+            guard let mediaWikiError = error as? MediaWikiFetcher.MediaWikiFetcherError else {
+                fallback(error)
+                return
+            }
+            
+            switch mediaWikiError {
+            case .mediaWikiAPIResponseError(let displayError):
+                guard displayError.code == "notloggedin" else {
+                    fallback(error)
+                    return
+                }
+                
+                self.performAfterLoginBlock = performAfterLoginBlock
+                viewController.wmf_showLoginViewController(theme: theme)
+                return
+            default:
+                break
+            }
+                
+        default:
+            break
+        }
+        
+        fallback(error)
     }
     
     func calculatePopoverPosition(sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {

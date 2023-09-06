@@ -2,6 +2,7 @@ import UIKit
 import SwiftUI
 import WMF
 import Components
+import WKData
 
 @objc(WMFAccountViewControllerDelegate)
 protocol AccountViewControllerDelegate: AnyObject {
