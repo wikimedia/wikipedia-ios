@@ -177,11 +177,9 @@
 "description-welcome-descriptions-title" = "Disgrifiadau erthygl";
 "description-welcome-start-editing-button" = "Dechrau golygu";
 "diff-article-edit-history" = "Hanes golygu'r erthygl";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "O:";
+"diff-compare-header-from-info-heading" = "Golygiad Blaenorol";
 "diff-compare-header-heading" = "Cymharu Golygiadau";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "I:";
+"diff-compare-header-to-info-heading" = "Golygiad a Ddangosir";
 "diff-compare-title" = "Cymharu Golygiadau";
 "diff-context-lines-collapsed-button-title" = "Dangos";
 "diff-context-lines-expanded-button-title" = "Cuddio";
@@ -539,6 +537,8 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "o $1 - $2";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 digwyddiad hanesyddol|$1 ddigwyddiad hanesyddol|$1 digwyddiad hanesyddol}}";
+"on-this-day-footer" = "Mwy o ddigwyddiadau hanesyddol ar y diwrnod hwn";
 "on-this-day-no-internet-error" = "Dim data ar gael";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 o Wicipedia $2";
 "on-this-day-title" = "Ar y dydd hwn";
@@ -606,9 +606,15 @@
 "relative-date-hours-ago-abbreviated" = "$1 awr yn ôl";
 "relative-date-hrs-ago" = "{{PLURAL:$1|0=Yn ddiweddar|$1 awr yn ôl}}";
 "relative-date-min-ago" = "{{PLURAL:$1|0=Nawr|$1 munud yn ôl|$1 funud yn ôl|$1 munud yn ôl}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Nawr|$1 munud yn ôl|$1 funud yn ôl|$1 munud yn ôl}}";
 "relative-date-minutes-ago-abbreviated" = "$1m yn ôl";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Y mis hwn|1=Y mis diwethaf|$1 mis yn ôl}}";
+"relative-date-seconds-abbreviated" = "$1 eiliad";
 "relative-date-seconds-ago-abbreviated" = "$1s yn ôl";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Eleni|1=Llynedd|$1 mlynedd yn ôl}}";
 "replace-button-accessibility" = "Perfformio $1.";
+"replace-buttons-replace-accessibility" = "Disodli un achos";
+"replace-buttons-replace-all-accessibility" = "Disodli pob achos";
 "replace-clear-button-accessibility" = "Clirio'r disodli";
 "replace-infolabel-method-replace" = "Disodli";
 "replace-infolabel-method-replace-all" = "Disodli'r cyfan";
@@ -616,14 +622,17 @@
 "replace-textfield-placeholder" = "Disodli gyda:";
 "saved-all-articles-title" = "Pob erthygl";
 "saved-title" = "Arbedwyd";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "Dad-gadw {{PLURAL:$1|erthygl|erthyglau}}?";
 "search-button-accessibility-label" = "Chwilio Wicipedia";
 "search-clear-title" = "Clirio";
 "search-did-you-mean" = "Oeddech chi'n golygu $1?";
 "search-field-placeholder-text" = "Chwilio ar Wicipedia";
+"search-reading-list-placeholder-text" = "Chwilio rhestr ddarllen";
 "search-recent-clear-cancel" = "Canslo";
 "search-recent-clear-confirmation-heading" = "Dileu'r holl chwiliadau?";
 "search-recent-clear-confirmation-sub-heading" = "Ni ellir dadwneud y weithred hon!";
 "search-recent-clear-delete-all" = "Dileu'r cyfan";
+"search-recent-empty" = "Dim chwiliadau diweddar eto";
 "search-recent-title" = "Chwiliadau diweddar";
 "search-result-redirected-from" = "Ailgyfeiriwyd o: $1";
 "search-title" = "Chwilio";
@@ -744,6 +753,16 @@
 "variants-alert-preferences-button" = "Adolygu eich dewisiadau";
 "watch" = "Gwylio";
 "watchlist" = "Rhestr wylio";
+"watchlist-byte-change" = "{{PLURAL:$1|$1 beit|$1 beit|$1 feit|$1 beit}}";
+"watchlist-change-expiry-option-one-month" = "1 mis";
+"watchlist-change-expiry-option-one-week" = "1 wythnos";
+"watchlist-change-expiry-option-one-year" = "1 flwyddyn";
+"watchlist-change-expiry-option-permanent" = "Parhaol";
+"watchlist-change-expiry-option-six-months" = "6 mis";
+"watchlist-change-expiry-option-three-months" = "3 mis";
+"watchlist-change-expiry-subtitle" = "Dewiswch gyfnod amser y Rhestr Gwylio";
+"watchlist-filter" = "Hidlo";
+"watchlist-removed" = "Tynnwyd oddi ar eich Rhestr Wylio";
 "watchlist-user-button-user-contributions" = "Cyfraniadau defnyddiwr";
 "watchlist-user-button-user-page" = "Tudalen ddefnyddiwr";
 "watchlist-user-button-user-talk-page" = "Tudalen sgwrs defnyddiwr";

@@ -156,8 +156,10 @@
 "article-languages-yours" = "Ваші мови";
 "article-read-more-title" = "Пов'язані сторінки";
 "article-reference-view-title" = "Посилання $1";
+"article-revision-history" = "Історія редагування статті";
 "article-save-error-not-enough-space" = "Не вистачає місця на вашому приладі, щоб зберегти цю статтю.";
 "article-share" = "Поділитися";
+"article-talk-page" = "Сторінка обговорення статті";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Налаштування тем для читання";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Натисніть, щоб повернутися";
@@ -177,6 +179,8 @@
 "chinese-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти китайської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\n简体 китайська, спрощена (zh-hans)\n香港繁體 гонконзька традиційна (zh-hk)\n澳門繁體 макауська традиційна (zh-mo)\n大马简体 малайзійська спрощена (zh-my)\n新加坡简体 сінгапурська спрощена (zh-sg)\n臺灣正體 тайванська традиційна (zh-tw)";
 "chinese-variants-alert-title" = "Оновлення щодо підтримки варіантів китайської";
 "clear-title-accessibility-label" = "Очистити";
+"clearing-cache-complete" = "Очищення кешу завершено.";
+"clearing-cache-in-progress" = "Виконується очищення кешу.";
 "close-button-accessibility-label" = "Закрити";
 "compass-direction" = "на $1 годину";
 "continue-reading-empty-description" = "Дослідіть Вікіпедію, аби знайти більше статей для читання";
@@ -220,14 +224,14 @@
 "description-welcome-descriptions-title" = "Описи статей";
 "description-welcome-promise-title" = "Розпочинаючи використання, я обіцяю не зловживати цією можливістю";
 "description-welcome-start-editing-button" = "Почати редагування";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Від:";
+"diff-article-edit-history" = "Історія редагування статті";
+"diff-compare-header-from-info-heading" = "Попереднє редагування";
 "diff-compare-header-heading" = "Порівняння версій";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Кому:";
+"diff-compare-header-to-info-heading" = "Показане редагування";
 "diff-compare-title" = "Порівняння версій";
 "diff-context-lines-collapsed-button-title" = "Показати";
 "diff-context-lines-expanded-button-title" = "Приховати";
+"diff-header-revision-accessibility-text" = "Версія створена";
 "diff-multi-line-format" = "Рядки $1—$2";
 "diff-paragraph-moved" = "Абзац переміщено";
 "diff-paragraph-moved-direction-down" = "нижче";
@@ -237,7 +241,9 @@
 "diff-paragraph-moved-format" = "Абзац переміщено $1 на $2";
 "diff-revision-error-title" = "Неможливо завантажити версію";
 "diff-rollback" = "Відкинути";
+"diff-rollback-alert-message" = "Ви впевнені, що хочете відкотити редагування?";
 "diff-rollback-alert-title" = "Відкинути редагування";
+"diff-rollback-success" = "Редагування відкочено.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 редагування|$1 редагування|$1 редагувань}}";
 "diff-single-header-editor-title" = "Інформація редактора";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 байт додано|$1 байти додано|$1 байтів додано}}";
@@ -254,7 +260,10 @@
 "diff-thanks-sent" = "Вашу подяку надіслано до $1";
 "diff-thanks-sent-already" = "Ви вже подякували за це редагування";
 "diff-thanks-sent-cannot-unsend" = "Подяка не може бути відкликана";
+"diff-undo-message" = "Це скасує зміни, внесені у показаних тут версіях статті. Щоб продовжити, вкажіть причину скасування цих змін.";
+"diff-undo-success" = "Версію скасовано.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 рядок не змінився|$1 рядки не змінилися|$1 рядків не змінилось}}";
+"diff-user-button-accessibility-text" = "Двічі торкніться, щоб відкрити меню";
 "dim-images" = "Затемнити зображення";
 "edit-bold-accessibility-label" = "Додати напівжирну гарнітуру";
 "edit-bold-remove-accessibility-label" = "Прибрати напівжирну гарнітуру";
@@ -572,6 +581,7 @@
 "menu-cancel-accessibility-label" = "Скасувати";
 "more-languages-tooltip-description" = "Шукати у Вікіпедії майже 300 мовами";
 "more-languages-tooltip-title" = "Додати мови";
+"more-menu" = "Більше";
 "move-articles-to-reading-list" = "Перенести {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} до читального списку";
 "navbar-title-mode-edit-wikitext-preview" = "Перегляд";
 "nearby-distance-label-feet" = "$1 фут";
@@ -594,6 +604,7 @@
 "notifications-center-checking-for-notifications" = "Перевірка сповіщень…";
 "notifications-center-destination-app" = "У додатку";
 "notifications-center-destination-web" = "В Інтернеті";
+"notifications-center-detail-title" = "Деталі сповіщення";
 "notifications-center-empty-checking-for-notifications" = "Перевірка сповіщень…";
 "notifications-center-empty-no-messages" = "У вас нема повідомлень";
 "notifications-center-empty-not-subscribed" = "Наразі ви не підписані на жодні сповіщення Вікіпедії";
@@ -1086,6 +1097,7 @@
 "two-factor-login-with-regular-code" = "Використати код верифікації";
 "unable-to-load-talk-page-title" = "Неможливо завантажити сторінку обговорення";
 "unknown-generic-text" = "Невідомо";
+"unwatch" = "Не спостерігати";
 "uzbek-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти узбецької мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\noʻzbekcha lotin узбецька, латинка (uz-latin)\nўзбекча кирилл узбецька, кирилиця (uz-cyrl)";
 "uzbek-variants-alert-title" = "Оновлення щодо підтримки варіантів узбецької";
 "vanish-account-additional-information-field" = "Додаткова інформація";
@@ -1112,6 +1124,29 @@
 "vanishing-request-email-title" = "Запит на добровільне зникнення";
 "variants-alert-dismiss-button" = "Ні, дякую";
 "variants-alert-preferences-button" = "Переглянути свої налаштування";
+"watch" = "Спостерігати";
+"watchlist" = "Список спостереження";
+"watchlist-added-toast-one-month" = "Додано до вашого списку спостереження на 1 місяць.";
+"watchlist-added-toast-one-week" = "Додано до вашого списку спостереження на 1 тиждень.";
+"watchlist-added-toast-one-year" = "Додано до вашого списку спостереження на 1 рік.";
+"watchlist-added-toast-permanently" = "Додано до вашого списку спостереження назавжди.";
+"watchlist-added-toast-six-months" = "Додано до вашого списку спостереження на 6 місяців.";
+"watchlist-added-toast-three-months" = "Додано до вашого списку спостереження на 3 місяці.";
+"watchlist-added-toast-view-watchlist" = "Переглянути список спостереження";
+"watchlist-byte-change" = "{{PLURAL:$1|$1 байт|$1 байти|$1 байтів}}";
+"watchlist-change-expiry-option-one-month" = "1 місяць";
+"watchlist-change-expiry-option-one-week" = "1 тиждень";
+"watchlist-change-expiry-option-one-year" = "1 рік";
+"watchlist-change-expiry-option-permanent" = "Назавжди";
+"watchlist-change-expiry-option-six-months" = "6 місяців";
+"watchlist-change-expiry-option-three-months" = "3 місяці";
+"watchlist-change-expiry-subtitle" = "Оберіть період, на який додати у список спостереження";
+"watchlist-change-expiry-title" = "Термін дії списку спостереження";
+"watchlist-filter" = "Фільтрувати";
+"watchlist-removed" = "Прибрати зі списку спостереження";
+"watchlist-user-button-user-contributions" = "Внесок користувача";
+"watchlist-user-button-user-page" = "Сторінка користувача";
+"watchlist-user-button-user-talk-page" = "Сторінка обговорення користувача";
 "welcome-exploration-explore-feed-description" = "Рекомендовані записи та щоденні статті від нашої спільноти";
 "welcome-exploration-explore-feed-title" = "Стрічка";
 "welcome-exploration-on-this-day-description" = "Перенестися назад у часі, аби дізнатися, що сталося сьогодні в історії";

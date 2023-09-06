@@ -462,6 +462,7 @@
 "no-internet-connection-article-reload-button" = "Visszatérés az utolsó mentett változathoz";
 "notifications-center-change-password" = "Jelszó módosítása";
 "notifications-center-checking-for-notifications" = "Értesítések keresése...";
+"notifications-center-detail-title" = "Értesítés részletei";
 "notifications-center-empty-checking-for-notifications" = "Értesítések keresése...";
 "notifications-center-empty-no-messages" = "Nincsenek üzeneteid";
 "notifications-center-empty-not-subscribed" = "Nincsenek beállítva a Wikipédia értesítések";
