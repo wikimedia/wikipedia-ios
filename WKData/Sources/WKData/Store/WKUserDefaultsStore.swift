@@ -19,7 +19,7 @@ class WKUserDefaultsStore: WKKeyValueStore {
             
             let value = try JSONDecoder().decode(T.self, from: data)
             return value
-        } catch (let error) {
+        } catch let error {
             throw WKUserDefaultsStoreError.failureDecodingJSON(error)
         }
     }
@@ -28,7 +28,7 @@ class WKUserDefaultsStore: WKKeyValueStore {
         do {
             let data = try JSONEncoder().encode(value)
             UserDefaults.standard.set(data, forKey: defaultsKey)
-        } catch (let error) {
+        } catch let error {
             throw WKUserDefaultsStoreError.failureEncodingJSON(error)
         }
     }

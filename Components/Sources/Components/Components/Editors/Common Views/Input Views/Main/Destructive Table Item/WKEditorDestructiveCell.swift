@@ -1,10 +1,9 @@
-
 import Foundation
 import UIKit
 
 class WKEditorDestructiveCell: UITableViewCell {
     
-    //MARK: - Properties
+    // MARK: - Properties
     
     private lazy var componentView: WKEditorDestructiveView = {
        let view = WKEditorDestructiveView()
@@ -12,7 +11,7 @@ class WKEditorDestructiveCell: UITableViewCell {
         return view
     }()
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -33,7 +32,7 @@ class WKEditorDestructiveCell: UITableViewCell {
         ])
     }
     
-    //MARK: - Internal
+    // MARK: - Internal
     
     func configure(viewModel: WKEditorDestructiveViewModel) {
         componentView.configure(viewModel: viewModel)

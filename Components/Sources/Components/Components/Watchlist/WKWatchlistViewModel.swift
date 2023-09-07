@@ -115,7 +115,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 				}
 				self.sections = self.sortWatchlistItems()
                 self.activeFilterCount = watchlist.activeFilterCount
-			case .failure(_):
+			case .failure:
 				break
 			}
 		}

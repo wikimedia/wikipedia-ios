@@ -37,7 +37,7 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
         commentButton.addTarget(self, action: #selector(tappedComment), for: .touchUpInside)
     }
     
-    // MARK:  Button Actions
+    // MARK: Button Actions
     
     @objc private func tappedBold() {
     }

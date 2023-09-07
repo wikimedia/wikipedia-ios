@@ -29,7 +29,7 @@ public struct WKOnboardingView: View {
                         .foregroundColor(Color(appEnvironment.theme.text))
                         .padding([.bottom, .top], 44)
                         .multilineTextAlignment(.center)
-                    ForEach (1...viewModel.cells.count, id:\.self) { cell in
+                    ForEach(1...viewModel.cells.count, id:\.self) { cell in
                         VStack {
                             WKOnboardingCell(viewModel: viewModel.cells[cell - 1])
                                 .padding([.bottom, .trailing], 20)

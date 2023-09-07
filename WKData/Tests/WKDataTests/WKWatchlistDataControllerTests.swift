@@ -296,7 +296,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
 
          wait(for: [expectation], timeout: 10.0)
 
-         guard case .success(_) = resultToTest else {
+         guard case .success = resultToTest else {
              return XCTFail("Unexpected result")
          }
      }
@@ -314,7 +314,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
 
          wait(for: [expectation], timeout: 10.0)
 
-         guard case .success(_) = resultToTest else {
+         guard case .success = resultToTest else {
              return XCTFail("Unexpected result")
          }
      }
@@ -332,7 +332,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
 
          wait(for: [expectation], timeout: 10.0)
 
-         guard case .success(_) = resultToTest else {
+         guard case .success = resultToTest else {
              return XCTFail("Unexpected result")
          }
      }
