@@ -2069,7 +2069,6 @@
 		83FDE79A293564AC006D55FE /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FDE798293564AC006D55FE /* Link.swift */; };
 		83FDE79B293564AC006D55FE /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FDE798293564AC006D55FE /* Link.swift */; };
 		83FDE79C293564AC006D55FE /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FDE798293564AC006D55FE /* Link.swift */; };
-		83FFFFBA29AEC094005506A0 /* Components in Frameworks */ = {isa = PBXBuildFile; productRef = 83FFFFB929AEC094005506A0 /* Components */; };
 		982800D624D302BF004B1850 /* EventPlatformClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982800D524D302BF004B1850 /* EventPlatformClient.swift */; };
 		A452F9F824081A5500D8ED09 /* MockCLLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452F9F624081A5500D8ED09 /* MockCLLocationManager.swift */; };
 		A452F9F924081A5500D8ED09 /* MockCLHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452F9F724081A5500D8ED09 /* MockCLHeading.swift */; };
@@ -5643,7 +5642,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83FFFFBA29AEC094005506A0 /* Components in Frameworks */,
 				83B019D624F6C31B0014B5EF /* WidgetKit.framework in Frameworks */,
 				D8CD975E1E83F65700ECCA9D /* UserNotifications.framework in Frameworks */,
 				67A770C8251BFE0400F94EF9 /* CocoaLumberjackSwift in Frameworks */,
@@ -9873,7 +9871,6 @@
 			name = WMF;
 			packageProductDependencies = (
 				67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */,
-				83FFFFB929AEC094005506A0 /* Components */,
 			);
 			productName = WMF;
 			productReference = D844D96C1D6CB2600042D692 /* WMF.framework */;
@@ -10251,7 +10248,6 @@
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
 				67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
-				67359892299ED915002EE8D1 /* XCRemoteSwiftPackageReference "wikipedia-ios-components" */,
 			);
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
 			projectDirPath = "";
@@ -19864,14 +19860,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		67359892299ED915002EE8D1 /* XCRemoteSwiftPackageReference "wikipedia-ios-components" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/wikimedia/wikipedia-ios-components.git";
-			requirement = {
-				kind = revision;
-				revision = a1c2ed691283e8f77a280532e0f8b083ab44bf37;
-			};
-		};
 		67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
@@ -19887,11 +19875,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
 			productName = CocoaLumberjackSwift;
-		};
-		83FFFFB929AEC094005506A0 /* Components */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 67359892299ED915002EE8D1 /* XCRemoteSwiftPackageReference "wikipedia-ios-components" */;
-			productName = Components;
 		};
 /* End XCSwiftPackageProductDependency section */
 
