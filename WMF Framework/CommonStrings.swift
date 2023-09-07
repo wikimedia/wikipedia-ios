@@ -46,6 +46,12 @@ public class CommonStrings: NSObject {
     @objc public static let exploreTabTitle = WMFLocalizedString("home-title", value: "Explore", comment: "Title for home interface. {{Identical|Explore}}")
     @objc public static let savedTabTitle = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab {{Identical|Saved}}")
 
+    public static let wikimediaProjectsHeader = WMFLocalizedString("notifications-center-inbox-wikimedia-projects-section-title", value: "Wikimedia Projects", comment: "Title of the \"Wikimedia Projects\" section on filter adjustment views. This section allows the user to filter out other (non-Wikipedia) Wikimedia projects from displaying in their lists.")
+    
+    public static let wikimediaProjectsFooter = WMFLocalizedString("notifications-center-inbox-wikimedia-projects-section-footer", value: "Only projects you have created an account for will appear here", comment: "Footer of the \"Wikimedia Projects\" section on filter adjustment views. This section only lists projects that user has an account at.")
+    
+    public static let wikipediasHeader = WMFLocalizedString("notifications-center-inbox-wikipedias-section-title", value: "Wikipedias", comment: "Title of the \"Wikipedias\" section on filter adjustment views. This section allows the user to remove certain Wikipedia language projects from displaying in their lists.")
+    
     @objc public static let notificationsCenterTitle = WMFLocalizedString("notifications-center-title", value: "Notifications", comment: "Title for Notifications Center interface, as well as the accessibility label for the button that navigates to Notifications Center.")
     @objc public static let notificationsCenterBadgeTitle = WMFLocalizedString("notifications-center-badge-button-accessibility-label", value: "Notifications with unread badge", comment: "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.")
     public static let notificationsCenterMarkAsRead = WMFLocalizedString("notifications-center-mark-as-read", value: "Mark as Read", comment: "Button text in Notifications Center to mark a notification as read.")
@@ -295,6 +301,46 @@ public class CommonStrings: NSObject {
 
     public static let thanksMessage = WMFLocalizedString("diff-thanks-sent", value: "Your 'Thanks' was sent to %1$@", comment: "Message indicating thanks was sent. Parameters:\n* %1$@ - name of user who was thanked")
     
+    public static let filterOptionsAll = WMFLocalizedString("filter-options-all", value:  "All", comment: "Common option on filter adjustment views to allow All types in the associated section.")
+    
+    public static let watchlistFilterLatestRevisionsHeader =  WMFLocalizedString("watchlist-filter-latest-revisions-header", value:  "Latest Revisions", comment: "Header of watchlist filter adjustment view \"Latest Revisions\" section.")
+    
+    public static let watchlistFilterLatestRevisionsOptionLatestRevision = WMFLocalizedString("watchlist-filter-latest-revisions-options-latest-revision", value:  "Latest revision", comment: "Option in the watchlist filter adjustment view \"Latest Revisions\" section. When selected, this option only displays the latest revision of a page in the user's watchlist.")
+    
+    public static let watchlistFilterLatestRevisionsOptionNotTheLatestRevision = WMFLocalizedString("watchlist-filter-latest-revisions-options-not-latest-revision", value: "Not the latest revision", comment: "Option in the watchlist filter adjustment view \"Latest Revisions\" section. When selected, this option displays multiple revisions of the same page in the user's watchlist.")
+    
+    public static let watchlistFilterActivityHeader = WMFLocalizedString("watchlist-filter-activity-header", value:  "Watchlist Activity", comment: "Header of watchlist filter adjustment view \"Watchlist Activity\" section.")
+    
+    public static let watchlistFilterActivityOptionUnseenChanges = WMFLocalizedString("watchlist-filter-activity-options-unseen-changes", value: "Unseen changes", comment: "Option in the watchlist filter adjustment view \"Watchlist Activity\" section. When selected, this option only displays unseen revisions in the user's watchlist.")
+    
+    public static let watchlistFilterActivityOptionSeenChanges = WMFLocalizedString("watchlist-filter-activity-options-seen-changes", value: "Seen changes", comment: "Option in the watchlist filter adjustment view \"Watchlist Activity\" section. When selected, this option only displays seen revisions in the user's watchlist.")
+    
+    public static let watchlistFilterAutomatedContributionsHeader = WMFLocalizedString("watchlist-filter-automated-contributions-header", value:  "Automated Contributions", comment: "Header of watchlist filter adjustment view \"Automated Contributions\" section.")
+    
+    public static let watchlistFilterAutomatedContributionsOptionBot = WMFLocalizedString("watchlist-filter-automated-contributions-options-bot", value: "Bot", comment: "Option in the watchlist filter adjustment view \"Automated Contributions\" section. When selected, this option only displays edits made by bots in the user's watchlist.")
+    
+    public static let watchlistFilterAutomatedContributionsOptionHuman = WMFLocalizedString("watchlist-filter-automated-contributions-options-human", value: "Human (not bot)", comment: "Option in the watchlist filter adjustment view \"Automated Contributions\" section. When selected, this option only displays edits made by humans in the user's watchlist.")
+    
+    public static let watchlistFilterSignificanceHeader = WMFLocalizedString("watchlist-filter-significance-header", value:  "Significance", comment: "Header of watchlist filter adjustment view \"Significance\" section.")
+    
+    public static let watchlistFilterSignificanceOptionMinorEdits = WMFLocalizedString("watchlist-filter-significance-options-minor-edits", value: "Minor edits", comment: "Option in the watchlist filter adjustment view \"Significance\" section. When selected, this option only displays minor edits in the user's watchlist.")
+    
+    public static let watchlistFilterSignificanceOptionNonMinorEdits = WMFLocalizedString("watchlist-filter-significance-options-non-minor-edits", value: "Non-minor edits", comment: "Option in the watchlist filter adjustment view \"Significance\" section. When selected, this option only displays non-minor edits in the user's watchlist.")
+    
+    public static let watchlistFilterUserRegistrationHeader = WMFLocalizedString("watchlist-filter-user-registration-header", value:  "User registration and experience", comment: "Header of watchlist filter adjustment view \"User Registration and Experience\" section.")
+    
+    public static let watchlistFilterUserRegistrationOptionUnregistered = WMFLocalizedString("watchlist-filter-user-registration-options-unregistered", value: "Unregistered", comment: "Option in the watchlist filter adjustment view \"User Registration and Experience\" section. When selected, this option only displays unregistered/anonymous edits in the user's watchlist.")
+    
+    public static let watchlistFilterUserRegistrationOptionRegistered = WMFLocalizedString("watchlist-filter-user-registration-options-registered", value: "Registered", comment: "Option in the watchlist filter adjustment view \"User Registration and Experience\" section. When selected, this option only displays registered/non-anonymous edits in the user's watchlist.")
+    
+    public static let watchlistFilterTypeOfChangeHeader = WMFLocalizedString("watchlist-filter-type-of-change-header", value:  "Type of change", comment: "Header of watchlist filter adjustment view \"Type of Change\" section.")
+    
+    public static let watchlistFilterTypeOfChangeOptionPageEdits = WMFLocalizedString("watchlist-filter-type-of-change-options-page-edits", value: "Page edits", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes page edits in the user's watchlist.")
+    public static let watchlistFilterTypeOfChangeOptionPageCreations = WMFLocalizedString("watchlist-filter-type-of-change-options-page-creations", value: "Page creations", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes page creations in the user's watchlist.")
+    public static let watchlistFilterTypeOfChangeOptionCategoryChanges = WMFLocalizedString("watchlist-filter-type-of-change-options-category-changes", value: "Category changes", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes category changes in the user's watchlist.")
+    public static let watchlistFilterTypeOfChangeOptionWikidataEdits = WMFLocalizedString("watchlist-filter-type-of-change-options-wikidata-edits", value: "Wikidata edits", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes wikidata edits in the user's watchlist.")
+    public static let watchlistFilterTypeOfChangeOptionLoggedActions = WMFLocalizedString("watchlist-filter-type-of-change-options-logged-actions", value: "Logged actions", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes logged actions in the user's watchlist.")
+    
     public static let diffFromHeading = WMFLocalizedString("diff-compare-header-from-info-heading", value: "Previous Edit", comment: "Heading label in info box for previous revision when comparing two revisions.")
 
     public static let diffToHeading = WMFLocalizedString("diff-compare-header-to-info-heading", value: "Displayed Edit", comment: "Heading label in info box for current revision when comparing two revisions.")
@@ -332,6 +378,28 @@ public class CommonStrings: NSObject {
     public static let revisionMadeFormat = WMFLocalizedString("page-history-revision-time-accessibility-label", value: "Revision made %@", comment: "Label text telling the user what time revision was made - %@ is replaced with the time")
 
     public static let compareRevisionsTitle = WMFLocalizedString("diff-compare-header-heading", value: "Compare Revisions", comment: "Heading label in header when comparing two revisions.")
+
+    public static let watchlistOnboardingTitle = WMFLocalizedString("watchlist-onboarding-title", value: "Introducing your Watchlist", comment: "Watchlists onboarding modal title")
+
+    public static let watchlistTrackChangesTitle = WMFLocalizedString("watchlist-track-title", value: "Track changes", comment: "Watchlists onboarding modal track changes section title")
+
+    public static let watchlistTrackChangesSubtitle = WMFLocalizedString("watchlist-track-subtitle", value: "The Watchlist is a tool that lets you keep track of changes made to pages or articles you're interested in.", comment: "Watchlists onboarding modal track changes section subtitle")
+
+    public static let watchlistWatchChangesTitle = WMFLocalizedString("watchlist-watch-title", value: "Watch articles", comment: "Watchlists onboarding modal watch articles section title")
+
+    public static let watchlistWatchChangesSubitle = WMFLocalizedString("watchlist-watch-subtitle", value: "By tapping the star or \"Watch\" action in the bottom toolbar of an article, you can add that page to your Watchlist.", comment: "Watchlists onboarding modal watch articles section subtitle")
+
+    public static let watchlistSetExpirationTitle = WMFLocalizedString("watchlist-expiration-title", value: "Set expiration", comment: "Watchlists onboarding modal set expiration section title")
+
+    public static let watchlistSetExpirationSubtitle = WMFLocalizedString("watchlist-expiration-subtitle", value: "Pages remain by default, but options exist for temporary watching ranging from one week to one year.", comment: "Watchlists onboarding modal set expiration section subtitle")
+
+    public static let watchlistViewUpdatesTitle = WMFLocalizedString("watchlist-updates-title", value: "View updates", comment: "Watchlists onboarding modal view updates section title")
+
+    public static let watchlistViewUpdatesSubitle = WMFLocalizedString("watchlist-updates-subtitle", value: "The Watchlist of the pages you've added, like edits or discussions, can be accessed via Settings → Account.", comment: "Watchlists onboarding modal view updates section subtitle")
+
+    public static let watchlistOnboardingLearnMore = WMFLocalizedString("watchlist-onboarding-button-title", value: "Learn more about the Watchlist", comment: "Watchlists onboarding modal learn more button title")
+
+    public static let continueButton = WMFLocalizedString("continue-button-title", value: "Continue", comment: "Continue button title")
 
     // Article As A Living Doucment Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
 

@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "track-changes.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

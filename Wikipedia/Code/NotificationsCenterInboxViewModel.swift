@@ -104,9 +104,9 @@ class NotificationsCenterInboxViewModel: ObservableObject {
         
         let secondSectionItems = alphabeticalAppLanguageProjects.map { ItemViewModel(title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0), iconName: nil, project: $0, remoteNotificationsController: remoteNotificationsController) }
         
-        let wikipediasSectionTitle = WMFLocalizedString("notifications-center-inbox-wikipedias-section-title", value: "Wikipedias", comment: "Title of the \"Wikipedias\" section on the notifications center inbox view. This section allows the user to remove certain Wikipedia language projects from displaying in their Notifications Center.")
-        let wikimediaProjectsSectionTitle = WMFLocalizedString("notifications-center-inbox-wikimedia-projects-section-title", value: "Wikimedia Projects", comment: "Title of the \"Wikimedia Projects\" section on the notifications center inbox view. This section allows the user to remove other (non-Wikipedia) Wikimedia projects from displaying in their Notifications Center.")
-        let wikimediaProjectsSectionFooter = WMFLocalizedString("notifications-center-inbox-wikimedia-projects-section-footer", value: "Only projects you have created an account for will appear here", comment: "Footer of the \"Wikimedia Projects\" section on the notifications center inbox view. This section only lists projects that user has an account at.")
+        let wikipediasSectionTitle = CommonStrings.wikipediasHeader
+        let wikimediaProjectsSectionTitle = CommonStrings.wikimediaProjectsHeader
+        let wikimediaProjectsSectionFooter = CommonStrings.wikimediaProjectsFooter
         
         let firstSection = SectionViewModel(header: wikimediaProjectsSectionTitle.uppercased(with: NSLocale.current), footer: wikimediaProjectsSectionFooter, items: firstSectionItems)
         let secondSection = SectionViewModel(header: wikipediasSectionTitle.uppercased(with: NSLocale.current), footer: "", items: secondSectionItems)

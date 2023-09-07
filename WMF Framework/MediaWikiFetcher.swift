@@ -1,7 +1,7 @@
 import Foundation
 import WKData
 
-private extension WKNetworkRequest.TokenType {
+private extension WKMediaWikiServiceRequest.TokenType {
     var wmfTokenType: TokenType {
         switch self {
         case .csrf:
@@ -14,15 +14,15 @@ private extension WKNetworkRequest.TokenType {
     }
 }
 
-public final class MediaWikiNetworkService: Fetcher, WKNetworkService {
+public final class MediaWikiFetcher: Fetcher, WKService {
 
-    public enum ServiceError: LocalizedError {
+    public enum MediaWikiFetcherError: LocalizedError {
         case invalidRequest
-        case mediaWikiError(MediaWikiAPIDisplayError)
+        case mediaWikiAPIResponseError(MediaWikiAPIDisplayError)
         
         public var errorDescription: String? {
             switch self {
-            case .mediaWikiError(let displayError):
+            case .mediaWikiAPIResponseError(let displayError):
                 return displayError.messageHtml
             default:
                 return CommonStrings.genericErrorDescription
@@ -31,17 +31,19 @@ public final class MediaWikiNetworkService: Fetcher, WKNetworkService {
         
         public var mediaWikiDisplayError: MediaWikiAPIDisplayError? {
             switch self {
-            case .mediaWikiError(let displayError):
+            case .mediaWikiAPIResponseError(let displayError):
                 return displayError
             default:
                 return nil
             }
         }
     }
-
-    public func perform(request: WKNetworkRequest, tokenType: WKNetworkRequest.TokenType?, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
-        guard let url = request.url else {
-            completion(.failure(ServiceError.invalidRequest))
+    
+    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+        guard let mediaWikiRequest = request as? WKMediaWikiServiceRequest,
+              let url = request.url,
+            let tokenType = mediaWikiRequest.tokenType else {
+            completion(.failure(MediaWikiFetcherError.invalidRequest))
             return
         }
         
@@ -55,9 +57,8 @@ public final class MediaWikiNetworkService: Fetcher, WKNetworkService {
                 }
             })
         case .POST:
-            guard let tokenType,
-                  let stringParamters = request.parameters as? [String: String] else {
-                completion(.failure(ServiceError.invalidRequest))
+            guard let stringParamters = request.parameters as? [String: String] else {
+                completion(.failure(MediaWikiFetcherError.invalidRequest))
                 return
             }
             
@@ -76,7 +77,7 @@ public final class MediaWikiNetworkService: Fetcher, WKNetworkService {
                 
                 self.resolveMediaWikiApiErrorFromResult(result, siteURL: url) { displayError in
                     if let displayError {
-                        completion(.failure(ServiceError.mediaWikiError(displayError)))
+                        completion(.failure(MediaWikiFetcherError.mediaWikiAPIResponseError(displayError)))
                     } else {
                         completion(.success(result))
                     }
@@ -87,11 +88,11 @@ public final class MediaWikiNetworkService: Fetcher, WKNetworkService {
         }
     }
     
-    public func performDecodableGET<T>(request: WKData.WKNetworkRequest, completion: @escaping (Result<T, Error>) -> Void) where T : Decodable {
+    public func performDecodableGET<R: WKServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
         
         guard let url = request.url,
               request.method == .GET else {
-            completion(.failure(ServiceError.invalidRequest))
+            completion(.failure(MediaWikiFetcherError.invalidRequest))
             return
         }
 

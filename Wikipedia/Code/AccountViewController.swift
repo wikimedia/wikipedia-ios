@@ -2,6 +2,7 @@ import UIKit
 import SwiftUI
 import WMF
 import Components
+import WKData
 
 @objc(WMFAccountViewControllerDelegate)
 protocol AccountViewControllerDelegate: AnyObject {
@@ -148,12 +149,14 @@ class AccountViewController: SubSettingsViewController {
                     self.navigationController?.pushViewController(newTalkPage, animated: true)
                 }
         case .watchlist:
-            guard let linkURL = dataStore.primarySiteURL?.wmf_URL(withTitle: "Special:Watchlist"),
-            let userActivity = NSUserActivity.wmf_activity(for: linkURL) else {
-                return
+            let userDefaults = UserDefaults.standard
+
+            if !userDefaults.wmf_userHasOnboardedToWatchlists {
+                showWatchlistOnboarding()
+            } else {
+                goToWatchlist()
             }
-            
-            NSUserActivity.wmf_navigate(to: userActivity)
+
         case .vanishAccount:
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
             warningViewController.delegate = self
@@ -161,6 +164,32 @@ class AccountViewController: SubSettingsViewController {
         default:
             break
         }
+    }
+
+    @objc func showWatchlistOnboarding() {
+        let trackChanges = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "track-changes"), title: CommonStrings.watchlistTrackChangesTitle, subtitle: CommonStrings.watchlistTrackChangesSubtitle)
+        let watchArticles = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "watch-articles"), title: CommonStrings.watchlistWatchChangesTitle, subtitle: CommonStrings.watchlistWatchChangesSubitle)
+        let setExpiration = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "set-expiration"), title: CommonStrings.watchlistSetExpirationTitle, subtitle: CommonStrings.watchlistSetExpirationSubtitle)
+        let viewUpdates = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "view-updates"), title: CommonStrings.watchlistViewUpdatesTitle, subtitle: CommonStrings.watchlistViewUpdatesSubitle)
+
+        let viewModel = WKOnboardingViewModel(title: CommonStrings.watchlistOnboardingTitle, cells: [trackChanges, watchArticles, setExpiration, viewUpdates], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.watchlistOnboardingLearnMore)
+
+        let viewController = WKOnboardingViewController(viewModel: viewModel)
+        viewController.hostingController.delegate = self
+
+        present(viewController, animated: true) {
+            UserDefaults.standard.wmf_userHasOnboardedToWatchlists = true
+        }
+    }
+
+    @objc func goToWatchlist() {
+        
+        guard let linkURL = dataStore.primarySiteURL?.wmf_URL(withTitle: "Special:Watchlist"),
+        let userActivity = NSUserActivity.wmf_activity(for: linkURL) else {
+            return
+        }
+        
+        NSUserActivity.wmf_navigate(to: userActivity)
     }
     
     @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -225,5 +254,31 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
 
         let viewController = VanishAccountContainerViewController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
         navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
+extension AccountViewController: WKOnboardingViewDelegate {
+    func didClickPrimaryButton() {
+        if let presentedViewController {
+            presentedViewController.dismiss(animated: true) {
+                self.goToWatchlist()
+            }
+        }
+    }
+
+    func didClickSecondaryButton() {
+
+        // TODO: get correct URL
+
+        if let presentedViewController {
+            presentedViewController.dismiss(animated: true) {
+                let siteURL = self.dataStore.primarySiteURL
+                guard let url = siteURL?.wmf_URL(withPath: "/wiki/Help:Watchlist", isMobile: true) else {
+                    self.showGenericError()
+                    return
+                }
+                self.navigate(to: url)
+            }
+        }
     }
 }

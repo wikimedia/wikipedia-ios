@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-log.git",
       "state" : {
-        "revision" : "32e8d724467f8fe623624570367e3d50c5638e46",
-        "version" : "1.5.2"
+        "revision" : "532d8b529501fb73a2455b179e0bbb6d49b652ed",
+        "version" : "1.5.3"
       }
     },
     {
@@ -23,8 +23,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/wikimedia/wikipedia-ios-components.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "be781bf4a9c6b8042994a04df7b5035ab62aeada"
+        "revision" : "a1c2ed691283e8f77a280532e0f8b083ab44bf37"
       }
     },
     {
@@ -32,7 +31,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/wikimedia/wikipedia-ios-data.git",
       "state" : {
-        "revision" : "40b124b17dd325aa2901054778ce19b8939935b2"
+        "revision" : "6ded1c0031015c9713fbbb68a00de5bef60aeda8"
       }
     }
   ],

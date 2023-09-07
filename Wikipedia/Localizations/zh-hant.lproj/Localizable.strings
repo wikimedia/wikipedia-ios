@@ -619,6 +619,7 @@
 "notifications-center-checking-for-notifications" = "正在檢查通知…";
 "notifications-center-destination-app" = "在 App";
 "notifications-center-destination-web" = "在 Web";
+"notifications-center-detail-title" = "通知詳情";
 "notifications-center-empty-checking-for-notifications" = "正在檢查通知...";
 "notifications-center-empty-no-messages" = "您沒有訊息";
 "notifications-center-empty-not-subscribed" = "您目前沒有訂閱任何維基百科通知";

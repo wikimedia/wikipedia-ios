@@ -11,7 +11,7 @@ protocol WatchlistControllerDelegate: AnyObject {
 /// This controller contains reusable logic for watching, updating expiry, and unwatching a page. It triggers the network service calls, as well as displays the appropriate toasts and action sheets based on the response.
 class WatchlistController {
     
-    private let service = WKWatchlistService()
+    private let dataController = WKWatchlistDataController()
     private weak var delegate: WatchlistControllerDelegate?
     private weak var lastPopoverPresentationController: UIPopoverPresentationController?
     private var performAfterLoginBlock: (() -> Void)?
@@ -79,7 +79,15 @@ class WatchlistController {
             NSUserActivity.wmf_navigate(to: userActivity)
         }
         
-        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(statusTitle, subtitle: nil, image: image, type: .custom, customTypeName: toastCustomTypeName, dismissPreviousAlerts: true, callback: navigateToWatchlistBlock, buttonTitle: promptTitle, buttonCallBack: navigateToWatchlistBlock)
+        let duration: TimeInterval? = UIAccessibility.isVoiceOverRunning ? 10 : 5
+        
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(statusTitle, subtitle: nil, image: image, type: .custom, customTypeName: toastCustomTypeName, duration: duration, dismissPreviousAlerts: true, callback: navigateToWatchlistBlock, buttonTitle: promptTitle, buttonCallBack: navigateToWatchlistBlock)
+        
+        if UIAccessibility.isVoiceOverRunning {
+            DispatchQueue.main.async {
+                UIAccessibility.post(notification: .layoutChanged, argument: [statusTitle, WMFAlertManager.sharedInstance.topMessageView()] as [Any])
+            }
+        }
     }
     
     private func presentChooseExpiryActionSheet(pageTitle: String, siteURL: URL, wkProject: WKProject, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, authenticationManager: WMFAuthenticationManager) {
@@ -109,7 +117,7 @@ class WatchlistController {
         for (title, expiry) in zip(titles, expirys) {
             
             let action = UIAlertAction(title: title, style: .default) { [weak self] (action) in
-                self?.service.watch(title: pageTitle, project: wkProject, expiry: expiry, completion: { [weak self] result in
+                self?.dataController.watch(title: pageTitle, project: wkProject, expiry: expiry, completion: { [weak self] result in
                     
                     DispatchQueue.main.async {
                         guard let self else {
@@ -167,7 +175,7 @@ class WatchlistController {
             return
         }
         
-        service.unwatch(title: pageTitle, project: wkProject) { [weak self] result in
+        dataController.unwatch(title: pageTitle, project: wkProject) { [weak self] result in
             
             DispatchQueue.main.async {
                 
@@ -179,7 +187,13 @@ class WatchlistController {
                 case .success:
                     let title = WMFLocalizedString("watchlist-removed", value: "Removed from your Watchlist", comment: "Title in toast after a user successfully removes an article from their watchlist.")
                     let image = UIImage(systemName: "star")
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: self.toastCustomTypeName, dismissPreviousAlerts: true)
+                    
+                    if !UIAccessibility.isVoiceOverRunning {
+                        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: self.toastCustomTypeName, dismissPreviousAlerts: true)
+                    } else {
+                        UIAccessibility.post(notification: .layoutChanged, argument: [title] as [Any])
+                    }
+                    
                     self.delegate?.didSuccessfullyUnwatch(self)
                 case .failure(let error):
                     self.evaluateServerError(error: error, viewController: viewController, theme: theme, performAfterLoginBlock: { [weak self] in
@@ -191,15 +205,47 @@ class WatchlistController {
     }
     
     private func evaluateServerError(error: Error, viewController: UIViewController, theme: Theme, performAfterLoginBlock: @escaping () -> Void) {
-        guard let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
-           let mediaWikiDisplayError = serviceError.mediaWikiDisplayError,
-              mediaWikiDisplayError.code == "notloggedin" else {
+        
+        let fallback: (Error) -> Void = { error in
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: .layoutChanged, argument: [(error as NSError).alertMessage()] as [Any])
+            } else {
                 WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
-                return
+            }
         }
         
-        self.performAfterLoginBlock = performAfterLoginBlock
-        viewController.wmf_showLoginViewController(theme: theme)
+        guard let dataControllerError = error as? WKData.WKDataControllerError else {
+            fallback(error)
+            return
+        }
+        
+        switch dataControllerError {
+        case .serviceError(let error):
+
+            guard let mediaWikiError = error as? MediaWikiFetcher.MediaWikiFetcherError else {
+                fallback(error)
+                return
+            }
+            
+            switch mediaWikiError {
+            case .mediaWikiAPIResponseError(let displayError):
+                guard displayError.code == "notloggedin" else {
+                    fallback(error)
+                    return
+                }
+                
+                self.performAfterLoginBlock = performAfterLoginBlock
+                viewController.wmf_showLoginViewController(theme: theme)
+                return
+            default:
+                break
+            }
+                
+        default:
+            break
+        }
+        
+        fallback(error)
     }
     
     func calculatePopoverPosition(sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {

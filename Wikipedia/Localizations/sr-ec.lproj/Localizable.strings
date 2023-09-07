@@ -45,6 +45,7 @@
 "aaald-revision-by-anonymous" = "Измена анонимног корисника";
 "aaald-single-reference-added-description" = "Додата референца";
 "aaald-two-sections-description" = "у одељку $1 и одељку $2";
+"aaald-vandalism-revert-description" = "Вероватни вандализам враћен";
 "aaald-view-full-history-button" = "Прикажи целу историју чланка";
 "about-content-license" = "Лиценца садржаја";
 "about-content-license-details" = "Осим ако није другачије наведено, садржај је доступан под $1.";
@@ -211,6 +212,7 @@
 "diff-compare-title" = "Упореди измене";
 "diff-context-lines-collapsed-button-title" = "Прикажи";
 "diff-context-lines-expanded-button-title" = "Сакриј";
+"diff-header-revision-accessibility-text" = "Измена начињена";
 "diff-multi-line-format" = "Редови $1—$2";
 "diff-paragraph-moved" = "Пасус је премештен";
 "diff-paragraph-moved-direction-down" = "доле";
@@ -300,6 +302,7 @@
 "edit-watch-list-learn-more-text" = "Сазнајте више о листама за надгледање";
 "edit-watch-this-page-text" = "Надгледај ову страницу";
 "editing-welcome-be-bold-title" = "Ваш глас је важан";
+"editing-welcome-citations-title" = "Цитирајте поуздане изворе";
 "editing-welcome-impartial-tone-title" = "Пишите непристрасним тоном";
 "editing-welcome-set-knowledge-free-title" = "Учините знање слободним";
 "empty-diff-compare-title" = "Нема разлика између измена";
@@ -404,6 +407,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Језик Википедије: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Са Википедије";
 "explore-randomizer" = "Случајни чланак";
+"export-user-data-title" = "Извоз корисничких података";
 "featured-widget-from-language-wikipedia" = "Са Википедије ($1)";
 "featured-widget-from-wikipedia" = "С Википедије";
 "featured-widget-title" = "Сјајан чланак";
@@ -544,6 +548,7 @@
 "notifications-center-filters-read-status-item-title-all" = "Све";
 "notifications-center-filters-read-status-item-title-read" = "Читај";
 "notifications-center-filters-read-status-item-title-unread" = "Непрочитано";
+"notifications-center-filters-title" = "Филтери";
 "notifications-center-filters-types-item-title-all" = "Све врсте";
 "notifications-center-filters-types-section-title" = "Врсте обавештења";
 "notifications-center-go-to-article" = "Чланак";
@@ -589,6 +594,8 @@
 "notifications-center-toolbar-mark-accessibility-label" = "Означи изабрана обавештења";
 "notifications-center-type-item-description-mentions" = "Спомињања";
 "notifications-center-type-item-description-welcome-verbose" = "Порука добродошлице";
+"notifications-center-type-title-edit-reverted" = "Измена враћена";
+"notifications-center-type-title-edit-summary-mention" = "Спомињање у опису измене";
 "notifications-center-type-title-login-success" = "Успешно сте пријављени";
 "notifications-center-type-title-other" = "Друго";
 "notifications-center-type-title-thanks" = "Захвалница";
@@ -962,6 +969,7 @@
 "watchlist-added-toast-one-week" = "На списку надгледања 1 недељу.";
 "watchlist-added-toast-one-year" = "На списку надгледања 1 годину.";
 "watchlist-added-toast-permanently" = "На списку надгледања за стално.";
+"watchlist-added-toast-six-months" = "На списку надгледања 6 месеци.";
 "watchlist-added-toast-three-months" = "На списку надгледања 3 месеца.";
 "watchlist-added-toast-view-watchlist" = "Списак надгледања";
 "watchlist-byte-change" = "({{PLURAL:$1|1 бајт|$1 бајтова}})";
