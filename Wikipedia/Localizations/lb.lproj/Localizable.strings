@@ -628,6 +628,7 @@
 "watchlist-change-expiry-option-permanent" = "Dauerhaft";
 "watchlist-change-expiry-option-six-months" = "6 Méint";
 "watchlist-change-expiry-option-three-months" = "3 Méint";
+"watchlist-filter-automated-contributions-options-bot" = "Bot";
 "watchlist-removed" = "Vun Ärer Iwwerwaachungslëscht erofgeholl";
 "watchlist-user-button-user-contributions" = "Benotzerkontributiounen";
 "watchlist-user-button-user-page" = "Benotzersäit";
