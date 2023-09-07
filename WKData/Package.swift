@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "WKData",
+    platforms: [.iOS(.v15)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
                 .library(
@@ -30,6 +31,6 @@ let package = Package(
                        resources: [.process("Resources")]),
                .testTarget(
                    name: "WKDataTests",
-                   dependencies: ["WKData", "WKDataMocks"]),
+                   dependencies: ["WKData", "WKDataMocks"])
     ]
 )
