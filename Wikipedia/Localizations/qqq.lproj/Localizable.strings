@@ -1147,6 +1147,7 @@
 "watchlist-track-title" = "Watchlists onboarding modal track changes section title";
 "watchlist-updates-subtitle" = "Watchlists onboarding modal view updates section subtitle";
 "watchlist-updates-title" = "Watchlists onboarding modal view updates section title";
+"watchlist-user-button-thank" = "Title shown for thank action in user menu button in watchlist view.";
 "watchlist-user-button-user-contributions" = "Title shown for user contributions action in user menu button in diff and watchlist views.";
 "watchlist-user-button-user-page" = "Title shown for user page action in user menu button in diff and watchlist views.";
 "watchlist-user-button-user-talk-page" = "Title shown for user talk page action in user menu button in diff and watchlist views.";
