@@ -20,9 +20,12 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Components",
-            dependencies: ["WKData"]),
+            dependencies: [
+                .product(name: "WKData", package: "WKData")
+            ]),
         .testTarget(
             name: "ComponentsTests",
-            dependencies: ["Components"])
+            dependencies: ["Components",
+                           .product(name: "WKDataMocks", package: "WKData")])
     ]
 )

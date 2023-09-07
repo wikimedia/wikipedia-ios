@@ -1,7 +1,7 @@
 import XCTest
 @testable import Components
 @testable import WKData
-import WKDataMocks
+@testable import WKDataMocks
 
 final class WKWatchlistFilterViewModelTests: XCTestCase {
 

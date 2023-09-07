@@ -4090,6 +4090,9 @@
 		6747117D250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocReferenceCollectionViewCell.swift; sourceTree = "<group>"; };
 		674711822507253500287951 /* ArticleAsLivingDocSnippetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocSnippetCollectionViewCell.swift; sourceTree = "<group>"; };
 		6747118725072D1500287951 /* IconTitleBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTitleBadge.swift; sourceTree = "<group>"; };
+		674C176B2AAA86B5007DC6CC /* Wikipedia.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Wikipedia.xctestplan; sourceTree = "<group>"; };
+		674C176E2AAA9414007DC6CC /* Components.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Components.xctestplan; sourceTree = "<group>"; };
+		674C176F2AAA941F007DC6CC /* WKData.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WKData.xctestplan; sourceTree = "<group>"; };
 		674E8AB82382DEFF0053D206 /* DiffTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffTransformer.swift; sourceTree = "<group>"; };
 		675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisappearingCallbackNavigationController.swift; sourceTree = "<group>"; };
 		67540CA824D221E3008B2894 /* LocationManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerFactory.swift; sourceTree = "<group>"; };
@@ -7061,9 +7064,20 @@
 			path = "Article Description Tests";
 			sourceTree = "<group>";
 		};
+		674C176A2AAA869D007DC6CC /* Test Plans */ = {
+			isa = PBXGroup;
+			children = (
+				674C176B2AAA86B5007DC6CC /* Wikipedia.xctestplan */,
+				674C176E2AAA9414007DC6CC /* Components.xctestplan */,
+				674C176F2AAA941F007DC6CC /* WKData.xctestplan */,
+			);
+			path = "Test Plans";
+			sourceTree = "<group>";
+		};
 		676C864526D40AEB00A704C1 /* NotificationServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
+				D4991437181D51DE00E6073C /* Frameworks */,
 				676C868626D4545D00A704C1 /* NotificationServiceExtension.entitlements */,
 				676C864626D40AEB00A704C1 /* NotificationService.swift */,
 				676C864826D40AEB00A704C1 /* Info.plist */,
@@ -8842,6 +8856,7 @@
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				D801C8501EB8E131001FA294 /* Localizations */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
+				674C176A2AAA869D007DC6CC /* Test Plans */,
 				0E8380661D64989F0076EDE4 /* ContinueReadingWidget */,
 				D844D96D1D6CB2600042D692 /* WMF Framework */,
 				D87021611EBA63EF000D02D6 /* Update Localizations */,
@@ -8850,7 +8865,6 @@
 				B0606EAF20AA6FF0006EC6B9 /* WikipediaUITests */,
 				00021DE624D48EFD00476F97 /* Widgets */,
 				676C864526D40AEB00A704C1 /* NotificationServiceExtension */,
-				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
 				67D6C0152405A3E2005709B1 /* Recovered References */,
 			);
@@ -8898,6 +8912,7 @@
 				00021DE424D48EFD00476F97 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		D499143E181D51DE00E6073C /* Wikipedia */ = {
