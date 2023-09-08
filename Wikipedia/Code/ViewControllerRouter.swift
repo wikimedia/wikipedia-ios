@@ -206,7 +206,7 @@ class ViewControllerRouter: NSObject {
             let localizedStringsEmptyView = WKEmptyViewModel.LocalizedStrings(title: CommonStrings.watchlistEmptyViewTitle, subtitle: CommonStrings.watchlistEmptyViewSubtitle, titleFilter: CommonStrings.watchlistEmptyViewFilterTitle, filterSubtitleModify: CommonStrings.watchlistEmptyViewFilterSubtitleModify, filterSubtitleSeeMore: CommonStrings.watchlistEmptyViewFilterSubtitleSeeMore, buttonTitle: CommonStrings.watchlistEmptyViewButtonTitle, numberOfFilters: localizedNumberOfFilters)
             if let image = UIImage(named: "watchlist-empty-state") {
                 let emptyViewModel = WKEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: image, numberOfFilters: viewModel.activeFilterCount)
-                let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, emptyViewDelegate: appViewController)
+                let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController)
 
                 targetNavigationController?.pushViewController(watchlistViewController, animated: true)
                 completion()

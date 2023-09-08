@@ -213,19 +213,11 @@ extension WMFAppViewController: WKWatchlistDelegate {
     public func watchlistDidTapDiff() {
         
     }
-
-}
-
-extension WMFAppViewController: WKEmptyViewDelegate {
+    
     public func emptyViewDidTapSearch() {
         NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
     }
 
-    public func emptyViewDidTapFilters() {
-        if let controller = self.presentationController?.presentingViewController as? WKWatchlistViewController {
-            controller.showFilterView()
-        }
-    }
 }
 
 fileprivate extension UIViewController {
