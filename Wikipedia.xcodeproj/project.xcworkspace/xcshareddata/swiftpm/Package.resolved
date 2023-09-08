@@ -24,7 +24,7 @@
       "location" : "https://github.com/wikimedia/wikipedia-ios-components.git",
       "state" : {
         "branch" : "empty-view",
-        "revision" : "68c07d34dab8500988f1aee085c2928d43af0977"
+        "revision" : "f5d8dd181a3dba17df2ed848fed22d394f4d3296"
       }
     },
     {
@@ -32,7 +32,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/wikimedia/wikipedia-ios-data.git",
       "state" : {
-        "revision" : "40b124b17dd325aa2901054778ce19b8939935b2"
+        "revision" : "6ded1c0031015c9713fbbb68a00de5bef60aeda8"
       }
     }
   ],
