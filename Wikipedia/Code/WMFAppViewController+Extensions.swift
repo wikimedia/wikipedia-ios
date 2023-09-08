@@ -210,7 +210,7 @@ extension WMFAppViewController: WKWatchlistDelegate {
         //
     }
     
-    public func watchlistUserDidTapDiff(revisionID: UInt, oldRevisionID: UInt) {
+    public func watchlistUserDidTapDiff(project: WKProject, articleTitle: String, revisionID: UInt, oldRevisionID: UInt) {
         //
     }
     
