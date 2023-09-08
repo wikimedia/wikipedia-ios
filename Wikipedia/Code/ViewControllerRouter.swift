@@ -192,18 +192,21 @@ class ViewControllerRouter: NSObject {
                 )
             }
 
-            let localizedNumberOfFilters: (Int) -> String = { filters in
-                String.localizedStringWithFormat(
-                    WMFLocalizedString("watchlist-number-filters", value:"{{PLURAL:%1$d|%1$d filter|%1$d filters}}", comment: "Amount of filters active in watchlist - %1$@ is replaced with the number of filters."),
+            let attributedFilterString: (Int) -> AttributedString = { filters in
+                let localizedString = String.localizedStringWithFormat(
+                    WMFLocalizedString("watchlist-number-filters", value:"Modify [{{PLURAL:%1$d|%1$d filter|%1$d filters}}](wikipedia://watchlist/filter) to see more Watchlist items", comment: "Amount of filters active in watchlist - %1$@ is replaced with the number of filters."),
                     filters
                 )
+                
+                var attributedString = (try? AttributedString(markdown: localizedString)) ?? AttributedString(localizedString)
+                return attributedString
             }
 
             let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, byteChange: localizedByteChange)
             let presentationConfiguration = WKWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
             let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
 
-            let localizedStringsEmptyView = WKEmptyViewModel.LocalizedStrings(title: CommonStrings.watchlistEmptyViewTitle, subtitle: CommonStrings.watchlistEmptyViewSubtitle, titleFilter: CommonStrings.watchlistEmptyViewFilterTitle, filterSubtitleModify: CommonStrings.watchlistEmptyViewFilterSubtitleModify, filterSubtitleSeeMore: CommonStrings.watchlistEmptyViewFilterSubtitleSeeMore, buttonTitle: CommonStrings.watchlistEmptyViewButtonTitle, numberOfFilters: localizedNumberOfFilters)
+            let localizedStringsEmptyView = WKEmptyViewModel.LocalizedStrings(title: CommonStrings.watchlistEmptyViewTitle, subtitle: CommonStrings.watchlistEmptyViewSubtitle, titleFilter: CommonStrings.watchlistEmptyViewFilterTitle, buttonTitle: CommonStrings.watchlistEmptyViewButtonTitle, attributedFilterString: attributedFilterString)
             if let image = UIImage(named: "watchlist-empty-state") {
                 let emptyViewModel = WKEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: image, numberOfFilters: viewModel.activeFilterCount)
                 let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController)

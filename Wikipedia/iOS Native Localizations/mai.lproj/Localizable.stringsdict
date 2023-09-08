@@ -816,7 +816,7 @@
 	<key>watchlist-number-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>Modify [%#@v1@](wikipedia://watchlist/filter) to see more Watchlist items</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
