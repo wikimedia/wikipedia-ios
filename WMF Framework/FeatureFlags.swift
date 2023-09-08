@@ -14,4 +14,11 @@ public struct FeatureFlags {
         #endif
     }
     
+    public static var applePayEnabled: Bool {
+        #if WMF_STAGING
+        return true
+        #else
+        return false
+        #endif
+    }
 }
