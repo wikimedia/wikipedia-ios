@@ -348,10 +348,6 @@ public class CommonStrings: NSObject {
     public static let watchlistEmptyViewButtonTitle = WMFLocalizedString("watchlist-empty-view-button-title", value: "Search articles", comment: "Title for empty watchlist view button that redirects user to search articles")
 
     public static let watchlistEmptyViewFilterTitle = WMFLocalizedString("watchlist-empty-view-filter-title", value: "You have no Watchlist items", comment: "Title for empty watchlist view when filters are active")
-
-    public static let watchlistEmptyViewFilterSubtitleModify = WMFLocalizedString("watchlist-empty-view-filter-subtitle-modify", value: "Modify", comment: "Text for empty watchlist view subtitle")
-
-    public static let watchlistEmptyViewFilterSubtitleSeeMore = WMFLocalizedString("watchlist-empty-view-filter-subtitle-see-more", value: "to see more Watchlist items", comment: "Text for empty watchlist view subtitle")
     
     public static let diffFromHeading = WMFLocalizedString("diff-compare-header-from-info-heading", value: "Previous Edit", comment: "Heading label in info box for previous revision when comparing two revisions.")
 

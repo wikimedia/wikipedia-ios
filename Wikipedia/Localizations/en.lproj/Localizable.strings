@@ -1117,8 +1117,6 @@
 "watchlist-change-expiry-subtitle" = "Choose Watchlist time period";
 "watchlist-change-expiry-title" = "Watchlist expiry";
 "watchlist-empty-view-button-title" = "Search articles";
-"watchlist-empty-view-filter-subtitle-modify" = "Modify";
-"watchlist-empty-view-filter-subtitle-see-more" = "to see more Watchlist items";
 "watchlist-empty-view-filter-title" = "You have no Watchlist items";
 "watchlist-empty-view-subtitle" = "Keep track of what's happening to articles you are interested in. Tap the menu in the article and select “Watch” to see changes to an article.";
 "watchlist-empty-view-title" = "Articles you added to the Watchlist appear here";

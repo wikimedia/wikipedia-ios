@@ -1117,8 +1117,6 @@
 "watchlist-change-expiry-subtitle" = "Subtitle in modal that allows a user to choose the expiry setting of a page they are watching.";
 "watchlist-change-expiry-title" = "Title of modal that allows a user to change the expiry setting of a page they are watching.";
 "watchlist-empty-view-button-title" = "Title for empty watchlist view button that redirects user to search articles";
-"watchlist-empty-view-filter-subtitle-modify" = "Text for empty watchlist view subtitle";
-"watchlist-empty-view-filter-subtitle-see-more" = "Text for empty watchlist view subtitle";
 "watchlist-empty-view-filter-title" = "Title for empty watchlist view when filters are active";
 "watchlist-empty-view-subtitle" = "Subtitle for empty watchlist view";
 "watchlist-empty-view-title" = "Title for empty watchlist view";
