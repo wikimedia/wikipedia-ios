@@ -19868,8 +19868,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wikimedia/wikipedia-ios-components.git";
 			requirement = {
-				branch = "empty-view";
-				kind = branch;
+				kind = revision;
+				revision = bf61ffea1521ce6281f5e539b9fe6022b3d9ac8f;
 			};
 		};
 		67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
