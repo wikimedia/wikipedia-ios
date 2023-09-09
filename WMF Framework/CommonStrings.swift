@@ -342,6 +342,14 @@ public class CommonStrings: NSObject {
     public static let watchlistFilterTypeOfChangeOptionCategoryChanges = WMFLocalizedString("watchlist-filter-type-of-change-options-category-changes", value: "Category changes", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes category changes in the user's watchlist.")
     public static let watchlistFilterTypeOfChangeOptionWikidataEdits = WMFLocalizedString("watchlist-filter-type-of-change-options-wikidata-edits", value: "Wikidata edits", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes wikidata edits in the user's watchlist.")
     public static let watchlistFilterTypeOfChangeOptionLoggedActions = WMFLocalizedString("watchlist-filter-type-of-change-options-logged-actions", value: "Logged actions", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes logged actions in the user's watchlist.")
+
+    public static let watchlistEmptyViewTitle = WMFLocalizedString("watchlist-empty-view-title", value: "Articles you added to the Watchlist appear here", comment: "Title for empty watchlist view")
+
+    public static let watchlistEmptyViewSubtitle = WMFLocalizedString("watchlist-empty-view-subtitle", value: "Keep track of what's happening to articles you are interested in. Tap the menu in the article and select “Watch” to see changes to an article.", comment: "Subtitle for empty watchlist view")
+
+    public static let watchlistEmptyViewButtonTitle = WMFLocalizedString("watchlist-empty-view-button-title", value: "Search articles", comment: "Title for empty watchlist view button that redirects user to search articles")
+
+    public static let watchlistEmptyViewFilterTitle = WMFLocalizedString("watchlist-empty-view-filter-title", value: "You have no Watchlist items", comment: "Title for empty watchlist view when filters are active")
     
     public static let diffFromHeading = WMFLocalizedString("diff-compare-header-from-info-heading", value: "Previous Edit", comment: "Heading label in info box for previous revision when comparing two revisions.")
 

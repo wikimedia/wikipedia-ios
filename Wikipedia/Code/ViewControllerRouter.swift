@@ -141,8 +141,6 @@ class ViewControllerRouter: NSObject {
             let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
             return presentOrPush(newTalkPage, with: completion)
         case .userTalk(let linkURL):
-
-
             let source = source(from: userInfo)
             guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
                 completion()
@@ -194,13 +192,29 @@ class ViewControllerRouter: NSObject {
                 )
             }
 
+            let attributedFilterString: (Int) -> AttributedString = { filters in
+                let localizedString = String.localizedStringWithFormat(
+                    WMFLocalizedString("watchlist-number-filters", value:"Modify [{{PLURAL:%1$d|%1$d filter|%1$d filters}}](wikipedia://watchlist/filter) to see more Watchlist items", comment: "Amount of filters active in watchlist - %1$@ is replaced with the number of filters."),
+                    filters
+                )
+                
+                var attributedString = (try? AttributedString(markdown: localizedString)) ?? AttributedString(localizedString)
+                return attributedString
+            }
+
             let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, userButtonUserPage: CommonStrings.userButtonPage, userButtonTalkPage: CommonStrings.userButtonTalkPage, userButtonContributions: CommonStrings.userButtonContributions, userButtonThank: CommonStrings.userButtonThank, byteChange: localizedByteChange)
             let presentationConfiguration = WKWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
             let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
-            let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, delegate: appViewController, menuButtonDelegate: nil)
-            
-            targetNavigationController?.pushViewController(watchlistViewController, animated: true)
-            completion()
+
+            let localizedStringsEmptyView = WKEmptyViewModel.LocalizedStrings(title: CommonStrings.watchlistEmptyViewTitle, subtitle: CommonStrings.watchlistEmptyViewSubtitle, titleFilter: CommonStrings.watchlistEmptyViewFilterTitle, buttonTitle: CommonStrings.watchlistEmptyViewButtonTitle, attributedFilterString: attributedFilterString)
+            if let image = UIImage(named: "watchlist-empty-state") {
+                let emptyViewModel = WKEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: image, numberOfFilters: viewModel.activeFilterCount)
+                let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, menuButtonDelegate: nil)
+
+                targetNavigationController?.pushViewController(watchlistViewController, animated: true)
+                completion()
+            }
+
             return true
         default:
             completion()
