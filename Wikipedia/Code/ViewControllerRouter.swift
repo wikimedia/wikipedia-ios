@@ -286,6 +286,11 @@ class ViewControllerRouter: NSObject {
                                                                                           typeOfChangeWikidataEdits: CommonStrings.watchlistFilterTypeOfChangeOptionWikidataEdits,
                                                                                           typeOfChangeLoggedActions: CommonStrings.watchlistFilterTypeOfChangeOptionLoggedActions)
         
-        return WKWatchlistFilterViewModel(localizedStrings: localizedStrings)
+        var overrideUserInterfaceStyle: UIUserInterfaceStyle = .unspecified
+        let themeName = UserDefaults.standard.themeName
+        if !Theme.isDefaultThemeName(themeName) {
+            overrideUserInterfaceStyle = WKAppEnvironment.current.theme.userInterfaceStyle
+        }
+        return WKWatchlistFilterViewModel(localizedStrings: localizedStrings, overrideUserInterfaceStyle: overrideUserInterfaceStyle)
     }
 }
