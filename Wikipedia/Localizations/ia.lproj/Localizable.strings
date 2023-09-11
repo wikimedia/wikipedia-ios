@@ -161,6 +161,7 @@
 "clearing-cache-in-progress" = "Radimento del cache in progresso.";
 "close-button-accessibility-label" = "Clauder";
 "compass-direction" = "a $1 horas";
+"continue-button-title" = "Continuar";
 "continue-reading-empty-description" = "Explorar Wikipedia pro plus articulos a legerr";
 "continue-reading-empty-title" = "Necun articulo legite recentemente";
 "crimean-tatar-variants-alert-body" = "Le application de Wikipedia supporta ora le sequente variantes del tataro de Crimea como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\nQırımtatarca, Latin – tataro de Crimea latin (chr-latn)\nкъырымтатарджа, Кирил – tataro de Crimea cyrillic (crh-cyrl)";
@@ -1121,6 +1122,8 @@
 "watchlist-change-expiry-option-three-months" = "3 menses";
 "watchlist-change-expiry-subtitle" = "Selige le periodo de tempore del observatorio";
 "watchlist-change-expiry-title" = "Expiration del observatorio";
+"watchlist-expiration-subtitle" = "Le paginas generalmente remane, ma existe optiones pro un observation temporari inter un septimana e un anno.";
+"watchlist-expiration-title" = "Definir expiration";
 "watchlist-filter" = "Filtrar";
 "watchlist-filter-activity-header" = "Activitate in observatorio";
 "watchlist-filter-activity-options-seen-changes" = "Modificationes jam vidite";
@@ -1143,10 +1146,18 @@
 "watchlist-filter-user-registration-header" = "Registration e experientia del usator";
 "watchlist-filter-user-registration-options-registered" = "Registrate";
 "watchlist-filter-user-registration-options-unregistered" = "Non registrate";
+"watchlist-onboarding-button-title" = "Apprender plus sur le observatorio";
+"watchlist-onboarding-title" = "Introduction a tu observatorio";
 "watchlist-removed" = "Removite de tu observatorio";
+"watchlist-track-subtitle" = "Le observatorio es un instrumento que te permitte traciar modificationes apportate al paginas o articulos de tu interesse.";
+"watchlist-track-title" = "Traciar modificationes";
+"watchlist-updates-subtitle" = "Le observatorio de paginas que tu ha addite, como modificationes o discussiones, es accessibile via Parametros → Conto.";
+"watchlist-updates-title" = "Vider actualisationes";
 "watchlist-user-button-user-contributions" = "Contributiones del usator";
 "watchlist-user-button-user-page" = "Pagina de usator";
 "watchlist-user-button-user-talk-page" = "Pagina de discussion de usator";
+"watchlist-watch-subtitle" = "Toccante le stella o le action “Observar” sur le instrumentario in basso de un articulo, tu pote adder le pagina a tu observatorio.";
+"watchlist-watch-title" = "Observar articulos";
 "welcome-exploration-explore-feed-description" = "Lectura recommendate e articulos diari de nostre communitate";
 "welcome-exploration-explore-feed-title" = "Canal Explorar";
 "welcome-exploration-on-this-day-description" = "Viagia retro in le tempore pro saper lo que ha evenite hodie in le historia";
