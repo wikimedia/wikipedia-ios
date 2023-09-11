@@ -1116,6 +1116,10 @@
 "watchlist-change-expiry-option-three-months" = "Title of button in expiry change modal that watches a page for three months.";
 "watchlist-change-expiry-subtitle" = "Subtitle in modal that allows a user to choose the expiry setting of a page they are watching.";
 "watchlist-change-expiry-title" = "Title of modal that allows a user to change the expiry setting of a page they are watching.";
+"watchlist-empty-view-button-title" = "Title for empty watchlist view button that redirects user to search articles";
+"watchlist-empty-view-filter-title" = "Title for empty watchlist view when filters are active";
+"watchlist-empty-view-subtitle" = "Subtitle for empty watchlist view";
+"watchlist-empty-view-title" = "Title for empty watchlist view";
 "watchlist-expiration-subtitle" = "Watchlists onboarding modal set expiration section subtitle";
 "watchlist-expiration-title" = "Watchlists onboarding modal set expiration section title";
 "watchlist-filter" = "Title for filter button in watchlist.";
@@ -1140,6 +1144,7 @@
 "watchlist-filter-user-registration-header" = "Header of watchlist filter adjustment view \"User Registration and Experience\" section.";
 "watchlist-filter-user-registration-options-registered" = "Option in the watchlist filter adjustment view \"User Registration and Experience\" section. When selected, this option only displays registered/non-anonymous edits in the user's watchlist.";
 "watchlist-filter-user-registration-options-unregistered" = "Option in the watchlist filter adjustment view \"User Registration and Experience\" section. When selected, this option only displays unregistered/anonymous edits in the user's watchlist.";
+"watchlist-number-filters" = "Amount of filters active in watchlist - $1 is replaced with the number of filters.";
 "watchlist-onboarding-button-title" = "Watchlists onboarding modal learn more button title";
 "watchlist-onboarding-title" = "Watchlists onboarding modal title";
 "watchlist-removed" = "Title in toast after a user successfully removes an article from their watchlist.";
@@ -1147,6 +1152,7 @@
 "watchlist-track-title" = "Watchlists onboarding modal track changes section title";
 "watchlist-updates-subtitle" = "Watchlists onboarding modal view updates section subtitle";
 "watchlist-updates-title" = "Watchlists onboarding modal view updates section title";
+"watchlist-user-button-thank" = "Title shown for thank action in user menu button in watchlist view.";
 "watchlist-user-button-user-contributions" = "Title shown for user contributions action in user menu button in diff and watchlist views.";
 "watchlist-user-button-user-page" = "Title shown for user page action in user menu button in diff and watchlist views.";
 "watchlist-user-button-user-talk-page" = "Title shown for user talk page action in user menu button in diff and watchlist views.";

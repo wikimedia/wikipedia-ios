@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "watchlist-empty-state.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
