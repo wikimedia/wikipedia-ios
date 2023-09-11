@@ -207,9 +207,27 @@ class ViewControllerRouter: NSObject {
             let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
 
             let localizedStringsEmptyView = WKEmptyViewModel.LocalizedStrings(title: CommonStrings.watchlistEmptyViewTitle, subtitle: CommonStrings.watchlistEmptyViewSubtitle, titleFilter: CommonStrings.watchlistEmptyViewFilterTitle, buttonTitle: CommonStrings.watchlistEmptyViewButtonTitle, attributedFilterString: attributedFilterString)
+
+            let reachabilityNotifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { (reachable, _) in
+                if reachable {
+                    WMFAlertManager.sharedInstance.dismissAllAlerts()
+                } else {
+                    WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noInternetConnection, sticky: true, dismissPreviousAlerts: true)
+                }
+            }
+
+            let reachabilityHandler: WKWatchlistViewController.ReachabilityHandler = { state in
+                switch state {
+                case .appearing:
+                    reachabilityNotifier.start()
+                case .disappearing:
+                    reachabilityNotifier.stop()
+                }
+            }
+
             if let image = UIImage(named: "watchlist-empty-state") {
                 let emptyViewModel = WKEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: image, numberOfFilters: viewModel.activeFilterCount)
-                let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, menuButtonDelegate: nil)
+                let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, menuButtonDelegate: nil, reachabilityHandler: reachabilityHandler)
 
                 targetNavigationController?.pushViewController(watchlistViewController, animated: true)
                 completion()
