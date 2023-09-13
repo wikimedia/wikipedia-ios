@@ -218,8 +218,23 @@ extension WMFAppViewController: WKWatchlistDelegate {
 
     }
 
-    public func watchlistUserDidTapUser(username: String, action: Components.WKWatchlistUserButtonAction) {
+    public func watchlistUserDidTapUser(project: WKProject, username: String, action: Components.WKWatchlistUserButtonAction) {
+        let wikimediaProject = WikimediaProject(wkProject: project)
+        guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current) else {
+            return
+        }
 
+        switch action {
+        case .userPage:
+            navigate(to: siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true))
+        case .userTalkPage:
+            navigate(to: siteURL.wmf_URL(withPath: "/wiki/User_talk:\(username)", isMobile: true))
+        case .userContributions:
+            navigate(to: siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true))
+        case .thank:
+            // TODO
+            break
+        }
     }
 
 }

@@ -172,6 +172,10 @@ extension WikimediaProject {
         }
     }
     
+    public func mediaWikiAPIURL(configuration: Configuration) -> URL? {
+        return mediaWikiAPIURL(configuration: configuration, queryParameters: nil)
+    }
+
     func mediaWikiAPIURL(configuration: Configuration, queryParameters: RemoteNotificationsAPIController.Query.Parameters?) -> URL? {
 
         switch self {
