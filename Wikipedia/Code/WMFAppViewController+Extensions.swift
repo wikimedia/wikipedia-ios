@@ -215,7 +215,22 @@ extension WMFAppViewController: WKWatchlistDelegate {
     }
 
     public func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
+        let wikimediaProject = WikimediaProject(wkProject: project)
+        guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current), !(revisionID == 0 && oldRevisionID == 0) else {
+            return
+        }
 
+        let diffURL: URL?
+
+        if revisionID == 0 {
+            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(oldRevisionID)", isMobile: true)
+        } else if oldRevisionID == 0 {
+            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(revisionID)", isMobile: true)
+        } else {
+            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(oldRevisionID)...\(revisionID)", isMobile: true)
+        }
+
+        navigate(to: diffURL)
     }
 
     public func watchlistUserDidTapUser(project: WKProject, username: String, action: Components.WKWatchlistUserButtonAction) {
