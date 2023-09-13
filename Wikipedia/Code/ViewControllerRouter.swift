@@ -198,7 +198,7 @@ class ViewControllerRouter: NSObject {
                     filters
                 )
                 
-                var attributedString = (try? AttributedString(markdown: localizedString)) ?? AttributedString(localizedString)
+                let attributedString = (try? AttributedString(markdown: localizedString)) ?? AttributedString(localizedString)
                 return attributedString
             }
 
