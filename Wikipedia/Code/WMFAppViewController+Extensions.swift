@@ -205,6 +205,7 @@ extension WMFAppViewController {
 // MARK: - Watchlist
 
 extension WMFAppViewController: WKWatchlistDelegate {
+    
     public func watchlistDidDismiss() {
 
     }
@@ -213,7 +214,7 @@ extension WMFAppViewController: WKWatchlistDelegate {
         NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
     }
 
-    public func watchlistUserDidTapDiff(revisionID: UInt, oldRevisionID: UInt) {
+    public func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
 
     }
 

@@ -197,6 +197,7 @@
 "clearing-cache-in-progress" = "Bezig met wissen van cache.";
 "close-button-accessibility-label" = "Sluiten";
 "compass-direction" = "op $1 uur";
+"continue-button-title" = "Doorgaan";
 "continue-reading-empty-description" = "Wikipedia verkennen om meer artikelen te lezen";
 "continue-reading-empty-title" = "Geen recent gelezen artikelen";
 "crimean-tatar-variants-alert-body" = "De Wikipedia app ondersteund nu de volgende varianten van Krim-Tataars als primaire of secundaire talen in de app, wat het makkelijker maakt artikelen te lezen, zoeken en bewerken in deze varianten:";
@@ -1157,6 +1158,8 @@
 "watchlist-change-expiry-option-three-months" = "3 maanden";
 "watchlist-change-expiry-subtitle" = "Kies tijdsperiode volglijst";
 "watchlist-change-expiry-title" = "Verval uit volglijst";
+"watchlist-expiration-subtitle" = "Normaal gesproken blijven de pagina's erin staan, maar er zijn opties voor tijdelijk volgen, variërend van een week tot een jaar.";
+"watchlist-expiration-title" = "Vervaldatum instellen";
 "watchlist-filter" = "Filteren";
 "watchlist-filter-activity-header" = "Volglijstactiviteit";
 "watchlist-filter-activity-options-seen-changes" = "Bezochte wijzigingen";
@@ -1179,10 +1182,18 @@
 "watchlist-filter-user-registration-header" = "Gebruikersregistratie en -ervaring";
 "watchlist-filter-user-registration-options-registered" = "Geregistreerd";
 "watchlist-filter-user-registration-options-unregistered" = "Niet-geregistreerd";
+"watchlist-onboarding-button-title" = "Meer over de volglijst";
+"watchlist-onboarding-title" = "Maak kennis met uw volglijst";
 "watchlist-removed" = "Verwijderd uit uw volglijst";
+"watchlist-track-subtitle" = "De volglijst is een hulpmiddel waarmee u de wijzigingen kunt bijhouden die zijn aangebracht op pagina's of artikelen waarin u geïnteresseerd bent.";
+"watchlist-track-title" = "Wijzigingen bijhouden";
+"watchlist-updates-subtitle" = "De volglijst met de pagina's die u heeft toegevoegd, zoals bewerkingen of discussies, is toegankelijk via Instellingen → Account.";
+"watchlist-updates-title" = "Updates bekijken";
 "watchlist-user-button-user-contributions" = "Gebruikersbijdragen";
 "watchlist-user-button-user-page" = "Gebruikerspagina";
 "watchlist-user-button-user-talk-page" = "Overlegpagina gebruiker";
+"watchlist-watch-subtitle" = "Door te tikken op de ster of op de actie “Bekijken” in de onderste werkbalk van een artikel, kunt u die pagina aan uw volglijst toevoegen.";
+"watchlist-watch-title" = "Artikelen volgen";
 "welcome-exploration-explore-feed-description" = "Aanbevolen inhoud van onze gebruikersgemeenschap";
 "welcome-exploration-explore-feed-title" = "Verkennen";
 "welcome-exploration-on-this-day-description" = "Reis terug in de tijd om te leren wat er vandaag in de geschiedenis is gebeurd";

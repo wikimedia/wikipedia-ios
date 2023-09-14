@@ -1147,6 +1147,7 @@
 "watchlist-filter-type-of-change-options-category-changes" = "Промени во категории";
 "watchlist-filter-type-of-change-options-logged-actions" = "Заведени дејства";
 "watchlist-filter-type-of-change-options-page-creations" = "Создавања на страници";
+"watchlist-filter-type-of-change-options-page-edits" = "Уредувања на страници";
 "watchlist-filter-type-of-change-options-wikidata-edits" = "Уредувања на Википодатоците";
 "watchlist-filter-user-registration-header" = "Корисничко зачленување и искусност";
 "watchlist-filter-user-registration-options-registered" = "Зачленети";

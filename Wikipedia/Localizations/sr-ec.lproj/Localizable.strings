@@ -167,6 +167,7 @@
 "clearing-cache-in-progress" = "Чишћење кеша у току.";
 "close-button-accessibility-label" = "Затвори";
 "compass-direction" = "у $1 ч.";
+"continue-button-title" = "Настави";
 "continue-reading-empty-description" = "Истражите Википедију да бисте нашли још чланака за читање";
 "continue-reading-empty-title" = "Нема недавно прочитаних чланака";
 "data-migration-status" = "Ажурирање...";
@@ -434,6 +435,7 @@
 "field-token-title" = "Кôд за верификацију";
 "field-username-placeholder" = "унесите корисничко име";
 "field-username-title" = "Корисничко име";
+"filter-options-all" = "Све";
 "find-clear-button-accessibility" = "Очисти претрагу";
 "find-infolabel-number-matches" = "$1/$2";
 "find-next-button-accessibility" = "Следећи резултат претраге";
@@ -981,8 +983,16 @@
 "watchlist-change-expiry-option-three-months" = "3 месеца";
 "watchlist-change-expiry-subtitle" = "Трајање надгледања";
 "watchlist-change-expiry-title" = "Трајање надгледања";
+"watchlist-expiration-title" = "Одреди трајање";
 "watchlist-filter" = "Филтер";
+"watchlist-filter-automated-contributions-options-bot" = "Бот";
+"watchlist-filter-automated-contributions-options-human" = "Човек (не бот)";
+"watchlist-filter-latest-revisions-options-latest-revision" = "Најновија измена";
+"watchlist-filter-significance-header" = "Значај";
+"watchlist-filter-significance-options-minor-edits" = "Мање измене";
+"watchlist-filter-type-of-change-header" = "Врста измене";
 "watchlist-removed" = "Уклоњено са списка надгледања";
+"watchlist-track-title" = "Прати измене";
 "watchlist-user-button-user-contributions" = "Кориснички доприноси";
 "watchlist-user-button-user-page" = "Корисничка страница";
 "watchlist-user-button-user-talk-page" = "Корисничка страница за разговор";
