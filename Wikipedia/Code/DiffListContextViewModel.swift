@@ -98,7 +98,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         didSet {
             innerPadding = DiffListContextViewModel.calculateInnerPadding(traitCollection: traitCollection)
             contextFont = UIFont.wmf_font(contextDynamicTextStyle, compatibleWithTraitCollection: traitCollection)
-            headingFont = UIFont.wmf_font(.boldFootnote, compatibleWithTraitCollection: traitCollection)
+            headingFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         }
     }
     
