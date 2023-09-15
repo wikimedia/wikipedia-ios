@@ -40,7 +40,12 @@
     NSDateFormatter *gbFormatter =
         [NSDateFormatter wmf_shortTimeFormatterWithLocale:[NSLocale localeWithLocaleIdentifier:@"en_GB"]];
 
-    XCTAssertEqualObjects([usFormatter stringFromDate:decodedDate], @"2:31 PM");
+    if (@available(iOS 17, *)) {
+        XCTAssertEqualObjects([usFormatter stringFromDate:decodedDate], @"2:31 PM");
+    } else {
+        XCTAssertEqualObjects([usFormatter stringFromDate:decodedDate], @"2:31 PM");
+    }
+    
     XCTAssertEqualObjects([gbFormatter stringFromDate:decodedDate], @"14:31");
 }
 
