@@ -206,7 +206,6 @@ extension WMFAppViewController {
 
 extension WMFAppViewController: WKWatchlistDelegate {
 
-
     public func watchlistDidDismiss() {
 
     }
@@ -214,7 +213,7 @@ extension WMFAppViewController: WKWatchlistDelegate {
     public func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
 
     }
-    
+
     public func watchlistUserDidTapUser(project: WKData.WKProject, username: String, action: Components.WKWatchlistUserButtonAction) {
         
     }
