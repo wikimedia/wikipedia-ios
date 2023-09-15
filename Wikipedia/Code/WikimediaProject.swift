@@ -139,7 +139,18 @@ public enum WikimediaProject: Hashable {
             return nil
         }
     }
-    
+
+    public init(wkProject: WKProject) {
+        switch wkProject {
+        case .wikipedia(let wKLanguage):
+            self = .wikipedia(wKLanguage.languageCode, "", wKLanguage.languageVariantCode)
+        case .wikidata:
+            self = .wikidata
+        case .commons:
+            self = .commons
+        }
+    }
+
     // MARK: Routing Helpers
     
     public var supportsNativeArticleTalkPages: Bool {
