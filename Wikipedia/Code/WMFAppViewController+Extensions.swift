@@ -206,21 +206,163 @@ extension WMFAppViewController {
 
 extension WMFAppViewController: WKWatchlistDelegate {
 
+
     public func watchlistDidDismiss() {
 
-    }
-
-    public func emptyViewDidTapSearch() {
-        NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
     }
 
     public func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
 
     }
-
+    
     public func watchlistUserDidTapUser(project: WKData.WKProject, username: String, action: Components.WKWatchlistUserButtonAction) {
         
     }
+    
+    public func emptyViewDidTapSearch() {
+        NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
+    }
+}
+
+extension WMFAppViewController: WKWatchlistLoggingDelegate {
+    
+    public func logWatchlistDidTapNavBarFilterButton() {
+        WatchlistFunnel.shared.logOpenFilterSettings()
+    }
+    
+    public func watchlistDidSaveFilterSettings(filterSettings: WKWatchlistFilterSettings, onProjects: [WKProject]) {
+        
+        // Projects
+        let commonsAndWikidataProjects: WatchlistFunnel.FilterEnabledList.Projects?
+        
+        if onProjects.contains(.commons) && onProjects.contains(.wikidata) {
+            commonsAndWikidataProjects = .both
+        } else if onProjects.contains(.commons) && onProjects.contains(.commons) {
+            commonsAndWikidataProjects = .commons
+        } else if onProjects.contains(.wikidata) {
+            commonsAndWikidataProjects = .wikidata
+        } else {
+            commonsAndWikidataProjects = nil
+        }
+        
+        // Wikis
+        let wikipediaProjects = onProjects.map { WikimediaProject(wkProject: $0) }.filter {
+            switch $0 {
+            case .wikipedia: return true
+            default: return false
+            }
+        }
+        
+        let wikiIdentifiers = wikipediaProjects.map { $0.notificationsApiWikiIdentifier }
+        
+        // Latest
+        let latest: WatchlistFunnel.FilterEnabledList.Latest
+        switch filterSettings.latestRevisions {
+        case .notTheLatestRevision:
+            latest = .notLatest
+        case .latestRevision:
+            latest = .latest
+        }
+        
+        // Activity
+        let activity: WatchlistFunnel.FilterEnabledList.Activity
+        switch filterSettings.activity {
+        case .all:
+            activity = .all
+        case .seenChanges:
+            activity = .seen
+        case .unseenChanges:
+            activity = .unseen
+        }
+        
+        // Automated
+        let automated: WatchlistFunnel.FilterEnabledList.Automated
+        switch filterSettings.automatedContributions {
+        case .all:
+            automated = .all
+        case .bot:
+            automated = .bot
+        case .human:
+            automated = .nonBot
+        }
+        
+        // Significance
+        let significance: WatchlistFunnel.FilterEnabledList.Significance
+        switch filterSettings.significance {
+        case .all:
+            significance = .all
+        case .minorEdits:
+            significance = .minor
+        case .nonMinorEdits:
+            significance = .nonMinor
+        }
+        
+        // User Registration
+        let userRegistration: WatchlistFunnel.FilterEnabledList.UserRegistration
+        switch filterSettings.userRegistration {
+        case .all:
+            userRegistration = .all
+        case .registered:
+            userRegistration = .registered
+        case .unregistered:
+            userRegistration = .unregistered
+        }
+        
+        // Type Change
+        var onTypeChanges: [WatchlistFunnel.FilterEnabledList.TypeChange] = []
+        for changeType in WKWatchlistFilterSettings.ChangeType.allCases {
+            if !filterSettings.offTypes.contains(changeType) {
+                switch changeType {
+                case .categoryChanges: onTypeChanges.append(.categoryChanges)
+                case .loggedActions: onTypeChanges.append(.logActions)
+                case .pageCreations: onTypeChanges.append(.pageCreations)
+                case .pageEdits: onTypeChanges.append(.pageEdits)
+                case .wikidataEdits: onTypeChanges.append(.wikidataEdits)
+                }
+            }
+        }
+        
+        let filterEnabledList = WatchlistFunnel.FilterEnabledList(projects: commonsAndWikidataProjects, wikis: wikiIdentifiers, latest: latest, activity: activity, automated: automated, significance: significance, userRegistration: userRegistration, typeChange: onTypeChanges)
+        
+        WatchlistFunnel.shared.logSaveFilterSettings(filterEnabledList: filterEnabledList)
+    }
+    
+    public func logEmptyViewDidShow() {
+        WatchlistFunnel.shared.logWatchlistSawEmptyState()
+    }
+    
+    public func logEmptyViewDidTapSearch() {
+        WatchlistFunnel.shared.logWatchlistEmptyStateTapSearch()
+    }
+    
+    public func logEmptyViewDidTapModifyFilters() {
+        WatchlistFunnel.shared.logWatchlistEmptyStateTapModifyFilters()
+    }
+    
+    public func logWatchlistUserDidTapUserButton(project: WKData.WKProject) {
+        
+        let wikimediaProject = WikimediaProject(wkProject: project)
+        WatchlistFunnel.shared.logTapUserMenu(project: wikimediaProject)
+    }
+    
+    public func logWatchlistUserDidTapUserButtonAction(project: WKData.WKProject, action: Components.WKWatchlistUserButtonAction) {
+        
+        let wikimediaProject = WikimediaProject(wkProject: project)
+
+        switch action {
+        case .userPage:
+            WatchlistFunnel.shared.logTapUserPage(project: wikimediaProject)
+        case .userTalkPage:
+            WatchlistFunnel.shared.logTapUserTalk(project: wikimediaProject)
+        case .userContributions:
+            WatchlistFunnel.shared.logTapUserContributions(project: wikimediaProject)
+        case .thank:
+            WatchlistFunnel.shared.logTapUserThank(project: wikimediaProject)
+            break
+        }
+    }
+    
+    
 }
 
 fileprivate extension UIViewController {

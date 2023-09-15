@@ -9,13 +9,12 @@ final class WatchlistFunnel {
         case onboardWatchlist = "onboard_watchlist"
         case continueOnboard = "continue_onboard"
         case learnOnboard = "learn_onboard"
-        case watchlistEmptyFiltersOff = "watchlist_empty_filters_off"
-        case watchlistEmptyFiltersOn = "watchlist_empty_filters_on"
-        case watchlistEmptySearch = "watchlist_empty_search"
-        case watchlistEmptyModifyFilters = "watchlist_empty_modifyFilters"
+        case watchlistNoItems = "watchlist_no_items"
+        case watchlistSearch = "watchlist_empty_search"
+        case watchlistModifyFilters = "watchlist_modify_filters"
         case openWatchlistAccount = "open_watchlist_account"
-        case openWatchlistArticleAddedConfirm = "open_article_added_confirm"
-        case openWatchlistDiffAddedConfirm = "open_diff_added_confirm"
+        case openWatchlistArticleAddedConfirm = "open_watchlist_article_added_confirm"
+        case openWatchlistDiffAddedConfirm = "open_watchlist_diff_added_confirm"
         case openUserMenu = "open_user_menu"
         case openUserPage = "open_user_page"
         case openUserTalk = "open_user_talk"
@@ -27,6 +26,7 @@ final class WatchlistFunnel {
         case openFilterSettings = "open_filter_settings"
         case saveFilterSettings = "save_filter_settings"
         case addWatchlistItem = "add_watchlist_item"
+        case addExpiryPrompt = "add_expiry_prompt"
         case expiryPerm = "expiry_perm"
         case expiry1week = "expiry_1week"
         case expiry1month = "expiry_1month"
@@ -35,7 +35,6 @@ final class WatchlistFunnel {
         case expiry1year = "expiry_1year"
         case expiryCancel = "expiry_cancel"
         case expiryConfirm = "expiry_confirm"
-        case expiryConfirmViewWatchlist = "expiry_confirm_view_watchlist"
         case unwatchItem = "unwatch_item"
         case unwatchConfirm = "unwatch_confirm"
         case diffOpen = "diff_open"
@@ -160,16 +159,10 @@ final class WatchlistFunnel {
         enum Projects: String, Codable {
             case commons
             case wikidata
-            case commonsAndWikidata
-            
-            enum CodingKeys: String, CodingKey {
-                case commons = "wc"
-                case wikidata = "wd"
-                case commonsAndWikidata = "wc_wd"
-            }
+            case both
         }
         
-        let projects: Projects
+        let projects: Projects?
         let wikis: [String]
         let latest: Latest
         let activity: Activity
@@ -227,32 +220,28 @@ final class WatchlistFunnel {
         logEvent(action: .learnOnboard)
     }
     
-    func logWatchlistSawEmptyStateWithFiltersOff() {
-        logEvent(action: .watchlistEmptyFiltersOff)
-    }
-    
-    func logWatchlistSawEmptyStateWithFiltersOn() {
-        logEvent(action: .watchlistEmptyFiltersOn)
+    func logWatchlistSawEmptyState() {
+        logEvent(action: .watchlistNoItems)
     }
     
     func logWatchlistEmptyStateTapSearch() {
-        logEvent(action: .watchlistEmptySearch)
+        logEvent(action: .watchlistSearch)
     }
     
     func logWatchlistEmptyStateTapModifyFilters() {
-        logEvent(action: .watchlistEmptyModifyFilters)
+        logEvent(action: .watchlistModifyFilters)
     }
     
     func logOpenWatchlistFromAccount() {
         logEvent(action: .openWatchlistAccount)
     }
     
-    func logOpenWatchlistFromArticleAddedToast() {
-        logEvent(action: .openWatchlistArticleAddedConfirm)
+    func logOpenWatchlistFromArticleAddedToast(project: WikimediaProject) {
+        logEvent(action: .openWatchlistArticleAddedConfirm, project: project)
     }
     
-    func logOpenWatchlistFromDiffAddedToast() {
-        logEvent(action: .openWatchlistDiffAddedConfirm)
+    func logOpenWatchlistFromDiffAddedToast(project: WikimediaProject) {
+        logEvent(action: .openWatchlistDiffAddedConfirm, project: project)
     }
     
     func logTapUserMenu(project: WikimediaProject) {
@@ -295,35 +284,43 @@ final class WatchlistFunnel {
         logEvent(action: .saveFilterSettings)
     }
     
-    func logAddWatchlistItem(project: WikimediaProject) {
+    func logAddToWatchlist(project: WikimediaProject) {
         logEvent(action: .addWatchlistItem, project: project)
+    }
+    
+    func logPresentExpiryChoiceActionSheet(project: WikimediaProject) {
+        logEvent(action: .addExpiryPrompt, project: project)
     }
     
     func logExpiryTapPermanent(project: WikimediaProject) {
         logEvent(action: .expiryPerm, project: project)
     }
     
-    func logExpiryTap1week(project: WikimediaProject) {
+    func logExpiryTapOneWeek(project: WikimediaProject) {
         logEvent(action: .expiry1week, project: project)
     }
     
-    func logExpiryTap1month(project: WikimediaProject) {
+    func logExpiryTapOneMonth(project: WikimediaProject) {
         logEvent(action: .expiry1month, project: project)
     }
     
-    func logExpiryTap3months(project: WikimediaProject) {
+    func logExpiryTapThreeMonths(project: WikimediaProject) {
         logEvent(action: .expiry3month, project: project)
     }
     
-    func logExpiryTap6months(project: WikimediaProject) {
+    func logExpiryTapSixMonths(project: WikimediaProject) {
         logEvent(action: .expiry6month, project: project)
     }
     
-    func logExpiryTap1year(project: WikimediaProject) {
+    func logExpiryTapOneYear(project: WikimediaProject) {
         logEvent(action: .expiry1year, project: project)
     }
     
-    func logExpiryDisplaySuccess(project: WikimediaProject) {
+    func logExpiryCancel(project: WikimediaProject) {
+        logEvent(action: .expiryCancel, project: project)
+    }
+    
+    func logAddToWatchlistDisplaySuccessToast(project: WikimediaProject) {
         logEvent(action: .expiryConfirm, project: project)
     }
     
@@ -331,7 +328,7 @@ final class WatchlistFunnel {
         logEvent(action: .unwatchItem, project: project)
     }
     
-    func logRemoveWatchlistItemDisplaySuccess(project: WikimediaProject) {
+    func logRemoveWatchlistItemDisplaySuccessToast(project: WikimediaProject) {
         logEvent(action: .unwatchConfirm, project: project)
     }
     

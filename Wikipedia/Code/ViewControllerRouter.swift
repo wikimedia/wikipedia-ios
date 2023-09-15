@@ -227,7 +227,7 @@ class ViewControllerRouter: NSObject {
 
             if let image = UIImage(named: "watchlist-empty-state") {
                 let emptyViewModel = WKEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: image, numberOfFilters: viewModel.activeFilterCount)
-                let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, reachabilityHandler: reachabilityHandler)
+                let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, loggingDelegate: appViewController, reachabilityHandler: reachabilityHandler)
 
                 targetNavigationController?.pushViewController(watchlistViewController, animated: true)
                 completion()
@@ -305,6 +305,6 @@ class ViewControllerRouter: NSObject {
                                                                                           typeOfChangeWikidataEdits: CommonStrings.watchlistFilterTypeOfChangeOptionWikidataEdits,
                                                                                           typeOfChangeLoggedActions: CommonStrings.watchlistFilterTypeOfChangeOptionLoggedActions)
         
-        return WKWatchlistFilterViewModel(localizedStrings: localizedStrings)
+        return WKWatchlistFilterViewModel(localizedStrings: localizedStrings, loggingDelegate: appViewController)
     }
 }

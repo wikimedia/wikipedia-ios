@@ -140,6 +140,18 @@ public enum WikimediaProject: Hashable {
         }
     }
     
+    // Taken from https://github.com/wikimedia/wikipedia-ios/pull/4623
+    public init(wkProject: WKProject) {
+        switch wkProject {
+        case .wikipedia(let wKLanguage):
+            self = .wikipedia(wKLanguage.languageCode, "", wKLanguage.languageVariantCode)
+        case .wikidata:
+            self = .wikidata
+        case .commons:
+            self = .commons
+        }
+    }
+    
     // MARK: Routing Helpers
     
     public var supportsNativeArticleTalkPages: Bool {
