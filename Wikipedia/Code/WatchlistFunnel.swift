@@ -6,6 +6,38 @@ final class WatchlistFunnel {
     static let shared = WatchlistFunnel()
     
     private enum Action: String, Codable {
+        case onboardWatchlist = "onboard_watchlist"
+        case continueOnboard = "continue_onboard"
+        case learnOnboard = "learn_onboard"
+        case watchlistEmptyFiltersOff = "watchlist_empty_filters_off"
+        case watchlistEmptyFiltersOn = "watchlist_empty_filters_on"
+        case watchlistEmptySearch = "watchlist_empty_search"
+        case watchlistEmptyModifyFilters = "watchlist_empty_modifyFilters"
+        case openWatchlistAccount = "open_watchlist_account"
+        case openWatchlistArticleAddedConfirm = "open_article_added_confirm"
+        case openWatchlistDiffAddedConfirm = "open_diff_added_confirm"
+        case openUserMenu = "open_user_menu"
+        case openUserPage = "open_user_page"
+        case openUserTalk = "open_user_talk"
+        case openUserContributions = "open_user_contributions"
+        case openUserThank = "open_user_thank"
+        case userThankSend = "user_thank_send"
+        case userThankCancel = "user_thank_cancel"
+        case userThankConfirm = "user_thank_confirm"
+        case openFilterSettings = "open_filter_settings"
+        case saveFilterSettings = "save_filter_settings"
+        case addWatchlistItem = "add_watchlist_item"
+        case expiryPerm = "expiry_perm"
+        case expiry1week = "expiry_1week"
+        case expiry1month = "expiry_1month"
+        case expiry3month = "expiry_3month"
+        case expiry6month = "expiry_6month"
+        case expiry1year = "expiry_1year"
+        case expiryCancel = "expiry_cancel"
+        case expiryConfirm = "expiry_confirm"
+        case expiryConfirmViewWatchlist = "expiry_confirm_view_watchlist"
+        case unwatchItem = "unwatch_item"
+        case unwatchConfirm = "unwatch_confirm"
         case diffOpen = "diff_open"
         case diffUserMenu = "diff_user_menu"
         case diffUserMenuPrevious = "diff_user_menu_previous"
@@ -55,25 +87,252 @@ final class WatchlistFunnel {
         }
     }
     
+    struct FilterEnabledList: Codable {
+        
+        enum Latest: String, Codable {
+            case notLatest
+            case latest
+            
+            enum CodingKeys: String, CodingKey {
+                case notLatest = "not_latest"
+                case latest = "latest"
+            }
+        }
+        
+        enum Activity: String, Codable {
+            case all
+            case seen
+            case unseen
+        }
+        
+        enum Automated: String, Codable {
+            case all
+            case bot
+            case nonBot
+            
+            enum CodingKeys: String, CodingKey {
+                case all = "all"
+                case bot = "bot"
+                case nonBot = "non_bot"
+            }
+        }
+        
+        enum Significance: String, Codable {
+            case all
+            case minor
+            case nonMinor
+            
+            enum CodingKeys: String, CodingKey {
+                case all = "all"
+                case minor = "minor"
+                case nonMinor = "non_minor"
+            }
+        }
+        
+        enum UserRegistration: String, Codable {
+            case all
+            case unregistered
+            case registered
+            
+            enum CodingKeys: String, CodingKey {
+                case all = "all"
+                case unregistered = "unreg"
+                case registered = "reg"
+            }
+        }
+        
+        enum TypeChange: String, Codable {
+            case pageEdits
+            case pageCreations
+            case categoryChanges
+            case wikidataEdits
+            case logActions
+            
+            enum CodingKeys: String, CodingKey {
+                case pageEdits = "page_edits"
+                case pageCreations = "page_creations"
+                case categoryChanges = "cat_changes"
+                case wikidataEdits = "wikidata_edits"
+                case logActions = "log_actions"
+            }
+        }
+        
+        enum Projects: String, Codable {
+            case commons
+            case wikidata
+            case commonsAndWikidata
+            
+            enum CodingKeys: String, CodingKey {
+                case commons = "wc"
+                case wikidata = "wd"
+                case commonsAndWikidata = "wc_wd"
+            }
+        }
+        
+        let projects: Projects
+        let wikis: [String]
+        let latest: Latest
+        let activity: Activity
+        let automated: Automated
+        let significance: Significance
+        let userRegistration: UserRegistration
+        let typeChange: [TypeChange]
+        
+        enum CodingKeys: String, CodingKey {
+            case projects = "projects"
+            case wikis = "wikis"
+            case latest = "latest"
+            case activity = "activity"
+            case automated = "automated"
+            case significance = "significance"
+            case userRegistration = "user_reg"
+            case typeChange = "type_change"
+        }
+    }
+    
     private struct Event: EventInterface {
         static let schema: EventPlatformClient.Schema = .watchlist
         let action: Action
         let actionData: ActionData?
-        let wikiID: String
+        let itemCount: Int?
+        let filterEnabledList: FilterEnabledList?
+        let wikiID: String?
         
         enum CodingKeys: String, CodingKey {
             case action = "action"
             case actionData = "action_data"
+            case itemCount = "itemcount"
+            case filterEnabledList = "filter_enabled_list"
             case wikiID = "wiki_id"
         }
     }
    
-    private func logEvent(action: WatchlistFunnel.Action, actionData: ActionData? = nil, project: WikimediaProject) {
+    private func logEvent(action: WatchlistFunnel.Action, actionData: ActionData? = nil, itemCount: Int? = nil, filterEnabledList: FilterEnabledList? = nil, project: WikimediaProject? = nil) {
         
-        let wikiID = project.notificationsApiWikiIdentifier
+        let wikiID = project?.notificationsApiWikiIdentifier
         
-        let event: WatchlistFunnel.Event = WatchlistFunnel.Event(action: action, actionData: actionData, wikiID: wikiID)
+        let event: WatchlistFunnel.Event = WatchlistFunnel.Event(action: action, actionData: actionData, itemCount: itemCount, filterEnabledList: filterEnabledList, wikiID: wikiID)
         EventPlatformClient.shared.submit(stream: .watchlist, event: event)
+    }
+    
+    func logWatchlistOnboardingAppearance() {
+        logEvent(action: .onboardWatchlist)
+    }
+    
+    func logWatchlistOnboardingTapContinue() {
+        logEvent(action: .continueOnboard)
+    }
+    
+    func logWatchlistOnboardingTapLearnMore() {
+        logEvent(action: .learnOnboard)
+    }
+    
+    func logWatchlistSawEmptyStateWithFiltersOff() {
+        logEvent(action: .watchlistEmptyFiltersOff)
+    }
+    
+    func logWatchlistSawEmptyStateWithFiltersOn() {
+        logEvent(action: .watchlistEmptyFiltersOn)
+    }
+    
+    func logWatchlistEmptyStateTapSearch() {
+        logEvent(action: .watchlistEmptySearch)
+    }
+    
+    func logWatchlistEmptyStateTapModifyFilters() {
+        logEvent(action: .watchlistEmptyModifyFilters)
+    }
+    
+    func logOpenWatchlistFromAccount() {
+        logEvent(action: .openWatchlistAccount)
+    }
+    
+    func logOpenWatchlistFromArticleAddedToast() {
+        logEvent(action: .openWatchlistArticleAddedConfirm)
+    }
+    
+    func logOpenWatchlistFromDiffAddedToast() {
+        logEvent(action: .openWatchlistDiffAddedConfirm)
+    }
+    
+    func logTapUserMenu(project: WikimediaProject) {
+        logEvent(action: .openUserMenu, project: project)
+    }
+    
+    func logTapUserPage(project: WikimediaProject) {
+        logEvent(action: .openUserPage, project: project)
+    }
+    
+    func logTapUserTalk(project: WikimediaProject) {
+        logEvent(action: .openUserPage, project: project)
+    }
+    
+    func logTapUserContributions(project: WikimediaProject) {
+        logEvent(action: .openUserContributions, project: project)
+    }
+    
+    func logTapUserThank(project: WikimediaProject) {
+        logEvent(action: .openUserThank, project: project)
+    }
+    
+    func logThanksTapSend(project: WikimediaProject) {
+        logEvent(action: .userThankSend, project: project)
+    }
+    
+    func logThanksTapCancel(project: WikimediaProject) {
+        logEvent(action: .userThankCancel, project: project)
+    }
+    
+    func logThanksDisplaySuccessToast(project: WikimediaProject) {
+        logEvent(action: .userThankConfirm, project: project)
+    }
+    
+    func logOpenFilterSettings() {
+        logEvent(action: .openFilterSettings)
+    }
+    
+    func logSaveFilterSettings(filterEnabledList: FilterEnabledList) {
+        logEvent(action: .saveFilterSettings)
+    }
+    
+    func logAddWatchlistItem(project: WikimediaProject) {
+        logEvent(action: .addWatchlistItem, project: project)
+    }
+    
+    func logExpiryTapPermanent(project: WikimediaProject) {
+        logEvent(action: .expiryPerm, project: project)
+    }
+    
+    func logExpiryTap1week(project: WikimediaProject) {
+        logEvent(action: .expiry1week, project: project)
+    }
+    
+    func logExpiryTap1month(project: WikimediaProject) {
+        logEvent(action: .expiry1month, project: project)
+    }
+    
+    func logExpiryTap3months(project: WikimediaProject) {
+        logEvent(action: .expiry3month, project: project)
+    }
+    
+    func logExpiryTap6months(project: WikimediaProject) {
+        logEvent(action: .expiry6month, project: project)
+    }
+    
+    func logExpiryTap1year(project: WikimediaProject) {
+        logEvent(action: .expiry1year, project: project)
+    }
+    
+    func logExpiryDisplaySuccess(project: WikimediaProject) {
+        logEvent(action: .expiryConfirm, project: project)
+    }
+    
+    func logRemoveWatchlistItem(project: WikimediaProject) {
+        logEvent(action: .unwatchItem, project: project)
+    }
+    
+    func logRemoveWatchlistItemDisplaySuccess(project: WikimediaProject) {
+        logEvent(action: .unwatchConfirm, project: project)
     }
     
     func logDiffOpen(project: WikimediaProject?) {
