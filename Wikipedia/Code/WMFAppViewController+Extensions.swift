@@ -205,7 +205,7 @@ extension WMFAppViewController {
 // MARK: - Watchlist
 
 extension WMFAppViewController: WKWatchlistDelegate {
-    
+
     public func watchlistDidDismiss() {
 
     }
@@ -218,10 +218,9 @@ extension WMFAppViewController: WKWatchlistDelegate {
 
     }
 
-    public func watchlistUserDidTapUser(username: String, action: Components.WKWatchlistUserButtonAction) {
-
+    public func watchlistUserDidTapUser(project: WKData.WKProject, username: String, action: Components.WKWatchlistUserButtonAction) {
+        
     }
-
 }
 
 fileprivate extension UIViewController {
