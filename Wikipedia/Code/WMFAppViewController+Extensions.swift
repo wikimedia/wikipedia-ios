@@ -205,7 +205,7 @@ extension WMFAppViewController {
 // MARK: - Watchlist
 
 extension WMFAppViewController: WKWatchlistDelegate {
-    
+
     public func watchlistDidDismiss() {
 
     }
