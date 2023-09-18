@@ -123,6 +123,8 @@ class DiffHeaderCompareView: SetupView {
             stackView.leadingAnchor.constraint(equalTo:  layoutMarginsGuide.leadingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -10)
         ])
+
+        setupStackView()
     }
 
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
@@ -142,15 +144,32 @@ class DiffHeaderCompareView: SetupView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
-        if traitCollection.horizontalSizeClass == .compact {
-            stackView.axis = .vertical
-        } else {
-            stackView.axis = .horizontal
-        }
+        setupStackView()
+
         stackView.setNeedsLayout()
         stackView.layoutIfNeeded()
 
         updateFonts(with: traitCollection)
+    }
+
+    func setupStackView() {
+        if traitCollection.horizontalSizeClass == .compact {
+            if isSmallScreen() {
+                stackView.axis = .vertical
+            } else {
+                stackView.axis = .horizontal
+            }
+        } else {
+            stackView.axis = .horizontal
+        }
+    }
+
+    func isSmallScreen() -> Bool {
+        let screenWidth = UIScreen.main.bounds.width
+        if screenWidth <= 375 {
+            return true
+        }
+        return false
     }
 
     func update(_ viewModel: DiffHeaderCompareViewModel) {
