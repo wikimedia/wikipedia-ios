@@ -231,9 +231,33 @@ extension WMFAppViewController: WKWatchlistDelegate {
             navigate(to: siteURL.wmf_URL(withPath: "/wiki/User_talk:\(username)", isMobile: true))
         case .userContributions:
             navigate(to: siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true))
-        case .thank:
-            // TODO
-            break
+        case .thank(let revisionID):
+            let performThanks = {
+                let diffThanker = DiffThanker()
+                diffThanker.thank(siteURL: siteURL, rev: Int(revisionID), completion: { result in
+                    switch result {
+                    case .success:
+                        let successfulThanks = WMFLocalizedString("watchlist-thanks-success", value: "Your ‘Thanks’ was sent to %@", comment: "Message displayed in a toast on successful thanking of user in Watchlist view. %@ is replaced with the user being thanked.")
+                        let successMessage = String.localizedStringWithFormat(successfulThanks, username)
+                        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+                    case .failure(let failure):
+                        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(failure.localizedDescription, subtitle: nil, image: nil, type: .error, customTypeName: nil, dismissPreviousAlerts: true)
+                    }
+                })
+            }
+
+            if !UserDefaults.standard.wmf_didShowThankRevisionAuthorEducationPanel() {
+                topMostViewController?.wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: { [weak self] _ in
+                    UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
+                    self?.topMostViewController?.dismiss(animated: true, completion: {
+                        performThanks()
+                    })
+                }, cancelHandler: { [weak self] _ in
+                    self?.topMostViewController?.dismiss(animated: true)
+                })
+            } else {
+                performThanks()
+            }
         }
     }
 
