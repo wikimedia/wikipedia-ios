@@ -726,6 +726,9 @@
 "watchlist-change-expiry-option-permanent" = "Állandó";
 "watchlist-change-expiry-option-six-months" = "6 hónap";
 "watchlist-change-expiry-option-three-months" = "3 hónap";
+"watchlist-empty-view-button-title" = "Cikkek keresése";
+"watchlist-empty-view-filter-title" = "Nincsenek figyelőlista-elemeid";
+"watchlist-user-button-thank" = "Köszönet";
 "welcome-exploration-explore-feed-description" = "A közösség által napi olvasásra ajánlott szócikk";
 "welcome-exploration-explore-feed-title" = "Felfedezés csatorna";
 "welcome-exploration-on-this-day-description" = "Mi történt a mai napon a történelemben";
