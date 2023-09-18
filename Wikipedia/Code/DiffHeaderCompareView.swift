@@ -154,7 +154,7 @@ class DiffHeaderCompareView: SetupView {
 
     func setupStackView() {
         if traitCollection.horizontalSizeClass == .compact {
-            if isSmallScreen() {
+            if smallerDevice() {
                 stackView.axis = .vertical
             } else {
                 stackView.axis = .horizontal
@@ -164,7 +164,7 @@ class DiffHeaderCompareView: SetupView {
         }
     }
 
-    func isSmallScreen() -> Bool {
+    func smallerDevice() -> Bool {
         let screenWidth = UIScreen.main.bounds.width
         if screenWidth <= 375 {
             return true
