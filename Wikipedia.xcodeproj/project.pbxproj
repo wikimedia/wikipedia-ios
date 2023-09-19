@@ -7268,13 +7268,6 @@
 			name = ImageCache;
 			sourceTree = "<group>";
 		};
-		67D6C0152405A3E2005709B1 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		67D9D1F42970D8B000BFCD4F /* Button Styles */ = {
 			isa = PBXGroup;
 			children = (
@@ -8866,7 +8859,6 @@
 				00021DE624D48EFD00476F97 /* Widgets */,
 				676C864526D40AEB00A704C1 /* NotificationServiceExtension */,
 				D4991436181D51DE00E6073C /* Products */,
-				67D6C0152405A3E2005709B1 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
