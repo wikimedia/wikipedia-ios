@@ -1124,6 +1124,10 @@
 "watchlist-change-expiry-option-three-months" = "3 meseci";
 "watchlist-change-expiry-subtitle" = "Izberite čas spremljanja na spisku nadzorov";
 "watchlist-change-expiry-title" = "Pretek spiska nadzorov";
+"watchlist-empty-view-button-title" = "Iskanje člankov";
+"watchlist-empty-view-filter-title" = "Na spisku nadzorov nimate predmetov";
+"watchlist-empty-view-subtitle" = "Spremljajte spremembe člankov, ki vas zanimajo. Za opazovanje sprememb tapnite prelivni meni in izberite »Opazuj«.";
+"watchlist-empty-view-title" = "Tu so prikazani članki, ki ste jih dodali na spisek nadzorov";
 "watchlist-expiration-subtitle" = "Po prvzetem strani ostanejo, vendar so na voljo možnosti za začasno opazovanje od enega tedna do enega leta.";
 "watchlist-expiration-title" = "Določitev preteka";
 "watchlist-filter" = "Filter";
@@ -1148,6 +1152,7 @@
 "watchlist-filter-user-registration-header" = "Registriranost in izkušnje uporabnikov";
 "watchlist-filter-user-registration-options-registered" = "Registrirani";
 "watchlist-filter-user-registration-options-unregistered" = "Neregistrirani";
+"watchlist-number-filters" = "Za ogled več predmetov na spisku nadzorov spremenite [{{PLURAL:$1|$1 filter|$1 filtra|$1 filtre|$1 filtrov}}]";
 "watchlist-onboarding-button-title" = "Več o spisku nadzorov";
 "watchlist-onboarding-title" = "Predstavitev vašega spiska nadzorov";
 "watchlist-removed" = "Odstranjeno z vašega spiska nadzorov";
@@ -1155,6 +1160,7 @@
 "watchlist-track-title" = "Sledenje sprememb";
 "watchlist-updates-subtitle" = "Do spiska nadzorov s stranimi, ki ste jih dodali, kot so urejanja ali razprave, lahko dostopate prek Nastavitve → Račun.";
 "watchlist-updates-title" = "Ogled posodobitev";
+"watchlist-user-button-thank" = "Zahvala";
 "watchlist-user-button-user-contributions" = "Uporabniški prispevki";
 "watchlist-user-button-user-page" = "Uporabniška stran";
 "watchlist-user-button-user-talk-page" = "Uporabniška pogovorna stran";

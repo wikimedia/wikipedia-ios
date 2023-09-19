@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "E7908C20-55B3-4B11-B1BA-D67313F9BD96",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "WKDataTests",
+        "name" : "WKDataTests"
+      }
+    }
+  ],
+  "version" : 1
+}
