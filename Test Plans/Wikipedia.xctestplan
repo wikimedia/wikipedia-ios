@@ -1,0 +1,48 @@
+{
+  "configurations" : [
+    {
+      "id" : "EC2B5AEB-069F-406B-851B-BB0396B88C27",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "environmentVariableEntries" : [
+      {
+        "enabled" : false,
+        "key" : "DYLD_PRINT_STATISTICS",
+        "value" : "1"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Wikipedia.xcodeproj",
+      "identifier" : "D4991434181D51DE00E6073C",
+      "name" : "Wikipedia"
+    }
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "ArticleCacheReadingManualTests",
+        "ArticleManualPerformanceTests",
+        "ArticleViewControllerTests",
+        "LegacyCoreDataMigratorTests",
+        "MWKHistoryListPerformanceTests\/testReadPerformance",
+        "NSArray_PredicateTests\/testPerformance",
+        "NSString_FormattedAttributedStringTests\/testPerformanceExample",
+        "ReadingListManualPerformanceTests",
+        "TalkPageManualPerformanceTests",
+        "WMFSearchFetcherTests"
+      ],
+      "target" : {
+        "containerPath" : "container:Wikipedia.xcodeproj",
+        "identifier" : "BC4273511A7C736800068882",
+        "name" : "WikipediaUnitTests"
+      }
+    }
+  ],
+  "version" : 1
+}
