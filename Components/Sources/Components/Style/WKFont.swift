@@ -17,7 +17,7 @@ public enum WKFont {
 	case boldFootnote
 
 	static func `for`(_ font: WKFont, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection) -> UIFont {
-		switch font {
+        switch font {
         case .headline:
             return UIFont.preferredFont(forTextStyle: .headline, compatibleWith: traitCollection)
         case .title:
@@ -27,20 +27,20 @@ public enum WKFont {
                 fatalError()
             }
             return UIFont(descriptor: descriptor, size: 0)
-		case .body:
+        case .body:
 			return UIFont.preferredFont(forTextStyle: .body, compatibleWith: traitCollection)
         case .boldBody:
             guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body, compatibleWith: traitCollection).withSymbolicTraits(.traitBold) else {
                 fatalError()
             }
             return UIFont(descriptor: descriptor, size: 0)
-		case .smallBody:
+        case .smallBody:
 			return UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 15, weight: .regular))
-		case .callout:
+        case .callout:
 			return UIFont.preferredFont(forTextStyle: .callout, compatibleWith: traitCollection)
-		case .subheadline:
+        case .subheadline:
 			return UIFont.preferredFont(forTextStyle: .subheadline, compatibleWith: traitCollection)
-		case .boldSubheadline:
+        case .boldSubheadline:
 			guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .subheadline, compatibleWith: traitCollection).withSymbolicTraits(.traitBold) else {
 				fatalError()
 			}
@@ -49,7 +49,7 @@ public enum WKFont {
             return UIFont.preferredFont(forTextStyle: .caption1, compatibleWith: traitCollection)
         case .footnote:
             return UIFont.preferredFont(forTextStyle: .footnote, compatibleWith: traitCollection)
-		case .boldFootnote:
+        case .boldFootnote:
 			guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .footnote, compatibleWith: traitCollection).withSymbolicTraits(.traitBold) else {
 				fatalError()
 			}

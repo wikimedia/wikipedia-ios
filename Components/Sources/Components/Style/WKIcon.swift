@@ -71,7 +71,7 @@ public enum WKSFSymbolIcon {
             return UIImage(systemName: "star.leadinghalf.filled", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .heart:
             return UIImage(systemName: "heart", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
-		case .conversation:
+        case .conversation:
             return UIImage(systemName: "bubble.left.and.bubble.right", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         }
     }
