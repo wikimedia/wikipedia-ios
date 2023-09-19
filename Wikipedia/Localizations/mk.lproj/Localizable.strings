@@ -1128,6 +1128,10 @@
 "watchlist-change-expiry-option-three-months" = "3 месеци";
 "watchlist-change-expiry-subtitle" = "Изберете период на набљудување";
 "watchlist-change-expiry-title" = "Истек на набљудувањето";
+"watchlist-empty-view-button-title" = "Пребарај статии";
+"watchlist-empty-view-filter-title" = "Немате ставки во Набљудуваните";
+"watchlist-empty-view-subtitle" = "Следете што се случува со статиите кои ве интересираат. Допрете на менито во статијата и изберете „Набљудувај“ за да видите промени во статија.";
+"watchlist-empty-view-title" = "Тука се покажуваат статиите што сте ги додале во Набљудуваните";
 "watchlist-expiration-subtitle" = "Страниците остануваат по основно, но постојат можности за одредување на временска рамка на набљудување од една недела до една година.";
 "watchlist-expiration-title" = "Задај истек";
 "watchlist-filter" = "Филтрирај";
@@ -1147,10 +1151,12 @@
 "watchlist-filter-type-of-change-options-category-changes" = "Промени во категории";
 "watchlist-filter-type-of-change-options-logged-actions" = "Заведени дејства";
 "watchlist-filter-type-of-change-options-page-creations" = "Создавања на страници";
+"watchlist-filter-type-of-change-options-page-edits" = "Уредувања на страници";
 "watchlist-filter-type-of-change-options-wikidata-edits" = "Уредувања на Википодатоците";
 "watchlist-filter-user-registration-header" = "Корисничко зачленување и искусност";
 "watchlist-filter-user-registration-options-registered" = "Зачленети";
 "watchlist-filter-user-registration-options-unregistered" = "Незачленети";
+"watchlist-number-filters" = "Изменете [{{PLURAL:$1|$1 филтер|$1 филтри}}](wikipedia://watchlist/filter) за да видите повеќе ставки во Набљудуваните";
 "watchlist-onboarding-button-title" = "Дознајте повеќе за набљудуваните";
 "watchlist-onboarding-title" = "Вовед во вашите Набљудувани";
 "watchlist-removed" = "Отстрането од набљудуваните";
@@ -1158,6 +1164,7 @@
 "watchlist-track-title" = "Следење на промени";
 "watchlist-updates-subtitle" = "До Списокот на набљудувани страници што сте ги додале, како уредувања или разговори, може да се дојде преку Нагодувања → Сметка.";
 "watchlist-updates-title" = "Новости";
+"watchlist-user-button-thank" = "Благодарност";
 "watchlist-user-button-user-contributions" = "Кориснички придонеси";
 "watchlist-user-button-user-page" = "Корисничка страница";
 "watchlist-user-button-user-talk-page" = "Корисничка разговорна страница";

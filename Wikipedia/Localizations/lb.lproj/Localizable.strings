@@ -261,6 +261,7 @@
 "field-token-title" = "Verificatiouns-Code";
 "field-username-placeholder" = "Benotzernumm aginn";
 "field-username-title" = "Benotzernumm";
+"filter-options-all" = "All";
 "find-clear-button-accessibility" = "Sichen eidelmaachen";
 "find-infolabel-number-matches" = "$1 / $2";
 "find-replace-header" = "Sichen an Ersetzen";
@@ -629,6 +630,11 @@
 "watchlist-change-expiry-option-six-months" = "6 Méint";
 "watchlist-change-expiry-option-three-months" = "3 Méint";
 "watchlist-filter-automated-contributions-options-bot" = "Bot";
+"watchlist-filter-automated-contributions-options-human" = "Mënsch (kee Bot)";
+"watchlist-filter-significance-options-minor-edits" = "Kleng Ännerungen";
+"watchlist-filter-type-of-change-options-category-changes" = "Kategorienännerungen";
+"watchlist-filter-type-of-change-options-page-edits" = "Säitenännerungen";
+"watchlist-filter-type-of-change-options-wikidata-edits" = "Wikidata-Ännerungen";
 "watchlist-removed" = "Vun Ärer Iwwerwaachungslëscht erofgeholl";
 "watchlist-user-button-user-contributions" = "Benotzerkontributiounen";
 "watchlist-user-button-user-page" = "Benotzersäit";
