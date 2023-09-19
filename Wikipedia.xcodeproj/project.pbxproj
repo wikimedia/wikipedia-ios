@@ -8845,19 +8845,19 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
-				67F47C0E2AAA6E16006E17FA /* Packages */,
 				D499143E181D51DE00E6073C /* Wikipedia */,
+				67F47C0E2AAA6E16006E17FA /* Packages */,
+				D844D96D1D6CB2600042D692 /* WMF Framework */,
+				00021DE624D48EFD00476F97 /* Widgets */,
+				0E8380661D64989F0076EDE4 /* ContinueReadingWidget */,
+				D8479FAC1F222FE90025FD7A /* Wikipedia Stickers */,
+				676C864526D40AEB00A704C1 /* NotificationServiceExtension */,
 				D801C8501EB8E131001FA294 /* Localizations */,
+				D87021611EBA63EF000D02D6 /* Update Localizations */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
 				674C176A2AAA869D007DC6CC /* Test Plans */,
-				0E8380661D64989F0076EDE4 /* ContinueReadingWidget */,
-				D844D96D1D6CB2600042D692 /* WMF Framework */,
-				D87021611EBA63EF000D02D6 /* Update Localizations */,
-				D8479FAC1F222FE90025FD7A /* Wikipedia Stickers */,
-				83ACAA9F24E6DC8E003B3035 /* Command Line Tools */,
 				B0606EAF20AA6FF0006EC6B9 /* WikipediaUITests */,
-				00021DE624D48EFD00476F97 /* Widgets */,
-				676C864526D40AEB00A704C1 /* NotificationServiceExtension */,
+				83ACAA9F24E6DC8E003B3035 /* Command Line Tools */,
 				D4991436181D51DE00E6073C /* Products */,
 			);
 			sourceTree = "<group>";
