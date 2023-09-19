@@ -1,7 +1,7 @@
 import XCTest
 @testable import Components
 @testable import WKData
-@testable import WKDataMocks
+import WKDataMocks
 
 final class WKWatchlistFilterViewModelTests: XCTestCase {
 
@@ -30,7 +30,7 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
     }
 
     func testFilterViewModelInstantiatesWithCorrectDefaults() throws {
-        let filterViewModel = WKWatchlistFilterViewModel(localizedStrings: .demoStrings)
+        let filterViewModel = WKWatchlistFilterViewModel(localizedStrings: .demoStrings, overrideUserInterfaceStyle: .unspecified)
         
         guard let selectSections = filterViewModel.formViewModel.sections as? [WKFormSectionSelectViewModel] else {
             XCTFail("Invalid section view model type")
@@ -58,16 +58,13 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
         XCTAssertTrue(section2Item2.isSelected)
         
         let section3 = selectSections[2]
-        XCTAssertEqual(section3.items.count, 3)
+        XCTAssertEqual(section3.items.count, 2)
         let section3Item1 = section3.items[0]
-        XCTAssertEqual(section3Item1.title, "All")
+        XCTAssertEqual(section3Item1.title, "Not the latest revision")
         XCTAssertTrue(section3Item1.isSelected)
         let section3Item2 = section3.items[1]
         XCTAssertEqual(section3Item2.title, "Latest revision")
         XCTAssertFalse(section3Item2.isSelected)
-        let section3Item3 = section3.items[2]
-        XCTAssertEqual(section3Item3.title, "Not the latest revision")
-        XCTAssertFalse(section3Item3.isSelected)
         
         let section4 = selectSections[3]
         XCTAssertEqual(section4.items.count, 3)
@@ -143,7 +140,7 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
         let filterSettings = WKWatchlistFilterSettings(offProjects: [.wikidata, esProject], latestRevisions: .latestRevision, activity: .unseenChanges, automatedContributions: .bot, significance: .nonMinorEdits, userRegistration: .registered, offTypes: [.categoryChanges, .pageCreations])
         dataController.saveFilterSettings(filterSettings)
         
-        let filterViewModel = WKWatchlistFilterViewModel(localizedStrings: .demoStrings)
+        let filterViewModel = WKWatchlistFilterViewModel(localizedStrings: .demoStrings, overrideUserInterfaceStyle: .unspecified)
         
         guard let selectSections = filterViewModel.formViewModel.sections as? [WKFormSectionSelectViewModel] else {
             XCTFail("Invalid section view model type")
@@ -172,16 +169,13 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
         XCTAssertFalse(section2Item2.isSelected)
         
         let section3 = selectSections[2]
-        XCTAssertEqual(section3.items.count, 3)
+        XCTAssertEqual(section3.items.count, 2)
         let section3Item1 = section3.items[0]
-        XCTAssertEqual(section3Item1.title, "All")
+        XCTAssertEqual(section3Item1.title, "Not the latest revision")
         XCTAssertFalse(section3Item1.isSelected)
         let section3Item2 = section3.items[1]
         XCTAssertEqual(section3Item2.title, "Latest revision")
         XCTAssertTrue(section3Item2.isSelected)
-        let section3Item3 = section3.items[2]
-        XCTAssertEqual(section3Item3.title, "Not the latest revision")
-        XCTAssertFalse(section3Item3.isSelected)
         
         let section4 = selectSections[3]
         XCTAssertEqual(section4.items.count, 3)
@@ -251,7 +245,7 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
     }
     
     func testFilterViewModelSavePersistsSettingsCorrectly() throws {
-        let filterViewModel = WKWatchlistFilterViewModel(localizedStrings: .demoStrings)
+        let filterViewModel = WKWatchlistFilterViewModel(localizedStrings: .demoStrings, overrideUserInterfaceStyle: .unspecified)
         
         // Change some view model settings
         guard let selectSections = filterViewModel.formViewModel.sections as? [WKFormSectionSelectViewModel] else {
@@ -263,8 +257,8 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
         selectSections[0].items[0].isSelected = false
         selectSections[1].items[0].isSelected = false
         
-        // Select "Not the latest revision"
-        selectSections[2].items[2].isSelected = true
+        // Select "Latest revision"
+        selectSections[2].items[1].isSelected = true
         
         // Select "Seen changes"
         selectSections[3].items[2].isSelected = true
@@ -291,7 +285,7 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
         let filterSettings = dataController.loadFilterSettings()
         
         XCTAssertEqual(filterSettings.offProjects, [.commons, enProject])
-        XCTAssertEqual(filterSettings.latestRevisions, .notTheLatestRevision)
+        XCTAssertEqual(filterSettings.latestRevisions, .latestRevision)
         XCTAssertEqual(filterSettings.activity, .seenChanges)
         XCTAssertEqual(filterSettings.automatedContributions, .human)
         XCTAssertEqual(filterSettings.significance, .minorEdits)

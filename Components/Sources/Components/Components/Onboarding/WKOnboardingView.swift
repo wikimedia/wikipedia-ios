@@ -29,7 +29,7 @@ public struct WKOnboardingView: View {
                         .foregroundColor(Color(appEnvironment.theme.text))
                         .padding([.bottom, .top], 44)
                         .multilineTextAlignment(.center)
-                    ForEach(1...viewModel.cells.count, id:\.self) { cell in
+                    ForEach (1...viewModel.cells.count, id:\.self) { cell in
                         VStack {
                             WKOnboardingCell(viewModel: viewModel.cells[cell - 1])
                                 .padding([.bottom, .trailing], 20)
@@ -38,7 +38,8 @@ public struct WKOnboardingView: View {
                     Spacer()
                     
                     WKPrimaryButton(title: viewModel.primaryButtonTitle, action: primaryButtonAction)
-                    
+                        .padding([.top], 16)
+
                     VStack {
                         if let secondaryTitle = viewModel.secondaryButtonTitle {
                             WKSecondaryButton(title: secondaryTitle, action: secondaryButtonAction)

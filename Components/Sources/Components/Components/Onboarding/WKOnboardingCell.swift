@@ -21,7 +21,7 @@ struct WKOnboardingCell: View {
                 }
                 Spacer()
             }
-            VStack {
+            VStack() {
                 Text(viewModel.title)
                     .multilineTextAlignment(.leading)
                     .font(Font(WKFont.for(.boldBody)))

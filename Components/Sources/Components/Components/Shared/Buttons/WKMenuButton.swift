@@ -12,9 +12,9 @@ public class WKMenuButton: WKComponentView {
 
 		// MARK: - Nested Types
 
-        public struct MenuItem: Equatable {
+        public struct MenuItem: Equatable, Identifiable {
             public let id = UUID()
-            let title: String
+            public let title: String
             let image: UIImage?
             let attributes: UIMenu.Attributes
 
@@ -27,18 +27,20 @@ public class WKMenuButton: WKComponentView {
 
         // MARK: - Properties
 
-        var title: String?
+        public var title: String?
         let image: UIImage?
         let primaryColor: KeyPath<WKTheme, UIColor>
         public let menuItems: [MenuItem]
+		public var metadata: [String: Any] = [:]
 
 		// MARK: - Public
 
-        public init(title: String? = nil, image: UIImage? = nil, primaryColor: KeyPath<WKTheme, UIColor>,  menuItems: [MenuItem]) {
+		public init(title: String? = nil, image: UIImage? = nil, primaryColor: KeyPath<WKTheme, UIColor>,  menuItems: [MenuItem], metadata: [String: Any] = [:]) {
             self.title = title
             self.image = image
             self.primaryColor = primaryColor
             self.menuItems = menuItems
+			self.metadata = metadata
         }
 		
 	}
@@ -86,7 +88,7 @@ public class WKMenuButton: WKComponentView {
             button.leadingAnchor.constraint(equalTo: leadingAnchor),
             button.trailingAnchor.constraint(equalTo: trailingAnchor),
             button.topAnchor.constraint(equalTo: topAnchor),
-            button.bottomAnchor.constraint(equalTo: bottomAnchor)
+            button.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
 
         button.showsMenuAsPrimaryAction = true

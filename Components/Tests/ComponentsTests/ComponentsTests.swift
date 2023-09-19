@@ -1,6 +1,5 @@
 import XCTest
 @testable import Components
 
-final class ComponentsTests: XCTestCase {
-    
+final class ComponentsTests: XCTestCase {	
 }

@@ -1,3 +1,4 @@
+
 import Foundation
 import UIKit
 
@@ -58,7 +59,7 @@ class WKEditorSelectionDetailView: WKComponentView {
             typeLabel.trailingAnchor.constraint(equalTo: selectionLabel.leadingAnchor),
             selectionLabel.trailingAnchor.constraint(equalTo: disclosureImageView.leadingAnchor, constant: -8),
             selectionLabel.centerYAnchor.constraint(equalTo: disclosureImageView.centerYAnchor),
-            selectionLabel.centerYAnchor.constraint(equalTo: typeLabel.centerYAnchor)
+            selectionLabel.centerYAnchor.constraint(equalTo: typeLabel.centerYAnchor),
         ])
         
         updateColors()

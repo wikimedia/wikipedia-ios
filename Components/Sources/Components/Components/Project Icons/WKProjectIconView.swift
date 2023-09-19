@@ -28,7 +28,7 @@ public struct WKProjectIconView: View {
             )
 
         case .wikidata:
-            if let image = UIImage(named: "project-commons", in: Bundle.module, compatibleWith: nil) {
+            if let image = UIImage(named: "project-wikidata", in: Bundle.module, compatibleWith: nil) {
                 Image(uiImage: image)
                     .scaledToFit()
                     .background(Color(appEnvironment.theme.paperBackground))
@@ -37,7 +37,7 @@ public struct WKProjectIconView: View {
             }
 
         case .commons:
-            if let image = UIImage(named: "project-wikidata", in: Bundle.module, compatibleWith: nil) {
+            if let image = UIImage(named: "project-commons", in: Bundle.module, compatibleWith: nil) {
                 Image(uiImage: image)
                     .scaledToFit()
                     .background(Color(appEnvironment.theme.paperBackground))

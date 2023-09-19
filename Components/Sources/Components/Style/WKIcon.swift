@@ -21,7 +21,9 @@ public enum WKIcon {
     static let plus = UIImage(named: "plus", in: .module, with: nil)
     static let plusCircle = UIImage(named: "plus-circle", in: .module, with: nil)
     static let replace = UIImage(named: "replace", in: .module, with: nil)
-   
+    static let thank = UIImage(named: "thank", in: .module, with: nil)
+    static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
+
     // Editor-specific icons
     static let bold = UIImage(named: "editor/bold", in: .module, with: nil)
     static let citation = UIImage(named: "editor/citation", in: .module, with: nil)
@@ -48,10 +50,12 @@ public enum WKSFSymbolIcon {
     case checkmark
     case star
     case person
+	case personFilled
     case starLeadingHalfFilled
     case heart
-    
-    public static func `for`(symbol: WKSFSymbolIcon, font: WKFont, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection) -> UIImage? {
+	case conversation
+
+	public static func `for`(symbol: WKSFSymbolIcon, font: WKFont = .body, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection) -> UIImage? {
         let font = WKFont.for(font)
         let configuration = UIImage.SymbolConfiguration(font: font)
         switch symbol {
@@ -61,10 +65,14 @@ public enum WKSFSymbolIcon {
             return UIImage(systemName: "star", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .person:
             return UIImage(systemName: "person", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .personFilled:
+            return UIImage(systemName: "person.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .starLeadingHalfFilled:
             return UIImage(systemName: "star.leadinghalf.filled", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .heart:
             return UIImage(systemName: "heart", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+		case .conversation:
+            return UIImage(systemName: "bubble.left.and.bubble.right", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         }
     }
 }
