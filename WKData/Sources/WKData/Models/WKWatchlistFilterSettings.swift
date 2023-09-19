@@ -3,7 +3,6 @@ import Foundation
 public struct WKWatchlistFilterSettings: Codable, Equatable {
 
     public enum LatestRevisions: Int, Codable {
-        case all
         case latestRevision
         case notTheLatestRevision
     }
@@ -59,7 +58,7 @@ public struct WKWatchlistFilterSettings: Codable, Equatable {
         self.offTypes = offTypes
     }
     
-    init(latestRevisions: WKWatchlistFilterSettings.LatestRevisions = .all, activity: WKWatchlistFilterSettings.Activity = .all, automatedContributions: WKWatchlistFilterSettings.AutomatedContributions = .all, significance: WKWatchlistFilterSettings.Significance = .all, userRegistration: WKWatchlistFilterSettings.UserRegistration = .all, offTypes: [WKWatchlistFilterSettings.ChangeType] = []) {
+    init(latestRevisions: WKWatchlistFilterSettings.LatestRevisions = .notTheLatestRevision, activity: WKWatchlistFilterSettings.Activity = .all, automatedContributions: WKWatchlistFilterSettings.AutomatedContributions = .all, significance: WKWatchlistFilterSettings.Significance = .all, userRegistration: WKWatchlistFilterSettings.UserRegistration = .all, offTypes: [WKWatchlistFilterSettings.ChangeType] = []) {
 
         self.offProjects = []
         self.latestRevisions = latestRevisions
