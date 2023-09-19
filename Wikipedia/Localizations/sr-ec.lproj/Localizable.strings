@@ -983,6 +983,8 @@
 "watchlist-change-expiry-option-three-months" = "3 месеца";
 "watchlist-change-expiry-subtitle" = "Трајање надгледања";
 "watchlist-change-expiry-title" = "Трајање надгледања";
+"watchlist-empty-view-button-title" = "Претрага чланака";
+"watchlist-empty-view-filter-title" = "Списак надгледања је празан";
 "watchlist-expiration-title" = "Одреди трајање";
 "watchlist-filter" = "Филтер";
 "watchlist-filter-automated-contributions-options-bot" = "Бот";
@@ -993,6 +995,7 @@
 "watchlist-filter-type-of-change-header" = "Врста измене";
 "watchlist-removed" = "Уклоњено са списка надгледања";
 "watchlist-track-title" = "Прати измене";
+"watchlist-user-button-thank" = "Хвала";
 "watchlist-user-button-user-contributions" = "Кориснички доприноси";
 "watchlist-user-button-user-page" = "Корисничка страница";
 "watchlist-user-button-user-talk-page" = "Корисничка страница за разговор";

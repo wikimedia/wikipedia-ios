@@ -801,5 +801,21 @@
 			<string>%1$d бајти</string>
 		</dict>
 	</dict>
+	<key>watchlist-number-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Изменете [%#@v1@](wikipedia://watchlist/filter) за да видите повеќе ставки во Набљудуваните</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d филтер</string>
+			<key>other</key>
+			<string>%1$d филтри</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
