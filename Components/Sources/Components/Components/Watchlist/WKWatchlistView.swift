@@ -8,6 +8,7 @@ struct WKWatchlistView: View {
  	@ObservedObject var viewModel: WKWatchlistViewModel
     var emptyViewModel: WKEmptyViewModel
 	weak var delegate: WKWatchlistDelegate?
+    weak var loggingDelegate: WKWatchlistLoggingDelegate?
     weak var emptyViewDelegate: WKEmptyViewDelegate? = nil
 	weak var menuButtonDelegate: WKMenuButtonDelegate?
 
@@ -19,7 +20,10 @@ struct WKWatchlistView: View {
 				.ignoresSafeArea()
 			contentView
 		}.onAppear {
-			viewModel.fetchWatchlist()
+            viewModel.fetchWatchlist {
+                let items = viewModel.sections.flatMap { $0.items }
+                loggingDelegate?.logWatchlistLoaded(itemCount: items.count)
+            }
 		}
 	}
 
