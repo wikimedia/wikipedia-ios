@@ -9,12 +9,14 @@ final class WatchlistFunnel {
         case onboardWatchlist = "onboard_watchlist"
         case continueOnboard = "continue_onboard"
         case learnOnboard = "learn_onboard"
-        case watchlistNoItems = "watchlist_no_items"
-        case watchlistSearch = "watchlist_empty_search"
-        case watchlistModifyFilters = "watchlist_modify_filters"
         case openWatchlistAccount = "open_watchlist_account"
-        case openWatchlistArticleAddedConfirm = "open_watchlist_article_added_confirm"
-        case openWatchlistDiffAddedConfirm = "open_watchlist_diff_added_confirm"
+        case openWatchlistArticle = "open_watchlist_article"
+        case openWatchlistDiff = "open_watchlist_diff"
+        case watchlistLoaded = "watchlist_loaded"
+        case watchlistEmptyState = "watchlist_emptystate"
+        case watchlistEmptyStateFilters = "watchlist_emptystate_filters"
+        case watchlistSearch = "watchlist_search"
+        case watchlistModifyFilters = "watchlist_modify_filters"
         case openUserMenu = "open_user_menu"
         case openUserPage = "open_user_page"
         case openUserTalk = "open_user_talk"
@@ -58,6 +60,11 @@ final class WatchlistFunnel {
         case diffThankLogin = "diff_thank_login"
         case diffThankConfirm = "diff_thank_confirm"
         case diffOverHistory = "diff_over_history"
+        case diffOverWatch = "diff_over_watch"
+        case diffOverExpiryPrompt = "diff_over_expiry_prompt"
+        case diffExpiryConfirm = "diff_expiry_confirm"
+        case diffOverUnwatchItem = "diff_over_unwatch_item"
+        case diffOverUnwatchConfirm = "diff_over_unwatch_confirm"
         case diffOverShare = "diff_over_share"
         case diffOverShareConfirm = "diff_over_share_confirm"
         case diffOverRollback = "diff_over_rollback"
@@ -220,8 +227,28 @@ final class WatchlistFunnel {
         logEvent(action: .learnOnboard)
     }
     
-    func logWatchlistSawEmptyState() {
-        logEvent(action: .watchlistNoItems)
+    func logOpenWatchlistFromAccount() {
+        logEvent(action: .openWatchlistAccount)
+    }
+    
+    func logOpenWatchlistFromArticleAddedToast(project: WikimediaProject) {
+        logEvent(action: .openWatchlistArticle, project: project)
+    }
+    
+    func logOpenWatchlistFromDiffAddedToast(project: WikimediaProject) {
+        logEvent(action: .openWatchlistDiff, project: project)
+    }
+    
+    func logWatchlistLoaded(itemCount: Int) {
+        logEvent(action: .watchlistLoaded, itemCount: itemCount)
+    }
+    
+    func logWatchlistSawEmptyStateNoFilters() {
+        logEvent(action: .watchlistEmptyState)
+    }
+    
+    func logWatchlistSawEmptyStateWithFilters() {
+        logEvent(action: .watchlistEmptyStateFilters)
     }
     
     func logWatchlistEmptyStateTapSearch() {
@@ -230,18 +257,6 @@ final class WatchlistFunnel {
     
     func logWatchlistEmptyStateTapModifyFilters() {
         logEvent(action: .watchlistModifyFilters)
-    }
-    
-    func logOpenWatchlistFromAccount() {
-        logEvent(action: .openWatchlistAccount)
-    }
-    
-    func logOpenWatchlistFromArticleAddedToast(project: WikimediaProject) {
-        logEvent(action: .openWatchlistArticleAddedConfirm, project: project)
-    }
-    
-    func logOpenWatchlistFromDiffAddedToast(project: WikimediaProject) {
-        logEvent(action: .openWatchlistDiffAddedConfirm, project: project)
     }
     
     func logTapUserMenu(project: WikimediaProject) {
@@ -477,6 +492,26 @@ final class WatchlistFunnel {
             return
         }
         logEvent(action: .diffOverHistory, project: project)
+    }
+    
+    func logAddToWatchlistFromDiff(project: WikimediaProject) {
+        logEvent(action: .diffOverWatch, project: project)
+    }
+    
+    func logPresentExpiryChoiceActionSheetFromDiff(project: WikimediaProject) {
+        logEvent(action: .diffOverExpiryPrompt, project: project)
+    }
+    
+    func logAddToWatchlistDisplaySuccessToastFromDiff(project: WikimediaProject) {
+        logEvent(action: .diffExpiryConfirm, project: project)
+    }
+    
+    func logRemoveWatchlistItemFromDiff(project: WikimediaProject) {
+        logEvent(action: .diffOverUnwatchItem, project: project)
+    }
+    
+    func logRemoveWatchlistItemDisplaySuccessToastFromDiff(project: WikimediaProject) {
+        logEvent(action: .diffOverUnwatchConfirm, project: project)
     }
     
     func logDiffToolbarMoreTapShare(project: WikimediaProject?) {

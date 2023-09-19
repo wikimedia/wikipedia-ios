@@ -55,7 +55,12 @@ class WatchlistController {
             return
         }
         
-        WatchlistFunnel.shared.logAddToWatchlist(project: wikimediaProject)
+        switch context {
+        case .article:
+            WatchlistFunnel.shared.logAddToWatchlist(project: wikimediaProject)
+        case .diff:
+            WatchlistFunnel.shared.logAddToWatchlistFromDiff(project: wikimediaProject)
+        }
         
         presentChooseExpiryActionSheet(pageTitle: pageTitle, siteURL: siteURL, wkProject: wkProject, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, authenticationManager: authenticationManager)
     }
@@ -81,7 +86,13 @@ class WatchlistController {
         let promptTitle = WMFLocalizedString("watchlist-added-toast-view-watchlist", value: "View Watchlist", comment: "Button in toast after a user successfully adds an article to their watchlist. Tapping will take them to their watchlist.")
         
         let wikimediaProject = WikimediaProject(wkProject: wkProject)
-        WatchlistFunnel.shared.logAddToWatchlistDisplaySuccessToast(project: wikimediaProject)
+        
+        switch context {
+        case .article:
+            WatchlistFunnel.shared.logAddToWatchlistDisplaySuccessToast(project: wikimediaProject)
+        case .diff:
+            WatchlistFunnel.shared.logAddToWatchlistDisplaySuccessToastFromDiff(project: wikimediaProject)
+        }
         
         let context = self.context
         let navigateToWatchlistBlock: (() -> Void) = {
@@ -198,7 +209,12 @@ class WatchlistController {
         
         alertController.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
         
-        WatchlistFunnel.shared.logPresentExpiryChoiceActionSheet(project: wikimediaProject)
+        switch context {
+        case .article:
+            WatchlistFunnel.shared.logPresentExpiryChoiceActionSheet(project: wikimediaProject)
+        case .diff:
+            WatchlistFunnel.shared.logPresentExpiryChoiceActionSheetFromDiff(project: wikimediaProject)
+        }
         
         viewController.present(alertController, animated: true)
     }
@@ -219,7 +235,12 @@ class WatchlistController {
             return
         }
         
-        WatchlistFunnel.shared.logRemoveWatchlistItem(project: wikimediaProject)
+        switch context {
+        case .article:
+            WatchlistFunnel.shared.logRemoveWatchlistItem(project: wikimediaProject)
+        case .diff:
+            WatchlistFunnel.shared.logRemoveWatchlistItemFromDiff(project: wikimediaProject)
+        }
         
         dataController.unwatch(title: pageTitle, project: wkProject) { [weak self] result in
             
@@ -232,7 +253,12 @@ class WatchlistController {
                 switch result {
                 case .success:
                     
-                    WatchlistFunnel.shared.logRemoveWatchlistItemDisplaySuccessToast(project: wikimediaProject)
+                    switch self.context {
+                    case .article:
+                        WatchlistFunnel.shared.logRemoveWatchlistItemDisplaySuccessToast(project: wikimediaProject)
+                    case .diff:
+                        WatchlistFunnel.shared.logRemoveWatchlistItemDisplaySuccessToastFromDiff(project: wikimediaProject)
+                    }
                     
                     let title = WMFLocalizedString("watchlist-removed", value: "Removed from your Watchlist", comment: "Title in toast after a user successfully removes an article from their watchlist.")
                     let image = UIImage(systemName: "star")

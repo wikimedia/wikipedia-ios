@@ -224,6 +224,9 @@ extension WMFAppViewController: WKWatchlistDelegate {
 }
 
 extension WMFAppViewController: WKWatchlistLoggingDelegate {
+    public func logWatchlistLoaded(itemCount: Int) {
+        WatchlistFunnel.shared.logWatchlistLoaded(itemCount: itemCount)
+    }
     
     public func logWatchlistDidTapNavBarFilterButton() {
         WatchlistFunnel.shared.logOpenFilterSettings()
@@ -326,8 +329,11 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         WatchlistFunnel.shared.logSaveFilterSettings(filterEnabledList: filterEnabledList)
     }
     
-    public func logEmptyViewDidShow() {
-        WatchlistFunnel.shared.logWatchlistSawEmptyState()
+    public func logEmptyViewDidShow(type: WKEmptyViewStateType) {
+        switch type {
+        case .noItems: WatchlistFunnel.shared.logWatchlistSawEmptyStateNoFilters()
+        case .filter: WatchlistFunnel.shared.logWatchlistSawEmptyStateWithFilters()
+        }
     }
     
     public func logEmptyViewDidTapSearch() {
