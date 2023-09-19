@@ -20,7 +20,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 		case disappearing
 	}
 
-	public typealias ReachabilityHandler = ((PresentationState) -> ())?
+	public typealias ReachabilityHandler = ((PresentationState) -> Void)?
 
 	class MenuButtonHandler: WKMenuButtonDelegate {
 		weak var watchlistDelegate: WKWatchlistDelegate?
