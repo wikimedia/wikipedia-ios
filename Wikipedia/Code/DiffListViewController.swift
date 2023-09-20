@@ -26,7 +26,7 @@ class DiffListViewController: ViewController {
     var layoutCopy: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 20
+//        layout.minimumLineSpacing = 20
         switch type {
         case .single:
             layout.sectionInset = UIEdgeInsets(top: 15, left: 0, bottom: 125, right: 0)

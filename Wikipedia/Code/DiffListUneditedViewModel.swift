@@ -65,7 +65,7 @@ final class DiffListUneditedViewModel: DiffListGroupViewModel {
         
         height += innerPadding.bottom
         
-        return height + headerHeight
+        return height + (headerHeight / 2)
     }
     
     func updateSize(width: CGFloat, traitCollection: UITraitCollection) {

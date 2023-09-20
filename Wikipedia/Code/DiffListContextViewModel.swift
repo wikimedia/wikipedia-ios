@@ -110,7 +110,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
     static let contextItemTextPadding = NSDirectionalEdgeInsets(top: 15, leading: 8, bottom: 0, trailing: 8)
     static let contextItemStackSpacing: CGFloat = 5
     static let containerStackSpacing: CGFloat = 15
-    private(set) var headerHeight: CGFloat = 45
+    private(set) var headerHeight: CGFloat = 35
 
     private var availableWidth: CGFloat {
         return width - innerPadding.leading - innerPadding.trailing - DiffListContextViewModel.contextItemTextPadding.leading - DiffListContextViewModel.contextItemTextPadding.trailing
@@ -184,7 +184,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
             }
             
             height += itemTextHeight
-            height += contextItemPadding.bottom
+//            height += contextItemPadding.bottom
             
             if index < (items.count - 1) {
                 height += DiffListContextViewModel.contextItemStackSpacing
@@ -206,7 +206,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         
         height += innerPadding.bottom
 
-        height += headerHeight
+        height += (headerHeight / 2)
 
         return height
     }
