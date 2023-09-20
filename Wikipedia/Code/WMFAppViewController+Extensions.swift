@@ -259,11 +259,13 @@ extension WMFAppViewController: WKWatchlistDelegate {
 
             if !UserDefaults.standard.wmf_didShowThankRevisionAuthorEducationPanel() {
                 topMostViewController?.wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: { [weak self] _ in
+                    WatchlistFunnel.shared.logThanksTapSend(project: wikimediaProject)
                     UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
                     self?.topMostViewController?.dismiss(animated: true, completion: {
                         performThanks()
                     })
                 }, cancelHandler: { [weak self] _ in
+                    WatchlistFunnel.shared.logThanksTapCancel(project: wikimediaProject)
                     self?.topMostViewController?.dismiss(animated: true)
                 })
             } else {

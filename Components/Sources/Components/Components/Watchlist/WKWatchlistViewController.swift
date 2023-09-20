@@ -48,8 +48,15 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 		}
 
 		func wkSwiftUIMenuButtonUserDidTap(configuration: WKMenuButton.Configuration, item: WKMenuButton.MenuItem?) {
-			guard let username = configuration.title, let wkProject = configuration.metadata[wkProjectMetadataKey] as? WKProject,
-            let tappedTitle = item?.title else {
+            guard let username = configuration.title, let wkProject = configuration.metadata[wkProjectMetadataKey] as? WKProject else {
+                return
+            }
+            
+            if item == nil {
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButton(project: wkProject)
+            }
+            
+            guard let tappedTitle = item?.title else {
 				return
 			}
 
@@ -59,12 +66,16 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 
 			if tappedTitle == menuButtonItems[0].title {
 				watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, username: username, action: .userPage)
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .userPage)
 			} else if tappedTitle == menuButtonItems[1].title {
 				watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, username: username, action: .userTalkPage)
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .userTalkPage)
 			} else if tappedTitle == menuButtonItems[2].title {
 				watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, username: username, action: .userContributions)
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .userContributions)
 			} else if tappedTitle == menuButtonItems[3].title, let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt {
 				watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, username: username, action: .thank(revisionID: revisionID))
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .thank(revisionID: revisionID))
 			}
 		}
 	}
@@ -112,6 +123,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 		super.init()
 
         self.hostingViewController.emptyViewDelegate = self
+        self.hostingViewController.loggingDelegate = loggingDelegate
 	}
 
 	required init?(coder: NSCoder) {
@@ -173,11 +185,16 @@ fileprivate final class WKWatchlistHostingViewController: WKComponentHostingCont
             rootView.emptyViewDelegate = emptyViewDelegate
         }
     }
+    weak var loggingDelegate: WKWatchlistLoggingDelegate? = nil {
+        didSet {
+            rootView.loggingDelegate = loggingDelegate
+        }
+    }
 
     init(viewModel: WKWatchlistViewModel, emptyViewModel: WKEmptyViewModel, delegate: WKWatchlistDelegate?, menuButtonDelegate: WKMenuButtonDelegate?) {
 		self.viewModel = viewModel
         self.emptyViewModel = emptyViewModel
-        super.init(rootView: WKWatchlistView(viewModel: viewModel, emptyViewModel: emptyViewModel, delegate: delegate, menuButtonDelegate: menuButtonDelegate))
+        super.init(rootView: WKWatchlistView(viewModel: viewModel, emptyViewModel: emptyViewModel, delegate: delegate, loggingDelegate: loggingDelegate, menuButtonDelegate: menuButtonDelegate))
 	}
 
 	required init?(coder aDecoder: NSCoder) {

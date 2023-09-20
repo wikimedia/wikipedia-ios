@@ -147,11 +147,11 @@ public final class WKWatchlistFilterViewModel {
         }
 
         for (index, item) in wikipediasSection.items.enumerated() {
+            let offsetIndex = index + (wikimediaProjectsSection.items.count)
             if !item.isSelected {
-                let offsetIndex = index + (wikimediaProjectsSection.items.count)
                 offProjects.append(projectViewModels[offsetIndex].project)
             } else {
-                onProjects.append(projectViewModels[index].project)
+                onProjects.append(projectViewModels[offsetIndex].project)
             }
         }
 
@@ -253,7 +253,7 @@ public final class WKWatchlistFilterViewModel {
                                         automatedContributions: automatedContributionsRequest,
                                         significance: significanceRequest,
                                         userRegistration: userRegistrationRequest,
-                                        offTypes: offTypesRequest),[])
+                                        offTypes: offTypesRequest), onProjects)
     }
 }
 

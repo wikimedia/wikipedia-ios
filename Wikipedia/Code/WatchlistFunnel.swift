@@ -96,13 +96,8 @@ final class WatchlistFunnel {
     struct FilterEnabledList: Codable {
         
         enum Latest: String, Codable {
-            case notLatest
-            case latest
-            
-            enum CodingKeys: String, CodingKey {
-                case notLatest = "not_latest"
-                case latest = "latest"
-            }
+            case notLatest = "not_latest"
+            case latest = "latest"
         }
         
         enum Activity: String, Codable {
@@ -112,55 +107,29 @@ final class WatchlistFunnel {
         }
         
         enum Automated: String, Codable {
-            case all
-            case bot
-            case nonBot
-            
-            enum CodingKeys: String, CodingKey {
-                case all = "all"
-                case bot = "bot"
-                case nonBot = "non_bot"
-            }
+            case all = "all"
+            case bot = "bot"
+            case nonBot = "non_bot"
         }
         
         enum Significance: String, Codable {
-            case all
-            case minor
-            case nonMinor
-            
-            enum CodingKeys: String, CodingKey {
-                case all = "all"
-                case minor = "minor"
-                case nonMinor = "non_minor"
-            }
+            case all = "all"
+            case minor = "minor"
+            case nonMinor = "non_minor"
         }
         
         enum UserRegistration: String, Codable {
-            case all
-            case unregistered
-            case registered
-            
-            enum CodingKeys: String, CodingKey {
-                case all = "all"
-                case unregistered = "unreg"
-                case registered = "reg"
-            }
+            case all = "all"
+            case unregistered = "unreg"
+            case registered = "reg"
         }
         
         enum TypeChange: String, Codable {
-            case pageEdits
-            case pageCreations
-            case categoryChanges
-            case wikidataEdits
-            case logActions
-            
-            enum CodingKeys: String, CodingKey {
-                case pageEdits = "page_edits"
-                case pageCreations = "page_creations"
-                case categoryChanges = "cat_changes"
-                case wikidataEdits = "wikidata_edits"
-                case logActions = "log_actions"
-            }
+            case pageEdits = "page_edits"
+            case pageCreations = "page_creations"
+            case categoryChanges = "cat_changes"
+            case wikidataEdits = "wikidata_edits"
+            case logActions = "log_actions"
         }
         
         enum Projects: String, Codable {
@@ -268,7 +237,7 @@ final class WatchlistFunnel {
     }
     
     func logTapUserTalk(project: WikimediaProject) {
-        logEvent(action: .openUserPage, project: project)
+        logEvent(action: .openUserTalk, project: project)
     }
     
     func logTapUserContributions(project: WikimediaProject) {
@@ -296,7 +265,7 @@ final class WatchlistFunnel {
     }
     
     func logSaveFilterSettings(filterEnabledList: FilterEnabledList) {
-        logEvent(action: .saveFilterSettings)
+        logEvent(action: .saveFilterSettings, filterEnabledList: filterEnabledList)
     }
     
     func logAddToWatchlist(project: WikimediaProject) {
