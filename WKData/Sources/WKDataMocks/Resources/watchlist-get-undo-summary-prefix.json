@@ -1,0 +1,12 @@
+{
+  "batchcomplete": true,
+  "query": {
+    "allmessages": [
+      {
+        "name": "undo-summary",
+        "normalizedname": "undo-summary",
+        "content": "Undo revision [[Special:Diff/573984|573984]] by [[Special:Contributions/Tsevener|Tsevener]] ([[User talk:Tsevener|talk]])"
+      }
+    ]
+  }
+}

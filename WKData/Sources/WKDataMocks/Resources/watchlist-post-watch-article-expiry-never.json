@@ -1,0 +1,11 @@
+{
+  "batchcomplete": true,
+  "watch": [
+    {
+      "title": "Cat",
+      "ns": 0,
+      "expiry": "infinity",
+      "watched": true
+    }
+  ]
+}

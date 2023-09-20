@@ -1122,6 +1122,10 @@
 "watchlist-change-expiry-option-three-months" = "3 menses";
 "watchlist-change-expiry-subtitle" = "Selige le periodo de tempore del observatorio";
 "watchlist-change-expiry-title" = "Expiration del observatorio";
+"watchlist-empty-view-button-title" = "Cercar articulos";
+"watchlist-empty-view-filter-title" = "Tu non ha articulos sub observation";
+"watchlist-empty-view-subtitle" = "Tene te al currente del articulos de tu interesse. Tocca le menu in le articulo e selige “Observar” pro vider le modificationes de un articulo.";
+"watchlist-empty-view-title" = "Articulos que tu ha addite al Observatorio appare hic";
 "watchlist-expiration-subtitle" = "Le paginas generalmente remane, ma existe optiones pro un observation temporari inter un septimana e un anno.";
 "watchlist-expiration-title" = "Definir expiration";
 "watchlist-filter" = "Filtrar";
@@ -1146,6 +1150,7 @@
 "watchlist-filter-user-registration-header" = "Registration e experientia del usator";
 "watchlist-filter-user-registration-options-registered" = "Registrate";
 "watchlist-filter-user-registration-options-unregistered" = "Non registrate";
+"watchlist-number-filters" = "Modifica [{{PLURAL:$1|$1 filtro|$1 filtros}}](wikipedia://watchlist/filter) pro vider plus articulos del Observatorio";
 "watchlist-onboarding-button-title" = "Apprender plus sur le observatorio";
 "watchlist-onboarding-title" = "Introduction a tu observatorio";
 "watchlist-removed" = "Removite de tu observatorio";
@@ -1153,6 +1158,7 @@
 "watchlist-track-title" = "Traciar modificationes";
 "watchlist-updates-subtitle" = "Le observatorio de paginas que tu ha addite, como modificationes o discussiones, es accessibile via Parametros → Conto.";
 "watchlist-updates-title" = "Vider actualisationes";
+"watchlist-user-button-thank" = "Regratiar";
 "watchlist-user-button-user-contributions" = "Contributiones del usator";
 "watchlist-user-button-user-page" = "Pagina de usator";
 "watchlist-user-button-user-talk-page" = "Pagina de discussion de usator";

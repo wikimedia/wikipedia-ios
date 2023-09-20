@@ -1148,6 +1148,7 @@
 "watchlist-onboarding-button-title" = "Learn more about the Watchlist";
 "watchlist-onboarding-title" = "Introducing your Watchlist";
 "watchlist-removed" = "Removed from your Watchlist";
+"watchlist-thanks-success" = "Your ‘Thanks’ was sent to $1";
 "watchlist-track-subtitle" = "The Watchlist is a tool that lets you keep track of changes made to pages or articles you're interested in.";
 "watchlist-track-title" = "Track changes";
 "watchlist-updates-subtitle" = "The Watchlist of the pages you've added, like edits or discussions, can be accessed via Settings → Account.";

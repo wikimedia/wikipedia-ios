@@ -1148,6 +1148,7 @@
 "watchlist-onboarding-button-title" = "Watchlists onboarding modal learn more button title";
 "watchlist-onboarding-title" = "Watchlists onboarding modal title";
 "watchlist-removed" = "Title in toast after a user successfully removes an article from their watchlist.";
+"watchlist-thanks-success" = "Message displayed in a toast on successful thanking of user in Watchlist view. $1 is replaced with the user being thanked.";
 "watchlist-track-subtitle" = "Watchlists onboarding modal track changes section subtitle";
 "watchlist-track-title" = "Watchlists onboarding modal track changes section title";
 "watchlist-updates-subtitle" = "Watchlists onboarding modal view updates section subtitle";

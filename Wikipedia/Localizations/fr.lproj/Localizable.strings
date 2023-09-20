@@ -1152,6 +1152,10 @@
 "watchlist-change-expiry-option-three-months" = "3 mois";
 "watchlist-change-expiry-subtitle" = "Choisir la période de temps de la liste de suivi";
 "watchlist-change-expiry-title" = "Expiration de la liste de suivi";
+"watchlist-empty-view-button-title" = "Rechercher des articles";
+"watchlist-empty-view-filter-title" = "Vous n’avez pas d’élément en liste de suivi";
+"watchlist-empty-view-subtitle" = "Garder trace de ce qui s’est produit sur les articles qui vous intéressent. Taper sur le menu dans l’article et sélectionner « Suivre » pour voir chaque modification d’un article.";
+"watchlist-empty-view-title" = "Les articles que vous avez ajouté à la liste de suivi apparaissent ici";
 "watchlist-expiration-subtitle" = "Les pages restent par défaut, mais des options existent pour un suivi temporaire allant de une semaine à un an.";
 "watchlist-expiration-title" = "Définir l’expiration";
 "watchlist-filter" = "Filtrer";
@@ -1176,6 +1180,7 @@
 "watchlist-filter-user-registration-header" = "Inscription et expérience utilisateur";
 "watchlist-filter-user-registration-options-registered" = "Inscrit";
 "watchlist-filter-user-registration-options-unregistered" = "Non inscrit";
+"watchlist-number-filters" = "Modifier [{{PLURAL:$1|$1 filtre|$1 filtres}}](wikipedia://watchlist/filter) pour voir plus d’éléments de la liste de suivi";
 "watchlist-onboarding-button-title" = "En savoir plus sur la liste de suivi";
 "watchlist-onboarding-title" = "Présentation de votre liste de suivi";
 "watchlist-removed" = "Supprimé de votre liste de suivi";
@@ -1183,6 +1188,7 @@
 "watchlist-track-title" = "Suivre les modifications";
 "watchlist-updates-subtitle" = "La liste de suivi des pages que vous avez ajoutées, comme les modifications ou les discussions, peut être accédée via Paramètres → Compte.";
 "watchlist-updates-title" = "Afficher les mises à jour";
+"watchlist-user-button-thank" = "Merci";
 "watchlist-user-button-user-contributions" = "Contributions de l’utilisateur";
 "watchlist-user-button-user-page" = "Page de l’utilisateur";
 "watchlist-user-button-user-talk-page" = "Page de discussion de l’utilisateur";
