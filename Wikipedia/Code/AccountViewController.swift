@@ -278,12 +278,9 @@ extension AccountViewController: WKOnboardingViewDelegate {
         
         WatchlistFunnel.shared.logWatchlistOnboardingTapLearnMore()
 
-        // TODO: get correct URL
-
         if let presentedViewController {
             presentedViewController.dismiss(animated: true) {
-                let siteURL = self.dataStore.primarySiteURL
-                guard let url = siteURL?.wmf_URL(withPath: "/wiki/Help:Watchlist", isMobile: true) else {
+                guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ#Watchlist") else {
                     self.showGenericError()
                     return
                 }
