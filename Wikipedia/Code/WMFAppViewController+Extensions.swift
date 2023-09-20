@@ -206,10 +206,6 @@ extension WMFAppViewController {
 
 extension WMFAppViewController: WKWatchlistDelegate {
 
-    public func watchlistDidDismiss() {
-
-    }
-
     public func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
         let wikimediaProject = WikimediaProject(wkProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current), !(revisionID == 0 && oldRevisionID == 0) else {
@@ -274,7 +270,7 @@ extension WMFAppViewController: WKWatchlistDelegate {
         }
     }
     
-    public func emptyViewDidTapSearch() {
+    public func watchlistEmptyViewUserDidTapSearch() {
         NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
     }
 }

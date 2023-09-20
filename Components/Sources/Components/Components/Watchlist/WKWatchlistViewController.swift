@@ -4,10 +4,9 @@ import Combine
 import WKData
 
 public protocol WKWatchlistDelegate: AnyObject {
-	func watchlistDidDismiss()
 	func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt)
 	func watchlistUserDidTapUser(project: WKProject, username: String, action: WKWatchlistUserButtonAction)
-    func emptyViewDidTapSearch()
+    func watchlistEmptyViewUserDidTapSearch()
 }
 
 public protocol WKWatchlistLoggingDelegate: AnyObject {
@@ -215,7 +214,7 @@ extension WKWatchlistViewController: WKEmptyViewDelegate {
     }
     
     public func didTapSearch() {
-        delegate?.emptyViewDidTapSearch()
+        delegate?.watchlistEmptyViewUserDidTapSearch()
         loggingDelegate?.logWatchlistEmptyViewUserDidTapSearch()
     }
     
