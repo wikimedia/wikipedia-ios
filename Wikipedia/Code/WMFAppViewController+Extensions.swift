@@ -280,15 +280,15 @@ extension WMFAppViewController: WKWatchlistDelegate {
 }
 
 extension WMFAppViewController: WKWatchlistLoggingDelegate {
-    public func logWatchlistLoaded(itemCount: Int) {
+    public func logWatchlistDidLoad(itemCount: Int) {
         WatchlistFunnel.shared.logWatchlistLoaded(itemCount: itemCount)
     }
     
-    public func logWatchlistDidTapNavBarFilterButton() {
+    public func logWatchlistUserDidTapNavBarFilterButton() {
         WatchlistFunnel.shared.logOpenFilterSettings()
     }
     
-    public func watchlistDidSaveFilterSettings(filterSettings: WKWatchlistFilterSettings, onProjects: [WKProject]) {
+    public func logWatchlistUserDidSaveFilterSettings(filterSettings: WKWatchlistFilterSettings, onProjects: [WKProject]) {
         
         // Projects
         let commonsAndWikidataProjects: WatchlistFunnel.FilterEnabledList.Projects?
@@ -385,18 +385,18 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         WatchlistFunnel.shared.logSaveFilterSettings(filterEnabledList: filterEnabledList)
     }
     
-    public func logEmptyViewDidShow(type: WKEmptyViewStateType) {
+    public func logWatchlistEmptyViewDidShow(type: WKEmptyViewStateType) {
         switch type {
         case .noItems: WatchlistFunnel.shared.logWatchlistSawEmptyStateNoFilters()
         case .filter: WatchlistFunnel.shared.logWatchlistSawEmptyStateWithFilters()
         }
     }
     
-    public func logEmptyViewDidTapSearch() {
+    public func logWatchlistEmptyViewUserDidTapSearch() {
         WatchlistFunnel.shared.logWatchlistEmptyStateTapSearch()
     }
     
-    public func logEmptyViewDidTapModifyFilters() {
+    public func logWatchlistEmptyViewUserDidTapModifyFilters() {
         WatchlistFunnel.shared.logWatchlistEmptyStateTapModifyFilters()
     }
     

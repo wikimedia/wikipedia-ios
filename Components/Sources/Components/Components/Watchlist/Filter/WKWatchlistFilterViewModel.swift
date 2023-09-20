@@ -116,7 +116,7 @@ public final class WKWatchlistFilterViewModel {
         dataController.saveFilterSettings(newFilterSettings)
         
         let onProjects = data.onProjects
-        loggingDelegate?.watchlistDidSaveFilterSettings(filterSettings: newFilterSettings, onProjects: onProjects)
+        loggingDelegate?.logWatchlistUserDidSaveFilterSettings(filterSettings: newFilterSettings, onProjects: onProjects)
     }
     
     private func generateDataForNewFilterSettings() -> (filterSettings: WKWatchlistFilterSettings, onProjects: [WKProject]) {

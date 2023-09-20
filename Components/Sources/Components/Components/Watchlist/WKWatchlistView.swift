@@ -22,7 +22,7 @@ struct WKWatchlistView: View {
 		}.onAppear {
             viewModel.fetchWatchlist {
                 let items = viewModel.sections.flatMap { $0.items }
-                loggingDelegate?.logWatchlistLoaded(itemCount: items.count)
+                loggingDelegate?.logWatchlistDidLoad(itemCount: items.count)
             }
 		}
 	}

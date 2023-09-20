@@ -11,14 +11,14 @@ public protocol WKWatchlistDelegate: AnyObject {
 }
 
 public protocol WKWatchlistLoggingDelegate: AnyObject {
-    func logWatchlistDidTapNavBarFilterButton()
-    func watchlistDidSaveFilterSettings(filterSettings: WKWatchlistFilterSettings, onProjects: [WKProject])
+    func logWatchlistUserDidTapNavBarFilterButton()
+    func logWatchlistUserDidSaveFilterSettings(filterSettings: WKWatchlistFilterSettings, onProjects: [WKProject])
     func logWatchlistUserDidTapUserButton(project: WKProject)
     func logWatchlistUserDidTapUserButtonAction(project: WKProject, action: WKWatchlistUserButtonAction)
-    func logEmptyViewDidShow(type: WKEmptyViewStateType)
-    func logEmptyViewDidTapSearch()
-    func logEmptyViewDidTapModifyFilters()
-    func logWatchlistLoaded(itemCount: Int)
+    func logWatchlistEmptyViewDidShow(type: WKEmptyViewStateType)
+    func logWatchlistEmptyViewUserDidTapSearch()
+    func logWatchlistEmptyViewUserDidTapModifyFilters()
+    func logWatchlistDidLoad(itemCount: Int)
 }
 
 public final class WKWatchlistViewController: WKCanvasViewController {
@@ -211,16 +211,16 @@ extension WKWatchlistViewController: WKWatchlistFilterDelegate {
 
 extension WKWatchlistViewController: WKEmptyViewDelegate {
     public func didShow(type: WKEmptyViewStateType) {
-        loggingDelegate?.logEmptyViewDidShow(type: type)
+        loggingDelegate?.logWatchlistEmptyViewDidShow(type: type)
     }
     
     public func didTapSearch() {
         delegate?.emptyViewDidTapSearch()
-        loggingDelegate?.logEmptyViewDidTapSearch()
+        loggingDelegate?.logWatchlistEmptyViewUserDidTapSearch()
     }
     
     public func didTapFilters() {
         showFilterView()
-        loggingDelegate?.logEmptyViewDidTapModifyFilters()
+        loggingDelegate?.logWatchlistEmptyViewUserDidTapModifyFilters()
     }
 }
