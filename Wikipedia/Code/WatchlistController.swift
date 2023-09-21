@@ -11,14 +11,21 @@ protocol WatchlistControllerDelegate: AnyObject {
 /// This controller contains reusable logic for watching, updating expiry, and unwatching a page. It triggers the network service calls, as well as displays the appropriate toasts and action sheets based on the response.
 class WatchlistController {
     
+    enum Context {
+        case diff
+        case article
+    }
+    
     private let dataController = WKWatchlistDataController()
+    let context: Context
     private weak var delegate: WatchlistControllerDelegate?
     private weak var lastPopoverPresentationController: UIPopoverPresentationController?
     private var performAfterLoginBlock: (() -> Void)?
     private let toastCustomTypeName = "watchlist-add-remove-success"
     
-    init(delegate: WatchlistControllerDelegate) {
+    init(delegate: WatchlistControllerDelegate, context: Context) {
         self.delegate = delegate
+        self.context = context
         NotificationCenter.default.addObserver(self, selector: #selector(didLogIn), name:WMFAuthenticationManager.didLogInNotification, object: nil)
     }
     
@@ -42,9 +49,17 @@ class WatchlistController {
             return
         }
         
-        guard let wkProject = WikimediaProject(siteURL: siteURL)?.wkProject else {
+        guard let wikimediaProject = WikimediaProject(siteURL: siteURL),
+        let wkProject = wikimediaProject.wkProject else {
             viewController.showGenericError()
             return
+        }
+        
+        switch context {
+        case .article:
+            WatchlistFunnel.shared.logAddToWatchlist(project: wikimediaProject)
+        case .diff:
+            WatchlistFunnel.shared.logAddToWatchlistFromDiff(project: wikimediaProject)
         }
         
         presentChooseExpiryActionSheet(pageTitle: pageTitle, siteURL: siteURL, wkProject: wkProject, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, authenticationManager: authenticationManager)
@@ -70,7 +85,25 @@ class WatchlistController {
         
         let promptTitle = WMFLocalizedString("watchlist-added-toast-view-watchlist", value: "View Watchlist", comment: "Button in toast after a user successfully adds an article to their watchlist. Tapping will take them to their watchlist.")
         
+        let wikimediaProject = WikimediaProject(wkProject: wkProject)
+        
+        switch context {
+        case .article:
+            WatchlistFunnel.shared.logAddToWatchlistDisplaySuccessToast(project: wikimediaProject)
+        case .diff:
+            WatchlistFunnel.shared.logAddToWatchlistDisplaySuccessToastFromDiff(project: wikimediaProject)
+        }
+        
+        let context = self.context
         let navigateToWatchlistBlock: (() -> Void) = {
+            
+            switch context {
+            case .article:
+                WatchlistFunnel.shared.logOpenWatchlistFromArticleAddedToast(project: wikimediaProject)
+            case .diff:
+                WatchlistFunnel.shared.logOpenWatchlistFromDiffAddedToast(project: wikimediaProject)
+            }
+            
             guard let linkURL = siteURL.wmf_URL(withTitle: "Special:Watchlist"),
             let userActivity = NSUserActivity.wmf_activity(for: linkURL) else {
                 return
@@ -114,9 +147,26 @@ class WatchlistController {
         let titles = [expiryOptionPermanent, expiryOptionOneWeek, expiryOptionOneMonth, expiryOptionThreeMonths, expiryOptionSixMonths, expiryOptionOneYear]
         let expirys: [WKWatchlistExpiryType] = [.never, .oneWeek, .oneMonth, .threeMonths, .sixMonths, .oneYear]
         
+        let wikimediaProject = WikimediaProject(wkProject: wkProject)
         for (title, expiry) in zip(titles, expirys) {
             
             let action = UIAlertAction(title: title, style: .default) { [weak self] (action) in
+                
+                switch expiry {
+                case .never:
+                    WatchlistFunnel.shared.logExpiryTapPermanent(project: wikimediaProject)
+                case .oneWeek:
+                    WatchlistFunnel.shared.logExpiryTapOneWeek(project: wikimediaProject)
+                case .oneMonth:
+                    WatchlistFunnel.shared.logExpiryTapOneMonth(project: wikimediaProject)
+                case .threeMonths:
+                    WatchlistFunnel.shared.logExpiryTapThreeMonths(project: wikimediaProject)
+                case .sixMonths:
+                    WatchlistFunnel.shared.logExpiryTapSixMonths(project: wikimediaProject)
+                case .oneYear:
+                    WatchlistFunnel.shared.logExpiryTapOneYear(project: wikimediaProject)
+                }
+                
                 self?.dataController.watch(title: pageTitle, project: wkProject, expiry: expiry, completion: { [weak self] result in
                     
                     DispatchQueue.main.async {
@@ -146,7 +196,9 @@ class WatchlistController {
             
         }
         
-        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: {_ in 
+            WatchlistFunnel.shared.logExpiryCancel(project: wikimediaProject)
+        })
         
         alertController.addAction(cancelAction)
         
@@ -156,6 +208,13 @@ class WatchlistController {
         }
         
         alertController.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
+        
+        switch context {
+        case .article:
+            WatchlistFunnel.shared.logPresentExpiryChoiceActionSheet(project: wikimediaProject)
+        case .diff:
+            WatchlistFunnel.shared.logPresentExpiryChoiceActionSheetFromDiff(project: wikimediaProject)
+        }
         
         viewController.present(alertController, animated: true)
     }
@@ -170,9 +229,17 @@ class WatchlistController {
             return
         }
         
-        guard let wkProject = WikimediaProject(siteURL: siteURL)?.wkProject else {
+        guard let wikimediaProject = WikimediaProject(siteURL: siteURL),
+              let wkProject = wikimediaProject.wkProject else {
             viewController.showGenericError()
             return
+        }
+        
+        switch context {
+        case .article:
+            WatchlistFunnel.shared.logRemoveWatchlistItem(project: wikimediaProject)
+        case .diff:
+            WatchlistFunnel.shared.logRemoveWatchlistItemFromDiff(project: wikimediaProject)
         }
         
         dataController.unwatch(title: pageTitle, project: wkProject) { [weak self] result in
@@ -185,6 +252,14 @@ class WatchlistController {
                 
                 switch result {
                 case .success:
+                    
+                    switch self.context {
+                    case .article:
+                        WatchlistFunnel.shared.logRemoveWatchlistItemDisplaySuccessToast(project: wikimediaProject)
+                    case .diff:
+                        WatchlistFunnel.shared.logRemoveWatchlistItemDisplaySuccessToastFromDiff(project: wikimediaProject)
+                    }
+                    
                     let title = WMFLocalizedString("watchlist-removed", value: "Removed from your Watchlist", comment: "Title in toast after a user successfully removes an article from their watchlist.")
                     let image = UIImage(systemName: "star")
                     

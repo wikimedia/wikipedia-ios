@@ -1154,6 +1154,7 @@
 "watchlist-onboarding-button-title" = "Apprender plus sur le observatorio";
 "watchlist-onboarding-title" = "Introduction a tu observatorio";
 "watchlist-removed" = "Removite de tu observatorio";
+"watchlist-thanks-success" = "Tu ‘Gratias’ ha essite inviate a $1";
 "watchlist-track-subtitle" = "Le observatorio es un instrumento que te permitte traciar modificationes apportate al paginas o articulos de tu interesse.";
 "watchlist-track-title" = "Traciar modificationes";
 "watchlist-updates-subtitle" = "Le observatorio de paginas que tu ha addite, como modificationes o discussiones, es accessibile via Parametros → Conto.";
