@@ -198,7 +198,7 @@ class ViewControllerRouter: NSObject {
                     filters
                 )
                 
-                var attributedString = (try? AttributedString(markdown: localizedString)) ?? AttributedString(localizedString)
+                let attributedString = (try? AttributedString(markdown: localizedString)) ?? AttributedString(localizedString)
                 return attributedString
             }
 
@@ -227,7 +227,7 @@ class ViewControllerRouter: NSObject {
 
             if let image = UIImage(named: "watchlist-empty-state") {
                 let emptyViewModel = WKEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: image, numberOfFilters: viewModel.activeFilterCount)
-                let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, menuButtonDelegate: nil, reachabilityHandler: reachabilityHandler)
+                let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, reachabilityHandler: reachabilityHandler)
 
                 targetNavigationController?.pushViewController(watchlistViewController, animated: true)
                 completion()
@@ -305,6 +305,11 @@ class ViewControllerRouter: NSObject {
                                                                                           typeOfChangeWikidataEdits: CommonStrings.watchlistFilterTypeOfChangeOptionWikidataEdits,
                                                                                           typeOfChangeLoggedActions: CommonStrings.watchlistFilterTypeOfChangeOptionLoggedActions)
         
-        return WKWatchlistFilterViewModel(localizedStrings: localizedStrings)
+        var overrideUserInterfaceStyle: UIUserInterfaceStyle = .unspecified
+        let themeName = UserDefaults.standard.themeName
+        if !Theme.isDefaultThemeName(themeName) {
+            overrideUserInterfaceStyle = WKAppEnvironment.current.theme.userInterfaceStyle
+        }
+        return WKWatchlistFilterViewModel(localizedStrings: localizedStrings, overrideUserInterfaceStyle: overrideUserInterfaceStyle)
     }
 }
