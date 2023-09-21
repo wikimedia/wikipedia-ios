@@ -1156,6 +1156,7 @@
 "watchlist-onboarding-button-title" = "Več o spisku nadzorov";
 "watchlist-onboarding-title" = "Predstavitev vašega spiska nadzorov";
 "watchlist-removed" = "Odstranjeno z vašega spiska nadzorov";
+"watchlist-thanks-success" = "Vaša zahvala je bila poslana $1";
 "watchlist-track-subtitle" = "Spisek nadzorov je orodje, s katerim lahko spremljate spremembe strani ali člankov, ki vas zanimajo.";
 "watchlist-track-title" = "Sledenje sprememb";
 "watchlist-updates-subtitle" = "Do spiska nadzorov s stranimi, ki ste jih dodali, kot so urejanja ali razprave, lahko dostopate prek Nastavitve → Račun.";

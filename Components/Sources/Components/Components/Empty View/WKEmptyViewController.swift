@@ -16,9 +16,8 @@ final public class WKEmptyViewController: WKCanvasViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-            addComponent(hostingController, pinToEdges: true)
+        addComponent(hostingController, pinToEdges: true)
     }
-
 }
 
 final class WKEmptyViewHostingController: WKComponentHostingController<WKEmptyView> {
