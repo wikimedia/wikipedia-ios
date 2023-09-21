@@ -31,6 +31,7 @@
 // Author: Raphaelras
 // Author: Rodrigo codignoli
 // Author: Stephanyb76
+// Author: TheEduGobi
 // Author: Tks4Fish
 // Author: Tooguether
 // Author: Trooper57
@@ -1142,7 +1143,7 @@
 "welcome-intro-free-encyclopedia-title" = "A Enciclopédia Livre";
 "welcome-languages-add-button" = "Adicionar outro idioma";
 "welcome-languages-add-or-edit-button" = "Adicionar ou editar idiomas preferidos";
-"welcome-languages-description" = "Encontrámos os seguintes idiomas no seu dispositivo:";
+"welcome-languages-description" = "Encontramos os seguintes idiomas no seu dispositivo:";
 "welcome-languages-search-title" = "Pesquise em mais de 300 idiomas";
 "welcome-notifications-tell-me-more-creation" = "As notificações são criadas e enviadas para o dispositivo através da aplicação, não a partir dos nossos (ou de terceiros) servidores.";
 "welcome-notifications-tell-me-more-storage" = "As preferências de notificação são armazenadas no dispositivo, e não baseadas em informações pessoais ou atividade.";

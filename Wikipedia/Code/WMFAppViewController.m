@@ -1997,6 +1997,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         _settingsNavigationController = navController;
         _settingsNavigationController.modalPresentationStyle = UIModalPresentationOverFullScreen;
         _settingsNavigationController.interactivePopGestureRecognizer.delegate = self;
+        _settingsNavigationController.delegate = self;
     }
 
     if (_settingsNavigationController.viewControllers.firstObject != self.settingsViewController) {

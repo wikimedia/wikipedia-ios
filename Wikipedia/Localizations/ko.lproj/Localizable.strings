@@ -1137,6 +1137,7 @@
 "watchlist-onboarding-button-title" = "주시문서 목록에 대해 더 알아보기";
 "watchlist-onboarding-title" = "주시문서 목록 소개";
 "watchlist-removed" = "내 주시문서 목록에서 제거됨";
+"watchlist-thanks-success" = "$1님에게 감사를 표했습니다";
 "watchlist-track-title" = "변경사항 추적";
 "watchlist-user-button-user-contributions" = "사용자 기여";
 "watchlist-user-button-user-page" = "사용자 문서";

@@ -1020,9 +1020,9 @@ public extension Theme {
         switch theme {
         case .light:
             wkTheme = .light
-        case .dark:
+        case .dark, .darkDimmed:
             wkTheme = .dark
-        case .black:
+        case .black, .blackDimmed:
             wkTheme = .black
         case .sepia:
             wkTheme = .sepia

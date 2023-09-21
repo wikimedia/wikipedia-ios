@@ -150,7 +150,7 @@
 "action-redo" = "重做";
 "action-remove" = "移除";
 "action-replace" = "替换";
-"action-replace-all" = "替换所有";
+"action-replace-all" = "全部替换";
 "action-retry" = "重试";
 "action-save" = "保存";
 "action-saved" = "已保存";
@@ -599,7 +599,7 @@
 "no-email-account-alert" = "请在您的设备上设置一个电子邮件地址，并重试。";
 "no-internet-connection" = "无互联网连接";
 "no-internet-connection-article-reload" = "此条目的新版本可用，但由于无互联网连接而无法加载";
-"no-internet-connection-article-reload-button" = "返回至最近保存的版本";
+"no-internet-connection-article-reload-button" = "返回最后保存的版本";
 "notifications-center-agent-description-from-format" = "来自$1";
 "notifications-center-alert" = "提醒";
 "notifications-center-applied-filters-accessibility-label" = "通知过滤器 - 已应用过滤器";

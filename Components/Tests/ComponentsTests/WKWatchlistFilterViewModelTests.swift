@@ -30,7 +30,7 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
     }
 
     func testFilterViewModelInstantiatesWithCorrectDefaults() throws {
-        let filterViewModel = WKWatchlistFilterViewModel(localizedStrings: .demoStrings, overrideUserInterfaceStyle: .unspecified)
+        let filterViewModel = WKWatchlistFilterViewModel(localizedStrings: .demoStrings, overrideUserInterfaceStyle: .unspecified, loggingDelegate: nil)
         
         guard let selectSections = filterViewModel.formViewModel.sections as? [WKFormSectionSelectViewModel] else {
             XCTFail("Invalid section view model type")
@@ -140,7 +140,7 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
         let filterSettings = WKWatchlistFilterSettings(offProjects: [.wikidata, esProject], latestRevisions: .latestRevision, activity: .unseenChanges, automatedContributions: .bot, significance: .nonMinorEdits, userRegistration: .registered, offTypes: [.categoryChanges, .pageCreations])
         dataController.saveFilterSettings(filterSettings)
         
-        let filterViewModel = WKWatchlistFilterViewModel(localizedStrings: .demoStrings, overrideUserInterfaceStyle: .unspecified)
+        let filterViewModel = WKWatchlistFilterViewModel(localizedStrings: .demoStrings, overrideUserInterfaceStyle: .unspecified, loggingDelegate: nil)
         
         guard let selectSections = filterViewModel.formViewModel.sections as? [WKFormSectionSelectViewModel] else {
             XCTFail("Invalid section view model type")
@@ -245,7 +245,7 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
     }
     
     func testFilterViewModelSavePersistsSettingsCorrectly() throws {
-        let filterViewModel = WKWatchlistFilterViewModel(localizedStrings: .demoStrings, overrideUserInterfaceStyle: .unspecified)
+        let filterViewModel = WKWatchlistFilterViewModel(localizedStrings: .demoStrings, overrideUserInterfaceStyle: .unspecified, loggingDelegate: nil)
         
         // Change some view model settings
         guard let selectSections = filterViewModel.formViewModel.sections as? [WKFormSectionSelectViewModel] else {

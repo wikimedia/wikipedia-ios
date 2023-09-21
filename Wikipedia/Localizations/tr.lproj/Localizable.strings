@@ -1195,6 +1195,7 @@
 "watchlist-onboarding-button-title" = "İzleme Listesi hakkında daha fazla bilgi edinin";
 "watchlist-onboarding-title" = "İzleme Listenizle Tanışın";
 "watchlist-removed" = "İzleme Listenizden kaldırıldı";
+"watchlist-thanks-success" = "‘Teşekkürünüz’ $1 kullanıcısına gönderildi";
 "watchlist-track-subtitle" = "İzleme Listesi, ilgilendiğiniz sayfa ya da maddelere yapılan değişiklikleri takip etmenizi sağlayan bir araçtır.";
 "watchlist-track-title" = "Değişiklikleri izle";
 "watchlist-updates-subtitle" = "Değişiklikler ya da tartışmalar gibi eklediğiniz sayfaların İzleme Listesine Ayarlar → Hesap ile erişilebilir.";

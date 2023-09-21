@@ -180,6 +180,7 @@
 "clearing-cache-in-progress" = "Neteja de la memòria cau en curs.";
 "close-button-accessibility-label" = "Tanca";
 "compass-direction" = "a les $1 en punt";
+"continue-button-title" = "Continua";
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
 "continue-reading-empty-title" = "No hi ha cap article llegit recentment";
 "crimean-tatar-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants del tàtar de Crimea com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\nQırımtatarca - tàrtar llatí de Crimea (chr-latn)\nкъырымтатарджа, Кирил - Tàrtar ciríl·lic de Crimea (crh-cyrl)";
@@ -601,6 +602,7 @@
 "notifications-center-checking-for-notifications" = "Comprovació de les notificacions...";
 "notifications-center-destination-app" = "A l'aplicació";
 "notifications-center-destination-web" = "Al web";
+"notifications-center-detail-title" = "Detall de la notificació";
 "notifications-center-empty-checking-for-notifications" = "S'estan comprovant les notificacions...";
 "notifications-center-empty-no-messages" = "No teniu missatges";
 "notifications-center-empty-not-subscribed" = "No esteu subscrit a cap notificació de la Viquipèdia";
@@ -1122,7 +1124,15 @@
 "variants-alert-preferences-button" = "Reviseu les vostres preferències";
 "watch" = "Vigila";
 "watchlist" = "Llista de seguiment";
+"watchlist-added-toast-one-month" = "S'ha afegit a la llista de seguiment per 1 mes.";
+"watchlist-added-toast-one-week" = "S'ha afegit a la llista de seguiment per 1 setmana.";
+"watchlist-added-toast-one-year" = "S'ha afegit a la llista de seguiment per 1 any.";
+"watchlist-added-toast-permanently" = "S'ha afegit a la llista de seguiment de forma permanent.";
+"watchlist-added-toast-six-months" = "S'ha afegit a la llista de seguiment per 6 mesos.";
+"watchlist-added-toast-three-months" = "S'ha afegit a la llista de seguiment per 3 mesos.";
+"watchlist-added-toast-view-watchlist" = "Mosta la llista de seguiment";
 "watchlist-filter" = "Filtra";
+"watchlist-user-button-thank" = "Agraeix";
 "watchlist-user-button-user-contributions" = "Contribucions de l'usuari";
 "watchlist-user-button-user-page" = "Pàgina d'usuari";
 "watchlist-user-button-user-talk-page" = "Pàgina de discussió de l'usuari";

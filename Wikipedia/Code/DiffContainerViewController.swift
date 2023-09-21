@@ -32,7 +32,7 @@ class DiffContainerViewController: ViewController {
     private let diffController: DiffController
     
     internal lazy var watchlistController: WatchlistController = {
-        return WatchlistController(delegate: self)
+        return WatchlistController(delegate: self, context: .diff)
     }()
     
     private var fromModel: WMFPageHistoryRevision?

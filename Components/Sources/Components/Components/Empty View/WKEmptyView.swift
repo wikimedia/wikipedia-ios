@@ -3,6 +3,7 @@ import SwiftUI
 public protocol WKEmptyViewDelegate: AnyObject {
     func didTapSearch()
     func didTapFilters()
+    func didShow(type: WKEmptyViewStateType)
 }
 
 public struct WKEmptyView: View {
@@ -47,6 +48,9 @@ public struct WKEmptyView: View {
                     .padding([.leading, .trailing], 32)
                 }
             }
+        }
+        .onAppear {
+            delegate?.didShow(type: type)
         }
     }
 
