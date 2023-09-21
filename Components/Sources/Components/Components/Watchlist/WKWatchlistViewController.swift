@@ -7,8 +7,7 @@ public protocol WKWatchlistDelegate: AnyObject {
 	func watchlistDidDismiss()
     func emptyViewDidTapSearch()
 	func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt)
-	func watchlistUserDidTapUser(project: WKProject, username: String, action: WKWatchlistUserButtonAction)
-
+	func watchlistUserDidTapUser(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WKWatchlistUserButtonAction)
 }
 
 public final class WKWatchlistViewController: WKCanvasViewController {
@@ -27,33 +26,66 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 		let menuButtonItems: [WKMenuButton.MenuItem]
 		let wkProjectMetadataKey: String
 		let revisionIDMetadataKey: String
+        let oldRevisionIDMetadataKey: String
+        let titleMetadaKey: String
 
-		init(watchlistDelegate: WKWatchlistDelegate? = nil, menuButtonItems: [WKMenuButton.MenuItem], wkProjectMetadataKey: String, revisionIDMetadataKey: String) {
+		init(watchlistDelegate: WKWatchlistDelegate? = nil, menuButtonItems: [WKMenuButton.MenuItem], wkProjectMetadataKey: String, revisionIDMetadataKey: String, oldRevisionIDMetadataKey: String, titleMetadaKey: String) {
 			self.watchlistDelegate = watchlistDelegate
 			self.menuButtonItems = menuButtonItems
 			self.wkProjectMetadataKey = wkProjectMetadataKey
 			self.revisionIDMetadataKey = revisionIDMetadataKey
+            self.oldRevisionIDMetadataKey = oldRevisionIDMetadataKey
+            self.titleMetadaKey = titleMetadaKey
 		}
 
 		func wkSwiftUIMenuButtonUserDidTap(configuration: WKMenuButton.Configuration, item: WKMenuButton.MenuItem?) {
-			guard let username = configuration.title, let tappedTitle = item?.title, let wkProject = configuration.metadata[wkProjectMetadataKey] as? WKProject else {
-				return
-			}
+            guard let username = configuration.title, let tappedTitle = item?.title,
+                    let wkProject = configuration.metadata[wkProjectMetadataKey] as? WKProject,
+                  let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
+                  let oldRevisionId = configuration.metadata[oldRevisionIDMetadataKey] as? UInt,
+                  let title = configuration.metadata[titleMetadaKey] as? String else {
+                return
+            }
 
 			guard menuButtonItems.indices.count == 4 else {
 				fatalError("Unexpected number of menu button items")
 			}
 
-			if tappedTitle == menuButtonItems[0].title {
-				watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, username: username, action: .userPage)
-			} else if tappedTitle == menuButtonItems[1].title {
-				watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, username: username, action: .userTalkPage)
-			} else if tappedTitle == menuButtonItems[2].title {
-				watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, username: username, action: .userContributions)
-			} else if tappedTitle == menuButtonItems[3].title, let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt {
-				watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, username: username, action: .thank(revisionID: revisionID))
-			}
+            if tappedTitle == menuButtonItems[0].title {
+                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userPage)
+            } else if tappedTitle == menuButtonItems[1].title {
+                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userTalkPage)
+            } else if tappedTitle == menuButtonItems[2].title {
+                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userContributions)
+            } else if tappedTitle == menuButtonItems[3].title {
+                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .thank(revisionID: revisionID))
+            }
 		}
+
+        func wkSwiftUIMenuButtonUserDidTapAccessibility(configuration: WKMenuButton.Configuration, item: WKMenuButton.MenuItem?) {
+            guard let username = configuration.title, let tappedTitle = item?.title, 
+                    let wkProject = configuration.metadata[wkProjectMetadataKey] as? WKProject,
+                  let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
+                  let oldRevisionId = configuration.metadata[oldRevisionIDMetadataKey] as? UInt,
+                  let title = configuration.metadata[titleMetadaKey] as? String else {
+                return
+            }
+
+            guard menuButtonItems.indices.count == 5 else {
+                fatalError("Unexpected number of menu button items")
+            }
+            if tappedTitle == menuButtonItems[0].title {
+                watchlistDelegate?.watchlistUserDidTapDiff(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId)
+            } else if tappedTitle == menuButtonItems[1].title {
+                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userPage)
+            } else if tappedTitle == menuButtonItems[2].title {
+                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userTalkPage)
+            } else if tappedTitle == menuButtonItems[3].title {
+                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userContributions)
+            } else if tappedTitle == menuButtonItems[4].title {
+                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .thank(revisionID: revisionID))
+            }
+        }
 	}
 
 	// MARK: - Properties
@@ -89,7 +121,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 		self.delegate = delegate
 		self.reachabilityHandler = reachabilityHandler
 
-		let buttonHandler = MenuButtonHandler(watchlistDelegate: delegate, menuButtonItems: viewModel.menuButtonItems, wkProjectMetadataKey: WKWatchlistViewModel.ItemViewModel.wkProjectMetadataKey, revisionIDMetadataKey: WKWatchlistViewModel.ItemViewModel.revisionIDMetadataKey)
+        let buttonHandler = MenuButtonHandler(watchlistDelegate: delegate, menuButtonItems: viewModel.menuButtonItems, wkProjectMetadataKey: WKWatchlistViewModel.ItemViewModel.wkProjectMetadataKey, revisionIDMetadataKey: WKWatchlistViewModel.ItemViewModel.revisionIDMetadataKey, oldRevisionIDMetadataKey: WKWatchlistViewModel.ItemViewModel.oldRevisionIDMetadataKey, titleMetadaKey: WKWatchlistViewModel.ItemViewModel.titleMetadataKey)
 		self.buttonHandler = buttonHandler
 
         self.hostingViewController = WKWatchlistHostingViewController(viewModel: viewModel, emptyViewModel: emptyViewModel, delegate: delegate, menuButtonDelegate: buttonHandler)

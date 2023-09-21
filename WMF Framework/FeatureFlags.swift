@@ -10,7 +10,7 @@ public struct FeatureFlags {
         #if WMF_STAGING
         return true
         #else
-        return false
+        return true
         #endif
     }
     

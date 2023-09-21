@@ -205,7 +205,7 @@ extension WMFAppViewController {
 // MARK: - Watchlist
 
 extension WMFAppViewController: WKWatchlistDelegate {
-
+    
     public func watchlistDidDismiss() {
 
     }
@@ -233,7 +233,7 @@ extension WMFAppViewController: WKWatchlistDelegate {
         navigate(to: diffURL)
     }
 
-    public func watchlistUserDidTapUser(project: WKProject, username: String, action: Components.WKWatchlistUserButtonAction) {
+    public func watchlistUserDidTapUser(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WKWatchlistUserButtonAction) {
         let wikimediaProject = WikimediaProject(wkProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current) else {
             return
@@ -273,6 +273,8 @@ extension WMFAppViewController: WKWatchlistDelegate {
             } else {
                 performThanks()
             }
+        case .diff(let revId, let oldRevId):
+            watchlistUserDidTapDiff(project: project, title: title, revisionID: revId, oldRevisionID: oldRevId)
         }
     }
 

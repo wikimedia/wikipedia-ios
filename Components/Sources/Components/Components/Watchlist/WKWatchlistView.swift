@@ -3,81 +3,82 @@ import WKData
 
 // MARK: - WKWatchlistView
 struct WKWatchlistView: View {
-
-	@ObservedObject var appEnvironment = WKAppEnvironment.current
- 	@ObservedObject var viewModel: WKWatchlistViewModel
+    
+    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var viewModel: WKWatchlistViewModel
     var emptyViewModel: WKEmptyViewModel
-	weak var delegate: WKWatchlistDelegate?
+    weak var delegate: WKWatchlistDelegate?
     weak var emptyViewDelegate: WKEmptyViewDelegate? = nil
-	weak var menuButtonDelegate: WKMenuButtonDelegate?
-
-	// MARK: - Lifecycle
-
-	var body: some View {
-		ZStack {
-			Color(appEnvironment.theme.paperBackground)
-				.ignoresSafeArea()
-			contentView
-		}.onAppear {
-			viewModel.fetchWatchlist()
-		}
-	}
-
-	@ViewBuilder
-	var contentView: some View {
-		if viewModel.hasPerformedInitialFetch {
-			if viewModel.sections.count > 0 {
-				WKWatchlistContentView(viewModel: viewModel, delegate: delegate, menuButtonDelegate: menuButtonDelegate)
-			} else if viewModel.sections.count == 0 && viewModel.activeFilterCount > 0 {
-				WKEmptyView(viewModel: emptyViewModel, delegate: emptyViewDelegate, type: .filter)
-			} else {
-				WKEmptyView(viewModel: emptyViewModel, delegate: emptyViewDelegate, type: .noItems)
-			}
-		} else {
-			ProgressView()
-		}
-	}
-
+    weak var menuButtonDelegate: WKMenuButtonDelegate?
+    
+    // MARK: - Lifecycle
+    
+    var body: some View {
+        ZStack {
+            Color(appEnvironment.theme.paperBackground)
+                .ignoresSafeArea()
+            contentView
+        }.onAppear {
+            viewModel.fetchWatchlist()
+        }
+    }
+    
+    @ViewBuilder
+    var contentView: some View {
+        if viewModel.hasPerformedInitialFetch {
+            if viewModel.sections.count > 0 {
+                WKWatchlistContentView(viewModel: viewModel, delegate: delegate, menuButtonDelegate: menuButtonDelegate)
+            } else if viewModel.sections.count == 0 && viewModel.activeFilterCount > 0 {
+                WKEmptyView(viewModel: emptyViewModel, delegate: emptyViewDelegate, type: .filter)
+            } else {
+                WKEmptyView(viewModel: emptyViewModel, delegate: emptyViewDelegate, type: .noItems)
+            }
+        } else {
+            ProgressView()
+        }
+    }
+    
 }
 
 // MARK: - Private: WKWatchlistContentView
 
 private struct WKWatchlistContentView: View {
-
-	@ObservedObject var appEnvironment = WKAppEnvironment.current
-	@ObservedObject var viewModel: WKWatchlistViewModel
-
-	weak var delegate: WKWatchlistDelegate?
-	weak var menuButtonDelegate: WKMenuButtonDelegate?
-
-	var body: some View {
-		ScrollView {
-			LazyVStack(spacing: 0) {
-				ForEach(viewModel.sections) { section in
-					Group {
-						Text(section.title.localizedUppercase)
-							.font(Font(WKFont.for(.boldFootnote)))
-							.foregroundColor(Color(appEnvironment.theme.secondaryText))
-							.padding([.top, .bottom], 6)
-							.frame(maxWidth: .infinity, alignment: .leading)
-						ForEach(section.items) { item in
-							WKWatchlistViewCell(itemViewModel: item, localizedStrings: viewModel.localizedStrings, menuItemConfiguration: WKWatchlistViewCell.MenuItemConfiguration(userMenuItems: viewModel.menuButtonItems, anonOrBotMenuItems: viewModel.menuButtonItemsWithoutThank), menuButtonDelegate: menuButtonDelegate)
-								.contentShape(Rectangle())
-								.onTapGesture {
-									delegate?.watchlistUserDidTapDiff(project: item.project, title: item.title, revisionID: item.revisionID, oldRevisionID: item.oldRevisionID)
-								}
-						}
-						.padding([.top, .bottom], 6)
-						Spacer()
-							.frame(height: 14)
-					}
-				}
-			}
-			.padding([.leading, .trailing], 16)
-			.padding([.top], 12)
-		}
-	}
-
+    
+    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var viewModel: WKWatchlistViewModel
+    
+    weak var delegate: WKWatchlistDelegate?
+    weak var menuButtonDelegate: WKMenuButtonDelegate?
+    
+    var body: some View {
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                ForEach(viewModel.sections) { section in
+                    Group {
+                        Text(section.title.localizedUppercase)
+                            .font(Font(WKFont.for(.boldFootnote)))
+                            .foregroundColor(Color(appEnvironment.theme.secondaryText))
+                            .padding([.top, .bottom], 6)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        ForEach(section.items) { item in
+                            WKWatchlistViewCell(itemViewModel: item, localizedStrings: viewModel.localizedStrings, menuItemConfiguration: WKWatchlistViewCell.MenuItemConfiguration(userMenuItems: viewModel.menuButtonItems, anonOrBotMenuItems: viewModel.menuButtonItemsWithoutThank), menuButtonDelegate: menuButtonDelegate)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    delegate?.watchlistUserDidTapDiff(project: item.project, title: item.title, revisionID: item.revisionID, oldRevisionID: item.oldRevisionID)
+                                }
+                                .accessibilityLabel("All the text")
+                        }
+                        .padding([.top, .bottom], 6)
+                        Spacer()
+                            .frame(height: 14)
+                    }
+                }
+            }
+            .padding([.leading, .trailing], 16)
+            .padding([.top], 12)
+        }
+    }
+    
 }
 
 // MARK: - Private: WKWatchlistViewCell
@@ -85,8 +86,8 @@ private struct WKWatchlistContentView: View {
 fileprivate struct WKWatchlistViewCell: View {
 
 	struct MenuItemConfiguration {
-		let userMenuItems: [WKMenuButton.MenuItem]
-		let anonOrBotMenuItems: [WKMenuButton.MenuItem]
+		var userMenuItems: [WKMenuButton.MenuItem]
+		var anonOrBotMenuItems: [WKMenuButton.MenuItem]
 	}
 
 	@ObservedObject var appEnvironment = WKAppEnvironment.current
@@ -105,7 +106,6 @@ fileprivate struct WKWatchlistViewCell: View {
 	weak var menuButtonDelegate: WKMenuButtonDelegate?
 
 	var body: some View {
-			if #available(iOS 15.0, *) {
 				ZStack {
 					RoundedRectangle(cornerRadius: 8, style: .continuous)
 						.stroke(Color(appEnvironment.theme.border), lineWidth: 0.5)
@@ -119,11 +119,14 @@ fileprivate struct WKWatchlistViewCell: View {
 								.alignmentGuide(.wkTextBaselineAlignment) { context in
 									context[.firstTextBaseline]
 								}
+                                .accessibilityHidden(true)
+
 							Text(itemViewModel.bytesString(localizedStrings: localizedStrings))
 								.font(Font(WKFont.for(.boldFootnote)))
 								.foregroundColor(Color(appEnvironment.theme[keyPath: itemViewModel.bytesTextColorKeyPath]))
 								.frame(alignment: .topLeading)
 						}
+                        .accessibilityHidden(true)
 						.frame(width: 80, alignment: .topLeading)
 
 						VStack(alignment: .leading, spacing: 6) {
@@ -135,8 +138,10 @@ fileprivate struct WKWatchlistViewCell: View {
 									.alignmentGuide(.wkTextBaselineAlignment) { context in
 										context[.firstTextBaseline]
 									}
+                                    .accessibilityHidden(true)
 								Spacer()
                                 WKProjectIconView(project: itemViewModel.project)
+                                    .accessibilityHidden(true)
 							}
 
 							if !itemViewModel.comment.isEmpty {
@@ -144,6 +149,7 @@ fileprivate struct WKWatchlistViewCell: View {
 									.font(Font(WKFont.for(.smallBody)))
 									.foregroundColor(Color(appEnvironment.theme.secondaryText))
 									.frame(maxWidth: .infinity, alignment: .topLeading)
+                                    .accessibilityHidden(true)
 							}
 
 							HStack {
@@ -154,9 +160,12 @@ fileprivate struct WKWatchlistViewCell: View {
 									menuItems: menuItemsForRevisionAuthor,
 									metadata: [
 										WKWatchlistViewModel.ItemViewModel.wkProjectMetadataKey: itemViewModel.project,
-										WKWatchlistViewModel.ItemViewModel.revisionIDMetadataKey: itemViewModel.revisionID
+										WKWatchlistViewModel.ItemViewModel.revisionIDMetadataKey: itemViewModel.revisionID,
+                                        WKWatchlistViewModel.ItemViewModel.oldRevisionIDMetadataKey: itemViewModel.oldRevisionID,
+                                        WKWatchlistViewModel.ItemViewModel.titleMetadataKey: itemViewModel.title
 									]
-								), menuButtonDelegate: menuButtonDelegate)
+                                ), menuButtonDelegate: menuButtonDelegate)
+                                .accessibilityAddTraits(.isButton)
 								Spacer()
 							}
 						}
@@ -164,10 +173,6 @@ fileprivate struct WKWatchlistViewCell: View {
 					.padding([.top, .bottom], 12)
 					.padding([.leading, .trailing], 16)
 				}
-			} else {
-				// TODO: Remove enclosing version check when minimum target is iOS 15
-				fatalError()
-			}
 	}
 
 }

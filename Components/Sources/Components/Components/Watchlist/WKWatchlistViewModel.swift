@@ -30,6 +30,8 @@ public final class WKWatchlistViewModel: ObservableObject {
 	public struct ItemViewModel: Identifiable {
 		public static let wkProjectMetadataKey = String(describing: WKProject.self)
 		public static let revisionIDMetadataKey = "RevisionID"
+        public static let oldRevisionIDMetadataKey = "OldRevisionID"
+        public static let titleMetadataKey = "Title"
 
 		public let id = UUID()
 
@@ -116,7 +118,7 @@ public final class WKWatchlistViewModel: ObservableObject {
     @Published public var activeFilterCount: Int = 0
 	@Published var hasPerformedInitialFetch = false
 
-	let menuButtonItems: [WKMenuButton.MenuItem]
+	var menuButtonItems: [WKMenuButton.MenuItem]
 	var menuButtonItemsWithoutThank: [WKMenuButton.MenuItem]
 
 	// MARK: - Lifecycle
@@ -124,14 +126,31 @@ public final class WKWatchlistViewModel: ObservableObject {
     public init(localizedStrings: LocalizedStrings, presentationConfiguration: PresentationConfiguration) {
 		self.localizedStrings = localizedStrings
         self.presentationConfiguration = presentationConfiguration
-		self.menuButtonItems = [
-			WKMenuButton.MenuItem(title: localizedStrings.userButtonUserPage, image: WKSFSymbolIcon.for(symbol: .person)),
-			WKMenuButton.MenuItem(title: localizedStrings.userButtonTalkPage, image: WKSFSymbolIcon.for(symbol: .conversation)),
-			WKMenuButton.MenuItem(title: localizedStrings.userButtonContributions, image: WKIcon.userContributions),
-			WKMenuButton.MenuItem(title: localizedStrings.userButtonThank, image: WKIcon.thank)
-		]
-		self.menuButtonItemsWithoutThank = self.menuButtonItems.dropLast()
+		self.menuButtonItems = [WKMenuButton.MenuItem]()
+        self.menuButtonItemsWithoutThank = [WKMenuButton.MenuItem]()
+        setupMenuItems()
 	}
+
+    private func setupMenuItems() {
+        menuButtonItems = getMenuButtonItems()
+        menuButtonItemsWithoutThank = menuButtonItems.dropLast()
+    }
+
+    private func getMenuButtonItems() -> [WKMenuButton.MenuItem] {
+
+        var menuItems: [WKMenuButton.MenuItem] = [
+            WKMenuButton.MenuItem(title: localizedStrings.userButtonUserPage, image: WKSFSymbolIcon.for(symbol: .person)),
+            WKMenuButton.MenuItem(title: localizedStrings.userButtonTalkPage, image: WKSFSymbolIcon.for(symbol: .conversation)),
+            WKMenuButton.MenuItem(title: localizedStrings.userButtonContributions, image: WKIcon.userContributions),
+            WKMenuButton.MenuItem(title: localizedStrings.userButtonThank, image: WKIcon.thank)
+        ]
+
+        if UIAccessibility.isVoiceOverRunning {
+            let accItem = WKMenuButton.MenuItem(title: "Go to diff", image: nil)
+            menuItems.insert(accItem, at: 0)
+        }
+        return menuItems
+    }
 
 	public func fetchWatchlist() {
         dataController.fetchWatchlist { result in
