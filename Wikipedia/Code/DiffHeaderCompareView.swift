@@ -72,13 +72,13 @@ class DiffHeaderCompareView: SetupView {
     }()
 
     lazy var fromMenuButton = {
-        let button = WKMenuButton(configuration: WKMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.link, menuItems: userButtonMenuItems))
+        let button = WKMenuButton(configuration: WKMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.diffCompareAccent, menuItems: userButtonMenuItems))
         button.delegate = self
         return button
     }()
 
     lazy var toMenuButton = {
-        let button = WKMenuButton(configuration: WKMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.diffCompareAccent, menuItems: userButtonMenuItems))
+        let button = WKMenuButton(configuration: WKMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.link, menuItems: userButtonMenuItems))
         button.delegate = self
         return button
     }()
@@ -251,11 +251,11 @@ extension DiffHeaderCompareView: Themeable {
         backgroundColor = theme.colors.paperBackground
 
         fromHeadingLabel.textColor = theme.colors.secondaryText
-        fromTimestampLabel.textColor = theme.colors.link
+        fromTimestampLabel.textColor = theme.colors.warning
         fromDescriptionLabel.textColor = theme.colors.primaryText
 
         toHeadingLabel.textColor = theme.colors.secondaryText
-        toTimestampLabel.textColor = theme.colors.warning
+        toTimestampLabel.textColor = theme.colors.link
         toDescriptionLabel.textColor = theme.colors.primaryText
     }
 }
