@@ -35,6 +35,7 @@ struct WKWatchlistView: View {
             }
         } else {
             ProgressView()
+            .accessibilityHidden(true)
         }
     }
     
@@ -66,7 +67,8 @@ private struct WKWatchlistContentView: View {
                                 .onTapGesture {
                                     delegate?.watchlistUserDidTapDiff(project: item.project, title: item.title, revisionID: item.revisionID, oldRevisionID: item.oldRevisionID)
                                 }
-                                .accessibilityLabel("All the text")
+                                .accessibilityLabel(getAccessibilityLabelForItem(item: item))
+                                .accessibilityElement(children: .combine)
                         }
                         .padding([.top, .bottom], 6)
                         Spacer()
@@ -78,7 +80,14 @@ private struct WKWatchlistContentView: View {
             .padding([.top], 12)
         }
     }
-    
+
+    func getAccessibilityLabelForItem(item: WKWatchlistViewModel.ItemViewModel) -> String {
+        var accessibilityString = ""
+        accessibilityString = "\(item.project) \(item.timestampString). \(item.title). User: \(item.username). Comment: \(item.comment)"
+        return accessibilityString
+        //TODO localize all strings
+    }
+
 }
 
 // MARK: - Private: WKWatchlistViewCell
