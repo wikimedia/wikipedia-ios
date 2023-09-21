@@ -158,8 +158,10 @@
 "article-languages-yours" = "Dina språk";
 "article-read-more-title" = "Läs mer";
 "article-reference-view-title" = "Referens $1";
+"article-revision-history" = "Artikelns versionshistorik";
 "article-save-error-not-enough-space" = "Du har inte tillräckligt mycket utrymme på din enhet för att spara denna artikel";
 "article-share" = "Dela";
+"article-talk-page" = "Artikelns diskussionssida";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontroller för lästeman";
 "back-button-accessibility-label" = "Tillbaka";
 "back-button-popover-title" = "Tryck för att gå tillbaka";
@@ -179,6 +181,8 @@
 "chinese-variants-alert-body" = "Wikipedia-appen stöder nu följande kinesiska varianter som huvudsakliga eller sekundära språk inom appen, som underlättar att läsa, söka och redigera i appen på dina önskade varianter:\n\n简体 kinesiska, förenklad (zh-hans)\n香港繁體 Hong Kong, traditionell (zh-hk)\n澳門繁體 Macau, traditionell (zh-mo)\n大马简体 Malaysia, förenklad (zh-my)\n新加坡简体 Singapore, förenklad (zh-sg)\n臺灣正體 Taiwan, traditionell (zh-tw)";
 "chinese-variants-alert-title" = "Uppdaterades till stöd för kinesiska varianter";
 "clear-title-accessibility-label" = "Rensa";
+"clearing-cache-complete" = "Cacheminnet rensades.";
+"clearing-cache-in-progress" = "Cacheminnet rensas.";
 "close-button-accessibility-label" = "Stäng";
 "compass-direction" = "mot klockan $1";
 "continue-button-title" = "Fortsätt";
@@ -223,6 +227,7 @@
 "description-welcome-descriptions-title" = "Artikelbeskrivningar";
 "description-welcome-promise-title" = "Genom att börja lovar jag att inte missbruka denna funktion";
 "description-welcome-start-editing-button" = "Börja redigera";
+"diff-article-edit-history" = "Artikelns redigeringshistorik";
 "diff-compare-header-from-info-heading" = "Föregående redigering";
 "diff-compare-header-heading" = "Jämför versioner";
 "diff-compare-header-to-info-heading" = "Redigering som visas";
@@ -241,7 +246,7 @@
 "diff-rollback" = "Rulla tillbaka";
 "diff-rollback-alert-message" = "Är du säker på att du vill rulla tillbaka redigeringarna?";
 "diff-rollback-alert-title" = "Rulla tillbaka redigeringar";
-"diff-rollback-success" = "Redigeringar rullades tillbaka.";
+"diff-rollback-success" = "Redigeringar återställdes.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 redigering|$1 redigeringar}}";
 "diff-single-header-editor-title" = "Redigerarinformation";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte lades till}}";
@@ -258,7 +263,10 @@
 "diff-thanks-sent" = "Ditt tack skickades till $1";
 "diff-thanks-sent-already" = "Du har redan skickat ett tack för denna redigering";
 "diff-thanks-sent-cannot-unsend" = "Tack kan inte ångras";
+"diff-undo-message" = "Detta gör genomförda ändringar ogjorda i versionerna av artikeln som visas här. Ange en anledning till att göra denna redigering ogjord för att fortsätta.";
+"diff-undo-success" = "Versionen återställdes.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 oredigerad rad|$1 oredigerade rader}}";
+"diff-user-button-accessibility-text" = "Dubbeltryck för att öppna menyn";
 "dim-images" = "Mörklägg bilder";
 "edit-bold-accessibility-label" = "Lägg till fetstilad formatering";
 "edit-bold-remove-accessibility-label" = "Ta bort fetstilad formatering";
@@ -600,6 +608,7 @@
 "notifications-center-checking-for-notifications" = "Letar efter aviseringar...";
 "notifications-center-destination-app" = "I appen";
 "notifications-center-destination-web" = "På webben";
+"notifications-center-detail-title" = "Aviseringsinformation";
 "notifications-center-empty-checking-for-notifications" = "Letar efter aviseringar...";
 "notifications-center-empty-no-messages" = "Du har inga meddelanden";
 "notifications-center-empty-not-subscribed" = "Du prenumererar för tillfället inte på några av Wikipedias aviseringar";
@@ -1135,9 +1144,13 @@
 "watchlist-change-expiry-option-permanent" = "Permanent";
 "watchlist-change-expiry-option-six-months" = "6 månader";
 "watchlist-change-expiry-option-three-months" = "3 månader";
+"watchlist-change-expiry-subtitle" = "Välj tidsperiod för bevakningslistan";
+"watchlist-change-expiry-title" = "Förfallotid för bevakningslistan";
 "watchlist-empty-view-button-title" = "Sök efter artiklar";
 "watchlist-empty-view-filter-title" = "Du har inga poster i bevakningslistan";
+"watchlist-empty-view-subtitle" = "Håll reda på vad som händer i artiklar du är intresserad av. Tryck på menyn i artikeln och välj \"Bevaka\" för att se ändringar på en artikel.";
 "watchlist-empty-view-title" = "Artiklar som du har lagt till i bevakningslistan visas här";
+"watchlist-expiration-subtitle" = "Sidor stannar kvar som standard, men möjligheten att tillfälligt bevaka mellan en vecka till ett år finns.";
 "watchlist-expiration-title" = "Ange utgångsdatum";
 "watchlist-filter" = "Filter";
 "watchlist-filter-activity-header" = "Aktivitet för bevakningslista";
@@ -1163,13 +1176,17 @@
 "watchlist-filter-user-registration-options-unregistered" = "Oregistrerade";
 "watchlist-number-filters" = "Modifiera [{{PLURAL:$1|$1 filter}}](wikipedia://watchlist/filter) för att se fler poster i bevakningslistan";
 "watchlist-onboarding-button-title" = "Läs mer om bevakningslistan";
+"watchlist-onboarding-title" = "Det här är din bevakningslista";
 "watchlist-removed" = "Togs bort från din bevakningslista";
+"watchlist-track-subtitle" = "Bevakningslistan är ett verktyg som låter dig hålla reda på ändringar som görs på sidor eller artiklar som du är intresserad av.";
 "watchlist-track-title" = "Spåra ändringar";
+"watchlist-updates-subtitle" = "Bevakningslistan över de sidor du har lagt till, som redigeringar eller diskussioner, kan nås via Inställningar → Konto.";
 "watchlist-updates-title" = "Visa uppdateringar";
 "watchlist-user-button-thank" = "Tacka";
 "watchlist-user-button-user-contributions" = "Användarbidrag";
 "watchlist-user-button-user-page" = "Användarsida";
 "watchlist-user-button-user-talk-page" = "Användardiskussionssida";
+"watchlist-watch-subtitle" = "Genom att trycka på stjärnan eller \"Bevaka\" i det nedre verktygsfältet på en artikel kan du lägga till sidan i din bevakningslista.";
 "watchlist-watch-title" = "Bevaka artiklar";
 "welcome-exploration-explore-feed-description" = "Dagens artiklar och lästips från vår gemenskap";
 "welcome-exploration-explore-feed-title" = "Utforskarflöde";

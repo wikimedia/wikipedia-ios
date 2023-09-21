@@ -217,6 +217,7 @@
 "clearing-cache-in-progress" = "В процессе очистки кэша.";
 "close-button-accessibility-label" = "Закрыть";
 "compass-direction" = "на $1 часов";
+"continue-button-title" = "Продолжить";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтобы найти больше статей для чтения";
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
 "crimean-tatar-variants-alert-body" = "Приложение Википедия теперь поддерживает следующие варианты крымскотатарского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nQırımtatarca, крымскотатарский латиница (chr-latn)\nКъырымтатарджа, крымскотатарская кириллица (crh-cyrl)";
@@ -508,6 +509,7 @@
 "field-token-title" = "Код подтверждения";
 "field-username-placeholder" = "введите имя участника";
 "field-username-title" = "Имя участника";
+"filter-options-all" = "Все";
 "find-clear-button-accessibility" = "Очистить поиск";
 "find-infolabel-number-matches" = "$1 из $2";
 "find-next-button-accessibility" = "Следующее вхождение";
@@ -1139,7 +1141,12 @@
 "watchlist-change-expiry-subtitle" = "Выберите период времени в списке наблюдения";
 "watchlist-change-expiry-title" = "Срок действия списка наблюдения";
 "watchlist-filter" = "Фильтр";
+"watchlist-filter-automated-contributions-options-bot" = "Бот";
+"watchlist-filter-automated-contributions-options-human" = "Человек (не бот)";
+"watchlist-filter-latest-revisions-header" = "Последние версии";
+"watchlist-filter-latest-revisions-options-latest-revision" = "Текущая версия";
 "watchlist-removed" = "Удалено из вашего списка наблюдения";
+"watchlist-updates-title" = "Просмотр обновлений";
 "watchlist-user-button-user-contributions" = "Вклад участника";
 "watchlist-user-button-user-page" = "Страница участника";
 "watchlist-user-button-user-talk-page" = "Страница обсуждения участника";
