@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1430"
+   LastUpgradeVersion = "1500"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "WKData"
-               BuildableName = "WKData"
-               BlueprintName = "WKData"
+               BlueprintIdentifier = "WKDataMocks"
+               BuildableName = "WKDataMocks"
+               BlueprintName = "WKDataMocks"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,13 +26,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <TestPlans>
-         <TestPlanReference
-            reference = "container:../Test Plans/WKData.xctestplan"
-            default = "YES">
-         </TestPlanReference>
-      </TestPlans>
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -54,9 +49,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "WKData"
-            BuildableName = "WKData"
-            BlueprintName = "WKData"
+            BlueprintIdentifier = "WKDataMocks"
+            BuildableName = "WKDataMocks"
+            BlueprintName = "WKDataMocks"
             ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>
