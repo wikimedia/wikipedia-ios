@@ -106,8 +106,8 @@ private extension DiffListContextCell {
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.addSubview(label)
                 
-                let top = label.topAnchor.constraint(equalTo: view.topAnchor, constant: DiffListContextViewModel.contextItemTextPadding.top)
-                let bottom = view.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: DiffListContextViewModel.contextItemTextPadding.bottom)
+                let top = label.topAnchor.constraint(equalTo: view.topAnchor, constant: 0)
+                let bottom = view.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: DiffListContextViewModel.contextItemTextPadding.bottom + 5)
                 let leading = label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: DiffListContextViewModel.contextItemTextPadding.leading)
                 let trailing = view.trailingAnchor.constraint(equalTo: label.trailingAnchor, constant: DiffListContextViewModel.contextItemTextPadding.trailing)
                 

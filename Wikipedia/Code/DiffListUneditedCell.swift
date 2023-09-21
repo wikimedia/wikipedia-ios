@@ -16,7 +16,7 @@ class DiffListUneditedCell: UICollectionViewCell {
         innerBottomConstraint.constant = viewModel.innerPadding.bottom
         
         textLabel.font = viewModel.font
-        textLabel.text = viewModel.text.capitalized(with: Locale.current)
+        textLabel.text = viewModel.text.localizedCapitalized
 
         apply(theme: viewModel.theme)
 

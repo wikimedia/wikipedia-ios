@@ -355,7 +355,7 @@ public class CommonStrings: NSObject {
 
     public static let diffToHeading = WMFLocalizedString("diff-compare-header-to-info-heading", value: "Displayed Edit", comment: "Heading label in info box for current revision when comparing two revisions.")
 
-    public static let diffArticleEditHistory = WMFLocalizedString("diff-article-edit-history", value: "Article edit history", comment: "Label for article edit history menu item in diff more menu.")
+    public static let diffArticleEditHistory = WMFLocalizedString("diff-article-revision-history", value: "Article revision history", comment: "Label for article edit history menu item in diff more menu.")
 
     public static let diffSingleLineFormat = WMFLocalizedString("diff-single-line-format", value:"Line %1$d", comment:"Label in diff to indicate how many lines a change section encompases. This format is for a single change line. %1$d is replaced by the change line number.")
 

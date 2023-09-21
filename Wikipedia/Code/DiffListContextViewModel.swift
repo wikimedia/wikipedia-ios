@@ -184,7 +184,6 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
             }
             
             height += itemTextHeight
-//            height += contextItemPadding.bottom
             
             if index < (items.count - 1) {
                 height += DiffListContextViewModel.contextItemStackSpacing
