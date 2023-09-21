@@ -209,19 +209,19 @@ class DiffHeaderCompareView: SetupView {
 
      func updateAccessibilityLabels(viewModel: DiffHeaderCompareViewModel) {
          let revisionAccessibilityText = WMFLocalizedString("diff-header-revision-accessibility-text", value: "Revision made at", comment: "Accessibility text to provide more context to users of assistive tecnologies about the revision date")
-         let userMenuButtonAccesibilityText = WMFLocalizedString("diff-user-button-accessibility-text", value: "Double tap to open menu", comment: "Accessibility text to provide more context to users of assistive tecnologies about the user button actions")
+         
 
          // from stack view
          let fromIsMinorAccessibilityString = viewModel.fromModel.isMinor ? CommonStrings.minorEditTitle : ""
          let fromAuthorString = String.localizedStringWithFormat(CommonStrings.authorTitle, viewModel.fromModel.username ?? CommonStrings.unknownTitle)
          fromStackView.isAccessibilityElement = true
-         fromStackView.accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [fromHeadingLabel.text, revisionAccessibilityText,fromTimestampLabel.text, fromAuthorString, fromIsMinorAccessibilityString, viewModel.fromModel.summary, userMenuButtonAccesibilityText])
+         fromStackView.accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [fromHeadingLabel.text, revisionAccessibilityText,fromTimestampLabel.text, fromAuthorString, fromIsMinorAccessibilityString, viewModel.fromModel.summary, CommonStrings.userMenuButtonAccesibilityText])
 
          // to stack view
          let toIsMinorAccessibilityString = viewModel.toModel.isMinor ? CommonStrings.minorEditTitle : ""
          let toAuthorString = String.localizedStringWithFormat(CommonStrings.authorTitle, viewModel.toModel.username ?? CommonStrings.unknownTitle)
          toStackView.isAccessibilityElement = true
-         toStackView.accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [toHeadingLabel.text, revisionAccessibilityText, toTimestampLabel.text, toAuthorString, toIsMinorAccessibilityString, viewModel.toModel.summary, userMenuButtonAccesibilityText])
+         toStackView.accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [toHeadingLabel.text, revisionAccessibilityText, toTimestampLabel.text, toAuthorString, toIsMinorAccessibilityString, viewModel.toModel.summary, CommonStrings.userMenuButtonAccesibilityText])
      }
 
 }
