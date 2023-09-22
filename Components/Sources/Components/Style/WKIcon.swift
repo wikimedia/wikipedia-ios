@@ -48,6 +48,8 @@ public enum WKIcon {
 
 public enum WKSFSymbolIcon {
     case checkmark
+    case checkmarkSquareFill
+    case square
     case star
     case person
 	case personFilled
@@ -61,6 +63,10 @@ public enum WKSFSymbolIcon {
         switch symbol {
         case .checkmark:
             return UIImage(systemName: "checkmark", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .checkmarkSquareFill:
+            return UIImage(systemName: "checkmark.square.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .square:
+            return UIImage(systemName: "square", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .star:
             return UIImage(systemName: "star", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .person:
