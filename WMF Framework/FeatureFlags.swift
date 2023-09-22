@@ -7,11 +7,7 @@ public struct FeatureFlags {
     }
 
     public static var watchlistEnabled: Bool {
-        #if WMF_STAGING
         return true
-        #else
-        return true
-        #endif
     }
-    
+
 }

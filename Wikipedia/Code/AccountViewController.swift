@@ -150,6 +150,9 @@ class AccountViewController: SubSettingsViewController {
                     self.navigationController?.pushViewController(newTalkPage, animated: true)
                 }
         case .watchlist:
+            
+            WatchlistFunnel.shared.logOpenWatchlistFromAccount()
+            
             let userDefaults = UserDefaults.standard
 
             if !userDefaults.wmf_userHasOnboardedToWatchlists {
@@ -177,6 +180,8 @@ class AccountViewController: SubSettingsViewController {
 
         let viewController = WKOnboardingViewController(viewModel: viewModel)
         viewController.hostingController.delegate = self
+        
+        WatchlistFunnel.shared.logWatchlistOnboardingAppearance()
 
         present(viewController, animated: true) {
             UserDefaults.standard.wmf_userHasOnboardedToWatchlists = true
@@ -260,6 +265,9 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
 
 extension AccountViewController: WKOnboardingViewDelegate {
     func didClickPrimaryButton() {
+        
+        WatchlistFunnel.shared.logWatchlistOnboardingTapContinue()
+        
         if let presentedViewController {
             presentedViewController.dismiss(animated: true) {
                 self.goToWatchlist()
@@ -268,6 +276,8 @@ extension AccountViewController: WKOnboardingViewDelegate {
     }
 
     func didClickSecondaryButton() {
+        
+        WatchlistFunnel.shared.logWatchlistOnboardingTapLearnMore()
 
         if let presentedViewController {
             presentedViewController.dismiss(animated: true) {

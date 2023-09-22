@@ -162,7 +162,7 @@ public final class WKWatchlistViewModel: ObservableObject {
         return menuItems
     }
 
-	public func fetchWatchlist() {
+	 public func fetchWatchlist(_ completion: (() -> Void)? = nil) {
         dataController.fetchWatchlist { result in
 			switch result {
 			case .success(let watchlist):
@@ -176,6 +176,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 				break
 			}
 			self.hasPerformedInitialFetch = true
+            completion?()
 		}
 	}
 
