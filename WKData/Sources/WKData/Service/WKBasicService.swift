@@ -88,8 +88,6 @@ public final class WKBasicService: WKService {
             }
         }
         
-        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        
         let task = urlSession.wkDataTask(with: urlRequest) { data, response, error in
             
             if let error {
