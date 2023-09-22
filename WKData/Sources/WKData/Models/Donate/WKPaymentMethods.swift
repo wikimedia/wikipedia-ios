@@ -1,4 +1,5 @@
 import Foundation
+import PassKit
 
 public struct WKPaymentMethods: Codable {
     
@@ -15,22 +16,22 @@ public struct WKPaymentMethods: Codable {
     }
     
     private let response: Response
-    public var applePayPaymentNetworks: [String] {
+    public var applePayPaymentNetworks: [PKPaymentNetwork] {
         let brands = self.response.paymentMethods.first { $0.type == "applepay" }?.brands ?? []
         
-        // Note: This translates brand-style wording to PKPaymentRequest wording
-        // TODO: Is there a way around this?
-        let paymentNetworks = brands.compactMap { brand in
-            switch brand {
-            case "amex": return "AmEx"
-            case "discover": return "Discover"
-            case "maestro": return "Maestro"
-            case "mc": return "MasterCard"
-            case "visa": return "Visa"
-            default: return nil
-            }
-        }
-        
-        return paymentNetworks
+        let paymentNetworks = PKPaymentRequest.availableNetworks()
+        let brandsSet = Set(brands)
+
+        return paymentNetworks.filter { brandsSet.contains($0.brandName) }
+    }
+}
+
+// Taken from https://github.com/Adyen/adyen-ios/blob/b56be842b3e9ae49798c1cfc527d2f1df334ee80/AdyenComponents/Apple%20Pay/ApplePayConfiguration.swift#L176
+
+private extension PKPaymentNetwork {
+    var brandName: String {
+        if self == .masterCard { return "mc" }
+        if self == .cartesBancaires { return "cartebancaire" }
+        return self.rawValue.lowercased()
     }
 }

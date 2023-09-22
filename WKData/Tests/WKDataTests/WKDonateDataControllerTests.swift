@@ -45,7 +45,7 @@ final class WKDonateDataControllerTests: XCTestCase {
         XCTAssertEqual(donateConfig.currencyAmounts7["USD"]?[0], 3, "Unexpected USD default option first value")
         XCTAssertEqual(donateConfig.currencyTransactionFees["default"], 0.35, "Unexpected default transaction fee")
         XCTAssertTrue(donateConfig.countryCodeEmailOptInRequired.contains("AR"), "Missing AR from email opt in required list")
-        XCTAssertEqual(paymentMethods.applePayPaymentNetworks, ["AmEx", "Discover", "Maestro", "MasterCard", "Visa"], "Unexpected Apple Pay payment networks")
+        XCTAssertEqual(paymentMethods.applePayPaymentNetworks, [.amex, .discover, .maestro, .masterCard, .visa], "Unexpected Apple Pay payment networks")
     }
     
     func testDonateSubmitPayment() {
