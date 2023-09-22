@@ -99,12 +99,16 @@ public final class WKWatchlistViewController: WKCanvasViewController {
                 watchlistDelegate?.watchlistUserDidTapDiff(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId)
             } else if tappedTitle == menuButtonItems[1].title {
                 watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userPage)
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .userPage)
             } else if tappedTitle == menuButtonItems[2].title {
                 watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userTalkPage)
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .userTalkPage)
             } else if tappedTitle == menuButtonItems[3].title {
                 watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userContributions)
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .userContributions)
             } else if tappedTitle == menuButtonItems[4].title {
                 watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .thank(revisionID: revisionID))
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .thank(revisionID: revisionID))
             }
         }
 	}

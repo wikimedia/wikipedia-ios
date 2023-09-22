@@ -425,7 +425,6 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         case .thank:
             WatchlistFunnel.shared.logTapUserThank(project: wikimediaProject)
         case .diff:
-            WatchlistFunnel.shared.logDiffOpen(project: wikimediaProject)
             break
         }
     }
