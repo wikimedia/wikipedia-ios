@@ -162,6 +162,10 @@ public class WKMockWatchlistMediaWikiService: WKService {
         completion(.success(response))
     }
     
+    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WKData.WKServiceRequest, T : Decodable {
+        
+    }
+    
     private func jsonData(for request: WKData.WKServiceRequest) -> Data? {
         if request.isWatchlistGetListNoFilter {
             guard let host = request.url?.host,
