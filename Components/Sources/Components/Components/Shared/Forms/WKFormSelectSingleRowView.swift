@@ -25,9 +25,7 @@ struct WKFormSelectSingleRowView: View {
                 Text(viewModel.title ?? "")
                     .foregroundColor(Color(theme.text))
                 Spacer()
-                if viewModel.isSelected {
-                    WKCheckmarkView()
-                }
+                WKCheckmarkView(isSelected: viewModel.isSelected, configuration: WKCheckmarkView.Configuration(style: .default))
             }
         }
         .accessibilityAddTraits(viewModel.isSelected ? [.isSelected] : [])
