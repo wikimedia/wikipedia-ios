@@ -150,6 +150,9 @@ public class CommonStrings: NSObject {
     @objc public static let nextTitle = WMFLocalizedString("button-next", value: "Next", comment: "Button text for next button used in various places. {{Identical|Next}}")
     @objc public static let skipTitle = WMFLocalizedString("button-skip", value: "Skip", comment: "Button text for skip button used in various places.")
     @objc public static let okTitle = WMFLocalizedString("button-ok", value: "OK", comment: "Button text for ok button used in various places {{Identical|OK}}")
+    @objc public static let userTitle = WMFLocalizedString("user-titke", value: "User", comment: "Text for user in the app")
+
+
     @objc public static let doneTitle = WMFLocalizedString("description-published-button-title", value: "Done", comment: "Title for description panel done button.")
     public static let goBackTitle = WMFLocalizedString("button-go-back", value: "Go back", comment: "Button text for Go back button used in various places")
     public static let publishAnywayTitle = WMFLocalizedString("button-publish-anyway", value: "Publish anyway", comment: "Button text for publish button used when first warned against publishing.")
@@ -302,7 +305,9 @@ public class CommonStrings: NSObject {
     public static let userButtonThank = WMFLocalizedString("watchlist-user-button-thank", value: "Thank", comment: "Title shown for thank action in user menu button in watchlist view.")
 
     public static let thanksMessage = WMFLocalizedString("diff-thanks-sent", value: "Your 'Thanks' was sent to %1$@", comment: "Message indicating thanks was sent. Parameters:\n* %1$@ - name of user who was thanked")
-    
+
+    public static let editSummaryTitle =  WMFLocalizedString("watchlist-edit-summary-accessibility", value: "Edit summary", comment: "Text for edit summary acessibility text")
+
     public static let filterOptionsAll = WMFLocalizedString("filter-options-all", value:  "All", comment: "Common option on filter adjustment views to allow All types in the associated section.")
     public static let userMenuButtonAccesibilityText = WMFLocalizedString("diff-user-button-accessibility-text", value: "Double tap to open menu", comment: "Accessibility text to provide more context to users of assistive tecnologies about the user button actions")
 

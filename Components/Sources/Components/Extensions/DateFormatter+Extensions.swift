@@ -17,5 +17,12 @@ public extension DateFormatter {
 		dateFormatter.dateStyle = .full
 		return dateFormatter
 	}()
-	
+
+    static var wkTimeDateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .medium
+        dateFormatter.dateStyle = .none
+        return dateFormatter
+    }()
+
 }

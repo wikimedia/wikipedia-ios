@@ -13,16 +13,22 @@ public final class WKWatchlistViewModel: ObservableObject {
 		public var userButtonTalkPage: String
 		public var userButtonContributions: String
 		public var userButtonThank: String
+        public var userAccessibility: String
+        public var summaryAccessibility: String
+        public var localizedProjectNames: [WKProject: String]
 
 		public var byteChange: ((Int) -> String) // for injecting localized plurals via client app
 
-		public init(title: String, filter: String, userButtonUserPage: String, userButtonTalkPage: String, userButtonContributions: String, userButtonThank: String, byteChange: @escaping ((Int) -> String)) {
+        public init(title: String, filter: String, userButtonUserPage: String, userButtonTalkPage: String, userButtonContributions: String, userButtonThank: String, userAccessibility: String, summaryAccessibility: String, localizedProjectNames: [WKProject: String], byteChange: @escaping ((Int) -> String)) {
 			self.title = title
 			self.filter = filter
 			self.userButtonUserPage = userButtonUserPage
 			self.userButtonTalkPage = userButtonTalkPage
 			self.userButtonContributions = userButtonContributions
 			self.userButtonThank = userButtonThank
+            self.userAccessibility = userAccessibility
+            self.summaryAccessibility = summaryAccessibility
+            self.localizedProjectNames = localizedProjectNames
 			self.byteChange = byteChange
 		}
 	}
@@ -64,6 +70,10 @@ public final class WKWatchlistViewModel: ObservableObject {
 		var timestampString: String {
 			return DateFormatter.wkShortTimeFormatter.string(from: timestamp)
 		}
+
+        var timestampStringAccessibility: String {
+            return DateFormatter.wkTimeDateFormatter.string(from: timestamp)
+        }
 
 		func bytesString(localizedStrings: LocalizedStrings) -> String {
 			return localizedStrings.byteChange(byteChange)
