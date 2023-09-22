@@ -5,6 +5,7 @@
 // Author: Andru1013
 // Author: Asierog
 // Author: Astroemi
+// Author: Atzerritik
 // Author: Canaan9801
 // Author: Carlosmg.dg
 // Author: Chopan050
@@ -50,6 +51,7 @@
 // Author: Rodm23
 // Author: Rodney Araujo
 // Author: Ryo567
+// Author: Samthony
 // Author: SpikeShroom
 // Author: Tiberius1701
 // Author: Tsevener
@@ -198,37 +200,32 @@
 "clear-title-accessibility-label" = "Limpiar";
 "close-button-accessibility-label" = "Cerrar";
 "compass-direction" = "a las $1 en punto";
+"continue-button-title" = "Continuar";
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
 "description-add-title" = "Añadir descripción";
-// Fuzzy
 "description-edit-for-article" = "Descripción de título para $1";
 "description-edit-learn-more" = "Más información";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Al cambiar la descripción del artículo, acepto los $1 y la publicación irrevocable de mis contribuciones bajo la licencia $2.";
 "description-edit-pencil-introduction" = "Editar introducción";
-// Fuzzy
 "description-edit-pencil-title" = "Editar descripción de título";
 "description-edit-placeholder-title" = "Las descripciones cortas son mejor";
 "description-edit-publish" = "Publicar descripción";
 "description-edit-title" = "Editar descripción";
 "description-edit-warning" = "Prueba mantener las descripciones cortas, así los usuarios pueden entender el tema del artículo en una mirada";
-// Fuzzy
 "description-help-about-description" = "Las descripciones de título resumen un artículo para ayudar a que los lectores entiendan el tema rápidamente.";
 "description-help-about-title" = "Acerca de";
 "description-help-about-wikidata" = "Sobre Wikidata";
 "description-help-more-info-description" = "Las descripciones se almacenan y mantienen en Wikidata, un proyecto de la Fundación Wikimedia que proporciona una base de datos secundaria, libre, colaborativa y multilingüe, que apoya a Wikipedia y a otros proyectos.";
 "description-help-more-info-title" = "Más información";
 "description-help-tips-description" = "Idealmente, las descripciones deberían caber en una línea, y tener entre dos y doce palabras. No están en mayúsculas, a menos que la primera palabra sea un sustantivo propio.";
-// Fuzzy
 "description-help-tips-example-description-one" = "descripción de título para un artículo sobre la Mona Lisa";
-// Fuzzy
 "description-help-tips-example-description-two" = "descripción de título para un artículo sobre el Monte Everest";
 "description-help-tips-example-title-one" = "pintura de Leonardo da Vinci";
 "description-help-tips-example-title-two" = "la montaña más alta de la Tierra";
 "description-help-tips-for-example" = "Por ejemplo:";
 "description-help-tips-title" = "Consejos para crear descripciones";
-// Fuzzy
 "description-help-title" = "Ayuda de descripción del título";
 "description-help-wikidata-guide" = "Guía de Wikidata para escribir descripciones";
 "description-published-button-title" = "Hecho";
@@ -238,15 +235,12 @@
 "description-welcome-concise-sub-title" = "Idealmente una línea, entre dos a doce palabras";
 "description-welcome-concise-title" = "\nSé breve";
 "description-welcome-descriptions-sub-title" = "\nResume un artículo para ayudar a los lectores a entender el tema de un vistazo";
-// Fuzzy
 "description-welcome-descriptions-title" = "Descripciones de títulos";
 "description-welcome-promise-title" = "Para empezar, prometo no abusar de esta característica";
 "description-welcome-start-editing-button" = "Empezar a editar";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "De";
+"diff-compare-header-from-info-heading" = "Edición anterior";
 "diff-compare-header-heading" = "Comparar revisiones";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "A";
+"diff-compare-header-to-info-heading" = "Edición mostrada";
 "diff-compare-title" = "Comparar revisiones";
 "diff-context-lines-collapsed-button-title" = "Mostrar";
 "diff-context-lines-expanded-button-title" = "Ocultar";
@@ -474,6 +468,7 @@
 "field-token-title" = "Código de verificación";
 "field-username-placeholder" = "escribe el nombre de usuario";
 "field-username-title" = "Nombre de usuario";
+"filter-options-all" = "Todos";
 "find-clear-button-accessibility" = "Limpiar busqueda";
 "find-infolabel-number-matches" = "$1/$2";
 "find-next-button-accessibility" = "Mostrar el siguiente resultado";
@@ -512,9 +507,7 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ahora no";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Responder a la encuesta";
 "import-shared-reading-list-survey-prompt-footer" = "Consulta nuestra $1declaración de privacidad$2. Encuesta creada con tecnología de terceros. Consulta su $3política de privacidad$4.";
-// Fuzzy
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Compartir listas de lectura\" es una función de prueba y necesitamos tus comentarios para mejorarla o eliminarla.";
-// Fuzzy
 "import-shared-reading-list-survey-prompt-title" = "¿Podrías ayudarnos a mejorar \"Compartir listas de lectura\"?";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipedia";
@@ -597,14 +590,11 @@
 "notifications-center-change-password" = "Cambiar contraseña";
 "notifications-center-destination-app" = "En la aplicación";
 "notifications-center-destination-web" = "En la web";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "Activar las notificaciones";
+"notifications-center-feed-news-notification-button-text" = "Activar las notificaciones push";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Ahora no";
 "notifications-center-filters-accessibility-label" = "Filtro de notificaciones";
-// Fuzzy
-"notifications-center-go-to-article" = "Ir al artículo";
-// Fuzzy
-"notifications-center-go-to-article-talk-format" = "Ir a la página de discusión de $1";
+"notifications-center-go-to-article" = "Artículo";
+"notifications-center-go-to-article-talk-format" = "página de discusión $1";
 "notifications-center-login-notifications" = "Notificaciones de inicio de sesión";
 "notifications-center-onboarding-modal-continue-action" = "Continuar";
 "notifications-center-onboarding-modal-filters-title" = "Filtros";
@@ -776,9 +766,9 @@
 "reference-section-button-accessibility-label" = "Saltar a la sección de referencias";
 "reference-title" = "Referencia $1";
 "relative-date-days-ago" = "\n{{PLURAL:$1|0=Hoy|Ayer|Hace $1 días}}";
-"relative-date-hours-abbreviated" = "$1 h";
+"relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recientemente|Hace $1 hora|Hace $1 horas}}";
-"relative-date-hours-ago-abbreviated" = "hace $1 h";
+"relative-date-hours-ago-abbreviated" = "hace $1h";
 "relative-date-minutes-abbreviated" = "$1 m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Recién|Hace $1 minuto|Hace $1 minutos}}";
 "relative-date-minutes-ago-abbreviated" = "hace $1 m";
@@ -862,20 +852,17 @@
 "settings-support" = "Apoya a Wikipedia";
 "settings-title" = "Configuración";
 "share-a-fact-made-with" = "Creada con la aplicación de Wikipedia";
-// Fuzzy
-"share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
+"share-article-name-on-wikipedia" = "«$1» en Wikipedia:";
 "share-building" = "Construyendo una tarjeta comparte-un-hecho…";
 "share-default-format" = "«$1» de «$2»: $3";
 "share-email-format" = "«$1»\n\nde «$2»\n\n$3";
 "share-get-directions-in-maps" = "Obtener indicaciones";
 "share-menu-item" = "Compartir…";
 "share-message-format" = "«$1» $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "vía @Wikipedia";
+"share-on-twitter-sign-off" = "vía Wikipedia";
 "share-open-in-maps" = "Abrir en Mapas";
 "share-social-format" = "«$1» vía Wikipedia: $2";
-// Fuzzy
-"share-social-mention-format" = "«$1» vía @Wikipedia: $2";
+"share-social-mention-format" = "«$1» vía Wikipedia: $2";
 "sort-by-recently-added-action" = "Añadidos recientemente";
 "sort-by-title-action" = "Título";
 "table-of-contents-button-label" = "Sumario";
@@ -898,7 +885,6 @@
 "talk-page-new-topic-success-text" = "Tu discusión se publicó correctamente";
 "talk-page-revision-history" = "Historial de revisiones";
 "talk-page-share-button" = "Compartir página de discusión";
-// Fuzzy
 "talk-page-title-article-talk" = "discusión";
 "talk-page-title-user-talk" = "Conversaciones";
 "talk-pages-topic-reply-onboarding-body-note-ios15" = "Por favor sea amable, todos somos humanos aquí.";
@@ -923,9 +909,37 @@
 "vanish-account-learn-more-text" = "Más información";
 "variants-alert-dismiss-button" = "No, gracias";
 "variants-alert-preferences-button" = "Revisar tus preferencias";
+"watchlist-expiration-subtitle" = "Las páginas permanecen aquí por defecto, pero hay opciones de seguimiento que van desde una semana a un año.";
+"watchlist-filter-activity-header" = "Actividad de la lista de seguimiento";
+"watchlist-filter-activity-options-seen-changes" = "Cambios vistos";
+"watchlist-filter-activity-options-unseen-changes" = "Cambios sin ver";
+"watchlist-filter-automated-contributions-header" = "Contribuciones automáticas";
+"watchlist-filter-automated-contributions-options-bot" = "Bot";
+"watchlist-filter-automated-contributions-options-human" = "Humano (no es un bot)";
+"watchlist-filter-latest-revisions-header" = "Últimas revisiones";
+"watchlist-filter-latest-revisions-options-latest-revision" = "Última revisión";
+"watchlist-filter-latest-revisions-options-not-latest-revision" = "No es la última revisión";
+"watchlist-filter-significance-header" = "Importancia";
+"watchlist-filter-significance-options-minor-edits" = "Ediciones menores";
+"watchlist-filter-significance-options-non-minor-edits" = "Ediciones que no son menores";
+"watchlist-filter-type-of-change-header" = "Tipo de cambio";
+"watchlist-filter-type-of-change-options-category-changes" = "Cambios en categorías";
+"watchlist-filter-type-of-change-options-logged-actions" = "Acciones registradas";
+"watchlist-filter-type-of-change-options-page-creations" = "Creación de páginas";
+"watchlist-filter-type-of-change-options-page-edits" = "Ediciones en páginas";
+"watchlist-filter-type-of-change-options-wikidata-edits" = "Ediciones de Wikidata";
+"watchlist-filter-user-registration-options-registered" = "Registrados";
+"watchlist-filter-user-registration-options-unregistered" = "Sin registrar";
+"watchlist-onboarding-button-title" = "Más información sobre la lista de seguimiento";
+"watchlist-onboarding-title" = "Te presentamos tu lista de seguimiento";
+"watchlist-track-subtitle" = "La lista de seguimiento es una herramienta que te permite seguir los cambios que se ha hecho en las páginas que te interesan.";
+"watchlist-track-title" = "Seguimiento de cambios";
+"watchlist-updates-subtitle" = "Puedes acceder a la lista de seguimiento de las páginas que has añadido, ediciones o discusiones, desde Preferencias → Cuenta.";
+"watchlist-updates-title" = "Ver actualizaciones";
 "watchlist-user-button-user-contributions" = "Contribuciones del usuario";
 "watchlist-user-button-user-page" = "Página de usuario";
 "watchlist-user-button-user-talk-page" = "Página de discusión del usuario";
+"watchlist-watch-title" = "Artículos en seguimiento";
 "welcome-exploration-explore-feed-description" = "Lecturas recomendadas y artículos diarios de nuestra comunidad";
 "welcome-exploration-explore-feed-title" = "Canal Explorar";
 "welcome-exploration-on-this-day-description" = "Viaja en el tiempo para saber qué sucedió un día como hoy";

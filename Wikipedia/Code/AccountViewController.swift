@@ -47,7 +47,7 @@ class AccountViewController: SubSettingsViewController {
         
         let logout = Item(title: username, subtitle: CommonStrings.logoutTitle, iconName: "settings-user", iconColor: .white, iconBackgroundColor: UIColor.orange600, type: .logout)
         let talkPage = Item(title: WMFLocalizedString("account-talk-page-title", value: "Your talk page", comment: "Title for button and page letting user view their account page."), subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: .blue600 , type: .talkPage)
-        let watchlist = Item(title: CommonStrings.watchlist, subtitle: nil, iconName: "watchlist-star", iconColor: .white, iconBackgroundColor: .yellow600, type: .watchlist)
+        let watchlist = Item(title: CommonStrings.watchlist, subtitle: nil, iconName: "watchlist", iconColor: .white, iconBackgroundColor: .yellow600, type: .watchlist)
         let vanishAccount = Item(title: CommonStrings.vanishAccount, subtitle: nil, iconName: "vanish-account", iconColor: .white, iconBackgroundColor: .red, type: .vanishAccount)
 
         let sectionItems: [Item]
@@ -149,6 +149,9 @@ class AccountViewController: SubSettingsViewController {
                     self.navigationController?.pushViewController(newTalkPage, animated: true)
                 }
         case .watchlist:
+            
+            WatchlistFunnel.shared.logOpenWatchlistFromAccount()
+            
             let userDefaults = UserDefaults.standard
 
             if !userDefaults.wmf_userHasOnboardedToWatchlists {
@@ -176,6 +179,8 @@ class AccountViewController: SubSettingsViewController {
 
         let viewController = WKOnboardingViewController(viewModel: viewModel)
         viewController.hostingController.delegate = self
+        
+        WatchlistFunnel.shared.logWatchlistOnboardingAppearance()
 
         present(viewController, animated: true) {
             UserDefaults.standard.wmf_userHasOnboardedToWatchlists = true
@@ -259,6 +264,9 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
 
 extension AccountViewController: WKOnboardingViewDelegate {
     func didClickPrimaryButton() {
+        
+        WatchlistFunnel.shared.logWatchlistOnboardingTapContinue()
+        
         if let presentedViewController {
             presentedViewController.dismiss(animated: true) {
                 self.goToWatchlist()
@@ -267,13 +275,12 @@ extension AccountViewController: WKOnboardingViewDelegate {
     }
 
     func didClickSecondaryButton() {
-
-        // TODO: get correct URL
+        
+        WatchlistFunnel.shared.logWatchlistOnboardingTapLearnMore()
 
         if let presentedViewController {
             presentedViewController.dismiss(animated: true) {
-                let siteURL = self.dataStore.primarySiteURL
-                guard let url = siteURL?.wmf_URL(withPath: "/wiki/Help:Watchlist", isMobile: true) else {
+                guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ#Watchlist") else {
                     self.showGenericError()
                     return
                 }

@@ -9,16 +9,28 @@ public final class WKWatchlistViewModel: ObservableObject {
 	public struct LocalizedStrings {
 		public var title: String
 		public var filter: String
+		public var userButtonUserPage: String
+		public var userButtonTalkPage: String
+		public var userButtonContributions: String
+		public var userButtonThank: String
+
 		public var byteChange: ((Int) -> String) // for injecting localized plurals via client app
 
-		public init(title: String, filter: String, byteChange: @escaping ((Int) -> String)) {
+		public init(title: String, filter: String, userButtonUserPage: String, userButtonTalkPage: String, userButtonContributions: String, userButtonThank: String, byteChange: @escaping ((Int) -> String)) {
 			self.title = title
 			self.filter = filter
+			self.userButtonUserPage = userButtonUserPage
+			self.userButtonTalkPage = userButtonTalkPage
+			self.userButtonContributions = userButtonContributions
+			self.userButtonThank = userButtonThank
 			self.byteChange = byteChange
 		}
 	}
 
-	struct ItemViewModel: Identifiable {
+	public struct ItemViewModel: Identifiable {
+		public static let wkProjectMetadataKey = String(describing: WKProject.self)
+		public static let revisionIDMetadataKey = "RevisionID"
+
 		public let id = UUID()
 
 		let title: String
@@ -26,17 +38,23 @@ public final class WKWatchlistViewModel: ObservableObject {
 		let commentWikitext: String
 		let timestamp: Date
 		let username: String
+		let isAnonymous: Bool
+		let isBot: Bool
 		let revisionID: UInt
+		let oldRevisionID: UInt
 		let byteChange: Int
 		let project: WKProject
 
-		public init(title: String, commentHTML: String, commentWikitext: String, timestamp: Date, username: String, revisionID: UInt, byteChange: Int, project: WKProject) {
+		public init(title: String, commentHTML: String, commentWikitext: String, timestamp: Date, username: String, isAnonymous: Bool, isBot: Bool, revisionID: UInt, oldRevisionID: UInt, byteChange: Int, project: WKProject) {
 			self.title = title
 			self.commentHTML = commentHTML
 			self.commentWikitext = commentWikitext
 			self.timestamp = timestamp
 			self.username = username
+			self.isAnonymous = isAnonymous
+			self.isBot = isBot
 			self.revisionID = revisionID
+			self.oldRevisionID = oldRevisionID
 			self.byteChange = byteChange
 			self.project = project
 		}
@@ -95,22 +113,32 @@ public final class WKWatchlistViewModel: ObservableObject {
 	private var items: [ItemViewModel] = []
 
 	@Published var sections: [SectionViewModel] = []
-    @Published var activeFilterCount: Int = 0
+    @Published public var activeFilterCount: Int = 0
+	@Published var hasPerformedInitialFetch = false
+
+	let menuButtonItems: [WKMenuButton.MenuItem]
+	var menuButtonItemsWithoutThank: [WKMenuButton.MenuItem]
 
 	// MARK: - Lifecycle
 
     public init(localizedStrings: LocalizedStrings, presentationConfiguration: PresentationConfiguration) {
 		self.localizedStrings = localizedStrings
         self.presentationConfiguration = presentationConfiguration
-		fetchWatchlist()
+		self.menuButtonItems = [
+			WKMenuButton.MenuItem(title: localizedStrings.userButtonUserPage, image: WKSFSymbolIcon.for(symbol: .person)),
+			WKMenuButton.MenuItem(title: localizedStrings.userButtonTalkPage, image: WKSFSymbolIcon.for(symbol: .conversation)),
+			WKMenuButton.MenuItem(title: localizedStrings.userButtonContributions, image: WKIcon.userContributions),
+			WKMenuButton.MenuItem(title: localizedStrings.userButtonThank, image: WKIcon.thank)
+		]
+		self.menuButtonItemsWithoutThank = self.menuButtonItems.dropLast()
 	}
 
-	public func fetchWatchlist() {
+    public func fetchWatchlist(_ completion: (() -> Void)? = nil) {
         dataController.fetchWatchlist { result in
 			switch result {
 			case .success(let watchlist):
 				self.items = watchlist.items.map { item in
-					let viewModel = ItemViewModel(title: item.title, commentHTML: item.commentHtml, commentWikitext: item.commentWikitext, timestamp: item.timestamp, username: item.username, revisionID: item.revisionID, byteChange: Int(item.byteLength) - Int(item.oldByteLength), project: item.project)
+					let viewModel = ItemViewModel(title: item.title, commentHTML: item.commentHtml, commentWikitext: item.commentWikitext, timestamp: item.timestamp, username: item.username, isAnonymous: item.isAnon, isBot: item.isBot, revisionID: item.revisionID, oldRevisionID: item.oldRevisionID, byteChange: Int(item.byteLength) - Int(item.oldByteLength), project: item.project)
 					return viewModel
 				}
 				self.sections = self.sortWatchlistItems()
@@ -118,6 +146,8 @@ public final class WKWatchlistViewModel: ObservableObject {
 			case .failure:
 				break
 			}
+			self.hasPerformedInitialFetch = true
+            completion?()
 		}
 	}
 

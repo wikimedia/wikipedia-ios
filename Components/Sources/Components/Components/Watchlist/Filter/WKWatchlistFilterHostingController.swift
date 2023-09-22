@@ -14,6 +14,7 @@ class WKWatchlistFilterHostingController: WKComponentHostingController<WKWatchli
         self.viewModel = viewModel
         self.delegate = delegate
         super.init(rootView: filterView)
+        self.overrideUserInterfaceStyle = viewModel.overrideUserInterfaceStyle
     }
 
     public required init?(coder aDecoder: NSCoder) {

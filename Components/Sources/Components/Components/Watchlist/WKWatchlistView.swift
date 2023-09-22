@@ -1,11 +1,16 @@
 import SwiftUI
+import WKData
 
 // MARK: - WKWatchlistView
 struct WKWatchlistView: View {
 
 	@ObservedObject var appEnvironment = WKAppEnvironment.current
  	@ObservedObject var viewModel: WKWatchlistViewModel
+    var emptyViewModel: WKEmptyViewModel
 	weak var delegate: WKWatchlistDelegate?
+    weak var loggingDelegate: WKWatchlistLoggingDelegate?
+    weak var emptyViewDelegate: WKEmptyViewDelegate? = nil
+	weak var menuButtonDelegate: WKMenuButtonDelegate?
 
 	// MARK: - Lifecycle
 
@@ -13,7 +18,27 @@ struct WKWatchlistView: View {
 		ZStack {
 			Color(appEnvironment.theme.paperBackground)
 				.ignoresSafeArea()
-			WKWatchlistContentView(viewModel: viewModel, delegate: delegate)
+			contentView
+		}.onAppear {
+            viewModel.fetchWatchlist {
+                let items = viewModel.sections.flatMap { $0.items }
+                loggingDelegate?.logWatchlistDidLoad(itemCount: items.count)
+            }
+		}
+	}
+
+	@ViewBuilder
+	var contentView: some View {
+		if viewModel.hasPerformedInitialFetch {
+			if viewModel.sections.count > 0 {
+				WKWatchlistContentView(viewModel: viewModel, delegate: delegate, menuButtonDelegate: menuButtonDelegate)
+			} else if viewModel.sections.count == 0 && viewModel.activeFilterCount > 0 {
+				WKEmptyView(viewModel: emptyViewModel, delegate: emptyViewDelegate, type: .filter)
+			} else {
+				WKEmptyView(viewModel: emptyViewModel, delegate: emptyViewDelegate, type: .noItems)
+			}
+		} else {
+			ProgressView()
 		}
 	}
 
@@ -25,7 +50,9 @@ private struct WKWatchlistContentView: View {
 
 	@ObservedObject var appEnvironment = WKAppEnvironment.current
 	@ObservedObject var viewModel: WKWatchlistViewModel
+
 	weak var delegate: WKWatchlistDelegate?
+	weak var menuButtonDelegate: WKMenuButtonDelegate?
 
 	var body: some View {
 		ScrollView {
@@ -38,7 +65,11 @@ private struct WKWatchlistContentView: View {
 							.padding([.top, .bottom], 6)
 							.frame(maxWidth: .infinity, alignment: .leading)
 						ForEach(section.items) { item in
-							WKWatchlistViewCell(itemViewModel: item, localizedStrings: viewModel.localizedStrings)
+							WKWatchlistViewCell(itemViewModel: item, localizedStrings: viewModel.localizedStrings, menuItemConfiguration: WKWatchlistViewCell.MenuItemConfiguration(userMenuItems: viewModel.menuButtonItems, anonOrBotMenuItems: viewModel.menuButtonItemsWithoutThank), menuButtonDelegate: menuButtonDelegate)
+								.contentShape(Rectangle())
+								.onTapGesture {
+									delegate?.watchlistUserDidTapDiff(project: item.project, title: item.title, revisionID: item.revisionID, oldRevisionID: item.oldRevisionID)
+								}
 						}
 						.padding([.top, .bottom], 6)
 						Spacer()
@@ -55,11 +86,27 @@ private struct WKWatchlistContentView: View {
 
 // MARK: - Private: WKWatchlistViewCell
 
-private struct WKWatchlistViewCell: View {
+fileprivate struct WKWatchlistViewCell: View {
+
+	struct MenuItemConfiguration {
+		let userMenuItems: [WKMenuButton.MenuItem]
+		let anonOrBotMenuItems: [WKMenuButton.MenuItem]
+	}
 
 	@ObservedObject var appEnvironment = WKAppEnvironment.current
 	let itemViewModel: WKWatchlistViewModel.ItemViewModel
 	let localizedStrings: WKWatchlistViewModel.LocalizedStrings
+	let menuItemConfiguration: MenuItemConfiguration
+
+	var menuItemsForRevisionAuthor: [WKMenuButton.MenuItem] {
+		if itemViewModel.isBot || itemViewModel.isAnonymous {
+			return menuItemConfiguration.anonOrBotMenuItems
+		} else {
+			return menuItemConfiguration.userMenuItems
+		}
+	}
+
+	weak var menuButtonDelegate: WKMenuButtonDelegate?
 
 	var body: some View {
 			if #available(iOS 15.0, *) {
@@ -103,15 +150,19 @@ private struct WKWatchlistViewCell: View {
 									.frame(maxWidth: .infinity, alignment: .topLeading)
 							}
 
-							// TODO: Replace with user button
-							Menu(itemViewModel.username) {
-								Button("User page", action: { })
-								Button("User talk page", action: { })
-								Button("User contributions", action: { })
-								Button("Thank", action: { })
+							HStack {
+								WKSwiftUIMenuButton(configuration: WKMenuButton.Configuration(
+									title: itemViewModel.username,
+									image: WKSFSymbolIcon.for(symbol: .personFilled),
+									primaryColor: \.link,
+									menuItems: menuItemsForRevisionAuthor,
+									metadata: [
+										WKWatchlistViewModel.ItemViewModel.wkProjectMetadataKey: itemViewModel.project,
+										WKWatchlistViewModel.ItemViewModel.revisionIDMetadataKey: itemViewModel.revisionID
+									]
+								), menuButtonDelegate: menuButtonDelegate)
+								Spacer()
 							}
-							.font(Font(WKFont.for(.boldFootnote)))
-							.foregroundColor(Color(appEnvironment.theme.link))
 						}
 					}
 					.padding([.top, .bottom], 12)
