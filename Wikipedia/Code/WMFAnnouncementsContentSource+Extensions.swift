@@ -10,7 +10,8 @@ extension WMFAnnouncementsContentSource {
         
         let dataController = WKDonateDataController()
         dataController.fetchConfigs(for: countryCode) { result in
-            
+            print(WKDonateDataController.donateConfig)
+            print(WKDonateDataController.paymentMethods)
         }
     }
 }
