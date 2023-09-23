@@ -17,7 +17,7 @@ final public class WKDonateDataController {
     
     // MARK: - Public
     
-    public func fetchConfigs(for countryCode: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func fetchConfigs(for countryCode: String, paymentsAPIKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let service else {
             completion(.failure(WKDataControllerError.basicServiceUnavailable))
@@ -88,7 +88,7 @@ final public class WKDonateDataController {
         }
     }
     
-    public func submitPayment(amount: Decimal, currencyCode: String, paymentToken: String, donorName: String, donorEmail: String, donorAddress: String, emailOptIn: Bool?, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func submitPayment(amount: Decimal, currencyCode: String, paymentToken: String, donorName: String, donorEmail: String, donorAddress: String, emailOptIn: Bool?, paymentsAPIKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
             completion(.failure(WKDataControllerError.failureCreatingRequestURL))

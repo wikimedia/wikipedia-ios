@@ -9,7 +9,6 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     // MARK: - Nested Types
     
     enum Error: Swift.Error {
-        case missingMerchantID
         case invalidToken
         case missingDonorInfo
     }
@@ -133,6 +132,9 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     private let currencyCode: String
     private let countryCode: String
     
+    private let merchantID: String
+    private let paymentsAPIKey: String
+    
     @Published var buttonViewModels: [AmountButtonViewModel]
     @Published var textfieldViewModel: AmountTextFieldViewModel
     @Published var transactionFeeOptInViewModel: OptInViewModel
@@ -148,12 +150,14 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     
     // MARK: - Lifecycle
     
-    public init?(localizedStrings: LocalizedStrings, donateConfig: WKDonateConfig, paymentMethods: WKPaymentMethods, currencyCode: String, countryCode: String) {
+    public init?(localizedStrings: LocalizedStrings, donateConfig: WKDonateConfig, paymentMethods: WKPaymentMethods, currencyCode: String, countryCode: String, merchantID: String, paymentsAPIKey: String) {
         self.localizedStrings = localizedStrings
         self.donateConfig = donateConfig
         self.paymentMethods = paymentMethods
         self.currencyCode = currencyCode
         self.countryCode = countryCode
+        self.merchantID = merchantID
+        self.paymentsAPIKey = paymentsAPIKey
         
         guard let transactionFeeAmount = donateConfig.transactionFee(for: currencyCode) else {
             return nil
@@ -233,13 +237,6 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     
     func submit() {
         guard errorViewModel == nil else {
-            return
-        }
-        
-        guard let merchantID = Bundle.main.object(forInfoDictionaryKey: "MerchantID") as? String else {
-            let error = Error.missingMerchantID
-            let errorText = String.localizedStringWithFormat(localizedStrings.genericErrorTextFormat, error.localizedDescription)
-            self.errorViewModel = ErrorViewModel(localizedStrings: ErrorViewModel.LocalizedStrings(text: errorText))
             return
         }
         
@@ -428,7 +425,7 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         let emailOptIn: Bool? = emailOptInViewModel?.isSelected
         
         let dataController = WKDonateDataController()
-        dataController.submitPayment(amount: finalAmount, currencyCode: currencyCode, paymentToken: paymentToken, donorName: donorName, donorEmail: donorEmail, donorAddress: donorFormattedAddress, emailOptIn: emailOptIn) { result in
+        dataController.submitPayment(amount: finalAmount, currencyCode: currencyCode, paymentToken: paymentToken, donorName: donorName, donorEmail: donorEmail, donorAddress: donorFormattedAddress, emailOptIn: emailOptIn, paymentsAPIKey: paymentsAPIKey) { result in
             switch result {
             case .success:
                 completion(PKPaymentAuthorizationResult(status: .success, errors: []))
