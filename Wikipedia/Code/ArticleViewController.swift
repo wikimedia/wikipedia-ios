@@ -16,7 +16,7 @@ class ArticleViewController: ViewController, HintPresenting {
         return ArticleToolbarController(toolbar: toolbar, delegate: self)
     }()
     internal lazy var watchlistController: WatchlistController = {
-        return WatchlistController(delegate: self)
+        return WatchlistController(delegate: self, context: .article)
     }()
     
     /// Article holds article metadata (displayTitle, description, etc) and user state (isSaved, viewedDate, viewedFragment, etc)
