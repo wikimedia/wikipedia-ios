@@ -1,9 +1,9 @@
 import SwiftUI
 
 public protocol WKEmptyViewDelegate: AnyObject {
-    func didTapSearch()
-    func didTapFilters()
-    func didShow(type: WKEmptyViewStateType)
+    func emptyViewDidTapSearch()
+    func emptyViewDidTapFilters()
+    func emptyViewDidShow(type: WKEmptyViewStateType)
 }
 
 public struct WKEmptyView: View {
@@ -39,7 +39,7 @@ public struct WKEmptyView: View {
                                 .multilineTextAlignment(.center)
                         }
                         if type == .noItems {
-                            WKResizableButton(title: viewModel.localizedStrings.buttonTitle, action: delegate?.didTapSearch)
+                            WKResizableButton(title: viewModel.localizedStrings.buttonTitle, action: delegate?.emptyViewDidTapSearch)
                                 .padding([.leading, .trailing], 32)
                         }
                         Spacer()
@@ -50,7 +50,7 @@ public struct WKEmptyView: View {
             }
         }
         .onAppear {
-            delegate?.didShow(type: type)
+            delegate?.emptyViewDidShow(type: type)
         }
     }
 
@@ -74,7 +74,7 @@ struct WKEmptyViewFilterView: View {
             .foregroundColor(Color(appEnvironment.theme.secondaryText))
             .frame(height: 30)
             .environment(\.openURL, OpenURLAction { url in
-                    delegate?.didTapFilters()
+                    delegate?.emptyViewDidTapFilters()
                     return .handled
                 })
     }
