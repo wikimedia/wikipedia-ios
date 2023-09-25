@@ -27,7 +27,6 @@ extension URL {
         switch environment {
         case .production:
             components.host = "payments.wikimedia.org"
-            return nil
         case .staging:
             components.host = "paymentstest4.wmcloud.org"
         }
