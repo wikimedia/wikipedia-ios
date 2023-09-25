@@ -148,9 +148,11 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     private var buttonSubscribers: Set<AnyCancellable> = []
     private var transactionFeeSubscribers: Set<AnyCancellable> = []
     
+    private weak var delegate: WKDonateDelegate?
+    
     // MARK: - Lifecycle
     
-    public init?(localizedStrings: LocalizedStrings, donateConfig: WKDonateConfig, paymentMethods: WKPaymentMethods, currencyCode: String, countryCode: String, merchantID: String, paymentsAPIKey: String) {
+    public init?(localizedStrings: LocalizedStrings, donateConfig: WKDonateConfig, paymentMethods: WKPaymentMethods, currencyCode: String, countryCode: String, merchantID: String, paymentsAPIKey: String, delegate: WKDonateDelegate?) {
         self.localizedStrings = localizedStrings
         self.donateConfig = donateConfig
         self.paymentMethods = paymentMethods
@@ -158,6 +160,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         self.countryCode = countryCode
         self.merchantID = merchantID
         self.paymentsAPIKey = paymentsAPIKey
+        self.delegate = delegate
         
         guard let transactionFeeAmount = donateConfig.transactionFee(for: currencyCode) else {
             return nil
@@ -425,10 +428,20 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         let emailOptIn: Bool? = emailOptInViewModel?.isSelected
         
         let dataController = WKDonateDataController()
-        dataController.submitPayment(amount: finalAmount, currencyCode: currencyCode, paymentToken: paymentToken, donorName: donorName, donorEmail: donorEmail, donorAddress: donorFormattedAddress, emailOptIn: emailOptIn, paymentsAPIKey: paymentsAPIKey) { result in
+        dataController.submitPayment(amount: finalAmount, currencyCode: currencyCode, paymentToken: paymentToken, donorName: donorName, donorEmail: donorEmail, donorAddress: donorFormattedAddress, emailOptIn: emailOptIn, paymentsAPIKey: paymentsAPIKey) { [weak self] result in
+            
+            guard let self else {
+                return
+            }
+            
             switch result {
             case .success:
                 completion(PKPaymentAuthorizationResult(status: .success, errors: []))
+                
+                // Wait for payment sheet to dismiss
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: { [weak self] in
+                    self?.delegate?.donateDidSuccessfullySubmitPayment()
+                })
             case .failure(let error):
                 // TODO: Handle errors more?
                 completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))

@@ -5,6 +5,7 @@ public protocol WKDonateDelegate: AnyObject {
     func donateDidTapOtherWaysToGive()
     func donateDidTapFrequentlyAskedQuestions()
     func donateDidTapTaxDeductibilityInformation()
+    func donateDidSuccessfullySubmitPayment()
 }
 
 struct WKDonateView: View {

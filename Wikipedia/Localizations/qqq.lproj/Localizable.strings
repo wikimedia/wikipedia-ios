@@ -251,6 +251,8 @@
 "donate-help-tax-deductibility-information" = "Help link at the bottom of the donate form, that takes user to a web view link with more info.";
 "donate-maximum-error-text" = "Error text displayed when user enters donation amount above the maximum. Parameters: * $1 - the currency code, $2 - the maximum donation amount allowed. (For example, 'USD $25,000')";
 "donate-minimum-error-text" = "Error text displayed when user enters donation amount below the allowed minimum. Parameters: * $1 - the minimum amount allowed, $2 - the currency code. (For example, '$1 USD')";
+"donate-success-subtitle" = "Thank you toast subtitle displayed after a user successfully donates.";
+"donate-success-title" = "Thank you toast title displayed after a user successfully donates.";
 "donate-title" = "Title for donate form.";
 "donate-transaction-fee-opt-in-text" = "Text for search result letting user know if a result is a redirect from another article. Parameters: * $1 - article title the current search result redirected from";
 "edit-bold-accessibility-label" = "Accessibility label for the button that adds bold formatting to the current selection";

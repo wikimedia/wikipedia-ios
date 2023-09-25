@@ -25,7 +25,7 @@ import WKData
         }
         
         guard let merchantID = Bundle.main.wmf_merchantID(),
-              let paymentsAPIKey = Bundle.main.wmf_paymentsAPIKey() as? String else {
+              let paymentsAPIKey = Bundle.main.wmf_paymentsAPIKey() else {
             // TODO: Web path only
             return
         }
@@ -84,7 +84,7 @@ import WKData
         let localizedStrings = WKDonateViewModel.LocalizedStrings(title: donate, doneTitle: done, transactionFeeOptInText: transactionFeeOptIn, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
         
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: currencyCode, countryCode: countryCode, merchantID: merchantID, paymentsAPIKey: paymentsAPIKey) else {
+        guard let viewModel = WKDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: currencyCode, countryCode: countryCode, merchantID: merchantID, paymentsAPIKey: paymentsAPIKey, delegate: self) else {
             
             // TODO: Web path only
             return
@@ -99,6 +99,7 @@ import WKData
 }
 
 extension WMFSettingsViewController: WKDonateDelegate {
+    
     public func donateDidTapProblemsDonatingLink() {
         
         guard let countryCode = Locale.current.regionCode,
@@ -150,5 +151,14 @@ extension WMFSettingsViewController: WKDonateDelegate {
         navigate(to: url, useSafari: true)
     }
     
-    
+    public func donateDidSuccessfullySubmitPayment() {
+        self.navigationController?.popViewController(animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let title = WMFLocalizedString("donate-success-title", value: "Thank you!", comment: "Thank you toast title displayed after a user successfully donates.")
+            let subtitle = WMFLocalizedString("donate-success-subtitle", value: "Your generosity to Wikipedia means so much to us.", comment: "Thank you toast subtitle displayed after a user successfully donates.")
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
+        }
+        
+    }
 }
