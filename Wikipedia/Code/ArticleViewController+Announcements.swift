@@ -65,7 +65,7 @@ extension ArticleViewController {
         }
 
         wmf_showAnnouncementPanel(announcement: announcement, primaryButtonTapHandler: { (sender) in
-            self.navigate(to: actionURL, useSafari: true)
+            self.navigate(to: actionURL, useSafari: false)
             // dismiss handler is called
         }, secondaryButtonTapHandler: { (sender) in
             // dismiss handler is called
