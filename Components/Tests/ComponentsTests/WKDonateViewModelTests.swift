@@ -12,7 +12,7 @@ final class WKDonateViewModelTests: XCTestCase {
     private let paymentsAPIKey = "ABCDPaymentAPIKeyEFGH"
     
     override func setUp(completion: @escaping (Error?) -> Void) {
-        WKDataEnvironment.current.basicService = WKMockDonateBasicService()
+        WKDataEnvironment.current.basicService = WKMockBasicService()
         WKDataEnvironment.current.serviceEnvironment = .staging
         
         let controller = WKDonateDataController()

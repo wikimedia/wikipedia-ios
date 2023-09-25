@@ -7,7 +7,7 @@ final class WKDonateDataControllerTests: XCTestCase {
     let paymentsAPIKey = "ABCDPaymentAPIKeyEFGH"
 
     override func setUp() async throws {
-        WKDataEnvironment.current.basicService = WKMockDonateBasicService()
+        WKDataEnvironment.current.basicService = WKMockBasicService()
         WKDataEnvironment.current.serviceEnvironment = .staging
     }
     

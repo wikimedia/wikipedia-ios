@@ -55,7 +55,7 @@ fileprivate extension WKData.WKServiceRequest {
     }
 }
 
-public class WKMockDonateBasicService: WKService {
+public class WKMockBasicService: WKService {
     
     public init() {
         

@@ -499,7 +499,7 @@ extension WMFAppViewController {
         switch Configuration.current.environment {
         case .staging:
             WKDataEnvironment.current.serviceEnvironment = .staging
-            WKDataEnvironment.current.basicService = WKMockDonateBasicService()
+            WKDataEnvironment.current.basicService = WKMockBasicService()
         default:
             WKDataEnvironment.current.serviceEnvironment = .production
         }
