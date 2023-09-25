@@ -1185,6 +1185,7 @@
 "watchlist-onboarding-button-title" = "Meer over de volglijst";
 "watchlist-onboarding-title" = "Maak kennis met uw volglijst";
 "watchlist-removed" = "Verwijderd uit uw volglijst";
+"watchlist-thanks-success" = "Uw ‘bedankje’ is verstuurd naar $1";
 "watchlist-track-subtitle" = "De volglijst is een hulpmiddel waarmee u de wijzigingen kunt bijhouden die zijn aangebracht op pagina's of artikelen waarin u geïnteresseerd bent.";
 "watchlist-track-title" = "Wijzigingen bijhouden";
 "watchlist-updates-subtitle" = "De volglijst met de pagina's die u heeft toegevoegd, zoals bewerkingen of discussies, is toegankelijk via Instellingen → Account.";
