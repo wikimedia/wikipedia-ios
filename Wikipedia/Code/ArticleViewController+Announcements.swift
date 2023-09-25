@@ -122,12 +122,6 @@ extension ArticleViewController {
     }
 }
 
-private extension URL {
-    var isThankYouDonationURL: Bool {
-        return self.host == "thankyou.wikipedia.org"
-    }
-}
-
 extension ArticleViewController: WKDonateDelegate {
     public func donateDidTapProblemsDonatingLink() {
         sharedDonateDidTapProblemsDonatingLink()

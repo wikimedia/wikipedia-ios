@@ -75,6 +75,7 @@ class SinglePageWebViewController: ViewController {
     }
     
     var fetched = false
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if navigationController?.viewControllers.first === self {
@@ -86,8 +87,39 @@ class SinglePageWebViewController: ViewController {
         }
         fetched = true
         fetch()
+
+        if url.isThankYouDonationURL {
+            addBottomButton()
+            self.navigationItem.backButtonTitle = CommonStrings.goBackTitle
+        }
     }
-    
+
+    func addBottomButton() {
+        let button = UIButton()
+
+        let contentView = UIView(frame: .zero)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(button)
+
+        let bottom = contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let leading = contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailing = contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let height = contentView.heightAnchor.constraint(equalToConstant: 300)
+
+        let buttonBottom = button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 30) // get from figma
+        let buttonLeading = button.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
+        let buttonTrailing = button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 20)
+        let buttonHeight = button.heightAnchor.constraint(equalToConstant: 50)
+        button.titleLabel?.text = CommonStrings.returnToArticle
+
+        button.backgroundColor = self.theme.colors.link
+        button.titleLabel?.textColor = self.theme.colors.paperBackground
+        contentView.backgroundColor = self.theme.colors.paperBackground
+
+        view.addConstraints([bottom, leading, trailing, height])
+        view.addSubview(contentView)
+    }
+
     var didHandleInitialNavigation = false
     func handleNavigation(with action: WKNavigationAction) -> Bool {
         guard didHandleInitialNavigation else {
