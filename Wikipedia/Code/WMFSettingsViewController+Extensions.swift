@@ -1,6 +1,7 @@
 import Foundation
 import Components
 import WKData
+import PassKit
 
 @objc extension WMFSettingsViewController {
     func pushToDonateView() {
@@ -26,6 +27,12 @@ import WKData
         
         guard let merchantID = Bundle.main.wmf_merchantID(),
               let paymentsAPIKey = Bundle.main.wmf_paymentsAPIKey() else {
+            // TODO: Web path only
+            return
+        }
+        
+        guard PKPaymentAuthorizationController.canMakePayments(),
+              PKPaymentAuthorizationController.canMakePayments(usingNetworks: paymentMethods.applePayPaymentNetworks, capabilities: .capability3DS) else {
             // TODO: Web path only
             return
         }
