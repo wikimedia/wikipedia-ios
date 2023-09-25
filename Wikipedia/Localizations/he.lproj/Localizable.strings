@@ -1176,6 +1176,7 @@
 "watchlist-onboarding-button-title" = "מידע נוסף על רשימת המעקב";
 "watchlist-onboarding-title" = "היכרות עם רשימת המעקב שלך";
 "watchlist-removed" = "הוסר מרשימת המעקב שלך";
+"watchlist-thanks-success" = "ה\"תודה\" שלך נשלחה למשתמש $1";
 "watchlist-track-subtitle" = "רשימת המעקב היא כלי שמאפשר לך לעקוב אחר שינויים שנעשו בדפים או ערכים שמעניינים אותך.";
 "watchlist-track-title" = "מעקב אחר שינויים";
 "watchlist-updates-subtitle" = "ניתן לגשת לרשימת המעקב של הדפים שהוספת, כמו עריכות או דיונים, דרך הגדרות ← חשבון.";
