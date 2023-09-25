@@ -89,12 +89,12 @@ class SinglePageWebViewController: ViewController {
         fetch()
 
         if url.isThankYouDonationURL {
-            addBottomButton()
+            addBottomView()
             self.navigationItem.backButtonTitle = CommonStrings.goBackTitle
         }
     }
 
-    func addBottomButton() {
+    func addBottomView() {
         let button = UIButton()
 
         let contentView = UIView(frame: .zero)
@@ -104,12 +104,12 @@ class SinglePageWebViewController: ViewController {
         let bottom = contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let leading = contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         let trailing = contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let height = contentView.heightAnchor.constraint(equalToConstant: 300)
+        let height = contentView.heightAnchor.constraint(equalToConstant: 70)
 
-        let buttonBottom = button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 30) // get from figma
-        let buttonLeading = button.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
-        let buttonTrailing = button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 20)
-        let buttonHeight = button.heightAnchor.constraint(equalToConstant: 50)
+        let buttonBottom = button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 12)
+        let buttonLeading = button.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12)
+        let buttonTrailing = button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 12)
+        let buttonHeight = button.heightAnchor.constraint(equalToConstant: 46)
         button.titleLabel?.text = CommonStrings.returnToArticle
 
         button.backgroundColor = self.theme.colors.link
