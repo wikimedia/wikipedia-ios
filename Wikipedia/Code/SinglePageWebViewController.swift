@@ -52,7 +52,24 @@ class SinglePageWebViewController: ViewController {
         fpc.delay = 0
         return fpc
     }()
-    
+
+    private lazy var bottomView: UIView = {
+        let contentView = UIView(frame: .zero)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.backgroundColor = self.theme.colors.paperBackground
+        return contentView
+    }()
+
+    private lazy var button: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle(CommonStrings.returnToArticle, for: .normal)
+        button.backgroundColor = self.theme.colors.link
+        button.titleLabel?.textColor = .white
+        button.layer.cornerRadius = 8
+        return button
+    }()
+
     override func viewDidLoad() {
         view.wmf_addSubviewWithConstraintsToEdges(webView)
         scrollView = webView.scrollView
@@ -68,7 +85,13 @@ class SinglePageWebViewController: ViewController {
 
         super.viewDidLoad()
     }
-    
+
+    override func viewDidLayoutSubviews() {
+        if url.isThankYouDonationURL {
+            setupBottomView()
+        }
+    }
+
     private func fetch() {
         fakeProgressController.start()
         webView.load(URLRequest(url: url))
@@ -82,42 +105,32 @@ class SinglePageWebViewController: ViewController {
             let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonTapped(_:)))
             navigationItem.leftBarButtonItem = closeButton
         }
+
         guard !fetched else {
             return
         }
         fetched = true
         fetch()
 
-        if url.isThankYouDonationURL {
-            addBottomView()
-            self.navigationItem.backButtonTitle = CommonStrings.goBackTitle
-        }
     }
 
-    func addBottomView() {
-        let button = UIButton()
+    func setupBottomView() {
+        webView.addSubview(bottomView)
+        bottomView.addSubview(button)
 
-        let contentView = UIView(frame: .zero)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(button)
+        let bottom = bottomView.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
+        let leading = bottomView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
+        let trailing = bottomView.trailingAnchor.constraint(equalTo: webView.trailingAnchor)
+        let height = bottomView.heightAnchor.constraint(equalToConstant: 90)
 
-        let bottom = contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        let leading = contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let trailing = contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let height = contentView.heightAnchor.constraint(equalToConstant: 70)
-
-        let buttonBottom = button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 12)
-        let buttonLeading = button.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12)
-        let buttonTrailing = button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 12)
+        let buttonTop = button.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 12)
+        let buttonLeading = button.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 12)
+        let buttonTrailing = button.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -12)
         let buttonHeight = button.heightAnchor.constraint(equalToConstant: 46)
-        button.titleLabel?.text = CommonStrings.returnToArticle
 
-        button.backgroundColor = self.theme.colors.link
-        button.titleLabel?.textColor = self.theme.colors.paperBackground
-        contentView.backgroundColor = self.theme.colors.paperBackground
+        button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
 
-        view.addConstraints([bottom, leading, trailing, height])
-        view.addSubview(contentView)
+        webView.addConstraints([bottom, leading, trailing, height, buttonTop, buttonHeight, buttonLeading, buttonTrailing])
     }
 
     var didHandleInitialNavigation = false
