@@ -299,6 +299,8 @@ public class CommonStrings: NSObject {
 
     public static let userButtonContributions = WMFLocalizedString("watchlist-user-button-user-contributions", value: "User contributions", comment: "Title shown for user contributions action in user menu button in diff and watchlist views.")
 
+    public static let userButtonThank = WMFLocalizedString("watchlist-user-button-thank", value: "Thank", comment: "Title shown for thank action in user menu button in watchlist view.")
+
     public static let thanksMessage = WMFLocalizedString("diff-thanks-sent", value: "Your 'Thanks' was sent to %1$@", comment: "Message indicating thanks was sent. Parameters:\n* %1$@ - name of user who was thanked")
     
     public static let filterOptionsAll = WMFLocalizedString("filter-options-all", value:  "All", comment: "Common option on filter adjustment views to allow All types in the associated section.")
@@ -340,6 +342,14 @@ public class CommonStrings: NSObject {
     public static let watchlistFilterTypeOfChangeOptionCategoryChanges = WMFLocalizedString("watchlist-filter-type-of-change-options-category-changes", value: "Category changes", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes category changes in the user's watchlist.")
     public static let watchlistFilterTypeOfChangeOptionWikidataEdits = WMFLocalizedString("watchlist-filter-type-of-change-options-wikidata-edits", value: "Wikidata edits", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes wikidata edits in the user's watchlist.")
     public static let watchlistFilterTypeOfChangeOptionLoggedActions = WMFLocalizedString("watchlist-filter-type-of-change-options-logged-actions", value: "Logged actions", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes logged actions in the user's watchlist.")
+
+    public static let watchlistEmptyViewTitle = WMFLocalizedString("watchlist-empty-view-title", value: "Articles you added to the Watchlist appear here", comment: "Title for empty watchlist view")
+
+    public static let watchlistEmptyViewSubtitle = WMFLocalizedString("watchlist-empty-view-subtitle", value: "Keep track of what's happening to articles you are interested in. Tap the menu in the article and select “Watch” to see changes to an article.", comment: "Subtitle for empty watchlist view")
+
+    public static let watchlistEmptyViewButtonTitle = WMFLocalizedString("watchlist-empty-view-button-title", value: "Search articles", comment: "Title for empty watchlist view button that redirects user to search articles")
+
+    public static let watchlistEmptyViewFilterTitle = WMFLocalizedString("watchlist-empty-view-filter-title", value: "You have no Watchlist items", comment: "Title for empty watchlist view when filters are active")
     
     public static let diffFromHeading = WMFLocalizedString("diff-compare-header-from-info-heading", value: "Previous Edit", comment: "Heading label in info box for previous revision when comparing two revisions.")
 
@@ -378,6 +388,28 @@ public class CommonStrings: NSObject {
     public static let revisionMadeFormat = WMFLocalizedString("page-history-revision-time-accessibility-label", value: "Revision made %@", comment: "Label text telling the user what time revision was made - %@ is replaced with the time")
 
     public static let compareRevisionsTitle = WMFLocalizedString("diff-compare-header-heading", value: "Compare Revisions", comment: "Heading label in header when comparing two revisions.")
+
+    public static let watchlistOnboardingTitle = WMFLocalizedString("watchlist-onboarding-title", value: "Introducing your Watchlist", comment: "Watchlists onboarding modal title")
+
+    public static let watchlistTrackChangesTitle = WMFLocalizedString("watchlist-track-title", value: "Track changes", comment: "Watchlists onboarding modal track changes section title")
+
+    public static let watchlistTrackChangesSubtitle = WMFLocalizedString("watchlist-track-subtitle", value: "The Watchlist is a tool that lets you keep track of changes made to pages or articles you're interested in.", comment: "Watchlists onboarding modal track changes section subtitle")
+
+    public static let watchlistWatchChangesTitle = WMFLocalizedString("watchlist-watch-title", value: "Watch articles", comment: "Watchlists onboarding modal watch articles section title")
+
+    public static let watchlistWatchChangesSubitle = WMFLocalizedString("watchlist-watch-subtitle", value: "By tapping the star or \"Watch\" action in the bottom toolbar of an article, you can add that page to your Watchlist.", comment: "Watchlists onboarding modal watch articles section subtitle")
+
+    public static let watchlistSetExpirationTitle = WMFLocalizedString("watchlist-expiration-title", value: "Set expiration", comment: "Watchlists onboarding modal set expiration section title")
+
+    public static let watchlistSetExpirationSubtitle = WMFLocalizedString("watchlist-expiration-subtitle", value: "Pages remain by default, but options exist for temporary watching ranging from one week to one year.", comment: "Watchlists onboarding modal set expiration section subtitle")
+
+    public static let watchlistViewUpdatesTitle = WMFLocalizedString("watchlist-updates-title", value: "View updates", comment: "Watchlists onboarding modal view updates section title")
+
+    public static let watchlistViewUpdatesSubitle = WMFLocalizedString("watchlist-updates-subtitle", value: "The Watchlist of the pages you've added, like edits or discussions, can be accessed via Settings → Account.", comment: "Watchlists onboarding modal view updates section subtitle")
+
+    public static let watchlistOnboardingLearnMore = WMFLocalizedString("watchlist-onboarding-button-title", value: "Learn more about the Watchlist", comment: "Watchlists onboarding modal learn more button title")
+
+    public static let continueButton = WMFLocalizedString("continue-button-title", value: "Continue", comment: "Continue button title")
 
     // Article As A Living Doucment Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
 

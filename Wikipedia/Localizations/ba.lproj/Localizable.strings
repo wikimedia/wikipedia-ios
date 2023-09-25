@@ -145,6 +145,7 @@
 "article-languages-yours" = "Һеҙҙең телдәр";
 "article-read-more-title" = "Ентеклерәк";
 "article-reference-view-title" = "Иҫкәрмәләр $1";
+"article-revision-history" = "Мәҡәләнең өлгөләре тарихы";
 "article-save-error-not-enough-space" = "Был мәҡәләне һаҡлар өсөн ҡоролмағыҙҙа урын етмәй";
 "article-share" = "Уртаҡлашырға";
 "article-talk-page" = "Мәҡәләнең фекер алышыу бите";
@@ -171,6 +172,7 @@
 "clearing-cache-in-progress" = "Кэш таҙартыу бара";
 "close-button-accessibility-label" = "Ябырға";
 "compass-direction" = "$1 сәғәткә";
+"continue-button-title" = "Дауам итергә";
 "continue-reading-empty-description" = "Күберәк мәҡәләләр уҡыу өсөн Википедияны өйрәнегеҙ";
 "continue-reading-empty-title" = "Һуңғы ваҡытта уҡылған мәҡәләләр юҡ";
 "crimean-tatar-variants-alert-body" = "Wikipedia ҡушымтаһы хәҙер түбәндәге ҡырым-татар теле вариаттарын, ҡушымтала төп һәм икенсел тел булараҡ уҡый ала, был һеҙ һайлаған форматта уҡыу, эҙләү йәки үҙгәрештәр индереүҙе еңеләйтә:\n\nQırımtatarca, ҡырым-татар латиница (chr-latn)\nКъырымтатарджа, ҡырым-татар кириллица (crh-cyrl)";
@@ -595,6 +597,7 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 фильтр}}";
 "notifications-center-feed-card-title" = "Хәҙер хәбәрҙәрҙе мөхәррирләү мөмкинлеге бар";
 "notifications-center-feed-news-notification-button-text" = "Push-хәбәр итеүҙе ҡабыҙырға";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Хәҙер түгел";
 "notifications-center-feed-news-notification-text" = "Викимедианың бөтә проекттары өсөн мөхәррирләү тураһында белдереүҙәр хәҙер ҡушымта аша килә. Википедияла белдереү алыу өсөн push-белдереүҙе ҡабыҙығыҙ.";
 "notifications-center-filters-accessibility-label" = "Белдереүҙәр фильтры";
 "notifications-center-filters-read-status-item-title-all" = "Барыһы ла";

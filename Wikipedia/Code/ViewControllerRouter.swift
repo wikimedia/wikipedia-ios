@@ -141,8 +141,6 @@ class ViewControllerRouter: NSObject {
             let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
             return presentOrPush(newTalkPage, with: completion)
         case .userTalk(let linkURL):
-
-
             let source = source(from: userInfo)
             guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
                 completion()
@@ -194,13 +192,52 @@ class ViewControllerRouter: NSObject {
                 )
             }
 
-            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, byteChange: localizedByteChange)
+            let htmlStripped: (String) -> String = { inputString in
+                return inputString.removingHTML
+            }
+
+            let attributedFilterString: (Int) -> AttributedString = { filters in
+                let localizedString = String.localizedStringWithFormat(
+                    WMFLocalizedString("watchlist-number-filters", value:"Modify [{{PLURAL:%1$d|%1$d filter|%1$d filters}}](wikipedia://watchlist/filter) to see more Watchlist items", comment: "Amount of filters active in watchlist - %1$@ is replaced with the number of filters."),
+                    filters
+                )
+                
+                let attributedString = (try? AttributedString(markdown: localizedString)) ?? AttributedString(localizedString)
+                return attributedString
+            }
+
+            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, userButtonUserPage: CommonStrings.userButtonPage, userButtonTalkPage: CommonStrings.userButtonTalkPage, userButtonContributions: CommonStrings.userButtonContributions, userButtonThank: CommonStrings.userButtonThank, byteChange: localizedByteChange, htmlStripped: htmlStripped)
             let presentationConfiguration = WKWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
             let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
-            let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, delegate: appViewController)
-            
-            targetNavigationController?.pushViewController(watchlistViewController, animated: true)
-            completion()
+
+            let localizedStringsEmptyView = WKEmptyViewModel.LocalizedStrings(title: CommonStrings.watchlistEmptyViewTitle, subtitle: CommonStrings.watchlistEmptyViewSubtitle, titleFilter: CommonStrings.watchlistEmptyViewFilterTitle, buttonTitle: CommonStrings.watchlistEmptyViewButtonTitle, attributedFilterString: attributedFilterString)
+
+            let reachabilityNotifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { (reachable, _) in
+                if reachable {
+                    WMFAlertManager.sharedInstance.dismissAllAlerts()
+                } else {
+                    WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noInternetConnection, sticky: true, dismissPreviousAlerts: true)
+                }
+            }
+
+            let reachabilityHandler: WKWatchlistViewController.ReachabilityHandler = { state in
+                switch state {
+                case .appearing:
+                    reachabilityNotifier.start()
+                case .disappearing:
+                    reachabilityNotifier.stop()
+                }
+            }
+
+            if let image = UIImage(named: "watchlist-empty-state") {
+                let emptyViewModel = WKEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: image, numberOfFilters: viewModel.activeFilterCount)
+
+                let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, loggingDelegate: appViewController, reachabilityHandler: reachabilityHandler)
+
+                targetNavigationController?.pushViewController(watchlistViewController, animated: true)
+                completion()
+            }
+
             return true
         default:
             completion()
@@ -273,6 +310,11 @@ class ViewControllerRouter: NSObject {
                                                                                           typeOfChangeWikidataEdits: CommonStrings.watchlistFilterTypeOfChangeOptionWikidataEdits,
                                                                                           typeOfChangeLoggedActions: CommonStrings.watchlistFilterTypeOfChangeOptionLoggedActions)
         
-        return WKWatchlistFilterViewModel(localizedStrings: localizedStrings)
+        var overrideUserInterfaceStyle: UIUserInterfaceStyle = .unspecified
+        let themeName = UserDefaults.standard.themeName
+        if !Theme.isDefaultThemeName(themeName) {
+            overrideUserInterfaceStyle = WKAppEnvironment.current.theme.userInterfaceStyle
+        }
+        return WKWatchlistFilterViewModel(localizedStrings: localizedStrings, overrideUserInterfaceStyle: overrideUserInterfaceStyle, loggingDelegate: appViewController)
     }
 }

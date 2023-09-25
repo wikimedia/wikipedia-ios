@@ -47,7 +47,7 @@ class AccountViewController: SubSettingsViewController {
         
         let logout = Item(title: username, subtitle: CommonStrings.logoutTitle, iconName: "settings-user", iconColor: .white, iconBackgroundColor: UIColor.orange600, type: .logout)
         let talkPage = Item(title: WMFLocalizedString("account-talk-page-title", value: "Your talk page", comment: "Title for button and page letting user view their account page."), subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: .blue600 , type: .talkPage)
-        let watchlist = Item(title: CommonStrings.watchlist, subtitle: nil, iconName: "watchlist-star", iconColor: .white, iconBackgroundColor: .yellow600, type: .watchlist)
+        let watchlist = Item(title: CommonStrings.watchlist, subtitle: nil, iconName: "watchlist", iconColor: .white, iconBackgroundColor: .yellow600, type: .watchlist)
         let vanishAccount = Item(title: CommonStrings.vanishAccount, subtitle: nil, iconName: "vanish-account", iconColor: .white, iconBackgroundColor: .red, type: .vanishAccount)
 
         let sectionItems: [Item]
@@ -149,12 +149,17 @@ class AccountViewController: SubSettingsViewController {
                     self.navigationController?.pushViewController(newTalkPage, animated: true)
                 }
         case .watchlist:
-            guard let linkURL = dataStore.primarySiteURL?.wmf_URL(withTitle: "Special:Watchlist"),
-            let userActivity = NSUserActivity.wmf_activity(for: linkURL) else {
-                return
-            }
             
-            NSUserActivity.wmf_navigate(to: userActivity)
+            WatchlistFunnel.shared.logOpenWatchlistFromAccount()
+            
+            let userDefaults = UserDefaults.standard
+
+            if !userDefaults.wmf_userHasOnboardedToWatchlists {
+                showWatchlistOnboarding()
+            } else {
+                goToWatchlist()
+            }
+
         case .vanishAccount:
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
             warningViewController.delegate = self
@@ -162,6 +167,34 @@ class AccountViewController: SubSettingsViewController {
         default:
             break
         }
+    }
+
+    @objc func showWatchlistOnboarding() {
+        let trackChanges = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "track-changes"), title: CommonStrings.watchlistTrackChangesTitle, subtitle: CommonStrings.watchlistTrackChangesSubtitle)
+        let watchArticles = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "watch-articles"), title: CommonStrings.watchlistWatchChangesTitle, subtitle: CommonStrings.watchlistWatchChangesSubitle)
+        let setExpiration = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "set-expiration"), title: CommonStrings.watchlistSetExpirationTitle, subtitle: CommonStrings.watchlistSetExpirationSubtitle)
+        let viewUpdates = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "view-updates"), title: CommonStrings.watchlistViewUpdatesTitle, subtitle: CommonStrings.watchlistViewUpdatesSubitle)
+
+        let viewModel = WKOnboardingViewModel(title: CommonStrings.watchlistOnboardingTitle, cells: [trackChanges, watchArticles, setExpiration, viewUpdates], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.watchlistOnboardingLearnMore)
+
+        let viewController = WKOnboardingViewController(viewModel: viewModel)
+        viewController.hostingController.delegate = self
+        
+        WatchlistFunnel.shared.logWatchlistOnboardingAppearance()
+
+        present(viewController, animated: true) {
+            UserDefaults.standard.wmf_userHasOnboardedToWatchlists = true
+        }
+    }
+
+    @objc func goToWatchlist() {
+        
+        guard let linkURL = dataStore.primarySiteURL?.wmf_URL(withTitle: "Special:Watchlist"),
+        let userActivity = NSUserActivity.wmf_activity(for: linkURL) else {
+            return
+        }
+        
+        NSUserActivity.wmf_navigate(to: userActivity)
     }
     
     @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -226,5 +259,33 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
 
         let viewController = VanishAccountContainerViewController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
         navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
+extension AccountViewController: WKOnboardingViewDelegate {
+    func didClickPrimaryButton() {
+        
+        WatchlistFunnel.shared.logWatchlistOnboardingTapContinue()
+        
+        if let presentedViewController {
+            presentedViewController.dismiss(animated: true) {
+                self.goToWatchlist()
+            }
+        }
+    }
+
+    func didClickSecondaryButton() {
+        
+        WatchlistFunnel.shared.logWatchlistOnboardingTapLearnMore()
+
+        if let presentedViewController {
+            presentedViewController.dismiss(animated: true) {
+                guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ#Watchlist") else {
+                    self.showGenericError()
+                    return
+                }
+                self.navigate(to: url)
+            }
+        }
     }
 }

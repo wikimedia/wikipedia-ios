@@ -198,6 +198,7 @@
 "clearing-cache-in-progress" = "正在清除快取。";
 "close-button-accessibility-label" = "關閉";
 "compass-direction" = "在 $1 時";
+"continue-button-title" = "繼續";
 "continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
 "crimean-tatar-variants-alert-body" = "維基百科應用程式現在支援下列克里米亞韃靼語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nQırımtatarca，拉丁字母克里米亞韃靼語（chr-latn）\nкъырымтатарджа，西里爾字母克里米亞韃靼語（crh-cyrl）";
@@ -490,6 +491,7 @@
 "field-token-title" = "驗證代碼";
 "field-username-placeholder" = "輸入使用者名稱";
 "field-username-title" = "使用者名稱";
+"filter-options-all" = "全部";
 "find-clear-button-accessibility" = "清除尋找";
 "find-infolabel-number-matches" = "$1 / $2";
 "find-next-button-accessibility" = "下筆搜尋結果";
@@ -1157,8 +1159,15 @@
 "watchlist-change-expiry-option-three-months" = "3 個月";
 "watchlist-change-expiry-subtitle" = "選擇監視清單時間週期";
 "watchlist-change-expiry-title" = "監視清單逾期";
+"watchlist-empty-view-button-title" = "搜尋條目";
 "watchlist-filter" = "篩選";
+"watchlist-filter-automated-contributions-options-bot" = "機器人";
+"watchlist-filter-type-of-change-options-wikidata-edits" = "維基數據編輯數";
+"watchlist-filter-user-registration-header" = "使用者註冊及經驗";
+"watchlist-filter-user-registration-options-registered" = "已註冊";
+"watchlist-filter-user-registration-options-unregistered" = "未註冊";
 "watchlist-removed" = "已從您的監視清單移除";
+"watchlist-user-button-thank" = "感謝";
 "watchlist-user-button-user-contributions" = "使用者貢獻";
 "watchlist-user-button-user-page" = "使用者頁面";
 "watchlist-user-button-user-talk-page" = "使用者討論頁";

@@ -17,22 +17,6 @@
         "revision" : "532d8b529501fb73a2455b179e0bbb6d49b652ed",
         "version" : "1.5.3"
       }
-    },
-    {
-      "identity" : "wikipedia-ios-components",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/wikimedia/wikipedia-ios-components.git",
-      "state" : {
-        "revision" : "97c835bce9820ae2a418b23be4dfc73c1374eb18"
-      }
-    },
-    {
-      "identity" : "wikipedia-ios-data",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/wikimedia/wikipedia-ios-data.git",
-      "state" : {
-        "revision" : "6ded1c0031015c9713fbbb68a00de5bef60aeda8"
-      }
     }
   ],
   "version" : 2

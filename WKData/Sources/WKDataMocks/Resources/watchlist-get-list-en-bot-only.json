@@ -1,0 +1,43 @@
+{
+  "batchcomplete": true,
+  "query": {
+    "watchlist": [
+      {
+        "type": "edit",
+        "ns": 1,
+        "title": "Talk:Cat",
+        "pageid": 17673008,
+        "revid": 1154241383,
+        "old_revid": 1154236179,
+        "user": "Lowercase sigmabot III",
+        "anon": false,
+        "bot": true,
+        "new": false,
+        "minor": true,
+        "oldlen": 7525,
+        "newlen": 5018,
+        "timestamp": "2023-05-11T04:50:44Z",
+        "comment": "Archiving 3 discussion(s) to [[Talk:Cat/Archive 14]]) (bot",
+        "parsedcomment": "Archiving 3 discussion(s) to <a href=\"/wiki/Talk:Cat/Archive_14\" title=\"Talk:Cat/Archive 14\">Talk:Cat/Archive 14</a>) (bot"
+      },
+      {
+        "type": "edit",
+        "ns": 1,
+        "title": "Talk:Cat",
+        "pageid": 17673008,
+        "revid": 1154108862,
+        "old_revid": 1154108789,
+        "user": "SineBot",
+        "anon": false,
+        "bot": true,
+        "new": false,
+        "minor": true,
+        "oldlen": 6399,
+        "newlen": 6680,
+        "timestamp": "2023-05-10T09:25:19Z",
+        "comment": "Signing comment by [[Special:Contributions/185.175.32.94|185.175.32.94]] - \"/* Semi-protected edit request on 10 May 2023 */ new section\"",
+        "parsedcomment": "Signing comment by <a href=\"/wiki/Special:Contributions/185.175.32.94\" title=\"Special:Contributions/185.175.32.94\">185.175.32.94</a> - &quot;<span dir=\"auto\"><span class=\"autocomment\"><a href=\"/wiki/Talk:Cat#Semi-protected_edit_request_on_10_May_2023\" title=\"Talk:Cat\">→‎Semi-protected edit request on 10 May 2023</a>: </span> new section&quot;</span>"
+      }
+    ]
+  }
+}
