@@ -206,6 +206,10 @@ extension WMFAppViewController {
 
 extension WMFAppViewController: WKWatchlistDelegate {
 
+    public func emptyViewDidTapSearch() {
+        NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
+    }
+
     public func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
         let wikimediaProject = WikimediaProject(wkProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current), !(revisionID == 0 && oldRevisionID == 0) else {
@@ -225,7 +229,7 @@ extension WMFAppViewController: WKWatchlistDelegate {
         navigate(to: diffURL)
     }
 
-    public func watchlistUserDidTapUser(project: WKProject, username: String, action: Components.WKWatchlistUserButtonAction) {
+    public func watchlistUserDidTapUser(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WKWatchlistUserButtonAction) {
         let wikimediaProject = WikimediaProject(wkProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current) else {
             return
@@ -267,6 +271,8 @@ extension WMFAppViewController: WKWatchlistDelegate {
             } else {
                 performThanks()
             }
+        case .diff(let revId, let oldRevId):
+            watchlistUserDidTapDiff(project: project, title: title, revisionID: revId, oldRevisionID: oldRevId)
         }
     }
     
@@ -415,6 +421,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
             WatchlistFunnel.shared.logTapUserContributions(project: wikimediaProject)
         case .thank:
             WatchlistFunnel.shared.logTapUserThank(project: wikimediaProject)
+        case .diff:
             break
         }
     }

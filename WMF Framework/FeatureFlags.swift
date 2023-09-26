@@ -9,5 +9,5 @@ public struct FeatureFlags {
     public static var watchlistEnabled: Bool {
         return true
     }
-    
+
 }
