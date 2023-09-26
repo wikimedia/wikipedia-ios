@@ -67,6 +67,7 @@ class SinglePageWebViewController: ViewController {
         button.backgroundColor = self.theme.colors.link
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = 8
+        button.addTarget(self, action: #selector(didTapReturnButton), for: .touchUpInside)
         return button
     }()
 
@@ -128,8 +129,6 @@ class SinglePageWebViewController: ViewController {
         let buttonTrailing = button.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -12)
         let buttonHeight = button.heightAnchor.constraint(equalToConstant: 46)
 
-        button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-
         webView.addConstraints([bottom, leading, trailing, height, buttonTop, buttonHeight, buttonLeading, buttonTrailing])
     }
 
@@ -168,6 +167,10 @@ class SinglePageWebViewController: ViewController {
     
     @objc func closeButtonTapped(_ sender: UIButton) {
         navigationController?.dismiss(animated: true)
+    }
+
+    @objc func didTapReturnButton() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
