@@ -1,0 +1,41 @@
+[
+  {
+    "start_time": "2023-10-01T00:00:00Z",
+    "end_time": "2023-11-01T00:00:00Z",
+    "id": "NL_2023_11",
+    "platforms": {
+      "iOS": {},
+      "Android": {}
+    },
+    "version": 1,
+    "countries": [
+      "NL"
+    ],
+    "assets": {
+      "en": {
+        "text": "\u003Cb\u003EWikipedia is not for sale.\u003C/b\u003E\u003Cbr\u003E\u003Ci\u003EA personal message from Jimmy Wales\u003C/i\u003E\u003Cbr\u003EToday I humbly ask you to reflect on the number of times you have used the Wikipedia app this year, the value you’ve gotten from it, and whether you’re able to give €2 back. The Wikimedia Foundation relies on readers to support the technology that makes Wikipedia and our other projects possible. Being a nonprofit means there is no danger that someone will buy Wikipedia and turn it into their personal playground. If Wikipedia has given you €2 worth of knowledge this year, please give back. Thank you. — \u003Ci\u003EJimmy Wales, founder, Wikimedia Foundation\u003C/i\u003E",
+        "footer": "By donating, you agree to our \u003Ca href='https://foundation.wikimedia.org/wiki/Donor_privacy_policy/en'\u003Edonor policy\u003C/a\u003E.",
+        "action_positive": {
+          "title": "Donate now",
+          "url": "https://donate.wikimedia.org/?uselang=en\u0026appeal=JimmyQuote\u0026utm_medium=WikipediaApp\u0026utm_campaign=$platform;\u0026utm_source=app_2023_enNL_$platform;_control"
+        },
+        "action_negative": {
+          "title": "No thanks"
+        },
+        "currency_code": "EUR"
+      },
+      "nl": {
+        "text": "\u003Cb\u003EWikipedia is niet te koop.\u003C/b\u003E\u003Cbr\u003E\u003Ci\u003EEen persoonlijke boodschap van Jimmy Wales.\u003C/i\u003E\u003Cbr\u003ESta je weleens stil bij de keren dat je de Wikipedia-app hebt gebruikt dit jaar? Als je dat nuttig vond, zou je dan € 2 willen geven? De Wikimedia Foundation is afhankelijk van lezers die de technologie willen ondersteunen die Wikipedia en andere projecten mogelijk maakt. Omdat we een non-profitorganisatie zijn, bestaat er geen gevaar dat iemand ineens Wikipedia koopt en ermee aan de haal gaat. Als je vindt dat Wikipedia je dit jaar € 2 aan kennis heeft gegeven, overweeg dan een donatie. Alvast bedankt. — \u003Ci\u003EJimmy Wales, oprichter van de Wikimedia Foundation\u003C/i\u003E",
+        "footer": "By donating, you agree to our \u003Ca href='https://foundation.wikimedia.org/wiki/Donor_privacy_policy/en'\u003Edonor policy\u003C/a\u003E.",
+        "action_positive": {
+          "title": "Doneer nu",
+          "url": "https://donate.wikimedia.org/?uselang=nl\u0026appeal=JimmyQuote\u0026utm_medium=WikipediaApp\u0026utm_campaign=$platform;\u0026utm_source=app_2023_nlNL_$platform;_control"
+        },
+        "action_negative": {
+          "title": "Nee, dank je"
+        },
+        "currency_code": "EUR"
+      }
+    }
+  }
+]
