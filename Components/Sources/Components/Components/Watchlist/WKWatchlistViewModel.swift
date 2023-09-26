@@ -79,7 +79,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 		}
 
         var timestampStringAccessibility: String {
-            return DateFormatter.wkMediumTimeFormatter.string(from: timestamp)
+            return DateFormatter.wkShortTimeFormatter.string(from: timestamp)
         }
 
 		func bytesString(localizedStrings: LocalizedStrings) -> String {
