@@ -72,13 +72,13 @@ class DiffHeaderCompareView: SetupView {
     }()
 
     lazy var fromMenuButton = {
-        let button = WKMenuButton(configuration: WKMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.link, menuItems: userButtonMenuItems))
+        let button = WKMenuButton(configuration: WKMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.diffCompareAccent, menuItems: userButtonMenuItems))
         button.delegate = self
         return button
     }()
 
     lazy var toMenuButton = {
-        let button = WKMenuButton(configuration: WKMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.diffCompareAccent, menuItems: userButtonMenuItems))
+        let button = WKMenuButton(configuration: WKMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.link, menuItems: userButtonMenuItems))
         button.delegate = self
         return button
     }()
@@ -123,6 +123,8 @@ class DiffHeaderCompareView: SetupView {
             stackView.leadingAnchor.constraint(equalTo:  layoutMarginsGuide.leadingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -10)
         ])
+
+        setupStackView()
     }
 
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
@@ -142,15 +144,32 @@ class DiffHeaderCompareView: SetupView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
-        if traitCollection.horizontalSizeClass == .compact {
-            stackView.axis = .vertical
-        } else {
-            stackView.axis = .horizontal
-        }
+        setupStackView()
+
         stackView.setNeedsLayout()
         stackView.layoutIfNeeded()
 
         updateFonts(with: traitCollection)
+    }
+
+    func setupStackView() {
+        if traitCollection.horizontalSizeClass == .compact {
+            if smallerDevice() {
+                stackView.axis = .vertical
+            } else {
+                stackView.axis = .horizontal
+            }
+        } else {
+            stackView.axis = .horizontal
+        }
+    }
+
+    func smallerDevice() -> Bool {
+        let screenWidth = UIScreen.main.bounds.width
+        if screenWidth <= 375 {
+            return true
+        }
+        return false
     }
 
     func update(_ viewModel: DiffHeaderCompareViewModel) {
@@ -232,11 +251,11 @@ extension DiffHeaderCompareView: Themeable {
         backgroundColor = theme.colors.paperBackground
 
         fromHeadingLabel.textColor = theme.colors.secondaryText
-        fromTimestampLabel.textColor = theme.colors.link
+        fromTimestampLabel.textColor = theme.colors.warning
         fromDescriptionLabel.textColor = theme.colors.primaryText
 
         toHeadingLabel.textColor = theme.colors.secondaryText
-        toTimestampLabel.textColor = theme.colors.warning
+        toTimestampLabel.textColor = theme.colors.link
         toDescriptionLabel.textColor = theme.colors.primaryText
     }
 }

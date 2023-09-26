@@ -197,7 +197,7 @@
 "description-welcome-descriptions-title" = "Title text explaining article descriptions";
 "description-welcome-promise-title" = "Title text asking user to edit descriptions responsibly";
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
-"diff-article-edit-history" = "Label for article edit history menu item in diff more menu.";
+"diff-article-revision-history" = "Label for article edit history menu item in diff more menu.";
 "diff-compare-header-from-info-heading" = "Heading label in info box for previous revision when comparing two revisions.";
 "diff-compare-header-heading" = "Heading label in header when comparing two revisions.";
 "diff-compare-header-to-info-heading" = "Heading label in info box for current revision when comparing two revisions.";
