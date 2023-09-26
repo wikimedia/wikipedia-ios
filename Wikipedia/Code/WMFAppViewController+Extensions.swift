@@ -205,9 +205,6 @@ extension WMFAppViewController {
 // MARK: - Watchlist
 
 extension WMFAppViewController: WKWatchlistDelegate {
-    public func watchlistDidDismiss() {
-
-    }
 
     public func emptyViewDidTapSearch() {
         NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
