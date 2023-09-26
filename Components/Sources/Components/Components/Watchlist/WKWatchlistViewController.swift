@@ -38,7 +38,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 		let wkProjectMetadataKey: String
 		let revisionIDMetadataKey: String
         let oldRevisionIDMetadataKey: String
-        let articleTitleMetadaKey: String
+        let articleTitleMetadataKey: String
 
         init(watchlistDelegate: WKWatchlistDelegate? = nil, watchlistLoggingDelegate: WKWatchlistLoggingDelegate?, menuButtonItems: [WKMenuButton.MenuItem], wkProjectMetadataKey: String, revisionIDMetadataKey: String, oldRevisionIDMetadataKey: String, articleTitleMetadaKey: String) {
 			self.watchlistDelegate = watchlistDelegate
@@ -47,7 +47,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 			self.wkProjectMetadataKey = wkProjectMetadataKey
 			self.revisionIDMetadataKey = revisionIDMetadataKey
             self.oldRevisionIDMetadataKey = oldRevisionIDMetadataKey
-            self.articleTitleMetadaKey = articleTitleMetadaKey
+            self.articleTitleMetadataKey = articleTitleMetadaKey
 		}
 
 		func wkSwiftUIMenuButtonUserDidTap(configuration: WKMenuButton.Configuration, item: WKMenuButton.MenuItem?) {
@@ -55,7 +55,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
                     let wkProject = configuration.metadata[wkProjectMetadataKey] as? WKProject,
                   let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
                   let oldRevisionId = configuration.metadata[oldRevisionIDMetadataKey] as? UInt,
-                  let title = configuration.metadata[articleTitleMetadaKey] as? String else {
+                  let title = configuration.metadata[articleTitleMetadataKey] as? String else {
                 return
             }
             
@@ -88,7 +88,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
                     let wkProject = configuration.metadata[wkProjectMetadataKey] as? WKProject,
                   let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
                   let oldRevisionId = configuration.metadata[oldRevisionIDMetadataKey] as? UInt,
-                  let title = configuration.metadata[articleTitleMetadaKey] as? String else {
+                  let title = configuration.metadata[articleTitleMetadataKey] as? String else {
                 return
             }
 
