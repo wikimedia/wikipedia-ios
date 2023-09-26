@@ -100,7 +100,7 @@ public final class WKBasicService: WKService {
                 return
             }
             
-            guard httpResponse.statusCode.isHttpSuccess else {
+            guard httpResponse.isSuccessStatusCode else {
                 completion(nil, nil, WKServiceError.invalidHttpResponse(httpResponse.statusCode))
                 return
             }
@@ -159,7 +159,7 @@ public final class WKBasicService: WKService {
                 return
             }
             
-            guard httpResponse.statusCode.isHttpSuccess else {
+            guard httpResponse.isSuccessStatusCode else {
                 completion(nil, nil, WKServiceError.invalidHttpResponse(httpResponse.statusCode))
                 return
             }
