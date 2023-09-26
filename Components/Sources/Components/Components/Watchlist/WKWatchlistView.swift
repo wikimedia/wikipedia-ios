@@ -88,7 +88,7 @@ private struct WKWatchlistContentView: View {
     func getAccessibilityLabelForItem(item: WKWatchlistViewModel.ItemViewModel) -> String {
         var accessibilityString = String()
         if let project = viewModel.localizedStrings.localizedProjectNames[item.project] {
-            accessibilityString = "\(project) \(item.timestampStringAccessibility). \(item.title). \(viewModel.localizedStrings.userAccessibility): \(item.username). \(viewModel.localizedStrings.summaryAccessibility): \(item.comment)"
+            accessibilityString = "\(project) \(item.timestampStringAccessibility). \(item.title). \(viewModel.localizedStrings.userAccessibility): \(item.username). \(viewModel.localizedStrings.summaryAccessibility): \(item.comment). \(item.bytesString(localizedStrings: viewModel.localizedStrings))"
         }
         return accessibilityString
     }
