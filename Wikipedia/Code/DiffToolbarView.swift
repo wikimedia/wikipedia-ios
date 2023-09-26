@@ -55,7 +55,7 @@ class DiffToolbarView: UIView {
         
         return item
     }()
-    
+
     weak var delegate: DiffToolbarViewDelegate?
     var isThankSelected = false {
         didSet {
@@ -184,9 +184,9 @@ class DiffToolbarView: UIView {
     }
 
     private func setItems() {
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let flexibleSpace = UIBarButtonItem.flexibleSpaceToolbar()
 
-        toolbar.items = [nextButton, flexibleSpace, previousButton, flexibleSpace, undoButton, flexibleSpace, thankButton, flexibleSpace, moreButton]
+        toolbar.items = [flexibleSpace, nextButton, flexibleSpace, previousButton, flexibleSpace, undoButton, flexibleSpace, thankButton, flexibleSpace, moreButton, flexibleSpace]
     }
     
     
@@ -235,7 +235,7 @@ extension DiffToolbarView: Themeable {
         undoButton.apply(theme: theme)
         thankButton.apply(theme: theme)
         moreButton.apply(theme: theme)
-        
+
         if let delegate = delegate,
             !delegate.isLoggedIn {
             if let button = thankButton.customView as? UIButton {

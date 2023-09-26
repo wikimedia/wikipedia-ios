@@ -17,6 +17,9 @@ class DiffListContextCell: UICollectionViewCell {
     
     @IBOutlet var headingLabel: UILabel!
     @IBOutlet var expandButton: UIButton!
+    @IBOutlet weak var divView: UIView!
+    
+    @IBOutlet weak var headerLabelHeightConstraint: NSLayoutConstraint!
     
     private var viewModel: DiffListContextViewModel?
     private var indexPath: IndexPath?
@@ -38,7 +41,8 @@ class DiffListContextCell: UICollectionViewCell {
         innerTrailingConstraint.constant = viewModel.innerPadding.trailing
         innerTopConstraint.constant = viewModel.innerPadding.top
         innerBottomConstraint.constant = viewModel.innerPadding.bottom
-        
+        headerLabelHeightConstraint.constant = viewModel.headerHeight
+
         containerStackView.spacing = DiffListContextViewModel.containerStackSpacing
         contextItemStackView.spacing = DiffListContextViewModel.contextItemStackSpacing
         
@@ -102,8 +106,8 @@ private extension DiffListContextCell {
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.addSubview(label)
                 
-                let top = label.topAnchor.constraint(equalTo: view.topAnchor, constant: DiffListContextViewModel.contextItemTextPadding.top)
-                let bottom = view.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: DiffListContextViewModel.contextItemTextPadding.bottom)
+                let top = label.topAnchor.constraint(equalTo: view.topAnchor, constant: 0)
+                let bottom = view.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: DiffListContextViewModel.contextItemTextPadding.bottom + 5)
                 let leading = label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: DiffListContextViewModel.contextItemTextPadding.leading)
                 let trailing = view.trailingAnchor.constraint(equalTo: label.trailingAnchor, constant: DiffListContextViewModel.contextItemTextPadding.trailing)
                 
@@ -159,7 +163,8 @@ extension DiffListContextCell: Themeable {
         expandButton.tintColor = theme.colors.link
         backgroundColor = theme.colors.paperBackground
         contentView.backgroundColor = theme.colors.paperBackground
-        
+        divView.backgroundColor = theme.colors.baseBackground
+
         if let viewModel = viewModel {
             updateContextViews(in: contextItemStackView, newViewModel: viewModel, theme: theme)
         }
