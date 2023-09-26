@@ -149,7 +149,6 @@ public final class WKWatchlistViewModel: ObservableObject {
 	}
 
     private func setupMenuItems() {
-
         var menuItems: [WKMenuButton.MenuItem] = [
             WKMenuButton.MenuItem(title: localizedStrings.userButtonUserPage, image: WKSFSymbolIcon.for(symbol: .person)),
             WKMenuButton.MenuItem(title: localizedStrings.userButtonTalkPage, image: WKSFSymbolIcon.for(symbol: .conversation)),
@@ -158,7 +157,7 @@ public final class WKWatchlistViewModel: ObservableObject {
         ]
 
         if UIAccessibility.isVoiceOverRunning {
-            let diffForAccessibility = WKMenuButton.MenuItem(title: "Go to diff", image: nil)
+			let diffForAccessibility = WKMenuButton.MenuItem(title: localizedStrings.userAccessibilityButtonDiff, image: nil)
             menuItems.insert(diffForAccessibility, at: 0)
         }
         menuButtonItems = menuItems
