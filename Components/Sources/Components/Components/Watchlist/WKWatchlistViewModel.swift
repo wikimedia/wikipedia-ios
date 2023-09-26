@@ -42,7 +42,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 		public static let wkProjectMetadataKey = String(describing: WKProject.self)
 		public static let revisionIDMetadataKey = "RevisionID"
         public static let oldRevisionIDMetadataKey = "OldRevisionID"
-        public static let articleMetadataKey = "Title"
+        public static let articleMetadataKey = "ArticleTitle"
 
 		public let id = UUID()
 
