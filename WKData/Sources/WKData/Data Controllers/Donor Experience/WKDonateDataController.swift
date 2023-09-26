@@ -1,4 +1,5 @@
 import Foundation
+import Contacts
 
 final public class WKDonateDataController {
     
@@ -118,7 +119,7 @@ final public class WKDonateDataController {
         }
     }
     
-    public func submitPayment(amount: Decimal, currencyCode: String, paymentToken: String, donorName: String, donorEmail: String, donorAddress: String, emailOptIn: Bool?, paymentsAPIKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func submitPayment(amount: Decimal, currencyCode: String, paymentToken: String, donorNameComponents: PersonNameComponents, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, paymentsAPIKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
             completion(.failure(WKDataControllerError.failureCreatingRequestURL))
@@ -126,9 +127,15 @@ final public class WKDonateDataController {
         }
         
         let donorInfo: [String: Any] = [
-            "name": donorName,
+            "first_name": donorNameComponents.givenName as Any,
+            "last_name": donorNameComponents.familyName as Any,
+            "full_name": donorNameComponents.formatted(.name(style: .long)),
             "email": donorEmail,
-            "address": donorAddress
+            "street_address": donorAddressComponents.street,
+            "city": donorAddressComponents.city,
+            "state_province": donorAddressComponents.state,
+            "country": donorAddressComponents.country,
+            "postal_code": donorAddressComponents.postalCode
         ]
         
         var parameters: [String: Any] = [
@@ -136,11 +143,12 @@ final public class WKDonateDataController {
             "amount": amount,
             "currency": currencyCode,
             "payment_token": paymentToken,
-            "donor_info": donorInfo
+            "donor_info": donorInfo,
+            "pay_the_fee": transactionFee ? 1 : 0
         ]
         
         if let emailOptIn {
-            parameters["opt_in"] = emailOptIn
+            parameters["opt_in"] = emailOptIn ? 1 : 0
         }
         
         // TODO: Send in API key

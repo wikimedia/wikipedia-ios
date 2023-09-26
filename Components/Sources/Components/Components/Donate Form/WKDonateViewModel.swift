@@ -411,24 +411,19 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
             return
         }
         
-        guard let donorName = payment.billingContact?.name?.formatted(),
+        guard let donorNameComponents = payment.billingContact?.name,
               let donorEmail = payment.shippingContact?.emailAddress,
-              let donorAddress = payment.billingContact?.postalAddress else {
+              let donorAddressComponents = payment.billingContact?.postalAddress else {
             let error = Error.missingDonorInfo
             let errorText = String.localizedStringWithFormat(localizedStrings.genericErrorTextFormat, error.localizedDescription)
             self.errorViewModel = ErrorViewModel(localizedStrings: ErrorViewModel.LocalizedStrings(text: errorText))
             completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
             return
         }
-        
-        let formatter = CNPostalAddressFormatter()
-        formatter.style = .mailingAddress
-        
-        let donorFormattedAddress = formatter.string(from: donorAddress)
         let emailOptIn: Bool? = emailOptInViewModel?.isSelected
         
         let dataController = WKDonateDataController()
-        dataController.submitPayment(amount: finalAmount, currencyCode: currencyCode, paymentToken: paymentToken, donorName: donorName, donorEmail: donorEmail, donorAddress: donorFormattedAddress, emailOptIn: emailOptIn, paymentsAPIKey: paymentsAPIKey) { [weak self] result in
+        dataController.submitPayment(amount: finalAmount, currencyCode: currencyCode, paymentToken: paymentToken, donorNameComponents: donorNameComponents, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, paymentsAPIKey: paymentsAPIKey) { [weak self] result in
             
             guard let self else {
                 return
