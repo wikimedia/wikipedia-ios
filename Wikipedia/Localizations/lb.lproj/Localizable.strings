@@ -636,6 +636,7 @@
 "watchlist-filter-type-of-change-options-page-edits" = "Säitenännerungen";
 "watchlist-filter-type-of-change-options-wikidata-edits" = "Wikidata-Ännerungen";
 "watchlist-removed" = "Vun Ärer Iwwerwaachungslëscht erofgeholl";
+"watchlist-thanks-success" = "Äre „Merci“ gouf dem $1 geschéckt";
 "watchlist-user-button-user-contributions" = "Benotzerkontributiounen";
 "watchlist-user-button-user-page" = "Benotzersäit";
 "watchlist-user-button-user-talk-page" = "Benotzerdiskussiounssäit";
