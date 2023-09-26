@@ -10,7 +10,7 @@ public struct FeatureFlags {
         return true
     }
     
-    public static var applePayEnabled: Bool {
+    public static var fundraisingImprovementsEnabled: Bool {
         #if WMF_STAGING
         return true
         #else

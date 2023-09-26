@@ -4,7 +4,7 @@ import WKData
 extension WMFAnnouncementsContentSource {
     @objc func fetchDonateConfigsForCountryCode(_ countryCode: String) {
         
-        guard FeatureFlags.applePayEnabled else {
+        guard FeatureFlags.fundraisingImprovementsEnabled else {
             return
         }
         
