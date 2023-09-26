@@ -38,16 +38,16 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 		let wkProjectMetadataKey: String
 		let revisionIDMetadataKey: String
         let oldRevisionIDMetadataKey: String
-        let titleMetadaKey: String
+        let articleTitleMetadaKey: String
 
-        init(watchlistDelegate: WKWatchlistDelegate? = nil, watchlistLoggingDelegate: WKWatchlistLoggingDelegate?, menuButtonItems: [WKMenuButton.MenuItem], wkProjectMetadataKey: String, revisionIDMetadataKey: String, oldRevisionIDMetadataKey: String, titleMetadaKey: String) {
+        init(watchlistDelegate: WKWatchlistDelegate? = nil, watchlistLoggingDelegate: WKWatchlistLoggingDelegate?, menuButtonItems: [WKMenuButton.MenuItem], wkProjectMetadataKey: String, revisionIDMetadataKey: String, oldRevisionIDMetadataKey: String, articleTitleMetadaKey: String) {
 			self.watchlistDelegate = watchlistDelegate
             self.watchlistLoggingDelegate = watchlistLoggingDelegate
 			self.menuButtonItems = menuButtonItems
 			self.wkProjectMetadataKey = wkProjectMetadataKey
 			self.revisionIDMetadataKey = revisionIDMetadataKey
             self.oldRevisionIDMetadataKey = oldRevisionIDMetadataKey
-            self.titleMetadaKey = titleMetadaKey
+            self.articleTitleMetadaKey = articleTitleMetadaKey
 		}
 
 		func wkSwiftUIMenuButtonUserDidTap(configuration: WKMenuButton.Configuration, item: WKMenuButton.MenuItem?) {
@@ -55,7 +55,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
                     let wkProject = configuration.metadata[wkProjectMetadataKey] as? WKProject,
                   let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
                   let oldRevisionId = configuration.metadata[oldRevisionIDMetadataKey] as? UInt,
-                  let title = configuration.metadata[titleMetadaKey] as? String else {
+                  let title = configuration.metadata[articleTitleMetadaKey] as? String else {
                 return
             }
             
@@ -88,7 +88,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
                     let wkProject = configuration.metadata[wkProjectMetadataKey] as? WKProject,
                   let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
                   let oldRevisionId = configuration.metadata[oldRevisionIDMetadataKey] as? UInt,
-                  let title = configuration.metadata[titleMetadaKey] as? String else {
+                  let title = configuration.metadata[articleTitleMetadaKey] as? String else {
                 return
             }
 
@@ -148,7 +148,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
         self.loggingDelegate = loggingDelegate
 		self.reachabilityHandler = reachabilityHandler
 
-        let buttonHandler = MenuButtonHandler(watchlistDelegate: delegate, watchlistLoggingDelegate: loggingDelegate, menuButtonItems: viewModel.menuButtonItems, wkProjectMetadataKey: WKWatchlistViewModel.ItemViewModel.wkProjectMetadataKey, revisionIDMetadataKey: WKWatchlistViewModel.ItemViewModel.revisionIDMetadataKey, oldRevisionIDMetadataKey: WKWatchlistViewModel.ItemViewModel.oldRevisionIDMetadataKey, titleMetadaKey: WKWatchlistViewModel.ItemViewModel.articleMetadataKey)
+        let buttonHandler = MenuButtonHandler(watchlistDelegate: delegate, watchlistLoggingDelegate: loggingDelegate, menuButtonItems: viewModel.menuButtonItems, wkProjectMetadataKey: WKWatchlistViewModel.ItemViewModel.wkProjectMetadataKey, revisionIDMetadataKey: WKWatchlistViewModel.ItemViewModel.revisionIDMetadataKey, oldRevisionIDMetadataKey: WKWatchlistViewModel.ItemViewModel.oldRevisionIDMetadataKey, articleTitleMetadaKey: WKWatchlistViewModel.ItemViewModel.articleMetadataKey)
 		self.buttonHandler = buttonHandler
 
         self.hostingViewController = WKWatchlistHostingViewController(viewModel: viewModel, emptyViewModel: emptyViewModel, delegate: delegate, menuButtonDelegate: buttonHandler)

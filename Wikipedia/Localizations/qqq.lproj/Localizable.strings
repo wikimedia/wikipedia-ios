@@ -1072,7 +1072,7 @@
 "unable-to-load-talk-page-title" = "Text for placeholder label visible when talk page can't be loaded";
 "unknown-generic-text" = "Default text used in places where no contextual information is provided";
 "unwatch" = "Title for unwatch toolbar button.";
-"user-titke" = "Text for user in the app";
+"user-title" = "Text for user in the app";
 "uzbek-variants-alert-body" = "Body text of alert used to inform users about Uzbek variant support. Please do not translate the newlines (\n) or Uzbek characters (ўзбекча кирилл, etc.).";
 "uzbek-variants-alert-title" = "Title of alert used to inform users about Uzbek variant support.";
 "vanish-account-additional-information-field" = "Title for the additional information form field";
