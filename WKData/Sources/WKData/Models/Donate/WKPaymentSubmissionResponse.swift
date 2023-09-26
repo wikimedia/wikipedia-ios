@@ -9,5 +9,3 @@ final public class WKPaymentSubmissionResponse: Codable {
     
     let response: Response
 }
-
-/// {"response":{"status":"Success","gateway_transaction_id":"PVLSL6JZ4NK2WN82","order_id":"1235.1"}}

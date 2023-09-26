@@ -1,7 +1,6 @@
 import Foundation
 
 /// Use this service for the most basic networking service calls. It does not handle authentication.
-///
 public final class WKBasicService: WKService {
     
     private let urlSession: WKURLSession
