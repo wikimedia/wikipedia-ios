@@ -357,7 +357,7 @@ public class CommonStrings: NSObject {
 
     public static let watchlistEmptyViewFilterTitle = WMFLocalizedString("watchlist-empty-view-filter-title", value: "You have no Watchlist items", comment: "Title for empty watchlist view when filters are active")
 
-    public static let watchlistGoToDiff = WMFLocalizedString("watchlist-diff-action-button-tilte", value: "Go to diff", comment: "Title for go to watchlist item diff menu button")
+    public static let watchlistGoToDiff = WMFLocalizedString("watchlist-diff-action-button-title", value: "Go to diff", comment: "Title for watchlist menu button item for go to diff action")
 
     public static let diffFromHeading = WMFLocalizedString("diff-compare-header-from-info-heading", value: "Previous Edit", comment: "Heading label in info box for previous revision when comparing two revisions.")
 
