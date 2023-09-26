@@ -1117,6 +1117,7 @@
 "watchlist-change-expiry-option-three-months" = "3 months";
 "watchlist-change-expiry-subtitle" = "Choose Watchlist time period";
 "watchlist-change-expiry-title" = "Watchlist expiry";
+"watchlist-diff-action-button-tilte" = "Go to diff";
 "watchlist-edit-summary-accessibility" = "Edit summary";
 "watchlist-empty-view-button-title" = "Search articles";
 "watchlist-empty-view-filter-title" = "You have no Watchlist items";

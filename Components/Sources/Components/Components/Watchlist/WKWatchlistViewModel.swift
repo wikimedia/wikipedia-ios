@@ -15,12 +15,13 @@ public final class WKWatchlistViewModel: ObservableObject {
 		public var userButtonThank: String
         public var userAccessibility: String
         public var summaryAccessibility: String
+        public var userAccessibilityButtonDiff: String
         public var localizedProjectNames: [WKProject: String]
 
 		public var byteChange: ((Int) -> String) // for injecting localized plurals via client app
 		public let htmlStripped: ((String) -> String) // use client app logic to strip HTML tags
 
-        public init(title: String, filter: String, userButtonUserPage: String, userButtonTalkPage: String, userButtonContributions: String, userButtonThank: String, userAccessibility: String, summaryAccessibility: String, localizedProjectNames: [WKProject: String], byteChange: @escaping ((Int) -> String), htmlStripped: @escaping ((String) -> String)) {
+        public init(title: String, filter: String, userButtonUserPage: String, userButtonTalkPage: String, userButtonContributions: String, userButtonThank: String, userAccessibility: String, summaryAccessibility: String, userAccessibilityButtonDiff: String, localizedProjectNames: [WKProject: String], byteChange: @escaping ((Int) -> String), htmlStripped: @escaping ((String) -> String)) {
 
 			self.title = title
 			self.filter = filter
@@ -30,6 +31,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 			self.userButtonThank = userButtonThank
             self.userAccessibility = userAccessibility
             self.summaryAccessibility = summaryAccessibility
+            self.userAccessibilityButtonDiff = userAccessibilityButtonDiff
             self.localizedProjectNames = localizedProjectNames
 			self.byteChange = byteChange
 			self.htmlStripped = htmlStripped
@@ -40,7 +42,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 		public static let wkProjectMetadataKey = String(describing: WKProject.self)
 		public static let revisionIDMetadataKey = "RevisionID"
         public static let oldRevisionIDMetadataKey = "OldRevisionID"
-        public static let titleMetadataKey = "Title"
+        public static let articleMetadataKey = "Title"
 
 		public let id = UUID()
 
@@ -77,7 +79,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 		}
 
         var timestampStringAccessibility: String {
-            return DateFormatter.wkTimeDateFormatter.string(from: timestamp)
+            return DateFormatter.wkMediumTimeFormatter.string(from: timestamp)
         }
 
 		func bytesString(localizedStrings: LocalizedStrings) -> String {
@@ -141,17 +143,12 @@ public final class WKWatchlistViewModel: ObservableObject {
     public init(localizedStrings: LocalizedStrings, presentationConfiguration: PresentationConfiguration) {
 		self.localizedStrings = localizedStrings
         self.presentationConfiguration = presentationConfiguration
-		self.menuButtonItems = [WKMenuButton.MenuItem]()
-        self.menuButtonItemsWithoutThank = [WKMenuButton.MenuItem]()
+		self.menuButtonItems = []
+        self.menuButtonItemsWithoutThank = []
         setupMenuItems()
 	}
 
     private func setupMenuItems() {
-        menuButtonItems = getMenuButtonItems()
-        menuButtonItemsWithoutThank = menuButtonItems.dropLast()
-    }
-
-    private func getMenuButtonItems() -> [WKMenuButton.MenuItem] {
 
         var menuItems: [WKMenuButton.MenuItem] = [
             WKMenuButton.MenuItem(title: localizedStrings.userButtonUserPage, image: WKSFSymbolIcon.for(symbol: .person)),
@@ -161,10 +158,11 @@ public final class WKWatchlistViewModel: ObservableObject {
         ]
 
         if UIAccessibility.isVoiceOverRunning {
-            let accItem = WKMenuButton.MenuItem(title: "Go to diff", image: nil)
-            menuItems.insert(accItem, at: 0)
+            let diffForAccessibility = WKMenuButton.MenuItem(title: "Go to diff", image: nil)
+            menuItems.insert(diffForAccessibility, at: 0)
         }
-        return menuItems
+        menuButtonItems = menuItems
+        menuButtonItemsWithoutThank = menuButtonItems.dropLast()
     }
 
 	 public func fetchWatchlist(_ completion: (() -> Void)? = nil) {

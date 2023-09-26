@@ -100,8 +100,8 @@ private struct WKWatchlistContentView: View {
 fileprivate struct WKWatchlistViewCell: View {
 
 	struct MenuItemConfiguration {
-		var userMenuItems: [WKMenuButton.MenuItem]
-		var anonOrBotMenuItems: [WKMenuButton.MenuItem]
+		let userMenuItems: [WKMenuButton.MenuItem]
+		let anonOrBotMenuItems: [WKMenuButton.MenuItem]
 	}
 
 	@ObservedObject var appEnvironment = WKAppEnvironment.current
@@ -176,7 +176,7 @@ fileprivate struct WKWatchlistViewCell: View {
 										WKWatchlistViewModel.ItemViewModel.wkProjectMetadataKey: itemViewModel.project,
 										WKWatchlistViewModel.ItemViewModel.revisionIDMetadataKey: itemViewModel.revisionID,
                                         WKWatchlistViewModel.ItemViewModel.oldRevisionIDMetadataKey: itemViewModel.oldRevisionID,
-                                        WKWatchlistViewModel.ItemViewModel.titleMetadataKey: itemViewModel.title
+                                        WKWatchlistViewModel.ItemViewModel.articleMetadataKey: itemViewModel.title
 									]
                                 ), menuButtonDelegate: menuButtonDelegate)
                                 .accessibilityAddTraits(.isButton)

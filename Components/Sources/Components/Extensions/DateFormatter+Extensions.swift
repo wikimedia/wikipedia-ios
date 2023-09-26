@@ -18,7 +18,7 @@ public extension DateFormatter {
 		return dateFormatter
 	}()
 
-    static var wkTimeDateFormatter = {
+    static var wkMediumTimeFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .medium
         dateFormatter.dateStyle = .none

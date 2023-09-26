@@ -1117,6 +1117,7 @@
 "watchlist-change-expiry-option-three-months" = "Title of button in expiry change modal that watches a page for three months.";
 "watchlist-change-expiry-subtitle" = "Subtitle in modal that allows a user to choose the expiry setting of a page they are watching.";
 "watchlist-change-expiry-title" = "Title of modal that allows a user to change the expiry setting of a page they are watching.";
+"watchlist-diff-action-button-tilte" = "Title for go to watchlist item diff menu button";
 "watchlist-edit-summary-accessibility" = "Text for edit summary acessibility text";
 "watchlist-empty-view-button-title" = "Title for empty watchlist view button that redirects user to search articles";
 "watchlist-empty-view-filter-title" = "Title for empty watchlist view when filters are active";
