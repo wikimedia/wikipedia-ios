@@ -39,6 +39,7 @@ struct WKWatchlistView: View {
             }
         } else {
             ProgressView()
+            .accessibilityHidden(true)
         }
     }
     
