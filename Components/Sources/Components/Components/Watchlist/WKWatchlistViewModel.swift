@@ -18,8 +18,10 @@ public final class WKWatchlistViewModel: ObservableObject {
         public var localizedProjectNames: [WKProject: String]
 
 		public var byteChange: ((Int) -> String) // for injecting localized plurals via client app
+		public let htmlStripped: ((String) -> String) // use client app logic to strip HTML tags
 
-        public init(title: String, filter: String, userButtonUserPage: String, userButtonTalkPage: String, userButtonContributions: String, userButtonThank: String, userAccessibility: String, summaryAccessibility: String, localizedProjectNames: [WKProject: String], byteChange: @escaping ((Int) -> String)) {
+        public init(title: String, filter: String, userButtonUserPage: String, userButtonTalkPage: String, userButtonContributions: String, userButtonThank: String, userAccessibility: String, summaryAccessibility: String, localizedProjectNames: [WKProject: String], byteChange: @escaping ((Int) -> String), htmlStripped: @escaping ((String) -> String)) {
+
 			self.title = title
 			self.filter = filter
 			self.userButtonUserPage = userButtonUserPage
@@ -30,6 +32,7 @@ public final class WKWatchlistViewModel: ObservableObject {
             self.summaryAccessibility = summaryAccessibility
             self.localizedProjectNames = localizedProjectNames
 			self.byteChange = byteChange
+			self.htmlStripped = htmlStripped
 		}
 	}
 
@@ -52,8 +55,9 @@ public final class WKWatchlistViewModel: ObservableObject {
 		let oldRevisionID: UInt
 		let byteChange: Int
 		let project: WKProject
+		private let htmlStripped: ((String) -> String)
 
-		public init(title: String, commentHTML: String, commentWikitext: String, timestamp: Date, username: String, isAnonymous: Bool, isBot: Bool, revisionID: UInt, oldRevisionID: UInt, byteChange: Int, project: WKProject) {
+		public init(title: String, commentHTML: String, commentWikitext: String, timestamp: Date, username: String, isAnonymous: Bool, isBot: Bool, revisionID: UInt, oldRevisionID: UInt, byteChange: Int, project: WKProject, htmlStripped: @escaping ((String) -> String)) {
 			self.title = title
 			self.commentHTML = commentHTML
 			self.commentWikitext = commentWikitext
@@ -65,6 +69,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 			self.oldRevisionID = oldRevisionID
 			self.byteChange = byteChange
 			self.project = project
+			self.htmlStripped = htmlStripped
 		}
 
 		var timestampString: String {
@@ -90,7 +95,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 		}
 
 		var comment: String {
-			return commentHTML.wkRemovingHTML()
+			return htmlStripped(commentHTML)
 		}
 
 	}
@@ -167,7 +172,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 			switch result {
 			case .success(let watchlist):
 				self.items = watchlist.items.map { item in
-					let viewModel = ItemViewModel(title: item.title, commentHTML: item.commentHtml, commentWikitext: item.commentWikitext, timestamp: item.timestamp, username: item.username, isAnonymous: item.isAnon, isBot: item.isBot, revisionID: item.revisionID, oldRevisionID: item.oldRevisionID, byteChange: Int(item.byteLength) - Int(item.oldByteLength), project: item.project)
+					let viewModel = ItemViewModel(title: item.title, commentHTML: item.commentHtml, commentWikitext: item.commentWikitext, timestamp: item.timestamp, username: item.username, isAnonymous: item.isAnon, isBot: item.isBot, revisionID: item.revisionID, oldRevisionID: item.oldRevisionID, byteChange: Int(item.byteLength) - Int(item.oldByteLength), project: item.project, htmlStripped: self.localizedStrings.htmlStripped)
 					return viewModel
 				}
 				self.sections = self.sortWatchlistItems()

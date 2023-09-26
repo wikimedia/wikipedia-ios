@@ -192,6 +192,10 @@ class ViewControllerRouter: NSObject {
                 )
             }
 
+            let htmlStripped: (String) -> String = { inputString in
+                return inputString.removingHTML
+            }
+
             let attributedFilterString: (Int) -> AttributedString = { filters in
                 let localizedString = String.localizedStringWithFormat(
                     WMFLocalizedString("watchlist-number-filters", value:"Modify [{{PLURAL:%1$d|%1$d filter|%1$d filters}}](wikipedia://watchlist/filter) to see more Watchlist items", comment: "Amount of filters active in watchlist - %1$@ is replaced with the number of filters."),
@@ -202,7 +206,9 @@ class ViewControllerRouter: NSObject {
                 return attributedString
             }
 
-            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, userButtonUserPage: CommonStrings.userButtonPage, userButtonTalkPage: CommonStrings.userButtonTalkPage, userButtonContributions: CommonStrings.userButtonContributions, userButtonThank: CommonStrings.userButtonThank, userAccessibility: CommonStrings.userTitle, summaryAccessibility: CommonStrings.editSummaryTitle, localizedProjectNames: watchlistFilterViewModel.localizedStrings.localizedProjectNames, byteChange: localizedByteChange)
+
+            let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, userButtonUserPage: CommonStrings.userButtonPage, userButtonTalkPage: CommonStrings.userButtonTalkPage, userButtonContributions: CommonStrings.userButtonContributions, userButtonThank: CommonStrings.userButtonThank, userAccessibility: CommonStrings.userTitle, summaryAccessibility: CommonStrings.editSummaryTitle, localizedProjectNames: watchlistFilterViewModel.localizedStrings.localizedProjectNames, byteChange: localizedByteChange,  htmlStripped: htmlStripped)
+
             let presentationConfiguration = WKWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
 
             let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)

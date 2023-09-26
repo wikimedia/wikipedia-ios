@@ -242,16 +242,16 @@ extension WKWatchlistViewController: WKWatchlistFilterDelegate {
 }
 
 extension WKWatchlistViewController: WKEmptyViewDelegate {
-    public func didShow(type: WKEmptyViewStateType) {
+    public func emptyViewDidShow(type: WKEmptyViewStateType) {
         loggingDelegate?.logWatchlistEmptyViewDidShow(type: type)
     }
     
-    public func didTapSearch() {
+    public func emptyViewDidTapSearch() {
         delegate?.watchlistEmptyViewUserDidTapSearch()
         loggingDelegate?.logWatchlistEmptyViewUserDidTapSearch()
     }
     
-    public func didTapFilters() {
+    public func emptyViewDidTapFilters() {
         showFilterView()
         loggingDelegate?.logWatchlistEmptyViewUserDidTapModifyFilters()
     }
