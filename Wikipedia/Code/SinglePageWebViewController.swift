@@ -87,12 +87,6 @@ class SinglePageWebViewController: ViewController {
         super.viewDidLoad()
     }
 
-    override func viewDidLayoutSubviews() {
-        if url.isThankYouDonationURL {
-            setupBottomView()
-        }
-    }
-
     private func fetch() {
         fakeProgressController.start()
         webView.load(URLRequest(url: url))
@@ -140,17 +134,21 @@ class SinglePageWebViewController: ViewController {
         }
         
         guard
-            action.navigationType == .linkActivated, // allow redirects and other navigation types
             let relativeActionURL = action.request.url,
-            let actionURL = URL(string: relativeActionURL.absoluteString, relativeTo: webView.url)?.absoluteURL
-        else {
+            let actionURL = URL(string: relativeActionURL.absoluteString, relativeTo: webView.url)?.absoluteURL else {
             return true
         }
-    
-        let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.inAppWebView.rawValue]
-        navigate(to: actionURL, userInfo: userInfo)
         
-        return false
+        if action.navigationType == .linkActivated {
+            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.inAppWebView.rawValue]
+            navigate(to: actionURL, userInfo: userInfo)
+            return false
+        } else if action.navigationType == .other,
+                  actionURL.isThankYouDonationURL {
+            setupBottomView()
+        }
+        
+        return true
     }
     
     @objc func tappedAction(_ sender: UIBarButtonItem) {
