@@ -5,8 +5,11 @@ import PassKit
 
 @objc extension WMFSettingsViewController {
     func pushToDonateView() {
-        guard let donateConfig = WKDonateDataController.donateConfig,
-              let paymentMethods = WKDonateDataController.paymentMethods else {
+        
+        let donateData = WKDonateDataController().loadConfigs()
+        
+        guard let donateConfig = donateData.donateConfig,
+              let paymentMethods = donateData.paymentMethods else {
             // TODO: Web path only
             return
         }

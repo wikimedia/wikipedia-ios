@@ -5,9 +5,14 @@ final public class WKDonateDataController {
     // MARK: - Properties
     
     private let service = WKDataEnvironment.current.basicService
+    private let sharedCacheStore = WKDataEnvironment.current.sharedCacheStore
     
-    public static private(set) var donateConfig: WKDonateConfig?
-    public static private(set) var paymentMethods: WKPaymentMethods?
+    static private(set) var donateConfig: WKDonateConfig?
+    static private(set) var paymentMethods: WKPaymentMethods?
+    
+    private let cacheDirectoryName = WKSharedCacheDirectoryNames.donorExperience.rawValue
+    private let cacheDonateConfigFileName = "AppsDonationConfig"
+    private let cachePaymentMethodsFileName = "PaymentMethods"
     
     // MARK: - Lifecycle
     
@@ -16,6 +21,22 @@ final public class WKDonateDataController {
     }
     
     // MARK: - Public
+    
+    public func loadConfigs() -> (donateConfig: WKDonateConfig?, paymentMethods: WKPaymentMethods?) {
+        
+        guard Self.donateConfig == nil,
+              Self.paymentMethods == nil else {
+            return (Self.donateConfig, Self.paymentMethods)
+        }
+        
+        let donateConfigResponse: WKDonateConfigResponse? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheDonateConfigFileName)
+        let paymentMethodsResponse: WKPaymentMethods? = try? sharedCacheStore?.load(key: cacheDirectoryName, cachePaymentMethodsFileName)
+        
+        Self.donateConfig = donateConfigResponse?.config
+        Self.paymentMethods = paymentMethodsResponse
+        
+        return (Self.donateConfig, Self.paymentMethods)
+    }
     
     public func fetchConfigs(for countryCode: String, paymentsAPIKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
@@ -42,22 +63,25 @@ final public class WKDonateDataController {
             "action": "raw"
         ]
         
-        // TODO: Also fetch AppsCampaignConfig https://donate.wikimedia.org/wiki/MediaWiki:AppsCampaignConfig.json?action=raw here
-        
         // TODO: Send in API key
         
         var errors: [Error] = []
         
         group.enter()
         let paymentMethodsRequest = WKBasicServiceRequest(url: paymentMethodsURL, method: .GET, parameters: paymentMethodParameters)
-        service.performDecodableGET(request: paymentMethodsRequest) { (result: Result<WKPaymentMethods, Error>) in
+        service.performDecodableGET(request: paymentMethodsRequest) { [weak self] (result: Result<WKPaymentMethods, Error>) in
             defer {
                 group.leave()
+            }
+            
+            guard let self else {
+                return
             }
             
             switch result {
             case .success(let paymentMethods):
                 Self.paymentMethods = paymentMethods
+                try? self.sharedCacheStore?.save(key: cacheDirectoryName, cachePaymentMethodsFileName, value: paymentMethods)
             case .failure(let error):
                 errors.append(error)
             }
@@ -65,14 +89,20 @@ final public class WKDonateDataController {
         
         group.enter()
         let donateConfigRequest = WKBasicServiceRequest(url: donateConfigURL, method: .GET, parameters: donateConfigParameters)
-        service.performDecodableGET(request: donateConfigRequest) { (result: Result<WKDonateConfigResponse, Error>) in
+        service.performDecodableGET(request: donateConfigRequest) { [weak self] (result: Result<WKDonateConfigResponse, Error>) in
+            
             defer {
                 group.leave()
+            }
+            
+            guard let self else {
+                return
             }
             
             switch result {
             case .success(let response):
                 Self.donateConfig = response.config
+                try? self.sharedCacheStore?.save(key: cacheDirectoryName, cacheDonateConfigFileName, value: response)
             case .failure(let error):
                 errors.append(error)
             }
