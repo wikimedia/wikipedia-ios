@@ -1,0 +1,9 @@
+{
+    "response": {
+        "paymentMethods": [{
+            "brands": ["amex", "discover", "maestro", "mc", "visa"],
+            "name": "Apple Pay",
+            "type": "applepay"
+        }]
+    }
+}

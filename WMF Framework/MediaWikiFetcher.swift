@@ -98,4 +98,9 @@ public final class MediaWikiFetcher: Fetcher, WKService {
 
         performDecodableMediaWikiAPIGET(for: url, with: request.parameters, completionHandler: completion)
     }
+    
+    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WKData.WKServiceRequest, T : Decodable {
+        assertionFailure("Not implemented")
+        completion(.failure(RequestError.unknown))
+    }
 }

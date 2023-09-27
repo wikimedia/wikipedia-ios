@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import SwiftUI
 import WKData
+import WKDataMocks
 import Components
 
 extension Notification.Name {
@@ -501,6 +502,15 @@ extension WMFAppViewController: CreateReadingListDelegate {
 extension WMFAppViewController {
     @objc func setupWKDataEnvironment() {
         WKDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        
+        switch Configuration.current.environment {
+        case .staging:
+            WKDataEnvironment.current.serviceEnvironment = .staging
+            WKDataEnvironment.current.basicService = WKMockDonateBasicService()
+        default:
+            WKDataEnvironment.current.serviceEnvironment = .production
+        }
+        
         WKDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
         
         let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }

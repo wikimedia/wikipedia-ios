@@ -21,7 +21,8 @@ let package = Package(
         .target(
             name: "Components",
             dependencies: [
-                .product(name: "WKData", package: "WKData")
+                .product(name: "WKData", package: "WKData"),
+                .product(name: "WKDataMocks", package: "WKData")
             ]),
         .testTarget(
             name: "ComponentsTests",
