@@ -17,5 +17,5 @@ public extension DateFormatter {
 		dateFormatter.dateStyle = .full
 		return dateFormatter
 	}()
-	
+
 }

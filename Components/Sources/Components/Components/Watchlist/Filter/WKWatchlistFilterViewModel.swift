@@ -9,7 +9,7 @@ public final class WKWatchlistFilterViewModel {
     public struct LocalizedStrings {
         let title: String
         let doneTitle: String
-        let localizedProjectNames: [WKProject: String]
+        public let localizedProjectNames: [WKProject: String]
         let wikimediaProjectsHeader: String
         let wikipediasHeader: String
         let commonAll: String
@@ -75,7 +75,7 @@ public final class WKWatchlistFilterViewModel {
     
     // MARK: - Properties
     
-    let localizedStrings: LocalizedStrings
+    public let localizedStrings: LocalizedStrings
     private let projectViewModels: [WKProjectViewModel]
     let formViewModel: WKFormViewModel
     weak var loggingDelegate: WKWatchlistLoggingDelegate?

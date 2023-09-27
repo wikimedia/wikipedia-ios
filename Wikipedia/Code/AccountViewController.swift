@@ -112,6 +112,7 @@ class AccountViewController: SubSettingsViewController {
             cell.disclosureSwitch.addTarget(self, action: #selector(autoSignTalkPageDiscussions(_:)), for: .valueChanged)
         case .watchlist:
             cell.disclosureType = .viewController
+            cell.accessibilityTraits = .button
         case .vanishAccount:
             cell.disclosureType = .viewController
             cell.accessibilityTraits = .button
