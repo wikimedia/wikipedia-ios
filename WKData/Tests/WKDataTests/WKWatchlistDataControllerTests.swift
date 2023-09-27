@@ -249,7 +249,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     }
     
     func testFetchWatchlistWithNoCacheAndNoInternetConnection() {
-        WKDataEnvironment.current.mediaWikiService = WKMockWatchlistMediaWikiServiceNoInternetConnection()
+        WKDataEnvironment.current.mediaWikiService = WKMockServiceNoInternetConnection()
         let controller = WKWatchlistDataController()
         
         let expectation = XCTestExpectation(description: "Fetch Watchlist")
@@ -287,7 +287,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
                 connectedWatchlistReturned = watchlist1
                 
                 // Drop Internet Connection
-                WKDataEnvironment.current.mediaWikiService = WKMockWatchlistMediaWikiServiceNoInternetConnection()
+                WKDataEnvironment.current.mediaWikiService = WKMockServiceNoInternetConnection()
                 controller.service = WKDataEnvironment.current.mediaWikiService
 
                 // Fetch again, confirm it still succeeds
