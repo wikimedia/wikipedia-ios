@@ -119,7 +119,7 @@ final public class WKDonateDataController {
         }
     }
     
-    public func submitPayment(amount: Decimal, currencyCode: String, paymentToken: String, donorNameComponents: PersonNameComponents, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, paymentsAPIKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func submitPayment(amount: Decimal, currencyCode: String, paymentToken: String, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, paymentsAPIKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
             completion(.failure(WKDataControllerError.failureCreatingRequestURL))
@@ -144,6 +144,7 @@ final public class WKDonateDataController {
             "currency": currencyCode,
             "payment_token": paymentToken,
             "donor_info": donorInfo,
+            "recurring": recurring ? 1 : 0,
             "pay_the_fee": transactionFee ? 1 : 0
         ]
         

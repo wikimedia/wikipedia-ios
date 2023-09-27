@@ -197,7 +197,7 @@
 "description-welcome-descriptions-title" = "Article descriptions";
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
-"diff-article-revision-history" = "Article revision history";
+"diff-article-edit-history" = "Article Edit History";
 "diff-compare-header-from-info-heading" = "Previous Edit";
 "diff-compare-header-heading" = "Compare Revisions";
 "diff-compare-header-to-info-heading" = "Displayed Edit";
@@ -242,6 +242,7 @@
 "donate-accessibility-donate-hint-format" = "Double tap to donate $1 to the Wikimedia Foundation.";
 "donate-accessibility-email-opt-in-hint" = "Double tap to give the Wikimedia Foundation permission to email you.";
 "donate-accessibility-keyboard-done-hint" = "Double tap to dismiss amount input keyboard view.";
+"donate-accessibility-monthly-recurring-hint" = "Double tap to enable automatic monthly donations of this amount.";
 "donate-accessibility-textfield-hint" = "Enter custom amount to donate.";
 "donate-accessibility-transaction-fee-hint" = "Double tap to add transaction fee to donation amount.";
 "donate-email-opt-in-text" = "Yes, the Wikimedia Foundation can send me an occasional email.";
@@ -251,10 +252,7 @@
 "donate-help-tax-deductibility-information" = "Tax deductibility information";
 "donate-maximum-error-text" = "We cannot accept donations greater than $1 $2 through our website. Please contact our major gifts staff at benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "Please select an amount (minimum $1 $2).";
-"donate-payment-method-prompt-apple-pay-button-title" = "Donate with Apple Pay";
-"donate-payment-method-prompt-message" = "Donate with Apple Pay or choose other payment method.";
-"donate-payment-method-prompt-other-button-title" = "Other payment method";
-"donate-payment-method-prompt-title" = "Donate with Apple Pay?";
+"donate-monthly-recurring-text" = "Make this a monthly recurring donation.";
 "donate-success-subtitle" = "Your generosity to Wikipedia means so much to us.";
 "donate-success-title" = "Thank you!";
 "donate-title" = "Select an amount";
@@ -942,7 +940,6 @@
 "settings-clear-cache-are-you-sure-title" = "Clear cached data?";
 "settings-clear-cache-cancel" = "Cancel";
 "settings-clear-cache-ok" = "Clear cache";
-"settings-donate" = "Donate to Wikipiedia";
 "settings-help-and-feedback" = "Help and feedback";
 "settings-language-bar" = "Show languages on search";
 "settings-languages-feed-customization" = "You can manage which languages are shown on your Explore feed by customizing your Explore feed settings.";
@@ -1094,7 +1091,6 @@
 "unable-to-load-talk-page-title" = "Unable to load talk page";
 "unknown-generic-text" = "Unknown";
 "unwatch" = "Unwatch";
-"user-title" = "User";
 "uzbek-variants-alert-body" = "The Wikipedia app now supports the following Uzbek variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Updates to Uzbek variant support";
 "vanish-account-additional-information-field" = "Additional information";
@@ -1139,8 +1135,6 @@
 "watchlist-change-expiry-option-three-months" = "3 months";
 "watchlist-change-expiry-subtitle" = "Choose Watchlist time period";
 "watchlist-change-expiry-title" = "Watchlist expiry";
-"watchlist-diff-action-button-title" = "Go to diff";
-"watchlist-edit-summary-accessibility" = "Edit summary";
 "watchlist-empty-view-button-title" = "Search articles";
 "watchlist-empty-view-filter-title" = "You have no Watchlist items";
 "watchlist-empty-view-subtitle" = "Keep track of what's happening to articles you are interested in. Tap the menu in the article and select “Watch” to see changes to an article.";

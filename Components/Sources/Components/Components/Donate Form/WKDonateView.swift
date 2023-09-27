@@ -36,6 +36,7 @@ struct WKDonateView: View {
                     .frame(height: 24)
                 VStack(alignment: .leading, spacing: 12) {
                     WKDonateOptInView(viewModel: viewModel.transactionFeeOptInViewModel)
+                    WKDonateOptInView(viewModel: viewModel.monthlyRecurringViewModel)
                     if let emailOptInViewModel = viewModel.emailOptInViewModel {
                         WKDonateOptInView(viewModel: emailOptInViewModel)
                     }
