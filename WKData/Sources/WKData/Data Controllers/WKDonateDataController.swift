@@ -7,8 +7,8 @@ final public class WKDonateDataController {
     private let service = WKDataEnvironment.current.basicService
     private let sharedCacheStore = WKDataEnvironment.current.sharedCacheStore
     
-    static private(set) var donateConfig: WKDonateConfig?
-    static private(set) var paymentMethods: WKPaymentMethods?
+    private var donateConfig: WKDonateConfig?
+    private var paymentMethods: WKPaymentMethods?
     
     private let cacheDirectoryName = WKSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheDonateConfigFileName = "AppsDonationConfig"
@@ -24,18 +24,18 @@ final public class WKDonateDataController {
     
     public func loadConfigs() -> (donateConfig: WKDonateConfig?, paymentMethods: WKPaymentMethods?) {
         
-        guard Self.donateConfig == nil,
-              Self.paymentMethods == nil else {
-            return (Self.donateConfig, Self.paymentMethods)
+        guard donateConfig == nil,
+              paymentMethods == nil else {
+            return (donateConfig, paymentMethods)
         }
         
         let donateConfigResponse: WKDonateConfigResponse? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheDonateConfigFileName)
         let paymentMethodsResponse: WKPaymentMethods? = try? sharedCacheStore?.load(key: cacheDirectoryName, cachePaymentMethodsFileName)
         
-        Self.donateConfig = donateConfigResponse?.config
-        Self.paymentMethods = paymentMethodsResponse
+        donateConfig = donateConfigResponse?.config
+        paymentMethods = paymentMethodsResponse
         
-        return (Self.donateConfig, Self.paymentMethods)
+        return (donateConfig, paymentMethods)
     }
     
     public func fetchConfigs(for countryCode: String, paymentsAPIKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -80,7 +80,7 @@ final public class WKDonateDataController {
             
             switch result {
             case .success(let paymentMethods):
-                Self.paymentMethods = paymentMethods
+                self.paymentMethods = paymentMethods
                 try? self.sharedCacheStore?.save(key: cacheDirectoryName, cachePaymentMethodsFileName, value: paymentMethods)
             case .failure(let error):
                 errors.append(error)
@@ -101,7 +101,7 @@ final public class WKDonateDataController {
             
             switch result {
             case .success(let response):
-                Self.donateConfig = response.config
+                self.donateConfig = response.config
                 try? self.sharedCacheStore?.save(key: cacheDirectoryName, cacheDonateConfigFileName, value: response)
             case .failure(let error):
                 errors.append(error)
