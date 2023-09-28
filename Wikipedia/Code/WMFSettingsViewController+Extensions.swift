@@ -4,50 +4,59 @@ import WKData
 import PassKit
 
 @objc extension WMFSettingsViewController {
-    func pushToDonateView() {
+    
+    @objc func validTargetIDCampaignIsRunning() -> Bool {
         
-        let donateData = WKDonateDataController().loadConfigs()
+        guard let countryCode = NSLocale.current.regionCode else {
+            return false
+        }
+        
+        let fundraisingCampaignDataController = WKFundraisingCampaignDataController()
+        let currentDate = Date.now
+
+        return fundraisingCampaignDataController.hasActivelyRunningCampaigns(countryCode: countryCode, currentDate: currentDate)
+    }
+    
+    @objc func canOfferNativeDonateForm() -> Bool {
+        return nativeDonateFormViewModel() != nil
+    }
+    
+    private func nativeDonateFormViewModel() -> WKDonateViewModel? {
+        
+        let donateDataController = WKDonateDataController()
+        let donateData = donateDataController.loadConfigs()
         
         guard let donateConfig = donateData.donateConfig,
               let paymentMethods = donateData.paymentMethods else {
-            // TODO: Web path only
-            return
-        }
-        
-        let formatter = NumberFormatter.wkCurrencyFormatter
-        
-        // TODO: Try announcement currency code first
-        guard let currencyCode = NSLocale.current.currencyCode else {
-            // TODO: Web path only
-            return
-        }
-        
-        // TODO: Pass in announcement country code
-        guard let countryCode = NSLocale.current.regionCode else {
-            // TODO: Web path only
-            return
-        }
-        
-        guard let merchantID = Bundle.main.wmf_merchantID(),
-              let paymentsAPIKey = Bundle.main.wmf_paymentsAPIKey() else {
-            // TODO: Web path only
-            return
+            return nil
         }
         
         guard PKPaymentAuthorizationController.canMakePayments(),
               PKPaymentAuthorizationController.canMakePayments(usingNetworks: paymentMethods.applePayPaymentNetworks, capabilities: .capability3DS) else {
-            // TODO: Web path only
-            return
+            return nil
         }
         
+        guard let currencyCode = NSLocale.current.currencyCode else {
+            return nil
+        }
+        
+        guard let countryCode = NSLocale.current.regionCode else {
+            return nil
+        }
+        
+        let formatter = NumberFormatter.wkCurrencyFormatter
         formatter.currencyCode = currencyCode
+        
+        guard let merchantID = Bundle.main.wmf_merchantID(),
+              let paymentsAPIKey = Bundle.main.wmf_paymentsAPIKey() else {
+            return nil
+        }
         
         guard let transactionFee = donateConfig.transactionFee(for: currencyCode),
               let transactionFeeString = formatter.string(from: transactionFee as NSNumber),
             let minimumValue = donateConfig.currencyMinimums[currencyCode],
               let minimumString = formatter.string(from: minimumValue as NSNumber) else {
-            // TODO: Web path only
-            return
+            return nil
         }
         
         var maximumString: String?
@@ -95,16 +104,20 @@ import PassKit
         
         
         guard let viewModel = WKDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: currencyCode, countryCode: countryCode, merchantID: merchantID, paymentsAPIKey: paymentsAPIKey, delegate: self) else {
-            
-            // TODO: Web path only
-            return
+            return nil
         }
-        let donateViewController = WKDonateViewController(viewModel: viewModel, delegate: self)
-        navigationController?.pushViewController(donateViewController, animated: true)
+        
+        return viewModel
     }
     
-    @objc var applePayEnabled: Bool {
-        return FeatureFlags.applePayEnabled
+    func pushToNativeDonateForm() {
+        
+        guard let viewModel = nativeDonateFormViewModel() else {
+            return
+        }
+        
+        let donateViewController = WKDonateViewController(viewModel: viewModel, delegate: self)
+        navigationController?.pushViewController(donateViewController, animated: true)
     }
 }
 
