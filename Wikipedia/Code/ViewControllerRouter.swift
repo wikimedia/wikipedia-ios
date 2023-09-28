@@ -179,8 +179,6 @@ class ViewControllerRouter: NSObject {
         case .login:
             return presentLoginViewController(with: completion)
         case .watchlist:
-            
-            
             let userDefaults = UserDefaults.standard
 
             let targetNavigationController = watchlistTargetNavigationController()
