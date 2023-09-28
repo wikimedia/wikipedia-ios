@@ -251,6 +251,10 @@
 "donate-help-tax-deductibility-information" = "Help link at the bottom of the donate form, that takes user to a web view link with more info.";
 "donate-maximum-error-text" = "Error text displayed when user enters donation amount above the maximum. Parameters: * $1 - the currency code, $2 - the maximum donation amount allowed. (For example, 'USD $25,000')";
 "donate-minimum-error-text" = "Error text displayed when user enters donation amount below the allowed minimum. Parameters: * $1 - the minimum amount allowed, $2 - the currency code. (For example, '$1 USD')";
+"donate-payment-method-prompt-apple-pay-button-title" = "Title of Apple Pay button choice in donate payment method prompt.";
+"donate-payment-method-prompt-message" = "Message of prompt to user asking which payment method they want to donate with.";
+"donate-payment-method-prompt-other-button-title" = "Title of Other payment method button choice in donate payment method prompt.";
+"donate-payment-method-prompt-title" = "Title of prompt to user asking which payment method they want to donate with.";
 "donate-success-subtitle" = "Thank you toast subtitle displayed after a user successfully donates.";
 "donate-success-title" = "Thank you toast title displayed after a user successfully donates.";
 "donate-title" = "Title for donate form.";

@@ -251,6 +251,10 @@
 "donate-help-tax-deductibility-information" = "Tax deductibility information";
 "donate-maximum-error-text" = "We cannot accept donations greater than $1 $2 through our website. Please contact our major gifts staff at benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "Please select an amount (minimum $1 $2).";
+"donate-payment-method-prompt-apple-pay-button-title" = "Donate with Apple Pay";
+"donate-payment-method-prompt-message" = "Donate with Apple Pay or choose other payment method.";
+"donate-payment-method-prompt-other-button-title" = "Other payment method";
+"donate-payment-method-prompt-title" = "Donate with Apple Pay?";
 "donate-success-subtitle" = "Your generosity to Wikipedia means so much to us.";
 "donate-success-title" = "Thank you!";
 "donate-title" = "Select an amount";
