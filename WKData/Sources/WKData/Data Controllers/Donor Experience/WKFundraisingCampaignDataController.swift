@@ -12,6 +12,8 @@ final public class WKFundraisingCampaignDataController {
     private let cacheConfigFileName = "AppsCampaignConfig"
     private let cachePromptStateFileName = "WKFundraisingCampaignPromptState"
     
+    private static let temporaryTargetCampaignID = "NL_2023_11"
+    
     // MARK: - Lifecycle
     
     public init() {
@@ -36,6 +38,36 @@ final public class WKFundraisingCampaignDataController {
     public func markAssetAsPermanentlyHidden(asset: WKFundraisingCampaignConfig.WKAsset) {
         let promptState = WKFundraisingCampaignPromptState(campaignID: asset.id, isHidden: true, maybeLaterDate: nil)
         try? sharedCacheStore?.save(key: cacheDirectoryName, cachePromptStateFileName, value: promptState)
+    }
+    
+    /// Flag to indicate that there is an actively running campaign in the user's country for the current date.
+    /// - Parameters:
+    ///   - countryCode: Country code of the user. Can use Locale.current.regionCode
+    ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
+    /// - Returns: Boolean to indicate if there's an actively running campaign or not
+    public func hasActivelyRunningCampaigns(countryCode: String, currentDate: Date) -> Bool {
+        
+        let containsActiveCampaignWithTargetID: ([WKFundraisingCampaignConfig]) -> Bool = { configs in
+            let containsTargetCampaignID = configs.contains { $0.id == Self.temporaryTargetCampaignID }
+            return containsTargetCampaignID
+        }
+        
+        guard activeCountryConfigs.isEmpty else {
+            // TODO: When Oct 2023 NL campaign looks good, replace this closure with simply:
+            // return !activeCountryConfigs.isEmpty
+            return containsActiveCampaignWithTargetID(activeCountryConfigs)
+        }
+        
+        // Load old response from cache and return first asset with matching country code, valid date, and matching language assets.
+        let cachedResult: WKFundraisingCampaignConfigResponse? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheConfigFileName)
+        
+        if let cachedResult {
+            activeCountryConfigs = activeCountryConfigs(from: cachedResult, countryCode: countryCode, currentDate: currentDate)
+        }
+        
+        // TODO: When Oct 2023 NL campaign looks good, replace this closure with simply:
+        // return !activeCountryConfigs.isEmpty
+        return containsActiveCampaignWithTargetID(activeCountryConfigs)
     }
     
     /// Load actively running campaign text. This method automatically filters out campaigns that:
@@ -71,7 +103,6 @@ final public class WKFundraisingCampaignDataController {
     ///   - countryCode: Country code of the user. Can use Locale.current.regionCode
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     ///   - completion: Completion handler indicating if the fetch was successful or not.
-    
     public func fetchConfig(countryCode: String, currentDate: Date, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let service else {
             completion(.failure(WKDataControllerError.basicServiceUnavailable))

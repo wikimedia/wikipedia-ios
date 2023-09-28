@@ -78,7 +78,6 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
             return
         }
         
-        
         XCTAssertEqual(enWikiAsset.id, "NL_2023_11", "Unexpected config id")
         XCTAssertEqual(enWikiAsset.textHtml, "<b>Wikipedia is not for sale.</b><br><i>A personal message from Jimmy Wales</i><br>Today I humbly ask you to reflect on the number of times you have used the Wikipedia app this year, the value you’ve gotten from it, and whether you’re able to give €2 back. The Wikimedia Foundation relies on readers to support the technology that makes Wikipedia and our other projects possible. Being a nonprofit means there is no danger that someone will buy Wikipedia and turn it into their personal playground. If Wikipedia has given you €2 worth of knowledge this year, please give back. Thank you. — <i>Jimmy Wales, founder, Wikimedia Foundation</i>", "Unexpected EN asset text")
         XCTAssertEqual(enWikiAsset.footerHtml, "By donating, you agree to our <a href='https://foundation.wikimedia.org/wiki/Donor_privacy_policy/en'>donor policy</a>.", "Unexpected EN asset footer")
@@ -100,6 +99,12 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
         XCTAssertEqual(nlWikiAsset.actions[1].title, "Maybe later", "Unexpected NL asset negative action title")
         XCTAssertEqual(nlWikiAsset.actions[2].title, "I already donated", "Unexpected NL asset negative action title")
         XCTAssertEqual(nlWikiAsset.currencyCode, "EUR", "Unexpected NL asset currency code")
+        
+        let hasActivelyRunningCampaign = controller.hasActivelyRunningCampaigns(countryCode: validCountry, currentDate: validDate)
+        let hasActivelyRunningCampaign2 = WKFundraisingCampaignDataController().hasActivelyRunningCampaigns(countryCode: validCountry, currentDate: validDate)
+        
+        XCTAssertTrue(hasActivelyRunningCampaign, "hasActivelyRunningCampaign should return true if we just fetched configs with valid params")
+        XCTAssertTrue(hasActivelyRunningCampaign2, "hasActivelyRunningCampaign2 should return true if we just fetched configs with valid params, regardless of data controller instance.")
     }
 
     func testFetchConfigAndLoadAssetWithInvalidCountryValidDateValidWiki() {
@@ -158,6 +163,10 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
     
         XCTAssertNil(enWikiAsset, "Expected EN Asset to be nil for invalid date")
         XCTAssertNil(nlWikiAsset, "Expected NL Asset to be nil for invalid date")
+        
+        let hasActivelyRunningCampaign = controller.hasActivelyRunningCampaigns(countryCode: validCountry, currentDate: invalidDate)
+        
+        XCTAssertFalse(hasActivelyRunningCampaign, "hasActivelyRunningCampaign should return false if we just fetched configs with invalid params")
     }
     
     func testFetchConfigAndLoadAssetWithValidCountryValidDateInvalidWiki() {
