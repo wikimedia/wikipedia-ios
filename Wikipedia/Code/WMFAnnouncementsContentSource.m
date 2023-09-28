@@ -44,7 +44,8 @@
         return;
     }
     
-    [self fetchDonateConfigsForCountryCode:[[NSLocale currentLocale] countryCode]];
+    [self fetchDonorExperienceDataForCountryCode:[[NSLocale currentLocale] countryCode]];
+    
     [self.fetcher fetchAnnouncementsForURL:self.siteURL
         force:force
         failure:^(NSError *_Nonnull error) {

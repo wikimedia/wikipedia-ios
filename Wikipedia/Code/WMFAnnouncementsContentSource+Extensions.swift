@@ -2,17 +2,24 @@ import Foundation
 import WKData
 
 extension WMFAnnouncementsContentSource {
-    @objc func fetchDonateConfigsForCountryCode(_ countryCode: String) {
+
+    @objc func fetchDonorExperienceDataForCountryCode(_ countryCode: String) {
         
-        guard FeatureFlags.applePayEnabled,
-        let paymentsAPIKey = Bundle.main.wmf_paymentsAPIKey() else {
-            return
-        }
-        
-        let dataController = WKDonateDataController()
-        dataController.fetchConfigs(for: countryCode, paymentsAPIKey: paymentsAPIKey) { result in
-            print(WKDonateDataController.donateConfig)
-            print(WKDonateDataController.paymentMethods)
+        let fundraisingCampaignDataController = WKFundraisingCampaignDataController()
+        let currentDate = Date.now
+        fundraisingCampaignDataController.fetchConfig(countryCode: countryCode, currentDate: currentDate) { result in
+            
+            if fundraisingCampaignDataController.hasActivelyRunningCampaigns(countryCode: countryCode, currentDate: currentDate) {
+                
+                guard let paymentsAPIKey = Bundle.main.wmf_paymentsAPIKey() else {
+                    return
+                }
+                
+                let donateDataController = WKDonateDataController()
+                donateDataController.fetchConfigs(for: countryCode, paymentsAPIKey: paymentsAPIKey) { result in
+
+                }
+            }
         }
     }
 }
