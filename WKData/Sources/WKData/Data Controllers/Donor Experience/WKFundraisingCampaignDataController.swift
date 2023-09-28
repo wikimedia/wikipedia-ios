@@ -54,7 +54,7 @@ final public class WKFundraisingCampaignDataController {
         
         guard activeCountryConfigs.isEmpty else {
             // TODO: When Oct 2023 NL campaign looks good, replace this closure with simply:
-            // return !activeCountryConfigs.isEmpty
+            // return true
             return containsActiveCampaignWithTargetID(activeCountryConfigs)
         }
         
