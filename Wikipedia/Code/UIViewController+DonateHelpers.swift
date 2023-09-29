@@ -4,17 +4,6 @@ import WKData
 import PassKit
 
 @objc extension UIViewController {
-    func validTargetIDCampaignIsRunning() -> Bool {
-        
-        guard let countryCode = NSLocale.current.regionCode else {
-            return false
-        }
-        
-        let fundraisingCampaignDataController = WKFundraisingCampaignDataController()
-        let currentDate = Date.now
-
-        return fundraisingCampaignDataController.hasActivelyRunningCampaigns(countryCode: countryCode, currentDate: currentDate)
-    }
     
     func canOfferNativeDonateForm() -> Bool {
         return nativeDonateFormViewModel() != nil

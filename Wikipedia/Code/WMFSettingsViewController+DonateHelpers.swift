@@ -1,4 +1,5 @@
 import Foundation
+import WKData
 import Components
 
 extension WMFSettingsViewController: WKDonateDelegate {
@@ -21,5 +22,19 @@ extension WMFSettingsViewController: WKDonateDelegate {
     
     public func donateDidSuccessfullySubmitPayment() {
         sharedDonateDidSuccessfullSubmitPayment()
+    }
+}
+
+extension WMFSettingsViewController {
+    @objc static func validTargetIDCampaignIsRunning() -> Bool {
+        
+        guard let countryCode = NSLocale.current.regionCode else {
+            return false
+        }
+        
+        let fundraisingCampaignDataController = WKFundraisingCampaignDataController()
+        let currentDate = Date.now
+
+        return fundraisingCampaignDataController.hasActivelyRunningCampaigns(countryCode: countryCode, currentDate: currentDate)
     }
 }
