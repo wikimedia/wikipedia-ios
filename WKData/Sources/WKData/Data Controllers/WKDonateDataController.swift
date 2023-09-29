@@ -120,6 +120,7 @@ final public class WKDonateDataController {
             switch result {
             case .success(let response):
                 guard response.response.status == "Success" else {
+                    completion(.failure(WKServiceError.unexpectedResponse))
                     return
                 }
                 completion(.success(()))

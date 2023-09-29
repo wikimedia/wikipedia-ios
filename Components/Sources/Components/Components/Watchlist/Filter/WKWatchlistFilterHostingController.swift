@@ -26,4 +26,9 @@ class WKWatchlistFilterHostingController: WKComponentHostingController<WKWatchli
         viewModel.saveNewFilterSettings()
         delegate?.watchlistFilterDidChange(self)
     }
+
+    override func accessibilityPerformEscape() -> Bool {
+        dismiss(animated: true)
+        return true
+    }
 }

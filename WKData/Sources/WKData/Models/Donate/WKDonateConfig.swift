@@ -2,9 +2,9 @@ import Foundation
 
 public struct WKDonateConfig: Codable {
     let version: Int
-    public let currencyMinimums: [String: Decimal]
-    public let currencyMaximums: [String: Decimal]
-    public let currencyAmounts7: [String: [Decimal]]
+    public let currencyMinimumDonation: [String: Decimal]
+    public let currencyMaximumDonation: [String: Decimal]
+    public let currencyAmountPresets: [String: [Decimal]]
     public let currencyTransactionFees: [String: Decimal]
     public let countryCodeEmailOptInRequired: [String]
     

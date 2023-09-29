@@ -1,7 +1,6 @@
 import Foundation
 
 /// Use this service for the most basic networking service calls. It does not handle authentication.
-///
 public final class WKBasicService: WKService {
     
     private let urlSession: WKURLSession
@@ -100,7 +99,7 @@ public final class WKBasicService: WKService {
                 return
             }
             
-            guard httpResponse.statusCode.isHttpSuccess else {
+            guard httpResponse.isSuccessStatusCode else {
                 completion(nil, nil, WKServiceError.invalidHttpResponse(httpResponse.statusCode))
                 return
             }
@@ -159,7 +158,7 @@ public final class WKBasicService: WKService {
                 return
             }
             
-            guard httpResponse.statusCode.isHttpSuccess else {
+            guard httpResponse.isSuccessStatusCode else {
                 completion(nil, nil, WKServiceError.invalidHttpResponse(httpResponse.statusCode))
                 return
             }

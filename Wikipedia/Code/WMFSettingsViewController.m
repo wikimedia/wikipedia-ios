@@ -302,7 +302,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                 // 4. Feature flag is on
                 // 5. Otherwise fall back to web
                 // 6. For now just doing basic feature flag checking
-            if (self.applePayEnabled) {
+            if (self.donorExperienceImprovementsEnabled) {
                 [self pushToDonateView];
             } else {
                 [self wmf_navigateToURL:[self donationURL] useSafari:YES];

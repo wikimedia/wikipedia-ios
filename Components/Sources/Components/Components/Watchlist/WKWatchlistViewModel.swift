@@ -13,23 +13,36 @@ public final class WKWatchlistViewModel: ObservableObject {
 		public var userButtonTalkPage: String
 		public var userButtonContributions: String
 		public var userButtonThank: String
+        public var userAccessibility: String
+        public var summaryAccessibility: String
+        public var userAccessibilityButtonDiff: String
+        public var localizedProjectNames: [WKProject: String]
 
 		public var byteChange: ((Int) -> String) // for injecting localized plurals via client app
+		public let htmlStripped: ((String) -> String) // use client app logic to strip HTML tags
 
-		public init(title: String, filter: String, userButtonUserPage: String, userButtonTalkPage: String, userButtonContributions: String, userButtonThank: String, byteChange: @escaping ((Int) -> String)) {
+        public init(title: String, filter: String, userButtonUserPage: String, userButtonTalkPage: String, userButtonContributions: String, userButtonThank: String, userAccessibility: String, summaryAccessibility: String, userAccessibilityButtonDiff: String, localizedProjectNames: [WKProject: String], byteChange: @escaping ((Int) -> String), htmlStripped: @escaping ((String) -> String)) {
+
 			self.title = title
 			self.filter = filter
 			self.userButtonUserPage = userButtonUserPage
 			self.userButtonTalkPage = userButtonTalkPage
 			self.userButtonContributions = userButtonContributions
 			self.userButtonThank = userButtonThank
+            self.userAccessibility = userAccessibility
+            self.summaryAccessibility = summaryAccessibility
+            self.userAccessibilityButtonDiff = userAccessibilityButtonDiff
+            self.localizedProjectNames = localizedProjectNames
 			self.byteChange = byteChange
+			self.htmlStripped = htmlStripped
 		}
 	}
 
 	public struct ItemViewModel: Identifiable {
 		public static let wkProjectMetadataKey = String(describing: WKProject.self)
 		public static let revisionIDMetadataKey = "RevisionID"
+        public static let oldRevisionIDMetadataKey = "OldRevisionID"
+        public static let articleMetadataKey = "ArticleTitle"
 
 		public let id = UUID()
 
@@ -44,8 +57,9 @@ public final class WKWatchlistViewModel: ObservableObject {
 		let oldRevisionID: UInt
 		let byteChange: Int
 		let project: WKProject
+		private let htmlStripped: ((String) -> String)
 
-		public init(title: String, commentHTML: String, commentWikitext: String, timestamp: Date, username: String, isAnonymous: Bool, isBot: Bool, revisionID: UInt, oldRevisionID: UInt, byteChange: Int, project: WKProject) {
+		public init(title: String, commentHTML: String, commentWikitext: String, timestamp: Date, username: String, isAnonymous: Bool, isBot: Bool, revisionID: UInt, oldRevisionID: UInt, byteChange: Int, project: WKProject, htmlStripped: @escaping ((String) -> String)) {
 			self.title = title
 			self.commentHTML = commentHTML
 			self.commentWikitext = commentWikitext
@@ -57,11 +71,16 @@ public final class WKWatchlistViewModel: ObservableObject {
 			self.oldRevisionID = oldRevisionID
 			self.byteChange = byteChange
 			self.project = project
+			self.htmlStripped = htmlStripped
 		}
 
 		var timestampString: String {
 			return DateFormatter.wkShortTimeFormatter.string(from: timestamp)
 		}
+
+        var timestampStringAccessibility: String {
+            return DateFormatter.wkShortTimeFormatter.string(from: timestamp)
+        }
 
 		func bytesString(localizedStrings: LocalizedStrings) -> String {
 			return localizedStrings.byteChange(byteChange)
@@ -78,7 +97,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 		}
 
 		var comment: String {
-			return commentHTML.wkRemovingHTML()
+			return htmlStripped(commentHTML)
 		}
 
 	}
@@ -116,7 +135,7 @@ public final class WKWatchlistViewModel: ObservableObject {
     @Published public var activeFilterCount: Int = 0
 	@Published var hasPerformedInitialFetch = false
 
-	let menuButtonItems: [WKMenuButton.MenuItem]
+	var menuButtonItems: [WKMenuButton.MenuItem]
 	var menuButtonItemsWithoutThank: [WKMenuButton.MenuItem]
 
 	// MARK: - Lifecycle
@@ -124,21 +143,33 @@ public final class WKWatchlistViewModel: ObservableObject {
     public init(localizedStrings: LocalizedStrings, presentationConfiguration: PresentationConfiguration) {
 		self.localizedStrings = localizedStrings
         self.presentationConfiguration = presentationConfiguration
-		self.menuButtonItems = [
-			WKMenuButton.MenuItem(title: localizedStrings.userButtonUserPage, image: WKSFSymbolIcon.for(symbol: .person)),
-			WKMenuButton.MenuItem(title: localizedStrings.userButtonTalkPage, image: WKSFSymbolIcon.for(symbol: .conversation)),
-			WKMenuButton.MenuItem(title: localizedStrings.userButtonContributions, image: WKIcon.userContributions),
-			WKMenuButton.MenuItem(title: localizedStrings.userButtonThank, image: WKIcon.thank)
-		]
-		self.menuButtonItemsWithoutThank = self.menuButtonItems.dropLast()
+		self.menuButtonItems = []
+        self.menuButtonItemsWithoutThank = []
+        setupMenuItems()
 	}
 
-    public func fetchWatchlist(_ completion: (() -> Void)? = nil) {
+    private func setupMenuItems() {
+        var menuItems: [WKMenuButton.MenuItem] = [
+            WKMenuButton.MenuItem(title: localizedStrings.userButtonUserPage, image: WKSFSymbolIcon.for(symbol: .person)),
+            WKMenuButton.MenuItem(title: localizedStrings.userButtonTalkPage, image: WKSFSymbolIcon.for(symbol: .conversation)),
+            WKMenuButton.MenuItem(title: localizedStrings.userButtonContributions, image: WKIcon.userContributions),
+            WKMenuButton.MenuItem(title: localizedStrings.userButtonThank, image: WKIcon.thank)
+        ]
+
+        if UIAccessibility.isVoiceOverRunning {
+			let diffForAccessibility = WKMenuButton.MenuItem(title: localizedStrings.userAccessibilityButtonDiff, image: nil)
+            menuItems.insert(diffForAccessibility, at: 0)
+        }
+        menuButtonItems = menuItems
+        menuButtonItemsWithoutThank = menuButtonItems.dropLast()
+    }
+
+	 public func fetchWatchlist(_ completion: (() -> Void)? = nil) {
         dataController.fetchWatchlist { result in
 			switch result {
 			case .success(let watchlist):
 				self.items = watchlist.items.map { item in
-					let viewModel = ItemViewModel(title: item.title, commentHTML: item.commentHtml, commentWikitext: item.commentWikitext, timestamp: item.timestamp, username: item.username, isAnonymous: item.isAnon, isBot: item.isBot, revisionID: item.revisionID, oldRevisionID: item.oldRevisionID, byteChange: Int(item.byteLength) - Int(item.oldByteLength), project: item.project)
+					let viewModel = ItemViewModel(title: item.title, commentHTML: item.commentHtml, commentWikitext: item.commentWikitext, timestamp: item.timestamp, username: item.username, isAnonymous: item.isAnon, isBot: item.isBot, revisionID: item.revisionID, oldRevisionID: item.oldRevisionID, byteChange: Int(item.byteLength) - Int(item.oldByteLength), project: item.project, htmlStripped: self.localizedStrings.htmlStripped)
 					return viewModel
 				}
 				self.sections = self.sortWatchlistItems()

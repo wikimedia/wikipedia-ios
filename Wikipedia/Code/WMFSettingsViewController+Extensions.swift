@@ -41,14 +41,14 @@ import PassKit
         
         guard let transactionFee = donateConfig.transactionFee(for: currencyCode),
               let transactionFeeString = formatter.string(from: transactionFee as NSNumber),
-            let minimumValue = donateConfig.currencyMinimums[currencyCode],
+            let minimumValue = donateConfig.currencyMinimumDonation[currencyCode],
               let minimumString = formatter.string(from: minimumValue as NSNumber) else {
             // TODO: Web path only
             return
         }
         
         var maximumString: String?
-        if let maximumValue = donateConfig.currencyMaximums[currencyCode] {
+        if let maximumValue = donateConfig.currencyMaximumDonation[currencyCode] {
             maximumString = formatter.string(from: maximumValue as NSNumber)
         }
         
@@ -100,8 +100,8 @@ import PassKit
         navigationController?.pushViewController(donateViewController, animated: true)
     }
     
-    @objc var applePayEnabled: Bool {
-        return FeatureFlags.applePayEnabled
+    @objc var donorExperienceImprovementsEnabled: Bool {
+        return FeatureFlags.donorExperienceImprovementsEnabled
     }
 }
 

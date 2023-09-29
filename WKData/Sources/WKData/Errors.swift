@@ -16,6 +16,7 @@ public enum WKServiceError: Error, Equatable {
     case invalidHttpResponse(Int?)
     case missingData
     case invalidResponseVersion
+    case unexpectedResponse
 }
 
 public enum WKUserDefaultsStoreError: Error {

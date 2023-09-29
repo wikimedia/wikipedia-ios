@@ -78,7 +78,10 @@ class ArticleToolbarController: Themeable {
     }()
     
     lazy var moreButton: IconBarButtonItem = {
-        return createMoreButton()
+        let item = createMoreButton()
+        item.accessibilityLabel = CommonStrings.moreButton
+        item.accessibilityHint = CommonStrings.userMenuButtonAccesibilityText
+        return item
     }()
     
     private func createMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false) -> IconBarButtonItem {

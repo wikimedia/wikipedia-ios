@@ -4,8 +4,8 @@ import WKData
 extension WMFAnnouncementsContentSource {
     @objc func fetchDonateConfigsForCountryCode(_ countryCode: String) {
         
-        guard FeatureFlags.applePayEnabled,
-        let paymentsAPIKey = Bundle.main.wmf_paymentsAPIKey() else {
+        guard FeatureFlags.donorExperienceImprovementsEnabled,
+            let paymentsAPIKey = Bundle.main.wmf_paymentsAPIKey() else {
             return
         }
         

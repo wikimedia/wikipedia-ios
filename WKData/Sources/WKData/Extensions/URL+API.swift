@@ -1,10 +1,13 @@
 import Foundation
 
 extension URL {
+    
+    private static let baseMediaWikiAPIPathComponents = "/w/api.php"
+    
     static func mediaWikiAPIURL(project: WKProject) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
-        components.path = "/w/api.php"
+        components.path = baseMediaWikiAPIPathComponents
         
         switch project {
         case .wikipedia(let language):
@@ -22,7 +25,7 @@ extension URL {
         
         var components = URLComponents()
         components.scheme = "https"
-        components.path = "/w/api.php"
+        components.path = baseMediaWikiAPIPathComponents
         
         switch environment {
         case .production:
@@ -38,7 +41,7 @@ extension URL {
         
         var components = URLComponents()
         components.scheme = "https"
-        components.path = "/w/api.php"
+        components.path = baseMediaWikiAPIPathComponents
         
         switch environment {
         case .production:
