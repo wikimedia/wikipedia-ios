@@ -161,7 +161,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         
         self.transactionFeeAmount = transactionFeeAmount
         
-        guard let configAmounts = donateConfig.currencyAmounts7[currencyCode] else {
+        guard let configAmounts = donateConfig.currencyAmountPresets[currencyCode] else {
             return nil
         }
         
@@ -212,7 +212,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     }
     
     func validateAmount() {
-        guard let minimum = donateConfig.currencyMinimums[currencyCode] else {
+        guard let minimum = donateConfig.currencyMinimumDonation[currencyCode] else {
             return
         }
         
@@ -221,7 +221,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
             return
         }
         
-        if let maximum = donateConfig.currencyMaximums[currencyCode],
+        if let maximum = donateConfig.currencyMaximumDonation[currencyCode],
         finalAmount > maximum,
         let maximumErrorText = localizedStrings.maximumErrorText {
             self.errorViewModel = ErrorViewModel(localizedStrings: ErrorViewModel.LocalizedStrings(text: maximumErrorText))
