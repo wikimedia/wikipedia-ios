@@ -4,7 +4,6 @@ import SwiftUI
 import WKData
 import WKDataMocks
 import Components
-import WKDataMocks
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
