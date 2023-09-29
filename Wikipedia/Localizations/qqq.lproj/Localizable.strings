@@ -197,7 +197,7 @@
 "description-welcome-descriptions-title" = "Title text explaining article descriptions";
 "description-welcome-promise-title" = "Title text asking user to edit descriptions responsibly";
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
-"diff-article-edit-history" = "Label for article edit history menu item in diff more menu.";
+"diff-article-revision-history" = "Label for article edit history menu item in diff more menu.";
 "diff-compare-header-from-info-heading" = "Heading label in info box for previous revision when comparing two revisions.";
 "diff-compare-header-heading" = "Heading label in header when comparing two revisions.";
 "diff-compare-header-to-info-heading" = "Heading label in info box for current revision when comparing two revisions.";
@@ -1087,6 +1087,7 @@
 "unable-to-load-talk-page-title" = "Text for placeholder label visible when talk page can't be loaded";
 "unknown-generic-text" = "Default text used in places where no contextual information is provided";
 "unwatch" = "Title for unwatch toolbar button.";
+"user-title" = "Text that refers to a user in the app";
 "uzbek-variants-alert-body" = "Body text of alert used to inform users about Uzbek variant support. Please do not translate the newlines (\n) or Uzbek characters (ўзбекча кирилл, etc.).";
 "uzbek-variants-alert-title" = "Title of alert used to inform users about Uzbek variant support.";
 "vanish-account-additional-information-field" = "Title for the additional information form field";
@@ -1131,6 +1132,8 @@
 "watchlist-change-expiry-option-three-months" = "Title of button in expiry change modal that watches a page for three months.";
 "watchlist-change-expiry-subtitle" = "Subtitle in modal that allows a user to choose the expiry setting of a page they are watching.";
 "watchlist-change-expiry-title" = "Title of modal that allows a user to change the expiry setting of a page they are watching.";
+"watchlist-diff-action-button-title" = "Title for watchlist menu button item for go to diff action";
+"watchlist-edit-summary-accessibility" = "Text for edit summary acessibility text";
 "watchlist-empty-view-button-title" = "Title for empty watchlist view button that redirects user to search articles";
 "watchlist-empty-view-filter-title" = "Title for empty watchlist view when filters are active";
 "watchlist-empty-view-subtitle" = "Subtitle for empty watchlist view";

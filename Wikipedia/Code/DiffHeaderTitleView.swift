@@ -66,7 +66,6 @@ private extension DiffHeaderTitleView {
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         updateFonts(with: traitCollection)
         contentView.isAccessibilityElement = true
-
     }
     
     func updateFonts(with traitCollection: UITraitCollection) {

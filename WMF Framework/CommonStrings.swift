@@ -150,6 +150,9 @@ public class CommonStrings: NSObject {
     @objc public static let nextTitle = WMFLocalizedString("button-next", value: "Next", comment: "Button text for next button used in various places. {{Identical|Next}}")
     @objc public static let skipTitle = WMFLocalizedString("button-skip", value: "Skip", comment: "Button text for skip button used in various places.")
     @objc public static let okTitle = WMFLocalizedString("button-ok", value: "OK", comment: "Button text for ok button used in various places {{Identical|OK}}")
+    @objc public static let userTitle = WMFLocalizedString("user-title", value: "User", comment: "Text that refers to a user in the app")
+
+
     @objc public static let doneTitle = WMFLocalizedString("description-published-button-title", value: "Done", comment: "Title for description panel done button.")
     public static let goBackTitle = WMFLocalizedString("button-go-back", value: "Go back", comment: "Button text for Go back button used in various places")
     public static let publishAnywayTitle = WMFLocalizedString("button-publish-anyway", value: "Publish anyway", comment: "Button text for publish button used when first warned against publishing.")
@@ -302,9 +305,12 @@ public class CommonStrings: NSObject {
     public static let userButtonThank = WMFLocalizedString("watchlist-user-button-thank", value: "Thank", comment: "Title shown for thank action in user menu button in watchlist view.")
 
     public static let thanksMessage = WMFLocalizedString("diff-thanks-sent", value: "Your 'Thanks' was sent to %1$@", comment: "Message indicating thanks was sent. Parameters:\n* %1$@ - name of user who was thanked")
-    
+
+    public static let editSummaryTitle =  WMFLocalizedString("watchlist-edit-summary-accessibility", value: "Edit summary", comment: "Text for edit summary acessibility text")
+
     public static let filterOptionsAll = WMFLocalizedString("filter-options-all", value:  "All", comment: "Common option on filter adjustment views to allow All types in the associated section.")
-    
+    public static let userMenuButtonAccesibilityText = WMFLocalizedString("diff-user-button-accessibility-text", value: "Double tap to open menu", comment: "Accessibility text to provide more context to users of assistive tecnologies about the user button actions")
+
     public static let watchlistFilterLatestRevisionsHeader =  WMFLocalizedString("watchlist-filter-latest-revisions-header", value:  "Latest Revisions", comment: "Header of watchlist filter adjustment view \"Latest Revisions\" section.")
     
     public static let watchlistFilterLatestRevisionsOptionLatestRevision = WMFLocalizedString("watchlist-filter-latest-revisions-options-latest-revision", value:  "Latest revision", comment: "Option in the watchlist filter adjustment view \"Latest Revisions\" section. When selected, this option only displays the latest revision of a page in the user's watchlist.")
@@ -350,12 +356,14 @@ public class CommonStrings: NSObject {
     public static let watchlistEmptyViewButtonTitle = WMFLocalizedString("watchlist-empty-view-button-title", value: "Search articles", comment: "Title for empty watchlist view button that redirects user to search articles")
 
     public static let watchlistEmptyViewFilterTitle = WMFLocalizedString("watchlist-empty-view-filter-title", value: "You have no Watchlist items", comment: "Title for empty watchlist view when filters are active")
-    
+
+    public static let watchlistGoToDiff = WMFLocalizedString("watchlist-diff-action-button-title", value: "Go to diff", comment: "Title for watchlist menu button item for go to diff action")
+
     public static let diffFromHeading = WMFLocalizedString("diff-compare-header-from-info-heading", value: "Previous Edit", comment: "Heading label in info box for previous revision when comparing two revisions.")
 
     public static let diffToHeading = WMFLocalizedString("diff-compare-header-to-info-heading", value: "Displayed Edit", comment: "Heading label in info box for current revision when comparing two revisions.")
 
-    public static let diffArticleEditHistory = WMFLocalizedString("diff-article-edit-history", value: "Article Edit History", comment: "Label for article edit history menu item in diff more menu.")
+    public static let diffArticleEditHistory = WMFLocalizedString("diff-article-revision-history", value: "Article revision history", comment: "Label for article edit history menu item in diff more menu.")
 
     public static let diffSingleLineFormat = WMFLocalizedString("diff-single-line-format", value:"Line %1$d", comment:"Label in diff to indicate how many lines a change section encompases. This format is for a single change line. %1$d is replaced by the change line number.")
 

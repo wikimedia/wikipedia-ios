@@ -10,6 +10,7 @@ extension Dictionary where Key == String, Value == Any {
             guard
                 let encodedName = key.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryComponentAllowed),
                 let encodedValue = (value as? String)?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryComponentAllowed) else {
+                    assertionFailure("Failed to encode dictionary for API. Skipping item.")
                     continue
             }
             

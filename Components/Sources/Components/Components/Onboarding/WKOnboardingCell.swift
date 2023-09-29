@@ -18,6 +18,7 @@ struct WKOnboardingCell: View {
                         .foregroundColor(Color(appEnvironment.theme.link))
                         .accessibilityHidden(true)
                         .padding([.trailing], 12)
+                        .accessibilityHidden(true)
                 }
                 Spacer()
             }

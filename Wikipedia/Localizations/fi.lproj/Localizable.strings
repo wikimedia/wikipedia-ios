@@ -224,8 +224,7 @@
 "description-welcome-descriptions-title" = "Artikkelin kuvaukset";
 "description-welcome-promise-title" = "Aloittamalla, lupaan etten väärinkäytä tätä ominaisuutta";
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Alkuperäinen";
+"diff-compare-header-from-info-heading" = "Edellinen muokkaus";
 "diff-compare-header-heading" = "Versioiden vertailu";
 // Fuzzy
 "diff-compare-header-to-info-heading" = "Muokattu";
@@ -1063,8 +1062,20 @@
 "variants-alert-preferences-button" = "Tarkista asetuksesi";
 "watch" = "Tarkkaile";
 "watchlist" = "Tarkkailulista";
+"watchlist-change-expiry-option-one-month" = "1 kuukausi";
+"watchlist-change-expiry-option-one-week" = "1 viikko";
+"watchlist-change-expiry-option-one-year" = "1 vuosi";
+"watchlist-change-expiry-option-permanent" = "Pysyvä";
+"watchlist-change-expiry-option-six-months" = "6 kuukautta";
+"watchlist-change-expiry-option-three-months" = "3 kuukautta";
+"watchlist-filter-activity-options-unseen-changes" = "Näkemättömät muutokset";
+"watchlist-filter-automated-contributions-header" = "Automatisoidut muutokset";
+"watchlist-filter-automated-contributions-options-bot" = "Botti";
+"watchlist-filter-automated-contributions-options-human" = "Ihminen (ei botti)";
+"watchlist-user-button-thank" = "Kiitä";
 "watchlist-user-button-user-contributions" = "Käyttäjän muokkaukset";
 "watchlist-user-button-user-page" = "Käyttäjäsivu";
+"watchlist-user-button-user-talk-page" = "Käyttäjän keskustelusivu";
 "welcome-exploration-explore-feed-description" = "Suositellut luettavat ja pävittäiset artikkelit yhteisöstämme";
 "welcome-exploration-explore-feed-title" = "Tutki syötettä";
 "welcome-exploration-on-this-day-description" = "Matkusta takaisin ajassa ja opi mitä tapahtui tänä päivänä historiassa";

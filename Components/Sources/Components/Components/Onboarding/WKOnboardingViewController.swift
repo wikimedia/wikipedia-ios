@@ -43,7 +43,6 @@ public final class WKOnboardingHostingViewController: WKComponentHostingControll
         self.rootView.secondaryButtonAction = { [weak self] in
             self?.secondaryButtonAction()
         }
-
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -197,7 +197,7 @@
 "description-welcome-descriptions-title" = "Article descriptions";
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
-"diff-article-edit-history" = "Article Edit History";
+"diff-article-revision-history" = "Article revision history";
 "diff-compare-header-from-info-heading" = "Previous Edit";
 "diff-compare-header-heading" = "Compare Revisions";
 "diff-compare-header-to-info-heading" = "Displayed Edit";
@@ -1087,6 +1087,7 @@
 "unable-to-load-talk-page-title" = "Unable to load talk page";
 "unknown-generic-text" = "Unknown";
 "unwatch" = "Unwatch";
+"user-title" = "User";
 "uzbek-variants-alert-body" = "The Wikipedia app now supports the following Uzbek variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Updates to Uzbek variant support";
 "vanish-account-additional-information-field" = "Additional information";
@@ -1131,6 +1132,8 @@
 "watchlist-change-expiry-option-three-months" = "3 months";
 "watchlist-change-expiry-subtitle" = "Choose Watchlist time period";
 "watchlist-change-expiry-title" = "Watchlist expiry";
+"watchlist-diff-action-button-title" = "Go to diff";
+"watchlist-edit-summary-accessibility" = "Edit summary";
 "watchlist-empty-view-button-title" = "Search articles";
 "watchlist-empty-view-filter-title" = "You have no Watchlist items";
 "watchlist-empty-view-subtitle" = "Keep track of what's happening to articles you are interested in. Tap the menu in the article and select “Watch” to see changes to an article.";

@@ -16,7 +16,11 @@ public struct WKSwiftUIMenuButton: View {
 			Menu(content: {
 				ForEach(configuration.menuItems) { menuItem in
 					Button(action: {
-						menuButtonDelegate?.wkSwiftUIMenuButtonUserDidTap(configuration: configuration, item: menuItem)
+                        if UIAccessibility.isVoiceOverRunning {
+                            menuButtonDelegate?.wkSwiftUIMenuButtonUserDidTapAccessibility(configuration: configuration, item: menuItem)
+                        } else {
+                            menuButtonDelegate?.wkSwiftUIMenuButtonUserDidTap(configuration: configuration, item: menuItem)
+                        }
 					}) {
 						HStack {
 							Text(menuItem.title)

@@ -26,6 +26,7 @@ class DiffListChangeCell: UICollectionViewCell {
     @IBOutlet var headingLabel: UILabel!
     @IBOutlet var textStackView: UIStackView!
     @IBOutlet var innerView: UIView!
+    @IBOutlet weak var divView: UIView!
     
     private(set) var viewModel: DiffListChangeViewModel?
     private var textLabels: [UILabel] = []
@@ -201,7 +202,8 @@ extension DiffListChangeCell: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
         contentView.backgroundColor = theme.colors.paperBackground
-        
+        divView.backgroundColor = theme.colors.baseBackground
+
         if let viewModel = viewModel {
             innerView.clipsToBounds = viewModel.innerViewClipsToBounds
             headingLabel.attributedText = viewModel.headingAttributedString
