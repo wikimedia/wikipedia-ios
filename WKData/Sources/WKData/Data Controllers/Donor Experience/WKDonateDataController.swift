@@ -57,6 +57,7 @@ final public class WKDonateDataController {
         let paymentMethodParameters: [String: Any] = [
             "action": "getPaymentMethods",
             "country": countryCode,
+            "api_key": paymentsAPIKey,
             "format": "json"
         ]
         
@@ -145,7 +146,8 @@ final public class WKDonateDataController {
             "payment_token": paymentToken,
             "donor_info": donorInfo,
             "recurring": recurring ? 1 : 0,
-            "pay_the_fee": transactionFee ? 1 : 0
+            "pay_the_fee": transactionFee ? 1 : 0,
+            "api_key": paymentsAPIKey
         ]
         
         if let emailOptIn {
@@ -158,14 +160,17 @@ final public class WKDonateDataController {
         service?.performDecodablePOST(request: request, completion: { (result: Result<WKPaymentSubmissionResponse, Error>) in
             switch result {
             case .success(let response):
-                guard response.response.status == "Success" else {
+                switch response.response.status.lowercased() {
+                case "success":
+                    completion(.success(()))
+                case "error":
+                    completion(.failure(WKDonateDataControllerError.paymentsWikiResponseError(response.response.errorMessage)))
+                default:
                     completion(.failure(WKServiceError.unexpectedResponse))
-                    return
                 }
-                completion(.success(()))
+                return
             case .failure(let error):
                 completion(.failure(error))
-            
             }
         })
     }

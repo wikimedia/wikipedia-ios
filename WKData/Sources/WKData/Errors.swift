@@ -2,13 +2,14 @@ import Foundation
 
 // MARK: Common
 
-public enum WKDataControllerError: Error {
+public enum WKDataControllerError: LocalizedError {
     case mediaWikiServiceUnavailable
     case basicServiceUnavailable
     case failureCreatingRequestURL
     case unexpectedResponse
     case serviceError(Error)
     case mediaWikiResponseError(WKMediaWikiError)
+    case paymentsWikiResponseError(String?)
 }
 
 public enum WKServiceError: Error, Equatable {
@@ -23,4 +24,15 @@ public enum WKUserDefaultsStoreError: Error {
     case unexpectedType
     case failureDecodingJSON(Error)
     case failureEncodingJSON(Error)
+}
+
+public enum WKDonateDataControllerError: LocalizedError {
+    case paymentsWikiResponseError(String?)
+    
+    public var errorDescription: String? {
+        switch self {
+        case .paymentsWikiResponseError(let errorText):
+            return errorText
+        }
+    }
 }

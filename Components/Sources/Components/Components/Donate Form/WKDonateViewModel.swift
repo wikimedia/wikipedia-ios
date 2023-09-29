@@ -446,7 +446,7 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
                     self?.delegate?.donateDidSuccessfullySubmitPayment()
                 })
             case .failure(let error):
-                // TODO: Handle errors more?
+                self.errorViewModel = ErrorViewModel(localizedStrings: ErrorViewModel.LocalizedStrings(text: error.localizedDescription))
                 completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
             }
         }
