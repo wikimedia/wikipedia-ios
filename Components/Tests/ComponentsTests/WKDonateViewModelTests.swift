@@ -20,8 +20,8 @@ final class WKDonateViewModelTests: XCTestCase {
         controller.fetchConfigs(for: "US", paymentsAPIKey: paymentsAPIKey) { result in
             switch result {
             case .success:
-                self.paymentMethods = WKDonateDataController.paymentMethods
-                self.donateConfig = WKDonateDataController.donateConfig
+                self.paymentMethods = controller.paymentMethods
+                self.donateConfig = controller.donateConfig
                 completion(nil)
             case .failure(let error):
                 completion(error)
@@ -336,7 +336,10 @@ private extension WKDonateViewModel.LocalizedStrings {
         let accessibilityKeyboardDoneButtonHint = "Double tap to dismiss amount input keyboard view."
         let accessibilityDonateHintButtonFormat = "Double tap to donate %1$@ to the Wikimedia Foundation."
         
-        return WKDonateViewModel.LocalizedStrings(title: title, doneTitle: doneTitle, transactionFeeOptInText: transactionFeeOptIn, emailOptInText: emailOptIn, maximumErrorText: maximumString, minimumErrorText: minimumString, genericErrorTextFormat: genericError, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
+        let monthlyRecurring = "Make this a monthly recurring donation."
+        let accessibilityMonthlyRecurringHint = "Double tap to enable automatic monthly donations of this amount."
+        
+        return WKDonateViewModel.LocalizedStrings(title: title, doneTitle: doneTitle, transactionFeeOptInText: transactionFeeOptIn, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximumString, minimumErrorText: minimumString, genericErrorTextFormat: genericError, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
     }
     
     static var usdMinimumString: String {

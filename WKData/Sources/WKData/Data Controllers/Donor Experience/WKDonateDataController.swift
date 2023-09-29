@@ -8,8 +8,8 @@ final public class WKDonateDataController {
     private let service = WKDataEnvironment.current.basicService
     private let sharedCacheStore = WKDataEnvironment.current.sharedCacheStore
     
-    private var donateConfig: WKDonateConfig?
-    private var paymentMethods: WKPaymentMethods?
+    private(set) var donateConfig: WKDonateConfig?
+    private(set) var paymentMethods: WKPaymentMethods?
     
     private let cacheDirectoryName = WKSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheDonateConfigFileName = "AppsDonationConfig"

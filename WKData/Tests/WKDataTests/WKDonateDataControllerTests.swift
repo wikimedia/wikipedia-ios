@@ -1,4 +1,5 @@
 import XCTest
+import Contacts
 @testable import WKData
 @testable import WKDataMocks
 
@@ -59,7 +60,10 @@ final class WKDonateDataControllerTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Submit Payment")
         
-        controller.submitPayment(amount: 3, currencyCode: "USD", paymentToken: "fake-token", donorName: "iOS Tester", donorEmail: "wikimediaTester1@gmail.com", donorAddress: "123 Fake Street\nFaketown AA 12345\nUnited States", emailOptIn: nil, paymentsAPIKey: paymentsAPIKey) { result in
+        let nameComponents = PersonNameComponents()
+        let addressComponents = CNPostalAddress()
+        
+        controller.submitPayment(amount: 3, currencyCode: "USD", paymentToken: "fake-token", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, paymentsAPIKey: "fake-api-key") { result in
             switch result {
             case .success:
                 break
@@ -168,7 +172,10 @@ final class WKDonateDataControllerTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Submit Payment")
         
-        controller.submitPayment(amount: 3, currencyCode: "USD", paymentToken: "fake-token", donorName: "iOS Tester", donorEmail: "wikimediaTester1@gmail.com", donorAddress: "123 Fake Street\nFaketown AA 12345\nUnited States", emailOptIn: nil, paymentsAPIKey: paymentsAPIKey) { result in
+        let nameComponents = PersonNameComponents()
+        let addressComponents = CNPostalAddress()
+        
+        controller.submitPayment(amount: 3, currencyCode: "USD", paymentToken: "fake-token", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, paymentsAPIKey: "fake-api-key") { result in
             switch result {
             case .success:
                 XCTFail("Expected submitPayment to fail")
