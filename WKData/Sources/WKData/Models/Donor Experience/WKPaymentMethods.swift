@@ -7,7 +7,7 @@ public struct WKPaymentMethods: Codable {
         
         struct PaymentMethod: Codable {
             
-            public let brands: [String]
+            public let brands: [String]?
             public let name: String
             public let type: String
         }
