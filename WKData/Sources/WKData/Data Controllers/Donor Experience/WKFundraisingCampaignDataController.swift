@@ -335,6 +335,11 @@ private struct WKFundraisingCampaignConfigResponse: Codable {
         self.configs = validVersionConfigs
     }
     
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.unkeyedContainer()
+        try container.encode(contentsOf: configs)
+    }
+    
     struct DiscardedElement: Codable {}
 }
 

@@ -357,22 +357,19 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
 
         [alert addAction:[UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            [self dismissViewControllerAnimated:YES completion:^{
-
-            }];
         }]];
 
-        [alert addAction:[UIAlertAction actionWithTitle:applePayButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self dismissViewControllerAnimated:YES completion:^{
-                [self pushToNativeDonateForm];
-            }];
-        }]];
+        UIAlertAction *applePayAction = [UIAlertAction actionWithTitle:applePayButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self pushToNativeDonateForm];
+        }];
+    
+        [alert addAction:applePayAction];
 
         [alert addAction:[UIAlertAction actionWithTitle:otherButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self dismissViewControllerAnimated:YES completion:^{
-                [self wmf_navigateToURL:[self donationURL] useSafari:NO];
-            }];
+            [self wmf_navigateToURL:[self donationURL] useSafari:NO];
         }]];
+    
+        alert.preferredAction = applePayAction;
 
         // Present action sheet.
         [self presentViewController:alert animated:YES completion:nil];
