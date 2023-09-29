@@ -221,7 +221,7 @@ import Foundation
                 
                 let actions: [WKFundraisingCampaignConfig.WKAsset.WKAction] = value.actions.map { action in
                     
-                    guard let urlString = action.urlString?.decodingUnicodeCharacters.replacingOccurrences(of: "$platform;", with: "iOS"),
+                    guard let urlString = action.urlString?.replacingOccurrences(of: "$platform;", with: "iOS"),
                        let url = URL(string: urlString) else {
                         return WKFundraisingCampaignConfig.WKAsset.WKAction(title: action.title, url: nil)
                     }
@@ -229,7 +229,7 @@ import Foundation
                     return WKFundraisingCampaignConfig.WKAsset.WKAction(title: action.title, url: url)
                 }
                 
-                let asset = WKFundraisingCampaignConfig.WKAsset(id: config.id, textHtml: value.text.decodingUnicodeCharacters, footerHtml: value.footer.decodingUnicodeCharacters, actions: actions, currencyCode: value.currencyCode)
+                let asset = WKFundraisingCampaignConfig.WKAsset(id: config.id, textHtml: value.text, footerHtml: value.footer, actions: actions, currencyCode: value.currencyCode)
                 assets[key] = asset
             }
             
@@ -353,10 +353,4 @@ private struct WKFundraisingCampaignPromptState: Codable {
     let campaignID: String
     let isHidden: Bool
     let maybeLaterDate: Date?
-}
-
-// MARK: - Extensions
-
-private extension String {
-    var decodingUnicodeCharacters: String { applyingTransform(.init("Hex-Any"), reverse: false) ?? "" }
 }
