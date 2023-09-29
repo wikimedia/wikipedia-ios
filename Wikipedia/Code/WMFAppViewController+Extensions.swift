@@ -2,7 +2,6 @@ import UIKit
 import WMF
 import SwiftUI
 import WKData
-import WKDataMocks
 import Components
 
 extension Notification.Name {
@@ -506,7 +505,6 @@ extension WMFAppViewController {
         switch Configuration.current.environment {
         case .staging:
             WKDataEnvironment.current.serviceEnvironment = .staging
-            WKDataEnvironment.current.basicService = WKMockBasicService()
         default:
             WKDataEnvironment.current.serviceEnvironment = .production
         }
