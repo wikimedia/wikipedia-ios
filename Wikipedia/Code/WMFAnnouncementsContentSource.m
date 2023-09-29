@@ -2,12 +2,16 @@
 #import "WMFAnnouncementsFetcher.h"
 #import "WMFAnnouncement.h"
 #import <WMF/WMF-Swift.h>
+@import WKData;
 
 @interface WMFAnnouncementsContentSource ()
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 @property (readwrite, nonatomic, strong) WMFAnnouncementsFetcher *fetcher;
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
+
+@property (readwrite, nonatomic, strong) WKFundraisingCampaignDataController *fundraisingCampaignDataController;
+@property (readwrite, nonatomic, strong) WKDonateDataController *donateDataController;
 
 @end
 
@@ -20,6 +24,8 @@
         self.siteURL = siteURL;
         self.userDataStore = userDataStore;
         self.fetcher = [[WMFAnnouncementsFetcher alloc] initWithSession: userDataStore.session configuration: userDataStore.configuration];
+        self.fundraisingCampaignDataController = [[WKFundraisingCampaignDataController alloc] init];
+        self.donateDataController = [[WKDonateDataController alloc] init];
     }
     return self;
 }
@@ -44,7 +50,10 @@
         return;
     }
     
-    [self fetchDonorExperienceDataForCountryCode:[[NSLocale currentLocale] countryCode]];
+    NSString *countryCode = [[NSLocale currentLocale] countryCode];
+    [self.fundraisingCampaignDataController fetchConfigWithCountryCode:countryCode currentDate:[NSDate now]];
+    
+    [self.donateDataController fetchConfigsWithCountryCode:countryCode paymentsAPIKey:[[NSBundle mainBundle] wmf_paymentsAPIKey]];
     
     [self.fetcher fetchAnnouncementsForURL:self.siteURL
         force:force

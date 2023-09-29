@@ -1,6 +1,6 @@
 import Foundation
 
-final public class WKFundraisingCampaignDataController {
+@objc final public class WKFundraisingCampaignDataController: NSObject {
     
     // MARK: - Properties
     
@@ -16,7 +16,7 @@ final public class WKFundraisingCampaignDataController {
     
     // MARK: - Lifecycle
     
-    public init() {
+    public override init() {
         
     }
     
@@ -96,6 +96,12 @@ final public class WKFundraisingCampaignDataController {
         }
         
         return nil
+    }
+    
+    @objc public func fetchConfig(countryCode: String, currentDate: Date) {
+        fetchConfig(countryCode: countryCode, currentDate: currentDate) { result in
+            
+        }
     }
 
     /// Fetches the apps campaign configuration data at https://donate.wikimedia.org/w/index.php?title=MediaWiki:AppsCampaignConfig.json and caches the response. Valid assets can be loaded with loadActiveCampaignAsset

@@ -790,7 +790,6 @@
 		67861A1C223C13990044F69D /* FocusNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E06918223B32DF008550AC /* FocusNavigationView.xib */; };
 		67861A1D223C13990044F69D /* FocusNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E06918223B32DF008550AC /* FocusNavigationView.xib */; };
 		67861A1E223C13990044F69D /* FocusNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E06918223B32DF008550AC /* FocusNavigationView.xib */; };
-		678881D22ABE19B900D5A4A7 /* WMFAnnouncementsContentSource+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678881D12ABE19B900D5A4A7 /* WMFAnnouncementsContentSource+Extensions.swift */; };
 		678C7C2A23BE67F0001AC4D5 /* CacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C2923BE67F0001AC4D5 /* CacheController.swift */; };
 		678C7C2E23BE705C001AC4D5 /* CacheDBWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C2D23BE705C001AC4D5 /* CacheDBWriting.swift */; };
 		678C7C3023BE7319001AC4D5 /* CacheDBWriterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C2F23BE7319001AC4D5 /* CacheDBWriterHelper.swift */; };
@@ -4166,7 +4165,6 @@
 		6782DC162347EE59003FA21B /* DiffListChangeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListChangeCell.xib; sourceTree = "<group>"; };
 		6785FCC82A66D8DB0078FAF2 /* WMFCleanLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFCleanLevel.swift; sourceTree = "<group>"; };
 		6785FCCA2A6840880078FAF2 /* WatchlistFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistFunnel.swift; sourceTree = "<group>"; };
-		678881D12ABE19B900D5A4A7 /* WMFAnnouncementsContentSource+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFAnnouncementsContentSource+Extensions.swift"; sourceTree = "<group>"; };
 		678C7C2923BE67F0001AC4D5 /* CacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheController.swift; sourceTree = "<group>"; };
 		678C7C2D23BE705C001AC4D5 /* CacheDBWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDBWriting.swift; sourceTree = "<group>"; };
 		678C7C2F23BE7319001AC4D5 /* CacheDBWriterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDBWriterHelper.swift; sourceTree = "<group>"; };
@@ -6690,7 +6688,6 @@
 				0E19B9B51DAC574E00239F3A /* WMFRandomContentSource.m */,
 				0E8768341DDE002C00B8CACD /* WMFAnnouncementsContentSource.h */,
 				0E8768351DDE002C00B8CACD /* WMFAnnouncementsContentSource.m */,
-				678881D12ABE19B900D5A4A7 /* WMFAnnouncementsContentSource+Extensions.swift */,
 				B0B4234E1EF32D2700D3DC4C /* WMFOnThisDayContentSource.h */,
 				B0B4234F1EF32D2700D3DC4C /* WMFOnThisDayContentSource.m */,
 			);
@@ -11824,7 +11821,6 @@
 				D84C36391F3241ED00895FA1 /* WMFGradientView.m in Sources */,
 				83ACAA9E24E6D94C003B3035 /* MWKSearchResult+PageNamespace.swift in Sources */,
 				0042809125E6E395004945B3 /* MTLTransformerErrorHandling.m in Sources */,
-				678881D22ABE19B900D5A4A7 /* WMFAnnouncementsContentSource+Extensions.swift in Sources */,
 				67D6C0202405B3D2005709B1 /* CacheGroup+CoreDataClass.swift in Sources */,
 				7A5357AB215552E7007998DC /* RemoteNotificationsOperation.swift in Sources */,
 				D84C361E1F32404700895FA1 /* NewsCollectionViewCell.swift in Sources */,

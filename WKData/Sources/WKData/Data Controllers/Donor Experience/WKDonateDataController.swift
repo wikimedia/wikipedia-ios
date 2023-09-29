@@ -1,7 +1,7 @@
 import Foundation
 import Contacts
 
-final public class WKDonateDataController {
+@objc final public class WKDonateDataController: NSObject {
     
     // MARK: - Properties
     
@@ -17,7 +17,7 @@ final public class WKDonateDataController {
     
     // MARK: - Lifecycle
     
-    public init() {
+    public override init() {
         
     }
     
@@ -37,6 +37,12 @@ final public class WKDonateDataController {
         paymentMethods = paymentMethodsResponse
         
         return (donateConfig, paymentMethods)
+    }
+    
+    @objc public func fetchConfigs(countryCode: String, paymentsAPIKey: String) {
+        fetchConfigs(for: countryCode, paymentsAPIKey: paymentsAPIKey) { result in
+            
+        }
     }
     
     public func fetchConfigs(for countryCode: String, paymentsAPIKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
