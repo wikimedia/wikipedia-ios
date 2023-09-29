@@ -146,7 +146,7 @@ import PassKit
         alert.addAction(applePayAction)
         
         alert.addAction(UIAlertAction(title: otherButtonTitle, style: .default, handler: { action in
-            self.navigate(to: donateURL, useSafari: true)
+            self.navigate(to: donateURL, useSafari: false)
         }))
         
         alert.preferredAction = applePayAction
