@@ -35,6 +35,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     enum LastAction {
         case tappedPrimary
         case tappedSecondary
+        case tappedOptional
         case tappedClose
         case tappedBackground
         case none
@@ -75,18 +76,21 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var pinnedSecondaryButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet fileprivate weak var footerTextView: UITextView!
 
+    @IBOutlet fileprivate weak var inlineOptionalButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private(set) weak var scrollView: UIScrollView!
     @IBOutlet fileprivate weak var scrollViewContainer: UIView!
     @IBOutlet fileprivate weak var roundedCornerContainer: UIView!
 
     fileprivate var primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
-    
+    fileprivate var optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
+
     // traceableDismissHandler takes priority if it's populated. It will pass back a LastAction indicating the action that triggered the dismissal, for the caller to react with.
     fileprivate var dismissHandler: ScrollableEducationPanelDismissHandler?
     fileprivate var traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?
     
     fileprivate var showCloseButton = true
+    fileprivate var showOptionalButton = false
     private var discardDismissHandlerOnPrimaryButtonTap = false
     private var primaryButtonTapped = false
     var theme: Theme = Theme.standard
@@ -308,15 +312,17 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         self.discardDismissHandlerOnPrimaryButtonTap = discardDismissHandlerOnPrimaryButtonTap
     }
     
-    init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, hasPinnedButtons: Bool = false, theme: Theme) {
+    init(showCloseButton: Bool, showOptionaButton: Bool = false, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler? = nil,traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, hasPinnedButtons: Bool = false, theme: Theme) {
         self.hasPinnedButtons = hasPinnedButtons
         super.init(nibName: "ScrollableEducationPanelView", bundle: nil)
         self.modalPresentationStyle = .overFullScreen
         self.modalTransitionStyle = .crossDissolve
         self.theme = theme
         self.showCloseButton = showCloseButton
+        self.showOptionalButton = showOptionaButton
         self.primaryButtonTapHandler = primaryButtonTapHandler
         self.secondaryButtonTapHandler = secondaryButtonTapHandler
+        self.optionalButtonTapHandler = optionalButtonTapHandler
         self.traceableDismissHandler = traceableDismissHandler
         self.discardDismissHandlerOnPrimaryButtonTap = discardDismissHandlerOnPrimaryButtonTap
     }
@@ -335,9 +341,11 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         pinnedPrimaryButton.titleLabel?.textAlignment = .center
         inlineSecondaryButton.titleLabel?.textAlignment = .center
         pinnedSecondaryButton.titleLabel?.textAlignment = .center
+        inlineOptionalButton.titleLabel?.textAlignment = .center
 
         inlineCloseButton.isHidden = !showCloseButton
         pinnedCloseButton.isHidden = !showCloseButton
+        inlineOptionalButton.isHidden = !showOptionalButton
         [self.view, self.roundedCornerContainer].forEach {view in
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.overlayTapped(_:))))
         }
@@ -365,7 +373,11 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             pinnedCloseButtonContainerView.alpha = 0
             pinnedActionButtonContainerView.alpha = 0
         }
-        
+
+        if showOptionalButton {
+//            inlineOptionalButton heih=ght = 0
+        }
+
         apply(theme: theme)
     }
 
@@ -458,6 +470,15 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         secondaryButtonTapHandler(sender)
     }
 
+    @IBAction fileprivate func optionalButtonTapped(_ sender: Any) {
+        lastAction = .tappedOptional
+        guard let optionalButtonTapHandler = optionalButtonTapHandler else {
+            return
+        }
+        optionalButtonTapHandler(sender)
+    }
+
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -499,6 +520,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         pinnedPrimaryButton?.layer.borderColor = theme.colors.link.cgColor
         inlinePrimaryButton.backgroundColor = theme.colors.baseBackground
         pinnedPrimaryButton.backgroundColor = theme.colors.baseBackground
+        inlineOptionalButton.backgroundColor = theme.colors.baseBackground
 
         if isUrgent {
             roundedCornerContainer.layer.borderWidth = 3

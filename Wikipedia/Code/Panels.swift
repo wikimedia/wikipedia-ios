@@ -523,7 +523,11 @@ extension UIViewController {
         }, theme: theme)
         present(panel, animated: true)
     }
-    
+
+    func wmf_showFundraisingAnnouncement(theme: Theme, object: WKAsset) {
+
+    }
+
     /// Displays a blocked panel message, for use with fully resolved MediaWiki API blocked errors.
     /// - Parameters:
     ///   - messageHtml: Fully resolved message HTML to display
@@ -939,5 +943,34 @@ extension UIViewController {
     @objc func wmf_showNoInternetConnectionPanelViewController(theme: Theme, primaryButtonTapHandler: @escaping ScrollableEducationPanelButtonTapHandler, completion: @escaping () -> Void) {
         let panelVC = NoInternetConnectionPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         present(panelVC, animated: true, completion: completion)
+    }
+}
+
+
+// for dev purposes, delete
+
+public struct WKAsset {
+
+    struct WKActionPositive {
+        let title: String
+        let url: URL
+    }
+
+    struct WKActionNegative {
+        let title: String
+    }
+
+    let textHtml: String
+    let footerHtml: String
+    let actionPositive: WKActionPositive
+    let actionNegative: WKActionNegative
+    let currencyCode: String
+
+    init(textHtml: String, footerHtml: String, actionPositive: WKActionPositive, actionNegative: WKActionNegative, currencyCode: String) {
+        self.textHtml = textHtml
+        self.footerHtml = footerHtml
+        self.actionPositive = actionPositive
+        self.actionNegative = actionNegative
+        self.currencyCode = currencyCode
     }
 }

@@ -64,17 +64,30 @@ extension ArticleViewController {
             return
         }
 
-        wmf_showAnnouncementPanel(announcement: announcement, primaryButtonTapHandler: { (sender) in
-            self.navigate(to: actionURL, useSafari: false)
-            // dismiss handler is called
-        }, secondaryButtonTapHandler: { (sender) in
-            // dismiss handler is called
-        }, footerLinkAction: { (url) in
-             self.navigate(to: url, useSafari: true)
-            // intentionally don't dismiss
-        }, traceableDismissHandler: { _ in
-            dismiss()
-        }, theme: theme)
+        // Dummy
+        let text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+
+        if let url  = URL(string:"donate.wikimedia.org") {
+            let positiveAction = WKAsset.WKActionPositive(title: "positive", url: url)
+            let negativeAction = WKAsset.WKActionNegative(title: "negative")
+
+            let object = WKAsset(textHtml: text, footerHtml: "Footer notes", actionPositive: positiveAction, actionNegative: negativeAction, currencyCode: "USD")
+            // Dummy end
+
+            wmf_showFundraisingAnnouncement(theme: theme, object: object)
+        }
+
+//        wmf_showAnnouncementPanel(announcement: announcement, primaryButtonTapHandler: { (sender) in
+//            self.navigate(to: actionURL, useSafari: false)
+//            // dismiss handler is called
+//        }, secondaryButtonTapHandler: { (sender) in
+//            // dismiss handler is called
+//        }, footerLinkAction: { (url) in
+//             self.navigate(to: url, useSafari: true)
+//            // intentionally don't dismiss
+//        }, traceableDismissHandler: { _ in
+//            dismiss()
+//        }, theme: theme)
     }
     
     private func showNewDonateExperienceCampaignModal(asset: WKFundraisingCampaignConfig.WKAsset) {
