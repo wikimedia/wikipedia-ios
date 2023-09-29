@@ -7,9 +7,12 @@ extension ArticleViewController {
     
     func showAnnouncementIfNeeded() {
         
+        let dataController = WKFundraisingCampaignDataController()
+        
         // New Donor Experience if they qualify
         if let countryCode = Locale.current.regionCode,
            let wkProject = WikimediaProject(siteURL: articleURL)?.wkProject,
+           dataController.hasActivelyRunningCampaigns(countryCode: countryCode, currentDate: .now),
            let activeCampaignAsset = WKFundraisingCampaignDataController().loadActiveCampaignAsset(countryCode: countryCode, wkProject: wkProject, currentDate: .now) {
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset)
             return
