@@ -298,7 +298,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             // TODO: Remove validTargetIDCampaignIsRunning check and old experience once Oct 2023 campaign looks good
             if ([self validTargetIDCampaignIsRunning]) {
                 if ([self canOfferNativeDonateForm]) {
-                    [self presentNewDonorExperiencePaymentMethodActionSheet];
+                    [self presentNewDonorExperiencePaymentMethodActionSheetWithDonateURL:self.donationURL];
                 } else {
                     // New experience pushing to in-app browser
                     [self wmf_navigateToURL:[self donationURL] useSafari:NO];
@@ -342,37 +342,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     [self.tableView deselectRowAtIndexPath:indexPath
                                   animated:YES];
-}
-
-- (void)presentNewDonorExperiencePaymentMethodActionSheet {
-    
-    NSString *title = WMFLocalizedStringWithDefaultValue(@"donate-payment-method-prompt-title", nil, nil, @"Donate with Apple Pay?", @"Title of prompt to user asking which payment method they want to donate with.");
-    NSString *message = WMFLocalizedStringWithDefaultValue(@"donate-payment-method-prompt-message", nil, nil, @"Donate with Apple Pay or choose other payment method.", @"Message of prompt to user asking which payment method they want to donate with.");
-    
-    NSString *applePayButtonTitle = WMFLocalizedStringWithDefaultValue(@"donate-payment-method-prompt-apple-pay-button-title", nil, nil, @"Donate with Apple Pay", @"Title of Apple Pay button choice in donate payment method prompt.");
-    NSString *otherButtonTitle = WMFLocalizedStringWithDefaultValue(@"donate-payment-method-prompt-other-button-title", nil, nil, @"Other payment method", @"Title of Other payment method button choice in donate payment method prompt.");
-    
-    NSString *cancelButtonTitle = WMFCommonStrings.cancelActionTitle;
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-
-        [alert addAction:[UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        }]];
-
-        UIAlertAction *applePayAction = [UIAlertAction actionWithTitle:applePayButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self pushToNativeDonateForm];
-        }];
-    
-        [alert addAction:applePayAction];
-
-        [alert addAction:[UIAlertAction actionWithTitle:otherButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self wmf_navigateToURL:[self donationURL] useSafari:NO];
-        }]];
-    
-        alert.preferredAction = applePayAction;
-
-        // Present action sheet.
-        [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - Dynamic URLs

@@ -5,8 +5,8 @@ public struct WKFundraisingCampaignConfig {
  public struct WKAsset {
      
      public struct WKAction {
-         let title: String
-         let url: URL?
+         public let title: String
+         public let url: URL?
      }
      
      public let id: String // Matches parent id

@@ -3,9 +3,8 @@ import Components
 import WKData
 import PassKit
 
-@objc extension WMFSettingsViewController {
-    
-    @objc func validTargetIDCampaignIsRunning() -> Bool {
+@objc extension UIViewController {
+    func validTargetIDCampaignIsRunning() -> Bool {
         
         guard let countryCode = NSLocale.current.regionCode else {
             return false
@@ -17,7 +16,7 @@ import PassKit
         return fundraisingCampaignDataController.hasActivelyRunningCampaigns(countryCode: countryCode, currentDate: currentDate)
     }
     
-    @objc func canOfferNativeDonateForm() -> Bool {
+    func canOfferNativeDonateForm() -> Bool {
         return nativeDonateFormViewModel() != nil
     }
     
@@ -102,8 +101,11 @@ import PassKit
         
         let localizedStrings = WKDonateViewModel.LocalizedStrings(title: donate, doneTitle: done, transactionFeeOptInText: transactionFeeOptIn, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
         
+        guard let delegate = self as? WKDonateDelegate else {
+            return nil
+        }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: currencyCode, countryCode: countryCode, merchantID: merchantID, paymentsAPIKey: paymentsAPIKey, delegate: self) else {
+        guard let viewModel = WKDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: currencyCode, countryCode: countryCode, merchantID: merchantID, paymentsAPIKey: paymentsAPIKey, delegate: delegate) else {
             return nil
         }
         
@@ -116,14 +118,43 @@ import PassKit
             return
         }
         
-        let donateViewController = WKDonateViewController(viewModel: viewModel, delegate: self)
+        guard let delegate = self as? WKDonateDelegate else {
+            return
+        }
+        
+        let donateViewController = WKDonateViewController(viewModel: viewModel, delegate: delegate)
         navigationController?.pushViewController(donateViewController, animated: true)
     }
-}
-
-extension WMFSettingsViewController: WKDonateDelegate {
     
-    public func donateDidTapProblemsDonatingLink() {
+    func presentNewDonorExperiencePaymentMethodActionSheet(donateURL: URL) {
+        
+        let title = WMFLocalizedString("donate-payment-method-prompt-title", value: "Donate with Apple Pay?", comment: "Title of prompt to user asking which payment method they want to donate with.")
+        let message = WMFLocalizedString("donate-payment-method-prompt-message", value: "Donate with Apple Pay or choose other payment method.", comment: "Message of prompt to user asking which payment method they want to donate with.")
+        
+        let applePayButtonTitle = WMFLocalizedString("donate-payment-method-prompt-apple-pay-button-title", value: "Donate with Apple Pay", comment: "Title of Apple Pay button choice in donate payment method prompt.")
+        let otherButtonTitle = WMFLocalizedString("donate-payment-method-prompt-other-button-title", value: "Other payment method", comment: "Title of Other payment method button choice in donate payment method prompt.")
+        
+        let cancelButtonTitle = CommonStrings.cancelActionTitle
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel))
+        
+        let applePayAction = UIAlertAction(title: applePayButtonTitle, style: .default, handler: { action in
+            self.pushToNativeDonateForm()
+        })
+        alert.addAction(applePayAction)
+        
+        alert.addAction(UIAlertAction(title: otherButtonTitle, style: .default, handler: { action in
+            self.navigate(to: donateURL, useSafari: true)
+        }))
+        
+        alert.preferredAction = applePayAction
+        
+        self.present(alert, animated: true)
+    }
+    
+    func sharedDonateDidTapProblemsDonatingLink() {
         
         guard let countryCode = Locale.current.regionCode,
         let languageCode = Locale.current.languageCode else {
@@ -137,7 +168,7 @@ extension WMFSettingsViewController: WKDonateDelegate {
         navigate(to: url, useSafari: true)
     }
     
-    public func donateDidTapOtherWaysToGive() {
+    func sharedDonateDidTapOtherWaysToGive() {
         
         guard let countryCode = Locale.current.regionCode,
         let languageCode = Locale.current.languageCode else {
@@ -151,7 +182,7 @@ extension WMFSettingsViewController: WKDonateDelegate {
         navigate(to: url, useSafari: true)
     }
     
-    public func donateDidTapFrequentlyAskedQuestions() {
+    func sharedDonateDidTapFrequentlyAskedQuestions() {
         
         guard let countryCode = Locale.current.regionCode,
         let languageCode = Locale.current.languageCode else {
@@ -165,7 +196,7 @@ extension WMFSettingsViewController: WKDonateDelegate {
         navigate(to: url, useSafari: true)
     }
     
-    public func donateDidTapTaxDeductibilityInformation() {
+    func sharedDonateDidTapTaxDeductibilityInformation() {
 
         guard let url = URL(string: "https://donate.wikimedia.org/wiki/Tax_deductibility") else {
             return
@@ -174,7 +205,7 @@ extension WMFSettingsViewController: WKDonateDelegate {
         navigate(to: url, useSafari: true)
     }
     
-    public func donateDidSuccessfullySubmitPayment() {
+    func sharedDonateDidSuccessfullSubmitPayment() {
         self.navigationController?.popViewController(animated: true)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -182,6 +213,5 @@ extension WMFSettingsViewController: WKDonateDelegate {
             let subtitle = WMFLocalizedString("donate-success-subtitle", value: "Your generosity to Wikipedia means so much to us.", comment: "Thank you toast subtitle displayed after a user successfully donates.")
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
         }
-        
     }
 }
