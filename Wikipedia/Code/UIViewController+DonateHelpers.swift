@@ -42,13 +42,13 @@ import PassKit
         
         guard let transactionFee = donateConfig.transactionFee(for: currencyCode),
               let transactionFeeString = formatter.string(from: transactionFee as NSNumber),
-            let minimumValue = donateConfig.currencyMinimums[currencyCode],
+            let minimumValue = donateConfig.currencyMinimumDonation[currencyCode],
               let minimumString = formatter.string(from: minimumValue as NSNumber) else {
             return nil
         }
         
         var maximumString: String?
-        if let maximumValue = donateConfig.currencyMaximums[currencyCode] {
+        if let maximumValue = donateConfig.currencyMaximumDonation[currencyCode] {
             maximumString = formatter.string(from: maximumValue as NSNumber)
         }
         

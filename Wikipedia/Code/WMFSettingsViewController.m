@@ -294,7 +294,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
         }
         case WMFSettingsMenuItemType_Support:
-
             // TODO: Remove validTargetIDCampaignIsRunning check and old experience once Oct 2023 campaign looks good
             if ([WMFSettingsViewController validTargetIDCampaignIsRunning]) {
                 if ([self canOfferNativeDonateForm]) {

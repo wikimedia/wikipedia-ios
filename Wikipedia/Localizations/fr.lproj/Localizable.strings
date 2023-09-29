@@ -1184,6 +1184,7 @@
 "watchlist-onboarding-button-title" = "En savoir plus sur la liste de suivi";
 "watchlist-onboarding-title" = "Présentation de votre liste de suivi";
 "watchlist-removed" = "Supprimé de votre liste de suivi";
+"watchlist-thanks-success" = "Votre 'Merci' a été envoyé à $1";
 "watchlist-track-subtitle" = "La liste de suivi est un outil qui vous permet de garder trace des changements effectués sur les pages ou les articles qui vous intéressent.";
 "watchlist-track-title" = "Suivre les modifications";
 "watchlist-updates-subtitle" = "La liste de suivi des pages que vous avez ajoutées, comme les modifications ou les discussions, peut être accédée via Paramètres → Compte.";

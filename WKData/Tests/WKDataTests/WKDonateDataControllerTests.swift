@@ -45,10 +45,10 @@ final class WKDonateDataControllerTests: XCTestCase {
         }
         
         XCTAssertEqual(donateConfig.version, 1, "Unexpected version")
-        XCTAssertEqual(donateConfig.currencyMinimums["USD"], 1, "Unexpected USD minimum")
-        XCTAssertEqual(donateConfig.currencyMaximums["USD"], 25000, "Unexpected USD maximum")
-        XCTAssertEqual(donateConfig.currencyAmounts7["USD"]?.count, 7, "Unexpected USD default options count")
-        XCTAssertEqual(donateConfig.currencyAmounts7["USD"]?[0], 3, "Unexpected USD default option first value")
+        XCTAssertEqual(donateConfig.currencyMinimumDonation["USD"], 1, "Unexpected USD minimum")
+        XCTAssertEqual(donateConfig.currencyMaximumDonation["USD"], 25000, "Unexpected USD maximum")
+        XCTAssertEqual(donateConfig.currencyAmountPresets["USD"]?.count, 7, "Unexpected USD default options count")
+        XCTAssertEqual(donateConfig.currencyAmountPresets["USD"]?[0], 3, "Unexpected USD default option first value")
         XCTAssertEqual(donateConfig.currencyTransactionFees["default"], 0.35, "Unexpected default transaction fee")
         XCTAssertTrue(donateConfig.countryCodeEmailOptInRequired.contains("AR"), "Missing AR from email opt in required list")
         XCTAssertEqual(paymentMethods.applePayPaymentNetworks, [.amex, .discover, .maestro, .masterCard, .visa], "Unexpected Apple Pay payment networks")

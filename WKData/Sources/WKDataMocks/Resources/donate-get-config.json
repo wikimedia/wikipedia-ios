@@ -1,7 +1,7 @@
 [
   {
     "version": 1,
-    "currencyMinimums": {
+    "currencyMinimumDonation": {
       "USD": 1,
       "CAD": 1.35,
       "AUD": 1.45,
@@ -30,10 +30,10 @@
       "UYU": 39,
       "CHF": 0.92
     },
-    "currencyMaximums": {
+    "currencyMaximumDonation": {
       "USD": 25000
     },
-    "currencyAmounts7": {
+    "currencyAmountPresets": {
       "USD": [
         3,
         10,

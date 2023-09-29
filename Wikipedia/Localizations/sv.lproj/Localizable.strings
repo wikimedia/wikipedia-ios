@@ -1178,6 +1178,7 @@
 "watchlist-onboarding-button-title" = "Läs mer om bevakningslistan";
 "watchlist-onboarding-title" = "Det här är din bevakningslista";
 "watchlist-removed" = "Togs bort från din bevakningslista";
+"watchlist-thanks-success" = "Ditt tack skickades till $1";
 "watchlist-track-subtitle" = "Bevakningslistan är ett verktyg som låter dig hålla reda på ändringar som görs på sidor eller artiklar som du är intresserad av.";
 "watchlist-track-title" = "Spåra ändringar";
 "watchlist-updates-subtitle" = "Bevakningslistan över de sidor du har lagt till, som redigeringar eller diskussioner, kan nås via Inställningar → Konto.";
