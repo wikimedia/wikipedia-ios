@@ -288,6 +288,28 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         default: break
         }
     }
+    
+    @IBAction func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        guard textField === usernameField, reason == .committed, let username = textField.text else { return }
+        let siteURL = dataStore.primarySiteURL!
+        // We can check for username validity in the background
+        Task {
+            accountCreator.checkUsername(username, siteURL: siteURL) { canCreate in
+                if !canCreate {
+                    Task {
+                        await MainActor.run {
+                            self.usernameAlertLabel.text = WMFAccountCreatorError.usernameUnavailable.localizedDescription
+                            self.usernameAlertLabel.isHidden = false
+                            self.usernameField.textColor = self.theme.colors.error
+                        }
+                    }
+                }
+            } failure: { error in
+                // TODO: What to do if this request fails?
+            }
+
+        }
+    }
 
     fileprivate func createAccount() {
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
