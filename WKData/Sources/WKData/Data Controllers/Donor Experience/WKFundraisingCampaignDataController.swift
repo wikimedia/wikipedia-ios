@@ -229,7 +229,7 @@ import Foundation
                     return WKFundraisingCampaignConfig.WKAsset.WKAction(title: action.title, url: url)
                 }
                 
-                let asset = WKFundraisingCampaignConfig.WKAsset(id: config.id, textHtml: value.text, footerHtml: value.footer, actions: actions, currencyCode: value.currencyCode)
+                let asset = WKFundraisingCampaignConfig.WKAsset(id: config.id, textHtml: value.text, footerHtml: value.footer, actions: actions, countryCode: countryCode, currencyCode: value.currencyCode, languageCode: key)
                 assets[key] = asset
             }
             

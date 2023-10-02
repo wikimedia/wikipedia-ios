@@ -5,11 +5,11 @@ import PassKit
 
 @objc extension UIViewController {
     
-    func canOfferNativeDonateForm() -> Bool {
-        return nativeDonateFormViewModel() != nil
+    func canOfferNativeDonateForm(countryCode: String, currencyCode: String, languageCode: String) -> Bool {
+        return nativeDonateFormViewModel(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode) != nil
     }
     
-    private func nativeDonateFormViewModel() -> WKDonateViewModel? {
+    private func nativeDonateFormViewModel(countryCode: String, currencyCode: String, languageCode: String) -> WKDonateViewModel? {
         
         let donateDataController = WKDonateDataController()
         let donateData = donateDataController.loadConfigs()
@@ -21,14 +21,6 @@ import PassKit
         
         guard PKPaymentAuthorizationController.canMakePayments(),
               PKPaymentAuthorizationController.canMakePayments(usingNetworks: paymentMethods.applePayPaymentNetworks, capabilities: .capability3DS) else {
-            return nil
-        }
-        
-        guard let currencyCode = NSLocale.current.currencyCode else {
-            return nil
-        }
-        
-        guard let countryCode = NSLocale.current.regionCode else {
             return nil
         }
         
@@ -98,16 +90,16 @@ import PassKit
             return nil
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: currencyCode, countryCode: countryCode, merchantID: merchantID, paymentsAPIKey: paymentsAPIKey, delegate: delegate) else {
+        guard let viewModel = WKDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, paymentsAPIKey: paymentsAPIKey, delegate: delegate) else {
             return nil
         }
         
         return viewModel
     }
     
-    func pushToNativeDonateForm() {
+    func pushToNativeDonateForm(countryCode: String, currencyCode: String, languageCode: String) {
         
-        guard let viewModel = nativeDonateFormViewModel() else {
+        guard let viewModel = nativeDonateFormViewModel(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode) else {
             return
         }
         
@@ -119,7 +111,7 @@ import PassKit
         navigationController?.pushViewController(donateViewController, animated: true)
     }
     
-    func presentNewDonorExperiencePaymentMethodActionSheet(donateURL: URL) {
+    func presentNewDonorExperiencePaymentMethodActionSheet(countryCode: String, currencyCode: String, languageCode: String, donateURL: URL) {
         
         let title = WMFLocalizedString("donate-payment-method-prompt-title", value: "Donate with Apple Pay?", comment: "Title of prompt to user asking which payment method they want to donate with.")
         let message = WMFLocalizedString("donate-payment-method-prompt-message", value: "Donate with Apple Pay or choose other payment method.", comment: "Message of prompt to user asking which payment method they want to donate with.")
@@ -134,7 +126,7 @@ import PassKit
         alert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel))
         
         let applePayAction = UIAlertAction(title: applePayButtonTitle, style: .default, handler: { action in
-            self.pushToNativeDonateForm()
+            self.pushToNativeDonateForm(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode)
         })
         alert.addAction(applePayAction)
         

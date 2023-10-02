@@ -13,7 +13,9 @@ public struct WKFundraisingCampaignConfig {
      public let textHtml: String
      public let footerHtml: String
      public let actions: [WKAction]
+     public let countryCode: String
      public let currencyCode: String
+     public let languageCode: String
  }
  
  public let id: String

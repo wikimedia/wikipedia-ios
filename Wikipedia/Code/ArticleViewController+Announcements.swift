@@ -86,7 +86,7 @@ extension ArticleViewController {
         let firstAction = asset.actions[0]
         let donateAction = UIAlertAction(title: firstAction.title, style: .default, handler: { [weak self] action in
             controller.markAssetAsPermanentlyHidden(asset: asset)
-            self?.pushToDonateForm(donateURL: firstAction.url)
+            self?.pushToDonateForm(asset: asset)
         })
         
         let maybeLaterAction = UIAlertAction(title: asset.actions[1].title, style: .default) { action in
@@ -113,9 +113,13 @@ extension ArticleViewController {
         present(alert, animated: true)
     }
     
-    private func pushToDonateForm(donateURL: URL?) {
-        if canOfferNativeDonateForm(), let donateURL = donateURL {
-            presentNewDonorExperiencePaymentMethodActionSheet(donateURL: donateURL)
+    private func pushToDonateForm(asset: WKFundraisingCampaignConfig.WKAsset) {
+        let firstAction = asset.actions[0]
+        let donateURL = firstAction.url
+        
+        if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode),
+           let donateURL = donateURL {
+            presentNewDonorExperiencePaymentMethodActionSheet(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL)
         } else {
             self.navigate(to: donateURL, useSafari: false)
         }

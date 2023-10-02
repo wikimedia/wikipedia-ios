@@ -133,8 +133,9 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     let localizedStrings: LocalizedStrings
     private let donateConfig: WKDonateConfig
     private let paymentMethods: WKPaymentMethods
-    private let currencyCode: String
     private let countryCode: String
+    private let currencyCode: String
+    private let languageCode: String
     
     private let merchantID: String
     private let paymentsAPIKey: String
@@ -157,12 +158,13 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     
     // MARK: - Lifecycle
     
-    public init?(localizedStrings: LocalizedStrings, donateConfig: WKDonateConfig, paymentMethods: WKPaymentMethods, currencyCode: String, countryCode: String, merchantID: String, paymentsAPIKey: String, delegate: WKDonateDelegate?) {
+    public init?(localizedStrings: LocalizedStrings, donateConfig: WKDonateConfig, paymentMethods: WKPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, paymentsAPIKey: String, delegate: WKDonateDelegate?) {
         self.localizedStrings = localizedStrings
         self.donateConfig = donateConfig
         self.paymentMethods = paymentMethods
-        self.currencyCode = currencyCode
         self.countryCode = countryCode
+        self.currencyCode = currencyCode
+        self.languageCode = languageCode
         self.merchantID = merchantID
         self.paymentsAPIKey = paymentsAPIKey
         self.delegate = delegate
@@ -431,7 +433,7 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         let emailOptIn: Bool? = emailOptInViewModel?.isSelected
         
         let dataController = WKDonateDataController()
-        dataController.submitPayment(amount: finalAmount, currencyCode: currencyCode, paymentToken: paymentToken, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, paymentsAPIKey: paymentsAPIKey) { [weak self] result in
+        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, paymentsAPIKey: paymentsAPIKey) { [weak self] result in
             
             guard let self else {
                 return
