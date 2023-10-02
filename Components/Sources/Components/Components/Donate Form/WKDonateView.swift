@@ -25,39 +25,52 @@ struct WKDonateView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                WKDonateAmountButtonGroupView(viewModel: viewModel)
-                Spacer()
-                    .frame(height: 24)
-                WKDonateAmountTextfield(viewModel: viewModel.textfieldViewModel)
-                if let errorViewModel = viewModel.errorViewModel {
-                    WKDonateErrorView(viewModel: errorViewModel)
+                Group {
+                    WKDonateAmountButtonGroupView(viewModel: viewModel)
+                    Spacer()
+                        .frame(height: 24)
                 }
-                Spacer()
-                    .frame(height: 24)
-                VStack(alignment: .leading, spacing: 12) {
-                    WKDonateOptInView(viewModel: viewModel.transactionFeeOptInViewModel)
-                    if let emailOptInViewModel = viewModel.emailOptInViewModel {
-                        WKDonateOptInView(viewModel: emailOptInViewModel)
+                
+                Group {
+                    WKDonateAmountTextfield(viewModel: viewModel.textfieldViewModel)
+                    if let errorViewModel = viewModel.errorViewModel {
+                        WKDonateErrorView(viewModel: errorViewModel)
                     }
+                    Spacer()
+                        .frame(height: 24)
                 }
-                Spacer()
-                    .frame(height: 20)
-                WKApplePayDonateButton(configuration: WKApplePayDonateButton.Configuration(paymentButtonStyle: appEnvironment.theme.paymentButtonStyle))
-                    .onTapGesture {
-                        viewModel.textfieldViewModel.hasFocus = false
-                        viewModel.validateAndSubmit()
-                        if let errorViewModel = viewModel.errorViewModel {
-                            errorViewModel.hasAccessibilityFocus = true
+                
+                Group {
+                    VStack(alignment: .leading, spacing: 12) {
+                        WKDonateOptInView(viewModel: viewModel.transactionFeeOptInViewModel)
+                        if let emailOptInViewModel = viewModel.emailOptInViewModel {
+                            WKDonateOptInView(viewModel: emailOptInViewModel)
                         }
                     }
-                    .accessibilityHint(viewModel.accessibilityDonateButtonHint ?? "")
-                    .frame(height: 42)
-                    .padding([.leading, .trailing], sizeClassDonateButtonPadding)
-                Spacer()
-                    .frame(height: 24)
+                    Spacer()
+                        .frame(height: 20)
+                }
                 
-                WKDonateHelpLinks(viewModel: viewModel, delegate: delegate)
-                Spacer()
+                Group {
+                    WKApplePayDonateButton(configuration: WKApplePayDonateButton.Configuration(paymentButtonStyle: appEnvironment.theme.paymentButtonStyle))
+                        .onTapGesture {
+                            viewModel.textfieldViewModel.hasFocus = false
+                            viewModel.validateAndSubmit()
+                            if let errorViewModel = viewModel.errorViewModel {
+                                errorViewModel.hasAccessibilityFocus = true
+                            }
+                        }
+                        .accessibilityHint(viewModel.accessibilityDonateButtonHint ?? "")
+                        .frame(height: 42)
+                        .padding([.leading, .trailing], sizeClassDonateButtonPadding)
+                    Spacer()
+                        .frame(height: 24)
+                }
+                
+                Group {
+                    WKDonateHelpLinks(viewModel: viewModel, delegate: delegate)
+                    Spacer()
+                }
             }
             .padding(EdgeInsets(top: 16, leading: sizeClassHorizontalPadding, bottom: 16, trailing: sizeClassHorizontalPadding))
         }
