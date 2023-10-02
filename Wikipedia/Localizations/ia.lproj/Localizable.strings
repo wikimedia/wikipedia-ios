@@ -203,7 +203,7 @@
 "description-welcome-descriptions-title" = "Descriptiones de articulos";
 "description-welcome-promise-title" = "Quando io comencia, io promitte non abusar de iste function";
 "description-welcome-start-editing-button" = "Comenciar a modificar";
-"diff-article-edit-history" = "Historia de modificationes del articulo";
+"diff-article-revision-history" = "Historia de versiones del articulo";
 "diff-compare-header-from-info-heading" = "Modification precedente";
 "diff-compare-header-heading" = "Comparar versiones";
 "diff-compare-header-to-info-heading" = "Modification monstrate";
@@ -1078,6 +1078,7 @@
 "unable-to-load-talk-page-title" = "Impossibile cargar le pagina de discussion";
 "unknown-generic-text" = "Incognite";
 "unwatch" = "Disobservar";
+"user-title" = "Usator";
 "uzbek-variants-alert-body" = "Le application de Wikipedia ora supporta le variantes sequente del uzbeko como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\noʻzbekcha lotin: uzbeko latin (uz-latin)\nўзбекча кирилл: uzbeko cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualisationes del supporto de variantes del uzbeko";
 "vanish-account-additional-information-field" = "Information additional";
@@ -1122,6 +1123,8 @@
 "watchlist-change-expiry-option-three-months" = "3 menses";
 "watchlist-change-expiry-subtitle" = "Selige le periodo de tempore del observatorio";
 "watchlist-change-expiry-title" = "Expiration del observatorio";
+"watchlist-diff-action-button-title" = "Ir al diff";
+"watchlist-edit-summary-accessibility" = "Summario del modification";
 "watchlist-empty-view-button-title" = "Cercar articulos";
 "watchlist-empty-view-filter-title" = "Tu non ha articulos sub observation";
 "watchlist-empty-view-subtitle" = "Tene te al currente del articulos de tu interesse. Tocca le menu in le articulo e selige “Observar” pro vider le modificationes de un articulo.";

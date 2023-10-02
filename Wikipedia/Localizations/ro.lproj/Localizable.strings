@@ -12,6 +12,7 @@
 // Author: Minisarm
 // Author: NGC 54
 // Author: Nemo bis
+// Author: Strainu
 // Author: WebSourceContentRO
 
 "aaald-added-text-description-2" = "$1 adăugat";
@@ -205,7 +206,6 @@
 "description-welcome-descriptions-title" = "Descrierea articolelor";
 "description-welcome-promise-title" = "Începând, promit să nu folosesc greșit această caracteristică";
 "description-welcome-start-editing-button" = "Începeți să modificați";
-"diff-article-edit-history" = "istoricul editării articolului";
 // Fuzzy
 "diff-compare-header-from-info-heading" = "De la:";
 "diff-compare-header-heading" = "Comparați Versiunile";
@@ -995,37 +995,37 @@
 "variants-alert-dismiss-button" = "Nu mulțumesc";
 "variants-alert-preferences-button" = "Examinați-vă preferințele";
 "watchlist" = "Lista de urmrire";
-"watchlist-expiration-subtitle" = "Paginile rămân prin default, dar există opțiuni pentru vizionarea temporară, de la o săptămână la un an.";
-"watchlist-expiration-title" = "Vârșit";
+"watchlist-expiration-subtitle" = "Paginile rămân în mod implicit, dar există opțiuni pentru vizionarea temporară, de la o săptămână la un an.";
+"watchlist-expiration-title" = "Setează expirarea";
 "watchlist-filter-activity-header" = "Activitate în paginile urmărite";
-"watchlist-filter-activity-options-seen-changes" = "Modificări observate";
+"watchlist-filter-activity-options-seen-changes" = "Modificări văzute";
 "watchlist-filter-activity-options-unseen-changes" = "Modificări nevăzute";
-"watchlist-filter-automated-contributions-header" = "Contribuții automatizate";
+"watchlist-filter-automated-contributions-header" = "Contribuții automate";
 "watchlist-filter-automated-contributions-options-bot" = "Robot";
 "watchlist-filter-automated-contributions-options-human" = "Om (nu robot)";
-"watchlist-filter-latest-revisions-header" = "Ultimele revizii";
-"watchlist-filter-latest-revisions-options-latest-revision" = "Ultima revizuire";
-"watchlist-filter-latest-revisions-options-not-latest-revision" = "Nu ultima revizuire";
-"watchlist-filter-significance-header" = "Semnificativ";
+"watchlist-filter-latest-revisions-header" = "Ultimele versiuni";
+"watchlist-filter-latest-revisions-options-latest-revision" = "Ultima versiune";
+"watchlist-filter-latest-revisions-options-not-latest-revision" = "Versiuni mai vechi";
+"watchlist-filter-significance-header" = "Semnificație";
 "watchlist-filter-significance-options-minor-edits" = "Modificări minore";
 "watchlist-filter-significance-options-non-minor-edits" = "Modificări non-minore";
 "watchlist-filter-type-of-change-header" = "Tip de modificare";
 "watchlist-filter-type-of-change-options-category-changes" = "Modificări de categorie";
 "watchlist-filter-type-of-change-options-logged-actions" = "Acțiuni înregistrate";
-"watchlist-filter-type-of-change-options-page-creations" = "Crearea paginii";
-"watchlist-filter-type-of-change-options-page-edits" = "Modificări de pagină";
+"watchlist-filter-type-of-change-options-page-creations" = "Creări de pagini";
+"watchlist-filter-type-of-change-options-page-edits" = "Modificări de pagini";
 "watchlist-filter-type-of-change-options-wikidata-edits" = "Editări Wikidata";
 "watchlist-filter-user-registration-header" = "Înregistrarea și experiența utilizatorului";
 "watchlist-filter-user-registration-options-registered" = "Înregistrat";
 "watchlist-filter-user-registration-options-unregistered" = "Neînregistrat";
-"watchlist-onboarding-button-title" = "Afla mai multe despre Lista de veghe";
-"watchlist-onboarding-title" = "Introducerea listei de veghe";
-"watchlist-track-subtitle" = "Lista de supraveghere este un instrument care vă permite să urmăriți modificările făcute la paginile sau articolele care vă interesează.";
-"watchlist-track-title" = "Modificări de traseu";
+"watchlist-onboarding-button-title" = "Aflați mai multe despre lista de pagini urmărite";
+"watchlist-onboarding-title" = "Prezentarea listei de pagini urmărite";
+"watchlist-track-subtitle" = "Lista de pagini urmărite este un instrument care vă permite să urmăriți modificările făcute la paginile sau articolele care vă interesează.";
+"watchlist-track-title" = "Urmărește schimbările";
 "watchlist-updates-subtitle" = "Lista de urmărire a paginilor pe care le-ați adăugat, cum ar fi modificările sau discuțiile, poate fi accesată prin Setări → Cont.";
-"watchlist-updates-title" = "Prezenta actualizațiilor";
-"watchlist-watch-subtitle" = "Dacă apeşi la steaua sau la \"Verificaţi\" în partea de jos a unui articol, puteţi adăuga pagina respectivă la lista de priviri.";
-"watchlist-watch-title" = "Vezi articole";
+"watchlist-updates-title" = "Vezi actualizările";
+"watchlist-watch-subtitle" = "Dacă apăsați pe stea sau pe acțiunea \"Urmărește\" din toolbarul din partea de jos a articolului, puteți adăuga acea pagină în lista de pagini urmărite.";
+"watchlist-watch-title" = "Urmărește articole";
 "welcome-exploration-explore-feed-description" = "Recomandări de citire și articole zilnice din comunitatea noastră";
 "welcome-exploration-explore-feed-title" = "Fluxul Explore";
 "welcome-exploration-on-this-day-description" = "Călătoriți înapoi în timp pentru a afla ce s-a întâmplat astăzi în istorie";

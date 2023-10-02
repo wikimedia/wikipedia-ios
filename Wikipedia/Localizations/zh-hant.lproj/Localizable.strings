@@ -181,7 +181,7 @@
 "button-go-back" = "返回";
 "button-next" = "下一步";
 "button-ok" = "確定";
-"button-publish" = "發佈";
+"button-publish" = "發布";
 "button-publish-anyway" = "仍要發布";
 "button-read-now" = "立刻讀取";
 "button-report-a-bug" = "回報程式錯誤";
@@ -240,7 +240,6 @@
 "description-welcome-descriptions-title" = "條目描述";
 "description-welcome-promise-title" = "首先，我保證不會濫用此功能。";
 "description-welcome-start-editing-button" = "開始編輯";
-"diff-article-edit-history" = "條目編輯歷史";
 "diff-compare-header-from-info-heading" = "上一次編輯";
 "diff-compare-header-heading" = "比較修訂";
 "diff-compare-header-to-info-heading" = "顯示編輯";
@@ -1009,7 +1008,7 @@
 "share-open-in-maps" = "在地圖中開啟";
 "share-social-format" = "「$1」經由維基百科：$2";
 "share-social-mention-format" = "“$1” 透過維基百科：$2";
-"sort-by-recently-added-action" = "最近新增的";
+"sort-by-recently-added-action" = "近期新增";
 "sort-by-title-action" = "標題";
 "table-of-contents-button-label" = "目次";
 "table-of-contents-close-accessibility-hint" = "關閉";
