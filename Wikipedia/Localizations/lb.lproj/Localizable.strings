@@ -609,6 +609,7 @@
 "two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";
 "unknown-generic-text" = "Onbekannt";
+"user-title" = "Benotzer";
 "vanish-account-continue-button-title" = "Virufueren";
 "vanish-account-learn-more-text" = "Fir méi ze wëssen";
 "vanish-account-warning-title" = "Warnung";
