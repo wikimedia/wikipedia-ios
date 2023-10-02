@@ -205,7 +205,7 @@
 "description-welcome-descriptions-title" = "Opisi člankov";
 "description-welcome-promise-title" = "Ob začetku obljubljam, da te možnosti ne bom zlorabil_a";
 "description-welcome-start-editing-button" = "Začetek urejanja";
-"diff-article-edit-history" = "Zgodovina urejanja članka";
+"diff-article-revision-history" = "Zgodovina redakcij članka";
 "diff-compare-header-from-info-heading" = "Prejšnje urejanje";
 "diff-compare-header-heading" = "Primerjava redakcij";
 "diff-compare-header-to-info-heading" = "Prikazano urejanje";
@@ -1080,6 +1080,7 @@
 "unable-to-load-talk-page-title" = "Pogovorne strani ni mogoče naložiti";
 "unknown-generic-text" = "Neznano";
 "unwatch" = "Odopazuj";
+"user-title" = "Uporabnik";
 "uzbek-variants-alert-body" = "Aplikacija Wikipedija zdaj podpira naslednji različici uzbeščine kot osnovni ali sekundarni jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\noʻzbekcha lotin – uzbeščina, latinica (uz-latin)\nўзбекча кирилл – uzbeščina, cirilica (uz-cyrl)";
 "uzbek-variants-alert-title" = "Posodobitve podpore za uzbeške različice";
 "vanish-account-additional-information-field" = "Dodatne informacije";
@@ -1124,6 +1125,8 @@
 "watchlist-change-expiry-option-three-months" = "3 meseci";
 "watchlist-change-expiry-subtitle" = "Izberite čas spremljanja na spisku nadzorov";
 "watchlist-change-expiry-title" = "Pretek spiska nadzorov";
+"watchlist-diff-action-button-title" = "Pojdi na razl";
+"watchlist-edit-summary-accessibility" = "Povzetek urejanja";
 "watchlist-empty-view-button-title" = "Iskanje člankov";
 "watchlist-empty-view-filter-title" = "Na spisku nadzorov nimate predmetov";
 "watchlist-empty-view-subtitle" = "Spremljajte spremembe člankov, ki vas zanimajo. Za opazovanje sprememb tapnite prelivni meni in izberite »Opazuj«.";

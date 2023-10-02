@@ -726,6 +726,7 @@
 "watchlist-change-expiry-option-permanent" = "Állandó";
 "watchlist-change-expiry-option-six-months" = "6 hónap";
 "watchlist-change-expiry-option-three-months" = "3 hónap";
+"watchlist-edit-summary-accessibility" = "Szerkesztési összefoglaló";
 "watchlist-empty-view-button-title" = "Cikkek keresése";
 "watchlist-empty-view-filter-title" = "Nincsenek figyelőlista-elemeid";
 "watchlist-user-button-thank" = "Köszönet";

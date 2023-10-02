@@ -813,5 +813,21 @@
 			<string>%1$d octets</string>
 		</dict>
 	</dict>
+	<key>watchlist-number-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Modifica [ %#@v1@](wikipedia://watchlist/filter) per a veure més elements de la llista de seguiment</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d filtre</string>
+			<key>other</key>
+			<string>%1$d filtres</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
