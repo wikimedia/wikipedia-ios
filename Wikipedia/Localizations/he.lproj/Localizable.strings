@@ -225,7 +225,7 @@
 "description-welcome-descriptions-title" = "תיאורי ערך";
 "description-welcome-promise-title" = "תחילת העבודה היא ההבטחה שלי לא להשתמש באפשרות הזאת לרעה";
 "description-welcome-start-editing-button" = "להתחיל לערוך";
-"diff-article-edit-history" = "היסטוריית העריכה של הערך";
+"diff-article-revision-history" = "היסטוריית גרסאות של ערך";
 "diff-compare-header-from-info-heading" = "העריכה הקודמת";
 "diff-compare-header-heading" = "השוואת גרסאות";
 "diff-compare-header-to-info-heading" = "העריכה המוצגת";
@@ -1100,6 +1100,7 @@
 "unable-to-load-talk-page-title" = "לא ניתן לטעון את דף השיחה";
 "unknown-generic-text" = "לא ידוע";
 "unwatch" = "הפסקת מעקב";
+"user-title" = "משתמש";
 "uzbek-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\noʻzbekcha lotin אוזבקית, לטינית (uz-latin)\nўзбекча кирилл אוזבקית, קירילית (uz-cyrl)";
 "uzbek-variants-alert-title" = "עדכונים לתמיכה בהגוונים של אוזבקית";
 "vanish-account-additional-information-field" = "מידע נוסף";
@@ -1144,6 +1145,8 @@
 "watchlist-change-expiry-option-three-months" = "3 חודשים";
 "watchlist-change-expiry-subtitle" = "נא לבחור את הזמן לשמירה ברשימת המעקב";
 "watchlist-change-expiry-title" = "תוקף ברשימת המעקב";
+"watchlist-diff-action-button-title" = "מעבר להבדל";
+"watchlist-edit-summary-accessibility" = "תקציר העריכה";
 "watchlist-empty-view-button-title" = "חיפוש ערכים";
 "watchlist-empty-view-filter-title" = "אין לך פריטים ברשימת המעקב";
 "watchlist-empty-view-subtitle" = "כאן אפשר לעקוב אחרי מה שקורה בערכים שמעניינים אותך. יש ללחוץ על תפריט הפעולות הנוספות ולבחור \"מעקב\" כדי לראות את השינויים לערך.";

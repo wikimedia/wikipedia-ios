@@ -15,10 +15,10 @@ struct WKPrimaryButton: View {
             Text(title)
                 .font(Font(WKFont.for(.boldSubheadline)))
                 .foregroundColor(Color(WKColor.white))
+                .frame(maxWidth: .infinity)
+                .frame(height: 46)
+                .background(Color(appEnvironment.theme.link))
+                .cornerRadius(8)
         })
-        .frame(maxWidth: .infinity)
-        .frame(height: 46)
-        .background(Color(appEnvironment.theme.link))
-        .cornerRadius(8)
     }
 }

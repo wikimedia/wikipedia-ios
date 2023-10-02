@@ -244,7 +244,7 @@
 "description-welcome-descriptions-title" = "Madde açıklamaları";
 "description-welcome-promise-title" = "Başlayarak bu özelliği kötüye kullanmamaya söz veriyorum";
 "description-welcome-start-editing-button" = "Düzenlemeye başla";
-"diff-article-edit-history" = "Madde Düzenleme Geçmişi";
+"diff-article-revision-history" = "Madde sürüm geçmişi";
 "diff-compare-header-from-info-heading" = "Önceki Düzenleme";
 "diff-compare-header-heading" = "Düzeltmeleri Karşılaştır";
 "diff-compare-header-to-info-heading" = "Görüntülenen Düzenleme";
@@ -1119,6 +1119,7 @@
 "unable-to-load-talk-page-title" = "Tartışma sayfası yüklenemiyor";
 "unknown-generic-text" = "Bilinmiyor";
 "unwatch" = "İzlemeyi durdur";
+"user-title" = "Kullanıcı";
 "uzbek-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Özbekçe biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\noʻzbekcha lotin Özbekçe, Latin (uz-latin)\nўзбекча кирилл Özbekçe, Kiril (uz-cyrl)";
 "uzbek-variants-alert-title" = "Özbekçe biçim desteği güncellemeleri";
 "vanish-account-additional-information-field" = "Ek bilgi";
@@ -1163,6 +1164,8 @@
 "watchlist-change-expiry-option-three-months" = "3 ay";
 "watchlist-change-expiry-subtitle" = "İzleme listesi dönemini seçin";
 "watchlist-change-expiry-title" = "İzleme Listesinin sona ermesi";
+"watchlist-diff-action-button-title" = "Farka git";
+"watchlist-edit-summary-accessibility" = "Değişiklik özeti";
 "watchlist-empty-view-button-title" = "Maddelerde ara";
 "watchlist-empty-view-filter-title" = "İzleme Listenizde öge yok";
 "watchlist-empty-view-subtitle" = "İlgilendiğiniz maddelere ne olduğunu takip edin. Maddedeki değişiklikleri görmek için menüye dokunun ve “İzle”yi seçin.";
