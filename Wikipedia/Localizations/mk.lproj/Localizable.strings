@@ -209,7 +209,7 @@
 "description-welcome-descriptions-title" = "Описи на статии";
 "description-welcome-promise-title" = "Почнувајќи ја употребата, ветувам дека нема да ја злоупотребувам оваа можност";
 "description-welcome-start-editing-button" = "Почнете со уредување";
-"diff-article-edit-history" = "Историја на уредување на статијата";
+"diff-article-revision-history" = "Историја на преработки на страницата";
 "diff-compare-header-from-info-heading" = "Претходно уредување";
 "diff-compare-header-heading" = "Спореди преработки";
 "diff-compare-header-to-info-heading" = "Прикажано уредување";
@@ -1084,6 +1084,7 @@
 "unable-to-load-talk-page-title" = "Не можам да ја вчитам разговорната страница";
 "unknown-generic-text" = "Непознато";
 "unwatch" = "Прекини набљудување";
+"user-title" = "Корисник";
 "uzbek-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве узбечки варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\noʻzbekcha lotin — узбечки на латиница (uz-latin)\nўзбекча кирилл — узбечки на кирилица (uz-cyrl)";
 "uzbek-variants-alert-title" = "Новост за поддршка на узбечки варијанти";
 "vanish-account-additional-information-field" = "Дополнителни информации";
@@ -1128,6 +1129,8 @@
 "watchlist-change-expiry-option-three-months" = "3 месеци";
 "watchlist-change-expiry-subtitle" = "Изберете период на набљудување";
 "watchlist-change-expiry-title" = "Истек на набљудувањето";
+"watchlist-diff-action-button-title" = "Оди на разл.";
+"watchlist-edit-summary-accessibility" = "Опис на уредувањето";
 "watchlist-empty-view-button-title" = "Пребарај статии";
 "watchlist-empty-view-filter-title" = "Немате ставки во Набљудуваните";
 "watchlist-empty-view-subtitle" = "Следете што се случува со статиите кои ве интересираат. Допрете на менито во статијата и изберете „Набљудувај“ за да видите промени во статија.";

@@ -1,4 +1,4 @@
-// Messages for Serbian (Cyrillic script) (српски (ћирилица))
+// Messages for српски (ћирилица) (српски (ћирилица))
 // Exported from translatewiki.net
 // Author: Acamicamacaraca
 // Author: Aktron
@@ -206,7 +206,7 @@
 "description-welcome-descriptions-title" = "Описи чланака";
 "description-welcome-promise-title" = "Започињањем, обећавам да нећу злоупотребити ову функцију";
 "description-welcome-start-editing-button" = "Почни са уређивањем";
-"diff-article-edit-history" = "Историја";
+"diff-article-revision-history" = "Историја чланка";
 "diff-compare-header-from-info-heading" = "Претходна измена";
 "diff-compare-header-heading" = "Упореди измене";
 "diff-compare-header-to-info-heading" = "Приказана измена";
@@ -945,6 +945,7 @@
 "unable-to-load-talk-page-title" = "Није могуће учитати страницу за разговор";
 "unknown-generic-text" = "Непознато";
 "unwatch" = "Прекини надгледање";
+"user-title" = "Корисник";
 "vanish-account-additional-information-field" = "Додатне информације";
 "vanish-account-additional-information-placeholder" = "Необавезно";
 "vanish-account-back-confirm-discard" = "Одбаци захтев";
@@ -983,6 +984,7 @@
 "watchlist-change-expiry-option-three-months" = "3 месеца";
 "watchlist-change-expiry-subtitle" = "Трајање надгледања";
 "watchlist-change-expiry-title" = "Трајање надгледања";
+"watchlist-edit-summary-accessibility" = "Опис измене";
 "watchlist-empty-view-button-title" = "Претрага чланака";
 "watchlist-empty-view-filter-title" = "Списак надгледања је празан";
 "watchlist-expiration-title" = "Одреди трајање";

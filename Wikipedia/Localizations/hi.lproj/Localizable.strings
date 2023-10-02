@@ -512,6 +512,7 @@
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
 "two-factor-login-with-backup-code" = "अपने बैकअप कोड्स में से एक प्रयोग करें";
 "two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
+"user-title" = "सदस्य";
 "vanish-account-continue-button-title" = "जारी रखें";
 "vanish-account-learn-more-text" = "अधिक जानें";
 "watch" = "ध्यान रखें";

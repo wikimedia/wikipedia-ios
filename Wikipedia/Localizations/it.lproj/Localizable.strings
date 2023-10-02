@@ -221,6 +221,7 @@
 "description-welcome-descriptions-title" = "Descrizioni delle voci";
 "description-welcome-promise-title" = "Per iniziare, prometto di non abusare di questa funzione";
 "description-welcome-start-editing-button" = "Inizia a modificare";
+"diff-article-revision-history" = "Cronologia versioni voce";
 "diff-compare-header-from-info-heading" = "Modifica precedente";
 "diff-compare-header-heading" = "Confronta versioni";
 "diff-compare-header-to-info-heading" = "Modifica visualizzata";
@@ -765,6 +766,7 @@
 "two-factor-login-with-regular-code" = "Usa codice di verifica";
 "unable-to-load-talk-page-title" = "Impossibile caricare la pagina di discussione";
 "unknown-generic-text" = "Sconosciuto";
+"user-title" = "Utente";
 "vanish-account-additional-information-field" = "Ulteriori informazioni";
 "vanish-account-button-text" = "Invia richiesta";
 "vanish-account-learn-more-text" = "Ulteriori informazioni";
@@ -783,6 +785,7 @@
 "watchlist-change-expiry-option-permanent" = "Permanentemente";
 "watchlist-change-expiry-option-six-months" = "6 mesi";
 "watchlist-change-expiry-option-three-months" = "3 mesi";
+"watchlist-edit-summary-accessibility" = "Oggetto della modifica";
 "watchlist-expiration-title" = "Imposta scadenza";
 "watchlist-filter-activity-header" = "Attività negli osservati speciali";
 "watchlist-filter-activity-options-seen-changes" = "Modifiche già viste";
