@@ -12,6 +12,8 @@ class SinglePageWebViewController: ViewController {
         }
     }
 
+    var didReachThankyouPage = false
+
     required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false) {
         self.url = url
         self.doesUseSimpleNavigationBar = doesUseSimpleNavigationBar
@@ -145,6 +147,7 @@ class SinglePageWebViewController: ViewController {
             return false
         } else if action.navigationType == .other,
                   actionURL.isThankYouDonationURL {
+            didReachThankyouPage = true
             setupBottomView()
         }
         
@@ -169,6 +172,14 @@ class SinglePageWebViewController: ViewController {
 
     @objc func didTapReturnButton() {
         navigationController?.popViewController(animated: true)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        if didReachThankyouPage {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
+            }
+        }
     }
 }
 

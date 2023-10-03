@@ -91,17 +91,19 @@ extension ArticleViewController {
             if let url = asset.actions[0].url {
                 self.navigate(to: url, useSafari: false)
             }
+            dismiss()
         }, secondaryButtonTapHandler: { sender in
             if shouldShowMaybeLater {
                 dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
             }
-            dismiss()
+            self.sharedDonateDidSetMaybeLater()
         }, optionalButtonTapHandler: { sender in
             dismiss()
         }, footerLinkAction: { url in
             self.navigate(to: url, useSafari: false)
         }, traceableDismissHandler: { _ in
             dismiss()
+
         }, showMaybeLater: shouldShowMaybeLater)
     }
 

@@ -192,11 +192,17 @@ import PassKit
     
     func sharedDonateDidSuccessfullSubmitPayment() {
         self.navigationController?.popViewController(animated: true)
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let title = WMFLocalizedString("donate-success-title", value: "Thank you!", comment: "Thank you toast title displayed after a user successfully donates.")
-            let subtitle = WMFLocalizedString("donate-success-subtitle", value: "Your generosity to Wikipedia means so much to us.", comment: "Thank you toast subtitle displayed after a user successfully donates.")
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: subtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
+
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
+        }
+    }
+
+    func sharedDonateDidSetMaybeLater() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tommorow.", comment: "Title for toast shown when user clicks reming later on fundraising banner")
+
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
         }
     }
 }

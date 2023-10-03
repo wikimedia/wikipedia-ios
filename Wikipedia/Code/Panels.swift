@@ -534,7 +534,22 @@ extension UIViewController {
     ///   - secondaryButtonTapHandler: Maybe later - remind the user again after a certain period, within campain duration
     ///   - optionalButtonTapHandler: Dismiss the modal, does not show again
     func wmf_showFundraisingAnnouncement(theme: Theme, object: WKFundraisingCampaignConfig.WKAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?,  footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, showMaybeLater: Bool) {
-        let alert = FundraisingAnnouncementPanelViewController(announcement: object, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, optionalButtonTapHandler: optionalButtonTapHandler, footerLinkAction: footerLinkAction, traceableDismissHandler: traceableDismissHandler, theme: theme, showOptionalButton: showMaybeLater)
+
+        let alert = FundraisingAnnouncementPanelViewController(announcement: object, theme: theme, showOptionalButton: showMaybeLater, primaryButtonTapHandler: { (sender: Any) in
+            primaryButtonTapHandler?(sender)
+
+        }, secondaryButtonTapHandler: { (sender: Any) in
+            secondaryButtonTapHandler?(sender)
+            self.dismiss(animated: true)
+
+        }, optionalButtonTapHandler: { sender in
+            optionalButtonTapHandler?(sender)
+            self.dismiss(animated: true)
+
+        }, traceableDismissHandler: { lastAction in
+            traceableDismissHandler?(lastAction)
+
+        }, footerLinkAction: footerLinkAction)
 
         present(alert, animated: true)
     }
