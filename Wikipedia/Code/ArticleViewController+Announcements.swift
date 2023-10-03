@@ -10,10 +10,10 @@ extension ArticleViewController {
         let dataController = WKFundraisingCampaignDataController()
         
         // New Donor Experience if they qualify
-        if let countryCode = Locale.current.regionCode,
-           let wkProject = WikimediaProject(siteURL: articleURL)?.wkProject,
-           dataController.hasActivelyRunningCampaigns(countryCode: countryCode, currentDate: .now),
-           let activeCampaignAsset = WKFundraisingCampaignDataController().loadActiveCampaignAsset(countryCode: countryCode, wkProject: wkProject, currentDate: .now) {
+        if let wkProject = WikimediaProject(siteURL: articleURL)?.wkProject,
+           dataController.hasActivelyRunningCampaigns(countryCode: "NL", currentDate: .now),
+           let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: "NL", wkProject: wkProject, currentDate: .now) {
+
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset)
             return
         }
@@ -64,68 +64,40 @@ extension ArticleViewController {
             return
         }
 
-        // Dummy
-        let text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-        if let url  = URL(string:"donate.wikimedia.org") {
-            let positiveAction = WKAsset.WKActionPositive(title: "positive", url: url)
-            let negativeAction = WKAsset.WKActionNegative(title: "negative")
-
-            let object = WKAsset(textHtml: text, footerHtml: "Footer notes", actionPositive: positiveAction, actionNegative: negativeAction, currencyCode: "USD")
-            // Dummy end
-
-            wmf_showFundraisingAnnouncement(theme: theme, object: object)
-        }
-
-//        wmf_showAnnouncementPanel(announcement: announcement, primaryButtonTapHandler: { (sender) in
-//            self.navigate(to: actionURL, useSafari: false)
-//            // dismiss handler is called
-//        }, secondaryButtonTapHandler: { (sender) in
-//            // dismiss handler is called
-//        }, footerLinkAction: { (url) in
-//             self.navigate(to: url, useSafari: true)
-//            // intentionally don't dismiss
-//        }, traceableDismissHandler: { _ in
-//            dismiss()
-//        }, theme: theme)
+        wmf_showAnnouncementPanel(announcement: announcement, primaryButtonTapHandler: { (sender) in
+            self.navigate(to: actionURL, useSafari: false)
+            // dismiss handler is called
+        }, secondaryButtonTapHandler: { (sender) in
+            // dismiss handler is called
+        }, footerLinkAction: { (url) in
+             self.navigate(to: url, useSafari: true)
+            // intentionally don't dismiss
+        }, traceableDismissHandler: { _ in
+            dismiss()
+        }, theme: theme)
     }
     
     private func showNewDonateExperienceCampaignModal(asset: WKFundraisingCampaignConfig.WKAsset) {
-        
-        // Just using alert view for now, will replace with new campaign modal
-        let alert = UIAlertController(title: nil, message: asset.textHtml, preferredStyle: .alert)
-        let controller = WKFundraisingCampaignDataController()
-        
-        let firstAction = asset.actions[0]
-        let donateAction = UIAlertAction(title: firstAction.title, style: .default, handler: { [weak self] action in
-            controller.markAssetAsPermanentlyHidden(asset: asset)
-            self?.pushToDonateForm(donateURL: firstAction.url)
+        let dataController = WKFundraisingCampaignDataController()
+
+        let dismiss = {
+            dataController.markAssetAsPermanentlyHidden(asset: asset)
+        }
+        wmf_showFundraisingAnnouncement(theme: theme, object: asset, primaryButtonTapHandler: { sender in
+            if let url = asset.actions[0].url {
+                self.navigate(to: url, useSafari: false)
+            }
+        }, secondaryButtonTapHandler: { sender in
+            dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
+        }, optionalButtonTapHandler: { sender in
+            dismiss()
+        }, footerLinkAction: { url in
+            self.navigate(to: url, useSafari: false)
+        }, traceableDismissHandler: { _ in
+            dismiss()
         })
-        
-        let maybeLaterAction = UIAlertAction(title: asset.actions[1].title, style: .default) { action in
-            controller.markAssetAsMaybeLater(asset: asset, currentDate: .now)
-        }
-        
-        let alreadyDonatedAction = UIAlertAction(title: asset.actions[2].title, style: .default) { action in
-            
-            controller.markAssetAsPermanentlyHidden(asset: asset)
-            
-            // todo: donate reason action sheet
-        }
-        
-        let closeAction = UIAlertAction(title: "Close", style: .cancel) { action in
-            let controller = WKFundraisingCampaignDataController()
-            controller.markAssetAsPermanentlyHidden(asset: asset)
-        }
-        
-        alert.addAction(donateAction)
-        alert.addAction(maybeLaterAction)
-        alert.addAction(alreadyDonatedAction)
-        alert.addAction(closeAction)
-        
-        present(alert, animated: true)
     }
-    
+
     private func pushToDonateForm(donateURL: URL?) {
         if canOfferNativeDonateForm(), let donateURL = donateURL {
             presentNewDonorExperiencePaymentMethodActionSheet(donateURL: donateURL)

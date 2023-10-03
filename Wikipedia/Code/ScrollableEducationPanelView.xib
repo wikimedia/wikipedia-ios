@@ -20,12 +20,13 @@
                 <outlet property="inlineActionButtonContainerView" destination="8tf-7a-eXe" id="LrL-ba-Bmb"/>
                 <outlet property="inlineCloseButton" destination="BAe-h0-y6b" id="pFf-lE-gc6"/>
                 <outlet property="inlineCloseButtonStackView" destination="Evj-R4-67a" id="Jxf-XH-9AE"/>
-                <outlet property="inlineOptionalButton" destination="GvV-uu-dQu" id="9eW-PX-U2l"/>
+                <outlet property="inlineOptionalButton" destination="oeh-qo-2Gj" id="UAw-Du-a2A"/>
                 <outlet property="inlinePrimaryButton" destination="cUm-ox-sR8" id="qTB-br-DAp"/>
                 <outlet property="inlineSecondaryButton" destination="hB2-ah-QwX" id="qKA-ng-WZB"/>
                 <outlet property="pinnedActionButtonContainerView" destination="3hr-CH-OgV" id="zwG-PG-2bK"/>
                 <outlet property="pinnedCloseButton" destination="dnI-9Q-77X" id="HVu-U0-qk1"/>
                 <outlet property="pinnedCloseButtonContainerView" destination="DAm-Ul-qQX" id="xHH-gS-xYc"/>
+                <outlet property="pinnedCloseButtonStackView" destination="mYC-yH-YX8" id="eCB-XH-3Jb"/>
                 <outlet property="pinnedPrimaryButton" destination="HGY-CD-FTJ" id="z72-zB-23O"/>
                 <outlet property="pinnedSecondaryButton" destination="lj0-nN-ABj" id="3FE-EH-b1F"/>
                 <outlet property="roundedCornerContainer" destination="qtK-Db-J92" id="bNO-Ae-oHN"/>
@@ -50,19 +51,19 @@
                             <rect key="frame" x="0.0" y="0.0" width="280" height="489"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-b3-oKp" userLabel="Scroll Container">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="570"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="512.5"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="1lp-Zw-jU3">
-                                            <rect key="frame" x="0.0" y="30" width="280" height="510"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1lp-Zw-jU3">
+                                            <rect key="frame" x="0.0" y="16" width="280" height="466.5"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Evj-R4-67a" userLabel="Inline Close Button Stack View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="280" height="15"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Evj-R4-67a" userLabel="Inline Close Button Stack View">
+                                                    <rect key="frame" x="0.0" y="0.0" width="280" height="30"/>
                                                     <subviews>
                                                         <button opaque="NO" tag="1" contentMode="scaleToFill" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAe-h0-y6b">
-                                                            <rect key="frame" x="0.0" y="0.0" width="40" height="15"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" priority="999" constant="40" id="C4N-RO-Pf1"/>
-                                                                <constraint firstAttribute="height" priority="999" constant="15" id="jNS-Hb-YCs"/>
+                                                                <constraint firstAttribute="width" priority="999" constant="30" id="C4N-RO-Pf1"/>
+                                                                <constraint firstAttribute="height" priority="999" constant="30" id="jNS-Hb-YCs"/>
                                                             </constraints>
                                                             <state key="normal" image="places-auth-close"/>
                                                             <connections>
@@ -71,8 +72,8 @@
                                                         </button>
                                                     </subviews>
                                                 </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q2-cLc">
-                                                    <rect key="frame" x="0.0" y="18" width="280" height="492"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q2-cLc">
+                                                    <rect key="frame" x="0.0" y="30" width="280" height="436.5"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-auth-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="rFJ-kb-kte">
                                                             <rect key="frame" x="15" y="0.0" width="250" height="95"/>
@@ -81,13 +82,13 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="This is a reasonably long sample TITLE for this panel. It is probably the best thing ever." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cta-dZ-grZ">
-                                                            <rect key="frame" x="15" y="109" width="250" height="64.5"/>
+                                                            <rect key="frame" x="15" y="95" width="250" height="64.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z8r-Yc-5tI">
-                                                            <rect key="frame" x="15" y="187.5" width="250" height="92"/>
+                                                            <rect key="frame" x="15" y="159.5" width="250" height="92"/>
                                                             <subviews>
                                                                 <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="This is a reasonably long sample SUBITITLE for this panel. It is probably the best thing ever." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="agu-fy-XDy">
                                                                     <rect key="frame" x="0.0" y="0.0" width="250" height="92"/>
@@ -105,13 +106,13 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8tf-7a-eXe" userLabel="Inline Action Button Container View">
-                                                            <rect key="frame" x="15" y="293.5" width="250" height="114.5"/>
+                                                            <rect key="frame" x="15" y="251.5" width="250" height="115"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hqs-XP-LEE">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="114.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="115"/>
                                                                     <subviews>
                                                                         <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUm-ox-sR8" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="250" height="33"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="250" height="55"/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                             <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
                                                                             <userDefinedRuntimeAttributes>
@@ -130,8 +131,8 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hB2-ah-QwX" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="43" width="250" height="27"/>
-                                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                                            <rect key="frame" x="0.0" y="65" width="250" height="20"/>
+                                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                             <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
                                                                             <userDefinedRuntimeAttributes>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -145,12 +146,20 @@
                                                                                 <action selector="secondaryButtonTapped:" destination="-1" eventType="touchUpInside" id="TWe-gh-Z12"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GvV-uu-dQu">
-                                                                            <rect key="frame" x="0.0" y="80" width="250" height="34.5"/>
-                                                                            <state key="normal" title="Button"/>
-                                                                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                                        <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oeh-qo-2Gj" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="95" width="250" height="20"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                            <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                    <real key="value" value="5"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                    <real key="value" value="0.0"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
                                                                             <connections>
-                                                                                <action selector="optionalButtonTapped:" destination="-1" eventType="touchUpInside" id="oLI-1r-uei"/>
+                                                                                <action selector="optionalButtonTapped:" destination="-1" eventType="touchUpInside" id="krK-Jl-PsG"/>
                                                                             </connections>
                                                                         </button>
                                                                     </subviews>
@@ -164,7 +173,7 @@
                                                             </constraints>
                                                         </view>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="This is a reasonably long sample DESCRIPTION for this panel. It is probably the best thing ever." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jJo-Ko-Gi1">
-                                                            <rect key="frame" x="15" y="422" width="250" height="70"/>
+                                                            <rect key="frame" x="15" y="366.5" width="250" height="70"/>
                                                             <color key="textColor" systemColor="labelColor"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -178,7 +187,7 @@
                                     <constraints>
                                         <constraint firstItem="1lp-Zw-jU3" firstAttribute="leading" secondItem="BhM-b3-oKp" secondAttribute="leading" id="0yH-Xa-j7U"/>
                                         <constraint firstAttribute="bottom" secondItem="1lp-Zw-jU3" secondAttribute="bottom" constant="30" id="36G-Hn-CX2"/>
-                                        <constraint firstItem="1lp-Zw-jU3" firstAttribute="top" secondItem="BhM-b3-oKp" secondAttribute="top" constant="30" id="Dz1-uW-1wr"/>
+                                        <constraint firstItem="1lp-Zw-jU3" firstAttribute="top" secondItem="BhM-b3-oKp" secondAttribute="top" constant="16" id="Dz1-uW-1wr"/>
                                         <constraint firstAttribute="trailing" secondItem="1lp-Zw-jU3" secondAttribute="trailing" id="iIa-RA-cEv"/>
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
@@ -188,10 +197,10 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DAm-Ul-qQX" userLabel="Pinned Close Button Container View">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="48"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="31"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="mYC-yH-YX8" userLabel="Pinned Close Button Stack View">
-                                            <rect key="frame" x="0.0" y="30" width="280" height="15"/>
+                                            <rect key="frame" x="0.0" y="16" width="280" height="15"/>
                                             <subviews>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dnI-9Q-77X">
                                                     <rect key="frame" x="0.0" y="0.0" width="40" height="15"/>
@@ -209,19 +218,19 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="mYC-yH-YX8" firstAttribute="leading" secondItem="DAm-Ul-qQX" secondAttribute="leading" id="3Q5-D8-XbE"/>
-                                        <constraint firstItem="mYC-yH-YX8" firstAttribute="top" secondItem="DAm-Ul-qQX" secondAttribute="top" constant="30" id="EnA-14-Wy1"/>
-                                        <constraint firstAttribute="bottom" secondItem="mYC-yH-YX8" secondAttribute="bottom" constant="3" id="kGg-gf-Qvi"/>
+                                        <constraint firstItem="mYC-yH-YX8" firstAttribute="top" secondItem="DAm-Ul-qQX" secondAttribute="top" constant="16" id="EnA-14-Wy1"/>
+                                        <constraint firstAttribute="bottom" secondItem="mYC-yH-YX8" secondAttribute="bottom" id="kGg-gf-Qvi"/>
                                         <constraint firstAttribute="trailing" secondItem="mYC-yH-YX8" secondAttribute="trailing" id="voC-ny-oG4"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hr-CH-OgV" userLabel="Pinned Action Button Container View">
-                                    <rect key="frame" x="15" y="389" width="250" height="100"/>
+                                    <rect key="frame" x="15" y="409" width="250" height="80"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nMH-Tf-8g1">
-                                            <rect key="frame" x="0.0" y="0.0" width="250" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="250" height="50"/>
                                             <subviews>
                                                 <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGY-CD-FTJ" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="33"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="20"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
                                                     <userDefinedRuntimeAttributes>
@@ -240,7 +249,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lj0-nN-ABj" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="43" width="250" height="27"/>
+                                                    <rect key="frame" x="0.0" y="30" width="250" height="20"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
                                                     <userDefinedRuntimeAttributes>
@@ -322,16 +331,19 @@
     </objects>
     <designables>
         <designable name="HGY-CD-FTJ">
-            <size key="intrinsicContentSize" width="30" height="33"/>
+            <size key="intrinsicContentSize" width="28" height="20"/>
         </designable>
         <designable name="cUm-ox-sR8">
-            <size key="intrinsicContentSize" width="30" height="33"/>
+            <size key="intrinsicContentSize" width="28" height="20"/>
         </designable>
         <designable name="hB2-ah-QwX">
-            <size key="intrinsicContentSize" width="30" height="27"/>
+            <size key="intrinsicContentSize" width="28" height="20"/>
         </designable>
         <designable name="lj0-nN-ABj">
-            <size key="intrinsicContentSize" width="30" height="27"/>
+            <size key="intrinsicContentSize" width="28" height="20"/>
+        </designable>
+        <designable name="oeh-qo-2Gj">
+            <size key="intrinsicContentSize" width="28" height="20"/>
         </designable>
     </designables>
     <resources>

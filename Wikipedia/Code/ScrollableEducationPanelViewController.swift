@@ -45,12 +45,13 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var pinnedCloseButton: UIButton!
     @IBOutlet fileprivate weak var imageView: UIImageView!
     @IBOutlet fileprivate weak var headingLabel: UILabel!
-    @IBOutlet fileprivate weak var subheadingTextView: UITextView!
+    @IBOutlet weak var subheadingTextView: UITextView!
     
     @IBOutlet weak var inlineActionButtonContainerView: UIView!
     @IBOutlet weak var inlineCloseButtonStackView: UIStackView!
     @IBOutlet weak var pinnedCloseButtonContainerView: UIView!
     @IBOutlet weak var pinnedActionButtonContainerView: UIView!
+    @IBOutlet weak var pinnedCloseButtonStackView: UIStackView!
     
     // use as an indication of what triggered a dismissal
     private var lastAction: LastAction = .none
@@ -77,6 +78,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var footerTextView: UITextView!
 
     @IBOutlet fileprivate weak var inlineOptionalButton: AutoLayoutSafeMultiLineButton!
+
     @IBOutlet private(set) weak var scrollView: UIScrollView!
     @IBOutlet fileprivate weak var scrollViewContainer: UIView!
     @IBOutlet fileprivate weak var roundedCornerContainer: UIView!
@@ -174,6 +176,16 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         set {
             inlineSecondaryButton.setTitle(newValue, for: .normal)
             pinnedSecondaryButton.setTitle(newValue, for: .normal)
+            view.setNeedsLayout()
+        }
+    }
+
+    var optionalButtonTitle: String? {
+        get {
+            return inlineOptionalButton.title(for: .normal)
+        }
+        set {
+            inlineOptionalButton.setTitle(newValue, for: .normal)
             view.setNeedsLayout()
         }
     }
@@ -375,7 +387,11 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
 
         if showOptionalButton {
-//            inlineOptionalButton heih=ght = 0
+            inlineCloseButtonStackView.alignment = .trailing
+            inlineCloseButton.isHidden = false
+            let image = UIImage(named: "close-inverse")?.withRenderingMode(.alwaysTemplate)
+            inlineCloseButton.setImage(image, for: .normal)
+            inlineCloseButton.tintColor = .red
         }
 
         apply(theme: theme)
@@ -426,9 +442,23 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
     }
 
+    var optionalButtonTextStyle: DynamicTextStyle = .boldSubheadline {
+        didSet {
+            updateFonts()
+        }
+    }
+
     private func updateFonts() {
-        inlineSecondaryButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
-        pinnedSecondaryButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+        if showOptionalButton {
+            pinnedSecondaryButton.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+
+            inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+        } else {
+            inlineSecondaryButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+            pinnedSecondaryButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+
+            inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+        }
     }
     
     fileprivate func adjustImageViewVisibility(for verticalSizeClass: UIUserInterfaceSizeClass) {
@@ -533,6 +563,17 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         pinnedCloseButtonContainerView.backgroundColor = theme.colors.cardBackground
         updateSubheadingHTML()
         updateFooterHTML()
+
+        if showOptionalButton {
+            inlinePrimaryButton.backgroundColor = theme.colors.link
+            inlinePrimaryButton.setTitleColor(theme.colors.paperBackground, for: .normal)
+
+            inlineSecondaryButton.backgroundColor = theme.colors.paperBackground
+            inlineSecondaryButton.setTitleColor(theme.colors.link, for: .normal)
+
+            inlineOptionalButton.backgroundColor = theme.colors.paperBackground
+            inlineOptionalButton.setTitleColor(theme.colors.link, for: .normal)
+        }
     }
 }
 

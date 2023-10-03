@@ -1,5 +1,7 @@
+import WKData
+
 class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
-    
+
     enum Style {
         case standard
         case minimal
@@ -524,8 +526,17 @@ extension UIViewController {
         present(panel, animated: true)
     }
 
-    func wmf_showFundraisingAnnouncement(theme: Theme, object: WKAsset) {
+    
+    /// Shows new fundraising panel
+    /// - Parameters:
+    ///   - object: WKAsset object, that contains the announcement content
+    ///   - primaryButtonTapHandler: Goes to donation
+    ///   - secondaryButtonTapHandler: Maybe later - remind the user again after a certain period, within campain duration
+    ///   - optionalButtonTapHandler: Dismiss the modal, does not show again
+    func wmf_showFundraisingAnnouncement(theme: Theme, object: WKFundraisingCampaignConfig.WKAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?,  footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?) {
+        let alert = FundraisingAnnouncementPanelViewController(announcement: object, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, optionalButtonTapHandler: optionalButtonTapHandler, footerLinkAction: footerLinkAction, traceableDismissHandler: traceableDismissHandler, theme: theme)
 
+        present(alert, animated: true)
     }
 
     /// Displays a blocked panel message, for use with fully resolved MediaWiki API blocked errors.
@@ -943,34 +954,5 @@ extension UIViewController {
     @objc func wmf_showNoInternetConnectionPanelViewController(theme: Theme, primaryButtonTapHandler: @escaping ScrollableEducationPanelButtonTapHandler, completion: @escaping () -> Void) {
         let panelVC = NoInternetConnectionPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         present(panelVC, animated: true, completion: completion)
-    }
-}
-
-
-// for dev purposes, delete
-
-public struct WKAsset {
-
-    struct WKActionPositive {
-        let title: String
-        let url: URL
-    }
-
-    struct WKActionNegative {
-        let title: String
-    }
-
-    let textHtml: String
-    let footerHtml: String
-    let actionPositive: WKActionPositive
-    let actionNegative: WKActionNegative
-    let currencyCode: String
-
-    init(textHtml: String, footerHtml: String, actionPositive: WKActionPositive, actionNegative: WKActionNegative, currencyCode: String) {
-        self.textHtml = textHtml
-        self.footerHtml = footerHtml
-        self.actionPositive = actionPositive
-        self.actionNegative = actionNegative
-        self.currencyCode = currencyCode
     }
 }
