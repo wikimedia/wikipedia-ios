@@ -92,7 +92,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     fileprivate var traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?
     
     fileprivate var showCloseButton = true
-    fileprivate var showOptionalButton = false
+    fileprivate var newAnnouncement = false
+    private(set) public var showOptionalButton = false
     private var discardDismissHandlerOnPrimaryButtonTap = false
     private var primaryButtonTapped = false
     var theme: Theme = Theme.standard
@@ -324,14 +325,15 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         self.discardDismissHandlerOnPrimaryButtonTap = discardDismissHandlerOnPrimaryButtonTap
     }
     
-    init(showCloseButton: Bool, showOptionaButton: Bool = false, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler? = nil,traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, hasPinnedButtons: Bool = false, theme: Theme) {
+    init(showCloseButton: Bool, showOptionalButton: Bool = false, newAnnouncement: Bool = false, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler? = nil,traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, hasPinnedButtons: Bool = false, theme: Theme) {
         self.hasPinnedButtons = hasPinnedButtons
         super.init(nibName: "ScrollableEducationPanelView", bundle: nil)
         self.modalPresentationStyle = .overFullScreen
         self.modalTransitionStyle = .crossDissolve
         self.theme = theme
         self.showCloseButton = showCloseButton
-        self.showOptionalButton = showOptionaButton
+        self.showOptionalButton = showOptionalButton
+        self.newAnnouncement = newAnnouncement
         self.primaryButtonTapHandler = primaryButtonTapHandler
         self.secondaryButtonTapHandler = secondaryButtonTapHandler
         self.optionalButtonTapHandler = optionalButtonTapHandler
@@ -386,7 +388,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             pinnedActionButtonContainerView.alpha = 0
         }
 
-        if showOptionalButton {
+        if newAnnouncement {
             inlineCloseButtonStackView.alignment = .trailing
             inlineCloseButton.isHidden = false
             let image = UIImage(named: "close-inverse")?.withRenderingMode(.alwaysTemplate)
@@ -449,7 +451,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     }
 
     private func updateFonts() {
-        if showOptionalButton {
+        if newAnnouncement {
             pinnedSecondaryButton.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
 
             inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
@@ -564,7 +566,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         updateSubheadingHTML()
         updateFooterHTML()
 
-        if showOptionalButton {
+        if newAnnouncement {
             inlinePrimaryButton.backgroundColor = theme.colors.link
             inlinePrimaryButton.setTitleColor(theme.colors.paperBackground, for: .normal)
 

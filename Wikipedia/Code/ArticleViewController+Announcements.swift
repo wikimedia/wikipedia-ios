@@ -80,6 +80,8 @@ extension ArticleViewController {
     private func showNewDonateExperienceCampaignModal(asset: WKFundraisingCampaignConfig.WKAsset) {
         let dataController = WKFundraisingCampaignDataController()
 
+        let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date()
+
         let dismiss = {
             dataController.markAssetAsPermanentlyHidden(asset: asset)
         }
@@ -88,14 +90,17 @@ extension ArticleViewController {
                 self.navigate(to: url, useSafari: false)
             }
         }, secondaryButtonTapHandler: { sender in
-            dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
+            if shouldShowMaybeLater {
+                dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
+            }
+            dismiss()
         }, optionalButtonTapHandler: { sender in
             dismiss()
         }, footerLinkAction: { url in
             self.navigate(to: url, useSafari: false)
         }, traceableDismissHandler: { _ in
             dismiss()
-        })
+        }, showMaybeLater: shouldShowMaybeLater)
     }
 
     private func pushToDonateForm(donateURL: URL?) {

@@ -6,9 +6,9 @@ final class FundraisingAnnouncementPanelViewController: ScrollableEducationPanel
 
     private let announcement: WKFundraisingCampaignConfig.WKAsset
 
-    init(announcement: WKFundraisingCampaignConfig.WKAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?,footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, theme: Theme) {
+    init(announcement: WKFundraisingCampaignConfig.WKAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?,footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, theme: Theme, showOptionalButton: Bool) {
         self.announcement = announcement
-        super.init(showCloseButton: true, showOptionaButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, optionalButtonTapHandler: optionalButtonTapHandler, traceableDismissHandler: traceableDismissHandler, theme: theme)
+        super.init(showCloseButton: true, showOptionalButton: showOptionalButton, newAnnouncement: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, optionalButtonTapHandler: optionalButtonTapHandler, traceableDismissHandler: traceableDismissHandler, theme: theme)
         self.isUrgent = true
         self.footerLinkAction = footerLinkAction
     }
@@ -40,8 +40,16 @@ final class FundraisingAnnouncementPanelViewController: ScrollableEducationPanel
     func configureButtons() {
         let actions = announcement.actions
         primaryButtonTitle = actions[0].title
-        secondaryButtonTitle = actions[1].title
-        optionalButtonTitle = actions[2].title
+        if showOptionalButton {
+            secondaryButtonTitle = actions[1].title
+            optionalButtonTitle = actions[2].title
+        } else {
+            secondaryButtonTitle = actions[2].title
+        }
+    }
+
+    func shouldShowMaybeLater() -> Bool {
+        return true
     }
 
     private func evaluateConstraintsOnNewSize(_ size: CGSize) {

@@ -14,6 +14,7 @@ public struct WKFundraisingCampaignConfig {
      public let footerHtml: String
      public let actions: [WKAction]
      public let currencyCode: String
+     public let endDate: String
  }
  
  public let id: String
