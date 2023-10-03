@@ -27,8 +27,7 @@ import PassKit
         let formatter = NumberFormatter.wkCurrencyFormatter
         formatter.currencyCode = currencyCode
         
-        guard let merchantID = Bundle.main.wmf_merchantID(),
-              let paymentsAPIKey = Bundle.main.wmf_paymentsAPIKey() else {
+        guard let merchantID = Bundle.main.wmf_merchantID() else {
             return nil
         }
         
@@ -90,7 +89,7 @@ import PassKit
             return nil
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, paymentsAPIKey: paymentsAPIKey, delegate: delegate) else {
+        guard let viewModel = WKDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, delegate: delegate) else {
             return nil
         }
         

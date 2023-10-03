@@ -124,7 +124,7 @@ import Contacts
         }
     }
     
-    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, paymentsAPIKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
             completion(.failure(WKDataControllerError.failureCreatingRequestURL))
@@ -140,7 +140,6 @@ import Contacts
             "language": languageCode,
             "payment_token": paymentToken,
             "pay_the_fee": transactionFee ? "1" : "0",
-            "api_key": paymentsAPIKey,
             "full_name": donorNameComponents.formatted(.name(style: .long)),
             "email": donorEmail,
             "street_address": donorAddressComponents.street,
