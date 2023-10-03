@@ -10,14 +10,14 @@ extension ArticleViewController {
         let dataController = WKFundraisingCampaignDataController()
         
         // New Donor Experience if they qualify
-        if let wkProject = WikimediaProject(siteURL: articleURL)?.wkProject,
-           dataController.hasActivelyRunningCampaigns(countryCode: "NL", currentDate: .now),
-           let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: "NL", wkProject: wkProject, currentDate: .now) {
-
+        if let countryCode = Locale.current.regionCode,
+           let wkProject = WikimediaProject(siteURL: articleURL)?.wkProject,
+           dataController.hasActivelyRunningCampaigns(countryCode: countryCode, currentDate: .now),
+           let activeCampaignAsset = WKFundraisingCampaignDataController().loadActiveCampaignAsset(countryCode: countryCode, wkProject: wkProject, currentDate: .now) {
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset)
             return
         }
-        
+
         guard (isInValidSurveyCampaignAndArticleList && userHasSeenSurveyPrompt) || !isInValidSurveyCampaignAndArticleList else {
             return
         }

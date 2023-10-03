@@ -35,6 +35,6 @@ extension WMFSettingsViewController {
         let fundraisingCampaignDataController = WKFundraisingCampaignDataController()
         let currentDate = Date.now
 
-        return fundraisingCampaignDataController.hasActivelyRunningCampaigns(countryCode: "NL", currentDate: currentDate)
+        return fundraisingCampaignDataController.hasActivelyRunningCampaigns(countryCode: countryCode, currentDate: currentDate)
     }
 }

@@ -62,7 +62,7 @@ import Foundation
     ///   - countryCode: Country code of the user. Can use Locale.current.regionCode
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     /// - Returns: Boolean to indicate if there's an actively running campaign or not
-    public func hasActivelyRunningCampaigns(countryCode: String = "NL", currentDate: Date) -> Bool {
+    public func hasActivelyRunningCampaigns(countryCode: String, currentDate: Date) -> Bool {
         
         let containsActiveCampaignWithTargetID: ([WKFundraisingCampaignConfig]) -> Bool = { configs in
             let containsTargetCampaignID = configs.contains { $0.id == Self.temporaryTargetCampaignID }
@@ -84,7 +84,7 @@ import Foundation
         
         // TODO: When Oct 2023 NL campaign looks good, replace this closure with simply:
         // return !activeCountryConfigs.isEmpty
-        return true
+        return containsActiveCampaignWithTargetID(activeCountryConfigs)
     }
     
     /// Load actively running campaign text. This method automatically filters out campaigns that:
@@ -108,7 +108,7 @@ import Foundation
         let cachedResult: WKFundraisingCampaignConfigResponse? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheConfigFileName)
         
         if let cachedResult {
-            activeCountryConfigs = activeCountryConfigs(from: cachedResult, countryCode: "NL", currentDate: currentDate)
+            activeCountryConfigs = activeCountryConfigs(from: cachedResult, countryCode: countryCode, currentDate: currentDate)
 
             return queuedActiveLanguageSpecificAsset(languageCode: wkProject.languageCode, languageVariantCode: wkProject.languageVariantCode, currentDate: currentDate)
         }
@@ -151,7 +151,7 @@ import Foundation
 
             switch result {
             case .success(let response):
-                activeCountryConfigs = self.activeCountryConfigs(from: response, countryCode: "NL", currentDate: currentDate)
+                activeCountryConfigs = self.activeCountryConfigs(from: response, countryCode: countryCode, currentDate: currentDate)
 
                 try? sharedCacheStore?.save(key: cacheDirectoryName, cacheConfigFileName, value: response)
                 
