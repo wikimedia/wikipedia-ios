@@ -36,6 +36,7 @@ final class AppInteractionFunnel {
         case otherGiveClick = "other_give_click"
         case faqClick = "faq_click"
         case taxInfoClick = "taxinfo_click"
+        case submissionError = "submission_error"
         case applePayUIConfirm = "applepay_ui_confirm"
         case successToastSetting = "success_toast_setting"
         case successToastArticle = "success_toast_article"
@@ -189,6 +190,24 @@ final class AppInteractionFunnel {
         }
         
         logEvent(activeInterface: .applePay, action: .applePayUIConfirm, actionData: actionData, project: project)
+    }
+    
+    func logDonateFormNativeApplePaySubmissionError(errorReason: String?, errorCode: String?, orderID: String?, project: WikimediaProject?) {
+        var actionData: [String: String] = [:]
+        
+        if let errorReason {
+            actionData["error_reason"] = errorReason
+        }
+        
+        if let errorCode {
+            actionData["error_code"] = errorCode
+        }
+        
+        if let orderID {
+            actionData["order_id"] = orderID
+        }
+        
+        logEvent(activeInterface: .applePay, action: .submissionError, actionData: actionData, project: project)
     }
     
     func logSettingDidSeeApplePayDonateSuccessToast() {
