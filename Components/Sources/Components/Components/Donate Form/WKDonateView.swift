@@ -16,10 +16,12 @@ struct WKDonateView: View {
     @ObservedObject var viewModel: WKDonateViewModel
     
     weak var delegate: WKDonateDelegate?
+    weak var loggingDelegate: WKDonateLoggingDelegate?
     
-    init(viewModel: WKDonateViewModel, delegate: WKDonateDelegate?) {
+    init(viewModel: WKDonateViewModel, delegate: WKDonateDelegate?, loggingDelegate: WKDonateLoggingDelegate?) {
         self.viewModel = viewModel
         self.delegate = delegate
+        self.loggingDelegate = loggingDelegate
     }
     
     var body: some View {
@@ -35,6 +37,9 @@ struct WKDonateView: View {
                     WKDonateAmountTextfield(viewModel: viewModel.textfieldViewModel)
                     if let errorViewModel = viewModel.errorViewModel {
                         WKDonateErrorView(viewModel: errorViewModel)
+                            .onAppear(perform: {
+                                loggingDelegate?.logDonateFormUserDidTriggerError(error: errorViewModel.error)
+                            })
                     }
                     Spacer()
                         .frame(height: 24)
@@ -56,6 +61,7 @@ struct WKDonateView: View {
                     WKApplePayDonateButton(configuration: WKApplePayDonateButton.Configuration(paymentButtonStyle: appEnvironment.theme.paymentButtonStyle))
                         .onTapGesture {
                             viewModel.textfieldViewModel.hasFocus = false
+                            viewModel.logTappedApplePayButton()
                             viewModel.validateAndSubmit()
                             if let errorViewModel = viewModel.errorViewModel {
                                 errorViewModel.hasAccessibilityFocus = true
@@ -133,6 +139,9 @@ private struct WKDonateAmountButtonView: View {
     var body: some View {
         let configuration = WKPriceButton.Configuration(currencyCode: viewModel.currencyCode, canDeselect: false, accessibilityHint: viewModel.accessibilityHint)
         WKPriceButton(configuration: configuration, amount: $viewModel.amount, isSelected: $viewModel.isSelected)
+            .onTapGesture {
+                viewModel.loggingDelegate?.logDonateFormUserDidTapAmountPresetButton()
+            }
     }
 }
 
@@ -156,7 +165,7 @@ private struct WKDonateErrorView: View {
         Spacer()
             .frame(height: 12)
         HStack {
-            Text(viewModel.localizedStrings.text)
+            Text(viewModel.displayText)
                 .font(Font(WKFont.for(.mediumSubheadline)))
                 .foregroundColor(Color(appEnvironment.theme.destructive))
                 .accessibilityFocused($accessibilityFocus)
@@ -218,6 +227,7 @@ private struct WKDonateHelpLinks: View {
     @ObservedObject var appEnvironment = WKAppEnvironment.current
     let viewModel: WKDonateViewModel
     weak var delegate: WKDonateDelegate?
+    weak var loggingDelegate: WKDonateLoggingDelegate?
     
     init(viewModel: WKDonateViewModel, delegate: WKDonateDelegate?) {
         self.viewModel = viewModel
@@ -228,15 +238,19 @@ private struct WKDonateHelpLinks: View {
         VStack(alignment: .leading, spacing: 8) {
             WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkProblemsDonating) {
                 delegate?.donateDidTapProblemsDonatingLink()
+                loggingDelegate?.logDonateFormUserDidTapProblemsDonatingLink()
             }
             WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkOtherWaysToGive) {
                 delegate?.donateDidTapOtherWaysToGive()
+                loggingDelegate?.logDonateFormUserDidTapOtherWaysToGiveLink()
             }
             WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkFrequentlyAskedQuestions) {
                 delegate?.donateDidTapFrequentlyAskedQuestions()
+                loggingDelegate?.logDonateFormUserDidTapFAQLink()
             }
             WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkTaxDeductibilityInformation) {
                 delegate?.donateDidTapTaxDeductibilityInformation()
+                loggingDelegate?.logDonateFormUserDidTapTaxInfoLink()
             }
         }
         .padding(EdgeInsets(top: 16, leading: 0, bottom: 28, trailing: 0))

@@ -27,12 +27,12 @@ public enum WKUserDefaultsStoreError: Error {
 }
 
 public enum WKDonateDataControllerError: LocalizedError {
-    case paymentsWikiResponseError(String?)
+    case paymentsWikiResponseError(reason: String?, orderID: String?)
     
     public var errorDescription: String? {
         switch self {
-        case .paymentsWikiResponseError(let errorText):
-            return errorText
+        case .paymentsWikiResponseError(let reason, _):
+            return reason
         }
     }
 }

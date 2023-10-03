@@ -166,7 +166,7 @@ import Contacts
                 case "success":
                     completion(.success(()))
                 case "error":
-                    completion(.failure(WKDonateDataControllerError.paymentsWikiResponseError(response.response.errorMessage)))
+                    completion(.failure(WKDonateDataControllerError.paymentsWikiResponseError(reason: response.response.errorMessage, orderID: response.response.orderID)))
                 default:
                     completion(.failure(WKServiceError.unexpectedResponse))
                 }

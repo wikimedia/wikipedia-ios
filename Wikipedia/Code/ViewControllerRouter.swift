@@ -20,6 +20,7 @@ import WKData
 struct RoutingUserInfoKeys {
     static let talkPageReplyText = "talk-page-reply-text"
     static let source = "source"
+    static let wikimediaProject = "wikimedia-project"
 }
 
 enum RoutingUserInfoSourceValue: String {
@@ -119,7 +120,8 @@ class ViewControllerRouter: NSObject {
             let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager)
             return presentOrPush(diffContainerVC, with: completion)
         case .inAppLink(let linkURL):
-            let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)
+            let wikimediaProject = userInfo?[RoutingUserInfoKeys.wikimediaProject] as? WikimediaProject
+            let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme, wikimediaProject: wikimediaProject)
             return presentOrPush(singlePageVC, with: completion)
         case .audio(let audioURL):
             try? AVAudioSession.sharedInstance().setCategory(.playback)

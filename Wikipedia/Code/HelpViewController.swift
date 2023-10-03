@@ -25,8 +25,8 @@ class HelpViewController: SinglePageWebViewController {
         fatalError("init(url:theme:) has not been implemented")
     }
 
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false) {
-        fatalError("init(url:theme:doesUseSimpleNavigationBar:) has not been implemented")
+    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, wikimediaProject: WikimediaProject? = nil) {
+        fatalError("init(url:theme:doesUseSimpleNavigationBar:projectIdentifier:) has not been implemented")
     }
 
     lazy var sendEmailToolbarItem: UIBarButtonItem = {

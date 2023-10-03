@@ -1,17 +1,31 @@
 import Foundation
 
+@objc public protocol WKDonateLoggingDelegate: AnyObject {
+    func logDonateFormDidAppear()
+    func logDonateFormUserDidTriggerError(error: Error)
+    func logDonateFormUserDidTapAmountPresetButton()
+    func logDonateFormUserDidEnterAmountInTextfield()
+    func logDonateFormUserDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: NSNumber?)
+    func logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, recurringMonthlyIsSelected: Bool, donorEmail: String?)
+    func logDonateFormUserDidTapProblemsDonatingLink()
+    func logDonateFormUserDidTapOtherWaysToGiveLink()
+    func logDonateFormUserDidTapFAQLink()
+    func logDonateFormUserDidTapTaxInfoLink()
+}
+
 public final class WKDonateViewController: WKCanvasViewController {
     
     // MARK: - Properties
 
     fileprivate let hostingViewController: WKDonateHostingViewController
     private let viewModel: WKDonateViewModel
+    private weak var loggingDelegate: WKDonateLoggingDelegate?
     
     // MARK: - Lifecycle
     
-    public init(viewModel: WKDonateViewModel, delegate: WKDonateDelegate?) {
+    public init(viewModel: WKDonateViewModel, delegate: WKDonateDelegate?, loggingDelegate: WKDonateLoggingDelegate?) {
         self.viewModel = viewModel
-        self.hostingViewController = WKDonateHostingViewController(viewModel: viewModel, delegate: delegate)
+        self.hostingViewController = WKDonateHostingViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
         super.init()
     }
     
@@ -35,13 +49,14 @@ public final class WKDonateViewController: WKCanvasViewController {
         super.viewWillDisappear(animated)
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        loggingDelegate?.logDonateFormDidAppear()
     }
 }
 
 fileprivate final class WKDonateHostingViewController: WKComponentHostingController<WKDonateView> {
 
-    init(viewModel: WKDonateViewModel, delegate: WKDonateDelegate?) {
-        super.init(rootView: WKDonateView(viewModel: viewModel, delegate: delegate))
+    init(viewModel: WKDonateViewModel, delegate: WKDonateDelegate?, loggingDelegate: WKDonateLoggingDelegate?) {
+        super.init(rootView: WKDonateView(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate))
     }
 
     required init?(coder aDecoder: NSCoder) {

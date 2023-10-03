@@ -1,8 +1,11 @@
 import WebKit
 import CocoaLumberjackSwift
+import WMF
 
 class SinglePageWebViewController: ViewController {
     let url: URL
+    let wikimediaProject: WikimediaProject?
+    
     var doesUseSimpleNavigationBar: Bool {
         didSet {
             if doesUseSimpleNavigationBar {
@@ -12,8 +15,9 @@ class SinglePageWebViewController: ViewController {
         }
     }
 
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false) {
+    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, wikimediaProject: WikimediaProject? = nil) {
         self.url = url
+        self.wikimediaProject = wikimediaProject
         self.doesUseSimpleNavigationBar = doesUseSimpleNavigationBar
         super.init()
         self.theme = theme
@@ -106,7 +110,14 @@ class SinglePageWebViewController: ViewController {
         }
         fetched = true
         fetch()
-
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if url.isDonationURL {
+            AppInteractionFunnel.shared.logDonateFormInAppWebViewImpression(project: wikimediaProject)
+        }
     }
 
     func setupBottomView() {
@@ -146,6 +157,7 @@ class SinglePageWebViewController: ViewController {
         } else if action.navigationType == .other,
                   actionURL.isThankYouDonationURL {
             setupBottomView()
+            AppInteractionFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: wikimediaProject)
         }
         
         return true
@@ -168,6 +180,7 @@ class SinglePageWebViewController: ViewController {
     }
 
     @objc func didTapReturnButton() {
+        AppInteractionFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: wikimediaProject)
         navigationController?.popViewController(animated: true)
     }
 }

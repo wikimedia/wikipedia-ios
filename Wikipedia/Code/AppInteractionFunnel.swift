@@ -1,9 +1,9 @@
 import Foundation
 import WMF
 
-final class AppInteractionFunnel {
+@objc(WMFAppInteractionFunnel) final class AppInteractionFunnel: NSObject {
    
-    static let shared = AppInteractionFunnel()
+    @objc static let shared = AppInteractionFunnel()
     
     private enum ActiveInterface: String {
         case setting = "setting"
@@ -62,8 +62,6 @@ final class AppInteractionFunnel {
    
     private func logEvent(activeInterface: ActiveInterface? = nil, action: Action? = nil, actionData: [String: String]? = nil, project: WikimediaProject? = nil) {
         
-        let wikiID = project?.notificationsApiWikiIdentifier
-        
         var actionDataString: String? = nil
         if let actionData {
             for (key, value) in actionData.enumerated() {
@@ -85,7 +83,7 @@ final class AppInteractionFunnel {
         logEvent(activeInterface: .setting, action: .settingClick)
     }
     
-    func logSettingsDidTapDonateCell() {
+    @objc func logSettingsDidTapDonateCell() {
         logEvent(activeInterface: .setting, action: .donateStartClick)
     }
     
@@ -157,10 +155,14 @@ final class AppInteractionFunnel {
         logEvent(activeInterface: .applePay, action: .amountEntered, project: project)
     }
     
-    func logDonateFormNativeApplePayDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: Bool, project: WikimediaProject?) {
-        let actionData = ["add_transaction": String(transactionFeeIsSelected),
-                          "recurring": String(recurringMonthlyIsSelected),
-                          "email_subscribe": String(emailOptInIsSelected)]
+    func logDonateFormNativeApplePayDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: Bool?, project: WikimediaProject?) {
+        var actionData = ["add_transaction": String(transactionFeeIsSelected),
+                          "recurring": String(recurringMonthlyIsSelected)]
+        
+        if let emailOptInIsSelected {
+            actionData["email_subscribe"] = String(emailOptInIsSelected)
+        }
+        
         logEvent(activeInterface: .applePay, action: .donateConfirmClick, actionData: actionData, project: project)
     }
     
@@ -180,13 +182,16 @@ final class AppInteractionFunnel {
         logEvent(activeInterface: .applePay, action: .taxInfoClick, project: project)
     }
     
-    func logDonateFormNativeApplePayDidAuthorizeApplePay(amount: Decimal, recurringMonthlyIsSelected: Bool, campaignID: String?, donorEmail: String, project: WikimediaProject?) {
+    func logDonateFormNativeApplePayDidAuthorizeApplePay(amount: Decimal, recurringMonthlyIsSelected: Bool, campaignID: String?, donorEmail: String?, project: WikimediaProject?) {
         var actionData = ["donation_amount": (amount as NSNumber).stringValue,
                           "recurring": String(recurringMonthlyIsSelected),
-                          "pay_method": "applepay",
-                          "email_subscribe": donorEmail]
+                          "pay_method": "applepay"]
         if let campaignID {
             actionData["campaign_id"] = campaignID
+        }
+        
+        if let donorEmail {
+            actionData["email_subscribe"] = donorEmail
         }
         
         logEvent(activeInterface: .applePay, action: .applePayUIConfirm, actionData: actionData, project: project)
