@@ -87,7 +87,7 @@ extension ArticleViewController {
             dataController.markAssetAsPermanentlyHidden(asset: asset)
         }
 
-        wmf_showFundraisingAnnouncement(theme: theme, object: asset, primaryButtonTapHandler: { sender in
+        wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { sender in
             if let url = asset.actions[0].url {
                 self.navigate(to: url, useSafari: false)
             }
@@ -98,6 +98,7 @@ extension ArticleViewController {
             }
             self.sharedDonateDidSetMaybeLater()
         }, optionalButtonTapHandler: { sender in
+            self.sharedDonateAlreadyDonated()
             dismiss()
         }, footerLinkAction: { url in
             self.navigate(to: url, useSafari: false)

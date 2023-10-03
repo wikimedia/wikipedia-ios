@@ -200,9 +200,17 @@ import PassKit
 
     func sharedDonateDidSetMaybeLater() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tommorow.", comment: "Title for toast shown when user clicks reming later on fundraising banner")
+            let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tommorow.", comment: "Title for toast shown when user clicks remind me later on fundraising banner")
 
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
+        }
+    }
+
+    func sharedDonateAlreadyDonated() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let title = WMFLocalizedString("donate-already-donated", value: "Thank you, dear donor! Your generosity helps keep Wikipedia and its sister sites thriving.", comment: "Thank you toast shown when user clicks already donated on fundraising banner")
+
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
         }
     }
 }
