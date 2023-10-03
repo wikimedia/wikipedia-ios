@@ -9,7 +9,6 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     // MARK: - Nested Types
     
     enum Error: Swift.Error {
-        case missingMerchantID
         case invalidToken
         case missingDonorInfo
     }
@@ -133,6 +132,9 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     private let currencyCode: String
     private let countryCode: String
     
+    private let merchantID: String
+    private let paymentsAPIKey: String
+    
     @Published var buttonViewModels: [AmountButtonViewModel]
     @Published var textfieldViewModel: AmountTextFieldViewModel
     @Published var transactionFeeOptInViewModel: OptInViewModel
@@ -146,14 +148,19 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     private var buttonSubscribers: Set<AnyCancellable> = []
     private var transactionFeeSubscribers: Set<AnyCancellable> = []
     
+    private weak var delegate: WKDonateDelegate?
+    
     // MARK: - Lifecycle
     
-    public init?(localizedStrings: LocalizedStrings, donateConfig: WKDonateConfig, paymentMethods: WKPaymentMethods, currencyCode: String, countryCode: String) {
+    public init?(localizedStrings: LocalizedStrings, donateConfig: WKDonateConfig, paymentMethods: WKPaymentMethods, currencyCode: String, countryCode: String, merchantID: String, paymentsAPIKey: String, delegate: WKDonateDelegate?) {
         self.localizedStrings = localizedStrings
         self.donateConfig = donateConfig
         self.paymentMethods = paymentMethods
         self.currencyCode = currencyCode
         self.countryCode = countryCode
+        self.merchantID = merchantID
+        self.paymentsAPIKey = paymentsAPIKey
+        self.delegate = delegate
         
         guard let transactionFeeAmount = donateConfig.transactionFee(for: currencyCode) else {
             return nil
@@ -233,13 +240,6 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     
     func submit() {
         guard errorViewModel == nil else {
-            return
-        }
-        
-        guard let merchantID = Bundle.main.object(forInfoDictionaryKey: "MerchantID") as? String else {
-            let error = Error.missingMerchantID
-            let errorText = String.localizedStringWithFormat(localizedStrings.genericErrorTextFormat, error.localizedDescription)
-            self.errorViewModel = ErrorViewModel(localizedStrings: ErrorViewModel.LocalizedStrings(text: errorText))
             return
         }
         
@@ -428,10 +428,20 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         let emailOptIn: Bool? = emailOptInViewModel?.isSelected
         
         let dataController = WKDonateDataController()
-        dataController.submitPayment(amount: finalAmount, currencyCode: currencyCode, paymentToken: paymentToken, donorName: donorName, donorEmail: donorEmail, donorAddress: donorFormattedAddress, emailOptIn: emailOptIn) { result in
+        dataController.submitPayment(amount: finalAmount, currencyCode: currencyCode, paymentToken: paymentToken, donorName: donorName, donorEmail: donorEmail, donorAddress: donorFormattedAddress, emailOptIn: emailOptIn, paymentsAPIKey: paymentsAPIKey) { [weak self] result in
+            
+            guard let self else {
+                return
+            }
+            
             switch result {
             case .success:
                 completion(PKPaymentAuthorizationResult(status: .success, errors: []))
+                
+                // Wait for payment sheet to dismiss
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: { [weak self] in
+                    self?.delegate?.donateDidSuccessfullySubmitPayment()
+                })
             case .failure(let error):
                 // TODO: Handle errors more?
                 completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))

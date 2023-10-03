@@ -3,6 +3,8 @@ import XCTest
 @testable import WKDataMocks
 
 final class WKDonateDataControllerTests: XCTestCase {
+    
+    let paymentsAPIKey = "ABCDPaymentAPIKeyEFGH"
 
     override func setUp() async throws {
         WKDataEnvironment.current.basicService = WKMockDonateBasicService()
@@ -14,7 +16,7 @@ final class WKDonateDataControllerTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Fetch Donate Configs")
         
-        controller.fetchConfigs(for: "US") { result in
+        controller.fetchConfigs(for: "US", paymentsAPIKey: paymentsAPIKey) { result in
             switch result {
             case .success:
                 break
@@ -53,7 +55,7 @@ final class WKDonateDataControllerTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Fetch Donate Configs")
         
-        controller.submitPayment(amount: 3, currencyCode: "USD", paymentToken: "fake-token", donorName: "iOS Tester", donorEmail: "wikimediaTester1@gmail.com", donorAddress: "123 Fake Street\nFaketown AA 12345\nUnited States", emailOptIn: nil) { result in
+        controller.submitPayment(amount: 3, currencyCode: "USD", paymentToken: "fake-token", donorName: "iOS Tester", donorEmail: "wikimediaTester1@gmail.com", donorAddress: "123 Fake Street\nFaketown AA 12345\nUnited States", emailOptIn: nil, paymentsAPIKey: paymentsAPIKey) { result in
             switch result {
             case .success:
                 break

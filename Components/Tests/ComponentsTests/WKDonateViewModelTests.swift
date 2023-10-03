@@ -8,13 +8,16 @@ final class WKDonateViewModelTests: XCTestCase {
     private var paymentMethods: WKPaymentMethods?
     private var donateConfig: WKDonateConfig?
     
+    private let merchantID = "merchant.id"
+    private let paymentsAPIKey = "ABCDPaymentAPIKeyEFGH"
+    
     override func setUp(completion: @escaping (Error?) -> Void) {
         WKDataEnvironment.current.basicService = WKMockDonateBasicService()
         WKDataEnvironment.current.serviceEnvironment = .staging
         
         let controller = WKDonateDataController()
         
-        controller.fetchConfigs(for: "US") { result in
+        controller.fetchConfigs(for: "US", paymentsAPIKey: paymentsAPIKey) { result in
             switch result {
             case .success:
                 self.paymentMethods = WKDonateDataController.paymentMethods
@@ -34,7 +37,7 @@ final class WKDonateViewModelTests: XCTestCase {
             return
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: "USD", countryCode: "US") else {
+        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: "USD", countryCode: "US", merchantID: merchantID, paymentsAPIKey: paymentsAPIKey, delegate: nil) else {
             XCTFail("View model failed to instantiate")
             return
         }
@@ -92,7 +95,7 @@ final class WKDonateViewModelTests: XCTestCase {
             return
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("UYU"), donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: "UYU", countryCode: "UY") else {
+        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("UYU"), donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: "UYU", countryCode: "UY", merchantID: merchantID, paymentsAPIKey: paymentsAPIKey, delegate: nil) else {
             XCTFail("View model failed to instantiate")
             return
         }
@@ -150,7 +153,7 @@ final class WKDonateViewModelTests: XCTestCase {
             return
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: "USD", countryCode: "US") else {
+        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: "USD", countryCode: "US", merchantID: merchantID, paymentsAPIKey: paymentsAPIKey, delegate: nil) else {
             XCTFail("View model failed to instantiate")
             return
         }
@@ -183,7 +186,7 @@ final class WKDonateViewModelTests: XCTestCase {
             return
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: "USD", countryCode: "US") else {
+        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: "USD", countryCode: "US", merchantID: merchantID, paymentsAPIKey: paymentsAPIKey, delegate: nil) else {
             XCTFail("View model failed to instantiate")
             return
         }
@@ -218,7 +221,7 @@ final class WKDonateViewModelTests: XCTestCase {
             return
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: "USD", countryCode: "US") else {
+        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: "USD", countryCode: "US", merchantID: merchantID, paymentsAPIKey: paymentsAPIKey, delegate: nil) else {
             XCTFail("View model failed to instantiate")
             return
         }
@@ -254,7 +257,7 @@ final class WKDonateViewModelTests: XCTestCase {
             return
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: "USD", countryCode: "US") else {
+        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: "USD", countryCode: "US", merchantID: merchantID, paymentsAPIKey: paymentsAPIKey, delegate: nil) else {
             XCTFail("View model failed to instantiate")
             return
         }
@@ -279,7 +282,7 @@ final class WKDonateViewModelTests: XCTestCase {
             return
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: "USD", countryCode: "US") else {
+        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, currencyCode: "USD", countryCode: "US", merchantID: merchantID, paymentsAPIKey: paymentsAPIKey, delegate: nil) else {
             XCTFail("View model failed to instantiate")
             return
         }
