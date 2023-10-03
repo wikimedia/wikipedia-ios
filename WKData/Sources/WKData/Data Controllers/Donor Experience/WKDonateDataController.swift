@@ -71,8 +71,6 @@ import Contacts
             "action": "raw"
         ]
         
-        // TODO: Send in API key
-        
         var errors: [Error] = []
         
         group.enter()
@@ -126,43 +124,41 @@ import Contacts
         }
     }
     
-    public func submitPayment(amount: Decimal, currencyCode: String, paymentToken: String, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, paymentsAPIKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, paymentsAPIKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
             completion(.failure(WKDataControllerError.failureCreatingRequestURL))
             return
         }
         
-        let donorInfo: [String: Any] = [
-            "first_name": donorNameComponents.givenName as Any,
-            "last_name": donorNameComponents.familyName as Any,
+        var parameters: [String: String] = [
+            "action": "submitPayment",
+            "amount": (amount as NSNumber).stringValue,
+            "currency": currencyCode,
+            "recurring": recurring ? "1" : "0",
+            "country": countryCode,
+            "language": languageCode,
+            "payment_token": paymentToken,
+            "pay_the_fee": transactionFee ? "1" : "0",
+            "api_key": paymentsAPIKey,
             "full_name": donorNameComponents.formatted(.name(style: .long)),
             "email": donorEmail,
             "street_address": donorAddressComponents.street,
             "city": donorAddressComponents.city,
             "state_province": donorAddressComponents.state,
-            "country": donorAddressComponents.country,
+            "donor_country": donorAddressComponents.country,
             "postal_code": donorAddressComponents.postalCode
         ]
         
-        var parameters: [String: Any] = [
-            "action": "submitPayment",
-            "amount": amount,
-            "currency": currencyCode,
-            "payment_token": paymentToken,
-            "donor_info": donorInfo,
-            "recurring": recurring ? 1 : 0,
-            "pay_the_fee": transactionFee ? 1 : 0,
-            "api_key": paymentsAPIKey
-        ]
-        
-        if let emailOptIn {
-            parameters["opt_in"] = emailOptIn ? 1 : 0
+        if let emailOptIn,
+           let firstName = donorNameComponents.givenName,
+           let lastName = donorNameComponents.familyName {
+            parameters["opt_in"] = emailOptIn ? "1" : "0"
+            parameters["first_name"] = firstName
+            parameters["last_name"] = lastName
         }
-        
-        // TODO: Send in API key
             
-        let request = WKBasicServiceRequest(url: donatePaymentSubmissionURL, method: .POST, parameters: parameters, bodyContentType: .json)
+        let request = WKBasicServiceRequest(url: donatePaymentSubmissionURL, method: .POST, parameters: parameters, bodyContentType: .form)
         service?.performDecodablePOST(request: request, completion: { (result: Result<WKPaymentSubmissionResponse, Error>) in
             switch result {
             case .success(let response):

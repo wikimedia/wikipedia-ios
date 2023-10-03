@@ -153,13 +153,7 @@ class AccountViewController: SubSettingsViewController {
             
             WatchlistFunnel.shared.logOpenWatchlistFromAccount()
             
-            let userDefaults = UserDefaults.standard
-
-            if !userDefaults.wmf_userHasOnboardedToWatchlists {
-                showWatchlistOnboarding()
-            } else {
-                goToWatchlist()
-            }
+            goToWatchlist()
 
         case .vanishAccount:
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
@@ -167,24 +161,6 @@ class AccountViewController: SubSettingsViewController {
             present(warningViewController, animated: true)
         default:
             break
-        }
-    }
-
-    @objc func showWatchlistOnboarding() {
-        let trackChanges = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "track-changes"), title: CommonStrings.watchlistTrackChangesTitle, subtitle: CommonStrings.watchlistTrackChangesSubtitle)
-        let watchArticles = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "watch-articles"), title: CommonStrings.watchlistWatchChangesTitle, subtitle: CommonStrings.watchlistWatchChangesSubitle)
-        let setExpiration = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "set-expiration"), title: CommonStrings.watchlistSetExpirationTitle, subtitle: CommonStrings.watchlistSetExpirationSubtitle)
-        let viewUpdates = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "view-updates"), title: CommonStrings.watchlistViewUpdatesTitle, subtitle: CommonStrings.watchlistViewUpdatesSubitle)
-
-        let viewModel = WKOnboardingViewModel(title: CommonStrings.watchlistOnboardingTitle, cells: [trackChanges, watchArticles, setExpiration, viewUpdates], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.watchlistOnboardingLearnMore)
-
-        let viewController = WKOnboardingViewController(viewModel: viewModel)
-        viewController.hostingController.delegate = self
-        
-        WatchlistFunnel.shared.logWatchlistOnboardingAppearance()
-
-        present(viewController, animated: true) {
-            UserDefaults.standard.wmf_userHasOnboardedToWatchlists = true
         }
     }
 
@@ -260,33 +236,5 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
 
         let viewController = VanishAccountContainerViewController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
         navigationController?.pushViewController(viewController, animated: true)
-    }
-}
-
-extension AccountViewController: WKOnboardingViewDelegate {
-    func didClickPrimaryButton() {
-        
-        WatchlistFunnel.shared.logWatchlistOnboardingTapContinue()
-        
-        if let presentedViewController {
-            presentedViewController.dismiss(animated: true) {
-                self.goToWatchlist()
-            }
-        }
-    }
-
-    func didClickSecondaryButton() {
-        
-        WatchlistFunnel.shared.logWatchlistOnboardingTapLearnMore()
-
-        if let presentedViewController {
-            presentedViewController.dismiss(animated: true) {
-                guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ#Watchlist") else {
-                    self.showGenericError()
-                    return
-                }
-                self.navigate(to: url)
-            }
-        }
     }
 }

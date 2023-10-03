@@ -63,7 +63,7 @@ final class WKDonateDataControllerTests: XCTestCase {
         let nameComponents = PersonNameComponents()
         let addressComponents = CNPostalAddress()
         
-        controller.submitPayment(amount: 3, currencyCode: "USD", paymentToken: "fake-token", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, paymentsAPIKey: "fake-api-key") { result in
+        controller.submitPayment(amount: 3, countryCode: "US", currencyCode: "USD", languageCode: "EN", paymentToken: "fake-token", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, paymentsAPIKey: "fake-api-key") { result in
             switch result {
             case .success:
                 break
@@ -175,7 +175,7 @@ final class WKDonateDataControllerTests: XCTestCase {
         let nameComponents = PersonNameComponents()
         let addressComponents = CNPostalAddress()
         
-        controller.submitPayment(amount: 3, currencyCode: "USD", paymentToken: "fake-token", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, paymentsAPIKey: "fake-api-key") { result in
+        controller.submitPayment(amount: 3, countryCode: "US", currencyCode: "USD", languageCode: "EN", paymentToken: "fake-token", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, paymentsAPIKey: "fake-api-key") { result in
             switch result {
             case .success:
                 XCTFail("Expected submitPayment to fail")

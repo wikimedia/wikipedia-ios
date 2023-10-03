@@ -153,7 +153,7 @@ public class WKMockBasicService: WKService {
             
             return jsonData
         } else if request.isSubmitPaymentPost {
-            let resourceName = Int.random(in: 0...1) == 1 ? "donate-post-submit-payment-success" : "donate-post-submit-payment-error"
+            let resourceName = "donate-post-submit-payment-success" // "donate-post-submit-payment-error" for error testing
             
             guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
                   let jsonData = try? Data(contentsOf: url) else {

@@ -78,13 +78,15 @@ extension ArticleViewController {
     }
     
     private func showNewDonateExperienceCampaignModal(asset: WKFundraisingCampaignConfig.WKAsset) {
+
         let dataController = WKFundraisingCampaignDataController()
 
-        let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date()
+        let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
 
         let dismiss = {
             dataController.markAssetAsPermanentlyHidden(asset: asset)
         }
+
         wmf_showFundraisingAnnouncement(theme: theme, object: asset, primaryButtonTapHandler: { sender in
             if let url = asset.actions[0].url {
                 self.navigate(to: url, useSafari: false)
@@ -103,9 +105,14 @@ extension ArticleViewController {
         }, showMaybeLater: shouldShowMaybeLater)
     }
 
-    private func pushToDonateForm(donateURL: URL?) {
-        if canOfferNativeDonateForm(), let donateURL = donateURL {
-            presentNewDonorExperiencePaymentMethodActionSheet(donateURL: donateURL)
+
+    private func pushToDonateForm(asset: WKFundraisingCampaignConfig.WKAsset) {
+        let firstAction = asset.actions[0]
+        let donateURL = firstAction.url
+        
+        if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode),
+           let donateURL = donateURL {
+            presentNewDonorExperiencePaymentMethodActionSheet(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL)
         } else {
             self.navigate(to: donateURL, useSafari: false)
         }
