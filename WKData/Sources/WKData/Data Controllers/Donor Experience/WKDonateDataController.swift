@@ -124,7 +124,7 @@ import Contacts
         }
     }
     
-    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
             completion(.failure(WKDataControllerError.failureCreatingRequestURL))
@@ -146,15 +146,24 @@ import Contacts
             "city": donorAddressComponents.city,
             "state_province": donorAddressComponents.state,
             "donor_country": donorAddressComponents.country,
-            "postal_code": donorAddressComponents.postalCode
+            "postal_code": donorAddressComponents.postalCode,
+            "payment_method": "applepay"
         ]
         
-        if let emailOptIn,
-           let firstName = donorNameComponents.givenName,
-           let lastName = donorNameComponents.familyName {
+        if let emailOptIn {
             parameters["opt_in"] = emailOptIn ? "1" : "0"
+        }
+        
+        if let firstName = donorNameComponents.givenName {
             parameters["first_name"] = firstName
+        }
+        
+        if let lastName = donorNameComponents.familyName {
             parameters["last_name"] = lastName
+        }
+        
+        if let paymentNetwork {
+            parameters["payment_network"] = paymentNetwork
         }
             
         let request = WKBasicServiceRequest(url: donatePaymentSubmissionURL, method: .POST, parameters: parameters, bodyContentType: .form)

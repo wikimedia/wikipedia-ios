@@ -430,8 +430,10 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         let recurring: Bool = monthlyRecurringViewModel.isSelected
         let emailOptIn: Bool? = emailOptInViewModel?.isSelected
         
+        let paymentNetwork = payment.token.paymentMethod.network?.rawValue
+        
         let dataController = WKDonateDataController()
-        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected) { [weak self] result in
+        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected) { [weak self] result in
             
             guard let self else {
                 return
