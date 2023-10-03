@@ -31,8 +31,8 @@ final class FundraisingAnnouncementPanelViewController: ScrollableEducationPanel
         configureButtons()
     }
 
-    override func viewIsAppearing(_ animated: Bool) {
-        super.viewIsAppearing(animated)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         evaluateConstraintsOnNewSize(view.frame.size)
         subheadingTextView.textContainerInset = .zero
     }
