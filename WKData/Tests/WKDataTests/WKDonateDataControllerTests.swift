@@ -4,9 +4,6 @@ import Contacts
 @testable import WKDataMocks
 
 final class WKDonateDataControllerTests: XCTestCase {
-    
-    let paymentsAPIKey = "ABCDPaymentAPIKeyEFGH"
-    
 
     override func setUp() async throws {
         WKDataEnvironment.current.basicService = WKMockBasicService()
@@ -19,7 +16,7 @@ final class WKDonateDataControllerTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Fetch Donate Configs")
         
-        controller.fetchConfigs(for: "US", paymentsAPIKey: paymentsAPIKey) { result in
+        controller.fetchConfigs(for: "US") { result in
             switch result {
             case .success:
                 break
@@ -83,7 +80,7 @@ final class WKDonateDataControllerTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Fetch Donate Configs")
         
-        controller.fetchConfigs(for: "US", paymentsAPIKey: paymentsAPIKey) { result in
+        controller.fetchConfigs(for: "US") { result in
             switch result {
             case .success:
                 
@@ -119,7 +116,7 @@ final class WKDonateDataControllerTests: XCTestCase {
         
         // First fetch successfully to populate cache
         let connectedController = WKDonateDataController()
-        connectedController.fetchConfigs(for: "US", paymentsAPIKey: paymentsAPIKey) { result in
+        connectedController.fetchConfigs(for: "US") { result in
             switch result {
             case .success:
                 
@@ -133,7 +130,7 @@ final class WKDonateDataControllerTests: XCTestCase {
                 let disconnectedController = WKDonateDataController()
 
                 // Fetch again
-                disconnectedController.fetchConfigs(for: "US", paymentsAPIKey: self.paymentsAPIKey) { result in
+                disconnectedController.fetchConfigs(for: "US") { result in
                     switch result {
                     case .success:
                         

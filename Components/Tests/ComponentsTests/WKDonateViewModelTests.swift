@@ -9,7 +9,6 @@ final class WKDonateViewModelTests: XCTestCase {
     private var donateConfig: WKDonateConfig?
     
     private let merchantID = "merchant.id"
-    private let paymentsAPIKey = "ABCDPaymentAPIKeyEFGH"
     
     override func setUp(completion: @escaping (Error?) -> Void) {
         WKDataEnvironment.current.basicService = WKMockBasicService()
@@ -17,7 +16,7 @@ final class WKDonateViewModelTests: XCTestCase {
         
         let controller = WKDonateDataController()
         
-        controller.fetchConfigs(for: "US", paymentsAPIKey: paymentsAPIKey) { result in
+        controller.fetchConfigs(for: "US") { result in
             switch result {
             case .success:
                 self.paymentMethods = controller.paymentMethods

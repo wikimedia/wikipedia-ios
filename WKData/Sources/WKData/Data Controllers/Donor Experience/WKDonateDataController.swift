@@ -39,13 +39,13 @@ import Contacts
         return (donateConfig, paymentMethods)
     }
     
-    @objc public func fetchConfigs(countryCode: String, paymentsAPIKey: String) {
-        fetchConfigs(for: countryCode, paymentsAPIKey: paymentsAPIKey) { result in
+    @objc public func fetchConfigs(countryCode: String) {
+        fetchConfigs(for: countryCode) { result in
             
         }
     }
     
-    public func fetchConfigs(for countryCode: String, paymentsAPIKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func fetchConfigs(for countryCode: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let service else {
             completion(.failure(WKDataControllerError.basicServiceUnavailable))
@@ -63,7 +63,6 @@ import Contacts
         let paymentMethodParameters: [String: Any] = [
             "action": "getPaymentMethods",
             "country": countryCode,
-            "api_key": paymentsAPIKey,
             "format": "json"
         ]
         

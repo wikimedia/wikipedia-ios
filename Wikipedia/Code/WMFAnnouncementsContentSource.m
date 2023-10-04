@@ -53,7 +53,7 @@
     NSString *countryCode = [[NSLocale currentLocale] countryCode];
     [self.fundraisingCampaignDataController fetchConfigWithCountryCode:countryCode currentDate:[NSDate now]];
     
-    [self.donateDataController fetchConfigsWithCountryCode:countryCode paymentsAPIKey:[[NSBundle mainBundle] wmf_paymentsAPIKey]];
+    [self.donateDataController fetchConfigsWithCountryCode:countryCode];
     
     [self.fetcher fetchAnnouncementsForURL:self.siteURL
         force:force
