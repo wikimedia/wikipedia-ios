@@ -3,7 +3,7 @@ import WKData
 
 #if DEBUG
 
-public class WKMockWatchlistMediaWikiServiceNoInternetConnection: WKService {
+public class WKMockServiceNoInternetConnection: WKService {
 
     public init() {
         
@@ -20,7 +20,8 @@ public class WKMockWatchlistMediaWikiServiceNoInternetConnection: WKService {
     }
     
     public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WKData.WKServiceRequest, T : Decodable {
-        
+        let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet)
+        completion(.failure(error))
     }
     
 }

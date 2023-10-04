@@ -53,9 +53,32 @@ fileprivate extension WKData.WKServiceRequest {
             return method == .POST && action == "submitPayment"
         }
     }
+    
+    var isFundraisingCampaignGet: Bool {
+        switch WKDataEnvironment.current.serviceEnvironment {
+        case .production:
+            guard let url,
+                  url.host == "donate.wikimedia.org",
+                  url.path == "/wiki/MediaWiki:AppsCampaignConfig.json",
+                  let action = parameters?["action"] as? String else {
+                return false
+            }
+            
+            return method == .GET && action == "raw"
+        case .staging:
+            guard let url,
+                  url.host == "test.wikipedia.org",
+                  url.path == "/wiki/MediaWiki:AppsCampaignConfig.json",
+                  let action = parameters?["action"] as? String else {
+                return false
+            }
+            
+            return method == .GET && action == "raw"
+        }
+    }
 }
 
-public class WKMockDonateBasicService: WKService {
+public class WKMockBasicService: WKService {
     
     public init() {
         
@@ -130,7 +153,16 @@ public class WKMockDonateBasicService: WKService {
             
             return jsonData
         } else if request.isSubmitPaymentPost {
-            let resourceName = "donate-post-submit-payment-success"
+            let resourceName = "donate-post-submit-payment-success" // "donate-post-submit-payment-error" for error testing
+            
+            guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
+                  let jsonData = try? Data(contentsOf: url) else {
+                return nil
+            }
+            
+            return jsonData
+        } else if request.isFundraisingCampaignGet {
+            let resourceName = "fundraising-campaign-get-config"
             
             guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
                   let jsonData = try? Data(contentsOf: url) else {

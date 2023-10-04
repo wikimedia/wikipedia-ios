@@ -1,14 +1,17 @@
 import XCTest
+import Contacts
 @testable import WKData
 @testable import WKDataMocks
 
 final class WKDonateDataControllerTests: XCTestCase {
     
     let paymentsAPIKey = "ABCDPaymentAPIKeyEFGH"
+    
 
     override func setUp() async throws {
-        WKDataEnvironment.current.basicService = WKMockDonateBasicService()
+        WKDataEnvironment.current.basicService = WKMockBasicService()
         WKDataEnvironment.current.serviceEnvironment = .staging
+        WKDataEnvironment.current.sharedCacheStore = WKMockKeyValueStore()
     }
     
     func testFetchDonateConfig() {
@@ -29,8 +32,10 @@ final class WKDonateDataControllerTests: XCTestCase {
         
         wait(for: [expectation], timeout: 10.0)
         
-        let paymentMethods = WKDonateDataController.paymentMethods
-        let donateConfig = WKDonateDataController.donateConfig
+        let donateData = WKDonateDataController().loadConfigs()
+        
+        let paymentMethods = donateData.paymentMethods
+        let donateConfig = donateData.donateConfig
         
         XCTAssertNotNil(paymentMethods, "Expected Payment Methods")
         XCTAssertNotNil(donateConfig, "Expected Donate Config")
@@ -53,14 +58,129 @@ final class WKDonateDataControllerTests: XCTestCase {
     func testDonateSubmitPayment() {
         let controller = WKDonateDataController()
         
-        let expectation = XCTestExpectation(description: "Fetch Donate Configs")
+        let expectation = XCTestExpectation(description: "Submit Payment")
         
-        controller.submitPayment(amount: 3, currencyCode: "USD", paymentToken: "fake-token", donorName: "iOS Tester", donorEmail: "wikimediaTester1@gmail.com", donorAddress: "123 Fake Street\nFaketown AA 12345\nUnited States", emailOptIn: nil, paymentsAPIKey: paymentsAPIKey) { result in
+        let nameComponents = PersonNameComponents()
+        let addressComponents = CNPostalAddress()
+        
+        controller.submitPayment(amount: 3, countryCode: "US", currencyCode: "USD", languageCode: "EN", paymentToken: "fake-token", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, paymentsAPIKey: "fake-api-key") { result in
             switch result {
             case .success:
                 break
             case .failure(let error):
-                XCTFail("Failure fetching configs: \(error)")
+                XCTFail("Failure submitting payment: \(error)")
+            }
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 10.0)
+    }
+    
+    func testFetchDonateConfigWithNoCacheAndNoInternetConnection() {
+        WKDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
+        let controller = WKDonateDataController()
+        
+        let expectation = XCTestExpectation(description: "Fetch Donate Configs")
+        
+        controller.fetchConfigs(for: "US", paymentsAPIKey: paymentsAPIKey) { result in
+            switch result {
+            case .success:
+                
+                XCTFail("Unexpected success")
+                
+            case .failure:
+                break
+            }
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 10.0)
+        
+        let donateData = WKDonateDataController().loadConfigs()
+        
+        let paymentMethods = donateData.paymentMethods
+        let donateConfig = donateData.donateConfig
+        
+        XCTAssertNil(paymentMethods, "Expected Payment Methods")
+        XCTAssertNil(donateConfig, "Expected Donate Config")
+    }
+    
+    func testFetchDonateConfigWithCacheAndNoInternetConnection() {
+
+        let expectation1 = XCTestExpectation(description: "Fetch Donate Configs with Internet Connection")
+        let expectation2 = XCTestExpectation(description: "Fetch Donate Configs without Internet Connection")
+
+        var connectedPaymentMethods: WKPaymentMethods?
+        var connectedDonateConfig: WKDonateConfig?
+        var notConnectedPaymentMethods: WKPaymentMethods?
+        var notConnectedDonateConfig: WKDonateConfig?
+        
+        // First fetch successfully to populate cache
+        let connectedController = WKDonateDataController()
+        connectedController.fetchConfigs(for: "US", paymentsAPIKey: paymentsAPIKey) { result in
+            switch result {
+            case .success:
+                
+                let donateData = WKDonateDataController().loadConfigs()
+                
+                connectedPaymentMethods = donateData.paymentMethods
+                connectedDonateConfig = donateData.donateConfig
+                
+                // Drop Internet Connection
+                WKDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
+                let disconnectedController = WKDonateDataController()
+
+                // Fetch again
+                disconnectedController.fetchConfigs(for: "US", paymentsAPIKey: self.paymentsAPIKey) { result in
+                    switch result {
+                    case .success:
+                        
+                        XCTFail("Unexpected disconnected success")
+                        
+                    case .failure:
+                        
+                        // Despite failure, we still expect to be able to load configs from cache
+                        let donateData = disconnectedController.loadConfigs()
+                        notConnectedPaymentMethods = donateData.paymentMethods
+                        notConnectedDonateConfig = donateData.donateConfig
+                        
+                    }
+                    
+                    expectation2.fulfill()
+                }
+            case .failure:
+                XCTFail("Unexpected connected failure")
+            }
+            
+            expectation1.fulfill()
+        }
+        
+        wait(for: [expectation1], timeout: 10.0)
+        wait(for: [expectation2], timeout: 10.0)
+        
+        XCTAssertNotNil(connectedPaymentMethods, "Expected Payment Methods")
+        XCTAssertNotNil(connectedDonateConfig, "Expected Donate Config")
+        XCTAssertNotNil(notConnectedPaymentMethods, "Expected Payment Methods")
+        XCTAssertNotNil(notConnectedDonateConfig, "Expected Donate Config")
+    }
+    
+    func testDonateSubmitPaymentNoInternetConnection() {
+        WKDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
+        let controller = WKDonateDataController()
+        
+        let expectation = XCTestExpectation(description: "Submit Payment")
+        
+        let nameComponents = PersonNameComponents()
+        let addressComponents = CNPostalAddress()
+        
+        controller.submitPayment(amount: 3, countryCode: "US", currencyCode: "USD", languageCode: "EN", paymentToken: "fake-token", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, paymentsAPIKey: "fake-api-key") { result in
+            switch result {
+            case .success:
+                XCTFail("Expected submitPayment to fail")
+            case .failure:
+                break
             }
             
             expectation.fulfill()

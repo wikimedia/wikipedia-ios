@@ -168,14 +168,14 @@ public class WKWatchlistDataController {
                     
                     items.append(contentsOf: self.watchlistItems(from: query, project: project))
                     
-                    try? sharedCacheStore?.save(key: "Watchlists", project.id, value: apiResponse)
+                    try? sharedCacheStore?.save(key: WKSharedCacheDirectoryNames.watchlists.rawValue, project.id, value: apiResponse)
                     
                 case .failure(let error):
                     var usedCache = false
                     
                     if (error as NSError).isInternetConnectionError {
                         
-                        let cachedResult: WatchlistAPIResponse? = try? sharedCacheStore?.load(key: "Watchlists", project.id)
+                        let cachedResult: WatchlistAPIResponse? = try? sharedCacheStore?.load(key: WKSharedCacheDirectoryNames.watchlists.rawValue, project.id)
                         
                         if let query = cachedResult?.query {
                             items.append(contentsOf: self.watchlistItems(from: query, project: project))

@@ -3,6 +3,7 @@ import Foundation
 extension URL {
     
     private static let baseMediaWikiAPIPathComponents = "/w/api.php"
+    private static let basePaymentWikiAPIPathComponents = "/api.php"
     
     static func mediaWikiAPIURL(project: WKProject) -> URL? {
         var components = URLComponents()
@@ -25,7 +26,7 @@ extension URL {
         
         var components = URLComponents()
         components.scheme = "https"
-        components.path = baseMediaWikiAPIPathComponents
+        components.path = basePaymentWikiAPIPathComponents
         
         switch environment {
         case .production:
@@ -41,7 +42,7 @@ extension URL {
         
         var components = URLComponents()
         components.scheme = "https"
-        components.path = baseMediaWikiAPIPathComponents
+        components.path = basePaymentWikiAPIPathComponents
         
         switch environment {
         case .production:
@@ -58,6 +59,21 @@ extension URL {
         var components = URLComponents()
         components.scheme = "https"
         components.path = "/wiki/MediaWiki:AppsDonationConfig.json"
+        
+        switch environment {
+        case .production:
+            components.host = "donate.wikimedia.org"
+        case .staging:
+            components.host = "test.wikipedia.org"
+        }
+        return components.url
+    }
+    
+    static func fundraisingCampaignConfigURL(environment: WKServiceEnvironment = WKDataEnvironment.current.serviceEnvironment) -> URL? {
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        components.path = "/wiki/MediaWiki:AppsCampaignConfig.json"
         
         switch environment {
         case .production:

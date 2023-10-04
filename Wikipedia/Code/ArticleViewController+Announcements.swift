@@ -1,9 +1,23 @@
 import WMF
 import CocoaLumberjackSwift
+import WKData
+import Components
 
 extension ArticleViewController {
     
     func showAnnouncementIfNeeded() {
+        
+        let dataController = WKFundraisingCampaignDataController()
+        
+        // New Donor Experience if they qualify
+        if let countryCode = Locale.current.regionCode,
+           let wkProject = WikimediaProject(siteURL: articleURL)?.wkProject,
+           dataController.hasActivelyRunningCampaigns(countryCode: countryCode, currentDate: .now),
+           let activeCampaignAsset = WKFundraisingCampaignDataController().loadActiveCampaignAsset(countryCode: countryCode, wkProject: wkProject, currentDate: .now) {
+            showNewDonateExperienceCampaignModal(asset: activeCampaignAsset)
+            return
+        }
+        
         guard (isInValidSurveyCampaignAndArticleList && userHasSeenSurveyPrompt) || !isInValidSurveyCampaignAndArticleList else {
             return
         }
@@ -62,10 +76,90 @@ extension ArticleViewController {
             dismiss()
         }, theme: theme)
     }
+    
+    private func showNewDonateExperienceCampaignModal(asset: WKFundraisingCampaignConfig.WKAsset) {
+        
+        // Just using alert view for now, will replace with new campaign modal
+        let alert = UIAlertController(title: nil, message: asset.textHtml, preferredStyle: .alert)
+        let controller = WKFundraisingCampaignDataController()
+        
+        let firstAction = asset.actions[0]
+        let donateAction = UIAlertAction(title: firstAction.title, style: .default, handler: { [weak self] action in
+            controller.markAssetAsPermanentlyHidden(asset: asset)
+            self?.pushToDonateForm(asset: asset)
+        })
+        
+        let maybeLaterAction = UIAlertAction(title: asset.actions[1].title, style: .default) { action in
+            controller.markAssetAsMaybeLater(asset: asset, currentDate: .now)
+        }
+        
+        let alreadyDonatedAction = UIAlertAction(title: asset.actions[2].title, style: .default) { action in
+            
+            controller.markAssetAsPermanentlyHidden(asset: asset)
+            
+            // todo: donate reason action sheet
+        }
+        
+        let closeAction = UIAlertAction(title: "Close", style: .cancel) { action in
+            let controller = WKFundraisingCampaignDataController()
+            controller.markAssetAsPermanentlyHidden(asset: asset)
+        }
+        
+        alert.addAction(donateAction)
+        alert.addAction(maybeLaterAction)
+        alert.addAction(alreadyDonatedAction)
+        alert.addAction(closeAction)
+        
+        present(alert, animated: true)
+    }
+    
+    private func pushToDonateForm(asset: WKFundraisingCampaignConfig.WKAsset) {
+        let firstAction = asset.actions[0]
+        let donateURL = firstAction.url
+        
+        var utmSource: String? = nil
+        if let donateURL = firstAction.url,
+           let queryItems = URLComponents(url: donateURL, resolvingAgainstBaseURL: false)?.queryItems {
+            for queryItem in queryItems {
+                if queryItem.name == "utm_source" {
+                    utmSource = queryItem.value
+                }
+            }
+        }
+        
+        if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, campaignUtmSource: utmSource),
+           let donateURL = donateURL {
+            presentNewDonorExperiencePaymentMethodActionSheet(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, campaignUtmSource: utmSource)
+        } else {
+            self.navigate(to: donateURL, useSafari: false)
+        }
+    }
 }
 
 private extension URL {
     var isThankYouDonationURL: Bool {
         return self.host == "thankyou.wikipedia.org"
+    }
+}
+
+extension ArticleViewController: WKDonateDelegate {
+    public func donateDidTapProblemsDonatingLink() {
+        sharedDonateDidTapProblemsDonatingLink()
+    }
+    
+    public func donateDidTapOtherWaysToGive() {
+        sharedDonateDidTapOtherWaysToGive()
+    }
+    
+    public func donateDidTapFrequentlyAskedQuestions() {
+        sharedDonateDidTapFrequentlyAskedQuestions()
+    }
+    
+    public func donateDidTapTaxDeductibilityInformation() {
+        sharedDonateDidTapTaxDeductibilityInformation()
+    }
+    
+    public func donateDidSuccessfullySubmitPayment() {
+        sharedDonateDidSuccessfullSubmitPayment()
     }
 }

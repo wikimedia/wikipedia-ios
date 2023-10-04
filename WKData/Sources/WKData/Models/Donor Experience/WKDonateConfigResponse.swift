@@ -49,5 +49,10 @@ public struct WKDonateConfigResponse: Codable {
         self.config = firstValidConfig
     }
     
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.unkeyedContainer()
+        try container.encode(contentsOf: [config])
+    }
+    
     struct DiscardedElement: Codable {}
 }

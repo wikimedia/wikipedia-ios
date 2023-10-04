@@ -17,6 +17,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         public let title: String
         public let doneTitle: String
         public let transactionFeeOptInText: String
+        public let monthlyRecurringText: String
         public let emailOptInText: String
         public let maximumErrorText: String?
         public let minimumErrorText: String
@@ -28,14 +29,16 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         public let accessibilityAmountButtonHint: String
         public let accessibilityTextfieldHint: String
         public let accessibilityTransactionFeeHint: String
+        public let accessibilityMonthlyRecurringHint: String
         public let accessibilityEmailOptInHint: String
         public let accessibilityKeyboardDoneButtonHint: String
         public let accessibilityDonateButtonHintFormat: String
         
-        public init(title: String, doneTitle: String, transactionFeeOptInText: String, emailOptInText: String, maximumErrorText: String?, minimumErrorText: String, genericErrorTextFormat: String, helpLinkProblemsDonating: String, helpLinkOtherWaysToGive: String, helpLinkFrequentlyAskedQuestions: String, helpLinkTaxDeductibilityInformation: String, accessibilityAmountButtonHint: String, accessibilityTextfieldHint: String, accessibilityTransactionFeeHint: String, accessibilityEmailOptInHint: String, accessibilityKeyboardDoneButtonHint: String, accessibilityDonateButtonHintFormat: String) {
+        public init(title: String, doneTitle: String, transactionFeeOptInText: String, monthlyRecurringText: String, emailOptInText: String, maximumErrorText: String?, minimumErrorText: String, genericErrorTextFormat: String, helpLinkProblemsDonating: String, helpLinkOtherWaysToGive: String, helpLinkFrequentlyAskedQuestions: String, helpLinkTaxDeductibilityInformation: String, accessibilityAmountButtonHint: String, accessibilityTextfieldHint: String, accessibilityTransactionFeeHint: String, accessibilityMonthlyRecurringHint: String, accessibilityEmailOptInHint: String, accessibilityKeyboardDoneButtonHint: String, accessibilityDonateButtonHintFormat: String) {
             self.title = title
             self.doneTitle = doneTitle
             self.transactionFeeOptInText = transactionFeeOptInText
+            self.monthlyRecurringText = monthlyRecurringText
             self.emailOptInText = emailOptInText
             self.maximumErrorText = maximumErrorText
             self.minimumErrorText = minimumErrorText
@@ -47,6 +50,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
             self.accessibilityAmountButtonHint = accessibilityAmountButtonHint
             self.accessibilityTextfieldHint = accessibilityTextfieldHint
             self.accessibilityTransactionFeeHint = accessibilityTransactionFeeHint
+            self.accessibilityMonthlyRecurringHint = accessibilityMonthlyRecurringHint
             self.accessibilityEmailOptInHint = accessibilityEmailOptInHint
             self.accessibilityKeyboardDoneButtonHint = accessibilityKeyboardDoneButtonHint
             self.accessibilityDonateButtonHintFormat = accessibilityDonateButtonHintFormat
@@ -129,15 +133,17 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     let localizedStrings: LocalizedStrings
     private let donateConfig: WKDonateConfig
     private let paymentMethods: WKPaymentMethods
-    private let currencyCode: String
     private let countryCode: String
+    private let currencyCode: String
+    private let languageCode: String
     
     private let merchantID: String
-    private let paymentsAPIKey: String
+    private let campaignUtmSource: String?
     
     @Published var buttonViewModels: [AmountButtonViewModel]
     @Published var textfieldViewModel: AmountTextFieldViewModel
     @Published var transactionFeeOptInViewModel: OptInViewModel
+    @Published var monthlyRecurringViewModel: OptInViewModel
     @Published var emailOptInViewModel: OptInViewModel?
     @Published var errorViewModel: ErrorViewModel?
     
@@ -152,14 +158,15 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     
     // MARK: - Lifecycle
     
-    public init?(localizedStrings: LocalizedStrings, donateConfig: WKDonateConfig, paymentMethods: WKPaymentMethods, currencyCode: String, countryCode: String, merchantID: String, paymentsAPIKey: String, delegate: WKDonateDelegate?) {
+    public init?(localizedStrings: LocalizedStrings, donateConfig: WKDonateConfig, paymentMethods: WKPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, campaignUtmSource: String?, delegate: WKDonateDelegate?) {
         self.localizedStrings = localizedStrings
         self.donateConfig = donateConfig
         self.paymentMethods = paymentMethods
-        self.currencyCode = currencyCode
         self.countryCode = countryCode
+        self.currencyCode = currencyCode
+        self.languageCode = languageCode
         self.merchantID = merchantID
-        self.paymentsAPIKey = paymentsAPIKey
+        self.campaignUtmSource = campaignUtmSource
         self.delegate = delegate
         
         guard let transactionFeeAmount = donateConfig.transactionFee(for: currencyCode) else {
@@ -188,6 +195,8 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         self.finalAmount = 0
         
         self.transactionFeeOptInViewModel = OptInViewModel(localizedStrings: OptInViewModel.LocalizedStrings(text: localizedStrings.transactionFeeOptInText, accessibilityHint: localizedStrings.accessibilityTransactionFeeHint))
+        
+        self.monthlyRecurringViewModel = OptInViewModel(localizedStrings: OptInViewModel.LocalizedStrings(text: localizedStrings.monthlyRecurringText, accessibilityHint: localizedStrings.accessibilityMonthlyRecurringHint))
         
         if donateConfig.countryCodeEmailOptInRequired.contains(countryCode) {
             self.emailOptInViewModel = OptInViewModel(localizedStrings: OptInViewModel.LocalizedStrings(text: localizedStrings.emailOptInText, accessibilityHint: localizedStrings.accessibilityEmailOptInHint))
@@ -411,24 +420,22 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
             return
         }
         
-        guard let donorName = payment.billingContact?.name?.formatted(),
+        guard let donorNameComponents = payment.billingContact?.name,
               let donorEmail = payment.shippingContact?.emailAddress,
-              let donorAddress = payment.billingContact?.postalAddress else {
+              let donorAddressComponents = payment.billingContact?.postalAddress else {
             let error = Error.missingDonorInfo
             let errorText = String.localizedStringWithFormat(localizedStrings.genericErrorTextFormat, error.localizedDescription)
             self.errorViewModel = ErrorViewModel(localizedStrings: ErrorViewModel.LocalizedStrings(text: errorText))
             completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
             return
         }
-        
-        let formatter = CNPostalAddressFormatter()
-        formatter.style = .mailingAddress
-        
-        let donorFormattedAddress = formatter.string(from: donorAddress)
+        let recurring: Bool = monthlyRecurringViewModel.isSelected
         let emailOptIn: Bool? = emailOptInViewModel?.isSelected
         
+        let paymentNetwork = payment.token.paymentMethod.network?.rawValue
+        
         let dataController = WKDonateDataController()
-        dataController.submitPayment(amount: finalAmount, currencyCode: currencyCode, paymentToken: paymentToken, donorName: donorName, donorEmail: donorEmail, donorAddress: donorFormattedAddress, emailOptIn: emailOptIn, paymentsAPIKey: paymentsAPIKey) { [weak self] result in
+        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, campaignUtmSource: campaignUtmSource) { [weak self] result in
             
             guard let self else {
                 return
@@ -443,7 +450,7 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
                     self?.delegate?.donateDidSuccessfullySubmitPayment()
                 })
             case .failure(let error):
-                // TODO: Handle errors more?
+                self.errorViewModel = ErrorViewModel(localizedStrings: ErrorViewModel.LocalizedStrings(text: error.localizedDescription))
                 completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
             }
         }
