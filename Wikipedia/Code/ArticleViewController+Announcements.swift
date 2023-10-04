@@ -83,15 +83,11 @@ extension ArticleViewController {
 
         let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
 
-        let dismiss = {
-            dataController.markAssetAsPermanentlyHidden(asset: asset)
-        }
-
         wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { sender in
             if let url = asset.actions[0].url {
                 self.navigate(to: url, useSafari: false)
             }
-            dismiss()
+            dataController.markAssetAsPermanentlyHidden(asset: asset)
         }, secondaryButtonTapHandler: { sender in
             if shouldShowMaybeLater {
                 dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
@@ -99,12 +95,11 @@ extension ArticleViewController {
             self.sharedDonateDidSetMaybeLater()
         }, optionalButtonTapHandler: { sender in
             self.sharedDonateAlreadyDonated()
-            dismiss()
+            dataController.markAssetAsPermanentlyHidden(asset: asset)
         }, footerLinkAction: { url in
             self.navigate(to: url, useSafari: false)
         }, traceableDismissHandler: { _ in
-            dismiss()
-
+            
         }, showMaybeLater: shouldShowMaybeLater)
     }
 
