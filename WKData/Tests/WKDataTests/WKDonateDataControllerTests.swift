@@ -60,7 +60,7 @@ final class WKDonateDataControllerTests: XCTestCase {
         let nameComponents = PersonNameComponents()
         let addressComponents = CNPostalAddress()
         
-        controller.submitPayment(amount: 3, countryCode: "US", currencyCode: "USD", languageCode: "EN", paymentToken: "fake-token", paymentNetwork: "Discover", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, campaignUtmSource: "app_2023_enNL_iOS_control") { result in
+        controller.submitPayment(amount: 3, countryCode: "US", currencyCode: "USD", languageCode: "EN", paymentToken: "fake-token", paymentNetwork: "Discover", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, bannerID: "app_2023_enNL_iOS_control", appVersion: "7.4.3") { result in
             switch result {
             case .success:
                 break
@@ -172,7 +172,7 @@ final class WKDonateDataControllerTests: XCTestCase {
         let nameComponents = PersonNameComponents()
         let addressComponents = CNPostalAddress()
         
-        controller.submitPayment(amount: 3, countryCode: "US", currencyCode: "USD", languageCode: "EN", paymentToken: "fake-token", paymentNetwork: "Discover", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, campaignUtmSource: "app_2023_enNL_iOS_control") { result in
+        controller.submitPayment(amount: 3, countryCode: "US", currencyCode: "USD", languageCode: "EN", paymentToken: "fake-token", paymentNetwork: "Discover", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, bannerID: "app_2023_enNL_iOS_control", appVersion: "7.4.3") { result in
             switch result {
             case .success:
                 XCTFail("Expected submitPayment to fail")
