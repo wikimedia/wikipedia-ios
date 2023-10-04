@@ -294,7 +294,19 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
         }
         case WMFSettingsMenuItemType_Support:
-            [self wmf_navigateToURL:[self donationURL] useSafari:YES];
+            // TODO: Needs additional checking here
+            // Present Apple Pay action sheet if:
+                // 1. User falls into current campaign, based on new announcements fundraising fetch (Country, Start time / End time, language selected)
+                // 2. User device can support Apple Pay
+                // 3. WKDonateDataController payment methods indicates user's Apple Pay cards are set up to donate
+                // 4. Feature flag is on
+                // 5. Otherwise fall back to web
+                // 6. For now just doing basic feature flag checking
+            if (self.donorExperienceImprovementsEnabled) {
+                [self pushToDonateView];
+            } else {
+                [self wmf_navigateToURL:[self donationURL] useSafari:YES];
+            }
             break;
         case WMFSettingsMenuItemType_PrivacyPolicy:
             [self wmf_navigateToURL:[NSURL URLWithString:[WMFCommonStrings privacyPolicyURLString]]];

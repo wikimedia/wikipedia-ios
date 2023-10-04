@@ -1,10 +1,12 @@
 import UIKit
+import PassKit
 
 public struct WKTheme: Equatable {
 
 	public let name: String
 	public let userInterfaceStyle: UIUserInterfaceStyle
 	public let keyboardAppearance: UIKeyboardAppearance
+    public let paymentButtonStyle: PKPaymentButtonStyle
     public let text: UIColor
     public let secondaryText: UIColor
     public let link: UIColor
@@ -12,6 +14,7 @@ public struct WKTheme: Equatable {
     public let destructive: UIColor
     public let border: UIColor
     public let paperBackground: UIColor
+    public let midBackground: UIColor
     public let baseBackground: UIColor
     public let icon: UIColor
     public let iconBackground: UIColor
@@ -26,6 +29,7 @@ public struct WKTheme: Equatable {
         name: "Light",
 		userInterfaceStyle: .light,
 		keyboardAppearance: .light,
+        paymentButtonStyle: .black,
         text: WKColor.gray700,
         secondaryText: WKColor.gray500,
         link: WKColor.blue600,
@@ -33,6 +37,7 @@ public struct WKTheme: Equatable {
         destructive: WKColor.red600,
         border: WKColor.gray400,
         paperBackground: WKColor.white,
+        midBackground: WKColor.gray100,
         baseBackground: WKColor.gray200,
         icon: WKColor.white,
         iconBackground: WKColor.gray500,
@@ -47,7 +52,8 @@ public struct WKTheme: Equatable {
     public static let sepia = WKTheme(
         name: "Sepia",
 		userInterfaceStyle: .light,
-		keyboardAppearance: .light,
+        keyboardAppearance: .light,
+        paymentButtonStyle: .black,
         text: WKColor.gray700,
         secondaryText: WKColor.taupe600,
         link: WKColor.blue600,
@@ -55,6 +61,7 @@ public struct WKTheme: Equatable {
         destructive: WKColor.red700,
         border: WKColor.taupe200,
         paperBackground: WKColor.beige100,
+        midBackground: WKColor.beige300,
         baseBackground: WKColor.beige400,
         icon: WKColor.taupe600,
         iconBackground: WKColor.beige400,
@@ -70,6 +77,7 @@ public struct WKTheme: Equatable {
 		name: "Dark",
 		userInterfaceStyle: .dark,
 		keyboardAppearance: .dark,
+        paymentButtonStyle: .white,
         text: WKColor.gray100,
         secondaryText: WKColor.gray300,
         link: WKColor.blue300,
@@ -77,6 +85,7 @@ public struct WKTheme: Equatable {
         destructive: WKColor.red600,
         border: WKColor.gray650,
         paperBackground: WKColor.gray675,
+        midBackground: WKColor.gray700,
         baseBackground: WKColor.gray800,
         icon: WKColor.gray300,
         iconBackground: WKColor.gray675,
@@ -92,6 +101,7 @@ public struct WKTheme: Equatable {
 		name: "Black",
 		userInterfaceStyle: .dark,
 		keyboardAppearance: .dark,
+        paymentButtonStyle: .white,
         text: WKColor.gray100,
         secondaryText: WKColor.gray300,
         link: WKColor.blue300,
@@ -99,6 +109,7 @@ public struct WKTheme: Equatable {
         destructive: WKColor.red600,
         border: WKColor.gray675,
         paperBackground: WKColor.black,
+        midBackground: WKColor.gray700,
         baseBackground: WKColor.gray800,
         icon: WKColor.gray300,
         iconBackground: WKColor.gray675,

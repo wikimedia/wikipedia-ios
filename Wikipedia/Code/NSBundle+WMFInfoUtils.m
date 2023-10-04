@@ -36,4 +36,12 @@
     return [self wmf_isAppStoreBundleIdentifier] ? [self wmf_releaseVersion] : [self wmf_debugVersion];
 }
 
+- (NSString *)wmf_merchantID {
+    return [self objectForInfoDictionaryKey:@"MerchantID"];
+}
+
+- (NSString *)wmf_paymentsAPIKey {
+    return [self objectForInfoDictionaryKey:@"PaymentsAPIKey"];
+}
+
 @end

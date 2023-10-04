@@ -12,6 +12,7 @@ public enum WKFont {
 	case callout
 	case subheadline
 	case boldSubheadline
+    case mediumSubheadline
     case caption1
     case footnote
 	case boldFootnote
@@ -40,6 +41,8 @@ public enum WKFont {
 			return UIFont.preferredFont(forTextStyle: .callout, compatibleWith: traitCollection)
         case .subheadline:
 			return UIFont.preferredFont(forTextStyle: .subheadline, compatibleWith: traitCollection)
+        case .mediumSubheadline:
+            return UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: UIFont.systemFont(ofSize: 15, weight: .medium))
         case .boldSubheadline:
 			guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .subheadline, compatibleWith: traitCollection).withSymbolicTraits(.traitBold) else {
 				fatalError()
