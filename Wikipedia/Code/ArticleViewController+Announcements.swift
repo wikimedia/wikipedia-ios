@@ -90,16 +90,22 @@ extension ArticleViewController {
         }, secondaryButtonTapHandler: { sender in
             if shouldShowMaybeLater {
                 dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
+                self.donateDidSetMaybeLater()
+            } else {
+                self.donateAlreadyDonated()
+                dataController.markAssetAsPermanentlyHidden(asset: asset)
             }
-            self.donateDidSetMaybeLater()
-
         }, optionalButtonTapHandler: { sender in
             self.donateAlreadyDonated()
             dataController.markAssetAsPermanentlyHidden(asset: asset)
 
         }, footerLinkAction: { url in
             self.navigate(to: url, useSafari: false)
-        }, traceableDismissHandler: { _ in
+        }, traceableDismissHandler: { action in
+            
+            if action == .tappedClose {
+                dataController.markAssetAsPermanentlyHidden(asset: asset)
+            }
             
         }, showMaybeLater: shouldShowMaybeLater)
     }
