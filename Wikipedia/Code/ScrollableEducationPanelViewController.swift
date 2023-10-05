@@ -272,7 +272,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             footerTextView.attributedText = nil
             return
         }
-        let attributedText = footerHTML.byAttributingHTML(with: .footnote, matching: traitCollection, color: footerTextView.textColor)
+        let attributedText = footerHTML.byAttributingHTML(with: .footnote, matching: traitCollection, color: theme.colors.secondaryText)
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
@@ -282,6 +282,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
         attributedText.addAttributes(attributes, range: NSRange(location: 0, length: attributedText.length))
         footerTextView.attributedText = attributedText
+        footerTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.link]
     }
 
     var primaryButtonBorderWidth: CGFloat = 0 {
@@ -469,8 +470,9 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
             inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
         case .updatedStyle:
-            pinnedSecondaryButton.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-            inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+            inlinePrimaryButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+            inlineSecondaryButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+            inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         }
     }
     
@@ -581,10 +583,10 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             inlinePrimaryButton.backgroundColor = theme.colors.link
             inlinePrimaryButton.setTitleColor(theme.colors.paperBackground, for: .normal)
 
-            inlineSecondaryButton.backgroundColor = theme.colors.paperBackground
+            inlineSecondaryButton.backgroundColor = .clear
             inlineSecondaryButton.setTitleColor(theme.colors.link, for: .normal)
 
-            inlineOptionalButton.backgroundColor = theme.colors.paperBackground
+            inlineOptionalButton.backgroundColor = .clear
             inlineOptionalButton.setTitleColor(theme.colors.link, for: .normal)
         }
     }
