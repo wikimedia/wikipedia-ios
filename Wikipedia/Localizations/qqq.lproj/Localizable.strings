@@ -245,11 +245,13 @@
 "donate-accessibility-monthly-recurring-hint" = "Accessibility hint on donate form monthly recurring checkbox for screen readers.";
 "donate-accessibility-textfield-hint" = "Accessibility hint on donate form custom amount textfield for screen readers.";
 "donate-accessibility-transaction-fee-hint" = "Accessibility hint on donate form transaction fee checkbox for screen readers.";
+"donate-already-donated" = "Thank you toast shown when user clicks already donated on fundraising banner";
 "donate-email-opt-in-text" = "Text next to email opt-in checkbox on donate form.";
 "donate-help-frequently-asked-questions" = "Help link at the bottom of the donate form, that takes user to a web view link with more info.";
 "donate-help-other-ways-to-give" = "Help link at the bottom of the donate form, that takes user to a web view link with more info.";
 "donate-help-problems-donating" = "Help link at the bottom of the donate form, that takes user to a web view link with more info.";
 "donate-help-tax-deductibility-information" = "Help link at the bottom of the donate form, that takes user to a web view link with more info.";
+"donate-later-title" = "Title for toast shown when user clicks remind me later on fundraising banner";
 "donate-maximum-error-text" = "Error text displayed when user enters donation amount above the maximum. Parameters: * $1 - the currency code, $2 - the maximum donation amount allowed. (For example, 'USD $25,000')";
 "donate-minimum-error-text" = "Error text displayed when user enters donation amount below the allowed minimum. Parameters: * $1 - the minimum amount allowed, $2 - the currency code. (For example, '$1 USD')";
 "donate-monthly-recurring-text" = "Text next to monthly recurring checkbox on donate form.";

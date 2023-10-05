@@ -15,6 +15,8 @@ class SinglePageWebViewController: ViewController {
         }
     }
 
+    var didReachThankyouPage = false
+
     required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, wikimediaProject: WikimediaProject? = nil) {
         self.url = url
         self.wikimediaProject = wikimediaProject
@@ -156,6 +158,7 @@ class SinglePageWebViewController: ViewController {
             return false
         } else if action.navigationType == .other,
                   actionURL.isThankYouDonationURL {
+            didReachThankyouPage = true
             setupBottomView()
             AppInteractionFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: wikimediaProject)
         }
@@ -182,6 +185,14 @@ class SinglePageWebViewController: ViewController {
     @objc func didTapReturnButton() {
         AppInteractionFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: wikimediaProject)
         navigationController?.popViewController(animated: true)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        if didReachThankyouPage {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
+            }
+        }
     }
 }
 

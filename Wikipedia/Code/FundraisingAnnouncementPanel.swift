@@ -6,7 +6,7 @@ final class FundraisingAnnouncementPanelViewController: ScrollableEducationPanel
 
     private let announcement: WKFundraisingCampaignConfig.WKAsset
 
-    init(announcement: WKFundraisingCampaignConfig.WKAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?,footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, theme: Theme, showOptionalButton: Bool) {
+    init(announcement: WKFundraisingCampaignConfig.WKAsset, theme: Theme, showOptionalButton: Bool ,primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?,footerLinkAction: ((URL) -> Void)?) {
         self.announcement = announcement
         super.init(showCloseButton: true, showOptionalButton: showOptionalButton, newAnnouncement: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, optionalButtonTapHandler: optionalButtonTapHandler, traceableDismissHandler: traceableDismissHandler, theme: theme)
         self.isUrgent = true
@@ -31,8 +31,8 @@ final class FundraisingAnnouncementPanelViewController: ScrollableEducationPanel
         configureButtons()
     }
 
-    override func viewIsAppearing(_ animated: Bool) {
-        super.viewIsAppearing(animated)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         evaluateConstraintsOnNewSize(view.frame.size)
         subheadingTextView.textContainerInset = .zero
     }

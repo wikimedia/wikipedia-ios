@@ -62,7 +62,8 @@ public final class WKBasicService: WKService {
                 
                 if let encodedParameters = request.parameters?.encodedForAPI() {
                     var body = ""
-                    for (key, value) in encodedParameters {
+                    let sortedParameters = encodedParameters.sorted( by: { $0.0 < $1.0 })
+                    for (key, value) in sortedParameters {
                         
                         if body != "" {
                             body.append("&")
@@ -77,7 +78,10 @@ public final class WKBasicService: WKService {
             case .json:
                 
                 do {
-                    urlRequest.httpBody = try JSONSerialization.data(withJSONObject: request.parameters as Any, options: [])
+                    if let encodedParameters = request.parameters?.encodedForAPI() {
+                        let sortedParameters = encodedParameters.sorted( by: { $0.0 < $1.0 })
+                        urlRequest.httpBody = try JSONSerialization.data(withJSONObject: sortedParameters as Any, options: [])
+                    }
                 } catch let error {
                     completion(nil, nil, error)
                     return
@@ -125,8 +129,9 @@ public final class WKBasicService: WKService {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         
         if let parameters = request.parameters?.encodedForAPI() {
+            let sortedParameters = parameters.sorted( by: { $0.0 < $1.0 })
             var queryItems: [URLQueryItem] = []
-            for (name, value) in parameters {
+            for (name, value) in sortedParameters {
                 
                 guard let valueString = value as? String else {
                     continue

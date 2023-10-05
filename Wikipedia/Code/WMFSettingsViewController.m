@@ -303,8 +303,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                 NSString *currencyCode = [[NSLocale currentLocale] currencyCode];
                 NSString *languageCode = MWKDataStore.shared.languageLinkController.appLanguage.languageCode;
                 
-                if ([self canOfferNativeDonateFormWithCountryCode:countryCode currencyCode:currencyCode languageCode:languageCode]) {
-                    [self presentNewDonorExperiencePaymentMethodActionSheetWithSource:DonateSourceSettings countryCode:countryCode currencyCode:currencyCode languageCode:languageCode donateURL:self.donationURL articleURL:nil loggingDelegate:self];
+                if ([self canOfferNativeDonateFormWithCountryCode:countryCode currencyCode:currencyCode languageCode:languageCode campaignUtmSource:nil]) {
+                    [self presentNewDonorExperiencePaymentMethodActionSheetWithSource:DonateSourceSettings countryCode:countryCode currencyCode:currencyCode languageCode:languageCode donateURL:self.donationURL campaignUtmSource:nil articleURL:nil loggingDelegate:nil];
                 } else {
                     // New experience pushing to in-app browser
                     [self wmf_navigateToURL:[self donationURL] useSafari:NO];

@@ -86,36 +86,37 @@ extension ArticleViewController {
 
         let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
 
-        let dismiss = {
-            dataController.markAssetAsPermanentlyHidden(asset: asset)
-        }
 
-        wmf_showFundraisingAnnouncement(theme: theme, object: asset, primaryButtonTapHandler: { [weak self] sender in
-            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project)
+        wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { sender in
             
-            self?.pushToDonateForm(asset: asset)
+            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project)
+            dataController.markAssetAsPermanentlyHidden(asset: asset)
+            self.pushToDonateForm(asset: asset)
+            
         }, secondaryButtonTapHandler: { sender in
             AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project)
+            
             
             if shouldShowMaybeLater {
                 dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
             }
-            dismiss()
+
+            AppInteractionFunnel.shared.logArticleDidSeeReminderToast(project: project)
+            self.sharedDonateDidSetMaybeLater()
             
-            // TODO: Display "We will remind you again tomorrow" toast, and log this with it
-            // AppInteractionFunnel.shared.logArticleDidSeeReminderToast(project: project)
         }, optionalButtonTapHandler: { sender in
+            
             AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project)
+            dataController.markAssetAsPermanentlyHidden(asset: asset)
+            self.sharedDonateAlreadyDonated()
             
-            dismiss()
         }, footerLinkAction: { url in
-            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project)
             
+            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project)
             self.navigate(to: url, useSafari: false)
+            
         }, traceableDismissHandler: { _ in
             AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project)
-            
-            dismiss()
         }, showMaybeLater: shouldShowMaybeLater)
     }
 
@@ -124,9 +125,19 @@ extension ArticleViewController {
         let firstAction = asset.actions[0]
         let donateURL = firstAction.url
         
-        if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode),
+        var utmSource: String? = nil
+        if let donateURL = firstAction.url,
+           let queryItems = URLComponents(url: donateURL, resolvingAgainstBaseURL: false)?.queryItems {
+            for queryItem in queryItems {
+                if queryItem.name == "utm_source" {
+                    utmSource = queryItem.value
+                }
+            }
+        }
+        
+        if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, campaignUtmSource: utmSource),
            let donateURL = donateURL {
-            presentNewDonorExperiencePaymentMethodActionSheet(source: DonateSource.article, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, articleURL: articleURL, loggingDelegate: self)
+            presentNewDonorExperiencePaymentMethodActionSheet(source: .article, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, campaignUtmSource: utmSource, articleURL: articleURL, loggingDelegate: self)
         } else {
             self.navigate(to: donateURL, useSafari: false)
         }
