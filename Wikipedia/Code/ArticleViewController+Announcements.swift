@@ -86,7 +86,6 @@ extension ArticleViewController {
 
         let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
 
-
         wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { sender in
             
             AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project)
@@ -115,8 +114,10 @@ extension ArticleViewController {
             AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project)
             self.navigate(to: url, useSafari: false)
             
-        }, traceableDismissHandler: { _ in
-            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project)
+        }, traceableDismissHandler: { action in
+            if action == .tappedClose {
+                AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project)
+            }
         }, showMaybeLater: shouldShowMaybeLater)
     }
 
