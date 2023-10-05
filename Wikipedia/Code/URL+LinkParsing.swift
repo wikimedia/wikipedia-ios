@@ -111,7 +111,7 @@ extension URL {
     }
 
     public var isThankYouDonationURL: Bool {
-        host == "donate.wikipedia.org" || self.host == "donate.wikimedia.org"
+        host == "thankyou.wikipedia.org" || host == "thankyou.wikimedia.org"
     }
 
     public var wmf_wiki: String? {
