@@ -166,13 +166,13 @@ import PassKit
                 AppInteractionFunnel.shared.logSettingDidTapOtherPaymentMethod()
             }
             
-            
-            self.navigate(to: donateURL, userInfo: [RoutingUserInfoKeys.wikimediaProject: wikimediaProject as Any], useSafari: false)
+            self.navigate(to: donateURL, userInfo: [RoutingUserInfoKeys.wikimediaProjectIdentifier: wikimediaProject?.notificationsApiWikiIdentifier as Any], useSafari: false)
         }))
         
         alert.preferredAction = applePayAction
         
-        self.present(alert, animated: true)
+        let presentVC = presentedViewController ?? self
+        presentVC.present(alert, animated: true)
     }
 }
 
