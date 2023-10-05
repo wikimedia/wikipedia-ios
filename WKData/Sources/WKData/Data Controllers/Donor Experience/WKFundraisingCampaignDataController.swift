@@ -27,8 +27,11 @@ import Foundation
     ///   - asset: WKAsset to mark as maybe later
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     public func markAssetAsMaybeLater(asset: WKFundraisingCampaignConfig.WKAsset, currentDate: Date) {
-        let maybeLaterDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)
-        let promptState = WKFundraisingCampaignPromptState(campaignID: asset.id, isHidden: false, maybeLaterDate: maybeLaterDate)
+        guard let oneDayLater = Calendar.current.date(byAdding: .day, value: 1, to: currentDate) else {
+            return
+        }
+        let nextDayMidnight = Calendar.current.startOfDay(for: oneDayLater)
+        let promptState = WKFundraisingCampaignPromptState(campaignID: asset.id, isHidden: false, maybeLaterDate: nextDayMidnight)
         try? sharedCacheStore?.save(key: cacheDirectoryName, cachePromptStateFileName, value: promptState)
     }
 
