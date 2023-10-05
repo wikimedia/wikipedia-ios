@@ -112,6 +112,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet private var buttonTopSpacingConstraint: NSLayoutConstraint!
     @IBOutlet weak var contentStackView: UIStackView!
 
+    @IBOutlet weak var separatorView: UIView!
     var width: CGFloat = 280 {
         didSet {
             widthConstraint.constant = width
@@ -283,6 +284,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         attributedText.addAttributes(attributes, range: NSRange(location: 0, length: attributedText.length))
         footerTextView.attributedText = attributedText
         footerTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.link]
+        footerTextView.textContainerInset = .zero
     }
 
     var primaryButtonBorderWidth: CGFloat = 0 {
@@ -370,6 +372,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         inlineCloseButton.isHidden = !showCloseButton
         pinnedCloseButton.isHidden = !showCloseButton
         inlineOptionalButton.isHidden = !showOptionalButton
+        separatorView.isHidden = buttonStyle == .legacyStyle ? true : false
         [self.view, self.roundedCornerContainer].forEach {view in
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.overlayTapped(_:))))
         }
@@ -566,6 +569,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         inlinePrimaryButton.backgroundColor = theme.colors.baseBackground
         pinnedPrimaryButton.backgroundColor = theme.colors.baseBackground
         inlineOptionalButton.backgroundColor = theme.colors.baseBackground
+        separatorView.backgroundColor = theme.colors.border.withAlphaComponent(0.2)
 
         if isUrgent {
             roundedCornerContainer.layer.borderWidth = 3

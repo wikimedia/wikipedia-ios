@@ -32,6 +32,7 @@
                 <outlet property="roundedCornerContainer" destination="qtK-Db-J92" id="bNO-Ae-oHN"/>
                 <outlet property="scrollView" destination="6JR-s8-77s" id="lmu-oP-tXU"/>
                 <outlet property="scrollViewContainer" destination="BhM-b3-oKp" id="ynz-78-85I"/>
+                <outlet property="separatorView" destination="RX6-wS-wJI" id="Zly-AB-Moz"/>
                 <outlet property="subheadingBottomConstraint" destination="bl1-Qj-Ohc" id="b0B-hi-Fmg"/>
                 <outlet property="subheadingTextView" destination="agu-fy-XDy" id="oE2-MM-YjK"/>
                 <outlet property="subheadingTopConstraint" destination="cCN-ob-P2q" id="vxC-eI-suv"/>
@@ -51,10 +52,10 @@
                             <rect key="frame" x="0.0" y="0.0" width="280" height="489"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-b3-oKp" userLabel="Scroll Container">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="512.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="513.5"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1lp-Zw-jU3">
-                                            <rect key="frame" x="0.0" y="16" width="280" height="466.5"/>
+                                            <rect key="frame" x="0.0" y="16" width="280" height="467.5"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Evj-R4-67a" userLabel="Inline Close Button Stack View">
                                                     <rect key="frame" x="0.0" y="0.0" width="280" height="30"/>
@@ -73,7 +74,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q2-cLc">
-                                                    <rect key="frame" x="0.0" y="30" width="280" height="436.5"/>
+                                                    <rect key="frame" x="0.0" y="30" width="280" height="437.5"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-auth-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="rFJ-kb-kte">
                                                             <rect key="frame" x="15" y="0.0" width="250" height="95"/>
@@ -172,13 +173,24 @@
                                                                 <constraint firstItem="hqs-XP-LEE" firstAttribute="top" secondItem="8tf-7a-eXe" secondAttribute="top" id="wIB-c0-etL"/>
                                                             </constraints>
                                                         </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RX6-wS-wJI">
+                                                            <rect key="frame" x="15" y="366.5" width="250" height="1"/>
+                                                            <color key="backgroundColor" systemColor="systemGrayColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" priority="999" constant="1" id="suH-K3-Ew0"/>
+                                                            </constraints>
+                                                        </view>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="This is a reasonably long sample DESCRIPTION for this panel. It is probably the best thing ever." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jJo-Ko-Gi1">
-                                                            <rect key="frame" x="15" y="366.5" width="250" height="70"/>
+                                                            <rect key="frame" x="15" y="367.5" width="250" height="70"/>
                                                             <color key="textColor" systemColor="labelColor"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="RX6-wS-wJI" firstAttribute="trailing" secondItem="jJo-Ko-Gi1" secondAttribute="trailing" id="fGn-Zs-na7"/>
+                                                        <constraint firstItem="RX6-wS-wJI" firstAttribute="leading" secondItem="jJo-Ko-Gi1" secondAttribute="leading" id="ozp-Tf-2qy"/>
+                                                    </constraints>
                                                     <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="15" bottom="0.0" trailing="15"/>
                                                 </stackView>
                                             </subviews>
@@ -326,7 +338,7 @@
                     <real key="value" value="0.0"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="77" y="248.5"/>
+            <point key="canvasLocation" x="76.799999999999997" y="247.82608695652175"/>
         </view>
     </objects>
     <designables>
@@ -351,6 +363,9 @@
         <image name="places-auth-close" width="11" height="11"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
