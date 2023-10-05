@@ -121,7 +121,7 @@ extension ArticleViewController {
         
         if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, campaignUtmSource: utmSource),
            let donateURL = donateURL {
-            presentNewDonorExperiencePaymentMethodActionSheet(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, campaignUtmSource: utmSource)
+            presentNewDonorExperiencePaymentMethodActionSheet(donateSource: .articleCampaignModal, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, campaignUtmSource: utmSource)
         } else {
             self.navigate(to: donateURL, useSafari: false)
         }

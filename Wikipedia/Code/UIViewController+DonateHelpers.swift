@@ -3,6 +3,11 @@ import Components
 import WKData
 import PassKit
 
+@objc enum DonateSource: Int {
+    case articleCampaignModal
+    case settings
+}
+
 @objc extension UIViewController {
     
     func canOfferNativeDonateForm(countryCode: String, currencyCode: String, languageCode: String, campaignUtmSource: String?) -> Bool {
@@ -110,7 +115,7 @@ import PassKit
         navigationController?.pushViewController(donateViewController, animated: true)
     }
     
-    func presentNewDonorExperiencePaymentMethodActionSheet(countryCode: String, currencyCode: String, languageCode: String, donateURL: URL, campaignUtmSource: String?) {
+    func presentNewDonorExperiencePaymentMethodActionSheet(donateSource: DonateSource, countryCode: String, currencyCode: String, languageCode: String, donateURL: URL, campaignUtmSource: String?) {
         
         let title = WMFLocalizedString("donate-payment-method-prompt-title", value: "Donate with Apple Pay?", comment: "Title of prompt to user asking which payment method they want to donate with.")
         let message = WMFLocalizedString("donate-payment-method-prompt-message", value: "Donate with Apple Pay or choose other payment method.", comment: "Message of prompt to user asking which payment method they want to donate with.")
@@ -125,17 +130,34 @@ import PassKit
         alert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel))
         
         let applePayAction = UIAlertAction(title: applePayButtonTitle, style: .default, handler: { action in
-            self.pushToNativeDonateForm(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, campaignUtmSource: campaignUtmSource)
+            
+            if donateSource == .articleCampaignModal {
+                self.dismiss(animated: true) {
+                    self.pushToNativeDonateForm(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, campaignUtmSource: campaignUtmSource)
+                }
+            } else {
+                self.pushToNativeDonateForm(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, campaignUtmSource: campaignUtmSource)
+            }
+            
         })
         alert.addAction(applePayAction)
         
         alert.addAction(UIAlertAction(title: otherButtonTitle, style: .default, handler: { action in
-            self.navigate(to: donateURL, useSafari: false)
+            
+            if donateSource == .articleCampaignModal {
+                self.dismiss(animated: true) {
+                    self.navigate(to: donateURL, useSafari: false)
+                }
+            } else {
+                self.navigate(to: donateURL, useSafari: false)
+            }
+            
         }))
         
         alert.preferredAction = applePayAction
         
-        self.present(alert, animated: true)
+        let presentationVC = donateSource == .articleCampaignModal ? presentedViewController : self
+        presentationVC?.present(alert, animated: true)
     }
     
     func sharedDonateDidTapProblemsDonatingLink() {
