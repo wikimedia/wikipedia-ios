@@ -65,7 +65,7 @@ extension ArticleViewController {
         }
 
         wmf_showAnnouncementPanel(announcement: announcement, primaryButtonTapHandler: { (sender) in
-            self.navigate(to: actionURL, useSafari: false)
+            self.navigate(to: actionURL, useSafari: true)
             // dismiss handler is called
         }, secondaryButtonTapHandler: { (sender) in
             // dismiss handler is called
@@ -89,16 +89,16 @@ extension ArticleViewController {
 
         wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { sender in
             if let url = asset.actions[0].url {
-                self.navigate(to: url, useSafari: false)
+                self.pushToDonateForm(asset: asset)
             }
             dismiss()
         }, secondaryButtonTapHandler: { sender in
             if shouldShowMaybeLater {
                 dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
             }
-            self.sharedDonateDidSetMaybeLater()
+            self.donateDidSetMaybeLater()
         }, optionalButtonTapHandler: { sender in
-            self.sharedDonateAlreadyDonated()
+            self.donateAlreadyDonated()
             dismiss()
         }, footerLinkAction: { url in
             self.navigate(to: url, useSafari: false)
@@ -128,6 +128,22 @@ extension ArticleViewController {
             presentNewDonorExperiencePaymentMethodActionSheet(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, campaignUtmSource: utmSource)
         } else {
             self.navigate(to: donateURL, useSafari: false)
+        }
+    }
+
+    func donateDidSetMaybeLater() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tommorow.", comment: "Title for toast shown when user clicks remind me later on fundraising banner")
+
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
+        }
+    }
+
+    func donateAlreadyDonated() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let title = WMFLocalizedString("donate-already-donated", value: "Thank you, dear donor! Your generosity helps keep Wikipedia and its sister sites thriving.", comment: "Thank you toast shown when user clicks already donated on fundraising banner")
+
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
         }
     }
 }

@@ -110,6 +110,10 @@ extension URL {
         host == Configuration.Domain.testWikipedia
     }
 
+    public var isThankYouDonationURL: Bool {
+        host == "donate.wikipedia.org" || self.host == "donate.wikimedia.org"
+    }
+
     public var wmf_wiki: String? {
         return wmf_languageCode?.replacingOccurrences(of: "-", with: "_").appending("wiki")
     }

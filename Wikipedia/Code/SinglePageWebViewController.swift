@@ -65,10 +65,11 @@ class SinglePageWebViewController: ViewController {
     private lazy var button: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(CommonStrings.returnToArticle, for: .normal)
+        button.setTitle(CommonStrings.returnButtonTitle, for: .normal) // TODO: Change string when user comes from the article
         button.backgroundColor = self.theme.colors.link
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = 8
+        button.titleLabel?.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
         button.addTarget(self, action: #selector(didTapReturnButton), for: .touchUpInside)
         return button
     }()
@@ -123,9 +124,9 @@ class SinglePageWebViewController: ViewController {
         let buttonTop = button.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 12)
         let buttonLeading = button.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 12)
         let buttonTrailing = button.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -12)
-        let buttonHeight = button.heightAnchor.constraint(equalToConstant: 46)
+        let buttonBottom = button.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -32)
 
-        webView.addConstraints([bottom, leading, trailing, height, buttonTop, buttonHeight, buttonLeading, buttonTrailing])
+        webView.addConstraints([bottom, leading, trailing, height, buttonTop, buttonLeading, buttonTrailing, buttonBottom])
     }
 
     var didHandleInitialNavigation = false

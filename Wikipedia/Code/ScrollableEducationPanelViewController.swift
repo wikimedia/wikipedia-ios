@@ -40,7 +40,16 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         case tappedBackground
         case none
     }
+
     
+    /// Enum for customizing button styles
+    /// `legacyStyle` stands for the default apperance
+    /// `updatedStyle` stands for the component-like style
+    enum ButtonStyle {
+        case legacyStyle
+        case updatedStyle
+    }
+
     @IBOutlet fileprivate weak var inlineCloseButton: UIButton!
     @IBOutlet fileprivate weak var pinnedCloseButton: UIButton!
     @IBOutlet fileprivate weak var imageView: UIImageView!
@@ -92,7 +101,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     fileprivate var traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?
     
     fileprivate var showCloseButton = true
-    fileprivate var newAnnouncement = false
+    fileprivate var buttonStyle: ButtonStyle = .legacyStyle
     private(set) public var showOptionalButton = false
     private var discardDismissHandlerOnPrimaryButtonTap = false
     private var primaryButtonTapped = false
@@ -325,7 +334,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         self.discardDismissHandlerOnPrimaryButtonTap = discardDismissHandlerOnPrimaryButtonTap
     }
     
-    init(showCloseButton: Bool, showOptionalButton: Bool = false, newAnnouncement: Bool = false, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler? = nil,traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, hasPinnedButtons: Bool = false, theme: Theme) {
+    init(showCloseButton: Bool, showOptionalButton: Bool = false, buttonStyle: ButtonStyle = .legacyStyle, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler? = nil,traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, hasPinnedButtons: Bool = false, theme: Theme) {
         self.hasPinnedButtons = hasPinnedButtons
         super.init(nibName: "ScrollableEducationPanelView", bundle: nil)
         self.modalPresentationStyle = .overFullScreen
@@ -333,7 +342,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         self.theme = theme
         self.showCloseButton = showCloseButton
         self.showOptionalButton = showOptionalButton
-        self.newAnnouncement = newAnnouncement
+        self.buttonStyle = buttonStyle
         self.primaryButtonTapHandler = primaryButtonTapHandler
         self.secondaryButtonTapHandler = secondaryButtonTapHandler
         self.optionalButtonTapHandler = optionalButtonTapHandler
@@ -388,7 +397,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             pinnedActionButtonContainerView.alpha = 0
         }
 
-        if newAnnouncement {
+        if buttonStyle == .updatedStyle {
             inlineCloseButtonStackView.alignment = .trailing
             inlineCloseButton.isHidden = false
             let image = UIImage(named: "close-inverse")
@@ -452,15 +461,16 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     }
 
     private func updateFonts() {
-        if newAnnouncement {
-            pinnedSecondaryButton.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
 
-            inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
-        } else {
+        switch buttonStyle {
+        case .legacyStyle:
             inlineSecondaryButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
             pinnedSecondaryButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
 
             inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+        case .updatedStyle:
+            pinnedSecondaryButton.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+            inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
         }
     }
     
@@ -567,7 +577,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         updateSubheadingHTML()
         updateFooterHTML()
 
-        if newAnnouncement {
+        if buttonStyle == .updatedStyle {
             inlinePrimaryButton.backgroundColor = theme.colors.link
             inlinePrimaryButton.setTitleColor(theme.colors.paperBackground, for: .normal)
 
