@@ -4,7 +4,7 @@ import WMF
 
 class SinglePageWebViewController: ViewController {
     let url: URL
-    let wikimediaProject: WikimediaProject?
+    let wikimediaProjectIdentifier: String?
     
     var doesUseSimpleNavigationBar: Bool {
         didSet {
@@ -14,12 +14,20 @@ class SinglePageWebViewController: ViewController {
             }
         }
     }
+    
+    var wikimediaProject: WikimediaProject? {
+        guard let wikimediaProjectIdentifier else {
+            return nil
+        }
+        
+        return WikimediaProject(notificationsApiIdentifier: wikimediaProjectIdentifier)
+    }
 
     var didReachThankyouPage = false
 
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, wikimediaProject: WikimediaProject? = nil) {
+    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, wikimediaProjectIdentifier: String? = nil) {
         self.url = url
-        self.wikimediaProject = wikimediaProject
+        self.wikimediaProjectIdentifier = wikimediaProjectIdentifier
         self.doesUseSimpleNavigationBar = doesUseSimpleNavigationBar
         super.init()
         self.theme = theme
