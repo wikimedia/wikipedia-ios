@@ -100,7 +100,7 @@ extension ArticleViewController {
             dataController.markAssetAsPermanentlyHidden(asset: asset)
 
         }, footerLinkAction: { url in
-            self.navigate(to: url, useSafari: false)
+            self.navigate(to: url, useSafari: true)
         }, traceableDismissHandler: { action in
             
             if action == .tappedClose {
