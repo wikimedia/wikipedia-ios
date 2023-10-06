@@ -40,7 +40,16 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         case tappedBackground
         case none
     }
+
     
+    /// Enum for customizing button styles
+    /// `legacyStyle` stands for the default apperance
+    /// `updatedStyle` stands for the component-like style
+    enum ButtonStyle {
+        case legacyStyle
+        case updatedStyle
+    }
+
     @IBOutlet fileprivate weak var inlineCloseButton: UIButton!
     @IBOutlet fileprivate weak var pinnedCloseButton: UIButton!
     @IBOutlet fileprivate weak var imageView: UIImageView!
@@ -92,7 +101,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     fileprivate var traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?
     
     fileprivate var showCloseButton = true
-    fileprivate var newAnnouncement = false
+    fileprivate var buttonStyle: ButtonStyle = .legacyStyle
     private(set) public var showOptionalButton = false
     private var discardDismissHandlerOnPrimaryButtonTap = false
     private var primaryButtonTapped = false
@@ -103,6 +112,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet private var buttonTopSpacingConstraint: NSLayoutConstraint!
     @IBOutlet weak var contentStackView: UIStackView!
 
+    @IBOutlet weak var separatorView: UIView!
     var width: CGFloat = 280 {
         didSet {
             widthConstraint.constant = width
@@ -263,7 +273,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             footerTextView.attributedText = nil
             return
         }
-        let attributedText = footerHTML.byAttributingHTML(with: .footnote, matching: traitCollection, color: footerTextView.textColor)
+        let attributedText = footerHTML.byAttributingHTML(with: .footnote, matching: traitCollection, color: theme.colors.secondaryText)
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
@@ -273,6 +283,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
         attributedText.addAttributes(attributes, range: NSRange(location: 0, length: attributedText.length))
         footerTextView.attributedText = attributedText
+        footerTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.link]
+        footerTextView.textContainerInset = .zero
     }
 
     var primaryButtonBorderWidth: CGFloat = 0 {
@@ -325,7 +337,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         self.discardDismissHandlerOnPrimaryButtonTap = discardDismissHandlerOnPrimaryButtonTap
     }
     
-    init(showCloseButton: Bool, showOptionalButton: Bool = false, newAnnouncement: Bool = false, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler? = nil,traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, hasPinnedButtons: Bool = false, theme: Theme) {
+    init(showCloseButton: Bool, showOptionalButton: Bool = false, buttonStyle: ButtonStyle = .legacyStyle, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler? = nil,traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, hasPinnedButtons: Bool = false, theme: Theme) {
         self.hasPinnedButtons = hasPinnedButtons
         super.init(nibName: "ScrollableEducationPanelView", bundle: nil)
         self.modalPresentationStyle = .overFullScreen
@@ -333,7 +345,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         self.theme = theme
         self.showCloseButton = showCloseButton
         self.showOptionalButton = showOptionalButton
-        self.newAnnouncement = newAnnouncement
+        self.buttonStyle = buttonStyle
         self.primaryButtonTapHandler = primaryButtonTapHandler
         self.secondaryButtonTapHandler = secondaryButtonTapHandler
         self.optionalButtonTapHandler = optionalButtonTapHandler
@@ -360,6 +372,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         inlineCloseButton.isHidden = !showCloseButton
         pinnedCloseButton.isHidden = !showCloseButton
         inlineOptionalButton.isHidden = !showOptionalButton
+        separatorView.isHidden = buttonStyle == .legacyStyle ? true : false
         [self.view, self.roundedCornerContainer].forEach {view in
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.overlayTapped(_:))))
         }
@@ -388,10 +401,13 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             pinnedActionButtonContainerView.alpha = 0
         }
 
-        if newAnnouncement {
+        if buttonStyle == .updatedStyle {
             inlineCloseButtonStackView.alignment = .trailing
             inlineCloseButton.isHidden = false
-            let image = UIImage(named: "close-inverse")
+
+            let image = UIImage(systemName: "xmark.circle.fill")?.withTintColor(theme.colors.secondaryText, renderingMode: .alwaysOriginal)
+            let button = UIButton(type: .system)
+            button.setImage(image, for: .normal)
             inlineCloseButton.setImage(image, for: .normal)
             inlineCloseButtonStackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             inlineCloseButtonStackView.isLayoutMarginsRelativeArrangement = true
@@ -452,15 +468,17 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     }
 
     private func updateFonts() {
-        if newAnnouncement {
-            pinnedSecondaryButton.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
 
-            inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
-        } else {
+        switch buttonStyle {
+        case .legacyStyle:
             inlineSecondaryButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
             pinnedSecondaryButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
 
             inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+        case .updatedStyle:
+            inlinePrimaryButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+            inlineSecondaryButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+            inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         }
     }
     
@@ -554,6 +572,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         inlinePrimaryButton.backgroundColor = theme.colors.baseBackground
         pinnedPrimaryButton.backgroundColor = theme.colors.baseBackground
         inlineOptionalButton.backgroundColor = theme.colors.baseBackground
+        separatorView.backgroundColor = theme.colors.border.withAlphaComponent(0.2)
 
         if isUrgent {
             roundedCornerContainer.layer.borderWidth = 3
@@ -567,14 +586,14 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         updateSubheadingHTML()
         updateFooterHTML()
 
-        if newAnnouncement {
+        if buttonStyle == .updatedStyle {
             inlinePrimaryButton.backgroundColor = theme.colors.link
             inlinePrimaryButton.setTitleColor(theme.colors.paperBackground, for: .normal)
 
-            inlineSecondaryButton.backgroundColor = theme.colors.paperBackground
+            inlineSecondaryButton.backgroundColor = .clear
             inlineSecondaryButton.setTitleColor(theme.colors.link, for: .normal)
 
-            inlineOptionalButton.backgroundColor = theme.colors.paperBackground
+            inlineOptionalButton.backgroundColor = .clear
             inlineOptionalButton.setTitleColor(theme.colors.link, for: .normal)
         }
     }

@@ -5,7 +5,7 @@ import WKData
 import PassKit
 
 @objc enum DonateSource: Int {
-    case article
+    case articleCampaignModal
     case settings
 }
 
@@ -115,9 +115,9 @@ import PassKit
         let donateViewController = WKDonateViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
         navigationController?.pushViewController(donateViewController, animated: true)
     }
-
-    @objc func presentNewDonorExperiencePaymentMethodActionSheet(source: DonateSource, countryCode: String, currencyCode: String, languageCode: String, donateURL: URL, campaignUtmSource: String?, articleURL: URL?, loggingDelegate: WKDonateLoggingDelegate?) {
-
+    
+    @objc func presentNewDonorExperiencePaymentMethodActionSheet(donateSource: DonateSource, countryCode: String, currencyCode: String, languageCode: String, donateURL: URL, campaignUtmSource: String?, articleURL: URL?, loggingDelegate: WKDonateLoggingDelegate?) {
+        
         let wikimediaProject: WikimediaProject?
         if let articleURL {
             wikimediaProject = WikimediaProject(siteURL: articleURL)
@@ -136,43 +136,57 @@ import PassKit
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: { action in
-            if source == .article,
+            if donateSource == .articleCampaignModal,
                let wikimediaProject {
                 AppInteractionFunnel.shared.logArticleDidTapCancel(project: wikimediaProject)
-            } else if source == .settings {
+            } else if donateSource == .settings {
                 AppInteractionFunnel.shared.logSettingDidTapCancel()
             }
         }))
         
         let applePayAction = UIAlertAction(title: applePayButtonTitle, style: .default, handler: { action in
-
-            if source == .article,
+            
+            if donateSource == .articleCampaignModal,
                let wikimediaProject {
                 AppInteractionFunnel.shared.logArticleDidTapDonateWithApplePay(project: wikimediaProject)
-            } else if source == .settings {
+            } else if donateSource == .settings {
                 AppInteractionFunnel.shared.logSettingDidTapApplePay()
             }
             
-            self.pushToNativeDonateForm(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, campaignUtmSource: campaignUtmSource, loggingDelegate: loggingDelegate)
+            if donateSource == .articleCampaignModal {
+                self.dismiss(animated: true) {
+                    self.pushToNativeDonateForm(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, campaignUtmSource: campaignUtmSource, loggingDelegate: loggingDelegate)
+                }
+            } else {
+                self.pushToNativeDonateForm(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, campaignUtmSource: campaignUtmSource, loggingDelegate: loggingDelegate)
+            }
+            
         })
         alert.addAction(applePayAction)
         
         alert.addAction(UIAlertAction(title: otherButtonTitle, style: .default, handler: { action in
             
-            if source == .article,
+            if donateSource == .articleCampaignModal,
                let wikimediaProject {
                 AppInteractionFunnel.shared.logArticleDidTapOtherPaymentMethod(project: wikimediaProject)
-            } else if source == .settings {
+            } else if donateSource == .settings {
                 AppInteractionFunnel.shared.logSettingDidTapOtherPaymentMethod()
             }
             
-            self.navigate(to: donateURL, userInfo: [RoutingUserInfoKeys.wikimediaProjectIdentifier: wikimediaProject?.notificationsApiWikiIdentifier as Any], useSafari: false)
+            if donateSource == .articleCampaignModal {
+                self.dismiss(animated: true) {
+                    self.navigate(to: donateURL, userInfo: [RoutingUserInfoKeys.wikimediaProjectIdentifier: wikimediaProject?.notificationsApiWikiIdentifier as Any], useSafari: false)
+                }
+            } else {
+                self.navigate(to: donateURL, useSafari: false)
+            }
+            
         }))
         
         alert.preferredAction = applePayAction
         
-        let presentVC = presentedViewController ?? self
-        presentVC.present(alert, animated: true)
+        let presentationVC = donateSource == .articleCampaignModal ? presentedViewController : self
+        presentationVC?.present(alert, animated: true)
     }
 }
 
@@ -236,30 +250,13 @@ extension UIViewController {
             switch source {
             case .settings:
                 AppInteractionFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
-            case .article:
+            case .articleCampaignModal:
                 if let articleURL,
                    let wikimediaProject = WikimediaProject(siteURL: articleURL) {
                     AppInteractionFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject)
                 }
                 
             }
-        }
-    }
-
-    func sharedDonateDidSetMaybeLater() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tommorow.", comment: "Title for toast shown when user clicks remind me later on fundraising banner")
-
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
-        }
-    }
-
-    func sharedDonateAlreadyDonated() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let title = WMFLocalizedString("donate-already-donated", value: "Thank you, dear donor! Your generosity helps keep Wikipedia and its sister sites thriving.", comment: "Thank you toast shown when user clicks already donated on fundraising banner")
-
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
-    
         }
     }
     
