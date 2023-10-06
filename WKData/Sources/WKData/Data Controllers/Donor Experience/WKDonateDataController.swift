@@ -39,13 +39,13 @@ import Contacts
         return (donateConfig, paymentMethods)
     }
     
-    @objc public func fetchConfigs(countryCode: String, paymentsAPIKey: String) {
-        fetchConfigs(for: countryCode, paymentsAPIKey: paymentsAPIKey) { result in
+    @objc public func fetchConfigs(countryCode: String) {
+        fetchConfigs(for: countryCode) { result in
             
         }
     }
     
-    public func fetchConfigs(for countryCode: String, paymentsAPIKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func fetchConfigs(for countryCode: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let service else {
             completion(.failure(WKDataControllerError.basicServiceUnavailable))
@@ -63,7 +63,6 @@ import Contacts
         let paymentMethodParameters: [String: Any] = [
             "action": "getPaymentMethods",
             "country": countryCode,
-            "api_key": paymentsAPIKey,
             "format": "json"
         ]
         
@@ -124,7 +123,7 @@ import Contacts
         }
     }
     
-    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, campaignUtmSource: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, bannerID: String?, appVersion: String?, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
             completion(.failure(WKDataControllerError.failureCreatingRequestURL))
@@ -166,8 +165,12 @@ import Contacts
             parameters["payment_network"] = paymentNetwork
         }
         
-        if let campaignUtmSource {
-            parameters["utm_source"] = campaignUtmSource
+        if let bannerID {
+            parameters["banner"] = bannerID
+        }
+        
+        if let appVersion {
+            parameters["app_version"] = appVersion
         }
             
         let request = WKBasicServiceRequest(url: donatePaymentSubmissionURL, method: .POST, parameters: parameters, bodyContentType: .form)
