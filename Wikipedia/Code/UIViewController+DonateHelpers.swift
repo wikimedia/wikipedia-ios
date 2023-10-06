@@ -280,6 +280,7 @@ extension UIViewController {
             case .validationAmountMaximum:
                 AppInteractionFunnel.shared.logDonateFormNativeApplePayEntryError(project: project)
             }
+            return
         }
         
         if let donateDataControllerError = error as? WKDonateDataControllerError {
@@ -287,7 +288,10 @@ extension UIViewController {
             case .paymentsWikiResponseError(let reason, let orderID):
                 AppInteractionFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: reason, errorCode: errorCode, orderID: orderID, project: project)
             }
+            return
         }
+        
+        AppInteractionFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: errorReason, errorCode: errorCode, orderID: nil, project: project)
     }
     
     func sharedLogDonateFormUserDidTapAmountPresetButton(project: WikimediaProject? = nil) {
@@ -302,8 +306,8 @@ extension UIViewController {
         AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected, project: project)
     }
     
-    func sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, recurringMonthlyIsSelected: Bool, donorEmail: String?, campaignID: String? = nil, project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, recurringMonthlyIsSelected: recurringMonthlyIsSelected, campaignID: campaignID, donorEmail: donorEmail, project: project)
+    func sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, recurringMonthlyIsSelected: Bool, donorEmail: String?, project: WikimediaProject? = nil, bannerID: String? = nil) {
+        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, recurringMonthlyIsSelected: recurringMonthlyIsSelected, campaignID: bannerID, donorEmail: donorEmail, project: project)
     }
     
     func sharedLogDonateFormUserDidTapProblemsDonatingLink(project: WikimediaProject? = nil) {

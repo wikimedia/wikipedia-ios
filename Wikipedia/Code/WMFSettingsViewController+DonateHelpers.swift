@@ -46,8 +46,8 @@ extension WMFSettingsViewController: WKDonateLoggingDelegate {
         sharedLogDonateFormUserDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected?.boolValue)
     }
     
-    public func logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, recurringMonthlyIsSelected: Bool, donorEmail: String?) {
-        sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: amount, recurringMonthlyIsSelected: recurringMonthlyIsSelected, donorEmail: donorEmail)
+    public func logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, recurringMonthlyIsSelected: Bool, donorEmail: String?, bannerID: String?) {
+        sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: amount, recurringMonthlyIsSelected: recurringMonthlyIsSelected, donorEmail: donorEmail, bannerID: bannerID)
     }
     
     public func logDonateFormUserDidTapProblemsDonatingLink() {

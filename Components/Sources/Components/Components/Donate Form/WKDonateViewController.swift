@@ -6,7 +6,7 @@ import Foundation
     func logDonateFormUserDidTapAmountPresetButton()
     func logDonateFormUserDidEnterAmountInTextfield()
     func logDonateFormUserDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: NSNumber?)
-    func logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, recurringMonthlyIsSelected: Bool, donorEmail: String?)
+    func logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, recurringMonthlyIsSelected: Bool, donorEmail: String?, bannerID: String?)
     func logDonateFormUserDidTapProblemsDonatingLink()
     func logDonateFormUserDidTapOtherWaysToGiveLink()
     func logDonateFormUserDidTapFAQLink()

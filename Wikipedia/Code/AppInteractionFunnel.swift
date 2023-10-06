@@ -204,7 +204,7 @@ import WMF
         var actionData: [String: String] = [:]
         
         if let errorReason {
-            actionData["error_reason"] = errorReason
+            actionData["error_reason"] = "'\(errorReason)'"
         }
         
         if let errorCode {

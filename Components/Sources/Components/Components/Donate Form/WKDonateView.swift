@@ -35,9 +35,6 @@ struct WKDonateView: View {
                     WKDonateAmountTextfield(viewModel: viewModel.textfieldViewModel)
                     if let errorViewModel = viewModel.errorViewModel {
                         WKDonateErrorView(viewModel: errorViewModel)
-                            .onAppear(perform: {
-                                viewModel.loggingDelegate?.logDonateFormUserDidTriggerError(error: errorViewModel.error)
-                            })
                     }
                     Spacer()
                         .frame(height: 24)

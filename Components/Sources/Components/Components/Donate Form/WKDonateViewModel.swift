@@ -273,13 +273,17 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         }
         
         if finalAmount < minimum {
-            self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: WKDonateViewModel.Error.validationAmountMinimum, orderID: nil)
+            let errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: WKDonateViewModel.Error.validationAmountMinimum, orderID: nil)
+            self.errorViewModel = errorViewModel
+            loggingDelegate?.logDonateFormUserDidTriggerError(error: errorViewModel.error)
             return
         }
         
         if let maximum = donateConfig.currencyMaximumDonation[currencyCode],
         finalAmount > maximum {
-            self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: WKDonateViewModel.Error.validationAmountMaximum, orderID: nil)
+            let errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: WKDonateViewModel.Error.validationAmountMaximum, orderID: nil)
+            self.errorViewModel = errorViewModel
+            loggingDelegate?.logDonateFormUserDidTriggerError(error: errorViewModel.error)
             return
         }
         
@@ -450,12 +454,13 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
 
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
         
-        loggingDelegate?.logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: finalAmount, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, donorEmail: payment.shippingContact?.emailAddress)
+        loggingDelegate?.logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: finalAmount, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, donorEmail: payment.shippingContact?.emailAddress, bannerID: bannerID)
 
         guard !payment.token.paymentData.isEmpty,
               let paymentToken = String(data: payment.token.paymentData, encoding: .utf8) else {
             let error = Error.invalidToken
             self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: nil)
+            loggingDelegate?.logDonateFormUserDidTriggerError(error: error)
             completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
             return
         }
@@ -465,6 +470,7 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
               let donorAddressComponents = payment.billingContact?.postalAddress else {
             let error = Error.missingDonorInfo
             self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: nil)
+            loggingDelegate?.logDonateFormUserDidTriggerError(error: error)
             completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
             return
         }
@@ -492,10 +498,16 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
                 if let dataControllerError = error as? WKDonateDataControllerError {
                     switch dataControllerError {
                     case .paymentsWikiResponseError(_, let orderID):
-                        self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: orderID)
+                        DispatchQueue.main.async {
+                            self.errorViewModel = ErrorViewModel(localizedStrings: self.errorLocalizedStrings, error: error, orderID: orderID)
+                        }
+                        loggingDelegate?.logDonateFormUserDidTriggerError(error: error)
                     }
                 } else {
-                    self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: nil)
+                    DispatchQueue.main.async {
+                        self.errorViewModel = ErrorViewModel(localizedStrings: self.errorLocalizedStrings, error: error, orderID: nil)
+                    }
+                    loggingDelegate?.logDonateFormUserDidTriggerError(error: error)
                 }
                 
                 completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
