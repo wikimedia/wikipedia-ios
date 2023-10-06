@@ -145,9 +145,15 @@ extension ArticleViewController {
     }
 
     func donateDidSetMaybeLater() {
+        
+        let project = WikimediaProject(siteURL: articleURL)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tommorow.", comment: "Title for toast shown when user clicks remind me later on fundraising banner")
 
+            if let project {
+                AppInteractionFunnel.shared.logArticleDidSeeReminderToast(project: project)
+            }
+            
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
         }
     }

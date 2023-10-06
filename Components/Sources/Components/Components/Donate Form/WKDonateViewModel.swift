@@ -177,7 +177,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     private var transactionFeeSubscribers: Set<AnyCancellable> = []
     
     private weak var delegate: WKDonateDelegate?
-    private weak var loggingDelegate: WKDonateLoggingDelegate?
+    private(set) weak var loggingDelegate: WKDonateLoggingDelegate?
     
     // MARK: - Lifecycle
     

@@ -16,12 +16,10 @@ struct WKDonateView: View {
     @ObservedObject var viewModel: WKDonateViewModel
     
     weak var delegate: WKDonateDelegate?
-    weak var loggingDelegate: WKDonateLoggingDelegate?
     
-    init(viewModel: WKDonateViewModel, delegate: WKDonateDelegate?, loggingDelegate: WKDonateLoggingDelegate?) {
+    init(viewModel: WKDonateViewModel, delegate: WKDonateDelegate?) {
         self.viewModel = viewModel
         self.delegate = delegate
-        self.loggingDelegate = loggingDelegate
     }
     
     var body: some View {
@@ -38,7 +36,7 @@ struct WKDonateView: View {
                     if let errorViewModel = viewModel.errorViewModel {
                         WKDonateErrorView(viewModel: errorViewModel)
                             .onAppear(perform: {
-                                loggingDelegate?.logDonateFormUserDidTriggerError(error: errorViewModel.error)
+                                viewModel.loggingDelegate?.logDonateFormUserDidTriggerError(error: errorViewModel.error)
                             })
                     }
                     Spacer()
@@ -138,10 +136,9 @@ private struct WKDonateAmountButtonView: View {
     
     var body: some View {
         let configuration = WKPriceButton.Configuration(currencyCode: viewModel.currencyCode, canDeselect: false, accessibilityHint: viewModel.accessibilityHint)
-        WKPriceButton(configuration: configuration, amount: $viewModel.amount, isSelected: $viewModel.isSelected)
-            .onTapGesture {
-                viewModel.loggingDelegate?.logDonateFormUserDidTapAmountPresetButton()
-            }
+        WKPriceButton(configuration: configuration, amount: $viewModel.amount, isSelected: $viewModel.isSelected, loggingTapAction: {
+            viewModel.loggingDelegate?.logDonateFormUserDidTapAmountPresetButton()
+        })
     }
 }
 
@@ -237,20 +234,20 @@ private struct WKDonateHelpLinks: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkProblemsDonating) {
+                viewModel.loggingDelegate?.logDonateFormUserDidTapProblemsDonatingLink()
                 delegate?.donateDidTapProblemsDonatingLink()
-                loggingDelegate?.logDonateFormUserDidTapProblemsDonatingLink()
             }
             WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkOtherWaysToGive) {
+                viewModel.loggingDelegate?.logDonateFormUserDidTapOtherWaysToGiveLink()
                 delegate?.donateDidTapOtherWaysToGive()
-                loggingDelegate?.logDonateFormUserDidTapOtherWaysToGiveLink()
             }
             WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkFrequentlyAskedQuestions) {
+                viewModel.loggingDelegate?.logDonateFormUserDidTapFAQLink()
                 delegate?.donateDidTapFrequentlyAskedQuestions()
-                loggingDelegate?.logDonateFormUserDidTapFAQLink()
             }
             WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkTaxDeductibilityInformation) {
+                viewModel.loggingDelegate?.logDonateFormUserDidTapTaxInfoLink()
                 delegate?.donateDidTapTaxDeductibilityInformation()
-                loggingDelegate?.logDonateFormUserDidTapTaxInfoLink()
             }
         }
         .padding(EdgeInsets(top: 16, leading: 0, bottom: 28, trailing: 0))

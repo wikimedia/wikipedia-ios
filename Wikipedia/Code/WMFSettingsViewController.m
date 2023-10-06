@@ -305,7 +305,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                 
                 if ([self canOfferNativeDonateFormWithCountryCode:countryCode currencyCode:currencyCode languageCode:languageCode campaignUtmSource:nil]) {
 
-                    [self presentNewDonorExperiencePaymentMethodActionSheetWithDonateSource: DonateSourceSettings countryCode:countryCode currencyCode:currencyCode languageCode:languageCode donateURL:self.donationURL campaignUtmSource:nil articleURL:nil loggingDelegate:nil];
+                    [self presentNewDonorExperiencePaymentMethodActionSheetWithDonateSource: DonateSourceSettings countryCode:countryCode currencyCode:currencyCode languageCode:languageCode donateURL:self.donationURL campaignUtmSource:nil articleURL:nil loggingDelegate:self];
                 } else {
                     // New experience pushing to in-app browser
                     [self wmf_navigateToURL:[self donationURL] useSafari:NO];

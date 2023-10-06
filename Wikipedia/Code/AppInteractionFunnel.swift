@@ -11,6 +11,7 @@ import WMF
         case article = "article"
         case applePayInitiated = "applepay_initiated"
         case applePay = "applepay"
+        case applePayProcessed = "applepay_processed"
         case webPayInitiated = "webpay_initiated"
         case webPayProcessed = "webpay_processed"
     }
@@ -41,6 +42,7 @@ import WMF
         case successToastSetting = "success_toast_setting"
         case successToastArticle = "success_toast_article"
         case articleReturnClick = "article_return_click"
+        case returnClick = "return_click"
     }
     
     private struct Event: EventInterface {
@@ -64,7 +66,8 @@ import WMF
         
         var actionDataString: String? = nil
         if let actionData {
-            for (key, value) in actionData.enumerated() {
+            actionDataString = ""
+            for (key, value) in actionData {
                 actionDataString?.append("\(key):\(value), ")
             }
             
@@ -128,15 +131,15 @@ import WMF
     }
     
     func logArticleDidTapDonateWithApplePay(project: WikimediaProject) {
-        logEvent(activeInterface: .article, action: .applePayClick, project: project)
+        logEvent(activeInterface: .articleBanner, action: .applePayClick, project: project)
     }
     
     func logArticleDidTapOtherPaymentMethod(project: WikimediaProject) {
-        logEvent(activeInterface: .article, action: .webPayClick, project: project)
+        logEvent(activeInterface: .articleBanner, action: .webPayClick, project: project)
     }
     
     func logArticleDidTapCancel(project: WikimediaProject) {
-        logEvent(activeInterface: .article, action: .cancelClick, project: project)
+        logEvent(activeInterface: .articleBanner, action: .cancelClick, project: project)
     }
     
     func logDonateFormNativeApplePayImpression(project: WikimediaProject?) {
@@ -191,10 +194,10 @@ import WMF
         }
         
         if let donorEmail {
-            actionData["email_subscribe"] = donorEmail
+            actionData["email"] = donorEmail
         }
         
-        logEvent(activeInterface: .applePay, action: .applePayUIConfirm, actionData: actionData, project: project)
+        logEvent(activeInterface: .applePayProcessed, action: .applePayUIConfirm, actionData: actionData, project: project)
     }
     
     func logDonateFormNativeApplePaySubmissionError(errorReason: String?, errorCode: String?, orderID: String?, project: WikimediaProject?) {
@@ -231,7 +234,11 @@ import WMF
         logEvent(activeInterface: .webPayProcessed, action: .impression, project: project)
     }
     
-    func logDonateFormInAppWebViewDidTapReturnButton(project: WikimediaProject?) {
+    func logDonateFormInAppWebViewDidTapArticleReturnButton(project: WikimediaProject) {
         logEvent(activeInterface: .webPayProcessed, action: .articleReturnClick, project: project)
+    }
+    
+    func logDonateFormInAppWebViewDidTapReturnButton() {
+        logEvent(activeInterface: .webPayProcessed, action: .returnClick)
     }
 }

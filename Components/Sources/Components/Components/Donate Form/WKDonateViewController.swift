@@ -26,6 +26,7 @@ public final class WKDonateViewController: WKCanvasViewController {
     public init(viewModel: WKDonateViewModel, delegate: WKDonateDelegate?, loggingDelegate: WKDonateLoggingDelegate?) {
         self.viewModel = viewModel
         self.hostingViewController = WKDonateHostingViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
+        self.loggingDelegate = loggingDelegate
         super.init()
     }
     
@@ -45,18 +46,22 @@ public final class WKDonateViewController: WKCanvasViewController {
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loggingDelegate?.logDonateFormDidAppear()
+    }
+    
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        loggingDelegate?.logDonateFormDidAppear()
     }
 }
 
 fileprivate final class WKDonateHostingViewController: WKComponentHostingController<WKDonateView> {
 
     init(viewModel: WKDonateViewModel, delegate: WKDonateDelegate?, loggingDelegate: WKDonateLoggingDelegate?) {
-        super.init(rootView: WKDonateView(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate))
+        super.init(rootView: WKDonateView(viewModel: viewModel, delegate: delegate))
     }
 
     required init?(coder aDecoder: NSCoder) {

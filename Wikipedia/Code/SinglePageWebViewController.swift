@@ -4,7 +4,7 @@ import WMF
 
 class SinglePageWebViewController: ViewController {
     let url: URL
-    let wikimediaProjectIdentifier: String?
+    let campaignArticleURL: URL?
     
     var doesUseSimpleNavigationBar: Bool {
         didSet {
@@ -15,19 +15,19 @@ class SinglePageWebViewController: ViewController {
         }
     }
     
-    var wikimediaProject: WikimediaProject? {
-        guard let wikimediaProjectIdentifier else {
+    var campaignProject: WikimediaProject? {
+        guard let campaignArticleURL else {
             return nil
         }
         
-        return WikimediaProject(notificationsApiIdentifier: wikimediaProjectIdentifier)
+        return WikimediaProject(siteURL: campaignArticleURL)
     }
 
     var didReachThankyouPage = false
 
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, wikimediaProjectIdentifier: String? = nil) {
+    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, campaignArticleURL: URL? = nil) {
         self.url = url
-        self.wikimediaProjectIdentifier = wikimediaProjectIdentifier
+        self.campaignArticleURL = campaignArticleURL
         self.doesUseSimpleNavigationBar = doesUseSimpleNavigationBar
         super.init()
         self.theme = theme
@@ -77,7 +77,14 @@ class SinglePageWebViewController: ViewController {
     private lazy var button: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(CommonStrings.returnButtonTitle, for: .normal) // TODO: Change string when user comes from the article
+        
+        // Came from article
+        if campaignProject != nil {
+            button.setTitle(CommonStrings.returnToArticle, for: .normal)
+        } else {
+            button.setTitle(CommonStrings.returnButtonTitle, for: .normal)
+        }
+        
         button.backgroundColor = self.theme.colors.link
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = 8
@@ -127,7 +134,7 @@ class SinglePageWebViewController: ViewController {
         super.viewDidAppear(animated)
         
         if url.isDonationURL {
-            AppInteractionFunnel.shared.logDonateFormInAppWebViewImpression(project: wikimediaProject)
+            AppInteractionFunnel.shared.logDonateFormInAppWebViewImpression(project: campaignProject)
         }
     }
 
@@ -169,7 +176,7 @@ class SinglePageWebViewController: ViewController {
                   actionURL.isThankYouDonationURL {
             didReachThankyouPage = true
             setupBottomView()
-            AppInteractionFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: wikimediaProject)
+            AppInteractionFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: campaignProject)
         }
         
         return true
@@ -192,14 +199,27 @@ class SinglePageWebViewController: ViewController {
     }
 
     @objc func didTapReturnButton() {
-        AppInteractionFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: wikimediaProject)
+        if let project = campaignProject {
+            AppInteractionFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: project)
+        } else {
+            AppInteractionFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton()
+        }
+        
         navigationController?.popViewController(animated: true)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
+        let project = self.campaignProject
         if didReachThankyouPage {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
+                
+                if let project {
+                    AppInteractionFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: project)
+                } else {
+                    AppInteractionFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
+                }
             }
         }
     }

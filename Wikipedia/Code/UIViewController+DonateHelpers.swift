@@ -173,9 +173,10 @@ import PassKit
                 AppInteractionFunnel.shared.logSettingDidTapOtherPaymentMethod()
             }
             
-            if donateSource == .articleCampaignModal {
+            if donateSource == .articleCampaignModal,
+            let articleURL = articleURL {
                 self.dismiss(animated: true) {
-                    self.navigate(to: donateURL, userInfo: [RoutingUserInfoKeys.wikimediaProjectIdentifier: wikimediaProject?.notificationsApiWikiIdentifier as Any], useSafari: false)
+                    self.navigate(to: donateURL, userInfo: [RoutingUserInfoKeys.campaignArticleURL: articleURL as Any], useSafari: false)
                 }
             } else {
                 self.navigate(to: donateURL, useSafari: false)
