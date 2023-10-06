@@ -65,7 +65,7 @@ extension ArticleViewController {
         }
 
         wmf_showAnnouncementPanel(announcement: announcement, primaryButtonTapHandler: { (sender) in
-            self.navigate(to: actionURL, useSafari: false)
+            self.navigate(to: actionURL, useSafari: true)
             // dismiss handler is called
         }, secondaryButtonTapHandler: { (sender) in
             // dismiss handler is called
@@ -84,21 +84,28 @@ extension ArticleViewController {
         let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
 
         wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { sender in
-            if let url = asset.actions[0].url {
-                self.navigate(to: url, useSafari: false)
-            }
+            self.pushToDonateForm(asset: asset)
             dataController.markAssetAsPermanentlyHidden(asset: asset)
+            
         }, secondaryButtonTapHandler: { sender in
             if shouldShowMaybeLater {
                 dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
+                self.donateDidSetMaybeLater()
+            } else {
+                self.donateAlreadyDonated()
+                dataController.markAssetAsPermanentlyHidden(asset: asset)
             }
-            self.sharedDonateDidSetMaybeLater()
         }, optionalButtonTapHandler: { sender in
-            self.sharedDonateAlreadyDonated()
+            self.donateAlreadyDonated()
             dataController.markAssetAsPermanentlyHidden(asset: asset)
+
         }, footerLinkAction: { url in
-            self.navigate(to: url, useSafari: false)
-        }, traceableDismissHandler: { _ in
+            self.navigate(to: url, useSafari: true)
+        }, traceableDismissHandler: { action in
+            
+            if action == .tappedClose {
+                dataController.markAssetAsPermanentlyHidden(asset: asset)
+            }
             
         }, showMaybeLater: shouldShowMaybeLater)
     }
@@ -122,9 +129,25 @@ extension ArticleViewController {
         
         if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, bannerID: utmSource, appVersion: appVersion),
            let donateURL = donateURL {
-            presentNewDonorExperiencePaymentMethodActionSheet(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, bannerID: utmSource, appVersion: appVersion)
+            presentNewDonorExperiencePaymentMethodActionSheet(donateSource: .articleCampaignModal, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, bannerID: utmSource, appVersion: appVersion)
         } else {
             self.navigate(to: donateURL, useSafari: false)
+        }
+    }
+
+    func donateDidSetMaybeLater() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tommorow.", comment: "Title for toast shown when user clicks remind me later on fundraising banner")
+
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
+        }
+    }
+
+    func donateAlreadyDonated() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let title = WMFLocalizedString("donate-already-donated", value: "Thank you, dear donor! Your generosity helps keep Wikipedia and its sister sites thriving.", comment: "Thank you toast shown when user clicks already donated on fundraising banner")
+
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
         }
     }
 }

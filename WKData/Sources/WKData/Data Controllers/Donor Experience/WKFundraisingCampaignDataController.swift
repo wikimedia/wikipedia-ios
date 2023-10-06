@@ -27,8 +27,11 @@ import Foundation
     ///   - asset: WKAsset to mark as maybe later
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     public func markAssetAsMaybeLater(asset: WKFundraisingCampaignConfig.WKAsset, currentDate: Date) {
-        let maybeLaterDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)
-        let promptState = WKFundraisingCampaignPromptState(campaignID: asset.id, isHidden: false, maybeLaterDate: maybeLaterDate)
+        guard let oneDayLater = Calendar.current.date(byAdding: .day, value: 1, to: currentDate) else {
+            return
+        }
+        let nextDayMidnight = Calendar.current.startOfDay(for: oneDayLater)
+        let promptState = WKFundraisingCampaignPromptState(campaignID: asset.id, isHidden: false, maybeLaterDate: nextDayMidnight)
         try? sharedCacheStore?.save(key: cacheDirectoryName, cachePromptStateFileName, value: promptState)
     }
 
@@ -39,12 +42,9 @@ import Foundation
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     /// - Returns: Bool
     public func showShowMaybeLaterOption(asset: WKFundraisingCampaignConfig.WKAsset, currentDate: Date) -> Bool {
-        guard let endDateTimestamp = DateFormatter.mediaWikiAPIDateFormatter.date(from: asset.endDate) else {
-            return false
-        }
 
         let calendar = Calendar.current
-        let endDateComponents = calendar.dateComponents([.year, .month, .day], from: endDateTimestamp)
+        let endDateComponents = calendar.dateComponents([.year, .month, .day], from: asset.endDate)
         let currentDateComponents = calendar.dateComponents([.year, .month, .day], from: currentDate)
 
         return !(endDateComponents == currentDateComponents)
@@ -247,7 +247,7 @@ import Foundation
                     return WKFundraisingCampaignConfig.WKAsset.WKAction(title: action.title, url: url)
                 }
 
-                let asset = WKFundraisingCampaignConfig.WKAsset(id: config.id, textHtml: value.text, footerHtml: value.footer, actions: actions, countryCode: countryCode, currencyCode: value.currencyCode, endDate: config.endTimeString, languageCode: key)
+                let asset = WKFundraisingCampaignConfig.WKAsset(id: config.id, textHtml: value.text, footerHtml: value.footer, actions: actions, countryCode: countryCode, currencyCode: value.currencyCode, endDate: endDate, languageCode: key)
                 assets[key] = asset
             }
             

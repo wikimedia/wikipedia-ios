@@ -914,6 +914,7 @@
 "replace-replace-all-results-count" = "Alert view label that tells the user how many instances they just replaced via \"Replace all\". $1 is replaced with the number of instances that were replaced.";
 "replace-textfield-accessibility" = "Accessibility label for the replace text field.";
 "replace-textfield-placeholder" = "Placeholder text seen in replace textfield before textfield is focused.";
+"return-button-title" = "Title for button indicating that is possible return from this point";
 "return-to-article" = "Title for button indicating that is possible to go back to article";
 "reverted-edit-title" = "Title for notification informing user that their edit was reverted.";
 "saved-all-articles-title" = "Title of the all articles button on Saved screen";

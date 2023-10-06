@@ -41,7 +41,7 @@
             if ([WMFSettingsViewController validTargetIDCampaignIsRunning]) {
                 return
                     [[WMFSettingsMenuItem alloc] initWithType:type
-                                                        title:WMFLocalizedStringWithDefaultValue(@"settings-donate", nil, nil, @"Donate to Wikipiedia", @"Title for button letting user make a donation.")
+                                                        title:WMFLocalizedStringWithDefaultValue(@"settings-donate", nil, nil, @"Donate to Wikipedia", @"Title for button letting user make a donation.")
                                                      iconName:@"settings-support"
                                                     iconColor:[UIColor wmf_red_600]
                                                disclosureType:WMFSettingsMenuItemDisclosureType_None
