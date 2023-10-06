@@ -12,7 +12,8 @@ import Foundation
     private let cacheConfigFileName = "AppsCampaignConfig"
     private let cachePromptStateFileName = "WKFundraisingCampaignPromptState"
     
-    private static let temporaryTargetCampaignID = "NL_2023_11"
+    private static let temporaryNLTargetCampaignID = "NL_2023_11"
+    private static let temporaryITTargetCampaignID = "IT_2023_11"
     
     // MARK: - Lifecycle
     
@@ -65,7 +66,7 @@ import Foundation
     public func hasActivelyRunningCampaigns(countryCode: String, currentDate: Date) -> Bool {
         
         let containsActiveCampaignWithTargetID: ([WKFundraisingCampaignConfig]) -> Bool = { configs in
-            let containsTargetCampaignID = configs.contains { $0.id == Self.temporaryTargetCampaignID }
+            let containsTargetCampaignID = configs.contains { $0.id == Self.temporaryNLTargetCampaignID || $0.id == Self.temporaryITTargetCampaignID }
             return containsTargetCampaignID
         }
         
