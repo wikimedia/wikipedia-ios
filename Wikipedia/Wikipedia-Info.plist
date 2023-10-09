@@ -53,6 +53,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MerchantID</key>
+	<string>merchant.com.adyen.wikimedia</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Get article recommendations based on your location</string>
 	<key>NSLocationUsageDescription</key>
