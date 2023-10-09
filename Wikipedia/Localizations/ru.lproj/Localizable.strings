@@ -36,6 +36,7 @@
 // Author: Mouse21
 // Author: Movses
 // Author: MuratTheTurkish
+// Author: Nadezhda
 // Author: Nastua Buldakova
 // Author: Nemo bis
 // Author: Nitch
@@ -298,6 +299,8 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 строка не изменилась|$1 строки не изменилось|$1 строк не изменилось}}";
 "diff-user-button-accessibility-text" = "Нажмите дважды, чтобы открыть меню";
 "dim-images" = "Делать изображения менее яркими";
+"donate-monthly-recurring-text" = "Сделайте это ежемесячным регулярным пожертвованием.";
+"donate-success-title" = "Спасибо!";
 "edit-bold-accessibility-label" = "Добавить полужирное начертание";
 "edit-bold-remove-accessibility-label" = "Убрать полужирное начертание";
 "edit-clear-formatting-accessibility-label" = "Очистить форматирование";
