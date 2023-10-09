@@ -56,6 +56,7 @@ struct WKDonateView: View {
                     WKApplePayDonateButton(configuration: WKApplePayDonateButton.Configuration(paymentButtonStyle: appEnvironment.theme.paymentButtonStyle))
                         .onTapGesture {
                             viewModel.textfieldViewModel.hasFocus = false
+                            viewModel.logTappedApplePayButton()
                             viewModel.validateAndSubmit()
                             if let errorViewModel = viewModel.errorViewModel {
                                 errorViewModel.hasAccessibilityFocus = true
@@ -132,7 +133,9 @@ private struct WKDonateAmountButtonView: View {
     
     var body: some View {
         let configuration = WKPriceButton.Configuration(currencyCode: viewModel.currencyCode, canDeselect: false, accessibilityHint: viewModel.accessibilityHint)
-        WKPriceButton(configuration: configuration, amount: $viewModel.amount, isSelected: $viewModel.isSelected)
+        WKPriceButton(configuration: configuration, amount: $viewModel.amount, isSelected: $viewModel.isSelected, loggingTapAction: {
+            viewModel.loggingDelegate?.logDonateFormUserDidTapAmountPresetButton()
+        })
     }
 }
 
@@ -156,7 +159,7 @@ private struct WKDonateErrorView: View {
         Spacer()
             .frame(height: 12)
         HStack {
-            Text(viewModel.localizedStrings.text)
+            Text(viewModel.displayText)
                 .font(Font(WKFont.for(.mediumSubheadline)))
                 .foregroundColor(Color(appEnvironment.theme.destructive))
                 .accessibilityFocused($accessibilityFocus)
@@ -218,6 +221,7 @@ private struct WKDonateHelpLinks: View {
     @ObservedObject var appEnvironment = WKAppEnvironment.current
     let viewModel: WKDonateViewModel
     weak var delegate: WKDonateDelegate?
+    weak var loggingDelegate: WKDonateLoggingDelegate?
     
     init(viewModel: WKDonateViewModel, delegate: WKDonateDelegate?) {
         self.viewModel = viewModel
@@ -227,15 +231,19 @@ private struct WKDonateHelpLinks: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkProblemsDonating) {
+                viewModel.loggingDelegate?.logDonateFormUserDidTapProblemsDonatingLink()
                 delegate?.donateDidTapProblemsDonatingLink()
             }
             WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkOtherWaysToGive) {
+                viewModel.loggingDelegate?.logDonateFormUserDidTapOtherWaysToGiveLink()
                 delegate?.donateDidTapOtherWaysToGive()
             }
             WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkFrequentlyAskedQuestions) {
+                viewModel.loggingDelegate?.logDonateFormUserDidTapFAQLink()
                 delegate?.donateDidTapFrequentlyAskedQuestions()
             }
             WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkTaxDeductibilityInformation) {
+                viewModel.loggingDelegate?.logDonateFormUserDidTapTaxInfoLink()
                 delegate?.donateDidTapTaxDeductibilityInformation()
             }
         }

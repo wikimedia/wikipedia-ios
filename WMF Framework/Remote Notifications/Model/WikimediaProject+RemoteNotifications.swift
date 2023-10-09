@@ -238,7 +238,7 @@ extension WikimediaProject {
     /// - Parameters:
     ///   - notificationsApiIdentifier: The API identifier used by the MediaWiki Notifications API. (e.g. "enwiki", "commonswiki", "wikidatawiki", etc.)
     ///   - languageLinkController: Included to validate project against a list of languages that the app recognizes. This also associates extra metadata to language enum associated value, like localizedName and languageVariantCode.
-    public init?(notificationsApiIdentifier: String, languageLinkController: MWKLanguageLinkController) {
+    public init?(notificationsApiIdentifier: String, languageLinkController: MWKLanguageLinkController? = nil) {
         
         switch notificationsApiIdentifier {
         case Self.commonsIdentifier:
@@ -258,7 +258,7 @@ extension WikimediaProject {
                 let strippedIdentifier = notificationsApiIdentifier.hasSuffix(suffix) ? String(notificationsApiIdentifier.dropLast(suffix.count)) : notificationsApiIdentifier
                 
                 // confirm it is a recognized language
-                let recognizedLanguage = languageLinkController.allLanguages.first { languageLink in
+                let recognizedLanguage = languageLinkController?.allLanguages.first { languageLink in
                     languageLink.languageCode == strippedIdentifier
                 }
                 

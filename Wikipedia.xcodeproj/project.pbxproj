@@ -572,6 +572,10 @@
 		67358DFB2AAA7EDE00510592 /* Components in Frameworks */ = {isa = PBXBuildFile; productRef = 67358DFA2AAA7EDE00510592 /* Components */; };
 		673612F224FD7210002A1989 /* ArticleAsLivingDocViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673612F124FD7210002A1989 /* ArticleAsLivingDocViewModelTests.swift */; };
 		6739A182273061220063E0E0 /* RemoteNotificationsMarkAllAsReadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739A181273061220063E0E0 /* RemoteNotificationsMarkAllAsReadOperation.swift */; };
+		673C55CB2ACC684E00E2EBF6 /* AppInteractionFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673C55CA2ACC684E00E2EBF6 /* AppInteractionFunnel.swift */; };
+		673C55CC2ACC684E00E2EBF6 /* AppInteractionFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673C55CA2ACC684E00E2EBF6 /* AppInteractionFunnel.swift */; };
+		673C55CD2ACC684E00E2EBF6 /* AppInteractionFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673C55CA2ACC684E00E2EBF6 /* AppInteractionFunnel.swift */; };
+		673C55CE2ACC684E00E2EBF6 /* AppInteractionFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673C55CA2ACC684E00E2EBF6 /* AppInteractionFunnel.swift */; };
 		673DF4932AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DF4922AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift */; };
 		673DF4942AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DF4922AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift */; };
 		673DF4952AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DF4922AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift */; };
@@ -4096,6 +4100,7 @@
 		6734F051227B634900BDDB94 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		673612F124FD7210002A1989 /* ArticleAsLivingDocViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocViewModelTests.swift; sourceTree = "<group>"; };
 		6739A181273061220063E0E0 /* RemoteNotificationsMarkAllAsReadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsMarkAllAsReadOperation.swift; sourceTree = "<group>"; };
+		673C55CA2ACC684E00E2EBF6 /* AppInteractionFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInteractionFunnel.swift; sourceTree = "<group>"; };
 		673DF4922AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DonateHelpers.swift"; sourceTree = "<group>"; };
 		673FC3CF273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFTableHeaderFooterLabelView+Extensions.swift"; sourceTree = "<group>"; };
 		6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterDetailViewModel+ActionExtensions.swift"; sourceTree = "<group>"; };
@@ -6810,6 +6815,7 @@
 				83155BA52A0D70B7003D141D /* NavigationEventsFunnel.swift */,
 				83B5DF9829F6C7E300F8329D /* EditAttemptFunnel.swift */,
 				6785FCCA2A6840880078FAF2 /* WatchlistFunnel.swift */,
+				673C55CA2ACC684E00E2EBF6 /* AppInteractionFunnel.swift */,
 			);
 			name = "Wikimedia Event Logging";
 			sourceTree = "<group>";
@@ -11204,6 +11210,7 @@
 				B0524B6F214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				B0F92C6F1E3C580900B72802 /* WMFCaptchaResetter.swift in Sources */,
 				830D71C31F703C980080078B /* ArticleURLListViewController.swift in Sources */,
+				673C55CB2ACC684E00E2EBF6 /* AppInteractionFunnel.swift in Sources */,
 				7A7AC84621B6B89B003B849B /* SectionEditorViewController.swift in Sources */,
 				006ABEE82901E8F600722DF8 /* VanishAccountWarningView.swift in Sources */,
 				D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */,
@@ -12454,6 +12461,7 @@
 				007CCF1426D5BF1300D5EA7C /* NotificationsCenterPresentationDelegate.swift in Sources */,
 				D8A42AF51E815A9C00D8E281 /* WMFImageTextActivitySource.swift in Sources */,
 				83EE476D20D019A100A21F34 /* ExploreViewController.swift in Sources */,
+				673C55CE2ACC684E00E2EBF6 /* AppInteractionFunnel.swift in Sources */,
 				D8E6FF6F24056AC300686272 /* ArticleViewController+ContextMenu.swift in Sources */,
 				7A8422562268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				D8A42AFC1E815A9C00D8E281 /* WMFCompassView.m in Sources */,
@@ -12966,6 +12974,7 @@
 				7A6F560621AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
 				6730FD1028998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */,
 				D8CE256D1E698E2400DAE2E0 /* UIViewController+WMFHideKeyboard.swift in Sources */,
+				673C55CD2ACC684E00E2EBF6 /* AppInteractionFunnel.swift in Sources */,
 				BA4524191F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
 				FF921887252F7EA500C39A8F /* ThanksGiving.swift in Sources */,
 				0072991C28AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift in Sources */,
@@ -13551,6 +13560,7 @@
 				B0524B71214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				6730FD0F28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */,
 				D8EC3E5D1E9BDA35006712EB /* AboutViewController.m in Sources */,
+				673C55CC2ACC684E00E2EBF6 /* AppInteractionFunnel.swift in Sources */,
 				7A6F560721AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
 				D818D38D1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				0072991B28AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift in Sources */,

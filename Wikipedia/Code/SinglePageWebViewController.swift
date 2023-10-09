@@ -1,8 +1,12 @@
 import WebKit
 import CocoaLumberjackSwift
+import WMF
 
 class SinglePageWebViewController: ViewController {
     let url: URL
+    let campaignArticleURL: URL?
+    let campaignBannerID: String?
+    
     var doesUseSimpleNavigationBar: Bool {
         didSet {
             if doesUseSimpleNavigationBar {
@@ -11,11 +15,21 @@ class SinglePageWebViewController: ViewController {
             }
         }
     }
+    
+    var campaignProject: WikimediaProject? {
+        guard let campaignArticleURL else {
+            return nil
+        }
+        
+        return WikimediaProject(siteURL: campaignArticleURL)
+    }
 
     var didReachThankyouPage = false
 
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false) {
+    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, campaignArticleURL: URL? = nil, campaignBannerID: String? = nil) {
         self.url = url
+        self.campaignArticleURL = campaignArticleURL
+        self.campaignBannerID = campaignBannerID
         self.doesUseSimpleNavigationBar = doesUseSimpleNavigationBar
         super.init()
         self.theme = theme
@@ -65,7 +79,14 @@ class SinglePageWebViewController: ViewController {
     private lazy var button: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(CommonStrings.returnButtonTitle, for: .normal) // TODO: Change string when user comes from the article
+        
+        // Came from article
+        if campaignProject != nil {
+            button.setTitle(CommonStrings.returnToArticle, for: .normal)
+        } else {
+            button.setTitle(CommonStrings.returnButtonTitle, for: .normal)
+        }
+        
         button.backgroundColor = self.theme.colors.link
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = 8
@@ -109,7 +130,14 @@ class SinglePageWebViewController: ViewController {
         }
         fetched = true
         fetch()
-
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if url.isDonationURL {
+            AppInteractionFunnel.shared.logDonateFormInAppWebViewImpression(project: campaignProject)
+        }
     }
 
     func setupBottomView() {
@@ -150,6 +178,7 @@ class SinglePageWebViewController: ViewController {
                   actionURL.isThankYouDonationURL {
             didReachThankyouPage = true
             setupBottomView()
+            AppInteractionFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: campaignProject, campaignBannerID: campaignBannerID)
         }
         
         return true
@@ -172,13 +201,27 @@ class SinglePageWebViewController: ViewController {
     }
 
     @objc func didTapReturnButton() {
+        if let project = campaignProject {
+            AppInteractionFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: project)
+        } else {
+            AppInteractionFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton()
+        }
+        
         navigationController?.popViewController(animated: true)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
+        let project = self.campaignProject
         if didReachThankyouPage {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
+                
+                if let project {
+                    AppInteractionFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: project)
+                } else {
+                    AppInteractionFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
+                }
             }
         }
     }

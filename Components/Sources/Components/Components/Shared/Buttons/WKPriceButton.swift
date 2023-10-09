@@ -21,6 +21,8 @@ struct WKPriceButton: View {
     @Binding var amount: Decimal
     @Binding var isSelected: Bool
     
+    var loggingTapAction: () -> Void
+    
     var body: some View {
         Button {
             if !configuration.canDeselect {
@@ -30,6 +32,7 @@ struct WKPriceButton: View {
             } else {
                 isSelected.toggle()
             }
+            loggingTapAction()
         } label: {
             Text(displayAmount ?? "")
                 .font(Font(WKFont.for(.mediumSubheadline)))

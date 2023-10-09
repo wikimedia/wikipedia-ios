@@ -296,13 +296,16 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_Support:
             // TODO: Remove validTargetIDCampaignIsRunning check and old experience once Oct 2023 campaign looks good
             if ([WMFSettingsViewController validTargetIDCampaignIsRunning]) {
+                
+                [[WMFAppInteractionFunnel shared] logSettingsDidTapDonateCell];
+                
                 NSString *countryCode = [[NSLocale currentLocale] countryCode];
                 NSString *currencyCode = [[NSLocale currentLocale] currencyCode];
                 NSString *languageCode = MWKDataStore.shared.languageLinkController.appLanguage.languageCode;
 
                 NSString *appVersion = [[NSBundle mainBundle] wmf_debugVersion];
                 if ([self canOfferNativeDonateFormWithCountryCode:countryCode currencyCode:currencyCode languageCode:languageCode bannerID:nil appVersion: appVersion]) {
-                    [self presentNewDonorExperiencePaymentMethodActionSheetWithDonateSource: DonateSourceSettings countryCode:countryCode currencyCode:currencyCode languageCode:languageCode donateURL:self.donationURL bannerID:nil appVersion: appVersion];
+                    [self presentNewDonorExperiencePaymentMethodActionSheetWithDonateSource: DonateSourceSettings countryCode:countryCode currencyCode:currencyCode languageCode:languageCode donateURL:self.donationURL bannerID:nil appVersion: appVersion articleURL:nil loggingDelegate:self];
                 } else {
                     // New experience pushing to in-app browser
                     [self wmf_navigateToURL:[self donationURL] useSafari:NO];
