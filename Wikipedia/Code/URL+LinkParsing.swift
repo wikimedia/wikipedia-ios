@@ -113,6 +113,10 @@ extension URL {
     public var isThankYouDonationURL: Bool {
         host == "thankyou.wikipedia.org" || host == "thankyou.wikimedia.org"
     }
+    
+    public var isDonationURL: Bool {
+        host == "donate.wikipedia.org" || host == "donate.wikimedia.org"
+    }
 
     public var wmf_wiki: String? {
         return wmf_languageCode?.replacingOccurrences(of: "-", with: "_").appending("wiki")

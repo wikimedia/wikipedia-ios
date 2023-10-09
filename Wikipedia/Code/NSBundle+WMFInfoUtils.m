@@ -40,8 +40,4 @@
     return [self objectForInfoDictionaryKey:@"MerchantID"];
 }
 
-- (NSString *)wmf_paymentsAPIKey {
-    return [self objectForInfoDictionaryKey:@"PaymentsAPIKey"];
-}
-
 @end
