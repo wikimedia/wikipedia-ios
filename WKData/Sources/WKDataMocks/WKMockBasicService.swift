@@ -10,7 +10,14 @@ fileprivate extension WKData.WKServiceRequest {
     var isDonateConfigGet: Bool {
         switch WKDataEnvironment.current.serviceEnvironment {
         case .production:
-            return false
+            guard let url,
+                  url.host == "donate.wikimedia.org",
+                  url.path == "/wiki/MediaWiki:AppsDonationConfig.json",
+                  let action = parameters?["action"] as? String else {
+                return false
+            }
+            
+            return method == .GET && action == "raw"
         case .staging:
             guard let url,
                   url.host == "test.wikipedia.org",
@@ -27,7 +34,13 @@ fileprivate extension WKData.WKServiceRequest {
         
         switch WKDataEnvironment.current.serviceEnvironment {
         case .production:
-            return false
+            guard let url,
+                  url.host == "payments.wikimedia.org",
+                  let action = parameters?["action"] as? String else {
+                return false
+            }
+           
+            return method == .GET && action == "getPaymentMethods"
         case .staging:
             guard let url,
                   url.host == "paymentstest4.wmcloud.org",
@@ -42,7 +55,13 @@ fileprivate extension WKData.WKServiceRequest {
     var isSubmitPaymentPost: Bool {
         switch WKDataEnvironment.current.serviceEnvironment {
         case .production:
-            return false
+            guard let url,
+                  url.host == "payments.wikimedia.org",
+                  let action = parameters?["action"] as? String else {
+                return false
+            }
+           
+            return method == .POST && action == "submitPayment"
         case .staging:
             guard let url,
                   url.host == "paymentstest4.wmcloud.org",
