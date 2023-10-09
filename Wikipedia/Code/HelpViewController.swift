@@ -25,8 +25,8 @@ class HelpViewController: SinglePageWebViewController {
         fatalError("init(url:theme:) has not been implemented")
     }
 
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, campaignArticleURL: URL? = nil) {
-        fatalError("init(url:theme:doesUseSimpleNavigationBar:campaignArticleURL:) has not been implemented")
+    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, campaignArticleURL: URL? = nil, campaignBannerID: String? = nil) {
+        fatalError("init(url:theme:doesUseSimpleNavigationBar:campaignArticleURL:campaignBannerID:) has not been implemented")
     }
 
     lazy var sendEmailToolbarItem: UIBarButtonItem = {

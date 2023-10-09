@@ -142,7 +142,10 @@ extension ArticleViewController {
            let donateURL = donateURL {
             presentNewDonorExperiencePaymentMethodActionSheet(donateSource: .articleCampaignModal, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, bannerID: utmSource, appVersion: appVersion, articleURL: articleURL, loggingDelegate: self)
         } else {
-            self.navigate(to: donateURL, useSafari: false)
+            self.navigate(to: donateURL, userInfo: [
+                RoutingUserInfoKeys.campaignArticleURL: articleURL as Any,
+                RoutingUserInfoKeys.campaignBannerID: utmSource as Any
+            ], useSafari: false)
         }
     }
 

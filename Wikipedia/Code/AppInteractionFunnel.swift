@@ -230,8 +230,13 @@ import WMF
         logEvent(activeInterface: .webPayInitiated, action: .impression, project: project)
     }
     
-    func logDonateFormInAppWebViewThankYouImpression(project: WikimediaProject?) {
-        logEvent(activeInterface: .webPayProcessed, action: .impression, project: project)
+    func logDonateFormInAppWebViewThankYouImpression(project: WikimediaProject?, campaignBannerID: String?) {
+        var actionData: [String: String]?
+        if let campaignBannerID {
+            actionData = [:]
+            actionData?["campaign_id"] = campaignBannerID
+        }
+        logEvent(activeInterface: .webPayProcessed, action: .impression, actionData: actionData, project: project)
     }
     
     func logDonateFormInAppWebViewDidTapArticleReturnButton(project: WikimediaProject) {

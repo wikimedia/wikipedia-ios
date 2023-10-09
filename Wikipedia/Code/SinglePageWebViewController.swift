@@ -5,6 +5,7 @@ import WMF
 class SinglePageWebViewController: ViewController {
     let url: URL
     let campaignArticleURL: URL?
+    let campaignBannerID: String?
     
     var doesUseSimpleNavigationBar: Bool {
         didSet {
@@ -25,9 +26,10 @@ class SinglePageWebViewController: ViewController {
 
     var didReachThankyouPage = false
 
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, campaignArticleURL: URL? = nil) {
+    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, campaignArticleURL: URL? = nil, campaignBannerID: String? = nil) {
         self.url = url
         self.campaignArticleURL = campaignArticleURL
+        self.campaignBannerID = campaignBannerID
         self.doesUseSimpleNavigationBar = doesUseSimpleNavigationBar
         super.init()
         self.theme = theme
@@ -176,7 +178,7 @@ class SinglePageWebViewController: ViewController {
                   actionURL.isThankYouDonationURL {
             didReachThankyouPage = true
             setupBottomView()
-            AppInteractionFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: campaignProject)
+            AppInteractionFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: campaignProject, campaignBannerID: campaignBannerID)
         }
         
         return true

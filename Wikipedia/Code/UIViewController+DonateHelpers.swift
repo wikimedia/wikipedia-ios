@@ -116,7 +116,7 @@ import PassKit
         navigationController?.pushViewController(donateViewController, animated: true)
     }
     
-    @objc func presentNewDonorExperiencePaymentMethodActionSheet(donateSource: DonateSource, countryCode: String, currencyCode: String, languageCode: String, donateURL: URL, bannerID: String?, appVersion: String?, articleURL: URL?, loggingDelegate: WKDonateLoggingDelegate?) {
+    @objc func  presentNewDonorExperiencePaymentMethodActionSheet(donateSource: DonateSource, countryCode: String, currencyCode: String, languageCode: String, donateURL: URL, bannerID: String?, appVersion: String?, articleURL: URL?, loggingDelegate: WKDonateLoggingDelegate?) {
         
         let wikimediaProject: WikimediaProject?
         if let articleURL {
@@ -173,9 +173,14 @@ import PassKit
             }
             
             if donateSource == .articleCampaignModal,
-            let articleURL = articleURL {
+            let articleURL = articleURL,
+            let bannerID {
                 self.dismiss(animated: true) {
-                    self.navigate(to: donateURL, userInfo: [RoutingUserInfoKeys.campaignArticleURL: articleURL as Any], useSafari: false)
+                    self.navigate(to: donateURL, userInfo: [
+                        RoutingUserInfoKeys.campaignArticleURL: articleURL as Any,
+                        RoutingUserInfoKeys.campaignBannerID:
+                            bannerID as Any
+                    ], useSafari: false)
                 }
             } else {
                 self.navigate(to: donateURL, useSafari: false)
