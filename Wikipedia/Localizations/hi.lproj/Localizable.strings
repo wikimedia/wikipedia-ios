@@ -239,6 +239,10 @@
 "diff-single-line-format" = "पंक्ति $1";
 "diff-thanks-anonymous-no-thanks" = "बेनाम उपयोगकर्ता को धन्यवाद नहीं दिया जा सकता";
 "dim-images" = "मंद छवियाँ";
+"donate-accessibility-amount-button-hint" = "दान राशि चुनने के लिए दो बार टैप करें।";
+"donate-help-other-ways-to-give" = "दान करने के दूसरे तरीके";
+"donate-success-title" = "धन्यवाद!";
+"donate-title" = "एक राशि चुनें";
 "edit-bold-remove-accessibility-label" = "मोटा स्वरुप हटायें";
 "edit-direction-left-accessibility-label" = "कर्सर बायें ले जायें";
 "edit-italic-accessibility-label" = "तिरक्षा अक्षर स्वरुप जोड़ें";
@@ -466,6 +470,7 @@
 "settings-clear-cache-are-you-sure-title" = "कैश डेटा खाली करें?";
 "settings-clear-cache-cancel" = "रद्द करें";
 "settings-clear-cache-ok" = "कैश खाली करें";
+"settings-donate" = "विकिपीडिया को दान करें";
 "settings-help-and-feedback" = "सहायता व फीडबैक";
 "settings-language-bar" = "खोज में भाषाओं को दिखाएँ";
 "settings-my-languages" = "मेरी भाषाएँ";
