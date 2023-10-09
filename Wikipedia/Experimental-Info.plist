@@ -53,6 +53,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MerchantID</key>
+	<string>merchant.com.adyen.wikimedia</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Opt-in user testing</string>
 	<key>NSLocationAlwaysUsageDescription</key>

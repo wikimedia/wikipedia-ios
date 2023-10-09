@@ -16,7 +16,10 @@
 		<string>applinks:en.m.wikipedia.beta.wmflabs.org</string>
 	</array>
 	<key>com.apple.developer.in-app-payments</key>
-	<array/>
+	<array>
+		<string>merchant.com.adyen.wikimedia.test</string>
+		<string>merchant.com.adyen.wikimedia</string>
+	</array>
 	<key>com.apple.developer.usernotifications.time-sensitive</key>
 	<true/>
 	<key>com.apple.security.application-groups</key>
