@@ -264,6 +264,19 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 línia sense editar|$1 línies sense editar}}";
 "diff-user-button-accessibility-text" = "Fes doble toc per a obrir el menú";
 "dim-images" = "Atenuació d'imatges";
+"donate-help-frequently-asked-questions" = "Preguntes més freqüents";
+"donate-help-other-ways-to-give" = "Altres maneres de fer una donació";
+"donate-help-problems-donating" = "Teniu problemes a l'hora de fer una donació?";
+"donate-help-tax-deductibility-information" = "Informació de deducció fiscal";
+"donate-minimum-error-text" = "Seleccioneu una quantitat (mínim $1 $2).";
+"donate-monthly-recurring-text" = "Feu-la que sigui una donació mensual recurrent.";
+"donate-payment-method-prompt-apple-pay-button-title" = "Feu una donació amb Apple Pay";
+"donate-payment-method-prompt-message" = "Feu una donació amb Apple Pay o trieu un altre mètode de pagament.";
+"donate-payment-method-prompt-other-button-title" = "Altres mètodes de pagament";
+"donate-payment-method-prompt-title" = "Voleu fer una donació amb Apple Pay?";
+"donate-success-subtitle" = "La vostra generositat amb la Viquipèdia significa molt per a nosaltres.";
+"donate-success-title" = "Gràcies!";
+"donate-title" = "Selecciona una quantitat";
 "edit-bold-accessibility-label" = "Afegeix format en negreta";
 "edit-bold-remove-accessibility-label" = "Suprimeix format en negreta";
 "edit-clear-formatting-accessibility-label" = "Suprimeix el format";
@@ -947,6 +960,7 @@
 "settings-clear-cache-are-you-sure-title" = "Voleu netejar les dades en cau?";
 "settings-clear-cache-cancel" = "Cancel·la";
 "settings-clear-cache-ok" = "Neteja la memòria cau";
+"settings-donate" = "Feu una donació a la Viquipèdia";
 "settings-help-and-feedback" = "Ajuda i comentaris";
 "settings-language-bar" = "Mostra llengües a la cerca";
 "settings-languages-feed-customization" = "Podeu gestionar quines llengües es mostren en el canal d'exploració personalitzant els paràmetres del canal d'exploració.";
@@ -1098,6 +1112,7 @@
 "unable-to-load-talk-page-title" = "No es pot carregar la pàgina de discussió";
 "unknown-generic-text" = "Desconegut";
 "unwatch" = "Deixa de vigilar";
+"user-title" = "Usuari";
 "uzbek-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants uzbekes com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides: \n\noʻzbekcha lotin uzbek, llatí (uz-latin)\nўзбекча кирилл Uzbek, ciríl·lic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualitzacions del suport a les variants Uzbek";
 "vanish-account-additional-information-field" = "Informació adicional";
@@ -1142,6 +1157,8 @@
 "watchlist-change-expiry-option-three-months" = "3 mesos";
 "watchlist-change-expiry-subtitle" = "Trieu el període de temps de la llista de seguiment";
 "watchlist-change-expiry-title" = "Venciment de la llista de seguiment";
+"watchlist-diff-action-button-title" = "Vés a la diferència";
+"watchlist-edit-summary-accessibility" = "Resum de l'edició";
 "watchlist-empty-view-button-title" = "Cerca d'articles";
 "watchlist-empty-view-filter-title" = "No teniu cap element a la llista de seguiment";
 "watchlist-empty-view-subtitle" = "Seguiu el que està passant amb els articles que us interessen. Toqueu el menú de l'article i seleccioneu «Enganxa» per a veure els canvis d'un article.";
