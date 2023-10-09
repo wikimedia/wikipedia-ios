@@ -17,7 +17,7 @@ extension ArticleViewController {
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset)
             return
         }
-        
+
         guard (isInValidSurveyCampaignAndArticleList && userHasSeenSurveyPrompt) || !isInValidSurveyCampaignAndArticleList else {
             return
         }
@@ -78,41 +78,39 @@ extension ArticleViewController {
     }
     
     private func showNewDonateExperienceCampaignModal(asset: WKFundraisingCampaignConfig.WKAsset) {
-        
-        // Just using alert view for now, will replace with new campaign modal
-        let alert = UIAlertController(title: nil, message: asset.textHtml, preferredStyle: .alert)
-        let controller = WKFundraisingCampaignDataController()
-        
-        let firstAction = asset.actions[0]
-        let donateAction = UIAlertAction(title: firstAction.title, style: .default, handler: { [weak self] action in
-            controller.markAssetAsPermanentlyHidden(asset: asset)
-            self?.pushToDonateForm(asset: asset)
-        })
-        
-        let maybeLaterAction = UIAlertAction(title: asset.actions[1].title, style: .default) { action in
-            controller.markAssetAsMaybeLater(asset: asset, currentDate: .now)
-        }
-        
-        let alreadyDonatedAction = UIAlertAction(title: asset.actions[2].title, style: .default) { action in
+
+        let dataController = WKFundraisingCampaignDataController()
+
+        let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
+
+        wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { sender in
+            self.pushToDonateForm(asset: asset)
+            dataController.markAssetAsPermanentlyHidden(asset: asset)
             
-            controller.markAssetAsPermanentlyHidden(asset: asset)
+        }, secondaryButtonTapHandler: { sender in
+            if shouldShowMaybeLater {
+                dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
+                self.donateDidSetMaybeLater()
+            } else {
+                self.donateAlreadyDonated()
+                dataController.markAssetAsPermanentlyHidden(asset: asset)
+            }
+        }, optionalButtonTapHandler: { sender in
+            self.donateAlreadyDonated()
+            dataController.markAssetAsPermanentlyHidden(asset: asset)
+
+        }, footerLinkAction: { url in
+            self.navigate(to: url, useSafari: true)
+        }, traceableDismissHandler: { action in
             
-            // todo: donate reason action sheet
-        }
-        
-        let closeAction = UIAlertAction(title: "Close", style: .cancel) { action in
-            let controller = WKFundraisingCampaignDataController()
-            controller.markAssetAsPermanentlyHidden(asset: asset)
-        }
-        
-        alert.addAction(donateAction)
-        alert.addAction(maybeLaterAction)
-        alert.addAction(alreadyDonatedAction)
-        alert.addAction(closeAction)
-        
-        present(alert, animated: true)
+            if action == .tappedClose {
+                dataController.markAssetAsPermanentlyHidden(asset: asset)
+            }
+            
+        }, showMaybeLater: shouldShowMaybeLater)
     }
-    
+
+
     private func pushToDonateForm(asset: WKFundraisingCampaignConfig.WKAsset) {
         let firstAction = asset.actions[0]
         let donateURL = firstAction.url
@@ -129,16 +127,26 @@ extension ArticleViewController {
         
         if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, campaignUtmSource: utmSource),
            let donateURL = donateURL {
-            presentNewDonorExperiencePaymentMethodActionSheet(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, campaignUtmSource: utmSource)
+            presentNewDonorExperiencePaymentMethodActionSheet(donateSource: .articleCampaignModal, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, campaignUtmSource: utmSource)
         } else {
             self.navigate(to: donateURL, useSafari: false)
         }
     }
-}
 
-private extension URL {
-    var isThankYouDonationURL: Bool {
-        return self.host == "thankyou.wikipedia.org"
+    func donateDidSetMaybeLater() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tommorow.", comment: "Title for toast shown when user clicks remind me later on fundraising banner")
+
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
+        }
+    }
+
+    func donateAlreadyDonated() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let title = WMFLocalizedString("donate-already-donated", value: "Thank you, dear donor! Your generosity helps keep Wikipedia and its sister sites thriving.", comment: "Thank you toast shown when user clicks already donated on fundraising banner")
+
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
+        }
     }
 }
 

@@ -245,11 +245,13 @@
 "donate-accessibility-monthly-recurring-hint" = "Double tap to enable automatic monthly donations of this amount.";
 "donate-accessibility-textfield-hint" = "Enter custom amount to donate.";
 "donate-accessibility-transaction-fee-hint" = "Double tap to add transaction fee to donation amount.";
+"donate-already-donated" = "Thank you, dear donor! Your generosity helps keep Wikipedia and its sister sites thriving.";
 "donate-email-opt-in-text" = "Yes, the Wikimedia Foundation can send me an occasional email.";
 "donate-help-frequently-asked-questions" = "Frequently asked questions";
 "donate-help-other-ways-to-give" = "Other ways to give";
 "donate-help-problems-donating" = "Problems donating?";
 "donate-help-tax-deductibility-information" = "Tax deductibility information";
+"donate-later-title" = "We will remind you again tommorow.";
 "donate-maximum-error-text" = "We cannot accept donations greater than $1 $2 through our website. Please contact our major gifts staff at benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "Please select an amount (minimum $1 $2).";
 "donate-monthly-recurring-text" = "Make this a monthly recurring donation.";
@@ -912,6 +914,8 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 item replaced|$1 items replaced}}";
 "replace-textfield-accessibility" = "Replace";
 "replace-textfield-placeholder" = "Replace with…";
+"return-button-title" = "Return";
+"return-to-article" = "Return to article";
 "reverted-edit-title" = "Reverted edit";
 "saved-all-articles-title" = "All articles";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
@@ -944,7 +948,7 @@
 "settings-clear-cache-are-you-sure-title" = "Clear cached data?";
 "settings-clear-cache-cancel" = "Cancel";
 "settings-clear-cache-ok" = "Clear cache";
-"settings-donate" = "Donate to Wikipiedia";
+"settings-donate" = "Donate to Wikipedia";
 "settings-help-and-feedback" = "Help and feedback";
 "settings-language-bar" = "Show languages on search";
 "settings-languages-feed-customization" = "You can manage which languages are shown on your Explore feed by customizing your Explore feed settings.";

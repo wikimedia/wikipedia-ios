@@ -27,12 +27,29 @@ import Foundation
     ///   - asset: WKAsset to mark as maybe later
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     public func markAssetAsMaybeLater(asset: WKFundraisingCampaignConfig.WKAsset, currentDate: Date) {
-        let maybeLaterDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)
-        let promptState = WKFundraisingCampaignPromptState(campaignID: asset.id, isHidden: false, maybeLaterDate: maybeLaterDate)
+        guard let oneDayLater = Calendar.current.date(byAdding: .day, value: 1, to: currentDate) else {
+            return
+        }
+        let nextDayMidnight = Calendar.current.startOfDay(for: oneDayLater)
+        let promptState = WKFundraisingCampaignPromptState(campaignID: asset.id, isHidden: false, maybeLaterDate: nextDayMidnight)
         try? sharedCacheStore?.save(key: cacheDirectoryName, cachePromptStateFileName, value: promptState)
     }
+
     
-    
+    /// Determine if "maybe later option"should be displayed
+    /// - Parameters:
+    ///   - asset: WKAsset displayed
+    ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
+    /// - Returns: Bool
+    public func showShowMaybeLaterOption(asset: WKFundraisingCampaignConfig.WKAsset, currentDate: Date) -> Bool {
+
+        let calendar = Calendar.current
+        let endDateComponents = calendar.dateComponents([.year, .month, .day], from: asset.endDate)
+        let currentDateComponents = calendar.dateComponents([.year, .month, .day], from: currentDate)
+
+        return !(endDateComponents == currentDateComponents)
+    }
+
     /// Set asset as permanently hidden in persistence, so that it cannot be loaded and displayed on subsequent attempts.
     /// - Parameter asset: WKAsset to mark as hidden
     public func markAssetAsPermanentlyHidden(asset: WKFundraisingCampaignConfig.WKAsset) {
@@ -92,6 +109,7 @@ import Foundation
         
         if let cachedResult {
             activeCountryConfigs = activeCountryConfigs(from: cachedResult, countryCode: countryCode, currentDate: currentDate)
+
             return queuedActiveLanguageSpecificAsset(languageCode: wkProject.languageCode, languageVariantCode: wkProject.languageVariantCode, currentDate: currentDate)
         }
         
@@ -134,7 +152,7 @@ import Foundation
             switch result {
             case .success(let response):
                 activeCountryConfigs = self.activeCountryConfigs(from: response, countryCode: countryCode, currentDate: currentDate)
-                
+
                 try? sharedCacheStore?.save(key: cacheDirectoryName, cacheConfigFileName, value: response)
                 
                 completion(.success(()))
@@ -228,8 +246,8 @@ import Foundation
                     
                     return WKFundraisingCampaignConfig.WKAsset.WKAction(title: action.title, url: url)
                 }
-                
-                let asset = WKFundraisingCampaignConfig.WKAsset(id: config.id, textHtml: value.text, footerHtml: value.footer, actions: actions, countryCode: countryCode, currencyCode: value.currencyCode, languageCode: key)
+
+                let asset = WKFundraisingCampaignConfig.WKAsset(id: config.id, textHtml: value.text, footerHtml: value.footer, actions: actions, countryCode: countryCode, currencyCode: value.currencyCode, endDate: endDate, languageCode: key)
                 assets[key] = asset
             }
             
