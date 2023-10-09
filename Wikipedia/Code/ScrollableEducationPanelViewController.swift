@@ -404,7 +404,10 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         if buttonStyle == .updatedStyle {
             inlineCloseButtonStackView.alignment = .trailing
             inlineCloseButton.isHidden = false
-            let image = UIImage(named: "close-inverse")
+
+            let image = UIImage(systemName: "xmark.circle.fill")?.withTintColor(theme.colors.secondaryText, renderingMode: .alwaysOriginal)
+            let button = UIButton(type: .system)
+            button.setImage(image, for: .normal)
             inlineCloseButton.setImage(image, for: .normal)
             inlineCloseButtonStackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             inlineCloseButtonStackView.isLayoutMarginsRelativeArrangement = true

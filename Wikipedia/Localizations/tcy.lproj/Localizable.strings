@@ -79,11 +79,11 @@
 "explore-most-read-generic-heading" = "ಮಸ್ತ್ ಓದುನವೂ";
 "explore-nearby-placeholder-heading" = "ಜಾಗೆಲು";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ವಿಕಿಪೀಡಿಯ.";
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "ವಿಕಿಪೀಡಿಯ.";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "ವಿಕಿಪೀಡಿಯ";
 "explore-nearby-sub-heading-your-location" = "ಇರ್ ಉಪ್ಪುನಾ ಜಾಗೋ";
 "explore-potd-heading" = "ದಿನೊತ್ತಾ ಪೆಟೊ";
 "field-alert-captcha-invalid" = "CAPTCHA ಸರಿ ಒಂದುಜೀ";
-"field-alert-password-confirm-mismatch" = "ಪ್ರವೇಸೊ ಪದ ಜೋಡಿ ಅಪೂಜಿ.";
+"field-alert-password-confirm-mismatch" = "ಪ್ರವೇಸೊ ಪದ ಜೋಡಿ ಅಪೂಜಿ";
 "field-alert-username-unavailable" = "ಬಳಕೆದಾರೋ ಪುದರ್ ತಿಕೊಂತಿಜ್ಜಿ";
 "field-captcha-placeholder" = "CAPTCHA ಪದೋ";
 "field-email-placeholder" = "example@example.org";
@@ -109,10 +109,10 @@
 "home-more-like-footer" = "$1 ನೆನ್ನ ಲೆಕೋ";
 "icon-shortcut-random-title" = "ಒಟ್ಟಾರೆ ಲೇಖನೊಲು";
 "icon-shortcut-search-title" = "ವಿಕಿಪೀಡಿಯಟ್ ನಾಡ್ಲೇ";
-"languages-settings-title" = "ಭಾಸೆಲು";
+"languages-settings-title" = "ಬಾಸೆಲು";
 "languages-title" = "ಬಾಸೆ ಬದಲ್ ಮಾನ್ಪಿ";
 "languages-wikipedia" = "ವಿಕಿಪೀಡಿಯ ಬಾಸೆ";
-"logged-out-continue-without-logging-in-button-title" = "ಪ್ರವೇಶ ಮಲ್ಪಂದೆ ದುಂಬರಿಲೆ.";
+"logged-out-continue-without-logging-in-button-title" = "ಪ್ರವೇಶ ಮಲ್ಪಂದೆ ದುಂಬರಿಲೆ";
 "logged-out-log-back-in-button-title" = "ಇರೆನ ಖಾತೆಗ್ ಕುಡಾ ಪ್ರವೇಶ ಮಲ್ಪುಲೆ";
 "logged-out-subtitle" = "ಇರೆನ ಖಾತೆನ್ ಸತ್ಯಾಪನೆ ಮಲ್ಪುನಗ ಒಂಜಿ ಸಮಸ್ಯೆ ಎದುರಾಂಡ್.ಇರೆನ ಓದುಲೆನ ಪಟ್ಟಿ ಬೊಕ ಸಂಪಾದಕ ಕಾರ್ಯೊಲೆನ್ ಇರೆನ ಬಳಕೆದಾರ ಪುದರುದ ಅಡಿಟ್ ಸರಿ ಗೋಡಿಯಾವರೆಗಾದ್ ದಯಮಲ್ತ್'ದ್ ಈರ್ ಕುಡಾ ಪ್ರವೇಶ ಮಲ್ಪುಲೆ.";
 "logged-out-title" = "ಇರೆನ ಪ್ರವೇಶ ನಿರ್ಗಮನ ಆತ್ಂಡ್";
@@ -133,7 +133,7 @@
 "menu-cancel-accessibility-label" = "ವಜಾ ಮಲ್ಪುಲೆ";
 // Fuzzy
 "more-languages-tooltip-description" = "ಬೇತೆ ಬಾಸೆತ ೩೦೦ ವಿಕಿಪೀಡಿಯೊನ್ ನಾಡುಲೆ.";
-"more-languages-tooltip-title" = "ಬಾಸೆನ್ ಸೇರ್ಪಾಲೆ.";
+"more-languages-tooltip-title" = "ಬಾಸೆನ್ ಸೇರ್ಪಾಲೆ";
 "navbar-title-mode-edit-wikitext-preview" = "ಮುನ್ನೋಟೊ";
 "nearby-distance-label-feet" = "$1 ಪೀಟ್";
 "nearby-distance-label-km" = "$1 km";
