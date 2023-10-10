@@ -105,6 +105,7 @@ class SinglePageWebViewController: ViewController {
             let searchItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
             navigationItem.setRightBarButtonItems([searchItem, safariItem], animated: false)
 
+            navigationBar.isInteractiveHidingEnabled = false
             setupWButton()
         }
 
