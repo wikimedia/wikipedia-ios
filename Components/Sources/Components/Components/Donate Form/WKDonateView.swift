@@ -66,11 +66,15 @@ struct WKDonateView: View {
                         .frame(height: 42)
                         .padding([.leading, .trailing], sizeClassDonateButtonPadding)
                     Spacer()
-                        .frame(height: 24)
+                        .frame(height: 20)
                 }
                 
                 Group {
+                    WKAppleFinePrint(viewModel: viewModel)
+                    Spacer()
+                        .frame(height: 40)
                     WKDonateHelpLinks(viewModel: viewModel, delegate: delegate)
+                    
                     Spacer()
                 }
             }
@@ -247,6 +251,19 @@ private struct WKDonateHelpLinks: View {
                 delegate?.donateDidTapTaxDeductibilityInformation()
             }
         }
-        .padding(EdgeInsets(top: 16, leading: 0, bottom: 28, trailing: 0))
+    }
+}
+
+private struct WKAppleFinePrint: View {
+    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    let viewModel: WKDonateViewModel
+    
+    var body: some View {
+        HStack {
+            Text(viewModel.localizedStrings.appleFinePrint)
+                .foregroundColor(Color(appEnvironment.theme.secondaryText))
+                .font(Font(WKFont.for(.caption1)))
+            Spacer()
+        }
     }
 }
