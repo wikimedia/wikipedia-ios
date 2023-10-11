@@ -33,6 +33,7 @@ final class FundraisingAnnouncementPanelViewController: ScrollableEducationPanel
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        scrollView.flashScrollIndicators()
         evaluateConstraintsOnNewSize(view.frame.size)
         subheadingTextView.textContainerInset = .zero
     }
