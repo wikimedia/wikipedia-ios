@@ -246,6 +246,7 @@
 "donate-accessibility-textfield-hint" = "Enter custom amount to donate.";
 "donate-accessibility-transaction-fee-hint" = "Double tap to add transaction fee to donation amount.";
 "donate-already-donated" = "Thank you, dear donor! Your generosity helps keep Wikipedia and its sister sites thriving.";
+"donate-apple-fine-print" = "Apple is not in charge of raising money for this purpose.";
 "donate-email-opt-in-text" = "Yes, the Wikimedia Foundation can send me an occasional email.";
 "donate-help-frequently-asked-questions" = "Frequently asked questions";
 "donate-help-other-ways-to-give" = "Other ways to give";
