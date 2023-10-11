@@ -27,14 +27,8 @@ extension URL {
         var components = URLComponents()
         components.scheme = "https"
         components.path = basePaymentWikiAPIPathComponents
-        
-        switch environment {
-        case .production:
-            components.host = "payments.wikimedia.org"
-        case .staging:
-            components.host = "paymentstest4.wmcloud.org"
-        }
-        
+        components.host = "payments.wikimedia.org"
+
         return components.url
     }
     
@@ -43,13 +37,7 @@ extension URL {
         var components = URLComponents()
         components.scheme = "https"
         components.path = basePaymentWikiAPIPathComponents
-        
-        switch environment {
-        case .production:
-            components.host = "payments.wikimedia.org"
-        case .staging:
-            components.host = "paymentstest4.wmcloud.org"
-        }
+        components.host = "payments.wikimedia.org"
         
         return components.url
     }
