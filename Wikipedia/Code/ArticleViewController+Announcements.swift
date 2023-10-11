@@ -89,7 +89,7 @@ extension ArticleViewController {
         wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { sender in
             
             AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project)
-            self.pushToDonateForm(asset: asset)
+            self.pushToDonateForm(asset: asset, sourceView: sender as? UIButton)
             dataController.markAssetAsPermanentlyHidden(asset: asset)
             
         }, secondaryButtonTapHandler: { sender in
@@ -122,7 +122,7 @@ extension ArticleViewController {
         }, showMaybeLater: shouldShowMaybeLater)
     }
 
-    private func pushToDonateForm(asset: WKFundraisingCampaignConfig.WKAsset) {
+    private func pushToDonateForm(asset: WKFundraisingCampaignConfig.WKAsset, sourceView: UIView?) {
         let firstAction = asset.actions[0]
         let donateURL = firstAction.url
         
@@ -140,7 +140,7 @@ extension ArticleViewController {
         
         if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, bannerID: utmSource, appVersion: appVersion),
            let donateURL = donateURL {
-            presentNewDonorExperiencePaymentMethodActionSheet(donateSource: .articleCampaignModal, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, bannerID: utmSource, appVersion: appVersion, articleURL: articleURL, loggingDelegate: self)
+            presentNewDonorExperiencePaymentMethodActionSheet(donateSource: .articleCampaignModal, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, bannerID: utmSource, appVersion: appVersion, articleURL: articleURL, sourceView: sourceView, loggingDelegate: self)
         } else {
             self.navigate(to: donateURL, userInfo: [
                 RoutingUserInfoKeys.campaignArticleURL: articleURL as Any,
