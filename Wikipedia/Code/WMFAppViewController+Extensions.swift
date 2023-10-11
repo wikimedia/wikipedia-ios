@@ -509,6 +509,10 @@ extension WMFAppViewController {
             WKDataEnvironment.current.serviceEnvironment = .production
         }
         
+        WKDataEnvironment.current.userAgentUtility = {
+            return WikipediaAppUtils.versionedUserAgent()
+        }
+        
         WKDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
         
         let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
