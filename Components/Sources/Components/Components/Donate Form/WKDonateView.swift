@@ -66,14 +66,15 @@ struct WKDonateView: View {
                         .frame(height: 42)
                         .padding([.leading, .trailing], sizeClassDonateButtonPadding)
                     Spacer()
-                        .frame(height: 24)
+                        .frame(height: 20)
                 }
                 
                 Group {
-                    WKDonateHelpLinks(viewModel: viewModel, delegate: delegate)
-                    Spacer()
-                        .frame(height: 24)
                     WKAppleFinePrint(viewModel: viewModel)
+                    Spacer()
+                        .frame(height: 40)
+                    WKDonateHelpLinks(viewModel: viewModel, delegate: delegate)
+                    
                     Spacer()
                 }
             }
@@ -250,7 +251,6 @@ private struct WKDonateHelpLinks: View {
                 delegate?.donateDidTapTaxDeductibilityInformation()
             }
         }
-        .padding(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 0))
     }
 }
 
