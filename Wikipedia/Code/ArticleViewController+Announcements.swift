@@ -236,12 +236,12 @@ extension ArticleViewController: WKDonateLoggingDelegate {
         sharedLogDonateFormUserDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected?.boolValue, project: wikimediaProject)
     }
     
-    func logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, recurringMonthlyIsSelected: Bool, donorEmail: String?, bannerID: String?) {
+    func logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, bannerID: String?) {
         guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
             return
         }
         
-        sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: amount, recurringMonthlyIsSelected: recurringMonthlyIsSelected, donorEmail: donorEmail, project: wikimediaProject, bannerID: bannerID)
+        sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, donorEmail: donorEmail, project: wikimediaProject, bannerID: bannerID)
     }
     
     func logDonateFormUserDidTapProblemsDonatingLink() {
