@@ -960,6 +960,7 @@
 "settings-clear-cache-are-you-sure-title" = "Voleu netejar les dades en cau?";
 "settings-clear-cache-cancel" = "Cancel·la";
 "settings-clear-cache-ok" = "Neteja la memòria cau";
+// Fuzzy
 "settings-donate" = "Feu una donació a la Viquipèdia";
 "settings-help-and-feedback" = "Ajuda i comentaris";
 "settings-language-bar" = "Mostra llengües a la cerca";

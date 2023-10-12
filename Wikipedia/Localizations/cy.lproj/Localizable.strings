@@ -114,6 +114,7 @@
 "additional-information-email-title" = "Gwybodaeth ychwanegol";
 "announcements-dismiss" = "Cau";
 "app-store-keywords" = "Wicipedia, cyfeirio, wici, gwyddoniadur, gwybodaeth, ymchwil, archwilio, dysgu";
+"app-store-short-description" = "Lawrlwythwch ap Wicipedia i archwilio lleoedd yn agos atoch chi, cysoni erthyglau i'w darllen all-lein ac addasu eich profiad darllen.";
 "app-store-subtitle" = "Y gwyddoniadur rhydd";
 "appearance-settings-adjust-text-sizing" = "Addasu maint testun yr erthygl";
 "appearance-settings-expand-tables" = "Ehangu tablau";
@@ -129,7 +130,9 @@
 "article-languages-yours" = "Eich ieithoedd";
 "article-read-more-title" = "Darllen mwy";
 "article-reference-view-title" = "Cyfeiriad $1";
+"article-revision-history" = "Hanes golygiad erthygl";
 "article-share" = "Rhannu";
+"article-talk-page" = "Tudalen sgwrs erthygl";
 "back-button-accessibility-label" = "Yn ôl";
 "back-button-popover-title" = "Tapiwch i fynd yn ôl";
 "button-go-back" = "Nôl";
@@ -141,12 +144,18 @@
 "button-report-a-bug" = "Riportio nam";
 "button-save-for-later" = "Cadw ar gyfer nes ymlaen";
 "button-saved-for-later" = "Cadwyd";
+"button-saved-remove" = "Dileu o gadwyd";
 "button-skip" = "Anwybyddu";
 "cancel" = "Canslo";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "Mae ap Wicipedia bellach yn cefnogi'r amrywiadau Tsieinëeg canlynol fel ieithoedd cynradd neu eilaidd o fewn yr ap, gan ei gwneud hi'n haws darllen, chwilio a golygu yn eich hoff amrywiadau:\n\n简体 Chinese, Simplified (zh-hans)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
+"chinese-variants-alert-title" = "Diweddariadau i gefnogaeth amrywiad Tsieineaidd";
 "clear-title-accessibility-label" = "Clirio";
+"clearing-cache-complete" = "Clirio'r storfa wedi'i gwblhau.";
+"clearing-cache-in-progress" = "Wrthi'n clirio'r storfa.";
 "close-button-accessibility-label" = "Cau";
 "compass-direction" = "am $1 o'r gloch";
+"continue-button-title" = "Parhau";
 "continue-reading-empty-title" = "Dim erthyglau wedi eu darllen yn ddiweddar";
 "crimean-tatar-variants-alert-title" = "Diweddariadau i gefnogaeth Tatareg y Crimea";
 "data-migration-status" = "Wrthi'n diweddaru...";
@@ -211,6 +220,12 @@
 "diff-thanks-sent-already" = "Rydych chi eisoes wedi dweud 'Diolch' am y golygiad hwn";
 "diff-thanks-sent-cannot-unsend" = "Ni ellir wrthdroi 'Diolch'.";
 "dim-images" = "Tywyllu delweddau";
+"donate-payment-method-prompt-apple-pay-button-title" = "Cyfrannu gydag Apple Pay";
+"donate-payment-method-prompt-message" = "Cyfrannu gydag Apple Pay neu ffordd talu arall.";
+"donate-payment-method-prompt-other-button-title" = "Ffordd talu arall";
+"donate-payment-method-prompt-title" = "Cyfrannu gydag Apple Pay?";
+"donate-success-title" = "Diolch o galon!";
+"donate-title" = "Dewiswch swm";
 "edit-bold-accessibility-label" = "Ychwanegu fformatio trwm";
 "edit-bold-remove-accessibility-label" = "Dileu fformatio trwm";
 "edit-clear-formatting-accessibility-label" = "Dileu fformatio";
@@ -298,6 +313,7 @@
 "explore-feed-preferences-in-the-news-description" = "Erthyglau am faterion cyfoes";
 "explore-feed-preferences-on-this-day-description" = "Digwyddiadau mewn hanes ar y dydd hwn";
 "explore-feed-preferences-potd-description" = "Delwedd ddethol ddyddiol o Gomin";
+"explore-feed-preferences-randomizer-description" = "Cynhyrchu erthyglau ar hap i'w darllen";
 "explore-feed-preferences-show-continue-reading-title" = "Dangos cerdyn Parhau i ddarllen";
 "explore-feed-preferences-show-featured-article-title" = "Dangos cerdyn Erthygl dethol";
 "explore-feed-preferences-show-news-title" = "Dangos cerdyn Yn y newyddion";
@@ -360,6 +376,7 @@
 "field-token-title" = "Cod dilysu";
 "field-username-placeholder" = "Rhowch enw defnyddiwr";
 "field-username-title" = "Enw Defnyddiwr";
+"filter-options-all" = "Popeth";
 "find-clear-button-accessibility" = "Clirio maes canfod";
 "find-infolabel-number-matches" = "$1 / $2";
 "find-replace-header" = "Canfod a disodli";
@@ -528,6 +545,7 @@
 "notifications-center-type-title-edit-milestone" = "Carreg filltir golygu";
 "notifications-center-type-title-other" = "Arall";
 "notifications-center-type-title-thanks" = "Diolch";
+"notifications-center-type-title-translation-milestone" = "Carreg filltir cyfieithu";
 "notifications-center-type-title-welcome" = "Croeso";
 "notifications-push-fallback-body-text" = "Gweithgaredd newydd ar Wicipedia";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 neges newydd}} ar $2";
