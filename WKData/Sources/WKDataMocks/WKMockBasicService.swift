@@ -31,46 +31,23 @@ fileprivate extension WKData.WKServiceRequest {
     }
     
     var isPaymentMethodsGet: Bool {
-        
-        switch WKDataEnvironment.current.serviceEnvironment {
-        case .production:
-            guard let url,
-                  url.host == "payments.wikimedia.org",
-                  let action = parameters?["action"] as? String else {
-                return false
-            }
-           
-            return method == .GET && action == "getPaymentMethods"
-        case .staging:
-            guard let url,
-                  url.host == "paymentstest4.wmcloud.org",
-                  let action = parameters?["action"] as? String else {
-                return false
-            }
-           
-            return method == .GET && action == "getPaymentMethods"
+        guard let url,
+              url.host == "payments.wikimedia.org",
+              let action = parameters?["action"] as? String else {
+            return false
         }
+       
+        return method == .GET && action == "getPaymentMethods"
     }
     
     var isSubmitPaymentPost: Bool {
-        switch WKDataEnvironment.current.serviceEnvironment {
-        case .production:
-            guard let url,
-                  url.host == "payments.wikimedia.org",
-                  let action = parameters?["action"] as? String else {
-                return false
-            }
-           
-            return method == .POST && action == "submitPayment"
-        case .staging:
-            guard let url,
-                  url.host == "paymentstest4.wmcloud.org",
-                  let action = parameters?["action"] as? String else {
-                return false
-            }
-           
-            return method == .POST && action == "submitPayment"
+        guard let url,
+              url.host == "payments.wikimedia.org",
+              let action = parameters?["action"] as? String else {
+            return false
         }
+       
+        return method == .POST && action == "submitPayment"
     }
     
     var isFundraisingCampaignGet: Bool {
