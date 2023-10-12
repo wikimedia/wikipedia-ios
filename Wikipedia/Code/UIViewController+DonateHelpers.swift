@@ -118,7 +118,7 @@ import PassKit
         navigationController?.pushViewController(donateViewController, animated: true)
     }
     
-    @objc func  presentNewDonorExperiencePaymentMethodActionSheet(donateSource: DonateSource, countryCode: String, currencyCode: String, languageCode: String, donateURL: URL, bannerID: String?, appVersion: String?, articleURL: URL?, loggingDelegate: WKDonateLoggingDelegate?) {
+    @objc func presentNewDonorExperiencePaymentMethodActionSheet(donateSource: DonateSource, countryCode: String, currencyCode: String, languageCode: String, donateURL: URL, bannerID: String?, appVersion: String?, articleURL: URL?, sourceView: UIView?, loggingDelegate: WKDonateLoggingDelegate?) {
         
         let wikimediaProject: WikimediaProject?
         if let articleURL {
@@ -135,7 +135,7 @@ import PassKit
         
         let cancelButtonTitle = CommonStrings.cancelActionTitle
         
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: { action in
             if donateSource == .articleCampaignModal,
@@ -191,6 +191,10 @@ import PassKit
         }))
         
         alert.preferredAction = applePayAction
+        
+        if let popoverPresentationController = alert.popoverPresentationController {
+            popoverPresentationController.sourceView = sourceView
+        }
         
         let presentationVC = donateSource == .articleCampaignModal ? presentedViewController : self
         presentationVC?.present(alert, animated: true)
