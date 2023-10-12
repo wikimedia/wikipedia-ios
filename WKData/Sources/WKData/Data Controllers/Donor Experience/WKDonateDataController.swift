@@ -146,7 +146,8 @@ import Contacts
             "state_province": donorAddressComponents.state,
             "donor_country": donorAddressComponents.country,
             "postal_code": donorAddressComponents.postalCode,
-            "payment_method": "applepay"
+            "payment_method": "applepay",
+            "format": "json"
         ]
         
         if let emailOptIn {

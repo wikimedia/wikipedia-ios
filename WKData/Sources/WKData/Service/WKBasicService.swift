@@ -4,6 +4,7 @@ import Foundation
 public final class WKBasicService: WKService {
     
     private let urlSession: WKURLSession
+    
     init(urlSession: WKURLSession = URLSession.shared) {
         self.urlSession = urlSession
     }
@@ -75,6 +76,7 @@ public final class WKBasicService: WKService {
                 }
                 
                 urlRequest.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+                urlRequest.populateUserAgent()
             case .json:
                 
                 do {
@@ -88,6 +90,7 @@ public final class WKBasicService: WKService {
                 }
                 
                 urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+                urlRequest.populateUserAgent()
             }
         }
         
@@ -150,6 +153,7 @@ public final class WKBasicService: WKService {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        urlRequest.populateUserAgent()
         
         let task = urlSession.wkDataTask(with: urlRequest) { data, response, error in
             
@@ -223,6 +227,14 @@ public final class WKBasicService: WKService {
             } catch let error {
                 completion(.failure(error))
             }
+        }
+    }
+}
+
+private extension URLRequest {
+    mutating func populateUserAgent() {
+        if let userAgent = WKDataEnvironment.current.userAgentUtility?() {
+            setValue(userAgent, forHTTPHeaderField: "User-Agent")
         }
     }
 }

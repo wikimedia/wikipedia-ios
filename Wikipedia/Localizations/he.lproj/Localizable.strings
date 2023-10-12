@@ -273,11 +273,13 @@
 "donate-accessibility-monthly-recurring-hint" = "יש להקיש פעמיים כדי לאפשר תרומות חודשיות אוטומטיות בסכום הזה.";
 "donate-accessibility-textfield-hint" = "יש להזין סכום מותאם אישית לתרומה.";
 "donate-accessibility-transaction-fee-hint" = "יש להקיש פעמיים כדי להוסיף עמלת עסקה לסכום התרומה.";
+"donate-already-donated" = "תודה, תורם יקר! הנדיבות שלך עוזרת להבטיח את צמיחתם של ויקיפדיה ושל האתרים הקשורים אליה.";
 "donate-email-opt-in-text" = "כן, קרן ויקימדיה יכולה לשלוח לי דואר אלקטרוני מדי פעם.";
 "donate-help-frequently-asked-questions" = "שאלות ותשובות";
 "donate-help-other-ways-to-give" = "דרכים אחרות לתרום";
 "donate-help-problems-donating" = "בעיות בתרומה?";
 "donate-help-tax-deductibility-information" = "מידע על פטור ממס";
+"donate-later-title" = "נזכיר לך שוב מחר.";
 "donate-maximum-error-text" = "איננו יכולים לקבל תרומות גבוהות מ־$1 $2 דרך האתר שלנו. נא ליצור קשר עם צוות התרומות הגדולות שלנו בכתובת benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "נא לבחור את הסכום (לפחות $1 $2)";
 "donate-monthly-recurring-text" = "להפוך את זה לתרומה חוזרת חודשית.";
@@ -940,6 +942,8 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|פריט אחד הוחלף|$1 פריטים הוחלפו}}";
 "replace-textfield-accessibility" = "החלפה";
 "replace-textfield-placeholder" = "החלפה ב…";
+"return-button-title" = "חזרה";
+"return-to-article" = "חזרה לערך";
 "reverted-edit-title" = "עריכה ששוחזרה";
 "saved-all-articles-title" = "כל הערכים";
 "saved-default-reading-list-tag" = "אין אפשרות למחוק רשימה זו";
