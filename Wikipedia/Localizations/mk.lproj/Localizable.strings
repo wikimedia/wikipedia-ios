@@ -257,11 +257,14 @@
 "donate-accessibility-monthly-recurring-hint" = "Допрете двапати за да овозможите автоматско месечно дарување во овој износ.";
 "donate-accessibility-textfield-hint" = "Внесете износ за дарување по ваш избор.";
 "donate-accessibility-transaction-fee-hint" = "Допрете двапати за да додадете трансакциска провизија во износот на дарот.";
+"donate-already-donated" = "Ви благодариме, драг дарителу! Википедија и нејзините збратимени проекти напредуваат благодарение на вашата великодушност.";
+"donate-apple-fine-print" = "Apple не е задолжен за собирање пари за оваа цел.";
 "donate-email-opt-in-text" = "Да, Фондацијата Викимедија може повремено да ми испраќа е-пошта.";
 "donate-help-frequently-asked-questions" = "Често поставувани прашања";
 "donate-help-other-ways-to-give" = "Други начини на дарување";
 "donate-help-problems-donating" = "Имате проблеми при дарувањето?";
 "donate-help-tax-deductibility-information" = "Информации за даночното олеснување";
+"donate-later-title" = "Утре пак ќе ве потсетиме.";
 "donate-maximum-error-text" = "Не можеме да прифатиме износи поголеми од $1 $2 преку нашето мрежно место. Обратете се кај персоналот за големи дарови на benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "Изберете износ (барем $1 $2).";
 "donate-monthly-recurring-text" = "Повторувај го овој дар секој месец.";
@@ -924,6 +927,8 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|Заменета $1 ставка|Заменети $1 ставки}}";
 "replace-textfield-accessibility" = "Замени";
 "replace-textfield-placeholder" = "Замени со...";
+"return-button-title" = "Назад";
+"return-to-article" = "Назад на статијата";
 "reverted-edit-title" = "Отповикано уредување";
 "saved-all-articles-title" = "Сите статии";
 "saved-default-reading-list-tag" = "Овој список не може да се избрише";

@@ -43,6 +43,7 @@
 // Author: Stefano
 // Author: SuperVirtual
 // Author: Superpes15
+// Author: Tsevener
 // Author: Vivbod
 // Author: Yacine Boussoufa
 
@@ -256,6 +257,18 @@
 "diff-thanks-sent-cannot-unsend" = "Non si può richiamare e annullare l'invio di ringraziamenti";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 riga non modificata|$1 righe non modificate}}";
 "dim-images" = "Attenuazione immagini";
+"donate-already-donated" = "Grazie a te che hai donato! La tua generosità aiuta a far crescere Wikipedia e i suoi siti correlati.";
+"donate-help-frequently-asked-questions" = "Domande frequenti";
+"donate-help-other-ways-to-give" = "Altri modi per donare";
+"donate-help-problems-donating" = "Hai problemi con la donazione?";
+"donate-help-tax-deductibility-information" = "Informazioni di deducibilità fiscale";
+"donate-later-title" = "Te lo ricorderemo di nuovo domani.";
+"donate-maximum-error-text" = "Non possiamo accettare donazioni superiori a $1 $2 attraverso il nostro sito web. Si prega di contattare il nostro ufficio per le grandi donazioni all'indirizzo benefactors@wikimedia.org.";
+"donate-minimum-error-text" = "Si prega di selezionare un importo (minimo $1 $2)";
+"donate-success-subtitle" = "La tua generosità significa molto per noi.";
+"donate-success-title" = "Grazie!";
+"donate-title" = "Seleziona un importo";
+"donate-transaction-fee-opt-in-text" = "Vorrei aggiungere $1 per coprire le spese dell’operazione in modo che possiate utilizzare il 100% della mia donazione.";
 "edit-bold-accessibility-label" = "Aggiungi la formattazione in grassetto";
 "edit-bold-remove-accessibility-label" = "Rimuovi la formattazione in grassetto";
 "edit-clear-formatting-accessibility-label" = "Rimuovi formattazione";
@@ -651,6 +664,8 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 elemento sostituito|$1 elementi sostituiti}}";
 "replace-textfield-accessibility" = "Sostituisci";
 "replace-textfield-placeholder" = "Sostituisci con…";
+"return-button-title" = "Ritorna";
+"return-to-article" = "Ritorna alla voce";
 "reverted-edit-title" = "Modifica annullata";
 "saved-all-articles-title" = "Tutte le voci";
 "saved-default-reading-list-tag" = "Questo elenco non può essere cancellato";
@@ -676,6 +691,7 @@
 "settings-clear-cache-are-you-sure-title" = "Vuoi cancellare i dati nella cache?";
 "settings-clear-cache-cancel" = "Annulla";
 "settings-clear-cache-ok" = "Pulisci cache";
+"settings-donate" = "Dona a Wikipedia";
 "settings-help-and-feedback" = "Aiuto e feedback";
 "settings-language-bar" = "Mostra lingue nella ricerca";
 "settings-my-languages" = "Le mie lingue";

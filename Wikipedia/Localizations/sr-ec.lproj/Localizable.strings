@@ -253,6 +253,7 @@
 "donate-help-other-ways-to-give" = "Други начини донирања";
 "donate-help-problems-donating" = "Имате проблема при донирању?";
 "donate-help-tax-deductibility-information" = "Подаци о пореским олакшицама";
+"donate-later-title" = "Подсетићемо вас поново сутра.";
 "donate-minimum-error-text" = "Изаберите износ (најмање $1 $2).";
 "donate-monthly-recurring-text" = "Донирај аутоматски сваког месеца.";
 "donate-payment-method-prompt-other-button-title" = "Други начини донирања";
@@ -804,6 +805,8 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 измењена ставка|$1 измењене ставке}}";
 "replace-textfield-accessibility" = "Замени";
 "replace-textfield-placeholder" = "Замени са…";
+"return-button-title" = "Назад";
+"return-to-article" = "Назад на чланак";
 "reverted-edit-title" = "Враћена измена";
 "saved-all-articles-title" = "Сви чланци";
 "saved-default-reading-list-tag" = "Ова листа не може да се избрише";

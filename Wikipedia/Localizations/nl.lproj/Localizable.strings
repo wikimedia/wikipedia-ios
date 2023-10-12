@@ -287,11 +287,13 @@
 "donate-accessibility-monthly-recurring-hint" = "Dubbeltik om automatische maandelijkse donaties van dit bedrag in te schakelen.";
 "donate-accessibility-textfield-hint" = "Voer een aangepast bedrag in om te doneren.";
 "donate-accessibility-transaction-fee-hint" = "Dubbeltik om de transactiekosten toe te voegen aan het donatiebedrag.";
+"donate-already-donated" = "Bedankt, beste donateur! Dankzij jouw bijdrage kan Wikipedia zich blijven uitbreiden.";
 "donate-email-opt-in-text" = "Ja, de Wikimedia Foundation mag mij af en toe een e-mail sturen.";
 "donate-help-frequently-asked-questions" = "Veelgestelde vragen";
 "donate-help-other-ways-to-give" = "Andere manieren om te geven";
 "donate-help-problems-donating" = "Problemen bij het doneren?";
 "donate-help-tax-deductibility-information" = "Fiscale aftrekbaarheid";
+"donate-later-title" = "Ik zal u er morgen weer aan herinneren.";
 "donate-maximum-error-text" = "We kunnen via onze website geen donaties van meer dan $1 $2 accepteren. Neem contact op met onze medewerkers voor grote geschenken via benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "Selecteer een bedrag (minimaal $1 $2).";
 "donate-monthly-recurring-text" = "Maak hiervan een maandelijks terugkerende donatie.";
@@ -986,6 +988,7 @@
 "settings-clear-cache-are-you-sure-title" = "Cache legen?";
 "settings-clear-cache-cancel" = "Annuleren";
 "settings-clear-cache-ok" = "Cache wissen";
+// Fuzzy
 "settings-donate" = "Doneren aan Wikipedia";
 "settings-help-and-feedback" = "Hulp en feedback";
 "settings-language-bar" = "Talen weergeven bij zoeken";
