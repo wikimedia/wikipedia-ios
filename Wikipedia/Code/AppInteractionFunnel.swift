@@ -185,8 +185,9 @@ import WMF
         logEvent(activeInterface: .applePay, action: .taxInfoClick, project: project)
     }
     
-    func logDonateFormNativeApplePayDidAuthorizeApplePay(amount: Decimal, recurringMonthlyIsSelected: Bool, campaignID: String?, donorEmail: String?, project: WikimediaProject?) {
-        var actionData = ["donation_amount": (amount as NSNumber).stringValue,
+    func logDonateFormNativeApplePayDidAuthorizeApplePay(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, campaignID: String?, donorEmail: String?, project: WikimediaProject?) {
+        var actionData = ["preset_selected": String(presetIsSelected),
+                          "donation_amount": (amount as NSNumber).stringValue,
                           "recurring": String(recurringMonthlyIsSelected),
                           "pay_method": "applepay"]
         if let campaignID {

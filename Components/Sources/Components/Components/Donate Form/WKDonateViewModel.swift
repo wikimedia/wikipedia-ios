@@ -456,7 +456,9 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
 
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
         
-        loggingDelegate?.logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: finalAmount, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, donorEmail: payment.shippingContact?.emailAddress, bannerID: bannerID)
+        let presetIsSelected = buttonViewModels.first(where: {$0.isSelected}) != nil
+        
+        loggingDelegate?.logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: finalAmount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, donorEmail: payment.shippingContact?.emailAddress, bannerID: bannerID)
 
         guard !payment.token.paymentData.isEmpty,
               let paymentToken = String(data: payment.token.paymentData, encoding: .utf8) else {

@@ -317,8 +317,8 @@ extension UIViewController {
         AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected, project: project)
     }
     
-    func sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, recurringMonthlyIsSelected: Bool, donorEmail: String?, project: WikimediaProject? = nil, bannerID: String? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, recurringMonthlyIsSelected: recurringMonthlyIsSelected, campaignID: bannerID, donorEmail: donorEmail, project: project)
+    func sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, project: WikimediaProject? = nil, bannerID: String? = nil) {
+        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, campaignID: bannerID, donorEmail: donorEmail, project: project)
     }
     
     func sharedLogDonateFormUserDidTapProblemsDonatingLink(project: WikimediaProject? = nil) {
