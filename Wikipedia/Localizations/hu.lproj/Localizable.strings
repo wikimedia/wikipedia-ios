@@ -678,6 +678,7 @@
 "settings-clear-cache-are-you-sure-title" = "Törlöd a gyorsítótárazott adatokat?";
 "settings-clear-cache-cancel" = "Mégse";
 "settings-clear-cache-ok" = "Gyorsítótár törlése";
+// Fuzzy
 "settings-donate" = "Adományozás a Wikipédiának";
 "settings-help-and-feedback" = "Súgó és visszajelzés";
 "settings-language-bar" = "Nyelvek megjelenítése keresésnél";

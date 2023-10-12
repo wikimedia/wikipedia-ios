@@ -251,11 +251,14 @@
 "donate-accessibility-monthly-recurring-hint" = "Tocca duo vices pro activar donationes automatic mensual in iste amonta.";
 "donate-accessibility-textfield-hint" = "Inserer un amonta personalisate a donar.";
 "donate-accessibility-transaction-fee-hint" = "Tocca duo vices pro adder le costo del transaction al amonta del donation.";
+"donate-already-donated" = "Gratias, car donator! Tu generositate adjuta Wikipedia e su sitos fratres a prosperar.";
+"donate-apple-fine-print" = "Apple non es responsabile pro le collecta de fundos a iste fin.";
 "donate-email-opt-in-text" = "Si, le Fundation Wikimedia pote inviar me un message de e-mail occasional.";
 "donate-help-frequently-asked-questions" = "Folio a questiones";
 "donate-help-other-ways-to-give" = "Altere modos de donation";
 "donate-help-problems-donating" = "Problemas de donar?";
 "donate-help-tax-deductibility-information" = "Information sur le deductibilitate fiscal";
+"donate-later-title" = "Nos te lo recordara de novo deman.";
 "donate-maximum-error-text" = "Nos non pote acceptar donationes in excesso de $2 $1 per nostre sito web. Per favor contacta nostre personal de donos major a benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "Per favor selige un amonta (minimo $2 $1).";
 "donate-monthly-recurring-text" = "Facer isto un donation mensual recurrente.";
@@ -918,6 +921,8 @@
 "replace-replace-all-results-count" = "$1 elemento{{PLURAL:$1||s}} reimplaciate";
 "replace-textfield-accessibility" = "Reimplaciar";
 "replace-textfield-placeholder" = "Reimplaciar per…";
+"return-button-title" = "Retornar";
+"return-to-article" = "Retornar al articulo";
 "reverted-edit-title" = "Modification revertite";
 "saved-all-articles-title" = "Tote le articulos";
 "saved-default-reading-list-tag" = "Iste lista non pote esser delite";

@@ -285,6 +285,7 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1行が未編集}}";
 "diff-user-button-accessibility-text" = "ダブルタップしてメニューを開く";
 "dim-images" = "暗い画像";
+"donate-help-frequently-asked-questions" = "よくある質問";
 "edit-bold-accessibility-label" = "太字にする";
 "edit-bold-remove-accessibility-label" = "太字の解除";
 "edit-clear-formatting-accessibility-label" = "修飾を除去";

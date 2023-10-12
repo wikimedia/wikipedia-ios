@@ -560,7 +560,7 @@
 "logged-out-title" = "Bạn đã đăng xuất";
 "login-forgot-password" = "Quên mật khẩu?";
 "login-join-wikipedia" = "Tham gia Wikipedia.";
-"login-no-account" = "Bạn chưa có tài khoản ở đây? $1.";
+"login-no-account" = "Bạn chưa có tài khoản ở đây? $1";
 "login-title" = "Đăng nhập vào tài khoản của bạn";
 "main-menu-about" = "Giới thiệu về ứng dụng";
 "main-menu-account-login" = "Đăng nhập";

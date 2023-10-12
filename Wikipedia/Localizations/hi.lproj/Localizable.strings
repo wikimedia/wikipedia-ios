@@ -470,6 +470,7 @@
 "settings-clear-cache-are-you-sure-title" = "कैश डेटा खाली करें?";
 "settings-clear-cache-cancel" = "रद्द करें";
 "settings-clear-cache-ok" = "कैश खाली करें";
+// Fuzzy
 "settings-donate" = "विकिपीडिया को दान करें";
 "settings-help-and-feedback" = "सहायता व फीडबैक";
 "settings-language-bar" = "खोज में भाषाओं को दिखाएँ";
