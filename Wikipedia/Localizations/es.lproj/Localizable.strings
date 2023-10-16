@@ -271,6 +271,7 @@
 "diff-thanks-sent-cannot-unsend" = "No se puede deshacer el envío de agradecimientos";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 renglón|$1 renglones}} sin editar";
 "dim-images" = "Atenuación de imágenes";
+"donate-apple-fine-print" = "Apple no se encarga de recaudar dinero para este fin.";
 "edit-bold-accessibility-label" = "\nAñadir negritas";
 "edit-bold-remove-accessibility-label" = "\nQuitar negritas";
 "edit-clear-formatting-accessibility-label" = "Quitar formato";
