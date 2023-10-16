@@ -141,8 +141,11 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
                           let maximumErrorText = localizedStrings.maximumErrorText {
                     return maximumErrorText
                 }
+            } else if let donateError = error as? WKDonateDataControllerError {
+                return donateError.localizedDescription
             }
-            return String.localizedStringWithFormat(localizedStrings.genericErrorFormat, error.localizedDescription)
+            
+            return String.localizedStringWithFormat(localizedStrings.genericErrorFormat, (error as NSError).description)
         }
         
         init(localizedStrings: LocalizedStrings, error: Swift.Error, orderID: String?) {
