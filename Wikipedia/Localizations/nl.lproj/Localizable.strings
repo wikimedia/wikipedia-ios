@@ -288,6 +288,7 @@
 "donate-accessibility-textfield-hint" = "Voer een aangepast bedrag in om te doneren.";
 "donate-accessibility-transaction-fee-hint" = "Dubbeltik om de transactiekosten toe te voegen aan het donatiebedrag.";
 "donate-already-donated" = "Bedankt, beste donateur! Dankzij jouw bijdrage kan Wikipedia zich blijven uitbreiden.";
+"donate-apple-fine-print" = "Apple is niet verantwoordelijk voor het inzamelen van geld voor dit doel.";
 "donate-email-opt-in-text" = "Ja, de Wikimedia Foundation mag mij af en toe een e-mail sturen.";
 "donate-help-frequently-asked-questions" = "Veelgestelde vragen";
 "donate-help-other-ways-to-give" = "Andere manieren om te geven";
@@ -956,6 +957,8 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 item vervangen|$1 items vervangen}}";
 "replace-textfield-accessibility" = "Vervangen";
 "replace-textfield-placeholder" = "Vervangen door...";
+"return-button-title" = "Terug";
+"return-to-article" = "Terug naar artikel";
 "reverted-edit-title" = "Teruggedraaide bewerking";
 "saved-all-articles-title" = "Alle artikelen";
 "saved-default-reading-list-tag" = "Deze lijst kan niet worden verwijderd";
@@ -988,7 +991,6 @@
 "settings-clear-cache-are-you-sure-title" = "Cache legen?";
 "settings-clear-cache-cancel" = "Annuleren";
 "settings-clear-cache-ok" = "Cache wissen";
-// Fuzzy
 "settings-donate" = "Doneren aan Wikipedia";
 "settings-help-and-feedback" = "Hulp en feedback";
 "settings-language-bar" = "Talen weergeven bij zoeken";
