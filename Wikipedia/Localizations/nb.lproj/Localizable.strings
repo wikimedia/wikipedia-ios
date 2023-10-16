@@ -1201,7 +1201,7 @@
 "watchlist-filter-user-registration-header" = "Brukerregistrering og -erfaring";
 "watchlist-filter-user-registration-options-registered" = "Registrert";
 "watchlist-filter-user-registration-options-unregistered" = "Uregistrert";
-"watchlist-number-filters" = "Endre [{{{{PLURAL:$1|$1 filter|$1 filtre}}](wikipedia\n://watchlist/filter) for å se flere overvåkningslisteelementer";
+"watchlist-number-filters" = "Endre [{{PLURAL:$1|$1 filter|$1 filtre}}](wikipedia\n://watchlist/filter) for å se flere overvåkningslisteelementer";
 "watchlist-onboarding-button-title" = "Lær mer om overvåkingslisten";
 "watchlist-onboarding-title" = "Dette er din overvåkningsliste";
 "watchlist-removed" = "Fjernet fra din overvåkningsliste";

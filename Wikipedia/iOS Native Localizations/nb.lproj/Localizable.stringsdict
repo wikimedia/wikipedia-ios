@@ -792,7 +792,7 @@
 	<key>watchlist-number-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Endre [{{%#@v1@](wikipedia
+		<string>Endre [%#@v1@](wikipedia
 ://watchlist/filter) for å se flere overvåkningslisteelementer</string>
 		<key>v1</key>
 		<dict>
