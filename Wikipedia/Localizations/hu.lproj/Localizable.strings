@@ -240,7 +240,7 @@
 "donate-success-subtitle" = "Wikipédia iránti nagylelkűséged számunkra rengeteget jelent.";
 "donate-success-title" = "Köszönjük!";
 "donate-title" = "Válassz összeget!";
-"donate-transaction-fee-opt-in-text" = "Nagylelkűen hozzáadok $1 összegű tranzakciós díjat, hogy adományom 100%-át megtarthassátok.";
+"donate-transaction-fee-opt-in-text" = "Nagylelkűen hozzáadok $1 összegű tranzakciós díjat, hogy adományom 100%%-át megtarthassátok.";
 "edit-bold-accessibility-label" = "Félkövér formázás hozzáadása";
 "edit-bold-remove-accessibility-label" = "Félkövér formázás eltávolítása";
 "edit-clear-formatting-accessibility-label" = "Formázás eltávolítása";

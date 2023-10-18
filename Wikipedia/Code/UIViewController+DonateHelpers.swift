@@ -52,7 +52,7 @@ import PassKit
         let donate = WMFLocalizedString("donate-title", value: "Select an amount", comment: "Title for donate form.")
         let done = CommonStrings.doneTitle
         
-        let transactionFeeFormat = WMFLocalizedString("donate-transaction-fee-opt-in-text", value: "I’ll generously add %1$@ to cover the transaction fees so you can keep 100 percent of my donation.", comment: "Text for search result letting user know if a result is a redirect from another article. Parameters: * %1$@ - article title the current search result redirected from")
+        let transactionFeeFormat = WMFLocalizedString("donate-transaction-fee-opt-in-text", value: "I’ll generously add %1$@ to cover the transaction fees so you can keep 100%% of my donation.", comment: "Text for search result letting user know if a result is a redirect from another article. Parameters: * %1$@ - article title the current search result redirected from. Please leave %% unchanged for proper formatting.")
         let transactionFeeOptIn = String.localizedStringWithFormat(transactionFeeFormat, transactionFeeString)
         
         let minimumFormat = WMFLocalizedString("donate-minimum-error-text", value: "Please select an amount (minimum %1$@ %2$@).", comment: "Error text displayed when user enters donation amount below the allowed minimum. Parameters: * %1$@ - the minimum amount allowed, %2$@ - the currency code. (For example, '$1 USD')")
