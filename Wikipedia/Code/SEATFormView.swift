@@ -12,6 +12,19 @@ struct SEATFormView: View {
         appEnvironment.theme
     }
 
+    private var appTheme: Theme {
+        switch theme {
+        case .black:
+            return .black
+        case .dark:
+            return .dark
+        case .sepia:
+            return .sepia
+        default:
+            return .light
+        }
+    }
+
     @SwiftUI.State var altText: String = ""
     var taskItem: SEATTaskItem
 
@@ -33,24 +46,38 @@ struct SEATFormView: View {
                 Button("Cancel") {
                     dismiss()
                 }
+                .tint(Color(theme.text))
             }
             ToolbarItem(placement: .topBarTrailing) {
-                Button("Next") {
-                    dismiss()
-                }
+                NavigationLink("Next", destination: {
+                    SEATSelectionView(taskItem: taskItem, presentationStyle: .preview, suggestedAltText: altText)
+                })
+                .tint(Color(theme.text))
+                .disabled(altText.isEmpty)
             }
         }
     }
 
     var header: some View {
         HStack(alignment: .top) {
-            Rectangle()
-                .frame(width: 100, height: 100)
-                .foregroundColor(.red)
+            AsyncImage(url: URL(string: taskItem.imageURL), content: { image in
+                Rectangle()
+                    .aspectRatio(1, contentMode: .fit)
+                    .overlay(
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    )
+                    .clipShape(Rectangle())
+            }, placeholder: {
+                ProgressView()
+            })
+            .frame(width: 100, height: 100)
+
             VStack(alignment: .leading) {
                 Text("Image")
                     .foregroundStyle(Color(theme.secondaryText))
-                Text("Filename.jpg")
+                Text(taskItem.imageFilename)
                     .foregroundStyle(Color(theme.link))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -61,10 +88,24 @@ struct SEATFormView: View {
     var form: some View {
         VStack(alignment: .leading) {
             Text("Alternative Text")
-            TextField("Describe this image", text: $altText)
+            TextView(placeholder: "Describe this image", theme: appTheme, text: $altText)
+                .frame(maxWidth: .infinity, minHeight: 44)
             Divider()
-            Text("Text description")
+            Text("Text description for readers who cannot see the image")
             Text("Guidance")
+            Text("• Describe main point")
+            Text("• Under 125 characters")
+            Text("• Context-aware")
+            Text("• State function if needed")
+            Text("• Highlight key parts")
+
+            Button(action: { }, label: {
+                HStack {
+                    Image(systemName: "arrow.up.right.square")
+                    Text("View Examples")
+                }
+            })
+
         }
         .padding()
     }
