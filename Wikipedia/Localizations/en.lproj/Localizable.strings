@@ -260,7 +260,7 @@
 "donate-payment-method-prompt-message" = "Donate with Apple Pay or choose other payment method.";
 "donate-payment-method-prompt-other-button-title" = "Other payment method";
 "donate-payment-method-prompt-title" = "Donate with Apple Pay?";
-"donate-success-subtitle" = "Your generosity to Wikipedia means so much to us.";
+"donate-success-subtitle" = "Your generosity means so much to us.";
 "donate-success-title" = "Thank you!";
 "donate-title" = "Select an amount";
 "donate-transaction-fee-opt-in-text" = "I’ll generously add $1 to cover the transaction fees so you can keep 100 percent of my donation.";
@@ -949,7 +949,7 @@
 "settings-clear-cache-are-you-sure-title" = "Clear cached data?";
 "settings-clear-cache-cancel" = "Cancel";
 "settings-clear-cache-ok" = "Clear cache";
-"settings-donate" = "Donate to Wikipedia";
+"settings-donate" = "Donate";
 "settings-help-and-feedback" = "Help and feedback";
 "settings-language-bar" = "Show languages on search";
 "settings-languages-feed-customization" = "You can manage which languages are shown on your Explore feed by customizing your Explore feed settings.";
