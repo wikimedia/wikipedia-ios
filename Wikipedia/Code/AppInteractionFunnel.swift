@@ -90,8 +90,15 @@ import WMF
         logEvent(activeInterface: .setting, action: .donateStartClick)
     }
     
-    func logFundraisingCampaignModalImpression(project: WikimediaProject) {
-        logEvent(activeInterface: .articleBanner, action: .impression, project: project)
+    func logFundraisingCampaignModalImpression(project: WikimediaProject, campaignID: String?) {
+        
+        var actionData: [String: String]?
+        if let campaignID {
+            actionData = [:]
+            actionData?["campaign_id"] = campaignID
+        }
+        
+        logEvent(activeInterface: .articleBanner, action: .impression, actionData: actionData, project: project)
     }
     
     func logFundraisingCampaignModalDidTapClose(project: WikimediaProject) {
