@@ -263,7 +263,7 @@
 "donate-success-subtitle" = "Your generosity means so much to us.";
 "donate-success-title" = "Thank you!";
 "donate-title" = "Select an amount";
-"donate-transaction-fee-opt-in-text" = "I’ll generously add $1 to cover the transaction fees so you can keep 100 percent of my donation.";
+"donate-transaction-fee-opt-in-text" = "I’ll generously add $1 to cover the transaction fees so you can keep 100%% of my donation.";
 "edit-bold-accessibility-label" = "Add bold formatting";
 "edit-bold-remove-accessibility-label" = "Remove bold formatting";
 "edit-clear-formatting-accessibility-label" = "Remove formatting";

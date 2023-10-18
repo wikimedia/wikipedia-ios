@@ -305,7 +305,7 @@
 "donate-success-subtitle" = "We waarderen je bijdrage enorm.";
 "donate-success-title" = "Dank je wel!";
 "donate-title" = "Selecteer een bedrag";
-"donate-transaction-fee-opt-in-text" = "Ik betaal graag $1 extra voor de transactiekosten, zodat jullie 100% van mijn donatie kunnen gebruiken.";
+"donate-transaction-fee-opt-in-text" = "Ik betaal graag $1 extra voor de transactiekosten, zodat jullie 100%% van mijn donatie kunnen gebruiken.";
 "edit-bold-accessibility-label" = "Vetgedrukte opmaak toevoegen";
 "edit-bold-remove-accessibility-label" = "Vetgedrukte opmaak verwijderen";
 "edit-clear-formatting-accessibility-label" = "Opmaak verwijderen";
