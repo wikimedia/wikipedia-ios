@@ -80,7 +80,7 @@ extension ArticleViewController {
     
     private func showNewDonateExperienceCampaignModal(asset: WKFundraisingCampaignConfig.WKAsset, project: WikimediaProject) {
         
-        AppInteractionFunnel.shared.logFundraisingCampaignModalImpression(project: project)
+        AppInteractionFunnel.shared.logFundraisingCampaignModalImpression(project: project, campaignID: asset.utmSource)
         
         let dataController = WKFundraisingCampaignDataController()
         
@@ -126,15 +126,7 @@ extension ArticleViewController {
         let firstAction = asset.actions[0]
         let donateURL = firstAction.url
         
-        var utmSource: String? = nil
-        if let donateURL = firstAction.url,
-           let queryItems = URLComponents(url: donateURL, resolvingAgainstBaseURL: false)?.queryItems {
-            for queryItem in queryItems {
-                if queryItem.name == "utm_source" {
-                    utmSource = queryItem.value
-                }
-            }
-        }
+        let utmSource = asset.utmSource
         
         let appVersion = Bundle.main.wmf_debugVersion()
         
@@ -153,7 +145,7 @@ extension ArticleViewController {
         
         let project = WikimediaProject(siteURL: articleURL)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tommorow.", comment: "Title for toast shown when user clicks remind me later on fundraising banner")
+            let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tomorrow.", comment: "Title for toast shown when user clicks remind me later on fundraising banner")
 
             if let project {
                 AppInteractionFunnel.shared.logArticleDidSeeReminderToast(project: project)
@@ -277,4 +269,27 @@ extension ArticleViewController: WKDonateLoggingDelegate {
     }
     
     
+}
+
+extension WKFundraisingCampaignConfig.WKAsset {
+    
+    var utmSource: String? {
+        
+        guard actions.count > 0 else {
+            return nil
+        }
+        
+        let firstAction = actions[0]
+        var utmSource: String? = nil
+        if let donateURL = firstAction.url,
+           let queryItems = URLComponents(url: donateURL, resolvingAgainstBaseURL: false)?.queryItems {
+            for queryItem in queryItems {
+                if queryItem.name == "utm_source" {
+                    utmSource = queryItem.value
+                }
+            }
+        }
+        
+        return utmSource
+    }
 }

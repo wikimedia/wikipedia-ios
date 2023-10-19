@@ -263,7 +263,7 @@
 "donate-success-subtitle" = "Thank you toast subtitle displayed after a user successfully donates.";
 "donate-success-title" = "Thank you toast title displayed after a user successfully donates.";
 "donate-title" = "Title for donate form.";
-"donate-transaction-fee-opt-in-text" = "Text for search result letting user know if a result is a redirect from another article. Parameters: * $1 - article title the current search result redirected from";
+"donate-transaction-fee-opt-in-text" = "Text for search result letting user know if a result is a redirect from another article. Parameters: * $1 - article title the current search result redirected from. Please leave %% unchanged for proper formatting.";
 "edit-bold-accessibility-label" = "Accessibility label for the button that adds bold formatting to the current selection";
 "edit-bold-remove-accessibility-label" = "Accessibility label for the button that removes bold formatting to the current selection";
 "edit-clear-formatting-accessibility-label" = "Accessibility label for the button that removes formatting from the current selection";
