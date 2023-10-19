@@ -60,7 +60,7 @@ struct SEATFormView: View {
 
     var header: some View {
         HStack(alignment: .top) {
-            AsyncImage(url: URL(string: taskItem.imageURL), content: { image in
+            AsyncImage(url: taskItem.imageURL, content: { image in
                 Rectangle()
                     .aspectRatio(1, contentMode: .fit)
                     .overlay(

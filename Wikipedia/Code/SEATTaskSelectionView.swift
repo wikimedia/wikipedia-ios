@@ -24,6 +24,7 @@ struct SEATSelectionView: View {
     }
 
     @SwiftUI.State private var isFormPresented = false
+
     @SwiftUI.State private var isFeedbackAlertPresented = false
 
     @SwiftUI.State var taskItem: SEATTaskItem = SEATSampleData.shared.nextTask()
@@ -132,7 +133,8 @@ struct SEATSelectionView: View {
     var imagePreview: some View {
         ZStack {
             Color(theme.baseBackground)
-            AsyncImage(url: URL(string: taskItem.imageURL), content: { image in
+            
+            AsyncImage(url: taskItem.imageURL, content: { image in
                 image
                     .resizable()
                     .scaledToFit()
@@ -159,6 +161,7 @@ struct SEATSelectionView: View {
     }
 
     var articlePreview: some View {
+        
         VStack(alignment: .leading, spacing: 16) {
             Text(taskItem.articleTitle)
                 .foregroundStyle(Color(theme.text))

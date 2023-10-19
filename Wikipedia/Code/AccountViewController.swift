@@ -161,6 +161,12 @@ class AccountViewController: SubSettingsViewController {
             goToWatchlist()
 
         case .suggestedEdits:
+            guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode else {
+                return
+            }
+            
+            SEATSampleData.languageCode = languageCode
+            
             let hostingViewController = UIHostingController(rootView: SEATNavigationView())
             push(hostingViewController)
         case .vanishAccount:
