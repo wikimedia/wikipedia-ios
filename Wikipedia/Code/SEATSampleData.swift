@@ -10,7 +10,7 @@ struct SEATTaskItem: Codable, Equatable {
     let articleSummary: String
 
     var imageFilename: String {
-        return imageURL.wmf_title?.normalizedPageTitle ?? ""
+        return imageURL.lastPathComponent
     }
 }
 final class SEATSampleData {

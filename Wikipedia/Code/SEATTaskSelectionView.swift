@@ -24,18 +24,18 @@ struct SEATSelectionView: View {
     }
 
     @SwiftUI.State private var isFormPresented = false
-
     @SwiftUI.State private var isFeedbackAlertPresented = false
 
     @SwiftUI.State var taskItem: SEATTaskItem = SEATSampleData.shared.nextTask()
     @SwiftUI.State var presentationStyle: PresentationStyle = .suggestion
 
     var suggestedAltText: String? = nil
+    var parentDismissAction: (() -> Void)? = nil
 
     // MARK: - Public
 
     var content: some View {
-        ZStack(alignment: .bottom) {
+        VStack {
             ScrollView {
                 VStack {
                     imagePreview
@@ -66,7 +66,6 @@ struct SEATSelectionView: View {
                             dismiss()
                         }
                         .tint(Color(theme.text))
-
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
@@ -82,7 +81,7 @@ struct SEATSelectionView: View {
                         .tint(Color(theme.text))
                     } else {
                         Button("Publish") {
-                            dismiss()
+                            parentDismissAction?()
                         }
                         .tint(Color(theme.link))
                     }
@@ -147,14 +146,14 @@ struct SEATSelectionView: View {
         .overlay(alignment: .bottom, content: {
             Button(action: {
 
-            }, label: {
+            }) {
                 HStack(alignment: .center) {
                     Text(suggestedAltText ?? "View image details →")
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Spacer()
                     Image("wikimedia-project-commons", bundle: .main)
                 }
-            })
+            }
             .foregroundStyle(Color.white)
             .frame(maxWidth: .infinity)
             .padding()
@@ -163,7 +162,6 @@ struct SEATSelectionView: View {
     }
 
     var articlePreview: some View {
-        
         VStack(alignment: .leading, spacing: 16) {
             Text(taskItem.articleTitle)
                 .foregroundStyle(Color(theme.text))

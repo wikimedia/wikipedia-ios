@@ -50,7 +50,9 @@ struct SEATFormView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink("Next", destination: {
-                    SEATSelectionView(taskItem: taskItem, presentationStyle: .preview, suggestedAltText: altText)
+                    SEATSelectionView(taskItem: taskItem, presentationStyle: .preview, suggestedAltText: altText) {
+                        dismiss()
+                    }
                 })
                 .tint(Color(theme.text))
                 .disabled(altText.isEmpty)
@@ -112,6 +114,6 @@ struct SEATFormView: View {
 
 }
 
-#Preview {
+ #Preview {
     SEATFormView(taskItem: SEATSampleData.shared.availableTasks.randomElement()!)
-}
+ }
