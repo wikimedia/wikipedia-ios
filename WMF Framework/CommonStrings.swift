@@ -416,6 +416,26 @@ public class CommonStrings: NSObject {
     public static let watchlistViewUpdatesSubitle = WMFLocalizedString("watchlist-updates-subtitle", value: "The Watchlist of the pages you've added, like edits or discussions, can be accessed via Settings → Account.", comment: "Watchlists onboarding modal view updates section subtitle")
 
     public static let watchlistOnboardingLearnMore = WMFLocalizedString("watchlist-onboarding-button-title", value: "Learn more about the Watchlist", comment: "Watchlists onboarding modal learn more button title")
+    
+    public static let seatOnboardingTitle = WMFLocalizedString("seat-onboarding-title", value: "How to write alt text for images", comment: "Title of Suggested Edits Alt Text Onboarding View")
+    
+    public static let seatOnboardingDescribeTitle = WMFLocalizedString("seat-onboarding-describe-title", value: "Describe main point", comment: "Title of first list item in Suggested Edits Alt Text Onboarding View")
+    
+    public static let seatOnboardingDescribeSubtitle = WMFLocalizedString("seat-onboarding-describe-subtitle", value: "Is descriptive and clearly describes the main point of the image.", comment: "Subtitle of first list item in Suggested Edits Alt Text Onboarding View")
+    
+    public static let seatOnboardingLengthTitle = WMFLocalizedString("seat-onboarding-length-title", value: "Under 125 characters", comment: "Title of second list item in Suggested Edits Alt Text Onboarding View")
+    
+    public static let seatOnboardingLengthSubtitle = WMFLocalizedString("seat-onboarding-length-subtitle", value: "Is short and limited to about 125 characters.", comment: "Subtitle of second list item in Suggested Edits Alt Text Onboarding View")
+    
+    public static let seatOnboardingContextTitle = WMFLocalizedString("seat-onboarding-context-title", value: "Context-aware", comment: "Title of third list item in Suggested Edits Alt Text Onboarding View")
+    
+    public static let seatOnboardingContextSubtitle = WMFLocalizedString("seat-onboarding-context-subtitle", value: "Is context-aware and considers the article or page’s content when described", comment: "Subtitle of third list item in Suggested Edits Alt Text Onboarding View")
+    
+    public static let seatOnboardingHighlightTitle = WMFLocalizedString("seat-onboarding-highlight-title", value: "Highlight key parts of the image", comment: "Title of fourth list item in Suggested Edits Alt Text Onboarding View")
+    
+    public static let seatOnboardingHighlightSubtitle = WMFLocalizedString("seat-onboarding-highlight-subtitle", value: "Is relevant and describes crucial parts of the image that is pertinent to the content.", comment: "Subtitle of fourth list item in Suggested Edits Alt Text Onboarding View")
+    
+    public static let seatOnboardingLearnMore = WMFLocalizedString("seat-onboarding-learn-more", value: "Learn more about Suggested edits", comment: "Suggested Edits Alt Text onboarding view learn more button title")
 
     public static let continueButton = WMFLocalizedString("continue-button-title", value: "Continue", comment: "Continue button title")
 

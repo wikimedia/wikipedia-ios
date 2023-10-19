@@ -9,6 +9,10 @@ protocol AccountViewControllerDelegate: AnyObject {
     func accountViewControllerDidTapLogout(_ accountViewController: AccountViewController)
 }
 
+extension Notification.Name {
+    static let seatOnboardingDidTapLearnMore = Notification.Name("WMFSEATOnboardingDidTapLearnMoreForeground")
+}
+
 private enum ItemType {
     case logout
     case talkPage
@@ -78,6 +82,16 @@ class AccountViewController: SubSettingsViewController {
         tableView.estimatedSectionHeaderHeight = 44
         tableView.sectionFooterHeight = UITableView.automaticDimension
         tableView.estimatedSectionFooterHeight = 44
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didTapSEATOnboardingLearnMore), name: .seatOnboardingDidTapLearnMore, object: nil)
+    }
+    
+    @objc private func didTapSEATOnboardingLearnMore() {
+        guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Suggested_edits") else {
+            return
+        }
+        
+        navigationController?.navigate(to: url, useSafari: true)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -161,8 +175,11 @@ class AccountViewController: SubSettingsViewController {
             goToWatchlist()
 
         case .suggestedEdits:
-            let hostingViewController = UIHostingController(rootView: SEATNavigationView())
-            push(hostingViewController)
+            if !UserDefaults.standard.wmf_userHasOnboardedToSEAT {
+                showSEATOnboarding()
+            } else {
+                goToSEAT()
+            }
         case .vanishAccount:
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
             warningViewController.delegate = self
@@ -170,6 +187,27 @@ class AccountViewController: SubSettingsViewController {
         default:
             break
         }
+    }
+    
+    func showSEATOnboarding() {
+        let trackChanges = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "SEAT/photo"), title: CommonStrings.seatOnboardingDescribeTitle, subtitle: CommonStrings.seatOnboardingDescribeSubtitle)
+        let watchArticles = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "SEAT/textformat.size"), title: CommonStrings.seatOnboardingLengthTitle, subtitle: CommonStrings.seatOnboardingLengthSubtitle)
+        let setExpiration = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "SEAT/square.text.square"), title: CommonStrings.seatOnboardingContextTitle, subtitle: CommonStrings.seatOnboardingContextSubtitle)
+        let viewUpdates = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "SEAT/highlight"), title: CommonStrings.seatOnboardingHighlightTitle, subtitle: CommonStrings.seatOnboardingHighlightSubtitle)
+
+        let viewModel = WKOnboardingViewModel(title: CommonStrings.seatOnboardingTitle, cells: [trackChanges, watchArticles, setExpiration, viewUpdates], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.seatOnboardingLearnMore)
+
+        let viewController = WKOnboardingViewController(viewModel: viewModel)
+        viewController.hostingController.delegate = self
+
+        navigationController?.present(viewController, animated: true) {
+            UserDefaults.standard.wmf_userHasOnboardedToSEAT = true
+        }
+    }
+    
+    private func goToSEAT() {
+        let hostingViewController = UIHostingController(rootView: SEATNavigationView())
+        push(hostingViewController)
     }
 
     @objc func goToWatchlist() {
@@ -245,4 +283,19 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
         let viewController = VanishAccountContainerViewController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
         navigationController?.pushViewController(viewController, animated: true)
     }
+}
+
+extension AccountViewController: WKOnboardingViewDelegate {
+    func didClickPrimaryButton() {
+        if let presentedViewController = navigationController?.presentedViewController {
+            presentedViewController.dismiss(animated: true) { [weak self] in
+                self?.goToSEAT()
+            }
+        }
+    }
+    
+    func didClickSecondaryButton() {
+        NotificationCenter.default.post(name: .seatOnboardingDidTapLearnMore, object: nil)
+    }
+    
 }
