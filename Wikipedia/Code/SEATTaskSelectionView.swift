@@ -72,7 +72,9 @@ struct SEATSelectionView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     if presentationStyle == .suggestion {
                         Menu("More", systemImage: "ellipsis.circle") {
-                            Button("Learn more", systemImage: "info.circle") { }
+                            Button("Learn more", systemImage: "info.circle") {
+                                NotificationCenter.default.post(name: .seatOnboardingDidTapLearnMore, object: nil)
+                            }
                             Button("Feedback", systemImage: "exclamationmark.bubble") {
                                 isFeedbackAlertPresented.toggle()
                             }

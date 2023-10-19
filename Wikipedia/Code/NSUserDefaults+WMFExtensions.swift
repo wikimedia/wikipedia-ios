@@ -29,6 +29,7 @@ let WMFShowNotificationsExploreFeedCard = "WMFShowNotificationsExploreFeedCard"
 let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificationsCenter"
 let WMFUserHasOnboardedToContributingToTalkPages = "WMFUserHasOnboardedToContributingToTalkPages"
 let WMFUserHasOnboardedToWatchlists = "WMFUserHasOnboardedToWatchlists"
+let WMFUserHasOnboardedToSEAT = "WMFUserHasOnboardedToSEAT"
 let WMFDidShowNotificationsCenterPushOptInPanel = "WMFDidShowNotificationsCenterPushOptInPanel"
 let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
 let WMFTappedToImportSharedReadingListSurvey = "WMFTappedToImportSharedReadingListSurvey"
@@ -439,6 +440,15 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
         }
         set {
             set(newValue, forKey: WMFUserHasOnboardedToWatchlists)
+        }
+    }
+    
+    var wmf_userHasOnboardedToSEAT: Bool {
+        get {
+            return bool(forKey: WMFUserHasOnboardedToSEAT)
+        }
+        set {
+            set(newValue, forKey: WMFUserHasOnboardedToSEAT)
         }
     }
 

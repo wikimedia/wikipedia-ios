@@ -940,6 +940,16 @@
 "search-recent-title" = "Recently searched";
 "search-result-redirected-from" = "Redirected from: $1";
 "search-title" = "Search";
+"seat-onboarding-context-subtitle" = "Is context-aware and considers the article or page’s content when described";
+"seat-onboarding-context-title" = "Context-aware";
+"seat-onboarding-describe-subtitle" = "Is descriptive and clearly describes the main point of the image.";
+"seat-onboarding-describe-title" = "Describe main point";
+"seat-onboarding-highlight-subtitle" = "Is relevant and describes crucial parts of the image that is pertinent to the content.";
+"seat-onboarding-highlight-title" = "Highlight key parts of the image";
+"seat-onboarding-learn-more" = "Learn more about Suggested edits";
+"seat-onboarding-length-subtitle" = "Is short and limited to about 125 characters.";
+"seat-onboarding-length-title" = "Under 125 characters";
+"seat-onboarding-title" = "How to write alt text for images";
 "serbian-variants-alert-body" = "The Wikipedia app now supports the following Serbian variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Updates to Serbian variant support";
 "settings-account" = "Account";

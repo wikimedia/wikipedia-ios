@@ -940,6 +940,16 @@
 "search-recent-title" = "Title for list of recent search terms";
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters: * $1 - article title the current search result redirected from";
 "search-title" = "Title for search interface. {{Identical|Search}}";
+"seat-onboarding-context-subtitle" = "Subtitle of third list item in Suggested Edits Alt Text Onboarding View";
+"seat-onboarding-context-title" = "Title of third list item in Suggested Edits Alt Text Onboarding View";
+"seat-onboarding-describe-subtitle" = "Subtitle of first list item in Suggested Edits Alt Text Onboarding View";
+"seat-onboarding-describe-title" = "Title of first list item in Suggested Edits Alt Text Onboarding View";
+"seat-onboarding-highlight-subtitle" = "Subtitle of fourth list item in Suggested Edits Alt Text Onboarding View";
+"seat-onboarding-highlight-title" = "Title of fourth list item in Suggested Edits Alt Text Onboarding View";
+"seat-onboarding-learn-more" = "Suggested Edits Alt Text onboarding view learn more button title";
+"seat-onboarding-length-subtitle" = "Subtitle of second list item in Suggested Edits Alt Text Onboarding View";
+"seat-onboarding-length-title" = "Title of second list item in Suggested Edits Alt Text Onboarding View";
+"seat-onboarding-title" = "Title of Suggested Edits Alt Text Onboarding View";
 "serbian-variants-alert-body" = "Body text of alert used to inform users about Serbian variant support. Please do not translate the newlines (\n) or Serbian characters (nсрпски ћирилица, etc.).";
 "serbian-variants-alert-title" = "Title of alert used to inform users about Serbian variant support.";
 "settings-account" = "Title for button and page letting user view their account page.";
