@@ -884,6 +884,14 @@
 		679F0AAD24574AD400EF4A6A /* ArticleViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */; };
 		679FA104242E651C0095F3C6 /* ArticleManualPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */; };
 		67A5E657236775C3007749FB /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
+		67A608652AE1DCB000EC2B15 /* SEATArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A608642AE1DCB000EC2B15 /* SEATArticleView.swift */; };
+		67A608662AE1DCB000EC2B15 /* SEATArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A608642AE1DCB000EC2B15 /* SEATArticleView.swift */; };
+		67A608672AE1DCB000EC2B15 /* SEATArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A608642AE1DCB000EC2B15 /* SEATArticleView.swift */; };
+		67A608682AE1DCB000EC2B15 /* SEATArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A608642AE1DCB000EC2B15 /* SEATArticleView.swift */; };
+		67A6086A2AE2D30B00EC2B15 /* SEATImageCommonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A608692AE2D30B00EC2B15 /* SEATImageCommonsView.swift */; };
+		67A6086B2AE2D30B00EC2B15 /* SEATImageCommonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A608692AE2D30B00EC2B15 /* SEATImageCommonsView.swift */; };
+		67A6086C2AE2D30B00EC2B15 /* SEATImageCommonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A608692AE2D30B00EC2B15 /* SEATImageCommonsView.swift */; };
+		67A6086D2AE2D30B00EC2B15 /* SEATImageCommonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A608692AE2D30B00EC2B15 /* SEATImageCommonsView.swift */; };
 		67A6F13823BFB75300736539 /* ImageCacheDBWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13723BFB75300736539 /* ImageCacheDBWriter.swift */; };
 		67A6F13A23BFEA0400736539 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13923BFEA0400736539 /* ImageFetcher.swift */; };
 		67A6F13E23BFEF4200736539 /* ArticleCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */; };
@@ -4223,6 +4231,8 @@
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManualPerformanceTests.swift; sourceTree = "<group>"; };
 		67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserInfoFetcher.swift; sourceTree = "<group>"; };
+		67A608642AE1DCB000EC2B15 /* SEATArticleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEATArticleView.swift; sourceTree = "<group>"; };
+		67A608692AE2D30B00EC2B15 /* SEATImageCommonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEATImageCommonsView.swift; sourceTree = "<group>"; };
 		67A6F13723BFB75300736539 /* ImageCacheDBWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheDBWriter.swift; sourceTree = "<group>"; };
 		67A6F13923BFEA0400736539 /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheController.swift; sourceTree = "<group>"; };
@@ -6239,6 +6249,8 @@
 				003955C22ADDCB4400E25A85 /* SEATNavigationView.swift */,
 				001636812AD9B06F00387887 /* SEATTaskSelectionView.swift */,
 				001636862AD9B0AE00387887 /* SEATFormView.swift */,
+				67A608642AE1DCB000EC2B15 /* SEATArticleView.swift */,
+				67A608692AE2D30B00EC2B15 /* SEATImageCommonsView.swift */,
 			);
 			name = "Suggested Edits - Alt-Text";
 			sourceTree = "<group>";
@@ -11688,6 +11700,7 @@
 				7ADF853623516CF500500ADC /* PageHistoryHintController.swift in Sources */,
 				B0C6BE421E413B3F0033BD6E /* WMFAccountCreationViewController.swift in Sources */,
 				7AB7DEC8227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
+				67A6086A2AE2D30B00EC2B15 /* SEATImageCommonsView.swift in Sources */,
 				67FBE33A29705FC200A2E4AD /* TalkPageArchivesItem.swift in Sources */,
 				7A16C4E6212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				8373EDFA2AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift in Sources */,
@@ -11761,6 +11774,7 @@
 				67D9D1F62970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift in Sources */,
 				8367A27F20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				7AEBAD452102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
+				67A608652AE1DCB000EC2B15 /* SEATArticleView.swift in Sources */,
 				83F1095F23D09F80003F3E9E /* ArticleViewController+WIconPopover.swift in Sources */,
 				7A25367721B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift in Sources */,
 				67FBE335297056EB00A2E4AD /* TalkPageArchivesFetcher.swift in Sources */,
@@ -12501,6 +12515,7 @@
 				83EE476D20D019A100A21F34 /* ExploreViewController.swift in Sources */,
 				673C55CE2ACC684E00E2EBF6 /* AppInteractionFunnel.swift in Sources */,
 				D8E6FF6F24056AC300686272 /* ArticleViewController+ContextMenu.swift in Sources */,
+				67A608682AE1DCB000EC2B15 /* SEATArticleView.swift in Sources */,
 				7A8422562268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				D8A42AFC1E815A9C00D8E281 /* WMFCompassView.m in Sources */,
 				D8A42AFD1E815A9C00D8E281 /* WMFWelcomeIntroductionViewController.swift in Sources */,
@@ -12620,6 +12635,7 @@
 				00AA5AAA276BF29E005295B0 /* StatusTextBarButtonItem.swift in Sources */,
 				67D9D1F32970D88E00BFCD4F /* DisclosureButton.swift in Sources */,
 				7A27E85521B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
+				67A6086D2AE2D30B00EC2B15 /* SEATImageCommonsView.swift in Sources */,
 				D8421B56203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */,
 				6782DBC42343FDCA003FA21B /* DiffListChangeCell.swift in Sources */,
 				6780CF3629676DE300D45927 /* ShiftingTopViewsStack.swift in Sources */,
@@ -13075,6 +13091,7 @@
 				53A575FC2602C845009835E6 /* WMFAppViewController+Extensions.swift in Sources */,
 				7A71566F22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift in Sources */,
 				D82117FD1EE58C080076C040 /* MapAnnotation.swift in Sources */,
+				67A608672AE1DCB000EC2B15 /* SEATArticleView.swift in Sources */,
 				B0CD9DE01F70997400051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				7A82898D21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				67E8B07B226A57DE00537BC9 /* AccountViewController.swift in Sources */,
@@ -13172,6 +13189,7 @@
 				D8CE25BC1E698E2400DAE2E0 /* WikiTextSectionUploader.m in Sources */,
 				83ACF8E728E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */,
 				7A0DE50120CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
+				67A6086C2AE2D30B00EC2B15 /* SEATImageCommonsView.swift in Sources */,
 				7A9F060E2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				7A27E85321B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				B010E1A91E723E3600CFE1CD /* WMFAuthLinkLabel.swift in Sources */,
@@ -13665,6 +13683,7 @@
 				B0B4236A1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				53A575FB2602C845009835E6 /* WMFAppViewController+Extensions.swift in Sources */,
 				7A71567022697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift in Sources */,
+				67A608662AE1DCB000EC2B15 /* SEATArticleView.swift in Sources */,
 				7A82898E21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				67E8B07C226A57DE00537BC9 /* AccountViewController.swift in Sources */,
 				7A32078A21E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
@@ -13762,6 +13781,7 @@
 				D8EC3EB91E9BDA35006712EB /* WikiTextSectionUploader.m in Sources */,
 				83ACF8E628E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */,
 				7A0DE50220CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
+				67A6086B2AE2D30B00EC2B15 /* SEATImageCommonsView.swift in Sources */,
 				D8EC3EBB1E9BDA35006712EB /* WMFAuthLinkLabel.swift in Sources */,
 				7A9F060F2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				7A27E85421B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,

@@ -1034,3 +1034,15 @@ public extension Theme {
     }
 
 }
+
+public extension WKTheme {
+    static func theme(from wkTheme: WKTheme) -> Theme {
+        switch wkTheme.name {
+        case "Light": return .light
+        case "Sepia": return .sepia
+        case "Dark": return .dark
+        case "Black": return .black
+        default: return .light
+        }
+    }
+}
