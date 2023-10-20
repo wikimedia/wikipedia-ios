@@ -151,7 +151,17 @@ struct SEATSelectionView: View {
     var footer: some View {
         VStack {
             Divider()
-            Text("By publishing, you agree to the Terms of Use, and to irrevocably release your contributions under the CC BY-SA 3.0 license.")
+            HStack {
+                Image("license-cc")
+                    .renderingMode(.template)
+                Text("By publishing, you agree to the [Terms of Use](https://www.mediawiki.org/wiki/Wikimedia_Apps/Suggested_edits), and to irrevocably release your contributions under the [CC BY-SA 3.0](https://www.mediawiki.org/wiki/Wikimedia_Apps/Suggested_edits) license.")
+                    .font(.caption)
+                    .lineSpacing(10)
+                    .accentColor(Color(theme.link))
+            }
+            .foregroundColor(Color(theme.inputAccessoryButtonTint))
+            .padding([.leading, .trailing])
+            .padding([.top, .bottom], 4)
         }
     }
 
