@@ -58,9 +58,15 @@ struct SEATFormView: View {
                     .foregroundColor(Color(theme.text))
             }
         }
-        .navigationTitle("Add alt text")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                HStack {
+                    Text("Add alt text")
+                        .font(.headline)
+                        .foregroundStyle(Color(theme.text))
+                }
+            }
             ToolbarItem(placement: .topBarLeading) {
                 Button("Cancel") {
                     dismiss()
@@ -100,40 +106,58 @@ struct SEATFormView: View {
             })
             .frame(width: 100, height: 100)
 
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 6) {
                 Text("Image")
+                    .font(.callout)
                     .foregroundStyle(Color(theme.secondaryText))
                 Text(taskItem.imageFilename)
+                    .font(.body)
                     .foregroundStyle(Color(theme.link))
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
         }
         .padding()
     }
 
     var form: some View {
         VStack(alignment: .leading) {
-            Text("Alternative Text")
+            Text("Alternative text")
+                .font(.callout)
+                .foregroundStyle(Color(theme.secondaryText))
             TextView(placeholder: "Describe this image", theme: appTheme, text: $altText)
                 .frame(maxWidth: .infinity, minHeight: 44)
             Divider()
             Text("Text description for readers who cannot see the image")
-            Text("Guidance")
-            Text("• Describe main point")
-            Text("• Under 125 characters")
-            Text("• Context-aware")
-            Text("• State function if needed")
-            Text("• Highlight key parts")
-
-            Button(action: { }, label: {
-                HStack {
-                    Image("mini-external")
-                        .renderingMode(.template)
-                    Text("View Examples")
+                .font(.caption)
+                .foregroundStyle(Color(theme.secondaryText))
+            Spacer()
+                .frame(height: 24)
+            Text("Guidance for writing alt-text")
+                .font(.callout.weight(.medium))
+            Spacer()
+                .frame(height: 8)
+            VStack(alignment: .leading, spacing: 6) {
+                Text("• Describe main point")
+                Text("• Under 125 characters")
+                Text("• Context-aware")
+                Text("• State function if needed")
+                Text("• Highlight key parts")
+                Spacer()
+                    .frame(height: 4)
+                Button(action: {
+                    NotificationCenter.default.post(name: .seatOnboardingDidTapLearnMore, object: nil)
+                }) {
+                    HStack {
+                        Image("mini-external")
+                            .renderingMode(.template)
+                        Text("View examples")
+                    }
+                    .foregroundColor(Color(theme.link))
                 }
-            })
-            .foregroundColor(Color(theme.link))
-
+            }
+            .foregroundStyle(Color(theme.text))
+            .font(.callout)
+            .padding([.leading], 8)
         }
         .padding()
     }
