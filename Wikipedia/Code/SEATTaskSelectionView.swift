@@ -152,25 +152,10 @@ struct SEATSelectionView: View {
             })
         }
         .overlay(alignment: .bottom, content: {
-            Button(action: {
-
-            }) {
-                HStack(alignment: .center) {
-                    Text(suggestedAltText ?? "View image details →")
-                        .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Spacer()
-                    Image("wikimedia-project-commons", bundle: .main)
-                }
-            }
-            .foregroundStyle(Color.white)
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(Color.black.opacity(0.7))
-            .disabled(presentationStyle == .preview)
+            imageCommonsLink
         })
     }
-
+    
     var articlePreview: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text(taskItem.articleTitle)
@@ -190,13 +175,47 @@ struct SEATSelectionView: View {
                 .lineLimit(nil)
                 .foregroundStyle(Color(theme.text))
             if presentationStyle == .suggestion {
-                Button("Read full article →") {
-
-                }
-                .tint(Color(theme.link))
+                articleViewLink
             }
         }
         .padding([.leading, .trailing, .bottom])
+    }
+    
+    var imageCommonsLink: some View {
+        NavigationLink {
+            SEATImageCommonsView(commonsURL: taskItem.commonsURL)
+                .background(
+                    Color(theme.paperBackground)
+                        .ignoresSafeArea()
+                )
+        } label: {
+            HStack(alignment: .center) {
+                Text(suggestedAltText ?? "View image details →")
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Spacer()
+                Image("wikimedia-project-commons", bundle: .main)
+            }
+            .foregroundStyle(Color.white)
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(Color.black.opacity(0.7))
+        }
+        .disabled(presentationStyle == .preview)
+    }
+    
+    var articleViewLink: some View {
+        NavigationLink {
+            SEATArticleView(articleURL: taskItem.articleURL)
+                .ignoresSafeArea(edges:.bottom)
+                .background(
+                    Color(theme.paperBackground)
+                        .ignoresSafeArea()
+                )
+        } label: {
+            Text("Read full article →")
+                .tint(Color(theme.link))
+        }
     }
 
 }
