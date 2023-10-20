@@ -58,6 +58,7 @@ struct SEATSelectionView: View {
                     .ignoresSafeArea()
             )
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(presentationStyle == .preview)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     HStack {
@@ -67,12 +68,10 @@ struct SEATSelectionView: View {
                     }
                 }
                 ToolbarItem(placement: .topBarLeading) {
-                    if presentationStyle == .suggestion {
-                        Button("Back", systemImage: "chevron.backward") {
-                            dismiss()
-                        }
-                        .tint(Color(theme.text))
+                    Button("Back", systemImage: "chevron.backward") {
+                        dismiss()
                     }
+                    .tint(Color(theme.text))
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     if presentationStyle == .suggestion {
