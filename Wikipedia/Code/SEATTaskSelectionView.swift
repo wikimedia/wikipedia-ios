@@ -51,15 +51,21 @@ struct SEATSelectionView: View {
         }
     }
 
-    var body: some View {
+    var rootContent: some View {
         content
             .background(
                 Color(theme.paperBackground)
                     .ignoresSafeArea()
             )
-            .navigationTitle("Add alt text")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    HStack {
+                        Text("Add alt text")
+                            .font(.headline)
+                            .foregroundStyle(Color(theme.text))
+                    }
+                }
                 ToolbarItem(placement: .topBarLeading) {
                     if presentationStyle == .suggestion {
                         Button("Back", systemImage: "chevron.backward") {
@@ -108,7 +114,16 @@ struct SEATSelectionView: View {
             }, message: {
                 Text("We're excited to introduce our new “Suggested Edits” feature. As it's still in the testing phase, we'd absolutely love to hear from you. Your insights and suggestions will be invaluable in helping us refine, enhance, or even reconsider this feature. Dive in, explore, and let us know your thoughts. Your feedback will shape its future!")
             })
+    }
 
+    var body: some View {
+        if #available(iOS 16.0, *) {
+            rootContent
+                .toolbarBackground(Color(theme.paperBackground), for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
+        } else {
+            rootContent
+        }
     }
 
     var buttonStack: some View {
