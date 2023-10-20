@@ -15,10 +15,8 @@ struct SEATTaskItem: Codable, Equatable {
 }
 final class SEATSampleData {
     
-    static var shared: SEATSampleData {
-        SEATSampleData(languageCode: languageCode)
-    }
-    
+    static var shared: SEATSampleData = SEATSampleData(languageCode: languageCode)
+
     static var languageCode: String = "en"
     
     private let languageCode: String

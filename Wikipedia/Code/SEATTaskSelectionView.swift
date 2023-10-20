@@ -10,7 +10,7 @@ struct SEATSelectionView: View {
         case preview
     }
 
-    struct LocalizedStrings {
+    enum LocalizedStrings {
          
     }
 
@@ -30,7 +30,7 @@ struct SEATSelectionView: View {
     @SwiftUI.State var presentationStyle: PresentationStyle = .suggestion
 
     var suggestedAltText: String? = nil
-    var parentDismissAction: (() -> Void)? = nil
+    var parentDismissAction: ((String) -> Void)? = nil
 
     // MARK: - Public
 
@@ -81,7 +81,9 @@ struct SEATSelectionView: View {
                         .tint(Color(theme.text))
                     } else {
                         Button("Publish") {
-                            parentDismissAction?()
+                            if let suggestedAltText = suggestedAltText {
+                                parentDismissAction?(suggestedAltText)
+                            }
                         }
                         .tint(Color(theme.link))
                     }
@@ -89,7 +91,13 @@ struct SEATSelectionView: View {
             }
             .fullScreenCover(isPresented: $isFormPresented) {
                 NavigationView {
-                    SEATFormView(taskItem: taskItem)
+                    SEATFormView(taskItem: taskItem) { suggestedAltText in
+                        // Present toast
+                        withAnimation {
+                            taskItem = SEATSampleData.shared.nextTask()
+                            print(suggestedAltText)
+                        }
+                    }
                 }
             }
             .alert("Please help us refine the “Suggested Edits” feature!", isPresented: $isFeedbackAlertPresented, actions: {
@@ -149,6 +157,7 @@ struct SEATSelectionView: View {
             }) {
                 HStack(alignment: .center) {
                     Text(suggestedAltText ?? "View image details →")
+                        .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Spacer()
                     Image("wikimedia-project-commons", bundle: .main)
@@ -158,6 +167,7 @@ struct SEATSelectionView: View {
             .frame(maxWidth: .infinity)
             .padding()
             .background(Color.black.opacity(0.7))
+            .disabled(presentationStyle == .preview)
         })
     }
 

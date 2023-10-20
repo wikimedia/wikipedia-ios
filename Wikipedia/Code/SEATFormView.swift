@@ -3,6 +3,12 @@ import Components
 
 struct SEATFormView: View {
 
+    // MARK: - Nested Types
+
+    enum LocalizedStrings {
+        
+    }
+
     // MARK: - Properties
 
     @Environment(\.dismiss) private var dismiss
@@ -27,16 +33,29 @@ struct SEATFormView: View {
 
     @SwiftUI.State var altText: String = ""
     var taskItem: SEATTaskItem
+    var parentDismissAction: ((String) -> Void)? = nil
 
     // MARK: - Public
 
     var body: some View {
+        if #available(iOS 16.0, *) {
+            content
+                .toolbarBackground(Color(theme.paperBackground), for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
+        } else {
+            content
+        }
+    }
+
+    var content: some View {
         ScrollView {
             VStack {
                 header
+                    .foregroundColor(Color(theme.text))
                 Divider()
                     .foregroundColor(Color(theme.border))
                 form
+                    .foregroundColor(Color(theme.text))
             }
         }
         .navigationTitle("Add alt text")
@@ -50,14 +69,19 @@ struct SEATFormView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink("Next", destination: {
-                    SEATSelectionView(taskItem: taskItem, presentationStyle: .preview, suggestedAltText: altText) {
+                    SEATSelectionView(taskItem: taskItem, presentationStyle: .preview, suggestedAltText: altText) { suggestedAltText in
+                        parentDismissAction?(suggestedAltText)
                         dismiss()
                     }
                 })
-                .tint(Color(theme.text))
+                .tint(Color(theme.link))
                 .disabled(altText.isEmpty)
             }
         }
+        .background(
+            Color(theme.paperBackground)
+                .ignoresSafeArea()
+        )
     }
 
     var header: some View {
@@ -103,10 +127,12 @@ struct SEATFormView: View {
 
             Button(action: { }, label: {
                 HStack {
-                    Image(systemName: "arrow.up.right.square")
+                    Image("mini-external")
+                        .renderingMode(.template)
                     Text("View Examples")
                 }
             })
+            .foregroundColor(Color(theme.link))
 
         }
         .padding()
