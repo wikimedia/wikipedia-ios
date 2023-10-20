@@ -166,19 +166,23 @@ struct SEATSelectionView: View {
     }
 
     var imagePreview: some View {
-        ZStack {
-            Color(theme.baseBackground)
-            AsyncImage(url: taskItem.imageURL, content: { image in
-                image
-                    .resizable()
-                    .scaledToFit()
-            }, placeholder: {
-                ProgressView()
+        GeometryReader { proxy in
+            ZStack {
+                Color(theme.baseBackground)
+                AsyncImage(url: taskItem.imageURL, content: { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .fixedSize(horizontal: true, vertical: false)
+                        .frame(width: proxy.size.width, height: proxy.size.height)
+                }, placeholder: {
+                    ProgressView()
+                })
+            }
+            .overlay(alignment: .bottom, content: {
+                imageCommonsLink
             })
         }
-        .overlay(alignment: .bottom, content: {
-            imageCommonsLink
-        })
     }
     
     var articlePreview: some View {
