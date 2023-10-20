@@ -80,6 +80,7 @@ struct SEATFormView: View {
                         dismiss()
                     }
                 })
+                .font(.body.weight(.medium))
                 .tint(Color(theme.link))
                 .disabled(altText.isEmpty)
             }

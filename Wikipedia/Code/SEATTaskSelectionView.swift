@@ -90,6 +90,7 @@ struct SEATSelectionView: View {
                                 parentDismissAction?(suggestedAltText)
                             }
                         }
+                        .font(.body.weight(.medium))
                         .tint(Color(theme.link))
                     }
                 }
@@ -126,22 +127,23 @@ struct SEATSelectionView: View {
     }
 
     var buttonStack: some View {
-        VStack(alignment: .center, spacing: 8) {
+        VStack(alignment: .center, spacing: 4) {
             Button(action: {
                 isFormPresented.toggle()
             }, label: {
                 Text("Suggest alt text for image")
-                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .font(.callout.weight(.medium))
+                    .frame(maxWidth: .infinity, minHeight: 44, idealHeight: 44)
             })
             .buttonStyle(.borderedProminent)
             .tint(Color(theme.link))
             .padding()
-
             Button("Skip suggestion") {
                 withAnimation {
                     taskItem = SEATSampleData.shared.nextTask()
                 }
             }
+            .font(.callout.weight(.medium))
             .tint(Color(theme.link))
         }
     }
@@ -156,7 +158,6 @@ struct SEATSelectionView: View {
     var imagePreview: some View {
         ZStack {
             Color(theme.baseBackground)
-            
             AsyncImage(url: taskItem.imageURL, content: { image in
                 image
                     .resizable()
@@ -171,24 +172,35 @@ struct SEATSelectionView: View {
     }
     
     var articlePreview: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 8) {
+            Spacer()
+                .frame(height: 12)
             Text(taskItem.articleTitle)
                 .foregroundStyle(Color(theme.text))
                 .font(.custom("Georgia", size: 28, relativeTo: .headline))
             if let articleDescription = taskItem.articleDescription {
                 Text(articleDescription)
+                    .font(.footnote)
                     .foregroundStyle(Color(theme.secondaryText))
             }
+            Spacer()
+                .frame(height: 2)
             HStack {
                 Rectangle()
                     .foregroundStyle(Color(theme.secondaryText))
                     .frame(width: 60, height: 0.5)
                 Spacer()
             }
+            Spacer()
+                .frame(height: 2)
             Text(taskItem.articleSummary)
+                .font(.callout)
                 .lineLimit(nil)
                 .foregroundStyle(Color(theme.text))
+                .lineSpacing(8)
             if presentationStyle == .suggestion {
+                Spacer()
+                    .frame(height: 4)
                 articleViewLink
             }
         }
@@ -205,6 +217,7 @@ struct SEATSelectionView: View {
         } label: {
             HStack(alignment: .center) {
                 Text(suggestedAltText ?? "View image details →")
+                    .font(.subheadline)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
@@ -228,6 +241,7 @@ struct SEATSelectionView: View {
                 )
         } label: {
             Text("Read full article →")
+                .font(.subheadline.weight(.medium))
                 .tint(Color(theme.link))
         }
     }
