@@ -6,7 +6,21 @@ struct SEATFormView: View {
     // MARK: - Nested Types
 
     enum LocalizedStrings {
-        
+        static let addAltText = SEATSelectionView.LocalizedStrings.addAltText
+        static let cancel = CommonStrings.cancelActionTitle
+        static let next = CommonStrings.nextTitle
+
+        static let image = WMFLocalizedString("suggested-edits-alt-text-form-image", value: "Image", comment: "Title for image section in alt-text form view.")
+        static let alternativeText = WMFLocalizedString("suggested-edits-alt-text-form-alternative-text", value: "Alternative text", comment: "Title for header in alt-text form view.")
+        static let altTextPlaceholder = WMFLocalizedString("suggested-edits-alt-text-form-alt-text-placeholder", value: "Describe this image", comment: "Placeholder for textfield in alt-text form view.")
+        static let altTextTextfieldFooter = WMFLocalizedString("suggested-edits-alt-text-form-textfield-footer", value: "Text description for readers who cannot see the image", comment: "Description for textfield in alt-text form view.")
+        static let altTextGuidance = WMFLocalizedString("suggested-edits-alt-text-form-guidance", value: "Guidance for writing alt-text", comment: "Header for guidance section in alt-text form view.")
+        static let altTextGuidance1 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-1", value: "• Describe main point", comment: "Guidance point in alt-text form view.")
+        static let altTextGuidance2 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-2", value: "• Under 125 characters", comment: "Guidance point in alt-text form view.")
+        static let altTextGuidance3 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-3", value: "• Context-aware", comment: "Guidance point in alt-text form view.")
+        static let altTextGuidance4 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-4", value: "• State function if needed", comment: "Guidance point in alt-text form view.")
+        static let altTextGuidance5 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-5", value: "• Highlight key parts", comment: "Guidance point in alt-text form view.")
+        static let viewExamples = WMFLocalizedString("suggested-edits-alt-text-form-view-examples", value: "View examples", comment: "Title for view examples button in alt-text form view.")
     }
 
     // MARK: - Properties
@@ -62,19 +76,19 @@ struct SEATFormView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 HStack {
-                    Text("Add alt text")
+                    Text(LocalizedStrings.addAltText)
                         .font(.headline)
                         .foregroundStyle(Color(theme.text))
                 }
             }
             ToolbarItem(placement: .topBarLeading) {
-                Button("Cancel") {
+                Button(LocalizedStrings.cancel) {
                     dismiss()
                 }
                 .tint(Color(theme.text))
             }
             ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink("Next", destination: {
+                NavigationLink(LocalizedStrings.next, destination: {
                     SEATSelectionView(taskItem: taskItem, presentationStyle: .preview, suggestedAltText: altText) { suggestedAltText in
                         parentDismissAction?(suggestedAltText)
                         dismiss()
@@ -108,7 +122,7 @@ struct SEATFormView: View {
             .frame(width: 100, height: 100)
 
             VStack(alignment: .leading, spacing: 6) {
-                Text("Image")
+                Text(LocalizedStrings.image)
                     .font(.callout)
                     .foregroundStyle(Color(theme.secondaryText))
                 Text(taskItem.imageFilename)
@@ -122,27 +136,27 @@ struct SEATFormView: View {
 
     var form: some View {
         VStack(alignment: .leading) {
-            Text("Alternative text")
+            Text(LocalizedStrings.alternativeText)
                 .font(.callout)
                 .foregroundStyle(Color(theme.secondaryText))
-            TextView(placeholder: "Describe this image", theme: appTheme, text: $altText)
+            TextView(placeholder: LocalizedStrings.altTextPlaceholder, theme: appTheme, text: $altText)
                 .frame(maxWidth: .infinity, minHeight: 44)
             Divider()
-            Text("Text description for readers who cannot see the image")
+            Text(LocalizedStrings.altTextTextfieldFooter)
                 .font(.caption)
                 .foregroundStyle(Color(theme.secondaryText))
             Spacer()
                 .frame(height: 24)
-            Text("Guidance for writing alt-text")
+            Text(LocalizedStrings.altTextGuidance)
                 .font(.callout.weight(.medium))
             Spacer()
                 .frame(height: 8)
             VStack(alignment: .leading, spacing: 6) {
-                Text("• Describe main point")
-                Text("• Under 125 characters")
-                Text("• Context-aware")
-                Text("• State function if needed")
-                Text("• Highlight key parts")
+                Text(LocalizedStrings.altTextGuidance1)
+                Text(LocalizedStrings.altTextGuidance2)
+                Text(LocalizedStrings.altTextGuidance3)
+                Text(LocalizedStrings.altTextGuidance4)
+                Text(LocalizedStrings.altTextGuidance5)
                 Spacer()
                     .frame(height: 4)
                 Button(action: {
@@ -151,7 +165,7 @@ struct SEATFormView: View {
                     HStack {
                         Image("mini-external")
                             .renderingMode(.template)
-                        Text("View examples")
+                        Text(LocalizedStrings.viewExamples)
                     }
                     .foregroundColor(Color(theme.link))
                 }
