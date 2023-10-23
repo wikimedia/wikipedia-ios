@@ -1,5 +1,6 @@
 import SwiftUI
 import Components
+import WKData
 
 struct SEATFormView: View {
 
@@ -46,7 +47,7 @@ struct SEATFormView: View {
     }
 
     @SwiftUI.State var altText: String = ""
-    var taskItem: SEATTaskItem
+    var taskItem: SEATItemViewModel
     var parentDismissAction: ((String) -> Void)? = nil
 
     // MARK: - Public
@@ -107,7 +108,7 @@ struct SEATFormView: View {
 
     var header: some View {
         HStack(alignment: .top) {
-            AsyncImage(url: taskItem.imageURL, content: { image in
+            AsyncImage(url: taskItem.imageThumbnailURLs["2"], content: { image in
                 Rectangle()
                     .aspectRatio(1, contentMode: .fit)
                     .overlay(
@@ -125,7 +126,7 @@ struct SEATFormView: View {
                 Text(LocalizedStrings.image)
                     .font(.callout)
                     .foregroundStyle(Color(theme.secondaryText))
-                Text(taskItem.imageFilename)
+                Text(taskItem.imageFileName)
                     .font(.body)
                     .foregroundStyle(Color(theme.link))
             }

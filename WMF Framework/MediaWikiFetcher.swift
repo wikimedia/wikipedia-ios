@@ -41,8 +41,7 @@ public final class MediaWikiFetcher: Fetcher, WKService {
     
     public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
         guard let mediaWikiRequest = request as? WKMediaWikiServiceRequest,
-              let url = request.url,
-            let tokenType = mediaWikiRequest.tokenType else {
+              let url = request.url else {
             completion(.failure(MediaWikiFetcherError.invalidRequest))
             return
         }
@@ -57,7 +56,8 @@ public final class MediaWikiFetcher: Fetcher, WKService {
                 }
             })
         case .POST:
-            guard let stringParamters = request.parameters as? [String: String] else {
+            guard let stringParamters = request.parameters as? [String: String],
+                  let tokenType = mediaWikiRequest.tokenType else {
                 completion(.failure(MediaWikiFetcherError.invalidRequest))
                 return
             }

@@ -175,10 +175,41 @@ class AccountViewController: SubSettingsViewController {
             goToWatchlist()
 
         case .suggestedEdits:
-            if !UserDefaults.standard.wmf_userHasOnboardedToSEAT {
-                showSEATOnboarding()
-            } else {
-                goToSEAT()
+            
+            let dataController = WKSEATDataController()
+            guard let appLanguageSiteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+               let project = WikimediaProject(siteURL: appLanguageSiteURL),
+                  let wkProject = project.wkProject else {
+                return
+            }
+                
+            dataController.generateSampleData(project: wkProject) { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                let viewModels: [SEATItemViewModel] = dataController.sampleData.compactMap { wkItem in
+                    
+                    guard let articleSummary = wkItem.articleSummary,
+                          let imageWikitext = wkItem.imageWikitext,
+                          let imageFilename = wkItem.imageFileName,
+                          let imageWikitextLocation = wkItem.imageWikitextLocation,
+                          let articleURL = wkItem.articleURL,
+                          let commonsURL = wkItem.commonsURL else {
+                        return nil
+                    }
+                    
+                    return SEATItemViewModel(project: wkItem.project, articleTitle: wkItem.articleTitle, articleWikitext: wkItem.articleWikitext, articleDescription: wkItem.articleDescription, articleSummary: articleSummary, imageWikitext: imageWikitext, imageFileName: imageFilename, imageThumbnailURLs: wkItem.imageThumbnailURLs, imageWikitextLocation: imageWikitextLocation, commonsURL: commonsURL, articleURL: articleURL)
+                }
+                
+                SEATSampleData.shared.availableTasks = viewModels
+                
+                if !UserDefaults.standard.wmf_userHasOnboardedToSEAT {
+                    self.showSEATOnboarding()
+                } else {
+                    self.goToSEAT()
+                }
             }
         case .vanishAccount:
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
@@ -206,8 +237,8 @@ class AccountViewController: SubSettingsViewController {
     }
     
     private func goToSEAT() {
-        let hostingViewController = UIHostingController(rootView: SEATNavigationView())
-        push(hostingViewController)
+            let hostingViewController = UIHostingController(rootView: SEATNavigationView())
+            self.push(hostingViewController)
     }
 
     @objc func goToWatchlist() {

@@ -1,5 +1,6 @@
 import SwiftUI
 import Components
+import WKData
 
 struct SEATSelectionView: View {
 
@@ -54,7 +55,7 @@ struct SEATSelectionView: View {
     @SwiftUI.State private var isFormPresented = false
     @SwiftUI.State private var isFeedbackAlertPresented = false
 
-    @SwiftUI.State var taskItem: SEATTaskItem = SEATSampleData.shared.nextTask()
+    @SwiftUI.State var taskItem: SEATItemViewModel = SEATSampleData.shared.nextTask()
     @SwiftUI.State var presentationStyle: PresentationStyle = .suggestion
 
     var suggestedAltText: String? = nil
@@ -197,7 +198,7 @@ struct SEATSelectionView: View {
         GeometryReader { proxy in
             ZStack {
                 Color(theme.baseBackground)
-                AsyncImage(url: taskItem.imageURL, content: { image in
+                AsyncImage(url: taskItem.imageThumbnailURLs["2"], content: { image in
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)

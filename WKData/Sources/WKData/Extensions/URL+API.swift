@@ -4,11 +4,29 @@ extension URL {
     
     private static let baseMediaWikiAPIPathComponents = "/w/api.php"
     private static let basePaymentWikiAPIPathComponents = "/api.php"
+    private static let baseRestbaseAPIPathComponents = "/api/rest_v1"
     
     static func mediaWikiAPIURL(project: WKProject) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
         components.path = baseMediaWikiAPIPathComponents
+        
+        switch project {
+        case .wikipedia(let language):
+            components.host = "\(language.languageCode).wikipedia.org"
+        case .commons:
+            components.host = "commons.wikimedia.org"
+        case .wikidata:
+            components.host = "www.wikidata.org"
+        }
+        
+        return components.url
+    }
+    
+    static func summaryAPIURL(title: String, project: WKProject) -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.path = "\(baseRestbaseAPIPathComponents)/page/summary/\(title)"
         
         switch project {
         case .wikipedia(let language):

@@ -1,0 +1,279 @@
+import Foundation
+
+public final class WKSEATDataController {
+    
+    var mediaWikiService: WKService?
+    var basicService: WKService?
+    
+    let enProject = WKProject.wikipedia(WKLanguage(languageCode: "en", languageVariantCode: nil))
+    let esProject = WKProject.wikipedia(WKLanguage(languageCode: "es", languageVariantCode: nil))
+    let ptProject = WKProject.wikipedia(WKLanguage(languageCode: "pt", languageVariantCode: nil))
+    
+    public private(set) var sampleData: [WKSEATItem] = []
+    
+    public init() {
+        self.mediaWikiService = WKDataEnvironment.current.mediaWikiService
+        self.basicService = WKDataEnvironment.current.basicService
+    }
+    
+    lazy var projectArticleTitles: [WKProject: [String]] = {
+        return [
+            enProject: ["Infection","The_Structure_of_Scientific_Revolutions","Law_of_superposition","Metropolitan_Borough_of_Greenwich","City_of_London","Esperanza_Spalding ","Carolingian_Empire","Butter","Facies","Surface_water","Habitat_fragmentation","Predation","Autoimmune_disease","Illustration","Headphones","Electric_generator","Fuel_cell","Drizzle","Ship_canal","Solid_geometry#Solid_figures","Soap_bubble","Foam","Polytope","Gaels","Folklore_studies","Culture","Bitburg","Metonymy","Retail","Trolleybus","Domesday_Book","Human_history#Modern_history","Nomad","Pleistocene","International_Council_for_Science","Validity_(logic)","Shekhawati_painting","Maithili_Sharan_Gupt","Nationalities_and_regions_of_Spain","Pyrenees","Economy","Commodity","Glutamic_acid","Acid","Lord_Kelvin","Venus_of_Hohle_Fels","Alpine_ibex","Lightning ","Lake_Erie","Wheat"],
+            esProject: ["Globalización ","Consumer_Electronics_Show ","Bioquímica","Genealogía ","Familia","Investigación ","Mate_(infusión)","Teatro_Solís","Tango","Bote","Ursus_maritimus","Playa","Fútbol","Otariinae","Carnaval","Auricular","IPhone","Espuma","Frida_Kahlo","Joaquín_Torres_García","Canal_de_navegación","Cuadrado ","Té_matcha","Salar ","Triticum ","Trolebús ","Río_Amazonas ","Phoenicopterus","Computadora","32X","Valhalla","Mitología_nórdica","Keagan_Dolly ","Villa_Pilar ","Zoe_Saldaña","Star_Wars","Nazca","Terremotos_de_Herat_de_2023","Pac-Man","Panthera_leo","Vultur_gryphus","Médico","Wikipedia ","Transporte_público","Conferencia","Lionel_Messi","FIFA","Biblioteca_del_Poder_Legislativo_de_Uruguay","Peach_&_Convention","Liceo_Héctor_Miranda"],
+            ptProject: ["Infecção","Recurso_natural","Penicilina","Biologia","Organismo","Ronaldo_Nazário","Solanaceae","Kamini_Roy","Maciço","Magia","Cultura","História","Sociedade","Madeira","Ciclone_tropical","Propagação_térmica","Condução_térmica","Topologia_(matemática)","Fenomenologia","Filosofia","Banana","Enzima","Artista","Gênio_(pessoa)","Informática","Arado","Gás_natural","Carvão_mineral","Música","Scheila_Carvalho","Colônia_do_Sacramento","Carnaval_de_Florianópolis","Economia","Theatro_Municipal_do_Rio_de_Janeiro","Argila","Mecânica_dos_solos","TV_Fama","Laika","Foguete_espacial","Combustível","Pântano","Rio_Paraíba_do_Sul","Casa_Batlló","Galinha_caipira","Avião_a_jato","Velociraptor","Raio_(meteorologia)","Cerrado","Castelinho_do_Flamengo","Architectonica_maxima"]
+        ]
+    }()
+    
+    public func generateSampleData(project: WKProject, completion: @escaping () -> Void) {
+        
+        guard let mediaWikiService else {
+            completion()
+            return
+        }
+        
+        guard let articleTitles = projectArticleTitles[project] else {
+            return
+        }
+
+        guard let url = URL.mediaWikiAPIURL(project: project) else {
+            return
+        }
+        
+        let concatTitles: String = articleTitles.joined(separator: "|")
+        
+        let parameters = [
+            "action": "query",
+            "prop": "revisions",
+            "titles": concatTitles,
+            "rvprop": "content",
+            "format": "json",
+            "formatversion": "2"
+        ]
+        
+        var finalItems: [WKSEATItem] = []
+        
+        let group = DispatchGroup()
+        group.enter()
+        
+        let request = WKMediaWikiServiceRequest(url: url, method: .GET, parameters: parameters)
+        mediaWikiService.perform(request: request) { [weak self] result in
+            
+            guard let self else {
+                return
+            }
+            
+            switch result {
+            case .success(let dict):
+                
+                guard let query = dict?["query"] as? [String: AnyObject],
+                    let pages = query["pages"] as? [[String: AnyObject]] else {
+                    group.leave()
+                    return
+                }
+
+                for page in pages {
+                    guard let title = page["title"] as? String,
+                          let firstRevision = (page["revisions"] as? [[String: AnyObject]])?.first,
+                          let wikitext = firstRevision["content"] as? String else {
+                        continue
+                    }
+                    
+                    
+                    let items = self.items(from: project, articleTitle: title, articleWikitext: wikitext, group: group)
+                    finalItems.append(contentsOf: items)
+                }
+                
+                group.leave()
+            case .failure:
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: .main) { [weak self] in
+            self?.sampleData = finalItems
+            completion()
+        }
+    }
+    
+    private func items(from project: WKProject, articleTitle: String, articleWikitext: String, group: DispatchGroup) -> [WKSEATItem] {
+        
+        // TODO: File: and alt equivalent for ES and PT wikis
+        let fileLinksWithoutAlt = try? NSRegularExpression(pattern: "\\[\\[File:(?!\\|\\s*alt\\s*=)[^]]*\\]\\]", options: [])
+        
+        var itemsToReturn: [WKSEATItem] = []
+        fileLinksWithoutAlt?.enumerateMatches(in: articleWikitext, options: [], range: NSRange(location: 0, length: articleWikitext.count), using: { match, _, stop in
+            guard let matchRange = match?.range(at: 0),
+                  matchRange.location != NSNotFound else {
+                return
+            }
+            
+            let fileLinkWikitext = (articleWikitext as NSString).substring(with: matchRange)
+            let fileNameRegex = try? NSRegularExpression(pattern: "\\[\\[(File:.*?)\\|", options: [])
+            
+            guard let fileNameMatch = fileNameRegex?.firstMatch(in: fileLinkWikitext, range: NSRange(location: 0, length: fileLinkWikitext.count)) else {
+                return
+            }
+            
+            let fileNameRange = fileNameMatch.range(at: 1)
+            
+            guard fileNameRange.location != NSNotFound else {
+                return
+            }
+            
+            let fileName = (fileLinkWikitext as NSString).substring(with: fileNameRange)
+            
+            let item = WKSEATItem(project: project, articleTitle: articleTitle, articleWikitext: articleWikitext, imageWikitext: fileLinkWikitext, imageFileName: fileName, imageWikitextLocation: matchRange.location)
+
+            populateThumbnailURLs(item: item, group: group)
+            
+            itemsToReturn.append(item)
+        })
+        
+        populateArticleDetails(project: project, articleTitle: articleTitle, items: itemsToReturn, group: group)
+        
+        return itemsToReturn
+    }
+    
+    private func populateThumbnailURLs(item: WKSEATItem, group: DispatchGroup) {
+        
+        guard let fileName = item.imageFileName?.replacingOccurrences(of: " ", with: "_") else {
+            return
+        }
+        
+        let parameters = [
+            "action": "query",
+            "prop": "imageinfo",
+            "titles": fileName,
+            "iilimit": "50",
+            "iiprop": "url",
+            "iiurlwidth": "300",
+            "format": "json",
+            "formatversion": "2"
+        ]
+        
+        guard let url = URL.mediaWikiAPIURL(project: item.project) else {
+            return
+        }
+        
+        group.enter()
+        let request = WKMediaWikiServiceRequest(url: url, method: .GET, parameters: parameters)
+        mediaWikiService?.perform(request: request) { result in
+            switch result {
+            case .success(let dict):
+                
+                guard let query = dict?["query"] as? [String: AnyObject],
+                      let pages = query["pages"] as? [[String: AnyObject]] else {
+                    group.leave()
+                    return
+                }
+                
+                if let firstPage = pages.first {
+                    
+                    guard let imageInfo = (firstPage["imageinfo"] as? [[String: AnyObject]])?.first,
+                    let thumbUrlString = imageInfo["thumburl"] as? String,
+                          let thumbUrl = URL(string: thumbUrlString) else {
+                        group.leave()
+                        return
+                    }
+                    
+                    let responsiveUrlStrings = imageInfo["responsiveUrls"] as? [String: String]
+                    
+                    item.imageThumbnailURLs["1"] = thumbUrl
+                    
+                    if let nextUrlString = responsiveUrlStrings?["1.5"] as? String,
+                    let nextURL = URL(string: nextUrlString) {
+                        item.imageThumbnailURLs["1.5"] = nextURL
+                    }
+                    
+                    if let nextUrlString = responsiveUrlStrings?["2"] as? String,
+                    let nextURL = URL(string: nextUrlString) {
+                        item.imageThumbnailURLs["2"] = nextURL
+                    }
+                    
+                    group.leave()
+                }
+            case .failure:
+                group.leave()
+            }
+        }
+    }
+    
+    private func populateArticleDetails(project: WKProject, articleTitle: String, items: [WKSEATItem], group: DispatchGroup) {
+
+        guard let url = URL.summaryAPIURL(title: articleTitle, project: project) else {
+            return
+        }
+        
+        group.enter()
+        let request = WKBasicServiceRequest(url: url, method: .GET)
+        basicService?.perform(request: request) { result in
+            switch result {
+            case .success(let dict):
+                let description = dict?["description"] as? String
+                let summary = dict?["extract"] as? String
+                for item in items {
+                    item.articleDescription = description
+                    item.articleSummary = summary
+                }
+                group.leave()
+            case .failure:
+                group.leave()
+            }
+        }
+    }
+}
+
+public final class WKSEATItem: Equatable, Hashable {
+    public static func == (lhs: WKSEATItem, rhs: WKSEATItem) -> Bool {
+        return lhs.project == rhs.project &&
+        lhs.articleTitle == rhs.articleTitle &&
+        lhs.imageFileName == rhs.imageFileName
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(project)
+        hasher.combine(articleTitle)
+        hasher.combine(imageFileName)
+    }
+    
+    public let project: WKProject
+    public let articleTitle: String
+    public fileprivate(set) var articleWikitext: String
+    public fileprivate(set)var articleDescription: String?
+    public fileprivate(set)var articleSummary: String?
+    public fileprivate(set) var imageWikitext: String?
+    public fileprivate(set) var imageFileName: String?
+    public fileprivate(set) var imageThumbnailURLs: [String : URL]
+    public fileprivate(set) var imageWikitextLocation: Int?
+    
+    public var commonsURL: URL? {
+        guard let imageFileName else {
+            return nil
+        }
+        
+        return URL(string: "https://commons.wikimedia.org/wiki/\(imageFileName.replacingOccurrences(of: " ", with: "_"))")
+    }
+    
+    public var articleURL: URL? {
+        switch project {
+        case .wikipedia(let language):
+            let title = articleTitle.replacingOccurrences(of: " ", with: "_")
+            return URL(string: "https://\(language.languageCode).wikipedia.org/wiki/\(title)")
+        default:
+            return nil
+        }
+    }
+    
+    internal init(project: WKProject, articleTitle: String, articleWikitext: String, articleDescription: String? = nil, articleSummary: String? = nil, imageWikitext: String? = nil, imageFileName: String? = nil, imageThumbnailURLs: [String : URL] = [:], imageWikitextLocation: Int? = nil) {
+        self.project = project
+        self.articleTitle = articleTitle
+        self.articleWikitext = articleWikitext
+        self.articleDescription = articleDescription
+        self.articleSummary = articleSummary
+        self.imageWikitext = imageWikitext
+        self.imageFileName = imageFileName
+        self.imageThumbnailURLs = imageThumbnailURLs
+        self.imageWikitextLocation = imageWikitextLocation
+    }
+    
+}
