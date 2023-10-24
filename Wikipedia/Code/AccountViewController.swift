@@ -182,6 +182,10 @@ class AccountViewController: SubSettingsViewController {
                   let wkProject = project.wkProject else {
                 return
             }
+            
+            if let cell = tableView.cellForRow(at: indexPath) as? WMFSettingsTableViewCell {
+                cell.isLoading = true
+            }
                 
             dataController.generateSampleData(project: wkProject) { [weak self] in
                 
@@ -210,6 +214,10 @@ class AccountViewController: SubSettingsViewController {
                 }
                 
                 SEATSampleData.shared.availableTasks = viewModels
+                
+                if let cell = self.tableView.cellForRow(at: indexPath) as? WMFSettingsTableViewCell {
+                    cell.isLoading = false
+                }
                 
                 if !UserDefaults.standard.wmf_userHasOnboardedToSEAT {
                     self.showSEATOnboarding()

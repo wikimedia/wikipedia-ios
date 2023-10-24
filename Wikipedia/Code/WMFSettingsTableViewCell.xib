@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,11 +13,11 @@
             <rect key="frame" x="0.0" y="0.0" width="395" height="70"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="395" height="69.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="395" height="70"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4iN-q3-iVQ">
-                        <rect key="frame" x="0.0" y="0.0" width="395" height="69.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="395" height="70"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eM6-XP-Gm5">
                                 <rect key="frame" x="15" y="20" width="30" height="30"/>
@@ -35,16 +33,16 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="qk5-3i-1A4">
-                                <rect key="frame" x="59" y="7" width="252" height="55.5"/>
+                                <rect key="frame" x="59" y="7" width="252" height="56"/>
                                 <subviews>
                                     <label opaque="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPu-99-uVN">
-                                        <rect key="frame" x="0.0" y="0.0" width="42" height="55.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="41.5" height="56"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IK2-iR-lc5" userLabel="Subtitle Label">
-                                        <rect key="frame" x="0.0" y="55.5" width="33" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="56" width="33" height="0.0"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -55,7 +53,7 @@
                                 <rect key="frame" x="330" y="19.5" width="51" height="31"/>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EN" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcE-Yo-d7o">
-                                <rect key="frame" x="321" y="24.5" width="40" height="20.5"/>
+                                <rect key="frame" x="321" y="25" width="40" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="uno-cI-g1d"/>
                                 </constraints>
@@ -70,6 +68,9 @@
                                     <constraint firstAttribute="width" constant="14" id="zAB-rT-MwT"/>
                                 </constraints>
                             </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="SXz-pD-dCr">
+                                <rect key="frame" x="363" y="25" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="QZI-f9-CK6" secondAttribute="trailing" constant="16" id="BeK-eP-7IJ"/>
@@ -83,9 +84,11 @@
                             <constraint firstItem="qk5-3i-1A4" firstAttribute="centerY" secondItem="eM6-XP-Gm5" secondAttribute="centerY" id="cmh-TJ-WnD"/>
                             <constraint firstAttribute="trailing" secondItem="c7W-2A-RTf" secondAttribute="trailing" constant="12" id="f2M-cB-Ejf"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="eM6-XP-Gm5" secondAttribute="bottom" constant="7" id="kR7-ZR-J5g"/>
+                            <constraint firstItem="c7W-2A-RTf" firstAttribute="centerY" secondItem="SXz-pD-dCr" secondAttribute="centerY" id="mIX-hD-LlA"/>
                             <constraint firstItem="qk5-3i-1A4" firstAttribute="leading" secondItem="4iN-q3-iVQ" secondAttribute="leading" constant="59" id="mNo-v0-9UN"/>
                             <constraint firstItem="kcE-Yo-d7o" firstAttribute="centerY" secondItem="eM6-XP-Gm5" secondAttribute="centerY" id="ugA-Ee-Flv"/>
                             <constraint firstItem="kcE-Yo-d7o" firstAttribute="leading" secondItem="qk5-3i-1A4" secondAttribute="trailing" constant="10" id="wka-Is-ecE"/>
+                            <constraint firstItem="c7W-2A-RTf" firstAttribute="trailing" secondItem="SXz-pD-dCr" secondAttribute="trailing" id="yIj-iZ-2Fw"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -102,6 +105,7 @@
                 <outlet property="disclosureLabel" destination="kcE-Yo-d7o" id="Ixu-Ds-MdH"/>
                 <outlet property="disclosureSwitch" destination="QZI-f9-CK6" id="dQU-lj-y0V"/>
                 <outlet property="imageLeadingWidth" destination="Q6G-Df-Tni" id="i8F-CG-1Yr"/>
+                <outlet property="spinner" destination="SXz-pD-dCr" id="IkD-pq-a2K"/>
                 <outlet property="subtitleLabel" destination="IK2-iR-lc5" id="1X5-ZF-dSz"/>
                 <outlet property="titleIcon" destination="eM6-XP-Gm5" id="NoM-2H-ni8"/>
                 <outlet property="titleLabel" destination="cPu-99-uVN" id="FHc-h7-WLZ"/>

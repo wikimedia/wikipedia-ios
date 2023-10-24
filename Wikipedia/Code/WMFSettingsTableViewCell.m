@@ -8,6 +8,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *subtitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *disclosureLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *disclosureIcon;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelLeadingWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageLeadingWidth;
 @property (nonatomic) CGFloat titleLabelLeadingWidthForVisibleImage;
@@ -78,6 +79,7 @@
 
 - (void)setDisclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType {
     _disclosureType = disclosureType;
+    self.spinner.hidden = YES;
     switch (disclosureType) {
         case WMFSettingsMenuItemDisclosureType_None:
             self.disclosureIcon.hidden = YES;
@@ -185,6 +187,18 @@
     [self applyTheme:theme];
 }
 
+- (void)setIsLoading:(BOOL)isLoading {
+    if (isLoading) {
+        self.spinner.hidden = NO;
+        self.disclosureIcon.hidden = YES;
+        self.disclosureLabel.hidden = YES;
+        self.disclosureSwitch.hidden = YES;
+    } else {
+        self.spinner.hidden = YES;
+        [self setDisclosureType:_disclosureType];
+    }
+}
+
 - (void)setLabelBackgroundColor:(UIColor *)labelBackgroundColor {
     self.titleLabel.backgroundColor = labelBackgroundColor;
     self.disclosureLabel.backgroundColor = labelBackgroundColor;
@@ -202,6 +216,7 @@
     self.disclosureIcon.tintColor = theme.colors.secondaryText;
     self.disclosureSwitch.backgroundColor = theme.colors.paperBackground;
     self.labelBackgroundColor = [UIColor clearColor];
+    self.spinner.color = theme.isDark ? [UIColor whiteColor] : [UIColor grayColor];
 }
 
 @end
