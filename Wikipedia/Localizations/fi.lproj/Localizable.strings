@@ -200,7 +200,7 @@
 "description-edit-title" = "Muokkaa kuvausta";
 "description-edit-warning" = "Yritä pitää kuvaus lyhyenä, jotta käyttäjät ymmärtäisivät artikkelin aiheen yhdellä silmäyksellä";
 "description-edit-warning-casing" = "Ainoastaan erisnimet tulisi kirjoittaa isolla alkukirjaimella, jopa lauseen alussa.";
-"description-help-about-description" = "Lyhyet kuvaukset tiivistävät artikkelin aiheen ja auttavat ymmärtämään sen yhdellä silmäyksellä.";
+"description-help-about-description" = "Lyhyt kuvaus tiivistää artikkelin aiheen ja auttaa hahmottamaan sen sisällön nopeasti.";
 "description-help-about-title" = "Tietoja";
 "description-help-about-wikidata" = "Tietoja Wikidatasta";
 "description-help-more-info-description" = "Kuvaukset tallennetaan Wikidataan. Se on Wikimedia-säätiön ylläpitämä vapaasti muokattava monikielinen tietokanta, joka toimii Wikipedian ja muiden wikiprojektien tukena.";
@@ -224,8 +224,7 @@
 "description-welcome-descriptions-title" = "Artikkelin kuvaukset";
 "description-welcome-promise-title" = "Aloittamalla, lupaan etten väärinkäytä tätä ominaisuutta";
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Alkuperäinen";
+"diff-compare-header-from-info-heading" = "Edellinen muokkaus";
 "diff-compare-header-heading" = "Versioiden vertailu";
 // Fuzzy
 "diff-compare-header-to-info-heading" = "Muokattu";
@@ -352,7 +351,7 @@
 "error-generic-recovery-suggestion" = "Yritä myöhemmin uudelleen";
 "error-unknown" = "Tapahtui tuntematon virhe";
 "explore-another-random" = "Toinen satunnainen sivu";
-"explore-because-you-read" = "Koska luit";
+"explore-because-you-read" = "Aiemmin lukemasi perusteella";
 "explore-because-you-read-footer" = "Muut liittyvät artikkelit";
 "explore-continue-reading-heading" = "Jatka lukemista";
 "explore-detail-back-button-title" = "Takaisin Tutki-syötteeseen";
@@ -383,7 +382,7 @@
 "explore-feed-preferences-hide-feed-cards-action-title" = "Piilota kaikki $1-kortit";
 "explore-feed-preferences-in-the-news-description" = "Artikkelit ajankohtaisista tapahtumista";
 "explore-feed-preferences-languages-footer-text" = "Kaikkien Tutki-syötekorttien poistaminen käytöstä kaikilla kielillä poistaa Tutki-välilehden käytöstä.";
-"explore-feed-preferences-on-this-day-description" = "Tapahtumat historiassa tänä päivänä";
+"explore-feed-preferences-on-this-day-description" = "Aiempina vuosina tälle päivämäärälle osuneita tapahtumia";
 "explore-feed-preferences-places-description" = "Wikipedia-artikkelit lähellä sijaintiasi";
 "explore-feed-preferences-potd-description" = "Päivän suositeltu kuva Commonsista";
 "explore-feed-preferences-randomizer-description" = "Tuota satunnaisia ​​artikkeleita luettavaksi";
@@ -400,7 +399,7 @@
 "explore-feed-preferences-show-places-title" = "Näytä Paikat-kortti";
 "explore-feed-preferences-show-randomizer-footer-text" = "Satunnaistaminen-kortin poistaminen käytöstä poistaa sen käytöstä kaikilla kielillä.";
 "explore-feed-preferences-show-randomizer-title" = "Näytä Satunnaistaminen-kortti";
-"explore-feed-preferences-show-related-pages-title" = "Näytä Koska luit -kortti";
+"explore-feed-preferences-show-related-pages-title" = "Näytä Aiemmin lukemasi perusteella -kortti";
 "explore-feed-preferences-show-top-read-footer-text" = "Luetuimmat-kortin poistaminen käytöstä poistaa sen käytöstä kaikilla kielillä.";
 "explore-feed-preferences-show-top-read-title" = "Näytä Luetuimmat-kortti";
 "explore-feed-preferences-top-read-description" = "Päivittäin eniten luetut artikkelit";
@@ -1037,7 +1036,7 @@
 "theme-black-display-name" = "Musta";
 "theme-dark-display-name" = "Tumma";
 "theme-default-display-name" = "Oletus";
-"theme-default-explanation" = "Järjestelmäasetuksien mukainen";
+"theme-default-explanation" = "Järjestelmäasetuksen mukainen";
 "theme-light-display-name" = "Vaalea";
 "theme-sepia-display-name" = "Seepia";
 "top-read-widget-description" = "Opi mitä maailma lukee tänään Wikipediassa.";
@@ -1063,8 +1062,20 @@
 "variants-alert-preferences-button" = "Tarkista asetuksesi";
 "watch" = "Tarkkaile";
 "watchlist" = "Tarkkailulista";
+"watchlist-change-expiry-option-one-month" = "1 kuukausi";
+"watchlist-change-expiry-option-one-week" = "1 viikko";
+"watchlist-change-expiry-option-one-year" = "1 vuosi";
+"watchlist-change-expiry-option-permanent" = "Pysyvä";
+"watchlist-change-expiry-option-six-months" = "6 kuukautta";
+"watchlist-change-expiry-option-three-months" = "3 kuukautta";
+"watchlist-filter-activity-options-unseen-changes" = "Näkemättömät muutokset";
+"watchlist-filter-automated-contributions-header" = "Automatisoidut muutokset";
+"watchlist-filter-automated-contributions-options-bot" = "Botti";
+"watchlist-filter-automated-contributions-options-human" = "Ihminen (ei botti)";
+"watchlist-user-button-thank" = "Kiitä";
 "watchlist-user-button-user-contributions" = "Käyttäjän muokkaukset";
 "watchlist-user-button-user-page" = "Käyttäjäsivu";
+"watchlist-user-button-user-talk-page" = "Käyttäjän keskustelusivu";
 "welcome-exploration-explore-feed-description" = "Suositellut luettavat ja pävittäiset artikkelit yhteisöstämme";
 "welcome-exploration-explore-feed-title" = "Tutki syötettä";
 "welcome-exploration-on-this-day-description" = "Matkusta takaisin ajassa ja opi mitä tapahtui tänä päivänä historiassa";
@@ -1072,7 +1083,7 @@
 "welcome-exploration-places-description" = "Löydä maamerkkejä lähellä sivua tai etsi paikkoja ympäri maailmaa";
 "welcome-exploration-places-title" = "Paikat-välilehti";
 "welcome-explore-continue-button" = "Aloitetaan";
-"welcome-explore-new-ways-title" = "Uusia tapoja tutkia";
+"welcome-explore-new-ways-title" = "Tutki sisältöä uusin tavoin";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
 "welcome-intro-free-encyclopedia-description" = "Wikipedia on kirjoitettu yhteistyössä vapaaehtoisten kanssa ja se koostuu yli 40 miljoonasta artikkelista yli 300 kielellä.";
 "welcome-intro-free-encyclopedia-more" = "Lue lisää Wikipediasta";
@@ -1081,12 +1092,12 @@
 "welcome-intro-free-encyclopedia-title" = "Vapaa tietosanakirja";
 "welcome-languages-add-button" = "Lisää uusi kieli";
 "welcome-languages-add-or-edit-button" = "Lisää tai muokkaa ensisijaisia kieliä";
-"welcome-languages-description" = "Olemme löytäneet seuraavat kielet laitteestasi:";
+"welcome-languages-description" = "Laitteesta löytyneet kielet:";
 "welcome-languages-search-title" = "Hae yli 300 kielellä";
 "welcome-notifications-tell-me-more-creation" = "Ilmoitukset luodaan ja lähetetään laitteesta, eikä Wikimedian tai muun osapuolen palvelimelta.";
 "welcome-notifications-tell-me-more-storage" = "Ilmoitusasetukset tallennetaan laitteeseen, eivätkä ne pohjaudu henkilökohtaisiin tietoihin tai toimintaan.";
 "welcome-notifications-tell-me-more-title" = "Lisätietoja ilmoituksista";
-"welcome-send-data-helps-title" = "Auta tekemään sovelluksesta parempi";
+"welcome-send-data-helps-title" = "Tue sovelluksen kehitystyötä";
 "welcome-send-data-learn-more" = "Lue lisää kerätyistä tiedoista";
 "welcome-send-data-sub-title" = "Auta sovelluksen kehitystyössä antamalla Wikimedia-säätiön kerätä tietoja sovelluksen käyttötavoista. Tiedot kerätään anonyymisti.";
 "welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";
@@ -1107,7 +1118,7 @@
 "wikitext-upload-captcha-needed" = "CAPTCHA-varmennus vaaditaan.";
 "wikitext-upload-result-unknown" = "wikitextin lähetystä ei voida varmistaa.";
 "wikitext-upload-save" = "Julkaistaan...";
-"wikitext-upload-save-anonymously-or-login" = "IP-osoitteesi tallentuu muokkaushistoriaan. $1Kirjautumalla sisään$2 parannat yksityisyyttäsi.";
+"wikitext-upload-save-anonymously-or-login" = "IP-osoitteesi tallentuu muutoshistoriaan. $1Kirjautumalla sisään$2 parannat yksityisyyttäsi.";
 "wikitext-upload-save-anonymously-warning" = "Muokkaukset yhdistetään laitteesi IP-osoitteeseen. Jos $1 tietoturvasi paranee.";
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
 "wikitext-upload-save-terms-and-licenses" = "Julkaisemalla hyväksyt $1käyttöehdot$2 ja peruuttomattomasti muokkaustesi lisensoinnin $3CC BY-SA 3.0$4 -lisenssillä sekä $5GFDL$6-ehdot. Hyväksyt, että linkki on riittävä lisenssiehtojen esittämistapa.";

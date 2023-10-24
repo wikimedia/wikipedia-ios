@@ -3,6 +3,7 @@
 // Author: Amaia
 // Author: An13sa
 // Author: Asierog
+// Author: Atzerritik
 // Author: BaRaN6161 TURK
 // Author: Envlh
 // Author: EukeneFL
@@ -282,7 +283,6 @@
 "new-password-instructions" = "Aldi baterako pasahitza erabiliz hasi duzu saioa. \nSaio hasten amaitzeko, pasahitz berria ezarri beharko duzu hemen.";
 "new-password-title" = "Zure pasahitza ezarri";
 "no-email-account-alert" = "Mesedez, ezarri ezazu email kontua zure gailuan eta saiatu zaitez berriz.";
-// Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Jakinarazpenak piztu";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
@@ -445,7 +445,6 @@
 "settings-help-and-feedback" = "Laguntza eta iritziak";
 "settings-language-bar" = "Bilaketan hizkuntzak erakutsi";
 "settings-my-languages" = "Nire hizkuntzak";
-// Fuzzy
 "settings-notifications" = "Jakinarazpenak";
 "settings-notifications-info" = "Jakinarazpenak piztuz, top artikuluei buruzko alertak jaso ditzakezu. Dena eskainiko da betiere pribatutasuna eta minutuko datuak errespetatuz.";
 "settings-notifications-learn-more" = "Jakinarazpenei buruzko gehiago ikasi";
@@ -471,20 +470,17 @@
 "settings-support" = "Wikipedia Lagundu";
 "settings-title" = "Ezarpenak";
 "share-a-fact-made-with" = "Wikipedia aplikazioarekin eginda";
-// Fuzzy
-"share-article-name-on-wikipedia" = "\"$1\" @Wikipedian:";
+"share-article-name-on-wikipedia" = "\"$1\" Wikipedian:";
 "share-building" = "Gertakaria-Partekatu txartela sortzen...";
 "share-default-format" = "“$2” “$1”(r)engandik: $3";
 "share-email-format" = "“$2” \n\n“$1”(r)engandik\n\n$3";
 "share-get-directions-in-maps" = "Helbidea lortu";
 "share-menu-item" = "Partekatu";
 "share-message-format" = "“$1” $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "via @Wikipedia";
+"share-on-twitter-sign-off" = "via Wikipedia";
 "share-open-in-maps" = "Mapsen ireki";
 "share-social-format" = "“$1” Wikipediaren bidez: $2";
-// Fuzzy
-"share-social-mention-format" = "“$1” @Wikipedia -(r)ren bidez: $2";
+"share-social-mention-format" = "“$1” Wikipedia -(r)ren bidez: $2";
 "sort-by-recently-added-action" = "Berriki gehituak";
 "sort-by-title-action" = "Izenburua";
 "table-of-contents-button-label" = "Eduki-taula";

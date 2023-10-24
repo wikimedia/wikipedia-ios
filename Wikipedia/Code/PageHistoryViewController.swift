@@ -530,7 +530,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
     }
 
-    private lazy var firstSelectionThemeModel: SelectionThemeModel = {
+    private lazy var secondSelectionThemeModel: SelectionThemeModel = {
         let backgroundColor: UIColor
         let timeColor: UIColor
         backgroundColor = .orange600.withAlphaComponent(0.15)
@@ -543,7 +543,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         return SelectionThemeModel(selectedImage: UIImage(named: "selected-accent"), borderColor: UIColor.orange600.withAlphaComponent(0.5), backgroundColor: backgroundColor, authorColor: UIColor.orange600, commentColor: theme.colors.primaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
     }()
 
-    private lazy var secondSelectionThemeModel: SelectionThemeModel = {
+    private lazy var firstSelectionThemeModel: SelectionThemeModel = {
         let backgroundColor: UIColor
         let timeColor: UIColor
         // themeTODO: define a semantic color for this instead of checking isDark

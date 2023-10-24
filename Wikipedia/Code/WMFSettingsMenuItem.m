@@ -1,5 +1,6 @@
 #import "WMFSettingsMenuItem.h"
 #import "Wikipedia-Swift.h"
+#import "WMFSettingsViewController.h"
 
 @interface WMFSettingsMenuItem ()
 
@@ -37,14 +38,25 @@
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Support: {
-            return
-                [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-support", nil, nil, @"Support Wikipedia", @"Title for button letting user make a donation.")
-                                                 iconName:@"settings-support"
-                                                iconColor:[UIColor wmf_red_600]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
-                                           disclosureText:nil
-                                               isSwitchOn:NO];
+            if ([WMFSettingsViewController validTargetIDCampaignIsRunning]) {
+                return
+                    [[WMFSettingsMenuItem alloc] initWithType:type
+                                                        title:WMFLocalizedStringWithDefaultValue(@"settings-donate", nil, nil, @"Donate", @"Title for button letting user make a donation.")
+                                                     iconName:@"settings-support"
+                                                    iconColor:[UIColor wmf_red_600]
+                                               disclosureType:WMFSettingsMenuItemDisclosureType_None
+                                               disclosureText:nil
+                                                   isSwitchOn:NO];
+            } else {
+                return
+                    [[WMFSettingsMenuItem alloc] initWithType:type
+                                                        title:WMFLocalizedStringWithDefaultValue(@"settings-support", nil, nil, @"Support Wikipedia", @"Title for button letting user make a donation.")
+                                                     iconName:@"settings-support"
+                                                    iconColor:[UIColor wmf_red_600]
+                                               disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
+                                               disclosureText:nil
+                                                   isSwitchOn:NO];
+            }
         }
         case WMFSettingsMenuItemType_SearchLanguage: {
             return

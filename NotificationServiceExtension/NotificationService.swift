@@ -12,7 +12,7 @@ class NotificationService: UNNotificationServiceExtension {
         let controller = RemoteNotificationsAPIController(session: session, configuration: configuration)
         return controller
     }()
-    private let sharedCache = SharedContainerCache<PushNotificationsCache>.init(fileName: SharedContainerCacheCommonNames.pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
+    private let sharedCache = SharedContainerCache<PushNotificationsCache>.init(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
     
     private let fallbackPushContent = WMFLocalizedString("notifications-push-fallback-body-text", value: "New activity on Wikipedia", comment: "Fallback body content of a push notification whose content cannot be determined. Could be either due multiple notifications represented or errors.")
 
@@ -32,7 +32,7 @@ class NotificationService: UNNotificationServiceExtension {
             return
         }
         
-        let cache = sharedCache.loadCache()
+        let cache = sharedCache.loadCache() ?? PushNotificationsCache(settings: .default, notifications: [])
         let project = WikimediaProject.wikipedia(cache.settings.primaryLanguageCode, cache.settings.primaryLocalizedName, nil)
         
         let fallbackPushContent = self.fallbackPushContent
@@ -67,19 +67,17 @@ class NotificationService: UNNotificationServiceExtension {
                 }
 
                 // Assigning interruption level and relevance score only available starting on iOS 15
-                if #available(iOS 15.0, *) {
-                    if finalNotifications.notificationsToDisplay.count == 1, let notification = finalNotifications.notificationsToDisplay.first {
-                        let priority = RemoteNotification.typeFrom(notification: notification).priority
-                        bestAttemptContent.interruptionLevel = priority.interruptionLevel
-                        bestAttemptContent.relevanceScore = priority.relevanceScore
+                if finalNotifications.notificationsToDisplay.count == 1, let notification = finalNotifications.notificationsToDisplay.first {
+                    let priority = RemoteNotification.typeFrom(notification: notification).priority
+                    bestAttemptContent.interruptionLevel = priority.interruptionLevel
+                    bestAttemptContent.relevanceScore = priority.relevanceScore
+                } else {
+                    if NotificationServiceHelper.allNotificationsAreForSameTalkPage(notifications: finalNotificationsToDisplay) {
+                        bestAttemptContent.interruptionLevel = RemoteNotificationType.mentionInTalkPage.priority.interruptionLevel
+                        bestAttemptContent.relevanceScore = RemoteNotificationType.mentionInTalkPage.priority.relevanceScore
                     } else {
-                        if NotificationServiceHelper.allNotificationsAreForSameTalkPage(notifications: finalNotificationsToDisplay) {
-                            bestAttemptContent.interruptionLevel = RemoteNotificationType.mentionInTalkPage.priority.interruptionLevel
-                            bestAttemptContent.relevanceScore = RemoteNotificationType.mentionInTalkPage.priority.relevanceScore
-                        } else {
-                            bestAttemptContent.interruptionLevel = RemoteNotificationType.bulkPriority.interruptionLevel
-                            bestAttemptContent.relevanceScore = RemoteNotificationType.bulkPriority.relevanceScore
-                        }
+                        bestAttemptContent.interruptionLevel = RemoteNotificationType.bulkPriority.interruptionLevel
+                        bestAttemptContent.relevanceScore = RemoteNotificationType.bulkPriority.relevanceScore
                     }
                 }
 

@@ -151,8 +151,10 @@
 "article-languages-yours" = "As suas línguas";
 "article-read-more-title" = "Ler mais";
 "article-reference-view-title" = "Referência $1";
+"article-revision-history" = "Historial de revisões do artigo";
 "article-save-error-not-enough-space" = "Não tem espaço suficiente no seu dispositivo para guardar este artigo";
 "article-share" = "Partilhar";
+"article-talk-page" = "Página de discussão do artigo";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controlos dos temas de leitura";
 "back-button-accessibility-label" = "Retroceder";
 "back-button-popover-title" = "Tocar para voltar atrás";
@@ -172,8 +174,11 @@
 "chinese-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua chinesa como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\n简体 - Chinês simplificado (zh-hans)\n香港繁體 - Chinês tradicional de Hong Kong (zh-hk)\n澳門繁體 - Chinês tradicional de Macau (zh-mo)\n大马简体 - Chinês simplificado da Malásia (zh-my)\n新加坡简体 - Chinês simplificado de Singapura (zh-sg)\n臺灣正體 - Chinês tradicional de Taiwan (zh-tw)";
 "chinese-variants-alert-title" = "Atualizações ao suporte de variantes do chinês";
 "clear-title-accessibility-label" = "Limpar";
+"clearing-cache-complete" = "Limpeza da cache concluída.";
+"clearing-cache-in-progress" = "Limpeza da cache em andamento.";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
+"continue-button-title" = "Continuar";
 "continue-reading-empty-description" = "Explorar na Wikipédia mais artigos para ler";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
 "crimean-tatar-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua tártaro da Crimeia como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nQırımtatarca, Latino - Tártaro da Crimeia, latino (chr-latn)\nкъырымтатарджа, Кирил - Tártaro da Crimeia, cirílico (crh-cyrl)";
@@ -215,14 +220,14 @@
 "description-welcome-descriptions-title" = "Descrições de artigos";
 "description-welcome-promise-title" = "Ao começar, prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "De:";
+"diff-article-revision-history" = "Historial de revisões do artigo";
+"diff-compare-header-from-info-heading" = "Edição anterior";
 "diff-compare-header-heading" = "Comparar revisões";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Para:";
+"diff-compare-header-to-info-heading" = "Edição apresentada";
 "diff-compare-title" = "Comparar revisões";
 "diff-context-lines-collapsed-button-title" = "Mostrar";
 "diff-context-lines-expanded-button-title" = "Ocultar";
+"diff-header-revision-accessibility-text" = "Revisão efetuada a";
 "diff-multi-line-format" = "Linhas $1 - $2";
 "diff-paragraph-moved" = "Parágrafo movido";
 "diff-paragraph-moved-direction-down" = "para baixo";
@@ -231,6 +236,10 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 secção|$1 secções}}";
 "diff-paragraph-moved-format" = "Parágrafo movido $1 $2";
 "diff-revision-error-title" = "Não é possível carregar a revisão";
+"diff-rollback" = "Reverter";
+"diff-rollback-alert-message" = "Tem a certeza de que deseja reverter as edições?";
+"diff-rollback-alert-title" = "Reversão de edições";
+"diff-rollback-success" = "Edições revertidas.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 edição|$1 edições}}";
 "diff-single-header-editor-title" = "Informação do editor";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte adicionado|$1 bytes adicionados}}";
@@ -247,7 +256,10 @@
 "diff-thanks-sent" = "O seu agradecimento foi enviado a $1";
 "diff-thanks-sent-already" = "Já enviou um agradecimento por esta edição";
 "diff-thanks-sent-cannot-unsend" = "Os agradecimentos enviados não podem ser retirados";
+"diff-undo-message" = "Esta operação irá desfazer as alterações realizadas pelas revisões do artigo mostradas aqui. Para continuar, introduza um motivo para desfazer esta edição.";
+"diff-undo-success" = "A revisão foi desfeita.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 linha não editada|$1 linhas não editadas}}";
+"diff-user-button-accessibility-text" = "Toque duas vezes para abrir o menu";
 "dim-images" = "Atenuar imagens";
 "edit-bold-accessibility-label" = "Acrescentar formatação para negrito";
 "edit-bold-remove-accessibility-label" = "Remover formatação de negrito";
@@ -459,6 +471,7 @@
 "field-token-title" = "Código de verificação:";
 "field-username-placeholder" = "introduza o nome de utilizador";
 "field-username-title" = "Nome de utilizador";
+"filter-options-all" = "Todas";
 "find-clear-button-accessibility" = "Limpar localizar";
 "find-infolabel-number-matches" = "$1 / $2";
 "find-next-button-accessibility" = "Próximo resultado localizado";
@@ -565,6 +578,7 @@
 "menu-cancel-accessibility-label" = "Cancelar";
 "more-languages-tooltip-description" = "Pesquise a Wikipédia em mais de 300 línguas";
 "more-languages-tooltip-title" = "Adicionar línguas";
+"more-menu" = "Mais";
 "move-articles-to-reading-list" = "Mover $1 {{PLURAL:$1|artigo|artigos}} para a lista de leitura";
 "navbar-title-mode-edit-wikitext-preview" = "Antevisão";
 "nearby-distance-label-feet" = "$1 pés";
@@ -587,6 +601,7 @@
 "notifications-center-checking-for-notifications" = "A verificar se existem notificações...";
 "notifications-center-destination-app" = "na aplicação";
 "notifications-center-destination-web" = "na internet";
+"notifications-center-detail-title" = "Detalhe da notificação";
 "notifications-center-empty-checking-for-notifications" = "A verificar se existem notificações...";
 "notifications-center-empty-no-messages" = "Não tem mensagens";
 "notifications-center-empty-not-subscribed" = "Neste momento não subscreve nenhuma notificação da Wikipédia";
@@ -1079,6 +1094,8 @@
 "two-factor-login-with-regular-code" = "Usar código de verificação";
 "unable-to-load-talk-page-title" = "Não foi possível carregar a página de discussão";
 "unknown-generic-text" = "Desconhecido";
+"unwatch" = "Deixar de vigiar";
+"user-title" = "Utilizador";
 "uzbek-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua uzbeque como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\noʻzbekcha lotin - Uzbeque latino (uz-latin)\nўзбекча кирилл - Uzbeque cirílico (uz-cyrl)";
 "uzbek-variants-alert-title" = "Atualizações ao suporte de variantes do uzbeque";
 "vanish-account-additional-information-field" = "Informações adicionais";
@@ -1105,6 +1122,30 @@
 "vanishing-request-email-title" = "Pedido de desaparecimento de cortesia";
 "variants-alert-dismiss-button" = "Não, obrigado";
 "variants-alert-preferences-button" = "Rever as suas preferências";
+"watch" = "Vigiar";
+"watchlist" = "Páginas vigiadas";
+"watchlist-added-toast-one-month" = "Adicionado às suas páginas vigiadas durante 1 mês.";
+"watchlist-added-toast-one-week" = "Adicionado às suas páginas vigiadas durante 1 semana.";
+"watchlist-added-toast-one-year" = "Adicionado às suas páginas vigiadas durante 1 ano.";
+"watchlist-added-toast-permanently" = "Adicionado às suas páginas vigiadas de forma permanente.";
+"watchlist-added-toast-six-months" = "Adicionado às suas páginas vigiadas durante 6 meses.";
+"watchlist-added-toast-three-months" = "Adicionado às suas páginas vigiadas durante 3 meses.";
+"watchlist-added-toast-view-watchlist" = "Ver páginas vigiadas";
+"watchlist-byte-change" = "({{PLURAL:$1|1 byte|$1 bytes}})";
+"watchlist-change-expiry-option-one-month" = "1 mês";
+"watchlist-change-expiry-option-one-week" = "1 semana";
+"watchlist-change-expiry-option-one-year" = "1 ano";
+"watchlist-change-expiry-option-permanent" = "Permanente";
+"watchlist-change-expiry-option-six-months" = "6 meses";
+"watchlist-change-expiry-option-three-months" = "3 meses";
+"watchlist-change-expiry-subtitle" = "Escolher o período de tempo das páginas vigiadas";
+"watchlist-change-expiry-title" = "Expiração das páginas vigiadas";
+"watchlist-diff-action-button-title" = "Ir para diferenças";
+"watchlist-edit-summary-accessibility" = "Resumo da edição";
+"watchlist-empty-view-button-title" = "Pesquisar artigos";
+"watchlist-empty-view-filter-title" = "Não tem páginas vigiadas";
+"watchlist-empty-view-subtitle" = "Acompanhe o que está a acontecer a artigos do seu interesse. Toque no menu do artigo e selecione “Vigiar” para ver cada alteração de um artigo.";
+"watchlist-empty-view-title" = "Os artigos que adicionou às páginas vigiadas aparecem aqui";
 "welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";
 "welcome-exploration-explore-feed-title" = "O feed \"Explorar\"";
 "welcome-exploration-on-this-day-description" = "Retroceda no tempo para saber o que aconteceu hoje na história";

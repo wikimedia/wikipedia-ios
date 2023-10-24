@@ -25,8 +25,8 @@ class HelpViewController: SinglePageWebViewController {
         fatalError("init(url:theme:) has not been implemented")
     }
 
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false) {
-        fatalError("init(url:theme:doesUseSimpleNavigationBar:) has not been implemented")
+    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, campaignArticleURL: URL? = nil, campaignBannerID: String? = nil) {
+        fatalError("init(url:theme:doesUseSimpleNavigationBar:campaignArticleURL:campaignBannerID:) has not been implemented")
     }
 
     lazy var sendEmailToolbarItem: UIBarButtonItem = {
@@ -159,7 +159,7 @@ private extension HelpViewController {
         let dispatchQueue = DispatchQueue.global(qos: .userInitiated)
         dispatchQueue.async {
 
-            let sharedCache = SharedContainerCache<UserDataExportSyncInfo>.init(fileName: "User Data Export Sync Info", defaultCache: { UserDataExportSyncInfo(serverReadingLists: [], serverReadingListEntries: [], appSettingsSyncSavedArticlesAndLists: false, appSettingsShowSavedReadingList: false) })
+            let sharedCache = SharedContainerCache<UserDataExportSyncInfo>.init(fileName: "User Data Export Sync Info")
             
             apiController.getAllReadingLists { (serverReadingLists, _, _) in
                 dispatchQueue.async {

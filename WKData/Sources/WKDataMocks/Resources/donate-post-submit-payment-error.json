@@ -1,0 +1,8 @@
+{
+    "response": {
+        "status": "error",
+        "error_message": "There was an error processing your request. Error reference: 1234.5",
+        "gateway_transaction_id": null,
+        "order_id": "1234.5"
+    }
+}

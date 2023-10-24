@@ -12,7 +12,7 @@ extension URL {
             return nil
         }
         let components = title.components(separatedBy: " ")
-        let searchableItem = CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
+        let searchableItem = CSSearchableItemAttributeSet(contentType: .internetLocation)
         searchableItem.keywords = ["Wikipedia","Wikimedia","Wiki"] + components
         searchableItem.title = self.wmf_title
         searchableItem.displayName = self.wmf_title
@@ -50,9 +50,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
     }
     
     private func searchableItemAttributes(for article: WMFArticle) -> CSSearchableItemAttributeSet {
-        let searchableItem = article.url?.searchableItemAttributes ??
-                CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
-
+        let searchableItem = article.url?.searchableItemAttributes ?? CSSearchableItemAttributeSet(contentType: .internetLocation)
         searchableItem.subject = article.wikidataDescription
         searchableItem.contentDescription = article.snippet
         if let imageURL = article.imageURL(forWidth: WMFImageWidth.medium.rawValue) {

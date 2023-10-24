@@ -113,7 +113,7 @@ extension DiffHeaderExtendedView: Themeable {
         compareView.apply(theme: theme)
         
         for view in divViews {
-            view.backgroundColor = theme.colors.chromeShadow
+            view.backgroundColor = theme.colors.baseBackground
         }
     }
 }

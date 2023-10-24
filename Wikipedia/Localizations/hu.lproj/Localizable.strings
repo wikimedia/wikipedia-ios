@@ -220,6 +220,27 @@
 "diff-thanks-sent-cannot-unsend" = "A köszönetek nem visszavonhatóak";
 "diff-unedited-lines-format" = "{{PLURAL:$1|Egy változatlan sor|$1 változatlan sor}}";
 "dim-images" = "Képek sötétítése";
+"donate-accessibility-amount-button-hint" = "Dupla kattintás az adomány összegének megadásához.";
+"donate-accessibility-donate-hint-format" = "Dupla kattintás, ha $1 összeggel támogatnád a Wikimédia Alapítványt.";
+"donate-accessibility-email-opt-in-hint" = "Dupla kattintás, ha engedélyezed a Wikimédia Alapítványt, hogy e-mailben tartsa veled a kapcsolatot.";
+"donate-accessibility-monthly-recurring-hint" = "Dupla kattintással engedélyezheted az összeg automatikus, havi befizetését.";
+"donate-accessibility-transaction-fee-hint" = "Dupla kattintás a tranzakciós díj hozzáadásához.";
+"donate-email-opt-in-text" = "Igen, a Wikimedia Alapítvány küldhet nekem néha e-mailt.";
+"donate-help-frequently-asked-questions" = "Gyakran ismételt kérdések";
+"donate-help-other-ways-to-give" = "Egyéb adományozási módok";
+"donate-help-problems-donating" = "Gond az adományozásnál?";
+"donate-help-tax-deductibility-information" = "Elszámolási információk";
+"donate-maximum-error-text" = "Honlapunkon keresztül ennél az összegnél ($1 $2) többet nem fogadhatunk el. Vedd fel a kapcsolatot nagyobb támogatásokkal foglalkozó stábunkkal a benefactors@wikimedia.org címen!";
+"donate-minimum-error-text" = "Válassz összeget (minimum $1 $2)!";
+"donate-monthly-recurring-text" = "Legyen havonta ismétlődő adomány!";
+"donate-payment-method-prompt-apple-pay-button-title" = "Adományozz Apple Pay-jel!";
+"donate-payment-method-prompt-message" = "Adományozz Apple Pay-jel, vagy válassz más fizetési módot!";
+"donate-payment-method-prompt-other-button-title" = "Más fizetési mód";
+"donate-payment-method-prompt-title" = "Apple Pay-jel adományoznál?";
+"donate-success-subtitle" = "Wikipédia iránti nagylelkűséged számunkra rengeteget jelent.";
+"donate-success-title" = "Köszönjük!";
+"donate-title" = "Válassz összeget!";
+"donate-transaction-fee-opt-in-text" = "Nagylelkűen hozzáadok $1 összegű tranzakciós díjat, hogy adományom 100%%-át megtarthassátok.";
 "edit-bold-accessibility-label" = "Félkövér formázás hozzáadása";
 "edit-bold-remove-accessibility-label" = "Félkövér formázás eltávolítása";
 "edit-clear-formatting-accessibility-label" = "Formázás eltávolítása";
@@ -462,6 +483,7 @@
 "no-internet-connection-article-reload-button" = "Visszatérés az utolsó mentett változathoz";
 "notifications-center-change-password" = "Jelszó módosítása";
 "notifications-center-checking-for-notifications" = "Értesítések keresése...";
+"notifications-center-detail-title" = "Értesítés részletei";
 "notifications-center-empty-checking-for-notifications" = "Értesítések keresése...";
 "notifications-center-empty-no-messages" = "Nincsenek üzeneteid";
 "notifications-center-empty-not-subscribed" = "Nincsenek beállítva a Wikipédia értesítések";
@@ -656,6 +678,8 @@
 "settings-clear-cache-are-you-sure-title" = "Törlöd a gyorsítótárazott adatokat?";
 "settings-clear-cache-cancel" = "Mégse";
 "settings-clear-cache-ok" = "Gyorsítótár törlése";
+// Fuzzy
+"settings-donate" = "Adományozás a Wikipédiának";
 "settings-help-and-feedback" = "Súgó és visszajelzés";
 "settings-language-bar" = "Nyelvek megjelenítése keresésnél";
 "settings-my-languages" = "Saját nyelvek";
@@ -710,6 +734,7 @@
 "two-factor-login-with-regular-code" = "Ellenőrző kód használata";
 "unable-to-load-talk-page-title" = "Nem sikerült betölteni a vitalapot";
 "unknown-generic-text" = "Ismeretlen";
+"user-title" = "Felhasználó";
 "uzbek-variants-alert-title" = "Az üzbég nyelvi változat támogatásának frissítése";
 "vanish-account-additional-information-field" = "További információ";
 "vanish-account-additional-information-placeholder" = "Opcionális";
@@ -725,6 +750,10 @@
 "watchlist-change-expiry-option-permanent" = "Állandó";
 "watchlist-change-expiry-option-six-months" = "6 hónap";
 "watchlist-change-expiry-option-three-months" = "3 hónap";
+"watchlist-edit-summary-accessibility" = "Szerkesztési összefoglaló";
+"watchlist-empty-view-button-title" = "Cikkek keresése";
+"watchlist-empty-view-filter-title" = "Nincsenek figyelőlista-elemeid";
+"watchlist-user-button-thank" = "Köszönet";
 "welcome-exploration-explore-feed-description" = "A közösség által napi olvasásra ajánlott szócikk";
 "welcome-exploration-explore-feed-title" = "Felfedezés csatorna";
 "welcome-exploration-on-this-day-description" = "Mi történt a mai napon a történelemben";

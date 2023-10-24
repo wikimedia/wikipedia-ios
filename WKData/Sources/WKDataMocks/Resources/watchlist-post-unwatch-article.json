@@ -1,0 +1,10 @@
+{
+  "batchcomplete": true,
+  "watch": [
+    {
+      "title": "Cat",
+      "ns": 0,
+      "unwatched": true
+    }
+  ]
+}

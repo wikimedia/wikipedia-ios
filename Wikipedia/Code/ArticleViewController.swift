@@ -16,7 +16,7 @@ class ArticleViewController: ViewController, HintPresenting {
         return ArticleToolbarController(toolbar: toolbar, delegate: self)
     }()
     internal lazy var watchlistController: WatchlistController = {
-        return WatchlistController(delegate: self)
+        return WatchlistController(delegate: self, context: .article)
     }()
     
     /// Article holds article metadata (displayTitle, description, etc) and user state (isSaved, viewedDate, viewedFragment, etc)
@@ -110,8 +110,7 @@ class ArticleViewController: ViewController, HintPresenting {
         self.surveyTimerController = ArticleSurveyTimerController(delegate: self)
 
         // `viewDidLoad` isn't called when re-creating the navigation stack on an iPad, and hence a cold launch on iPad doesn't properly show article names when long-pressing the back button if this code is in `viewDidLoad`
-        self.navigationItem.backButtonTitle = articleURL.wmf_title
-        self.navigationItem.backButtonDisplayMode = .generic
+        navigationItem.configureForEmptyNavBarTitle(backTitle: articleURL.wmf_title)
     }
     
     deinit {
@@ -801,6 +800,16 @@ class ArticleViewController: ViewController, HintPresenting {
         toolbarController.setToolbarButtons(enabled: !visible)
     }
     
+    internal func performWebRefreshAfterScrollViewDecelerationIfNeeded() {
+        guard shouldPerformWebRefreshAfterScrollViewDeceleration else {
+            return
+        }
+        webView.scrollView.showsVerticalScrollIndicator = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            self.performWebViewRefresh()
+        })
+    }
+    
     // MARK: Overrideable functionality
     
     internal func handleLink(with href: String) {
@@ -899,11 +908,14 @@ class ArticleViewController: ViewController, HintPresenting {
 
     override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         super.scrollViewDidEndDecelerating(scrollView)
-        if shouldPerformWebRefreshAfterScrollViewDeceleration {
-            webView.scrollView.showsVerticalScrollIndicator = false
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                self.performWebViewRefresh()
-            })
+        performWebRefreshAfterScrollViewDecelerationIfNeeded()
+    }
+    
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        super.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+
+        if velocity == .zero {
+            performWebRefreshAfterScrollViewDecelerationIfNeeded()
         }
     }
     
@@ -1060,8 +1072,10 @@ private extension ArticleViewController {
     }
     
     var isWidgetCachedFeaturedArticle: Bool {
-        let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache, defaultCache: { WidgetCache(settings: .default, featuredContent: nil) })
-        guard let widgetFeaturedArticleURLString = sharedCache.loadCache().featuredContent?.featuredArticle?.contentURL.desktop.page,
+        let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache)
+        
+        let cache = sharedCache.loadCache() ?? WidgetCache(settings: .default, featuredContent: nil)
+        guard let widgetFeaturedArticleURLString = cache.featuredContent?.featuredArticle?.contentURL.desktop.page,
               let widgetFeaturedArticleURL = URL(string: widgetFeaturedArticleURLString) else {
             return false
         }

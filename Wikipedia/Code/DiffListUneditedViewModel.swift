@@ -51,12 +51,13 @@ final class DiffListUneditedViewModel: DiffListGroupViewModel {
     }
     
     private static func calculateTextLabelFont(traitCollection: UITraitCollection) -> UIFont {
-        return UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        return UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
     }
     
     private static func calculateHeight(text: String, availableWidth: CGFloat, innerPadding: NSDirectionalEdgeInsets, font: UIFont) -> CGFloat {
 
         var height: CGFloat = 0
+        let headerHeight: CGFloat = 35
 
         height += innerPadding.top
         let attributedString = NSAttributedString(string: text, attributes: [NSAttributedString.Key.font: font])
@@ -64,7 +65,7 @@ final class DiffListUneditedViewModel: DiffListGroupViewModel {
         
         height += innerPadding.bottom
         
-        return height
+        return height + (headerHeight / 2)
     }
     
     func updateSize(width: CGFloat, traitCollection: UITraitCollection) {

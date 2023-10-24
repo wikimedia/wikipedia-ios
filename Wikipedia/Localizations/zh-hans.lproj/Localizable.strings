@@ -61,22 +61,22 @@
 // Author: 科劳
 // Author: 铁桶
 
-"aaald-added-text-description-2" = "已添加$1";
-"aaald-article-description-updated-description" = "条目描述已更新";
+"aaald-added-text-description-2" = "添加了$1";
+"aaald-article-description-updated-description" = "更新了条目描述";
 "aaald-article-insert-header" = "重要更新";
 "aaald-article-insert-last-updated" = "最后更新";
 "aaald-article-insert-new-changes" = "有新更改";
 "aaald-article-insert-read-more" = "阅读更多更新";
 "aaald-characters-text-description" = "{{PLURAL:$1|0=个字符|个字符|个字符}}";
-"aaald-deleted-text-description-2" = "$1个字符被删除";
+"aaald-deleted-text-description-2" = "删除了$1";
 "aaald-error-subitle" = "刷新后重试";
-"aaald-error-title" = "无法加载内联条目的历史记录";
-"aaald-many-sections-description" = "在第$1章节";
+"aaald-error-title" = "无法加载行内条目历史";
+"aaald-many-sections-description" = "在$1个章节内";
 "aaald-multiple-changes-description" = "进行了多项更改";
 "aaald-multiple-references-added-description" = "添加了多个参考文献";
 "aaald-new-book-reference-title" = "书籍";
 "aaald-new-discussion" = "新讨论";
-"aaald-new-journal-reference-database" = "第$1卷";
+"aaald-new-journal-reference-database" = "通过$1";
 "aaald-new-journal-reference-title" = "期刊";
 "aaald-new-journal-reference-volume" = "第$1卷：";
 "aaald-new-news-reference-retrieved-date" = "检索于$1";
@@ -86,14 +86,14 @@
 "aaald-new-website-reference-archive-url-text" = "互联网档案馆URL";
 "aaald-new-website-reference-title" = "网站";
 "aaald-numerical-multiple-references-added-description" = "添加了{{PLURAL:$1|0=0个参考文献|$1个参考文献|$1个参考文献}}";
-"aaald-one-section-description" = "在$1章节";
+"aaald-one-section-description" = "在$1章节内";
 "aaald-revision-by-anonymous" = "由匿名用户编辑";
 "aaald-revision-userInfo" = "由$1编辑 ($2次编辑)";
 "aaald-single-reference-added-description" = "已添加参考文献";
 "aaald-small-change-description" = "{{PLURAL:$1|0=未作小修改|$1次小修改|$1次小修改}}";
 "aaald-summary-title" = "在{{PLURAL:$3|0=0天|$3天|$3天}}内由{{PLURAL:$2|0=0位编者|$2位编者|$2位编者}}进行了{{PLURAL:$1|0=0次更改|$1次更改|$1次更改}}";
 "aaald-two-sections-description" = "在$1和$2章节";
-"aaald-vandalism-revert-description" = "疑似故意破坏";
+"aaald-vandalism-revert-description" = "复原了疑似破坏内容";
 "aaald-view-full-history-button" = "查看完整的条目修订历史";
 "about-content-license" = "内容许可协议";
 "about-content-license-details" = "除非另有声明，内容基于$1授权。";
@@ -103,9 +103,9 @@
 "about-libraries-complete-list" = "完整列表";
 "about-libraries-license" = "许可协议";
 "about-libraries-licenses-title" = "我们爱开源软件$1";
-"about-places-maps-license" = "地方地图许可协议";
-"about-places-maps-license-details" = "请使用由苹果地图（Apple Maps）提供的地图。$1。";
-"about-places-maps-license-details-link-text" = "请参考此处有关许可协议详情";
+"about-places-maps-license" = "地点地图许可协议";
+"about-places-maps-license-details" = "地点功能使用Apple地图提供的地图。$1。";
+"about-places-maps-license-details-link-text" = "请点击这里了解许可协议详情";
 "about-product-of" = "在像您一样的志愿者的帮助下由$1制作";
 "about-repositories" = "资源仓库";
 "about-repositories-app-source-license" = "源代码依据$1授权。";
@@ -118,9 +118,9 @@
 "about-translators-details" = "由$1的志愿者翻译";
 "about-wikimedia-foundation" = "维基媒体基金会";
 "about-wikipedia" = "维基百科";
-"account-creation-captcha-cannot-see-image" = "看不到图像么？$1";
-"account-creation-captcha-obtaining" = "获得新验证码...";
-"account-creation-captcha-request-account" = "请求账号。";
+"account-creation-captcha-cannot-see-image" = "看不到图像？$1";
+"account-creation-captcha-obtaining" = "正在获取新验证码...";
+"account-creation-captcha-request-account" = "申请账号。";
 "account-creation-captcha-title" = "验证码安全检查";
 "account-creation-create-account" = "创建您的账号";
 "account-creation-have-account" = "已经拥有账号？$1";
@@ -150,7 +150,7 @@
 "action-redo" = "重做";
 "action-remove" = "移除";
 "action-replace" = "替换";
-"action-replace-all" = "替换所有";
+"action-replace-all" = "全部替换";
 "action-retry" = "重试";
 "action-save" = "保存";
 "action-saved" = "已保存";
@@ -164,8 +164,9 @@
 "action-unsave" = "未保存";
 "action-unsaved-accessibility-notification" = "条目未保存";
 "action-update" = "更新";
-"add-articles-to-reading-list" = "添加{{PLURAL:$1|$1个条目|$1个条目}}至阅读列表";
+"add-articles-to-reading-list" = "添加{{PLURAL:$1|$1个条目}}到阅读列表";
 "add-citation-title" = "添加引用";
+"additional-information-email-title" = "额外信息";
 "announcements-dismiss" = "关闭";
 "app-store-keywords" = "维基百科、参考书、wiki、百科全书、信息、知识、研究、详细信息、探索、学习";
 "app-store-release-notes" = "完全可以自定义，并更容易阅读探索订阅源。本地化、性能改进与错误修复。";
@@ -193,11 +194,12 @@
 "article-share" = "分享";
 "article-toolbar-reading-themes-controls-toolbar-item" = "阅读主题控制";
 "back-button-accessibility-label" = "返回";
-"back-button-popover-title" = "点击返回";
+"back-button-popover-title" = "轻触以返回";
+"button-go-back" = "返回";
 "button-next" = "下一个";
 "button-ok" = "确定";
 "button-publish" = "发布";
-"button-read-now" = "现在阅读";
+"button-read-now" = "立即阅读";
 "button-report-a-bug" = "报告错误";
 "button-save-for-later" = "保存以供日后使用";
 "button-saved-for-later" = "已保存以供日后使用";
@@ -210,6 +212,7 @@
 "clear-title-accessibility-label" = "清空";
 "close-button-accessibility-label" = "关闭";
 "compass-direction" = "$1点钟";
+"continue-button-title" = "继续";
 "continue-reading-empty-description" = "探索维基百科阅读更多条目";
 "continue-reading-empty-title" = "没有最近阅读的条目";
 "crimean-tatar-variants-alert-body" = "维基百科应用现在支持以下克里米亚鞑靼语变体作为应用程序中的主要语言或次要语言，从而使您更易于阅读，搜索和编辑您喜欢的变体形式：\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)";
@@ -251,14 +254,14 @@
 "description-welcome-descriptions-title" = "条目描述";
 "description-welcome-promise-title" = "我保证在编辑时不滥用此功能";
 "description-welcome-start-editing-button" = "开始编辑";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "从";
-"diff-compare-header-heading" = "比较不同修订版本";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "至";
-"diff-compare-title" = "比较不同修订版本";
+"diff-article-revision-history" = "条目修订历史";
+"diff-compare-header-from-info-heading" = "上一次编辑";
+"diff-compare-header-heading" = "对比修订";
+"diff-compare-header-to-info-heading" = "展示的编辑";
+"diff-compare-title" = "对比修订";
 "diff-context-lines-collapsed-button-title" = "显示";
 "diff-context-lines-expanded-button-title" = "隐藏";
+"diff-header-revision-accessibility-text" = "修订日期";
 "diff-multi-line-format" = "第$1-$2行";
 "diff-paragraph-moved" = "已移动段落";
 "diff-paragraph-moved-direction-down" = "向下";
@@ -375,7 +378,7 @@
 "empty-no-search-results-message" = "找不到结果";
 "empty-talk-page-title" = "目前还没有人给该用户留言";
 "error-generic-recovery-suggestion" = "请一会儿再试";
-"error-unknown" = "发生未知错误";
+"error-unknown" = "出现未知错误";
 "explore-another-random" = "其他随机条目";
 "explore-because-you-read" = "因你而读";
 "explore-because-you-read-footer" = "其它相关条目";
@@ -599,7 +602,7 @@
 "no-email-account-alert" = "请在您的设备上设置一个电子邮件地址，并重试。";
 "no-internet-connection" = "无互联网连接";
 "no-internet-connection-article-reload" = "此条目的新版本可用，但由于无互联网连接而无法加载";
-"no-internet-connection-article-reload-button" = "返回至最近保存的版本";
+"no-internet-connection-article-reload-button" = "返回最后保存的版本";
 "notifications-center-agent-description-from-format" = "来自$1";
 "notifications-center-alert" = "提醒";
 "notifications-center-applied-filters-accessibility-label" = "通知过滤器 - 已应用过滤器";
@@ -702,7 +705,7 @@
 "notifications-center-type-title-user-talk-page-messsage" = "讨论页消息";
 "notifications-center-type-title-welcome" = "欢迎";
 "notifications-push-fallback-body-text" = "维基百科上的新活动";
-"notifications-push-talk-body-format" = "$2上的{{PLURAL:$1|$1条新消息}}";
+"notifications-push-talk-body-format" = "$2上有{{PLURAL:$1|$1条新留言}}";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|新消息}}";
 "number-billions" = "$1B";
 "number-millions" = "$1M";

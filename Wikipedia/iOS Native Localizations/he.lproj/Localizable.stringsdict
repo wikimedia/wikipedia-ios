@@ -797,5 +797,21 @@
 			<string>%1$d בתים</string>
 		</dict>
 	</dict>
+	<key>watchlist-number-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>אפשר לשנות [ %#@v1@](wikipedia://watchlist/filter) כדי לראות פריטי רשימת המעקב נוספים</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>את המסנן</string>
+			<key>other</key>
+			<string>את %1$d המסננים</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

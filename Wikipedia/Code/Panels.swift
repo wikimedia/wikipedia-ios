@@ -1,5 +1,7 @@
+import WKData
+
 class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
-    
+
     enum Style {
         case standard
         case minimal
@@ -523,7 +525,35 @@ extension UIViewController {
         }, theme: theme)
         present(panel, animated: true)
     }
+
     
+    /// Shows new fundraising panel
+    /// - Parameters:
+    ///   - object: WKAsset object, that contains the announcement content
+    ///   - primaryButtonTapHandler: Goes to donation
+    ///   - secondaryButtonTapHandler: Maybe later - remind the user again after a certain period, within campain duration
+    ///   - optionalButtonTapHandler: Dismiss the modal, does not show again
+    func wmf_showFundraisingAnnouncement(theme: Theme, asset: WKFundraisingCampaignConfig.WKAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?,  footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, showMaybeLater: Bool) {
+
+        let alert = FundraisingAnnouncementPanelViewController(announcement: asset, theme: theme, showOptionalButton: showMaybeLater, primaryButtonTapHandler: { (sender: Any) in
+            primaryButtonTapHandler?(sender)
+
+        }, secondaryButtonTapHandler: { (sender: Any) in
+            secondaryButtonTapHandler?(sender)
+            self.dismiss(animated: true)
+
+        }, optionalButtonTapHandler: { sender in
+            optionalButtonTapHandler?(sender)
+            self.dismiss(animated: true)
+
+        }, traceableDismissHandler: { lastAction in
+            traceableDismissHandler?(lastAction)
+
+        }, footerLinkAction: footerLinkAction)
+
+        present(alert, animated: true)
+    }
+
     /// Displays a blocked panel message, for use with fully resolved MediaWiki API blocked errors.
     /// - Parameters:
     ///   - messageHtml: Fully resolved message HTML to display

@@ -84,6 +84,14 @@ extension URL {
     public func wmf_URL(withFragment fragment: String) -> URL? {
         return (self as NSURL).wmf_URL(withFragment: fragment)
     }
+
+    public func wmf_URL(withOptionalFragment fragment: String?) -> URL? {
+        if let fragment {
+            return self.wmf_URL(withFragment: fragment)
+        } else {
+            return self
+        }
+    }
     
     public func wmf_URL(withPath path: String, isMobile: Bool) -> URL? {
         return (self as NSURL).wmf_URL(withPath: path, isMobile: isMobile)
@@ -100,6 +108,14 @@ extension URL {
     
     public var wmf_isTestWikipedia: Bool {
         host == Configuration.Domain.testWikipedia
+    }
+
+    public var isThankYouDonationURL: Bool {
+        host == "thankyou.wikipedia.org" || host == "thankyou.wikimedia.org"
+    }
+    
+    public var isDonationURL: Bool {
+        host == "donate.wikipedia.org" || host == "donate.wikimedia.org"
     }
 
     public var wmf_wiki: String? {

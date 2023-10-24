@@ -58,6 +58,8 @@ extension ArticleViewController {
                 SurveyAnnouncementsController.shared.markSurveyAnnouncementAnswer(false, campaignIdentifier: surveyAnnouncementResult.campaignIdentifier)
             case .tappedPrimary:
                 SurveyAnnouncementsController.shared.markSurveyAnnouncementAnswer(true, campaignIdentifier: surveyAnnouncementResult.campaignIdentifier)
+            case .tappedOptional:
+                break
             case .none:
                 assertionFailure("Unexpected lastAction in Panel dismissHandler")
                 break

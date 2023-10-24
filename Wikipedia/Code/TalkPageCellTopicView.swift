@@ -360,16 +360,17 @@ final class TalkPageCellTopicView: SetupView {
         activeUsersLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         repliesCountLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         
+        var deprecatedSubscribeButton = subscribeButton as DeprecatedButton
         let inset: CGFloat = 2
         switch semanticContentAttribute {
         case .forceRightToLeft:
-            subscribeButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
-            subscribeButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
-            subscribeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
+            deprecatedSubscribeButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+            deprecatedSubscribeButton.deprecatedImageEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
+            deprecatedSubscribeButton.deprecatedTitleEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
         default:
-            subscribeButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
-            subscribeButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
-            subscribeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
+            deprecatedSubscribeButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+            deprecatedSubscribeButton.deprecatedImageEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
+            deprecatedSubscribeButton.deprecatedTitleEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
         }
     }
 

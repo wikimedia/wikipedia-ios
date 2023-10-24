@@ -163,6 +163,17 @@
 "diff-thanks-send-title" = "'Merci' ëffentlech schécken";
 "diff-thanks-sent" = "Äre 'Merci' gouf dem $1 geschéckt";
 "dim-images" = "Biller dimmen";
+"donate-email-opt-in-text" = "Jo, d'Wikimedia Foundation däerf mir heiansdo eng E-Mail schreiwen.";
+"donate-help-frequently-asked-questions" = "Dacks gestallte Froen";
+"donate-help-problems-donating" = "Problemer beim Spenden?";
+"donate-maximum-error-text" = "Mir kënnen iwwer eis Websäit keng Donen iwwer $2 $1 akzeptéieren. Kontaktéiert wgl. eist Personal fir gréisser Done iwwer benefactors@wikimedia.org.";
+"donate-minimum-error-text" = "Wielt wgl. ee Betrach (mindestens $2 $1).";
+"donate-payment-method-prompt-apple-pay-button-title" = "Iwwer Apple Pay bezuelen";
+"donate-payment-method-prompt-message" = "Spend iwwer Apple Pay oder wielt eng aner Bezuelmethod.";
+"donate-payment-method-prompt-other-button-title" = "Aner Bezuelmethod";
+"donate-payment-method-prompt-title" = "Iwwer Apple Pay spenden?";
+"donate-success-title" = "Merci!";
+"donate-title" = "Wielt ee Betrag";
 "edit-indent-accessibility-label" = "Déi Aktuell Linn eraréckelen";
 "edit-link-display-text-title" = "Text weisen";
 "edit-link-link-target-title" = "Linkzil";
@@ -261,6 +272,7 @@
 "field-token-title" = "Verificatiouns-Code";
 "field-username-placeholder" = "Benotzernumm aginn";
 "field-username-title" = "Benotzernumm";
+"filter-options-all" = "All";
 "find-clear-button-accessibility" = "Sichen eidelmaachen";
 "find-infolabel-number-matches" = "$1 / $2";
 "find-replace-header" = "Sichen an Ersetzen";
@@ -541,6 +553,7 @@
 "settings-clear-cache-are-you-sure-title" = "Tëschegespäichert Date läschen?";
 "settings-clear-cache-cancel" = "Ofbriechen";
 "settings-clear-cache-ok" = "Tëschespäicher eidelmaachen";
+"settings-donate" = "Fir d'Wikipedia spenden";
 "settings-help-and-feedback" = "Hëllef a Feedback";
 "settings-language-bar" = "Sprooche beim Siche weisen";
 "settings-my-languages" = "Meng Sproochen";
@@ -608,6 +621,7 @@
 "two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";
 "unknown-generic-text" = "Onbekannt";
+"user-title" = "Benotzer";
 "vanish-account-continue-button-title" = "Virufueren";
 "vanish-account-learn-more-text" = "Fir méi ze wëssen";
 "vanish-account-warning-title" = "Warnung";
@@ -628,7 +642,14 @@
 "watchlist-change-expiry-option-permanent" = "Dauerhaft";
 "watchlist-change-expiry-option-six-months" = "6 Méint";
 "watchlist-change-expiry-option-three-months" = "3 Méint";
+"watchlist-filter-automated-contributions-options-bot" = "Bot";
+"watchlist-filter-automated-contributions-options-human" = "Mënsch (kee Bot)";
+"watchlist-filter-significance-options-minor-edits" = "Kleng Ännerungen";
+"watchlist-filter-type-of-change-options-category-changes" = "Kategorienännerungen";
+"watchlist-filter-type-of-change-options-page-edits" = "Säitenännerungen";
+"watchlist-filter-type-of-change-options-wikidata-edits" = "Wikidata-Ännerungen";
 "watchlist-removed" = "Vun Ärer Iwwerwaachungslëscht erofgeholl";
+"watchlist-thanks-success" = "Äre „Merci“ gouf dem $1 geschéckt";
 "watchlist-user-button-user-contributions" = "Benotzerkontributiounen";
 "watchlist-user-button-user-page" = "Benotzersäit";
 "watchlist-user-button-user-talk-page" = "Benotzerdiskussiounssäit";

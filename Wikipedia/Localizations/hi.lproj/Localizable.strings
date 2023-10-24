@@ -239,6 +239,10 @@
 "diff-single-line-format" = "पंक्ति $1";
 "diff-thanks-anonymous-no-thanks" = "बेनाम उपयोगकर्ता को धन्यवाद नहीं दिया जा सकता";
 "dim-images" = "मंद छवियाँ";
+"donate-accessibility-amount-button-hint" = "दान राशि चुनने के लिए दो बार टैप करें।";
+"donate-help-other-ways-to-give" = "दान करने के दूसरे तरीके";
+"donate-success-title" = "धन्यवाद!";
+"donate-title" = "एक राशि चुनें";
 "edit-bold-remove-accessibility-label" = "मोटा स्वरुप हटायें";
 "edit-direction-left-accessibility-label" = "कर्सर बायें ले जायें";
 "edit-italic-accessibility-label" = "तिरक्षा अक्षर स्वरुप जोड़ें";
@@ -466,6 +470,8 @@
 "settings-clear-cache-are-you-sure-title" = "कैश डेटा खाली करें?";
 "settings-clear-cache-cancel" = "रद्द करें";
 "settings-clear-cache-ok" = "कैश खाली करें";
+// Fuzzy
+"settings-donate" = "विकिपीडिया को दान करें";
 "settings-help-and-feedback" = "सहायता व फीडबैक";
 "settings-language-bar" = "खोज में भाषाओं को दिखाएँ";
 "settings-my-languages" = "मेरी भाषाएँ";
@@ -512,9 +518,11 @@
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
 "two-factor-login-with-backup-code" = "अपने बैकअप कोड्स में से एक प्रयोग करें";
 "two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
+"user-title" = "सदस्य";
 "vanish-account-continue-button-title" = "जारी रखें";
 "vanish-account-learn-more-text" = "अधिक जानें";
 "watch" = "ध्यान रखें";
+"watchlist-user-button-thank" = "धन्यवाद";
 "welcome-exploration-explore-feed-description" = "हमारे समुदाय से पढ़ने के लिए निर्वाचित दैनिक लेख";
 "welcome-exploration-explore-feed-title" = "फीड में खोजें";
 "welcome-exploration-on-this-day-description" = "समय में वापस जाएं और जाने इतिहास में आज के दिन क्या हुआ";

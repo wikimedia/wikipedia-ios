@@ -36,6 +36,7 @@ import CocoaLumberjackSwift
  */
 
 extension MWKDataStore {
+    
     @objc(migrateToLanguageVariantsForLibraryVersion:inManagedObjectContext:)
     public func migrateToLanguageVariants(for libraryVersion: Int, in moc: NSManagedObjectContext) {
         let languageCodes = newlyAddedVariantLanguageCodes(for: libraryVersion)
@@ -245,5 +246,16 @@ extension MWKDataStore {
         case 16: return ["shi"]
         default: return []
         }
+    }
+    
+    // More specific migrations
+    
+    @objc(migrateAKToTWInManagedObjectContext:)
+    public func migrateAKToTW(in moc: NSManagedObjectContext) {
+        
+        // Migrate AK to TW
+        languageLinkController.migratePreferredLanguages(toLanguageVariants: ["ak": "tw"], in: moc)
+        feedContentController.migrateExploreFeedSettings(toLanguageVariants: ["ak": "tw"], in: moc)
+        migrateLanguageCodeSearchLanguage(toLanguageVariants: ["ak": "tw"])
     }
 }

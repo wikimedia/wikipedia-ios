@@ -32,7 +32,7 @@ class DiffContainerViewController: ViewController {
     private let diffController: DiffController
     
     internal lazy var watchlistController: WatchlistController = {
-        return WatchlistController(delegate: self)
+        return WatchlistController(delegate: self, context: .diff)
     }()
     
     private var fromModel: WMFPageHistoryRevision?
@@ -290,8 +290,8 @@ class DiffContainerViewController: ViewController {
             let dateString = toDate.wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
             buttonTitle = String.localizedStringWithFormat(CommonStrings.revisionMadeFormat, dateString.lowercased())
         }
-        navigationItem.backButtonTitle = buttonTitle
-        navigationItem.backButtonDisplayMode = .generic
+        
+        navigationItem.configureForEmptyNavBarTitle(backTitle: buttonTitle)
     }
 }
 
@@ -671,7 +671,7 @@ private extension DiffContainerViewController {
             return
         }
         
-        WKWatchlistService().fetchWatchStatus(title: articleTitle, project: wkProject, needsRollbackRights: true) { result in
+        WKWatchlistDataController().fetchWatchStatus(title: articleTitle, project: wkProject, needsRollbackRights: true) { result in
             DispatchQueue.main.async { [weak self] in
                 
                 guard let self else {
@@ -1321,7 +1321,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         if let pageURL = self.fetchPageURL() {
             EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
         }
-        WKWatchlistService().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
+        WKWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: false)
             }
@@ -1365,7 +1365,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
         }
 
-        WKWatchlistService().rollback(title: title, project: wkProject, username: username) { [weak self] result in
+        WKWatchlistDataController().rollback(title: title, project: wkProject, username: username) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: true)
             }
@@ -1414,20 +1414,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             if let pageURL = self.fetchPageURL() {
                 EditAttemptFunnel.shared.logSaveFailure(articleURL: pageURL)
             }
-            if let serviceError = error as? WMF.MediaWikiNetworkService.ServiceError,
-               let mediaWikiDisplayError = serviceError.mediaWikiDisplayError {
 
-                let errorReason = mediaWikiDisplayError.loggingErrorReasonDomain + "." + mediaWikiDisplayError.code
-
-                if isRollback {
-                    WatchlistFunnel.shared.logDiffRollbackFail(errorReason: errorReason, project: self.wikimediaProject)
-                } else {
-                    WatchlistFunnel.shared.logDiffUndoFail(errorReason: errorReason, project: self.wikimediaProject)
-                }
-
-                wmf_showBlockedPanel(messageHtml: mediaWikiDisplayError.messageHtml, linkBaseURL: mediaWikiDisplayError.linkBaseURL, currentTitle: articleTitle ?? "", theme: theme)
-
-            } else {
+            let fallback: (Error) -> Void = { error in
                 let errorReason = (error as NSError).domain + "." + String((error as NSError).code)
 
                 if isRollback {
@@ -1443,6 +1431,43 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                     WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
                 }
             }
+            
+            guard let dataControllerError = error as? WKData.WKDataControllerError else {
+                fallback(error)
+                return
+            }
+            
+            switch dataControllerError {
+            case .serviceError(let error):
+
+                guard let mediaWikiError = error as? MediaWikiFetcher.MediaWikiFetcherError else {
+                    fallback(error)
+                    return
+                }
+                
+                switch mediaWikiError {
+                case .mediaWikiAPIResponseError(let displayError):
+                    
+                    let errorReason = displayError.loggingErrorReasonDomain + "." + displayError.code
+
+                    if isRollback {
+                        WatchlistFunnel.shared.logDiffRollbackFail(errorReason: errorReason, project: self.wikimediaProject)
+                    } else {
+                        WatchlistFunnel.shared.logDiffUndoFail(errorReason: errorReason, project: self.wikimediaProject)
+                    }
+
+                    wmf_showBlockedPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: articleTitle ?? "", theme: theme)
+                    return
+                    
+                default:
+                    break
+                }
+                
+            default:
+                break
+            }
+
+            fallback(error)
         }
     }
 }

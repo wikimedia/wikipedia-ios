@@ -21,7 +21,7 @@
 "aaald-single-reference-added-description" = "حوالہ شامل تھیا";
 "about-content-license" = "مواد دا لائسینس";
 "about-contributors" = "ونگاراں";
-"about-libraries-complete-list" = "مکمل فہرست";
+"about-libraries-complete-list" = "پوری تندیر";
 "about-libraries-license" = "لائیسنس";
 "about-repositories" = "مخزن";
 "about-repositories-app-source-license-mit" = "ایم آئی ٹی لائسنس";
@@ -464,6 +464,7 @@
 "two-factor-login-title" = "آپݨے کھاتے وچ لاگ ان تھیوو";
 "two-factor-login-with-regular-code" = "تصدیقی کوڈ ورتو";
 "unknown-generic-text" = "نامعلوم";
+"user-title" = "ورتݨ آلا";
 "vanish-account-additional-information-field" = "ٻیاں معلومات";
 "vanish-account-additional-information-placeholder" = "اختیاری";
 "vanish-account-back-confirm-discard" = "ارداس منسوخ کرو";
@@ -482,6 +483,7 @@
 "watchlist-change-expiry-option-permanent" = "مستقل";
 "watchlist-change-expiry-option-six-months" = "٦ مہینے";
 "watchlist-change-expiry-option-three-months" = "ترائے مہینے";
+"watchlist-edit-summary-accessibility" = "تبدیلی دا خلاصہ";
 "watchlist-user-button-user-contributions" = "ورتݨ آلے دیاں ونگاراں";
 "watchlist-user-button-user-page" = "ورتݨ آلے دا ورقہ";
 "watchlist-user-button-user-talk-page" = "ورتݨ آلے دا ڳالھ مہاڑ ورقہ";

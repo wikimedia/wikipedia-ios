@@ -5,10 +5,9 @@
 set -e
 
 if [[ ${CI_WORKFLOW} == "Run Tests" ]]; then
-	./copy_sourceroot.sh
-	echo "Execute copy source root."
-	exit 0
-else
-	echo "Did not execute copy source root."
-	exit 0
+    ./copy_sourceroot.sh
+    echo "Execute copy source root."
+    exit 0
 fi
+
+exit 0
