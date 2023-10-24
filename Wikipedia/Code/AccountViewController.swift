@@ -201,6 +201,11 @@ class AccountViewController: SubSettingsViewController {
                         return nil
                     }
                     
+                    // filter out gifs for now, animated gifs fail to load
+                    if imageWikitextFilename.contains(".gif") {
+                        return nil
+                    }
+                    
                     return SEATItemViewModel(project: wkItem.project, articleTitle: wkItem.articleTitle, articleWikitext: wkItem.articleWikitext, articleDescription: wkItem.articleDescription, articleSummary: articleSummary, imageWikitext: imageWikitext, imageWikitextFilename: imageWikitextFilename, imageCommonsFilename: imageCommonsFileName, imageThumbnailURLs: wkItem.imageThumbnailURLs, imageWikitextLocation: imageWikitextLocation, commonsURL: commonsURL, articleURL: articleURL)
                 }
                 
