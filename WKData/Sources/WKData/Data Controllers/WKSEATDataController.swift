@@ -113,8 +113,7 @@ public final class WKSEATDataController {
     
     private func items(from project: WKProject, namespace: String, articleTitle: String, articleWikitext: String, group: DispatchGroup) -> [WKSEATItem] {
         
-        // TODO: File: and alt equivalent for ES and PT wikis
-        let fileLinksWithoutAlt = try? NSRegularExpression(pattern: "\\[\\[\(namespace)(?!\\|\\s*alt\\s*=)[^]]*\\]\\]", options: [])
+        let fileLinksWithoutAlt = try? NSRegularExpression(pattern: "\\[\\[\(namespace)(?![^]]*\\|\\s*alt\\s*=)[^]]*\\]\\]", options: [])
         
         var itemsToReturn: [WKSEATItem] = []
         fileLinksWithoutAlt?.enumerateMatches(in: articleWikitext, options: [], range: NSRange(location: 0, length: articleWikitext.count), using: { match, _, stop in
