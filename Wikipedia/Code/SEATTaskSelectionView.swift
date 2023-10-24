@@ -264,7 +264,12 @@ struct SEATSelectionView: View {
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
-                Image("wikimedia-project-commons", bundle: .main)
+                if presentationStyle == .preview {
+                    Image(systemName: "accessibility")
+                    Image(systemName: "speaker.wave.2.circle")
+                } else {
+                    Image("wikimedia-project-commons", bundle: .main)
+                }                
             }
             .foregroundStyle(Color.white)
             .frame(maxWidth: .infinity)
