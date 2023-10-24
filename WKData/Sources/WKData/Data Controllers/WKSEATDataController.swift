@@ -79,8 +79,24 @@ public final class WKSEATDataController {
                     }
                     
                     
-                    let items = self.items(from: project, articleTitle: title, articleWikitext: wikitext, group: group)
+                    let items = self.items(from: project, namespace: "File:", articleTitle: title, articleWikitext: wikitext, group: group)
                     finalItems.append(contentsOf: items)
+                    let items2 = self.items(from: project, namespace: "Image:", articleTitle: title, articleWikitext: wikitext, group: group)
+                    finalItems.append(contentsOf: items2)
+                    
+                    if project == esProject {
+                        let moreItems1 = self.items(from: project, namespace: "Archivo:", articleTitle: title, articleWikitext: wikitext, group: group)
+                        finalItems.append(contentsOf: moreItems1)
+                        let moreItems2 = self.items(from: project, namespace: "Imagen:", articleTitle: title, articleWikitext: wikitext, group: group)
+                        finalItems.append(contentsOf: moreItems2)
+                    } else if project == ptProject {
+                        let moreItems1 = self.items(from: project, namespace: "Ficheiro:", articleTitle: title, articleWikitext: wikitext, group: group)
+                        finalItems.append(contentsOf: moreItems1)
+                        let moreItems2 = self.items(from: project, namespace: "Arquivo:", articleTitle: title, articleWikitext: wikitext, group: group)
+                        finalItems.append(contentsOf: moreItems2)
+                        let moreItems3 = self.items(from: project, namespace: "Imagem:", articleTitle: title, articleWikitext: wikitext, group: group)
+                        finalItems.append(contentsOf: moreItems3)
+                    }
                 }
                 
                 group.leave()
@@ -95,10 +111,10 @@ public final class WKSEATDataController {
         }
     }
     
-    private func items(from project: WKProject, articleTitle: String, articleWikitext: String, group: DispatchGroup) -> [WKSEATItem] {
+    private func items(from project: WKProject, namespace: String, articleTitle: String, articleWikitext: String, group: DispatchGroup) -> [WKSEATItem] {
         
         // TODO: File: and alt equivalent for ES and PT wikis
-        let fileLinksWithoutAlt = try? NSRegularExpression(pattern: "\\[\\[File:(?!\\|\\s*alt\\s*=)[^]]*\\]\\]", options: [])
+        let fileLinksWithoutAlt = try? NSRegularExpression(pattern: "\\[\\[\(namespace)(?!\\|\\s*alt\\s*=)[^]]*\\]\\]", options: [])
         
         var itemsToReturn: [WKSEATItem] = []
         fileLinksWithoutAlt?.enumerateMatches(in: articleWikitext, options: [], range: NSRange(location: 0, length: articleWikitext.count), using: { match, _, stop in
@@ -108,7 +124,7 @@ public final class WKSEATDataController {
             }
             
             let fileLinkWikitext = (articleWikitext as NSString).substring(with: matchRange)
-            let fileNameRegex = try? NSRegularExpression(pattern: "\\[\\[(File:.*?)\\|", options: [])
+            let fileNameRegex = try? NSRegularExpression(pattern: "\\[\\[(\(namespace).*?)\\|", options: [])
             
             guard let fileNameMatch = fileNameRegex?.firstMatch(in: fileLinkWikitext, range: NSRange(location: 0, length: fileLinkWikitext.count)) else {
                 return
@@ -120,9 +136,18 @@ public final class WKSEATDataController {
                 return
             }
             
-            let fileName = (fileLinkWikitext as NSString).substring(with: fileNameRange)
+            let wikitextFileName = (fileLinkWikitext as NSString).substring(with: fileNameRange)
+            var commonsFileName: String = wikitextFileName
+            if project == esProject {
+                commonsFileName = wikitextFileName.replacingOccurrences(of: "Archivo:", with: "File:")
+                commonsFileName = commonsFileName.replacingOccurrences(of: "Imagen:", with: "File:")
+            } else if project == ptProject {
+                commonsFileName = wikitextFileName.replacingOccurrences(of: "Arquivo:", with: "File:")
+                commonsFileName = commonsFileName.replacingOccurrences(of: "Ficheiro:", with: "File:")
+                commonsFileName = commonsFileName.replacingOccurrences(of: "Imagem:", with: "File:")
+            }
             
-            let item = WKSEATItem(project: project, articleTitle: articleTitle, articleWikitext: articleWikitext, imageWikitext: fileLinkWikitext, imageFileName: fileName, imageWikitextLocation: matchRange.location)
+            let item = WKSEATItem(project: project, articleTitle: articleTitle, articleWikitext: articleWikitext, imageWikitext: fileLinkWikitext, imageWikitextFileName: wikitextFileName, imageCommonsFileName: commonsFileName, imageWikitextLocation: matchRange.location)
 
             populateThumbnailURLs(item: item, group: group)
             
@@ -136,7 +161,7 @@ public final class WKSEATDataController {
     
     private func populateThumbnailURLs(item: WKSEATItem, group: DispatchGroup) {
         
-        guard let fileName = item.imageFileName?.replacingOccurrences(of: " ", with: "_") else {
+        guard let fileName = item.imageWikitextFileName?.replacingOccurrences(of: " ", with: "_") else {
             return
         }
         
@@ -227,13 +252,13 @@ public final class WKSEATItem: Equatable, Hashable {
     public static func == (lhs: WKSEATItem, rhs: WKSEATItem) -> Bool {
         return lhs.project == rhs.project &&
         lhs.articleTitle == rhs.articleTitle &&
-        lhs.imageFileName == rhs.imageFileName
+        lhs.imageCommonsFileName == rhs.imageCommonsFileName
     }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(project)
         hasher.combine(articleTitle)
-        hasher.combine(imageFileName)
+        hasher.combine(imageCommonsFileName)
     }
     
     public let project: WKProject
@@ -242,16 +267,17 @@ public final class WKSEATItem: Equatable, Hashable {
     public fileprivate(set)var articleDescription: String?
     public fileprivate(set)var articleSummary: String?
     public fileprivate(set) var imageWikitext: String?
-    public fileprivate(set) var imageFileName: String?
+    public fileprivate(set) var imageWikitextFileName: String?
+    public fileprivate(set) var imageCommonsFileName: String?
     public fileprivate(set) var imageThumbnailURLs: [String : URL]
     public fileprivate(set) var imageWikitextLocation: Int?
     
     public var commonsURL: URL? {
-        guard let imageFileName else {
+        guard let imageCommonsFileName else {
             return nil
         }
         
-        return URL(string: "https://commons.wikimedia.org/wiki/\(imageFileName.replacingOccurrences(of: " ", with: "_"))")
+        return URL(string: "https://commons.wikimedia.org/wiki/\(imageCommonsFileName.replacingOccurrences(of: " ", with: "_"))")
     }
     
     public var articleURL: URL? {
@@ -264,14 +290,15 @@ public final class WKSEATItem: Equatable, Hashable {
         }
     }
     
-    internal init(project: WKProject, articleTitle: String, articleWikitext: String, articleDescription: String? = nil, articleSummary: String? = nil, imageWikitext: String? = nil, imageFileName: String? = nil, imageThumbnailURLs: [String : URL] = [:], imageWikitextLocation: Int? = nil) {
+    internal init(project: WKProject, articleTitle: String, articleWikitext: String, articleDescription: String? = nil, articleSummary: String? = nil, imageWikitext: String? = nil, imageWikitextFileName: String? = nil, imageCommonsFileName: String? = nil, imageThumbnailURLs: [String : URL] = [:], imageWikitextLocation: Int? = nil) {
         self.project = project
         self.articleTitle = articleTitle
         self.articleWikitext = articleWikitext
         self.articleDescription = articleDescription
         self.articleSummary = articleSummary
         self.imageWikitext = imageWikitext
-        self.imageFileName = imageFileName
+        self.imageWikitextFileName = imageWikitextFileName
+        self.imageCommonsFileName = imageCommonsFileName
         self.imageThumbnailURLs = imageThumbnailURLs
         self.imageWikitextLocation = imageWikitextLocation
     }

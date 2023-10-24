@@ -9,7 +9,8 @@ struct SEATItemViewModel: Equatable, Hashable {
     let articleDescription: String?
     let articleSummary: String
     let imageWikitext: String
-    let imageFileName: String
+    let imageWikitextFilename: String
+    let imageCommonsFilename: String
     let imageThumbnailURLs: [String : URL]
     let imageWikitextLocation: Int
     let commonsURL: URL

@@ -193,14 +193,15 @@ class AccountViewController: SubSettingsViewController {
                     
                     guard let articleSummary = wkItem.articleSummary,
                           let imageWikitext = wkItem.imageWikitext,
-                          let imageFilename = wkItem.imageFileName,
+                          let imageWikitextFilename = wkItem.imageWikitextFileName,
+                          let imageCommonsFileName = wkItem.imageCommonsFileName,
                           let imageWikitextLocation = wkItem.imageWikitextLocation,
                           let articleURL = wkItem.articleURL,
                           let commonsURL = wkItem.commonsURL else {
                         return nil
                     }
                     
-                    return SEATItemViewModel(project: wkItem.project, articleTitle: wkItem.articleTitle, articleWikitext: wkItem.articleWikitext, articleDescription: wkItem.articleDescription, articleSummary: articleSummary, imageWikitext: imageWikitext, imageFileName: imageFilename, imageThumbnailURLs: wkItem.imageThumbnailURLs, imageWikitextLocation: imageWikitextLocation, commonsURL: commonsURL, articleURL: articleURL)
+                    return SEATItemViewModel(project: wkItem.project, articleTitle: wkItem.articleTitle, articleWikitext: wkItem.articleWikitext, articleDescription: wkItem.articleDescription, articleSummary: articleSummary, imageWikitext: imageWikitext, imageWikitextFilename: imageWikitextFilename, imageCommonsFilename: imageCommonsFileName, imageThumbnailURLs: wkItem.imageThumbnailURLs, imageWikitextLocation: imageWikitextLocation, commonsURL: commonsURL, articleURL: articleURL)
                 }
                 
                 SEATSampleData.shared.availableTasks = viewModels

@@ -126,7 +126,7 @@ struct SEATFormView: View {
                 Text(LocalizedStrings.image)
                     .font(.callout)
                     .foregroundStyle(Color(theme.secondaryText))
-                Text(taskItem.imageFileName)
+                Text(taskItem.imageWikitextFilename)
                     .font(.body)
                     .foregroundStyle(Color(theme.link))
             }
