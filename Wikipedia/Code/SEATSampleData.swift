@@ -38,7 +38,7 @@ final class SEATSampleData {
             fatalError()
         }
 
-        guard !visitedTasks.contains(where: { $0 == task }) else {
+        guard !visitedTasks.contains(where: { $0.articleTitle == task.articleTitle }) else {
             return nextTask()
         }
 
