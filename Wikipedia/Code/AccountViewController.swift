@@ -176,14 +176,15 @@ class AccountViewController: SubSettingsViewController {
 
         case .suggestedEdits:
             
-            let dataController = WKSEATDataController()
+            let dataController = WKSEATDataController.shared
             guard let appLanguageSiteURL = dataStore.languageLinkController.appLanguage?.siteURL,
                let project = WikimediaProject(siteURL: appLanguageSiteURL),
                   let wkProject = project.wkProject else {
                 return
             }
             
-            if let cell = tableView.cellForRow(at: indexPath) as? WMFSettingsTableViewCell {
+            if dataController.isLoading,
+               let cell = tableView.cellForRow(at: indexPath) as? WMFSettingsTableViewCell {
                 cell.isLoading = true
             }
                 
@@ -193,7 +194,11 @@ class AccountViewController: SubSettingsViewController {
                     return
                 }
                 
-                let viewModels: [SEATItemViewModel] = dataController.sampleData.compactMap { wkItem in
+                guard let sampleData = dataController.sampleData[wkProject] else {
+                    return
+                }
+                
+                let viewModels: [SEATItemViewModel] = sampleData.compactMap { wkItem in
                     
                     guard let articleSummary = wkItem.articleSummary,
                           let imageWikitext = wkItem.imageWikitext,

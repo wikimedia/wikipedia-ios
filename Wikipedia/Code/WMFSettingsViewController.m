@@ -67,6 +67,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
     }
 #endif
+    
+    [self generateSEATSampleData];
 }
 
 - (void)dealloc {
@@ -472,6 +474,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     }
 
     [self loadSections];
+    [self generateSEATSampleData];
 }
 
 #pragma mark - Search

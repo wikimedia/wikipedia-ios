@@ -2,6 +2,8 @@ import Foundation
 
 public final class WKSEATDataController {
     
+    public static let shared = WKSEATDataController()
+    
     var mediaWikiService: WKService?
     var basicService: WKService?
     
@@ -9,7 +11,10 @@ public final class WKSEATDataController {
     let esProject = WKProject.wikipedia(WKLanguage(languageCode: "es", languageVariantCode: nil))
     let ptProject = WKProject.wikipedia(WKLanguage(languageCode: "pt", languageVariantCode: nil))
     
-    public private(set) var sampleData: [WKSEATItem] = []
+    public private(set) var sampleData: [WKProject: [WKSEATItem]] = [:]
+    public private(set) var isLoading: Bool = false
+    
+    private var completionHandlers: [() -> Void] = []
     
     public init() {
         self.mediaWikiService = WKDataEnvironment.current.mediaWikiService
@@ -26,16 +31,43 @@ public final class WKSEATDataController {
     
     public func generateSampleData(project: WKProject, completion: @escaping () -> Void) {
         
-        guard let mediaWikiService else {
+        if let existingData = sampleData[project],
+           !existingData.isEmpty {
             completion()
             return
         }
         
+        self.completionHandlers.append(completion)
+        
+        guard !isLoading else {
+            return
+        }
+        
+        let executeAllCompletionHandlers = { [weak self] in
+            
+            guard let self else {
+                return
+            }
+            
+            for completionHandler in completionHandlers {
+                completionHandler()
+            }
+            
+            self.completionHandlers.removeAll()
+        }
+        
+        guard let mediaWikiService else {
+            executeAllCompletionHandlers()
+            return
+        }
+        
         guard let articleTitles = projectArticleTitles[project] else {
+            executeAllCompletionHandlers()
             return
         }
 
         guard let url = URL.mediaWikiAPIURL(project: project) else {
+            executeAllCompletionHandlers()
             return
         }
         
@@ -52,9 +84,10 @@ public final class WKSEATDataController {
         
         var finalItems: [WKSEATItem] = []
         
+        isLoading = true
+        
         let group = DispatchGroup()
         group.enter()
-        
         let request = WKMediaWikiServiceRequest(url: url, method: .GET, parameters: parameters)
         mediaWikiService.perform(request: request) { [weak self] result in
             
@@ -106,8 +139,9 @@ public final class WKSEATDataController {
         }
         
         group.notify(queue: .main) { [weak self] in
-            self?.sampleData = finalItems
-            completion()
+            self?.isLoading = false
+            self?.sampleData = [project: finalItems]
+            executeAllCompletionHandlers()
         }
     }
     
