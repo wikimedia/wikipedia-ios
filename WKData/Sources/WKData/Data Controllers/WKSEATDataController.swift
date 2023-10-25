@@ -310,14 +310,24 @@ public final class WKSEATItem: Equatable, Hashable {
             return nil
         }
         
-        return URL(string: "https://commons.wikimedia.org/wiki/\(imageCommonsFileName.replacingOccurrences(of: " ", with: "_"))")
+        let denormalizedFileName = imageCommonsFileName.replacingOccurrences(of: " ", with: "_")
+        if let encodedFileName = denormalizedFileName.addingPercentEncoding(withAllowedCharacters: .urlQueryComponentAllowed) {
+            return URL(string: "https://commons.wikimedia.org/wiki/\(encodedFileName)")
+        }
+        
+        return nil
+        
     }
     
     public var articleURL: URL? {
         switch project {
         case .wikipedia(let language):
-            let title = articleTitle.replacingOccurrences(of: " ", with: "_")
-            return URL(string: "https://\(language.languageCode).wikipedia.org/wiki/\(title)")
+            let denormalizedTitle = articleTitle.replacingOccurrences(of: " ", with: "_")
+            if let encodedTitle = denormalizedTitle.addingPercentEncoding(withAllowedCharacters: .urlQueryComponentAllowed) {
+                return URL(string: "https://\(language.languageCode).wikipedia.org/wiki/\(encodedTitle)")
+            }
+            
+            return nil
         default:
             return nil
         }

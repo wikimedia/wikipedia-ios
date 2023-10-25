@@ -95,6 +95,9 @@ struct SEATFormView: View {
                         dismiss()
                     }
                 })
+                .simultaneousGesture(TapGesture().onEnded {
+                    SEATFunnel.shared.logSEATFormViewDidTapNext(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
+                })
                 .font(.body.weight(.medium))
                 .tint(Color(theme.link))
                 .disabled(altText.isEmpty)
@@ -104,6 +107,9 @@ struct SEATFormView: View {
             Color(theme.paperBackground)
                 .ignoresSafeArea()
         )
+        .onAppear {
+            SEATFunnel.shared.logSEATFormViewDidAppear(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
+        }
     }
 
     var header: some View {
@@ -161,6 +167,7 @@ struct SEATFormView: View {
                 Spacer()
                     .frame(height: 4)
                 Button(action: {
+                    SEATFunnel.shared.logSEATFormViewDidTapViewExamples(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
                     NotificationCenter.default.post(name: .seatOnboardingDidTapLearnMore, object: nil)
                 }) {
                     HStack {

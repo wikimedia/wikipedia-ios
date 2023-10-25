@@ -896,6 +896,10 @@
 		67A608702AE8405000EC2B15 /* WMFSettingsViewController+SEATHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6086E2AE8405000EC2B15 /* WMFSettingsViewController+SEATHelpers.swift */; };
 		67A608712AE8405000EC2B15 /* WMFSettingsViewController+SEATHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6086E2AE8405000EC2B15 /* WMFSettingsViewController+SEATHelpers.swift */; };
 		67A608722AE8405000EC2B15 /* WMFSettingsViewController+SEATHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6086E2AE8405000EC2B15 /* WMFSettingsViewController+SEATHelpers.swift */; };
+		67A608742AE84C8000EC2B15 /* SEATFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A608732AE84C8000EC2B15 /* SEATFunnel.swift */; };
+		67A608752AE84C8000EC2B15 /* SEATFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A608732AE84C8000EC2B15 /* SEATFunnel.swift */; };
+		67A608762AE84C8000EC2B15 /* SEATFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A608732AE84C8000EC2B15 /* SEATFunnel.swift */; };
+		67A608772AE84C8000EC2B15 /* SEATFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A608732AE84C8000EC2B15 /* SEATFunnel.swift */; };
 		67A6F13823BFB75300736539 /* ImageCacheDBWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13723BFB75300736539 /* ImageCacheDBWriter.swift */; };
 		67A6F13A23BFEA0400736539 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13923BFEA0400736539 /* ImageFetcher.swift */; };
 		67A6F13E23BFEF4200736539 /* ArticleCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */; };
@@ -4238,6 +4242,7 @@
 		67A608642AE1DCB000EC2B15 /* SEATArticleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEATArticleView.swift; sourceTree = "<group>"; };
 		67A608692AE2D30B00EC2B15 /* SEATImageCommonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEATImageCommonsView.swift; sourceTree = "<group>"; };
 		67A6086E2AE8405000EC2B15 /* WMFSettingsViewController+SEATHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFSettingsViewController+SEATHelpers.swift"; sourceTree = "<group>"; };
+		67A608732AE84C8000EC2B15 /* SEATFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEATFunnel.swift; sourceTree = "<group>"; };
 		67A6F13723BFB75300736539 /* ImageCacheDBWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheDBWriter.swift; sourceTree = "<group>"; };
 		67A6F13923BFEA0400736539 /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheController.swift; sourceTree = "<group>"; };
@@ -6256,6 +6261,7 @@
 				001636862AD9B0AE00387887 /* SEATFormView.swift */,
 				67A608642AE1DCB000EC2B15 /* SEATArticleView.swift */,
 				67A608692AE2D30B00EC2B15 /* SEATImageCommonsView.swift */,
+				67A608732AE84C8000EC2B15 /* SEATFunnel.swift */,
 			);
 			name = "Suggested Edits - Alt-Text";
 			sourceTree = "<group>";
@@ -11560,6 +11566,7 @@
 				B0E294D31DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				6782DBC72343FDE4003FA21B /* DiffListContextCell.swift in Sources */,
 				67B64D572507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift in Sources */,
+				67A608742AE84C8000EC2B15 /* SEATFunnel.swift in Sources */,
 				D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
 				00EBB7C727D6878E002025AC /* BarButtonImageStyle.swift in Sources */,
 				83023C0620E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
@@ -12467,6 +12474,7 @@
 				8382F8DC20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,
 				834C26A1240D49F400245BE7 /* ReferenceViewController.swift in Sources */,
 				8330533123EF107D00123141 /* MediaListGalleryViewController.swift in Sources */,
+				67A608772AE84C8000EC2B15 /* SEATFunnel.swift in Sources */,
 				D80BF0A62347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				D8A42ADF1E815A9C00D8E281 /* AboutViewController.m in Sources */,
 				00FCCBCD2900848300C9ECD2 /* TalkPageViewController+FindInPage.swift in Sources */,
@@ -13388,6 +13396,7 @@
 				7A0161E11FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */,
 				67033E162A61B24800896852 /* WatchlistController.swift in Sources */,
 				8330532F23EF107D00123141 /* MediaListGalleryViewController.swift in Sources */,
+				67A608762AE84C8000EC2B15 /* SEATFunnel.swift in Sources */,
 				D837CC38231FE9CC00BA6130 /* ThemeableViewController.swift in Sources */,
 				7AEBAD462102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				D8CE26191E698E2400DAE2E0 /* PageHistoryFetcher.swift in Sources */,
@@ -13981,6 +13990,7 @@
 				D837CC39231FE9CC00BA6130 /* ThemeableViewController.swift in Sources */,
 				67033E152A61B24800896852 /* WatchlistController.swift in Sources */,
 				8330533023EF107D00123141 /* MediaListGalleryViewController.swift in Sources */,
+				67A608752AE84C8000EC2B15 /* SEATFunnel.swift in Sources */,
 				7A0161E21FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */,
 				D8EC3F181E9BDA35006712EB /* PageHistoryFetcher.swift in Sources */,
 				D87B13A71F276B1000B27227 /* ShareActivityController.swift in Sources */,

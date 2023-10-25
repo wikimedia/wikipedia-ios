@@ -134,6 +134,7 @@ import CocoaLumberjackSwift
         case editAttempt = "eventlogging_EditAttemptStep"
         case watchlist = "ios.watchlists"
         case appDonorExperience = "app_donor_experience"
+        case suggestedEditsAltTextPrototype = "ios.suggested_edits_alt_text_prototype"
     }
     
     /**
