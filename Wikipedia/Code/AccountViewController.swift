@@ -91,6 +91,7 @@ class AccountViewController: SubSettingsViewController {
             return
         }
         
+        SEATFunnel.shared.logSEATOnboardingLearnMoreImpression()
         navigationController?.navigate(to: url, useSafari: true)
     }
     
@@ -175,6 +176,8 @@ class AccountViewController: SubSettingsViewController {
             goToWatchlist()
 
         case .suggestedEdits:
+            
+            SEATFunnel.shared.logSettingsDidTapSEAT()
             
             let dataController = WKSEATDataController.shared
             guard let appLanguageSiteURL = dataStore.languageLinkController.appLanguage?.siteURL,
@@ -337,6 +340,7 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
 
 extension AccountViewController: WKOnboardingViewDelegate {
     func didClickPrimaryButton() {
+        SEATFunnel.shared.logSEATOnboardingDidTapContinue()
         if let presentedViewController = navigationController?.presentedViewController {
             presentedViewController.dismiss(animated: true) { [weak self] in
                 self?.goToSEAT()
@@ -345,6 +349,7 @@ extension AccountViewController: WKOnboardingViewDelegate {
     }
     
     func didClickSecondaryButton() {
+        SEATFunnel.shared.logSEATOnboardingDidTapLearnMore()
         NotificationCenter.default.post(name: .seatOnboardingDidTapLearnMore, object: nil)
     }
     

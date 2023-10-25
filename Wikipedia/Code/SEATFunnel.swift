@@ -93,34 +93,25 @@ final class SEATFunnel: NSObject {
         logEvent(activeInterface: .seAddImageTextOnboarding, action: .learnClick)
     }
     
-    func logSEATOnboardingLearnMoreWebViewImpression() {
+    func logSEATOnboardingLearnMoreImpression() {
         logEvent(activeInterface: .seAddImageTextOnboarding, action: .learnImpression)
     }
     
     func logSEATTaskSelectionDidTapReadArticle(articleTitle: String, commonsFileName: String) {
         
-        var actionData: [String: String] = [:]
-        actionData["source"] = articleTitle
-        actionData["image"] = commonsFileName
-        
+        let actionData = baseActionData(articleTitle: articleTitle, commonsFileName: commonsFileName)
         logEvent(activeInterface: .seAddImageText, action: .readArticleClick, actionData: actionData)
     }
     
     func logSEATTaskSelectionDidTapSuggestButton(articleTitle: String, commonsFileName: String) {
         
-        var actionData: [String: String] = [:]
-        actionData["source"] = articleTitle
-        actionData["image"] = commonsFileName
-        
+        let actionData = baseActionData(articleTitle: articleTitle, commonsFileName: commonsFileName)
         logEvent(activeInterface: .seAddImageText, action: .suggestStart, actionData: actionData)
     }
     
     func logSEATTaskSelectionDidTapSkipButton(articleTitle: String, commonsFileName: String) {
         
-        var actionData: [String: String] = [:]
-        actionData["source"] = articleTitle
-        actionData["image"] = commonsFileName
-        
+        let actionData = baseActionData(articleTitle: articleTitle, commonsFileName: commonsFileName)
         logEvent(activeInterface: .seAddImageText, action: .suggestSkip, actionData: actionData)
     }
     
@@ -140,98 +131,76 @@ final class SEATFunnel: NSObject {
         logEvent(activeInterface: .seAddImageFeedback, action: .policyClick)
     }
     
-    func logSEATTaskSelectionFeedbackAlertDidTapCacnel() {
+    func logSEATTaskSelectionFeedbackAlertDidTapCancel() {
         logEvent(activeInterface: .seAddImageFeedback, action: .cancelClick)
     }
     
     func logSEATTaskSelectionDidTapImageDetails(articleTitle: String, commonsFileName: String) {
         
-        var actionData: [String: String] = [:]
-        actionData["source"] = articleTitle
-        actionData["image"] = commonsFileName
-        
+        let actionData = baseActionData(articleTitle: articleTitle, commonsFileName: commonsFileName)
         logEvent(activeInterface: .seAddImageText, action: .imageDetailClick, actionData: actionData)
     }
     
     func logSEATTaskSelectionCommonsWebViewImpression(articleTitle: String, commonsFileName: String) {
         
-        var actionData: [String: String] = [:]
-        actionData["source"] = articleTitle
-        actionData["image"] = commonsFileName
-        
+        let actionData = baseActionData(articleTitle: articleTitle, commonsFileName: commonsFileName)
         logEvent(activeInterface: .seAddImageText, action: .detailImpression, actionData: actionData)
     }
     
     func logSEATTaskSelectionArticleViewImpression(articleTitle: String, commonsFileName: String) {
         
-        var actionData: [String: String] = [:]
-        actionData["source"] = articleTitle
-        actionData["image"] = commonsFileName
-        
+        let actionData = baseActionData(articleTitle: articleTitle, commonsFileName: commonsFileName)
         logEvent(activeInterface: .seAddImageText, action: .articleImpression, actionData: actionData)
     }
     
-    func logSEATFormViewBeganTypingText(articleTitle: String, commonsFileName: String) {
+    func logSEATFormViewDidAppear(articleTitle: String, commonsFileName: String) {
         
-        var actionData: [String: String] = [:]
-        actionData["source"] = articleTitle
-        actionData["image"] = commonsFileName
-        
+        let actionData = baseActionData(articleTitle: articleTitle, commonsFileName: commonsFileName)
         logEvent(activeInterface: .seAddImageText, action: .textEnterStart, actionData: actionData)
     }
     
     func logSEATFormViewDidTapViewExamples(articleTitle: String, commonsFileName: String) {
         
-        var actionData: [String: String] = [:]
-        actionData["source"] = articleTitle
-        actionData["image"] = commonsFileName
-        
+        let actionData = baseActionData(articleTitle: articleTitle, commonsFileName: commonsFileName)
         logEvent(activeInterface: .seAddImageText, action: .examplesClick, actionData: actionData)
     }
     
     func logSEATFormViewDidTapNext(articleTitle: String, commonsFileName: String) {
         
-        var actionData: [String: String] = [:]
-        actionData["source"] = articleTitle
-        actionData["image"] = commonsFileName
-        
+        let actionData = baseActionData(articleTitle: articleTitle, commonsFileName: commonsFileName)
         logEvent(activeInterface: .seAddImageText, action: .textEnterNext, actionData: actionData)
     }
     
     func logSEATPreviewViewImpression(articleTitle: String, commonsFileName: String) {
         
-        var actionData: [String: String] = [:]
-        actionData["source"] = articleTitle
-        actionData["image"] = commonsFileName
-        
+        let actionData = baseActionData(articleTitle: articleTitle, commonsFileName: commonsFileName)
         logEvent(activeInterface: .seAddImageText, action: .previewImpression, actionData: actionData)
     }
     
     func logSEATPreviewViewDidTapBack(articleTitle: String, commonsFileName: String) {
         
-        var actionData: [String: String] = [:]
-        actionData["source"] = articleTitle
-        actionData["image"] = commonsFileName
-        
+        let actionData = baseActionData(articleTitle: articleTitle, commonsFileName: commonsFileName)
         logEvent(activeInterface: .seAddImageText, action: .previewBack, actionData: actionData)
     }
     
     func logSEATPreviewViewDidTapSubmit(articleTitle: String, commonsFileName: String) {
         
-        var actionData: [String: String] = [:]
-        actionData["source"] = articleTitle
-        actionData["image"] = commonsFileName
-        
+        let actionData = baseActionData(articleTitle: articleTitle, commonsFileName: commonsFileName)
         logEvent(activeInterface: .seAddImageText, action: .textEnterSubmit, actionData: actionData)
     }
     
     func logSEATPreviewViewDidDidTriggerSubmittedToast(articleTitle: String, commonsFileName: String, altText: String) {
         
-        var actionData: [String: String] = [:]
-        actionData["source"] = articleTitle
-        actionData["image"] = commonsFileName
-        actionData["alt_text"] = altText
+        var actionData = baseActionData(articleTitle: articleTitle, commonsFileName: commonsFileName)
+        actionData["alt_text"] = "'\(altText)'"
         
         logEvent(activeInterface: .seAddImageText, action: .editSuccessToast, actionData: actionData)
+    }
+    
+    private func baseActionData(articleTitle: String, commonsFileName: String) -> [String : String] {
+        var actionData: [String: String] = [:]
+        actionData["source"] = articleTitle.replacingOccurrences(of: " ", with: "_")
+        actionData["image"] = commonsFileName.replacingOccurrences(of: " ", with: "_")
+        return actionData
     }
 }

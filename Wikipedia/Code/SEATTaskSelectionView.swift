@@ -98,6 +98,9 @@ struct SEATSelectionView: View {
                 }
                 ToolbarItem(placement: .topBarLeading) {
                     Button(LocalizedStrings.back, systemImage: "chevron.backward") {
+                        if presentationStyle == .preview {
+                            SEATFunnel.shared.logSEATPreviewViewDidTapBack(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
+                        }
                         dismiss()
                     }
                     .tint(Color(theme.text))
@@ -106,15 +109,18 @@ struct SEATSelectionView: View {
                     if presentationStyle == .suggestion {
                         Menu(LocalizedStrings.more, systemImage: "ellipsis.circle") {
                             Button(LocalizedStrings.learnMore, systemImage: "info.circle") {
+                                SEATFunnel.shared.logSEATTaskSelectionDidTapMoreButtonLearnMore()
                                 NotificationCenter.default.post(name: .seatOnboardingDidTapLearnMore, object: nil)
                             }
                             Button(LocalizedStrings.feedback, systemImage: "exclamationmark.bubble") {
+                                SEATFunnel.shared.logSEATTaskSelectionDidTapMoreButtonSendFeedback()
                                 isFeedbackAlertPresented.toggle()
                             }
                         }
                         .tint(Color(theme.text))
                     } else {
                         Button(LocalizedStrings.publish) {
+                            SEATFunnel.shared.logSEATPreviewViewDidTapSubmit(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
                             if let suggestedAltText = suggestedAltText {
                                 parentDismissAction?(suggestedAltText)
                             }
@@ -128,6 +134,7 @@ struct SEATSelectionView: View {
                 NavigationView {
                     SEATFormView(taskItem: taskItem) { suggestedAltText in
                         // Present toast
+                        SEATFunnel.shared.logSEATPreviewViewDidDidTriggerSubmittedToast(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename, altText: suggestedAltText)
                         withAnimation {
                             taskItem = SEATSampleData.shared.nextTask()
                             print(suggestedAltText)
@@ -136,10 +143,16 @@ struct SEATSelectionView: View {
                 }
             }
             .alert(LocalizedStrings.alertTitle, isPresented: $isFeedbackAlertPresented, actions: {
-                Button(LocalizedStrings.sendFeedback) { }
+                Button(LocalizedStrings.sendFeedback) {
+                    SEATFunnel.shared.logSEATTaskSelectionFeedbackAlertDidTapSendFeedback()
+                }
                     .keyboardShortcut(.defaultAction)
-                Button(LocalizedStrings.readPrivacyPolicy) { }
-                Button(LocalizedStrings.cancel, role: .cancel) { }
+                Button(LocalizedStrings.readPrivacyPolicy) {
+                    SEATFunnel.shared.logSEATTaskSelectionFeedbackAlertDidTapPrivacyPolicy()
+                }
+                Button(LocalizedStrings.cancel, role: .cancel) {
+                    SEATFunnel.shared.logSEATTaskSelectionFeedbackAlertDidTapCancel()
+                }
             }, message: {
                 Text(LocalizedStrings.alertBody)
             })
@@ -158,6 +171,7 @@ struct SEATSelectionView: View {
     var buttonStack: some View {
         VStack(alignment: .center, spacing: 4) {
             Button(action: {
+                SEATFunnel.shared.logSEATTaskSelectionDidTapSuggestButton(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
                 isFormPresented.toggle()
             }, label: {
                 Text(LocalizedStrings.suggestAltText)
@@ -168,6 +182,7 @@ struct SEATSelectionView: View {
             .tint(Color(theme.link))
             .padding()
             Button(LocalizedStrings.skipSuggestion) {
+                SEATFunnel.shared.logSEATTaskSelectionDidTapSkipButton(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
                 withAnimation {
                     taskItem = SEATSampleData.shared.nextTask()
                 }
@@ -257,6 +272,9 @@ struct SEATSelectionView: View {
                     Color(theme.paperBackground)
                         .ignoresSafeArea()
                 )
+                .onAppear {
+                    SEATFunnel.shared.logSEATTaskSelectionCommonsWebViewImpression(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
+                }
         } label: {
             HStack(alignment: .center) {
                 Text(suggestedAltText ?? LocalizedStrings.viewImageDetails)
@@ -271,6 +289,11 @@ struct SEATSelectionView: View {
             .padding()
             .background(Color.black.opacity(0.7))
         }
+        .simultaneousGesture(TapGesture().onEnded {
+            if presentationStyle == .suggestion {
+                SEATFunnel.shared.logSEATTaskSelectionDidTapImageDetails(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
+            }
+        })
         .disabled(presentationStyle == .preview)
     }
     
@@ -282,11 +305,17 @@ struct SEATSelectionView: View {
                     Color(theme.paperBackground)
                         .ignoresSafeArea()
                 )
+                .onAppear {
+                    SEATFunnel.shared.logSEATTaskSelectionArticleViewImpression(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
+                }
         } label: {
             Text(LocalizedStrings.readFullArticle)
                 .font(.subheadline.weight(.medium))
                 .tint(Color(theme.link))
         }
+        .simultaneousGesture(TapGesture().onEnded {
+            SEATFunnel.shared.logSEATTaskSelectionDidTapReadArticle(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
+        })
     }
 
 }
