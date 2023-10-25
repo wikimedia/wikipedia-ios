@@ -192,7 +192,7 @@ final class SEATFunnel: NSObject {
     func logSEATPreviewViewDidDidTriggerSubmittedToast(articleTitle: String, commonsFileName: String, altText: String) {
         
         var actionData = baseActionData(articleTitle: articleTitle, commonsFileName: commonsFileName)
-        actionData["alt_text"] = "'\(altText)'"
+        actionData["alt_text"] = "\(altText)"
         
         logEvent(activeInterface: .seAddImageText, action: .editSuccessToast, actionData: actionData)
     }
