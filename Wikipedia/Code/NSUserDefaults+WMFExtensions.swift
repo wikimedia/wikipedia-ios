@@ -102,7 +102,7 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
 
     @objc var wmf_sendUsageReports: Bool {
         get {
-            return bool(forKey: WMFSendUsageReports)
+            return true
         }
         set {
             set(newValue, forKey: WMFSendUsageReports)
