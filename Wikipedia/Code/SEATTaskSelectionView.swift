@@ -130,6 +130,11 @@ struct SEATSelectionView: View {
                     }
                 }
             }
+            .onAppear {
+                if presentationStyle == .preview {
+                    SEATFunnel.shared.logSEATPreviewViewImpression(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
+                }
+            }
             .fullScreenCover(isPresented: $isFormPresented) {
                 NavigationView {
                     SEATFormView(taskItem: taskItem) { suggestedAltText in
