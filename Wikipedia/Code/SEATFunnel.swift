@@ -199,7 +199,7 @@ final class SEATFunnel: NSObject {
     
     private func baseActionData(articleTitle: String, commonsFileName: String) -> [String : String] {
         var actionData: [String: String] = [:]
-        actionData["source"] = articleTitle.replacingOccurrences(of: " ", with: "_")
+        actionData["title"] = articleTitle.replacingOccurrences(of: " ", with: "_")
         actionData["image"] = commonsFileName.replacingOccurrences(of: " ", with: "_")
         return actionData
     }
