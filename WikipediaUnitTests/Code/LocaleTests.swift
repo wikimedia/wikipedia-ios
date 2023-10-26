@@ -27,7 +27,7 @@ class LocaleTests: XCTestCase {
     }
     
     func testZHHeaders() {
-        let languages = Locale.uniqueWikipediaLanguages(with: ["zh-Hans-CN", "zh-Hans-SG", "zh-Hant-MO", "zh-Hant-TW", "zh-Hant-HK"])
+        let languages = Locale.uniqueWikipediaLanguages(with: ["zh-Hans", "zh-Hans-SG", "zh-Hant-MO", "zh-Hant-TW", "zh-Hant-HK"])
         let expectedResult = ["zh-Hans", "zh-Hans-SG", "zh-Hant-MO", "zh-Hant-TW", "zh-Hant-HK"]
         XCTAssertEqual(languages, expectedResult)
         
