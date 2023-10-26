@@ -46,6 +46,7 @@ struct SEATSelectionView: View {
 
     // MARK: - Properties
 
+    @Environment(\.openURL) var openURL
     @Environment(\.dismiss) private var dismiss
     @ObservedObject private var appEnvironment = WKAppEnvironment.current
 
@@ -157,6 +158,11 @@ struct SEATSelectionView: View {
             .alert(LocalizedStrings.alertTitle, isPresented: $isFeedbackAlertPresented, actions: {
                 Button(LocalizedStrings.sendFeedback) {
                     SEATFunnel.shared.logSEATTaskSelectionFeedbackAlertDidTapSendFeedback()
+                    guard let url = URL(string: SEATSampleData.shared.surveyURL.rawValue) else {
+                        return
+                    }
+                    
+                    openURL(url)
                 }
                     .keyboardShortcut(.defaultAction)
                 Button(LocalizedStrings.readPrivacyPolicy) {

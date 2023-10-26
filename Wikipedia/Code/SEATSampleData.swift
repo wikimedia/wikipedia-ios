@@ -18,8 +18,16 @@ struct SEATItemViewModel: Equatable, Hashable {
 }
 
 final class SEATSampleData {
-    
+
+    enum SurveyURL: String {
+        case en = "https://docs.google.com/forms/d/e/1FAIpQLSdIQnhq9bg8Gq_rBTC6bi4hvpUv1nIaImroO68QOT5YKDCVRA/viewform?usp=sf_link"
+        case es = "https://docs.google.com/forms/d/e/1FAIpQLSekmtei3NfD2EH1zpamoPPCqvbakvZCFdr4Vq3AKMxnyarSMw/viewform?usp=sf_link"
+        case pt = "https://docs.google.com/forms/d/e/1FAIpQLSdydhZYnRpDFnoqg437bP9OfvTuk9nx8T0VZ7BHnuYiac9yPQ/viewform?usp=sf_link"
+    }
+
     static var shared: SEATSampleData = SEATSampleData()
+
+    var surveyURL: SurveyURL!
 
     // Populate with sample data
     var availableTasks: [SEATItemViewModel] = []

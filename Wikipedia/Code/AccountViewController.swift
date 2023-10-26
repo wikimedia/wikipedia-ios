@@ -190,7 +190,23 @@ class AccountViewController: SubSettingsViewController {
                let cell = tableView.cellForRow(at: indexPath) as? WMFSettingsTableViewCell {
                 cell.isLoading = true
             }
-                
+
+            switch wkProject {
+            case .wikipedia(let wKLanguage):
+                switch wKLanguage.languageCode {
+                case "en":
+                    SEATSampleData.shared.surveyURL = .en
+                case "es":
+                    SEATSampleData.shared.surveyURL = .es
+                case "pt":
+                    SEATSampleData.shared.surveyURL = .pt
+                default:
+                    SEATSampleData.shared.surveyURL = .en
+                }
+            default:
+                SEATSampleData.shared.surveyURL = .en
+            }
+
             dataController.generateSampleData(project: wkProject) { [weak self] in
                 
                 guard let self else {
