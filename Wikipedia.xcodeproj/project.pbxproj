@@ -11015,7 +11015,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$SRCROOT/scripts/localization\" \"$SRCROOT\"\n";
+			shellScript = "# \"$SRCROOT/scripts/localization\" \"$SRCROOT\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8B724B41ECF09F700D10836 /* Copy Test Fixtures */ = {
