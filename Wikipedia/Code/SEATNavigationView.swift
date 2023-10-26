@@ -17,6 +17,6 @@ struct SEATNavigationView: View {
     }
 }
 
-#Preview {
-    SEATNavigationView()
-}
+// #Preview {
+//    SEATNavigationView()
+// }

@@ -1,6 +1,7 @@
 import SwiftUI
 import Components
 import WKData
+import WMF
 
 struct SEATFormView: View {
 
@@ -82,13 +83,13 @@ struct SEATFormView: View {
                         .foregroundStyle(Color(theme.text))
                 }
             }
-            ToolbarItem(placement: .topBarLeading) {
+            ToolbarItem(placement: .navigationBarLeading) {
                 Button(LocalizedStrings.cancel) {
                     dismiss()
                 }
                 .tint(Color(theme.text))
             }
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(LocalizedStrings.next, destination: {
                     SEATSelectionView(taskItem: taskItem, presentationStyle: .preview, suggestedAltText: altText) { suggestedAltText in
                         parentDismissAction?(suggestedAltText)
@@ -187,6 +188,6 @@ struct SEATFormView: View {
 
 }
 
- #Preview {
-    SEATFormView(taskItem: SEATSampleData.shared.availableTasks.randomElement()!)
- }
+// #Preview {
+//    SEATFormView(taskItem: SEATSampleData.shared.availableTasks.randomElement()!)
+// }

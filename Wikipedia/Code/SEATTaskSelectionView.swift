@@ -1,6 +1,7 @@
 import SwiftUI
 import Components
 import WKData
+import WMF
 
 struct SEATSelectionView: View {
 
@@ -85,6 +86,68 @@ struct SEATSelectionView: View {
         }
     }
 
+    @ToolbarContentBuilder
+    var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            HStack {
+                Text(LocalizedStrings.addAltText)
+                    .font(.headline)
+                    .foregroundStyle(Color(theme.text))
+            }
+        }
+        ToolbarItem(placement: .navigationBarLeading) {
+            Button(action: {
+                if presentationStyle == .preview {
+                    SEATFunnel.shared.logSEATPreviewViewDidTapBack(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
+                }
+                dismiss()
+            }, label: {
+                Image(systemName: "chevron.backward")
+            })
+            .tint(Color(theme.text))
+        }
+        ToolbarItem(placement: .navigationBarTrailing) {
+            if presentationStyle == .suggestion {
+                Menu(content: {
+                    Button(action: {
+                        SEATFunnel.shared.logSEATTaskSelectionDidTapMoreButtonLearnMore()
+                        NotificationCenter.default.post(name: .seatOnboardingDidTapLearnMore, object: nil)
+                    }, label: {
+                        HStack {
+                            Text(LocalizedStrings.learnMore)
+                            Spacer()
+                            Image(systemName: "info.circle")
+                        }
+                    })
+
+                    Button(action: {
+                        SEATFunnel.shared.logSEATTaskSelectionDidTapMoreButtonSendFeedback()
+                        isFeedbackAlertPresented.toggle()
+                    }, label: {
+                        HStack {
+                            Text(LocalizedStrings.feedback)
+                            Spacer()
+                            Image(systemName: "exclamationmark.bubble")
+                        }
+                    })
+
+                }, label: {
+                    Image(systemName: "ellipsis.circle")
+                })
+                .tint(Color(theme.text))
+            } else {
+                Button(LocalizedStrings.publish) {
+                    SEATFunnel.shared.logSEATPreviewViewDidTapSubmit(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
+                    if let suggestedAltText = suggestedAltText {
+                        parentDismissAction?(suggestedAltText)
+                    }
+                }
+                .font(.body.weight(.medium))
+                .tint(Color(theme.link))
+            }
+        }
+    }
+
     var rootContent: some View {
         content
             .background(
@@ -94,46 +157,7 @@ struct SEATSelectionView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(presentationStyle == .preview)
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    HStack {
-                        Text(LocalizedStrings.addAltText)
-                            .font(.headline)
-                            .foregroundStyle(Color(theme.text))
-                    }
-                }
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(LocalizedStrings.back, systemImage: "chevron.backward") {
-                        if presentationStyle == .preview {
-                            SEATFunnel.shared.logSEATPreviewViewDidTapBack(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
-                        }
-                        dismiss()
-                    }
-                    .tint(Color(theme.text))
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    if presentationStyle == .suggestion {
-                        Menu(LocalizedStrings.more, systemImage: "ellipsis.circle") {
-                            Button(LocalizedStrings.learnMore, systemImage: "info.circle") {
-                                SEATFunnel.shared.logSEATTaskSelectionDidTapMoreButtonLearnMore()
-                                NotificationCenter.default.post(name: .seatOnboardingDidTapLearnMore, object: nil)
-                            }
-                            Button(LocalizedStrings.feedback, systemImage: "exclamationmark.bubble") {
-                                SEATFunnel.shared.logSEATTaskSelectionDidTapMoreButtonSendFeedback()
-                                isFeedbackAlertPresented.toggle()
-                            }
-                        }
-                        .tint(Color(theme.text))
-                    } else {
-                        Button(LocalizedStrings.publish) {
-                            SEATFunnel.shared.logSEATPreviewViewDidTapSubmit(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
-                            if let suggestedAltText = suggestedAltText {
-                                parentDismissAction?(suggestedAltText)
-                            }
-                        }
-                        .font(.body.weight(.medium))
-                        .tint(Color(theme.link))
-                    }
-                }
+                toolbarContent
             }
             .onAppear {
                 if presentationStyle == .preview {
@@ -385,6 +409,6 @@ struct SEATSelectionView: View {
 
 }
 
-#Preview {
-    SEATSelectionView(taskItem: SEATSampleData.shared.nextTask())
-}
+// #Preview {
+//    SEATSelectionView(taskItem: SEATSampleData.shared.nextTask())
+// }
