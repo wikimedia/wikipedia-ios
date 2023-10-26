@@ -1027,6 +1027,7 @@
 "suggested-edits-alt-text-read-privacy-policy" = "Text for read privacy policy button";
 "suggested-edits-alt-text-send-feedback" = "Text for send feedback button";
 "suggested-edits-alt-text-skip-suggestion" = "Text for skip suggestion button";
+"suggested-edits-alt-text-submitted-toast" = "Text for submit toast in alt-text view.";
 "suggested-edits-alt-text-suggest-alt-text" = "Text for suggest alt-text button";
 "suggested-edits-alt-text-title" = "Text title in alt-text task views.";
 "suggested-edits-alt-text-view-image-details" = "Text for image details button in alt-text view.";

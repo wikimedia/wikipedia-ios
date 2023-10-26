@@ -28,6 +28,7 @@ struct SEATSelectionView: View {
 
         static let readFullArticle = WMFLocalizedString("suggested-edits-alt-text-read-full-article", value: "Read full article →", comment: "Text for read more button in alt-text view.")
 
+        static let submitted = WMFLocalizedString("suggested-edits-alt-text-submitted-toast", value: "Submitted!", comment: "Text for submit toast in alt-text view.")
 
         static let publish = CommonStrings.publishTitle
         static let back = CommonStrings.accessibilityBackTitle
@@ -57,6 +58,9 @@ struct SEATSelectionView: View {
 
     @SwiftUI.State var taskItem: SEATItemViewModel = SEATSampleData.shared.nextTask()
     @SwiftUI.State var presentationStyle: PresentationStyle = .suggestion
+
+    @SwiftUI.State var isPresentingPublishedToast = false
+    private let publishedToastAnimationStyle = Animation.easeInOut
 
     var suggestedAltText: String? = nil
     var parentDismissAction: ((String) -> Void)? = nil
@@ -135,14 +139,17 @@ struct SEATSelectionView: View {
                     SEATFunnel.shared.logSEATPreviewViewImpression(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
                 }
             }
+            .overlay(alignment: .bottom) {
+                toastView
+                    .offset(y: isPresentingPublishedToast ? 0 : 200) // not ideal :(
+            }
             .fullScreenCover(isPresented: $isFormPresented) {
                 NavigationView {
                     SEATFormView(taskItem: taskItem) { suggestedAltText in
-                        // Present toast
                         SEATFunnel.shared.logSEATPreviewViewDidDidTriggerSubmittedToast(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename, altText: suggestedAltText)
                         withAnimation {
                             taskItem = SEATSampleData.shared.nextTask()
-                            print(suggestedAltText)
+                            animateToast(visible: true)
                         }
                     }
                 }
@@ -161,6 +168,7 @@ struct SEATSelectionView: View {
             }, message: {
                 Text(LocalizedStrings.alertBody)
             })
+            .animation(publishedToastAnimationStyle, value: isPresentingPublishedToast)
     }
 
     var body: some View {
@@ -326,6 +334,47 @@ struct SEATSelectionView: View {
         .simultaneousGesture(TapGesture().onEnded {
             SEATFunnel.shared.logSEATTaskSelectionDidTapReadArticle(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
         })
+    }
+
+    var toastView: some View {
+        HStack {
+            Image(systemName: "checkmark.circle.fill")
+                .foregroundColor(Color(uiColor: theme.link))
+            Text(LocalizedStrings.submitted)
+                .font(.subheadline.weight(.medium))
+                .foregroundStyle(Color(uiColor: theme.text))
+            Spacer()
+            Button {
+                isPresentingPublishedToast.toggle()
+            } label: {
+                Image(systemName: "xmark")
+            }
+            .tint(Color(uiColor: theme.secondaryText))
+        }
+        .frame(maxWidth: .infinity)
+        .padding()
+        .background(
+            Color(uiColor: theme.paperBackground)
+                .shadow(color: Color.black.opacity(0.25), radius: 10)
+                .ignoresSafeArea()
+        )
+        .ignoresSafeArea()
+    }
+
+    func animateToast(visible: Bool) {
+        if visible {
+            isPresentingPublishedToast = true
+            Task {
+                try await Task.sleep(nanoseconds:3_000_000_000)
+                await MainActor.run {
+                    if isPresentingPublishedToast {
+                        isPresentingPublishedToast = false
+                    }
+                }
+            }
+        } else {
+            isPresentingPublishedToast = false
+        }
     }
 
 }
