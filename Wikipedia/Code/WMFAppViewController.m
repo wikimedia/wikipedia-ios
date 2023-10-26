@@ -1793,7 +1793,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)updateAppThemeIfNecessary {
     // self.navigationController is the App's root view controller so rely on its trait collection
-    WMFTheme *theme = [NSUserDefaults.standardUserDefaults themeCompatibleWith:self.navigationController.traitCollection];
+    UITraitCollection *traitCollection = self.navigationController.traitCollection;
+    WMFTheme *theme = [NSUserDefaults.standardUserDefaults themeCompatibleWith:traitCollection];
     if (self.theme != theme) {
         [self applyTheme:theme];
         [self.settingsViewController loadSections];

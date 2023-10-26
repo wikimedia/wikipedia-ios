@@ -126,6 +126,7 @@
 "article-languages-label" = "Header label for per-article language selector screen. {{Identical|Choose language}}";
 "article-languages-others" = "Title for list of languages not in user's preferred languages";
 "article-languages-yours" = "Title for list of user's preferred languages";
+"article-nav-edit" = "Edit button title. Takes user to editor to edit the full source of an article.";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}";
 "article-reference-view-title" = "Title for the reference view. $1 is replaced by the reference link name, for example [1].";
 "article-revision-history" = "Title for menu option that leads to article revision history.";

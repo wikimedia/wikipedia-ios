@@ -467,6 +467,10 @@
 		672D69AA273ACAA100B123B3 /* UITabBarAppearance+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672D69A8273ACAA100B123B3 /* UITabBarAppearance+Extensions.swift */; };
 		672D69AB273ACAA100B123B3 /* UITabBarAppearance+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672D69A8273ACAA100B123B3 /* UITabBarAppearance+Extensions.swift */; };
 		672F0558222F24FB00FB1084 /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
+		6730D8DF2A05BFB50035255B /* PageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730D8DE2A05BFB50035255B /* PageEditorViewController.swift */; };
+		6730D8E02A05BFB50035255B /* PageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730D8DE2A05BFB50035255B /* PageEditorViewController.swift */; };
+		6730D8E12A05BFB50035255B /* PageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730D8DE2A05BFB50035255B /* PageEditorViewController.swift */; };
+		6730D8E22A05BFB50035255B /* PageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730D8DE2A05BFB50035255B /* PageEditorViewController.swift */; };
 		6730FD0E28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730FD0D28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift */; };
 		6730FD0F28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730FD0D28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift */; };
 		6730FD1028998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730FD0D28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift */; };
@@ -3349,6 +3353,7 @@
 		672D69A3273ABD3600B123B3 /* UINavigationBarAppearance+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBarAppearance+Extensions.swift"; sourceTree = "<group>"; };
 		672D69A8273ACAA100B123B3 /* UITabBarAppearance+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarAppearance+Extensions.swift"; sourceTree = "<group>"; };
 		672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconBarButtonItem.swift; sourceTree = "<group>"; };
+		6730D8DE2A05BFB50035255B /* PageEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageEditorViewController.swift; sourceTree = "<group>"; };
 		6730FD0D28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyComposeContentView.swift; sourceTree = "<group>"; };
 		6734F051227B634900BDDB94 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		673612F124FD7210002A1989 /* ArticleAsLivingDocViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocViewModelTests.swift; sourceTree = "<group>"; };
@@ -6309,6 +6314,14 @@
 			path = "Article Description Tests";
 			sourceTree = "<group>";
 		};
+          6730D8DD2A05BFA40035255B /* Page Editor */ = {
+            isa = PBXGroup;
+            children = (
+                6730D8DE2A05BFB50035255B /* PageEditorViewController.swift */,
+            );
+            name = "Page Editor";
+            sourceTree = "<group>";
+        };
 		674C176A2AAA869D007DC6CC /* Test Plans */ = {
 			isa = PBXGroup;
 			children = (
@@ -7667,6 +7680,7 @@
 		BC45D58D1C32FD58007C72F3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				6730D8DD2A05BFA40035255B /* Page Editor */,
 				67033E122A61B23700896852 /* Watchlist */,
 				6798035A24F94CAE00D765AA /* Article as a Living Document */,
 				67DC5BDB23A00DF500B03A84 /* Article */,
@@ -10364,6 +10378,7 @@
 				00F5AED027C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */,
 				B0B423611EF9D69C00D3DC4C /* OnThisDayViewController.swift in Sources */,
 				0042813125E6E841004945B3 /* NYTPhotosDataSource.m in Sources */,
+				6730D8DF2A05BFB50035255B /* PageEditorViewController.swift in Sources */,
 				B0CD9DDA1F70997300051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				83CA612A20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */,
 				D8FEECCD1DE3729400B883F0 /* WMFChange.m in Sources */,
@@ -11276,6 +11291,7 @@
 				D8CE25221E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				00CF2EA227DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */,
 				B0524AF22144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
+				6730D8E12A05BFB50035255B /* PageEditorViewController.swift in Sources */,
 				7A715668226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				D8CE25231E698E2400DAE2E0 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				00E75B6427EB87DC00A45B78 /* NotificationsCenterDetailView.swift in Sources */,
@@ -11862,6 +11878,7 @@
 				D8EC3E101E9BDA35006712EB /* WMFSearchFetcher.m in Sources */,
 				00CF2EA127DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */,
 				B0524AF32144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
+				6730D8E02A05BFB50035255B /* PageEditorViewController.swift in Sources */,
 				7A715669226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				D8EC3E121E9BDA35006712EB /* LoggingDefaults.swift in Sources */,
 				00E75B6327EB87DC00A45B78 /* NotificationsCenterDetailView.swift in Sources */,

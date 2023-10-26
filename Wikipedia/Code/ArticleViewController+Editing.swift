@@ -11,26 +11,25 @@ extension ArticleViewController {
         EditAttemptFunnel.shared.logInit(articleURL: articleURL)
     }
     
+    func showEditorForFullSource(selectedTextEditInfo: SelectedTextEditInfo? = nil) {
+        let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: nil, dataStore: dataStore, delegate: self, theme: theme)
+        
+        presentEditor(editorViewController: pageEditorViewController)
+    }
+    
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
         cancelWIconPopoverDisplay()
-        let sectionEditVC = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
-        sectionEditVC.delegate = self
-        let navigationController = WMFThemeableNavigationController(rootViewController: sectionEditVC, theme: theme)
-        navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-
-        let needsIntro = !UserDefaults.standard.didShowEditingOnboarding
-        if needsIntro {
-            let editingWelcomeViewController = EditingWelcomeViewController(theme: theme) {
-                self.present(navigationController, animated: true)
-            }
-            editingWelcomeViewController.apply(theme: theme)
-            present(editingWelcomeViewController, animated: true) {
-                UserDefaults.standard.didShowEditingOnboarding = true
-            }
-
+        let editorViewController: UIViewController
+        if FeatureFlags.needsNativeSourceEditor {
+            let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: id, dataStore: dataStore, delegate: self, theme: theme)
+            editorViewController = pageEditorViewController
         } else {
-            present(navigationController, animated: true)
+            let sectionEditViewController = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
+            sectionEditViewController.delegate = self
+            editorViewController = sectionEditViewController
         }
+        
+        presentEditor(editorViewController: editorViewController)
     }
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource) {
@@ -66,6 +65,26 @@ extension ArticleViewController {
             if needsIntro {
                 showIntro?()
             }
+        }
+    }
+    
+    private func presentEditor(editorViewController: UIViewController) {
+        
+        let navigationController = WMFThemeableNavigationController(rootViewController: editorViewController, theme: theme)
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        
+        let needsIntro = !UserDefaults.standard.didShowEditingOnboarding
+        if needsIntro {
+            let editingWelcomeViewController = EditingWelcomeViewController(theme: theme) {
+                self.present(navigationController, animated: true)
+            }
+            editingWelcomeViewController.apply(theme: theme)
+            present(editingWelcomeViewController, animated: true) {
+                UserDefaults.standard.didShowEditingOnboarding = true
+            }
+
+        } else {
+            present(navigationController, animated: true)
         }
     }
     
@@ -197,6 +216,13 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
 
     func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController) {
         
+    }
+}
+
+extension ArticleViewController: PageEditorViewControllerDelegate {
+    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL: URL?) {
+        dismiss(animated: true) {
+        }
     }
 }
 

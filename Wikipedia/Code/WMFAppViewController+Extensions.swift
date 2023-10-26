@@ -1,8 +1,8 @@
 import UIKit
 import WMF
 import SwiftUI
-import WKData
 import Components
+import WKData
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -493,6 +493,23 @@ extension WMFAppViewController: CreateReadingListDelegate {
                 createReadingListViewController.createReadingListButton.isEnabled = true
             }
         }
+    }
+    
+    @objc func setWKAppEnvironmentTheme(theme: Theme, traitCollection: UITraitCollection) {
+        let wkTheme: WKTheme
+        switch theme.name {
+        case "light":
+            wkTheme = WKTheme.light
+        case "sepia":
+            wkTheme = WKTheme.sepia
+        case "dark":
+            wkTheme = WKTheme.dark
+        case "black":
+            wkTheme = WKTheme.black
+        default:
+            wkTheme = WKTheme.light
+        }
+        WKAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
     }
 }
 
