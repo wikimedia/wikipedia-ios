@@ -195,36 +195,4 @@ public struct APIURLComponentsBuilder {
             return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Configuration.Path.mediaWikiAPIComponents)
         }
     }
-    
-    struct EventLogging {
-        
-        public enum BuilderType {
-            case production
-            case staging
-            
-            func builder(withWikiHost wikiHost: String? = nil) -> APIURLComponentsBuilder {
-                switch self {
-                case .production:
-                    return EventLogging.productionBuilder()
-                case .staging:
-                    return EventLogging.stagingBuilder()
-                }
-            }
-        }
-        
-        private static func productionBuilder() -> APIURLComponentsBuilder {
-            var eventLoggingComponents = URLComponents()
-            eventLoggingComponents.scheme = "https"
-            eventLoggingComponents.host = "meta.wikimedia.org"
-            return APIURLComponentsBuilder(hostComponents: eventLoggingComponents, basePathComponents: ["beacon","event"])
-        }
-        
-        private static func stagingBuilder() -> APIURLComponentsBuilder {
-            var eventLoggingComponents = URLComponents()
-            eventLoggingComponents.scheme = "https"
-            eventLoggingComponents.host = "deployment.wikimedia.beta.wmflabs.org"
-            return APIURLComponentsBuilder(hostComponents: eventLoggingComponents, basePathComponents: ["beacon","event"])
-        }
-        
-    }
 }
