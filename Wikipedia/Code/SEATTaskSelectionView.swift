@@ -243,8 +243,7 @@ struct SEATSelectionView: View {
                 Image("license-cc")
                     .renderingMode(.template)
                 Text(LocalizedStrings.markdownString(LocalizedStrings.licenseInfo))
-                    .font(.caption)
-                    .lineSpacing(10)
+                    .font(.footnote)
                     .accentColor(Color(theme.link))
             }
             .foregroundColor(Color(theme.inputAccessoryButtonTint))
