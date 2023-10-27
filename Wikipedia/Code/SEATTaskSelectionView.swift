@@ -301,8 +301,9 @@ struct SEATSelectionView: View {
                 .lineSpacing(8)
             if presentationStyle == .suggestion {
                 Spacer()
-                    .frame(height: 4)
+                    .frame(height: 2)
                 articleViewLink
+                    .frame(height: 44)
             }
         }
         .padding([.leading, .trailing, .bottom])
