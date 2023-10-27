@@ -178,6 +178,7 @@ struct SEATSelectionView: View {
                         }
                     }
                 }
+                .accentColor(Color(theme.text))
             }
             .alert(LocalizedStrings.alertTitle, isPresented: $isFeedbackAlertPresented, actions: {
                 Button(LocalizedStrings.sendFeedback) {

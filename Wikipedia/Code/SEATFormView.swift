@@ -133,9 +133,22 @@ struct SEATFormView: View {
                 Text(LocalizedStrings.image)
                     .font(.callout)
                     .foregroundStyle(Color(theme.secondaryText))
-                Text(taskItem.imageWikitextFilename)
-                    .font(.body)
-                    .foregroundStyle(Color(theme.link))
+                NavigationLink {
+                    SEATImageCommonsView(commonsURL: taskItem.commonsURL)
+                        .background(
+                            Color(theme.paperBackground)
+                                .ignoresSafeArea()
+                        )
+                        .onAppear {
+                            SEATFunnel.shared.logSEATTaskSelectionCommonsWebViewImpression(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
+                        }
+                } label: {
+                    Text(taskItem.imageWikitextFilename)
+                        .font(.body)
+                        .foregroundStyle(Color(theme.link))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .multilineTextAlignment(.leading)
+                }
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
         }
