@@ -43,6 +43,8 @@ class AccountViewController: SubSettingsViewController {
     @objc var dataStore: MWKDataStore!
     @objc weak var delegate: AccountViewControllerDelegate?
     
+    var isPresentingSuggestedEdits = false
+
     private lazy var sections: [Section] = {
         
         guard let username = dataStore.authenticationManager.loggedInUsername else {
@@ -277,8 +279,11 @@ class AccountViewController: SubSettingsViewController {
     }
     
     private func goToSEAT() {
-            let hostingViewController = UIHostingController(rootView: SEATNavigationView())
-            self.push(hostingViewController)
+        isPresentingSuggestedEdits = true
+        let hostingViewController = UIHostingController(rootView: SEATNavigationView(onboardingModalAction: { [weak self] in
+            self?.showSEATOnboarding()
+        }))
+        self.push(hostingViewController)
     }
 
     @objc func goToWatchlist() {
@@ -361,7 +366,9 @@ extension AccountViewController: WKOnboardingViewDelegate {
         SEATFunnel.shared.logSEATOnboardingDidTapContinue()
         if let presentedViewController = navigationController?.presentedViewController {
             presentedViewController.dismiss(animated: true) { [weak self] in
-                self?.goToSEAT()
+                if !(self?.isPresentingSuggestedEdits ?? true) {
+                    self?.goToSEAT()
+                }
             }
         }
     }

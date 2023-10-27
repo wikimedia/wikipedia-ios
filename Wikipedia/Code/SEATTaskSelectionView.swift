@@ -67,6 +67,8 @@ struct SEATSelectionView: View {
     var suggestedAltText: String? = nil
     var parentDismissAction: ((String) -> Void)? = nil
 
+    var onboardingModalAction: (() -> Void)?
+
     // MARK: - Public
 
     var content: some View {
@@ -111,7 +113,7 @@ struct SEATSelectionView: View {
                 Menu(content: {
                     Button(action: {
                         SEATFunnel.shared.logSEATTaskSelectionDidTapMoreButtonLearnMore()
-                        NotificationCenter.default.post(name: .seatOnboardingDidTapLearnMore, object: nil)
+                        onboardingModalAction?()
                     }, label: {
                         HStack {
                             Text(LocalizedStrings.learnMore)

@@ -8,10 +8,12 @@ struct SEATNavigationView: View {
     private var theme: WKTheme {
         appEnvironment.theme
     }
-    
+
+    var onboardingModalAction: (() -> Void)?
+
     var body: some View {
         NavigationView {
-            SEATSelectionView()
+            SEATSelectionView(onboardingModalAction: onboardingModalAction)
         }
         .accentColor(Color(theme.text))
     }
