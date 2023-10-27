@@ -57,7 +57,7 @@ extension MWKDataStore {
         // Ensure that that settings using the old format codes are updated to the BCP47 format
         var languageCodeMigrationMapping = migrationMapping
         languageCodeMigrationMapping["nb"] = "no"
-        languageCodeMigrationMapping["zh-hans"] = "zh-Hans-CN"
+        languageCodeMigrationMapping["zh-hans"] = "zh-Hans"
         languageCodeMigrationMapping["zh-hk"] = "zh-Hant-HK"
         languageCodeMigrationMapping["zh-mo"] = "zh-Hant-MO"
         languageCodeMigrationMapping["zh-my"] = "zh-Hans-MY"
