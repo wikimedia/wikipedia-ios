@@ -333,8 +333,9 @@ struct SEATSelectionView: View {
                 }                
             }
             .foregroundStyle(Color.white)
-            .frame(maxWidth: .infinity)
-            .padding()
+            .padding([.leading, .trailing])
+            .padding([.top, .bottom], 4)
+            .frame(maxWidth: .infinity, minHeight: 44, idealHeight: 44)
             .background(Color.black.opacity(0.7))
         }
         .simultaneousGesture(TapGesture().onEnded {
