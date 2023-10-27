@@ -219,11 +219,11 @@ struct SEATSelectionView: View {
             }, label: {
                 Text(LocalizedStrings.suggestAltText)
                     .font(.callout.weight(.medium))
-                    .frame(maxWidth: .infinity, minHeight: 44, idealHeight: 44)
+                    .frame(maxWidth: .infinity, minHeight: 31, idealHeight: 31)
             })
             .buttonStyle(.borderedProminent)
             .tint(Color(theme.link))
-            .padding()
+            .padding([.leading, .trailing, .bottom])
             Button(LocalizedStrings.skipSuggestion) {
                 SEATFunnel.shared.logSEATTaskSelectionDidTapSkipButton(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
                 withAnimation {
