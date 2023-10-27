@@ -48,6 +48,7 @@ struct SEATFormView: View {
     }
 
     @SwiftUI.State var altText: String = ""
+
     var taskItem: SEATItemViewModel
     var parentDismissAction: ((String) -> Void)? = nil
 
@@ -155,13 +156,45 @@ struct SEATFormView: View {
         .padding()
     }
 
+    @ViewBuilder
+    var formTextField: some View {
+        if #available(iOS 16.0, *) {
+            ZStack {
+                TextEditor(text: Binding<String>.init(get: { return LocalizedStrings.altTextPlaceholder}, set: { _ in }))
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
+                    .disabled(true)
+                    .opacity(altText.isEmpty ? 1 : 0)
+                    .padding([.leading, .trailing], -5)
+                TextEditor(text: $altText)
+                    .foregroundColor(Color(uiColor: theme.text))
+                    .opacity(altText.isEmpty ? 0.5 : 1)
+                    .padding([.leading, .trailing], -5)
+            }
+            .scrollContentBackground(.hidden)
+            .background(Color(uiColor: .clear))
+        } else {
+            ZStack {
+                TextEditor(text: Binding<String>.init(get: { return LocalizedStrings.altTextPlaceholder}, set: { _ in }))
+                    .disabled(true)
+                    .opacity(altText.isEmpty ? 1 : 0)
+                    .foregroundColor(.black)
+                    .padding([.leading, .trailing], -5)
+                TextEditor(text: $altText)
+                    .opacity(altText.isEmpty ? 0.5 : 1)
+                    .foregroundColor(.black)
+                    .padding([.leading, .trailing], -5)
+            }
+        }
+    }
+
     var form: some View {
         VStack(alignment: .leading) {
             Text(LocalizedStrings.alternativeText)
                 .font(.callout)
                 .foregroundStyle(Color(theme.secondaryText))
-            TextView(placeholder: LocalizedStrings.altTextPlaceholder, theme: appTheme, text: $altText)
-                .frame(maxWidth: .infinity, minHeight: 44)
+            formTextField
+                .padding(0)
+                .frame(minHeight: 24)
             Divider()
             Text(LocalizedStrings.altTextTextfieldFooter)
                 .font(.caption)
