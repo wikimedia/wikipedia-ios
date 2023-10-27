@@ -194,7 +194,7 @@ struct SEATFormView: View {
                 .foregroundStyle(Color(theme.secondaryText))
             formTextField
                 .padding(0)
-                .frame(minHeight: 24)
+                .frame(minHeight: 38)
             Divider()
             Text(LocalizedStrings.altTextTextfieldFooter)
                 .font(.caption)
