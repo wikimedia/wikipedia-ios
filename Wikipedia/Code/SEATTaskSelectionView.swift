@@ -23,7 +23,7 @@ struct SEATSelectionView: View {
         static let suggestAltText = WMFLocalizedString("suggested-edits-alt-text-suggest-alt-text", value: "Suggest alt text for image", comment: "Text for suggest alt-text button")
         static let skipSuggestion = WMFLocalizedString("suggested-edits-alt-text-skip-suggestion", value: "Skip suggestion", comment: "Text for skip suggestion button")
 
-        static let licenseInfo = WMFLocalizedString("suggested-edits-alt-text-license-info", value: "By publishing, you agree to the [Terms of Use](https://www.mediawiki.org/wiki/Wikimedia_Apps/Suggested_edits), and to irrevocably release your contributions under the [CC BY-SA 3.0](https://www.mediawiki.org/wiki/Wikimedia_Apps/Suggested_edits) license.", comment: "Footer text when publishing alt-text. Please do not remove the brackets or parentheses. Please do not translate or change the URL inside the parentheses.")
+        static let licenseInfo = WMFLocalizedString("suggested-edits-alt-text-license-info", value: "By publishing, you agree to the [Terms of Use](https://foundation.m.wikimedia.org/wiki/Policy:Terms_of_Use), and to irrevocably release your contributions under the [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/4.0/) license.", comment: "Footer text when publishing alt-text. Please do not remove the brackets or parentheses. Please do not translate or change the URL inside the parentheses.")
 
         static let viewImageDetails = WMFLocalizedString("suggested-edits-alt-text-view-image-details", value: "View image details →", comment: "Text for image details button in alt-text view.")
 
