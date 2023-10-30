@@ -67,8 +67,19 @@ struct SEATFormView: View {
     var content: some View {
         ScrollView {
             VStack {
-                header
-                    .foregroundColor(Color(theme.text))
+                NavigationLink {
+                    SEATImageCommonsView(commonsURL: taskItem.commonsURL)
+                        .background(
+                            Color(theme.paperBackground)
+                                .ignoresSafeArea()
+                        )
+                        .onAppear {
+                            SEATFunnel.shared.logSEATTaskSelectionCommonsWebViewImpression(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
+                        }
+                } label: {
+                    header
+                        .foregroundColor(Color(theme.text))
+                }
                 Divider()
                     .foregroundColor(Color(theme.border))
                 form
