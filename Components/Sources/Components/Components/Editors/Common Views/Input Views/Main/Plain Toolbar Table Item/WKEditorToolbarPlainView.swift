@@ -20,21 +20,27 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
      
         boldButton.setImage(WKIcon.bold, for: .normal)
         boldButton.addTarget(self, action: #selector(tappedBold), for: .touchUpInside)
-        
+        boldButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonBold
+
         italicsButton.setImage(WKIcon.italics, for: .normal)
         italicsButton.addTarget(self, action: #selector(tappedItalics), for: .touchUpInside)
-        
+        italicsButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonItalics
+
         citationButton.setImage(WKIcon.citation, for: .normal)
         citationButton.addTarget(self, action: #selector(tappedCitation), for: .touchUpInside)
-        
+        citationButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonCitation
+
         linkButton.setImage(WKIcon.link, for: .normal)
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
-        
+        linkButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonLink
+
         templateButton.setImage(WKIcon.template, for: .normal)
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
-        
+        templateButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonTemplate
+
         commentButton.setImage(WKIcon.exclamationPointCircle, for: .normal)
         commentButton.addTarget(self, action: #selector(tappedComment), for: .touchUpInside)
+        commentButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonComment
     }
     
     // MARK: Button Actions

@@ -25,7 +25,11 @@ class WKEditorToolbarButton: WKComponentView {
     private func setup() {
         layer.cornerRadius = 4
         clipsToBounds = true
-        
+
+        isAccessibilityElement = true
+        accessibilityTraits = isSelected ? [.button, .selected] : [.button]
+        button.isAccessibilityElement = false
+
         translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
         addSubview(button)
@@ -60,6 +64,7 @@ class WKEditorToolbarButton: WKComponentView {
         set {
             button.isSelected = newValue
             updateColors()
+            accessibilityTraits = newValue ? [.button, .selected] : [.button]
         }
     }
     
