@@ -274,6 +274,7 @@
 "donate-payment-method-prompt-message" = "Feu una donació amb Apple Pay o trieu un altre mètode de pagament.";
 "donate-payment-method-prompt-other-button-title" = "Altres mètodes de pagament";
 "donate-payment-method-prompt-title" = "Voleu fer una donació amb Apple Pay?";
+// Fuzzy
 "donate-success-subtitle" = "La vostra generositat amb la Viquipèdia significa molt per a nosaltres.";
 "donate-success-title" = "Gràcies!";
 "donate-title" = "Selecciona una quantitat";

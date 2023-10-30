@@ -138,6 +138,7 @@
 "article-languages-label" = "Изберете јазик";
 "article-languages-others" = "Други јазици";
 "article-languages-yours" = "Ваши јазици";
+"article-nav-edit" = "Уреди";
 "article-read-more-title" = "Прочитајте повеќе";
 "article-reference-view-title" = "Навод $1";
 "article-revision-history" = "Историја на преработки на страницата";
@@ -272,10 +273,10 @@
 "donate-payment-method-prompt-message" = "Дарувајте со Apple Pay или изберете друг начин на плаќање.";
 "donate-payment-method-prompt-other-button-title" = "Друг начин на плаќање";
 "donate-payment-method-prompt-title" = "Дарувате со Apple Pay?";
-"donate-success-subtitle" = "Вашата великодушност кон Википедија ни значи многу.";
+"donate-success-subtitle" = "Вашата великодушност ни значи многу.";
 "donate-success-title" = "Ви благодариме!";
 "donate-title" = "Изберете износ";
-"donate-transaction-fee-opt-in-text" = "Великодушно ќе додадам $1 за да ја покријам трансакциската провизија за да задржите 100 отсто од мојот дар.";
+"donate-transaction-fee-opt-in-text" = "Великодушно ќе додадам $1 за да ја покријам трансакциската провизија за да задржите 100%% од мојот дар.";
 "edit-bold-accessibility-label" = "Стави задебелено форматирање";
 "edit-bold-remove-accessibility-label" = "Отстрани задебелено форматирање";
 "edit-clear-formatting-accessibility-label" = "Отстрани форматирање";
@@ -961,7 +962,7 @@
 "settings-clear-cache-are-you-sure-title" = "Да ги исчистам меѓускладираните податоци?";
 "settings-clear-cache-cancel" = "Откажи";
 "settings-clear-cache-ok" = "Исчисти";
-"settings-donate" = "Дарувајте на Википедија";
+"settings-donate" = "Дарувајте";
 "settings-help-and-feedback" = "Помош и мислења";
 "settings-language-bar" = "Прикажувај јазици при пребарувањето";
 "settings-languages-feed-customization" = "Можете да изберете кои јазици да се прикажуваат во поставките за тековникот „Истражи“.";

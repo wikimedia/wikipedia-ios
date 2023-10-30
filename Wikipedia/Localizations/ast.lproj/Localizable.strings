@@ -8,6 +8,7 @@
 // Author: Nemo bis
 // Author: Tokvo
 // Author: Xuacu
+// Author: YoaR
 
 "aaald-new-book-reference-title" = "Llibru";
 "about-content-license" = "Llicencia del conteníu";
@@ -53,7 +54,7 @@
 "action-add-to" = "Añadir a…";
 "action-add-to-reading-list" = "Añadir a llista de llectura";
 "action-add-to-reading-list-short" = "Amestar a la llista";
-"action-cancel" = "Encaboxar";
+"action-cancel" = "Zarrar";
 "action-find-in-page" = "Alcontrar na páxina";
 "action-language-accessibility" = "Camudar llingua";
 "action-move-to" = "Treslladar a…";
@@ -112,7 +113,7 @@
 "button-saved-for-later" = "Guardao pa después";
 "button-saved-remove" = "Quitar de los guardaos";
 "button-skip" = "Saltar";
-"cancel" = "Encaboxar";
+"cancel" = "Zarrar";
 "cc-zero" = "Creative Commons CC0";
 "clear-title-accessibility-label" = "Llimpiar";
 "close-button-accessibility-label" = "Zarrar";
@@ -296,7 +297,7 @@
 "forgot-password-title" = "Reaniciar la contraseña";
 "forgot-password-username-or-email-title" = "O";
 "history-clear-all" = "Llimpiar";
-"history-clear-cancel" = "Encaboxar";
+"history-clear-cancel" = "Zarrar";
 "history-clear-confirmation-heading" = "¿Seguro que quies desaniciar tolos elementos recientes?";
 "history-clear-delete-all" = "Si, desaniciar too";
 "history-title" = "Historial";
@@ -331,7 +332,7 @@
 "main-menu-account-login" = "Aniciar sesión";
 "main-menu-account-logout" = "Salir";
 "main-menu-account-logout-are-you-sure" = "¿Seguro que quies zarrar sesión?";
-"main-menu-account-logout-cancel" = "Encaboxar";
+"main-menu-account-logout-cancel" = "Zarrar";
 "main-menu-account-title-logged-in" = "Aniciasti sesión como $1";
 "main-menu-heading-legal" = "Privacidá y Condiciones";
 "main-menu-nearby" = "Cercanu";
@@ -340,7 +341,7 @@
 "main-menu-terms-of-use" = "Condiciones d'usu";
 "main-menu-title" = "Más";
 "main-menu-zero-faq" = "EMF de Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Encaboxar";
+"menu-cancel-accessibility-label" = "Zarrar";
 // Fuzzy
 "more-languages-tooltip-description" = "Buscar nes casi 300 llingües de Wikipedia";
 "more-languages-tooltip-title" = "Amestar llingües";
@@ -373,7 +374,7 @@
 "places-accessibility-show-as-list" = "Ver como llista";
 "places-accessibility-show-as-map" = "Ver como mapa";
 "places-accessibility-show-more" = "Ver más artículos";
-"places-empty-search-description" = "Esplorar ciudaes, paises, continentes, monumentos naturales, socesos históricos, edificios y más.";
+"places-empty-search-description" = "Esplorar ciudaes, países, continentes, monumentos naturales, socesos históricos, edificios y más.";
 "places-empty-search-title" = "Buscar artículos de Wikipedia con allugamientos xeográficos";
 "places-enable-location-action-button-title" = "Activar l'allugamientu";
 "places-enable-location-description" = "L'accesu al to allugamientu sólo ta disponible cuando la aplicación o una de les sos carauterístiques se ve na pantalla.";
@@ -499,7 +500,7 @@
 "search-did-you-mean" = "¿Quixisti dicir $1?";
 "search-field-placeholder-text" = "Guetar na Wikipedia";
 "search-reading-list-placeholder-text" = "Guetar na llista de llectura";
-"search-recent-clear-cancel" = "Encaboxar";
+"search-recent-clear-cancel" = "Zarrar";
 "search-recent-clear-confirmation-heading" = "¿Desaniciar toles guetes de recién?";
 "search-recent-clear-confirmation-sub-heading" = "¡Esta aición nun puede desfacese!";
 "search-recent-clear-delete-all" = "Desaniciar too";
@@ -511,7 +512,7 @@
 "settings-clear-cache" = "Borrar los datos de la caché";
 "settings-clear-cache-are-you-sure-message" = "Si se borren los datos de la caché lliberaránse cerca de $1 d'espaciu. Nun se borrarán les páxines guardaes.";
 "settings-clear-cache-are-you-sure-title" = "¿Borrar los datos de la caché?";
-"settings-clear-cache-cancel" = "Encaboxar";
+"settings-clear-cache-cancel" = "Zarrar";
 "settings-clear-cache-ok" = "Borrar caché";
 "settings-help-and-feedback" = "Ayuda y comentarios";
 "settings-language-bar" = "Amosar les llingües na gueta";

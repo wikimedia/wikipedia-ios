@@ -1,6 +1,7 @@
 // Messages for Scots (Scots)
 // Exported from translatewiki.net
 // Author: AmaryllisGardener
+// Author: CiphriusKane
 // Author: Fitoschido
 // Author: John Reid
 // Author: MinecraftAustralia
@@ -33,10 +34,10 @@
 "account-creation-have-account" = "Awreidy hae an accoont? $1";
 "account-creation-log-in" = "Log in.";
 "account-creation-logging-in" = "Loggin in...";
-"account-creation-missing-fields" = "Ye maun enter a uisername, passwird, an passwird confirmation tae creaut an accoont.";
+"account-creation-missing-fields" = "Ye maun enter ae uisername, trystwird, an trystwird confirmation tae create an accoont.";
 "account-creation-passwords-mismatched" = "Passwaird fields dinna match.";
 "account-creation-saving" = "Hainin...";
-"account-creation-title" = "Creaut a new accoont";
+"account-creation-title" = "Create a new accoont";
 // Fuzzy
 "action-find-in-page" = "Find in page";
 "action-read" = "Read";

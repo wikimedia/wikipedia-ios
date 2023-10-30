@@ -1,5 +1,6 @@
 // Messages for French (français)
 // Exported from translatewiki.net
+// Author: BlueCamille
 // Author: Brion Vibber
 // Author: Caliburn
 // Author: DavidL
@@ -273,6 +274,8 @@
 "diff-unedited-lines-format" = "$1 ligne{{PLURAL:$1||s}} restaurée{{PLURAL:$1||s}}";
 "diff-user-button-accessibility-text" = "Taper deux fois pour ouvrir le menu";
 "dim-images" = "Assombrir les images";
+"donate-later-title" = "Nous vous le rappellerons demain.";
+"donate-transaction-fee-opt-in-text" = "J'ajouterai généreusement $1 pour couvrir les frais de transaction afin de que vous puissiez conserver 100%% de mon don.";
 "edit-bold-accessibility-label" = "Ajouter une mise en forme en gras";
 "edit-bold-remove-accessibility-label" = "Supprimer la mise en forme en gras";
 "edit-clear-formatting-accessibility-label" = "Supprimer la mise en forme";
@@ -956,6 +959,7 @@
 "settings-clear-cache-are-you-sure-title" = "Effacer les données en cache ?";
 "settings-clear-cache-cancel" = "Annuler";
 "settings-clear-cache-ok" = "Vider le cache";
+"settings-donate" = "Faire un don";
 "settings-help-and-feedback" = "Aide et commentaires";
 "settings-language-bar" = "Afficher les langues dans la recherche";
 "settings-languages-feed-customization" = "Vous pouvez gérer les langues affichées dans votre flux d'exploration en personnalisant vos paramètres du flux d'exploration.";

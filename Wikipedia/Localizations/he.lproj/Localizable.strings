@@ -154,6 +154,7 @@
 "article-languages-label" = "בחירת שפה";
 "article-languages-others" = "שפות אחרות";
 "article-languages-yours" = "השפות שלך";
+"article-nav-edit" = "עריכה";
 "article-read-more-title" = "מידע נוסף";
 "article-reference-view-title" = "הערת שוליים $1";
 "article-revision-history" = "היסטוריית גרסאות של ערך";
@@ -288,10 +289,10 @@
 "donate-payment-method-prompt-message" = "לתרום באמצעות Apple Pay או לבחוק אמצעי תשלום אחר.";
 "donate-payment-method-prompt-other-button-title" = "אמצעי תשלום אחר";
 "donate-payment-method-prompt-title" = "לתרום באמצעות Apple Pay?";
-"donate-success-subtitle" = "הנדיבות שלך בתרומה לוויקיפדיה חשובה לנו כל־כך.";
+"donate-success-subtitle" = "הנדיבות שלך חשובה לנו כל־כך.";
 "donate-success-title" = "תודה!";
 "donate-title" = "בחירת סכום";
-"donate-transaction-fee-opt-in-text" = "אוסיף בנדיבות $1 לכיסוי עמלות העסקה כדי שתוכלו לשמור 100 אחוז מהתרומה שלי.";
+"donate-transaction-fee-opt-in-text" = "אוסיף בנדיבות $1 לכיסוי עמלות העסקה כדי שתוכלו לשמור 100%% מהתרומה שלי.";
 "edit-bold-accessibility-label" = "הוספת עיצוב בולט";
 "edit-bold-remove-accessibility-label" = "הסרת עיצוב בולט";
 "edit-clear-formatting-accessibility-label" = "הסרת עיצוב";
@@ -977,7 +978,7 @@
 "settings-clear-cache-are-you-sure-title" = "לנקות את הנתונים המוטמנים?";
 "settings-clear-cache-cancel" = "ביטול";
 "settings-clear-cache-ok" = "ניקוי מטמון";
-"settings-donate" = "תרומה לוויקיפדיה";
+"settings-donate" = "לתרום";
 "settings-help-and-feedback" = "עזרה ומשוב";
 "settings-language-bar" = "הצגת שפות בחיפוש";
 "settings-languages-feed-customization" = "אפשר לנהל אילו שפות מוצגות בהזנת לחקור באמצעות התאמה אישית של ההעדפות שלך עבור הזנת לחקור.";

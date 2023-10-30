@@ -290,10 +290,10 @@
 "donate-payment-method-prompt-message" = "Donera med Apple Pay eller välj en annan betalningsmetod.";
 "donate-payment-method-prompt-other-button-title" = "Annan betalningsmetod";
 "donate-payment-method-prompt-title" = "Donera med Apple Pay?";
-"donate-success-subtitle" = "Din generositet till Wikipedia betyder jättemycket för oss.";
+"donate-success-subtitle" = "Din generositet betyder jättemycket för oss.";
 "donate-success-title" = "Tack!";
 "donate-title" = "Välj ett belopp";
-"donate-transaction-fee-opt-in-text" = "Jag lägger generöst till $1 för att täcka transaktionsavgifterna så att ni kan behålla 100 procent av min donation.";
+"donate-transaction-fee-opt-in-text" = "Jag lägger generöst till $1 för att täcka transaktionsavgifterna så att ni kan behålla 100 %% av min donation.";
 "edit-bold-accessibility-label" = "Lägg till fetstilad formatering";
 "edit-bold-remove-accessibility-label" = "Ta bort fetstilad formatering";
 "edit-clear-formatting-accessibility-label" = "Ta bort formatering";
@@ -979,7 +979,7 @@
 "settings-clear-cache-are-you-sure-title" = "Rensa cachedata?";
 "settings-clear-cache-cancel" = "Avbryt";
 "settings-clear-cache-ok" = "Rensa cachen";
-"settings-donate" = "Donera till Wikipedia";
+"settings-donate" = "Donera";
 "settings-help-and-feedback" = "Hjälp och återkoppling";
 "settings-language-bar" = "Visa språk vid sökfältet";
 "settings-languages-feed-customization" = "Du kan hantera vilka språk som visas i ditt utforskarflöde genom att anpassa inställningarna för utforskarflödet.";

@@ -16,6 +16,7 @@
 // Author: Evesiesta
 // Author: FakeGreenHand
 // Author: GoForceX
+// Author: Googology
 // Author: GuoPC
 // Author: Hudafu
 // Author: ITsu
@@ -188,6 +189,7 @@
 "article-languages-label" = "选择语言";
 "article-languages-others" = "其他语言";
 "article-languages-yours" = "您的语言";
+"article-nav-edit" = "编辑";
 "article-read-more-title" = "更多内容";
 "article-reference-view-title" = "参考文献 $1";
 "article-save-error-not-enough-space" = "您的设备没有足够空间保存此条目";

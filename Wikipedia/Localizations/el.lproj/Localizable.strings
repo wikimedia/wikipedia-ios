@@ -8,6 +8,7 @@
 // Author: Glavkos
 // Author: KATRINE1992
 // Author: KATRINE1993
+// Author: McDutchie
 // Author: Nemo bis
 // Author: NikosLikomitros
 // Author: Nikosgranturismogt
@@ -79,12 +80,14 @@
 "action-save" = "Αποθήκευση";
 "action-saved" = "Αποθηκεύθηκε";
 "action-saved-accessibility" = "Αποθηκεύτηκε. Ενεργοποίηστε για ξεαποθήκευση.";
+// Fuzzy
 "action-saved-accessibility-notification" = "Το άρθρο αποθηκεύτηκε για αργότερα";
 "action-share" = "Κοινοποίηση";
 "action-share-accessibility" = "Διαμοιρασμός";
 "action-sort" = "Ταξινόμηση";
 "action-undo" = "Αναίρεση";
 "action-unsave" = "Ξεαποθήκευση";
+// Fuzzy
 "action-unsaved-accessibility-notification" = "Μη αποθηκευμένο άρθρο";
 "action-update" = "Ενημέρωση";
 "add-articles-to-reading-list" = "Πρόσθεση {{PLURAL:$1|$1 λήμμα|$1 λημμάτων}} στη λίστα ανάγνωσης";
@@ -284,6 +287,7 @@
 "menu-cancel-accessibility-label" = "Άκυρο";
 // Fuzzy
 "more-languages-tooltip-description" = "Αναζητήστε την Wikipedia σε σχεδόν 300 γλώσσες";
+// Fuzzy
 "more-languages-tooltip-title" = "Προσθέστε γλώσσες";
 "move-articles-to-reading-list" = "Μετακίνηση {{PLURAL:$1|$1 λήμμα|$1 λημμάτων}} στη λίστα ανάγνωσης";
 "navbar-title-mode-edit-wikitext-preview" = "Προεπισκόπηση";
@@ -408,6 +412,7 @@
 "saved-search-default-text" = "Αναζήτηση αποθηκευμένων άρθρων";
 "saved-title" = "Αποθηκεύθηκε";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ξεαποθήκευση {{PLURAL:$1|λήμμα|λημμάτων}};";
+// Fuzzy
 "search-button-accessibility-label" = "Αυτό δεν είναι έγκυρο url MediaWiki";
 "search-did-you-mean" = "Μήπως εννοούσατε $1;";
 "search-field-placeholder-text" = "Αναζήτηση στη Βικιπαίδεια";

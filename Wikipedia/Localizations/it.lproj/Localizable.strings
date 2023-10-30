@@ -167,6 +167,7 @@
 "article-languages-label" = "Scegli la lingua";
 "article-languages-others" = "Altre lingue";
 "article-languages-yours" = "Le tue lingue";
+"article-nav-edit" = "Modifica";
 "article-read-more-title" = "Per saperne di più";
 "article-reference-view-title" = "Riferimento $1";
 "article-save-error-not-enough-space" = "Memoria insufficiente per salvare questo articolo sul dispositivo";
@@ -263,7 +264,7 @@
 "donate-accessibility-keyboard-done-hint" = "Tocca due volte per annullare la visualizzazione da tastiera dell'importo immesso.";
 "donate-accessibility-monthly-recurring-hint" = "Tocca due volte per rendere le donazioni mensili automatiche con questo importo.";
 "donate-accessibility-textfield-hint" = "Inserisci un importo personalizzato da donare.";
-"donate-accessibility-transaction-fee-hint" = "Tocca due volte per aggiungere la commissione di transazione sull'importo della donazione.";
+"donate-accessibility-transaction-fee-hint" = "Tocca due volte per aggiungere la commissione di transazione all'importo della donazione.";
 "donate-already-donated" = "Grazie a te che hai donato! La tua generosità aiuta a far crescere Wikipedia e i suoi siti correlati.";
 "donate-apple-fine-print" = "Apple non è incaricata di raccogliere fondi per questo scopo.";
 "donate-email-opt-in-text" = "Sì, la Wikimedia Foundation può mandarmi delle email occasionali.";
@@ -282,7 +283,7 @@
 "donate-success-subtitle" = "La tua generosità significa molto per noi.";
 "donate-success-title" = "Grazie!";
 "donate-title" = "Seleziona un importo";
-"donate-transaction-fee-opt-in-text" = "Vorrei aggiungere $1 per coprire le spese dell’operazione in modo che possiate utilizzare il 100%% della mia donazione.";
+"donate-transaction-fee-opt-in-text" = "Vorrei generosamente aggiungere $1 per coprire le spese di transazione in modo che possiate utilizzare il 100%% della mia donazione.";
 "edit-bold-accessibility-label" = "Aggiungi la formattazione in grassetto";
 "edit-bold-remove-accessibility-label" = "Rimuovi la formattazione in grassetto";
 "edit-clear-formatting-accessibility-label" = "Rimuovi formattazione";
@@ -705,7 +706,7 @@
 "settings-clear-cache-are-you-sure-title" = "Vuoi cancellare i dati nella cache?";
 "settings-clear-cache-cancel" = "Annulla";
 "settings-clear-cache-ok" = "Pulisci cache";
-"settings-donate" = "Fai una donazione";
+"settings-donate" = "Dona";
 "settings-help-and-feedback" = "Aiuto e feedback";
 "settings-language-bar" = "Mostra lingue nella ricerca";
 "settings-my-languages" = "Le mie lingue";
