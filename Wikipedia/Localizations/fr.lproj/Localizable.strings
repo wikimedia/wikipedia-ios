@@ -275,7 +275,7 @@
 "diff-user-button-accessibility-text" = "Taper deux fois pour ouvrir le menu";
 "dim-images" = "Assombrir les images";
 "donate-later-title" = "Nous vous le rappellerons demain.";
-"donate-transaction-fee-opt-in-text" = "J'ajouterai généreusement $1 pour couvrir les frais de transaction afin de que vous puissiez conserver 100% de mon don.";
+"donate-transaction-fee-opt-in-text" = "J'ajouterai généreusement $1 pour couvrir les frais de transaction afin de que vous puissiez conserver 100%% de mon don.";
 "edit-bold-accessibility-label" = "Ajouter une mise en forme en gras";
 "edit-bold-remove-accessibility-label" = "Supprimer la mise en forme en gras";
 "edit-clear-formatting-accessibility-label" = "Supprimer la mise en forme";
