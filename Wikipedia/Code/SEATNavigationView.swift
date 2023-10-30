@@ -16,6 +16,7 @@ struct SEATNavigationView: View {
             SEATSelectionView(onboardingModalAction: onboardingModalAction)
         }
         .accentColor(Color(theme.text))
+        .navigationViewStyle(.stack)
     }
 }
 
