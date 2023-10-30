@@ -167,8 +167,10 @@
 "article-languages-yours" = "Bahasa Anda";
 "article-read-more-title" = "Baca lebih lanjut";
 "article-reference-view-title" = "Referensi $1";
+"article-revision-history" = "Riwayat revisi artikel";
 "article-save-error-not-enough-space" = "Anda tidak memiliki cukup ruang di perangkat Anda untuk menyimpan artikel ini";
 "article-share" = "Bagikan";
+"article-talk-page" = "Halaman pembicaraan artikel";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Tema Bacaan";
 "back-button-accessibility-label" = "Kembali";
 "back-button-popover-title" = "Ketuk untuk kembali";
@@ -188,8 +190,11 @@
 "chinese-variants-alert-body" = "Aplikasi Wikipedia sekarang mendukung varian bahasa Mandarin berikut sebagai bahasa utama atau sekunder di dalam aplikasi, membuatnya lebih mudah untuk membaca, mencari, dan menyunting dalam varian pilihan Anda: \n\n简体 Cina, Sederhana (zh-hans)\n香港繁體 Hong Kong Tradisional (zh-hk)\n澳門繁體 Macau Tradisional (zh-mo)\n大马简体 Malaysia Sederhana (zh-my)\n新加坡简体 Singapore Sederhana (zh-sg)\n臺灣正體 Taiwan Tradisional (zh-tw)";
 "chinese-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tionghoa";
 "clear-title-accessibility-label" = "Hapus";
+"clearing-cache-complete" = "Pembersihan tembolok selesai.";
+"clearing-cache-in-progress" = "Pembersihan tembolok sedang berlangsung.";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "pada pukul $1 tepat";
+"continue-button-title" = "Lanjutkan";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak artikel yang ingin dibaca";
 "continue-reading-empty-title" = "Tidak ada artikel yang dibaca baru-baru ini";
 "crimean-tatar-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Tatar Krimea berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nQırımtatarca, Latin Tatar Krimea Latin (chr-latn)\nкъырымтатарджа, Кирил Tatar Krimea Sirilik (crh-cyrl)";
@@ -231,11 +236,10 @@
 "description-welcome-descriptions-title" = "Deskripsi artikel";
 "description-welcome-promise-title" = "Dengan memulai, saya berjanji untuk tidak menyalahgunakan fitur ini";
 "description-welcome-start-editing-button" = "Mulai menyunting";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Dari";
+"diff-article-revision-history" = "Riwayat revisi artikel";
+"diff-compare-header-from-info-heading" = "Suntingan Sebelumnya";
 "diff-compare-header-heading" = "Bandingkan Revisi";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Untuk";
+"diff-compare-header-to-info-heading" = "Suntingan yang Ditampilkan";
 "diff-compare-title" = "Bandingkan Revisi";
 "diff-context-lines-collapsed-button-title" = "Tampilkan";
 "diff-context-lines-expanded-button-title" = "Sembunyikan";
@@ -271,6 +275,14 @@
 "diff-undo-success" = "Revisi telah dibatalkan.";
 "diff-unedited-lines-format" = "$1 baris tidak disunting";
 "dim-images" = "Redupkan gambar";
+"donate-help-frequently-asked-questions" = "Pertanyaan yang sering diajukan";
+"donate-help-tax-deductibility-information" = "Informasi pemotongan pajak";
+"donate-payment-method-prompt-apple-pay-button-title" = "Berdonasi menggunakan Apple Pay";
+"donate-payment-method-prompt-message" = "Berdonasi menggunakan Apple Pay atau pilih metode pembayaran lainnya.";
+"donate-payment-method-prompt-other-button-title" = "Metode pembayaran lain";
+"donate-payment-method-prompt-title" = "Berdonasi menggunakan Apple Pay?";
+"donate-success-title" = "Terima kasih!";
+"donate-title" = "Pilih jumlah";
 "edit-bold-accessibility-label" = "Tambahkan pemformatan tebal";
 "edit-bold-remove-accessibility-label" = "Hapus pemformatan tebal";
 "edit-clear-formatting-accessibility-label" = "Hapus pemformatan";
@@ -481,6 +493,7 @@
 "field-token-title" = "Kode verifikasi";
 "field-username-placeholder" = "masukkan nama pengguna";
 "field-username-title" = "Nama pengguna";
+"filter-options-all" = "Semua";
 "find-clear-button-accessibility" = "Hapus pencarian";
 "find-infolabel-number-matches" = "$1 / $2";
 "find-next-button-accessibility" = "Hasil pencarian selanjutnya";
@@ -610,6 +623,7 @@
 "notifications-center-checking-for-notifications" = "Memeriksa notifikasi...";
 "notifications-center-destination-app" = "Di aplikasi";
 "notifications-center-destination-web" = "Di web";
+"notifications-center-detail-title" = "Rincian Pemberitahuan";
 "notifications-center-empty-checking-for-notifications" = "Memeriksa notifikasi...";
 "notifications-center-empty-no-messages" = "Anda tidak memiliki pesan";
 "notifications-center-empty-not-subscribed" = "Anda belum berlangganan notifikasi Wikipedia apapun";
@@ -920,6 +934,8 @@
 "replace-replace-all-results-count" = "$1 butir diganti";
 "replace-textfield-accessibility" = "Ganti";
 "replace-textfield-placeholder" = "Ganti dengan...";
+"return-button-title" = "Kembali";
+"return-to-article" = "Kembali ke artikel";
 "reverted-edit-title" = "Suntingan dikembalikan";
 "saved-all-articles-title" = "Semua artikel";
 "saved-default-reading-list-tag" = "Daftar ini tidak dapat dihapus";
@@ -952,6 +968,8 @@
 "settings-clear-cache-are-you-sure-title" = "Hapus data dalam cache?";
 "settings-clear-cache-cancel" = "Batal";
 "settings-clear-cache-ok" = "Hapus cache";
+// Fuzzy
+"settings-donate" = "Berdonasi ke Wikipedia";
 "settings-help-and-feedback" = "Bantuan dan masukan";
 "settings-language-bar" = "Tampilkan bahasa di pencarian";
 "settings-languages-feed-customization" = "Anda dapat mengelola bahasa mana yang ditampilkan di umpan Jelajahi Anda dengan menyesuaikan pengaturan umpan Jelajahi Anda.";
@@ -1103,6 +1121,7 @@
 "unable-to-load-talk-page-title" = "Tidak bisa memuat halaman pembicaraan";
 "unknown-generic-text" = "Tidak diketahui";
 "unwatch" = "Batal pantau";
+"user-title" = "Pengguna";
 "uzbek-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Uzbek berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Sirilik (uz-cyrl)";
 "uzbek-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Uzbek";
 "vanish-account-additional-information-field" = "Informasi tambahan";
@@ -1131,6 +1150,39 @@
 "variants-alert-preferences-button" = "Tinjau preferensi Anda";
 "watch" = "Pantau";
 "watchlist" = "Daftar pantauan";
+"watchlist-added-toast-one-month" = "Ditambahkan ke Daftar Pantauan Anda selama 1 bulan.";
+"watchlist-added-toast-one-week" = "Ditambahkan ke Daftar Pantauan Anda selama 1 pekan.";
+"watchlist-added-toast-one-year" = "Ditambahkan ke Daftar Pantauan Anda selama 1 tahun.";
+"watchlist-added-toast-permanently" = "Ditambahkan ke Daftar Pantauan Anda selamanya.";
+"watchlist-added-toast-six-months" = "Ditambahkan ke Daftar Pantauan Anda selama 6 bulan.";
+"watchlist-added-toast-three-months" = "Ditambahkan ke Daftar Pantauan Anda selama 3 bulan.";
+"watchlist-added-toast-view-watchlist" = "Lihat Daftar Pantauan";
+"watchlist-byte-change" = "{{PLURAL:$1|$1 bita}}";
+"watchlist-change-expiry-option-one-month" = "1 bulan";
+"watchlist-change-expiry-option-one-week" = "1 pekan";
+"watchlist-change-expiry-option-one-year" = "1 tahun";
+"watchlist-change-expiry-option-permanent" = "Selamanya";
+"watchlist-change-expiry-option-six-months" = "6 bulan";
+"watchlist-change-expiry-option-three-months" = "3 bulan";
+"watchlist-change-expiry-subtitle" = "Pilih jangka waktu Daftar Pantauan";
+"watchlist-change-expiry-title" = "Kedaluwarsa daftar pantauan";
+"watchlist-edit-summary-accessibility" = "Ringkasan suntingan";
+"watchlist-expiration-title" = "Tetapkan kedaluwarsa";
+"watchlist-filter" = "Penyaring";
+"watchlist-filter-activity-header" = "Aktivitas Daftar Pantauan";
+"watchlist-filter-activity-options-seen-changes" = "Perubahan yang telah dilihat";
+"watchlist-filter-automated-contributions-header" = "Kontribusi Otomatis";
+"watchlist-filter-automated-contributions-options-bot" = "Bot";
+"watchlist-filter-significance-options-minor-edits" = "Suntingan kecil";
+"watchlist-filter-type-of-change-header" = "Jenis perubahan";
+"watchlist-filter-type-of-change-options-category-changes" = "Perubahan kategori";
+"watchlist-filter-type-of-change-options-logged-actions" = "Tindakan tercatat";
+"watchlist-filter-type-of-change-options-page-creations" = "Pembuatan halaman";
+"watchlist-filter-type-of-change-options-page-edits" = "Suntingan halaman";
+"watchlist-filter-type-of-change-options-wikidata-edits" = "Suntingan Wikidata";
+"watchlist-removed" = "Dihapus dari Daftar Pantauan Anda";
+"watchlist-user-button-user-page" = "Halaman pengguna";
+"watchlist-user-button-user-talk-page" = "Halaman pembicaraan pengguna";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disarankan dan artikel harian dari komunitas kami";
 "welcome-exploration-explore-feed-title" = "Umpan Jelajahi";
 "welcome-exploration-on-this-day-description" = "Berpergian kembali ke masa lalu untuk mempelajari apa yang terjadi hari ini dalam sejarah";

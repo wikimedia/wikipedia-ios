@@ -15,6 +15,7 @@
 // Author: Notramo
 // Author: R-Joe
 // Author: Tacsipacsi
+// Author: Tsevener
 // Author: Urbalazs
 
 "aaald-added-text-description-2" = "$1 hozzáadva";
@@ -237,9 +238,11 @@
 "donate-payment-method-prompt-message" = "Adományozz Apple Pay-jel, vagy válassz más fizetési módot!";
 "donate-payment-method-prompt-other-button-title" = "Más fizetési mód";
 "donate-payment-method-prompt-title" = "Apple Pay-jel adományoznál?";
+// Fuzzy
 "donate-success-subtitle" = "Wikipédia iránti nagylelkűséged számunkra rengeteget jelent.";
 "donate-success-title" = "Köszönjük!";
 "donate-title" = "Válassz összeget!";
+// Fuzzy
 "donate-transaction-fee-opt-in-text" = "Nagylelkűen hozzáadok $1 összegű tranzakciós díjat, hogy adományom 100%%-át megtarthassátok.";
 "edit-bold-accessibility-label" = "Félkövér formázás hozzáadása";
 "edit-bold-remove-accessibility-label" = "Félkövér formázás eltávolítása";

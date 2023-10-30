@@ -132,6 +132,7 @@
 "article-languages-label" = "Elige un lingua";
 "article-languages-others" = "Altere linguas";
 "article-languages-yours" = "Tu linguas";
+"article-nav-edit" = "Modificar";
 "article-read-more-title" = "Leger plus";
 "article-reference-view-title" = "Referentia $1";
 "article-revision-history" = "Historia de versiones del articulo";
@@ -266,10 +267,10 @@
 "donate-payment-method-prompt-message" = "Dona con Apple Pay o elige un altere methodo de pagamento.";
 "donate-payment-method-prompt-other-button-title" = "Altere methodo de pagamento";
 "donate-payment-method-prompt-title" = "Donar con Apple Pay?";
-"donate-success-subtitle" = "Tu generositate con Wikipedia significa multo pro nos.";
+"donate-success-subtitle" = "Tu generositate significa multo pro nos.";
 "donate-success-title" = "Gratias!";
 "donate-title" = "Selige un amonta";
-"donate-transaction-fee-opt-in-text" = "Io vole generosemente adder $1 pro coperir le costo del transaction de maniera que vos pote retener 100 per cento de mi donation.";
+"donate-transaction-fee-opt-in-text" = "Io vole generosemente adder $1 pro coperir le costo del transaction de maniera que vos pote retener 100%% de mi donation.";
 "edit-bold-accessibility-label" = "Adder formatation grasse";
 "edit-bold-remove-accessibility-label" = "Remover formatation grasse";
 "edit-clear-formatting-accessibility-label" = "Remover formatation";
@@ -955,7 +956,7 @@
 "settings-clear-cache-are-you-sure-title" = "Rader datos in cache?";
 "settings-clear-cache-cancel" = "Cancellar";
 "settings-clear-cache-ok" = "Rader cache";
-"settings-donate" = "Donar a Wikipedia";
+"settings-donate" = "Donar";
 "settings-help-and-feedback" = "Adjuta e commentario";
 "settings-language-bar" = "Monstrar linguas in recerca";
 "settings-languages-feed-customization" = "Tu pote eliger le linguas que appare in tu canal Explorar personalisante tu parametros de canal Explorar.";

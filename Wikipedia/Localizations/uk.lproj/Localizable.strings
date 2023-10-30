@@ -288,9 +288,11 @@
 "donate-payment-method-prompt-message" = "Зробіть пожертву за допомогою Apple Pay або виберіть інший спосіб оплати.";
 "donate-payment-method-prompt-other-button-title" = "Інший спосіб оплати";
 "donate-payment-method-prompt-title" = "Пожертвувати за допомогою Apple Pay?";
+// Fuzzy
 "donate-success-subtitle" = "Ваша щедрість для Вікіпедії дуже багато значить для нас.";
 "donate-success-title" = "Дякуємо!";
 "donate-title" = "Виберіть суму";
+// Fuzzy
 "donate-transaction-fee-opt-in-text" = "Я щедро додам $1 для покриття комісії за транзакцію, щоб ви могли отримати 100 відсотків моєї пожертви.";
 "edit-bold-accessibility-label" = "Додати напівжирну гарнітуру";
 "edit-bold-remove-accessibility-label" = "Прибрати напівжирну гарнітуру";
@@ -977,6 +979,7 @@
 "settings-clear-cache-are-you-sure-title" = "Очистити кеш?";
 "settings-clear-cache-cancel" = "Скасувати";
 "settings-clear-cache-ok" = "Очистити кеш";
+// Fuzzy
 "settings-donate" = "Пожертвувати Вікіпедії";
 "settings-help-and-feedback" = "Допомога та зворотний зв'язок";
 "settings-language-bar" = "Показувати мови при пошуку";

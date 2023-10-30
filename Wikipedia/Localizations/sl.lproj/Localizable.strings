@@ -134,6 +134,7 @@
 "article-languages-label" = "Izberite jezik";
 "article-languages-others" = "Drugi jeziki";
 "article-languages-yours" = "Vaši jeziki";
+"article-nav-edit" = "Uredi";
 "article-read-more-title" = "Preberi še kaj";
 "article-reference-view-title" = "Sklic $1";
 "article-revision-history" = "Zgodovina redakcij članka";
@@ -268,10 +269,10 @@
 "donate-payment-method-prompt-message" = "Donirajte z Apple Pay ali izberite drug način plačila.";
 "donate-payment-method-prompt-other-button-title" = "Drug način plačila";
 "donate-payment-method-prompt-title" = "Želite donirati z Apple Pay?";
-"donate-success-subtitle" = "Vaša velikodušnost do Wikipedije nam veliko pomeni.";
+"donate-success-subtitle" = "Vaša velikodušnost nam veliko pomeni.";
 "donate-success-title" = "Hvala!";
 "donate-title" = "Izberite znesek";
-"donate-transaction-fee-opt-in-text" = "Velikodušno želim dodati $1 za kritje stroškov transakcije, da boste lahko obdržali 100 odstotkov moje donacije.";
+"donate-transaction-fee-opt-in-text" = "Velikodušno želim dodati $1 za kritje stroškov transakcije, da boste lahko obdržali 100%% moje donacije.";
 "edit-bold-accessibility-label" = "Dodaj krepko oblikovanje";
 "edit-bold-remove-accessibility-label" = "Odstrani krepko oblikovanje";
 "edit-clear-formatting-accessibility-label" = "Odstrani oblikovanje";
@@ -957,7 +958,7 @@
 "settings-clear-cache-are-you-sure-title" = "Počistim predpomnjene podatke?";
 "settings-clear-cache-cancel" = "Prekliči";
 "settings-clear-cache-ok" = "Počisti predpomnenje";
-"settings-donate" = "Donirajte Wikipediji";
+"settings-donate" = "Donirajte";
 "settings-help-and-feedback" = "Pomoč in odziv";
 "settings-language-bar" = "Pri iskanju prikaži jezike";
 "settings-languages-feed-customization" = "Kateri jeziki so prikazani v viru Raziskuj, lahko upravljate tako, da prilagodite nastavitve vira Raziskuj.";

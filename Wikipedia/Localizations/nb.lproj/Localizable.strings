@@ -285,9 +285,11 @@
 "donate-payment-method-prompt-message" = "Doner med Apple Pay eller velg en annen betalingsmetode.";
 "donate-payment-method-prompt-other-button-title" = "Annen betalingsmåte";
 "donate-payment-method-prompt-title" = "Doner med Apple Pay?";
+// Fuzzy
 "donate-success-subtitle" = "Din sjenerøsitet til Wikipedia betyr mye for oss.";
 "donate-success-title" = "Takk!";
 "donate-title" = "Velg et beløp";
+// Fuzzy
 "donate-transaction-fee-opt-in-text" = "Jeg vil sjenerøst legge til $1 for å dekke transaksjonsgebyrene slik at dere kan beholde 100 prosent av donasjonen min.";
 "edit-bold-accessibility-label" = "Bruk fet tekstformatering";
 "edit-bold-remove-accessibility-label" = "Fjern fet tekstformatering";
@@ -974,6 +976,7 @@
 "settings-clear-cache-are-you-sure-title" = "Tøm mellomlager?";
 "settings-clear-cache-cancel" = "Avbryt";
 "settings-clear-cache-ok" = "Tøm mellomlager";
+// Fuzzy
 "settings-donate" = "Doner til Wikipedia";
 "settings-help-and-feedback" = "Hjelp og tilbakemelding";
 "settings-language-bar" = "Vis språk ved søkefeltet";

@@ -124,6 +124,7 @@
 "diff-rollback-success" = "সম্পাদনা পুনর্বহাল করা হয়েছে।";
 "diff-undo-success" = "সংশোধনটি পূর্বাবস্থায় ফেরানো হয়েছে।";
 "dim-images" = "অনুজ্জ্বল ছবি";
+"donate-later-title" = "আমরা আপনাকে আবার আগামীকাল মনে করিয়ে দেব।";
 "edit-link-title" = "সংযোগ সম্পাদনা";
 "edit-published" = "সম্পাদনা প্রকাশিত হয়েছে";
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
@@ -372,6 +373,7 @@
 "search-title" = "অনুসন্ধান";
 "settings-appearance" = "পড়ার পছন্দ";
 "settings-clear-cache-cancel" = "বাতিল";
+"settings-donate" = "দান করুন";
 "settings-help-and-feedback" = "সাহায্য ও প্রতিক্রিয়া";
 "settings-language-bar" = "অনুসন্ধানের সময় ভাষাগুলিকে দেখাও";
 "settings-my-languages" = "আমার ভাষাসমূহ";
