@@ -200,15 +200,20 @@ class AccountViewController: SubSettingsViewController {
                 switch wKLanguage.languageCode {
                 case "en":
                     SEATSampleData.shared.surveyURL = .en
+                    SEATSampleData.shared.privacyURL = .en
                 case "es":
                     SEATSampleData.shared.surveyURL = .es
+                    SEATSampleData.shared.privacyURL = .es
                 case "pt":
                     SEATSampleData.shared.surveyURL = .pt
+                    SEATSampleData.shared.privacyURL = .pt
                 default:
                     SEATSampleData.shared.surveyURL = .en
+                    SEATSampleData.shared.privacyURL = .en
                 }
             default:
                 SEATSampleData.shared.surveyURL = .en
+                SEATSampleData.shared.privacyURL = .en
             }
 
             dataController.generateSampleData(project: wkProject) { [weak self] in

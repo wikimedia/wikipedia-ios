@@ -25,9 +25,16 @@ final class SEATSampleData {
         case pt = "https://docs.google.com/forms/d/e/1FAIpQLSdydhZYnRpDFnoqg437bP9OfvTuk9nx8T0VZ7BHnuYiac9yPQ/viewform?usp=sf_link"
     }
 
+    enum PrivacyURL: String {
+        case en = "https://foundation.wikimedia.org/wiki/Legal:Feedback_Survey_for_the_%22Add_alt_text%22_feature_in_%22Suggested_Edits%22_Privacy_Statement"
+        case es = "https://foundation.wikimedia.org/wiki/Legal:Feedback_Survey_for_the_%22Add_alt_text%22_feature_in_%22Suggested_Edits%22_Privacy_Statement/es"
+        case pt = "https://foundation.wikimedia.org/wiki/Legal:Feedback_Survey_for_the_%22Add_alt_text%22_feature_in_%22Suggested_Edits%22_Privacy_Statement/pt-br"
+    }
+
     static var shared: SEATSampleData = SEATSampleData()
 
     var surveyURL: SurveyURL!
+    var privacyURL: PrivacyURL!
 
     // Populate with sample data
     var availableTasks: [SEATItemViewModel] = []

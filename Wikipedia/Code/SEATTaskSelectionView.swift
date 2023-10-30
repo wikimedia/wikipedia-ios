@@ -194,6 +194,11 @@ struct SEATSelectionView: View {
                     .keyboardShortcut(.defaultAction)
                 Button(LocalizedStrings.readPrivacyPolicy) {
                     SEATFunnel.shared.logSEATTaskSelectionFeedbackAlertDidTapPrivacyPolicy()
+                    guard let url = URL(string: SEATSampleData.shared.privacyURL.rawValue) else {
+                        return
+                    }
+
+                    openURL(url)
                 }
                 Button(LocalizedStrings.cancel, role: .cancel) {
                     SEATFunnel.shared.logSEATTaskSelectionFeedbackAlertDidTapCancel()
