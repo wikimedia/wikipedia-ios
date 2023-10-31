@@ -263,15 +263,17 @@ struct SEATSelectionView: View {
         GeometryReader { proxy in
             ZStack {
                 Color(theme.baseBackground)
-                AsyncImage(url: taskItem.imageThumbnailURLs["2"], content: { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .fixedSize(horizontal: true, vertical: false)
-                        .frame(width: proxy.size.width, height: proxy.size.height)
-                }, placeholder: {
-                    ProgressView()
-                })
+                AsyncImage(url: taskItem.imageThumbnailURLs["2"]) { phase in
+                    if let image = phase.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .fixedSize(horizontal: true, vertical: false)
+                            .frame(width: proxy.size.width, height: proxy.size.height)
+                    } else {
+                        ProgressView()
+                    }
+                }
             }
             .overlay(alignment: .bottom, content: {
                 imageCommonsLink
