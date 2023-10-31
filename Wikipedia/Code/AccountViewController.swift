@@ -95,7 +95,7 @@ class AccountViewController: SubSettingsViewController {
             return
         }
         
-        SEATFunnel.shared.logSEATOnboardingLearnMoreImpression()
+        SEATFunnel.shared.logSEATLearnMoreWebViewImpression()
         navigationController?.navigate(to: url, useSafari: true)
     }
     

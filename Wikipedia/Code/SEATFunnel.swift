@@ -8,6 +8,7 @@ final class SEATFunnel: NSObject {
     private enum ActiveInterface: String {
         case suggestedEditsDialog = "suggested_edits_dialog"
         case seAddImageTextOnboarding = "se_add_image_text_onboarding"
+        case seLearnMore = "se_learn_more"
         case seAddImageText = "se_add_image_text"
         case seAddImageFeedback = "se_add_image_feedback"
     }
@@ -93,8 +94,8 @@ final class SEATFunnel: NSObject {
         logEvent(activeInterface: .seAddImageTextOnboarding, action: .learnClick)
     }
     
-    func logSEATOnboardingLearnMoreImpression() {
-        logEvent(activeInterface: .seAddImageTextOnboarding, action: .learnImpression)
+    func logSEATLearnMoreWebViewImpression() {
+        logEvent(activeInterface: .seLearnMore, action: .learnImpression)
     }
     
     func logSEATTaskSelectionDidTapReadArticle(articleTitle: String, commonsFileName: String) {
