@@ -74,7 +74,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         
         if let imageWikitextFileNameSEAT {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.messagingController.scrollToSEATImage(imageWikitextFileNameSEAT: imageWikitextFileNameSEAT, completion: { error in
+                self.scrollToSEATImage(imageWikitextFileNameSEAT: imageWikitextFileNameSEAT, completion: { error in
                     
                 })
             }
@@ -122,5 +122,101 @@ extension ArticleViewController: ArticleWebMessageHandling {
     
     func handleAaaLDInsertOnScreenEvent() {
         surveyTimerController?.userDidScrollPastLivingDocArticleContentInsert(withState: state)
+    }
+    
+    func scrollToSEATImage(imageWikitextFileNameSEAT: String, completion: @escaping (Error?) -> Void) {
+        
+        guard var fileName = imageWikitextFileNameSEAT.denormalizedPageTitle else {
+            return
+        }
+        
+        fileName = fileName.replacingOccurrences(of: "'", with: "\\'")
+        
+        let simpleJavascript = """
+            var imageLinkElement = document.querySelectorAll('[href="./\(fileName)"]');
+            imageLinkElement[0].scrollIntoView({behavior: "smooth"});
+        """
+        
+        var complicatedJavascript: String?
+        
+        var namespace: String?
+        if let index = fileName.firstIndex(of: ":") {
+            namespace = String(fileName.prefix(upTo: index))
+        }
+        
+        if let namespace {
+            let enOptions = [fileName.replacingOccurrences(of: namespace, with: "File"), fileName.replacingOccurrences(of: namespace, with: "Image")]
+            let esOptions = enOptions + [
+                                        fileName.replacingOccurrences(of: namespace, with: "Archivo"),
+                                        fileName.replacingOccurrences(of: namespace, with: "Imagen")
+                                        ]
+            let ptOptions = enOptions + [
+                                        fileName.replacingOccurrences(of: namespace, with: "Ficheiro"),
+                                        fileName.replacingOccurrences(of: namespace, with: "Arquivo"),
+                                        fileName.replacingOccurrences(of: namespace, with: "Imagem")
+                                        ]
+            
+            let needsSecondAttempt = UIDevice.current.userInterfaceIdiom == .pad
+            
+            let secondAttemptJavascript = """
+                                            setTimeout(function(){
+                                                imageLinkElement[0].scrollIntoView({behavior: "smooth"});
+                                            }, 2000);
+            """
+            
+            if let languageCode = articleURL.wmf_languageCode {
+                switch languageCode {
+                case "en":
+                    complicatedJavascript = """
+                        var imageLinkElement = document.querySelectorAll('[href="./\(enOptions[0])"]');
+                        if (imageLinkElement === undefined || imageLinkElement[0] === undefined) { imageLinkElement = document.querySelectorAll('[href="./\(enOptions[1])"]'); }
+                        imageLinkElement[0].scrollIntoView({behavior: "smooth"});
+                    """
+                    if needsSecondAttempt {
+                        complicatedJavascript?.append(secondAttemptJavascript)
+                    }
+                case "es":
+                    
+                    complicatedJavascript = """
+                        var imageLinkElement = document.querySelectorAll('[href="./\(esOptions[2])"]');
+                        if (imageLinkElement === undefined || imageLinkElement[0] === undefined) { imageLinkElement = document.querySelectorAll('[href="./\(esOptions[3])"]'); }
+                        if (imageLinkElement === undefined || imageLinkElement[0] === undefined) { imageLinkElement = document.querySelectorAll('[href="./\(esOptions[0])"]'); }
+                        if (imageLinkElement === undefined || imageLinkElement[0] === undefined) { imageLinkElement = document.querySelectorAll('[href="./\(esOptions[1])"]'); }
+                        imageLinkElement[0].scrollIntoView({behavior: "smooth"});
+                    """
+                    if needsSecondAttempt {
+                        complicatedJavascript?.append(secondAttemptJavascript)
+                    }
+                    
+                case "pt":
+                    complicatedJavascript = """
+                        var imageLinkElement = document.querySelectorAll('[href="./\(ptOptions[2])"]');
+                        if (imageLinkElement === undefined || imageLinkElement[0] === undefined) { imageLinkElement = document.querySelectorAll('[href="./\(ptOptions[3])"]'); }
+                        if (imageLinkElement === undefined || imageLinkElement[0] === undefined) { imageLinkElement = document.querySelectorAll('[href="./\(ptOptions[4])"]'); }
+                        if (imageLinkElement === undefined || imageLinkElement[0] === undefined) { imageLinkElement = document.querySelectorAll('[href="./\(ptOptions[0])"]'); }
+                        if (imageLinkElement === undefined || imageLinkElement[0] === undefined) { imageLinkElement = document.querySelectorAll('[href="./\(ptOptions[1])"]'); }
+                        imageLinkElement[0].scrollIntoView({behavior: "smooth"});
+                    """
+                    if needsSecondAttempt {
+                        complicatedJavascript?.append(secondAttemptJavascript)
+                    }
+                default:
+                    break
+                }
+            }
+        }
+        
+        let finalJavascript = complicatedJavascript ?? simpleJavascript
+
+        webView.evaluateJavaScript(finalJavascript) { (result, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    completion(error)
+                    return
+                }
+
+                completion(nil)
+            }
+        }
     }
 }

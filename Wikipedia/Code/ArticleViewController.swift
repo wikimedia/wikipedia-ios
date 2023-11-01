@@ -981,7 +981,6 @@ private extension ArticleViewController {
     
     func setupMessagingController() {
         messagingController.delegate = self
-        messagingController.articleURL = articleURL
     }
     
     func setupWebView() {
