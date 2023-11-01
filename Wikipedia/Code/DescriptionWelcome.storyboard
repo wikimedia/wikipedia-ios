@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ncK-V0-zLz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ncK-V0-zLz">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -170,20 +169,20 @@
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="I2j-7h-qMp"/>
-                                                <exclude reference="7mt-P7-iMH"/>
                                                 <exclude reference="WGA-9s-a1w"/>
+                                                <exclude reference="7mt-P7-iMH"/>
                                                 <exclude reference="p7m-8A-gq4"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=compact">
                                             <mask key="constraints">
-                                                <exclude reference="CFH-9F-mJz"/>
                                                 <include reference="I2j-7h-qMp"/>
+                                                <exclude reference="CFH-9F-mJz"/>
+                                                <exclude reference="hQx-4Q-DWn"/>
+                                                <include reference="WGA-9s-a1w"/>
                                                 <include reference="7mt-P7-iMH"/>
                                                 <exclude reference="8fu-aH-vEA"/>
                                                 <exclude reference="KkT-97-qhv"/>
-                                                <include reference="WGA-9s-a1w"/>
-                                                <exclude reference="hQx-4Q-DWn"/>
                                                 <include reference="p7m-8A-gq4"/>
                                             </mask>
                                         </variation>
@@ -201,8 +200,8 @@
                                         </variation>
                                         <variation key="heightClass=compact">
                                             <mask key="constraints">
-                                                <exclude reference="2mK-dI-Fex"/>
                                                 <include reference="IfH-Fg-hsf"/>
+                                                <exclude reference="2mK-dI-Fex"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -225,8 +224,8 @@
                                 </variation>
                                 <variation key="heightClass=compact" axis="horizontal" spacing="20">
                                     <mask key="constraints">
-                                        <include reference="3jp-Lx-yMh"/>
                                         <exclude reference="pC4-f0-DG0"/>
+                                        <include reference="3jp-Lx-yMh"/>
                                         <include reference="Qxp-z3-7xb"/>
                                     </mask>
                                 </variation>
@@ -314,7 +313,7 @@
                                                     <constraint firstItem="CdP-mw-3KH" firstAttribute="top" secondItem="9Qh-do-wff" secondAttribute="top" id="guM-oK-7bP"/>
                                                 </constraints>
                                             </scrollView>
-                                            <view opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCk-3C-Qgq" customClass="WelcomePanelScrollViewGradient" customModule="Wikipedia" customModuleProvider="target">
+                                            <view opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCk-3C-Qgq" customClass="ScrollViewGradientView" customModule="Wikipedia" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="212"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
@@ -334,7 +333,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="feb-fU-2ul">
                                         <rect key="frame" x="0.0" y="212" width="300" height="98"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fi0-7O-Fk0" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fi0-7O-Fk0" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
                                                 <rect key="frame" x="14" y="48" width="272" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
