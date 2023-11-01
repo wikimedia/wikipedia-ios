@@ -91,7 +91,11 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet private(set) weak var scrollView: UIScrollView!
     @IBOutlet fileprivate weak var scrollViewContainer: UIView!
     @IBOutlet fileprivate weak var roundedCornerContainer: UIView!
-
+    
+    @IBOutlet weak var gradientViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var gradientViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var gradientView: ScrollViewGradientView!
+    
     fileprivate var primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
@@ -575,6 +579,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         separatorView.backgroundColor = theme.colors.border.withAlphaComponent(0.2)
 
         if isUrgent {
+            gradientViewTopConstraint.constant = 3
+            gradientViewBottomConstraint.constant = -3
             roundedCornerContainer.layer.borderWidth = 3
             roundedCornerContainer.layer.borderColor = theme.colors.error.cgColor
         } else {

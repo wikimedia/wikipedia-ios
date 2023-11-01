@@ -7,7 +7,7 @@ class ScrollViewGradientView : UIView, Themeable {
         layer.backgroundColor = theme.colors.midBackground.cgColor
     }
     
-    private let fadeHeight = 6.0
+    var fadeHeight = 6.0
     private var normalizedFadeHeight: Double {
         return bounds.size.height > 0 ? fadeHeight /  Double(bounds.size.height) : 0
     }
