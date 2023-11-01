@@ -336,8 +336,8 @@ struct SEATSelectionView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
                 if presentationStyle == .preview {
-                    Image(systemName: "accessibility")
-                    Image(systemName: "speaker.wave.2.circle")
+                    Image("se-accessibility")
+                        .foregroundStyle(Color.white)
                 } else {
                     Image("wikimedia-project-commons", bundle: .main)
                 }                
