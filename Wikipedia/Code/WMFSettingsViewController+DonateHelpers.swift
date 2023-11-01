@@ -66,17 +66,3 @@ extension WMFSettingsViewController: WKDonateLoggingDelegate {
         sharedLogDonateFormUserDidTapTaxInfoLink()
     }
 }
-
-extension WMFSettingsViewController {
-    @objc static func validTargetIDCampaignIsRunning() -> Bool {
-        
-        guard let countryCode = NSLocale.current.regionCode else {
-            return false
-        }
-        
-        let fundraisingCampaignDataController = WKFundraisingCampaignDataController()
-        let currentDate = Date.now
-
-        return fundraisingCampaignDataController.hasActivelyRunningCampaigns(countryCode: countryCode, currentDate: currentDate)
-    }
-}
