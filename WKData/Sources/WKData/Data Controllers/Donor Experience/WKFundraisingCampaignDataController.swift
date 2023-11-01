@@ -12,9 +12,6 @@ import Foundation
     private let cacheConfigFileName = "AppsCampaignConfig"
     private let cachePromptStateFileName = "WKFundraisingCampaignPromptState"
     
-    private static let temporaryNLTargetCampaignID = "NL_2023_11"
-    private static let temporaryITTargetCampaignID = "IT_2023_11"
-    
     // MARK: - Lifecycle
     
     public override init() {
