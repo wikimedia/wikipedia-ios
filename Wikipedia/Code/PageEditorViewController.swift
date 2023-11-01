@@ -101,8 +101,10 @@ final class PageEditorViewController: UIViewController {
     }
     
     private func addChildEditor(wikitext: String) {
-        
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext)
+
+        let localizedStrings = WKSourceEditorLocalizedStrings(inputViewTextFormatting: "", inputViewStyle: "", inputViewClearFormatting: "", inputViewParagraph: "", inputViewHeading: "", inputViewSubheading1: "", inputViewSubheading2: "", inputViewSubheading3: "", inputViewSubheading4: "", findReplaceTypeSingle: "", findReplaceTypeAll: "", findReplaceWith: "", accessibilityLabelButtonFormatText: "", accessibilityLabelButtonFormatHeading: "", accessibilityLabelButtonCitation: "", accessibilityLabelButtonCitationSelected: "", accessibilityLabelButtonLink: "", accessibilityLabelButtonLinkSelected: "", accessibilityLabelButtonTemplate: "", accessibilityLabelButtonTemplateSelected: "", accessibilityLabelButtonMedia: "", accessibilityLabelButtonFind: "", accessibilityLabelButtonListUnordered: "", accessibilityLabelButtonListUnorderedSelected: "", accessibilityLabelButtonListOrdered: "", accessibilityLabelButtonListOrderedSelected: "", accessibilityLabelButtonInceaseIndent: "", accessibilityLabelButtonDecreaseIndent: "", accessibilityLabelButtonCursorUp: "", accessibilityLabelButtonCursorDown: "", accessibilityLabelButtonCursorLeft: "", accessibilityLabelButtonCursorRight: "", accessibilityLabelButtonBold: "", accessibilityLabelButtonBoldSelected: "", accessibilityLabelButtonItalics: "", accessibilityLabelButtonItalicsSelected: "", accessibilityLabelButtonClearFormatting: "", accessibilityLabelButtonShowMore: "", accessibilityLabelButtonComment: "", accessibilityLabelButtonCommentSelected: "", accessibilityLabelButtonSuperscript: "", accessibilityLabelButtonSuperscriptSelected: "", accessibilityLabelButtonSubscript: "", accessibilityLabelButtonSubscriptSelected: "", accessibilityLabelButtonUnderline: "", accessibilityLabelButtonUnderlineSelected: "", accessibilityLabelButtonStrikethrough: "", accessibilityLabelButtonStrikethroughSelected: "", accessibilityLabelButtonCloseMainInputView: "", accessibilityLabelButtonCloseHeaderSelectInputView: "", accessibilityLabelFindTextField: "", accessibilityLabelFindButtonClear: "", accessibilityLabelFindButtonClose: "", accessibilityLabelFindButtonNext: "", accessibilityLabelFindButtonPrevious: "", accessibilityLabelReplaceTextField: "", accessibilityLabelReplaceButtonClear: "", accessibilityLabelReplaceButtonPerformFormat: "", accessibilityLabelReplaceButtonSwitchFormat: "", accessibilityLabelReplaceTypeSingle: "", accessibilityLabelReplaceTypeAll: "")
+
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings)
         let sourceEditor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
         
         addChild(sourceEditor)
@@ -233,4 +235,21 @@ extension PageEditorViewController: ReadingThemesControlsPresenting {
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
 
     }
+}
+
+import Foundation
+
+enum SourceEditorAccessibilityIdentifiers: String {
+    case entryButton = "Source Editor Entry Button"
+    case textView = "Source Editor TextView"
+    case findButton = "Source Editor Find Button"
+    case showMoreButton = "Source Editor Show More Button"
+    case closeButton = "Source Editor Close Button"
+    case formatTextButton = "Source Editor Format Text Button"
+    case formatHeadingButton = "Source Editor Format Heading Button"
+    case expandingToolbar = "Source Editor Expanding Toolbar"
+    case highlightToolbar = "Source Editor Highlight Toolbar"
+    case findToolbar = "Source Editor Find Toolbar"
+    case mainInputView = "Source Editor Main Input View"
+    case headerSelectInputView = "Source Editor Header Select Input View"
 }
