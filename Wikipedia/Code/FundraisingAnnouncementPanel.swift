@@ -59,7 +59,7 @@ final class FundraisingAnnouncementPanelViewController: ScrollableEducationPanel
     private func evaluateConstraintsOnNewSize(_ size: CGSize) {
         let panelWidth = size.width * 0.9
         if  traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular {
-            width = min(320, panelWidth)
+            width = min(600, panelWidth)
         } else {
             width = panelWidth
         }
