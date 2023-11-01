@@ -91,7 +91,9 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     // END: Article As Living Doc properties
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil) {
+    var imageWikitextFileNameSEAT: String?
+    
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, imageWikitextFileNameSEAT: String? = nil) {
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
         }
@@ -104,6 +106,8 @@ class ArticleViewController: ViewController, HintPresenting {
         self.dataStore = dataStore
         self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
+        
+        self.imageWikitextFileNameSEAT = imageWikitextFileNameSEAT
         
         super.init(theme: theme)
         
@@ -977,6 +981,7 @@ private extension ArticleViewController {
     
     func setupMessagingController() {
         messagingController.delegate = self
+        messagingController.articleURL = articleURL
     }
     
     func setupWebView() {
@@ -1047,7 +1052,7 @@ private extension ArticleViewController {
     }
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
-        let areTablesInitiallyExpanded = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
+        let areTablesInitiallyExpanded = imageWikitextFileNameSEAT != nil ? true : UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
 
         messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
 

@@ -13,8 +13,12 @@ struct SEATItemViewModel: Equatable, Hashable {
     let imageCommonsFilename: String
     let imageThumbnailURLs: [String : URL]
     let imageWikitextLocation: Int
-    let commonsURL: URL
+    let imageDetailsURL: URL
     let articleURL: URL
+    
+    var displayImageThumbnailURL: URL? {
+        return imageThumbnailURLs["2"] ?? imageThumbnailURLs["1.5"] ?? imageThumbnailURLs["1"]
+    }
 }
 
 final class SEATSampleData {

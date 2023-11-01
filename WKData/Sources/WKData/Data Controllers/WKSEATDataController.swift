@@ -23,7 +23,7 @@ public final class WKSEATDataController {
     
     lazy var projectArticleTitles: [WKProject: [String]] = {
         return [
-            enProject: ["Infection","The_Structure_of_Scientific_Revolutions","Law_of_superposition","Metropolitan_Borough_of_Greenwich","City_of_London","Esperanza_Spalding ","Carolingian_Empire","Butter","Facies","Surface_water","Habitat_fragmentation","Predation","Autoimmune_disease","Illustration","Headphones","Electric_generator","Fuel_cell","Drizzle","Ship_canal","Solid_geometry#Solid_figures","Soap_bubble","Foam","Polytope","Gaels","Folklore_studies","Culture","Bitburg","Metonymy","Retail","Trolleybus","Domesday_Book","Human_history#Modern_history","Nomad","Pleistocene","International_Council_for_Science","Validity_(logic)","Shekhawati_painting","Maithili_Sharan_Gupt","Nationalities_and_regions_of_Spain","Pyrenees","Economy","Commodity","Glutamic_acid","Acid","Lord_Kelvin","Venus_of_Hohle_Fels","Alpine_ibex","Lightning ","Lake_Erie","Wheat"],
+            enProject: ["Infection","The_Structure_of_Scientific_Revolutions","Law_of_superposition","Metropolitan_Borough_of_Greenwich","City_of_London","Esperanza_Spalding ","Carolingian_Empire","Butter","Facies","Surface_water","Habitat_fragmentation","Predation","Autoimmune_disease","Illustration","Headphones","Electric_generator","Fuel_cell","Drizzle","Ship_canal","Solid_geometry","Soap_bubble","Foam","Polytope","Gaels","Folklore_studies","Culture","Bitburg","Metonymy","Retail","Trolleybus","Domesday_Book","Human_history","Nomad","Pleistocene","International_Council_for_Science","Validity_(logic)","Shekhawati_painting","Maithili_Sharan_Gupt","Nationalities_and_regions_of_Spain","Pyrenees","Economy","Commodity","Glutamic_acid","Acid","Lord_Kelvin","Venus_of_Hohle_Fels","Alpine_ibex","Lightning ","Lake_Erie","Wheat"],
             esProject: ["Globalización ","Consumer_Electronics_Show ","Bioquímica","Genealogía ","Familia","Investigación ","Mate_(infusión)","Teatro_Solís","Tango","Bote","Ursus_maritimus","Playa","Fútbol","Otariinae","Carnaval","Auricular","IPhone","Espuma","Frida_Kahlo","Joaquín_Torres_García","Canal_de_navegación","Cuadrado ","Té_matcha","Salar ","Triticum ","Trolebús ","Río_Amazonas ","Phoenicopterus","Computadora","32X","Valhalla","Mitología_nórdica","Keagan_Dolly ","Villa_Pilar ","Zoe_Saldaña","Star_Wars","Nazca","Terremotos_de_Herat_de_2023","Pac-Man","Panthera_leo","Vultur_gryphus","Médico","Wikipedia ","Transporte_público","Conferencia","Lionel_Messi","FIFA","Biblioteca_del_Poder_Legislativo_de_Uruguay","Peach_&_Convention","Liceo_Héctor_Miranda"],
             ptProject: ["Infecção","Recurso_natural","Penicilina","Biologia","Organismo","Ronaldo_Nazário","Solanaceae","Kamini_Roy","Maciço","Magia","Cultura","História","Sociedade","Madeira","Ciclone_tropical","Propagação_térmica","Condução_térmica","Topologia_(matemática)","Fenomenologia","Filosofia","Banana","Enzima","Artista","Gênio_(pessoa)","Informática","Arado","Gás_natural","Carvão_mineral","Música","Scheila_Carvalho","Colônia_do_Sacramento","Carnaval_de_Florianópolis","Economia","Theatro_Municipal_do_Rio_de_Janeiro","Argila","Mecânica_dos_solos","TV_Fama","Laika","Foguete_espacial","Combustível","Pântano","Rio_Paraíba_do_Sul","Casa_Batlló","Galinha_caipira","Avião_a_jato","Velociraptor","Raio_(meteorologia)","Cerrado","Castelinho_do_Flamengo","Architectonica_maxima"]
         ]
@@ -171,6 +171,7 @@ public final class WKSEATDataController {
             
             let wikitextFileName = (fileLinkWikitext as NSString).substring(with: fileNameRange)
             var commonsFileName: String = wikitextFileName
+            commonsFileName = wikitextFileName.replacingOccurrences(of: "Image:", with: "File:")
             if project == esProject {
                 commonsFileName = wikitextFileName.replacingOccurrences(of: "Archivo:", with: "File:")
                 commonsFileName = commonsFileName.replacingOccurrences(of: "Imagen:", with: "File:")
@@ -305,14 +306,22 @@ public final class WKSEATItem: Equatable, Hashable {
     public fileprivate(set) var imageThumbnailURLs: [String : URL]
     public fileprivate(set) var imageWikitextLocation: Int?
     
-    public var commonsURL: URL? {
-        guard let imageCommonsFileName else {
+    public var imageDetailsURL: URL? {
+        guard let imageWikitextFileName else {
             return nil
         }
         
-        let denormalizedFileName = imageCommonsFileName.replacingOccurrences(of: " ", with: "_")
+        var languageCode = "en"
+        switch project {
+        case .wikipedia(let language):
+            languageCode = language.languageCode
+        default:
+            break
+        }
+        
+        let denormalizedFileName = imageWikitextFileName.replacingOccurrences(of: " ", with: "_")
         if let encodedFileName = denormalizedFileName.addingPercentEncoding(withAllowedCharacters: .urlQueryComponentAllowed) {
-            return URL(string: "https://commons.wikimedia.org/wiki/\(encodedFileName)")
+            return URL(string: "https://\(languageCode).wikipedia.org/wiki/\(encodedFileName)")
         }
         
         return nil

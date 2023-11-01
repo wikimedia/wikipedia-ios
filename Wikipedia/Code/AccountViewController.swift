@@ -234,7 +234,7 @@ class AccountViewController: SubSettingsViewController {
                           let imageCommonsFileName = wkItem.imageCommonsFileName,
                           let imageWikitextLocation = wkItem.imageWikitextLocation,
                           let articleURL = wkItem.articleURL,
-                          let commonsURL = wkItem.commonsURL else {
+                          let imageDetailsURL = wkItem.imageDetailsURL else {
                         return nil
                     }
                     
@@ -243,7 +243,7 @@ class AccountViewController: SubSettingsViewController {
                         return nil
                     }
                     
-                    return SEATItemViewModel(project: wkItem.project, articleTitle: wkItem.articleTitle, articleWikitext: wkItem.articleWikitext, articleDescription: wkItem.articleDescription, articleSummary: articleSummary, imageWikitext: imageWikitext, imageWikitextFilename: imageWikitextFilename, imageCommonsFilename: imageCommonsFileName, imageThumbnailURLs: wkItem.imageThumbnailURLs, imageWikitextLocation: imageWikitextLocation, commonsURL: commonsURL, articleURL: articleURL)
+                    return SEATItemViewModel(project: wkItem.project, articleTitle: wkItem.articleTitle, articleWikitext: wkItem.articleWikitext, articleDescription: wkItem.articleDescription, articleSummary: articleSummary, imageWikitext: imageWikitext, imageWikitextFilename: imageWikitextFilename, imageCommonsFilename: imageCommonsFileName, imageThumbnailURLs: wkItem.imageThumbnailURLs, imageWikitextLocation: imageWikitextLocation, imageDetailsURL: imageDetailsURL, articleURL: articleURL)
                 }
                 
                 SEATSampleData.shared.availableTasks = viewModels

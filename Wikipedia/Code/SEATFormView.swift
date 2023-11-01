@@ -68,7 +68,7 @@ struct SEATFormView: View {
         ScrollView {
             VStack {
                 NavigationLink {
-                    SEATImageCommonsView(commonsURL: taskItem.commonsURL)
+                    SEATImageDetailsView(imageDetailsURL: taskItem.imageDetailsURL)
                         .background(
                             Color(theme.paperBackground)
                                 .ignoresSafeArea()
@@ -127,7 +127,7 @@ struct SEATFormView: View {
 
     var header: some View {
         HStack(alignment: .top) {
-            AsyncImage(url: taskItem.imageThumbnailURLs["2"], content: { image in
+            AsyncImage(url: taskItem.displayImageThumbnailURL, content: { image in
                 Rectangle()
                     .aspectRatio(1, contentMode: .fit)
                     .overlay(
@@ -146,7 +146,7 @@ struct SEATFormView: View {
                     .font(.callout)
                     .foregroundStyle(Color(theme.secondaryText))
                 NavigationLink {
-                    SEATImageCommonsView(commonsURL: taskItem.commonsURL)
+                    SEATImageDetailsView(imageDetailsURL: taskItem.imageDetailsURL)
                         .background(
                             Color(theme.paperBackground)
                                 .ignoresSafeArea()

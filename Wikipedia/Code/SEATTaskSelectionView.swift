@@ -263,7 +263,7 @@ struct SEATSelectionView: View {
         GeometryReader { proxy in
             ZStack {
                 Color(theme.baseBackground)
-                AsyncImage(url: taskItem.imageThumbnailURLs["2"], content: { image in
+                AsyncImage(url: taskItem.displayImageThumbnailURL, content: { image in
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -318,7 +318,7 @@ struct SEATSelectionView: View {
     
     var imageCommonsLink: some View {
         NavigationLink {
-            SEATImageCommonsView(commonsURL: taskItem.commonsURL)
+            SEATImageDetailsView(imageDetailsURL: taskItem.imageDetailsURL)
                 .background(
                     Color(theme.paperBackground)
                         .ignoresSafeArea()
@@ -356,7 +356,7 @@ struct SEATSelectionView: View {
     
     var articleViewLink: some View {
         NavigationLink {
-            SEATArticleView(articleURL: taskItem.articleURL)
+            SEATArticleView(articleURL: taskItem.articleURL, imageWikitextFileName: taskItem.imageWikitextFilename)
                 .ignoresSafeArea(edges:.bottom)
                 .background(
                     Color(theme.paperBackground)

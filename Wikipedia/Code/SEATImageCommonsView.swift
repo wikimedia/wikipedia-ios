@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import Components
 
-struct SEATImageCommonsView: UIViewControllerRepresentable {
+struct SEATImageDetailsView: UIViewControllerRepresentable {
     
     typealias UIViewControllerType = SinglePageWebViewController
     
@@ -12,10 +12,10 @@ struct SEATImageCommonsView: UIViewControllerRepresentable {
         appEnvironment.theme
     }
 
-    let commonsURL: URL
+    let imageDetailsURL: URL
     
     func makeUIViewController(context: Context) -> SinglePageWebViewController {
-        return SinglePageWebViewController(url: commonsURL, theme: WKTheme.theme(from: theme), doesUseSimpleNavigationBar: true, campaignArticleURL: nil, campaignBannerID: nil)
+        return SinglePageWebViewController(url: imageDetailsURL, theme: WKTheme.theme(from: theme), doesUseSimpleNavigationBar: true, campaignArticleURL: nil, campaignBannerID: nil)
     }
 
     func updateUIViewController(_ uiViewController: SinglePageWebViewController, context: Context) {

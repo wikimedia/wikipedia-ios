@@ -71,6 +71,14 @@ extension ArticleViewController: ArticleWebMessageHandling {
         articleLoadWaitGroup?.leave()
         addToHistory()
         syncCachedResourcesIfNeeded()
+        
+        if let imageWikitextFileNameSEAT {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.messagingController.scrollToSEATImage(imageWikitextFileNameSEAT: imageWikitextFileNameSEAT, completion: { error in
+                    
+                })
+            }
+        }
     }
     
     func handleFooterItem(type: PageContentService.Footer.Menu.Item, payload: Any?) {

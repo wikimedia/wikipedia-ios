@@ -12,9 +12,10 @@ struct SEATArticleView: UIViewControllerRepresentable {
     typealias UIViewControllerType = ArticleViewController
 
     let articleURL: URL
+    let imageWikitextFileName: String
     
     func makeUIViewController(context: Context) -> ArticleViewController {
-        return ArticleViewController(articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: WKTheme.theme(from: theme))!
+        return ArticleViewController(articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: WKTheme.theme(from: theme), imageWikitextFileNameSEAT: imageWikitextFileName)!
     }
 
     func updateUIViewController(_ uiViewController: ArticleViewController, context: Context) {
