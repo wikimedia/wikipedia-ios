@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScrollableEducationPanelViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="buttonTopSpacingConstraint" destination="wIB-c0-etL" id="kwm-yu-jPn"/>
+                <outlet property="containerStackViewBottomConstraint" destination="36G-Hn-CX2" id="uu5-KD-r7T"/>
                 <outlet property="contentStackView" destination="zdf-Q2-cLc" id="Brs-3c-Hfy"/>
                 <outlet property="footerTextView" destination="jJo-Ko-Gi1" id="Uaf-PG-xyV"/>
                 <outlet property="gradientView" destination="Vt4-pO-HrC" id="Pp6-bW-mqm"/>

@@ -8,6 +8,7 @@ class ScrollViewGradientView : UIView, Themeable {
     }
     
     var fadeHeight = 6.0
+    var fadeTop = true
     private var normalizedFadeHeight: Double {
         return bounds.size.height > 0 ? fadeHeight /  Double(bounds.size.height) : 0
     }
@@ -16,12 +17,21 @@ class ScrollViewGradientView : UIView, Themeable {
         let mask = CAGradientLayer()
         mask.startPoint = .zero
         mask.endPoint = CGPoint(x: 0, y: 1)
-        mask.colors = [
-            UIColor.black.cgColor,
-            UIColor.clear.cgColor,
-            UIColor.clear.cgColor,
-            UIColor.black.cgColor
-        ]
+        if fadeTop {
+            mask.colors = [
+                UIColor.black.cgColor,
+                UIColor.clear.cgColor,
+                UIColor.clear.cgColor,
+                UIColor.black.cgColor
+            ]
+        } else {
+            mask.colors = [
+                UIColor.clear.cgColor,
+                UIColor.clear.cgColor,
+                UIColor.clear.cgColor,
+                UIColor.black.cgColor
+            ]
+        }
         layer.mask = mask
         return mask
     }()

@@ -29,9 +29,13 @@ final class FundraisingAnnouncementPanelViewController: ScrollableEducationPanel
         dismissWhenTappedOutside = true
         contentHorizontalPadding = 20
         configureButtons()
-        gradientView.fadeHeight = 12
-        gradientView.apply(theme: theme)
-        gradientView.isHidden = false
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            containerStackViewBottomConstraint.constant = 45
+            gradientView.fadeHeight = 40
+            gradientView.fadeTop = false
+            gradientView.apply(theme: theme)
+            gradientView.isHidden = false
+        }
     }
 
     override func viewDidLayoutSubviews() {

@@ -74,6 +74,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
     }
     
+    @IBOutlet weak var containerStackViewBottomConstraint: NSLayoutConstraint!
+    
     @IBOutlet var subheadingBottomConstraint: NSLayoutConstraint! {
        didSet {
            subheadingBottomConstraint.constant = originalSubheadingBottomConstraint
