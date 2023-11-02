@@ -156,6 +156,7 @@
 "article-languages-label" = "Välj språk";
 "article-languages-others" = "Andra språk";
 "article-languages-yours" = "Dina språk";
+"article-nav-edit" = "Redigera";
 "article-read-more-title" = "Läs mer";
 "article-reference-view-title" = "Referens $1";
 "article-revision-history" = "Artikelns versionshistorik";
