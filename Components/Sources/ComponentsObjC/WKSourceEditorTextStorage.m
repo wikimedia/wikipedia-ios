@@ -1,8 +1,11 @@
 #import "WKSourceEditorTextStorage.h"
+#import "WKSourceEditorFormatterDefault.h"
 
 @interface WKSourceEditorTextStorage ()
 
 @property (nonatomic, strong) NSMutableAttributedString *backingStore;
+
+@property (nonatomic, strong) WKSourceEditorFormatterDefault *defaultFormatter;
 
 @end
 
@@ -11,13 +14,7 @@
 - (nonnull instancetype)initWithColors:(nonnull WKSourceEditorColors *)colors fonts:(nonnull WKSourceEditorFonts *)fonts {
     if (self = [super init]) {
         _backingStore = [[NSMutableAttributedString alloc] init];
-    }
-    return self;
-}
-
-- (nonnull instancetype)init {
-    if (self = [super init]) {
-        _backingStore = [[NSMutableAttributedString alloc] init];
+        _defaultFormatter = [[WKSourceEditorFormatterDefault alloc] initWithColors:colors fonts:fonts];
     }
     return self;
 }
@@ -48,12 +45,40 @@
 
 - (void)processEditing {
 
-    // TODO: syntax highlighting
+    [self addSyntaxHighlightingToEditedRange:self.editedRange];
     
     [super processEditing];
 }
 
+// MARK: - Public
+
 - (void)updateColors:(nonnull WKSourceEditorColors *)colors andFonts:(nonnull WKSourceEditorFonts *)fonts {
+}
+
+// MARK: - Private
+
+- (NSArray<WKSourceEditorFormatter *> *)formatters {
+    return @[self.defaultFormatter];
+}
+
+- (void)addSyntaxHighlightingToEditedRange:(NSRange)editedRange {
+    
+    // Extend range to entire line for reevaluation, not just what was edited
+    NSRange extendedRange = NSUnionRange(editedRange, [self.backingStore.string lineRangeForRange:NSMakeRange(editedRange.location, 0)]);
+    extendedRange = NSUnionRange(editedRange, [self.backingStore.string lineRangeForRange:NSMakeRange(NSMaxRange(editedRange), 0)]);
+    [self addSyntaxHighlightingToExtendedRange:extendedRange];
+}
+
+- (void)addSyntaxHighlightingToExtendedRange:(NSRange)extendedRange {
+    
+    // reset old attributes
+    [self removeAttribute:NSFontAttributeName range:extendedRange];
+    [self removeAttribute:NSForegroundColorAttributeName range:extendedRange];
+    [self removeAttribute:NSForegroundColorAttributeName range:extendedRange];
+    
+    for (WKSourceEditorFormatter *formatter in self.formatters) {
+        [formatter addSyntaxHighlightingToAttributedString:self inRange:extendedRange];
+    }
 }
 
 @end
