@@ -11,6 +11,7 @@ protocol AccountViewControllerDelegate: AnyObject {
 
 extension Notification.Name {
     static let seatOnboardingDidTapLearnMore = Notification.Name("WMFSEATOnboardingDidTapLearnMoreForeground")
+    static let seatOnboardingDidTapViewExamples = Notification.Name("WMFSEATOnboardingDidTapViewExamples")
 }
 
 private enum ItemType {
@@ -88,6 +89,7 @@ class AccountViewController: SubSettingsViewController {
         tableView.estimatedSectionFooterHeight = 44
         
         NotificationCenter.default.addObserver(self, selector: #selector(didTapSEATOnboardingLearnMore), name: .seatOnboardingDidTapLearnMore, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didTapSEATOnboardingViewExamples), name: .seatOnboardingDidTapViewExamples, object: nil)
     }
     
     @objc private func didTapSEATOnboardingLearnMore() {
@@ -98,7 +100,16 @@ class AccountViewController: SubSettingsViewController {
         SEATFunnel.shared.logSEATLearnMoreWebViewImpression()
         navigationController?.navigate(to: url, useSafari: true)
     }
-    
+
+    @objc private func didTapSEATOnboardingViewExamples() {
+        guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Alt_Text_Examples") else {
+            return
+        }
+
+        SEATFunnel.shared.logSEATLearnMoreWebViewImpression()
+        navigationController?.navigate(to: url, useSafari: true)
+    }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }

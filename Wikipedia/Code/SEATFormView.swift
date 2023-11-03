@@ -228,7 +228,7 @@ struct SEATFormView: View {
                     .frame(height: 4)
                 Button(action: {
                     SEATFunnel.shared.logSEATFormViewDidTapViewExamples(articleTitle: taskItem.articleTitle, commonsFileName: taskItem.imageCommonsFilename)
-                    NotificationCenter.default.post(name: .seatOnboardingDidTapLearnMore, object: nil)
+                    NotificationCenter.default.post(name: .seatOnboardingDidTapViewExamples, object: nil)
                 }) {
                     HStack {
                         Image("mini-external")
