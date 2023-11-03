@@ -53,6 +53,14 @@
 // MARK: - Public
 
 - (void)updateColors:(nonnull WKSourceEditorColors *)colors andFonts:(nonnull WKSourceEditorFonts *)fonts {
+    [self beginEditing];
+    NSRange allRange = NSMakeRange(0, self.backingStore.length);
+    for (WKSourceEditorFormatter *formatter in [self formatters]) {
+        [formatter updateColors:colors inAttributedString:self inRange:allRange];
+        [formatter updateFonts:fonts inAttributedString:self inRange:allRange];
+    }
+    
+    [self endEditing];
 }
 
 // MARK: - Private

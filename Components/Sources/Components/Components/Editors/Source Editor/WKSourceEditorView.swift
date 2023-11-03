@@ -29,7 +29,7 @@ class WKSourceEditorView: WKComponentView {
     // MARK: - Properties
 
     private lazy var textView: UITextView = {
-        let textStorage = WKSourceEditorTextStorage()
+        let textStorage = WKSourceEditorTextStorage(colors: generateSourceEditorColors(), fonts: generateSourceEditorFonts())
 
         let layoutManager = NSLayoutManager()
         let container = NSTextContainer()
@@ -126,7 +126,7 @@ class WKSourceEditorView: WKComponentView {
     
     private func setup() {
         addSubview(textView)
-        updateColors()
+        updateColorsAndFonts()
         
         NSLayoutConstraint.activate([
             safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: textView.leadingAnchor),
@@ -148,7 +148,7 @@ class WKSourceEditorView: WKComponentView {
     // MARK: Overrides
     
     override func appEnvironmentDidChange() {
-        updateColors()
+        updateColorsAndFonts()
     }
     
     // MARK: - Notifications
@@ -221,16 +221,43 @@ class WKSourceEditorView: WKComponentView {
     
     // MARK: - Private Helpers
     
+    private var textStorage: WKSourceEditorTextStorage {
+        return textView.textStorage as! WKSourceEditorTextStorage
+    }
+    
+    private func generateSourceEditorColors() -> WKSourceEditorColors {
+        let colors = WKSourceEditorColors()
+        colors.defaultForegroundColor = WKAppEnvironment.current.theme.text
+        return colors
+    }
+    
+    private func generateSourceEditorFonts() -> WKSourceEditorFonts {
+        let fonts = WKSourceEditorFonts()
+        // TODO: Use this instead
+        // let traitCollection = UITraitCollection(preferredContentSizeCategory: {article/editor content size category}])
+        fonts.defaultFont = WKFont.for(.body, compatibleWith: traitCollection)
+        return fonts
+    }
+    
     private func updateInsets(keyboardHeight: CGFloat) {
         textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
         textView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
     }
     
-    private func updateColors() {
+    private func updateColorsAndFonts() {
         backgroundColor = WKAppEnvironment.current.theme.paperBackground
         textView.backgroundColor = WKAppEnvironment.current.theme.paperBackground
-        textView.textColor = WKAppEnvironment.current.theme.text
         textView.keyboardAppearance = WKAppEnvironment.current.theme.keyboardAppearance
+        
+        let newSourceEditorColors = generateSourceEditorColors()
+        newSourceEditorColors.defaultForegroundColor = WKAppEnvironment.current.theme.text
+        
+        let newSourceEditorFonts = generateSourceEditorFonts()
+        // TODO: Use this instead
+        // let traitCollection = UITraitCollection(preferredContentSizeCategory: {article/editor content size category}])
+        newSourceEditorFonts.defaultFont = WKFont.for(.body, compatibleWith: traitCollection)
+        
+        textStorage.update(newSourceEditorColors, andFonts: newSourceEditorFonts)
     }
 }
 

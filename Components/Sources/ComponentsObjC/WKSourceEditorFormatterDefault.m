@@ -26,7 +26,7 @@
     return self;
 }
 
-- (void)addSyntaxHighlightingInAttributedString:(NSMutableAttributedString *)attributedString toRange:(NSRange)range {
+- (void)addSyntaxHighlightingToAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     [attributedString addAttributes:self.attributes range:range];
 }
 
