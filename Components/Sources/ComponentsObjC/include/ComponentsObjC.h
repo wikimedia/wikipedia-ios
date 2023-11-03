@@ -4,5 +4,7 @@
 #import "WKSourceEditorTextStorage.h"
 #import "WKSourceEditorColors.h"
 #import "WKSourceEditorFonts.h"
+#import "WKSourceEditorFormatter.h"
+#import "WKSourceEditorFormatterDefault.h"
 
 #endif /* Header_h */
