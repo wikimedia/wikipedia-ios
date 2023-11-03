@@ -153,6 +153,7 @@
 "article-languages-label" = "Trieu una llengua";
 "article-languages-others" = "Altres llengües";
 "article-languages-yours" = "Les vostres llengües";
+"article-nav-edit" = "Modifica";
 "article-read-more-title" = "Més informació";
 "article-reference-view-title" = "Referència $1";
 "article-revision-history" = "Historial d'edició de l'article";
@@ -929,6 +930,8 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 element reemplaçat|$1 elements reemplaçats}}";
 "replace-textfield-accessibility" = "Reemplaça";
 "replace-textfield-placeholder" = "Reemplaça per…";
+"return-button-title" = "Torna";
+"return-to-article" = "Torna a l'article";
 "reverted-edit-title" = "Modificació revertida";
 "saved-all-articles-title" = "Tots els articles";
 "saved-default-reading-list-tag" = "No es pot eliminar la llista";
@@ -961,8 +964,7 @@
 "settings-clear-cache-are-you-sure-title" = "Voleu netejar les dades en cau?";
 "settings-clear-cache-cancel" = "Cancel·la";
 "settings-clear-cache-ok" = "Neteja la memòria cau";
-// Fuzzy
-"settings-donate" = "Feu una donació a la Viquipèdia";
+"settings-donate" = "Feu un donatiu";
 "settings-help-and-feedback" = "Ajuda i comentaris";
 "settings-language-bar" = "Mostra llengües a la cerca";
 "settings-languages-feed-customization" = "Podeu gestionar quines llengües es mostren en el canal d'exploració personalitzant els paràmetres del canal d'exploració.";
