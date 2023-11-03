@@ -8,6 +8,13 @@
 
 @implementation WKSourceEditorTextStorage
 
+- (nonnull instancetype)initWithColors:(nonnull WKSourceEditorColors *)colors fonts:(nonnull WKSourceEditorFonts *)fonts {
+    if (self = [super init]) {
+        _backingStore = [[NSMutableAttributedString alloc] init];
+    }
+    return self;
+}
+
 - (nonnull instancetype)init {
     if (self = [super init]) {
         _backingStore = [[NSMutableAttributedString alloc] init];
@@ -44,6 +51,9 @@
     // TODO: syntax highlighting
     
     [super processEditing];
+}
+
+- (void)updateColors:(nonnull WKSourceEditorColors *)colors andFonts:(nonnull WKSourceEditorFonts *)fonts {
 }
 
 @end
