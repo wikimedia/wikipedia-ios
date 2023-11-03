@@ -1,14 +1,14 @@
-#import "WKSourceEditorFormatterDefault.h"
+#import "WKSourceEditorFormatterBase.h"
 #import "WKSourceEditorColors.h"
 #import "WKSourceEditorFonts.h"
 
-@interface WKSourceEditorFormatterDefault ()
+@interface WKSourceEditorFormatterBase ()
 
 @property (strong, nonatomic) NSDictionary *attributes;
 
 @end
 
-@implementation WKSourceEditorFormatterDefault
+@implementation WKSourceEditorFormatterBase
 
 - (instancetype)initWithColors:(nonnull WKSourceEditorColors *)colors fonts:(nonnull WKSourceEditorFonts *)fonts {
     self = [super initWithColors:colors fonts:fonts];

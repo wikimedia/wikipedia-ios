@@ -1,10 +1,10 @@
 #import "WKSourceEditorTextStorage.h"
-#import "WKSourceEditorFormatterDefault.h"
+#import "WKSourceEditorFormatterBase.h"
 
 @interface WKSourceEditorTextStorage ()
 
 @property (nonatomic, strong) NSMutableAttributedString *backingStore;
-@property (nonatomic, strong) WKSourceEditorFormatterDefault *defaultFormatter;
+@property (nonatomic, strong) WKSourceEditorFormatterBase *baseFormatter;
 
 @property (nonatomic, assign) BOOL needsSyntaxHighlightingCalculation;
 
@@ -15,7 +15,7 @@
 - (nonnull instancetype)initWithColors:(nonnull WKSourceEditorColors *)colors fonts:(nonnull WKSourceEditorFonts *)fonts {
     if (self = [super init]) {
         _backingStore = [[NSMutableAttributedString alloc] init];
-        _defaultFormatter = [[WKSourceEditorFormatterDefault alloc] initWithColors:colors fonts:fonts];
+        _baseFormatter = [[WKSourceEditorFormatterBase alloc] initWithColors:colors fonts:fonts];
         _needsSyntaxHighlightingCalculation = YES;
     }
     return self;
@@ -72,7 +72,7 @@
 // MARK: - Private
 
 - (NSArray<WKSourceEditorFormatter *> *)formatters {
-    return @[self.defaultFormatter];
+    return @[self.baseFormatter];
 }
 
 - (void)addSyntaxHighlightingToEditedRange:(NSRange)editedRange {

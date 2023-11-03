@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WKSourceEditorFormatterDefault : WKSourceEditorFormatter
+@interface WKSourceEditorFormatterBase : WKSourceEditorFormatter
 
 @end
 
