@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import ComponentsObjC
 
 protocol WKSourceEditorViewDelegate: AnyObject {
     func editorViewTextSelectionDidChange(editorView: WKSourceEditorView, isRangeSelected: Bool)
@@ -28,7 +29,7 @@ class WKSourceEditorView: WKComponentView {
     // MARK: - Properties
 
     private lazy var textView: UITextView = {
-        let textStorage = NSTextStorage()
+        let textStorage = WKSourceEditorTextStorage()
 
         let layoutManager = NSLayoutManager()
         let container = NSTextContainer()
