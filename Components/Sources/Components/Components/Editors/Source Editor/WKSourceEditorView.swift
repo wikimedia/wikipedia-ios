@@ -227,7 +227,7 @@ class WKSourceEditorView: WKComponentView {
     
     private func generateSourceEditorColors() -> WKSourceEditorColors {
         let colors = WKSourceEditorColors()
-        colors.defaultForegroundColor = WKAppEnvironment.current.theme.text
+        colors.baseForegroundColor = WKAppEnvironment.current.theme.text
         return colors
     }
     
@@ -235,7 +235,7 @@ class WKSourceEditorView: WKComponentView {
         let fonts = WKSourceEditorFonts()
         // TODO: Use this instead
         // let traitCollection = UITraitCollection(preferredContentSizeCategory: {article/editor content size category}])
-        fonts.defaultFont = WKFont.for(.body, compatibleWith: traitCollection)
+        fonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
         return fonts
     }
     
@@ -250,12 +250,12 @@ class WKSourceEditorView: WKComponentView {
         textView.keyboardAppearance = WKAppEnvironment.current.theme.keyboardAppearance
         
         let newSourceEditorColors = generateSourceEditorColors()
-        newSourceEditorColors.defaultForegroundColor = WKAppEnvironment.current.theme.text
+        newSourceEditorColors.baseForegroundColor = WKAppEnvironment.current.theme.text
         
         let newSourceEditorFonts = generateSourceEditorFonts()
         // TODO: Use this instead
         // let traitCollection = UITraitCollection(preferredContentSizeCategory: {article/editor content size category}])
-        newSourceEditorFonts.defaultFont = WKFont.for(.body, compatibleWith: traitCollection)
+        newSourceEditorFonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
         
         textStorage.update(newSourceEditorColors, andFonts: newSourceEditorFonts)
     }

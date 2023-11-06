@@ -18,9 +18,9 @@
         [paragraphStyle setLineHeightMultiple:1.1];
 
         _attributes = @{
-            NSFontAttributeName: fonts.defaultFont,
+            NSFontAttributeName: fonts.baseFont,
             NSParagraphStyleAttributeName: paragraphStyle,
-            NSForegroundColorAttributeName: colors.defaultForegroundColor
+            NSForegroundColorAttributeName: colors.baseForegroundColor
         };
     }
     return self;
@@ -32,7 +32,7 @@
 
 - (void)updateColors:(WKSourceEditorColors *)colors inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     NSMutableDictionary *mutAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.attributes];
-    [mutAttributes setObject:colors.defaultForegroundColor forKey:NSForegroundColorAttributeName];
+    [mutAttributes setObject:colors.baseForegroundColor forKey:NSForegroundColorAttributeName];
     self.attributes = [[NSDictionary alloc] initWithDictionary:mutAttributes];
 
     [attributedString addAttributes:self.attributes range:range];
@@ -40,7 +40,7 @@
 
 - (void)updateFonts:(WKSourceEditorFonts *)fonts inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     NSMutableDictionary *mutAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.attributes];
-    [mutAttributes setObject:fonts.defaultFont forKey:NSFontAttributeName];
+    [mutAttributes setObject:fonts.baseFont forKey:NSFontAttributeName];
     self.attributes = [[NSDictionary alloc] initWithDictionary:mutAttributes];
 
     [attributedString addAttributes:self.attributes range:range];
