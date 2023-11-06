@@ -470,7 +470,6 @@
 		6730D8DF2A05BFB50035255B /* PageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730D8DE2A05BFB50035255B /* PageEditorViewController.swift */; };
 		6730D8E02A05BFB50035255B /* PageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730D8DE2A05BFB50035255B /* PageEditorViewController.swift */; };
 		6730D8E12A05BFB50035255B /* PageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730D8DE2A05BFB50035255B /* PageEditorViewController.swift */; };
-		6730D8E22A05BFB50035255B /* PageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730D8DE2A05BFB50035255B /* PageEditorViewController.swift */; };
 		6730FD0E28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730FD0D28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift */; };
 		6730FD0F28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730FD0D28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift */; };
 		6730FD1028998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730FD0D28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift */; };
@@ -789,6 +788,9 @@
 		67C9FBFF28C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */; };
 		67C9FC0028C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */; };
 		67C9FC0128C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */; };
+		67CA5EFF2AF2F469002CFC61 /* ScrollViewGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CA5EFE2AF2F469002CFC61 /* ScrollViewGradientView.swift */; };
+		67CA5F002AF2F469002CFC61 /* ScrollViewGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CA5EFE2AF2F469002CFC61 /* ScrollViewGradientView.swift */; };
+		67CA5F012AF2F469002CFC61 /* ScrollViewGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CA5EFE2AF2F469002CFC61 /* ScrollViewGradientView.swift */; };
 		67CCB348299155230032439D /* WMFItemSourceExcludingActivityTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8237522970AE6A00FD629E /* WMFItemSourceExcludingActivityTypes.swift */; };
 		67CCB349299155250032439D /* WMFItemSourceExcludingActivityTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8237522970AE6A00FD629E /* WMFItemSourceExcludingActivityTypes.swift */; };
 		67CE5D20222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
@@ -3502,6 +3504,7 @@
 		67C9D58E28D3689F00629165 /* WMFLocalizedDateFormatStrings+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFLocalizedDateFormatStrings+Extensions.swift"; sourceTree = "<group>"; };
 		67C9D59028D36BDD00629165 /* WMFFeedNewsStory+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFFeedNewsStory+LocalizedStrings.swift"; sourceTree = "<group>"; };
 		67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageTopicComposeViewController.swift; sourceTree = "<group>"; };
+		67CA5EFE2AF2F469002CFC61 /* ScrollViewGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewGradientView.swift; sourceTree = "<group>"; };
 		67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListContextCell.xib; sourceTree = "<group>"; };
 		67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListUneditedCell.xib; sourceTree = "<group>"; };
 		67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffNetworkModels.swift; sourceTree = "<group>"; };
@@ -6314,14 +6317,14 @@
 			path = "Article Description Tests";
 			sourceTree = "<group>";
 		};
-          6730D8DD2A05BFA40035255B /* Page Editor */ = {
-            isa = PBXGroup;
-            children = (
-                6730D8DE2A05BFB50035255B /* PageEditorViewController.swift */,
-            );
-            name = "Page Editor";
-            sourceTree = "<group>";
-        };
+		6730D8DD2A05BFA40035255B /* Page Editor */ = {
+			isa = PBXGroup;
+			children = (
+				6730D8DE2A05BFB50035255B /* PageEditorViewController.swift */,
+			);
+			name = "Page Editor";
+			sourceTree = "<group>";
+		};
 		674C176A2AAA869D007DC6CC /* Test Plans */ = {
 			isa = PBXGroup;
 			children = (
@@ -7440,6 +7443,7 @@
 				0010F93827A49C7700D77848 /* HorizontalSpacerView.swift */,
 				67C78F7028B6DA1300AC207A /* SwiftUITextView.swift */,
 				6780CF3129676DB500D45927 /* Shifting Top Views */,
+				67CA5EFE2AF2F469002CFC61 /* ScrollViewGradientView.swift */,
 			);
 			name = "UI Components";
 			sourceTree = "<group>";
@@ -10473,6 +10477,7 @@
 				D8533ED51ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
 				D876769F21E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
 				B00DDEDD1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift in Sources */,
+				67CA5EFF2AF2F469002CFC61 /* ScrollViewGradientView.swift in Sources */,
 				00FCB2BE26D8398700F5A47A /* NotificationsCenterCell.swift in Sources */,
 				83F1097323D0F115003F3E9E /* HelpViewController.swift in Sources */,
 				67134A1728A73C0A00BA0BB9 /* TalkPageReplyComposeController.swift in Sources */,
@@ -11542,6 +11547,7 @@
 				7A4FE5401FA00AEF009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				D8CE25B11E698E2400DAE2E0 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				83EDC4C328B424B6007D0192 /* VanishAccountPopUpAlertView.swift in Sources */,
+				67CA5F012AF2F469002CFC61 /* ScrollViewGradientView.swift in Sources */,
 				B01E54B0206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				D8CE25B31E698E2400DAE2E0 /* WMFReferencePageViewController.swift in Sources */,
 				6782DBC82343FDE4003FA21B /* DiffListContextCell.swift in Sources */,
@@ -12129,6 +12135,7 @@
 				67E2E490250452E60070F12D /* ArticleAsLivingDocHeaderView.swift in Sources */,
 				B01E54B1206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				83EDC4C228B424B5007D0192 /* VanishAccountPopUpAlertView.swift in Sources */,
+				67CA5F002AF2F469002CFC61 /* ScrollViewGradientView.swift in Sources */,
 				83023C1320E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				D8EC3EB01E9BDA35006712EB /* WMFReferencePageViewController.swift in Sources */,
 				D850A53C1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,

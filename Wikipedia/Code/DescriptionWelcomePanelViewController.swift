@@ -16,7 +16,7 @@ class DescriptionWelcomePanelViewController: UIViewController, Themeable {
     @IBOutlet private var bottomLabel:UILabel!
     @IBOutlet private var nextButton:AutoLayoutSafeMultiLineButton!
     @IBOutlet private var scrollView:UIScrollView!
-    @IBOutlet private var scrollViewGradientView:WelcomePanelScrollViewGradient!
+    @IBOutlet private var scrollViewGradientView:ScrollViewGradientView!
     @IBOutlet private var nextButtonContainerView:UIView!
 
     var nextButtonAction: ((UIButton) -> Void)?
@@ -81,47 +81,5 @@ private extension UIScrollView {
         dispatchOnMainQueueAfterDelayInSeconds(delay) {
             self.flashScrollIndicators()
         }
-    }
-}
-
-class WelcomePanelScrollViewGradient : UIView, Themeable {
-    private var theme = Theme.standard
-    func apply(theme: Theme) {
-        self.theme = theme
-        layer.backgroundColor = theme.colors.midBackground.cgColor
-    }
-    
-    private let fadeHeight = 6.0
-    private var normalizedFadeHeight: Double {
-        return bounds.size.height > 0 ? fadeHeight /  Double(bounds.size.height) : 0
-    }
-    
-    private lazy var gradientMask: CAGradientLayer = {
-        let mask = CAGradientLayer()
-        mask.startPoint = .zero
-        mask.endPoint = CGPoint(x: 0, y: 1)
-        mask.colors = [
-            UIColor.black.cgColor,
-            UIColor.clear.cgColor,
-            UIColor.clear.cgColor,
-            UIColor.black.cgColor
-        ]
-        layer.mask = mask
-        return mask
-    }()
-    
-    override func layoutSublayers(of layer: CALayer) {
-        super.layoutSublayers(of: layer)
-        guard layer == gradientMask.superlayer else {
-            assertionFailure("Unexpected superlayer")
-            return
-        }
-        gradientMask.locations = [  // Keep fade heights fixed to `fadeHeight` regardless of text view height
-            0.0,
-            NSNumber(value: normalizedFadeHeight),          // upper stop
-            NSNumber(value: 1.0 - normalizedFadeHeight),    // lower stop
-            1.0
-        ]
-        gradientMask.frame = bounds
     }
 }
