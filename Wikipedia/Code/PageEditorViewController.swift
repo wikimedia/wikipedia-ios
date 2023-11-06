@@ -52,6 +52,7 @@ final class PageEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setTextSizeInAppEnvironment()
         setupFocusNavigationView()
         loadWikitext()
         
@@ -139,6 +140,11 @@ final class PageEditorViewController: UIViewController {
         focusNavigationView.isHidden = true
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
+    
+    private func setTextSizeInAppEnvironment() {
+        let textSizeAdjustment =  WMFFontSizeMultiplier(rawValue: UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue) ?? .large
+        WKAppEnvironment.current.set(articleAndEditorTextSize: textSizeAdjustment.contentSizeCategory)
+    }
 }
 
 // MARK: - Themeable
@@ -201,6 +207,7 @@ extension PageEditorViewController: FocusNavigationViewDelegate {
 
 extension PageEditorViewController: ReadingThemesControlsResponding {
     func updateWebViewTextSize(textSize: Int) {
+        setTextSizeInAppEnvironment()
     }
     
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
