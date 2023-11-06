@@ -29,26 +29,7 @@ class WKSourceEditorView: WKComponentView {
     // MARK: - Properties
 
     private lazy var textView: UITextView = {
-        let textStorage = WKSourceEditorTextStorage(colors: generateSourceEditorColors(), fonts: generateSourceEditorFonts())
-
-        let layoutManager = NSLayoutManager()
-        let container = NSTextContainer()
-        
-        container.widthTracksTextView = true
-        
-        layoutManager.addTextContainer(container)
-        textStorage.addLayoutManager(layoutManager)
-
-        let textView = UITextView(frame: bounds, textContainer: container)
-        
-        textView.textContainerInset = .init(top: 16, left: 8, bottom: 16, right: 8)
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.smartQuotesType = .no
-        textView.smartDashesType = .no
-        textView.keyboardDismissMode = .interactive
-        textView.delegate = self
-        
-        return textView
+        return textFrameworkMediator.textView
     }()
     
     private lazy var expandingAccessoryView: WKEditorToolbarExpandingView = {
@@ -111,11 +92,13 @@ class WKSourceEditorView: WKComponentView {
     }
     
     private weak var delegate: WKSourceEditorViewDelegate?
+    let textFrameworkMediator: WKSourceEditorTextFrameworkMediator
     
     // MARK: - Lifecycle
 
     required init(delegate: WKSourceEditorViewDelegate) {
         self.delegate = delegate
+        self.textFrameworkMediator = WKSourceEditorTextFrameworkMediator()
         super.init(frame: .zero)
         setup()
     }
@@ -125,6 +108,7 @@ class WKSourceEditorView: WKComponentView {
     }
     
     private func setup() {
+        textView.delegate = self
         addSubview(textView)
         updateColorsAndFonts()
         
@@ -219,24 +203,7 @@ class WKSourceEditorView: WKComponentView {
         textView.becomeFirstResponder()
     }
     
-    // MARK: - Private Helpers
-    
-    private var textStorage: WKSourceEditorTextStorage {
-        return textView.textStorage as! WKSourceEditorTextStorage
-    }
-    
-    private func generateSourceEditorColors() -> WKSourceEditorColors {
-        let colors = WKSourceEditorColors()
-        colors.baseForegroundColor = WKAppEnvironment.current.theme.text
-        return colors
-    }
-    
-    private func generateSourceEditorFonts() -> WKSourceEditorFonts {
-        let fonts = WKSourceEditorFonts()
-        let traitCollection = UITraitCollection(preferredContentSizeCategory: WKAppEnvironment.current.articleAndEditorTextSize)
-        fonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
-        return fonts
-    }
+    // MARK: - Private
     
     private func updateInsets(keyboardHeight: CGFloat) {
         textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
@@ -247,15 +214,7 @@ class WKSourceEditorView: WKComponentView {
         backgroundColor = WKAppEnvironment.current.theme.paperBackground
         textView.backgroundColor = WKAppEnvironment.current.theme.paperBackground
         textView.keyboardAppearance = WKAppEnvironment.current.theme.keyboardAppearance
-        
-        let newSourceEditorColors = generateSourceEditorColors()
-        newSourceEditorColors.baseForegroundColor = WKAppEnvironment.current.theme.text
-        
-        let newSourceEditorFonts = generateSourceEditorFonts()
-        let traitCollection = UITraitCollection(preferredContentSizeCategory: WKAppEnvironment.current.articleAndEditorTextSize)
-        newSourceEditorFonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
-        
-        textStorage.update(newSourceEditorColors, andFonts: newSourceEditorFonts)
+        textFrameworkMediator.updateColorsAndFonts()
     }
 }
 
