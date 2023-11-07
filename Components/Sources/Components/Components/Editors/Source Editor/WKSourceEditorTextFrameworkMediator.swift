@@ -53,6 +53,11 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         textView.smartDashesType = .no
         textView.keyboardDismissMode = .interactive
         
+        // Note: There is improved selection performance / fixed console constraint errors with these next two lines. Leaving them commented out for now.
+        
+        // textView.autocorrectionType = .no
+        // textView.spellCheckingType = .no
+        
         super.init()
         
         if needsTextKit2 {
@@ -64,7 +69,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     
     // MARK: Internal
     
-    private var programmaticallyAddedSpace: Bool = false
+    private(set) var programmaticallyAddedSpace: Bool = false
     func updateColorsAndFonts() {
         if needsTextKit2 {
             
@@ -72,8 +77,13 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             // TODO: This is gross! See if there's a better way to increase editor font size.
             
             if let oldAttributedText = textView.attributedText {
+                
+                let oldSelectedRange = textView.selectedRange
                 let newAttributedText = programmaticallyAddedSpace ? oldAttributedText.string.dropLast() : oldAttributedText.string + " "
                 textView.attributedText = NSAttributedString(string: String(newAttributedText))
+                textView.selectedRange = oldSelectedRange
+                
+                programmaticallyAddedSpace.toggle()
             }
             
         } else {
