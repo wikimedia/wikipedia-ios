@@ -2,13 +2,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class WKSourceEditorColors, WKSourceEditorFonts;
+@class WKSourceEditorColors, WKSourceEditorFonts, WKSourceEditorFormatter;
+@protocol WKSourceEditorStorageDelegate;
 
 @interface WKSourceEditorTextStorage : NSTextStorage
 
-- (instancetype)initWithColors:(nonnull WKSourceEditorColors *)colors fonts:(nonnull WKSourceEditorFonts *)fonts;
+@property (nonatomic, weak) id<WKSourceEditorStorageDelegate> storageDelegate;
 
-- (void)updateColors:(WKSourceEditorColors *)colors andFonts:(WKSourceEditorFonts *)fonts;
+- (void)updateColorsAndFonts;
 
 @end
 

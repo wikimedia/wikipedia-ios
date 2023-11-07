@@ -1,21 +1,19 @@
 #import "WKSourceEditorTextStorage.h"
 #import "WKSourceEditorFormatterBase.h"
+#import "WKSourceEditorStorageDelegate.h"
 
 @interface WKSourceEditorTextStorage ()
 
 @property (nonatomic, strong) NSMutableAttributedString *backingStore;
-@property (nonatomic, strong) WKSourceEditorFormatterBase *baseFormatter;
-
 @property (nonatomic, assign) BOOL needsSyntaxHighlightingCalculation;
 
 @end
 
 @implementation WKSourceEditorTextStorage
 
-- (nonnull instancetype)initWithColors:(nonnull WKSourceEditorColors *)colors fonts:(nonnull WKSourceEditorFonts *)fonts {
+- (nonnull instancetype)init {
     if (self = [super init]) {
         _backingStore = [[NSMutableAttributedString alloc] init];
-        _baseFormatter = [[WKSourceEditorFormatterBase alloc] initWithColors:colors fonts:fonts];
         _needsSyntaxHighlightingCalculation = YES;
     }
     return self;
@@ -56,24 +54,24 @@
 
 // MARK: - Public
 
-- (void)updateColors:(nonnull WKSourceEditorColors *)colors andFonts:(nonnull WKSourceEditorFonts *)fonts {
+- (void)updateColorsAndFonts {
+    WKSourceEditorColors *colors = [self.storageDelegate colors];
+    WKSourceEditorFonts *fonts = [self.storageDelegate fonts];
+    
     self.needsSyntaxHighlightingCalculation = NO;
     [self beginEditing];
     NSRange allRange = NSMakeRange(0, self.backingStore.length);
-    for (WKSourceEditorFormatter *formatter in [self formatters]) {
+    for (WKSourceEditorFormatter *formatter in [self.storageDelegate formatters]) {
         [formatter updateColors:colors inAttributedString:self inRange:allRange];
         [formatter updateFonts:fonts inAttributedString:self inRange:allRange];
     }
     
     [self endEditing];
+    
     self.needsSyntaxHighlightingCalculation = YES;
 }
 
 // MARK: - Private
-
-- (NSArray<WKSourceEditorFormatter *> *)formatters {
-    return @[self.baseFormatter];
-}
 
 - (void)addSyntaxHighlightingToEditedRange:(NSRange)editedRange {
     
@@ -90,7 +88,7 @@
     [self removeAttribute:NSForegroundColorAttributeName range:extendedRange];
     [self removeAttribute:NSForegroundColorAttributeName range:extendedRange];
     
-    for (WKSourceEditorFormatter *formatter in self.formatters) {
+    for (WKSourceEditorFormatter *formatter in [self.storageDelegate formatters]) {
         [formatter addSyntaxHighlightingToAttributedString:self inRange:extendedRange];
     }
 }

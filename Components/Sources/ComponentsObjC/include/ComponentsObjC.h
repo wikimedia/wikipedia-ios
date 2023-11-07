@@ -6,5 +6,6 @@
 #import "WKSourceEditorFonts.h"
 #import "WKSourceEditorFormatter.h"
 #import "WKSourceEditorFormatterBase.h"
+#import "WKSourceEditorStorageDelegate.h"
 
 #endif /* Header_h */

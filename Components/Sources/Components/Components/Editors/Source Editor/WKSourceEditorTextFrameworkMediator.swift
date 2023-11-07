@@ -27,7 +27,8 @@ final class WKSourceEditorTextFrameworkMediator {
             textView = UITextView()
             textKit1Storage = nil
         } else {
-            textKit1Storage = WKSourceEditorTextStorage(colors: Self.generateSourceEditorColors(), fonts: Self.generateSourceEditorFonts())
+            textKit1Storage = WKSourceEditorTextStorage()
+            
             let layoutManager = NSLayoutManager()
             let container = NSTextContainer()
 
@@ -46,34 +47,35 @@ final class WKSourceEditorTextFrameworkMediator {
         textView.keyboardDismissMode = .interactive
         
         self.textView = textView
+        
+        if !needsTextKit2 {
+            textKit1Storage?.storageDelegate = self
+        }
     }
     
     // MARK: Internal
     
     func updateColorsAndFonts() {
-        let newSourceEditorColors = Self.generateSourceEditorColors()
-        newSourceEditorColors.baseForegroundColor = WKAppEnvironment.current.theme.text
-
-        let newSourceEditorFonts = Self.generateSourceEditorFonts()
-        let traitCollection = UITraitCollection(preferredContentSizeCategory: WKAppEnvironment.current.articleAndEditorTextSize)
-        newSourceEditorFonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
-        
         if needsTextKit2 {
             // TODO: textkit 2 implementation
         } else {
-            textKit1Storage?.update(newSourceEditorColors, andFonts: newSourceEditorFonts)
+            textKit1Storage?.updateColorsAndFonts()
         }
     }
+}
+
+extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
+    var formatters: [WKSourceEditorFormatter] {
+        return [WKSourceEditorFormatterBase(colors: colors, fonts: fonts)]
+    }
     
-    // MARK: Private
-    
-    private static func generateSourceEditorColors() -> WKSourceEditorColors {
+    var colors: WKSourceEditorColors {
         let colors = WKSourceEditorColors()
         colors.baseForegroundColor = WKAppEnvironment.current.theme.text
         return colors
     }
     
-    private static func generateSourceEditorFonts() -> WKSourceEditorFonts {
+    var fonts: WKSourceEditorFonts {
         let fonts = WKSourceEditorFonts()
         let traitCollection = UITraitCollection(preferredContentSizeCategory: WKAppEnvironment.current.articleAndEditorTextSize)
         fonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
