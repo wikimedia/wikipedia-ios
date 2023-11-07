@@ -17,11 +17,11 @@ struct SEATFormView: View {
         static let altTextPlaceholder = WMFLocalizedString("suggested-edits-alt-text-form-alt-text-placeholder", value: "Describe this image", comment: "Placeholder for textfield in alt-text form view.")
         static let altTextTextfieldFooter = WMFLocalizedString("suggested-edits-alt-text-form-textfield-footer", value: "Text description for readers who cannot see the image", comment: "Description for textfield in alt-text form view.")
         static let altTextGuidance = WMFLocalizedString("suggested-edits-alt-text-form-guidance", value: "Guidance for writing alt-text", comment: "Header for guidance section in alt-text form view.")
-        static let altTextGuidance1 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-1", value: "• Describe main point", comment: "Guidance point in alt-text form view.")
-        static let altTextGuidance2 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-2", value: "• Under 125 characters", comment: "Guidance point in alt-text form view.")
-        static let altTextGuidance3 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-3", value: "• Context-aware", comment: "Guidance point in alt-text form view.")
-        static let altTextGuidance4 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-4", value: "• State function if needed", comment: "Guidance point in alt-text form view.")
-        static let altTextGuidance5 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-5", value: "• Highlight key parts", comment: "Guidance point in alt-text form view.")
+        static let altTextGuidance1 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-1", value: "• Keep it short and clear", comment: "Guidance point in alt-text form view.")
+        static let altTextGuidance2 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-2", value: "• Only describe what can be seen in the image", comment: "Guidance point in alt-text form view.")
+        static let altTextGuidance3 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-3", value: "• Focus on what is relevant to the article", comment: "Guidance point in alt-text form view.")
+        static let altTextGuidance4 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-4", value: "• Include words and other information from the image", comment: "Guidance point in alt-text form view.")
+        static let altTextGuidance5 = WMFLocalizedString("suggested-edits-alt-text-form-guidance-5", value: "• Take care when identifying or describing people", comment: "Guidance point in alt-text form view.")
         static let viewExamples = WMFLocalizedString("suggested-edits-alt-text-form-view-examples", value: "View examples", comment: "Title for view examples button in alt-text form view.")
     }
 
