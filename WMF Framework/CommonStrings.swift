@@ -418,7 +418,27 @@ public class CommonStrings: NSObject {
     public static let watchlistOnboardingLearnMore = WMFLocalizedString("watchlist-onboarding-button-title", value: "Learn more about the Watchlist", comment: "Watchlists onboarding modal learn more button title")
     
     public static let seatOnboardingTitle = WMFLocalizedString("seat-onboarding-title", value: "How to write alt text for images", comment: "Title of Suggested Edits Alt Text Onboarding View")
-    
+
+    public static let seatOnboardingItem1Header = WMFLocalizedString("seat-onboarding-item-1-header", value: "Keep it short and clear", comment: "SEAT")
+
+    public static let seatOnboardingItem1Body = WMFLocalizedString("seat-onboarding-item-1-body", value: "1-2 lines of plain text with no acronyms, abbreviations, or jargon", comment: "SEAT")
+
+    public static let seatOnboardingItem2Header = WMFLocalizedString("seat-onboarding-item-2-header", value: "Describe what can be seen", comment: "SEAT")
+
+    public static let seatOnboardingItem2Body = WMFLocalizedString("seat-onboarding-item-2-body", value: "Don’t add your own research, interpretation, or point of view", comment: "SEAT")
+
+    public static let seatOnboardingItem3Header = WMFLocalizedString("seat-onboarding-item-3-header", value: "Focus on what is relevant to the article", comment: "SEAT")
+
+    public static let seatOnboardingItem3Body = WMFLocalizedString("seat-onboarding-item-3-body", value: "But don’t repeat text that is already in the caption", comment: "SEAT")
+
+    public static let seatOnboardingItem4Header = WMFLocalizedString("seat-onboarding-item-4-header", value: "Transcribe words and graphics", comment: "SEAT")
+
+    public static let seatOnboardingItem4Body = WMFLocalizedString("seat-onboarding-item-4-body", value: "Write out any words, in quotation marks, and summarize the main idea of maps, diagrams, and charts", comment: "SEAT")
+
+    public static let seatOnboardingItem5Header = WMFLocalizedString("seat-onboarding-item-5-header", value: "Take care with people", comment: "SEAT")
+
+    public static let seatOnboardingItem5Body = WMFLocalizedString("seat-onboarding-item-5-body", value: "Only identify public figures and make sure any description is relevant, apparent, and verifiable", comment: "SEAT")
+
     public static let seatOnboardingDescribeTitle = WMFLocalizedString("seat-onboarding-describe-title", value: "Describe main point", comment: "Title of first list item in Suggested Edits Alt Text Onboarding View")
     
     public static let seatOnboardingDescribeSubtitle = WMFLocalizedString("seat-onboarding-describe-subtitle", value: "Is descriptive and clearly describes the main point of the image.", comment: "Subtitle of first list item in Suggested Edits Alt Text Onboarding View")

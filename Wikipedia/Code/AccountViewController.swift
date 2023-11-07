@@ -279,12 +279,17 @@ class AccountViewController: SubSettingsViewController {
     }
     
     func showSEATOnboarding() {
-        let trackChanges = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "SEAT/photo"), title: CommonStrings.seatOnboardingDescribeTitle, subtitle: CommonStrings.seatOnboardingDescribeSubtitle)
-        let watchArticles = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "SEAT/textformat.size"), title: CommonStrings.seatOnboardingLengthTitle, subtitle: CommonStrings.seatOnboardingLengthSubtitle)
-        let setExpiration = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "SEAT/square.text.square"), title: CommonStrings.seatOnboardingContextTitle, subtitle: CommonStrings.seatOnboardingContextSubtitle)
-        let viewUpdates = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "SEAT/highlight"), title: CommonStrings.seatOnboardingHighlightTitle, subtitle: CommonStrings.seatOnboardingHighlightSubtitle)
+        let item1 = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "SEAT/seat-onboarding-1"), title: CommonStrings.seatOnboardingItem1Header, subtitle: CommonStrings.seatOnboardingItem1Body)
 
-        let viewModel = WKOnboardingViewModel(title: CommonStrings.seatOnboardingTitle, cells: [trackChanges, watchArticles, setExpiration, viewUpdates], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.seatOnboardingLearnMore)
+        let item2 = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "SEAT/seat-onboarding-2"), title: CommonStrings.seatOnboardingItem2Header, subtitle: CommonStrings.seatOnboardingItem2Body)
+
+        let item3 = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "SEAT/seat-onboarding-3"), title: CommonStrings.seatOnboardingItem3Header, subtitle: CommonStrings.seatOnboardingItem3Body)
+
+        let item4 = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "SEAT/seat-onboarding-4"), title: CommonStrings.seatOnboardingItem4Header, subtitle: CommonStrings.seatOnboardingItem4Body)
+
+        let item5 = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "SEAT/seat-onboarding-5"), title: CommonStrings.seatOnboardingItem5Header, subtitle: CommonStrings.seatOnboardingItem5Body)
+
+        let viewModel = WKOnboardingViewModel(title: CommonStrings.seatOnboardingTitle, cells: [item1, item2, item3, item4, item5], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.seatOnboardingLearnMore)
 
         let viewController = WKOnboardingViewController(viewModel: viewModel)
         viewController.hostingController.delegate = self
