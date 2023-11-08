@@ -5,7 +5,7 @@ class WelcomePanelViewController: UIViewController {
     @IBOutlet private weak var containerView: UIView!
 
     @IBOutlet private weak var scrollView: UIScrollView!
-    @IBOutlet private weak var scrollViewGradientView: WelcomePanelScrollViewGradient!
+    @IBOutlet private weak var scrollViewGradientView: ScrollViewGradientView!
 
     @IBOutlet private weak var actionLabel: UILabel!
     @IBOutlet private weak var actionButton: AutoLayoutSafeMultiLineButton!

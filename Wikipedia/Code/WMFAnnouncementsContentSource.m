@@ -40,6 +40,10 @@
 }
 
 - (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force addNewContent:(BOOL)shouldAddNewContent completion:(nullable dispatch_block_t)completion {
+    
+    NSString *countryCode = [[NSLocale currentLocale] countryCode];
+    [self.donateDataController fetchConfigsWithCountryCode:countryCode];
+    
     if ([[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate] == nil) {
         [moc performBlock:^{
             [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
@@ -50,10 +54,7 @@
         return;
     }
     
-    NSString *countryCode = [[NSLocale currentLocale] countryCode];
     [self.fundraisingCampaignDataController fetchConfigWithCountryCode:countryCode currentDate:[NSDate now]];
-    
-    [self.donateDataController fetchConfigsWithCountryCode:countryCode];
     
     [self.fetcher fetchAnnouncementsForURL:self.siteURL
         force:force

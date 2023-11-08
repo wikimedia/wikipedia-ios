@@ -982,7 +982,6 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Footer text of the settings option that enables showing the default reading list";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Title of the settings option that enables showing the default reading list";
 "settings-storage-and-syncing-title" = "Title of the saved articles storage and syncing settings screen";
-"settings-support" = "Title for button letting user make a donation.";
 "settings-title" = "Title of the view where app settings are displayed. {{Identical|Settings}}";
 "share-a-fact-made-with" = "Indicates that the share-a-fact card was made with the Wikipedia app";
 "share-article-name-on-wikipedia" = "Formatted string expressing article being on Wikipedia. $1 will be an article title, which should be wrapped in the localized double quote marks.";

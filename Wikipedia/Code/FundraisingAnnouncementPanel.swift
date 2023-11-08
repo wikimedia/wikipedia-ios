@@ -29,6 +29,13 @@ final class FundraisingAnnouncementPanelViewController: ScrollableEducationPanel
         dismissWhenTappedOutside = true
         contentHorizontalPadding = 20
         configureButtons()
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            containerStackViewBottomConstraint.constant = 45
+            gradientView.fadeHeight = 40
+            gradientView.fadeTop = false
+            gradientView.apply(theme: theme)
+            gradientView.isHidden = false
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -56,7 +63,7 @@ final class FundraisingAnnouncementPanelViewController: ScrollableEducationPanel
     private func evaluateConstraintsOnNewSize(_ size: CGSize) {
         let panelWidth = size.width * 0.9
         if  traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular {
-            width = min(320, panelWidth)
+            width = min(600, panelWidth)
         } else {
             width = panelWidth
         }
