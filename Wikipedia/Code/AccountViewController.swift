@@ -93,7 +93,7 @@ class AccountViewController: SubSettingsViewController {
     }
     
     @objc private func didTapSEATOnboardingLearnMore() {
-        guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Suggested_edits") else {
+        guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits") else {
             return
         }
         
