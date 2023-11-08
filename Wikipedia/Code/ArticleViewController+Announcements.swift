@@ -7,75 +7,14 @@ extension ArticleViewController {
     
     func showAnnouncementIfNeeded() {
         
-        let dataController = WKFundraisingCampaignDataController()
-        
-        // New Donor Experience if they qualify
+        // New Donor Experience
         if let countryCode = Locale.current.regionCode,
            let wikimediaProject = WikimediaProject(siteURL: articleURL),
            let wkProject = wikimediaProject.wkProject,
-           dataController.hasActivelyRunningCampaigns(countryCode: countryCode, currentDate: .now),
            let activeCampaignAsset = WKFundraisingCampaignDataController().loadActiveCampaignAsset(countryCode: countryCode, wkProject: wkProject, currentDate: .now) {
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
             return
         }
-
-        guard (isInValidSurveyCampaignAndArticleList && userHasSeenSurveyPrompt) || !isInValidSurveyCampaignAndArticleList else {
-            return
-        }
-        let predicate = NSPredicate(format: "placement == 'article' && isVisible == YES")
-        let contentGroups = dataStore.viewContext.orderedGroups(of: .announcement, with: predicate)
-        let currentDate = Date()
-        
-        // get the first content group with a valid date
-        let contentGroup = contentGroups?.first(where: { (group) -> Bool in
-            guard group.contentType == .announcement,
-                  let announcement = group.contentPreview as? WMFAnnouncement,
-                  let startDate = announcement.startTime,
-                  let endDate = announcement.endTime
-                  else {
-                return false
-            }
-            
-            return (startDate...endDate).contains(currentDate)
-        })
-        
-        guard
-            !isBeingPresentedAsPeek,
-            let contentGroupURL = contentGroup?.url,
-            let announcement = contentGroup?.contentPreview as? WMFAnnouncement,
-            let actionURL = announcement.actionURL
-        else {
-            return
-        }
-        
-        let dismiss = {
-            // re-fetch since time has elapsed
-            let contentGroup = self.dataStore.viewContext.contentGroup(for: contentGroupURL)
-            contentGroup?.markDismissed()
-            contentGroup?.updateVisibilityForUserIsLogged(in: self.session.isAuthenticated)
-            do {
-                try self.dataStore.viewContext.save()
-            } catch let saveError {
-                DDLogError("Error saving after marking article announcement as dismissed: \(saveError)")
-            }
-        }
-        
-        guard !articleURL.isThankYouDonationURL else {
-            dismiss()
-            return
-        }
-
-        wmf_showAnnouncementPanel(announcement: announcement, primaryButtonTapHandler: { (sender) in
-            self.navigate(to: actionURL, useSafari: true)
-            // dismiss handler is called
-        }, secondaryButtonTapHandler: { (sender) in
-            // dismiss handler is called
-        }, footerLinkAction: { (url) in
-             self.navigate(to: url, useSafari: true)
-            // intentionally don't dismiss
-        }, traceableDismissHandler: { _ in
-            dismiss()
-        }, theme: theme)
     }
     
     private func showNewDonateExperienceCampaignModal(asset: WKFundraisingCampaignConfig.WKAsset, project: WikimediaProject) {
