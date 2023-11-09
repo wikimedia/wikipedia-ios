@@ -20,20 +20,6 @@
                ReferencedContainer = "container:Wikipedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BC4273511A7C736800068882"
-               BuildableName = "WikipediaUnitTests.xctest"
-               BlueprintName = "WikipediaUnitTests"
-               ReferencedContainer = "container:Wikipedia.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -48,48 +34,6 @@
          </TestPlanReference>
       </TestPlans>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BC4273511A7C736800068882"
-               BuildableName = "WikipediaUnitTests.xctest"
-               BlueprintName = "WikipediaUnitTests"
-               ReferencedContainer = "container:Wikipedia.xcodeproj">
-            </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "ArticleCacheReadingManualTests">
-               </Test>
-               <Test
-                  Identifier = "ArticleManualPerformanceTests">
-               </Test>
-               <Test
-                  Identifier = "ArticleViewControllerTests">
-               </Test>
-               <Test
-                  Identifier = "LegacyCoreDataMigratorTests">
-               </Test>
-               <Test
-                  Identifier = "MWKHistoryListPerformanceTests/testReadPerformance">
-               </Test>
-               <Test
-                  Identifier = "NSArray_PredicateTests/testPerformance">
-               </Test>
-               <Test
-                  Identifier = "NSString_FormattedAttributedStringTests/testPerformanceExample">
-               </Test>
-               <Test
-                  Identifier = "ReadingListManualPerformanceTests">
-               </Test>
-               <Test
-                  Identifier = "TalkPageManualPerformanceTests">
-               </Test>
-               <Test
-                  Identifier = "WMFSearchFetcherTests">
-               </Test>
-            </SkippedTests>
-         </TestableReference>
          <TestableReference
             skipped = "NO"
             parallelizable = "YES">
