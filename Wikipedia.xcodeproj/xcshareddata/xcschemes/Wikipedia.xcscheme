@@ -46,9 +46,6 @@
             reference = "container:Test Plans/Wikipedia.xctestplan"
             default = "YES">
          </TestPlanReference>
-         <TestPlanReference
-            reference = "container:Test Plans/UITests.xctestplan">
-         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference
