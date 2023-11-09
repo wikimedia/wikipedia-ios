@@ -593,7 +593,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         updateSettingsButton()
 
         searchBar.apply(theme: theme)
+        #if DEBUG
+        searchBarContainerView.backgroundColor = UIColor.blue
+        #elseif TEST
+        searchBarContainerView.backgroundColor = UIColor.red
+        #elseif UITEST
+        searchBarContainerView.backgroundColor = UIColor.green
+        #else
         searchBarContainerView.backgroundColor = theme.colors.paperBackground
+        #endif
         collectionView.backgroundColor = .clear
         view.backgroundColor = theme.colors.paperBackground
         for cell in collectionView.visibleCells {
