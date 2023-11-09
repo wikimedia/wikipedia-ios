@@ -316,6 +316,17 @@
                </Test>
             </SkippedTests>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "67623E0B2AFD288A007488C7"
+               BuildableName = "WikipediaUITests.xctest"
+               BlueprintName = "WikipediaUITests"
+               ReferencedContainer = "container:Wikipedia.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
