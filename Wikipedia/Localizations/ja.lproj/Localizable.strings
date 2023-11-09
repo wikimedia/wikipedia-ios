@@ -287,6 +287,14 @@
 "diff-user-button-accessibility-text" = "ダブルタップしてメニューを開く";
 "dim-images" = "暗い画像";
 "donate-help-frequently-asked-questions" = "よくある質問";
+"donate-help-problems-donating" = "寄付の際に何か問題がありましたか?";
+"donate-help-tax-deductibility-information" = "税金の控除について";
+"donate-later-title" = "明日改めてお知らせいたします。";
+"donate-payment-method-prompt-apple-pay-button-title" = "Apple Payで寄付する";
+"donate-payment-method-prompt-message" = "Apple Payで寄付するか、他の支払い方法を選択してください。";
+"donate-payment-method-prompt-other-button-title" = "その他の支払い方法";
+"donate-payment-method-prompt-title" = "Apple Payで寄付しますか？";
+"donate-success-title" = "ありがとうございます!";
 "edit-bold-accessibility-label" = "太字にする";
 "edit-bold-remove-accessibility-label" = "太字の解除";
 "edit-clear-formatting-accessibility-label" = "修飾を除去";
@@ -510,6 +518,7 @@
 "forgot-password-instructions" = "下記のいずれかのフィールドを入力して、メールでパスワードリセットの指示を受け取ります";
 "forgot-password-title" = "パスワードをリセット";
 "forgot-password-username-or-email-title" = "または";
+"gan-variants-alert-title" = "贛語言語変種サポートの更新";
 "history-clear-all" = "消去";
 "history-clear-cancel" = "キャンセル";
 "history-clear-confirmation-heading" = "本当にすべての最近の項目を削除しますか?";
@@ -566,6 +575,7 @@
 "insert-media-media-settings-title" = "メディア設定";
 "insert-media-title" = "メディアを挿入";
 "insert-media-uploaded-image-title" = "アップロード済み画像";
+"kurdish-variants-alert-title" = "クルド語言語変種サポートの更新";
 "languages-settings-title" = "言語";
 "languages-title" = "言語を変更";
 "languages-wikipedia" = "ウィキペディアの言語";
@@ -617,6 +627,7 @@
 "notifications-center-checking-for-notifications" = "通知を確認中...";
 "notifications-center-destination-app" = "アプリ内";
 "notifications-center-destination-web" = "ウェブ上";
+"notifications-center-detail-title" = "通知の詳細";
 "notifications-center-empty-checking-for-notifications" = "通知を確認中...";
 "notifications-center-empty-no-messages" = "メッセージはありません";
 "notifications-center-empty-not-subscribed" = "現在、ウィキペディアの通知を登録していません";
@@ -641,6 +652,8 @@
 "notifications-center-go-to-wikidata-item" = "ウィキデータ項目";
 "notifications-center-go-to-your-talk-page" = "あなたの会話ページ";
 "notifications-center-inbox-title" = "プロジェクト";
+"notifications-center-inbox-wikimedia-projects-section-title" = "ウィキメディア・プロジェクト";
+"notifications-center-inbox-wikipedias-section-title" = "ウィキペディア";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "ログイン通知";
 "notifications-center-mark-all-as-read" = "すべて既読にする";
@@ -648,6 +661,7 @@
 "notifications-center-mark-as-unread" = "未読にする";
 "notifications-center-more-action-accessibility-label" = "もっと見る";
 "notifications-center-notifications-settings" = "通知設定";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1件のメッセージ}}";
 "notifications-center-onboarding-modal-continue-action" = "続行";
 "notifications-center-onboarding-modal-filters-title" = "フィルター";
 "notifications-center-onboarding-modal-learn-more-action" = "通知についてさらに詳しく知る";
@@ -933,6 +947,7 @@
 "settings-clear-cache-are-you-sure-title" = "キャッシュを消去しますか?";
 "settings-clear-cache-cancel" = "キャンセル";
 "settings-clear-cache-ok" = "消去";
+"settings-donate" = "寄付";
 "settings-help-and-feedback" = "ヘルプとフィードバック";
 "settings-language-bar" = "検索画面で言語を表示";
 "settings-languages-feed-customization" = "探索フィードの設定を変更すると、どの言語で探索フィードを表示するか管理できます。";
@@ -964,7 +979,6 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "とりあえずあとで読むリストを他とは分けて表示します。このリストはAndroidデバイスにも表示されます。";
 "settings-storage-and-syncing-show-default-reading-list-title" = "とりあえずあとで読むリストを表示";
 "settings-storage-and-syncing-title" = "記事の保存と同期";
-"settings-support" = "ウィキペディアを支援";
 "settings-title" = "設定";
 "share-a-fact-made-with" = "ウィキペディアアプリで作成";
 "share-article-name-on-wikipedia" = "\"$1\"の記事をWikipediaで:";
@@ -1062,7 +1076,9 @@
 "unable-to-load-talk-page-title" = "ノートページを読み込めませんでした";
 "unknown-generic-text" = "不明";
 "unwatch" = "ウォッチ解除";
+"user-title" = "利用者";
 "vanish-account-additional-information-field" = "追加情報";
+"vanish-account-additional-information-placeholder" = "省略可能";
 "vanish-account-back-confirm-discard" = "リクエストを破棄";
 "vanish-account-back-confirm-keep-editing" = "編集を続行";
 "vanish-account-back-confirm-title" = "本当にこの削除リクエストを破棄してもよろしいですか？";
