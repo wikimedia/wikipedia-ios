@@ -3384,6 +3384,7 @@
 		675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisappearingCallbackNavigationController.swift; sourceTree = "<group>"; };
 		67540CA824D221E3008B2894 /* LocationManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerFactory.swift; sourceTree = "<group>"; };
 		675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWikiFetcher.swift; sourceTree = "<group>"; };
+		675BC8BB2AFD2ACD00771C4B /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITests.xctestplan; sourceTree = "<group>"; };
 		6761AED82704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6761AEDE2704CF0000E47BAD /* WikimediaProject+RemoteNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WikimediaProject+RemoteNotifications.swift"; sourceTree = "<group>"; };
 		6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel+TextExtensions.swift"; sourceTree = "<group>"; };
@@ -6348,6 +6349,7 @@
 			isa = PBXGroup;
 			children = (
 				674C176B2AAA86B5007DC6CC /* Wikipedia.xctestplan */,
+				675BC8BB2AFD2ACD00771C4B /* UITests.xctestplan */,
 				674C176E2AAA9414007DC6CC /* Components.xctestplan */,
 				674C176F2AAA941F007DC6CC /* WKData.xctestplan */,
 			);

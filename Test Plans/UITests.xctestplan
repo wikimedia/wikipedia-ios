@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "8E0498FE-92FF-40EC-865C-5BEA22044FC7",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Wikipedia.xcodeproj",
+        "identifier" : "67623E0B2AFD288A007488C7",
+        "name" : "WikipediaUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
