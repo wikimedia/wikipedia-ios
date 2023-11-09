@@ -768,7 +768,6 @@
 "settings-storage-and-syncing-erase-saved-articles-title" = "ลบบทความที่บันทึกไว้";
 "settings-storage-and-syncing-full-sync" = "รายการอ่านของคุณจะถูกซิงค์ในเบื้องหลัง";
 "settings-storage-and-syncing-server-sync-title" = "อัปเดตรายการอ่านที่ซิงค์";
-"settings-support" = "สนับสนุนวิกิพีเดีย";
 "settings-title" = "การตั้งค่า";
 "share-article-name-on-wikipedia" = "\"$1\" บน Wikipedia:";
 "share-default-format" = "“$1” จาก “$2”: $3";

@@ -449,7 +449,7 @@
 "preference-title-eventlogging-opt-in" = "Kas danevelloù implij";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikilevrioù";
-"project-name-wikidata" = "Wikiroadennoù";
+"project-name-wikidata" = "Wikidata";
 "project-name-wikimedia-commons" = "Wikimedia Commons";
 "project-name-wikinews" = "Wikikeloù";
 "project-name-wikiquote" = "Wikiarroud";
@@ -527,7 +527,6 @@
 "settings-primary-language" = "Pennañ";
 "settings-primary-language-details" = "Ar yezh kentañ er roll-mañ eo ar yezh implijet en arload.";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Diverkañ";
-"settings-support" = "Skoazellañ Wikimedia";
 "settings-title" = "Arventennoù";
 "share-article-name-on-wikipedia" = "\"$1\" war Wikipedia:";
 "share-get-directions-in-maps" = "Kaout an tuioù";
