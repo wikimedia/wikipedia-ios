@@ -781,7 +781,7 @@ extension UIViewController {
         present(panelVC, animated: true, completion: nil)
     }
     
-    func wmf_showLoginViewController(category: EventCategoryMEP? = nil, theme: Theme, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
+    func wmf_showLoginViewController(category: EventCategoryMEP? = .loginToSyncPopover, theme: Theme, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
         guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
             assertionFailure("Expected view controller(s) not found")
             return

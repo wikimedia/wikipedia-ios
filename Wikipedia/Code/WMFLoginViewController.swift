@@ -21,7 +21,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
     private var startDate: Date? // to calculate time elapsed between login start and login success
     
-    var category: EventCategoryMEP?
+    public var category: EventCategoryMEP?
     fileprivate var theme: Theme = Theme.standard
     
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
@@ -275,6 +275,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         LoginFunnel.shared.logCreateAccountAttempt(category: category)
         dismiss(animated: true, completion: {
             let navigationController = WMFThemeableNavigationController(rootViewController: createAcctVC, theme: self.theme, style: .sheet)
+            createAcctVC.category = self.category
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
