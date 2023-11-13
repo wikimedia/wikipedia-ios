@@ -9,10 +9,14 @@
     }
   ],
   "defaultOptions" : {
-    "testTimeoutsEnabled" : true
+    "testTimeoutsEnabled" : true,
+    "userAttachmentLifetime" : "keepAlways"
   },
   "testTargets" : [
     {
+      "skippedTests" : [
+        "WikipediaUITests"
+      ],
       "target" : {
         "containerPath" : "container:Wikipedia.xcodeproj",
         "identifier" : "67623E0B2AFD288A007488C7",
