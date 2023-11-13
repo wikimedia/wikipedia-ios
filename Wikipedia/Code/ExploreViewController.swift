@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import CocoaLumberjackSwift
+import Components
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding {
 
@@ -29,7 +30,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         isRefreshControlEnabled = true
         collectionView.refreshControl?.layer.zPosition = 0
-        
+
+        self.navigationBar.bar.accessibilityIdentifier = "WikipediaUITests"
+
         title = CommonStrings.exploreTabTitle
 
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
@@ -59,6 +62,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         detailTransitionSourceRect = nil
         logFeedImpressionAfterDelay()
         dataStore.remoteNotificationsController.loadNotifications(force: false)
+        presentEditorForUITest()
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -73,6 +77,32 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
+    }
+
+
+    func presentEditorForUITest() {
+
+        let localizedStrings = WKSourceEditorLocalizedStrings(inputViewTextFormatting: "asdf", inputViewStyle: "asdf", inputViewClearFormatting: "asdf", inputViewParagraph: "adf", inputViewHeading: "asdf", inputViewSubheading1: "asdf", inputViewSubheading2: "asdf", inputViewSubheading3: "asdf", inputViewSubheading4: "asdf", findReplaceTypeSingle: "asdf", findReplaceTypeAll: "asdf", findReplaceWith: "asdf", accessibilityLabelButtonFormatText: "asdf", accessibilityLabelButtonFormatHeading: "asdf", accessibilityLabelButtonCitation: "asdf", accessibilityLabelButtonCitationSelected: "asdf", accessibilityLabelButtonLink: "asdf", accessibilityLabelButtonLinkSelected: "asdf", accessibilityLabelButtonTemplate: "asdf", accessibilityLabelButtonTemplateSelected: "asdf", accessibilityLabelButtonMedia: "asdf", accessibilityLabelButtonFind: "asdf", accessibilityLabelButtonListUnordered: "asdf", accessibilityLabelButtonListUnorderedSelected: "asdf", accessibilityLabelButtonListOrdered: "asdf", accessibilityLabelButtonListOrderedSelected: "asdf", accessibilityLabelButtonInceaseIndent: "asdf", accessibilityLabelButtonDecreaseIndent: "asdf", accessibilityLabelButtonCursorUp: "asdf", accessibilityLabelButtonCursorDown: "asdf", accessibilityLabelButtonCursorLeft: "asdf", accessibilityLabelButtonCursorRight: "asdf", accessibilityLabelButtonBold: "asdf", accessibilityLabelButtonBoldSelected: "asdf", accessibilityLabelButtonItalics: "asdf", accessibilityLabelButtonItalicsSelected: "asdf", accessibilityLabelButtonClearFormatting: "asdf", accessibilityLabelButtonShowMore: "asdf", accessibilityLabelButtonComment: "asdf", accessibilityLabelButtonCommentSelected: "asdf", accessibilityLabelButtonSuperscript: "asdf", accessibilityLabelButtonSuperscriptSelected: "asdf", accessibilityLabelButtonSubscript: "asd", accessibilityLabelButtonSubscriptSelected: "asdf", accessibilityLabelButtonUnderline: "asdf", accessibilityLabelButtonUnderlineSelected: "asdf", accessibilityLabelButtonStrikethrough: "asdf", accessibilityLabelButtonStrikethroughSelected: "asdf", accessibilityLabelButtonCloseMainInputView: "asdf", accessibilityLabelButtonCloseHeaderSelectInputView: "asdf", accessibilityLabelFindTextField: "asdf", accessibilityLabelFindButtonClear: "asdf", accessibilityLabelFindButtonClose: "asdf", accessibilityLabelFindButtonNext: "asdf", accessibilityLabelFindButtonPrevious: "asdf", accessibilityLabelReplaceTextField: "asdf", accessibilityLabelReplaceButtonClear: "asdf", accessibilityLabelReplaceButtonPerformFormat: "asdf", accessibilityLabelReplaceButtonSwitchFormat: "asdf", accessibilityLabelReplaceTypeSingle: "asdf", accessibilityLabelReplaceTypeAll: "asdf")
+
+        let accessibilityId = WKSourceEditorAccessibilityIdentifiers(
+            textView: SourceEditorAccessibilityIdentifiers.textView.rawValue,
+            findButton: SourceEditorAccessibilityIdentifiers.findButton.rawValue,
+            showMoreButton: SourceEditorAccessibilityIdentifiers.showMoreButton.rawValue,
+            closeButton: SourceEditorAccessibilityIdentifiers.closeButton.rawValue,
+            formatTextButton: SourceEditorAccessibilityIdentifiers.formatTextButton.rawValue,
+            formatHeadingButton: SourceEditorAccessibilityIdentifiers.formatHeadingButton.rawValue,
+            expandingToolbar: SourceEditorAccessibilityIdentifiers.expandingToolbar.rawValue,
+            highlightToolbar: SourceEditorAccessibilityIdentifiers.highlightToolbar.rawValue,
+            findToolbar: SourceEditorAccessibilityIdentifiers.findButton.rawValue,
+            mainInputView: SourceEditorAccessibilityIdentifiers.mainInputView.rawValue,
+            headerSelectInputView: SourceEditorAccessibilityIdentifiers.headerSelectInputView.rawValue
+          )
+
+
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "Text", accessibilityIdentifiers: accessibilityId, localizedStrings: localizedStrings)
+        let editor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
+
+        present(editor, animated: false)
     }
 
     private func restoreScrollPositionIfNeeded() {
@@ -123,8 +153,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func updateSettingsButton() {
+        
         let settingsBarButtonItem = UIBarButtonItem(image: BarButtonImageStyle.settingsButtonImage(theme: theme), style: .plain, target: self, action: #selector(userDidTapSettings))
         settingsBarButtonItem.accessibilityLabel = CommonStrings.settingsTitle
+        settingsBarButtonItem.accessibilityIdentifier = "Source Editor Entry Button"
         navigationItem.rightBarButtonItem = settingsBarButtonItem
         navigationBar.updateNavigationItems()
     }
@@ -158,8 +190,19 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }()
 
     @objc func userDidTapSettings() {
+        #if UITEST
+        let alert = UIAlertController(title: "My Alert", message: "This is an alert.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+        NSLog("The \"OK\" alert occured.")
+        }))
+        self.present(alert, animated: true, completion: nil)
+
+        #else
         AppInteractionFunnel.shared.logSettingsDidTapSettingsIcon()
+     
         settingsPresentationDelegate?.userDidTapSettings(from: self)
+
+        #endif
     }
 
     // MARK: - Refresh
@@ -1093,5 +1136,13 @@ extension ExploreViewController {
     @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
         dataStore.remoteNotificationsController.loadNotifications(force: true)
     }
+
+}
+
+extension ExploreViewController: WKSourceEditorViewControllerDelegate {
+    func sourceEditorViewControllerDidTapFind(sourceEditorViewController: Components.WKSourceEditorViewController) {
+
+    }
+    
 
 }

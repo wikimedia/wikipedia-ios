@@ -37,13 +37,16 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Test"
+      buildConfiguration = "UITests"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:Test Plans/Wikipedia.xctestplan"
+            reference = "container:Test Plans/Wikipedia.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:Test Plans/UITests.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>

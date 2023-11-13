@@ -108,6 +108,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         xButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
         self.navigationItem.leftBarButtonItem = xButton;
     } else {
+
         // If in a tab bar presentation, only show notification bar button item if the user is logged in
         if (self.dataStore.authenticationManager.isLoggedIn) {
             NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
@@ -122,6 +123,20 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     }
 
     [self.navigationBar updateNavigationItems];
+}
+
+- (void)uiTestGoToPageEditor {
+
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"My Alert"
+                                   message:@"This is an alert."
+                                   preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+       handler:^(UIAlertAction * action) {}];
+
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
+
 }
 
 - (void)closeButtonPressed {
