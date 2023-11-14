@@ -19,6 +19,8 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     let textKit1Storage: WKSourceEditorTextStorage?
     let textKit2Storage: NSTextContentStorage?
     
+    private(set) var formatters: [WKSourceEditorFormatter] = []
+    
     override init() {
 
         let textView: UITextView
@@ -71,6 +73,11 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     
     func updateColorsAndFonts() {
         
+        let colors = self.colors
+        let fonts = self.fonts
+        self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts),
+                WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)]
+        
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
                 let textContentManager = textView.textLayoutManager?.textContentManager
@@ -97,13 +104,6 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
 }
 
 extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
-    
-    var formatters: [WKSourceEditorFormatter] {
-        let colors = self.colors
-        let fonts = self.fonts
-        return [WKSourceEditorFormatterBase(colors: colors, fonts: fonts),
-                WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)]
-    }
     
     var colors: WKSourceEditorColors {
         let colors = WKSourceEditorColors()
