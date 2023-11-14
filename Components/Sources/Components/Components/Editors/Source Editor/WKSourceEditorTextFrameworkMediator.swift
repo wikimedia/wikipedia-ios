@@ -137,8 +137,6 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         }
         let attributedString = NSMutableAttributedString(attributedString: originalText)
         let paragraphRange = NSRange(location: 0, length: originalText.length)
-        attributedString.removeAttribute(.font, range: paragraphRange)
-        attributedString.removeAttribute(.foregroundColor, range: paragraphRange)
         
         for formatter in formatters {
             formatter.addSyntaxHighlighting(to: attributedString, in: paragraphRange)

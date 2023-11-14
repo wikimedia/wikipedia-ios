@@ -27,6 +27,11 @@
 }
 
 - (void)addSyntaxHighlightingToAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
+    
+    // reset old attributes
+    [attributedString removeAttribute:NSFontAttributeName range:range];
+    [attributedString removeAttribute:NSForegroundColorAttributeName range:range];
+    
     [attributedString addAttributes:self.attributes range:range];
 }
 
