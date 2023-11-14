@@ -88,7 +88,10 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
 
 extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
     var formatters: [WKSourceEditorFormatter] {
-        return [WKSourceEditorFormatterBase(colors: colors, fonts: fonts)]
+        let colors = self.colors
+        let fonts = self.fonts
+        return [WKSourceEditorFormatterBase(colors: colors, fonts: fonts),
+                WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)]
     }
     
     var colors: WKSourceEditorColors {
@@ -123,6 +126,8 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         attributedString.removeAttribute(.font, range: paragraphRange)
         attributedString.removeAttribute(.foregroundColor, range: paragraphRange)
 
+        let colors = self.colors
+        let fonts = self.fonts
         for formatter in formatters {
             formatter.update(colors, in: attributedString, in: paragraphRange)
             formatter.update(fonts, in: attributedString, in: paragraphRange)
