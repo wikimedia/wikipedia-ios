@@ -70,6 +70,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     // MARK: Internal
     
     func updateColorsAndFonts() {
+        
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
                 let textContentManager = textView.textLayoutManager?.textContentManager
@@ -87,6 +88,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
 }
 
 extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
+    
     var formatters: [WKSourceEditorFormatter] {
         let colors = self.colors
         let fonts = self.fonts
@@ -97,6 +99,7 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
     var colors: WKSourceEditorColors {
         let colors = WKSourceEditorColors()
         colors.baseForegroundColor = WKAppEnvironment.current.theme.text
+        colors.orangeForegroundColor = WKAppEnvironment.current.theme.editorOrange
         return colors
     }
     
@@ -104,6 +107,9 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         let fonts = WKSourceEditorFonts()
         let traitCollection = UITraitCollection(preferredContentSizeCategory: WKAppEnvironment.current.articleAndEditorTextSize)
         fonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
+        fonts.boldFont = WKFont.for(.boldBody, compatibleWith: traitCollection)
+        fonts.italicsFont = WKFont.for(.italicsBody, compatibleWith: traitCollection)
+        fonts.boldItalicsFont = WKFont.for(.boldItalicsBody, compatibleWith: traitCollection)
         return fonts
     }
 }
@@ -121,13 +127,12 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
             return nil
         }
         let attributedString = NSMutableAttributedString(attributedString: originalText)
-
         let paragraphRange = NSRange(location: 0, length: originalText.length)
         attributedString.removeAttribute(.font, range: paragraphRange)
         attributedString.removeAttribute(.foregroundColor, range: paragraphRange)
-
         let colors = self.colors
         let fonts = self.fonts
+        
         for formatter in formatters {
             formatter.update(colors, in: attributedString, in: paragraphRange)
             formatter.update(fonts, in: attributedString, in: paragraphRange)
