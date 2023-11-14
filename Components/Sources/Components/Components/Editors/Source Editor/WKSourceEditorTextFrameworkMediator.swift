@@ -75,10 +75,19 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             if #available(iOS 16.0, *) {
                 let textContentManager = textView.textLayoutManager?.textContentManager
                 textContentManager?.performEditingTransaction({
-                    let attributedString = (textContentManager as? NSTextContentStorage)?.textStorage
-                    let length = attributedString?.length ?? 0
-                    // Keeping this empty is enough to trigger the NSTextContentStorageDelegate method again, where all of our formatting occurs
-                    attributedString?.setAttributes([:], range: NSRange(location: 0, length: length))
+                    
+                    guard let attributedString = (textContentManager as? NSTextContentStorage)?.textStorage else {
+                        return
+                    }
+                    
+                    let colors = self.colors
+                    let fonts = self.fonts
+                    let range = NSRange(location: 0, length: attributedString.length)
+                    for formatter in formatters {
+                        formatter.update(colors, in: attributedString, in: range)
+                        formatter.update(fonts, in: attributedString, in: range)
+                    }
+                    
                 })
             }
         } else {
@@ -130,12 +139,9 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         let paragraphRange = NSRange(location: 0, length: originalText.length)
         attributedString.removeAttribute(.font, range: paragraphRange)
         attributedString.removeAttribute(.foregroundColor, range: paragraphRange)
-        let colors = self.colors
-        let fonts = self.fonts
         
         for formatter in formatters {
-            formatter.update(colors, in: attributedString, in: paragraphRange)
-            formatter.update(fonts, in: attributedString, in: paragraphRange)
+            formatter.addSyntaxHighlighting(to: attributedString, in: paragraphRange)
         }
         
         return NSTextParagraph(attributedString: attributedString)
