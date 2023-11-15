@@ -20,6 +20,11 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     let textKit2Storage: NSTextContentStorage?
     
     private(set) var formatters: [WKSourceEditorFormatter] = []
+    var isSyntaxHighlightingEnabled: Bool = true {
+        didSet {
+            updateColorsAndFonts()
+        }
+    }
     
     override init() {
 
@@ -108,17 +113,19 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
     var colors: WKSourceEditorColors {
         let colors = WKSourceEditorColors()
         colors.baseForegroundColor = WKAppEnvironment.current.theme.text
-        colors.orangeForegroundColor = WKAppEnvironment.current.theme.editorOrange
+        colors.orangeForegroundColor = isSyntaxHighlightingEnabled ? WKAppEnvironment.current.theme.editorOrange : WKAppEnvironment.current.theme.text
         return colors
     }
     
     var fonts: WKSourceEditorFonts {
         let fonts = WKSourceEditorFonts()
         let traitCollection = UITraitCollection(preferredContentSizeCategory: WKAppEnvironment.current.articleAndEditorTextSize)
-        fonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
-        fonts.boldFont = WKFont.for(.boldBody, compatibleWith: traitCollection)
-        fonts.italicsFont = WKFont.for(.italicsBody, compatibleWith: traitCollection)
-        fonts.boldItalicsFont = WKFont.for(.boldItalicsBody, compatibleWith: traitCollection)
+        let baseFont = WKFont.for(.body, compatibleWith: traitCollection)
+        fonts.baseFont = baseFont
+        
+        fonts.boldFont = isSyntaxHighlightingEnabled ? WKFont.for(.boldBody, compatibleWith: traitCollection) : baseFont
+        fonts.italicsFont = isSyntaxHighlightingEnabled ? WKFont.for(.italicsBody, compatibleWith: traitCollection) : baseFont
+        fonts.boldItalicsFont = isSyntaxHighlightingEnabled ? WKFont.for(.boldItalicsBody, compatibleWith: traitCollection) : baseFont
         return fonts
     }
 }

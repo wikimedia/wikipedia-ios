@@ -11,13 +11,15 @@ public class WKSourceEditorViewModel {
     
     // MARK: - Properties
     
-    public var configuration: Configuration
+    public let configuration: Configuration
     public let initialText: String
+    public var isSyntaxHighlightingEnabled: Bool
     
     // MARK: - Public
 
-    public init(configuration: Configuration, initialText: String) {
+    public init(configuration: Configuration, initialText: String, isSyntaxHighlightingEnabled: Bool) {
         self.configuration = configuration
         self.initialText = initialText
+        self.isSyntaxHighlightingEnabled = isSyntaxHighlightingEnabled
     }
 }

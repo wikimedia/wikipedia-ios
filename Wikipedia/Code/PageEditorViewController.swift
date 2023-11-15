@@ -103,7 +103,8 @@ final class PageEditorViewController: UIViewController {
     
     private func addChildEditor(wikitext: String) {
         
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext)
+        let isSyntaxHighlightingEnabled = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled)
         let sourceEditor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
         
         addChild(sourceEditor)
@@ -211,6 +212,7 @@ extension PageEditorViewController: ReadingThemesControlsResponding {
     }
     
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
+        sourceEditor.toggleSyntaxHighlighting()
     }
 }
 

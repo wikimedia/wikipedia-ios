@@ -35,7 +35,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        editorView.setInitialText(viewModel.initialText)
+        editorView.setup(viewModel: viewModel)
         editorView.inputAccessoryViewType = .expanding
     }
     
@@ -44,6 +44,11 @@ public class WKSourceEditorViewController: WKComponentViewController {
     public func closeFind() {
         editorView.closeFind()
         editorView.inputAccessoryViewType = .expanding
+    }
+    
+    public func toggleSyntaxHighlighting() {
+        viewModel.isSyntaxHighlightingEnabled.toggle()
+        editorView.update(viewModel: viewModel)
     }
 }
 
