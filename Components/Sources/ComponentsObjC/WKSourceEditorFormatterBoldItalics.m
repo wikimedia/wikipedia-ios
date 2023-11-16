@@ -157,8 +157,10 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
 
                                         if (textRange.location != NSNotFound) {
                                             
+                                            // Italicize match
                                             [attributedString addAttributes:self.italicsAttributes range:textRange];
                                             
+                                            // Dig deeper to see if some areas need bold italic font instead. In this case previous line effects will be undone.
                                             for (NSValue *value in boldOnlyRanges) {
                                                 NSRange boldRange = value.rangeValue;
                                                 
@@ -167,8 +169,23 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
                                                 BOOL italicSurroundsBold = intersectionRange.length > 0 && fullMatch.location < boldRange.location && fullMatch.length > boldRange.length;
                                                 
                                                 if (boldSurroundsItalic) {
+                                                    
+                                                    // Reset range styling to prep for bold italic
+                                                    [attributedString removeAttribute:NSFontAttributeName range:textRange];
+                                                    [attributedString removeAttribute:WKSourceEditorCustomKeyFontItalics range:textRange];
+                                                    [attributedString removeAttribute:WKSourceEditorCustomKeyFontBold range:intersectionRange];
+                                                    
+                                                    // Bold italicize instead
                                                     [attributedString addAttributes:self.boldItalicsAttributes range:textRange];
+                                                    
                                                 } else if (italicSurroundsBold) {
+                                                    
+                                                    // Reset range styling to prep for bold italic
+                                                    [attributedString removeAttribute:NSFontAttributeName range:intersectionRange];
+                                                    [attributedString removeAttribute:WKSourceEditorCustomKeyFontItalics range:intersectionRange];
+                                                    [attributedString removeAttribute:WKSourceEditorCustomKeyFontBold range:intersectionRange];
+                                                    
+                                                    // Bold italicize instead
                                                     [attributedString addAttributes:self.boldItalicsAttributes range:intersectionRange];
                                                 }
                                             }
