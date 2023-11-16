@@ -1,4 +1,3 @@
-"OK" = "Default action";
 "aaald-added-text-description-2" = "Title displayed in an article as a living document cell explaining that a revision has a certain number of characters added. $1 is replaced by a formatted string representing characters added.";
 "aaald-article-description-updated-description" = "Title displayed in an article as a living document cell explaining that an article's description was updated in a revision.";
 "aaald-article-insert-header" = "Header text in article content insert section that displays recent significant article updates.";

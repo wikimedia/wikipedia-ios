@@ -82,7 +82,67 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     func presentEditorForUITest() {
 
-        let localizedStrings = WKSourceEditorLocalizedStrings(inputViewTextFormatting: "asdf", inputViewStyle: "asdf", inputViewClearFormatting: "asdf", inputViewParagraph: "adf", inputViewHeading: "asdf", inputViewSubheading1: "asdf", inputViewSubheading2: "asdf", inputViewSubheading3: "asdf", inputViewSubheading4: "asdf", findReplaceTypeSingle: "asdf", findReplaceTypeAll: "asdf", findReplaceWith: "asdf", accessibilityLabelButtonFormatText: "asdf", accessibilityLabelButtonFormatHeading: "asdf", accessibilityLabelButtonCitation: "asdf", accessibilityLabelButtonCitationSelected: "asdf", accessibilityLabelButtonLink: "asdf", accessibilityLabelButtonLinkSelected: "asdf", accessibilityLabelButtonTemplate: "asdf", accessibilityLabelButtonTemplateSelected: "asdf", accessibilityLabelButtonMedia: "asdf", accessibilityLabelButtonFind: "asdf", accessibilityLabelButtonListUnordered: "asdf", accessibilityLabelButtonListUnorderedSelected: "asdf", accessibilityLabelButtonListOrdered: "asdf", accessibilityLabelButtonListOrderedSelected: "asdf", accessibilityLabelButtonInceaseIndent: "asdf", accessibilityLabelButtonDecreaseIndent: "asdf", accessibilityLabelButtonCursorUp: "asdf", accessibilityLabelButtonCursorDown: "asdf", accessibilityLabelButtonCursorLeft: "asdf", accessibilityLabelButtonCursorRight: "asdf", accessibilityLabelButtonBold: "asdf", accessibilityLabelButtonBoldSelected: "asdf", accessibilityLabelButtonItalics: "asdf", accessibilityLabelButtonItalicsSelected: "asdf", accessibilityLabelButtonClearFormatting: "asdf", accessibilityLabelButtonShowMore: "asdf", accessibilityLabelButtonComment: "asdf", accessibilityLabelButtonCommentSelected: "asdf", accessibilityLabelButtonSuperscript: "asdf", accessibilityLabelButtonSuperscriptSelected: "asdf", accessibilityLabelButtonSubscript: "asd", accessibilityLabelButtonSubscriptSelected: "asdf", accessibilityLabelButtonUnderline: "asdf", accessibilityLabelButtonUnderlineSelected: "asdf", accessibilityLabelButtonStrikethrough: "asdf", accessibilityLabelButtonStrikethroughSelected: "asdf", accessibilityLabelButtonCloseMainInputView: "asdf", accessibilityLabelButtonCloseHeaderSelectInputView: "asdf", accessibilityLabelFindTextField: "asdf", accessibilityLabelFindButtonClear: "asdf", accessibilityLabelFindButtonClose: "asdf", accessibilityLabelFindButtonNext: "asdf", accessibilityLabelFindButtonPrevious: "asdf", accessibilityLabelReplaceTextField: "asdf", accessibilityLabelReplaceButtonClear: "asdf", accessibilityLabelReplaceButtonPerformFormat: "asdf", accessibilityLabelReplaceButtonSwitchFormat: "asdf", accessibilityLabelReplaceTypeSingle: "asdf", accessibilityLabelReplaceTypeAll: "asdf")
+        let localizedStrings = WKSourceEditorLocalizedStrings(inputViewTextFormatting: CommonStrings.textFormatting,
+                                                              inputViewStyle: CommonStrings.style,
+                                                              inputViewClearFormatting: CommonStrings.clearFormatting,
+                                                              inputViewParagraph: CommonStrings.paragraph,
+                                                              inputViewHeading: CommonStrings.heading,
+                                                              inputViewSubheading1: CommonStrings.subheading1,
+                                                              inputViewSubheading2: CommonStrings.subheading2,
+                                                              inputViewSubheading3: CommonStrings.subheading3,
+                                                              inputViewSubheading4: CommonStrings.subheading4,
+                                                              findReplaceTypeSingle: CommonStrings.findAndReplaceSingle,
+                                                              findReplaceTypeAll: CommonStrings.findAndReplaceAll,
+                                                              findReplaceWith: CommonStrings.replaceWith,
+                                                              accessibilityLabelButtonFormatText: CommonStrings.accessibilityLabelButtonFormatText,
+                                                              accessibilityLabelButtonFormatHeading: CommonStrings.accessibilityLabelButtonFormatHeading,
+                                                              accessibilityLabelButtonCitation: CommonStrings.accessibilityLabelButtonCitation,
+                                                              accessibilityLabelButtonCitationSelected: CommonStrings.accessibilityLabelButtonCitationSelected,
+                                                              accessibilityLabelButtonLink: CommonStrings.accessibilityLabelButtonBold,
+                                                              accessibilityLabelButtonLinkSelected: CommonStrings.accessibilityLabelButtonLinkSelected,
+                                                              accessibilityLabelButtonTemplate: CommonStrings.accessibilityLabelButtonTemplate,
+                                                              accessibilityLabelButtonTemplateSelected: CommonStrings.accessibilityLabelButtonTemplateSelected,
+                                                              accessibilityLabelButtonMedia: CommonStrings.accessibilityLabelButtonMedia,
+                                                              accessibilityLabelButtonFind: CommonStrings.accessibilityLabelButtonFind,
+                                                              accessibilityLabelButtonListUnordered: CommonStrings.accessibilityLabelButtonListUnordered,
+                                                              accessibilityLabelButtonListUnorderedSelected: CommonStrings.accessibilityLabelButtonListUnorderedSelected,
+                                                              accessibilityLabelButtonListOrdered: CommonStrings.accessibilityLabelButtonListOrdered,
+                                                              accessibilityLabelButtonListOrderedSelected: CommonStrings.accessibilityLabelButtonListOrderedSelected,
+                                                              accessibilityLabelButtonInceaseIndent: CommonStrings.accessibilityLabelButtonIncreaseIndent,
+                                                              accessibilityLabelButtonDecreaseIndent: CommonStrings.accessibilityLabelButtonDecreaseIndent,
+                                                              accessibilityLabelButtonCursorUp: CommonStrings.accessibilityLabelButtonCursorUp,
+                                                              accessibilityLabelButtonCursorDown: CommonStrings.accessibilityLabelButtonCursorDown,
+                                                              accessibilityLabelButtonCursorLeft: CommonStrings.accessibilityLabelButtonCursorLeft,
+                                                              accessibilityLabelButtonCursorRight: CommonStrings.accessibilityLabelButtonCursorRight,
+                                                              accessibilityLabelButtonBold: CommonStrings.accessibilityLabelButtonBold,
+                                                              accessibilityLabelButtonBoldSelected: CommonStrings.accessibilityLabelButtonBoldSelected,
+                                                              accessibilityLabelButtonItalics: CommonStrings.accessibilityLabelButtonItalics,
+                                                              accessibilityLabelButtonItalicsSelected: CommonStrings.accessibilityLabelButtonItalicsSelected,
+                                                              accessibilityLabelButtonClearFormatting: CommonStrings.accessibilityLabelButtonClearFormatting,
+                                                              accessibilityLabelButtonShowMore: CommonStrings.accessibilityLabelButtonShowMore,
+                                                              accessibilityLabelButtonComment: CommonStrings.accessibilityLabelButtonComment,
+                                                              accessibilityLabelButtonCommentSelected: CommonStrings.accessibilityLabelButtonCommentSelected,
+                                                              accessibilityLabelButtonSuperscript: CommonStrings.accessibilityLabelButtonSuperscript,
+                                                              accessibilityLabelButtonSuperscriptSelected: CommonStrings.accessibilityLabelButtonSuperscriptSelected,
+                                                              accessibilityLabelButtonSubscript: CommonStrings.accessibilityLabelButtonSubscript,
+                                                              accessibilityLabelButtonSubscriptSelected: CommonStrings.accessibilityLabelButtonSubscriptSelected,
+                                                              accessibilityLabelButtonUnderline: CommonStrings.accessibilityLabelButtonUnderline,
+                                                              accessibilityLabelButtonUnderlineSelected: CommonStrings.accessibilityLabelButtonUnderlineSelected,
+                                                              accessibilityLabelButtonStrikethrough: CommonStrings.accessibilityLabelButtonStrikethrough,
+                                                              accessibilityLabelButtonStrikethroughSelected: CommonStrings.accessibilityLabelButtonStrikethroughSelected,
+                                                              accessibilityLabelButtonCloseMainInputView: CommonStrings.accessibilityLabelButtonCloseMainInputView,
+                                                              accessibilityLabelButtonCloseHeaderSelectInputView: CommonStrings.accessibilityLabelButtonCloseHeaderSelectInputView,
+                                                              accessibilityLabelFindTextField: CommonStrings.accessibilityLabelButtonFind,
+                                                              accessibilityLabelFindButtonClear: CommonStrings.accessibilityLabelButtonClearFormatting,
+                                                              accessibilityLabelFindButtonClose: CommonStrings.accessibilityLabelFindButtonClose,
+                                                              accessibilityLabelFindButtonNext: CommonStrings.accessibilityLabelFindButtonNext,
+                                                              accessibilityLabelFindButtonPrevious: CommonStrings.accessibilityLabelFindButtonPrevious,
+                                                              accessibilityLabelReplaceTextField: CommonStrings.accessibilityLabelReplaceTextField,
+                                                              accessibilityLabelReplaceButtonClear: CommonStrings.accessibilityLabelReplaceButtonClear,
+                                                              accessibilityLabelReplaceButtonPerformFormat: CommonStrings.accessibilityLabelReplaceButtonPerformFormat,
+                                                              accessibilityLabelReplaceButtonSwitchFormat: CommonStrings.accessibilityLabelReplaceButtonSwitchFormat,
+                                                              accessibilityLabelReplaceTypeSingle: CommonStrings.accessibilityLabelReplaceTypeSingle,
+                                                              accessibilityLabelReplaceTypeAll: CommonStrings.accessibilityLabelReplaceTypeAll)
 
         let accessibilityId = WKSourceEditorAccessibilityIdentifiers(
             textView: SourceEditorAccessibilityIdentifiers.textView.rawValue,
@@ -98,8 +158,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             headerSelectInputView: SourceEditorAccessibilityIdentifiers.headerSelectInputView.rawValue
           )
 
-
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "Text", accessibilityIdentifiers: accessibilityId, localizedStrings: localizedStrings)
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "UITest", accessibilityIdentifiers: accessibilityId, localizedStrings: localizedStrings)
         let editor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
 
         present(editor, animated: false)
