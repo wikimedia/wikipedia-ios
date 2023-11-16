@@ -190,19 +190,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }()
 
     @objc func userDidTapSettings() {
-        #if UITEST
-        let alert = UIAlertController(title: "My Alert", message: "This is an alert.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-        NSLog("The \"OK\" alert occured.")
-        }))
-        self.present(alert, animated: true, completion: nil)
-
-        #else
         AppInteractionFunnel.shared.logSettingsDidTapSettingsIcon()
      
         settingsPresentationDelegate?.userDidTapSettings(from: self)
 
-        #endif
     }
 
     // MARK: - Refresh

@@ -810,6 +810,26 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self showSplashView];
 
     [self migrateIfNecessary];
+
+}
+
+- (void) setupUITestsIfNecessary {
+#if UITEST
+    if (NSProcessInfo.processInfo.arguments.count > 1) {
+        self.theme = [WMFTheme dark]; //remove
+        NSArray<NSString *> *arguments = NSProcessInfo.processInfo.arguments;
+
+        if ([arguments  containsObject: @"UITestThemeLight"]) {
+            self.theme = [WMFTheme light];
+        } else if ([arguments  containsObject: @"UITestThemeSepia"]) {
+            self.theme = [WMFTheme sepia];
+        }else if ([arguments  containsObject: @"UITestThemeDark"]) {
+            self.theme = [WMFTheme dark];
+        }else if ([arguments  containsObject: @"UITestThemeBlack"]) {
+            self.theme = [WMFTheme black];
+        }
+    }
+#endif
 }
 
 - (void)migrateIfNecessary {
@@ -1765,6 +1785,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
     self.theme = theme;
+    [self setupUITestsIfNecessary];
 
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
