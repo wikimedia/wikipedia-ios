@@ -52,6 +52,19 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
         
         showMoreButton.setImage(WKIcon.plusCircle, for: .normal)
         showMoreButton.addTarget(self, action: #selector(tappedShowMore), for: .touchUpInside)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)
+    }
+    
+    // MARK: - Notifications
+    
+    @objc private func updateButtonSelectionState(_ notification: NSNotification) {
+        guard let selectionState = notification.userInfo?[Notification.WKSourceEditorSelectionStateKey] as? WKSourceEditorSelectionState else {
+            return
+        }
+        
+        boldButton.isSelected = selectionState.isBold
+        italicsButton.isSelected = selectionState.isItalics
     }
     
     // MARK: - Button Actions

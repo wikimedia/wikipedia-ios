@@ -50,6 +50,19 @@ public class WKSourceEditorViewController: WKComponentViewController {
         viewModel.isSyntaxHighlightingEnabled.toggle()
         editorView.update(viewModel: viewModel)
     }
+    
+    // MARK: - Private
+    
+    private func postUpdateButtonSelectionStatesNotification(withDelay delay: Bool) {
+        let selectionState = editorView.selectionState()
+        if delay {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                NotificationCenter.default.post(name: Notification.WKSourceEditorSelectionState, object: nil, userInfo: [Notification.WKSourceEditorSelectionStateKey: selectionState])
+            }
+        } else {
+            NotificationCenter.default.post(name: Notification.WKSourceEditorSelectionState, object: nil, userInfo: [Notification.WKSourceEditorSelectionStateKey: selectionState])
+        }
+    }
 }
 
 // MARK: - WKSourceEditorViewDelegate
@@ -57,10 +70,12 @@ public class WKSourceEditorViewController: WKComponentViewController {
 extension WKSourceEditorViewController: WKSourceEditorViewDelegate {
     func editorViewTextSelectionDidChange(editorView: WKSourceEditorView, isRangeSelected: Bool) {
         guard editorView.inputViewType == nil else {
+            postUpdateButtonSelectionStatesNotification(withDelay: false)
             return
         }
         
         editorView.inputAccessoryViewType = isRangeSelected ? .highlight : .expanding
+        postUpdateButtonSelectionStatesNotification(withDelay: false)
     }
     
     func editorViewDidTapFind(editorView: WKSourceEditorView) {
@@ -70,6 +85,7 @@ extension WKSourceEditorViewController: WKSourceEditorViewDelegate {
     
     func editorViewDidTapFormatText(editorView: WKSourceEditorView) {
         editorView.inputViewType = .main
+        postUpdateButtonSelectionStatesNotification(withDelay: true)
     }
     
     func editorViewDidTapFormatHeading(editorView: WKSourceEditorView) {
@@ -83,5 +99,17 @@ extension WKSourceEditorViewController: WKSourceEditorViewDelegate {
     
     func editorViewDidTapShowMore(editorView: WKSourceEditorView) {
         editorView.inputViewType = .main
+        postUpdateButtonSelectionStatesNotification(withDelay: true)
     }
+}
+
+// MARK: NSNotification Names
+
+extension Notification.Name {
+    static let WKSourceEditorSelectionState = Notification.Name("WKSourceEditorSelectionState")
+}
+
+extension Notification {
+    static let WKSourceEditorSelectionState = Notification.Name.WKSourceEditorSelectionState
+    static let WKSourceEditorSelectionStateKey = "WKSourceEditorSelectionStateKey"
 }
