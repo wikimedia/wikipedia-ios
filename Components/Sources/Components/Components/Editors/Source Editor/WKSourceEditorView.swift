@@ -208,6 +208,9 @@ class WKSourceEditorView: WKComponentView {
         textView.becomeFirstResponder()
     }
     
+    func selectionState() -> WKSourceEditorSelectionState {
+        return textFrameworkMediator.selectionState(selectedDocumentRange: textView.selectedRange)
+    }
     
     // MARK: - Private
     

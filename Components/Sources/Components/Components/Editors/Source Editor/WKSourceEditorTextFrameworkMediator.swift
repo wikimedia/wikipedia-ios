@@ -13,6 +13,16 @@ fileprivate var needsTextKit2: Bool {
     }
 }
 
+@objc final class WKSourceEditorSelectionState: NSObject {
+    let isBold: Bool
+    let isItalics: Bool
+    
+    init(isBold: Bool, isItalics: Bool) {
+        self.isBold = isBold
+        self.isItalics = isItalics
+    }
+}
+
 final class WKSourceEditorTextFrameworkMediator: NSObject {
     
     let textView: UITextView
@@ -20,6 +30,8 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     let textKit2Storage: NSTextContentStorage?
     
     private(set) var formatters: [WKSourceEditorFormatter] = []
+    private(set) var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics?
+    
     var isSyntaxHighlightingEnabled: Bool = true {
         didSet {
             updateColorsAndFonts()
@@ -80,8 +92,11 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         
         let colors = self.colors
         let fonts = self.fonts
+        
+        let boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
         self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts),
-                WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)]
+                boldItalicsFormatter]
+        self.boldItalicsFormatter = boldItalicsFormatter
         
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
@@ -99,12 +114,59 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
                         formatter.update(colors, in: attributedString, in: range)
                         formatter.update(fonts, in: attributedString, in: range)
                     }
-                    
                 })
             }
         } else {
             textKit1Storage?.updateColorsAndFonts()
         }
+    }
+    
+    func selectionState(selectedDocumentRange: NSRange) -> WKSourceEditorSelectionState {
+        
+        if needsTextKit2 {
+            guard let textKit2Data = textkit2SelectionData(selectedDocumentRange: selectedDocumentRange) else {
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false)
+            }
+            
+            let isBold = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isBoldIn: textKit2Data.paragraphSelectedRange) ?? false
+            let isItalics = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isItalicsIn: textKit2Data.paragraphSelectedRange) ?? false
+            
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics)
+        } else {
+            guard let textKit1Storage else {
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false)
+            }
+                        
+            let isBold = boldItalicsFormatter?.attributedString(textKit1Storage, isBoldIn: selectedDocumentRange) ?? false
+            let isItalics = boldItalicsFormatter?.attributedString(textKit1Storage, isItalicsIn: selectedDocumentRange) ?? false
+            
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics)
+        }
+    }
+    
+    func textkit2SelectionData(selectedDocumentRange: NSRange) -> (paragraphAttributedString: NSMutableAttributedString, paragraphSelectedRange: NSRange)? {
+        guard needsTextKit2 else {
+            return nil
+        }
+        
+        // Pulling the paragraph element that contains the selection will have an attributed string with the populated attributes
+        if #available(iOS 16.0, *) {
+            guard let textKit2Storage,
+                  let layoutManager = textView.textLayoutManager,
+                  let selectedDocumentTextRange = textKit2Storage.textRangeForDocumentNSRange(selectedDocumentRange),
+                  let paragraphElement = layoutManager.textLayoutFragment(for: selectedDocumentTextRange.location)?.textElement as? NSTextParagraph,
+                  let paragraphRange = paragraphElement.elementRange else {
+                return nil
+            }
+            
+            guard let selectedParagraphRange = textKit2Storage.offsetDocumentNSRangeWithParagraphRange(documentNSRange: selectedDocumentRange, paragraphRange: paragraphRange) else {
+                return nil
+            }
+            
+            return (NSMutableAttributedString(attributedString: paragraphElement.attributedString), selectedParagraphRange)
+        }
+        
+        return nil
     }
 }
 
@@ -151,4 +213,26 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         
         return NSTextParagraph(attributedString: attributedString)
     }
- }
+}
+
+fileprivate extension NSTextContentStorage {
+    func textRangeForDocumentNSRange(_ documentNSRange: NSRange) -> NSTextRange? {
+        guard let start = location(documentRange.location, offsetBy: documentNSRange.location),
+                let end = location(start, offsetBy: documentNSRange.length) else {
+            return nil
+        }
+        
+        return NSTextRange(location: start, end: end)
+    }
+    
+    func offsetDocumentNSRangeWithParagraphRange(documentNSRange: NSRange, paragraphRange: NSTextRange) -> NSRange? {
+        let startOffset = offset(from: documentRange.location, to: paragraphRange.location)
+        let newNSRange = NSRange(location: documentNSRange.location - startOffset, length: documentNSRange.length)
+        
+        guard newNSRange.location >= 0 else {
+            return nil
+        }
+        
+        return newNSRange
+    }
+}
