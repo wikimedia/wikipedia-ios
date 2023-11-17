@@ -68,6 +68,12 @@ public class WKSourceEditorViewController: WKComponentViewController {
 // MARK: - WKSourceEditorViewDelegate
 
 extension WKSourceEditorViewController: WKSourceEditorViewDelegate {
+    func editorViewDidTapItalics(editorView: WKSourceEditorView, isSelected: Bool) {
+    }
+    
+    func editorViewDidTapBold(editorView: WKSourceEditorView, isSelected: Bool) {
+    }
+    
     func editorViewTextSelectionDidChange(editorView: WKSourceEditorView, isRangeSelected: Bool) {
         guard editorView.inputViewType == nil else {
             postUpdateButtonSelectionStatesNotification(withDelay: false)

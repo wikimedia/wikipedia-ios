@@ -9,6 +9,8 @@ protocol WKSourceEditorViewDelegate: AnyObject {
     func editorViewDidTapFormatHeading(editorView: WKSourceEditorView)
     func editorViewDidTapCloseInputView(editorView: WKSourceEditorView, isRangeSelected: Bool)
     func editorViewDidTapShowMore(editorView: WKSourceEditorView)
+    func editorViewDidTapBold(editorView: WKSourceEditorView, isSelected: Bool)
+    func editorViewDidTapItalics(editorView: WKSourceEditorView, isSelected: Bool)
 }
 
 class WKSourceEditorView: WKComponentView {
@@ -255,6 +257,14 @@ extension WKSourceEditorView: WKEditorToolbarExpandingViewDelegate {
 // MARK: - WKEditorToolbarHighlightViewDelegate
 
 extension WKSourceEditorView: WKEditorToolbarHighlightViewDelegate {
+    func toolbarHighlightViewDidTapBold(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
+        delegate?.editorViewDidTapBold(editorView: self, isSelected: isSelected)
+    }
+    
+    func toolbarHighlightViewDidTapItalics(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
+        delegate?.editorViewDidTapItalics(editorView: self, isSelected: isSelected)
+    }
+    
     func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView) {
         delegate?.editorViewDidTapShowMore(editorView: self)
     }
@@ -267,6 +277,14 @@ extension WKSourceEditorView: WKEditorToolbarHighlightViewDelegate {
 // MARK: - WKEditorInputViewDelegate
 
 extension WKSourceEditorView: WKEditorInputViewDelegate {
+    func didTapBold(isSelected: Bool) {
+        delegate?.editorViewDidTapBold(editorView: self, isSelected: isSelected)
+    }
+    
+    func didTapItalics(isSelected: Bool) {
+        delegate?.editorViewDidTapItalics(editorView: self, isSelected: isSelected)
+    }
+    
     func didTapClose() {
         delegate?.editorViewDidTapCloseInputView(editorView: self, isRangeSelected: textView.selectedRange.length > 0)
     }

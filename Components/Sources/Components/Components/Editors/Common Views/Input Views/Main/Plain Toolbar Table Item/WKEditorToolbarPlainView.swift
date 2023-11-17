@@ -53,9 +53,11 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
     // MARK: Button Actions
     
     @objc private func tappedBold() {
+        delegate?.didTapBold(isSelected: boldButton.isSelected)
     }
 
     @objc private func tappedItalics() {
+        delegate?.didTapItalics(isSelected: italicsButton.isSelected)
     }
 
     @objc private func tappedCitation() {
