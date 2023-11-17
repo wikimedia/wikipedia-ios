@@ -30,7 +30,7 @@ class WKSourceEditorView: WKComponentView {
     
     // MARK: - Properties
 
-    private var textView: UITextView {
+    var textView: UITextView {
         return textFrameworkMediator.textView
     }
     
@@ -212,6 +212,14 @@ class WKSourceEditorView: WKComponentView {
     
     func selectionState() -> WKSourceEditorSelectionState {
         return textFrameworkMediator.selectionState(selectedDocumentRange: textView.selectedRange)
+    }
+    
+    func toggleBoldFormatting(action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
+        textFrameworkMediator.boldItalicsFormatter?.toggleBoldFormatting(action: action, in: textView)
+    }
+    
+    func toggleItalicsFormatting(action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
+        textFrameworkMediator.boldItalicsFormatter?.toggleItalicsFormatting(action: action, in: textView)
     }
     
     // MARK: - Private

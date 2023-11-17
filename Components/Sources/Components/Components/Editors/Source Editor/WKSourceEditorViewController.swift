@@ -69,9 +69,13 @@ public class WKSourceEditorViewController: WKComponentViewController {
 
 extension WKSourceEditorViewController: WKSourceEditorViewDelegate {
     func editorViewDidTapItalics(editorView: WKSourceEditorView, isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        editorView.toggleItalicsFormatting(action: action, in: editorView.textView)
     }
     
     func editorViewDidTapBold(editorView: WKSourceEditorView, isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        editorView.toggleBoldFormatting(action: action, in: editorView.textView)
     }
     
     func editorViewTextSelectionDidChange(editorView: WKSourceEditorView, isRangeSelected: Bool) {
