@@ -11,6 +11,9 @@ final class WKSourceEditorUITests: XCTestCase {
         app.launchArguments += ProcessInfo().arguments
         app.launch()
 
+        let entryButton = app.buttons["Source Editor Entry Button"]
+        entryButton.tap()
+
         let textView = app.textViews["Source Editor TextView"]
         textView.tap()
         textView.typeText("Hello World!")
