@@ -106,7 +106,7 @@
       buildConfiguration = "Release">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "UITests"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
