@@ -104,34 +104,33 @@ final class WKSourceEditorUITests: XCTestCase {
     }
 }
 
-
-    extension XCUIApplication {
-        var isDisplayingExpandingToolbar: Bool {
-            return otherElements["Source Editor Expanding Toolbar"].exists
-        }
-
-        var isDisplayingHighlightingToolbar: Bool {
-            return otherElements["Source Editor Highlight Toolbar"].exists
-        }
-
-        var isDisplayingFindAndReplaceToolbar: Bool {
-            return otherElements["Source Editor Find Toolbar"].exists
-        }
-
-        var isDisplayingMainInputView: Bool {
-            return otherElements[ "Source Editor Main Input View"].exists
-        }
-
-        var isDisplayingHeaderSelectView: Bool {
-            return otherElements["Source Editor Header Select Input View"].exists
-        }
+extension XCUIApplication {
+    var isDisplayingExpandingToolbar: Bool {
+        return otherElements["Source Editor Expanding Toolbar"].exists
     }
 
-    private enum ScreenshotNames: String {
-        case initial = "Source Editor Initial"
-        case highlighted = "Source Editor Highlighted"
-        case main = "Source Editor Main Input View 1"
-        case headerSelect1 = "Source Editor Header Select Input View 1"
-        case headerSelect2 = "Source Editor Header Select Input View 2"
-        case find = "Source Editor Find"
+    var isDisplayingHighlightingToolbar: Bool {
+        return otherElements["Source Editor Highlight Toolbar"].exists
     }
+
+    var isDisplayingFindAndReplaceToolbar: Bool {
+        return otherElements["Source Editor Find Toolbar"].exists
+    }
+
+    var isDisplayingMainInputView: Bool {
+        return otherElements[ "Source Editor Main Input View"].exists
+    }
+
+    var isDisplayingHeaderSelectView: Bool {
+        return otherElements["Source Editor Header Select Input View"].exists
+    }
+}
+
+private enum ScreenshotNames: String {
+    case initial = "Source Editor Initial"
+    case highlighted = "Source Editor Highlighted"
+    case main = "Source Editor Main Input View 1"
+    case headerSelect1 = "Source Editor Header Select Input View 1"
+    case headerSelect2 = "Source Editor Header Select Input View 2"
+    case find = "Source Editor Find"
+}
