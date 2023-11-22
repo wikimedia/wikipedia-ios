@@ -43,10 +43,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:Test Plans/Wikipedia.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:Test Plans/UITests.xctestplan"
+            reference = "container:Test Plans/Wikipedia.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
