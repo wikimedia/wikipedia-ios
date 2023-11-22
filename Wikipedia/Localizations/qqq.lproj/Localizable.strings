@@ -1028,8 +1028,8 @@
 "source-editor-accessibility-label-ordered" = "Accessibility label for make ordered list button on the page editor";
 "source-editor-accessibility-label-ordered-selected" = "accessibility label for remove ordered list button on the page editor";
 "source-editor-accessibility-label-replace-button-clear" = "Accessibility label for the clear replace field button on the page editor";
-"source-editor-accessibility-label-replace-button-perform-format" = "Accessibility label for the perform replace button on the page editor";
-"source-editor-accessibility-label-replace-button-switch-format" = "Accessibility label for switch format button on page editor";
+"source-editor-accessibility-label-replace-button-perform-format" = "Accessibility label for the perform replace button on the page editor, $1 is replaced by text to replace";
+"source-editor-accessibility-label-replace-button-switch-format" = "Accessibility label for switch format button on page editor, $1 is replaced by text to replace";
 "source-editor-accessibility-label-replace-text-field" = "Accessibility label for the replace text field on the page editor";
 "source-editor-accessibility-label-replace-type-all" = "Accessibility label for the replace all instances button on the page editor";
 "source-editor-accessibility-label-replace-type-single" = "Accessibility label for replace single instance button on the page editor";
