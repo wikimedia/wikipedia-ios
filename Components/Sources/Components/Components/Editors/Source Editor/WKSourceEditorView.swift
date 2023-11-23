@@ -28,9 +28,9 @@ class WKSourceEditorView: WKComponentView {
     
     // MARK: - Properties
 
-    private lazy var textView: UITextView = {
+    private var textView: UITextView {
         return textFrameworkMediator.textView
-    }()
+    }
     
     private lazy var expandingAccessoryView: WKEditorToolbarExpandingView = {
         let view = UINib(nibName: String(describing: WKEditorToolbarExpandingView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKEditorToolbarExpandingView
@@ -195,13 +195,19 @@ class WKSourceEditorView: WKComponentView {
         }
     }
     
-    func setInitialText(_ text: String) {
-        textView.attributedText = NSAttributedString(string: text)
+    func setup(viewModel: WKSourceEditorViewModel) {
+        textFrameworkMediator.isSyntaxHighlightingEnabled = viewModel.isSyntaxHighlightingEnabled
+        textView.attributedText = NSAttributedString(string: viewModel.initialText)
+    }
+    
+    func update(viewModel: WKSourceEditorViewModel) {
+        textFrameworkMediator.isSyntaxHighlightingEnabled = viewModel.isSyntaxHighlightingEnabled
     }
     
     func closeFind() {
         textView.becomeFirstResponder()
     }
+    
     
     // MARK: - Private
     

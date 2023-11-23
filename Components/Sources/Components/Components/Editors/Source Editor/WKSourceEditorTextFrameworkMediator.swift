@@ -19,6 +19,13 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     let textKit1Storage: WKSourceEditorTextStorage?
     let textKit2Storage: NSTextContentStorage?
     
+    private(set) var formatters: [WKSourceEditorFormatter] = []
+    var isSyntaxHighlightingEnabled: Bool = true {
+        didSet {
+            updateColorsAndFonts()
+        }
+    }
+    
     override init() {
 
         let textView: UITextView
@@ -70,14 +77,29 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     // MARK: Internal
     
     func updateColorsAndFonts() {
+        
+        let colors = self.colors
+        let fonts = self.fonts
+        self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts),
+                WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)]
+        
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
                 let textContentManager = textView.textLayoutManager?.textContentManager
                 textContentManager?.performEditingTransaction({
-                    let attributedString = (textContentManager as? NSTextContentStorage)?.textStorage
-                    let length = attributedString?.length ?? 0
-                    // Keeping this empty is enough to trigger the NSTextContentStorageDelegate method again, where all of our formatting occurs
-                    attributedString?.setAttributes([:], range: NSRange(location: 0, length: length))
+                    
+                    guard let attributedString = (textContentManager as? NSTextContentStorage)?.textStorage else {
+                        return
+                    }
+                    
+                    let colors = self.colors
+                    let fonts = self.fonts
+                    let range = NSRange(location: 0, length: attributedString.length)
+                    for formatter in formatters {
+                        formatter.update(colors, in: attributedString, in: range)
+                        formatter.update(fonts, in: attributedString, in: range)
+                    }
+                    
                 })
             }
         } else {
@@ -87,20 +109,23 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
 }
 
 extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
-    var formatters: [WKSourceEditorFormatter] {
-        return [WKSourceEditorFormatterBase(colors: colors, fonts: fonts)]
-    }
     
     var colors: WKSourceEditorColors {
         let colors = WKSourceEditorColors()
         colors.baseForegroundColor = WKAppEnvironment.current.theme.text
+        colors.orangeForegroundColor = isSyntaxHighlightingEnabled ? WKAppEnvironment.current.theme.editorOrange : WKAppEnvironment.current.theme.text
         return colors
     }
     
     var fonts: WKSourceEditorFonts {
         let fonts = WKSourceEditorFonts()
         let traitCollection = UITraitCollection(preferredContentSizeCategory: WKAppEnvironment.current.articleAndEditorTextSize)
-        fonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
+        let baseFont = WKFont.for(.body, compatibleWith: traitCollection)
+        fonts.baseFont = baseFont
+        
+        fonts.boldFont = isSyntaxHighlightingEnabled ? WKFont.for(.boldBody, compatibleWith: traitCollection) : baseFont
+        fonts.italicsFont = isSyntaxHighlightingEnabled ? WKFont.for(.italicsBody, compatibleWith: traitCollection) : baseFont
+        fonts.boldItalicsFont = isSyntaxHighlightingEnabled ? WKFont.for(.boldItalicsBody, compatibleWith: traitCollection) : baseFont
         return fonts
     }
 }
@@ -118,14 +143,10 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
             return nil
         }
         let attributedString = NSMutableAttributedString(attributedString: originalText)
-
         let paragraphRange = NSRange(location: 0, length: originalText.length)
-        attributedString.removeAttribute(.font, range: paragraphRange)
-        attributedString.removeAttribute(.foregroundColor, range: paragraphRange)
-
+        
         for formatter in formatters {
-            formatter.update(colors, in: attributedString, in: paragraphRange)
-            formatter.update(fonts, in: attributedString, in: paragraphRange)
+            formatter.addSyntaxHighlighting(to: attributedString, in: paragraphRange)
         }
         
         return NSTextParagraph(attributedString: attributedString)

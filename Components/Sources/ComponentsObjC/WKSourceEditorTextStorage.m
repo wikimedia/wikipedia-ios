@@ -82,12 +82,6 @@
 }
 
 - (void)addSyntaxHighlightingToExtendedRange:(NSRange)extendedRange {
-    
-    // reset old attributes
-    [self removeAttribute:NSFontAttributeName range:extendedRange];
-    [self removeAttribute:NSForegroundColorAttributeName range:extendedRange];
-    [self removeAttribute:NSForegroundColorAttributeName range:extendedRange];
-    
     for (WKSourceEditorFormatter *formatter in [self.storageDelegate formatters]) {
         [formatter addSyntaxHighlightingToAttributedString:self inRange:extendedRange];
     }
