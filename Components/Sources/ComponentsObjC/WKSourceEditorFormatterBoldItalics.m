@@ -271,4 +271,55 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
     }];
 }
 
+- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isBoldInRange:(NSRange)range {
+    __block BOOL isBold = NO;
+    if (range.length == 0) {
+        
+        if (attributedString.length > range.location) {
+            NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+            
+            if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontBold] != nil) {
+                isBold = YES;
+            }
+        }
+        
+    } else {
+        [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
+                if ((attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontBold] != nil) &&
+                    (loopRange.location == range.location && loopRange.length == range.length)) {
+                    isBold = YES;
+                    stop = YES;
+                }
+        }];
+    }
+    
+    
+    return isBold;
+}
+- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isItalicsInRange:(NSRange)range {
+    __block BOOL isItalics = NO;
+    
+    if (range.length == 0) {
+        
+        if (attributedString.length > range.location) {
+            NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+            
+            if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontItalics] != nil) {
+                isItalics = YES;
+            }
+        }
+        
+    } else {
+        [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
+                if ((attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontItalics] != nil) &&
+                    (loopRange.location == range.location && loopRange.length == range.length)) {
+                    isItalics = YES;
+                    stop = YES;
+                }
+        }];
+    }
+    
+    return isItalics;
+}
+
 @end
