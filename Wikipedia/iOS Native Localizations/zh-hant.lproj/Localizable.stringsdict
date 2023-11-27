@@ -783,5 +783,19 @@
 			<string>%1$d</string>
 		</dict>
 	</dict>
+	<key>watchlist-number-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>調整[%#@v1@]（wikipedia://watchlist/filter）可查看更多監視清單項目</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d 篩選功能</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
