@@ -65,7 +65,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
         
         expandButton.isAccessibilityElement = false
-        expandButton.setImage(WKIcon.chevronRightCircle, for: .normal)
+        expandButton.setImage(WKSFSymbolIcon.for(symbol: .chevronRightCircle), for: .normal)
         expandButton.addTarget(self, action: #selector(tappedExpand), for: .touchUpInside)
         
         formatTextButton.setImage(WKIcon.formatText, for: .normal)
@@ -74,31 +74,31 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         formatHeadingButton.setImage(WKIcon.formatHeading, for: .normal)
         formatHeadingButton.addTarget(self, action: #selector(tappedFormatHeading), for: .touchUpInside)
         
-        citationButton.setImage(WKIcon.citation, for: .normal)
+        citationButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
         citationButton.addTarget(self, action: #selector(tappedCitation), for: .touchUpInside)
         
-        linkButton.setImage(WKIcon.link, for: .normal)
+        linkButton.setImage(WKSFSymbolIcon.for(symbol: .link), for: .normal)
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
         
-        templateButton.setImage(WKIcon.template, for: .normal)
+        templateButton.setImage(WKSFSymbolIcon.for(symbol: .curlybraces), for: .normal)
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
         
-        mediaButton.setImage(WKIcon.media, for: .normal)
+        mediaButton.setImage(WKSFSymbolIcon.for(symbol: .photo), for: .normal)
         mediaButton.addTarget(self, action: #selector(tappedMedia), for: .touchUpInside)
         
-        findInPageButton.setImage(WKIcon.findInPage, for: .normal)
+        findInPageButton.setImage(WKSFSymbolIcon.for(symbol: .docTextMagnifyingGlass), for: .normal)
         findInPageButton.addTarget(self, action: #selector(tappedFindInPage), for: .touchUpInside)
         
-        unorderedListButton.setImage(WKIcon.listUnordered, for: .normal)
+        unorderedListButton.setImage(WKSFSymbolIcon.for(symbol: .listBullet), for: .normal)
         unorderedListButton.addTarget(self, action: #selector(tappedUnorderedList), for: .touchUpInside)
         
-        orderedListButton.setImage(WKIcon.listOrdered, for: .normal)
+        orderedListButton.setImage(WKSFSymbolIcon.for(symbol: .listNumber), for: .normal)
         orderedListButton.addTarget(self, action: #selector(tappedOrderedList), for: .touchUpInside)
         
-        decreaseIndentionButton.setImage(WKIcon.indentDecrease, for: .normal)
+        decreaseIndentionButton.setImage(WKSFSymbolIcon.for(symbol: .decreaseIndent), for: .normal)
         decreaseIndentionButton.addTarget(self, action: #selector(tappedDecreaseIndentation), for: .touchUpInside)
         
-        increaseIndentionButton.setImage(WKIcon.indentIncrease, for: .normal)
+        increaseIndentionButton.setImage(WKSFSymbolIcon.for(symbol: .increaseIndent), for: .normal)
         increaseIndentionButton.addTarget(self, action: #selector(tappedIncreaseIndentation), for: .touchUpInside)
         
         cursorUpButton.setImage(WKIcon.chevronUp, for: .normal)

@@ -25,22 +25,10 @@ public enum WKIcon {
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
 
     // Editor-specific icons
-    static let bold = UIImage(named: "editor/bold", in: .module, with: nil)
-    static let citation = UIImage(named: "editor/citation", in: .module, with: nil)
-    static let clear = UIImage(named: "editor/clear", in: .module, with: nil)
-    static let formatText = UIImage(named: "editor/format-text", in: .module, with: nil)
-    static let formatHeading = UIImage(named: "editor/format-heading", in: .module, with: nil)
-    static let indentDecrease = UIImage(named: "editor/indent-decrease", in: .module, with: nil)
-    static let indentIncrease = UIImage(named: "editor/indent-increase", in: .module, with: nil)
-    static let italics = UIImage(named: "editor/italics", in: .module, with: nil)
-    static let listOrdered = UIImage(named: "editor/list-ordered", in: .module, with: nil)
-    static let listUnordered = UIImage(named: "editor/list-unordered", in: .module, with: nil)
-    static let strikethrough = UIImage(named: "editor/strikethrough", in: .module, with: nil)
-    static let `subscript` = UIImage(named: "editor/subscript", in: .module, with: nil)
-    static let superscript = UIImage(named: "editor/superscript", in: .module, with: nil)
-    static let template = UIImage(named: "editor/template", in: .module, with: nil)
-    static let underline = UIImage(named: "editor/underline", in: .module, with: nil)
-    
+    static let clear = UIImage(named: "editor/clear", in: .module, with: nil) //
+    static let formatText = UIImage(named: "editor/format-text", in: .module, with: nil)//
+    static let formatHeading = UIImage(named: "editor/format-heading", in: .module, with: nil)//
+
     // Project icons
     static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
     static let wikidata = UIImage(named: "project-icons/wikidata", in: .module, with: nil)
@@ -56,10 +44,38 @@ public enum WKSFSymbolIcon {
     case starLeadingHalfFilled
     case heart
 	case conversation
+    case quoteOpening
+    case link
+    case curlybraces
+    case photo
+    case docTextMagnifyingGlass
+    case magnifyingGlass
+    case listBullet
+    case listNumber
+    case increaseIndent
+    case decreaseIndent
+    case chevronUp
+    case chevronDown
+    case chevronBackward
+    case chevronForward
+    case bold
+    case italic
+    case exclamationMarkCircle
+    case textFormatSuperscript
+    case textFormatSubscript
+    case underline
+    case strikethrough
+    case multiplyCircleFill
+    case chevronRightCircle
+    case close
+    case ellipsis
+    case pencil
+    case plusCircleFill
 
-	public static func `for`(symbol: WKSFSymbolIcon, font: WKFont = .body, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection) -> UIImage? {
+    public static func `for`(symbol: WKSFSymbolIcon, font: WKFont = .body, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection) -> UIImage? {
         let font = WKFont.for(font)
         let configuration = UIImage.SymbolConfiguration(font: font)
+
         switch symbol {
         case .checkmark:
             return UIImage(systemName: "checkmark", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
@@ -79,6 +95,62 @@ public enum WKSFSymbolIcon {
             return UIImage(systemName: "heart", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .conversation:
             return UIImage(systemName: "bubble.left.and.bubble.right", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .quoteOpening:
+            return UIImage(systemName: "quote.opening", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .link:
+            return UIImage(systemName: "link", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .curlybraces:
+            return UIImage(systemName: "curlybraces", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .photo:
+            return UIImage(systemName: "photo", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .docTextMagnifyingGlass:
+            return UIImage(systemName: "doc.text.magnifyingglass", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .magnifyingGlass:
+            return UIImage(systemName: "magnifyingglass", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .listBullet:
+            return UIImage(systemName: "list.bullet", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .listNumber:
+            return UIImage(systemName: "list.number", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .increaseIndent:
+            return UIImage(systemName: "increase.indent", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .decreaseIndent:
+            return UIImage(systemName: "decrease.indent", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .chevronUp:
+            return UIImage(systemName: "chevron.up", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .chevronDown:
+            return UIImage(systemName: "chevron.down", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .chevronBackward:
+            return UIImage(systemName: "chevron.backward", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .chevronForward:
+            return UIImage(systemName: "chevron.forward", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .bold:
+            return UIImage(systemName: "bold", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .italic:
+            return UIImage(systemName: "italic", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .exclamationMarkCircle:
+            return UIImage(systemName: "exclamationmark.circle", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .textFormatSuperscript:
+            return UIImage(systemName: "textformat.superscript", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .textFormatSubscript:
+            return UIImage(systemName: "textformat.subscript", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .underline:
+            return UIImage(systemName: "underline", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .strikethrough:
+            return UIImage(systemName: "strikethrough", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .multiplyCircleFill:
+            return UIImage(systemName: "multiply.circle.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .chevronRightCircle:
+            return UIImage(systemName: "chevron.right.circle.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .close:
+            return UIImage(systemName: "multiply", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .ellipsis:
+            return UIImage(systemName: "ellipsis", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .pencil:
+            return UIImage(systemName: "pencil", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+        case .plusCircleFill:
+            return UIImage(systemName: "plus.circle.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+
         }
     }
+
 }

@@ -38,18 +38,18 @@ class WKFindAndReplaceView: WKComponentView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        closeButton.setImage(WKIcon.close, for: .normal)
-        previousButton.setImage(WKIcon.chevronUp, for: .normal)
-        nextButton.setImage(WKIcon.chevronDown, for: .normal)
-        
+        closeButton.setImage(WKSFSymbolIcon.for(symbol: .close), for: .normal)
+        previousButton.setImage(WKSFSymbolIcon.for(symbol: .chevronUp), for: .normal)
+        nextButton.setImage(WKSFSymbolIcon.for(symbol: .chevronDown), for: .normal)
+
         replaceButton.setImage(WKIcon.replace, for: .normal)
-        replaceSwitchButton.setImage(WKIcon.more, for: .normal)
-        
-        magnifyImageView.image = WKIcon.find
-        pencilImageView.image = WKIcon.pencil
-        
-        findClearButton.setImage(WKIcon.closeCircle, for: .normal)
-        replaceClearButton.setImage(WKIcon.closeCircle, for: .normal)
+        replaceSwitchButton.setImage(WKSFSymbolIcon.for(symbol: .ellipsis), for: .normal)
+
+        magnifyImageView.image = WKSFSymbolIcon.for(symbol: .magnifyingGlass)
+        pencilImageView.image = WKSFSymbolIcon.for(symbol: .pencil)
+
+        findClearButton.setImage(WKSFSymbolIcon.for(symbol: .multiplyCircleFill), for: .normal)
+        replaceClearButton.setImage(WKSFSymbolIcon.for(symbol: .multiplyCircleFill), for: .normal)
         
         findTextField.adjustsFontForContentSizeCategory = true
         findTextField.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)

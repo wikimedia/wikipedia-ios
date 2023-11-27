@@ -18,28 +18,28 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        unorderedListButton.setImage(WKIcon.listUnordered, for: .normal)
+        unorderedListButton.setImage(WKSFSymbolIcon.for(symbol: .listBullet), for: .normal)
         unorderedListButton.addTarget(self, action: #selector(tappedUnorderedList), for: .touchUpInside)
         
-        orderedListButton.setImage(WKIcon.listOrdered, for: .normal)
+        orderedListButton.setImage(WKSFSymbolIcon.for(symbol: .listNumber), for: .normal)
         orderedListButton.addTarget(self, action: #selector(tappedOrderedList), for: .touchUpInside)
         
-        decreaseIndentButton.setImage(WKIcon.indentDecrease, for: .normal)
+        decreaseIndentButton.setImage(WKSFSymbolIcon.for(symbol: .decreaseIndent), for: .normal)
         decreaseIndentButton.addTarget(self, action: #selector(tappedDecreaseIndent), for: .touchUpInside)
         
-        increaseIndentButton.setImage(WKIcon.indentIncrease, for: .normal)
+        increaseIndentButton.setImage(WKSFSymbolIcon.for(symbol: .increaseIndent), for: .normal)
         increaseIndentButton.addTarget(self, action: #selector(tappedIncreaseIndent), for: .touchUpInside)
         
-        superscriptButton.setImage(WKIcon.superscript, for: .normal)
+        superscriptButton.setImage(WKSFSymbolIcon.for(symbol: .textFormatSuperscript), for: .normal)
         superscriptButton.addTarget(self, action: #selector(tappedSuperscript), for: .touchUpInside)
         
-        subscriptButton.setImage(WKIcon.subscript, for: .normal)
+        subscriptButton.setImage(WKSFSymbolIcon.for(symbol: .textFormatSubscript), for: .normal)
         subscriptButton.addTarget(self, action: #selector(tappedSubscript), for: .touchUpInside)
         
-        underlineButton.setImage(WKIcon.underline, for: .normal)
+        underlineButton.setImage(WKSFSymbolIcon.for(symbol: .underline), for: .normal)
         underlineButton.addTarget(self, action: #selector(tappedUnderline), for: .touchUpInside)
         
-        strikethroughButton.setImage(WKIcon.strikethrough, for: .normal)
+        strikethroughButton.setImage(WKSFSymbolIcon.for(symbol: .strikethrough), for: .normal)
         strikethroughButton.addTarget(self, action: #selector(tappedStrikethrough), for: .touchUpInside)
     }
     

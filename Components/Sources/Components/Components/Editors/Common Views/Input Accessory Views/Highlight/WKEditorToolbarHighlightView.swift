@@ -31,28 +31,28 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
         
-        boldButton.setImage(WKIcon.bold, for: .normal)
+        boldButton.setImage(WKSFSymbolIcon.for(symbol: .bold), for: .normal)
         boldButton.addTarget(self, action: #selector(tappedBold), for: .touchUpInside)
         
-        italicsButton.setImage(WKIcon.italics, for: .normal)
+        italicsButton.setImage(WKSFSymbolIcon.for(symbol: .italic), for: .normal)
         italicsButton.addTarget(self, action: #selector(tappedItalics), for: .touchUpInside)
         
         formatHeadingButton.setImage(WKIcon.formatHeading, for: .normal)
         formatHeadingButton.addTarget(self, action: #selector(tappedFormatHeading), for: .touchUpInside)
         
-        citationButton.setImage(WKIcon.citation, for: .normal)
+        citationButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
         citationButton.addTarget(self, action: #selector(tappedCitation), for: .touchUpInside)
         
-        linkButton.setImage(WKIcon.link, for: .normal)
+        linkButton.setImage(WKSFSymbolIcon.for(symbol: .link), for: .normal)
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
         
-        templateButton.setImage(WKIcon.template, for: .normal)
+        templateButton.setImage(WKSFSymbolIcon.for(symbol: .curlybraces), for: .normal)
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
         
         clearMarkupButton.setImage(WKIcon.clear, for: .normal)
         clearMarkupButton.addTarget(self, action: #selector(tappedClearMarkup), for: .touchUpInside)
         
-        showMoreButton.setImage(WKIcon.plusCircle, for: .normal)
+        showMoreButton.setImage(WKSFSymbolIcon.for(symbol: .plusCircleFill), for: .normal)
         showMoreButton.addTarget(self, action: #selector(tappedShowMore), for: .touchUpInside)
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)

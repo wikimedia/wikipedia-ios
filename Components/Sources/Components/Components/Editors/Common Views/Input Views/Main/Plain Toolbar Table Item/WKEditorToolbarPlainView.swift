@@ -18,19 +18,19 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
     override func awakeFromNib() {
         super.awakeFromNib()
      
-        boldButton.setImage(WKIcon.bold, for: .normal)
+        boldButton.setImage(WKSFSymbolIcon.for(symbol: .bold), for: .normal)
         boldButton.addTarget(self, action: #selector(tappedBold), for: .touchUpInside)
         
-        italicsButton.setImage(WKIcon.italics, for: .normal)
+        italicsButton.setImage(WKSFSymbolIcon.for(symbol: .italic), for: .normal)
         italicsButton.addTarget(self, action: #selector(tappedItalics), for: .touchUpInside)
         
-        citationButton.setImage(WKIcon.citation, for: .normal)
+        citationButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
         citationButton.addTarget(self, action: #selector(tappedCitation), for: .touchUpInside)
         
         linkButton.setImage(WKIcon.link, for: .normal)
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
         
-        templateButton.setImage(WKIcon.template, for: .normal)
+        templateButton.setImage(WKSFSymbolIcon.for(symbol: .curlybraces), for: .normal)
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
         
         commentButton.setImage(WKIcon.exclamationPointCircle, for: .normal)
