@@ -160,6 +160,7 @@
 "article-languages-label" = "Valitse kieli";
 "article-languages-others" = "Muut kielet";
 "article-languages-yours" = "Omat kielet";
+"article-nav-edit" = "Muokkaa";
 "article-read-more-title" = "Samankaltaisia artikkeleita";
 "article-reference-view-title" = "Lähde $1";
 "article-revision-history" = "Artikkelin versiohistoria";
@@ -271,6 +272,11 @@
 "donate-accessibility-donate-hint-format" = "Kaksoisnapauta lahjoittaaksesi $1 Wikimedia Foundation -säätiölle.";
 "donate-help-frequently-asked-questions" = "Usein kysytyt kysymykset";
 "donate-help-problems-donating" = "Ongelmia lahjoittamisessa?";
+"donate-minimum-error-text" = "Valitse summa (vähintään $1 $2).";
+"donate-monthly-recurring-text" = "Tee tästä kuukausittainen toistuva lahjoitus.";
+"donate-payment-method-prompt-apple-pay-button-title" = "Lahjoita Apple Paylla";
+"donate-payment-method-prompt-other-button-title" = "Muu maksutapa";
+"donate-success-subtitle" = "Anteliaisuutesi merkitsee meille niin paljon.";
 "donate-success-title" = "Kiitos!";
 "donate-title" = "Valitse summa";
 "edit-bold-accessibility-label" = "Lisää lihavoitu muotoilu";
@@ -1096,6 +1102,13 @@
 "watchlist-filter-automated-contributions-header" = "Automatisoidut muutokset";
 "watchlist-filter-automated-contributions-options-bot" = "Botti";
 "watchlist-filter-automated-contributions-options-human" = "Ihminen (ei botti)";
+"watchlist-filter-significance-options-minor-edits" = "Pienet muutokset";
+"watchlist-filter-significance-options-non-minor-edits" = "Muut kuin pienet muutokset";
+"watchlist-filter-type-of-change-options-page-creations" = "Sivujen luonnit";
+"watchlist-filter-type-of-change-options-wikidata-edits" = "Wikidata-muokkaukset";
+"watchlist-filter-user-registration-options-registered" = "Rekisteröitynyt";
+"watchlist-filter-user-registration-options-unregistered" = "Rekisteröitymätön";
+"watchlist-updates-title" = "Näytä päivitykset";
 "watchlist-user-button-thank" = "Kiitä";
 "watchlist-user-button-user-contributions" = "Käyttäjän muokkaukset";
 "watchlist-user-button-user-page" = "Käyttäjäsivu";
