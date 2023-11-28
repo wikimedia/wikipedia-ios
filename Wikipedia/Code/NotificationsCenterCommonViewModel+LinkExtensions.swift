@@ -63,7 +63,7 @@ extension NotificationsCenterCommonViewModel {
     /// Seeks out and appends the url fragment from the primary link to a generated url parameter
     /// Only does this for user talk page types, to allow deep linking into a particular topic
     private func fragementedURL(pageNamespace: PageNamespace, url: URL, linkData: LinkData) -> URL? {
-        guard (pageNamespace == .userTalk || pageNamespace == .talk),
+        guard pageNamespace == .userTalk || pageNamespace == .talk,
               var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
             return url
         }

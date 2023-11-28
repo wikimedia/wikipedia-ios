@@ -8,14 +8,6 @@ struct WKPriceTextField: View {
         let doneTitle: String
         let textfieldAccessibilityHint: String
         let doneAccessibilityHint: String
-        
-        init(currencyCode: String, focusOnAppearance: Bool, doneTitle: String, textfieldAccessibilityHint: String, doneAccessibilityHint: String) {
-            self.currencyCode = currencyCode
-            self.focusOnAppearance = focusOnAppearance
-            self.doneTitle = doneTitle
-            self.textfieldAccessibilityHint = textfieldAccessibilityHint
-            self.doneAccessibilityHint = doneAccessibilityHint
-        }
     }
     
     let configuration: Configuration

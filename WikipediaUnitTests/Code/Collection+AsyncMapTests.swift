@@ -3,13 +3,6 @@ import UIKit
 import XCTest
 
 class CollectionAsyncMapTests: XCTestCase {
-    override func setUp() {
-        super.setUp()
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-    }
 
     func testAsyncMapResultsAreMappedToCorrectItemsEvenIfReceivedOutOfOrder() {
         let expectation = XCTestExpectation(description: "maps results received out of order correctly")
