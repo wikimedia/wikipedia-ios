@@ -40,6 +40,8 @@ final class SEATSampleData {
     var surveyURL: SurveyURL!
     var privacyURL: PrivacyURL!
 
+    var hasPresentedFeedbackOnSubmitThisSession = false
+
     // Populate with sample data
     var availableTasks: [SEATItemViewModel] = []
 

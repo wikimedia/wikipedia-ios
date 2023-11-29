@@ -177,6 +177,12 @@ struct SEATSelectionView: View {
                         withAnimation {
                             taskItem = SEATSampleData.shared.nextTask()
                             animateToast(visible: true)
+                            if !SEATSampleData.shared.hasPresentedFeedbackOnSubmitThisSession {
+                                SEATSampleData.shared.hasPresentedFeedbackOnSubmitThisSession = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    self.isFeedbackAlertPresented.toggle()
+                                }
+                            }
                         }
                     }
                 }
