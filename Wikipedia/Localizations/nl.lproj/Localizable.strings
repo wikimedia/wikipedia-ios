@@ -3,6 +3,7 @@
 // Author: Aranka
 // Author: Bas dehaan
 // Author: Bouman4
+// Author: Ciell
 // Author: Danieldegroot2
 // Author: Duckson32
 // Author: Elroy
@@ -48,8 +49,8 @@
 "aaald-article-insert-read-more" = "Lees meer updates";
 "aaald-characters-text-description" = "{{PLURAL:$1|0=tekens|teken|tekens}}";
 "aaald-deleted-text-description-2" = "$1 verwijderd";
-"aaald-error-subitle" = "Herlaad om opnieuw te proberen";
-"aaald-error-title" = "Fout bij laden van artikel geschiedenis";
+"aaald-error-subitle" = "Vernieuw om het opnieuw te proberen";
+"aaald-error-title" = "Fout bij laden van ingebedde artikelgeschiedenis";
 "aaald-many-sections-description" = "in $1 secties";
 "aaald-multiple-changes-description" = "Meerdere wijzigingen gemaakt";
 "aaald-multiple-references-added-description" = "Meerdere referenties toegevoegd";
@@ -73,7 +74,7 @@
 "aaald-summary-title" = "{{PLURAL:$1|0=0 wijzigingen|$1 wijziging|$1 wijzigingen}} door {{PLURAL:$2|0=0 bewerkers|$2 bewerker|$2 bewerkers}} in {{PLURAL:$3|0=0 dagen|$3 dag|$3 dagen}}";
 "aaald-two-sections-description" = "in de secties $1 en $2";
 "aaald-vandalism-revert-description" = "Vermoedelijk vandalisme teruggedraaid";
-"aaald-view-full-history-button" = "Bekijk volledige artikel geschiedenis";
+"aaald-view-full-history-button" = "Bekijk volledige artikelgeschiedenis";
 "about-content-license" = "Inhoudslicentie";
 "about-content-license-details" = "Tenzij anders vermeld, is de inhoud beschikbaar onder een $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Naamsvermelding-Gelijk delen-licentie";
@@ -89,7 +90,7 @@
 "about-repositories" = "Repositories";
 "about-repositories-app-source-license" = "Broncode is beschikbaar onder de $1.";
 "about-repositories-app-source-license-mit" = "MIT-licentie";
-"about-send-feedback" = "Terugkoppeling over app geven";
+"about-send-feedback" = "Terugkoppeling over de app geven";
 "about-testers" = "Testers";
 "about-testers-details" = "Getest door $1";
 "about-title" = "Over";
@@ -103,8 +104,8 @@
 "account-creation-captcha-title" = "CAPTCHA-veiligheidscontrole";
 "account-creation-create-account" = "Account aanmaken";
 "account-creation-have-account" = "Hebt u al een account? $1";
-"account-creation-log-in" = "Aanmelden.";
-"account-creation-logging-in" = "Aan het aanmelden...";
+"account-creation-log-in" = "Inloggen.";
+"account-creation-logging-in" = "Inloggen...";
 "account-creation-missing-fields" = "U moet een gebruikersnaam, wachtwoord, en wachtwoordbevestiging invoeren om een account aan te maken.";
 "account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen.";
 "account-creation-saving" = "Aan het opslaan...";
@@ -134,23 +135,23 @@
 "action-retry" = "Opnieuw proberen";
 "action-save" = "Opslaan";
 "action-saved" = "Opgeslagen";
-"action-saved-accessibility" = "Bewaard. Activeer om ongedaan te maken.";
+"action-saved-accessibility" = "Opgeslagen. Activeer om het opslaan ongedaan te maken.";
 "action-saved-accessibility-notification" = "Artikel opgeslagen voor later";
 "action-share" = "Delen";
 "action-share-accessibility" = "Delen";
 "action-sort" = "Sorteren";
 "action-thank-user-accessibility" = "Gebruiker bedanken";
 "action-undo" = "Ongedaan maken";
-"action-unsave" = "Wissen";
+"action-unsave" = "Opslaan ongedaan maken";
 "action-unsaved-accessibility-notification" = "Artikel niet meer opgeslagen";
 "action-update" = "Bijwerken";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 artikel|$1 artikelen}} aan leeslijst toevoegen";
-"add-citation-title" = "Citaat toevoegen";
+"add-citation-title" = "Referentie toevoegen";
 "additional-information-email-title" = "Aanvullende informatie";
 "announcements-dismiss" = "Sluiten";
 "app-store-keywords" = "Wikipedia, referentie, wiki, encyclopedie, info, kennis, onderzoek, informatie, ontdekken, leren";
-"app-store-release-notes" = "Volledig aanpasbaar en beter leesbaar overzicht Verkennen. Lokalisatie- en prestatieverbeteringen en foutoplossingen.";
-"app-store-short-description" = "Download de Wikipedia-app om plaatsen in uw nabijheid te ontdekken, synchroniseer artikelen om offline te lezen en pas uw leeservaring aan.";
+"app-store-release-notes" = "Volledig aanpasbaar en gemakkelijker te lezen Explore-feed. Lokalisatie, prestatieverbeteringen en bugfixes.";
+"app-store-short-description" = "Download de Wikipedia-app om plaatsen bij u in de buurt te verkennen, artikelen te synchroniseren om offline te lezen en uw leeservaring aan te passen.";
 "app-store-subtitle" = "De vrije encyclopedie";
 "appearance-settings-adjust-text-sizing" = "Artikeltekstgrootte aanpassen";
 "appearance-settings-expand-tables" = "Tabellen uitklappen";
@@ -191,7 +192,7 @@
 "button-skip" = "Overslaan";
 "cancel" = "Annuleren";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-body" = "De Wikipedia app ondersteund nu de volgende Chinese varianten als primaire of secundaire taal in de app wat het lezen, zoeken en bewerken van artikelen makkelijker maakt:";
+"chinese-variants-alert-body" = "De Wikipedia-app ondersteunt nu de volgende Chinese varianten als primaire of secundaire taal binnen de app, waardoor het gemakkelijker wordt om de door u gewenste varianten te lezen, zoeken en bewerken:\n\n简体 Chinees, vereenvoudigd (zh-hans)\n香港繁體 Hong Kong Traditioneel (zh-hk)\n澳門繁體 Macau Traditioneel (zh-mo)\n大马简体 Maleisië Vereenvoudigd (zh-my)\n新加坡简体 Singapore Vereenvoudigd (zh-sg)\n臺灣正體 Taiwanees traditioneel (zh-tw)";
 "chinese-variants-alert-title" = "Updates voor ondersteuning van Chinese variant";
 "clear-title-accessibility-label" = "Wissen";
 "clearing-cache-complete" = "Cache wissen voltooid.";
@@ -201,7 +202,7 @@
 "continue-button-title" = "Doorgaan";
 "continue-reading-empty-description" = "Wikipedia verkennen om meer artikelen te lezen";
 "continue-reading-empty-title" = "Geen recent gelezen artikelen";
-"crimean-tatar-variants-alert-body" = "De Wikipedia app ondersteund nu de volgende varianten van Krim-Tataars als primaire of secundaire talen in de app, wat het makkelijker maakt artikelen te lezen, zoeken en bewerken in deze varianten:";
+"crimean-tatar-variants-alert-body" = "De Wikipedia-app ondersteunt nu de volgende Krim-Tataarse varianten als primaire of secundaire taal binnen de app, waardoor het gemakkelijker wordt om de door u gewenste varianten te lezen, zoeken en bewerken:\n\nQırımtatarca, Latijn Krim-Tataars Latijn (chr-latn) \nкъырымтатарджа, Кирил Krim-Tataars Cyrillisch (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Updates voor ondersteuning van Krim-Tataar variant";
 "data-migration-status" = "Bijwerken...";
 "description-add-title" = "Beschrijving toevoegen";
@@ -224,7 +225,7 @@
 "description-help-tips-description" = "Beschrijvingen moeten idealiter op één regel passen en zijn tussen de twee en twaalf woorden lang. Ze worden niet met een hoofdletter geschreven tenzij het eerste woord een eigennaam is.";
 "description-help-tips-example-description-one" = "artikelbeschrijving voor een artikel over de Mona Lisa";
 "description-help-tips-example-description-two" = "artikelbeschrijving voor een artikel over de Mount Everest";
-"description-help-tips-example-title-one" = "schilderij van Leonardo Da Vinci";
+"description-help-tips-example-title-one" = "schilderij door Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "de hoogste berg op aarde";
 "description-help-tips-for-example" = "Bijvoorbeeld:";
 "description-help-tips-title" = "Tips voor het aanmaken van beschrijvingen";
@@ -238,7 +239,7 @@
 "description-welcome-concise-title" = "Houd het kort";
 "description-welcome-descriptions-sub-title" = "Vat een artikel samen om lezers te helpen bij het in één oogopslag begrijpen van een onderwerp";
 "description-welcome-descriptions-title" = "Artikelbeschrijvingen";
-"description-welcome-promise-title" = "Door te beginnen beloof ik om deze functie niet te misbruiken";
+"description-welcome-promise-title" = "Ik beloof dat ik deze functie niet misbruiken zal";
 "description-welcome-start-editing-button" = "Begin met bewerken";
 "diff-article-revision-history" = "Bewerkingsgeschiedenis artikel";
 "diff-compare-header-from-info-heading" = "Vorige bewerking";
@@ -265,7 +266,7 @@
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte toegevoegd|$1 bytes toegevoegd}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 byte verwijderd|$1 bytes verwijderd}}";
 "diff-single-header-summary-heading" = "Bewerkingssamenvatting";
-"diff-single-intro-title" = "Intro";
+"diff-single-intro-title" = "Introductie";
 "diff-single-line-format" = "Regel $1";
 "diff-thanks-anonymous-no-thanks" = "Anonieme gebruikers kunnen niet worden bedankt";
 "diff-thanks-login-subtitle" = "'Bedankjes' zijn een gemakkelijke manier om waardering te tonen voor het werk van een redacteur op Wikipedia. U moet ingelogd zijn om 'Bedankjes' te verzenden.";
@@ -288,9 +289,9 @@
 "donate-accessibility-monthly-recurring-hint" = "Dubbeltik om automatische maandelijkse donaties van dit bedrag in te schakelen.";
 "donate-accessibility-textfield-hint" = "Voer een aangepast bedrag in om te doneren.";
 "donate-accessibility-transaction-fee-hint" = "Dubbeltik om de transactiekosten toe te voegen aan het donatiebedrag.";
-"donate-already-donated" = "Bedankt, beste donateur! Dankzij uw bijdrage kunnen Wikipedia en haar zustersites zich blijven uitbreiden.";
+"donate-already-donated" = "Bedankt, beste donateur! Dankzij uw bijdrage kunnen Wikipedia en haar zustersites zich blijven ontwikkelen.";
 "donate-apple-fine-print" = "Apple is niet verantwoordelijk voor het inzamelen van geld voor dit doel.";
-"donate-email-opt-in-text" = "Ja, de Wikimedia Foundation mag me af en toe een e-mail sturen.";
+"donate-email-opt-in-text" = "Ja, de Wikimedia Foundation mag mij af en toe een e-mail sturen.";
 "donate-help-frequently-asked-questions" = "Veelgestelde vragen";
 "donate-help-other-ways-to-give" = "Andere manieren om te doneren";
 "donate-help-problems-donating" = "Problemen bij het doneren?";
@@ -338,7 +339,7 @@
 "edit-ordered-list-accessibility-label" = "Maak geordende lijst van huidige regel";
 "edit-ordered-list-remove-accessibility-label" = "Verwijder geordende lijst van huidige regel";
 "edit-published" = "Bewerking gepubliceerd";
-"edit-published-subtitle" = "U hebt Wikipedia zojuist voor iedereen beter gemaakt";
+"edit-published-subtitle" = "U heeft Wikipedia zojuist voor iedereen beter gemaakt";
 "edit-reference-accessibility-label" = "Voeg referentiesyntaxis toe";
 "edit-reference-remove-accessibility-label" = "Verwijder referentie syntax";
 "edit-signature-accessibility-label" = "Handtekening syntax toevoegen";
@@ -353,7 +354,7 @@
 "edit-summary-choice-fixed-typos" = "Spelfout gecorrigeerd";
 "edit-summary-choice-linked-words" = "Koppelingen toegevoegd";
 "edit-summary-learn-more-text" = "Meer informatie";
-"edit-summary-placeholder-text" = "Hoe hebt u het artikel verbeterd?";
+"edit-summary-placeholder-text" = "Hoe heeft u het artikel verbeterd?";
 "edit-superscript-accessibility-label" = "Superscript-opmaak toevoegen";
 "edit-superscript-remove-accessibility-label" = "Superscript-opmaak verwijderen";
 "edit-template-accessibility-label" = "Templatesyntax toevoegen";
@@ -371,11 +372,11 @@
 "edit-watch-this-page-text" = "Deze pagina volgen";
 "editing-welcome-be-bold-subtitle" = "Voel je vrij en ga je gang bij het bewerken van artikelen, maar wees niet roekeloos. Maak je niet te veel zorgen over eventuele fouten: elke vorige versie van een pagina wordt opgeslagen, zodat fouten makkelijk door onze gemeenschap kunnen worden verbeterd.";
 "editing-welcome-be-bold-title" = "Uw stem is belangrijk";
-"editing-welcome-citations-subtitle" = "Alle inhoud moet verifieerbaar zijn. Bij het toevoegen van nieuwe informatie aan een artikel, moeten redacteuren een inline citaat leveren naar een betrouwbare bron die de bijdrage direct ondersteunt.";
-"editing-welcome-citations-title" = "Citeer betrouwbare bronnen";
+"editing-welcome-citations-subtitle" = "Alle inhoud moet verifieerbaar zijn. Bij het toevoegen van nieuwe informatie aan een artikel, moeten redacteuren een inline referentie leveren naar een betrouwbare bron die de bijdrage direct ondersteunt.";
+"editing-welcome-citations-title" = "Vermeld betrouwbare bronnen";
 "editing-welcome-impartial-tone-subtitle" = "We streven ernaar dat artikelen op een onpartijdige toon worden geschreven. Probeer bij het bewerken een eerlijke weergave van de wereld te maken zoals betrouwbare bronnen deze beschrijven.";
 "editing-welcome-impartial-tone-title" = "Schrijf met een neutrale toon";
-"editing-welcome-set-knowledge-free-subtitle" = "Om iedereen toegang te geven tot de kennis van de wereld, hebben we u nodig om deel te nemen aan de creatie ervan door de onderwerpen te lezen, te bewerken en bij te dragen aan de onderwerpen die u het belangrijkst vindt.";
+"editing-welcome-set-knowledge-free-subtitle" = "Om iedereen toegang te geven tot de kennis van de wereld, hebben wij u nodig om deel te nemen aan de schepping ervan door te lezen, te bewerken en bij te dragen aan de onderwerpen die belangrijk voor u zijn.";
 "editing-welcome-set-knowledge-free-title" = "Laat kennis vrij";
 "editor-exit-confirmation-body" = "Weet u zeker dat u de bewerkingsmodus wilt verlaten zonder eerst te publiceren?";
 "editor-exit-confirmation-title" = "De bewerkingsmodus sluiten?";
@@ -389,7 +390,7 @@
 "empty-no-history-title" = "Geen geschiedenis om te weergeven";
 "empty-no-other-article-languages-message" = "Dit artikel is nog niet vertaald naar andere talen";
 "empty-no-other-article-languages-title" = "Geen andere talen beschikbaar";
-"empty-no-reading-lists-message" = "Maak lijsten met te bezoeken plaatsen, favoriete onderwerpen en zoveel meer";
+"empty-no-reading-lists-message" = "Maak lijsten met te bezoeken plaatsen, favoriete onderwerpen en meer";
 "empty-no-reading-lists-title" = "Opgeslagen artikelen organiseren met leeslijsten";
 "empty-no-saved-pages-in-reading-list-message" = "Sla pagina's in deze lijst op om ze hier te zien";
 "empty-no-saved-pages-in-reading-list-title" = "Geen pagina's opgeslagen in deze lijst";
@@ -400,7 +401,7 @@
 "error-generic-recovery-suggestion" = "Probeer later opnieuw";
 "error-unknown" = "Er is een onbekende fout opgetreden";
 "explore-another-random" = "Nog een willekeurig artikel";
-"explore-because-you-read" = "Omdat u hebt gelezen";
+"explore-because-you-read" = "Omdat u heeft gelezen";
 "explore-because-you-read-footer" = "Andere gerelateerde artikelen";
 "explore-continue-reading-heading" = "Verder lezen";
 "explore-detail-back-button-title" = "Terug naar Verkennen";
@@ -426,7 +427,7 @@
 "explore-feed-preferences-global-card-footer-text" = "Deze kaart is niet taalspecifiek. Als u de kaart uitschakelt, wordt deze uit uw overzicht Verkennen verwijderd.";
 "explore-feed-preferences-global-cards-description" = "Niet-taalspecifieke kaarten";
 "explore-feed-preferences-global-cards-subtitle" = "Niet-taalspecifiek";
-"explore-feed-preferences-global-cards-title" = "Globale kaarten";
+"explore-feed-preferences-global-cards-title" = "Wereldwijde kaarten";
 "explore-feed-preferences-hide-card-action-title" = "Deze kaart verbergen";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Alle kaarten van \"$1\" verbergen";
 "explore-feed-preferences-in-the-news-description" = "Artikelen over huidige gebeurtenissen";
