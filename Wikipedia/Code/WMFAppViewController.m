@@ -134,6 +134,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.theme = [[NSUserDefaults standardUserDefaults] themeCompatibleWith:self.traitCollection];
+    
+#if UITEST
+    WMFTheme *newTheme = [self themeForUITests];
+    if (newTheme) {
+        self.theme = newTheme;
+    }
+#endif
+    
     [self appEnvironmentDidChangeWithTheme:self.theme traitCollection:self.traitCollection];
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
@@ -813,22 +821,29 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 }
 
-- (void) setupUITestsIfNecessary {
+- (WMFTheme *) themeForUITests {
+    
 #if UITEST
+    
     if (NSProcessInfo.processInfo.arguments.count > 1) {
         self.theme = [WMFTheme dark]; //remove
         NSArray<NSString *> *arguments = NSProcessInfo.processInfo.arguments;
 
         if ([arguments  containsObject: @"UITestThemeLight"]) {
-            self.theme = [WMFTheme light];
+            return [WMFTheme light];
         } else if ([arguments  containsObject: @"UITestThemeSepia"]) {
-            self.theme = [WMFTheme sepia];
+            return [WMFTheme sepia];
         }else if ([arguments  containsObject: @"UITestThemeDark"]) {
-            self.theme = [WMFTheme dark];
+            return [WMFTheme dark];
         }else if ([arguments  containsObject: @"UITestThemeBlack"]) {
-            self.theme = [WMFTheme black];
+            return [WMFTheme black];
         }
     }
+    
+    return nil;
+    
+#else
+    return nil;
 #endif
 }
 
@@ -1788,7 +1803,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
     self.theme = theme;
-    [self setupUITestsIfNecessary];
 
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
@@ -1819,6 +1833,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     // self.navigationController is the App's root view controller so rely on its trait collection
     UITraitCollection *traitCollection = self.navigationController.traitCollection;
     WMFTheme *theme = [NSUserDefaults.standardUserDefaults themeCompatibleWith:traitCollection];
+    
+#if UITEST
+    WMFTheme *newTheme = [self themeForUITests];
+    if (newTheme) {
+        theme = newTheme;
+    }
+#endif
+    
     if (self.theme != theme) {
         [self applyTheme:theme];
         [self.settingsViewController loadSections];
