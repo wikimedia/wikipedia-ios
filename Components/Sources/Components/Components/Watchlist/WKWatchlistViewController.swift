@@ -129,7 +129,8 @@ public final class WKWatchlistViewController: WKCanvasViewController {
             guard let self else {
                 return
             }
-            
+
+            loggingDelegate?.logWatchlistUserDidTapNavBarFilterButton()
             self.showFilterView()
         }
         let barButton = UIBarButtonItem(title: viewModel.localizedStrings.filter, primaryAction: action)
