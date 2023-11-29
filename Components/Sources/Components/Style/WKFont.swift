@@ -8,6 +8,8 @@ public enum WKFont {
     case boldTitle
 	case body
     case boldBody
+    case italicsBody
+    case boldItalicsBody
 	case smallBody
 	case callout
 	case subheadline
@@ -32,6 +34,16 @@ public enum WKFont {
 			return UIFont.preferredFont(forTextStyle: .body, compatibleWith: traitCollection)
         case .boldBody:
             guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body, compatibleWith: traitCollection).withSymbolicTraits(.traitBold) else {
+                fatalError()
+            }
+            return UIFont(descriptor: descriptor, size: 0)
+        case .italicsBody:
+            guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body, compatibleWith: traitCollection).withSymbolicTraits(.traitItalic) else {
+                fatalError()
+            }
+            return UIFont(descriptor: descriptor, size: 0)
+        case .boldItalicsBody:
+            guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body, compatibleWith: traitCollection).withSymbolicTraits(.traitBold.union(.traitItalic)) else {
                 fatalError()
             }
             return UIFont(descriptor: descriptor, size: 0)

@@ -151,6 +151,7 @@
 "article-languages-label" = "Velg språk";
 "article-languages-others" = "Andre språk";
 "article-languages-yours" = "Dine språk";
+"article-nav-edit" = "Rediger";
 "article-read-more-title" = "Les mer";
 "article-reference-view-title" = "Referanse $1";
 "article-revision-history" = "Artikkelsideversjonshistorikk";
@@ -285,12 +286,10 @@
 "donate-payment-method-prompt-message" = "Doner med Apple Pay eller velg en annen betalingsmetode.";
 "donate-payment-method-prompt-other-button-title" = "Annen betalingsmåte";
 "donate-payment-method-prompt-title" = "Doner med Apple Pay?";
-// Fuzzy
-"donate-success-subtitle" = "Din sjenerøsitet til Wikipedia betyr mye for oss.";
+"donate-success-subtitle" = "Din sjenerøsitet betyr så mye for oss.";
 "donate-success-title" = "Takk!";
 "donate-title" = "Velg et beløp";
-// Fuzzy
-"donate-transaction-fee-opt-in-text" = "Jeg vil sjenerøst legge til $1 for å dekke transaksjonsgebyrene slik at dere kan beholde 100 prosent av donasjonen min.";
+"donate-transaction-fee-opt-in-text" = "Jeg vil sjenerøst legge til $1 for å dekke transaksjonsgebyrene slik at dere kan beholde 100 %% av donasjonen min.";
 "edit-bold-accessibility-label" = "Bruk fet tekstformatering";
 "edit-bold-remove-accessibility-label" = "Fjern fet tekstformatering";
 "edit-clear-formatting-accessibility-label" = "Fjern tekstformatering";
@@ -976,8 +975,7 @@
 "settings-clear-cache-are-you-sure-title" = "Tøm mellomlager?";
 "settings-clear-cache-cancel" = "Avbryt";
 "settings-clear-cache-ok" = "Tøm mellomlager";
-// Fuzzy
-"settings-donate" = "Doner til Wikipedia";
+"settings-donate" = "Doner";
 "settings-help-and-feedback" = "Hjelp og tilbakemelding";
 "settings-language-bar" = "Vis språk ved søkefeltet";
 "settings-languages-feed-customization" = "Du kan tilpasse hvilke språk som vises på utforskingssiden fra innstillingene for utforskingssiden.";
@@ -1009,7 +1007,6 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Vis standardleselisten «Lagret» som en egen liste i leselistevisningen. Denne listen vises på Android-enheter.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Vis standardleselisten «Lagret»";
 "settings-storage-and-syncing-title" = "Lagring og synkronisering";
-"settings-support" = "Støtt Wikipedia";
 "settings-title" = "Innstillinger";
 "share-a-fact-made-with" = "Laget med Wikipedia-appen";
 "share-article-name-on-wikipedia" = "«$1» på Wikipedia:";
