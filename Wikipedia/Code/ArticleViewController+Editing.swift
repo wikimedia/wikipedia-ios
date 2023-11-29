@@ -3,7 +3,7 @@ import CocoaLumberjackSwift
 extension ArticleViewController {
     func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
         /// If this is a first section with an existing description, show the dialog box. (This is reported as a `central` or `local` description source.) Otherwise, just show the editor for the section. (A first section without an article description has an `Add article description` button, and thus doesn't need the dialog box.)
-        if let descriptionSource = descriptionSource, (descriptionSource == .central || descriptionSource == .local) {
+        if let descriptionSource = descriptionSource, descriptionSource == .central || descriptionSource == .local {
             showEditSectionOrTitleDescriptionDialogForSection(with: id, descriptionSource: descriptionSource, selectedTextEditInfo: selectedTextEditInfo)
         } else {
             showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)

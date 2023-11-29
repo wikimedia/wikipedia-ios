@@ -15,10 +15,4 @@ open class WMFWelcomeIntroductionAnimationView : WMFWelcomeAnimationView {
         removeExistingSubviewsAndSublayers()
         addSubview(image)
     }
-    
-    override open func beginAnimations() {
-        super.beginAnimations()
-        // CATransaction.begin()
-        // CATransaction.commit()
-    }
 }
