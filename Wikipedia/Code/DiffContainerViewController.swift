@@ -874,7 +874,7 @@ private extension DiffContainerViewController {
         default:
             break
         }
-        diffHeaderView?.configure(with: headerViewModel)
+        diffHeaderView?.configure(with: headerViewModel, titleViewTapDelegate: self)
         headerExtendedView?.update(headerViewModel)
         navigationBar.isExtendedViewHidingEnabled = headerViewModel.isExtendedViewHidingEnabled
     }
@@ -1506,4 +1506,16 @@ extension DiffContainerViewController: WatchlistControllerDelegate {
     func didSuccessfullyUnwatch(_ controller: WatchlistController) {
         diffToolbarView?.updateMoreButton(needsWatchButton: true, needsUnwatchHalfButton: false, needsUnwatchFullButton: false, needsArticleEditHistoryButton: true)
     }
+}
+
+extension DiffContainerViewController: DiffHeaderTitleViewTapDelegate {
+
+    func userDidTapTitleLabel() {
+        guard let navigationURL = fetchPageURL() else {
+            return
+        }
+
+        navigate(to: navigationURL)
+    }
+
 }
