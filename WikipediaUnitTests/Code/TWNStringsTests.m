@@ -143,7 +143,7 @@
     static dispatch_once_t onceToken;
     static NSRegularExpression *percentNumberRegex;
     dispatch_once(&onceToken, ^{
-        percentNumberRegex = [NSRegularExpression regularExpressionWithPattern:@"(?:[%%])(:?[0-9s])" options:0 error:nil];
+        percentNumberRegex = [NSRegularExpression regularExpressionWithPattern:@"(?<!%)(?:[%%])(:?[0-9s])" options:0 error:nil];
     });
     return percentNumberRegex;
 }
