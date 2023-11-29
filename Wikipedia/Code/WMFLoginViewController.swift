@@ -21,7 +21,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
     private var startDate: Date? // to calculate time elapsed between login start and login success
     
-    public var category: EventCategoryMEP?
+    var category: EventCategoryMEP?
     fileprivate var theme: Theme = Theme.standard
     
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
