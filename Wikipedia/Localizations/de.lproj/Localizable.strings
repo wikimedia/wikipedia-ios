@@ -917,7 +917,7 @@
 "settings-search-open-app-on-search" = "App mit dem Suchreiter öffnen";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Der Wikimedia erlauben, deine gespeicherten Artikel und Leselisten in deinen Benutzereinstellungen zu speichern, wenn du dich anmeldest und synchronisierst.";
 "settings-storage-and-syncing-enable-sync-title" = "Gespeicherte Artikel und Listen synchronisieren";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Die Löschung deiner gespeicherten Artikel entfernt sie aus deinem Benutzerkonto und – falls die Synchronisierung aktiviert ist – von diesem Gerät. Du kannst diese Aktion nicht rückgängig machen.";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Die Löschung deiner gespeicherten Artikel entfernt sie aus deinem Benutzerkonto – falls die Synchronisierung aktiviert ist – und von diesem Gerät. Du kannst diese Aktion nicht rückgängig machen.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Alle gespeicherten Artikel löschen?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Löschen";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Die Löschung deiner gespeicherten Artikel entfernt sie aus deinem Benutzerkonto und – falls die Synchronisierung aktiviert ist – von diesem Gerät.\n\nDie Löschung deiner gespeicherten Artikel wird ungefähr $1 Speicherplatz freigeben.";
@@ -928,7 +928,6 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Zeigt die gespeicherte Leseliste (z. B. die Standardliste) als separate Liste in deiner Leselistenansicht an. Diese Liste erscheint auf Android-Geräten.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Gespeicherte Leseliste anzeigen";
 "settings-storage-and-syncing-title" = "Artikelspeicher und Synchronisierung";
-"settings-support" = "Wikipedia unterstützen";
 "settings-title" = "Einstellungen";
 "share-a-fact-made-with" = "Erstellt mit der Wikipedia-App";
 "share-article-name-on-wikipedia" = "„$1“ auf Wikipedia:";

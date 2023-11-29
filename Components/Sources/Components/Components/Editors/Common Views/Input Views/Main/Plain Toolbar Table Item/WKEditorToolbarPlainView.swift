@@ -35,14 +35,29 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
         
         commentButton.setImage(WKIcon.exclamationPointCircle, for: .normal)
         commentButton.addTarget(self, action: #selector(tappedComment), for: .touchUpInside)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)
+    }
+    
+    // MARK: - Notifications
+    
+    @objc private func updateButtonSelectionState(_ notification: NSNotification) {
+        guard let selectionState = notification.userInfo?[Notification.WKSourceEditorSelectionStateKey] as? WKSourceEditorSelectionState else {
+            return
+        }
+        
+        boldButton.isSelected = selectionState.isBold
+        italicsButton.isSelected = selectionState.isItalics
     }
     
     // MARK: Button Actions
     
     @objc private func tappedBold() {
+        delegate?.didTapBold(isSelected: boldButton.isSelected)
     }
 
     @objc private func tappedItalics() {
+        delegate?.didTapItalics(isSelected: italicsButton.isSelected)
     }
 
     @objc private func tappedCitation() {

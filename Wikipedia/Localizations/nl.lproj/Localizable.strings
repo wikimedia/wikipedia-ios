@@ -72,7 +72,7 @@
 "aaald-small-change-description" = "{{PLURAL:$1|0=Geen kleine aanpassingen gemaakt|$1 kleine aanpassing gemaakt|$1 kleine aanpassingen gemaakt}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 wijzigingen|$1 wijziging|$1 wijzigingen}} door {{PLURAL:$2|0=0 bewerkers|$2 bewerker|$2 bewerkers}} in {{PLURAL:$3|0=0 dagen|$3 dag|$3 dagen}}";
 "aaald-two-sections-description" = "in de secties $1 en $2";
-"aaald-vandalism-revert-description" = "Vermoedelijk Vandalisme teruggedraaid";
+"aaald-vandalism-revert-description" = "Vermoedelijk vandalisme teruggedraaid";
 "aaald-view-full-history-button" = "Bekijk volledige artikel geschiedenis";
 "about-content-license" = "Inhoudslicentie";
 "about-content-license-details" = "Tenzij anders vermeld, is de inhoud beschikbaar onder een $1.";
@@ -362,7 +362,7 @@
 "edit-text-formatting-accessibility-label" = "Laat tekst formattering menu zien";
 "edit-text-formatting-table-view-title" = "Tekstopmaak";
 "edit-text-size-table-view-title" = "Tekstgrootte";
-"edit-text-style-accessibility-label" = "Laat tekst stijl menu zien";
+"edit-text-style-accessibility-label" = "Tekststijlmenu weergeven";
 "edit-underline-accessibility-label" = "Onderstreep toevoegen";
 "edit-underline-remove-accessibility-label" = "Onderstrepen verwijderen";
 "edit-unordered-list-accessibility-label" = "Maak ongeordende lijst van huidige regel";
@@ -1013,7 +1013,7 @@
 "settings-search-open-app-on-search" = "App op zoektabblad openen";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Sta het toe dat Wikimedia uw opgeslagen artikelen en leeslijsten opslaat naar uw gebruikersvoorkeuren wanneer u inlogt en synchroniseert.";
 "settings-storage-and-syncing-enable-sync-title" = "Opgeslagen artikelen en lijsten synchroniseren";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Als u uw opgeslagen artikelen wist, worden ze uit uw gebruikersaccount verwijderd indien u synchroniseren heeft ingeschakeld, en uit dit apparaat. U kunt deze actie niet ongedaan maken.";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Als u uw opgeslagen artikelen wist, worden ze verwijderd uit uw gebruikersaccount (indien u synchroniseren hebt ingeschakeld) en van dit apparaat. U kunt deze handeling niet ongedaan maken.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Alle opgeslagen artikelen wissen?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Wissen";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Als u uw opgeslagen artikelen wist, worden ze uit uw gebruikersaccount verwijderd als u synchroniseren heeft ingeschakeld, en uit dit apparaat.\n\nAls u uw opgeslagen artikelen wist, krijgt u ongeveer $1 ruimte vrij.";
@@ -1024,7 +1024,6 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Toon de leeslijst Opgeslagen (bv. de standaardlijst) als een afzonderlijke lijst in uw leeslijstenweergave. Deze lijst wordt weergegeven op Android-apparaten.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Leeslijst Opgeslagen tonen";
 "settings-storage-and-syncing-title" = "Artikelopslag en -synchronisatie";
-"settings-support" = "Wikipedia steunen";
 "settings-title" = "Instellingen";
 "share-a-fact-made-with" = "Gemaakt met de Wikipedia-app";
 "share-article-name-on-wikipedia" = "\"$1\" op Wikipedia:";
