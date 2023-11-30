@@ -53,6 +53,8 @@ class WKFindAndReplaceView: WKComponentView {
         
         findTextField.adjustsFontForContentSizeCategory = true
         findTextField.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
+        findTextField.autocorrectionType = .yes
+        findTextField.spellCheckingType = .yes
                                         
         replaceTextField.adjustsFontForContentSizeCategory = true
         replaceTextField.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
