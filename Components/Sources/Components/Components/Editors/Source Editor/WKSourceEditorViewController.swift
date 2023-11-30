@@ -3,6 +3,7 @@ import UIKit
 
 public protocol WKSourceEditorViewControllerDelegate: AnyObject {
     func sourceEditorViewControllerDidTapFind(sourceEditorViewController: WKSourceEditorViewController)
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: WKSourceEditorViewController)
 }
 
 // MARK: NSNotification Names
@@ -135,6 +136,10 @@ public class WKSourceEditorViewController: WKComponentViewController {
                 textView.inputAccessoryView = nil
                 textView.reloadInputViews()
                 return
+            }
+            
+            if oldValue == .find && inputAccessoryViewType != .find {
+                delegate?.sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: self)
             }
             
             switch inputAccessoryViewType {

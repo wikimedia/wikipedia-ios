@@ -170,6 +170,10 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
     func sourceEditorViewControllerDidTapFind(sourceEditorViewController: WKSourceEditorViewController) {
         showFocusNavigationView()
     }
+    
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: Components.WKSourceEditorViewController) {
+        hideFocusNavigationView()
+    }
 }
 
 // MARK: - PageEditorNavigationItemControllerDelegate
