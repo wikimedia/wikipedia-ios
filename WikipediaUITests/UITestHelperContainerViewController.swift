@@ -116,7 +116,7 @@ public class UITestHelperViewController: WKCanvasViewController {
             headerSelectInputView: SourceEditorAccessibilityIdentifiers.headerSelectInputView.rawValue
           )
 
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "UITest", accessibilityIdentifiers: accessibilityId, localizedStrings: localizedStrings)
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "UITest", accessibilityIdentifiers: accessibilityId, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: true)
         let editor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
 
         present(editor, animated: false)
