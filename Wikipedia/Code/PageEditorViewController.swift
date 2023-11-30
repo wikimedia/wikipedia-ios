@@ -133,13 +133,16 @@ final class PageEditorViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         editorTopConstraint.constant = -focusNavigationView.frame.height
         focusNavigationView.isHidden = false
-        
+        navigationItemController.progressButton.isEnabled = false
+        navigationItemController.readingThemesControlsToolbarItem.isEnabled = false
     }
     
     private func hideFocusNavigationView() {
         editorTopConstraint.constant = 0
         focusNavigationView.isHidden = true
         navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationItemController.progressButton.isEnabled = true
+        navigationItemController.readingThemesControlsToolbarItem.isEnabled = true
     }
     
     private func setTextSizeInAppEnvironment() {
@@ -165,8 +168,6 @@ extension PageEditorViewController: Themeable {
 
 extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
     func sourceEditorViewControllerDidTapFind(sourceEditorViewController: WKSourceEditorViewController) {
-        navigationItemController.progressButton.isEnabled = false
-        navigationItemController.readingThemesControlsToolbarItem.isEnabled = false
         showFocusNavigationView()
     }
 }
