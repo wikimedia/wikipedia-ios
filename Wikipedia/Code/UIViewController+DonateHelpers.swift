@@ -30,6 +30,12 @@ import PassKit
             return nil
         }
         
+        // This effectively hides native Apple Pay path for users with a CN region setting
+        // https://phabricator.wikimedia.org/T352180
+        guard countryCode != "CN" else {
+            return nil
+        }
+        
         let formatter = NumberFormatter.wkCurrencyFormatter
         formatter.currencyCode = currencyCode
         
