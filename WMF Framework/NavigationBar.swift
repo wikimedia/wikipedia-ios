@@ -165,7 +165,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             }
         }
         
-        if (displayType == .largeTitle || displayType == .centeredLargeTitle), let navigationItem = items.last {
+        if displayType == .largeTitle || displayType == .centeredLargeTitle, let navigationItem = items.last {
             configureTitleBar(with: navigationItem, centerTitle: displayType == .centeredLargeTitle)
         } else {
             bar.setItems([], animated: false)

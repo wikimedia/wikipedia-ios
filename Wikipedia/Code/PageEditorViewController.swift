@@ -53,6 +53,7 @@ final class PageEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setTextSizeInAppEnvironment()
         setupFocusNavigationView()
         loadWikitext()
         
@@ -102,7 +103,6 @@ final class PageEditorViewController: UIViewController {
     }
     
     private func addChildEditor(wikitext: String) {
-
         let localizedStrings = WKSourceEditorLocalizedStrings(inputViewTextFormatting: CommonStrings.textFormatting,
                                                               inputViewStyle: CommonStrings.style,
                                                               inputViewClearFormatting: CommonStrings.clearFormatting,
@@ -165,7 +165,9 @@ final class PageEditorViewController: UIViewController {
                                                               accessibilityLabelReplaceTypeSingle: CommonStrings.accessibilityLabelReplaceTypeSingle,
                                                               accessibilityLabelReplaceTypeAll: CommonStrings.accessibilityLabelReplaceTypeAll)
 
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings)
+        let isSyntaxHighlightingEnabled = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled)
+
         let sourceEditor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
         
         addChild(sourceEditor)
@@ -201,6 +203,11 @@ final class PageEditorViewController: UIViewController {
         editorTopConstraint.constant = 0
         focusNavigationView.isHidden = true
         navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
+    private func setTextSizeInAppEnvironment() {
+        let textSizeAdjustment =  WMFFontSizeMultiplier(rawValue: UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue) ?? .large
+        WKAppEnvironment.current.set(articleAndEditorTextSize: textSizeAdjustment.contentSizeCategory)
     }
 }
 
@@ -264,9 +271,11 @@ extension PageEditorViewController: FocusNavigationViewDelegate {
 
 extension PageEditorViewController: ReadingThemesControlsResponding {
     func updateWebViewTextSize(textSize: Int) {
+        setTextSizeInAppEnvironment()
     }
     
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
+        sourceEditor.toggleSyntaxHighlighting()
     }
 }
 

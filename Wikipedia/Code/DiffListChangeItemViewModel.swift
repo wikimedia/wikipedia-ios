@@ -126,7 +126,7 @@ final class DiffListChangeItemViewModel {
     private static func moveAttributedString(with text: String, diffItemType: DiffItemType, moveInfo: TransformMoveInfo, highlightedRanges: inout [DiffHighlightRange], traitCollection: UITraitCollection, theme: Theme) -> (moveAttributedString: NSAttributedString?, lengthOfPrefix: Int)? {
         
         guard !text.isEmpty,
-            (diffItemType == .moveSource || diffItemType == .moveDestination) else {
+            diffItemType == .moveSource || diffItemType == .moveDestination else {
             return nil
         }
 

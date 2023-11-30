@@ -6,7 +6,7 @@ public class NotificationServiceHelper {
         
         guard let firstTitle = notifications.first?.titleFull,
               let firstNamespace = notifications.first?.namespace,
-              (firstNamespace == .talk || firstNamespace == .userTalk) else {
+              firstNamespace == .talk || firstNamespace == .userTalk else {
               return false
           }
         

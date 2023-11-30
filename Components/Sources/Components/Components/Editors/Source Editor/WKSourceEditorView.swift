@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import ComponentsObjC
 
 protocol WKSourceEditorViewDelegate: AnyObject {
     func editorViewTextSelectionDidChange(editorView: WKSourceEditorView, isRangeSelected: Bool)
@@ -8,6 +9,8 @@ protocol WKSourceEditorViewDelegate: AnyObject {
     func editorViewDidTapFormatHeading(editorView: WKSourceEditorView)
     func editorViewDidTapCloseInputView(editorView: WKSourceEditorView, isRangeSelected: Bool)
     func editorViewDidTapShowMore(editorView: WKSourceEditorView)
+    func editorViewDidTapBold(editorView: WKSourceEditorView, isSelected: Bool)
+    func editorViewDidTapItalics(editorView: WKSourceEditorView, isSelected: Bool)
 }
 
 class WKSourceEditorView: WKComponentView {
@@ -27,29 +30,9 @@ class WKSourceEditorView: WKComponentView {
     
     // MARK: - Properties
 
-    lazy var textView: UITextView = {
-        let textStorage = NSTextStorage()
-
-        let layoutManager = NSLayoutManager()
-        let container = NSTextContainer()
-        
-        container.widthTracksTextView = true
-        
-        layoutManager.addTextContainer(container)
-        textStorage.addLayoutManager(layoutManager)
-
-        let textView = UITextView(frame: bounds, textContainer: container)
-        textView.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.textView
-
-        textView.textContainerInset = .init(top: 16, left: 8, bottom: 16, right: 8)
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.smartQuotesType = .no
-        textView.smartDashesType = .no
-        textView.keyboardDismissMode = .interactive
-        textView.delegate = self
-        
-        return textView
-    }()
+    var textView: UITextView {
+        return textFrameworkMediator.textView
+    }
     
     private lazy var expandingAccessoryView: WKEditorToolbarExpandingView = {
         let view = UINib(nibName: String(describing: WKEditorToolbarExpandingView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKEditorToolbarExpandingView
@@ -113,11 +96,13 @@ class WKSourceEditorView: WKComponentView {
     }
     
     private weak var delegate: WKSourceEditorViewDelegate?
+    let textFrameworkMediator: WKSourceEditorTextFrameworkMediator
     
     // MARK: - Lifecycle
 
     required init(delegate: WKSourceEditorViewDelegate) {
         self.delegate = delegate
+        self.textFrameworkMediator = WKSourceEditorTextFrameworkMediator()
         super.init(frame: .zero)
         setup()
     }
@@ -127,8 +112,9 @@ class WKSourceEditorView: WKComponentView {
     }
     
     private func setup() {
+        textView.delegate = self
         addSubview(textView)
-        updateColors()
+        updateColorsAndFonts()
         
         NSLayoutConstraint.activate([
             safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: textView.leadingAnchor),
@@ -150,7 +136,7 @@ class WKSourceEditorView: WKComponentView {
     // MARK: Overrides
     
     override func appEnvironmentDidChange() {
-        updateColors()
+        updateColorsAndFonts()
     }
     
     // MARK: - Notifications
@@ -214,26 +200,43 @@ class WKSourceEditorView: WKComponentView {
         }
     }
     
-    func setInitialText(_ text: String) {
-        textView.attributedText = NSAttributedString(string: text)
+    func setup(viewModel: WKSourceEditorViewModel) {
+        textFrameworkMediator.isSyntaxHighlightingEnabled = viewModel.isSyntaxHighlightingEnabled
+        textView.attributedText = NSAttributedString(string: viewModel.initialText)
+    }
+    
+    func update(viewModel: WKSourceEditorViewModel) {
+        textFrameworkMediator.isSyntaxHighlightingEnabled = viewModel.isSyntaxHighlightingEnabled
     }
     
     func closeFind() {
         textView.becomeFirstResponder()
     }
     
-    // MARK: - Private Helpers
+    func selectionState() -> WKSourceEditorSelectionState {
+        return textFrameworkMediator.selectionState(selectedDocumentRange: textView.selectedRange)
+    }
+    
+    func toggleBoldFormatting(action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
+        textFrameworkMediator.boldItalicsFormatter?.toggleBoldFormatting(action: action, in: textView)
+    }
+    
+    func toggleItalicsFormatting(action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
+        textFrameworkMediator.boldItalicsFormatter?.toggleItalicsFormatting(action: action, in: textView)
+    }
+    
+    // MARK: - Private
     
     private func updateInsets(keyboardHeight: CGFloat) {
         textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
         textView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
     }
     
-    private func updateColors() {
+    private func updateColorsAndFonts() {
         backgroundColor = WKAppEnvironment.current.theme.paperBackground
         textView.backgroundColor = WKAppEnvironment.current.theme.paperBackground
-        textView.textColor = WKAppEnvironment.current.theme.text
         textView.keyboardAppearance = WKAppEnvironment.current.theme.keyboardAppearance
+        textFrameworkMediator.updateColorsAndFonts()
     }
 }
 
@@ -265,6 +268,14 @@ extension WKSourceEditorView: WKEditorToolbarExpandingViewDelegate {
 // MARK: - WKEditorToolbarHighlightViewDelegate
 
 extension WKSourceEditorView: WKEditorToolbarHighlightViewDelegate {
+    func toolbarHighlightViewDidTapBold(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
+        delegate?.editorViewDidTapBold(editorView: self, isSelected: isSelected)
+    }
+    
+    func toolbarHighlightViewDidTapItalics(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
+        delegate?.editorViewDidTapItalics(editorView: self, isSelected: isSelected)
+    }
+    
     func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView) {
         delegate?.editorViewDidTapShowMore(editorView: self)
     }
@@ -277,6 +288,14 @@ extension WKSourceEditorView: WKEditorToolbarHighlightViewDelegate {
 // MARK: - WKEditorInputViewDelegate
 
 extension WKSourceEditorView: WKEditorInputViewDelegate {
+    func didTapBold(isSelected: Bool) {
+        delegate?.editorViewDidTapBold(editorView: self, isSelected: isSelected)
+    }
+    
+    func didTapItalics(isSelected: Bool) {
+        delegate?.editorViewDidTapItalics(editorView: self, isSelected: isSelected)
+    }
+    
     func didTapClose() {
         delegate?.editorViewDidTapCloseInputView(editorView: self, isRangeSelected: textView.selectedRange.length > 0)
     }

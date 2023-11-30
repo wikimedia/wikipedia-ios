@@ -1,6 +1,8 @@
 import UIKit
 
 protocol WKEditorToolbarHighlightViewDelegate: AnyObject {
+    func toolbarHighlightViewDidTapBold(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
+    func toolbarHighlightViewDidTapItalics(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
     func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView)
     func toolbarHighlightViewDidTapFormatHeading(toolbarView: WKEditorToolbarHighlightView)
 }
@@ -62,15 +64,30 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
         showMoreButton.setImage(WKIcon.plusCircle, for: .normal)
         showMoreButton.addTarget(self, action: #selector(tappedShowMore), for: .touchUpInside)
         showMoreButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.showMoreButton
-                showMoreButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonShowMore
+        showMoreButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonShowMore
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)
+    }
+    
+    // MARK: - Notifications
+    
+    @objc private func updateButtonSelectionState(_ notification: NSNotification) {
+        guard let selectionState = notification.userInfo?[Notification.WKSourceEditorSelectionStateKey] as? WKSourceEditorSelectionState else {
+            return
+        }
+        
+        boldButton.isSelected = selectionState.isBold
+        italicsButton.isSelected = selectionState.isItalics
     }
     
     // MARK: - Button Actions
 
     @objc private func tappedBold() {
+        delegate?.toolbarHighlightViewDidTapBold(toolbarView: self, isSelected: boldButton.isSelected)
     }
 
     @objc private func tappedItalics() {
+        delegate?.toolbarHighlightViewDidTapItalics(toolbarView: self, isSelected: italicsButton.isSelected)
     }
 
     @objc private func tappedFormatHeading() {

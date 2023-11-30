@@ -114,7 +114,7 @@ class ViewControllerRouter: NSObject {
             return presentOrPush(pageHistoryVC, with: completion)
         case .articleDiff(let linkURL, let fromRevID, let toRevID):
             guard let siteURL = linkURL.wmf_site,
-                  (fromRevID != nil || toRevID != nil) else {
+                  fromRevID != nil || toRevID != nil else {
                 completion()
                 return false
             }

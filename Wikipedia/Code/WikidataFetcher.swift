@@ -222,7 +222,7 @@ public enum ArticleDescriptionSource: String {
         
         completion(nil)
         
-        if (isAuthorized ?? false), (result.errors ?? []).count == 0 {
+        if isAuthorized ?? false, (result.errors ?? []).count == 0 {
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: WikidataFetcher.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
             }

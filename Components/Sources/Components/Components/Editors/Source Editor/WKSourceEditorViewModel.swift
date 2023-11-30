@@ -11,16 +11,21 @@ public class WKSourceEditorViewModel {
     
     // MARK: - Properties
     
-    public var configuration: Configuration
+    public let configuration: Configuration
     public let initialText: String
+    public var isSyntaxHighlightingEnabled: Bool
     
     // MARK: - Public
 
-    public init(configuration: Configuration, initialText: String, accessibilityIdentifiers: WKSourceEditorAccessibilityIdentifiers? = nil,
-                    localizedStrings: WKSourceEditorLocalizedStrings) {
-            self.configuration = configuration
-            self.initialText = initialText
-            WKSourceEditorAccessibilityIdentifiers.current = accessibilityIdentifiers
-            WKSourceEditorLocalizedStrings.current = localizedStrings
-        }
+    public init(configuration: Configuration,
+                initialText: String,
+                accessibilityIdentifiers: WKSourceEditorAccessibilityIdentifiers? = nil,
+                localizedStrings: WKSourceEditorLocalizedStrings,
+                isSyntaxHighlightingEnabled: Bool) {
+        self.configuration = configuration
+        self.initialText = initialText
+        WKSourceEditorAccessibilityIdentifiers.current = accessibilityIdentifiers
+        WKSourceEditorLocalizedStrings.current = localizedStrings
+        self.isSyntaxHighlightingEnabled = isSyntaxHighlightingEnabled
+    }
 }
