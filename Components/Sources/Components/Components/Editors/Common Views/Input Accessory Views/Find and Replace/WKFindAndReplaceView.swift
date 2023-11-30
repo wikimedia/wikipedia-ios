@@ -11,7 +11,7 @@ class WKFindAndReplaceView: WKComponentView {
     // Find outlets
     @IBOutlet private var findStackView: UIStackView!
     @IBOutlet private var nextPrevButtonStackView: UIStackView!
-    @IBOutlet private var findTextField: UITextField!
+    @IBOutlet private(set) var findTextField: UITextField!
     @IBOutlet private var currentMatchLabel: UILabel!
     @IBOutlet private var findClearButton: UIButton!
     @IBOutlet private var closeButton: UIButton!

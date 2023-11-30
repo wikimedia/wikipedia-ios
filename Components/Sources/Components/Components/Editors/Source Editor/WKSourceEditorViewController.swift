@@ -144,6 +144,9 @@ public class WKSourceEditorViewController: WKComponentViewController {
                 textView.inputAccessoryView = highlightAccessoryView
             case .find:
                 textView.inputAccessoryView = findAccessoryView
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self.findAccessoryView.findTextField.becomeFirstResponder()
+                }
             }
             
             textView.inputView = nil
