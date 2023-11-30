@@ -12,6 +12,13 @@ import PassKit
 @objc extension UIViewController {
     
     func canOfferNativeDonateForm(countryCode: String, currencyCode: String, languageCode: String, bannerID: String?, appVersion: String?) -> Bool {
+        
+        // Hide native Apple Pay path for users with a CN region setting
+        // https://phabricator.wikimedia.org/T352180
+        guard countryCode != "CN" else {
+            return false
+        }
+        
         return nativeDonateFormViewModel(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, bannerID: bannerID, appVersion: appVersion, loggingDelegate: nil) != nil
     }
     
@@ -27,12 +34,6 @@ import PassKit
         
         guard PKPaymentAuthorizationController.canMakePayments(),
               PKPaymentAuthorizationController.canMakePayments(usingNetworks: paymentMethods.applePayPaymentNetworks, capabilities: .capability3DS) else {
-            return nil
-        }
-        
-        // This effectively hides native Apple Pay path for users with a CN region setting
-        // https://phabricator.wikimedia.org/T352180
-        guard countryCode != "CN" else {
             return nil
         }
         
