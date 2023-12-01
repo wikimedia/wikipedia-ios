@@ -11,7 +11,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics!
     var templateFormatter: WKSourceEditorFormatterTemplate!
     var formatters: [WKSourceEditorFormatter] {
-        return [baseFormatter, boldItalicsFormatter, templateFormatter]
+        return [baseFormatter, templateFormatter, boldItalicsFormatter]
     }
 
     override func setUpWithError() throws {

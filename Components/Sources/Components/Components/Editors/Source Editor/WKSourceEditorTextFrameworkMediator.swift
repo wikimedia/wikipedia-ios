@@ -100,8 +100,8 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
         self.formatters = [
                 WKSourceEditorFormatterBase(colors: colors, fonts: fonts),
-                boldItalicsFormatter,
-                templateFormatter]
+                templateFormatter,
+                boldItalicsFormatter]
         self.boldItalicsFormatter = boldItalicsFormatter
         self.templateFormatter = templateFormatter
         
