@@ -71,4 +71,32 @@ NSString * const WKSourceEditorCustomKeyTemplate = @"WKSourceEditorCustomKeyTemp
     // No special font handling needed for templates
 }
 
+#pragma mark - Public
+
+- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isTemplateInRange:(NSRange)range {
+    __block BOOL isTemplate = NO;
+    if (range.length == 0) {
+        
+        if (attributedString.length > range.location) {
+            NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+            
+            if (attrs[WKSourceEditorCustomKeyTemplate] != nil) {
+                isTemplate = YES;
+            }
+        }
+        
+    } else {
+        [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
+                if ((attrs[WKSourceEditorCustomKeyTemplate] != nil) &&
+                    (loopRange.location == range.location && loopRange.length == range.length)) {
+                    isTemplate = YES;
+                    stop = YES;
+                }
+        }];
+    }
+    
+    
+    return isTemplate;
+}
+
 @end

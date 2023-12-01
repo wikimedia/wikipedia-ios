@@ -4,6 +4,7 @@ protocol WKEditorToolbarExpandingViewDelegate: AnyObject {
     func toolbarExpandingViewDidTapFind(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapFormatText(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapFormatHeading(toolbarView: WKEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapTemplate(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
 }
 
 class WKEditorToolbarExpandingView: WKEditorToolbarView {
@@ -112,6 +113,18 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         
         cursorRightButton.setImage(WKIcon.chevronRight, for: .normal)
         cursorRightButton.addTarget(self, action: #selector(tappedCursorRight), for: .touchUpInside)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)
+    }
+    
+    // MARK: - Notifications
+    
+    @objc private func updateButtonSelectionState(_ notification: NSNotification) {
+        guard let selectionState = notification.userInfo?[Notification.WKSourceEditorSelectionStateKey] as? WKSourceEditorSelectionState else {
+            return
+        }
+        
+        templateButton.isSelected = selectionState.isTemplate
     }
 
     // MARK: - Button Actions
@@ -192,6 +205,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     }
 
     @objc private func tappedTemplate() {
+        delegate?.toolbarExpandingViewDidTapTemplate(toolbarView: self, isSelected: templateButton.isSelected)
     }
 
     @objc private func tappedFindInPage() {
