@@ -16,12 +16,12 @@ fileprivate var needsTextKit2: Bool {
 @objc final class WKSourceEditorSelectionState: NSObject {
     let isBold: Bool
     let isItalics: Bool
-    let isTemplate: Bool
+    let isHorizontalTemplate: Bool
     
-    init(isBold: Bool, isItalics: Bool, isTemplate: Bool) {
+    init(isBold: Bool, isItalics: Bool, isHorizontalTemplate: Bool) {
         self.isBold = isBold
         self.isItalics = isItalics
-        self.isTemplate = isTemplate
+        self.isHorizontalTemplate = isHorizontalTemplate
     }
 }
 
@@ -132,24 +132,24 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         
         if needsTextKit2 {
             guard let textKit2Data = textkit2SelectionData(selectedDocumentRange: selectedDocumentRange) else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isTemplate: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false)
             }
             
             let isBold = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isBoldIn: textKit2Data.paragraphSelectedRange) ?? false
             let isItalics = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isItalicsIn: textKit2Data.paragraphSelectedRange) ?? false
-            let isTemplate = templateFormatter?.attributedString(textKit2Data.paragraphAttributedString, isTemplateIn: textKit2Data.paragraphSelectedRange) ?? false
+            let isHorizontalTemplate = templateFormatter?.attributedString(textKit2Data.paragraphAttributedString, isHorizontalTemplateIn: textKit2Data.paragraphSelectedRange) ?? false
             
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isTemplate: isTemplate)
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate)
         } else {
             guard let textKit1Storage else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isTemplate: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false)
             }
                         
             let isBold = boldItalicsFormatter?.attributedString(textKit1Storage, isBoldIn: selectedDocumentRange) ?? false
             let isItalics = boldItalicsFormatter?.attributedString(textKit1Storage, isItalicsIn: selectedDocumentRange) ?? false
-            let isTemplate = templateFormatter?.attributedString(textKit1Storage, isTemplateIn: selectedDocumentRange) ?? false
+            let isHorizontalTemplate = templateFormatter?.attributedString(textKit1Storage, isHorizontalTemplateIn: selectedDocumentRange) ?? false
             
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isTemplate: isTemplate)
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate)
         }
     }
     

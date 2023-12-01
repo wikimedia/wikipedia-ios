@@ -4,7 +4,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WKSourceEditorFormatterTemplate : WKSourceEditorFormatter
 
-- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isTemplateInRange:(NSRange)range;
+- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isHorizontalTemplateInRange:(NSRange)range;
 
 @end
 

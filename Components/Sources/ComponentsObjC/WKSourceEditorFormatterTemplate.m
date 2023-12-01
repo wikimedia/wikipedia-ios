@@ -3,8 +3,12 @@
 
 @interface WKSourceEditorFormatterTemplate ()
 
-@property (nonatomic, strong) NSDictionary *templateAttributes;
-@property (nonatomic, strong) NSRegularExpression *sameLineTemplateRegex;
+@property (nonatomic, strong) NSDictionary *horizontalTemplateAttributes;
+@property (nonatomic, strong) NSDictionary *verticalTemplateAttributes;
+@property (nonatomic, strong) NSRegularExpression *horizontalTemplateRegex;
+@property (nonatomic, strong) NSRegularExpression *verticalStartTemplateRegex;
+@property (nonatomic, strong) NSRegularExpression *verticalParameterTemplateRegex;
+@property (nonatomic, strong) NSRegularExpression *verticalEndTemplateRegex;
 
 @end
 
@@ -12,18 +16,27 @@
 
 #pragma mark - Custom Attributed String Keys
 
-NSString * const WKSourceEditorCustomKeyTemplate = @"WKSourceEditorCustomKeyTemplate";
+NSString * const WKSourceEditorCustomKeyHorizontalTemplate = @"WKSourceEditorCustomKeyHorizontalTemplate";
+NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCustomKeyVerticalTemplate";
 
 - (instancetype)initWithColors:(WKSourceEditorColors *)colors fonts:(WKSourceEditorFonts *)fonts {
     self = [super initWithColors:colors fonts:fonts];
     if (self) {
         
-        _templateAttributes = @{
+        _horizontalTemplateAttributes = @{
             NSForegroundColorAttributeName: colors.purpleForegroundColor,
-            WKSourceEditorCustomKeyTemplate: [NSNumber numberWithBool:YES]
+            WKSourceEditorCustomKeyHorizontalTemplate: [NSNumber numberWithBool:YES],
         };
         
-        _sameLineTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"\\{{2}[^\\{\\}\\n]*\\}{2}" options:0 error:nil];
+        _verticalTemplateAttributes = @{
+            NSForegroundColorAttributeName: colors.purpleForegroundColor,
+            WKSourceEditorCustomKeyVerticalTemplate: [NSNumber numberWithBool:YES]
+        };
+        
+        _horizontalTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"\\{{2}[^\\{\\}\\n]*\\}{2}" options:0 error:nil];
+        _verticalStartTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"^\\{{2}[^\\{\\}\\n]*$" options:NSRegularExpressionAnchorsMatchLines error:nil];
+        _verticalParameterTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"^\\s*\\|.*$" options:NSRegularExpressionAnchorsMatchLines error:nil];
+        _verticalEndTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"^([^\\{\\}\n]*\\}{2})(?:.)*$" options:NSRegularExpressionAnchorsMatchLines error:nil];
     }
     return self;
 }
@@ -33,34 +46,85 @@ NSString * const WKSourceEditorCustomKeyTemplate = @"WKSourceEditorCustomKeyTemp
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     
     // Reset
-    [attributedString removeAttribute:WKSourceEditorCustomKeyTemplate range:range];
+    [attributedString removeAttribute:WKSourceEditorCustomKeyHorizontalTemplate range:range];
+    [attributedString removeAttribute:WKSourceEditorCustomKeyVerticalTemplate range:range];
     
-    [self.sameLineTemplateRegex enumerateMatchesInString:attributedString.string
+    [self.horizontalTemplateRegex enumerateMatchesInString:attributedString.string
                                                  options:0
                                                    range:range
                                               usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
                                                   NSRange matchRange = [result rangeAtIndex:0];
 
                                                   if (matchRange.location != NSNotFound) {
-                                                      [attributedString addAttributes:self.templateAttributes range:matchRange];
+                                                      [attributedString addAttributes:self.horizontalTemplateAttributes range:matchRange];
+                                                  }
+                                              }];
+    
+    [self.verticalStartTemplateRegex enumerateMatchesInString:attributedString.string
+                                                 options:0
+                                                   range:range
+                                              usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                                  NSRange matchRange = [result rangeAtIndex:0];
+
+                                                  if (matchRange.location != NSNotFound) {
+                                                      [attributedString addAttributes:self.verticalTemplateAttributes range:matchRange];
+                                                  }
+                                              }];
+    
+    [self.verticalParameterTemplateRegex enumerateMatchesInString:attributedString.string
+                                                 options:0
+                                                   range:range
+                                              usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                                  NSRange matchRange = [result rangeAtIndex:0];
+
+                                                  if (matchRange.location != NSNotFound) {
+                                                      [attributedString addAttributes:self.verticalTemplateAttributes range:matchRange];
+                                                  }
+                                              }];
+    
+    [self.verticalEndTemplateRegex enumerateMatchesInString:attributedString.string
+                                                 options:0
+                                                   range:range
+                                              usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                                NSRange fullMatch = [result rangeAtIndex:0];
+                                                NSRange closingTemplateRange = [result rangeAtIndex:1];
+
+                                                  if (fullMatch.location != NSNotFound && closingTemplateRange.location != NSNotFound) {
+                                                      [attributedString addAttributes:self.verticalTemplateAttributes range:closingTemplateRange];
                                                   }
                                               }];
 }
 
 - (void)updateColors:(WKSourceEditorColors *)colors inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     
-    NSMutableDictionary *mutAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.templateAttributes];
-    [mutAttributes setObject:colors.purpleForegroundColor forKey:NSForegroundColorAttributeName];
-    self.templateAttributes = [[NSDictionary alloc] initWithDictionary:mutAttributes];
+    NSMutableDictionary *mutHorizontalAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.horizontalTemplateAttributes];
+    [mutHorizontalAttributes setObject:colors.purpleForegroundColor forKey:NSForegroundColorAttributeName];
+    self.horizontalTemplateAttributes = [[NSDictionary alloc] initWithDictionary:mutHorizontalAttributes];
     
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyTemplate
+    NSMutableDictionary *mutVerticalAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.verticalTemplateAttributes];
+    [mutVerticalAttributes setObject:colors.purpleForegroundColor forKey:NSForegroundColorAttributeName];
+    self.verticalTemplateAttributes = [[NSDictionary alloc] initWithDictionary:mutVerticalAttributes];
+    
+    [attributedString enumerateAttribute:WKSourceEditorCustomKeyHorizontalTemplate
                      inRange:range
                      options:nil
                   usingBlock:^(id value, NSRange localRange, BOOL *stop) {
         if ([value isKindOfClass: [NSNumber class]]) {
             NSNumber *numValue = (NSNumber *)value;
             if ([numValue boolValue] == YES) {
-                [attributedString addAttributes:self.templateAttributes range:localRange];
+                [attributedString addAttributes:self.horizontalTemplateAttributes range:localRange];
+            }
+        }
+    }];
+    
+    [attributedString enumerateAttribute:WKSourceEditorCustomKeyVerticalTemplate
+                     inRange:range
+                     options:nil
+                  usingBlock:^(id value, NSRange localRange, BOOL *stop) {
+        if ([value isKindOfClass: [NSNumber class]]) {
+            NSNumber *numValue = (NSNumber *)value;
+            if ([numValue boolValue] == YES) {
+                [attributedString addAttributes:self.verticalTemplateAttributes range:localRange];
             }
         }
     }];
@@ -72,28 +136,27 @@ NSString * const WKSourceEditorCustomKeyTemplate = @"WKSourceEditorCustomKeyTemp
 
 #pragma mark - Public
 
-- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isTemplateInRange:(NSRange)range {
+- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isHorizontalTemplateInRange:(NSRange)range {
     __block BOOL isTemplate = NO;
     if (range.length == 0) {
         
         if (attributedString.length > range.location) {
             NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
             
-            if (attrs[WKSourceEditorCustomKeyTemplate] != nil) {
+            if (attrs[WKSourceEditorCustomKeyHorizontalTemplate] != nil) {
                 isTemplate = YES;
             }
         }
         
     } else {
         [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-                if ((attrs[WKSourceEditorCustomKeyTemplate] != nil) &&
+                if ((attrs[WKSourceEditorCustomKeyHorizontalTemplate] != nil) &&
                     (loopRange.location == range.location && loopRange.length == range.length)) {
                     isTemplate = YES;
                     stop = YES;
                 }
         }];
     }
-    
     
     return isTemplate;
 }

@@ -240,7 +240,7 @@ private extension WKSourceEditorViewController {
 
     func setup(viewModel: WKSourceEditorViewModel) {
         textFrameworkMediator.isSyntaxHighlightingEnabled = viewModel.isSyntaxHighlightingEnabled
-        textView.attributedText = NSAttributedString(string: viewModel.initialText)
+        textView.attributedText = NSAttributedString(string: "}}</ref>")
     }
     
     func update(viewModel: WKSourceEditorViewModel) {

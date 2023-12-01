@@ -60,37 +60,64 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertFalse(selectionStates9.isItalics)
     }
     
-    func testTemplateButtonSelectionStateCursor() throws {
+    func testHorizontalTemplateButtonSelectionStateCursor() throws {
         let text = "Testing simple {{Currentdate}} template example."
         mediator.textView.attributedText = NSAttributedString(string: text)
 
         // "Testing"
         let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 4, length: 0))
-        XCTAssertFalse(selectionStates1.isTemplate)
+        XCTAssertFalse(selectionStates1.isHorizontalTemplate)
         
         // "Currentdate"
         let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 20, length: 0))
-        XCTAssertTrue(selectionStates2.isTemplate)
+        XCTAssertTrue(selectionStates2.isHorizontalTemplate)
         
         // "template"
         let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 33, length: 0))
-        XCTAssertFalse(selectionStates3.isTemplate)
+        XCTAssertFalse(selectionStates3.isHorizontalTemplate)
     }
     
-    func testTemplateButtonSelectionStateRange() throws {
+    func testHorizontalTemplateButtonSelectionStateRange() throws {
         let text = "Testing simple {{Currentdate}} template example."
         mediator.textView.attributedText = NSAttributedString(string: text)
 
         // "Testing"
         let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 4, length: 3))
-        XCTAssertFalse(selectionStates1.isTemplate)
+        XCTAssertFalse(selectionStates1.isHorizontalTemplate)
         
         // "Currentdate"
         let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 20, length: 3))
-        XCTAssertTrue(selectionStates2.isTemplate)
+        XCTAssertTrue(selectionStates2.isHorizontalTemplate)
         
         // "template"
         let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 33, length: 3))
-        XCTAssertFalse(selectionStates3.isTemplate)
+        XCTAssertFalse(selectionStates3.isHorizontalTemplate)
+    }
+    
+    func testVerticalTemplateStartButtonSelectionStateCursor() throws {
+        let text = "{{Infobox officeholder"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        // "Testing"
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 4, length: 0))
+        XCTAssertFalse(selectionStates1.isHorizontalTemplate)
+    }
+    
+    func testVerticalTemplateParameterButtonSelectionStateCursor() throws {
+        let text = "| genus = Felis"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        // "Testing"
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 4, length: 0))
+        XCTAssertFalse(selectionStates1.isHorizontalTemplate)
+    }
+    
+    func testVerticalTemplateEndButtonSelectionStateCursor() throws {
+        let text = "}}"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        // "Testing"
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 1, length: 0))
+        XCTAssertFalse(selectionStates1.isHorizontalTemplate)
     }
 }

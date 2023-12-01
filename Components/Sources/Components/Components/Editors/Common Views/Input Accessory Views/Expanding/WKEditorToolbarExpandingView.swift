@@ -124,7 +124,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
             return
         }
         
-        templateButton.isSelected = selectionState.isTemplate
+        templateButton.isSelected = selectionState.isHorizontalTemplate
     }
 
     // MARK: - Button Actions
