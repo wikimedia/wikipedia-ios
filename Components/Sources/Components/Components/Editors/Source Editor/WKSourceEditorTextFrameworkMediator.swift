@@ -94,8 +94,10 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let fonts = self.fonts
         
         let boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
-        self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts),
-                boldItalicsFormatter]
+        self.formatters = [
+                WKSourceEditorFormatterBase(colors: colors, fonts: fonts),
+                boldItalicsFormatter,
+                WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)]
         self.boldItalicsFormatter = boldItalicsFormatter
         
         if needsTextKit2 {
@@ -176,6 +178,7 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         let colors = WKSourceEditorColors()
         colors.baseForegroundColor = WKAppEnvironment.current.theme.text
         colors.orangeForegroundColor = isSyntaxHighlightingEnabled ? WKAppEnvironment.current.theme.editorOrange : WKAppEnvironment.current.theme.text
+        colors.purpleForegroundColor = isSyntaxHighlightingEnabled ?  WKAppEnvironment.current.theme.editorPurple : WKAppEnvironment.current.theme.text
         return colors
     }
     
