@@ -12,7 +12,6 @@
 
 #pragma mark - Custom Attributed String Keys
 
-NSString * const WKSourceEditorCustomKeyColorPurple = @"WKSourceEditorKeyColorPurple";
 NSString * const WKSourceEditorCustomKeyTemplate = @"WKSourceEditorCustomKeyTemplate";
 
 - (instancetype)initWithColors:(WKSourceEditorColors *)colors fonts:(WKSourceEditorFonts *)fonts {
