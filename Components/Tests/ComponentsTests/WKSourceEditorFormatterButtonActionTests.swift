@@ -95,4 +95,30 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         mediator.boldItalicsFormatter?.toggleItalicsFormatting(action: .remove, in: mediator.textView)
         XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
+    
+    func testTemplateInsert() throws {
+        let text = "One Two Three Four"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 4, length: 3)
+        mediator.templateFormatter?.toggleTemplateFormatting(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One {{Two}} Three Four")
+    }
+    
+    func testTemplateRemove() throws {
+        let text = "One {{Two}} Three Four"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 6, length: 3)
+        mediator.templateFormatter?.toggleTemplateFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
+    }
+    
+    func testSingleTemplateInsertAndRemove() throws {
+        let text = "One Two Three Four"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 4, length: 0) // Just a cursor before Two
+        mediator.templateFormatter?.toggleTemplateFormatting(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One {{ }}Two Three Four")
+        mediator.templateFormatter?.toggleTemplateFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
+    }
 }

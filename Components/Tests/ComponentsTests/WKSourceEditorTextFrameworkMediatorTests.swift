@@ -25,8 +25,6 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertFalse(selectionStates2.isItalics)
         
         // "Three"
-        mediator.textView.becomeFirstResponder()
-        mediator.textView.selectedRange = NSRange(location: 11, length: 5)
         let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 11, length: 5))
         XCTAssertTrue(selectionStates3.isBold)
         XCTAssertFalse(selectionStates3.isItalics)
@@ -60,5 +58,39 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         let selectionStates9 = mediator.selectionState(selectedDocumentRange: NSRange(location: 54, length: 4))
         XCTAssertFalse(selectionStates9.isBold)
         XCTAssertFalse(selectionStates9.isItalics)
+    }
+    
+    func testTemplateButtonSelectionStateCursor() throws {
+        let text = "Testing simple {{Currentdate}} template example."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        // "Testing"
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 4, length: 0))
+        XCTAssertFalse(selectionStates1.isTemplate)
+        
+        // "Currentdate"
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 20, length: 0))
+        XCTAssertTrue(selectionStates2.isTemplate)
+        
+        // "template"
+        let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 33, length: 0))
+        XCTAssertFalse(selectionStates3.isTemplate)
+    }
+    
+    func testTemplateButtonSelectionStateRange() throws {
+        let text = "Testing simple {{Currentdate}} template example."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        // "Testing"
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 4, length: 3))
+        XCTAssertFalse(selectionStates1.isTemplate)
+        
+        // "Currentdate"
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 20, length: 3))
+        XCTAssertTrue(selectionStates2.isTemplate)
+        
+        // "template"
+        let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 33, length: 3))
+        XCTAssertFalse(selectionStates3.isTemplate)
     }
 }
