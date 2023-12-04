@@ -43,7 +43,7 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
         formatHeadingButton.setImage(WKIcon.formatHeading, for: .normal)
         formatHeadingButton.addTarget(self, action: #selector(tappedFormatHeading), for: .touchUpInside)
         formatHeadingButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.formatHeadingButton
-                formatHeadingButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonFormatHeading
+        formatHeadingButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonFormatHeading
 
         citationButton.setImage(WKIcon.citation, for: .normal)
         citationButton.addTarget(self, action: #selector(tappedCitation), for: .touchUpInside)

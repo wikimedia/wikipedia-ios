@@ -64,8 +64,9 @@ class WKFindAndReplaceView: WKComponentView {
 
         replaceTextField.adjustsFontForContentSizeCategory = true
         replaceTextField.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
+        replaceTextField.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceTextField
         replaceTypeLabel.text = WKSourceEditorLocalizedStrings.current.findReplaceTypeSingle
-                replaceTypeLabel.isAccessibilityElement = false
+        replaceTypeLabel.isAccessibilityElement = false
 
         currentMatchLabel.adjustsFontForContentSizeCategory = true
         currentMatchLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
@@ -77,7 +78,8 @@ class WKFindAndReplaceView: WKComponentView {
 
         replacePlaceholderLabel.adjustsFontForContentSizeCategory = true
         replacePlaceholderLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
-        replacePlaceholderLabel.text = "Replace with..." // TODO
+        replacePlaceholderLabel.text = WKSourceEditorLocalizedStrings.current.findReplaceWith
+        replacePlaceholderLabel.isAccessibilityElement = false
 
         updateColors()
     }

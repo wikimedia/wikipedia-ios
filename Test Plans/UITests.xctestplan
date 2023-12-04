@@ -2,7 +2,7 @@
   "configurations" : [
     {
       "id" : "8E0498FE-92FF-40EC-865C-5BEA22044FC7",
-      "name" : "Default (Light)",
+      "name" : "System Language (Light)",
       "options" : {
         "commandLineArgumentEntries" : [
           {
@@ -13,7 +13,7 @@
     },
     {
       "id" : "67D2A1C7-F722-404E-8F8B-9EE88B448393",
-      "name" : "RTL (Sepia)",
+      "name" : "Hebrew (Sepia)",
       "options" : {
         "commandLineArgumentEntries" : [
           {
@@ -25,7 +25,7 @@
     },
     {
       "id" : "9B0F186E-C17A-428A-8752-69A009336688",
-      "name" : "Double Lenght (Dark)",
+      "name" : "German (Dark)",
       "options" : {
         "commandLineArgumentEntries" : [
           {
@@ -37,7 +37,7 @@
     },
     {
       "id" : "D9266DCB-72A3-4FA1-81DC-AB33158D08AF",
-      "name" : "Accented (Black)",
+      "name" : "Vietnamese (Black)",
       "options" : {
         "commandLineArgumentEntries" : [
           {

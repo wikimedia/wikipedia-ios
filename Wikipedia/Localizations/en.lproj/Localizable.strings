@@ -1018,6 +1018,7 @@
 "source-editor-accessibility-label-find-text-field" = "Find";
 "source-editor-accessibility-label-format-heading" = "Show text style menu";
 "source-editor-accessibility-label-format-text" = "Show text formatting menu";
+"source-editor-accessibility-label-format-text-show-more" = "Show text formatting menu";
 "source-editor-accessibility-label-indent-decrease" = "Decrease indent depth";
 "source-editor-accessibility-label-indent-increase" = "Increase indent depth";
 "source-editor-accessibility-label-italics" = "Add italic formatting";

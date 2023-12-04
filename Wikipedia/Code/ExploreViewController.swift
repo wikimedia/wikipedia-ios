@@ -31,8 +31,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         isRefreshControlEnabled = true
         collectionView.refreshControl?.layer.zPosition = 0
 
-        self.navigationBar.bar.accessibilityIdentifier = "WikipediaUITests"
-
         title = CommonStrings.exploreTabTitle
 
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
@@ -137,7 +135,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         let settingsBarButtonItem = UIBarButtonItem(image: BarButtonImageStyle.settingsButtonImage(theme: theme), style: .plain, target: self, action: #selector(userDidTapSettings))
         settingsBarButtonItem.accessibilityLabel = CommonStrings.settingsTitle
-        settingsBarButtonItem.accessibilityIdentifier = "Source Editor Entry Button"
         navigationItem.rightBarButtonItem = settingsBarButtonItem
         navigationBar.updateNavigationItems()
     }
@@ -602,15 +599,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         updateSettingsButton()
 
         searchBar.apply(theme: theme)
-        #if DEBUG
-        searchBarContainerView.backgroundColor = UIColor.blue
-        #elseif TEST
-        searchBarContainerView.backgroundColor = UIColor.red
-        #elseif UITEST
-        searchBarContainerView.backgroundColor = UIColor.green
-        #else
         searchBarContainerView.backgroundColor = theme.colors.paperBackground
-        #endif
         collectionView.backgroundColor = .clear
         view.backgroundColor = theme.colors.paperBackground
         for cell in collectionView.visibleCells {
@@ -1096,13 +1085,5 @@ extension ExploreViewController {
     @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
         dataStore.remoteNotificationsController.loadNotifications(force: true)
     }
-
-}
-
-extension ExploreViewController: WKSourceEditorViewControllerDelegate {
-    func sourceEditorViewControllerDidTapFind(sourceEditorViewController: Components.WKSourceEditorViewController) {
-
-    }
-    
 
 }

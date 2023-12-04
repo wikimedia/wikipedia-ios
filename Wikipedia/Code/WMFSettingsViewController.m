@@ -125,20 +125,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationBar updateNavigationItems];
 }
 
-- (void)uiTestGoToPageEditor {
-
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"My Alert"
-                                   message:@"This is an alert."
-                                   preferredStyle:UIAlertControllerStyleAlert];
-
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-       handler:^(UIAlertAction * action) {}];
-
-    [alert addAction:defaultAction];
-    [self presentViewController:alert animated:YES completion:nil];
-
-}
-
 - (void)closeButtonPressed {
     [[WMFNavigationEventsFunnel shared] logTappedSettingsCloseButton];
     [self dismissViewControllerAnimated:YES completion:nil];

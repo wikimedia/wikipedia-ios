@@ -67,7 +67,7 @@
 public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelegate {
     fileprivate let statusBarUnderlay: UIView =  UIView()
     fileprivate let titleBar: UIToolbar = UIToolbar()
-    public let bar: UINavigationBar = UINavigationBar()
+    fileprivate let bar: UINavigationBar = UINavigationBar()
     fileprivate let underBarView: UIView = UIView() // this is always visible below the navigation bar
     fileprivate let extendedView: UIView = UIView()
     fileprivate let shadow: UIView = UIView()

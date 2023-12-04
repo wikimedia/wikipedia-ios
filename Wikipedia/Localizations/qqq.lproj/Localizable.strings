@@ -1018,6 +1018,7 @@
 "source-editor-accessibility-label-find-text-field" = "Accessibility label for the find text field on the page editor";
 "source-editor-accessibility-label-format-heading" = "Accessibility label for heading style formatting menu button on the page editor";
 "source-editor-accessibility-label-format-text" = "Accessibility label for text formatting menu button on the page editor";
+"source-editor-accessibility-label-format-text-show-more" = "Accessibility label for the show more button on the page editor";
 "source-editor-accessibility-label-indent-decrease" = "Accessibility label for the decrease indent button on the page editor";
 "source-editor-accessibility-label-indent-increase" = "Accessibility label for the increase indent button on the page editor";
 "source-editor-accessibility-label-italics" = "Accessibility label for the italics button on the page editor";
@@ -1046,11 +1047,11 @@
 "source-editor-accessibility-label-unordered" = "Accessibility label for make unordered list button on the page editor";
 "source-editor-accessibility-label-unordered-selected" = "Accessibility label for remove unordered list button on the page editor";
 "source-editor-clear-formatting" = "Label for clear formatting on the page editor";
-"source-editor-find-replace-all" = "Label for replace all ocurrences of a string on the peage editor";
+"source-editor-find-replace-all" = "Label for replace all ocurrences of a string on the page editor";
 "source-editor-find-replace-single" = "Label for replace single string button on page editor";
 "source-editor-find-replace-with" = "Lable for replace with string button on page editor";
 "source-editor-heading" = "Label for heading formatting button on section editor";
-"source-editor-paragraph" = "Label for paragraph formatting section on the page editor";
+"source-editor-paragraph" = "Label for paragraph formatting button on the page editor";
 "source-editor-style" = "Label for style formatting section on the page editor";
 "source-editor-subheading1" = "Label for subheading 1 formatting button on the page editor";
 "source-editor-subheading2" = "Label for subheading 2 formatting button on the page editor";

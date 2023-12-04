@@ -1480,9 +1480,9 @@
 		83836ED11F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
 		83836ED21F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
 		83836ED31F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
-		83842A892B0CFF8200EFC55F /* UITestHelperContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperContainerViewController.swift */; };
-		83842A8A2B0CFF8200EFC55F /* UITestHelperContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperContainerViewController.swift */; };
-		83842A8B2B0CFF8300EFC55F /* UITestHelperContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperContainerViewController.swift */; };
+		83842A892B0CFF8200EFC55F /* UITestHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperViewController.swift */; };
+		83842A8A2B0CFF8200EFC55F /* UITestHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperViewController.swift */; };
+		83842A8B2B0CFF8300EFC55F /* UITestHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperViewController.swift */; };
 		8386BDE723857F87007EE89D /* URLParsingAndRoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */; };
 		8386BDED2386C269007EE89D /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
 		8386BDF12386D3E1007EE89D /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDF02386D3E1007EE89D /* RequestError.swift */; };
@@ -3821,7 +3821,7 @@
 		8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		83836ECA1F615E5B007D1A05 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		83836ECB1F615E5B007D1A05 /* ShareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareViewController.xib; sourceTree = "<group>"; };
-		83842A872B07A22300EFC55F /* UITestHelperContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestHelperContainerViewController.swift; sourceTree = "<group>"; };
+		83842A872B07A22300EFC55F /* UITestHelperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestHelperViewController.swift; sourceTree = "<group>"; };
 		8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLParsingAndRoutingTests.swift; sourceTree = "<group>"; };
 		8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+URLHandling.swift"; sourceTree = "<group>"; };
 		8386BDF02386D3E1007EE89D /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
@@ -6362,7 +6362,7 @@
 			isa = PBXGroup;
 			children = (
 				67623E102AFD2897007488C7 /* WKSourceEditorUITests.swift */,
-				83842A872B07A22300EFC55F /* UITestHelperContainerViewController.swift */,
+				83842A872B07A22300EFC55F /* UITestHelperViewController.swift */,
 			);
 			path = WikipediaUITests;
 			sourceTree = "<group>";
@@ -10568,7 +10568,7 @@
 				FFE891462445150B0058B642 /* AppTabBarDelegate.swift in Sources */,
 				B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */,
 				0042812D25E6E841004945B3 /* NYTPhotoCaptionView.m in Sources */,
-				83842A892B0CFF8200EFC55F /* UITestHelperContainerViewController.swift in Sources */,
+				83842A892B0CFF8200EFC55F /* UITestHelperViewController.swift in Sources */,
 				67985A542523D80000EBF353 /* ArticleAsLivingDocController.swift in Sources */,
 				7A35CB871FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				7A9A611E21124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
@@ -11536,7 +11536,7 @@
 				7A82898D21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				67E8B07B226A57DE00537BC9 /* AccountViewController.swift in Sources */,
 				7A32078921E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
-				83842A8B2B0CFF8300EFC55F /* UITestHelperContainerViewController.swift in Sources */,
+				83842A8B2B0CFF8300EFC55F /* UITestHelperViewController.swift in Sources */,
 				6707C033237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */,
 				8382F8D420D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				67985A562523D80000EBF353 /* ArticleAsLivingDocController.swift in Sources */,
@@ -12125,7 +12125,7 @@
 				67E8B07C226A57DE00537BC9 /* AccountViewController.swift in Sources */,
 				7A32078A21E40193009E1677 /* SectionEditorMenuItemsController.swift in Sources */,
 				6707C034237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */,
-				83842A8A2B0CFF8200EFC55F /* UITestHelperContainerViewController.swift in Sources */,
+				83842A8A2B0CFF8200EFC55F /* UITestHelperViewController.swift in Sources */,
 				8382F8D520D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				D8EC3E7D1E9BDA35006712EB /* UIViewController+WMFChildViewController.swift in Sources */,
 				832A7A5D23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */,
