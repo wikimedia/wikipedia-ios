@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import ComponentsObjC
 
-/// This class facilitates communication between WKSourceEditorView and the underlying TextKit (1 and 2) frameworks, so that WKSourceEditorView is unaware of which framework is used.
+/// This class facilitates communication between WKSourceEditorViewController and the underlying TextKit (1 and 2) frameworks, so that WKSourceEditorViewController is unaware of which framework is used.
 /// When we need to drop TextKit 1, the goal is for all the adjustments to be in this one class
 
 fileprivate var needsTextKit2: Bool {
