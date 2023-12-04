@@ -1056,6 +1056,7 @@
 "source-editor-subheading1" = "Label for subheading 1 formatting button on the page editor";
 "source-editor-subheading2" = "Label for subheading 2 formatting button on the page editor";
 "source-editor-subheading3" = "Label for subheading 3 formatting button on the page editor";
+"source-editor-subheading4" = "Label for subheading 4 formatting button on the page editor";
 "source-editor-text-formatting" = "Label for text formatting section on the page editor";
 "table-of-contents-button-label" = "Accessibility label for the Table of Contents button {{Identical|Table of contents}}";
 "table-of-contents-close-accessibility-hint" = "Accessibility hint for closing table of contents {{Identical|Close}}";
