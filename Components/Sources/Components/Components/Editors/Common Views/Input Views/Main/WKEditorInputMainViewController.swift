@@ -23,7 +23,7 @@ class WKEditorInputMainViewController: WKComponentViewController {
     }()
     
     private lazy var closeButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WKIcon.close, style: .plain, target: self, action: #selector(close(_:)))
+        let button = UIBarButtonItem(image: WKSFSymbolIcon.for(symbol: .multiplyCircleFill), style: .plain, target: self, action: #selector(close(_:)))
         return button
     }()
     
