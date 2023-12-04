@@ -28,11 +28,6 @@ public struct WMFAccountCreatorResult {
     var status: String
     var username: String
     var message: String?
-    init(status: String, username: String, message: String?) {
-        self.status = status
-        self.username = username
-        self.message = message
-    }
 }
 
 public class WMFAccountCreator: Fetcher {
