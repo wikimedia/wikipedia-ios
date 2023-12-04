@@ -17,7 +17,7 @@
 "about-wikimedia-foundation" = "ವಿಕಿಮೀಡಿಯಾ ಫೌಂಡೇಷನ್";
 "about-wikipedia" = "ವಿಕಿಪೀಡಿಯ";
 "account-creation-log-in" = "ಲಾಗಿನ್ ಆಲೆ";
-"account-creation-logging-in" = "ಇರ್ ಲಾಗ್-ಇನ್ ಅವೊಂತುಲ್ಲಾರ್";
+"account-creation-logging-in" = "ಇರ್ ಲಾಗ್‌ಇನ್ ಅವೊಂತುಲ್ಲಾರ್...";
 "account-creation-passwords-mismatched" = "ಪ್ರವೇಸೊ ಪದ ಜೋಡಿ ಅಪೂಜಿ.";
 "account-creation-saving" = "ಓರಿಪವೊಂತುಂಡು...";
 "account-creation-title" = "ಪೊಸ ಖಾತೆ ಸುರು ಮಲ್ಪುಲೆ";
@@ -32,7 +32,7 @@
 "action-unsave" = "ಒರಿಪಾತುಜ್ಜಿ";
 "announcements-dismiss" = "ದೆತ್ತ್ ಪಾಡ್ಲೆ";
 "article-delete" = "ಮಾಜಾಲೆ";
-"article-languages-filter-placeholder" = "ಬಾಸೆನ್ ನಡ್ಲೇ";
+"article-languages-filter-placeholder" = "ಬಾಸೆನ್ ನಾಡ್ಲೇ";
 "article-languages-label" = "ಬಾಸೆನ್ ಆಯ್ಕೆ ಮಲ್ತೊನ್ಲೆ";
 "article-languages-others" = "ಬೇತೆ ಬಾಸೆಲೆಡ್";
 "article-languages-yours" = "ಇರೆನಾ ಬಾಸೆಲು";
@@ -52,7 +52,7 @@
 "description-published-button-title" = "ಆಂಡ್";
 "edit-bold-accessibility-label" = "ದಪ್ಪಾಕ್ಷರ ರೂಪನ ಸೇರಾಲೆ";
 "edit-bold-remove-accessibility-label" = "ದಪ್ಪಾಕ್ಷರದ ರೂಪನ ದೆಪ್ಪುಲೆ";
-"edit-direction-left-accessibility-label" = "ಸೂಚಶರ ದತ್ತ್'ಗ್ ಪಂದಾಲೆ";
+"edit-direction-left-accessibility-label" = "ಸೂಚಶರ ದತ್ತ್‌ಗ್ ಪಂದಾಲೆ";
 "edit-italic-accessibility-label" = "ಓರೆಅಕ್ಷರ ರೂಪನ ಸೇರಾಲೆ";
 // Fuzzy
 "edit-link-title" = "ಕೊಂಡಿ";
@@ -65,9 +65,10 @@
 "edit-strikethrough-accessibility-label" = "ಅಡ್ಡಗೀಟ್ ಸೇರಾಲೆ";
 "edit-summary-choice-fixed-grammar" = "ವ್ಯಾಕರಣ ಸರಿ ಅಂಡ್";
 "edit-summary-choice-linked-words" = "ಕೊಂಡಿ ಸೇರ್ಸಾನ್ಡ್";
+"edit-summary-placeholder-text" = "ವಾ ನಮೂಡೆಡ್ ಲೇಖನೊನ್ ಎಡ್ಡೆ ಮಲ್ತರ್?";
 "edit-underline-accessibility-label" = "ಅಡಿಗೆರೆ ಸೇರಾಲೆ";
 "edit-watch-list-learn-more-text" = "ವೀಕ್ಷಣ ಪಟ್ಟಿಲೆನ ಬಗ್ಗೆ ಎಚ್ಚ ಕಲ್ಪುಲೆ.";
-"edit-watch-this-page-text" = "ಈ ಪುಟೊನು ತೂಲೆ.";
+"edit-watch-this-page-text" = "ಈ ಪುಟೊನು ತೂಲೆ";
 "empty-no-article-message" = "ಮಾಪು ಮಾನ್ಪುಲೇ, ಲೇಕನೋ ದಿಂಜೊಂತ್ತಿಜ್ಜಿ";
 "empty-no-feed-action-message" = "ಇರ್ ಒರಿಪಾಯಿನ ಪುಟೋನ್ ಓದೋಲಿ";
 "empty-no-search-results-message" = "ಒವ್ವೆ ವಿಚಾರೊಲ್ ತಿಕೀಜಿ";
