@@ -118,7 +118,18 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             }
         } else {
             textKit1Storage?.updateColorsAndFonts()
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedEnsureLayoutTextkit1), object: nil)
+            perform(#selector(debouncedEnsureLayoutTextkit1), with: nil, afterDelay: 0.1)
         }
+    }
+    
+    @objc private func debouncedEnsureLayoutTextkit1() {
+        
+        guard !needsTextKit2 else {
+            return
+        }
+        
+       textView.layoutManager.ensureLayout(forCharacterRange: NSRange(location: 0, length: textView.attributedText.length))
     }
     
     func selectionState(selectedDocumentRange: NSRange) -> WKSourceEditorSelectionState {
