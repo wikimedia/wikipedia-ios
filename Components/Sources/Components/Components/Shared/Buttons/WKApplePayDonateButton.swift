@@ -10,11 +10,7 @@ struct WKApplePayDonateButton: UIViewRepresentable {
     }
     
     let configuration: Configuration
-    
-    init(configuration: Configuration) {
-        self.configuration = configuration
-    }
-    
+
     func makeUIView(context: Context) -> PKPaymentButton {
         return PKPaymentButton(paymentButtonType: .donate, paymentButtonStyle: configuration.paymentButtonStyle)
     }

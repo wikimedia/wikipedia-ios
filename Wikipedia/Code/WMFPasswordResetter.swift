@@ -19,9 +19,6 @@ public typealias WMFPasswordResetterResultBlock = (WMFPasswordResetterResult) ->
 
 public struct WMFPasswordResetterResult {
     var status: String
-    init(status:String) {
-        self.status = status
-    }
 }
 
 public class WMFPasswordResetter: Fetcher {

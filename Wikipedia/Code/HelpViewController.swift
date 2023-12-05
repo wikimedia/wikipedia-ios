@@ -53,10 +53,6 @@ class HelpViewController: SinglePageWebViewController {
         setupToolbar()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     private func setupToolbarItems(isExportingUserData: Bool) {
         
         let exportItem = isExportingUserData ? spinnerToolbarItem : exportUserDataToolbarItem

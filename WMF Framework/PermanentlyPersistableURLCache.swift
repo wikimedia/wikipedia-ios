@@ -478,7 +478,7 @@ extension PermanentlyPersistableURLCache {
         let isArticleOrImageInfoRequest: Bool
         if let typeRaw = request.allHTTPHeaderFields?[Header.persistentCacheItemType],
             let type = Header.PersistItemType(rawValue: typeRaw),
-            (type == .article || type == .imageInfo) {
+            type == .article || type == .imageInfo {
             isArticleOrImageInfoRequest = true
         } else {
             isArticleOrImageInfoRequest = false

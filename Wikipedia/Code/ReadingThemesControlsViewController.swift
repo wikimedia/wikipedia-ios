@@ -102,10 +102,6 @@ class ReadingThemesControlsViewController: UIViewController {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
     
-    open override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
     func applyBorder(to button: UIButton) {
         button.borderWidth = 2
         button.isEnabled = false

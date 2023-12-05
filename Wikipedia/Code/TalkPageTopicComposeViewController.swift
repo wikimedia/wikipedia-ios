@@ -272,7 +272,7 @@ class TalkPageTopicComposeViewController: ViewController {
     var shouldBlockDismissal: Bool {
         if let title = titleTextField.text,
               let body = bodyTextView.text,
-              (!title.isEmpty || !body.isEmpty) {
+              !title.isEmpty || !body.isEmpty {
             return true
         }
         

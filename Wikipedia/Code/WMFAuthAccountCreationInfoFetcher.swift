@@ -16,10 +16,6 @@ public typealias WMFAuthAccountCreationInfoBlock = (WMFAuthAccountCreationInfo) 
 public struct WMFAuthAccountCreationInfo {
     let canCreateAccounts:Bool
     let captcha: WMFCaptcha?
-    init(canCreateAccounts:Bool, captcha:WMFCaptcha?) {
-        self.canCreateAccounts = canCreateAccounts
-        self.captcha = captcha
-    }
 }
 
 public class WMFAuthAccountCreationInfoFetcher: Fetcher {

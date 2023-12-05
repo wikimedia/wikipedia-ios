@@ -435,7 +435,7 @@ private extension DiffContainerViewController {
     func completeSetup() {
         
         guard toModel != nil,
-              (fromModel != nil || isOnFirstRevisionInHistory) else {
+              fromModel != nil || isOnFirstRevisionInHistory else {
             assertionFailure("Both models must be populated at this point or needs to be on the first revision.")
             return
         }
@@ -461,7 +461,7 @@ private extension DiffContainerViewController {
         
         guard let toModel = toModel,
               let articleTitle = articleTitle,
-              (fromModel != nil || isOnFirstRevisionInHistory) else {
+              fromModel != nil || isOnFirstRevisionInHistory else {
             assertionFailure("Both models and articleTitle must be populated at this point or needs to be on the first revision.")
             return
         }

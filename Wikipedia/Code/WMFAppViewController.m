@@ -134,6 +134,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.theme = [[NSUserDefaults standardUserDefaults] themeCompatibleWith:self.traitCollection];
+    
+#if UITEST
+    WMFTheme *newTheme = [self themeForUITests];
+    if (newTheme) {
+        self.theme = newTheme;
+    }
+#endif
+    
     [self appEnvironmentDidChangeWithTheme:self.theme traitCollection:self.traitCollection];
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
@@ -810,6 +818,33 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self showSplashView];
 
     [self migrateIfNecessary];
+
+}
+
+- (WMFTheme *) themeForUITests {
+    
+#if UITEST
+    
+    if (NSProcessInfo.processInfo.arguments.count > 1) {
+        self.theme = [WMFTheme dark]; //remove
+        NSArray<NSString *> *arguments = NSProcessInfo.processInfo.arguments;
+
+        if ([arguments  containsObject: @"UITestThemeLight"]) {
+            return [WMFTheme light];
+        } else if ([arguments  containsObject: @"UITestThemeSepia"]) {
+            return [WMFTheme sepia];
+        }else if ([arguments  containsObject: @"UITestThemeDark"]) {
+            return [WMFTheme dark];
+        }else if ([arguments  containsObject: @"UITestThemeBlack"]) {
+            return [WMFTheme black];
+        }
+    }
+    
+    return nil;
+    
+#else
+    return nil;
+#endif
 }
 
 - (void)migrateIfNecessary {
@@ -1465,7 +1500,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)shouldShowOnboarding {
-
+#if UITEST
+    return NO;
+#else
     if (self.unprocessedUserActivity.shouldSkipOnboarding) {
         [self setDidShowOnboarding];
         return NO;
@@ -1473,6 +1510,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     NSNumber *didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
+#endif
 }
 
 - (void)setDidShowOnboarding {
@@ -1795,6 +1833,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     // self.navigationController is the App's root view controller so rely on its trait collection
     UITraitCollection *traitCollection = self.navigationController.traitCollection;
     WMFTheme *theme = [NSUserDefaults.standardUserDefaults themeCompatibleWith:traitCollection];
+    
+#if UITEST
+    WMFTheme *newTheme = [self themeForUITests];
+    if (newTheme) {
+        theme = newTheme;
+    }
+#endif
+    
     if (self.theme != theme) {
         [self applyTheme:theme];
         [self.settingsViewController loadSections];

@@ -10,6 +10,7 @@ class DiffHeaderCompareView: SetupView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = traitCollection.horizontalSizeClass == .compact ? .vertical : .horizontal
         stackView.spacing = 16
+        stackView.alignment = .top
         return stackView
     }()
 

@@ -17,9 +17,15 @@ public class WKSourceEditorViewModel {
     
     // MARK: - Public
 
-    public init(configuration: Configuration, initialText: String, isSyntaxHighlightingEnabled: Bool) {
+    public init(configuration: Configuration,
+                initialText: String,
+                accessibilityIdentifiers: WKSourceEditorAccessibilityIdentifiers? = nil,
+                localizedStrings: WKSourceEditorLocalizedStrings,
+                isSyntaxHighlightingEnabled: Bool) {
         self.configuration = configuration
         self.initialText = initialText
+        WKSourceEditorAccessibilityIdentifiers.current = accessibilityIdentifiers
+        WKSourceEditorLocalizedStrings.current = localizedStrings
         self.isSyntaxHighlightingEnabled = isSyntaxHighlightingEnabled
     }
 }

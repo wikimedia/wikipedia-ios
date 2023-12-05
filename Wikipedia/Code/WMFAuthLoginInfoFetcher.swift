@@ -16,10 +16,6 @@ public typealias WMFAuthLoginInfoBlock = (WMFAuthLoginInfo) -> Void
 public struct WMFAuthLoginInfo {
     let canAuthenticateNow:Bool
     public let captcha: WMFCaptcha?
-    init(canAuthenticateNow:Bool, captcha:WMFCaptcha?) {
-        self.canAuthenticateNow = canAuthenticateNow
-        self.captcha = captcha
-    }
 }
 
 public class WMFAuthLoginInfoFetcher: Fetcher {

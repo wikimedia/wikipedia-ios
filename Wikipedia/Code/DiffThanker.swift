@@ -14,9 +14,6 @@ enum DiffThankerError: LocalizedError {
 
 struct DiffThankerResult {
     var recipient: String
-    init(recipient:String) {
-        self.recipient = recipient
-    }
 }
 
 class DiffThanker: Fetcher {
