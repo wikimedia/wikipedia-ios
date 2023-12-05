@@ -18,15 +18,15 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
     override func awakeFromNib() {
         super.awakeFromNib()
      
-        boldButton.setImage(WKIcon.bold, for: .normal)
+        boldButton.setImage(WKSFSymbolIcon.for(symbol: .bold), for: .normal)
         boldButton.addTarget(self, action: #selector(tappedBold), for: .touchUpInside)
         boldButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonBold
 
-        italicsButton.setImage(WKIcon.italics, for: .normal)
+        italicsButton.setImage(WKSFSymbolIcon.for(symbol: .italic), for: .normal)
         italicsButton.addTarget(self, action: #selector(tappedItalics), for: .touchUpInside)
         italicsButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonItalics
 
-        citationButton.setImage(WKIcon.citation, for: .normal)
+        citationButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
         citationButton.addTarget(self, action: #selector(tappedCitation), for: .touchUpInside)
         citationButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonCitation
 
@@ -34,7 +34,7 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
         linkButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonLink
 
-        templateButton.setImage(WKIcon.template, for: .normal)
+        templateButton.setImage(WKSFSymbolIcon.for(symbol: .curlybraces), for: .normal)
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
         templateButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonTemplate
 

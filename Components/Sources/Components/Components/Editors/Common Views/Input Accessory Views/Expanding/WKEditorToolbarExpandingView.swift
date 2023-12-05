@@ -73,7 +73,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         }
 
         expandButton.isAccessibilityElement = false
-        expandButton.setImage(WKIcon.chevronRightCircle, for: .normal)
+        expandButton.setImage(WKSFSymbolIcon.for(symbol: .chevronRightCircle), for: .normal)
         expandButton.addTarget(self, action: #selector(tappedExpand), for: .touchUpInside)
         expandButton.isAccessibilityElement = false
 
@@ -87,40 +87,40 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         formatHeadingButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.formatHeadingButton
         formatHeadingButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonFormatHeading
 
-        citationButton.setImage(WKIcon.citation, for: .normal)
+        citationButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
         citationButton.addTarget(self, action: #selector(tappedCitation), for: .touchUpInside)
         citationButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonCitation
 
-        linkButton.setImage(WKIcon.link, for: .normal)
+        linkButton.setImage(WKSFSymbolIcon.for(symbol: .link), for: .normal)
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
         linkButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonLink
 
-        templateButton.setImage(WKIcon.template, for: .normal)
+        templateButton.setImage(WKSFSymbolIcon.for(symbol: .curlybraces), for: .normal)
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
         templateButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonTemplate
 
-        mediaButton.setImage(WKIcon.media, for: .normal)
+        mediaButton.setImage(WKSFSymbolIcon.for(symbol: .photo), for: .normal)
         mediaButton.addTarget(self, action: #selector(tappedMedia), for: .touchUpInside)
         mediaButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonMedia
 
-        findInPageButton.setImage(WKIcon.findInPage, for: .normal)
+        findInPageButton.setImage(WKSFSymbolIcon.for(symbol: .docTextMagnifyingGlass), for: .normal)
         findInPageButton.addTarget(self, action: #selector(tappedFindInPage), for: .touchUpInside)
         findInPageButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.findButton
         findInPageButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonFind
 
-        unorderedListButton.setImage(WKIcon.listUnordered, for: .normal)
+        unorderedListButton.setImage(WKSFSymbolIcon.for(symbol: .listBullet), for: .normal)
         unorderedListButton.addTarget(self, action: #selector(tappedUnorderedList), for: .touchUpInside)
         unorderedListButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonListUnordered
 
-        orderedListButton.setImage(WKIcon.listOrdered, for: .normal)
+        orderedListButton.setImage(WKSFSymbolIcon.for(symbol: .listNumber), for: .normal)
         orderedListButton.addTarget(self, action: #selector(tappedOrderedList), for: .touchUpInside)
         orderedListButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonListOrdered
 
-        decreaseIndentionButton.setImage(WKIcon.indentDecrease, for: .normal)
+        decreaseIndentionButton.setImage(WKSFSymbolIcon.for(symbol: .decreaseIndent), for: .normal)
         decreaseIndentionButton.addTarget(self, action: #selector(tappedDecreaseIndentation), for: .touchUpInside)
         decreaseIndentionButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonDecreaseIndent
 
-        increaseIndentionButton.setImage(WKIcon.indentIncrease, for: .normal)
+        increaseIndentionButton.setImage(WKSFSymbolIcon.for(symbol: .increaseIndent), for: .normal)
         increaseIndentionButton.addTarget(self, action: #selector(tappedIncreaseIndentation), for: .touchUpInside)
         increaseIndentionButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonInceaseIndent
 

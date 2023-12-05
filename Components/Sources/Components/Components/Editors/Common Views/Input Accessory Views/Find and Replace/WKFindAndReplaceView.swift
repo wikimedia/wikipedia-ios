@@ -38,24 +38,24 @@ class WKFindAndReplaceView: WKComponentView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        closeButton.setImage(WKIcon.close, for: .normal)
+        closeButton.setImage(WKSFSymbolIcon.for(symbol: .close), for: .normal)
         closeButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelFindButtonClose
-        previousButton.setImage(WKIcon.chevronUp, for: .normal)
+        previousButton.setImage(WKSFSymbolIcon.for(symbol: .chevronUp), for: .normal)
         previousButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelFindButtonPrevious
-        nextButton.setImage(WKIcon.chevronDown, for: .normal)
+        nextButton.setImage(WKSFSymbolIcon.for(symbol: .chevronDown), for: .normal)
         nextButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelFindButtonNext
 
         replaceButton.setImage(WKIcon.replace, for: .normal)
         replaceButton.accessibilityLabel = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceButtonPerformFormat, WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceTypeSingle)
-        replaceSwitchButton.setImage(WKIcon.more, for: .normal)
+        replaceSwitchButton.setImage(WKSFSymbolIcon.for(symbol: .ellipsis), for: .normal)
         replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceButtonSwitchFormat, WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceTypeSingle)
 
-        magnifyImageView.image = WKIcon.find
-        pencilImageView.image = WKIcon.pencil
+        magnifyImageView.image = WKSFSymbolIcon.for(symbol: .magnifyingGlass)
+        pencilImageView.image = WKSFSymbolIcon.for(symbol: .pencil)
         
-        findClearButton.setImage(WKIcon.closeCircle, for: .normal)
+        findClearButton.setImage(WKSFSymbolIcon.for(symbol: .multiplyCircleFill), for: .normal)
         findClearButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelFindButtonClear
-        replaceClearButton.setImage(WKIcon.closeCircle, for: .normal)
+        replaceClearButton.setImage(WKSFSymbolIcon.for(symbol: .multiplyCircleFill), for: .normal)
         replaceClearButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceButtonClear
 
         findTextField.adjustsFontForContentSizeCategory = true
