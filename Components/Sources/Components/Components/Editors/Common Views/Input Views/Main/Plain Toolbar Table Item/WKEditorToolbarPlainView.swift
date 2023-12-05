@@ -54,6 +54,7 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
         
         boldButton.isSelected = selectionState.isBold
         italicsButton.isSelected = selectionState.isItalics
+        templateButton.isSelected = selectionState.isHorizontalTemplate
     }
     
     // MARK: Button Actions
@@ -70,6 +71,7 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
     }
 
     @objc private func tappedTemplate() {
+        delegate?.didTapTemplate(isSelected: templateButton.isSelected)
     }
 
     @objc private func tappedComment() {

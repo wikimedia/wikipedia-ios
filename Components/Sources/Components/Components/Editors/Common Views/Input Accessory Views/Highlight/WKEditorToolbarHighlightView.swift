@@ -3,6 +3,7 @@ import UIKit
 protocol WKEditorToolbarHighlightViewDelegate: AnyObject {
     func toolbarHighlightViewDidTapBold(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
     func toolbarHighlightViewDidTapItalics(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
+    func toolbarHighlightViewDidTapTemplate(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
     func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView)
     func toolbarHighlightViewDidTapFormatHeading(toolbarView: WKEditorToolbarHighlightView)
 }
@@ -78,6 +79,7 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
         
         boldButton.isSelected = selectionState.isBold
         italicsButton.isSelected = selectionState.isItalics
+        templateButton.isSelected = selectionState.isHorizontalTemplate
     }
     
     // MARK: - Button Actions
@@ -101,6 +103,7 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
     }
 
     @objc private func tappedTemplate() {
+        delegate?.toolbarHighlightViewDidTapTemplate(toolbarView: self, isSelected: templateButton.isSelected)
     }
 
     @objc private func tappedClearMarkup() {

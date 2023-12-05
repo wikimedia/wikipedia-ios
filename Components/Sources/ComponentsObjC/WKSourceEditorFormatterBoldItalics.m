@@ -25,6 +25,8 @@ NSString * const WKSourceEditorCustomKeyFontBoldItalics = @"WKSourceEditorKeyFon
 NSString * const WKSourceEditorCustomKeyFontBold = @"WKSourceEditorKeyFontBold";
 NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontItalics";
 
+#pragma mark - Public
+
 - (instancetype)initWithColors:(WKSourceEditorColors *)colors fonts:(WKSourceEditorFonts *)fonts {
     self = [super initWithColors:colors fonts:fonts];
     if (self) {
@@ -54,6 +56,8 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
     }
     return self;
 }
+
+#pragma mark - Overrides
 
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     
@@ -270,6 +274,8 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
         }
     }];
 }
+
+#pragma mark - Public
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isBoldInRange:(NSRange)range {
     __block BOOL isBold = NO;
