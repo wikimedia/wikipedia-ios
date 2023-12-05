@@ -47,13 +47,14 @@ public class WKSourceEditorViewController: WKComponentViewController {
     private lazy var expandingAccessoryView: WKEditorToolbarExpandingView = {
         let view = UINib(nibName: String(describing: WKEditorToolbarExpandingView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKEditorToolbarExpandingView
         view.delegate = self
+        view.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.expandingToolbar
         return view
     }()
     
     private lazy var highlightAccessoryView: WKEditorToolbarHighlightView = {
         let view = UINib(nibName: String(describing: WKEditorToolbarHighlightView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKEditorToolbarHighlightView
         view.delegate = self
-        
+        view.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.highlightToolbar
         return view
     }()
     
@@ -61,7 +62,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
         let view = UINib(nibName: String(describing: WKFindAndReplaceView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKFindAndReplaceView
         let viewModel = WKFindAndReplaceViewModel()
         view.configure(viewModel: viewModel)
-        
+        view.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.findToolbar
         return view
     }()
     
@@ -149,9 +150,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
                 textView.inputAccessoryView = highlightAccessoryView
             case .find:
                 textView.inputAccessoryView = findAccessoryView
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self.findAccessoryView.findTextField.becomeFirstResponder()
-                }
+                findAccessoryView.focus()
             }
             
             textView.inputView = nil

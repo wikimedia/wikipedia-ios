@@ -19,9 +19,16 @@ public class WKSourceEditorViewModel {
     
     // MARK: - Public
 
-    public init(configuration: Configuration, initialText: String, isSyntaxHighlightingEnabled: Bool, textAlignment: NSTextAlignment) {
+    public init(configuration: Configuration,
+                initialText: String,
+                accessibilityIdentifiers: WKSourceEditorAccessibilityIdentifiers? = nil,
+                localizedStrings: WKSourceEditorLocalizedStrings,
+                isSyntaxHighlightingEnabled: Bool,
+                textAlignment: NSTextAlignment) {
         self.configuration = configuration
         self.initialText = initialText
+        WKSourceEditorAccessibilityIdentifiers.current = accessibilityIdentifiers
+        WKSourceEditorLocalizedStrings.current = localizedStrings
         self.isSyntaxHighlightingEnabled = isSyntaxHighlightingEnabled
         self.textAlignment = textAlignment
     }

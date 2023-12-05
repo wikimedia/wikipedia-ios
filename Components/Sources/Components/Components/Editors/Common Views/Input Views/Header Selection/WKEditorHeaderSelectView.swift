@@ -55,17 +55,17 @@ class WKEditorHeaderSelectView: WKComponentView {
         imageView.isHidden = !viewModel.isSelected
         switch viewModel.configuration {
         case .paragraph:
-            label.text = "Paragraph"
+            label.text = WKSourceEditorLocalizedStrings.current.inputViewParagraph
         case .heading:
-            label.text = "Heading"
+            label.text = WKSourceEditorLocalizedStrings.current.inputViewHeading
         case .subheading1:
-            label.text = "Sub-heading 1"
+            label.text = WKSourceEditorLocalizedStrings.current.inputViewSubheading1
         case .subheading2:
-            label.text = "Sub-heading 2"
+            label.text = WKSourceEditorLocalizedStrings.current.inputViewSubheading2
         case .subheading3:
-            label.text = "Sub-heading 3"
+            label.text = WKSourceEditorLocalizedStrings.current.inputViewSubheading3
         case .subheading4:
-            label.text = "Sub-heading 4"
+            label.text = WKSourceEditorLocalizedStrings.current.inputViewSubheading4
         }
     }
     
