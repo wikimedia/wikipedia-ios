@@ -17,7 +17,7 @@ class WKEditorInputHeaderSelectViewController: WKComponentViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         label.font = WKFont.for(.headline, compatibleWith: appEnvironment.traitCollection)
-        label.text = "Style"
+        label.text = WKSourceEditorLocalizedStrings.current.inputViewStyle
         return label
     }()
     
@@ -31,6 +31,8 @@ class WKEditorInputHeaderSelectViewController: WKComponentViewController {
     
     private lazy var closeButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WKIcon.close, style: .plain, target: self, action: #selector(close(_:)))
+        button.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.closeButton
+        button.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonCloseHeaderSelectInputView
         return button
     }()
     
@@ -62,6 +64,7 @@ class WKEditorInputHeaderSelectViewController: WKComponentViewController {
         super.viewDidLoad()
         
         view.addSubview(tableView)
+        view.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.headerSelectInputView
         NSLayoutConstraint.activate([
             view.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
@@ -130,7 +133,8 @@ extension WKEditorInputHeaderSelectViewController: UITableViewDataSource {
             default:
                 break
             }
-            
+            headerCell.accessibilityTraits = viewModel.isSelected ? [.button, .selected] : [.button]
+
         }
         
         return cell

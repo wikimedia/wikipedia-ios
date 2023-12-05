@@ -28,7 +28,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.fonts.italicsFont = WKFont.for(.italicsBody, compatibleWith: traitCollection)
         self.fonts.boldItalicsFont = WKFont.for(.boldItalicsBody, compatibleWith: traitCollection)
         
-        self.baseFormatter = WKSourceEditorFormatterBase(colors: colors, fonts: fonts)
+        self.baseFormatter = WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: .left)
         self.boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
         self.templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
     }

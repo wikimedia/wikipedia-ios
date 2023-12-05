@@ -23,6 +23,10 @@ class WKEditorToolbarNavigatorButton: WKComponentView {
     }
     
     private func setup() {
+        isAccessibilityElement = true
+        accessibilityTraits = [.button]
+        button.isAccessibilityElement = false
+
         translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
         addSubview(button)

@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import CocoaLumberjackSwift
+import Components
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding {
 
@@ -29,7 +30,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         isRefreshControlEnabled = true
         collectionView.refreshControl?.layer.zPosition = 0
-        
+
         title = CommonStrings.exploreTabTitle
 
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
@@ -59,6 +60,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         detailTransitionSourceRect = nil
         logFeedImpressionAfterDelay()
         dataStore.remoteNotificationsController.loadNotifications(force: false)
+        #if UITEST
+        presentUITestHelperController()
+        #endif
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -73,6 +77,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
+    }
+
+    func presentUITestHelperController() {
+        let viewController = UITestHelperViewController(theme: theme)
+        present(viewController, animated: false)
     }
 
     private func restoreScrollPositionIfNeeded() {
@@ -123,6 +132,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func updateSettingsButton() {
+        
         let settingsBarButtonItem = UIBarButtonItem(image: BarButtonImageStyle.settingsButtonImage(theme: theme), style: .plain, target: self, action: #selector(userDidTapSettings))
         settingsBarButtonItem.accessibilityLabel = CommonStrings.settingsTitle
         navigationItem.rightBarButtonItem = settingsBarButtonItem
@@ -159,7 +169,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     @objc func userDidTapSettings() {
         AppInteractionFunnel.shared.logSettingsDidTapSettingsIcon()
+     
         settingsPresentationDelegate?.userDidTapSettings(from: self)
+
     }
     
     open override func refresh() {

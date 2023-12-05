@@ -275,6 +275,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         LoginFunnel.shared.logCreateAccountAttempt(category: category)
         dismiss(animated: true, completion: {
             let navigationController = WMFThemeableNavigationController(rootViewController: createAcctVC, theme: self.theme, style: .sheet)
+            createAcctVC.category = self.category
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
