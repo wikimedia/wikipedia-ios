@@ -25,10 +25,11 @@ fileprivate var needsTextKit2: Bool {
 
 final class WKSourceEditorTextFrameworkMediator: NSObject {
     
-    let textView: UITextView
-    let textKit1Storage: WKSourceEditorTextStorage?
-    let textKit2Storage: NSTextContentStorage?
+    private let viewModel: WKSourceEditorViewModel
+    private let textKit1Storage: WKSourceEditorTextStorage?
+    private let textKit2Storage: NSTextContentStorage?
     
+    let textView: UITextView
     private(set) var formatters: [WKSourceEditorFormatter] = []
     private(set) var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics?
     
@@ -38,8 +39,11 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         }
     }
     
-    override init() {
+    
+    init(viewModel: WKSourceEditorViewModel) {
 
+        self.viewModel = viewModel
+        
         let textView: UITextView
         if needsTextKit2 {
             if #available(iOS 16, *) {
@@ -94,7 +98,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let fonts = self.fonts
         
         let boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
-        self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts),
+        self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
                 boldItalicsFormatter]
         self.boldItalicsFormatter = boldItalicsFormatter
         

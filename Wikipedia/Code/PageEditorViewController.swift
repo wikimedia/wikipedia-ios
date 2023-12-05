@@ -104,7 +104,8 @@ final class PageEditorViewController: UIViewController {
     private func addChildEditor(wikitext: String) {
         
         let isSyntaxHighlightingEnabled = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled)
+        let textAlignment = MWKLanguageLinkController.isLanguageRTL(forContentLanguageCode: pageURL.wmf_contentLanguageCode) ? NSTextAlignment.right : NSTextAlignment.left
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled, textAlignment: textAlignment)
         let sourceEditor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
         
         addChild(sourceEditor)

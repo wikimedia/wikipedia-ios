@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 public class WKSourceEditorViewModel {
     
@@ -14,12 +15,14 @@ public class WKSourceEditorViewModel {
     public let configuration: Configuration
     public let initialText: String
     public var isSyntaxHighlightingEnabled: Bool
+    public var textAlignment: NSTextAlignment
     
     // MARK: - Public
 
-    public init(configuration: Configuration, initialText: String, isSyntaxHighlightingEnabled: Bool) {
+    public init(configuration: Configuration, initialText: String, isSyntaxHighlightingEnabled: Bool, textAlignment: NSTextAlignment) {
         self.configuration = configuration
         self.initialText = initialText
         self.isSyntaxHighlightingEnabled = isSyntaxHighlightingEnabled
+        self.textAlignment = textAlignment
     }
 }

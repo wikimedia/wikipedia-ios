@@ -164,7 +164,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
     public init(viewModel: WKSourceEditorViewModel, delegate: WKSourceEditorViewControllerDelegate) {
         self.viewModel = viewModel
         self.delegate = delegate
-        self.textFrameworkMediator = WKSourceEditorTextFrameworkMediator()
+        self.textFrameworkMediator = WKSourceEditorTextFrameworkMediator(viewModel: viewModel)
         super.init()
         setup()
     }
