@@ -16,10 +16,12 @@ fileprivate var needsTextKit2: Bool {
 @objc final class WKSourceEditorSelectionState: NSObject {
     let isBold: Bool
     let isItalics: Bool
+    let isHorizontalTemplate: Bool
     
-    init(isBold: Bool, isItalics: Bool) {
+    init(isBold: Bool, isItalics: Bool, isHorizontalTemplate: Bool) {
         self.isBold = isBold
         self.isItalics = isItalics
+        self.isHorizontalTemplate = isHorizontalTemplate
     }
 }
 
@@ -32,6 +34,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     let textView: UITextView
     private(set) var formatters: [WKSourceEditorFormatter] = []
     private(set) var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics?
+    private(set) var templateFormatter: WKSourceEditorFormatterTemplate?
     
     var isSyntaxHighlightingEnabled: Bool = true {
         didSet {
@@ -99,9 +102,11 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let fonts = self.fonts
         
         let boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
+        let templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
         self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
                 boldItalicsFormatter]
         self.boldItalicsFormatter = boldItalicsFormatter
+        self.templateFormatter = templateFormatter
         
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
@@ -141,22 +146,24 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         
         if needsTextKit2 {
             guard let textKit2Data = textkit2SelectionData(selectedDocumentRange: selectedDocumentRange) else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false)
             }
             
             let isBold = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isBoldIn: textKit2Data.paragraphSelectedRange) ?? false
             let isItalics = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isItalicsIn: textKit2Data.paragraphSelectedRange) ?? false
+            let isHorizontalTemplate = templateFormatter?.attributedString(textKit2Data.paragraphAttributedString, isHorizontalTemplateIn: textKit2Data.paragraphSelectedRange) ?? false
             
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics)
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate)
         } else {
             guard let textKit1Storage else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false)
             }
                         
             let isBold = boldItalicsFormatter?.attributedString(textKit1Storage, isBoldIn: selectedDocumentRange) ?? false
             let isItalics = boldItalicsFormatter?.attributedString(textKit1Storage, isItalicsIn: selectedDocumentRange) ?? false
+            let isHorizontalTemplate = templateFormatter?.attributedString(textKit1Storage, isHorizontalTemplateIn: selectedDocumentRange) ?? false
             
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics)
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate)
         }
     }
     
@@ -192,6 +199,7 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         let colors = WKSourceEditorColors()
         colors.baseForegroundColor = WKAppEnvironment.current.theme.text
         colors.orangeForegroundColor = isSyntaxHighlightingEnabled ? WKAppEnvironment.current.theme.editorOrange : WKAppEnvironment.current.theme.text
+        colors.purpleForegroundColor = isSyntaxHighlightingEnabled ?  WKAppEnvironment.current.theme.editorPurple : WKAppEnvironment.current.theme.text
         return colors
     }
     

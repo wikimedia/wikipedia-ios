@@ -25,6 +25,7 @@ public struct WKTheme: Equatable {
     public let keyboardBarSearchFieldBackground: UIColor
 	public let diffCompareAccent: UIColor
     public let editorOrange: UIColor
+    public let editorPurple: UIColor
 
 	public static let light = WKTheme(
         name: "Light",
@@ -48,7 +49,8 @@ public struct WKTheme: Equatable {
         inputAccessoryButtonSelectedBackgroundColor: WKColor.gray200,
         keyboardBarSearchFieldBackground: WKColor.gray200,
 		diffCompareAccent: WKColor.orange600,
-        editorOrange: WKColor.orange600
+        editorOrange: WKColor.orange600,
+        editorPurple: WKColor.purple600
 	)
     
     public static let sepia = WKTheme(
@@ -73,7 +75,8 @@ public struct WKTheme: Equatable {
         inputAccessoryButtonSelectedBackgroundColor: WKColor.beige400,
         keyboardBarSearchFieldBackground: WKColor.gray200,
 		diffCompareAccent: WKColor.orange600,
-        editorOrange: WKColor.orange600
+        editorOrange: WKColor.orange600,
+        editorPurple: WKColor.purple600
     )
 
 	public static let dark = WKTheme(
@@ -98,7 +101,8 @@ public struct WKTheme: Equatable {
         inputAccessoryButtonSelectedBackgroundColor: WKColor.gray800,
         keyboardBarSearchFieldBackground: WKColor.gray650,
 		diffCompareAccent: WKColor.orange600,
-        editorOrange: WKColor.yellow600
+        editorOrange: WKColor.yellow600,
+        editorPurple: WKColor.red100
 	)
 
 	public static let black = WKTheme(
@@ -123,7 +127,8 @@ public struct WKTheme: Equatable {
         inputAccessoryButtonSelectedBackgroundColor: WKColor.gray800,
         keyboardBarSearchFieldBackground: WKColor.gray650,
 		diffCompareAccent: WKColor.orange600,
-        editorOrange: WKColor.yellow600
+        editorOrange: WKColor.yellow600,
+        editorPurple: WKColor.red100
 	)
 
 }

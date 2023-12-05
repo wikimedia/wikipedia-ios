@@ -5,6 +5,7 @@ protocol WKEditorInputViewDelegate: AnyObject {
     func didTapClose()
     func didTapBold(isSelected: Bool)
     func didTapItalics(isSelected: Bool)
+    func didTapTemplate(isSelected: Bool)
 }
 
 class WKEditorInputViewController: WKComponentViewController {

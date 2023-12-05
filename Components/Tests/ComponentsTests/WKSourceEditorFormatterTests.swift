@@ -9,6 +9,10 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     
     var baseFormatter: WKSourceEditorFormatterBase!
     var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics!
+    var templateFormatter: WKSourceEditorFormatterTemplate!
+    var formatters: [WKSourceEditorFormatter] {
+        return [baseFormatter, templateFormatter, boldItalicsFormatter]
+    }
 
     override func setUpWithError() throws {
         let traitCollection = UITraitCollection(preferredContentSizeCategory: .large)
@@ -16,6 +20,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.colors = WKSourceEditorColors()
         self.colors.baseForegroundColor = WKTheme.light.text
         self.colors.orangeForegroundColor = WKTheme.light.editorOrange
+        self.colors.purpleForegroundColor = WKTheme.light.editorPurple
         
         self.fonts = WKSourceEditorFonts()
         self.fonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
@@ -25,6 +30,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         
         self.baseFormatter = WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: .left)
         self.boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
+        self.templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
     }
 
     override func tearDownWithError() throws {
@@ -33,8 +39,6 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     func testBoldItalicFormatter() {
         let string = "The quick '''''brown''''' fox jumps over the '''''lazy''''' dog"
         let mutAttributedString = NSMutableAttributedString(string: string)
-        
-        let formatters: [WKSourceEditorFormatter] = [baseFormatter, boldItalicsFormatter]
         
         for formatter in formatters {
             formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
@@ -126,8 +130,6 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         let string = "The '''quick''' brown fox jumps over the lazy dog"
         let mutAttributedString = NSMutableAttributedString(string: string)
         
-        let formatters: [WKSourceEditorFormatter] = [baseFormatter, boldItalicsFormatter]
-        
         for formatter in formatters {
             formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
         }
@@ -181,9 +183,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     func testItalics() {
         let string = "The quick brown ''fox'' jumps over the lazy dog"
         let mutAttributedString = NSMutableAttributedString(string: string)
-        
-        let formatters: [WKSourceEditorFormatter] = [baseFormatter, boldItalicsFormatter]
-        
+
         for formatter in formatters {
             formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
         }
@@ -237,9 +237,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     func testItalicsWithApostrophe() {
         let string = "Apostrophes ''shouldn't throw off'' formatting"
         let mutAttributedString = NSMutableAttributedString(string: string)
-        
-        let formatters: [WKSourceEditorFormatter] = [baseFormatter, boldItalicsFormatter]
-        
+
         for formatter in formatters {
             formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
         }
@@ -293,9 +291,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     func testItalicsNestedInBold() {
         let string = "one '''two ''three'' four ''five'' six''' seven"
         let mutAttributedString = NSMutableAttributedString(string: string)
-        
-        let formatters: [WKSourceEditorFormatter] = [baseFormatter, boldItalicsFormatter]
-        
+
         for formatter in formatters {
             formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
         }
@@ -421,9 +417,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     func testBoldNestedInItalics() {
         let string = "one ''two '''three''' four '''five''' six'' seven"
         let mutAttributedString = NSMutableAttributedString(string: string)
-        
-        let formatters: [WKSourceEditorFormatter] = [baseFormatter, boldItalicsFormatter]
-        
+
         for formatter in formatters {
             formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
         }
@@ -544,5 +538,175 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(base2Range.length, 6, "Incorrect base formatting")
         XCTAssertEqual(base2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
         XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+    }
+    
+    func testHorizontalTemplate1() {
+        let string = "Testing simple {{Currentdate}} template example."
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var base1Range = NSRange(location: 0, length: 0)
+        let base1Attributes = mutAttributedString.attributes(at: 0, effectiveRange: &base1Range)
+        
+        var templateRange = NSRange(location: 0, length: 0)
+        let templateAttributes = mutAttributedString.attributes(at: 15, effectiveRange: &templateRange)
+
+        var base2Range = NSRange(location: 0, length: 0)
+        let base2Attributes = mutAttributedString.attributes(at: 30, effectiveRange: &base2Range)
+        
+        // "Testing simple "
+        XCTAssertEqual(base1Range.location, 0, "Incorrect base formatting")
+        XCTAssertEqual(base1Range.length, 15, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+        
+        // "{{Currentdate}}"
+        XCTAssertEqual(templateRange.location, 15, "Incorrect template formatting")
+        XCTAssertEqual(templateRange.length, 15, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.foregroundColor] as! UIColor, colors.purpleForegroundColor, "Incorrect template formatting")
+        
+        // " template example."
+        XCTAssertEqual(base2Range.location, 30, "Incorrect base formatting")
+        XCTAssertEqual(base2Range.length, 18, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+    }
+    
+    func testHorizontalTemplate2() {
+        let string = "{{Short description|Behavioral pattern found in domestic cats}}"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var templateRange = NSRange(location: 0, length: 0)
+        let templateAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &templateRange)
+        
+        // "{{Short description|Behavioral pattern found in domestic cats}}"
+        XCTAssertEqual(templateRange.location, 0, "Incorrect template formatting")
+        XCTAssertEqual(templateRange.length, 63, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.foregroundColor] as! UIColor, colors.purpleForegroundColor, "Incorrect template formatting")
+    }
+    
+    func testHorizontalTemplate3() {
+        let string = "<ref>{{cite web |url=https://en.wikipedia.org |title=English Wikipedia}}</ref>"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var refOpeningRange = NSRange(location: 0, length: 0)
+        let refOpeningAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &refOpeningRange)
+        
+        var templateRange = NSRange(location: 0, length: 0)
+        let templateAttributes = mutAttributedString.attributes(at: 5, effectiveRange: &templateRange)
+
+        var refClosingRange = NSRange(location: 0, length: 0)
+        let refClosingAttributes = mutAttributedString.attributes(at: 72, effectiveRange: &refClosingRange)
+        
+        // "<ref>"
+        XCTAssertEqual(refOpeningRange.location, 0, "Incorrect ref formatting")
+        XCTAssertEqual(refOpeningRange.length, 5, "Incorrect ref formatting")
+        XCTAssertEqual(refOpeningAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect ref formatting")
+        XCTAssertEqual(refOpeningAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect ref formatting")
+        
+        // "{{cite web |url=https://en.wikipedia.org |title=English Wikipedia}}"
+        XCTAssertEqual(templateRange.location, 5, "Incorrect template formatting")
+        XCTAssertEqual(templateRange.length, 67, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.foregroundColor] as! UIColor, colors.purpleForegroundColor, "Incorrect template formatting")
+        
+        // "</ref>"
+        XCTAssertEqual(refClosingRange.location, 72, "Incorrect ref formatting")
+        XCTAssertEqual(refClosingRange.length, 6, "Incorrect ref formatting")
+        XCTAssertEqual(refClosingAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect ref formatting")
+        XCTAssertEqual(refClosingAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect ref formatting")
+    }
+    
+    func testVerticalStartTemplate() {
+        let string = "{{Infobox officeholder"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var templateRange = NSRange(location: 0, length: 0)
+        let templateAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &templateRange)
+
+        // "{{Infobox officeholder"
+        XCTAssertEqual(templateRange.location, 0, "Incorrect template formatting")
+        XCTAssertEqual(templateRange.length, 22, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.foregroundColor] as! UIColor, colors.purpleForegroundColor, "Incorrect template formatting")
+    }
+    
+    func testVerticalParameterTemplate() {
+        let string = "| genus = Felis"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var templateRange = NSRange(location: 0, length: 0)
+        let templateAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &templateRange)
+
+        // "| genus = Felis"
+        XCTAssertEqual(templateRange.location, 0, "Incorrect template formatting")
+        XCTAssertEqual(templateRange.length, 15, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.foregroundColor] as! UIColor, colors.purpleForegroundColor, "Incorrect template formatting")
+    }
+    
+    func testVerticalEndTemplate() {
+        let string = "}}"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var templateRange = NSRange(location: 0, length: 0)
+        let templateAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &templateRange)
+
+        // "}}"
+        XCTAssertEqual(templateRange.location, 0, "Incorrect template formatting")
+        XCTAssertEqual(templateRange.length, 2, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.foregroundColor] as! UIColor, colors.purpleForegroundColor, "Incorrect template formatting")
+    }
+    
+    func testVerticalEndRefTemplate() {
+        let string = "}}</ref>"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var templateRange = NSRange(location: 0, length: 0)
+        let templateAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &templateRange)
+        
+        var refRange = NSRange(location: 0, length: 0)
+        let refAttributes = mutAttributedString.attributes(at: 2, effectiveRange: &refRange)
+
+        // "}}</ref>"
+        XCTAssertEqual(templateRange.location, 0, "Incorrect template formatting")
+        XCTAssertEqual(templateRange.length, 2, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.foregroundColor] as! UIColor, colors.purpleForegroundColor, "Incorrect template formatting")
+        
+        XCTAssertEqual(refRange.location, 2, "Incorrect ref formatting")
+        XCTAssertEqual(refRange.length, 6, "Incorrect ref formatting")
+        XCTAssertEqual(refAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect ref formatting")
+        XCTAssertEqual(refAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect ref formatting")
     }
 }
