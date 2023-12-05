@@ -11,7 +11,7 @@ class WKFindAndReplaceView: WKComponentView {
     // Find outlets
     @IBOutlet private var findStackView: UIStackView!
     @IBOutlet private var nextPrevButtonStackView: UIStackView!
-    @IBOutlet private var findTextField: UITextField!
+    @IBOutlet private(set) var findTextField: UITextField!
     @IBOutlet private var currentMatchLabel: UILabel!
     @IBOutlet private var findClearButton: UIButton!
     @IBOutlet private var closeButton: UIButton!
@@ -61,6 +61,8 @@ class WKFindAndReplaceView: WKComponentView {
         findTextField.adjustsFontForContentSizeCategory = true
         findTextField.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
         findTextField.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelFindTextField
+        findTextField.autocorrectionType = .yes
+        findTextField.spellCheckingType = .yes
 
         replaceTextField.adjustsFontForContentSizeCategory = true
         replaceTextField.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)

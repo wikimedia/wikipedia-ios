@@ -4,15 +4,13 @@ import XCTest
 final class WKSourceEditorTests: XCTestCase {
 
     var textView: UITextView!
-    var editorView: WKSourceEditorView!
     var editorViewController: WKSourceEditorViewController!
 
     override func setUpWithError() throws {
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "Testing Wikitext", localizedStrings: WKSourceEditorLocalizedStrings.emptyTestStrings, isSyntaxHighlightingEnabled: true)
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "Testing Wikitext", localizedStrings: WKSourceEditorLocalizedStrings.emptyTestStrings, isSyntaxHighlightingEnabled: true, textAlignment: .left)
         self.editorViewController = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
         editorViewController.loadViewIfNeeded()
-        self.editorView = editorViewController.editorView
-        self.textView = editorViewController.editorView.textView
+        self.textView = editorViewController.textView
     }
 
     func testSourceEditorDefaultInputAccessoryView() {
@@ -28,7 +26,7 @@ final class WKSourceEditorTests: XCTestCase {
 
     func testSourceEditorFindInputAccessoryView() {
         textView.becomeFirstResponder()
-        editorViewController.editorViewDidTapFind(editorView: editorView)
+        editorViewController.toolbarExpandingViewDidTapFind(toolbarView: editorViewController.expandingAccessoryView)
         XCTAssert(textView.inputAccessoryView is WKFindAndReplaceView)
         editorViewController.closeFind()
         XCTAssert(textView.inputAccessoryView is WKEditorToolbarExpandingView)
@@ -36,6 +34,10 @@ final class WKSourceEditorTests: XCTestCase {
 }
 
 extension WKSourceEditorTests: WKSourceEditorViewControllerDelegate {
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: Components.WKSourceEditorViewController) {
+        
+    }
+    
     func sourceEditorViewControllerDidTapFind(sourceEditorViewController: Components.WKSourceEditorViewController) {
 
     }

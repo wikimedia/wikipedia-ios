@@ -4,7 +4,8 @@ import XCTest
 final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
     
     let mediator = {
-        let mediator = WKSourceEditorTextFrameworkMediator()
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "", localizedStrings: WKSourceEditorLocalizedStrings.emptyTestStrings, isSyntaxHighlightingEnabled: true, textAlignment: .left)
+        let mediator = WKSourceEditorTextFrameworkMediator(viewModel: viewModel)
         mediator.updateColorsAndFonts()
         return mediator
     }()
@@ -72,6 +73,26 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         mediator.textView.selectedRange = NSRange(location: 9, length: 3)
         mediator.boldItalicsFormatter?.toggleBoldFormatting(action: .remove, in: mediator.textView)
         XCTAssertEqual(mediator.textView.attributedText.string, "One ''Two'' Three Four")
+        mediator.boldItalicsFormatter?.toggleItalicsFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
+    }
+    
+    func testSingleBoldInsertAndRemove() throws {
+        let text = "One Two Three Four"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 4, length: 0) // Just a cursor before Two
+        mediator.boldItalicsFormatter?.toggleBoldFormatting(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One ''' '''Two Three Four")
+        mediator.boldItalicsFormatter?.toggleBoldFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
+    }
+    
+    func testSingleItalicsInsertAndRemove() throws {
+        let text = "One Two Three Four"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 4, length: 0) // Just a cursor before Two
+        mediator.boldItalicsFormatter?.toggleItalicsFormatting(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One '' ''Two Three Four")
         mediator.boldItalicsFormatter?.toggleItalicsFormatting(action: .remove, in: mediator.textView)
         XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
