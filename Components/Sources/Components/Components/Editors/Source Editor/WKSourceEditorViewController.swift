@@ -44,7 +44,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
     
     // Input Accessory Views
     
-    private lazy var expandingAccessoryView: WKEditorToolbarExpandingView = {
+    private(set) lazy var expandingAccessoryView: WKEditorToolbarExpandingView = {
         let view = UINib(nibName: String(describing: WKEditorToolbarExpandingView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKEditorToolbarExpandingView
         view.delegate = self
         view.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.expandingToolbar
