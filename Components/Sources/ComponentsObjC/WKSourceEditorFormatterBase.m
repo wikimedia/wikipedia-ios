@@ -10,12 +10,13 @@
 
 @implementation WKSourceEditorFormatterBase
 
-- (instancetype)initWithColors:(nonnull WKSourceEditorColors *)colors fonts:(nonnull WKSourceEditorFonts *)fonts {
+- (instancetype)initWithColors:(nonnull WKSourceEditorColors *)colors fonts:(nonnull WKSourceEditorFonts *)fonts textAlignment: (NSTextAlignment)textAlignment {
     self = [super initWithColors:colors fonts:fonts];
     if (self) {
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         [paragraphStyle setLineSpacing:5];
         [paragraphStyle setLineHeightMultiple:1.1];
+        [paragraphStyle setAlignment:textAlignment];
 
         _attributes = @{
             NSFontAttributeName: fonts.baseFont,

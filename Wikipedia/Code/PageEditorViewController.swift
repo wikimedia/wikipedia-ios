@@ -166,7 +166,8 @@ final class PageEditorViewController: UIViewController {
                                                               accessibilityLabelReplaceTypeAll: CommonStrings.accessibilityLabelReplaceTypeAll)
 
         let isSyntaxHighlightingEnabled = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled)
+        let textAlignment = MWKLanguageLinkController.isLanguageRTL(forContentLanguageCode: pageURL.wmf_contentLanguageCode) ? NSTextAlignment.right : NSTextAlignment.left
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled, textAlignment: textAlignment)
 
         let sourceEditor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
         
@@ -196,13 +197,16 @@ final class PageEditorViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         editorTopConstraint.constant = -focusNavigationView.frame.height
         focusNavigationView.isHidden = false
-        
+        navigationItemController.progressButton.isEnabled = false
+        navigationItemController.readingThemesControlsToolbarItem.isEnabled = false
     }
     
     private func hideFocusNavigationView() {
         editorTopConstraint.constant = 0
         focusNavigationView.isHidden = true
         navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationItemController.progressButton.isEnabled = true
+        navigationItemController.readingThemesControlsToolbarItem.isEnabled = true
     }
     
     private func setTextSizeInAppEnvironment() {
@@ -220,6 +224,7 @@ extension PageEditorViewController: Themeable {
         }
         
         navigationItemController.apply(theme: theme)
+        focusNavigationView.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
     }
 }
@@ -228,9 +233,11 @@ extension PageEditorViewController: Themeable {
 
 extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
     func sourceEditorViewControllerDidTapFind(sourceEditorViewController: WKSourceEditorViewController) {
-        navigationItemController.progressButton.isEnabled = false
-        navigationItemController.readingThemesControlsToolbarItem.isEnabled = false
         showFocusNavigationView()
+    }
+    
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: Components.WKSourceEditorViewController) {
+        hideFocusNavigationView()
     }
 }
 

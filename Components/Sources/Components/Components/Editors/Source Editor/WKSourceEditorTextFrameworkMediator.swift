@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import ComponentsObjC
 
-/// This class facilitates communication between WKSourceEditorView and the underlying TextKit (1 and 2) frameworks, so that WKSourceEditorView is unaware of which framework is used.
+/// This class facilitates communication between WKSourceEditorViewController and the underlying TextKit (1 and 2) frameworks, so that WKSourceEditorViewController is unaware of which framework is used.
 /// When we need to drop TextKit 1, the goal is for all the adjustments to be in this one class
 
 fileprivate var needsTextKit2: Bool {
@@ -25,10 +25,11 @@ fileprivate var needsTextKit2: Bool {
 
 final class WKSourceEditorTextFrameworkMediator: NSObject {
     
-    let textView: UITextView
-    let textKit1Storage: WKSourceEditorTextStorage?
-    let textKit2Storage: NSTextContentStorage?
+    private let viewModel: WKSourceEditorViewModel
+    private let textKit1Storage: WKSourceEditorTextStorage?
+    private let textKit2Storage: NSTextContentStorage?
     
+    let textView: UITextView
     private(set) var formatters: [WKSourceEditorFormatter] = []
     private(set) var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics?
     
@@ -38,8 +39,11 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         }
     }
     
-    override init() {
+    
+    init(viewModel: WKSourceEditorViewModel) {
 
+        self.viewModel = viewModel
+        
         let textView: UITextView
         if needsTextKit2 {
             if #available(iOS 16, *) {
@@ -95,7 +99,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let fonts = self.fonts
         
         let boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
-        self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts),
+        self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
                 boldItalicsFormatter]
         self.boldItalicsFormatter = boldItalicsFormatter
         
@@ -119,7 +123,18 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             }
         } else {
             textKit1Storage?.updateColorsAndFonts()
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedEnsureLayoutTextkit1), object: nil)
+            perform(#selector(debouncedEnsureLayoutTextkit1), with: nil, afterDelay: 0.1)
         }
+    }
+    
+    @objc private func debouncedEnsureLayoutTextkit1() {
+        
+        guard !needsTextKit2 else {
+            return
+        }
+        
+       textView.layoutManager.ensureLayout(forCharacterRange: NSRange(location: 0, length: textView.attributedText.length))
     }
     
     func selectionState(selectedDocumentRange: NSRange) -> WKSourceEditorSelectionState {

@@ -1087,9 +1087,3 @@ extension ExploreViewController {
     }
 
 }
-
- extension ExploreViewController: WKSourceEditorViewControllerDelegate {
-    func sourceEditorViewControllerDidTapFind(sourceEditorViewController: Components.WKSourceEditorViewController) {
-        // protocol conformance to run UI Tests
-    }
- }

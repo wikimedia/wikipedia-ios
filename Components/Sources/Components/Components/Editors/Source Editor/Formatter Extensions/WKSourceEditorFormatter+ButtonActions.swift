@@ -15,13 +15,21 @@ extension WKSourceEditorFormatter {
     }
     
     func toggleFormatting(startingFormattingString: String, endingFormattingString: String, action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
-        if case .remove = action {
+        
+        switch action {
+        case .remove:
             expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
+            
             if selectedRangeIsSurroundedByFormattingStrings(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView) {
                 removeSurroundingFormattingStringsFromSelectedRange(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
             }
-        } else {
-            addStringFormattingCharacters(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
+        case .add:
+            if textView.selectedRange.length == 0 &&
+                selectedRangeIsSurroundedByFormattingStrings(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView) {
+                removeSurroundingFormattingStringsFromSelectedRange(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
+            } else {
+                addStringFormattingCharacters(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
+            }
         }
     }
     
@@ -76,7 +84,6 @@ extension WKSourceEditorFormatter {
                 finalEnd = newEnd
                 break
             }
-            
             
             // Stop searching if you encounter a line break or another opening formatting string
             if rangeIsFollowedByFormattingString(range: newRange, formattingString: "\n", in: textView) {
@@ -146,10 +153,11 @@ extension WKSourceEditorFormatter {
         if let selectedRange = textView.selectedTextRange {
             let cursorPosition = textView.offset(from: textView.endOfDocument, to: selectedRange.end)
             if selectedRange.isEmpty {
-                textView.replace(textView.selectedTextRange ?? UITextRange(), withText: startingFormattingString + endingFormattingString)
+                textView.replace(textView.selectedTextRange ?? UITextRange(), withText: startingFormattingString + " " + endingFormattingString)
 
-                let newPosition = textView.position(from: textView.endOfDocument, offset: cursorPosition - endingCursorOffset)
-                textView.selectedTextRange = textView.textRange(from: newPosition ?? textView.endOfDocument, to: newPosition ?? textView.endOfDocument)
+                let newStartPosition = textView.position(from: textView.endOfDocument, offset: cursorPosition - endingCursorOffset - 1)
+                let newEndPosition = textView.position(from: newStartPosition ?? textView.endOfDocument, offset: 1)
+                textView.selectedTextRange = textView.textRange(from: newStartPosition ?? textView.endOfDocument, to: newEndPosition ?? textView.endOfDocument)
             } else {
                 if let selectedSubstring = textView.text(in: selectedRange) {
                     textView.replace(textView.selectedTextRange ?? UITextRange(), withText: startingFormattingString + selectedSubstring + endingFormattingString)
@@ -178,15 +186,27 @@ extension WKSourceEditorFormatter {
             return
         }
         
-        // Note: replacing end first ordering is important here, otherwise range gets thrown off if you begin with start.
-        textView.replace(formattingTextEndRange, withText: "")
-        textView.replace(formattingTextStartRange, withText: "")
+        var removedSingleSpace = false
+        if let selectedText = textView.text(in: originalSelectedTextRange),
+           selectedText == " ",
+           let replaceRange = textView.textRange(from: formattingTextStartRange.start, to: formattingTextEndRange.end) {
+            
+            // If there's just a space in the middle, remove the whole thing
+            textView.replace(replaceRange, withText: "")
+            removedSingleSpace = true
+        } else {
+            
+            // Otherwise remove only formatting strings
+            // Note: replacing end first ordering is important here, otherwise range gets thrown off if you begin with start.
+            textView.replace(formattingTextEndRange, withText: "")
+            textView.replace(formattingTextStartRange, withText: "")
+        }
 
         // Reset selection
         let delta = endingFormattingString.count - startingFormattingString.count
         guard
             let newSelectionStartPosition = textView.position(from: originalSelectedTextRange.start, offset: -startingFormattingString.count),
-            let newSelectionEndPosition = textView.position(from: originalSelectedTextRange.end, offset: -endingFormattingString.count + delta) else {
+            let newSelectionEndPosition = removedSingleSpace ? newSelectionStartPosition : textView.position(from: originalSelectedTextRange.end, offset: -endingFormattingString.count + delta) else {
             return
         }
 
