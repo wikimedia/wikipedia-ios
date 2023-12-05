@@ -71,6 +71,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         textView.smartQuotesType = .no
         textView.smartDashesType = .no
         textView.keyboardDismissMode = .interactive
+        textView.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.textView
         
         // Note: There is improved selection performance / fixed console constraint errors with these next two lines. Leaving them commented out for now.
         
