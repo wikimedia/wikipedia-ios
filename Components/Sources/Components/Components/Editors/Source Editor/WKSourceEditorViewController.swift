@@ -12,7 +12,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
     private let viewModel: WKSourceEditorViewModel
     private weak var delegate: WKSourceEditorViewControllerDelegate?
     
-    private var editorView: WKSourceEditorView {
+    var editorView: WKSourceEditorView {
         return view as! WKSourceEditorView
     }
     

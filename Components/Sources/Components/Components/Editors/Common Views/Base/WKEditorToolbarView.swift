@@ -12,6 +12,7 @@ class WKEditorToolbarView: WKComponentView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        accessibilityElements = buttons
         updateColors()
     }
     

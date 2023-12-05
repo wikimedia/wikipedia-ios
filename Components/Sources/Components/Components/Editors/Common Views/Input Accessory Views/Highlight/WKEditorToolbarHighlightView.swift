@@ -28,32 +28,43 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        accessibilityElements = buttons + [showMoreButton as Any]
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
         
         boldButton.setImage(WKSFSymbolIcon.for(symbol: .bold), for: .normal)
         boldButton.addTarget(self, action: #selector(tappedBold), for: .touchUpInside)
-        
+        boldButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonBold
+
         italicsButton.setImage(WKSFSymbolIcon.for(symbol: .italic), for: .normal)
         italicsButton.addTarget(self, action: #selector(tappedItalics), for: .touchUpInside)
-        
+        italicsButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonItalics
+
         formatHeadingButton.setImage(WKIcon.formatHeading, for: .normal)
         formatHeadingButton.addTarget(self, action: #selector(tappedFormatHeading), for: .touchUpInside)
-        
+        formatHeadingButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.formatHeadingButton
+        formatHeadingButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonFormatHeading
+
         citationButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
         citationButton.addTarget(self, action: #selector(tappedCitation), for: .touchUpInside)
-        
+        citationButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonCitation
+
         linkButton.setImage(WKSFSymbolIcon.for(symbol: .link), for: .normal)
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
-        
+        linkButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonLink
+
         templateButton.setImage(WKSFSymbolIcon.for(symbol: .curlybraces), for: .normal)
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
-        
+        templateButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonTemplate
+
         clearMarkupButton.setImage(WKIcon.clear, for: .normal)
         clearMarkupButton.addTarget(self, action: #selector(tappedClearMarkup), for: .touchUpInside)
-        
+        clearMarkupButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonClearFormatting
+
         showMoreButton.setImage(WKSFSymbolIcon.for(symbol: .plusCircleFill), for: .normal)
         showMoreButton.addTarget(self, action: #selector(tappedShowMore), for: .touchUpInside)
+        showMoreButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.showMoreButton
+        showMoreButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonShowMore
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)
     }

@@ -20,21 +20,27 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
      
         boldButton.setImage(WKSFSymbolIcon.for(symbol: .bold), for: .normal)
         boldButton.addTarget(self, action: #selector(tappedBold), for: .touchUpInside)
-        
+        boldButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonBold
+
         italicsButton.setImage(WKSFSymbolIcon.for(symbol: .italic), for: .normal)
         italicsButton.addTarget(self, action: #selector(tappedItalics), for: .touchUpInside)
-        
+        italicsButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonItalics
+
         citationButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
         citationButton.addTarget(self, action: #selector(tappedCitation), for: .touchUpInside)
-        
+        citationButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonCitation
+
         linkButton.setImage(WKIcon.link, for: .normal)
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
-        
+        linkButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonLink
+
         templateButton.setImage(WKSFSymbolIcon.for(symbol: .curlybraces), for: .normal)
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
-        
+        templateButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonTemplate
+
         commentButton.setImage(WKIcon.exclamationPointCircle, for: .normal)
         commentButton.addTarget(self, action: #selector(tappedComment), for: .touchUpInside)
+        commentButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonComment
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)
     }
