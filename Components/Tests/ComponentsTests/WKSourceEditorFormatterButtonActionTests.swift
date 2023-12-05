@@ -4,7 +4,8 @@ import XCTest
 final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
     
     let mediator = {
-        let mediator = WKSourceEditorTextFrameworkMediator()
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "", isSyntaxHighlightingEnabled: true, textAlignment: .left)
+        let mediator = WKSourceEditorTextFrameworkMediator(viewModel: viewModel)
         mediator.updateColorsAndFonts()
         return mediator
     }()
