@@ -121,4 +121,13 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 1, length: 0))
         XCTAssertFalse(selectionStates1.isHorizontalTemplate)
     }
+    
+    func testHorizontalTemplateButtonSelectionStateFormattedRange() throws {
+        let text = "Testing inner formatted {{cite web | url=https://en.wikipedia.org | title = The '''Free''' Encyclopedia}} template example."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        // "cite web | url=https://en.wikipedia.org | title = The '''Free''' Encyclopedia"
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 26, length: 77))
+        XCTAssertTrue(selectionStates.isHorizontalTemplate)
+    }
 }
