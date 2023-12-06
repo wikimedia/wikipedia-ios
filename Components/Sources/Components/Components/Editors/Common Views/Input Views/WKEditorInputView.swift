@@ -95,6 +95,7 @@ class WKEditorInputView: WKComponentView {
     
     private lazy var plainToolbarView: WKEditorToolbarPlainView = {
         let view = UINib(nibName: String(describing: WKEditorToolbarPlainView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKEditorToolbarPlainView
+        view.delegate = delegate
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
