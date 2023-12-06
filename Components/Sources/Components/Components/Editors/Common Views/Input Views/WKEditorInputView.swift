@@ -105,17 +105,6 @@ class WKEditorInputView: WKComponentView {
         return view
     }()
     
-    private lazy var headerSelectViewController: WKEditorInputHeaderSelectViewController = {
-        let vc = WKEditorInputHeaderSelectViewController(configuration: .leftTitleNav, delegate: delegate)
-        return vc
-    }()
-    
-    private lazy var mainViewController: WKEditorInputMainViewController = {
-        let vc = WKEditorInputMainViewController()
-        vc.delegate = delegate
-        return vc
-    }()
-    
     // Heading Buttons
     private var paragraphButton: UIButton!
     private var headerButton: UIButton!
