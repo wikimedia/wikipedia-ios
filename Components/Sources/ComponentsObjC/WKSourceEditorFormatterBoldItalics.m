@@ -282,10 +282,19 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
     if (range.length == 0) {
         
         if (attributedString.length > range.location) {
+            NSLog(@"%@", [attributedString attributesAtIndex:range.location effectiveRange:nil]);
             NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
             
             if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontBold] != nil) {
                 isBold = YES;
+            } else {
+                // Edge case, check previous character if we are up against a closing bold or italic
+                if (attrs[WKSourceEditorCustomKeyColorOrange]) {
+                    attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
+                    if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontBold] != nil) {
+                        isBold = YES;
+                    }
+                }
             }
         }
         
@@ -311,6 +320,14 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
             
             if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontItalics] != nil) {
                 isItalics = YES;
+            } else {
+                // Edge case, check previous character if we are up against a closing bold or italic
+                if (attrs[WKSourceEditorCustomKeyColorOrange]) {
+                    attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
+                    if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontItalics] != nil) {
+                        isItalics = YES;
+                    }
+                }
             }
         }
         
