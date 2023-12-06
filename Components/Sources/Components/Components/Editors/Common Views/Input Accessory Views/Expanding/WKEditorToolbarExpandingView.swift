@@ -39,7 +39,6 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     @IBOutlet weak var secondaryContainerView: UIView!
 
     @IBOutlet private weak var formatTextButton: WKEditorToolbarButton!
-    @IBOutlet private weak var formatHeadingButton: WKEditorToolbarButton!
     @IBOutlet private weak var citationButton: WKEditorToolbarButton!
     @IBOutlet private weak var linkButton: WKEditorToolbarButton!
     @IBOutlet private weak var templateButton: WKEditorToolbarButton!
@@ -80,11 +79,6 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         formatTextButton.addTarget(self, action: #selector(tappedFormatText), for: .touchUpInside)
         formatTextButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.formatTextButton
         formatTextButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonFormatText
-
-        formatHeadingButton.setImage(WKIcon.formatHeading, for: .normal)
-        formatHeadingButton.addTarget(self, action: #selector(tappedFormatHeading), for: .touchUpInside)
-        formatHeadingButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.formatHeadingButton
-        formatHeadingButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonFormatHeading
 
         citationButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
         citationButton.addTarget(self, action: #selector(tappedCitation), for: .touchUpInside)

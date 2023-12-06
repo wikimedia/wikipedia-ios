@@ -53,7 +53,6 @@ public class UITestHelperViewController: WKCanvasViewController {
                                                               findReplaceTypeAll: CommonStrings.findAndReplaceAll,
                                                               findReplaceWith: CommonStrings.replaceWith,
                                                               accessibilityLabelButtonFormatText: CommonStrings.accessibilityLabelButtonFormatText,
-                                                              accessibilityLabelButtonFormatHeading: CommonStrings.accessibilityLabelButtonFormatHeading,
                                                               accessibilityLabelButtonCitation: CommonStrings.accessibilityLabelButtonCitation,
                                                               accessibilityLabelButtonCitationSelected: CommonStrings.accessibilityLabelButtonCitationSelected,
                                                               accessibilityLabelButtonLink: CommonStrings.accessibilityLabelButtonBold,
