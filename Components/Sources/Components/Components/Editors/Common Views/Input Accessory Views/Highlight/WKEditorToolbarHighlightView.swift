@@ -5,7 +5,6 @@ protocol WKEditorToolbarHighlightViewDelegate: AnyObject {
     func toolbarHighlightViewDidTapItalics(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
     func toolbarHighlightViewDidTapTemplate(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
     func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView)
-    func toolbarHighlightViewDidTapFormatHeading(toolbarView: WKEditorToolbarHighlightView)
 }
 
 class WKEditorToolbarHighlightView: WKEditorToolbarView {
@@ -16,7 +15,6 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
     
     @IBOutlet private weak var boldButton: WKEditorToolbarButton!
     @IBOutlet private weak var italicsButton: WKEditorToolbarButton!
-    @IBOutlet private weak var formatHeadingButton: WKEditorToolbarButton!
     @IBOutlet private weak var citationButton: WKEditorToolbarButton!
     @IBOutlet private weak var linkButton: WKEditorToolbarButton!
     @IBOutlet private weak var templateButton: WKEditorToolbarButton!
@@ -40,11 +38,6 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
         italicsButton.setImage(WKSFSymbolIcon.for(symbol: .italic), for: .normal)
         italicsButton.addTarget(self, action: #selector(tappedItalics), for: .touchUpInside)
         italicsButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonItalics
-
-        formatHeadingButton.setImage(WKIcon.formatHeading, for: .normal)
-        formatHeadingButton.addTarget(self, action: #selector(tappedFormatHeading), for: .touchUpInside)
-        formatHeadingButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.formatHeadingButton
-        formatHeadingButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonFormatHeading
 
         citationButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
         citationButton.addTarget(self, action: #selector(tappedCitation), for: .touchUpInside)
@@ -93,7 +86,6 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
     }
 
     @objc private func tappedFormatHeading() {
-        delegate?.toolbarHighlightViewDidTapFormatHeading(toolbarView: self)
     }
 
     @objc private func tappedCitation() {

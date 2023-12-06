@@ -1016,7 +1016,6 @@
 "source-editor-accessibility-label-find-button-next" = "Accessibility label for the find next result on the page editor";
 "source-editor-accessibility-label-find-button-prev" = "Accessibility label for the find previous result button on the page editor";
 "source-editor-accessibility-label-find-text-field" = "Accessibility label for the find text field on the page editor";
-"source-editor-accessibility-label-format-heading" = "Accessibility label for heading style formatting menu button on the page editor";
 "source-editor-accessibility-label-format-text" = "Accessibility label for text formatting menu button on the page editor";
 "source-editor-accessibility-label-format-text-show-more" = "Accessibility label for the show more button on the page editor";
 "source-editor-accessibility-label-indent-decrease" = "Accessibility label for the decrease indent button on the page editor";
