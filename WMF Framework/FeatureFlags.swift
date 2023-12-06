@@ -11,10 +11,6 @@ public struct FeatureFlags {
     }
     
     public static var needsNativeSourceEditor: Bool {
-        #if WMF_STAGING
-        return true
-        #else
-        return false
-        #endif
+       return true
     }
 }
