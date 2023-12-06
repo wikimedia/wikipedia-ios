@@ -150,8 +150,7 @@ NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCusto
         
     } else {
         [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-                if ((attrs[WKSourceEditorCustomKeyHorizontalTemplate] != nil) &&
-                    (loopRange.location == range.location && loopRange.length == range.length)) {
+                if (attrs[WKSourceEditorCustomKeyHorizontalTemplate] != nil) {
                     isTemplate = YES;
                     stop = YES;
                 }
