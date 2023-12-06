@@ -3,7 +3,6 @@ import UIKit
 protocol WKEditorToolbarExpandingViewDelegate: AnyObject {
     func toolbarExpandingViewDidTapFind(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapFormatText(toolbarView: WKEditorToolbarExpandingView)
-    func toolbarExpandingViewDidTapFormatHeading(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapTemplate(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
 }
 
@@ -197,7 +196,6 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     }
     
     @objc private func tappedFormatHeading() {
-        delegate?.toolbarExpandingViewDidTapFormatHeading(toolbarView: self)
     }
 
     @objc private func tappedCitation() {
