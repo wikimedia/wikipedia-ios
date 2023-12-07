@@ -25,7 +25,6 @@ public enum WKIcon {
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
 
     // Editor-specific icons
-    static let clear = UIImage(named: "editor/clear", in: .module, with: nil) //
     static let formatText = UIImage(named: "editor/format-text", in: .module, with: nil)//
     static let formatHeading = UIImage(named: "editor/format-heading", in: .module, with: nil)//
 

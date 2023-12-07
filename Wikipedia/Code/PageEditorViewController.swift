@@ -138,7 +138,6 @@ final class PageEditorViewController: UIViewController {
                                                               accessibilityLabelButtonBoldSelected: CommonStrings.accessibilityLabelButtonBoldSelected,
                                                               accessibilityLabelButtonItalics: CommonStrings.accessibilityLabelButtonItalics,
                                                               accessibilityLabelButtonItalicsSelected: CommonStrings.accessibilityLabelButtonItalicsSelected,
-                                                              accessibilityLabelButtonClearFormatting: CommonStrings.accessibilityLabelButtonClearFormatting,
                                                               accessibilityLabelButtonShowMore: CommonStrings.accessibilityLabelButtonShowMore,
                                                               accessibilityLabelButtonComment: CommonStrings.accessibilityLabelButtonComment,
                                                               accessibilityLabelButtonCommentSelected: CommonStrings.accessibilityLabelButtonCommentSelected,
