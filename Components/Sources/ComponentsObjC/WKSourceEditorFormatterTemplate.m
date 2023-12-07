@@ -34,7 +34,7 @@ NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCusto
         };
         
         _horizontalTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"\\{{2}[^\\{\\}\\n]*\\}{2}" options:0 error:nil];
-        _verticalStartTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"^(?:.*)(\\{{2}[^\\{\\}\n]*)$" options:NSRegularExpressionAnchorsMatchLines error:nil];
+        _verticalStartTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"^(?:.*)(\\{{2}[^\\{\\}\\n]*)$" options:NSRegularExpressionAnchorsMatchLines error:nil];
         _verticalParameterTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"^\\s*\\|.*$" options:NSRegularExpressionAnchorsMatchLines error:nil];
         _verticalEndTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"^([^\\{\\}\n]*\\}{2})(?:.)*$" options:NSRegularExpressionAnchorsMatchLines error:nil];
     }
