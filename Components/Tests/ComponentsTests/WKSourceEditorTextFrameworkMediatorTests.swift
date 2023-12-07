@@ -61,6 +61,26 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertFalse(selectionStates9.isItalics)
     }
     
+    func testSelectionSpanningNonFormattedState1() throws {
+        let text = "Testing '''bold with {{template}}''' selection that spans nonbold."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        // "bold with {{template}}"
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 11, length: 22))
+        XCTAssertTrue(selectionStates.isBold)
+        XCTAssertFalse(selectionStates.isHorizontalTemplate)
+    }
+    
+    func testSelectionSpanningNonFormattedState2() throws {
+        let text = "Testing {{template | '''bold'''}} selection that spans nonbold."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        // "template | '''bold'''"
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 10, length: 21))
+        XCTAssertFalse(selectionStates1.isBold)
+        XCTAssertTrue(selectionStates1.isHorizontalTemplate)
+    }
+    
     func testHorizontalTemplateButtonSelectionStateCursor() throws {
         let text = "Testing simple {{Currentdate}} template example."
         mediator.textView.attributedText = NSAttributedString(string: text)
