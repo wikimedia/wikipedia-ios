@@ -278,47 +278,24 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
 #pragma mark - Public
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isBoldInRange:(NSRange)range {
-    __block BOOL isBold = NO;
-    if (range.length == 0) {
-        
-        if (attributedString.length > range.location) {
-            NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
-            
-            if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontBold] != nil) {
-                isBold = YES;
-            }
-        }
-        
-    } else {
-        __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
-        [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-            if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontBold] != nil) {
-                if (unionRange.location == NSNotFound) {
-                    unionRange = loopRange;
-                } else {
-                    unionRange = NSUnionRange(unionRange, loopRange);
-                }
-                stop = YES;
-            }
-        }];
-        
-        if (NSEqualRanges(unionRange, range)) {
-            isBold = YES;
-        }
-    }
-    
-    return isBold;
+    return [self attributedString:attributedString isFormattedInRange:range formattingKey:WKSourceEditorCustomKeyFontBold];
 }
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isItalicsInRange:(NSRange)range {
-    __block BOOL isItalics = NO;
+    return [self attributedString:attributedString isFormattedInRange:range formattingKey:WKSourceEditorCustomKeyFontItalics];
+}
+
+#pragma mark - Private
+
+- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isFormattedInRange:(NSRange)range formattingKey: (NSString *)formattingKey {
+    __block BOOL isFormatted = NO;
     
     if (range.length == 0) {
         
         if (attributedString.length > range.location) {
             NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
             
-            if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontItalics] != nil) {
-                isItalics = YES;
+            if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[formattingKey] != nil) {
+                isFormatted = YES;
             }
         }
         
@@ -326,7 +303,7 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
         
         __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
         [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-                if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontItalics] != nil) {
+                if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[formattingKey] != nil) {
                     if (unionRange.location == NSNotFound) {
                         unionRange = loopRange;
                     } else {
@@ -337,11 +314,11 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
         }];
         
         if (NSEqualRanges(unionRange, range)) {
-            isItalics = YES;
+            isFormatted = YES;
         }
     }
     
-    return isItalics;
+    return isFormatted;
 }
 
 @end
