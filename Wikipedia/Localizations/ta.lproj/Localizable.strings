@@ -5,6 +5,7 @@
 // Author: CaptainIRS
 // Author: Dineshkumar Ponnusamy
 // Author: ElangoRamanujam
+// Author: Fahimrazick
 // Author: Jayarathina
 // Author: Kaartic
 // Author: Mahir78
@@ -196,7 +197,7 @@
 "places-filter-saved-articles" = "சேமிக்கப்பட்ட கட்டுரைகள்";
 "places-filter-top-articles" = "அதிகமாக படிக்கப்பட்டது";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 கட்டுரை|$1 கட்டுரைகள்}}";
-"places-search-default-text" = "இடங்களை தேடுக";
+"places-search-default-text" = "இடங்களைத் தேடு";
 "places-search-did-you-mean" = "தாங்கள் கருதியது $1?";
 "places-search-recently-searched-header" = "அண்மையில் தேடப்பட்டது";
 "places-search-saved-articles" = "அனைத்து சேமிக்கப்பட்ட கட்டுரைகள்";
