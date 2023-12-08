@@ -39,22 +39,22 @@ NSString * const WKSourceEditorCustomKeyFontSubheading4 = @"WKSourceEditorCustom
         
         _headingFontAttributes = @{
             NSFontAttributeName: fonts.headingFont,
-            WKSourceEditorCustomKeyFontSubheading1: [NSNumber numberWithBool:YES]
+            WKSourceEditorCustomKeyFontHeading: [NSNumber numberWithBool:YES]
         };
         
         _subheading1FontAttributes = @{
             NSFontAttributeName: fonts.subheading1Font,
-            WKSourceEditorCustomKeyFontSubheading2: [NSNumber numberWithBool:YES]
+            WKSourceEditorCustomKeyFontSubheading1: [NSNumber numberWithBool:YES]
         };
         
         _subheading2FontAttributes = @{
             NSFontAttributeName: fonts.subheading2Font,
-            WKSourceEditorCustomKeyFontSubheading3: [NSNumber numberWithBool:YES]
+            WKSourceEditorCustomKeyFontSubheading2: [NSNumber numberWithBool:YES]
         };
         
         _subheading3FontAttributes = @{
             NSFontAttributeName: fonts.subheading3Font,
-            WKSourceEditorCustomKeyFontSubheading4: [NSNumber numberWithBool:YES]
+            WKSourceEditorCustomKeyFontSubheading3: [NSNumber numberWithBool:YES]
         };
         
         _subheading4FontAttributes = @{
