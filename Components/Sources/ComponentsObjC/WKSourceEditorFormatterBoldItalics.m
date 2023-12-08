@@ -18,9 +18,6 @@
 @implementation WKSourceEditorFormatterBoldItalics
 
 #pragma mark - Custom Attributed String Keys
-
-// Font and Color custom attributes allow us to easily target already-formatted ranges. This is handy for speedy updates upon theme and text size change, as well as determining keyboard button selection states.
-NSString * const WKSourceEditorCustomKeyColorOrange = @"WKSourceEditorKeyColorOrange";
 NSString * const WKSourceEditorCustomKeyFontBoldItalics = @"WKSourceEditorKeyFontBoldItalics";
 NSString * const WKSourceEditorCustomKeyFontBold = @"WKSourceEditorKeyFontBold";
 NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontItalics";
