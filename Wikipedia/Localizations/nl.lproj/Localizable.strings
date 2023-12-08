@@ -803,7 +803,7 @@
 "panel-compare-revisions-title" = "Versies vergelijken";
 "panel-not-logged-in-continue-edit-action-title" = "Bewerken zonder in te loggen";
 "panel-not-logged-in-subtitle" = "Uw IP-adres is publiekelijk zichtbaar als u wijzigingen aanbrengt. Als u $1inlogt$2 of $3een account aanmaakt$4, worden uw bewerkingen toegeschreven aan uw gebruikersnaam, samen met andere voordelen.";
-"panel-not-logged-in-title" = "U bent niet ingelogd";
+"panel-not-logged-in-title" = "U bent niet aangemeld";
 "pictured" = "afgebeeld";
 "places-accessibility-clear-saved-searches" = "Opgeslagen zoekopdrachten wissen";
 "places-accessibility-group" = "$1 artikelen";

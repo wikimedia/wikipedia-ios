@@ -589,6 +589,8 @@
 "share-social-mention-format" = "\"$1\" via Wikipedia: $2";
 "sort-by-recently-added-action" = "Rezent derbäigesat";
 "sort-by-title-action" = "Titel";
+"source-editor-accessibility-label-replace-text-field" = "Ersetzen";
+"source-editor-find-replace-single" = "Ersetzen";
 "table-of-contents-button-label" = "Inhaltsverzeechnes";
 "table-of-contents-close-accessibility-hint" = "Zoumaachen";
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeechnes zoumaachen";
