@@ -108,7 +108,6 @@ extension WKEditorInputMainViewController: UITableViewDataSource {
             cell = tableView.dequeueReusableCell(withIdentifier: detailReuseIdentifier, for: indexPath)
             
             if let detailCell = cell as? WKEditorSelectionDetailCell {
-                detailCell.configure(viewModel: WKEditorSelectionDetailViewModel(typeText: WKSourceEditorLocalizedStrings.current.inputViewStyle, selectionText: WKSourceEditorLocalizedStrings.current.inputViewParagraph))
                 detailCell.accessibilityTraits = [.button]
             }
         case 3:
@@ -134,9 +133,14 @@ extension WKEditorInputMainViewController: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.isSelected = false
         
-        if indexPath.row == 2 {
+        if let detailCell = cell as? WKEditorSelectionDetailCell {
             navigationItem.backButtonTitle = WKSourceEditorLocalizedStrings.current.inputViewTextFormatting
             let headerVC = WKEditorInputHeaderSelectViewController(configuration: .standard, delegate: delegate)
+            
+            if let selectionState = detailCell.lastSelectionState {
+                headerVC.configure(selectionState: selectionState)
+            }
+            
             navigationController?.pushViewController(headerVC, animated: true)
         }
     }
