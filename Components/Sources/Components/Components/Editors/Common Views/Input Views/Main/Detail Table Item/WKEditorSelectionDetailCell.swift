@@ -11,6 +11,10 @@ class WKEditorSelectionDetailCell: UITableViewCell {
         return view
     }()
     
+    var lastSelectionState: WKSourceEditorSelectionState? {
+        return componentView.lastSelectionState
+    }
+    
     // MARK: - Lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -32,11 +36,5 @@ class WKEditorSelectionDetailCell: UITableViewCell {
         ])
         
         selectedBackgroundView?.backgroundColor = .clear
-    }
-    
-    // MARK: - Internal
-    
-    func configure(viewModel: WKEditorSelectionDetailViewModel) {
-        componentView.configure(viewModel: viewModel)
     }
 }

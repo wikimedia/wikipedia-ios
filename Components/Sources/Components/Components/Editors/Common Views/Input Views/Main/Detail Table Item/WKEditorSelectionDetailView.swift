@@ -11,6 +11,7 @@ class WKEditorSelectionDetailView: WKComponentView {
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         label.adjustsFontForContentSizeCategory = true
         label.font = WKFont.for(.body, compatibleWith: appEnvironment.traitCollection)
+        label.text = WKSourceEditorLocalizedStrings.current.inputViewStyle
         return label
     }()
     
@@ -30,8 +31,8 @@ class WKEditorSelectionDetailView: WKComponentView {
         return imageView
     }()
     
-    private var viewModel: WKEditorSelectionDetailViewModel?
-    
+    private(set) var lastSelectionState: WKSourceEditorSelectionState?
+
     // MARK: - Lifecycle
     
     required init() {
@@ -62,13 +63,38 @@ class WKEditorSelectionDetailView: WKComponentView {
         ])
         
         updateColors()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)
+    }
+    
+    // MARK: - Notifications
+    
+    @objc private func updateButtonSelectionState(_ notification: NSNotification) {
+        guard let selectionState = notification.userInfo?[Notification.WKSourceEditorSelectionStateKey] as? WKSourceEditorSelectionState else {
+            return
+        }
+        
+        self.lastSelectionState = selectionState
+        
+        configure(selectionState: selectionState)
     }
     
     // MARK: - Internal
     
-    func configure(viewModel: WKEditorSelectionDetailViewModel) {
-        typeLabel.text = viewModel.typeText
-        selectionLabel.text = viewModel.selectionText
+    func configure(selectionState: WKSourceEditorSelectionState) {
+        if selectionState.isHeading {
+            selectionLabel.text = WKSourceEditorLocalizedStrings.current.inputViewHeading
+        } else if selectionState.isSubheading1 {
+            selectionLabel.text = WKSourceEditorLocalizedStrings.current.inputViewSubheading1
+        } else if selectionState.isSubheading2 {
+            selectionLabel.text = WKSourceEditorLocalizedStrings.current.inputViewSubheading2
+        } else if selectionState.isSubheading3 {
+            selectionLabel.text = WKSourceEditorLocalizedStrings.current.inputViewSubheading3
+        } else if selectionState.isSubheading4 {
+            selectionLabel.text = WKSourceEditorLocalizedStrings.current.inputViewSubheading4
+        } else {
+            selectionLabel.text = WKSourceEditorLocalizedStrings.current.inputViewParagraph
+        }
     }
     
     // MARK: - Overrides

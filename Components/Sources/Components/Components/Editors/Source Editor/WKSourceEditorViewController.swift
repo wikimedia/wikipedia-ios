@@ -304,6 +304,7 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
     
     func toolbarExpandingViewDidTapFormatHeading(toolbarView: WKEditorToolbarExpandingView) {
         inputViewType = .headerSelect
+        postUpdateButtonSelectionStatesNotification(withDelay: true)
     }
     
     func toolbarExpandingViewDidTapTemplate(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
@@ -338,6 +339,7 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
     
     func toolbarHighlightViewDidTapFormatHeading(toolbarView: WKEditorToolbarHighlightView) {
         inputViewType = .headerSelect
+        postUpdateButtonSelectionStatesNotification(withDelay: true)
     }
 }
 

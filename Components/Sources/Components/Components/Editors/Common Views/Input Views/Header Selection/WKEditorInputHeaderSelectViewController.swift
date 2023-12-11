@@ -73,6 +73,46 @@ class WKEditorInputHeaderSelectViewController: WKComponentViewController {
         ])
         
         tableView.register(WKEditorHeaderSelectCell.self, forCellReuseIdentifier: reuseIdentifier)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)
+    }
+    
+    // MARK: - Notifications
+    
+    @objc private func updateButtonSelectionState(_ notification: NSNotification) {
+        guard let selectionState = notification.userInfo?[Notification.WKSourceEditorSelectionStateKey] as? WKSourceEditorSelectionState else {
+            return
+        }
+        
+        configure(selectionState: selectionState)
+        tableView.reloadData()
+    }
+    
+    // MARK: Public
+    
+    func configure(selectionState: WKSourceEditorSelectionState) {
+        viewModels.forEach { $0.isSelected = false }
+        
+        let paragraphViewModel = viewModels[0]
+        let headingViewModel = viewModels[1]
+        let subheading1ViewModel = viewModels[2]
+        let subheading2ViewModel = viewModels[3]
+        let subheading3ViewModel = viewModels[4]
+        let subheading4ViewModel = viewModels[5]
+        
+        if selectionState.isHeading {
+            headingViewModel.isSelected = true
+        } else if selectionState.isSubheading1 {
+            subheading1ViewModel.isSelected = true
+        } else if selectionState.isSubheading2 {
+            subheading2ViewModel.isSelected = true
+        } else if selectionState.isSubheading3 {
+            subheading3ViewModel.isSelected = true
+        } else if selectionState.isSubheading4 {
+            subheading4ViewModel.isSelected = true
+        } else {
+            paragraphViewModel.isSelected = true
+        }
     }
     
     // MARK: Overrides
@@ -147,7 +187,11 @@ extension WKEditorInputHeaderSelectViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         for (index, viewModel) in viewModels.enumerated() {
+            let alreadySelected = viewModel.isSelected && index == indexPath.row
             viewModel.isSelected = index == indexPath.row
+            if viewModel.isSelected && !alreadySelected {
+                delegate?.didTapHeading(selectedHeading: viewModel.configuration)
+            }
         }
         tableView.reloadData()
     }
