@@ -6,6 +6,7 @@ protocol WKEditorInputViewDelegate: AnyObject {
     func didTapBold(isSelected: Bool)
     func didTapItalics(isSelected: Bool)
     func didTapTemplate(isSelected: Bool)
+    func didTapHeading(selectedHeading: WKEditorHeaderSelectViewModel.Configuration)
 }
 
 class WKEditorInputViewController: WKComponentViewController {
