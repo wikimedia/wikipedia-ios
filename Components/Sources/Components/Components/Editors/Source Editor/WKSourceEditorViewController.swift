@@ -347,7 +347,7 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
 
 extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     func didTapHeading(selectedHeading: WKEditorHeaderSelectViewModel.Configuration) {
-
+        textFrameworkMediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: selectedHeading, currentSelectionState: selectionState(), textView: textView)
     }
     
     func didTapBold(isSelected: Bool) {
