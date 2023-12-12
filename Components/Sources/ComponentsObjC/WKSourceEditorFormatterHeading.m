@@ -174,17 +174,33 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
             
             if (attrs[contentKey] != nil) {
                 isContentKey = YES;
+            } else {
+                // Edge case, check previous character if we are up against closing string
+                if (attrs[WKSourceEditorCustomKeyColorOrange]) {
+                    attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
+                    if (attrs[contentKey] != nil) {
+                        isContentKey = YES;
+                    }
+                }
             }
         }
         
     } else {
+        __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
         [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-                if ((attrs[contentKey] != nil) &&
-                    (loopRange.location == range.location && loopRange.length == range.length)) {
-                    isContentKey = YES;
+                if (attrs[contentKey] != nil) {
+                    if (unionRange.location == NSNotFound) {
+                        unionRange = loopRange;
+                    } else {
+                        unionRange = NSUnionRange(unionRange, loopRange);
+                    }
                     stop = YES;
                 }
         }];
+        
+        if (NSEqualRanges(unionRange, range)) {
+            isContentKey = YES;
+        }
     }
     
     return isContentKey;
