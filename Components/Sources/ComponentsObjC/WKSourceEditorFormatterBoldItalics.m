@@ -282,7 +282,6 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
     if (range.length == 0) {
         
         if (attributedString.length > range.location) {
-            NSLog(@"%@", [attributedString attributesAtIndex:range.location effectiveRange:nil]);
             NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
             
             if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontBold] != nil) {
