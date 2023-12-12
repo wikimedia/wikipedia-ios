@@ -291,6 +291,10 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
 // MARK: - WKEditorInputViewDelegate
 
 extension WKSourceEditorViewController: WKEditorInputViewDelegate {
+    func didTapHeading(selectedHeading: WKEditorHeaderSelectViewModel.Configuration) {
+        textFrameworkMediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: selectedHeading, currentSelectionState: selectionState(), textView: textView)
+    }
+    
     func didTapBold(isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.boldItalicsFormatter?.toggleBoldFormatting(action: action, in: textView)
