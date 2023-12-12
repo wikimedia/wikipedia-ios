@@ -35,6 +35,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     private(set) var formatters: [WKSourceEditorFormatter] = []
     private(set) var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics?
     private(set) var templateFormatter: WKSourceEditorFormatterTemplate?
+    private(set) var headingFormatter: WKSourceEditorFormatterHeading?
     
     var isSyntaxHighlightingEnabled: Bool = true {
         didSet {
@@ -103,11 +104,14 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         
         let boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
         let templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
+        let headingFormatter = WKSourceEditorFormatterHeading(colors: colors, fonts: fonts)
         self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
                 templateFormatter,
-                boldItalicsFormatter]
+                boldItalicsFormatter,
+                headingFormatter]
         self.boldItalicsFormatter = boldItalicsFormatter
         self.templateFormatter = templateFormatter
+        self.headingFormatter = headingFormatter
         
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
@@ -213,6 +217,11 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         fonts.boldFont = isSyntaxHighlightingEnabled ? WKFont.for(.boldBody, compatibleWith: traitCollection) : baseFont
         fonts.italicsFont = isSyntaxHighlightingEnabled ? WKFont.for(.italicsBody, compatibleWith: traitCollection) : baseFont
         fonts.boldItalicsFont = isSyntaxHighlightingEnabled ? WKFont.for(.boldItalicsBody, compatibleWith: traitCollection) : baseFont
+        fonts.headingFont = isSyntaxHighlightingEnabled ? WKFont.for(.editorHeading, compatibleWith: traitCollection) : baseFont
+        fonts.subheading1Font = isSyntaxHighlightingEnabled ? WKFont.for(.editorSubheading1, compatibleWith: traitCollection) : baseFont
+        fonts.subheading2Font = isSyntaxHighlightingEnabled ? WKFont.for(.editorSubheading2, compatibleWith: traitCollection) : baseFont
+        fonts.subheading3Font = isSyntaxHighlightingEnabled ? WKFont.for(.editorSubheading3, compatibleWith: traitCollection) : baseFont
+        fonts.subheading4Font = isSyntaxHighlightingEnabled ? WKFont.for(.editorSubheading4, compatibleWith: traitCollection) : baseFont
         return fonts
     }
 }

@@ -10,8 +10,9 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     var baseFormatter: WKSourceEditorFormatterBase!
     var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics!
     var templateFormatter: WKSourceEditorFormatterTemplate!
+    var headingFormatter: WKSourceEditorFormatterHeading!
     var formatters: [WKSourceEditorFormatter] {
-        return [baseFormatter, templateFormatter, boldItalicsFormatter]
+        return [baseFormatter, templateFormatter, boldItalicsFormatter, headingFormatter]
     }
 
     override func setUpWithError() throws {
@@ -27,10 +28,16 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.fonts.boldFont = WKFont.for(.boldBody, compatibleWith: traitCollection)
         self.fonts.italicsFont = WKFont.for(.italicsBody, compatibleWith: traitCollection)
         self.fonts.boldItalicsFont = WKFont.for(.boldItalicsBody, compatibleWith: traitCollection)
+        self.fonts.headingFont = WKFont.for(.editorHeading, compatibleWith: traitCollection)
+        self.fonts.subheading1Font = WKFont.for(.editorSubheading1, compatibleWith: traitCollection)
+        self.fonts.subheading2Font = WKFont.for(.editorSubheading2, compatibleWith: traitCollection)
+        self.fonts.subheading3Font = WKFont.for(.editorSubheading3, compatibleWith: traitCollection)
+        self.fonts.subheading4Font = WKFont.for(.editorSubheading4, compatibleWith: traitCollection)
         
         self.baseFormatter = WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: .left)
         self.boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
         self.templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
+        self.headingFormatter = WKSourceEditorFormatterHeading(colors: colors, fonts: fonts)
     }
 
     override func tearDownWithError() throws {
@@ -771,5 +778,204 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(refRange.length, 6, "Incorrect ref formatting")
         XCTAssertEqual(refAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect ref formatting")
         XCTAssertEqual(refAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect ref formatting")
+    }
+    
+    func testHeading() {
+        let string = "== Test =="
+        let mutAttributedString = NSMutableAttributedString(string: string)
+        
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var openingRange = NSRange(location: 0, length: 0)
+        let openingAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &openingRange)
+        
+        var contentRange = NSRange(location: 0, length: 0)
+        let contentAttributes = mutAttributedString.attributes(at: 2, effectiveRange: &contentRange)
+        
+        var closingRange = NSRange(location: 0, length: 0)
+        let closingAttributes = mutAttributedString.attributes(at: 8, effectiveRange: &closingRange)
+        
+        // "=="
+        XCTAssertEqual(openingRange.location, 0, "Incorrect heading formatting")
+        XCTAssertEqual(openingRange.length, 2, "Incorrect heading formatting")
+        XCTAssertEqual(openingAttributes[.font] as! UIFont, fonts.headingFont, "Incorrect heading formatting")
+        XCTAssertEqual(openingAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect heading formatting")
+        
+        // " Heading Test "
+        XCTAssertEqual(contentRange.location, 2, "Incorrect heading formatting")
+        XCTAssertEqual(contentRange.length, 6, "Incorrect heading formatting")
+        XCTAssertEqual(contentAttributes[.font] as! UIFont, fonts.headingFont, "Incorrect heading formatting")
+        XCTAssertEqual(contentAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect heading formatting")
+        
+        // "=="
+        XCTAssertEqual(closingRange.location, 8, "Incorrect heading formatting")
+        XCTAssertEqual(closingRange.length, 2, "Incorrect heading formatting")
+        XCTAssertEqual(closingAttributes[.font] as! UIFont, fonts.headingFont, "Incorrect heading formatting")
+        XCTAssertEqual(closingAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect heading formatting")
+    }
+    
+    func testSubheading1() {
+        let string = "=== Test ==="
+        let mutAttributedString = NSMutableAttributedString(string: string)
+        
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var openingRange = NSRange(location: 0, length: 0)
+        let openingAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &openingRange)
+        
+        var contentRange = NSRange(location: 0, length: 0)
+        let contentAttributes = mutAttributedString.attributes(at: 3, effectiveRange: &contentRange)
+        
+        var closingRange = NSRange(location: 0, length: 0)
+        let closingAttributes = mutAttributedString.attributes(at: 9, effectiveRange: &closingRange)
+        
+        // "=="
+        XCTAssertEqual(openingRange.location, 0, "Incorrect subheading1 formatting")
+        XCTAssertEqual(openingRange.length, 3, "Incorrect subheading1 formatting")
+        XCTAssertEqual(openingAttributes[.font] as! UIFont, fonts.subheading1Font, "Incorrect subheading1 formatting")
+        XCTAssertEqual(openingAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect subheading1 formatting")
+        
+        // " Test "
+        XCTAssertEqual(contentRange.location, 3, "Incorrect subheading1 formatting")
+        XCTAssertEqual(contentRange.length, 6, "Incorrect subheading1 formatting")
+        XCTAssertEqual(contentAttributes[.font] as! UIFont, fonts.subheading1Font, "Incorrect subheading1 formatting")
+        XCTAssertEqual(contentAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect subheading1 formatting")
+        
+        // "=="
+        XCTAssertEqual(closingRange.location, 9, "Incorrect subheading1 formatting")
+        XCTAssertEqual(closingRange.length, 3, "Incorrect subheading1 formatting")
+        XCTAssertEqual(closingAttributes[.font] as! UIFont, fonts.subheading1Font, "Incorrect subheading1 formatting")
+        XCTAssertEqual(closingAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect subheading1 formatting")
+    }
+    
+    func testSubheading2() {
+        let string = "==== Test ===="
+        let mutAttributedString = NSMutableAttributedString(string: string)
+        
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var openingRange = NSRange(location: 0, length: 0)
+        let openingAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &openingRange)
+        
+        var contentRange = NSRange(location: 0, length: 0)
+        let contentAttributes = mutAttributedString.attributes(at: 4, effectiveRange: &contentRange)
+        
+        var closingRange = NSRange(location: 0, length: 0)
+        let closingAttributes = mutAttributedString.attributes(at: 10, effectiveRange: &closingRange)
+        
+        // "=="
+        XCTAssertEqual(openingRange.location, 0, "Incorrect subheading2 formatting")
+        XCTAssertEqual(openingRange.length, 4, "Incorrect subheading2 formatting")
+        XCTAssertEqual(openingAttributes[.font] as! UIFont, fonts.subheading2Font, "Incorrect subheading2 formatting")
+        XCTAssertEqual(openingAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect subheading2 formatting")
+        
+        // " Test "
+        XCTAssertEqual(contentRange.location, 4, "Incorrect subheading2 formatting")
+        XCTAssertEqual(contentRange.length, 6, "Incorrect subheading2 formatting")
+        XCTAssertEqual(contentAttributes[.font] as! UIFont, fonts.subheading2Font, "Incorrect subheading2 formatting")
+        XCTAssertEqual(contentAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect subheading2 formatting")
+        
+        // "=="
+        XCTAssertEqual(closingRange.location, 10, "Incorrect subheading2 formatting")
+        XCTAssertEqual(closingRange.length, 4, "Incorrect subheading2 formatting")
+        XCTAssertEqual(closingAttributes[.font] as! UIFont, fonts.subheading2Font, "Incorrect subheading2 formatting")
+        XCTAssertEqual(closingAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect subheading2 formatting")
+    }
+    
+    func testSubheading3() {
+        let string = "===== Test ====="
+        let mutAttributedString = NSMutableAttributedString(string: string)
+        
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var openingRange = NSRange(location: 0, length: 0)
+        let openingAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &openingRange)
+        
+        var contentRange = NSRange(location: 0, length: 0)
+        let contentAttributes = mutAttributedString.attributes(at: 5, effectiveRange: &contentRange)
+        
+        var closingRange = NSRange(location: 0, length: 0)
+        let closingAttributes = mutAttributedString.attributes(at: 11, effectiveRange: &closingRange)
+        
+        // "=="
+        XCTAssertEqual(openingRange.location, 0, "Incorrect subheading3 formatting")
+        XCTAssertEqual(openingRange.length, 5, "Incorrect subheading3 formatting")
+        XCTAssertEqual(openingAttributes[.font] as! UIFont, fonts.subheading3Font, "Incorrect subheading3 formatting")
+        XCTAssertEqual(openingAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect subheading3 formatting")
+        
+        // " Test "
+        XCTAssertEqual(contentRange.location, 5, "Incorrect subheading3 formatting")
+        XCTAssertEqual(contentRange.length, 6, "Incorrect subheading3 formatting")
+        XCTAssertEqual(contentAttributes[.font] as! UIFont, fonts.subheading3Font, "Incorrect subheading3 formatting")
+        XCTAssertEqual(contentAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect subheading3 formatting")
+        
+        // "=="
+        XCTAssertEqual(closingRange.location, 11, "Incorrect subheading3 formatting")
+        XCTAssertEqual(closingRange.length, 5, "Incorrect subheading3 formatting")
+        XCTAssertEqual(closingAttributes[.font] as! UIFont, fonts.subheading3Font, "Incorrect subheading3 formatting")
+        XCTAssertEqual(closingAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect subheading3 formatting")
+    }
+    
+    func testSubeading4() {
+        let string = "====== Test ======"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+        
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var openingRange = NSRange(location: 0, length: 0)
+        let openingAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &openingRange)
+        
+        var contentRange = NSRange(location: 0, length: 0)
+        let contentAttributes = mutAttributedString.attributes(at: 6, effectiveRange: &contentRange)
+        
+        var closingRange = NSRange(location: 0, length: 0)
+        let closingAttributes = mutAttributedString.attributes(at: 12, effectiveRange: &closingRange)
+        
+        // "=="
+        XCTAssertEqual(openingRange.location, 0, "Incorrect subheading4 formatting")
+        XCTAssertEqual(openingRange.length, 6, "Incorrect subheading4 formatting")
+        XCTAssertEqual(openingAttributes[.font] as! UIFont, fonts.subheading4Font, "Incorrect subheading4 formatting")
+        XCTAssertEqual(openingAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect subheading4 formatting")
+        
+        // " Test "
+        XCTAssertEqual(contentRange.location, 6, "Incorrect subheading4 formatting")
+        XCTAssertEqual(contentRange.length, 6, "Incorrect subheading4 formatting")
+        XCTAssertEqual(contentAttributes[.font] as! UIFont, fonts.subheading4Font, "Incorrect subheading4 formatting")
+        XCTAssertEqual(contentAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect subheading4 formatting")
+        
+        // "=="
+        XCTAssertEqual(closingRange.location, 12, "Incorrect subheading4 formatting")
+        XCTAssertEqual(closingRange.length, 6, "Incorrect subheading4 formatting")
+        XCTAssertEqual(closingAttributes[.font] as! UIFont, fonts.subheading4Font, "Incorrect subheading4 formatting")
+        XCTAssertEqual(closingAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect subheading4 formatting")
+    }
+    
+    func testInlineHeading() {
+        let string = "Test == Test == Test"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+        
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var range = NSRange(location: 0, length: 0)
+        let attributes = mutAttributedString.attributes(at: 0, effectiveRange: &range)
+        
+        // "Test == Test == Test"
+        // Inline headings should not format - they must be on their own line.
+        XCTAssertEqual(range.location, 0, "Incorrect inline heading formatting")
+        XCTAssertEqual(range.length, 20, "Incorrect inline heading formatting")
+        XCTAssertEqual(attributes[.font] as! UIFont, fonts.baseFont, "Incorrect inline heading formatting")
+        XCTAssertEqual(attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect inline heading formatting")
     }
 }
