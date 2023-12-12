@@ -75,7 +75,6 @@ public class UITestHelperViewController: WKCanvasViewController {
                                                               accessibilityLabelButtonBoldSelected: CommonStrings.accessibilityLabelButtonBoldSelected,
                                                               accessibilityLabelButtonItalics: CommonStrings.accessibilityLabelButtonItalics,
                                                               accessibilityLabelButtonItalicsSelected: CommonStrings.accessibilityLabelButtonItalicsSelected,
-                                                              accessibilityLabelButtonClearFormatting: CommonStrings.accessibilityLabelButtonClearFormatting,
                                                               accessibilityLabelButtonShowMore: CommonStrings.accessibilityLabelButtonShowMore,
                                                               accessibilityLabelButtonComment: CommonStrings.accessibilityLabelButtonComment,
                                                               accessibilityLabelButtonCommentSelected: CommonStrings.accessibilityLabelButtonCommentSelected,
@@ -107,12 +106,10 @@ public class UITestHelperViewController: WKCanvasViewController {
             showMoreButton: SourceEditorAccessibilityIdentifiers.showMoreButton.rawValue,
             closeButton: SourceEditorAccessibilityIdentifiers.closeButton.rawValue,
             formatTextButton: SourceEditorAccessibilityIdentifiers.formatTextButton.rawValue,
-            formatHeadingButton: SourceEditorAccessibilityIdentifiers.formatHeadingButton.rawValue,
             expandingToolbar: SourceEditorAccessibilityIdentifiers.expandingToolbar.rawValue,
             highlightToolbar: SourceEditorAccessibilityIdentifiers.highlightToolbar.rawValue,
             findToolbar: SourceEditorAccessibilityIdentifiers.findButton.rawValue,
-            mainInputView: SourceEditorAccessibilityIdentifiers.mainInputView.rawValue,
-            headerSelectInputView: SourceEditorAccessibilityIdentifiers.headerSelectInputView.rawValue
+            inputView: SourceEditorAccessibilityIdentifiers.inputView.rawValue
           )
 
         let textAlignment: NSTextAlignment = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .right : .left

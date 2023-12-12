@@ -64,7 +64,9 @@ public class WKSourceEditorViewController: WKComponentViewController {
     // Input Views
     
     private lazy var editorInputView: UIView? = {
-        return WKEditorInputView(delegate: self)
+        let inputView = WKEditorInputView(delegate: self)
+        inputView.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.inputView
+        return inputView
     }()
     
     // Input Tracking Properties

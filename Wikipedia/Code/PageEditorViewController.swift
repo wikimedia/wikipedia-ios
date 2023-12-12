@@ -138,7 +138,6 @@ final class PageEditorViewController: UIViewController {
                                                               accessibilityLabelButtonBoldSelected: CommonStrings.accessibilityLabelButtonBoldSelected,
                                                               accessibilityLabelButtonItalics: CommonStrings.accessibilityLabelButtonItalics,
                                                               accessibilityLabelButtonItalicsSelected: CommonStrings.accessibilityLabelButtonItalicsSelected,
-                                                              accessibilityLabelButtonClearFormatting: CommonStrings.accessibilityLabelButtonClearFormatting,
                                                               accessibilityLabelButtonShowMore: CommonStrings.accessibilityLabelButtonShowMore,
                                                               accessibilityLabelButtonComment: CommonStrings.accessibilityLabelButtonComment,
                                                               accessibilityLabelButtonCommentSelected: CommonStrings.accessibilityLabelButtonCommentSelected,
@@ -320,10 +319,8 @@ enum SourceEditorAccessibilityIdentifiers: String {
     case showMoreButton = "Source Editor Show More Button"
     case closeButton = "Source Editor Close Button"
     case formatTextButton = "Source Editor Format Text Button"
-    case formatHeadingButton = "Source Editor Format Heading Button"
     case expandingToolbar = "Source Editor Expanding Toolbar"
     case highlightToolbar = "Source Editor Highlight Toolbar"
     case findToolbar = "Source Editor Find Toolbar"
-    case mainInputView = "Source Editor Main Input View"
-    case headerSelectInputView = "Source Editor Header Select Input View"
+    case inputView = "Source Editor Input View"
 }

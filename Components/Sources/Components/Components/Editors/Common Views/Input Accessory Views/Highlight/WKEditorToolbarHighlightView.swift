@@ -18,7 +18,6 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
     @IBOutlet private weak var citationButton: WKEditorToolbarButton!
     @IBOutlet private weak var linkButton: WKEditorToolbarButton!
     @IBOutlet private weak var templateButton: WKEditorToolbarButton!
-    @IBOutlet private weak var clearMarkupButton: WKEditorToolbarButton!
     @IBOutlet private weak var showMoreButton: WKEditorToolbarNavigatorButton!
     
     weak var delegate: WKEditorToolbarHighlightViewDelegate?
@@ -50,11 +49,6 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
         templateButton.setImage(WKSFSymbolIcon.for(symbol: .curlybraces), for: .normal)
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
         templateButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonTemplate
-
-        clearMarkupButton.setImage(WKIcon.clear, for: .normal)
-        clearMarkupButton.addTarget(self, action: #selector(tappedClearMarkup), for: .touchUpInside)
-        clearMarkupButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonClearFormatting
-
         showMoreButton.setImage(WKSFSymbolIcon.for(symbol: .plusCircleFill), for: .normal)
         showMoreButton.addTarget(self, action: #selector(tappedShowMore), for: .touchUpInside)
         showMoreButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.showMoreButton
