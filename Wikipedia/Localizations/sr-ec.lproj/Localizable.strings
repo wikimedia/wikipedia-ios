@@ -1001,6 +1001,8 @@
 "share-social-mention-format" = "„$1” преко Википедије: $2";
 "sort-by-recently-added-action" = "Недавно додато";
 "sort-by-title-action" = "Наслов";
+"source-editor-accessibility-label-bold" = "Додај подебљано форматирање";
+"source-editor-accessibility-label-clear-formatting" = "Уклони форматирање";
 "source-editor-accessibility-label-cursor-down" = "Помери курсор доле";
 "source-editor-accessibility-label-cursor-left" = "Помери курсор лево";
 "source-editor-accessibility-label-cursor-right" = "Помери курсор десно";
@@ -1014,6 +1016,7 @@
 "source-editor-accessibility-label-replace-text-field" = "Замени";
 "source-editor-accessibility-label-replace-type-all" = "Замени све";
 "source-editor-find-replace-all" = "Замени све";
+"source-editor-find-replace-single" = "Замени";
 "source-editor-find-replace-with" = "Замени са...";
 "source-editor-paragraph" = "Пасус";
 "source-editor-style" = "Стил";

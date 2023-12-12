@@ -318,7 +318,7 @@
 "empty-talk-page-title" = "A inn stad tacad foeura nan'mò di messagg di messag per quest utent chì";
 "error-generic-recovery-suggestion" = "In piasé, proeuvegh an'mò pussee tard";
 "error-unknown" = "A l'è capitad on error che a se conoss nò";
-"explore-another-random" = "A alter articol a cas";
+"explore-another-random" = "On alter articol a sort";
 "explore-because-you-read" = "Perchè t'hee lensgiud";
 "explore-because-you-read-footer" = "Di alter vos correlade pussee";
 "explore-continue-reading-heading" = "Và adree a lensger";
@@ -364,10 +364,10 @@
 "explore-nearby-sub-heading-your-location" = "La toa pozizzion";
 "explore-potd-heading" = "Imagin del dì";
 "explore-potd-sub-heading" = "Da Wikimedia Commons";
-"explore-random-article-heading" = "Vos a cas";
+"explore-random-article-heading" = "Vos a sort";
 "explore-random-article-sub-heading-from-language-wikipedia" = "Da Wikipedia in $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Da Wikipedia";
-"explore-randomizer" = "Ona pagina a cas";
+"explore-randomizer" = "Ona pagina a sort";
 "featured-widget-content-failure-for-date" = "Nanca ona vos in spegina l'è disponibil per questa data chì";
 "featured-widget-description" = "Squaja i vos pussee bei in su Wikipedia, catad foeura de la comunità tut i dì";
 "featured-widget-from-wikipedia" = "Da Wikipedia";
@@ -419,7 +419,7 @@
 "home-themes-action-title" = "Manesgia i preferenze";
 "home-title" = "Esplora";
 "icon-shortcut-nearby-title" = "Vos in del scircondari";
-"icon-shortcut-random-title" = "Vos a cas";
+"icon-shortcut-random-title" = "Vos a sort";
 "icon-shortcut-search-title" = "Cerca in su Wikipedia";
 "image-gallery-unknown-owner" = "Autor conossud de nissun.";
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipedia in $1";
