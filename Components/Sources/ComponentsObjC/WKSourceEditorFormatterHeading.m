@@ -110,7 +110,6 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     
     // Reset
-    [attributedString removeAttribute:WKSourceEditorCustomKeyColorOrange range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyFontHeading range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyFontSubheading1 range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyFontSubheading2 range:range];
