@@ -14,6 +14,8 @@ struct TopReadWidget: Widget {
         .configurationDisplayName(LocalizedStrings.widgetTitle)
         .description(LocalizedStrings.widgetDescription)
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .contentMarginsDisabled()
+        .containerBackgroundRemovable(false)
     }
 }
 
@@ -171,6 +173,7 @@ struct TopReadView: View {
                     .widgetURL(entry?.rankedElements.first?.articleURL)
             }
         }
+        .clearWidgetContainerBackground()
         .environment(\.layoutDirection, entry?.contentLayoutDirection ?? .leftToRight)
         .flipsForRightToLeftLayoutDirection(true)
     }
