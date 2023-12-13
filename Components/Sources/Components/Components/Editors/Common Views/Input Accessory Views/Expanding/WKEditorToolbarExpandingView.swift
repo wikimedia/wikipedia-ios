@@ -158,8 +158,10 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         templateButton.isSelected = selectionState.isHorizontalTemplate
         
         unorderedListButton.isSelected = selectionState.isBulletSingleList || selectionState.isBulletMultipleList
+        unorderedListButton.isEnabled = !selectionState.isNumberSingleList && !selectionState.isNumberMultipleList
         
         orderedListButton.isSelected = selectionState.isNumberSingleList || selectionState.isNumberMultipleList
+        orderedListButton.isEnabled = !selectionState.isBulletSingleList && !selectionState.isBulletMultipleList
         
         decreaseIndentionButton.isEnabled = false
         if selectionState.isBulletMultipleList || selectionState.isNumberMultipleList {

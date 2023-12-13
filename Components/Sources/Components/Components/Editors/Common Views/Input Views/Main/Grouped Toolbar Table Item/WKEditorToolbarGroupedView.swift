@@ -65,8 +65,10 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
         }
         
         unorderedListButton.isSelected = selectionState.isBulletSingleList || selectionState.isBulletMultipleList
+        unorderedListButton.isEnabled = !selectionState.isNumberSingleList && !selectionState.isNumberMultipleList
         
         orderedListButton.isSelected = selectionState.isNumberSingleList || selectionState.isNumberMultipleList
+        orderedListButton.isEnabled = !selectionState.isBulletSingleList && !selectionState.isBulletMultipleList
         
         decreaseIndentButton.isEnabled = false
         if selectionState.isBulletMultipleList || selectionState.isNumberMultipleList {
