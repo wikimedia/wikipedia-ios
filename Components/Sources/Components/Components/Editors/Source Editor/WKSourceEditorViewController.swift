@@ -312,19 +312,21 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
     }
     
     func toolbarExpandingViewDidTapUnorderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
-
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.listFormatter?.toggleListBullet(action: action, in: textView)
     }
     
     func toolbarExpandingViewDidTapOrderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
-
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.listFormatter?.toggleListNumber(action: action, in: textView)
     }
     
     func toolbarExpandingViewDidTapIncreaseIndent(toolbarView: WKEditorToolbarExpandingView) {
-
+        textFrameworkMediator.listFormatter?.tappedIncreaseIndent(currentSelectionState: selectionState(), textView: textView)
     }
     
     func toolbarExpandingViewDidTapDecreaseIndent(toolbarView: WKEditorToolbarExpandingView) {
-
+        textFrameworkMediator.listFormatter?.tappedDecreaseIndent(currentSelectionState: selectionState(), textView: textView)
     }
 }
 
@@ -377,19 +379,21 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     }
     
     func didTapBulletList(isSelected: Bool) {
-
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.listFormatter?.toggleListBullet(action: action, in: textView)
     }
     
     func didTapNumberList(isSelected: Bool) {
-
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.listFormatter?.toggleListNumber(action: action, in: textView)
     }
     
     func didTapIncreaseIndent() {
-
+        textFrameworkMediator.listFormatter?.tappedIncreaseIndent(currentSelectionState: selectionState(), textView: textView)
     }
     
     func didTapDecreaseIndent() {
-
+        textFrameworkMediator.listFormatter?.tappedDecreaseIndent(currentSelectionState: selectionState(), textView: textView)
     }
     
     func didTapClose() {
