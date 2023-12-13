@@ -13,6 +13,8 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
     @IBOutlet private weak var underlineButton: WKEditorToolbarButton!
     @IBOutlet private weak var strikethroughButton: WKEditorToolbarButton!
     
+    weak var delegate: WKEditorInputViewDelegate?
+    
     // MARK: - Lifecycle
     
     override func awakeFromNib() {
@@ -63,6 +65,7 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
         }
         
         unorderedListButton.isSelected = selectionState.isBulletSingleList || selectionState.isBulletMultipleList
+        
         orderedListButton.isSelected = selectionState.isNumberSingleList || selectionState.isNumberMultipleList
         
         decreaseIndentButton.isEnabled = false
@@ -83,15 +86,19 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
     // MARK: - Button Actions
     
     @objc private func tappedIncreaseIndent() {
+        delegate?.didTapIncreaseIndent()
     }
     
     @objc private func tappedDecreaseIndent() {
+        delegate?.didTapDecreaseIndent()
     }
     
     @objc private func tappedUnorderedList() {
+        delegate?.didTapBulletList(isSelected: unorderedListButton.isSelected)
     }
     
     @objc private func tappedOrderedList() {
+        delegate?.didTapNumberList(isSelected: orderedListButton.isSelected)
     }
     
     @objc private func tappedSuperscript() {

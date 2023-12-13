@@ -5,6 +5,10 @@ protocol WKEditorToolbarExpandingViewDelegate: AnyObject {
     func toolbarExpandingViewDidTapFormatText(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapFormatHeading(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapTemplate(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapUnorderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapOrderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapIncreaseIndent(toolbarView: WKEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapDecreaseIndent(toolbarView: WKEditorToolbarExpandingView)
 }
 
 class WKEditorToolbarExpandingView: WKEditorToolbarView {
@@ -154,6 +158,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         templateButton.isSelected = selectionState.isHorizontalTemplate
         
         unorderedListButton.isSelected = selectionState.isBulletSingleList || selectionState.isBulletMultipleList
+        
         orderedListButton.isSelected = selectionState.isNumberSingleList || selectionState.isNumberMultipleList
         
         decreaseIndentionButton.isEnabled = false
@@ -227,15 +232,19 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     }
 
     @objc private func tappedUnorderedList() {
+        delegate?.toolbarExpandingViewDidTapUnorderedList(toolbarView: self, isSelected: unorderedListButton.isSelected)
     }
 
     @objc private func tappedOrderedList() {
+        delegate?.toolbarExpandingViewDidTapOrderedList(toolbarView: self, isSelected: orderedListButton.isSelected)
     }
 
     @objc private func tappedDecreaseIndentation() {
+        delegate?.toolbarExpandingViewDidTapDecreaseIndent(toolbarView: self)
     }
 
     @objc private func tappedIncreaseIndentation() {
+        delegate?.toolbarExpandingViewDidTapIncreaseIndent(toolbarView: self)
     }
 
     @objc private func tappedCursorUp() {

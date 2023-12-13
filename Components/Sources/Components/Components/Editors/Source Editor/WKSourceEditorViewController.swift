@@ -310,6 +310,22 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
+    
+    func toolbarExpandingViewDidTapUnorderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
+
+    }
+    
+    func toolbarExpandingViewDidTapOrderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
+
+    }
+    
+    func toolbarExpandingViewDidTapIncreaseIndent(toolbarView: WKEditorToolbarExpandingView) {
+
+    }
+    
+    func toolbarExpandingViewDidTapDecreaseIndent(toolbarView: WKEditorToolbarExpandingView) {
+
+    }
 }
 
 // MARK: - WKEditorToolbarHighlightViewDelegate
@@ -365,14 +381,15 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     }
     
     func didTapNumberList(isSelected: Bool) {
+
     }
     
     func didTapIncreaseIndent() {
-        
+
     }
     
     func didTapDecreaseIndent() {
-        
+
     }
     
     func didTapClose() {
