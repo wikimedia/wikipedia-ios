@@ -344,6 +344,7 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
 // MARK: - WKEditorInputViewDelegate
 
 extension WKSourceEditorViewController: WKEditorInputViewDelegate {
+    
     func didTapBold(isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.boldItalicsFormatter?.toggleBoldFormatting(action: action, in: textView)
@@ -357,6 +358,21 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     func didTapTemplate(isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
+    }
+    
+    func didTapBulletList(isSelected: Bool) {
+
+    }
+    
+    func didTapNumberList(isSelected: Bool) {
+    }
+    
+    func didTapIncreaseIndent() {
+        
+    }
+    
+    func didTapDecreaseIndent() {
+        
     }
     
     func didTapClose() {
