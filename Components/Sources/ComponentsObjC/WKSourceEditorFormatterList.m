@@ -66,11 +66,9 @@ NSString * const WKSourceEditorCustomKeyContentNumberMultiple = @"WKSourceEditor
     [attributedString removeAttribute:WKSourceEditorCustomKeyContentBulletMultiple range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyContentNumberSingle range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyContentNumberMultiple range:range];
-    
-    [self enumerateAndHighlightAttributedString:attributedString range:range regex:self.bulletSingleRegex contentAttributes:self.bulletSingleContentAttributes];
-    [self enumerateAndHighlightAttributedString:attributedString range:range regex:self.bulletMultipleRegex contentAttributes:self.bulletMultipleContentAttributes];
-    [self enumerateAndHighlightAttributedString:attributedString range:range regex:self.numberSingleRegex contentAttributes:self.numberSingleContentAttributes];
-    [self enumerateAndHighlightAttributedString:attributedString range:range regex:self.numberMultipleRegex contentAttributes:self.numberMultipleContentAttributes];
+   
+    [self enumerateAndHighlightAttributedString:attributedString range:range singleRegex:self.bulletSingleRegex multipleRegex:self.bulletMultipleRegex singleContentAttributes:self.bulletSingleContentAttributes singleContentAttributes:self.bulletMultipleContentAttributes];
+    [self enumerateAndHighlightAttributedString:attributedString range:range singleRegex:self.numberSingleRegex multipleRegex:self.numberMultipleRegex singleContentAttributes:self.numberSingleContentAttributes singleContentAttributes:self.numberMultipleContentAttributes];
 }
 
 - (void)updateColors:(WKSourceEditorColors *)colors inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
@@ -118,8 +116,11 @@ NSString * const WKSourceEditorCustomKeyContentNumberMultiple = @"WKSourceEditor
 
 #pragma mark - Private
 
-- (void)enumerateAndHighlightAttributedString: (nonnull NSMutableAttributedString *)attributedString range:(NSRange)range regex:(NSRegularExpression *)regex contentAttributes:(NSDictionary<NSAttributedStringKey, id> *)contentAttributes {
-    [regex enumerateMatchesInString:attributedString.string
+- (void)enumerateAndHighlightAttributedString: (nonnull NSMutableAttributedString *)attributedString range:(NSRange)range singleRegex:(NSRegularExpression *)singleRegex multipleRegex:(NSRegularExpression *)multipleRegex singleContentAttributes:(NSDictionary<NSAttributedStringKey, id> *)singleContentAttributes singleContentAttributes:(NSDictionary<NSAttributedStringKey, id> *)multipleContentAttributes {
+    
+    NSMutableArray *multipleRanges = [[NSMutableArray alloc] init];
+    
+    [multipleRegex enumerateMatchesInString:attributedString.string
                                              options:0
                                                range:range
                                           usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
@@ -127,12 +128,46 @@ NSString * const WKSourceEditorCustomKeyContentNumberMultiple = @"WKSourceEditor
         NSRange orangeRange = [result rangeAtIndex:1];
         NSRange contentRange = [result rangeAtIndex:2];
         
+        if (fullMatch.location != NSNotFound) {
+            [multipleRanges addObject:[NSValue valueWithRange:fullMatch]];
+        }
+        
         if (orangeRange.location != NSNotFound) {
             [attributedString addAttributes:self.orangeAttributes range:orangeRange];
         }
         
         if (contentRange.location != NSNotFound) {
-            [attributedString addAttributes:contentAttributes range:contentRange];
+            [attributedString addAttributes:multipleContentAttributes range:contentRange];
+        }
+    }];
+    
+    [singleRegex enumerateMatchesInString:attributedString.string
+                                             options:0
+                                               range:range
+                                          usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+        NSRange fullMatch = [result rangeAtIndex:0];
+        NSRange orangeRange = [result rangeAtIndex:1];
+        NSRange contentRange = [result rangeAtIndex:2];
+        
+        BOOL alreadyMultiple = NO;
+        for (NSValue *value in multipleRanges) {
+            NSRange multipleRange = value.rangeValue;
+            if (NSIntersectionRange(multipleRange, fullMatch).length != 0) {
+                alreadyMultiple = YES;
+            }
+        }
+
+        if (alreadyMultiple) {
+            return;
+        }
+
+        
+        if (orangeRange.location != NSNotFound) {
+            [attributedString addAttributes:self.orangeAttributes range:orangeRange];
+        }
+        
+        if (contentRange.location != NSNotFound) {
+            [attributedString addAttributes:singleContentAttributes range:contentRange];
         }
     }];
 }
