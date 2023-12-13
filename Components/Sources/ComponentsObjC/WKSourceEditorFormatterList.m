@@ -125,13 +125,14 @@ NSString * const WKSourceEditorCustomKeyContentNumberMultiple = @"WKSourceEditor
                                           usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
         NSRange fullMatch = [result rangeAtIndex:0];
         NSRange orangeRange = [result rangeAtIndex:1];
+        NSRange contentRange = [result rangeAtIndex:2];
         
         if (orangeRange.location != NSNotFound) {
             [attributedString addAttributes:self.orangeAttributes range:orangeRange];
         }
         
-        if (fullMatch.location != NSNotFound) {
-            [attributedString addAttributes:contentAttributes range:fullMatch];
+        if (contentRange.location != NSNotFound) {
+            [attributedString addAttributes:contentAttributes range:contentRange];
         }
     }];
 }
@@ -147,7 +148,7 @@ NSString * const WKSourceEditorCustomKeyContentNumberMultiple = @"WKSourceEditor
             if (attrs[contentKey] != nil) {
                 isContentKey = YES;
             }
-        } else if (attributedString.length == range.location) {
+            
             // Edge case, check previous character in case we're at the end of the line and list isn't detected
             if ((attributedString.length > range.location - 1)) {
                 NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location-1 effectiveRange:nil];
