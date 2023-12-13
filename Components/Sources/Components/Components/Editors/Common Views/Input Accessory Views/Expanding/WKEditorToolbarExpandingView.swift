@@ -119,10 +119,12 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         decreaseIndentionButton.setImage(WKSFSymbolIcon.for(symbol: .decreaseIndent), for: .normal)
         decreaseIndentionButton.addTarget(self, action: #selector(tappedDecreaseIndentation), for: .touchUpInside)
         decreaseIndentionButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonDecreaseIndent
+        decreaseIndentionButton.isEnabled = false
 
         increaseIndentionButton.setImage(WKSFSymbolIcon.for(symbol: .increaseIndent), for: .normal)
         increaseIndentionButton.addTarget(self, action: #selector(tappedIncreaseIndentation), for: .touchUpInside)
         increaseIndentionButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonInceaseIndent
+        increaseIndentionButton.isEnabled = false
 
         cursorUpButton.setImage(WKIcon.chevronUp, for: .normal)
         cursorUpButton.addTarget(self, action: #selector(tappedCursorUp), for: .touchUpInside)
@@ -150,6 +152,24 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         }
         
         templateButton.isSelected = selectionState.isHorizontalTemplate
+        
+        unorderedListButton.isSelected = selectionState.isBulletSingleList || selectionState.isBulletMultipleList
+        orderedListButton.isSelected = selectionState.isNumberSingleList || selectionState.isNumberMultipleList
+        
+        decreaseIndentionButton.isEnabled = false
+        if selectionState.isBulletMultipleList || selectionState.isNumberMultipleList {
+            decreaseIndentionButton.isEnabled = true
+        }
+        
+        if selectionState.isBulletSingleList ||
+            selectionState.isBulletMultipleList ||
+            selectionState.isNumberSingleList ||
+            selectionState.isNumberMultipleList {
+            increaseIndentionButton.isEnabled = true
+        } else {
+            increaseIndentionButton.isEnabled = false
+        }
+        
         cursorRightButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonCursorRight
     }
 
