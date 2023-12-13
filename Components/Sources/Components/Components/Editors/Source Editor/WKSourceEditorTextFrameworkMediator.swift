@@ -17,11 +17,19 @@ fileprivate var needsTextKit2: Bool {
     let isBold: Bool
     let isItalics: Bool
     let isHorizontalTemplate: Bool
+    let isBulletSingleList: Bool
+    let isBulletMultipleList: Bool
+    let isNumberSingleList: Bool
+    let isNumberMultipleList: Bool
     
-    init(isBold: Bool, isItalics: Bool, isHorizontalTemplate: Bool) {
+    init(isBold: Bool, isItalics: Bool, isHorizontalTemplate: Bool, isBulletSingleList: Bool, isBulletMultipleList: Bool, isNumberSingleList: Bool, isNumberMultipleList: Bool) {
         self.isBold = isBold
         self.isItalics = isItalics
         self.isHorizontalTemplate = isHorizontalTemplate
+        self.isBulletSingleList = isBulletSingleList
+        self.isBulletMultipleList = isBulletMultipleList
+        self.isNumberSingleList = isNumberSingleList
+        self.isNumberMultipleList = isNumberMultipleList
     }
 }
 
@@ -151,24 +159,32 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         
         if needsTextKit2 {
             guard let textKit2Data = textkit2SelectionData(selectedDocumentRange: selectedDocumentRange) else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isBulletSingleList: false, isBulletMultipleList: false, isNumberSingleList: false, isNumberMultipleList: false)
             }
             
             let isBold = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isBoldIn: textKit2Data.paragraphSelectedRange) ?? false
             let isItalics = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isItalicsIn: textKit2Data.paragraphSelectedRange) ?? false
             let isHorizontalTemplate = templateFormatter?.attributedString(textKit2Data.paragraphAttributedString, isHorizontalTemplateIn: textKit2Data.paragraphSelectedRange) ?? false
+            let isBulletSingleList = listFormatter?.attributedString(textKit2Data.paragraphAttributedString, isBulletSingleIn: textKit2Data.paragraphSelectedRange) ?? false
+            let isBulletMultipleList = listFormatter?.attributedString(textKit2Data.paragraphAttributedString, isBulletMultipleIn: textKit2Data.paragraphSelectedRange) ?? false
+            let isNumberSingleList = listFormatter?.attributedString(textKit2Data.paragraphAttributedString, isNumberSingleIn: textKit2Data.paragraphSelectedRange) ?? false
+            let isNumberMultipleList = listFormatter?.attributedString(textKit2Data.paragraphAttributedString, isNumberMultipleIn: textKit2Data.paragraphSelectedRange) ?? false
             
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate)
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isBulletSingleList: isBulletSingleList, isBulletMultipleList: isBulletMultipleList, isNumberSingleList: isNumberSingleList, isNumberMultipleList: isNumberMultipleList)
         } else {
             guard let textKit1Storage else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isBulletSingleList: false, isBulletMultipleList: false, isNumberSingleList: false, isNumberMultipleList: false)
             }
                         
             let isBold = boldItalicsFormatter?.attributedString(textKit1Storage, isBoldIn: selectedDocumentRange) ?? false
             let isItalics = boldItalicsFormatter?.attributedString(textKit1Storage, isItalicsIn: selectedDocumentRange) ?? false
             let isHorizontalTemplate = templateFormatter?.attributedString(textKit1Storage, isHorizontalTemplateIn: selectedDocumentRange) ?? false
+            let isBulletSingleList = listFormatter?.attributedString(textKit1Storage, isBulletSingleIn: selectedDocumentRange) ?? false
+            let isBulletMultipleList = listFormatter?.attributedString(textKit1Storage, isBulletMultipleIn: selectedDocumentRange) ?? false
+            let isNumberSingleList = listFormatter?.attributedString(textKit1Storage, isNumberSingleIn: selectedDocumentRange) ?? false
+            let isNumberMultipleList = listFormatter?.attributedString(textKit1Storage, isNumberMultipleIn: selectedDocumentRange) ?? false
             
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate)
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isBulletSingleList: isBulletSingleList, isBulletMultipleList: isBulletMultipleList, isNumberSingleList: isNumberSingleList, isNumberMultipleList: isNumberMultipleList)
         }
     }
     
