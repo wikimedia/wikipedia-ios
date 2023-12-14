@@ -12,6 +12,7 @@
 // Author: Cwek
 // Author: Davidzdh
 // Author: Diskdance
+// Author: Dream Star.cn
 // Author: Endermoon
 // Author: Evesiesta
 // Author: FakeGreenHand
@@ -974,6 +975,9 @@
 "share-social-mention-format" = "“$1”通过维基百科：$2";
 "sort-by-recently-added-action" = "最近添加";
 "sort-by-title-action" = "标题";
+"source-editor-accessibility-label-replace-text-field" = "替换";
+"source-editor-find-replace-single" = "替换";
+"source-editor-style" = "样式";
 "table-of-contents-button-label" = "目录";
 "table-of-contents-close-accessibility-hint" = "关闭";
 "table-of-contents-close-accessibility-label" = "关闭目录";

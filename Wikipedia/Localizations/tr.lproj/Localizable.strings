@@ -642,7 +642,7 @@
 "no-internet-connection" = "İnternet bağlantısı yok";
 "no-internet-connection-article-reload" = "Bu maddenin daha yeni bir sürümü mevcut olabilir ancak internet bağlantısı olmadan yüklenemez";
 "no-internet-connection-article-reload-button" = "En son kaydedilen sürüme dön";
-"notifications-center-agent-description-from-format" = "$1 kaynağından";
+"notifications-center-agent-description-from-format" = "Gönderen $1";
 "notifications-center-alert" = "Uyarı";
 "notifications-center-applied-filters-accessibility-label" = "Bildirim Filtresi - uygulanan filtreler var";
 "notifications-center-applied-project-filters-accessibility-label" = "Proje Filtresi - filtre uygulanmış";
