@@ -11,8 +11,9 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics!
     var templateFormatter: WKSourceEditorFormatterTemplate!
     var headingFormatter: WKSourceEditorFormatterHeading!
+    var listFormatter: WKSourceEditorFormatterList!
     var formatters: [WKSourceEditorFormatter] {
-        return [baseFormatter, templateFormatter, boldItalicsFormatter, headingFormatter]
+        return [baseFormatter, templateFormatter, boldItalicsFormatter, headingFormatter, listFormatter]
     }
 
     override func setUpWithError() throws {
@@ -38,6 +39,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
         self.templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
         self.headingFormatter = WKSourceEditorFormatterHeading(colors: colors, fonts: fonts)
+        self.listFormatter = WKSourceEditorFormatterList(colors: colors, fonts: fonts)
     }
 
     override func tearDownWithError() throws {
@@ -977,5 +979,112 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(range.length, 20, "Incorrect inline heading formatting")
         XCTAssertEqual(attributes[.font] as! UIFont, fonts.baseFont, "Incorrect inline heading formatting")
         XCTAssertEqual(attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect inline heading formatting")
+    }
+    func testListSingleBullet() {
+        let string = "* Testing"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+        
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var bulletRange = NSRange(location: 0, length: 0)
+        let bulletAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &bulletRange)
+        
+        var textRange = NSRange(location: 0, length: 0)
+        let textAttributes = mutAttributedString.attributes(at: 1, effectiveRange: &textRange)
+        
+        // "*"
+        XCTAssertEqual(bulletRange.location, 0, "Incorrect list formatting")
+        XCTAssertEqual(bulletRange.length, 1, "Incorrect list formatting")
+        XCTAssertEqual(bulletAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect list formatting")
+        XCTAssertEqual(bulletAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect list formatting")
+        
+        // " Testing"
+        XCTAssertEqual(textRange.location, 1, "Incorrect list formatting")
+        XCTAssertEqual(textRange.length, 8, "Incorrect list formatting")
+        XCTAssertEqual(textAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect list formatting")
+        XCTAssertEqual(textAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect list formatting")
+    }
+    
+    func testListSingleNumber() {
+        let string = "# Testing"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+        
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var numberRange = NSRange(location: 0, length: 0)
+        let numberAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &numberRange)
+        
+        var textRange = NSRange(location: 0, length: 0)
+        let textAttributes = mutAttributedString.attributes(at: 1, effectiveRange: &textRange)
+        
+        // "*"
+        XCTAssertEqual(numberRange.location, 0, "Incorrect list formatting")
+        XCTAssertEqual(numberRange.length, 1, "Incorrect list formatting")
+        XCTAssertEqual(numberAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect list formatting")
+        XCTAssertEqual(numberAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect list formatting")
+        
+        // " Testing"
+        XCTAssertEqual(textRange.location, 1, "Incorrect list formatting")
+        XCTAssertEqual(textRange.length, 8, "Incorrect list formatting")
+        XCTAssertEqual(textAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect list formatting")
+        XCTAssertEqual(textAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect list formatting")
+    }
+    
+    func testListMultipleBulletNoSpace() {
+        let string = "***Testing"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+        
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var bulletRange = NSRange(location: 0, length: 0)
+        let bulletAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &bulletRange)
+        
+        var textRange = NSRange(location: 0, length: 0)
+        let textAttributes = mutAttributedString.attributes(at: 3, effectiveRange: &textRange)
+        
+        // "*"
+        XCTAssertEqual(bulletRange.location, 0, "Incorrect list formatting")
+        XCTAssertEqual(bulletRange.length, 3, "Incorrect list formatting")
+        XCTAssertEqual(bulletAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect list formatting")
+        XCTAssertEqual(bulletAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect list formatting")
+        
+        // " Testing"
+        XCTAssertEqual(textRange.location, 3, "Incorrect list formatting")
+        XCTAssertEqual(textRange.length, 7, "Incorrect list formatting")
+        XCTAssertEqual(textAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect list formatting")
+        XCTAssertEqual(textAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect list formatting")
+    }
+    
+    func testListMultipleNumberNoSpace() {
+        let string = "###Testing"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+        
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var numberRange = NSRange(location: 0, length: 0)
+        let numberAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &numberRange)
+        
+        var textRange = NSRange(location: 0, length: 0)
+        let textAttributes = mutAttributedString.attributes(at: 3, effectiveRange: &textRange)
+        
+        // "*"
+        XCTAssertEqual(numberRange.location, 0, "Incorrect list formatting")
+        XCTAssertEqual(numberRange.length, 3, "Incorrect list formatting")
+        XCTAssertEqual(numberAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect list formatting")
+        XCTAssertEqual(numberAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect list formatting")
+        
+        // " Testing"
+        XCTAssertEqual(textRange.location, 3, "Incorrect list formatting")
+        XCTAssertEqual(textRange.length, 7, "Incorrect list formatting")
+        XCTAssertEqual(textAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect list formatting")
+        XCTAssertEqual(textAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect list formatting")
     }
 }
