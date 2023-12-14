@@ -70,6 +70,7 @@ struct OnThisDayView: View {
         }
         .overlay(errorBox)
         .environment(\.layoutDirection, entry.isRTLLanguage ? .rightToLeft : .leftToRight)
+        .clearWidgetContainerBackground()
         .widgetURL(entry.contentURL)
     }
 
