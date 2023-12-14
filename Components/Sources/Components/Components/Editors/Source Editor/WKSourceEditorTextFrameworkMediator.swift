@@ -35,6 +35,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     private(set) var formatters: [WKSourceEditorFormatter] = []
     private(set) var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics?
     private(set) var templateFormatter: WKSourceEditorFormatterTemplate?
+    private(set) var referenceFormatter: WKSourceEditorFormatterReference?
     
     var isSyntaxHighlightingEnabled: Bool = true {
         didSet {
@@ -103,11 +104,14 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         
         let boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
         let templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
+        let referenceFormatter = WKSourceEditorFormatterReference(colors: colors, fonts: fonts)
         self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
                 templateFormatter,
-                boldItalicsFormatter]
+                boldItalicsFormatter,
+                referenceFormatter]
         self.boldItalicsFormatter = boldItalicsFormatter
         self.templateFormatter = templateFormatter
+        self.referenceFormatter = referenceFormatter
         
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
