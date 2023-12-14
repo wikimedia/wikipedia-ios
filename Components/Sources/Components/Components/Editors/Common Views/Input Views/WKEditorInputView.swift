@@ -7,6 +7,10 @@ protocol WKEditorInputViewDelegate: AnyObject {
     func didTapItalics(isSelected: Bool)
     func didTapTemplate(isSelected: Bool)
     func didTapHeading(type: WKEditorInputView.HeadingButtonType)
+    func didTapBulletList(isSelected: Bool)
+    func didTapNumberList(isSelected: Bool)
+    func didTapIncreaseIndent()
+    func didTapDecreaseIndent()
 }
 
 class WKEditorInputView: WKComponentView {
@@ -103,6 +107,7 @@ class WKEditorInputView: WKComponentView {
     
     private lazy var groupedToolbarView: WKEditorToolbarGroupedView = {
         let view = UINib(nibName: String(describing: WKEditorToolbarGroupedView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKEditorToolbarGroupedView
+        view.delegate = delegate
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
