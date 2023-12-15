@@ -49,6 +49,18 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
         strikethroughButton.setImage(WKSFSymbolIcon.for(symbol: .strikethrough), for: .normal)
         strikethroughButton.addTarget(self, action: #selector(tappedStrikethrough), for: .touchUpInside)
         strikethroughButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonStrikethrough
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)
+    }
+    
+    // MARK: - Notifications
+        
+    @objc private func updateButtonSelectionState(_ notification: NSNotification) {
+        guard let selectionState = notification.userInfo?[Notification.WKSourceEditorSelectionStateKey] as? WKSourceEditorSelectionState else {
+            return
+        }
+
+        strikethroughButton.isSelected = selectionState.isStrikethrough
     }
     
     // MARK: - Button Actions
