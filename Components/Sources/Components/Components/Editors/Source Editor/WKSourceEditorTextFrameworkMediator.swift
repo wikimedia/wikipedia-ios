@@ -113,6 +113,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
                 boldItalicsFormatter,
                 strikethroughFormatter]
         self.boldItalicsFormatter = boldItalicsFormatter
+        self.templateFormatter = templateFormatter
         self.strikethroughFormatter = strikethroughFormatter
         
         if needsTextKit2 {
