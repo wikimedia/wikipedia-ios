@@ -17,7 +17,7 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
     @IBOutlet private weak var boldButton: WKEditorToolbarButton!
     @IBOutlet private weak var italicsButton: WKEditorToolbarButton!
     @IBOutlet private weak var formatHeadingButton: WKEditorToolbarButton!
-    @IBOutlet private weak var citationButton: WKEditorToolbarButton!
+    @IBOutlet private weak var referenceButton: WKEditorToolbarButton!
     @IBOutlet private weak var linkButton: WKEditorToolbarButton!
     @IBOutlet private weak var templateButton: WKEditorToolbarButton!
     @IBOutlet private weak var clearMarkupButton: WKEditorToolbarButton!
@@ -46,9 +46,9 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
         formatHeadingButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.formatHeadingButton
         formatHeadingButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonFormatHeading
 
-        citationButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
-        citationButton.addTarget(self, action: #selector(tappedCitation), for: .touchUpInside)
-        citationButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonCitation
+        referenceButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
+        referenceButton.addTarget(self, action: #selector(tappedReference), for: .touchUpInside)
+        referenceButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonCitation
 
         linkButton.setImage(WKSFSymbolIcon.for(symbol: .link), for: .normal)
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
@@ -96,7 +96,7 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
         delegate?.toolbarHighlightViewDidTapFormatHeading(toolbarView: self)
     }
 
-    @objc private func tappedCitation() {
+    @objc private func tappedReference() {
     }
 
     @objc private func tappedLink() {
