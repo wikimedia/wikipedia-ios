@@ -13,6 +13,8 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
     @IBOutlet private weak var underlineButton: WKEditorToolbarButton!
     @IBOutlet private weak var strikethroughButton: WKEditorToolbarButton!
     
+    weak var delegate: WKEditorInputViewDelegate?
+    
     // MARK: - Lifecycle
     
     override func awakeFromNib() {
@@ -87,6 +89,7 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
     }
     
     @objc private func tappedStrikethrough() {
+        delegate?.didTapStrikethrough(isSelected: strikethroughButton.isSelected)
     }
     
 }
