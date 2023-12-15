@@ -6,7 +6,7 @@
 @property (nonatomic, strong) NSDictionary *refEmptyAttributes;
 @property (nonatomic, strong) NSDictionary *refContentAttributes;
 
-@property (nonatomic, strong) NSRegularExpression *refOpenAndCloseRegex;
+@property (nonatomic, strong) NSRegularExpression *refHorizontalRegex;
 @property (nonatomic, strong) NSRegularExpression *refOpenRegex;
 @property (nonatomic, strong) NSRegularExpression *refCloseRegex;
 @property (nonatomic, strong) NSRegularExpression *refEmptyRegex;
@@ -37,7 +37,7 @@ NSString * const WKSourceEditorCustomKeyContentReference = @"WKSourceEditorCusto
             WKSourceEditorCustomKeyContentReference: [NSNumber numberWithBool:YES]
         };
         
-        _refOpenAndCloseRegex = [[NSRegularExpression alloc] initWithPattern:@"(<ref(?:[^\\/>]+?)?>)(.*?)(<\\/ref>)" options:0 error:nil];
+        _refHorizontalRegex = [[NSRegularExpression alloc] initWithPattern:@"(<ref(?:[^\\/>]+?)?>)(.*?)(<\\/ref>)" options:0 error:nil];
         _refOpenRegex = [[NSRegularExpression alloc] initWithPattern:@"<ref(?:[^\\/>]+?)?>" options:0 error:nil];
         _refCloseRegex = [[NSRegularExpression alloc] initWithPattern:@"<\\/ref>" options:0 error:nil];
         _refEmptyRegex = [[NSRegularExpression alloc] initWithPattern:@"<ref[^>]+?\\/>" options:0 error:nil];
@@ -51,7 +51,7 @@ NSString * const WKSourceEditorCustomKeyContentReference = @"WKSourceEditorCusto
     // Reset
     [attributedString removeAttribute:WKSourceEditorCustomKeyContentReference range:range];
     
-    [self.refOpenAndCloseRegex enumerateMatchesInString:attributedString.string
+    [self.refHorizontalRegex enumerateMatchesInString:attributedString.string
                                     options:0
                                       range:range
                                  usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
@@ -134,7 +134,7 @@ NSString * const WKSourceEditorCustomKeyContentReference = @"WKSourceEditorCusto
 
 #pragma mark - Public
 
-- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isReferenceInRange:(NSRange)range {
+- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isHorizontalReferenceInRange:(NSRange)range {
     __block BOOL isContentKey = NO;
 
    if (range.length == 0) {
