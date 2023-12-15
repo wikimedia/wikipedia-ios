@@ -336,4 +336,44 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         mediator.listFormatter?.toggleListNumber(action: .remove, in: mediator.textView)
         XCTAssertEqual(mediator.textView.attributedText.string, "Test")
     }
+    
+    func testReferenceInsertAndRemove() throws {
+        let text = "One Two Three Four"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 4, length: 3)
+        mediator.referenceFormatter?.toggleReferenceFormatting(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One <ref>Two</ref> Three Four")
+        mediator.referenceFormatter?.toggleReferenceFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
+    }
+    
+    func testReferenceInsertAndRemoveCursor() throws {
+        let text = "One Two Three Four"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 4, length: 0)
+        mediator.referenceFormatter?.toggleReferenceFormatting(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One <ref> </ref>Two Three Four")
+        mediator.referenceFormatter?.toggleReferenceFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
+    }
+    
+    func testReferenceNamedRemoveAndInsert() throws {
+        let text = "One <ref name=\"testing\">Two</ref> Three Four"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 24, length: 3)
+        mediator.referenceFormatter?.toggleReferenceFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
+        mediator.referenceFormatter?.toggleReferenceFormatting(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One <ref>Two</ref> Three Four")
+    }
+    
+    func testReferenceNamedRemoveAndInsertCursor() throws {
+        let text = "One <ref name=\"testing\">Two</ref> Three Four"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 25, length: 0)
+        mediator.referenceFormatter?.toggleReferenceFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
+        mediator.referenceFormatter?.toggleReferenceFormatting(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One <ref>Two</ref> Three Four")
+    }
 }

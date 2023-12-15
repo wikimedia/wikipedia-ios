@@ -10,6 +10,7 @@
 #import "WKSourceEditorFormatterTemplate.h"
 #import "WKSourceEditorFormatterHeading.h"
 #import "WKSourceEditorFormatterList.h"
+#import "WKSourceEditorFormatterReference.h"
 #import "WKSourceEditorStorageDelegate.h"
 
 #endif /* Header_h */

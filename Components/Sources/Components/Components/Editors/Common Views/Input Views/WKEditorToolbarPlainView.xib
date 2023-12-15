@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -54,10 +53,10 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="boldButton" destination="Mxi-qd-n8q" id="ogj-sv-DXl"/>
-                <outlet property="citationButton" destination="trw-Yy-0zy" id="pdy-eU-RoJ"/>
                 <outlet property="commentButton" destination="l9y-JD-KgU" id="xTs-x7-YWl"/>
                 <outlet property="italicsButton" destination="T8g-md-cMv" id="Wgs-Ox-IVV"/>
                 <outlet property="linkButton" destination="KPn-fT-Zfd" id="NKj-cD-p3O"/>
+                <outlet property="referenceButton" destination="trw-Yy-0zy" id="pdy-eU-RoJ"/>
                 <outlet property="templateButton" destination="kDX-lu-C75" id="kRI-4g-1hv"/>
                 <outletCollection property="buttons" destination="Mxi-qd-n8q" collectionClass="NSMutableArray" id="aU6-0O-T1i"/>
                 <outletCollection property="buttons" destination="T8g-md-cMv" collectionClass="NSMutableArray" id="Irj-PI-yVo"/>

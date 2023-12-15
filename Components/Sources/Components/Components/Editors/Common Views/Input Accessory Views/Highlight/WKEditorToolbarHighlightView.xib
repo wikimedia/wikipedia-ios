@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -90,9 +89,9 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="boldButton" destination="r0e-89-g0a" id="mfE-Vs-Dsc"/>
-                <outlet property="citationButton" destination="ZgG-w8-2QU" id="hvW-xa-IWx"/>
                 <outlet property="italicsButton" destination="P53-Fl-mVx" id="jUq-dL-AwN"/>
                 <outlet property="linkButton" destination="ebk-UU-rSu" id="ypk-dd-WhU"/>
+                <outlet property="referenceButton" destination="ZgG-w8-2QU" id="hvW-xa-IWx"/>
                 <outlet property="showMoreButton" destination="S8f-CE-8I8" id="QMl-95-ws9"/>
                 <outlet property="stackView" destination="cO2-kj-WCI" id="qel-pE-Y96"/>
                 <outlet property="templateButton" destination="AZa-84-Qdg" id="1Qq-oT-Pfn"/>
