@@ -156,13 +156,21 @@ NSString * const WKSourceEditorCustomKeyContentReference = @"WKSourceEditorCusto
        }
 
    } else {
+       __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
        [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-               if ((attrs[WKSourceEditorCustomKeyContentReference] != nil) &&
-                   (loopRange.location == range.location && loopRange.length == range.length)) {
-                   isContentKey = YES;
-                   stop = YES;
+           if (attrs[WKSourceEditorCustomKeyContentReference] != nil) {
+               if (unionRange.location == NSNotFound) {
+                   unionRange = loopRange;
+               } else {
+                   unionRange = NSUnionRange(unionRange, loopRange);
                }
+               stop = YES;
+           }
        }];
+       
+        if (NSEqualRanges(unionRange, range)) {
+            isContentKey = YES;
+        }
    }
 
    return isContentKey;
