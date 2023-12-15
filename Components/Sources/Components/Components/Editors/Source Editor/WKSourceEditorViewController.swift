@@ -359,6 +359,9 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
     
+    func didTapStrikethrough(isSelected: Bool) {
+    }
+    
     func didTapClose() {
         inputViewType = nil
         let isRangeSelected = textView.selectedRange.length > 0
