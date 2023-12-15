@@ -312,7 +312,8 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
     }
     
     func toolbarExpandingViewDidTapReference(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
-        
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
     }
 }
 
@@ -336,6 +337,8 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
     }
     
     func toolbarHighlightViewDidTapReference(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
     }
     
     func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView) {
@@ -368,7 +371,8 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     }
     
     func didTapReference(isSelected: Bool) {
-        
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
     }
     
     func didTapClose() {
