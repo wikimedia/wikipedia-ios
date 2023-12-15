@@ -121,4 +121,36 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 1, length: 0))
         XCTAssertFalse(selectionStates1.isHorizontalTemplate)
     }
+    
+    func testReferenceSelectionState() throws {
+        let text = "Testing <ref>Testing</ref> Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 13, length: 7))
+        XCTAssertTrue(selectionStates.isHorizontalReference)
+    }
+    
+    func testReferenceSelectionStateCursor() throws {
+        let text = "Testing <ref>Testing</ref> Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 16, length: 0))
+        XCTAssertTrue(selectionStates.isHorizontalReference)
+    }
+    
+    func testReferenceNamedSelectionState() throws {
+        let text = "Testing <ref name=\"testing\">Testing</ref> Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 28, length: 7))
+        XCTAssertTrue(selectionStates.isHorizontalReference)
+    }
+    
+    func testReferenceNamedSelectionStateCursor() throws {
+        let text = "Testing <ref name=\"testing\">Testing</ref> Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 31, length: 0))
+        XCTAssertTrue(selectionStates.isHorizontalReference)
+    }
 }
