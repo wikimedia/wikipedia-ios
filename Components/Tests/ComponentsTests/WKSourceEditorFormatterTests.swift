@@ -618,7 +618,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(refOpeningRange.location, 0, "Incorrect ref formatting")
         XCTAssertEqual(refOpeningRange.length, 5, "Incorrect ref formatting")
         XCTAssertEqual(refOpeningAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect ref formatting")
-        XCTAssertEqual(refOpeningAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect ref formatting")
+        XCTAssertEqual(refOpeningAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect ref formatting")
         
         // "{{cite web |url=https://en.wikipedia.org |title=English Wikipedia}}"
         XCTAssertEqual(templateRange.location, 5, "Incorrect template formatting")
@@ -630,7 +630,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(refClosingRange.location, 72, "Incorrect ref formatting")
         XCTAssertEqual(refClosingRange.length, 6, "Incorrect ref formatting")
         XCTAssertEqual(refClosingAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect ref formatting")
-        XCTAssertEqual(refClosingAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect ref formatting")
+        XCTAssertEqual(refClosingAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect ref formatting")
     }
     
     func testVerticalStartTemplate() {
@@ -710,7 +710,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(refRange.location, 2, "Incorrect ref formatting")
         XCTAssertEqual(refRange.length, 6, "Incorrect ref formatting")
         XCTAssertEqual(refAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect ref formatting")
-        XCTAssertEqual(refAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect ref formatting")
+        XCTAssertEqual(refAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect ref formatting")
     }
     
     func testOpenAndClosingReference() {
