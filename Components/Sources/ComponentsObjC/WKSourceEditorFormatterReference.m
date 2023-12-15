@@ -4,6 +4,7 @@
 @interface WKSourceEditorFormatterReference ()
 @property (nonatomic, strong) NSDictionary *refAttributes;
 @property (nonatomic, strong) NSDictionary *refEmptyAttributes;
+@property (nonatomic, strong) NSDictionary *refContentAttributes;
 
 @property (nonatomic, strong) NSRegularExpression *refOpenAndCloseRegex;
 @property (nonatomic, strong) NSRegularExpression *refOpenRegex;
@@ -12,6 +13,13 @@
 @end
 
 @implementation WKSourceEditorFormatterReference
+
+#pragma mark - Custom Attributed String Keys
+
+NSString * const WKSourceEditorCustomKeyContentReference = @"WKSourceEditorCustomKeyContentReference";
+
+#pragma mark - Overrides
+
 - (instancetype)initWithColors:(WKSourceEditorColors *)colors fonts:(WKSourceEditorFonts *)fonts {
     self = [super initWithColors:colors fonts:fonts];
     if (self) {
@@ -25,6 +33,10 @@
             WKSourceEditorCustomKeyColorGreen: [NSNumber numberWithBool:YES]
         };
         
+        _refContentAttributes = @{
+            WKSourceEditorCustomKeyContentReference: [NSNumber numberWithBool:YES]
+        };
+        
         _refOpenAndCloseRegex = [[NSRegularExpression alloc] initWithPattern:@"(<ref(?:[^\\/>]+?)?>)(.*?)(<\\/ref>)" options:0 error:nil];
         _refOpenRegex = [[NSRegularExpression alloc] initWithPattern:@"<ref(?:[^\\/>]+?)?>" options:0 error:nil];
         _refCloseRegex = [[NSRegularExpression alloc] initWithPattern:@"<\\/ref>" options:0 error:nil];
@@ -34,9 +46,10 @@
     return self;
 }
 
-#pragma mark - Overrides
-
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
+    
+    // Reset
+    [attributedString removeAttribute:WKSourceEditorCustomKeyContentReference range:range];
     
     [self.refOpenAndCloseRegex enumerateMatchesInString:attributedString.string
                                     options:0
@@ -49,6 +62,10 @@
         
         if (openingRange.location != NSNotFound) {
             [attributedString addAttributes:self.refAttributes range:openingRange];
+        }
+        
+        if (contentRange.location != NSNotFound) {
+            [attributedString addAttributes:self.refContentAttributes range:contentRange];
         }
         
         if (closingRange.location != NSNotFound) {
@@ -114,4 +131,41 @@
 - (void)updateFonts:(WKSourceEditorFonts *)fonts inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     // No special font handling needed for references
 }
+
+#pragma mark - Public
+
+- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isReferenceInRange:(NSRange)range {
+    __block BOOL isContentKey = NO;
+
+   if (range.length == 0) {
+
+       if (attributedString.length > range.location) {
+           NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+
+           if (attrs[WKSourceEditorCustomKeyContentReference] != nil) {
+               isContentKey = YES;
+           } else {
+               // Edge case, check previous character if we are up against closing string
+               if (attrs[WKSourceEditorCustomKeyColorGreen]) {
+                   attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
+                   if (attrs[WKSourceEditorCustomKeyContentReference] != nil) {
+                       isContentKey = YES;
+                   }
+               }
+           }
+       }
+
+   } else {
+       [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
+               if ((attrs[WKSourceEditorCustomKeyContentReference] != nil) &&
+                   (loopRange.location == range.location && loopRange.length == range.length)) {
+                   isContentKey = YES;
+                   stop = YES;
+               }
+       }];
+   }
+
+   return isContentKey;
+}
+
 @end
