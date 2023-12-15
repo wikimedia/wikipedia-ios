@@ -360,6 +360,8 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     }
     
     func didTapStrikethrough(isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.strikethroughFormatter?.toggleStrikethroughFormatting(action: action, in: textView)
     }
     
     func didTapClose() {
