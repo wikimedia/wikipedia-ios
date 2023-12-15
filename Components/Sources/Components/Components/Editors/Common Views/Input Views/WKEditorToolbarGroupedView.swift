@@ -58,7 +58,7 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
     }
     
     // MARK: - Notifications
-    
+
     @objc private func updateButtonSelectionState(_ notification: NSNotification) {
         guard let selectionState = notification.userInfo?[Notification.WKSourceEditorSelectionStateKey] as? WKSourceEditorSelectionState else {
             return
@@ -83,6 +83,9 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
         } else {
             increaseIndentButton.isEnabled = false
         }
+        
+        strikethroughButton.isSelected = selectionState.isStrikethrough
+
     }
     
     // MARK: - Button Actions
@@ -113,6 +116,7 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
     }
     
     @objc private func tappedStrikethrough() {
+        delegate?.didTapStrikethrough(isSelected: strikethroughButton.isSelected)
     }
     
 }

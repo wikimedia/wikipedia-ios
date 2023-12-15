@@ -14,6 +14,8 @@ struct OnThisDayWidget: Widget {
         .configurationDisplayName(CommonStrings.onThisDayTitle)
         .description(WMFLocalizedString("widget-onthisday-description", value: "Explore what happened on this day in history.", comment: "Description for 'On this day' view in iOS widget gallery"))
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .contentMarginsDisabled()
+        .containerBackgroundRemovable(false)
     }
 }
 
