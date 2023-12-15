@@ -151,6 +151,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         }
         
         templateButton.isSelected = selectionState.isHorizontalTemplate
+        referenceButton.isSelected = selectionState.isHorizontalReference
         cursorRightButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonCursorRight
     }
 

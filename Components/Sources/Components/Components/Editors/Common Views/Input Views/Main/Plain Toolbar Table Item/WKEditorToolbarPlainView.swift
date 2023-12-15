@@ -55,6 +55,7 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
         boldButton.isSelected = selectionState.isBold
         italicsButton.isSelected = selectionState.isItalics
         templateButton.isSelected = selectionState.isHorizontalTemplate
+        referenceButton.isSelected = selectionState.isHorizontalReference
     }
     
     // MARK: Button Actions
