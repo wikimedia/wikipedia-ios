@@ -5,6 +5,7 @@ protocol WKEditorToolbarExpandingViewDelegate: AnyObject {
     func toolbarExpandingViewDidTapFormatText(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapFormatHeading(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapTemplate(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapReference(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
 }
 
 class WKEditorToolbarExpandingView: WKEditorToolbarView {
@@ -201,6 +202,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     }
 
     @objc private func tappedReference() {
+        delegate?.toolbarExpandingViewDidTapReference(toolbarView: self, isSelected: referenceButton.isSelected)
     }
 
     @objc private func tappedLink() {

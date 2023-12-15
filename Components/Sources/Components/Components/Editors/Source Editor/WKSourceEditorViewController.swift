@@ -310,6 +310,10 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
+    
+    func toolbarExpandingViewDidTapReference(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
+        
+    }
 }
 
 // MARK: - WKEditorToolbarHighlightViewDelegate
@@ -331,6 +335,9 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
     
+    func toolbarHighlightViewDidTapReference(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
+    }
+    
     func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView) {
         inputViewType = .main
         postUpdateButtonSelectionStatesNotification(withDelay: true)
@@ -344,6 +351,7 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
 // MARK: - WKEditorInputViewDelegate
 
 extension WKSourceEditorViewController: WKEditorInputViewDelegate {
+    
     func didTapBold(isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.boldItalicsFormatter?.toggleBoldFormatting(action: action, in: textView)
@@ -357,6 +365,10 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     func didTapTemplate(isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
+    }
+    
+    func didTapReference(isSelected: Bool) {
+        
     }
     
     func didTapClose() {

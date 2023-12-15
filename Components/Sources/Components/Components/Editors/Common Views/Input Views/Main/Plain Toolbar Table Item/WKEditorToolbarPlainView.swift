@@ -68,6 +68,7 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
     }
 
     @objc private func tappedReference() {
+        delegate?.didTapReference(isSelected: referenceButton.isSelected)
     }
 
     @objc private func tappedTemplate() {
