@@ -279,6 +279,33 @@ extension WMFAppViewController: WKWatchlistDelegate {
     public func watchlistEmptyViewUserDidTapSearch() {
         NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
     }
+
+    public func watchlistUserDidTapAddLanguage(from viewController: UIViewController, viewModel: WKWatchlistFilterViewModel) {
+        displayAddLanguageSettingsForWatchlistFilters(from: viewController) {
+            // TODO
+            // Handle reloading filter view model projects when changing languages
+            viewModel.reload()
+        }
+    }
+
+    private func displayAddLanguageSettingsForWatchlistFilters(from viewController: UIViewController, completion: @escaping () -> Void) {
+        let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
+        languagesVC.showExploreFeedCustomizationSettings = false
+        languagesVC.userDismissalCompletionBlock = completion
+        languagesVC.apply(self.theme)
+        let navVC = WMFThemeableNavigationController(rootViewController: languagesVC, theme: theme)
+        viewController.present(navVC, animated: true, completion: nil)
+
+        /*
+        // TODO
+        // Go straight to modal for adding language, handle selecting new language
+
+        let languagesController = WMFLanguagesViewController(nibName: "WMFLanguagesViewController", bundle: nil)
+        languagesController.title = CommonStrings.wikipediaLanguages
+        viewController.present(languagesController, animated: true)
+         */
+    }
+
 }
 
 extension WMFAppViewController: WKWatchlistLoggingDelegate {

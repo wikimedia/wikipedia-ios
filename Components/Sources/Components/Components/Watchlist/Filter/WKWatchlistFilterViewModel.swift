@@ -81,7 +81,8 @@ public final class WKWatchlistFilterViewModel {
     weak var loggingDelegate: WKWatchlistLoggingDelegate?
     private let dataController = WKWatchlistDataController()
     let overrideUserInterfaceStyle: UIUserInterfaceStyle
-    
+	var addLanguageAction: (() -> Void)?
+
     // MARK: - Public
 
     public init(localizedStrings: LocalizedStrings, overrideUserInterfaceStyle: UIUserInterfaceStyle, loggingDelegate: WKWatchlistLoggingDelegate?) {
@@ -109,6 +110,10 @@ public final class WKWatchlistFilterViewModel {
         ])
     }
     
+	public func reload() {
+		// TODO
+	}
+
     func saveNewFilterSettings() {
         let data = generateDataForNewFilterSettings()
         
