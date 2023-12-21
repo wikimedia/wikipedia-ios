@@ -247,39 +247,43 @@ class ViewControllerRouter: NSObject {
         localizedProjectNames[.wikidata] = WikimediaProject.wikidata.projectName(shouldReturnCodedFormat: false)
         localizedProjectNames[.commons] = WikimediaProject.commons.projectName(shouldReturnCodedFormat: false)
         
-        let localizedStrings = WKWatchlistFilterViewModel.LocalizedStrings(title: CommonStrings.watchlistFilter,
-                                                                                          doneTitle: CommonStrings.doneTitle,
-                                                                                          localizedProjectNames: localizedProjectNames,
-                                                                                          wikimediaProjectsHeader: CommonStrings.wikimediaProjectsHeader,
-                                                                                          wikipediasHeader: CommonStrings.wikipediasHeader,
-                                                                                          commonAll: CommonStrings.filterOptionsAll,
-                                                                                          latestRevisionsHeader: CommonStrings.watchlistFilterLatestRevisionsHeader,
-                                                                                          latestRevisionsLatestRevision: CommonStrings.watchlistFilterLatestRevisionsOptionLatestRevision,
-                                                                                          latestRevisionsNotLatestRevision: CommonStrings.watchlistFilterLatestRevisionsOptionNotTheLatestRevision,
-                                                                                          watchlistActivityHeader: CommonStrings.watchlistFilterActivityHeader,
-                                                                                          watchlistActivityUnseenChanges: CommonStrings.watchlistFilterActivityOptionUnseenChanges,
-                                                                                          watchlistActivitySeenChanges: CommonStrings.watchlistFilterActivityOptionSeenChanges,
-                                                                                          automatedContributionsHeader: CommonStrings.watchlistFilterAutomatedContributionsHeader,
-                                                                                          automatedContributionsBot: CommonStrings.watchlistFilterAutomatedContributionsOptionBot,
-                                                                                          automatedContributionsHuman: CommonStrings.watchlistFilterAutomatedContributionsOptionHuman,
-                                                                                          significanceHeader: CommonStrings.watchlistFilterSignificanceHeader,
-                                                                                          significanceMinorEdits: CommonStrings.watchlistFilterSignificanceOptionMinorEdits,
-                                                                                          significanceNonMinorEdits: CommonStrings.watchlistFilterSignificanceOptionNonMinorEdits,
-                                                                                          userRegistrationHeader: CommonStrings.watchlistFilterUserRegistrationHeader,
-                                                                                          userRegistrationUnregistered: CommonStrings.watchlistFilterUserRegistrationOptionUnregistered,
-                                                                                          userRegistrationRegistered: CommonStrings.watchlistFilterUserRegistrationOptionRegistered,
-                                                                                          typeOfChangeHeader: CommonStrings.watchlistFilterTypeOfChangeHeader,
-                                                                                          typeOfChangePageEdits: CommonStrings.watchlistFilterTypeOfChangeOptionPageEdits,
-                                                                                          typeOfChangePageCreations: CommonStrings.watchlistFilterTypeOfChangeOptionPageCreations,
-                                                                                          typeOfChangeCategoryChanges: CommonStrings.watchlistFilterTypeOfChangeOptionCategoryChanges,
-                                                                                          typeOfChangeWikidataEdits: CommonStrings.watchlistFilterTypeOfChangeOptionWikidataEdits,
-                                                                                          typeOfChangeLoggedActions: CommonStrings.watchlistFilterTypeOfChangeOptionLoggedActions)
-        
+        let localizedStrings = WKWatchlistFilterViewModel.LocalizedStrings(
+            title: CommonStrings.watchlistFilter,
+            doneTitle: CommonStrings.doneTitle,
+            localizedProjectNames: localizedProjectNames,
+            wikimediaProjectsHeader: CommonStrings.wikimediaProjectsHeader,
+            wikipediasHeader: CommonStrings.wikipediasHeader,
+            commonAll: CommonStrings.filterOptionsAll,
+            latestRevisionsHeader: CommonStrings.watchlistFilterLatestRevisionsHeader,
+            latestRevisionsLatestRevision: CommonStrings.watchlistFilterLatestRevisionsOptionLatestRevision,
+            latestRevisionsNotLatestRevision: CommonStrings.watchlistFilterLatestRevisionsOptionNotTheLatestRevision,
+            watchlistActivityHeader: CommonStrings.watchlistFilterActivityHeader,
+            watchlistActivityUnseenChanges: CommonStrings.watchlistFilterActivityOptionUnseenChanges,
+            watchlistActivitySeenChanges: CommonStrings.watchlistFilterActivityOptionSeenChanges,
+            automatedContributionsHeader: CommonStrings.watchlistFilterAutomatedContributionsHeader,
+            automatedContributionsBot: CommonStrings.watchlistFilterAutomatedContributionsOptionBot,
+            automatedContributionsHuman: CommonStrings.watchlistFilterAutomatedContributionsOptionHuman,
+            significanceHeader: CommonStrings.watchlistFilterSignificanceHeader,
+            significanceMinorEdits: CommonStrings.watchlistFilterSignificanceOptionMinorEdits,
+            significanceNonMinorEdits: CommonStrings.watchlistFilterSignificanceOptionNonMinorEdits,
+            userRegistrationHeader: CommonStrings.watchlistFilterUserRegistrationHeader,
+            userRegistrationUnregistered: CommonStrings.watchlistFilterUserRegistrationOptionUnregistered,
+            userRegistrationRegistered: CommonStrings.watchlistFilterUserRegistrationOptionRegistered,
+            typeOfChangeHeader: CommonStrings.watchlistFilterTypeOfChangeHeader,
+            typeOfChangePageEdits: CommonStrings.watchlistFilterTypeOfChangeOptionPageEdits,
+            typeOfChangePageCreations: CommonStrings.watchlistFilterTypeOfChangeOptionPageCreations,
+            typeOfChangeCategoryChanges: CommonStrings.watchlistFilterTypeOfChangeOptionCategoryChanges,
+            typeOfChangeWikidataEdits: CommonStrings.watchlistFilterTypeOfChangeOptionWikidataEdits,
+            typeOfChangeLoggedActions: CommonStrings.watchlistFilterTypeOfChangeOptionLoggedActions,
+            addLanguage: WMFLocalizedString("watchlist-filters-add-language", value:"Add language...", comment: "Title for button in watchlist filter view to add additional languages to watchlist view.")
+        )
+
         var overrideUserInterfaceStyle: UIUserInterfaceStyle = .unspecified
         let themeName = UserDefaults.standard.themeName
         if !Theme.isDefaultThemeName(themeName) {
             overrideUserInterfaceStyle = WKAppEnvironment.current.theme.userInterfaceStyle
         }
+
         return WKWatchlistFilterViewModel(localizedStrings: localizedStrings, overrideUserInterfaceStyle: overrideUserInterfaceStyle, loggingDelegate: appViewController)
     }
     
