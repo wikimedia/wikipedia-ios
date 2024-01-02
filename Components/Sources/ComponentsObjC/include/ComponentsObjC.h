@@ -7,6 +7,8 @@
 #import "WKSourceEditorFormatter.h"
 #import "WKSourceEditorFormatterBase.h"
 #import "WKSourceEditorFormatterBoldItalics.h"
+#import "WKSourceEditorFormatterUnderline.h"
+#import "WKSourceEditorFormatterSubscript.h"
 #import "WKSourceEditorFormatterTemplate.h"
 #import "WKSourceEditorStorageDelegate.h"
 
