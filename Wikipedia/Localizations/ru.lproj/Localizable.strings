@@ -1053,6 +1053,7 @@
 "share-social-mention-format" = "«$1» в Википедии: $2";
 "sort-by-recently-added-action" = "Недавно добавленный";
 "sort-by-title-action" = "Заголовок";
+"source-editor-accessibility-label-find-text-field" = "Найти";
 "table-of-contents-button-label" = "Содержание";
 "table-of-contents-close-accessibility-hint" = "Закрыть";
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";

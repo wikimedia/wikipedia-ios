@@ -768,7 +768,7 @@
 "places-no-saved-articles-have-location" = "您保存的条目均没有位置信息";
 "places-search-articles-that-match" = "$1匹配“$2”";
 "places-search-default-text" = "搜索地点";
-"places-search-did-you-mean" = "您的意思是$1么？";
+"places-search-did-you-mean" = "您是想搜索$1吗？";
 "places-search-recently-searched-header" = "最近搜索";
 "places-search-saved-articles" = "所有保存的条目";
 "places-search-suggested-searches-header" = "建议搜索";
@@ -912,7 +912,7 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "取消保存{{PLURAL:$1|条目}}么？";
 "search-button-accessibility-label" = "搜索维基百科";
 "search-clear-title" = "清空";
-"search-did-you-mean" = "您的意思是$1么？";
+"search-did-you-mean" = "您是想搜索$1吗？";
 "search-field-placeholder-text" = "搜索维基百科";
 "search-reading-list-placeholder-text" = "搜索阅读列表";
 "search-recent-clear-cancel" = "取消";
