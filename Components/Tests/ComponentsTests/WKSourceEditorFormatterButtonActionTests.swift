@@ -122,4 +122,14 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         mediator.templateFormatter?.toggleTemplateFormatting(action: .remove, in: mediator.textView)
         XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
+    
+    func testStrikethroughInsertAndRemove() throws {
+        let text = "One Two Three Four"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 4, length:3)
+        mediator.strikethroughFormatter?.toggleStrikethroughFormatting(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One <s>Two</s> Three Four")
+        mediator.strikethroughFormatter?.toggleStrikethroughFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
+    }
 }

@@ -29,9 +29,12 @@
 
 - (void)addSyntaxHighlightingToAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     
-    // reset old attributes
+    // reset base attributes
     [attributedString removeAttribute:NSFontAttributeName range:range];
     [attributedString removeAttribute:NSForegroundColorAttributeName range:range];
+    
+    // reset shared custom attributes
+    [attributedString removeAttribute:WKSourceEditorCustomKeyColorGreen range:range];
     
     [attributedString addAttributes:self.attributes range:range];
 }

@@ -5,11 +5,20 @@ class WKEditorToolbarGroupedCell: UITableViewCell {
     
     // MARK: - Properties
     
-    private lazy var componentView: UIView = {
-        let view = UINib(nibName: String(describing: WKEditorToolbarGroupedView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! UIView
+    private lazy var componentView: WKEditorToolbarGroupedView = {
+        let view = UINib(nibName: String(describing: WKEditorToolbarGroupedView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKEditorToolbarGroupedView
         
         return view
     }()
+    
+    var delegate: WKEditorInputViewDelegate? {
+        get {
+            return componentView.delegate
+        }
+        set {
+            componentView.delegate = newValue
+        }
+    }
     
     // MARK: - Lifecycle
     

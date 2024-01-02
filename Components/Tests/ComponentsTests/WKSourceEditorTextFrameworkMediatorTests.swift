@@ -121,4 +121,28 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 1, length: 0))
         XCTAssertFalse(selectionStates1.isHorizontalTemplate)
     }
+    
+    func testStrikethroughSelectionState() throws {
+        let text = "Testing <s>Strikethrough</s> Testing."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 0, length: 7))
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 11, length: 13))
+        let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 29, length: 7))
+        XCTAssertFalse(selectionStates1.isStrikethrough)
+        XCTAssertTrue(selectionStates2.isStrikethrough)
+        XCTAssertFalse(selectionStates3.isStrikethrough)
+    }
+    
+    func testStrikethroughSelectionStateCursor() throws {
+        let text = "Testing <s>Strikethrough</s> Testing."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 3, length: 0))
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 17, length: 0))
+        let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 33, length: 0))
+        XCTAssertFalse(selectionStates1.isStrikethrough)
+        XCTAssertTrue(selectionStates2.isStrikethrough)
+        XCTAssertFalse(selectionStates3.isStrikethrough)
+    }
 }
