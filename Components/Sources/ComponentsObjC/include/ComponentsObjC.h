@@ -9,6 +9,7 @@
 #import "WKSourceEditorFormatterBoldItalics.h"
 #import "WKSourceEditorFormatterUnderline.h"
 #import "WKSourceEditorFormatterSubscript.h"
+#import "WKSourceEditorFormatterSuperscript.h"
 #import "WKSourceEditorFormatterTemplate.h"
 #import "WKSourceEditorFormatterStrikethrough.h"
 #import "WKSourceEditorStorageDelegate.h"
