@@ -132,4 +132,7 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         mediator.strikethroughFormatter?.toggleStrikethroughFormatting(action: .remove, in: mediator.textView)
         XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
+
+    func testSubscriptInsertAndRemove() throws {
+    }
 }

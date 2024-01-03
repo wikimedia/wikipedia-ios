@@ -18,12 +18,14 @@ fileprivate var needsTextKit2: Bool {
     let isItalics: Bool
     let isHorizontalTemplate: Bool
     let isStrikethrough: Bool
-    
-    init(isBold: Bool, isItalics: Bool, isHorizontalTemplate: Bool, isStrikethrough: Bool) {
+    let isSubscript: Bool
+
+    init(isBold: Bool, isItalics: Bool, isHorizontalTemplate: Bool, isStrikethrough: Bool, isSubscript: Bool) {
         self.isBold = isBold
         self.isItalics = isItalics
         self.isHorizontalTemplate = isHorizontalTemplate
         self.isStrikethrough = isStrikethrough
+        self.isSubscript = isSubscript
     }
 }
 
@@ -38,7 +40,8 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     private(set) var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics?
     private(set) var templateFormatter: WKSourceEditorFormatterTemplate?
     private(set) var strikethroughFormatter: WKSourceEditorFormatterStrikethrough?
-    
+    private(set) var subscriptFormatter: WKSourceEditorFormatterSubscript?
+
     var isSyntaxHighlightingEnabled: Bool = true {
         didSet {
             updateColorsAndFonts()
@@ -107,7 +110,8 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
         let templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
         let strikethroughFormatter = WKSourceEditorFormatterStrikethrough(colors: colors, fonts: fonts)
-        
+        let subscriptFormatter = WKSourceEditorFormatterSubscript(colors: colors, fonts: fonts)
+
         self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
                 templateFormatter,
                 boldItalicsFormatter,
@@ -115,7 +119,8 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         self.boldItalicsFormatter = boldItalicsFormatter
         self.templateFormatter = templateFormatter
         self.strikethroughFormatter = strikethroughFormatter
-        
+        self.subscriptFormatter = subscriptFormatter
+
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
                 let textContentManager = textView.textLayoutManager?.textContentManager
@@ -154,26 +159,28 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         
         if needsTextKit2 {
             guard let textKit2Data = textkit2SelectionData(selectedDocumentRange: selectedDocumentRange) else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isStrikethrough: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isStrikethrough: false, isSubscript: false)
             }
             
             let isBold = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isBoldIn: textKit2Data.paragraphSelectedRange) ?? false
             let isItalics = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isItalicsIn: textKit2Data.paragraphSelectedRange) ?? false
             let isHorizontalTemplate = templateFormatter?.attributedString(textKit2Data.paragraphAttributedString, isHorizontalTemplateIn: textKit2Data.paragraphSelectedRange) ?? false
             let isStrikethrough = strikethroughFormatter?.attributedString(textKit2Data.paragraphAttributedString, isStrikethroughIn: textKit2Data.paragraphSelectedRange) ?? false
-            
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isStrikethrough: isStrikethrough)
+            let isSubscript = subscriptFormatter?.attributedString(textKit2Data.paragraphAttributedString, isSubscriptIn: textKit2Data.paragraphSelectedRange) ?? false
+
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isStrikethrough: isStrikethrough, isSubscript: isSubscript)
         } else {
             guard let textKit1Storage else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isStrikethrough: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isStrikethrough: false, isSubscript: false)
             }
                         
             let isBold = boldItalicsFormatter?.attributedString(textKit1Storage, isBoldIn: selectedDocumentRange) ?? false
             let isItalics = boldItalicsFormatter?.attributedString(textKit1Storage, isItalicsIn: selectedDocumentRange) ?? false
             let isHorizontalTemplate = templateFormatter?.attributedString(textKit1Storage, isHorizontalTemplateIn: selectedDocumentRange) ?? false
             let isStrikethrough = strikethroughFormatter?.attributedString(textKit1Storage, isStrikethroughIn: selectedDocumentRange) ?? false
-            
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isStrikethrough: isStrikethrough)
+            let isSubscript = subscriptFormatter?.attributedString(textKit1Storage, isSubscriptIn: selectedDocumentRange) ?? false
+
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isStrikethrough: isStrikethrough, isSubscript: isSubscript)
         }
     }
     

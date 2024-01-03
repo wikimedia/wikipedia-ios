@@ -11,8 +11,9 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics!
     var templateFormatter: WKSourceEditorFormatterTemplate!
     var strikethroughFormatter: WKSourceEditorFormatterStrikethrough!
+    var subscriptFormatter: WKSourceEditorFormatterSubscript!
     var formatters: [WKSourceEditorFormatter] {
-        return [baseFormatter, templateFormatter, boldItalicsFormatter, strikethroughFormatter]
+        return [baseFormatter, templateFormatter, boldItalicsFormatter, strikethroughFormatter, subscriptFormatter]
     }
 
     override func setUpWithError() throws {
@@ -34,6 +35,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
         self.templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
         self.strikethroughFormatter = WKSourceEditorFormatterStrikethrough(colors: colors, fonts: fonts)
+        self.subscriptFormatter = WKSourceEditorFormatterSubscript(colors: colors, fonts: fonts)
     }
 
     override func tearDownWithError() throws {
@@ -766,4 +768,8 @@ final class WKSourceEditorFormatterTests: XCTestCase {
             XCTAssertEqual(base2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
             XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
         }
+
+    func testSubscript() {
+
+    }
 }
