@@ -115,7 +115,8 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
                 templateFormatter,
                 boldItalicsFormatter,
-                strikethroughFormatter]
+                strikethroughFormatter,
+                subscriptFormatter]
         self.boldItalicsFormatter = boldItalicsFormatter
         self.templateFormatter = templateFormatter
         self.strikethroughFormatter = strikethroughFormatter
