@@ -33,7 +33,7 @@ NSString * const WKSourceEditorCustomKeyContentSubscript = @"WKSourceEditorCusto
 
     return self;
 }
-- (void)addSyntaxHighlightingToAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
+- (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
 
     [attributedString removeAttribute:WKSourceEditorCustomKeyContentSubscript range:range];
 

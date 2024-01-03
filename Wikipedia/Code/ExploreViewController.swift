@@ -60,9 +60,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         detailTransitionSourceRect = nil
         logFeedImpressionAfterDelay()
         dataStore.remoteNotificationsController.loadNotifications(force: false)
-//        #if UITEST
+        #if UITEST
         presentUITestHelperController()
-//        #endif
+        #endif
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
