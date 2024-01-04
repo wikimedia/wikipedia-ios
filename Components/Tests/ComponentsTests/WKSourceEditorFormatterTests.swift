@@ -12,8 +12,9 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     var templateFormatter: WKSourceEditorFormatterTemplate!
     var strikethroughFormatter: WKSourceEditorFormatterStrikethrough!
     var subscriptFormatter: WKSourceEditorFormatterSubscript!
+    var superscriptFormatter: WKSourceEditorFormatterSuperscript!
     var formatters: [WKSourceEditorFormatter] {
-        return [baseFormatter, templateFormatter, boldItalicsFormatter, strikethroughFormatter, subscriptFormatter]
+        return [baseFormatter, templateFormatter, boldItalicsFormatter, strikethroughFormatter, subscriptFormatter, superscriptFormatter]
     }
 
     override func setUpWithError() throws {
@@ -36,6 +37,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
         self.strikethroughFormatter = WKSourceEditorFormatterStrikethrough(colors: colors, fonts: fonts)
         self.subscriptFormatter = WKSourceEditorFormatterSubscript(colors: colors, fonts: fonts)
+        self.superscriptFormatter = WKSourceEditorFormatterSuperscript(colors: colors, fonts: fonts)
     }
 
     override func tearDownWithError() throws {
@@ -770,6 +772,10 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         }
 
     func testSubscript() {
+
+    }
+
+    func testSuperscript() {
 
     }
 }

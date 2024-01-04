@@ -4,6 +4,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WKSourceEditorFormatterSuperscript : WKSourceEditorFormatter
 
+- (BOOL) attributedString:(NSMutableAttributedString *)attributedString isSuperscriptInRange:(NSRange)range;
 
 @end
 

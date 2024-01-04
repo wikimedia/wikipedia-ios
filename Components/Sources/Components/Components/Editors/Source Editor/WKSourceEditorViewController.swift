@@ -369,6 +369,11 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
         textFrameworkMediator.subscriptFormatter?.toggleSubscriptFormatting(action: action, in: textView)
     }
 
+    func didTapSuperscript(isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.superscriptFormatter?.toggleSuperscriptFormatting(action: action, in: textView)
+    }
+
     func didTapClose() {
         inputViewType = nil
         let isRangeSelected = textView.selectedRange.length > 0

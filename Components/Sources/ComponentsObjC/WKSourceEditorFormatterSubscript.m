@@ -60,7 +60,6 @@ NSString * const WKSourceEditorCustomKeyContentSubscript = @"WKSourceEditorCusto
 }
 
 - (void)updateFonts:(WKSourceEditorFonts *)fonts inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
-    // No special font handling needed for references
 }
 
 - (void)updateColors:(WKSourceEditorColors *)colors inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
@@ -96,7 +95,6 @@ NSString * const WKSourceEditorCustomKeyContentSubscript = @"WKSourceEditorCusto
            if (attrs[WKSourceEditorCustomKeyContentSubscript] != nil) {
                isContentKey = YES;
            } else {
-               // Edge case, check previous character if we are up against closing string
                if (attrs[WKSourceEditorCustomKeyColorGreen]) {
                    attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
                    if (attrs[WKSourceEditorCustomKeyContentSubscript] != nil) {

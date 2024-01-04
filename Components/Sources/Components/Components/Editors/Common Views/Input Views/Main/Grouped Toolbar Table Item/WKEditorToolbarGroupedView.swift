@@ -64,6 +64,7 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
 
         strikethroughButton.isSelected = selectionState.isStrikethrough
         subscriptButton.isSelected = selectionState.isSubscript
+        superscriptButton.isSelected = selectionState.isSuperscript
     }
     
     // MARK: - Button Actions
@@ -81,6 +82,7 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
     }
     
     @objc private func tappedSuperscript() {
+        delegate?.didTapSuperscript(isSelected: superscriptButton.isSelected)
     }
     
     @objc private func tappedSubscript() {
