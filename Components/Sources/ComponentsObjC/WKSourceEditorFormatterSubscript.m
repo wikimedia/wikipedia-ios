@@ -26,8 +26,7 @@ NSString * const WKSourceEditorCustomKeyContentSubscript = @"WKSourceEditorCusto
             WKSourceEditorCustomKeyContentSubscript: [NSNumber numberWithBool:YES]
         };
 
-        _subscriptRegex = [[NSRegularExpression alloc] initWithPattern:@"(<sub>)(\\sub*.*?)(<\\/sub>)" options:0 error:nil];
-        //(<sub>)(.*?)(</sub>)
+        _subscriptRegex = [[NSRegularExpression alloc] initWithPattern:@"(<sub>)(\\s*u*b*.*?)(<\\/sub>)" options:0 error:nil];
 
     }
 
