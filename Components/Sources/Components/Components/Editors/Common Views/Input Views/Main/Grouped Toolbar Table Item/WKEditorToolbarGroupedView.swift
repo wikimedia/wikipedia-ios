@@ -65,6 +65,7 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
         strikethroughButton.isSelected = selectionState.isStrikethrough
         subscriptButton.isSelected = selectionState.isSubscript
         superscriptButton.isSelected = selectionState.isSuperscript
+        underlineButton.isSelected = selectionState.isUnderline
     }
     
     // MARK: - Button Actions
