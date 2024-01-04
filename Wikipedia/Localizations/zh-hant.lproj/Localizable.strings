@@ -172,7 +172,7 @@
 "article-nav-edit" = "編輯";
 "article-read-more-title" = "延伸閱讀";
 "article-reference-view-title" = "參考資料 $1";
-"article-revision-history" = "條目修訂歷史";
+"article-revision-history" = "條目修訂紀錄";
 "article-save-error-not-enough-space" = "您的裝置沒有足夠的空間來儲存此條目";
 "article-share" = "分享";
 "article-talk-page" = "條目討論頁";
@@ -241,7 +241,7 @@
 "description-welcome-descriptions-title" = "條目描述";
 "description-welcome-promise-title" = "首先，我保證不會濫用此功能。";
 "description-welcome-start-editing-button" = "開始編輯";
-"diff-article-revision-history" = "條目修訂歷史";
+"diff-article-revision-history" = "條目修訂紀錄";
 "diff-compare-header-from-info-heading" = "上一次編輯";
 "diff-compare-header-heading" = "比較修訂";
 "diff-compare-header-to-info-heading" = "顯示編輯";
@@ -786,7 +786,7 @@
 "page-history-minor-edits" = "小修改";
 "page-history-revision-author-accessibility-label" = "作者：$1";
 "page-history-revision-comment-accessibility-label" = "註釋$1";
-"page-history-revision-history-title" = "修訂歷史";
+"page-history-revision-history-title" = "修訂紀錄";
 "page-history-revision-minor-edit-accessibility-label" = "小修改";
 "page-history-revision-size-diff-addition" = "已添加 {{PLURAL:$1|$1 位元組|$1 位元組}}";
 "page-history-revision-size-diff-subtraction" = "已移除 {{PLURAL:$1|$1 位元組|$1 位元組}}";
@@ -1145,7 +1145,7 @@
 "talk-page-reply-depth-accessibility-label" = "回覆深度數：$1";
 "talk-page-reply-placeholder-format" = "回覆給$1";
 "talk-page-reply-terms-and-licenses" = "請注意，您的回覆將自動簽上您的使用者名稱。透過保存更改，代表您同意$1使用條款$2，並同意根據$3CC BY-SA 3.0$4和$5GFDL$6許可，來發布您的貢獻。";
-"talk-page-revision-history" = "修訂歷史";
+"talk-page-revision-history" = "修訂紀錄";
 "talk-page-rply-close-button-accessibility-hint" = "關閉回覆檢視";
 "talk-page-share-button" = "分享討論頁";
 "talk-page-subscribe-to-topic" = "訂閱";
