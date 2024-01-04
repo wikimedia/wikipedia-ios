@@ -90,6 +90,7 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
     }
     
     @objc private func tappedUnderline() {
+        delegate?.didTapUnderline(isSelected: underlineButton.isSelected)
     }
     
     @objc private func tappedStrikethrough() {

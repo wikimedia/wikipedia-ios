@@ -138,4 +138,7 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
 
     func testSuperscriptInsertAndRemove() throws {
     }
+
+    func testUnderlineInsertAndRemove() throws {
+    }
 }

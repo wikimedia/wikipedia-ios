@@ -364,6 +364,11 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
         textFrameworkMediator.strikethroughFormatter?.toggleStrikethroughFormatting(action: action, in: textView)
     }
 
+    func didTapUnderline(isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.underlineFormatter?.toggleUnderlineFormatting(action: action, in: textView)
+    }
+
     func didTapSubscript(isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.subscriptFormatter?.toggleSubscriptFormatting(action: action, in: textView)

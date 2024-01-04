@@ -3,7 +3,7 @@
 
 @interface WKSourceEditorFormatterSuperscript ()
 
-@property (nonatomic, strong) NSDictionary *superscripttAttributes;
+@property (nonatomic, strong) NSDictionary *superscriptAttributes;
 @property (nonatomic, strong) NSDictionary *superscriptContentAttributes;
 @property (nonatomic, strong) NSRegularExpression *superscriptRegex;
 
@@ -17,7 +17,7 @@ NSString * const WKSourceEditorCustomKeyContentSuperscript = @"WKSourceEditorCus
 - (instancetype)initWithColors:(WKSourceEditorColors *)colors fonts:(WKSourceEditorFonts *)fonts {
     self = [super initWithColors:colors fonts:fonts];
     if (self) {
-        _superscripttAttributes = @{
+        _superscriptAttributes = @{
             NSForegroundColorAttributeName: colors.greenForegroundColor,
             WKSourceEditorCustomKeyColorGreen: [NSNumber numberWithBool:YES]
         };
@@ -45,7 +45,7 @@ NSString * const WKSourceEditorCustomKeyContentSuperscript = @"WKSourceEditorCus
             NSRange closingRange = [result rangeAtIndex:3];
 
             if (openingRange.location != NSNotFound) {
-                [attributedString addAttributes:self.superscripttAttributes range:openingRange];
+                [attributedString addAttributes:self.superscriptAttributes range:openingRange];
             }
 
             if (contentRange.location != NSNotFound) {
@@ -53,7 +53,7 @@ NSString * const WKSourceEditorCustomKeyContentSuperscript = @"WKSourceEditorCus
             }
 
             if (closingRange.location != NSNotFound) {
-                [attributedString addAttributes:self.superscripttAttributes range:closingRange];
+                [attributedString addAttributes:self.superscriptAttributes range:closingRange];
             }
         }];
 }
@@ -63,9 +63,9 @@ NSString * const WKSourceEditorCustomKeyContentSuperscript = @"WKSourceEditorCus
 
 - (void)updateColors:(WKSourceEditorColors *)colors inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
 
-    NSMutableDictionary *mutAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.superscripttAttributes];
+    NSMutableDictionary *mutAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.superscriptAttributes];
     [mutAttributes setObject:colors.greenForegroundColor forKey:NSForegroundColorAttributeName];
-    self.superscripttAttributes = [[NSDictionary alloc] initWithDictionary:mutAttributes];
+    self.superscriptAttributes = [[NSDictionary alloc] initWithDictionary:mutAttributes];
 
     [attributedString enumerateAttribute:WKSourceEditorCustomKeyColorGreen
                                  inRange:range
@@ -74,7 +74,7 @@ NSString * const WKSourceEditorCustomKeyContentSuperscript = @"WKSourceEditorCus
         if ([value isKindOfClass: [NSNumber class]]) {
             NSNumber *numValue = (NSNumber *)value;
             if ([numValue boolValue] == YES) {
-                [attributedString addAttributes:self.superscripttAttributes range:localRange];
+                [attributedString addAttributes:self.superscriptAttributes range:localRange];
             }
         }
     }];
