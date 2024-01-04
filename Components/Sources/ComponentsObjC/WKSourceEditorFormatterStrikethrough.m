@@ -98,7 +98,7 @@ NSString * const WKSourceEditorCustomKeyContentStrikethrough = @"WKSourceEditorC
                isContentKey = YES;
            } else {
                // Edge case, check previous character if we are up against closing string
-               if (attrs[WKSourceEditorCustomKeyColorGreen]) {
+               if (attrs[WKSourceEditorCustomKeyColorGreen] && range.location < 0) {
                    attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
                    if (attrs[WKSourceEditorCustomKeyContentStrikethrough] != nil) {
                        isContentKey = YES;
