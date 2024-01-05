@@ -137,6 +137,84 @@ NSString * const WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink = @"W
     // No special font handling needed
 }
 
+#pragma mark - Public
+
+- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isSimpleLinkInRange:(NSRange)range {
+    __block BOOL isContentKey = NO;
+    if (range.length == 0) {
+
+           if (attributedString.length > range.location) {
+               NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+
+               if (attrs[WKSourceEditorCustomKeyContentLink] != nil) {
+                   isContentKey = YES;
+               } else {
+                   // Edge case, check previous character if we are up against closing markup
+                   if (attrs[WKSourceEditorCustomKeyMarkupLink]) {
+                       attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
+                       if (attrs[WKSourceEditorCustomKeyContentLink] != nil) {
+                           isContentKey = YES;
+                       }
+                   }
+               }
+           }
+
+       } else {
+           __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
+           [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
+               if (attrs[WKSourceEditorCustomKeyContentLink] != nil) {
+                   if (unionRange.location == NSNotFound) {
+                       unionRange = loopRange;
+                   } else {
+                       unionRange = NSUnionRange(unionRange, loopRange);
+                   }
+                   stop = YES;
+               }
+           }];
+
+            if (NSEqualRanges(unionRange, range)) {
+                isContentKey = YES;
+            }
+       }
+
+       return isContentKey;
+}
+
+- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isLinkWithNestedLinkInRange:(NSRange)range {
+    
+    __block BOOL isKey = NO;
+    if (range.length == 0) {
+
+           if (attributedString.length > range.location) {
+               NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+
+               if (attrs[WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink] != nil) {
+                   isKey = YES;
+               }
+           }
+
+       } else {
+           __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
+           [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
+               if (attrs[WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink] != nil) {
+                   if (unionRange.location == NSNotFound) {
+                       unionRange = loopRange;
+                   } else {
+                       unionRange = NSUnionRange(unionRange, loopRange);
+                   }
+                   stop = YES;
+               }
+           }];
+
+            if (NSEqualRanges(unionRange, range)) {
+                isKey = YES;
+            }
+       }
+
+       return isKey;
+    
+}
+
 #pragma mark - Private
 
 - (NSArray *)linkWithNestedLinkRangesInString: (NSString *)string startingIndex: (NSUInteger)index {
