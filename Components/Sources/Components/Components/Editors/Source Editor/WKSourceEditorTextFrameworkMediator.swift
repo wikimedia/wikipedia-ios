@@ -18,12 +18,16 @@ fileprivate var needsTextKit2: Bool {
     let isItalics: Bool
     let isHorizontalTemplate: Bool
     let isStrikethrough: Bool
+    let isSimpleLink: Bool
+    let isLinkWithNestedLink: Bool
     
-    init(isBold: Bool, isItalics: Bool, isHorizontalTemplate: Bool, isStrikethrough: Bool) {
+    init(isBold: Bool, isItalics: Bool, isHorizontalTemplate: Bool, isStrikethrough: Bool, isSimpleLink: Bool, isLinkWithNestedLink: Bool) {
         self.isBold = isBold
         self.isItalics = isItalics
         self.isHorizontalTemplate = isHorizontalTemplate
         self.isStrikethrough = isStrikethrough
+        self.isSimpleLink = isSimpleLink
+        self.isLinkWithNestedLink = isLinkWithNestedLink
     }
 }
 
@@ -158,26 +162,30 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         
         if needsTextKit2 {
             guard let textKit2Data = textkit2SelectionData(selectedDocumentRange: selectedDocumentRange) else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isStrikethrough: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isStrikethrough: false, isSimpleLink: false, isLinkWithNestedLink: false)
             }
             
             let isBold = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isBoldIn: textKit2Data.paragraphSelectedRange) ?? false
             let isItalics = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isItalicsIn: textKit2Data.paragraphSelectedRange) ?? false
             let isHorizontalTemplate = templateFormatter?.attributedString(textKit2Data.paragraphAttributedString, isHorizontalTemplateIn: textKit2Data.paragraphSelectedRange) ?? false
             let isStrikethrough = strikethroughFormatter?.attributedString(textKit2Data.paragraphAttributedString, isStrikethroughIn: textKit2Data.paragraphSelectedRange) ?? false
+            let isSimpleLink = linkFormatter?.attributedString(textKit2Data.paragraphAttributedString, isSimpleLinkIn: textKit2Data.paragraphSelectedRange) ?? false
+            let isLinkWithNestedLink = linkFormatter?.attributedString(textKit2Data.paragraphAttributedString, isLinkWithNestedLinkIn: textKit2Data.paragraphSelectedRange) ?? false
             
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isStrikethrough: isStrikethrough)
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isStrikethrough: isStrikethrough, isSimpleLink: isSimpleLink, isLinkWithNestedLink: isLinkWithNestedLink)
         } else {
             guard let textKit1Storage else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isStrikethrough: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isStrikethrough: false, isSimpleLink: false, isLinkWithNestedLink: false)
             }
                         
             let isBold = boldItalicsFormatter?.attributedString(textKit1Storage, isBoldIn: selectedDocumentRange) ?? false
             let isItalics = boldItalicsFormatter?.attributedString(textKit1Storage, isItalicsIn: selectedDocumentRange) ?? false
             let isHorizontalTemplate = templateFormatter?.attributedString(textKit1Storage, isHorizontalTemplateIn: selectedDocumentRange) ?? false
             let isStrikethrough = strikethroughFormatter?.attributedString(textKit1Storage, isStrikethroughIn: selectedDocumentRange) ?? false
+            let isSimpleLink = linkFormatter?.attributedString(textKit1Storage, isSimpleLinkIn: selectedDocumentRange) ?? false
+            let isLinkWithNestedLink = linkFormatter?.attributedString(textKit1Storage, isLinkWithNestedLinkIn: selectedDocumentRange) ?? false
             
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isStrikethrough: isStrikethrough)
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isStrikethrough: isStrikethrough, isSimpleLink: isSimpleLink, isLinkWithNestedLink: isLinkWithNestedLink)
         }
     }
     
