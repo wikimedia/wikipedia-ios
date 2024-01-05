@@ -78,5 +78,6 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
     }
 
     @objc private func tappedLink() {
+        delegate?.didTapLink(isSelected: linkButton.isSelected)
     }
 }

@@ -310,12 +310,20 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
+    
+    func toolbarExpandingViewDidTapLink(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
+        
+    }
+    
+    func toolbarExpandingViewDidTapImage(toolbarView: WKEditorToolbarExpandingView) {
+        
+    }
 }
 
 // MARK: - WKEditorToolbarHighlightViewDelegate
 
 extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
-    
+        
     func toolbarHighlightViewDidTapBold(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.boldItalicsFormatter?.toggleBoldFormatting(action: action, in: textView)
@@ -331,6 +339,10 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
     
+    func toolbarHighlightViewDidTapLink(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
+        
+    }
+    
     func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView) {
         inputViewType = .main
         postUpdateButtonSelectionStatesNotification(withDelay: true)
@@ -344,6 +356,7 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
 // MARK: - WKEditorInputViewDelegate
 
 extension WKSourceEditorViewController: WKEditorInputViewDelegate {
+    
     func didTapBold(isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.boldItalicsFormatter?.toggleBoldFormatting(action: action, in: textView)
@@ -362,6 +375,10 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     func didTapStrikethrough(isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.strikethroughFormatter?.toggleStrikethroughFormatting(action: action, in: textView)
+    }
+    
+    func didTapLink(isSelected: Bool) {
+        
     }
     
     func didTapClose() {

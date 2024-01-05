@@ -5,6 +5,8 @@ protocol WKEditorToolbarExpandingViewDelegate: AnyObject {
     func toolbarExpandingViewDidTapFormatText(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapFormatHeading(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapTemplate(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapLink(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapImage(toolbarView: WKEditorToolbarExpandingView)
 }
 
 class WKEditorToolbarExpandingView: WKEditorToolbarView {
@@ -204,6 +206,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     }
 
     @objc private func tappedLink() {
+        delegate?.toolbarExpandingViewDidTapLink(toolbarView: self, isSelected: linkButton.isSelected)
     }
 
     @objc private func tappedUnorderedList() {
@@ -239,6 +242,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     }
 
     @objc private func tappedMedia() {
+        delegate?.toolbarExpandingViewDidTapImage(toolbarView: self)
     }
 
 }

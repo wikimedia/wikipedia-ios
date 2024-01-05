@@ -4,6 +4,7 @@ protocol WKEditorToolbarHighlightViewDelegate: AnyObject {
     func toolbarHighlightViewDidTapBold(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
     func toolbarHighlightViewDidTapItalics(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
     func toolbarHighlightViewDidTapTemplate(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
+    func toolbarHighlightViewDidTapLink(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
     func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView)
     func toolbarHighlightViewDidTapFormatHeading(toolbarView: WKEditorToolbarHighlightView)
 }
@@ -100,6 +101,7 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
     }
 
     @objc private func tappedLink() {
+        delegate?.toolbarHighlightViewDidTapLink(toolbarView: self, isSelected: linkButton.isSelected)
     }
 
     @objc private func tappedTemplate() {

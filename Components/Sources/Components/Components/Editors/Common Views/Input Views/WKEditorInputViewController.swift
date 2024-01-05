@@ -2,11 +2,12 @@ import Foundation
 import UIKit
 
 protocol WKEditorInputViewDelegate: AnyObject {
-    func didTapClose()
     func didTapBold(isSelected: Bool)
     func didTapItalics(isSelected: Bool)
     func didTapTemplate(isSelected: Bool)
     func didTapStrikethrough(isSelected: Bool)
+    func didTapLink(isSelected: Bool)
+    func didTapClose()
 }
 
 class WKEditorInputViewController: WKComponentViewController {
