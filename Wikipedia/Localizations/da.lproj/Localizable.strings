@@ -141,6 +141,7 @@
 "article-languages-yours" = "Dine sprog";
 "article-nav-edit" = "Rediger";
 "article-read-more-title" = "Læs mere";
+"article-reference-view-title" = "Reference $1";
 "article-share" = "Del";
 "article-talk-page" = "Artiklens diskussionsside";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Styring af læsetemaer";
@@ -201,10 +202,16 @@
 "diff-compare-header-to-info-heading" = "Vist redigering";
 "diff-context-lines-collapsed-button-title" = "Vis";
 "diff-context-lines-expanded-button-title" = "Skjul";
+"diff-multi-line-format" = "Linjerne $1 - $2";
+"diff-paragraph-moved" = "Afsnit flyttet";
 "diff-paragraph-moved-direction-down" = "ned";
 "diff-paragraph-moved-direction-up" = "op";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 linje|$1 linjer}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 sektion|$1 sektioner}}";
+"diff-paragraph-moved-format" = "Afsnit flyttet $1 $2";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 redigering|$1 redigeringer}}";
 "diff-single-line-format" = "Linje $1";
+"diff-thanks-send-button-title" = "Send 'Tak'";
 "diff-thanks-sent" = "Din 'Tak' blev sendt til $1";
 "dim-images" = "Mørklæg billeder";
 "edit-clear-formatting-accessibility-label" = "Fjern formatering";

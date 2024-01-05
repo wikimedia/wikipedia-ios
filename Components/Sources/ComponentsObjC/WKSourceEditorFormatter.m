@@ -3,6 +3,11 @@
 #import "WKSourceEditorFonts.h"
 
 @implementation WKSourceEditorFormatter
+
+#pragma mark - Common Custom Attributed String Keys
+
+NSString * const WKSourceEditorCustomKeyColorGreen = @"WKSourceEditorKeyColorGreen";
+
 - (nonnull instancetype)initWithColors:(nonnull WKSourceEditorColors *)colors fonts:(nonnull WKSourceEditorFonts *)fonts {
     self = [super init];
     return self;

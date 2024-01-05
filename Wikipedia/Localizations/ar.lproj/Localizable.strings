@@ -36,6 +36,7 @@
 // Author: أَحمد
 // Author: بدارين
 // Author: ديفيد
+// Author: علاء
 // Author: محمد أحمد عبد الفتاح
 // Author: محمد عصام
 // Author: مصعب
@@ -171,7 +172,7 @@
 "article-languages-yours" = "لغاتك";
 "article-read-more-title" = "إقرأ أيضا";
 "article-reference-view-title" = "$1 مرجع";
-"article-save-error-not-enough-space" = "ليست لديك مساحة كافية على جهازك لحفظ هذه المقالة";
+"article-save-error-not-enough-space" = "ليس لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
 "article-toolbar-reading-themes-controls-toolbar-item" = "عناصر تحكم مواضيع القراءة";
 "back-button-accessibility-label" = "ارجع";
