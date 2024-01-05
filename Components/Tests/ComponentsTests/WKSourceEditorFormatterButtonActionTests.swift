@@ -134,11 +134,32 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
     }
 
     func testSubscriptInsertAndRemove() throws {
+        let text = "One Two Three Four"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 4, length:3)
+        mediator.subscriptFormatter?.toggleSubscriptFormatting(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One <sub>Two</sub> Three Four")
+        mediator.subscriptFormatter?.toggleSubscriptFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
 
     func testSuperscriptInsertAndRemove() throws {
+        let text = "One Two Three Four"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 4, length:3)
+        mediator.superscriptFormatter?.toggleSuperscriptFormatting(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One <sup>Two</sup> Three Four")
+        mediator.superscriptFormatter?.toggleSuperscriptFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
 
     func testUnderlineInsertAndRemove() throws {
+        let text = "One Two Three Four"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 4, length:3)
+        mediator.underlineFormatter?.toggleUnderlineFormatting(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One <u>Two</u> Three Four")
+        mediator.underlineFormatter?.toggleUnderlineFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
 }
