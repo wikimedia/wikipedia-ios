@@ -3,10 +3,10 @@
 
 @interface WKSourceEditorFormatterLink ()
 
-@property (nonatomic, strong) NSDictionary *linkMarkupAttributes;
-@property (nonatomic, strong) NSDictionary *linkContentAttributes;
+@property (nonatomic, strong) NSDictionary *simpleLinkMarkupAttributes;
+@property (nonatomic, strong) NSDictionary *simpleLinkContentAttributes;
 @property (nonatomic, strong) NSDictionary *linkWithNestedLinkMarkupAndContentAttributes;
-@property (nonatomic, strong) NSRegularExpression *linkRegex;
+@property (nonatomic, strong) NSRegularExpression *simpleLinkRegex;
 @property (nonatomic, strong) NSRegularExpression *linkWithNestedLinkRegex;
 
 @end
@@ -25,19 +25,19 @@ NSString * const WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink = @"W
 - (instancetype)initWithColors:(nonnull WKSourceEditorColors *)colors fonts:(nonnull WKSourceEditorFonts *)fonts {
     self = [super initWithColors:colors fonts:fonts];
     if (self) {
-        _linkMarkupAttributes = @{
+        _simpleLinkMarkupAttributes = @{
             WKSourceEditorCustomKeyMarkupLink: [NSNumber numberWithBool:YES],
             NSForegroundColorAttributeName: colors.blueForegroundColor,
             WKSourceEditorCustomKeyColorBlue: [NSNumber numberWithBool:YES]
         };
         
-        _linkContentAttributes = @{
+    _simpleLinkContentAttributes = @{
             WKSourceEditorCustomKeyContentLink: [NSNumber numberWithBool:YES],
             NSForegroundColorAttributeName: colors.blueForegroundColor,
             WKSourceEditorCustomKeyColorBlue: [NSNumber numberWithBool:YES]
         };
 
-        _linkRegex = [[NSRegularExpression alloc] initWithPattern:@"(\\[{2})([^\\[\\]\\n]*)(\\]{2})" options:0 error:nil];
+        _simpleLinkRegex = [[NSRegularExpression alloc] initWithPattern:@"(\\[{2})([^\\[\\]\\n]*)(\\]{2})" options:0 error:nil];
         
         _linkWithNestedLinkMarkupAndContentAttributes = @{
             WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink: [NSNumber numberWithBool:YES],
@@ -61,7 +61,7 @@ NSString * const WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink = @"W
     [attributedString removeAttribute:WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink range:range];
 
     // This section finds and highlights simple links that do NOT contain nested links, e.g. [[Cat]] and [[Dog|puppy]].
-    [self.linkRegex enumerateMatchesInString:attributedString.string
+    [self.simpleLinkRegex enumerateMatchesInString:attributedString.string
                                         options:0
                                           range:range
                                      usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
@@ -71,15 +71,15 @@ NSString * const WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink = @"W
             NSRange closingRange = [result rangeAtIndex:3];
 
             if (openingRange.location != NSNotFound) {
-                [attributedString addAttributes:self.linkMarkupAttributes range:openingRange];
+                [attributedString addAttributes:self.simpleLinkMarkupAttributes range:openingRange];
             }
         
             if (contentRange.location != NSNotFound) {
-                [attributedString addAttributes:self.linkContentAttributes range:contentRange];
+                [attributedString addAttributes:self.simpleLinkContentAttributes range:contentRange];
             }
 
             if (closingRange.location != NSNotFound) {
-                [attributedString addAttributes:self.linkMarkupAttributes range:closingRange];
+                [attributedString addAttributes:self.simpleLinkMarkupAttributes range:closingRange];
             }
         }];
     
@@ -108,13 +108,13 @@ NSString * const WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink = @"W
 
 - (void)updateColors:(WKSourceEditorColors *)colors inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
 
-    NSMutableDictionary *mutLinkMarkupAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.linkMarkupAttributes];
-    [mutLinkMarkupAttributes setObject:colors.blueForegroundColor forKey:NSForegroundColorAttributeName];
-    self.linkMarkupAttributes = [[NSDictionary alloc] initWithDictionary:mutLinkMarkupAttributes];
+    NSMutableDictionary *mutSimpleLinkMarkupAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.simpleLinkMarkupAttributes];
+    [mutSimpleLinkMarkupAttributes setObject:colors.blueForegroundColor forKey:NSForegroundColorAttributeName];
+    self.simpleLinkMarkupAttributes = [[NSDictionary alloc] initWithDictionary:mutSimpleLinkMarkupAttributes];
     
-    NSMutableDictionary *mutLinkContentAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.linkContentAttributes];
-    [mutLinkContentAttributes setObject:colors.blueForegroundColor forKey:NSForegroundColorAttributeName];
-    self.linkContentAttributes = [[NSDictionary alloc] initWithDictionary:mutLinkContentAttributes];
+    NSMutableDictionary *mutSimpleLinkContentAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.simpleLinkContentAttributes];
+    [mutSimpleLinkContentAttributes setObject:colors.blueForegroundColor forKey:NSForegroundColorAttributeName];
+    self.simpleLinkContentAttributes = [[NSDictionary alloc] initWithDictionary:mutSimpleLinkContentAttributes];
     
     NSMutableDictionary *mutLinkWithNestedLinkMarkupAndContentAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.linkWithNestedLinkMarkupAndContentAttributes];
     [mutLinkWithNestedLinkMarkupAndContentAttributes setObject:colors.blueForegroundColor forKey:NSForegroundColorAttributeName];
