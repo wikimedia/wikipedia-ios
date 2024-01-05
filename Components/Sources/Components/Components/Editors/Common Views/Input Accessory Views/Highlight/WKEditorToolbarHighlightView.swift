@@ -81,6 +81,7 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
         boldButton.isSelected = selectionState.isBold
         italicsButton.isSelected = selectionState.isItalics
         templateButton.isSelected = selectionState.isHorizontalTemplate
+        linkButton.isSelected = selectionState.isSimpleLink
     }
     
     // MARK: - Button Actions

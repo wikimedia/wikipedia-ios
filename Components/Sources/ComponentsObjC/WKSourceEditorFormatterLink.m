@@ -3,9 +3,8 @@
 
 @interface WKSourceEditorFormatterLink ()
 
-@property (nonatomic, strong) NSDictionary *simpleLinkMarkupAttributes;
-@property (nonatomic, strong) NSDictionary *simpleLinkContentAttributes;
-@property (nonatomic, strong) NSDictionary *linkWithNestedLinkMarkupAndContentAttributes;
+@property (nonatomic, strong) NSDictionary *simpleLinkAttributes;
+@property (nonatomic, strong) NSDictionary *linkWithNestedLinkAttributes;
 @property (nonatomic, strong) NSRegularExpression *simpleLinkRegex;
 @property (nonatomic, strong) NSRegularExpression *linkWithNestedLinkRegex;
 
@@ -14,9 +13,8 @@
 #pragma mark - Custom Attributed String Keys
 
 NSString * const WKSourceEditorCustomKeyColorBlue = @"WKSourceEditorCustomKeyColorBlue";
-NSString * const WKSourceEditorCustomKeyMarkupLink = @"WKSourceEditorCustomKeyMarkupLink";
-NSString * const WKSourceEditorCustomKeyContentLink = @"WKSourceEditorCustomKeyContentLink";
-NSString * const WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink = @"WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink";
+NSString * const WKSourceEditorCustomKeyLink = @"WKSourceEditorCustomKeyLink";
+NSString * const WKSourceEditorCustomKeyLinkWithNestedLink = @"WKSourceEditorCustomKeyLinkWithNestedLink";
 
 @implementation WKSourceEditorFormatterLink
 
@@ -25,22 +23,16 @@ NSString * const WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink = @"W
 - (instancetype)initWithColors:(nonnull WKSourceEditorColors *)colors fonts:(nonnull WKSourceEditorFonts *)fonts {
     self = [super initWithColors:colors fonts:fonts];
     if (self) {
-        _simpleLinkMarkupAttributes = @{
-            WKSourceEditorCustomKeyMarkupLink: [NSNumber numberWithBool:YES],
-            NSForegroundColorAttributeName: colors.blueForegroundColor,
-            WKSourceEditorCustomKeyColorBlue: [NSNumber numberWithBool:YES]
-        };
-        
-    _simpleLinkContentAttributes = @{
-            WKSourceEditorCustomKeyContentLink: [NSNumber numberWithBool:YES],
+        _simpleLinkAttributes = @{
+            WKSourceEditorCustomKeyLink: [NSNumber numberWithBool:YES],
             NSForegroundColorAttributeName: colors.blueForegroundColor,
             WKSourceEditorCustomKeyColorBlue: [NSNumber numberWithBool:YES]
         };
 
         _simpleLinkRegex = [[NSRegularExpression alloc] initWithPattern:@"(\\[{2})([^\\[\\]\\n]*)(\\]{2})" options:0 error:nil];
         
-        _linkWithNestedLinkMarkupAndContentAttributes = @{
-            WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink: [NSNumber numberWithBool:YES],
+        _linkWithNestedLinkAttributes = @{
+            WKSourceEditorCustomKeyLinkWithNestedLink: [NSNumber numberWithBool:YES],
             NSForegroundColorAttributeName: colors.blueForegroundColor,
             WKSourceEditorCustomKeyColorBlue: [NSNumber numberWithBool:YES]
         };
@@ -57,8 +49,8 @@ NSString * const WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink = @"W
     
     // Reset
     [attributedString removeAttribute:WKSourceEditorCustomKeyColorBlue range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyContentLink range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink range:range];
+    [attributedString removeAttribute:WKSourceEditorCustomKeyLink range:range];
+    [attributedString removeAttribute:WKSourceEditorCustomKeyLinkWithNestedLink range:range];
 
     // This section finds and highlights simple links that do NOT contain nested links, e.g. [[Cat]] and [[Dog|puppy]].
     [self.simpleLinkRegex enumerateMatchesInString:attributedString.string
@@ -71,15 +63,15 @@ NSString * const WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink = @"W
             NSRange closingRange = [result rangeAtIndex:3];
 
             if (openingRange.location != NSNotFound) {
-                [attributedString addAttributes:self.simpleLinkMarkupAttributes range:openingRange];
+                [attributedString addAttributes:self.simpleLinkAttributes range:openingRange];
             }
         
             if (contentRange.location != NSNotFound) {
-                [attributedString addAttributes:self.simpleLinkContentAttributes range:contentRange];
+                [attributedString addAttributes:self.simpleLinkAttributes range:contentRange];
             }
 
             if (closingRange.location != NSNotFound) {
-                [attributedString addAttributes:self.simpleLinkMarkupAttributes range:closingRange];
+                [attributedString addAttributes:self.simpleLinkAttributes range:closingRange];
             }
         }];
     
@@ -99,7 +91,7 @@ NSString * const WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink = @"W
             for (NSValue *value in linkWithNestedLinkRanges) {
                 NSRange range = [value rangeValue];
                 if (range.location != NSNotFound) {
-                    [attributedString addAttributes:self.linkWithNestedLinkMarkupAndContentAttributes range:range];
+                    [attributedString addAttributes:self.linkWithNestedLinkAttributes range:range];
                 }
             }
         }
@@ -108,17 +100,13 @@ NSString * const WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink = @"W
 
 - (void)updateColors:(WKSourceEditorColors *)colors inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
 
-    NSMutableDictionary *mutSimpleLinkMarkupAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.simpleLinkMarkupAttributes];
-    [mutSimpleLinkMarkupAttributes setObject:colors.blueForegroundColor forKey:NSForegroundColorAttributeName];
-    self.simpleLinkMarkupAttributes = [[NSDictionary alloc] initWithDictionary:mutSimpleLinkMarkupAttributes];
+    NSMutableDictionary *mutSimpleLinkAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.simpleLinkAttributes];
+    [mutSimpleLinkAttributes setObject:colors.blueForegroundColor forKey:NSForegroundColorAttributeName];
+    self.simpleLinkAttributes = [[NSDictionary alloc] initWithDictionary:mutSimpleLinkAttributes];
     
-    NSMutableDictionary *mutSimpleLinkContentAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.simpleLinkContentAttributes];
-    [mutSimpleLinkContentAttributes setObject:colors.blueForegroundColor forKey:NSForegroundColorAttributeName];
-    self.simpleLinkContentAttributes = [[NSDictionary alloc] initWithDictionary:mutSimpleLinkContentAttributes];
-    
-    NSMutableDictionary *mutLinkWithNestedLinkMarkupAndContentAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.linkWithNestedLinkMarkupAndContentAttributes];
-    [mutLinkWithNestedLinkMarkupAndContentAttributes setObject:colors.blueForegroundColor forKey:NSForegroundColorAttributeName];
-    self.linkWithNestedLinkMarkupAndContentAttributes = [[NSDictionary alloc] initWithDictionary:mutLinkWithNestedLinkMarkupAndContentAttributes];
+    NSMutableDictionary *mutLinkWithNestedLinkAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.linkWithNestedLinkAttributes];
+    [mutLinkWithNestedLinkAttributes setObject:colors.blueForegroundColor forKey:NSForegroundColorAttributeName];
+    self.linkWithNestedLinkAttributes = [[NSDictionary alloc] initWithDictionary:mutLinkWithNestedLinkAttributes];
 
     [attributedString enumerateAttribute:WKSourceEditorCustomKeyColorBlue
                                  inRange:range
@@ -140,79 +128,12 @@ NSString * const WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink = @"W
 #pragma mark - Public
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isSimpleLinkInRange:(NSRange)range {
-    __block BOOL isContentKey = NO;
-    if (range.length == 0) {
-
-           if (attributedString.length > range.location) {
-               NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
-
-               if (attrs[WKSourceEditorCustomKeyContentLink] != nil) {
-                   isContentKey = YES;
-               } else {
-                   // Edge case, check previous character if we are up against closing markup
-                   if (attrs[WKSourceEditorCustomKeyMarkupLink]) {
-                       attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
-                       if (attrs[WKSourceEditorCustomKeyContentLink] != nil) {
-                           isContentKey = YES;
-                       }
-                   }
-               }
-           }
-
-       } else {
-           __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
-           [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-               if (attrs[WKSourceEditorCustomKeyContentLink] != nil) {
-                   if (unionRange.location == NSNotFound) {
-                       unionRange = loopRange;
-                   } else {
-                       unionRange = NSUnionRange(unionRange, loopRange);
-                   }
-                   stop = YES;
-               }
-           }];
-
-            if (NSEqualRanges(unionRange, range)) {
-                isContentKey = YES;
-            }
-       }
-
-       return isContentKey;
+    return [self attributedString:attributedString isKey:WKSourceEditorCustomKeyLink inRange:range];
 }
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isLinkWithNestedLinkInRange:(NSRange)range {
     
-    __block BOOL isKey = NO;
-    if (range.length == 0) {
-
-           if (attributedString.length > range.location) {
-               NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
-
-               if (attrs[WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink] != nil) {
-                   isKey = YES;
-               }
-           }
-
-       } else {
-           __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
-           [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-               if (attrs[WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink] != nil) {
-                   if (unionRange.location == NSNotFound) {
-                       unionRange = loopRange;
-                   } else {
-                       unionRange = NSUnionRange(unionRange, loopRange);
-                   }
-                   stop = YES;
-               }
-           }];
-
-            if (NSEqualRanges(unionRange, range)) {
-                isKey = YES;
-            }
-       }
-
-       return isKey;
-    
+    return [self attributedString:attributedString isKey:WKSourceEditorCustomKeyLinkWithNestedLink inRange:range];
 }
 
 #pragma mark - Private
@@ -274,6 +195,49 @@ NSString * const WKSourceEditorCustomKeyMarkupAndContentLinkWithNestedLink = @"W
     }
     
     return [[NSArray alloc] initWithArray:completedLinkWithNestedLinkRanges];
+}
+
+- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isKey:(NSString *)key inRange:(NSRange)range {
+    __block BOOL isKey = NO;
+    if (range.length == 0) {
+
+           if (attributedString.length > range.location) {
+               NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+
+               if (attrs[key] != nil) {
+                   isKey = YES;
+               }
+               
+               // Edge case, check previous character if we are up against opening markup
+               if (attrs[WKSourceEditorCustomKeyLink]) {
+                   if (attributedString.length > range.location - 1) {
+                       attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
+                       if (attrs[key] == nil) {
+                           isKey = NO;
+                       }
+                   }
+               }
+           }
+
+       } else {
+           __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
+           [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
+               if (attrs[key] != nil) {
+                   if (unionRange.location == NSNotFound) {
+                       unionRange = loopRange;
+                   } else {
+                       unionRange = NSUnionRange(unionRange, loopRange);
+                   }
+                   stop = YES;
+               }
+           }];
+
+            if (NSEqualRanges(unionRange, range)) {
+                isKey = YES;
+            }
+       }
+
+       return isKey;
 }
 
 @end
