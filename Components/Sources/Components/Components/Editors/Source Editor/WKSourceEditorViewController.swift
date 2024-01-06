@@ -5,6 +5,7 @@ public protocol WKSourceEditorViewControllerDelegate: AnyObject {
     func sourceEditorViewControllerDidTapFind(sourceEditorViewController: WKSourceEditorViewController)
     func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: WKSourceEditorViewController)
     func sourceEditorViewControllerDidTapLink(parameters: WKSourceEditorFormatterLinkWizardParameters)
+    func sourceEditorViewControllerDidTapImage()
 }
 
 // MARK: NSNotification Names
@@ -266,6 +267,10 @@ public class WKSourceEditorViewController: WKComponentViewController {
         
         self.preselectedTextRange = nil
     }
+    
+    public func insertImage(wikitext: String) {
+        textFrameworkMediator.linkFormatter?.insertImage(wikitext: wikitext, in: textView)
+    }
 }
 
 // MARK: - Private
@@ -364,7 +369,7 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
     }
     
     func toolbarExpandingViewDidTapImage(toolbarView: WKEditorToolbarExpandingView) {
-        
+        delegate?.sourceEditorViewControllerDidTapImage()
     }
 }
 

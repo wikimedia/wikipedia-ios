@@ -98,4 +98,13 @@ extension WKSourceEditorFormatterLink {
             }
         }
     }
+    
+    func insertImage(wikitext: String, in textView: UITextView) {
+        
+        guard let selectedTextRange = textView.selectedTextRange else {
+            return
+        }
+        
+        textView.replace(selectedTextRange, withText: wikitext)
+    }
 }

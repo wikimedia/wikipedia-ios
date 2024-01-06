@@ -233,6 +233,7 @@ extension PageEditorViewController: Themeable {
 // MARK: - WKSourceEditorViewControllerDelegate
 
 extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
+    
     func sourceEditorViewControllerDidTapFind(sourceEditorViewController: WKSourceEditorViewController) {
         showFocusNavigationView()
     }
@@ -272,6 +273,15 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
             let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
             present(navigationController, animated: true)
         }
+    }
+    
+    func sourceEditorViewControllerDidTapImage() {
+        let insertMediaViewController = InsertMediaViewController(articleTitle: pageURL.wmf_title, siteURL: pageURL.wmf_site)
+        insertMediaViewController.delegate = self
+        insertMediaViewController.apply(theme: theme)
+        let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
+        navigationController.isNavigationBarHidden = true
+        present(navigationController, animated: true)
     }
 }
 
@@ -380,6 +390,19 @@ extension PageEditorViewController: InsertLinkViewControllerDelegate {
     
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
         sourceEditor.insertLink(pageTitle: page)
+        dismiss(animated: true)
+    }
+}
+
+// MARK: - Insert
+
+extension PageEditorViewController: InsertMediaViewControllerDelegate {
+    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didTapCloseButton button: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+    
+    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String) {
+        sourceEditor.insertImage(wikitext: wikitext)
         dismiss(animated: true)
     }
 }
