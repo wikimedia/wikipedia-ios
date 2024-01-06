@@ -35,7 +35,7 @@ extension WKSourceEditorFormatter {
     
     // MARK: - Expanding selected range methods
     
-    private func expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: String, endingFormattingString: String, in textView: UITextView) {
+    func expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: String, endingFormattingString: String, in textView: UITextView) {
         if let textPositions = textPositionsCloserToNearestFormattingStrings(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView) {
             textView.selectedTextRange = textView.textRange(from: textPositions.startPosition, to: textPositions.endPosition)
         }

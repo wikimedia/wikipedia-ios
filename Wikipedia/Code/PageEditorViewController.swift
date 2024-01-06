@@ -1,6 +1,7 @@
 import UIKit
 import Components
 import WMF
+import CocoaLumberjackSwift
 
 protocol PageEditorViewControllerDelegate: AnyObject {
     func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL: URL?)
@@ -239,6 +240,39 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
     func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: Components.WKSourceEditorViewController) {
         hideFocusNavigationView()
     }
+    
+    
+    func sourceEditorViewControllerDidTapLink(parameters: WKSourceEditorFormatterLinkWizardParameters) {
+        guard let siteURL = pageURL.wmf_site else {
+            return
+        }
+        
+        if let editPageTitle = parameters.editPageTitle {
+            guard let link = Link(page: editPageTitle, label: parameters.editPageLabel, exists: true) else {
+                return
+            }
+            
+            guard let editLinkViewController = EditLinkViewController(link: link, siteURL: pageURL.wmf_site, dataStore: dataStore) else {
+                return
+            }
+            
+            editLinkViewController.delegate = self
+            let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
+            navigationController.isNavigationBarHidden = true
+            present(navigationController, animated: true)
+        }
+        
+        if let insertSearchTerm = parameters.insertSearchTerm {
+            guard let link = Link(page: insertSearchTerm, label: nil, exists: false) else {
+                return
+            }
+            
+            let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore)
+            insertLinkViewController.delegate = self
+            let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
+            present(navigationController, animated: true)
+        }
+    }
 }
 
 // MARK: - PageEditorNavigationItemControllerDelegate
@@ -311,6 +345,42 @@ extension PageEditorViewController: ReadingThemesControlsPresenting {
     
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
 
+    }
+}
+
+// MARK: - EditLinkViewControllerDelegate
+
+extension PageEditorViewController: EditLinkViewControllerDelegate {
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didTapCloseButton button: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+    
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
+        dismiss(animated: true)
+        sourceEditor.editLink(newPageTitle: linkTarget, newPageLabel: displayText)
+    }
+    
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFailToExtractArticleTitleFromArticleURL articleURL: URL) {
+        DDLogError("Failed to extract article title from \(pageURL)")
+        dismiss(animated: true)
+    }
+    
+    func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
+        dismiss(animated: true)
+        sourceEditor.removeLink()
+    }
+}
+
+// MARK: - InsertLinkViewControllerDelegate
+
+extension PageEditorViewController: InsertLinkViewControllerDelegate {
+    func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+    
+    func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
+        sourceEditor.insertLink(pageTitle: page)
+        dismiss(animated: true)
     }
 }
 
