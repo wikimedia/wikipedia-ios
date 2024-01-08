@@ -123,6 +123,11 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
                 listFormatter,
                 strikethroughFormatter]
         
+        self.boldItalicsFormatter = boldItalicsFormatter
+        self.templateFormatter = templateFormatter
+        self.listFormatter = listFormatter
+        self.strikethroughFormatter = strikethroughFormatter
+        
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
                 let textContentManager = textView.textLayoutManager?.textContentManager
