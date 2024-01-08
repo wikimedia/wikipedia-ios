@@ -6,6 +6,7 @@ protocol WKEditorInputViewDelegate: AnyObject {
     func didTapBold(isSelected: Bool)
     func didTapItalics(isSelected: Bool)
     func didTapTemplate(isSelected: Bool)
+    func didTapStrikethrough(isSelected: Bool)
 }
 
 class WKEditorInputView: WKComponentView {
@@ -102,6 +103,7 @@ class WKEditorInputView: WKComponentView {
     
     private lazy var groupedToolbarView: WKEditorToolbarGroupedView = {
         let view = UINib(nibName: String(describing: WKEditorToolbarGroupedView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKEditorToolbarGroupedView
+        view.delegate = delegate
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
