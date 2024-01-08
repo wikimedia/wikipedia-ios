@@ -640,7 +640,43 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(refClosingAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect ref formatting")
     }
     
-    func testVerticalStartTemplate() {
+    func testHorizontalNestedTemplate() {
+        let string = "Ford Island ({{lang-haw|Poka {{okina}}Ailana}}) is an"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+        
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var base1Range = NSRange(location: 0, length: 0)
+        let base1Attributes = mutAttributedString.attributes(at: 0, effectiveRange: &base1Range)
+        
+        var templateRange = NSRange(location: 0, length: 0)
+        let templateAttributes = mutAttributedString.attributes(at: 13, effectiveRange: &templateRange)
+        
+        var base2Range = NSRange(location: 0, length: 0)
+        let base2Attributes = mutAttributedString.attributes(at: 46, effectiveRange: &base2Range)
+        
+        // "Ford Island ("
+        XCTAssertEqual(base1Range.location, 0, "Incorrect base formatting")
+        XCTAssertEqual(base1Range.length, 13, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+        
+        // "{{lang-haw|Poka {{okina}}Ailana}}"
+        XCTAssertEqual(templateRange.location, 13, "Incorrect template formatting")
+        XCTAssertEqual(templateRange.length, 33, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.foregroundColor] as! UIColor, colors.purpleForegroundColor, "Incorrect template formatting")
+        
+        // ") is an"
+        XCTAssertEqual(base2Range.location, 46, "Incorrect base formatting")
+        XCTAssertEqual(base2Range.length, 7, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+    }
+    
+    func testVerticalStartTemplate1() {
         let string = "{{Infobox officeholder"
         let mutAttributedString = NSMutableAttributedString(string: string)
 
@@ -656,6 +692,33 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(templateRange.length, 22, "Incorrect template formatting")
         XCTAssertEqual(templateAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect template formatting")
         XCTAssertEqual(templateAttributes[.foregroundColor] as! UIColor, colors.purpleForegroundColor, "Incorrect template formatting")
+    }
+    
+    func testVerticalStartTemplate2() {
+        let string = "ending of previous sentence. {{cite web"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var baseRange = NSRange(location: 0, length: 0)
+        let baseAttributes = mutAttributedString.attributes(at: 0, effectiveRange: &baseRange)
+        
+        var templateRange = NSRange(location: 0, length: 0)
+        let templateAttributes = mutAttributedString.attributes(at: 29, effectiveRange: &templateRange)
+
+        // "ending of previous sentence. "
+        XCTAssertEqual(baseRange.location, 0, "Incorrect base formatting")
+        XCTAssertEqual(baseRange.length, 29, "Incorrect base formatting")
+        XCTAssertEqual(baseAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(baseAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+        
+        // "ending of previous sentence. "
+        XCTAssertEqual(templateRange.location, 29, "Incorrect template formatting")
+        XCTAssertEqual(templateRange.length, 10, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.foregroundColor] as! UIColor, colors.purpleForegroundColor, "Incorrect base formatting")
     }
     
     func testVerticalParameterTemplate() {
