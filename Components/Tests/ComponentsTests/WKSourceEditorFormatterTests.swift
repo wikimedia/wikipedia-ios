@@ -781,14 +781,8 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         var base1Range = NSRange(location: 0, length: 0)
         let base1Attributes = mutAttributedString.attributes(at: 0, effectiveRange: &base1Range)
 
-        var linkOpenRange = NSRange(location: 0, length: 0)
-        let linkOpenAttributes = mutAttributedString.attributes(at: 9, effectiveRange: &linkOpenRange)
-
-        var linkContentRange = NSRange(location: 0, length: 0)
-        let linkContentAttributes = mutAttributedString.attributes(at: 11, effectiveRange: &linkContentRange)
-
-        var linkCloseRange = NSRange(location: 0, length: 0)
-        let linkCloseAttributes = mutAttributedString.attributes(at: 27, effectiveRange: &linkCloseRange)
+        var linkRange = NSRange(location: 0, length: 0)
+        let linkRangeAttributes = mutAttributedString.attributes(at: 9, effectiveRange: &linkRange)
 
         var base2Range = NSRange(location: 0, length: 0)
         let base2Attributes = mutAttributedString.attributes(at: 29, effectiveRange: &base2Range)
@@ -799,23 +793,11 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(base1Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
         XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
 
-        // "[["
-        XCTAssertEqual(linkOpenRange.location, 9, "Incorrect link formatting")
-        XCTAssertEqual(linkOpenRange.length, 2, "Incorrect link formatting")
-        XCTAssertEqual(linkOpenAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect link formatting")
-        XCTAssertEqual(linkOpenAttributes[.foregroundColor] as! UIColor, colors.blueForegroundColor, "Incorrect link formatting")
-
-        // "Link with spaces"
-        XCTAssertEqual(linkContentRange.location, 11, "Incorrect link content formatting")
-        XCTAssertEqual(linkContentRange.length, 16, "Incorrect link content formatting")
-        XCTAssertEqual(linkContentAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect link content formatting")
-        XCTAssertEqual(linkContentAttributes[.foregroundColor] as! UIColor, colors.blueForegroundColor, "Incorrect content formatting")
-
-        // "]]"
-        XCTAssertEqual(linkCloseRange.location, 27, "Incorrect link formatting")
-        XCTAssertEqual(linkCloseRange.length, 2, "Incorrect link formatting")
-        XCTAssertEqual(linkCloseAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect link formatting")
-        XCTAssertEqual(linkCloseAttributes[.foregroundColor] as! UIColor, colors.blueForegroundColor, "Incorrect link formatting")
+        // "[[Link with spaces]]"
+        XCTAssertEqual(linkRange.location, 9, "Incorrect link formatting")
+        XCTAssertEqual(linkRange.length, 20, "Incorrect link formatting")
+        XCTAssertEqual(linkRangeAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect link formatting")
+        XCTAssertEqual(linkRangeAttributes[.foregroundColor] as! UIColor, colors.blueForegroundColor, "Incorrect link formatting")
 
         // ". Testing"
         XCTAssertEqual(base2Range.location, 29, "Incorrect base formatting")
@@ -835,14 +817,8 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         var base1Range = NSRange(location: 0, length: 0)
         let base1Attributes = mutAttributedString.attributes(at: 0, effectiveRange: &base1Range)
 
-        var linkOpenRange = NSRange(location: 0, length: 0)
-        let linkOpenAttributes = mutAttributedString.attributes(at: 9, effectiveRange: &linkOpenRange)
-
-        var linkContentRange = NSRange(location: 0, length: 0)
-        let linkContentAttributes = mutAttributedString.attributes(at: 11, effectiveRange: &linkContentRange)
-
-        var linkCloseRange = NSRange(location: 0, length: 0)
-        let linkCloseAttributes = mutAttributedString.attributes(at: 32, effectiveRange: &linkCloseRange)
+        var linkRange = NSRange(location: 0, length: 0)
+        let linkAttributes = mutAttributedString.attributes(at: 9, effectiveRange: &linkRange)
 
         var base2Range = NSRange(location: 0, length: 0)
         let base2Attributes = mutAttributedString.attributes(at: 34, effectiveRange: &base2Range)
@@ -853,23 +829,11 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(base1Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
         XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
 
-        // "[["
-        XCTAssertEqual(linkOpenRange.location, 9, "Incorrect link formatting")
-        XCTAssertEqual(linkOpenRange.length, 2, "Incorrect link formatting")
-        XCTAssertEqual(linkOpenAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect link formatting")
-        XCTAssertEqual(linkOpenAttributes[.foregroundColor] as! UIColor, colors.blueForegroundColor, "Incorrect link formatting")
-
-        // "Link|Link with spaces"
-        XCTAssertEqual(linkContentRange.location, 11, "Incorrect link content formatting")
-        XCTAssertEqual(linkContentRange.length, 21, "Incorrect link content formatting")
-        XCTAssertEqual(linkContentAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect link content formatting")
-        XCTAssertEqual(linkContentAttributes[.foregroundColor] as! UIColor, colors.blueForegroundColor, "Incorrect content formatting")
-
-        // "]]"
-        XCTAssertEqual(linkCloseRange.location, 32, "Incorrect link formatting")
-        XCTAssertEqual(linkCloseRange.length, 2, "Incorrect link formatting")
-        XCTAssertEqual(linkCloseAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect link formatting")
-        XCTAssertEqual(linkCloseAttributes[.foregroundColor] as! UIColor, colors.blueForegroundColor, "Incorrect link formatting")
+        // "[[Link|Link with spaces]]"
+        XCTAssertEqual(linkRange.location, 9, "Incorrect link formatting")
+        XCTAssertEqual(linkRange.length, 25, "Incorrect link formatting")
+        XCTAssertEqual(linkAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect link formatting")
+        XCTAssertEqual(linkAttributes[.foregroundColor] as! UIColor, colors.blueForegroundColor, "Incorrect link formatting")
 
         // ". Testing"
         XCTAssertEqual(base2Range.location, 34, "Incorrect base formatting")
@@ -891,15 +855,9 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         
         var linkRange2 = NSRange(location: 0, length: 0)
         let linkAttributes2 = mutAttributedString.attributes(at: 45, effectiveRange: &linkRange2)
-        
+
         var linkRange3 = NSRange(location: 0, length: 0)
-        let linkAttributes3 = mutAttributedString.attributes(at: 47, effectiveRange: &linkRange3)
-        
-        var linkRange4 = NSRange(location: 0, length: 0)
-        let linkAttributes4 = mutAttributedString.attributes(at: 51, effectiveRange: &linkRange4)
-        
-        var linkRange5 = NSRange(location: 0, length: 0)
-        let linkAttributes5 = mutAttributedString.attributes(at: 53, effectiveRange: &linkRange5)
+        let linkAttributes3 = mutAttributedString.attributes(at: 53, effectiveRange: &linkRange3)
         
         // "[[File:Cat with fish.jpg|thumb|left|Cat with "
         XCTAssertEqual(linkRange1.location, 0, "Incorrect link formatting")
@@ -907,28 +865,16 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(linkAttributes1[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
         XCTAssertEqual(linkAttributes1[.foregroundColor] as! UIColor, colors.blueForegroundColor, "Incorrect link formatting")
         
-        // "[["
+        // "[[fish]]"
         XCTAssertEqual(linkRange2.location, 45, "Incorrect link formatting")
-        XCTAssertEqual(linkRange2.length, 2, "Incorrect link formatting")
+        XCTAssertEqual(linkRange2.length, 8, "Incorrect link formatting")
         XCTAssertEqual(linkAttributes2[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
         XCTAssertEqual(linkAttributes2[.foregroundColor] as! UIColor, colors.blueForegroundColor, "Incorrect link formatting")
         
-        // "fish"
-        XCTAssertEqual(linkRange3.location, 47, "Incorrect link formatting")
-        XCTAssertEqual(linkRange3.length, 4, "Incorrect link formatting")
+        // "|alt=Photo of cat looking at fish]]"
+        XCTAssertEqual(linkRange3.location, 53, "Incorrect link formatting")
+        XCTAssertEqual(linkRange3.length, 35, "Incorrect link formatting")
         XCTAssertEqual(linkAttributes3[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
         XCTAssertEqual(linkAttributes3[.foregroundColor] as! UIColor, colors.blueForegroundColor, "Incorrect link formatting")
-        
-        // "]]"
-        XCTAssertEqual(linkRange4.location, 51, "Incorrect link formatting")
-        XCTAssertEqual(linkRange4.length, 2, "Incorrect link formatting")
-        XCTAssertEqual(linkAttributes4[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
-        XCTAssertEqual(linkAttributes4[.foregroundColor] as! UIColor, colors.blueForegroundColor, "Incorrect link formatting")
-        
-        // "|alt=Photo of cat looking at fish]]"
-        XCTAssertEqual(linkRange5.location, 53, "Incorrect link formatting")
-        XCTAssertEqual(linkRange5.length, 35, "Incorrect link formatting")
-        XCTAssertEqual(linkAttributes5[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
-        XCTAssertEqual(linkAttributes5[.foregroundColor] as! UIColor, colors.blueForegroundColor, "Incorrect link formatting")
     }
 }
