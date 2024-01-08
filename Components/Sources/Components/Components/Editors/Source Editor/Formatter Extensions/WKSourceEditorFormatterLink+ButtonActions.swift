@@ -71,9 +71,6 @@ extension WKSourceEditorFormatterLink {
     }
 
     func editLink(in textView: UITextView, newPageTitle: String, newPageLabel: String?, preselectedTextRange: UITextRange) {
-        
-        expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: "[[", endingFormattingString: "]]", in: textView)
-        
         if let newPageLabel, !newPageLabel.isEmpty {
             textView.replace(preselectedTextRange, withText: "\(newPageTitle)|\(newPageLabel)")
         } else {
