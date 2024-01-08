@@ -37,7 +37,7 @@
 "main-menu-about" = "«Википедия» къошакъ программаны юсюнден";
 // Fuzzy
 "main-menu-account-login" = "Системагъа кириу";
-"main-menu-account-logout" = "Чыгъыу";
+"main-menu-account-logout" = "Чыкъ";
 // Fuzzy
 "main-menu-heading-legal" = "Къатыш зат";
 "main-menu-nearby" = "Джууукъда";
@@ -77,4 +77,4 @@
 "vanish-modal-item-3-ios15" = "Джокъ болууну юсюнден къошакъ сорууларыгъыз бар эсе, бу бетге киригиз $1Meta:Right_to_vanish$2$3.";
 // Fuzzy
 "wikitext-upload-save" = "Сакъланады…";
-"wikitext-upload-save-sign-in" = "Кириу";
+"wikitext-upload-save-sign-in" = "Кир";
