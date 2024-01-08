@@ -16,19 +16,63 @@ extension WKSourceEditorFormatter {
     
     func toggleFormatting(startingFormattingString: String, endingFormattingString: String, action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
         
-        switch action {
-        case .remove:
-            expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
-            
-            if selectedRangeIsSurroundedByFormattingStrings(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView) {
-                removeSurroundingFormattingStringsFromSelectedRange(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
+        if textView.selectedRange.length == 0 {
+            switch action {
+            case .remove:
+                expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
+                
+                if selectedRangeIsSurroundedByFormattingStrings(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView) {
+                    removeSurroundingFormattingStringsFromSelectedRange(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
+                }
+            case .add:
+                if selectedRangeIsSurroundedByFormattingStrings(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView) {
+                    removeSurroundingFormattingStringsFromSelectedRange(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
+                } else {
+                    addStringFormattingCharacters(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
+                }
             }
-        case .add:
-            if textView.selectedRange.length == 0 &&
-                selectedRangeIsSurroundedByFormattingStrings(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView) {
-                removeSurroundingFormattingStringsFromSelectedRange(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
-            } else {
-                addStringFormattingCharacters(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
+        } else {
+            
+            switch action {
+            case .remove:
+                
+                if selectedRangeIsSurroundedByFormattingStrings(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView) {
+                    removeSurroundingFormattingStringsFromSelectedRange(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
+                } else {
+                    
+                    // Note the flipped formatting string params.
+                    // For example, this takes selected 'text' from:
+                    // Testing <s>Strikethrough text here</s>
+                    // To:
+                    // Testing <s>Strikethrough </s>text<s> here</s>
+                    // We have to add formatters in reverse order to remove formatting from 'text'
+                    
+                    addStringFormattingCharacters(startingFormattingString: endingFormattingString, endingFormattingString: startingFormattingString, in: textView)
+                }
+                
+            case .add:
+                
+                // Note: gross workaround to prevent italics misfire from continuing below
+                if startingFormattingString == "''" && endingFormattingString == "''" {
+                    if selectedRangeIsSurroundedByFormattingString(formattingString: "''", in: textView) &&
+                        selectedRangeIsSurroundedByFormattingString(formattingString: "'''", in: textView) {
+                        addStringFormattingCharacters(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
+                        return
+                    }
+                }
+                
+                // Note the flipped formatting string params.
+                // For example, this takes selected 'text' from:
+                // Testing <s>Strikethrough </s>text<s> here</s>
+                // To:
+                // Testing <s>Strikethrough text here</s>
+                // We have to check and remove formatters in reverse order to add formatting to 'text'
+                
+                if selectedRangeIsSurroundedByFormattingStrings(startingFormattingString: endingFormattingString, endingFormattingString: startingFormattingString, in: textView) {
+                    removeSurroundingFormattingStringsFromSelectedRange(startingFormattingString: endingFormattingString, endingFormattingString: startingFormattingString, in: textView)
+                } else {
+                    addStringFormattingCharacters(startingFormattingString: startingFormattingString, endingFormattingString: endingFormattingString, in: textView)
+                }
             }
         }
     }
