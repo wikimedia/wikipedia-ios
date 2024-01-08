@@ -11,8 +11,9 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics!
     var templateFormatter: WKSourceEditorFormatterTemplate!
     var headingFormatter: WKSourceEditorFormatterHeading!
+    var strikethroughFormatter: WKSourceEditorFormatterStrikethrough!
     var formatters: [WKSourceEditorFormatter] {
-        return [baseFormatter, templateFormatter, boldItalicsFormatter, headingFormatter]
+        return [baseFormatter, templateFormatter, boldItalicsFormatter, headingFormatter, strikethroughFormatter]
     }
 
     override func setUpWithError() throws {
@@ -22,6 +23,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.colors.baseForegroundColor = WKTheme.light.text
         self.colors.orangeForegroundColor = WKTheme.light.editorOrange
         self.colors.purpleForegroundColor = WKTheme.light.editorPurple
+        self.colors.greenForegroundColor = WKTheme.light.editorGreen
         
         self.fonts = WKSourceEditorFonts()
         self.fonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
@@ -38,6 +40,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
         self.templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
         self.headingFormatter = WKSourceEditorFormatterHeading(colors: colors, fonts: fonts)
+        self.strikethroughFormatter = WKSourceEditorFormatterStrikethrough(colors: colors, fonts: fonts)
     }
 
     override func tearDownWithError() throws {
@@ -914,5 +917,59 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(range.length, 20, "Incorrect inline heading formatting")
         XCTAssertEqual(attributes[.font] as! UIFont, fonts.baseFont, "Incorrect inline heading formatting")
         XCTAssertEqual(attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect inline heading formatting")
+    }
+
+    func testStrikethrough() {
+        let string = "Testing. <s>Strikethrough.</s> Testing"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+
+        var base1Range = NSRange(location: 0, length: 0)
+        let base1Attributes = mutAttributedString.attributes(at: 0, effectiveRange: &base1Range)
+
+        var strikethroughOpenRange = NSRange(location: 0, length: 0)
+        let strikethroughOpenAttributes = mutAttributedString.attributes(at: 9, effectiveRange: &strikethroughOpenRange)
+
+        var strikethroughContentRange = NSRange(location: 0, length: 0)
+        let strikethroughContentAttributes = mutAttributedString.attributes(at: 12, effectiveRange: &strikethroughContentRange)
+
+        var strikethroughCloseRange = NSRange(location: 0, length: 0)
+        let strikethroughCloseAttributes = mutAttributedString.attributes(at: 26, effectiveRange: &strikethroughCloseRange)
+
+        var base2Range = NSRange(location: 0, length: 0)
+        let base2Attributes = mutAttributedString.attributes(at: 32, effectiveRange: &base2Range)
+
+        // "Testing. "
+        XCTAssertEqual(base1Range.location, 0, "Incorrect base formatting")
+        XCTAssertEqual(base1Range.length, 9, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+
+        // "<s>"
+        XCTAssertEqual(strikethroughOpenRange.location, 9, "Incorrect strikethrough formatting")
+        XCTAssertEqual(strikethroughOpenRange.length, 3, "Incorrect strikethrough formatting")
+        XCTAssertEqual(strikethroughOpenAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect strikethrough formatting")
+        XCTAssertEqual(strikethroughOpenAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect strikethrough formatting")
+
+        // "Strikethrough."
+        XCTAssertEqual(strikethroughContentRange.location, 12, "Incorrect content formatting")
+        XCTAssertEqual(strikethroughContentRange.length, 14, "Incorrect content formatting")
+        XCTAssertEqual(strikethroughContentAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect content formatting")
+        XCTAssertEqual(strikethroughContentAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect content formatting")
+
+        // "</s>"
+        XCTAssertEqual(strikethroughCloseRange.location, 26, "Incorrect strikethrough formatting")
+        XCTAssertEqual(strikethroughCloseRange.length, 4, "Incorrect strikethrough formatting")
+        XCTAssertEqual(strikethroughCloseAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect strikethrough formatting")
+        XCTAssertEqual(strikethroughCloseAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect strikethrough formatting")
+
+        // " Testing"
+        XCTAssertEqual(base2Range.location, 30, "Incorrect base formatting")
+        XCTAssertEqual(base2Range.length, 8, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
     }
 }

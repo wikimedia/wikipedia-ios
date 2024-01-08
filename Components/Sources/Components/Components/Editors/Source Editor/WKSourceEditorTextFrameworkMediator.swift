@@ -22,8 +22,9 @@ fileprivate var needsTextKit2: Bool {
     let isSubheading2: Bool
     let isSubheading3: Bool
     let isSubheading4: Bool
+    let isStrikethrough: Bool
     
-    init(isBold: Bool, isItalics: Bool, isHorizontalTemplate: Bool, isHeading: Bool, isSubheading1: Bool, isSubheading2: Bool, isSubheading3: Bool, isSubheading4: Bool) {
+    init(isBold: Bool, isItalics: Bool, isHorizontalTemplate: Bool, isHeading: Bool, isSubheading1: Bool, isSubheading2: Bool, isSubheading3: Bool, isSubheading4: Bool, isStrikethrough: Bool) {
         self.isBold = isBold
         self.isItalics = isItalics
         self.isHorizontalTemplate = isHorizontalTemplate
@@ -32,7 +33,7 @@ fileprivate var needsTextKit2: Bool {
         self.isSubheading2 = isSubheading2
         self.isSubheading3 = isSubheading3
         self.isSubheading4 = isSubheading4
-        
+        self.isStrikethrough = isStrikethrough
     }
 }
 
@@ -47,6 +48,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     private(set) var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics?
     private(set) var templateFormatter: WKSourceEditorFormatterTemplate?
     private(set) var headingFormatter: WKSourceEditorFormatterHeading?
+    private(set) var strikethroughFormatter: WKSourceEditorFormatterStrikethrough?
     
     var isSyntaxHighlightingEnabled: Bool = true {
         didSet {
@@ -116,13 +118,16 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
         let templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
         let headingFormatter = WKSourceEditorFormatterHeading(colors: colors, fonts: fonts)
+        let strikethroughFormatter = WKSourceEditorFormatterStrikethrough(colors: colors, fonts: fonts)
         self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
                 templateFormatter,
                 boldItalicsFormatter,
-                headingFormatter]
+                headingFormatter,
+                strikethroughFormatter]
         self.boldItalicsFormatter = boldItalicsFormatter
         self.templateFormatter = templateFormatter
         self.headingFormatter = headingFormatter
+        self.strikethroughFormatter = strikethroughFormatter
         
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
@@ -162,7 +167,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         
         if needsTextKit2 {
             guard let textKit2Data = textkit2SelectionData(selectedDocumentRange: selectedDocumentRange) else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isHeading: false, isSubheading1: false, isSubheading2: false, isSubheading3: false, isSubheading4: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isHeading: false, isSubheading1: false, isSubheading2: false, isSubheading3: false, isSubheading4: false, isStrikethrough: false)
             }
             
             let isBold = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isBoldIn: textKit2Data.paragraphSelectedRange) ?? false
@@ -173,11 +178,12 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             let isSubheading2 = headingFormatter?.attributedString(textKit2Data.paragraphAttributedString, isSubheading2In: textKit2Data.paragraphSelectedRange) ?? false
             let isSubheading3 = headingFormatter?.attributedString(textKit2Data.paragraphAttributedString, isSubheading3In: textKit2Data.paragraphSelectedRange) ?? false
             let isSubheading4 = headingFormatter?.attributedString(textKit2Data.paragraphAttributedString, isSubheading4In: textKit2Data.paragraphSelectedRange) ?? false
+            let isStrikethrough = strikethroughFormatter?.attributedString(textKit2Data.paragraphAttributedString, isStrikethroughIn: textKit2Data.paragraphSelectedRange) ?? false
             
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isHeading: isHeading, isSubheading1: isSubheading1, isSubheading2: isSubheading2, isSubheading3: isSubheading3, isSubheading4: isSubheading4)
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isHeading: isHeading, isSubheading1: isSubheading1, isSubheading2: isSubheading2, isSubheading3: isSubheading3, isSubheading4: isSubheading4, isStrikethrough: isStrikethrough)
         } else {
             guard let textKit1Storage else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isHeading: false, isSubheading1: false, isSubheading2: false, isSubheading3: false, isSubheading4: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isHeading: false, isSubheading1: false, isSubheading2: false, isSubheading3: false, isSubheading4: false, isStrikethrough: false)
             }
                         
             let isBold = boldItalicsFormatter?.attributedString(textKit1Storage, isBoldIn: selectedDocumentRange) ?? false
@@ -188,8 +194,9 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             let isSubheading2 = headingFormatter?.attributedString(textKit1Storage, isSubheading2In: selectedDocumentRange) ?? false
             let isSubheading3 = headingFormatter?.attributedString(textKit1Storage, isSubheading3In: selectedDocumentRange) ?? false
             let isSubheading4 = headingFormatter?.attributedString(textKit1Storage, isSubheading4In: selectedDocumentRange) ?? false
+            let isStrikethrough = strikethroughFormatter?.attributedString(textKit1Storage, isStrikethroughIn: selectedDocumentRange) ?? false
             
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isHeading: isHeading, isSubheading1: isSubheading1, isSubheading2: isSubheading2, isSubheading3: isSubheading3, isSubheading4: isSubheading4)
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isHeading: isHeading, isSubheading1: isSubheading1, isSubheading2: isSubheading2, isSubheading3: isSubheading3, isSubheading4: isSubheading4, isStrikethrough: isStrikethrough)
         }
     }
     
@@ -226,6 +233,7 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         colors.baseForegroundColor = WKAppEnvironment.current.theme.text
         colors.orangeForegroundColor = isSyntaxHighlightingEnabled ? WKAppEnvironment.current.theme.editorOrange : WKAppEnvironment.current.theme.text
         colors.purpleForegroundColor = isSyntaxHighlightingEnabled ?  WKAppEnvironment.current.theme.editorPurple : WKAppEnvironment.current.theme.text
+        colors.greenForegroundColor = isSyntaxHighlightingEnabled ?  WKAppEnvironment.current.theme.editorGreen : WKAppEnvironment.current.theme.text
         return colors
     }
     

@@ -102,6 +102,11 @@ extension WKEditorInputMainViewController: UITableViewDataSource {
             cell.selectionStyle = .none
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: groupedReuseIdentifier, for: indexPath)
+            
+            if let groupedCell = cell as? WKEditorToolbarGroupedCell {
+                groupedCell.delegate = delegate
+            }
+            
             cell.selectionStyle = .none
         case 2:
             
