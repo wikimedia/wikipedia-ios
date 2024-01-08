@@ -1018,8 +1018,14 @@
 "source-editor-find-replace-all" = "Замени све";
 "source-editor-find-replace-single" = "Замени";
 "source-editor-find-replace-with" = "Замени са...";
+"source-editor-heading" = "Наслов";
 "source-editor-paragraph" = "Пасус";
 "source-editor-style" = "Стил";
+"source-editor-subheading1" = "Поднаслов 1";
+"source-editor-subheading2" = "Поднаслов 2";
+"source-editor-subheading3" = "Поднаслов 3";
+"source-editor-subheading4" = "Поднаслов 4";
+"source-editor-text-formatting" = "Обликовање текста";
 "table-of-contents-button-label" = "Садржај";
 "table-of-contents-close-accessibility-hint" = "Затвори";
 "table-of-contents-close-accessibility-label" = "Затвори садржај";

@@ -21,8 +21,9 @@ fileprivate var needsTextKit2: Bool {
     let isBulletMultipleList: Bool
     let isNumberSingleList: Bool
     let isNumberMultipleList: Bool
+    let isStrikethrough: Bool
     
-    init(isBold: Bool, isItalics: Bool, isHorizontalTemplate: Bool, isBulletSingleList: Bool, isBulletMultipleList: Bool, isNumberSingleList: Bool, isNumberMultipleList: Bool) {
+    init(isBold: Bool, isItalics: Bool, isHorizontalTemplate: Bool, isBulletSingleList: Bool, isBulletMultipleList: Bool, isNumberSingleList: Bool, isNumberMultipleList: Bool, isStrikethrough: Bool) {
         self.isBold = isBold
         self.isItalics = isItalics
         self.isHorizontalTemplate = isHorizontalTemplate
@@ -30,6 +31,7 @@ fileprivate var needsTextKit2: Bool {
         self.isBulletMultipleList = isBulletMultipleList
         self.isNumberSingleList = isNumberSingleList
         self.isNumberMultipleList = isNumberMultipleList
+        self.isStrikethrough = isStrikethrough
     }
 }
 
@@ -44,6 +46,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     private(set) var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics?
     private(set) var templateFormatter: WKSourceEditorFormatterTemplate?
     private(set) var listFormatter: WKSourceEditorFormatterList?
+    private(set) var strikethroughFormatter: WKSourceEditorFormatterStrikethrough?
     
     var isSyntaxHighlightingEnabled: Bool = true {
         didSet {
@@ -110,16 +113,15 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let colors = self.colors
         let fonts = self.fonts
         
-        let boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
         let templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
+        let boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
         let listFormatter = WKSourceEditorFormatterList(colors: colors, fonts: fonts)
+        let strikethroughFormatter = WKSourceEditorFormatterStrikethrough(colors: colors, fonts: fonts)
         self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
                 templateFormatter,
                 boldItalicsFormatter,
-                listFormatter]
-        self.boldItalicsFormatter = boldItalicsFormatter
-        self.templateFormatter = templateFormatter
-        self.listFormatter = listFormatter
+                listFormatter,
+                strikethroughFormatter]
         
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
@@ -159,7 +161,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         
         if needsTextKit2 {
             guard let textKit2Data = textkit2SelectionData(selectedDocumentRange: selectedDocumentRange) else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isBulletSingleList: false, isBulletMultipleList: false, isNumberSingleList: false, isNumberMultipleList: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isBulletSingleList: false, isBulletMultipleList: false, isNumberSingleList: false, isNumberMultipleList: false, isStrikethrough: false)
             }
             
             let isBold = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isBoldIn: textKit2Data.paragraphSelectedRange) ?? false
@@ -169,11 +171,12 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             let isBulletMultipleList = listFormatter?.attributedString(textKit2Data.paragraphAttributedString, isBulletMultipleIn: textKit2Data.paragraphSelectedRange) ?? false
             let isNumberSingleList = listFormatter?.attributedString(textKit2Data.paragraphAttributedString, isNumberSingleIn: textKit2Data.paragraphSelectedRange) ?? false
             let isNumberMultipleList = listFormatter?.attributedString(textKit2Data.paragraphAttributedString, isNumberMultipleIn: textKit2Data.paragraphSelectedRange) ?? false
+            let isStrikethrough = strikethroughFormatter?.attributedString(textKit2Data.paragraphAttributedString, isStrikethroughIn: textKit2Data.paragraphSelectedRange) ?? false
             
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isBulletSingleList: isBulletSingleList, isBulletMultipleList: isBulletMultipleList, isNumberSingleList: isNumberSingleList, isNumberMultipleList: isNumberMultipleList)
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isBulletSingleList: isBulletSingleList, isBulletMultipleList: isBulletMultipleList, isNumberSingleList: isNumberSingleList, isNumberMultipleList: isNumberMultipleList, isStrikethrough: isStrikethrough)
         } else {
             guard let textKit1Storage else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isBulletSingleList: false, isBulletMultipleList: false, isNumberSingleList: false, isNumberMultipleList: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isBulletSingleList: false, isBulletMultipleList: false, isNumberSingleList: false, isNumberMultipleList: false, isStrikethrough: false)
             }
                         
             let isBold = boldItalicsFormatter?.attributedString(textKit1Storage, isBoldIn: selectedDocumentRange) ?? false
@@ -183,8 +186,9 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             let isBulletMultipleList = listFormatter?.attributedString(textKit1Storage, isBulletMultipleIn: selectedDocumentRange) ?? false
             let isNumberSingleList = listFormatter?.attributedString(textKit1Storage, isNumberSingleIn: selectedDocumentRange) ?? false
             let isNumberMultipleList = listFormatter?.attributedString(textKit1Storage, isNumberMultipleIn: selectedDocumentRange) ?? false
+            let isStrikethrough = strikethroughFormatter?.attributedString(textKit1Storage, isStrikethroughIn: selectedDocumentRange) ?? false
             
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isBulletSingleList: isBulletSingleList, isBulletMultipleList: isBulletMultipleList, isNumberSingleList: isNumberSingleList, isNumberMultipleList: isNumberMultipleList)
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isBulletSingleList: isBulletSingleList, isBulletMultipleList: isBulletMultipleList, isNumberSingleList: isNumberSingleList, isNumberMultipleList: isNumberMultipleList, isStrikethrough: isStrikethrough)
         }
     }
     
@@ -221,6 +225,7 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         colors.baseForegroundColor = WKAppEnvironment.current.theme.text
         colors.orangeForegroundColor = isSyntaxHighlightingEnabled ? WKAppEnvironment.current.theme.editorOrange : WKAppEnvironment.current.theme.text
         colors.purpleForegroundColor = isSyntaxHighlightingEnabled ?  WKAppEnvironment.current.theme.editorPurple : WKAppEnvironment.current.theme.text
+        colors.greenForegroundColor = isSyntaxHighlightingEnabled ?  WKAppEnvironment.current.theme.editorGreen : WKAppEnvironment.current.theme.text
         return colors
     }
     

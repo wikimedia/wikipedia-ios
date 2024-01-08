@@ -22,4 +22,17 @@ extension View {
         }
     }
 
+    /// Sets container background of the view to `Color.clear` if on iOS 17
+    /// - Returns: a modified `View` with the iOS 17 container background modifier applied if needed
+    @ViewBuilder
+    func clearWidgetContainerBackground() -> some View {
+        if #available(iOS 17.0, *) {
+            self.containerBackground(for: .widget) {
+                Color.clear
+            }
+        } else {
+            self
+        }
+    }
+
 }
