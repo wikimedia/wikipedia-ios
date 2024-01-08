@@ -61,6 +61,7 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertFalse(selectionStates9.isItalics)
     }
     
+<<<<<<< HEAD
     func testSelectionSpanningNonFormattedState1() throws {
         let text = "Testing '''bold with {{template}}''' selection that spans nonbold."
         mediator.textView.attributedText = NSAttributedString(string: text)
@@ -79,6 +80,22 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 10, length: 21))
         XCTAssertFalse(selectionStates1.isBold)
         XCTAssertTrue(selectionStates1.isHorizontalTemplate)
+=======
+    func testClosingBoldSelectionStateCursor() throws {
+        let text = "One '''Two''' Three"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 10, length: 0))
+        XCTAssertTrue(selectionStates.isBold)
+    }
+    
+    func testClosingItalicsSelectionStateCursor() throws {
+        let text = "One ''Two'' Three"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 9, length: 0))
+        XCTAssertTrue(selectionStates.isItalics)
+>>>>>>> a08b4c44f206d70dc05551b00fbede5dc6dd8faa
     }
     
     func testHorizontalTemplateButtonSelectionStateCursor() throws {
@@ -149,5 +166,29 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         // "cite web | url=https://en.wikipedia.org | title = The '''Free''' Encyclopedia"
         let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 26, length: 77))
         XCTAssertTrue(selectionStates.isHorizontalTemplate)
+    }
+    
+    func testStrikethroughSelectionState() throws {
+        let text = "Testing <s>Strikethrough</s> Testing."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 0, length: 7))
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 11, length: 13))
+        let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 29, length: 7))
+        XCTAssertFalse(selectionStates1.isStrikethrough)
+        XCTAssertTrue(selectionStates2.isStrikethrough)
+        XCTAssertFalse(selectionStates3.isStrikethrough)
+    }
+    
+    func testStrikethroughSelectionStateCursor() throws {
+        let text = "Testing <s>Strikethrough</s> Testing."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 3, length: 0))
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 17, length: 0))
+        let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 33, length: 0))
+        XCTAssertFalse(selectionStates1.isStrikethrough)
+        XCTAssertTrue(selectionStates2.isStrikethrough)
+        XCTAssertFalse(selectionStates3.isStrikethrough)
     }
 }

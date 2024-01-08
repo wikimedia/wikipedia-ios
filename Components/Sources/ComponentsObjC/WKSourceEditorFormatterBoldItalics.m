@@ -294,8 +294,16 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
         if (attributedString.length > range.location) {
             NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
             
-            if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[formattingKey] != nil) {
+            if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontItalics] != nil) {
                 isFormatted = YES;
+            } else {
+                // Edge case, check previous character if we are up against a closing bold or italic
+                if (attrs[WKSourceEditorCustomKeyColorOrange]) {
+                    attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
+                    if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontItalics] != nil) {
+                        isFormatted = YES;
+                    }
+                }
             }
         }
         

@@ -15,6 +15,8 @@ struct PictureOfTheDayWidget: Widget {
         .configurationDisplayName(PictureOfTheDayWidget.LocalizedStrings.widgetTitle)
         .description(PictureOfTheDayWidget.LocalizedStrings.widgetDescription)
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .contentMarginsDisabled()
+        .containerBackgroundRemovable(false)
     }
 }
 
@@ -172,6 +174,7 @@ struct PictureOfTheDayView: View {
                     .overlay(PictureOfTheDayOverlayView(entry: entry), alignment: .bottomLeading)
             }
         }
+        .clearWidgetContainerBackground()
         .widgetURL(entry.contentURL)
     }
 
