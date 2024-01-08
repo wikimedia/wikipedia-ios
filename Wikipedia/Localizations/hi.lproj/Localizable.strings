@@ -500,6 +500,10 @@
 "share-social-mention-format" = "विकिपीडिया के माध्यम से \" $1 \": $2";
 "sort-by-recently-added-action" = "हाल ही में जोड़ा गया";
 "sort-by-title-action" = "शीर्षक";
+"source-editor-accessibility-label-find-text-field" = "खोजें";
+"source-editor-accessibility-label-replace-text-field" = "बदलें";
+"source-editor-find-replace-all" = "सभी बदलें";
+"source-editor-paragraph" = "अनुच्छेद";
 "table-of-contents-button-label" = "सामग्री सारणी (टेबल)";
 "table-of-contents-close-accessibility-hint" = "बंद करें";
 "table-of-contents-close-accessibility-label" = "सामग्री सारणी को बंद करें";

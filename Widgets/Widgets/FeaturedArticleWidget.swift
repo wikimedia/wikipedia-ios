@@ -15,6 +15,8 @@ struct FeaturedArticleWidget: Widget {
 		.configurationDisplayName(FeaturedArticleWidget.LocalizedStrings.widgetTitle)
 		.description(FeaturedArticleWidget.LocalizedStrings.widgetDescription)
 		.supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .contentMarginsDisabled()
+        .containerBackgroundRemovable(false)
 	}
 }
 
@@ -278,6 +280,7 @@ struct FeaturedArticleView: View {
 
 	var body: some View {
 		widgetBody
+            .clearWidgetContainerBackground()
 			.widgetURL(entry.contentURL)
 			.environment(\.layoutDirection, entry.layoutDirection)
 			.flipsForRightToLeftLayoutDirection(true)
