@@ -18,8 +18,7 @@ final class WKSourceEditorUITests: XCTestCase {
         textView.tap()
         textView.typeText("Hello World!")
 
-        XCTAssertFalse(app.isDisplayingMainInputView)
-        XCTAssertFalse(app.isDisplayingHeaderSelectView)
+        XCTAssertFalse(app.isDisplayingInputView)
         XCTAssertTrue(app.isDisplayingExpandingToolbar)
         XCTAssertFalse(app.isDisplayingHighlightingToolbar)
         XCTAssertFalse(app.isDisplayingFindAndReplaceToolbar)
@@ -30,8 +29,7 @@ final class WKSourceEditorUITests: XCTestCase {
 
         textView.doubleTap()
 
-        XCTAssertFalse(app.isDisplayingMainInputView)
-        XCTAssertFalse(app.isDisplayingHeaderSelectView)
+        XCTAssertFalse(app.isDisplayingInputView)
         XCTAssertFalse(app.isDisplayingExpandingToolbar)
         XCTAssertTrue(app.isDisplayingHighlightingToolbar)
         XCTAssertFalse(app.isDisplayingFindAndReplaceToolbar)
@@ -42,8 +40,7 @@ final class WKSourceEditorUITests: XCTestCase {
 
         app.buttons["Source Editor Show More Button"].tap()
 
-        XCTAssertTrue(app.isDisplayingMainInputView)
-        XCTAssertFalse(app.isDisplayingHeaderSelectView)
+        XCTAssertTrue(app.isDisplayingInputView)
         XCTAssertFalse(app.isDisplayingExpandingToolbar)
         XCTAssertFalse(app.isDisplayingHighlightingToolbar)
         XCTAssertFalse(app.isDisplayingFindAndReplaceToolbar)
@@ -54,8 +51,7 @@ final class WKSourceEditorUITests: XCTestCase {
 
         app.buttons["Source Editor Format Text Button"].tap()
 
-        XCTAssertTrue(app.isDisplayingMainInputView)
-        XCTAssertFalse(app.isDisplayingHeaderSelectView)
+        XCTAssertTrue(app.isDisplayingInputView)
         XCTAssertFalse(app.isDisplayingExpandingToolbar)
         XCTAssertFalse(app.isDisplayingHighlightingToolbar)
         XCTAssertFalse(app.isDisplayingFindAndReplaceToolbar)
@@ -63,36 +59,6 @@ final class WKSourceEditorUITests: XCTestCase {
         let mainInputViewAttachment = XCTAttachment(screenshot: app.screenshot())
         mainInputViewAttachment.name = ScreenshotNames.main.rawValue
         add(mainInputViewAttachment)
-
-        app.tables.element(boundBy: 0).cells.element(boundBy: 2).tap()
-
-        XCTAssertFalse(app.isDisplayingMainInputView)
-        XCTAssertTrue(app.isDisplayingHeaderSelectView)
-        XCTAssertFalse(app.isDisplayingExpandingToolbar)
-        XCTAssertFalse(app.isDisplayingHighlightingToolbar)
-        XCTAssertFalse(app.isDisplayingFindAndReplaceToolbar)
-
-        app.tables.element(boundBy: 0).cells.element(boundBy: 0).tap()
-
-        let headerSelectInputView1Attachment = XCTAttachment(screenshot: app.screenshot())
-        headerSelectInputView1Attachment.name = ScreenshotNames.headerSelect1.rawValue
-        add(headerSelectInputView1Attachment)
-
-        app.buttons["Source Editor Close Button"].tap()
-
-        app.buttons["Source Editor Format Heading Button"].tap()
-
-        XCTAssertFalse(app.isDisplayingMainInputView)
-        XCTAssertTrue(app.isDisplayingHeaderSelectView)
-        XCTAssertFalse(app.isDisplayingExpandingToolbar)
-        XCTAssertFalse(app.isDisplayingHighlightingToolbar)
-        XCTAssertFalse(app.isDisplayingFindAndReplaceToolbar)
-
-        app.tables.element(boundBy: 0).cells.element(boundBy: 2).tap()
-
-        let headerSelectInputView2Attachment = XCTAttachment(screenshot: app.screenshot())
-        headerSelectInputView2Attachment.name = ScreenshotNames.headerSelect2.rawValue
-        add(headerSelectInputView2Attachment)
 
         app.buttons["Source Editor Close Button"].tap()
 
@@ -117,12 +83,8 @@ extension XCUIApplication {
         return otherElements["Source Editor Find Toolbar"].exists
     }
 
-    var isDisplayingMainInputView: Bool {
-        return otherElements[ "Source Editor Main Input View"].exists
-    }
-
-    var isDisplayingHeaderSelectView: Bool {
-        return otherElements["Source Editor Header Select Input View"].exists
+    var isDisplayingInputView: Bool {
+        return otherElements[ "Source Editor Input View"].exists
     }
 }
 
