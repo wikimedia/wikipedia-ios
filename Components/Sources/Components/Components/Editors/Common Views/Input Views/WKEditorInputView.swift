@@ -7,6 +7,7 @@ protocol WKEditorInputViewDelegate: AnyObject {
     func didTapItalics(isSelected: Bool)
     func didTapTemplate(isSelected: Bool)
     func didTapStrikethrough(isSelected: Bool)
+    func didTapLink(isSelected: Bool)
 }
 
 class WKEditorInputView: WKComponentView {
