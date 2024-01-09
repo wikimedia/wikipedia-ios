@@ -276,7 +276,6 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isBoldInRange:(NSRange)range {
     return [self attributedString:attributedString isFormattedInRange:range formattingKey:WKSourceEditorCustomKeyFontBold];
 }
-
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isItalicsInRange:(NSRange)range {
     return [self attributedString:attributedString isFormattedInRange:range formattingKey:WKSourceEditorCustomKeyFontItalics];
 }
@@ -290,14 +289,13 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
         
         if (attributedString.length > range.location) {
             NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
-            
-            if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[WKSourceEditorCustomKeyFontItalics] != nil) {
+            if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[formattingKey] != nil) {
                 isFormatted = YES;
             } else {
                 // Edge case, check previous character if we are up against a closing bold or italic
                 if (attrs[WKSourceEditorCustomKeyColorOrange]) {
                     attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
-                    if (attrs[WKSourceEditorCustomKeyFontBold] != nil || attrs[WKSourceEditorCustomKeyFontItalics] != nil) {
+                    if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[formattingKey] != nil) {
                         isFormatted = YES;
                     }
                 }

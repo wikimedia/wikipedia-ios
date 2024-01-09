@@ -20,12 +20,7 @@ extension Notification {
 public class WKSourceEditorViewController: WKComponentViewController {
     
     // MARK: Nested Types
-    
-    enum InputViewType {
-        case main
-        case headerSelect
-    }
-    
+
     enum InputAccessoryViewType {
         case expanding
         case highlight
@@ -68,64 +63,24 @@ public class WKSourceEditorViewController: WKComponentViewController {
     
     // Input Views
     
-    private var _mainInputView: UIView?
-    private var mainInputView: UIView? {
-        get {
-            guard _mainInputView == nil else {
-                return _mainInputView
-            }
-            
-            let inputViewController = WKEditorInputViewController(configuration: .rootMain, delegate: self)
-            inputViewController.loadViewIfNeeded()
-            
-            _mainInputView = inputViewController.view
-            
-            return inputViewController.view
-        }
-        set {
-            _mainInputView = newValue
-        }
-    }
+    private lazy var editorInputView: UIView? = {
+        let inputView = WKEditorInputView(delegate: self)
+        inputView.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.inputView
+        return inputView
+    }()
     
-    private var _headerSelectionInputView: UIView?
-    private var headerSelectionInputView: UIView? {
-        get {
-            guard _headerSelectionInputView == nil else {
-                return _headerSelectionInputView
-            }
-            
-            let inputViewController = WKEditorInputViewController(configuration: .rootHeaderSelect, delegate: self)
-            inputViewController.loadViewIfNeeded()
-            
-            _headerSelectionInputView = inputViewController.view
-            
-            return inputViewController.view
-        }
-        set {
-            _headerSelectionInputView = newValue
-        }
-    }
+    // Input Tracking Properties
     
-    // Input Types
-    
-    var inputViewType: InputViewType? = nil {
+    var editorInputViewIsShowing: Bool? = false {
         didSet {
             
-            guard let inputViewType else {
-                mainInputView = nil
-                headerSelectionInputView = nil
+            guard editorInputViewIsShowing == true else {
                 textView.inputView = nil
                 textView.reloadInputViews()
                 return
             }
             
-            switch inputViewType {
-            case .main:
-                textView.inputView = mainInputView
-            case .headerSelect:
-                textView.inputView = headerSelectionInputView
-            }
-            
+            textView.inputView = editorInputView
             textView.inputAccessoryView = nil
             textView.reloadInputViews()
         }
@@ -278,7 +233,7 @@ private extension WKSourceEditorViewController {
 
 extension WKSourceEditorViewController: UITextViewDelegate {
     public func textViewDidChangeSelection(_ textView: UITextView) {
-        guard inputViewType == nil else {
+        guard editorInputViewIsShowing == false else {
             postUpdateButtonSelectionStatesNotification(withDelay: false)
             return
         }
@@ -298,12 +253,7 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
     }
     
     func toolbarExpandingViewDidTapFormatText(toolbarView: WKEditorToolbarExpandingView) {
-        inputViewType = .main
-        postUpdateButtonSelectionStatesNotification(withDelay: true)
-    }
-    
-    func toolbarExpandingViewDidTapFormatHeading(toolbarView: WKEditorToolbarExpandingView) {
-        inputViewType = .headerSelect
+        editorInputViewIsShowing = true
         postUpdateButtonSelectionStatesNotification(withDelay: true)
     }
     
@@ -333,12 +283,7 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
     }
     
     func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView) {
-        inputViewType = .main
-        postUpdateButtonSelectionStatesNotification(withDelay: true)
-    }
-    
-    func toolbarHighlightViewDidTapFormatHeading(toolbarView: WKEditorToolbarHighlightView) {
-        inputViewType = .headerSelect
+        editorInputViewIsShowing = true
         postUpdateButtonSelectionStatesNotification(withDelay: true)
     }
 }
@@ -371,7 +316,7 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     }
     
     func didTapClose() {
-        inputViewType = nil
+        editorInputViewIsShowing = false
         let isRangeSelected = textView.selectedRange.length > 0
         inputAccessoryViewType = isRangeSelected ? .highlight : .expanding
     }
