@@ -34,12 +34,21 @@ final class WKSourceEditorTests: XCTestCase {
 }
 
 extension WKSourceEditorTests: WKSourceEditorViewControllerDelegate {
+    
     func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: Components.WKSourceEditorViewController) {
         
     }
     
     func sourceEditorViewControllerDidTapFind(sourceEditorViewController: Components.WKSourceEditorViewController) {
 
+    }
+    
+    func sourceEditorViewControllerDidTapLink(parameters: Components.WKSourceEditorFormatterLinkWizardParameters) {
+        
+    }
+    
+    func sourceEditorViewControllerDidTapImage() {
+        
     }
 }
 

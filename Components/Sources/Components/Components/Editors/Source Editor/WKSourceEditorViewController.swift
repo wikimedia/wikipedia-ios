@@ -4,6 +4,8 @@ import UIKit
 public protocol WKSourceEditorViewControllerDelegate: AnyObject {
     func sourceEditorViewControllerDidTapFind(sourceEditorViewController: WKSourceEditorViewController)
     func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: WKSourceEditorViewController)
+    func sourceEditorViewControllerDidTapLink(parameters: WKSourceEditorFormatterLinkWizardParameters)
+    func sourceEditorViewControllerDidTapImage()
 }
 
 // MARK: NSNotification Names
@@ -32,6 +34,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
     private let viewModel: WKSourceEditorViewModel
     private weak var delegate: WKSourceEditorViewControllerDelegate?
     private let textFrameworkMediator: WKSourceEditorTextFrameworkMediator
+    private var preselectedTextRange: UITextRange?
     
     var textView: UITextView {
         return textFrameworkMediator.textView
@@ -186,6 +189,43 @@ public class WKSourceEditorViewController: WKComponentViewController {
         viewModel.isSyntaxHighlightingEnabled.toggle()
         update(viewModel: viewModel)
     }
+    
+    public func insertLink(pageTitle: String) {
+        
+        guard let preselectedTextRange else {
+            return
+        }
+        
+        textFrameworkMediator.linkFormatter?.insertLink(in: textView, pageTitle: pageTitle, preselectedTextRange: preselectedTextRange)
+        
+        self.preselectedTextRange = nil
+    }
+    
+    public func editLink(newPageTitle: String, newPageLabel: String?) {
+        
+        guard let preselectedTextRange else {
+            return
+        }
+        
+        textFrameworkMediator.linkFormatter?.editLink(in: textView, newPageTitle: newPageTitle, newPageLabel: newPageLabel, preselectedTextRange: preselectedTextRange)
+        
+        self.preselectedTextRange = nil
+    }
+    
+    public func removeLink() {
+        
+        guard let preselectedTextRange else {
+            return
+        }
+        
+        textFrameworkMediator.linkFormatter?.removeLink(in: textView, preselectedTextRange: preselectedTextRange)
+        
+        self.preselectedTextRange = nil
+    }
+    
+    public func insertImage(wikitext: String) {
+        textFrameworkMediator.linkFormatter?.insertImage(wikitext: wikitext, in: textView)
+    }
 }
 
 // MARK: - Private
@@ -226,6 +266,19 @@ private extension WKSourceEditorViewController {
         } else {
             NotificationCenter.default.post(name: Notification.WKSourceEditorSelectionState, object: nil, userInfo: [Notification.WKSourceEditorSelectionStateKey: selectionState])
         }
+    }
+    
+    func presentLinkWizard(linkButtonIsSelected: Bool) {
+        
+        let action: WKSourceEditorFormatterLinkButtonAction = linkButtonIsSelected ? .edit : .insert
+        
+        guard let parameters = textFrameworkMediator.linkFormatter?.linkWizardParameters(action: action, in: textView) else {
+            return
+        }
+        
+        // For some reason the editor text view can lose its selectedTextRange when presenting the link wizard, which we need in the formatter button action extension to determine how to change the text after wizard dismissal. We keep track of it here and send it back into the formatter later.
+        self.preselectedTextRange = parameters.preselectedTextRange
+        delegate?.sourceEditorViewControllerDidTapLink(parameters: parameters)
     }
 }
 
@@ -283,14 +336,21 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
     func toolbarExpandingViewDidTapReference(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
-
+    }
+    
+    func toolbarExpandingViewDidTapLink(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
+        presentLinkWizard(linkButtonIsSelected: isSelected)
+    }
+    
+    func toolbarExpandingViewDidTapImage(toolbarView: WKEditorToolbarExpandingView) {
+        delegate?.sourceEditorViewControllerDidTapImage()
     }
 }
 
 // MARK: - WKEditorToolbarHighlightViewDelegate
 
 extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
-    
+        
     func toolbarHighlightViewDidTapBold(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.boldItalicsFormatter?.toggleBoldFormatting(action: action, in: textView)
@@ -311,6 +371,10 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
         textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
     }
     
+    func toolbarHighlightViewDidTapLink(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
+        presentLinkWizard(linkButtonIsSelected: isSelected)
+    }
+    
     func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView) {
         editorInputViewIsShowing = true
         postUpdateButtonSelectionStatesNotification(withDelay: true)
@@ -320,6 +384,7 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
 // MARK: - WKEditorInputViewDelegate
 
 extension WKSourceEditorViewController: WKEditorInputViewDelegate {
+
     func didTapHeading(type: WKEditorInputView.HeadingButtonType) {
         textFrameworkMediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: type, currentSelectionState: selectionState(), textView: textView)
     }
@@ -381,7 +446,11 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.superscriptFormatter?.toggleSuperscriptFormatting(action: action, in: textView)
     }
-
+    
+    func didTapLink(isSelected: Bool) {
+        presentLinkWizard(linkButtonIsSelected: isSelected)
+    }
+    
     func didTapClose() {
         editorInputViewIsShowing = false
         let isRangeSelected = textView.selectedRange.length > 0

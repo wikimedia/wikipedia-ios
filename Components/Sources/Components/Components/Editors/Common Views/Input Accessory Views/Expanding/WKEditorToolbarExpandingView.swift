@@ -9,6 +9,8 @@ protocol WKEditorToolbarExpandingViewDelegate: AnyObject {
     func toolbarExpandingViewDidTapIncreaseIndent(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapDecreaseIndent(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapReference(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapLink(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapImage(toolbarView: WKEditorToolbarExpandingView)
 }
 
 class WKEditorToolbarExpandingView: WKEditorToolbarView {
@@ -47,7 +49,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     @IBOutlet private weak var referenceButton: WKEditorToolbarButton!
     @IBOutlet private weak var linkButton: WKEditorToolbarButton!
     @IBOutlet private weak var templateButton: WKEditorToolbarButton!
-    @IBOutlet private weak var mediaButton: WKEditorToolbarButton!
+    @IBOutlet private weak var imageButton: WKEditorToolbarButton!
     @IBOutlet private weak var findInPageButton: WKEditorToolbarButton!
     
     @IBOutlet private weak var unorderedListButton: WKEditorToolbarButton!
@@ -97,9 +99,9 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
         templateButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonTemplate
 
-        mediaButton.setImage(WKSFSymbolIcon.for(symbol: .photo), for: .normal)
-        mediaButton.addTarget(self, action: #selector(tappedMedia), for: .touchUpInside)
-        mediaButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonMedia
+        imageButton.setImage(WKSFSymbolIcon.for(symbol: .photo), for: .normal)
+        imageButton.addTarget(self, action: #selector(tappedMedia), for: .touchUpInside)
+        imageButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonMedia
 
         findInPageButton.setImage(WKSFSymbolIcon.for(symbol: .docTextMagnifyingGlass), for: .normal)
         findInPageButton.addTarget(self, action: #selector(tappedFindInPage), for: .touchUpInside)
@@ -138,6 +140,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
 
         cursorRightButton.setImage(WKIcon.chevronRight, for: .normal)
         cursorRightButton.addTarget(self, action: #selector(tappedCursorRight), for: .touchUpInside)
+        cursorRightButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonCursorRight
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)
     }
@@ -174,6 +177,9 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         referenceButton.isSelected = selectionState.isHorizontalReference
 
         cursorRightButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonCursorRight
+
+        linkButton.isSelected = selectionState.isSimpleLink
+        imageButton.isEnabled = !selectionState.isBold && !selectionState.isItalics && !selectionState.isSimpleLink
     }
 
     // MARK: - Button Actions
@@ -227,6 +233,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     }
 
     @objc private func tappedLink() {
+        delegate?.toolbarExpandingViewDidTapLink(toolbarView: self, isSelected: linkButton.isSelected)
     }
 
     @objc private func tappedUnorderedList() {
@@ -266,6 +273,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     }
 
     @objc private func tappedMedia() {
+        delegate?.toolbarExpandingViewDidTapImage(toolbarView: self)
     }
 
 }
