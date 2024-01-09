@@ -228,7 +228,7 @@
 "description-welcome-concise-title" = "Pidä se lyhyenä";
 "description-welcome-descriptions-sub-title" = "Artikkelin yhteenveto helpottaa sisällön hahmottamista nopealla vilauksella";
 "description-welcome-descriptions-title" = "Artikkelin kuvaukset";
-"description-welcome-promise-title" = "Aloittamalla, lupaan etten väärinkäytä tätä ominaisuutta";
+"description-welcome-promise-title" = "Aloittamalla lupaan, etten väärinkäytä tätä toimintoa";
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
 "diff-compare-header-from-info-heading" = "Edellinen muokkaus";
 "diff-compare-header-heading" = "Versioiden vertailu";
@@ -763,8 +763,8 @@
 "places-empty-search-description" = "Tutki kaupunkeja, maita, mantereita, luontokohteita, historiallisia tapahtumia, rakennuksia ja paljon muuta.";
 "places-empty-search-title" = "Etsi Wikipedia artikkeleita maantieteellisillä paikoilla";
 "places-enable-location-action-button-title" = "Ota sijainti käyttöön";
-"places-enable-location-description" = "Käyttömahdollisuus sijaintiisi on käytettävissä vain, kun sovellus tai jokin sen ominaisuuksista on näkyvissä näytölläsi.";
-"places-enable-location-title" = "Tutki artikkeleita jotka ovat lähellä sijaintiasi ottamalla Sijainti toiminto käyttöön";
+"places-enable-location-description" = "Sijaintiasi voidaan käyttää vain, kuin sovellus tai jokin sen osa on näkyvissä näytöllä.";
+"places-enable-location-title" = "Tutki lähiseudun artikkeleita sallimalla sijainnin käyttö";
 "places-filter-articles-action-sheet-title" = "Suodata artikkeleita";
 "places-filter-button-title" = "Suodata";
 "places-filter-no-saved-places" = "Sinulla ei ole tallennettuja paikkoja";

@@ -97,6 +97,22 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertTrue(selectionStates1.isHorizontalTemplate)
     }
     
+    func testClosingBoldSelectionStateCursor() throws {
+        let text = "One '''Two''' Three"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 10, length: 0))
+        XCTAssertTrue(selectionStates.isBold)
+    }
+    
+    func testClosingItalicsSelectionStateCursor() throws {
+        let text = "One ''Two'' Three"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 9, length: 0))
+        XCTAssertTrue(selectionStates.isItalics)
+    }
+    
     func testHorizontalTemplateButtonSelectionStateCursor() throws {
         let text = "Testing simple {{Currentdate}} template example."
         mediator.textView.attributedText = NSAttributedString(string: text)
