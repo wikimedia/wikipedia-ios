@@ -488,6 +488,9 @@
 		6741245027E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */; };
 		6741245127E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */; };
 		6741245227E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */; };
+		6743F1112B4CD2860045BF70 /* WhatToTest.en-US.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6743F1102B4CD2860045BF70 /* WhatToTest.en-US.txt */; };
+		6743F1122B4CD2860045BF70 /* WhatToTest.en-US.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6743F1102B4CD2860045BF70 /* WhatToTest.en-US.txt */; };
+		6743F1132B4CD2860045BF70 /* WhatToTest.en-US.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6743F1102B4CD2860045BF70 /* WhatToTest.en-US.txt */; };
 		6747117E250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747117D250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift */; };
 		6747117F250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747117D250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift */; };
 		67471180250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747117D250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift */; };
@@ -3373,6 +3376,7 @@
 		673FC3CF273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFTableHeaderFooterLabelView+Extensions.swift"; sourceTree = "<group>"; };
 		6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterDetailViewModel+ActionExtensions.swift"; sourceTree = "<group>"; };
 		6742E1A12AAA7AA200789A9D /* WKData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WKData; sourceTree = "<group>"; };
+		6743F1102B4CD2860045BF70 /* WhatToTest.en-US.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "WhatToTest.en-US.txt"; sourceTree = "<group>"; };
 		6747117D250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocReferenceCollectionViewCell.swift; sourceTree = "<group>"; };
 		674711822507253500287951 /* ArticleAsLivingDocSnippetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocSnippetCollectionViewCell.swift; sourceTree = "<group>"; };
 		6747118725072D1500287951 /* IconTitleBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTitleBadge.swift; sourceTree = "<group>"; };
@@ -6344,6 +6348,14 @@
 			name = "Page Editor";
 			sourceTree = "<group>";
 		};
+		6743F10F2B4CD2460045BF70 /* TestFlight */ = {
+			isa = PBXGroup;
+			children = (
+				6743F1102B4CD2860045BF70 /* WhatToTest.en-US.txt */,
+			);
+			path = TestFlight;
+			sourceTree = "<group>";
+		};
 		674C176A2AAA869D007DC6CC /* Test Plans */ = {
 			isa = PBXGroup;
 			children = (
@@ -8128,6 +8140,7 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
+				6743F10F2B4CD2460045BF70 /* TestFlight */,
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				67F47C0E2AAA6E16006E17FA /* Packages */,
 				D844D96D1D6CB2600042D692 /* WMF Framework */,
@@ -9609,6 +9622,7 @@
 				B0ED173D1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				D80ED2601EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				D8421B58203CC8420040F50B /* DebugReadingListsViewController.xib in Resources */,
+				6743F1112B4CD2860045BF70 /* WhatToTest.en-US.txt in Resources */,
 				B0E803771C0CD9C10065EBC0 /* TableOfContentsCell.xib in Resources */,
 				7A82765E226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
@@ -9814,6 +9828,7 @@
 				D8CE26971E698E2400DAE2E0 /* WMFTableHeaderFooterLabelView.xib in Resources */,
 				D8CE269A1E698E2400DAE2E0 /* NotificationButtonBackground.png in Resources */,
 				D8CE269C1E698E2400DAE2E0 /* WMFSettingsViewController.storyboard in Resources */,
+				6743F1132B4CD2860045BF70 /* WhatToTest.en-US.txt in Resources */,
 				D8CE269D1E698E2400DAE2E0 /* Images.xcassets in Resources */,
 				D8CE269E1E698E2400DAE2E0 /* ReadingThemesControlsViewController.xib in Resources */,
 				B0F4762121F921D300C4E254 /* EditSummaryViewController.xib in Resources */,
@@ -9935,6 +9950,7 @@
 				D8EC3F971E9BDA35006712EB /* WMFTableHeaderFooterLabelView.xib in Resources */,
 				D8EC3F9A1E9BDA35006712EB /* NotificationButtonBackground.png in Resources */,
 				D8EC3F9C1E9BDA35006712EB /* WMFSettingsViewController.storyboard in Resources */,
+				6743F1122B4CD2860045BF70 /* WhatToTest.en-US.txt in Resources */,
 				D8EC3F9D1E9BDA35006712EB /* Images.xcassets in Resources */,
 				D8EC3F9E1E9BDA35006712EB /* ReadingThemesControlsViewController.xib in Resources */,
 				B0F4762221F921D300C4E254 /* EditSummaryViewController.xib in Resources */,
