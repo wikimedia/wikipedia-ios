@@ -3,7 +3,6 @@ import UIKit
 protocol WKEditorToolbarExpandingViewDelegate: AnyObject {
     func toolbarExpandingViewDidTapFind(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapFormatText(toolbarView: WKEditorToolbarExpandingView)
-    func toolbarExpandingViewDidTapFormatHeading(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapTemplate(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
     func toolbarExpandingViewDidTapReference(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
 }
@@ -41,7 +40,6 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     @IBOutlet weak var secondaryContainerView: UIView!
 
     @IBOutlet private weak var formatTextButton: WKEditorToolbarButton!
-    @IBOutlet private weak var formatHeadingButton: WKEditorToolbarButton!
     @IBOutlet private weak var referenceButton: WKEditorToolbarButton!
     @IBOutlet private weak var linkButton: WKEditorToolbarButton!
     @IBOutlet private weak var templateButton: WKEditorToolbarButton!
@@ -82,11 +80,6 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         formatTextButton.addTarget(self, action: #selector(tappedFormatText), for: .touchUpInside)
         formatTextButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.formatTextButton
         formatTextButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonFormatText
-
-        formatHeadingButton.setImage(WKIcon.formatHeading, for: .normal)
-        formatHeadingButton.addTarget(self, action: #selector(tappedFormatHeading), for: .touchUpInside)
-        formatHeadingButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.formatHeadingButton
-        formatHeadingButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonFormatHeading
 
         referenceButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
         referenceButton.addTarget(self, action: #selector(tappedReference), for: .touchUpInside)
@@ -199,7 +192,6 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     }
     
     @objc private func tappedFormatHeading() {
-        delegate?.toolbarExpandingViewDidTapFormatHeading(toolbarView: self)
     }
 
     @objc private func tappedReference() {
