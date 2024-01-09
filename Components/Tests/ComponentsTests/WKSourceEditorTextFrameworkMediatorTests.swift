@@ -61,6 +61,25 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertFalse(selectionStates9.isItalics)
     }
     
+    func testSelectionSpanningNonFormattedState1() throws {
+        let text = "Testing '''bold with {{template}}''' selection that spans nonbold."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        // "bold with {{template}}"
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 11, length: 22))
+        XCTAssertTrue(selectionStates.isBold)
+        XCTAssertFalse(selectionStates.isHorizontalTemplate)
+    }
+    
+    func testSelectionSpanningNonFormattedState2() throws {
+        let text = "Testing {{template | '''bold'''}} selection that spans nonbold."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        // "template | '''bold'''"
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 10, length: 21))
+        XCTAssertFalse(selectionStates1.isBold)
+        XCTAssertTrue(selectionStates1.isHorizontalTemplate)
+    }
     func testClosingBoldSelectionStateCursor() throws {
         let text = "One '''Two''' Three"
         mediator.textView.attributedText = NSAttributedString(string: text)
@@ -138,6 +157,15 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertFalse(selectionStates1.isHorizontalTemplate)
     }
     
+    func testHorizontalTemplateButtonSelectionStateFormattedRange() throws {
+        let text = "Testing inner formatted {{cite web | url=https://en.wikipedia.org | title = The '''Free''' Encyclopedia}} template example."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        // "cite web | url=https://en.wikipedia.org | title = The '''Free''' Encyclopedia"
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 26, length: 77))
+        XCTAssertTrue(selectionStates.isHorizontalTemplate)
+    }
+
     func testStrikethroughSelectionState() throws {
         let text = "Testing <s>Strikethrough</s> Testing."
         mediator.textView.attributedText = NSAttributedString(string: text)
