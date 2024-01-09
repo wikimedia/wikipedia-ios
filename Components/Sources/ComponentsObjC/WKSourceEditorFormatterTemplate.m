@@ -33,8 +33,8 @@ NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCusto
             WKSourceEditorCustomKeyVerticalTemplate: [NSNumber numberWithBool:YES]
         };
         
-        _horizontalTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"\\{{2}[^\\{\\}\\n]*\\}{2}" options:0 error:nil];
-        _verticalStartTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"^\\{{2}[^\\{\\}\\n]*$" options:NSRegularExpressionAnchorsMatchLines error:nil];
+        _horizontalTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"\\{{2}[^\\{\\}\\n]*(?:\\{{2}[^\\{\\}\\n]*\\}{2})*[^\\{\\}\\n]*\\}{2}" options:0 error:nil];
+        _verticalStartTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"^(?:.*)(\\{{2}[^\\{\\}\\n]*)$" options:NSRegularExpressionAnchorsMatchLines error:nil];
         _verticalParameterTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"^\\s*\\|.*$" options:NSRegularExpressionAnchorsMatchLines error:nil];
         _verticalEndTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"^([^\\{\\}\n]*\\}{2})(?:.)*$" options:NSRegularExpressionAnchorsMatchLines error:nil];
     }
@@ -64,11 +64,12 @@ NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCusto
                                                  options:0
                                                    range:range
                                               usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-                                                  NSRange matchRange = [result rangeAtIndex:0];
+                                                    NSRange fullMatch = [result rangeAtIndex:0];
+                                                    NSRange openingTemplateRange = [result rangeAtIndex:1];
 
-                                                  if (matchRange.location != NSNotFound) {
-                                                      [attributedString addAttributes:self.verticalTemplateAttributes range:matchRange];
-                                                  }
+                                                    if (fullMatch.location != NSNotFound && openingTemplateRange.location != NSNotFound) {
+                                                      [attributedString addAttributes:self.verticalTemplateAttributes range:openingTemplateRange];
+                                                    }
                                               }];
     
     [self.verticalParameterTemplateRegex enumerateMatchesInString:attributedString.string
@@ -86,12 +87,14 @@ NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCusto
                                                  options:0
                                                    range:range
                                               usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+        
                                                 NSRange fullMatch = [result rangeAtIndex:0];
                                                 NSRange closingTemplateRange = [result rangeAtIndex:1];
 
-                                                  if (fullMatch.location != NSNotFound && closingTemplateRange.location != NSNotFound) {
-                                                      [attributedString addAttributes:self.verticalTemplateAttributes range:closingTemplateRange];
-                                                  }
+                                                if (fullMatch.location != NSNotFound && closingTemplateRange.location != NSNotFound) {
+                                                  [attributedString addAttributes:self.verticalTemplateAttributes range:closingTemplateRange];
+                                                }
+        
                                               }];
 }
 
@@ -149,13 +152,21 @@ NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCusto
         }
         
     } else {
+        __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
         [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-                if ((attrs[WKSourceEditorCustomKeyHorizontalTemplate] != nil) &&
-                    (loopRange.location == range.location && loopRange.length == range.length)) {
-                    isTemplate = YES;
-                    stop = YES;
+            if (attrs[WKSourceEditorCustomKeyHorizontalTemplate] != nil) {
+                if (unionRange.location == NSNotFound) {
+                    unionRange = loopRange;
+                } else {
+                    unionRange = NSUnionRange(unionRange, loopRange);
                 }
+                stop = YES;
+            }
         }];
+        
+        if (NSEqualRanges(unionRange, range)) {
+            isTemplate = YES;
+        }
     }
     
     return isTemplate;
