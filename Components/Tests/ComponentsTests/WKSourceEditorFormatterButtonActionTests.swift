@@ -42,7 +42,7 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
     
-    func testSingleBoldRemove() throws {
+    func testCursorBoldRemove() throws {
         let text = "One '''Two''' Three Four"
         mediator.textView.attributedText = NSAttributedString(string: text)
         mediator.textView.selectedRange = NSRange(location: 8, length: 0) // Just a cursor inside Two
@@ -50,7 +50,7 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
     
-    func testSingleItalicsRemove() throws {
+    func testCursorItalicsRemove() throws {
         let text = "One Two '''Three''' Four"
         mediator.textView.attributedText = NSAttributedString(string: text)
         mediator.textView.selectedRange = NSRange(location: 14, length: 0)
@@ -77,7 +77,7 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
     
-    func testSingleBoldInsertAndRemove() throws {
+    func testCursorBoldInsertAndRemove() throws {
         let text = "One Two Three Four"
         mediator.textView.attributedText = NSAttributedString(string: text)
         mediator.textView.selectedRange = NSRange(location: 4, length: 0) // Just a cursor before Two
@@ -87,7 +87,7 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
     
-    func testSingleItalicsInsertAndRemove() throws {
+    func testCursorItalicsInsertAndRemove() throws {
         let text = "One Two Three Four"
         mediator.textView.attributedText = NSAttributedString(string: text)
         mediator.textView.selectedRange = NSRange(location: 4, length: 0) // Just a cursor before Two
@@ -95,6 +95,46 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         XCTAssertEqual(mediator.textView.attributedText.string, "One '' ''Two Three Four")
         mediator.boldItalicsFormatter?.toggleItalicsFormatting(action: .remove, in: mediator.textView)
         XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
+    }
+    
+    func testBoldInnerRemoveAndInsert() throws {
+        let text = "One '''Two Three Four''' Five"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 11, length: 5) // Selected Three
+        mediator.boldItalicsFormatter?.toggleBoldFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One '''Two '''Three''' Four''' Five")
+        mediator.boldItalicsFormatter?.toggleBoldFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One '''Two Three Four''' Five")
+    }
+    
+    func testItalicsInnerRemoveAndInsert() throws {
+        let text = "One ''Two Three Four'' Five"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 10, length: 5) // Selected Three
+        mediator.boldItalicsFormatter?.toggleItalicsFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One ''Two ''Three'' Four'' Five")
+        mediator.boldItalicsFormatter?.toggleItalicsFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One ''Two Three Four'' Five")
+    }
+    
+    func testBoldItalicsInnerRemoveBoldAndInsert() throws {
+        let text = "One '''''Two Three Four''''' Five"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 13, length: 5) // Selected Three
+        mediator.boldItalicsFormatter?.toggleBoldFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One '''''Two '''Three''' Four''''' Five")
+        mediator.boldItalicsFormatter?.toggleBoldFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One '''''Two Three Four''''' Five")
+    }
+    
+    func testBoldItalicsInnerRemoveItalicsAndInsert() throws {
+        let text = "One '''''Two Three Four''''' Five"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 13, length: 5) // Selected Three
+        mediator.boldItalicsFormatter?.toggleItalicsFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One '''''Two ''Three'' Four''''' Five")
+        mediator.boldItalicsFormatter?.toggleItalicsFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One '''''Two Three Four''''' Five")
     }
     
     func testTemplateInsert() throws {
@@ -113,7 +153,7 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
     
-    func testSingleTemplateInsertAndRemove() throws {
+    func testCursorTemplateInsertAndRemove() throws {
         let text = "One Two Three Four"
         mediator.textView.attributedText = NSAttributedString(string: text)
         mediator.textView.selectedRange = NSRange(location: 4, length: 0) // Just a cursor before Two
