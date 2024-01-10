@@ -163,6 +163,116 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
     
+    func testHeadingAdd() throws {
+        let text = "Test"
+        let selectedRange = NSRange(location: 0, length: 4)
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        textView.selectedRange = selectedRange
+        mediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: .heading, currentSelectionState: mediator.selectionState(selectedDocumentRange: selectedRange), textView: textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "\n==Test==\n")
+    }
+    
+    func testHeadingRemove() throws {
+        let text = "==Test=="
+        let selectedRange = NSRange(location: 2, length: 4)
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        textView.selectedRange = selectedRange
+        mediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: .paragraph, currentSelectionState: mediator.selectionState(selectedDocumentRange: selectedRange), textView: textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "Test")
+    }
+    
+    func testSubheading1Add() throws {
+        let text = "Test"
+        let selectedRange = NSRange(location: 0, length: 4)
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        textView.selectedRange = selectedRange
+        mediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: .subheading1, currentSelectionState: mediator.selectionState(selectedDocumentRange: selectedRange), textView: textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "\n===Test===\n")
+    }
+    
+    func testSubheading1Remove() throws {
+        let text = "===Test==="
+        let selectedRange = NSRange(location: 3, length: 4)
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        textView.selectedRange = selectedRange
+        mediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: .paragraph, currentSelectionState: mediator.selectionState(selectedDocumentRange: selectedRange), textView: textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "Test")
+    }
+    
+    func testSubheading2Add() throws {
+        let text = "Test"
+        let selectedRange = NSRange(location: 0, length: 4)
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        textView.selectedRange = selectedRange
+        mediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: .subheading2, currentSelectionState: mediator.selectionState(selectedDocumentRange: selectedRange), textView: textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "\n====Test====\n")
+    }
+    
+    func testSubheading2Remove() throws {
+        let text = "====Test===="
+        let selectedRange = NSRange(location: 4, length: 4)
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        textView.selectedRange = selectedRange
+        mediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: .paragraph, currentSelectionState: mediator.selectionState(selectedDocumentRange: selectedRange), textView: textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "Test")
+    }
+    
+    func testSubheading3Add() throws {
+        let text = "Test"
+        let selectedRange = NSRange(location: 0, length: 4)
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        textView.selectedRange = selectedRange
+        mediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: .subheading3, currentSelectionState: mediator.selectionState(selectedDocumentRange: selectedRange), textView: textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "\n=====Test=====\n")
+    }
+    
+    func testSubheading3Remove() throws {
+        let text = "=====Test====="
+        let selectedRange = NSRange(location: 5, length: 4)
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        textView.selectedRange = selectedRange
+        mediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: .paragraph, currentSelectionState: mediator.selectionState(selectedDocumentRange: selectedRange), textView: textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "Test")
+    }
+    
+    func testSubheading4Add() throws {
+        let text = "Test"
+        let selectedRange = NSRange(location: 0, length: 4)
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        textView.selectedRange = selectedRange
+        mediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: .subheading4, currentSelectionState: mediator.selectionState(selectedDocumentRange: selectedRange), textView: textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "\n======Test======\n")
+    }
+    
+    func testSubheading4Remove() throws {
+        let text = "======Test======"
+        let selectedRange = NSRange(location: 6, length: 4)
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        textView.selectedRange = selectedRange
+        mediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: .paragraph, currentSelectionState: mediator.selectionState(selectedDocumentRange: selectedRange), textView: textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "Test")
+    }
+    
+    func testHeadingSwitchToSubheading3() throws {
+        let text = "==Test=="
+        let selectedRange = NSRange(location: 2, length: 4)
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        textView.selectedRange = selectedRange
+        mediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: .subheading3, currentSelectionState: mediator.selectionState(selectedDocumentRange: selectedRange), textView: textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "=====Test=====")
+    }
+    
     func testStrikethroughInsertAndRemove() throws {
         let text = "One Two Three Four"
         mediator.textView.attributedText = NSAttributedString(string: text)
