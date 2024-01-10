@@ -59,7 +59,6 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     
     // Reset
-    [attributedString removeAttribute:WKSourceEditorCustomKeyColorOrange range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyFontBoldItalics range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyFontBold range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyFontItalics range:range];

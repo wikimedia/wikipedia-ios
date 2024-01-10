@@ -34,6 +34,7 @@
     [attributedString removeAttribute:NSForegroundColorAttributeName range:range];
     
     // reset shared custom attributes
+    [attributedString removeAttribute:WKSourceEditorCustomKeyColorOrange range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyColorGreen range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyColorOrange range:range];
     
