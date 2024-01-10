@@ -152,7 +152,7 @@ extension WKSourceEditorFormatter {
     
     // MARK: - Nearby formatting string determination
     
-    private func selectedRangeIsSurroundedByFormattingString(formattingString: String, in textView: UITextView) -> Bool {
+    func selectedRangeIsSurroundedByFormattingString(formattingString: String, in textView: UITextView) -> Bool {
         selectedRangeIsSurroundedByFormattingStrings(startingFormattingString: formattingString, endingFormattingString: formattingString, in: textView)
     }
     
@@ -174,7 +174,7 @@ extension WKSourceEditorFormatter {
         return startingString == formattingString
     }
     
-    private func rangeIsFollowedByFormattingString(range: UITextRange?, formattingString: String, in textView: UITextView) -> Bool {
+    func rangeIsFollowedByFormattingString(range: UITextRange?, formattingString: String, in textView: UITextView) -> Bool {
         guard let range = range,
               let newEnd = textView.position(from: range.end, offset: formattingString.count) else {
             return false
@@ -190,7 +190,7 @@ extension WKSourceEditorFormatter {
     
     // MARK: Adding and removing text
     
-    private func addStringFormattingCharacters(startingFormattingString: String, endingFormattingString: String, in textView: UITextView) {
+    func addStringFormattingCharacters(startingFormattingString: String, endingFormattingString: String, in textView: UITextView) {
         
         let startingCursorOffset = startingFormattingString.count
         let endingCursorOffset = endingFormattingString.count
@@ -217,7 +217,7 @@ extension WKSourceEditorFormatter {
         }
     }
     
-    private func removeSurroundingFormattingStringsFromSelectedRange(startingFormattingString: String, endingFormattingString: String, in textView: UITextView) {
+    func removeSurroundingFormattingStringsFromSelectedRange(startingFormattingString: String, endingFormattingString: String, in textView: UITextView) {
 
         guard let originalSelectedTextRange = textView.selectedTextRange,
               let formattingTextStart = textView.position(from: originalSelectedTextRange.start, offset: -startingFormattingString.count),

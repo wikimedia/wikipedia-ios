@@ -157,6 +157,54 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertFalse(selectionStates1.isHorizontalTemplate)
     }
     
+    func testListBulletSingleSelectionState() throws {
+        
+        let text = "* Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 2, length: 4))
+        XCTAssertTrue(selectionStates.isBulletSingleList)
+        XCTAssertFalse(selectionStates.isBulletMultipleList)
+        XCTAssertFalse(selectionStates.isNumberSingleList)
+        XCTAssertFalse(selectionStates.isNumberMultipleList)
+    }
+    
+    func testListBulletMultipleSelectionState() throws {
+        
+        let text = "** Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 3, length: 0))
+        XCTAssertFalse(selectionStates.isBulletSingleList)
+        XCTAssertTrue(selectionStates.isBulletMultipleList)
+        XCTAssertFalse(selectionStates.isNumberSingleList)
+        XCTAssertFalse(selectionStates.isNumberMultipleList)
+    }
+    
+    func testListNumberSingleSelectionState() throws {
+        
+        let text = "# Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 2, length: 4))
+        XCTAssertFalse(selectionStates.isBulletSingleList)
+        XCTAssertFalse(selectionStates.isBulletMultipleList)
+        XCTAssertTrue(selectionStates.isNumberSingleList)
+        XCTAssertFalse(selectionStates.isNumberMultipleList)
+    }
+    
+    func testListNumberMultipleSelectionState() throws {
+        
+        let text = "## Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 3, length: 0))
+        XCTAssertFalse(selectionStates.isBulletSingleList)
+        XCTAssertFalse(selectionStates.isBulletMultipleList)
+        XCTAssertFalse(selectionStates.isNumberSingleList)
+        XCTAssertTrue(selectionStates.isNumberMultipleList)
+    }
+    
     func testHorizontalTemplateButtonSelectionStateFormattedRange() throws {
         let text = "Testing inner formatted {{cite web | url=https://en.wikipedia.org | title = The '''Free''' Encyclopedia}} template example."
         mediator.textView.attributedText = NSAttributedString(string: text)
@@ -164,6 +212,106 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         // "cite web | url=https://en.wikipedia.org | title = The '''Free''' Encyclopedia"
         let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 26, length: 77))
         XCTAssertTrue(selectionStates.isHorizontalTemplate)
+    }
+
+    func testHeadingSelectionState() throws {
+        
+        let text = "== Test =="
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 3, length: 4))
+        XCTAssertTrue(selectionStates1.isHeading)
+        XCTAssertFalse(selectionStates1.isSubheading1)
+        XCTAssertFalse(selectionStates1.isSubheading2)
+        XCTAssertFalse(selectionStates1.isSubheading3)
+        XCTAssertFalse(selectionStates1.isSubheading4)
+        
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 6, length: 0))
+        XCTAssertTrue(selectionStates2.isHeading)
+        XCTAssertFalse(selectionStates2.isSubheading1)
+        XCTAssertFalse(selectionStates2.isSubheading2)
+        XCTAssertFalse(selectionStates2.isSubheading3)
+        XCTAssertFalse(selectionStates2.isSubheading4)
+    }
+    
+    func testSubheading1SelectionState() throws {
+        
+        let text = "=== Test ==="
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 4, length: 4))
+        XCTAssertFalse(selectionStates1.isHeading)
+        XCTAssertTrue(selectionStates1.isSubheading1)
+        XCTAssertFalse(selectionStates1.isSubheading2)
+        XCTAssertFalse(selectionStates1.isSubheading3)
+        XCTAssertFalse(selectionStates1.isSubheading4)
+        
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 6, length: 0))
+        XCTAssertFalse(selectionStates2.isHeading)
+        XCTAssertTrue(selectionStates2.isSubheading1)
+        XCTAssertFalse(selectionStates2.isSubheading2)
+        XCTAssertFalse(selectionStates2.isSubheading3)
+        XCTAssertFalse(selectionStates2.isSubheading4)
+    }
+    
+    func testSubheading2SelectionState() throws {
+        
+        let text = "==== Test ===="
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 5, length: 4))
+        XCTAssertFalse(selectionStates1.isHeading)
+        XCTAssertFalse(selectionStates1.isSubheading1)
+        XCTAssertTrue(selectionStates1.isSubheading2)
+        XCTAssertFalse(selectionStates1.isSubheading3)
+        XCTAssertFalse(selectionStates1.isSubheading4)
+        
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 7, length: 0))
+        XCTAssertFalse(selectionStates2.isHeading)
+        XCTAssertFalse(selectionStates2.isSubheading1)
+        XCTAssertTrue(selectionStates2.isSubheading2)
+        XCTAssertFalse(selectionStates2.isSubheading3)
+        XCTAssertFalse(selectionStates2.isSubheading4)
+    }
+    
+    func testSubheading3SelectionState() throws {
+        
+        let text = "===== Test ====="
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 6, length: 4))
+        XCTAssertFalse(selectionStates1.isHeading)
+        XCTAssertFalse(selectionStates1.isSubheading1)
+        XCTAssertFalse(selectionStates1.isSubheading2)
+        XCTAssertTrue(selectionStates1.isSubheading3)
+        XCTAssertFalse(selectionStates1.isSubheading4)
+        
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 8, length: 0))
+        XCTAssertFalse(selectionStates2.isHeading)
+        XCTAssertFalse(selectionStates2.isSubheading1)
+        XCTAssertFalse(selectionStates2.isSubheading2)
+        XCTAssertTrue(selectionStates2.isSubheading3)
+        XCTAssertFalse(selectionStates2.isSubheading4)
+    }
+    
+    func testSubheading4SelectionState() throws {
+        
+        let text = "====== Test ======"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 7, length: 4))
+        XCTAssertFalse(selectionStates1.isHeading)
+        XCTAssertFalse(selectionStates1.isSubheading1)
+        XCTAssertFalse(selectionStates1.isSubheading2)
+        XCTAssertFalse(selectionStates1.isSubheading3)
+        XCTAssertTrue(selectionStates1.isSubheading4)
+        
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 9, length: 0))
+        XCTAssertFalse(selectionStates2.isHeading)
+        XCTAssertFalse(selectionStates2.isSubheading1)
+        XCTAssertFalse(selectionStates2.isSubheading2)
+        XCTAssertFalse(selectionStates2.isSubheading3)
+        XCTAssertTrue(selectionStates2.isSubheading4)
     }
 
     func testStrikethroughSelectionState() throws {

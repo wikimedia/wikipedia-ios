@@ -79,6 +79,17 @@ class WKEditorToolbarButton: WKComponentView {
         }
     }
     
+    var isEnabled: Bool {
+        get {
+            return button.isEnabled
+        }
+        set {
+            button.isEnabled = newValue
+            updateColors()
+            accessibilityTraits = newValue ? [.button, .selected] : [.button, .notEnabled]
+        }
+    }
+    
     func setImage(_ image: UIImage?, for state: UIControl.State) {
         button.setImage(image, for: state)
     }
