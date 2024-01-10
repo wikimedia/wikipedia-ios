@@ -31,10 +31,12 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
         decreaseIndentButton.setImage(WKSFSymbolIcon.for(symbol: .decreaseIndent), for: .normal)
         decreaseIndentButton.addTarget(self, action: #selector(tappedDecreaseIndent), for: .touchUpInside)
         decreaseIndentButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonDecreaseIndent
+        decreaseIndentButton.isEnabled = false
 
         increaseIndentButton.setImage(WKSFSymbolIcon.for(symbol: .increaseIndent), for: .normal)
         increaseIndentButton.addTarget(self, action: #selector(tappedIncreaseIndent), for: .touchUpInside)
         increaseIndentButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonInceaseIndent
+        increaseIndentButton.isEnabled = false
 
         superscriptButton.setImage(WKSFSymbolIcon.for(symbol: .textFormatSuperscript), for: .normal)
         superscriptButton.addTarget(self, action: #selector(tappedSuperscript), for: .touchUpInside)
@@ -56,10 +58,30 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
     }
     
     // MARK: - Notifications
-        
+
     @objc private func updateButtonSelectionState(_ notification: NSNotification) {
         guard let selectionState = notification.userInfo?[Notification.WKSourceEditorSelectionStateKey] as? WKSourceEditorSelectionState else {
             return
+        }
+
+        unorderedListButton.isSelected = selectionState.isBulletSingleList || selectionState.isBulletMultipleList
+        unorderedListButton.isEnabled = !selectionState.isNumberSingleList && !selectionState.isNumberMultipleList
+        
+        orderedListButton.isSelected = selectionState.isNumberSingleList || selectionState.isNumberMultipleList
+        orderedListButton.isEnabled = !selectionState.isBulletSingleList && !selectionState.isBulletMultipleList
+        
+        decreaseIndentButton.isEnabled = false
+        if selectionState.isBulletMultipleList || selectionState.isNumberMultipleList {
+            decreaseIndentButton.isEnabled = true
+        }
+        
+        if selectionState.isBulletSingleList ||
+            selectionState.isBulletMultipleList ||
+            selectionState.isNumberSingleList ||
+            selectionState.isNumberMultipleList {
+            increaseIndentButton.isEnabled = true
+        } else {
+            increaseIndentButton.isEnabled = false
         }
 
         strikethroughButton.isSelected = selectionState.isStrikethrough
@@ -68,15 +90,19 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
     // MARK: - Button Actions
     
     @objc private func tappedIncreaseIndent() {
+        delegate?.didTapIncreaseIndent()
     }
     
     @objc private func tappedDecreaseIndent() {
+        delegate?.didTapDecreaseIndent()
     }
     
     @objc private func tappedUnorderedList() {
+        delegate?.didTapBulletList(isSelected: unorderedListButton.isSelected)
     }
     
     @objc private func tappedOrderedList() {
+        delegate?.didTapNumberList(isSelected: orderedListButton.isSelected)
     }
     
     @objc private func tappedSuperscript() {

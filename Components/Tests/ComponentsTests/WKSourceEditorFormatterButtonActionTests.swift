@@ -163,6 +163,70 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
     
+    func testListBulletInsertAndRemove() throws {
+        let text = "Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 2, length: 0)
+        mediator.listFormatter?.toggleListBullet(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "* Test")
+        mediator.listFormatter?.toggleListBullet(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "Test")
+    }
+    
+    func testListBulletInsertAndIncreaseIndent() throws {
+        let text = "Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 2, length: 0)
+        mediator.listFormatter?.toggleListBullet(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "* Test")
+        mediator.listFormatter?.tappedIncreaseIndent(currentSelectionState: mediator.selectionState(selectedDocumentRange: mediator.textView.selectedRange), textView: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "** Test")
+    }
+    
+    func testListBulletDecreaseIndentAndRemove() throws {
+        let text = "*** Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 4, length: 0)
+        mediator.listFormatter?.tappedDecreaseIndent(currentSelectionState: mediator.selectionState(selectedDocumentRange: mediator.textView.selectedRange), textView: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "** Test")
+        mediator.listFormatter?.tappedDecreaseIndent(currentSelectionState: mediator.selectionState(selectedDocumentRange: mediator.textView.selectedRange), textView: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "* Test")
+        mediator.listFormatter?.toggleListBullet(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "Test")
+    }
+    
+    func testListNumberInsertAndRemove() throws {
+        let text = "Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 2, length: 0)
+        mediator.listFormatter?.toggleListNumber(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "# Test")
+        mediator.listFormatter?.toggleListNumber(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "Test")
+    }
+    
+    func testListNumberInsertAndIncreaseIndent() throws {
+        let text = "Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 2, length: 0)
+        mediator.listFormatter?.toggleListNumber(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "# Test")
+        mediator.listFormatter?.tappedIncreaseIndent(currentSelectionState: mediator.selectionState(selectedDocumentRange: mediator.textView.selectedRange), textView: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "## Test")
+    }
+    
+    func testListNumberDecreaseIndentAndRemove() throws {
+        let text = "### Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 4, length: 0)
+        mediator.listFormatter?.tappedDecreaseIndent(currentSelectionState: mediator.selectionState(selectedDocumentRange: mediator.textView.selectedRange), textView: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "## Test")
+        mediator.listFormatter?.tappedDecreaseIndent(currentSelectionState: mediator.selectionState(selectedDocumentRange: mediator.textView.selectedRange), textView: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "# Test")
+        mediator.listFormatter?.toggleListNumber(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "Test")
+    }
+
     func testHeadingAdd() throws {
         let text = "Test"
         let selectedRange = NSRange(location: 0, length: 4)

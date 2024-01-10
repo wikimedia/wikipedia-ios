@@ -157,6 +157,54 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertFalse(selectionStates1.isHorizontalTemplate)
     }
     
+    func testListBulletSingleSelectionState() throws {
+        
+        let text = "* Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 2, length: 4))
+        XCTAssertTrue(selectionStates.isBulletSingleList)
+        XCTAssertFalse(selectionStates.isBulletMultipleList)
+        XCTAssertFalse(selectionStates.isNumberSingleList)
+        XCTAssertFalse(selectionStates.isNumberMultipleList)
+    }
+    
+    func testListBulletMultipleSelectionState() throws {
+        
+        let text = "** Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 3, length: 0))
+        XCTAssertFalse(selectionStates.isBulletSingleList)
+        XCTAssertTrue(selectionStates.isBulletMultipleList)
+        XCTAssertFalse(selectionStates.isNumberSingleList)
+        XCTAssertFalse(selectionStates.isNumberMultipleList)
+    }
+    
+    func testListNumberSingleSelectionState() throws {
+        
+        let text = "# Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 2, length: 4))
+        XCTAssertFalse(selectionStates.isBulletSingleList)
+        XCTAssertFalse(selectionStates.isBulletMultipleList)
+        XCTAssertTrue(selectionStates.isNumberSingleList)
+        XCTAssertFalse(selectionStates.isNumberMultipleList)
+    }
+    
+    func testListNumberMultipleSelectionState() throws {
+        
+        let text = "## Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 3, length: 0))
+        XCTAssertFalse(selectionStates.isBulletSingleList)
+        XCTAssertFalse(selectionStates.isBulletMultipleList)
+        XCTAssertFalse(selectionStates.isNumberSingleList)
+        XCTAssertTrue(selectionStates.isNumberMultipleList)
+    }
+    
     func testHorizontalTemplateButtonSelectionStateFormattedRange() throws {
         let text = "Testing inner formatted {{cite web | url=https://en.wikipedia.org | title = The '''Free''' Encyclopedia}} template example."
         mediator.textView.attributedText = NSAttributedString(string: text)
