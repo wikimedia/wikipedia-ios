@@ -6,6 +6,11 @@ protocol WKEditorInputViewDelegate: AnyObject {
     func didTapBold(isSelected: Bool)
     func didTapItalics(isSelected: Bool)
     func didTapTemplate(isSelected: Bool)
+    func didTapBulletList(isSelected: Bool)
+    func didTapNumberList(isSelected: Bool)
+    func didTapIncreaseIndent()
+    func didTapDecreaseIndent()
+    func didTapHeading(type: WKEditorInputView.HeadingButtonType)
     func didTapStrikethrough(isSelected: Bool)
     func didTapSubscript(isSelected: Bool)
     func didTapSuperscript(isSelected: Bool)
@@ -224,6 +229,18 @@ class WKEditorInputView: WKComponentView {
         ])
         
         updateColors()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)
+    }
+    
+    // MARK: - Notifications
+        
+    @objc private func updateButtonSelectionState(_ notification: NSNotification) {
+        guard let selectionState = notification.userInfo?[Notification.WKSourceEditorSelectionStateKey] as? WKSourceEditorSelectionState else {
+            return
+        }
+
+        configure(selectionState: selectionState)
     }
     
     // MARK: - Overrides
@@ -286,20 +303,40 @@ class WKEditorInputView: WKComponentView {
             
             switch type {
             case .paragraph:
-                paragraphButton.isSelected.toggle()
+                paragraphButton.isSelected = true
             case .heading:
-                headerButton.isSelected.toggle()
+                headerButton.isSelected = true
             case .subheading1:
-                subheader1Button.isSelected.toggle()
+                subheader1Button.isSelected = true
             case .subheading2:
-                subheader2Button.isSelected.toggle()
+                subheader2Button.isSelected = true
             case .subheading3:
-                subheader3Button.isSelected.toggle()
+                subheader3Button.isSelected = true
             case .subheading4:
-                subheader4Button.isSelected.toggle()
+                subheader4Button.isSelected = true
             }
+            
+            delegate?.didTapHeading(type: type)
         })
         
         return UIButton(configuration: configuration, primaryAction: action)
+    }
+    
+    func configure(selectionState: WKSourceEditorSelectionState) {
+        headingButtons.forEach { $0.isSelected = false }
+
+        if selectionState.isHeading {
+            headerButton.isSelected = true
+        } else if selectionState.isSubheading1 {
+            subheader1Button.isSelected = true
+        } else if selectionState.isSubheading2 {
+            subheader2Button.isSelected = true
+        } else if selectionState.isSubheading3 {
+            subheader3Button.isSelected = true
+        } else if selectionState.isSubheading4 {
+            subheader4Button.isSelected = true
+        } else {
+            paragraphButton.isSelected = true
+        }
     }
 }
