@@ -10,12 +10,13 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     var baseFormatter: WKSourceEditorFormatterBase!
     var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics!
     var templateFormatter: WKSourceEditorFormatterTemplate!
+    var referenceFormatter: WKSourceEditorFormatterReference!
     var listFormatter: WKSourceEditorFormatterList!
     var headingFormatter: WKSourceEditorFormatterHeading!
     var strikethroughFormatter: WKSourceEditorFormatterStrikethrough!
     var linkFormatter: WKSourceEditorFormatterLink!
     var formatters: [WKSourceEditorFormatter] {
-        return [baseFormatter, templateFormatter, boldItalicsFormatter, listFormatter, headingFormatter, strikethroughFormatter, linkFormatter]
+        return [baseFormatter, templateFormatter, boldItalicsFormatter, referenceFormatter, listFormatter, headingFormatter, strikethroughFormatter, linkFormatter]
     }
 
     override func setUpWithError() throws {
@@ -42,6 +43,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.baseFormatter = WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: .left)
         self.boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
         self.templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
+        self.referenceFormatter = WKSourceEditorFormatterReference(colors: colors, fonts: fonts)
         self.listFormatter = WKSourceEditorFormatterList(colors: colors, fonts: fonts)
         self.headingFormatter = WKSourceEditorFormatterHeading(colors: colors, fonts: fonts)
         self.strikethroughFormatter = WKSourceEditorFormatterStrikethrough(colors: colors, fonts: fonts)
@@ -630,7 +632,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(refOpeningRange.location, 0, "Incorrect ref formatting")
         XCTAssertEqual(refOpeningRange.length, 5, "Incorrect ref formatting")
         XCTAssertEqual(refOpeningAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect ref formatting")
-        XCTAssertEqual(refOpeningAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect ref formatting")
+        XCTAssertEqual(refOpeningAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect ref formatting")
         
         // "{{cite web |url=https://en.wikipedia.org |title=English Wikipedia}}"
         XCTAssertEqual(templateRange.location, 5, "Incorrect template formatting")
@@ -642,7 +644,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(refClosingRange.location, 72, "Incorrect ref formatting")
         XCTAssertEqual(refClosingRange.length, 6, "Incorrect ref formatting")
         XCTAssertEqual(refClosingAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect ref formatting")
-        XCTAssertEqual(refClosingAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect ref formatting")
+        XCTAssertEqual(refClosingAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect ref formatting")
     }
     
     func testHorizontalNestedTemplate() {
@@ -785,7 +787,223 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(refRange.location, 2, "Incorrect ref formatting")
         XCTAssertEqual(refRange.length, 6, "Incorrect ref formatting")
         XCTAssertEqual(refAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect ref formatting")
-        XCTAssertEqual(refAttributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect ref formatting")
+        XCTAssertEqual(refAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect ref formatting")
+    }
+    
+    func testOpenAndClosingReference() {
+        let string = "Testing.<ref>{{cite web | url=https://en.wikipedia.org}}</ref> Testing"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var base1Range = NSRange(location: 0, length: 0)
+        let base1Attributes = mutAttributedString.attributes(at: 0, effectiveRange: &base1Range)
+        
+        var refOpenRange = NSRange(location: 0, length: 0)
+        let refOpenAttributes = mutAttributedString.attributes(at: 8, effectiveRange: &refOpenRange)
+
+        var templateRange = NSRange(location: 0, length: 0)
+        let templateAttributes = mutAttributedString.attributes(at: 13, effectiveRange: &templateRange)
+        
+        var refCloseRange = NSRange(location: 0, length: 0)
+        let refCloseAttributes = mutAttributedString.attributes(at: 56, effectiveRange: &refCloseRange)
+        
+        var base2Range = NSRange(location: 0, length: 0)
+        let base2Attributes = mutAttributedString.attributes(at: 62, effectiveRange: &base2Range)
+        
+        // "Testing."
+        XCTAssertEqual(base1Range.location, 0, "Incorrect base formatting")
+        XCTAssertEqual(base1Range.length, 8, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+        
+        // "<ref>"
+        XCTAssertEqual(refOpenRange.location, 8, "Incorrect template formatting")
+        XCTAssertEqual(refOpenRange.length, 5, "Incorrect template formatting")
+        XCTAssertEqual(refOpenAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect template formatting")
+        XCTAssertEqual(refOpenAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect template formatting")
+        
+        // "{{cite web | url=https://en.wikipedia.org}}"
+        XCTAssertEqual(templateRange.location, 13, "Incorrect base formatting")
+        XCTAssertEqual(templateRange.length, 43, "Incorrect base formatting")
+        XCTAssertEqual(templateAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(templateAttributes[.foregroundColor] as! UIColor, colors.purpleForegroundColor, "Incorrect base formatting")
+        
+        // "</ref>"
+        XCTAssertEqual(refCloseRange.location, 56, "Incorrect base formatting")
+        XCTAssertEqual(refCloseRange.length, 6, "Incorrect base formatting")
+        XCTAssertEqual(refCloseAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(refCloseAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect base formatting")
+        
+        // " Testing"
+        XCTAssertEqual(base2Range.location, 62, "Incorrect base formatting")
+        XCTAssertEqual(base2Range.length, 8, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+    }
+    
+    func testOpenAndClosingReferenceWithName() {
+        let string = "Testing.<ref name=\"test\">{{cite web | url=https://en.wikipedia.org}}</ref> Testing"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var base1Range = NSRange(location: 0, length: 0)
+        let base1Attributes = mutAttributedString.attributes(at: 0, effectiveRange: &base1Range)
+        
+        var refOpenRange = NSRange(location: 0, length: 0)
+        let refOpenAttributes = mutAttributedString.attributes(at: 8, effectiveRange: &refOpenRange)
+
+        var templateRange = NSRange(location: 0, length: 0)
+        let templateAttributes = mutAttributedString.attributes(at: 25, effectiveRange: &templateRange)
+        
+        var refCloseRange = NSRange(location: 0, length: 0)
+        let refCloseAttributes = mutAttributedString.attributes(at: 68, effectiveRange: &refCloseRange)
+        
+        var base2Range = NSRange(location: 0, length: 0)
+        let base2Attributes = mutAttributedString.attributes(at: 74, effectiveRange: &base2Range)
+        
+        // "Testing."
+        XCTAssertEqual(base1Range.location, 0, "Incorrect base formatting")
+        XCTAssertEqual(base1Range.length, 8, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+        
+        // "<ref name="test">"
+        XCTAssertEqual(refOpenRange.location, 8, "Incorrect reference formatting")
+        XCTAssertEqual(refOpenRange.length, 17, "Incorrect reference formatting")
+        XCTAssertEqual(refOpenAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect reference formatting")
+        XCTAssertEqual(refOpenAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect template formatting")
+        
+        // "{{cite web | url=https://en.wikipedia.org}}"
+        XCTAssertEqual(templateRange.location, 25, "Incorrect template formatting")
+        XCTAssertEqual(templateRange.length, 43, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect template formatting")
+        XCTAssertEqual(templateAttributes[.foregroundColor] as! UIColor, colors.purpleForegroundColor, "Incorrect base formatting")
+        
+        // "</ref>"
+        XCTAssertEqual(refCloseRange.location, 68, "Incorrect reference formatting")
+        XCTAssertEqual(refCloseRange.length, 6, "Incorrect reference formatting")
+        XCTAssertEqual(refCloseAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect reference formatting")
+        XCTAssertEqual(refCloseAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect base formatting")
+        
+        // " Testing"
+        XCTAssertEqual(base2Range.location, 74, "Incorrect base formatting")
+        XCTAssertEqual(base2Range.length, 8, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+    }
+    
+    func testEmptyReference() {
+        let string = "Testing.<ref name=\"test\" /> Testing"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var base1Range = NSRange(location: 0, length: 0)
+        let base1Attributes = mutAttributedString.attributes(at: 0, effectiveRange: &base1Range)
+        
+        var refRange = NSRange(location: 0, length: 0)
+        let refAttributes = mutAttributedString.attributes(at: 8, effectiveRange: &refRange)
+
+        var base2Range = NSRange(location: 0, length: 0)
+        let base2Attributes = mutAttributedString.attributes(at: 27, effectiveRange: &base2Range)
+        
+        // "Testing."
+        XCTAssertEqual(base1Range.location, 0, "Incorrect base formatting")
+        XCTAssertEqual(base1Range.length, 8, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+        
+        // "<ref name=\"test\" />"
+        XCTAssertEqual(refRange.location, 8, "Incorrect reference formatting")
+        XCTAssertEqual(refRange.length, 19, "Incorrect reference formatting")
+        XCTAssertEqual(refAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect reference formatting")
+        XCTAssertEqual(refAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect reference formatting")
+        
+        // " Testing"
+        XCTAssertEqual(base2Range.location, 27, "Incorrect base formatting")
+        XCTAssertEqual(base2Range.length, 8, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+    }
+    
+    func testOpenOnlyReference() {
+        let string = "Testing.<ref> Testing"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var base1Range = NSRange(location: 0, length: 0)
+        let base1Attributes = mutAttributedString.attributes(at: 0, effectiveRange: &base1Range)
+        
+        var refRange = NSRange(location: 0, length: 0)
+        let refAttributes = mutAttributedString.attributes(at: 8, effectiveRange: &refRange)
+
+        var base2Range = NSRange(location: 0, length: 0)
+        let base2Attributes = mutAttributedString.attributes(at: 13, effectiveRange: &base2Range)
+        
+        // "Testing."
+        XCTAssertEqual(base1Range.location, 0, "Incorrect base formatting")
+        XCTAssertEqual(base1Range.length, 8, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+        
+        // "<ref>"
+        XCTAssertEqual(refRange.location, 8, "Incorrect reference formatting")
+        XCTAssertEqual(refRange.length, 5, "Incorrect reference formatting")
+        XCTAssertEqual(refAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect reference formatting")
+        XCTAssertEqual(refAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect reference formatting")
+        
+        // " Testing"
+        XCTAssertEqual(base2Range.location, 13, "Incorrect base formatting")
+        XCTAssertEqual(base2Range.length, 8, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+    }
+    
+    func testCloseOnlyReference() {
+        let string = "Testing.</ref> Testing"
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+        
+        var base1Range = NSRange(location: 0, length: 0)
+        let base1Attributes = mutAttributedString.attributes(at: 0, effectiveRange: &base1Range)
+        
+        var refRange = NSRange(location: 0, length: 0)
+        let refAttributes = mutAttributedString.attributes(at: 8, effectiveRange: &refRange)
+
+        var base2Range = NSRange(location: 0, length: 0)
+        let base2Attributes = mutAttributedString.attributes(at: 14, effectiveRange: &base2Range)
+        
+        // "Testing."
+        XCTAssertEqual(base1Range.location, 0, "Incorrect base formatting")
+        XCTAssertEqual(base1Range.length, 8, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+        
+        // "</ref>"
+        XCTAssertEqual(refRange.location, 8, "Incorrect reference formatting")
+        XCTAssertEqual(refRange.length, 6, "Incorrect reference formatting")
+        XCTAssertEqual(refAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect reference formatting")
+        XCTAssertEqual(refAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect reference formatting")
+        
+        // " Testing"
+        XCTAssertEqual(base2Range.location, 14, "Incorrect base formatting")
+        XCTAssertEqual(base2Range.length, 8, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
     }
     
     func testListSingleBullet() {

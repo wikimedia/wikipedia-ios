@@ -17,6 +17,7 @@ fileprivate var needsTextKit2: Bool {
     let isBold: Bool
     let isItalics: Bool
     let isHorizontalTemplate: Bool
+    let isHorizontalReference: Bool
     let isBulletSingleList: Bool
     let isBulletMultipleList: Bool
     let isNumberSingleList: Bool
@@ -29,11 +30,11 @@ fileprivate var needsTextKit2: Bool {
     let isStrikethrough: Bool
     let isSimpleLink: Bool
     let isLinkWithNestedLink: Bool
-
-    init(isBold: Bool, isItalics: Bool, isHorizontalTemplate: Bool, isBulletSingleList: Bool, isBulletMultipleList: Bool, isNumberSingleList: Bool, isNumberMultipleList: Bool, isHeading: Bool, isSubheading1: Bool, isSubheading2: Bool, isSubheading3: Bool, isSubheading4: Bool, isStrikethrough: Bool, isSimpleLink: Bool, isLinkWithNestedLink: Bool) {
+    init(isBold: Bool, isItalics: Bool, isHorizontalTemplate: Bool, isHorizontalReference: Bool, isBulletSingleList: Bool, isBulletMultipleList: Bool, isNumberSingleList: Bool, isNumberMultipleList: Bool, isHeading: Bool, isSubheading1: Bool, isSubheading2: Bool, isSubheading3: Bool, isSubheading4: Bool, isStrikethrough: Bool, isSimpleLink: Bool, isLinkWithNestedLink: Bool) {
         self.isBold = isBold
         self.isItalics = isItalics
         self.isHorizontalTemplate = isHorizontalTemplate
+        self.isHorizontalReference = isHorizontalReference
         self.isBulletSingleList = isBulletSingleList
         self.isBulletMultipleList = isBulletMultipleList
         self.isNumberSingleList = isNumberSingleList
@@ -47,6 +48,7 @@ fileprivate var needsTextKit2: Bool {
         self.isSimpleLink = isSimpleLink
         self.isLinkWithNestedLink = isLinkWithNestedLink
     }
+
 }
 
 final class WKSourceEditorTextFrameworkMediator: NSObject {
@@ -59,6 +61,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     private(set) var formatters: [WKSourceEditorFormatter] = []
     private(set) var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics?
     private(set) var templateFormatter: WKSourceEditorFormatterTemplate?
+    private(set) var referenceFormatter: WKSourceEditorFormatterReference?
     private(set) var listFormatter: WKSourceEditorFormatterList?
     private(set) var headingFormatter: WKSourceEditorFormatterHeading?
     private(set) var strikethroughFormatter: WKSourceEditorFormatterStrikethrough?
@@ -130,6 +133,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let fonts = self.fonts
         
         let templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
+        let referenceFormatter = WKSourceEditorFormatterReference(colors: colors, fonts: fonts)
         let boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
         let listFormatter = WKSourceEditorFormatterList(colors: colors, fonts: fonts)
         let headingFormatter = WKSourceEditorFormatterHeading(colors: colors, fonts: fonts)
@@ -138,16 +142,18 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
                 templateFormatter,
                 boldItalicsFormatter,
+                referenceFormatter,
                 listFormatter,
                 headingFormatter,
                 strikethroughFormatter, linkFormatter]
         self.boldItalicsFormatter = boldItalicsFormatter
         self.templateFormatter = templateFormatter
+        self.referenceFormatter = referenceFormatter
         self.listFormatter = listFormatter
         self.headingFormatter = headingFormatter
         self.strikethroughFormatter = strikethroughFormatter
         self.linkFormatter = linkFormatter
-        
+
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
                 let textContentManager = textView.textLayoutManager?.textContentManager
@@ -186,12 +192,14 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         
         if needsTextKit2 {
             guard let textKit2Data = textkit2SelectionData(selectedDocumentRange: selectedDocumentRange) else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isBulletSingleList: false, isBulletMultipleList: false, isNumberSingleList: false, isNumberMultipleList: false, isHeading: false, isSubheading1: false, isSubheading2: false, isSubheading3: false, isSubheading4: false, isStrikethrough: false, isSimpleLink: false, isLinkWithNestedLink: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isHorizontalReference: false, isBulletSingleList: false, isBulletMultipleList: false, isNumberSingleList: false, isNumberMultipleList: false, isHeading: false, isSubheading1: false, isSubheading2: false, isSubheading3: false, isSubheading4: false, isStrikethrough: false, isSimpleLink: false, isLinkWithNestedLink: false)
+
             }
             
             let isBold = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isBoldIn: textKit2Data.paragraphSelectedRange) ?? false
             let isItalics = boldItalicsFormatter?.attributedString(textKit2Data.paragraphAttributedString, isItalicsIn: textKit2Data.paragraphSelectedRange) ?? false
             let isHorizontalTemplate = templateFormatter?.attributedString(textKit2Data.paragraphAttributedString, isHorizontalTemplateIn: textKit2Data.paragraphSelectedRange) ?? false
+            let isHorizontalReference = referenceFormatter?.attributedString(textKit2Data.paragraphAttributedString, isHorizontalReferenceIn: textKit2Data.paragraphSelectedRange) ?? false
             let isBulletSingleList = listFormatter?.attributedString(textKit2Data.paragraphAttributedString, isBulletSingleIn: textKit2Data.paragraphSelectedRange) ?? false
             let isBulletMultipleList = listFormatter?.attributedString(textKit2Data.paragraphAttributedString, isBulletMultipleIn: textKit2Data.paragraphSelectedRange) ?? false
             let isNumberSingleList = listFormatter?.attributedString(textKit2Data.paragraphAttributedString, isNumberSingleIn: textKit2Data.paragraphSelectedRange) ?? false
@@ -205,15 +213,16 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             let isSimpleLink = linkFormatter?.attributedString(textKit2Data.paragraphAttributedString, isSimpleLinkIn: textKit2Data.paragraphSelectedRange) ?? false
             let isLinkWithNestedLink = linkFormatter?.attributedString(textKit2Data.paragraphAttributedString, isLinkWithNestedLinkIn: textKit2Data.paragraphSelectedRange) ?? false
 
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isBulletSingleList: isBulletSingleList, isBulletMultipleList: isBulletMultipleList, isNumberSingleList: isNumberSingleList, isNumberMultipleList: isNumberMultipleList, isHeading: isHeading, isSubheading1: isSubheading1, isSubheading2: isSubheading2, isSubheading3: isSubheading3, isSubheading4: isSubheading4, isStrikethrough: isStrikethrough, isSimpleLink: isSimpleLink, isLinkWithNestedLink: isLinkWithNestedLink)
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isHorizontalReference: isHorizontalReference, isBulletSingleList: isBulletSingleList, isBulletMultipleList: isBulletMultipleList, isNumberSingleList: isNumberSingleList, isNumberMultipleList: isNumberMultipleList, isHeading: isHeading, isSubheading1: isSubheading1, isSubheading2: isSubheading2, isSubheading3: isSubheading3, isSubheading4: isSubheading4, isStrikethrough: isStrikethrough, isSimpleLink: isSimpleLink, isLinkWithNestedLink: isLinkWithNestedLink)
         } else {
             guard let textKit1Storage else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isBulletSingleList: false, isBulletMultipleList: false, isNumberSingleList: false, isNumberMultipleList: false, isHeading: false, isSubheading1: false, isSubheading2: false, isSubheading3: false, isSubheading4: false, isStrikethrough: false, isSimpleLink: false, isLinkWithNestedLink: false)
+                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isHorizontalReference: false, isBulletSingleList: false, isBulletMultipleList: false, isNumberSingleList: false, isNumberMultipleList: false, isHeading: false, isSubheading1: false, isSubheading2: false, isSubheading3: false, isSubheading4: false, isStrikethrough: false, isSimpleLink: false, isLinkWithNestedLink: false)
         }
-            
+
             let isBold = boldItalicsFormatter?.attributedString(textKit1Storage, isBoldIn: selectedDocumentRange) ?? false
             let isItalics = boldItalicsFormatter?.attributedString(textKit1Storage, isItalicsIn: selectedDocumentRange) ?? false
             let isHorizontalTemplate = templateFormatter?.attributedString(textKit1Storage, isHorizontalTemplateIn: selectedDocumentRange) ?? false
+            let isHorizontalReference = referenceFormatter?.attributedString(textKit1Storage, isHorizontalReferenceIn: selectedDocumentRange) ?? false
             let isBulletSingleList = listFormatter?.attributedString(textKit1Storage, isBulletSingleIn: selectedDocumentRange) ?? false
             let isBulletMultipleList = listFormatter?.attributedString(textKit1Storage, isBulletMultipleIn: selectedDocumentRange) ?? false
             let isNumberSingleList = listFormatter?.attributedString(textKit1Storage, isNumberSingleIn: selectedDocumentRange) ?? false
@@ -227,7 +236,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             let isSimpleLink = linkFormatter?.attributedString(textKit1Storage, isSimpleLinkIn: selectedDocumentRange) ?? false
             let isLinkWithNestedLink = linkFormatter?.attributedString(textKit1Storage, isLinkWithNestedLinkIn: selectedDocumentRange) ?? false
 
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isBulletSingleList: isBulletSingleList, isBulletMultipleList: isBulletMultipleList, isNumberSingleList: isNumberSingleList, isNumberMultipleList: isNumberMultipleList,  isHeading: isHeading, isSubheading1: isSubheading1, isSubheading2: isSubheading2, isSubheading3: isSubheading3, isSubheading4: isSubheading4, isStrikethrough: isStrikethrough, isSimpleLink: isSimpleLink, isLinkWithNestedLink: isLinkWithNestedLink)
+            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isHorizontalReference: isHorizontalReference, isBulletSingleList: isBulletSingleList, isBulletMultipleList: isBulletMultipleList, isNumberSingleList: isNumberSingleList, isNumberMultipleList: isNumberMultipleList,  isHeading: isHeading, isSubheading1: isSubheading1, isSubheading2: isSubheading2, isSubheading3: isSubheading3, isSubheading4: isSubheading4, isStrikethrough: isStrikethrough, isSimpleLink: isSimpleLink, isLinkWithNestedLink: isLinkWithNestedLink)
         }
     }
     

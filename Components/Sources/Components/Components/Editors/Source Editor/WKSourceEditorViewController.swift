@@ -314,7 +314,12 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
-    
+
+    func toolbarExpandingViewDidTapReference(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
+    }
+
     func toolbarExpandingViewDidTapLink(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
         presentLinkWizard(linkButtonIsSelected: isSelected)
     }
@@ -360,9 +365,15 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
-    
+
+    func toolbarHighlightViewDidTapReference(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
+    }
+
     func toolbarHighlightViewDidTapLink(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
         presentLinkWizard(linkButtonIsSelected: isSelected)
+
     }
     
     func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView) {
@@ -391,6 +402,11 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     func didTapTemplate(isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
+    }
+
+    func didTapReference(isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
     }
     
     func didTapBulletList(isSelected: Bool) {
