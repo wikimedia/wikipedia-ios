@@ -55,6 +55,7 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
         boldButton.isSelected = selectionState.isBold
         italicsButton.isSelected = selectionState.isItalics
         templateButton.isSelected = selectionState.isHorizontalTemplate
+        linkButton.isSelected = selectionState.isSimpleLink
     }
     
     // MARK: Button Actions
@@ -78,5 +79,6 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
     }
 
     @objc private func tappedLink() {
+        delegate?.didTapLink(isSelected: linkButton.isSelected)
     }
 }

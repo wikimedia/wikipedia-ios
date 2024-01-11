@@ -64,7 +64,7 @@ class WKEditorToolbarButton: WKComponentView {
         set {
             button.isSelected = newValue
             updateColors()
-            accessibilityTraits = newValue ? [.button, .selected] : [.button]
+            accessibilityTraits = button.accessibilityTraits
         }
     }
     
@@ -75,7 +75,7 @@ class WKEditorToolbarButton: WKComponentView {
         set {
             button.isEnabled = newValue
             updateColors()
-            accessibilityTraits = newValue ? [.button, .selected] : [.button, .notEnabled]
+            accessibilityTraits = button.accessibilityTraits
         }
     }
     
