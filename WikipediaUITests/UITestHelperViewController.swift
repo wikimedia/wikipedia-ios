@@ -150,6 +150,14 @@ public class UITestHelperViewController: WKCanvasViewController {
 
 
 extension UITestHelperViewController: WKSourceEditorViewControllerDelegate {
+    public func sourceEditorViewControllerDidTapImage() {
+        
+    }
+    
+    public func sourceEditorViewControllerDidTapLink(parameters: Components.WKSourceEditorFormatterLinkWizardParameters) {
+        
+    }
+    
     public func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: Components.WKSourceEditorViewController) {
         
     }

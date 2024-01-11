@@ -13,6 +13,7 @@ protocol WKEditorInputViewDelegate: AnyObject {
     func didTapDecreaseIndent()
     func didTapHeading(type: WKEditorInputView.HeadingButtonType)
     func didTapStrikethrough(isSelected: Bool)
+    func didTapLink(isSelected: Bool)
 }
 
 class WKEditorInputView: WKComponentView {

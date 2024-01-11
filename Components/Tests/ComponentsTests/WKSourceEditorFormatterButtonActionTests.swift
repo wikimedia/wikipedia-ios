@@ -386,4 +386,123 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         mediator.strikethroughFormatter?.toggleStrikethroughFormatting(action: .remove, in: mediator.textView)
         XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
     }
+    
+    func testLinkWizardParametersEdit() throws {
+        let text = "Testing [[Cat]] Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 10, length:3)
+        let wizardParameters = mediator.linkFormatter?.linkWizardParameters(action: .edit, in: mediator.textView)
+        XCTAssertEqual(wizardParameters?.editPageTitle, "Cat")
+        XCTAssertNil(wizardParameters?.editPageLabel)
+        XCTAssertEqual(wizardParameters?.preselectedTextRange, mediator.textView.selectedTextRange)
+    }
+    
+    func testLinkWizardParametersEditWithLabel() throws {
+        let text = "Testing [[Cat|Kitty]] Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 10, length:3)
+        let wizardParameters = mediator.linkFormatter?.linkWizardParameters(action: .edit, in: mediator.textView)
+        XCTAssertEqual(wizardParameters?.editPageTitle, "Cat")
+        XCTAssertEqual(wizardParameters?.editPageLabel, "Kitty")
+        XCTAssertEqual(wizardParameters?.preselectedTextRange, mediator.textView.selectedTextRange)
+    }
+    
+    func testLinkWizardParametersInsert() throws {
+        let text = "Testing Cat Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 8, length:3)
+        let wizardParameters = mediator.linkFormatter?.linkWizardParameters(action: .insert, in: mediator.textView)
+        XCTAssertEqual(wizardParameters?.insertSearchTerm, "Cat")
+        XCTAssertEqual(wizardParameters?.preselectedTextRange, mediator.textView.selectedTextRange)
+    }
+    
+    func testLinkInsert() {
+        let text = "One Two Three Four"
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        
+        guard let startPos = textView.position(from: textView.beginningOfDocument, offset: 4),
+              let endPos = textView.position(from: textView.beginningOfDocument, offset: 7),
+        let preselectedTextRange = textView.textRange(from: startPos, to: endPos) else {
+            XCTFail("Failure creating preselectedTextRange")
+            return
+        }
+        
+        mediator.linkFormatter?.insertLink(in: textView, pageTitle: "Two", preselectedTextRange: preselectedTextRange)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One [[Two]] Three Four")
+    }
+    
+    func testLinkEdit() {
+        let text = "One Two [[Three]] Four"
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        
+        guard let startPos = textView.position(from: textView.beginningOfDocument, offset: 10),
+              let endPos = textView.position(from: textView.beginningOfDocument, offset: 15),
+        let preselectedTextRange = textView.textRange(from: startPos, to: endPos) else {
+            XCTFail("Failure creating preselectedTextRange")
+            return
+        }
+        
+        mediator.linkFormatter?.editLink(in: textView, newPageTitle: "Five", newPageLabel: nil, preselectedTextRange: preselectedTextRange)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two [[Five]] Four")
+    }
+    
+    func testLinkEditWithLabel() {
+        let text = "One Two [[Three]] Four"
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        
+        guard let startPos = textView.position(from: textView.beginningOfDocument, offset: 10),
+              let endPos = textView.position(from: textView.beginningOfDocument, offset: 15),
+        let preselectedTextRange = textView.textRange(from: startPos, to: endPos) else {
+            XCTFail("Failure creating preselectedTextRange")
+            return
+        }
+        
+        mediator.linkFormatter?.editLink(in: textView, newPageTitle: "Five", newPageLabel: "fiver", preselectedTextRange: preselectedTextRange)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two [[Five|fiver]] Four")
+    }
+    
+    func testLinkRemove() {
+        let text = "One Two [[Three]] Four"
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        
+        guard let startPos = textView.position(from: textView.beginningOfDocument, offset: 10),
+              let endPos = textView.position(from: textView.beginningOfDocument, offset: 15),
+        let preselectedTextRange = textView.textRange(from: startPos, to: endPos) else {
+            XCTFail("Failure creating preselectedTextRange")
+            return
+        }
+        
+        mediator.linkFormatter?.removeLink(in: textView, preselectedTextRange: preselectedTextRange)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
+    }
+    
+    func testLinkRemoveWithLabel() {
+        let text = "One Two [[Three|3]] Four"
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        
+        guard let startPos = textView.position(from: textView.beginningOfDocument, offset: 10),
+              let endPos = textView.position(from: textView.beginningOfDocument, offset: 17),
+        let preselectedTextRange = textView.textRange(from: startPos, to: endPos) else {
+            XCTFail("Failure creating preselectedTextRange")
+            return
+        }
+        
+        mediator.linkFormatter?.removeLink(in: textView, preselectedTextRange: preselectedTextRange)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three|3 Four")
+    }
+    
+    func testLinkInsertImage() {
+        let text = "One Two Three Four"
+        let textView = mediator.textView
+        textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 8, length:0)
+        
+        mediator.linkFormatter?.insertImage(wikitext: "[[File:Cat November 2010-1a.jpg | thumb | 220x124px | right]]", in: textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two [[File:Cat November 2010-1a.jpg | thumb | 220x124px | right]]Three Four")
+    }
 }

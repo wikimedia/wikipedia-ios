@@ -14,8 +14,9 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     var listFormatter: WKSourceEditorFormatterList!
     var headingFormatter: WKSourceEditorFormatterHeading!
     var strikethroughFormatter: WKSourceEditorFormatterStrikethrough!
+    var linkFormatter: WKSourceEditorFormatterLink!
     var formatters: [WKSourceEditorFormatter] {
-        return [baseFormatter, templateFormatter, boldItalicsFormatter, referenceFormatter, listFormatter, headingFormatter, strikethroughFormatter]
+        return [baseFormatter, templateFormatter, boldItalicsFormatter, referenceFormatter, listFormatter, headingFormatter, strikethroughFormatter, linkFormatter]
     }
 
     override func setUpWithError() throws {
@@ -26,6 +27,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.colors.orangeForegroundColor = WKTheme.light.editorOrange
         self.colors.purpleForegroundColor = WKTheme.light.editorPurple
         self.colors.greenForegroundColor = WKTheme.light.editorGreen
+        self.colors.blueForegroundColor = WKTheme.light.editorBlue
         
         self.fonts = WKSourceEditorFonts()
         self.fonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
@@ -45,6 +47,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.listFormatter = WKSourceEditorFormatterList(colors: colors, fonts: fonts)
         self.headingFormatter = WKSourceEditorFormatterHeading(colors: colors, fonts: fonts)
         self.strikethroughFormatter = WKSourceEditorFormatterStrikethrough(colors: colors, fonts: fonts)
+        self.linkFormatter = WKSourceEditorFormatterLink(colors: colors, fonts: fonts)
     }
 
     override func tearDownWithError() throws {
@@ -1312,6 +1315,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
 
     func testStrikethrough() {
         let string = "Testing. <s>Strikethrough.</s> Testing"
+
         let mutAttributedString = NSMutableAttributedString(string: string)
 
         for formatter in formatters {
