@@ -58,6 +58,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     private(set) var listFormatter: WKSourceEditorFormatterList?
     private(set) var headingFormatter: WKSourceEditorFormatterHeading?
     private(set) var strikethroughFormatter: WKSourceEditorFormatterStrikethrough?
+    private(set) var findAndReplaceFormatter: WKSourceEditorFormatterFindAndReplace?
     
     var isSyntaxHighlightingEnabled: Bool = true {
         didSet {
@@ -129,17 +130,20 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let listFormatter = WKSourceEditorFormatterList(colors: colors, fonts: fonts)
         let headingFormatter = WKSourceEditorFormatterHeading(colors: colors, fonts: fonts)
         let strikethroughFormatter = WKSourceEditorFormatterStrikethrough(colors: colors, fonts: fonts)
+        let findAndReplaceFormatter = WKSourceEditorFormatterFindAndReplace(colors: colors, fonts: fonts)
         self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
                 templateFormatter,
                 boldItalicsFormatter,
                 listFormatter,
                 headingFormatter,
-                strikethroughFormatter]
+                strikethroughFormatter,
+                findAndReplaceFormatter]
         self.boldItalicsFormatter = boldItalicsFormatter
         self.templateFormatter = templateFormatter
         self.listFormatter = listFormatter
         self.headingFormatter = headingFormatter
         self.strikethroughFormatter = strikethroughFormatter
+        self.findAndReplaceFormatter = findAndReplaceFormatter
         
         if needsTextKit2 {
             if #available(iOS 16.0, *) {

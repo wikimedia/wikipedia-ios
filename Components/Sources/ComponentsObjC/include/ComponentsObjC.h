@@ -11,6 +11,7 @@
 #import "WKSourceEditorFormatterList.h"
 #import "WKSourceEditorFormatterHeading.h"
 #import "WKSourceEditorFormatterStrikethrough.h"
+#import "WKSourceEditorFormatterFindAndReplace.h"
 #import "WKSourceEditorStorageDelegate.h"
 
 #endif /* Header_h */
