@@ -1,5 +1,11 @@
 import UIKit
 
+protocol WKFindAndReplaceViewDelegate: AnyObject {
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String)
+    func findAndReplaceViewDidTapNext(_ view: WKFindAndReplaceView)
+    func findAndReplaceViewDidTapPrevious(_ view: WKFindAndReplaceView)
+}
+
 class WKFindAndReplaceView: WKComponentView {
     
     // MARK: - IBOutlet Properties
@@ -31,7 +37,8 @@ class WKFindAndReplaceView: WKComponentView {
     @IBOutlet private var pencilImageView: UIImageView!
     @IBOutlet private weak var replaceTextfieldContainer: UIView!
     
-    private var viewModel: WKFindAndReplaceViewModel?
+    weak var delegate: WKFindAndReplaceViewDelegate?
+    var viewModel: WKFindAndReplaceViewModel?
     
     // MARK: - Lifecycle
     
@@ -67,12 +74,14 @@ class WKFindAndReplaceView: WKComponentView {
         replaceTextField.adjustsFontForContentSizeCategory = true
         replaceTextField.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
         replaceTextField.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceTextField
+        replaceTextField.autocorrectionType = .yes
+        replaceTextField.spellCheckingType = .yes
+        
         replaceTypeLabel.text = WKSourceEditorLocalizedStrings.current.findReplaceTypeSingle
         replaceTypeLabel.isAccessibilityElement = false
 
         currentMatchLabel.adjustsFontForContentSizeCategory = true
         currentMatchLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
-        currentMatchLabel.text = "1 / 10" // TODO
 
         replaceTypeLabel.adjustsFontForContentSizeCategory = true
         replaceTypeLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
@@ -92,10 +101,22 @@ class WKFindAndReplaceView: WKComponentView {
     
     // MARK: - Internal
     
-    func configure(viewModel: WKFindAndReplaceViewModel) {
+    func update(viewModel: WKFindAndReplaceViewModel) {
         self.viewModel = viewModel
         
         updateConfiguration(configuration: viewModel.configuration)
+        
+        if let currentMatchInfo = viewModel.currentMatchInfo {
+            currentMatchLabel.text = "\(currentMatchInfo)"
+        } else {
+            currentMatchLabel.text = nil
+        }
+
+        if let findText = viewModel.findText {
+            findTextField.text = findText
+        } else {
+            findTextField.text = nil
+        }
     }
     
     // MARK: - Overrides
@@ -121,6 +142,8 @@ class WKFindAndReplaceView: WKComponentView {
     // MARK: - Button Actions
     
     @IBAction private func tappedFindClear() {
+        findTextField.text = ""
+        debouncedTextfieldDidChange()
     }
     
     @IBAction private func tappedReplaceClear() {
@@ -130,9 +153,11 @@ class WKFindAndReplaceView: WKComponentView {
     }
     
     @IBAction private func tappedNext() {
+        delegate?.findAndReplaceViewDidTapNext(self)
     }
     
     @IBAction private func tappedPrevious() {
+        delegate?.findAndReplaceViewDidTapPrevious(self)
     }
     
     @IBAction private func tappedReplace() {
@@ -142,6 +167,8 @@ class WKFindAndReplaceView: WKComponentView {
     }
     
     @IBAction private func textFieldDidChange(_ sender: UITextField) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedTextfieldDidChange), object: nil)
+        perform(#selector(debouncedTextfieldDidChange), with: nil, afterDelay: 1.0)
     }
     
     // MARK: - Private Helpers
@@ -189,5 +216,16 @@ class WKFindAndReplaceView: WKComponentView {
         replaceClearButton.tintColor = theme.inputAccessoryButtonTint
         replaceTypeLabel.textColor = theme.secondaryText
         replacePlaceholderLabel.textColor = theme.secondaryText
+    }
+    
+    @objc private func debouncedTextfieldDidChange() {
+
+        viewModel?.findText = findTextField.text
+
+        guard let text = findTextField.text else {
+            return
+        }
+
+        delegate?.findAndReplaceView(self, didChangeFindText: text)
     }
 }

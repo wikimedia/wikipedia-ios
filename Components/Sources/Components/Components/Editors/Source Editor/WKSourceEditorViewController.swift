@@ -55,9 +55,9 @@ public class WKSourceEditorViewController: WKComponentViewController {
     
     private lazy var findAccessoryView: WKFindAndReplaceView = {
         let view = UINib(nibName: String(describing: WKFindAndReplaceView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKFindAndReplaceView
-        let viewModel = WKFindAndReplaceViewModel()
-        view.configure(viewModel: viewModel)
+        view.update(viewModel: WKFindAndReplaceViewModel())
         view.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.findToolbar
+        view.delegate = self
         return view
     }()
     
@@ -180,6 +180,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
     public func closeFind() {
         textView.becomeFirstResponder()
         inputAccessoryViewType = .expanding
+        resetFind()
     }
     
     public func toggleSyntaxHighlighting() {
@@ -227,6 +228,15 @@ private extension WKSourceEditorViewController {
             NotificationCenter.default.post(name: Notification.WKSourceEditorSelectionState, object: nil, userInfo: [Notification.WKSourceEditorSelectionStateKey: selectionState])
         }
     }
+    
+    func resetFind() {
+        guard var viewModel = findAccessoryView.viewModel else {
+            return
+        }
+
+        viewModel.reset()
+        findAccessoryView.update(viewModel: viewModel)
+    }
 }
 
 // MARK: - UITextViewDelegate
@@ -238,6 +248,9 @@ extension WKSourceEditorViewController: UITextViewDelegate {
             return
         }
         let isRangeSelected = textView.selectedRange.length > 0
+        if inputAccessoryViewType == .find {
+            resetFind()
+        }
         inputAccessoryViewType = isRangeSelected ? .highlight : .expanding
         postUpdateButtonSelectionStatesNotification(withDelay: false)
     }
@@ -355,5 +368,21 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
         editorInputViewIsShowing = false
         let isRangeSelected = textView.selectedRange.length > 0
         inputAccessoryViewType = isRangeSelected ? .highlight : .expanding
+    }
+}
+
+// MARK: - WKFindAndReplaceViewDelegate
+
+extension WKSourceEditorViewController: WKFindAndReplaceViewDelegate {
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String) {
+        print("start find")
+    }
+    
+    func findAndReplaceViewDidTapNext(_ view: WKFindAndReplaceView) {
+        print("find next")
+    }
+    
+    func findAndReplaceViewDidTapPrevious(_ view: WKFindAndReplaceView) {
+        print("find previous")
     }
 }
