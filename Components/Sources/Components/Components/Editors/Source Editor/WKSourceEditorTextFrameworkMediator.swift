@@ -164,7 +164,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
                 })
             }
         } else {
-            textKit1Storage?.syntaxHighlightProcessingEnabled = false
+            textKit1Storage?.syntaxHighlightProcessingEnabled = true
             textKit1Storage?.updateColorsAndFonts()
             textKit1Storage?.syntaxHighlightProcessingEnabled = false
             
