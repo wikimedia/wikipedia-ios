@@ -26,7 +26,7 @@ NSString * const WKSourceEditorCustomKeyContentSuperscript = @"WKSourceEditorCus
             WKSourceEditorCustomKeyContentSuperscript: [NSNumber numberWithBool:YES]
         };
 
-        _superscriptRegex = [[NSRegularExpression alloc] initWithPattern:@"(<sup>)(\\s*u*p*.*?)(<\\/sup>)" options:0 error:nil];
+        _superscriptRegex = [[NSRegularExpression alloc] initWithPattern:@"(<sup>)(.*?)(<\\/sup>)" options:0 error:nil];
     }
 
     return self;
