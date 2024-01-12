@@ -260,7 +260,6 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             let isSubheading3 = headingFormatter?.attributedString(textKit1Storage, isSubheading3In: selectedDocumentRange) ?? false
             let isSubheading4 = headingFormatter?.attributedString(textKit1Storage, isSubheading4In: selectedDocumentRange) ?? false
             let isStrikethrough = strikethroughFormatter?.attributedString(textKit1Storage, isStrikethroughIn: selectedDocumentRange) ?? false
-
             let isSubscript = subscriptFormatter?.attributedString(textKit1Storage, isSubscriptIn: selectedDocumentRange) ?? false
             let isSuperscript = superscriptFormatter?.attributedString(textKit1Storage, isSuperscriptIn: selectedDocumentRange) ?? false
             let isUnderline = underlineFormatter?.attributedString(textKit1Storage, isUnderlineIn: selectedDocumentRange) ?? false
