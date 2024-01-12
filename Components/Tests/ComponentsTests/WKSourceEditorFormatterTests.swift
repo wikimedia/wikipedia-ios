@@ -1404,8 +1404,8 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
 
         // "<sub>"
-        XCTAssertEqual(subscriptContentRange.location, 9, "Incorrect subscript formatting")
-        XCTAssertEqual(subscriptContentRange.length, 5, "Incorrect subscript formatting")
+        XCTAssertEqual(subscriptOpenRange.location, 9, "Incorrect subscript formatting")
+        XCTAssertEqual(subscriptOpenRange.length, 5, "Incorrect subscript formatting")
 
         XCTAssertEqual(subscriptOpenAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect subscript formatting")
         XCTAssertEqual(subscriptOpenAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect strikethrough formatting")
@@ -1459,8 +1459,8 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
 
         // "<sup>"
-        XCTAssertEqual(superscriptContentRange.location, 9, "Incorrect superscript formatting")
-        XCTAssertEqual(superscriptContentRange.length, 5, "Incorrect superscript formatting")
+        XCTAssertEqual(superscriptOpenRange.location, 9, "Incorrect superscript formatting")
+        XCTAssertEqual(superscriptOpenRange.length, 5, "Incorrect superscript formatting")
 
         XCTAssertEqual(superscriptOpenAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect superscript formatting")
         XCTAssertEqual(superscriptOpenAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect superscript formatting")
