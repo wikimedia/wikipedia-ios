@@ -258,6 +258,10 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         colors.orangeForegroundColor = isSyntaxHighlightingEnabled ? WKAppEnvironment.current.theme.editorOrange : WKAppEnvironment.current.theme.text
         colors.purpleForegroundColor = isSyntaxHighlightingEnabled ?  WKAppEnvironment.current.theme.editorPurple : WKAppEnvironment.current.theme.text
         colors.greenForegroundColor = isSyntaxHighlightingEnabled ?  WKAppEnvironment.current.theme.editorGreen : WKAppEnvironment.current.theme.text
+        colors.matchForegroundColor = WKAppEnvironment.current.theme.editorMatchForeground
+        colors.matchBackgroundColor = WKAppEnvironment.current.theme.editorMatchBackground
+        colors.selectedMatchBackgroundColor = WKAppEnvironment.current.theme.editorSelectedMatchBackground
+        colors.replacedMatchBackgroundColor = WKAppEnvironment.current.theme.editorReplacedMatchBackground
         return colors
     }
     
