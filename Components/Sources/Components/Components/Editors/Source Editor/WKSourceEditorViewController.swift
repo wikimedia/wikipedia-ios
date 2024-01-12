@@ -4,6 +4,8 @@ import UIKit
 public protocol WKSourceEditorViewControllerDelegate: AnyObject {
     func sourceEditorViewControllerDidTapFind(sourceEditorViewController: WKSourceEditorViewController)
     func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: WKSourceEditorViewController)
+    func sourceEditorViewControllerDidTapLink(parameters: WKSourceEditorFormatterLinkWizardParameters)
+    func sourceEditorViewControllerDidTapImage()
 }
 
 // MARK: NSNotification Names
@@ -20,12 +22,7 @@ extension Notification {
 public class WKSourceEditorViewController: WKComponentViewController {
     
     // MARK: Nested Types
-    
-    enum InputViewType {
-        case main
-        case headerSelect
-    }
-    
+
     enum InputAccessoryViewType {
         case expanding
         case highlight
@@ -37,6 +34,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
     private let viewModel: WKSourceEditorViewModel
     private weak var delegate: WKSourceEditorViewControllerDelegate?
     private let textFrameworkMediator: WKSourceEditorTextFrameworkMediator
+    private var preselectedTextRange: UITextRange?
     
     var textView: UITextView {
         return textFrameworkMediator.textView
@@ -68,64 +66,24 @@ public class WKSourceEditorViewController: WKComponentViewController {
     
     // Input Views
     
-    private var _mainInputView: UIView?
-    private var mainInputView: UIView? {
-        get {
-            guard _mainInputView == nil else {
-                return _mainInputView
-            }
-            
-            let inputViewController = WKEditorInputViewController(configuration: .rootMain, delegate: self)
-            inputViewController.loadViewIfNeeded()
-            
-            _mainInputView = inputViewController.view
-            
-            return inputViewController.view
-        }
-        set {
-            _mainInputView = newValue
-        }
-    }
+    private lazy var editorInputView: UIView? = {
+        let inputView = WKEditorInputView(delegate: self)
+        inputView.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.inputView
+        return inputView
+    }()
     
-    private var _headerSelectionInputView: UIView?
-    private var headerSelectionInputView: UIView? {
-        get {
-            guard _headerSelectionInputView == nil else {
-                return _headerSelectionInputView
-            }
-            
-            let inputViewController = WKEditorInputViewController(configuration: .rootHeaderSelect, delegate: self)
-            inputViewController.loadViewIfNeeded()
-            
-            _headerSelectionInputView = inputViewController.view
-            
-            return inputViewController.view
-        }
-        set {
-            _headerSelectionInputView = newValue
-        }
-    }
+    // Input Tracking Properties
     
-    // Input Types
-    
-    var inputViewType: InputViewType? = nil {
+    var editorInputViewIsShowing: Bool? = false {
         didSet {
             
-            guard let inputViewType else {
-                mainInputView = nil
-                headerSelectionInputView = nil
+            guard editorInputViewIsShowing == true else {
                 textView.inputView = nil
                 textView.reloadInputViews()
                 return
             }
             
-            switch inputViewType {
-            case .main:
-                textView.inputView = mainInputView
-            case .headerSelect:
-                textView.inputView = headerSelectionInputView
-            }
-            
+            textView.inputView = editorInputView
             textView.inputAccessoryView = nil
             textView.reloadInputViews()
         }
@@ -231,6 +189,43 @@ public class WKSourceEditorViewController: WKComponentViewController {
         viewModel.isSyntaxHighlightingEnabled.toggle()
         update(viewModel: viewModel)
     }
+    
+    public func insertLink(pageTitle: String) {
+        
+        guard let preselectedTextRange else {
+            return
+        }
+        
+        textFrameworkMediator.linkFormatter?.insertLink(in: textView, pageTitle: pageTitle, preselectedTextRange: preselectedTextRange)
+        
+        self.preselectedTextRange = nil
+    }
+    
+    public func editLink(newPageTitle: String, newPageLabel: String?) {
+        
+        guard let preselectedTextRange else {
+            return
+        }
+        
+        textFrameworkMediator.linkFormatter?.editLink(in: textView, newPageTitle: newPageTitle, newPageLabel: newPageLabel, preselectedTextRange: preselectedTextRange)
+        
+        self.preselectedTextRange = nil
+    }
+    
+    public func removeLink() {
+        
+        guard let preselectedTextRange else {
+            return
+        }
+        
+        textFrameworkMediator.linkFormatter?.removeLink(in: textView, preselectedTextRange: preselectedTextRange)
+        
+        self.preselectedTextRange = nil
+    }
+    
+    public func insertImage(wikitext: String) {
+        textFrameworkMediator.linkFormatter?.insertImage(wikitext: wikitext, in: textView)
+    }
 }
 
 // MARK: - Private
@@ -272,13 +267,26 @@ private extension WKSourceEditorViewController {
             NotificationCenter.default.post(name: Notification.WKSourceEditorSelectionState, object: nil, userInfo: [Notification.WKSourceEditorSelectionStateKey: selectionState])
         }
     }
+    
+    func presentLinkWizard(linkButtonIsSelected: Bool) {
+        
+        let action: WKSourceEditorFormatterLinkButtonAction = linkButtonIsSelected ? .edit : .insert
+        
+        guard let parameters = textFrameworkMediator.linkFormatter?.linkWizardParameters(action: action, in: textView) else {
+            return
+        }
+        
+        // For some reason the editor text view can lose its selectedTextRange when presenting the link wizard, which we need in the formatter button action extension to determine how to change the text after wizard dismissal. We keep track of it here and send it back into the formatter later.
+        self.preselectedTextRange = parameters.preselectedTextRange
+        delegate?.sourceEditorViewControllerDidTapLink(parameters: parameters)
+    }
 }
 
 // MARK: - UITextViewDelegate
 
 extension WKSourceEditorViewController: UITextViewDelegate {
     public func textViewDidChangeSelection(_ textView: UITextView) {
-        guard inputViewType == nil else {
+        guard editorInputViewIsShowing == false else {
             postUpdateButtonSelectionStatesNotification(withDelay: false)
             return
         }
@@ -298,24 +306,51 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
     }
     
     func toolbarExpandingViewDidTapFormatText(toolbarView: WKEditorToolbarExpandingView) {
-        inputViewType = .main
+        editorInputViewIsShowing = true
         postUpdateButtonSelectionStatesNotification(withDelay: true)
-    }
-    
-    func toolbarExpandingViewDidTapFormatHeading(toolbarView: WKEditorToolbarExpandingView) {
-        inputViewType = .headerSelect
     }
     
     func toolbarExpandingViewDidTapTemplate(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
+
+    func toolbarExpandingViewDidTapReference(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
+    }
+
+    func toolbarExpandingViewDidTapLink(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
+        presentLinkWizard(linkButtonIsSelected: isSelected)
+    }
+    
+    func toolbarExpandingViewDidTapImage(toolbarView: WKEditorToolbarExpandingView) {
+        delegate?.sourceEditorViewControllerDidTapImage()
+    }
+    
+    func toolbarExpandingViewDidTapUnorderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.listFormatter?.toggleListBullet(action: action, in: textView)
+    }
+    
+    func toolbarExpandingViewDidTapOrderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.listFormatter?.toggleListNumber(action: action, in: textView)
+    }
+    
+    func toolbarExpandingViewDidTapIncreaseIndent(toolbarView: WKEditorToolbarExpandingView) {
+        textFrameworkMediator.listFormatter?.tappedIncreaseIndent(currentSelectionState: selectionState(), textView: textView)
+    }
+    
+    func toolbarExpandingViewDidTapDecreaseIndent(toolbarView: WKEditorToolbarExpandingView) {
+        textFrameworkMediator.listFormatter?.tappedDecreaseIndent(currentSelectionState: selectionState(), textView: textView)
+    }
 }
 
 // MARK: - WKEditorToolbarHighlightViewDelegate
 
 extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
-    
+        
     func toolbarHighlightViewDidTapBold(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.boldItalicsFormatter?.toggleBoldFormatting(action: action, in: textView)
@@ -330,20 +365,30 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
-    
-    func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView) {
-        inputViewType = .main
-        postUpdateButtonSelectionStatesNotification(withDelay: true)
+
+    func toolbarHighlightViewDidTapReference(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
+    }
+
+    func toolbarHighlightViewDidTapLink(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
+        presentLinkWizard(linkButtonIsSelected: isSelected)
+
     }
     
-    func toolbarHighlightViewDidTapFormatHeading(toolbarView: WKEditorToolbarHighlightView) {
-        inputViewType = .headerSelect
+    func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView) {
+        editorInputViewIsShowing = true
+        postUpdateButtonSelectionStatesNotification(withDelay: true)
     }
 }
 
 // MARK: - WKEditorInputViewDelegate
 
 extension WKSourceEditorViewController: WKEditorInputViewDelegate {
+    func didTapHeading(type: WKEditorInputView.HeadingButtonType) {
+        textFrameworkMediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: type, currentSelectionState: selectionState(), textView: textView)
+    }
+    
     func didTapBold(isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.boldItalicsFormatter?.toggleBoldFormatting(action: action, in: textView)
@@ -357,6 +402,29 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     func didTapTemplate(isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
+    }
+
+    func didTapReference(isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
+    }
+    
+    func didTapBulletList(isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.listFormatter?.toggleListBullet(action: action, in: textView)
+    }
+    
+    func didTapNumberList(isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.listFormatter?.toggleListNumber(action: action, in: textView)
+    }
+    
+    func didTapIncreaseIndent() {
+        textFrameworkMediator.listFormatter?.tappedIncreaseIndent(currentSelectionState: selectionState(), textView: textView)
+    }
+    
+    func didTapDecreaseIndent() {
+        textFrameworkMediator.listFormatter?.tappedDecreaseIndent(currentSelectionState: selectionState(), textView: textView)
     }
     
     func didTapStrikethrough(isSelected: Bool) {
@@ -378,9 +446,13 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.superscriptFormatter?.toggleSuperscriptFormatting(action: action, in: textView)
     }
+    
+    func didTapLink(isSelected: Bool) {
+        presentLinkWizard(linkButtonIsSelected: isSelected)
+    }
 
     func didTapClose() {
-        inputViewType = nil
+        editorInputViewIsShowing = false
         let isRangeSelected = textView.selectedRange.length > 0
         inputAccessoryViewType = isRangeSelected ? .highlight : .expanding
     }

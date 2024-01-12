@@ -6,7 +6,7 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
     
     @IBOutlet private weak var boldButton: WKEditorToolbarButton!
     @IBOutlet private weak var italicsButton: WKEditorToolbarButton!
-    @IBOutlet private weak var citationButton: WKEditorToolbarButton!
+    @IBOutlet private weak var referenceButton: WKEditorToolbarButton!
     @IBOutlet private weak var linkButton: WKEditorToolbarButton!
     @IBOutlet private weak var templateButton: WKEditorToolbarButton!
     @IBOutlet private weak var commentButton: WKEditorToolbarButton!
@@ -26,9 +26,9 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
         italicsButton.addTarget(self, action: #selector(tappedItalics), for: .touchUpInside)
         italicsButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonItalics
 
-        citationButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
-        citationButton.addTarget(self, action: #selector(tappedCitation), for: .touchUpInside)
-        citationButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonCitation
+        referenceButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
+        referenceButton.addTarget(self, action: #selector(tappedReference), for: .touchUpInside)
+        referenceButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonCitation
 
         linkButton.setImage(WKIcon.link, for: .normal)
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
@@ -55,6 +55,8 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
         boldButton.isSelected = selectionState.isBold
         italicsButton.isSelected = selectionState.isItalics
         templateButton.isSelected = selectionState.isHorizontalTemplate
+        referenceButton.isSelected = selectionState.isHorizontalReference
+        linkButton.isSelected = selectionState.isSimpleLink
     }
     
     // MARK: Button Actions
@@ -67,7 +69,8 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
         delegate?.didTapItalics(isSelected: italicsButton.isSelected)
     }
 
-    @objc private func tappedCitation() {
+    @objc private func tappedReference() {
+        delegate?.didTapReference(isSelected: referenceButton.isSelected)
     }
 
     @objc private func tappedTemplate() {
@@ -78,5 +81,6 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
     }
 
     @objc private func tappedLink() {
+        delegate?.didTapLink(isSelected: linkButton.isSelected)
     }
 }

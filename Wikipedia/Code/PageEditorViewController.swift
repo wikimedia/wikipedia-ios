@@ -1,6 +1,7 @@
 import UIKit
 import Components
 import WMF
+import CocoaLumberjackSwift
 
 protocol PageEditorViewControllerDelegate: AnyObject {
     func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL: URL?)
@@ -116,7 +117,6 @@ final class PageEditorViewController: UIViewController {
                                                               findReplaceTypeAll: CommonStrings.findAndReplaceAll,
                                                               findReplaceWith: CommonStrings.replaceWith,
                                                               accessibilityLabelButtonFormatText: CommonStrings.accessibilityLabelButtonFormatText,
-                                                              accessibilityLabelButtonFormatHeading: CommonStrings.accessibilityLabelButtonFormatHeading,
                                                               accessibilityLabelButtonCitation: CommonStrings.accessibilityLabelButtonCitation,
                                                               accessibilityLabelButtonCitationSelected: CommonStrings.accessibilityLabelButtonCitationSelected,
                                                               accessibilityLabelButtonLink: CommonStrings.accessibilityLabelButtonBold,
@@ -139,7 +139,6 @@ final class PageEditorViewController: UIViewController {
                                                               accessibilityLabelButtonBoldSelected: CommonStrings.accessibilityLabelButtonBoldSelected,
                                                               accessibilityLabelButtonItalics: CommonStrings.accessibilityLabelButtonItalics,
                                                               accessibilityLabelButtonItalicsSelected: CommonStrings.accessibilityLabelButtonItalicsSelected,
-                                                              accessibilityLabelButtonClearFormatting: CommonStrings.accessibilityLabelButtonClearFormatting,
                                                               accessibilityLabelButtonShowMore: CommonStrings.accessibilityLabelButtonShowMore,
                                                               accessibilityLabelButtonComment: CommonStrings.accessibilityLabelButtonComment,
                                                               accessibilityLabelButtonCommentSelected: CommonStrings.accessibilityLabelButtonCommentSelected,
@@ -232,12 +231,55 @@ extension PageEditorViewController: Themeable {
 // MARK: - WKSourceEditorViewControllerDelegate
 
 extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
+    
     func sourceEditorViewControllerDidTapFind(sourceEditorViewController: WKSourceEditorViewController) {
         showFocusNavigationView()
     }
     
     func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: Components.WKSourceEditorViewController) {
         hideFocusNavigationView()
+    }
+    
+    
+    func sourceEditorViewControllerDidTapLink(parameters: WKSourceEditorFormatterLinkWizardParameters) {
+        guard let siteURL = pageURL.wmf_site else {
+            return
+        }
+        
+        if let editPageTitle = parameters.editPageTitle {
+            guard let link = Link(page: editPageTitle, label: parameters.editPageLabel, exists: true) else {
+                return
+            }
+            
+            guard let editLinkViewController = EditLinkViewController(link: link, siteURL: pageURL.wmf_site, dataStore: dataStore) else {
+                return
+            }
+            
+            editLinkViewController.delegate = self
+            let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
+            navigationController.isNavigationBarHidden = true
+            present(navigationController, animated: true)
+        }
+        
+        if let insertSearchTerm = parameters.insertSearchTerm {
+            guard let link = Link(page: insertSearchTerm, label: nil, exists: false) else {
+                return
+            }
+            
+            let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore)
+            insertLinkViewController.delegate = self
+            let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
+            present(navigationController, animated: true)
+        }
+    }
+    
+    func sourceEditorViewControllerDidTapImage() {
+        let insertMediaViewController = InsertMediaViewController(articleTitle: pageURL.wmf_title, siteURL: pageURL.wmf_site)
+        insertMediaViewController.delegate = self
+        insertMediaViewController.apply(theme: theme)
+        let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
+        navigationController.isNavigationBarHidden = true
+        present(navigationController, animated: true)
     }
 }
 
@@ -314,6 +356,55 @@ extension PageEditorViewController: ReadingThemesControlsPresenting {
     }
 }
 
+// MARK: - EditLinkViewControllerDelegate
+
+extension PageEditorViewController: EditLinkViewControllerDelegate {
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didTapCloseButton button: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+    
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
+        dismiss(animated: true)
+        sourceEditor.editLink(newPageTitle: linkTarget, newPageLabel: displayText)
+    }
+    
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFailToExtractArticleTitleFromArticleURL articleURL: URL) {
+        DDLogError("Failed to extract article title from \(pageURL)")
+        dismiss(animated: true)
+    }
+    
+    func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
+        dismiss(animated: true)
+        sourceEditor.removeLink()
+    }
+}
+
+// MARK: - InsertLinkViewControllerDelegate
+
+extension PageEditorViewController: InsertLinkViewControllerDelegate {
+    func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+    
+    func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
+        sourceEditor.insertLink(pageTitle: page)
+        dismiss(animated: true)
+    }
+}
+
+// MARK: - Insert
+
+extension PageEditorViewController: InsertMediaViewControllerDelegate {
+    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didTapCloseButton button: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+    
+    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String) {
+        sourceEditor.insertImage(wikitext: wikitext)
+        dismiss(animated: true)
+    }
+}
+
 enum SourceEditorAccessibilityIdentifiers: String {
     case entryButton = "Source Editor Entry Button"
     case textView = "Source Editor TextView"
@@ -321,10 +412,8 @@ enum SourceEditorAccessibilityIdentifiers: String {
     case showMoreButton = "Source Editor Show More Button"
     case closeButton = "Source Editor Close Button"
     case formatTextButton = "Source Editor Format Text Button"
-    case formatHeadingButton = "Source Editor Format Heading Button"
     case expandingToolbar = "Source Editor Expanding Toolbar"
     case highlightToolbar = "Source Editor Highlight Toolbar"
     case findToolbar = "Source Editor Find Toolbar"
-    case mainInputView = "Source Editor Main Input View"
-    case headerSelectInputView = "Source Editor Header Select Input View"
+    case inputView = "Source Editor Input View"
 }
