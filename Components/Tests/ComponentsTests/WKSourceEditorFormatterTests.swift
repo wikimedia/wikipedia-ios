@@ -1392,10 +1392,10 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         let subscriptContentAttributes = mutAttributedString.attributes(at: 14, effectiveRange: &subscriptContentRange)
 
         var subscriptCloseRange = NSRange(location: 0, length: 0)
-        let subscriptCloseAttributes = mutAttributedString.attributes(at: 27, effectiveRange: &subscriptCloseRange)
+        let subscriptCloseAttributes = mutAttributedString.attributes(at: 24, effectiveRange: &subscriptCloseRange)
 
         var base2Range = NSRange(location: 0, length: 0)
-        let base2Attributes = mutAttributedString.attributes(at: 35, effectiveRange: &base2Range)
+        let base2Attributes = mutAttributedString.attributes(at: 30, effectiveRange: &base2Range)
 
         // "Testing. "
         XCTAssertEqual(base1Range.location, 0, "Incorrect base formatting")
@@ -1404,8 +1404,8 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
 
         // "<sub>"
-        XCTAssertEqual(subscriptContentRange.location, 14, "Incorrect subscript formatting")
-        XCTAssertEqual(subscriptContentRange.length, 10, "Incorrect subscript formatting")
+        XCTAssertEqual(subscriptContentRange.location, 9, "Incorrect subscript formatting")
+        XCTAssertEqual(subscriptContentRange.length, 5, "Incorrect subscript formatting")
 
         XCTAssertEqual(subscriptOpenAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect subscript formatting")
         XCTAssertEqual(subscriptOpenAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect strikethrough formatting")
@@ -1447,10 +1447,10 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         let superscriptContentAttributes = mutAttributedString.attributes(at: 14, effectiveRange: &superscriptContentRange)
 
         var superscriptCloseRange = NSRange(location: 0, length: 0)
-        let superscriptCloseAttributes = mutAttributedString.attributes(at: 28, effectiveRange: &superscriptCloseRange)
+        let superscriptCloseAttributes = mutAttributedString.attributes(at: 26, effectiveRange: &superscriptCloseRange)
 
         var base2Range = NSRange(location: 0, length: 0)
-        let base2Attributes = mutAttributedString.attributes(at: 36, effectiveRange: &base2Range)
+        let base2Attributes = mutAttributedString.attributes(at: 32, effectiveRange: &base2Range)
 
         // "Testing. "
         XCTAssertEqual(base1Range.location, 0, "Incorrect base formatting")
@@ -1459,8 +1459,8 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
 
         // "<sup>"
-        XCTAssertEqual(superscriptContentRange.location, 14, "Incorrect superscript formatting")
-        XCTAssertEqual(superscriptContentRange.length, 12, "Incorrect superscript formatting")
+        XCTAssertEqual(superscriptContentRange.location, 9, "Incorrect superscript formatting")
+        XCTAssertEqual(superscriptContentRange.length, 5, "Incorrect superscript formatting")
 
         XCTAssertEqual(superscriptOpenAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect superscript formatting")
         XCTAssertEqual(superscriptOpenAttributes[.foregroundColor] as! UIColor, colors.greenForegroundColor, "Incorrect superscript formatting")
@@ -1503,10 +1503,10 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         let underlineContentAttributes = mutAttributedString.attributes(at: 12, effectiveRange: &underlineContentRange)
 
         var underlineCloseRange = NSRange(location: 0, length: 0)
-        let underlineCloseAttributes = mutAttributedString.attributes(at: 24, effectiveRange: &underlineCloseRange)
+        let underlineCloseAttributes = mutAttributedString.attributes(at: 22, effectiveRange: &underlineCloseRange)
 
         var base2Range = NSRange(location: 0, length: 0)
-        let base2Attributes = mutAttributedString.attributes(at: 31, effectiveRange: &base2Range)
+        let base2Attributes = mutAttributedString.attributes(at: 26, effectiveRange: &base2Range)
 
         // "Testing. "
         XCTAssertEqual(base1Range.location, 0, "Incorrect base formatting")
