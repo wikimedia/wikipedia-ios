@@ -173,15 +173,6 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         }
     }
     
-    @objc private func debouncedEnsureLayoutTextkit1() {
-        
-        guard !needsTextKit2 else {
-            return
-        }
-        
-       textView.layoutManager.ensureLayout(forCharacterRange: NSRange(location: 0, length: textView.attributedText.length))
-    }
-    
     func selectionState(selectedDocumentRange: NSRange) -> WKSourceEditorSelectionState {
         
         if needsTextKit2 {
@@ -227,7 +218,34 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         }
     }
     
-    func textkit2SelectionData(selectedDocumentRange: NSRange) -> (paragraphAttributedString: NSMutableAttributedString, paragraphSelectedRange: NSRange)? {
+    func findStart(text: String) {
+        
+    }
+    
+    func findNext() {
+        
+    }
+    
+    func findPrevious() {
+        
+    }
+    
+    func findReset() {
+        
+    }
+    
+    // MARK: Private
+    
+    @objc private func debouncedEnsureLayoutTextkit1() {
+        
+        guard !needsTextKit2 else {
+            return
+        }
+        
+       textView.layoutManager.ensureLayout(forCharacterRange: NSRange(location: 0, length: textView.attributedText.length))
+    }
+    
+    private func textkit2SelectionData(selectedDocumentRange: NSRange) -> (paragraphAttributedString: NSMutableAttributedString, paragraphSelectedRange: NSRange)? {
         guard needsTextKit2 else {
             return nil
         }
@@ -252,6 +270,8 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         return nil
     }
 }
+
+// MARK: WKSourceEditorStorageDelegate
 
 extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
     
@@ -286,6 +306,8 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
     }
 }
 
+// MARK: NSTextContentStorageDelegate
+
  extension WKSourceEditorTextFrameworkMediator: NSTextContentStorageDelegate {
 
     func textContentStorage(_ textContentStorage: NSTextContentStorage, textParagraphWith range: NSRange) -> NSTextParagraph? {
@@ -308,6 +330,8 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         return NSTextParagraph(attributedString: attributedString)
     }
 }
+
+// MARK: NSTextContentStorage Extensions
 
 fileprivate extension NSTextContentStorage {
     func textRangeForDocumentNSRange(_ documentNSRange: NSRange) -> NSTextRange? {
