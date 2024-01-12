@@ -164,7 +164,10 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
                 })
             }
         } else {
+            textKit1Storage?.syntaxHighlightProcessingEnabled = false
             textKit1Storage?.updateColorsAndFonts()
+            textKit1Storage?.syntaxHighlightProcessingEnabled = false
+            
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedEnsureLayoutTextkit1), object: nil)
             perform(#selector(debouncedEnsureLayoutTextkit1), with: nil, afterDelay: 0.1)
         }
