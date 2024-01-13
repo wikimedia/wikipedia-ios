@@ -7,13 +7,11 @@ struct WKFindAndReplaceViewModel {
         case findAndReplace
     }
     
-    var findText: String?
     var currentMatchInfo: String?
     
     let configuration: Configuration = .findAndReplace
     
     mutating func reset() {
-        findText = nil
         currentMatchInfo = nil
     }
 }

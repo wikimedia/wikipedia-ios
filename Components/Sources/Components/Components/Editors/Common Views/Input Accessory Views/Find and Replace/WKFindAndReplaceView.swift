@@ -111,12 +111,6 @@ class WKFindAndReplaceView: WKComponentView {
         } else {
             currentMatchLabel.text = nil
         }
-
-        if let findText = viewModel.findText {
-            findTextField.text = findText
-        } else {
-            findTextField.text = nil
-        }
     }
     
     // MARK: - Overrides
@@ -220,12 +214,11 @@ class WKFindAndReplaceView: WKComponentView {
     
     @objc private func debouncedTextfieldDidChange() {
 
-        viewModel?.findText = findTextField.text
-
         guard let text = findTextField.text else {
             return
         }
 
+        // TODO: also call from keyboard search button
         delegate?.findAndReplaceView(self, didChangeFindText: text)
     }
 }
