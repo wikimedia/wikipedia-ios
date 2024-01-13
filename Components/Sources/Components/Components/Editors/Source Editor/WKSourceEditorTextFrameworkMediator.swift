@@ -45,9 +45,15 @@ fileprivate var needsTextKit2: Bool {
     }
 }
 
+protocol WKSourceEditorFindAndReplaceScrollDelegate: NSObject {
+    func scrollToCurrentMatch()
+}
+
 final class WKSourceEditorTextFrameworkMediator: NSObject {
     
     private let viewModel: WKSourceEditorViewModel
+    weak var delegate: WKSourceEditorFindAndReplaceScrollDelegate?
+    
     private let textKit1Storage: WKSourceEditorTextStorage?
     private let textKit2Storage: NSTextContentStorage?
     
@@ -164,9 +170,9 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
                 })
             }
         } else {
-            textKit1Storage?.syntaxHighlightProcessingEnabled = true
-            textKit1Storage?.updateColorsAndFonts()
             textKit1Storage?.syntaxHighlightProcessingEnabled = false
+            textKit1Storage?.updateColorsAndFonts()
+            textKit1Storage?.syntaxHighlightProcessingEnabled = true
             
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedEnsureLayoutTextkit1), object: nil)
             perform(#selector(debouncedEnsureLayoutTextkit1), with: nil, afterDelay: 0.1)
@@ -220,17 +226,90 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     
     func findStart(text: String) {
         
+        guard !text.isEmpty else {
+            return
+        }
+        
+        guard let fullAttributedString else {
+            return
+        }
+
+        if needsTextKit2 {
+            if #available(iOS 16.0, *) {
+                textView.textLayoutManager?.textContentManager?.performEditingTransaction {
+                    self.findAndReplaceFormatter?.startMatchSession(withFullAttributedString: fullAttributedString, searchText: text)
+                }
+            }
+        } else {
+
+            textKit1Storage?.syntaxHighlightProcessingEnabled = false
+            findAndReplaceFormatter?.startMatchSession(withFullAttributedString: fullAttributedString, searchText: text)
+            textKit1Storage?.syntaxHighlightProcessingEnabled = true
+        }
+        
+        findNext()
+
+        self.delegate?.scrollToCurrentMatch()
     }
     
     func findNext() {
+        guard let fullAttributedString else {
+            return
+        }
         
+        if needsTextKit2 {
+            if #available(iOS 16.0, *) {
+                textView.textLayoutManager?.textContentManager?.performEditingTransaction {
+                    self.findAndReplaceFormatter?.highlightNextMatch(inFullAttributedString: fullAttributedString)
+
+                }
+            }
+        } else {
+            textKit1Storage?.syntaxHighlightProcessingEnabled = false
+            findAndReplaceFormatter?.highlightNextMatch(inFullAttributedString: fullAttributedString)
+            textKit1Storage?.syntaxHighlightProcessingEnabled = true
+        }
+        
+        self.delegate?.scrollToCurrentMatch()
     }
     
     func findPrevious() {
+        guard let fullAttributedString else {
+            return
+        }
         
+        if needsTextKit2 {
+            if #available(iOS 16.0, *) {
+                textView.textLayoutManager?.textContentManager?.performEditingTransaction {
+                    self.findAndReplaceFormatter?.highlightPreviousMatch(inFullAttributedString: fullAttributedString)
+
+                }
+            }
+        } else {
+            textKit1Storage?.syntaxHighlightProcessingEnabled = false
+            findAndReplaceFormatter?.highlightPreviousMatch(inFullAttributedString: fullAttributedString)
+            textKit1Storage?.syntaxHighlightProcessingEnabled = true
+        }
+        
+        self.delegate?.scrollToCurrentMatch()
     }
     
     func findReset() {
+        guard let fullAttributedString else {
+            return
+        }
+        
+        if needsTextKit2 {
+            
+            if #available(iOS 16.0, *) {
+                textView.textLayoutManager?.textContentManager?.performEditingTransaction {
+                    self.findAndReplaceFormatter?.endMatchSession(withFullAttributedString: fullAttributedString)
+                }
+            }
+            
+        } else {
+            self.findAndReplaceFormatter?.endMatchSession(withFullAttributedString: fullAttributedString)
+        }
         
     }
     
@@ -268,6 +347,21 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         }
         
         return nil
+    }
+    
+    private var fullAttributedString: NSMutableAttributedString? {
+        if needsTextKit2 {
+            if #available(iOS 16.0, *) {
+                let textContentManager = textView.textLayoutManager?.textContentManager
+                guard let attributedString = (textContentManager as? NSTextContentStorage)?.textStorage else {
+                    return nil
+                }
+
+                return attributedString
+            }
+        }
+        
+        return textKit1Storage
     }
 }
 
