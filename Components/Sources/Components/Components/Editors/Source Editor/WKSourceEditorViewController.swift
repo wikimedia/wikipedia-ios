@@ -32,6 +32,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
     private let viewModel: WKSourceEditorViewModel
     private weak var delegate: WKSourceEditorViewControllerDelegate?
     private let textFrameworkMediator: WKSourceEditorTextFrameworkMediator
+    private var scrollingToMatchCount: Int? = nil
     
     var textView: UITextView {
         return textFrameworkMediator.textView
@@ -129,6 +130,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
     
     private func setup() {
         textView.delegate = self
+        textFrameworkMediator.delegate = self
         view.addSubview(textView)
         updateColorsAndFonts()
         
@@ -178,6 +180,12 @@ public class WKSourceEditorViewController: WKComponentViewController {
     // MARK: - Public
     
     public func closeFind() {
+        if let currentRange = textFrameworkMediator.findAndReplaceFormatter?.selectedMatchRange {
+            textView.selectedRange = currentRange
+        } else {
+            // TODO: select a range on screen. Test by searching for a nonexisting string, then closing find.
+        }
+        
         textView.becomeFirstResponder()
         inputAccessoryViewType = .expanding
         resetFind()
@@ -233,8 +241,24 @@ private extension WKSourceEditorViewController {
         guard var viewModel = findAccessoryView.viewModel else {
             return
         }
-
+        // TODO: disable next / prev buttons
         viewModel.reset()
+        findAccessoryView.update(viewModel: viewModel)
+        textFrameworkMediator.findReset()
+    }
+    
+    func updateFindCurrentMatchInfo() {
+        
+        guard var viewModel = findAccessoryView.viewModel,
+              let findFormatter = textFrameworkMediator.findAndReplaceFormatter else {
+            return
+        }
+        
+        guard findFormatter.selectedMatchIndex != NSNotFound else {
+            return
+        }
+        
+        viewModel.currentMatchInfo = "\(findFormatter.selectedMatchIndex + 1) / \(findFormatter.matchCount)"
         findAccessoryView.update(viewModel: viewModel)
     }
 }
@@ -375,14 +399,59 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
 
 extension WKSourceEditorViewController: WKFindAndReplaceViewDelegate {
     func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String) {
-        print("start find")
+        resetFind()
+        // TODO: show spinner on find
+        textFrameworkMediator.findStart(text: text)
+        updateFindCurrentMatchInfo()
+        // TODO: end spinner on find
+        // TODO: enable next / prev buttons
     }
     
     func findAndReplaceViewDidTapNext(_ view: WKFindAndReplaceView) {
-        print("find next")
+        
+        textFrameworkMediator.findNext()
+        updateFindCurrentMatchInfo()
     }
     
     func findAndReplaceViewDidTapPrevious(_ view: WKFindAndReplaceView) {
-        print("find previous")
+        textFrameworkMediator.findPrevious()
+        updateFindCurrentMatchInfo()
+    }
+}
+
+// MARK: - WKSourceEditorFindAndReplaceScrollDelegate
+
+extension WKSourceEditorViewController: WKSourceEditorFindAndReplaceScrollDelegate {
+    
+    func scrollToCurrentMatch() {
+        guard let matchRange = textFrameworkMediator.findAndReplaceFormatter?.selectedMatchRange else {
+            return
+        }
+        guard matchRange.location != NSNotFound else {
+            return
+        }
+        
+        if let scrollingToMatchCount {
+            self.scrollingToMatchCount = scrollingToMatchCount + 1
+        } else {
+            self.scrollingToMatchCount = 1
+        }
+        
+        if let startPos = textView.position(from: textView.beginningOfDocument, offset: matchRange.location),
+           let endPos = textView.position(from: startPos, offset: matchRange.length),
+           let textRange = textView.textRange(from: startPos, to: endPos) {
+            let matchRect = textView.firstRect(for: textRange)
+            
+            textView.scrollRectToVisible(matchRect, animated: false)
+            
+            // Sometimes scrolling is off, try again.
+            if let scrollingToMatchCount,
+               scrollingToMatchCount < 2 {
+                scrollToCurrentMatch()
+            } else {
+                scrollingToMatchCount = nil
+                textView.flashScrollIndicators()
+            }
+        }
     }
 }
