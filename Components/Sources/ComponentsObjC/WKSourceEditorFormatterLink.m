@@ -209,7 +209,7 @@ NSString * const WKSourceEditorCustomKeyLinkWithNestedLink = @"WKSourceEditorCus
                }
                
                // Edge case, check previous character if we are up against opening markup
-               if (attrs[WKSourceEditorCustomKeyLink]) {
+               if (attrs[WKSourceEditorCustomKeyLink] && attributedString.length > range.location - 1) {
                    if (attributedString.length > range.location - 1) {
                        attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
                        if (attrs[key] == nil) {

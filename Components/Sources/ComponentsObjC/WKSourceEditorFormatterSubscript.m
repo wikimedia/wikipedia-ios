@@ -95,7 +95,7 @@ NSString * const WKSourceEditorCustomKeyContentSubscript = @"WKSourceEditorCusto
            if (attrs[WKSourceEditorCustomKeyContentSubscript] != nil) {
                isContentKey = YES;
            } else {
-               if (attrs[WKSourceEditorCustomKeyColorGreen] && range.location < 0) {
+               if (attrs[WKSourceEditorCustomKeyColorGreen] && attributedString.length > range.location - 1) {
                    attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
                    if (attrs[WKSourceEditorCustomKeyContentSubscript] != nil) {
                        isContentKey = YES;
