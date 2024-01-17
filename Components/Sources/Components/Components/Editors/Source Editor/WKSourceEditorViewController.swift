@@ -431,11 +431,26 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.strikethroughFormatter?.toggleStrikethroughFormatting(action: action, in: textView)
     }
+
+    func didTapUnderline(isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.underlineFormatter?.toggleUnderlineFormatting(action: action, in: textView)
+    }
+
+    func didTapSubscript(isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.subscriptFormatter?.toggleSubscriptFormatting(action: action, in: textView)
+    }
+
+    func didTapSuperscript(isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.superscriptFormatter?.toggleSuperscriptFormatting(action: action, in: textView)
+    }
     
     func didTapLink(isSelected: Bool) {
         presentLinkWizard(linkButtonIsSelected: isSelected)
     }
-    
+
     func didTapClose() {
         editorInputViewIsShowing = false
         let isRangeSelected = textView.selectedRange.length > 0

@@ -293,7 +293,7 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
                 isFormatted = YES;
             } else {
                 // Edge case, check previous character if we are up against a closing bold or italic
-                if (attrs[WKSourceEditorCustomKeyColorOrange]) {
+                if (attrs[WKSourceEditorCustomKeyColorOrange] && attributedString.length > range.location - 1) {
                     attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
                     if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[formattingKey] != nil) {
                         isFormatted = YES;

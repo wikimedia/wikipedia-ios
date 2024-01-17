@@ -185,7 +185,7 @@ NSString * const WKSourceEditorCustomKeyContentNumberMultiple = @"WKSourceEditor
             }
             
             // Edge case, check previous character in case we're at the end of the line and list isn't detected
-            if ((attributedString.length > range.location - 1)) {
+            if (attributedString.length > range.location - 1) {
                 NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location-1 effectiveRange:nil];
                 
                 if (attrs[contentKey] != nil) {
