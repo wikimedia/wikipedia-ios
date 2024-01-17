@@ -146,7 +146,7 @@ NSString * const WKSourceEditorCustomKeyContentReference = @"WKSourceEditorCusto
                isContentKey = YES;
            } else {
                // Edge case, check previous character if we are up against closing string
-               if (attrs[WKSourceEditorCustomKeyColorGreen]) {
+               if (attrs[WKSourceEditorCustomKeyColorGreen] && attributedString.length > range.location - 1) {
                    attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
                    if (attrs[WKSourceEditorCustomKeyContentReference] != nil) {
                        isContentKey = YES;
