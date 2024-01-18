@@ -106,7 +106,9 @@ class WKFindAndReplaceView: WKComponentView {
         
         updateConfiguration(configuration: viewModel.configuration)
         
-        if let currentMatchInfo = viewModel.currentMatchInfo {
+        let findIsEmpty = (findTextField.text ?? "").isEmpty
+        if let currentMatchInfo = viewModel.currentMatchInfo,
+           !findIsEmpty {
             currentMatchLabel.text = "\(currentMatchInfo)"
         } else {
             currentMatchLabel.text = nil
