@@ -180,14 +180,22 @@ public class WKSourceEditorViewController: WKComponentViewController {
     // MARK: - Public
     
     public func closeFind() {
-        if let currentRange = textFrameworkMediator.findAndReplaceFormatter?.selectedMatchRange {
-            textView.selectedRange = currentRange
-        } else {
-            // TODO: select a range on screen. Test by searching for a nonexisting string, then closing find.
-        }
+        
         textView.isEditable = true
         textView.isSelectable = true
         textView.becomeFirstResponder()
+        
+        if let currentRange = textFrameworkMediator.findAndReplaceFormatter?.selectedMatchRange,
+           currentRange.location != NSNotFound {
+            textView.selectedRange = currentRange
+        } else {
+            if let visibleRange = textView.visibleRange {
+                textView.selectedRange = NSRange(location: visibleRange.location, length: 0)
+            } else {
+                textView.selectedRange = NSRange(location: 0, length: 0)
+            }
+        }
+        
         inputAccessoryViewType = .expanding
         resetFind()
     }
@@ -294,6 +302,11 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
     func toolbarExpandingViewDidTapFind(toolbarView: WKEditorToolbarExpandingView) {
         inputAccessoryViewType = .find
         delegate?.sourceEditorViewControllerDidTapFind(sourceEditorViewController: self)
+        
+        if let visibleRange = textView.visibleRange {
+            textView.selectedRange = NSRange(location: visibleRange.location, length: 0)
+        }
+        
         textView.isEditable = false
         textView.isSelectable = false
     }
@@ -462,5 +475,16 @@ extension WKSourceEditorViewController: WKSourceEditorFindAndReplaceScrollDelega
                 textView.flashScrollIndicators()
             }
         }
+    }
+}
+fileprivate extension UITextView {
+
+    var visibleRange: NSRange? {
+        if let start = closestPosition(to: contentOffset) {
+            if let end = characterRange(at: CGPoint(x: contentOffset.x + bounds.maxX, y: contentOffset.y + bounds.maxY))?.end {
+                return NSRange(location: offset(from: beginningOfDocument, to: start), length: offset(from: start, to: end))
+            }
+        }
+        return nil
     }
 }
