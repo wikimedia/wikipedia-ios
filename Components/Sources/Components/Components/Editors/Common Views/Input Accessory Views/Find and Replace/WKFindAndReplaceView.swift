@@ -137,7 +137,7 @@ class WKFindAndReplaceView: WKComponentView {
     
     @IBAction private func tappedFindClear() {
         findTextField.text = ""
-        debouncedTextfieldDidChange()
+        debouncedFindTextfieldDidChange()
     }
     
     @IBAction private func tappedReplaceClear() {
@@ -161,8 +161,10 @@ class WKFindAndReplaceView: WKComponentView {
     }
     
     @IBAction private func textFieldDidChange(_ sender: UITextField) {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedTextfieldDidChange), object: nil)
-        perform(#selector(debouncedTextfieldDidChange), with: nil, afterDelay: 1.0)
+        if sender == self.findTextField {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedFindTextfieldDidChange), object: nil)
+            perform(#selector(debouncedFindTextfieldDidChange), with: nil, afterDelay: 1.0)
+        }
     }
     
     // MARK: - Private Helpers
@@ -212,7 +214,7 @@ class WKFindAndReplaceView: WKComponentView {
         replacePlaceholderLabel.textColor = theme.secondaryText
     }
     
-    @objc private func debouncedTextfieldDidChange() {
+    @objc private func debouncedFindTextfieldDidChange() {
 
         guard let text = findTextField.text else {
             return
