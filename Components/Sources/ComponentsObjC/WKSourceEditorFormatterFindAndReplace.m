@@ -174,25 +174,7 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     self.searchText = searchText;
     self.searchRegex = [[NSRegularExpression alloc] initWithPattern:searchText options:NSRegularExpressionCaseInsensitive error:nil];
     
-    self.fullAttributedString = fullAttributedString;
-
-    [fullAttributedString beginEditing];
-    NSMutableArray *matchValues = [[NSMutableArray alloc] init];
-    [self.searchRegex enumerateMatchesInString:fullAttributedString.string
-                                        options:0
-                                          range:NSMakeRange(0, fullAttributedString.length)
-                                     usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-            NSRange match = [result rangeAtIndex:0];
-
-            if (match.location != NSNotFound) {
-                [self resetKeysForAttributedString:fullAttributedString range:match];
-                [fullAttributedString addAttributes:self.matchAttributes range:match];
-                [matchValues addObject:[NSValue valueWithRange:match]];
-            }
-        }];
-    [fullAttributedString endEditing];
-
-    self.matchesAgainstFullAttributedString = matchValues;
+    [self calculateMatchesInFullAttributedString:fullAttributedString];
 }
 
 - (void)highlightNextMatchInFullAttributedString:(NSMutableAttributedString *)fullAttributedString afterRangeValue: (nullable NSValue *)afterRangeValue {
@@ -247,6 +229,7 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     [self updateMatchHighlightsInFullAttributedString:fullAttributedString lastSelectedMatchIndex:lastSelectedMatchIndex];
 }
 
+
 - (void)endMatchSessionWithFullAttributedString:(NSMutableAttributedString *)fullAttributedString {
     self.selectedMatchIndex = NSNotFound;
 
@@ -263,6 +246,28 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
 }
 
 #pragma mark - Private
+
+- (void)calculateMatchesInFullAttributedString: (NSMutableAttributedString *)fullAttributedString {
+    self.fullAttributedString = fullAttributedString;
+
+    [fullAttributedString beginEditing];
+    NSMutableArray *matchValues = [[NSMutableArray alloc] init];
+    [self.searchRegex enumerateMatchesInString:fullAttributedString.string
+                                        options:0
+                                          range:NSMakeRange(0, fullAttributedString.length)
+                                     usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+            NSRange match = [result rangeAtIndex:0];
+
+            if (match.location != NSNotFound) {
+                [self resetKeysForAttributedString:fullAttributedString range:match];
+                [fullAttributedString addAttributes:self.matchAttributes range:match];
+                [matchValues addObject:[NSValue valueWithRange:match]];
+            }
+        }];
+    [fullAttributedString endEditing];
+
+    self.matchesAgainstFullAttributedString = matchValues;
+}
 
 - (void)updateMatchHighlightsInFullAttributedString: (NSMutableAttributedString *)fullAttributedString lastSelectedMatchIndex: (NSInteger)lastSelectedMatchIndex {
     
