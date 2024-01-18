@@ -2,6 +2,8 @@ import UIKit
 
 protocol WKFindAndReplaceViewDelegate: AnyObject {
     func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String)
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceSingle text: String)
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceAll text: String)
     func findAndReplaceViewDidTapNext(_ view: WKFindAndReplaceView)
     func findAndReplaceViewDidTapPrevious(_ view: WKFindAndReplaceView)
 }
@@ -137,7 +139,7 @@ class WKFindAndReplaceView: WKComponentView {
     
     @IBAction private func tappedFindClear() {
         findTextField.text = ""
-        debouncedTextfieldDidChange()
+        debouncedFindTextfieldDidChange()
     }
     
     @IBAction private func tappedReplaceClear() {
@@ -155,14 +157,22 @@ class WKFindAndReplaceView: WKComponentView {
     }
     
     @IBAction private func tappedReplace() {
+        guard let replaceText = replaceTextField.text,
+          !replaceText.isEmpty else {
+              return
+          }
+        
+        delegate?.findAndReplaceView(self, didTapReplaceSingle: replaceText)
     }
     
     @IBAction private func tappedReplaceSwitch() {
     }
     
     @IBAction private func textFieldDidChange(_ sender: UITextField) {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedTextfieldDidChange), object: nil)
-        perform(#selector(debouncedTextfieldDidChange), with: nil, afterDelay: 1.0)
+        if sender == self.findTextField {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedFindTextfieldDidChange), object: nil)
+            perform(#selector(debouncedFindTextfieldDidChange), with: nil, afterDelay: 1.0)
+        }
     }
     
     // MARK: - Private Helpers
@@ -212,7 +222,7 @@ class WKFindAndReplaceView: WKComponentView {
         replacePlaceholderLabel.textColor = theme.secondaryText
     }
     
-    @objc private func debouncedTextfieldDidChange() {
+    @objc private func debouncedFindTextfieldDidChange() {
 
         guard let text = findTextField.text else {
             return

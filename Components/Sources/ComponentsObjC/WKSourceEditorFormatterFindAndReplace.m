@@ -11,6 +11,7 @@
 
 @property (nonatomic, copy) NSAttributedString *fullAttributedString;
 @property (nonatomic, strong) NSMutableArray<NSValue *> *matchesAgainstFullAttributedString;
+@property (nonatomic, strong) NSMutableArray<NSValue *> *replacesAgainstFullAttributedString;
 
 @property (nonatomic, copy) NSDictionary *matchAttributes;
 @property (nonatomic, copy) NSDictionary *selectedMatchAttributes;
@@ -38,6 +39,7 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
 
        _fullAttributedString = nil;
        _matchesAgainstFullAttributedString = [[NSMutableArray alloc] init];
+        _replacesAgainstFullAttributedString = [[NSMutableArray alloc] init];
 
        _matchAttributes = @{
            NSForegroundColorAttributeName: colors.matchForegroundColor,
@@ -91,6 +93,23 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
                 if (attributedString.length > paragraphMatchRange.location && attributedString.length > paragraphMatchRange.location + paragraphMatchRange.length) {
                     [self resetKeysForAttributedString:attributedString range:paragraphMatchRange];
                     [attributedString addAttributes:attributes range:paragraphMatchRange];
+                }
+            }
+        }];
+        
+        [self.replacesAgainstFullAttributedString enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSRange fullStringMatchRange = obj.rangeValue;
+            
+            // Find matches that only lie in paragraph range
+            if (NSIntersectionRange(paragraphRange, fullStringMatchRange).length > 0) {
+
+                // Translate full string match back to paragraph match range
+                NSRange paragraphMatchRange = NSMakeRange(fullStringMatchRange.location - paragraphRange.location, fullStringMatchRange.length);
+
+                //Then reapply attributes to paragraph match range.
+                if (attributedString.length > paragraphMatchRange.location && attributedString.length > paragraphMatchRange.location + paragraphMatchRange.length) {
+                    [self resetKeysForAttributedString:attributedString range:paragraphMatchRange];
+                    [attributedString addAttributes:self.replacedMatchAttributes range:paragraphMatchRange];
                 }
             }
         }];
@@ -167,43 +186,51 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     return NSMakeRange(NSNotFound, 0);
 }
 
+- (NSRange)lastReplacedRange {
+    if (self.replacesAgainstFullAttributedString.count > 0) {
+        NSValue *value = self.replacesAgainstFullAttributedString[self.replacesAgainstFullAttributedString.count - 1];
+        return value.rangeValue;
+    }
+
+    return NSMakeRange(NSNotFound, 0);
+}
+
 #pragma mark - Public
 
 - (void)startMatchSessionWithFullAttributedString: (NSMutableAttributedString *)fullAttributedString searchText:(NSString *)searchText {
     
     self.searchText = searchText;
     self.searchRegex = [[NSRegularExpression alloc] initWithPattern:searchText options:NSRegularExpressionCaseInsensitive error:nil];
-    self.fullAttributedString = fullAttributedString;
-
-    [fullAttributedString beginEditing];
-    NSMutableArray *matchValues = [[NSMutableArray alloc] init];
-    [self.searchRegex enumerateMatchesInString:fullAttributedString.string
-                                        options:0
-                                          range:NSMakeRange(0, fullAttributedString.length)
-                                     usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-            NSRange match = [result rangeAtIndex:0];
-
-            if (match.location != NSNotFound) {
-                [self resetKeysForAttributedString:fullAttributedString range:match];
-                [fullAttributedString addAttributes:self.matchAttributes range:match];
-                [matchValues addObject:[NSValue valueWithRange:match]];
-            }
-        }];
-    [fullAttributedString endEditing];
-
-    self.matchesAgainstFullAttributedString = matchValues;
+    
+    [self calculateMatchesInFullAttributedString:fullAttributedString];
 }
 
-- (void)highlightNextMatchInFullAttributedString:(NSMutableAttributedString *)fullAttributedString {
+- (void)highlightNextMatchInFullAttributedString:(NSMutableAttributedString *)fullAttributedString afterRangeValue: (nullable NSValue *)afterRangeValue {
     
     if (self.matchesAgainstFullAttributedString.count == 0) {
         return;
     }
     
     NSInteger lastSelectedMatchIndex = self.selectedMatchIndex;
-
-    // Increment index
-    if ((self.selectedMatchIndex == NSNotFound) || (self.selectedMatchIndex == self.matchesAgainstFullAttributedString.count - 1)) {
+    
+    if (self.selectedMatchIndex == NSNotFound && afterRangeValue && afterRangeValue.rangeValue.location != NSNotFound) {
+        // find the first index AFTER the afterRangeValue param. This allows us to start selection highlights in the middle of the matches.
+        int i = 0;
+        for (NSValue *matchValue in self.matchesAgainstFullAttributedString) {
+            NSRange matchRange = matchValue.rangeValue;
+            
+            if (matchRange.location >= afterRangeValue.rangeValue.location) {
+                self.selectedMatchIndex = i;
+                break;
+            }
+            
+            i++;
+        }
+        
+        if (self.selectedMatchIndex == NSNotFound) {
+            self.selectedMatchIndex = 0;
+        }
+    } else if ((self.selectedMatchIndex == NSNotFound) || (self.selectedMatchIndex == self.matchesAgainstFullAttributedString.count - 1)) {
         self.selectedMatchIndex = 0;
     } else {
         self.selectedMatchIndex += 1;
@@ -230,6 +257,74 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     [self updateMatchHighlightsInFullAttributedString:fullAttributedString lastSelectedMatchIndex:lastSelectedMatchIndex];
 }
 
+- (void)replaceSingleMatchInFullAttributedString:(NSMutableAttributedString *)fullAttributedString withText:(NSString *)text textView: (UITextView *)textView {
+    
+    
+    // Add replace range
+    NSRange newReplaceRange = NSMakeRange(self.selectedMatchRange.location, text.length);
+    NSValue *newReplaceRangeValue = [NSValue valueWithRange:newReplaceRange];
+    [self.replacesAgainstFullAttributedString addObject:newReplaceRangeValue];
+//    
+    // get selected text range
+    NSInteger selectedMatchIndex = self.selectedMatchIndex;
+    NSRange selectedMatchRange = self.selectedMatchRange;
+    UITextPosition *startPos = [textView positionFromPosition:textView.beginningOfDocument offset:selectedMatchRange.location];
+    UITextPosition *endPos = [textView positionFromPosition:startPos offset:selectedMatchRange.length];
+    UITextRange *selectedMatchTextRange = [textView textRangeFromPosition:startPos toPosition:endPos];
+
+    [textView replaceRange:selectedMatchTextRange withText:text];
+    
+    [fullAttributedString beginEditing];
+    
+    [self resetKeysForAttributedString:fullAttributedString range:newReplaceRange];
+    [fullAttributedString addAttributes:self.replacedMatchAttributes range:newReplaceRange];
+    
+    [fullAttributedString endEditing];
+    
+    self.fullAttributedString = textView.attributedText;
+    
+    [self.matchesAgainstFullAttributedString removeAllObjects];
+    self.selectedMatchIndex = NSNotFound;
+    
+    [self calculateMatchesInFullAttributedString:fullAttributedString];
+    [self highlightNextMatchInFullAttributedString:fullAttributedString afterRangeValue:newReplaceRangeValue];
+}
+
+- (void)replaceAllMatchesInFullAttributedString:(NSMutableAttributedString *)fullAttributedString withText:(NSString *)text textView: (UITextView *)textView {
+    
+    // loop through and replace text
+    NSInteger replaceDelta = text.length - self.searchText.length;
+    
+    int i = 0;
+    NSArray *matchesCopy = [NSArray arrayWithArray:self.matchesAgainstFullAttributedString];
+    for (NSValue *matchValue in matchesCopy) {
+        NSRange matchRange = matchValue.rangeValue;
+        NSRange offsetMatchRange = NSMakeRange(matchRange.location + (replaceDelta * i), self.searchText.length);
+        NSRange replaceRange = NSMakeRange(matchRange.location + (replaceDelta * i), text.length);
+        [self.replacesAgainstFullAttributedString addObject:[NSValue valueWithRange:replaceRange]];
+        
+        UITextPosition *startPos = [textView positionFromPosition:textView.beginningOfDocument offset:offsetMatchRange.location];
+        UITextPosition *endPos = [textView positionFromPosition:startPos offset:offsetMatchRange.length];
+        UITextRange *matchTextRange = [textView textRangeFromPosition:startPos toPosition:endPos];
+        
+        [textView replaceRange:matchTextRange withText:text];
+        [self.matchesAgainstFullAttributedString removeObjectAtIndex:0];
+        
+        [fullAttributedString beginEditing];
+        
+        [self resetKeysForAttributedString:fullAttributedString range:replaceRange];
+        [fullAttributedString addAttributes:self.replacedMatchAttributes range:replaceRange];
+        
+        [fullAttributedString endEditing];
+        
+        self.fullAttributedString = textView.attributedText;
+        
+        i++;
+    }
+    
+    self.selectedMatchIndex = NSNotFound;
+}
+
 
 - (void)endMatchSessionWithFullAttributedString:(NSMutableAttributedString *)fullAttributedString {
     self.selectedMatchIndex = NSNotFound;
@@ -239,6 +334,8 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
 
     self.fullAttributedString = nil;
     [self.matchesAgainstFullAttributedString removeAllObjects];
+    
+    [self.replacesAgainstFullAttributedString removeAllObjects];
 
     [fullAttributedString beginEditing];
     NSRange allRange = NSMakeRange(0, fullAttributedString.length);
@@ -247,6 +344,28 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
 }
 
 #pragma mark - Private
+
+- (void)calculateMatchesInFullAttributedString: (NSMutableAttributedString *)fullAttributedString {
+    self.fullAttributedString = fullAttributedString;
+
+    [fullAttributedString beginEditing];
+    NSMutableArray *matchValues = [[NSMutableArray alloc] init];
+    [self.searchRegex enumerateMatchesInString:fullAttributedString.string
+                                        options:0
+                                          range:NSMakeRange(0, fullAttributedString.length)
+                                     usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+            NSRange match = [result rangeAtIndex:0];
+
+            if (match.location != NSNotFound) {
+                [self resetKeysForAttributedString:fullAttributedString range:match];
+                [fullAttributedString addAttributes:self.matchAttributes range:match];
+                [matchValues addObject:[NSValue valueWithRange:match]];
+            }
+        }];
+    [fullAttributedString endEditing];
+
+    self.matchesAgainstFullAttributedString = matchValues;
+}
 
 - (void)updateMatchHighlightsInFullAttributedString: (NSMutableAttributedString *)fullAttributedString lastSelectedMatchIndex: (NSInteger)lastSelectedMatchIndex {
     
