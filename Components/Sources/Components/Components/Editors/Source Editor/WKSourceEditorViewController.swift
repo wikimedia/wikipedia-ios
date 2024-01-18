@@ -255,11 +255,14 @@ private extension WKSourceEditorViewController {
             return
         }
         
-        guard findFormatter.selectedMatchIndex != NSNotFound else {
-            return
+        if findFormatter.selectedMatchIndex != NSNotFound {
+            viewModel.currentMatchInfo = "\(findFormatter.selectedMatchIndex + 1) / \(findFormatter.matchCount)"
+        } else if findFormatter.matchCount == 0 {
+            viewModel.currentMatchInfo = "0 / 0"
+        } else {
+            viewModel.currentMatchInfo = nil
         }
         
-        viewModel.currentMatchInfo = "\(findFormatter.selectedMatchIndex + 1) / \(findFormatter.matchCount)"
         
         findAccessoryView.update(viewModel: viewModel)
     }
