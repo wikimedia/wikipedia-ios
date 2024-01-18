@@ -9,7 +9,7 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         mediator.updateColorsAndFonts()
         return mediator
     }()
-
+    
     func testBoldItalicsButtonSelectionState() throws {
         
         let text = "One\nTwo '''Three ''Four'' Five''' Six ''Seven'' Eight\nNine"
@@ -83,7 +83,7 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
     func testClosingBoldSelectionStateCursor() throws {
         let text = "One '''Two''' Three"
         mediator.textView.attributedText = NSAttributedString(string: text)
-
+        
         let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 10, length: 0))
         XCTAssertTrue(selectionStates.isBold)
     }
@@ -91,7 +91,7 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
     func testClosingItalicsSelectionStateCursor() throws {
         let text = "One ''Two'' Three"
         mediator.textView.attributedText = NSAttributedString(string: text)
-
+        
         let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 9, length: 0))
         XCTAssertTrue(selectionStates.isItalics)
     }
@@ -99,7 +99,7 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
     func testHorizontalTemplateButtonSelectionStateCursor() throws {
         let text = "Testing simple {{Currentdate}} template example."
         mediator.textView.attributedText = NSAttributedString(string: text)
-
+        
         // "Testing"
         let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 4, length: 0))
         XCTAssertFalse(selectionStates1.isHorizontalTemplate)
@@ -116,7 +116,7 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
     func testHorizontalTemplateButtonSelectionStateRange() throws {
         let text = "Testing simple {{Currentdate}} template example."
         mediator.textView.attributedText = NSAttributedString(string: text)
-
+        
         // "Testing"
         let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 4, length: 3))
         XCTAssertFalse(selectionStates1.isHorizontalTemplate)
@@ -133,7 +133,7 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
     func testVerticalTemplateStartButtonSelectionStateCursor() throws {
         let text = "{{Infobox officeholder"
         mediator.textView.attributedText = NSAttributedString(string: text)
-
+        
         // "Testing"
         let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 4, length: 0))
         XCTAssertFalse(selectionStates1.isHorizontalTemplate)
@@ -142,7 +142,7 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
     func testVerticalTemplateParameterButtonSelectionStateCursor() throws {
         let text = "| genus = Felis"
         mediator.textView.attributedText = NSAttributedString(string: text)
-
+        
         // "Testing"
         let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 4, length: 0))
         XCTAssertFalse(selectionStates1.isHorizontalTemplate)
@@ -151,7 +151,7 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
     func testVerticalTemplateEndButtonSelectionStateCursor() throws {
         let text = "}}"
         mediator.textView.attributedText = NSAttributedString(string: text)
-
+        
         // "Testing"
         let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 1, length: 0))
         XCTAssertFalse(selectionStates1.isHorizontalTemplate)
@@ -208,12 +208,12 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
     func testHorizontalTemplateButtonSelectionStateFormattedRange() throws {
         let text = "Testing inner formatted {{cite web | url=https://en.wikipedia.org | title = The '''Free''' Encyclopedia}} template example."
         mediator.textView.attributedText = NSAttributedString(string: text)
-
+        
         // "cite web | url=https://en.wikipedia.org | title = The '''Free''' Encyclopedia"
         let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 26, length: 77))
         XCTAssertTrue(selectionStates.isHorizontalTemplate)
     }
-
+    
     func testHeadingSelectionState() throws {
         
         let text = "== Test =="
@@ -313,11 +313,11 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertFalse(selectionStates2.isSubheading3)
         XCTAssertTrue(selectionStates2.isSubheading4)
     }
-
+    
     func testStrikethroughSelectionState() throws {
         let text = "Testing <s>Strikethrough</s> Testing."
         mediator.textView.attributedText = NSAttributedString(string: text)
-
+        
         let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 0, length: 7))
         let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 11, length: 13))
         let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 29, length: 7))
@@ -329,12 +329,40 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
     func testStrikethroughSelectionStateCursor() throws {
         let text = "Testing <s>Strikethrough</s> Testing."
         mediator.textView.attributedText = NSAttributedString(string: text)
-
+        
         let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 3, length: 0))
         let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 17, length: 0))
         let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 33, length: 0))
         XCTAssertFalse(selectionStates1.isStrikethrough)
         XCTAssertTrue(selectionStates2.isStrikethrough)
         XCTAssertFalse(selectionStates3.isStrikethrough)
+    }
+    
+    func testFindWithResults() throws {
+        let text = "Find a '''word''' and highlight that word."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        mediator.findStart(text: "word")
+        guard let formatter = mediator.findAndReplaceFormatter else {
+            XCTFail("Missing find formatter.")
+            return
+        }
+        
+        XCTAssertEqual(formatter.selectedMatchIndex, 0, "Find - Incorrect selected match index")
+        XCTAssertEqual(formatter.matchCount, 2, "Find - Incorrect match count")
+    }
+    
+    func testFindWithoutResults() throws {
+        let text = "Find a '''word''' and highlight that word."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        mediator.findStart(text: "cat")
+        guard let formatter = mediator.findAndReplaceFormatter else {
+            XCTFail("Missing find formatter.")
+            return
+        }
+        
+        XCTAssertEqual(formatter.selectedMatchIndex, NSNotFound, "Find - Incorrect selected match index")
+        XCTAssertEqual(formatter.matchCount, 0, "Find - Incorrect match count")
     }
 }
