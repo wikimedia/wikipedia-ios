@@ -165,7 +165,7 @@ class WKFindAndReplaceView: WKComponentView {
     @IBAction private func textFieldDidChange(_ sender: UITextField) {
         if sender == self.findTextField {
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedFindTextfieldDidChange), object: nil)
-            perform(#selector(debouncedFindTextfieldDidChange), with: nil, afterDelay: 1.0)
+            perform(#selector(debouncedFindTextfieldDidChange), with: nil, afterDelay: 0.5)
         }
     }
     

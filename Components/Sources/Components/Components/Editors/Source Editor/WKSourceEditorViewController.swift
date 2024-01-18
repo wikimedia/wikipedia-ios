@@ -422,10 +422,8 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
 extension WKSourceEditorViewController: WKFindAndReplaceViewDelegate {
     func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String) {
         resetFind()
-        // TODO: show spinner on find
         textFrameworkMediator.findStart(text: text)
         updateFindCurrentMatchInfo()
-        // TODO: end spinner on find
         // TODO: enable next / prev buttons
     }
     
