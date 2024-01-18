@@ -1173,7 +1173,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         
         // word
         var match1Range = NSRange(location: 0, length: 0)
-        let match1Attributes = mutAttributedString.attributes(at: 10, effectiveRange: &match1Range)
+        var match1Attributes = mutAttributedString.attributes(at: 10, effectiveRange: &match1Range)
         
         // '''
         var boldCloseRange = NSRange(location: 0, length: 0)
@@ -1185,7 +1185,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         
         // word
         var match2Range = NSRange(location: 0, length: 0)
-        let match2Attributes = mutAttributedString.attributes(at: 37, effectiveRange: &match2Range)
+        var match2Attributes = mutAttributedString.attributes(at: 37, effectiveRange: &match2Range)
         
         // "."
         var base3Range = NSRange(location: 0, length: 0)
@@ -1234,5 +1234,13 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(base3Range.length, 1, "Incorrect base formatting")
         XCTAssertEqual(base3Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
         XCTAssertEqual(base3Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+        
+        // Check that selected background color has now switched to 2nd instance
+        findAndReplaceFormatter.highlightNextMatch(inFullAttributedString: mutAttributedString, afterRangeValue: nil)
+        match1Attributes = mutAttributedString.attributes(at: 10, effectiveRange: &match1Range)
+        match2Attributes = mutAttributedString.attributes(at: 37, effectiveRange: &match2Range)
+
+        XCTAssertEqual(match1Attributes[.backgroundColor] as! UIColor, colors.matchBackgroundColor, "Incorrect match formatting")
+        XCTAssertEqual(match2Attributes[.backgroundColor] as! UIColor, colors.selectedMatchBackgroundColor, "Incorrect match formatting")
     }
 }
