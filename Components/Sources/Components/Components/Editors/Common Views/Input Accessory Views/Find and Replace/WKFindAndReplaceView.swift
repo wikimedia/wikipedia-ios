@@ -113,6 +113,9 @@ class WKFindAndReplaceView: WKComponentView {
         } else {
             currentMatchInfoLabel.text = nil
         }
+        
+        nextButton.isEnabled = viewModel.nextPrevButtonsAreEnabled
+        previousButton.isEnabled = viewModel.nextPrevButtonsAreEnabled
     }
     
     // MARK: - Overrides

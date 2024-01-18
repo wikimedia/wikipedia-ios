@@ -250,7 +250,6 @@ private extension WKSourceEditorViewController {
         guard var viewModel = findAccessoryView.viewModel else {
             return
         }
-        // TODO: disable next / prev buttons
         viewModel.reset()
         findAccessoryView.update(viewModel: viewModel)
         if clearFindTextField {
@@ -259,7 +258,7 @@ private extension WKSourceEditorViewController {
         textFrameworkMediator.findReset()
     }
     
-    func updateFindCurrentMatchInfo() {
+    func updateFindViewModelState() {
         
         guard var viewModel = findAccessoryView.viewModel,
               let findFormatter = textFrameworkMediator.findAndReplaceFormatter else {
@@ -274,7 +273,7 @@ private extension WKSourceEditorViewController {
             viewModel.currentMatchInfo = nil
         }
         
-        
+        viewModel.nextPrevButtonsAreEnabled = findFormatter.matchCount > 0
         findAccessoryView.update(viewModel: viewModel)
     }
 }
@@ -426,19 +425,18 @@ extension WKSourceEditorViewController: WKFindAndReplaceViewDelegate {
     func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String) {
         resetFind(clearFindTextField: false)
         textFrameworkMediator.findStart(text: text)
-        updateFindCurrentMatchInfo()
-        // TODO: enable next / prev buttons
+        updateFindViewModelState()
     }
     
     func findAndReplaceViewDidTapNext(_ view: WKFindAndReplaceView) {
         
         textFrameworkMediator.findNext(afterRange: nil)
-        updateFindCurrentMatchInfo()
+        updateFindViewModelState()
     }
     
     func findAndReplaceViewDidTapPrevious(_ view: WKFindAndReplaceView) {
         textFrameworkMediator.findPrevious()
-        updateFindCurrentMatchInfo()
+        updateFindViewModelState()
     }
 }
 
