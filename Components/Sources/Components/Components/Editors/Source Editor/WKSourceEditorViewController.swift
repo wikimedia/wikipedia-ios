@@ -418,7 +418,7 @@ extension WKSourceEditorViewController: WKFindAndReplaceViewDelegate {
     
     func findAndReplaceViewDidTapNext(_ view: WKFindAndReplaceView) {
         
-        textFrameworkMediator.findNext()
+        textFrameworkMediator.findNext(afterRange: nil)
         updateFindCurrentMatchInfo()
     }
     

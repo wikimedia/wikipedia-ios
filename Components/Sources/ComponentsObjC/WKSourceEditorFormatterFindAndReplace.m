@@ -173,6 +173,7 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     
     self.searchText = searchText;
     self.searchRegex = [[NSRegularExpression alloc] initWithPattern:searchText options:NSRegularExpressionCaseInsensitive error:nil];
+    
     self.fullAttributedString = fullAttributedString;
 
     [fullAttributedString beginEditing];
@@ -194,16 +195,32 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     self.matchesAgainstFullAttributedString = matchValues;
 }
 
-- (void)highlightNextMatchInFullAttributedString:(NSMutableAttributedString *)fullAttributedString {
+- (void)highlightNextMatchInFullAttributedString:(NSMutableAttributedString *)fullAttributedString afterRangeValue: (nullable NSValue *)afterRangeValue {
     
     if (self.matchesAgainstFullAttributedString.count == 0) {
         return;
     }
     
     NSInteger lastSelectedMatchIndex = self.selectedMatchIndex;
-
-    // Increment index
-    if ((self.selectedMatchIndex == NSNotFound) || (self.selectedMatchIndex == self.matchesAgainstFullAttributedString.count - 1)) {
+    
+    if (self.selectedMatchIndex == NSNotFound && afterRangeValue && afterRangeValue.rangeValue.location != NSNotFound) {
+        // find the first index AFTER the afterRangeValue param. This allows us to start selection highlights in the middle of the matches.
+        int i = 0;
+        for (NSValue *matchValue in self.matchesAgainstFullAttributedString) {
+            NSRange matchRange = matchValue.rangeValue;
+            
+            if (matchRange.location >= afterRangeValue.rangeValue.location) {
+                self.selectedMatchIndex = i;
+                break;
+            }
+            
+            i++;
+        }
+        
+        if (self.selectedMatchIndex == NSNotFound) {
+            self.selectedMatchIndex = 0;
+        }
+    } else if ((self.selectedMatchIndex == NSNotFound) || (self.selectedMatchIndex == self.matchesAgainstFullAttributedString.count - 1)) {
         self.selectedMatchIndex = 0;
     } else {
         self.selectedMatchIndex += 1;
@@ -229,7 +246,6 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
 
     [self updateMatchHighlightsInFullAttributedString:fullAttributedString lastSelectedMatchIndex:lastSelectedMatchIndex];
 }
-
 
 - (void)endMatchSessionWithFullAttributedString:(NSMutableAttributedString *)fullAttributedString {
     self.selectedMatchIndex = NSNotFound;

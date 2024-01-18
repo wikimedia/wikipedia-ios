@@ -247,26 +247,33 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             textKit1Storage?.syntaxHighlightProcessingEnabled = true
         }
         
-        findNext()
+        findNext(afterRange: textView.selectedRange)
 
         self.delegate?.scrollToCurrentMatch()
     }
     
-    func findNext() {
+    func findNext(afterRange: NSRange?) {
         guard let fullAttributedString else {
             return
         }
         
+        let afterRangeValue: NSValue?
+        if let afterRange {
+            afterRangeValue = NSValue(range: afterRange)
+        } else {
+            afterRangeValue = nil
+        }
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
+                
                 textView.textLayoutManager?.textContentManager?.performEditingTransaction {
-                    self.findAndReplaceFormatter?.highlightNextMatch(inFullAttributedString: fullAttributedString)
+                    self.findAndReplaceFormatter?.highlightNextMatch(inFullAttributedString: fullAttributedString, afterRangeValue: afterRangeValue)
 
                 }
             }
         } else {
             textKit1Storage?.syntaxHighlightProcessingEnabled = false
-            findAndReplaceFormatter?.highlightNextMatch(inFullAttributedString: fullAttributedString)
+            findAndReplaceFormatter?.highlightNextMatch(inFullAttributedString: fullAttributedString, afterRangeValue: afterRangeValue)
             textKit1Storage?.syntaxHighlightProcessingEnabled = true
         }
         
