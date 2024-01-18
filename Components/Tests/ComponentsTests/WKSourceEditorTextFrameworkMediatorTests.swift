@@ -157,6 +157,38 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertFalse(selectionStates1.isHorizontalTemplate)
     }
     
+    func testReferenceSelectionState() throws {
+        let text = "Testing <ref>Testing</ref> Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 13, length: 7))
+        XCTAssertTrue(selectionStates.isHorizontalReference)
+    }
+    
+    func testReferenceSelectionStateCursor() throws {
+        let text = "Testing <ref>Testing</ref> Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 16, length: 0))
+        XCTAssertTrue(selectionStates.isHorizontalReference)
+    }
+    
+    func testReferenceNamedSelectionState() throws {
+        let text = "Testing <ref name=\"testing\">Testing</ref> Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 28, length: 7))
+        XCTAssertTrue(selectionStates.isHorizontalReference)
+    }
+    
+    func testReferenceNamedSelectionStateCursor() throws {
+        let text = "Testing <ref name=\"testing\">Testing</ref> Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 31, length: 0))
+        XCTAssertTrue(selectionStates.isHorizontalReference)
+    }
+    
     func testListBulletSingleSelectionState() throws {
         
         let text = "* Test"
@@ -336,6 +368,102 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertFalse(selectionStates1.isStrikethrough)
         XCTAssertTrue(selectionStates2.isStrikethrough)
         XCTAssertFalse(selectionStates3.isStrikethrough)
+    }
+    
+    func testLinkState() throws {
+        let text = "Testing [[Link with space]] Testing."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 0, length: 7))
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 10, length: 15))
+        let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 28, length: 7))
+        XCTAssertFalse(selectionStates1.isSimpleLink)
+        XCTAssertFalse(selectionStates1.isLinkWithNestedLink)
+        
+        XCTAssertTrue(selectionStates2.isSimpleLink)
+        XCTAssertFalse(selectionStates3.isLinkWithNestedLink)
+        
+        XCTAssertFalse(selectionStates3.isSimpleLink)
+        XCTAssertFalse(selectionStates3.isLinkWithNestedLink)
+    }
+    
+    func testLinkCursorState() throws {
+        let text = "Testing [[Link with space]] Testing."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 3, length: 0))
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 12, length: 0))
+        let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 30, length: 0))
+        XCTAssertFalse(selectionStates1.isSimpleLink)
+        XCTAssertFalse(selectionStates1.isLinkWithNestedLink)
+        
+        XCTAssertTrue(selectionStates2.isSimpleLink)
+        XCTAssertFalse(selectionStates2.isLinkWithNestedLink)
+        
+        XCTAssertFalse(selectionStates3.isSimpleLink)
+        XCTAssertFalse(selectionStates3.isLinkWithNestedLink)
+    }
+    
+    func testNestedLinkState() throws {
+        let text = "Test [[File:Cat with fish.jpg|thumb|left|Cat with [[fish]]|alt=Photo of cat looking at fish]] Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 0, length: 4))
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 12, length: 3))
+        let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 52, length: 3))
+        let selectionStates4 = mediator.selectionState(selectedDocumentRange: NSRange(location: 72, length: 3))
+        let selectionStates5 = mediator.selectionState(selectedDocumentRange: NSRange(location: 94, length: 4))
+        
+        // "Test"
+        XCTAssertFalse(selectionStates1.isSimpleLink)
+        XCTAssertFalse(selectionStates1.isLinkWithNestedLink)
+        
+        // "Cat"
+        XCTAssertFalse(selectionStates2.isSimpleLink)
+        XCTAssertTrue(selectionStates2.isLinkWithNestedLink)
+        
+        // "fish"
+        XCTAssertTrue(selectionStates3.isSimpleLink)
+        XCTAssertTrue(selectionStates3.isLinkWithNestedLink)
+        
+        // "cat"
+        XCTAssertFalse(selectionStates4.isSimpleLink)
+        XCTAssertTrue(selectionStates4.isLinkWithNestedLink)
+        
+        // "Test"
+        XCTAssertFalse(selectionStates5.isSimpleLink)
+        XCTAssertFalse(selectionStates5.isLinkWithNestedLink)
+    }
+    
+    func testNestedLinkStateCursor() throws {
+        let text = "Test [[File:Cat with fish.jpg|thumb|left|Cat with [[fish]]|alt=Photo of cat looking at fish]] Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 0, length: 0))
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 13, length: 0))
+        let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 54, length: 0))
+        let selectionStates4 = mediator.selectionState(selectedDocumentRange: NSRange(location: 73, length: 0))
+        let selectionStates5 = mediator.selectionState(selectedDocumentRange: NSRange(location: 96, length: 0))
+        
+        // "Test"
+        XCTAssertFalse(selectionStates1.isSimpleLink)
+        XCTAssertFalse(selectionStates1.isLinkWithNestedLink)
+        
+        // "Cat"
+        XCTAssertFalse(selectionStates2.isSimpleLink)
+        XCTAssertTrue(selectionStates2.isLinkWithNestedLink)
+        
+        // "fish"
+        XCTAssertTrue(selectionStates3.isSimpleLink)
+        XCTAssertTrue(selectionStates3.isLinkWithNestedLink)
+        
+        // "cat"
+        XCTAssertFalse(selectionStates4.isSimpleLink)
+        XCTAssertTrue(selectionStates4.isLinkWithNestedLink)
+        
+        // "Test"
+        XCTAssertFalse(selectionStates5.isSimpleLink)
+        XCTAssertFalse(selectionStates5.isLinkWithNestedLink)
     }
     
     func testFindWithResults() throws {

@@ -7,6 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIColor *orangeForegroundColor;
 @property (nonatomic, strong) UIColor *purpleForegroundColor;
 @property (nonatomic, strong) UIColor *greenForegroundColor;
+@property (nonatomic, strong) UIColor *blueForegroundColor;
 @property (nonatomic, strong) UIColor *matchForegroundColor;
 @property (nonatomic, strong) UIColor *matchBackgroundColor;
 @property (nonatomic, strong) UIColor *selectedMatchBackgroundColor;

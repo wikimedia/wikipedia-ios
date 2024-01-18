@@ -6,12 +6,17 @@ protocol WKEditorInputViewDelegate: AnyObject {
     func didTapBold(isSelected: Bool)
     func didTapItalics(isSelected: Bool)
     func didTapTemplate(isSelected: Bool)
+    func didTapReference(isSelected: Bool)
     func didTapBulletList(isSelected: Bool)
     func didTapNumberList(isSelected: Bool)
     func didTapIncreaseIndent()
     func didTapDecreaseIndent()
     func didTapHeading(type: WKEditorInputView.HeadingButtonType)
     func didTapStrikethrough(isSelected: Bool)
+    func didTapSubscript(isSelected: Bool)
+    func didTapSuperscript(isSelected: Bool)
+    func didTapUnderline(isSelected: Bool)
+    func didTapLink(isSelected: Bool)
 }
 
 class WKEditorInputView: WKComponentView {

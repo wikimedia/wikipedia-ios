@@ -90,9 +90,9 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="boldButton" destination="r0e-89-g0a" id="mfE-Vs-Dsc"/>
-                <outlet property="citationButton" destination="ZgG-w8-2QU" id="hvW-xa-IWx"/>
                 <outlet property="italicsButton" destination="P53-Fl-mVx" id="jUq-dL-AwN"/>
                 <outlet property="linkButton" destination="ebk-UU-rSu" id="ypk-dd-WhU"/>
+                <outlet property="referenceButton" destination="ZgG-w8-2QU" id="hvW-xa-IWx"/>
                 <outlet property="showMoreButton" destination="S8f-CE-8I8" id="QMl-95-ws9"/>
                 <outlet property="stackView" destination="cO2-kj-WCI" id="qel-pE-Y96"/>
                 <outlet property="templateButton" destination="AZa-84-Qdg" id="1Qq-oT-Pfn"/>
