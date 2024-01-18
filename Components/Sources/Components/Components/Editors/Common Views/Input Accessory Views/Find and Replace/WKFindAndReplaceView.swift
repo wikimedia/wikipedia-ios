@@ -18,7 +18,7 @@ class WKFindAndReplaceView: WKComponentView {
     @IBOutlet private var findStackView: UIStackView!
     @IBOutlet private var nextPrevButtonStackView: UIStackView!
     @IBOutlet private(set) var findTextField: UITextField!
-    @IBOutlet private var currentMatchLabel: UILabel!
+    @IBOutlet private var currentMatchInfoLabel: UILabel!
     @IBOutlet private var findClearButton: UIButton!
     @IBOutlet private var closeButton: UIButton!
     @IBOutlet private var nextButton: UIButton!
@@ -80,8 +80,8 @@ class WKFindAndReplaceView: WKComponentView {
         replaceTypeLabel.text = WKSourceEditorLocalizedStrings.current.findReplaceTypeSingle
         replaceTypeLabel.isAccessibilityElement = false
 
-        currentMatchLabel.adjustsFontForContentSizeCategory = true
-        currentMatchLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
+        currentMatchInfoLabel.adjustsFontForContentSizeCategory = true
+        currentMatchInfoLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
 
         replaceTypeLabel.adjustsFontForContentSizeCategory = true
         replaceTypeLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
@@ -109,9 +109,9 @@ class WKFindAndReplaceView: WKComponentView {
         let findIsEmpty = (findTextField.text ?? "").isEmpty
         if let currentMatchInfo = viewModel.currentMatchInfo,
            !findIsEmpty {
-            currentMatchLabel.text = "\(currentMatchInfo)"
+            currentMatchInfoLabel.text = "\(currentMatchInfo)"
         } else {
-            currentMatchLabel.text = nil
+            currentMatchInfoLabel.text = nil
         }
     }
     
@@ -179,14 +179,14 @@ class WKFindAndReplaceView: WKComponentView {
             findStackView.insertArrangedSubview(nextPrevButtonStackView, at: 0)
             outerStackViewLeadingConstraint.constant = 10
             outerStackViewTrailingConstraint.constant = 5
-            accessibilityElements = [previousButton, nextButton, findTextField, currentMatchLabel, findClearButton, closeButton].compactMap { $0 as Any }
+            accessibilityElements = [previousButton, nextButton, findTextField, currentMatchInfoLabel, findClearButton, closeButton].compactMap { $0 as Any }
         case .findAndReplace:
             replaceStackView.isHidden = false
             closeButton.isHidden = true
             findStackView.addArrangedSubview(nextPrevButtonStackView)
             outerStackViewLeadingConstraint.constant = 18
             outerStackViewTrailingConstraint.constant = 18
-            accessibilityElements = [findTextField, currentMatchLabel, findClearButton, previousButton, nextButton, replaceTextField, replaceClearButton, replaceButton, replaceSwitchButton].compactMap { $0 as Any }
+            accessibilityElements = [findTextField, currentMatchInfoLabel, findClearButton, previousButton, nextButton, replaceTextField, replaceClearButton, replaceButton, replaceSwitchButton].compactMap { $0 as Any }
         }
     }
     
@@ -203,7 +203,7 @@ class WKFindAndReplaceView: WKComponentView {
         nextButton.tintColor = theme.inputAccessoryButtonTint
         magnifyImageView.tintColor = theme.inputAccessoryButtonTint
         findClearButton.tintColor = theme.inputAccessoryButtonTint
-        currentMatchLabel.textColor = theme.secondaryText
+        currentMatchInfoLabel.textColor = theme.secondaryText
         
         replaceTextField.keyboardAppearance = theme.keyboardAppearance
         replaceTextfieldContainer.backgroundColor = theme.keyboardBarSearchFieldBackground
