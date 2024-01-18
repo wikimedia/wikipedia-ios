@@ -185,7 +185,8 @@ public class WKSourceEditorViewController: WKComponentViewController {
         } else {
             // TODO: select a range on screen. Test by searching for a nonexisting string, then closing find.
         }
-        
+        textView.isEditable = true
+        textView.isSelectable = true
         textView.becomeFirstResponder()
         inputAccessoryViewType = .expanding
         resetFind()
@@ -259,6 +260,7 @@ private extension WKSourceEditorViewController {
         }
         
         viewModel.currentMatchInfo = "\(findFormatter.selectedMatchIndex + 1) / \(findFormatter.matchCount)"
+        
         findAccessoryView.update(viewModel: viewModel)
     }
 }
@@ -271,10 +273,12 @@ extension WKSourceEditorViewController: UITextViewDelegate {
             postUpdateButtonSelectionStatesNotification(withDelay: false)
             return
         }
-        let isRangeSelected = textView.selectedRange.length > 0
+        
         if inputAccessoryViewType == .find {
-            resetFind()
+            return
         }
+        
+        let isRangeSelected = textView.selectedRange.length > 0
         inputAccessoryViewType = isRangeSelected ? .highlight : .expanding
         postUpdateButtonSelectionStatesNotification(withDelay: false)
     }
@@ -287,6 +291,8 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
     func toolbarExpandingViewDidTapFind(toolbarView: WKEditorToolbarExpandingView) {
         inputAccessoryViewType = .find
         delegate?.sourceEditorViewControllerDidTapFind(sourceEditorViewController: self)
+        textView.isEditable = false
+        textView.isSelectable = false
     }
     
     func toolbarExpandingViewDidTapFormatText(toolbarView: WKEditorToolbarExpandingView) {
