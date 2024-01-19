@@ -64,10 +64,6 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
 }
 
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
-    
-    if (self.matchCount == 0) {
-        return;
-    }
 
     // This override is only needed for TextKit 2. The attributed string passed in here is regenerated fresh via the textContentStorage(_ textContentStorage: NSTextContentStorage, textParagraphWith range: NSRange) delegate method, so we need to reapply attributes.
 
