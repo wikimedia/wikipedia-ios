@@ -76,6 +76,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     private(set) var subscriptFormatter: WKSourceEditorFormatterSubscript?
     private(set) var superscriptFormatter: WKSourceEditorFormatterSuperscript?
     private(set) var linkFormatter: WKSourceEditorFormatterLink?
+    private(set) var commentFormatter: WKSourceEditorFormatterComment?
 
     var isSyntaxHighlightingEnabled: Bool = true {
         didSet {
@@ -152,19 +153,21 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let subscriptFormatter = WKSourceEditorFormatterSubscript(colors: colors, fonts: fonts)
         let superscriptFormatter = WKSourceEditorFormatterSuperscript(colors: colors, fonts: fonts)
         let linkFormatter = WKSourceEditorFormatterLink(colors: colors, fonts: fonts)
+        let commentFormatter = WKSourceEditorFormatterComment(colors: colors, fonts: fonts)
 
 
         self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
-                templateFormatter,
-                boldItalicsFormatter,
-                referenceFormatter,
-                listFormatter,
-                headingFormatter,
-                strikethroughFormatter,
-               superscriptFormatter,
-               subscriptFormatter,
-               underlineFormatter,
-               linkFormatter]
+            templateFormatter,
+            boldItalicsFormatter,
+            referenceFormatter,
+            listFormatter,
+            headingFormatter,
+            strikethroughFormatter,
+            superscriptFormatter,
+            subscriptFormatter,
+            underlineFormatter,
+            linkFormatter,
+            commentFormatter]
 
         self.boldItalicsFormatter = boldItalicsFormatter
         self.templateFormatter = templateFormatter
@@ -176,6 +179,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         self.superscriptFormatter = superscriptFormatter
         self.underlineFormatter = underlineFormatter
         self.linkFormatter = linkFormatter
+        self.commentFormatter = commentFormatter
 
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
