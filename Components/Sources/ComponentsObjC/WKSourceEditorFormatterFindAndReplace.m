@@ -182,6 +182,15 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     return NSMakeRange(NSNotFound, 0);
 }
 
+- (NSRange)lastReplacedRange {
+    if (self.replacesAgainstFullAttributedString.count > 0) {
+        NSValue *value = self.replacesAgainstFullAttributedString[self.replacesAgainstFullAttributedString.count - 1];
+        return value.rangeValue;
+    }
+
+    return NSMakeRange(NSNotFound, 0);
+}
+
 #pragma mark - Public
 
 - (void)startMatchSessionWithFullAttributedString: (NSMutableAttributedString *)fullAttributedString searchText:(NSString *)searchText {
