@@ -329,6 +329,7 @@ private extension WKSourceEditorViewController {
         }
         
         viewModel.nextPrevButtonsAreEnabled = findFormatter.matchCount > 0
+        viewModel.matchCount = findFormatter.matchCount
         findAccessoryView.update(viewModel: viewModel)
     }
 }

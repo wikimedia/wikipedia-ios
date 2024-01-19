@@ -118,6 +118,8 @@ class WKFindAndReplaceView: WKComponentView {
         
         nextButton.isEnabled = viewModel.nextPrevButtonsAreEnabled
         previousButton.isEnabled = viewModel.nextPrevButtonsAreEnabled
+        let replaceTextCount = replaceTextField.text?.count ?? 0
+        replaceButton.isEnabled = replaceTextCount > 0 && viewModel.matchCount > 0 && replaceTextField.text != findTextField.text
     }
     
     // MARK: - Overrides
@@ -148,6 +150,10 @@ class WKFindAndReplaceView: WKComponentView {
     }
     
     @IBAction private func tappedReplaceClear() {
+        replaceTextField.text = ""
+        if let viewModel {
+            update(viewModel: viewModel)
+        }
     }
     
     @IBAction private func tappedClose() {
@@ -177,6 +183,10 @@ class WKFindAndReplaceView: WKComponentView {
         if sender == self.findTextField {
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedFindTextfieldDidChange), object: nil)
             perform(#selector(debouncedFindTextfieldDidChange), with: nil, afterDelay: 0.5)
+        } else if sender == self.replaceTextField {
+            if let viewModel {
+                update(viewModel: viewModel)
+            }
         }
     }
     
