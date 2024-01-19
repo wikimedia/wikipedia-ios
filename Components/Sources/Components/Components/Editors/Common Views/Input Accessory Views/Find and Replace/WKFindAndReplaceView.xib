@@ -199,9 +199,6 @@
                                                         <constraint firstAttribute="height" constant="34" id="gTZ-Gi-zpW"/>
                                                         <constraint firstAttribute="width" constant="31" id="tYO-YJ-Kh0"/>
                                                     </constraints>
-                                                    <connections>
-                                                        <action selector="tappedReplaceSwitch" destination="iN0-l3-epB" eventType="touchUpInside" id="nh5-nr-Q2G"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </stackView>
