@@ -67,6 +67,7 @@ extension WKSourceEditorLocalizedStrings {
             findReplaceTypeSingle: "",
             findReplaceTypeAll: "",
             findReplaceWith: "",
+            findReplaceTypeMenuTitle: "",
             accessibilityLabelButtonFormatText: "",
             accessibilityLabelButtonCitation: "",
             accessibilityLabelButtonCitationSelected: "",
