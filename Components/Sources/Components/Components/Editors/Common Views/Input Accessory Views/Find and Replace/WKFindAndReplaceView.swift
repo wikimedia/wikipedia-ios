@@ -2,6 +2,8 @@ import UIKit
 
 protocol WKFindAndReplaceViewDelegate: AnyObject {
     func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String)
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceSingle text: String)
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceAll text: String)
     func findAndReplaceViewDidTapNext(_ view: WKFindAndReplaceView)
     func findAndReplaceViewDidTapPrevious(_ view: WKFindAndReplaceView)
 }
@@ -160,6 +162,12 @@ class WKFindAndReplaceView: WKComponentView {
     }
     
     @IBAction private func tappedReplace() {
+        guard let replaceText = replaceTextField.text,
+          !replaceText.isEmpty else {
+              return
+          }
+        
+        delegate?.findAndReplaceView(self, didTapReplaceSingle: replaceText)
     }
     
     @IBAction private func tappedReplaceSwitch() {

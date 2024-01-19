@@ -183,7 +183,6 @@ public class WKSourceEditorViewController: WKComponentViewController {
     // MARK: - Public
     
     public func closeFind() {
-        
         textView.isEditable = true
         textView.isSelectable = true
         textView.becomeFirstResponder()
@@ -537,6 +536,14 @@ extension WKSourceEditorViewController: WKFindAndReplaceViewDelegate {
     func findAndReplaceViewDidTapPrevious(_ view: WKFindAndReplaceView) {
         textFrameworkMediator.findPrevious()
         updateFindViewModelState()
+    }
+    
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceSingle text: String) {
+        textFrameworkMediator.replaceSingle(text: text)
+    }
+    
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceAll text: String) {
+        textFrameworkMediator.replaceAll(text: text)
     }
 }
 

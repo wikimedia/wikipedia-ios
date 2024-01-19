@@ -348,6 +348,14 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         self.delegate?.scrollToCurrentMatch()
     }
     
+    func replaceSingle(text: String) {
+        
+    }
+    
+    func replaceAll(text: String) {
+        
+    }
+    
     func findReset() {
         guard let fullAttributedString else {
             return
