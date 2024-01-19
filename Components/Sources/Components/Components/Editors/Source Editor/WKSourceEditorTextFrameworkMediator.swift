@@ -348,12 +348,46 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         self.delegate?.scrollToCurrentMatch()
     }
     
-    func replaceSingle(text: String) {
+    func replaceSingle(replaceText: String) {
+        guard let fullAttributedString else {
+            return
+        }
         
+        if needsTextKit2 {
+            if #available(iOS 16.0, *) {
+                textView.textLayoutManager?.textContentManager?.performEditingTransaction {
+                    self.findAndReplaceFormatter?.replaceSingleMatch(inFullAttributedString: fullAttributedString, withReplaceText: replaceText, textView: textView)
+
+                }
+            }
+        } else {
+            textKit1Storage?.syntaxHighlightProcessingEnabled = false
+            self.findAndReplaceFormatter?.replaceSingleMatch(inFullAttributedString: fullAttributedString, withReplaceText: replaceText, textView: textView)
+            textKit1Storage?.syntaxHighlightProcessingEnabled = true
+        }
+        
+        self.delegate?.scrollToCurrentMatch()
     }
     
-    func replaceAll(text: String) {
+    func replaceAll(replaceText: String) {
+        guard let fullAttributedString else {
+            return
+        }
         
+        if needsTextKit2 {
+            if #available(iOS 16.0, *) {
+                textView.textLayoutManager?.textContentManager?.performEditingTransaction {
+                    self.findAndReplaceFormatter?.replaceAllMatches(inFullAttributedString: fullAttributedString, withReplaceText: replaceText, textView: textView)
+
+                }
+            }
+        } else {
+            textKit1Storage?.syntaxHighlightProcessingEnabled = false
+            self.findAndReplaceFormatter?.replaceAllMatches(inFullAttributedString: fullAttributedString, withReplaceText: replaceText, textView: textView)
+            textKit1Storage?.syntaxHighlightProcessingEnabled = true
+        }
+        
+        self.delegate?.scrollToCurrentMatch()
     }
     
     func findReset() {

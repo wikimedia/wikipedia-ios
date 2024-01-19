@@ -538,12 +538,15 @@ extension WKSourceEditorViewController: WKFindAndReplaceViewDelegate {
         updateFindViewModelState()
     }
     
-    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceSingle text: String) {
-        textFrameworkMediator.replaceSingle(text: text)
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceSingle replaceText: String) {
+        textFrameworkMediator.replaceSingle(replaceText: replaceText)
+        updateFindViewModelState()
     }
     
-    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceAll text: String) {
-        textFrameworkMediator.replaceAll(text: text)
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceAll replaceText: String) {
+        resetFind(clearFindTextField: false)
+        textFrameworkMediator.replaceSingle(replaceText: replaceText)
+        updateFindViewModelState()
     }
 }
 

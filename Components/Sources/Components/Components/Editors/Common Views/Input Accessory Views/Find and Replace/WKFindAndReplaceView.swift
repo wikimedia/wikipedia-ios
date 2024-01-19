@@ -2,8 +2,8 @@ import UIKit
 
 protocol WKFindAndReplaceViewDelegate: AnyObject {
     func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String)
-    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceSingle text: String)
-    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceAll text: String)
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceSingle replaceText: String)
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceAll replaceText: String)
     func findAndReplaceViewDidTapNext(_ view: WKFindAndReplaceView)
     func findAndReplaceViewDidTapPrevious(_ view: WKFindAndReplaceView)
 }
