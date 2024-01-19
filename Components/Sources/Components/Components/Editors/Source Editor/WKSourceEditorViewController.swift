@@ -352,6 +352,15 @@ extension WKSourceEditorViewController: UITextViewDelegate {
         inputAccessoryViewType = isRangeSelected ? .highlight : .expanding
         postUpdateButtonSelectionStatesNotification(withDelay: false)
     }
+    
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // Don't allow emdash text changes. This throws off find & replace.
+        if text == "—" {
+            return false
+        }
+        
+        return true
+    }
 }
 
 // MARK: - WKEditorToolbarExpandingViewDelegate
