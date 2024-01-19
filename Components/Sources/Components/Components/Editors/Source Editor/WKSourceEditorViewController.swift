@@ -450,6 +450,9 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     func didTapLink(isSelected: Bool) {
         presentLinkWizard(linkButtonIsSelected: isSelected)
     }
+    
+    func didTapComment(isSelected: Bool) {
+    }
 
     func didTapClose() {
         editorInputViewIsShowing = false
