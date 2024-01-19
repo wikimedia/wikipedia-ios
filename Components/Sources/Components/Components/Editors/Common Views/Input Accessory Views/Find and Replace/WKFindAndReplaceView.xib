@@ -63,7 +63,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES" smartQuotesType="no"/>
                                                     <connections>
-                                                        <action selector="textFieldDidChange:" destination="iN0-l3-epB" eventType="editingChanged" id="kcU-cf-daZ"/>
                                                         <outlet property="delegate" destination="iN0-l3-epB" id="LDX-LI-4nu"/>
                                                     </connections>
                                                 </textField>
@@ -133,7 +132,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go" enablesReturnKeyAutomatically="YES" smartQuotesType="no"/>
                                                     <connections>
-                                                        <action selector="textFieldDidChange:" destination="iN0-l3-epB" eventType="editingChanged" id="YXc-f4-Iu2"/>
                                                         <outlet property="delegate" destination="iN0-l3-epB" id="XLZ-Yt-8tI"/>
                                                     </connections>
                                                 </textField>

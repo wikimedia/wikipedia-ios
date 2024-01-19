@@ -72,12 +72,14 @@ class WKFindAndReplaceView: WKComponentView {
         findTextField.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelFindTextField
         findTextField.autocorrectionType = .yes
         findTextField.spellCheckingType = .yes
+        findTextField.delegate = self
 
         replaceTextField.adjustsFontForContentSizeCategory = true
         replaceTextField.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
         replaceTextField.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceTextField
         replaceTextField.autocorrectionType = .yes
         replaceTextField.spellCheckingType = .yes
+        replaceTextField.delegate = self
         
         replaceTypeLabel.text = WKSourceEditorLocalizedStrings.current.findReplaceTypeSingle
         replaceTypeLabel.isAccessibilityElement = false
@@ -118,8 +120,23 @@ class WKFindAndReplaceView: WKComponentView {
         
         nextButton.isEnabled = viewModel.nextPrevButtonsAreEnabled
         previousButton.isEnabled = viewModel.nextPrevButtonsAreEnabled
+        
         let replaceTextCount = replaceTextField.text?.count ?? 0
         replaceButton.isEnabled = replaceTextCount > 0 && viewModel.matchCount > 0 && replaceTextField.text != findTextField.text
+        
+        switch (replaceTextField.isFirstResponder, replaceTextCount) {
+        case (false, 0):
+            replaceTypeLabel.isHidden = true
+            replacePlaceholderLabel.isHidden = false
+        case (true, 0):
+            replaceTypeLabel.isHidden = true
+            replacePlaceholderLabel.isHidden = true
+        case (_, 1...):
+            replaceTypeLabel.isHidden = false
+            replacePlaceholderLabel.isHidden = true
+        default:
+            break
+        }
     }
     
     // MARK: - Overrides
@@ -179,17 +196,6 @@ class WKFindAndReplaceView: WKComponentView {
     @IBAction private func tappedReplaceSwitch() {
     }
     
-    @IBAction private func textFieldDidChange(_ sender: UITextField) {
-        if sender == self.findTextField {
-            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedFindTextfieldDidChange), object: nil)
-            perform(#selector(debouncedFindTextfieldDidChange), with: nil, afterDelay: 0.5)
-        } else if sender == self.replaceTextField {
-            if let viewModel {
-                update(viewModel: viewModel)
-            }
-        }
-    }
-    
     // MARK: - Private Helpers
     
     private func updateConfiguration(configuration: WKFindAndReplaceViewModel.Configuration) {
@@ -245,5 +251,24 @@ class WKFindAndReplaceView: WKComponentView {
 
         // TODO: also call from keyboard search button
         delegate?.findAndReplaceView(self, didChangeFindText: text)
+    }
+}
+
+extension WKFindAndReplaceView: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField == self.findTextField {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedFindTextfieldDidChange), object: nil)
+            perform(#selector(debouncedFindTextfieldDidChange), with: nil, afterDelay: 0.5)
+        } else if textField == self.replaceTextField {
+            if let viewModel {
+                update(viewModel: viewModel)
+            }
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if let viewModel {
+            update(viewModel: viewModel)
+        }
     }
 }
