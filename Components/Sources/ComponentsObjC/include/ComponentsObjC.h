@@ -16,6 +16,7 @@
 #import "WKSourceEditorFormatterHeading.h"
 #import "WKSourceEditorFormatterStrikethrough.h"
 #import "WKSourceEditorFormatterLink.h"
+#import "WKSourceEditorFormatterComment.h"
 #import "WKSourceEditorStorageDelegate.h"
 
 #endif /* Header_h */
