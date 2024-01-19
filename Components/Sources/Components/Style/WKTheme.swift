@@ -28,6 +28,7 @@ public struct WKTheme: Equatable {
     public let editorPurple: UIColor
     public let editorGreen: UIColor
     public let editorBlue: UIColor
+    public let editorGray: UIColor
 
 	public static let light = WKTheme(
         name: "Light",
@@ -54,7 +55,8 @@ public struct WKTheme: Equatable {
         editorOrange: WKColor.orange600,
         editorPurple: WKColor.purple600,
         editorGreen: WKColor.green600,
-        editorBlue: WKColor.blue600
+        editorBlue: WKColor.blue600,
+        editorGray: WKColor.gray500
 	)
     
     public static let sepia = WKTheme(
@@ -82,7 +84,8 @@ public struct WKTheme: Equatable {
         editorOrange: WKColor.orange600,
         editorPurple: WKColor.purple600,
         editorGreen: WKColor.green600,
-        editorBlue: WKColor.blue600
+        editorBlue: WKColor.blue600,
+        editorGray: WKColor.taupe600
     )
 
 	public static let dark = WKTheme(
@@ -110,7 +113,8 @@ public struct WKTheme: Equatable {
         editorOrange: WKColor.yellow600,
         editorPurple: WKColor.red100,
         editorGreen: WKColor.green600,
-        editorBlue: WKColor.blue300
+        editorBlue: WKColor.blue300,
+        editorGray: WKColor.gray300
 	)
 
 	public static let black = WKTheme(
@@ -138,7 +142,8 @@ public struct WKTheme: Equatable {
         editorOrange: WKColor.yellow600,
         editorPurple: WKColor.red100,
         editorGreen: WKColor.green600,
-        editorBlue: WKColor.blue300
+        editorBlue: WKColor.blue300,
+        editorGray: WKColor.gray300
 	)
 
 }
