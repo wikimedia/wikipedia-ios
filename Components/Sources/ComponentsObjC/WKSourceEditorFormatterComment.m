@@ -102,4 +102,48 @@ NSString * const WKSourceEditorCustomKeyCommentContent = @"WKSourceEditorCustomK
     // No special font handling needed
 }
 
+#pragma mark - Public
+
+- (BOOL)attributedString:(NSMutableAttributedString *)attributedString isCommentInRange:(NSRange)range {
+    __block BOOL isContentKey = NO;
+
+   if (range.length == 0) {
+
+       if (attributedString.length > range.location) {
+           NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+
+           if (attrs[WKSourceEditorCustomKeyCommentContent] != nil) {
+               isContentKey = YES;
+           } else {
+               // Edge case, check previous character if we are up against closing string
+               if (attrs[WKSourceEditorCustomKeyCommentSyntax] && attributedString.length > range.location - 1) {
+                   attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
+                   if (attrs[WKSourceEditorCustomKeyCommentContent] != nil) {
+                       isContentKey = YES;
+                   }
+               }
+           }
+       }
+
+   } else {
+       __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
+       [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
+           if (attrs[WKSourceEditorCustomKeyCommentContent] != nil) {
+               if (unionRange.location == NSNotFound) {
+                   unionRange = loopRange;
+               } else {
+                   unionRange = NSUnionRange(unionRange, loopRange);
+               }
+               stop = YES;
+           }
+       }];
+
+        if (NSEqualRanges(unionRange, range)) {
+            isContentKey = YES;
+        }
+   }
+
+   return isContentKey;
+}
+
 @end
