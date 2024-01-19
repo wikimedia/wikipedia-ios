@@ -202,7 +202,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
         }
         
         inputAccessoryViewType = .expanding
-        resetFind(clearFindTextField: true)
+        resetFind(fromClose: true)
     }
     
     public func toggleSyntaxHighlighting() {
@@ -301,14 +301,15 @@ private extension WKSourceEditorViewController {
         delegate?.sourceEditorViewControllerDidTapLink(parameters: parameters)
     }
     
-    func resetFind(clearFindTextField: Bool) {
+    func resetFind(fromClose: Bool) {
         guard var viewModel = findAccessoryView.viewModel else {
             return
         }
         viewModel.reset()
         findAccessoryView.update(viewModel: viewModel)
-        if clearFindTextField {
-            findAccessoryView.findTextField.text = ""
+        if fromClose {
+            findAccessoryView.clearFind()
+            findAccessoryView.resetReplace()
         }
         textFrameworkMediator.findReset()
     }
@@ -526,7 +527,7 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
 
 extension WKSourceEditorViewController: WKFindAndReplaceViewDelegate {
     func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String) {
-        resetFind(clearFindTextField: false)
+        resetFind(fromClose: false)
         textFrameworkMediator.findStart(text: text)
         updateFindViewModelState()
     }

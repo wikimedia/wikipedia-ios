@@ -89,7 +89,7 @@ class WKFindAndReplaceView: WKComponentView {
 
         replaceTypeLabel.adjustsFontForContentSizeCategory = true
         replaceTypeLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
-        replaceTypeLabel.text = "Replace" // TODO
+        replaceTypeLabel.text = WKSourceEditorLocalizedStrings.current.findReplaceTypeSingle
 
         replacePlaceholderLabel.adjustsFontForContentSizeCategory = true
         replacePlaceholderLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
@@ -137,6 +137,16 @@ class WKFindAndReplaceView: WKComponentView {
         default:
             break
         }
+    }
+    
+    func clearFind() {
+        findTextField.text = ""
+    }
+    
+    func resetReplace() {
+        replaceTextField.text = ""
+        replaceTypeLabel.isHidden = true
+        replacePlaceholderLabel.isHidden = false
     }
     
     // MARK: - Overrides
