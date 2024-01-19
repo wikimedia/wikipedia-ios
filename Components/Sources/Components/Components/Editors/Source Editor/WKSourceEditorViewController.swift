@@ -190,6 +190,9 @@ public class WKSourceEditorViewController: WKComponentViewController {
         if let currentRange = textFrameworkMediator.findAndReplaceFormatter?.selectedMatchRange,
            currentRange.location != NSNotFound {
             textView.selectedRange = currentRange
+        } else if let lastReplacedRange = textFrameworkMediator.findAndReplaceFormatter?.lastReplacedRange,
+                  lastReplacedRange.location != NSNotFound {
+            textView.selectedRange = lastReplacedRange
         } else {
             if let visibleRange = textView.visibleRange {
                 textView.selectedRange = NSRange(location: visibleRange.location, length: 0)
