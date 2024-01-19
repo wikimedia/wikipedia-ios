@@ -54,7 +54,7 @@ NSString * const WKSourceEditorCustomKeyCommentContent = @"WKSourceEditorCustomK
             }
         
             if (contentRange.location != NSNotFound) {
-                [attributedString addAttributes:self.commentSyntaxAttributes range:contentRange];
+                [attributedString addAttributes:self.commentContentAttributes range:contentRange];
             }
 
             if (closingRange.location != NSNotFound) {
