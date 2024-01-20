@@ -11,6 +11,10 @@ protocol WKEditorToolbarExpandingViewDelegate: AnyObject {
     func toolbarExpandingViewDidTapOrderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
     func toolbarExpandingViewDidTapIncreaseIndent(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapDecreaseIndent(toolbarView: WKEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapCursorUp(toolbarView: WKEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapCursorDown(toolbarView: WKEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapCursorLeft(toolbarView: WKEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapCursorRight(toolbarView: WKEditorToolbarExpandingView)
 }
 
 class WKEditorToolbarExpandingView: WKEditorToolbarView {
@@ -251,15 +255,19 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     }
 
     @objc private func tappedCursorUp() {
+        delegate?.toolbarExpandingViewDidTapCursorUp(toolbarView: self)
     }
 
     @objc private func tappedCursorDown() {
+        delegate?.toolbarExpandingViewDidTapCursorDown(toolbarView: self)
     }
 
     @objc private func tappedCursorLeft() {
+        delegate?.toolbarExpandingViewDidTapCursorLeft(toolbarView: self)
     }
 
     @objc private func tappedCursorRight() {
+        delegate?.toolbarExpandingViewDidTapCursorRight(toolbarView: self)
     }
 
     @objc private func tappedTemplate() {
