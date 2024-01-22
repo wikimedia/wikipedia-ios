@@ -4,13 +4,13 @@ protocol WKEditorToolbarExpandingViewDelegate: AnyObject {
     func toolbarExpandingViewDidTapFind(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapFormatText(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapTemplate(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapReference(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapLink(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapImage(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapUnorderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
     func toolbarExpandingViewDidTapOrderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
     func toolbarExpandingViewDidTapIncreaseIndent(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapDecreaseIndent(toolbarView: WKEditorToolbarExpandingView)
-    func toolbarExpandingViewDidTapReference(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
-    func toolbarExpandingViewDidTapLink(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
-    func toolbarExpandingViewDidTapImage(toolbarView: WKEditorToolbarExpandingView)
 }
 
 class WKEditorToolbarExpandingView: WKEditorToolbarView {
@@ -153,7 +153,10 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         }
         
         templateButton.isSelected = selectionState.isHorizontalTemplate
-
+        referenceButton.isSelected = selectionState.isHorizontalReference
+        linkButton.isSelected = selectionState.isSimpleLink
+        imageButton.isEnabled = !selectionState.isBold && !selectionState.isItalics && !selectionState.isSimpleLink
+        
         unorderedListButton.isSelected = selectionState.isBulletSingleList || selectionState.isBulletMultipleList
         unorderedListButton.isEnabled = !selectionState.isNumberSingleList && !selectionState.isNumberMultipleList
         
@@ -173,13 +176,8 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         } else {
             increaseIndentionButton.isEnabled = false
         }
-
-        referenceButton.isSelected = selectionState.isHorizontalReference
-
+        
         cursorRightButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonCursorRight
-
-        linkButton.isSelected = selectionState.isSimpleLink
-        imageButton.isEnabled = !selectionState.isBold && !selectionState.isItalics && !selectionState.isSimpleLink
     }
 
     // MARK: - Button Actions

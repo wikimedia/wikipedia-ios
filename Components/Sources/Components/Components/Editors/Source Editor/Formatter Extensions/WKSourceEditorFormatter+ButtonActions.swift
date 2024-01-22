@@ -15,28 +15,23 @@ extension WKSourceEditorFormatter {
     }
     
     func toggleFormatting(startingFormattingString: String, wildcardStartingFormattingString: String? = nil, endingFormattingString: String, action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
-        
+                
+        var resolvedStartingFormattingString = startingFormattingString
+        if let wildcardStartingFormattingString {
+            resolvedStartingFormattingString = getModifiedStartingFormattingStringForSingleWildcard(startingFormattingString: wildcardStartingFormattingString, textView: textView)
+        }
+                
         if textView.selectedRange.length == 0 {
+            
             switch action {
             case .remove:
-                
-                var resolvedStartingFormattingString = startingFormattingString
-                if let wildcardStartingFormattingString {
-                    resolvedStartingFormattingString = getModifiedStartingFormattingStringForSingleWildcard(startingFormattingString: wildcardStartingFormattingString, textView: textView)
-                }
-                
+
                 expandSelectedRangeUpToNearestFormattingStrings(startingFormattingString: resolvedStartingFormattingString, endingFormattingString: endingFormattingString, in: textView)
                 
                 if selectedRangeIsSurroundedByFormattingStrings(startingFormattingString: resolvedStartingFormattingString, endingFormattingString: endingFormattingString, in: textView) {
                     removeSurroundingFormattingStringsFromSelectedRange(startingFormattingString: resolvedStartingFormattingString, endingFormattingString: endingFormattingString, in: textView)
                 }
             case .add:
-                
-                var resolvedStartingFormattingString = startingFormattingString
-                if let wildcardStartingFormattingString {
-                    resolvedStartingFormattingString = getModifiedStartingFormattingStringForSingleWildcard(startingFormattingString: wildcardStartingFormattingString, textView: textView)
-                }
-                
                 if selectedRangeIsSurroundedByFormattingStrings(startingFormattingString: resolvedStartingFormattingString, endingFormattingString: endingFormattingString, in: textView) {
                     removeSurroundingFormattingStringsFromSelectedRange(startingFormattingString: resolvedStartingFormattingString, endingFormattingString: endingFormattingString, in: textView)
                 } else {
@@ -47,12 +42,6 @@ extension WKSourceEditorFormatter {
             
             switch action {
             case .remove:
-                
-                var resolvedStartingFormattingString = startingFormattingString
-                if let wildcardStartingFormattingString {
-                    resolvedStartingFormattingString = getModifiedStartingFormattingStringForSingleWildcard(startingFormattingString: wildcardStartingFormattingString, textView: textView)
-                }
-                
                 if selectedRangeIsSurroundedByFormattingStrings(startingFormattingString: resolvedStartingFormattingString, endingFormattingString: endingFormattingString, in: textView) {
                     removeSurroundingFormattingStringsFromSelectedRange(startingFormattingString: resolvedStartingFormattingString, endingFormattingString: endingFormattingString, in: textView)
                 } else {

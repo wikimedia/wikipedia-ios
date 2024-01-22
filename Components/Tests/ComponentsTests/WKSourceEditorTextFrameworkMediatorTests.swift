@@ -157,16 +157,96 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 1, length: 0))
         XCTAssertFalse(selectionStates1.isHorizontalTemplate)
     }
+
+    func testReferenceSelectionState() throws {
+        let text = "Testing <ref>Testing</ref> Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 13, length: 7))
+        XCTAssertTrue(selectionStates.isHorizontalReference)
+    }
+    
+    func testReferenceSelectionStateCursor() throws {
+        let text = "Testing <ref>Testing</ref> Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 16, length: 0))
+        XCTAssertTrue(selectionStates.isHorizontalReference)
+    }
+    
+    func testReferenceNamedSelectionState() throws {
+        let text = "Testing <ref name=\"testing\">Testing</ref> Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 28, length: 7))
+        XCTAssertTrue(selectionStates.isHorizontalReference)
+    }
+    
+    func testReferenceNamedSelectionStateCursor() throws {
+        let text = "Testing <ref name=\"testing\">Testing</ref> Testing"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 31, length: 0))
+        XCTAssertTrue(selectionStates.isHorizontalReference)
+    }
+    
+    func testListBulletSingleSelectionState() throws {
+        
+        let text = "* Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 2, length: 4))
+        XCTAssertTrue(selectionStates.isBulletSingleList)
+        XCTAssertFalse(selectionStates.isBulletMultipleList)
+        XCTAssertFalse(selectionStates.isNumberSingleList)
+        XCTAssertFalse(selectionStates.isNumberMultipleList)
+    }
+    
+    func testListBulletMultipleSelectionState() throws {
+        
+        let text = "** Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 3, length: 0))
+        XCTAssertFalse(selectionStates.isBulletSingleList)
+        XCTAssertTrue(selectionStates.isBulletMultipleList)
+        XCTAssertFalse(selectionStates.isNumberSingleList)
+        XCTAssertFalse(selectionStates.isNumberMultipleList)
+    }
+    
+    func testListNumberSingleSelectionState() throws {
+        
+        let text = "# Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 2, length: 4))
+        XCTAssertFalse(selectionStates.isBulletSingleList)
+        XCTAssertFalse(selectionStates.isBulletMultipleList)
+        XCTAssertTrue(selectionStates.isNumberSingleList)
+        XCTAssertFalse(selectionStates.isNumberMultipleList)
+    }
+    
+    func testListNumberMultipleSelectionState() throws {
+        
+        let text = "## Test"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 3, length: 0))
+        XCTAssertFalse(selectionStates.isBulletSingleList)
+        XCTAssertFalse(selectionStates.isBulletMultipleList)
+        XCTAssertFalse(selectionStates.isNumberSingleList)
+        XCTAssertTrue(selectionStates.isNumberMultipleList)
+    }
     
     func testHorizontalTemplateButtonSelectionStateFormattedRange() throws {
         let text = "Testing inner formatted {{cite web | url=https://en.wikipedia.org | title = The '''Free''' Encyclopedia}} template example."
         mediator.textView.attributedText = NSAttributedString(string: text)
-        
+
         // "cite web | url=https://en.wikipedia.org | title = The '''Free''' Encyclopedia"
         let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 26, length: 77))
         XCTAssertTrue(selectionStates.isHorizontalTemplate)
     }
-    
+
     func testHeadingSelectionState() throws {
         
         let text = "== Test =="
@@ -266,87 +346,7 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertFalse(selectionStates2.isSubheading3)
         XCTAssertTrue(selectionStates2.isSubheading4)
     }
-    
-    func testListBulletSingleSelectionState() throws {
-        
-        let text = "* Test"
-        mediator.textView.attributedText = NSAttributedString(string: text)
-        
-        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 2, length: 4))
-        XCTAssertTrue(selectionStates.isBulletSingleList)
-        XCTAssertFalse(selectionStates.isBulletMultipleList)
-        XCTAssertFalse(selectionStates.isNumberSingleList)
-        XCTAssertFalse(selectionStates.isNumberMultipleList)
-    }
-    
-    func testListBulletMultipleSelectionState() throws {
-        
-        let text = "** Test"
-        mediator.textView.attributedText = NSAttributedString(string: text)
-        
-        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 3, length: 0))
-        XCTAssertFalse(selectionStates.isBulletSingleList)
-        XCTAssertTrue(selectionStates.isBulletMultipleList)
-        XCTAssertFalse(selectionStates.isNumberSingleList)
-        XCTAssertFalse(selectionStates.isNumberMultipleList)
-    }
-    
-    func testListNumberSingleSelectionState() throws {
-        
-        let text = "# Test"
-        mediator.textView.attributedText = NSAttributedString(string: text)
-        
-        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 2, length: 4))
-        XCTAssertFalse(selectionStates.isBulletSingleList)
-        XCTAssertFalse(selectionStates.isBulletMultipleList)
-        XCTAssertTrue(selectionStates.isNumberSingleList)
-        XCTAssertFalse(selectionStates.isNumberMultipleList)
-    }
-    
-    func testListNumberMultipleSelectionState() throws {
-        
-        let text = "## Test"
-        mediator.textView.attributedText = NSAttributedString(string: text)
-        
-        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 3, length: 0))
-        XCTAssertFalse(selectionStates.isBulletSingleList)
-        XCTAssertFalse(selectionStates.isBulletMultipleList)
-        XCTAssertFalse(selectionStates.isNumberSingleList)
-        XCTAssertTrue(selectionStates.isNumberMultipleList)
-    }
-    
-    func testReferenceSelectionState() throws {
-        let text = "Testing <ref>Testing</ref> Testing"
-        mediator.textView.attributedText = NSAttributedString(string: text)
 
-        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 13, length: 7))
-        XCTAssertTrue(selectionStates.isHorizontalReference)
-    }
-    
-    func testReferenceSelectionStateCursor() throws {
-        let text = "Testing <ref>Testing</ref> Testing"
-        mediator.textView.attributedText = NSAttributedString(string: text)
-
-        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 16, length: 0))
-        XCTAssertTrue(selectionStates.isHorizontalReference)
-    }
-    
-    func testReferenceNamedSelectionState() throws {
-        let text = "Testing <ref name=\"testing\">Testing</ref> Testing"
-        mediator.textView.attributedText = NSAttributedString(string: text)
-
-        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 28, length: 7))
-        XCTAssertTrue(selectionStates.isHorizontalReference)
-    }
-    
-    func testReferenceNamedSelectionStateCursor() throws {
-        let text = "Testing <ref name=\"testing\">Testing</ref> Testing"
-        mediator.textView.attributedText = NSAttributedString(string: text)
-        
-        let selectionStates = mediator.selectionState(selectedDocumentRange: NSRange(location: 31, length: 0))
-        XCTAssertTrue(selectionStates.isHorizontalReference)
-    }
-    
     func testStrikethroughSelectionState() throws {
         let text = "Testing <s>Strikethrough</s> Testing."
         mediator.textView.attributedText = NSAttributedString(string: text)

@@ -63,7 +63,7 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
         guard let selectionState = notification.userInfo?[Notification.WKSourceEditorSelectionStateKey] as? WKSourceEditorSelectionState else {
             return
         }
-        
+
         unorderedListButton.isSelected = selectionState.isBulletSingleList || selectionState.isBulletMultipleList
         unorderedListButton.isEnabled = !selectionState.isNumberSingleList && !selectionState.isNumberMultipleList
         
@@ -83,7 +83,7 @@ class WKEditorToolbarGroupedView: WKEditorToolbarView {
         } else {
             increaseIndentButton.isEnabled = false
         }
-        
+
         strikethroughButton.isSelected = selectionState.isStrikethrough
         subscriptButton.isSelected = selectionState.isSubscript
         superscriptButton.isSelected = selectionState.isSuperscript

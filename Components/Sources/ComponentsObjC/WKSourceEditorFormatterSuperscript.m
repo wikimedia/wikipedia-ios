@@ -26,7 +26,7 @@ NSString * const WKSourceEditorCustomKeyContentSuperscript = @"WKSourceEditorCus
             WKSourceEditorCustomKeyContentSuperscript: [NSNumber numberWithBool:YES]
         };
 
-        _superscriptRegex = [[NSRegularExpression alloc] initWithPattern:@"(<sup>)(\\s*u*p*.*?)(<\\/sup>)" options:0 error:nil];
+        _superscriptRegex = [[NSRegularExpression alloc] initWithPattern:@"(<sup>)(.*?)(<\\/sup>)" options:0 error:nil];
     }
 
     return self;
@@ -94,7 +94,7 @@ NSString * const WKSourceEditorCustomKeyContentSuperscript = @"WKSourceEditorCus
            if (attrs[WKSourceEditorCustomKeyContentSuperscript] != nil) {
                isContentKey = YES;
            } else {
-               if (attrs[WKSourceEditorCustomKeyColorGreen] && range.location < 0) {
+               if (attrs[WKSourceEditorCustomKeyColorGreen] && attributedString.length > range.location - 1) {
                    attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
                    if (attrs[WKSourceEditorCustomKeyContentSuperscript] != nil) {
                        isContentKey = YES;

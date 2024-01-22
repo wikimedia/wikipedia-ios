@@ -314,6 +314,19 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
+
+    func toolbarExpandingViewDidTapReference(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
+    }
+
+    func toolbarExpandingViewDidTapLink(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
+        presentLinkWizard(linkButtonIsSelected: isSelected)
+    }
+    
+    func toolbarExpandingViewDidTapImage(toolbarView: WKEditorToolbarExpandingView) {
+        delegate?.sourceEditorViewControllerDidTapImage()
+    }
     
     func toolbarExpandingViewDidTapUnorderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
@@ -331,19 +344,6 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
     
     func toolbarExpandingViewDidTapDecreaseIndent(toolbarView: WKEditorToolbarExpandingView) {
         textFrameworkMediator.listFormatter?.tappedDecreaseIndent(currentSelectionState: selectionState(), textView: textView)
-    }
-
-    func toolbarExpandingViewDidTapReference(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
-        textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
-    }
-    
-    func toolbarExpandingViewDidTapLink(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
-        presentLinkWizard(linkButtonIsSelected: isSelected)
-    }
-    
-    func toolbarExpandingViewDidTapImage(toolbarView: WKEditorToolbarExpandingView) {
-        delegate?.sourceEditorViewControllerDidTapImage()
     }
 }
 
@@ -365,12 +365,12 @@ extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
-    
+
     func toolbarHighlightViewDidTapReference(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
     }
-    
+
     func toolbarHighlightViewDidTapLink(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
         presentLinkWizard(linkButtonIsSelected: isSelected)
     }
@@ -403,6 +403,11 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
+
+    func didTapReference(isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
+    }
     
     func didTapBulletList(isSelected: Bool) {
         let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
@@ -420,11 +425,6 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     
     func didTapDecreaseIndent() {
         textFrameworkMediator.listFormatter?.tappedDecreaseIndent(currentSelectionState: selectionState(), textView: textView)
-    }
-    
-    func didTapReference(isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
-        textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
     }
     
     func didTapStrikethrough(isSelected: Bool) {
@@ -450,7 +450,7 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     func didTapLink(isSelected: Bool) {
         presentLinkWizard(linkButtonIsSelected: isSelected)
     }
-    
+
     func didTapClose() {
         editorInputViewIsShowing = false
         let isRangeSelected = textView.selectedRange.length > 0
