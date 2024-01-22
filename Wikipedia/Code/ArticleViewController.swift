@@ -975,10 +975,6 @@ private extension ArticleViewController {
         navigationItem.rightBarButtonItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
     }
     
-    @objc func tappedEditArticle() {
-        showEditorForFullSource()
-    }
-    
     func setupMessagingController() {
         messagingController.delegate = self
     }

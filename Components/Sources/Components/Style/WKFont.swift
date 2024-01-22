@@ -8,6 +8,7 @@ public enum WKFont {
     case boldTitle
     case body
     case boldBody
+    case heavyBody
     case italicsBody
     case boldItalicsBody
     case smallBody
@@ -42,6 +43,8 @@ public enum WKFont {
                 fatalError()
             }
             return UIFont(descriptor: descriptor, size: 0)
+        case .heavyBody:
+            return UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .heavy))
         case .italicsBody:
             guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body, compatibleWith: traitCollection).withSymbolicTraits(.traitItalic) else {
                 fatalError()
