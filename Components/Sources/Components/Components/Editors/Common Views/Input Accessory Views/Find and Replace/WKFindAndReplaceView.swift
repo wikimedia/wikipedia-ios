@@ -1,6 +1,21 @@
 import UIKit
 
+protocol WKFindAndReplaceViewDelegate: AnyObject {
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String)
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceSingle replaceText: String)
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceAll replaceText: String)
+    func findAndReplaceViewDidTapNext(_ view: WKFindAndReplaceView)
+    func findAndReplaceViewDidTapPrevious(_ view: WKFindAndReplaceView)
+}
+
 class WKFindAndReplaceView: WKComponentView {
+    
+    // MARK: - Nested
+    
+    enum ReplaceType {
+        case single
+        case all
+    }
     
     // MARK: - IBOutlet Properties
 
@@ -12,7 +27,7 @@ class WKFindAndReplaceView: WKComponentView {
     @IBOutlet private var findStackView: UIStackView!
     @IBOutlet private var nextPrevButtonStackView: UIStackView!
     @IBOutlet private(set) var findTextField: UITextField!
-    @IBOutlet private var currentMatchLabel: UILabel!
+    @IBOutlet private var currentMatchInfoLabel: UILabel!
     @IBOutlet private var findClearButton: UIButton!
     @IBOutlet private var closeButton: UIButton!
     @IBOutlet private var nextButton: UIButton!
@@ -31,7 +46,9 @@ class WKFindAndReplaceView: WKComponentView {
     @IBOutlet private var pencilImageView: UIImageView!
     @IBOutlet private weak var replaceTextfieldContainer: UIView!
     
-    private var viewModel: WKFindAndReplaceViewModel?
+    weak var delegate: WKFindAndReplaceViewDelegate?
+    var viewModel: WKFindAndReplaceViewModel?
+    private var replaceType: ReplaceType = .single
     
     // MARK: - Lifecycle
     
@@ -49,6 +66,9 @@ class WKFindAndReplaceView: WKComponentView {
         replaceButton.accessibilityLabel = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceButtonPerformFormat, WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceTypeSingle)
         replaceSwitchButton.setImage(WKSFSymbolIcon.for(symbol: .ellipsis), for: .normal)
         replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceButtonSwitchFormat, WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceTypeSingle)
+        
+        replaceSwitchButton.showsMenuAsPrimaryAction = true
+        replaceSwitchButton.menu = replaceSwitchButtonMenu()
 
         magnifyImageView.image = WKSFSymbolIcon.for(symbol: .magnifyingGlass)
         pencilImageView.image = WKSFSymbolIcon.for(symbol: .pencil)
@@ -63,20 +83,22 @@ class WKFindAndReplaceView: WKComponentView {
         findTextField.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelFindTextField
         findTextField.autocorrectionType = .yes
         findTextField.spellCheckingType = .yes
+        findTextField.delegate = self
 
         replaceTextField.adjustsFontForContentSizeCategory = true
         replaceTextField.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
         replaceTextField.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceTextField
-        replaceTypeLabel.text = WKSourceEditorLocalizedStrings.current.findReplaceTypeSingle
-        replaceTypeLabel.isAccessibilityElement = false
+        replaceTextField.autocorrectionType = .yes
+        replaceTextField.spellCheckingType = .yes
+        replaceTextField.delegate = self
 
-        currentMatchLabel.adjustsFontForContentSizeCategory = true
-        currentMatchLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
-        currentMatchLabel.text = "1 / 10" // TODO
+        currentMatchInfoLabel.adjustsFontForContentSizeCategory = true
+        currentMatchInfoLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
 
         replaceTypeLabel.adjustsFontForContentSizeCategory = true
         replaceTypeLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
-        replaceTypeLabel.text = "Replace" // TODO
+        replaceTypeLabel.text = WKSourceEditorLocalizedStrings.current.findReplaceTypeSingle
+        replaceTypeLabel.isAccessibilityElement = false
 
         replacePlaceholderLabel.adjustsFontForContentSizeCategory = true
         replacePlaceholderLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
@@ -92,10 +114,48 @@ class WKFindAndReplaceView: WKComponentView {
     
     // MARK: - Internal
     
-    func configure(viewModel: WKFindAndReplaceViewModel) {
+    func update(viewModel: WKFindAndReplaceViewModel) {
         self.viewModel = viewModel
         
         updateConfiguration(configuration: viewModel.configuration)
+        
+        let findIsEmpty = (findTextField.text ?? "").isEmpty
+        if let currentMatchInfo = viewModel.currentMatchInfo,
+           !findIsEmpty {
+            currentMatchInfoLabel.text = "\(currentMatchInfo)"
+        } else {
+            currentMatchInfoLabel.text = nil
+        }
+        
+        nextButton.isEnabled = viewModel.nextPrevButtonsAreEnabled
+        previousButton.isEnabled = viewModel.nextPrevButtonsAreEnabled
+        
+        let replaceTextCount = replaceTextField.text?.count ?? 0
+        replaceButton.isEnabled = replaceTextCount > 0 && viewModel.matchCount > 0 && replaceTextField.text != findTextField.text
+        
+        switch (replaceTextField.isFirstResponder, replaceTextCount) {
+        case (false, 0):
+            replaceTypeLabel.isHidden = true
+            replacePlaceholderLabel.isHidden = false
+        case (true, 0):
+            replaceTypeLabel.isHidden = true
+            replacePlaceholderLabel.isHidden = true
+        case (_, 1...):
+            replaceTypeLabel.isHidden = false
+            replacePlaceholderLabel.isHidden = true
+        default:
+            break
+        }
+    }
+    
+    func clearFind() {
+        findTextField.text = ""
+    }
+    
+    func resetReplace() {
+        replaceTextField.text = ""
+        replaceTypeLabel.isHidden = true
+        replacePlaceholderLabel.isHidden = false
     }
     
     // MARK: - Overrides
@@ -121,27 +181,41 @@ class WKFindAndReplaceView: WKComponentView {
     // MARK: - Button Actions
     
     @IBAction private func tappedFindClear() {
+        findTextField.text = ""
+        debouncedFindTextfieldDidChange()
     }
     
     @IBAction private func tappedReplaceClear() {
+        replaceTextField.text = ""
+        if let viewModel {
+            update(viewModel: viewModel)
+        }
     }
     
     @IBAction private func tappedClose() {
     }
     
     @IBAction private func tappedNext() {
+        delegate?.findAndReplaceViewDidTapNext(self)
     }
     
     @IBAction private func tappedPrevious() {
+        delegate?.findAndReplaceViewDidTapPrevious(self)
     }
     
     @IBAction private func tappedReplace() {
-    }
-    
-    @IBAction private func tappedReplaceSwitch() {
-    }
-    
-    @IBAction private func textFieldDidChange(_ sender: UITextField) {
+        guard let replaceText = replaceTextField.text,
+          !replaceText.isEmpty else {
+              return
+          }
+        
+        switch replaceType {
+        case .single:
+            delegate?.findAndReplaceView(self, didTapReplaceSingle: replaceText)
+        case .all:
+            delegate?.findAndReplaceView(self, didTapReplaceAll: replaceText)
+        }
+        
     }
     
     // MARK: - Private Helpers
@@ -154,14 +228,14 @@ class WKFindAndReplaceView: WKComponentView {
             findStackView.insertArrangedSubview(nextPrevButtonStackView, at: 0)
             outerStackViewLeadingConstraint.constant = 10
             outerStackViewTrailingConstraint.constant = 5
-            accessibilityElements = [previousButton, nextButton, findTextField, currentMatchLabel, findClearButton, closeButton].compactMap { $0 as Any }
+            accessibilityElements = [previousButton, nextButton, findTextField, currentMatchInfoLabel, findClearButton, closeButton].compactMap { $0 as Any }
         case .findAndReplace:
             replaceStackView.isHidden = false
             closeButton.isHidden = true
             findStackView.addArrangedSubview(nextPrevButtonStackView)
             outerStackViewLeadingConstraint.constant = 18
             outerStackViewTrailingConstraint.constant = 18
-            accessibilityElements = [findTextField, currentMatchLabel, findClearButton, previousButton, nextButton, replaceTextField, replaceClearButton, replaceButton, replaceSwitchButton].compactMap { $0 as Any }
+            accessibilityElements = [findTextField, currentMatchInfoLabel, findClearButton, previousButton, nextButton, replaceTextField, replaceClearButton, replaceButton, replaceSwitchButton].compactMap { $0 as Any }
         }
     }
     
@@ -178,7 +252,7 @@ class WKFindAndReplaceView: WKComponentView {
         nextButton.tintColor = theme.inputAccessoryButtonTint
         magnifyImageView.tintColor = theme.inputAccessoryButtonTint
         findClearButton.tintColor = theme.inputAccessoryButtonTint
-        currentMatchLabel.textColor = theme.secondaryText
+        currentMatchInfoLabel.textColor = theme.secondaryText
         
         replaceTextField.keyboardAppearance = theme.keyboardAppearance
         replaceTextfieldContainer.backgroundColor = theme.keyboardBarSearchFieldBackground
@@ -189,5 +263,50 @@ class WKFindAndReplaceView: WKComponentView {
         replaceClearButton.tintColor = theme.inputAccessoryButtonTint
         replaceTypeLabel.textColor = theme.secondaryText
         replacePlaceholderLabel.textColor = theme.secondaryText
+    }
+    
+    @objc private func debouncedFindTextfieldDidChange() {
+
+        guard let text = findTextField.text else {
+            return
+        }
+
+        // TODO: also call from keyboard search button
+        delegate?.findAndReplaceView(self, didChangeFindText: text)
+    }
+    
+    private func replaceSwitchButtonMenu() -> UIMenu {
+        let replace = UIAction(title: WKSourceEditorLocalizedStrings.current.findReplaceTypeSingle) { [weak self] _ in
+            self?.replaceType = .single
+            self?.replaceTypeLabel.text = WKSourceEditorLocalizedStrings.current.findReplaceTypeSingle
+            self?.replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceButtonSwitchFormat, WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceTypeSingle)
+        }
+        
+        let replaceAll = UIAction(title: WKSourceEditorLocalizedStrings.current.findReplaceTypeAll) { [weak self] _ in
+            self?.replaceType = .all
+            self?.replaceTypeLabel.text = WKSourceEditorLocalizedStrings.current.findReplaceTypeAll
+            self?.replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceButtonSwitchFormat, WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceTypeAll)
+        }
+       
+        return UIMenu(title: WKSourceEditorLocalizedStrings.current.findReplaceTypeMenuTitle, children: [replace, replaceAll])
+    }
+}
+
+extension WKFindAndReplaceView: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField == self.findTextField {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedFindTextfieldDidChange), object: nil)
+            perform(#selector(debouncedFindTextfieldDidChange), with: nil, afterDelay: 0.5)
+        } else if textField == self.replaceTextField {
+            if let viewModel {
+                update(viewModel: viewModel)
+            }
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if let viewModel {
+            update(viewModel: viewModel)
+        }
     }
 }

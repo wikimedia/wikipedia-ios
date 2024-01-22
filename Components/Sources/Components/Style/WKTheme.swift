@@ -28,6 +28,10 @@ public struct WKTheme: Equatable {
     public let editorPurple: UIColor
     public let editorGreen: UIColor
     public let editorBlue: UIColor
+    public let editorMatchForeground: UIColor
+    public let editorMatchBackground: UIColor
+    public let editorSelectedMatchBackground: UIColor
+    public let editorReplacedMatchBackground: UIColor
 
 	public static let light = WKTheme(
         name: "Light",
@@ -54,7 +58,11 @@ public struct WKTheme: Equatable {
         editorOrange: WKColor.orange600,
         editorPurple: WKColor.purple600,
         editorGreen: WKColor.green600,
-        editorBlue: WKColor.blue600
+        editorBlue: WKColor.blue600,
+        editorMatchForeground: .black,
+        editorMatchBackground: WKColor.lightMatchBackground,
+        editorSelectedMatchBackground: WKColor.yellow600,
+        editorReplacedMatchBackground: WKColor.matchReplacedBackground
 	)
     
     public static let sepia = WKTheme(
@@ -82,7 +90,11 @@ public struct WKTheme: Equatable {
         editorOrange: WKColor.orange600,
         editorPurple: WKColor.purple600,
         editorGreen: WKColor.green600,
-        editorBlue: WKColor.blue600
+        editorBlue: WKColor.blue600,
+        editorMatchForeground: .black,
+        editorMatchBackground: WKColor.lightMatchBackground,
+        editorSelectedMatchBackground: WKColor.yellow600,
+        editorReplacedMatchBackground: WKColor.matchReplacedBackground
     )
 
 	public static let dark = WKTheme(
@@ -110,7 +122,11 @@ public struct WKTheme: Equatable {
         editorOrange: WKColor.yellow600,
         editorPurple: WKColor.red100,
         editorGreen: WKColor.green600,
-        editorBlue: WKColor.blue300
+        editorBlue: WKColor.blue300,
+        editorMatchForeground: .black,
+        editorMatchBackground: WKColor.darkMatchBackground,
+        editorSelectedMatchBackground: WKColor.yellow600,
+        editorReplacedMatchBackground: WKColor.matchReplacedBackground
 	)
 
 	public static let black = WKTheme(
@@ -138,7 +154,11 @@ public struct WKTheme: Equatable {
         editorOrange: WKColor.yellow600,
         editorPurple: WKColor.red100,
         editorGreen: WKColor.green600,
-        editorBlue: WKColor.blue300
+        editorBlue: WKColor.blue300,
+        editorMatchForeground: .black,
+        editorMatchBackground: WKColor.darkMatchBackground,
+        editorSelectedMatchBackground: WKColor.yellow600,
+        editorReplacedMatchBackground: WKColor.matchReplacedBackground
 	)
 
 }
