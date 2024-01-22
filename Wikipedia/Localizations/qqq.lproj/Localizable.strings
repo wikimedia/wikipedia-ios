@@ -1045,6 +1045,7 @@
 "source-editor-accessibility-label-unordered" = "Accessibility label for make unordered list button on the page editor";
 "source-editor-accessibility-label-unordered-selected" = "Accessibility label for remove unordered list button on the page editor";
 "source-editor-clear-formatting" = "Label for clear formatting on the page editor";
+"source-editor-edit-published" = "Title for alert informing that the user's new edit was successfully published.";
 "source-editor-find-replace-all" = "Label for replace all ocurrences of a string on the page editor";
 "source-editor-find-replace-single" = "Label for replace single string button on page editor";
 "source-editor-find-replace-with" = "Lable for replace with string button on page editor";

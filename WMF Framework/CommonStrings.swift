@@ -584,6 +584,9 @@ public class CommonStrings: NSObject {
     public static let accessibilityLabelReplaceTypeAll = WMFLocalizedString("source-editor-accessibility-label-replace-type-all", value: "Replace all instances", comment: "Accessibility label for the replace all instances button on the page editor")
     
     public static let editMenuTitle = WMFLocalizedString("edit-menu-item", value: "Edit", comment: "Button label for 'Edit' menu item")
+    
+    public static let editPublishedToastTitle = WMFLocalizedString("source-editor-edit-published", value: "Your edit was published.", comment: "Title for alert informing that the user's new edit was successfully published.")
+
 }
 
 // Language variant strings
