@@ -190,7 +190,6 @@ public class WKSourceEditorViewController: WKComponentViewController {
     // MARK: - Public
     
     public func closeFind() {
-        
         textView.isEditable = true
         textView.isSelectable = true
         textView.becomeFirstResponder()
@@ -198,6 +197,9 @@ public class WKSourceEditorViewController: WKComponentViewController {
         if let currentRange = textFrameworkMediator.findAndReplaceFormatter?.selectedMatchRange,
            currentRange.location != NSNotFound {
             textView.selectedRange = currentRange
+        } else if let lastReplacedRange = textFrameworkMediator.findAndReplaceFormatter?.lastReplacedRange,
+                  lastReplacedRange.location != NSNotFound {
+            textView.selectedRange = lastReplacedRange
         } else {
             if let visibleRange = textView.visibleRange {
                 textView.selectedRange = NSRange(location: visibleRange.location, length: 0)
@@ -207,7 +209,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
         }
         
         inputAccessoryViewType = .expanding
-        resetFind(clearFindTextField: true)
+        resetFind(fromClose: true)
     }
     
     public func toggleSyntaxHighlighting() {
@@ -306,14 +308,15 @@ private extension WKSourceEditorViewController {
         delegate?.sourceEditorViewControllerDidTapLink(parameters: parameters)
     }
     
-    func resetFind(clearFindTextField: Bool) {
+    func resetFind(fromClose: Bool) {
         guard var viewModel = findAccessoryView.viewModel else {
             return
         }
         viewModel.reset()
         findAccessoryView.update(viewModel: viewModel)
-        if clearFindTextField {
-            findAccessoryView.findTextField.text = ""
+        if fromClose {
+            findAccessoryView.clearFind()
+            findAccessoryView.resetReplace()
         }
         textFrameworkMediator.findReset()
     }
@@ -334,6 +337,7 @@ private extension WKSourceEditorViewController {
         }
         
         viewModel.nextPrevButtonsAreEnabled = findFormatter.matchCount > 0
+        viewModel.matchCount = findFormatter.matchCount
         findAccessoryView.update(viewModel: viewModel)
     }
     
@@ -395,6 +399,15 @@ extension WKSourceEditorViewController: UITextViewDelegate {
         let isRangeSelected = textView.selectedRange.length > 0
         inputAccessoryViewType = isRangeSelected ? .highlight : .expanding
         postUpdateButtonSelectionStatesNotification(withDelay: false)
+    }
+    
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // Don't allow emdash text changes. This throws off find & replace.
+        if text == "—" {
+            return false
+        }
+        
+        return true
     }
 }
 
@@ -587,7 +600,7 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
 
 extension WKSourceEditorViewController: WKFindAndReplaceViewDelegate {
     func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String) {
-        resetFind(clearFindTextField: false)
+        resetFind(fromClose: false)
         textFrameworkMediator.findStart(text: text)
         updateFindViewModelState()
     }
@@ -600,6 +613,16 @@ extension WKSourceEditorViewController: WKFindAndReplaceViewDelegate {
     
     func findAndReplaceViewDidTapPrevious(_ view: WKFindAndReplaceView) {
         textFrameworkMediator.findPrevious()
+        updateFindViewModelState()
+    }
+    
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceSingle replaceText: String) {
+        textFrameworkMediator.replaceSingle(replaceText: replaceText)
+        updateFindViewModelState()
+    }
+    
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceAll replaceText: String) {
+        textFrameworkMediator.replaceAll(replaceText: replaceText)
         updateFindViewModelState()
     }
 }
