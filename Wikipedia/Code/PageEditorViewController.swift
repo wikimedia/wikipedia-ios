@@ -4,7 +4,7 @@ import WMF
 import CocoaLumberjackSwift
 
 protocol PageEditorViewControllerDelegate: AnyObject {
-    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL URL: URL?)
+    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL url: URL?)
     func pageEditorDidFinishEditing(_ pageEditor: PageEditorViewController, result: Result<SectionEditorChanges, Error>)
 }
 

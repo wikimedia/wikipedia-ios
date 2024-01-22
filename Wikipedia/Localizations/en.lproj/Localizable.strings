@@ -1123,6 +1123,7 @@
 "talk-pages-coffee-roll-read-more" = "Read more";
 "talk-pages-comment-added-alert-title" = "Your comment was added";
 "talk-pages-compose-close-confirmation-keep" = "Keep Editing";
+"talk-pages-edit-source" = "Edit source";
 "talk-pages-empty-view-body-article" = "Talk pages are where people discuss how to make content on Wikipedia the best that it can be. **Start by adding a new discussion topic** to connect and collaborate with a community of Wikipedians.";
 "talk-pages-empty-view-body-user" = "Talk pages are where people discuss how to make content on Wikipedia the best that it can be. Start a new discussion to connect and collaborate with $1. What you say here will be public for others to see.";
 "talk-pages-empty-view-button-article-add-topic" = "Add a new topic";

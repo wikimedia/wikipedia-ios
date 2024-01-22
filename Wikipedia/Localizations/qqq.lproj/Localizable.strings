@@ -1123,6 +1123,7 @@
 "talk-pages-coffee-roll-read-more" = "Title of user and article talk pages button to read more of the coffee roll.";
 "talk-pages-comment-added-alert-title" = "Title for alert informing that the user's new comment was successfully published. Please prioritize for de, ar and zh wikis.";
 "talk-pages-compose-close-confirmation-keep" = "Title of keep editing action, displayed within a confirmation alert to user when they attempt to close the new topic view or new reply after entering text. Please prioritize for de, ar and zh wikis.";
+"talk-pages-edit-source" = "Title for menu option to edit the full source of the talk page.";
 "talk-pages-empty-view-body-article" = "Text displayed in article talk pages when no topics are available. Please do not translate or remove the ** characters as these demarcate which part of the text to display in bold.";
 "talk-pages-empty-view-body-user" = "Text displayed in user talk pages when no topics are available. $1 is replaced with a username.";
 "talk-pages-empty-view-button-article-add-topic" = "Button text displayed in article talk pages when no topics are available.";

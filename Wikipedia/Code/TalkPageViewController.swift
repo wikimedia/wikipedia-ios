@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import CocoaLumberjackSwift
+import Components
 
 public enum InputAccessoryViewType {
     case format
@@ -138,12 +139,16 @@ class TalkPageViewController: ViewController {
             self?.pushToRevisionHistory()
         })
         
+        let editSourceAction = UIAction(title: TalkPageLocalizedStrings.editSource, image: WKSFSymbolIcon.for(symbol: .pencil, font: .heavyBody), handler: { [weak self] _ in
+            self?.pushToPageEditor()
+        })
+        
         let openInWebAction = UIAction(title: TalkPageLocalizedStrings.readInWeb, image: UIImage(systemName: "display"), handler: { [weak self] _ in
             self?.pushToDesktopWeb()
         })
         
         let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
-        let mainMenu = UIMenu(title: String(), children: [openAllAction, revisionHistoryAction, openInWebAction, submenu])
+        let mainMenu = UIMenu(title: String(), children: [openAllAction, revisionHistoryAction, editSourceAction, openInWebAction, submenu])
 
         return mainMenu
     }
@@ -449,13 +454,26 @@ class TalkPageViewController: ViewController {
         addTopicButton.accessibilityLabel = TalkPageLocalizedStrings.addTopicButtonAccesibilityLabel
     }
     
+    // MARK: - Overflow menu navigation
+    
     fileprivate func pushToRevisionHistory() {
         let historyVC = PageHistoryViewController(pageTitle: viewModel.pageTitle, pageURL: viewModel.siteURL, articleSummaryController: viewModel.dataController.articleSummaryController, authenticationManager: viewModel.authenticationManager)
         historyVC.apply(theme: theme)
         navigationController?.pushViewController(historyVC, animated: true)
     }
     
-    // MARK: - Overflow menu navigation
+    fileprivate func pushToPageEditor() {
+        guard let pageURL = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {
+            return
+        }
+        
+        let dataStore = MWKDataStore.shared()
+        let pageEditorViewController = PageEditorViewController(pageURL: pageURL, sectionID: nil, dataStore: dataStore, delegate: self, theme: theme)
+        
+        let navigationController = WMFThemeableNavigationController(rootViewController: pageEditorViewController, theme: theme)
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        present(navigationController, animated: true)
+    }
 
     fileprivate func pushToDesktopWeb() {
         guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/\(viewModel.pageTitle)", isMobile: false) else {
@@ -1102,6 +1120,7 @@ extension TalkPageViewController {
         static let contributions = WMFLocalizedString("talk-page-user-contributions", value: "Contributions", comment: "Title for menu option for information on the user's contributions. Please prioritize for de, ar and zh wikis.")
         static let userGroups = WMFLocalizedString("talk-pages-user-groups", value: "User groups", comment: "Title for menu option for information on the user's user groups. Please prioritize for de, ar and zh wikis.")
         static let logs = WMFLocalizedString("talk-pages-user-logs", value: "Logs", comment: "Title for menu option to consult the user's public logs. Please prioritize for de, ar and zh wikis.")
+        static let editSource = WMFLocalizedString("talk-pages-edit-source", value: "Edit source", comment: "Title for menu option to edit the full source of the talk page.")
         
         static let subscribedAlertTitle = WMFLocalizedString("talk-page-subscribed-alert-title", value: "You have subscribed!", comment: "Title for alert informing that the user subscribed to a topic. Please prioritize for de, ar and zh wikis.")
         static let unsubscribedAlertTitle = WMFLocalizedString("talk-page-unsubscribed-alert-title", value: "You have unsubscribed.", comment: "Title for alert informing that the user unsubscribed to a topic. Please prioritize for de, ar and zh wikis.")
@@ -1189,6 +1208,56 @@ extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
             if UIAccessibility.isVoiceOverRunning {
                 if let height = replyComposeController.containerView?.frame.height, height >= 1.0 {
                     UIAccessibility.post(notification: .screenChanged, argument: replyComposeController.containerView)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - PageEditorViewControllerDelegate
+
+extension TalkPageViewController: PageEditorViewControllerDelegate {
+    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL url: URL?) {
+        dismiss(animated: true) {
+            self.navigate(to: url)
+        }
+    }
+    
+    func pageEditorDidFinishEditing(_ pageEditor: PageEditorViewController, result: Result<SectionEditorChanges, Error>) {
+        switch result {
+        case .failure(let error):
+            showError(error)
+        case .success(let changes):
+            dismiss(animated: true) { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                let title = CommonStrings.editPublishedToastTitle
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                
+                if UIAccessibility.isVoiceOverRunning {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                    }
+                } else {
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+                }
+                
+                // Refresh page
+                self.fakeProgressController.start()
+                self.viewModel.fetchTalkPage { [weak self] result in
+                    
+                    self?.fakeProgressController.stop()
+                    
+                    switch result {
+                    case .success:
+                        self?.updateEmptyStateVisibility()
+                        self?.talkPageView.collectionView.reloadData()
+                    case .failure:
+                        break
+                    }
                 }
             }
         }
