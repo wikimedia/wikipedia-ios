@@ -11,6 +11,7 @@
 // Author: Fitoschido
 // Author: Gomoko
 // Author: Hydros
+// Author: Iketsi
 // Author: John Trololo
 // Author: Macofe
 // Author: McDutchie
@@ -163,6 +164,7 @@
 "article-languages-label" = "Choisissez une langue";
 "article-languages-others" = "Autres langues";
 "article-languages-yours" = "Vos langues";
+"article-nav-edit" = "Modifier";
 "article-read-more-title" = "Lire davantage";
 "article-reference-view-title" = "Référence $1";
 "article-revision-history" = "Historique des révisions de l’article";
@@ -234,6 +236,7 @@
 "description-welcome-descriptions-title" = "Descriptions d’articles";
 "description-welcome-promise-title" = "En commençant, je promets de ne pas faire mauvais emploi de cette fonctionnalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
+"diff-article-revision-history" = "Historique des révisions de l’article";
 "diff-compare-header-from-info-heading" = "Modification précédente";
 "diff-compare-header-heading" = "Comparer les versions";
 "diff-compare-header-to-info-heading" = "Modification affichée";
@@ -274,7 +277,12 @@
 "diff-unedited-lines-format" = "$1 ligne{{PLURAL:$1||s}} restaurée{{PLURAL:$1||s}}";
 "diff-user-button-accessibility-text" = "Taper deux fois pour ouvrir le menu";
 "dim-images" = "Assombrir les images";
+"donate-accessibility-amount-button-hint" = "Appuyez deux fois pour sélectionner le montant du don.";
+"donate-accessibility-donate-hint-format" = "Appuyez deux fois pour faire un don de $1 à la Fondation Wikimedia.";
+"donate-accessibility-email-opt-in-hint" = "Appuyez deux fois pour autoriser la Fondation Wikimedia à vous envoyer un courriel.";
 "donate-later-title" = "Nous vous le rappellerons demain.";
+"donate-success-title" = "Merci !";
+"donate-title" = "Sélectionnez le montant";
 "donate-transaction-fee-opt-in-text" = "J'ajouterai généreusement $1 pour couvrir les frais de transaction afin de que vous puissiez conserver 100%% de mon don.";
 "edit-bold-accessibility-label" = "Ajouter une mise en forme en gras";
 "edit-bold-remove-accessibility-label" = "Supprimer la mise en forme en gras";
@@ -927,6 +935,8 @@
 "replace-replace-all-results-count" = "$1 élément{{PLURAL:$1||s}} remplacé{{PLURAL:$1||s}}";
 "replace-textfield-accessibility" = "Remplacer";
 "replace-textfield-placeholder" = "Remplacer par...";
+"return-button-title" = "Retour";
+"return-to-article" = "Retour à l’article";
 "reverted-edit-title" = "Contribution annulée";
 "saved-all-articles-title" = "Tous les articles";
 "saved-default-reading-list-tag" = "Cette liste ne peut pas être supprimée";
