@@ -19,8 +19,9 @@ final class WKSourceEditorFormatterTests: XCTestCase {
     var underlineFormatter: WKSourceEditorFormatterUnderline!
     var linkFormatter: WKSourceEditorFormatterLink!
     var commentFormatter: WKSourceEditorFormatterComment!
+    var findAndReplaceFormatter: WKSourceEditorFormatterFindAndReplace!
     var formatters: [WKSourceEditorFormatter] {
-        return [baseFormatter, templateFormatter, boldItalicsFormatter, referenceFormatter, listFormatter, headingFormatter, strikethroughFormatter, subscriptFormatter, superscriptFormatter, underlineFormatter, linkFormatter, commentFormatter]
+        return [baseFormatter, templateFormatter, boldItalicsFormatter, referenceFormatter, listFormatter, headingFormatter, strikethroughFormatter, subscriptFormatter, superscriptFormatter, underlineFormatter, linkFormatter, commentFormatter, findAndReplaceFormatter]
     }
 
     override func setUpWithError() throws {
@@ -33,6 +34,10 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.colors.greenForegroundColor = WKTheme.light.editorGreen
         self.colors.blueForegroundColor = WKTheme.light.editorBlue
         self.colors.grayForegroundColor = WKTheme.light.editorGray
+        self.colors.matchForegroundColor = WKTheme.light.editorMatchForeground
+        self.colors.matchBackgroundColor = WKTheme.light.editorMatchBackground
+        self.colors.selectedMatchBackgroundColor = WKTheme.light.editorSelectedMatchBackground
+        self.colors.replacedMatchBackgroundColor = WKTheme.light.editorReplacedMatchBackground
 
         self.fonts = WKSourceEditorFonts()
         self.fonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
@@ -57,6 +62,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.underlineFormatter = WKSourceEditorFormatterUnderline(colors: colors, fonts: fonts)
         self.linkFormatter = WKSourceEditorFormatterLink(colors: colors, fonts: fonts)
         self.commentFormatter = WKSourceEditorFormatterComment(colors: colors, fonts: fonts)
+        self.findAndReplaceFormatter = WKSourceEditorFormatterFindAndReplace(colors: colors, fonts: fonts)
     }
 
     override func tearDownWithError() throws {
@@ -1547,7 +1553,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         let mutAttributedString = NSMutableAttributedString(string: string)
 
         for formatter in formatters {
-            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+         formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
         }
 
         var base1Range = NSRange(location: 0, length: 0)
@@ -1594,5 +1600,97 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(base2Range.length, 8, "Incorrect base formatting")
         XCTAssertEqual(base2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
         XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+    }
+    
+    func testFind() {
+        let string = "Find a '''word''' and highlight that word."
+        let mutAttributedString = NSMutableAttributedString(string: string)
+
+        for formatter in formatters {
+            formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+
+        findAndReplaceFormatter.startMatchSession(withFullAttributedString: mutAttributedString, searchText: "word")
+        findAndReplaceFormatter.highlightNextMatch(inFullAttributedString: mutAttributedString, afterRangeValue: nil)
+
+        // "Find a "
+        var base1Range = NSRange(location: 0, length: 0)
+        let base1Attributes = mutAttributedString.attributes(at: 0, effectiveRange: &base1Range)
+
+        // '''
+        var boldOpenRange = NSRange(location: 0, length: 0)
+        let boldOpenAttributes = mutAttributedString.attributes(at: 7, effectiveRange: &boldOpenRange)
+
+        // word
+        var match1Range = NSRange(location: 0, length: 0)
+        var match1Attributes = mutAttributedString.attributes(at: 10, effectiveRange: &match1Range)
+
+        // '''
+        var boldCloseRange = NSRange(location: 0, length: 0)
+        let boldCloseAttributes = mutAttributedString.attributes(at: 14, effectiveRange: &boldCloseRange)
+
+        // " and highlight that "
+        var base2Range = NSRange(location: 0, length: 0)
+        let base2Attributes = mutAttributedString.attributes(at: 17, effectiveRange: &base2Range)
+
+        // word
+        var match2Range = NSRange(location: 0, length: 0)
+        var match2Attributes = mutAttributedString.attributes(at: 37, effectiveRange: &match2Range)
+
+        // "."
+        var base3Range = NSRange(location: 0, length: 0)
+        let base3Attributes = mutAttributedString.attributes(at: 41, effectiveRange: &base3Range)
+
+        // "Find a "
+        XCTAssertEqual(base1Range.location, 0, "Incorrect base formatting")
+        XCTAssertEqual(base1Range.length, 7, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+
+        // "'''"
+        XCTAssertEqual(boldOpenRange.location, 7, "Incorrect bold formatting")
+        XCTAssertEqual(boldOpenRange.length, 3, "Incorrect bold formatting")
+        XCTAssertEqual(boldOpenAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect bold formatting")
+        XCTAssertEqual(boldOpenAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect bold formatting")
+
+        // "word"
+        XCTAssertEqual(match1Range.location, 10, "Incorrect match formatting")
+        XCTAssertEqual(match1Range.length, 4, "Incorrect match formatting")
+        XCTAssertEqual(match1Attributes[.font] as! UIFont, fonts.boldFont, "Incorrect match formatting")
+        XCTAssertEqual(match1Attributes[.foregroundColor] as! UIColor, colors.matchForegroundColor, "Incorrect bmatchase formatting")
+        XCTAssertEqual(match1Attributes[.backgroundColor] as! UIColor, colors.selectedMatchBackgroundColor, "Incorrect match formatting")
+
+        // "'''"
+        XCTAssertEqual(boldCloseRange.location, 14, "Incorrect bold formatting")
+        XCTAssertEqual(boldCloseRange.length, 3, "Incorrect bold formatting")
+        XCTAssertEqual(boldCloseAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect bold formatting")
+        XCTAssertEqual(boldCloseAttributes[.foregroundColor] as! UIColor, colors.orangeForegroundColor, "Incorrect bold formatting")
+
+        // " and highlight that "
+        XCTAssertEqual(base2Range.location, 17, "Incorrect base formatting")
+        XCTAssertEqual(base2Range.length, 20, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+
+        // "word"
+        XCTAssertEqual(match2Range.location, 37, "Incorrect match formatting")
+        XCTAssertEqual(match2Range.length, 4, "Incorrect match formatting")
+        XCTAssertEqual(match2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect match formatting")
+        XCTAssertEqual(match2Attributes[.foregroundColor] as! UIColor, colors.matchForegroundColor, "Incorrect bmatchase formatting")
+        XCTAssertEqual(match2Attributes[.backgroundColor] as! UIColor, colors.matchBackgroundColor, "Incorrect match formatting")
+
+        // "."
+        XCTAssertEqual(base3Range.location, 41, "Incorrect base formatting")
+        XCTAssertEqual(base3Range.length, 1, "Incorrect base formatting")
+        XCTAssertEqual(base3Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base3Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+        
+        // Check that selected background color has now switched to 2nd instance
+        findAndReplaceFormatter.highlightNextMatch(inFullAttributedString: mutAttributedString, afterRangeValue: nil)
+        match1Attributes = mutAttributedString.attributes(at: 10, effectiveRange: &match1Range)
+        match2Attributes = mutAttributedString.attributes(at: 37, effectiveRange: &match2Range)
+
+        XCTAssertEqual(match1Attributes[.backgroundColor] as! UIColor, colors.matchBackgroundColor, "Incorrect match formatting")
+        XCTAssertEqual(match2Attributes[.backgroundColor] as! UIColor, colors.selectedMatchBackgroundColor, "Incorrect match formatting")
     }
 }

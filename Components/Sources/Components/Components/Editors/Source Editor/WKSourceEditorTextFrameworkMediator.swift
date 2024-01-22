@@ -60,9 +60,15 @@ fileprivate var needsTextKit2: Bool {
 
 }
 
+protocol WKSourceEditorFindAndReplaceScrollDelegate: NSObject {
+    func scrollToCurrentMatch()
+}
+
 final class WKSourceEditorTextFrameworkMediator: NSObject {
     
     private let viewModel: WKSourceEditorViewModel
+    weak var delegate: WKSourceEditorFindAndReplaceScrollDelegate?
+    
     private let textKit1Storage: WKSourceEditorTextStorage?
     private let textKit2Storage: NSTextContentStorage?
     
@@ -79,6 +85,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     private(set) var superscriptFormatter: WKSourceEditorFormatterSuperscript?
     private(set) var linkFormatter: WKSourceEditorFormatterLink?
     private(set) var commentFormatter: WKSourceEditorFormatterComment?
+    private(set) var findAndReplaceFormatter: WKSourceEditorFormatterFindAndReplace?
 
     var isSyntaxHighlightingEnabled: Bool = true {
         didSet {
@@ -156,8 +163,8 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let superscriptFormatter = WKSourceEditorFormatterSuperscript(colors: colors, fonts: fonts)
         let linkFormatter = WKSourceEditorFormatterLink(colors: colors, fonts: fonts)
         let commentFormatter = WKSourceEditorFormatterComment(colors: colors, fonts: fonts)
-
-
+        let findAndReplaceFormatter = WKSourceEditorFormatterFindAndReplace(colors: colors, fonts: fonts)
+        
         self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
             templateFormatter,
             boldItalicsFormatter,
@@ -169,7 +176,8 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             subscriptFormatter,
             underlineFormatter,
             linkFormatter,
-            commentFormatter]
+            commentFormatter,
+            findAndReplaceFormatter]
 
         self.boldItalicsFormatter = boldItalicsFormatter
         self.templateFormatter = templateFormatter
@@ -182,6 +190,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         self.underlineFormatter = underlineFormatter
         self.linkFormatter = linkFormatter
         self.commentFormatter = commentFormatter
+        self.findAndReplaceFormatter = findAndReplaceFormatter
 
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
@@ -202,19 +211,13 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
                 })
             }
         } else {
+            textKit1Storage?.syntaxHighlightProcessingEnabled = false
             textKit1Storage?.updateColorsAndFonts()
+            textKit1Storage?.syntaxHighlightProcessingEnabled = true
+            
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedEnsureLayoutTextkit1), object: nil)
             perform(#selector(debouncedEnsureLayoutTextkit1), with: nil, afterDelay: 0.1)
         }
-    }
-    
-    @objc private func debouncedEnsureLayoutTextkit1() {
-        
-        guard !needsTextKit2 else {
-            return
-        }
-        
-       textView.layoutManager.ensureLayout(forCharacterRange: NSRange(location: 0, length: textView.attributedText.length))
     }
     
     func selectionState(selectedDocumentRange: NSRange) -> WKSourceEditorSelectionState {
@@ -278,7 +281,114 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         }
     }
     
-    func textkit2SelectionData(selectedDocumentRange: NSRange) -> (paragraphAttributedString: NSMutableAttributedString, paragraphSelectedRange: NSRange)? {
+    func findStart(text: String) {
+        
+        guard !text.isEmpty else {
+            return
+        }
+        
+        guard let fullAttributedString else {
+            return
+        }
+
+        if needsTextKit2 {
+            if #available(iOS 16.0, *) {
+                textView.textLayoutManager?.textContentManager?.performEditingTransaction {
+                    self.findAndReplaceFormatter?.startMatchSession(withFullAttributedString: fullAttributedString, searchText: text)
+                }
+            }
+        } else {
+
+            textKit1Storage?.syntaxHighlightProcessingEnabled = false
+            findAndReplaceFormatter?.startMatchSession(withFullAttributedString: fullAttributedString, searchText: text)
+            textKit1Storage?.syntaxHighlightProcessingEnabled = true
+        }
+        
+        findNext(afterRange: textView.selectedRange)
+
+        self.delegate?.scrollToCurrentMatch()
+    }
+    
+    func findNext(afterRange: NSRange?) {
+        guard let fullAttributedString else {
+            return
+        }
+        
+        let afterRangeValue: NSValue?
+        if let afterRange {
+            afterRangeValue = NSValue(range: afterRange)
+        } else {
+            afterRangeValue = nil
+        }
+        if needsTextKit2 {
+            if #available(iOS 16.0, *) {
+                
+                textView.textLayoutManager?.textContentManager?.performEditingTransaction {
+                    self.findAndReplaceFormatter?.highlightNextMatch(inFullAttributedString: fullAttributedString, afterRangeValue: afterRangeValue)
+
+                }
+            }
+        } else {
+            textKit1Storage?.syntaxHighlightProcessingEnabled = false
+            findAndReplaceFormatter?.highlightNextMatch(inFullAttributedString: fullAttributedString, afterRangeValue: afterRangeValue)
+            textKit1Storage?.syntaxHighlightProcessingEnabled = true
+        }
+        
+        self.delegate?.scrollToCurrentMatch()
+    }
+    
+    func findPrevious() {
+        guard let fullAttributedString else {
+            return
+        }
+        
+        if needsTextKit2 {
+            if #available(iOS 16.0, *) {
+                textView.textLayoutManager?.textContentManager?.performEditingTransaction {
+                    self.findAndReplaceFormatter?.highlightPreviousMatch(inFullAttributedString: fullAttributedString)
+
+                }
+            }
+        } else {
+            textKit1Storage?.syntaxHighlightProcessingEnabled = false
+            findAndReplaceFormatter?.highlightPreviousMatch(inFullAttributedString: fullAttributedString)
+            textKit1Storage?.syntaxHighlightProcessingEnabled = true
+        }
+        
+        self.delegate?.scrollToCurrentMatch()
+    }
+    
+    func findReset() {
+        guard let fullAttributedString else {
+            return
+        }
+        
+        if needsTextKit2 {
+            
+            if #available(iOS 16.0, *) {
+                textView.textLayoutManager?.textContentManager?.performEditingTransaction {
+                    self.findAndReplaceFormatter?.endMatchSession(withFullAttributedString: fullAttributedString)
+                }
+            }
+            
+        } else {
+            self.findAndReplaceFormatter?.endMatchSession(withFullAttributedString: fullAttributedString)
+        }
+        
+    }
+    
+    // MARK: Private
+    
+    @objc private func debouncedEnsureLayoutTextkit1() {
+        
+        guard !needsTextKit2 else {
+            return
+        }
+        
+       textView.layoutManager.ensureLayout(forCharacterRange: NSRange(location: 0, length: textView.attributedText.length))
+    }
+    
+    private func textkit2SelectionData(selectedDocumentRange: NSRange) -> (paragraphAttributedString: NSMutableAttributedString, paragraphSelectedRange: NSRange)? {
         guard needsTextKit2 else {
             return nil
         }
@@ -302,7 +412,24 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         
         return nil
     }
+    
+    private var fullAttributedString: NSMutableAttributedString? {
+        if needsTextKit2 {
+            if #available(iOS 16.0, *) {
+                let textContentManager = textView.textLayoutManager?.textContentManager
+                guard let attributedString = (textContentManager as? NSTextContentStorage)?.textStorage else {
+                    return nil
+                }
+
+                return attributedString
+            }
+        }
+        
+        return textKit1Storage
+    }
 }
+
+// MARK: WKSourceEditorStorageDelegate
 
 extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
     
@@ -314,6 +441,10 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         colors.greenForegroundColor = isSyntaxHighlightingEnabled ?  WKAppEnvironment.current.theme.editorGreen : WKAppEnvironment.current.theme.text
         colors.blueForegroundColor = isSyntaxHighlightingEnabled ? WKAppEnvironment.current.theme.editorBlue : WKAppEnvironment.current.theme.text
         colors.grayForegroundColor = isSyntaxHighlightingEnabled ?  WKAppEnvironment.current.theme.editorGray : WKAppEnvironment.current.theme.text
+        colors.matchForegroundColor = WKAppEnvironment.current.theme.editorMatchForeground
+        colors.matchBackgroundColor = WKAppEnvironment.current.theme.editorMatchBackground
+        colors.selectedMatchBackgroundColor = WKAppEnvironment.current.theme.editorSelectedMatchBackground
+        colors.replacedMatchBackgroundColor = WKAppEnvironment.current.theme.editorReplacedMatchBackground
         return colors
     }
     
@@ -334,6 +465,8 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         return fonts
     }
 }
+
+// MARK: NSTextContentStorageDelegate
 
  extension WKSourceEditorTextFrameworkMediator: NSTextContentStorageDelegate {
 
@@ -357,6 +490,8 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
         return NSTextParagraph(attributedString: attributedString)
     }
 }
+
+// MARK: NSTextContentStorage Extensions
 
 fileprivate extension NSTextContentStorage {
     func textRangeForDocumentNSRange(_ documentNSRange: NSRange) -> NSTextRange? {

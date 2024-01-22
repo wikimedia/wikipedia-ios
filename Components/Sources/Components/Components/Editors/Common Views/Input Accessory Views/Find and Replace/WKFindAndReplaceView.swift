@@ -1,5 +1,11 @@
 import UIKit
 
+protocol WKFindAndReplaceViewDelegate: AnyObject {
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String)
+    func findAndReplaceViewDidTapNext(_ view: WKFindAndReplaceView)
+    func findAndReplaceViewDidTapPrevious(_ view: WKFindAndReplaceView)
+}
+
 class WKFindAndReplaceView: WKComponentView {
     
     // MARK: - IBOutlet Properties
@@ -12,7 +18,7 @@ class WKFindAndReplaceView: WKComponentView {
     @IBOutlet private var findStackView: UIStackView!
     @IBOutlet private var nextPrevButtonStackView: UIStackView!
     @IBOutlet private(set) var findTextField: UITextField!
-    @IBOutlet private var currentMatchLabel: UILabel!
+    @IBOutlet private var currentMatchInfoLabel: UILabel!
     @IBOutlet private var findClearButton: UIButton!
     @IBOutlet private var closeButton: UIButton!
     @IBOutlet private var nextButton: UIButton!
@@ -31,7 +37,8 @@ class WKFindAndReplaceView: WKComponentView {
     @IBOutlet private var pencilImageView: UIImageView!
     @IBOutlet private weak var replaceTextfieldContainer: UIView!
     
-    private var viewModel: WKFindAndReplaceViewModel?
+    weak var delegate: WKFindAndReplaceViewDelegate?
+    var viewModel: WKFindAndReplaceViewModel?
     
     // MARK: - Lifecycle
     
@@ -67,12 +74,14 @@ class WKFindAndReplaceView: WKComponentView {
         replaceTextField.adjustsFontForContentSizeCategory = true
         replaceTextField.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
         replaceTextField.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceTextField
+        replaceTextField.autocorrectionType = .yes
+        replaceTextField.spellCheckingType = .yes
+        
         replaceTypeLabel.text = WKSourceEditorLocalizedStrings.current.findReplaceTypeSingle
         replaceTypeLabel.isAccessibilityElement = false
 
-        currentMatchLabel.adjustsFontForContentSizeCategory = true
-        currentMatchLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
-        currentMatchLabel.text = "1 / 10" // TODO
+        currentMatchInfoLabel.adjustsFontForContentSizeCategory = true
+        currentMatchInfoLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
 
         replaceTypeLabel.adjustsFontForContentSizeCategory = true
         replaceTypeLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
@@ -92,10 +101,21 @@ class WKFindAndReplaceView: WKComponentView {
     
     // MARK: - Internal
     
-    func configure(viewModel: WKFindAndReplaceViewModel) {
+    func update(viewModel: WKFindAndReplaceViewModel) {
         self.viewModel = viewModel
         
         updateConfiguration(configuration: viewModel.configuration)
+        
+        let findIsEmpty = (findTextField.text ?? "").isEmpty
+        if let currentMatchInfo = viewModel.currentMatchInfo,
+           !findIsEmpty {
+            currentMatchInfoLabel.text = "\(currentMatchInfo)"
+        } else {
+            currentMatchInfoLabel.text = nil
+        }
+        
+        nextButton.isEnabled = viewModel.nextPrevButtonsAreEnabled
+        previousButton.isEnabled = viewModel.nextPrevButtonsAreEnabled
     }
     
     // MARK: - Overrides
@@ -121,6 +141,8 @@ class WKFindAndReplaceView: WKComponentView {
     // MARK: - Button Actions
     
     @IBAction private func tappedFindClear() {
+        findTextField.text = ""
+        debouncedFindTextfieldDidChange()
     }
     
     @IBAction private func tappedReplaceClear() {
@@ -130,9 +152,11 @@ class WKFindAndReplaceView: WKComponentView {
     }
     
     @IBAction private func tappedNext() {
+        delegate?.findAndReplaceViewDidTapNext(self)
     }
     
     @IBAction private func tappedPrevious() {
+        delegate?.findAndReplaceViewDidTapPrevious(self)
     }
     
     @IBAction private func tappedReplace() {
@@ -142,6 +166,10 @@ class WKFindAndReplaceView: WKComponentView {
     }
     
     @IBAction private func textFieldDidChange(_ sender: UITextField) {
+        if sender == self.findTextField {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedFindTextfieldDidChange), object: nil)
+            perform(#selector(debouncedFindTextfieldDidChange), with: nil, afterDelay: 0.5)
+        }
     }
     
     // MARK: - Private Helpers
@@ -154,14 +182,14 @@ class WKFindAndReplaceView: WKComponentView {
             findStackView.insertArrangedSubview(nextPrevButtonStackView, at: 0)
             outerStackViewLeadingConstraint.constant = 10
             outerStackViewTrailingConstraint.constant = 5
-            accessibilityElements = [previousButton, nextButton, findTextField, currentMatchLabel, findClearButton, closeButton].compactMap { $0 as Any }
+            accessibilityElements = [previousButton, nextButton, findTextField, currentMatchInfoLabel, findClearButton, closeButton].compactMap { $0 as Any }
         case .findAndReplace:
             replaceStackView.isHidden = false
             closeButton.isHidden = true
             findStackView.addArrangedSubview(nextPrevButtonStackView)
             outerStackViewLeadingConstraint.constant = 18
             outerStackViewTrailingConstraint.constant = 18
-            accessibilityElements = [findTextField, currentMatchLabel, findClearButton, previousButton, nextButton, replaceTextField, replaceClearButton, replaceButton, replaceSwitchButton].compactMap { $0 as Any }
+            accessibilityElements = [findTextField, currentMatchInfoLabel, findClearButton, previousButton, nextButton, replaceTextField, replaceClearButton, replaceButton, replaceSwitchButton].compactMap { $0 as Any }
         }
     }
     
@@ -178,7 +206,7 @@ class WKFindAndReplaceView: WKComponentView {
         nextButton.tintColor = theme.inputAccessoryButtonTint
         magnifyImageView.tintColor = theme.inputAccessoryButtonTint
         findClearButton.tintColor = theme.inputAccessoryButtonTint
-        currentMatchLabel.textColor = theme.secondaryText
+        currentMatchInfoLabel.textColor = theme.secondaryText
         
         replaceTextField.keyboardAppearance = theme.keyboardAppearance
         replaceTextfieldContainer.backgroundColor = theme.keyboardBarSearchFieldBackground
@@ -189,5 +217,15 @@ class WKFindAndReplaceView: WKComponentView {
         replaceClearButton.tintColor = theme.inputAccessoryButtonTint
         replaceTypeLabel.textColor = theme.secondaryText
         replacePlaceholderLabel.textColor = theme.secondaryText
+    }
+    
+    @objc private func debouncedFindTextfieldDidChange() {
+
+        guard let text = findTextField.text else {
+            return
+        }
+
+        // TODO: also call from keyboard search button
+        delegate?.findAndReplaceView(self, didChangeFindText: text)
     }
 }
