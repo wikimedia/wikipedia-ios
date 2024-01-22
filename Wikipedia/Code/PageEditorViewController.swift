@@ -66,7 +66,7 @@ final class PageEditorViewController: UIViewController {
     private func setupFocusNavigationView() {
 
         let closeAccessibilityText = WMFLocalizedString("find-replace-header-close-accessibility", value: "Close find and replace", comment: "Accessibility label for closing the find and replace view.")
-        let headerTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
+        let headerTitle = CommonStrings.findReplaceHeader
         
         focusNavigationView.configure(titleText: headerTitle, closeButtonAccessibilityText: closeAccessibilityText, traitCollection: traitCollection)
         
@@ -115,7 +115,7 @@ final class PageEditorViewController: UIViewController {
                                                               inputViewSubheading4: CommonStrings.subheading4,
                                                               findReplaceTypeSingle: CommonStrings.findAndReplaceSingle,
                                                               findReplaceTypeAll: CommonStrings.findAndReplaceAll,
-                                                              findReplaceWith: CommonStrings.replaceWith,
+                                                              findReplaceWith: CommonStrings.replaceWith, findReplaceTypeMenuTitle: CommonStrings.findReplaceHeader,
                                                               accessibilityLabelButtonFormatText: CommonStrings.accessibilityLabelButtonFormatText,
                                                               accessibilityLabelButtonCitation: CommonStrings.accessibilityLabelButtonCitation,
                                                               accessibilityLabelButtonCitationSelected: CommonStrings.accessibilityLabelButtonCitationSelected,
