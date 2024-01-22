@@ -2,10 +2,12 @@ import Foundation
 import UIKit
 
 public protocol WKSourceEditorViewControllerDelegate: AnyObject {
-    func sourceEditorViewControllerDidTapFind(sourceEditorViewController: WKSourceEditorViewController)
-    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: WKSourceEditorViewController)
+    func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WKSourceEditorViewController)
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: WKSourceEditorViewController)
     func sourceEditorViewControllerDidTapLink(parameters: WKSourceEditorFormatterLinkWizardParameters)
     func sourceEditorViewControllerDidTapImage()
+    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: WKSourceEditorViewController, canUndo: Bool, canRedo: Bool)
+    func sourceEditorDidChangeText(_ sourceEditorViewController: WKSourceEditorViewController, didChangeText: Bool)
 }
 
 // MARK: NSNotification Names
@@ -98,7 +100,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
             }
             
             if oldValue == .find && inputAccessoryViewType != .find {
-                delegate?.sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: self)
+                delegate?.sourceEditorViewControllerDidRemoveFindInputAccessoryView(self)
             }
             
             switch inputAccessoryViewType {
@@ -226,6 +228,14 @@ public class WKSourceEditorViewController: WKComponentViewController {
     public func insertImage(wikitext: String) {
         textFrameworkMediator.linkFormatter?.insertImage(wikitext: wikitext, in: textView)
     }
+    
+    public func undo() {
+        textView.undoManager?.undo()
+    }
+    
+    public func redo() {
+        textView.undoManager?.redo()
+    }
 }
 
 // MARK: - Private
@@ -294,6 +304,11 @@ extension WKSourceEditorViewController: UITextViewDelegate {
         inputAccessoryViewType = isRangeSelected ? .highlight : .expanding
         postUpdateButtonSelectionStatesNotification(withDelay: false)
     }
+    
+    public func textViewDidChange(_ textView: UITextView) {
+        delegate?.sourceEditorDidChangeUndoState(self, canUndo: textView.undoManager?.canUndo ?? false, canRedo: textView.undoManager?.canRedo ?? false)
+        delegate?.sourceEditorDidChangeText(self, didChangeText: textView.attributedText.string != viewModel.initialText)
+    }
 }
 
 // MARK: - WKEditorToolbarExpandingViewDelegate
@@ -302,7 +317,7 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
     
     func toolbarExpandingViewDidTapFind(toolbarView: WKEditorToolbarExpandingView) {
         inputAccessoryViewType = .find
-        delegate?.sourceEditorViewControllerDidTapFind(sourceEditorViewController: self)
+        delegate?.sourceEditorViewControllerDidTapFind(self)
     }
     
     func toolbarExpandingViewDidTapFormatText(toolbarView: WKEditorToolbarExpandingView) {
