@@ -4,11 +4,6 @@ import UIKit
 public enum WKIcon {
     
     static let checkmark = UIImage(named: "checkmark", in: .module, with: nil)
-    static let chevronDown = UIImage(named: "chevron-down", in: .module, with: nil)
-    static let chevronLeft = UIImage(named: "chevron-left", in: .module, with: nil)
-    static let chevronRight = UIImage(named: "chevron-right", in: .module, with: nil)
-    static let chevronRightCircle = UIImage(named: "chevron-right-circle", in: .module, with: nil)
-    static let chevronUp = UIImage(named: "chevron-up", in: .module, with: nil)
     static let close = UIImage(named: "close", in: .module, with: nil)
     static let closeCircle = UIImage(named: "close-circle", in: .module, with: nil)
     static let exclamationPointCircle = UIImage(named: "exclamation-point-circle", in: .module, with: nil)
@@ -111,9 +106,9 @@ public enum WKSFSymbolIcon {
         case .listNumber:
             return UIImage(systemName: "list.number", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .increaseIndent:
-            return UIImage(systemName: "increase.indent", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            return UIImage(systemName: "increase.indent", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate).imageFlippedForRightToLeftLayoutDirection()
         case .decreaseIndent:
-            return UIImage(systemName: "decrease.indent", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            return UIImage(systemName: "decrease.indent", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate).imageFlippedForRightToLeftLayoutDirection()
         case .chevronUp:
             return UIImage(systemName: "chevron.up", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .chevronDown:
@@ -139,7 +134,7 @@ public enum WKSFSymbolIcon {
         case .multiplyCircleFill:
             return UIImage(systemName: "multiply.circle.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .chevronRightCircle:
-            return UIImage(systemName: "chevron.right.circle.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            return UIImage(systemName: "chevron.right.circle.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate).imageFlippedForRightToLeftLayoutDirection()
         case .close:
             return UIImage(systemName: "multiply", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .ellipsis:

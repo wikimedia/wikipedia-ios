@@ -11,6 +11,10 @@ protocol WKEditorToolbarExpandingViewDelegate: AnyObject {
     func toolbarExpandingViewDidTapOrderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
     func toolbarExpandingViewDidTapIncreaseIndent(toolbarView: WKEditorToolbarExpandingView)
     func toolbarExpandingViewDidTapDecreaseIndent(toolbarView: WKEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapCursorUp(toolbarView: WKEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapCursorDown(toolbarView: WKEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapCursorLeft(toolbarView: WKEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapCursorRight(toolbarView: WKEditorToolbarExpandingView)
 }
 
 class WKEditorToolbarExpandingView: WKEditorToolbarView {
@@ -126,19 +130,19 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         increaseIndentionButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonInceaseIndent
         increaseIndentionButton.isEnabled = false
 
-        cursorUpButton.setImage(WKIcon.chevronUp, for: .normal)
+        cursorUpButton.setImage(WKSFSymbolIcon.for(symbol: .chevronUp), for: .normal)
         cursorUpButton.addTarget(self, action: #selector(tappedCursorUp), for: .touchUpInside)
         cursorUpButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonCursorUp
 
-        cursorDownButton.setImage(WKIcon.chevronDown, for: .normal)
+        cursorDownButton.setImage(WKSFSymbolIcon.for(symbol: .chevronDown), for: .normal)
         cursorDownButton.addTarget(self, action: #selector(tappedCursorDown), for: .touchUpInside)
         cursorDownButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonCursorDown
 
-        cursorLeftButton.setImage(WKIcon.chevronLeft, for: .normal)
+        cursorLeftButton.setImage(WKSFSymbolIcon.for(symbol: .chevronBackward), for: .normal)
         cursorLeftButton.addTarget(self, action: #selector(tappedCursorLeft), for: .touchUpInside)
         cursorLeftButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonCursorLeft
 
-        cursorRightButton.setImage(WKIcon.chevronRight, for: .normal)
+        cursorRightButton.setImage(WKSFSymbolIcon.for(symbol: .chevronForward), for: .normal)
         cursorRightButton.addTarget(self, action: #selector(tappedCursorRight), for: .touchUpInside)
         cursorRightButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonCursorRight
         
@@ -251,15 +255,19 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     }
 
     @objc private func tappedCursorUp() {
+        delegate?.toolbarExpandingViewDidTapCursorUp(toolbarView: self)
     }
 
     @objc private func tappedCursorDown() {
+        delegate?.toolbarExpandingViewDidTapCursorDown(toolbarView: self)
     }
 
     @objc private func tappedCursorLeft() {
+        delegate?.toolbarExpandingViewDidTapCursorLeft(toolbarView: self)
     }
 
     @objc private func tappedCursorRight() {
+        delegate?.toolbarExpandingViewDidTapCursorRight(toolbarView: self)
     }
 
     @objc private func tappedTemplate() {
