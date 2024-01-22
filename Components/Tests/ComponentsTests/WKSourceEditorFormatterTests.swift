@@ -1690,7 +1690,9 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         match1Attributes = mutAttributedString.attributes(at: 10, effectiveRange: &match1Range)
         match2Attributes = mutAttributedString.attributes(at: 37, effectiveRange: &match2Range)
 
+        XCTAssertEqual(match1Attributes[.foregroundColor] as! UIColor, colors.matchForegroundColor, "Incorrect match formatting")
         XCTAssertEqual(match1Attributes[.backgroundColor] as! UIColor, colors.matchBackgroundColor, "Incorrect match formatting")
+        XCTAssertEqual(match2Attributes[.foregroundColor] as! UIColor, colors.matchForegroundColor, "Incorrect match formatting")
         XCTAssertEqual(match2Attributes[.backgroundColor] as! UIColor, colors.selectedMatchBackgroundColor, "Incorrect match formatting")
     }
 }
