@@ -678,12 +678,14 @@
 "notifications-center-feed-card-title" = "Теперь доступно редактирование уведомлений";
 "notifications-center-feed-news-notification-button-text" = "Включить пуш-уведомления";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Не сейчас";
+"notifications-center-feed-news-notification-text" = "Уведомления о редактировании для всех проектов Викимедиа теперь доступны через приложение. Включите push-уведомления, чтобы быть в курсе ваших сообщений в Википедии на ходу.";
 "notifications-center-filters-accessibility-label" = "Фильтр уведомлений";
 "notifications-center-filters-read-status-item-title-all" = "Все";
 "notifications-center-filters-read-status-item-title-read" = "Читать";
 "notifications-center-filters-read-status-item-title-unread" = "Непрочитанные";
 "notifications-center-filters-read-status-section-title" = "Статус прочтения";
 "notifications-center-filters-title" = "Фильтры";
+"notifications-center-filters-types-footer" = "Чтобы отфильтровать поступление уведомлений в папке уведомлений, измените типы входящих уведомлений. Отключённые типы не будут видны, но их содержимое и любые новые уведомления будут доступны при повторном включении переключателя.";
 "notifications-center-filters-types-item-title-all" = "Все типы";
 "notifications-center-filters-types-section-title" = "Типы уведомлений";
 "notifications-center-go-to-article" = "Статья";
@@ -702,6 +704,8 @@
 "notifications-center-login-notifications" = "Уведомления о входе";
 "notifications-center-mark" = "Пометить";
 "notifications-center-mark-all-as-read" = "Отметить всё прочитанным";
+"notifications-center-mark-all-as-read-confirmation-format" = "Вы уверены, что хотите пометить все сообщения ({{PLURAL:$1|$1 шт.}}) о ваших уведомлений как прочитанные? Ваши уведомления будут помечены как прочитанные на всех ваших устройствах.";
+"notifications-center-mark-all-as-read-missing-number" = "Вы уверены, что хотите пометить все ваши уведомления как прочитанные? Ваши уведомления будут помечены как прочитанные на всех ваших устройствах.";
 "notifications-center-mark-as-read" = "Отметить как прочитанное";
 "notifications-center-mark-as-unread" = "Пометить как непрочитанное";
 "notifications-center-more-action-accessibility-label" = "Больше";
@@ -818,6 +822,7 @@
 "panel-compare-revisions-text" = "Сравнение редакций помогает показать, как статья менялась с течением времени. Сравнение двух редакций статьи покажет разницу между этими редакциями, выделив все содержание, которое было изменено.";
 "panel-compare-revisions-title" = "Сравнение версий";
 "panel-not-logged-in-continue-edit-action-title" = "Редактировать без входа в систему";
+"panel-not-logged-in-subtitle" = "Если вы внесёте какие-либо правки, ваш IP-адрес будет общедоступно виден. Если вы $1войдёте в систему$2 или $3создадите учётную запись$4, ваши правки будут связаны с вашим именем пользователя, а также с другими преимуществами учётной записи.";
 "panel-not-logged-in-title" = "Вы не вошли в систему";
 "pictured" = "иллюстрировано";
 "places-accessibility-clear-saved-searches" = "Очистить сохранённые поисковые запросы";
@@ -1015,7 +1020,9 @@
 "settings-my-languages" = "Мои языки";
 "settings-notifications" = "Пуш-уведомления";
 "settings-notifications-echo-failure-message" = "Во время проверки подписок на уведомления, связанных с вашей учётной записью, произошла ошибка.";
+"settings-notifications-echo-failure-title" = "Невозможно проверить подписки на эхо-уведомления";
 "settings-notifications-echo-failure-try-again" = "Попробовать ещё раз";
+"settings-notifications-header" = "Получайте оповещения о действиях, связанных с вашей учётной записью, таких как сообщения от других участников, оповещения и уведомления. Всё предоставляется с соблюдением конфиденциальности и самой последней информации.";
 "settings-notifications-info" = "Будьте в курсе трендов и самых читаемых статей Википедии используя push-уведомления. Вся информация предоставляется актуальной и с сохранением конфиденциальности.";
 "settings-notifications-learn-more" = "Узнать подробнее об уведомлениях";
 "settings-notifications-push-notifications" = "Push-уведомления";

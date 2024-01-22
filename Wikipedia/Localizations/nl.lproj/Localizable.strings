@@ -172,10 +172,10 @@
 "article-nav-edit" = "Bewerken";
 "article-read-more-title" = "Meer lezen";
 "article-reference-view-title" = "Referentie $1";
-"article-revision-history" = "Bewerkingsgeschiedenis artikel";
+"article-revision-history" = "Bewerkingsgeschiedenis";
 "article-save-error-not-enough-space" = "U hebt onvoldoende ruimte op uw apparaat om dit artikel op te slaan";
 "article-share" = "Deel";
-"article-talk-page" = "Overlegpagina artikel";
+"article-talk-page" = "Overlegpagina";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Instellingen leesthema's";
 "back-button-accessibility-label" = "Terug";
 "back-button-popover-title" = "Tik om terug te keren";
@@ -241,7 +241,7 @@
 "description-welcome-descriptions-title" = "Artikelbeschrijvingen";
 "description-welcome-promise-title" = "Ik beloof dat ik deze functie niet misbruiken zal";
 "description-welcome-start-editing-button" = "Begin met bewerken";
-"diff-article-revision-history" = "Bewerkingsgeschiedenis artikel";
+"diff-article-revision-history" = "Bewerkingsgeschiedenis van artikel";
 "diff-compare-header-from-info-heading" = "Vorige bewerking";
 "diff-compare-header-heading" = "Versies vergelijken";
 "diff-compare-header-to-info-heading" = "Weergegeven bewerking";
