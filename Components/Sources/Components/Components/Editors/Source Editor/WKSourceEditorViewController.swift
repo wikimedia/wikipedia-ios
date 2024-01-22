@@ -34,6 +34,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
     private let viewModel: WKSourceEditorViewModel
     private weak var delegate: WKSourceEditorViewControllerDelegate?
     private let textFrameworkMediator: WKSourceEditorTextFrameworkMediator
+    private var scrollingToMatchCount: Int? = nil
     private var preselectedTextRange: UITextRange?
     
     var textView: UITextView {
@@ -58,9 +59,9 @@ public class WKSourceEditorViewController: WKComponentViewController {
     
     private lazy var findAccessoryView: WKFindAndReplaceView = {
         let view = UINib(nibName: String(describing: WKFindAndReplaceView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKFindAndReplaceView
-        let viewModel = WKFindAndReplaceViewModel()
-        view.configure(viewModel: viewModel)
+        view.update(viewModel: WKFindAndReplaceViewModel())
         view.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.findToolbar
+        view.delegate = self
         return view
     }()
     
@@ -132,6 +133,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
     
     private func setup() {
         textView.delegate = self
+        textFrameworkMediator.delegate = self
         view.addSubview(textView)
         updateColorsAndFonts()
         
@@ -181,8 +183,24 @@ public class WKSourceEditorViewController: WKComponentViewController {
     // MARK: - Public
     
     public func closeFind() {
+        
+        textView.isEditable = true
+        textView.isSelectable = true
         textView.becomeFirstResponder()
+        
+        if let currentRange = textFrameworkMediator.findAndReplaceFormatter?.selectedMatchRange,
+           currentRange.location != NSNotFound {
+            textView.selectedRange = currentRange
+        } else {
+            if let visibleRange = textView.visibleRange {
+                textView.selectedRange = NSRange(location: visibleRange.location, length: 0)
+            } else {
+                textView.selectedRange = NSRange(location: 0, length: 0)
+            }
+        }
+        
         inputAccessoryViewType = .expanding
+        resetFind(clearFindTextField: true)
     }
     
     public func toggleSyntaxHighlighting() {
@@ -280,6 +298,37 @@ private extension WKSourceEditorViewController {
         self.preselectedTextRange = parameters.preselectedTextRange
         delegate?.sourceEditorViewControllerDidTapLink(parameters: parameters)
     }
+    
+    func resetFind(clearFindTextField: Bool) {
+        guard var viewModel = findAccessoryView.viewModel else {
+            return
+        }
+        viewModel.reset()
+        findAccessoryView.update(viewModel: viewModel)
+        if clearFindTextField {
+            findAccessoryView.findTextField.text = ""
+        }
+        textFrameworkMediator.findReset()
+    }
+    
+    func updateFindViewModelState() {
+        
+        guard var viewModel = findAccessoryView.viewModel,
+              let findFormatter = textFrameworkMediator.findAndReplaceFormatter else {
+            return
+        }
+        
+        if findFormatter.selectedMatchIndex != NSNotFound {
+            viewModel.currentMatchInfo = "\(findFormatter.selectedMatchIndex + 1) / \(findFormatter.matchCount)"
+        } else if findFormatter.matchCount == 0 {
+            viewModel.currentMatchInfo = "0 / 0"
+        } else {
+            viewModel.currentMatchInfo = nil
+        }
+        
+        viewModel.nextPrevButtonsAreEnabled = findFormatter.matchCount > 0
+        findAccessoryView.update(viewModel: viewModel)
+    }
 }
 
 // MARK: - UITextViewDelegate
@@ -290,6 +339,11 @@ extension WKSourceEditorViewController: UITextViewDelegate {
             postUpdateButtonSelectionStatesNotification(withDelay: false)
             return
         }
+        
+        if inputAccessoryViewType == .find {
+            return
+        }
+        
         let isRangeSelected = textView.selectedRange.length > 0
         inputAccessoryViewType = isRangeSelected ? .highlight : .expanding
         postUpdateButtonSelectionStatesNotification(withDelay: false)
@@ -303,6 +357,13 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
     func toolbarExpandingViewDidTapFind(toolbarView: WKEditorToolbarExpandingView) {
         inputAccessoryViewType = .find
         delegate?.sourceEditorViewControllerDidTapFind(sourceEditorViewController: self)
+        
+        if let visibleRange = textView.visibleRange {
+            textView.selectedRange = NSRange(location: visibleRange.location, length: 0)
+        }
+        
+        textView.isEditable = false
+        textView.isSelectable = false
     }
     
     func toolbarExpandingViewDidTapFormatText(toolbarView: WKEditorToolbarExpandingView) {
@@ -455,5 +516,74 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
         editorInputViewIsShowing = false
         let isRangeSelected = textView.selectedRange.length > 0
         inputAccessoryViewType = isRangeSelected ? .highlight : .expanding
+    }
+}
+
+// MARK: - WKFindAndReplaceViewDelegate
+
+extension WKSourceEditorViewController: WKFindAndReplaceViewDelegate {
+    func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String) {
+        resetFind(clearFindTextField: false)
+        textFrameworkMediator.findStart(text: text)
+        updateFindViewModelState()
+    }
+    
+    func findAndReplaceViewDidTapNext(_ view: WKFindAndReplaceView) {
+        
+        textFrameworkMediator.findNext(afterRange: nil)
+        updateFindViewModelState()
+    }
+    
+    func findAndReplaceViewDidTapPrevious(_ view: WKFindAndReplaceView) {
+        textFrameworkMediator.findPrevious()
+        updateFindViewModelState()
+    }
+}
+
+// MARK: - WKSourceEditorFindAndReplaceScrollDelegate
+
+extension WKSourceEditorViewController: WKSourceEditorFindAndReplaceScrollDelegate {
+    
+    func scrollToCurrentMatch() {
+        guard let matchRange = textFrameworkMediator.findAndReplaceFormatter?.selectedMatchRange else {
+            return
+        }
+        guard matchRange.location != NSNotFound else {
+            return
+        }
+        
+        if let scrollingToMatchCount {
+            self.scrollingToMatchCount = scrollingToMatchCount + 1
+        } else {
+            self.scrollingToMatchCount = 1
+        }
+        
+        if let startPos = textView.position(from: textView.beginningOfDocument, offset: matchRange.location),
+           let endPos = textView.position(from: startPos, offset: matchRange.length),
+           let textRange = textView.textRange(from: startPos, to: endPos) {
+            let matchRect = textView.firstRect(for: textRange)
+            
+            textView.scrollRectToVisible(matchRect, animated: false)
+            
+            // Sometimes scrolling is off, try again.
+            if let scrollingToMatchCount,
+               scrollingToMatchCount < 2 {
+                scrollToCurrentMatch()
+            } else {
+                scrollingToMatchCount = nil
+                textView.flashScrollIndicators()
+            }
+        }
+    }
+}
+fileprivate extension UITextView {
+
+    var visibleRange: NSRange? {
+        if let start = closestPosition(to: contentOffset) {
+            if let end = characterRange(at: CGPoint(x: contentOffset.x + bounds.maxX, y: contentOffset.y + bounds.maxY))?.end {
+                return NSRange(location: offset(from: beginningOfDocument, to: start), length: offset(from: start, to: end))
+            }
+        }
+        return nil
     }
 }
