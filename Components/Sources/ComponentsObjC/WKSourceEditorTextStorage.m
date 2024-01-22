@@ -5,7 +5,6 @@
 @interface WKSourceEditorTextStorage ()
 
 @property (nonatomic, strong) NSMutableAttributedString *backingStore;
-@property (nonatomic, assign) BOOL needsSyntaxHighlightingCalculation;
 
 @end
 
@@ -14,7 +13,7 @@
 - (nonnull instancetype)init {
     if (self = [super init]) {
         _backingStore = [[NSMutableAttributedString alloc] init];
-        _needsSyntaxHighlightingCalculation = YES;
+        _syntaxHighlightProcessingEnabled = YES;
     }
     return self;
 }
@@ -45,7 +44,7 @@
 
 - (void)processEditing {
 
-    if (self.needsSyntaxHighlightingCalculation) {
+    if (self.syntaxHighlightProcessingEnabled) {
         [self addSyntaxHighlightingToEditedRange:self.editedRange];
     }
     
@@ -58,7 +57,6 @@
     WKSourceEditorColors *colors = [self.storageDelegate colors];
     WKSourceEditorFonts *fonts = [self.storageDelegate fonts];
     
-    self.needsSyntaxHighlightingCalculation = NO;
     [self beginEditing];
     NSRange allRange = NSMakeRange(0, self.backingStore.length);
     for (WKSourceEditorFormatter *formatter in [self.storageDelegate formatters]) {
@@ -67,8 +65,6 @@
     }
     
     [self endEditing];
-    
-    self.needsSyntaxHighlightingCalculation = YES;
 }
 
 // MARK: - Private
