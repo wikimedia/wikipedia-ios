@@ -306,7 +306,11 @@ extension WKSourceEditorViewController: UITextViewDelegate {
     }
     
     public func textViewDidChange(_ textView: UITextView) {
-        delegate?.sourceEditorDidChangeUndoState(self, canUndo: textView.undoManager?.canUndo ?? false, canRedo: textView.undoManager?.canRedo ?? false)
+        
+        DispatchQueue.main.async {
+            self.delegate?.sourceEditorDidChangeUndoState(self, canUndo: textView.undoManager?.canUndo ?? false, canRedo: textView.undoManager?.canRedo ?? false)
+        }
+        
         delegate?.sourceEditorDidChangeText(self, didChangeText: textView.attributedText.string != viewModel.initialText)
     }
 }
