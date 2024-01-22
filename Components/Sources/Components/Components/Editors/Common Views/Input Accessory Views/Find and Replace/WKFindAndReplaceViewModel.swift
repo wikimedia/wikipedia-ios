@@ -8,7 +8,9 @@ struct WKFindAndReplaceViewModel {
     }
     
     var currentMatchInfo: String?
+    var matchCount: Int = 0
     var nextPrevButtonsAreEnabled: Bool = false
+    var replaceButtonIsEnabled: Bool = false
     
     let configuration: Configuration = .findAndReplace
     

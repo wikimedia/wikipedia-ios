@@ -494,4 +494,38 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertEqual(formatter.selectedMatchIndex, NSNotFound, "Find - Incorrect selected match index")
         XCTAssertEqual(formatter.matchCount, 0, "Find - Incorrect match count")
     }
+    
+    func testReplaceSingle() throws {
+        let text = "Find a '''word''' and replace that word."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        mediator.findStart(text: "word")
+        guard let formatter = mediator.findAndReplaceFormatter else {
+            XCTFail("Missing find formatter.")
+            return
+        }
+        
+        mediator.replaceSingle(replaceText: "testing")
+        XCTAssertEqual(mediator.textView.attributedText.string, "Find a '''testing''' and replace that word.", "Replace single failure")
+        
+        XCTAssertEqual(formatter.selectedMatchIndex, 0, "Replace single - Incorrect selected match index")
+        XCTAssertEqual(formatter.matchCount, 1, "Replace single - Incorrect match count")
+    }
+    
+    func testReplaceAll() throws {
+        let text = "Find a '''word''' and replace that word."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        mediator.findStart(text: "word")
+        guard let formatter = mediator.findAndReplaceFormatter else {
+            XCTFail("Missing find formatter.")
+            return
+        }
+        
+        mediator.replaceAll(replaceText: "testing")
+        XCTAssertEqual(mediator.textView.attributedText.string, "Find a '''testing''' and replace that testing.", "Replace all failure")
+        
+        XCTAssertEqual(formatter.selectedMatchIndex, NSNotFound, "Replace all - Incorrect selected match index")
+        XCTAssertEqual(formatter.matchCount, 0, "Replace all - Incorrect match count")
+    }
 }
