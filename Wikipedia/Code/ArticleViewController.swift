@@ -928,7 +928,7 @@ private extension ArticleViewController {
     
     func setup() {
         setupWButton()
-        setupSearchAndEditButtons()
+        setupSearchButton()
         addNotificationHandlers()
         setupWebView()
         setupMessagingController()
@@ -971,14 +971,8 @@ private extension ArticleViewController {
         surveyTimerController?.didBecomeActive(withState: state)
     }
     
-    func setupSearchAndEditButtons() {
-        if FeatureFlags.needsNativeSourceEditor {
-            let editButton = UIBarButtonItem(title: WMFLocalizedString("article-nav-edit", value: "Edit", comment: "Edit button title. Takes user to editor to edit the full source of an article."), style: .plain, target: self, action: #selector(tappedEditArticle))
-            navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, editButton]
-        } else {
-            navigationItem.rightBarButtonItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
-        }
-        
+    func setupSearchButton() {
+        navigationItem.rightBarButtonItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
     }
     
     @objc func tappedEditArticle() {
