@@ -28,6 +28,7 @@ public struct WKTheme: Equatable {
     public let editorPurple: UIColor
     public let editorGreen: UIColor
     public let editorBlue: UIColor
+    public let editorGray: UIColor
     public let editorMatchForeground: UIColor
     public let editorMatchBackground: UIColor
     public let editorSelectedMatchBackground: UIColor
@@ -59,6 +60,7 @@ public struct WKTheme: Equatable {
         editorPurple: WKColor.purple600,
         editorGreen: WKColor.green600,
         editorBlue: WKColor.blue600,
+        editorGray: WKColor.gray500,
         editorMatchForeground: .black,
         editorMatchBackground: WKColor.lightMatchBackground,
         editorSelectedMatchBackground: WKColor.yellow600,
@@ -91,6 +93,7 @@ public struct WKTheme: Equatable {
         editorPurple: WKColor.purple600,
         editorGreen: WKColor.green600,
         editorBlue: WKColor.blue600,
+        editorGray: WKColor.taupe600,
         editorMatchForeground: .black,
         editorMatchBackground: WKColor.lightMatchBackground,
         editorSelectedMatchBackground: WKColor.yellow600,
@@ -123,6 +126,7 @@ public struct WKTheme: Equatable {
         editorPurple: WKColor.red100,
         editorGreen: WKColor.green600,
         editorBlue: WKColor.blue300,
+        editorGray: WKColor.gray300,
         editorMatchForeground: .black,
         editorMatchBackground: WKColor.darkMatchBackground,
         editorSelectedMatchBackground: WKColor.yellow600,
@@ -155,6 +159,7 @@ public struct WKTheme: Equatable {
         editorPurple: WKColor.red100,
         editorGreen: WKColor.green600,
         editorBlue: WKColor.blue300,
+        editorGray: WKColor.gray300,
         editorMatchForeground: .black,
         editorMatchBackground: WKColor.darkMatchBackground,
         editorSelectedMatchBackground: WKColor.yellow600,

@@ -524,6 +524,11 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     func didTapLink(isSelected: Bool) {
         presentLinkWizard(linkButtonIsSelected: isSelected)
     }
+    
+    func didTapComment(isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.commentFormatter?.toggleCommentFormatting(action: action, in: textView)
+    }
 
     func didTapClose() {
         editorInputViewIsShowing = false
