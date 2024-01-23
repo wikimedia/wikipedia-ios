@@ -90,7 +90,7 @@ class ArticleToolbarController: Themeable {
         var actions: [UIAction] = []
         
         if FeatureFlags.needsNativeSourceEditor {
-            let image = WKSFSymbolIcon.for(symbol: .pencil, font: .body)
+            let image = WKIcon.pencil
             actions.append(UIAction(title: CommonStrings.editArticleMenuTitle, image: image, handler: { [weak self] _ in self?.tappedEditArticle() }))
         }
         

@@ -17,7 +17,7 @@ public enum WKIcon {
     static let link = UIImage(named: "link", in: .module, with: nil)
     static let media = UIImage(named: "media", in: .module, with: nil)
     static let more = UIImage(named: "more", in: .module, with: nil)
-    static let pencil = UIImage(named: "pencil", in: .module, with: nil)
+    public static let pencil = UIImage(named: "pencil", in: .module, with: nil)
     static let plus = UIImage(named: "plus", in: .module, with: nil)
     static let plusCircle = UIImage(named: "plus-circle", in: .module, with: nil)
     static let replace = UIImage(named: "replace", in: .module, with: nil)
