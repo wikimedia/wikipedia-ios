@@ -294,10 +294,12 @@
 "edit-notices-please-read" = "Subtitle displayed in edit notices view.";
 "edit-ordered-list-accessibility-label" = "Accessibility label for ordered list button";
 "edit-ordered-list-remove-accessibility-label" = "Accessibility label for remove ordered list button";
+"edit-preview-simplified-format-message" = "Message displayed when the edit preview view loads. Preview is in a simplified web format.";
 "edit-published" = "Title edit published panel letting user know their edit was saved.";
 "edit-published-subtitle" = "Subtitle for letting users know their edit improved Wikipedia.";
 "edit-reference-accessibility-label" = "Accessibility label for add reference syntax button";
 "edit-reference-remove-accessibility-label" = "Accessibility label for remove reference syntax button";
+"edit-show-web-preview" = "Title of button that will show a web preview of the edit.";
 "edit-signature-accessibility-label" = "Acessibility label for add signature syntax button";
 "edit-signature-remove-accessibility-label" = "Acessibility label for remove signature syntax button";
 "edit-strikethrough-accessibility-label" = "Accessibility label for add strikethrough button";
@@ -1123,6 +1125,7 @@
 "talk-pages-coffee-roll-read-more" = "Title of user and article talk pages button to read more of the coffee roll.";
 "talk-pages-comment-added-alert-title" = "Title for alert informing that the user's new comment was successfully published. Please prioritize for de, ar and zh wikis.";
 "talk-pages-compose-close-confirmation-keep" = "Title of keep editing action, displayed within a confirmation alert to user when they attempt to close the new topic view or new reply after entering text. Please prioritize for de, ar and zh wikis.";
+"talk-pages-edit-source" = "Title for menu option to edit the full source of the talk page.";
 "talk-pages-empty-view-body-article" = "Text displayed in article talk pages when no topics are available. Please do not translate or remove the ** characters as these demarcate which part of the text to display in bold.";
 "talk-pages-empty-view-body-user" = "Text displayed in user talk pages when no topics are available. $1 is replaced with a username.";
 "talk-pages-empty-view-button-article-add-topic" = "Button text displayed in article talk pages when no topics are available.";
