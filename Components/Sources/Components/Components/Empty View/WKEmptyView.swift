@@ -39,7 +39,7 @@ public struct WKEmptyView: View {
                                 .multilineTextAlignment(.center)
                         }
                         if type == .noItems {
-                            WKResizableButton(title: viewModel.localizedStrings.buttonTitle, action: delegate?.emptyViewDidTapSearch)
+                            WKResizableButton(configuration: .medium, title: viewModel.localizedStrings.buttonTitle, action: delegate?.emptyViewDidTapSearch)
                                 .padding([.leading, .trailing], 32)
                         }
                         Spacer()
