@@ -212,6 +212,17 @@ final class PageEditorViewController: UIViewController {
         let textSizeAdjustment =  WMFFontSizeMultiplier(rawValue: UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue) ?? .large
         WKAppEnvironment.current.set(articleAndEditorTextSize: textSizeAdjustment.contentSizeCategory)
     }
+    
+    private func showDestructiveDismissAlert(confirmCompletion: @escaping () -> Void) {
+        let alert = UIAlertController(title: CommonStrings.editorExitConfirmationTitle, message: CommonStrings.editorExitConfirmationBody, preferredStyle: .alert)
+        let confirmClose = UIAlertAction(title: CommonStrings.discardEditsActionTitle, style: .destructive) { _ in
+            confirmCompletion()
+        }
+        alert.addAction(confirmClose)
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .default)
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
 }
 
 // MARK: - Themeable
@@ -290,7 +301,17 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
-        delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
+        
+        if navigationItemController.progressButton.isEnabled {
+            showDestructiveDismissAlert { [weak self] in
+                guard let self else {
+                    return
+                }
+                self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
+            }
+        } else {
+            delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
+        }
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
