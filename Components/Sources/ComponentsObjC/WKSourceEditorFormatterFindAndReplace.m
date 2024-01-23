@@ -70,7 +70,7 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     // TextKit 2 only passes in the paragraph attributed string here, as opposed to the full document attributed string with TextKit 1. This conditional singles out TextKit 2.
     
     // Note: test this for a one line document, I think it breaks
-    if (range.location == 0 && range.length != self.fullAttributedString.length) {
+    if (range.location == 0 && range.length < self.fullAttributedString.length) {
         
         NSRange paragraphRange = [self.fullAttributedString.string rangeOfString:attributedString.string];
         

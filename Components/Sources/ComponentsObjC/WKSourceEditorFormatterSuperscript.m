@@ -108,7 +108,7 @@ NSString * const WKSourceEditorCustomKeyContentSuperscript = @"WKSourceEditorCus
        } else {
            NSRange newRange = NSMakeRange(range.location - 1, 0);
            if (attrs[WKSourceEditorCustomKeyColorGreen] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
-               attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
+               attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
                if (attrs[WKSourceEditorCustomKeyContentSuperscript] != nil) {
                    isContentKey = YES;
                }
