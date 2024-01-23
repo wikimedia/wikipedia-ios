@@ -48,6 +48,10 @@ NSString * const WKSourceEditorCustomKeyContentReference = @"WKSourceEditorCusto
 
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
+    
     // Reset
     [attributedString removeAttribute:WKSourceEditorCustomKeyContentReference range:range];
     
@@ -115,6 +119,10 @@ NSString * const WKSourceEditorCustomKeyContentReference = @"WKSourceEditorCusto
     [mutAttributes setObject:colors.greenForegroundColor forKey:NSForegroundColorAttributeName];
     self.refAttributes = [[NSDictionary alloc] initWithDictionary:mutAttributes];
     
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
+    
     [attributedString enumerateAttribute:WKSourceEditorCustomKeyColorGreen
                                  inRange:range
                                  options:nil
@@ -135,22 +143,26 @@ NSString * const WKSourceEditorCustomKeyContentReference = @"WKSourceEditorCusto
 #pragma mark - Public
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isHorizontalReferenceInRange:(NSRange)range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return NO;
+    }
+    
     __block BOOL isContentKey = NO;
 
    if (range.length == 0) {
 
-       if (attributedString.length > range.location) {
-           NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+       NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
 
-           if (attrs[WKSourceEditorCustomKeyContentReference] != nil) {
-               isContentKey = YES;
-           } else {
-               // Edge case, check previous character if we are up against closing string
-               if (attrs[WKSourceEditorCustomKeyColorGreen] && attributedString.length > range.location - 1) {
-                   attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
-                   if (attrs[WKSourceEditorCustomKeyContentReference] != nil) {
-                       isContentKey = YES;
-                   }
+       if (attrs[WKSourceEditorCustomKeyContentReference] != nil) {
+           isContentKey = YES;
+       } else {
+           // Edge case, check previous character if we are up against closing string
+           NSRange newRange = NSMakeRange(range.location - 1, 0);
+           if (attrs[WKSourceEditorCustomKeyColorGreen] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
+               attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
+               if (attrs[WKSourceEditorCustomKeyContentReference] != nil) {
+                   isContentKey = YES;
                }
            }
        }

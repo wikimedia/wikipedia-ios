@@ -47,6 +47,10 @@ NSString * const WKSourceEditorCustomKeyLinkWithNestedLink = @"WKSourceEditorCus
 
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
+    
     // Reset
     [attributedString removeAttribute:WKSourceEditorCustomKeyColorBlue range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyLink range:range];
@@ -107,6 +111,10 @@ NSString * const WKSourceEditorCustomKeyLinkWithNestedLink = @"WKSourceEditorCus
     NSMutableDictionary *mutLinkWithNestedLinkAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.linkWithNestedLinkAttributes];
     [mutLinkWithNestedLinkAttributes setObject:colors.blueForegroundColor forKey:NSForegroundColorAttributeName];
     self.linkWithNestedLinkAttributes = [[NSDictionary alloc] initWithDictionary:mutLinkWithNestedLinkAttributes];
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
 
     [attributedString enumerateAttribute:WKSourceEditorCustomKeyColorBlue
                                  inRange:range
@@ -198,24 +206,26 @@ NSString * const WKSourceEditorCustomKeyLinkWithNestedLink = @"WKSourceEditorCus
 }
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isKey:(NSString *)key inRange:(NSRange)range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return NO;
+    }
+    
     __block BOOL isKey = NO;
     if (range.length == 0) {
 
-           if (attributedString.length > range.location) {
-               NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+           NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
 
-               if (attrs[key] != nil) {
-                   isKey = YES;
-               }
-               
-               // Edge case, check previous character if we are up against opening markup
-               if (attrs[WKSourceEditorCustomKeyLink] && attributedString.length > range.location - 1) {
-                   if (attributedString.length > range.location - 1) {
-                       attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
-                       if (attrs[key] == nil) {
-                           isKey = NO;
-                       }
-                   }
+           if (attrs[key] != nil) {
+               isKey = YES;
+           }
+           
+           // Edge case, check previous character if we are up against opening markup
+            NSRange newRange = NSMakeRange(range.location - 1, 0);
+           if (attrs[WKSourceEditorCustomKeyLink] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
+               attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
+               if (attrs[key] == nil) {
+                   isKey = NO;
                }
            }
 
