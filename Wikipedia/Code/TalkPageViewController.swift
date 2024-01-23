@@ -139,7 +139,7 @@ class TalkPageViewController: ViewController {
             self?.pushToRevisionHistory()
         })
         
-        let editSourceAction = UIAction(title: TalkPageLocalizedStrings.editSource, image: WKSFSymbolIcon.for(symbol: .pencil, font: .heavyBody), handler: { [weak self] _ in
+        let editSourceAction = UIAction(title: TalkPageLocalizedStrings.editSource, image: WKIcon.pencil, handler: { [weak self] _ in
             self?.pushToPageEditor()
         })
         
@@ -148,7 +148,8 @@ class TalkPageViewController: ViewController {
         })
         
         let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
-        let mainMenu = UIMenu(title: String(), children: [openAllAction, revisionHistoryAction, editSourceAction, openInWebAction, submenu])
+        let children: [UIMenuElement] = FeatureFlags.needsNativeSourceEditor ? [openAllAction, revisionHistoryAction, editSourceAction, openInWebAction, submenu] : [openAllAction, revisionHistoryAction, openInWebAction, submenu]
+        let mainMenu = UIMenu(title: String(), children: children)
 
         return mainMenu
     }
