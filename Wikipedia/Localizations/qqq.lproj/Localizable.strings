@@ -294,6 +294,7 @@
 "edit-notices-please-read" = "Subtitle displayed in edit notices view.";
 "edit-ordered-list-accessibility-label" = "Accessibility label for ordered list button";
 "edit-ordered-list-remove-accessibility-label" = "Accessibility label for remove ordered list button";
+"edit-preview-simplified-format-message" = "Message displayed when the edit preview view loads. Preview is in a simplified web format.";
 "edit-published" = "Title edit published panel letting user know their edit was saved.";
 "edit-published-subtitle" = "Subtitle for letting users know their edit improved Wikipedia.";
 "edit-reference-accessibility-label" = "Accessibility label for add reference syntax button";

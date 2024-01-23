@@ -294,6 +294,7 @@
 "edit-notices-please-read" = "Please read before editing";
 "edit-ordered-list-accessibility-label" = "Make current line ordered list";
 "edit-ordered-list-remove-accessibility-label" = "Remove ordered list from current line";
+"edit-preview-simplified-format-message" = "All content is shown in simplified format.";
 "edit-published" = "Edit published";
 "edit-published-subtitle" = "You just made Wikipedia better for everyone";
 "edit-reference-accessibility-label" = "Add reference syntax";

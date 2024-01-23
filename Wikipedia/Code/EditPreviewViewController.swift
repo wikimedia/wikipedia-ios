@@ -158,6 +158,10 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
             
             let request = try self.fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: self.articleURL, wikitext: self.wikitext, mobileHTMLOutput: .editPreview)
             self.previewWebViewContainer.webView.load(request)
+            
+            if self.needsSimplifiedFormatToast {
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(WMFLocalizedString("edit-preview-simplified-format-message", value: "All content is shown in simplified format.", comment: "Message displayed when the edit preview view loads. Preview is in a simplified web format."), subtitle: nil, image: nil, type: .custom, customTypeName: "edit-preview-simplified-format", dismissPreviousAlerts: false)
+            }
         }
         
         do {
