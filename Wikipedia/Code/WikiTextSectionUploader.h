@@ -20,7 +20,7 @@ extern NSString *const NSErrorUserInfoDisplayError;
 // api returns transcluded section indexes with a "T-" prefix
 - (void)uploadWikiText:(nullable NSString *)wikiText
          forArticleURL:(NSURL *)articleURL
-               section:(NSString *)section
+               section:(nullable NSString *)section
                summary:(nullable NSString *)summary
            isMinorEdit:(BOOL)isMinorEdit
         addToWatchlist:(BOOL)addToWatchlist

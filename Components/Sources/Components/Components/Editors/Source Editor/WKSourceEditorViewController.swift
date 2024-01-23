@@ -50,6 +50,10 @@ public class WKSourceEditorViewController: WKComponentViewController {
         return textFrameworkMediator.textView
     }
     
+    public var editedWikitext: String {
+        return textView.text
+    }
+    
     // Input Accessory Views
     
     private(set) lazy var expandingAccessoryView: WKEditorToolbarExpandingView = {
@@ -386,7 +390,7 @@ private extension WKSourceEditorViewController {
             }
             
             if let pos,
-            let textRangeCursor = textView.textRange(from: pos, to: pos) {
+               let textRangeCursor = textView.textRange(from: pos, to: pos) {
                 textView.selectedTextRange = textRangeCursor
             }
         }

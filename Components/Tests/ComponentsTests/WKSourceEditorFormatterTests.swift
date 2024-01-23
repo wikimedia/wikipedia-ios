@@ -38,7 +38,7 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.colors.matchBackgroundColor = WKTheme.light.editorMatchBackground
         self.colors.selectedMatchBackgroundColor = WKTheme.light.editorSelectedMatchBackground
         self.colors.replacedMatchBackgroundColor = WKTheme.light.editorReplacedMatchBackground
-        
+
         self.fonts = WKSourceEditorFonts()
         self.fonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
         self.fonts.boldFont = WKFont.for(.boldBody, compatibleWith: traitCollection)
@@ -1549,60 +1549,59 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
     }
     
-
     func testComment() {
-    let string = "Testing. <!--Comment--> Testing"
-    let mutAttributedString = NSMutableAttributedString(string: string)
+        let string = "Testing. <!--Comment--> Testing"
+        let mutAttributedString = NSMutableAttributedString(string: string)
 
-    for formatter in formatters {
-        formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        for formatter in formatters {
+         formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
+        }
+
+        var base1Range = NSRange(location: 0, length: 0)
+        let base1Attributes = mutAttributedString.attributes(at: 0, effectiveRange: &base1Range)
+
+        var commentOpenRange = NSRange(location: 0, length: 0)
+        let commentOpenAttributes = mutAttributedString.attributes(at: 9, effectiveRange: &commentOpenRange)
+
+        var commentContentRange = NSRange(location: 0, length: 0)
+        let commentContentAttributes = mutAttributedString.attributes(at: 13, effectiveRange: &commentContentRange)
+
+        var commentCloseRange = NSRange(location: 0, length: 0)
+        let commentCloseAttributes = mutAttributedString.attributes(at: 20, effectiveRange: &commentCloseRange)
+
+        var base2Range = NSRange(location: 0, length: 0)
+        let base2Attributes = mutAttributedString.attributes(at: 23, effectiveRange: &base2Range)
+
+        // "Testing. "
+        XCTAssertEqual(base1Range.location, 0, "Incorrect base formatting")
+        XCTAssertEqual(base1Range.length, 9, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
+
+        // "<!--"
+        XCTAssertEqual(commentOpenRange.location, 9, "Incorrect comment formatting")
+        XCTAssertEqual(commentOpenRange.length, 4, "Incorrect comment formatting")
+        XCTAssertEqual(commentOpenAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect comment formatting")
+        XCTAssertEqual(commentOpenAttributes[.foregroundColor] as! UIColor, colors.grayForegroundColor, "Incorrect comment formatting")
+
+        // "Comment"
+        XCTAssertEqual(commentContentRange.location, 13, "Incorrect content formatting")
+        XCTAssertEqual(commentContentRange.length, 7, "Incorrect content formatting")
+        XCTAssertEqual(commentContentAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect content formatting")
+        XCTAssertEqual(commentContentAttributes[.foregroundColor] as! UIColor, colors.grayForegroundColor, "Incorrect content formatting")
+
+        // "-->"
+        XCTAssertEqual(commentCloseRange.location, 20, "Incorrect comment formatting")
+        XCTAssertEqual(commentCloseRange.length, 3, "Incorrect comment formatting")
+        XCTAssertEqual(commentCloseAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect comment formatting")
+        XCTAssertEqual(commentCloseAttributes[.foregroundColor] as! UIColor, colors.grayForegroundColor, "Incorrect comment formatting")
+
+        // " Testing"
+        XCTAssertEqual(base2Range.location, 23, "Incorrect base formatting")
+        XCTAssertEqual(base2Range.length, 8, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
+        XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
     }
-
-    var base1Range = NSRange(location: 0, length: 0)
-    let base1Attributes = mutAttributedString.attributes(at: 0, effectiveRange: &base1Range)
-
-    var commentOpenRange = NSRange(location: 0, length: 0)
-    let commentOpenAttributes = mutAttributedString.attributes(at: 9, effectiveRange: &commentOpenRange)
-
-    var commentContentRange = NSRange(location: 0, length: 0)
-    let commentContentAttributes = mutAttributedString.attributes(at: 13, effectiveRange: &commentContentRange)
-
-    var commentCloseRange = NSRange(location: 0, length: 0)
-    let commentCloseAttributes = mutAttributedString.attributes(at: 20, effectiveRange: &commentCloseRange)
-
-    var base2Range = NSRange(location: 0, length: 0)
-    let base2Attributes = mutAttributedString.attributes(at: 23, effectiveRange: &base2Range)
-
-    // "Testing. "
-    XCTAssertEqual(base1Range.location, 0, "Incorrect base formatting")
-    XCTAssertEqual(base1Range.length, 9, "Incorrect base formatting")
-    XCTAssertEqual(base1Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
-    XCTAssertEqual(base1Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
-
-    // "<!--"
-    XCTAssertEqual(commentOpenRange.location, 9, "Incorrect comment formatting")
-    XCTAssertEqual(commentOpenRange.length, 4, "Incorrect comment formatting")
-    XCTAssertEqual(commentOpenAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect comment formatting")
-    XCTAssertEqual(commentOpenAttributes[.foregroundColor] as! UIColor, colors.grayForegroundColor, "Incorrect comment formatting")
-
-    // "Comment"
-    XCTAssertEqual(commentContentRange.location, 13, "Incorrect content formatting")
-    XCTAssertEqual(commentContentRange.length, 7, "Incorrect content formatting")
-    XCTAssertEqual(commentContentAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect content formatting")
-    XCTAssertEqual(commentContentAttributes[.foregroundColor] as! UIColor, colors.grayForegroundColor, "Incorrect content formatting")
-
-    // "-->"
-    XCTAssertEqual(commentCloseRange.location, 20, "Incorrect comment formatting")
-    XCTAssertEqual(commentCloseRange.length, 3, "Incorrect comment formatting")
-    XCTAssertEqual(commentCloseAttributes[.font] as! UIFont, fonts.baseFont, "Incorrect comment formatting")
-    XCTAssertEqual(commentCloseAttributes[.foregroundColor] as! UIColor, colors.grayForegroundColor, "Incorrect comment formatting")
-
-    // " Testing"
-    XCTAssertEqual(base2Range.location, 23, "Incorrect base formatting")
-    XCTAssertEqual(base2Range.length, 8, "Incorrect base formatting")
-    XCTAssertEqual(base2Attributes[.font] as! UIFont, fonts.baseFont, "Incorrect base formatting")
-    XCTAssertEqual(base2Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
-}
     
     func testFind() {
         let string = "Find a '''word''' and highlight that word."

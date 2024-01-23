@@ -166,18 +166,18 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let findAndReplaceFormatter = WKSourceEditorFormatterFindAndReplace(colors: colors, fonts: fonts)
 
         self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
-                templateFormatter,
-                boldItalicsFormatter,
-                referenceFormatter,
-                listFormatter,
-                headingFormatter,
-                strikethroughFormatter,
-                superscriptFormatter,
-                subscriptFormatter,
-                underlineFormatter,
-                linkFormatter,
-                commentFormatter,
-                findAndReplaceFormatter]
+            templateFormatter,
+            boldItalicsFormatter,
+            referenceFormatter,
+            listFormatter,
+            headingFormatter,
+            strikethroughFormatter,
+            superscriptFormatter,
+            subscriptFormatter,
+            underlineFormatter,
+            linkFormatter,
+            commentFormatter,
+            findAndReplaceFormatter]
 
         self.boldItalicsFormatter = boldItalicsFormatter
         self.templateFormatter = templateFormatter
@@ -191,6 +191,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         self.linkFormatter = linkFormatter
         self.commentFormatter = commentFormatter
         self.findAndReplaceFormatter = findAndReplaceFormatter
+
         if needsTextKit2 {
             if #available(iOS 16.0, *) {
                 let textContentManager = textView.textLayoutManager?.textContentManager
