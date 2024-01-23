@@ -761,7 +761,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|1 urejanje|$1 urejanji|$1 urejanja |$1 urejanj}} od $2";
 "page-history-user-edits" = "urejanja uporabnika";
 "page-issues" = "Težave s stranjo";
-"page-location" = "Prikaži na karti";
+"page-location" = "Prikaži na zemljevidu";
 "page-protected-can-not-edit" = "Nimate pravic za urejanje te strani.";
 "page-protected-can-not-edit-title" = "Ta stran je zaščitena";
 "page-similar-titles" = "Podobne strani";
@@ -1025,7 +1025,6 @@
 "source-editor-accessibility-label-find-button-next" = "Naslednji najdeni zadetek";
 "source-editor-accessibility-label-find-button-prev" = "Prejšnji najdeni zadetek";
 "source-editor-accessibility-label-find-text-field" = "Poišči";
-"source-editor-accessibility-label-format-heading" = "Prikažite meni za slog besedila";
 "source-editor-accessibility-label-format-text" = "Prikažite meni za oblikovanje besedila";
 "source-editor-accessibility-label-format-text-show-more" = "Pikaži meni za oblikovanje besedila";
 "source-editor-accessibility-label-indent-decrease" = "Zmanjšajte globino zamika";
