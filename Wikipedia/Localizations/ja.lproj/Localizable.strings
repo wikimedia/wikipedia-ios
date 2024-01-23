@@ -46,6 +46,7 @@
 // Author: ネイ
 // Author: バレロン
 // Author: 春春眠眠
+// Author: 翻訳者a
 // Author: 아라
 
 "aaald-added-text-description-2" = "$1追加";
@@ -73,11 +74,13 @@
 "aaald-new-website-reference-archive-url-text" = "Archive.orgのURL";
 "aaald-new-website-reference-title" = "ウェブサイト";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|$1 件の参考文献}}を追加しました";
+"aaald-one-section-description" = "$1セクションにある";
 "aaald-revision-by-anonymous" = "匿名利用者による編集";
 "aaald-revision-userInfo" = "$1（$2編集数）による編集";
 "aaald-single-reference-added-description" = "参考文献を追加しました";
 "aaald-small-change-description" = "{{PLURAL:$1|0=小さな変更をしていません|$1個の小さな変更をしました}}";
 "aaald-summary-title" = "{{PLURAL:$3|$3日間}}で {{PLURAL:$2|$2 人の編集者}}による {{PLURAL:$1|$1 件の変更}}";
+"aaald-two-sections-description" = "$1と$2セクション";
 "aaald-vandalism-revert-description" = "荒らしの疑いを差し戻し";
 "aaald-view-full-history-button" = "すべての記事履歴を表示";
 "about-content-license" = "コンテンツのライセンス";
