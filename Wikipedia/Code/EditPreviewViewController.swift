@@ -10,6 +10,8 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
     var articleURL: URL
     var languageCode: String?
     var wikitext = ""
+    var needsNextButton: Bool = true
+    var needsSimplifiedFormatToast: Bool = false
     
     weak var delegate: EditPreviewViewControllerDelegate?
     
@@ -90,8 +92,11 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
                 
         navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(.caretLeft, target: self, action: #selector(self.goBack))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
-        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
+        if needsNextButton {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
+            navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
+        }
+        
         apply(theme: theme)
         previewWebViewContainer.webView.uiDelegate = self
     }
