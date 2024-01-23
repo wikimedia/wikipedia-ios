@@ -57,6 +57,7 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
         templateButton.isSelected = selectionState.isHorizontalTemplate
         referenceButton.isSelected = selectionState.isHorizontalReference
         linkButton.isSelected = selectionState.isSimpleLink
+        commentButton.isSelected = selectionState.isComment
     }
     
     // MARK: Button Actions
@@ -78,6 +79,7 @@ class WKEditorToolbarPlainView: WKEditorToolbarView {
     }
 
     @objc private func tappedComment() {
+        delegate?.didTapComment(isSelected: commentButton.isSelected)
     }
 
     @objc private func tappedLink() {
