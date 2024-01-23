@@ -17,6 +17,7 @@ protocol WKEditorInputViewDelegate: AnyObject {
     func didTapSuperscript(isSelected: Bool)
     func didTapUnderline(isSelected: Bool)
     func didTapLink(isSelected: Bool)
+    func didTapComment(isSelected: Bool)
 }
 
 class WKEditorInputView: WKComponentView {
