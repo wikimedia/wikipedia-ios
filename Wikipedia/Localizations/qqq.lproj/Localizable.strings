@@ -284,7 +284,7 @@
 "edit-link-remove-accessibility-label" = "Accessibility label for the button that removes link syntax to the current selection";
 "edit-link-remove-link-title" = "Title for the remove link button";
 "edit-link-title" = "Title for the Edit link screen";
-"edit-menu-item" = "Button label for 'Edit' menu item";
+"edit-menu-item" = "Button label for 'Edit article' menu item. Allows user to edit the full source of the article.";
 "edit-menu-item-could-not-find-selection-alert-message" = "Description of possible reasons the user text selection could not be located in the article wikitext.";
 "edit-menu-item-could-not-find-selection-alert-title" = "Title for alert informing user their text selection could not be located in the article wikitext.";
 "edit-minor-learn-more-text" = "Text for minor edits learn more button";

@@ -91,7 +91,7 @@ class ArticleToolbarController: Themeable {
         
         if FeatureFlags.needsNativeSourceEditor {
             let image = WKSFSymbolIcon.for(symbol: .pencil, font: .body)
-            actions.append(UIAction(title: CommonStrings.editMenuTitle, image: image, handler: { [weak self] _ in self?.tappedEditArticle() }))
+            actions.append(UIAction(title: CommonStrings.editArticleMenuTitle, image: image, handler: { [weak self] _ in self?.tappedEditArticle() }))
         }
         
         actions.append(UIAction(title: CommonStrings.articleRevisionHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedRevisionHistory() }))
