@@ -28,6 +28,10 @@ NSString * const WKSourceEditorCustomKeyColorGreen = @"WKSourceEditorKeyColorGre
 
 - (BOOL)canEvaluateAttributedString: (NSAttributedString *)attributedString againstRange: (NSRange)range {
     
+    if (range.location == NSNotFound) {
+        return NO;
+    }
+    
     if (attributedString.length == 0) {
         return NO;
     }
