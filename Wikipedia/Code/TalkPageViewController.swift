@@ -468,7 +468,7 @@ class TalkPageViewController: ViewController {
         }
         
         let dataStore = MWKDataStore.shared()
-        let pageEditorViewController = PageEditorViewController(pageURL: pageURL, sectionID: nil, dataStore: dataStore, delegate: self, theme: theme)
+        let pageEditorViewController = PageEditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, dataStore: dataStore, delegate: self, theme: theme)
         
         let navigationController = WMFThemeableNavigationController(rootViewController: pageEditorViewController, theme: theme)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
@@ -1227,7 +1227,7 @@ extension TalkPageViewController: PageEditorViewControllerDelegate {
         switch result {
         case .failure(let error):
             showError(error)
-        case .success(let changes):
+        case .success:
             dismiss(animated: true) { [weak self] in
                 
                 guard let self else {
