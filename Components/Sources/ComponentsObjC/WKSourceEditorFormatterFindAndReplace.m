@@ -11,6 +11,7 @@
 
 @property (nonatomic, copy) NSAttributedString *fullAttributedString;
 @property (nonatomic, strong) NSMutableArray<NSValue *> *matchesAgainstFullAttributedString;
+@property (nonatomic, strong) NSMutableArray<NSValue *> *replacesAgainstFullAttributedString;
 
 @property (nonatomic, copy) NSDictionary *matchAttributes;
 @property (nonatomic, copy) NSDictionary *selectedMatchAttributes;
@@ -38,6 +39,7 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
 
        _fullAttributedString = nil;
        _matchesAgainstFullAttributedString = [[NSMutableArray alloc] init];
+        _replacesAgainstFullAttributedString = [[NSMutableArray alloc] init];
 
        _matchAttributes = @{
            NSForegroundColorAttributeName: colors.matchForegroundColor,
@@ -62,10 +64,6 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
 }
 
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
-    
-    if (self.matchCount == 0) {
-        return;
-    }
 
     // This override is only needed for TextKit 2. The attributed string passed in here is regenerated fresh via the textContentStorage(_ textContentStorage: NSTextContentStorage, textParagraphWith range: NSRange) delegate method, so we need to reapply attributes.
 
@@ -91,6 +89,23 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
                 if (attributedString.length > paragraphMatchRange.location && attributedString.length > paragraphMatchRange.location + paragraphMatchRange.length) {
                     [self resetKeysForAttributedString:attributedString range:paragraphMatchRange];
                     [attributedString addAttributes:attributes range:paragraphMatchRange];
+                }
+            }
+        }];
+        
+        [self.replacesAgainstFullAttributedString enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSRange fullStringMatchRange = obj.rangeValue;
+            
+            // Find matches that only lie in paragraph range
+            if (NSIntersectionRange(paragraphRange, fullStringMatchRange).length > 0) {
+
+                // Translate full string match back to paragraph match range
+                NSRange paragraphMatchRange = NSMakeRange(fullStringMatchRange.location - paragraphRange.location, fullStringMatchRange.length);
+
+                //Then reapply attributes to paragraph match range.
+                if (attributedString.length > paragraphMatchRange.location && attributedString.length > paragraphMatchRange.location + paragraphMatchRange.length) {
+                    [self resetKeysForAttributedString:attributedString range:paragraphMatchRange];
+                    [attributedString addAttributes:self.replacedMatchAttributes range:paragraphMatchRange];
                 }
             }
         }];
@@ -167,6 +182,15 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     return NSMakeRange(NSNotFound, 0);
 }
 
+- (NSRange)lastReplacedRange {
+    if (self.replacesAgainstFullAttributedString.count > 0) {
+        NSValue *value = self.replacesAgainstFullAttributedString[self.replacesAgainstFullAttributedString.count - 1];
+        return value.rangeValue;
+    }
+
+    return NSMakeRange(NSNotFound, 0);
+}
+
 #pragma mark - Public
 
 - (void)startMatchSessionWithFullAttributedString: (NSMutableAttributedString *)fullAttributedString searchText:(NSString *)searchText {
@@ -229,6 +253,86 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     [self updateMatchHighlightsInFullAttributedString:fullAttributedString lastSelectedMatchIndex:lastSelectedMatchIndex];
 }
 
+- (void)replaceSingleMatchInFullAttributedString:(NSMutableAttributedString *)fullAttributedString withReplaceText:(NSString *)replaceText textView: (UITextView *)textView {
+    
+    // add replace range to array
+    NSRange newReplaceRange = NSMakeRange(self.selectedMatchRange.location, replaceText.length);
+    NSValue *newReplaceRangeValue = [NSValue valueWithRange:newReplaceRange];
+    [self.replacesAgainstFullAttributedString addObject:newReplaceRangeValue];
+
+    // get currently selected match text range
+    NSInteger selectedMatchIndex = self.selectedMatchIndex;
+    NSRange selectedMatchRange = self.selectedMatchRange;
+    UITextPosition *startPos = [textView positionFromPosition:textView.beginningOfDocument offset:selectedMatchRange.location];
+    UITextPosition *endPos = [textView positionFromPosition:startPos offset:selectedMatchRange.length];
+    UITextRange *selectedMatchTextRange = [textView textRangeFromPosition:startPos toPosition:endPos];
+
+    // replace text in textview
+    [textView replaceRange:selectedMatchTextRange withText:replaceText];
+    
+    // update replace range with new attributes
+    [fullAttributedString beginEditing];
+    [self resetKeysForAttributedString:fullAttributedString range:newReplaceRange];
+    [fullAttributedString addAttributes:self.replacedMatchAttributes range:newReplaceRange];
+    [fullAttributedString endEditing];
+    
+    // copy new text view text to keep it in sync
+    self.fullAttributedString = textView.attributedText;
+    
+    // reset matches
+    [self.matchesAgainstFullAttributedString removeAllObjects];
+    self.selectedMatchIndex = NSNotFound;
+    
+    // recalculate matches and select the first one
+    [self calculateMatchesInFullAttributedString:fullAttributedString];
+    [self highlightNextMatchInFullAttributedString:fullAttributedString afterRangeValue:newReplaceRangeValue];
+}
+
+- (void)replaceAllMatchesInFullAttributedString:(NSMutableAttributedString *)fullAttributedString withReplaceText:(NSString *)replaceText textView: (UITextView *)textView {
+    
+    NSInteger lengthDelta = replaceText.length - self.searchText.length;
+    
+    int i = 0;
+    
+    // copy so we aren't removing objects while enumerating an array
+    NSArray *matchesCopy = [NSArray arrayWithArray:self.matchesAgainstFullAttributedString];
+    for (NSValue *matchValue in matchesCopy) {
+        NSRange matchRange = matchValue.rangeValue;
+        
+        // both match and replace ranges need to be adjusted for the text length differences for each iteration. Otherwise ranges are thrown off.
+        NSRange offsetMatchRange = NSMakeRange(matchRange.location + (lengthDelta * i), self.searchText.length);
+        NSRange newReplaceRange = NSMakeRange(matchRange.location + (lengthDelta * i), replaceText.length);
+        
+        // add replace range to array
+        [self.replacesAgainstFullAttributedString addObject:[NSValue valueWithRange:newReplaceRange]];
+        
+        // get currently selected match text range
+        UITextPosition *startPos = [textView positionFromPosition:textView.beginningOfDocument offset:offsetMatchRange.location];
+        UITextPosition *endPos = [textView positionFromPosition:startPos offset:offsetMatchRange.length];
+        UITextRange *matchTextRange = [textView textRangeFromPosition:startPos toPosition:endPos];
+        
+        // replace text in textview
+        [textView replaceRange:matchTextRange withText:replaceText];
+        
+        // remove first match to keep in sync with remaining matches in text view.
+        [self.matchesAgainstFullAttributedString removeObjectAtIndex:0];
+        
+        // update replace range with new attributes
+        [fullAttributedString beginEditing];
+        [self resetKeysForAttributedString:fullAttributedString range:newReplaceRange];
+        [fullAttributedString addAttributes:self.replacedMatchAttributes range:newReplaceRange];
+        [fullAttributedString endEditing];
+        
+        // copy new text view text to keep it in sync
+        self.fullAttributedString = textView.attributedText;
+        
+        i++;
+    }
+    
+    // reset selected match index
+    self.selectedMatchIndex = NSNotFound;
+}
+
 
 - (void)endMatchSessionWithFullAttributedString:(NSMutableAttributedString *)fullAttributedString {
     self.selectedMatchIndex = NSNotFound;
@@ -237,7 +341,9 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     self.searchRegex = nil;
 
     self.fullAttributedString = nil;
+    
     [self.matchesAgainstFullAttributedString removeAllObjects];
+    [self.replacesAgainstFullAttributedString removeAllObjects];
 
     [fullAttributedString beginEditing];
     NSRange allRange = NSMakeRange(0, fullAttributedString.length);

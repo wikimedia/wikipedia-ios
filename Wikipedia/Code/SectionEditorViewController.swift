@@ -69,7 +69,7 @@ class SectionEditorViewController: ViewController {
     
     private var scriptMessageHandlers: [ScriptMessageHandler] = []
     
-    private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
+    private let findAndReplaceHeaderTitle = CommonStrings.findReplaceHeader
 
     private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
     private var lastBlockedDisplayError: MediaWikiAPIDisplayError?

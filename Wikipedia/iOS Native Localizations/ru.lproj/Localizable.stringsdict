@@ -280,6 +280,20 @@
 			<string>фильтров</string>
 		</dict>
 	</dict>
+	<key>notifications-center-mark-all-as-read-confirmation-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Вы уверены, что хотите пометить все сообщения (%#@v1@) о ваших уведомлений как прочитанные? Ваши уведомления будут помечены как прочитанные на всех ваших устройствах.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d шт.</string>
+		</dict>
+	</dict>
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

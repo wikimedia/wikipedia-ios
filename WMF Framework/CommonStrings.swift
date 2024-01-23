@@ -519,6 +519,8 @@ public class CommonStrings: NSObject {
     public static let editorExitConfirmationBody =  WMFLocalizedString("editor-exit-confirmation-body", value: "Are you sure you want to leave editing mode without publishing first?", comment: "Body text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.")
     
     public static let talkPageCloseConfirmationKeepEditing = WMFLocalizedString("talk-pages-compose-close-confirmation-keep", value: "Keep Editing", comment: "Title of keep editing action, displayed within a confirmation alert to user when they attempt to close the new topic view or new reply after entering text. Please prioritize for de, ar and zh wikis.")
+    
+    public static let findReplaceHeader = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
 
     // Native page editor
 
@@ -583,7 +585,7 @@ public class CommonStrings: NSObject {
     public static let accessibilityLabelReplaceTypeSingle = WMFLocalizedString("source-editor-accessibility-label-replace-type-single", value: "Replace single instance", comment: "Accessibility label for replace single instance button on the page editor")
     public static let accessibilityLabelReplaceTypeAll = WMFLocalizedString("source-editor-accessibility-label-replace-type-all", value: "Replace all instances", comment: "Accessibility label for the replace all instances button on the page editor")
     
-    public static let editMenuTitle = WMFLocalizedString("edit-menu-item", value: "Edit", comment: "Button label for 'Edit' menu item")
+    public static let editArticleMenuTitle = WMFLocalizedString("edit-menu-item", value: "Edit article", comment: "Button label for 'Edit article' menu item. Allows user to edit the full source of the article.")
     
     public static let editPublishedToastTitle = WMFLocalizedString("source-editor-edit-published", value: "Your edit was published.", comment: "Title for alert informing that the user's new edit was successfully published.")
 

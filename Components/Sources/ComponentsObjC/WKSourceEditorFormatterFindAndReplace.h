@@ -1,4 +1,5 @@
 #import "WKSourceEditorFormatter.h"
+@import UIKit;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -12,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)startMatchSessionWithFullAttributedString: (NSMutableAttributedString *)fullAttributedString searchText:(NSString *)searchText;
 - (void)highlightNextMatchInFullAttributedString:(NSMutableAttributedString *)fullAttributedString afterRangeValue:(nullable NSValue *)afterRangeValue;
 - (void)highlightPreviousMatchInFullAttributedString: (NSMutableAttributedString *)fullAttributedString;
+- (void)replaceSingleMatchInFullAttributedString:(NSMutableAttributedString *)fullAttributedString withReplaceText:(NSString *)replaceText textView: (UITextView *)textView;
+- (void)replaceAllMatchesInFullAttributedString:(NSMutableAttributedString *)fullAttributedString withReplaceText:(NSString *)replaceText textView: (UITextView *)textView;
 - (void)endMatchSessionWithFullAttributedString: (NSMutableAttributedString *)fullAttributedString;
 
 @end
