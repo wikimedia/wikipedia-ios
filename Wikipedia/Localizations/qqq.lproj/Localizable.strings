@@ -298,6 +298,7 @@
 "edit-published-subtitle" = "Subtitle for letting users know their edit improved Wikipedia.";
 "edit-reference-accessibility-label" = "Accessibility label for add reference syntax button";
 "edit-reference-remove-accessibility-label" = "Accessibility label for remove reference syntax button";
+"edit-show-web-preview" = "Title of button that will show a web preview of the edit.";
 "edit-signature-accessibility-label" = "Acessibility label for add signature syntax button";
 "edit-signature-remove-accessibility-label" = "Acessibility label for remove signature syntax button";
 "edit-strikethrough-accessibility-label" = "Accessibility label for add strikethrough button";
