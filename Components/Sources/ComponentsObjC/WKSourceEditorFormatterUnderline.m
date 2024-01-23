@@ -32,6 +32,10 @@ NSString * const WKSourceEditorCustomKeyContentUnderline = @"WKSourceEditorCusto
     return self;
 }
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
 
     [attributedString removeAttribute:WKSourceEditorCustomKeyContentUnderline range:range];
 
@@ -66,6 +70,10 @@ NSString * const WKSourceEditorCustomKeyContentUnderline = @"WKSourceEditorCusto
     NSMutableDictionary *mutAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.underlineAttributes];
     [mutAttributes setObject:colors.greenForegroundColor forKey:NSForegroundColorAttributeName];
     self.underlineAttributes = [[NSDictionary alloc] initWithDictionary:mutAttributes];
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
 
     [attributedString enumerateAttribute:WKSourceEditorCustomKeyColorGreen
                                  inRange:range
@@ -84,24 +92,28 @@ NSString * const WKSourceEditorCustomKeyContentUnderline = @"WKSourceEditorCusto
 #pragma mark - Public
 
 - (BOOL)attributedString:(nonnull NSMutableAttributedString *)attributedString isUnderlineInRange:(NSRange)range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return NO;
+    }
+    
     __block BOOL isContentKey = NO;
 
    if (range.length == 0) {
 
-       if (attributedString.length > range.location) {
            NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
 
            if (attrs[WKSourceEditorCustomKeyContentUnderline] != nil) {
                isContentKey = YES;
            } else {
-               if (attrs[WKSourceEditorCustomKeyColorGreen] && attributedString.length > range.location - 1) {
-                   attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
+               NSRange newRange = NSMakeRange(range.location - 1, 0);
+               if (attrs[WKSourceEditorCustomKeyColorGreen] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
+                   attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
                    if (attrs[WKSourceEditorCustomKeyContentUnderline] != nil) {
                        isContentKey = YES;
                    }
                }
            }
-       }
 
    } else {
        __block NSRange unionRange = NSMakeRange(NSNotFound, 0);

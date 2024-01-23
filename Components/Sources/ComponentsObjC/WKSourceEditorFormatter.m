@@ -26,4 +26,21 @@ NSString * const WKSourceEditorCustomKeyColorGreen = @"WKSourceEditorKeyColorGre
     NSAssert(false, @"Formatters must override this method.");
 }
 
+- (BOOL)canEvaluateAttributedString: (NSAttributedString *)attributedString againstRange: (NSRange)range {
+    
+    if (range.location == NSNotFound) {
+        return NO;
+    }
+    
+    if (attributedString.length == 0) {
+        return NO;
+    }
+    
+    if (attributedString.length < (range.location + range.length)) {
+        return NO;
+    }
+    
+    return YES;
+}
+
 @end

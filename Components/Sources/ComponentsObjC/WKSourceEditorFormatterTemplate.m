@@ -45,6 +45,10 @@ NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCusto
 
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
+    
     // Reset
     [attributedString removeAttribute:WKSourceEditorCustomKeyHorizontalTemplate range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyVerticalTemplate range:range];
@@ -108,6 +112,10 @@ NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCusto
     [mutVerticalAttributes setObject:colors.purpleForegroundColor forKey:NSForegroundColorAttributeName];
     self.verticalTemplateAttributes = [[NSDictionary alloc] initWithDictionary:mutVerticalAttributes];
     
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
+    
     [attributedString enumerateAttribute:WKSourceEditorCustomKeyHorizontalTemplate
                      inRange:range
                      options:nil
@@ -140,15 +148,18 @@ NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCusto
 #pragma mark - Public
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isHorizontalTemplateInRange:(NSRange)range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return NO;
+    }
+    
     __block BOOL isTemplate = NO;
     if (range.length == 0) {
         
-        if (attributedString.length > range.location) {
-            NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
-            
-            if (attrs[WKSourceEditorCustomKeyHorizontalTemplate] != nil) {
-                isTemplate = YES;
-            }
+        NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+        
+        if (attrs[WKSourceEditorCustomKeyHorizontalTemplate] != nil) {
+            isTemplate = YES;
         }
         
     } else {
