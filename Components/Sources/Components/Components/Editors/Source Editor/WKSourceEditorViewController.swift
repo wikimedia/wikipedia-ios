@@ -2,10 +2,12 @@ import Foundation
 import UIKit
 
 public protocol WKSourceEditorViewControllerDelegate: AnyObject {
-    func sourceEditorViewControllerDidTapFind(sourceEditorViewController: WKSourceEditorViewController)
-    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: WKSourceEditorViewController)
+    func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WKSourceEditorViewController)
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: WKSourceEditorViewController)
     func sourceEditorViewControllerDidTapLink(parameters: WKSourceEditorFormatterLinkWizardParameters)
     func sourceEditorViewControllerDidTapImage()
+    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: WKSourceEditorViewController, canUndo: Bool, canRedo: Bool)
+    func sourceEditorDidChangeText(_ sourceEditorViewController: WKSourceEditorViewController, didChangeText: Bool)
 }
 
 // MARK: NSNotification Names
@@ -27,6 +29,13 @@ public class WKSourceEditorViewController: WKComponentViewController {
         case expanding
         case highlight
         case find
+    }
+    
+    enum CursorDirection {
+        case up
+        case down
+        case left
+        case right
     }
     
     // MARK: - Properties
@@ -99,7 +108,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
             }
             
             if oldValue == .find && inputAccessoryViewType != .find {
-                delegate?.sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: self)
+                delegate?.sourceEditorViewControllerDidRemoveFindInputAccessoryView(self)
             }
             
             switch inputAccessoryViewType {
@@ -246,6 +255,14 @@ public class WKSourceEditorViewController: WKComponentViewController {
     public func insertImage(wikitext: String) {
         textFrameworkMediator.linkFormatter?.insertImage(wikitext: wikitext, in: textView)
     }
+    
+    public func undo() {
+        textView.undoManager?.undo()
+    }
+    
+    public func redo() {
+        textView.undoManager?.redo()
+    }
 }
 
 // MARK: - Private
@@ -333,6 +350,47 @@ private extension WKSourceEditorViewController {
         viewModel.matchCount = findFormatter.matchCount
         findAccessoryView.update(viewModel: viewModel)
     }
+    
+    func moveCursor(direction: CursorDirection) {
+        
+        guard let cursorPos = textView.selectedTextRange?.start else {
+            return
+        }
+        
+        switch direction {
+        case .up, .down:
+            
+            let cursorPosRect = textView.caretRect(for: cursorPos)
+            let yMiddle = cursorPosRect.origin.y + (cursorPosRect.height / 2)
+            let lineHeight = textFrameworkMediator.fonts.baseFont.lineHeight
+            
+            let point: CGPoint
+            if case .up = direction {
+                point = CGPoint(x: cursorPosRect.origin.x, y: yMiddle - lineHeight)
+            } else {
+                point = CGPoint(x: cursorPosRect.origin.x, y: yMiddle + lineHeight)
+            }
+            
+            if let textRangeAtPoint = textView.characterRange(at: point) {
+                let textRangeCursor = textView.textRange(from: textRangeAtPoint.end, to: textRangeAtPoint.end)
+                textView.selectedTextRange = textRangeCursor
+            }
+        case .left, .right:
+            
+            let pos: UITextPosition?
+            
+            if case .left = direction {
+                pos = textView.position(from: cursorPos, offset: -1)
+            } else {
+                pos = textView.position(from: cursorPos, offset: +1)
+            }
+            
+            if let pos,
+               let textRangeCursor = textView.textRange(from: pos, to: pos) {
+                textView.selectedTextRange = textRangeCursor
+            }
+        }
+    }
 }
 
 // MARK: - UITextViewDelegate
@@ -353,6 +411,15 @@ extension WKSourceEditorViewController: UITextViewDelegate {
         postUpdateButtonSelectionStatesNotification(withDelay: false)
     }
     
+    public func textViewDidChange(_ textView: UITextView) {
+        
+        DispatchQueue.main.async {
+            self.delegate?.sourceEditorDidChangeUndoState(self, canUndo: textView.undoManager?.canUndo ?? false, canRedo: textView.undoManager?.canRedo ?? false)
+        }
+        
+        delegate?.sourceEditorDidChangeText(self, didChangeText: textView.attributedText.string != viewModel.initialText)
+    }
+
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         // Don't allow emdash text changes. This throws off find & replace.
         if text == "—" {
@@ -369,7 +436,7 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
     
     func toolbarExpandingViewDidTapFind(toolbarView: WKEditorToolbarExpandingView) {
         inputAccessoryViewType = .find
-        delegate?.sourceEditorViewControllerDidTapFind(sourceEditorViewController: self)
+        delegate?.sourceEditorViewControllerDidTapFind(self)
         
         if let visibleRange = textView.visibleRange {
             textView.selectedRange = NSRange(location: visibleRange.location, length: 0)
@@ -418,6 +485,22 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
     
     func toolbarExpandingViewDidTapDecreaseIndent(toolbarView: WKEditorToolbarExpandingView) {
         textFrameworkMediator.listFormatter?.tappedDecreaseIndent(currentSelectionState: selectionState(), textView: textView)
+    }
+    
+    func toolbarExpandingViewDidTapCursorUp(toolbarView: WKEditorToolbarExpandingView) {
+        moveCursor(direction: .up)
+    }
+    
+    func toolbarExpandingViewDidTapCursorDown(toolbarView: WKEditorToolbarExpandingView) {
+        moveCursor(direction: .down)
+    }
+    
+    func toolbarExpandingViewDidTapCursorLeft(toolbarView: WKEditorToolbarExpandingView) {
+        moveCursor(direction: .left)
+    }
+    
+    func toolbarExpandingViewDidTapCursorRight(toolbarView: WKEditorToolbarExpandingView) {
+        moveCursor(direction: .right)
     }
 }
 
@@ -523,6 +606,11 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     
     func didTapLink(isSelected: Bool) {
         presentLinkWizard(linkButtonIsSelected: isSelected)
+    }
+    
+    func didTapComment(isSelected: Bool) {
+        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        textFrameworkMediator.commentFormatter?.toggleCommentFormatting(action: action, in: textView)
     }
 
     func didTapClose() {

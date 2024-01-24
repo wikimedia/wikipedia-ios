@@ -89,7 +89,7 @@ NSString * const WKSourceEditorCustomKeyContentStrikethrough = @"WKSourceEditorC
 }
 
 - (void)updateFonts:(WKSourceEditorFonts *)fonts inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
-    // No special font handling needed for references
+    // No special font handling needed
 }
 
 #pragma mark - Public
