@@ -37,7 +37,7 @@ public struct WKOnboardingView: View {
                     }
                     Spacer()
                     
-                    WKPrimaryButton(title: viewModel.primaryButtonTitle, action: primaryButtonAction)
+                    WKLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: primaryButtonAction)
                         .padding([.top], 16)
 
                     VStack {
