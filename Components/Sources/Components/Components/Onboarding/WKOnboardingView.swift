@@ -42,7 +42,7 @@ public struct WKOnboardingView: View {
 
                     VStack {
                         if let secondaryTitle = viewModel.secondaryButtonTitle {
-                            WKSecondaryButton(title: secondaryTitle, action: secondaryButtonAction)
+                            WKSmallButton(configuration: .quiet, title: secondaryTitle, action: secondaryButtonAction)
                         }
                     }
                 }
