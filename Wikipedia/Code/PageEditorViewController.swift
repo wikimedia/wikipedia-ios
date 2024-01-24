@@ -68,6 +68,7 @@ final class PageEditorViewController: UIViewController {
 
         setTextSizeInAppEnvironment()
         setupFocusNavigationView()
+        setupNavigationItemController()
         loadWikitext()
         
         apply(theme: theme)
@@ -95,6 +96,12 @@ final class PageEditorViewController: UIViewController {
         let topConstraint = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: focusNavigationView.topAnchor)
         
         NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, topConstraint])
+    }
+    
+    private func setupNavigationItemController() {
+        navigationItemController.progressButton.isEnabled = false
+        navigationItemController.undoButton.isEnabled = false
+        navigationItemController.redoButton.isEnabled = false
     }
     
     private func loadWikitext() {
@@ -281,12 +288,20 @@ extension PageEditorViewController: Themeable {
 // MARK: - WKSourceEditorViewControllerDelegate
 
 extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
+    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: Components.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
+        navigationItemController.undoButton.isEnabled = canUndo
+        navigationItemController.redoButton.isEnabled = canRedo
+    }
     
-    func sourceEditorViewControllerDidTapFind(sourceEditorViewController: WKSourceEditorViewController) {
+    func sourceEditorDidChangeText(_ sourceEditorViewController: Components.WKSourceEditorViewController, didChangeText: Bool) {
+        navigationItemController.progressButton.isEnabled = didChangeText
+    }
+    
+    func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WKSourceEditorViewController) {
         showFocusNavigationView()
     }
     
-    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: Components.WKSourceEditorViewController) {
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: Components.WKSourceEditorViewController) {
         hideFocusNavigationView()
     }
     
@@ -352,9 +367,11 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
+        sourceEditor.undo()
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
+        sourceEditor.redo()
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
