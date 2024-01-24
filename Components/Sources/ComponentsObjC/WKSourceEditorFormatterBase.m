@@ -36,6 +36,7 @@
     // reset base attributes
     [attributedString removeAttribute:NSFontAttributeName range:range];
     [attributedString removeAttribute:NSForegroundColorAttributeName range:range];
+    [attributedString removeAttribute:NSBackgroundColorAttributeName range:range];
     
     // reset shared custom attributes
     [attributedString removeAttribute:WKSourceEditorCustomKeyColorOrange range:range];
