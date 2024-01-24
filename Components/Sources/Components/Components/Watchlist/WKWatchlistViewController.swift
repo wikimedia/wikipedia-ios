@@ -31,16 +31,16 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 
 	public typealias ReachabilityHandler = ((PresentationState) -> Void)?
 
-	class MenuButtonHandler: WKMenuButtonDelegate {
+	class MenuButtonHandler: WKSmallMenuButtonDelegate {
 		weak var watchlistDelegate: WKWatchlistDelegate?
         weak var watchlistLoggingDelegate: WKWatchlistLoggingDelegate?
-		let menuButtonItems: [WKMenuButton.MenuItem]
+		let menuButtonItems: [WKSmallMenuButton.MenuItem]
 		let wkProjectMetadataKey: String
 		let revisionIDMetadataKey: String
         let oldRevisionIDMetadataKey: String
         let articleTitleMetadataKey: String
 
-        init(watchlistDelegate: WKWatchlistDelegate? = nil, watchlistLoggingDelegate: WKWatchlistLoggingDelegate?, menuButtonItems: [WKMenuButton.MenuItem], wkProjectMetadataKey: String, revisionIDMetadataKey: String, oldRevisionIDMetadataKey: String, articleTitleMetadaKey: String) {
+        init(watchlistDelegate: WKWatchlistDelegate? = nil, watchlistLoggingDelegate: WKWatchlistLoggingDelegate?, menuButtonItems: [WKSmallMenuButton.MenuItem], wkProjectMetadataKey: String, revisionIDMetadataKey: String, oldRevisionIDMetadataKey: String, articleTitleMetadaKey: String) {
 			self.watchlistDelegate = watchlistDelegate
             self.watchlistLoggingDelegate = watchlistLoggingDelegate
 			self.menuButtonItems = menuButtonItems
@@ -50,7 +50,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
             self.articleTitleMetadataKey = articleTitleMetadaKey
 		}
 
-		func wkSwiftUIMenuButtonUserDidTap(configuration: WKMenuButton.Configuration, item: WKMenuButton.MenuItem?) {
+		func wkSwiftUIMenuButtonUserDidTap(configuration: WKSmallMenuButton.Configuration, item: WKSmallMenuButton.MenuItem?) {
             guard let username = configuration.title, let tappedTitle = item?.title,
                     let wkProject = configuration.metadata[wkProjectMetadataKey] as? WKProject,
                   let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
@@ -83,7 +83,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
             }
 		}
 
-        func wkSwiftUIMenuButtonUserDidTapAccessibility(configuration: WKMenuButton.Configuration, item: WKMenuButton.MenuItem?) {
+        func wkSwiftUIMenuButtonUserDidTapAccessibility(configuration: WKSmallMenuButton.Configuration, item: WKSmallMenuButton.MenuItem?) {
             guard let username = configuration.title, let tappedTitle = item?.title, 
                     let wkProject = configuration.metadata[wkProjectMetadataKey] as? WKProject,
                   let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
@@ -224,7 +224,7 @@ fileprivate final class WKWatchlistHostingViewController: WKComponentHostingCont
         }
     }
 
-    init(viewModel: WKWatchlistViewModel, emptyViewModel: WKEmptyViewModel, delegate: WKWatchlistDelegate?, menuButtonDelegate: WKMenuButtonDelegate?) {
+    init(viewModel: WKWatchlistViewModel, emptyViewModel: WKEmptyViewModel, delegate: WKWatchlistDelegate?, menuButtonDelegate: WKSmallMenuButtonDelegate?) {
 		self.viewModel = viewModel
         self.emptyViewModel = emptyViewModel
         super.init(rootView: WKWatchlistView(viewModel: viewModel, emptyViewModel: emptyViewModel, delegate: delegate, loggingDelegate: loggingDelegate, menuButtonDelegate: menuButtonDelegate))

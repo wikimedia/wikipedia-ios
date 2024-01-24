@@ -71,7 +71,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private var summaryText = ""
     
     @IBOutlet weak var showWebPreviewContainerView: UIView!
-    private var showWebPreviewButtonHostingController: UIHostingController<WKResizableButton>?
+    private var showWebPreviewButtonHostingController: UIHostingController<WKSmallButton>?
 
     private var mode: NavigationMode = .preview {
         didSet {
@@ -227,7 +227,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        let rootView = WKResizableButton(configuration: .small, title: WMFLocalizedString("edit-show-web-preview", languageCode: languageCode, value: "Show web preview", comment: "Title of button that will show a web preview of the edit.")) { [weak self] in
+        let rootView = WKSmallButton(configuration: .quiet, title: WMFLocalizedString("edit-show-web-preview", languageCode: languageCode, value: "Show web preview", comment: "Title of button that will show a web preview of the edit.")) { [weak self] in
             self?.delegate?.editSaveViewControllerDidTapShowWebPreview()
         }
          let showWebPreviewButtonHostingController = UIHostingController(rootView: rootView)
