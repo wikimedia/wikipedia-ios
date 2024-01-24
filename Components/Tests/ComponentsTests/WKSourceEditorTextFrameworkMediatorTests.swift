@@ -466,6 +466,30 @@ final class WKSourceEditorTextFrameworkMediatorTests: XCTestCase {
         XCTAssertFalse(selectionStates5.isLinkWithNestedLink)
     }
     
+    func testCommentSelectionState() throws {
+        let text = "Testing <!--Comment--> Testing."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 0, length: 7))
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 12, length: 7))
+        let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 23, length: 7))
+        XCTAssertFalse(selectionStates1.isComment)
+        XCTAssertTrue(selectionStates2.isComment)
+        XCTAssertFalse(selectionStates3.isComment)
+    }
+
+    func testCommentSelectionStateCursor() throws {
+        let text = "Testing <!--Comment--> Testing."
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        
+        let selectionStates1 = mediator.selectionState(selectedDocumentRange: NSRange(location: 3, length: 0))
+        let selectionStates2 = mediator.selectionState(selectedDocumentRange: NSRange(location: 19, length: 0))
+        let selectionStates3 = mediator.selectionState(selectedDocumentRange: NSRange(location: 25, length: 0))
+        XCTAssertFalse(selectionStates1.isComment)
+        XCTAssertTrue(selectionStates2.isComment)
+        XCTAssertFalse(selectionStates3.isComment)
+    }
+    
     func testFindWithResults() throws {
         let text = "Find a '''word''' and highlight that word."
         mediator.textView.attributedText = NSAttributedString(string: text)

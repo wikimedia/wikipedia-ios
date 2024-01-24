@@ -535,4 +535,14 @@ final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
         mediator.linkFormatter?.insertImage(wikitext: "[[File:Cat November 2010-1a.jpg | thumb | 220x124px | right]]", in: textView)
         XCTAssertEqual(mediator.textView.attributedText.string, "One Two [[File:Cat November 2010-1a.jpg | thumb | 220x124px | right]]Three Four")
     }
+    
+    func testCommentInsertAndRemove() throws {
+        let text = "One Two Three Four"
+        mediator.textView.attributedText = NSAttributedString(string: text)
+        mediator.textView.selectedRange = NSRange(location: 4, length:3)
+        mediator.commentFormatter?.toggleCommentFormatting(action: .add, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One <!--Two--> Three Four")
+        mediator.commentFormatter?.toggleCommentFormatting(action: .remove, in: mediator.textView)
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three Four")
+    }
 }
