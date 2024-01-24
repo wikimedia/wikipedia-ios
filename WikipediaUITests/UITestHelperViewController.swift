@@ -150,6 +150,14 @@ public class UITestHelperViewController: WKCanvasViewController {
 
 
 extension UITestHelperViewController: WKSourceEditorViewControllerDelegate {
+    public func sourceEditorDidChangeUndoState(_ sourceEditorViewController: Components.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
+        
+    }
+    
+    public func sourceEditorDidChangeText(_ sourceEditorViewController: Components.WKSourceEditorViewController, didChangeText: Bool) {
+        
+    }
+    
     public func sourceEditorViewControllerDidTapImage() {
         
     }
@@ -158,11 +166,11 @@ extension UITestHelperViewController: WKSourceEditorViewControllerDelegate {
         
     }
     
-    public func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: Components.WKSourceEditorViewController) {
+    public func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: Components.WKSourceEditorViewController) {
         
     }
     
-    public func sourceEditorViewControllerDidTapFind(sourceEditorViewController: Components.WKSourceEditorViewController) {
+    public func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: Components.WKSourceEditorViewController) {
 
     }
     
