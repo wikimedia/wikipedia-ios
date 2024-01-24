@@ -77,8 +77,10 @@
 "action-add-to-reading-list" = "Title of the action that adds selected articles to a reading list";
 "action-add-to-reading-list-short" = "Shorter title for the action that adds selected articles to a reading list";
 "action-cancel" = "Title of the cancel action.";
+"action-discard-edit" = "Title of the discard edit action button.";
 "action-discard-edits" = "Title of the discard edits action.";
 "action-find-in-page" = "Title text and accessibility label for find in page action on buttons or info sheets.";
+"action-keep-editing" = "Title of the keep editing action button.";
 "action-language-accessibility" = "Accessibility title for the 'Language' toolbar button on articles and talk pages.";
 "action-move-to" = "Title of the action that moves the selection elsewhere.";
 "action-move-to-reading-list" = "Title of the action that moves the selected articles to another reading list";
@@ -336,6 +338,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
 "editing-welcome-set-knowledge-free-title" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
 "editor-exit-confirmation-body" = "Body text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.";
+"editor-exit-confirmation-message" = "Message text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.";
 "editor-exit-confirmation-title" = "Title text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.";
 "empty-diff-compare-title" = "Text for placeholder label visible when diff comparision between revisions is empty.";
 "empty-diff-single-title" = "Text for placeholder label visible when diff returned for single revision is empty.";
