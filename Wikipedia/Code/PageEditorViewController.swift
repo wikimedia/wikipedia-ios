@@ -269,15 +269,19 @@ final class PageEditorViewController: UIViewController {
         
         navigationController?.pushViewController(saveVC, animated: true)
     }
-    
-    private func showDestructiveDismissAlert(confirmCompletion: @escaping () -> Void) {
-        let alert = UIAlertController(title: CommonStrings.editorExitConfirmationTitle, message: CommonStrings.editorExitConfirmationBody, preferredStyle: .alert)
-        let confirmClose = UIAlertAction(title: CommonStrings.discardEditsActionTitle, style: .destructive) { _ in
+
+    private func showDestructiveDismissAlert(sender: UIBarButtonItem, confirmCompletion: @escaping () -> Void) {
+        let alert = UIAlertController(title: nil, message: CommonStrings.editorExitConfirmationMessage, preferredStyle: .actionSheet)
+        alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
+        let confirmClose = UIAlertAction(title: CommonStrings.discardEditActionTitle, style: .destructive) { _ in
             confirmCompletion()
         }
         alert.addAction(confirmClose)
-        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .default)
-        alert.addAction(cancel)
+        let keepEditing = UIAlertAction(title: CommonStrings.keepEditingActionTitle, style: .cancel)
+        alert.addAction(keepEditing)
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.barButtonItem = sender
+        }
         present(alert, animated: true)
     }
 }
@@ -375,8 +379,10 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
         
-        if navigationItemController.progressButton.isEnabled {
-            showDestructiveDismissAlert { [weak self] in
+        let progressButton = navigationItemController.progressButton
+        let closeButton = navigationItemController.closeButton
+        if progressButton.isEnabled {
+            showDestructiveDismissAlert(sender: closeButton) { [weak self] in
                 guard let self else {
                     return
                 }
