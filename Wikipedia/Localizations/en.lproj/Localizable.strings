@@ -284,7 +284,7 @@
 "edit-link-remove-accessibility-label" = "Remove link syntax";
 "edit-link-remove-link-title" = "Remove link";
 "edit-link-title" = "Edit link";
-"edit-menu-item" = "Edit article";
+"edit-menu-item" = "Edit";
 "edit-menu-item-could-not-find-selection-alert-message" = "This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted";
 "edit-menu-item-could-not-find-selection-alert-title" = "The text that you selected could not be located";
 "edit-minor-learn-more-text" = "Learn more about minor edits";
@@ -1048,6 +1048,7 @@
 "source-editor-accessibility-label-unordered-selected" = "Remove unordered list from current line";
 "source-editor-clear-formatting" = "Clear formatting";
 "source-editor-edit-published" = "Your edit was published.";
+"source-editor-edit-source" = "Edit source";
 "source-editor-find-replace-all" = "Replace all";
 "source-editor-find-replace-single" = "Replace";
 "source-editor-find-replace-with" = "Replace with...";

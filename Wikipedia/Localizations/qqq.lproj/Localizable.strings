@@ -284,7 +284,7 @@
 "edit-link-remove-accessibility-label" = "Accessibility label for the button that removes link syntax to the current selection";
 "edit-link-remove-link-title" = "Title for the remove link button";
 "edit-link-title" = "Title for the Edit link screen";
-"edit-menu-item" = "Button label for 'Edit article' menu item. Allows user to edit the full source of the article.";
+"edit-menu-item" = "Button label for 'Edit' context menu item";
 "edit-menu-item-could-not-find-selection-alert-message" = "Description of possible reasons the user text selection could not be located in the article wikitext.";
 "edit-menu-item-could-not-find-selection-alert-title" = "Title for alert informing user their text selection could not be located in the article wikitext.";
 "edit-minor-learn-more-text" = "Text for minor edits learn more button";
@@ -1048,6 +1048,7 @@
 "source-editor-accessibility-label-unordered-selected" = "Accessibility label for remove unordered list button on the page editor";
 "source-editor-clear-formatting" = "Label for clear formatting on the page editor";
 "source-editor-edit-published" = "Title for alert informing that the user's new edit was successfully published.";
+"source-editor-edit-source" = "Title for menu option to edit the source of a page.";
 "source-editor-find-replace-all" = "Label for replace all ocurrences of a string on the page editor";
 "source-editor-find-replace-single" = "Label for replace single string button on page editor";
 "source-editor-find-replace-with" = "Lable for replace with string button on page editor";

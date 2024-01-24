@@ -415,6 +415,15 @@ extension WKSourceEditorViewController: UITextViewDelegate {
         postUpdateButtonSelectionStatesNotification(withDelay: false)
     }
     
+    public func textViewDidChange(_ textView: UITextView) {
+        
+        DispatchQueue.main.async {
+            self.delegate?.sourceEditorDidChangeUndoState(self, canUndo: textView.undoManager?.canUndo ?? false, canRedo: textView.undoManager?.canRedo ?? false)
+        }
+        
+        delegate?.sourceEditorDidChangeText(self, didChangeText: textView.attributedText.string != viewModel.initialText)
+    }
+
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         // Don't allow emdash text changes. This throws off find & replace.
         if text == "—" {
@@ -422,15 +431,6 @@ extension WKSourceEditorViewController: UITextViewDelegate {
         }
         
         return true
-    }
-
-    public func textViewDidChange(_ textView: UITextView) {
-    
-        DispatchQueue.main.async {
-            self.delegate?.sourceEditorDidChangeUndoState(self, canUndo: textView.undoManager?.canUndo ?? false, canRedo: textView.undoManager?.canRedo ?? false)
-        }
-        
-        delegate?.sourceEditorDidChangeText(self, didChangeText: textView.attributedText.string != viewModel.initialText)
     }
 }
 
