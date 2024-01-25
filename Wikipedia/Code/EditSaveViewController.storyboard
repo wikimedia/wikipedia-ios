@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YCc-it-nqb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YCc-it-nqb">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,13 +17,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="Mag-UH-fwc">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fI-DJ-2eF" userLabel="Scroll Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="520"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="611"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="bAX-n7-9aq">
-                                                <rect key="frame" x="43.5" y="0.0" width="288" height="500"/>
+                                                <rect key="frame" x="43.5" y="0.0" width="288" height="591"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="H2h-I4-15C">
                                                         <rect key="frame" x="0.0" y="0.0" width="288" height="163"/>
@@ -59,10 +59,10 @@
                                                         </constraints>
                                                     </containerView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="h78-uR-o9i">
-                                                        <rect key="frame" x="0.0" y="273" width="288" height="116"/>
+                                                        <rect key="frame" x="0.0" y="273" width="288" height="207"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3B6-yA-KKL" userLabel="Minor Edit Stack View">
-                                                                <rect key="frame" x="0.0" y="0.0" width="288" height="41.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="288" height="54"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4lL-3a-u6s" userLabel="Divider view">
                                                                         <rect key="frame" x="0.0" y="0.0" width="288" height="1"/>
@@ -72,10 +72,10 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" translatesAutoresizingMaskIntoConstraints="NO" id="YgV-Kg-IXp">
-                                                                        <rect key="frame" x="0.0" y="9" width="288" height="32.5"/>
+                                                                        <rect key="frame" x="0.0" y="9" width="288" height="45"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="NvK-2d-NGU">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="239" height="32.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="239" height="45"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rf9-ar-bHj">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="239" height="18"/>
@@ -85,7 +85,7 @@
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Pxq-wG-5IZ" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                                        <rect key="frame" x="0.0" y="19" width="239" height="13.5"/>
+                                                                                        <rect key="frame" x="0.0" y="19" width="239" height="26"/>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                                                         <state key="normal" title="Button"/>
@@ -97,7 +97,7 @@
                                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             </stackView>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Wq7-Dh-cIU">
-                                                                                <rect key="frame" x="239" y="0.0" width="51" height="32.5"/>
+                                                                                <rect key="frame" x="239" y="0.0" width="51" height="45"/>
                                                                             </switch>
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -106,7 +106,7 @@
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Y6O-Zr-ZAJ">
-                                                                <rect key="frame" x="0.0" y="57.5" width="288" height="41.5"/>
+                                                                <rect key="frame" x="0.0" y="70" width="288" height="54"/>
                                                                 <subviews>
                                                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yKe-aH-xxx" userLabel="Divider view">
                                                                         <rect key="frame" x="0.0" y="0.0" width="288" height="1"/>
@@ -116,10 +116,10 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" translatesAutoresizingMaskIntoConstraints="NO" id="l63-r5-hhG">
-                                                                        <rect key="frame" x="0.0" y="9" width="288" height="32.5"/>
+                                                                        <rect key="frame" x="0.0" y="9" width="288" height="45"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="0k3-qz-JG7">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="239" height="32.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="239" height="45"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTw-He-TRu">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="239" height="18"/>
@@ -129,7 +129,7 @@
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SDy-gO-kQw" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                                        <rect key="frame" x="0.0" y="19" width="239" height="13.5"/>
+                                                                                        <rect key="frame" x="0.0" y="19" width="239" height="26"/>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                                                         <state key="normal" title="Button"/>
@@ -141,7 +141,7 @@
                                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             </stackView>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FAR-zq-Bq9">
-                                                                                <rect key="frame" x="239" y="0.0" width="51" height="32.5"/>
+                                                                                <rect key="frame" x="239" y="0.0" width="51" height="45"/>
                                                                             </switch>
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -150,17 +150,23 @@
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hKQ-rD-xWx" userLabel="Divider view">
-                                                                <rect key="frame" x="0.0" y="115" width="288" height="1"/>
+                                                                <rect key="frame" x="0.0" y="140" width="288" height="1"/>
                                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="DPy-ju-0C2"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="WlM-ym-7FV" userLabel="Show Web Preview Container View">
+                                                                <rect key="frame" x="0.0" y="157" width="288" height="50"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="43" id="xGD-rl-0ae"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZbI-A8-0p9">
-                                                        <rect key="frame" x="0.0" y="419" width="288" height="81"/>
+                                                        <rect key="frame" x="0.0" y="510" width="288" height="81"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JF6-Dm-AdC" userLabel="Spacer view">
                                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="0.0"/>
@@ -249,6 +255,7 @@
                         <outlet property="minorEditToggle" destination="Wq7-Dh-cIU" id="AdV-xV-hWl"/>
                         <outlet property="scrollContainer" destination="7fI-DJ-2eF" id="EqT-xw-cDe"/>
                         <outlet property="scrollView" destination="Mag-UH-fwc" id="Ais-Zf-7ZY"/>
+                        <outlet property="showWebPreviewContainerView" destination="WlM-ym-7FV" id="SCH-bG-HZA"/>
                         <outlet property="spacerAboveBottomDividerHeightConstrait" destination="KMF-oz-mp8" id="DBg-T4-bYc"/>
                         <outlet property="stackView" destination="bAX-n7-9aq" id="CYr-hu-DaT"/>
                         <outletCollection property="dividerHeightConstraits" destination="62E-DT-zBt" collectionClass="NSMutableArray" id="xby-Q0-UGd"/>
@@ -275,10 +282,10 @@
     </scenes>
     <designables>
         <designable name="Pxq-wG-5IZ">
-            <size key="intrinsicContentSize" width="35" height="13.5"/>
+            <size key="intrinsicContentSize" width="35" height="26"/>
         </designable>
         <designable name="SDy-gO-kQw">
-            <size key="intrinsicContentSize" width="35" height="13.5"/>
+            <size key="intrinsicContentSize" width="35" height="26"/>
         </designable>
     </designables>
 </document>

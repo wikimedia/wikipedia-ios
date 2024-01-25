@@ -1,3 +1,5 @@
+import Components
+
 protocol SectionEditorNavigationItemControllerDelegate: AnyObject {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem)
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem)
@@ -39,9 +41,12 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
             self.tintColorKeyPath = tintColorKeyPath
         }
 
-        convenience init(image: UIImage?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>, accessibilityLabel: String? = nil) {
+        convenience init(image: UIImage?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>, accessibilityLabel: String? = nil, size: CGSize? = nil) {
             let button = UIButton(type: .system)
             button.setImage(image, for: .normal)
+            if let size {
+                button.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            }
             if let target = target, let action = action {
                 button.addTarget(target, action: action, for: .touchUpInside)
             }
