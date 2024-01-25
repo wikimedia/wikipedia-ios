@@ -53,6 +53,15 @@
     "subTitleTextColor": "#222222",
     "blurBackground": 0
   },
+  "edit-preview-simplified-format": {
+    "backgroundColor": "#F8F9FA",
+    "backgroundColorAlpha": 1.0,
+    "titleTextColor": "#222222",
+    "titleFontSize": 14,
+    "subTitleFontSize": 12,
+    "subTitleTextColor": "#222222",
+    "blurBackground": 0
+  },
   "subscription-error": {
     "backgroundColor": "#F8F9FA",
     "backgroundColorAlpha": 1.0,
