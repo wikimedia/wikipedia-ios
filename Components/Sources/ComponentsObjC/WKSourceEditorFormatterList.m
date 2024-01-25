@@ -62,6 +62,10 @@ NSString * const WKSourceEditorCustomKeyContentNumberMultiple = @"WKSourceEditor
 
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
+    
     [attributedString removeAttribute:WKSourceEditorCustomKeyContentBulletSingle range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyContentBulletMultiple range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyContentNumberSingle range:range];
@@ -77,6 +81,10 @@ NSString * const WKSourceEditorCustomKeyContentNumberMultiple = @"WKSourceEditor
     NSMutableDictionary *mutAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.orangeAttributes];
     [mutAttributes setObject:colors.orangeForegroundColor forKey:NSForegroundColorAttributeName];
     self.orangeAttributes = [[NSDictionary alloc] initWithDictionary:mutAttributes];
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
     
     // Then update entire attributed string orange color
     [attributedString enumerateAttribute:WKSourceEditorCustomKeyColorOrange
@@ -117,6 +125,10 @@ NSString * const WKSourceEditorCustomKeyContentNumberMultiple = @"WKSourceEditor
 #pragma mark - Private
 
 - (void)enumerateAndHighlightAttributedString: (nonnull NSMutableAttributedString *)attributedString range:(NSRange)range singleRegex:(NSRegularExpression *)singleRegex multipleRegex:(NSRegularExpression *)multipleRegex singleContentAttributes:(NSDictionary<NSAttributedStringKey, id> *)singleContentAttributes singleContentAttributes:(NSDictionary<NSAttributedStringKey, id> *)multipleContentAttributes {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
     
     NSMutableArray *multipleRanges = [[NSMutableArray alloc] init];
     
@@ -174,23 +186,26 @@ NSString * const WKSourceEditorCustomKeyContentNumberMultiple = @"WKSourceEditor
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isContentKey:(NSString *)contentKey inRange:(NSRange)range {
     __block BOOL isContentKey = NO;
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return NO;
+    }
 
     if (range.length == 0) {
 
-        if (attributedString.length > range.location) {
-            NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+        NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
 
+        if (attrs[contentKey] != nil) {
+            isContentKey = YES;
+        }
+        
+        // Edge case, check previous character in case we're at the end of the line and list isn't detected
+        NSRange newRange = NSMakeRange(range.location - 1, 0);
+        if ([self canEvaluateAttributedString:attributedString againstRange:newRange]) {
+            NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
+            
             if (attrs[contentKey] != nil) {
                 isContentKey = YES;
-            }
-            
-            // Edge case, check previous character in case we're at the end of the line and list isn't detected
-            if (attributedString.length > range.location - 1) {
-                NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location-1 effectiveRange:nil];
-                
-                if (attrs[contentKey] != nil) {
-                    isContentKey = YES;
-                }
             }
         }
 

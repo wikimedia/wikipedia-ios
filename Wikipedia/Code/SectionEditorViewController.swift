@@ -701,6 +701,10 @@ extension SectionEditorViewController: EditSaveViewControllerDelegate {
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
         editConfirmationSavedData = saveData
     }
+    
+    func editSaveViewControllerDidTapShowWebPreview() {
+        assertionFailure("Invalid - this should only be called from Talk Page Edit Source")
+    }
 }
 
 // MARK: - EditPreviewViewControllerDelegate

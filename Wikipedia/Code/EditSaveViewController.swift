@@ -1,5 +1,7 @@
 import UIKit
+import SwiftUI
 import WMF
+import Components
 
 struct SectionEditorChanges {
     let newRevisionID: UInt64
@@ -8,6 +10,7 @@ struct SectionEditorChanges {
 protocol EditSaveViewControllerDelegate: NSObjectProtocol {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>)
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData)
+    func editSaveViewControllerDidTapShowWebPreview()
 }
 
 private enum NavigationMode : Int {
@@ -35,6 +38,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     var wikitext = ""
     var theme: Theme = .standard
+    var needsWebPreviewButton: Bool = false
     weak var delegate: EditSaveViewControllerDelegate?
 
     private lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
@@ -65,6 +69,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private var buttonLeftCaret: UIBarButtonItem?
     private var abuseFilterCode = ""
     private var summaryText = ""
+    
+    @IBOutlet weak var showWebPreviewContainerView: UIView!
+    private var showWebPreviewButtonHostingController: UIHostingController<WKSmallButton>?
 
     private var mode: NavigationMode = .preview {
         didSet {
@@ -209,6 +216,33 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
         addToWatchlistLabel.text = WMFLocalizedString("edit-watch-this-page-text", value: "Watch this page", comment: "Text for watch this page label")
         addToWatchlistButton.setTitle(WMFLocalizedString("edit-watch-list-learn-more-text", value: "Learn more about watch lists", comment: "Text for watch lists learn more button"), for: .normal)
+        
+        setupWebPreviewButton()
+    }
+    
+    private func setupWebPreviewButton() {
+        
+        guard needsWebPreviewButton else {
+            showWebPreviewContainerView.isHidden = true
+            return
+        }
+        
+        let rootView = WKSmallButton(configuration: .quiet, title: WMFLocalizedString("edit-show-web-preview", languageCode: languageCode, value: "Show web preview", comment: "Title of button that will show a web preview of the edit.")) { [weak self] in
+            self?.delegate?.editSaveViewControllerDidTapShowWebPreview()
+        }
+         let showWebPreviewButtonHostingController = UIHostingController(rootView: rootView)
+         showWebPreviewButtonHostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        showWebPreviewButtonHostingController.view.backgroundColor = .clear
+         self.showWebPreviewButtonHostingController = showWebPreviewButtonHostingController
+         
+         addChild(showWebPreviewButtonHostingController)
+         showWebPreviewContainerView.addSubview(showWebPreviewButtonHostingController.view)
+         
+        showWebPreviewContainerView.addConstraints([
+            showWebPreviewContainerView.topAnchor.constraint(equalTo: showWebPreviewButtonHostingController.view.topAnchor),
+            showWebPreviewContainerView.bottomAnchor.constraint(equalTo: showWebPreviewButtonHostingController.view.topAnchor),
+            showWebPreviewContainerView.trailingAnchor.constraint(equalTo: showWebPreviewButtonHostingController.view.trailingAnchor)
+        ])
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
