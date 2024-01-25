@@ -13,6 +13,8 @@ extern NSString *const WKSourceEditorCustomKeyColorGreen;
 
 - (void)updateColors:(WKSourceEditorColors *)colors inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range;
 - (void)updateFonts:(WKSourceEditorFonts *)fonts inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range;
+
+- (BOOL)canEvaluateAttributedString: (NSAttributedString *)attributedString againstRange: (NSRange)range;
 @end
 
 NS_ASSUME_NONNULL_END
