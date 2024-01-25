@@ -50,6 +50,10 @@ public class WKSourceEditorViewController: WKComponentViewController {
         return textFrameworkMediator.textView
     }
     
+    public var editedWikitext: String {
+        return textView.text
+    }
+    
     // Input Accessory Views
     
     private(set) lazy var expandingAccessoryView: WKEditorToolbarExpandingView = {

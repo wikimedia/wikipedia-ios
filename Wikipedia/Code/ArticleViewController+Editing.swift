@@ -12,7 +12,7 @@ extension ArticleViewController {
     }
     
     func showEditorForFullSource(selectedTextEditInfo: SelectedTextEditInfo? = nil) {
-        let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: nil, dataStore: dataStore, delegate: self, theme: theme)
+        let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: nil, editFlow: .editorPreviewSave, dataStore: dataStore, delegate: self, theme: theme)
         
         presentEditor(editorViewController: pageEditorViewController)
     }
@@ -21,7 +21,7 @@ extension ArticleViewController {
         cancelWIconPopoverDisplay()
         let editorViewController: UIViewController
         if FeatureFlags.needsNativeSourceEditor {
-            let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: id, dataStore: dataStore, delegate: self, theme: theme)
+            let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, dataStore: dataStore, delegate: self, theme: theme)
             editorViewController = pageEditorViewController
         } else {
             let sectionEditViewController = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
@@ -220,8 +220,33 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
 }
 
 extension ArticleViewController: PageEditorViewControllerDelegate {
-    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL: URL?) {
+    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL url: URL?) {
         dismiss(animated: true) {
+            self.navigate(to: url)
+        }
+    }
+    
+    func pageEditorDidFinishEditing(_ pageEditor: PageEditorViewController, result: Result<SectionEditorChanges, Error>) {
+        switch result {
+        case .failure(let error):
+            showError(error)
+        case .success(let changes):
+            dismiss(animated: true) {
+                
+                let title = CommonStrings.editPublishedToastTitle
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                
+                if UIAccessibility.isVoiceOverRunning {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                    }
+                } else {
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+                }
+                
+            }
+            
+            waitForNewContentAndRefresh(changes.newRevisionID)
         }
     }
 }

@@ -147,6 +147,8 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
                 messageView.buttonFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
             } else if messageView.customTypeName == "donate-success" {
                 messageView.imageViewTintColor = theme.colors.error
+            } else if messageView.customTypeName == "edit-preview-simplified-format" {
+                // no additional customization needed
             }
         default:
             messageView.titleTextColor = theme.colors.link
