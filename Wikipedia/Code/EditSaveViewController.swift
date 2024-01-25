@@ -247,18 +247,19 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private func save() {
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
-        guard let sectionID = sectionID else {
-            assertionFailure("Could not get section to be edited")
-            return
-        }
-        
         guard let editURL = articleURL else {
             assertionFailure("Could not get url of section to be edited")
             return
         }
         EditAttemptFunnel.shared.logSaveAttempt(articleURL: editURL)
         
-        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: "\(sectionID)", summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, completion: { (result, error) in
+        let section: String?
+        if let sectionID {
+            section = "\(sectionID)"
+        } else {
+            section = nil
+        }
+        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, completion: { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     self.handleEditFailure(with: error)

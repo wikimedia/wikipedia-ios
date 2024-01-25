@@ -126,7 +126,6 @@
 "article-languages-label" = "Choose language";
 "article-languages-others" = "Other languages";
 "article-languages-yours" = "Your languages";
-"article-nav-edit" = "Edit";
 "article-read-more-title" = "Read more";
 "article-reference-view-title" = "Reference $1";
 "article-revision-history" = "Article revision history";
@@ -1046,6 +1045,8 @@
 "source-editor-accessibility-label-unordered" = "Make current line unordered list";
 "source-editor-accessibility-label-unordered-selected" = "Remove unordered list from current line";
 "source-editor-clear-formatting" = "Clear formatting";
+"source-editor-edit-published" = "Your edit was published.";
+"source-editor-edit-source" = "Edit source";
 "source-editor-find-replace-all" = "Replace all";
 "source-editor-find-replace-single" = "Replace";
 "source-editor-find-replace-with" = "Replace with...";

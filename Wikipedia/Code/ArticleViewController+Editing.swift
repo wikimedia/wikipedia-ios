@@ -220,8 +220,33 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
 }
 
 extension ArticleViewController: PageEditorViewControllerDelegate {
-    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL: URL?) {
+    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL url: URL?) {
         dismiss(animated: true) {
+            self.navigate(to: url)
+        }
+    }
+    
+    func pageEditorDidFinishEditing(_ pageEditor: PageEditorViewController, result: Result<SectionEditorChanges, Error>) {
+        switch result {
+        case .failure(let error):
+            showError(error)
+        case .success(let changes):
+            dismiss(animated: true) {
+                
+                let title = CommonStrings.editPublishedToastTitle
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                
+                if UIAccessibility.isVoiceOverRunning {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                    }
+                } else {
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+                }
+                
+            }
+            
+            waitForNewContentAndRefresh(changes.newRevisionID)
         }
     }
 }

@@ -67,4 +67,8 @@ extension ArticleViewController: ArticleToolbarHandling {
     func showArticleTalkPage(from controller: ArticleToolbarController) {
         showTalkPage()
     }
+    
+    func editArticle(from controller: ArticleToolbarController) {
+        showEditorForFullSource()
+    }
 }

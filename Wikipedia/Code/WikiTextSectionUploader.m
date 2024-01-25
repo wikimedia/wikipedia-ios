@@ -93,7 +93,7 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
 
 - (void)uploadWikiText:(nullable NSString *)wikiText
          forArticleURL:(NSURL *)articleURL
-               section:(NSString *)section
+               section:(nullable NSString *)section
                summary:(nullable NSString *)summary
            isMinorEdit:(BOOL)isMinorEdit
         addToWatchlist:(BOOL)addToWatchlist
@@ -103,7 +103,6 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
     
     wikiText = wikiText ? wikiText : @"";
-    section = section ? section : @"";
     summary = summary ? summary : @"";
     NSString *title = articleURL.wmf_title;
     if (!title) {
@@ -116,7 +115,6 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
       @"action": @"edit",
       @"text": wikiText,
       @"summary": summary,
-      @"section": section,
       @"title": articleURL.wmf_title,
       @"errorformat": @"html",
       @"errorsuselocal": @"1",
@@ -124,6 +122,10 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
       @"formatversion": @"2",
       }
     .mutableCopy;
+    
+    if (section) {
+        params[@"section"] = section;
+    }
 
     if (isMinorEdit) {
         params[@"minor"] = @"1";
