@@ -77,8 +77,10 @@
 "action-add-to-reading-list" = "Add to reading list";
 "action-add-to-reading-list-short" = "Add to list";
 "action-cancel" = "Cancel";
+"action-discard-edit" = "Discard Edit";
 "action-discard-edits" = "Discard edits";
 "action-find-in-page" = "Find in page";
+"action-keep-editing" = "Keep Editing";
 "action-language-accessibility" = "Change language";
 "action-move-to" = "Move to…";
 "action-move-to-reading-list" = "Move to reading list";
@@ -337,6 +339,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "In order to give everyone access to the world’s knowledge, we need you to participate in its creation by reading, editing, and contributing to the topics that matter most to you.";
 "editing-welcome-set-knowledge-free-title" = "Set knowledge free";
 "editor-exit-confirmation-body" = "Are you sure you want to leave editing mode without publishing first?";
+"editor-exit-confirmation-message" = "Are you sure you want to discard this edit?";
 "editor-exit-confirmation-title" = "Dismiss the editing mode?";
 "empty-diff-compare-title" = "No differences between revisions";
 "empty-diff-single-title" = "No viewable changes made";

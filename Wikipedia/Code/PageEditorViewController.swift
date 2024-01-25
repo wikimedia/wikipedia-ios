@@ -232,6 +232,22 @@ final class PageEditorViewController: UIViewController {
         WKAppEnvironment.current.set(articleAndEditorTextSize: textSizeAdjustment.contentSizeCategory)
     }
     
+
+    private func showDestructiveDismissAlert(sender: UIBarButtonItem, confirmCompletion: @escaping () -> Void) {
+        let alert = UIAlertController(title: nil, message: CommonStrings.editorExitConfirmationMessage, preferredStyle: .actionSheet)
+        alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
+        let confirmClose = UIAlertAction(title: CommonStrings.discardEditActionTitle, style: .destructive) { _ in
+            confirmCompletion()
+        }
+        alert.addAction(confirmClose)
+        let keepEditing = UIAlertAction(title: CommonStrings.keepEditingActionTitle, style: .cancel)
+        alert.addAction(keepEditing)
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.barButtonItem = sender
+        }
+        present(alert, animated: true)
+    }
+
     private func showEditPreview(editFlow: EditFlow) {
         let previewVC = EditPreviewViewController(articleURL: pageURL)
         previewVC.theme = theme
@@ -278,6 +294,7 @@ extension PageEditorViewController: Themeable {
         guard isViewLoaded else {
             return
         }
+        
         self.theme = theme
         navigationItemController.apply(theme: theme)
         focusNavigationView.apply(theme: theme)
@@ -363,7 +380,19 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
-        delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
+        
+        let progressButton = navigationItemController.progressButton
+        let closeButton = navigationItemController.closeButton
+        if progressButton.isEnabled {
+            showDestructiveDismissAlert(sender: closeButton) { [weak self] in
+                guard let self else {
+                    return
+                }
+                self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
+            }
+        } else {
+            delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
+        }
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {

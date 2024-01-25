@@ -67,6 +67,12 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
             }
         }
     }
+    
+    private(set) lazy var closeButton: BarButtonItem = {
+        let closeButton = BarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_ :)), tintColorKeyPath: \Theme.colors.chromeText)
+        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        return closeButton
+    }()
 
     private(set) lazy var progressButton: BarButtonItem = {
         return BarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)), tintColorKeyPath: \Theme.colors.link)
@@ -127,9 +133,6 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
     }
 
     private func configureNavigationButtonItems() {
-        let closeButton = UIBarButtonItem(image: WKSFSymbolIcon.for(symbol: .close), style: .plain, target: self, action: #selector(close(_ :)))
-        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-
         navigationItem?.leftBarButtonItem = closeButton
 
         navigationItem?.rightBarButtonItems = [
