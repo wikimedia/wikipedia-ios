@@ -14,6 +14,7 @@ class WKEditorToolbarView: WKComponentView {
         super.awakeFromNib()
         accessibilityElements = buttons
         updateColors()
+        maximumContentSizeCategory = .accessibilityMedium
     }
     
     // MARK: - Overrides
