@@ -4,11 +4,6 @@ import UIKit
 public enum WKIcon {
     
     static let checkmark = UIImage(named: "checkmark", in: .module, with: nil)
-    static let chevronDown = UIImage(named: "chevron-down", in: .module, with: nil)
-    static let chevronLeft = UIImage(named: "chevron-left", in: .module, with: nil)
-    static let chevronRight = UIImage(named: "chevron-right", in: .module, with: nil)
-    static let chevronRightCircle = UIImage(named: "chevron-right-circle", in: .module, with: nil)
-    static let chevronUp = UIImage(named: "chevron-up", in: .module, with: nil)
     static let close = UIImage(named: "close", in: .module, with: nil)
     static let closeCircle = UIImage(named: "close-circle", in: .module, with: nil)
     static let exclamationPointCircle = UIImage(named: "exclamation-point-circle", in: .module, with: nil)
@@ -17,7 +12,7 @@ public enum WKIcon {
     static let link = UIImage(named: "link", in: .module, with: nil)
     static let media = UIImage(named: "media", in: .module, with: nil)
     static let more = UIImage(named: "more", in: .module, with: nil)
-    static let pencil = UIImage(named: "pencil", in: .module, with: nil)
+    public static let pencil = UIImage(named: "pencil", in: .module, with: nil)
     static let plus = UIImage(named: "plus", in: .module, with: nil)
     static let plusCircle = UIImage(named: "plus-circle", in: .module, with: nil)
     static let replace = UIImage(named: "replace", in: .module, with: nil)
@@ -25,7 +20,6 @@ public enum WKIcon {
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
 
     // Editor-specific icons
-    static let clear = UIImage(named: "editor/clear", in: .module, with: nil) //
     static let formatText = UIImage(named: "editor/format-text", in: .module, with: nil)//
     static let formatHeading = UIImage(named: "editor/format-heading", in: .module, with: nil)//
 
@@ -112,9 +106,9 @@ public enum WKSFSymbolIcon {
         case .listNumber:
             return UIImage(systemName: "list.number", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .increaseIndent:
-            return UIImage(systemName: "increase.indent", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            return UIImage(systemName: "increase.indent", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate).imageFlippedForRightToLeftLayoutDirection()
         case .decreaseIndent:
-            return UIImage(systemName: "decrease.indent", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            return UIImage(systemName: "decrease.indent", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate).imageFlippedForRightToLeftLayoutDirection()
         case .chevronUp:
             return UIImage(systemName: "chevron.up", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .chevronDown:
@@ -140,7 +134,7 @@ public enum WKSFSymbolIcon {
         case .multiplyCircleFill:
             return UIImage(systemName: "multiply.circle.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .chevronRightCircle:
-            return UIImage(systemName: "chevron.right.circle.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            return UIImage(systemName: "chevron.right.circle.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate).imageFlippedForRightToLeftLayoutDirection()
         case .close:
             return UIImage(systemName: "multiply", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         case .ellipsis:

@@ -64,7 +64,18 @@ class WKEditorToolbarButton: WKComponentView {
         set {
             button.isSelected = newValue
             updateColors()
-            accessibilityTraits = newValue ? [.button, .selected] : [.button]
+            accessibilityTraits = button.accessibilityTraits
+        }
+    }
+    
+    var isEnabled: Bool {
+        get {
+            return button.isEnabled
+        }
+        set {
+            button.isEnabled = newValue
+            updateColors()
+            accessibilityTraits = button.accessibilityTraits
         }
     }
     

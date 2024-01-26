@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import Components
 
 protocol ArticleToolbarHandling: AnyObject {
     func toggleSave(from controller: ArticleToolbarController)
@@ -14,6 +15,7 @@ protocol ArticleToolbarHandling: AnyObject {
     func showArticleTalkPage(from controller: ArticleToolbarController)
     func watch(from controller: ArticleToolbarController)
     func unwatch(from controller: ArticleToolbarController)
+    func editArticle(from controller: ArticleToolbarController)
     var isTableOfContentsVisible: Bool { get }
 }
 
@@ -86,6 +88,11 @@ class ArticleToolbarController: Themeable {
     
     private func createMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false) -> IconBarButtonItem {
         var actions: [UIAction] = []
+        
+        if FeatureFlags.needsNativeSourceEditor {
+            let image = WKIcon.pencil
+            actions.append(UIAction(title: CommonStrings.editSource, image: image, handler: { [weak self] _ in self?.tappedEditArticle() }))
+        }
         
         actions.append(UIAction(title: CommonStrings.articleRevisionHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedRevisionHistory() }))
         
@@ -187,6 +194,10 @@ class ArticleToolbarController: Themeable {
     
     @objc func tappedRevisionHistory() {
         delegate?.showRevisionHistory(from: self)
+    }
+    
+    @objc func tappedEditArticle() {
+        delegate?.editArticle(from: self)
     }
     
     // MARK: State

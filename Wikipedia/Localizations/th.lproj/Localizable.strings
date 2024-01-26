@@ -453,7 +453,7 @@
 "icon-shortcut-random-title" = "สุ่มบทความ";
 "icon-shortcut-search-title" = "ค้นหาวิกิพีเดีย";
 "image-gallery-unknown-owner" = "ไม่รู้จักผู้เขียน";
-"import-shared-reading-list-survey-prompt-button-cancel" = "ยังไม่ทำตอนนี้";
+"import-shared-reading-list-survey-prompt-button-cancel" = "ไม่ใช่ตอนนี้";
 "in-the-news-sub-title-from-language-wikipedia" = "จากวิกิพีเดียภาษา$1";
 "in-the-news-sub-title-from-wikipedia" = "จากวิกิพีเดีย";
 "in-the-news-title" = "เรื่องจากข่าว";
@@ -535,7 +535,7 @@
 "notifications-center-filters-read-status-item-title-all" = "ทั้งหมด";
 "notifications-center-filters-read-status-item-title-read" = "อ่าน";
 "notifications-center-filters-read-status-item-title-unread" = "ยังไม่ได้อ่าน";
-"notifications-center-filters-read-status-section-title" = "สถานะ";
+"notifications-center-filters-read-status-section-title" = "อ่านสถานะ";
 "notifications-center-filters-title" = "ตัวกรอง";
 "notifications-center-filters-types-item-title-all" = "ทุกประเภท";
 "notifications-center-filters-types-section-title" = "ประเภทของการแจ้งเตือน";
@@ -829,6 +829,8 @@
 "vanish-account-learn-more-text" = "เรียนรู้เพิ่มเติม";
 "vanish-account-warning-title" = "คำเตือน";
 "variants-alert-dismiss-button" = "ไม่ขอบคุณ";
+"watchlist-filter-type-of-change-header" = "ประเภทของการเปลี่ยน";
+"watchlist-user-button-user-page" = "หน้าผู้ใช้";
 "welcome-exploration-explore-feed-description" = "บทความแนะนำประจำวันจากชุมชนของเรา";
 "welcome-exploration-explore-feed-title" = "ฟีดสำรวจ";
 "welcome-exploration-on-this-day-description" = "ย้อนเวลากลับไปเพื่อเรียนรู้ว่าเกิดอะไรขึ้นในเวลาที่ผ่านมา";
@@ -856,7 +858,7 @@
 "welcome-send-data-learn-more" = "เรียนรู้เพิ่มเติมเกี่ยวกับข้อมูลที่รวบรวมมา";
 "welcome-send-data-sub-title" = "ช่วยปรับปรุงแอปให้ดียิ่งขึ้นโดยบอกให้ทางมูลนิธิวิกิมีเดียทราบว่าคุณใช้แอปอย่างไร โดยข้อมูลที่รวบรวมจะไม่มีการระบุตัวตนใดๆ";
 "welcome-volunteer-send-usage-reports" = "ส่งรายงานการใช้งาน";
-"widget-onthisday-placeholder-article-snippet" = "สารานุกรมเสรีที่ทุกคนแก้ไขได้";
+"widget-onthisday-placeholder-article-snippet" = "สารานุกรมเสรีที่ทุกคนสามารถแก้ไขได้";
 "wikitext-downloading" = "กำลังโหลดเนื้อหา...";
 "wikitext-preview-changes" = "กำลังดึงตัวอย่างการเปลี่ยนแปลงของคุณ...";
 "wikitext-preview-changes-none" = "ไม่มีการเปลี่ยนแปลงใดที่ต้องมีตัวอย่าง";

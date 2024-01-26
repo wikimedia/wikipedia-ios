@@ -34,12 +34,28 @@ final class WKSourceEditorTests: XCTestCase {
 }
 
 extension WKSourceEditorTests: WKSourceEditorViewControllerDelegate {
-    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: Components.WKSourceEditorViewController) {
+    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: Components.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
         
     }
     
-    func sourceEditorViewControllerDidTapFind(sourceEditorViewController: Components.WKSourceEditorViewController) {
+    func sourceEditorDidChangeText(_ sourceEditorViewController: Components.WKSourceEditorViewController, didChangeText: Bool) {
+        
+    }
+    
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: Components.WKSourceEditorViewController) {
+        
+    }
+    
+    func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: Components.WKSourceEditorViewController) {
 
+    }
+    
+    func sourceEditorViewControllerDidTapLink(parameters: Components.WKSourceEditorFormatterLinkWizardParameters) {
+        
+    }
+    
+    func sourceEditorViewControllerDidTapImage() {
+        
     }
 }
 
@@ -58,8 +74,8 @@ extension WKSourceEditorLocalizedStrings {
             findReplaceTypeSingle: "",
             findReplaceTypeAll: "",
             findReplaceWith: "",
+            findReplaceTypeMenuTitle: "",
             accessibilityLabelButtonFormatText: "",
-            accessibilityLabelButtonFormatHeading: "",
             accessibilityLabelButtonCitation: "",
             accessibilityLabelButtonCitationSelected: "",
             accessibilityLabelButtonLink: "",
@@ -82,7 +98,6 @@ extension WKSourceEditorLocalizedStrings {
             accessibilityLabelButtonBoldSelected: "",
             accessibilityLabelButtonItalics: "",
             accessibilityLabelButtonItalicsSelected: "",
-            accessibilityLabelButtonClearFormatting: "",
             accessibilityLabelButtonShowMore: "",
             accessibilityLabelButtonComment: "",
             accessibilityLabelButtonCommentSelected: "",

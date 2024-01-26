@@ -51,9 +51,8 @@ public class UITestHelperViewController: WKCanvasViewController {
                                                               inputViewSubheading4: CommonStrings.subheading4,
                                                               findReplaceTypeSingle: CommonStrings.findAndReplaceSingle,
                                                               findReplaceTypeAll: CommonStrings.findAndReplaceAll,
-                                                              findReplaceWith: CommonStrings.replaceWith,
+                                                              findReplaceWith: CommonStrings.replaceWith, findReplaceTypeMenuTitle: CommonStrings.findReplaceHeader,
                                                               accessibilityLabelButtonFormatText: CommonStrings.accessibilityLabelButtonFormatText,
-                                                              accessibilityLabelButtonFormatHeading: CommonStrings.accessibilityLabelButtonFormatHeading,
                                                               accessibilityLabelButtonCitation: CommonStrings.accessibilityLabelButtonCitation,
                                                               accessibilityLabelButtonCitationSelected: CommonStrings.accessibilityLabelButtonCitationSelected,
                                                               accessibilityLabelButtonLink: CommonStrings.accessibilityLabelButtonBold,
@@ -76,7 +75,6 @@ public class UITestHelperViewController: WKCanvasViewController {
                                                               accessibilityLabelButtonBoldSelected: CommonStrings.accessibilityLabelButtonBoldSelected,
                                                               accessibilityLabelButtonItalics: CommonStrings.accessibilityLabelButtonItalics,
                                                               accessibilityLabelButtonItalicsSelected: CommonStrings.accessibilityLabelButtonItalicsSelected,
-                                                              accessibilityLabelButtonClearFormatting: CommonStrings.accessibilityLabelButtonClearFormatting,
                                                               accessibilityLabelButtonShowMore: CommonStrings.accessibilityLabelButtonShowMore,
                                                               accessibilityLabelButtonComment: CommonStrings.accessibilityLabelButtonComment,
                                                               accessibilityLabelButtonCommentSelected: CommonStrings.accessibilityLabelButtonCommentSelected,
@@ -108,12 +106,10 @@ public class UITestHelperViewController: WKCanvasViewController {
             showMoreButton: SourceEditorAccessibilityIdentifiers.showMoreButton.rawValue,
             closeButton: SourceEditorAccessibilityIdentifiers.closeButton.rawValue,
             formatTextButton: SourceEditorAccessibilityIdentifiers.formatTextButton.rawValue,
-            formatHeadingButton: SourceEditorAccessibilityIdentifiers.formatHeadingButton.rawValue,
             expandingToolbar: SourceEditorAccessibilityIdentifiers.expandingToolbar.rawValue,
             highlightToolbar: SourceEditorAccessibilityIdentifiers.highlightToolbar.rawValue,
             findToolbar: SourceEditorAccessibilityIdentifiers.findButton.rawValue,
-            mainInputView: SourceEditorAccessibilityIdentifiers.mainInputView.rawValue,
-            headerSelectInputView: SourceEditorAccessibilityIdentifiers.headerSelectInputView.rawValue
+            inputView: SourceEditorAccessibilityIdentifiers.inputView.rawValue
           )
 
         let textAlignment: NSTextAlignment = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .right : .left
@@ -154,11 +150,27 @@ public class UITestHelperViewController: WKCanvasViewController {
 
 
 extension UITestHelperViewController: WKSourceEditorViewControllerDelegate {
-    public func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: Components.WKSourceEditorViewController) {
+    public func sourceEditorDidChangeUndoState(_ sourceEditorViewController: Components.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
         
     }
     
-    public func sourceEditorViewControllerDidTapFind(sourceEditorViewController: Components.WKSourceEditorViewController) {
+    public func sourceEditorDidChangeText(_ sourceEditorViewController: Components.WKSourceEditorViewController, didChangeText: Bool) {
+        
+    }
+    
+    public func sourceEditorViewControllerDidTapImage() {
+        
+    }
+    
+    public func sourceEditorViewControllerDidTapLink(parameters: Components.WKSourceEditorFormatterLinkWizardParameters) {
+        
+    }
+    
+    public func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: Components.WKSourceEditorViewController) {
+        
+    }
+    
+    public func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: Components.WKSourceEditorViewController) {
 
     }
     

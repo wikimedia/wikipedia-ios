@@ -4,8 +4,9 @@ protocol WKEditorToolbarHighlightViewDelegate: AnyObject {
     func toolbarHighlightViewDidTapBold(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
     func toolbarHighlightViewDidTapItalics(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
     func toolbarHighlightViewDidTapTemplate(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
+    func toolbarHighlightViewDidTapReference(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
+    func toolbarHighlightViewDidTapLink(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool)
     func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView)
-    func toolbarHighlightViewDidTapFormatHeading(toolbarView: WKEditorToolbarHighlightView)
 }
 
 class WKEditorToolbarHighlightView: WKEditorToolbarView {
@@ -16,11 +17,9 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
     
     @IBOutlet private weak var boldButton: WKEditorToolbarButton!
     @IBOutlet private weak var italicsButton: WKEditorToolbarButton!
-    @IBOutlet private weak var formatHeadingButton: WKEditorToolbarButton!
-    @IBOutlet private weak var citationButton: WKEditorToolbarButton!
+    @IBOutlet private weak var referenceButton: WKEditorToolbarButton!
     @IBOutlet private weak var linkButton: WKEditorToolbarButton!
     @IBOutlet private weak var templateButton: WKEditorToolbarButton!
-    @IBOutlet private weak var clearMarkupButton: WKEditorToolbarButton!
     @IBOutlet private weak var showMoreButton: WKEditorToolbarNavigatorButton!
     
     weak var delegate: WKEditorToolbarHighlightViewDelegate?
@@ -41,14 +40,9 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
         italicsButton.addTarget(self, action: #selector(tappedItalics), for: .touchUpInside)
         italicsButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonItalics
 
-        formatHeadingButton.setImage(WKIcon.formatHeading, for: .normal)
-        formatHeadingButton.addTarget(self, action: #selector(tappedFormatHeading), for: .touchUpInside)
-        formatHeadingButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.formatHeadingButton
-        formatHeadingButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonFormatHeading
-
-        citationButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
-        citationButton.addTarget(self, action: #selector(tappedCitation), for: .touchUpInside)
-        citationButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonCitation
+        referenceButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
+        referenceButton.addTarget(self, action: #selector(tappedReference), for: .touchUpInside)
+        referenceButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonCitation
 
         linkButton.setImage(WKSFSymbolIcon.for(symbol: .link), for: .normal)
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
@@ -57,11 +51,6 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
         templateButton.setImage(WKSFSymbolIcon.for(symbol: .curlybraces), for: .normal)
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
         templateButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonTemplate
-
-        clearMarkupButton.setImage(WKIcon.clear, for: .normal)
-        clearMarkupButton.addTarget(self, action: #selector(tappedClearMarkup), for: .touchUpInside)
-        clearMarkupButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonClearFormatting
-
         showMoreButton.setImage(WKSFSymbolIcon.for(symbol: .plusCircleFill), for: .normal)
         showMoreButton.addTarget(self, action: #selector(tappedShowMore), for: .touchUpInside)
         showMoreButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.showMoreButton
@@ -80,6 +69,8 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
         boldButton.isSelected = selectionState.isBold
         italicsButton.isSelected = selectionState.isItalics
         templateButton.isSelected = selectionState.isHorizontalTemplate
+        referenceButton.isSelected = selectionState.isHorizontalReference
+        linkButton.isSelected = selectionState.isSimpleLink
     }
     
     // MARK: - Button Actions
@@ -93,13 +84,14 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
     }
 
     @objc private func tappedFormatHeading() {
-        delegate?.toolbarHighlightViewDidTapFormatHeading(toolbarView: self)
     }
 
-    @objc private func tappedCitation() {
+    @objc private func tappedReference() {
+        delegate?.toolbarHighlightViewDidTapReference(toolbarView: self, isSelected: referenceButton.isSelected)
     }
 
     @objc private func tappedLink() {
+        delegate?.toolbarHighlightViewDidTapLink(toolbarView: self, isSelected: linkButton.isSelected)
     }
 
     @objc private func tappedTemplate() {

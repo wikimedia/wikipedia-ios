@@ -77,8 +77,10 @@
 "action-add-to-reading-list" = "Title of the action that adds selected articles to a reading list";
 "action-add-to-reading-list-short" = "Shorter title for the action that adds selected articles to a reading list";
 "action-cancel" = "Title of the cancel action.";
+"action-discard-edit" = "Title of the discard edit action button.";
 "action-discard-edits" = "Title of the discard edits action.";
 "action-find-in-page" = "Title text and accessibility label for find in page action on buttons or info sheets.";
+"action-keep-editing" = "Title of the keep editing action button.";
 "action-language-accessibility" = "Accessibility title for the 'Language' toolbar button on articles and talk pages.";
 "action-move-to" = "Title of the action that moves the selection elsewhere.";
 "action-move-to-reading-list" = "Title of the action that moves the selected articles to another reading list";
@@ -126,7 +128,6 @@
 "article-languages-label" = "Header label for per-article language selector screen. {{Identical|Choose language}}";
 "article-languages-others" = "Title for list of languages not in user's preferred languages";
 "article-languages-yours" = "Title for list of user's preferred languages";
-"article-nav-edit" = "Edit button title. Takes user to editor to edit the full source of an article.";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}";
 "article-reference-view-title" = "Title for the reference view. $1 is replaced by the reference link name, for example [1].";
 "article-revision-history" = "Title for menu option that leads to article revision history.";
@@ -285,7 +286,7 @@
 "edit-link-remove-accessibility-label" = "Accessibility label for the button that removes link syntax to the current selection";
 "edit-link-remove-link-title" = "Title for the remove link button";
 "edit-link-title" = "Title for the Edit link screen";
-"edit-menu-item" = "Button label for text selection 'Edit' menu item";
+"edit-menu-item" = "Button label for 'Edit' context menu item";
 "edit-menu-item-could-not-find-selection-alert-message" = "Description of possible reasons the user text selection could not be located in the article wikitext.";
 "edit-menu-item-could-not-find-selection-alert-title" = "Title for alert informing user their text selection could not be located in the article wikitext.";
 "edit-minor-learn-more-text" = "Text for minor edits learn more button";
@@ -295,10 +296,12 @@
 "edit-notices-please-read" = "Subtitle displayed in edit notices view.";
 "edit-ordered-list-accessibility-label" = "Accessibility label for ordered list button";
 "edit-ordered-list-remove-accessibility-label" = "Accessibility label for remove ordered list button";
+"edit-preview-simplified-format-message" = "Message displayed when the edit preview view loads. Preview is in a simplified web format.";
 "edit-published" = "Title edit published panel letting user know their edit was saved.";
 "edit-published-subtitle" = "Subtitle for letting users know their edit improved Wikipedia.";
 "edit-reference-accessibility-label" = "Accessibility label for add reference syntax button";
 "edit-reference-remove-accessibility-label" = "Accessibility label for remove reference syntax button";
+"edit-show-web-preview" = "Title of button that will show a web preview of the edit.";
 "edit-signature-accessibility-label" = "Acessibility label for add signature syntax button";
 "edit-signature-remove-accessibility-label" = "Acessibility label for remove signature syntax button";
 "edit-strikethrough-accessibility-label" = "Accessibility label for add strikethrough button";
@@ -336,6 +339,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
 "editing-welcome-set-knowledge-free-title" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
 "editor-exit-confirmation-body" = "Body text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.";
+"editor-exit-confirmation-message" = "Message text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.";
 "editor-exit-confirmation-title" = "Title text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.";
 "empty-diff-compare-title" = "Text for placeholder label visible when diff comparision between revisions is empty.";
 "empty-diff-single-title" = "Text for placeholder label visible when diff returned for single revision is empty.";
@@ -1016,7 +1020,6 @@
 "source-editor-accessibility-label-find-button-next" = "Accessibility label for the find next result on the page editor";
 "source-editor-accessibility-label-find-button-prev" = "Accessibility label for the find previous result button on the page editor";
 "source-editor-accessibility-label-find-text-field" = "Accessibility label for the find text field on the page editor";
-"source-editor-accessibility-label-format-heading" = "Accessibility label for heading style formatting menu button on the page editor";
 "source-editor-accessibility-label-format-text" = "Accessibility label for text formatting menu button on the page editor";
 "source-editor-accessibility-label-format-text-show-more" = "Accessibility label for the show more button on the page editor";
 "source-editor-accessibility-label-indent-decrease" = "Accessibility label for the decrease indent button on the page editor";
@@ -1047,6 +1050,8 @@
 "source-editor-accessibility-label-unordered" = "Accessibility label for make unordered list button on the page editor";
 "source-editor-accessibility-label-unordered-selected" = "Accessibility label for remove unordered list button on the page editor";
 "source-editor-clear-formatting" = "Label for clear formatting on the page editor";
+"source-editor-edit-published" = "Title for alert informing that the user's new edit was successfully published.";
+"source-editor-edit-source" = "Title for menu option to edit the source of a page.";
 "source-editor-find-replace-all" = "Label for replace all ocurrences of a string on the page editor";
 "source-editor-find-replace-single" = "Label for replace single string button on page editor";
 "source-editor-find-replace-with" = "Lable for replace with string button on page editor";
@@ -1124,6 +1129,7 @@
 "talk-pages-coffee-roll-read-more" = "Title of user and article talk pages button to read more of the coffee roll.";
 "talk-pages-comment-added-alert-title" = "Title for alert informing that the user's new comment was successfully published. Please prioritize for de, ar and zh wikis.";
 "talk-pages-compose-close-confirmation-keep" = "Title of keep editing action, displayed within a confirmation alert to user when they attempt to close the new topic view or new reply after entering text. Please prioritize for de, ar and zh wikis.";
+"talk-pages-edit-source" = "Title for menu option to edit the full source of the talk page.";
 "talk-pages-empty-view-body-article" = "Text displayed in article talk pages when no topics are available. Please do not translate or remove the ** characters as these demarcate which part of the text to display in bold.";
 "talk-pages-empty-view-body-user" = "Text displayed in user talk pages when no topics are available. $1 is replaced with a username.";
 "talk-pages-empty-view-button-article-add-topic" = "Button text displayed in article talk pages when no topics are available.";

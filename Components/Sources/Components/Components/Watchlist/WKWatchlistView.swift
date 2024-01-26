@@ -10,7 +10,7 @@ struct WKWatchlistView: View {
     weak var delegate: WKWatchlistDelegate?
 	weak var loggingDelegate: WKWatchlistLoggingDelegate?
     weak var emptyViewDelegate: WKEmptyViewDelegate? = nil
-    weak var menuButtonDelegate: WKMenuButtonDelegate?
+    weak var menuButtonDelegate: WKSmallMenuButtonDelegate?
     
     // MARK: - Lifecycle
     
@@ -53,7 +53,7 @@ private struct WKWatchlistContentView: View {
     @ObservedObject var viewModel: WKWatchlistViewModel
     
     weak var delegate: WKWatchlistDelegate?
-    weak var menuButtonDelegate: WKMenuButtonDelegate?
+    weak var menuButtonDelegate: WKSmallMenuButtonDelegate?
     
     var body: some View {
         ScrollView {
@@ -100,8 +100,8 @@ private struct WKWatchlistContentView: View {
 fileprivate struct WKWatchlistViewCell: View {
 
 	struct MenuItemConfiguration {
-		let userMenuItems: [WKMenuButton.MenuItem]
-		let anonOrBotMenuItems: [WKMenuButton.MenuItem]
+		let userMenuItems: [WKSmallMenuButton.MenuItem]
+		let anonOrBotMenuItems: [WKSmallMenuButton.MenuItem]
 	}
 
 	@ObservedObject var appEnvironment = WKAppEnvironment.current
@@ -109,7 +109,7 @@ fileprivate struct WKWatchlistViewCell: View {
 	let localizedStrings: WKWatchlistViewModel.LocalizedStrings
 	let menuItemConfiguration: MenuItemConfiguration
 
-	var menuItemsForRevisionAuthor: [WKMenuButton.MenuItem] {
+	var menuItemsForRevisionAuthor: [WKSmallMenuButton.MenuItem] {
 		if itemViewModel.isBot || itemViewModel.isAnonymous {
 			return menuItemConfiguration.anonOrBotMenuItems
 		} else {
@@ -117,7 +117,7 @@ fileprivate struct WKWatchlistViewCell: View {
 		}
 	}
 
-	weak var menuButtonDelegate: WKMenuButtonDelegate?
+	weak var menuButtonDelegate: WKSmallMenuButtonDelegate?
 
 	var body: some View {
 				ZStack {
@@ -167,7 +167,7 @@ fileprivate struct WKWatchlistViewCell: View {
 							}
 
 							HStack {
-								WKSwiftUIMenuButton(configuration: WKMenuButton.Configuration(
+								WKSmallSwiftUIMenuButton(configuration: WKSmallMenuButton.Configuration(
 									title: itemViewModel.username,
 									image: WKSFSymbolIcon.for(symbol: .personFilled),
 									primaryColor: \.link,

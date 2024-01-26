@@ -135,8 +135,8 @@ public final class WKWatchlistViewModel: ObservableObject {
     @Published public var activeFilterCount: Int = 0
 	@Published var hasPerformedInitialFetch = false
 
-	var menuButtonItems: [WKMenuButton.MenuItem]
-	var menuButtonItemsWithoutThank: [WKMenuButton.MenuItem]
+	var menuButtonItems: [WKSmallMenuButton.MenuItem]
+	var menuButtonItemsWithoutThank: [WKSmallMenuButton.MenuItem]
 
 	// MARK: - Lifecycle
 
@@ -149,15 +149,15 @@ public final class WKWatchlistViewModel: ObservableObject {
 	}
 
     private func setupMenuItems() {
-        var menuItems: [WKMenuButton.MenuItem] = [
-            WKMenuButton.MenuItem(title: localizedStrings.userButtonUserPage, image: WKSFSymbolIcon.for(symbol: .person)),
-            WKMenuButton.MenuItem(title: localizedStrings.userButtonTalkPage, image: WKSFSymbolIcon.for(symbol: .conversation)),
-            WKMenuButton.MenuItem(title: localizedStrings.userButtonContributions, image: WKIcon.userContributions),
-            WKMenuButton.MenuItem(title: localizedStrings.userButtonThank, image: WKIcon.thank)
+        var menuItems: [WKSmallMenuButton.MenuItem] = [
+            WKSmallMenuButton.MenuItem(title: localizedStrings.userButtonUserPage, image: WKSFSymbolIcon.for(symbol: .person)),
+            WKSmallMenuButton.MenuItem(title: localizedStrings.userButtonTalkPage, image: WKSFSymbolIcon.for(symbol: .conversation)),
+            WKSmallMenuButton.MenuItem(title: localizedStrings.userButtonContributions, image: WKIcon.userContributions),
+            WKSmallMenuButton.MenuItem(title: localizedStrings.userButtonThank, image: WKIcon.thank)
         ]
 
         if UIAccessibility.isVoiceOverRunning {
-			let diffForAccessibility = WKMenuButton.MenuItem(title: localizedStrings.userAccessibilityButtonDiff, image: nil)
+			let diffForAccessibility = WKSmallMenuButton.MenuItem(title: localizedStrings.userAccessibilityButtonDiff, image: nil)
             menuItems.insert(diffForAccessibility, at: 0)
         }
         menuButtonItems = menuItems

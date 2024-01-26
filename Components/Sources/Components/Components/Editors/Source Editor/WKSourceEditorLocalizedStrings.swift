@@ -15,9 +15,9 @@ public struct WKSourceEditorLocalizedStrings {
     let findReplaceTypeSingle: String
     let findReplaceTypeAll: String
     let findReplaceWith: String
+    let findReplaceTypeMenuTitle: String
 
     let accessibilityLabelButtonFormatText: String
-    let accessibilityLabelButtonFormatHeading: String
     let accessibilityLabelButtonCitation: String
     let accessibilityLabelButtonCitationSelected: String
     let accessibilityLabelButtonLink: String
@@ -41,7 +41,6 @@ public struct WKSourceEditorLocalizedStrings {
     let accessibilityLabelButtonBoldSelected: String
     let accessibilityLabelButtonItalics: String
     let accessibilityLabelButtonItalicsSelected: String
-    let accessibilityLabelButtonClearFormatting: String
     let accessibilityLabelButtonShowMore: String
 
     let accessibilityLabelButtonComment: String
@@ -70,7 +69,7 @@ public struct WKSourceEditorLocalizedStrings {
     let accessibilityLabelReplaceTypeSingle: String
     let accessibilityLabelReplaceTypeAll: String
 
-    public init(inputViewTextFormatting: String, inputViewStyle: String, inputViewClearFormatting: String, inputViewParagraph: String, inputViewHeading: String, inputViewSubheading1: String, inputViewSubheading2: String, inputViewSubheading3: String, inputViewSubheading4: String, findReplaceTypeSingle: String, findReplaceTypeAll: String, findReplaceWith: String, accessibilityLabelButtonFormatText: String, accessibilityLabelButtonFormatHeading: String, accessibilityLabelButtonCitation: String, accessibilityLabelButtonCitationSelected: String, accessibilityLabelButtonLink: String, accessibilityLabelButtonLinkSelected: String, accessibilityLabelButtonTemplate: String, accessibilityLabelButtonTemplateSelected: String, accessibilityLabelButtonMedia: String, accessibilityLabelButtonFind: String, accessibilityLabelButtonListUnordered: String, accessibilityLabelButtonListUnorderedSelected: String, accessibilityLabelButtonListOrdered: String, accessibilityLabelButtonListOrderedSelected: String, accessibilityLabelButtonInceaseIndent: String, accessibilityLabelButtonDecreaseIndent: String, accessibilityLabelButtonCursorUp: String, accessibilityLabelButtonCursorDown: String, accessibilityLabelButtonCursorLeft: String, accessibilityLabelButtonCursorRight: String, accessibilityLabelButtonBold: String, accessibilityLabelButtonBoldSelected: String, accessibilityLabelButtonItalics: String, accessibilityLabelButtonItalicsSelected: String, accessibilityLabelButtonClearFormatting: String, accessibilityLabelButtonShowMore: String, accessibilityLabelButtonComment: String, accessibilityLabelButtonCommentSelected: String, accessibilityLabelButtonSuperscript: String, accessibilityLabelButtonSuperscriptSelected: String, accessibilityLabelButtonSubscript: String, accessibilityLabelButtonSubscriptSelected: String, accessibilityLabelButtonUnderline: String, accessibilityLabelButtonUnderlineSelected: String, accessibilityLabelButtonStrikethrough: String, accessibilityLabelButtonStrikethroughSelected: String, accessibilityLabelButtonCloseMainInputView: String, accessibilityLabelButtonCloseHeaderSelectInputView: String, accessibilityLabelFindTextField: String, accessibilityLabelFindButtonClear: String, accessibilityLabelFindButtonClose: String, accessibilityLabelFindButtonNext: String, accessibilityLabelFindButtonPrevious: String, accessibilityLabelReplaceTextField: String, accessibilityLabelReplaceButtonClear: String, accessibilityLabelReplaceButtonPerformFormat: String, accessibilityLabelReplaceButtonSwitchFormat: String, accessibilityLabelReplaceTypeSingle: String, accessibilityLabelReplaceTypeAll: String) {
+    public init(inputViewTextFormatting: String, inputViewStyle: String, inputViewClearFormatting: String, inputViewParagraph: String, inputViewHeading: String, inputViewSubheading1: String, inputViewSubheading2: String, inputViewSubheading3: String, inputViewSubheading4: String, findReplaceTypeSingle: String, findReplaceTypeAll: String, findReplaceWith: String, findReplaceTypeMenuTitle: String, accessibilityLabelButtonFormatText: String, accessibilityLabelButtonCitation: String, accessibilityLabelButtonCitationSelected: String, accessibilityLabelButtonLink: String, accessibilityLabelButtonLinkSelected: String, accessibilityLabelButtonTemplate: String, accessibilityLabelButtonTemplateSelected: String, accessibilityLabelButtonMedia: String, accessibilityLabelButtonFind: String, accessibilityLabelButtonListUnordered: String, accessibilityLabelButtonListUnorderedSelected: String, accessibilityLabelButtonListOrdered: String, accessibilityLabelButtonListOrderedSelected: String, accessibilityLabelButtonInceaseIndent: String, accessibilityLabelButtonDecreaseIndent: String, accessibilityLabelButtonCursorUp: String, accessibilityLabelButtonCursorDown: String, accessibilityLabelButtonCursorLeft: String, accessibilityLabelButtonCursorRight: String, accessibilityLabelButtonBold: String, accessibilityLabelButtonBoldSelected: String, accessibilityLabelButtonItalics: String, accessibilityLabelButtonItalicsSelected: String, accessibilityLabelButtonShowMore: String, accessibilityLabelButtonComment: String, accessibilityLabelButtonCommentSelected: String, accessibilityLabelButtonSuperscript: String, accessibilityLabelButtonSuperscriptSelected: String, accessibilityLabelButtonSubscript: String, accessibilityLabelButtonSubscriptSelected: String, accessibilityLabelButtonUnderline: String, accessibilityLabelButtonUnderlineSelected: String, accessibilityLabelButtonStrikethrough: String, accessibilityLabelButtonStrikethroughSelected: String, accessibilityLabelButtonCloseMainInputView: String, accessibilityLabelButtonCloseHeaderSelectInputView: String, accessibilityLabelFindTextField: String, accessibilityLabelFindButtonClear: String, accessibilityLabelFindButtonClose: String, accessibilityLabelFindButtonNext: String, accessibilityLabelFindButtonPrevious: String, accessibilityLabelReplaceTextField: String, accessibilityLabelReplaceButtonClear: String, accessibilityLabelReplaceButtonPerformFormat: String, accessibilityLabelReplaceButtonSwitchFormat: String, accessibilityLabelReplaceTypeSingle: String, accessibilityLabelReplaceTypeAll: String) {
         self.inputViewTextFormatting = inputViewTextFormatting
         self.inputViewStyle = inputViewStyle
         self.inputViewClearFormatting = inputViewClearFormatting
@@ -83,8 +82,8 @@ public struct WKSourceEditorLocalizedStrings {
         self.findReplaceTypeSingle = findReplaceTypeSingle
         self.findReplaceTypeAll = findReplaceTypeAll
         self.findReplaceWith = findReplaceWith
+        self.findReplaceTypeMenuTitle = findReplaceTypeMenuTitle
         self.accessibilityLabelButtonFormatText = accessibilityLabelButtonFormatText
-        self.accessibilityLabelButtonFormatHeading = accessibilityLabelButtonFormatHeading
         self.accessibilityLabelButtonCitation = accessibilityLabelButtonCitation
         self.accessibilityLabelButtonCitationSelected = accessibilityLabelButtonCitationSelected
         self.accessibilityLabelButtonLink = accessibilityLabelButtonLink
@@ -107,7 +106,6 @@ public struct WKSourceEditorLocalizedStrings {
         self.accessibilityLabelButtonBoldSelected = accessibilityLabelButtonBoldSelected
         self.accessibilityLabelButtonItalics = accessibilityLabelButtonItalics
         self.accessibilityLabelButtonItalicsSelected = accessibilityLabelButtonItalicsSelected
-        self.accessibilityLabelButtonClearFormatting = accessibilityLabelButtonClearFormatting
         self.accessibilityLabelButtonShowMore = accessibilityLabelButtonShowMore
         self.accessibilityLabelButtonComment = accessibilityLabelButtonComment
         self.accessibilityLabelButtonCommentSelected = accessibilityLabelButtonCommentSelected
