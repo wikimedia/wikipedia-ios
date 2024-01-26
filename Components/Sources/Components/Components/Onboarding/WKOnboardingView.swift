@@ -37,12 +37,12 @@ public struct WKOnboardingView: View {
                     }
                     Spacer()
                     
-                    WKPrimaryButton(title: viewModel.primaryButtonTitle, action: primaryButtonAction)
+                    WKLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: primaryButtonAction)
                         .padding([.top], 16)
 
                     VStack {
                         if let secondaryTitle = viewModel.secondaryButtonTitle {
-                            WKSecondaryButton(title: secondaryTitle, action: secondaryButtonAction)
+                            WKSmallButton(configuration: .quiet, title: secondaryTitle, action: secondaryButtonAction)
                         }
                     }
                 }

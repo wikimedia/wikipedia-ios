@@ -70,7 +70,7 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     // TextKit 2 only passes in the paragraph attributed string here, as opposed to the full document attributed string with TextKit 1. This conditional singles out TextKit 2.
     
     // Note: test this for a one line document, I think it breaks
-    if (range.location == 0 && range.length != self.fullAttributedString.length) {
+    if (range.location == 0 && range.length < self.fullAttributedString.length) {
         
         NSRange paragraphRange = [self.fullAttributedString.string rangeOfString:attributedString.string];
         
@@ -86,7 +86,7 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
                 NSRange paragraphMatchRange = NSMakeRange(fullStringMatchRange.location - paragraphRange.location, fullStringMatchRange.length);
 
                 //Then reapply attributes to paragraph match range.
-                if (attributedString.length > paragraphMatchRange.location && attributedString.length > paragraphMatchRange.location + paragraphMatchRange.length) {
+                if ([self canEvaluateAttributedString:attributedString againstRange:paragraphMatchRange]) {
                     [self resetKeysForAttributedString:attributedString range:paragraphMatchRange];
                     [attributedString addAttributes:attributes range:paragraphMatchRange];
                 }
@@ -103,7 +103,7 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
                 NSRange paragraphMatchRange = NSMakeRange(fullStringMatchRange.location - paragraphRange.location, fullStringMatchRange.length);
 
                 //Then reapply attributes to paragraph match range.
-                if (attributedString.length > paragraphMatchRange.location && attributedString.length > paragraphMatchRange.location + paragraphMatchRange.length) {
+                if ([self canEvaluateAttributedString:attributedString againstRange:paragraphMatchRange]) {
                     [self resetKeysForAttributedString:attributedString range:paragraphMatchRange];
                     [attributedString addAttributes:self.replacedMatchAttributes range:paragraphMatchRange];
                 }
@@ -113,6 +113,10 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
 }
 
 - (void)updateColors:(WKSourceEditorColors *)colors inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+        return;
+    }
     
     NSMutableDictionary *mutMatchAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.matchAttributes];
     [mutMatchAttributes setObject:colors.matchBackgroundColor forKey:NSBackgroundColorAttributeName];
@@ -271,10 +275,12 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     [textView replaceRange:selectedMatchTextRange withText:replaceText];
     
     // update replace range with new attributes
-    [fullAttributedString beginEditing];
-    [self resetKeysForAttributedString:fullAttributedString range:newReplaceRange];
-    [fullAttributedString addAttributes:self.replacedMatchAttributes range:newReplaceRange];
-    [fullAttributedString endEditing];
+    if ([self canEvaluateAttributedString:fullAttributedString againstRange:newReplaceRange]) {
+        [fullAttributedString beginEditing];
+        [self resetKeysForAttributedString:fullAttributedString range:newReplaceRange];
+        [fullAttributedString addAttributes:self.replacedMatchAttributes range:newReplaceRange];
+        [fullAttributedString endEditing];
+    }
     
     // copy new text view text to keep it in sync
     self.fullAttributedString = textView.attributedText;
@@ -318,10 +324,12 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
         [self.matchesAgainstFullAttributedString removeObjectAtIndex:0];
         
         // update replace range with new attributes
-        [fullAttributedString beginEditing];
-        [self resetKeysForAttributedString:fullAttributedString range:newReplaceRange];
-        [fullAttributedString addAttributes:self.replacedMatchAttributes range:newReplaceRange];
-        [fullAttributedString endEditing];
+        if ([self canEvaluateAttributedString:fullAttributedString againstRange:newReplaceRange]) {
+            [fullAttributedString beginEditing];
+            [self resetKeysForAttributedString:fullAttributedString range:newReplaceRange];
+            [fullAttributedString addAttributes:self.replacedMatchAttributes range:newReplaceRange];
+            [fullAttributedString endEditing];
+        }
         
         // copy new text view text to keep it in sync
         self.fullAttributedString = textView.attributedText;
@@ -383,7 +391,7 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     NSValue *nextMatchRangeValue = self.matchesAgainstFullAttributedString[self.selectedMatchIndex];
     NSRange nextMatchRange = nextMatchRangeValue.rangeValue;
 
-    if (fullAttributedString.length > nextMatchRange.location && fullAttributedString.length > nextMatchRange.location + nextMatchRange.length) {
+    if ([self canEvaluateAttributedString:fullAttributedString againstRange:nextMatchRange]) {
         [self resetKeysForAttributedString:fullAttributedString range:nextMatchRange];
         [fullAttributedString addAttributes:self.selectedMatchAttributes range:nextMatchRange];
     }
@@ -393,7 +401,7 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
         NSValue *lastSelectedMatchRangeValue = self.matchesAgainstFullAttributedString[lastSelectedMatchIndex];
         NSRange lastSelectedMatchRange = lastSelectedMatchRangeValue.rangeValue;
 
-        if (fullAttributedString.length > lastSelectedMatchRange.location && fullAttributedString.length > lastSelectedMatchRange.location + lastSelectedMatchRange.length) {
+        if ([self canEvaluateAttributedString:fullAttributedString againstRange:lastSelectedMatchRange]) {
             [self resetKeysForAttributedString:fullAttributedString range:lastSelectedMatchRange];
             [fullAttributedString addAttributes:self.matchAttributes range:lastSelectedMatchRange];
         }
@@ -403,6 +411,11 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
 }
 
 - (void)resetKeysForAttributedString: (NSMutableAttributedString *)attributedString range: (NSRange) range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+        return;
+    }
+    
     [attributedString removeAttribute:NSForegroundColorAttributeName range:range];
     [attributedString removeAttribute:NSBackgroundColorAttributeName range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyMatch range:range];

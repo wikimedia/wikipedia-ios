@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 /// A button that displays a `UIMenu` when triggering its primary action
-public class WKMenuButton: WKComponentView {
+public class WKSmallMenuButton: WKComponentView {
 
     // MARK: - Nested Types
 
@@ -47,7 +47,7 @@ public class WKMenuButton: WKComponentView {
 
     // MARK: - Properties
 
-    public weak var delegate: WKMenuButtonDelegate?
+    public weak var delegate: WKSmallMenuButtonDelegate?
     public private(set) var configuration: Configuration
 
     // MARK: - UI Elements

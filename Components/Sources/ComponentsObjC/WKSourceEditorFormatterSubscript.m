@@ -33,6 +33,10 @@ NSString * const WKSourceEditorCustomKeyContentSubscript = @"WKSourceEditorCusto
     return self;
 }
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
 
     [attributedString removeAttribute:WKSourceEditorCustomKeyContentSubscript range:range];
 
@@ -67,6 +71,10 @@ NSString * const WKSourceEditorCustomKeyContentSubscript = @"WKSourceEditorCusto
     NSMutableDictionary *mutAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.subscriptAttributes];
     [mutAttributes setObject:colors.greenForegroundColor forKey:NSForegroundColorAttributeName];
     self.subscriptAttributes = [[NSDictionary alloc] initWithDictionary:mutAttributes];
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
 
     [attributedString enumerateAttribute:WKSourceEditorCustomKeyColorGreen
                                  inRange:range
@@ -85,21 +93,25 @@ NSString * const WKSourceEditorCustomKeyContentSubscript = @"WKSourceEditorCusto
 #pragma mark - Public
 
 - (BOOL)attributedString:(nonnull NSMutableAttributedString *)attributedString isSubscriptInRange:(NSRange)range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return NO;
+    }
+    
     __block BOOL isContentKey = NO;
 
    if (range.length == 0) {
 
-       if (attributedString.length > range.location) {
-           NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+       NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
 
-           if (attrs[WKSourceEditorCustomKeyContentSubscript] != nil) {
-               isContentKey = YES;
-           } else {
-               if (attrs[WKSourceEditorCustomKeyColorGreen] && attributedString.length > range.location - 1) {
-                   attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
-                   if (attrs[WKSourceEditorCustomKeyContentSubscript] != nil) {
-                       isContentKey = YES;
-                   }
+       if (attrs[WKSourceEditorCustomKeyContentSubscript] != nil) {
+           isContentKey = YES;
+       } else {
+           NSRange newRange = NSMakeRange(range.location - 1, 0);
+           if (attrs[WKSourceEditorCustomKeyColorGreen] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
+               attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
+               if (attrs[WKSourceEditorCustomKeyContentSubscript] != nil) {
+                   isContentKey = YES;
                }
            }
        }
