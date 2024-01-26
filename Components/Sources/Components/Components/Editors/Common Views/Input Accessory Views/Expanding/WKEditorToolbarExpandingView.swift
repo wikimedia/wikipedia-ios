@@ -85,6 +85,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         expandButton.setImage(WKSFSymbolIcon.for(symbol: .chevronRightCircle), for: .normal)
         expandButton.addTarget(self, action: #selector(tappedExpand), for: .touchUpInside)
         expandButton.isAccessibilityElement = false
+        updateExpandButtonVisibility()
 
         formatTextButton.setImage(WKIcon.formatText)
         formatTextButton.addTarget(self, action: #selector(tappedFormatText), for: .touchUpInside)
@@ -147,6 +148,12 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         cursorRightButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonCursorRight
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)
+    }
+    
+    // MARK: - Overrides
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        updateExpandButtonVisibility()
     }
     
     // MARK: - Notifications
@@ -280,6 +287,12 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
 
     @objc private func tappedMedia() {
         delegate?.toolbarExpandingViewDidTapImage(toolbarView: self)
+    }
+    
+    // MARK: - Private Helpers
+    
+    private func updateExpandButtonVisibility() {
+        expandButton.isHidden = traitCollection.horizontalSizeClass == .regular
     }
 
 }
