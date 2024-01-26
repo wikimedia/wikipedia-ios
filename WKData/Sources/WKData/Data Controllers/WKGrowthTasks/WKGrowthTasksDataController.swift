@@ -59,7 +59,8 @@ public final class WKGrowthTasksDataController {
                            "formatversion": "2",
                            "format": "json",
                            "prop":"growthimagesuggestiondata",
-                           "pageids" : pipeEncodedPageIds
+                           "pageids" : pipeEncodedPageIds,
+                           "gisdtasktype": "image-recommendation"
         ]
 
         guard let url = URL.mediaWikiAPIURL(project: project) else {
