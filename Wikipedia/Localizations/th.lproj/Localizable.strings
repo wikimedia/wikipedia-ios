@@ -36,7 +36,7 @@
 "aaald-new-journal-reference-volume" = "ฉบับ $1:";
 "aaald-new-news-reference-retrieved-date" = "เข้าถึงเมื่อ $1";
 "aaald-new-news-reference-title" = "ข่าว";
-"aaald-new-talk-topic-description-format" = "$1เกี่ยวกับบทความนี้";
+"aaald-new-talk-topic-description-format" = "$1 เกี่ยวกับบทความนี้";
 "aaald-new-website-reference-archive-date-text" = "จากต้นฉบับบน $1";
 "aaald-new-website-reference-archive-url-text" = "URL ของ Archive.org";
 "aaald-new-website-reference-title" = "เว็บไซต์";
@@ -53,14 +53,14 @@
 "about-libraries-complete-list" = "รายชื่อแบบสมบูรณ์";
 "about-libraries-license" = "สัญญาอนุญาต";
 "about-libraries-licenses-title" = "เรารักซอฟต์แวร์โอเพนซอร์ส $1";
-"about-places-maps-license" = "ใบอนุญาตแผนที่สถานที่";
-"about-places-maps-license-details" = "สถานที่ ใช้ข้อมูลแผนที่จาก Apple Maps $1";
-"about-places-maps-license-details-link-text" = "โปรดดูที่นี่สำหรับรายละเอียดใบอนุญาต";
+"about-places-maps-license" = "สัญญาอนุญาตแผนที่สถานที่";
+"about-places-maps-license-details" = "สถานที่ใช้ข้อมูลแผนที่จาก Apple Maps $1";
+"about-places-maps-license-details-link-text" = "โปรดดูที่นี่สำหรับรายละเอียดสัญญาอนุญาต";
 "about-product-of" = "สร้างขึ้นโดย $1 จากการร่วมมือกันของอาสาสมัครเช่นคุณ";
 "about-repositories" = "ที่เก็บ";
 "about-repositories-app-source-license" = "ซอร์สโค้ดใช้ได้ภายใต้ $1";
 "about-repositories-app-source-license-mit" = "สัญญาอนุญาต MIT";
-"about-send-feedback" = "ส่งผลป้อนกลับของแอป";
+"about-send-feedback" = "ส่งคำติชมแอป";
 "about-testers" = "ผู้ทดสอบ";
 "about-testers-details" = "QA ทดสอบโดย $1";
 "about-title" = "เกี่ยวกับ";
@@ -72,7 +72,7 @@
 "account-creation-captcha-obtaining" = "กำลังดึง CAPTCHA ใหม่...";
 "account-creation-captcha-request-account" = "ขอบัญชี";
 "account-creation-captcha-title" = "การตรวจสอบความปลอดภัย CAPTCHA";
-"account-creation-create-account" = "สร้างบัญชี";
+"account-creation-create-account" = "สร้างบัญชีของคุณ";
 "account-creation-have-account" = "มีบัญชีแล้วหรือ $1";
 "account-creation-log-in" = "เข้าสู่ระบบ";
 "account-creation-logging-in" = "กำลังเข้าสู่ระบบ...";
@@ -81,7 +81,7 @@
 "account-creation-saving" = "กำลังบันทึก...";
 "account-creation-title" = "สร้างบัญชีใหม่";
 "account-group-title" = "บัญชีของคุณ";
-"account-request-vanishing" = "ซ่อนบัญชี";
+"account-request-vanishing" = "Vanish account";
 "account-talk-page-title" = "หน้าคุยของคุณ";
 "account-talk-preferences-auto-sign-discussions" = "เซ็นชื่อการอภิปรายอัตโนมัติ";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "การเซ็นชื่อการอภิปรายอัตโนมัติจะใช้ลายเซ็นที่กำหนดในการตั้งค่าลายเซ็น";
@@ -93,8 +93,8 @@
 "action-discard-edits" = "ทิ้งการแก้ไข";
 "action-find-in-page" = "ค้นหาในหน้า";
 "action-language-accessibility" = "เปลี่ยนภาษา";
-"action-move-to" = "ย้ายลงใน…";
-"action-move-to-reading-list" = "ย้ายลงในรายการอ่าน";
+"action-move-to" = "ย้ายไป...";
+"action-move-to-reading-list" = "ย้ายไปในรายการอ่าน";
 "action-next-revision-accessibility" = "รุ่นแก้ไขถัดไป";
 "action-previous-revision-accessibility" = "รุ่นแก้ไขก่อนหน้า";
 "action-read" = "อ่าน";
@@ -114,7 +114,7 @@
 "action-undo" = "เลิกทำ";
 "action-unsave" = "เลิกบันทึก";
 "action-unsaved-accessibility-notification" = "เลิกบันทึกบทความแล้ว";
-"action-update" = "อัปเดต";
+"action-update" = "ปรับปรุง";
 "add-articles-to-reading-list" = "เพิ่ม {{PLURAL:$1|$1 บทความ}}ลงในรายการอ่าน";
 "add-citation-title" = "เพิ่มส่วนอ้างอิง";
 "announcements-dismiss" = "รับทราบ";
@@ -232,6 +232,7 @@
 "diff-thanks-sent" = "ส่งคำขอบคุณไปยัง $1 แล้ว";
 "diff-thanks-sent-already" = "คุณได้ส่ง 'คำขอบคุณ' สำหรับการแก้ไขนี้แล้ว";
 "diff-thanks-sent-cannot-unsend" = "ไม่สามารถยกเลิกการส่งคำขอบคุณได้";
+"diff-user-button-accessibility-text" = "แตะสองครั้งเพื่อเปิดเมนู";
 "dim-images" = "ลดแสงรูปภาพ";
 "edit-bold-accessibility-label" = "เพิ่มการจัดรูปแบบตัวเส้นหนา";
 "edit-bold-remove-accessibility-label" = "ลบการจัดรูปแบบตัวเส้นหนา";
@@ -291,6 +292,7 @@
 "edit-watch-list-learn-more-text" = "เรียนรู้เพิ่มเติมเกี่ยวกับรายการเฝ้าดู";
 "edit-watch-this-page-text" = "เฝ้าดูหน้านี้";
 "editing-welcome-be-bold-title" = "เสียงของคุณสำคัญ";
+"editing-welcome-citations-subtitle" = "เนื้อหาทั้งหมดจะต้องสามารถตรวจสอบได้ เมื่อเพิ่มข้อมูลใหม่ลงในบทความ ผู้แก้ไขควรจัดให้มีการอ้างอิงแบบอินไลน์ไปยังแหล่งข้อมูลที่เชื่อถือได้ซึ่งสนับสนุนการมีส่วนร่วมโดยตรง";
 "editing-welcome-citations-title" = "อ้างอิงแหล่งข้อมูลที่น่าเชื่อถือ";
 "empty-diff-compare-title" = "ไม่มีความแตกต่างระหว่างรุ่น";
 "empty-insert-media-title" = "เลือกไฟล์จากวิกิมีเดียคอมมอนส์";
@@ -301,7 +303,7 @@
 "empty-no-history-title" = "ไม่มีประวัติที่จะแสดง";
 "empty-no-other-article-languages-message" = "บทความนี้ยังไม่ได้ถูกเขียนในภาษาอื่นใด";
 "empty-no-other-article-languages-title" = "ไม่มีในภาษาอื่น";
-"empty-no-reading-lists-message" = "สร้างรายการสำหรับสถานที่ที่อยากไป หัวข้อโปรด และอื่นๆ";
+"empty-no-reading-lists-message" = "สร้างรายการสำหรับสถานที่ที่อยากไป หัวข้อโปรด และอื่น ๆ";
 "empty-no-reading-lists-title" = "จัดระเบียบบทความที่บันทึกไว้ด้วยรายการอ่าน";
 "empty-no-saved-pages-in-reading-list-message" = "บันทึกหน้าลงในรายการนี้เพื่อให้สามารถดูได้จากที่นี่";
 "empty-no-saved-pages-in-reading-list-title" = "ไม่มีหน้าที่บันทึกลงในรายการนี้";
@@ -525,6 +527,7 @@
 "no-internet-connection-article-reload" = "อาจมีรุ่นใหม่ของบทความนี้ แต่ไม่สามารถโหลดได้โดยไม่เชื่อมต่อกับอินเทอร์เน็ต";
 "no-internet-connection-article-reload-button" = "กลับไปยังรุ่นที่บันทึกไว้ล่าสุด";
 "notifications-center-agent-description-from-format" = "จาก $1";
+"notifications-center-cell-notification-type-accessibility-label-format" = "$1 การแจ้งเตือน";
 "notifications-center-checking-for-notifications" = "กำลังตรวจสอบการแจ้งเตือน...";
 "notifications-center-destination-app" = "ในแอป";
 "notifications-center-destination-web" = "บนเว็บ";
@@ -566,9 +569,11 @@
 "notifications-center-onboarding-panel-heading" = "เปิดการแจ้งเตือนแบบพุช?";
 "notifications-center-onboarding-panel-primary-button" = "เปิดการแจ้งเตือนแบบพุช";
 "notifications-center-onboarding-panel-secondary-button" = "ไม่ขอบคุณ";
+"notifications-center-onboarding-panel-subheading" = "วิกิพีเดียเป็นโครงการร่วมมือและการเปิดใช้การแจ้งเตือนแบบพุชทำให้ง่ายต่อการติดตามข้อความ การแจ้งเตือน และคำ \"ขอบคุณ\" จากผู้แก้ไขคนอื่น ๆ";
 "notifications-center-status-all" = "ทั้งหมด";
 "notifications-center-status-all-notifications" = "การแจ้งเตือนทั้งหมด";
 "notifications-center-status-double-concatenation" = "$1 ใน $2";
+"notifications-center-status-in-projects" = "{{PLURAL:$1|1=ใน 1 โครงการ|ใน $1 โครงการ}}";
 "notifications-center-status-read" = "อ่าน";
 "notifications-center-status-triple-concatenation" = "$1 และ $2 ใน $3";
 "notifications-center-status-unread" = "ยังไม่ได้อ่าน";
@@ -583,6 +588,7 @@
 "notifications-center-title" = "การแจ้งเตือน";
 "notifications-center-type-item-description-notice" = "ประกาศ";
 "notifications-center-type-item-description-welcome-verbose" = "ข้อความต้อนรับ";
+"notifications-center-type-title-email-from-other-user" = "อีเมลจากผู้ใช้คนอื่น";
 "notifications-center-type-title-login-success" = "เข้าสู่ระบบสำเร็จ";
 "notifications-center-type-title-other" = "อื่น ๆ";
 "notifications-center-type-title-page-link" = "ลิงก์หน้า";
@@ -607,6 +613,7 @@
 "page-location" = "ดูบนแผนที่";
 "page-protected-can-not-edit" = "คุณไม่มีสิทธิ์แก้ไขหน้านี้";
 "page-protected-can-not-edit-title" = "หน้านี้ถูกล็อก";
+"panel-compare-revisions-text" = "การเปรียบเทียบการแก้ไขจะช่วยแสดงให้เห็นว่าบทความมีการเปลี่ยนแปลงอย่างไรเมื่อเวลาผ่านไป การเปรียบเทียบการแก้ไขทั้งสองครั้งของบทความจะแสดงความแตกต่างระหว่างการแก้ไขเหล่านั้นโดยการเน้นเนื้อหาใด ๆ ที่มีการเปลี่ยนแปลง";
 "panel-compare-revisions-title" = "เปรียบเทียบรุ่นแก้ไข";
 "panel-not-logged-in-continue-edit-action-title" = "แก้ไขโดยไม่เข้าสู่ระบบ";
 "panel-not-logged-in-title" = "คุณยังไม่ได้เข้าสู่ระบบ";
@@ -662,6 +669,7 @@
 "reading-list-add-generic-hint-title" = "เพิ่มบทความนี้ลงไปยังรายการอ่านหรือไม่";
 "reading-list-add-hint-title" = "เพิ่ม “$1” ลงไปยังรายการอ่านหรือไม่";
 "reading-list-add-saved-button-title" = "ใช่ เพิ่มลงไปยังรายการอ่านของฉัน";
+"reading-list-add-saved-subtitle" = "มีบทความที่บันทึกไว้ในแอปวิกิพีเดียของคุณ คุณต้องการเก็บรายการเหล่านั้นและรวมเข้ากับเรื่องอ่านที่ซิงค์กับบัญชีของคุณหรือไม่?";
 "reading-list-add-saved-title" = "พบบทความที่บันทึกไว้";
 "reading-list-api-error-generic" = "เกิดข้อผิดพลาดที่ไม่คาดคิดขณะซิงค์รายการอ่านของคุณ";
 "reading-list-create-new-list-button-title" = "สร้างรายการอ่าน";
@@ -673,6 +681,7 @@
 "reading-list-entry-limit-exceeded-title" = "คุณได้เกินขีดจำกัดของ {{PLURAL:$1|$1 article|$1 บทความ}} ต่อบัญชี";
 "reading-list-exists-with-same-name" = "ชื่อรายการอ่านถูกใช้แล้ว";
 "reading-list-keep-button-title" = "ใช่เก็บบทความไว้บนอุปกรณ์";
+"reading-list-keep-subtitle" = "มีบทความที่ซิงค์กับบัญชีวิกิพีเดียของคุณ คุณต้องการเก็บไว้ในอุปกรณ์นี้หลังจากที่คุณออกจากระบบหรือไม่?";
 "reading-list-keep-sync-disabled-remove-article-button-title" = "ไม่ เอาบทความออกจากอุปกรณ์และบัญชีวิกิพีเดียของฉัน";
 "reading-list-keep-title" = "เก็บบทความที่บันทึกไว้บนอุปกรณ์หรือไม่";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "เรียงบทความ";
@@ -687,11 +696,13 @@
 "reading-list-sync-disabled-panel-message" = "การซิงค์รายการอ่านถูกปิดใช้งานสำหรับบัญชีวิกิพีเดียของคุณบนอุปกรณ์อื่น คุณสามารถเปิดการซิงค์ได้อีกครั้งโดยอัปเดตการตั้งค่าของคุณ";
 "reading-list-sync-disabled-panel-title" = "ปิดใช้งานการซิงค์แล้ว";
 "reading-list-sync-enable-button-title" = "เปิดใช้งานการซิงค์";
+"reading-list-sync-enable-subtitle" = "บทความและรายการอ่านที่บันทึกไว้ของคุณตอนนี้สามารถบันทึกลงในบัญชีวิกิพีเดียของคุณและซิงค์กับแอปวิกิพีเดียได้แล้ว";
 "reading-list-sync-enable-title" = "เปิดการซิงค์รายการอ่านหรือไม่?";
 "reading-list-sync-enabled-panel-title" = "การซิงค์ถูกเปิดอยู่บนบัญชีนี้";
 "reading-lists-article-added-confirmation" = "เพิ่มบทความลงใน “$1” แล้ว";
 "reading-lists-article-api-failure" = "ไม่สามารถซิงค์บทความได้";
 "reading-lists-article-not-synced" = "ไม่ได้ซิงค์";
+"reading-lists-default-list-description" = "รายการเริ่มต้นสำหรับบทความที่คุณบันทึกไว้";
 "reading-lists-default-list-title" = "ที่บันทึกไว้";
 "reading-lists-delete-reading-list-alert-title" = "ลบ{{PLURAL:$1|รายการ|รายการ}}หรือไม่";
 "reading-lists-list-not-synced-limit-exceeded" = "ไม่ได้ซิงค์รายการเนื่องจากถึงขีดจำกัดแล้ว";
@@ -763,11 +774,21 @@
 "settings-notifications-system-turn-on" = "เปิดการแจ้งเตือน";
 "settings-primary-language" = "หลัก";
 "settings-primary-language-details" = "ภาษาแรกที่อยู่ในรายการนี้จะถูกใช้เป็นภาษาหลักสำหรับแอปนี้";
+"settings-search-footer-text" = "ตั้งค่าแอปให้เปิดไปที่แท็บค้นหาแทนแท็บสำรวจ";
+"settings-search-open-app-on-search" = "เปิดแอปบนแท็บค้นหา";
+"settings-storage-and-syncing-enable-sync-footer-text" = "อนุญาตให้วิกิมีเดียบันทึกบทความและรายการอ่านที่คุณบันทึกไว้ตามความต้องการผู้ใช้ของคุณเมื่อคุณเข้าสู่ระบบและซิงค์";
+"settings-storage-and-syncing-enable-sync-title" = "ซิงค์บทความและรายการที่บันทึกไว้";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "การลบบทความที่บันทึกไว้จะเป็นการลบออกจากบัญชีผู้ใช้ของคุณ หากคุณเปิดการซิงค์และออกจากอุปกรณ์นี้ด้วย คุณไม่สามารถยกเลิกการกระทำนี้ได้";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "ลบบทความที่บันทึกไว้ทั้งหมดหรือไม่?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "ลบ";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "การลบบทความที่บันทึกไว้จะเป็นการลบบทความเหล่านั้นออกจากบัญชีผู้ใช้ของคุณ หากคุณเปิดการซิงค์และออกจากอุปกรณ์นี้ด้วย\n\nการลบบทความที่บันทึกไว้จะทำให้พื้นที่ว่างเพิ่มขึ้นประมาณ $1";
 "settings-storage-and-syncing-erase-saved-articles-title" = "ลบบทความที่บันทึกไว้";
 "settings-storage-and-syncing-full-sync" = "รายการอ่านของคุณจะถูกซิงค์ในเบื้องหลัง";
+"settings-storage-and-syncing-server-sync-footer-text" = "อัปเดตบทความที่ซิงค์และรายการเรื่องอ่านของคุณ";
 "settings-storage-and-syncing-server-sync-title" = "อัปเดตรายการอ่านที่ซิงค์";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "แสดงรายการเรื่องอ่านที่บันทึกไว้ (เช่น ค่าเริ่มต้น) เป็นรายการแยกต่างหากในมุมมองรายการเรื่องอ่านของคุณ รายการนี้ปรากฏบนอุปกรณ์แอนดรอยด์";
+"settings-storage-and-syncing-show-default-reading-list-title" = "แสดงรายการเรื่องอ่านที่บันทึกไว้";
+"settings-storage-and-syncing-title" = "การจัดเก็บบทความและการซิงค์";
 "settings-title" = "การตั้งค่า";
 "share-article-name-on-wikipedia" = "\"$1\" บน Wikipedia:";
 "share-default-format" = "“$1” จาก “$2”: $3";
@@ -816,6 +837,7 @@
 "theme-black-display-name" = "ดำ";
 "theme-dark-display-name" = "มืด";
 "theme-default-display-name" = "ค่าปริยาย";
+"theme-default-explanation" = "ตามธีมระบบ";
 "theme-light-display-name" = "สว่าง";
 "theme-sepia-display-name" = "ซีเปีย";
 "top-read-widget-title" = "อ่านมากที่สุด";
@@ -835,7 +857,7 @@
 "welcome-exploration-explore-feed-title" = "ฟีดสำรวจ";
 "welcome-exploration-on-this-day-description" = "ย้อนเวลากลับไปเพื่อเรียนรู้ว่าเกิดอะไรขึ้นในเวลาที่ผ่านมา";
 "welcome-exploration-on-this-day-title" = "วันนี้ในอดีต";
-"welcome-exploration-places-description" = "ค้นพบสถานที่สำคัญที่อยู่ใกล้คุณ หรือค้นหาสถานที่ต่างๆ จากทั่วทุกมุมโลก";
+"welcome-exploration-places-description" = "ค้นพบสถานที่สำคัญที่อยู่ใกล้คุณ หรือค้นหาสถานที่ต่าง ๆ จากทั่วทุกมุมโลก";
 "welcome-exploration-places-title" = "แท็บสถานที่";
 "welcome-explore-continue-button" = "เริ่มต้นใช้งาน";
 "welcome-explore-new-ways-title" = "วีธีใหม่ในการสำรวจ";
@@ -856,7 +878,7 @@
 "welcome-notifications-tell-me-more-title" = "เพิ่มเติมเกี่ยวกับการแจ้งเตือน";
 "welcome-send-data-helps-title" = "ช่วยทำให้แอปดีขึ้น";
 "welcome-send-data-learn-more" = "เรียนรู้เพิ่มเติมเกี่ยวกับข้อมูลที่รวบรวมมา";
-"welcome-send-data-sub-title" = "ช่วยปรับปรุงแอปให้ดียิ่งขึ้นโดยบอกให้ทางมูลนิธิวิกิมีเดียทราบว่าคุณใช้แอปอย่างไร โดยข้อมูลที่รวบรวมจะไม่มีการระบุตัวตนใดๆ";
+"welcome-send-data-sub-title" = "ช่วยปรับปรุงแอปให้ดียิ่งขึ้นโดยบอกให้ทางมูลนิธิวิกิมีเดียทราบว่าคุณใช้แอปอย่างไร โดยข้อมูลที่รวบรวมจะไม่มีการระบุตัวตนใด ๆ";
 "welcome-volunteer-send-usage-reports" = "ส่งรายงานการใช้งาน";
 "widget-onthisday-placeholder-article-snippet" = "สารานุกรมเสรีที่ทุกคนสามารถแก้ไขได้";
 "wikitext-downloading" = "กำลังโหลดเนื้อหา...";
