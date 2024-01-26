@@ -1,6 +1,5 @@
 # vi: ft=ruby
 # Team
-apple_id "lloydchang@gmail.com"
-team_id "HDDSB99PS8"
-team_name "Lloyd Chang"
-app_identifier "lloydchang.wikipedia"
+team_id "AKK7J2GV64"
+team_name "Wikimedia Foundation"
+app_identifier "org.wikimedia.wikipedia"
