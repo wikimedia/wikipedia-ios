@@ -40,6 +40,7 @@
 // Author: Qiyue2001
 // Author: Shizhao
 // Author: StarrySky
+// Author: SunAfterRain
 // Author: Tonylianlong
 // Author: Viztor
 // Author: VulpesVulpes825
@@ -55,6 +56,7 @@
 // Author: ZhaoFJx
 // Author: 予弦
 // Author: 佛壁灯
+// Author: 列维劳德
 // Author: 夢蝶葬花
 // Author: 水獭很懒
 // Author: 沈澄心
@@ -176,7 +178,7 @@
 "app-store-subtitle" = "自由的百科全书";
 "appearance-settings-adjust-text-sizing" = "调整条目文本大小";
 "appearance-settings-expand-tables" = "展开表格";
-"appearance-settings-expand-tables-footer" = "将所有条目内的表格设置为默认开启，包括速览、参考文献、注释和外部链接。";
+"appearance-settings-expand-tables-footer" = "将所有条目内的表格设为默认开启，包括事实速览、参考文献、注释和外部链接。";
 "appearance-settings-image-dimming-footer" = "在黑色或者暗色调主题中减小图片的不透明度";
 "appearance-settings-reading-themes" = "正在读取主题";
 "appearance-settings-set-automatic-table-opening" = "表格设置";
@@ -240,7 +242,7 @@
 "description-help-more-info-title" = "更多信息";
 "description-help-tips-description" = "理想情况下，描述应该只有一行，并且长度应介于2到12个字之间。仅当开头的名词为专有名词时才应将其大写。";
 "description-help-tips-example-description-one" = "蒙娜丽莎条目的条目描述";
-"description-help-tips-example-description-two" = "珠峰条目的条目描述";
+"description-help-tips-example-description-two" = "珠穆朗玛峰条目的条目描述";
 "description-help-tips-example-title-one" = "由列奥纳多·达·芬奇绘制";
 "description-help-tips-example-title-two" = "地球第一高峰";
 "description-help-tips-for-example" = "例如：";
@@ -607,7 +609,7 @@
 "nearby-distance-label-miles" = "$1英里";
 "new-password-instructions" = "您已通过临时密码登录。要完成登录，请在此设置一个新密码。";
 "new-password-title" = "设置您的密码";
-"no-email-account-alert" = "请在您的设备上设置电子邮件地址，并重试。";
+"no-email-account-alert" = "请在您的设备上设置电子邮件地址并重试。";
 "no-internet-connection" = "无互联网连接";
 "no-internet-connection-article-reload" = "此条目有新版本，但由于无互联网连接而无法加载";
 "no-internet-connection-article-reload-button" = "返回最后保存的版本";
@@ -691,7 +693,7 @@
 "notifications-center-subheader-translate-milestone" = "翻译里程碑";
 "notifications-center-subheader-user-rights-change" = "用户权限更改";
 "notifications-center-subheader-welcome" = "欢迎！";
-"notifications-center-subheader-wikidata-connection" = "建立维基数据关联";
+"notifications-center-subheader-wikidata-connection" = "已建立维基数据链接";
 "notifications-center-swipe-mark-as-read" = "标记为已读";
 "notifications-center-swipe-mark-as-unread" = "标记为未读";
 "notifications-center-swipe-more" = "更多";
@@ -786,7 +788,7 @@
 "potd-description-prefix" = "$1的每日图片";
 "potd-empty-error-description" = "无法检索$1的每日图片";
 "potd-sample-entry-description" = "在2015年的Pacu Jawi活动决赛上（源于米南加保的“奔牛赛”），一名骑师驾驭两只奔跑的公牛。这是印度尼西亚西苏门答腊岛丹那达塔尔的传统奔牛比赛。";
-"potd-widget-description" = "享受观看一个由社区选择的每日美丽照片。";
+"potd-widget-description" = "尽享由我们社群每日挑选的精美图片。";
 "potd-widget-title" = "今日图片";
 "preference-summary-eventlogging-opt-in" = "允许维基媒体基金会收集有关您操作本应用的信息，从而改善应用";
 "preference-title-eventlogging-opt-in" = "发送使用反馈";
@@ -803,7 +805,7 @@
 "project-name-wiktionary" = "维基词典";
 "reading-list-add-generic-hint-title" = "添加此条目至阅读列表么？";
 "reading-list-add-hint-title" = "添加“$1”至阅读列表么？";
-"reading-list-add-saved-button-title" = "是，将他们添加到我的阅读列表";
+"reading-list-add-saved-button-title" = "是，将它们添加到我的阅读列表";
 "reading-list-add-saved-subtitle" = "这些是保存到您的维基百科应用的条目。您是否希望保留它们，并合并到同步至您账号的阅读列表？";
 "reading-list-add-saved-title" = "找到的已保存条目";
 "reading-list-api-error-entry-limit" = "此记录未同步，因为您已达到此列表的记录数限制。";
@@ -876,7 +878,7 @@
 "reading-themes-controls-accessibility-brightness-slider" = "亮度滑块";
 "reading-themes-controls-accessibility-dark-theme-button" = "夜间主题";
 "reading-themes-controls-accessibility-light-theme-button" = "日间主题";
-"reading-themes-controls-accessibility-sepia-theme-button" = "棕黑主题";
+"reading-themes-controls-accessibility-sepia-theme-button" = "棕褐色主题";
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "语法高亮";
 "reading-themes-controls-accessibility-text-size-slider" = "文字大小滑块";
 "reading-themes-controls-syntax-highlighting" = "语法高亮";
@@ -969,7 +971,7 @@
 "settings-title" = "设置";
 "share-a-fact-made-with" = "维基百科应用出品";
 "share-article-name-on-wikipedia" = "维基百科上的“$1”：";
-"share-building" = "正在建立分享预览卡…";
+"share-building" = "正在构建分享预览卡片…";
 "share-default-format" = "“$1”来自“$2”：$3";
 "share-email-format" = "“$1”\n\n来自“$2”\n\n$3";
 "share-get-directions-in-maps" = "路线导航";
@@ -999,8 +1001,8 @@
 "talk-page-change-language" = "更改语言";
 "talk-page-discussion-read-accessibility-label" = "已读";
 "talk-page-discussion-unread-accessibility-label" = "未读";
-"talk-page-new-banner-subtitle" = "记住，我们在这里都是人类";
-"talk-page-new-banner-title" = "请善良一些";
+"talk-page-new-banner-subtitle" = "请记住，在此留言的你我都是平凡之人";
+"talk-page-new-banner-title" = "请保持友善";
 "talk-page-new-reply-success-text" = "您的回复已成功发布";
 "talk-page-new-topic-success-text" = "您的讨论已成功发布";
 "talk-page-page-info" = "页面信息";
@@ -1021,7 +1023,7 @@
 "talk-page-unsubscribed-alert-title" = "您已取消订阅。";
 "talk-page-user-contributions" = "贡献";
 "talk-pages-coffee-roll-read-more" = "阅读更多";
-"talk-pages-empty-view-body-article" = "讨论页是人们讨论如何使维基百科上的内容达到最佳状态的地方。 **首先添加一个新的讨论主题**，以便与维基百科社区建立联系和协作。";
+"talk-pages-empty-view-body-article" = "讨论页是人们讨论如何使维基百科上的内容达到最佳状态的地方。**首先添加一个新的讨论主题**，以便与维基百科社区建立联系和协作。";
 "talk-pages-empty-view-body-user" = "讨论页是人们讨论如何使维基百科上的内容达到最佳状态的地方。开始新的讨论以与$1建立联系和协作。您在此处所说的内容将公开给其他人查看。";
 "talk-pages-empty-view-button-article-add-topic" = "添加新话题";
 "talk-pages-empty-view-button-user-start-discussion" = "发起讨论";
@@ -1039,7 +1041,7 @@
 "theme-default-explanation" = "跟随系统主题";
 "theme-light-display-name" = "日间";
 "theme-sepia-display-name" = "棕褐色";
-"top-read-widget-description" = "在维基百科上学习世界今天在读什么。";
+"top-read-widget-description" = "了解全世界的人今天都在维基百科上读些什么。";
 "top-read-widget-readers-count" = "$1位读者";
 "top-read-widget-title" = "热门阅读";
 "two-factor-login-continue" = "继续登录";
@@ -1078,29 +1080,29 @@
 "welcome-notifications-tell-me-more-creation" = "通知是由应用（而不是从我们或第三方服务器）创建，并递送到您的设备上的。";
 "welcome-notifications-tell-me-more-storage" = "通知参数设置存储在设备上，且不基于个人信息或活动。";
 "welcome-notifications-tell-me-more-title" = "更多有关通知";
-"welcome-send-data-helps-title" = "帮助让应用变得更好";
-"welcome-send-data-learn-more" = "了解更多关于数据收集";
+"welcome-send-data-helps-title" = "帮助改进应用程序";
+"welcome-send-data-learn-more" = "了解关于数据收集的更多信息";
 "welcome-send-data-sub-title" = "通过让维基媒体基金会知道您是如何使用来协助改善应用。收集的数据都是匿名的。";
 "welcome-volunteer-send-usage-reports" = "发送使用情况报告";
-"widget-onthisday-description" = "探索历史上的今日所发生的事情。";
-"widget-onthisday-placeholder-article-snippet" = "任何人都可以编辑的免费的线上百科全书";
-"widget-onthisday-placeholder-event-snippet" = "维基百科，一个免费的维基百科全书内容，现在成为线上了。";
-"wikitext-downloading" = "正在加载内容...";
+"widget-onthisday-description" = "探索在历史上的今天发生的事件。";
+"widget-onthisday-placeholder-article-snippet" = "人人都可编辑的自由在线百科全书";
+"widget-onthisday-placeholder-event-snippet" = "自由的wiki内容式百科全书“维基百科”即日上线。";
+"wikitext-downloading" = "正在加载内容…";
 "wikitext-preview-changes" = "正在获取您更改的预览…";
 "wikitext-preview-changes-none" = "没有可供预览的更改。";
-"wikitext-preview-link-external-preview-description" = "此链接会引导至外部网站：$1";
+"wikitext-preview-link-external-preview-description" = "此链接指向外部网站：$1";
 "wikitext-preview-link-external-preview-title" = "外部链接";
-"wikitext-preview-link-not-found-preview-description" = "维基百科上没有使用这个确切名称的条目";
+"wikitext-preview-link-not-found-preview-description" = "维基百科上没有这个名称的条目";
 "wikitext-preview-link-not-found-preview-title" = "未找到内部链接";
 "wikitext-preview-link-preview-description" = "此链接引导至“$1”";
 "wikitext-preview-link-preview-title" = "链接预览";
 "wikitext-preview-save-changes-title" = "保存更改";
-"wikitext-upload-captcha-error" = "验证码验证错误。";
+"wikitext-upload-captcha-error" = "验证码错误。";
 "wikitext-upload-captcha-needed" = "需要验证码确认。";
 "wikitext-upload-result-unknown" = "无法确定wikitext上传结果。";
 "wikitext-upload-save" = "正在发布...";
-"wikitext-upload-save-anonymously-or-login" = "编辑将显示您设备的IP地址。若您$1登录$2则可获得隐私保护。";
+"wikitext-upload-save-anonymously-or-login" = "编辑将使用您设备的IP地址发布，如果您想保护隐私，请$1登录$2。";
 "wikitext-upload-save-anonymously-warning" = "编辑将使用您设备的IP地址发布，如果您想保护隐私，请$1。";
 "wikitext-upload-save-sign-in" = "登录";
-"wikitext-upload-save-terms-and-licenses" = "发布更改即代表您同意$1使用条款$2及以$3CC BY-SA 3.0$4与$5GFDL$6协议发布您的贡献。您同意超链接或网页链接即代表知识共享协议所规定的署名。";
+"wikitext-upload-save-terms-and-licenses" = "发布更改即代表您同意$1使用条款$2及以$3CC BY-SA 3.0$4与$5GFDL$6协议发布您的贡献。您同意超链接或网页链接足够代表知识共享协议所规定的署名。";
 "wikitext-upload-save-terms-name" = "使用条款";
