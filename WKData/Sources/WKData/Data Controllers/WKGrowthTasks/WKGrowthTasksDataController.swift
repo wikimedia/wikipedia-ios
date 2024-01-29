@@ -2,7 +2,7 @@ import Foundation
 
 public final class WKGrowthTasksDataController {
 
-    var service = WKDataEnvironment.current.mediaWikiService
+    private var service = WKDataEnvironment.current.mediaWikiService
     let project: WKProject
 
     public init (project: WKProject) {
@@ -16,6 +16,7 @@ public final class WKGrowthTasksDataController {
     public func getGrowthAPITask(task: WKGrowthTaskType = .imageRecommendation, completion: @escaping (Result<[WKGrowthTask.Page], Error>) -> Void) {
 
         guard let service else {
+            completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
             return
         }
         var pages: [WKGrowthTask.Page] = []
@@ -29,6 +30,7 @@ public final class WKGrowthTasksDataController {
         ]
 
         guard let url = URL.mediaWikiAPIURL(project: project) else {
+            completion(.failure(WKDataControllerError.failureCreatingRequestURL))
             return
         }
 
@@ -42,6 +44,7 @@ public final class WKGrowthTasksDataController {
                 completion(.success(pages))
             case .failure(let error):
                 print(error)
+                completion(.failure(error))
             }
         }
     }
@@ -49,9 +52,10 @@ public final class WKGrowthTasksDataController {
     public func getImageSuggestionData(pageIDs: [String], completion: @escaping (Result<[WKImageRecommendation.Page], Error>) -> Void) {
 
         let pipeEncodedPageIds = pageIDs.joined(separator: "|")
-        var recommendationsPerPage:[WKImageRecommendation.Page] = []
+        var recommendationsPerPage: [WKImageRecommendation.Page] = []
 
         guard let service else {
+            completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
             return
         }
 
@@ -63,6 +67,7 @@ public final class WKGrowthTasksDataController {
         ]
 
         guard let url = URL.mediaWikiAPIURL(project: project) else {
+            completion(.failure(WKDataControllerError.failureCreatingRequestURL))
             return
         }
 
@@ -73,8 +78,10 @@ public final class WKGrowthTasksDataController {
             case .success(let response):
                 print(response)
                 recommendationsPerPage.append(contentsOf: self.getImageSuggestions(from: response))
+                completion(.success(recommendationsPerPage))
             case .failure(let error):
                 print(error)
+                completion(.failure(error))
             }
         }
     }
