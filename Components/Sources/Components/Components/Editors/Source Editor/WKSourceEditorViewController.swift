@@ -267,6 +267,10 @@ public class WKSourceEditorViewController: WKComponentViewController {
     public func redo() {
         textView.undoManager?.redo()
     }
+    
+    public func removeFocus() {
+        textView.resignFirstResponder()
+    }
 }
 
 // MARK: - Private

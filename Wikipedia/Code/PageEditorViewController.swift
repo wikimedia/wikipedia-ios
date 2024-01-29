@@ -369,7 +369,7 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
 extension PageEditorViewController: SectionEditorNavigationItemControllerDelegate {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
 
-        sourceEditor.resignFirstResponder()
+        sourceEditor.removeFocus()
         
         switch editFlow {
         case .editorSavePreview:
@@ -404,6 +404,7 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
+        sourceEditor.removeFocus()
         showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
     }
     
