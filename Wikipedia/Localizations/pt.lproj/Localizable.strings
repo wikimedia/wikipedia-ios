@@ -100,8 +100,10 @@
 "action-add-to-reading-list" = "Adicionar à lista de leitura";
 "action-add-to-reading-list-short" = "Adicionar à lista";
 "action-cancel" = "Cancelar";
+"action-discard-edit" = "Descartar edição";
 "action-discard-edits" = "Descartar edições";
 "action-find-in-page" = "Localizar na página";
+"action-keep-editing" = "Continuar a editar";
 "action-language-accessibility" = "Alterar língua";
 "action-move-to" = "Mover para…";
 "action-move-to-reading-list" = "Mover para lista de leitura";
@@ -149,7 +151,6 @@
 "article-languages-label" = "Escolher língua";
 "article-languages-others" = "Outras línguas";
 "article-languages-yours" = "As suas línguas";
-"article-nav-edit" = "Editar";
 "article-read-more-title" = "Ler mais";
 "article-reference-view-title" = "Referência $1";
 "article-revision-history" = "Historial de revisões do artigo";
@@ -318,10 +319,12 @@
 "edit-notices-please-read" = "É favor ler antes de editar";
 "edit-ordered-list-accessibility-label" = "Tornar a linha corrente numa lista ordenada";
 "edit-ordered-list-remove-accessibility-label" = "Remover lista ordenada da linha corrente";
+"edit-preview-simplified-format-message" = "Todo o conteúdo é mostrado num formato simplificado.";
 "edit-published" = "Edição publicada";
 "edit-published-subtitle" = "Acabou de tornar a Wikipédia melhor para todos";
 "edit-reference-accessibility-label" = "Acrescentar sintaxe para referência";
 "edit-reference-remove-accessibility-label" = "Remover sintaxe de referência";
+"edit-show-web-preview" = "Mostrar antevisão ''web''";
 "edit-signature-accessibility-label" = "Acrescentar sintaxe para assinatura";
 "edit-signature-remove-accessibility-label" = "Remover sintaxe de assinatura";
 "edit-strikethrough-accessibility-label" = "Acrescentar riscado";
@@ -359,6 +362,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "Para dar a todos acesso ao conhecimento mundial, precisamos que participe na sua criação, lendo, editando e contribuindo nos assuntos que mais lhe interessam.";
 "editing-welcome-set-knowledge-free-title" = "Libertar o conhecimento";
 "editor-exit-confirmation-body" = "Tem a certeza de que deseja sair do modo de edição sem antes publicar as alterações?";
+"editor-exit-confirmation-message" = "Tem a certeza de que pretende descartar esta edição?";
 "editor-exit-confirmation-title" = "Sair do modo de edição?";
 "empty-diff-compare-title" = "Não existem diferenças entre as revisões";
 "empty-diff-single-title" = "Não foi efetuada nenhuma alteração visível";
@@ -1069,6 +1073,8 @@
 "source-editor-accessibility-label-unordered" = "Tornar a linha corrente numa lista não ordenada";
 "source-editor-accessibility-label-unordered-selected" = "Remover lista não ordenada da linha corrente";
 "source-editor-clear-formatting" = "Limpar formatação";
+"source-editor-edit-published" = "A sua edição foi publicada.";
+"source-editor-edit-source" = "Editar fonte";
 "source-editor-find-replace-all" = "Substituir todas";
 "source-editor-find-replace-single" = "Substituir";
 "source-editor-find-replace-with" = "Substituir por...";
@@ -1146,6 +1152,7 @@
 "talk-pages-coffee-roll-read-more" = "Ler mais";
 "talk-pages-comment-added-alert-title" = "O seu comentário foi adicionado";
 "talk-pages-compose-close-confirmation-keep" = "Continuar a editar";
+"talk-pages-edit-source" = "Editar fonte";
 "talk-pages-empty-view-body-article" = "É nas páginas de discussão que as pessoas debatem como tornar o conteúdo da Wikipédia o melhor possível. **Comece por adicionar um tópico de discussão novo** para estabelecer uma ligação e colaborar com uma comunidade de wikipedistas.";
 "talk-pages-empty-view-body-user" = "É nas páginas de discussão que as pessoas debatem como tornar o conteúdo da Wikipédia o melhor possível. Inicie uma discussão para estabelecer uma ligação e colaborar com $1. Aquilo que disser aqui será público e pode ser visto por todos.";
 "talk-pages-empty-view-button-article-add-topic" = "Adicionar um tópico novo";
