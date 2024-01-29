@@ -20,8 +20,7 @@ public enum WKIcon {
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
 
     // Editor-specific icons
-    static let formatText = UIImage(named: "editor/format-text", in: .module, with: nil)//
-    static let formatHeading = UIImage(named: "editor/format-heading", in: .module, with: nil)//
+    public static let separator = UIImage(named: "separator", in: .module, with: nil)
 
     // Project icons
     static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
@@ -56,6 +55,7 @@ public enum WKSFSymbolIcon {
     case bold
     case italic
     case exclamationMarkCircle
+    case exclamationMarkCircleFill
     case textFormatSuperscript
     case textFormatSubscript
     case underline
@@ -66,6 +66,10 @@ public enum WKSFSymbolIcon {
     case ellipsis
     case pencil
     case plusCircleFill
+    case undo
+    case redo
+    case textFormatSize
+    case textFormat
 
     public static func `for`(symbol: WKSFSymbolIcon, font: WKFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection, renderingMode: UIImage.RenderingMode = .alwaysTemplate, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WKFont.for(font)
@@ -125,6 +129,8 @@ public enum WKSFSymbolIcon {
             image = UIImage(systemName: "italic", withConfiguration: configuration)
         case .exclamationMarkCircle:
             image = UIImage(systemName: "exclamationmark.circle", withConfiguration: configuration)
+        case .exclamationMarkCircleFill:
+            image = UIImage(systemName: "exclamationmark.circle.fill", withConfiguration: configuration)
         case .textFormatSuperscript:
             image = UIImage(systemName: "textformat.superscript", withConfiguration: configuration)
         case .textFormatSubscript:
@@ -145,6 +151,14 @@ public enum WKSFSymbolIcon {
             image = UIImage(systemName: "pencil", withConfiguration: configuration)
         case .plusCircleFill:
             image = UIImage(systemName: "plus.circle.fill", withConfiguration: configuration)
+        case .undo:
+            image = UIImage(systemName: "arrow.uturn.backward", withConfiguration: configuration)
+        case .redo:
+            image = UIImage(systemName: "arrow.uturn.forward", withConfiguration: configuration)
+        case .textFormatSize:
+            image = UIImage(systemName: "textformat.size", withConfiguration: configuration)
+        case .textFormat:
+            image = UIImage(systemName: "textformat", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

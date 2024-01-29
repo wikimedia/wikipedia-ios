@@ -396,9 +396,14 @@ class WKEditorInputView: WKComponentView {
     // MARK: - Private Helpers
     
     private func updateColors() {
-        backgroundColor = WKAppEnvironment.current.theme.paperBackground
-        titleLabel.textColor = WKAppEnvironment.current.theme.text
+        backgroundColor = theme.paperBackground
+        titleLabel.textColor = theme.text
         setCloseButtonImage(button: closeButton)
+        
+        layer.shadowOffset = CGSize(width: 0, height: -2)
+        layer.shadowRadius = 10
+        layer.shadowOpacity = 1.0
+        layer.shadowColor = theme.editorKeyboardShadow.cgColor
     }
     
     private func setCloseButtonImage(button: UIButton) {

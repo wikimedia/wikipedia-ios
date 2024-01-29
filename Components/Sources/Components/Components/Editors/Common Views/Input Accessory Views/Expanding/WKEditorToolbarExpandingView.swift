@@ -87,7 +87,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         expandButton.isAccessibilityElement = false
         updateExpandButtonVisibility()
 
-        formatTextButton.setImage(WKIcon.formatText)
+        formatTextButton.setImage(WKSFSymbolIcon.for(symbol: .textFormat))
         formatTextButton.addTarget(self, action: #selector(tappedFormatText), for: .touchUpInside)
         formatTextButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.formatTextButton
         formatTextButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonFormatText

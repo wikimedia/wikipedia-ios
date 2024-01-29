@@ -1,4 +1,5 @@
 import UIKit
+import Components
 
 protocol FocusNavigationViewDelegate: AnyObject {
     func focusNavigationViewDidTapClose(_ focusNavigationView: FocusNavigationView)
@@ -12,6 +13,13 @@ final class FocusNavigationView: UIView {
     @IBOutlet private var divView: UIView!
     
     weak var delegate: FocusNavigationViewDelegate?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        closeButton.imageView?.contentMode = .center
+        closeButton.setImage(WKSFSymbolIcon.for(symbol: .multiplyCircleFill), for: .normal)
+    }
     
     func configure(titleText: String, closeButtonAccessibilityText: String, traitCollection: UITraitCollection, isTitleAccessible: Bool = false) {
        

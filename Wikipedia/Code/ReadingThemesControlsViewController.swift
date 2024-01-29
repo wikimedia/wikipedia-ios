@@ -36,6 +36,7 @@ class ReadingThemesControlsViewController: UIViewController {
     
     @IBOutlet weak var tSmallImageView: UIImageView!
     @IBOutlet weak var tLargeImageView: UIImageView!
+    @IBOutlet weak var tLargeImageViewTopConstraint: NSLayoutConstraint!
     
     @IBOutlet var stackView: UIStackView!
     
@@ -49,6 +50,12 @@ class ReadingThemesControlsViewController: UIViewController {
         didSet {
             evaluateShowsSyntaxHighlightingState()
             updatePreferredContentSize()
+        }
+    }
+    
+    var needsExtraTopSpacing: Bool = false {
+        didSet {
+            tLargeImageViewTopConstraint.constant = needsExtraTopSpacing ? 26 : 13
         }
     }
     
