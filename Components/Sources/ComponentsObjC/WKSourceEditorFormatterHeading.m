@@ -109,6 +109,10 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
 
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
+    
     // Reset
     [attributedString removeAttribute:WKSourceEditorCustomKeyFontHeading range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyFontSubheading1 range:range];
@@ -167,20 +171,23 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isContentKey:(NSString *)contentKey inRange:(NSRange)range {
     __block BOOL isContentKey = NO;
     
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return NO;
+    }
+    
     if (range.length == 0) {
         
-        if (attributedString.length > range.location) {
-            NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
-            
-            if (attrs[contentKey] != nil) {
-                isContentKey = YES;
-            } else {
-                // Edge case, check previous character if we are up against closing string
-                if (attrs[WKSourceEditorCustomKeyColorOrange] && attributedString.length > range.location - 1) {
-                    attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
-                    if (attrs[contentKey] != nil) {
-                        isContentKey = YES;
-                    }
+        NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+        
+        if (attrs[contentKey] != nil) {
+            isContentKey = YES;
+        } else {
+            // Edge case, check previous character if we are up against closing string
+            NSRange newRange = NSMakeRange(range.location - 1, 0);
+            if (attrs[WKSourceEditorCustomKeyColorOrange] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
+                attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
+                if (attrs[contentKey] != nil) {
+                    isContentKey = YES;
                 }
             }
         }
@@ -207,6 +214,10 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
 }
 
 - (void)enumerateAndHighlightAttributedString: (nonnull NSMutableAttributedString *)attributedString range:(NSRange)range regex:(NSRegularExpression *)regex fontAttributes:(NSDictionary<NSAttributedStringKey, id> *)fontAttributes contentAttributes:(NSDictionary<NSAttributedStringKey, id> *)contentAttributes {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
     
     [regex enumerateMatchesInString:attributedString.string
                             options:0
@@ -242,6 +253,11 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
 }
 
 - (void)enumerateAndUpdateColorsInAttributedString: (NSMutableAttributedString *)attributedString range: (NSRange)range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
+    
     [attributedString enumerateAttribute:WKSourceEditorCustomKeyColorOrange
                                  inRange:range
                                  options:nil
@@ -278,6 +294,11 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
 }
 
 - (void)enumerateAndUpdateFontsInAttributedString: (NSMutableAttributedString *)attributedString range: (NSRange)range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
+    
     [attributedString enumerateAttribute:WKSourceEditorCustomKeyFontHeading
                                  inRange:range
                                  options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired

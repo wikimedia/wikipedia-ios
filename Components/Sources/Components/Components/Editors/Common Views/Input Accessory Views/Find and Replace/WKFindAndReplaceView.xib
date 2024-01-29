@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYQ-km-WBU">
                                             <rect key="frame" x="0.0" y="2" width="62" height="34"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHU-iI-iHx">
+                                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHU-iI-iHx">
                                                     <rect key="frame" x="0.0" y="0.0" width="31" height="34"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="34" id="Nk9-Lb-p5T"/>
@@ -36,7 +36,7 @@
                                                         <action selector="tappedPrevious" destination="iN0-l3-epB" eventType="touchUpInside" id="wX5-Bl-uAB"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ygy-QU-ZCs">
+                                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ygy-QU-ZCs">
                                                     <rect key="frame" x="31" y="0.0" width="31" height="34"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="34" id="gJU-4L-Bxp"/>
@@ -63,7 +63,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES" smartQuotesType="no"/>
                                                     <connections>
-                                                        <action selector="textFieldDidChange:" destination="iN0-l3-epB" eventType="editingChanged" id="kcU-cf-daZ"/>
                                                         <outlet property="delegate" destination="iN0-l3-epB" id="LDX-LI-4nu"/>
                                                     </connections>
                                                 </textField>
@@ -133,7 +132,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go" enablesReturnKeyAutomatically="YES" smartQuotesType="no"/>
                                                     <connections>
-                                                        <action selector="textFieldDidChange:" destination="iN0-l3-epB" eventType="editingChanged" id="YXc-f4-Iu2"/>
                                                         <outlet property="delegate" destination="iN0-l3-epB" id="XLZ-Yt-8tI"/>
                                                     </connections>
                                                 </textField>
@@ -201,9 +199,6 @@
                                                         <constraint firstAttribute="height" constant="34" id="gTZ-Gi-zpW"/>
                                                         <constraint firstAttribute="width" constant="31" id="tYO-YJ-Kh0"/>
                                                     </constraints>
-                                                    <connections>
-                                                        <action selector="tappedReplaceSwitch" destination="iN0-l3-epB" eventType="touchUpInside" id="nh5-nr-Q2G"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </stackView>
@@ -235,7 +230,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="closeButton" destination="cVz-34-psT" id="ugE-BQ-Wie"/>
-                <outlet property="currentMatchLabel" destination="6cQ-Pa-aFx" id="K9Y-CS-Rke"/>
+                <outlet property="currentMatchInfoLabel" destination="6cQ-Pa-aFx" id="K9Y-CS-Rke"/>
                 <outlet property="findClearButton" destination="upA-Ii-L3S" id="3pS-KY-Bv2"/>
                 <outlet property="findStackView" destination="2D8-r6-Pwy" id="xj7-Ab-A1q"/>
                 <outlet property="findTextField" destination="SWF-dB-rso" id="Prh-oK-N8B"/>

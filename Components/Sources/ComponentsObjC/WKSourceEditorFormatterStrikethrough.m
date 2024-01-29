@@ -35,6 +35,10 @@ NSString * const WKSourceEditorCustomKeyContentStrikethrough = @"WKSourceEditorC
 
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
+    
     // Reset
     [attributedString removeAttribute:WKSourceEditorCustomKeyContentStrikethrough range:range];
     
@@ -66,6 +70,10 @@ NSString * const WKSourceEditorCustomKeyContentStrikethrough = @"WKSourceEditorC
     NSMutableDictionary *mutAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.strikethroughAttributes];
     [mutAttributes setObject:colors.greenForegroundColor forKey:NSForegroundColorAttributeName];
     self.strikethroughAttributes = [[NSDictionary alloc] initWithDictionary:mutAttributes];
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
 
     [attributedString enumerateAttribute:WKSourceEditorCustomKeyColorGreen
                                  inRange:range
@@ -81,28 +89,32 @@ NSString * const WKSourceEditorCustomKeyContentStrikethrough = @"WKSourceEditorC
 }
 
 - (void)updateFonts:(WKSourceEditorFonts *)fonts inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
-    // No special font handling needed for references
+    // No special font handling needed
 }
 
 #pragma mark - Public
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isStrikethroughInRange:(NSRange)range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return NO;
+    }
+    
     __block BOOL isContentKey = NO;
 
    if (range.length == 0) {
 
-       if (attributedString.length > range.location) {
-           NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
+       NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
 
-           if (attrs[WKSourceEditorCustomKeyContentStrikethrough] != nil) {
-               isContentKey = YES;
-           } else {
-               // Edge case, check previous character if we are up against closing string
-               if (attrs[WKSourceEditorCustomKeyColorGreen] && attributedString.length > range.location - 1) {
-                   attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
-                   if (attrs[WKSourceEditorCustomKeyContentStrikethrough] != nil) {
-                       isContentKey = YES;
-                   }
+       if (attrs[WKSourceEditorCustomKeyContentStrikethrough] != nil) {
+           isContentKey = YES;
+       } else {
+           // Edge case, check previous character if we are up against closing string
+           NSRange newRange = NSMakeRange(range.location - 1, 0);
+           if (attrs[WKSourceEditorCustomKeyColorGreen] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
+               attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
+               if (attrs[WKSourceEditorCustomKeyContentStrikethrough] != nil) {
+                   isContentKey = YES;
                }
            }
        }

@@ -1,3 +1,5 @@
+import Components
+
 protocol SectionEditorNavigationItemControllerDelegate: AnyObject {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem)
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem)
@@ -39,9 +41,12 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
             self.tintColorKeyPath = tintColorKeyPath
         }
 
-        convenience init(image: UIImage?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>, accessibilityLabel: String? = nil) {
+        convenience init(image: UIImage?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>, accessibilityLabel: String? = nil, size: CGSize? = nil) {
             let button = UIButton(type: .system)
             button.setImage(image, for: .normal)
+            if let size {
+                button.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            }
             if let target = target, let action = action {
                 button.addTarget(target, action: action, for: .touchUpInside)
             }
@@ -62,12 +67,18 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
             }
         }
     }
+    
+    private(set) lazy var closeButton: BarButtonItem = {
+        let closeButton = BarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_ :)), tintColorKeyPath: \Theme.colors.chromeText)
+        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        return closeButton
+    }()
 
     private(set) lazy var progressButton: BarButtonItem = {
         return BarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)), tintColorKeyPath: \Theme.colors.link)
     }()
 
-    private lazy var redoButton: BarButtonItem = {
+    private(set) lazy var redoButton: BarButtonItem = {
         return BarButtonItem(image: #imageLiteral(resourceName: "redo"), style: .plain, target: self, action: #selector(redo(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.redo)
     }()
 
@@ -122,9 +133,6 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
     }
 
     private func configureNavigationButtonItems() {
-        let closeButton = BarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_ :)), tintColorKeyPath: \Theme.colors.chromeText)
-        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-
         navigationItem?.leftBarButtonItem = closeButton
 
         navigationItem?.rightBarButtonItems = [

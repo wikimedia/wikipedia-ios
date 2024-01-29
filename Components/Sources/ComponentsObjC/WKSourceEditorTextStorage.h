@@ -8,6 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WKSourceEditorTextStorage : NSTextStorage
 
 @property (nonatomic, weak) id<WKSourceEditorStorageDelegate> storageDelegate;
+@property (nonatomic, assign) BOOL syntaxHighlightProcessingEnabled;
 
 - (void)updateColorsAndFonts;
 

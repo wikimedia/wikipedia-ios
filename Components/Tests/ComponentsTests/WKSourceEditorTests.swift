@@ -34,12 +34,19 @@ final class WKSourceEditorTests: XCTestCase {
 }
 
 extension WKSourceEditorTests: WKSourceEditorViewControllerDelegate {
-    
-    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: Components.WKSourceEditorViewController) {
+    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: Components.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
         
     }
     
-    func sourceEditorViewControllerDidTapFind(sourceEditorViewController: Components.WKSourceEditorViewController) {
+    func sourceEditorDidChangeText(_ sourceEditorViewController: Components.WKSourceEditorViewController, didChangeText: Bool) {
+        
+    }
+    
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: Components.WKSourceEditorViewController) {
+        
+    }
+    
+    func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: Components.WKSourceEditorViewController) {
 
     }
     
@@ -67,6 +74,7 @@ extension WKSourceEditorLocalizedStrings {
             findReplaceTypeSingle: "",
             findReplaceTypeAll: "",
             findReplaceWith: "",
+            findReplaceTypeMenuTitle: "",
             accessibilityLabelButtonFormatText: "",
             accessibilityLabelButtonCitation: "",
             accessibilityLabelButtonCitationSelected: "",

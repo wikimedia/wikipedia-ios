@@ -1,13 +1,13 @@
 import SwiftUI
 
-public struct WKSwiftUIMenuButton: View {
+public struct WKSmallSwiftUIMenuButton: View {
 
 	@ObservedObject var appEnvironment = WKAppEnvironment.current
 
-	public let configuration: WKMenuButton.Configuration
-	public weak var menuButtonDelegate: WKMenuButtonDelegate?
+	public let configuration: WKSmallMenuButton.Configuration
+	public weak var menuButtonDelegate: WKSmallMenuButtonDelegate?
 
-	public init(configuration: WKMenuButton.Configuration, menuButtonDelegate: WKMenuButtonDelegate?) {
+	public init(configuration: WKSmallMenuButton.Configuration, menuButtonDelegate: WKSmallMenuButtonDelegate?) {
 		self.configuration = configuration
 		self.menuButtonDelegate = menuButtonDelegate
 	}

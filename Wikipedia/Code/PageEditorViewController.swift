@@ -4,22 +4,33 @@ import WMF
 import CocoaLumberjackSwift
 
 protocol PageEditorViewControllerDelegate: AnyObject {
-    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL: URL?)
+    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL url: URL?)
+    func pageEditorDidFinishEditing(_ pageEditor: PageEditorViewController, result: Result<SectionEditorChanges, Error>)
 }
 
 final class PageEditorViewController: UIViewController {
+    
+    // MARK: - Nested Types
+    
+    enum EditFlow {
+        case editorPreviewSave
+        case editorSavePreview
+    }
     
     // MARK: - Properties
     
     private let pageURL: URL
     private let sectionID: Int?
+    private let editFlow: EditFlow
     private let dataStore: MWKDataStore
     private weak var delegate: PageEditorViewControllerDelegate?
-    private let theme: Theme
+    private var theme: Theme
     
     private let fetcher: SectionFetcher
     private var sourceEditor: WKSourceEditorViewController!
     private var editorTopConstraint: NSLayoutConstraint!
+    
+    private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
     
     private lazy var focusNavigationView: FocusNavigationView = {
         return FocusNavigationView.wmf_viewFromClassNib()
@@ -37,13 +48,14 @@ final class PageEditorViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(pageURL: URL, sectionID: Int?, dataStore: MWKDataStore, delegate: PageEditorViewControllerDelegate, theme: Theme) {
+    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, dataStore: MWKDataStore, delegate: PageEditorViewControllerDelegate, theme: Theme) {
         self.pageURL = pageURL
         self.sectionID = sectionID
         self.fetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.dataStore = dataStore
         self.delegate = delegate
         self.theme = theme
+        self.editFlow = editFlow
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -56,6 +68,7 @@ final class PageEditorViewController: UIViewController {
 
         setTextSizeInAppEnvironment()
         setupFocusNavigationView()
+        setupNavigationItemController()
         loadWikitext()
         
         apply(theme: theme)
@@ -66,7 +79,7 @@ final class PageEditorViewController: UIViewController {
     private func setupFocusNavigationView() {
 
         let closeAccessibilityText = WMFLocalizedString("find-replace-header-close-accessibility", value: "Close find and replace", comment: "Accessibility label for closing the find and replace view.")
-        let headerTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
+        let headerTitle = CommonStrings.findReplaceHeader
         
         focusNavigationView.configure(titleText: headerTitle, closeButtonAccessibilityText: closeAccessibilityText, traitCollection: traitCollection)
         
@@ -83,6 +96,12 @@ final class PageEditorViewController: UIViewController {
         let topConstraint = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: focusNavigationView.topAnchor)
         
         NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, topConstraint])
+    }
+    
+    private func setupNavigationItemController() {
+        navigationItemController.progressButton.isEnabled = false
+        navigationItemController.undoButton.isEnabled = false
+        navigationItemController.redoButton.isEnabled = false
     }
     
     private func loadWikitext() {
@@ -115,7 +134,7 @@ final class PageEditorViewController: UIViewController {
                                                               inputViewSubheading4: CommonStrings.subheading4,
                                                               findReplaceTypeSingle: CommonStrings.findAndReplaceSingle,
                                                               findReplaceTypeAll: CommonStrings.findAndReplaceAll,
-                                                              findReplaceWith: CommonStrings.replaceWith,
+                                                              findReplaceWith: CommonStrings.replaceWith, findReplaceTypeMenuTitle: CommonStrings.findReplaceHeader,
                                                               accessibilityLabelButtonFormatText: CommonStrings.accessibilityLabelButtonFormatText,
                                                               accessibilityLabelButtonCitation: CommonStrings.accessibilityLabelButtonCitation,
                                                               accessibilityLabelButtonCitationSelected: CommonStrings.accessibilityLabelButtonCitationSelected,
@@ -212,6 +231,60 @@ final class PageEditorViewController: UIViewController {
         let textSizeAdjustment =  WMFFontSizeMultiplier(rawValue: UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue) ?? .large
         WKAppEnvironment.current.set(articleAndEditorTextSize: textSizeAdjustment.contentSizeCategory)
     }
+    
+
+    private func showDestructiveDismissAlert(sender: UIBarButtonItem, confirmCompletion: @escaping () -> Void) {
+        let alert = UIAlertController(title: nil, message: CommonStrings.editorExitConfirmationMessage, preferredStyle: .actionSheet)
+        alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
+        let confirmClose = UIAlertAction(title: CommonStrings.discardEditActionTitle, style: .destructive) { _ in
+            confirmCompletion()
+        }
+        alert.addAction(confirmClose)
+        let keepEditing = UIAlertAction(title: CommonStrings.keepEditingActionTitle, style: .cancel)
+        alert.addAction(keepEditing)
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.barButtonItem = sender
+        }
+        present(alert, animated: true)
+    }
+
+    private func showEditPreview(editFlow: EditFlow) {
+        let previewVC = EditPreviewViewController(articleURL: pageURL)
+        previewVC.theme = theme
+        previewVC.sectionID = sectionID
+        previewVC.languageCode = pageURL.wmf_languageCode
+        previewVC.wikitext = sourceEditor.editedWikitext
+        previewVC.delegate = self
+        switch editFlow {
+        case .editorPreviewSave:
+            previewVC.needsNextButton = true
+            previewVC.needsSimplifiedFormatToast = false
+        case .editorSavePreview:
+            previewVC.needsNextButton = false
+            previewVC.needsSimplifiedFormatToast = true
+        }
+        navigationController?.pushViewController(previewVC, animated: true)
+    }
+    
+    private func showEditSave(editFlow: EditFlow) {
+        guard let saveVC = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
+            return
+        }
+
+        saveVC.savedData = editConfirmationSavedData
+        saveVC.dataStore = dataStore
+        saveVC.articleURL = pageURL
+        saveVC.sectionID = sectionID
+        saveVC.languageCode = pageURL.wmf_languageCode
+        saveVC.wikitext = sourceEditor.editedWikitext
+        if case .editorSavePreview = editFlow {
+            saveVC.needsWebPreviewButton = true
+        }
+        saveVC.delegate = self
+        saveVC.theme = self.theme
+        
+        navigationController?.pushViewController(saveVC, animated: true)
+    }
 }
 
 // MARK: - Themeable
@@ -222,6 +295,7 @@ extension PageEditorViewController: Themeable {
             return
         }
         
+        self.theme = theme
         navigationItemController.apply(theme: theme)
         focusNavigationView.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
@@ -231,15 +305,22 @@ extension PageEditorViewController: Themeable {
 // MARK: - WKSourceEditorViewControllerDelegate
 
 extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
+    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: Components.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
+        navigationItemController.undoButton.isEnabled = canUndo
+        navigationItemController.redoButton.isEnabled = canRedo
+    }
     
-    func sourceEditorViewControllerDidTapFind(sourceEditorViewController: WKSourceEditorViewController) {
+    func sourceEditorDidChangeText(_ sourceEditorViewController: Components.WKSourceEditorViewController, didChangeText: Bool) {
+        navigationItemController.progressButton.isEnabled = didChangeText
+    }
+    
+    func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WKSourceEditorViewController) {
         showFocusNavigationView()
     }
     
-    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(sourceEditorViewController: Components.WKSourceEditorViewController) {
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: Components.WKSourceEditorViewController) {
         hideFocusNavigationView()
     }
-    
     
     func sourceEditorViewControllerDidTapLink(parameters: WKSourceEditorFormatterLinkWizardParameters) {
         guard let siteURL = pageURL.wmf_site else {
@@ -287,16 +368,39 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
 
 extension PageEditorViewController: SectionEditorNavigationItemControllerDelegate {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
+
+        sourceEditor.resignFirstResponder()
+        
+        switch editFlow {
+        case .editorSavePreview:
+            showEditSave(editFlow: editFlow)
+        case .editorPreviewSave:
+            showEditPreview(editFlow: editFlow)
+        }
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
-        delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
+        
+        let progressButton = navigationItemController.progressButton
+        let closeButton = navigationItemController.closeButton
+        if progressButton.isEnabled {
+            showDestructiveDismissAlert(sender: closeButton) { [weak self] in
+                guard let self else {
+                    return
+                }
+                self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
+            }
+        } else {
+            delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
+        }
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
+        sourceEditor.undo()
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
+        sourceEditor.redo()
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
@@ -392,7 +496,7 @@ extension PageEditorViewController: InsertLinkViewControllerDelegate {
     }
 }
 
-// MARK: - Insert
+// MARK: - InsertMediaViewControllerDelegate
 
 extension PageEditorViewController: InsertMediaViewControllerDelegate {
     func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didTapCloseButton button: UIBarButtonItem) {
@@ -402,6 +506,41 @@ extension PageEditorViewController: InsertMediaViewControllerDelegate {
     func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String) {
         sourceEditor.insertImage(wikitext: wikitext)
         dismiss(animated: true)
+    }
+}
+
+// MARK: - EditPreviewViewControllerDelegate
+
+extension PageEditorViewController: EditPreviewViewControllerDelegate {
+    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {
+        
+        guard case .editorPreviewSave = editFlow else {
+            assertionFailure("Edit preview should not have a Next button when using editorSavePreview flow.")
+            return
+        }
+        
+        showEditSave(editFlow: editFlow)
+    }
+}
+
+// MARK: - EditSaveViewControllerDelegate
+
+extension PageEditorViewController: EditSaveViewControllerDelegate {
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>) {
+        delegate?.pageEditorDidFinishEditing(self, result: result)
+    }
+
+    func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
+        editConfirmationSavedData = saveData
+    }
+    
+    func editSaveViewControllerDidTapShowWebPreview() {
+        guard case .editorSavePreview = editFlow else {
+            assertionFailure("Invalid - web preview button should only be available when in editorSavePreview flow.")
+            return
+        }
+        
+        showEditPreview(editFlow: editFlow)
     }
 }
 
