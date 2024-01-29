@@ -435,6 +435,10 @@ extension PageEditorViewController: ReadingThemesControlsResponding {
 // MARK: - ReadingThemesControlsPresenting
 
 extension PageEditorViewController: ReadingThemesControlsPresenting {
+    var needsExtraTopSpacing: Bool {
+        return true
+    }
+    
     var shouldPassthroughNavBar: Bool {
         return false
     }
