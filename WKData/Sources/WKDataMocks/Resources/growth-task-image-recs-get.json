@@ -1,463 +1,142 @@
 {
-   "batchcomplete":true,
-   "query":{
-      "pages":[
-         {
-            "pageid":35571,
-            "ns":0,
-            "title":"Novela (právo)",
-            "growthimagesuggestiondata":[
-               {
-                  "titleNamespace":0,
-                  "titleText":"Novela (právo)",
-                  "images":[
-                     {
-                        "image":"13th_Amendment_Pg1of1_AC.jpg",
-                        "displayFilename":"13th Amendment Pg1of1 AC.jpg",
-                        "source":"wikipedia",
-                        "projects":[
-                           "arwiki",
-                           "frwiki",
-                           "hrwiki",
-                           "shwiki"
-                        ],
-                        "metadata":{
-                           "descriptionUrl":"https://commons.wikimedia.org/wiki/File:13th_Amendment_Pg1of1_AC.jpg",
-                           "thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/e/e8/13th_Amendment_Pg1of1_AC.jpg/120px-13th_Amendment_Pg1of1_AC.jpg",
-                           "fullUrl":"//upload.wikimedia.org/wikipedia/commons/e/e8/13th_Amendment_Pg1of1_AC.jpg",
-                           "originalWidth":2672,
-                           "originalHeight":3414,
-                           "mustRender":false,
-                           "isVectorized":false,
-                           "mediaType":"BITMAP",
-                           "description":"13th Amendment of the United States Constitution.",
-                           "author":"Nationalbdgf Archives of the Unites States",
-                           "license":"Public domain",
-                           "date":"2006-03-26 18:23:42",
-                           "caption":null,
-                           "categories":[
-                              "1865 documents",
-                              "1865 in the United States",
-                              "Documents of African American history",
-                              "Slavery in the United States"
-                           ],
-                           "reason":"Utilizado en el mismo artículo en 4 otros idiomas: árabe, francés y 2 otros.",
-                           "contentLanguageName":"checo"
-                        },
-                        "sectionNumber":null,
-                        "sectionTitle":null
-                     }
-                  ],
-                  "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
-               }
-            ]
-         },
-         {
-            "pageid":136265,
-            "ns":0,
-            "title":"Překlep",
-            "growthimagesuggestiondata":[
-               {
-                  "titleNamespace":0,
-                  "titleText":"Překlep",
-                  "images":[
-                     {
-                        "image":"Judas_Bible2.jpg",
-                        "displayFilename":"Judas Bible2.jpg",
-                        "source":"commons",
-                        "projects":[
-                           "cvwiki"
-                        ],
-                        "metadata":{
-                           "descriptionUrl":"https://commons.wikimedia.org/wiki/File:Judas_Bible2.jpg",
-                           "thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/7/71/Judas_Bible2.jpg/120px-Judas_Bible2.jpg",
-                           "fullUrl":"//upload.wikimedia.org/wikipedia/commons/7/71/Judas_Bible2.jpg",
-                           "originalWidth":1908,
-                           "originalHeight":900,
-                           "mustRender":false,
-                           "isVectorized":false,
-                           "mediaType":"BITMAP",
-                           "description":"The Judas Bible in St. Mary's Church, <a href=\"//commons.wikimedia.org/w/index.php?title=Totnes&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"Totnes (page does not exist)\">Totnes</a>, <a href=\"//commons.wikimedia.org/wiki/Devon\" title=\"Devon\">Devon</a>, UK. This is a copy of the second folio edition of the Authorized Version, printed by <a href=\"//commons.wikimedia.org/w/index.php?title=Robert_Barker_(printer)&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"Robert Barker (printer) (page does not exist)\">Robert Barker (printer)</a>, Printer to King James I, in 1613, and given to the church for the use of the Mayor of Totnes. This edition is known as the Judas Bible because in Matthew 26:36 \"Judas\" appears instead of \"Jesus\". In this copy the mistake (in red circle) is corrected with a slip of paper pasted over the misprint.",
-                           "author":"<a href=\"//commons.wikimedia.org/wiki/User:Etan_J._Tal\" title=\"User:Etan J. Tal\">Etan J. Tal</a>",
-                           "license":"CC BY-SA 3.0",
-                           "date":"2012-08-30",
-                           "caption":null,
-                           "categories":[
-                              "1613 books",
-                              "Bible editions",
-                              "Correcting",
-                              "English typography",
-                              "St Mary, Totnes",
-                              "Typographic errors",
-                              "Typography of the 1610s"
-                           ],
-                           "reason":"Es una de las imágenes vinculadas al ítem de Wikidata de este artículo.",
-                           "contentLanguageName":"checo"
-                        },
-                        "sectionNumber":null,
-                        "sectionTitle":null
-                     }
-                  ],
-                  "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
-               }
-            ]
-         },
-         {
-            "pageid":303931,
-            "ns":0,
-            "title":"Modal jazz",
-            "growthimagesuggestiondata":[
-               {
-                  "titleNamespace":0,
-                  "titleText":"Modal jazz",
-                  "images":[
-                     {
-                        "image":"Lindstrom-Scott.jpg",
-                        "displayFilename":"Lindstrom-Scott.jpg",
-                        "source":"wikipedia",
-                        "projects":[
-                           "arwiki",
-                           "cawiki",
-                           "frwiki",
-                           "itwiki",
-                           "kowiki",
-                           "ruwiki"
-                        ],
-                        "metadata":{
-                           "descriptionUrl":"https://commons.wikimedia.org/wiki/File:Lindstrom-Scott.jpg",
-                           "thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Lindstrom-Scott.jpg/120px-Lindstrom-Scott.jpg",
-                           "fullUrl":"//upload.wikimedia.org/wikipedia/commons/4/4a/Lindstrom-Scott.jpg",
-                           "originalWidth":2647,
-                           "originalHeight":3543,
-                           "mustRender":false,
-                           "isVectorized":false,
-                           "mediaType":"BITMAP",
-                           "description":"Photograph of the musicians Erik Lindström (1922–2015) and Tony Scott (1921–2007) performing at the main hall of Helsinki School of Economics.",
-                           "author":"<div class=\"fn value\">\nBert Carpelan</div>",
-                           "license":"CC BY 4.0",
-                           "date":"Tomada el 4 de noviembre de 1959",
-                           "caption":null,
-                           "categories":[
-                              "1959 black and white photographs of people",
-                              "1959 in Helsinki",
-                              "2 men in Finland",
-                              "Aalto University School of Economics",
-                              "Black and white photographs of Finland in the 1950s",
-                              "Black and white photographs of Helsinki",
-                              "Black and white photographs of musicians",
-                              "Clarinets",
-                              "Erik Lindström",
-                              "Men in 1959",
-                              "Men with microphones",
-                              "Microphones in 1959",
-                              "Musical duos",
-                              "Musicians in 1959",
-                              "People playing double-bass",
-                              "Tony Scott"
-                           ],
-                           "reason":"Utilizado en el mismo artículo en 6 otros idiomas: árabe, catalán y 4 otros.",
-                           "contentLanguageName":"checo"
-                        },
-                        "sectionNumber":null,
-                        "sectionTitle":null
-                     }
-                  ],
-                  "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
-               }
-            ]
-         },
-         {
-            "pageid":754975,
-            "ns":0,
-            "title":"Mistrovství světa v moderní gymnastice",
-            "growthimagesuggestiondata":[
-               {
-                  "titleNamespace":0,
-                  "titleText":"Mistrovství světa v moderní gymnastice",
-                  "images":[
-                     {
-                        "image":"Alexandra_Kiroi-Bogatyreva_at_Baku_2019_Rhythmic_Gymnastics_World_Championship.jpg",
-                        "displayFilename":"Alexandra Kiroi-Bogatyreva at Baku 2019 Rhythmic Gymnastics World Championship.jpg",
-                        "source":"commons",
-                        "projects":[
-
-                        ],
-                        "metadata":{
-                           "descriptionUrl":"https://commons.wikimedia.org/wiki/File:Alexandra_Kiroi-Bogatyreva_at_Baku_2019_Rhythmic_Gymnastics_World_Championship.jpg",
-                           "thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Alexandra_Kiroi-Bogatyreva_at_Baku_2019_Rhythmic_Gymnastics_World_Championship.jpg/120px-Alexandra_Kiroi-Bogatyreva_at_Baku_2019_Rhythmic_Gymnastics_World_Championship.jpg",
-                           "fullUrl":"//upload.wikimedia.org/wikipedia/commons/1/1d/Alexandra_Kiroi-Bogatyreva_at_Baku_2019_Rhythmic_Gymnastics_World_Championship.jpg",
-                           "originalWidth":2765,
-                           "originalHeight":3588,
-                           "mustRender":false,
-                           "isVectorized":false,
-                           "mediaType":"BITMAP",
-                           "description":"Australian Rhythmic GymnastAlexandra Kiroi-Bogatyreva performing with ribbon during 2019 Rhythmic Gymnastics World Championships in Baku, Azerbaijan. <a href=\"https://en.wikipedia.org/wiki/en:Alexandra_Kiroi-Bogatyreva\" class=\"extiw\" title=\"en:en:Alexandra Kiroi-Bogatyreva\">en:Alexandra_Kiroi-Bogatyreva</a>",
-                           "author":"<a href=\"//commons.wikimedia.org/w/index.php?title=User:Gsxrak47&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Gsxrak47 (page does not exist)\">Gsxrak47</a>",
-                           "license":"CC BY-SA 4.0",
-                           "date":"2019-09-19",
-                           "caption":null,
-                           "categories":[
-                              "Balances (rhythmic gymnastics)",
-                              "Rhythmic Gymnastics World Championships",
-                              "Rhythmic gymnasts from Australia",
-                              "Ribbon (rhythmic gymnastics)"
-                           ],
-                           "reason":"Es una de las imágenes vinculadas al ítem de Wikidata de este artículo.",
-                           "contentLanguageName":"checo"
-                        },
-                        "sectionNumber":null,
-                        "sectionTitle":null
-                     }
-                  ],
-                  "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
-               }
-            ]
-         },
-         {
-            "pageid":819393,
-            "ns":0,
-            "title":"Korherrova zpráva",
-            "growthimagesuggestiondata":[
-               {
-                  "titleNamespace":0,
-                  "titleText":"Korherrova zpráva",
-                  "images":[
-                     {
-                        "image":"Bundesarchiv_Bild_152-11-12,_Dachau,_Konzentrationslager,_Besuch_Himmlers.jpg",
-                        "displayFilename":"Bundesarchiv Bild 152-11-12, Dachau, Konzentrationslager, Besuch Himmlers.jpg",
-                        "source":"wikipedia",
-                        "projects":[
-                           "eswiki"
-                        ],
-                        "metadata":{
-                           "descriptionUrl":"https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_152-11-12,_Dachau,_Konzentrationslager,_Besuch_Himmlers.jpg",
-                           "thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/6/69/Bundesarchiv_Bild_152-11-12%2C_Dachau%2C_Konzentrationslager%2C_Besuch_Himmlers.jpg/120px-Bundesarchiv_Bild_152-11-12%2C_Dachau%2C_Konzentrationslager%2C_Besuch_Himmlers.jpg",
-                           "fullUrl":"//upload.wikimedia.org/wikipedia/commons/6/69/Bundesarchiv_Bild_152-11-12%2C_Dachau%2C_Konzentrationslager%2C_Besuch_Himmlers.jpg",
-                           "originalWidth":800,
-                           "originalHeight":543,
-                           "mustRender":false,
-                           "isVectorized":false,
-                           "mediaType":"BITMAP",
-                           "description":"<div class=\"description\">\n<div style=\"background:#dde; font-size:86%; direction:ltr;\">Para propósitos de documentación, los Archivos Federales de Alemania han mantenido las <b>descripciones originales</b> de las imágenes, que pueden ser <b>erróneas, sesgadas, estar obsoletas o tener una orientación política</b>. <abbr class=\"BArchtooltips\" title=\"Files from the inventories “Bild 101 Propagandakompanien der Wehrmacht” and “Bild 183 ADN” may have particularly biased or politically extreme descriptions.\"><span typeof=\"mw:File\"><span><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Info_non-talk.svg/15px-Info_non-talk.svg.png\" decoding=\"async\" width=\"15\" height=\"15\" class=\"mw-file-element\" srcset=\"https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Info_non-talk.svg/23px-Info_non-talk.svg.png 1.5x, https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Info_non-talk.svg/30px-Info_non-talk.svg.png 2x\" data-file-width=\"62\" data-file-height=\"62\"></span></span></abbr></div><div class=\"language de\"><b>Dachau, Konzentrationslager, Besuch Himmlers</b>\n<p>Schutzhaftlager Dachau.- Besuch der NSDAP, Himmler<br><b>English</b>: Protective Custody Camp Dachau -- Inspection by the Nazi party and Himmler\n<b>Abgebildete Personen:</b>\n</p>\n<ul><li><a href=\"https://de.wikipedia.org/wiki/Heinrich_Himmler\" class=\"extiw\" title=\"de:Heinrich Himmler\">Himmler, Heinrich</a>: Reichsführer der SS, Deutschland  (<a href=\"//commons.wikimedia.org/wiki/Commons:GND\" title=\"Commons:GND\">GND</a> <a rel=\"nofollow\" class=\"external text\" href=\"http://d-nb.info/gnd/11855123X\">11855123X</a>)</li></ul></div></div>",
-                           "author":"<bdi><a href=\"https://en.wikipedia.org/wiki/en:Friedrich_Franz_Bauer\" class=\"extiw\" title=\"w:en:Friedrich Franz Bauer\"><span title=\"fotógrafo alemán\">Friedrich Franz Bauer</span></a>\n</bdi>",
-                           "license":"CC BY-SA 3.0 de",
-                           "date":"8 de mayo de 1936<div style=\"display: none;\">date QS:P571,+1936-05-08T00:00:00Z/11</div>",
-                           "caption":null,
-                           "categories":[
-                              "Heinrich Himmler in Dachau concentration camp in 1936",
-                              "Photographs by Friedrich Franz Bauer",
-                              "Sam Browne belt",
-                              "Uniforms of the National Socialist German Workers' Party"
-                           ],
-                           "reason":"Utilizado en el mismo artículo en Wikipedia en español.",
-                           "contentLanguageName":"checo"
-                        },
-                        "sectionNumber":null,
-                        "sectionTitle":null
-                     }
-                  ],
-                  "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
-               }
-            ]
-         },
-         {
-            "pageid":824001,
-            "ns":0,
-            "title":"Armeniakon",
-            "growthimagesuggestiondata":[
-               {
-                  "titleNamespace":0,
-                  "titleText":"Armeniakon",
-                  "images":[
-                     {
-                        "image":"Byzantine_Empire_Themata-650.png",
-                        "displayFilename":"Byzantine Empire Themata-650.png",
-                        "source":"wikipedia",
-                        "projects":[
-                           "dewiki"
-                        ],
-                        "metadata":{
-                           "descriptionUrl":"https://commons.wikimedia.org/wiki/File:Byzantine_Empire_Themata-650.png",
-                           "thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/3/39/Byzantine_Empire_Themata-650.png/120px-Byzantine_Empire_Themata-650.png",
-                           "fullUrl":"//upload.wikimedia.org/wikipedia/commons/3/39/Byzantine_Empire_Themata-650.png",
-                           "originalWidth":744,
-                           "originalHeight":456,
-                           "mustRender":false,
-                           "isVectorized":false,
-                           "mediaType":"BITMAP",
-                           "description":null,
-                           "author":null,
-                           "license":"Public domain",
-                           "date":"2006-03-31 10:42:40",
-                           "caption":null,
-                           "categories":[
-                              "Maps of Byzantine Asia Minor",
-                              "Maps of Byzantine provinces",
-                              "Maps of the United States Military Academy"
-                           ],
-                           "reason":"Utilizado en el mismo artículo en Wikipedia en alemán.",
-                           "contentLanguageName":"checo"
-                        },
-                        "sectionNumber":null,
-                        "sectionTitle":null
-                     }
-                  ],
-                  "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
-               }
-            ]
-         },
-         {
-            "pageid":1069254,
-            "ns":0,
-            "title":"Filmová filharmonie",
-            "growthimagesuggestiondata":[
-               {
-                  "titleNamespace":0,
-                  "titleText":"Filmová filharmonie",
-                  "images":[
-                     {
-                        "image":"Rudolfinum-Dvořákova-síň-05.jpg",
-                        "displayFilename":"Rudolfinum-Dvořákova-síň-05.jpg",
-                        "source":"commons",
-                        "projects":[
-
-                        ],
-                        "metadata":{
-                           "descriptionUrl":"https://commons.wikimedia.org/wiki/File:Rudolfinum-Dvo%C5%99%C3%A1kova-s%C3%AD%C5%88-05.jpg",
-                           "thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/8/80/Rudolfinum-Dvo%C5%99%C3%A1kova-s%C3%AD%C5%88-05.jpg/120px-Rudolfinum-Dvo%C5%99%C3%A1kova-s%C3%AD%C5%88-05.jpg",
-                           "fullUrl":"//upload.wikimedia.org/wikipedia/commons/8/80/Rudolfinum-Dvo%C5%99%C3%A1kova-s%C3%AD%C5%88-05.jpg",
-                           "originalWidth":3024,
-                           "originalHeight":4032,
-                           "mustRender":false,
-                           "isVectorized":false,
-                           "mediaType":"BITMAP",
-                           "description":"Dvořákova síň v Rudolfinu během koncertu Filmové filharmonie",
-                           "author":"<a href=\"//commons.wikimedia.org/wiki/User:Sintakso\" title=\"User:Sintakso\">Sintakso</a>",
-                           "license":"CC BY-SA 4.0",
-                           "date":"2021-12-21 20:56:44",
-                           "caption":"Dvořákova síň v Rudolfinu",
-                           "categories":[
-                              "Dvořákova síň (Rudolfinum)",
-                              "Filmová filharmonie"
-                           ],
-                           "reason":"Es una de las imágenes vinculadas al ítem de Wikidata de este artículo.",
-                           "contentLanguageName":"checo"
-                        },
-                        "sectionNumber":null,
-                        "sectionTitle":null
-                     }
-                  ],
-                  "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
-               }
-            ]
-         },
-         {
-            "pageid":1262811,
-            "ns":0,
-            "title":"Partnerství veřejného a soukromého sektoru"
-         },
-         {
-            "pageid":1537517,
-            "ns":0,
-            "title":"Zpětný ráz",
-            "growthimagesuggestiondata":[
-               {
-                  "titleNamespace":0,
-                  "titleText":"Zpětný ráz",
-                  "images":[
-                     {
-                        "image":"Csa04katherine500smith1.jpg",
-                        "displayFilename":"Csa04katherine500smith1.jpg",
-                        "source":"commons",
-                        "projects":[
-                           "cawiki",
-                           "eswiki",
-                           "fiwiki",
-                           "itwiki",
-                           "ltwiki",
-                           "plwiki",
-                           "rowiki",
-                           "ruwiki",
-                           "svwiki",
-                           "viwiki"
-                        ],
-                        "metadata":{
-                           "descriptionUrl":"https://commons.wikimedia.org/wiki/File:Csa04katherine500smith1.jpg",
-                           "thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/a/af/Csa04katherine500smith1.jpg/120px-Csa04katherine500smith1.jpg",
-                           "fullUrl":"//upload.wikimedia.org/wikipedia/commons/a/af/Csa04katherine500smith1.jpg",
-                           "originalWidth":640,
-                           "originalHeight":480,
-                           "mustRender":false,
-                           "isVectorized":false,
-                           "mediaType":"BITMAP",
-                           "description":"500 Smith in full recoil fired by a novice shooter who had trouble handling the recoil.",
-                           "author":"<a href=\"https://en.wikipedia.org/wiki/User:Mcumpston\" class=\"extiw\" title=\"en:User:Mcumpston\">Mcumpston</a>",
-                           "license":"CC BY-SA 3.0",
-                           "date":"2008-03",
-                           "caption":null,
-                           "categories":[
-                              "Females with revolvers",
-                              "Girls wearing baseball caps",
-                              "Pistol shooting",
-                              "Recoil",
-                              "Smith & Wesson Model 500",
-                              "Women facing left"
-                           ],
-                           "reason":"Es una de las imágenes vinculadas al ítem de Wikidata de este artículo.",
-                           "contentLanguageName":"checo"
-                        },
-                        "sectionNumber":null,
-                        "sectionTitle":null
-                     }
-                  ],
-                  "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
-               }
-            ]
-         },
-         {
-            "pageid":1766988,
-            "ns":0,
-            "title":"Žalm 3",
-            "growthimagesuggestiondata":[
-               {
-                  "titleNamespace":0,
-                  "titleText":"Žalm 3",
-                  "images":[
-                     {
-                        "image":"Psalm_3_scripture_01.png",
-                        "displayFilename":"Psalm 3 scripture 01.png",
-                        "source":"wikipedia",
-                        "projects":[
-                           "bewiki"
-                        ],
-                        "metadata":{
-                           "descriptionUrl":"https://commons.wikimedia.org/wiki/File:Psalm_3_scripture_01.png",
-                           "thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/Psalm_3_scripture_01.png/120px-Psalm_3_scripture_01.png",
-                           "fullUrl":"//upload.wikimedia.org/wikipedia/commons/2/25/Psalm_3_scripture_01.png",
-                           "originalWidth":1280,
-                           "originalHeight":720,
-                           "mustRender":false,
-                           "isVectorized":false,
-                           "mediaType":"BITMAP",
-                           "description":"Psalm 3 scripture",
-                           "author":"<a href=\"//commons.wikimedia.org/w/index.php?title=User:AH-LOD&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:AH-LOD (page does not exist)\">AH-LOD</a>",
-                           "license":"CC0",
-                           "date":"2023-01-10",
-                           "caption":null,
-                           "categories":[
-
-                           ],
-                           "reason":"Utilizado en el mismo artículo en Wikipedia en bielorruso.",
-                           "contentLanguageName":"checo"
-                        },
-                        "sectionNumber":null,
-                        "sectionTitle":null
-                     }
-                  ],
-                  "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
-               }
-            ]
-         }
-      ]
-   }
-}
+	"batchcomplete":true,
+	"query":{
+	   "pages":[
+		  {
+			 "pageid":206400,
+			 "ns":0,
+			 "title":"Dialer",
+			 "growthimagesuggestiondata":[
+				{
+				   "titleNamespace":0,
+				   "titleText":"Dialer",
+				   "images":[
+					  {
+						 "image":"Modem_telefonico.jpg",
+						 "displayFilename":"Modem telefonico.jpg",
+						 "source":"wikipedia",
+						 "projects":[
+							"lmowiki"
+						 ],
+						 "metadata":{
+							"descriptionUrl":"https://commons.wikimedia.org/wiki/File:Modem_telefonico.jpg",
+							"thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Modem_telefonico.jpg/120px-Modem_telefonico.jpg",
+							"fullUrl":"//upload.wikimedia.org/wikipedia/commons/e/e9/Modem_telefonico.jpg",
+							"originalWidth":1200,
+							"originalHeight":1600,
+							"mustRender":false,
+							"isVectorized":false,
+							"mediaType":"BITMAP",
+							"description":"Modem telefonico 2WIRE Con servicio provisto por Telmex.",
+							"author":"<a href=\"//commons.wikimedia.org/w/index.php?title=User:MaryMozqueda&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:MaryMozqueda (page does not exist)\">MaryMozqueda</a> / <a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/43356775@N06/\">Mary Mozqueda</a>",
+							"license":"CC BY 3.0",
+							"date":"2009-10-18",
+							"caption":null,
+							"categories":[
+							   "2Wire",
+							   "ADSL modems",
+							   "Modems",
+							   "Telmex"
+							],
+							"reason":"Utilizado en el mismo artículo en Wikipedia en lombardo.",
+							"contentLanguageName":"checo"
+						 },
+						 "sectionNumber":null,
+						 "sectionTitle":null
+					  }
+				   ],
+				   "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
+				}
+			 ]
+		  },
+		  {
+			 "pageid":599768,
+			 "ns":0,
+			 "title":"Věrnostní program",
+			 "growthimagesuggestiondata":[
+				{
+				   "titleNamespace":0,
+				   "titleText":"Věrnostní program",
+				   "images":[
+					  {
+						 "image":"Capturar.JPG",
+						 "displayFilename":"Capturar.JPG",
+						 "source":"commons",
+						 "projects":[
+							"ptwiki"
+						 ],
+						 "metadata":{
+							"descriptionUrl":"https://commons.wikimedia.org/wiki/File:Capturar.JPG",
+							"thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/6/62/Capturar.JPG/120px-Capturar.JPG",
+							"fullUrl":"//upload.wikimedia.org/wikipedia/commons/6/62/Capturar.JPG",
+							"originalWidth":767,
+							"originalHeight":383,
+							"mustRender":false,
+							"isVectorized":false,
+							"mediaType":"BITMAP",
+							"description":"Formas de acúmulo de pontos em programas de fidelidade.",
+							"author":"<a href=\"//commons.wikimedia.org/w/index.php?title=User:Franklin_Jean_Machado&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Franklin Jean Machado (page does not exist)\">Franklin Jean Machado</a>",
+							"license":"CC BY-SA 4.0",
+							"date":"2014-10-23 20:41:36",
+							"caption":null,
+							"categories":[
+							   "Customer loyalty programs"
+							],
+							"reason":"Es una de las imágenes vinculadas al ítem de Wikidata de este artículo.",
+							"contentLanguageName":"checo"
+						 },
+						 "sectionNumber":null,
+						 "sectionTitle":null
+					  }
+				   ],
+				   "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
+				}
+			 ]
+		  },
+		  {
+			 "pageid":1600967,
+			 "ns":0,
+			 "title":"Fixní měnový kurz",
+			 "growthimagesuggestiondata":[
+				{
+				   "titleNamespace":0,
+				   "titleText":"Fixní měnový kurz",
+				   "images":[
+					  {
+						 "image":"Currency_Exchange_regimes.png",
+						 "displayFilename":"Currency Exchange regimes.png",
+						 "source":"wikipedia",
+						 "projects":[
+							"ruwiki"
+						 ],
+						 "metadata":{
+							"descriptionUrl":"https://commons.wikimedia.org/wiki/File:Currency_Exchange_regimes.png",
+							"thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Currency_Exchange_regimes.png/120px-Currency_Exchange_regimes.png",
+							"fullUrl":"//upload.wikimedia.org/wikipedia/commons/f/f6/Currency_Exchange_regimes.png",
+							"originalWidth":1357,
+							"originalHeight":628,
+							"mustRender":false,
+							"isVectorized":false,
+							"mediaType":"BITMAP",
+							"description":"dark green - <a href=\"https://en.wikipedia.org/wiki/Floating_exchange_rate\" class=\"extiw\" title=\"en:Floating exchange rate\">free float regime</a>, light green - <a href=\"https://en.wikipedia.org/wiki/Managed_float_regime\" class=\"extiw\" title=\"en:Managed float regime\">Managed float regime</a>, blue - different types of <a href=\"https://en.wikipedia.org/wiki/currency_peg\" class=\"extiw\" title=\"en:currency peg\">currency peg</a> (<a href=\"https://en.wikipedia.org/wiki/Linked_exchange_rate\" class=\"extiw\" title=\"en:Linked exchange rate\">Linked exchange rate</a>, <a href=\"https://en.wikipedia.org/wiki/fixed_exchange_rate\" class=\"extiw\" title=\"en:fixed exchange rate\">fixed exchange rate</a>, <a href=\"https://en.wikipedia.org/wiki/Currency_board\" class=\"extiw\" title=\"en:Currency board\">Currency board</a>, fixed/crawling peg, fixed/crawling band), red - direct usage of foreign currency; <a href=\"https://en.wikipedia.org/wiki/dependent_territories\" class=\"extiw\" title=\"en:dependent territories\">dependencies</a> that use the currency of their \"mainland\" colored the same as the respective state.",
+							"author":"<a href=\"https://en.wikipedia.org/wiki/User:Alinor\" class=\"extiw\" title=\"en:User:Alinor\">Alinor</a> (<a href=\"https://en.wikipedia.org/wiki/User_talk:Alinor\" class=\"extiw\" title=\"en:User talk:Alinor\">talk</a>)",
+							"license":"CC BY-SA 3.0",
+							"date":"2010-12-26 12:22",
+							"caption":null,
+							"categories":[
+							   "Economic maps of the world"
+							],
+							"reason":"Utilizado en el mismo artículo en Wikipedia en ruso.",
+							"contentLanguageName":"checo"
+						 },
+						 "sectionNumber":null,
+						 "sectionTitle":null
+					  }
+				   ],
+				   "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
+				}
+			 ]
+		  }
+	   ]
+	}
+ }

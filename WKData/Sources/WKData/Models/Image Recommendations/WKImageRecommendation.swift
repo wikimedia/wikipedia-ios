@@ -35,7 +35,7 @@ public struct WKImageRecommendation {
         let author: String
         let license: String
         let date: String
-        let caption:String?
+        let caption: String?
         let categories: [String]
         let reason: String
         let contentLanguageName: String
