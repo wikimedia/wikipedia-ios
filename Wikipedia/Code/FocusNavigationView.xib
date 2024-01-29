@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,18 +15,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Find and replace" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vya-pk-7Bs">
-                    <rect key="frame" x="15" y="15" width="315" height="20"/>
+                    <rect key="frame" x="15" y="15" width="305" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6yF-5L-KHO">
-                    <rect key="frame" x="340" y="15" width="20" height="20"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="20" id="hX9-jh-Oio"/>
-                        <constraint firstAttribute="width" constant="20" id="hkT-nY-Ox3"/>
-                    </constraints>
-                    <state key="normal" image="close-inverse"/>
+                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6yF-5L-KHO">
+                    <rect key="frame" x="330" y="8" width="30" height="34"/>
                     <connections>
                         <action selector="tappedClose" destination="iN0-l3-epB" eventType="touchUpInside" id="gb9-1T-H1x"/>
                     </connections>
@@ -41,6 +34,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Vya-pk-7Bs" secondAttribute="bottom" constant="15" id="3aL-2r-McR"/>
                 <constraint firstItem="Vya-pk-7Bs" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="BFm-m1-wjB"/>
@@ -53,7 +47,6 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="6yF-5L-KHO" secondAttribute="trailing" constant="15" id="xaG-YB-pRp"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="closeButton" destination="6yF-5L-KHO" id="1rS-K6-Z5k"/>
                 <outlet property="divView" destination="UWQ-fn-QHX" id="WGT-ms-Zkj"/>
@@ -64,7 +57,4 @@
             <point key="canvasLocation" x="84" y="41.379310344827587"/>
         </view>
     </objects>
-    <resources>
-        <image name="close-inverse" width="22" height="22"/>
-    </resources>
 </document>
