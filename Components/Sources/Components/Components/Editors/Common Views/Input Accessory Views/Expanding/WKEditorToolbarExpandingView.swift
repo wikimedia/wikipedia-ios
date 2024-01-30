@@ -81,9 +81,9 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
             stackView.addArrangedSubview(primaryContainerView)
         }
 
-        expandButton.isAccessibilityElement = false
         expandButton.setImage(WKSFSymbolIcon.for(symbol: .chevronRightCircle), for: .normal)
         expandButton.addTarget(self, action: #selector(tappedExpand), for: .touchUpInside)
+        expandButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarExpandButtonAccessibility
         updateExpandButtonVisibility()
 
         formatTextButton.setImage(WKSFSymbolIcon.for(symbol: .textFormat))
@@ -145,8 +145,6 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
         cursorRightButton.setImage(WKSFSymbolIcon.for(symbol: .chevronForward))
         cursorRightButton.addTarget(self, action: #selector(tappedCursorRight), for: .touchUpInside)
         cursorRightButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarCursorNextButtonAccessibility
-        
-        accessibilityElements = [formatTextButton as Any, referenceButton as Any, linkButton as Any, templateButton as Any, imageButton as Any, findInPageButton as Any, unorderedListButton as Any, orderedListButton as Any, decreaseIndentionButton as Any, increaseIndentionButton as Any, cursorUpButton as Any, cursorDownButton as Any, cursorLeftButton as Any, cursorRightButton as Any]
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)
     }
@@ -224,6 +222,9 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
 
         let buttonAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.7, animations: buttonTransform)
         let scrollViewAnimator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut, animations: scrollViewContentOffsetChange)
+        scrollViewAnimator.addCompletion { [weak self] _ in
+            self?.updateExpandButtonVisibility()
+        }
 
         buttonAnimator.startAnimation()
         scrollViewAnimator.startAnimation()
@@ -289,6 +290,19 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     
     private func updateExpandButtonVisibility() {
         expandButton.isHidden = traitCollection.horizontalSizeClass == .regular
+        
+        if expandButton.isHidden {
+            accessibilityElements = [formatTextButton as Any, referenceButton as Any, linkButton as Any, templateButton as Any, imageButton as Any, findInPageButton as Any, unorderedListButton as Any, orderedListButton as Any, decreaseIndentionButton as Any, increaseIndentionButton as Any, cursorUpButton as Any, cursorDownButton as Any, cursorLeftButton as Any, cursorRightButton as Any]
+            UIAccessibility.post(notification: .screenChanged, argument: formatTextButton)
+        } else {
+            if scrollView.contentOffset.x == 0 {
+                accessibilityElements = [formatTextButton as Any, referenceButton as Any, linkButton as Any, templateButton as Any, imageButton as Any, findInPageButton as Any, expandButton as Any]
+                UIAccessibility.post(notification: .screenChanged, argument: formatTextButton)
+            } else {
+                accessibilityElements = [unorderedListButton as Any, orderedListButton as Any, decreaseIndentionButton as Any, increaseIndentionButton as Any, cursorUpButton as Any, cursorDownButton as Any, cursorLeftButton as Any, cursorRightButton as Any, expandButton as Any]
+                UIAccessibility.post(notification: .screenChanged, argument: unorderedListButton)
+            }
+        }
     }
 
 }

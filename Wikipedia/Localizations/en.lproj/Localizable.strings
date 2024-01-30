@@ -396,6 +396,7 @@
 "editor-toolbar-list-unordered-accessibility" = "Unordered list text formatting";
 "editor-toolbar-open-text-format-menu-accessibility" = "Open text formatting menu";
 "editor-toolbar-reference-accessibility" = "Reference text formatting";
+"editor-toolbar-show-more-accessibility" = "Show more formatting options";
 "editor-toolbar-template-accessibility" = "Template text formatting";
 "empty-diff-compare-title" = "No differences between revisions";
 "empty-diff-single-title" = "No viewable changes made";

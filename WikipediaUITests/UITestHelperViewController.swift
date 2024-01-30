@@ -59,6 +59,7 @@ public class UITestHelperViewController: WKCanvasViewController {
             toolbarTemplateButtonAccessibility: CommonStrings.editorToolbarButtonTemplateAccessiblityLabel,
             toolbarImageButtonAccessibility: CommonStrings.editorToolbarButtonImageAccessiblityLabel,
             toolbarFindButtonAccessibility: CommonStrings.editorToolbarButtonFindAccessiblityLabel,
+            toolbarExpandButtonAccessibility: CommonStrings.editorToolbarShowMoreOptionsButtonAccessiblityLabel,
             toolbarListUnorderedButtonAccessibility: CommonStrings.editorToolbarButtonListUnorderedAccessiblityLabel,
             toolbarListOrderedButtonAccessibility: CommonStrings.editorToolbarButtonListOrderedAccessiblityLabel,
             toolbarIndentIncreaseButtonAccessibility: CommonStrings.editorToolbarButtonIndentIncreaseAccessiblityLabel,

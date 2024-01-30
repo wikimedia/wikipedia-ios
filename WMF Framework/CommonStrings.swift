@@ -560,6 +560,8 @@ public class CommonStrings: NSObject {
 
     public static let editorToolbarButtonFindAccessiblityLabel = WMFLocalizedString("editor-toolbar-find-accessibility", value: "Find in page", comment: "Accessibility label for find toolbar button on the editor. This button opens the find in page view.")
     
+    public static let editorToolbarShowMoreOptionsButtonAccessiblityLabel = WMFLocalizedString("editor-toolbar-show-more-accessibility", value: "Show more formatting options", comment: "Accessibility label for expand button on the formatting toolbar in editor. This button reveals more formatting toolbar buttons.")
+    
     public static let editorToolbarButtonListUnorderedAccessiblityLabel = WMFLocalizedString("editor-toolbar-list-unordered-accessibility", value: "Unordered list text formatting", comment: "Accessibility label for unordered list toolbar button on the editor.")
     public static let editorKeyboardButtonListUnorderedAccessiblityLabel = WMFLocalizedString("editor-keyboard-list-unordered-accessibility", value: "Unordered list", comment: "Accessibility label for unordered list keyboard button on the editor.")
     

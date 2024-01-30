@@ -396,6 +396,7 @@
 "editor-toolbar-list-unordered-accessibility" = "Accessibility label for unordered list toolbar button on the editor.";
 "editor-toolbar-open-text-format-menu-accessibility" = "Accessibility label for text format toolbar button on the editor. This button opens the keyboard text formatting menu.";
 "editor-toolbar-reference-accessibility" = "Accessibility label for reference toolbar button on the editor.";
+"editor-toolbar-show-more-accessibility" = "Accessibility label for expand button on the formatting toolbar in editor. This button reveals more formatting toolbar buttons.";
 "editor-toolbar-template-accessibility" = "Accessibility label for template toolbar button on the editor.";
 "empty-diff-compare-title" = "Text for placeholder label visible when diff comparision between revisions is empty.";
 "empty-diff-single-title" = "Text for placeholder label visible when diff returned for single revision is empty.";
