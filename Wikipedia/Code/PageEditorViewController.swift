@@ -46,6 +46,13 @@ final class PageEditorViewController: UIViewController {
         return ReadingThemesControlsViewController.init(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
     }()
     
+    private lazy var spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.hidesWhenStopped = true
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        return spinner
+    }()
+    
     // MARK: - Lifecycle
     
     init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, dataStore: MWKDataStore, delegate: PageEditorViewControllerDelegate, theme: Theme) {
@@ -69,9 +76,10 @@ final class PageEditorViewController: UIViewController {
         setTextSizeInAppEnvironment()
         setupFocusNavigationView()
         setupNavigationItemController()
-        loadWikitext()
-        
+        setupSpinner()
         apply(theme: theme)
+        
+        loadWikitext()
     }
     
     // MARK: - Private Helpers
@@ -104,13 +112,39 @@ final class PageEditorViewController: UIViewController {
         navigationItemController.redoButton.isEnabled = false
     }
     
+    private func setupSpinner() {
+        spinner.isHidden = true
+        view.addSubview(spinner)
+        NSLayoutConstraint.activate([
+            view.safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: spinner.centerXAnchor),
+            view.safeAreaLayoutGuide.centerYAnchor.constraint(equalTo: spinner.centerYAnchor)
+        ])
+    }
+    
+    private func delayStartSpinner() {
+        perform(#selector(startSpinner), with: nil, afterDelay: 1.0)
+    }
+    
+    @objc private func startSpinner() {
+        spinner.startAnimating()
+    }
+    
+    private func stopSpinner() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(startSpinner), object: nil)
+        spinner.stopAnimating()
+    }
+    
     private func loadWikitext() {
+        
+        delayStartSpinner()
         fetcher.fetchSection(with: sectionID, articleURL: pageURL) {  [weak self] (result) in
             DispatchQueue.main.async { [weak self] in
                 
                 guard let self else {
                     return
                 }
+                
+                self.stopSpinner()
                 
                 switch result {
                 case .failure(let error):
@@ -299,6 +333,7 @@ extension PageEditorViewController: Themeable {
         navigationItemController.apply(theme: theme)
         focusNavigationView.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
+        spinner.color = theme.isDark ? .white : .gray
     }
 }
 
