@@ -148,11 +148,31 @@ final class PageEditorViewController: UIViewController {
                 
                 switch result {
                 case .failure(let error):
-                    print(error)
+                    self.handleWikitextLoadFailure(error: error)
                 case .success(let response):
                     self.addChildEditor(wikitext: response.wikitext)
                 }
             }
+        }
+    }
+    
+    private func handleWikitextLoadFailure(error: Error) {
+        let nsError = error as NSError
+        if nsError.wmf_isNetworkConnectionError() {
+            
+            if !UIAccessibility.isVoiceOverRunning {
+                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+            } else {
+                UIAccessibility.post(notification: .announcement, argument: nsError.alertMessage())
+            }
+            
+        } else {
+            
+            let alert = UIAlertController(title: CommonStrings.unexpectedErrorAlertTitle, message: nsError.alertMessage(), preferredStyle: .alert)
+            let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
+            alert.addAction(action)
+            alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
+            present(alert, animated: true)
         }
     }
     
