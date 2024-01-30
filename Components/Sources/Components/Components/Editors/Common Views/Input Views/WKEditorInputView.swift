@@ -71,6 +71,7 @@ class WKEditorInputView: WKComponentView {
         label.font = WKFont.for(.boldTitle3, compatibleWith: appEnvironment.traitCollection)
         label.text = WKSourceEditorLocalizedStrings.current.keyboardTextFormattingTitle
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        label.accessibilityTraits = [.header]
         return label
     }()
     
@@ -109,16 +110,16 @@ class WKEditorInputView: WKComponentView {
     }()
     
     private lazy var headerSelectScrollView: WKEditorHeaderSelectScrollView = {
-        let configurations: [WKEditorHeaderSelectButton.Configuration] = headingButtonTypes.map {
+        let viewModels: [WKEditorHeaderSelectButton.ViewModel] = headingButtonTypes.map {
             
             let title = $0.title
             let font = $0.font(traitCollection: traitCollection)
-            let item = WKEditorHeaderSelectButton.Configuration(title: title, font: font)
+            let item = WKEditorHeaderSelectButton.ViewModel(title: title, font: font)
             
             return item
         }
 
-        let scrollingChoiceView = WKEditorHeaderSelectScrollView(configurations: configurations, delegate: self)
+        let scrollingChoiceView = WKEditorHeaderSelectScrollView(viewModels: viewModels, delegate: self)
         scrollingChoiceView.translatesAutoresizingMaskIntoConstraints = false
         return scrollingChoiceView
     }()
@@ -161,84 +162,70 @@ class WKEditorInputView: WKComponentView {
     
     private lazy var multiButtonBoldItalic: WKEditorMultiButton = {
 
-        let configuration = WKEditorMultiButton.Configuration(icons: [
-            WKSFSymbolIcon.for(symbol: .bold),
-            WKSFSymbolIcon.for(symbol: .italic)
-        ])
+        let boldViewModel = WKEditorMultiButton.ViewModel(icon: WKSFSymbolIcon.for(symbol: .bold), accessibilityLabel: WKSourceEditorLocalizedStrings.current.keyboardBoldButtonAccessibility)
+        let italicViewModel = WKEditorMultiButton.ViewModel(icon: WKSFSymbolIcon.for(symbol: .italic), accessibilityLabel: WKSourceEditorLocalizedStrings.current.keyboardItalicsButtonAccessibility)
 
-        let button = WKEditorMultiButton(configuration: configuration, delegate: self)
+        let button = WKEditorMultiButton(viewModels: [boldViewModel, italicViewModel], delegate: self)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var multiButtonUnderlineStrikethrough: WKEditorMultiButton = {
         
-        let configuration = WKEditorMultiButton.Configuration(icons: [
-            WKSFSymbolIcon.for(symbol: .underline),
-            WKSFSymbolIcon.for(symbol: .strikethrough)
-        ])
+        let underlineViewModel = WKEditorMultiButton.ViewModel(icon: WKSFSymbolIcon.for(symbol: .underline), accessibilityLabel: WKSourceEditorLocalizedStrings.current.keyboardUnderlineButtonAccessibility)
+        let strikethroughViewModel = WKEditorMultiButton.ViewModel(icon: WKSFSymbolIcon.for(symbol: .strikethrough), accessibilityLabel: WKSourceEditorLocalizedStrings.current.keyboardStrikethroughButtonAccessibility)
 
-        let button = WKEditorMultiButton(configuration: configuration, delegate: self)
+        let button = WKEditorMultiButton(viewModels: [underlineViewModel, strikethroughViewModel], delegate: self)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var multiButtonReferenceLink: WKEditorMultiButton = {
+        
+        let referenceViewModel = WKEditorMultiButton.ViewModel(icon: WKSFSymbolIcon.for(symbol: .quoteOpening), accessibilityLabel: WKSourceEditorLocalizedStrings.current.keyboardReferenceButtonAccessibility)
+        let linkViewModel = WKEditorMultiButton.ViewModel(icon: WKSFSymbolIcon.for(symbol: .link), accessibilityLabel: WKSourceEditorLocalizedStrings.current.keyboardLinkButtonAccessibility)
 
-        let configuration = WKEditorMultiButton.Configuration(icons: [
-            WKSFSymbolIcon.for(symbol: .quoteOpening),
-            WKSFSymbolIcon.for(symbol: .link)
-        ])
-
-        let button = WKEditorMultiButton(configuration: configuration, delegate: self)
+        let button = WKEditorMultiButton(viewModels: [referenceViewModel, linkViewModel], delegate: self)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var multiButtonBulletNumberList: WKEditorMultiButton = {
+        
+        let bulletViewModel = WKEditorMultiButton.ViewModel(icon: WKSFSymbolIcon.for(symbol: .listBullet), accessibilityLabel: WKSourceEditorLocalizedStrings.current.keyboardListUnorderedButtonAccessibility)
+        let numberViewModel = WKEditorMultiButton.ViewModel(icon: WKSFSymbolIcon.for(symbol: .listNumber), accessibilityLabel: WKSourceEditorLocalizedStrings.current.keyboardListOrderedButtonAccessibility)
 
-        let configuration = WKEditorMultiButton.Configuration(icons: [
-            WKSFSymbolIcon.for(symbol: .listBullet),
-            WKSFSymbolIcon.for(symbol: .listNumber)
-        ])
-
-        let button = WKEditorMultiButton(configuration: configuration, delegate: self)
+        let button = WKEditorMultiButton(viewModels: [bulletViewModel, numberViewModel], delegate: self)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var multiButtonIndentIncreaseDecrease: WKEditorMultiButton = {
+        
+        let decreaseIndentViewModel = WKEditorMultiButton.ViewModel(icon: WKSFSymbolIcon.for(symbol: .decreaseIndent), accessibilityLabel: WKSourceEditorLocalizedStrings.current.keyboardIndentDecreaseButtonAccessibility)
+        let increaseIndentViewModel = WKEditorMultiButton.ViewModel(icon: WKSFSymbolIcon.for(symbol: .increaseIndent), accessibilityLabel: WKSourceEditorLocalizedStrings.current.keyboardIndentIncreaseButtonAccessibility)
 
-        let configuration = WKEditorMultiButton.Configuration(icons: [
-            WKSFSymbolIcon.for(symbol: .decreaseIndent),
-            WKSFSymbolIcon.for(symbol: .increaseIndent)
-        ])
-
-        let button = WKEditorMultiButton(configuration: configuration, delegate: self)
+        let button = WKEditorMultiButton(viewModels: [decreaseIndentViewModel, increaseIndentViewModel], delegate: self)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var multiButtonSubscriptSuperscript: WKEditorMultiButton = {
+        
+        let superscriptViewModel = WKEditorMultiButton.ViewModel(icon: WKSFSymbolIcon.for(symbol: .textFormatSuperscript), accessibilityLabel: WKSourceEditorLocalizedStrings.current.keyboardSuperscriptButtonAccessibility)
+        let subscriptViewModel = WKEditorMultiButton.ViewModel(icon: WKSFSymbolIcon.for(symbol: .textFormatSubscript), accessibilityLabel: WKSourceEditorLocalizedStrings.current.keyboardSubscriptButtonAccessibility)
 
-        let configuration = WKEditorMultiButton.Configuration(icons: [
-            WKSFSymbolIcon.for(symbol: .textFormatSuperscript),
-            WKSFSymbolIcon.for(symbol: .textFormatSubscript)
-        ])
-
-        let button = WKEditorMultiButton(configuration: configuration, delegate: self)
+        let button = WKEditorMultiButton(viewModels: [superscriptViewModel, subscriptViewModel], delegate: self)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var multiButtonTemplateComment: WKEditorMultiButton = {
+        
+        let templateViewModel = WKEditorMultiButton.ViewModel(icon: WKSFSymbolIcon.for(symbol: .curlybraces), accessibilityLabel: WKSourceEditorLocalizedStrings.current.keyboardTemplateButtonAccessibility)
+        let commentViewModel = WKEditorMultiButton.ViewModel(icon: WKSFSymbolIcon.for(symbol: .exclamationMarkCircle), accessibilityLabel: WKSourceEditorLocalizedStrings.current.keyboardCommentButtonAccessibility)
 
-        let configuration = WKEditorMultiButton.Configuration(icons: [
-            WKSFSymbolIcon.for(symbol: .curlybraces),
-            WKSFSymbolIcon.for(symbol: .exclamationMarkCircle)
-        ])
-
-        let button = WKEditorMultiButton(configuration: configuration, delegate: self)
+        let button = WKEditorMultiButton(viewModels: [templateViewModel, commentViewModel], delegate: self)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
