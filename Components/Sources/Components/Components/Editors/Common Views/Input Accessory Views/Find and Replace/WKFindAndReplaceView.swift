@@ -54,29 +54,39 @@ class WKFindAndReplaceView: WKComponentView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        maximumContentSizeCategory = .accessibilityLarge
 
         closeButton.setImage(WKSFSymbolIcon.for(symbol: .close), for: .normal)
         closeButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelFindButtonClose
         previousButton.setImage(WKSFSymbolIcon.for(symbol: .chevronUp), for: .normal)
         previousButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelFindButtonPrevious
+        previousButton.imageView?.contentMode = .center
         nextButton.setImage(WKSFSymbolIcon.for(symbol: .chevronDown), for: .normal)
         nextButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelFindButtonNext
+        nextButton.imageView?.contentMode = .center
 
         replaceButton.setImage(WKIcon.replace, for: .normal)
         replaceButton.accessibilityLabel = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceButtonPerformFormat, WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceTypeSingle)
+        replaceButton.imageView?.contentMode = .center
         replaceSwitchButton.setImage(WKSFSymbolIcon.for(symbol: .ellipsis), for: .normal)
         replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceButtonSwitchFormat, WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceTypeSingle)
+        replaceSwitchButton.imageView?.contentMode = .center
         
         replaceSwitchButton.showsMenuAsPrimaryAction = true
         replaceSwitchButton.menu = replaceSwitchButtonMenu()
 
         magnifyImageView.image = WKSFSymbolIcon.for(symbol: .magnifyingGlass)
-        pencilImageView.image = WKSFSymbolIcon.for(symbol: .pencil)
+        magnifyImageView.contentMode = .center
+        pencilImageView.image = WKIcon.pencil
+        pencilImageView.contentMode = .center
         
         findClearButton.setImage(WKSFSymbolIcon.for(symbol: .multiplyCircleFill), for: .normal)
         findClearButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelFindButtonClear
+        findClearButton.imageView?.contentMode = .center
         replaceClearButton.setImage(WKSFSymbolIcon.for(symbol: .multiplyCircleFill), for: .normal)
         replaceClearButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelReplaceButtonClear
+        replaceClearButton.imageView?.contentMode = .center
 
         findTextField.adjustsFontForContentSizeCategory = true
         findTextField.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
