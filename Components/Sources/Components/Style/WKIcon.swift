@@ -71,7 +71,7 @@ public enum WKSFSymbolIcon {
     case textFormatSize
     case textFormat
 
-    public static func `for`(symbol: WKSFSymbolIcon, font: WKFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection, renderingMode: UIImage.RenderingMode = .alwaysTemplate, paletteColors: [UIColor]? = nil) -> UIImage? {
+    public static func `for`(symbol: WKSFSymbolIcon, font: WKFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WKFont.for(font)
         let configuration = UIImage.SymbolConfiguration(font: font)
 
