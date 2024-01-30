@@ -32,23 +32,23 @@ class WKEditorToolbarHighlightView: WKEditorToolbarView {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
         
-        boldButton.setImage(WKSFSymbolIcon.for(symbol: .bold), for: .normal)
+        boldButton.setImage(WKSFSymbolIcon.for(symbol: .bold))
         boldButton.addTarget(self, action: #selector(tappedBold), for: .touchUpInside)
         boldButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonBold
 
-        italicsButton.setImage(WKSFSymbolIcon.for(symbol: .italic), for: .normal)
+        italicsButton.setImage(WKSFSymbolIcon.for(symbol: .italic))
         italicsButton.addTarget(self, action: #selector(tappedItalics), for: .touchUpInside)
         italicsButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonItalics
 
-        referenceButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening), for: .normal)
+        referenceButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening))
         referenceButton.addTarget(self, action: #selector(tappedReference), for: .touchUpInside)
         referenceButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonCitation
 
-        linkButton.setImage(WKSFSymbolIcon.for(symbol: .link), for: .normal)
+        linkButton.setImage(WKSFSymbolIcon.for(symbol: .link))
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
         linkButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonLink
 
-        templateButton.setImage(WKSFSymbolIcon.for(symbol: .curlybraces), for: .normal)
+        templateButton.setImage(WKSFSymbolIcon.for(symbol: .curlybraces))
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
         templateButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current?.accessibilityLabelButtonTemplate
         showMoreButton.setImage(WKSFSymbolIcon.for(symbol: .plusCircleFill), for: .normal)
