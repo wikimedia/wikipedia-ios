@@ -31,8 +31,7 @@ class WKEditorToolbarView: WKComponentView {
     // MARK: - Private Helpers
     
     private func updateColors() {
-        tintColor = WKAppEnvironment.current.theme.link
-        backgroundColor = WKAppEnvironment.current.theme.accessoryBackground
+        backgroundColor = WKAppEnvironment.current.theme.paperBackground
         
         layer.shadowOffset = CGSize(width: 0, height: -2)
         layer.shadowRadius = 10
