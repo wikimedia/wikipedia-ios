@@ -63,7 +63,6 @@ extension WKSourceEditorLocalizedStrings {
     static var emptyTestStrings: WKSourceEditorLocalizedStrings {
         return WKSourceEditorLocalizedStrings(
             inputViewTextFormatting: "",
-            inputViewStyle: "",
             inputViewClearFormatting: "",
             inputViewParagraph: "",
             inputViewHeading: "",

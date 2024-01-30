@@ -35,12 +35,12 @@ class WKEditorInputView: WKComponentView {
         
         var title: String {
             switch self {
-            case .paragraph: return WKSourceEditorLocalizedStrings.current.inputViewParagraph
-            case .heading: return WKSourceEditorLocalizedStrings.current.inputViewHeading
-            case .subheading1: return WKSourceEditorLocalizedStrings.current.inputViewSubheading1
-            case .subheading2: return WKSourceEditorLocalizedStrings.current.inputViewSubheading2
-            case .subheading3: return WKSourceEditorLocalizedStrings.current.inputViewSubheading3
-            case .subheading4: return WKSourceEditorLocalizedStrings.current.inputViewSubheading4
+            case .paragraph: return WKSourceEditorLocalizedStrings.current.keyboardParagraph
+            case .heading: return WKSourceEditorLocalizedStrings.current.keyboardHeading
+            case .subheading1: return WKSourceEditorLocalizedStrings.current.keyboardSubheading1
+            case .subheading2: return WKSourceEditorLocalizedStrings.current.keyboardSubheading2
+            case .subheading3: return WKSourceEditorLocalizedStrings.current.keyboardSubheading3
+            case .subheading4: return WKSourceEditorLocalizedStrings.current.keyboardSubheading4
             }
         }
         
@@ -69,7 +69,7 @@ class WKEditorInputView: WKComponentView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         label.font = WKFont.for(.boldTitle3, compatibleWith: appEnvironment.traitCollection)
-        label.text = WKSourceEditorLocalizedStrings.current.inputViewTextFormatting
+        label.text = WKSourceEditorLocalizedStrings.current.keyboardTextFormattingTitle
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return label
     }()
@@ -80,7 +80,7 @@ class WKEditorInputView: WKComponentView {
         setCloseButtonImage(button: button)
         button.addTarget(self, action: #selector(close(_:)), for: .touchUpInside)
         button.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.closeButton
-        button.accessibilityLabel = WKSourceEditorLocalizedStrings.current.accessibilityLabelButtonCloseMainInputView
+        button.accessibilityLabel = WKSourceEditorLocalizedStrings.current.keyboardCloseTextFormatMenuButtonAccessibility
         button.setContentHuggingPriority(.required, for: .horizontal)
         return button
     }()
