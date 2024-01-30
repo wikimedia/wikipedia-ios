@@ -11,7 +11,7 @@ final class WKEditorHeaderSelectScrollView: WKComponentView {
     
     private weak var delegate: WKEditorHeaderSelectScrollViewDelegate?
     private var buttons: [WKEditorHeaderSelectButton] = []
-    private let configurations: [WKEditorHeaderSelectButton.Configuration]
+    private let viewModels: [WKEditorHeaderSelectButton.ViewModel]
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -32,8 +32,8 @@ final class WKEditorHeaderSelectScrollView: WKComponentView {
     
     // MARK: - Lifecycle
     
-    init(configurations: [WKEditorHeaderSelectButton.Configuration], delegate: WKEditorHeaderSelectScrollViewDelegate?) {
-        self.configurations = configurations
+    init(viewModels: [WKEditorHeaderSelectButton.ViewModel], delegate: WKEditorHeaderSelectScrollViewDelegate?) {
+        self.viewModels = viewModels
         self.delegate = delegate
         super.init(frame: .zero)
         setup()
@@ -90,8 +90,8 @@ final class WKEditorHeaderSelectScrollView: WKComponentView {
         
         var buttons: [WKEditorHeaderSelectButton] = []
         
-        for configuration in configurations {
-            let button = WKEditorHeaderSelectButton(configuration: configuration)
+        for viewModel in viewModels {
+            let button = WKEditorHeaderSelectButton(viewModel: viewModel)
             button.translatesAutoresizingMaskIntoConstraints = false
             buttons.append(button)
             

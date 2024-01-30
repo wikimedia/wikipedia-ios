@@ -9,13 +9,14 @@ final class WKEditorMultiButton: WKComponentView {
     
     // MARK: - Nested Types
     
-    struct Configuration {
-        let icons: [UIImage?]
+    struct ViewModel {
+        let icon: UIImage?
+        let accessibilityLabel: String
     }
     
     // MARK: - Properties
     
-    private let configuration: Configuration
+    private let viewModels: [ViewModel]
     private var buttons: [UIButton] = []
     private weak var delegate: WKEditorMultiSelectButtonDelegate?
     
@@ -31,8 +32,8 @@ final class WKEditorMultiButton: WKComponentView {
     
     // MARK: - Lifecycle
     
-    init(configuration: Configuration, delegate: WKEditorMultiSelectButtonDelegate) {
-        self.configuration = configuration
+    init(viewModels: [ViewModel], delegate: WKEditorMultiSelectButtonDelegate) {
+        self.viewModels = viewModels
         self.delegate = delegate
         super.init(frame: .zero)
         setup()
@@ -62,8 +63,8 @@ final class WKEditorMultiButton: WKComponentView {
     
     override func appEnvironmentDidChange() {
         
-        for (icon, button) in zip(configuration.icons, buttons) {
-            let buttonConfig = createButtonConfig(image: icon)
+        for (viewModel, button) in zip(viewModels, buttons) {
+            let buttonConfig = createButtonConfig(image: viewModel.icon)
             button.configuration = buttonConfig
             button.configurationUpdateHandler = buttonConfigurationUpdateHandler(button:)
         }
@@ -91,8 +92,8 @@ final class WKEditorMultiButton: WKComponentView {
     
     private func createAndAddButtonsToStackView() {
         var buttons: [UIButton] = []
-        for (index, icon) in configuration.icons.enumerated() {
-            let button = createButton(icon: icon, tapAction: { [weak self] in
+        for (index, viewModel) in viewModels.enumerated() {
+            let button = createButton(viewModel: viewModel, tapAction: { [weak self] in
                 guard let self else {
                     return
                 }
@@ -130,13 +131,14 @@ final class WKEditorMultiButton: WKComponentView {
         button.configuration = buttonConfig
     }
     
-    private func createButton(icon: UIImage?, tapAction: @escaping () -> Void) -> UIButton {
+    private func createButton(viewModel: ViewModel, tapAction: @escaping () -> Void) -> UIButton {
         
-        let buttonConfig = createButtonConfig(image: icon)
+        let buttonConfig = createButtonConfig(image: viewModel.icon)
         let action = createButtonAction(action: tapAction)
         let button = UIButton(configuration: buttonConfig, primaryAction: action)
         button.configurationUpdateHandler = buttonConfigurationUpdateHandler(button:)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityLabel = viewModel.accessibilityLabel
         
         return button
     }
