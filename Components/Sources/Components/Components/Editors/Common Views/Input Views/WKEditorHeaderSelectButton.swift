@@ -5,14 +5,14 @@ final class WKEditorHeaderSelectButton: WKComponentView {
     
     // MARK: - Nested Types
     
-    struct Configuration {
+    struct ViewModel {
         let title: String
         let font: UIFont
     }
     
     // MARK: - Properties
     
-    let configuration: Configuration
+    let viewModel: ViewModel
     var tapAction: (() -> Void)?
     private var button: UIButton?
     
@@ -27,8 +27,8 @@ final class WKEditorHeaderSelectButton: WKComponentView {
     
     // MARK: - Lifecycle
     
-    init(configuration: Configuration) {
-        self.configuration = configuration
+    init(viewModel: ViewModel) {
+        self.viewModel = viewModel
         super.init(frame: .zero)
         setup()
     }
@@ -82,10 +82,10 @@ final class WKEditorHeaderSelectButton: WKComponentView {
         var buttonConfig = UIButton.Configuration.plain()
         
         var container = AttributeContainer()
-        container.font = configuration.font
+        container.font = viewModel.font
         container.foregroundColor = theme.text
         
-        buttonConfig.attributedTitle = AttributedString(configuration.title, attributes: container)
+        buttonConfig.attributedTitle = AttributedString(viewModel.title, attributes: container)
         buttonConfig.baseForegroundColor = theme.text
         buttonConfig.contentInsets = NSDirectionalEdgeInsets(top: 19, leading: 12, bottom: 19, trailing: 12)
         buttonConfig.background.cornerRadius = 10
@@ -94,7 +94,7 @@ final class WKEditorHeaderSelectButton: WKComponentView {
     }
     
     private func createButtonAction() -> UIAction {
-        return UIAction(title: configuration.title, handler: { [weak self] _ in
+        return UIAction(title: viewModel.title, handler: { [weak self] _ in
             self?.tapAction?()
         })
     }
@@ -104,10 +104,10 @@ final class WKEditorHeaderSelectButton: WKComponentView {
         buttonConfig?.background.backgroundColor = button.isSelected ? self.theme.link : self.theme.paperBackground
         
         var container = AttributeContainer()
-        container.font = self.configuration.font
+        container.font = viewModel.font
         container.foregroundColor = button.isSelected ? self.theme.paperBackground : self.theme.text
         
-        buttonConfig?.attributedTitle = AttributedString(self.configuration.title, attributes: container)
+        buttonConfig?.attributedTitle = AttributedString(viewModel.title, attributes: container)
 
         button.configuration = buttonConfig
     }
