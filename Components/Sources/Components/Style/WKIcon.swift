@@ -19,9 +19,6 @@ public enum WKIcon {
     static let thank = UIImage(named: "thank", in: .module, with: nil)
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
 
-    // Editor-specific icons
-    public static let separator = UIImage(named: "separator", in: .module, with: nil)
-
     // Project icons
     static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
     static let wikidata = UIImage(named: "project-icons/wikidata", in: .module, with: nil)
