@@ -123,8 +123,10 @@
 "action-add-to-reading-list" = "Aggiungi all'elenco di lettura";
 "action-add-to-reading-list-short" = "Aggiungi all'elenco";
 "action-cancel" = "Annulla";
+"action-discard-edit" = "Ignora modifiche";
 "action-discard-edits" = "Ignora modifiche";
 "action-find-in-page" = "Trova nella pagina";
+"action-keep-editing" = "Continua a modificare";
 "action-language-accessibility" = "Cambia lingua";
 "action-move-to" = "Sposta in…";
 "action-move-to-reading-list" = "Sposta nell'elenco di lettura";
@@ -167,7 +169,6 @@
 "article-languages-label" = "Scegli la lingua";
 "article-languages-others" = "Altre lingue";
 "article-languages-yours" = "Le tue lingue";
-"article-nav-edit" = "Modifica";
 "article-read-more-title" = "Per saperne di più";
 "article-reference-view-title" = "Riferimento $1";
 "article-save-error-not-enough-space" = "Memoria insufficiente per salvare questo articolo sul dispositivo";
@@ -331,6 +332,7 @@
 "edit-watch-this-page-text" = "Aggiungi agli osservati speciali";
 "editing-welcome-be-bold-title" = "La tua voce è importante";
 "editor-exit-confirmation-body" = "Confermi di voler abbandonare la modalità di modifica senza prima pubblicare?";
+"editor-exit-confirmation-message" = "Sei sicuro di voler scartare questa modifica?";
 "empty-insert-media-title" = "Seleziona un file da Wikimedia Commons";
 "empty-no-article-message" = "Spiacenti, impossibile caricare la voce";
 "empty-no-feed-action-message" = "Puoi ancora leggere le pagine salvate";
@@ -760,6 +762,8 @@
 "source-editor-accessibility-label-superscript-selected" = "Rimuovi la formattazione dell'apice";
 "source-editor-accessibility-label-underline" = "Aggiungi sottolineatura";
 "source-editor-clear-formatting" = "Pulisci formattazione";
+"source-editor-edit-published" = "La tua modifica è stata pubblicata.";
+"source-editor-edit-source" = "Modifica sorgente";
 "source-editor-find-replace-all" = "Sostituisci tutto";
 "source-editor-find-replace-single" = "Sostituisci";
 "source-editor-find-replace-with" = "Sostituisci con…";
@@ -798,6 +802,7 @@
 "talk-pages-archives-view-title" = "Archivi";
 "talk-pages-comment-added-alert-title" = "Il tuo commento è stato aggiunto";
 "talk-pages-compose-close-confirmation-keep" = "Continua a modificare";
+"talk-pages-edit-source" = "Modifica sorgente";
 "talk-pages-empty-view-button-article-add-topic" = "Aggiungi un nuovo argomento";
 "talk-pages-empty-view-button-user-start-discussion" = "Inizia discussione";
 "talk-pages-empty-view-header-user" = "Inizia una discussione con $1";

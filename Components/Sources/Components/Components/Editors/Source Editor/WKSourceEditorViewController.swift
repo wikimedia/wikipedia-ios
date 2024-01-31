@@ -270,6 +270,10 @@ public class WKSourceEditorViewController: WKComponentViewController {
     public func redo() {
         textView.undoManager?.redo()
     }
+    
+    public func removeFocus() {
+        textView.resignFirstResponder()
+    }
 }
 
 // MARK: - Private
@@ -346,11 +350,16 @@ private extension WKSourceEditorViewController {
         }
         
         if findFormatter.selectedMatchIndex != NSNotFound {
-            viewModel.currentMatchInfo = "\(findFormatter.selectedMatchIndex + 1) / \(findFormatter.matchCount)"
+            let selectedMatch = findFormatter.selectedMatchIndex + 1
+            let totalMatchCount = findFormatter.matchCount
+            viewModel.currentMatchInfo = "\(selectedMatch) / \(totalMatchCount)"
+            viewModel.currentMatchInfoAccessibility = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.findCurrentMatchInfoFormatAccessibility, "\(totalMatchCount)", "\(selectedMatch)")
         } else if findFormatter.matchCount == 0 {
             viewModel.currentMatchInfo = "0 / 0"
+            viewModel.currentMatchInfoAccessibility = WKSourceEditorLocalizedStrings.current.findCurrentMatchInfoZeroResultsAccessibility
         } else {
             viewModel.currentMatchInfo = nil
+            viewModel.currentMatchInfoAccessibility = nil
         }
         
         viewModel.nextPrevButtonsAreEnabled = findFormatter.matchCount > 0

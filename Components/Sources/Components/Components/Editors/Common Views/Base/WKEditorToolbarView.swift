@@ -14,6 +14,7 @@ class WKEditorToolbarView: WKComponentView {
         super.awakeFromNib()
         accessibilityElements = buttons
         updateColors()
+        maximumContentSizeCategory = .accessibilityMedium
     }
     
     // MARK: - Overrides
@@ -32,5 +33,10 @@ class WKEditorToolbarView: WKComponentView {
     private func updateColors() {
         tintColor = WKAppEnvironment.current.theme.link
         backgroundColor = WKAppEnvironment.current.theme.accessoryBackground
+        
+        layer.shadowOffset = CGSize(width: 0, height: -2)
+        layer.shadowRadius = 10
+        layer.shadowOpacity = 1.0
+        layer.shadowColor = theme.editorKeyboardShadow.cgColor
     }
 }
