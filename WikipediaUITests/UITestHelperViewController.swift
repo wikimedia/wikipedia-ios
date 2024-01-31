@@ -112,7 +112,7 @@ public class UITestHelperViewController: WKCanvasViewController {
           )
 
         let textAlignment: NSTextAlignment = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .right : .left
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "UITest", accessibilityIdentifiers: accessibilityId, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: true, textAlignment: textAlignment)
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "UITest", accessibilityIdentifiers: accessibilityId, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: true, textAlignment: textAlignment, needsReadOnly: false)
         let editor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
 
         present(editor, animated: false)

@@ -105,7 +105,8 @@ public class WKSourceEditorViewController: WKComponentViewController {
     var inputAccessoryViewType: InputAccessoryViewType? = nil {
         didSet {
             
-            guard let inputAccessoryViewType else {
+            guard let inputAccessoryViewType,
+                  !viewModel.needsReadOnly else {
                 textView.inputAccessoryView = nil
                 textView.reloadInputViews()
                 return
@@ -147,6 +148,8 @@ public class WKSourceEditorViewController: WKComponentViewController {
     private func setup() {
         textView.delegate = self
         textFrameworkMediator.delegate = self
+        textView.isEditable = !viewModel.needsReadOnly
+        
         view.addSubview(textView)
         updateColorsAndFonts()
         
@@ -410,6 +413,12 @@ private extension WKSourceEditorViewController {
 
 extension WKSourceEditorViewController: UITextViewDelegate {
     public func textViewDidChangeSelection(_ textView: UITextView) {
+        
+        guard !viewModel.needsReadOnly else {
+            // Selecting text in read only mode should not change any input or input accessory views.
+            return
+        }
+        
         guard editorInputViewIsShowing == false else {
             postUpdateButtonSelectionStatesNotification(withDelay: false)
             return

@@ -5,7 +5,11 @@ extension ArticleViewController {
         let editMenuItemTitle = CommonStrings.editContextMenuTitle
         let editMenuItem = UIMenuItem(title: editMenuItemTitle, action: #selector(editMenuItemTapped))
         
-        UIMenuController.shared.menuItems = [editMenuItem, shareMenuItem]
+        if FeatureFlags.needsNativeSourceEditor {
+            UIMenuController.shared.menuItems = [shareMenuItem]
+        } else {
+            UIMenuController.shared.menuItems = [editMenuItem, shareMenuItem]
+        }
     }
     
     @objc func shareMenuItemTapped() {
