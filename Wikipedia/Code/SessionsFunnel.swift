@@ -38,13 +38,17 @@
     }
 
     @objc public func appDidBecomeActive() {
-        EventPlatformClient.shared.generateSessionID()
+        let userDefaults = UserDefaults.standard
+        let sessionID = userDefaults.wmf_sessionID
 
-        if EventPlatformClient.shared.needsReset() {
+        if sessionID == nil {
+            EventPlatformClient.shared.generateSessionID()
+        } else if EventPlatformClient.shared.needsReset() {
             logPreviousSessionEnd {
                 DispatchQueue.main.async {
                     self.resetPageLoadMetrics()
                     EventPlatformClient.shared.resetAll()
+                    EventPlatformClient.shared.generateSessionID()
                 }
             }
         } else {
