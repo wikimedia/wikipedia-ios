@@ -89,8 +89,10 @@
 "action-add-to-reading-list" = "Додај во список за читање";
 "action-add-to-reading-list-short" = "Додај во список";
 "action-cancel" = "Откажи";
+"action-discard-edit" = "Отфрли уредување";
 "action-discard-edits" = "Отфрли уредувања";
 "action-find-in-page" = "Најди на страницата";
+"action-keep-editing" = "Продолжи со уредување";
 "action-language-accessibility" = "Смени јазик";
 "action-move-to" = "Премести во...";
 "action-move-to-reading-list" = "Премести во списокот за читање";
@@ -138,7 +140,6 @@
 "article-languages-label" = "Изберете јазик";
 "article-languages-others" = "Други јазици";
 "article-languages-yours" = "Ваши јазици";
-"article-nav-edit" = "Уреди";
 "article-read-more-title" = "Прочитајте повеќе";
 "article-reference-view-title" = "Навод $1";
 "article-revision-history" = "Историја на преработки на страницата";
@@ -258,7 +259,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Допрете двапати за да овозможите автоматско месечно дарување во овој износ.";
 "donate-accessibility-textfield-hint" = "Внесете износ за дарување по ваш избор.";
 "donate-accessibility-transaction-fee-hint" = "Допрете двапати за да додадете трансакциска провизија во износот на дарот.";
-"donate-already-donated" = "Ви благодариме, драг дарителу! Википедија и нејзините збратимени проекти напредуваат благодарение на вашата великодушност.";
+"donate-already-donated" = "Ви благодариме, драг дарителу! Википедија и нејзините братски проекти напредуваат благодарение на вашата великодушност.";
 "donate-apple-fine-print" = "Apple не е задолжен за собирање пари за оваа цел.";
 "donate-email-opt-in-text" = "Да, Фондацијата Викимедија може повремено да ми испраќа е-пошта.";
 "donate-help-frequently-asked-questions" = "Често поставувани прашања";
@@ -307,10 +308,12 @@
 "edit-notices-please-read" = "Прочитајте пред да уредувате";
 "edit-ordered-list-accessibility-label" = "Направи го тековниот ред подреден список";
 "edit-ordered-list-remove-accessibility-label" = "Отстрани подреден список од тековниот ред";
+"edit-preview-simplified-format-message" = "Целата содржина е прикажана во упростен формат.";
 "edit-published" = "Уредувањето е објавено";
 "edit-published-subtitle" = "Штотуку ја подобривте Википедија за сите читатели";
 "edit-reference-accessibility-label" = "Стави синтакса за навод";
 "edit-reference-remove-accessibility-label" = "Отстрани синтакса за навод";
+"edit-show-web-preview" = "Прикажи преглед обично";
 "edit-signature-accessibility-label" = "Стави синтакса за потпис";
 "edit-signature-remove-accessibility-label" = "Отстрани синтакса за потпис";
 "edit-strikethrough-accessibility-label" = "Стави прецртување";
@@ -348,6 +351,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "Со цел да го направиме светското знаење пристапно за секого, ќе треба да учествувате во неовото создавање со читање и уредување на темите кои највеќе ви значат.";
 "editing-welcome-set-knowledge-free-title" = "Да го ослободиме знаењето";
 "editor-exit-confirmation-body" = "Дали сигурно сакате да го напуштите режимот на уредување без да ги објавите измените?";
+"editor-exit-confirmation-message" = "Дали сигурно сакате да го отфрлите ова уредување?";
 "editor-exit-confirmation-title" = "Да го тргнам уредувачкиот режим?";
 "empty-diff-compare-title" = "Нема разлики помеѓу преработките";
 "empty-diff-single-title" = "Нема направено видливи промени";
@@ -1058,6 +1062,8 @@
 "source-editor-accessibility-label-unordered" = "Направи го тековниот ред неподреден список";
 "source-editor-accessibility-label-unordered-selected" = "Отстрани неподреден список од тековниот ред";
 "source-editor-clear-formatting" = "Отстрани форматирање";
+"source-editor-edit-published" = "Вашето уредување е објавено.";
+"source-editor-edit-source" = "Уреди извор";
 "source-editor-find-replace-all" = "Замени сè";
 "source-editor-find-replace-single" = "Замени";
 "source-editor-find-replace-with" = "Замени со...";
@@ -1135,6 +1141,7 @@
 "talk-pages-coffee-roll-read-more" = "Прочитајте повеќе";
 "talk-pages-comment-added-alert-title" = "Вашиот коментар е додаден";
 "talk-pages-compose-close-confirmation-keep" = "Продолжи со уредување";
+"talk-pages-edit-source" = "Уреди извор";
 "talk-pages-empty-view-body-article" = "Разговорните страници се местата кајшто луѓето дискутираат како да ја направат содржината на Википедија што подобра. **Почнете нова тема на разговор** за да се поврзете и да соработувате со заедница на википедијанци.";
 "talk-pages-empty-view-body-user" = "Разговорните страници се местата кајшто луѓето дискутираат како да ја направат содржината на Википедија што подобра. Почнете нова тема на разговор за да се поврзете со $1. и да соработувате со заедница на википедијанци. Напишаното ќе биде јавно, и сите ќе можат да го читаат.";
 "talk-pages-empty-view-button-article-add-topic" = "Додај нова тема";

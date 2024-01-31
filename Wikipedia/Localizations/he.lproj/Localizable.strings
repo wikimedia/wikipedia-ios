@@ -105,8 +105,10 @@
 "action-add-to-reading-list" = "הוספה לרשימת קריאה";
 "action-add-to-reading-list-short" = "הוספה לרשימה";
 "action-cancel" = "ביטול";
+"action-discard-edit" = "לזרוק את העריכה";
 "action-discard-edits" = "זריקת העריכות";
 "action-find-in-page" = "למצוא בדף";
+"action-keep-editing" = "להמשיך את העריכה";
 "action-language-accessibility" = "החלפת שפה";
 "action-move-to" = "העברה ל־...";
 "action-move-to-reading-list" = "העברה לרשימת קריאה";
@@ -154,7 +156,6 @@
 "article-languages-label" = "בחירת שפה";
 "article-languages-others" = "שפות אחרות";
 "article-languages-yours" = "השפות שלך";
-"article-nav-edit" = "עריכה";
 "article-read-more-title" = "מידע נוסף";
 "article-reference-view-title" = "הערת שוליים $1";
 "article-revision-history" = "היסטוריית גרסאות של ערך";
@@ -323,10 +324,12 @@
 "edit-notices-please-read" = "נא לקרוא לפני עריכה";
 "edit-ordered-list-accessibility-label" = "הגדרת השורה הנוכחית כרשימה ממוספרת";
 "edit-ordered-list-remove-accessibility-label" = "הסרת רשימה ממוספרת מהשורה הנוכחית";
+"edit-preview-simplified-format-message" = "כל התוכן מוצג בעיצוב פשוט.";
 "edit-published" = "העריכה פורסמה";
 "edit-published-subtitle" = "שיפרת עכשיו את ויקיפדיה בשביל כולם";
 "edit-reference-accessibility-label" = "הוספת תחביר הערה";
 "edit-reference-remove-accessibility-label" = "הסרת תחביר הערה";
+"edit-show-web-preview" = "תצוגה מקדימה בדפדפן";
 "edit-signature-accessibility-label" = "הוספת תחביר חתימה";
 "edit-signature-remove-accessibility-label" = "הסרת תחביר חתימה";
 "edit-strikethrough-accessibility-label" = "הוספת קו חוצה";
@@ -364,6 +367,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "כדי להעניק לכולם גישה למידע עולמי, אנו רוצים לבקש ממך לקחת חלק בקריאה, עריכה ותרומה לנושאים שהכי נוגעים ללבך.";
 "editing-welcome-set-knowledge-free-title" = "להוציא את הידע לחופשי";
 "editor-exit-confirmation-body" = "האם ברצונך באמת לעזוב את מצב העריכה בלי לפרסם קודם?";
+"editor-exit-confirmation-message" = "האם ברצונך באמת לזרוק את העריכה הזאת?";
 "editor-exit-confirmation-title" = "לצאת ממצב העריכה?";
 "empty-diff-compare-title" = "אין הבדל בין גרסאות";
 "empty-diff-single-title" = "לא נעשו שינויים שאפשר לראות";
@@ -1074,6 +1078,8 @@
 "source-editor-accessibility-label-unordered" = "הגדרת השורה הנוכחית כרשימת תבליטים";
 "source-editor-accessibility-label-unordered-selected" = "הסרת רשימת תבליטים מהשורה הנוכחית";
 "source-editor-clear-formatting" = "הסרת עיצוב";
+"source-editor-edit-published" = "העריכה שלך פורסמה.";
+"source-editor-edit-source" = "עריכת קוד מקור";
 "source-editor-find-replace-all" = "החלפה של הכול";
 "source-editor-find-replace-single" = "החלפה";
 "source-editor-find-replace-with" = "החלפה ב־...";
@@ -1151,6 +1157,7 @@
 "talk-pages-coffee-roll-read-more" = "לקרוא עוד";
 "talk-pages-comment-added-alert-title" = "התגובה שלך נוספה";
 "talk-pages-compose-close-confirmation-keep" = "להמשיך לערוך";
+"talk-pages-edit-source" = "עריכת קוד מקור";
 "talk-pages-empty-view-body-article" = "דפי שיחה הם המקום שבו אנשים דנים איך להפוך את התוכן בוויקיפדיה לטוב ביותר שהוא יכול להיות. **יש להתחיל בהוספת נושא דיון חדש** כדי להתחבר ולשתף פעולה עם קהילה של ויקיפדים.";
 "talk-pages-empty-view-body-user" = "דפי שיחה הם המקום שבו אנשים דנים איך להפוך את התוכן בוויקיפדיה לטוב ביותר שהוא יכול להיות. יש להתחיל דיון חדש כדי להתחבר ולשתף פעולה עם $1. מה שייאמר כאן יהיה פומבי לעיני אחרים.";
 "talk-pages-empty-view-button-article-add-topic" = "להוסיף נושא חדש";

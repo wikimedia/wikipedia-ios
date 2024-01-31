@@ -169,7 +169,6 @@
 "article-languages-label" = "Taal kiezen";
 "article-languages-others" = "Andere talen";
 "article-languages-yours" = "Uw talen";
-"article-nav-edit" = "Bewerken";
 "article-read-more-title" = "Meer lezen";
 "article-reference-view-title" = "Referentie $1";
 "article-revision-history" = "Bewerkingsgeschiedenis";
@@ -1106,6 +1105,7 @@
 "talk-pages-coffee-roll-read-more" = "Meer lezen";
 "talk-pages-comment-added-alert-title" = "Uw reactie is toegevoegd";
 "talk-pages-compose-close-confirmation-keep" = "Doorgaan met bewerken";
+"talk-pages-edit-source" = "Bron bewerken";
 "talk-pages-empty-view-body-article" = "Op overlegpagina's wordt besproken hoe de inhoud van Wikipedia zo goed mogelijk kan worden gemaakt. **Voeg een een nieuw gespreksonderwerp toe** om in contact te komen en samen te werken met een gemeenschap van Wikipedianen.";
 "talk-pages-empty-view-body-user" = "Op overlegpagina's wordt besproken hoe de inhoud van Wikipedia zo goed mogelijk kan worden gemaakt. Begin een nieuw overleg om in contact te komen en samen te werken met $1. Wat u hier zegt wordt openbaar voor iedereen.";
 "talk-pages-empty-view-button-article-add-topic" = "Nieuw onderwerp toevoegen";
