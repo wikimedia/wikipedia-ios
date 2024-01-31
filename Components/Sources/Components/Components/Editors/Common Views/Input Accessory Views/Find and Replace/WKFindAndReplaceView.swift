@@ -288,7 +288,6 @@ class WKFindAndReplaceView: WKComponentView {
             return
         }
 
-        // TODO: also call from keyboard search button
         delegate?.findAndReplaceView(self, didChangeFindText: text)
     }
     
@@ -331,5 +330,15 @@ extension WKFindAndReplaceView: UITextFieldDelegate {
         if let viewModel {
             update(viewModel: viewModel)
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == findTextField {
+            debouncedFindTextfieldDidChange()
+        } else if textField == replaceTextField {
+            tappedReplace()
+        }
+
+        return true
     }
 }

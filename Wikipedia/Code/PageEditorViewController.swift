@@ -17,6 +17,14 @@ final class PageEditorViewController: UIViewController {
         case editorSavePreview
     }
     
+    private struct WikitextFetchResponse {
+        let wikitext: String
+        let userGroupLevelCanEdit: Bool
+        let protectedPageError: MediaWikiAPIDisplayError?
+        let blockedError: MediaWikiAPIDisplayError?
+        let otherError: MediaWikiAPIDisplayError?
+    }
+    
     // MARK: - Properties
     
     private let pageURL: URL
@@ -26,7 +34,10 @@ final class PageEditorViewController: UIViewController {
     private weak var delegate: PageEditorViewControllerDelegate?
     private var theme: Theme
     
-    private let fetcher: SectionFetcher
+    private let wikitextFetcher: SectionFetcher
+    private let editNoticesFetcher: EditNoticesFetcher
+    private var editNoticesViewModel: EditNoticesViewModel? = nil
+    
     private var sourceEditor: WKSourceEditorViewController!
     private var editorTopConstraint: NSLayoutConstraint!
     
@@ -46,12 +57,20 @@ final class PageEditorViewController: UIViewController {
         return ReadingThemesControlsViewController.init(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
     }()
     
+    private lazy var spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.hidesWhenStopped = true
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        return spinner
+    }()
+    
     // MARK: - Lifecycle
     
     init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, dataStore: MWKDataStore, delegate: PageEditorViewControllerDelegate, theme: Theme) {
         self.pageURL = pageURL
         self.sectionID = sectionID
-        self.fetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        self.wikitextFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        self.editNoticesFetcher = EditNoticesFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.dataStore = dataStore
         self.delegate = delegate
         self.theme = theme
@@ -69,9 +88,10 @@ final class PageEditorViewController: UIViewController {
         setTextSizeInAppEnvironment()
         setupFocusNavigationView()
         setupNavigationItemController()
-        loadWikitext()
-        
+        setupSpinner()
         apply(theme: theme)
+        
+        loadContent()
     }
     
     // MARK: - Private Helpers
@@ -104,25 +124,239 @@ final class PageEditorViewController: UIViewController {
         navigationItemController.redoButton.isEnabled = false
     }
     
-    private func loadWikitext() {
-        fetcher.fetchSection(with: sectionID, articleURL: pageURL) {  [weak self] (result) in
+    private func setupSpinner() {
+        spinner.isHidden = true
+        view.addSubview(spinner)
+        NSLayoutConstraint.activate([
+            view.safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: spinner.centerXAnchor),
+            view.safeAreaLayoutGuide.centerYAnchor.constraint(equalTo: spinner.centerYAnchor)
+        ])
+    }
+    
+    private func delayStartSpinner() {
+        perform(#selector(startSpinner), with: nil, afterDelay: 1.0)
+    }
+    
+    @objc private func startSpinner() {
+        spinner.startAnimating()
+    }
+    
+    private func stopSpinner() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(startSpinner), object: nil)
+        spinner.stopAnimating()
+    }
+    
+    private func loadContent() {
+        
+        delayStartSpinner()
+        
+        var editNoticesViewModel: EditNoticesViewModel?
+        var wikitextFetchResponse: WikitextFetchResponse?
+        var wikitextFetchError: Error?
+        let group = DispatchGroup()
+        
+        group.enter()
+        loadEditNotices { result in
+            defer {
+                group.leave()
+            }
+            
+            switch result {
+            case .success(let viewModel):
+                editNoticesViewModel = viewModel
+            case .failure:
+                break
+            }
+        }
+        
+        group.enter()
+        loadWikitext { result in
+            defer {
+                group.leave()
+            }
+            
+            switch result {
+            case .success(let response):
+                wikitextFetchResponse = response
+            case .failure(let error):
+                wikitextFetchError = error
+            }
+        }
+        
+        group.notify(queue: .main) { [weak self] in
+            
+            guard let self else {
+                return
+            }
+            
+            self.stopSpinner()
+            
+            if let wikitextFetchError {
+                handleWikitextLoadFailure(error: wikitextFetchError)
+                return
+            }
+            
+            guard let wikitextFetchResponse else {
+                handleWikitextLoadFailure(error: RequestError.unexpectedResponse)
+                return
+            }
+            
+            if let blockedError = wikitextFetchResponse.blockedError {
+                presentBlockedError(error: blockedError)
+            } else if let protectedPageError = wikitextFetchResponse.protectedPageError {
+                presentProtectedPageWarning(error: protectedPageError)
+            } else if let otherError = wikitextFetchResponse.otherError {
+                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(otherError.messageHtml.removingHTML, sticky: false, dismissPreviousAlerts: true)
+            }
+            
+            if let editNoticesViewModel,
+               !editNoticesViewModel.notices.isEmpty {
+                self.editNoticesViewModel = editNoticesViewModel
+                self.navigationItemController.addEditNoticesButton()
+                self.navigationItemController.apply(theme: self.theme)
+                self.presentEditNoticesIfNecessary(viewModel: editNoticesViewModel, blockedError: wikitextFetchResponse.blockedError, userGroupLevelCanEdit: wikitextFetchResponse.userGroupLevelCanEdit)
+            }
+            
+            let needsReadOnly = (wikitextFetchResponse.blockedError != nil) || (wikitextFetchResponse.protectedPageError != nil && !wikitextFetchResponse.userGroupLevelCanEdit)
+            self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly)
+        }
+    }
+    
+    private func loadEditNotices(completion: @escaping (Result<EditNoticesViewModel, Error>) -> Void) {
+        editNoticesFetcher.fetchNotices(for: pageURL) { [weak self] (result) in
+            DispatchQueue.main.async { [weak self] in
+                switch result {
+                case .success(let notices):
+                    guard let siteURL = self?.pageURL.wmf_site else {
+                        completion(.failure(RequestError.unexpectedResponse))
+                        return
+                    }
+                          
+                    let viewModel = EditNoticesViewModel(siteURL: siteURL, notices: notices)
+                    completion(.success(viewModel))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
+    private func presentEditNoticesIfNecessary(viewModel: EditNoticesViewModel, blockedError: MediaWikiAPIDisplayError?, userGroupLevelCanEdit: Bool) {
+        guard UserDefaults.standard.wmf_alwaysDisplayEditNotices && blockedError == nil && userGroupLevelCanEdit else {
+            return
+        }
+
+        presentEditNoticesIfAvailable()
+    }
+    
+    private func presentEditNoticesIfAvailable() {
+        
+        guard let editNoticesViewModel,
+        !editNoticesViewModel.notices.isEmpty else {
+            return
+        }
+        
+        let editNoticesViewController = EditNoticesViewController(theme: theme, viewModel: editNoticesViewModel)
+        editNoticesViewController.delegate = self
+        present(editNoticesViewController, animated: true)
+    }
+    
+    private func loadWikitext(completion: @escaping (Result<WikitextFetchResponse, Error>) -> Void) {
+        wikitextFetcher.fetchSection(with: sectionID, articleURL: pageURL) {  [weak self] (result) in
             DispatchQueue.main.async { [weak self] in
                 
                 guard let self else {
                     return
                 }
                 
+                self.stopSpinner()
+                
                 switch result {
                 case .failure(let error):
-                    print(error)
+                    completion(.failure(error))
                 case .success(let response):
-                    self.addChildEditor(wikitext: response.wikitext)
+                    let userGroupLevelCanEdit = self.checkUserGroupLevelCanEdit(protection: response.protection, userInfo: response.userInfo?.groups ?? [])
+                    var protectedPageError: MediaWikiAPIDisplayError?
+                    var blockedError: MediaWikiAPIDisplayError?
+                    var otherError: MediaWikiAPIDisplayError?
+                    
+                    if let apiError = response.apiError {
+                        if apiError.code.contains("protectedpage") {
+                            protectedPageError = apiError
+                        } else if apiError.code.contains("block") {
+                            blockedError = apiError
+                        } else {
+                            otherError = apiError
+                        }
+                    }
+                    
+                    completion(.success(WikitextFetchResponse(wikitext: response.wikitext, userGroupLevelCanEdit: userGroupLevelCanEdit, protectedPageError: protectedPageError, blockedError: blockedError, otherError: otherError)))
                 }
             }
         }
     }
     
-    private func addChildEditor(wikitext: String) {
+    private func handleWikitextLoadFailure(error: Error) {
+        let nsError = error as NSError
+        if nsError.wmf_isNetworkConnectionError() {
+            
+            if !UIAccessibility.isVoiceOverRunning {
+                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+            } else {
+                UIAccessibility.post(notification: .announcement, argument: nsError.alertMessage())
+            }
+            
+        } else {
+            
+            let alert = UIAlertController(title: CommonStrings.unexpectedErrorAlertTitle, message: nsError.alertMessage(), preferredStyle: .alert)
+            let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
+            alert.addAction(action)
+            alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
+            present(alert, animated: true)
+        }
+    }
+    
+    private func checkUserGroupLevelCanEdit(protection: [SectionFetcher.Protection], userInfo: [String]) -> Bool {
+        let findEditProtection = protection.map { $0.type == "edit"}
+        let articleHasEditProtection = findEditProtection.first ?? false
+
+        if articleHasEditProtection {
+            let allowedGroups = protection.map { $0.level }
+
+            guard !allowedGroups.isEmpty else {
+                return true
+            }
+
+            let userGroups = userInfo.filter { allowedGroups.contains($0) }
+
+            if !userGroups.isEmpty {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return true
+        }
+    }
+    
+    private func presentBlockedError(error: MediaWikiAPIDisplayError) {
+        
+        guard let currentTitle = pageURL.wmf_title else {
+            return
+        }
+        
+        wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme)
+    }
+    
+    private func presentProtectedPageWarning(error: MediaWikiAPIDisplayError) {
+        guard let currentTitle = pageURL.wmf_title else {
+            return
+        }
+
+        wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, image: UIImage(named: "warning-icon"))
+    }
+    
+    private func addChildEditor(wikitext: String, needsReadOnly: Bool) {
         let localizedStrings = WKSourceEditorLocalizedStrings(
             keyboardTextFormattingTitle: CommonStrings.editorKeyboardTextFormattingTitle,
             keyboardParagraph: CommonStrings.editorKeyboardParagraphButton,
@@ -141,7 +375,7 @@ final class PageEditorViewController: UIViewController {
             toolbarLinkButtonAccessibility: CommonStrings.editorToolbarButtonLinkAccessiblityLabel,
             toolbarTemplateButtonAccessibility: CommonStrings.editorToolbarButtonTemplateAccessiblityLabel,
             toolbarImageButtonAccessibility: CommonStrings.editorToolbarButtonImageAccessiblityLabel,
-            toolbarFindButtonAccessibility: CommonStrings.editorToolbarButtonFindAccessiblityLabel, 
+            toolbarFindButtonAccessibility: CommonStrings.editorToolbarButtonFindAccessiblityLabel,
             toolbarExpandButtonAccessibility: CommonStrings.editorToolbarShowMoreOptionsButtonAccessiblityLabel,
             toolbarListUnorderedButtonAccessibility: CommonStrings.editorToolbarButtonListUnorderedAccessiblityLabel,
             toolbarListOrderedButtonAccessibility: CommonStrings.editorToolbarButtonListOrderedAccessiblityLabel,
@@ -168,8 +402,8 @@ final class PageEditorViewController: UIViewController {
             keyboardSubscriptButtonAccessibility: CommonStrings.editorKeyboardButtonSubscriptAccessiblityLabel,
             keyboardTemplateButtonAccessibility: CommonStrings.editorKeyboardButtonTemplateAccessiblityLabel,
             keyboardCommentButtonAccessibility: CommonStrings.editorKeyboardButtonCommentAccessiblityLabel,
-            findTextFieldAccessibility: CommonStrings.editorFindTextFieldAccessibilityLabel, 
-            findClearButtonAccessibility: CommonStrings.editorFindClearButtonAccessibilityLabel, 
+            findTextFieldAccessibility: CommonStrings.editorFindTextFieldAccessibilityLabel,
+            findClearButtonAccessibility: CommonStrings.editorFindClearButtonAccessibilityLabel,
             findCurrentMatchInfoFormatAccessibility: CommonStrings.editorFindCurrentMatchInfoFormatAccessibilityLabel,
             findCurrentMatchInfoZeroResultsAccessibility: CommonStrings.editorFindCurrentMatchInfoZeroResultsAccessibilityLabel,
             findCloseButtonAccessibility: CommonStrings.editorFindCloseButtonAccessibilityLabel,
@@ -181,11 +415,10 @@ final class PageEditorViewController: UIViewController {
             replaceTypeButtonAccessibilityFormat: CommonStrings.editorReplaceTypeButtonFormatAccessibilityLabel,
             replaceTypeSingleAccessibility: CommonStrings.editorReplaceTypeSingleAccessibility,
             replaceTypeAllAccessibility: CommonStrings.editorReplaceTypeAllAccessibility)
-        
 
         let isSyntaxHighlightingEnabled = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
         let textAlignment = MWKLanguageLinkController.isLanguageRTL(forContentLanguageCode: pageURL.wmf_contentLanguageCode) ? NSTextAlignment.right : NSTextAlignment.left
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled, textAlignment: textAlignment)
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled, textAlignment: textAlignment, needsReadOnly: needsReadOnly)
 
         let sourceEditor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
         
@@ -299,6 +532,7 @@ extension PageEditorViewController: Themeable {
         navigationItemController.apply(theme: theme)
         focusNavigationView.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
+        spinner.color = theme.isDark ? .white : .gray
     }
 }
 
@@ -409,6 +643,7 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem) {
+        presentEditNoticesIfAvailable()
     }
 }
 
@@ -546,6 +781,25 @@ extension PageEditorViewController: EditSaveViewControllerDelegate {
         }
         
         showEditPreview(editFlow: editFlow)
+    }
+}
+
+// MARK: - EditSaveViewControllerDelegate
+
+extension PageEditorViewController: EditNoticesViewControllerDelegate {
+    func editNoticesControllerUserTapped(url: URL) {
+        let progressButton = navigationItemController.progressButton
+        let closeButton = navigationItemController.closeButton
+        if progressButton.isEnabled {
+            showDestructiveDismissAlert(sender: closeButton) { [weak self] in
+                guard let self else {
+                    return
+                }
+                self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
+            }
+        } else {
+            delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
+        }
     }
 }
 
