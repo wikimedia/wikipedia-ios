@@ -19,6 +19,7 @@ final class PageEditorViewController: UIViewController {
     
     private struct WikitextFetchResponse {
         let wikitext: String
+        let rangeToPreselect: NSRange?
         let userGroupLevelCanEdit: Bool
         let protectedPageError: MediaWikiAPIDisplayError?
         let blockedError: MediaWikiAPIDisplayError?
@@ -31,6 +32,7 @@ final class PageEditorViewController: UIViewController {
     private let sectionID: Int?
     private let editFlow: EditFlow
     private let dataStore: MWKDataStore
+    private let selectedTextEditInfo: SelectedTextEditInfo?
     private weak var delegate: PageEditorViewControllerDelegate?
     private var theme: Theme
     
@@ -66,12 +68,13 @@ final class PageEditorViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, dataStore: MWKDataStore, delegate: PageEditorViewControllerDelegate, theme: Theme) {
+    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo?, delegate: PageEditorViewControllerDelegate, theme: Theme) {
         self.pageURL = pageURL
         self.sectionID = sectionID
         self.wikitextFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.editNoticesFetcher = EditNoticesFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.dataStore = dataStore
+        self.selectedTextEditInfo = selectedTextEditInfo
         self.delegate = delegate
         self.theme = theme
         self.editFlow = editFlow
@@ -290,7 +293,12 @@ final class PageEditorViewController: UIViewController {
                         }
                     }
                     
-                    completion(.success(WikitextFetchResponse(wikitext: response.wikitext, userGroupLevelCanEdit: userGroupLevelCanEdit, protectedPageError: protectedPageError, blockedError: blockedError, otherError: otherError)))
+                    var rangeToPreselect: NSRange?
+                    if let selectedTextEditInfo = selectedTextEditInfo {
+                        rangeToPreselect = String.rangeOfSelectedTextEditInfo(selectedTextEditInfo, inWikitext: response.wikitext)
+                    }
+                    
+                    completion(.success(WikitextFetchResponse(wikitext: response.wikitext, rangeToPreselect: rangeToPreselect, userGroupLevelCanEdit: userGroupLevelCanEdit, protectedPageError: protectedPageError, blockedError: blockedError, otherError: otherError)))
                 }
             }
         }
@@ -814,4 +822,12 @@ enum SourceEditorAccessibilityIdentifiers: String {
     case highlightToolbar = "Source Editor Highlight Toolbar"
     case findToolbar = "Source Editor Find Toolbar"
     case inputView = "Source Editor Input View"
+}
+
+// MARK: SelectedText > Wikitext range determination
+
+private extension String {
+    static func rangeOfSelectedTextEditInfo(_ selectedTextEditInfo: SelectedTextEditInfo, inWikitext wikitext: String) -> NSRange? {
+        return nil
+    }
 }

@@ -469,7 +469,7 @@ class TalkPageViewController: ViewController {
         }
         
         let dataStore = MWKDataStore.shared()
-        let pageEditorViewController = PageEditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, dataStore: dataStore, delegate: self, theme: theme)
+        let pageEditorViewController = PageEditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, dataStore: dataStore, selectedTextEditInfo: nil, delegate: self, theme: theme)
         
         let navigationController = WMFThemeableNavigationController(rootViewController: pageEditorViewController, theme: theme)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext

@@ -12,7 +12,7 @@ extension ArticleViewController {
     }
     
     func showEditorForFullSource(selectedTextEditInfo: SelectedTextEditInfo? = nil) {
-        let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: nil, editFlow: .editorPreviewSave, dataStore: dataStore, delegate: self, theme: theme)
+        let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: nil, editFlow: .editorPreviewSave, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, delegate: self, theme: theme)
         
         presentEditor(editorViewController: pageEditorViewController)
     }
@@ -21,7 +21,7 @@ extension ArticleViewController {
         cancelWIconPopoverDisplay()
         let editorViewController: UIViewController
         if FeatureFlags.needsNativeSourceEditor {
-            let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, dataStore: dataStore, delegate: self, theme: theme)
+            let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, delegate: self, theme: theme)
             editorViewController = pageEditorViewController
         } else {
             let sectionEditViewController = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
