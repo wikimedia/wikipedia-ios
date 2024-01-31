@@ -861,7 +861,7 @@
 "potd-widget-description" = "Enjoy a beautiful daily photo selected by our community.";
 "potd-widget-title" = "Picture of the day";
 "preference-summary-eventlogging-opt-in" = "Allow Wikimedia Foundation to collect information about how you use the app to make the app better";
-"preference-title-eventlogging-opt-in" = "Send usage reports";
+"privacy-policy-title" = "Privacy policy";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -1146,6 +1146,7 @@
 "talk-pages-user-groups" = "User groups";
 "talk-pages-user-logs" = "Logs";
 "talk-pages-view-title" = "Talk";
+"terms-of-use-title" = "Terms of use";
 "theme-black-display-name" = "Black";
 "theme-dark-display-name" = "Dark";
 "theme-default-display-name" = "Default";
@@ -1253,6 +1254,7 @@
 "watchlist-user-button-user-talk-page" = "User talk page";
 "watchlist-watch-subtitle" = "By tapping the star or \"Watch\" action in the bottom toolbar of an article, you can add that page to your Watchlist.";
 "watchlist-watch-title" = "Watch articles";
+"welcome-data-privacy-title" = "Data & Privacy";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";
 "welcome-exploration-explore-feed-title" = "Explore feed";
 "welcome-exploration-on-this-day-description" = "Travel back in time to learn what happened today in history";
@@ -1274,10 +1276,8 @@
 "welcome-notifications-tell-me-more-creation" = "Notifications are created and delivered on your device by the app, not from our (or third party) servers.";
 "welcome-notifications-tell-me-more-storage" = "Notification preferences are stored on device and not based on personal information or activity.";
 "welcome-notifications-tell-me-more-title" = "More about notifications";
-"welcome-send-data-helps-title" = "Help make the app better";
-"welcome-send-data-learn-more" = "Learn more about data collected";
-"welcome-send-data-sub-title" = "Help improve the app by letting the Wikimedia Foundation know how you use it. Data collected is anonymous.";
-"welcome-volunteer-send-usage-reports" = "Send usage reports";
+"welcome-privacy-subtitle" = "We believe that you should not have to provide personal information to participate in the free knowledge movement. Usage data collected for this app is anonymous.";
+"welcome-privacy-terms-button-text" = "Learn more privacy policy and terms of use";
 "widget-onthisday-description" = "Explore what happened on this day in history.";
 "widget-onthisday-placeholder-article-snippet" = "Free online encyclopedia that anyone can edit";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, a free wiki content encyclopedia, goes online.";

@@ -40,7 +40,7 @@
     @objc public func appDidBecomeActive() {
         EventPlatformClient.shared.generateSessionID()
 
-        if EventPlatformClient.shared.needsReset() { 
+        if EventPlatformClient.shared.needsReset() {
             logPreviousSessionEnd {
                 DispatchQueue.main.async {
                     self.resetPageLoadMetrics()
