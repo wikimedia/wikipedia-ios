@@ -19,9 +19,6 @@ public enum WKIcon {
     static let thank = UIImage(named: "thank", in: .module, with: nil)
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
 
-    // Editor-specific icons
-    public static let separator = UIImage(named: "separator", in: .module, with: nil)
-
     // Project icons
     static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
     static let wikidata = UIImage(named: "project-icons/wikidata", in: .module, with: nil)
@@ -71,7 +68,7 @@ public enum WKSFSymbolIcon {
     case textFormatSize
     case textFormat
 
-    public static func `for`(symbol: WKSFSymbolIcon, font: WKFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection, renderingMode: UIImage.RenderingMode = .alwaysTemplate, paletteColors: [UIColor]? = nil) -> UIImage? {
+    public static func `for`(symbol: WKSFSymbolIcon, font: WKFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WKFont.for(font)
         let configuration = UIImage.SymbolConfiguration(font: font)
 
