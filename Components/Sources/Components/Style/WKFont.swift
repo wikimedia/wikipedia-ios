@@ -81,7 +81,7 @@ public enum WKFont {
             }
             return UIFont(descriptor: descriptor, size: 0)
         case .editorHeading:
-            return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 28, weight: .semibold), maximumPointSize: 32, compatibleWith: traitCollection)
+            return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 28, weight: .semibold), compatibleWith: traitCollection)
         case .editorSubheading1:
             return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 26, weight: .semibold), compatibleWith: traitCollection)
         case .editorSubheading2:
