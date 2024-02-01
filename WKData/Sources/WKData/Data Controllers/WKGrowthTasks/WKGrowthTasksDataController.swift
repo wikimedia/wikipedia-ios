@@ -63,7 +63,8 @@ public final class WKGrowthTasksDataController {
                            "formatversion": "2",
                            "format": "json",
                            "prop":"growthimagesuggestiondata",
-                           "pageids" : pipeEncodedPageIds
+                           "pageids" : pipeEncodedPageIds,
+                           "gisdtasktype": "image-recommendation"
         ]
 
         guard let url = URL.mediaWikiAPIURL(project: project) else {
@@ -88,7 +89,7 @@ public final class WKGrowthTasksDataController {
 
     // MARK: Private methods
 
-    private func getImageSuggestions(from response: WKImageRecommendationAPIResponse) -> [WKImageRecommendation.Page] {
+    fileprivate func getImageSuggestions(from response: WKImageRecommendationAPIResponse) -> [WKImageRecommendation.Page] {
         var recommendationsPerPage:[WKImageRecommendation.Page] = []
 
         for page in response.query.pages {
@@ -105,7 +106,7 @@ public final class WKGrowthTasksDataController {
 
     }
 
-    func getGrowthAPIImageSuggestions(for page: WKImageRecommendationAPIResponse.Page) -> [WKImageRecommendation.GrowthImageSuggestionData] {
+   fileprivate func getGrowthAPIImageSuggestions(for page: WKImageRecommendationAPIResponse.Page) -> [WKImageRecommendation.GrowthImageSuggestionData] {
         var suggestions: [WKImageRecommendation.GrowthImageSuggestionData] = []
 
         for item in page.growthimagesuggestiondata {
@@ -120,7 +121,7 @@ public final class WKGrowthTasksDataController {
         return suggestions
     }
 
-    func getImageSuggestionData(from suggestion: WKImageRecommendationAPIResponse.GrowthImageSuggestionData) -> [WKImageRecommendation.ImageSuggestion] {
+    fileprivate func getImageSuggestionData(from suggestion: WKImageRecommendationAPIResponse.GrowthImageSuggestionData) -> [WKImageRecommendation.ImageSuggestion] {
         var images: [WKImageRecommendation.ImageSuggestion] = []
 
         for image in suggestion.images {
@@ -136,13 +137,13 @@ public final class WKGrowthTasksDataController {
         return images
     }
 
-    func getMetadataObject(from image: WKImageRecommendationAPIResponse.ImageMetadata) -> WKImageRecommendation.ImageMetadata {
+    fileprivate func getMetadataObject(from image: WKImageRecommendationAPIResponse.ImageMetadata) -> WKImageRecommendation.ImageMetadata {
         let metadata = WKImageRecommendation.ImageMetadata(descriptionUrl: image.descriptionUrl, thumbUrl: image.thumbUrl, fullUrl: image.fullUrl, originalWidth: image.originalWidth, originalHeight: image.originalHeight, mediaType: image.mediaType, description: image.description, author: image.author, license: image.license, date: image.date, caption: image.caption, categories: image.categories, reason: image.reason, contentLanguageName: image.contentLanguageName)
 
         return metadata
     }
 
-    private func getTaskPages(from response: WKGrowthTaskAPIResponse) -> [WKGrowthTask.Page] {
+    fileprivate func getTaskPages(from response: WKGrowthTaskAPIResponse) -> [WKGrowthTask.Page] {
         var pages: [WKGrowthTask.Page] = []
 
         for page in response.query.pages {

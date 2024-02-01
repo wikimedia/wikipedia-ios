@@ -50,5 +50,7 @@ internal struct WKImageRecommendationAPIResponse: Codable {
         let categories: [String]
         let reason: String
         let contentLanguageName: String
+        let sectionNumber: String?
+        let sectionTitle: String?
     }
 }
