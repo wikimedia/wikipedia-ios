@@ -99,15 +99,6 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
         }
     }
 
-    @objc var wmf_sendUsageReports: Bool {
-        get {
-            return bool(forKey: WMFSendUsageReports)
-        }
-        set {
-            set(newValue, forKey: WMFSendUsageReports)
-        }
-    }
-
     @objc var wmf_isSubscribedToEchoNotifications: Bool {
         get {
             return bool(forKey: WMFSubscribedToEchoNotifications)
