@@ -172,7 +172,11 @@ public class CommonStrings: NSObject {
     @objc public static let gotItButtonTitle = WMFLocalizedString("welcome-explore-tell-me-more-done-button", value: "Got it", comment:"Text for button dismissing detailed explanation of new features")
     public static let getStartedTitle = WMFLocalizedString("welcome-explore-continue-button", value:"Get started", comment:"Text for button for dismissing welcome screens {{Identical|Get started}}")
 
-    @objc public static let privacyPolicyURLString = "https://foundation.m.wikimedia.org/wiki/Privacy_policy"
+    @objc public static let privacyPolicyTitle = WMFLocalizedString("privacy-policy-title", value: "Privacy policy", comment: "Title for the privacy Policy")
+    @objc public static let termsOfUseTitle = WMFLocalizedString("terms-of-use-title", value: "Terms of use", comment: "Title for the terms of use")
+
+    @objc public static let privacyPolicyURLString = "https://foundation.wikimedia.org/wiki/Policy:Privacy_policy"
+    @objc public static let termsOfUseURLString = "https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use"
 
     @objc public static let account = WMFLocalizedString("settings-account", value: "Account", comment: "Title for button and page letting user view their account page.")
 

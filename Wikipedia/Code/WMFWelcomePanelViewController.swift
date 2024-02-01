@@ -73,7 +73,7 @@ class WMFWelcomePanelViewController: ThemeableViewController {
         case .languages:
             titleLabel.text = WMFLocalizedString("welcome-languages-search-title", value:"Search in over 300 languages", comment:"Title for welcome screen describing Wikipedia languages")
         case .analytics:
-            titleLabel.text = WMFLocalizedString("welcome-send-data-helps-title", value:"Help make the app better", comment:"Title for welcome screen allowing user to opt in to send usage reports")
+            titleLabel.text = WMFLocalizedString("welcome-data-privacy-title", value:"Data & Privacy", comment:"Title for welcome screen explaining data usage in the app")
         }
     
         nextButton.setTitle(CommonStrings.getStartedTitle, for: .normal)
