@@ -25,7 +25,7 @@ public struct WKOnboardingView: View {
             ScrollView(showsIndicators: true) {
                 VStack {
                     Text(viewModel.title)
-                        .font(Font(WKFont.for(.boldTitle)))
+                        .font(Font(WKFont.for(.boldTitle1)))
                         .foregroundColor(Color(appEnvironment.theme.text))
                         .padding([.bottom, .top], 44)
                         .multilineTextAlignment(.center)

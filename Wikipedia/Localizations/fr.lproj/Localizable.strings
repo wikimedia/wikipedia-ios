@@ -3,6 +3,7 @@
 // Author: BlueCamille
 // Author: Brion Vibber
 // Author: Caliburn
+// Author: Daniel236
 // Author: DavidL
 // Author: Derugon
 // Author: Eneelk
@@ -115,8 +116,10 @@
 "action-add-to-reading-list" = "Ajouter à la liste de lecture";
 "action-add-to-reading-list-short" = "Ajouter à la liste";
 "action-cancel" = "Annuler";
+"action-discard-edit" = "Annuler les modifications";
 "action-discard-edits" = "Abandonner les modifications";
 "action-find-in-page" = "Trouver dans la page";
+"action-keep-editing" = "Continuer à modifier";
 "action-language-accessibility" = "Modifier la langue";
 "action-move-to" = "Déplacer vers...";
 "action-move-to-reading-list" = "Déplacer vers la liste de lecture";
@@ -164,7 +167,6 @@
 "article-languages-label" = "Choisissez une langue";
 "article-languages-others" = "Autres langues";
 "article-languages-yours" = "Vos langues";
-"article-nav-edit" = "Modifier";
 "article-read-more-title" = "Lire davantage";
 "article-reference-view-title" = "Référence $1";
 "article-revision-history" = "Historique des révisions de l’article";
@@ -314,10 +316,12 @@
 "edit-notices-please-read" = "Veuillez lire avant de modifier";
 "edit-ordered-list-accessibility-label" = "Faire de la ligne actuelle une liste ordonnée";
 "edit-ordered-list-remove-accessibility-label" = "Supprimer la liste ordonnée de la ligne actuelle";
+"edit-preview-simplified-format-message" = "Tout le contenu est présenté en format simplifié.";
 "edit-published" = "Modification publiée";
 "edit-published-subtitle" = "Vous venez tout juste d’améliorer Wikipédia pour tout le monde";
 "edit-reference-accessibility-label" = "Ajouter une syntaxe de référence";
 "edit-reference-remove-accessibility-label" = "Supprimer la syntaxe de référence";
+"edit-show-web-preview" = "Afficher l'aperçu Web";
 "edit-signature-accessibility-label" = "Ajouter une syntaxe de signature";
 "edit-signature-remove-accessibility-label" = "Supprimer la syntaxe de signature";
 "edit-strikethrough-accessibility-label" = "Ajouter une mise en forme rayée";
@@ -355,6 +359,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "Afin de donner à chacun accès à la connaissance du monde entier, nous avons besoin de vous pour participer à sa création en lisant, modifiant et contribuant aux sujets qui comptent le plus pour vous.";
 "editing-welcome-set-knowledge-free-title" = "Libérer la connaissance";
 "editor-exit-confirmation-body" = "Voulez-vous vraiment quitter le mode de modification sans d’abord publier ?";
+"editor-exit-confirmation-message" = "Êtes-vous certain de vouloir annuler cette modification ?";
 "editor-exit-confirmation-title" = "Quitter le mode de modification ?";
 "empty-diff-compare-title" = "Aucune différence entre les versions";
 "empty-diff-single-title" = "Aucun changement visible réalisé";
@@ -1016,6 +1021,8 @@
 "share-social-mention-format" = "« $1 » via Wikipédia : $2";
 "sort-by-recently-added-action" = "Récemment ajouté";
 "sort-by-title-action" = "Titre";
+"source-editor-edit-published" = "Votre modification a été publiée.";
+"source-editor-edit-source" = "modifier le wikicode";
 "table-of-contents-button-label" = "Table des matières";
 "table-of-contents-close-accessibility-hint" = "Fermer";
 "table-of-contents-close-accessibility-label" = "Fermer la table des matières";
@@ -1082,6 +1089,7 @@
 "talk-pages-coffee-roll-read-more" = "Lire davantage";
 "talk-pages-comment-added-alert-title" = "Votre commentaire a été ajouté";
 "talk-pages-compose-close-confirmation-keep" = "Continuer à modifier";
+"talk-pages-edit-source" = "Modifier le wikicode";
 "talk-pages-empty-view-body-article" = "Les pages de discussion sont des endroits pour discuter de la façon de rendre le contenu de Wikipédia le meilleur possible. **Commencez par ajouter un nouveau sujet de discussion** pour vous connecter et collaborer avec une communauté de Wikipédiens.";
 "talk-pages-empty-view-body-user" = "Les pages de discussion sont des endroits pour discuter de la façon de rendre le contenu de Wikipédia le meilleur possible. Démarrez une nouvelle discussion pour vous connecter et collaborer avec $1. Ce que vous y direz sera rendu public pour que les autres puissent le voir.";
 "talk-pages-empty-view-button-article-add-topic" = "Ajouter un nouveau sujet";

@@ -44,8 +44,10 @@
 "action-add-to-reading-list" = "پڑھݨ تندیر وچ شامل کرو";
 "action-add-to-reading-list-short" = "تندیر وچ رلاؤ";
 "action-cancel" = "منسوخ";
+"action-discard-edit" = "تبدیلی مکاؤ";
 "action-discard-edits" = "تبدیلیاں مکاؤ";
 "action-find-in-page" = "ورقے وچ لبھو";
+"action-keep-editing" = "تبدیلی جاری رکھو";
 "action-language-accessibility" = "زبان وٹاؤ";
 "action-move-to" = "تے ون٘ڄو...";
 "action-move-to-reading-list" = "پڑھݨ تندیر وچ ٹورو";

@@ -23,7 +23,7 @@ struct WKCheckmarkView: View {
     private var uiImage: UIImage? {
         switch configuration.style {
         case .checkbox:
-            return isSelected ? WKSFSymbolIcon.for(symbol: .checkmarkSquareFill, font: .subheadline) : WKSFSymbolIcon.for(symbol: .square, font: .subheadline)
+            return isSelected ? WKSFSymbolIcon.for(symbol: .checkmarkSquareFill) : WKSFSymbolIcon.for(symbol: .square)
         case .`default`:
             return isSelected ? WKSFSymbolIcon.for(symbol: .checkmark, font: .boldFootnote) : nil
         }

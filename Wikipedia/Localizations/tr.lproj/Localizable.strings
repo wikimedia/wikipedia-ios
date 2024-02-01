@@ -124,8 +124,10 @@
 "action-add-to-reading-list" = "Okuma listesine ekle";
 "action-add-to-reading-list-short" = "Listeye ekle";
 "action-cancel" = "İptal";
+"action-discard-edit" = "Düzenlemeyi sil";
 "action-discard-edits" = "Düzenlemeleri sil";
 "action-find-in-page" = "Sayfada bul";
+"action-keep-editing" = "Düzenlemeye Devam Et";
 "action-language-accessibility" = "Dil değiştir";
 "action-move-to" = "Taşı...";
 "action-move-to-reading-list" = "Okuma listesine taşı";
@@ -173,7 +175,6 @@
 "article-languages-label" = "Dil seç";
 "article-languages-others" = "Diğer diller";
 "article-languages-yours" = "Dilleriniz";
-"article-nav-edit" = "Değiştir";
 "article-read-more-title" = "Devamını oku";
 "article-reference-view-title" = "$1 kaynağı";
 "article-revision-history" = "Madde sürüm geçmişi";
@@ -342,10 +343,12 @@
 "edit-notices-please-read" = "Lütfen düzenlemeden önce okuyun";
 "edit-ordered-list-accessibility-label" = "Geçerli satırı sıralı liste yap";
 "edit-ordered-list-remove-accessibility-label" = "Sıralı listeyi mevcut satırdan kaldır";
+"edit-preview-simplified-format-message" = "Tüm içerik basitleştirilmiş biçimde gösterilmiştir.";
 "edit-published" = "Düzenleme yayımlandı";
 "edit-published-subtitle" = "Vikipedi'yi herkes için daha iyi yaptın";
 "edit-reference-accessibility-label" = "Kaynak sözdizimi ekle";
 "edit-reference-remove-accessibility-label" = "Kaynak sözdizimini kaldır";
+"edit-show-web-preview" = "Web ön izlemesini göster";
 "edit-signature-accessibility-label" = "İmza sözdizimi ekle";
 "edit-signature-remove-accessibility-label" = "İmza sözdizimini kaldır";
 "edit-strikethrough-accessibility-label" = "Üstü çizili ekle";
@@ -383,6 +386,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "Herkesin dünyadaki bilgiye erişimini sağlamak için en önemli olan konuları okumada, düzenlemede ve katkıda bulunmada size ihtiyacımız var.";
 "editing-welcome-set-knowledge-free-title" = "Bilgiyi özgür kıl";
 "editor-exit-confirmation-body" = "Öncelikle yayımlamadan düzenleme modundan çıkmak istediğinizden emin misiniz?";
+"editor-exit-confirmation-message" = "Bu düzenlemeyi silmek istediğinizden emin misiniz?";
 "editor-exit-confirmation-title" = "Düzenleme modu kapatılsın mı?";
 "empty-diff-compare-title" = "Revizyonlar arasında fark yok";
 "empty-diff-single-title" = "Görüntülenebilir değişiklik yapılmadı";
@@ -1093,6 +1097,8 @@
 "source-editor-accessibility-label-unordered" = "Geçerli satırı sırasız liste yap";
 "source-editor-accessibility-label-unordered-selected" = "Sırasız listeyi mevcut satırdan kaldır";
 "source-editor-clear-formatting" = "Biçimlendirmeyi temizle";
+"source-editor-edit-published" = "Düzenlemeniz yayımlandı.";
+"source-editor-edit-source" = "Kaynağı değiştir";
 "source-editor-find-replace-all" = "Tümünü değiştir";
 "source-editor-find-replace-single" = "Değiştir";
 "source-editor-find-replace-with" = "Şununla değiştir...";
@@ -1170,6 +1176,7 @@
 "talk-pages-coffee-roll-read-more" = "Okumaya devam et";
 "talk-pages-comment-added-alert-title" = "Yorumunuz eklendi";
 "talk-pages-compose-close-confirmation-keep" = "Düzenlemeye Devam Et";
+"talk-pages-edit-source" = "Kaynağı değiştir";
 "talk-pages-empty-view-body-article" = "Tartışma sayfaları, insanların Vikipedi içeriğini olabildiğince iyi hale getirmeyi tartıştığı yerdir. Vikipedist topluluğuyla bağlantı kurmak ve işbirliği yapmak için **yeni bir tartışma konusu ekleyerek başlayın**.";
 "talk-pages-empty-view-body-user" = "Tartışma sayfaları, insanların Vikipedi içeriğini olabildiğince iyi hale getirmeyi tartıştığı yerdir. $1 ile bağlantı kurmak ve işbirliği yapmak için yeni bir tartışma konusu başlatın. Burada söyledikleriniz başkalarının görebilmesi için herkese açık olacaktır.";
 "talk-pages-empty-view-button-article-add-topic" = "Yeni bir konu ekle";

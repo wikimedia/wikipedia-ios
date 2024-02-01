@@ -105,7 +105,8 @@ public class WKSourceEditorViewController: WKComponentViewController {
     var inputAccessoryViewType: InputAccessoryViewType? = nil {
         didSet {
             
-            guard let inputAccessoryViewType else {
+            guard let inputAccessoryViewType,
+                  !viewModel.needsReadOnly else {
                 textView.inputAccessoryView = nil
                 textView.reloadInputViews()
                 return
@@ -147,6 +148,8 @@ public class WKSourceEditorViewController: WKComponentViewController {
     private func setup() {
         textView.delegate = self
         textFrameworkMediator.delegate = self
+        textView.isEditable = !viewModel.needsReadOnly
+        
         view.addSubview(textView)
         updateColorsAndFonts()
         
@@ -267,6 +270,10 @@ public class WKSourceEditorViewController: WKComponentViewController {
     public func redo() {
         textView.undoManager?.redo()
     }
+    
+    public func removeFocus() {
+        textView.resignFirstResponder()
+    }
 }
 
 // MARK: - Private
@@ -343,11 +350,16 @@ private extension WKSourceEditorViewController {
         }
         
         if findFormatter.selectedMatchIndex != NSNotFound {
-            viewModel.currentMatchInfo = "\(findFormatter.selectedMatchIndex + 1) / \(findFormatter.matchCount)"
+            let selectedMatch = findFormatter.selectedMatchIndex + 1
+            let totalMatchCount = findFormatter.matchCount
+            viewModel.currentMatchInfo = "\(selectedMatch) / \(totalMatchCount)"
+            viewModel.currentMatchInfoAccessibility = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.findCurrentMatchInfoFormatAccessibility, "\(totalMatchCount)", "\(selectedMatch)")
         } else if findFormatter.matchCount == 0 {
             viewModel.currentMatchInfo = "0 / 0"
+            viewModel.currentMatchInfoAccessibility = WKSourceEditorLocalizedStrings.current.findCurrentMatchInfoZeroResultsAccessibility
         } else {
             viewModel.currentMatchInfo = nil
+            viewModel.currentMatchInfoAccessibility = nil
         }
         
         viewModel.nextPrevButtonsAreEnabled = findFormatter.matchCount > 0
@@ -401,6 +413,12 @@ private extension WKSourceEditorViewController {
 
 extension WKSourceEditorViewController: UITextViewDelegate {
     public func textViewDidChangeSelection(_ textView: UITextView) {
+        
+        guard !viewModel.needsReadOnly else {
+            // Selecting text in read only mode should not change any input or input accessory views.
+            return
+        }
+        
         guard editorInputViewIsShowing == false else {
             postUpdateButtonSelectionStatesNotification(withDelay: false)
             return

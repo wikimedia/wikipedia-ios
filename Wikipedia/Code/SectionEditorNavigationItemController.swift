@@ -1,3 +1,4 @@
+import WMF
 import Components
 
 protocol SectionEditorNavigationItemControllerDelegate: AnyObject {
@@ -23,82 +24,58 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
     }
 
     func apply(theme: Theme) {
-        for case let barButonItem as BarButtonItem in navigationItem?.rightBarButtonItems ?? [] {
-            barButonItem.apply(theme: theme)
-        }
-        for case let barButonItem as BarButtonItem in navigationItem?.leftBarButtonItems ?? [] {
-            barButonItem.apply(theme: theme)
-        }
+        closeButton.tintColor = theme.colors.chromeText
+        undoButton.tintColor = theme.colors.inputAccessoryButtonTint
+        redoButton.tintColor = theme.colors.inputAccessoryButtonTint
+        readingThemesControlsButton.tintColor = theme.colors.inputAccessoryButtonTint
+        editNoticesButton.tintColor = theme.colors.inputAccessoryButtonTint
+        separatorButton.tintColor = theme.colors.chromeText
+        progressButton.tintColor = theme.colors.link
     }
 
     weak var delegate: SectionEditorNavigationItemControllerDelegate?
-
-    class BarButtonItem: UIBarButtonItem, Themeable {
-        var tintColorKeyPath: KeyPath<Theme, UIColor>?
-
-        convenience init(title: String?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>) {
-            self.init(title: title, style: style, target: target, action: action)
-            self.tintColorKeyPath = tintColorKeyPath
-        }
-
-        convenience init(image: UIImage?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>, accessibilityLabel: String? = nil, size: CGSize? = nil) {
-            let button = UIButton(type: .system)
-            button.setImage(image, for: .normal)
-            if let size {
-                button.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-            }
-            if let target = target, let action = action {
-                button.addTarget(target, action: action, for: .touchUpInside)
-            }
-            self.init(customView: button)
-            self.tintColorKeyPath = tintColorKeyPath
-            self.accessibilityLabel = accessibilityLabel
-        }
-
-        func apply(theme: Theme) {
-            guard let tintColorKeyPath = tintColorKeyPath else {
-                return
-            }
-            let newTintColor = theme[keyPath: tintColorKeyPath]
-            if customView == nil {
-                tintColor = newTintColor
-            } else if let button = customView as? UIButton {
-                button.tintColor = newTintColor
-            }
-        }
-    }
     
-    private(set) lazy var closeButton: BarButtonItem = {
-        let closeButton = BarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_ :)), tintColorKeyPath: \Theme.colors.chromeText)
+    private(set) lazy var closeButton: UIBarButtonItem = {
+        let closeButton = UIBarButtonItem(image: WKSFSymbolIcon.for(symbol: .close), style: .plain, target: self, action: #selector(close(_ :)))
         closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
         return closeButton
     }()
 
-    private(set) lazy var progressButton: BarButtonItem = {
-        return BarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)), tintColorKeyPath: \Theme.colors.link)
+    private(set) lazy var progressButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)))
+        return button
     }()
 
-    private(set) lazy var redoButton: BarButtonItem = {
-        return BarButtonItem(image: #imageLiteral(resourceName: "redo"), style: .plain, target: self, action: #selector(redo(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.redo)
+    private(set) lazy var redoButton: UIBarButtonItem = {
+        let redoButton = UIBarButtonItem(image: WKSFSymbolIcon.for(symbol: .redo), style: .plain, target: self, action: #selector(redo(_ :)))
+        redoButton.accessibilityLabel = CommonStrings.redo
+        return redoButton
     }()
 
-    private(set) lazy var undoButton: BarButtonItem = {
-        return BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(undo(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.undo)
+    private(set) lazy var undoButton: UIBarButtonItem = {
+        let undoButton = UIBarButtonItem(image: WKSFSymbolIcon.for(symbol: .undo), style: .plain, target: self, action: #selector(undo(_ :)))
+        undoButton.accessibilityLabel = CommonStrings.undo
+        return undoButton
     }()
 
-    private lazy var editNoticesButton: BarButtonItem = {
-        return BarButtonItem(image: UIImage(systemName: "exclamationmark.circle.fill") , style: .plain, target: self, action: #selector(editNotices(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.editNotices)
+    private lazy var editNoticesButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WKSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), style: .plain, target: self, action: #selector(editNotices(_ :)))
+        button.accessibilityLabel = CommonStrings.editNotices
+        return button
     }()
     
-    private lazy var readingThemesControlsButton: BarButtonItem = {
-        return BarButtonItem(image: #imageLiteral(resourceName: "settings-appearance"), style: .plain, target: self, action: #selector(showReadingThemesControls(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.readingThemesControls)
+    private lazy var readingThemesControlsButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WKSFSymbolIcon.for(symbol: .textFormatSize), style: .plain, target: self, action: #selector(showReadingThemesControls(_ :)))
+        button.accessibilityLabel = CommonStrings.readingThemesControls
+        return button
     }()
 
-    private lazy var separatorButton: BarButtonItem = {
-        let button = BarButtonItem(image: #imageLiteral(resourceName: "separator"), style: .plain, target: nil, action: nil, tintColorKeyPath: \Theme.colors.chromeText)
+    private lazy var separatorButton: UIBarButtonItem = {
+        let button = UIButton(type: .system)
+        button.setImage(WKIcon.separator, for: .normal)
         button.isEnabled = false
         button.isAccessibilityElement = false
-        return button
+        return UIBarButtonItem(customView: button)
     }()
 
     @objc private func progress(_ sender: UIBarButtonItem) {
@@ -127,23 +104,20 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
 
     func addEditNoticesButton() {
         navigationItem?.rightBarButtonItems?.append(contentsOf: [
-            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
             editNoticesButton
         ])
     }
 
     private func configureNavigationButtonItems() {
+
         navigationItem?.leftBarButtonItem = closeButton
 
         navigationItem?.rightBarButtonItems = [
             progressButton,
-            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
+            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 16),
             separatorButton,
-            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
             readingThemesControlsButton,
-            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
             redoButton,
-            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
             undoButton
         ]
     }

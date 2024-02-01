@@ -33,6 +33,8 @@ public struct WKTheme: Equatable {
     public let editorMatchBackground: UIColor
     public let editorSelectedMatchBackground: UIColor
     public let editorReplacedMatchBackground: UIColor
+    public let editorMultiButtonSelectedBackground: UIColor
+    public let editorKeyboardShadow: UIColor
 
 	public static let light = WKTheme(
         name: "Light",
@@ -64,7 +66,9 @@ public struct WKTheme: Equatable {
         editorMatchForeground: .black,
         editorMatchBackground: WKColor.lightMatchBackground,
         editorSelectedMatchBackground: WKColor.yellow600,
-        editorReplacedMatchBackground: WKColor.matchReplacedBackground
+        editorReplacedMatchBackground: WKColor.matchReplacedBackground,
+        editorMultiButtonSelectedBackground: WKColor.gray200,
+        editorKeyboardShadow: WKColor.gray200
 	)
     
     public static let sepia = WKTheme(
@@ -97,7 +101,9 @@ public struct WKTheme: Equatable {
         editorMatchForeground: .black,
         editorMatchBackground: WKColor.lightMatchBackground,
         editorSelectedMatchBackground: WKColor.yellow600,
-        editorReplacedMatchBackground: WKColor.matchReplacedBackground
+        editorReplacedMatchBackground: WKColor.matchReplacedBackground,
+        editorMultiButtonSelectedBackground: WKColor.beige400,
+        editorKeyboardShadow: WKColor.taupe200
     )
 
 	public static let dark = WKTheme(
@@ -130,7 +136,9 @@ public struct WKTheme: Equatable {
         editorMatchForeground: .black,
         editorMatchBackground: WKColor.darkMatchBackground,
         editorSelectedMatchBackground: WKColor.yellow600,
-        editorReplacedMatchBackground: WKColor.matchReplacedBackground
+        editorReplacedMatchBackground: WKColor.matchReplacedBackground,
+        editorMultiButtonSelectedBackground: WKColor.gray600,
+        editorKeyboardShadow: WKColor.gray800
 	)
 
 	public static let black = WKTheme(
@@ -163,7 +171,9 @@ public struct WKTheme: Equatable {
         editorMatchForeground: .black,
         editorMatchBackground: WKColor.darkMatchBackground,
         editorSelectedMatchBackground: WKColor.yellow600,
-        editorReplacedMatchBackground: WKColor.matchReplacedBackground
+        editorReplacedMatchBackground: WKColor.matchReplacedBackground,
+        editorMultiButtonSelectedBackground: WKColor.gray600,
+        editorKeyboardShadow: WKColor.gray700
 	)
 
 }
