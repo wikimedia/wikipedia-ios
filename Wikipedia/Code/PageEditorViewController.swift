@@ -2,6 +2,7 @@ import UIKit
 import Components
 import WMF
 import CocoaLumberjackSwift
+import WKData
 
 protocol PageEditorViewControllerDelegate: AnyObject {
     func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL url: URL?)
@@ -32,7 +33,7 @@ final class PageEditorViewController: UIViewController {
     private let sectionID: Int?
     private let editFlow: EditFlow
     private let dataStore: MWKDataStore
-    private let selectedTextEditInfo: SelectedTextEditInfo?
+    private let articleSelectedInfo: SelectedTextEditInfo?
     private weak var delegate: PageEditorViewControllerDelegate?
     private var theme: Theme
     
@@ -68,13 +69,13 @@ final class PageEditorViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo?, delegate: PageEditorViewControllerDelegate, theme: Theme) {
+    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, delegate: PageEditorViewControllerDelegate, theme: Theme) {
         self.pageURL = pageURL
         self.sectionID = sectionID
         self.wikitextFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.editNoticesFetcher = EditNoticesFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.dataStore = dataStore
-        self.selectedTextEditInfo = selectedTextEditInfo
+        self.articleSelectedInfo = articleSelectedInfo
         self.delegate = delegate
         self.theme = theme
         self.editFlow = editFlow
@@ -294,8 +295,9 @@ final class PageEditorViewController: UIViewController {
                     }
                     
                     var rangeToPreselect: NSRange?
-                    if let selectedTextEditInfo = selectedTextEditInfo {
-                        rangeToPreselect = String.rangeOfSelectedTextEditInfo(selectedTextEditInfo, inWikitext: response.wikitext)
+                    if let articleSelectedInfo {
+                        let selectedInfo = articleSelectedInfo.utilInfo()
+                        rangeToPreselect = WKWikitextHtmlUtils.rangeOf(selectedInfo: selectedInfo, inWikitext: response.wikitext)
                     }
                     
                     completion(.success(WikitextFetchResponse(wikitext: response.wikitext, rangeToPreselect: rangeToPreselect, userGroupLevelCanEdit: userGroupLevelCanEdit, protectedPageError: protectedPageError, blockedError: blockedError, otherError: otherError)))
@@ -811,6 +813,16 @@ extension PageEditorViewController: EditNoticesViewControllerDelegate {
     }
 }
 
+// MARK: - SelectedTextEditInfo extension
+
+private extension SelectedTextEditInfo {
+    func utilInfo() -> WKWikitextHtmlUtils.SelectedInfo {
+        return WKWikitextHtmlUtils.SelectedInfo(textBeforeSelectedText: selectedAndAdjacentText.textBeforeSelectedText, selectedText: selectedAndAdjacentText.selectedText, textAfterSelectedText: selectedAndAdjacentText.textAfterSelectedText)
+    }
+}
+
+// MARK: - Accessibility Identifiers
+
 enum SourceEditorAccessibilityIdentifiers: String {
     case entryButton = "Source Editor Entry Button"
     case textView = "Source Editor TextView"
@@ -822,12 +834,4 @@ enum SourceEditorAccessibilityIdentifiers: String {
     case highlightToolbar = "Source Editor Highlight Toolbar"
     case findToolbar = "Source Editor Find Toolbar"
     case inputView = "Source Editor Input View"
-}
-
-// MARK: SelectedText > Wikitext range determination
-
-private extension String {
-    static func rangeOfSelectedTextEditInfo(_ selectedTextEditInfo: SelectedTextEditInfo, inWikitext wikitext: String) -> NSRange? {
-        return nil
-    }
 }
