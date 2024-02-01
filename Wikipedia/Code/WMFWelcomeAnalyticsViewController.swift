@@ -16,7 +16,7 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
 
         descriptionLabel.text = WMFLocalizedString("welcome-privacy-subtitle", value:"We believe that you should not have to provide personal information to participate in the free knowledge movement. Usage data collected for this app is anonymous.", comment:"Sub-title explaining how data usage is anonymous")
 
-        learnMoreButton.setTitle(WMFLocalizedString("welcome-privacy-terms-button-text", value:"Learn more privacy policy and terms of use", comment:"Text for links for learning more about data privacy policy and terms of use"), for: .normal)
+        learnMoreButton.setTitle(WMFLocalizedString("welcome-privacy-terms-button-text", value:"Learn more about our privacy policy and terms of use", comment:"Text for links for learning more about data privacy policy and terms of use"), for: .normal)
         updateFonts()
         view.wmf_configureSubviewsForDynamicType()
     }
