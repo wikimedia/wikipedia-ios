@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="landscape" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,57 +13,61 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="iN0-l3-epB" userLabel="Expanding Edit Toolbar View" customClass="WKEditorToolbarExpandingView" customModule="Components">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <rect key="frame" x="0.0" y="0.0" width="954" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="en8-Lh-EYg" userLabel="Content View">
-                    <rect key="frame" x="0.0" y="-21" width="375" height="65"/>
+                    <rect key="frame" x="0.0" y="-15" width="954" height="65"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZnR-ux-s6T">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="954" height="44"/>
                             <subviews>
                                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="44" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhM-bx-p7p" userLabel="Stack View Container">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="954" height="44"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ajR-7a-Sik">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="954" height="44"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BWO-2h-I64" userLabel="Primary Container View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="177.66666666666666" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="467" height="44"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="g2p-oh-oje" userLabel="Primary Stack View">
-                                                            <rect key="frame" x="66" y="0.0" width="103.66666666666669" height="44"/>
+                                                            <rect key="frame" x="66" y="0.0" width="393" height="44"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5y-cw-4pq" customClass="WKEditorToolbarButton" customModule="Components">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="15" height="44"/>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="q5y-cw-4pq" customClass="WKEditorToolbarButton" customModule="Components">
+                                                                    <rect key="frame" x="0.0" y="4" width="54.333333333333336" height="36"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="jlu-Wy-agF" customClass="WKToolbarSeparatorView" customModule="Components">
-                                                                    <rect key="frame" x="21" y="12" width="0.33333333333333215" height="20"/>
-                                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ep4-cb-vlw" userLabel="Citation Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                                                    <rect key="frame" x="27.333333333333329" y="0.0" width="15" height="44"/>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="xok-qq-r6J">
+                                                                    <rect key="frame" x="60.333333333333329" y="0.0" width="1" height="44"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="1" id="KWY-7m-geZ"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="Ep4-cb-vlw" userLabel="Citation Button" customClass="WKEditorToolbarButton" customModule="Components">
+                                                                    <rect key="frame" x="67.333333333333343" y="4" width="54.666666666666657" height="36"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOp-Bv-UED" userLabel="Link Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                                                    <rect key="frame" x="48.333333333333329" y="0.0" width="15" height="44"/>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="lOp-Bv-UED" userLabel="Link Button" customClass="WKEditorToolbarButton" customModule="Components">
+                                                                    <rect key="frame" x="127.66666666666667" y="4" width="54.666666666666671" height="36"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2n5-hY-lF5" userLabel="Template Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                                                    <rect key="frame" x="69.333333333333343" y="0.0" width="15" height="44"/>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="2n5-hY-lF5" userLabel="Template Button" customClass="WKEditorToolbarButton" customModule="Components">
+                                                                    <rect key="frame" x="188.33333333333334" y="4" width="54.333333333333343" height="36"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oyz-BA-g0g" userLabel="Media Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                                                    <rect key="frame" x="90.333333333333343" y="0.0" width="1.3333333333333286" height="44"/>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="Oyz-BA-g0g" userLabel="Media Button" customClass="WKEditorToolbarButton" customModule="Components">
+                                                                    <rect key="frame" x="248.66666666666671" y="4" width="54.333333333333343" height="36"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="sz5-NF-B4w" customClass="WKToolbarSeparatorView" customModule="Components">
-                                                                    <rect key="frame" x="97.666666666666657" y="12" width="0.0" height="20"/>
-                                                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ysd-bl-nOt" userLabel="Find in Page Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                                                    <rect key="frame" x="103.66666666666666" y="0.0" width="0.0" height="44"/>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="oQP-nn-FbX">
+                                                                    <rect key="frame" x="309" y="0.0" width="1" height="44"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="1" id="li3-OD-31r"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="ysd-bl-nOt" userLabel="Find in Page Button" customClass="WKEditorToolbarButton" customModule="Components">
+                                                                    <rect key="frame" x="316" y="4" width="77" height="36"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
                                                             </subviews>
@@ -77,49 +81,53 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="51i-1d-Lli" userLabel="Secondary Container View">
-                                                    <rect key="frame" x="197.66666666666663" y="0.0" width="177.33333333333337" height="44"/>
+                                                    <rect key="frame" x="487" y="0.0" width="467" height="44"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="1bz-lo-Qsh" userLabel="Secondary Stack View">
-                                                            <rect key="frame" x="15.999999999999993" y="0.0" width="103.33333333333331" height="44"/>
+                                                            <rect key="frame" x="16" y="0.0" width="393" height="44"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6o2-fI-FeG" userLabel="Unordered List Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="11.333333333333334" height="44"/>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="6o2-fI-FeG" userLabel="Unordered List Button" customClass="WKEditorToolbarButton" customModule="Components">
+                                                                    <rect key="frame" x="0.0" y="4" width="41" height="36"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Usg-R3-2O9" userLabel="Ordered List Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                                                    <rect key="frame" x="17.333333333333343" y="0.0" width="11.333333333333336" height="44"/>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="Usg-R3-2O9" userLabel="Ordered List Button" customClass="WKEditorToolbarButton" customModule="Components">
+                                                                    <rect key="frame" x="47" y="4" width="41.333333333333343" height="36"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="bkM-bA-d3o" customClass="WKToolbarSeparatorView" customModule="Components">
-                                                                    <rect key="frame" x="34.666666666666686" y="12" width="0.0" height="20"/>
-                                                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yOi-nA-z5s" userLabel="Decrease Indention Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                                                    <rect key="frame" x="40.666666666666686" y="0.0" width="11.333333333333336" height="44"/>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="fXx-Ar-LUR">
+                                                                    <rect key="frame" x="94.333333333333371" y="0.0" width="1" height="44"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="1" id="Zti-tk-EM4"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="yOi-nA-z5s" userLabel="Decrease Indention Button" customClass="WKEditorToolbarButton" customModule="Components">
+                                                                    <rect key="frame" x="101.33333333333337" y="4" width="41" height="36"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YcQ-k6-ZuB" userLabel="Increase Indention Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                                                    <rect key="frame" x="58.000000000000028" y="0.0" width="11.333333333333329" height="44"/>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="YcQ-k6-ZuB" userLabel="Increase Indention Button" customClass="WKEditorToolbarButton" customModule="Components">
+                                                                    <rect key="frame" x="148.33333333333337" y="4" width="41.333333333333343" height="36"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="zrK-Kd-SnN" customClass="WKToolbarSeparatorView" customModule="Components">
-                                                                    <rect key="frame" x="75.333333333333343" y="12" width="0.3333333333333286" height="20"/>
-                                                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgt-gx-B2i" userLabel="Cursor Up Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                                                    <rect key="frame" x="81.666666666666657" y="0.0" width="3.6666666666666714" height="44"/>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="1U7-q7-2pT">
+                                                                    <rect key="frame" x="195.66666666666663" y="0.0" width="1" height="44"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="1" id="cSl-ZD-jie"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="kgt-gx-B2i" userLabel="Cursor Up Button" customClass="WKEditorToolbarButton" customModule="Components">
+                                                                    <rect key="frame" x="202.66666666666663" y="4" width="41" height="36"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R3Q-hM-v0V" userLabel="Cursor Down Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                                                    <rect key="frame" x="91.333333333333343" y="0.0" width="0.0" height="44"/>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="R3Q-hM-v0V" userLabel="Cursor Down Button" customClass="WKEditorToolbarButton" customModule="Components">
+                                                                    <rect key="frame" x="249.66666666666663" y="4" width="41" height="36"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vh2-x6-dCr" userLabel="Cursor Left Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                                                    <rect key="frame" x="97.333333333333343" y="0.0" width="0.0" height="44"/>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="Vh2-x6-dCr" userLabel="Cursor Left Button" customClass="WKEditorToolbarButton" customModule="Components">
+                                                                    <rect key="frame" x="296.66666666666663" y="4" width="41.333333333333314" height="36"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q6d-fY-Su5" userLabel="Cursor Right Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                                                    <rect key="frame" x="103.33333333333334" y="0.0" width="0.0" height="44"/>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="q6d-fY-Su5" userLabel="Cursor Right Button" customClass="WKEditorToolbarButton" customModule="Components">
+                                                                    <rect key="frame" x="344" y="4" width="49" height="36"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
                                                             </subviews>
@@ -186,7 +194,7 @@
                             </variation>
                         </scrollView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jLt-zh-HFv" customClass="WKEditorToolbarNavigatorButton" customModule="Components">
-                            <rect key="frame" x="309" y="10" width="0.0" height="24"/>
+                            <rect key="frame" x="884" y="10" width="0.0" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" id="Nuv-a3-wfO"/>
                                 <constraint firstAttribute="height" constant="24" id="aAg-JB-QWf"/>
@@ -286,10 +294,6 @@
                 <outlet property="stackView" destination="ajR-7a-Sik" id="xc8-7a-mMJ"/>
                 <outlet property="templateButton" destination="2n5-hY-lF5" id="diI-p3-Td9"/>
                 <outlet property="unorderedListButton" destination="6o2-fI-FeG" id="Vvj-hr-OPm"/>
-                <outletCollection property="separatorViews" destination="jlu-Wy-agF" collectionClass="NSMutableArray" id="KqU-4Y-QrM"/>
-                <outletCollection property="separatorViews" destination="zrK-Kd-SnN" collectionClass="NSMutableArray" id="kXp-md-qml"/>
-                <outletCollection property="separatorViews" destination="sz5-NF-B4w" collectionClass="NSMutableArray" id="yOe-nM-pQb"/>
-                <outletCollection property="separatorViews" destination="bkM-bA-d3o" collectionClass="NSMutableArray" id="Grh-Yo-vCr"/>
                 <outletCollection property="buttons" destination="q5y-cw-4pq" collectionClass="NSMutableArray" id="93a-IX-ieH"/>
                 <outletCollection property="buttons" destination="Ep4-cb-vlw" collectionClass="NSMutableArray" id="2vE-dm-JfA"/>
                 <outletCollection property="buttons" destination="lOp-Bv-UED" collectionClass="NSMutableArray" id="t3Q-06-6qC"/>
@@ -304,8 +308,16 @@
                 <outletCollection property="buttons" destination="R3Q-hM-v0V" collectionClass="NSMutableArray" id="CxY-YE-n4s"/>
                 <outletCollection property="buttons" destination="Vh2-x6-dCr" collectionClass="NSMutableArray" id="ZE0-79-Luo"/>
                 <outletCollection property="buttons" destination="q6d-fY-Su5" collectionClass="NSMutableArray" id="YJ0-0S-wyw"/>
+                <outletCollection property="separatorImageViews" destination="xok-qq-r6J" collectionClass="NSMutableArray" id="xY1-Ku-NLh"/>
+                <outletCollection property="separatorImageViews" destination="oQP-nn-FbX" collectionClass="NSMutableArray" id="tN4-m1-TSb"/>
+                <outletCollection property="separatorImageViews" destination="fXx-Ar-LUR" collectionClass="NSMutableArray" id="0wt-Rr-NJu"/>
+                <outletCollection property="separatorImageViews" destination="1U7-q7-2pT" collectionClass="NSMutableArray" id="D4F-oj-1aJ"/>
+                <outletCollection property="separatorImageWidthConstraints" destination="cSl-ZD-jie" collectionClass="NSMutableArray" id="b3G-e3-QAX"/>
+                <outletCollection property="separatorImageWidthConstraints" destination="Zti-tk-EM4" collectionClass="NSMutableArray" id="UAO-A9-7PY"/>
+                <outletCollection property="separatorImageWidthConstraints" destination="li3-OD-31r" collectionClass="NSMutableArray" id="oDV-zH-rQW"/>
+                <outletCollection property="separatorImageWidthConstraints" destination="KWY-7m-geZ" collectionClass="NSMutableArray" id="Uog-iI-D7v"/>
             </connections>
-            <point key="canvasLocation" x="34.486607142857139" y="-105.07246376811595"/>
+            <point key="canvasLocation" x="248.27586206896552" y="-100.8"/>
         </view>
     </objects>
     <resources>
