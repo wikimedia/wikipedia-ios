@@ -728,6 +728,10 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
 }
 
 extension SectionEditorViewController: ReadingThemesControlsPresenting {
+    var needsExtraTopSpacing: Bool {
+        return false
+    }
+    
     
     var shouldPassthroughNavBar: Bool {
         return false

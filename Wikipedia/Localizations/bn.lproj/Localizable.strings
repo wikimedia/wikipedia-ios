@@ -89,7 +89,6 @@
 "article-languages-label" = "ভাষা নির্বাচন করুন";
 "article-languages-others" = "অন্যান্য ভাষাসমূহ";
 "article-languages-yours" = "আপনার ভাষাসমূহ";
-"article-nav-edit" = "সম্পাদনা";
 "article-share" = "শেয়ার করুন";
 "back-button-accessibility-label" = "পিছনে";
 "back-button-popover-title" = "পেছনে যেতে আলতো চাপুন";
@@ -399,6 +398,7 @@
 "table-of-contents-close-accessibility-hint" = "বন্ধ করুন";
 "table-of-contents-close-accessibility-label" = "বিষয়বস্তুর সূচিপত্র বন্ধ করুন";
 "table-of-contents-heading" = "পরিচ্ছেদসমূহ";
+"talk-pages-edit-source" = "উৎস সম্পাদনা";
 "talk-pages-empty-view-button-article-add-topic" = "একটি নতুন প্রসঙ্গ যোগ করুন";
 "talk-pages-empty-view-button-user-start-discussion" = "একটি আলোচনা শুরু করুন";
 "talk-pages-view-title" = "আলাপ";
