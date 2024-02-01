@@ -30,7 +30,7 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
         learnMoreButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
     }
 
-    @IBAction func showPrivacyAndtermsActionSheet(_ sender: AnyObject) {
+    @IBAction func showPrivacyAndTermsActionSheet(_ sender: AnyObject) {
 
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 

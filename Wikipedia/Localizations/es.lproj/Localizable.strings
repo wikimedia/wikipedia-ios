@@ -17,6 +17,7 @@
 // Author: DiegoAmbrocio
 // Author: Dschultz
 // Author: Elisardojm
+// Author: Eulalio
 // Author: Fitoschido
 // Author: Geryescalier
 // Author: Hasley
@@ -130,8 +131,10 @@
 "action-add-to-reading-list" = "Añadir a una lista de lectura";
 "action-add-to-reading-list-short" = "Añadir a la lista";
 "action-cancel" = "Cancelar";
+"action-discard-edit" = "Descartar Editar";
 "action-discard-edits" = "Descartar ediciones";
 "action-find-in-page" = "Buscar en la página";
+"action-keep-editing" = "Seguir editando";
 "action-language-accessibility" = "Cambiar idioma";
 "action-move-to" = "Mover a…";
 "action-move-to-reading-list" = "Mover a una lista de lectura";
@@ -299,10 +302,12 @@
 "edit-minor-text" = "Esta es una edición menor";
 "edit-ordered-list-accessibility-label" = "Convertir esta línea en una lista ordenada";
 "edit-ordered-list-remove-accessibility-label" = "\nBorrar lista ordenada de esta línea";
+"edit-preview-simplified-format-message" = "Todo el contenido se muestra en formato simplificado.";
 "edit-published" = "Edición publicada";
 "edit-published-subtitle" = "Tú haces Wikipedia mejor para todo el mundo";
 "edit-reference-accessibility-label" = "Añadir referencia";
 "edit-reference-remove-accessibility-label" = "\nQuitar referencia";
+"edit-show-web-preview" = "Mostrar previsualización";
 "edit-signature-accessibility-label" = "\nAñadir firma";
 "edit-signature-remove-accessibility-label" = "\nQuitar firma";
 "edit-strikethrough-accessibility-label" = "\nAñadir tachado";
@@ -339,6 +344,7 @@
 "editing-welcome-impartial-tone-title" = "Escribe en un tono imparcial";
 "editing-welcome-set-knowledge-free-subtitle" = "Para poder dar a todos acceso al conocimiento mundial, necesitamos que participes en su creación leyendo, editando y contribuyendo con los temas que más te importan.";
 "editing-welcome-set-knowledge-free-title" = "Da libertad al conocimiento";
+"editor-exit-confirmation-message" = "¿Estás seguro de que quieres descartar esta edición?";
 "editor-exit-confirmation-title" = "¿Desactivar el modo de edición?";
 "empty-diff-compare-title" = "No hay diferencias entre revisiones";
 "empty-diff-single-title" = "No se hicieron cambios visibles";
@@ -865,6 +871,7 @@
 "share-social-mention-format" = "«$1» vía Wikipedia: $2";
 "sort-by-recently-added-action" = "Añadidos recientemente";
 "sort-by-title-action" = "Título";
+"source-editor-edit-source" = "Editar fuente";
 "table-of-contents-button-label" = "Sumario";
 "table-of-contents-close-accessibility-hint" = "Cerrar";
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";

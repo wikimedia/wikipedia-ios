@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: ASHmed
 // Author: Aboulouei1
+// Author: Ahmed Alyamoor
 // Author: Alaa
 // Author: Alshamiri1
 // Author: Amire80
@@ -121,8 +122,10 @@
 "action-add-to-reading-list" = "أضف إلى قائمة القراءة";
 "action-add-to-reading-list-short" = "أضف إلى القائمة";
 "action-cancel" = "إلغاء";
+"action-discard-edit" = "اهمل التعديل";
 "action-discard-edits" = "تجاهل التعديلات";
 "action-find-in-page" = "البحث في الصفحة";
+"action-keep-editing" = "تابع التعديل";
 "action-language-accessibility" = "تغيير اللغة";
 "action-move-to" = "نقل إلى…";
 "action-move-to-reading-list" = "الانتقال إلى قائمة القراءة";
@@ -302,10 +305,12 @@
 "edit-notices-please-read" = "يرجى القراءة قبل التحرير";
 "edit-ordered-list-accessibility-label" = "جعل الخط الحالي قائمة مرتبة";
 "edit-ordered-list-remove-accessibility-label" = "إزالة قائمة مرتبة من الخط الحالي";
+"edit-preview-simplified-format-message" = "يتم عرض كافة المحتويات بتنسيق مبسط.";
 "edit-published" = "تم نشر التعديل";
 "edit-published-subtitle" = "أنت فقط جعلت ويكيبيديا أفضل للجميع";
 "edit-reference-accessibility-label" = "أضف صيغة مرجع";
 "edit-reference-remove-accessibility-label" = "إزالة صيغة المرجع";
+"edit-show-web-preview" = "اعرض المعاينة";
 "edit-signature-accessibility-label" = "إضافة صيغة التوقيع";
 "edit-signature-remove-accessibility-label" = "إزالة صيغة التوقيع";
 "edit-strikethrough-accessibility-label" = "أضف خطا متوسطا";
@@ -343,6 +348,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "من أجل منح الجميع إمكانية الوصول إلى المعرفة العالمية؛ نحتاج منك المشاركة في إنشائها من خلال القراءة والتحرير والمساهمة في الموضوعات التي تهمك أكثر.";
 "editing-welcome-set-knowledge-free-title" = "تعيين المعرفة الحرة";
 "editor-exit-confirmation-body" = "هل أنت متأكد أنك تريد ترك وضع التحرير دون النشر أولاً؟";
+"editor-exit-confirmation-message" = "هل انت متاكد من انك تريد اهمال هذه التعديلات؟";
 "editor-exit-confirmation-title" = "رفض وضع التحرير؟";
 "empty-diff-compare-title" = "لا فروق بين المراجعات";
 "empty-diff-single-title" = "لم يتم إجراء تغييرات مرئية";
@@ -1000,6 +1006,8 @@
 "share-social-mention-format" = "“$1” عبر ويكيبيديا: $2";
 "sort-by-recently-added-action" = "أُضيف مؤخرا";
 "sort-by-title-action" = "العنوان";
+"source-editor-edit-published" = "نُشِر تعديلك.";
+"source-editor-edit-source" = "عَدِّل المصدر";
 "table-of-contents-button-label" = "قائمة المحتويات";
 "table-of-contents-close-accessibility-hint" = "أغلق";
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
@@ -1066,6 +1074,7 @@
 "talk-pages-coffee-roll-read-more" = "اقرأ المزيد";
 "talk-pages-comment-added-alert-title" = "أضيف تعليقك";
 "talk-pages-compose-close-confirmation-keep" = "واصل التعديل";
+"talk-pages-edit-source" = "عدل المصدر";
 "talk-pages-empty-view-body-article" = "صفحات النقاش هي حيث يناقش الناس كيفية جعل المحتوى على ويكيبيديا أفضل ما يمكن أن يكون. ** ابدأ بإضافة موضوع مناقشة جديد ** للتواصل والتعاون مع مجتمع Wikipedians.";
 "talk-pages-empty-view-body-user" = "صفحات النقاش هي حيث يناقش الناس كيفية جعل المحتوى على ويكيبيديا أفضل ما يمكن أن يكون. ابدأ مناقشة جديدة للتواصل والتعاون مع $1 . ما تقوله هنا سيكون متاحًا للآخرين ليراه.";
 "talk-pages-empty-view-button-article-add-topic" = "أضف موضوعًا جديدًا";

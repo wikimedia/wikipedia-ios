@@ -553,7 +553,7 @@
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
-                                            <action selector="showPrivacyAndtermsActionSheet:" destination="Sz5-Ln-qWW" eventType="touchUpInside" id="0iP-af-krV"/>
+                                            <action selector="showPrivacyAndTermsActionSheet:" destination="Sz5-Ln-qWW" eventType="touchUpInside" id="JzR-rr-1hc"/>
                                         </connections>
                                     </button>
                                 </subviews>

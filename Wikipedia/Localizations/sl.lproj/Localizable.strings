@@ -86,8 +86,10 @@
 "action-add-to-reading-list" = "Dodaj na bralni seznam";
 "action-add-to-reading-list-short" = "Dodaj na seznam";
 "action-cancel" = "Prekliči";
+"action-discard-edit" = "Zavrzi urejanje";
 "action-discard-edits" = "Zavrzi urejanje";
 "action-find-in-page" = "Poišči na strani";
+"action-keep-editing" = "Nadaljuj urejanje";
 "action-language-accessibility" = "Spremeni jezik";
 "action-move-to" = "Prestavi v...";
 "action-move-to-reading-list" = "Prestavi na bralni seznam";
@@ -135,7 +137,6 @@
 "article-languages-label" = "Izberite jezik";
 "article-languages-others" = "Drugi jeziki";
 "article-languages-yours" = "Vaši jeziki";
-"article-nav-edit" = "Uredi";
 "article-read-more-title" = "Preberi še kaj";
 "article-reference-view-title" = "Sklic $1";
 "article-revision-history" = "Zgodovina redakcij članka";
@@ -304,10 +305,12 @@
 "edit-notices-please-read" = "Prosimo, preberite pred urejanjem";
 "edit-ordered-list-accessibility-label" = "Spremenite trenutno vrstico v oštevilčeni seznam";
 "edit-ordered-list-remove-accessibility-label" = "Iz trenutne vrstice odstranite oštevilčeni seznam";
+"edit-preview-simplified-format-message" = "Vsa vsebina je prikazana v poenostavljeni obliki.";
 "edit-published" = "Uredi objavljeno";
 "edit-published-subtitle" = "Wikipedijo ste pravkar izboljšali za vsakogar";
 "edit-reference-accessibility-label" = "Dodajte skladnjo za sklic";
 "edit-reference-remove-accessibility-label" = "Odstranite skladnjo za sklic";
+"edit-show-web-preview" = "Prikaži spletni predogled";
 "edit-signature-accessibility-label" = "Dodajte skladnjo za podpis";
 "edit-signature-remove-accessibility-label" = "Odstranite skladnjo za podpis";
 "edit-strikethrough-accessibility-label" = "Dodaj prečrtano";
@@ -345,6 +348,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "Da bi vsem omogočili dostop do svetovnega znanja, potrebujemo vaše sodelovanje pri njegovem ustvarjanju z branjem, urejanjem in prispevanjem k temam, ki so za vas najpomembnejše.";
 "editing-welcome-set-knowledge-free-title" = "Osvobodite znanje";
 "editor-exit-confirmation-body" = "Ali res želite zapustiti način urejanja, ne da bi najprej objavili spremembe?";
+"editor-exit-confirmation-message" = "Ali res želite zavreči to urejanje?";
 "editor-exit-confirmation-title" = "Želite opustiti način urejanja?";
 "empty-diff-compare-title" = "Med redakcijama ni razlik";
 "empty-diff-single-title" = "Ni bilo vidnih sprememb";
@@ -1055,6 +1059,8 @@
 "source-editor-accessibility-label-unordered" = "Spremenite trenutno vrstico v neoštevilčen seznam";
 "source-editor-accessibility-label-unordered-selected" = "Iz trenutne vrstice odstranite neoštevilčeni seznam";
 "source-editor-clear-formatting" = "Počisti oblikovanje";
+"source-editor-edit-published" = "Vaše urejanje je objavljeno.";
+"source-editor-edit-source" = "Uredi vir";
 "source-editor-find-replace-all" = "Zamenjaj vse";
 "source-editor-find-replace-single" = "Zamenjaj";
 "source-editor-find-replace-with" = "Zamenjaj z/s ...";
@@ -1132,6 +1138,7 @@
 "talk-pages-coffee-roll-read-more" = "Preberi več";
 "talk-pages-comment-added-alert-title" = "Vaš komentar je dodan";
 "talk-pages-compose-close-confirmation-keep" = "Nadaljujte urejanje";
+"talk-pages-edit-source" = "Uredi vir";
 "talk-pages-empty-view-body-article" = "Pogovorne strani so namenjene pogovorom o tem, kako čim bolj izboljšati vsebino v Wikipediji. **Začnite z dodajanjem nove pogovorne teme**, da se povežete in sodelujete s skupnostjo Wikipedistov.";
 "talk-pages-empty-view-body-user" = "Pogovorne strani so namenjene pogovorom o tem, kako čim bolj izboljšati vsebino v Wikipediji. Začnite nov pogovor, da se povežete in začnete sodelovati z $1. Kar boste tukaj objavili, bodo drugi lahko videli.";
 "talk-pages-empty-view-button-article-add-topic" = "Dodaj novo temo";

@@ -121,8 +121,10 @@
 "action-add-to-reading-list" = "新增至閱讀清單";
 "action-add-to-reading-list-short" = "加入至清單";
 "action-cancel" = "取消";
+"action-discard-edit" = "捨棄編輯";
 "action-discard-edits" = "捨棄編輯";
 "action-find-in-page" = "在頁面裡尋找";
+"action-keep-editing" = "繼續編輯";
 "action-language-accessibility" = "變更語言";
 "action-move-to" = "移動至…";
 "action-move-to-reading-list" = "移動至閱讀清單";
@@ -170,7 +172,6 @@
 "article-languages-label" = "選擇語言";
 "article-languages-others" = "其他語言";
 "article-languages-yours" = "您的語言";
-"article-nav-edit" = "編輯";
 "article-read-more-title" = "延伸閱讀";
 "article-reference-view-title" = "參考資料 $1";
 "article-revision-history" = "條目修訂紀錄";
@@ -339,10 +340,12 @@
 "edit-notices-please-read" = "編輯前請先閱讀";
 "edit-ordered-list-accessibility-label" = "建立目前行的有序清單";
 "edit-ordered-list-remove-accessibility-label" = "從目前行來移除有序清單";
+"edit-preview-simplified-format-message" = "所有內容均以簡化格式顯示。";
 "edit-published" = "已發布編輯";
 "edit-published-subtitle" = "您剛剛完善了維基百科，人人都會受益";
 "edit-reference-accessibility-label" = "添加參考資料語法";
 "edit-reference-remove-accessibility-label" = "移除參考資料語法";
+"edit-show-web-preview" = "顯示網頁預覽";
 "edit-signature-accessibility-label" = "新增簽名語法";
 "edit-signature-remove-accessibility-label" = "移除簽名語法";
 "edit-strikethrough-accessibility-label" = "添加刪除線";
@@ -380,6 +383,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "為了讓人人都能閱覽全世界的知識，我們需要您來閱讀條目、編輯條目、向感興趣的主題貢獻，為其添磚加瓦。";
 "editing-welcome-set-knowledge-free-title" = "解開知識的枷鎖";
 "editor-exit-confirmation-body" = "您確定要放棄發布並離開編輯模式嗎？";
+"editor-exit-confirmation-message" = "您確定要捨棄此編輯嗎？";
 "editor-exit-confirmation-title" = "關閉編輯模式？";
 "empty-diff-compare-title" = "修訂之間無差異";
 "empty-diff-single-title" = "沒有做出可觀察到的變更";
@@ -1090,6 +1094,8 @@
 "source-editor-accessibility-label-unordered" = "建立目前行的無排序清單";
 "source-editor-accessibility-label-unordered-selected" = "從目前行來移除無排序清單";
 "source-editor-clear-formatting" = "清除格式";
+"source-editor-edit-published" = "已發布您的編輯。";
+"source-editor-edit-source" = "編輯原始碼";
 "source-editor-find-replace-all" = "全部取代";
 "source-editor-find-replace-single" = "取代";
 "source-editor-find-replace-with" = "取代為…";
@@ -1167,6 +1173,7 @@
 "talk-pages-coffee-roll-read-more" = "閱讀更多";
 "talk-pages-comment-added-alert-title" = "已新增您的留言";
 "talk-pages-compose-close-confirmation-keep" = "繼續編輯";
+"talk-pages-edit-source" = "編輯原始碼";
 "talk-pages-empty-view-body-article" = "討論頁是人們討論如何使維基百科上的內容達到最佳狀態的地方。**首先添加一個新的討論主題**，以便與維基百科社群建立聯絡和協同運作。";
 "talk-pages-empty-view-body-user" = "討論頁是人們討論如何使維基百科上的內容達到最好的地方。開始一個新的討論，以與$1聯繫和協作。您在這裡的發言將會公開顯示。";
 "talk-pages-empty-view-button-article-add-topic" = "新增一個新主題";
