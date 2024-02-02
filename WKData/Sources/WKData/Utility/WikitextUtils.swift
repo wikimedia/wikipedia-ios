@@ -67,17 +67,17 @@ public struct WKWikitextUtils {
         // Regex pattern is built up here
         
         // We replace all spaces in the htmlTargetText with additional regex that allows for square brackets, templates, html tags, etc.
-        let spaceRegexPattern = "/\\s+"
-        let spaceReplaceTemplate = "(?:(?:\\[\\[[^\\]\\|]+\\|)|{{[^}]*}}|<[^>]*>|\\W)+"
-        
-        // We use this new replaced target text as the final regex pattern
-        let loosePattern = try? NSRegularExpression(pattern: spaceRegexPattern).stringByReplacingMatches(in: htmlTargetText, options: [], range: NSRange(location: 0, length: htmlTargetText.count), withTemplate: spaceReplaceTemplate)
-        
-        guard let loosePattern else {
-            return nil
+        let spaceRegexPattern = "\\s+"
+        let spaceReplaceRegexPattern = "(?:(?:\\[\\[[^\\]\\|]+\\|)|\\{\\{[^\\}]*\\}\\}|<[^>]*>|\\W)+"
+        let spaceRegex = try? NSRegularExpression(pattern: spaceRegexPattern)
+        var looseRegexPattern = htmlTargetText
+        if let matches = spaceRegex?.matches(in: htmlTargetText, range: NSRange(location: 0, length: htmlTargetText.count)) {
+            for match in matches.reversed() {
+                looseRegexPattern = (looseRegexPattern as NSString).replacingCharacters(in: match.range, with: spaceReplaceRegexPattern)
+            }
         }
         
-        return try? NSRegularExpression(pattern: loosePattern)
+        return try? NSRegularExpression(pattern: looseRegexPattern)
     }
     
     private static func scoreForMatch(match: NSTextCheckingResult, wikitext: String, htmlWordsBeforeTargetText: [String], htmlWordsAfterTargetText: [String]) -> Int {
