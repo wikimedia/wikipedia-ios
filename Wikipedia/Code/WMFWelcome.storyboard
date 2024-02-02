@@ -548,7 +548,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="spatial" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="q3G-bh-yvQ">
-                                        <rect key="frame" x="0.0" y="26" width="46" height="30"/>
+                                        <rect key="frame" x="0.0" y="34" width="46" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <state key="normal" title="Button"/>
@@ -561,10 +561,10 @@
                                 <constraints>
                                     <constraint firstItem="l9B-Hv-WJ5" firstAttribute="top" secondItem="jGW-Hc-ska" secondAttribute="top" id="6lk-2M-ehu"/>
                                     <constraint firstItem="q3G-bh-yvQ" firstAttribute="leading" secondItem="jGW-Hc-ska" secondAttribute="leading" id="HlO-CT-CKE"/>
-                                    <constraint firstItem="q3G-bh-yvQ" firstAttribute="top" secondItem="l9B-Hv-WJ5" secondAttribute="bottom" constant="8" id="O6Y-EW-Frv"/>
+                                    <constraint firstItem="q3G-bh-yvQ" firstAttribute="top" secondItem="l9B-Hv-WJ5" secondAttribute="bottom" constant="16" id="O6Y-EW-Frv"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="q3G-bh-yvQ" secondAttribute="trailing" id="PoO-Pb-elh"/>
                                     <constraint firstAttribute="trailing" secondItem="l9B-Hv-WJ5" secondAttribute="trailing" id="bMm-Ia-fIi"/>
-                                    <constraint firstAttribute="bottom" secondItem="q3G-bh-yvQ" secondAttribute="bottom" constant="94" id="dcG-8T-qZL"/>
+                                    <constraint firstAttribute="bottom" secondItem="q3G-bh-yvQ" secondAttribute="bottom" priority="250" constant="94" id="dcG-8T-qZL"/>
                                     <constraint firstItem="l9B-Hv-WJ5" firstAttribute="leading" secondItem="jGW-Hc-ska" secondAttribute="leading" id="iZj-cL-YvR"/>
                                 </constraints>
                             </view>
