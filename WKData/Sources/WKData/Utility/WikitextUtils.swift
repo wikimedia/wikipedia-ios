@@ -27,10 +27,10 @@ public struct WKWikitextUtils {
     ///   - selectedInfo: Selected Info struct. See `wmf_getSelectedTextEditInfo` in the client app for assistance in pulling this data from a web view.
     ///   - wikitext: Wikitext to search through
     /// - Returns: NSRange of the selected text in wikitext.
-    public static func rangeOf(htmlInfo: HtmlInfo, inWikitext wikitext: String) -> NSRange? {
+    public static func rangeOf(htmlInfo: HtmlInfo, inWikitext wikitext: String) -> NSRange {
         
         guard !htmlInfo.targetText.isEmpty else {
-            return nil
+            return NSRange(location: NSNotFound, length: 0)
         }
         
         let htmlWordsBeforeTargetText = lastWordsOfText(text: htmlInfo.textBeforeTargetText, wordCount: adjacentWordCount)
@@ -38,7 +38,7 @@ public struct WKWikitextUtils {
         
         let regex = looseTargetTextRegex(htmlTargetText: htmlInfo.targetText)
         guard let matches = regex?.matches(in: wikitext, range: NSRange(location: 0, length: wikitext.count)) else {
-            return nil
+            return NSRange(location: NSNotFound, length: 0)
         }
         
         var bestScoredMatch: NSTextCheckingResult?
@@ -51,7 +51,7 @@ public struct WKWikitextUtils {
             }
         }
         
-        return bestScoredMatch?.range
+        return bestScoredMatch?.range ?? NSRange(location: NSNotFound, length: 0)
     }
     
     private static func lastWordsOfText(text: String, wordCount: Int) -> [String] {

@@ -222,7 +222,15 @@ final class PageEditorViewController: UIViewController {
             }
             
             let needsReadOnly = (wikitextFetchResponse.blockedError != nil) || (wikitextFetchResponse.protectedPageError != nil && !wikitextFetchResponse.userGroupLevelCanEdit)
-            self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: wikitextFetchResponse.onloadSelectRange)
+            
+            if let onloadSelectRange = wikitextFetchResponse.onloadSelectRange,
+               onloadSelectRange.location == NSNotFound {
+                presentFailToFindSelectedRangeAlert()
+                self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: nil)
+            } else {
+                self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: wikitextFetchResponse.onloadSelectRange)
+            }
+            
         }
     }
     
@@ -263,6 +271,14 @@ final class PageEditorViewController: UIViewController {
         let editNoticesViewController = EditNoticesViewController(theme: theme, viewModel: editNoticesViewModel)
         editNoticesViewController.delegate = self
         present(editNoticesViewController, animated: true)
+    }
+    
+    private func presentFailToFindSelectedRangeAlert() {
+        let alert = UIAlertController(title: CommonStrings.editorFailToScrollToArticleSelectedTextTitle, message: CommonStrings.editorFailToScrollToArticleSelectedTextBody, preferredStyle: .alert)
+        alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
+        let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
+        alert.addAction(action)
+        present(alert, animated: true)
     }
     
     private func loadWikitext(completion: @escaping (Result<WikitextFetchResponse, Error>) -> Void) {

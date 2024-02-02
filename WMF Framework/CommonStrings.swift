@@ -547,6 +547,9 @@ public class CommonStrings: NSObject {
     public static let editorReplaceTypeAll = WMFLocalizedString("editor-replace-type-all", value: "Replace all", comment: "Label indicating which replace type the user has set in the find and replace view on the editor. This type replaces all instances of the find text.")
     public static let editorReplaceTextfieldPlaceholder = WMFLocalizedString("editor-replace-textfield-placeholder", value: "Replace with...", comment: "Placeholder label displayed when the replace textfield in the editor's find and replace view is empty.")
     
+    public static let editorFailToScrollToArticleSelectedTextTitle = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-title", value:"The text that you selected could not be located", comment:"Title for alert informing user their text selection could not be located in the article wikitext.")
+    public static let editorFailToScrollToArticleSelectedTextBody = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-message", value:"This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted", comment:"Description of possible reasons the user text selection could not be located in the article wikitext.")
+    
     public static let editorToolbarButtonOpenTextFormatMenuAccessiblityLabel = WMFLocalizedString("editor-toolbar-open-text-format-menu-accessibility", value: "Open text formatting menu", comment: "Accessibility label for text format toolbar button on the editor. This button opens the keyboard text formatting menu.")
     
     public static let editorToolbarButtonReferenceAccessiblityLabel = WMFLocalizedString("editor-toolbar-reference-accessibility", value: "Reference text formatting", comment: "Accessibility label for reference toolbar button on the editor.")

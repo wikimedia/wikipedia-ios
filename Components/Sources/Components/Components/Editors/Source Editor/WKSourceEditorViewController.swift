@@ -173,7 +173,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        setup(viewModel: viewModel)
+        load(viewModel: viewModel)
         inputAccessoryViewType = .expanding
     }
     
@@ -280,7 +280,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
 
 private extension WKSourceEditorViewController {
 
-    func setup(viewModel: WKSourceEditorViewModel) {
+    func load(viewModel: WKSourceEditorViewModel) {
         textFrameworkMediator.isSyntaxHighlightingEnabled = viewModel.isSyntaxHighlightingEnabled
         textView.attributedText = NSAttributedString(string: viewModel.initialText)
         scrollToOnloadSelectRangeIfNeeded()
@@ -289,6 +289,12 @@ private extension WKSourceEditorViewController {
     private func scrollToOnloadSelectRangeIfNeeded() {
         if let onloadSelectRange = viewModel.onloadSelectRange,
            !viewModel.needsReadOnly {
+            
+            guard onloadSelectRange.location != NSNotFound else {
+                assertionFailure("onloadSelectRange is invalid (NSNotFound)")
+                return
+            }
+                
             textView.scrollRangeToVisible(onloadSelectRange)
             textView.becomeFirstResponder()
             textView.selectedRange = onloadSelectRange
