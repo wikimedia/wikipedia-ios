@@ -297,7 +297,7 @@ final class PageEditorViewController: UIViewController {
                     var rangeToPreselect: NSRange?
                     if let articleSelectedInfo {
                         let selectedInfo = articleSelectedInfo.utilInfo()
-                        rangeToPreselect = WKWikitextHtmlUtils.rangeOf(selectedInfo: selectedInfo, inWikitext: response.wikitext)
+                        rangeToPreselect = WKWikitextUtils.rangeOf(selectedInfo: selectedInfo, inWikitext: response.wikitext)
                     }
                     
                     completion(.success(WikitextFetchResponse(wikitext: response.wikitext, rangeToPreselect: rangeToPreselect, userGroupLevelCanEdit: userGroupLevelCanEdit, protectedPageError: protectedPageError, blockedError: blockedError, otherError: otherError)))
@@ -816,8 +816,8 @@ extension PageEditorViewController: EditNoticesViewControllerDelegate {
 // MARK: - SelectedTextEditInfo extension
 
 private extension SelectedTextEditInfo {
-    func utilInfo() -> WKWikitextHtmlUtils.SelectedInfo {
-        return WKWikitextHtmlUtils.SelectedInfo(textBeforeSelectedText: selectedAndAdjacentText.textBeforeSelectedText, selectedText: selectedAndAdjacentText.selectedText, textAfterSelectedText: selectedAndAdjacentText.textAfterSelectedText)
+    func utilInfo() -> WKWikitextUtils.SelectedInfo {
+        return WKWikitextUtils.SelectedInfo(textBeforeSelectedText: selectedAndAdjacentText.textBeforeSelectedText, selectedText: selectedAndAdjacentText.selectedText, textAfterSelectedText: selectedAndAdjacentText.textAfterSelectedText)
     }
 }
 

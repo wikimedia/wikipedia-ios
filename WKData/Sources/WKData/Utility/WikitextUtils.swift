@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WKWikitextHtmlUtils {
+public struct WKWikitextUtils {
     
     public struct SelectedInfo {
         let textBeforeSelectedText: String
