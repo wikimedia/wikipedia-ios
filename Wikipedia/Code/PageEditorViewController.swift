@@ -20,7 +20,7 @@ final class PageEditorViewController: UIViewController {
     
     private struct WikitextFetchResponse {
         let wikitext: String
-        let rangeToPreselect: NSRange?
+        let onloadSelectRange: NSRange?
         let userGroupLevelCanEdit: Bool
         let protectedPageError: MediaWikiAPIDisplayError?
         let blockedError: MediaWikiAPIDisplayError?
@@ -222,7 +222,7 @@ final class PageEditorViewController: UIViewController {
             }
             
             let needsReadOnly = (wikitextFetchResponse.blockedError != nil) || (wikitextFetchResponse.protectedPageError != nil && !wikitextFetchResponse.userGroupLevelCanEdit)
-            self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly)
+            self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: wikitextFetchResponse.onloadSelectRange)
         }
     }
     
@@ -294,13 +294,13 @@ final class PageEditorViewController: UIViewController {
                         }
                     }
                     
-                    var rangeToPreselect: NSRange?
+                    var onloadSelectRange: NSRange?
                     if let articleSelectedInfo {
                         let htmlInfo = articleSelectedInfo.htmlInfo()
-                        rangeToPreselect = WKWikitextUtils.rangeOf(htmlInfo: htmlInfo, inWikitext: response.wikitext)
+                        onloadSelectRange = WKWikitextUtils.rangeOf(htmlInfo: htmlInfo, inWikitext: response.wikitext)
                     }
                     
-                    completion(.success(WikitextFetchResponse(wikitext: response.wikitext, rangeToPreselect: rangeToPreselect, userGroupLevelCanEdit: userGroupLevelCanEdit, protectedPageError: protectedPageError, blockedError: blockedError, otherError: otherError)))
+                    completion(.success(WikitextFetchResponse(wikitext: response.wikitext, onloadSelectRange: onloadSelectRange, userGroupLevelCanEdit: userGroupLevelCanEdit, protectedPageError: protectedPageError, blockedError: blockedError, otherError: otherError)))
                 }
             }
         }
@@ -366,7 +366,7 @@ final class PageEditorViewController: UIViewController {
         wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, image: UIImage(named: "warning-icon"))
     }
     
-    private func addChildEditor(wikitext: String, needsReadOnly: Bool) {
+    private func addChildEditor(wikitext: String, needsReadOnly: Bool, onloadSelectRange: NSRange?) {
         let localizedStrings = WKSourceEditorLocalizedStrings(
             keyboardTextFormattingTitle: CommonStrings.editorKeyboardTextFormattingTitle,
             keyboardParagraph: CommonStrings.editorKeyboardParagraphButton,
@@ -428,7 +428,7 @@ final class PageEditorViewController: UIViewController {
 
         let isSyntaxHighlightingEnabled = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
         let textAlignment = MWKLanguageLinkController.isLanguageRTL(forContentLanguageCode: pageURL.wmf_contentLanguageCode) ? NSTextAlignment.right : NSTextAlignment.left
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled, textAlignment: textAlignment, needsReadOnly: needsReadOnly)
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled, textAlignment: textAlignment, needsReadOnly: needsReadOnly, onloadSelectRange: onloadSelectRange)
 
         let sourceEditor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
         

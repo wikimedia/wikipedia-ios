@@ -283,6 +283,16 @@ private extension WKSourceEditorViewController {
     func setup(viewModel: WKSourceEditorViewModel) {
         textFrameworkMediator.isSyntaxHighlightingEnabled = viewModel.isSyntaxHighlightingEnabled
         textView.attributedText = NSAttributedString(string: viewModel.initialText)
+        scrollToOnloadSelectRangeIfNeeded()
+    }
+    
+    private func scrollToOnloadSelectRangeIfNeeded() {
+        if let onloadSelectRange = viewModel.onloadSelectRange,
+           !viewModel.needsReadOnly {
+            textView.scrollRangeToVisible(onloadSelectRange)
+            textView.becomeFirstResponder()
+            textView.selectedRange = onloadSelectRange
+        }
     }
     
     func update(viewModel: WKSourceEditorViewModel) {
