@@ -126,7 +126,7 @@ final class WKEditorMultiButton: WKComponentView {
     private func buttonConfigurationUpdateHandler(button: UIButton) {
         var buttonConfig = button.configuration
         
-        buttonConfig?.background.backgroundColor = button.isSelected ? self.theme.editorMultiButtonSelectedBackground : self.theme.midBackground
+        buttonConfig?.background.backgroundColor = button.isSelected ? self.theme.editorButtonSelectedBackground : self.theme.midBackground
         
         button.configuration = buttonConfig
     }

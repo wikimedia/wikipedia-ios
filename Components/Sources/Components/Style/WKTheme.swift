@@ -13,6 +13,7 @@ public struct WKTheme: Equatable {
     public let accent: UIColor
     public let destructive: UIColor
     public let border: UIColor
+    public let newBorder: UIColor
     public let paperBackground: UIColor
     public let midBackground: UIColor
     public let baseBackground: UIColor
@@ -33,7 +34,7 @@ public struct WKTheme: Equatable {
     public let editorMatchBackground: UIColor
     public let editorSelectedMatchBackground: UIColor
     public let editorReplacedMatchBackground: UIColor
-    public let editorMultiButtonSelectedBackground: UIColor
+    public let editorButtonSelectedBackground: UIColor
     public let editorKeyboardShadow: UIColor
 
 	public static let light = WKTheme(
@@ -47,6 +48,7 @@ public struct WKTheme: Equatable {
         accent: WKColor.green600,
         destructive: WKColor.red600,
         border: WKColor.gray400,
+        newBorder: WKColor.gray300,
         paperBackground: WKColor.white,
         midBackground: WKColor.gray100,
         baseBackground: WKColor.gray200,
@@ -67,7 +69,7 @@ public struct WKTheme: Equatable {
         editorMatchBackground: WKColor.lightMatchBackground,
         editorSelectedMatchBackground: WKColor.yellow600,
         editorReplacedMatchBackground: WKColor.matchReplacedBackground,
-        editorMultiButtonSelectedBackground: WKColor.gray200,
+        editorButtonSelectedBackground: WKColor.gray200,
         editorKeyboardShadow: WKColor.gray200
 	)
     
@@ -82,6 +84,7 @@ public struct WKTheme: Equatable {
         accent: WKColor.green600,
         destructive: WKColor.red700,
         border: WKColor.taupe200,
+        newBorder: WKColor.taupe200,
         paperBackground: WKColor.beige100,
         midBackground: WKColor.beige300,
         baseBackground: WKColor.beige400,
@@ -102,7 +105,7 @@ public struct WKTheme: Equatable {
         editorMatchBackground: WKColor.lightMatchBackground,
         editorSelectedMatchBackground: WKColor.yellow600,
         editorReplacedMatchBackground: WKColor.matchReplacedBackground,
-        editorMultiButtonSelectedBackground: WKColor.beige400,
+        editorButtonSelectedBackground: WKColor.beige400,
         editorKeyboardShadow: WKColor.taupe200
     )
 
@@ -117,6 +120,7 @@ public struct WKTheme: Equatable {
         accent: WKColor.green600,
         destructive: WKColor.red600,
         border: WKColor.gray650,
+        newBorder: WKColor.gray500,
         paperBackground: WKColor.gray675,
         midBackground: WKColor.gray700,
         baseBackground: WKColor.gray800,
@@ -137,7 +141,7 @@ public struct WKTheme: Equatable {
         editorMatchBackground: WKColor.darkMatchBackground,
         editorSelectedMatchBackground: WKColor.yellow600,
         editorReplacedMatchBackground: WKColor.matchReplacedBackground,
-        editorMultiButtonSelectedBackground: WKColor.gray600,
+        editorButtonSelectedBackground: WKColor.gray600,
         editorKeyboardShadow: WKColor.gray800
 	)
 
@@ -152,6 +156,7 @@ public struct WKTheme: Equatable {
         accent: WKColor.green600,
         destructive: WKColor.red600,
         border: WKColor.gray675,
+        newBorder: WKColor.gray500,
         paperBackground: WKColor.black,
         midBackground: WKColor.gray700,
         baseBackground: WKColor.gray800,
@@ -172,7 +177,7 @@ public struct WKTheme: Equatable {
         editorMatchBackground: WKColor.darkMatchBackground,
         editorSelectedMatchBackground: WKColor.yellow600,
         editorReplacedMatchBackground: WKColor.matchReplacedBackground,
-        editorMultiButtonSelectedBackground: WKColor.gray600,
+        editorButtonSelectedBackground: WKColor.gray600,
         editorKeyboardShadow: WKColor.gray700
 	)
 

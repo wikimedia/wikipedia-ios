@@ -29,7 +29,7 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
         redoButton.tintColor = theme.colors.inputAccessoryButtonTint
         readingThemesControlsButton.tintColor = theme.colors.inputAccessoryButtonTint
         editNoticesButton.tintColor = theme.colors.inputAccessoryButtonTint
-        separatorButton.tintColor = theme.colors.chromeText
+        (separatorButton.customView as? UIImageView)?.tintColor = theme.colors.newBorder
         progressButton.tintColor = theme.colors.link
     }
 
@@ -71,11 +71,12 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
     }()
 
     private lazy var separatorButton: UIBarButtonItem = {
-        let button = UIButton(type: .system)
-        button.setImage(WKIcon.separator, for: .normal)
+        let width = (1.0 / UIScreen.main.scale) * 2
+        let image = UIImage.roundedRectImage(with: .black, cornerRadius: 0, width: width, height: 32)?.withRenderingMode(.alwaysTemplate)
+        let button = UIBarButtonItem(customView: UIImageView(image: image))
         button.isEnabled = false
         button.isAccessibilityElement = false
-        return UIBarButtonItem(customView: button)
+        return button
     }()
 
     @objc private func progress(_ sender: UIBarButtonItem) {

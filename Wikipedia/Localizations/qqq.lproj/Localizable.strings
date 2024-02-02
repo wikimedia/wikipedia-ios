@@ -950,7 +950,7 @@
 "reading-themes-controls-accessibility-light-theme-button" = "Accessibility label for the light theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Accessibility label for the sepia theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Accessibility text for the syntax highlighting toggle in the Reading Themes Controls popover";
-"reading-themes-controls-accessibility-text-size-slider" = "Accessibility label for the text size slider in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-text-size-slider" = "Accessibility label for the text size slider that adjusts text size.";
 "reading-themes-controls-syntax-highlighting" = "Text for syntax highlighting label in the Reading Themes Controls popover";
 "reference-section-button-accessibility-label" = "Voiceover label for the top button (that jumps to article's reference section) when viewing a reference's details";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]' {{Identical|Reference}}";

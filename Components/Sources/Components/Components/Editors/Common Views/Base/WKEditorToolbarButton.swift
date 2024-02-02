@@ -113,7 +113,7 @@ class WKEditorToolbarButton: WKComponentView {
     private func createButtonConfig(image: UIImage? = nil) -> UIButton.Configuration {
         var buttonConfig = UIButton.Configuration.plain()
         
-        buttonConfig.baseForegroundColor = (button?.isSelected ?? false) ? theme.inputAccessoryButtonSelectedTint : theme.inputAccessoryButtonTint
+        buttonConfig.baseForegroundColor = theme.text
         buttonConfig.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         buttonConfig.background.cornerRadius = 0
         if let image {
@@ -125,8 +125,7 @@ class WKEditorToolbarButton: WKComponentView {
     
     private func buttonConfigurationUpdateHandler(button: UIButton) {
         var buttonConfig = button.configuration
-        buttonConfig?.baseForegroundColor = button.isSelected ? theme.inputAccessoryButtonSelectedTint : theme.inputAccessoryButtonTint
-        buttonConfig?.background.backgroundColor = button.isSelected ? theme.inputAccessoryButtonSelectedBackgroundColor : theme.accessoryBackground
+        buttonConfig?.background.backgroundColor = button.isSelected ? self.theme.editorButtonSelectedBackground : theme.paperBackground
         button.configuration = buttonConfig
     }
     
