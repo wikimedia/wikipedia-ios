@@ -45,7 +45,12 @@ public struct WKWikitextUtils {
         var bestScore: Int?
         for match in matches {
             let score = scoreForMatch(match: match, wikitext: wikitext, htmlWordsBeforeTargetText: htmlWordsBeforeTargetText, htmlWordsAfterTargetText: htmlWordsAfterTargetText)
-            if score > (bestScore ?? 0) {
+            
+            if var bestScore,
+               score > bestScore {
+                bestScore = score
+                bestScoredMatch = match
+            } else if bestScoredMatch == nil {
                 bestScore = score
                 bestScoredMatch = match
             }
@@ -82,19 +87,15 @@ public struct WKWikitextUtils {
     
     private static func scoreForMatch(match: NSTextCheckingResult, wikitext: String, htmlWordsBeforeTargetText: [String], htmlWordsAfterTargetText: [String]) -> Int {
         let wikitextRangeBeforeMatchLocation = max(0, match.range.location - adjacentCharacterCount)
-        guard let wikitextRangeBeforeMatch = Range(NSRange(location: wikitextRangeBeforeMatchLocation, length: match.range.location - wikitextRangeBeforeMatchLocation), in: wikitext) else {
-            return 0
-        }
+        let wikitextRangeBeforeMatch = NSRange(location: wikitextRangeBeforeMatchLocation, length: match.range.location - wikitextRangeBeforeMatchLocation)
         
-        let wikitextBeforeMatch = String(wikitext[wikitextRangeBeforeMatch]).wordsOnly()
+        let wikitextBeforeMatch = (wikitext as NSString).substring(with: wikitextRangeBeforeMatch).wordsOnly()
         let wikitextWordsBeforeMatch = lastWordsOfText(text: wikitextBeforeMatch, wordCount: adjacentWordCount)
         
         let wikitextRangeAfterMatchLocation = match.range.location + match.range.length
-        guard let wikitextRangeAfterMatch = Range(NSRange(location: wikitextRangeAfterMatchLocation, length: min(adjacentCharacterCount, wikitext.count - wikitextRangeAfterMatchLocation)), in: wikitext) else {
-            return 0
-        }
+        let wikitextRangeAfterMatch = NSRange(location: wikitextRangeAfterMatchLocation, length: min(adjacentCharacterCount, wikitext.count - wikitextRangeAfterMatchLocation))
         
-        let wikitextAfterMatch = String(wikitext[wikitextRangeAfterMatch]).wordsOnly()
+        let wikitextAfterMatch = (wikitext as NSString).substring(with: wikitextRangeAfterMatch).wordsOnly()
         let wikitextWordsAfterMatch = firstWordsOfText(text: wikitextAfterMatch, wordCount: adjacentWordCount)
         
         let wordsBeforeScore = calculateScore(htmlWords: htmlWordsBeforeTargetText.reversed(), wikitextWords: wikitextWordsBeforeMatch.reversed())
@@ -133,17 +134,29 @@ fileprivate extension String {
     /// Trims whitespace off final output
     func wordsOnly() -> String {
         let parenthesisRegexPattern = "\\(.*?\\)"
-        let templateRegexPattern = "{{.*}}"
+        let templateRegexPattern = "\\{\\{.*\\}\\}"
         let nonWordRegexPattern = "\\W+"
         
         var finalText = self
-        do {
-            finalText = try NSRegularExpression(pattern: parenthesisRegexPattern).stringByReplacingMatches(in: self, range: NSRange(location: 0, length: self.count), withTemplate: "")
-            finalText = try NSRegularExpression(pattern: templateRegexPattern).stringByReplacingMatches(in: finalText, range: NSRange(location: 0, length: finalText.count), withTemplate: "")
-            finalText = try NSRegularExpression(pattern: nonWordRegexPattern).stringByReplacingMatches(in: finalText, range: NSRange(location: 0, length: finalText.count), withTemplate: " ")
-            return finalText.trimmingCharacters(in: .whitespaces)
-        } catch {
-            return finalText.trimmingCharacters(in: .whitespaces)
+        
+        if let parenthesisMatches = try? NSRegularExpression(pattern: parenthesisRegexPattern).matches(in: finalText, range: NSRange(location: 0, length: finalText.count)) {
+            for match in parenthesisMatches.reversed() {
+                finalText = (finalText as NSString).replacingCharacters(in: match.range, with: "")
+            }
         }
+        
+        if let templateMatches = try? NSRegularExpression(pattern: templateRegexPattern).matches(in: finalText, range: NSRange(location: 0, length: finalText.count)) {
+            for match in templateMatches.reversed() {
+                finalText = (finalText as NSString).replacingCharacters(in: match.range, with: "")
+            }
+        }
+        
+        if let nonWordMatches = try? NSRegularExpression(pattern: nonWordRegexPattern).matches(in: finalText, range: NSRange(location: 0, length: finalText.count)) {
+            for match in nonWordMatches.reversed() {
+                finalText = (finalText as NSString).replacingCharacters(in: match.range, with: " ")
+            }
+        }
+        
+        return finalText.trimmingCharacters(in: .whitespaces)
     }
 }
