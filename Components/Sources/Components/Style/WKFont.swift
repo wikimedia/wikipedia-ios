@@ -4,8 +4,9 @@ import SwiftUI
 public enum WKFont {
 
     case headline
-    case title
-    case boldTitle
+    case title1
+    case boldTitle1
+    case boldTitle3
     case body
     case boldBody
     case italicsBody
@@ -28,9 +29,14 @@ public enum WKFont {
         switch font {
         case .headline:
             return UIFont.preferredFont(forTextStyle: .headline, compatibleWith: traitCollection)
-        case .title:
+        case .title1:
             return UIFont.preferredFont(forTextStyle: .title1, compatibleWith: traitCollection)
-        case .boldTitle:
+        case .boldTitle3:
+            guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title3, compatibleWith: traitCollection).withSymbolicTraits(.traitBold) else {
+                fatalError()
+            }
+            return UIFont(descriptor: descriptor, size: 0)
+        case .boldTitle1:
             guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title1, compatibleWith: traitCollection).withSymbolicTraits(.traitBold) else {
                 fatalError()
             }
@@ -75,7 +81,7 @@ public enum WKFont {
             }
             return UIFont(descriptor: descriptor, size: 0)
         case .editorHeading:
-            return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 28, weight: .semibold), maximumPointSize: 32, compatibleWith: traitCollection)
+            return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 28, weight: .semibold), compatibleWith: traitCollection)
         case .editorSubheading1:
             return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 26, weight: .semibold), compatibleWith: traitCollection)
         case .editorSubheading2:

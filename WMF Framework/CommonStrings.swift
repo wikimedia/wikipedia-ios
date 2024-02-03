@@ -120,7 +120,7 @@ public class CommonStrings: NSObject {
 
     @objc public static let dismissButtonTitle = WMFLocalizedString("announcements-dismiss", value: "Dismiss", comment: "Button text indicating a user wants to dismiss an announcement {{Identical|No thanks}}")
 
-    @objc public static let textSizeSliderAccessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-text-size-slider", value: "Text size slider", comment: "Accessibility label for the text size slider that adjusts article text size.")
+    @objc public static let textSizeSliderAccessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-text-size-slider", value: "Text size slider", comment: "Accessibility label for the text size slider that adjusts text size.")
 
     @objc public static let deleteActionTitle = WMFLocalizedString("article-delete", value: "Delete", comment: "Title of the action that deletes the selected articles article.")
 
@@ -172,7 +172,11 @@ public class CommonStrings: NSObject {
     @objc public static let gotItButtonTitle = WMFLocalizedString("welcome-explore-tell-me-more-done-button", value: "Got it", comment:"Text for button dismissing detailed explanation of new features")
     public static let getStartedTitle = WMFLocalizedString("welcome-explore-continue-button", value:"Get started", comment:"Text for button for dismissing welcome screens {{Identical|Get started}}")
 
-    @objc public static let privacyPolicyURLString = "https://foundation.m.wikimedia.org/wiki/Privacy_policy"
+    @objc public static let privacyPolicyTitle = WMFLocalizedString("privacy-policy-title", value: "Privacy policy", comment: "Title for the privacy Policy")
+    @objc public static let termsOfUseTitle = WMFLocalizedString("terms-of-use-title", value: "Terms of use", comment: "Title for the terms of use")
+
+    @objc public static let privacyPolicyURLString = "https://foundation.wikimedia.org/wiki/Policy:Privacy_policy"
+    @objc public static let termsOfUseURLString = "https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use"
 
     @objc public static let account = WMFLocalizedString("settings-account", value: "Account", comment: "Title for button and page letting user view their account page.")
 
@@ -227,6 +231,8 @@ public class CommonStrings: NSObject {
     @objc public static let revertedEditTitle = WMFLocalizedString("reverted-edit-title", value: "Reverted edit", comment: "Title for notification informing user that their edit was reverted.")
 
     @objc public static let noInternetConnection = WMFLocalizedString("no-internet-connection", value: "No internet connection", comment: "String used in various places to indicate no internet connection")
+    
+    public static let unexpectedErrorAlertTitle = WMFLocalizedString("talk-page-error-alert-title", value: "Unexpected error", comment: "Title for unexpected error alert")
     
     @objc public static let noEmailClient = WMFLocalizedString("no-email-account-alert", value: "Please setup an email account on your device and try again.", comment: "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device")
     
@@ -532,73 +538,93 @@ public class CommonStrings: NSObject {
 
     // Native page editor
 
-    public static let textFormatting = WMFLocalizedString("source-editor-text-formatting", value: "Text Formatting", comment: "Label for text formatting section on the page editor")
-    public static let style = WMFLocalizedString("source-editor-style", value: "Style", comment: "Label for style formatting section on the page editor ")
-    public static let clearFormatting = WMFLocalizedString("source-editor-clear-formatting", value: "Clear formatting", comment: "Label for clear formatting on the page editor")
-    public static let paragraph = WMFLocalizedString("source-editor-paragraph", value: "Paragraph", comment: "Label for paragraph formatting button on the page editor")
-    public static let heading = WMFLocalizedString("source-editor-heading", value: "Heading", comment: "Label for heading formatting button on section editor")
-    public static let subheading1 = WMFLocalizedString("source-editor-subheading1", value: "Subheading 1", comment: "Label for subheading 1 formatting button on the page editor")
-    public static let subheading2 = WMFLocalizedString("source-editor-subheading2", value: "Subheading 2", comment: "Label for subheading 2 formatting button on the page editor")
-    public static let subheading3 = WMFLocalizedString("source-editor-subheading3", value: "Subheading 3", comment: "Label for subheading 3 formatting button on the page editor")
-    public static let subheading4 = WMFLocalizedString("source-editor-subheading4", value: "Subheading 4", comment: "Label for subheading 4 formatting button on the page editor")
-    public static let findAndReplaceSingle = WMFLocalizedString("source-editor-find-replace-single", value: "Replace", comment: "Label for replace single string button on page editor")
-    public static let findAndReplaceAll = WMFLocalizedString("source-editor-find-replace-all", value: "Replace all", comment: "Label for replace all ocurrences of a string on the page editor")
-    public static let replaceWith = WMFLocalizedString("source-editor-find-replace-with", value: "Replace with...", comment: "Lable for replace with string button on page editor")
-    public static let accessibilityLabelButtonFormatText = WMFLocalizedString("source-editor-accessibility-label-format-text", value: "Show text formatting menu", comment: "Accessibility label for text formatting menu button on the page editor")
-    public static let accessibilityLabelButtonCitation = WMFLocalizedString("source-editor-accessibility-label-citation", value: "Add reference syntax", comment: "Accessibility label for add reference syntax button on the page editor")
-    public static let  accessibilityLabelButtonCitationSelected = WMFLocalizedString("source-editor-accessibility-label-citation-selected", value: "Remove reference syntax", comment: "Accessibility label for remove reference syntax button on the page editor")
-    public static let accessibilityLabelButtonLink = WMFLocalizedString("source-editor-accessibility-label-link", value: "Add link syntax", comment: "Accessibility label for the add link syntax button on the page editor")
-    public static let accessibilityLabelButtonLinkSelected = WMFLocalizedString("source-editor-accessibility-label-link-selected", value: "Remove link syntax", comment: "Accessibility label for the remove link syntax button on the page editor")
-    public static let accessibilityLabelButtonTemplate = WMFLocalizedString("source-editor-accessibility-label-template", value: "Add template syntax", comment: "Accessibility label for the add template syntax button on the page editor")
-    public static let accessibilityLabelButtonTemplateSelected = WMFLocalizedString("source-editor-accessibility-label-template-selected", value: "Remove template syntax", comment: "Accessibility label for the remove template syntax button on the page editor")
-    public static let accessibilityLabelButtonMedia = WMFLocalizedString("source-editor-accessibility-label-media", value: "Insert media", comment: "Accessibility label for the insert media syntax button on the page editor")
-    public static let accessibilityLabelButtonFind = WMFLocalizedString("source-editor-accessibility-label-find", value: "Find in page", comment: "Accessibility label for the find in page button on the page editor")
-    public static let accessibilityLabelButtonListUnordered = WMFLocalizedString("source-editor-accessibility-label-unordered", value: "Make current line unordered list", comment: "Accessibility label for make unordered list button on the page editor")
-    public static let accessibilityLabelButtonListUnorderedSelected = WMFLocalizedString("source-editor-accessibility-label-unordered-selected", value: "Remove unordered list from current line", comment: "Accessibility label for remove unordered list button on the page editor")
-    public static let accessibilityLabelButtonListOrdered = WMFLocalizedString("source-editor-accessibility-label-ordered", value: "Make current line ordered list", comment: "Accessibility label for make ordered list button on the page editor")
-    public static let accessibilityLabelButtonListOrderedSelected = WMFLocalizedString("source-editor-accessibility-label-ordered-selected", value: "Remove ordered list from current line", comment: "accessibility label for remove ordered list button on the page editor")
-    public static let accessibilityLabelButtonIncreaseIndent = WMFLocalizedString("source-editor-accessibility-label-indent-increase", value: "Increase indent depth", comment: "Accessibility label for the increase indent button on the page editor")
-    public static let accessibilityLabelButtonDecreaseIndent = WMFLocalizedString("source-editor-accessibility-label-indent-decrease", value: "Decrease indent depth", comment: "Accessibility label for the decrease indent button on the page editor")
-    public static let accessibilityLabelButtonCursorUp = WMFLocalizedString("source-editor-accessibility-label-cursor-up", value: "Move cursor up", comment: "Accessibility label for the move cursor up button on the page editor")
-    public static let accessibilityLabelButtonCursorDown = WMFLocalizedString("source-editor-accessibility-label-cursor-down", value: "Move cursor down", comment: "Accessibility label for the move cursor down button on the page editor")
-    public static let accessibilityLabelButtonCursorLeft = WMFLocalizedString("source-editor-accessibility-label-cursor-left", value: "Move cursor left", comment: "Accessibility label for the move cursor left button the page editor")
-    public static let accessibilityLabelButtonCursorRight = WMFLocalizedString("source-editor-accessibility-label-cursor-right", value: "Move cursor right", comment: "Accessibility label for the move cursor right on the page editor")
-    public static let accessibilityLabelButtonBold = WMFLocalizedString("source-editor-accessibility-label-bold", value: "Add bold formatting", comment: "Accessibility label for the bold button on the page editor")
-    public static let accessibilityLabelButtonBoldSelected = WMFLocalizedString("source-editor-accessibility-label-bold-selected", value: "Remove bold formatting", comment: "Accessibility label for the selected bold button on the page editor")
-    public static let accessibilityLabelButtonItalics = WMFLocalizedString("source-editor-accessibility-label-italics", value: "Add italic formatting", comment: "Accessibility label for the italics button on the page editor")
-    public static let accessibilityLabelButtonItalicsSelected = WMFLocalizedString("source-editor-accessibility-label-italics-selected", value: "Remove italic formatting", comment: "Accessibility label for the selected italics button on the page editor")
-    public static let accessibilityLabelButtonClearFormatting = WMFLocalizedString("source-editor-accessibility-label-clear-formatting", value: "Clear formatting", comment: "Accessibility label for the clear formatting button on the page editor")
-    public static let accessibilityLabelButtonShowMore = WMFLocalizedString("source-editor-accessibility-label-format-text-show-more", value: "Show text formatting menu", comment: "Accessibility label for the show more button on the page editor")
-    public static let accessibilityLabelButtonComment = WMFLocalizedString("source-editor-accessibility-label-comment", value: "Add comment syntax", comment: "Accessibility label for the add comment button on the page editor")
-    public static let accessibilityLabelButtonCommentSelected = WMFLocalizedString("source-editor-accessibility-label-comment-selected", value: "Remove comment syntax", comment: "Accessibility label for the selected comment button on the page editor")
-    public static let accessibilityLabelButtonSuperscript = WMFLocalizedString("source-editor-accessibility-label-superscript", value: "Add superscript formatting", comment: "Accessibility label for the superscript button on the page editor")
-    public static let accessibilityLabelButtonSuperscriptSelected = WMFLocalizedString("source-editor-accessibility-label-superscript-selected", value: "Remove superscript formatting", comment: "Accessibility string for the selected superscript button on the page editor")
-    public static let accessibilityLabelButtonSubscript = WMFLocalizedString("source-editor-accessibility-label-subscript", value: "Add subscript formatting", comment: "Accessibility label for the subscript button on the page editor")
-    public static let accessibilityLabelButtonSubscriptSelected = WMFLocalizedString("source-editor-accessibility-label-subscript-selected", value: "Remove subscript formatting", comment: "Accessibility label for the selected subscript button on the page editor")
-    public static let accessibilityLabelButtonUnderline = WMFLocalizedString("source-editor-accessibility-label-underline", value: "Add underline", comment: "Accessibility label for the underline button on the page editor")
-    public static let accessibilityLabelButtonUnderlineSelected = WMFLocalizedString("source-editor-accessibility-label-underline-selected", value: "Remove underline", comment: "Accessibility label for the selected underline button on the page editor")
-    public static let accessibilityLabelButtonStrikethrough = WMFLocalizedString("source-editor-accessibility-label-strikethrough", value: "Add strikethrough", comment: "Accessibility label for the strikethrough button on the page editor")
-    public static let accessibilityLabelButtonStrikethroughSelected = WMFLocalizedString("source-editor-accessibility-label-strikethrough-selected", value: "Remove strikethrough", comment: "Accessibility label for the selected strikethrough button on the page editor")
-    public static let accessibilityLabelButtonCloseMainInputView = WMFLocalizedString("source-editor-accessibility-label-close-main-input", value: "Close text formatting menu", comment: "Accessibility label for the close formatting menu button on the page editor")
-    public static let accessibilityLabelButtonCloseHeaderSelectInputView = WMFLocalizedString("source-editor-accessibility-label-close-header-select", value: "Close text style menu", comment: "Accessibility label for the close text style menu button on the page editor")
-    public static let accessibilityLabelFindTextField = WMFLocalizedString("source-editor-accessibility-label-find-text-field", value: "Find", comment: "Accessibility label for the find text field on the page editor")
-    public static let accessibilityLabelFindButtonClear = WMFLocalizedString("source-editor-accessibility-label-find-button-clear", value: "Clear find", comment: "Accessibility label for the clear find button on the page editor")
-    public static let accessibilityLabelFindButtonClose = WMFLocalizedString("source-editor-accessibility-label-find-button-close", value: "Close find", comment: "Accessibility label for the close find button on the page editor")
-    public static let accessibilityLabelFindButtonNext = WMFLocalizedString("source-editor-accessibility-label-find-button-next", value: "Next find result", comment: "Accessibility label for the find next result on the page editor")
-    public static let accessibilityLabelFindButtonPrevious = WMFLocalizedString("source-editor-accessibility-label-find-button-prev", value: "Previous find result", comment: "Accessibility label for the find previous result button on the page editor")
-    public static let accessibilityLabelReplaceTextField = WMFLocalizedString("source-editor-accessibility-label-replace-text-field", value: "Replace", comment: "Accessibility label for the replace text field on the page editor")
-    public static let accessibilityLabelReplaceButtonClear = WMFLocalizedString("source-editor-accessibility-label-replace-button-clear", value: "Clear replace", comment: "Accessibility label for the clear replace field button on the page editor")
-    public static let accessibilityLabelReplaceButtonPerformFormat = WMFLocalizedString("source-editor-accessibility-label-replace-button-perform-format", value: "Perform replace operation. Replace type is set to %@", comment: "Accessibility label for the perform replace button on the page editor, %@ is replaced by text to replace") // TODO get replaced text correctly
-    public static let accessibilityLabelReplaceButtonSwitchFormat = WMFLocalizedString("source-editor-accessibility-label-replace-button-switch-format", value: "Switch replace type. Currently set to %@. Select to change.", comment: "Accessibility label for switch format button on page editor, %@ is replaced by text to replace")// TODO get replaced text correctly
-    public static let accessibilityLabelReplaceTypeSingle = WMFLocalizedString("source-editor-accessibility-label-replace-type-single", value: "Replace single instance", comment: "Accessibility label for replace single instance button on the page editor")
-    public static let accessibilityLabelReplaceTypeAll = WMFLocalizedString("source-editor-accessibility-label-replace-type-all", value: "Replace all instances", comment: "Accessibility label for the replace all instances button on the page editor")
+    public static let editorKeyboardTextFormattingTitle = WMFLocalizedString("editor-keyboard-text-formatting-title", value: "Text Formatting", comment: "Title of text formatting keyboard view on the editor.")
+    
+    public static let editorKeyboardParagraphButton = WMFLocalizedString("editor-keyboard-paragraph-button", value: "Paragraph", comment: "Paragraph button label in the text formatting keyboard view on the editor.")
+    public static let editorKeyboardHeadingButton = WMFLocalizedString("editor-keyboard-heading-button", value: "Heading", comment: "Heading button label in the text formatting keyboard view on the editor.")
+    public static let editorKeyboardSubheading1Button = WMFLocalizedString("editor-keyboard-subheading1-button", value: "Subheading 1", comment: "Subheading1 button label in the text formatting keyboard view on the editor.")
+    public static let editorKeyboardSubheading2Button = WMFLocalizedString("editor-keyboard-subheading2-button", value: "Subheading 2", comment: "Subheading2 button label in the text formatting keyboard view on the editor.")
+    public static let editorKeyboardSubheading3Button = WMFLocalizedString("editor-keyboard-subheading3-button", value: "Subheading 3", comment: "Subheading3 button label in the text formatting keyboard view on the editor.")
+    public static let editorKeyboardSubheading4Button = WMFLocalizedString("editor-keyboard-subheading4-button", value: "Subheading 4", comment: "Subheading4 button label in the text formatting keyboard view on the editor.")
+    
+    public static let editorReplaceTypeSingle = WMFLocalizedString("editor-replace-type-single", value: "Replace", comment: "Label indicating which replace type the user has set in the find and replace view on the editor. This type replaces a single instance of the find text.")
+    public static let editorReplaceTypeAll = WMFLocalizedString("editor-replace-type-all", value: "Replace all", comment: "Label indicating which replace type the user has set in the find and replace view on the editor. This type replaces all instances of the find text.")
+    public static let editorReplaceTextfieldPlaceholder = WMFLocalizedString("editor-replace-textfield-placeholder", value: "Replace with...", comment: "Placeholder label displayed when the replace textfield in the editor's find and replace view is empty.")
+    
+    public static let editorToolbarButtonOpenTextFormatMenuAccessiblityLabel = WMFLocalizedString("editor-toolbar-open-text-format-menu-accessibility", value: "Open text formatting menu", comment: "Accessibility label for text format toolbar button on the editor. This button opens the keyboard text formatting menu.")
+    
+    public static let editorToolbarButtonReferenceAccessiblityLabel = WMFLocalizedString("editor-toolbar-reference-accessibility", value: "Reference text formatting", comment: "Accessibility label for reference toolbar button on the editor.")
+    public static let editorKeyboardButtonReferenceAccessiblityLabel = WMFLocalizedString("editor-keyboard-reference-accessibility", value: "Reference", comment: "Accessibility label for reference keyboard button on the editor.")
+    
+    public static let editorToolbarButtonLinkAccessiblityLabel = WMFLocalizedString("editor-toolbar-link-accessibility", value: "Link text formatting", comment: "Accessibility label for link toolbar button on the editor.")
+    public static let editorKeyboardButtonLinkAccessiblityLabel = WMFLocalizedString("editor-keyboard-link-accessibility", value: "Link", comment: "Accessibility label for link keyboard button on the editor.")
+    
+    public static let editorToolbarButtonTemplateAccessiblityLabel = WMFLocalizedString("editor-toolbar-template-accessibility", value: "Template text formatting", comment: "Accessibility label for template toolbar button on the editor.")
+    public static let editorKeyboardButtonTemplateAccessiblityLabel = WMFLocalizedString("editor-keyboard-template-accessibility", value: "Template", comment: "Accessibility label for template keyboard button on the editor.")
+
+    public static let editorToolbarButtonImageAccessiblityLabel = WMFLocalizedString("editor-toolbar-image-accessibility", value: "Image text formatting", comment: "Accessibility label for image toolbar button on the editor.")
+
+    public static let editorToolbarButtonFindAccessiblityLabel = WMFLocalizedString("editor-toolbar-find-accessibility", value: "Find in page", comment: "Accessibility label for find toolbar button on the editor. This button opens the find in page view.")
+    
+    public static let editorToolbarShowMoreOptionsButtonAccessiblityLabel = WMFLocalizedString("editor-toolbar-show-more-accessibility", value: "Show more formatting options", comment: "Accessibility label for expand button on the formatting toolbar in editor. This button reveals more formatting toolbar buttons.")
+    
+    public static let editorToolbarButtonListUnorderedAccessiblityLabel = WMFLocalizedString("editor-toolbar-list-unordered-accessibility", value: "Unordered list text formatting", comment: "Accessibility label for unordered list toolbar button on the editor.")
+    public static let editorKeyboardButtonListUnorderedAccessiblityLabel = WMFLocalizedString("editor-keyboard-list-unordered-accessibility", value: "Unordered list", comment: "Accessibility label for unordered list keyboard button on the editor.")
+    
+    public static let editorToolbarButtonListOrderedAccessiblityLabel = WMFLocalizedString("editor-toolbar-list-ordered-accessibility", value: "Ordered list text formatting", comment: "Accessibility label for ordered list toolbar button on the editor.")
+    public static let editorKeyboardButtonListOrderedAccessiblityLabel = WMFLocalizedString("editor-keyboard-list-ordered-accessibility", value: "Ordered list", comment: "Accessibility label for ordered list keyboard button on the editor.")
+    
+    public static let editorToolbarButtonIndentIncreaseAccessiblityLabel = WMFLocalizedString("editor-toolbar-indent-increase-accessibility", value: "Increase indent text formatting", comment: "Accessibility label for increase indent toolbar button on the editor.")
+    public static let editorKeyboardButtonIndentIncreaseAccessiblityLabel = WMFLocalizedString("editor-keyboard-indent-increase-accessibility", value: "Increase indent", comment: "Accessibility label for increase indent keyboard button on the editor.")
+    
+    public static let editorToolbarButtonIndentDecreaseAccessiblityLabel = WMFLocalizedString("editor-toolbar-indent-decrease-accessibility", value: "Decrease indent text formatting", comment: "Accessibility label for decrease indent toolbar button on the editor.")
+    public static let editorKeyboardButtonIndentDecreaseAccessiblityLabel = WMFLocalizedString("editor-keyboard-indent-decrease-accessibility", value: "Decrease indent", comment: "Accessibility label for decrease indent keyboard button on the editor.")
+    
+    public static let editorToolbarButtonCursorUpAccessiblityLabel = WMFLocalizedString("editor-toolbar-cursor-up-accessibility", value: "Move cursor up to previous line.", comment: "Accessibility label for move cursor up button on the editor. This button moves the cursor up to the previous line.")
+    public static let editorToolbarButtonCursorDownAccessiblityLabel = WMFLocalizedString("editor-toolbar-cursor-down-accessibility", value: "Move cursor down to next line.", comment: "Accessibility label for move cursor down button on the editor. This button moves the cursor down to the next line.")
+    public static let editorToolbarButtonCursorPreviousAccessiblityLabel = WMFLocalizedString("editor-toolbar-cursor-previous-accessibility", value: "Move cursor to previous character.", comment: "Accessibility label for move cursor down button on the editor. This button moves the cursor to the previous character.")
+    public static let editorToolbarButtonCursorNextAccessiblityLabel = WMFLocalizedString("editor-toolbar-cursor-next-accessibility", value: "Move cursor to next character.", comment: "Accessibility label for move cursor next button on the editor. This button moves the cursor to the next character.")
+    
+    public static let editorToolbarButtonBoldAccessiblityLabel = WMFLocalizedString("editor-toolbar-bold-accessibility", value: "Bold text formatting", comment: "Accessibility label for bold toolbar button on the editor.")
+    public static let editorKeyboardButtonBoldAccessiblityLabel = WMFLocalizedString("editor-keyboard-bold-accessibility", value: "Bold", comment: "Accessibility label for bold keyboard button on the editor.")
+
+    public static let editorToolbarButtonItalicsAccessiblityLabel = WMFLocalizedString("editor-toolbar-italics-accessibility", value: "Italics text formatting", comment: "Accessibility label for italics toolbar button on the editor.")
+    public static let editorKeyboardButtonItalicsAccessiblityLabel = WMFLocalizedString("editor-keyboard-italics-accessibility", value: "Italics", comment: "Accessibility label for italics keyboard button on the editor.")
+ 
+    public static let editorKeyboardButtonCommentAccessiblityLabel = WMFLocalizedString("editor-keyboard-comment-accessibility", value: "Comment", comment: "Accessibility label for comment keyboard button on the editor.")
+    
+    public static let editorKeyboardButtonSuperscriptAccessiblityLabel = WMFLocalizedString("editor-keyboard-superscript-accessibility", value: "Superscript", comment: "Accessibility label for superscript keyboard button on the editor.")
+    
+    public static let editorKeyboardButtonSubscriptAccessiblityLabel = WMFLocalizedString("editor-keyboard-subscript-accessibility", value: "Subscript", comment: "Accessibility label for subscript keyboard button on the editor.")
+    
+    public static let editorKeyboardButtonUnderlineAccessiblityLabel = WMFLocalizedString("editor-keyboard-underline-accessibility", value: "Underline", comment: "Accessibility label for underline keyboard button on the editor.")
+    
+    public static let editorKeyboardButtonStrikethroughAccessiblityLabel = WMFLocalizedString("editor-keyboard-strikethrough-accessibility", value: "Strikethrough", comment: "Accessibility label for strikethrough keyboard button on the editor.")
+    
+    public static let editorKeyboardButtonCloseTextFormatMenuAccessiblityLabel = WMFLocalizedString("editor-keyboard-close-text-format-menu-accessibility", value: "Close text formatting menu", comment: "Accessibility label for close keyboard button on the editor. This button closes the keyboard text formatting menu.")
+    
+    public static let editorFindTextFieldAccessibilityLabel = WMFLocalizedString("editor-find-textfield-accessibility", value: "Find", comment: "Accessibility label for the find textfield on the editor")
+    public static let editorFindClearButtonAccessibilityLabel = WMFLocalizedString("editor-find-clear-button-accessibility", value: "Clear find", comment: "Accessibility label for the clear find button on the editor. This button clears the text in the find textfield.")
+    public static let editorFindCurrentMatchInfoFormatAccessibilityLabel = WMFLocalizedString("editor-find-current-match-info-accessibility", value: "%1$@ total matches found. Highlighted match number %2$@", comment: "Accessibility text for the match results informational label. %1$@ is replaced by the total number of matches found. %2$@ is replaced by which number match is currently highlighted.")
+    public static let editorFindCurrentMatchInfoZeroResultsAccessibilityLabel = WMFLocalizedString("editor-find-current-match-info-zero-results-accessibility", value: "No matches found", comment: "Accessibility text for zero match results informational label.")
+    public static let editorFindCloseButtonAccessibilityLabel = WMFLocalizedString("editor-find-close-button-accessibility", value: "Close find", comment: "Accessibility label for the close find button on the editor. This button clears out find results and closes the find in page view.")
+    public static let editorFindNextButtonAccessibilityLabel = WMFLocalizedString("editor-find-next-button-accessibility", value: "Next find result", comment: "Accessibility label for the find next result on the editor. This button highlights the next find result in the editor text.")
+    public static let editorFindPreviousButtonAccessibilityLabel = WMFLocalizedString("editor-find-previous-button-accessibility", value: "Previous find result", comment: "Accessibility label for the find previous result on the editor. This button highlights the previous find result in the editor text.")
+    public static let editorReplaceTextFieldAccessibilityLabel = WMFLocalizedString("editor-replace-textfield-accessibility", value: "Replace", comment: "Accessibility label for the replace textfield on the editor")
+    public static let editorReplaceClearButtonAccessibilityLabel = WMFLocalizedString("editor-replace-clear-button-accessibility", value: "Clear replace", comment: "Accessibility label for the clear replace button on the editor. This button clears the text in the replace textfield.")
+    
+    public static let editorReplaceButtonFormatAccessibilityLabel = WMFLocalizedString("editor-replace-button-format-accessibility", value: "Perform replace operation. Replace type is set to %1$@.", comment: "Accessibility label for the replace button on the editor. %1$@ is replaced by the replace type the user has set (single instance or all instances).")
+    
+    public static let editorReplaceTypeButtonFormatAccessibilityLabel = WMFLocalizedString("editor-replace-type-button-accessibility", value: "Switch replace type. Currently set to %1$@. Select to change.", comment: "Accessibility label for the replace type button on the editor. %1$@ is replaced by the replace type the user has set (single instance or all instances).")
+
+    public static let editorReplaceTypeSingleAccessibility = WMFLocalizedString("editor-replace-type-single-accessibility", value: "Replace single instance", comment: "Accessibility text for the replace single instance type on the editor.")
+    public static let editorReplaceTypeAllAccessibility = WMFLocalizedString("editor-replace-type-all-accessibility", value: "Replace all instances", comment: "Accessibility text for the replace all instances type on the editor.")
     
     public static let editContextMenuTitle = WMFLocalizedString("edit-menu-item", value: "Edit", comment: "Button label for 'Edit' context menu item")
     
-    public static let editSource = WMFLocalizedString("source-editor-edit-source", value: "Edit source", comment: "Title for menu option to edit the source of a page.")
+    public static let editSource = WMFLocalizedString("editor-edit-source", value: "Edit source", comment: "Title for menu option to edit the source of a page.")
     
-    public static let editPublishedToastTitle = WMFLocalizedString("source-editor-edit-published", value: "Your edit was published.", comment: "Title for alert informing that the user's new edit was successfully published.")
-
+    public static let editPublishedToastTitle = WMFLocalizedString("editor-edit-published", value: "Your edit was published.", comment: "Title for alert informing that the user's new edit was successfully published.")
 }
 
 // Language variant strings

@@ -128,8 +128,10 @@
 "action-add-to-reading-list" = "あとで読むリストに追加";
 "action-add-to-reading-list-short" = "リストに追加";
 "action-cancel" = "キャンセル";
+"action-discard-edit" = "編集内容を破棄";
 "action-discard-edits" = "編集内容を破棄";
 "action-find-in-page" = "ページ内を検索";
+"action-keep-editing" = "編集を続行";
 "action-language-accessibility" = "言語を変更";
 "action-move-to" = "次へ移動…";
 "action-move-to-reading-list" = "あとで読むリストに保存";
@@ -177,7 +179,6 @@
 "article-languages-label" = "言語を選択";
 "article-languages-others" = "ほかの言語で読む";
 "article-languages-yours" = "お使いの言語";
-"article-nav-edit" = "編集";
 "article-read-more-title" = "さらに読む";
 "article-reference-view-title" = "情報源 $1";
 "article-revision-history" = "記事の版履歴";
@@ -332,6 +333,7 @@
 "edit-published-subtitle" = "みんなのためにウィキペディアを改善しました。";
 "edit-reference-accessibility-label" = "出典を追加する";
 "edit-reference-remove-accessibility-label" = "出典を削除";
+"edit-show-web-preview" = "プレビューを表示";
 "edit-signature-accessibility-label" = "署名を追加する";
 "edit-signature-remove-accessibility-label" = "署名を削除";
 "edit-strikethrough-accessibility-label" = "取り消し線を追加する";
@@ -1015,6 +1017,7 @@
 "source-editor-accessibility-label-template-selected" = "テンプレート構文を除去";
 "source-editor-accessibility-label-underline" = "下線を引く";
 "source-editor-accessibility-label-underline-selected" = "下線を外す";
+"source-editor-edit-source" = "ソースを編集";
 "table-of-contents-button-label" = "目次";
 "table-of-contents-close-accessibility-hint" = "閉じる";
 "table-of-contents-close-accessibility-label" = "目次を閉じる";
@@ -1067,6 +1070,7 @@
 "talk-pages-coffee-roll-read-more" = "さらに読む";
 "talk-pages-comment-added-alert-title" = "あなたのコメントが追加されました";
 "talk-pages-compose-close-confirmation-keep" = "編集を続行";
+"talk-pages-edit-source" = "ソースを編集";
 "talk-pages-empty-view-body-user" = "トークページは、ウィキペディアのコンテンツを最高のものにする方法について議論する場所です。 「$1」さんとつながり、共同作業を行うための新しい会話を行いましょう。ここでの発言は公開され、他の利用者も閲覧することができます。";
 "talk-pages-empty-view-button-article-add-topic" = "新しいトピックを追加";
 "talk-pages-empty-view-button-user-start-discussion" = "新しい議論を始める";

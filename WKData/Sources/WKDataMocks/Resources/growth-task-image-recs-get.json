@@ -1,0 +1,142 @@
+{
+	"batchcomplete":true,
+	"query":{
+	   "pages":[
+		  {
+			 "pageid":206400,
+			 "ns":0,
+			 "title":"Dialer",
+			 "growthimagesuggestiondata":[
+				{
+				   "titleNamespace":0,
+				   "titleText":"Dialer",
+				   "images":[
+					  {
+						 "image":"Modem_telefonico.jpg",
+						 "displayFilename":"Modem telefonico.jpg",
+						 "source":"wikipedia",
+						 "projects":[
+							"lmowiki"
+						 ],
+						 "metadata":{
+							"descriptionUrl":"https://commons.wikimedia.org/wiki/File:Modem_telefonico.jpg",
+							"thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Modem_telefonico.jpg/120px-Modem_telefonico.jpg",
+							"fullUrl":"//upload.wikimedia.org/wikipedia/commons/e/e9/Modem_telefonico.jpg",
+							"originalWidth":1200,
+							"originalHeight":1600,
+							"mustRender":false,
+							"isVectorized":false,
+							"mediaType":"BITMAP",
+							"description":"Modem telefonico 2WIRE Con servicio provisto por Telmex.",
+							"author":"<a href=\"//commons.wikimedia.org/w/index.php?title=User:MaryMozqueda&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:MaryMozqueda (page does not exist)\">MaryMozqueda</a> / <a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/43356775@N06/\">Mary Mozqueda</a>",
+							"license":"CC BY 3.0",
+							"date":"2009-10-18",
+							"caption":null,
+							"categories":[
+							   "2Wire",
+							   "ADSL modems",
+							   "Modems",
+							   "Telmex"
+							],
+							"reason":"Utilizado en el mismo artículo en Wikipedia en lombardo.",
+							"contentLanguageName":"checo"
+						 },
+						 "sectionNumber":null,
+						 "sectionTitle":null
+					  }
+				   ],
+				   "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
+				}
+			 ]
+		  },
+		  {
+			 "pageid":599768,
+			 "ns":0,
+			 "title":"Věrnostní program",
+			 "growthimagesuggestiondata":[
+				{
+				   "titleNamespace":0,
+				   "titleText":"Věrnostní program",
+				   "images":[
+					  {
+						 "image":"Capturar.JPG",
+						 "displayFilename":"Capturar.JPG",
+						 "source":"commons",
+						 "projects":[
+							"ptwiki"
+						 ],
+						 "metadata":{
+							"descriptionUrl":"https://commons.wikimedia.org/wiki/File:Capturar.JPG",
+							"thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/6/62/Capturar.JPG/120px-Capturar.JPG",
+							"fullUrl":"//upload.wikimedia.org/wikipedia/commons/6/62/Capturar.JPG",
+							"originalWidth":767,
+							"originalHeight":383,
+							"mustRender":false,
+							"isVectorized":false,
+							"mediaType":"BITMAP",
+							"description":"Formas de acúmulo de pontos em programas de fidelidade.",
+							"author":"<a href=\"//commons.wikimedia.org/w/index.php?title=User:Franklin_Jean_Machado&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Franklin Jean Machado (page does not exist)\">Franklin Jean Machado</a>",
+							"license":"CC BY-SA 4.0",
+							"date":"2014-10-23 20:41:36",
+							"caption":null,
+							"categories":[
+							   "Customer loyalty programs"
+							],
+							"reason":"Es una de las imágenes vinculadas al ítem de Wikidata de este artículo.",
+							"contentLanguageName":"checo"
+						 },
+						 "sectionNumber":null,
+						 "sectionTitle":null
+					  }
+				   ],
+				   "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
+				}
+			 ]
+		  },
+		  {
+			 "pageid":1600967,
+			 "ns":0,
+			 "title":"Fixní měnový kurz",
+			 "growthimagesuggestiondata":[
+				{
+				   "titleNamespace":0,
+				   "titleText":"Fixní měnový kurz",
+				   "images":[
+					  {
+						 "image":"Currency_Exchange_regimes.png",
+						 "displayFilename":"Currency Exchange regimes.png",
+						 "source":"wikipedia",
+						 "projects":[
+							"ruwiki"
+						 ],
+						 "metadata":{
+							"descriptionUrl":"https://commons.wikimedia.org/wiki/File:Currency_Exchange_regimes.png",
+							"thumbUrl":"//upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Currency_Exchange_regimes.png/120px-Currency_Exchange_regimes.png",
+							"fullUrl":"//upload.wikimedia.org/wikipedia/commons/f/f6/Currency_Exchange_regimes.png",
+							"originalWidth":1357,
+							"originalHeight":628,
+							"mustRender":false,
+							"isVectorized":false,
+							"mediaType":"BITMAP",
+							"description":"dark green - <a href=\"https://en.wikipedia.org/wiki/Floating_exchange_rate\" class=\"extiw\" title=\"en:Floating exchange rate\">free float regime</a>, light green - <a href=\"https://en.wikipedia.org/wiki/Managed_float_regime\" class=\"extiw\" title=\"en:Managed float regime\">Managed float regime</a>, blue - different types of <a href=\"https://en.wikipedia.org/wiki/currency_peg\" class=\"extiw\" title=\"en:currency peg\">currency peg</a> (<a href=\"https://en.wikipedia.org/wiki/Linked_exchange_rate\" class=\"extiw\" title=\"en:Linked exchange rate\">Linked exchange rate</a>, <a href=\"https://en.wikipedia.org/wiki/fixed_exchange_rate\" class=\"extiw\" title=\"en:fixed exchange rate\">fixed exchange rate</a>, <a href=\"https://en.wikipedia.org/wiki/Currency_board\" class=\"extiw\" title=\"en:Currency board\">Currency board</a>, fixed/crawling peg, fixed/crawling band), red - direct usage of foreign currency; <a href=\"https://en.wikipedia.org/wiki/dependent_territories\" class=\"extiw\" title=\"en:dependent territories\">dependencies</a> that use the currency of their \"mainland\" colored the same as the respective state.",
+							"author":"<a href=\"https://en.wikipedia.org/wiki/User:Alinor\" class=\"extiw\" title=\"en:User:Alinor\">Alinor</a> (<a href=\"https://en.wikipedia.org/wiki/User_talk:Alinor\" class=\"extiw\" title=\"en:User talk:Alinor\">talk</a>)",
+							"license":"CC BY-SA 3.0",
+							"date":"2010-12-26 12:22",
+							"caption":null,
+							"categories":[
+							   "Economic maps of the world"
+							],
+							"reason":"Utilizado en el mismo artículo en Wikipedia en ruso.",
+							"contentLanguageName":"checo"
+						 },
+						 "sectionNumber":null,
+						 "sectionTitle":null
+					  }
+				   ],
+				   "datasetId":"eee2129e-b5b4-11ee-89e4-bc97e15476f8"
+				}
+			 ]
+		  }
+	   ]
+	}
+ }

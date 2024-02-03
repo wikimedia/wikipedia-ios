@@ -1,7 +1,9 @@
 import Foundation
 import WKData
 
-fileprivate enum WKMockError: Error {
+#if DEBUG
+
+internal enum WKMockError: Error {
     case unableToPullData
     case unableToDeserialize
 }
@@ -171,3 +173,5 @@ public class WKMockBasicService: WKService {
         return nil
     }
 }
+
+#endif

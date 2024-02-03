@@ -3,11 +3,6 @@ import WKData
 
 #if DEBUG
 
-fileprivate enum WKMockError: Error {
-    case unableToPullData
-    case unableToDeserialize
-}
-
 fileprivate extension WKData.WKServiceRequest {
     var isWatchlistGetListNoFilter: Bool {
         guard let action = parameters?["action"] as? String,

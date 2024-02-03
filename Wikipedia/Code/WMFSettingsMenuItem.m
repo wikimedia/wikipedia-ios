@@ -126,17 +126,6 @@
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
-        case WMFSettingsMenuItemType_SendUsageReports: {
-            BOOL loggingEnabled = [EventPlatformClient shared].isEnabled;
-            return
-                [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"preference-title-eventlogging-opt-in", nil, nil, @"Send usage reports", @"Title of preference that when checked enables data collection of user behavior.")
-                                                 iconName:@"settings-analytics"
-                                                iconColor:[UIColor wmf_green_600]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
-                                           disclosureText:nil
-                                               isSwitchOn:loggingEnabled];
-        }
         case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type

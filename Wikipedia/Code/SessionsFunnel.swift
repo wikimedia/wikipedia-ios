@@ -38,11 +38,17 @@
     }
 
     @objc public func appDidBecomeActive() {
-        if EventPlatformClient.shared.needsReset() {
+        let userDefaults = UserDefaults.standard
+        let sessionID = userDefaults.wmf_sessionID
+
+        if sessionID == nil {
+            EventPlatformClient.shared.generateSessionID()
+        } else if EventPlatformClient.shared.needsReset() {
             logPreviousSessionEnd {
                 DispatchQueue.main.async {
                     self.resetPageLoadMetrics()
                     EventPlatformClient.shared.resetAll()
+                    EventPlatformClient.shared.generateSessionID()
                 }
             }
         } else {
@@ -52,23 +58,6 @@
     
     @objc public func appDidBackground() {
         EventPlatformClient.shared.appDidBackground()
-    }
-    
-    @objc public func settingsLoggingToggledOn() {
-        UserDefaults.standard.wmf_sendUsageReports = true
-        EventPlatformClient.shared.generateSessionID()
-    }
-    
-    @objc public func settingsLoggingToggledOff(completion: @escaping () -> Void) {
-        
-        logPreviousSessionEnd {
-            DispatchQueue.main.async {
-                self.resetPageLoadMetrics()
-                EventPlatformClient.shared.resetAll()
-                UserDefaults.standard.wmf_sendUsageReports = false
-                completion()
-            }
-        }
     }
 
     /**

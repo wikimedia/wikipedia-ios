@@ -5,7 +5,8 @@ class WKEditorToolbarView: WKComponentView {
     
     // MARK: - Properties
     
-    @IBOutlet var separatorViews: [UIView] = []
+    @IBOutlet var separatorImageViews: [UIImageView] = []
+    @IBOutlet var separatorImageWidthConstraints: [NSLayoutConstraint] = []
     @IBOutlet var buttons: [WKEditorToolbarButton] = []
     
     // MARK: - Lifecycle
@@ -13,7 +14,20 @@ class WKEditorToolbarView: WKComponentView {
     override func awakeFromNib() {
         super.awakeFromNib()
         accessibilityElements = buttons
+        
+        let width = (1.0 / UIScreen.main.scale) * 2
+        for separatorImageView in self.separatorImageViews {
+            
+            let image = UIImage.roundedRectImage(with: .black, cornerRadius: 0, width: width, height: 32)
+            separatorImageView.image = image?.withRenderingMode(.alwaysTemplate)
+        }
+        
+        for separatorWidthConstraint in separatorImageWidthConstraints {
+            separatorWidthConstraint.constant = width
+        }
+        
         updateColors()
+        maximumContentSizeCategory = .accessibilityMedium
     }
     
     // MARK: - Overrides
@@ -30,7 +44,15 @@ class WKEditorToolbarView: WKComponentView {
     // MARK: - Private Helpers
     
     private func updateColors() {
-        tintColor = WKAppEnvironment.current.theme.link
-        backgroundColor = WKAppEnvironment.current.theme.accessoryBackground
+        backgroundColor = WKAppEnvironment.current.theme.paperBackground
+        
+        layer.shadowOffset = CGSize(width: 0, height: -2)
+        layer.shadowRadius = 10
+        layer.shadowOpacity = 1.0
+        layer.shadowColor = theme.editorKeyboardShadow.cgColor
+        
+        for separatorImageView in separatorImageViews {
+            separatorImageView.tintColor = theme.newBorder
+        }
     }
 }

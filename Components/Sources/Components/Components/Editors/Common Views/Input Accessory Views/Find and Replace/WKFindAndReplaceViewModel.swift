@@ -8,6 +8,7 @@ struct WKFindAndReplaceViewModel {
     }
     
     var currentMatchInfo: String?
+    var currentMatchInfoAccessibility: String?
     var matchCount: Int = 0
     var nextPrevButtonsAreEnabled: Bool = false
     var replaceButtonIsEnabled: Bool = false
@@ -16,6 +17,7 @@ struct WKFindAndReplaceViewModel {
     
     mutating func reset() {
         currentMatchInfo = nil
+        currentMatchInfoAccessibility = nil
         nextPrevButtonsAreEnabled = false
     }
 }

@@ -19,16 +19,13 @@ public enum WKIcon {
     static let thank = UIImage(named: "thank", in: .module, with: nil)
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
 
-    // Editor-specific icons
-    static let formatText = UIImage(named: "editor/format-text", in: .module, with: nil)//
-    static let formatHeading = UIImage(named: "editor/format-heading", in: .module, with: nil)//
-
     // Project icons
     static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
     static let wikidata = UIImage(named: "project-icons/wikidata", in: .module, with: nil)
 }
 
 public enum WKSFSymbolIcon {
+    
     case checkmark
     case checkmarkSquareFill
     case square
@@ -55,6 +52,7 @@ public enum WKSFSymbolIcon {
     case bold
     case italic
     case exclamationMarkCircle
+    case exclamationMarkCircleFill
     case textFormatSuperscript
     case textFormatSubscript
     case underline
@@ -65,86 +63,108 @@ public enum WKSFSymbolIcon {
     case ellipsis
     case pencil
     case plusCircleFill
+    case undo
+    case redo
+    case textFormatSize
+    case textFormat
 
-    public static func `for`(symbol: WKSFSymbolIcon, font: WKFont = .body, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection) -> UIImage? {
+    public static func `for`(symbol: WKSFSymbolIcon, font: WKFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WKFont.for(font)
         let configuration = UIImage.SymbolConfiguration(font: font)
 
+        var image: UIImage?
         switch symbol {
         case .checkmark:
-            return UIImage(systemName: "checkmark", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "checkmark", withConfiguration: configuration)
         case .checkmarkSquareFill:
-            return UIImage(systemName: "checkmark.square.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "checkmark.square.fill", withConfiguration: configuration)
         case .square:
-            return UIImage(systemName: "square", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "square", withConfiguration: configuration)
         case .star:
-            return UIImage(systemName: "star", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "star", withConfiguration: configuration)
         case .person:
-            return UIImage(systemName: "person", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "person", withConfiguration: configuration)
         case .personFilled:
-            return UIImage(systemName: "person.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "person.fill", withConfiguration: configuration)
         case .starLeadingHalfFilled:
-            return UIImage(systemName: "star.leadinghalf.filled", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "star.leadinghalf.filled", withConfiguration: configuration)
         case .heart:
-            return UIImage(systemName: "heart", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "heart", withConfiguration: configuration)
         case .conversation:
-            return UIImage(systemName: "bubble.left.and.bubble.right", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "bubble.left.and.bubble.right", withConfiguration: configuration)
         case .quoteOpening:
-            return UIImage(systemName: "quote.opening", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "quote.opening", withConfiguration: configuration)
         case .link:
-            return UIImage(systemName: "link", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "link", withConfiguration: configuration)
         case .curlybraces:
-            return UIImage(systemName: "curlybraces", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "curlybraces", withConfiguration: configuration)
         case .photo:
-            return UIImage(systemName: "photo", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "photo", withConfiguration: configuration)
         case .docTextMagnifyingGlass:
-            return UIImage(systemName: "doc.text.magnifyingglass", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "doc.text.magnifyingglass", withConfiguration: configuration)
         case .magnifyingGlass:
-            return UIImage(systemName: "magnifyingglass", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "magnifyingglass", withConfiguration: configuration)
         case .listBullet:
-            return UIImage(systemName: "list.bullet", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "list.bullet", withConfiguration: configuration)
         case .listNumber:
-            return UIImage(systemName: "list.number", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "list.number", withConfiguration: configuration)
         case .increaseIndent:
-            return UIImage(systemName: "increase.indent", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate).imageFlippedForRightToLeftLayoutDirection()
+            image = UIImage(systemName: "increase.indent", withConfiguration: configuration)?.imageFlippedForRightToLeftLayoutDirection()
         case .decreaseIndent:
-            return UIImage(systemName: "decrease.indent", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate).imageFlippedForRightToLeftLayoutDirection()
+            image = UIImage(systemName: "decrease.indent", withConfiguration: configuration)?.imageFlippedForRightToLeftLayoutDirection()
         case .chevronUp:
-            return UIImage(systemName: "chevron.up", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "chevron.up", withConfiguration: configuration)
         case .chevronDown:
-            return UIImage(systemName: "chevron.down", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "chevron.down", withConfiguration: configuration)
         case .chevronBackward:
-            return UIImage(systemName: "chevron.backward", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "chevron.backward", withConfiguration: configuration)
         case .chevronForward:
-            return UIImage(systemName: "chevron.forward", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "chevron.forward", withConfiguration: configuration)
         case .bold:
-            return UIImage(systemName: "bold", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "bold", withConfiguration: configuration)
         case .italic:
-            return UIImage(systemName: "italic", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "italic", withConfiguration: configuration)
         case .exclamationMarkCircle:
-            return UIImage(systemName: "exclamationmark.circle", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "exclamationmark.circle", withConfiguration: configuration)
+        case .exclamationMarkCircleFill:
+            image = UIImage(systemName: "exclamationmark.circle.fill", withConfiguration: configuration)
         case .textFormatSuperscript:
-            return UIImage(systemName: "textformat.superscript", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "textformat.superscript", withConfiguration: configuration)
         case .textFormatSubscript:
-            return UIImage(systemName: "textformat.subscript", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "textformat.subscript", withConfiguration: configuration)
         case .underline:
-            return UIImage(systemName: "underline", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "underline", withConfiguration: configuration)
         case .strikethrough:
-            return UIImage(systemName: "strikethrough", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "strikethrough", withConfiguration: configuration)
         case .multiplyCircleFill:
-            return UIImage(systemName: "multiply.circle.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "multiply.circle.fill", withConfiguration: configuration)
         case .chevronRightCircle:
-            return UIImage(systemName: "chevron.right.circle.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate).imageFlippedForRightToLeftLayoutDirection()
+            image = UIImage(systemName: "chevron.right.circle.fill", withConfiguration: configuration)?.imageFlippedForRightToLeftLayoutDirection()
         case .close:
-            return UIImage(systemName: "multiply", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "multiply", withConfiguration: configuration)
         case .ellipsis:
-            return UIImage(systemName: "ellipsis", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "ellipsis", withConfiguration: configuration)
         case .pencil:
-            return UIImage(systemName: "pencil", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
+            image = UIImage(systemName: "pencil", withConfiguration: configuration)
         case .plusCircleFill:
-            return UIImage(systemName: "plus.circle.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
-
+            image = UIImage(systemName: "plus.circle.fill", withConfiguration: configuration)
+        case .undo:
+            image = UIImage(systemName: "arrow.uturn.backward", withConfiguration: configuration)
+        case .redo:
+            image = UIImage(systemName: "arrow.uturn.forward", withConfiguration: configuration)
+        case .textFormatSize:
+            image = UIImage(systemName: "textformat.size", withConfiguration: configuration)
+        case .textFormat:
+            image = UIImage(systemName: "textformat", withConfiguration: configuration)
         }
+        
+        image = image?.withRenderingMode(.alwaysTemplate)
+        if let paletteColors {
+            let paletteSymbolConfiguration = UIImage.SymbolConfiguration(paletteColors: paletteColors)
+            image = image?.applyingSymbolConfiguration(paletteSymbolConfiguration)
+        }
+        
+        return image
     }
 
 }

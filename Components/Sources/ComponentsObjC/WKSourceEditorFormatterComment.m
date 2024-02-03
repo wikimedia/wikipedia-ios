@@ -37,6 +37,10 @@ NSString * const WKSourceEditorCustomKeyCommentContent = @"WKSourceEditorCustomK
 
 - (void)addSyntaxHighlightingToAttributedString:(nonnull NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
+    
     [attributedString removeAttribute:WKSourceEditorCustomKeyCommentMarkup range:range];
     [attributedString removeAttribute:WKSourceEditorCustomKeyCommentContent range:range];
     
@@ -72,6 +76,10 @@ NSString * const WKSourceEditorCustomKeyCommentContent = @"WKSourceEditorCustomK
     NSMutableDictionary *mutContentAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.commentContentAttributes];
     [mutContentAttributes setObject:colors.grayForegroundColor forKey:NSForegroundColorAttributeName];
     self.commentContentAttributes = [[NSDictionary alloc] initWithDictionary:mutContentAttributes];
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return;
+    }
 
     [attributedString enumerateAttribute:WKSourceEditorCustomKeyCommentMarkup
                                  inRange:range
@@ -105,6 +113,11 @@ NSString * const WKSourceEditorCustomKeyCommentContent = @"WKSourceEditorCustomK
 #pragma mark - Public
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isCommentInRange:(NSRange)range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+       return NO;
+    }
+    
     __block BOOL isContentKey = NO;
 
    if (range.length == 0) {
@@ -116,8 +129,9 @@ NSString * const WKSourceEditorCustomKeyCommentContent = @"WKSourceEditorCustomK
                isContentKey = YES;
            } else {
                // Edge case, check previous character if we are up against closing string
-               if (attrs[WKSourceEditorCustomKeyCommentMarkup] && attributedString.length > range.location - 1) {
-                   attrs = [attributedString attributesAtIndex:range.location - 1 effectiveRange:nil];
+               NSRange newRange = NSMakeRange(range.location - 1, 0);
+               if (attrs[WKSourceEditorCustomKeyCommentMarkup] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
+                   attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
                    if (attrs[WKSourceEditorCustomKeyCommentContent] != nil) {
                        isContentKey = YES;
                    }

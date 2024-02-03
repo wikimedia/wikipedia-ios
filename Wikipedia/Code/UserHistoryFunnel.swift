@@ -175,10 +175,6 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     }
     
     @objc public func logSnapshot() {
-        guard EventPlatformClient.shared.isEnabled else {
-            return
-        }
-        
         guard isTarget else {
             return
         }

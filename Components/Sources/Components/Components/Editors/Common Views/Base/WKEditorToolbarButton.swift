@@ -5,10 +5,8 @@ class WKEditorToolbarButton: WKComponentView {
     
     // MARK: - Properties
     
-    private lazy var button: UIButton = {
-        let button = UIButton(type: .custom)
-        return button
-    }()
+    private var button: UIButton?
+    private var image: UIImage?
     
     // MARK: - Lifecycle
     
@@ -23,6 +21,13 @@ class WKEditorToolbarButton: WKComponentView {
     }
     
     private func setup() {
+        
+        button = createButton()
+        
+        guard let button else {
+            return
+        }
+        
         layer.cornerRadius = 4
         clipsToBounds = true
 
@@ -39,8 +44,6 @@ class WKEditorToolbarButton: WKComponentView {
             button.topAnchor.constraint(equalTo: topAnchor),
             button.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        
-        updateColors()
     }
     
     // MARK: - Overrides
@@ -52,49 +55,86 @@ class WKEditorToolbarButton: WKComponentView {
     }
     
     override func appEnvironmentDidChange() {
-        updateColors()
+        
+        guard let button else {
+            return
+        }
+        
+        let buttonConfig = createButtonConfig(image: image)
+        button.configuration = buttonConfig
+        button.configurationUpdateHandler = buttonConfigurationUpdateHandler(button:)
     }
     
     // MARK: - Button passthrough methods
     
     var isSelected: Bool {
         get {
-            return button.isSelected
+            return button?.isSelected ?? false
         }
         set {
-            button.isSelected = newValue
-            updateColors()
-            accessibilityTraits = button.accessibilityTraits
+            button?.isSelected = newValue
+            accessibilityTraits = button?.accessibilityTraits ?? []
         }
     }
     
     var isEnabled: Bool {
         get {
-            return button.isEnabled
+            return button?.isEnabled ?? true
         }
         set {
-            button.isEnabled = newValue
-            updateColors()
-            accessibilityTraits = button.accessibilityTraits
+            button?.isEnabled = newValue
+            accessibilityTraits = button?.accessibilityTraits ?? []
         }
     }
     
-    func setImage(_ image: UIImage?, for state: UIControl.State) {
-        button.setImage(image, for: state)
+    func setImage(_ image: UIImage?) {
+        
+        guard let button else {
+            return
+        }
+        
+        self.image = image
+        
+        var buttonConfig = button.configuration
+        buttonConfig?.image = image
+        button.configuration = buttonConfig
     }
     
     func addTarget(_ target: Any?, action: Selector, for controlEvent: UIControl.Event) {
-        button.addTarget(target, action: action, for: controlEvent)
+        button?.addTarget(target, action: action, for: controlEvent)
     }
 
     func removeTarget(_ target: Any?, action: Selector?, for controlEvent: UIControl.Event) {
-        button.removeTarget(target, action: action, for: controlEvent)
+        button?.removeTarget(target, action: action, for: controlEvent)
     }
     
     // MARK: - Private Helpers
     
-    func updateColors() {
-        button.tintColor = isSelected ? WKAppEnvironment.current.theme.inputAccessoryButtonSelectedTint : WKAppEnvironment.current.theme.inputAccessoryButtonTint
-        backgroundColor = self.isSelected ? WKAppEnvironment.current.theme.inputAccessoryButtonSelectedBackgroundColor : .clear
+    private func createButtonConfig(image: UIImage? = nil) -> UIButton.Configuration {
+        var buttonConfig = UIButton.Configuration.plain()
+        
+        buttonConfig.baseForegroundColor = theme.text
+        buttonConfig.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        buttonConfig.background.cornerRadius = 0
+        if let image {
+            buttonConfig.image = image
+        }
+        
+        return buttonConfig
+    }
+    
+    private func buttonConfigurationUpdateHandler(button: UIButton) {
+        var buttonConfig = button.configuration
+        buttonConfig?.background.backgroundColor = button.isSelected ? self.theme.editorButtonSelectedBackground : theme.paperBackground
+        button.configuration = buttonConfig
+    }
+    
+    private func createButton() -> UIButton {
+        
+        let buttonConfig = createButtonConfig()
+        let button = UIButton(configuration: buttonConfig)
+        button.configurationUpdateHandler = buttonConfigurationUpdateHandler(button:)
+        
+        return button
     }
 }
