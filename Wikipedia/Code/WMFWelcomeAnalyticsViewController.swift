@@ -32,7 +32,9 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
 
     @IBAction func showPrivacyAndTermsActionSheet(_ sender: AnyObject) {
 
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let alertPreferredStyle: UIAlertController.Style = UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
+
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: alertPreferredStyle)
 
         let goToPrivacyPolicyAction = UIAlertAction(title: CommonStrings.privacyPolicyTitle, style: .default) { action in
             guard let url = URL.init(string: CommonStrings.privacyPolicyURLString) else {
