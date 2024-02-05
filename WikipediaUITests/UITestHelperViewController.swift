@@ -84,7 +84,7 @@ public class UITestHelperViewController: WKCanvasViewController {
             keyboardSuperscriptButtonAccessibility: CommonStrings.editorKeyboardButtonSuperscriptAccessiblityLabel,
             keyboardSubscriptButtonAccessibility: CommonStrings.editorKeyboardButtonSubscriptAccessiblityLabel,
             keyboardTemplateButtonAccessibility: CommonStrings.editorKeyboardButtonTemplateAccessiblityLabel,
-            keyboardCommentButtonAccessibility: CommonStrings.editorKeyboardButtonCommentAccessiblityLabel, wikitextEditorAccessibility: CommonStrings.editorWikitextTextviewAccessibilityLabel,
+            keyboardCommentButtonAccessibility: CommonStrings.editorKeyboardButtonCommentAccessiblityLabel, wikitextEditorAccessibility: CommonStrings.editorWikitextTextViewAccessibility,
             findTextFieldAccessibility: CommonStrings.editorFindTextFieldAccessibilityLabel,
             findClearButtonAccessibility: CommonStrings.editorFindClearButtonAccessibilityLabel,
             findCurrentMatchInfoFormatAccessibility: CommonStrings.editorFindCurrentMatchInfoFormatAccessibilityLabel,
