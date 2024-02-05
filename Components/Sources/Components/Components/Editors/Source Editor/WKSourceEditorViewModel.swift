@@ -17,6 +17,7 @@ public class WKSourceEditorViewModel {
     public var isSyntaxHighlightingEnabled: Bool
     public var textAlignment: NSTextAlignment
     public let needsReadOnly: Bool
+    public let onloadSelectRange: NSRange?
     
     // MARK: - Public
 
@@ -26,7 +27,8 @@ public class WKSourceEditorViewModel {
                 localizedStrings: WKSourceEditorLocalizedStrings,
                 isSyntaxHighlightingEnabled: Bool,
                 textAlignment: NSTextAlignment,
-                needsReadOnly: Bool) {
+                needsReadOnly: Bool,
+                onloadSelectRange: NSRange?) {
         self.configuration = configuration
         self.initialText = initialText
         WKSourceEditorAccessibilityIdentifiers.current = accessibilityIdentifiers
@@ -34,5 +36,6 @@ public class WKSourceEditorViewModel {
         self.isSyntaxHighlightingEnabled = isSyntaxHighlightingEnabled
         self.textAlignment = textAlignment
         self.needsReadOnly = needsReadOnly
+        self.onloadSelectRange = onloadSelectRange
     }
 }

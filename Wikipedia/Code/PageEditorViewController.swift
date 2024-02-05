@@ -2,6 +2,7 @@ import UIKit
 import Components
 import WMF
 import CocoaLumberjackSwift
+import WKData
 
 protocol PageEditorViewControllerDelegate: AnyObject {
     func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL url: URL?)
@@ -19,6 +20,7 @@ final class PageEditorViewController: UIViewController {
     
     private struct WikitextFetchResponse {
         let wikitext: String
+        let onloadSelectRange: NSRange?
         let userGroupLevelCanEdit: Bool
         let protectedPageError: MediaWikiAPIDisplayError?
         let blockedError: MediaWikiAPIDisplayError?
@@ -31,6 +33,7 @@ final class PageEditorViewController: UIViewController {
     private let sectionID: Int?
     private let editFlow: EditFlow
     private let dataStore: MWKDataStore
+    private let articleSelectedInfo: SelectedTextEditInfo?
     private weak var delegate: PageEditorViewControllerDelegate?
     private var theme: Theme
     
@@ -66,12 +69,13 @@ final class PageEditorViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, dataStore: MWKDataStore, delegate: PageEditorViewControllerDelegate, theme: Theme) {
+    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, delegate: PageEditorViewControllerDelegate, theme: Theme) {
         self.pageURL = pageURL
         self.sectionID = sectionID
         self.wikitextFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.editNoticesFetcher = EditNoticesFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.dataStore = dataStore
+        self.articleSelectedInfo = articleSelectedInfo
         self.delegate = delegate
         self.theme = theme
         self.editFlow = editFlow
@@ -218,7 +222,15 @@ final class PageEditorViewController: UIViewController {
             }
             
             let needsReadOnly = (wikitextFetchResponse.blockedError != nil) || (wikitextFetchResponse.protectedPageError != nil && !wikitextFetchResponse.userGroupLevelCanEdit)
-            self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly)
+            
+            if let onloadSelectRange = wikitextFetchResponse.onloadSelectRange,
+               onloadSelectRange.location == NSNotFound {
+                presentFailToFindSelectedRangeAlert()
+                self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: nil)
+            } else {
+                self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: wikitextFetchResponse.onloadSelectRange)
+            }
+            
         }
     }
     
@@ -261,6 +273,14 @@ final class PageEditorViewController: UIViewController {
         present(editNoticesViewController, animated: true)
     }
     
+    private func presentFailToFindSelectedRangeAlert() {
+        let alert = UIAlertController(title: CommonStrings.editorFailToScrollToArticleSelectedTextTitle, message: CommonStrings.editorFailToScrollToArticleSelectedTextBody, preferredStyle: .alert)
+        alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
+        let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
+    
     private func loadWikitext(completion: @escaping (Result<WikitextFetchResponse, Error>) -> Void) {
         wikitextFetcher.fetchSection(with: sectionID, articleURL: pageURL) {  [weak self] (result) in
             DispatchQueue.main.async { [weak self] in
@@ -290,7 +310,13 @@ final class PageEditorViewController: UIViewController {
                         }
                     }
                     
-                    completion(.success(WikitextFetchResponse(wikitext: response.wikitext, userGroupLevelCanEdit: userGroupLevelCanEdit, protectedPageError: protectedPageError, blockedError: blockedError, otherError: otherError)))
+                    var onloadSelectRange: NSRange?
+                    if let articleSelectedInfo {
+                        let htmlInfo = articleSelectedInfo.htmlInfo()
+                        onloadSelectRange = WKWikitextUtils.rangeOf(htmlInfo: htmlInfo, inWikitext: response.wikitext)
+                    }
+                    
+                    completion(.success(WikitextFetchResponse(wikitext: response.wikitext, onloadSelectRange: onloadSelectRange, userGroupLevelCanEdit: userGroupLevelCanEdit, protectedPageError: protectedPageError, blockedError: blockedError, otherError: otherError)))
                 }
             }
         }
@@ -356,7 +382,7 @@ final class PageEditorViewController: UIViewController {
         wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, image: UIImage(named: "warning-icon"))
     }
     
-    private func addChildEditor(wikitext: String, needsReadOnly: Bool) {
+    private func addChildEditor(wikitext: String, needsReadOnly: Bool, onloadSelectRange: NSRange?) {
         let localizedStrings = WKSourceEditorLocalizedStrings(
             keyboardTextFormattingTitle: CommonStrings.editorKeyboardTextFormattingTitle,
             keyboardParagraph: CommonStrings.editorKeyboardParagraphButton,
@@ -418,7 +444,7 @@ final class PageEditorViewController: UIViewController {
 
         let isSyntaxHighlightingEnabled = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
         let textAlignment = MWKLanguageLinkController.isLanguageRTL(forContentLanguageCode: pageURL.wmf_contentLanguageCode) ? NSTextAlignment.right : NSTextAlignment.left
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled, textAlignment: textAlignment, needsReadOnly: needsReadOnly)
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled, textAlignment: textAlignment, needsReadOnly: needsReadOnly, onloadSelectRange: onloadSelectRange)
 
         let sourceEditor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
         
@@ -802,6 +828,16 @@ extension PageEditorViewController: EditNoticesViewControllerDelegate {
         }
     }
 }
+
+// MARK: - SelectedTextEditInfo extension
+
+private extension SelectedTextEditInfo {
+    func htmlInfo() -> WKWikitextUtils.HtmlInfo {
+        return WKWikitextUtils.HtmlInfo(textBeforeTargetText: selectedAndAdjacentText.textBeforeSelectedText, targetText: selectedAndAdjacentText.selectedText, textAfterTargetText: selectedAndAdjacentText.textAfterSelectedText)
+    }
+}
+
+// MARK: - Accessibility Identifiers
 
 enum SourceEditorAccessibilityIdentifiers: String {
     case entryButton = "Source Editor Entry Button"

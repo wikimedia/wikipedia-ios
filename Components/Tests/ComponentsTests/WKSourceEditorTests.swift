@@ -7,7 +7,7 @@ final class WKSourceEditorTests: XCTestCase {
     var editorViewController: WKSourceEditorViewController!
 
     override func setUpWithError() throws {
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "Testing Wikitext", localizedStrings: WKSourceEditorLocalizedStrings.emptyTestStrings, isSyntaxHighlightingEnabled: true, textAlignment: .left, needsReadOnly: false)
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "Testing Wikitext", localizedStrings: WKSourceEditorLocalizedStrings.emptyTestStrings, isSyntaxHighlightingEnabled: true, textAlignment: .left, needsReadOnly: false, onloadSelectRange: nil)
         self.editorViewController = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
         editorViewController.loadViewIfNeeded()
         self.textView = editorViewController.textView
