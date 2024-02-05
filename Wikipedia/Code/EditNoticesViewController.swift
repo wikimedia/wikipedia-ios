@@ -38,6 +38,17 @@ class EditNoticesViewController: ThemeableViewController, RMessageSuppressing {
         editNoticesView.toggleSwitch.isOn = UserDefaults.standard.wmf_alwaysDisplayEditNotices
         editNoticesView.textView.delegate = self
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        UIAccessibility.post(notification: .screenChanged, argument: editNoticesView.editNoticesTitle)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.editNoticesView.changeTextViewVoiceOverVisibility(isVisible: true)
+            UIAccessibility.post(notification: .layoutChanged, argument: nil)
+        }
+    }
 
     // MARK: - Actions
 

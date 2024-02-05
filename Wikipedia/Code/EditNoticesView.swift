@@ -229,6 +229,8 @@ final class EditNoticesView: SetupView {
             footerStack.topAnchor.constraint(equalTo: footerContainer.topAnchor, constant: 16),
             footerStack.bottomAnchor.constraint(equalTo: footerContainer.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
+        
+        changeTextViewVoiceOverVisibility(isVisible: false)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -239,6 +241,14 @@ final class EditNoticesView: SetupView {
     }
 
     // MARK: - Public
+    
+    func changeTextViewVoiceOverVisibility(isVisible: Bool) {
+        if !isVisible {
+            accessibilityElements = [doneButton, editNoticesTitle, editNoticesSubtitle, footerSwitchLabel, toggleSwitch]
+        } else {
+            accessibilityElements = [doneButton, editNoticesTitle, editNoticesSubtitle, textView, footerSwitchLabel, toggleSwitch]
+        }
+    }
 
     func configure(viewModel: EditNoticesViewModel, theme: Theme) {
         let attributedNoticeString = NSMutableAttributedString()
