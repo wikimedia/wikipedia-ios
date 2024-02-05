@@ -590,6 +590,7 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
     }
     
     func sourceEditorViewControllerDidTapImage() {
+        sourceEditor.removeFocus()
         let insertMediaViewController = InsertMediaViewController(articleTitle: pageURL.wmf_title, siteURL: pageURL.wmf_site)
         insertMediaViewController.delegate = self
         insertMediaViewController.apply(theme: theme)
