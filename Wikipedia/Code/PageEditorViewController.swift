@@ -402,6 +402,7 @@ final class PageEditorViewController: UIViewController {
             keyboardSubscriptButtonAccessibility: CommonStrings.editorKeyboardButtonSubscriptAccessiblityLabel,
             keyboardTemplateButtonAccessibility: CommonStrings.editorKeyboardButtonTemplateAccessiblityLabel,
             keyboardCommentButtonAccessibility: CommonStrings.editorKeyboardButtonCommentAccessiblityLabel,
+            wikitextEditorAccessibility: CommonStrings.editorWikitextTextviewAccessibilityLabel,
             findTextFieldAccessibility: CommonStrings.editorFindTextFieldAccessibilityLabel,
             findClearButtonAccessibility: CommonStrings.editorFindClearButtonAccessibilityLabel,
             findCurrentMatchInfoFormatAccessibility: CommonStrings.editorFindCurrentMatchInfoFormatAccessibilityLabel,
