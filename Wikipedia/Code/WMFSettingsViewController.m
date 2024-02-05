@@ -176,29 +176,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)disclosureSwitchChanged:(UISwitch *)disclosureSwitch {
     WMFSettingsMenuItemType type = (WMFSettingsMenuItemType)disclosureSwitch.tag;
     [self logNavigationEventsForMenuType:type];
-    [self updateStateForMenuItemType:type isSwitchOnValue:disclosureSwitch.isOn completion:^{
-        [self loadSections];
-    }];
+    [self loadSections];
 }
 
 #pragma mark - Switch tap handling
-
-- (void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn completion:(void (^)(void))completion {
-    switch (type) {
-        case WMFSettingsMenuItemType_SendUsageReports: {
-            if (isOn) {
-                [[SessionsFunnel shared] settingsLoggingToggledOn];
-                [[UserHistoryFunnel shared] logStartingSnapshot];
-            } else {
-                [[UserHistoryFunnel shared] logSnapshot];
-                [[SessionsFunnel shared] settingsLoggingToggledOffWithCompletion:completion];
-            }
-        } break;
-        default:
-            completion();
-            break;
-    }
-}
 
 - (void)logNavigationEventsForMenuType:(WMFSettingsMenuItemType)type {
 
@@ -247,9 +228,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
         case WMFSettingsMenuItemType_ClearCache:
             [[WMFNavigationEventsFunnel shared] logTappedSettingsClearCachedData];
-            break;
-        case WMFSettingsMenuItemType_SendUsageReports:
-            [[WMFNavigationEventsFunnel shared] logTappedSettingsSendUsageReports];
             break;
         default:
             break;
@@ -332,9 +310,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
     }
 
-    if (cell.tag != WMFSettingsMenuItemType_SendUsageReports) {
-            [self logNavigationEventsForMenuType:cell.tag];
-    }
+    [self logNavigationEventsForMenuType:cell.tag];
 
     [self.tableView deselectRowAtIndexPath:indexPath
                                   animated:YES];
@@ -590,8 +566,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (WMFSettingsTableViewSection *)section_3 {
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:@[
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_PrivacyPolicy],
-        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Terms],
-        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SendUsageReports]
+        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Terms]
     ]
                                                                                   headerTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-heading-legal", nil, nil, @"Privacy and Terms", @"Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.")
                                                                                    footerText:WMFLocalizedStringWithDefaultValue(@"preference-summary-eventlogging-opt-in", nil, nil, @"Allow Wikimedia Foundation to collect information about how you use the app to make the app better", @"Description of preference that when checked enables data collection of user behavior.")];
