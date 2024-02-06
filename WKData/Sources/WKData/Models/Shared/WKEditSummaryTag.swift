@@ -10,6 +10,8 @@ public enum WKEditSummaryTag: String {
     case articleDescriptionChange = "#article_description_change"
     case articleHistoryDiffUndo = "#article_history_diff_undo"
     case articleHistoryDiffRollback = "#article_history_diff_rollback"
+    case deeplinkDiffUndo = "#deeplink_diff_undo"
+    case deeplinkDiffRollback = "#deeplink_diff_rollback"
     case watchlistDiffUndo = "#watchlist_diff_undo"
     case watchlistDiffRollback = "#watchlist_diff_rollback"
     case talkReply = "#talk_reply"
