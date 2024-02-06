@@ -474,6 +474,12 @@ class TalkPageViewController: ViewController {
         let navigationController = WMFThemeableNavigationController(rootViewController: pageEditorViewController, theme: theme)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         present(navigationController, animated: true)
+        
+        guard let url = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {
+            return
+        }
+        
+        EditAttemptFunnel.shared.logInit(articleURL: url)
     }
 
     fileprivate func pushToDesktopWeb() {

@@ -15,6 +15,7 @@ extension ArticleViewController {
         let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: nil, editFlow: .editorPreviewSave, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, delegate: self, theme: theme)
         
         presentEditor(editorViewController: pageEditorViewController)
+        EditAttemptFunnel.shared.logInit(articleURL: articleURL)
     }
     
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
