@@ -15,6 +15,11 @@ extension ArticleViewController {
         let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: nil, editFlow: .editorPreviewSave, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, delegate: self, theme: theme)
         
         presentEditor(editorViewController: pageEditorViewController)
+        
+        if let project = WikimediaProject(siteURL: articleURL) {
+            EditInteractionFunnel.shared.logArticleDidTapEditSourceButton(project: project)
+        }
+        
     }
     
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
@@ -30,6 +35,15 @@ extension ArticleViewController {
         }
         
         presentEditor(editorViewController: editorViewController)
+        
+        if let project = WikimediaProject(siteURL: articleURL) {
+            if selectedTextEditInfo == nil {
+                EditInteractionFunnel.shared.logArticleDidTapEditSectionButton(project: project)
+            } else {
+                EditInteractionFunnel.shared.logArticleSelectDidTapEditContextMenu(project: project)
+            }
+            
+        }
     }
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource) {
@@ -94,17 +108,29 @@ extension ArticleViewController {
         let editTitleDescriptionTitle = WMFLocalizedString("description-edit-pencil-title", value: "Edit article description", comment: "Title for button used to show article description editor")
         let editTitleDescriptionAction = UIAlertAction(title: editTitleDescriptionTitle, style: .default) { (action) in
             self.showTitleDescriptionEditor(with: descriptionSource)
+            
+            if let project = WikimediaProject(siteURL: self.articleURL) {
+                EditInteractionFunnel.shared.logArticleConfirmDidTapEditArticleDescription(project: project)
+            }
         }
         sheet.addAction(editTitleDescriptionAction)
         
         let editLeadSectionTitle = WMFLocalizedString("description-edit-pencil-introduction", value: "Edit introduction", comment: "Title for button used to show article lead section editor")
         let editLeadSectionAction = UIAlertAction(title: editLeadSectionTitle, style: .default) { (action) in
             self.showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
+            
+            if let project = WikimediaProject(siteURL: self.articleURL) {
+                EditInteractionFunnel.shared.logArticleConfirmDidTapEditIntroduction(project: project)
+            }
         }
         sheet.addAction(editLeadSectionAction)
         
         sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
             EditAttemptFunnel.shared.logAbort(articleURL: self.articleURL)
+            
+            if let project = WikimediaProject(siteURL: self.articleURL) {
+                EditInteractionFunnel.shared.logArticleConfirmDidTapCancel(project: project)
+            }
         })
         present(sheet, animated: true)
     }
