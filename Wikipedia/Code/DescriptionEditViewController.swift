@@ -21,6 +21,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     @IBOutlet private weak var casingWarningLabel: UILabel!
     @IBOutlet private var warningCharacterCountLabel: UILabel!
     private var theme = Theme.standard
+    private var editType: ArticleDescriptionEditType = .add
 
     var delegate: DescriptionEditViewControllerDelegate? = nil
     
@@ -67,8 +68,10 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             if let currentDescription = description {
                 self.descriptionTextView.text = currentDescription
                 self.title = WMFLocalizedString("description-edit-title", value:"Edit description", comment:"Title text for description editing screen")
+                self.editType = .change
             } else {
                 self.title = WMFLocalizedString("description-add-title", value:"Add description", comment:"Title text for description addition screen")
+                self.editType = .add
             }
 
             self.isPlaceholderLabelHidden = self.shouldHidePlaceholder()
@@ -242,7 +245,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             EditAttemptFunnel.shared.logSaveAttempt(articleURL: articleURL)
         }
         
-        articleDescriptionController.publishDescription(descriptionToSave) { [weak self] (result) in
+        articleDescriptionController.publishDescription(descriptionToSave, editType: editType) { [weak self] (result) in
 
             DispatchQueue.main.async {
                 guard let self else {

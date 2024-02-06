@@ -1,5 +1,6 @@
 import Foundation
 import WMF
+import WKData
 
 enum ShortDescriptionControllerError: Error {
     case failureConstructingRegexExpression
@@ -51,7 +52,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     /// - Parameters:
     ///   - description: The new description to insert into the wikitext
     ///   - completion: Completion called when updated section upload call is successful.
-    func publishDescription(_ description: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
+    func publishDescription(_ description: String, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { [weak self] (result) in
             DispatchQueue.main.async {
@@ -67,7 +68,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
                     let wikitext = response.wikitext
                     let revisionID = response.revisionID
 
-                    self.uploadNewDescriptionToWikitext(wikitext, baseRevisionID: revisionID, newDescription: description, completion: completion)
+                    self.uploadNewDescriptionToWikitext(wikitext, baseRevisionID: revisionID, newDescription: description, editType: editType, completion: completion)
 
                 case .failure(let error):
                     completion(.failure(error))
@@ -128,27 +129,29 @@ class ShortDescriptionController: ArticleDescriptionControlling {
 
 private extension ShortDescriptionController {
     
-    func uploadNewDescriptionToWikitext(_ wikitext: String, baseRevisionID: Int, newDescription: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
+    func uploadNewDescriptionToWikitext(_ wikitext: String, baseRevisionID: Int, newDescription: String, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         do {
             guard try wikitext.containsShortDescription() else {
                 
-                prependNewDescriptionToWikitextAndUpload(wikitext, baseRevisionID: baseRevisionID, newDescription: newDescription, completion: completion)
+                prependNewDescriptionToWikitextAndUpload(wikitext, baseRevisionID: baseRevisionID, newDescription: newDescription, editType: editType, completion: completion)
                 return
             }
                 
-            replaceDescriptionInWikitextAndUpload(wikitext, newDescription: newDescription, baseRevisionID: baseRevisionID, completion: completion)
+            replaceDescriptionInWikitextAndUpload(wikitext, newDescription: newDescription, baseRevisionID: baseRevisionID, editType: editType, completion: completion)
             
         } catch let error {
             completion(.failure(error))
         }
     }
     
-    func prependNewDescriptionToWikitextAndUpload(_ wikitext: String, baseRevisionID: Int, newDescription: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
+    func prependNewDescriptionToWikitextAndUpload(_ wikitext: String, baseRevisionID: Int, newDescription: String, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         let newTemplateToPrepend = "{{Short description|\(newDescription)}}\n"
         
-        sectionUploader.prepend(toSectionID: "\(sectionID)", text: newTemplateToPrepend, forArticleURL: articleURL, isMinorEdit: true, baseRevID: baseRevisionID as NSNumber, completion: { [weak self] (result, error) in
+        let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
+        
+        sectionUploader.prepend(toSectionID: "\(sectionID)", text: newTemplateToPrepend, forArticleURL: articleURL, isMinorEdit: true, baseRevID: baseRevisionID as NSNumber, editSummaryTag: editSummaryTag, completion: { [weak self] (result, error) in
             
             guard let self = self else {
                 completion(.failure(ShortDescriptionControllerError.missingSelf))
@@ -170,13 +173,15 @@ private extension ShortDescriptionController {
         })
     }
     
-    func replaceDescriptionInWikitextAndUpload(_ wikitext: String, newDescription: String, baseRevisionID: Int, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
+    func replaceDescriptionInWikitextAndUpload(_ wikitext: String, newDescription: String, baseRevisionID: Int, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         do {
             
             let updatedWikitext = try wikitext.replacingShortDescription(with: newDescription)
             
-            sectionUploader.uploadWikiText(updatedWikitext, forArticleURL: articleURL, section: "\(sectionID)", summary: nil, isMinorEdit: true, addToWatchlist: false, baseRevID: baseRevisionID as NSNumber, captchaId: nil, captchaWord: nil, completion: { [weak self] (result, error) in
+            let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
+            
+            sectionUploader.uploadWikiText(updatedWikitext, forArticleURL: articleURL, section: "\(sectionID)", summary: nil, isMinorEdit: true, addToWatchlist: false, baseRevID: baseRevisionID as NSNumber, captchaId: nil, captchaWord: nil, editSummaryTag: editSummaryTag, completion: { [weak self] (result, error) in
                 
                 guard let self = self else {
                     completion(.failure(ShortDescriptionControllerError.missingSelf))
