@@ -140,7 +140,16 @@ class TalkPageViewController: ViewController {
         })
         
         let editSourceAction = UIAction(title: TalkPageLocalizedStrings.editSource, image: WKIcon.pencil, handler: { [weak self] _ in
-            self?.pushToPageEditor()
+            
+            guard let self else {
+                return
+            }
+            
+            self.pushToPageEditor()
+            
+            if let project = WikimediaProject(siteURL: self.viewModel.siteURL) {
+                EditInteractionFunnel.shared.logTalkDidTapEditSourceButton(project: project)
+            }
         })
         
         let openInWebAction = UIAction(title: TalkPageLocalizedStrings.readInWeb, image: UIImage(systemName: "display"), handler: { [weak self] _ in
