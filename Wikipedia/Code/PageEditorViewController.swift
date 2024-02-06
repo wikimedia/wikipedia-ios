@@ -649,9 +649,11 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
                     return
                 }
                 self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
+                EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
             }
         } else {
             delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
+            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
         }
     }
     
@@ -822,9 +824,11 @@ extension PageEditorViewController: EditNoticesViewControllerDelegate {
                     return
                 }
                 self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
+                EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
             }
         } else {
             delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
+            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
         }
     }
 }
