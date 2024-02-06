@@ -338,7 +338,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 EditHistoryCompareFunnel.shared.logRevisionView(url: pageURL)
             }
             
-            let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager)
+            let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager, source: .articleHistory)
             push(diffContainerVC, animated: true)
         }
     }
