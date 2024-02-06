@@ -573,7 +573,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                 return
             } else if let wikitext = result {
                 if wikitext != self.wikitext {
-                    let vc = EditPreviewViewController(articleURL: self.articleURL)
+                    let vc = EditPreviewViewController(pageURL: self.articleURL)
                     self.inputViewsController.resetFormattingAndStyleSubmenus()
                     self.needsSelectLastSelection = true
                     vc.theme = self.theme
@@ -717,7 +717,7 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
 
         vc.savedData = editConfirmationSavedData
         vc.dataStore = dataStore
-        vc.articleURL = self.articleURL
+        vc.pageURL = self.articleURL
         vc.sectionID = self.sectionID
         vc.languageCode = self.languageCode
         vc.wikitext = editPreviewViewController.wikitext
