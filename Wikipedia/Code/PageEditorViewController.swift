@@ -650,12 +650,12 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
                 guard let self else {
                     return
                 }
-                self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
                 EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+                self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
             }
         } else {
-            delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
             EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+            delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
         }
     }
     
@@ -825,12 +825,12 @@ extension PageEditorViewController: EditNoticesViewControllerDelegate {
                 guard let self else {
                     return
                 }
-                self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
                 EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+                self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
             }
         } else {
-            delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
             EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+            delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
         }
     }
 }
