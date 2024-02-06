@@ -8,14 +8,14 @@ extension ArticleViewController {
         } else {
             showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
         }
-        EditAttemptFunnel.shared.logInit(articleURL: articleURL)
+        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
     
     func showEditorForFullSource(selectedTextEditInfo: SelectedTextEditInfo? = nil) {
         let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: nil, editFlow: .editorPreviewSave, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, delegate: self, theme: theme)
         
         presentEditor(editorViewController: pageEditorViewController)
-        EditAttemptFunnel.shared.logInit(articleURL: articleURL)
+        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
     
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
@@ -105,7 +105,7 @@ extension ArticleViewController {
         sheet.addAction(editLeadSectionAction)
         
         sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
-            EditAttemptFunnel.shared.logAbort(articleURL: self.articleURL)
+            EditAttemptFunnel.shared.logAbort(pageURL: self.articleURL)
         })
         present(sheet, animated: true)
     }
@@ -200,18 +200,18 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
         switch result {
         case .failure(let error):
             showError(error)
-            EditAttemptFunnel.shared.logSaveFailure(articleURL: self.articleURL)
+            EditAttemptFunnel.shared.logSaveFailure(pageURL: self.articleURL)
         case .success(let changes):
             dismiss(animated: true)
             waitForNewContentAndRefresh(changes.newRevisionID)
-            EditAttemptFunnel.shared.logSaveSuccess(articleURL: self.articleURL, revisionId: Int(changes.newRevisionID))
+            EditAttemptFunnel.shared.logSaveSuccess(pageURL: self.articleURL, revisionId: Int(changes.newRevisionID))
         }
     }
     
     func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController, navigateToURL url: URL?) {
         dismiss(animated: true) {
             self.navigate(to: url)
-            EditAttemptFunnel.shared.logAbort(articleURL: self.articleURL)
+            EditAttemptFunnel.shared.logAbort(pageURL: self.articleURL)
         }
     }
 

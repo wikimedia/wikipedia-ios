@@ -207,14 +207,14 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
 
     @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
         if let articleURL = articleDescriptionController.article.url {
-            EditAttemptFunnel.shared.logSaveIntent(articleURL: articleURL)
+            EditAttemptFunnel.shared.logSaveIntent(pageURL: articleURL)
         }
         save()
     }
 
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
         if let articleURL = articleDescriptionController.article.url {
-            EditAttemptFunnel.shared.logAbort(articleURL: articleURL)
+            EditAttemptFunnel.shared.logAbort(pageURL: articleURL)
         }
         dismiss(animated: true, completion: nil)
     }
@@ -239,7 +239,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
 
 
         if let articleURL = self.articleDescriptionController.article.url {
-            EditAttemptFunnel.shared.logSaveAttempt(articleURL: articleURL)
+            EditAttemptFunnel.shared.logSaveAttempt(pageURL: articleURL)
         }
         
         articleDescriptionController.publishDescription(descriptionToSave) { [weak self] (result) in
@@ -262,7 +262,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                             revisionID = Int(uintRevisionID)
                         }
                         
-                        EditAttemptFunnel.shared.logSaveSuccess(articleURL: articleURL, revisionId: revisionID)
+                        EditAttemptFunnel.shared.logSaveSuccess(pageURL: articleURL, revisionId: revisionID)
                     }
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
@@ -271,7 +271,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 case .failure(let error):
                     let nsError = error as NSError
                     if let articleURL = self.articleDescriptionController.article.url {
-                        EditAttemptFunnel.shared.logSaveFailure(articleURL: articleURL)
+                        EditAttemptFunnel.shared.logSaveFailure(pageURL: articleURL)
                     }
                     if let wikidataError = error as? WikidataFetcher.WikidataPublishingError {
                         switch wikidataError {

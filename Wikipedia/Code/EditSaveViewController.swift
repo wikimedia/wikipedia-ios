@@ -285,7 +285,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             assertionFailure("Could not get url of section to be edited")
             return
         }
-        EditAttemptFunnel.shared.logSaveAttempt(articleURL: editURL)
+        EditAttemptFunnel.shared.logSaveAttempt(pageURL: editURL)
         
         let section: String?
         if let sectionID {
@@ -328,7 +328,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let errorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
 
         if let articleURL {
-            EditAttemptFunnel.shared.logSaveFailure(articleURL: articleURL)
+            EditAttemptFunnel.shared.logSaveFailure(pageURL: articleURL)
         }
         
         switch errorType {
