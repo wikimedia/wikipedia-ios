@@ -320,6 +320,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             notifyDelegate(.failure(RequestError.unexpectedResponse))
             return
         }
+        if let articleURL {
+            EditAttemptFunnel.shared.logSaveSuccess(pageURL: articleURL, revisionId: Int(newRevID))
+        }
         notifyDelegate(.success(SectionEditorChanges(newRevisionID: newRevID)))
     }
     
