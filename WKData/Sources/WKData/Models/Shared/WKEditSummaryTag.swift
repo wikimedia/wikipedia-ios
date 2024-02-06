@@ -4,7 +4,7 @@ import Foundation
 public enum WKEditSummaryTag: String {
     case articleSectionSourceEditor = "#article_section_source_editor"
     case articleFullSourceEditor = "#article_full_source_editor"
-    case articleSelectSourceEditor = "#article_seelct_source_editor"
+    case articleSelectSourceEditor = "#article_select_source_editor"
     case talkFullSourceEditor = "#talk_full_source_editor"
     case articleDescriptionAdd = "#article_description_add"
     case articleDescriptionChange = "#article_description_change"
