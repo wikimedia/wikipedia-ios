@@ -33,6 +33,7 @@ enum RoutingUserInfoSourceValue: String {
     case account
     case search
     case inAppWebView
+    case watchlist
     case unknown
 }
 
@@ -118,7 +119,21 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return false
             }
-            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, source: .deepLink)
+            
+            let diffSource: DiffSource
+            if let sourceString = userInfo?[RoutingUserInfoKeys.source] as? String,
+                  let source = RoutingUserInfoSourceValue(rawValue: sourceString) {
+                switch source {
+                case .watchlist:
+                    diffSource = .watchlist
+                default:
+                    diffSource = .other
+                }
+            } else {
+                diffSource = .other
+            }
+            
+            let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, source: diffSource)
             return presentOrPush(diffContainerVC, with: completion)
         case .inAppLink(let linkURL):
             let campaignArticleURL = userInfo?[RoutingUserInfoKeys.campaignArticleURL] as? URL

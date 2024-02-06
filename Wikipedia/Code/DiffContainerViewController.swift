@@ -13,7 +13,7 @@ struct StubRevisionModel {
 enum DiffSource {
     case articleHistory
     case watchlist
-    case deepLink
+    case other
 }
 
 protocol DiffRevisionRetrieving: AnyObject {
@@ -1337,8 +1337,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             editSummaryTag = .articleHistoryDiffUndo
         case .watchlist:
             editSummaryTag = .watchlistDiffUndo
-        case .deepLink:
-            editSummaryTag = .deeplinkDiffUndo
+        case .other:
+            editSummaryTag = .otherDiffUndo
         }
         
         WKWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, editSummaryTag: editSummaryTag, project: wkProject) { [weak self] result in
@@ -1391,8 +1391,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             editSummaryTag = .articleHistoryDiffRollback
         case .watchlist:
             editSummaryTag = .watchlistDiffRollback
-        case .deepLink:
-            editSummaryTag = .deeplinkDiffRollback
+        case .other:
+            editSummaryTag = .otherDiffRollback
         }
 
         WKWatchlistDataController().rollback(title: title, project: wkProject, username: username, editSummaryTag: editSummaryTag) { [weak self] result in
