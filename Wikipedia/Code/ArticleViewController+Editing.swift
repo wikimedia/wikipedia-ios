@@ -8,7 +8,6 @@ extension ArticleViewController {
         } else {
             showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
         }
-        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
     
     func showEditorForFullSource(selectedTextEditInfo: SelectedTextEditInfo? = nil) {
@@ -20,6 +19,7 @@ extension ArticleViewController {
     
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
         cancelWIconPopoverDisplay()
+        
         let editorViewController: UIViewController
         if FeatureFlags.needsNativeSourceEditor {
             let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, delegate: self, theme: theme)
@@ -31,6 +31,7 @@ extension ArticleViewController {
         }
         
         presentEditor(editorViewController: editorViewController)
+        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource) {
@@ -90,6 +91,7 @@ extension ArticleViewController {
     }
     
     func showEditSectionOrTitleDescriptionDialogForSection(with id: Int, descriptionSource: ArticleDescriptionSource, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
+
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         
         let editTitleDescriptionTitle = WMFLocalizedString("description-edit-pencil-title", value: "Edit article description", comment: "Title for button used to show article description editor")
@@ -108,6 +110,8 @@ extension ArticleViewController {
             EditAttemptFunnel.shared.logAbort(pageURL: self.articleURL)
         })
         present(sheet, animated: true)
+        
+        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
 
 }
