@@ -637,6 +637,8 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
         case .editorPreviewSave:
             showEditPreview(editFlow: editFlow)
         }
+        
+        EditAttemptFunnel.shared.logSaveIntent(pageURL: pageURL)
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
