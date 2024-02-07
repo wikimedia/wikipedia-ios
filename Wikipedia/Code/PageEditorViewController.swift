@@ -561,6 +561,8 @@ final class PageEditorViewController: UIViewController {
                 }
             }
             
+            EditAttemptFunnel.shared.logAbort(articleURL: pageURL)
+            
             confirmCompletion()
         }
         alert.addAction(confirmClose)
@@ -952,6 +954,8 @@ extension PageEditorViewController: EditNoticesViewControllerDelegate {
                 case .talk:
                     EditInteractionFunnel.shared.logTalkEditorDidTapPanelLink(problemSource: .editNoticeLink, project: project)
                 }
+                
+                EditAttemptFunnel.shared.logAbort(articleURL: pageURL)
             }
             
             delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
