@@ -10,12 +10,6 @@ struct StubRevisionModel {
     let timestamp: Date
 }
 
-enum DiffSource {
-    case articleHistory
-    case watchlist
-    case other
-}
-
 protocol DiffRevisionRetrieving: AnyObject {
     func retrievePreviousRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
     func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
@@ -52,7 +46,6 @@ class DiffContainerViewController: ViewController {
     private let safeAreaBottomAlignView = UIView()
     
     private var type: DiffContainerViewModel.DiffType
-    private let source: DiffSource
     
     private let revisionRetrievingDelegate: DiffRevisionRetrieving?
     private var firstRevision: WMFPageHistoryRevision?
@@ -111,7 +104,7 @@ class DiffContainerViewController: ViewController {
     private weak var undoAlertUndoAction: UIAlertAction?
     private weak var undoAlertSummaryTextField: UITextField?
     
-    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, source: DiffSource) {
+    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
         self.siteURL = siteURL
         let wikimediaProject = WikimediaProject(siteURL: siteURL)
         self.wikimediaProject = wikimediaProject
@@ -128,7 +121,6 @@ class DiffContainerViewController: ViewController {
         self.toModel = nil
         self.fromModel = nil
         self.needsSetNavDelegate = needsSetNavDelegate
-        self.source = source
         
         super.init()
         self.isAccessibilityElement = false
@@ -139,7 +131,7 @@ class DiffContainerViewController: ViewController {
         }
     }
     
-    init(articleTitle: String, siteURL: URL, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, source: DiffSource) {
+    init(articleTitle: String, siteURL: URL, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
 
         self.type = .compare
         
@@ -158,7 +150,6 @@ class DiffContainerViewController: ViewController {
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, listViewModel: nil, articleTitle: articleTitle, imageURL: nil, byteDifference: nil, theme: theme, project: project)
         
         self.needsSetNavDelegate = needsSetNavDelegate
-        self.source = source
         
         super.init()
         
@@ -1076,7 +1067,7 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
         
         EditHistoryCompareFunnel.shared.logRevisionView(url: siteURL)
         
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager, source: source)
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
         push(singleDiffVC, animated: true)
     }
 }
@@ -1184,7 +1175,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         
         WatchlistFunnel.shared.logDiffToolbarTapPrevious(project: wikimediaProject)
         
-        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager, source: source)
+        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
 
         replaceLastAndPush(with: diffVC)
     }
@@ -1201,7 +1192,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         
         WatchlistFunnel.shared.logDiffToolbarTapNext(project: wikimediaProject)
         
-        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager, source: source)
+        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
 
         replaceLastAndPush(with: diffVC)
     }
@@ -1331,17 +1322,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
         }
         
-        let editSummaryTag: WKEditSummaryTag
-        switch source {
-        case .articleHistory:
-            editSummaryTag = .articleHistoryDiffUndo
-        case .watchlist:
-            editSummaryTag = .watchlistDiffUndo
-        case .other:
-            editSummaryTag = .otherDiffUndo
-        }
-        
-        WKWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, editSummaryTag: editSummaryTag, project: wkProject) { [weak self] result in
+        WKWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, editSummaryTag: .diffUndo, project: wkProject) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: false)
             }
@@ -1384,18 +1365,8 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         if let pageURL = self.fetchPageURL() {
             EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
         }
-        
-        let editSummaryTag: WKEditSummaryTag
-        switch source {
-        case .articleHistory:
-            editSummaryTag = .articleHistoryDiffRollback
-        case .watchlist:
-            editSummaryTag = .watchlistDiffRollback
-        case .other:
-            editSummaryTag = .otherDiffRollback
-        }
 
-        WKWatchlistDataController().rollback(title: title, project: wkProject, username: username, editSummaryTag: editSummaryTag) { [weak self] result in
+        WKWatchlistDataController().rollback(title: title, project: wkProject, username: username, editSummaryTag: .diffRollback) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: true)
             }
@@ -1418,7 +1389,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                     EditAttemptFunnel.shared.logSaveSuccess(articleURL: pageURL, revisionId: result.newRevisionID)
             }
 
-            let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager, source: source)
+            let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
 
             animateDirection = .up
             replaceLastAndPush(with: diffVC)
