@@ -1267,7 +1267,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         }
 
         if let pageURL = fetchPageURL() {
-            EditAttemptFunnel.shared.logInit(articleURL: pageURL)
+            EditAttemptFunnel.shared.logInit(pageURL: pageURL)
         }
         
         WatchlistFunnel.shared.logDiffToolbarTapUndo(project: wikimediaProject)
@@ -1284,7 +1284,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { [weak self] (action) in
             WatchlistFunnel.shared.logDiffUndoAlertTapCancel(project: self?.wikimediaProject)
             if let pageURL = self?.fetchPageURL() {
-                EditAttemptFunnel.shared.logAbort(articleURL: pageURL)
+                EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
             }
         }
         
@@ -1319,7 +1319,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         fakeProgressController.start()
 
         if let pageURL = self.fetchPageURL() {
-            EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
+            EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
         
         WKWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, editSummaryTag: .diffUndo, project: wkProject) { [weak self] result in
@@ -1331,7 +1331,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
 
     func tappedRollback() {
         if let pageURL = fetchPageURL() {
-            EditAttemptFunnel.shared.logInit(articleURL: pageURL)
+            EditAttemptFunnel.shared.logInit(pageURL: pageURL)
         }
         WatchlistFunnel.shared.logDiffToolbarMoreTapRollback(project: wikimediaProject)
         let title = WMFLocalizedString("diff-rollback-alert-title", value: "Rollback edits", comment: "Title of alert when user taps rollback in diff toolbar.")
@@ -1341,7 +1341,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { [weak self] (action) in
             WatchlistFunnel.shared.logDiffRollbackAlertTapCancel(project: self?.wikimediaProject)
             if let pageURL = self?.fetchPageURL() {
-                EditAttemptFunnel.shared.logAbort(articleURL: pageURL)
+                EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
             }
         }
         let rollback = UIAlertAction(title: CommonStrings.rollback, style: .destructive) { [weak self] (action) in
@@ -1363,7 +1363,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
 
         fakeProgressController.start()
         if let pageURL = self.fetchPageURL() {
-            EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
+            EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
 
         WKWatchlistDataController().rollback(title: title, project: wkProject, username: username, editSummaryTag: .diffRollback) { [weak self] result in
@@ -1386,7 +1386,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             }
             
             if let pageURL = self.fetchPageURL() {
-                    EditAttemptFunnel.shared.logSaveSuccess(articleURL: pageURL, revisionId: result.newRevisionID)
+                    EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: result.newRevisionID)
             }
 
             let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
@@ -1414,7 +1414,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             
         case .failure(let error):
             if let pageURL = self.fetchPageURL() {
-                EditAttemptFunnel.shared.logSaveFailure(articleURL: pageURL)
+                EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
             }
 
             let fallback: (Error) -> Void = { error in
