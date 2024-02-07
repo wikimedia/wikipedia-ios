@@ -927,21 +927,14 @@ extension PageEditorViewController: EditSaveViewControllerDelegate {
 
 extension PageEditorViewController: EditNoticesViewControllerDelegate {
     func editNoticesControllerUserTapped(url: URL) {
+        
         let progressButton = navigationItemController.progressButton
         let closeButton = navigationItemController.closeButton
         if progressButton.isEnabled {
+            editCloseProblemSource = .editNoticeLink
             showDestructiveDismissAlert(sender: closeButton) { [weak self] in
                 guard let self else {
                     return
-                }
-                
-                if let project = WikimediaProject(siteURL: self.pageURL) {
-                    switch self.source {
-                    case .article:
-                        EditInteractionFunnel.shared.logArticleEditorDidTapPanelLink(problemSource: .editNoticeLink, project: project)
-                    case .talk:
-                        EditInteractionFunnel.shared.logTalkEditorDidTapPanelLink(problemSource: .editNoticeLink, project: project)
-                    }
                 }
                 
                 self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)

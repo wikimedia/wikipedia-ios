@@ -569,6 +569,8 @@ extension UIViewController {
             guard let baseURL = linkBaseURL.wmf_URL(withTitle: currentTitle) else {
                 return
             }
+            
+            linkLoggingAction?()
 
             let fullURL = baseURL.resolvingRelativeWikiHref(url.relativeString)
 
