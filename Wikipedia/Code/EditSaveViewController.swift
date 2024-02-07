@@ -405,7 +405,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 problemSource = .abuseFilterWarned
             }
             
-        case .server, .unknown:
+        case .server:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             problemSource = .serverError
         case .blocked:
@@ -417,10 +417,33 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 return
             }
             
-            wmf_showBlockedPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme)
+            wmf_showBlockedPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, linkLoggingAction: { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                if let source,
+                   let articleURL,
+                let project = WikimediaProject(siteURL: articleURL) {
+                    
+                    switch source {
+                    case .article:
+                        EditInteractionFunnel.shared.logArticleEditSummaryDidTapBlockedMessageLink(project: project)
+                    case .talk:
+                        EditInteractionFunnel.shared.logTalkEditSummaryDidTapBlockedMessageLink(project: project)
+                    }
+                }
+            })
             
             problemSource = .blockedMessage
             
+        case .protectedPage:
+            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            problemSource = .protectedPage
+        case .unknown:
+            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            // leaving problemSource blank
         default:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             if nsError.wmf_isNetworkConnectionError() {

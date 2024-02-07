@@ -214,7 +214,7 @@ final class EditInteractionFunnel {
             actionData = ["fail_source": problemSource.rawValue]
         }
         
-        logEvent(activeInterface: .articleEditingInterface, action: .saveFailure, actionData: actionData, project: project)
+        logEvent(activeInterface: .articleEditSummary, action: .saveFailure, actionData: actionData, project: project)
     }
     
     func logTalkPublishFail(problemSource: ProblemSource?, project: WikimediaProject) {
@@ -223,6 +223,16 @@ final class EditInteractionFunnel {
             actionData = ["fail_source": problemSource.rawValue]
         }
         
-        logEvent(activeInterface: .talkEditingInterface, action: .saveFailure, actionData: actionData, project: project)
+        logEvent(activeInterface: .talkEditSummary, action: .saveFailure, actionData: actionData, project: project)
+    }
+    
+    func logArticleEditSummaryDidTapBlockedMessageLink(project: WikimediaProject) {
+        let actionData = ["abort_source": ProblemSource.blockedMessageLink.rawValue]
+        logEvent(activeInterface: .articleEditSummary, action: .editCancel, actionData: actionData, project: project)
+    }
+    
+    func logTalkEditSummaryDidTapBlockedMessageLink(project: WikimediaProject) {
+        let actionData = ["abort_source": ProblemSource.blockedMessageLink.rawValue]
+        logEvent(activeInterface: .talkEditSummary, action: .editCancel, actionData: actionData, project: project)
     }
 }
