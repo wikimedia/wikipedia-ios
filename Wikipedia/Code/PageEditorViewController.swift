@@ -839,6 +839,15 @@ extension PageEditorViewController: EditPreviewViewControllerDelegate {
             return
         }
         
+        if let project = WikimediaProject(siteURL: self.pageURL) {
+            switch self.source {
+            case .article:
+                EditInteractionFunnel.shared.logArticlePreviewDidTapNext(project: project)
+            default:
+                assertionFailure("Edit preview with Next button should have article set as source.")
+            }
+        }
+        
         showEditSave(editFlow: editFlow)
     }
 }
@@ -858,6 +867,15 @@ extension PageEditorViewController: EditSaveViewControllerDelegate {
         guard case .editorSavePreview = editFlow else {
             assertionFailure("Invalid - web preview button should only be available when in editorSavePreview flow.")
             return
+        }
+        
+        if let project = WikimediaProject(siteURL: self.pageURL) {
+            switch self.source {
+            case .talk:
+                EditInteractionFunnel.shared.logTalkEditSummaryDidTapPreview(project: project)
+            default:
+                assertionFailure("Article sources should not have show web preview button on edit save.")
+            }
         }
         
         showEditPreview(editFlow: editFlow)
