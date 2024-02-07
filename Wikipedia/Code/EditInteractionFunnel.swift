@@ -14,6 +14,7 @@ final class EditInteractionFunnel {
         case abuseFilterWarned = "abuse_filter_warned"
         case serverError = "server_error"
         case connectionError = "connection_error"
+        case needsCaptcha = "needs_captcha"
     }
     
     private enum ActiveInterface: String {
@@ -190,13 +191,21 @@ final class EditInteractionFunnel {
         logEvent(activeInterface: .talkEditingInterface, action: .saveSuccess, actionData: actionData, project: project)
     }
     
-    func logArticlePublishFail(problemSource: ProblemSource, project: WikimediaProject) {
-        let actionData = ["fail_source": problemSource.rawValue]
+    func logArticlePublishFail(problemSource: ProblemSource?, project: WikimediaProject) {
+        var actionData: [String: String]? = nil
+        if let problemSource {
+            actionData = ["fail_source": problemSource.rawValue]
+        }
+        
         logEvent(activeInterface: .articleEditingInterface, action: .saveFailure, actionData: actionData, project: project)
     }
     
-    func logTalkPublishFail(problemSource: ProblemSource, project: WikimediaProject) {
-        let actionData = ["fail_source": problemSource.rawValue]
+    func logTalkPublishFail(problemSource: ProblemSource?, project: WikimediaProject) {
+        var actionData: [String: String]? = nil
+        if let problemSource {
+            actionData = ["fail_source": problemSource.rawValue]
+        }
+        
         logEvent(activeInterface: .talkEditingInterface, action: .saveFailure, actionData: actionData, project: project)
     }
 }
