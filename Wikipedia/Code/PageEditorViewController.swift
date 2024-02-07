@@ -666,6 +666,15 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
 
         sourceEditor.removeFocus()
         
+        if let project = WikimediaProject(siteURL: self.pageURL) {
+            switch self.source {
+            case .article:
+                EditInteractionFunnel.shared.logArticleEditorDidTapNext(project: project)
+            case .talk:
+                EditInteractionFunnel.shared.logTalkEditorDidTapNext(project: project)
+            }
+        }
+        
         switch editFlow {
         case .editorSavePreview:
             showEditSave(editFlow: editFlow)
