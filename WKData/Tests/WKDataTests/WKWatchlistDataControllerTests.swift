@@ -423,7 +423,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Post Rollback Article")
 
         var resultToTest: Result<WKUndoOrRollbackResult, Error>?
-        controller.rollback(title: "Cat", project: enProject, username: "Amigao", editSummaryTag: .watchlistDiffRollback) { result in
+        controller.rollback(title: "Cat", project: enProject, username: "Amigao", editSummaryTag: .diffRollback) { result in
             resultToTest = result
             expectation.fulfill()
         }
@@ -449,7 +449,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Post Undo Article")
 
         var resultToTest: Result<WKUndoOrRollbackResult, Error>?
-        controller.undo(title: "Cat", revisionID: 1155871225, summary: "Testing", username: "Amigao", editSummaryTag: .watchlistDiffUndo, project: enProject) { result in
+        controller.undo(title: "Cat", revisionID: 1155871225, summary: "Testing", username: "Amigao", editSummaryTag: .diffUndo, project: enProject) { result in
             resultToTest = result
             expectation.fulfill()
         }
