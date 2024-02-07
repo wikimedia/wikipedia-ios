@@ -398,6 +398,7 @@
 "editor-toolbar-reference-accessibility" = "Accessibility label for reference toolbar button on the editor.";
 "editor-toolbar-show-more-accessibility" = "Accessibility label for expand button on the formatting toolbar in editor. This button reveals more formatting toolbar buttons.";
 "editor-toolbar-template-accessibility" = "Accessibility label for template toolbar button on the editor.";
+"editor-wikitext-loading-accessibility" = "Accessibility announcement when the editor textview is activated. This will be spoken with VoiceOver if loading takes a while.";
 "editor-wikitext-textview-accessibility" = "Accessibility label for the wikitext editor textview.";
 "empty-diff-compare-title" = "Text for placeholder label visible when diff comparision between revisions is empty.";
 "empty-diff-single-title" = "Text for placeholder label visible when diff returned for single revision is empty.";

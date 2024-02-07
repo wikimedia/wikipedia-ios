@@ -16,7 +16,7 @@ fileprivate var needsTextKit2: Bool {
 class WKSourceEditorTextView: UITextView {
     override func accessibilityActivate() -> Bool {
 
-        UIAccessibility.post(notification: .announcement, argument: "Loading editor text.")
+        UIAccessibility.post(notification: .announcement, argument: WKSourceEditorLocalizedStrings.current.wikitextEditorLoadingAccessibility)
         
         return super.accessibilityActivate()
     }
