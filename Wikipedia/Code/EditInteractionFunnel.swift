@@ -15,7 +15,7 @@ final class EditInteractionFunnel {
         case serverError = "server_error"
         case connectionError = "connection_error"
         case needsCaptcha = "needs_captcha"
-        case articleSelect = "article_select"
+        case articleSelectFail = "article_select_fail"
     }
     
     private enum ActiveInterface: String {

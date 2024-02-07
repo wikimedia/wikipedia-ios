@@ -293,7 +293,7 @@ final class PageEditorViewController: UIViewController {
         let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
         alert.addAction(action)
         present(alert, animated: true)
-        editCloseProblemSource = .articleSelect
+        editCloseProblemSource = .articleSelectFail
     }
     
     private func loadWikitext(completion: @escaping (Result<WikitextFetchResponse, Error>) -> Void) {
