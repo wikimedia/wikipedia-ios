@@ -15,6 +15,7 @@ final class EditInteractionFunnel {
         case serverError = "server_error"
         case connectionError = "connection_error"
         case needsCaptcha = "needs_captcha"
+        case articleSelect = "article_select"
     }
     
     private enum ActiveInterface: String {
@@ -114,6 +115,22 @@ final class EditInteractionFunnel {
             actionData = ["abort_source": problemSource.rawValue]
         }
         logEvent(activeInterface: .articleEditingInterface, action: .editCancel, actionData: actionData, project: project)
+    }
+    
+    func logArticleEditorDidTapPanelLink(problemSource: ProblemSource?, project: WikimediaProject) {
+        var actionData: [String: String]? = nil
+        if let problemSource {
+            actionData = ["abort_source": problemSource.rawValue]
+        }
+        logEvent(activeInterface: .articleEditingInterface, action: .editCancel, actionData: actionData, project: project)
+    }
+    
+    func logTalkEditorDidTapPanelLink(problemSource: ProblemSource?, project: WikimediaProject) {
+        var actionData: [String: String]? = nil
+        if let problemSource {
+            actionData = ["abort_source": problemSource.rawValue]
+        }
+        logEvent(activeInterface: .talkEditingInterface, action: .editCancel, actionData: actionData, project: project)
     }
     
     func logArticleEditorConfirmDidTapDiscardEdit(problemSource: ProblemSource?, project: WikimediaProject) {

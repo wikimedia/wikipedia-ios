@@ -51,6 +51,7 @@ final class PageEditorViewController: UIViewController {
     private var editorTopConstraint: NSLayoutConstraint!
     
     private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
+    private var editCloseProblemSource: EditInteractionFunnel.ProblemSource?
     
     private lazy var focusNavigationView: FocusNavigationView = {
         return FocusNavigationView.wmf_viewFromClassNib()
@@ -230,6 +231,12 @@ final class PageEditorViewController: UIViewController {
             
             let needsReadOnly = (wikitextFetchResponse.blockedError != nil) || (wikitextFetchResponse.protectedPageError != nil && !wikitextFetchResponse.userGroupLevelCanEdit)
             
+            if wikitextFetchResponse.blockedError != nil {
+                editCloseProblemSource = .blockedMessage
+            } else if wikitextFetchResponse.protectedPageError != nil && !wikitextFetchResponse.userGroupLevelCanEdit {
+                editCloseProblemSource = .protectedPage
+            }
+            
             if let onloadSelectRange = wikitextFetchResponse.onloadSelectRange,
                onloadSelectRange.location == NSNotFound {
                 presentFailToFindSelectedRangeAlert()
@@ -286,6 +293,7 @@ final class PageEditorViewController: UIViewController {
         let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
         alert.addAction(action)
         present(alert, animated: true)
+        editCloseProblemSource = .articleSelect
     }
     
     private func loadWikitext(completion: @escaping (Result<WikitextFetchResponse, Error>) -> Void) {
@@ -339,6 +347,8 @@ final class PageEditorViewController: UIViewController {
                 UIAccessibility.post(notification: .announcement, argument: nsError.alertMessage())
             }
             
+            editCloseProblemSource = .connectionError
+            
         } else {
             
             let alert = UIAlertController(title: CommonStrings.unexpectedErrorAlertTitle, message: nsError.alertMessage(), preferredStyle: .alert)
@@ -378,15 +388,45 @@ final class PageEditorViewController: UIViewController {
             return
         }
         
-        wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme)
+        wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, linkLoggingAction: { [weak self] in
+            
+            guard let self else {
+                return
+            }
+            
+            if let project = WikimediaProject(siteURL: pageURL) {
+                switch source {
+                case .article:
+                    EditInteractionFunnel.shared.logArticleEditorDidTapPanelLink(problemSource: .blockedMessageLink, project: project)
+                case .talk:
+                    EditInteractionFunnel.shared.logTalkEditorDidTapPanelLink(problemSource: .blockedMessageLink, project: project)
+                }
+            }
+        })
     }
     
     private func presentProtectedPageWarning(error: MediaWikiAPIDisplayError) {
+        
         guard let currentTitle = pageURL.wmf_title else {
             return
         }
 
-        wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, image: UIImage(named: "warning-icon"))
+        wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, image: UIImage(named: "warning-icon"), linkLoggingAction: { [weak self] in
+            
+            guard let self else {
+                return
+            }
+            
+            if let project = WikimediaProject(siteURL: pageURL) {
+                switch source {
+                case .article:
+                    EditInteractionFunnel.shared.logArticleEditorDidTapPanelLink(problemSource: .protectedPageLink, project: project)
+                case .talk:
+                    EditInteractionFunnel.shared.logTalkEditorDidTapPanelLink(problemSource: .protectedPageLink, project: project)
+                }
+            }
+            
+        })
     }
     
     private func addChildEditor(wikitext: String, needsReadOnly: Bool, onloadSelectRange: NSRange?) {
@@ -511,9 +551,9 @@ final class PageEditorViewController: UIViewController {
             if let project = WikimediaProject(siteURL: self.pageURL) {
                 switch self.source {
                 case .article:
-                    EditInteractionFunnel.shared.logArticleEditorDidTapClose(problemSource: nil, project: project)
+                    EditInteractionFunnel.shared.logArticleEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
                 case .talk:
-                    EditInteractionFunnel.shared.logTalkEditorDidTapClose(problemSource: nil, project: project)
+                    EditInteractionFunnel.shared.logTalkEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
                 }
             }
             
@@ -700,9 +740,9 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
             if let project = WikimediaProject(siteURL: pageURL) {
                 switch source {
                 case .article:
-                    EditInteractionFunnel.shared.logArticleEditorDidTapClose(problemSource: nil, project: project)
+                    EditInteractionFunnel.shared.logArticleEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
                 case .talk:
-                    EditInteractionFunnel.shared.logTalkEditorDidTapClose(problemSource: nil, project: project)
+                    EditInteractionFunnel.shared.logTalkEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
                 }
             }
             
@@ -857,7 +897,6 @@ extension PageEditorViewController: EditPreviewViewControllerDelegate {
 
 extension PageEditorViewController: EditSaveViewControllerDelegate {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>) {
-        
         delegate?.pageEditorDidFinishEditing(self, result: result)
     }
 
@@ -895,9 +934,29 @@ extension PageEditorViewController: EditNoticesViewControllerDelegate {
                 guard let self else {
                     return
                 }
+                
+                if let project = WikimediaProject(siteURL: self.pageURL) {
+                    switch self.source {
+                    case .article:
+                        EditInteractionFunnel.shared.logArticleEditorDidTapPanelLink(problemSource: .editNoticeLink, project: project)
+                    case .talk:
+                        EditInteractionFunnel.shared.logTalkEditorDidTapPanelLink(problemSource: .editNoticeLink, project: project)
+                    }
+                }
+                
                 self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
             }
         } else {
+            
+            if let project = WikimediaProject(siteURL: self.pageURL) {
+                switch self.source {
+                case .article:
+                    EditInteractionFunnel.shared.logArticleEditorDidTapPanelLink(problemSource: .editNoticeLink, project: project)
+                case .talk:
+                    EditInteractionFunnel.shared.logTalkEditorDidTapPanelLink(problemSource: .editNoticeLink, project: project)
+                }
+            }
+            
             delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
         }
     }
