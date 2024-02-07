@@ -571,6 +571,7 @@ final class PageEditorViewController: UIViewController {
         saveVC.sectionID = sectionID
         saveVC.languageCode = pageURL.wmf_languageCode
         saveVC.wikitext = sourceEditor.editedWikitext
+        saveVC.source = source
         if case .editorSavePreview = editFlow {
             saveVC.needsWebPreviewButton = true
         }
@@ -856,6 +857,7 @@ extension PageEditorViewController: EditPreviewViewControllerDelegate {
 
 extension PageEditorViewController: EditSaveViewControllerDelegate {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>) {
+        
         delegate?.pageEditorDidFinishEditing(self, result: result)
     }
 

@@ -35,6 +35,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var articleURL: URL?
     var languageCode: String?
     var dataStore: MWKDataStore?
+    var source: PageEditorViewController.Source?
     
     var wikitext = ""
     var theme: Theme = .standard
@@ -284,6 +285,21 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         guard let editURL = articleURL else {
             assertionFailure("Could not get url of section to be edited")
             return
+        }
+        
+        if let source,
+           let articleURL,
+        let project = WikimediaProject(siteURL: articleURL) {
+            let summaryAdded = !summaryText.isEmpty
+            let minorEdit = minorEditToggle.isOn
+            
+            switch source {
+            case .article:
+                EditInteractionFunnel.shared.logArticleEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: minorEdit, project: project)
+            case .talk:
+                EditInteractionFunnel.shared.logTalkEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: minorEdit, project: project)
+            }
+            
         }
         EditAttemptFunnel.shared.logSaveAttempt(articleURL: editURL)
         
