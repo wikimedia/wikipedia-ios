@@ -433,6 +433,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                     case .talk:
                         EditInteractionFunnel.shared.logTalkEditSummaryDidTapBlockedMessageLink(project: project)
                     }
+                    
+                    EditAttemptFunnel.shared.logAbort(articleURL: articleURL)
                 }
             })
             

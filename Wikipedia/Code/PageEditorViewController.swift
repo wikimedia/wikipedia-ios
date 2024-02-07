@@ -402,6 +402,8 @@ final class PageEditorViewController: UIViewController {
                     EditInteractionFunnel.shared.logTalkEditorDidTapPanelLink(problemSource: .blockedMessageLink, project: project)
                 }
             }
+            
+            EditAttemptFunnel.shared.logAbort(articleURL: pageURL)
         })
     }
     
@@ -425,6 +427,8 @@ final class PageEditorViewController: UIViewController {
                     EditInteractionFunnel.shared.logTalkEditorDidTapPanelLink(problemSource: .protectedPageLink, project: project)
                 }
             }
+            
+            EditAttemptFunnel.shared.logAbort(articleURL: pageURL)
             
         })
     }
