@@ -18,6 +18,11 @@ final class PageEditorViewController: UIViewController {
         case editorSavePreview
     }
     
+    enum Source {
+        case article
+        case talk
+    }
+    
     private struct WikitextFetchResponse {
         let wikitext: String
         let onloadSelectRange: NSRange?
@@ -32,6 +37,7 @@ final class PageEditorViewController: UIViewController {
     private let pageURL: URL
     private let sectionID: Int?
     private let editFlow: EditFlow
+    private let source: Source
     private let dataStore: MWKDataStore
     private let articleSelectedInfo: SelectedTextEditInfo?
     private weak var delegate: PageEditorViewControllerDelegate?
@@ -69,7 +75,7 @@ final class PageEditorViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, delegate: PageEditorViewControllerDelegate, theme: Theme) {
+    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, delegate: PageEditorViewControllerDelegate, theme: Theme) {
         self.pageURL = pageURL
         self.sectionID = sectionID
         self.wikitextFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
@@ -79,6 +85,7 @@ final class PageEditorViewController: UIViewController {
         self.delegate = delegate
         self.theme = theme
         self.editFlow = editFlow
+        self.source = source
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -495,11 +502,39 @@ final class PageEditorViewController: UIViewController {
     private func showDestructiveDismissAlert(sender: UIBarButtonItem, confirmCompletion: @escaping () -> Void) {
         let alert = UIAlertController(title: nil, message: CommonStrings.editorExitConfirmationMessage, preferredStyle: .actionSheet)
         alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
-        let confirmClose = UIAlertAction(title: CommonStrings.discardEditActionTitle, style: .destructive) { _ in
+        let confirmClose = UIAlertAction(title: CommonStrings.discardEditActionTitle, style: .destructive) { [weak self] _ in
+            
+            guard let self else {
+                return
+            }
+            
+            if let project = WikimediaProject(siteURL: self.pageURL) {
+                switch self.source {
+                case .article:
+                    EditInteractionFunnel.shared.logArticleEditorDidTapClose(problemSource: nil, project: project)
+                case .talk:
+                    EditInteractionFunnel.shared.logTalkEditorDidTapClose(problemSource: nil, project: project)
+                }
+            }
+            
             confirmCompletion()
         }
         alert.addAction(confirmClose)
-        let keepEditing = UIAlertAction(title: CommonStrings.keepEditingActionTitle, style: .cancel)
+        let keepEditing = UIAlertAction(title: CommonStrings.keepEditingActionTitle, style: .cancel) { [weak self] _ in
+            
+            guard let self else {
+                return
+            }
+            
+            if let project = WikimediaProject(siteURL: self.pageURL) {
+                switch self.source {
+                case .article:
+                    EditInteractionFunnel.shared.logArticleEditorConfirmDidTapKeepEditing(project: project)
+                case .talk:
+                    EditInteractionFunnel.shared.logTalkEditorConfirmDidTapKeepEditing(project: project)
+                }
+            }
+        }
         alert.addAction(keepEditing)
         if let popoverController = alert.popoverPresentationController {
             popoverController.barButtonItem = sender
@@ -651,6 +686,16 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
                 self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
             }
         } else {
+            
+            if let project = WikimediaProject(siteURL: pageURL) {
+                switch source {
+                case .article:
+                    EditInteractionFunnel.shared.logArticleEditorDidTapClose(problemSource: nil, project: project)
+                case .talk:
+                    EditInteractionFunnel.shared.logTalkEditorDidTapClose(problemSource: nil, project: project)
+                }
+            }
+            
             delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
         }
     }
