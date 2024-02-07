@@ -7,7 +7,7 @@ protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
 
 class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegate, InternalLinkPreviewing {
     var sectionID: Int?
-    var articleURL: URL
+    var pageURL: URL
     var languageCode: String?
     var wikitext = ""
     var needsNextButton: Bool = true
@@ -36,8 +36,8 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
         return tapGR
     }()
 
-    init(articleURL: URL) {
-        self.articleURL = articleURL
+    init(pageURL: URL) {
+        self.pageURL = pageURL
         self.previewWebViewContainer = PreviewWebViewContainer()
         super.init()
 
@@ -49,7 +49,7 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
     }
     
     func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didTapLink url: URL) {
-        let isExternal = url.host != articleURL.host
+        let isExternal = url.host != pageURL.host
         if isExternal {
             showExternalLinkInAlert(link: url.absoluteString)
         } else {
@@ -147,7 +147,7 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
                     self?.previewWebViewContainer.webView.loadHTMLString(html, baseURL: responseUrl)
                 }
             }
-            try self.fetcher.fetchMobileHTMLFromWikitext(articleURL: self.articleURL, wikitext: self.wikitext, mobileHTMLOutput: .editPreview, completion: completion)
+            try self.fetcher.fetchMobileHTMLFromWikitext(articleURL: self.pageURL, wikitext: self.wikitext, mobileHTMLOutput: .editPreview, completion: completion)
         }
         
         let pcsProductionCompletion: () throws -> Void = { [weak self] in
@@ -156,7 +156,7 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
                 return
             }
             
-            let request = try self.fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: self.articleURL, wikitext: self.wikitext, mobileHTMLOutput: .editPreview)
+            let request = try self.fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: self.pageURL, wikitext: self.wikitext, mobileHTMLOutput: .editPreview)
             self.previewWebViewContainer.webView.load(request)
             
             if self.needsSimplifiedFormatToast {
@@ -211,6 +211,10 @@ extension EditPreviewViewController: ReferenceBackLinksViewControllerDelegate, R
     var webView: WKWebView {
         return previewWebViewContainer.webView
     }
+    
+    var articleURL: URL {
+        return pageURL
+    }
 }
 
 extension EditPreviewViewController: UIGestureRecognizerDelegate {
@@ -231,13 +235,13 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
         case .link(let href, _, let title):
             if let title = title, !title.isEmpty {
                 guard
-                    let host = articleURL.host,
+                    let host = pageURL.host,
                     let encodedTitle = title.percentEncodedPageTitleForPathComponents,
-                    let newArticleURL = Configuration.current.articleURLForHost(host, languageVariantCode: articleURL.wmf_languageVariantCode, appending: [encodedTitle]) else {
+                    let newPageURL = Configuration.current.articleURLForHost(host, languageVariantCode: pageURL.wmf_languageVariantCode, appending: [encodedTitle]) else {
                     showInternalLinkInAlert(link: href)
                     break
                 }
-                showInternalLink(url: newArticleURL)
+                showInternalLink(url: newPageURL)
             } else {
                 showExternalLinkInAlert(link: href)
             }

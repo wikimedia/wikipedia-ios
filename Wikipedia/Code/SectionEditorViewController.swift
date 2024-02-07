@@ -573,7 +573,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                 return
             } else if let wikitext = result {
                 if wikitext != self.wikitext {
-                    let vc = EditPreviewViewController(articleURL: self.articleURL)
+                    let vc = EditPreviewViewController(pageURL: self.articleURL)
                     self.inputViewsController.resetFormattingAndStyleSubmenus()
                     self.needsSelectLastSelection = true
                     vc.theme = self.theme
@@ -582,7 +582,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     vc.wikitext = wikitext
                     vc.delegate = self
                     self.navigationController?.pushViewController(vc, animated: true)
-                    EditAttemptFunnel.shared.logSaveIntent(articleURL: self.articleURL)
+                    EditAttemptFunnel.shared.logSaveIntent(pageURL: self.articleURL)
                 } else {
                     let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
                     WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
@@ -717,7 +717,7 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
 
         vc.savedData = editConfirmationSavedData
         vc.dataStore = dataStore
-        vc.articleURL = self.articleURL
+        vc.pageURL = self.articleURL
         vc.sectionID = self.sectionID
         vc.languageCode = self.languageCode
         vc.wikitext = editPreviewViewController.wikitext

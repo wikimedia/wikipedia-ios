@@ -283,7 +283,7 @@ class TalkPageTopicComposeViewController: ViewController {
         let alertController = UIAlertController(title: Self.TopicComposeStrings.closeConfirmationTitle, message: nil, preferredStyle: .actionSheet)
         let discardAction = UIAlertAction(title: Self.TopicComposeStrings.closeConfirmationDiscard, style: .destructive) { _ in
             if let talkPageURL = self.viewModel.pageLink {
-                EditAttemptFunnel.shared.logAbort(articleURL: talkPageURL)
+                EditAttemptFunnel.shared.logAbort(pageURL: talkPageURL)
             }
             self.dismiss(animated: true)
         }
@@ -405,7 +405,7 @@ class TalkPageTopicComposeViewController: ViewController {
         
         guard shouldBlockDismissal else {
             if let talkPageURL = viewModel.pageLink {
-                EditAttemptFunnel.shared.logAbort(articleURL: talkPageURL)
+                EditAttemptFunnel.shared.logAbort(pageURL: talkPageURL)
             }
             dismiss(animated: true)
             return
@@ -416,7 +416,7 @@ class TalkPageTopicComposeViewController: ViewController {
     
     @objc private func tappedPublish() {
         if let talkPageURL = viewModel.pageLink {
-            EditAttemptFunnel.shared.logSaveIntent(articleURL: talkPageURL)
+            EditAttemptFunnel.shared.logSaveIntent(pageURL: talkPageURL)
         }
 
         guard let title = titleTextField.text,
@@ -428,7 +428,7 @@ class TalkPageTopicComposeViewController: ViewController {
         
         view.endEditing(true)
         if let talkPageURL = viewModel.pageLink {
-            EditAttemptFunnel.shared.logSaveAttempt(articleURL: talkPageURL)
+            EditAttemptFunnel.shared.logSaveAttempt(pageURL: talkPageURL)
         }
 
         guard let authenticationManager = authenticationManager,

@@ -508,7 +508,7 @@ final class PageEditorViewController: UIViewController {
     }
 
     private func showEditPreview(editFlow: EditFlow) {
-        let previewVC = EditPreviewViewController(articleURL: pageURL)
+        let previewVC = EditPreviewViewController(pageURL: pageURL)
         previewVC.theme = theme
         previewVC.sectionID = sectionID
         previewVC.languageCode = pageURL.wmf_languageCode
@@ -532,7 +532,7 @@ final class PageEditorViewController: UIViewController {
 
         saveVC.savedData = editConfirmationSavedData
         saveVC.dataStore = dataStore
-        saveVC.articleURL = pageURL
+        saveVC.pageURL = pageURL
         saveVC.sectionID = sectionID
         saveVC.languageCode = pageURL.wmf_languageCode
         saveVC.wikitext = sourceEditor.editedWikitext
@@ -637,6 +637,8 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
         case .editorPreviewSave:
             showEditPreview(editFlow: editFlow)
         }
+        
+        EditAttemptFunnel.shared.logSaveIntent(pageURL: pageURL)
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
@@ -648,9 +650,11 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
                 guard let self else {
                     return
                 }
+                EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
                 self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
             }
         } else {
+            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
             delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
         }
     }
@@ -821,9 +825,11 @@ extension PageEditorViewController: EditNoticesViewControllerDelegate {
                 guard let self else {
                     return
                 }
+                EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
                 self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
             }
         } else {
+            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
             delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
         }
     }
