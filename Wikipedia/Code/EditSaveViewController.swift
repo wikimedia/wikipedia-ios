@@ -288,8 +288,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
         
         if let source,
-           let articleURL,
-        let project = WikimediaProject(siteURL: articleURL) {
+           let pageURL,
+        let project = WikimediaProject(siteURL: pageURL) {
             let summaryAdded = !summaryText.isEmpty
             let minorEdit = minorEditToggle.isOn
             
@@ -339,7 +339,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         if let source,
            let pageURL,
-        let project = WikimediaProject(siteURL: articleURL) {
+        let project = WikimediaProject(siteURL: pageURL) {
             
             switch source {
             case .article:
@@ -426,8 +426,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 }
                 
                 if let source,
-                   let articleURL,
-                let project = WikimediaProject(siteURL: articleURL) {
+                   let pageURL,
+                let project = WikimediaProject(siteURL: pageURL) {
                     
                     switch source {
                     case .article:
@@ -436,7 +436,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                         EditInteractionFunnel.shared.logTalkEditSummaryDidTapBlockedMessageLink(project: project)
                     }
                     
-                    EditAttemptFunnel.shared.logAbort(articleURL: articleURL)
+                    EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
                 }
             })
             
@@ -456,8 +456,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
         
         if let source,
-           let articleURL,
-        let project = WikimediaProject(siteURL: articleURL) {
+           let pageURL,
+        let project = WikimediaProject(siteURL: pageURL) {
             
             switch source {
             case .article:
