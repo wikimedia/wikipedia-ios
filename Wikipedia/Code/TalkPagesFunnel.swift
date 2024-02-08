@@ -23,6 +23,7 @@ final class TalkPagesFunnel {
         case account
         case search
         case inAppWebView = "in_app_web_view"
+        case watchlist
         case unknown
         
         init(routingSource: RoutingUserInfoSourceValue) {
@@ -35,6 +36,7 @@ final class TalkPagesFunnel {
             case .account: self = .account
             case .search: self = .search
             case .inAppWebView: self = .inAppWebView
+            case .watchlist: self = .watchlist
             case .unknown: self = .unknown
             }
         }
