@@ -1,13 +1,19 @@
 import CocoaLumberjackSwift
 
 extension ArticleViewController {
-    func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
+    func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?) {
         /// If this is a first section with an existing description, show the dialog box. (This is reported as a `central` or `local` description source.) Otherwise, just show the editor for the section. (A first section without an article description has an `Add article description` button, and thus doesn't need the dialog box.)
         if let descriptionSource = descriptionSource, descriptionSource == .central || descriptionSource == .local {
-            showEditSectionOrTitleDescriptionDialogForSection(with: id, descriptionSource: descriptionSource, selectedTextEditInfo: selectedTextEditInfo)
+            showEditSectionOrTitleDescriptionDialogForSection(with: id, descriptionSource: descriptionSource)
         } else {
-            showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
+            showEditorForSection(with: id)
         }
+        
+        if let project = WikimediaProject(siteURL: articleURL) {
+            EditInteractionFunnel.shared.logArticleDidTapEditSectionButton(project: project)
+        }
+        
+        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
     
     func showEditorForFullSource(selectedTextEditInfo: SelectedTextEditInfo? = nil) {
@@ -36,18 +42,6 @@ extension ArticleViewController {
         }
         
         presentEditor(editorViewController: editorViewController)
-        
-        if let project = WikimediaProject(siteURL: articleURL) {
-            if selectedTextEditInfo == nil {
-                EditInteractionFunnel.shared.logArticleDidTapEditSectionButton(project: project)
-            } else {
-                EditInteractionFunnel.shared.logArticleSelectDidTapEditContextMenu(project: project)
-            }
-            
-        }
-
-        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
-
     }
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource) {
@@ -140,8 +134,6 @@ extension ArticleViewController {
 
         })
         present(sheet, animated: true)
-        
-        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
 
 }
@@ -234,11 +226,9 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
         switch result {
         case .failure(let error):
             showError(error)
-            EditAttemptFunnel.shared.logSaveFailure(pageURL: self.articleURL)
         case .success(let changes):
             dismiss(animated: true)
             waitForNewContentAndRefresh(changes.newRevisionID)
-            EditAttemptFunnel.shared.logSaveSuccess(pageURL: self.articleURL, revisionId: Int(changes.newRevisionID))
         }
     }
     

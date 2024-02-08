@@ -358,10 +358,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let nsError = error as NSError
         let errorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
 
-        if let pageURL {
-            EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
-        }
-        
         var problemSource: EditInteractionFunnel.ProblemSource?
         
         switch errorType {
@@ -465,6 +461,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             case .talk:
                 EditInteractionFunnel.shared.logTalkPublishFail(problemSource: problemSource, project: project)
             }
+            
+            EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
         }
     }
     

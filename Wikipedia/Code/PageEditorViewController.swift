@@ -356,6 +356,7 @@ final class PageEditorViewController: UIViewController {
             alert.addAction(action)
             alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
             present(alert, animated: true)
+            editCloseProblemSource = .serverError
         }
     }
     
@@ -744,7 +745,6 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
                 guard let self else {
                     return
                 }
-                EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
                 self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
             }
         } else {
