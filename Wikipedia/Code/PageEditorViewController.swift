@@ -430,6 +430,8 @@ final class PageEditorViewController: UIViewController {
             keyboardSubscriptButtonAccessibility: CommonStrings.editorKeyboardButtonSubscriptAccessiblityLabel,
             keyboardTemplateButtonAccessibility: CommonStrings.editorKeyboardButtonTemplateAccessiblityLabel,
             keyboardCommentButtonAccessibility: CommonStrings.editorKeyboardButtonCommentAccessiblityLabel,
+            wikitextEditorAccessibility: CommonStrings.editorWikitextTextViewAccessibility, 
+            wikitextEditorLoadingAccessibility: CommonStrings.editorWikitextLoadingAccessibility,
             findTextFieldAccessibility: CommonStrings.editorFindTextFieldAccessibilityLabel,
             findClearButtonAccessibility: CommonStrings.editorFindClearButtonAccessibilityLabel,
             findCurrentMatchInfoFormatAccessibility: CommonStrings.editorFindCurrentMatchInfoFormatAccessibilityLabel,
@@ -618,6 +620,7 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
     }
     
     func sourceEditorViewControllerDidTapImage() {
+        sourceEditor.removeFocus()
         let insertMediaViewController = InsertMediaViewController(articleTitle: pageURL.wmf_title, siteURL: pageURL.wmf_site)
         insertMediaViewController.delegate = self
         insertMediaViewController.apply(theme: theme)
