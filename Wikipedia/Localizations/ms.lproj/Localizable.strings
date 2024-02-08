@@ -618,7 +618,6 @@
 "potd-description-prefix" = "Gambar pilihan pada $1";
 "potd-empty-error-description" = "Gagal untuk menerima gambar pilihan pada $1";
 "preference-summary-eventlogging-opt-in" = "Benarkan Wikimedia Foundation untuk mengumpul maklumat mengenai cara penggunaan aplikasi demi peningkatan kualiti aplikasi";
-"preference-title-eventlogging-opt-in" = "Kirim laporan penggunaan";
 "project-name-wikibooks" = "Wikibuku";
 "project-name-wikinews" = "Wikiberita";
 "project-name-wikiquote" = "Wikipetikan";
@@ -842,10 +841,6 @@
 "welcome-notifications-tell-me-more-creation" = "Pemberitahuan dicipta dan dihantar pada peranti anda dengan aplikasi, bukan dari pelayan kami (atau pihak ketiga).";
 "welcome-notifications-tell-me-more-storage" = "Pilihan pemberitahuan disimpan pada peranti dan tidak berdasarkan kepada maklumat peribadi atau aktiviti.";
 "welcome-notifications-tell-me-more-title" = "Lebih lanjut mengenai pemberitahuan";
-"welcome-send-data-helps-title" = "Bantu menjadikan aplikasi lebih baik";
-"welcome-send-data-learn-more" = "Ketahui lebih lanjut mengenai data yang dikumpul";
-"welcome-send-data-sub-title" = "Bantu memperbaiki aplikasi dengan membiarkan Wikimedia Foundation mengetahui cara anda menggunakannya. Data yang dikumpul tidak dikenali.";
-"welcome-volunteer-send-usage-reports" = "Hantar laporan penggunaan";
 "wikitext-downloading" = "Memuat kandungan...";
 "wikitext-preview-changes" = "Mengoleh pralihat suntingan anda...";
 "wikitext-preview-changes-none" = "Tiada suntingan yang dilakukan untuk pralihat.";

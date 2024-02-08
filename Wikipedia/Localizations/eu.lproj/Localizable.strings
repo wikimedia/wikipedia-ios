@@ -331,7 +331,6 @@
 "potd-description-prefix" = "Gaurko argazkia $1(e)ngatik";
 "potd-empty-error-description" = "Ezin izan da berreskuratu gaurko argazkia $1(e)ngatik";
 "preference-summary-eventlogging-opt-in" = "Baimendu Wikimediari zure aplikazioaren erabileraren inguruko informazioa jasotzen, aplikazioa hobetzeko.";
-"preference-title-eventlogging-opt-in" = "Bidali erabilpen iruzkina";
 "reading-list-add-generic-hint-title" = "Artikulu hau gehitu irakurtze zerrendara?";
 "reading-list-add-hint-title" = "Gehitu $1 irakurketa zerrendara?";
 "reading-list-add-saved-button-title" = "Bai, gehitu itzazu nire irakurketa zerrendetara";
@@ -518,10 +517,6 @@
 "welcome-notifications-tell-me-more-creation" = "Jakinarazpenak zure gailuan sortu eta bidali dira aplikazioak, ez gure zerbitzarietan (edo beste hirugarren batean).";
 "welcome-notifications-tell-me-more-storage" = "Jakinarazpen lehentesiak gailuan biltzen dira, eta ez dira oinarritzen informazio edo jarduera pertsonalean.";
 "welcome-notifications-tell-me-more-title" = "Jakinarazpenei buruzko informazio gehiago";
-"welcome-send-data-helps-title" = "Lagun ezazu aplikazioa hobetzen";
-"welcome-send-data-learn-more" = "Bildutako datari buruz gehiago ikasi";
-"welcome-send-data-sub-title" = "Lagun iezaiozu Wikimedia Fundazioari aplikazioa hobetzen hau bera nola erabiltzen duzun jakinaraziz. Bildutako datuak anonimoak dira.";
-"welcome-volunteer-send-usage-reports" = "Bidali erabilpen iruzkina";
 "wikitext-downloading" = "Edukia kargatzen...";
 "wikitext-preview-changes" = "Zure aldaketen aurrebista eskuratzen...";
 "wikitext-preview-changes-none" = "Ez da aurrebistan erakusteko aldaketarik egin.";

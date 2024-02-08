@@ -3,6 +3,7 @@
 // Author: BrennodAloisi
 // Author: Cedric31
 // Author: Guilhelma
+// Author: Lhanars
 // Author: Macofe
 // Author: Nemo bis
 // Author: Nicolas Eynaud
@@ -147,7 +148,6 @@
 "places-search-top-articles-that-match-scope" = "A proximitat";
 "places-title" = "Luòcs";
 "potd-description-prefix" = "Imatge del jorn per $1";
-"preference-title-eventlogging-opt-in" = "Mandar los rapòrts d’utilizacion";
 "reading-list-sync-enable-subtitle" = "Vòstres articles e listas de lectura salvagardats pòdon ara èstre salvats dins vòstre compte Wikipedia e sincronizats demest las aplicacions Wikipedia.";
 "reading-lists-article-queued-to-be-downloaded" = "Article ajustat a la tièra per èstre teledescargat";
 "reference-title" = "Referéncia $1";
@@ -162,7 +162,7 @@
 "search-recent-clear-confirmation-heading" = "Escafar totas las recèrcas recentas ?";
 "search-recent-clear-delete-all" = "Suprimir tot";
 "search-recent-title" = "Recercats recentament";
-"search-result-redirected-from" = "Redirigit dempuèi : $1";
+"search-result-redirected-from" = "Redirigit dempuèi: $1";
 "search-title" = "Recercar";
 // Fuzzy
 "settings-appearance" = "Aparéncia";
@@ -191,7 +191,6 @@
 "welcome-explore-tell-me-more-done-button" = "L’obténer";
 "welcome-languages-add-button" = "Apondre una autra lenga";
 "welcome-notifications-tell-me-more-title" = "Ne saber mai sus las notificacions";
-"welcome-volunteer-send-usage-reports" = "Mandar los rapòrts d’utilizacion";
 "wikitext-downloading" = "Cargament del contengut...";
 "wikitext-upload-save" = "Publicacion en cors…";
 "wikitext-upload-save-sign-in" = "Se connectar";

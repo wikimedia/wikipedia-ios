@@ -585,7 +585,6 @@
 "potd-empty-error-description" = "A $1 nap képének lekérése sikertelen";
 "potd-widget-title" = "A nap képe";
 "preference-summary-eventlogging-opt-in" = "A Wikimédia Alapítvány adatokat gyűjthet arról, hogy hogyan használod az alkalmazást, hogy még jobbá tehessük.";
-"preference-title-eventlogging-opt-in" = "Használati jelentések küldése";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikikönyvek";
 "project-name-wikidata" = "Wikidata";
@@ -774,10 +773,6 @@
 "welcome-notifications-tell-me-more-creation" = "Az értesítéseket az alkalmazás készíti és továbbítja a készülékedre, nem a mi (vagy harmadik felek) szerverei.";
 "welcome-notifications-tell-me-more-storage" = "Az értesítések beállításai az eszközön tárolódnak és nem használnak személyes információkat vagy tevékenységadatokat.";
 "welcome-notifications-tell-me-more-title" = "További információk az értesítésekről";
-"welcome-send-data-helps-title" = "Segíts jobbá tenni az alkalmazást";
-"welcome-send-data-learn-more" = "Tudj meg többet a gyűjtött adatokról";
-"welcome-send-data-sub-title" = "Segíts az alkalmazás jobbá tételében azzal, hogy megosztod a Wikimédia Alapítvánnyal, hogyan használod azt. A gyűjtött adatok névtelenek.";
-"welcome-volunteer-send-usage-reports" = "Használati jelentés küldése";
 "widget-onthisday-description" = "Mi történt a történelemben ezen a napon?";
 "widget-onthisday-placeholder-article-snippet" = "Ingyenes online enciklopédia, amelyet bárki szerkeszthet";
 "wikitext-downloading" = "Tartalom betöltése…";
