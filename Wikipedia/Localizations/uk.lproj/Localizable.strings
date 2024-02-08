@@ -829,7 +829,6 @@
 "potd-widget-description" = "Насолоджуйтеся чудовою щоденною світлиною, обраною нашою спільнотою.";
 "potd-widget-title" = "Зображення дня";
 "preference-summary-eventlogging-opt-in" = "Дозвольте Фондові Вікімедіа збирати відомості про те, як ви користуєтеся додатком, аби вдосконалити його";
-"preference-title-eventlogging-opt-in" = "Надсилати звіти про використання";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Вікіпідручник";
 "project-name-wikidata" = "Вікідані";
@@ -1242,10 +1241,6 @@
 "welcome-notifications-tell-me-more-creation" = "Сповіщення створюються і доставляються до вашого пристрою через відповідний додаток, а не через наші (чи сторонні) сервери.";
 "welcome-notifications-tell-me-more-storage" = "Налаштування сповіщень зберігаються на пристрої і не базуються на конфіденційній інформації чи діяльності.";
 "welcome-notifications-tell-me-more-title" = "Більше про сповіщення";
-"welcome-send-data-helps-title" = "Допоможіть поліпшити цей додаток";
-"welcome-send-data-learn-more" = "Дізнатися детальніше про збір даних";
-"welcome-send-data-sub-title" = "Допоможіть Фондові Вікімедіа поліпшити цей додаток, повідомивши нас про те, яким чином ви ним користуєтеся. Зібрані дані є анонімними.";
-"welcome-volunteer-send-usage-reports" = "Надсилати звіти про використання";
 "widget-onthisday-description" = "Дізнайтеся, що сталося цього дня в історії.";
 "widget-onthisday-placeholder-article-snippet" = "Вільна онлайн-енциклопедія, яку може редагувати будь-хто";
 "widget-onthisday-placeholder-event-snippet" = "Вікіпедія, вільна вікі-енциклопедія, з'явилася онлайн.";

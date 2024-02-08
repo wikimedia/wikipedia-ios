@@ -353,7 +353,6 @@
 "places-title" = "Áiteanna";
 "potd-description-prefix" = "Pictiúr an lae ar $1";
 "potd-widget-title" = "Pictiúr an lae";
-"preference-title-eventlogging-opt-in" = "Seol tuairiscí úsáide";
 "reading-list-add-generic-hint-title" = "Cuir an t-alt seo ar liosta léitheoireachta?";
 "reading-list-add-hint-title" = "Cuir “$1” ar liosta léitheoireachta?";
 "reading-list-add-saved-button-title" = "Ba mhaith, cuir ar mo liostaí léitheoireachta iad";
@@ -490,10 +489,6 @@
 "welcome-notifications-tell-me-more-creation" = "Ní chruthaítear agus ní sholáthraítear fógraí ónár gcuid freastálaithe (nó ó thríú páirtí), ach ón aip féin ar do ghléas.";
 "welcome-notifications-tell-me-more-storage" = "Stóráltar sainroghanna fógraí ar an ngléas agus ní bhunaítear ar sonraí pearsanta nó ar gníomhaíocht iad.";
 "welcome-notifications-tell-me-more-title" = "Tuilleadh maidir le fógraí";
-"welcome-send-data-helps-title" = "Tabhair cabhair dúin an aip a fheabhsú";
-"welcome-send-data-learn-more" = "Foghlaim tuilleadh maidir le sonraí a bhailítear";
-"welcome-send-data-sub-title" = "Cuidigh leis an aip a fheabhsú tríd an bhFondúireacht Wikimedia a chur ar an eolas ar conas mar a úsáideann tú é. Is anaithnid na sonraí a bhailítear.";
-"welcome-volunteer-send-usage-reports" = "Seol tuairiscí úsáide";
 "wikitext-downloading" = "Ag lódáil inneachair...";
 "wikitext-preview-link-preview-title" = "Réamhamharc ar an nasc";
 "wikitext-upload-captcha-needed" = "Deimhniú CAPTCHA de dhíth";

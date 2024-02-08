@@ -757,7 +757,6 @@
 "potd-widget-description" = "Vychutnajte si dnešnú krásnu fotografiu vybranú našou komunitou.";
 "potd-widget-title" = "Obrázok dňa";
 "preference-summary-eventlogging-opt-in" = "Povoliť Nadácii Wikimedia zbierať informácie o vašom používaní aplikácie. Pomáha nám to skvalitniť aplikáciu";
-"preference-title-eventlogging-opt-in" = "Odoslať správu o používaní";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikiknihy";
 "project-name-wikidata" = "Wikiúdaje";
@@ -1011,10 +1010,6 @@
 "welcome-notifications-tell-me-more-creation" = "Upozornenia sú vytvárané a doručované na vaše zariadenie aplikáciou, nie našimi servermi (alebo servermi tretích strán).";
 "welcome-notifications-tell-me-more-storage" = "Nastavenia upozornení sú uložené na vašom zariadení a nie sú založené na osobných údajoch alebo aktivite.";
 "welcome-notifications-tell-me-more-title" = "Ďalšie informácie o upozorneniach";
-"welcome-send-data-helps-title" = "Pomôžte nám vylepšiť túto aplikáciu";
-"welcome-send-data-learn-more" = "Ďalšie informácie o zbieraných údajoch";
-"welcome-send-data-sub-title" = "Pomôžte Nadácii Wikimedia vylepšiť aplikáciu tak, že budete zdielať údaje o vašom používaní aplikácie. Zozbierané údaje sú anonymné";
-"welcome-volunteer-send-usage-reports" = "Odosielať správu o používaní";
 "widget-onthisday-description" = "Objavte čo sa v histórii stalo v tento deň.";
 "widget-onthisday-placeholder-article-snippet" = "Voľná online encyklopédia, ktorú môže upravovať každý";
 "widget-onthisday-placeholder-event-snippet" = "Wikipédia ide online.";

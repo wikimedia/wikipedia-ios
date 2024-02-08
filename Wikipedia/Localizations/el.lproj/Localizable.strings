@@ -356,7 +356,6 @@
 "places-title" = "Μέρη";
 "places-unknown-distance" = "Άγνωστη απόσταση";
 "potd-description-prefix" = "Εικόνα της ημέρας για το $1";
-"preference-title-eventlogging-opt-in" = "Στείλτε εκθέσεις χρήσης";
 "reading-list-add-hint-title" = "Προσθήκη του \"$1\" σε μια λίστα ανάνγωσης;";
 "reading-list-add-saved-button-title" = "Ναι, πρόσθεσέ τα στις λίστες ανάγνωσής μου";
 "reading-list-add-saved-title" = "Αποθηκευμένα λήμματα που βρέθηκαν";
@@ -489,10 +488,6 @@
 // Fuzzy
 "welcome-languages-search-title" = "Αναζητήστε σε σχεδόν 300 γλώσσες";
 "welcome-notifications-tell-me-more-title" = "Περισσότερα σχετικά με τις ειδοποιήσεις";
-"welcome-send-data-helps-title" = "Βοηθήστε την εφαρμογή να γίνει καλύτερη";
-"welcome-send-data-learn-more" = "Μάθετε περισσότερα για την συλλογή των δεδομένων";
-"welcome-send-data-sub-title" = "Βοηθήστε στη βελτίωση της εφαρμογής αφήνοντας το Ίδρυμα Wikimedia να ξέρει πως το χρησιμοποιείτε. Τα δεδομένα που συλλέγονται είναι ανώνυμα.";
-"welcome-volunteer-send-usage-reports" = "Στείλτε αναφορές χρήσης";
 "wikitext-downloading" = "Γίνεται φόρτωση περιεχομένου...";
 "wikitext-preview-changes" = "Ανάκτηση προεπισκόπησης των αλλαγών σας σε εξέλιξη...";
 "wikitext-preview-changes-none" = "Δεν έγιναν αλλαγές για προεπισκόπηση.";

@@ -339,7 +339,6 @@
 "potd-description-prefix" = "$1 তারিখে আজকের নির্বাচিত ছবি";
 "potd-empty-error-description" = "$1 দিনের ছবি পুনরুদ্ধার করতে ব্যর্থ হয়েছে";
 "preference-summary-eventlogging-opt-in" = "অ্যাপ আরও ভালো করতে উইকিমিডিয়া ফাউন্ডেশনকে আপনি কিভাবে অ্যাপ্লিকেশন ব্যবহার করছেন সেই সম্পর্কে তথ্য সংগ্রহ করার অনুমতি দিন";
-"preference-title-eventlogging-opt-in" = "ব্যবহারের রিপোর্ট পাঠান";
 "project-name-wikimedia-commons" = "উইকিমিডিয়া কমন্স";
 "project-name-wikiquote" = "উইকিউক্তি";
 "reading-list-create-new-list-description" = "বিবরণ";
@@ -431,7 +430,6 @@
 "welcome-languages-add-button" = "আরেকটি ভাষা যোগ করুন";
 "welcome-languages-search-title" = "৩০০টি অধিক ভাষায় অন্বেষণ করুন";
 "welcome-notifications-tell-me-more-title" = "বিজ্ঞপ্তি সম্পর্কে আরো";
-"welcome-volunteer-send-usage-reports" = "ব্যবহারের রিপোর্ট পাঠান";
 "wikitext-downloading" = "বিষয়বস্তু লোড হচ্ছে...";
 "wikitext-preview-changes" = "আপনার পরিবর্তনগুলির প্রাকদর্শন উদ্ধার হচ্ছে...";
 "wikitext-preview-changes-none" = "প্রাকদর্শন করার মত কোন পরিবর্তন করা হয়নি।";

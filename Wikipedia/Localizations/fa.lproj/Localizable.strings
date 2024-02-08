@@ -801,7 +801,6 @@
 "potd-widget-description" = "از مشاهدهٔ یک تصویر روزانهٔ زیبا، که توسط احتماع ما انتخاب شده، لذت ببرید.";
 "potd-widget-title" = "نگارهٔ روز";
 "preference-summary-eventlogging-opt-in" = "به بنیاد ویکی‌مدیا برای جمع‌آوری اطلاعات درباره چگونگی استفاده‌تان از این نرم‌افزار جهت بهتر ساختن نرم‌افزار اجازه دهید";
-"preference-title-eventlogging-opt-in" = "ارسال گزارش‌های نحوهٔ استفاده";
 "project-name-mediawiki" = "مدیاویکی";
 "project-name-wikibooks" = "ویکی‌کتاب";
 "project-name-wikidata" = "ویکی‌داده";
@@ -1149,10 +1148,6 @@
 "welcome-notifications-tell-me-more-creation" = "آگاه‌سازی‌ها توسط نرم‌افزار ایجاد شده و به دستگاه شما ارسال می‌شوند. این آگاه‌سازی‌ها از سرورهای ما (یا شخص ثالث) نمی‌آیند.";
 "welcome-notifications-tell-me-more-storage" = "ترجیحات آگاه‌سازی‌ها بر روی دستگاه ذخیره شده‌است و بر پایهٔ اطلاعات یا فعالیت‌های شخصی نیست.";
 "welcome-notifications-tell-me-more-title" = "اطلاعات بیشتر دربارهٔ آگاه‌سازی‌ها";
-"welcome-send-data-helps-title" = "به بهبود نرم‌افزار کمک کنید";
-"welcome-send-data-learn-more" = "اطلاعات بیشتر در مورد داده‌های جمع‌آوری‌شده";
-"welcome-send-data-sub-title" = "با آگاه‌کردن بنیاد ویکی‌مدیا از نحوهٔ استفادهٔ خود از این نرم‌افزار، به بهتر کردن آن کمک کنید. داده‌ها به‌صورت ناشناس جمع‌آوری می‌شوند.";
-"welcome-volunteer-send-usage-reports" = "ارسال گزارش نحوهٔ استفاده";
 "widget-onthisday-description" = "کنکاش در رویدادهای تاریخی در این روز.";
 "widget-onthisday-placeholder-article-snippet" = "دانشنامه‌ای آزاد که همه می‌توانند آن را ویرایش کنند";
 "widget-onthisday-placeholder-event-snippet" = "ویکی‌پدیا، ویکی دانشنامهٔ محتوایی آزاد، برخط می‌شود.";

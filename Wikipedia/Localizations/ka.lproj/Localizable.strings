@@ -144,7 +144,6 @@
 "potd-empty-error-description" = "შეუძლებელია $1-სთვის დღის სურათის ჩატვირთვა";
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "ნება მიეცი ვიკიმედიას მოაგროვოს ინფორმაცია თუ როგორ იყენებ ამ აპლიკაციას, რათა ის უკეთესი გახადოს";
-"preference-title-eventlogging-opt-in" = "გამოყენების ანგარიშის გაგზავნა";
 "reference-title" = "სქოლიო $1";
 "saved-pages-image-download-error" = "შეუძლებელია სურათების ჩაწერა ამ შენახული გვერდისთვის.";
 "saved-title" = "შენახულია";

@@ -611,7 +611,6 @@
 "potd-empty-error-description" = "$1 өсөн көн һүрәтен алып булманы";
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "Викимедиаға һеҙҙең ҡушымтаны нисек файҙаланыуығыҙ тураһында мәғлүмәт бирергә рөхсәт итеү. Был уны тағы ла яҡшыраҡ итергә мөмкинселек бирәсәк.";
-"preference-title-eventlogging-opt-in" = "Файҙаланыу тураһында отчет ебәрергә";
 "saved-pages-image-download-error" = "Был һаҡланған биттең һүрәтен күсереп булманы";
 "saved-title" = "Һаҡланған";
 "search-did-you-mean" = "Бәлки һеҙ $1-ҙы күҙ уңында тотҡанһығыҙҙыр?";
@@ -651,9 +650,6 @@
 "welcome-languages-add-or-edit-button" = "Өҫтөнлөклө телдәрҙе өҫтәргә йәки үҙгәртергә";
 // Fuzzy
 "welcome-languages-search-title" = "300-гә яҡын телдән эҙләү";
-"welcome-send-data-helps-title" = "Ҡушымтаны яҡшыртырға ярҙам итегеҙ";
-"welcome-send-data-learn-more" = "Мәғлүмәттәр йыйыу хаҡында тулыраҡ...";
-"welcome-volunteer-send-usage-reports" = "Файҙаланыу тураһында отчет ебәрергә";
 "wikitext-downloading" = "Эстәлекте күсереү";
 "wikitext-preview-changes" = "Индерелгән үҙгәртеүҙәрҙе ҡарап сығыуға эйә булыу...";
 "wikitext-preview-changes-none" = "Ҡарай алырлыҡ бер ниндәй ҙә үҙгәртеүҙәр индерелмәгән";
