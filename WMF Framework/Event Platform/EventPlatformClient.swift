@@ -130,6 +130,7 @@ import CocoaLumberjackSwift
         case editAttempt = "eventlogging_EditAttemptStep"
         case watchlist = "ios.watchlists"
         case appDonorExperience = "app_donor_experience"
+        case editInteraction = "ios.edit_interaction"
     }
     
     /**
