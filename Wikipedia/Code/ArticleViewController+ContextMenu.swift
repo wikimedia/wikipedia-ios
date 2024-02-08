@@ -16,7 +16,7 @@ extension ArticleViewController {
         webView.wmf_getSelectedTextEditInfo { [weak self] (editInfo, error) in
             guard let self,
                   let editInfo = editInfo else {
-                self.showError(error ?? RequestError.unexpectedResponse)
+                self?.showError(error ?? RequestError.unexpectedResponse)
                 return
             }
 
