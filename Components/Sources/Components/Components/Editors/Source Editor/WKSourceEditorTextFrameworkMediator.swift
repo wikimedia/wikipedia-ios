@@ -13,6 +13,15 @@ fileprivate var needsTextKit2: Bool {
     }
 }
 
+class WKSourceEditorTextView: UITextView {
+    override func accessibilityActivate() -> Bool {
+
+        UIAccessibility.post(notification: .announcement, argument: WKSourceEditorLocalizedStrings.current.wikitextEditorLoadingAccessibility)
+        
+        return super.accessibilityActivate()
+    }
+}
+
 @objc final class WKSourceEditorSelectionState: NSObject {
     let isBold: Bool
     let isItalics: Bool
@@ -101,7 +110,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let textView: UITextView
         if needsTextKit2 {
             if #available(iOS 16, *) {
-                textView = UITextView(usingTextLayoutManager: true)
+                textView = WKSourceEditorTextView(usingTextLayoutManager: true)
                 textKit2Storage = textView.textLayoutManager?.textContentManager as? NSTextContentStorage
             } else {
                 fatalError("iOS 15 cannot handle TextKit2")
@@ -118,7 +127,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             layoutManager.addTextContainer(container)
             textKit1Storage?.addLayoutManager(layoutManager)
 
-            textView = UITextView(frame: .zero, textContainer: container)
+            textView = WKSourceEditorTextView(frame: .zero, textContainer: container)
             textKit2Storage = nil
         }
         

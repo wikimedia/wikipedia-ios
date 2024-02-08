@@ -209,6 +209,12 @@ final class InsertMediaSettingsViewController: ViewController {
         tableView.tableHeaderView = imageView
         tableView.tableFooterView = buttonView
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        UIAccessibility.post(notification: .screenChanged, argument: nil)
+    }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

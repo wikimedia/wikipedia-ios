@@ -392,7 +392,7 @@ class TalkPageReplyComposeController {
     @objc private func tappedPublish() {
 
         if let talkPageURL = commentViewModel?.talkPageURL {
-            EditAttemptFunnel.shared.logSaveIntent(articleURL: talkPageURL)
+            EditAttemptFunnel.shared.logSaveIntent(pageURL: talkPageURL)
         }
         
         guard let commentViewModel = commentViewModel,
