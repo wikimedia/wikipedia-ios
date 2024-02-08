@@ -8,6 +8,7 @@
 // Author: BadDog
 // Author: Batumski brodyaga
 // Author: Bsitzmann
+// Author: Butko
 // Author: Deltaspace
 // Author: Dicto23456
 // Author: Diralik
@@ -140,8 +141,10 @@
 "action-add-to-reading-list" = "Добавить в список для чтения";
 "action-add-to-reading-list-short" = "Добавить в список";
 "action-cancel" = "Отмена";
+"action-discard-edit" = "Отменить изменения";
 "action-discard-edits" = "Отменить изменения";
 "action-find-in-page" = "Найти на странице";
+"action-keep-editing" = "Продолжить редактирование";
 "action-language-accessibility" = "изменение языка";
 "action-move-to" = "Перенести в...";
 "action-move-to-reading-list" = "Перенести в список для чтения";
@@ -357,6 +360,7 @@
 "edit-notices-please-read" = "Пожалуйста, прочтите перед редактированием";
 "edit-ordered-list-accessibility-label" = "Сделать нумерованным списком";
 "edit-ordered-list-remove-accessibility-label" = "Убрать нумерованный список";
+"edit-preview-simplified-format-message" = "Всё содержимое отображается в упрощенном формате.";
 "edit-published" = "Правка опубликована";
 "edit-published-subtitle" = "Вы только что сделали Википедию лучше для всех";
 "edit-reference-accessibility-label" = "Добавить примечание";
@@ -398,7 +402,21 @@
 "editing-welcome-set-knowledge-free-subtitle" = "Чтобы дать каждому доступ к знаниям всего мира, нам нужно, чтобы Вы участвовали в их создании, вычитывая, редактируя и внося вклад в самые значимые для Вас темы.";
 "editing-welcome-set-knowledge-free-title" = "Сделайте знания свободными";
 "editor-exit-confirmation-body" = "Вы уверены, что хотите выйти из режима редактирования, не опубликовав изменения?";
+"editor-exit-confirmation-message" = "Вы уверены, что хотите отменить внесённые изменения?";
 "editor-exit-confirmation-title" = "Покинуть режим редактирования?";
+"editor-find-clear-button-accessibility" = "Очистить поиск";
+"editor-find-close-button-accessibility" = "Закрыть поиск";
+"editor-find-textfield-accessibility" = "Найти";
+"editor-keyboard-heading-button" = "Заголовок";
+"editor-keyboard-paragraph-button" = "Абзац";
+"editor-keyboard-subheading1-button" = "Подзаголовок 1";
+"editor-keyboard-subheading2-button" = "Подзаголовок 2";
+"editor-keyboard-subheading3-button" = "Подзаголовок 3";
+"editor-keyboard-subheading4-button" = "Подзаголовок 4";
+"editor-keyboard-text-formatting-title" = "Форматирование текста";
+"editor-replace-textfield-accessibility" = "Заменить";
+"editor-replace-type-all" = "Заменить все";
+"editor-toolbar-find-accessibility" = "Найти на странице";
 "empty-diff-compare-title" = "Нет различий между версиями";
 "empty-diff-single-title" = "Нет видимых изменений";
 "empty-insert-media-title" = "Выберите файл на Викискладе";
@@ -862,7 +880,6 @@
 "potd-widget-description" = "Наслаждайтесь красивыми фотографиями, ежедневно выбираемыми нашим сообществом.";
 "potd-widget-title" = "Изображение дня";
 "preference-summary-eventlogging-opt-in" = "Разрешить Фонду Викимедиа собирать информацию о том, как вы используете приложение. Это позволит сделать его лучше.";
-"preference-title-eventlogging-opt-in" = "Отправлять отчёты об использовании";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Викиучебник";
 "project-name-wikidata" = "Викиданные";
@@ -1059,7 +1076,6 @@
 "share-social-mention-format" = "«$1» в Википедии: $2";
 "sort-by-recently-added-action" = "Недавно добавленный";
 "sort-by-title-action" = "Заголовок";
-"source-editor-accessibility-label-find-text-field" = "Найти";
 "table-of-contents-button-label" = "Содержание";
 "table-of-contents-close-accessibility-hint" = "Закрыть";
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
@@ -1215,10 +1231,6 @@
 "welcome-notifications-tell-me-more-creation" = "Уведомления создаются и доставляются на ваше устройство приложение, А не с наших серверов (или третья сторона).";
 "welcome-notifications-tell-me-more-storage" = "Уведомления хранятся на устройстве и не основанные на личной информации или деятельности.";
 "welcome-notifications-tell-me-more-title" = "Подробнее об уведомлениях";
-"welcome-send-data-helps-title" = "Помогите сделать это приложение лучше";
-"welcome-send-data-learn-more" = "Узнать подробнее о сборе данных";
-"welcome-send-data-sub-title" = "Помогите Фонду Викимедиа сделать приложение лучше, сообщив нам, как вы используете его. Собранные данные являются анонимными.";
-"welcome-volunteer-send-usage-reports" = "Отправлять отчёты об использовании";
 "widget-onthisday-description" = "Узнайте, что произошло в этот день в истории.";
 "widget-onthisday-placeholder-article-snippet" = "Свободная онлайн-энциклопедия, которую каждый может редактировать";
 "widget-onthisday-placeholder-event-snippet" = "Википедия, бесплатная энциклопедия вики-контента, выходит в Интернет.";

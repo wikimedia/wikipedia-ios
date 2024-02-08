@@ -514,7 +514,6 @@
 "potd-description-prefix" = "Imaxe do día para $1";
 "potd-empty-error-description" = "Erro ó recuperar a imaxe do día para $1";
 "preference-summary-eventlogging-opt-in" = "Permitir que a Fundación Wikimedia recompile información acerca de como utiliza a aplicación para facela mellor";
-"preference-title-eventlogging-opt-in" = "Enviar informes de uso";
 "reading-list-add-generic-hint-title" = "Engadir este artigo a unha lista de lectura?";
 "reading-list-add-hint-title" = "Engdir \"$1\" á lista de lectura?";
 "reading-list-add-saved-button-title" = "Si, engadilos ás miñas listas de lectura";
@@ -730,10 +729,6 @@
 "welcome-notifications-tell-me-more-creation" = "As notificacións son creadas e enviadas ó seu dispositivo pola aplicación, non polos nosos servidores (nin de terceiros).";
 "welcome-notifications-tell-me-more-storage" = "As preferencias das notificacións gárdanse no dispositivo e non están baseadas na información ou actividade persoal.";
 "welcome-notifications-tell-me-more-title" = "Máis sobre notificacións";
-"welcome-send-data-helps-title" = "Axúdenos a mellorar a aplicación";
-"welcome-send-data-learn-more" = "Saber máis sobre os datos recollidos";
-"welcome-send-data-sub-title" = "Axude a mellorar esta aplicación indicando á Fundación Wikimedia a maneira en como a utiliza. Os datos recollidos son anónimos.";
-"welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
 "wikitext-downloading" = "Cargando o contido...";
 "wikitext-preview-changes" = "Xenerando previsualización dos teus cambios…";
 "wikitext-preview-changes-none" = "Non se fixeron cambios que revisar.";

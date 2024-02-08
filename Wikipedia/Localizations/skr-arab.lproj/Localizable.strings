@@ -148,6 +148,10 @@
 "edit-underline-remove-accessibility-label" = "ہیٹھ لکیر ہٹاؤ";
 "edit-watch-this-page-text" = "ایں ورقے تے پارھا ݙیوو";
 "editing-welcome-be-bold-title" = "تہاݙی اواز اہم ہے";
+"editor-find-textfield-accessibility" = "لبھو";
+"editor-keyboard-heading-button" = "سرخی";
+"editor-keyboard-paragraph-button" = "پیرا";
+"editor-keyboard-subheading3-button" = "نکی سرخی ٣";
 "empty-no-history-title" = "ݙکھاؤݨ کیتے کوئی تاریخچہ کائنی";
 "empty-no-search-results-message" = "کوئی نتیجہ نی لبھا";
 "error-generic-recovery-suggestion" = "ولدا بعد وچ کوشش کرو۔ تھورا ہوسی۔";
@@ -416,11 +420,6 @@
 "share-open-in-maps" = "نقشیاں وچ کھولو";
 "sort-by-recently-added-action" = "حالیہ ودھارے";
 "sort-by-title-action" = "عنوان";
-"source-editor-accessibility-label-find-text-field" = "لبھو";
-"source-editor-heading" = "سرخی";
-"source-editor-paragraph" = "پیرا";
-"source-editor-style" = "سٹائل";
-"source-editor-subheading3" = "نکی سرخی ٣";
 "table-of-contents-close-accessibility-hint" = "بند کرو";
 "table-of-contents-heading" = "شامل حصے";
 "talk-page-add-topic-button" = "موضوع شامل کرو";

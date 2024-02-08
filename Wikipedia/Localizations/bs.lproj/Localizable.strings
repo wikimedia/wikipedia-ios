@@ -742,7 +742,6 @@
 "potd-widget-description" = "Uživajte u prekrasnoj dnevnoj fotografiji koju je odabrala naša zajednica.";
 "potd-widget-title" = "Slika dana";
 "preference-summary-eventlogging-opt-in" = "Dozvolite Zadužbini Wikimedia da prikupi informacije o tom kako koristite aplikaciju da bismo je poboljšali";
-"preference-title-eventlogging-opt-in" = "Šalji izvještaje o korištenju";
 "project-name-mediawiki" = "MediaWiki";
 "reading-list-add-generic-hint-title" = "Dodaj ovaj članak na spisak za čitanje?";
 "reading-list-add-hint-title" = "Dodaj \"$1\" na spisak za čitanje?";
@@ -994,10 +993,6 @@
 "welcome-notifications-tell-me-more-creation" = "Obavještenja se stvaraju i dostavljaju Vama na uređaj pomoću aplikacije, a ne naših ili servera trećih lica.";
 "welcome-notifications-tell-me-more-storage" = "Postavke o obavještenjima čuvaju se na uređaj i ne zasnivaju se na ličnim podacima ili aktivnosti.";
 "welcome-notifications-tell-me-more-title" = "Više o obavještenjima";
-"welcome-send-data-helps-title" = "Pomozite da aplikacija bude bolja";
-"welcome-send-data-learn-more" = "Saznajte više o prikupljenim podacima";
-"welcome-send-data-sub-title" = "Pomozite Zadužbini Wikimedia da poboljša aplikaciju tako što ćete nam poslati podatke o tom kako je koristite. Prikupljeni podaci su anonimni.";
-"welcome-volunteer-send-usage-reports" = "Šalji izvještaje o korištenju";
 "widget-onthisday-description" = "Istraži šta se dogodilo na današnji dan u historiji.";
 "widget-onthisday-placeholder-article-snippet" = "Slobodna online enciklopedija koju svako može uređivati";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, slobodna enciklopedija wiki sadržaja, postaje dostupna na internetu.";

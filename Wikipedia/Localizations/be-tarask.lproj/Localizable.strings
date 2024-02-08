@@ -88,7 +88,6 @@
 "potd-description-prefix" = "Выява дня за $1";
 "potd-empty-error-description" = "Выява дня за $1 не была атрыманая";
 "preference-summary-eventlogging-opt-in" = "Дазволіць фундацыі «Вікімэдыя» зьбіраць інфармацыю пра тое, як вы выкарыстоўваеце праграму, каб палепшыць яе";
-"preference-title-eventlogging-opt-in" = "Адпраўляць справаздачы пра карыстаньне";
 "saved-pages-image-download-error" = "Памылка загрузкі выявы для гэтай захаванай старонкі.";
 "saved-title" = "Захаваны";
 "search-did-you-mean" = "Магчыма, вы мелі на ўвазе $1?";

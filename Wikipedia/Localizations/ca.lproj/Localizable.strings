@@ -813,7 +813,6 @@
 "potd-widget-description" = "Gaudiu d'una maca foto cada dia, seleccionada per la nostra comunitat.";
 "potd-widget-title" = "Imatge del dia";
 "preference-summary-eventlogging-opt-in" = "Permeteu a la Fundació Wikimedia recollir informació sobre com utilitzeu l'aplicació per poder-la millorar";
-"preference-title-eventlogging-opt-in" = "Envia informes d'ús";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Viquillibres";
 "project-name-wikidata" = "Wikidata";
@@ -1225,10 +1224,6 @@
 "welcome-notifications-tell-me-more-creation" = "Les notificacions es creen i es lliure en el vostre dispositiu per la mateixa aplicació, i no pas pels nostres servidors (o de tercers).";
 "welcome-notifications-tell-me-more-storage" = "Les preferències de notificació s'emmagatzemen al dispositiu i no es basen en informació personal o activitat.";
 "welcome-notifications-tell-me-more-title" = "Quant a les notificacions";
-"welcome-send-data-helps-title" = "Ajudeu a millorar l'aplicació";
-"welcome-send-data-learn-more" = "Més informació de les dades recopilades";
-"welcome-send-data-sub-title" = "Ajudeu a millorar l'aplicació fent saber a la Fundació Wikimedia com la feu servir. Les dades que es recullen són anònimes.";
-"welcome-volunteer-send-usage-reports" = "Envia informes d'ús";
 "widget-onthisday-description" = "Exploreu què va passar aquest dia al llarg de la història.";
 "widget-onthisday-placeholder-article-snippet" = "L'enciclopèdia en línia lliure que tothom pot editar";
 "widget-onthisday-placeholder-event-snippet" = "La Viquipèdia, una enciclopèdia de contingut wiki lliure, es posa en línia.";

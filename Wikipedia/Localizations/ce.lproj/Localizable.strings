@@ -57,7 +57,6 @@
 "places-search-default-text" = "Лахар";
 // Fuzzy
 "places-search-saved-articles" = "Ӏалашйина агӀонаш";
-"preference-title-eventlogging-opt-in" = "Лелорах лаьцна дӀадохьуьйту";
 "reading-lists-default-list-title" = "Ӏалашйинарш";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Тахана|1=Селхана|$1 де хьалха}}";
 "search-did-you-mean" = "Хила мега ахьа лоьхарг: $1";

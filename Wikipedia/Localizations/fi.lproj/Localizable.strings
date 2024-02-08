@@ -790,7 +790,6 @@
 "potd-widget-description" = "Nauti kauniista päivän kuvasta, jonka yhteisömme on valinnut.";
 "potd-widget-title" = "Päivän kuva";
 "preference-summary-eventlogging-opt-in" = "Salli Wikimedia-säätiön kerätä tietoja sovelluksen käyttämisestä käyttökokemuksen parantamiseksi.";
-"preference-title-eventlogging-opt-in" = "Lähetä käyttöraportteja";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikikirjasto";
 "project-name-wikidata" = "Wikidata";
@@ -1040,6 +1039,7 @@
 "talk-pages-coffee-roll-read-more" = "Lue lisää";
 "talk-pages-comment-added-alert-title" = "Kommenttisi lisättiin";
 "talk-pages-compose-close-confirmation-keep" = "Jatka muokkaamista";
+"talk-pages-edit-source" = "Muokkaa wikitekstiä";
 "talk-pages-empty-view-body-article" = "Parhaat Wikipedia-artikkelit syntyvät yhteistyöllä. Näillä sivuilla käyttäjät keskustella artikkelin sisällöstä ja kehittämisestä. **Aloita luomalla uusi aihe**.";
 "talk-pages-empty-view-body-user" = "Parhaat Wikipedia-artikkelit syntyvät yhteistyöllä. Tällä sivulla voit keskustella julkisesti käyttäjän $1 kanssa, ja myös muut voivat osallistua keskusteluun.";
 "talk-pages-empty-view-button-article-add-topic" = "Lisää uusi aihe";
@@ -1133,10 +1133,6 @@
 "welcome-notifications-tell-me-more-creation" = "Ilmoitukset luodaan ja lähetetään laitteesta, eikä Wikimedian tai muun osapuolen palvelimelta.";
 "welcome-notifications-tell-me-more-storage" = "Ilmoitusasetukset tallennetaan laitteeseen, eivätkä ne pohjaudu henkilökohtaisiin tietoihin tai toimintaan.";
 "welcome-notifications-tell-me-more-title" = "Lisätietoja ilmoituksista";
-"welcome-send-data-helps-title" = "Tue sovelluksen kehitystyötä";
-"welcome-send-data-learn-more" = "Lue lisää kerätyistä tiedoista";
-"welcome-send-data-sub-title" = "Auta sovelluksen kehitystyössä antamalla Wikimedia-säätiön kerätä tietoja sovelluksen käyttötavoista. Tiedot kerätään anonyymisti.";
-"welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";
 "widget-onthisday-description" = "Tutki mitä tänä päivänä on tapahtunut historiassa.";
 "widget-onthisday-placeholder-article-snippet" = "Vapaa tietosanakirja, jota kuka tahansa voi muokata";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, ilmainen tietosanakirja, siirtyy verkkoon.";
