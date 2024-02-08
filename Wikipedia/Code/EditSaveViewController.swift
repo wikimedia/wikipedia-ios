@@ -32,7 +32,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var savedData: SaveData?
 
     var sectionID: Int?
-    var articleURL: URL?
+    var pageURL: URL?
     var languageCode: String?
     var dataStore: MWKDataStore?
     var source: PageEditorViewController.Source?
@@ -178,7 +178,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let vc = EditSummaryViewController(nibName: EditSummaryViewController.wmf_classStoryboardName(), bundle: nil)
         vc.delegate = self
         vc.apply(theme: theme)
-        vc.setLanguage(for: articleURL)
+        vc.setLanguage(for: pageURL)
         wmf_add(childController: vc, andConstrainToEdgesOfContainerView: editSummaryVCContainer)
 
         if dataStore?.authenticationManager.isLoggedIn ?? false {
@@ -282,7 +282,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private func save() {
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
-        guard let editURL = articleURL else {
+        guard let editURL = pageURL else {
             assertionFailure("Could not get url of section to be edited")
             return
         }
@@ -301,7 +301,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             }
             
         }
-        EditAttemptFunnel.shared.logSaveAttempt(articleURL: editURL)
+        EditAttemptFunnel.shared.logSaveAttempt(pageURL: editURL)
         
         let section: String?
         if let sectionID {
@@ -338,7 +338,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
         
         if let source,
-           let articleURL,
+           let pageURL,
         let project = WikimediaProject(siteURL: articleURL) {
             
             switch source {
@@ -347,6 +347,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             case .talk:
                 EditInteractionFunnel.shared.logTalkPublishSuccess(revisionID: Int(newRevID), project: project)
             }
+            
+            EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: Int(newRevID))
         }
         
         notifyDelegate(.success(SectionEditorChanges(newRevisionID: newRevID)))
@@ -356,8 +358,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let nsError = error as NSError
         let errorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
 
-        if let articleURL {
-            EditAttemptFunnel.shared.logSaveFailure(articleURL: articleURL)
+        if let pageURL {
+            EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
         }
         
         var problemSource: EditInteractionFunnel.ProblemSource?
@@ -379,7 +381,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
             
             guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
-                  let currentTitle = articleURL?.wmf_title else {
+                  let currentTitle = pageURL?.wmf_title else {
                 return
             }
             
@@ -413,7 +415,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
             
             guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
-                  let currentTitle = articleURL?.wmf_title else {
+                  let currentTitle = pageURL?.wmf_title else {
                 return
             }
             
@@ -476,7 +478,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     func captchaSiteURL() -> URL {
-        return articleURL?.wmf_site ?? Configuration.current.defaultSiteURL
+        return pageURL?.wmf_site ?? Configuration.current.defaultSiteURL
     }
 
     func captchaReloadPushed(_ sender: AnyObject) {

@@ -435,7 +435,7 @@ class TalkPageViewController: ViewController {
         topicComposeVC.delegate = self
         inputAccessoryViewType = .format
         if let url = viewModel.getTalkPageURL(encoded: false) {
-            EditAttemptFunnel.shared.logInit(articleURL: url)
+            EditAttemptFunnel.shared.logInit(pageURL: url)
         }
         let navVC = UINavigationController(rootViewController: topicComposeVC)
         navVC.modalPresentationStyle = .pageSheet
@@ -483,6 +483,12 @@ class TalkPageViewController: ViewController {
         let navigationController = WMFThemeableNavigationController(rootViewController: pageEditorViewController, theme: theme)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         present(navigationController, animated: true)
+        
+        guard let url = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {
+            return
+        }
+        
+        EditAttemptFunnel.shared.logInit(pageURL: url)
     }
 
     fileprivate func pushToDesktopWeb() {
@@ -928,7 +934,7 @@ extension TalkPageViewController: TalkPageCellReplyDelegate {
         inputAccessoryViewType = .format
 
         if let url = viewModel.getTalkPageURL(encoded: false) {
-            EditAttemptFunnel.shared.logInit(articleURL: url)
+            EditAttemptFunnel.shared.logInit(pageURL: url)
         }
 
         if !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
@@ -950,7 +956,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 UIAccessibility.post(notification: .screenChanged, argument: focusView)
             }
             if let talkPageURL = self.viewModel.getTalkPageURL(encoded: false) {
-                EditAttemptFunnel.shared.logAbort(articleURL: talkPageURL)
+                EditAttemptFunnel.shared.logAbort(pageURL: talkPageURL)
             }
         }
     }
@@ -958,7 +964,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
 
         if let talkPageURL = viewModel.getTalkPageURL(encoded: false) {
-            EditAttemptFunnel.shared.logSaveAttempt(articleURL: talkPageURL)
+            EditAttemptFunnel.shared.logSaveAttempt(pageURL: talkPageURL)
         }
 
         let oldCellViewModel = commentViewModel.cellViewModel
@@ -989,7 +995,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                         self?.talkPageView.collectionView.reloadData()
                         self?.handleNewTopicOrCommentAlert(isNewTopic: false)
                         if let talkPageURL = self?.viewModel.getTalkPageURL(encoded: false) {
-                            EditAttemptFunnel.shared.logSaveSuccess(articleURL: talkPageURL, revisionId: revID)
+                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: talkPageURL, revisionId: revID)
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self?.scrollToNewComment(oldCellViewModel: oldCellViewModel, oldCommentViewModels: oldCommentViewModels)
@@ -997,7 +1003,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
 
                     case .failure:
                         if let talkPageURL = self?.viewModel.getTalkPageURL(encoded: false) {
-                            EditAttemptFunnel.shared.logSaveFailure(articleURL: talkPageURL)
+                            EditAttemptFunnel.shared.logSaveFailure(pageURL: talkPageURL)
                         }
                     }
                 }
@@ -1005,7 +1011,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 DDLogError("Failure publishing reply: \(error)")
                 self.replyComposeController.isLoading = false
                 if let talkPageURL = self.viewModel.getTalkPageURL(encoded: false) {
-                    EditAttemptFunnel.shared.logSaveFailure(articleURL: talkPageURL)
+                    EditAttemptFunnel.shared.logSaveFailure(pageURL: talkPageURL)
                 }
 
                 if (error as NSError).wmf_isNetworkConnectionError() {
@@ -1063,11 +1069,11 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                         self?.talkPageView.collectionView.reloadData()
                         self?.scrollToLastTopic()
                         if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {
-                            EditAttemptFunnel.shared.logSaveSuccess(articleURL: pageURL, revisionId: viewModel.latestRevisionID)
+                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: viewModel.latestRevisionID)
                         }
                     case .failure:
                         if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {
-                            EditAttemptFunnel.shared.logSaveFailure(articleURL: pageURL)
+                            EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
                         }
                     }
                 }
@@ -1077,7 +1083,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                 composeViewController.setupNavigationBar(isPublishing: false)
 
                 if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {
-                    EditAttemptFunnel.shared.logSaveFailure(articleURL: pageURL)
+                    EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
                 }
                 
                 if (error as NSError).wmf_isNetworkConnectionError() {

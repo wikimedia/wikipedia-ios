@@ -8,7 +8,6 @@ extension ArticleViewController {
         } else {
             showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
         }
-        EditAttemptFunnel.shared.logInit(articleURL: articleURL)
     }
     
     func showEditorForFullSource(selectedTextEditInfo: SelectedTextEditInfo? = nil) {
@@ -20,10 +19,12 @@ extension ArticleViewController {
             EditInteractionFunnel.shared.logArticleDidTapEditSourceButton(project: project)
         }
         
+        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
     
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
         cancelWIconPopoverDisplay()
+        
         let editorViewController: UIViewController
         if FeatureFlags.needsNativeSourceEditor {
             let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, delegate: self, theme: theme)
@@ -44,6 +45,9 @@ extension ArticleViewController {
             }
             
         }
+
+        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
+
     }
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource) {
@@ -103,6 +107,7 @@ extension ArticleViewController {
     }
     
     func showEditSectionOrTitleDescriptionDialogForSection(with id: Int, descriptionSource: ArticleDescriptionSource, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
+
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         
         let editTitleDescriptionTitle = WMFLocalizedString("description-edit-pencil-title", value: "Edit article description", comment: "Title for button used to show article description editor")
@@ -126,13 +131,17 @@ extension ArticleViewController {
         sheet.addAction(editLeadSectionAction)
         
         sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
-            EditAttemptFunnel.shared.logAbort(articleURL: self.articleURL)
-            
+
             if let project = WikimediaProject(siteURL: self.articleURL) {
                 EditInteractionFunnel.shared.logArticleConfirmDidTapCancel(project: project)
             }
+
+            EditAttemptFunnel.shared.logAbort(pageURL: self.articleURL)
+
         })
         present(sheet, animated: true)
+        
+        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
 
 }
@@ -225,18 +234,18 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
         switch result {
         case .failure(let error):
             showError(error)
-            EditAttemptFunnel.shared.logSaveFailure(articleURL: self.articleURL)
+            EditAttemptFunnel.shared.logSaveFailure(pageURL: self.articleURL)
         case .success(let changes):
             dismiss(animated: true)
             waitForNewContentAndRefresh(changes.newRevisionID)
-            EditAttemptFunnel.shared.logSaveSuccess(articleURL: self.articleURL, revisionId: Int(changes.newRevisionID))
+            EditAttemptFunnel.shared.logSaveSuccess(pageURL: self.articleURL, revisionId: Int(changes.newRevisionID))
         }
     }
     
     func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController, navigateToURL url: URL?) {
         dismiss(animated: true) {
             self.navigate(to: url)
-            EditAttemptFunnel.shared.logAbort(articleURL: self.articleURL)
+            EditAttemptFunnel.shared.logAbort(pageURL: self.articleURL)
         }
     }
 
