@@ -1,5 +1,48 @@
 import Foundation
 
+enum TextStyleType: Int {
+    case paragraph
+    case heading = 2 // Heading is 2 equals (we don't show a heading choice for 1 equals variant)
+    case subheading1 = 3
+    case subheading2 = 4
+    case subheading3 = 5
+    case subheading4 = 6
+
+    var name: String {
+        switch self {
+        case .paragraph:
+            return "Paragraph"
+        case .heading:
+            return "Heading"
+        case .subheading1:
+            return "Sub-heading 1"
+        case .subheading2:
+            return "Sub-heading 2"
+        case .subheading3:
+            return "Sub-heading 3"
+        case .subheading4:
+            return "Sub-heading 4"
+        }
+    }
+}
+
+enum TextSizeType: String {
+    case normal
+    case big
+    case small
+
+    var name: String {
+        switch self {
+        case .normal:
+            return "Normal"
+        case .big:
+            return "Big"
+        case .small:
+            return "Small"
+        }
+    }
+}
+
 struct SectionEditorButton {
     enum Kind: Equatable {
         case li(ordered: Bool)
