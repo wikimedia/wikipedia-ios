@@ -149,6 +149,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
         textView.delegate = self
         textFrameworkMediator.delegate = self
         textView.isEditable = !viewModel.needsReadOnly
+        textView.accessibilityLabel = WKSourceEditorLocalizedStrings.current.wikitextEditorAccessibility
         
         view.addSubview(textView)
         updateColorsAndFonts()
