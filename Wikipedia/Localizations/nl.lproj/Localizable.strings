@@ -21,6 +21,7 @@
 // Author: Mathonius
 // Author: McDutchie
 // Author: MedShot
+// Author: Mitsjol
 // Author: MrLeopold
 // Author: Ndecouck
 // Author: Nemo bis
@@ -341,6 +342,7 @@
 "edit-published-subtitle" = "U heeft Wikipedia zojuist voor iedereen beter gemaakt";
 "edit-reference-accessibility-label" = "Voeg referentiesyntaxis toe";
 "edit-reference-remove-accessibility-label" = "Verwijder referentie syntax";
+"edit-show-web-preview" = "Webvoorbeeld weergeven";
 "edit-signature-accessibility-label" = "Handtekening syntax toevoegen";
 "edit-signature-remove-accessibility-label" = "Handtekening syntax verwijderen";
 "edit-strikethrough-accessibility-label" = "Doorhalen toevoegen";
@@ -379,6 +381,15 @@
 "editing-welcome-set-knowledge-free-title" = "Laat kennis vrij";
 "editor-exit-confirmation-body" = "Weet u zeker dat u de bewerkingsmodus wilt verlaten zonder eerst te publiceren?";
 "editor-exit-confirmation-title" = "De bewerkingsmodus sluiten?";
+"editor-keyboard-bold-accessibility" = "Vetgedrukt";
+"editor-keyboard-indent-increase-accessibility" = "Inspringing vergroten";
+"editor-keyboard-list-ordered-accessibility" = "Geordende lijst";
+"editor-keyboard-list-unordered-accessibility" = "Ongeordende lijst";
+"editor-keyboard-strikethrough-accessibility" = "Doorhalen";
+"editor-toolbar-cursor-down-accessibility" = "Verplaats de cursor naar de volgende regel.";
+"editor-toolbar-cursor-next-accessibility" = "Verplaats de cursor naar het volgende teken.";
+"editor-toolbar-italics-accessibility" = "Cursieve tekstopmaak";
+"editor-toolbar-reference-accessibility" = "Referentietekstopmaak";
 "empty-diff-compare-title" = "Geen verschillen tussen versies";
 "empty-diff-single-title" = "Geen zichtbare veranderingen gemaakt";
 "empty-insert-media-title" = "Selecteer een bestand van Wikimedia Commons";
@@ -842,7 +853,7 @@
 "potd-widget-description" = "Geniet van een prachtige dagelijkse foto, uitgekozen door onze gemeenschap.";
 "potd-widget-title" = "Afbeelding van de dag";
 "preference-summary-eventlogging-opt-in" = "Wikimedia Foundation toestaan om informatie te verzamelen over hoe u deze app gebruikt, zodat de app beter kan worden gemaakt";
-"preference-title-eventlogging-opt-in" = "Gebruiksrapporten verzenden";
+"privacy-policy-title" = "Privacybeleid";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -1127,6 +1138,7 @@
 "talk-pages-user-groups" = "Gebruikersgroepen";
 "talk-pages-user-logs" = "Logboeken";
 "talk-pages-view-title" = "Overleg";
+"terms-of-use-title" = "Gebruiksvoorwaarden";
 "theme-black-display-name" = "Zwart";
 "theme-dark-display-name" = "Donker";
 "theme-default-display-name" = "Standaard";
@@ -1234,6 +1246,7 @@
 "watchlist-user-button-user-talk-page" = "Overlegpagina gebruiker";
 "watchlist-watch-subtitle" = "Door te tikken op de ster of op de actie “Bekijken” in de onderste werkbalk van een artikel, kunt u die pagina aan uw volglijst toevoegen.";
 "watchlist-watch-title" = "Artikelen volgen";
+"welcome-data-privacy-title" = "Gegevens & Privacy";
 "welcome-exploration-explore-feed-description" = "Aanbevolen inhoud van onze gebruikersgemeenschap";
 "welcome-exploration-explore-feed-title" = "Verkennen";
 "welcome-exploration-on-this-day-description" = "Reis terug in de tijd om te leren wat er vandaag in de geschiedenis is gebeurd";
@@ -1255,10 +1268,6 @@
 "welcome-notifications-tell-me-more-creation" = "Meldingen worden gemaakt en geleverd op uw apparaat door de app, niet door onze servers (of die van derden).";
 "welcome-notifications-tell-me-more-storage" = "Meldingsvoorkeuren zijn opgeslagen op het apparaat en niet gebaseerd op persoonlijke informatie of activiteit.";
 "welcome-notifications-tell-me-more-title" = "Meer informatie over meldingen";
-"welcome-send-data-helps-title" = "Help de app beter te maken";
-"welcome-send-data-learn-more" = "Leer meer over de verzamelde data";
-"welcome-send-data-sub-title" = "Help de Wikimedia Foundation de app beter te maken door ons te laten weten hoe u de app gebruikt. De verzamelde gegevens zijn anoniem.";
-"welcome-volunteer-send-usage-reports" = "Gebruiksrapporten verzenden";
 "widget-onthisday-description" = "Ontdek wat er op deze dag in de geschiedenis is gebeurd.";
 "widget-onthisday-placeholder-article-snippet" = "Vrije internetencyclopedie die iedereen kan bewerken";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, een vrije encyclopedie met wiki-inhoud, gaat online.";

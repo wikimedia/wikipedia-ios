@@ -745,7 +745,6 @@
 "potd-widget-description" = "Mėgaukitės gražia nuotrauka, kurią kiekvieną dieną parenka mūsų bendruomenė.";
 "potd-widget-title" = "Dienos nuotrauka";
 "preference-summary-eventlogging-opt-in" = "Leisti Vikimedijos fondui rinkti informaciją apie tai, kaip naudojate programėlę, taip ją tobulinant";
-"preference-title-eventlogging-opt-in" = "Siųsti naudojimo ataskaitas";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Vikiknygos";
 "project-name-wikidata" = "Vikiduomenys";
@@ -1071,10 +1070,6 @@
 "welcome-notifications-tell-me-more-creation" = "Pranešimus sukuria ir pristato programėlė jūsų įrenginyje, o ne mūsų (ar trečiųjų šalių) serveriai.";
 "welcome-notifications-tell-me-more-storage" = "Pranešimų nustatymai laikomi įrenginyje ir nėra paremti asmenine informacija ar veikla.";
 "welcome-notifications-tell-me-more-title" = "Daugiau apie pranešimus";
-"welcome-send-data-helps-title" = "Padėkite patobulinti programėlę";
-"welcome-send-data-learn-more" = "Sužinoti daugiau apie duomenų rinkimą";
-"welcome-send-data-sub-title" = "Padėkite tobulinti programėlę leidžiant Vikimedijos fondui žinoti kaip ją naudojate. Duomenų rinkimas yra anoniminis.";
-"welcome-volunteer-send-usage-reports" = "Siųsti naudojimo ataskaitas";
 "widget-onthisday-description" = "Tyrinėkite kas įvyko šią dieną istorijoje.";
 "widget-onthisday-placeholder-article-snippet" = "Laisvoji skaitmeninė enciklopedija, kurią gali redaguoti visi";
 "widget-onthisday-placeholder-event-snippet" = "Paleista Vikipedija, laisvo viki turinio enciklopedija.";

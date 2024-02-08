@@ -97,7 +97,6 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 вироиш|$1 вироишот}} аз $2";
 "page-history-user-edits" = "вироишоти корбар";
 "places-search-default-text" = "Ҷои ҷустуҷӯ";
-"preference-title-eventlogging-opt-in" = "Фиристодани ҳисоботи истифода";
 "relative-date-hours-abbreviated" = "$1 соат";
 "relative-date-hours-ago-abbreviated" = "$1 соат пеш";
 "relative-date-minutes-abbreviated" = "$1 дақ.";

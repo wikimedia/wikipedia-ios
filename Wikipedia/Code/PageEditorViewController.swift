@@ -40,6 +40,7 @@ final class PageEditorViewController: UIViewController {
     private let source: Source
     private let dataStore: MWKDataStore
     private let articleSelectedInfo: SelectedTextEditInfo?
+    private let editSummaryTag: WKEditSummaryTag
     private weak var delegate: PageEditorViewControllerDelegate?
     private var theme: Theme
     
@@ -76,13 +77,15 @@ final class PageEditorViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, delegate: PageEditorViewControllerDelegate, theme: Theme) {
+    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, editSummaryTag: WKEditSummaryTag, delegate: PageEditorViewControllerDelegate, theme: Theme) {
+
         self.pageURL = pageURL
         self.sectionID = sectionID
         self.wikitextFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.editNoticesFetcher = EditNoticesFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.dataStore = dataStore
         self.articleSelectedInfo = articleSelectedInfo
+        self.editSummaryTag = editSummaryTag
         self.delegate = delegate
         self.theme = theme
         self.editFlow = editFlow
@@ -621,6 +624,8 @@ final class PageEditorViewController: UIViewController {
         saveVC.languageCode = pageURL.wmf_languageCode
         saveVC.wikitext = sourceEditor.editedWikitext
         saveVC.source = source
+        saveVC.editSummaryTag = editSummaryTag
+
         if case .editorSavePreview = editFlow {
             saveVC.needsWebPreviewButton = true
         }

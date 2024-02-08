@@ -33,6 +33,7 @@ enum RoutingUserInfoSourceValue: String {
     case account
     case search
     case inAppWebView
+    case watchlist
     case unknown
 }
 
@@ -118,6 +119,7 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return false
             }
+            
             let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager)
             return presentOrPush(diffContainerVC, with: completion)
         case .inAppLink(let linkURL):

@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import WKData
 
 extension ArticleViewController {
     func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?) {
@@ -16,8 +17,8 @@ extension ArticleViewController {
         EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
     
-    func showEditorForFullSource(selectedTextEditInfo: SelectedTextEditInfo? = nil) {
-        let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: nil, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, delegate: self, theme: theme)
+    func showEditorForFullSource() {
+        let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: nil, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: nil, editSummaryTag: .articleFullSourceEditor, delegate: self, theme: theme)
         
         presentEditor(editorViewController: pageEditorViewController)
         
@@ -32,8 +33,11 @@ extension ArticleViewController {
         cancelWIconPopoverDisplay()
         
         let editorViewController: UIViewController
+        let editSummaryTag: WKEditSummaryTag = selectedTextEditInfo == nil ?  .articleSectionSourceEditor : .articleSelectSourceEditor
         if FeatureFlags.needsNativeSourceEditor {
-            let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, delegate: self, theme: theme)
+
+            let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, editSummaryTag: editSummaryTag, delegate: self, theme: theme)
+
             editorViewController = pageEditorViewController
         } else {
             let sectionEditViewController = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)

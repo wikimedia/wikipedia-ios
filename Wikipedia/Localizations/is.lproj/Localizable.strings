@@ -755,7 +755,6 @@
 "potd-widget-description" = "Uppgötvaðu fallegar myndir fyrir hvern dag, valdar af þátttakendunum okkar.";
 "potd-widget-title" = "Mynd dagsins";
 "preference-summary-eventlogging-opt-in" = "Leyfa Wikimedia til að safna upplýsingum um hvernig þú notar appið til að geta gert það betra";
-"preference-title-eventlogging-opt-in" = "Senda notkunarskýrslur";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -1098,10 +1097,6 @@
 "welcome-notifications-tell-me-more-creation" = "Tilkynningar eru útbúnar og afgreiddar á tækinu af forritinu sjálfu, en ekki vefþjónum okkar eða annarra aðila.";
 "welcome-notifications-tell-me-more-storage" = "Kjörstillingar kerfistilkynninga eru geymdar á tækinu og eru ekki byggðar á persónuupplýsingum eða persónugreinanlegri virkni.";
 "welcome-notifications-tell-me-more-title" = "Meira um tilkynningar";
-"welcome-send-data-helps-title" = "Hjálpaðu okkur við að gera forritið betra";
-"welcome-send-data-learn-more" = "Vita meira um gagnasöfnunina";
-"welcome-send-data-sub-title" = "Hjálpaðu okkur að bæta forritið með því að leyfa okkur að sjá hvernig þú notar það. Gögnum er safnað án persónuauðkenna.";
-"welcome-volunteer-send-usage-reports" = "Senda notkunarskýrslur";
 "widget-onthisday-description" = "Sjáðu hvað gerðist á þessum degi í sögulegu samhengi.";
 "widget-onthisday-placeholder-article-snippet" = "Frjálst alfræðirit sem allir geta tekið þátt í að bæta";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, frjálsa alfræðiritið með wiki-efni, fór á netið.";

@@ -228,7 +228,6 @@
 "places-empty-search-title" = "ৱিকিপিডিয়াৰ ভৌগোলিক অৱস্থানযুক্ত প্ৰবন্ধসমূহ অনুসন্ধান কৰক";
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "এপ্‌টো উন্নত কৰিবৰ বাবে আপুনি এই এপ্‌ কেনেকৈ ব্যৱহাৰ কৰে জানিবলৈ ৱিকিমিডিয়াক তথ্য সংগ্ৰহৰ অনুমতি দিয়ক";
-"preference-title-eventlogging-opt-in" = "ব্যৱহাৰৰ প্ৰতিবেদন পঠিয়াওক";
 "reading-list-create-new-list-description" = "বিৱৰণ";
 "reading-list-create-new-list-title" = "এটা নতুন তালিকা সৃষ্টি কৰক";
 "relative-date-hours-abbreviated" = "$1 ঘণ্টা";

@@ -2,6 +2,7 @@ import UIKit
 import SwiftUI
 import WMF
 import Components
+import WKData
 
 struct SectionEditorChanges {
     let newRevisionID: UInt64
@@ -40,6 +41,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var wikitext = ""
     var theme: Theme = .standard
     var needsWebPreviewButton: Bool = false
+    var editSummaryTag: WKEditSummaryTag?
     weak var delegate: EditSaveViewControllerDelegate?
 
     private lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
@@ -309,7 +311,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         } else {
             section = nil
         }
-        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, completion: { (result, error) in
+        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, editSummaryTag: editSummaryTag?.rawValue, completion: { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     self.handleEditFailure(with: error)

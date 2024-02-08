@@ -656,7 +656,6 @@
 "potd-widget-description" = "រីករាយជាមួយរូបភាពស្អាតៗប្រចាំថ្ងៃដែលសហគមយើងខ្ញុំបានសម្រាំង។";
 "potd-widget-title" = "រូបភាពប្រចាំថ្ងៃ";
 "preference-summary-eventlogging-opt-in" = "អនុញ្ញាតអោយមូលនិធិវិគីមេឌាប្រមូលព័ត៌មានអំពីរបៀបប្រើប្រាស់កម្មវិធីរបស់អ្នក ដើម្បីជួយកែច្នៃកម្មវិធីនេះអោយកាន់តែប្រសើរ";
-"preference-title-eventlogging-opt-in" = "ផ្ញើរបាយការណ៍ពីបម្រើបម្រាស់";
 "project-name-mediawiki" = "មេឌាវិគី";
 "project-name-wikibooks" = "វិគីសៀវភៅ";
 "project-name-wikidata" = "វិគីទិន្នន័យ";
@@ -826,10 +825,6 @@
 "welcome-notifications-tell-me-more-creation" = "សារជូនដំណឹងត្រូវបានបង្កើតនិងផ្ញើជូនដោយកម្មវិធីលើឧបករណ៍របស់អ្នក មិនមែនពីម៉ាស៊ីនបម្រើការរបស់យើងឬរបស់អ្នកទីបីឡើយ។";
 "welcome-notifications-tell-me-more-storage" = "ចំណង់ចំណូលចិត្តសម្រាប់សារជូនដំណឹងត្រូវបានរក្សាទុកនៅលើឧបករណ៍ និងមិនមែនអាស្រ័យលើព័ត៌មានឬសកម្មភាពផ្ទាល់ខ្លួនទេ។";
 "welcome-notifications-tell-me-more-title" = "ស្វែងយល់បន្ថែមអំពីមុខងារសារជូនដំណឹង";
-"welcome-send-data-helps-title" = "ជួយកែលម្អកម្មវិធី";
-"welcome-send-data-learn-more" = "ស្វែងយល់បន្ថែមអំពីទិន្នន័យដែលបានប្រមូលទុក";
-"welcome-send-data-sub-title" = "ជួយកែលម្អកម្មវិធីតាមរយៈការរាយការណ៍ទៅមូលនិធិវិគីមេឌាពីរបៀបដែលអ្នកប្រើវា។ ទិន្នន័យត្រូវប្រមូលដោយលាក់ឈ្មោះ។";
-"welcome-volunteer-send-usage-reports" = "ផ្ញើរបាយការណ៍ពីបម្រើបម្រាស់";
 "widget-onthisday-description" = "ស្វែងយល់ពីអ្វីដែលបានកើតឡើងនៅថ្ងៃនេះក្នុងប្រវត្តិសាស្ត្រ។";
 "widget-onthisday-placeholder-article-snippet" = "សព្វវចនាធិប្បាយអនឡាញឥតគិតថ្លៃដែលមនុស្សគ្រប់គ្នាអាចកែប្រែបាន។";
 "widget-onthisday-placeholder-event-snippet" = "វិគីភីឌាជាសព្វវចនាធិប្បាយឥតគិតថ្លៃ ដំណើរការលើអ៊ីនធើណិត។";

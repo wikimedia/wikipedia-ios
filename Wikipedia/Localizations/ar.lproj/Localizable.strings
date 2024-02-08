@@ -347,6 +347,8 @@
 "editing-welcome-impartial-tone-title" = "اكتب بنبرة محايدة";
 "editing-welcome-set-knowledge-free-subtitle" = "من أجل منح الجميع إمكانية الوصول إلى المعرفة العالمية؛ نحتاج منك المشاركة في إنشائها من خلال القراءة والتحرير والمساهمة في الموضوعات التي تهمك أكثر.";
 "editing-welcome-set-knowledge-free-title" = "تعيين المعرفة الحرة";
+"editor-edit-published" = "نُشِر تعديلك.";
+"editor-edit-source" = "عَدِّل المصدر";
 "editor-exit-confirmation-body" = "هل أنت متأكد أنك تريد ترك وضع التحرير دون النشر أولاً؟";
 "editor-exit-confirmation-message" = "هل انت متاكد من انك تريد اهمال هذه التعديلات؟";
 "editor-exit-confirmation-title" = "رفض وضع التحرير؟";
@@ -812,7 +814,6 @@
 "potd-widget-description" = "شاهد صورة يومية اختارها مجتمعنا";
 "potd-widget-title" = "صورة اليوم";
 "preference-summary-eventlogging-opt-in" = "السماح لويكيميديا بجمع المعلومات حول كيفية استخدام التطبيق لتحسينه";
-"preference-title-eventlogging-opt-in" = "إرسال تقارير الاستخدام";
 "project-name-mediawiki" = "ميدياويكي";
 "project-name-wikibooks" = "ويكي الكتب";
 "project-name-wikidata" = "ويكي بيانات";
@@ -1006,8 +1007,6 @@
 "share-social-mention-format" = "“$1” عبر ويكيبيديا: $2";
 "sort-by-recently-added-action" = "أُضيف مؤخرا";
 "sort-by-title-action" = "العنوان";
-"source-editor-edit-published" = "نُشِر تعديلك.";
-"source-editor-edit-source" = "عَدِّل المصدر";
 "table-of-contents-button-label" = "قائمة المحتويات";
 "table-of-contents-close-accessibility-hint" = "أغلق";
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
@@ -1165,10 +1164,6 @@
 "welcome-notifications-tell-me-more-creation" = "يتم إنشاء الإشعارات وتسليمها على جهازك من خلال التطبيق، وليس من خوادمنا (أو جهات خارجية).";
 "welcome-notifications-tell-me-more-storage" = "يتم تخزين تفضيلات الإشعارات على الجهاز ولا تعتمد على المعلومات أو النشاط الشخصي.";
 "welcome-notifications-tell-me-more-title" = "معلومات أكثر عن الاشعارات";
-"welcome-send-data-helps-title" = "ساعد في تحسين التطبيق";
-"welcome-send-data-learn-more" = "معرفة المزيد عن البيانات المجموعة";
-"welcome-send-data-sub-title" = "ساعد في تحسين هذا التطبيق بالسماح لمؤسسة ويكيميديا معرفة كيف تستخدم هذا التطبيق. البيانات التي نجمعها ستكون مجهولة.";
-"welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
 "widget-onthisday-description" = "اكتشف ما الذي حصل في مثل هذا اليوم.";
 "widget-onthisday-placeholder-article-snippet" = "الموسوعة الحرة التي يمكن للجميع تحريرها";
 "widget-onthisday-placeholder-event-snippet" = "ويكيبيديا الموسوعة حرة المحتوى المتوفرة على الإنترنت.";

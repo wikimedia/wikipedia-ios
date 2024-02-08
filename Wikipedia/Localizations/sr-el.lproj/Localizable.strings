@@ -789,7 +789,6 @@
 "potd-widget-description" = "Uživajte u divnoj dnevnoj slici koju je odabrala naša zajednica.";
 "potd-widget-title" = "Slika dana";
 "preference-summary-eventlogging-opt-in" = "Dozvolite Zadužbini Vikimedija da prikuplja informacije o tome kako koristite aplikaciju u cilju njenog poboljšanja.";
-"preference-title-eventlogging-opt-in" = "Šalji izveštaje o upotrebi";
 "project-name-mediawiki" = "Medijaviki";
 "project-name-wikibooks" = "Vikiknjige";
 "project-name-wikidata" = "Vikipodaci";
@@ -1190,10 +1189,6 @@
 "welcome-notifications-tell-me-more-creation" = "Aplikacija pravi i dostavlja obaveštenja na vaš uređaj, a ne naši serveri (ili trećih strana).";
 "welcome-notifications-tell-me-more-storage" = "Podešavanja obaveštenja se smeštaju na uređaju i nisu zasnovana na ličnim informacijama ili aktivnosti.";
 "welcome-notifications-tell-me-more-title" = "Više o obaveštenjima";
-"welcome-send-data-helps-title" = "Pomozite nam da poboljšamo aplikaciju";
-"welcome-send-data-learn-more" = "Saznajte više o prikupljanju podataka";
-"welcome-send-data-sub-title" = "Pomozite Zadužbini Vikimedija da poboljša aplikaciju slanjem informacija o upotrebi. Prikupljeni podaci su anonimni.";
-"welcome-volunteer-send-usage-reports" = "Šalji izveštaje o upotrebi";
 "widget-onthisday-description" = "Šta se desilo na današnji dan.";
 "widget-onthisday-placeholder-article-snippet" = "Slobodna onlajn enciklopedija koju svako može uređivati";
 "widget-onthisday-placeholder-event-snippet" = "Vikipedija, slobodna enciklopedija, ide onlajn.";

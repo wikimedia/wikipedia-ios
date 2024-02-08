@@ -14,6 +14,7 @@
 // Author: Hydros
 // Author: Iketsi
 // Author: John Trololo
+// Author: Lhanars
 // Author: Macofe
 // Author: McDutchie
 // Author: Nemo bis
@@ -358,6 +359,8 @@
 "editing-welcome-impartial-tone-title" = "Écrire sur un ton impartial";
 "editing-welcome-set-knowledge-free-subtitle" = "Afin de donner à chacun accès à la connaissance du monde entier, nous avons besoin de vous pour participer à sa création en lisant, modifiant et contribuant aux sujets qui comptent le plus pour vous.";
 "editing-welcome-set-knowledge-free-title" = "Libérer la connaissance";
+"editor-edit-published" = "Votre modification a été publiée.";
+"editor-edit-source" = "Modifier le wikicode";
 "editor-exit-confirmation-body" = "Voulez-vous vraiment quitter le mode de modification sans d’abord publier ?";
 "editor-exit-confirmation-message" = "Êtes-vous certain de vouloir annuler cette modification ?";
 "editor-exit-confirmation-title" = "Quitter le mode de modification ?";
@@ -605,7 +608,7 @@
 "main-menu-zero-faq" = "FAQ de Wikipédia Zéro";
 "menu-cancel-accessibility-label" = "Annuler";
 "more-languages-tooltip-description" = "Rechercher sur Wikipédia dans plus de 300 langues";
-"more-languages-tooltip-title" = "Ajouter des langues";
+"more-languages-tooltip-title" = "Ajustar de lengas";
 "more-menu" = "Plus";
 "move-articles-to-reading-list" = "Placer $1 article{{PLURAL:$1||s}} dans la liste de lecture";
 "navbar-title-mode-edit-wikitext-preview" = "Aperçu";
@@ -824,7 +827,6 @@
 "potd-widget-description" = "Profiter d’une jolie photo quotidienne sélectionnée par notre communauté.";
 "potd-widget-title" = "Image du jour";
 "preference-summary-eventlogging-opt-in" = "Permettre à la Fondation Wikimedia de collecter des informations sur la manière dont vous utilisez l’application, afin de l’améliorer";
-"preference-title-eventlogging-opt-in" = "Envoyer les rapports d’utilisation";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikilivres";
 "project-name-wikidata" = "Wikidata";
@@ -1021,8 +1023,6 @@
 "share-social-mention-format" = "« $1 » via Wikipédia : $2";
 "sort-by-recently-added-action" = "Récemment ajouté";
 "sort-by-title-action" = "Titre";
-"source-editor-edit-published" = "Votre modification a été publiée.";
-"source-editor-edit-source" = "modifier le wikicode";
 "table-of-contents-button-label" = "Table des matières";
 "table-of-contents-close-accessibility-hint" = "Fermer";
 "table-of-contents-close-accessibility-label" = "Fermer la table des matières";
@@ -1236,10 +1236,6 @@
 "welcome-notifications-tell-me-more-creation" = "Les notifications sont créées et envoyées sur votre appareil par l’application, pas par nos serveurs (ou ceux de tierces parties).";
 "welcome-notifications-tell-me-more-storage" = "Les préférences de notification sont stockées sur l’appareil et ne sont pas basés sur des informations ou l’activité personnelle.";
 "welcome-notifications-tell-me-more-title" = "En savoir plus sur les notifications";
-"welcome-send-data-helps-title" = "Aidez-nous à améliorer l’application";
-"welcome-send-data-learn-more" = "En savoir plus sur les données collectées";
-"welcome-send-data-sub-title" = "Aider à améliorer l’application en indiquant à la Fondation Wikimedia la manière dont vous l’utilisez. Les données collectées sont anonymes.";
-"welcome-volunteer-send-usage-reports" = "Envoyer les rapports d’utilisation";
 "widget-onthisday-description" = "Explorer ce qui s’est passé à cette date-ci de l’année au cours de l’histoire.";
 "widget-onthisday-placeholder-article-snippet" = "Encyclopédie en ligne gratuite que tout le monde peut modifier";
 "widget-onthisday-placeholder-event-snippet" = "Wikipédia, une encyclopédie de contenu wiki libre, est mise en ligne.";

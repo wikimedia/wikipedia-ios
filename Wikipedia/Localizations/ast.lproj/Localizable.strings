@@ -403,7 +403,6 @@
 "potd-description-prefix" = "Imaxe del día pal $1";
 "potd-empty-error-description" = "Nun pudo algamase la imaxe del día pal $1";
 "preference-summary-eventlogging-opt-in" = "Permite a la Fundación Wikimedia collechar información tocante a cómo uses la app p'ameyorala";
-"preference-title-eventlogging-opt-in" = "Unviar informes d'usu";
 "reading-list-add-generic-hint-title" = "¿Amestar esti artículu a una llista de llectura?";
 "reading-list-add-hint-title" = "¿Añadir «$1» a una llista de llectura?";
 "reading-list-add-saved-button-title" = "Si, amestalos a les mios llistes de llectura";
@@ -591,10 +590,6 @@
 "welcome-notifications-tell-me-more-creation" = "Los avisos creense y entréguense nel preséu pola app, non polos nuesos sirvidores (nin de terceros).";
 "welcome-notifications-tell-me-more-storage" = "Les preferencies d'avisos guárdense nel preséu y nun se basen n'información o actividá personal.";
 "welcome-notifications-tell-me-more-title" = "Más tocante a los avisos";
-"welcome-send-data-helps-title" = "Ayuda a ameyorar la app";
-"welcome-send-data-learn-more" = "Saber más sobre los datos collechaos";
-"welcome-send-data-sub-title" = "Ayuda a ameyorar esta app permitiendo a la Fundación Wikimedia saber cómo la uses. Los datos collechaos son anónimos.";
-"welcome-volunteer-send-usage-reports" = "Unviar informes d'usu";
 "wikitext-downloading" = "Cargando'l conteníu...";
 "wikitext-preview-changes" = "Recuperando la vista previa de los cambios...";
 "wikitext-preview-changes-none" = "Nun se ficieron cambios pa una vista previa.";
