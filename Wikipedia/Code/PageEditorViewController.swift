@@ -403,7 +403,7 @@ final class PageEditorViewController: UIViewController {
                 }
             }
             
-            EditAttemptFunnel.shared.logAbort(articleURL: pageURL)
+            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
         })
     }
     
@@ -428,7 +428,7 @@ final class PageEditorViewController: UIViewController {
                 }
             }
             
-            EditAttemptFunnel.shared.logAbort(articleURL: pageURL)
+            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
             
         })
     }
