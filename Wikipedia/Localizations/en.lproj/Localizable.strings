@@ -89,8 +89,6 @@
 "action-read" = "Read";
 "action-redo" = "Redo";
 "action-remove" = "Remove";
-"action-replace" = "Replace";
-"action-replace-all" = "Replace all";
 "action-retry" = "Retry";
 "action-save" = "Save";
 "action-saved" = "Saved";
@@ -105,7 +103,6 @@
 "action-unsaved-accessibility-notification" = "Article unsaved";
 "action-update" = "Update";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
-"add-citation-title" = "Add citation";
 "additional-information-email-title" = "Additional information";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
@@ -306,7 +303,6 @@
 "edit-signature-remove-accessibility-label" = "Remove signature syntax";
 "edit-strikethrough-accessibility-label" = "Add strikethrough";
 "edit-strikethrough-remove-accessibility-label" = "Remove strikethrough";
-"edit-style-table-view-title" = "Style";
 "edit-subscript-accessibility-label" = "Add subscript formatting";
 "edit-subscript-remove-accessibility-label" = "Remove subscript formatting";
 "edit-summary-add-summary-text" = "Add an edit summary";
@@ -319,10 +315,7 @@
 "edit-superscript-remove-accessibility-label" = "Remove superscript formatting";
 "edit-template-accessibility-label" = "Add template syntax";
 "edit-template-remove-accessibility-label" = "Remove template syntax";
-"edit-text-clear-formatting" = "Clear formatting";
 "edit-text-formatting-accessibility-label" = "Show text formatting menu";
-"edit-text-formatting-table-view-title" = "Text formatting";
-"edit-text-size-table-view-title" = "Text size";
 "edit-text-style-accessibility-label" = "Show text style menu";
 "edit-underline-accessibility-label" = "Add underline";
 "edit-underline-remove-accessibility-label" = "Remove underline";
@@ -976,7 +969,6 @@
 "replace-infolabel-method-replace" = "Replace";
 "replace-infolabel-method-replace-all" = "Replace all";
 "replace-method-button-accessibility" = "Replace method. Set to $1. Select to change.";
-"replace-replace-all-results-count" = "{{PLURAL:$1|$1 item replaced|$1 items replaced}}";
 "replace-textfield-accessibility" = "Replace";
 "replace-textfield-placeholder" = "Replace with…";
 "return-button-title" = "Return";
@@ -1283,9 +1275,7 @@
 "widget-onthisday-description" = "Explore what happened on this day in history.";
 "widget-onthisday-placeholder-article-snippet" = "Free online encyclopedia that anyone can edit";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, a free wiki content encyclopedia, goes online.";
-"wikitext-downloading" = "Loading content...";
 "wikitext-preview-changes" = "Retrieving preview of your changes...";
-"wikitext-preview-changes-none" = "No changes were made to be previewed.";
 "wikitext-preview-link-external-preview-description" = "This link leads to an external website: $1";
 "wikitext-preview-link-external-preview-title" = "External link";
 "wikitext-preview-link-not-found-preview-description" = "Wikipedia does not have an article with this exact name";
