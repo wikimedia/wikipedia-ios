@@ -673,7 +673,6 @@
 "potd-description-prefix" = "Obrázek dne $1";
 "potd-empty-error-description" = "Nepodařilo se načíst obrázek dne pro $1";
 "preference-summary-eventlogging-opt-in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace, aby ji mohla zlepšovat";
-"preference-title-eventlogging-opt-in" = "Odesílat zprávy o využití";
 "reading-list-add-generic-hint-title" = "Přidat tento článek do seznamu k přečtení?";
 "reading-list-add-hint-title" = "Přidat „$1“ do seznamu k přečtení?";
 "reading-list-add-saved-button-title" = "Ano, přidat články do tohoto seznamu k přečtení";
@@ -902,10 +901,6 @@
 "welcome-notifications-tell-me-more-creation" = "Upozornění jsou vytvářeny a doručovány aplikací ve vašem zařízení, nikoliv od našich serverů nebo od serverů třetích stran.";
 "welcome-notifications-tell-me-more-storage" = "Předvolby upozornění jsou uloženy v zařízení a nejsou založeny na osobních informacích nebo aktivitách.";
 "welcome-notifications-tell-me-more-title" = "Více informací o upozornění";
-"welcome-send-data-helps-title" = "Pomozte nám vylepšit tuto aplikaci";
-"welcome-send-data-learn-more" = "Další informace o shromažďovaných datech";
-"welcome-send-data-sub-title" = "Pomozte vylepšit aplikaci a předejte nadaci Wikimedia informace o používaní aplikace. Sběr dat je anonymní.";
-"welcome-volunteer-send-usage-reports" = "Odesílat zprávy o využití";
 "wikitext-downloading" = "Načítání obsahu…";
 "wikitext-preview-changes" = "Načítání náhledu vašich změn…";
 "wikitext-preview-changes-none" = "Nebyly provedeny žádné změny, jejichž náhled by mohl být zobrazen.";

@@ -800,7 +800,6 @@
 "potd-widget-description" = "Desfrute de uma bela foto diária selecionada por nossa comunidade.";
 "potd-widget-title" = "Imagem do dia";
 "preference-summary-eventlogging-opt-in" = "Permitir que a Fundação Wikimedia recolha informações sobre o uso do aplicativo para aperfeiçoá-lo";
-"preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikilivros";
 "project-name-wikidata" = "Wikidata";
@@ -1147,10 +1146,6 @@
 "welcome-notifications-tell-me-more-creation" = "As notificações são criadas e enviadas para o dispositivo através da aplicação, não a partir dos nossos (ou de terceiros) servidores.";
 "welcome-notifications-tell-me-more-storage" = "As preferências de notificação são armazenadas no dispositivo, e não baseadas em informações pessoais ou atividade.";
 "welcome-notifications-tell-me-more-title" = "Mais sobre notificações";
-"welcome-send-data-helps-title" = "Ajude a melhorar o aplicativo";
-"welcome-send-data-learn-more" = "Saiba mais sobre dados coletados";
-"welcome-send-data-sub-title" = "Ajude a melhorar o aplicativo, permitindo que a Wikimedia Foundation saiba como você o usa. Os dados coletados são anônimos";
-"welcome-volunteer-send-usage-reports" = "Enviar relatório de uso";
 "widget-onthisday-description" = "Explore o que aconteceu neste dia na história.";
 "widget-onthisday-placeholder-article-snippet" = "A enciclopédia online livre que qualquer um pode editar";
 "widget-onthisday-placeholder-event-snippet" = "A Wikipédia, uma enciclopédia de conteúdo wiki gratuito, fica online.";

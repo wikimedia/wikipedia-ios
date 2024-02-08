@@ -516,7 +516,6 @@
 "potd-description-prefix" = "Bildo de la tago por $1";
 "potd-empty-error-description" = "Malsukcesis ricevi bildon de la tago por $1";
 "preference-summary-eventlogging-opt-in" = "Permesi al Vikipedio kolekti informojn pri kiel vi uzas la aplikaĵon por helpi ĝin plibonigi";
-"preference-title-eventlogging-opt-in" = "Sendi raporton pri uzado";
 "reading-list-add-generic-hint-title" = "Ĉu aldoni ĉi tiun artikolon al legolisto?";
 "reading-list-add-hint-title" = "Ĉu aldoni \"$1\" al legolisto?";
 "reading-list-add-saved-button-title" = "Jes, aldonu ilin al miaj legolistoj";
@@ -735,10 +734,6 @@
 "welcome-notifications-tell-me-more-creation" = "Sciigoj estas kreitaj kaj liveritaj sur via aparato per la aplikaĵo, ne de nia servilo (aŭ de servilo de ekstera provizanto).";
 "welcome-notifications-tell-me-more-storage" = "Sciigaj preferoj estas konservitaj sur aparatoj kaj ne estas bazitaj sur personaj informoj aŭ persona agado.";
 "welcome-notifications-tell-me-more-title" = "Ekscii pli pri sciigoj";
-"welcome-send-data-helps-title" = "Helpu plibonigi la aplikaĵon";
-"welcome-send-data-learn-more" = "Ekscii pli pri kolektitaj datumoj";
-"welcome-send-data-sub-title" = "Helpu plibonigi la aplikaĵon informante la Vikimedian Fondaĵon kiel vi uzas ĝin. Datumkolektado estas sennoma.";
-"welcome-volunteer-send-usage-reports" = "Sendi raporton pri uzado";
 "wikitext-downloading" = "Ŝargante enhavon...";
 "wikitext-preview-changes" = "Ricevado de antaŭrigardo de viaj ŝanĝoj...";
 "wikitext-preview-changes-none" = "Neniuj ŝanĝoj estas faritaj por antaŭrigardi.";

@@ -175,7 +175,6 @@
 "places-search-top-articles-that-match-scope" = "Tuvumā";
 "places-title" = "Vietas";
 "places-unknown-distance" = "nezināms attālums";
-"preference-title-eventlogging-opt-in" = "Sūtīt lietošanas ziņojumus";
 "reading-list-create-new-list-description" = "Apraksts";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Kārtot rakstus";
 "reading-list-sync-disabled-panel-title" = "Sinhronizācija izslēgta";
@@ -236,8 +235,6 @@
 "welcome-intro-free-encyclopedia-title" = "Brīvā enciklopēdija";
 "welcome-languages-add-button" = "Pievienot citu valodu";
 "welcome-notifications-tell-me-more-title" = "Vairāk par paziņojumiem";
-"welcome-send-data-helps-title" = "Palīdzi uzlabot lietotni";
-"welcome-volunteer-send-usage-reports" = "Sūtīt lietojuma ziņojumus";
 "wikitext-downloading" = "Ielādē saturu...";
 "wikitext-preview-link-preview-title" = "Saites pirmskats";
 // Fuzzy

@@ -760,7 +760,6 @@
 "potd-widget-description" = "Bucurați-vă de o fotografie zilnică frumoasă selectată de comunitatea noastră.";
 "potd-widget-title" = "Imaginea zilei";
 "preference-summary-eventlogging-opt-in" = "Permiteți Fundației Wikimedia să colecteze informații despre modul în care utilizați aplicația pentru a îmbunătăți aplicația";
-"preference-title-eventlogging-opt-in" = "Trimite rapoarte de utilizare";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikimanuale";
 "project-name-wikidata" = "Wikidata";
@@ -1046,10 +1045,6 @@
 "welcome-notifications-tell-me-more-creation" = "Notificările sunt create și livrate pe dispozitivul dvs. de către aplicație, nu de pe serverele noastre (sau de la terți).";
 "welcome-notifications-tell-me-more-storage" = "Preferințele de notificare sunt stocate pe dispozitiv și nu se bazează pe informații sau activități personale.";
 "welcome-notifications-tell-me-more-title" = "Mai multe despre notificări";
-"welcome-send-data-helps-title" = "Ajută la îmbunătățirea aplicației";
-"welcome-send-data-learn-more" = "Aflați mai multe despre datele colectate";
-"welcome-send-data-sub-title" = "Ajutați la îmbunătățirea aplicației, lăsând Fundația Wikimedia să știe cum o utilizați. Datele colectate sunt anonime.";
-"welcome-volunteer-send-usage-reports" = "Trimite rapoarte de utilizare";
 "widget-onthisday-description" = "Explorează ce s-a întâmplat în această zi din istorie.";
 "widget-onthisday-placeholder-article-snippet" = "Enciclopedie online gratuită pe care oricine o poate modifica";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, o enciclopedie gratuită de conținut wiki, intră online.";

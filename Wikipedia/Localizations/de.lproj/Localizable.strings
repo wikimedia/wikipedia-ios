@@ -754,7 +754,6 @@
 "potd-widget-description" = "Genieße täglich ein schönes Foto, das von unserer Gemeinschaft ausgewählt wurde.";
 "potd-widget-title" = "Bild des Tages";
 "preference-summary-eventlogging-opt-in" = "Der Wikimedia Foundation erlauben, Informationen über deine Verwendung der App zu sammeln, um die App zu verbessern.";
-"preference-title-eventlogging-opt-in" = "Nutzungsberichte senden";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -1064,10 +1063,6 @@
 "welcome-notifications-tell-me-more-creation" = "Benachrichtigungen werden auf deinem Gerät von der App erstellt und zur Verfügung gestellt und nicht von unseren oder Drittparteiservern.";
 "welcome-notifications-tell-me-more-storage" = "Benachrichtigungseinstellungen werden auf dem Gerät gespeichert und basieren nicht auf persönliche Informationen oder Aktivitäten.";
 "welcome-notifications-tell-me-more-title" = "Mehr über Benachrichtigungen";
-"welcome-send-data-helps-title" = "Hilf bei der Verbesserung der App";
-"welcome-send-data-learn-more" = "Mehr darüber erfahren, wie Daten gesammelt werden.";
-"welcome-send-data-sub-title" = "Hilf bei der Verbesserung der App, indem du der Wikimedia Foundation wissen lässt, wie du sie nutzt. Die gesammelten Daten sind anonym.";
-"welcome-volunteer-send-usage-reports" = "Nutzungsberichte senden";
 "widget-onthisday-description" = "Erforsche, was an diesem Tag in der Geschichte passiert ist.";
 "widget-onthisday-placeholder-article-snippet" = "Freie Online-Enzyklopädie, die jeder bearbeiten kann";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, eine freie Enzyklopädie mit Wiki-Inhalten, geht online.";
