@@ -535,6 +535,9 @@
 		676F39282745FB2000F4D33D /* NotificationsCenterFiltersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F39272745FB1F00F4D33D /* NotificationsCenterFiltersViewModel.swift */; };
 		676F39292745FB2000F4D33D /* NotificationsCenterFiltersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F39272745FB1F00F4D33D /* NotificationsCenterFiltersViewModel.swift */; };
 		676F392A2745FB2000F4D33D /* NotificationsCenterFiltersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F39272745FB1F00F4D33D /* NotificationsCenterFiltersViewModel.swift */; };
+		676F7D432B72D8B0006C211F /* EditInteractionFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F7D422B72D8B0006C211F /* EditInteractionFunnel.swift */; };
+		676F7D442B72D8B0006C211F /* EditInteractionFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F7D422B72D8B0006C211F /* EditInteractionFunnel.swift */; };
+		676F7D452B72D8B0006C211F /* EditInteractionFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F7D422B72D8B0006C211F /* EditInteractionFunnel.swift */; };
 		6771298F24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */; };
 		6771299024FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */; };
 		6771299124FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */; };
@@ -3304,6 +3307,7 @@
 		676E08152A7DA10900F7632D /* ia */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ia; path = ia.lproj/Localizable.strings; sourceTree = "<group>"; };
 		676E813229380D8A00F15258 /* TalkPagesFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPagesFunnel.swift; sourceTree = "<group>"; };
 		676F39272745FB1F00F4D33D /* NotificationsCenterFiltersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterFiltersViewModel.swift; sourceTree = "<group>"; };
+		676F7D422B72D8B0006C211F /* EditInteractionFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInteractionFunnel.swift; sourceTree = "<group>"; };
 		6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		6771299324FF775E00E89CA5 /* ArticleAsLivingDocLargeEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocLargeEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		6771299F24FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocHorizontallyScrollingCell.swift; sourceTree = "<group>"; };
@@ -5902,6 +5906,7 @@
 				83B5DF9829F6C7E300F8329D /* EditAttemptFunnel.swift */,
 				6785FCCA2A6840880078FAF2 /* WatchlistFunnel.swift */,
 				673C55CA2ACC684E00E2EBF6 /* AppInteractionFunnel.swift */,
+				676F7D422B72D8B0006C211F /* EditInteractionFunnel.swift */,
 			);
 			name = "Wikimedia Event Logging";
 			sourceTree = "<group>";
@@ -10183,6 +10188,7 @@
 				D8B166851FD97A0500097D8B /* ViewController.swift in Sources */,
 				7AB809D022675B2300BFAB7C /* ThemeableTextView.swift in Sources */,
 				83A642752226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */,
+				676F7D432B72D8B0006C211F /* EditInteractionFunnel.swift in Sources */,
 				B0C7A07A1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				6785FCCB2A6840880078FAF2 /* WatchlistFunnel.swift in Sources */,
 				67D9D1FB29711CA700BFCD4F /* Loadable.swift in Sources */,
@@ -11084,6 +11090,7 @@
 				7AFEB3F61FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				7ADEAB041FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */,
 				6747118A25072D1500287951 /* IconTitleBadge.swift in Sources */,
+				676F7D452B72D8B0006C211F /* EditInteractionFunnel.swift in Sources */,
 				D8CE25471E698E2400DAE2E0 /* PageHistorySection.swift in Sources */,
 				83E52BC01F682E3E0045E776 /* LicenseView.swift in Sources */,
 				83AE1C811F34BB59004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
@@ -11644,6 +11651,7 @@
 				D8EC3E321E9BDA35006712EB /* MWKSearchRedirectMapping.m in Sources */,
 				D8EC3E331E9BDA35006712EB /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				8382F8CF20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
+                676F7D442B72D8B0006C211F /* EditInteractionFunnel.swift in Sources */,
 				D818D3831ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				D8EC3E381E9BDA35006712EB /* WMFScrollViewController.swift in Sources */,
 				83E52BC11F682E3E0045E776 /* LicenseView.swift in Sources */,
