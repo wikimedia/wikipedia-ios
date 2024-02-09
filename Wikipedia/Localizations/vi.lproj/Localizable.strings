@@ -771,7 +771,6 @@
 "potd-widget-description" = "Thưởng thức một bức ảnh đẹp hàng ngày được cộng đồng của chúng tôi lựa chọn.";
 "potd-widget-title" = "Hình ảnh trong ngày";
 "preference-summary-eventlogging-opt-in" = "Cho phép Quỹ Wikimedia thu thập thông tin về cách bạn sử dụng ứng dụng để giúp làm ứng dụng tốt hơn";
-"preference-title-eventlogging-opt-in" = "Gửi báo cáo sử dụng";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -1074,10 +1073,6 @@
 "welcome-notifications-tell-me-more-creation" = "Các thông báo được ứng dụng này tạo và gửi trên thiết bị của bạn, chứ không phải được máy chủ nào gửi.";
 "welcome-notifications-tell-me-more-storage" = "Tùy chọn thông báo được lưu vào thiết bị và không tùy theo thông tin cá nhân hoặc hoạt động của bạn.";
 "welcome-notifications-tell-me-more-title" = "Đọc thêm về thông báo";
-"welcome-send-data-helps-title" = "Giúp cải thiện ứng dụng";
-"welcome-send-data-learn-more" = "Tìm hiểu thêm về dữ liệu được thu thập";
-"welcome-send-data-sub-title" = "Giúp cải thiện ứng dụng này bằng cách cho Quỹ Wikimedia biết bạn sử dụng ứng dụng như thế nào. Các dữ liệu được tập hợp là vô danh.";
-"welcome-volunteer-send-usage-reports" = "Gửi báo cáo sử dụng";
 "widget-onthisday-placeholder-article-snippet" = "Bách khoa toàn thư mở trực tuyến cho phép bất cứ người nào góp tay xây dựng";
 "widget-onthisday-placeholder-event-snippet" = "Bách khoa toàn thư nội dung mở Wikipedia mở cửa.";
 "wikitext-downloading" = "Đang tải nội dung…";

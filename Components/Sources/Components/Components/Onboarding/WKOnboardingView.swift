@@ -25,7 +25,7 @@ public struct WKOnboardingView: View {
             ScrollView(showsIndicators: true) {
                 VStack {
                     Text(viewModel.title)
-                        .font(Font(WKFont.for(.boldTitle)))
+                        .font(Font(WKFont.for(.boldTitle1)))
                         .foregroundColor(Color(appEnvironment.theme.text))
                         .padding([.bottom, .top], 44)
                         .multilineTextAlignment(.center)
@@ -37,12 +37,12 @@ public struct WKOnboardingView: View {
                     }
                     Spacer()
                     
-                    WKPrimaryButton(title: viewModel.primaryButtonTitle, action: primaryButtonAction)
+                    WKLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: primaryButtonAction)
                         .padding([.top], 16)
 
                     VStack {
                         if let secondaryTitle = viewModel.secondaryButtonTitle {
-                            WKSecondaryButton(title: secondaryTitle, action: secondaryButtonAction)
+                            WKSmallButton(configuration: .quiet, title: secondaryTitle, action: secondaryButtonAction)
                         }
                     }
                 }

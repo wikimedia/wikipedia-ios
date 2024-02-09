@@ -448,7 +448,6 @@
 "potd-description-prefix" = "وێنەی ڕۆژ بۆ $1";
 "potd-empty-error-description" = "ھێنانی وێنەی ڕۆژ بۆ $1 شکستی ھێنا";
 "preference-summary-eventlogging-opt-in" = "ڕێگەدان بە دامەزراوەی ویکیمیدیا بۆ کۆکردنەوەی زانیاری لەبارەی چۆنیەتی بەکارھێنانی بەرنامەکە لەلایەن تۆوە، بە مەبەستی باشترکردنی بەرنامەکە";
-"preference-title-eventlogging-opt-in" = "ناردنی ڕاپۆرتەکانی بەکارھێنان";
 "reading-lists-conflicting-reading-list-name-updated" = "پێڕستی '$1' ناوی گۆڕدرا بۆ '$2'.";
 "reading-lists-default-list-title" = "پاشەکەوت کرا";
 "reading-themes-controls-accessibility-black-theme-button" = "ڕووکاری ڕەش";
@@ -592,10 +591,6 @@
 "welcome-notifications-tell-me-more-creation" = "ھۆشدارەکان لەناو خودی ئاپەکەوە دروست دەکرێن و بۆت دەنێردرێن، نەوەک لە لایەنێکی سێیەمەوە.";
 "welcome-notifications-tell-me-more-storage" = "ھۆشدارەکان لەسەر دیڤایسەکە پاشەکەوت دەکرێن و لەسەر زانیاری و چالاکی تایبەتی بنیات نانرێن.";
 "welcome-notifications-tell-me-more-title" = "زیاتر لەسەر ئاگادارکردنەوەکان";
-"welcome-send-data-helps-title" = "یارمەتی بدە لە باشترکردنی بەرنامەکە";
-"welcome-send-data-learn-more" = "زیاتر فێرببە دەربارەی زانیارییە کۆکراوەکان";
-"welcome-send-data-sub-title" = "یارمەتی ویکیپیدیا بدە لە باشترکردنی بەرنامەکە بە ناردنی زانیاریی بەکارھێنان تا چۆنییەتی بەکارھێنانی بەرنامەکە لەلایەن بەکارھێنەرانەوە بزانین. ئەو زانیارییانەی کۆدەکرێنەوە کەسایەتیت دەرناخات.";
-"welcome-volunteer-send-usage-reports" = "ڕاپۆرتی بەکارھێنان بنێرە";
 "widget-onthisday-description" = "بزانە لەمڕۆی مێژوودا چی ڕوویداوە.";
 "wikitext-downloading" = "ناوەڕۆک دەھێندرێت...";
 "wikitext-preview-changes" = "گۆڕانکارییەکانت بیشان دەدرێن...";

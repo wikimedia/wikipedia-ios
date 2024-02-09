@@ -225,8 +225,10 @@ extension WMFAppViewController: WKWatchlistDelegate {
         } else {
             diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(oldRevisionID)...\(revisionID)", isMobile: true)
         }
+        
+        let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.watchlist.rawValue]
 
-        navigate(to: diffURL)
+        navigate(to: diffURL, userInfo: userInfo)
     }
 
     public func watchlistUserDidTapUser(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WKWatchlistUserButtonAction) {

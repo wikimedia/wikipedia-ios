@@ -1,4 +1,4 @@
-// Messages for Mon (ဘာသာ မန်)
+// Messages for Mon (ဘာသာမန်)
 // Exported from translatewiki.net
 // Author: Aue Nai
 // Author: Htawmonzel
@@ -560,7 +560,6 @@
 "potd-description-prefix" = "ဗီုရုပ် တ္ၚဲဂှ် သွက် $1";
 "potd-empty-error-description" = "ကလေင်ကေတ် ဗီုရုပ် တ္ၚဲဂှ် သွက် $1 ဂှ် ဟွံအံင်ဇၞး";
 "preference-summary-eventlogging-opt-in" = "ကဵုအခေါင် ကု Wikimedia Foundation သွက်ဂွံပကောံတင်ဂၞင် ပရူဗီုလဵုမၞး မသုင်စောဲ app သွက်ဂွံပခိုဟ်ပတိုန် app";
-"preference-title-eventlogging-opt-in" = "ပလံင် လိက်ဒုင်စဳရေင် ညးမသုင်စောဲ";
 "reading-list-add-generic-hint-title" = "စုတ် လိက်ပရေင်ဏအ် ပ္ဍဲ စရင်လိက်ဗွဟ်？";
 "reading-list-add-hint-title" = "စုတ် ＂$1＂ပ္ဍဲစရင်လိက်ဗွဟ်";
 "reading-list-add-saved-button-title" = "ယွံ၊ စုတ် လိက်တအ် ပ္ဍဲ စရင် လိက်ဗွဟ် အဲညိ၊၊";
@@ -789,10 +788,6 @@
 "welcome-notifications-tell-me-more-creation" = "တင်စၟတ်သမ္တီဂှ် ခၞံကၠောန်တုဲ ပအပ်စုတ်လဝ် ပ္ဍဲ device မၞး နကဵု app ရ၊ နူကဵု servers ပိုယ် ဟွံသေင်ရ၊၊";
 "welcome-notifications-tell-me-more-storage" = "တင်စၟတ်သမ္တီဂှ် ဂိုင်ဒိပ်လဝ် ပ္ဍဲ device တုဲ ဟွံဒုင်သဇိုင် ကုတင်ဂၞင်ပရူပရာ ပူဂိုလ်ရ၊၊";
 "welcome-notifications-tell-me-more-title" = "ဆက်လ္ၚတ် ပရူ တင်စၟတ်သမ္တီ";
-"welcome-send-data-helps-title" = "အရီုအဗင်ဂှ် ဗဒှ်ကဵု ညံင် app ဂွံခိုဟ်ဂၠိုင်တိုန်";
-"welcome-send-data-learn-more" = "ဆက်လ္ၚတ် ပရူ မပကောံပကေဝ် တင်ဂၞင်ဒါတာ";
-"welcome-send-data-sub-title" = "မရီုဗင်ဂှ် ပခိုဟ်ပတိုန် app နကဵု the Wikimedia Foundation ဂွံတီကေတ် ဗီုလဵု မၞးမစကာဍေဟ်ရ၊၊ မပကောံတင်ဂၞင်ဒါတာဂှ် ဓလုလဝ် ယၟုရ၊၊";
-"welcome-volunteer-send-usage-reports" = "ပလံင် လိက်ဒုင်စဳရေင် ညးမသုင်စောဲ";
 "wikitext-downloading" = "လိက်ဂှ် အဃောမပံက်ဒၟံင်...";
 "wikitext-preview-changes" = "ကလေင်ကေတ်ဒၟံင် နမူနာ အရာမၞးမပလေဝ်လဝ် ...";
 "wikitext-preview-changes-none" = "သွက်ဂွံထ္ၜး နမူနာဂှ် အရာမကၠောန်လဝ် ပရေင်ပြံင်လှာဲ ဟွံမဲ";

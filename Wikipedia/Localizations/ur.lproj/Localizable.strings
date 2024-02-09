@@ -309,7 +309,6 @@
 "potd-description-prefix" = "$1 کے لیے آج کی تصویر";
 "potd-empty-error-description" = "$1 کے لیے آج کی تصویر اخذ نہیں کی جاسکی";
 "preference-summary-eventlogging-opt-in" = "ویکیمیڈیا کو اجازت دیں کہ وہ آپ کے اس ایپ کے استعمال کی معلومات حاصل کرے تاکہ اس ایپ کو مزید بہتر بنایا جا سکے۔";
-"preference-title-eventlogging-opt-in" = "استعمال کی رپورٹ بھیجیے";
 "reading-list-create-new-list-description" = "وضاحت";
 "reading-list-create-new-list-reading-list-name" = "فہرست مطالعہ کا نام";
 "reading-list-create-new-list-title" = "نئی فہرست بنائیں";
@@ -372,8 +371,6 @@
 // Fuzzy
 "welcome-languages-search-title" = "تقریباً 300 زبانوں میں تلاش کریں";
 "welcome-notifications-tell-me-more-title" = "اطلاع ناموں کے متعلق مزید معلومات";
-"welcome-send-data-helps-title" = "اطلاقیہ کو مزید بہتر بنانے میں مدد کریں";
-"welcome-volunteer-send-usage-reports" = "استعمال کی رپورٹ بھیجیے";
 "wikitext-downloading" = "مواد کو لوڈ کیا جارہا ہے...";
 "wikitext-preview-changes" = "آپ کی تبدیلیوں کی نمائش دوبارہ حاصل کی جارہی ہے...";
 "wikitext-preview-changes-none" = "کوئی تبدیلی نہیں کی گئی ہے جس کی نمائش کی جا سکے۔";

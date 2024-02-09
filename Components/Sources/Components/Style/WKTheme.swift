@@ -13,6 +13,7 @@ public struct WKTheme: Equatable {
     public let accent: UIColor
     public let destructive: UIColor
     public let border: UIColor
+    public let newBorder: UIColor
     public let paperBackground: UIColor
     public let midBackground: UIColor
     public let baseBackground: UIColor
@@ -26,6 +27,15 @@ public struct WKTheme: Equatable {
 	public let diffCompareAccent: UIColor
     public let editorOrange: UIColor
     public let editorPurple: UIColor
+    public let editorGreen: UIColor
+    public let editorBlue: UIColor
+    public let editorGray: UIColor
+    public let editorMatchForeground: UIColor
+    public let editorMatchBackground: UIColor
+    public let editorSelectedMatchBackground: UIColor
+    public let editorReplacedMatchBackground: UIColor
+    public let editorButtonSelectedBackground: UIColor
+    public let editorKeyboardShadow: UIColor
 
 	public static let light = WKTheme(
         name: "Light",
@@ -38,6 +48,7 @@ public struct WKTheme: Equatable {
         accent: WKColor.green600,
         destructive: WKColor.red600,
         border: WKColor.gray400,
+        newBorder: WKColor.gray300,
         paperBackground: WKColor.white,
         midBackground: WKColor.gray100,
         baseBackground: WKColor.gray200,
@@ -50,7 +61,16 @@ public struct WKTheme: Equatable {
         keyboardBarSearchFieldBackground: WKColor.gray200,
 		diffCompareAccent: WKColor.orange600,
         editorOrange: WKColor.orange600,
-        editorPurple: WKColor.purple600
+        editorPurple: WKColor.purple600,
+        editorGreen: WKColor.green600,
+        editorBlue: WKColor.blue600,
+        editorGray: WKColor.gray500,
+        editorMatchForeground: .black,
+        editorMatchBackground: WKColor.lightMatchBackground,
+        editorSelectedMatchBackground: WKColor.yellow600,
+        editorReplacedMatchBackground: WKColor.matchReplacedBackground,
+        editorButtonSelectedBackground: WKColor.gray200,
+        editorKeyboardShadow: WKColor.gray200
 	)
     
     public static let sepia = WKTheme(
@@ -64,6 +84,7 @@ public struct WKTheme: Equatable {
         accent: WKColor.green600,
         destructive: WKColor.red700,
         border: WKColor.taupe200,
+        newBorder: WKColor.taupe200,
         paperBackground: WKColor.beige100,
         midBackground: WKColor.beige300,
         baseBackground: WKColor.beige400,
@@ -76,7 +97,16 @@ public struct WKTheme: Equatable {
         keyboardBarSearchFieldBackground: WKColor.gray200,
 		diffCompareAccent: WKColor.orange600,
         editorOrange: WKColor.orange600,
-        editorPurple: WKColor.purple600
+        editorPurple: WKColor.purple600,
+        editorGreen: WKColor.green600,
+        editorBlue: WKColor.blue600,
+        editorGray: WKColor.taupe600,
+        editorMatchForeground: .black,
+        editorMatchBackground: WKColor.lightMatchBackground,
+        editorSelectedMatchBackground: WKColor.yellow600,
+        editorReplacedMatchBackground: WKColor.matchReplacedBackground,
+        editorButtonSelectedBackground: WKColor.beige400,
+        editorKeyboardShadow: WKColor.taupe200
     )
 
 	public static let dark = WKTheme(
@@ -90,6 +120,7 @@ public struct WKTheme: Equatable {
         accent: WKColor.green600,
         destructive: WKColor.red600,
         border: WKColor.gray650,
+        newBorder: WKColor.gray500,
         paperBackground: WKColor.gray675,
         midBackground: WKColor.gray700,
         baseBackground: WKColor.gray800,
@@ -102,7 +133,16 @@ public struct WKTheme: Equatable {
         keyboardBarSearchFieldBackground: WKColor.gray650,
 		diffCompareAccent: WKColor.orange600,
         editorOrange: WKColor.yellow600,
-        editorPurple: WKColor.red100
+        editorPurple: WKColor.red100,
+        editorGreen: WKColor.green600,
+        editorBlue: WKColor.blue300,
+        editorGray: WKColor.gray300,
+        editorMatchForeground: .black,
+        editorMatchBackground: WKColor.darkMatchBackground,
+        editorSelectedMatchBackground: WKColor.yellow600,
+        editorReplacedMatchBackground: WKColor.matchReplacedBackground,
+        editorButtonSelectedBackground: WKColor.gray600,
+        editorKeyboardShadow: WKColor.gray800
 	)
 
 	public static let black = WKTheme(
@@ -116,6 +156,7 @@ public struct WKTheme: Equatable {
         accent: WKColor.green600,
         destructive: WKColor.red600,
         border: WKColor.gray675,
+        newBorder: WKColor.gray500,
         paperBackground: WKColor.black,
         midBackground: WKColor.gray700,
         baseBackground: WKColor.gray800,
@@ -128,7 +169,16 @@ public struct WKTheme: Equatable {
         keyboardBarSearchFieldBackground: WKColor.gray650,
 		diffCompareAccent: WKColor.orange600,
         editorOrange: WKColor.yellow600,
-        editorPurple: WKColor.red100
+        editorPurple: WKColor.red100,
+        editorGreen: WKColor.green600,
+        editorBlue: WKColor.blue300,
+        editorGray: WKColor.gray300,
+        editorMatchForeground: .black,
+        editorMatchBackground: WKColor.darkMatchBackground,
+        editorSelectedMatchBackground: WKColor.yellow600,
+        editorReplacedMatchBackground: WKColor.matchReplacedBackground,
+        editorButtonSelectedBackground: WKColor.gray600,
+        editorKeyboardShadow: WKColor.gray700
 	)
 
 }

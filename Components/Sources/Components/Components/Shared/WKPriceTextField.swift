@@ -22,7 +22,7 @@ struct WKPriceTextField: View {
     var body: some View {
         TextField("", value: $amount, format: .currency(code: configuration.currencyCode))
             .keyboardType(.decimalPad)
-            .font(Font(WKFont.for(.boldTitle)))
+            .font(Font(WKFont.for(.boldTitle1)))
             .foregroundColor(Color(appEnvironment.theme.text))
             .padding(5)
             .background(

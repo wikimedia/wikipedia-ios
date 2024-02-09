@@ -46,6 +46,7 @@
 // Author: ネイ
 // Author: バレロン
 // Author: 春春眠眠
+// Author: 翻訳者a
 // Author: 아라
 
 "aaald-added-text-description-2" = "$1追加";
@@ -73,11 +74,13 @@
 "aaald-new-website-reference-archive-url-text" = "Archive.orgのURL";
 "aaald-new-website-reference-title" = "ウェブサイト";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|$1 件の参考文献}}を追加しました";
+"aaald-one-section-description" = "$1セクションにある";
 "aaald-revision-by-anonymous" = "匿名利用者による編集";
 "aaald-revision-userInfo" = "$1（$2編集数）による編集";
 "aaald-single-reference-added-description" = "参考文献を追加しました";
 "aaald-small-change-description" = "{{PLURAL:$1|0=小さな変更をしていません|$1個の小さな変更をしました}}";
 "aaald-summary-title" = "{{PLURAL:$3|$3日間}}で {{PLURAL:$2|$2 人の編集者}}による {{PLURAL:$1|$1 件の変更}}";
+"aaald-two-sections-description" = "$1と$2セクション";
 "aaald-vandalism-revert-description" = "荒らしの疑いを差し戻し";
 "aaald-view-full-history-button" = "すべての記事履歴を表示";
 "about-content-license" = "コンテンツのライセンス";
@@ -125,8 +128,10 @@
 "action-add-to-reading-list" = "あとで読むリストに追加";
 "action-add-to-reading-list-short" = "リストに追加";
 "action-cancel" = "キャンセル";
+"action-discard-edit" = "編集内容を破棄";
 "action-discard-edits" = "編集内容を破棄";
 "action-find-in-page" = "ページ内を検索";
+"action-keep-editing" = "編集を続行";
 "action-language-accessibility" = "言語を変更";
 "action-move-to" = "次へ移動…";
 "action-move-to-reading-list" = "あとで読むリストに保存";
@@ -174,7 +179,6 @@
 "article-languages-label" = "言語を選択";
 "article-languages-others" = "ほかの言語で読む";
 "article-languages-yours" = "お使いの言語";
-"article-nav-edit" = "編集";
 "article-read-more-title" = "さらに読む";
 "article-reference-view-title" = "情報源 $1";
 "article-revision-history" = "記事の版履歴";
@@ -329,6 +333,7 @@
 "edit-published-subtitle" = "みんなのためにウィキペディアを改善しました。";
 "edit-reference-accessibility-label" = "出典を追加する";
 "edit-reference-remove-accessibility-label" = "出典を削除";
+"edit-show-web-preview" = "プレビューを表示";
 "edit-signature-accessibility-label" = "署名を追加する";
 "edit-signature-remove-accessibility-label" = "署名を削除";
 "edit-strikethrough-accessibility-label" = "取り消し線を追加する";
@@ -365,8 +370,12 @@
 "editing-welcome-impartial-tone-title" = "公平な論調で書く";
 "editing-welcome-set-knowledge-free-subtitle" = "私たちはすべての人が、世界のあらゆる知識にアクセスできるようにしたいと考えています。あなたに一番関係している話題について読んで、編集して、そして貢献することで、その知識の作成にあなたも参加することが、何より必要です。";
 "editing-welcome-set-knowledge-free-title" = "知識を自由に";
+"editor-edit-source" = "ソースを編集";
 "editor-exit-confirmation-body" = "保存せずに編集から離れてもよろしいですか？";
 "editor-exit-confirmation-title" = "編集モードを終了しますか?";
+"editor-replace-textfield-accessibility" = "置換";
+"editor-replace-type-all-accessibility" = "すべて置換";
+"editor-replace-type-single-accessibility" = "1件だけ置換";
 "empty-diff-compare-title" = "版間の相違点はありません";
 "empty-diff-single-title" = "目に見える変更はされませんでした";
 "empty-insert-media-title" = "ウィキメディアコモンズからファイルを選択";
@@ -802,7 +811,6 @@
 "potd-widget-description" = "コミュニティで選定された美しい今日の写真を楽しみましょう。";
 "potd-widget-title" = "今日の一枚";
 "preference-summary-eventlogging-opt-in" = "このアプリの改善に役立てるため、ウィキメディア財団がアプリの使用情報を収集することを許可する";
-"preference-title-eventlogging-opt-in" = "利用状況レポートを送信";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "ウィキブックス";
 "project-name-wikidata" = "ウィキデータ";
@@ -1030,8 +1038,11 @@
 "talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1件の返信}}";
 "talk-page-reply-button" = "返信";
 "talk-page-reply-button-accessibility-label" = "$1に返信";
+"talk-page-reply-depth-accessibility-label" = "返信のインデントの深さ：$1";
 "talk-page-reply-placeholder-format" = "「$1」への返信";
+"talk-page-reply-terms-and-licenses" = "留意点として、返信は自動で利用者名を付け加えます。変更点の保存は、利用規約$1Terms of Use$2を承認し、また投稿はライセンス条件 $3CC BY-SA 3.0$4 ならびに $5GFDL$6 の元で公開することに同意したことになります。";
 "talk-page-revision-history" = "変更履歴";
+"talk-page-rply-close-button-accessibility-hint" = "返信の表示を閉じる";
 "talk-page-share-button" = "トークページを共有";
 "talk-page-subscribe-to-topic" = "購読";
 "talk-page-title-article-talk" = "記事の議論";
@@ -1043,6 +1054,7 @@
 "talk-pages-coffee-roll-read-more" = "さらに読む";
 "talk-pages-comment-added-alert-title" = "あなたのコメントが追加されました";
 "talk-pages-compose-close-confirmation-keep" = "編集を続行";
+"talk-pages-edit-source" = "ソースを編集";
 "talk-pages-empty-view-body-user" = "トークページは、ウィキペディアのコンテンツを最高のものにする方法について議論する場所です。 「$1」さんとつながり、共同作業を行うための新しい会話を行いましょう。ここでの発言は公開され、他の利用者も閲覧することができます。";
 "talk-pages-empty-view-button-article-add-topic" = "新しいトピックを追加";
 "talk-pages-empty-view-button-user-start-discussion" = "新しい議論を始める";
@@ -1077,6 +1089,8 @@
 "unknown-generic-text" = "不明";
 "unwatch" = "ウォッチ解除";
 "user-title" = "利用者";
+"uzbek-variants-alert-body" = "ウィキペディアのアプリでは以下のウズベク諸語の変種を第1もしくは第2言語として表示できるようになり、個人設定で指定した言語変種の閲覧、検索、編集がしやすくなりました。\n\nウズベク語ラテン表記（oʻzbekcha lotin Uzbek）、Latin（uz-cyrl）\nウズベク語キリル表記（ўзбекча кирилл）、Uzbek, Cyrillic（uz-cyrl）";
+"uzbek-variants-alert-title" = "ウズベク諸語の変種対応の情報更新";
 "vanish-account-additional-information-field" = "追加情報";
 "vanish-account-additional-information-placeholder" = "省略可能";
 "vanish-account-back-confirm-discard" = "リクエストを破棄";
@@ -1086,6 +1100,7 @@
 "vanish-account-bottom-text-with-link" = "ウィキペディアでのアカウントの削除は、アカウント削除と呼ばれるプロセスにより、他の人があなたの投稿を認識できないようにアカウント名を変更することによって行われます。以下のフォームを使用して、 $1アカウントの削除$2 $3をリクエストできます。 削除は完全な匿名性を保証したり、プロジェクトへの貢献を削除したりするものではありません。";
 "vanish-account-button-text" = "リクエストを送信";
 "vanish-account-continue-button-title" = "続行";
+"vanish-account-description" = "秘匿化の手順を始めるには、次の情報を提供してください。";
 "vanish-account-email-text" = "こんにちは、\n これは、私の Wikipedia アカウントを削除するためのリクエストです。";
 "vanish-account-learn-more-text" = "もっと詳しく";
 "vanish-account-title" = "アカウント削除プロセス";
@@ -1097,6 +1112,7 @@
 "vanish-modal-item-3" = "削除依頼についてさらに質問がある場合はMeta:Right_to_vanishをご覧ください。";
 "vanish-modal-item-3-ios15" = "削除依頼についてさらに質問がある場合は$1Meta:Right_to_vanish$2$3をご覧ください。";
 "vanish-modal-title" = "アカウント削除リクエスト";
+"vanishing-request-email-title" = "秘匿化を申請する";
 "variants-alert-dismiss-button" = "いいえ";
 "variants-alert-preferences-button" = "設定を確認する";
 "watch" = "ウォッチ";
@@ -1117,6 +1133,7 @@
 "watchlist-change-expiry-option-three-months" = "3ヵ月";
 "watchlist-change-expiry-subtitle" = "ウォッチリストの期間を選択";
 "watchlist-change-expiry-title" = "ウォッチリストの有効期限";
+"watchlist-diff-action-button-title" = "差分へ移動";
 "watchlist-edit-summary-accessibility" = "編集の要約";
 "watchlist-empty-view-button-title" = "記事を検索";
 "watchlist-empty-view-filter-title" = "ウォッチリスト項目がありません";
@@ -1153,10 +1170,13 @@
 "watchlist-thanks-success" = "あなたの「感謝」が $1 に送られました";
 "watchlist-track-subtitle" = "ウォッチリストは興味のあるページへの変更を把握できるようにするツールです。";
 "watchlist-track-title" = "変更を追跡する";
+"watchlist-updates-subtitle" = "自分のウォッチリストに追加したページ類、例えば改稿や協議などを閲覧するには、設定 → アカウントと進みます。";
 "watchlist-updates-title" = "更新を表示する";
 "watchlist-user-button-thank" = "感謝";
 "watchlist-user-button-user-contributions" = "投稿記録";
 "watchlist-user-button-user-page" = "利用者ページ";
+"watchlist-user-button-user-talk-page" = "利用者トークページ";
+"watchlist-watch-subtitle" = "記事の最下部にあるツールバーで星アイコンもしくは「ウォッチする」リンクを押すと、その記事を自分のウォッチリストに追加します。";
 "watchlist-watch-title" = "記事をウォッチ";
 "welcome-exploration-explore-feed-description" = "私たちコミュニティからの読書のおすすめと毎日の記事";
 "welcome-exploration-explore-feed-title" = "探索フィード";
@@ -1179,10 +1199,6 @@
 "welcome-notifications-tell-me-more-creation" = "通知はアプリケーションによってデバイス上で作成され、配信されるもので、当財団（または第三者）のサーバーから届くものではありません。";
 "welcome-notifications-tell-me-more-storage" = "通知設定はデバイスに保存されます。個人情報や活動に基づくものではありません。";
 "welcome-notifications-tell-me-more-title" = "通知についての詳細";
-"welcome-send-data-helps-title" = "アプリの改善に役立てる";
-"welcome-send-data-learn-more" = "収集されたデータの詳細";
-"welcome-send-data-sub-title" = "アプリケーション改善に役立てるため、ウィキメディア財団にあなたの使用状況を送信します。収集されるデータは匿名です。";
-"welcome-volunteer-send-usage-reports" = "利用状況レポートを送信";
 "widget-onthisday-description" = "今日、歴史上では何が起こったのかを探索します。";
 "widget-onthisday-placeholder-article-snippet" = "誰もが編集できる無料のオンライン百科事典";
 "widget-onthisday-placeholder-event-snippet" = "ウィキペディアは、オンライン上の無料で利用できる百科事典です。";

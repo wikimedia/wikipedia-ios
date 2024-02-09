@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,35 +29,31 @@
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
                                         <view contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="P53-Fl-mVx" userLabel="Italics Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                            <rect key="frame" x="41" y="0.0" width="30" height="44"/>
+                                            <rect key="frame" x="53" y="0.0" width="30" height="44"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
-                                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="u7b-01-w2H" userLabel="Format Heading Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                            <rect key="frame" x="82.5" y="0.0" width="30" height="44"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        </view>
-                                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="32" translatesAutoresizingMaskIntoConstraints="NO" id="y41-nM-tJB" customClass="WKToolbarSeparatorView" customModule="Components">
-                                            <rect key="frame" x="123.5" y="6" width="1" height="32"/>
-                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </view>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h3G-Dl-aAp">
+                                            <rect key="frame" x="106" y="0.0" width="1" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="1" id="YSt-fM-wLM"/>
+                                            </constraints>
+                                        </imageView>
                                         <view contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="ZgG-w8-2QU" userLabel="Citation Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                            <rect key="frame" x="136" y="0.0" width="30" height="44"/>
+                                            <rect key="frame" x="130" y="0.0" width="30" height="44"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
                                         <view contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="ebk-UU-rSu" userLabel="Link Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                            <rect key="frame" x="177" y="0.0" width="30" height="44"/>
+                                            <rect key="frame" x="183" y="0.0" width="30" height="44"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
-                                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="32" translatesAutoresizingMaskIntoConstraints="NO" id="a6D-ps-pge" customClass="WKToolbarSeparatorView" customModule="Components">
-                                            <rect key="frame" x="218.5" y="6" width="1" height="32"/>
-                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </view>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RT3-lY-GZU">
+                                            <rect key="frame" x="236" y="0.0" width="1" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="1" id="CJV-5f-7aS"/>
+                                            </constraints>
+                                        </imageView>
                                         <view contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="AZa-84-Qdg" userLabel="Template Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                            <rect key="frame" x="230.5" y="0.0" width="30" height="44"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        </view>
-                                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="mxU-vL-Pqz" userLabel="Clear Markup Button" customClass="WKEditorToolbarButton" customModule="Components">
-                                            <rect key="frame" x="272" y="0.0" width="30" height="44"/>
+                                            <rect key="frame" x="260" y="0.0" width="30" height="44"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
                                         <view contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="S8f-CE-8I8" userLabel="Show More Button" customClass="WKEditorToolbarNavigatorButton" customModule="Components">
@@ -98,32 +94,26 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="boldButton" destination="r0e-89-g0a" id="mfE-Vs-Dsc"/>
-                <outlet property="citationButton" destination="ZgG-w8-2QU" id="hvW-xa-IWx"/>
-                <outlet property="clearMarkupButton" destination="mxU-vL-Pqz" id="BtG-Bm-VbT"/>
-                <outlet property="formatHeadingButton" destination="u7b-01-w2H" id="mlD-gc-8bF"/>
                 <outlet property="italicsButton" destination="P53-Fl-mVx" id="jUq-dL-AwN"/>
                 <outlet property="linkButton" destination="ebk-UU-rSu" id="ypk-dd-WhU"/>
+                <outlet property="referenceButton" destination="ZgG-w8-2QU" id="hvW-xa-IWx"/>
                 <outlet property="showMoreButton" destination="S8f-CE-8I8" id="QMl-95-ws9"/>
                 <outlet property="stackView" destination="cO2-kj-WCI" id="qel-pE-Y96"/>
                 <outlet property="templateButton" destination="AZa-84-Qdg" id="1Qq-oT-Pfn"/>
-                <outletCollection property="separatorViews" destination="y41-nM-tJB" collectionClass="NSMutableArray" id="HEd-6s-3qe"/>
-                <outletCollection property="separatorViews" destination="a6D-ps-pge" collectionClass="NSMutableArray" id="E2n-Gk-ymt"/>
                 <outletCollection property="buttons" destination="r0e-89-g0a" collectionClass="NSMutableArray" id="7De-sX-Wwd"/>
                 <outletCollection property="buttons" destination="P53-Fl-mVx" collectionClass="NSMutableArray" id="cj2-b3-El6"/>
-                <outletCollection property="buttons" destination="u7b-01-w2H" collectionClass="NSMutableArray" id="fpD-Ig-01q"/>
                 <outletCollection property="buttons" destination="ZgG-w8-2QU" collectionClass="NSMutableArray" id="0dO-4E-fo5"/>
                 <outletCollection property="buttons" destination="ebk-UU-rSu" collectionClass="NSMutableArray" id="POs-mq-Lqk"/>
                 <outletCollection property="buttons" destination="AZa-84-Qdg" collectionClass="NSMutableArray" id="fKl-Bi-tcc"/>
-                <outletCollection property="buttons" destination="mxU-vL-Pqz" collectionClass="NSMutableArray" id="GeG-8Q-Iih"/>
-                <outletCollection property="separatorViews" destination="y41-nM-tJB" collectionClass="NSMutableArray" id="WIb-dE-Qlk"/>
-                <outletCollection property="separatorViews" destination="a6D-ps-pge" collectionClass="NSMutableArray" id="qMX-mH-gT2"/>
-                <outletCollection property="buttons" destination="mxU-vL-Pqz" collectionClass="NSMutableArray" id="gAh-MR-PVI"/>
                 <outletCollection property="buttons" destination="AZa-84-Qdg" collectionClass="NSMutableArray" id="hAS-Gd-KOs"/>
                 <outletCollection property="buttons" destination="ebk-UU-rSu" collectionClass="NSMutableArray" id="apx-DA-SOG"/>
                 <outletCollection property="buttons" destination="ZgG-w8-2QU" collectionClass="NSMutableArray" id="Z2z-4e-82a"/>
-                <outletCollection property="buttons" destination="u7b-01-w2H" collectionClass="NSMutableArray" id="cwR-k2-vJa"/>
                 <outletCollection property="buttons" destination="P53-Fl-mVx" collectionClass="NSMutableArray" id="ZGF-JN-m0N"/>
                 <outletCollection property="buttons" destination="r0e-89-g0a" collectionClass="NSMutableArray" id="hSD-z5-WpX"/>
+                <outletCollection property="separatorImageViews" destination="RT3-lY-GZU" collectionClass="NSMutableArray" id="Rhh-Sd-avs"/>
+                <outletCollection property="separatorImageViews" destination="h3G-Dl-aAp" collectionClass="NSMutableArray" id="6xr-Dz-vA6"/>
+                <outletCollection property="separatorImageWidthConstraints" destination="YSt-fM-wLM" collectionClass="NSMutableArray" id="hAs-Cm-iot"/>
+                <outletCollection property="separatorImageWidthConstraints" destination="CJV-5f-7aS" collectionClass="NSMutableArray" id="Ecs-Fh-C2X"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="-156"/>
         </view>

@@ -670,7 +670,6 @@
 "potd-widget-description" = "మా సముదాయం ఎంచిపెట్టిన అందమైన ఫొటోలను చూసి ఆనందించండి";
 "potd-widget-title" = "నేటి విశేష చిత్రం";
 "preference-summary-eventlogging-opt-in" = "ఈ యాప్‌ను మెరుగు పరచడం కోసం, మీరు దీన్ని ఎలా వాడుతున్నారనే సమాచారం సేకరించటానికి వికీపీడియాకి అనుమతి ఇవ్వండి";
-"preference-title-eventlogging-opt-in" = "వాడుక నివేదికలను పంపించు";
 "reading-list-add-generic-hint-title" = "ఈ వ్యాసాన్ని ఏదైనా చదివే జాబితా లోకి చేర్చమంటారా?";
 "reading-list-add-hint-title" = "“$1” ను ఏదైనా చదివే జాబితా లోకి చేర్చమంటారా?";
 "reading-list-add-saved-button-title" = "సరే, నా చదివే జాబితాల్లోకి చేర్చు";
@@ -863,10 +862,6 @@
 "welcome-notifications-tell-me-more-creation" = "గమనింపులను సృష్టించి, మీ డివైసుకు పంపించేది ఈ యాపే, మా సర్వర్లు గానీ థర్డ్ పార్టీ సర్వర్లు గానీ కాదు.";
 "welcome-notifications-tell-me-more-storage" = "గమనింపు అభిరుచులను మీ డివైసులో భద్రపరుస్తాం. అవి మీ వ్యక్తిగత సమాచారం పైనో, మీ కార్యకలాపాలపైనో ఆధారపడినవి కావు.";
 "welcome-notifications-tell-me-more-title" = "గమనింపుల గురించి మరింత తెలుసుకోండి";
-"welcome-send-data-helps-title" = "యాప్‌ను మెరుగుపరచేందుకు తోడ్పడండి";
-"welcome-send-data-learn-more" = "సేకరించిన డేటా గురించి మరింత తెలుసుకోండి";
-"welcome-send-data-sub-title" = "ఈ యాప్‌ను మీరు ఎలా వాడుతారో వికీమీడియా ఫౌండేషనుకు తెలియజేసి, దాన్ని మెరుగుపరచేందుకు తోడ్పడండి. సేకరించిన డేటా అజ్ఞాతంగా ఉంటుంది.";
-"welcome-volunteer-send-usage-reports" = "వాడుక నివేదికలను పంపించు";
 "widget-onthisday-description" = "చరిత్రలో ఈ రోజున ఏం జరిగిందో శోధించండి.";
 "widget-onthisday-placeholder-article-snippet" = "ఎవరైనా దిద్దుబాటు చెయ్యగలిగే స్వేచ్ఛా ఆన్‌లైను విజ్ఞానసర్వస్వం";
 "widget-onthisday-placeholder-event-snippet" = "వికీపీడియా అనే స్వేచ్ఛా విజ్ఞానసర్వస్వం ఆన్‌లైను లోకి వచ్చింది.";

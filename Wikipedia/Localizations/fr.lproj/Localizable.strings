@@ -3,6 +3,7 @@
 // Author: BlueCamille
 // Author: Brion Vibber
 // Author: Caliburn
+// Author: Daniel236
 // Author: DavidL
 // Author: Derugon
 // Author: Eneelk
@@ -11,7 +12,9 @@
 // Author: Fitoschido
 // Author: Gomoko
 // Author: Hydros
+// Author: Iketsi
 // Author: John Trololo
+// Author: Lhanars
 // Author: Macofe
 // Author: McDutchie
 // Author: Nemo bis
@@ -114,8 +117,10 @@
 "action-add-to-reading-list" = "Ajouter à la liste de lecture";
 "action-add-to-reading-list-short" = "Ajouter à la liste";
 "action-cancel" = "Annuler";
+"action-discard-edit" = "Annuler les modifications";
 "action-discard-edits" = "Abandonner les modifications";
 "action-find-in-page" = "Trouver dans la page";
+"action-keep-editing" = "Continuer à modifier";
 "action-language-accessibility" = "Modifier la langue";
 "action-move-to" = "Déplacer vers...";
 "action-move-to-reading-list" = "Déplacer vers la liste de lecture";
@@ -234,6 +239,7 @@
 "description-welcome-descriptions-title" = "Descriptions d’articles";
 "description-welcome-promise-title" = "En commençant, je promets de ne pas faire mauvais emploi de cette fonctionnalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
+"diff-article-revision-history" = "Historique des révisions de l’article";
 "diff-compare-header-from-info-heading" = "Modification précédente";
 "diff-compare-header-heading" = "Comparer les versions";
 "diff-compare-header-to-info-heading" = "Modification affichée";
@@ -274,7 +280,12 @@
 "diff-unedited-lines-format" = "$1 ligne{{PLURAL:$1||s}} restaurée{{PLURAL:$1||s}}";
 "diff-user-button-accessibility-text" = "Taper deux fois pour ouvrir le menu";
 "dim-images" = "Assombrir les images";
+"donate-accessibility-amount-button-hint" = "Appuyez deux fois pour sélectionner le montant du don.";
+"donate-accessibility-donate-hint-format" = "Appuyez deux fois pour faire un don de $1 à la Fondation Wikimedia.";
+"donate-accessibility-email-opt-in-hint" = "Appuyez deux fois pour autoriser la Fondation Wikimedia à vous envoyer un courriel.";
 "donate-later-title" = "Nous vous le rappellerons demain.";
+"donate-success-title" = "Merci !";
+"donate-title" = "Sélectionnez le montant";
 "donate-transaction-fee-opt-in-text" = "J'ajouterai généreusement $1 pour couvrir les frais de transaction afin de que vous puissiez conserver 100%% de mon don.";
 "edit-bold-accessibility-label" = "Ajouter une mise en forme en gras";
 "edit-bold-remove-accessibility-label" = "Supprimer la mise en forme en gras";
@@ -306,10 +317,12 @@
 "edit-notices-please-read" = "Veuillez lire avant de modifier";
 "edit-ordered-list-accessibility-label" = "Faire de la ligne actuelle une liste ordonnée";
 "edit-ordered-list-remove-accessibility-label" = "Supprimer la liste ordonnée de la ligne actuelle";
+"edit-preview-simplified-format-message" = "Tout le contenu est présenté en format simplifié.";
 "edit-published" = "Modification publiée";
 "edit-published-subtitle" = "Vous venez tout juste d’améliorer Wikipédia pour tout le monde";
 "edit-reference-accessibility-label" = "Ajouter une syntaxe de référence";
 "edit-reference-remove-accessibility-label" = "Supprimer la syntaxe de référence";
+"edit-show-web-preview" = "Afficher l'aperçu Web";
 "edit-signature-accessibility-label" = "Ajouter une syntaxe de signature";
 "edit-signature-remove-accessibility-label" = "Supprimer la syntaxe de signature";
 "edit-strikethrough-accessibility-label" = "Ajouter une mise en forme rayée";
@@ -346,7 +359,10 @@
 "editing-welcome-impartial-tone-title" = "Écrire sur un ton impartial";
 "editing-welcome-set-knowledge-free-subtitle" = "Afin de donner à chacun accès à la connaissance du monde entier, nous avons besoin de vous pour participer à sa création en lisant, modifiant et contribuant aux sujets qui comptent le plus pour vous.";
 "editing-welcome-set-knowledge-free-title" = "Libérer la connaissance";
+"editor-edit-published" = "Votre modification a été publiée.";
+"editor-edit-source" = "Modifier le wikicode";
 "editor-exit-confirmation-body" = "Voulez-vous vraiment quitter le mode de modification sans d’abord publier ?";
+"editor-exit-confirmation-message" = "Êtes-vous certain de vouloir annuler cette modification ?";
 "editor-exit-confirmation-title" = "Quitter le mode de modification ?";
 "empty-diff-compare-title" = "Aucune différence entre les versions";
 "empty-diff-single-title" = "Aucun changement visible réalisé";
@@ -592,7 +608,7 @@
 "main-menu-zero-faq" = "FAQ de Wikipédia Zéro";
 "menu-cancel-accessibility-label" = "Annuler";
 "more-languages-tooltip-description" = "Rechercher sur Wikipédia dans plus de 300 langues";
-"more-languages-tooltip-title" = "Ajouter des langues";
+"more-languages-tooltip-title" = "Ajustar de lengas";
 "more-menu" = "Plus";
 "move-articles-to-reading-list" = "Placer $1 article{{PLURAL:$1||s}} dans la liste de lecture";
 "navbar-title-mode-edit-wikitext-preview" = "Aperçu";
@@ -811,7 +827,6 @@
 "potd-widget-description" = "Profiter d’une jolie photo quotidienne sélectionnée par notre communauté.";
 "potd-widget-title" = "Image du jour";
 "preference-summary-eventlogging-opt-in" = "Permettre à la Fondation Wikimedia de collecter des informations sur la manière dont vous utilisez l’application, afin de l’améliorer";
-"preference-title-eventlogging-opt-in" = "Envoyer les rapports d’utilisation";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikilivres";
 "project-name-wikidata" = "Wikidata";
@@ -927,6 +942,8 @@
 "replace-replace-all-results-count" = "$1 élément{{PLURAL:$1||s}} remplacé{{PLURAL:$1||s}}";
 "replace-textfield-accessibility" = "Remplacer";
 "replace-textfield-placeholder" = "Remplacer par...";
+"return-button-title" = "Retour";
+"return-to-article" = "Retour à l’article";
 "reverted-edit-title" = "Contribution annulée";
 "saved-all-articles-title" = "Tous les articles";
 "saved-default-reading-list-tag" = "Cette liste ne peut pas être supprimée";
@@ -1072,6 +1089,7 @@
 "talk-pages-coffee-roll-read-more" = "Lire davantage";
 "talk-pages-comment-added-alert-title" = "Votre commentaire a été ajouté";
 "talk-pages-compose-close-confirmation-keep" = "Continuer à modifier";
+"talk-pages-edit-source" = "Modifier le wikicode";
 "talk-pages-empty-view-body-article" = "Les pages de discussion sont des endroits pour discuter de la façon de rendre le contenu de Wikipédia le meilleur possible. **Commencez par ajouter un nouveau sujet de discussion** pour vous connecter et collaborer avec une communauté de Wikipédiens.";
 "talk-pages-empty-view-body-user" = "Les pages de discussion sont des endroits pour discuter de la façon de rendre le contenu de Wikipédia le meilleur possible. Démarrez une nouvelle discussion pour vous connecter et collaborer avec $1. Ce que vous y direz sera rendu public pour que les autres puissent le voir.";
 "talk-pages-empty-view-button-article-add-topic" = "Ajouter un nouveau sujet";
@@ -1218,10 +1236,6 @@
 "welcome-notifications-tell-me-more-creation" = "Les notifications sont créées et envoyées sur votre appareil par l’application, pas par nos serveurs (ou ceux de tierces parties).";
 "welcome-notifications-tell-me-more-storage" = "Les préférences de notification sont stockées sur l’appareil et ne sont pas basés sur des informations ou l’activité personnelle.";
 "welcome-notifications-tell-me-more-title" = "En savoir plus sur les notifications";
-"welcome-send-data-helps-title" = "Aidez-nous à améliorer l’application";
-"welcome-send-data-learn-more" = "En savoir plus sur les données collectées";
-"welcome-send-data-sub-title" = "Aider à améliorer l’application en indiquant à la Fondation Wikimedia la manière dont vous l’utilisez. Les données collectées sont anonymes.";
-"welcome-volunteer-send-usage-reports" = "Envoyer les rapports d’utilisation";
 "widget-onthisday-description" = "Explorer ce qui s’est passé à cette date-ci de l’année au cours de l’histoire.";
 "widget-onthisday-placeholder-article-snippet" = "Encyclopédie en ligne gratuite que tout le monde peut modifier";
 "widget-onthisday-placeholder-event-snippet" = "Wikipédia, une encyclopédie de contenu wiki libre, est mise en ligne.";

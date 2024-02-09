@@ -131,7 +131,6 @@
 "article-languages-label" = "Kaa iri Kɔkɔre";
 "article-languages-others" = "Kɔkɔɛ mine";
 "article-languages-yours" = "Fo Kɔkɔre";
-"article-nav-edit" = "Maale";
 "article-read-more-title" = "Kanne yaga";
 "article-reference-view-title" = "Sommo $1";
 "article-revision-history" = "Aatekle leɛ-knnoo yɛlɛ";
@@ -1056,9 +1055,6 @@
 "welcome-languages-search-title" = "Bɔ 300 kɔkɔɛ";
 "welcome-notifications-tell-me-more-creation" = "Teɛre ma kuri la kyɛ de yineŋ s app poɔ, kyɛ ba e a te( bee noba bata deme poɔŋ) toŋtona.";
 "welcome-notifications-tell-me-more-title" = "Teɛre ma yaga";
-"welcome-send-data-helps-title" = "Soŋ vɛŋ ka app seɛ";
-"welcome-send-data-learn-more" = "Zanne yaga kyaare neŋ data diibu";
-"welcome-volunteer-send-usage-reports" = "Tere fo toma yɛlɛ";
 "widget-onthisday-description" = "Yineŋ yɛlɛ aŋ e a bebiri ŋa yɛlɛ poɔ.";
 "widget-onthisday-placeholder-article-snippet" = "Duoro mɔlɔ bɔ yizie maaloo";
 "widget-onthisday-placeholder-event-snippet" = "Wikipiideɛ, la a duoro mɔlɔ bɔ yizie. Yi la a taŋgaraa zu.";

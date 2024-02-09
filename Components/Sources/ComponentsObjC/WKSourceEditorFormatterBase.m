@@ -29,14 +29,29 @@
 
 - (void)addSyntaxHighlightingToAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
     
-    // reset old attributes
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+        return;
+    }
+    
+    // reset base attributes
     [attributedString removeAttribute:NSFontAttributeName range:range];
     [attributedString removeAttribute:NSForegroundColorAttributeName range:range];
+    [attributedString removeAttribute:NSBackgroundColorAttributeName range:range];
+    
+    // reset shared custom attributes
+    [attributedString removeAttribute:WKSourceEditorCustomKeyColorOrange range:range];
+    [attributedString removeAttribute:WKSourceEditorCustomKeyColorGreen range:range];
+    [attributedString removeAttribute:WKSourceEditorCustomKeyColorOrange range:range];
     
     [attributedString addAttributes:self.attributes range:range];
 }
 
 - (void)updateColors:(WKSourceEditorColors *)colors inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+        return;
+    }
+    
     NSMutableDictionary *mutAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.attributes];
     [mutAttributes setObject:colors.baseForegroundColor forKey:NSForegroundColorAttributeName];
     self.attributes = [[NSDictionary alloc] initWithDictionary:mutAttributes];
@@ -45,6 +60,11 @@
 }
 
 - (void)updateFonts:(WKSourceEditorFonts *)fonts inAttributedString:(NSMutableAttributedString *)attributedString inRange:(NSRange)range {
+    
+    if (![self canEvaluateAttributedString:attributedString againstRange:range]) {
+        return;
+    }
+    
     NSMutableDictionary *mutAttributes = [[NSMutableDictionary alloc] initWithDictionary:self.attributes];
     [mutAttributes setObject:fonts.baseFont forKey:NSFontAttributeName];
     self.attributes = [[NSDictionary alloc] initWithDictionary:mutAttributes];

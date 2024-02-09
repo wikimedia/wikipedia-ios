@@ -153,7 +153,6 @@
 "article-languages-label" = "भाषा चुनें";
 "article-languages-others" = "अन्य भाषाएँ";
 "article-languages-yours" = "आपकी भाषाएँ";
-"article-nav-edit" = "सम्पादन";
 "article-read-more-title" = "अधिक पढ़ें";
 "article-reference-view-title" = "सन्दर्भ $1";
 "article-save-error-not-enough-space" = "इस लेख को सहेजने के लिए आपके डिवाइस पर पर्याप्त जगह नहीं है";
@@ -257,6 +256,10 @@
 "edit-summary-learn-more-text" = "अधिक जानें";
 "edit-text-size-table-view-title" = "अक्षर आकार";
 "edit-underline-accessibility-label" = "अंडरलाइन जोड़ें";
+"editor-find-textfield-accessibility" = "खोजें";
+"editor-keyboard-paragraph-button" = "अनुच्छेद";
+"editor-replace-textfield-accessibility" = "बदलें";
+"editor-replace-type-all" = "सभी बदलें";
 "empty-no-article-message" = "क्षमा करें, लेख को लोड नहीं किया जा सका";
 "empty-no-feed-action-message" = "आप फिर भी सहेजे गए पेज पढ़ सकते हैं";
 "empty-no-feed-message" = "जब आपके पास इंटरनेट होगा तब आप सुझाये गए लेख देख सकते हैं";
@@ -429,7 +432,6 @@
 "potd-description-prefix" = "$1 के लिए आज का चित्र";
 "potd-empty-error-description" = "$1 के लिए आज का चित्र लाने में असमर्थ";
 "preference-summary-eventlogging-opt-in" = "एप को बेहतर बनाने के लिए विकिमीडिया फाउंडेशन को आपके द्वारा इस एप के इस्तेमाल संबंधी जानकारी को इकट्ठा करने की अनुमति दें";
-"preference-title-eventlogging-opt-in" = "उपयोग रिपोर्ट भेजें";
 "reading-list-add-saved-button-title" = "हाँ, उन्हें मेरी पठन सूची में जोड़ें";
 "reading-list-add-saved-title" = "सहेजे गए लेख मिले";
 "reading-list-do-not-keep-button-title" = "नहीं, डिवाइस से लेख हटाएं";
@@ -500,10 +502,6 @@
 "share-social-mention-format" = "विकिपीडिया के माध्यम से \" $1 \": $2";
 "sort-by-recently-added-action" = "हाल ही में जोड़ा गया";
 "sort-by-title-action" = "शीर्षक";
-"source-editor-accessibility-label-find-text-field" = "खोजें";
-"source-editor-accessibility-label-replace-text-field" = "बदलें";
-"source-editor-find-replace-all" = "सभी बदलें";
-"source-editor-paragraph" = "अनुच्छेद";
 "table-of-contents-button-label" = "सामग्री सारणी (टेबल)";
 "table-of-contents-close-accessibility-hint" = "बंद करें";
 "table-of-contents-close-accessibility-label" = "सामग्री सारणी को बंद करें";
@@ -548,10 +546,6 @@
 "welcome-notifications-tell-me-more-creation" = "आप की डिवाइस पर नोटिफिकेशन एप द्वारा बनाये और भेजे जाते हैं, न कि हमारे (या थर्ड पार्टी) सर्वर्स द्वारा।";
 "welcome-notifications-tell-me-more-storage" = "नोटिफिकेशन वरीयताएं डिवाइस पर स्टोर की जातीं हैं और ये व्यक्तिगत जानकारी या क्रियाकलाप पर आधारित नहीं हैं।";
 "welcome-notifications-tell-me-more-title" = "नोटिफिकेशन्स के बारे में अधिक";
-"welcome-send-data-helps-title" = "एप को बेहतर बनाने में सहायता करें";
-"welcome-send-data-learn-more" = "एकत्रित डेटा के बारे में अधिक जानें";
-"welcome-send-data-sub-title" = "विकिमीडिया फाउंडेशन को यह जानने की आज्ञा देकर कि आप एप को किस प्रकार प्रयोग करते हैं, एप बेहतर बनाने में सहायता करें। एकत्रित डेटा एनोनिमस है।";
-"welcome-volunteer-send-usage-reports" = "उपयोग रिपोर्ट भेजें";
 "wikitext-downloading" = "सामग्री को लोड किया जा रहा है...";
 "wikitext-preview-changes" = "आपके बदलावों का प्रीव्यू लाया जा रहा है...";
 "wikitext-preview-changes-none" = "प्रीव्यू के लिए कोई बदलाव नहीं हैं।";

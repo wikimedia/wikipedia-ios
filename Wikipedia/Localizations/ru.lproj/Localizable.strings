@@ -8,6 +8,7 @@
 // Author: BadDog
 // Author: Batumski brodyaga
 // Author: Bsitzmann
+// Author: Butko
 // Author: Deltaspace
 // Author: Dicto23456
 // Author: Diralik
@@ -140,8 +141,10 @@
 "action-add-to-reading-list" = "Добавить в список для чтения";
 "action-add-to-reading-list-short" = "Добавить в список";
 "action-cancel" = "Отмена";
+"action-discard-edit" = "Отменить изменения";
 "action-discard-edits" = "Отменить изменения";
 "action-find-in-page" = "Найти на странице";
+"action-keep-editing" = "Продолжить редактирование";
 "action-language-accessibility" = "изменение языка";
 "action-move-to" = "Перенести в...";
 "action-move-to-reading-list" = "Перенести в список для чтения";
@@ -189,7 +192,6 @@
 "article-languages-label" = "Выберите язык";
 "article-languages-others" = "Другие языки";
 "article-languages-yours" = "Ваши языки";
-"article-nav-edit" = "Править";
 "article-read-more-title" = "Подробнее";
 "article-reference-view-title" = "Примечание $1";
 "article-revision-history" = "История версий статьи";
@@ -358,6 +360,7 @@
 "edit-notices-please-read" = "Пожалуйста, прочтите перед редактированием";
 "edit-ordered-list-accessibility-label" = "Сделать нумерованным списком";
 "edit-ordered-list-remove-accessibility-label" = "Убрать нумерованный список";
+"edit-preview-simplified-format-message" = "Всё содержимое отображается в упрощенном формате.";
 "edit-published" = "Правка опубликована";
 "edit-published-subtitle" = "Вы только что сделали Википедию лучше для всех";
 "edit-reference-accessibility-label" = "Добавить примечание";
@@ -399,7 +402,21 @@
 "editing-welcome-set-knowledge-free-subtitle" = "Чтобы дать каждому доступ к знаниям всего мира, нам нужно, чтобы Вы участвовали в их создании, вычитывая, редактируя и внося вклад в самые значимые для Вас темы.";
 "editing-welcome-set-knowledge-free-title" = "Сделайте знания свободными";
 "editor-exit-confirmation-body" = "Вы уверены, что хотите выйти из режима редактирования, не опубликовав изменения?";
+"editor-exit-confirmation-message" = "Вы уверены, что хотите отменить внесённые изменения?";
 "editor-exit-confirmation-title" = "Покинуть режим редактирования?";
+"editor-find-clear-button-accessibility" = "Очистить поиск";
+"editor-find-close-button-accessibility" = "Закрыть поиск";
+"editor-find-textfield-accessibility" = "Найти";
+"editor-keyboard-heading-button" = "Заголовок";
+"editor-keyboard-paragraph-button" = "Абзац";
+"editor-keyboard-subheading1-button" = "Подзаголовок 1";
+"editor-keyboard-subheading2-button" = "Подзаголовок 2";
+"editor-keyboard-subheading3-button" = "Подзаголовок 3";
+"editor-keyboard-subheading4-button" = "Подзаголовок 4";
+"editor-keyboard-text-formatting-title" = "Форматирование текста";
+"editor-replace-textfield-accessibility" = "Заменить";
+"editor-replace-type-all" = "Заменить все";
+"editor-toolbar-find-accessibility" = "Найти на странице";
 "empty-diff-compare-title" = "Нет различий между версиями";
 "empty-diff-single-title" = "Нет видимых изменений";
 "empty-insert-media-title" = "Выберите файл на Викискладе";
@@ -678,12 +695,14 @@
 "notifications-center-feed-card-title" = "Теперь доступно редактирование уведомлений";
 "notifications-center-feed-news-notification-button-text" = "Включить пуш-уведомления";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Не сейчас";
+"notifications-center-feed-news-notification-text" = "Уведомления о редактировании для всех проектов Викимедиа теперь доступны через приложение. Включите push-уведомления, чтобы быть в курсе ваших сообщений в Википедии на ходу.";
 "notifications-center-filters-accessibility-label" = "Фильтр уведомлений";
 "notifications-center-filters-read-status-item-title-all" = "Все";
 "notifications-center-filters-read-status-item-title-read" = "Читать";
 "notifications-center-filters-read-status-item-title-unread" = "Непрочитанные";
 "notifications-center-filters-read-status-section-title" = "Статус прочтения";
 "notifications-center-filters-title" = "Фильтры";
+"notifications-center-filters-types-footer" = "Чтобы отфильтровать поступление уведомлений в папке уведомлений, измените типы входящих уведомлений. Отключённые типы не будут видны, но их содержимое и любые новые уведомления будут доступны при повторном включении переключателя.";
 "notifications-center-filters-types-item-title-all" = "Все типы";
 "notifications-center-filters-types-section-title" = "Типы уведомлений";
 "notifications-center-go-to-article" = "Статья";
@@ -702,6 +721,8 @@
 "notifications-center-login-notifications" = "Уведомления о входе";
 "notifications-center-mark" = "Пометить";
 "notifications-center-mark-all-as-read" = "Отметить всё прочитанным";
+"notifications-center-mark-all-as-read-confirmation-format" = "Вы уверены, что хотите пометить все сообщения ({{PLURAL:$1|$1 шт.}}) о ваших уведомлений как прочитанные? Ваши уведомления будут помечены как прочитанные на всех ваших устройствах.";
+"notifications-center-mark-all-as-read-missing-number" = "Вы уверены, что хотите пометить все ваши уведомления как прочитанные? Ваши уведомления будут помечены как прочитанные на всех ваших устройствах.";
 "notifications-center-mark-as-read" = "Отметить как прочитанное";
 "notifications-center-mark-as-unread" = "Пометить как непрочитанное";
 "notifications-center-more-action-accessibility-label" = "Больше";
@@ -818,6 +839,7 @@
 "panel-compare-revisions-text" = "Сравнение редакций помогает показать, как статья менялась с течением времени. Сравнение двух редакций статьи покажет разницу между этими редакциями, выделив все содержание, которое было изменено.";
 "panel-compare-revisions-title" = "Сравнение версий";
 "panel-not-logged-in-continue-edit-action-title" = "Редактировать без входа в систему";
+"panel-not-logged-in-subtitle" = "Если вы внесёте какие-либо правки, ваш IP-адрес будет общедоступно виден. Если вы $1войдёте в систему$2 или $3создадите учётную запись$4, ваши правки будут связаны с вашим именем пользователя, а также с другими преимуществами учётной записи.";
 "panel-not-logged-in-title" = "Вы не вошли в систему";
 "pictured" = "иллюстрировано";
 "places-accessibility-clear-saved-searches" = "Очистить сохранённые поисковые запросы";
@@ -858,7 +880,6 @@
 "potd-widget-description" = "Наслаждайтесь красивыми фотографиями, ежедневно выбираемыми нашим сообществом.";
 "potd-widget-title" = "Изображение дня";
 "preference-summary-eventlogging-opt-in" = "Разрешить Фонду Викимедиа собирать информацию о том, как вы используете приложение. Это позволит сделать его лучше.";
-"preference-title-eventlogging-opt-in" = "Отправлять отчёты об использовании";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Викиучебник";
 "project-name-wikidata" = "Викиданные";
@@ -1015,7 +1036,9 @@
 "settings-my-languages" = "Мои языки";
 "settings-notifications" = "Пуш-уведомления";
 "settings-notifications-echo-failure-message" = "Во время проверки подписок на уведомления, связанных с вашей учётной записью, произошла ошибка.";
+"settings-notifications-echo-failure-title" = "Невозможно проверить подписки на эхо-уведомления";
 "settings-notifications-echo-failure-try-again" = "Попробовать ещё раз";
+"settings-notifications-header" = "Получайте оповещения о действиях, связанных с вашей учётной записью, таких как сообщения от других участников, оповещения и уведомления. Всё предоставляется с соблюдением конфиденциальности и самой последней информации.";
 "settings-notifications-info" = "Будьте в курсе трендов и самых читаемых статей Википедии используя push-уведомления. Вся информация предоставляется актуальной и с сохранением конфиденциальности.";
 "settings-notifications-learn-more" = "Узнать подробнее об уведомлениях";
 "settings-notifications-push-notifications" = "Push-уведомления";
@@ -1208,10 +1231,6 @@
 "welcome-notifications-tell-me-more-creation" = "Уведомления создаются и доставляются на ваше устройство приложение, А не с наших серверов (или третья сторона).";
 "welcome-notifications-tell-me-more-storage" = "Уведомления хранятся на устройстве и не основанные на личной информации или деятельности.";
 "welcome-notifications-tell-me-more-title" = "Подробнее об уведомлениях";
-"welcome-send-data-helps-title" = "Помогите сделать это приложение лучше";
-"welcome-send-data-learn-more" = "Узнать подробнее о сборе данных";
-"welcome-send-data-sub-title" = "Помогите Фонду Викимедиа сделать приложение лучше, сообщив нам, как вы используете его. Собранные данные являются анонимными.";
-"welcome-volunteer-send-usage-reports" = "Отправлять отчёты об использовании";
 "widget-onthisday-description" = "Узнайте, что произошло в этот день в истории.";
 "widget-onthisday-placeholder-article-snippet" = "Свободная онлайн-энциклопедия, которую каждый может редактировать";
 "widget-onthisday-placeholder-event-snippet" = "Википедия, бесплатная энциклопедия вики-контента, выходит в Интернет.";

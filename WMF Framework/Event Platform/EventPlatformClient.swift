@@ -61,10 +61,6 @@ import CocoaLumberjackSwift
         return EventPlatformClient()
     }()
 
-    @objc public var isEnabled: Bool {
-        return UserDefaults.standard.wmf_sendUsageReports
-    }
-
     let dataStore = MWKDataStore.shared()
     let samplingController: SamplingController
     let storageManager: StorageManager?
@@ -88,7 +84,7 @@ import CocoaLumberjackSwift
     }
     
     public func needsReset() -> Bool {
-        return userSession.needsReset() && isEnabled
+        return userSession.needsReset()
     }
     
     public func resetBackgroundTimestamp() {
@@ -134,6 +130,7 @@ import CocoaLumberjackSwift
         case editAttempt = "eventlogging_EditAttemptStep"
         case watchlist = "ios.watchlists"
         case appDonorExperience = "app_donor_experience"
+        case editInteraction = "ios.edit_interaction"
     }
     
     /**
@@ -594,10 +591,6 @@ import CocoaLumberjackSwift
         }
 
         let userDefaults = UserDefaults.standard
-
-        if !userDefaults.wmf_sendUsageReports {
-            return
-        }
 
         guard let appInstallID = userDefaults.wmf_appInstallId else {
             DDLogWarn("EPC: App install ID is unset. This shouldn't happen.")

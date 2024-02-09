@@ -9,6 +9,7 @@ typedef NS_ENUM(NSInteger, WikiTextSectionUploaderErrorType) {
     WikiTextSectionUploaderErrorTypeAbuseFilterWarning = 4,
     WikiTextSectionUploaderErrorTypeAbuseFilterOther = 5,
     WikiTextSectionUploaderErrorTypeBlocked = 6,
+    WikiTextSectionUploaderErrorTypeProtectedPage = 7,
 };
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,13 +21,14 @@ extern NSString *const NSErrorUserInfoDisplayError;
 // api returns transcluded section indexes with a "T-" prefix
 - (void)uploadWikiText:(nullable NSString *)wikiText
          forArticleURL:(NSURL *)articleURL
-               section:(NSString *)section
+               section:(nullable NSString *)section
                summary:(nullable NSString *)summary
            isMinorEdit:(BOOL)isMinorEdit
         addToWatchlist:(BOOL)addToWatchlist
              baseRevID:(nullable NSNumber *)baseRevID
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
+        editSummaryTag:(nullable NSString *)editSummaryTag
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
 
 - (void)addSectionWithSummary:(NSString *)summary
@@ -44,6 +46,7 @@ extern NSString *const NSErrorUserInfoDisplayError;
                 forArticleURL:(NSURL *)articleURL
              isMinorEdit:(BOOL)isMinorEdit
                baseRevID:(nullable NSNumber *)baseRevID
+            editSummaryTag:(nullable NSString *)editSummaryTag
               completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
 @end
 

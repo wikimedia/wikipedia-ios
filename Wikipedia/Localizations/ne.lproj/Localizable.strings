@@ -350,7 +350,6 @@
 "places-title" = "स्थानहरू";
 "places-unknown-distance" = "अज्ञात दूरी";
 "preference-summary-eventlogging-opt-in" = "अनुप्रयोगलाई अझ राम्रो बनाउनका लागि तपाईंले अनुप्रयोगको उपयोग कसरी गर्नुहुन्छ भन्नेबारे विकिपिडियालाई जानकारी सङ्कलन गर्ने अनुमति दिनुहोस्";
-"preference-title-eventlogging-opt-in" = "उपयोग प्रतिवेदन पठाउनुहोस् ।";
 "project-name-mediawiki" = "मिडियाविकी";
 "project-name-wikibooks" = "विकिपुस्तक";
 "project-name-wikidata" = "विकिडाटा";
@@ -452,8 +451,6 @@
 "welcome-intro-free-encyclopedia-title" = "एक स्वतन्त्र विश्वकोष";
 "welcome-languages-add-button" = "अर्को भाषा थप्नुहोस्";
 "welcome-notifications-tell-me-more-title" = "जानकारीको बारेमा थप";
-"welcome-send-data-sub-title" = "विकिमिडियालाई एप राम्रो बनाउन तपाईँले कसरी एप प्रयोग गर्नुहुन्छ भन्ने जानकारी दिएर सहयोग गर्नुहोस्। सङकलित तथ्याङ्क अज्ञातरूपमा गरिन्छ";
-"welcome-volunteer-send-usage-reports" = "उपयोग प्रतिवेदन पठाउनुहोस्।";
 "wikitext-downloading" = "सामग्री लोड गर्दै...";
 "wikitext-preview-link-external-preview-title" = "बाह्य कडीहरू";
 "wikitext-preview-link-preview-title" = "लिङ्क पूर्वावलोकन";

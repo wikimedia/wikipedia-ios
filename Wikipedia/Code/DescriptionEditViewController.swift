@@ -21,6 +21,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     @IBOutlet private weak var casingWarningLabel: UILabel!
     @IBOutlet private var warningCharacterCountLabel: UILabel!
     private var theme = Theme.standard
+    private var editType: ArticleDescriptionEditType = .add
 
     var delegate: DescriptionEditViewControllerDelegate? = nil
     
@@ -67,8 +68,10 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             if let currentDescription = description {
                 self.descriptionTextView.text = currentDescription
                 self.title = WMFLocalizedString("description-edit-title", value:"Edit description", comment:"Title text for description editing screen")
+                self.editType = .change
             } else {
                 self.title = WMFLocalizedString("description-add-title", value:"Add description", comment:"Title text for description addition screen")
+                self.editType = .add
             }
 
             self.isPlaceholderLabelHidden = self.shouldHidePlaceholder()
@@ -207,14 +210,14 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
 
     @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
         if let articleURL = articleDescriptionController.article.url {
-            EditAttemptFunnel.shared.logSaveIntent(articleURL: articleURL)
+            EditAttemptFunnel.shared.logSaveIntent(pageURL: articleURL)
         }
         save()
     }
 
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
         if let articleURL = articleDescriptionController.article.url {
-            EditAttemptFunnel.shared.logAbort(articleURL: articleURL)
+            EditAttemptFunnel.shared.logAbort(pageURL: articleURL)
         }
         dismiss(animated: true, completion: nil)
     }
@@ -239,10 +242,10 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
 
 
         if let articleURL = self.articleDescriptionController.article.url {
-            EditAttemptFunnel.shared.logSaveAttempt(articleURL: articleURL)
+            EditAttemptFunnel.shared.logSaveAttempt(pageURL: articleURL)
         }
         
-        articleDescriptionController.publishDescription(descriptionToSave) { [weak self] (result) in
+        articleDescriptionController.publishDescription(descriptionToSave, editType: editType) { [weak self] (result) in
 
             DispatchQueue.main.async {
                 guard let self else {
@@ -262,7 +265,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                             revisionID = Int(uintRevisionID)
                         }
                         
-                        EditAttemptFunnel.shared.logSaveSuccess(articleURL: articleURL, revisionId: revisionID)
+                        EditAttemptFunnel.shared.logSaveSuccess(pageURL: articleURL, revisionId: revisionID)
                     }
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
@@ -271,7 +274,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 case .failure(let error):
                     let nsError = error as NSError
                     if let articleURL = self.articleDescriptionController.article.url {
-                        EditAttemptFunnel.shared.logSaveFailure(articleURL: articleURL)
+                        EditAttemptFunnel.shared.logSaveFailure(pageURL: articleURL)
                     }
                     if let wikidataError = error as? WikidataFetcher.WikidataPublishingError {
                         switch wikidataError {

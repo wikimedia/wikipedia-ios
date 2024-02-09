@@ -46,7 +46,6 @@
 "article-languages-label" = "Ընտրեք լեզուն";
 "article-languages-others" = "Այլ լեզուներ";
 "article-languages-yours" = "Ձեր լեզուն";
-"article-nav-edit" = "Խմբագրել";
 "article-share" = "Կիսվել";
 "back-button-accessibility-label" = "Հետ";
 "button-go-back" = "Հետ գնալ";
@@ -164,7 +163,6 @@
 "places-filter-button-title" = "Զտիչ";
 "places-search-default-text" = "Որոնել վայրեր";
 "places-search-top-articles-that-match-scope" = "Մոտակայքում";
-"preference-title-eventlogging-opt-in" = "Ուղարկել օգտագործման մասին տեղեկություններ";
 "reading-list-create-new-list-description" = "Նկարագրություն";
 "replace-infolabel-method-replace" = "Փոխարինել";
 "replace-infolabel-method-replace-all" = "Փոխարինել բոլորը";

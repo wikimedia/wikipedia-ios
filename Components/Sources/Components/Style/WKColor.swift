@@ -38,5 +38,8 @@ enum WKColor {
 	
 	static let darkSearchFieldBackground = UIColor(0x8E8E93, alpha: 0.12)
 	static let lightSearchFieldBackground = UIColor(0xFFFFFF, alpha: 0.15)
+    static let lightMatchBackground = WKColor.yellow600.withAlphaComponent(0.3)
+    static let darkMatchBackground = UIColor(0xF7D779).withAlphaComponent(0.7)
+    static let matchReplacedBackground = UIColor(0xD0E4fC)
 
 }

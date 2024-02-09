@@ -121,7 +121,6 @@
 "article-languages-label" = "Йылмым ойыро";
 "article-languages-others" = "Вес йылме-влак";
 "article-languages-yours" = "Тыйын йылме-влакет";
-"article-nav-edit" = "Тӧрлаташ";
 "article-read-more-title" = "Кумданрак";
 "article-reference-view-title" = "$1 палемдымаш";
 "article-save-error-not-enough-space" = "Тиде статьям аралашлан тыйын арверыштет вер ок сите";
@@ -408,7 +407,7 @@
 "insert-media-image-preview-more-information-action-title" = "Ешартыш информаций";
 "insert-media-image-preview-select-image-action-title" = "Сӱретым ойыраш";
 "insert-media-image-size-setting-custom" = "Келыштарен";
-"insert-media-image-size-setting-default" = "Ойлыде";
+"insert-media-image-size-setting-default" = "Ончылгочсо";
 "insert-media-image-size-settings-px-unit-name" = "пкс";
 "insert-media-image-size-settings-title" = "Сӱретын кугытшо";
 "insert-media-image-type-setting-basic" = "Тыглай";

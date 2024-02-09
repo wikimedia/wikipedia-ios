@@ -1,5 +1,8 @@
 import UIKit
+import SwiftUI
 import WMF
+import Components
+import WKData
 
 struct SectionEditorChanges {
     let newRevisionID: UInt64
@@ -8,6 +11,7 @@ struct SectionEditorChanges {
 protocol EditSaveViewControllerDelegate: NSObjectProtocol {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>)
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData)
+    func editSaveViewControllerDidTapShowWebPreview()
 }
 
 private enum NavigationMode : Int {
@@ -29,12 +33,15 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var savedData: SaveData?
 
     var sectionID: Int?
-    var articleURL: URL?
+    var pageURL: URL?
     var languageCode: String?
     var dataStore: MWKDataStore?
+    var source: PageEditorViewController.Source?
     
     var wikitext = ""
     var theme: Theme = .standard
+    var needsWebPreviewButton: Bool = false
+    var editSummaryTag: WKEditSummaryTag?
     weak var delegate: EditSaveViewControllerDelegate?
 
     private lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
@@ -65,6 +72,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private var buttonLeftCaret: UIBarButtonItem?
     private var abuseFilterCode = ""
     private var summaryText = ""
+    
+    @IBOutlet weak var showWebPreviewContainerView: UIView!
+    private var showWebPreviewButtonHostingController: UIHostingController<WKSmallButton>?
 
     private var mode: NavigationMode = .preview {
         didSet {
@@ -170,7 +180,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let vc = EditSummaryViewController(nibName: EditSummaryViewController.wmf_classStoryboardName(), bundle: nil)
         vc.delegate = self
         vc.apply(theme: theme)
-        vc.setLanguage(for: articleURL)
+        vc.setLanguage(for: pageURL)
         wmf_add(childController: vc, andConstrainToEdgesOfContainerView: editSummaryVCContainer)
 
         if dataStore?.authenticationManager.isLoggedIn ?? false {
@@ -209,6 +219,33 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
         addToWatchlistLabel.text = WMFLocalizedString("edit-watch-this-page-text", value: "Watch this page", comment: "Text for watch this page label")
         addToWatchlistButton.setTitle(WMFLocalizedString("edit-watch-list-learn-more-text", value: "Learn more about watch lists", comment: "Text for watch lists learn more button"), for: .normal)
+        
+        setupWebPreviewButton()
+    }
+    
+    private func setupWebPreviewButton() {
+        
+        guard needsWebPreviewButton else {
+            showWebPreviewContainerView.isHidden = true
+            return
+        }
+        
+        let rootView = WKSmallButton(configuration: .quiet, title: WMFLocalizedString("edit-show-web-preview", languageCode: languageCode, value: "Show web preview", comment: "Title of button that will show a web preview of the edit.")) { [weak self] in
+            self?.delegate?.editSaveViewControllerDidTapShowWebPreview()
+        }
+         let showWebPreviewButtonHostingController = UIHostingController(rootView: rootView)
+         showWebPreviewButtonHostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        showWebPreviewButtonHostingController.view.backgroundColor = .clear
+         self.showWebPreviewButtonHostingController = showWebPreviewButtonHostingController
+         
+         addChild(showWebPreviewButtonHostingController)
+         showWebPreviewContainerView.addSubview(showWebPreviewButtonHostingController.view)
+         
+        showWebPreviewContainerView.addConstraints([
+            showWebPreviewContainerView.topAnchor.constraint(equalTo: showWebPreviewButtonHostingController.view.topAnchor),
+            showWebPreviewContainerView.bottomAnchor.constraint(equalTo: showWebPreviewButtonHostingController.view.topAnchor),
+            showWebPreviewContainerView.trailingAnchor.constraint(equalTo: showWebPreviewButtonHostingController.view.trailingAnchor)
+        ])
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -247,18 +284,34 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private func save() {
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
-        guard let sectionID = sectionID else {
-            assertionFailure("Could not get section to be edited")
-            return
-        }
-        
-        guard let editURL = articleURL else {
+        guard let editURL = pageURL else {
             assertionFailure("Could not get url of section to be edited")
             return
         }
-        EditAttemptFunnel.shared.logSaveAttempt(articleURL: editURL)
         
-        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: "\(sectionID)", summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, completion: { (result, error) in
+        if let source,
+           let pageURL,
+        let project = WikimediaProject(siteURL: pageURL) {
+            let summaryAdded = !summaryText.isEmpty
+            let minorEdit = minorEditToggle.isOn
+            
+            switch source {
+            case .article:
+                EditInteractionFunnel.shared.logArticleEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: minorEdit, project: project)
+            case .talk:
+                EditInteractionFunnel.shared.logTalkEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: minorEdit, project: project)
+            }
+            
+        }
+        EditAttemptFunnel.shared.logSaveAttempt(pageURL: editURL)
+        
+        let section: String?
+        if let sectionID {
+            section = "\(sectionID)"
+        } else {
+            section = nil
+        }
+        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, editSummaryTag: editSummaryTag?.rawValue, completion: { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     self.handleEditFailure(with: error)
@@ -285,6 +338,21 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             notifyDelegate(.failure(RequestError.unexpectedResponse))
             return
         }
+        
+        if let source,
+           let pageURL,
+        let project = WikimediaProject(siteURL: pageURL) {
+            
+            switch source {
+            case .article:
+                EditInteractionFunnel.shared.logArticlePublishSuccess(revisionID: Int(newRevID), project: project)
+            case .talk:
+                EditInteractionFunnel.shared.logTalkPublishSuccess(revisionID: Int(newRevID), project: project)
+            }
+            
+            EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: Int(newRevID))
+        }
+        
         notifyDelegate(.success(SectionEditorChanges(newRevisionID: newRevID)))
     }
     
@@ -292,9 +360,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let nsError = error as NSError
         let errorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
 
-        if let articleURL {
-            EditAttemptFunnel.shared.logSaveFailure(articleURL: articleURL)
-        }
+        var problemSource: EditInteractionFunnel.ProblemSource?
         
         switch errorType {
         case .needsCaptcha:
@@ -307,12 +373,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             dispatchOnMainQueueAfterDelayInSeconds(0.1) { // Prevents weird animation.
                 self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
             }
+            problemSource = .needsCaptcha
         case .abuseFilterDisallowed, .abuseFilterWarning, .abuseFilterOther:
             wmf_hideKeyboard()
             WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
             
             guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
-                  let currentTitle = articleURL?.wmf_title else {
+                  let currentTitle = pageURL?.wmf_title else {
                 return
             }
             
@@ -322,6 +389,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
                 wmf_showAbuseFilterDisallowPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: false)
                 
+                problemSource = .abuseFilterBlocked
             } else {
                 mode = .abuseFilterWarning
                 abuseFilterCode = displayError.code
@@ -333,23 +401,70 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                     }
                     
                 })
+                
+                problemSource = .abuseFilterWarned
             }
             
-        case .server, .unknown:
+        case .server:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            problemSource = .serverError
         case .blocked:
             
             WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
             
             guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
-                  let currentTitle = articleURL?.wmf_title else {
+                  let currentTitle = pageURL?.wmf_title else {
                 return
             }
             
-            wmf_showBlockedPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, image: UIImage(named: "error-icon"))
+            wmf_showBlockedPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, linkLoggingAction: { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                if let source,
+                   let pageURL,
+                let project = WikimediaProject(siteURL: pageURL) {
+                    
+                    switch source {
+                    case .article:
+                        EditInteractionFunnel.shared.logArticleEditSummaryDidTapBlockedMessageLink(project: project)
+                    case .talk:
+                        EditInteractionFunnel.shared.logTalkEditSummaryDidTapBlockedMessageLink(project: project)
+                    }
+                    
+                    EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+                }
+            })
             
+            problemSource = .blockedMessage
+            
+        case .protectedPage:
+            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            problemSource = .protectedPage
+        case .unknown:
+            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            // leaving problemSource blank
         default:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            if nsError.wmf_isNetworkConnectionError() {
+                problemSource = .connectionError
+            }
+        }
+        
+        if let source,
+           let pageURL,
+        let project = WikimediaProject(siteURL: pageURL) {
+            
+            switch source {
+            case .article:
+                EditInteractionFunnel.shared.logArticlePublishFail(problemSource: problemSource, project: project)
+            case .talk:
+                EditInteractionFunnel.shared.logTalkPublishFail(problemSource: problemSource, project: project)
+            }
+            
+            EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
         }
     }
     
@@ -363,7 +478,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     func captchaSiteURL() -> URL {
-        return articleURL?.wmf_site ?? Configuration.current.defaultSiteURL
+        return pageURL?.wmf_site ?? Configuration.current.defaultSiteURL
     }
 
     func captchaReloadPushed(_ sender: AnyObject) {

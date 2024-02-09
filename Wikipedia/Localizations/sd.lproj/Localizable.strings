@@ -709,7 +709,6 @@
 "potd-empty-error-description" = "$1 لاءِ اڄ جي تصوير حاصل ڪرڻ ۾ ناڪام";
 "potd-widget-title" = "اڄ جي تصوير";
 "preference-summary-eventlogging-opt-in" = "وڪيميڊيا فائونڊيشن کي اجازت ڏيو تہ توهان هن ايپ ڪيئن استعمال ڪريو ٿا جي معلومات جمع ڪري تہ جيئن هن ايپ کي وڌيڪ بھتر بڻائي سگهجي";
-"preference-title-eventlogging-opt-in" = "استعمال جون رپورٽون اماڻيو";
 "project-name-mediawiki" = "ميڊياوڪي";
 "project-name-wikibooks" = "وڪي‌ڪتاب";
 "project-name-wikidata" = "وڪيڊيٽا";
@@ -980,10 +979,6 @@
 "welcome-notifications-tell-me-more-creation" = "اطلاع اسان (يا ٽين ڌر) جي سرورن پاران نہ پر ايپ پاران توھان جي ڊوائيس تي سرجيا ۽ فراھم ڪيا ويا آھن.";
 "welcome-notifications-tell-me-more-storage" = "اطلاعن جو ترجيحون توھان جي ڊوائيس تي سانڍيل آھن ۽ اھي ذاتي معلومات يا سرگرمي تي ٻڌل نہ آھن.";
 "welcome-notifications-tell-me-more-title" = "اطلاعن بابت وڌيڪ";
-"welcome-send-data-helps-title" = "ايپ کي بھتر بڻائڻ ۾ مدد ڪري";
-"welcome-send-data-learn-more" = "ميڙيل ڊيٽا بابت وڌيڪ ڄاڻو";
-"welcome-send-data-sub-title" = "ايپ کي بھتر بڻائڻ ۾ مدد ڪريو ان جي استعمال بابت وڪيميڊيا فائونڊيشن کي ڄاڻائي ڪري. حاصل ڪيل ڊيٽا گنمام آھي.";
-"welcome-volunteer-send-usage-reports" = "استعمال ڪرڻ جون رپورٽون موڪليو";
 "widget-onthisday-description" = "تاريخ ۾ اڄوڪي ڏينھن تي ڇا ٿيو اھو کوجيو.";
 "widget-onthisday-placeholder-article-snippet" = "کليل آنلائين انسائيڪلوپيڊيا جنھن کي ھر ڪوئي سنواري سگهي ٿو";
 "widget-onthisday-placeholder-event-snippet" = "وڪيپيڊيا، ھڪ کليل وڪي مواد وارو انسائيڪلوپيڊيا، آنلائين وڃي ٿو.";

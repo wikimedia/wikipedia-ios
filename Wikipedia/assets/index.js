@@ -106,9 +106,14 @@ class SelectedAndAdjacentText {
     this.textAfterSelectedText = textAfterSelectedText
   }
   // Reduces to space separated words only and only keeps a couple adjacent before and after words.
+    
+// Note:
+    // Replace regex used to be `/[\W]+/g`, but it was stripping unicode letters like é, which are beneficial for searching in native-land.
+    // Ideally we could replace this with `/[^\pL]+/g`, which should match anything that isn't a letter in any language, but I couldn't get it to work.
+    // So for now, we're replacing punctuation-type characters with empty space.
   reducedToSpaceSeparatedWordsOnly() {
     const separator = ' '
-    const wordsOnlyForString = s => stringWithoutParenthesisForString(stringWithoutReferenceForString(s)).replace(/[\W]+/g, separator).trim().split(separator)
+    const wordsOnlyForString = s => stringWithoutParenthesisForString(stringWithoutReferenceForString(s)).replace(/[-'`~!@#$%^&*()_|+=?;:'",.<>\{\}\[\]\\\/]+/g, separator).trim().split(separator)
 
     return new SelectedAndAdjacentText(
       wordsOnlyForString(this.selectedText).join(separator),

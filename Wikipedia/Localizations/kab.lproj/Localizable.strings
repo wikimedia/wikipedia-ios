@@ -251,7 +251,6 @@
 "potd-description-prefix" = "Tugna n wass i $1";
 "potd-empty-error-description" = "Ur izmir ara ad d-yawi tugna n wass i $1";
 "preference-summary-eventlogging-opt-in" = "Eǧǧ Tasbeddit Wikimedia ad telqeḍ talɣut ɣef wamek tseqdaceḍ asnas akken ad yuɣal igarrez ugar.";
-"preference-title-eventlogging-opt-in" = "Azen ineqqisen n useqdec";
 "reading-themes-controls-accessibility-brightness-slider" = "Taḥnaččaḍt n tafat";
 "reading-themes-controls-accessibility-dark-theme-button" = "Asentel aberkan";
 "reading-themes-controls-accessibility-light-theme-button" = "Asentel aceɛlal";
@@ -347,10 +346,6 @@
 "welcome-notifications-tell-me-more-creation" = "Ilɣa ttwarnan sakin ttwaznen ar yibenk-ik s usnas, mačči s iqeddacen-nneɣ (neɣ wiyaḍ).";
 "welcome-notifications-tell-me-more-storage" = "Ismenyifen n ilɣa ttwaskelsen ɣef yibenk, ur yebnin ara ɣef telɣut neɣ armud udmawan.";
 "welcome-notifications-tell-me-more-title" = "Ugar ɣef ilɣa";
-"welcome-send-data-helps-title" = "Mudd-aɣ-d afus ad nesnerni asnas ugar";
-"welcome-send-data-learn-more" = "Issin ugar ɣef isefka yettwaleqḍen";
-"welcome-send-data-sub-title" = "Mudd afus i tesbeddit Wikimedia akken ad tesnerni asnas ma temliḍ-aɣ-d amek i t-teseqdaceḍ. Isefka yettwaleqḍen d udrigen.";
-"welcome-volunteer-send-usage-reports" = "Azen ineqqisen n useqdec";
 "wikitext-downloading" = "Asali n ugbur...";
 "wikitext-preview-changes" = "Awway n teskant n usnifel-ik...";
 "wikitext-preview-changes-none" = "Ulac taẓrigt ittwasxedmen ara twaliḍ.";

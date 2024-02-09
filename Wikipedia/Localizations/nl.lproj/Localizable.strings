@@ -21,6 +21,7 @@
 // Author: Mathonius
 // Author: McDutchie
 // Author: MedShot
+// Author: Mitsjol
 // Author: MrLeopold
 // Author: Ndecouck
 // Author: Nemo bis
@@ -104,8 +105,8 @@
 "account-creation-captcha-title" = "CAPTCHA-veiligheidscontrole";
 "account-creation-create-account" = "Account aanmaken";
 "account-creation-have-account" = "Hebt u al een account? $1";
-"account-creation-log-in" = "Inloggen.";
-"account-creation-logging-in" = "Inloggen...";
+"account-creation-log-in" = "Aanmelden.";
+"account-creation-logging-in" = "Aan het aanmelden...";
 "account-creation-missing-fields" = "U moet een gebruikersnaam, wachtwoord, en wachtwoordbevestiging invoeren om een account aan te maken.";
 "account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen.";
 "account-creation-saving" = "Aan het opslaan...";
@@ -169,13 +170,12 @@
 "article-languages-label" = "Taal kiezen";
 "article-languages-others" = "Andere talen";
 "article-languages-yours" = "Uw talen";
-"article-nav-edit" = "Bewerken";
 "article-read-more-title" = "Meer lezen";
 "article-reference-view-title" = "Referentie $1";
-"article-revision-history" = "Bewerkingsgeschiedenis artikel";
+"article-revision-history" = "Bewerkingsgeschiedenis";
 "article-save-error-not-enough-space" = "U hebt onvoldoende ruimte op uw apparaat om dit artikel op te slaan";
 "article-share" = "Deel";
-"article-talk-page" = "Overlegpagina artikel";
+"article-talk-page" = "Overlegpagina";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Instellingen leesthema's";
 "back-button-accessibility-label" = "Terug";
 "back-button-popover-title" = "Tik om terug te keren";
@@ -241,7 +241,7 @@
 "description-welcome-descriptions-title" = "Artikelbeschrijvingen";
 "description-welcome-promise-title" = "Ik beloof dat ik deze functie niet misbruiken zal";
 "description-welcome-start-editing-button" = "Begin met bewerken";
-"diff-article-revision-history" = "Bewerkingsgeschiedenis artikel";
+"diff-article-revision-history" = "Bewerkingsgeschiedenis van artikel";
 "diff-compare-header-from-info-heading" = "Vorige bewerking";
 "diff-compare-header-heading" = "Versies vergelijken";
 "diff-compare-header-to-info-heading" = "Weergegeven bewerking";
@@ -269,7 +269,7 @@
 "diff-single-intro-title" = "Introductie";
 "diff-single-line-format" = "Regel $1";
 "diff-thanks-anonymous-no-thanks" = "Anonieme gebruikers kunnen niet worden bedankt";
-"diff-thanks-login-subtitle" = "'Bedankjes' zijn een gemakkelijke manier om waardering te tonen voor het werk van een redacteur op Wikipedia. U moet ingelogd zijn om 'Bedankjes' te verzenden.";
+"diff-thanks-login-subtitle" = "'Bedankjes' zijn een gemakkelijke manier om waardering te tonen voor het werk van een redacteur op Wikipedia. U moet aangemeld zijn om 'Bedankjes' te verzenden.";
 "diff-thanks-login-title" = "Meld u aan om een bedankje te versturen";
 "diff-thanks-send-button-title" = "Bedankje sturen";
 "diff-thanks-send-subtitle" = "'Bedankjes' zijn een gemakkelijke manier om waardering te tonen voor het werk van een redacteur op Wikipedia. 'Bedankjes' kunnen niet ongedaan worden gemaakt en zijn openbaar zichtbaar.";
@@ -342,6 +342,7 @@
 "edit-published-subtitle" = "U heeft Wikipedia zojuist voor iedereen beter gemaakt";
 "edit-reference-accessibility-label" = "Voeg referentiesyntaxis toe";
 "edit-reference-remove-accessibility-label" = "Verwijder referentie syntax";
+"edit-show-web-preview" = "Webvoorbeeld weergeven";
 "edit-signature-accessibility-label" = "Handtekening syntax toevoegen";
 "edit-signature-remove-accessibility-label" = "Handtekening syntax verwijderen";
 "edit-strikethrough-accessibility-label" = "Doorhalen toevoegen";
@@ -380,6 +381,15 @@
 "editing-welcome-set-knowledge-free-title" = "Laat kennis vrij";
 "editor-exit-confirmation-body" = "Weet u zeker dat u de bewerkingsmodus wilt verlaten zonder eerst te publiceren?";
 "editor-exit-confirmation-title" = "De bewerkingsmodus sluiten?";
+"editor-keyboard-bold-accessibility" = "Vetgedrukt";
+"editor-keyboard-indent-increase-accessibility" = "Inspringing vergroten";
+"editor-keyboard-list-ordered-accessibility" = "Geordende lijst";
+"editor-keyboard-list-unordered-accessibility" = "Ongeordende lijst";
+"editor-keyboard-strikethrough-accessibility" = "Doorhalen";
+"editor-toolbar-cursor-down-accessibility" = "Verplaats de cursor naar de volgende regel.";
+"editor-toolbar-cursor-next-accessibility" = "Verplaats de cursor naar het volgende teken.";
+"editor-toolbar-italics-accessibility" = "Cursieve tekstopmaak";
+"editor-toolbar-reference-accessibility" = "Referentietekstopmaak";
 "empty-diff-compare-title" = "Geen verschillen tussen versies";
 "empty-diff-single-title" = "Geen zichtbare veranderingen gemaakt";
 "empty-insert-media-title" = "Selecteer een bestand van Wikimedia Commons";
@@ -545,7 +555,7 @@
 "home-nearby-footer" = "Meer in de buurt van uw huidige locatie";
 "home-nearby-location-footer" = "Meer in de buurt van $1";
 "home-news-footer" = "Meer in het nieuws";
-"home-reading-list-prompt" = "Uw opgeslagen artikelen kunnen nu in leeslijsten worden georganiseerd en op verschillende apparaten worden gesynchroniseerd. Log in om toe te staan dat uw leeslijsten worden opgeslagen in uw gebruikersvoorkeuren.";
+"home-reading-list-prompt" = "Uw opgeslagen artikelen kunnen nu in leeslijsten worden ingedeeld en tussen apparaten worden gesynchroniseerd. Meld u aan om uw leeslijsten in uw gebruikersvoorkeuren te laten opslaan.";
 "home-themes-action-title" = "Voorkeuren beheren";
 "home-themes-prompt" = "Pas uw leesvoorkeuren aan, inclusief de tekstgrootte en het thema in de artikelwerkbalk of in uw gebruikersinstellingen voor een comfortabelere leeservaring.";
 "home-title" = "Verkennen";
@@ -751,7 +761,7 @@
 "notifications-center-type-title-email-from-other-user" = "E-mail van andere gebruiker";
 "notifications-center-type-title-login-attempts" = "Inlogpogingen";
 "notifications-center-type-title-login-attempts-subtitle" = "Mislukte inlogpogingen op uw account";
-"notifications-center-type-title-login-success" = "Succesvol ingelogd";
+"notifications-center-type-title-login-success" = "Aanmelden geslaagd";
 "notifications-center-type-title-other" = "Overige";
 "notifications-center-type-title-page-link" = "Paginakoppeling";
 "notifications-center-type-title-page-review" = "Paginabeoordeling";
@@ -801,7 +811,7 @@
 "page-similar-titles" = "Vergelijkbare pagina's";
 "panel-compare-revisions-text" = "Het vergelijken van revisies helpt om te laten zien hoe een artikel in de loop van de tijd is veranderd. Als u twee revisies van een artikel vergelijkt, wordt het verschil tussen die revisies weergegeven door de inhoud te markeren die is gewijzigd.";
 "panel-compare-revisions-title" = "Versies vergelijken";
-"panel-not-logged-in-continue-edit-action-title" = "Bewerken zonder in te loggen";
+"panel-not-logged-in-continue-edit-action-title" = "Bewerken zonder aanmelden";
 "panel-not-logged-in-subtitle" = "Uw IP-adres is publiekelijk zichtbaar als u wijzigingen aanbrengt. Als u $1inlogt$2 of $3een account aanmaakt$4, worden uw bewerkingen toegeschreven aan uw gebruikersnaam, samen met andere voordelen.";
 "panel-not-logged-in-title" = "U bent niet aangemeld";
 "pictured" = "afgebeeld";
@@ -843,7 +853,7 @@
 "potd-widget-description" = "Geniet van een prachtige dagelijkse foto, uitgekozen door onze gemeenschap.";
 "potd-widget-title" = "Afbeelding van de dag";
 "preference-summary-eventlogging-opt-in" = "Wikimedia Foundation toestaan om informatie te verzamelen over hoe u deze app gebruikt, zodat de app beter kan worden gemaakt";
-"preference-title-eventlogging-opt-in" = "Gebruiksrapporten verzenden";
+"privacy-policy-title" = "Privacybeleid";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -885,10 +895,10 @@
 "reading-list-list-limit-exceeded-message" = "Deze leeslijst en erin opgeslagen artikelen worden niet gesynchroniseerd, verlaag alstublieft het lijstenaantal tot $1 om lijstsynchronisatie te hervatten.";
 "reading-list-list-limit-exceeded-title" = "U hebt de grens van {{PLURAL:$1|$1 leeslijst|$1 leeslijsten}} per profiel overschreden.";
 "reading-list-list-limit-reached" = "Maximum aantal leeslijsten $1 per registratie bereikt";
-"reading-list-login-button-title" = "Log in om uw opgeslagen artikelen te synchroniseren";
+"reading-list-login-button-title" = "Meld u aan om uw opgeslagen artikelen te synchroniseren";
 "reading-list-login-or-create-account-button-title" = "Aanmelden of een nieuw account aanmaken";
-"reading-list-login-or-create-account-title" = "Log in om opgeslagen artikelen te synchroniseren";
-"reading-list-login-subtitle" = "Log in of maak een account aan zodat uw opgeslagen artikelen en leeslijsten op verschillende apparaten kunnen worden gesynchroniseerd en kunnen worden opgeslagen in uw gebruikersvoorkeuren.";
+"reading-list-login-or-create-account-title" = "Meld u aan om opgeslagen artikelen te synchroniseren";
+"reading-list-login-subtitle" = "Meld u aan of maak een account aan zodat uw opgeslagen artikelen en leeslijsten tussen apparaten kunnen worden gesynchroniseerd en kunnen worden opgeslagen in uw gebruikersvoorkeuren.";
 "reading-list-login-title" = "Uw opgeslagen artikelen synchroniseren?";
 "reading-list-name-user-created-annotation" = "_[aangemaakt door gebruiker]";
 "reading-list-new-list-description-placeholder" = "optionele korte beschrijving";
@@ -1106,6 +1116,7 @@
 "talk-pages-coffee-roll-read-more" = "Meer lezen";
 "talk-pages-comment-added-alert-title" = "Uw reactie is toegevoegd";
 "talk-pages-compose-close-confirmation-keep" = "Doorgaan met bewerken";
+"talk-pages-edit-source" = "Bron bewerken";
 "talk-pages-empty-view-body-article" = "Op overlegpagina's wordt besproken hoe de inhoud van Wikipedia zo goed mogelijk kan worden gemaakt. **Voeg een een nieuw gespreksonderwerp toe** om in contact te komen en samen te werken met een gemeenschap van Wikipedianen.";
 "talk-pages-empty-view-body-user" = "Op overlegpagina's wordt besproken hoe de inhoud van Wikipedia zo goed mogelijk kan worden gemaakt. Begin een nieuw overleg om in contact te komen en samen te werken met $1. Wat u hier zegt wordt openbaar voor iedereen.";
 "talk-pages-empty-view-button-article-add-topic" = "Nieuw onderwerp toevoegen";
@@ -1127,6 +1138,7 @@
 "talk-pages-user-groups" = "Gebruikersgroepen";
 "talk-pages-user-logs" = "Logboeken";
 "talk-pages-view-title" = "Overleg";
+"terms-of-use-title" = "Gebruiksvoorwaarden";
 "theme-black-display-name" = "Zwart";
 "theme-dark-display-name" = "Donker";
 "theme-default-display-name" = "Standaard";
@@ -1234,6 +1246,7 @@
 "watchlist-user-button-user-talk-page" = "Overlegpagina gebruiker";
 "watchlist-watch-subtitle" = "Door te tikken op de ster of op de actie “Bekijken” in de onderste werkbalk van een artikel, kunt u die pagina aan uw volglijst toevoegen.";
 "watchlist-watch-title" = "Artikelen volgen";
+"welcome-data-privacy-title" = "Gegevens & Privacy";
 "welcome-exploration-explore-feed-description" = "Aanbevolen inhoud van onze gebruikersgemeenschap";
 "welcome-exploration-explore-feed-title" = "Verkennen";
 "welcome-exploration-on-this-day-description" = "Reis terug in de tijd om te leren wat er vandaag in de geschiedenis is gebeurd";
@@ -1255,10 +1268,6 @@
 "welcome-notifications-tell-me-more-creation" = "Meldingen worden gemaakt en geleverd op uw apparaat door de app, niet door onze servers (of die van derden).";
 "welcome-notifications-tell-me-more-storage" = "Meldingsvoorkeuren zijn opgeslagen op het apparaat en niet gebaseerd op persoonlijke informatie of activiteit.";
 "welcome-notifications-tell-me-more-title" = "Meer informatie over meldingen";
-"welcome-send-data-helps-title" = "Help de app beter te maken";
-"welcome-send-data-learn-more" = "Leer meer over de verzamelde data";
-"welcome-send-data-sub-title" = "Help de Wikimedia Foundation de app beter te maken door ons te laten weten hoe u de app gebruikt. De verzamelde gegevens zijn anoniem.";
-"welcome-volunteer-send-usage-reports" = "Gebruiksrapporten verzenden";
 "widget-onthisday-description" = "Ontdek wat er op deze dag in de geschiedenis is gebeurd.";
 "widget-onthisday-placeholder-article-snippet" = "Vrije internetencyclopedie die iedereen kan bewerken";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, een vrije encyclopedie met wiki-inhoud, gaat online.";

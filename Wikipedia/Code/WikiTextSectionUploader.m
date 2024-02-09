@@ -59,6 +59,7 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
                 forArticleURL:(NSURL *)articleURL
              isMinorEdit:(BOOL)isMinorEdit
                baseRevID:(nullable NSNumber *)baseRevID
+            editSummaryTag:(nullable NSString *)editSummaryTag
                    completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
 
     NSString *title = articleURL.wmf_title;
@@ -87,23 +88,27 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
     if (baseRevID) {
         params[@"baserevid"] = [NSString stringWithFormat:@"%@", baseRevID];
     }
+    
+    if (editSummaryTag && editSummaryTag.length > 0) {
+        params[@"summary"] = editSummaryTag;
+    }
 
     [self updateWithArticleURL:articleURL parameters:params captchaWord:nil completion:completion];
 }
 
 - (void)uploadWikiText:(nullable NSString *)wikiText
          forArticleURL:(NSURL *)articleURL
-               section:(NSString *)section
+               section:(nullable NSString *)section
                summary:(nullable NSString *)summary
            isMinorEdit:(BOOL)isMinorEdit
         addToWatchlist:(BOOL)addToWatchlist
              baseRevID:(nullable NSNumber *)baseRevID
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
+        editSummaryTag:(nullable NSString *)editSummaryTag
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
     
     wikiText = wikiText ? wikiText : @"";
-    section = section ? section : @"";
     summary = summary ? summary : @"";
     NSString *title = articleURL.wmf_title;
     if (!title) {
@@ -111,12 +116,18 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
         return;
     }
     
+    NSString *finalSummary = summary;
+    if (editSummaryTag && editSummaryTag.length > 0 && summary && summary.length > 0) {
+        finalSummary = [summary stringByAppendingFormat:@" %@", editSummaryTag];
+    } else if (editSummaryTag && editSummaryTag.length > 0 && (!summary || summary.length == 0)) {
+        finalSummary = editSummaryTag;
+    }
+    
     NSMutableDictionary *params =
     @{
       @"action": @"edit",
       @"text": wikiText,
-      @"summary": summary,
-      @"section": section,
+      @"summary": finalSummary,
       @"title": articleURL.wmf_title,
       @"errorformat": @"html",
       @"errorsuselocal": @"1",
@@ -124,6 +135,10 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
       @"formatversion": @"2",
       }
     .mutableCopy;
+    
+    if (section) {
+        params[@"section"] = section;
+    }
 
     if (isMinorEdit) {
         params[@"minor"] = @"1";
@@ -176,6 +191,8 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
                 errorType = WikiTextSectionUploaderErrorTypeAbuseFilterDisallowed;
             } else if ([displayError.code hasPrefix:@"abusefilter"]) {
                 errorType = WikiTextSectionUploaderErrorTypeAbuseFilterOther;
+            } else if ([displayError.code containsString:@"protectedpage"]) {
+                errorType = WikiTextSectionUploaderErrorTypeProtectedPage;
             }
                 
             if (errorType == WikiTextSectionUploaderErrorTypeUnknown) {

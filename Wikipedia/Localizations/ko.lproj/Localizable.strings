@@ -163,7 +163,6 @@
 "article-languages-label" = "언어 선택";
 "article-languages-others" = "다른 언어";
 "article-languages-yours" = "사용자 언어";
-"article-nav-edit" = "편집";
 "article-read-more-title" = "더 읽어보기";
 "article-reference-view-title" = "각주 $1";
 "article-revision-history" = "문서 편집 역사";
@@ -829,7 +828,6 @@
 "potd-widget-description" = "우리 공동체가 선정한 하루하루의 아름다운 사진을 즐기세요.";
 "potd-widget-title" = "오늘의 사진";
 "preference-summary-eventlogging-opt-in" = "당신이 어떻게 앱을 사용하는지에 대한 정보를 모으도록 허용합니다. 보내주신 정보는 위키미디어 재단이 앱을 개선하는 데 도움이 됩니다.";
-"preference-title-eventlogging-opt-in" = "사용 보고서 보내기";
 "project-name-mediawiki" = "미디어위키";
 "project-name-wikibooks" = "위키책";
 "project-name-wikidata" = "위키데이터";
@@ -1218,10 +1216,6 @@
 "welcome-notifications-tell-me-more-creation" = "알림은 저희의 (타사) 서버가 아닌, 앱을 통해 장치에서 생성, 전달됩니다.";
 "welcome-notifications-tell-me-more-storage" = "알림 환경 설정은 장치에 저장되며 개인정보나 활동에 기반을 두지 않습니다.";
 "welcome-notifications-tell-me-more-title" = "알림에 대한 더 많은 정보";
-"welcome-send-data-helps-title" = "앱 개선을 도와주세요";
-"welcome-send-data-learn-more" = "수집된 데이터에 대해 더 알아보기";
-"welcome-send-data-sub-title" = "위키미디어 재단의 앱 개선을 지원하기 위해 앱을 어떻게 사용하고 계신지 알려주세요. 수집된 데이터는 익명 처리됩니다.";
-"welcome-volunteer-send-usage-reports" = "사용 보고서 보내기";
 "widget-onthisday-description" = "역사 속에서 오늘 무슨 일이 있었는지 살펴보세요.";
 "widget-onthisday-placeholder-article-snippet" = "누구나 편집할 수 있는 자유로운 온라인 백과사전";
 "widget-onthisday-placeholder-event-snippet" = "자유로운 위키 콘텐츠 백과사전 위키백과가 온라인에 있습니다.";

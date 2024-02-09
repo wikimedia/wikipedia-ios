@@ -287,7 +287,6 @@
 "potd-description-prefix" = "Күннээҕи ойуу $1";
 "potd-empty-error-description" = "$1 күн ойуутун ылар сатаммата";
 "preference-summary-eventlogging-opt-in" = "Дьибилгэти туһанар туһунан Викимедиаҕа ыытары көҥүллээтэххинэ дьибилгэти тупсарарга көмөлөһүөҥ.";
-"preference-title-eventlogging-opt-in" = "Туһаныы отчуоттарын ыыт";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ыстатыйалары наардаа";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Наардамматах ыстатыйа ахсаана 5000-ттан таҕыстаҕына мэнэйдэммэт. Бука диэн наардаа, оччоҕо мэнэйдээһин салҕаныа.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Наардамматах ыстатыйалар хааччахтанар ахсааннара";
@@ -342,9 +341,6 @@
 "welcome-notifications-tell-me-more-creation" = "Биллэриилэр бэйэҥ тэрилгэр оҥоһуллаллар, биһиги (биитэр атын) сиэрбэрбитигэр буолбатах.";
 "welcome-notifications-tell-me-more-storage" = "Биллэриилэр тэрилгэр харалла сылдьыахтара уонна тус бэйэҕиттэн биитэр тугу гынаргыттан тутулуга суох буолуохтара.";
 "welcome-notifications-tell-me-more-title" = "Биллэрии туһунан сиһилии";
-// Fuzzy
-"welcome-send-data-sub-title" = "Бикимиэдьийэ тэрилин хайдах туһанаргын биллэҕинэ тупсарар кыахтаныа. Хомуллубут көрдөрүүлэрин аатыҥ киирбэт.";
-"welcome-volunteer-send-usage-reports" = "Туһаныы отчуотун ыытар буол";
 "wikitext-downloading" = "Иһинээҕитин хачайдааһын...";
 "wikitext-preview-changes" = "Оҥорбут уларытыыны эрдэ көрүүнү ылыы...";
 "wikitext-preview-changes-none" = "Саҥа уларытыы оҥоһуллубатах эбит.";

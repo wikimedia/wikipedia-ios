@@ -69,7 +69,7 @@ class SectionEditorViewController: ViewController {
     
     private var scriptMessageHandlers: [ScriptMessageHandler] = []
     
-    private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
+    private let findAndReplaceHeaderTitle = CommonStrings.findReplaceHeader
 
     private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
     private var lastBlockedDisplayError: MediaWikiAPIDisplayError?
@@ -341,8 +341,8 @@ class SectionEditorViewController: ViewController {
     }
     
     private func showCouldNotFindSelectionInWikitextAlert() {
-        let alertTitle = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-title", value:"The text that you selected could not be located", comment:"Title for alert informing user their text selection could not be located in the article wikitext.")
-        let alertMessage = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-message", value:"This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted", comment:"Description of possible reasons the user text selection could not be located in the article wikitext.")
+        let alertTitle = CommonStrings.editorFailToScrollToArticleSelectedTextTitle
+        let alertMessage = CommonStrings.editorFailToScrollToArticleSelectedTextBody
         let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: CommonStrings.okTitle, style:.default, handler: nil))
         present(alert, animated: true, completion: nil)
@@ -573,7 +573,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                 return
             } else if let wikitext = result {
                 if wikitext != self.wikitext {
-                    let vc = EditPreviewViewController(articleURL: self.articleURL)
+                    let vc = EditPreviewViewController(pageURL: self.articleURL)
                     self.inputViewsController.resetFormattingAndStyleSubmenus()
                     self.needsSelectLastSelection = true
                     vc.theme = self.theme
@@ -582,7 +582,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     vc.wikitext = wikitext
                     vc.delegate = self
                     self.navigationController?.pushViewController(vc, animated: true)
-                    EditAttemptFunnel.shared.logSaveIntent(articleURL: self.articleURL)
+                    EditAttemptFunnel.shared.logSaveIntent(pageURL: self.articleURL)
                 } else {
                     let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
                     WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
@@ -701,6 +701,10 @@ extension SectionEditorViewController: EditSaveViewControllerDelegate {
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
         editConfirmationSavedData = saveData
     }
+    
+    func editSaveViewControllerDidTapShowWebPreview() {
+        assertionFailure("Invalid - this should only be called from Talk Page Edit Source")
+    }
 }
 
 // MARK: - EditPreviewViewControllerDelegate
@@ -713,7 +717,7 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
 
         vc.savedData = editConfirmationSavedData
         vc.dataStore = dataStore
-        vc.articleURL = self.articleURL
+        vc.pageURL = self.articleURL
         vc.sectionID = self.sectionID
         vc.languageCode = self.languageCode
         vc.wikitext = editPreviewViewController.wikitext
@@ -724,6 +728,10 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
 }
 
 extension SectionEditorViewController: ReadingThemesControlsPresenting {
+    var needsExtraTopSpacing: Bool {
+        return false
+    }
+    
     
     var shouldPassthroughNavBar: Bool {
         return false

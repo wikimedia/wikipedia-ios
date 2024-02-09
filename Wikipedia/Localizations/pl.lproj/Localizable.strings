@@ -710,7 +710,6 @@
 "potd-widget-description" = "Ciesz się pięknym codziennym zdjęciem wybranym przez naszą społeczność.";
 "potd-widget-title" = "Grafika dnia";
 "preference-summary-eventlogging-opt-in" = "Pozwól Fundacji Wikimedia zbierać informacje o tym, jak korzystasz z aplikacji, aby ją ulepszać";
-"preference-title-eventlogging-opt-in" = "Wyślij raporty używania";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidane";
@@ -950,10 +949,6 @@
 "welcome-notifications-tell-me-more-creation" = "Powiadomienia są tworzone i dostarczane na Twoje urządzenie przez aplikację, a nie z naszych serwerów (lub stron trzecich).";
 "welcome-notifications-tell-me-more-storage" = "Preferencje powiadomień są przechowywane na urządzeniu i nie są oparte na danych osobowych ani działaniach.";
 "welcome-notifications-tell-me-more-title" = "Więcej o powiadomieniach";
-"welcome-send-data-helps-title" = "Pomóż ulepszyć tę aplikację";
-"welcome-send-data-learn-more" = "Dowiedz się więcej o gromadzonych danych";
-"welcome-send-data-sub-title" = "Pomóż ulepszyć aplikację, informując Fundację Wikimedia o tym, jak z niej korzystasz. Zebrane dane są anonimowe.";
-"welcome-volunteer-send-usage-reports" = "Wyślij raporty używania";
 "widget-onthisday-description" = "Dowiedz się, co wydarzyło się tego dnia w historii.";
 "widget-onthisday-placeholder-article-snippet" = "Bezpłatna encyklopedia online, którą każdy może edytować";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, darmowa encyklopedia treści wiki, jest dostępna online.";

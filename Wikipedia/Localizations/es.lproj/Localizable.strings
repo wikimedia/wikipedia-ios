@@ -17,6 +17,7 @@
 // Author: DiegoAmbrocio
 // Author: Dschultz
 // Author: Elisardojm
+// Author: Eulalio
 // Author: Fitoschido
 // Author: Geryescalier
 // Author: Hasley
@@ -130,8 +131,10 @@
 "action-add-to-reading-list" = "Añadir a una lista de lectura";
 "action-add-to-reading-list-short" = "Añadir a la lista";
 "action-cancel" = "Cancelar";
+"action-discard-edit" = "Descartar Editar";
 "action-discard-edits" = "Descartar ediciones";
 "action-find-in-page" = "Buscar en la página";
+"action-keep-editing" = "Seguir editando";
 "action-language-accessibility" = "Cambiar idioma";
 "action-move-to" = "Mover a…";
 "action-move-to-reading-list" = "Mover a una lista de lectura";
@@ -299,10 +302,12 @@
 "edit-minor-text" = "Esta es una edición menor";
 "edit-ordered-list-accessibility-label" = "Convertir esta línea en una lista ordenada";
 "edit-ordered-list-remove-accessibility-label" = "\nBorrar lista ordenada de esta línea";
+"edit-preview-simplified-format-message" = "Todo el contenido se muestra en formato simplificado.";
 "edit-published" = "Edición publicada";
 "edit-published-subtitle" = "Tú haces Wikipedia mejor para todo el mundo";
 "edit-reference-accessibility-label" = "Añadir referencia";
 "edit-reference-remove-accessibility-label" = "\nQuitar referencia";
+"edit-show-web-preview" = "Mostrar previsualización";
 "edit-signature-accessibility-label" = "\nAñadir firma";
 "edit-signature-remove-accessibility-label" = "\nQuitar firma";
 "edit-strikethrough-accessibility-label" = "\nAñadir tachado";
@@ -339,6 +344,8 @@
 "editing-welcome-impartial-tone-title" = "Escribe en un tono imparcial";
 "editing-welcome-set-knowledge-free-subtitle" = "Para poder dar a todos acceso al conocimiento mundial, necesitamos que participes en su creación leyendo, editando y contribuyendo con los temas que más te importan.";
 "editing-welcome-set-knowledge-free-title" = "Da libertad al conocimiento";
+"editor-edit-source" = "Editar fuente";
+"editor-exit-confirmation-message" = "¿Estás seguro de que quieres descartar esta edición?";
 "editor-exit-confirmation-title" = "¿Desactivar el modo de edición?";
 "empty-diff-compare-title" = "No hay diferencias entre revisiones";
 "empty-diff-single-title" = "No se hicieron cambios visibles";
@@ -684,7 +691,6 @@
 "potd-widget-description" = "Disfruta una hermosa foto diaria seleccionada por nuestra comunidad.";
 "potd-widget-title" = "Imagen del día";
 "preference-summary-eventlogging-opt-in" = "Permitir que la Fundación Wikimedia recopile información acerca de cómo utilizas la aplicación para mejorarla";
-"preference-title-eventlogging-opt-in" = "Enviar informes de uso";
 "reading-list-add-generic-hint-title" = "¿Añadir este artículo a la lista de lectura?";
 "reading-list-add-hint-title" = "¿Quieres añadir «$1» a una lista de lectura?";
 "reading-list-add-saved-button-title" = "Sí, añadirlos a mis listas de lectura";
@@ -961,10 +967,6 @@
 "welcome-notifications-tell-me-more-creation" = "Las notificaciones las crea y entrega la aplicación en el dispositivo, no desde nuestros servidores (ni desde terceros).";
 "welcome-notifications-tell-me-more-storage" = "Las preferencias de notificación se almacenan en el dispositivo y no se basan en información o actividad personal.";
 "welcome-notifications-tell-me-more-title" = "Más acerca de las notificaciones";
-"welcome-send-data-helps-title" = "Ayuda a mejorar la aplicación";
-"welcome-send-data-learn-more" = "Más información sobre los datos recopilados";
-"welcome-send-data-sub-title" = "Ayuda a la Fundación Wikimedia a mejorar la aplicación al decirnos cómo la usas. Los datos recolectados son anónimos.";
-"welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
 "widget-onthisday-description" = "Explora qué pasado en este día en la historia.";
 "widget-onthisday-placeholder-article-snippet" = "La enciclopedia en línea libre que cualquiera puede editar";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, una enciclopedia wiki de contenido libre, va online.";

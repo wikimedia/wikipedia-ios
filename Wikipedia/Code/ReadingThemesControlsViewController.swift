@@ -36,6 +36,7 @@ class ReadingThemesControlsViewController: UIViewController {
     
     @IBOutlet weak var tSmallImageView: UIImageView!
     @IBOutlet weak var tLargeImageView: UIImageView!
+    @IBOutlet weak var tLargeImageViewTopConstraint: NSLayoutConstraint!
     
     @IBOutlet var stackView: UIStackView!
     
@@ -52,6 +53,12 @@ class ReadingThemesControlsViewController: UIViewController {
         }
     }
     
+    var needsExtraTopSpacing: Bool = false {
+        didSet {
+            tLargeImageViewTopConstraint.constant = needsExtraTopSpacing ? 26 : 13
+        }
+    }
+    
     open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
     
     open override func viewDidLoad() {
@@ -65,6 +72,7 @@ class ReadingThemesControlsViewController: UIViewController {
         }
         brightnessSlider.value = Float(UIScreen.main.brightness)
         
+        slider.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
         brightnessSlider.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-brightness-slider", value: "Brightness slider", comment: "Accessibility label for the brightness slider in the Reading Themes Controls popover")
         lightThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-light-theme-button", value: "Light theme", comment: "Accessibility label for the light theme button in the Reading Themes Controls popover")
         sepiaThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-sepia-theme-button", value: "Sepia theme", comment: "Accessibility label for the sepia theme button in the Reading Themes Controls popover")

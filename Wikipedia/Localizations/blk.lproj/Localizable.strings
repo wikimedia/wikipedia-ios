@@ -383,7 +383,6 @@
 "places-unknown-distance" = "သေတဝ်း အဗော့ꩻအညာꩻ";
 "potd-description-prefix" = "$1 တာႏ ဓာတ်ပုင်ႏဟန်ႏနီꩻ";
 "potd-widget-title" = "ဓာတ်ပုင်ႏဟန်ႏနီꩻ";
-"preference-title-eventlogging-opt-in" = "ပသာ ထူႏသုင်ꩻခါꩻခရာႏဖိုင်ႏ";
 "reading-list-add-generic-hint-title" = "ဟော်ꩻလိတ်စာႏရင်ꩻကို ထဲမ်သော့ꩻနေ ရောမ်ဖြုဲင်ꩻယိုဟောင်း?";
 "reading-list-add-hint-title" = "ဟော်ꩻလိတ်စာႏရင်ꩻကို ထဲမ်သော့ꩻနေ \"$1\"ဟောင်း?";
 "reading-list-add-saved-title" = "မော့ꩻ ကသဲမ်ခါꩻဒါႏရောမ်ဖြုဲင်ꩻဖိုင်ႏ";
@@ -523,9 +522,6 @@
 "welcome-languages-description" = "နာꩻစက်တခြိုꩻကိုနဝ်ꩻ နီသွဉ်းသီးမော့ꩻခါꩻ ဘာႏသာႏငဝ်းငွါဖိုင်ႏ နုဲင်းလ့နဝ်ꩻအတွိုင်ꩻသွူ။";
 "welcome-languages-search-title" = "ထိုမ်ႏ လွိုထဲင်းဘာႏသာႏငဝ်းငွါ ၃၀၀ လွိုကို";
 "welcome-notifications-tell-me-more-title" = "ဖေႏသေချက်ခရာႏအထဲင်းဖိုင်ႏ";
-"welcome-send-data-helps-title" = "သော့ဝွဲးဖေႏကယံထဲင်း စွဲးကမ်းကိုဖေႏဒျာႏသွူ";
-"welcome-send-data-learn-more" = "လွူꩻထွားထဲင်း ဒေတာရောမ်ထူႏမုꩻခရာႏ";
-"welcome-volunteer-send-usage-reports" = "ပသာ ထူႏသုင်ꩻခါꩻခရာႏဖိုင်ႏ";
 "widget-onthisday-placeholder-article-snippet" = "အငိုꩻလို့တဝ်း လဲင်းလောင်းကျမ်ꩻပေါင်ꩻစွုမ်ႏယိုနဝ်ꩻ ပါမုဲင်ꩻတရိုꩻတဝ်း မွဉ်းဖျင်နွောင်ꩻဒျာႏသွူ";
 "wikitext-downloading" = "အဝ်ႏထူႏဖေႏအကျောင်ꩻခရာႏဖိုင်ႏကျာꩻ...";
 "wikitext-preview-link-external-preview-title" = "လိဉ့်အထန်ႏ";

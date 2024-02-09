@@ -526,7 +526,6 @@
 "potd-description-prefix" = "$1 အတွက် တစ်နေ့တာဓါတ်ပုံ";
 "potd-widget-title" = "ယနေ့အတွက် ဓာတ်ပုံ";
 "preference-summary-eventlogging-opt-in" = "အက်ပ်အား ပိုမိုကောင်းမွန်လာစေရန် သင်အသုံးပြုပုံ အချက်အလက်များ ရယူစုဆောင်းနိုင်ရန် ဝီကီမီဒီယာအား ခွင့်ပြုပါ";
-"preference-title-eventlogging-opt-in" = "အသုံးပြုမှု အစီရင်ခံချက်များအား ပို့ရန်";
 "project-name-mediawiki" = "မီဒီယာဝီကီ";
 "project-name-wikibooks" = "ဝီကီစာအုပ်များ";
 "project-name-wikidata" = "ဝီကီဒေတာ";
@@ -726,10 +725,6 @@
 // Fuzzy
 "welcome-languages-search-title" = "ဘာသာစကားပေါင်း ၃၀၀ နီးပါးခန့်တွင် ရှာဖွေရန်";
 "welcome-notifications-tell-me-more-title" = "အသိပေးချက်များအကြောင်း ပို၍";
-"welcome-send-data-helps-title" = "ဆော့ဝဲလ် ပိုမိုကောင်းမွန်အောင် ကူညီမည်";
-"welcome-send-data-learn-more" = "ဒေတာစုဆောင်းမှုအကြောင်း ပိုမိုလေ့လာရန်";
-"welcome-send-data-sub-title" = "သင် မည်ကဲ့သို့အသုံးချခဲ့သည်ကို ဝီကီမီဒီယာ ဖောင်ဒေးရှင်းအားအသိပေး၍ ဤဆော့ဝဲလ်အား ပိုကောင်းလာစေရန် ကူညီပေးပါ။ ဒေတာစုဆောင်းခြင်းမှာ အမည်မသိစနစ်ဖြစ်ပါသည်။";
-"welcome-volunteer-send-usage-reports" = "အသုံးပြုမှု အစီရင်ခံချက်များအား ပို့ရန်";
 "widget-onthisday-placeholder-article-snippet" = "မည်သူမဆိုတည်းဖြတ်နိုင်သော အခမဲ့အွန်လိုင်းစွယ်စုံကျမ်း";
 "wikitext-downloading" = "အကြောင်းအရာများ ရယူနေသည်...";
 "wikitext-preview-changes" = "သင့်ပြောင်းလဲမှုများ၏ နမူနာကို ရယူနေသည်...";
