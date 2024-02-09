@@ -151,43 +151,20 @@ private extension ShortDescriptionController {
         
         let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
         
-        sectionUploader.prepend(toSectionID: "\(sectionID)", text: newTemplateToPrepend, forArticleURL: articleURL, isMinorEdit: true, baseRevID: baseRevisionID as NSNumber, editSummaryTag: editSummaryTag, completion: { [weak self] (result, error) in
-            
-            guard let self = self else {
-                completion(.failure(ShortDescriptionControllerError.missingSelf))
-                return
-            }
-            
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            guard let result = result,
-                  let revisionID = self.revisionIDFromResult(result: result) else {
-                completion(.failure(RequestError.unexpectedResponse))
-                return
-            }
-            
-            completion(.success(ArticleDescriptionPublishResult(newRevisionID: revisionID, newDescription: newDescription)))
-        })
-    }
-    
-    func replaceDescriptionInWikitextAndUpload(_ wikitext: String, newDescription: String, baseRevisionID: Int, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
-        
-        do {
-            
-            let updatedWikitext = try wikitext.replacingShortDescription(with: newDescription)
-            
-            let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
-            
-            sectionUploader.uploadWikiText(updatedWikitext, forArticleURL: articleURL, section: "\(sectionID)", summary: nil, isMinorEdit: true, addToWatchlist: false, baseRevID: baseRevisionID as NSNumber, captchaId: nil, captchaWord: nil, editSummaryTag: editSummaryTag, completion: { [weak self] (result, error) in
-                
+        sectionUploader.prepend(
+            toSectionID: "\(sectionID)",
+            text: newTemplateToPrepend,
+            forArticleURL: articleURL,
+            isMinorEdit: true,
+            baseRevID: baseRevisionID as NSNumber,
+            editSummaryTag: editSummaryTag,
+            completion: { [weak self] (result, error) in
+
                 guard let self = self else {
                     completion(.failure(ShortDescriptionControllerError.missingSelf))
                     return
                 }
-   
+                
                 if let error = error {
                     completion(.failure(error))
                     return
@@ -200,8 +177,50 @@ private extension ShortDescriptionController {
                 }
                 
                 completion(.success(ArticleDescriptionPublishResult(newRevisionID: revisionID, newDescription: newDescription)))
-            })
+            }
+        )
+    }
+    
+    func replaceDescriptionInWikitextAndUpload(_ wikitext: String, newDescription: String, baseRevisionID: Int, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
+        
+        do {
             
+            let updatedWikitext = try wikitext.replacingShortDescription(with: newDescription)
+            
+            let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
+            
+            sectionUploader.uploadWikiText(
+                updatedWikitext,
+                forArticleURL: articleURL,
+                section: "\(sectionID)",
+                summary: nil,
+                isMinorEdit: true,
+                addToWatchlist: false,
+                baseRevID: baseRevisionID as NSNumber,
+                captchaId: nil,
+                captchaWord: nil,
+                editSummaryTag: editSummaryTag,
+                completion: { [weak self] (result, error) in
+                
+                    guard let self = self else {
+                        completion(.failure(ShortDescriptionControllerError.missingSelf))
+                        return
+                    }
+       
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    
+                    guard let result = result,
+                          let revisionID = self.revisionIDFromResult(result: result) else {
+                        completion(.failure(RequestError.unexpectedResponse))
+                        return
+                    }
+                    
+                    completion(.success(ArticleDescriptionPublishResult(newRevisionID: revisionID, newDescription: newDescription)))
+                }
+            )
         } catch let error {
             completion(.failure(error))
         }
