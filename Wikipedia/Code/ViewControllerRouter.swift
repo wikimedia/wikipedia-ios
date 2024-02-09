@@ -275,7 +275,7 @@ class ViewControllerRouter: NSObject {
             typeOfChangeCategoryChanges: CommonStrings.watchlistFilterTypeOfChangeOptionCategoryChanges,
             typeOfChangeWikidataEdits: CommonStrings.watchlistFilterTypeOfChangeOptionWikidataEdits,
             typeOfChangeLoggedActions: CommonStrings.watchlistFilterTypeOfChangeOptionLoggedActions,
-            addLanguage: WMFLocalizedString("watchlist-filters-add-language", value:"Add language...", comment: "Title for button in watchlist filter view to add additional languages to watchlist view.")
+            addLanguage: CommonStrings.watchlistFilterAddLanguageButtonTitle
         )
 
         var overrideUserInterfaceStyle: UIUserInterfaceStyle = .unspecified

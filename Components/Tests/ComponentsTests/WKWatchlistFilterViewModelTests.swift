@@ -329,6 +329,8 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
                                          typeOfChangePageCreations: "Page creations",
                                          typeOfChangeCategoryChanges: "Category changes",
                                          typeOfChangeWikidataEdits: "Wikidata edits",
-                                         typeOfChangeLoggedActions: "Logged actions")
+                                         typeOfChangeLoggedActions: "Logged actions",
+                                         addLanguage: "Add language..."
+		 )
      }
  }
