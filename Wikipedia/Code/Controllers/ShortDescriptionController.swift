@@ -22,6 +22,8 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     
     private let sectionID: Int = 0
     
+    public var languageCode: String? = "en"
+    
     let descriptionSource: ArticleDescriptionSource
     private weak var delegate: ShortDescriptionControllerDelegate?
     
@@ -189,11 +191,18 @@ private extension ShortDescriptionController {
             
             let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
             
+            let editSummaryShortDescriptionUpdated = WMFLocalizedString(
+                "edit-summary-short-description-updated",
+                languageCode: languageCode,
+                value: "Updated short description",
+                comment: "Edit summary message when updating the short description of an article"
+            )
+            
             sectionUploader.uploadWikiText(
                 updatedWikitext,
                 forArticleURL: articleURL,
                 section: "\(sectionID)",
-                summary: nil,
+                summary: editSummaryShortDescriptionUpdated,
                 isMinorEdit: true,
                 addToWatchlist: false,
                 baseRevID: baseRevisionID as NSNumber,
