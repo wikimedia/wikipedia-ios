@@ -54,6 +54,16 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
     [self updateWithArticleURL:articleURL parameters:params captchaWord:nil completion:completion];
 }
 
+static NSString *appendTagToEditSummary(NSString * _Nullable editSummaryTag, NSString * _Nullable summary) {
+    NSString *finalSummary = summary;
+    if (editSummaryTag && editSummaryTag.length > 0 && summary && summary.length > 0) {
+        finalSummary = [summary stringByAppendingFormat:@" %@", editSummaryTag];
+    } else if (editSummaryTag && editSummaryTag.length > 0 && (!summary || summary.length == 0)) {
+        finalSummary = editSummaryTag;
+    }
+    return finalSummary;
+}
+
 - (void)prependToSectionID:(NSString *)sectionID
                          text:(NSString *)text
                 forArticleURL:(NSURL *)articleURL
@@ -69,12 +79,7 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
         return;
     }
 
-    NSString *finalSummary = summary;
-    if (editSummaryTag && editSummaryTag.length > 0 && summary && summary.length > 0) {
-        finalSummary = [summary stringByAppendingFormat:@" %@", editSummaryTag];
-    } else if (editSummaryTag && editSummaryTag.length > 0 && (!summary || summary.length == 0)) {
-        finalSummary = editSummaryTag;
-    }
+    NSString *finalSummary = appendTagToEditSummary(editSummaryTag, summary);
 
     NSMutableDictionary *params =
     @{
@@ -121,12 +126,7 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
         return;
     }
     
-    NSString *finalSummary = summary;
-    if (editSummaryTag && editSummaryTag.length > 0 && summary && summary.length > 0) {
-        finalSummary = [summary stringByAppendingFormat:@" %@", editSummaryTag];
-    } else if (editSummaryTag && editSummaryTag.length > 0 && (!summary || summary.length == 0)) {
-        finalSummary = editSummaryTag;
-    }
+    NSString *finalSummary = appendTagToEditSummary(editSummaryTag, summary);
     
     NSMutableDictionary *params =
     @{
