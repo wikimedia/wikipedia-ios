@@ -148,7 +148,7 @@ class TalkPageViewController: ViewController {
         })
         
         let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
-        let children: [UIMenuElement] = FeatureFlags.needsNativeSourceEditor ? [openAllAction, revisionHistoryAction, editSourceAction, openInWebAction, submenu] : [openAllAction, revisionHistoryAction, openInWebAction, submenu]
+        let children: [UIMenuElement] = [openAllAction, revisionHistoryAction, editSourceAction, openInWebAction, submenu]
         let mainMenu = UIMenu(title: String(), children: children)
 
         return mainMenu
