@@ -36,6 +36,10 @@ NSString * const WKSourceEditorCustomKeyColorGreen = @"WKSourceEditorKeyColorGre
         return NO;
     }
     
+    if (attributedString.length <= range.location) {
+        return NO;
+    }
+    
     if (attributedString.length < (range.location + range.length)) {
         return NO;
     }
