@@ -29,9 +29,7 @@ class WikipediaLanguageCommandLineUtility {
             }
             self.writeCodable(sortedSites, to: ["Wikipedia", "Code", "wikipedia-languages.json"])
             self.cancellable = self.writeNamespaceFiles(with: sites) {
-                self.cancellable = self.writeCodemirrorConfig(with: sites, completion: {
-                    completion()
-                })
+                completion()
             }
         }
     
@@ -53,25 +51,6 @@ class WikipediaLanguageCommandLineUtility {
         } catch let error {
             print("Error writing to file: \(error)")
         }
-    }
-
-    private func writeCodemirrorConfig(with sites: [Wikipedia], completion: @escaping () -> Void) -> AnyCancellable {
-        Publishers.MergeMany(sites.map { site in
-                api.getCodeMirrorConfigJSON(for: site.languageCode)
-                    .map { ($0, site) }
-            })
-            .sink(receiveCompletion: { (result) in
-                switch result {
-                case .finished:
-                    break
-                case .failure(let error):
-                    print("Error writing codemirror config: \(error)")
-                }
-                completion()
-            }) { (value) in
-                let outputURL = self.getOutputFileURL(with: ["Wikipedia", "assets", "codemirror", "config", "codemirror-config-\(value.1.languageCode).json"])
-                try! value.0.write(to: outputURL, atomically: true, encoding: .utf8)
-            }
     }
 
     private func writeNamespaceFiles(with sites: [Wikipedia], completion: @escaping () -> Void) -> AnyCancellable? {
