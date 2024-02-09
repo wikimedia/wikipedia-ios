@@ -998,3 +998,7 @@ enum SourceEditorAccessibilityIdentifiers: String {
     case findToolbar = "Source Editor Find Toolbar"
     case inputView = "Source Editor Input View"
 }
+
+extension PageEditorViewController: EditingFlowViewController {
+    
+}

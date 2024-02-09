@@ -9,8 +9,4 @@ public struct FeatureFlags {
     public static var watchlistEnabled: Bool {
         return true
     }
-    
-    public static var needsNativeSourceEditor: Bool {
-        return true
-    }
 }

@@ -54,7 +54,6 @@
 #import "UIView+WMFSnapshotting.h"
 #import "WMFLanguageCell.h"
 #import "WMFCompassView.h"
-#import "WKWebView+ElementLocation.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WMFRandomDiceButton.h"

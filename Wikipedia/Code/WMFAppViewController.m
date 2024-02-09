@@ -226,11 +226,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(editWasPublished:)
-                                                 name:[WMFSectionEditorViewController editWasPublished]
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(descriptionEditWasPublished:)
                                                  name:[DescriptionEditViewController didPublishNotification]
                                                object:nil];
@@ -551,14 +546,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
     [self toggleHint:self.readingListHintController
              context:@{WMFReadingListHintController.ContextArticleKey: article}];
-}
-
-- (void)editWasPublished:(NSNotification *)note {
-    if (![NSUserDefaults.standardUserDefaults wmf_didShowFirstEditPublishedPanel]) {
-        return;
-    }
-    [self toggleHint:self.editHintController
-             context:nil];
 }
 
 - (void)descriptionEditWasPublished:(NSNotification *)note {
