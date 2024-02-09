@@ -43,6 +43,7 @@ extern NSString *const NSErrorUserInfoDisplayError;
 - (void)prependToSectionID:(NSString *)sectionID
                          text:(NSString *)text
                 forArticleURL:(NSURL *)articleURL
+                      summary:(nullable NSString *)summary
              isMinorEdit:(BOOL)isMinorEdit
                baseRevID:(nullable NSNumber *)baseRevID
             editSummaryTag:(nullable NSString *)editSummaryTag

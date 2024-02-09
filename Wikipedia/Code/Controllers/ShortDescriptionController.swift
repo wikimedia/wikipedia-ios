@@ -153,10 +153,18 @@ private extension ShortDescriptionController {
         
         let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
         
+        let editSummaryShortDescriptionAdded = WMFLocalizedString(
+            "edit-summary-short-description-added",
+            languageCode: languageCode,
+            value: "Added short description",
+            comment: "Edit summary message when adding a short description for an article"
+        )
+
         sectionUploader.prepend(
             toSectionID: "\(sectionID)",
             text: newTemplateToPrepend,
             forArticleURL: articleURL,
+            summary: editSummaryShortDescriptionAdded,
             isMinorEdit: true,
             baseRevID: baseRevisionID as NSNumber,
             editSummaryTag: editSummaryTag,

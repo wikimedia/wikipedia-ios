@@ -57,6 +57,7 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
 - (void)prependToSectionID:(NSString *)sectionID
                          text:(NSString *)text
                 forArticleURL:(NSURL *)articleURL
+                      summary:(nullable NSString *)summary
              isMinorEdit:(BOOL)isMinorEdit
                baseRevID:(nullable NSNumber *)baseRevID
             editSummaryTag:(nullable NSString *)editSummaryTag
@@ -68,11 +69,19 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
         return;
     }
 
+    NSString *finalSummary = summary;
+    if (editSummaryTag && editSummaryTag.length > 0 && summary && summary.length > 0) {
+        finalSummary = [summary stringByAppendingFormat:@" %@", editSummaryTag];
+    } else if (editSummaryTag && editSummaryTag.length > 0 && (!summary || summary.length == 0)) {
+        finalSummary = editSummaryTag;
+    }
+
     NSMutableDictionary *params =
     @{
       @"action": @"edit",
       @"prependtext": text,
       @"section": sectionID,
+      @"summary": finalSummary,
       @"title": articleURL.wmf_title,
       @"errorformat": @"html",
       @"errorsuselocal": @"1",
@@ -87,10 +96,6 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
 
     if (baseRevID) {
         params[@"baserevid"] = [NSString stringWithFormat:@"%@", baseRevID];
-    }
-    
-    if (editSummaryTag && editSummaryTag.length > 0) {
-        params[@"summary"] = editSummaryTag;
     }
 
     [self updateWithArticleURL:articleURL parameters:params captchaWord:nil completion:completion];
