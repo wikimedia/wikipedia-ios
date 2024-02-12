@@ -82,12 +82,12 @@ class TextFormattingInputViewController: UIInputViewController {
         textStyleFormattingTableViewController.textSelectionDidChange(isRangeSelected: isRangeSelected)
     }
 
-    func buttonSelectionDidChange(button: SectionEditorButton) {
+    func buttonSelectionDidChange(button: EditorButton) {
         textFormattingTableViewController.buttonSelectionDidChange(button: button)
         textStyleFormattingTableViewController.buttonSelectionDidChange(button: button)
     }
     
-    func disableButton(button: SectionEditorButton) {
+    func disableButton(button: EditorButton) {
         textFormattingTableViewController.disableButton(button: button)
         textStyleFormattingTableViewController.disableButton(button: button)
     }

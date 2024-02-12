@@ -3,7 +3,7 @@ import WMF
 
 protocol SectionEditorViewControllerDelegate: AnyObject {
     func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController, navigateToURL: URL?)
-    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, result: Result<SectionEditorChanges, Error>)
+    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, result: Result<EditorChanges, Error>)
     func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController)
 }
 
@@ -23,14 +23,14 @@ class SectionEditorViewController: ViewController {
     private var webView: SectionEditorWebView?
     private let initialFetchGroup: WMFTaskGroup = WMFTaskGroup()
     
-    private let sectionFetcher: SectionFetcher
+    private let wikitextFetcher: WikitextFetcher
     private let editNoticesFetcher: EditNoticesFetcher
     private var editNoticesViewModel: EditNoticesViewModel? = nil
     
     private var inputViewsController: SectionEditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
     private var menuItemsController: SectionEditorMenuItemsController!
-    private var navigationItemController: SectionEditorNavigationItemController!
+    private var navigationItemController: EditorNavigationItemController!
 
     private var userGroupLevelCanEdit: Bool = false
 
@@ -81,7 +81,7 @@ class SectionEditorViewController: ViewController {
         self.selectedTextEditInfo = selectedTextEditInfo
         self.messagingController = messagingController ?? SectionEditorWebViewMessagingController()
         languageCode = articleURL.wmf_languageCode ?? NSLocale.current.languageCode ?? "en"
-        self.sectionFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        self.wikitextFetcher = WikitextFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.editNoticesFetcher = EditNoticesFetcher(session: dataStore.session, configuration: dataStore.configuration)
         super.init(theme: theme)
     }
@@ -92,7 +92,7 @@ class SectionEditorViewController: ViewController {
     
     override func viewDidLoad() {
         
-        navigationItemController = SectionEditorNavigationItemController(navigationItem: navigationItem)
+        navigationItemController = EditorNavigationItemController(navigationItem: navigationItem)
         navigationItemController.delegate = self
         
         loadEditNotices()
@@ -418,7 +418,7 @@ class SectionEditorViewController: ViewController {
             let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
             WMFAlertManager.sharedInstance.showAlert(message, sticky: true, dismissPreviousAlerts: true)
         }
-        sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { [weak self] (result) in
+        wikitextFetcher.fetchSection(with: sectionID, articleURL: articleURL) { [weak self] (result) in
             DispatchQueue.main.async {
                 
                 guard let self else {
@@ -476,7 +476,7 @@ class SectionEditorViewController: ViewController {
         wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, image: UIImage(named: "warning-icon"))
     }
     
-    private func checkUserGroupLevelCanEdit(protection: [SectionFetcher.Protection], userInfo: [String]) -> Bool {
+    private func checkUserGroupLevelCanEdit(protection: [WikitextFetcher.Protection], userInfo: [String]) -> Bool {
         let findEditProtection = protection.map { $0.type == "edit"}
         let articleHasEditProtection = findEditProtection.first ?? false
 
@@ -562,8 +562,8 @@ class SectionEditorViewController: ViewController {
     }
 }
 
-extension SectionEditorViewController: SectionEditorNavigationItemControllerDelegate {
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
+extension SectionEditorViewController: EditorNavigationItemControllerDelegate {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
         messagingController.getWikitext { [weak self] (result, error) in
             guard let self = self else { return }
             self.webView?.resignFirstResponder()
@@ -591,7 +591,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
         }
     }
     
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
         if navigationItemController.progressButton.isEnabled && navigationItemController.undoButton.isEnabled {
             showDestructiveDismissAlert()
         } else {
@@ -599,19 +599,19 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
         }
     }
     
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
         messagingController.undo()
     }
     
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
         messagingController.redo()
     }
 
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem) {
         presentEditNoticesIfAvailable()
     }
     
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
         
         webView?.resignFirstResponder()
         inputViewsController.suppressMenus = true
@@ -631,10 +631,10 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTe
 }
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerButtonMessageDelegate {
-    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorButton) {
+    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: EditorButton) {
         inputViewsController.buttonSelectionDidChange(button: button)
     }
-    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorButton) {
+    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: EditorButton) {
         navigationItemController.disableButton(button: button)
         inputViewsController.disableButton(button: button)
     }
@@ -694,7 +694,7 @@ extension SectionEditorViewController: WKNavigationDelegate {
 // MARK: - EditSaveViewControllerDelegate
 
 extension SectionEditorViewController: EditSaveViewControllerDelegate {
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>) {
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, Error>) {
         delegate?.sectionEditorDidFinishEditing(self, result: result)
     }
 

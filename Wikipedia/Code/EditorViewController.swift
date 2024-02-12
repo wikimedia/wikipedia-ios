@@ -4,12 +4,12 @@ import WMF
 import CocoaLumberjackSwift
 import WKData
 
-protocol PageEditorViewControllerDelegate: AnyObject {
-    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL url: URL?)
-    func pageEditorDidFinishEditing(_ pageEditor: PageEditorViewController, result: Result<SectionEditorChanges, Error>)
+protocol EditorViewControllerDelegate: AnyObject {
+    func editorDidCancelEditing(_ editor: EditorViewController, navigateToURL url: URL?)
+    func editorDidFinishEditing(_ editor: EditorViewController, result: Result<EditorChanges, Error>)
 }
 
-final class PageEditorViewController: UIViewController {
+final class EditorViewController: UIViewController {
     
     // MARK: - Nested Types
     
@@ -41,10 +41,10 @@ final class PageEditorViewController: UIViewController {
     private let dataStore: MWKDataStore
     private let articleSelectedInfo: SelectedTextEditInfo?
     private let editSummaryTag: WKEditSummaryTag
-    private weak var delegate: PageEditorViewControllerDelegate?
+    private weak var delegate: EditorViewControllerDelegate?
     private var theme: Theme
     
-    private let wikitextFetcher: SectionFetcher
+    private let wikitextFetcher: WikitextFetcher
     private let editNoticesFetcher: EditNoticesFetcher
     private var editNoticesViewModel: EditNoticesViewModel? = nil
     
@@ -58,8 +58,8 @@ final class PageEditorViewController: UIViewController {
         return FocusNavigationView.wmf_viewFromClassNib()
     }()
     
-    private lazy var navigationItemController: SectionEditorNavigationItemController = {
-        let navigationItemController = SectionEditorNavigationItemController(navigationItem: navigationItem)
+    private lazy var navigationItemController: EditorNavigationItemController = {
+        let navigationItemController = EditorNavigationItemController(navigationItem: navigationItem)
         navigationItemController.delegate = self
         return navigationItemController
     }()
@@ -77,11 +77,11 @@ final class PageEditorViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, editSummaryTag: WKEditSummaryTag, delegate: PageEditorViewControllerDelegate, theme: Theme) {
+    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, editSummaryTag: WKEditSummaryTag, delegate: EditorViewControllerDelegate, theme: Theme) {
 
         self.pageURL = pageURL
         self.sectionID = sectionID
-        self.wikitextFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        self.wikitextFetcher = WikitextFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.editNoticesFetcher = EditNoticesFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.dataStore = dataStore
         self.articleSelectedInfo = articleSelectedInfo
@@ -363,7 +363,7 @@ final class PageEditorViewController: UIViewController {
         }
     }
     
-    private func checkUserGroupLevelCanEdit(protection: [SectionFetcher.Protection], userInfo: [String]) -> Bool {
+    private func checkUserGroupLevelCanEdit(protection: [WikitextFetcher.Protection], userInfo: [String]) -> Bool {
         let findEditProtection = protection.map { $0.type == "edit"}
         let articleHasEditProtection = findEditProtection.first ?? false
 
@@ -638,7 +638,7 @@ final class PageEditorViewController: UIViewController {
 
 // MARK: - Themeable
 
-extension PageEditorViewController: Themeable {
+extension EditorViewController: Themeable {
     func apply(theme: Theme) {
         guard isViewLoaded else {
             return
@@ -654,7 +654,7 @@ extension PageEditorViewController: Themeable {
 
 // MARK: - WKSourceEditorViewControllerDelegate
 
-extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
+extension EditorViewController: WKSourceEditorViewControllerDelegate {
     func sourceEditorDidChangeUndoState(_ sourceEditorViewController: Components.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
         navigationItemController.undoButton.isEnabled = canUndo
         navigationItemController.redoButton.isEnabled = canRedo
@@ -715,10 +715,10 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
     }
 }
 
-// MARK: - PageEditorNavigationItemControllerDelegate
+// MARK: - EditorNavigationItemControllerDelegate
 
-extension PageEditorViewController: SectionEditorNavigationItemControllerDelegate {
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
+extension EditorViewController: EditorNavigationItemControllerDelegate {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
 
         sourceEditor.removeFocus()
         
@@ -741,7 +741,7 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
         EditAttemptFunnel.shared.logSaveIntent(pageURL: pageURL)
     }
     
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
         
         let progressButton = navigationItemController.progressButton
         let closeButton = navigationItemController.closeButton
@@ -750,7 +750,7 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
                 guard let self else {
                     return
                 }
-                self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
+                self.delegate?.editorDidCancelEditing(self, navigateToURL: nil)
             }
         } else {
             
@@ -765,31 +765,31 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
             
             EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
 
-            delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
+            delegate?.editorDidCancelEditing(self, navigateToURL: nil)
         }
     }
     
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
         sourceEditor.undo()
     }
     
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
         sourceEditor.redo()
     }
     
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
         sourceEditor.removeFocus()
         showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
     }
     
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem) {
         presentEditNoticesIfAvailable()
     }
 }
 
 // MARK: - FocusNavigationViewDelegate
 
-extension PageEditorViewController: FocusNavigationViewDelegate {
+extension EditorViewController: FocusNavigationViewDelegate {
     func focusNavigationViewDidTapClose(_ focusNavigationView: FocusNavigationView) {
         sourceEditor.closeFind()
         hideFocusNavigationView()
@@ -798,7 +798,7 @@ extension PageEditorViewController: FocusNavigationViewDelegate {
 
 // MARK: - ReadingThemesControlsResponding
 
-extension PageEditorViewController: ReadingThemesControlsResponding {
+extension EditorViewController: ReadingThemesControlsResponding {
     func updateWebViewTextSize(textSize: Int) {
         setTextSizeInAppEnvironment()
     }
@@ -810,7 +810,7 @@ extension PageEditorViewController: ReadingThemesControlsResponding {
 
 // MARK: - ReadingThemesControlsPresenting
 
-extension PageEditorViewController: ReadingThemesControlsPresenting {
+extension EditorViewController: ReadingThemesControlsPresenting {
     var needsExtraTopSpacing: Bool {
         return true
     }
@@ -842,7 +842,7 @@ extension PageEditorViewController: ReadingThemesControlsPresenting {
 
 // MARK: - EditLinkViewControllerDelegate
 
-extension PageEditorViewController: EditLinkViewControllerDelegate {
+extension EditorViewController: EditLinkViewControllerDelegate {
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didTapCloseButton button: UIBarButtonItem) {
         dismiss(animated: true)
     }
@@ -865,7 +865,7 @@ extension PageEditorViewController: EditLinkViewControllerDelegate {
 
 // MARK: - InsertLinkViewControllerDelegate
 
-extension PageEditorViewController: InsertLinkViewControllerDelegate {
+extension EditorViewController: InsertLinkViewControllerDelegate {
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem) {
         dismiss(animated: true)
     }
@@ -878,7 +878,7 @@ extension PageEditorViewController: InsertLinkViewControllerDelegate {
 
 // MARK: - InsertMediaViewControllerDelegate
 
-extension PageEditorViewController: InsertMediaViewControllerDelegate {
+extension EditorViewController: InsertMediaViewControllerDelegate {
     func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didTapCloseButton button: UIBarButtonItem) {
         dismiss(animated: true)
     }
@@ -891,7 +891,7 @@ extension PageEditorViewController: InsertMediaViewControllerDelegate {
 
 // MARK: - EditPreviewViewControllerDelegate
 
-extension PageEditorViewController: EditPreviewViewControllerDelegate {
+extension EditorViewController: EditPreviewViewControllerDelegate {
     func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {
         
         guard case .editorPreviewSave = editFlow else {
@@ -914,9 +914,9 @@ extension PageEditorViewController: EditPreviewViewControllerDelegate {
 
 // MARK: - EditSaveViewControllerDelegate
 
-extension PageEditorViewController: EditSaveViewControllerDelegate {
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>) {
-        delegate?.pageEditorDidFinishEditing(self, result: result)
+extension EditorViewController: EditSaveViewControllerDelegate {
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, Error>) {
+        delegate?.editorDidFinishEditing(self, result: result)
     }
 
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
@@ -944,7 +944,7 @@ extension PageEditorViewController: EditSaveViewControllerDelegate {
 
 // MARK: - EditSaveViewControllerDelegate
 
-extension PageEditorViewController: EditNoticesViewControllerDelegate {
+extension EditorViewController: EditNoticesViewControllerDelegate {
     func editNoticesControllerUserTapped(url: URL) {
         
         let progressButton = navigationItemController.progressButton
@@ -956,7 +956,7 @@ extension PageEditorViewController: EditNoticesViewControllerDelegate {
                     return
                 }
 
-                self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
+                self.delegate?.editorDidCancelEditing(self, navigateToURL: url)
             }
         } else {
             
@@ -971,7 +971,7 @@ extension PageEditorViewController: EditNoticesViewControllerDelegate {
                 EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
             }
 
-            delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
+            delegate?.editorDidCancelEditing(self, navigateToURL: url)
         }
     }
 }

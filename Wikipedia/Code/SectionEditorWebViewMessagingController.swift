@@ -1,6 +1,6 @@
 protocol SectionEditorWebViewMessagingControllerButtonMessageDelegate: AnyObject {
-    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorButton)
-    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorButton)
+    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: EditorButton)
+    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: EditorButton)
 }
 
 protocol SectionEditorWebViewMessagingControllerTextSelectionDelegate: AnyObject {
@@ -75,7 +75,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
                 guard let kind = buttonKind(from: element) else {
                     continue
                 }
-                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(self, button: SectionEditorButton(kind: kind))
+                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(self, button: EditorButton(kind: kind))
             }
 
             // Process 'disableTheseButtons' message.
@@ -83,7 +83,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
                 guard let kind = buttonKind(from: element) else {
                     continue
                 }
-                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(self, button: SectionEditorButton(kind: kind))
+                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(self, button: EditorButton(kind: kind))
             }
         case (Message.Name.codeMirrorSearchMessage, let message as [String: Any]):
             guard
@@ -100,30 +100,30 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         }
     }
 
-    func buttonKind(from dictionary: [String: Any]) -> SectionEditorButton.Kind? {
+    func buttonKind(from dictionary: [String: Any]) -> EditorButton.Kind? {
         guard let rawValue = dictionary[Message.Body.Key.button] as? String else {
             return nil
         }
         let info = buttonInfo(from: dictionary)
-        guard let kind = SectionEditorButton.Kind(rawValue: rawValue, info: info) else {
+        guard let kind = EditorButton.Kind(rawValue: rawValue, info: info) else {
             return nil
         }
         return kind
     }
 
-    func buttonInfo(from dictionary: [String: Any]) -> SectionEditorButton.Info? {
+    func buttonInfo(from dictionary: [String: Any]) -> EditorButton.Info? {
         guard let info = dictionary[Message.Body.Key.info] as? [String: Any] else {
             return nil
         }
-        let depth = info[SectionEditorButton.Info.depth] as? Int ?? 0
+        let depth = info[EditorButton.Info.depth] as? Int ?? 0
         let textStyleType = TextStyleType(rawValue: depth)
 
-        let size = info[SectionEditorButton.Info.size] as? String ?? "normal"
+        let size = info[EditorButton.Info.size] as? String ?? "normal"
         let textSizeType = TextSizeType(rawValue: size)
 
-        let ordered = info[SectionEditorButton.Info.ordered] as? Bool
+        let ordered = info[EditorButton.Info.ordered] as? Bool
 
-        return SectionEditorButton.Info(textStyleType: textStyleType, textSizeType: textSizeType, ordered: ordered)
+        return EditorButton.Info(textStyleType: textStyleType, textSizeType: textSizeType, ordered: ordered)
     }
 
     // MARK: - Sending messages

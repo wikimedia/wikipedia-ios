@@ -1,16 +1,16 @@
 import WMF
 import Components
 
-protocol SectionEditorNavigationItemControllerDelegate: AnyObject {
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem)
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem)
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem)
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem)
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem)
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem)
+protocol EditorNavigationItemControllerDelegate: AnyObject {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem)
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem)
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem)
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem)
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem)
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem)
 }
 
-class SectionEditorNavigationItemController: NSObject, Themeable {
+class EditorNavigationItemController: NSObject, Themeable {
     weak var navigationItem: UINavigationItem?
 
     var readingThemesControlsToolbarItem: UIBarButtonItem {
@@ -33,7 +33,7 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
         progressButton.tintColor = theme.colors.link
     }
 
-    weak var delegate: SectionEditorNavigationItemControllerDelegate?
+    weak var delegate: EditorNavigationItemControllerDelegate?
     
     private(set) lazy var closeButton: UIBarButtonItem = {
         let closeButton = UIBarButtonItem(image: WKSFSymbolIcon.for(symbol: .close), style: .plain, target: self, action: #selector(close(_ :)))
@@ -80,27 +80,27 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
     }()
 
     @objc private func progress(_ sender: UIBarButtonItem) {
-        delegate?.sectionEditorNavigationItemController(self, didTapProgressButton: sender)
+        delegate?.editorNavigationItemController(self, didTapProgressButton: sender)
     }
 
     @objc private func close(_ sender: UIBarButtonItem) {
-        delegate?.sectionEditorNavigationItemController(self, didTapCloseButton: sender)
+        delegate?.editorNavigationItemController(self, didTapCloseButton: sender)
     }
 
     @objc private func undo(_ sender: UIBarButtonItem) {
-        delegate?.sectionEditorNavigationItemController(self, didTapUndoButton: undoButton)
+        delegate?.editorNavigationItemController(self, didTapUndoButton: undoButton)
     }
 
     @objc private func redo(_ sender: UIBarButtonItem) {
-        delegate?.sectionEditorNavigationItemController(self, didTapRedoButton: sender)
+        delegate?.editorNavigationItemController(self, didTapRedoButton: sender)
     }
 
     @objc private func editNotices(_ sender: UIBarButtonItem) {
-        delegate?.sectionEditorNavigationItemController(self, didTapEditNoticesButton: sender)
+        delegate?.editorNavigationItemController(self, didTapEditNoticesButton: sender)
     }
     
     @objc private func showReadingThemesControls(_ sender: UIBarButtonItem) {
-         delegate?.sectionEditorNavigationItemController(self, didTapReadingThemesControlsButton: sender)
+         delegate?.editorNavigationItemController(self, didTapReadingThemesControlsButton: sender)
     }
 
     func addEditNoticesButton() {
@@ -129,7 +129,7 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
         progressButton.isEnabled = true
     }
 
-    func disableButton(button: SectionEditorButton) {
+    func disableButton(button: EditorButton) {
         switch button.kind {
         case .undo:
             undoButton.isEnabled = false

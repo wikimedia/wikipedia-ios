@@ -7,11 +7,11 @@ protocol TextFormattingButtonsProviding: TextFormattingProviding {
 }
 
 extension TextFormattingButtonsProviding {
-    func selectButton(_ button: SectionEditorButton) {
+    func selectButton(_ button: EditorButton) {
         buttons.lazy.first(where: { $0.kind == button.kind })?.isSelected = true
     }
 
-    func disableButton(_ button: SectionEditorButton) {
+    func disableButton(_ button: EditorButton) {
         buttons.lazy.first(where: { $0.kind == button.kind })?.isEnabled = false
     }
 

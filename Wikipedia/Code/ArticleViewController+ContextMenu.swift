@@ -24,7 +24,7 @@ extension ArticleViewController {
                 // Only show the description editor if the description is from Wikidata (descriptionSource == .central)
                 self.showTitleDescriptionEditor(with: .unknown)
             } else {
-                // Otherwise it needs to be changed in the section editor by editing the {{Short description}} template
+                // Otherwise it needs to be changed in the wikitext editor by editing the {{Short description}} template
                 self.showEditorForSection(with: editInfo.sectionID, selectedTextEditInfo: editInfo)
             }
             

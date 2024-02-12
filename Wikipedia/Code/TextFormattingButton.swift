@@ -1,6 +1,6 @@
 class TextFormattingButton: UIButton, Themeable {
     var theme: Theme = Theme.standard
-    var kind: SectionEditorButton.Kind?
+    var kind: EditorButton.Kind?
     
     override var isSelected: Bool {
         didSet {
@@ -19,7 +19,7 @@ class TextFormattingButton: UIButton, Themeable {
         super.awakeFromNib()
         layer.cornerRadius = 4
         clipsToBounds = true
-        kind = SectionEditorButton.Kind(identifier: tag)
+        kind = EditorButton.Kind(identifier: tag)
         accessibilityLabel = kind?.accessibilityLabel
     }
 

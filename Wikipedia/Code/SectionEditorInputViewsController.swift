@@ -58,13 +58,13 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         textFormattingInputViewController.textSelectionDidChange(isRangeSelected: isRangeSelected)
     }
 
-    func disableButton(button: SectionEditorButton) {
+    func disableButton(button: EditorButton) {
         defaultEditToolbarView?.disableButton(button)
         contextualHighlightEditToolbarView?.disableButton(button)
         textFormattingInputViewController.disableButton(button: button)
     }
 
-    func buttonSelectionDidChange(button: SectionEditorButton) {
+    func buttonSelectionDidChange(button: EditorButton) {
         defaultEditToolbarView?.selectButton(button)
         contextualHighlightEditToolbarView?.selectButton(button)
         textFormattingInputViewController.buttonSelectionDidChange(button: button)
