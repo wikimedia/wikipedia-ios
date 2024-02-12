@@ -426,6 +426,8 @@
 "editor-toolbar-reference-accessibility" = "עיצוב טקסט הערת שוליים";
 "editor-toolbar-show-more-accessibility" = "הצגת אפשרויות עיצוב נוספות";
 "editor-toolbar-template-accessibility" = "עיצוב טקסט תבנית";
+"editor-wikitext-loading-accessibility" = "טעינת הטקסט בעורך";
+"editor-wikitext-textview-accessibility" = "עורך קוד ויקי";
 "empty-diff-compare-title" = "אין הבדל בין גרסאות";
 "empty-diff-single-title" = "לא נעשו שינויים שאפשר לראות";
 "empty-insert-media-title" = "נא לבחור קובץ מוויקישיתוף";
@@ -1305,6 +1307,7 @@
 "welcome-notifications-tell-me-more-storage" = "העדפות העדכונים מאוחסנות במכשיר ולא מבוססות על מידע אישי או פעילות אישית.";
 "welcome-notifications-tell-me-more-title" = "מידע נוסף על עדכונים";
 "welcome-privacy-subtitle" = "אנו מאמינים בכך שלא צריך לחייב אותך לספק מידע אישי כדי להשתתף בתנועת הידע החופשי. נתוני השימוש שנאספו עבור היישום הזה הם אלמוניים.";
+"welcome-privacy-terms-button-text" = "מידע נוסף על מדיניות הפרטיות ותנאי השימוש שלנו";
 "widget-onthisday-description" = "גלו מה קרה ביום הזה בהיסטוריה.";
 "widget-onthisday-placeholder-article-snippet" = "האנציקלופדיה החופשית המקוונת שכולם יכולים לערוך";
 "widget-onthisday-placeholder-event-snippet" = "ויקיפדיה, אנציקלופדיית תוכן הוויקי החופשית, יוצאת לרשת.";
