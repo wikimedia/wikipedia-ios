@@ -445,6 +445,8 @@
 "editor-toolbar-reference-accessibility" = "Kaynak metni biçimlendirmesi";
 "editor-toolbar-show-more-accessibility" = "Daha fazla biçimlendirme seçeneği göster";
 "editor-toolbar-template-accessibility" = "Şablon metni biçimlendirmesi";
+"editor-wikitext-loading-accessibility" = "Düzenleyici metni yükleniyor";
+"editor-wikitext-textview-accessibility" = "Viki metin düzenleyicisi";
 "empty-diff-compare-title" = "Revizyonlar arasında fark yok";
 "empty-diff-single-title" = "Görüntülenebilir değişiklik yapılmadı";
 "empty-insert-media-title" = "Wikimedia Commons'tan bir dosya seç";
