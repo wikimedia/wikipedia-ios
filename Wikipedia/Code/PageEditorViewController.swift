@@ -137,6 +137,7 @@ final class PageEditorViewController: UIViewController {
         navigationItemController.progressButton.isEnabled = false
         navigationItemController.undoButton.isEnabled = false
         navigationItemController.redoButton.isEnabled = false
+        navigationItemController.readingThemesControlsToolbarItem.isEnabled = false
     }
     
     private func setupSpinner() {
@@ -525,6 +526,7 @@ final class PageEditorViewController: UIViewController {
         sourceEditor.didMove(toParent: self)
         self.sourceEditor = sourceEditor
         self.editorTopConstraint = top
+        self.navigationItemController.readingThemesControlsToolbarItem.isEnabled = true
     }
     
     private func showFocusNavigationView() {
