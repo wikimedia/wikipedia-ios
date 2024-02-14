@@ -48,8 +48,8 @@ final class PageEditorViewController: UIViewController {
     private let editNoticesFetcher: EditNoticesFetcher
     private var editNoticesViewModel: EditNoticesViewModel? = nil
     
-    private var sourceEditor: WKSourceEditorViewController!
-    private var editorTopConstraint: NSLayoutConstraint!
+    private var sourceEditor: WKSourceEditorViewController?
+    private var editorTopConstraint: NSLayoutConstraint?
     
     private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
     private var editCloseProblemSource: EditInteractionFunnel.ProblemSource?
@@ -529,14 +529,14 @@ final class PageEditorViewController: UIViewController {
     
     private func showFocusNavigationView() {
         navigationController?.setNavigationBarHidden(true, animated: false)
-        editorTopConstraint.constant = -focusNavigationView.frame.height
+        editorTopConstraint?.constant = -focusNavigationView.frame.height
         focusNavigationView.isHidden = false
         navigationItemController.progressButton.isEnabled = false
         navigationItemController.readingThemesControlsToolbarItem.isEnabled = false
     }
     
     private func hideFocusNavigationView() {
-        editorTopConstraint.constant = 0
+        editorTopConstraint?.constant = 0
         focusNavigationView.isHidden = true
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationItemController.progressButton.isEnabled = true
@@ -595,6 +595,11 @@ final class PageEditorViewController: UIViewController {
     }
 
     private func showEditPreview(editFlow: EditFlow) {
+        
+        guard let sourceEditor else {
+            return
+        }
+        
         let previewVC = EditPreviewViewController(pageURL: pageURL)
         previewVC.theme = theme
         previewVC.sectionID = sectionID
@@ -613,7 +618,8 @@ final class PageEditorViewController: UIViewController {
     }
     
     private func showEditSave(editFlow: EditFlow) {
-        guard let saveVC = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
+        guard let saveVC = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard(),
+        let sourceEditor else {
             return
         }
 
@@ -705,6 +711,11 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
     }
     
     func sourceEditorViewControllerDidTapImage() {
+        
+        guard let sourceEditor else {
+            return
+        }
+        
         sourceEditor.removeFocus()
         let insertMediaViewController = InsertMediaViewController(articleTitle: pageURL.wmf_title, siteURL: pageURL.wmf_site)
         insertMediaViewController.delegate = self
@@ -719,6 +730,10 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
 
 extension PageEditorViewController: SectionEditorNavigationItemControllerDelegate {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
+        
+        guard let sourceEditor else {
+            return
+        }
 
         sourceEditor.removeFocus()
         
@@ -770,14 +785,19 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
-        sourceEditor.undo()
+        sourceEditor?.undo()
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
-        sourceEditor.redo()
+        sourceEditor?.redo()
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
+        
+        guard let sourceEditor else {
+            return
+        }
+        
         sourceEditor.removeFocus()
         showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
     }
@@ -791,6 +811,11 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
 
 extension PageEditorViewController: FocusNavigationViewDelegate {
     func focusNavigationViewDidTapClose(_ focusNavigationView: FocusNavigationView) {
+        
+        guard let sourceEditor else {
+            return
+        }
+        
         sourceEditor.closeFind()
         hideFocusNavigationView()
     }
@@ -804,6 +829,11 @@ extension PageEditorViewController: ReadingThemesControlsResponding {
     }
     
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
+        
+        guard let sourceEditor else {
+            return
+        }
+        
         sourceEditor.toggleSyntaxHighlighting()
     }
 }
@@ -849,7 +879,7 @@ extension PageEditorViewController: EditLinkViewControllerDelegate {
     
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
         dismiss(animated: true)
-        sourceEditor.editLink(newPageTitle: linkTarget, newPageLabel: displayText)
+        sourceEditor?.editLink(newPageTitle: linkTarget, newPageLabel: displayText)
     }
     
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFailToExtractArticleTitleFromArticleURL articleURL: URL) {
@@ -859,7 +889,7 @@ extension PageEditorViewController: EditLinkViewControllerDelegate {
     
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
         dismiss(animated: true)
-        sourceEditor.removeLink()
+        sourceEditor?.removeLink()
     }
 }
 
@@ -871,7 +901,7 @@ extension PageEditorViewController: InsertLinkViewControllerDelegate {
     }
     
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
-        sourceEditor.insertLink(pageTitle: page)
+        sourceEditor?.insertLink(pageTitle: page)
         dismiss(animated: true)
     }
 }
@@ -884,7 +914,7 @@ extension PageEditorViewController: InsertMediaViewControllerDelegate {
     }
     
     func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String) {
-        sourceEditor.insertImage(wikitext: wikitext)
+        sourceEditor?.insertImage(wikitext: wikitext)
         dismiss(animated: true)
     }
 }
