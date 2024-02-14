@@ -291,21 +291,24 @@ extension WMFAppViewController: WKWatchlistDelegate {
     }
 
     public func displayAddLanguageSettingsForWatchlistFilters(from viewController: UIViewController, completion: @escaping () -> Void) {
-        let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
-        languagesVC.showExploreFeedCustomizationSettings = false
-        languagesVC.userDismissalCompletionBlock = completion
-        languagesVC.apply(self.theme)
-        let navVC = WMFThemeableNavigationController(rootViewController: languagesVC, theme: theme)
-        viewController.present(navVC, animated: true, completion: nil)
-
-        /*
-        // TODO
-        // Go straight to modal for adding language, handle selecting new language
-
         let languagesController = WMFLanguagesViewController(nibName: "WMFLanguagesViewController", bundle: nil)
         languagesController.title = CommonStrings.wikipediaLanguages
-        viewController.present(languagesController, animated: true)
-         */
+        languagesController.apply(theme)
+        languagesController.delegate = self
+        languagesController.showAllLanguages = true
+        languagesController.showPreferredLanguages = false
+        languagesController.showNonPreferredLanguages = false
+
+        let navigationController = WMFThemeableNavigationController(rootViewController: languagesController, theme: theme)
+        viewController.present(navigationController, animated: true)
+    }
+
+}
+
+extension WMFAppViewController: WMFLanguagesViewControllerDelegate {
+
+    public func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
+        //
     }
 
 }

@@ -14,6 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)nonPreferredLanguagesViewController;
 
+// The showAllLangugages and showPreferredLanguages settings are mutually exclusive.
+// Only one of the two should be set to YES.
+@property (nonatomic, assign) BOOL showAllLanguages;
+@property (nonatomic, assign) BOOL showPreferredLanguages;
+@property (nonatomic, assign) BOOL showNonPreferredLanguages;
+
 @property (nonatomic, assign) BOOL showExploreFeedCustomizationSettings;
 
 // Block called after dismissal by user, by tapping the close button,
