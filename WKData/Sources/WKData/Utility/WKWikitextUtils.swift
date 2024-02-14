@@ -16,6 +16,11 @@ public struct WKWikitextUtils {
         }
     }
     
+    public enum ParsingError: Error {
+        case closingTemplateMarkupBeforeOpeningMarkup
+        case unableToDetermineImageWikitextInsertionPoint
+    }
+    
     // MARK: Properties
     
     private static let adjacentWordCount = 6
@@ -125,6 +130,103 @@ public struct WKWikitextUtils {
         return score
     }
     
+    // MARK: Insert Image Wikitext into Article Wikitext After Templates
+    
+    private class MarkupInfo {
+        
+        let openString: String
+        let closeString: String
+        var openStartIndexes: [String.Index] = []
+        
+        internal init(openString: String, closeString: String, openStartIndexes: [String.Index] = []) {
+            self.openString = openString
+            self.closeString = closeString
+            self.openStartIndexes = openStartIndexes
+        }
+    }
+    
+    /// Inserts image wikitext into article wikitext, after all initial templates.
+    /// - Parameters:
+    ///   - imageWikitext: image wikitext, e.g. `[[File: Cat.jpg | thumb | 220x124px | right | alt=Cat alt text | Cat caption text]]`
+    ///   - articleWikitext: article wikitext
+    /// - Returns: Article wikitext, with image wikitext inserted.
+    public static func insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: String, into articleWikitext: String) throws -> String {
+        
+        let skipMarkupInfos = [
+            MarkupInfo(openString: "{{", closeString: "}}"),
+            MarkupInfo(openString: "<!--", closeString: "-->")
+        ]
+        
+        var skipMarkupRanges: [Range<String.Index>] = []
+        
+        for index in articleWikitext.indices {
+            
+            guard skipMarkupRanges.first(where: { $0.contains(index) }) == nil else {
+                continue
+            }
+            
+            guard articleWikitext[index] != "\n" else {
+                continue
+            }
+            
+            for markupInfo in skipMarkupInfos {
+                
+                guard let nextOpenIndex = articleWikitext.index(index, offsetBy: markupInfo.openString.count, limitedBy: articleWikitext.endIndex) else {
+                    continue
+                }
+                
+                guard let nextCloseIndex = articleWikitext.index(index, offsetBy: markupInfo.closeString.count, limitedBy: articleWikitext.endIndex) else {
+                    continue
+                }
+                
+                let textOpen = articleWikitext[index..<nextOpenIndex]
+                let textClose = articleWikitext[index..<nextCloseIndex]
+                
+                if textOpen == markupInfo.openString {
+                    markupInfo.openStartIndexes.append(index)
+                }
+                
+                if textClose == markupInfo.closeString {
+                    
+                    guard let lastOpenIndex = markupInfo.openStartIndexes.popLast() else {
+                        throw ParsingError.closingTemplateMarkupBeforeOpeningMarkup
+                    }
+                    
+                    let range: Range<String.Index> = lastOpenIndex..<nextCloseIndex
+                    skipMarkupRanges.append(range)
+                }
+            }
+        }
+        
+        var finalIndex: String.Index = articleWikitext.startIndex
+        for index in articleWikitext.indices {
+            
+            guard articleWikitext[index] != "\n" else {
+                continue
+            }
+            
+            guard skipMarkupRanges.first(where: { $0.contains(index) }) == nil else {
+                continue
+            }
+            
+            finalIndex = index
+            break
+        }
+        
+        var insertedArticleWikitext = articleWikitext
+        var finalImageWikitext = imageWikitext
+        if finalIndex != articleWikitext.startIndex {
+            let previousIndex = articleWikitext.index(before: finalIndex)
+            if articleWikitext[previousIndex] == "\n" {
+                finalImageWikitext = finalImageWikitext + "\n"
+            } else {
+                finalImageWikitext = "\n" + finalImageWikitext + "\n"
+            }
+            
+        }
+        insertedArticleWikitext.insert(contentsOf: finalImageWikitext, at: finalIndex)
+        return insertedArticleWikitext
+    }
 }
 
 fileprivate extension String {
