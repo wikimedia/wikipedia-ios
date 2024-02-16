@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 // and by the accessibility escape gesture
 @property (nonatomic, copy, nullable) void (^userDismissalCompletionBlock)(void);
 
+// Block used as a type of completion in scenarios where the delegate method flow isn't sufficient
+@property (nonatomic, copy, nullable) void (^userLanguageSelectionBlock)(void);
+
 // Declared so that the method is visible from Swift. Theoretically conforming to WMFThemeable should
 // already do that, but it's hard to argue with the compiler.
 - (void)applyTheme:(WMFTheme *)theme;
