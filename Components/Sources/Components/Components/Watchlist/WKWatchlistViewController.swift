@@ -202,7 +202,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
     }
 
     public func showFilterView() {
-        let filterView = WKWatchlistFilterView(viewModel: filterViewModel, doneAction: { [weak self] in
+		let filterView = WKWatchlistFilterView(viewModel: self.filterViewModel, doneAction: { [weak self] in
             self?.dismiss(animated: true)
         })
 

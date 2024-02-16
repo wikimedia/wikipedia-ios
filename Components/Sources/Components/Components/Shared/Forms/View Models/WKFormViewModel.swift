@@ -1,7 +1,7 @@
 import Foundation
 
-public final class WKFormViewModel {
-    let sections: [WKFormSectionViewModel]
+public final class WKFormViewModel: ObservableObject {
+    @Published var sections: [WKFormSectionViewModel]
 
     public init(sections: [WKFormSectionViewModel]) {
         self.sections = sections

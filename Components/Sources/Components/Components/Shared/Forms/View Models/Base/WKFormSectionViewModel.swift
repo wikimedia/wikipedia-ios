@@ -1,6 +1,6 @@
 import Foundation
 
-public class WKFormSectionViewModel: Identifiable {
+public class WKFormSectionViewModel: Identifiable, ObservableObject {
     public let id = UUID()
     let header: String?
     let footer: String?
