@@ -435,6 +435,11 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         let coordinates: [CLLocationCoordinate2D] =  articles.compactMap({ (article) -> CLLocationCoordinate2D? in
             return article.coordinate
         })
+        
+        return region(thatFits: coordinates)
+    }
+    
+    func region(thatFits coordinates: [CLLocationCoordinate2D]) -> MKCoordinateRegion {
         guard coordinates.count > 1 else {
             return coordinates.wmf_boundingRegion(with: 10000)
         }
@@ -1940,7 +1945,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     @objc public func showArticleURL(_ articleURL: URL) {
-        guard let article = dataStore.fetchArticle(with: articleURL), let title = articleURL.wmf_title,
+        guard let article = dataStore.fetchOrCreateArticle(with: articleURL), let title = articleURL.wmf_title,
             view != nil else { // force view instantiation
             return
         }
@@ -1949,6 +1954,16 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         let displayTitle = article.displayTitle ?? title
         let searchResult = MWKSearchResult(articleID: 0, revID: 0, title: title, displayTitle: displayTitle, displayTitleHTML: displayTitleHTML, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, titleNamespace: nil, location: article.location)
         currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: articleURL.wmf_site)
+    }
+    
+    @objc public func showLocation(_ location: CLLocation, withTitle title: String?) {
+        let region = self.region(thatFits: [location.coordinate])
+        if let title {
+            let searchResult = MWKSearchResult(articleID: 0, revID: 0, title: title, displayTitle: title, displayTitleHTML: title, wikidataDescription: nil, extract: nil, thumbnailURL: nil, index: nil, titleNamespace: nil, location: location)
+            currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: nil)
+        } else {
+            performDefaultSearch(withRegion: region)
+        }
     }
     
     fileprivate func searchForFirstSearchSuggestion() {

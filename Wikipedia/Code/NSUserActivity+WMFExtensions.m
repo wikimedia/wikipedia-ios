@@ -4,6 +4,21 @@
 @import CoreSpotlight;
 @import MobileCoreServices;
 
+@implementation NSURLComponents (QueryItemSearch)
+
+- (NSURLQueryItem *) firstQueryItemWithName:(NSString *)name {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
+    NSArray *filteredQueryItems = [self.queryItems filteredArrayUsingPredicate:predicate];
+
+    if (filteredQueryItems.count > 0) {
+        return filteredQueryItems.firstObject;
+    } else {
+        return nil;
+    }
+}
+
+@end
+
 NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotification";
 
 // Use to suppress "User-facing text should use localized string macro" Analyzer warning
@@ -61,16 +76,26 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
 
 + (instancetype)wmf_placesActivityWithURL:(NSURL *)activityURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:activityURL resolvingAgainstBaseURL:NO];
-    NSURL *articleURL = nil;
-    for (NSURLQueryItem *item in components.queryItems) {
-        if ([item.name isEqualToString:@"WMFArticleURL"]) {
-            NSString *articleURLString = item.value;
-            articleURL = [NSURL URLWithString:articleURLString];
-            break;
-        }
-    }
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Places"];
-    activity.webpageURL = articleURL;
+    
+    NSURLQueryItem *articleQueryItem = [components firstQueryItemWithName:@"WMFArticleURL"];
+    if (articleQueryItem != nil) {
+        activity.webpageURL = [NSURL URLWithString:articleQueryItem.value];
+    }
+    
+    NSURLQueryItem *coordinateQueryItem = [components firstQueryItemWithName:@"coordinate"];
+    if (coordinateQueryItem != nil) {
+        NSMutableDictionary *userInfo = activity.userInfo.mutableCopy;
+        [userInfo setValue:coordinateQueryItem.value forKey:@"WMFCoordinate"];
+        
+        NSURLQueryItem *titleQueryItem = [components firstQueryItemWithName:@"title"];
+        if (titleQueryItem != nil) {
+            [userInfo setValue:titleQueryItem.value forKey:@"WMFLocationTitle"];
+        }
+    
+        activity.userInfo = userInfo;
+    }
+    
     return activity;
 }
 
@@ -262,6 +287,25 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     } else {
         return self.webpageURL;
     }
+}
+
+- (nullable NSString *)wmf_locationTitle {
+    return self.userInfo[@"WMFLocationTitle"];
+}
+
+- (nullable CLLocation *)wmf_location {
+    NSString *coordinate = self.userInfo[@"WMFCoordinate"];
+    if (coordinate != nil) {
+        NSArray *components = [coordinate componentsSeparatedByString:@","];
+        if (components.count == 2) {
+            CLLocationDegrees latitude = [components.firstObject doubleValue];
+            CLLocationDegrees longitude = [components.lastObject doubleValue];
+
+            return [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+        }
+    }
+    
+    return nil;
 }
 
 - (NSURL *)wmf_contentURL {
