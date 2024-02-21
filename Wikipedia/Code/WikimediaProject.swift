@@ -113,14 +113,16 @@ public enum WikimediaProject: Hashable {
             return nil
         }
         
+        let languageVariantCode = canonicalSiteURL.wmf_languageVariantCode
+        
         let recognizedLanguage = languageLinkController?.allLanguages.first { languageLink in
-            languageLink.languageCode == languageCode
+            languageLink.languageCode == languageCode && languageLink.languageVariantCode == languageVariantCode
         }
         
         let localizedLanguageName = recognizedLanguage?.localizedName ?? ""
         
         if siteURLString.contains(Configuration.current.defaultSiteDomain) {
-            self = .wikipedia(languageCode, localizedLanguageName, nil)
+            self = .wikipedia(languageCode, localizedLanguageName, languageVariantCode)
         } else if siteURLString.contains(Configuration.Domain.wikiquote) {
             self = .wikiquote(languageCode, localizedLanguageName)
         } else if siteURLString.contains(Configuration.Domain.wikibooks) {

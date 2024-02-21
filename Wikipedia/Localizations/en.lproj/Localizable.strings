@@ -1241,6 +1241,7 @@
 "watchlist-filter-user-registration-header" = "User registration and experience";
 "watchlist-filter-user-registration-options-registered" = "Registered";
 "watchlist-filter-user-registration-options-unregistered" = "Unregistered";
+"watchlist-filters-add-language" = "Add language...";
 "watchlist-number-filters" = "Modify [{{PLURAL:$1|$1 filter|$1 filters}}](wikipedia://watchlist/filter) to see more Watchlist items";
 "watchlist-onboarding-button-title" = "Learn more about the Watchlist";
 "watchlist-onboarding-title" = "Introducing your Watchlist";

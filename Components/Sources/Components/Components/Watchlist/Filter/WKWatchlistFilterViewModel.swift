@@ -34,8 +34,9 @@ public final class WKWatchlistFilterViewModel {
         let typeOfChangeCategoryChanges: String
         let typeOfChangeWikidataEdits: String
         let typeOfChangeLoggedActions: String
+		let addLanguage: String
 
-        public init(title: String, doneTitle: String, localizedProjectNames: [WKProject : String], wikimediaProjectsHeader: String, wikipediasHeader: String, commonAll: String, latestRevisionsHeader: String, latestRevisionsLatestRevision: String, latestRevisionsNotLatestRevision: String, watchlistActivityHeader: String, watchlistActivityUnseenChanges: String, watchlistActivitySeenChanges: String, automatedContributionsHeader: String, automatedContributionsBot: String, automatedContributionsHuman: String, significanceHeader: String, significanceMinorEdits: String, significanceNonMinorEdits: String, userRegistrationHeader: String, userRegistrationUnregistered: String, userRegistrationRegistered: String, typeOfChangeHeader: String, typeOfChangePageEdits: String, typeOfChangePageCreations: String, typeOfChangeCategoryChanges: String, typeOfChangeWikidataEdits: String, typeOfChangeLoggedActions: String) {
+        public init(title: String, doneTitle: String, localizedProjectNames: [WKProject : String], wikimediaProjectsHeader: String, wikipediasHeader: String, commonAll: String, latestRevisionsHeader: String, latestRevisionsLatestRevision: String, latestRevisionsNotLatestRevision: String, watchlistActivityHeader: String, watchlistActivityUnseenChanges: String, watchlistActivitySeenChanges: String, automatedContributionsHeader: String, automatedContributionsBot: String, automatedContributionsHuman: String, significanceHeader: String, significanceMinorEdits: String, significanceNonMinorEdits: String, userRegistrationHeader: String, userRegistrationUnregistered: String, userRegistrationRegistered: String, typeOfChangeHeader: String, typeOfChangePageEdits: String, typeOfChangePageCreations: String, typeOfChangeCategoryChanges: String, typeOfChangeWikidataEdits: String, typeOfChangeLoggedActions: String, addLanguage: String) {
             self.title = title
             self.doneTitle = doneTitle
             self.localizedProjectNames = localizedProjectNames
@@ -63,6 +64,7 @@ public final class WKWatchlistFilterViewModel {
             self.typeOfChangeCategoryChanges = typeOfChangeCategoryChanges
             self.typeOfChangeWikidataEdits = typeOfChangeWikidataEdits
             self.typeOfChangeLoggedActions = typeOfChangeLoggedActions
+            self.addLanguage = addLanguage
         }
     }
     
@@ -76,12 +78,18 @@ public final class WKWatchlistFilterViewModel {
     // MARK: - Properties
     
     public let localizedStrings: LocalizedStrings
-    private let projectViewModels: [WKProjectViewModel]
-    let formViewModel: WKFormViewModel
+    private var projectViewModels: [WKProjectViewModel]
+    var formViewModel: WKFormViewModel
     weak var loggingDelegate: WKWatchlistLoggingDelegate?
     private let dataController = WKWatchlistDataController()
     let overrideUserInterfaceStyle: UIUserInterfaceStyle
-    
+	var addLanguageAction: (() -> Void)? {
+		didSet {
+			// TODO: - Preferable to have action populated through init rather than 
+			reload()
+		}
+	}
+
     // MARK: - Public
 
     public init(localizedStrings: LocalizedStrings, overrideUserInterfaceStyle: UIUserInterfaceStyle, loggingDelegate: WKWatchlistLoggingDelegate?) {
@@ -99,7 +107,7 @@ public final class WKWatchlistFilterViewModel {
         
         self.formViewModel = WKFormViewModel(sections: [
             Self.section1(projectViewModels: Array(projectViewModels.prefix(2)), strings: localizedStrings),
-            Self.section2(projectViewModels: Array(projectViewModels.suffix(from: 2)), strings: localizedStrings),
+            Self.section2(projectViewModels: Array(projectViewModels.suffix(from: 2)), strings: localizedStrings, addLanguageAction: addLanguageAction),
             Self.section3(strings: localizedStrings, filterSettings: filterSettings),
             Self.section4(strings: localizedStrings, filterSettings: filterSettings),
             Self.section5(strings: localizedStrings, filterSettings: filterSettings),
@@ -109,6 +117,28 @@ public final class WKWatchlistFilterViewModel {
         ])
     }
     
+	public func reload() {
+		// TODO: - Update or remove if unneeded
+		let filterSettings = dataController.loadFilterSettings()
+		let allProjects = dataController.allWatchlistProjects()
+		let offProjects = dataController.offWatchlistProjects()
+		self.projectViewModels = Self.projectViewModels(allProjects: allProjects, offProjects: offProjects, strings: localizedStrings)
+
+		let allChangeTypes = dataController.allChangeTypes()
+		let offChangeTypes = dataController.offChangeTypes()
+
+		self.formViewModel = WKFormViewModel(sections: [
+			Self.section1(projectViewModels: Array(projectViewModels.prefix(2)), strings: localizedStrings),
+			Self.section2(projectViewModels: Array(projectViewModels.suffix(from: 2)), strings: localizedStrings, addLanguageAction: addLanguageAction),
+			Self.section3(strings: localizedStrings, filterSettings: filterSettings),
+			Self.section4(strings: localizedStrings, filterSettings: filterSettings),
+			Self.section5(strings: localizedStrings, filterSettings: filterSettings),
+			Self.section6(strings: localizedStrings, filterSettings: filterSettings),
+			Self.section7(strings: localizedStrings, filterSettings: filterSettings),
+			Self.section8(allChangeTypes: allChangeTypes, offChangeTypes: offChangeTypes, strings: localizedStrings, filterSettings: filterSettings)
+		])
+	}
+
     func saveNewFilterSettings() {
         let data = generateDataForNewFilterSettings()
         
@@ -132,7 +162,7 @@ public final class WKWatchlistFilterViewModel {
         let wikipediasSection = sectionSelectViewModels[1]
 
         guard wikimediaProjectsSection.items.count == 2,
-              wikipediasSection.items.count == projectViewModels.count - 2 else {
+              wikipediasSection.items.count == projectViewModels.count - 1 else {
             assertionFailure("Unexpected projects section counts")
 
             return  (WKWatchlistFilterSettings(offProjects: [], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: []),[])
@@ -146,7 +176,7 @@ public final class WKWatchlistFilterViewModel {
             }
         }
 
-        for (index, item) in wikipediasSection.items.enumerated() {
+		for (index, item) in wikipediasSection.items.enumerated().filter({ !$0.element.isAccessoryRow }) {
             let offsetIndex = index + (wikimediaProjectsSection.items.count)
             if !item.isSelected {
                 offProjects.append(projectViewModels[offsetIndex].project)
@@ -313,13 +343,17 @@ private extension WKWatchlistFilterViewModel {
         return WKFormSectionSelectViewModel(header: strings.wikimediaProjectsHeader, items: items, selectType: .multi)
     }
 
-    private static func section2(projectViewModels: [WKProjectViewModel], strings: WKWatchlistFilterViewModel.LocalizedStrings) -> WKFormSectionSelectViewModel {
+	private static func section2(projectViewModels: [WKProjectViewModel], strings: WKWatchlistFilterViewModel.LocalizedStrings, addLanguageAction: (() -> Void)?) -> WKFormSectionSelectViewModel {
 
-        let items = projectViewModels.map { projectViewModel in
+        var items = projectViewModels.map { projectViewModel in
             return WKFormItemSelectViewModel(image: projectViewModel.icon, title: projectViewModel.projectName, isSelected: projectViewModel.isSelected)
         }
 
-        return WKFormSectionSelectViewModel(header: strings.wikipediasHeader, items: items, selectType: .multi)
+		let accessoryRow = WKFormItemSelectViewModel(title: strings.addLanguage, isSelected: false, isAccessoryRow: true)
+		accessoryRow.accessoryRowSelectionAction = addLanguageAction
+		items.append(accessoryRow)
+
+        return WKFormSectionSelectViewModel(header: strings.wikipediasHeader, items: items, selectType: .multiWithAccessoryRows)
     }
 
     private static func section3(strings: WKWatchlistFilterViewModel.LocalizedStrings, filterSettings: WKWatchlistFilterSettings) -> WKFormSectionSelectViewModel {
