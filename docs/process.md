@@ -4,7 +4,7 @@
 When composing a pull request, link to the phabricator ticket that the work relates to. Also apply GitHub labels where appropriate.
 
 ### Labels
-#### Update branch before merging
+#### Dependent PR
 Pull request contains changes from another pull request. Updating from main after the dependent PR is merged will clean up the diff.
 #### Question/Design Question
 Pull request has a question that needs answering.

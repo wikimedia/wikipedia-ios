@@ -15,6 +15,7 @@
 // Author: Iketsi
 // Author: John Trololo
 // Author: Lhanars
+// Author: Lulucmy
 // Author: Macofe
 // Author: McDutchie
 // Author: Nemo bis
@@ -283,7 +284,23 @@
 "donate-accessibility-amount-button-hint" = "Appuyez deux fois pour sélectionner le montant du don.";
 "donate-accessibility-donate-hint-format" = "Appuyez deux fois pour faire un don de $1 à la Fondation Wikimedia.";
 "donate-accessibility-email-opt-in-hint" = "Appuyez deux fois pour autoriser la Fondation Wikimedia à vous envoyer un courriel.";
+"donate-accessibility-textfield-hint" = "Saisissez le montant personnalisé à donner.";
+"donate-already-donated" = "Merci, cher donateur ! Votre générosité permet à Wikipédia et à ses sites frères de continuer à prospérer.";
+"donate-apple-fine-print" = "Apple n'est pas responsable de la collecte de fonds à cet effet.";
+"donate-email-opt-in-text" = "Oui, la Fondation Wikimedia peut m'envoyer un courriel de temps en temps.";
+"donate-help-frequently-asked-questions" = "Foire aux questions";
+"donate-help-other-ways-to-give" = "Autres moyens de donner";
+"donate-help-problems-donating" = "Problèmes pour faire un don ?";
+"donate-help-tax-deductibility-information" = "Informations sur les conditions de déductibilité fiscale";
 "donate-later-title" = "Nous vous le rappellerons demain.";
+"donate-maximum-error-text" = "Nous ne pouvons pas accepter de dons supérieurs à $1 $2 via notre site web. Veuillez contacter notre équipe chargée des dons importants à l'adresse benefactors@wikimedia.org.";
+"donate-minimum-error-text" = "Veuillez sélectionner une somme (minimum $1 $2).";
+"donate-monthly-recurring-text" = "En faire un don mensuel récurrent.";
+"donate-payment-method-prompt-apple-pay-button-title" = "Donner avec Apple Pay";
+"donate-payment-method-prompt-message" = "Faites un don avec Apple Pay ou choisissez un autre mode de paiement.";
+"donate-payment-method-prompt-other-button-title" = "Autre mode de paiement";
+"donate-payment-method-prompt-title" = "Faire un don avec Apple Pay ?";
+"donate-success-subtitle" = "Votre générosité nous touche beaucoup.";
 "donate-success-title" = "Merci !";
 "donate-title" = "Sélectionnez le montant";
 "donate-transaction-fee-opt-in-text" = "J'ajouterai généreusement $1 pour couvrir les frais de transaction afin de que vous puissiez conserver 100%% de mon don.";
@@ -364,6 +381,35 @@
 "editor-exit-confirmation-body" = "Voulez-vous vraiment quitter le mode de modification sans d’abord publier ?";
 "editor-exit-confirmation-message" = "Êtes-vous certain de vouloir annuler cette modification ?";
 "editor-exit-confirmation-title" = "Quitter le mode de modification ?";
+"editor-find-clear-button-accessibility" = "Effacer la recherche";
+"editor-find-close-button-accessibility" = "Fermer la recherche";
+"editor-find-current-match-info-zero-results-accessibility" = "Aucun résultat trouvé";
+"editor-find-next-button-accessibility" = "Résultat trouvé suivant";
+"editor-find-previous-button-accessibility" = "Résultat trouvé précédent";
+"editor-find-textfield-accessibility" = "Rechercher";
+"editor-keyboard-bold-accessibility" = "Gras";
+"editor-keyboard-close-text-format-menu-accessibility" = "Fermer le menu de mise en forme du texte";
+"editor-keyboard-comment-accessibility" = "Commentaire";
+"editor-keyboard-heading-button" = "Titre";
+"editor-keyboard-indent-decrease-accessibility" = "Réduire l’indentation";
+"editor-keyboard-indent-increase-accessibility" = "Augmenter l’indentation";
+"editor-keyboard-italics-accessibility" = "Italique";
+"editor-keyboard-link-accessibility" = "Lien";
+"editor-keyboard-list-ordered-accessibility" = "Liste ordonnée";
+"editor-keyboard-list-unordered-accessibility" = "Liste non ordonnée";
+"editor-keyboard-paragraph-button" = "Paragraphe";
+"editor-keyboard-reference-accessibility" = "Référence";
+"editor-keyboard-strikethrough-accessibility" = "Barré";
+"editor-keyboard-subheading1-button" = "Sous-titre 1";
+"editor-keyboard-subheading2-button" = "Sous-titre 2";
+"editor-keyboard-subheading3-button" = "Sous-titre 3";
+"editor-keyboard-subheading4-button" = "Sous-titre 4";
+"editor-keyboard-template-accessibility" = "Modèle";
+"editor-replace-textfield-accessibility" = "Remplacer";
+"editor-replace-textfield-placeholder" = "Remplacer par...";
+"editor-replace-type-all" = "Remplacer tout";
+"editor-replace-type-all-accessibility" = "Remplacer toutes les instances";
+"editor-toolbar-find-accessibility" = "Trouver dans la page";
 "empty-diff-compare-title" = "Aucune différence entre les versions";
 "empty-diff-single-title" = "Aucun changement visible réalisé";
 "empty-insert-media-title" = "Sélectionner un fichier de Wikimedia Commons";
@@ -827,6 +873,7 @@
 "potd-widget-description" = "Profiter d’une jolie photo quotidienne sélectionnée par notre communauté.";
 "potd-widget-title" = "Image du jour";
 "preference-summary-eventlogging-opt-in" = "Permettre à la Fondation Wikimedia de collecter des informations sur la manière dont vous utilisez l’application, afin de l’améliorer";
+"privacy-policy-title" = "Politique de confidentialité";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikilivres";
 "project-name-wikidata" = "Wikidata";
@@ -1111,6 +1158,7 @@
 "talk-pages-user-groups" = "Groupes d’utilisateurs";
 "talk-pages-user-logs" = "Journaux";
 "talk-pages-view-title" = "Discussion";
+"terms-of-use-title" = "Conditions d’utilisation";
 "theme-black-display-name" = "Noir";
 "theme-dark-display-name" = "Sombre";
 "theme-default-display-name" = "Par défaut";
@@ -1128,6 +1176,7 @@
 "unable-to-load-talk-page-title" = "Impossible de charger la page de discussion";
 "unknown-generic-text" = "Inconnu";
 "unwatch" = "Ne plus suivre";
+"user-title" = "Utilisateur";
 "uzbek-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes de l’ouzbek comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\noʻzbekcha lotin – ouzbek latin (uz-latin)\nўзбекча кирилл – ouzbek cyrillique (uz-cyrl)";
 "uzbek-variants-alert-title" = "Mises à jour de la prise en charge des variantes de l’ouzbek";
 "vanish-account-additional-information-field" = "Informations supplémentaires";
@@ -1172,6 +1221,7 @@
 "watchlist-change-expiry-option-three-months" = "3 mois";
 "watchlist-change-expiry-subtitle" = "Choisir la période de temps de la liste de suivi";
 "watchlist-change-expiry-title" = "Expiration de la liste de suivi";
+"watchlist-edit-summary-accessibility" = "Résumé des modifications";
 "watchlist-empty-view-button-title" = "Rechercher des articles";
 "watchlist-empty-view-filter-title" = "Vous n’avez pas d’élément en liste de suivi";
 "watchlist-empty-view-subtitle" = "Garder trace de ce qui s’est produit sur les articles qui vous intéressent. Taper sur le menu dans l’article et sélectionner « Suivre » pour voir chaque modification d’un article.";
@@ -1215,6 +1265,7 @@
 "watchlist-user-button-user-talk-page" = "Page de discussion de l’utilisateur";
 "watchlist-watch-subtitle" = "En tapant sur l’étoile ou l’action « Suivre » dans la barre d’outil en bas d’un article, vous pouvez ajouter cette page à votre liste de suivi.";
 "watchlist-watch-title" = "Suivre les articles";
+"welcome-data-privacy-title" = "Données & confidentialité";
 "welcome-exploration-explore-feed-description" = "Lecture recommandée et articles du jour de notre communauté";
 "welcome-exploration-explore-feed-title" = "Flux d'exploration";
 "welcome-exploration-on-this-day-description" = "Revenir dans le temps pour apprendre ce qui s’est passé aujourd’hui dans l’histoire";
@@ -1236,6 +1287,8 @@
 "welcome-notifications-tell-me-more-creation" = "Les notifications sont créées et envoyées sur votre appareil par l’application, pas par nos serveurs (ou ceux de tierces parties).";
 "welcome-notifications-tell-me-more-storage" = "Les préférences de notification sont stockées sur l’appareil et ne sont pas basés sur des informations ou l’activité personnelle.";
 "welcome-notifications-tell-me-more-title" = "En savoir plus sur les notifications";
+"welcome-privacy-subtitle" = "Nous pensons que vous ne devriez pas avoir à fournir d'informations personnelles pour participer au mouvement de la connaissance libre. Les données d'utilisation collectées pour cette application sont anonymes.";
+"welcome-privacy-terms-button-text" = "En savoir plus sur notre politique de confidentialité et nos conditions d'utilisation";
 "widget-onthisday-description" = "Explorer ce qui s’est passé à cette date-ci de l’année au cours de l’histoire.";
 "widget-onthisday-placeholder-article-snippet" = "Encyclopédie en ligne gratuite que tout le monde peut modifier";
 "widget-onthisday-placeholder-event-snippet" = "Wikipédia, une encyclopédie de contenu wiki libre, est mise en ligne.";
