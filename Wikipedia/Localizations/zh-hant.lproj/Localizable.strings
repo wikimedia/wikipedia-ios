@@ -309,7 +309,7 @@
 "donate-success-subtitle" = "您的慷慨行動對我們非常重要。";
 "donate-success-title" = "感謝您！";
 "donate-title" = "選擇金額";
-"donate-transaction-fee-opt-in-text" = "我願意慷慨地添加 $1 來支付手續費，這樣對方就可以 100% 保有我的捐款。";
+"donate-transaction-fee-opt-in-text" = "我願意慷慨地添加$1來支付手續費，這樣對方就可以100%%保有我的捐款。";
 "edit-bold-accessibility-label" = "添加粗體格式";
 "edit-bold-remove-accessibility-label" = "移除粗體格式";
 "edit-clear-formatting-accessibility-label" = "移除格式";
@@ -442,6 +442,8 @@
 "editor-toolbar-reference-accessibility" = "參考文字格式";
 "editor-toolbar-show-more-accessibility" = "顯示更多格式選項";
 "editor-toolbar-template-accessibility" = "模板文字格式";
+"editor-wikitext-loading-accessibility" = "正在載入編輯器文字";
+"editor-wikitext-textview-accessibility" = "Wikitext 編輯器";
 "empty-diff-compare-title" = "修訂之間無差異";
 "empty-diff-single-title" = "沒有做出可觀察到的變更";
 "empty-insert-media-title" = "從維基共享資源中選擇檔案";
