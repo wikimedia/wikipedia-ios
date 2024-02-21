@@ -5,6 +5,8 @@
 @import MobileCoreServices;
 
 NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotification";
+NSString *const WMFPlacesDeeplinkLatitudeKey = @"lat";
+NSString *const WMFPlacesDeeplinkLongtitudeKey = @"lon";
 
 // Use to suppress "User-facing text should use localized string macro" Analyzer warning
 // where appropriate.
@@ -62,15 +64,37 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
 + (instancetype)wmf_placesActivityWithURL:(NSURL *)activityURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:activityURL resolvingAgainstBaseURL:NO];
     NSURL *articleURL = nil;
+    NSNumber *lat = nil;
+    NSNumber *lon = nil;
+
+    // Current limitation: either article or location is handled
     for (NSURLQueryItem *item in components.queryItems) {
         if ([item.name isEqualToString:@"WMFArticleURL"]) {
             NSString *articleURLString = item.value;
             articleURL = [NSURL URLWithString:articleURLString];
             break;
         }
+        
+        if ([item.name isEqualToString:WMFPlacesDeeplinkLatitudeKey]) {
+            lat = @(item.value.doubleValue);
+            continue;
+        }
+        
+        if ([item.name isEqualToString:WMFPlacesDeeplinkLongtitudeKey]) {
+            lon = @(item.value.doubleValue);
+            continue;
+        }
     }
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Places"];
     activity.webpageURL = articleURL;
+    
+    if (lat != nil && lon != nil) {
+        [activity addUserInfoEntriesFromDictionary:@{
+            WMFPlacesDeeplinkLatitudeKey : lat,
+            WMFPlacesDeeplinkLongtitudeKey : lon
+        }];
+    }
+    
     return activity;
 }
 

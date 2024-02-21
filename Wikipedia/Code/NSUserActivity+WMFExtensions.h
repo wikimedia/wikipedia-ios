@@ -16,6 +16,8 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
 };
 
 extern NSString *const WMFNavigateToActivityNotification;
+extern NSString *const WMFPlacesDeeplinkLatitudeKey;
+extern NSString *const WMFPlacesDeeplinkLongtitudeKey;
 
 @interface NSUserActivity (WMFExtensions)
 
