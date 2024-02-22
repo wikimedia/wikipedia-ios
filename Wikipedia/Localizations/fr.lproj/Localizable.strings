@@ -18,6 +18,7 @@
 // Author: Lulucmy
 // Author: Macofe
 // Author: McDutchie
+// Author: Melimeli
 // Author: Nemo bis
 // Author: Nharateh
 // Author: Niridya
@@ -284,7 +285,10 @@
 "donate-accessibility-amount-button-hint" = "Appuyez deux fois pour sélectionner le montant du don.";
 "donate-accessibility-donate-hint-format" = "Appuyez deux fois pour faire un don de $1 à la Fondation Wikimedia.";
 "donate-accessibility-email-opt-in-hint" = "Appuyez deux fois pour autoriser la Fondation Wikimedia à vous envoyer un courriel.";
+"donate-accessibility-keyboard-done-hint" = "Double-appuyez pour ignorer la vue du clavier de saisie du montant.";
+"donate-accessibility-monthly-recurring-hint" = "Double-appuyez pour activer les dons mensuels automatiques de ce montant.";
 "donate-accessibility-textfield-hint" = "Saisissez le montant personnalisé à donner.";
+"donate-accessibility-transaction-fee-hint" = "Double-appuyez pour ajouter des frais de transaction au montant du don.";
 "donate-already-donated" = "Merci, cher donateur ! Votre générosité permet à Wikipédia et à ses sites frères de continuer à prospérer.";
 "donate-apple-fine-print" = "Apple n'est pas responsable de la collecte de fonds à cet effet.";
 "donate-email-opt-in-text" = "Oui, la Fondation Wikimedia peut m'envoyer un courriel de temps en temps.";
@@ -383,6 +387,7 @@
 "editor-exit-confirmation-title" = "Quitter le mode de modification ?";
 "editor-find-clear-button-accessibility" = "Effacer la recherche";
 "editor-find-close-button-accessibility" = "Fermer la recherche";
+"editor-find-current-match-info-accessibility" = "$1 correspondances trouvées. Correspondance $2 en surbrillance";
 "editor-find-current-match-info-zero-results-accessibility" = "Aucun résultat trouvé";
 "editor-find-next-button-accessibility" = "Résultat trouvé suivant";
 "editor-find-previous-button-accessibility" = "Résultat trouvé précédent";
@@ -404,12 +409,39 @@
 "editor-keyboard-subheading2-button" = "Sous-titre 2";
 "editor-keyboard-subheading3-button" = "Sous-titre 3";
 "editor-keyboard-subheading4-button" = "Sous-titre 4";
+"editor-keyboard-subscript-accessibility" = "Indice";
+"editor-keyboard-superscript-accessibility" = "Exposant";
 "editor-keyboard-template-accessibility" = "Modèle";
+"editor-keyboard-text-formatting-title" = "Formatage du texte";
+"editor-keyboard-underline-accessibility" = "Souligné";
+"editor-replace-button-format-accessibility" = "Effectuez l’opération de remplacement. Le type de remplacement est défini sur $1.";
+"editor-replace-clear-button-accessibility" = "Effacer le remplacement";
 "editor-replace-textfield-accessibility" = "Remplacer";
 "editor-replace-textfield-placeholder" = "Remplacer par...";
 "editor-replace-type-all" = "Remplacer tout";
 "editor-replace-type-all-accessibility" = "Remplacer toutes les instances";
+"editor-replace-type-button-accessibility" = "Type de remplacement du commutateur. Actuellement défini sur $1. Sélectionnez pour modifier.";
+"editor-replace-type-single" = "Remplacer";
+"editor-replace-type-single-accessibility" = "Remplacer l’unique instance";
+"editor-toolbar-bold-accessibility" = "Mise en forme du texte en gras";
+"editor-toolbar-cursor-down-accessibility" = "Déplacez le curseur vers la ligne suivante.";
+"editor-toolbar-cursor-next-accessibility" = "Déplacez le curseur vers le caractère suivant.";
+"editor-toolbar-cursor-previous-accessibility" = "Déplacez le curseur vers le caractère précédent.";
+"editor-toolbar-cursor-up-accessibility" = "Déplacez le curseur jusqu'à la ligne précédente.";
 "editor-toolbar-find-accessibility" = "Trouver dans la page";
+"editor-toolbar-image-accessibility" = "Formatage du texte de l'image";
+"editor-toolbar-indent-decrease-accessibility" = "Réduire le formatage du texte en retrait";
+"editor-toolbar-indent-increase-accessibility" = "Augmenter le formatage du texte en retrait";
+"editor-toolbar-italics-accessibility" = "Formatage du texte de l'image";
+"editor-toolbar-link-accessibility" = "Formatage du texte du lien";
+"editor-toolbar-list-ordered-accessibility" = "Formatage du texte de la liste ordonnée";
+"editor-toolbar-list-unordered-accessibility" = "Formatage du texte de liste non ordonnée";
+"editor-toolbar-open-text-format-menu-accessibility" = "Ouvrir le menu de formatage du texte";
+"editor-toolbar-reference-accessibility" = "Formatage du texte de référence";
+"editor-toolbar-show-more-accessibility" = "Afficher plus d’options de formatage";
+"editor-toolbar-template-accessibility" = "Formatage du texte du modèle";
+"editor-wikitext-loading-accessibility" = "Chargement du texte de l’éditeur";
+"editor-wikitext-textview-accessibility" = "Éditeur de texte wiki";
 "empty-diff-compare-title" = "Aucune différence entre les versions";
 "empty-diff-single-title" = "Aucun changement visible réalisé";
 "empty-insert-media-title" = "Sélectionner un fichier de Wikimedia Commons";
@@ -1221,6 +1253,7 @@
 "watchlist-change-expiry-option-three-months" = "3 mois";
 "watchlist-change-expiry-subtitle" = "Choisir la période de temps de la liste de suivi";
 "watchlist-change-expiry-title" = "Expiration de la liste de suivi";
+"watchlist-diff-action-button-title" = "Allez à la différence";
 "watchlist-edit-summary-accessibility" = "Résumé des modifications";
 "watchlist-empty-view-button-title" = "Rechercher des articles";
 "watchlist-empty-view-filter-title" = "Vous n’avez pas d’élément en liste de suivi";
