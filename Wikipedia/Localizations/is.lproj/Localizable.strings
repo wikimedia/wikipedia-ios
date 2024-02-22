@@ -7,6 +7,7 @@
 // Author: McDutchie
 // Author: MyraMidnight
 // Author: Nemo bis
+// Author: Sveinki
 // Author: Sveinn í Felli
 
 "aaald-added-text-description-2" = "$1 bætt við";
@@ -88,8 +89,10 @@
 "action-add-to-reading-list" = "Bæta á leslista";
 "action-add-to-reading-list-short" = "Bæta við lista";
 "action-cancel" = "Hætta við";
+"action-discard-edit" = "Henda breytingu";
 "action-discard-edits" = "Henda breytingum";
 "action-find-in-page" = "Finna á síðu";
+"action-keep-editing" = "Halda áfram að gera breytingar";
 "action-language-accessibility" = "Skipta um tungumál";
 "action-move-to" = "Færa í…";
 "action-move-to-reading-list" = "Færa á leslista";
@@ -141,6 +144,7 @@
 "article-reference-view-title" = "Tilvísun $1";
 "article-save-error-not-enough-space" = "Þú hefur ekki nægt pláss á tækinu þínu til að vista þessa grein";
 "article-share" = "Deila";
+"article-talk-page" = "Spjallsíða greinar";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Stýringar lestrarþemu";
 "back-button-accessibility-label" = "Til baka";
 "back-button-popover-title" = "Banka til að fara til baka";
@@ -161,6 +165,7 @@
 "clear-title-accessibility-label" = "Hreinsa";
 "close-button-accessibility-label" = "Loka";
 "compass-direction" = "klukkan $1 á áttavita";
+"continue-button-title" = "Halda áfram";
 "continue-reading-empty-description" = "Kanna hvort Wikipedia sé með fleiri greinar til að lesa";
 "continue-reading-empty-title" = "Engar nýlega lesnar greinar";
 "crimean-tatar-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði tatarísku frá Krím";
@@ -201,11 +206,9 @@
 "description-welcome-descriptions-title" = "Lýsingar greina";
 "description-welcome-promise-title" = "Ef ég byrja, lofa ég að misnota ekki þennan eiginleika";
 "description-welcome-start-editing-button" = "Byrja að breyta";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Frá";
+"diff-compare-header-from-info-heading" = "Fyrri breyting";
 "diff-compare-header-heading" = "Bera saman útgáfur";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Til";
+"diff-compare-header-to-info-heading" = "Birt breyting";
 "diff-compare-title" = "Bera saman útgáfur";
 "diff-context-lines-collapsed-button-title" = "Sýna";
 "diff-context-lines-expanded-button-title" = "Fela";
@@ -240,7 +243,12 @@
 "diff-thanks-sent-cannot-unsend" = "Þakkir er ekki hægt að afturkalla";
 "diff-undo-success" = "Yfirferðin var afturkölluð.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 lína óbreytt|$1 línur óbreyttar}}";
+"diff-user-button-accessibility-text" = "Ýttu tvisvar til að opna valmynd";
 "dim-images" = "Dekkja myndir";
+"donate-accessibility-amount-button-hint" = "Ýttu tvisvar til að velja upphæð framlags.";
+"donate-accessibility-donate-hint-format" = "Ýttu tvisvar til að gefa $1 til Wikimedia Foundation.";
+"donate-success-title" = "Þakka þér fyrir!";
+"donate-title" = "Veldu upphæð";
 "edit-bold-accessibility-label" = "Bættu við feitletrun";
 "edit-bold-remove-accessibility-label" = "Fjarlægðu feitletrun";
 "edit-clear-formatting-accessibility-label" = "Fjarlægja sniðmótun";
@@ -275,6 +283,7 @@
 "edit-published-subtitle" = "Þú varst að gera Wikipedia betri fyrir alla";
 "edit-reference-accessibility-label" = "Bæta við málskipan fyrir tilvísun";
 "edit-reference-remove-accessibility-label" = "Fjarlægja málskipan fyrir tilvísun";
+"edit-show-web-preview" = "Sýna forskoðun á vef";
 "edit-signature-accessibility-label" = "Bæta við málskipan fyrir undirskrift";
 "edit-signature-remove-accessibility-label" = "Fjarlægja málskipan fyrir undirskrift";
 "edit-strikethrough-accessibility-label" = "Bættu við gegnumstrikun";
@@ -311,8 +320,37 @@
 "editing-welcome-impartial-tone-title" = "Skrifaðu í hlutlausum tón";
 "editing-welcome-set-knowledge-free-subtitle" = "Til þess að gefa öllum aðgang að þeirri þekkingu sem fyrirfinnst í heiminum, þurfum við að fá þig til að taka þátt í þessu með okkur, með því að lesa, skrifa, breyta og laga þau efni sem þú hefur virkilegan áhuga á.";
 "editing-welcome-set-knowledge-free-title" = "Slepptu þekkingunni lausri";
+"editor-edit-published" = "Breytingin þín var gefin út.";
+"editor-edit-source" = "Breyta frumkóða";
 "editor-exit-confirmation-body" = "Ertu viss um að þú viljir hætta í breytingarham án þess að birta fyrst ?";
+"editor-exit-confirmation-message" = "Ertu viss um að þú viljir henda þessari breytingu?";
 "editor-exit-confirmation-title" = "Fara út úr breytingaham?";
+"editor-find-clear-button-accessibility" = "Hreinsa leit";
+"editor-find-close-button-accessibility" = "Loka leit";
+"editor-find-current-match-info-zero-results-accessibility" = "Engin samsvörun fannst";
+"editor-find-textfield-accessibility" = "Finna";
+"editor-keyboard-bold-accessibility" = "Feitletrað";
+"editor-keyboard-close-text-format-menu-accessibility" = "Loka valmynd fyrir snið texta";
+"editor-keyboard-comment-accessibility" = "Athugasemd";
+"editor-keyboard-heading-button" = "Fyrirsögn";
+"editor-keyboard-indent-decrease-accessibility" = "Minnka inndrátt";
+"editor-keyboard-indent-increase-accessibility" = "Auka inndrátt";
+"editor-keyboard-italics-accessibility" = "Skáletrað";
+"editor-keyboard-link-accessibility" = "Tengill";
+"editor-keyboard-list-ordered-accessibility" = "Raðaður listi";
+"editor-keyboard-list-unordered-accessibility" = "Óraðaður listi";
+"editor-keyboard-paragraph-button" = "Málsgrein";
+"editor-keyboard-reference-accessibility" = "Tilvísun";
+"editor-keyboard-strikethrough-accessibility" = "Yfirstrikað";
+"editor-keyboard-subheading1-button" = "Undirfyrirsögn 1";
+"editor-keyboard-subheading2-button" = "Undirfyrirsögn 2";
+"editor-keyboard-subheading3-button" = "Undirfyrirsögn 3";
+"editor-keyboard-subheading4-button" = "Undirfyrirsögn 4";
+"editor-keyboard-subscript-accessibility" = "Niðurskrift";
+"editor-keyboard-superscript-accessibility" = "Yfirskrift";
+"editor-keyboard-template-accessibility" = "Sniðmát";
+"editor-keyboard-text-formatting-title" = "Sníðing texta";
+"editor-keyboard-underline-accessibility" = "Undirstrikað";
 "empty-diff-compare-title" = "Enginn munur á útgáfunum";
 "empty-diff-single-title" = "Engar sjáanlegar breytingar voru gerðar";
 "empty-insert-media-title" = "Veldu skrá frá Wikimedia Commons";
@@ -755,6 +793,7 @@
 "potd-widget-description" = "Uppgötvaðu fallegar myndir fyrir hvern dag, valdar af þátttakendunum okkar.";
 "potd-widget-title" = "Mynd dagsins";
 "preference-summary-eventlogging-opt-in" = "Leyfa Wikimedia til að safna upplýsingum um hvernig þú notar appið til að geta gert það betra";
+"privacy-policy-title" = "Meðferð persónuupplýsinga";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -870,6 +909,8 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 atriði skipt út|$1 atriðum skipt út}}";
 "replace-textfield-accessibility" = "Skipta út";
 "replace-textfield-placeholder" = "Skipta út með…";
+"return-button-title" = "Til baka";
+"return-to-article" = "Fara aftur í grein";
 "reverted-edit-title" = "Afturkölluð breyting";
 "saved-all-articles-title" = "Allar greinar";
 "saved-default-reading-list-tag" = "Ekki er hægt að eyða þessum lista";
@@ -1046,6 +1087,8 @@
 "two-factor-login-with-regular-code" = "Nota staðfestingarkóða";
 "unable-to-load-talk-page-title" = "Gat ekki hlaðið inn spjallsíðu";
 "unknown-generic-text" = "Óþekkt";
+"unwatch" = "Hætta að vakta";
+"user-title" = "Notandi";
 "uzbek-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði úsbekísku";
 "vanish-account-additional-information-field" = "Viðbótarupplýsingar";
 "vanish-account-additional-information-placeholder" = "Valfrjálst";
@@ -1073,9 +1116,34 @@
 "variants-alert-preferences-button" = "Yfirfarðu kjörstillingarnar þínar";
 "watch" = "Vakta";
 "watchlist" = "Vaktlisti";
+"watchlist-added-toast-view-watchlist" = "Skoða vaktlista";
+"watchlist-byte-change" = "({{PLURAL:$1|1 bæti|$1 bæti}})";
+"watchlist-change-expiry-option-one-month" = "1 mánuður";
+"watchlist-change-expiry-option-one-week" = "1 vika";
+"watchlist-change-expiry-option-one-year" = "1 ár";
+"watchlist-filter" = "Sía";
+"watchlist-filter-activity-header" = "Virkni vaktlista";
+"watchlist-filter-activity-options-seen-changes" = "Skoðaðar breytingar";
+"watchlist-filter-activity-options-unseen-changes" = "Óskoðaðar breytingar";
+"watchlist-filter-automated-contributions-header" = "Sjálfvirk framlög";
+"watchlist-filter-automated-contributions-options-bot" = "Vélmenni";
+"watchlist-filter-automated-contributions-options-human" = "Manneskja (ekki vélmenni)";
+"watchlist-filter-latest-revisions-header" = "Nýjustu útgáfur";
+"watchlist-filter-latest-revisions-options-latest-revision" = "Nýjasta útgáfa";
+"watchlist-filter-latest-revisions-options-not-latest-revision" = "Ekki nýjasta útgáfa";
+"watchlist-filter-significance-header" = "Mikilvægi";
+"watchlist-filter-significance-options-minor-edits" = "Minniháttar breytingar";
+"watchlist-filter-significance-options-non-minor-edits" = "Ekki-minniháttar breytingar";
+"watchlist-filter-type-of-change-header" = "Tegund breytingar";
+"watchlist-filter-type-of-change-options-category-changes" = "Breytingar á flokkum";
+"watchlist-filter-type-of-change-options-logged-actions" = "Skráðar aðgerðir";
+"watchlist-filter-type-of-change-options-page-creations" = "Gerð á síðum";
+"watchlist-filter-type-of-change-options-page-edits" = "Breytingar á síðum";
+"watchlist-filter-type-of-change-options-wikidata-edits" = "Wikidata-breytingar";
 "watchlist-user-button-user-contributions" = "Framlög notanda";
 "watchlist-user-button-user-page" = "Notandasíða";
 "watchlist-user-button-user-talk-page" = "Spjallsíða notanda";
+"welcome-data-privacy-title" = "Gögn og persónuvernd";
 "welcome-exploration-explore-feed-description" = "Lesefni sem mælt er með og daglegar greinar frá samfélaginu okkar";
 "welcome-exploration-explore-feed-title" = "'Uppgötva'-streymið";
 "welcome-exploration-on-this-day-description" = "Ferðastu aftur í tímann til að læra hvað gerðist á þessum degi í sögulegu samhengi";

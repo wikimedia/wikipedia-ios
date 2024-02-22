@@ -4,6 +4,7 @@
 // Author: Aefgh39622
 // Author: Afaz
 // Author: Barrel0116
+// Author: Chqaz
 // Author: Dude1717
 // Author: Fryed-peach
 // Author: GAMEZONE628
@@ -1163,6 +1164,7 @@
 "watchlist-filter-user-registration-header" = "利用者の登録と経験";
 "watchlist-filter-user-registration-options-registered" = "登録済み";
 "watchlist-filter-user-registration-options-unregistered" = "未登録";
+"watchlist-filters-add-language" = "言語を追加...";
 "watchlist-number-filters" = "項目をさらに表示するには [{{PLURAL:$1|$1件のフィルター}}](wikipedia://watchlist/filter) を修正してください";
 "watchlist-onboarding-button-title" = "ウォッチリストに関してもっと知る";
 "watchlist-onboarding-title" = "ウォッチリストの紹介";

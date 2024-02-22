@@ -1253,6 +1253,7 @@
 "watchlist-filter-user-registration-header" = "Корисничко зачленување и искусност";
 "watchlist-filter-user-registration-options-registered" = "Зачленети";
 "watchlist-filter-user-registration-options-unregistered" = "Незачленети";
+"watchlist-filters-add-language" = "Додај јазик...";
 "watchlist-number-filters" = "Изменете [{{PLURAL:$1|$1 филтер|$1 филтри}}](wikipedia://watchlist/filter) за да видите повеќе ставки во Набљудуваните";
 "watchlist-onboarding-button-title" = "Дознајте повеќе за набљудуваните";
 "watchlist-onboarding-title" = "Вовед во вашите Набљудувани";
