@@ -380,13 +380,22 @@ public struct HtmlUtils {
                 }
                 
                 let spaces = String(repeating: "    ", count: indent)
+                
+                var lineBreakPrefix = ""
+                if tagRange.lowerBound > html.startIndex {
+                    let previousIndex = html.index(before: tagRange.lowerBound)
+                    if html[previousIndex] != "\n" {
+                        lineBreakPrefix = "\n"
+                    }
+                }
+                
                 switch currentListType {
                 case .ordered:
                     if let count = orderedListCounts.last {
-                        inserts.append(ListInsertData(text: "\n\(spaces)\(count). ", index: tagNSRange.upperBound, stringIndex: tagRange.upperBound))
+                        inserts.append(ListInsertData(text: "\(lineBreakPrefix)\(spaces)\(count). ", index: tagNSRange.upperBound, stringIndex: tagRange.upperBound))
                     }
                 case .unordered:
-                    inserts.append(ListInsertData(text: "\n\(spaces)• ", index: tagNSRange.upperBound, stringIndex: tagRange.upperBound))
+                    inserts.append(ListInsertData(text: "\(lineBreakPrefix)\(spaces)• ", index: tagNSRange.upperBound, stringIndex: tagRange.upperBound))
                 }
             }
         }
@@ -466,8 +475,8 @@ public struct HtmlUtils {
     }
     
     private static func tagAndContentRemoveData(html: String) throws -> [TagAndContentRemoveData] {
-        let regexScript = try NSRegularExpression(pattern: "<script>.*</script>")
-        let regexStyle = try NSRegularExpression(pattern: "<style>.*</style>")
+        let regexScript = try NSRegularExpression(pattern: "<script.*?>.*?<\\/script>")
+        let regexStyle = try NSRegularExpression(pattern: "<style.*?>.*?<\\/style>")
         
         var data: [TagAndContentRemoveData] = []
         
