@@ -43,7 +43,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     
     // MARK: - Properties
     
-    let text = "A <b>cactus</b> (plural <b>cacti, cactuses,</b> or less commonly</b>, cactus)</b><sup>[3]</sup> is a member of the <a href=\"https://en.wikipedia.org/wiki/Plant\">plant</a> family <b>Cactaceae</b><sub>[a]</sub>, a family comprising about 127 genera with some 1750 known species of the order <a href=\"https://en.wikipedia.org/wiki/Caryophyllales\">Caryophyllales</a>."
+    let text = "A <b>cactus</b> (plural <b>cacti, cactuses,</b> or less commonly, <b>cactus)</b><sup>[3]</sup> is a member of the <a href=\"https://en.wikipedia.org/wiki/Plant\">plant</a> family <b>Cactaceae</b><sup>[a]</sup>, a family comprising about 127 genera with some 1750 known species of the order <a href=\"https://en.wikipedia.org/wiki/Caryophyllales\">Caryophyllales</a>."
 
     fileprivate let hostingViewController: WKImageRecommendationsHostingViewController
     
