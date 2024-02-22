@@ -21,8 +21,8 @@ struct WKImageRecommendationsView: View {
     let text: String
     
     var attributedText: AttributedString {
-        // TODO: Return proper attributed string
-        AttributedString(text)
+        let styles = HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicsCallout), boldItalicsFont: WKFont.for(.boldItalicsCallout), color: WKAppEnvironment.current.theme.text, linkColor: WKAppEnvironment.current.theme.link)
+        return (try? HtmlUtils.attributedStringFromHtml(text, styles: styles)) ?? AttributedString(text)
     }
     
     var body: some View {
@@ -48,8 +48,8 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     fileprivate let hostingViewController: WKImageRecommendationsHostingViewController
     
     var attributedText: NSAttributedString? {
-        // TODO: Return proper attributed string
-        NSAttributedString(string: text)
+        let styles = HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicsCallout), boldItalicsFont: WKFont.for(.boldItalicsCallout), color: WKAppEnvironment.current.theme.text, linkColor: WKAppEnvironment.current.theme.link)
+        return (try? HtmlUtils.nsAttributedStringFromHtml(text, styles: styles)) ?? NSAttributedString(string: text)
     }
     
     lazy var textView: UITextView = {
