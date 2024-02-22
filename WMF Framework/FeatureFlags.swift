@@ -13,4 +13,13 @@ public struct FeatureFlags {
     public static var needsNativeSourceEditor: Bool {
         return true
     }
+    
+    public static var needsImageRecommendations: Bool {
+        
+    #if WMF_STAGING || WMF_EXPERIMENTAL
+        return true
+    #else
+        return false
+    #endif
+    }
 }

@@ -1079,7 +1079,12 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
 extension ExploreViewController {
 
     @objc func userDidTapNotificationsCenter() {
-        notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
+        // TODO: Temp Code until we get Explore Feed card in
+        if FeatureFlags.needsImageRecommendations {
+            // TODO: Navigate to Image recommendations
+        } else {
+            notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
+        }
     }
 
     @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
