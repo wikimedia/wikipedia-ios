@@ -2,14 +2,14 @@ import Foundation
 import WKData
 import UIKit
 
-public final class WKWatchlistFilterViewModel {
-    
+public final class WKWatchlistFilterViewModel: ObservableObject {
+
     // MARK: - Nested Types
 
     public struct LocalizedStrings {
         let title: String
         let doneTitle: String
-        public let localizedProjectNames: [WKProject: String]
+        public var localizedProjectNames: [WKProject: String]
         let wikimediaProjectsHeader: String
         let wikipediasHeader: String
         let commonAll: String
@@ -77,16 +77,15 @@ public final class WKWatchlistFilterViewModel {
     
     // MARK: - Properties
     
-    public let localizedStrings: LocalizedStrings
+    public var localizedStrings: LocalizedStrings
     private var projectViewModels: [WKProjectViewModel]
-    var formViewModel: WKFormViewModel
+    @Published var formViewModel: WKFormViewModel
     weak var loggingDelegate: WKWatchlistLoggingDelegate?
     private let dataController = WKWatchlistDataController()
     let overrideUserInterfaceStyle: UIUserInterfaceStyle
 	var addLanguageAction: (() -> Void)? {
 		didSet {
-			// TODO: - Preferable to have action populated through init rather than 
-			reload()
+			reloadSectionData()
 		}
 	}
 
@@ -116,27 +115,18 @@ public final class WKWatchlistFilterViewModel {
             Self.section8(allChangeTypes: allChangeTypes, offChangeTypes: offChangeTypes, strings: localizedStrings, filterSettings: filterSettings)
         ])
     }
-    
-	public func reload() {
-		// TODO: - Update or remove if unneeded
-		let filterSettings = dataController.loadFilterSettings()
+
+	public func reloadWikipedias(localizedProjectNames: [WKProject: String]?) {
+		guard let localizedProjectNames = localizedProjectNames else {
+			return
+		}
+
+		self.localizedStrings.localizedProjectNames = localizedProjectNames
 		let allProjects = dataController.allWatchlistProjects()
-		let offProjects = dataController.offWatchlistProjects()
+		let offProjects = self.projectViewModels.filter { !$0.isSelected }.map { $0.project }
+
 		self.projectViewModels = Self.projectViewModels(allProjects: allProjects, offProjects: offProjects, strings: localizedStrings)
-
-		let allChangeTypes = dataController.allChangeTypes()
-		let offChangeTypes = dataController.offChangeTypes()
-
-		self.formViewModel = WKFormViewModel(sections: [
-			Self.section1(projectViewModels: Array(projectViewModels.prefix(2)), strings: localizedStrings),
-			Self.section2(projectViewModels: Array(projectViewModels.suffix(from: 2)), strings: localizedStrings, addLanguageAction: addLanguageAction),
-			Self.section3(strings: localizedStrings, filterSettings: filterSettings),
-			Self.section4(strings: localizedStrings, filterSettings: filterSettings),
-			Self.section5(strings: localizedStrings, filterSettings: filterSettings),
-			Self.section6(strings: localizedStrings, filterSettings: filterSettings),
-			Self.section7(strings: localizedStrings, filterSettings: filterSettings),
-			Self.section8(allChangeTypes: allChangeTypes, offChangeTypes: offChangeTypes, strings: localizedStrings, filterSettings: filterSettings)
-		])
+		self.formViewModel.sections[1] = Self.section2(projectViewModels: Array(projectViewModels.suffix(from: 2)), strings: localizedStrings, addLanguageAction: addLanguageAction)
 	}
 
     func saveNewFilterSettings() {
@@ -285,6 +275,30 @@ public final class WKWatchlistFilterViewModel {
                                         userRegistration: userRegistrationRequest,
                                         offTypes: offTypesRequest), onProjects)
     }
+
+	// MARK: - Private
+
+	private func reloadSectionData() {
+		let filterSettings = dataController.loadFilterSettings()
+		let allProjects = dataController.allWatchlistProjects()
+		let offProjects = dataController.offWatchlistProjects()
+		self.projectViewModels = Self.projectViewModels(allProjects: allProjects, offProjects: offProjects, strings: localizedStrings)
+
+		let allChangeTypes = dataController.allChangeTypes()
+		let offChangeTypes = dataController.offChangeTypes()
+
+		self.formViewModel = WKFormViewModel(sections: [
+			Self.section1(projectViewModels: Array(projectViewModels.prefix(2)), strings: localizedStrings),
+			Self.section2(projectViewModels: Array(projectViewModels.suffix(from: 2)), strings: localizedStrings, addLanguageAction: addLanguageAction),
+			Self.section3(strings: localizedStrings, filterSettings: filterSettings),
+			Self.section4(strings: localizedStrings, filterSettings: filterSettings),
+			Self.section5(strings: localizedStrings, filterSettings: filterSettings),
+			Self.section6(strings: localizedStrings, filterSettings: filterSettings),
+			Self.section7(strings: localizedStrings, filterSettings: filterSettings),
+			Self.section8(allChangeTypes: allChangeTypes, offChangeTypes: offChangeTypes, strings: localizedStrings, filterSettings: filterSettings)
+		])
+	}
+
 }
 
 // MARK: - Static Init Helper Methods
