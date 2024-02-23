@@ -1,7 +1,11 @@
 import Foundation
 
-class WKArticleSummaryDataController {
-    private var service = WKDataEnvironment.current.mediaWikiService
+public final class WKArticleSummaryDataController {
+    private var service: WKService?
+    
+    public init() {
+        self.service = WKDataEnvironment.current.mediaWikiService
+    }
     
     public func fetchArticleSummary(project: WKProject, title: String, completion: @escaping (Result<WKArticleSummary, Error>) -> Void) {
         
