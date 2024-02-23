@@ -1269,6 +1269,7 @@
 "watchlist-filter-user-registration-header" = "הרשמת משתמשים ורמת ניסיון";
 "watchlist-filter-user-registration-options-registered" = "רשומים";
 "watchlist-filter-user-registration-options-unregistered" = "לא רשומים";
+"watchlist-filters-add-language" = "הוספת שפה...";
 "watchlist-number-filters" = "אפשר לשנות [ {{PLURAL:$1|את המסנן|את $1 המסננים}}](wikipedia://watchlist/filter) כדי לראות פריטי רשימת המעקב נוספים";
 "watchlist-onboarding-button-title" = "מידע נוסף על רשימת המעקב";
 "watchlist-onboarding-title" = "היכרות עם רשימת המעקב שלך";

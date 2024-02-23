@@ -1285,6 +1285,7 @@
 "watchlist-filter-user-registration-header" = "使用者註冊及經驗";
 "watchlist-filter-user-registration-options-registered" = "已註冊";
 "watchlist-filter-user-registration-options-unregistered" = "未註冊";
+"watchlist-filters-add-language" = "新增語言…";
 "watchlist-number-filters" = "調整[{{PLURAL:$1|$1 篩選功能}}]（wikipedia://watchlist/filter）可查看更多監視清單項目";
 "watchlist-onboarding-button-title" = "了解更多關於監視清單";
 "watchlist-onboarding-title" = "介紹您的監視清單";
