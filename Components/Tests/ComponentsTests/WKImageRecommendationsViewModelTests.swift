@@ -9,6 +9,7 @@ final class WKImageRecommendationsViewModelTests: XCTestCase {
 
     override func setUpWithError() throws {
         WKDataEnvironment.current.mediaWikiService = WKMockGrowthTasksService()
+        WKDataEnvironment.current.basicService = WKMockBasicService()
     }
 
     func testFetchInitialImageRecommendations() throws {

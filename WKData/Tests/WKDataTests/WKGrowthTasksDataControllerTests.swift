@@ -9,6 +9,7 @@ final class WKGrowthTasksDataControllerTests: XCTestCase {
 
     override func setUp() async throws {
         WKDataEnvironment.current.mediaWikiService = WKMockGrowthTasksService()
+        WKDataEnvironment.current.basicService = WKMockBasicService()
     }
 
     func testFetchGrowthTasks() {
