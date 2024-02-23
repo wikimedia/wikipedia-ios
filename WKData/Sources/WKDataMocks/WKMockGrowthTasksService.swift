@@ -31,6 +31,15 @@ fileprivate extension WKData.WKServiceRequest {
 
         return method == .GET && action == "query" && formatversion == "2" && format == "json" && prop == "growthimagesuggestiondata" && pageids == "1" && gisdtasktype == "image-recommendation"
     }
+    
+    var isSummaryGet: Bool {
+        guard let url = url,
+              url.absoluteString.contains("/page/summary/") else {
+            return false
+        }
+        
+        return true
+    }
 
 }
 
@@ -55,8 +64,18 @@ public final class WKMockGrowthTasksService: WKService {
                 return nil
             }
             return jsonData
-
+        } else if request.isSummaryGet {
+            
+            let resourceName = "article-summary-get"
+            
+            guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
+                  let jsonData = try? Data(contentsOf: url) else {
+                return nil
+            }
+            
+            return jsonData
         }
+        
         return nil
 
     }

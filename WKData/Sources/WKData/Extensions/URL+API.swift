@@ -2,8 +2,12 @@ import Foundation
 
 extension URL {
     
+    // https://www.mediawiki.org/wiki/API:Main_page
     private static let baseMediaWikiAPIPathComponents = "/w/api.php"
     private static let basePaymentWikiAPIPathComponents = "/api.php"
+    
+    // https://www.mediawiki.org/wiki/Wikimedia_REST_API
+    private static let baseWikimediaRestAPIPathComponents = "api/rest_v1/"
     
     static func mediaWikiAPIURL(project: WKProject) -> URL? {
         var components = URLComponents()
@@ -18,6 +22,14 @@ extension URL {
         case .wikidata:
             components.host = "www.wikidata.org"
         }
+        
+        return components.url
+    }
+    
+    static func wikimediaRestAPIURL(project: WKProject, additionalPathComponents: [String]) -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.path = baseWikimediaRestAPIPathComponents + additionalPathComponents.joined(separator: "/")
         
         return components.url
     }

@@ -132,5 +132,37 @@ final class WKGrowthTasksDataControllerTests: XCTestCase {
         XCTAssertEqual(imageMetadata?.reason, "Utilizado en el mismo artículo en Wikipedia en lombardo.", "Incorrect reason")
         XCTAssertEqual(imageMetadata?.contentLanguageName, "checo", "Incorrect content language name")
     }
+    
+    func testFetchArticleSummary() {
+        
+        let expectation = XCTestExpectation(description: "Fetch Article Summary")
+        
+        let controller = WKArticleSummaryDataController()
+        
+        var articleSummaryToTest: WKArticleSummary?
+        controller.fetchArticleSummary(project: csProject, title: "Novela (právo)") { result in
+            switch result {
+            case .success(let articleSummary):
+                
+                articleSummaryToTest = articleSummary
+                
+            case .failure(let error):
+                XCTFail("Failure getting article summary: \(error)")
+            }
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3.0)
+        
+        guard let articleSummaryToTest else {
+            XCTFail("Missing articleSummaryToTest")
+            return
+        }
+        
+        XCTAssertEqual(articleSummaryToTest.displayTitle, "<span class=\"mw-page-title-main\">Novela (právo)</span>", "Incorrect displayTitle")
+        XCTAssertEqual(articleSummaryToTest.description, "změna zákona", "Incorrect description")
+        XCTAssertEqual(articleSummaryToTest.extractHtml, "<p><b>Novelou</b> se nazývá takový právní předpis, kterým se mění či doplňuje, cizím slovem <i>novelizuje</i>, jiný právní předpis. Novely jsou vydávány buď jako samostatné právní předpisy nebo jsou připojeny k jiným předpisům zpravidla na jejich konec. Název se odvozuje od výrazu „Novellae“, což je sbírka nařízení císaře Justiniána I. z let 534–569, která byla zařazena do souboru římského práva Corpus iuris civilis jako dodatek. Odlišným od novelizace je výraz „novace“, který má místo v soukromém právu, kde jde o novace závazků.</p>", "Incorrect extractHtml")
+    }
 
 }
