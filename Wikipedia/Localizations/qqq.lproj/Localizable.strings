@@ -1241,6 +1241,7 @@
 "watchlist-filter-user-registration-header" = "Header of watchlist filter adjustment view \"User Registration and Experience\" section.";
 "watchlist-filter-user-registration-options-registered" = "Option in the watchlist filter adjustment view \"User Registration and Experience\" section. When selected, this option only displays registered/non-anonymous edits in the user's watchlist.";
 "watchlist-filter-user-registration-options-unregistered" = "Option in the watchlist filter adjustment view \"User Registration and Experience\" section. When selected, this option only displays unregistered/anonymous edits in the user's watchlist.";
+"watchlist-filters-add-language" = "Title for button in watchlist filter view to add additional languages to watchlist view.";
 "watchlist-number-filters" = "Amount of filters active in watchlist - $1 is replaced with the number of filters.";
 "watchlist-onboarding-button-title" = "Watchlists onboarding modal learn more button title";
 "watchlist-onboarding-title" = "Watchlists onboarding modal title";

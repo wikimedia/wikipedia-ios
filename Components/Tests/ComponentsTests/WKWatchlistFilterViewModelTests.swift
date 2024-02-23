@@ -49,7 +49,7 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
         XCTAssertTrue(section1Item2.isSelected)
                       
         let section2 = selectSections[1]
-        XCTAssertEqual(section2.items.count, 2)
+        XCTAssertEqual(section2.items.count, 3)
         let section2Item1 = section2.items[0]
         XCTAssertEqual(section2Item1.title, "English Wikipedia")
         XCTAssertTrue(section2Item1.isSelected)
@@ -160,7 +160,7 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
         XCTAssertFalse(section1Item2.isSelected)
                       
         let section2 = selectSections[1]
-        XCTAssertEqual(section2.items.count, 2)
+        XCTAssertEqual(section2.items.count, 3)
         let section2Item1 = section2.items[0]
         XCTAssertEqual(section2Item1.title, "English Wikipedia")
         XCTAssertTrue(section2Item1.isSelected)
@@ -329,6 +329,8 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
                                          typeOfChangePageCreations: "Page creations",
                                          typeOfChangeCategoryChanges: "Category changes",
                                          typeOfChangeWikidataEdits: "Wikidata edits",
-                                         typeOfChangeLoggedActions: "Logged actions")
+                                         typeOfChangeLoggedActions: "Logged actions",
+                                         addLanguage: "Add language..."
+		 )
      }
  }

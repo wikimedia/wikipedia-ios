@@ -784,7 +784,7 @@
 "notifications-center-status-read" = "Oku";
 "notifications-center-status-triple-concatenation" = "$1 ile $2/$3";
 "notifications-center-status-unread" = "Okunmayan";
-"notifications-center-subheader-edit-milestone" = "Dönüm noktası düzenleniyor";
+"notifications-center-subheader-edit-milestone" = "Düzenleme dönüm noktası";
 "notifications-center-subheader-edit-reverted" = "Düzenlemeniz geri alındı";
 "notifications-center-subheader-email-from-other-user" = "Yeni e-posta";
 "notifications-center-subheader-login-fail-known-device" = "Birçok başarısız giriş denemesi";

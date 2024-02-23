@@ -348,8 +348,18 @@
 "editing-welcome-impartial-tone-title" = "Kirjoita puolueettomaan sävyyn";
 "editing-welcome-set-knowledge-free-subtitle" = "Tarvitsemme sinua lukemaan, kirjoittamaan ja parantamaan sinua kiinnostavia aiheita, jotta voisimme tarjota kaikille maailman parasta tietoa.";
 "editing-welcome-set-knowledge-free-title" = "Vapauta tieto";
+"editor-edit-source" = "Muokkaa wikitekstiä";
 "editor-exit-confirmation-body" = "Haluatko varmasti poistua muokkaustilasta julkaisematta ensin muutoksiasi?";
 "editor-exit-confirmation-title" = "Piilota muokkaustila?";
+"editor-keyboard-subheading1-button" = "Alaotsikko 1";
+"editor-keyboard-subheading2-button" = "Alaotsikko 2";
+"editor-keyboard-subheading3-button" = "Alaotsikko 3";
+"editor-keyboard-subheading4-button" = "Alaotsikko 4";
+"editor-keyboard-subscript-accessibility" = "Alaindeksi";
+"editor-keyboard-superscript-accessibility" = "Yläindeksi";
+"editor-keyboard-template-accessibility" = "Malline";
+"editor-replace-textfield-accessibility" = "Korvaa";
+"editor-replace-type-all" = "Korvaa kaikki";
 "empty-diff-compare-title" = "Ei eroavaisuuksia versioiden välillä";
 "empty-diff-single-title" = "Näkyviä muutoksia ei tehty";
 "empty-insert-media-title" = "Valitse tiedosto";
@@ -1059,6 +1069,7 @@
 "talk-pages-user-groups" = "Käyttäjäryhmät";
 "talk-pages-user-logs" = "Lokit";
 "talk-pages-view-title" = "Keskustelu";
+"terms-of-use-title" = "Käyttöehdot";
 "theme-black-display-name" = "Musta";
 "theme-dark-display-name" = "Tumma";
 "theme-default-display-name" = "Oletus";
