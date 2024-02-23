@@ -1,9 +1,9 @@
 import Foundation
 
 public struct WKArticleSummary: Decodable {
-    let displayTitle: String
-    let description: String
-    let extractHtml: String
+    public let displayTitle: String
+    public let description: String
+    public let extractHtml: String
     
     enum CodingKeys: String, CodingKey {
         case displayTitle = "displaytitle"
