@@ -66,6 +66,12 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     }
     
     func next(completion: @escaping () -> Void) {
+        guard !recommendations.isEmpty else {
+            self.currentRecommendation = nil
+            completion()
+            return
+        }
+        
         recommendations.removeFirst()
         guard let nextRecommendation = recommendations.first else {
             completion()
