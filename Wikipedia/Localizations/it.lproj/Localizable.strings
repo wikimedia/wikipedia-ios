@@ -866,6 +866,7 @@
 "watchlist-filter-user-registration-header" = "Registrazione utente ed esperienza";
 "watchlist-filter-user-registration-options-registered" = "Registrato";
 "watchlist-filter-user-registration-options-unregistered" = "Non registrato";
+"watchlist-filters-add-language" = "Aggiungi lingua...";
 "watchlist-removed" = "Rimossa dai tuoi osservati speciali";
 "watchlist-thanks-success" = "Il tuo 'ringraziamento' è stato inviato a $1";
 "watchlist-user-button-thank" = "Ringrazia";

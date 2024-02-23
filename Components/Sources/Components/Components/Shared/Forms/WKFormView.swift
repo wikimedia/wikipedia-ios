@@ -8,8 +8,8 @@ public struct WKFormView: View {
         return appEnvironment.theme
     }
 
-    public let viewModel: WKFormViewModel
-    
+    @ObservedObject public var viewModel: WKFormViewModel
+
     public init(viewModel: WKFormViewModel) {
         self.viewModel = viewModel
     }

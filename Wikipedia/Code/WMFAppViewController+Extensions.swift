@@ -283,29 +283,45 @@ extension WMFAppViewController: WKWatchlistDelegate {
     }
 
     public func watchlistUserDidTapAddLanguage(from viewController: UIViewController, viewModel: WKWatchlistFilterViewModel) {
-        displayAddLanguageSettingsForWatchlistFilters(from: viewController) {
-            // TODO
-            // Handle reloading filter view model projects when changing languages
-            viewModel.reload()
-        }
-    }
-
-    public func displayAddLanguageSettingsForWatchlistFilters(from viewController: UIViewController, completion: @escaping () -> Void) {
-        let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
-        languagesVC.showExploreFeedCustomizationSettings = false
-        languagesVC.userDismissalCompletionBlock = completion
-        languagesVC.apply(self.theme)
-        let navVC = WMFThemeableNavigationController(rootViewController: languagesVC, theme: theme)
-        viewController.present(navVC, animated: true, completion: nil)
-
-        /*
-        // TODO
-        // Go straight to modal for adding language, handle selecting new language
-
         let languagesController = WMFLanguagesViewController(nibName: "WMFLanguagesViewController", bundle: nil)
         languagesController.title = CommonStrings.wikipediaLanguages
-        viewController.present(languagesController, animated: true)
-         */
+        languagesController.apply(theme)
+        languagesController.delegate = self
+        languagesController.showAllLanguages = true
+        languagesController.showPreferredLanguages = false
+        languagesController.showNonPreferredLanguages = false
+
+        languagesController.userLanguageSelectionBlock = { [weak self, weak viewModel] in
+            guard let self = self else { return }
+
+            // From `ViewControllerRouter`
+            let dataStore = self.dataStore
+            let appLanguages = dataStore.languageLinkController.preferredLanguages
+            var localizedProjectNames = appLanguages.reduce(into: [WKProject: String]()) { result, language in
+                guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController), let wkProject = wikimediaProject.wkProject else {
+                    return
+                }
+
+                result[wkProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
+            }
+            localizedProjectNames[.wikidata] = WikimediaProject.wikidata.projectName(shouldReturnCodedFormat: false)
+            localizedProjectNames[.commons] = WikimediaProject.commons.projectName(shouldReturnCodedFormat: false)
+
+            viewModel?.reloadWikipedias(localizedProjectNames: localizedProjectNames)
+        }
+
+        let navigationController = WMFThemeableNavigationController(rootViewController: languagesController, theme: theme)
+        viewController.present(navigationController, animated: true)
+    }
+
+}
+
+extension WMFAppViewController: WMFLanguagesViewControllerDelegate {
+
+    public func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
+        dataStore.languageLinkController.appendPreferredLanguage(language)
+        controller.userLanguageSelectionBlock?()
+        controller.dismiss(animated: true)
     }
 
 }
