@@ -20,7 +20,7 @@ public final class WKArticleSummaryDataController {
             return
         }
 
-        let request = WKBasicServiceRequest(url: url, method: .GET)
+        let request = WKBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode)
         service.performDecodableGET(request: request) { (result: Result<WKArticleSummary, Error>) in
             completion(result)
         }
