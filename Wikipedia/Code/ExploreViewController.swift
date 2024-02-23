@@ -1081,7 +1081,14 @@ extension ExploreViewController {
     @objc func userDidTapNotificationsCenter() {
         // TODO: Temp Code until we get Explore Feed card in
         if FeatureFlags.needsImageRecommendations {
-            let imageRecommendationsViewController = WKImageRecommendationsViewController()
+            
+            guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+                  let project = WikimediaProject(siteURL: siteURL)?.wkProject else {
+                return
+            }
+            
+            let viewModel = WKImageRecommendationsViewModel(project: project)
+            let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel)
             navigationController?.pushViewController(imageRecommendationsViewController, animated: true)
         } else {
             notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
