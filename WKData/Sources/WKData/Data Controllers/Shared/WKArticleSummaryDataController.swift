@@ -4,7 +4,7 @@ public final class WKArticleSummaryDataController {
     private var service: WKService?
     
     public init() {
-        self.service = WKDataEnvironment.current.mediaWikiService
+        self.service = WKDataEnvironment.current.basicService
     }
     
     public func fetchArticleSummary(project: WKProject, title: String, completion: @escaping (Result<WKArticleSummary, Error>) -> Void) {
@@ -20,7 +20,7 @@ public final class WKArticleSummaryDataController {
             return
         }
 
-        let request = WKMediaWikiServiceRequest(url: url, method: .GET)
+        let request = WKBasicServiceRequest(url: url, method: .GET)
         service.performDecodableGET(request: request) { (result: Result<WKArticleSummary, Error>) in
             completion(result)
         }

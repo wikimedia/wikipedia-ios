@@ -24,8 +24,9 @@ struct WKImageRecommendationsView: View {
                 VStack {
                     Text(articleSummary.displayTitle)
                     Button(action: {
+                        loading = true
                         viewModel.next {
-                            
+                            loading = false
                         }
                     }, label: {
                         Text("Next")

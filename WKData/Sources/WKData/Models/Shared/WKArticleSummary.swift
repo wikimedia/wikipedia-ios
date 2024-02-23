@@ -2,7 +2,7 @@ import Foundation
 
 public struct WKArticleSummary: Decodable {
     public let displayTitle: String
-    public let description: String
+    public let description: String?
     public let extractHtml: String
     
     enum CodingKeys: String, CodingKey {

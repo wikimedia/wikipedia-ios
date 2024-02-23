@@ -47,11 +47,17 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             
             switch result {
             case .success(let pages):
-                recommendations = pages.map { ImageRecommendation(pageId: $0.pageid, title: $0.title) }
-                currentRecommendation = recommendations.first
-                fetchCurrentRecommendationArticleSummary {
-                    completion()
+                DispatchQueue.main.async {
+                    self.recommendations = pages.map { ImageRecommendation(pageId: $0.pageid, title: $0.title) }
+                    if let firstRecommendation = self.recommendations.first {
+                        self.populateCurrentRecommendation(for: firstRecommendation, completion: {
+                            DispatchQueue.main.async {
+                                completion()
+                            }
+                        })
+                    }
                 }
+                
             case .failure(let error):
                 completion()
                 print(error)
@@ -61,33 +67,40 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     func next(completion: @escaping () -> Void) {
         recommendations.removeFirst()
-        self.currentRecommendation = recommendations.first
-        fetchCurrentRecommendationArticleSummary {
-            completion()
-        }
-    }
-    
-    func fetchCurrentRecommendationArticleSummary(completion: @escaping () -> Void) {
-  
-        guard let currentRecommendation else {
+        guard let nextRecommendation = recommendations.first else {
             completion()
             return
         }
         
-        articleSummaryDataController.fetchArticleSummary(project: project, title: currentRecommendation.title) { [weak self] result in
+        populateCurrentRecommendation(for: nextRecommendation, completion: {
+            completion()
+        })
+    }
+    
+    func populateCurrentRecommendation(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {
+        
+        articleSummaryDataController.fetchArticleSummary(project: project, title: imageRecommendation.title) { [weak self] result in
             
             guard let self else {
-                completion()
+                DispatchQueue.main.async {
+                    completion()
+                }
                 return
             }
             
             switch result {
             case .success(let summary):
-                self.currentRecommendation?.articleSummary = summary
-                completion()
+                DispatchQueue.main.async {
+                    imageRecommendation.articleSummary = summary
+                    self.currentRecommendation = imageRecommendation
+                    completion()
+                }
+                
             case .failure(let error):
                 print(error)
-                completion()
+                DispatchQueue.main.async {
+                    completion()
+                }
             }
         }
     }
