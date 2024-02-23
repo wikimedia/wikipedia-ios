@@ -3,11 +3,8 @@ import SwiftUI
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
 
-    let text: String
-    init(text: String) {
-        self.text = text
-        
-        super.init(rootView: WKImageRecommendationsView(text: text))
+    init(viewModel: WKImageRecommendationsViewModel) {
+        super.init(rootView: WKImageRecommendationsView(viewModel: viewModel))
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -18,53 +15,47 @@ fileprivate final class WKImageRecommendationsHostingViewController: WKComponent
 
 struct WKImageRecommendationsView: View {
     
-    let text: String
-    
-    var attributedText: AttributedString {
-        let styles = HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicsCallout), boldItalicsFont: WKFont.for(.boldItalicsCallout), color: WKAppEnvironment.current.theme.text, linkColor: WKAppEnvironment.current.theme.link)
-        return (try? HtmlUtils.attributedStringFromHtml(text, styles: styles)) ?? AttributedString(text)
-    }
+    @ObservedObject var viewModel: WKImageRecommendationsViewModel
+    @State private var loading: Bool = false
     
     var body: some View {
-        VStack {
-            Text(attributedText)
-                .lineSpacing(3)
-                .environment(\.openURL, OpenURLAction { url in
-                    print("Navigate to url: \(url)")
-                    return .systemAction(url)
-                })
-            Spacer()
+        Group {
+            if let articleSummary = viewModel.currentRecommendation?.articleSummary {
+                VStack {
+                    Text(articleSummary.displayTitle)
+                    Button(action: {
+                        viewModel.next {
+                            
+                        }
+                    }, label: {
+                        Text("Next")
+                    })
+                }
+            } else {
+                if !loading {
+                    Text("Empty")
+                } else {
+                    ProgressView()
+                }
+            }
         }
-
+        .onAppear {
+            loading = true
+            viewModel.fetchImageRecommendations {
+                loading = false
+            }
+        }
     }
 }
 
 public final class WKImageRecommendationsViewController: WKCanvasViewController {
     
     // MARK: - Properties
-    
-    let text = "A <b>cactus</b> (plural <b>cacti, cactuses,</b> or less commonly, <b>cactus)</b><sup>[3]</sup> is a member of the <a href=\"https://en.wikipedia.org/wiki/Plant\">plant</a> family <b>Cactaceae</b><sup>[a]</sup>, a family comprising about 127 genera with some 1750 known species of the order <a href=\"https://en.wikipedia.org/wiki/Caryophyllales\">Caryophyllales</a>."
 
     fileprivate let hostingViewController: WKImageRecommendationsHostingViewController
-    
-    var attributedText: NSAttributedString? {
-        let styles = HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicsCallout), boldItalicsFont: WKFont.for(.boldItalicsCallout), color: WKAppEnvironment.current.theme.text, linkColor: WKAppEnvironment.current.theme.link)
-        return (try? HtmlUtils.nsAttributedStringFromHtml(text, styles: styles)) ?? NSAttributedString(string: text)
-    }
-    
-    lazy var textView: UITextView = {
-        let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.isScrollEnabled = false
-        textView.isEditable = false
-        textView.isUserInteractionEnabled = true
-        textView.attributedText = attributedText
-        textView.delegate = self
-        return textView
-    }()
-    
-    public override init() {
-        self.hostingViewController = WKImageRecommendationsHostingViewController(text: text)
+
+    public init(viewModel: WKImageRecommendationsViewModel) {
+        self.hostingViewController = WKImageRecommendationsHostingViewController(viewModel: viewModel)
         super.init()
     }
     
@@ -85,25 +76,6 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Image recommendations"
-        
-        // SwiftUI
          addComponent(hostingViewController, pinToEdges: true)
-
-        // UIKit
-        view.addSubview(textView)
-        NSLayoutConstraint.activate([
-            view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: textView.leadingAnchor),
-            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: textView.trailingAnchor),
-            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: textView.bottomAnchor)
-        ])
-    }
-}
-
-extension WKImageRecommendationsViewController: UITextViewDelegate {
-    
-    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        UIApplication.shared.open(URL)
-        return false
     }
 }
