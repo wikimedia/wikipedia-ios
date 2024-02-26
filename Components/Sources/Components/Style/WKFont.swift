@@ -27,6 +27,10 @@ public enum WKFont {
     case editorSubheading2
     case editorSubheading3
     case editorSubheading4
+    case georgiaHeadline
+    case boldGeorgiaHeadline
+    case italicsGeorgiaHeadline
+    case boldItalicsGeorgiaHeadline
 
     static func `for`(_ font: WKFont, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection) -> UIFont {
         switch font {
@@ -108,7 +112,29 @@ public enum WKFont {
             return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold), compatibleWith: traitCollection)
         case .editorSubheading4:
             return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 20, weight: .semibold), compatibleWith: traitCollection)
+        case .georgiaHeadline:
+            return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: 27), size: 0), compatibleWith: traitCollection)
+        case .boldGeorgiaHeadline:
+            let baseFont = WKFont.for(.georgiaHeadline)
+            if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitBold]) {
+                return UIFont(descriptor: descriptor, size: 0)
+            }
+            
+            return baseFont
+        case .italicsGeorgiaHeadline:
+            let baseFont = WKFont.for(.georgiaHeadline)
+            if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitItalic]) {
+                return UIFont(descriptor: descriptor, size: 0)
+            }
+            
+            return baseFont
+        case .boldItalicsGeorgiaHeadline:
+            let baseFont = WKFont.for(.georgiaHeadline)
+            if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitBold, .traitItalic]) {
+                return UIFont(descriptor: descriptor, size: 0)
+            }
+            
+            return baseFont
         }
-        
 	}
 }
