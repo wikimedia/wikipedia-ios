@@ -1088,7 +1088,10 @@ extension ExploreViewController {
                 return
             }
             
-            let viewModel = WKImageRecommendationsViewModel(project: project)
+            let title = WMFLocalizedString("image-rec-title", value: "Add image", comment: "Title of the image recommendation view. Displayed in the navigation bar above an article summary.")
+            let viewArticle = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
+            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: title, viewArticle: viewArticle)
+            let viewModel = WKImageRecommendationsViewModel(project: project, localizedStrings: localizedStrings)
             let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: self)
             navigationController?.pushViewController(imageRecommendationsViewController, animated: true)
         } else {

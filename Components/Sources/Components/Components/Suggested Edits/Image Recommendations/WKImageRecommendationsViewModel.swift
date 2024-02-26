@@ -5,6 +5,16 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Nested Types
     
+    public struct LocalizedStrings {
+        let title: String
+        let viewArticle: String
+        
+        public init(title: String, viewArticle: String) {
+            self.title = title
+            self.viewArticle = viewArticle
+        }
+    }
+    
     final class ImageRecommendation: ObservableObject {
         
         let pageId: Int
@@ -21,6 +31,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     // MARK: - Properties
     
     let project: WKProject
+    let localizedStrings: LocalizedStrings
+    
     private(set) var recommendations: [ImageRecommendation] = []
     @Published var currentRecommendation: ImageRecommendation?
     
@@ -29,8 +41,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Lifecycle
     
-    public init(project: WKProject) {
+    public init(project: WKProject, localizedStrings: LocalizedStrings) {
         self.project = project
+        self.localizedStrings = localizedStrings
         self.growthTasksDataController = WKGrowthTasksDataController(project: project)
         self.articleSummaryDataController = WKArticleSummaryDataController()
     }

@@ -26,10 +26,12 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
     fileprivate let hostingViewController: WKImageRecommendationsHostingViewController
     private weak var delegate: WKImageRecommendationsDelegate?
+    private let viewModel: WKImageRecommendationsViewModel
 
     public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate) {
         self.hostingViewController = WKImageRecommendationsHostingViewController(viewModel: viewModel, delegate: delegate)
         self.delegate = delegate
+        self.viewModel = viewModel
         super.init()
     }
     
@@ -49,7 +51,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
-         addComponent(hostingViewController, pinToEdges: true)
+        title = viewModel.localizedStrings.title
+        addComponent(hostingViewController, pinToEdges: true)
     }
 }
