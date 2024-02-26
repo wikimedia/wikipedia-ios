@@ -1,5 +1,6 @@
 import Foundation
 import WKData
+import Combine
 
 public final class WKImageRecommendationsViewModel: ObservableObject {
     
@@ -35,6 +36,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     private(set) var recommendations: [ImageRecommendation] = []
     @Published var currentRecommendation: ImageRecommendation?
+    @Published private var loading: Bool = false
+    @Published var debouncedLoading: Bool = false
+    private var subscriptions = Set<AnyCancellable>()
     
     let growthTasksDataController: WKGrowthTasksDataController
     let articleSummaryDataController: WKArticleSummaryDataController
@@ -46,6 +50,13 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         self.localizedStrings = localizedStrings
         self.growthTasksDataController = WKGrowthTasksDataController(project: project)
         self.articleSummaryDataController = WKArticleSummaryDataController()
+        
+        $loading
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+                    .sink(receiveValue: { [weak self] t in
+                        self?.debouncedLoading = t
+                    })
+                    .store(in: &subscriptions)
     }
     
     // MARK: - Internal
@@ -56,6 +67,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             completion()
             return
         }
+        
+        loading = true
         
         growthTasksDataController.getGrowthAPITask(task: .imageRecommendation) { [weak self] result in
             
@@ -71,6 +84,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                     if let firstRecommendation = self.recommendations.first {
                         self.populateCurrentRecommendation(for: firstRecommendation, completion: {
                             DispatchQueue.main.async {
+                                self.loading = false
                                 completion()
                             }
                         })
@@ -78,6 +92,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                 }
                 
             case .failure(let error):
+                self.loading = false
                 completion()
                 print(error)
             }
@@ -97,8 +112,11 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             return
         }
         
-        populateCurrentRecommendation(for: nextRecommendation, completion: {
+        loading = true
+        
+        populateCurrentRecommendation(for: nextRecommendation, completion: { [weak self] in
             completion()
+            self?.loading = false
         })
     }
     

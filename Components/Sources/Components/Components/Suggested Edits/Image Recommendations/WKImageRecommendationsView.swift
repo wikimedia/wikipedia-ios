@@ -1,15 +1,15 @@
 import SwiftUI
+import Combine
 
 struct WKImageRecommendationsView: View {
     
     @ObservedObject var viewModel: WKImageRecommendationsViewModel
-    @State private var loading: Bool = false
     let viewArticleAction: (String) -> Void
     
     var body: some View {
         Group {
             if let articleSummary = viewModel.currentRecommendation?.articleSummary,
-               !loading {
+               !viewModel.debouncedLoading {
                 VStack {
                     WKArticleSummaryView(articleSummary: articleSummary)
                     Spacer()
@@ -26,9 +26,8 @@ struct WKImageRecommendationsView: View {
                     
                     Spacer()
                     Button(action: {
-                        loading = true
                         viewModel.next {
-                            loading = false
+                            
                         }
                     }, label: {
                         Text("Next")
@@ -36,7 +35,7 @@ struct WKImageRecommendationsView: View {
                 }
                 .padding([.leading, .trailing, .bottom])
             } else {
-                if !loading {
+                if !viewModel.debouncedLoading {
                     Text("Empty")
                 } else {
                     ProgressView()
@@ -44,9 +43,8 @@ struct WKImageRecommendationsView: View {
             }
         }
         .onAppear {
-            loading = true
             viewModel.fetchImageRecommendationsIfNeeded {
-                loading = false
+
             }
         }
     }
