@@ -7,7 +7,8 @@ struct WKImageRecommendationsView: View {
     
     var body: some View {
         Group {
-            if let articleSummary = viewModel.currentRecommendation?.articleSummary {
+            if let articleSummary = viewModel.currentRecommendation?.articleSummary,
+               !loading {
                 VStack {
                     WKArticleSummaryView(articleSummary: articleSummary)
                     Spacer()
