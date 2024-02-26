@@ -440,4 +440,192 @@ final class WKWikitextUtilsTests: XCTestCase {
         XCTAssertEqual(insertedArticleWikitext, expectedInsertedArticleWikitext)
     }
     
+    func testGermanInsertImageWikitextIntoArticleWikitext() throws {
+        
+        let imageWikitext = "[[File: Cat.jpg | thumb | 220x124px | right | alt=Cat alt text | Cat caption text]]"
+        let initialArticleWikitext = """
+        {{Infobox Mühle
+        |NAME = Immanuel|BILD =Marner Neuenkoogsdeich Kellerhollaendermuehle Immanuel.jpg
+
+        |BILDBESCHREIBUNG =
+        <!-- Lage -->
+        |POSKARTE    =
+        |BREITENGRAD = 53.934802080954405
+        |LÄNGENGRAD  =  8.978154928868765
+        |REGION-ISO  = DE-SH
+        |NEBENBOX    =
+        |STANDORT    = Püttenweg 2, 25724 Neufeld
+
+        <!-- Technik -->
+        |TYP_NUTZUNG = Private Nutzung, Kunstgalerie im Keller
+        |MAHLWERK    =
+        |TYP_ANTRIEB =
+        <!-- Die folgenden Parameter sind nur für Wassermühlen relevant. -->
+        |GEWAESSER   =
+        |WASSERRAD   =
+        <!-- Die folgenden Parameter sind nur für Windmühlen relevant. -->
+        |WINDMÜHLENTYP =Erdholländer
+        |FLÜGELTYP     =Jalousieflügel
+        |FLÜGELANZAHL  = 4
+        |NACHFÜHRUNG   =Windrose
+        <!-- Geschichte und Status -->
+        |BAUJAHR     = 1842/1854
+        |STILLLEGUNG = 1959
+        |STATUS      =
+        |WEBSITE     =
+        }}
+        Die [[Windmühle]] '''Immanuel''' ist ein [[Holländerwindmühle|Erdholländer]] im Marner Neuenkoogsdeich, einem Ortsteil der Gemeinde [[Neufeld (Dithmarschen)|Neufeld]] im [[Schleswig-Holstein|schleswig-holsteinischen]] [[Landkreis]] [[Dithmarschen]]. Sie stand ursprünglich in [[Marne (Holstein)|Marne]] und wurde erst 1983 [[Translozierung|transloziert]], das heißt an ihren neuen Standort übertragen. Unter der Objekt-ID 3399 ist die Mühle in der [[Liste der Kulturdenkmale in Neufeld (Dithmarschen)]] eingetragen. Die Anschrift lautet Püttenweg 2 in Neufeld.
+        
+        == Geschichte ==
+        === „Alte“ Mühle von 1854 ===
+        Im Jahr 1854 wurde auf dem alten Sophiendeich, der zum [[Kirchspiel]] Marne gehörte, ein Erdholländer mit [[Reetdach]] errichtet. Erbauer war der Mühlenbauer [[Paul Jebens]]. Statt der mit Segeln bespannten Flügel erhielt die Mühle schon kurz nach ihrer Inbetriebnahme [[Windmühle#Jalousieklappenflügel|Jalousieflügel]], die sich während des Laufs verstellen lassen, um die Drehzahl je nach Windstärke gleichmäßig zu halten.
+
+        1907 wurde ein Petroleummotor eingebaut, um die Mühle auch bei [[Windstille]] betreiben zu können. Bei einem durch einen Kurzschluss ausgelösten Brand wurde 1936 die historische Mühle vernichtet.
+
+        === Versetzung einer Mühle aus Marne nach Neufeld ===
+        Der Standort im Marner Neuenkoogsdeich, zugehörig zur Gemeinde [[Neufeld (Dithmarschen)|Neufeld]], lag seither fast ein halbes Jahrhundert brach, bis der [[Bildhauer]] [[Klaus Wiethoff]]<ref>{{Internetquelle|url=https://www.amt-marne-nordsee.de/amtsgemeinden/neufeld|titel=Neufeld|autor=Amt Marne Nordsee|abruf=2024-01-28}}</ref> 1983 die Mühle Immanuel dorthin versetzen ließ. Sie stand ursprünglich in der Königstraße in [[Marne (Holstein)|Marne]]. Sie war 1845<ref name="elbe">{{Internetquelle|url=https://www.friedrichskoog.de/natur-region/neufeld/|titel=Neufeld – Zwischen Elbmündung und Nordsee … |autor=Natur Region Friedrichskoog|abruf=2024-01-28}}</ref> ebenfalls von Paul Jebens errichtet worden und am ursprünglichen Standort bis 1959 in Betrieb, bevor sie verfiel. In Verbindung mit der Aufstellung an ihrem neuen Platz wurde sie saniert.
+
+        Heute dient die Windmühle dem Eigentümer als Galerie. Es finden regelmäßig Ausstellungen mit zeitgenössischer Kunst statt.<ref name="imme">{{Internetquelle|url=http://www.ruediger.schnick.de/html/marne-muehle.html|titel=Die Windmühle "Immenuael" in Neufeld|autor=Rüdiger Schick|abruf=2024-01-28}}</ref>
+
+        """
+        
+        let insertedArticleWikitext = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
+        let expectedInsertedArticleWikitext = """
+        {{Infobox Mühle
+        |NAME = Immanuel|BILD =Marner Neuenkoogsdeich Kellerhollaendermuehle Immanuel.jpg
+
+        |BILDBESCHREIBUNG =
+        <!-- Lage -->
+        |POSKARTE    =
+        |BREITENGRAD = 53.934802080954405
+        |LÄNGENGRAD  =  8.978154928868765
+        |REGION-ISO  = DE-SH
+        |NEBENBOX    =
+        |STANDORT    = Püttenweg 2, 25724 Neufeld
+
+        <!-- Technik -->
+        |TYP_NUTZUNG = Private Nutzung, Kunstgalerie im Keller
+        |MAHLWERK    =
+        |TYP_ANTRIEB =
+        <!-- Die folgenden Parameter sind nur für Wassermühlen relevant. -->
+        |GEWAESSER   =
+        |WASSERRAD   =
+        <!-- Die folgenden Parameter sind nur für Windmühlen relevant. -->
+        |WINDMÜHLENTYP =Erdholländer
+        |FLÜGELTYP     =Jalousieflügel
+        |FLÜGELANZAHL  = 4
+        |NACHFÜHRUNG   =Windrose
+        <!-- Geschichte und Status -->
+        |BAUJAHR     = 1842/1854
+        |STILLLEGUNG = 1959
+        |STATUS      =
+        |WEBSITE     =
+        }}
+        [[File: Cat.jpg | thumb | 220x124px | right | alt=Cat alt text | Cat caption text]]
+        Die [[Windmühle]] '''Immanuel''' ist ein [[Holländerwindmühle|Erdholländer]] im Marner Neuenkoogsdeich, einem Ortsteil der Gemeinde [[Neufeld (Dithmarschen)|Neufeld]] im [[Schleswig-Holstein|schleswig-holsteinischen]] [[Landkreis]] [[Dithmarschen]]. Sie stand ursprünglich in [[Marne (Holstein)|Marne]] und wurde erst 1983 [[Translozierung|transloziert]], das heißt an ihren neuen Standort übertragen. Unter der Objekt-ID 3399 ist die Mühle in der [[Liste der Kulturdenkmale in Neufeld (Dithmarschen)]] eingetragen. Die Anschrift lautet Püttenweg 2 in Neufeld.
+
+        == Geschichte ==
+        === „Alte“ Mühle von 1854 ===
+        Im Jahr 1854 wurde auf dem alten Sophiendeich, der zum [[Kirchspiel]] Marne gehörte, ein Erdholländer mit [[Reetdach]] errichtet. Erbauer war der Mühlenbauer [[Paul Jebens]]. Statt der mit Segeln bespannten Flügel erhielt die Mühle schon kurz nach ihrer Inbetriebnahme [[Windmühle#Jalousieklappenflügel|Jalousieflügel]], die sich während des Laufs verstellen lassen, um die Drehzahl je nach Windstärke gleichmäßig zu halten.
+
+        1907 wurde ein Petroleummotor eingebaut, um die Mühle auch bei [[Windstille]] betreiben zu können. Bei einem durch einen Kurzschluss ausgelösten Brand wurde 1936 die historische Mühle vernichtet.
+
+        === Versetzung einer Mühle aus Marne nach Neufeld ===
+        Der Standort im Marner Neuenkoogsdeich, zugehörig zur Gemeinde [[Neufeld (Dithmarschen)|Neufeld]], lag seither fast ein halbes Jahrhundert brach, bis der [[Bildhauer]] [[Klaus Wiethoff]]<ref>{{Internetquelle|url=https://www.amt-marne-nordsee.de/amtsgemeinden/neufeld|titel=Neufeld|autor=Amt Marne Nordsee|abruf=2024-01-28}}</ref> 1983 die Mühle Immanuel dorthin versetzen ließ. Sie stand ursprünglich in der Königstraße in [[Marne (Holstein)|Marne]]. Sie war 1845<ref name="elbe">{{Internetquelle|url=https://www.friedrichskoog.de/natur-region/neufeld/|titel=Neufeld – Zwischen Elbmündung und Nordsee … |autor=Natur Region Friedrichskoog|abruf=2024-01-28}}</ref> ebenfalls von Paul Jebens errichtet worden und am ursprünglichen Standort bis 1959 in Betrieb, bevor sie verfiel. In Verbindung mit der Aufstellung an ihrem neuen Platz wurde sie saniert.
+
+        Heute dient die Windmühle dem Eigentümer als Galerie. Es finden regelmäßig Ausstellungen mit zeitgenössischer Kunst statt.<ref name="imme">{{Internetquelle|url=http://www.ruediger.schnick.de/html/marne-muehle.html|titel=Die Windmühle "Immenuael" in Neufeld|autor=Rüdiger Schick|abruf=2024-01-28}}</ref>
+
+        """
+        XCTAssertEqual(insertedArticleWikitext, expectedInsertedArticleWikitext)
+    }
+    
+    func testEnglishInsertImageWikitextIntoEmptyArticleWikitext() throws {
+        
+        let imageWikitext = "[[File: Cat.jpg | thumb | 220x124px | right | alt=Cat alt text | Cat caption text]]"
+        
+        let initialArticleWikitext = ""
+        
+        let insertedArticleWikitext = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
+        let expectedInsertedArticleWikitext = "[[File: Cat.jpg | thumb | 220x124px | right | alt=Cat alt text | Cat caption text]]"
+        XCTAssertEqual(insertedArticleWikitext, expectedInsertedArticleWikitext)
+    }
+    
+    func testEnglishInsertEmptyImageWikitextIntoEmptyArticleWikitext() throws {
+        
+        let imageWikitext = ""
+        
+        let initialArticleWikitext = """
+        {{Short description|Small domesticated carnivorous mammal}}
+        {{About|the species commonly kept as a pet|the cat family|Felidae|other uses|Cat (disambiguation)|and|Cats (disambiguation)}}
+        {{Good article}}
+        {{pp-semi-indef|small=yes}}
+        {{pp-move|small=yes}}
+        {{Use American English|date=January 2020}}
+        {{Use dmy dates|date=October 2022}}<!-- Per MOS:ENGVAR and MOS:DATEVAR, articles should conform to one overall spelling of English and date format, typically the ones with which it was created when the topic has no strong national ties. This article was created with American English, using international date format (DD Month YYYY), and should continue to be written that way. If there is a compelling reason to change it propose a change on the talk page. -->
+        {{Speciesbox
+         |name=Cat
+        <!-- There has been extensive discussion about the choice of image in this infobox. Before replacing this image with something else, consider if it actually improves on the ENCYCLOPEDIC CRITERIA which led to this choice. See [[Talk:Cat]] and [[Talk:Cat/Lead photo]] and if in doubt, DISCUSS IT FIRST! -->
+         |fossil_range=9,500 years ago – present
+         |image={{Multiple image
+          |perrow=2/2/2
+          |total_width=275
+          |image1=Cat August 2010-4.jpg
+          |image2=Gustav chocolate.jpg
+          |image3=Orange tabby cat sitting on fallen leaves-Hisashi-01A.jpg
+          |image4=Siam lilacpoint.jpg
+          |image5=Felis catus-cat on snow.jpg
+          |image6=Sheba1.JPG
+          |border=infobox
+          |footer=Various types of cats
+        }}
+         |status=DOM
+         |genus=Felis
+         |species=catus<ref name="Linnaeus1758" />
+         |authority=[[Carl Linnaeus|Linnaeus]], [[10th edition of Systema Naturae|1758]]<ref name="MSW3fc" />
+         |synonyms=*''Catus domesticus'' {{small|[[Johann Christian Polycarp Erxleben|Erxleben]], 1777}}<ref name="Erxleben">{{Cite book |last=Erxleben |first=J. C. P. |date=1777 |title=Systema regni animalis per classes, ordines, genera, species, varietates cvm synonymia et historia animalivm. Classis I. Mammalia |location=Lipsiae |publisher=Weygandt |pages=520–521 |chapter=Felis Catus domesticus |chapter-url= https://archive.org/details/iochristpolycerx00erxl/page/520}}</ref>
+        * ''F. angorensis'' {{small|[[Karl Christian Gmelin|Gmelin]], 1788}}
+        * ''F. vulgaris'' {{small|Fischer, 1829}}
+        }}
+
+        The '''cat''' ('''''Felis catus'''''), commonly referred to as the '''domestic cat''' or '''house cat''', is the only [[Domestication of animals|domesticated]] species in the family [[Felidae]]. Recent advances in [[archaeology]] and [[genetics]] have shown that the [[domestication of the cat]] occurred in the [[Near East]] around 7500 [[Before Christ|BC]]. It is commonly kept as a house pet and [[farm cat]], but also ranges freely as a [[feral cat]] avoiding human contact. It is valued by humans for companionship and its ability to kill [[vermin]]. Because of its retractable [[claw]]s it is adapted to killing small prey like [[mice]] and [[rat]]s. It has a strong flexible body, quick [[reflexes]], sharp teeth, and its [[night vision]] and [[sense of smell]] are well developed. It is a [[social species]], but a solitary hunter and a [[crepuscular]] [[predator]]. [[Cat communication]] includes vocalizations like [[meow]]ing, [[purr]]ing, trilling, hissing, [[growling]], and grunting as well as [[cat body language]]. It can hear sounds too faint or too high in [[frequency]] for human ears, such as those made by small mammals. It also secretes and perceives [[pheromones]].
+        """
+        
+        let insertedArticleWikitext = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
+        let expectedInsertedArticleWikitext = """
+        {{Short description|Small domesticated carnivorous mammal}}
+        {{About|the species commonly kept as a pet|the cat family|Felidae|other uses|Cat (disambiguation)|and|Cats (disambiguation)}}
+        {{Good article}}
+        {{pp-semi-indef|small=yes}}
+        {{pp-move|small=yes}}
+        {{Use American English|date=January 2020}}
+        {{Use dmy dates|date=October 2022}}<!-- Per MOS:ENGVAR and MOS:DATEVAR, articles should conform to one overall spelling of English and date format, typically the ones with which it was created when the topic has no strong national ties. This article was created with American English, using international date format (DD Month YYYY), and should continue to be written that way. If there is a compelling reason to change it propose a change on the talk page. -->
+        {{Speciesbox
+         |name=Cat
+        <!-- There has been extensive discussion about the choice of image in this infobox. Before replacing this image with something else, consider if it actually improves on the ENCYCLOPEDIC CRITERIA which led to this choice. See [[Talk:Cat]] and [[Talk:Cat/Lead photo]] and if in doubt, DISCUSS IT FIRST! -->
+         |fossil_range=9,500 years ago – present
+         |image={{Multiple image
+          |perrow=2/2/2
+          |total_width=275
+          |image1=Cat August 2010-4.jpg
+          |image2=Gustav chocolate.jpg
+          |image3=Orange tabby cat sitting on fallen leaves-Hisashi-01A.jpg
+          |image4=Siam lilacpoint.jpg
+          |image5=Felis catus-cat on snow.jpg
+          |image6=Sheba1.JPG
+          |border=infobox
+          |footer=Various types of cats
+        }}
+         |status=DOM
+         |genus=Felis
+         |species=catus<ref name="Linnaeus1758" />
+         |authority=[[Carl Linnaeus|Linnaeus]], [[10th edition of Systema Naturae|1758]]<ref name="MSW3fc" />
+         |synonyms=*''Catus domesticus'' {{small|[[Johann Christian Polycarp Erxleben|Erxleben]], 1777}}<ref name="Erxleben">{{Cite book |last=Erxleben |first=J. C. P. |date=1777 |title=Systema regni animalis per classes, ordines, genera, species, varietates cvm synonymia et historia animalivm. Classis I. Mammalia |location=Lipsiae |publisher=Weygandt |pages=520–521 |chapter=Felis Catus domesticus |chapter-url= https://archive.org/details/iochristpolycerx00erxl/page/520}}</ref>
+        * ''F. angorensis'' {{small|[[Karl Christian Gmelin|Gmelin]], 1788}}
+        * ''F. vulgaris'' {{small|Fischer, 1829}}
+        }}
+
+        The '''cat''' ('''''Felis catus'''''), commonly referred to as the '''domestic cat''' or '''house cat''', is the only [[Domestication of animals|domesticated]] species in the family [[Felidae]]. Recent advances in [[archaeology]] and [[genetics]] have shown that the [[domestication of the cat]] occurred in the [[Near East]] around 7500 [[Before Christ|BC]]. It is commonly kept as a house pet and [[farm cat]], but also ranges freely as a [[feral cat]] avoiding human contact. It is valued by humans for companionship and its ability to kill [[vermin]]. Because of its retractable [[claw]]s it is adapted to killing small prey like [[mice]] and [[rat]]s. It has a strong flexible body, quick [[reflexes]], sharp teeth, and its [[night vision]] and [[sense of smell]] are well developed. It is a [[social species]], but a solitary hunter and a [[crepuscular]] [[predator]]. [[Cat communication]] includes vocalizations like [[meow]]ing, [[purr]]ing, trilling, hissing, [[growling]], and grunting as well as [[cat body language]]. It can hear sounds too faint or too high in [[frequency]] for human ears, such as those made by small mammals. It also secretes and perceives [[pheromones]].
+        """
+        XCTAssertEqual(insertedArticleWikitext, expectedInsertedArticleWikitext)
+    }
 }
