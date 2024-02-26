@@ -1,10 +1,3 @@
-//
-//  SwiftUIView.swift
-//  
-//
-//  Created by Toni Sevener on 2/26/24.
-//
-
 import SwiftUI
 
 struct WKImageRecommendationsView: View {
@@ -16,7 +9,8 @@ struct WKImageRecommendationsView: View {
         Group {
             if let articleSummary = viewModel.currentRecommendation?.articleSummary {
                 VStack {
-                    Text(articleSummary.displayTitle)
+                    WKArticleSummaryView(articleSummary: articleSummary)
+                    Spacer()
                     Button(action: {
                         loading = true
                         viewModel.next {
