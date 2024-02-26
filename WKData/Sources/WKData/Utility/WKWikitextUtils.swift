@@ -2,7 +2,7 @@ import Foundation
 
 public struct WKWikitextUtils {
     
-    // MARK: Nested Types
+    // MARK: Seek range of html text in wikitext
     
     public struct HtmlInfo {
         let textBeforeTargetText: String
@@ -15,13 +15,6 @@ public struct WKWikitextUtils {
             self.textAfterTargetText = textAfterTargetText
         }
     }
-    
-    public enum ParsingError: Error {
-        case closingTemplateMarkupBeforeOpeningMarkup
-        case unableToDetermineImageWikitextInsertionPoint
-    }
-    
-    // MARK: Properties
     
     private static let adjacentWordCount = 6
     private static let adjacentCharacterCount = 200
@@ -130,7 +123,7 @@ public struct WKWikitextUtils {
         return score
     }
     
-    // MARK: Insert Image Wikitext into Article Wikitext After Templates
+    // MARK: - Insert Image Wikitext into Article Wikitext After Templates
     
     private class MarkupInfo {
         
@@ -145,12 +138,20 @@ public struct WKWikitextUtils {
         }
     }
     
+    public enum ParsingError: Error {
+        case closingTemplateMarkupBeforeOpeningMarkup
+    }
+    
     /// Inserts image wikitext into article wikitext, after all initial templates.
     /// - Parameters:
     ///   - imageWikitext: image wikitext, e.g. `[[File: Cat.jpg | thumb | 220x124px | right | alt=Cat alt text | Cat caption text]]`
     ///   - articleWikitext: article wikitext
     /// - Returns: Article wikitext, with image wikitext inserted.
     public static func insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: String, into articleWikitext: String) throws -> String {
+        
+        guard !imageWikitext.isEmpty else {
+            return articleWikitext
+        }
         
         let skipMarkupInfos = [
             MarkupInfo(openString: "{{", closeString: "}}"),
@@ -184,9 +185,7 @@ public struct WKWikitextUtils {
                 
                 if textOpen == markupInfo.openString {
                     markupInfo.openStartIndexes.append(index)
-                }
-                
-                if textClose == markupInfo.closeString {
+                } else if textClose == markupInfo.closeString {
                     
                     guard let lastOpenIndex = markupInfo.openStartIndexes.popLast() else {
                         throw ParsingError.closingTemplateMarkupBeforeOpeningMarkup
