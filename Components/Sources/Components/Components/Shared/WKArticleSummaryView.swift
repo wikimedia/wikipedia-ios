@@ -47,6 +47,5 @@ struct WKArticleSummaryView: View {
                 .lineLimit(nil)
                 .lineSpacing(3)
         }
-        .padding([.leading, .trailing, .bottom])
     }
 }

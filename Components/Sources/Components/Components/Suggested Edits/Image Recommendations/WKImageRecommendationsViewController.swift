@@ -1,10 +1,17 @@
 import Foundation
 import SwiftUI
+import WKData
+
+public protocol WKImageRecommendationsDelegate: AnyObject {
+    func imageRecommendationsUserDidTapViewArticle(project: WKProject, title: String)
+}
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
 
-    init(viewModel: WKImageRecommendationsViewModel) {
-        super.init(rootView: WKImageRecommendationsView(viewModel: viewModel))
+    init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate) {
+        super.init(rootView: WKImageRecommendationsView(viewModel: viewModel, viewArticleAction: { [weak delegate] title in
+            delegate?.imageRecommendationsUserDidTapViewArticle(project: viewModel.project, title: title)
+        }))
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -18,9 +25,11 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     // MARK: - Properties
 
     fileprivate let hostingViewController: WKImageRecommendationsHostingViewController
+    private weak var delegate: WKImageRecommendationsDelegate?
 
-    public init(viewModel: WKImageRecommendationsViewModel) {
-        self.hostingViewController = WKImageRecommendationsHostingViewController(viewModel: viewModel)
+    public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate) {
+        self.hostingViewController = WKImageRecommendationsHostingViewController(viewModel: viewModel, delegate: delegate)
+        self.delegate = delegate
         super.init()
     }
     

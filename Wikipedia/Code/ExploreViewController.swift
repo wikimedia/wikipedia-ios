@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import CocoaLumberjackSwift
 import Components
+import WKData
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding {
 
@@ -1088,7 +1089,7 @@ extension ExploreViewController {
             }
             
             let viewModel = WKImageRecommendationsViewModel(project: project)
-            let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel)
+            let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: self)
             navigationController?.pushViewController(imageRecommendationsViewController, animated: true)
         } else {
             notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
@@ -1099,4 +1100,29 @@ extension ExploreViewController {
         dataStore.remoteNotificationsController.loadNotifications(force: true)
     }
 
+}
+
+extension ExploreViewController: WKImageRecommendationsDelegate {
+    func imageRecommendationsUserDidTapViewArticle(project: WKData.WKProject, title: String) {
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        
+        switch project {
+        case .wikipedia(let language):
+            components.host = "\(language.languageCode).wikipedia.org"
+        default:
+            assertionFailure("Unexpected project for image recommendations")
+        }
+        
+        guard let url = components.url,
+              let articleURL = url.wmf_URL(withTitle: title),
+              let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+            return
+        }
+        
+        navigationController?.pushViewController(articleViewController, animated: true)
+    }
+    
+    
 }
