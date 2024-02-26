@@ -89,7 +89,7 @@ final class WKWikitextUtilsTests: XCTestCase {
     
     func testArabicInsertImageWikitextIntoArticleWikitext() throws {
         
-        let imageWikitext = "[[File: Cat.jpg | thumb | 220x124px | right | alt=Cat alt text | Cat caption text]]"
+        let imageWikitext = "[[ملف:Feral_cat_2.JPG|تصغير|يمين|بديل=test2|test]]"
         
         let initialArticleWikitext = """
         {{عن|3=الأرض (توضيح)}}
@@ -307,7 +307,7 @@ final class WKWikitextUtilsTests: XCTestCase {
         |حوالي 1% من [[بخار الماء]] (تختلف النسبة باختلاف [[مناخ|المناخ]])
         }}
         }}
-        [[File: Cat.jpg | thumb | 220x124px | right | alt=Cat alt text | Cat caption text]]
+        [[ملف:Feral_cat_2.JPG|تصغير|يمين|بديل=test2|test]]
         '''الأَرْض'''<ref>{{استشهاد بويكي بيانات|Q113297966|ص=1368}}</ref> ([[رمز فلكي|رمزها]]: [[ملف:Earth symbol (fixed width).svg|16px|🜨]]) هي ثالث كواكب [[المجموعة الشمسية]] بعدًا عن [[الشمس]] بعد [[عطارد]] و[[الزهرة]]، وتُعتبر من أكبر [[كوكب|الكواكب]] [[كوكب أرضي|الأرضية]] وخامس أكبر الكواكب في [[المجموعة الشمسية|النظام الشمسي]]،<ref>{{استشهاد ويب |عنوان=كواكب المجموعة الشمسية بالترتيب حسب الحجم |تاريخ الوصول=25 مارس 2020 |ناشر=موقع سطور|تاريخ أرشيف=2020-03-25}} {{مراجعة مرجع|تاريخ=أغسطس 2020}}</ref> وذلك من حيث قطرها وكتلتها وكثافتها، ويُطلق على هذا الكوكب أيضًا اسم ''[[العالم]]''.
         [[ملف:EpicEarth-Globespin(2016May29).gif|تصغير|22 صورة للأرض تم التقاطها من الفضاء عبر القمر الصناعي ديسكفر.]]
         تعتبر الأرض مسكنًا لملايين [[نوع (تصنيف)|الأنواع]] <ref>{{استشهاد بدورية محكمة
@@ -348,7 +348,7 @@ final class WKWikitextUtilsTests: XCTestCase {
     }
     
     func testChineseImageWikitextIntoArticleWikitext() throws {
-        let imageWikitext = "[[File: Cat.jpg | thumb | 220x124px | right | alt=Cat alt text | Cat caption text]]"
+        let imageWikitext = "[[File:問號貓貓.jpg|thumb|right|alt=test2|test]]"
         
         let initialArticleWikitext = """
 {{In-progress TV show}}
@@ -434,7 +434,7 @@ final class WKWikitextUtilsTests: XCTestCase {
 | 港澳名稱 =
 | imdb_id=26628595
 }}
-[[File: Cat.jpg | thumb | 220x124px | right | alt=Cat alt text | Cat caption text]]
+[[File:問號貓貓.jpg|thumb|right|alt=test2|test]]
 《'''和我老公結婚吧'''》（{{韓|諺=내 남편과 결혼해줘|漢=내 男便과 結婚해줘}}，{{lang-en|''Marry My Husband''}}），為[[韓國]][[tvN]]於2024年1月1日起播出的[[TvN月火連續劇|月火連續劇]]，改編自同名網路小說，目前已連載為網路漫畫。<ref>{{Cite web|last=신은주|title='전남친 구속' 박민영, 컴백 임박..."'내 남편과 결혼해줘' 검토 중" [공식]|url=https://entertain.naver.com/read?oid=213&aid=0001244939|access-date=2024-01-01|website=entertain.naver.com|language=ko|archive-date=2023-10-25|archive-url=https://web.archive.org/web/20231025143939/https://entertain.naver.com/read?oid=213&aid=0001244939|dead-url=no}}</ref>由《[[朝鮮精神科醫師劉世豐]]》的朴元國導演執導，《[[日與夜 (電視劇)|日與夜]]》的申儒潭編劇執筆。講述因至親與丈夫的背叛而迎來悲劇性結局的女人，回到十年前將自己悲慘的命運還給他們的「第二次人生」。<ref>{{Cite web|author=오명언|url=https://www.yna.co.kr/view/AKR20231025041400005|title=tvN 드라마 '내 남편과 결혼해줘'에 박민영·나인우|website=[[韓國聯合通訊社]]|date=2023-10-25|accessdate=2023-10-28|language=ko|dead-url=no|archive-date=2023-10-27|archive-url=https://web.archive.org/web/20231027194747/https://www.yna.co.kr/view/AKR20231025041400005}}</ref><ref>{{Cite web|author=최지윤|url=https://newsis.com/view/?id=NISX20231025_0002495374|title=박민영, 전남친 구설 딛고 복귀…'내 남편과 결혼해줘'|website=[[紐西斯]]|date=2023-10-25|accessdate=2023-10-28|language=ko|dead-url=no|archive-date=2023-10-27|archive-url=https://web.archive.org/web/20231027194752/https://www.newsis.com/view/?id=NISX20231025_0002495374}}</ref><ref>{{Cite news|url=https://www.sportsseoul.com/news/read/1385374|title=‘내 남편과 결혼해줘’ D-1…박민영·이기광, 짜릿한 인생 역전극|publisher={{lk|首爾體育報|스포츠서울}}|language=ko|date=2023-12-31|accessdate=2024-01-01|archive-date=2024-01-01|archive-url=https://web.archive.org/web/20240101073603/https://www.sportsseoul.com/news/read/1385374|dead-url=no}}</ref>
 """
         XCTAssertEqual(insertedArticleWikitext, expectedInsertedArticleWikitext)
@@ -442,7 +442,7 @@ final class WKWikitextUtilsTests: XCTestCase {
     
     func testGermanInsertImageWikitextIntoArticleWikitext() throws {
         
-        let imageWikitext = "[[File: Cat.jpg | thumb | 220x124px | right | alt=Cat alt text | Cat caption text]]"
+        let imageWikitext = "[[Datei:Hauskatze_in_Abendsonne.jpg|mini|rechts|alternativtext=test2|test]]"
         let initialArticleWikitext = """
         {{Infobox Mühle
         |NAME = Immanuel|BILD =Marner Neuenkoogsdeich Kellerhollaendermuehle Immanuel.jpg
@@ -521,7 +521,7 @@ final class WKWikitextUtilsTests: XCTestCase {
         |STATUS      =
         |WEBSITE     =
         }}
-        [[File: Cat.jpg | thumb | 220x124px | right | alt=Cat alt text | Cat caption text]]
+        [[Datei:Hauskatze_in_Abendsonne.jpg|mini|rechts|alternativtext=test2|test]]
         Die [[Windmühle]] '''Immanuel''' ist ein [[Holländerwindmühle|Erdholländer]] im Marner Neuenkoogsdeich, einem Ortsteil der Gemeinde [[Neufeld (Dithmarschen)|Neufeld]] im [[Schleswig-Holstein|schleswig-holsteinischen]] [[Landkreis]] [[Dithmarschen]]. Sie stand ursprünglich in [[Marne (Holstein)|Marne]] und wurde erst 1983 [[Translozierung|transloziert]], das heißt an ihren neuen Standort übertragen. Unter der Objekt-ID 3399 ist die Mühle in der [[Liste der Kulturdenkmale in Neufeld (Dithmarschen)]] eingetragen. Die Anschrift lautet Püttenweg 2 in Neufeld.
 
         == Geschichte ==
