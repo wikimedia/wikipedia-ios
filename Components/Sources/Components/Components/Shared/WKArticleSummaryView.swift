@@ -15,9 +15,8 @@ struct WKArticleSummaryView: View {
         return (try? HtmlUtils.attributedStringFromHtml(articleSummary.displayTitle, styles: styles)) ?? AttributedString(articleSummary.displayTitle)
     }
     
-    private var summaryAttributedString: AttributedString {
-        let styles = HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicsCallout), boldItalicsFont: WKFont.for(.boldItalicsCallout), color: theme.text, linkColor: theme.link, lineSpacing: 3)
-        return (try? HtmlUtils.attributedStringFromHtml(articleSummary.extractHtml, styles: styles)) ?? AttributedString(articleSummary.extractHtml)
+    private var summaryStyles: HtmlUtils.Styles {
+        return HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicsCallout), boldItalicsFont: WKFont.for(.boldItalicsCallout), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
 
     var body: some View {
@@ -43,9 +42,7 @@ struct WKArticleSummaryView: View {
             
             Spacer()
                 .frame(height: 2)
-            Text(summaryAttributedString)
-                .lineLimit(nil)
-                .lineSpacing(3)
+            WKHtmlText(html: articleSummary.extractHtml, styles: summaryStyles)
         }
     }
 }
