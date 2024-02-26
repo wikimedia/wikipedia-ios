@@ -37,7 +37,13 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Internal
     
-    func fetchImageRecommendations(completion: @escaping () -> Void) {
+    func fetchImageRecommendationsIfNeeded(completion: @escaping () -> Void) {
+        
+        guard recommendations.isEmpty else {
+            completion()
+            return
+        }
+        
         growthTasksDataController.getGrowthAPITask(task: .imageRecommendation) { [weak self] result in
             
             guard let self else {
