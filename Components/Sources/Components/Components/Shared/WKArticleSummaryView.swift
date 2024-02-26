@@ -11,12 +11,12 @@ struct WKArticleSummaryView: View {
     }
     
     private var titleAttributedString: AttributedString {
-        let styles = HtmlUtils.Styles(font: WKFont.for(.georgiaHeadline), boldFont: WKFont.for(.boldGeorgiaHeadline), italicsFont: WKFont.for(.italicsGeorgiaHeadline), boldItalicsFont: WKFont.for(.boldItalicsGeorgiaHeadline), color: theme.text, linkColor: theme.link)
+        let styles = HtmlUtils.Styles(font: WKFont.for(.georgiaHeadline), boldFont: WKFont.for(.boldGeorgiaHeadline), italicsFont: WKFont.for(.italicsGeorgiaHeadline), boldItalicsFont: WKFont.for(.boldItalicsGeorgiaHeadline), color: theme.text, linkColor: theme.link, lineSpacing: 3)
         return (try? HtmlUtils.attributedStringFromHtml(articleSummary.displayTitle, styles: styles)) ?? AttributedString(articleSummary.displayTitle)
     }
     
     private var summaryAttributedString: AttributedString {
-        let styles = HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicsCallout), boldItalicsFont: WKFont.for(.boldItalicsCallout), color: theme.text, linkColor: theme.link)
+        let styles = HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicsCallout), boldItalicsFont: WKFont.for(.boldItalicsCallout), color: theme.text, linkColor: theme.link, lineSpacing: 3)
         return (try? HtmlUtils.attributedStringFromHtml(articleSummary.extractHtml, styles: styles)) ?? AttributedString(articleSummary.extractHtml)
     }
 
