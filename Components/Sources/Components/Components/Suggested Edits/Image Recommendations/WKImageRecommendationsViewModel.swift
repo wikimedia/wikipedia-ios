@@ -74,6 +74,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         
         recommendations.removeFirst()
         guard let nextRecommendation = recommendations.first else {
+            self.currentRecommendation = nil
             completion()
             return
         }
