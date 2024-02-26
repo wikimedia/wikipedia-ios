@@ -10,9 +10,8 @@ struct WKArticleSummaryView: View {
         return appEnvironment.theme
     }
     
-    private var titleAttributedString: AttributedString {
-        let styles = HtmlUtils.Styles(font: WKFont.for(.georgiaHeadline), boldFont: WKFont.for(.boldGeorgiaHeadline), italicsFont: WKFont.for(.italicsGeorgiaHeadline), boldItalicsFont: WKFont.for(.boldItalicsGeorgiaHeadline), color: theme.text, linkColor: theme.link, lineSpacing: 3)
-        return (try? HtmlUtils.attributedStringFromHtml(articleSummary.displayTitle, styles: styles)) ?? AttributedString(articleSummary.displayTitle)
+    private var titleStyles: HtmlUtils.Styles {
+        HtmlUtils.Styles(font: WKFont.for(.georgiaHeadline), boldFont: WKFont.for(.boldGeorgiaHeadline), italicsFont: WKFont.for(.italicsGeorgiaHeadline), boldItalicsFont: WKFont.for(.boldItalicsGeorgiaHeadline), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
     
     private var summaryStyles: HtmlUtils.Styles {
@@ -23,7 +22,7 @@ struct WKArticleSummaryView: View {
         VStack(alignment: .leading, spacing: 8) {
             Spacer()
                 .frame(height: 12)
-            Text(titleAttributedString)
+            WKHtmlText(html: articleSummary.displayTitle, styles: titleStyles)
             
             if let description = articleSummary.description {
                 Text(description)
