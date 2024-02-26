@@ -625,7 +625,7 @@
 "home-button-explore-accessibility-label" = "维基百科，返回到探索";
 "home-button-history-accessibility-label" = "维基百科，返回到历史";
 "home-button-saved-accessibility-label" = "维基百科，返回到已保存";
-"home-more-like-footer" = "更像$1";
+"home-more-like-footer" = "更多$1相关条目";
 "home-nearby-footer" = "更多您所在位置附近的地点";
 "home-nearby-location-footer" = "更多在$1附近";
 "home-news-footer" = "更多最近的时事";

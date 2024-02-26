@@ -814,6 +814,7 @@
 "watchlist-filter-type-of-change-options-logged-actions" = "Protokolléiert Aktiounen";
 "watchlist-filter-type-of-change-options-page-edits" = "Säitenännerungen";
 "watchlist-filter-type-of-change-options-wikidata-edits" = "Wikidata-Ännerungen";
+"watchlist-filters-add-language" = "Sprooch derbäisetzen...";
 "watchlist-onboarding-button-title" = "Méi iwwer Iwwerwaachungslëschte gewuer ginn";
 "watchlist-removed" = "Vun Ärer Iwwerwaachungslëscht erofgeholl";
 "watchlist-thanks-success" = "Äre „Merci“ gouf dem $1 geschéckt";

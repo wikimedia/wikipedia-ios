@@ -13,6 +13,19 @@ public struct HtmlUtils {
         let boldItalicsFont: UIFont
         let color: UIColor
         let linkColor: UIColor
+        let lineSpacing: CGFloat
+        let listIndent: String
+        
+        internal init(font: UIFont, boldFont: UIFont, italicsFont: UIFont, boldItalicsFont: UIFont, color: UIColor, linkColor: UIColor, lineSpacing: CGFloat, listIndent: String = HtmlUtils.defaultListIndent) {
+            self.font = font
+            self.boldFont = boldFont
+            self.italicsFont = italicsFont
+            self.boldItalicsFont = boldItalicsFont
+            self.color = color
+            self.linkColor = linkColor
+            self.lineSpacing = lineSpacing
+            self.listIndent = listIndent
+        }
     }
     
     private enum ListType {
@@ -50,12 +63,16 @@ public struct HtmlUtils {
         let range: NSRange
     }
     
+    // MARK: - Shared - Properties
+    
+    static let defaultListIndent = "    "
+    
     // MARK: - NSAttributedString - Public
     
     public static func nsAttributedStringFromHtml(_ html: String, styles: Styles) throws -> NSAttributedString {
         let attributedString = NSMutableAttributedString(string: html)
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 3
+        paragraphStyle.lineSpacing = styles.lineSpacing
         let attributes: [NSAttributedString.Key : Any] = [
             .font: styles.font,
             .foregroundColor: styles.color,
@@ -63,7 +80,7 @@ public struct HtmlUtils {
         ]
         attributedString.setAttributes(attributes, range: html.fullNSRange)
         
-        let listInsertData = try listInsertData(html: html)
+        let listInsertData = try listInsertData(html: html, styles: styles)
         insertListData(into: attributedString, listInsertData: listInsertData, styles: styles)
         
         let allStyleData = try allStyleData(html: attributedString.string)
@@ -171,7 +188,7 @@ public struct HtmlUtils {
         attributedString.font = styles.font
         attributedString.foregroundColor = styles.color
         
-        let listInsertData = try listInsertData(html: html)
+        let listInsertData = try listInsertData(html: html, styles: styles)
         insertListData(into: &attributedString, listInsertData: listInsertData, styles: styles)
         
         let allStyleData = try allStyleData(html: String(attributedString.characters))
@@ -331,7 +348,7 @@ public struct HtmlUtils {
         return styles.font.pointSize * 0.35
     }
     
-    private static func listInsertData(html: String) throws -> [ListInsertData] {
+    private static func listInsertData(html: String, styles: Styles) throws -> [ListInsertData] {
         
         // First enumerate through all list tags and capture insert data
         let listTagRegex = try NSRegularExpression(pattern: "(?:<)((?:\\/?)(?:ol|ul|li))(?:\\s?)([^>]*)(?:>)")
@@ -379,7 +396,7 @@ public struct HtmlUtils {
                     }
                 }
                 
-                let spaces = String(repeating: "    ", count: indent)
+                let spaces = String(repeating: styles.listIndent, count: indent)
                 
                 var lineBreakPrefix = ""
                 if tagRange.lowerBound > html.startIndex {

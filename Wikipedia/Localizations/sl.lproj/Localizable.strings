@@ -808,7 +808,7 @@
 "places-empty-search-description" = "Raziskujte mesta, države, celine, naravne znamenitosti, zgodovinske dogodke, stavbe in drugo.";
 "places-empty-search-title" = "Poiščite članke Wikipedije z geografskimi lokacijami";
 "places-enable-location-action-button-title" = "Omogoči lokacijo";
-"places-enable-location-description" = "Dostop do vaše lokacije je na voljo le, ko je aplikacija ali ena od njenih možnosti vidna na vašem zaslonu.";
+"places-enable-location-description" = "Dostop do vaše lokacije je na voljo samo, ko je aplikacija ali ena od njenih možnosti vidna na vašem zaslonu.";
 "places-enable-location-title" = "Raziskujte članke v vaši bližini tako, da omogočite dostop do svoje lokacije";
 "places-filter-articles-action-sheet-title" = "Filtriraj članke";
 "places-filter-button-title" = "Filter";
