@@ -36,8 +36,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     private(set) var recommendations: [ImageRecommendation] = []
     @Published var currentRecommendation: ImageRecommendation?
-    @Published private var loading: Bool = false
-    @Published var debouncedLoading: Bool = false
+    @Published private var loading: Bool = true
+    @Published var debouncedLoading: Bool = true
     private var subscriptions = Set<AnyCancellable>()
     
     let growthTasksDataController: WKGrowthTasksDataController
