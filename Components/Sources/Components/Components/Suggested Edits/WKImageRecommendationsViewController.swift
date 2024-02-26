@@ -20,15 +20,16 @@ struct WKImageRecommendationsView: View {
     
     let text: String
     
+    private let styles = HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicsCallout), boldItalicsFont: WKFont.for(.boldItalicsCallout), color: WKAppEnvironment.current.theme.text, linkColor: WKAppEnvironment.current.theme.link, lineSpacing: 3)
+    
     var attributedText: AttributedString {
-        let styles = HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicsCallout), boldItalicsFont: WKFont.for(.boldItalicsCallout), color: WKAppEnvironment.current.theme.text, linkColor: WKAppEnvironment.current.theme.link)
         return (try? HtmlUtils.attributedStringFromHtml(text, styles: styles)) ?? AttributedString(text)
     }
     
     var body: some View {
         VStack {
             Text(attributedText)
-                .lineSpacing(3)
+                .lineSpacing(styles.lineSpacing)
                 .environment(\.openURL, OpenURLAction { url in
                     print("Navigate to url: \(url)")
                     return .systemAction(url)
@@ -48,7 +49,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     fileprivate let hostingViewController: WKImageRecommendationsHostingViewController
     
     var attributedText: NSAttributedString? {
-        let styles = HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicsCallout), boldItalicsFont: WKFont.for(.boldItalicsCallout), color: WKAppEnvironment.current.theme.text, linkColor: WKAppEnvironment.current.theme.link)
+        let styles = HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicsCallout), boldItalicsFont: WKFont.for(.boldItalicsCallout), color: WKAppEnvironment.current.theme.text, linkColor: WKAppEnvironment.current.theme.link, lineSpacing: 3)
         return (try? HtmlUtils.nsAttributedStringFromHtml(text, styles: styles)) ?? NSAttributedString(string: text)
     }
     

@@ -13,6 +13,7 @@ public struct HtmlUtils {
         let boldItalicsFont: UIFont
         let color: UIColor
         let linkColor: UIColor
+        let lineSpacing: CGFloat
     }
     
     private enum ListType {
@@ -55,7 +56,7 @@ public struct HtmlUtils {
     public static func nsAttributedStringFromHtml(_ html: String, styles: Styles) throws -> NSAttributedString {
         let attributedString = NSMutableAttributedString(string: html)
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 3
+        paragraphStyle.lineSpacing = styles.lineSpacing
         let attributes: [NSAttributedString.Key : Any] = [
             .font: styles.font,
             .foregroundColor: styles.color,
