@@ -1204,6 +1204,7 @@
 "watchlist-filter-user-registration-header" = "Корисничка регистрација и искуство";
 "watchlist-filter-user-registration-options-registered" = "Регистровани";
 "watchlist-filter-user-registration-options-unregistered" = "Анонимни";
+"watchlist-filters-add-language" = "Додај језик...";
 "watchlist-number-filters" = "Измените [{{PLURAL:$1|$1 филтер|$1 филтера}}](wikipedia://watchlist\n/filter) да би сте видели више ставки на списку надгледања";
 "watchlist-onboarding-button-title" = "Сазнајте више о списку надгледања";
 "watchlist-onboarding-title" = "Представљање вашег списка надгледања";

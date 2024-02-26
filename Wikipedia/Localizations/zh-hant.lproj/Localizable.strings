@@ -930,7 +930,7 @@
 "reading-list-create-new-list-button-title" = "建立閱讀清單";
 "reading-list-create-new-list-description" = "描述";
 "reading-list-create-new-list-reading-list-name" = "閱讀清單名稱";
-"reading-list-create-new-list-title" = "建立新清單";
+"reading-list-create-new-list-title" = "新增清單";
 "reading-list-deleted-accessibility-notification" = "閱讀清單已刪除";
 "reading-list-do-not-keep-button-title" = "不，從裝置上刪除條目";
 "reading-list-entry-limit-exceeded-message" = "請刪減您在此清單的條目數量至 $1 個，以恢復此清單的所有條目同步。";
