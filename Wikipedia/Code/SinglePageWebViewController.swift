@@ -110,8 +110,18 @@ class SinglePageWebViewController: ViewController {
             }
             setupWButton()
         }
+        
+        copyCookiesFromSession()
 
         super.viewDidLoad()
+    }
+    
+    private func copyCookiesFromSession() {
+        let cookies = Session.sharedCookieStorage.cookies ?? []
+        for (cookie) in cookies {
+            webView.configuration.websiteDataStore.httpCookieStore
+                .setCookie(cookie)
+        }
     }
 
     private func fetch() {
