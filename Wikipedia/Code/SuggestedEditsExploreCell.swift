@@ -1,14 +1,10 @@
 import UIKit
 
 class SuggestedEditsExploreCell: CollectionViewCell {
+    
+    // TODO: Temporary UI
     private let captionLabel: UILabel = UILabel()
 
-    var captionIsRTL: Bool = false {
-        didSet {
-            captionLabel.textAlignment = captionIsRTL ? .right : .left
-        }
-    }
-    
     var caption: String? {
         get {
             return captionLabel.text
@@ -37,7 +33,7 @@ class SuggestedEditsExploreCell: CollectionViewCell {
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
-        // todo: set layoutMarginsAdditions
+        // TODO: maybe set layoutMarginsAdditions
         
         let layoutMargins = calculatedLayoutMargins
         

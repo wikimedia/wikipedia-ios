@@ -385,6 +385,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
         
+        // TODO: Temporary UI
         cell.caption = "Testing!"
     }
 
