@@ -233,8 +233,13 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
         guard presentVanishView, let username = dataStore.authenticationManager.loggedInUsername else {
             return
         }
-
-        let viewController = VanishAccountContainerViewController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
+        
+        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+              let accountVanishingURL = siteURL.wmf_URL(withPath: "/wiki/Special:Contact/accountvanishapps", isMobile: true) else {
+            return
+        }
+        
+        let viewController = SinglePageWebViewController(url: accountVanishingURL, theme: theme)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
