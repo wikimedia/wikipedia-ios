@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSString *result = nil;
 
-    //crash protection if language is nil
+    // crash protection if language is nil
     if (language) {
         result = [NSString localizedStringWithFormat:string, language];
     } else {
@@ -294,6 +294,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFLocalizedStringWithDefaultValue(@"home-news-footer", nil, nil, @"More current events", @"Footer for presenting user option to see longer list of news stories.");
         case WMFContentGroupKindOnThisDay:
             return WMFLocalizedStringWithDefaultValue(@"on-this-day-footer", nil, nil, @"More historical events on this day", @"Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events");
+        case WMFContentGroupKindSuggestedEdits:
+            return @"Add";
         case WMFContentGroupKindUnknown:
         default:
             break;
@@ -317,6 +319,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedMoreTypeNews;
         case WMFContentGroupKindOnThisDay:
             return WMFFeedMoreTypeOnThisDay;
+        case WMFContentGroupKindSuggestedEdits:
+            return WMFFeedMoreTypeImageRecommendations;
         default:
             break;
     }

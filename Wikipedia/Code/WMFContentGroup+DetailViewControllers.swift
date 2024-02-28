@@ -1,4 +1,5 @@
 import Foundation
+import Components
 
 extension WMFContentGroup {
 	@objc(detailViewControllerForPreviewItemAtIndex:dataStore:theme:)
@@ -58,6 +59,12 @@ extension WMFContentGroup {
             let firstRandom = WMFFirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme)
             (firstRandom as Themeable).apply(theme: theme)
             vc = firstRandom
+        case .imageRecommendations:
+            guard let siteURL = siteURL else {
+                break
+            }
+            let imageRecommendationsViewController = WKImageRecommendationsViewController()
+            vc = imageRecommendationsViewController
         default:
             break
         }

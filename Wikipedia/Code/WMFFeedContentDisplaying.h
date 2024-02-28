@@ -53,7 +53,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedMoreType) {
     WMFFeedMoreTypePageListWithLocation,
     WMFFeedMoreTypeLocationAuthorization,
     WMFFeedMoreTypeNews,
-    WMFFeedMoreTypeOnThisDay
+    WMFFeedMoreTypeOnThisDay,
+    WMFFeedMoreTypeImageRecommendations
 };
 
 @protocol WMFFeedContentDisplaying
