@@ -230,7 +230,7 @@ class AccountViewController: SubSettingsViewController {
 extension AccountViewController: VanishAccountWarningViewDelegate {
 
     func userDidDismissVanishAccountWarningView(presentVanishView: Bool) {
-        guard presentVanishView, let username = dataStore.authenticationManager.loggedInUsername else {
+        guard presentVanishView else {
             return
         }
         
