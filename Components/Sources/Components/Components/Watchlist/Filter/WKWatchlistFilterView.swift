@@ -8,7 +8,7 @@ struct WKWatchlistFilterView: View {
         return appEnvironment.theme
     }
 
-    let viewModel: WKWatchlistFilterViewModel
+	@ObservedObject var viewModel: WKWatchlistFilterViewModel
     let doneAction: () -> Void
 
     var body: some View {

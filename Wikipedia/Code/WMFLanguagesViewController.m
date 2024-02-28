@@ -25,12 +25,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 @property (nonatomic) BOOL editing;
 @property (nonatomic) BOOL disableSelection;
 
-// The showAllLangugages and showPreferredLanguages settings are mutually exclusive.
-// Only one of the two should be set to YES.
-@property (nonatomic, assign) BOOL showAllLanguages;
-@property (nonatomic, assign) BOOL showPreferredLanguages;
-@property (nonatomic, assign) BOOL showNonPreferredLanguages;
-
 @property (nonatomic, strong) WMFTheme *theme;
 
 @end

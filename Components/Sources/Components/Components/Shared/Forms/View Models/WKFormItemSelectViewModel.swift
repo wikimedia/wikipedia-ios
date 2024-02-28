@@ -11,10 +11,15 @@ public final class WKFormItemSelectViewModel: ObservableObject, Identifiable, Eq
     let image: UIImage?
     let title: String?
     @Published public var isSelected: Bool
+	
+	public var isAccessoryRow: Bool
+	public var accessoryRowSelectionAction: (() -> Void)?
 
-    public init(image: UIImage? = nil, title: String?, isSelected: Bool) {
+	public init(image: UIImage? = nil, title: String?, isSelected: Bool, isAccessoryRow: Bool = false, accessoryRowSelectionAction: (() -> Void)? = nil) {
         self.image = image
         self.title = title
         self.isSelected = isSelected
+		self.isAccessoryRow = isAccessoryRow
+		self.accessoryRowSelectionAction = accessoryRowSelectionAction
     }
 }

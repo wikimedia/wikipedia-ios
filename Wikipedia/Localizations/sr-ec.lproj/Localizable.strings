@@ -375,12 +375,14 @@
 "editor-keyboard-subheading4-button" = "Поднаслов 4";
 "editor-keyboard-template-accessibility" = "Шаблон";
 "editor-keyboard-text-formatting-title" = "Обликовање текста";
+"editor-keyboard-underline-accessibility" = "Подвуци";
 "editor-replace-textfield-accessibility" = "Замени";
 "editor-replace-textfield-placeholder" = "Замени са...";
 "editor-replace-type-all" = "Замени све";
 "editor-replace-type-all-accessibility" = "Замени све";
 "editor-replace-type-single" = "Замени";
 "editor-toolbar-find-accessibility" = "Пронађи у страници";
+"editor-wikitext-textview-accessibility" = "Уређивач викитекста";
 "empty-diff-compare-title" = "Нема разлика између измена";
 "empty-diff-single-title" = "Нема направљених видљивих промена";
 "empty-insert-media-title" = "Изаберите датотеку са Викимедијине оставе";
@@ -673,6 +675,7 @@
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Само пројекти где сте направили налог ће се појавити овде";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Викимедијини пројекти";
 "notifications-center-inbox-wikipedias-section-title" = "Википедије";
+"notifications-center-language-project-name-format" = "$2 ($1)";
 "notifications-center-login-notifications" = "Обавештења о пријављивању";
 "notifications-center-mark" = "Означи";
 "notifications-center-mark-all-as-read" = "Означи све као прочитано";
@@ -1201,6 +1204,7 @@
 "watchlist-filter-user-registration-header" = "Корисничка регистрација и искуство";
 "watchlist-filter-user-registration-options-registered" = "Регистровани";
 "watchlist-filter-user-registration-options-unregistered" = "Анонимни";
+"watchlist-filters-add-language" = "Додај језик...";
 "watchlist-number-filters" = "Измените [{{PLURAL:$1|$1 филтер|$1 филтера}}](wikipedia://watchlist\n/filter) да би сте видели више ставки на списку надгледања";
 "watchlist-onboarding-button-title" = "Сазнајте више о списку надгледања";
 "watchlist-onboarding-title" = "Представљање вашег списка надгледања";
@@ -1215,6 +1219,7 @@
 "watchlist-user-button-user-page" = "Корисничка страница";
 "watchlist-user-button-user-talk-page" = "Корисничка страница за разговор";
 "watchlist-watch-title" = "Надгледај чланке";
+"welcome-data-privacy-title" = "Подаци & приватност";
 "welcome-exploration-explore-feed-description" = "Препоручени и дневни чланци од наше заједнице";
 "welcome-exploration-explore-feed-title" = "Фид „Истражи“";
 "welcome-exploration-on-this-day-description" = "Вратите се назад кроз време да бисте сазнали шта се одиграло на данашњи дан";

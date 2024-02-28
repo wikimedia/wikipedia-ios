@@ -625,7 +625,7 @@
 "home-button-explore-accessibility-label" = "维基百科，返回到探索";
 "home-button-history-accessibility-label" = "维基百科，返回到历史";
 "home-button-saved-accessibility-label" = "维基百科，返回到已保存";
-"home-more-like-footer" = "更像$1";
+"home-more-like-footer" = "更多$1相关条目";
 "home-nearby-footer" = "更多您所在位置附近的地点";
 "home-nearby-location-footer" = "更多在$1附近";
 "home-news-footer" = "更多最近的时事";
@@ -1093,7 +1093,7 @@
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "如果您在此设备上启用了同步，清空您保存的条目将从您的用户账号中移除。\n\n清空您保存的条目将腾出约$1空间。";
 "settings-storage-and-syncing-erase-saved-articles-title" = "清空保存的条目";
 "settings-storage-and-syncing-full-sync" = "您的阅读列表将在后台同步";
-"settings-storage-and-syncing-server-sync-footer-text" = "请求对您已同步的条目和阅读列表更新。";
+"settings-storage-and-syncing-server-sync-footer-text" = "请求更新您同步的条目和阅读列表。";
 "settings-storage-and-syncing-server-sync-title" = "更新同步的阅读列表";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "在您的阅读列表视图中，分别显示保存的阅读列表（例如默认列表）。此列表会出现在Android设备上。";
 "settings-storage-and-syncing-show-default-reading-list-title" = "显示保存的阅读列表";

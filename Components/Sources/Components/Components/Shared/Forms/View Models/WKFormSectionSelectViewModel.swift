@@ -7,6 +7,7 @@ public final class WKFormSectionSelectViewModel: WKFormSectionViewModel {
     public enum SelectType {
         case single
         case multi
+		case multiWithAccessoryRows
     }
     
     let items: [WKFormItemSelectViewModel]

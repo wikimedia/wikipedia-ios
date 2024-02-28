@@ -193,7 +193,7 @@
 "description-edit-warning-casing" = "Тик яңғыҙлыҡ исемдәр генә, хатта һөйләмдең башында ла, ҙур хәрефтән яҙылырға тейеш.";
 "description-help-about-description" = "Тасуирламаларҙа мәҡәлә йөкмәткеһе ҡыҫҡаса бирелә, был уҡыусыларға теманы шунда уҡ аңларға ярҙам итә.";
 "description-help-about-title" = "Тасуирлау";
-"description-help-about-wikidata" = "Викидата тураһында";
+"description-help-about-wikidata" = "Викимәғлүмәт тураһында";
 "description-help-more-info-description" = "Тасуирлама Викимәғлүмәттә (Wikidata) — Википедияға һәм башҡа проекттарға ярҙам итеү өсөн ирекле, тышҡы сығанаҡтарға нигеҙләнеп, берлектә тултырылған күп телле икенсел мәғлүмәт базаһы булып торған Викимедиа фонды проектында һаҡлана.";
 "description-help-more-info-title" = "Өҫтәмә мәғлүмәт";
 "description-help-tips-description" = "Тасуирлама мөмкин тиклем бер юлда яҙылырға һәм ике-ун ике һүҙҙән торорға тейеш. Тәүге һүҙ яңғыҙлыҡ исеме булған осраҡтарҙан тыш, һөйләмде бәләкәй хәрефтән башларға кәрәк.";
@@ -204,7 +204,7 @@
 "description-help-tips-for-example" = "Миҫал:";
 "description-help-tips-title" = "Тасуирлама буйынса кәңәштәр";
 "description-help-title" = "Мәҡәләләрҙең тасуирламаһы буйынса ярҙам";
-"description-help-wikidata-guide" = "Тасуирлама яҙыу өсөн Викидата ҡулланмаһы";
+"description-help-wikidata-guide" = "Тасуирлама яҙыу өсөн Викимәғлүмәт ҡулланмаһы";
 "description-published-button-title" = "Эшләнде";
 "description-published-footer" = "Ошо ҡушымта менән мәҡәләләрҙе лә мөхәррирләй алаһығыҙ. Хәреф хаталарын һәм ҙур булмаған һөйләмдәрҙе төҙәтеү өсөн ҡәләм һүрәте төшөрөлгән билдәгә баҫығыҙ.";
 "description-published-subtitle" = "Һеҙ Википедияны барыһы өсөн дә яҡшыраҡ итеп эшләнегеҙ";
@@ -509,7 +509,7 @@
 "in-the-news-sub-title-from-wikipedia" = "Википедиянан";
 "in-the-news-title" = "Яңылыҡтарҙа";
 "insert-action-title" = "Өҫтәргә";
-"insert-link-title" = "Һылтанма ҡуйырға";
+"insert-link-title" = "Һылтанма ҡуйыу";
 "insert-media-alternative-text-description" = "Күреү мөмкинлеге сикле уҡыусылар өсөн тасуирлама";
 "insert-media-alternative-text-placeholder" = "Рәсемде тасуирларға";
 "insert-media-alternative-text-title" = "Альтернатив текст";
@@ -656,7 +656,7 @@
 "wikitext-preview-changes-none" = "Ҡарай алырлыҡ бер ниндәй ҙә үҙгәртеүҙәр индерелмәгән";
 "wikitext-upload-captcha-error" = "Капча тикшереүе талап ителә";
 "wikitext-upload-captcha-needed" = "Нужна проверка капчи.";
-"wikitext-upload-result-unknown" = "Вики-тексты йөклөү һөҙөмтәһен билдәләп булмай";
+"wikitext-upload-result-unknown" = "Вики-тексты йөклөү һөҙөмтәһен билдәләп булмай.";
 // Fuzzy
 "wikitext-upload-save" = "Һаҡлана";
 "wikitext-upload-save-anonymously-warning" = "Төҙәтеүҙәр һеҙҙең ҡоролмағыҙҙың IP-адресы менән билдәләнәсәк. Әгәр һеҙ $1 икән, юғарыраҡ кимәлдәге йәшеренлек алығыҙ";

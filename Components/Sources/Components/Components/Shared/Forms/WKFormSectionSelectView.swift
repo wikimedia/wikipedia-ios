@@ -15,6 +15,12 @@ struct WKFormSectionSelectView: View {
                 switch viewModel.selectType {
                 case .multi:
                     WKFormSelectMultiRowView(viewModel: item)
+                case .multiWithAccessoryRows:
+					if item.isAccessoryRow {
+						WKFormSelectableAccessoryRowView(viewModel: item)
+					} else {
+						WKFormSelectMultiRowView(viewModel: item)
+					}
                 case .single:
                     WKFormSelectSingleRowView(viewModel: item)
                 }
