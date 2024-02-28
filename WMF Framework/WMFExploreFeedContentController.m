@@ -6,6 +6,7 @@
 #import <WMF/WMFRandomContentSource.h>
 #import <WMF/WMFAnnouncementsContentSource.h>
 #import <WMF/WMFOnThisDayContentSource.h>
+#import <WMF/WMFSuggestedEditsContentSource.h>
 #import <WMF/WMFAssertions.h>
 #import <WMF/WMF-Swift.h>
 
@@ -131,6 +132,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         NSMutableArray *mutableContentSources = [NSMutableArray arrayWithCapacity:2 + siteURLs.count * 7];
         [mutableContentSources addObject:[[WMFRelatedPagesContentSource alloc] init]];
         [mutableContentSources addObject:[[WMFContinueReadingContentSource alloc] initWithUserDataStore:self.dataStore]];
+        [mutableContentSources addObject:[[WMFSuggestedEditsContentSource alloc] initWithDataStore:self.dataStore]];
         for (NSURL *siteURL in siteURLs) {
             WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL
                                                                                       userDataStore:self.dataStore];
@@ -413,9 +415,18 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     static NSSet *globalContentGroupKindNumbers;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        globalContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindContinueReading), @(WMFContentGroupKindRelatedPages)]];
+        globalContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindContinueReading), @(WMFContentGroupKindRelatedPages), @(WMFContentGroupKindSuggestedEdits)]];
     });
     return globalContentGroupKindNumbers;
+}
+
++ (NSSet<NSNumber *> *)nonDateBasedContentGroupKindNumbers {
+    static NSSet *singularGroupKindNumbers;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        singularGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindSuggestedEdits)]];
+    });
+    return singularGroupKindNumbers;
 }
 
 - (BOOL)isGlobalContentGroupKindInFeed:(WMFContentGroupKind)contentGroupKind {

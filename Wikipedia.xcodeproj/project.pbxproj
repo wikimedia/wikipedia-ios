@@ -505,6 +505,11 @@
 		675175DE276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */; };
 		67540CA924D221E3008B2894 /* LocationManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67540CA824D221E3008B2894 /* LocationManagerFactory.swift */; };
 		675A3D6B2A21600100F9B653 /* MediaWikiFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */; };
+		675D875A2B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */; };
+		675D875B2B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 675D87592B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m */; };
+		675D875D2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675D875C2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift */; };
+		675D875E2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675D875C2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift */; };
+		675D875F2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675D875C2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift */; };
 		6761AEDA2704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AED82704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift */; };
 		6761AEDF2704CF0000E47BAD /* WikimediaProject+RemoteNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEDE2704CF0000E47BAD /* WikimediaProject+RemoteNotifications.swift */; };
 		6761AEE12704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */; };
@@ -3387,6 +3392,9 @@
 		67540CA824D221E3008B2894 /* LocationManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerFactory.swift; sourceTree = "<group>"; };
 		675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWikiFetcher.swift; sourceTree = "<group>"; };
 		675BC8BB2AFD2ACD00771C4B /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITests.xctestplan; sourceTree = "<group>"; };
+		675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFSuggestedEditsContentSource.h; sourceTree = "<group>"; };
+		675D87592B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFSuggestedEditsContentSource.m; sourceTree = "<group>"; };
+		675D875C2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedEditsExploreCell.swift; sourceTree = "<group>"; };
 		6761AED82704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6761AEDE2704CF0000E47BAD /* WikimediaProject+RemoteNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WikimediaProject+RemoteNotifications.swift"; sourceTree = "<group>"; };
 		6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel+TextExtensions.swift"; sourceTree = "<group>"; };
@@ -5955,6 +5963,8 @@
 				0E8768351DDE002C00B8CACD /* WMFAnnouncementsContentSource.m */,
 				B0B4234E1EF32D2700D3DC4C /* WMFOnThisDayContentSource.h */,
 				B0B4234F1EF32D2700D3DC4C /* WMFOnThisDayContentSource.m */,
+				675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */,
+				675D87592B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m */,
 			);
 			name = "Content Sources";
 			path = ../Wikipedia/Code;
@@ -6223,6 +6233,7 @@
 			children = (
 				BCCB81461C110857008BC602 /* POTD */,
 				0E52FD651DA40EA200587426 /* Nearby */,
+				675D875C2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -8948,6 +8959,7 @@
 				D844D9971D6CB5CA0042D692 /* WikipediaAppUtils.h in Headers */,
 				8330532023EF051900123141 /* NSArray+WMFMapping.h in Headers */,
 				0E87683A1DDE00D600B8CACD /* WMFAnnouncementsFetcher.h in Headers */,
+				675D875A2B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h in Headers */,
 				D80ACD281EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h in Headers */,
 				D84C36421F3245DF00895FA1 /* WMFFeedContentDisplaying.h in Headers */,
 				0E728D3C1DAEEADB0074EB4B /* WMFLocationSearchFetcher.h in Headers */,
@@ -10546,6 +10558,7 @@
 				D818D3AB1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				7AFA21BB20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
 				83B01F8123DB1235001185F4 /* SectionFetcher.swift in Sources */,
+				675D875D2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift in Sources */,
 				6782DBD92344EC86003FA21B /* DiffHeaderViewModels.swift in Sources */,
 				B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				D8533ED51ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
@@ -10939,6 +10952,7 @@
 				D844D9DC1D6CBBFA0042D692 /* NSString+WMFHTMLParsing.m in Sources */,
 				D8FA18D71E1BD899009675C3 /* NSURL+WMFExtras.m in Sources */,
 				D813FDA51EC34B2600FA4690 /* WMFArticle+Extensions.swift in Sources */,
+				675D875B2B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m in Sources */,
 				D844DA011D6CC3C20042D692 /* MWKLanguageLink.m in Sources */,
 				83ACAAAD24E6EED9003B3035 /* WikipediaSiteInfoLookup.swift in Sources */,
 				6761AEEB270613B400E47BAD /* SharedContainerCache.swift in Sources */,
@@ -11677,6 +11691,7 @@
 				678D29B02729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift in Sources */,
 				D8E27BA71F82B38500F9D2B3 /* RMessage.m in Sources */,
 				00EBB7CE27D6A86A002025AC /* SettingsPresentationDelegate.swift in Sources */,
+				675D875F2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift in Sources */,
 				006ABEEF2901E92D00722DF8 /* VanishAccountWarningViewHostingViewController.swift in Sources */,
 				B01E3B0021F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				D8CE25D01E698E2400DAE2E0 /* WMFLanguageCell.m in Sources */,
@@ -12266,6 +12281,7 @@
 				678D29AF2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift in Sources */,
 				D8EC3ECE1E9BDA35006712EB /* WMFLanguageCell.m in Sources */,
 				00EBB7CD27D6A86A002025AC /* SettingsPresentationDelegate.swift in Sources */,
+				675D875E2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift in Sources */,
 				006ABEEE2901E92D00722DF8 /* VanishAccountWarningViewHostingViewController.swift in Sources */,
 				B01E3B0121F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				7A6ED50A20ADBF950001849F /* SessionsFunnel.swift in Sources */,

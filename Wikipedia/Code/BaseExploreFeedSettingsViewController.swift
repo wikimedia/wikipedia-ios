@@ -49,6 +49,8 @@ private extension WMFContentGroupKind {
             return WMFLocalizedString("explore-feed-preferences-show-on-this-day-title", value: "Show On this day card", comment: "Text for the setting that allows users to toggle the visibility of the On this day card")
         case .pictureOfTheDay:
             return WMFLocalizedString("explore-feed-preferences-show-picture-of-the-day-title", value: "Show Picture of the day card", comment: "Text for the setting that allows users to toggle the visibility of the Picture of the day card")
+        case .suggestedEdits:
+            return "Show Suggested Edits card"
         case .locationPlaceholder:
             fallthrough
         case .location:

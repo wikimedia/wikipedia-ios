@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger, WMFFeedDisplayType) {
     WMFFeedDisplayTypeCompactList,
     WMFFeedDisplayTypeTheme,
     WMFFeedDisplayTypeReadingList,
+    WMFFeedDisplayTypeSuggestedEdits,
     WMFFeedDisplayTypePageWithLocationPlaceholder
 };
 

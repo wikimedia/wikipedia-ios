@@ -74,6 +74,12 @@ private class FeedCard: ExploreFeedSettingsItem {
             iconName = "recent-mini"
             iconColor = .gray400
             iconBackgroundColor = .gray200
+        case .suggestedEdits:
+            title = "Suggested Edits"
+            singleLanguageDescription = "Suggested Edits Subtitle"
+            iconName = "potd-mini"
+            iconColor = .purple600
+            iconBackgroundColor = .purple600.withAlphaComponent(0.3)
         default:
             assertionFailure("Group of kind \(contentGroupKind) is not customizable")
             title = ""
@@ -195,7 +201,8 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let pictureOfTheDay = FeedCard(contentGroupKind: .pictureOfTheDay, displayType: displayType)
         let continueReading = FeedCard(contentGroupKind: .continueReading, displayType: displayType)
         let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
-        return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
+        let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
+        return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages, suggestedEdits]
     }()
 
     private lazy var globalCards: ExploreFeedSettingsGlobalCards = {

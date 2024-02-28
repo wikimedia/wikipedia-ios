@@ -1018,6 +1018,8 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         guard group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal else {
             return nil
         }
+        var hideThisCardHidesAll = group.contentGroupKind.isGlobal && group.contentGroupKind.isNonDateBased
+        
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let customizeExploreFeed = UIAlertAction(title: CommonStrings.customizeExploreFeedTitle, style: .default) { (_) in
             let exploreFeedSettingsViewController = ExploreFeedSettingsViewController()
@@ -1028,16 +1030,14 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             themeableNavigationController.modalPresentationStyle = .formSheet
             self.present(themeableNavigationController, animated: true)
         }
-        let hideThisCard = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-hide-card-action-title", value: "Hide this card", comment: "Title for action that allows users to hide a feed card"), style: .default) { (_) in
+        
+        let hideThisCardHandler: ((UIAlertAction) -> Void) = { (_) in
             group.undoType = .contentGroup
             self.wantsDeleteInsertOnNextItemUpdate = true
             self.save()
         }
-        guard let title = group.headerTitle else {
-            assertionFailure("Expected header title for group \(group.contentGroupKind)")
-            return nil
-        }
-        let hideAllCards = UIAlertAction(title: String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-hide-feed-cards-action-title", value: "Hide all “%@” cards", comment: "Title for action that allows users to hide all feed cards of given type - %@ is replaced with feed card type"), title), style: .default) { (_) in
+        
+        let hideAllHandler: ((UIAlertAction) -> Void) = { (_) in
             let feedContentController = self.dataStore.feedContentController
             // If there's only one group left it means that we're about to show an alert about turning off the Explore tab. In those cases, we don't want to provide the option to undo.
             if feedContentController.countOfVisibleContentGroupKinds > 1 {
@@ -1046,9 +1046,19 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             }
             feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false, waitForCallbackFromCoordinator: true, apply: true, updateFeed: false)
         }
+        
+        let hideThisCard = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-hide-card-action-title", value: "Hide this card", comment: "Title for action that allows users to hide a feed card"), style: .default, handler: hideThisCardHidesAll ? hideAllHandler : hideThisCardHandler)
+        
+        guard let title = group.headerTitle else {
+            assertionFailure("Expected header title for group \(group.contentGroupKind)")
+            return nil
+        }
+        
+        let hideAllCards = UIAlertAction(title: String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-hide-feed-cards-action-title", value: "Hide all “%@” cards", comment: "Title for action that allows users to hide all feed cards of given type - %@ is replaced with feed card type"), title), style: .default, handler: hideAllHandler)
+        
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         sheet.addAction(hideThisCard)
-        if !(group.contentGroupKind == WMFContentGroupKind.notification) {
+        if group.contentGroupKind != WMFContentGroupKind.notification && (!hideThisCardHidesAll) {
             sheet.addAction(hideAllCards)
         }
         sheet.addAction(customizeExploreFeed)

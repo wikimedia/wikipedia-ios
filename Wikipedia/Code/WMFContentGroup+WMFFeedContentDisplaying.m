@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNotification:
             return WMFLocalizedStringWithDefaultValue(@"notifications-center-feed-card-title", nil, nil, @"Editing notifications now available", @"Title for the 'Notification' explore feed card");
             ;
+        case WMFContentGroupKindSuggestedEdits:
+            return @"Suggested Edits";
         default:
             break;
     }
@@ -170,6 +172,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedDisplayTypeTheme;
         case WMFContentGroupKindReadingList:
             return WMFFeedDisplayTypeReadingList;
+        case WMFContentGroupKindSuggestedEdits:
+            return WMFFeedDisplayTypeSuggestedEdits;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedDisplayTypeAnnouncement;
         case WMFContentGroupKindUnknown:
@@ -229,6 +233,8 @@ NS_ASSUME_NONNULL_BEGIN
             return YES;
         case WMFContentGroupKindReadingList:
             return YES;
+        case WMFContentGroupKindSuggestedEdits:
+            return YES;
         case WMFContentGroupKindAnnouncement:
             return YES;
         case WMFContentGroupKindUnknown:
@@ -253,6 +259,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindTheme:
             return WMFFeedDetailTypeNone;
         case WMFContentGroupKindReadingList:
+            return WMFFeedDetailTypeNone;
+        case WMFContentGroupKindSuggestedEdits:
             return WMFFeedDetailTypeNone;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedDetailTypeNone;
@@ -361,6 +369,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindTheme:
             return WMFFeedHeaderTypeNone;
         case WMFContentGroupKindReadingList:
+            return WMFFeedHeaderTypeNone;
+        case WMFContentGroupKindSuggestedEdits:
             return WMFFeedHeaderTypeNone;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedHeaderTypeNone;
