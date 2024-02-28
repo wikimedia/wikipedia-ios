@@ -60,9 +60,6 @@ extension WMFContentGroup {
             (firstRandom as Themeable).apply(theme: theme)
             vc = firstRandom
         case .imageRecommendations:
-            guard let siteURL = siteURL else {
-                break
-            }
             let imageRecommendationsViewController = WKImageRecommendationsViewController()
             vc = imageRecommendationsViewController
         default:

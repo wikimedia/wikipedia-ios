@@ -75,7 +75,8 @@ private class FeedCard: ExploreFeedSettingsItem {
             iconColor = .gray400
             iconBackgroundColor = .gray200
         case .suggestedEdits:
-            title = "Suggested Edits"
+            title = WMFLocalizedString("explore-feed-preferences-suggested-edits-description", value: "Suggested Edits", comment: "Description of Suggested Edits section of Explore feed")
+            // TODO: Change description, icon name, color and background color.
             singleLanguageDescription = "Suggested Edits Subtitle"
             iconName = "potd-mini"
             iconColor = .purple600
@@ -202,7 +203,12 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let continueReading = FeedCard(contentGroupKind: .continueReading, displayType: displayType)
         let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
         let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
-        return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages, suggestedEdits]
+        if FeatureFlags.needsImageRecommendations {
+            return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages, suggestedEdits]
+        } else {
+            return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
+        }
+        
     }()
 
     private lazy var globalCards: ExploreFeedSettingsGlobalCards = {

@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFLocalizedStringWithDefaultValue(@"notifications-center-feed-card-title", nil, nil, @"Editing notifications now available", @"Title for the 'Notification' explore feed card");
             ;
         case WMFContentGroupKindSuggestedEdits:
-            return @"Suggested Edits";
+            return WMFLocalizedStringWithDefaultValue(@"suggested-edits-feed-card-title", nil, nil, @"Suggested Edits", @"Title for the 'Suggested Edits' explore feed card");
         default:
             break;
     }
@@ -295,7 +295,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindOnThisDay:
             return WMFLocalizedStringWithDefaultValue(@"on-this-day-footer", nil, nil, @"More historical events on this day", @"Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events");
         case WMFContentGroupKindSuggestedEdits:
-            return @"Add";
+            return WMFLocalizedStringWithDefaultValue(@"explore-suggested-edits-footer", nil, nil, @"Add", @"Footer for presenting user option to see list of suggested edits.");
         case WMFContentGroupKindUnknown:
         default:
             break;

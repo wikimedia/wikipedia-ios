@@ -1018,7 +1018,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         guard group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal else {
             return nil
         }
-        var hideThisCardHidesAll = group.contentGroupKind.isGlobal && group.contentGroupKind.isNonDateBased
+        let hideThisCardHidesAll = group.contentGroupKind.isGlobal && group.contentGroupKind.isNonDateBased
         
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let customizeExploreFeed = UIAlertAction(title: CommonStrings.customizeExploreFeedTitle, style: .default) { (_) in

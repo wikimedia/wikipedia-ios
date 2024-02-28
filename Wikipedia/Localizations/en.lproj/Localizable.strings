@@ -472,6 +472,7 @@
 "explore-feed-preferences-show-related-pages-title" = "Show Because you read card";
 "explore-feed-preferences-show-top-read-footer-text" = "Turning off the Top read card will turn the card off in all available languages.";
 "explore-feed-preferences-show-top-read-title" = "Show Top read card";
+"explore-feed-preferences-suggested-edits-description" = "Suggested Edits";
 "explore-feed-preferences-top-read-description" = "Daily most read articles";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Turn off Explore feed";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Hiding all Explore feed cards will turn off the Explore tab and replace it with a Settings tab";
@@ -504,6 +505,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "From $1 Wikipedia";
 "explore-random-article-sub-heading-from-wikipedia" = "From Wikipedia";
 "explore-randomizer" = "Randomizer";
+"explore-suggested-edits-footer" = "Add";
 "export-user-data-confirmation-message" = "Sharing your app library includes data about your Reading lists and history, preferences, and Explore feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.";
 "export-user-data-confirmation-title" = "Share app library?";
 "export-user-data-generic-error" = "There was an error while exporting your data. Please try again later.";
@@ -1060,6 +1062,7 @@
 "share-social-mention-format" = "“$1” via Wikipedia: $2";
 "sort-by-recently-added-action" = "Recently added";
 "sort-by-title-action" = "Title";
+"suggested-edits-feed-card-title" = "Suggested Edits";
 "table-of-contents-button-label" = "Table of contents";
 "table-of-contents-close-accessibility-hint" = "Close";
 "table-of-contents-close-accessibility-label" = "Close Table of contents";

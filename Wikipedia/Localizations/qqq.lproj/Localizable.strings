@@ -472,6 +472,7 @@
 "explore-feed-preferences-show-related-pages-title" = "Text for the setting that allows users to toggle the visibility of the Because you read card";
 "explore-feed-preferences-show-top-read-footer-text" = "Text describing the effects of turning off the Top read card";
 "explore-feed-preferences-show-top-read-title" = "Text for the setting that allows users to toggle the visibility of the Top read card";
+"explore-feed-preferences-suggested-edits-description" = "Description of Suggested Edits section of Explore feed";
 "explore-feed-preferences-top-read-description" = "Description of Top read section of Explore feed";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Title for action alert that allows user to turn off Explore feed";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Message for alert that allows user to decide whether they want to turn off Explore feed";
@@ -504,6 +505,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Subtext beneath the 'Random article' header describing which Wikipedia the random article came from. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "explore-random-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Random article' header when the specific language wikipedia is unknown.";
 "explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
+"explore-suggested-edits-footer" = "Footer for presenting user option to see list of suggested edits.";
 "export-user-data-confirmation-message" = "Message of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-confirmation-title" = "Title of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-generic-error" = "Error message displayed after user has tried exporting their data and an error occurs.";
@@ -1060,6 +1062,7 @@
 "share-social-mention-format" = "Share format string for social platforms with an @mention. $1 is replaced with the article title, $2 is replaced with the article URL.";
 "sort-by-recently-added-action" = "Title of the sort action that allows sorting items by date added.";
 "sort-by-title-action" = "Title of the sort action that allows sorting items by title.";
+"suggested-edits-feed-card-title" = "Title for the 'Suggested Edits' explore feed card";
 "table-of-contents-button-label" = "Accessibility label for the Table of Contents button {{Identical|Table of contents}}";
 "table-of-contents-close-accessibility-hint" = "Accessibility hint for closing table of contents {{Identical|Close}}";
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
