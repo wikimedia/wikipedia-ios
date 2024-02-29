@@ -234,12 +234,12 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
             return
         }
         
-        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-              let accountVanishingURL = siteURL.wmf_URL(withPath: "/wiki/Special:Contact/accountvanishapps", isMobile: true) else {
+        // TODO: Replace with meta url
+        guard let url = URL(string: "https://test.wikipedia.org/wiki/Special:Contact/accountvanishapps") else {
             return
         }
         
-        let viewController = SinglePageWebViewController(url: accountVanishingURL, theme: theme)
+        let viewController = SinglePageWebViewController(url: url, theme: theme)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
