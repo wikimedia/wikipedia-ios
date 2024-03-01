@@ -234,8 +234,7 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
             return
         }
         
-        // TODO: Replace with meta url
-        guard let url = URL(string: "https://test.wikipedia.org/wiki/Special:Contact/accountvanishapps") else {
+        guard let url = URL(string: "https://meta.wikimedia.org/wiki/Special:Contact/accountvanishapps") else {
             return
         }
         
