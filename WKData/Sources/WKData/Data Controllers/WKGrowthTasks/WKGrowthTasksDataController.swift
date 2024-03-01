@@ -13,7 +13,7 @@ public final class WKGrowthTasksDataController {
 
     // TODO: to get more tasks, send used IDS to `ggtexcludepageids` parameter
     // TODO: remove debug prints
-    // TODO: Might be able to remove this, data returns in getImageRecommendations
+    // TODO: Might be able to remove this, data returns in getImageRecommendationsCombined
     public func getGrowthAPITask(task: WKGrowthTaskType = .imageRecommendation, completion: @escaping (Result<[WKGrowthTask.Page], Error>) -> Void) {
 
         guard let service else {
@@ -50,7 +50,7 @@ public final class WKGrowthTasksDataController {
         }
     }
 
-    // TODO: Might be able to remove this, data returns in getImageRecommendations
+    // TODO: Might be able to remove this, data returns in getImageRecommendationsCombined
     public func getImageSuggestionData(pageIDs: [String], completion: @escaping (Result<[WKImageRecommendation.Page], Error>) -> Void) {
 
         let pipeEncodedPageIds = pageIDs.joined(separator: "|")
