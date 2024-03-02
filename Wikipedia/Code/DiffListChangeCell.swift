@@ -176,6 +176,8 @@ private extension DiffListChangeCell {
         for (index, label) in textLabels.enumerated() {
             if let item = newViewModel.items[safeIndex: index] {
                 label.attributedText = item.textAttributedString
+                label.accessibilityLabel = item.accessibilityLabelText
+                label.accessibilityTextualContext = .sourceCode
             }
         }
     }
