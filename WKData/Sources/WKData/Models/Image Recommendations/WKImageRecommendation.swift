@@ -5,9 +5,9 @@ public struct WKImageRecommendation {
     let page: Page
 
     public struct Page {
-        let pageid: Int
-        let title: String
-        let growthimagesuggestiondata: [GrowthImageSuggestionData]
+        public let pageid: Int
+        public let title: String
+        let growthimagesuggestiondata: [GrowthImageSuggestionData]?
     }
 
     public struct GrowthImageSuggestionData {
@@ -31,8 +31,8 @@ public struct WKImageRecommendation {
         let originalWidth: Int
         let originalHeight: Int
         let mediaType: String
-        let description: String
-        let author: String
+        let description: String?
+        let author: String?
         let license: String
         let date: String
         let caption: String?

@@ -6,6 +6,7 @@ import XCTest
 final class WKGrowthTasksDataControllerTests: XCTestCase {
 
     private let csProject = WKProject.wikipedia(WKLanguage(languageCode: "cs", languageVariantCode: nil))
+    private let enProject = WKProject.wikipedia(WKLanguage(languageCode: "en", languageVariantCode: nil))
 
     override func setUp() async throws {
         WKDataEnvironment.current.mediaWikiService = WKMockGrowthTasksService()
@@ -104,10 +105,10 @@ final class WKGrowthTasksDataControllerTests: XCTestCase {
         let firstImageRecommendation = imageRecsToTest.first
         XCTAssertEqual(firstImageRecommendation?.pageid, 206400, "Incorrect page Id")
         XCTAssertEqual(firstImageRecommendation?.title, "Dialer", "Incorrect page title")
-        XCTAssertEqual(firstImageRecommendation?.growthimagesuggestiondata.count, 1, "Incorrect growth suggestion data count")
+        XCTAssertEqual(firstImageRecommendation?.growthimagesuggestiondata?.count, 1, "Incorrect growth suggestion data count")
 
 
-        let firstImageSuggestionData = firstImageRecommendation?.growthimagesuggestiondata.first
+        let firstImageSuggestionData = firstImageRecommendation?.growthimagesuggestiondata?.first
         XCTAssertEqual(firstImageSuggestionData?.titleText, "Dialer", "Incorrect page title")
         XCTAssertEqual(firstImageSuggestionData?.titleNamespace, 0, "Incorrect title namespace")
         XCTAssertEqual(firstImageSuggestionData?.images.count, 1, "Incorrect images count")
@@ -132,6 +133,80 @@ final class WKGrowthTasksDataControllerTests: XCTestCase {
         XCTAssertEqual(imageMetadata?.categories.count, 4, "Incorrect number of categories")
         XCTAssertEqual(imageMetadata?.reason, "Utilizado en el mismo artículo en Wikipedia en lombardo.", "Incorrect reason")
         XCTAssertEqual(imageMetadata?.contentLanguageName, "checo", "Incorrect content language name")
+    }
+    
+    func testFetchImageRecommendationCombinedForTasks() {
+
+        let controller = WKGrowthTasksDataController(project: csProject)
+        let expectation = XCTestExpectation(description: "Fetch Image Recommendations")
+
+        var imageRecsToTest: [WKImageRecommendation.Page]?
+
+        controller.getImageRecommendationsCombined(completion: { result in
+            switch result {
+            case .success(let response):
+                imageRecsToTest = response
+            case .failure(let error):
+                XCTFail("Failed to fetch Image Recommendations \(error)")
+            }
+            expectation.fulfill()
+        })
+
+        wait(for: [expectation], timeout: 10.0)
+
+        XCTAssertTrue(imageRecsToTest != nil)
+    }
+    
+    func testParseImageRecommendationsCombined() {
+
+        let controller = WKGrowthTasksDataController(project: enProject)
+        var imageRecsToTest: [WKImageRecommendation.Page]?
+
+        controller.getImageRecommendationsCombined(completion: { result in
+            switch result {
+            case .success(let response):
+                imageRecsToTest = response
+            case .failure(let error):
+                XCTFail("Failed to fetch Image Recommendations \(error)")
+            }
+        })
+
+        guard let imageRecsToTest else {
+            XCTFail("Failed to retrieve image recommendations")
+            return
+        }
+
+        let firstImageRecommendation = imageRecsToTest.first
+        XCTAssertEqual(firstImageRecommendation?.pageid, 6706133, "Incorrect page Id")
+        XCTAssertEqual(firstImageRecommendation?.title, "Juan de Salmerón", "Incorrect page title")
+        XCTAssertEqual(firstImageRecommendation?.growthimagesuggestiondata?.count, 1, "Incorrect growth suggestion data count")
+
+
+        let firstImageSuggestionData = firstImageRecommendation?.growthimagesuggestiondata?.first
+        XCTAssertEqual(firstImageSuggestionData?.titleText, "Juan de Salmerón", "Incorrect page title")
+        XCTAssertEqual(firstImageSuggestionData?.titleNamespace, 0, "Incorrect title namespace")
+        XCTAssertEqual(firstImageSuggestionData?.images.count, 1, "Incorrect images count")
+
+        let firstImageData = firstImageSuggestionData?.images.first
+        XCTAssertEqual(firstImageData?.image, "Juan_de_Salmerón.JPG", "Incorrect image file name")
+        XCTAssertEqual(firstImageData?.displayFilename, "Juan de Salmerón.JPG", "Incorrect image display name")
+        XCTAssertEqual(firstImageData?.source, "wikipedia", "Incorrect source name")
+        XCTAssertEqual(firstImageData?.projects.count, 1, "Incorrect project count")
+
+        let imageMetadata = firstImageData?.metadata
+        XCTAssertEqual(imageMetadata?.descriptionUrl, "https://commons.wikimedia.org/wiki/File:Juan_de_Salmer%C3%B3n.JPG", "Incorrect description URL")
+        XCTAssertEqual(imageMetadata?.thumbUrl, "//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Juan_de_Salmer%C3%B3n.JPG/120px-Juan_de_Salmer%C3%B3n.JPG", "Incorrect thumb URL")
+        XCTAssertEqual(imageMetadata?.fullUrl, "//upload.wikimedia.org/wikipedia/commons/d/d0/Juan_de_Salmer%C3%B3n.JPG", "Incorrect full URL")
+        XCTAssertEqual(imageMetadata?.originalWidth, 764, "Incorrect width")
+        XCTAssertEqual(imageMetadata?.originalHeight, 1090, "Incorrect height")
+        XCTAssertEqual(imageMetadata?.mediaType, "BITMAP", "Incorrect mediatype")
+        XCTAssertEqual(imageMetadata?.description, "El Licenciado Juan de Salmerón, fundador de Puebla", "Incorrect description")
+        XCTAssertEqual(imageMetadata?.author, "<a href=\"//commons.wikimedia.org/wiki/User:Gusvel\" title=\"User:Gusvel\">Gusvel</a>", "Incorrect author")
+        XCTAssertEqual(imageMetadata?.license, "CC BY-SA 4.0", "Incorrect license")
+        XCTAssertEqual(imageMetadata?.date, "2010-10-19", "Incorrect date")
+        XCTAssertEqual(imageMetadata?.categories.count, 1, "Incorrect number of categories")
+        XCTAssertEqual(imageMetadata?.reason, "Used in the same article in Spanish Wikipedia.", "Incorrect reason")
+        XCTAssertEqual(imageMetadata?.contentLanguageName, "English", "Incorrect content language name")
     }
     
     func testFetchArticleSummary() {

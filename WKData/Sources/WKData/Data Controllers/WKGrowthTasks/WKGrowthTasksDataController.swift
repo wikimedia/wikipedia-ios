@@ -13,6 +13,7 @@ public final class WKGrowthTasksDataController {
 
     // TODO: to get more tasks, send used IDS to `ggtexcludepageids` parameter
     // TODO: remove debug prints
+    // TODO: Might be able to remove this, data returns in getImageRecommendationsCombined
     public func getGrowthAPITask(task: WKGrowthTaskType = .imageRecommendation, completion: @escaping (Result<[WKGrowthTask.Page], Error>) -> Void) {
 
         guard let service else {
@@ -49,6 +50,7 @@ public final class WKGrowthTasksDataController {
         }
     }
 
+    // TODO: Might be able to remove this, data returns in getImageRecommendationsCombined
     public func getImageSuggestionData(pageIDs: [String], completion: @escaping (Result<[WKImageRecommendation.Page], Error>) -> Void) {
 
         let pipeEncodedPageIds = pageIDs.joined(separator: "|")
@@ -86,6 +88,47 @@ public final class WKGrowthTasksDataController {
             }
         }
     }
+    
+    public func getImageRecommendationsCombined(completion: @escaping (Result<[WKImageRecommendation.Page], Error>) -> Void) {
+        guard let service else {
+            completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
+            return
+        }
+        
+        var recommendationsPerPage: [WKImageRecommendation.Page] = []
+
+        let parameters: [String: Any] = [ "action": "query",
+                           "generator": "search",
+                           "gsrsearch": "hasrecommendation:image",
+                           "gsrnamespace": 0,
+                           "gsrsort": "random",
+                           "prop": "growthimagesuggestiondata|revisions",
+                           "rvprop": "ids|timestamp|flags|comment|user|content",
+                           "rvslots": "main",
+                           "rvsection": 0,
+                           "gsrlimit": "10",
+                           "formatversion": "2",
+                           "format": "json"
+        ]
+
+        guard let url = URL.mediaWikiAPIURL(project: project) else {
+            completion(.failure(WKDataControllerError.failureCreatingRequestURL))
+            return
+        }
+
+        let request = WKMediaWikiServiceRequest(url: url, method: .GET, parameters: parameters)
+        service.performDecodableGET(request: request) { (result: Result<WKImageRecommendationAPIResponse, Error>) in
+            switch result {
+            case .success(let response):
+                print(response)
+                recommendationsPerPage.append(contentsOf: self.getImageSuggestions(from: response))
+                completion(.success(recommendationsPerPage))
+            case .failure(let error):
+                print(error)
+                completion(.failure(error))
+            }
+        }
+    }
 
     // MARK: Private methods
 
@@ -109,7 +152,7 @@ public final class WKGrowthTasksDataController {
    fileprivate func getGrowthAPIImageSuggestions(for page: WKImageRecommendationAPIResponse.Page) -> [WKImageRecommendation.GrowthImageSuggestionData] {
         var suggestions: [WKImageRecommendation.GrowthImageSuggestionData] = []
 
-        for item in page.growthimagesuggestiondata {
+        for item in page.growthimagesuggestiondata ?? [] {
             let item = WKImageRecommendation.GrowthImageSuggestionData(
                 titleNamespace: item.titleNamespace,
                 titleText: item.titleText,

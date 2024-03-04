@@ -19,9 +19,6 @@ class DiffListUneditedCell: UICollectionViewCell {
         textLabel.text = viewModel.text.localizedCapitalized
 
         apply(theme: viewModel.theme)
-
-        textLabel.isAccessibilityElement = false
-        isAccessibilityElement = false
     }
 }
 
