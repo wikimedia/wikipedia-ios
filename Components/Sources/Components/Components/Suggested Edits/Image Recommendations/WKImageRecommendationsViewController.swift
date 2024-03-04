@@ -43,7 +43,12 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
-    
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+    }
+
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
