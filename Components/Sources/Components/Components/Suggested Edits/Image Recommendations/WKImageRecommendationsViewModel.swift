@@ -16,7 +16,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         }
     }
     
-    final class ImageRecommendation: ObservableObject {
+    final class ImageRecommendationArticle: ObservableObject {
         
         let pageId: Int
         let title: String
@@ -34,8 +34,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     let project: WKProject
     let localizedStrings: LocalizedStrings
     
-    private(set) var recommendations: [ImageRecommendation] = []
-    @Published var currentRecommendation: ImageRecommendation?
+    private(set) var articleRecommendations: [ImageRecommendationArticle] = []
+    @Published var currentArticleRecommendation: ImageRecommendationArticle?
     @Published private var loading: Bool = true
     @Published var debouncedLoading: Bool = true
     private var subscriptions = Set<AnyCancellable>()
@@ -61,9 +61,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Internal
     
-    func fetchImageRecommendationsIfNeeded(completion: @escaping () -> Void) {
+    func fetchImageRecommendationsArticleIfNeeded(completion: @escaping () -> Void) {
         
-        guard recommendations.isEmpty else {
+        guard articleRecommendations.isEmpty else {
             completion()
             return
         }
@@ -80,9 +80,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             switch result {
             case .success(let pages):
                 DispatchQueue.main.async {
-                    self.recommendations = pages.map { ImageRecommendation(pageId: $0.pageid, title: $0.title) }
-                    if let firstRecommendation = self.recommendations.first {
-                        self.populateCurrentRecommendation(for: firstRecommendation, completion: {
+                    self.articleRecommendations = pages.map { ImageRecommendationArticle(pageId: $0.pageid, title: $0.title) }
+                    if let firstRecommendation = self.articleRecommendations.first {
+                        self.populateCurrentArticleRecommendation(for: firstRecommendation, completion: {
                             DispatchQueue.main.async {
                                 self.loading = false
                                 completion()
@@ -100,30 +100,30 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     }
     
     func next(completion: @escaping () -> Void) {
-        guard !recommendations.isEmpty else {
-            self.currentRecommendation = nil
+        guard !articleRecommendations.isEmpty else {
+            self.currentArticleRecommendation = nil
             completion()
             return
         }
         
-        recommendations.removeFirst()
-        guard let nextRecommendation = recommendations.first else {
-            self.currentRecommendation = nil
+        articleRecommendations.removeFirst()
+        guard let nextRecommendation = articleRecommendations.first else {
+            self.currentArticleRecommendation = nil
             completion()
             return
         }
         
         loading = true
         
-        populateCurrentRecommendation(for: nextRecommendation, completion: { [weak self] in
+        populateCurrentArticleRecommendation(for: nextRecommendation, completion: { [weak self] in
             completion()
             self?.loading = false
         })
     }
     
-    func populateCurrentRecommendation(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {
+    func populateCurrentArticleRecommendation(for imageRecommendationArticle: ImageRecommendationArticle, completion: @escaping () -> Void) {
         
-        articleSummaryDataController.fetchArticleSummary(project: project, title: imageRecommendation.title) { [weak self] result in
+        articleSummaryDataController.fetchArticleSummary(project: project, title: imageRecommendationArticle.title) { [weak self] result in
             
             guard let self else {
                 DispatchQueue.main.async {
@@ -135,8 +135,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             switch result {
             case .success(let summary):
                 DispatchQueue.main.async {
-                    imageRecommendation.articleSummary = summary
-                    self.currentRecommendation = imageRecommendation
+                    imageRecommendationArticle.articleSummary = summary
+                    self.currentArticleRecommendation = imageRecommendationArticle
                     completion()
                 }
                 
