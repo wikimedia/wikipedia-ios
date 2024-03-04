@@ -1,9 +1,20 @@
 import Foundation
 import WKData
+import Combine
 
 public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Nested Types
+    
+    public struct LocalizedStrings {
+        let title: String
+        let viewArticle: String
+        
+        public init(title: String, viewArticle: String) {
+            self.title = title
+            self.viewArticle = viewArticle
+        }
+    }
     
     final class ImageRecommendation: ObservableObject {
         
@@ -21,24 +32,45 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     // MARK: - Properties
     
     let project: WKProject
+    let localizedStrings: LocalizedStrings
+    
     private(set) var recommendations: [ImageRecommendation] = []
     @Published var currentRecommendation: ImageRecommendation?
+    @Published private var loading: Bool = true
+    @Published var debouncedLoading: Bool = true
+    private var subscriptions = Set<AnyCancellable>()
     
     let growthTasksDataController: WKGrowthTasksDataController
     let articleSummaryDataController: WKArticleSummaryDataController
     
     // MARK: - Lifecycle
     
-    public init(project: WKProject) {
+    public init(project: WKProject, localizedStrings: LocalizedStrings) {
         self.project = project
+        self.localizedStrings = localizedStrings
         self.growthTasksDataController = WKGrowthTasksDataController(project: project)
         self.articleSummaryDataController = WKArticleSummaryDataController()
+        
+        $loading
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+                    .sink(receiveValue: { [weak self] t in
+                        self?.debouncedLoading = t
+                    })
+                    .store(in: &subscriptions)
     }
     
     // MARK: - Internal
     
-    func fetchImageRecommendations(completion: @escaping () -> Void) {
-        growthTasksDataController.getImageRecommendationsCombined { [weak self] result in
+    func fetchImageRecommendationsIfNeeded(completion: @escaping () -> Void) {
+        
+        guard recommendations.isEmpty else {
+            completion()
+            return
+        }
+        
+        loading = true
+        
+        growthTasksDataController.getGrowthAPITask(task: .imageRecommendation) { [weak self] result in
             
             guard let self else {
                 completion()
@@ -52,6 +84,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                     if let firstRecommendation = self.recommendations.first {
                         self.populateCurrentRecommendation(for: firstRecommendation, completion: {
                             DispatchQueue.main.async {
+                                self.loading = false
                                 completion()
                             }
                         })
@@ -59,6 +92,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                 }
                 
             case .failure(let error):
+                self.loading = false
                 completion()
                 print(error)
             }
@@ -79,8 +113,11 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             return
         }
         
-        populateCurrentRecommendation(for: nextRecommendation, completion: {
+        loading = true
+        
+        populateCurrentRecommendation(for: nextRecommendation, completion: { [weak self] in
             completion()
+            self?.loading = false
         })
     }
     

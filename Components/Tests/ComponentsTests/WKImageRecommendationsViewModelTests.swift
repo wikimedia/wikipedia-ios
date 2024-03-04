@@ -6,6 +6,7 @@ import XCTest
 final class WKImageRecommendationsViewModelTests: XCTestCase {
     
     private let csProject = WKProject.wikipedia(WKLanguage(languageCode: "cs", languageVariantCode: nil))
+    private let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: "Add image", viewArticle: "View article")
 
     override func setUpWithError() throws {
         WKDataEnvironment.current.mediaWikiService = WKMockGrowthTasksService()
@@ -13,11 +14,11 @@ final class WKImageRecommendationsViewModelTests: XCTestCase {
     }
 
     func testFetchInitialImageRecommendations() throws {
-        let viewModel = WKImageRecommendationsViewModel(project: csProject)
+        let viewModel = WKImageRecommendationsViewModel(project: csProject, localizedStrings: localizedStrings)
         
         let expectation = XCTestExpectation(description: "Fetch Image Recommendations")
         
-        viewModel.fetchImageRecommendations {
+        viewModel.fetchImageRecommendationsIfNeeded {
             expectation.fulfill()
         }
         
@@ -29,11 +30,11 @@ final class WKImageRecommendationsViewModelTests: XCTestCase {
     }
     
     func testFetchNextImageRecommendation() throws {
-        let viewModel = WKImageRecommendationsViewModel(project: csProject)
+        let viewModel = WKImageRecommendationsViewModel(project: csProject, localizedStrings: localizedStrings)
         
         let expectation1 = XCTestExpectation(description: "Fetch Image Recommendations")
         
-        viewModel.fetchImageRecommendations {
+        viewModel.fetchImageRecommendationsIfNeeded {
             expectation1.fulfill()
         }
         
