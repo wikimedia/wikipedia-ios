@@ -575,6 +575,14 @@ extension WMFAppViewController {
             return WikipediaAppUtils.versionedUserAgent()
         }
         
+        WKDataEnvironment.current.appInstallIDUtility = {
+            return UserDefaults.standard.wmf_appInstallId
+        }
+        
+        WKDataEnvironment.current.acceptLanguageUtility = {
+            return Locale.acceptLanguageHeaderForPreferredLanguages
+        }
+        
         WKDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
         
         let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
