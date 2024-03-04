@@ -27,12 +27,6 @@ class DiffListContextCell: UICollectionViewCell {
     weak var delegate: DiffListContextCellDelegate?
     
     func update(_ viewModel: DiffListContextViewModel, indexPath: IndexPath?) {
-        self.isAccessibilityElement = false
-        contentView.isAccessibilityElement = false
-        headingLabel.isAccessibilityElement = false
-        expandButton.isAccessibilityElement = false
-        contextItemStackView.isAccessibilityElement = false
-        
         if let indexPath = indexPath {
             self.indexPath = indexPath
         }
@@ -71,13 +65,20 @@ class DiffListContextCell: UICollectionViewCell {
         }
         
         updateContextViews(in: contextItemStackView, newViewModel: viewModel, theme: viewModel.theme)
-        
+
+        if viewModel.isExpanded {
+            accessibilityElements = [headingLabel as Any, expandButton as Any, contextItemStackView as Any]
+        } else {
+            accessibilityElements = [headingLabel as Any, expandButton as Any]
+        }
+
         self.viewModel = viewModel
     }
     
     @IBAction func tappedExpandButton(_ sender: UIButton) {
         if let indexPath = indexPath {
             delegate?.didTapContextExpand(indexPath: indexPath)
+            UIAccessibility.post(notification: .layoutChanged, argument: nil)
         }
     }
 }
@@ -139,7 +140,6 @@ private extension DiffListContextCell {
             if let item = newViewModel.items[safeIndex: index] as? DiffListContextItemViewModel,
             let label = subview.subviews.first as? UILabel {
                 label.attributedText = item.textAttributedString
-                label.isAccessibilityElement = false
             }
         }
     }
