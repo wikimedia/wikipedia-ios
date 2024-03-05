@@ -20,6 +20,8 @@ public final class WKDataEnvironment: ObservableObject {
     public internal(set) var basicService: WKService? = WKBasicService()
     
     public var userAgentUtility: (() -> String)?
+    public var appInstallIDUtility: (() -> String?)?
+    public var acceptLanguageUtility: (() -> String)?
     
     public internal(set) var userDefaultsStore: WKKeyValueStore? = WKUserDefaultsStore()
     public var sharedCacheStore: WKKeyValueStore?

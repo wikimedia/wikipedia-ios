@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import CocoaLumberjackSwift
 import Components
+import WKData
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding {
 
@@ -533,7 +534,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         // When a random article title is tapped, show the previewed article, not another random article
         let useRandomArticlePreviewItem = titleAreaTapped && group.moreType == .pageWithRandomButton
 
-        if !useRandomArticlePreviewItem, let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
+        if !useRandomArticlePreviewItem, let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: self) {
+            
             push(vc, animated: true)
             return
         }
@@ -1096,4 +1098,29 @@ extension ExploreViewController {
         dataStore.remoteNotificationsController.loadNotifications(force: true)
     }
 
+}
+
+extension ExploreViewController: WKImageRecommendationsDelegate {
+    func imageRecommendationsUserDidTapViewArticle(project: WKData.WKProject, title: String) {
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        
+        switch project {
+        case .wikipedia(let language):
+            components.host = "\(language.languageCode).wikipedia.org"
+        default:
+            assertionFailure("Unexpected project for image recommendations")
+        }
+        
+        guard let url = components.url,
+              let articleURL = url.wmf_URL(withTitle: title),
+              let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+            return
+        }
+        
+        navigationController?.pushViewController(articleViewController, animated: true)
+    }
+    
+    
 }

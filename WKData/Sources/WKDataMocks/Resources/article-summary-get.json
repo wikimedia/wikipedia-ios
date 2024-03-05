@@ -1,0 +1,39 @@
+{
+  "type": "standard",
+  "title": "Novela (právo)",
+  "displaytitle": "<span class=\"mw-page-title-main\">Novela (právo)</span>",
+  "namespace": {
+    "id": 0,
+    "text": ""
+  },
+  "wikibase_item": "Q1269627",
+  "titles": {
+    "canonical": "Novela_(právo)",
+    "normalized": "Novela (právo)",
+    "display": "<span class=\"mw-page-title-main\">Novela (právo)</span>"
+  },
+  "pageid": 35571,
+  "lang": "cs",
+  "dir": "ltr",
+  "revision": "23421679",
+  "tid": "b7b4b180-abca-11ee-b948-257a192f4395",
+  "timestamp": "2023-11-29T08:26:05Z",
+  "description": "změna zákona",
+  "description_source": "central",
+  "content_urls": {
+    "desktop": {
+      "page": "https://cs.wikipedia.org/wiki/Novela_(pr%C3%A1vo)",
+      "revisions": "https://cs.wikipedia.org/wiki/Novela_(pr%C3%A1vo)?action=history",
+      "edit": "https://cs.wikipedia.org/wiki/Novela_(pr%C3%A1vo)?action=edit",
+      "talk": "https://cs.wikipedia.org/wiki/Diskuse:Novela_(pr%C3%A1vo)"
+    },
+    "mobile": {
+      "page": "https://cs.m.wikipedia.org/wiki/Novela_(pr%C3%A1vo)",
+      "revisions": "https://cs.m.wikipedia.org/wiki/Special:History/Novela_(pr%C3%A1vo)",
+      "edit": "https://cs.m.wikipedia.org/wiki/Novela_(pr%C3%A1vo)?action=edit",
+      "talk": "https://cs.m.wikipedia.org/wiki/Diskuse:Novela_(pr%C3%A1vo)"
+    }
+  },
+  "extract": "Novelou se nazývá takový právní předpis, kterým se mění či doplňuje, cizím slovem novelizuje, jiný právní předpis. Novely jsou vydávány buď jako samostatné právní předpisy nebo jsou připojeny k jiným předpisům zpravidla na jejich konec. Název se odvozuje od výrazu „Novellae“, což je sbírka nařízení císaře Justiniána I. z let 534–569, která byla zařazena do souboru římského práva Corpus iuris civilis jako dodatek. Odlišným od novelizace je výraz „novace“, který má místo v soukromém právu, kde jde o novace závazků.",
+  "extract_html": "<p><b>Novelou</b> se nazývá takový právní předpis, kterým se mění či doplňuje, cizím slovem <i>novelizuje</i>, jiný právní předpis. Novely jsou vydávány buď jako samostatné právní předpisy nebo jsou připojeny k jiným předpisům zpravidla na jejich konec. Název se odvozuje od výrazu „Novellae“, což je sbírka nařízení císaře Justiniána I. z let 534–569, která byla zařazena do souboru římského práva Corpus iuris civilis jako dodatek. Odlišným od novelizace je výraz „novace“, který má místo v soukromém právu, kde jde o novace závazků.</p>"
+}
