@@ -303,7 +303,7 @@
 "donate-success-subtitle" = "당신의 너그러움은 우리에게 너무나 소중합니다.";
 "donate-success-title" = "고맙습니다!";
 "donate-title" = "금액 선택";
-"donate-transaction-fee-opt-in-text" = "네가 후원을 100% 가질 수 있도록 내가 아낌없이 $1를 추가해서 거래 수수료를 낼게.";
+"donate-transaction-fee-opt-in-text" = "네가 후원을 100%% 가질 수 있도록 내가 아낌없이 $1를 추가해서 거래 수수료를 낼게.";
 "edit-bold-accessibility-label" = "굵은 서식 추가";
 "edit-bold-remove-accessibility-label" = "굵은 서식 제거";
 "edit-clear-formatting-accessibility-label" = "서식 제거";
