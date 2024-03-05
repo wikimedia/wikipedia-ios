@@ -75,12 +75,11 @@ private class FeedCard: ExploreFeedSettingsItem {
             iconColor = .gray400
             iconBackgroundColor = .gray200
         case .suggestedEdits:
-            title = WMFLocalizedString("explore-feed-preferences-suggested-edits-description", value: "Suggested Edits", comment: "Description of Suggested Edits section of Explore feed")
-            // TODO: Change description, icon name, color and background color.
-            singleLanguageDescription = "Suggested Edits Subtitle"
-            iconName = "potd-mini"
-            iconColor = .purple600
-            iconBackgroundColor = .purple600.withAlphaComponent(0.3)
+            title = CommonStrings.suggestedEditsTitle
+            singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-suggested-edits-description", value: "Suggestions to add content to Wikipedia", comment: "Description of Suggested Edits section of Explore feed")
+            iconName = "pencil"
+            iconColor = .blue600
+            iconBackgroundColor = .blue100
         default:
             assertionFailure("Group of kind \(contentGroupKind) is not customizable")
             title = ""

@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFLocalizedStringWithDefaultValue(@"notifications-center-feed-card-title", nil, nil, @"Editing notifications now available", @"Title for the 'Notification' explore feed card");
             ;
         case WMFContentGroupKindSuggestedEdits:
-            return WMFLocalizedStringWithDefaultValue(@"suggested-edits-feed-card-title", nil, nil, @"Suggested Edits", @"Title for the 'Suggested Edits' explore feed card");
+            return WMFCommonStrings.suggestedEditsTitle;
         default:
             break;
     }

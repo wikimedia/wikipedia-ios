@@ -473,6 +473,7 @@
 "explore-feed-preferences-show-top-read-footer-text" = "Text describing the effects of turning off the Top read card";
 "explore-feed-preferences-show-top-read-title" = "Text for the setting that allows users to toggle the visibility of the Top read card";
 "explore-feed-preferences-suggested-edits-description" = "Description of Suggested Edits section of Explore feed";
+"explore-feed-preferences-suggested-edits-title" = "Text for the setting that allows users to toggle the visibility of the Suggested edits card";
 "explore-feed-preferences-top-read-description" = "Description of Top read section of Explore feed";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Title for action alert that allows user to turn off Explore feed";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Message for alert that allows user to decide whether they want to turn off Explore feed";
@@ -1062,7 +1063,7 @@
 "share-social-mention-format" = "Share format string for social platforms with an @mention. $1 is replaced with the article title, $2 is replaced with the article URL.";
 "sort-by-recently-added-action" = "Title of the sort action that allows sorting items by date added.";
 "sort-by-title-action" = "Title of the sort action that allows sorting items by title.";
-"suggested-edits-feed-card-title" = "Title for the 'Suggested Edits' explore feed card";
+"suggested-edits-title" = "Title for the 'Suggested Edits' explore feed card";
 "table-of-contents-button-label" = "Accessibility label for the Table of Contents button {{Identical|Table of contents}}";
 "table-of-contents-close-accessibility-hint" = "Accessibility hint for closing table of contents {{Identical|Close}}";
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
