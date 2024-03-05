@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import CocoaLumberjackSwift
 import Components
+import WKData
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding {
 
@@ -1081,7 +1082,17 @@ extension ExploreViewController {
     @objc func userDidTapNotificationsCenter() {
         // TODO: Temp Code until we get Explore Feed card in
         if FeatureFlags.needsImageRecommendations {
-            let imageRecommendationsViewController = WKImageRecommendationsViewController()
+            
+            guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+                  let project = WikimediaProject(siteURL: siteURL)?.wkProject else {
+                return
+            }
+            
+            let title = WMFLocalizedString("image-rec-title", value: "Add image", comment: "Title of the image recommendation view. Displayed in the navigation bar above an article summary.")
+            let viewArticle = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
+            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: title, viewArticle: viewArticle)
+            let viewModel = WKImageRecommendationsViewModel(project: project, localizedStrings: localizedStrings)
+            let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: self)
             navigationController?.pushViewController(imageRecommendationsViewController, animated: true)
         } else {
             notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
@@ -1092,4 +1103,29 @@ extension ExploreViewController {
         dataStore.remoteNotificationsController.loadNotifications(force: true)
     }
 
+}
+
+extension ExploreViewController: WKImageRecommendationsDelegate {
+    func imageRecommendationsUserDidTapViewArticle(project: WKData.WKProject, title: String) {
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        
+        switch project {
+        case .wikipedia(let language):
+            components.host = "\(language.languageCode).wikipedia.org"
+        default:
+            assertionFailure("Unexpected project for image recommendations")
+        }
+        
+        guard let url = components.url,
+              let articleURL = url.wmf_URL(withTitle: title),
+              let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+            return
+        }
+        
+        navigationController?.pushViewController(articleViewController, animated: true)
+    }
+    
+    
 }
