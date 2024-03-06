@@ -54,6 +54,7 @@ class SinglePageWebViewController: ViewController {
         controller.addUserScript(PageUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         config.userContentController = controller
         config.applicationNameForUserAgent = "WikipediaApp"
+        config.websiteDataStore = WKWebsiteDataStore.nonPersistent()
         return config
     }()
 
@@ -111,7 +112,17 @@ class SinglePageWebViewController: ViewController {
             setupWButton()
         }
 
+        copyCookiesFromSession()
+        
         super.viewDidLoad()
+    }
+    
+    private func copyCookiesFromSession() {
+        let cookies = Session.sharedCookieStorage.cookies ?? []
+        for cookie in cookies {
+            webView.configuration.websiteDataStore.httpCookieStore
+                .setCookie(cookie)
+        }
     }
 
     private func fetch() {
