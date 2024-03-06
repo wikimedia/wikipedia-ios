@@ -385,8 +385,9 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
         
-        // TODO: Temporary UI
-        cell.caption = "Testing!"
+        cell.title = WMFLocalizedString("explore-suggested-edits-image-recs-title", value: "Add an image", comment: "Title text shown in the image recommendations explore feed card.")
+        cell.body = WMFLocalizedString("explore-suggested-edits-image-recs-body", value: "Add suggested images to Wikipedia articles to enhance understanding.", comment: "Body text shown in the image recommendations explore feed card.")
+        cell.apply(theme: theme)
     }
 
     func updateLocationCells() {
