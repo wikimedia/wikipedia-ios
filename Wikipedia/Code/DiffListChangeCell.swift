@@ -63,6 +63,15 @@ class DiffListChangeCell: UICollectionViewCell {
         apply(theme: viewModel.theme)
     }
     
+    func arrangedSubview(at index: Int) -> UIView? {
+        
+        guard textStackView.arrangedSubviews.count > index else {
+            return nil
+        }
+        
+        return textStackView.arrangedSubviews[index]
+    }
+    
     func yLocationOfItem(index: Int, convertView: UIView) -> CGFloat? {
         
         guard let item = textStackView.arrangedSubviews[safeIndex: index] else {
