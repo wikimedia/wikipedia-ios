@@ -574,8 +574,12 @@
 "icon-shortcut-random-title" = "Random article";
 "icon-shortcut-search-title" = "Search Wikipedia";
 "image-gallery-unknown-owner" = "Author unknown.";
+"image-rec-add-image-title" = "Add this image?";
 "image-rec-title" = "Add image";
 "image-rec-view-article" = "View article";
+"image-recs-no-title" = "No";
+"image-recs-not-sure-title" = "Not sure";
+"image-recs-yes-title" = "Yes";
 "import-shared-reading-list-default-title" = "My Reading List";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Not now";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Take survey";
