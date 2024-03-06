@@ -229,6 +229,28 @@ final class DiffListChangeItemViewModel {
 
         var modifiedAccessibilityText = text
 
+        func changeTextModification(inputText: String, range: [DiffHighlightRange]) -> String {
+            var updatedAccessibilityText = inputText
+
+            for range in highlightedRanges.reversed() {
+                let nsRange = NSRange(location: range.start, length: range.length)
+                switch range.type {
+                case .add:
+                    let diffChangeAdded = WMFLocalizedString("diff-change-added", value: "Addition, %1$@, addition end.", comment: "Accessibility text announced in VoiceOver when content additions are announced in a diff. %1$@ is replaced with the added content.")
+
+                    let originalChange = (updatedAccessibilityText as NSString).substring(with: nsRange)
+                    updatedAccessibilityText = (updatedAccessibilityText as NSString).replacingCharacters(in: nsRange, with: String.localizedStringWithFormat(diffChangeAdded, originalChange))
+                case .delete:
+                    let diffChangeRemoval = WMFLocalizedString("diff-change-removal", value: "Removal, %1$@, removal end.", comment: "Accessibility text announced in VoiceOver when content removals are announced in a diff. %1$@ is replaced with the removed content.")
+
+                    let originalChange = (updatedAccessibilityText as NSString).substring(with: nsRange)
+                    updatedAccessibilityText = (updatedAccessibilityText as NSString).replacingCharacters(in: nsRange, with: String.localizedStringWithFormat(diffChangeRemoval, originalChange))
+                }
+            }
+
+            return updatedAccessibilityText
+        }
+
         switch diffItemType {
         case .addLine:
             let diffContentAdded = WMFLocalizedString("diff-content-added", value: "Content added, %1$@", comment: "Accessibility text announced in VoiceOver before new line content additions are announced in a diff. %1$@ is replaced with the new content.")
@@ -237,22 +259,7 @@ final class DiffListChangeItemViewModel {
             let diffContentRemoved = WMFLocalizedString("diff-content-removed", value: "Content removed, %1$@", comment: "Accessibility text announced in VoiceOver before content line removals are announced in a diff. %1$@ is replaced with the removed content.")
             modifiedAccessibilityText = String.localizedStringWithFormat(diffContentRemoved, text)
         case .change:
-            for range in highlightedRanges.reversed() {
-                let nsRange = NSRange(location: range.start, length: range.length)
-
-                switch range.type {
-                case .add:
-                    let diffChangeAdded = WMFLocalizedString("diff-change-added", value: "Addition, %1$@, addition end.", comment: "Accessibility text announced in VoiceOver when content additions are announced in a diff. %1$@ is replaced with the added content.")
-
-                    let originalChange = (modifiedAccessibilityText as NSString).substring(with: nsRange)
-                    modifiedAccessibilityText = (modifiedAccessibilityText as NSString).replacingCharacters(in: nsRange, with: String.localizedStringWithFormat(diffChangeAdded, originalChange))
-                case .delete:
-                    let diffChangeRemoval = WMFLocalizedString("diff-change-removal", value: "Removal, %1$@, removal end.", comment: "Accessibility text announced in VoiceOver when content removals are announced in a diff. %1$@ is replaced with the removed content.")
-
-                    let originalChange = (modifiedAccessibilityText as NSString).substring(with: nsRange)
-                    modifiedAccessibilityText = (modifiedAccessibilityText as NSString).replacingCharacters(in: nsRange, with: String.localizedStringWithFormat(diffChangeRemoval, originalChange))
-                }
-            }
+            modifiedAccessibilityText = changeTextModification(inputText: modifiedAccessibilityText, range: highlightedRanges)
         case .moveSource:
             if let moveDirection = moveInfo?.linkDirection, let moveDistance = moveInfo?.moveDistance {
 
@@ -275,12 +282,15 @@ final class DiffListChangeItemViewModel {
                         modifiedAccessibilityText = String.localizedStringWithFormat(diffMoveSourceSectionsDown, amount)
                     }
                 }
+                
+                let changeModifiedText = changeTextModification(inputText: text, range: highlightedRanges)
 
-                modifiedAccessibilityText += text
+                modifiedAccessibilityText += changeModifiedText
             }
         case .moveDestination:
             let diffParagraphMoved = WMFLocalizedString("diff-change-paragraph-moved", value: "Paragraph moved. Go to previous location.", comment: "Accessibility text announced in VoiceOver to indicate content has moved.")
-            modifiedAccessibilityText = diffParagraphMoved + text
+            let changeModifiedText = changeTextModification(inputText: text, range: highlightedRanges)
+            modifiedAccessibilityText = diffParagraphMoved + changeModifiedText
         default:
             break
         }
