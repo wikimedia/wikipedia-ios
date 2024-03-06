@@ -114,12 +114,14 @@ private extension DiffListChangeCell {
             label.tag = index
             label.translatesAutoresizingMaskIntoConstraints = false
 
-            if label.gestureRecognizers == nil {
-                addTapGestureRecognizer(to: label)
-            } else if let gestureRecognizers = label.gestureRecognizers, gestureRecognizers.isEmpty {
-                addTapGestureRecognizer(to: label)
+            if item.diffItemType.isMoveBased {
+                if label.gestureRecognizers == nil {
+                    addTapGestureRecognizer(to: label)
+                } else if let gestureRecognizers = label.gestureRecognizers, gestureRecognizers.isEmpty {
+                    addTapGestureRecognizer(to: label)
+                }
             }
-            
+
             // add surrounding view
             let view = UIView(frame: .zero)
             view.translatesAutoresizingMaskIntoConstraints = false
