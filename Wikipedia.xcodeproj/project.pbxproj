@@ -3437,6 +3437,9 @@
 		6782DC162347EE59003FA21B /* DiffListChangeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListChangeCell.xib; sourceTree = "<group>"; };
 		6785FCC82A66D8DB0078FAF2 /* WMFCleanLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFCleanLevel.swift; sourceTree = "<group>"; };
 		6785FCCA2A6840880078FAF2 /* WatchlistFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistFunnel.swift; sourceTree = "<group>"; };
+		678B3E362B98D76900F4DF03 /* lmo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lmo; path = lmo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		678B3E372B98D76A00F4DF03 /* lmo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lmo; path = lmo.lproj/Localizable.strings; sourceTree = "<group>"; };
+		678B3E382B98D76A00F4DF03 /* lmo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lmo; path = lmo.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		678C7C2923BE67F0001AC4D5 /* CacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheController.swift; sourceTree = "<group>"; };
 		678C7C2D23BE705C001AC4D5 /* CacheDBWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDBWriting.swift; sourceTree = "<group>"; };
 		678C7C2F23BE7319001AC4D5 /* CacheDBWriterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDBWriterHelper.swift; sourceTree = "<group>"; };
@@ -9494,6 +9497,7 @@
 				"kcg-Latn",
 				bg,
 				ia,
+				lmo,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
@@ -12573,6 +12577,7 @@
 				FF0261872627B2D800CBD55F /* kcg */,
 				67D4AD602A03EF7600F3D066 /* bg */,
 				676E08142A7DA0DA00F7632D /* ia */,
+				678B3E362B98D76900F4DF03 /* lmo */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -12678,6 +12683,7 @@
 				FF19C1AB260548FD000AC20B /* kcg */,
 				67D4AD612A03EFA700F3D066 /* bg */,
 				676E08152A7DA10900F7632D /* ia */,
+				678B3E372B98D76A00F4DF03 /* lmo */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -12789,6 +12795,7 @@
 				834C269C24042DCF00245BE7 /* hr */,
 				FF338A0B258D572900292602 /* nqo */,
 				FF19C1AC26054909000AC20B /* kcg */,
+				678B3E382B98D76A00F4DF03 /* lmo */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
