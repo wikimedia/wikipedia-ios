@@ -9,23 +9,33 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     public struct LocalizedStrings {
         let title: String
         let viewArticle: String
-        
-        public init(title: String, viewArticle: String) {
+        let bottomSheetTitle: String
+        let yesButtonTitle: String
+        let noButtonTitle: String
+        let notSureButtonTitle: String
+
+        public init(title: String, viewArticle: String, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String) {
             self.title = title
             self.viewArticle = viewArticle
+            self.bottomSheetTitle = bottomSheetTitle
+            self.yesButtonTitle = yesButtonTitle
+            self.noButtonTitle = noButtonTitle
+            self.notSureButtonTitle = notSureButtonTitle
         }
     }
     
-    final class ImageRecommendationArticle: ObservableObject {
+    final class ImageRecommendation: ObservableObject {
         
         let pageId: Int
         let title: String
         @Published var articleSummary: WKArticleSummary? = nil
-        
-        fileprivate init(pageId: Int, title: String, articleSummary: WKArticleSummary? = nil) {
+        let imageData: ImageRecommendationData
+
+        fileprivate init(pageId: Int, title: String, articleSummary: WKArticleSummary? = nil, imageData: ImageRecommendationData) {
             self.pageId = pageId
             self.title = title
             self.articleSummary = articleSummary
+            self.imageData = imageData
         }
     }
     
@@ -34,8 +44,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     let project: WKProject
     let localizedStrings: LocalizedStrings
     
-    private(set) var articleRecommendations: [ImageRecommendationArticle] = []
-    @Published var currentArticleRecommendation: ImageRecommendationArticle?
+    private(set) var imageRecommendations: [ImageRecommendation] = []
+    private var recommendationData: [WKImageRecommendation.Page] = []
+    @Published var currentRecommendation: ImageRecommendation?
     @Published private var loading: Bool = true
     @Published var debouncedLoading: Bool = true
     private var subscriptions = Set<AnyCancellable>()
@@ -61,17 +72,17 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Internal
     
-    func fetchImageRecommendationsArticleIfNeeded(completion: @escaping () -> Void) {
+    func fetchImageRecommendationsIfNeeded(completion: @escaping () -> Void) {
         
-        guard articleRecommendations.isEmpty else {
+        guard imageRecommendations.isEmpty else {
             completion()
             return
         }
         
         loading = true
-        
-        growthTasksDataController.getGrowthAPITask(task: .imageRecommendation) { [weak self] result in
-            
+
+        growthTasksDataController.getImageRecommendationsCombined { [weak self] result in
+
             guard let self else {
                 completion()
                 return
@@ -80,9 +91,18 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             switch result {
             case .success(let pages):
                 DispatchQueue.main.async {
-                    self.articleRecommendations = pages.map { ImageRecommendationArticle(pageId: $0.pageid, title: $0.title) }
-                    if let firstRecommendation = self.articleRecommendations.first {
-                        self.populateCurrentArticleRecommendation(for: firstRecommendation, completion: {
+                    self.recommendationData = pages
+                    let imageDataArray = self.getFirstImageData(for: pages)
+
+                    for page in pages {
+                        if let imageData = imageDataArray.first(where: { $0.pageId == page.pageid}) {
+                            let combinedImageRecommendation = ImageRecommendation(pageId: page.pageid, title: page.title, imageData: imageData)
+                            self.imageRecommendations.append(combinedImageRecommendation)
+                        }
+                    }
+
+                    if let firstRecommendation = self.imageRecommendations.first {
+                        self.populateCurrentArticleSummary(for: firstRecommendation, completion: {
                             DispatchQueue.main.async {
                                 self.loading = false
                                 completion()
@@ -100,30 +120,30 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     }
     
     func next(completion: @escaping () -> Void) {
-        guard !articleRecommendations.isEmpty else {
-            self.currentArticleRecommendation = nil
+        guard !imageRecommendations.isEmpty else {
+            self.currentRecommendation = nil
             completion()
             return
         }
         
-        articleRecommendations.removeFirst()
-        guard let nextRecommendation = articleRecommendations.first else {
-            self.currentArticleRecommendation = nil
+        imageRecommendations.removeFirst()
+        guard let nextRecommendation = imageRecommendations.first else {
+            self.currentRecommendation = nil
             completion()
             return
         }
         
         loading = true
         
-        populateCurrentArticleRecommendation(for: nextRecommendation, completion: { [weak self] in
+        populateCurrentArticleSummary(for: nextRecommendation, completion: { [weak self] in
             completion()
             self?.loading = false
         })
     }
-    
-    func populateCurrentArticleRecommendation(for imageRecommendationArticle: ImageRecommendationArticle, completion: @escaping () -> Void) {
+
+    func populateCurrentArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {
         
-        articleSummaryDataController.fetchArticleSummary(project: project, title: imageRecommendationArticle.title) { [weak self] result in
+        articleSummaryDataController.fetchArticleSummary(project: project, title: imageRecommendation.title) { [weak self] result in
             
             guard let self else {
                 DispatchQueue.main.async {
@@ -135,8 +155,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             switch result {
             case .success(let summary):
                 DispatchQueue.main.async {
-                    imageRecommendationArticle.articleSummary = summary
-                    self.currentArticleRecommendation = imageRecommendationArticle
+                    imageRecommendation.articleSummary = summary
+                    self.currentRecommendation = imageRecommendation
                     completion()
                 }
                 
@@ -148,4 +168,44 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             }
         }
     }
+
+    fileprivate func getFirstImageData(for pages: [WKImageRecommendation.Page]) -> [ImageRecommendationData] {
+
+        var imageData: [ImageRecommendationData] = []
+        for page in pages {
+            if let firstPageSuggestion = page.growthimagesuggestiondata?.first,
+               let firstImage = firstPageSuggestion.images.first {
+                let metadata = firstImage.metadata
+                let imageRecommendation = ImageRecommendationData(
+                    pageId: page.pageid,
+                    image: firstImage.image,
+                    filename: firstImage.displayFilename,
+                    thumbUrl: metadata.thumbUrl,
+                    fullUrl: metadata.fullUrl,
+                    description: metadata.description
+                )
+                imageData.append(imageRecommendation)
+            }
+        }
+        return imageData
+    }
 }
+
+public struct ImageRecommendationData {
+    public let pageId: Int
+    public let image: String
+    public let filename: String
+    public let thumbUrl: String
+    public let fullUrl: String
+    public let description: String?
+
+    public init(pageId: Int, image: String, filename: String, thumbUrl: String, fullUrl: String, description: String?) {
+        self.pageId = pageId
+        self.image = image
+        self.filename = filename
+        self.thumbUrl = thumbUrl
+        self.fullUrl = fullUrl
+        self.description = description
+    }
+}
+

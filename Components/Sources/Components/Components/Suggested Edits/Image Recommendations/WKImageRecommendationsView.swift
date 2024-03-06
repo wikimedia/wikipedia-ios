@@ -8,7 +8,7 @@ struct WKImageRecommendationsView: View {
     
     var body: some View {
         Group {
-            if let articleSummary = viewModel.currentArticleRecommendation?.articleSummary,
+            if let articleSummary = viewModel.currentRecommendation?.articleSummary,
                !viewModel.debouncedLoading {
                 VStack {
                     WKArticleSummaryView(articleSummary: articleSummary)
@@ -18,7 +18,7 @@ struct WKImageRecommendationsView: View {
                         Spacer()
                         let configuration = WKSmallButton.Configuration(style: .quiet, needsDisclosure: true)
                         WKSmallButton(configuration: configuration, title: "View article") {
-                            if let articleTitle = viewModel.currentArticleRecommendation?.title {
+                            if let articleTitle = viewModel.currentRecommendation?.title {
                                 viewArticleAction(articleTitle)
                             }
                         }
@@ -43,7 +43,7 @@ struct WKImageRecommendationsView: View {
             }
         }
         .onAppear {
-            viewModel.fetchImageRecommendationsArticleIfNeeded {
+            viewModel.fetchImageRecommendationsIfNeeded {
 
             }
         }

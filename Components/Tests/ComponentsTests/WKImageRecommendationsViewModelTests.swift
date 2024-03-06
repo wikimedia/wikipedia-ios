@@ -18,7 +18,7 @@ final class WKImageRecommendationsViewModelTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Fetch Image Recommendations")
         
-        viewModel.fetchImageRecommendationsArticleIfNeeded {
+        viewModel.fetchImageRecommendationsIfNeeded {
             expectation.fulfill()
         }
         
@@ -34,7 +34,7 @@ final class WKImageRecommendationsViewModelTests: XCTestCase {
         
         let expectation1 = XCTestExpectation(description: "Fetch Image Recommendations")
         
-        viewModel.fetchImageRecommendationsArticleIfNeeded {
+        viewModel.fetchImageRecommendationsIfNeeded {
             expectation1.fulfill()
         }
         
