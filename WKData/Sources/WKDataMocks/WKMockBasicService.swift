@@ -74,6 +74,15 @@ fileprivate extension WKData.WKServiceRequest {
             return method == .GET && action == "raw"
         }
     }
+    
+    var isArticleSummaryGet: Bool {
+        guard let url = url,
+              url.absoluteString.contains("/page/summary/") else {
+            return false
+        }
+        
+        return true
+    }
 }
 
 public class WKMockBasicService: WKService {
@@ -161,6 +170,16 @@ public class WKMockBasicService: WKService {
             return jsonData
         } else if request.isFundraisingCampaignGet {
             let resourceName = "fundraising-campaign-get-config"
+            
+            guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
+                  let jsonData = try? Data(contentsOf: url) else {
+                return nil
+            }
+            
+            return jsonData
+        } else if request.isArticleSummaryGet {
+            
+            let resourceName = "article-summary-get"
             
             guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
                   let jsonData = try? Data(contentsOf: url) else {

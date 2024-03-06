@@ -573,6 +573,8 @@
 "icon-shortcut-random-title" = "Title for app icon force touch shortcut to quickly open a random article. {{Identical|Random article}}";
 "icon-shortcut-search-title" = "Title for app icon force touch shortcut to quickly open the search interface.";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
+"image-rec-title" = "Title of the image recommendation view. Displayed in the navigation bar above an article summary.";
+"image-rec-view-article" = "Button from an image recommendation article summary. Tapping the button displays the full article.";
 "import-shared-reading-list-default-title" = "Default title of a reading list imported through a shared link.";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Title of cancel button on import shared reading list survey prompt, which dismisses the prompt.";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Title of action button on import reading list survey prompt, which takes user to external survey.";
