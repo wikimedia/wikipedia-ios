@@ -15,6 +15,8 @@ private extension WMFContentGroupKind {
             fallthrough
         case .relatedPages:
             fallthrough
+        case .suggestedEdits:
+            fallthrough
         case .pictureOfTheDay:
             return WMFLocalizedString("explore-feed-preferences-global-card-footer-text", value: "This card is not language specific, turning off this card will remove it from your Explore feed.", comment: "Text describing the effects of turning off a global card")
         case .locationPlaceholder:

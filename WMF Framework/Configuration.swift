@@ -75,7 +75,8 @@ public class Configuration: NSObject {
         Domain.wikinews.withDotPrefix,
         Domain.wikiversity.withDotPrefix,
         Domain.wikispecies.withDotPrefix,
-        Domain.wikivoyage.withDotPrefix
+        Domain.wikivoyage.withDotPrefix,
+        Domain.metaWiki.withDotPrefix
     ]
     
     public static let production: Configuration = {
