@@ -74,6 +74,12 @@ private class FeedCard: ExploreFeedSettingsItem {
             iconName = "recent-mini"
             iconColor = .gray400
             iconBackgroundColor = .gray200
+        case .suggestedEdits:
+            title = CommonStrings.suggestedEditsTitle
+            singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-suggested-edits-description", value: "Suggestions to add content to Wikipedia", comment: "Description of Suggested Edits section of Explore feed")
+            iconName = "pencil"
+            iconColor = .blue600
+            iconBackgroundColor = .blue100
         default:
             assertionFailure("Group of kind \(contentGroupKind) is not customizable")
             title = ""
@@ -195,7 +201,13 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let pictureOfTheDay = FeedCard(contentGroupKind: .pictureOfTheDay, displayType: displayType)
         let continueReading = FeedCard(contentGroupKind: .continueReading, displayType: displayType)
         let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
-        return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
+        let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
+        if FeatureFlags.needsImageRecommendations {
+            return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages, suggestedEdits]
+        } else {
+            return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
+        }
+        
     }()
 
     private lazy var globalCards: ExploreFeedSettingsGlobalCards = {
