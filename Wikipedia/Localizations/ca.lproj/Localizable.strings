@@ -10,6 +10,7 @@
 // Author: JoeWalshWMF
 // Author: Kippelboy
 // Author: Leptictidium
+// Author: Lluis Cat
 // Author: Lluis tgn
 // Author: Maceleiro
 // Author: Macofe
@@ -1188,6 +1189,7 @@
 "watchlist-filter-user-registration-header" = "Registre i experiència d'usuari";
 "watchlist-filter-user-registration-options-registered" = "Registrats";
 "watchlist-filter-user-registration-options-unregistered" = "No registrats";
+"watchlist-filters-add-language" = "Afegeix una llengua...";
 "watchlist-number-filters" = "Modifica [ {{PLURAL:$1|$1 filtre|$1 filtres}}](wikipedia://watchlist/filter) per a veure més elements de la llista de seguiment";
 "watchlist-onboarding-button-title" = "Més informació sobre la llista de seguiment";
 "watchlist-onboarding-title" = "Presentació de la llista de seguiment";
