@@ -13,7 +13,7 @@ internal struct WKImageRecommendationAPIResponse: Codable {
         let pageid: Int
         let title: String
         let ns: Int
-        let growthimagesuggestiondata: [GrowthImageSuggestionData]
+        let growthimagesuggestiondata: [GrowthImageSuggestionData]?
     }
 
     struct GrowthImageSuggestionData: Codable {
@@ -42,8 +42,8 @@ internal struct WKImageRecommendationAPIResponse: Codable {
         let mustRender: Bool
         let isVectorized: Bool
         let mediaType: String
-        let description: String
-        let author: String
+        let description: String?
+        let author: String?
         let license: String
         let date: String
         let caption:String?

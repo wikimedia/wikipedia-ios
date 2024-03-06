@@ -428,6 +428,8 @@
 "editor-toolbar-reference-accessibility" = "Textformatering för referenser";
 "editor-toolbar-show-more-accessibility" = "Visa fler formateringsalternativ";
 "editor-toolbar-template-accessibility" = "Textformatering för mallar";
+"editor-wikitext-loading-accessibility" = "Läser in textredigerare";
+"editor-wikitext-textview-accessibility" = "Wikitextredigerare";
 "empty-diff-compare-title" = "Ingen skillnad mellan versionerna";
 "empty-diff-single-title" = "Inga synliga ändringar gjordes";
 "empty-insert-media-title" = "Välj en fil från Wikimedia Commons";
@@ -1269,6 +1271,7 @@
 "watchlist-filter-user-registration-header" = "Användarregistrering och -erfarenhet";
 "watchlist-filter-user-registration-options-registered" = "Registrerade";
 "watchlist-filter-user-registration-options-unregistered" = "Oregistrerade";
+"watchlist-filters-add-language" = "Lägg till språk...";
 "watchlist-number-filters" = "Modifiera [{{PLURAL:$1|$1 filter}}](wikipedia://watchlist/filter) för att se fler poster i bevakningslistan";
 "watchlist-onboarding-button-title" = "Läs mer om bevakningslistan";
 "watchlist-onboarding-title" = "Det här är din bevakningslista";
