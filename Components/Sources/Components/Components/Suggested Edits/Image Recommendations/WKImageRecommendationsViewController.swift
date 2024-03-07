@@ -1,4 +1,3 @@
-import Foundation
 import SwiftUI
 import UIKit
 import WKData
@@ -23,7 +22,7 @@ fileprivate final class WKImageRecommendationsHostingViewController: WKComponent
 }
 
 public final class WKImageRecommendationsViewController: WKCanvasViewController {
-    
+
     // MARK: - Properties
 
     fileprivate let hostingViewController: WKImageRecommendationsHostingViewController
@@ -32,6 +31,8 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     private var imageRecommendationBottomSheetController: WKImageRecommendationsBottomSheetViewController
     private var cancellables = Set<AnyCancellable>()
 
+    // MARK: Lifecycle
+
     public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate) {
         self.hostingViewController = WKImageRecommendationsHostingViewController(viewModel: viewModel, delegate: delegate)
         self.delegate = delegate
@@ -39,21 +40,17 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         self.imageRecommendationBottomSheetController = WKImageRecommendationsBottomSheetViewController(viewModel: viewModel)
         super.init()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
-    public override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-    
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         title = viewModel.localizedStrings.title
@@ -63,15 +60,24 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         bindViewModel()
-
     }
 
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        if let _ = imageRecommendationBottomSheetController.sheetPresentationController {
+            imageRecommendationBottomSheetController.isModalInPresentation = false
+        }
+        imageRecommendationBottomSheetController.dismiss(animated: true)
+    }
+
+    // MARK: Private methods
+    
     private func presentVC() {
         if let bottomViewController = imageRecommendationBottomSheetController.sheetPresentationController {
             bottomViewController.detents = [.medium(), .large()]
             bottomViewController.largestUndimmedDetentIdentifier = .medium
             bottomViewController.prefersGrabberVisible = true
-            bottomViewController.preferredCornerRadius = 24
         }
 
         navigationController?.present(imageRecommendationBottomSheetController, animated: true)

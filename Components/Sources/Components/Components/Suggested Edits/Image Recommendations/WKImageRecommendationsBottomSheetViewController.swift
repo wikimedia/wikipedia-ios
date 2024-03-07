@@ -17,8 +17,8 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let viewModel = populateImageSheetRecViewModel(for: viewModel.currentRecommendation?.imageData) {
-            let newView = WKImageRecommendationBottomSheetView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height), viewModel: viewModel)
+        if let bottomViewModel = populateImageSheetRecViewModel(for: viewModel.currentRecommendation?.imageData) {
+            let newView = WKImageRecommendationBottomSheetView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height), viewModel: bottomViewModel)
             addComponent(newView, pinToEdges: true)
         }
 
