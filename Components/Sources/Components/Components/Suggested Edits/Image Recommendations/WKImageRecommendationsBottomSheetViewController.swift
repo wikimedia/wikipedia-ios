@@ -1,14 +1,12 @@
 import UIKit
 import WKData
 
-final public class WKImageRecommendationBottomSheetViewController: WKCanvasViewController {
+final public class WKImageRecommendationsBottomSheetViewController: WKCanvasViewController {
 
     public var viewModel: WKImageRecommendationsViewModel
-    public var imageData: ImageRecommendationData
 
-    public init(viewModel: WKImageRecommendationsViewModel, imageData: ImageRecommendationData) {
+    public init(viewModel: WKImageRecommendationsViewModel) {
         self.viewModel = viewModel
-        self.imageData = imageData
         super.init()
     }
 
@@ -19,7 +17,7 @@ final public class WKImageRecommendationBottomSheetViewController: WKCanvasViewC
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let viewModel = populateImageSheetRecViewModel(for: imageData) {
+        if let viewModel = populateImageSheetRecViewModel(for: viewModel.currentRecommendation?.imageData) {
             let newView = WKImageRecommendationBottomSheetView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height), viewModel: viewModel)
             addComponent(newView, pinToEdges: true)
         }
