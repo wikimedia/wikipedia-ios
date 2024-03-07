@@ -48,7 +48,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     private(set) var imageRecommendations: [ImageRecommendation] = []
     private var recommendationData: [WKImageRecommendation.Page] = []
     @Published var currentRecommendation: ImageRecommendation?
-    @Published private var loading: Bool = true
+    @Published var loading: Bool = true
     @Published var debouncedLoading: Bool = true
     private var subscriptions = Set<AnyCancellable>()
     

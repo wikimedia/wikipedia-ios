@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import UIKit
 import WKData
+import Combine
 
 public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapViewArticle(project: WKProject, title: String)
@@ -27,8 +28,9 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
     fileprivate let hostingViewController: WKImageRecommendationsHostingViewController
     private weak var delegate: WKImageRecommendationsDelegate?
-    private let viewModel: WKImageRecommendationsViewModel
+    @ObservedObject private var viewModel: WKImageRecommendationsViewModel
     private var imageRecommendationBottomSheetController: WKImageRecommendationsBottomSheetViewController
+    private var cancellables = Set<AnyCancellable>()
 
     public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate) {
         self.hostingViewController = WKImageRecommendationsHostingViewController(viewModel: viewModel, delegate: delegate)
@@ -60,7 +62,11 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        bindViewModel()
 
+    }
+
+    private func presentVC() {
         if let bottomViewController = imageRecommendationBottomSheetController.sheetPresentationController {
             bottomViewController.detents = [.medium(), .large()]
             bottomViewController.largestUndimmedDetentIdentifier = .medium
@@ -69,6 +75,16 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         }
 
         navigationController?.present(imageRecommendationBottomSheetController, animated: true)
+    }
 
+    private func bindViewModel() {
+        viewModel.$loading
+            .receive(on: RunLoop.main)
+            .sink { [weak self] showVC in
+                if !showVC {
+                    self?.presentVC()
+                }
+            }
+            .store(in: &cancellables)
     }
 }
