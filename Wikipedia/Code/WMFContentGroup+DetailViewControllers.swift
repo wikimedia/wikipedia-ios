@@ -2,8 +2,13 @@ import Foundation
 import Components
 
 extension WMFContentGroup {
-	@objc(detailViewControllerForPreviewItemAtIndex:dataStore:theme:)
+    
+    @objc(detailViewControllerForPreviewItemAtIndex:dataStore:theme:)
     public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme) -> UIViewController? {
+        detailViewControllerForPreviewItemAtIndex(index, dataStore: dataStore, theme: theme, imageRecDelegate: nil)
+    }
+	
+    public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WKImageRecommendationsDelegate?) -> UIViewController? {
         switch detailType {
         case .page:
             guard let articleURL = previewArticleURLForItemAtIndex(index) else {
@@ -22,6 +27,8 @@ extension WMFContentGroup {
             return WMFPOTDImageGalleryViewController(dates: [date], theme: theme, overlayViewTopBarHidden: false)
         case .story, .event:
             return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: nil)
+        case .suggestedEdits:
+            return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: imageRecDelegate)
         default:
             return nil
         }
