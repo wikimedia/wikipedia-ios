@@ -329,7 +329,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let today = NSDate().wmf_midnightUTCDateFromLocal as Date
         let oldestDate = Calendar.current.date(byAdding: .day, value: -WMFExploreFeedMaximumNumberOfDays, to: today) ?? today
         fetchRequest.predicate = NSPredicate(format: "isVisible == YES && (placement == NULL || placement == %@) && midnightUTCDate >= %@", "feed", oldestDate as NSDate)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "midnightUTCDate", ascending: false), NSSortDescriptor(key: "dailySortPriority", ascending: true), NSSortDescriptor(key: "date", ascending: false)]
+        fetchRequest.sortDescriptors = dataStore.feedContentController.exploreFeedSortDescriptors()
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "midnightUTCDate", cacheName: nil)
         fetchedResultsController = frc
         let updater = CollectionViewUpdater(fetchedResultsController: frc, collectionView: collectionView)
