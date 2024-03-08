@@ -1,10 +1,11 @@
 #import "WMFSuggestedEditsContentSource.h"
 #import <WMF/WMF-Swift.h>
+@import WKData;
 
 @interface WMFSuggestedEditsContentSource ()
 
 @property (readwrite, nonatomic) MWKDataStore *dataStore;
-@property (readwrite, nonatomic, strong) WMFCurrentlyLoggedInUserFetcher *fetcher;
+@property (readwrite, nonatomic, strong) WKGrowthTasksDataController *growthTasksDataController;
 
 @end
 
@@ -15,7 +16,8 @@
     self = [super init];
     if (self) {
         self.dataStore = dataStore;
-        self.fetcher = [[WMFCurrentlyLoggedInUserFetcher alloc] initWithSession: dataStore.session configuration: dataStore.configuration];
+        NSString *languageCode = dataStore.languageLinkController.appLanguage.languageCode;
+        self.growthTasksDataController = [[WKGrowthTasksDataController alloc] initWithLanguageCode:languageCode];
     }
     return self;
 }
@@ -33,17 +35,38 @@
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        
+        WMFTaskGroup *group = [WMFTaskGroup new];
+        
+        __block WMFCurrentlyLoggedInUser *currentUser = nil;
+        __block BOOL hasImageRecommendations = NO;
+        
+        [group enter];
         [self.dataStore.authenticationManager getLoggedInUserFor:appLanguageSiteURL completion:^(WMFCurrentlyLoggedInUser *user) {
-            
-            if (user) {
-                if (user.editCount > 50 && !user.isBlocked) {
+            currentUser = user;
+            [group leave];
+        }];
+        
+        [group enter];
+        [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
+            hasImageRecommendations = hasRecommendations;
+            [group leave];
+        }];
+        
+        [group waitInBackgroundWithCompletion:^{
+            if (currentUser) {
+                if (currentUser.editCount > 50 && !currentUser.isBlocked && hasImageRecommendations) {
+
                     NSURL *URL = [WMFContentGroup suggestedEditsURL];
+
                     [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindSuggestedEdits forDate:[NSDate date] withSiteURL:appLanguageSiteURL associatedContent:nil customizationBlock:nil];
+
                 }
             }
             
             completion();
         }];
+        
     });
     
 }
