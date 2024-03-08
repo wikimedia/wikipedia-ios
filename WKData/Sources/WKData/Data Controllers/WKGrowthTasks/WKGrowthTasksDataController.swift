@@ -108,19 +108,6 @@ public final class WKGrowthTasksDataController {
         return metadata
     }
 
-    fileprivate func getTaskPages(from response: WKGrowthTaskAPIResponse) -> [WKGrowthTask.Page] {
-        var pages: [WKGrowthTask.Page] = []
-
-        for page in response.query.pages {
-            let page = WKGrowthTask.Page(
-                pageid: page.pageid,
-                title: page.title,
-                tasktype: page.tasktype,
-                difficulty: page.difficulty)
-            pages.append(page)
-        }
-        return pages
-    }
 }
 
 // MARK: Types

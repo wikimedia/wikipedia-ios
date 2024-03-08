@@ -3,7 +3,7 @@ import WKData
 
 final public class WKImageRecommendationsBottomSheetViewController: WKCanvasViewController {
 
-    //MARK: Properties
+    // MARK: Properties
 
     public var viewModel: WKImageRecommendationsViewModel
 

@@ -23,7 +23,7 @@ struct WKImageRecommendationsView: View {
                                 Spacer()
                                 let configuration = WKSmallButton.Configuration(style: .quiet, needsDisclosure: true)
                                 WKSmallButton(configuration: configuration, title: "View article") {
-                                    //TODO: Localizet it
+                                    // TODO: Localizet it
                                     if let articleTitle = viewModel.currentRecommendation?.title {
                                         viewArticleAction(articleTitle)
                                     }
