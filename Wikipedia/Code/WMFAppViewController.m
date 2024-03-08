@@ -2116,6 +2116,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
                                                                 force:YES
                                                            completion:nil];
+            [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
+                                                                force:YES
+                                                           completion:nil];
         }
     });
 }
@@ -2127,6 +2130,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
         if (self.isResumeComplete) {
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
+                                                                force:YES
+                                                           completion:nil];
+            [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
                                                                 force:YES
                                                            completion:nil];
         }
