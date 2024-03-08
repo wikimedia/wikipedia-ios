@@ -30,9 +30,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         let pageId: Int
         let title: String
         @Published var articleSummary: WKArticleSummary? = nil
-        let imageData: ImageRecommendationData
+        let imageData: WKImageRecommendationData
 
-        fileprivate init(pageId: Int, title: String, articleSummary: WKArticleSummary? = nil, imageData: ImageRecommendationData) {
+        fileprivate init(pageId: Int, title: String, articleSummary: WKArticleSummary? = nil, imageData: WKImageRecommendationData) {
             self.pageId = pageId
             self.title = title
             self.articleSummary = articleSummary
@@ -170,14 +170,14 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         }
     }
 
-    fileprivate func getFirstImageData(for pages: [WKImageRecommendation.Page]) -> [ImageRecommendationData] {
+    fileprivate func getFirstImageData(for pages: [WKImageRecommendation.Page]) -> [WKImageRecommendationData] {
 
-        var imageData: [ImageRecommendationData] = []
+        var imageData: [WKImageRecommendationData] = []
         for page in pages {
             if let firstPageSuggestion = page.growthimagesuggestiondata?.first,
                let firstImage = firstPageSuggestion.images.first {
                 let metadata = firstImage.metadata
-                let imageRecommendation = ImageRecommendationData(
+                let imageRecommendation = WKImageRecommendationData(
                     pageId: page.pageid,
                     image: firstImage.image,
                     filename: firstImage.displayFilename,
@@ -192,7 +192,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     }
 }
 
-public struct ImageRecommendationData {
+public struct WKImageRecommendationData {
     public let pageId: Int
     public let image: String
     public let filename: String

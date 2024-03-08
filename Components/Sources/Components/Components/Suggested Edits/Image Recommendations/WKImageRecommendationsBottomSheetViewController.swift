@@ -3,7 +3,11 @@ import WKData
 
 final public class WKImageRecommendationsBottomSheetViewController: WKCanvasViewController {
 
+    //MARK: Properties
+
     public var viewModel: WKImageRecommendationsViewModel
+
+    // MARK: Lifecycle
 
     public init(viewModel: WKImageRecommendationsViewModel) {
         self.viewModel = viewModel
@@ -14,30 +18,22 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-
-        if let bottomViewModel = populateImageSheetRecViewModel(for: viewModel.currentRecommendation?.imageData) {
-            let newView = WKImageRecommendationBottomSheetView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height), viewModel: bottomViewModel)
-            addComponent(newView, pinToEdges: true)
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let bottomViewModel = populateImageSheetRecommendationViewModel(for: viewModel.currentRecommendation?.imageData) {
+            let bottomSheetView = WKImageRecommendationBottomSheetView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height), viewModel: bottomViewModel)
+            bottomSheetView.delegate = self
+            addComponent(bottomSheetView, pinToEdges: true)
         }
-
     }
 
-    public override func loadView() {
-        super.loadView()
-
-
-    }
-
-    func populateImageSheetRecViewModel(for image: ImageRecommendationData?) -> WKImageRecommendationBottomSheetViewModel? {
+    private func populateImageSheetRecommendationViewModel(for image: WKImageRecommendationData?) -> WKImageRecommendationBottomSheetViewModel? {
 
         if let image {
             let viewModel = WKImageRecommendationBottomSheetViewModel(
                 pageId: image.pageId,
                 headerTitle: viewModel.localizedStrings.bottomSheetTitle,
                 headerIcon: UIImage(),
-                image: UIImage(), // populatewithThumb and not init
                 imageLink: image.fullUrl,
                 thumbLink: image.thumbUrl,
                 imageTitle: image.filename,
@@ -48,8 +44,23 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
             )
             return viewModel
         }
-
         return nil
     }
+}
 
+extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendationsToolbarViewDelegate {
+    func didTapYesButton() {
+
+    }
+
+    func didTapNoButton() {
+
+    }
+
+    func didTapSkipButton() {
+        self.dismiss(animated: true)
+        self.viewModel.next {
+
+        }
+    }
 }

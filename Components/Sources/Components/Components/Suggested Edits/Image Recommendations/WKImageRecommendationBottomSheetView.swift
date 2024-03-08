@@ -1,6 +1,6 @@
 import UIKit
 
-protocol WKBottomSheetToolbarViewDelegate: AnyObject {
+protocol WKImageRecommendationsToolbarViewDelegate: AnyObject {
 
     func didTapYesButton()
     func didTapNoButton()
@@ -16,7 +16,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private var buttonHeight: CGFloat
     private let imageViewHeight: CGFloat
 
-    private weak var delegate: WKBottomSheetToolbarViewDelegate?
+    internal weak var delegate: WKImageRecommendationsToolbarViewDelegate?
 
     private lazy var container: UIView = {
         let view = UIView()
@@ -204,8 +204,8 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }
 
     private func configure() {
-        imageView.image = viewModel.image
-        textView.text = viewModel.imageDescription
+        imageView.image = viewModel.populateImage()
+        textView.text = viewModel.getCleanDescription()
         titleLabel.text = viewModel.headerTitle
         imageLinkButton.setAttributedTitle(getButtonTitle(), for: .normal)
         iconImageView.image = viewModel.headerIcon

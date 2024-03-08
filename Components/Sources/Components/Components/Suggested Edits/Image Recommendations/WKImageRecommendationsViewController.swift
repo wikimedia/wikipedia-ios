@@ -48,8 +48,8 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
+       
     }
-
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,23 +63,24 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        if let _ = imageRecommendationBottomSheetController.sheetPresentationController {
+        if imageRecommendationBottomSheetController.sheetPresentationController != nil {
             imageRecommendationBottomSheetController.isModalInPresentation = false
         }
         imageRecommendationBottomSheetController.dismiss(animated: true)
     }
 
     // MARK: Private methods
-    
-    private func presentVC() {
+
+    private func presentImageRecommendationBottomSheet() {
+        imageRecommendationBottomSheetController.isModalInPresentation = true
         if let bottomViewController = imageRecommendationBottomSheetController.sheetPresentationController {
             bottomViewController.detents = [.medium(), .large()]
             bottomViewController.largestUndimmedDetentIdentifier = .medium
             bottomViewController.prefersGrabberVisible = true
-        }
 
+        }
         navigationController?.present(imageRecommendationBottomSheetController, animated: true)
     }
 
@@ -88,9 +89,10 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             .receive(on: RunLoop.main)
             .sink { [weak self] showVC in
                 if !showVC {
-                    self?.presentVC()
+                    self?.presentImageRecommendationBottomSheet()
                 }
             }
             .store(in: &cancellables)
     }
 }
+
