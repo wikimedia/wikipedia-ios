@@ -249,7 +249,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding*2),
             imageLinkButton.topAnchor.constraint(equalTo: container.topAnchor),
             imageLinkButton.trailingAnchor.constraint(equalTo: container.trailingAnchor),
             imageLinkButton.widthAnchor.constraint(equalToConstant: buttonWidth),
@@ -308,7 +308,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
     private func configure() {
         imageView.image = viewModel.populateImage()
-        textView.text = viewModel.getCleanDescription()
+        textView.text = viewModel.imageDescription
         titleLabel.text = viewModel.headerTitle
         imageLinkButton.setAttributedTitle(getImageLinkButtonTitle(), for: .normal)
         iconImageView.image = viewModel.headerIcon

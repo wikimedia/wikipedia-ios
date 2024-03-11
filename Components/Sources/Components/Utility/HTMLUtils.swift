@@ -325,7 +325,13 @@ public struct HtmlUtils {
             attributedString.removeSubrange(tagRange)
         }
     }
-    
+
+    public static func stringFromHTML(_ string: String) throws -> String {
+        let regex = try htmlTagRegex()
+        let cleanString = regex.stringByReplacingMatches(in: string, options: [], range: string.fullNSRange, withTemplate: "")
+        return cleanString
+    }
+
     // MARK: - Shared - Private
     
     private static func htmlTagRegex() throws -> NSRegularExpression {

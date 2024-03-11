@@ -30,16 +30,17 @@ public class  WKImageRecommendationBottomSheetViewModel {
     }
 
     func update() {
-        imageDescription = getCleanDescription()
+        if let description = imageDescription {
+            imageDescription = getCleanDescription(from: description)
+        }
     }
 
     public func populateImage() -> UIImage {
         UIImage()
     }
-    public func getCleanDescription() -> String {
-        return String()
-        // strip html
-
+    
+    public func getCleanDescription(from input: String) -> String? {
+        return try? HtmlUtils.stringFromHTML(input)
     }
 
 }
