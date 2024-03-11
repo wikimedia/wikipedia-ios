@@ -97,6 +97,109 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         return toolbar
     }()
 
+    lazy var yesButton: UIBarButtonItem = {
+        let customView = UIView()
+
+        let imageView = UIImageView(image: WKSFSymbolIcon.for(symbol: .checkmark))
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = theme.link
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        let label = UILabel()
+        label.text = viewModel.yesButtonTitle
+        label.textColor = theme.link
+        label.font = WKFont.for(.boldCallout)
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(didPressYesButton), for: .touchUpInside)
+        customView.addSubview(imageView)
+        customView.addSubview(label)
+        customView.addSubview(button)
+
+        NSLayoutConstraint.activate([
+            imageView.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
+            imageView.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 20),
+            imageView.heightAnchor.constraint(equalToConstant: 20),
+
+            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
+            label.trailingAnchor.constraint(equalTo: customView.trailingAnchor),
+            label.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
+
+            button.topAnchor.constraint(equalTo: customView.topAnchor),
+            button.bottomAnchor.constraint(equalTo: customView.bottomAnchor),
+            button.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
+            button.trailingAnchor.constraint(equalTo: customView.trailingAnchor)
+        ])
+
+        customView.layoutIfNeeded()
+        let customViewWidth = label.frame.origin.x + label.frame.width
+        customView.frame = CGRect(x: 0, y: 0, width: customViewWidth, height: 40)
+        let barButtonItem = UIBarButtonItem(customView: customView)
+
+        return barButtonItem
+    }()
+
+    lazy var noButton: UIBarButtonItem = {
+        let customView = UIView()
+
+        let imageView = UIImageView(image: WKSFSymbolIcon.for(symbol: .xMark))
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = theme.link
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        let label = UILabel()
+        label.text = viewModel.noButtonTitle
+        label.font = WKFont.for(.boldCallout)
+        label.textColor = theme.link
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(didPressNoButton), for: .touchUpInside)
+        customView.addSubview(imageView)
+        customView.addSubview(label)
+        customView.addSubview(button)
+
+        NSLayoutConstraint.activate([
+            imageView.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
+            imageView.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 20),
+            imageView.heightAnchor.constraint(equalToConstant: 20),
+
+            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
+            label.trailingAnchor.constraint(equalTo: customView.trailingAnchor),
+            label.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
+
+            button.topAnchor.constraint(equalTo: customView.topAnchor),
+            button.bottomAnchor.constraint(equalTo: customView.bottomAnchor),
+            button.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
+            button.trailingAnchor.constraint(equalTo: customView.trailingAnchor)
+        ])
+
+        customView.layoutIfNeeded()
+        let customViewWidth = label.frame.origin.x + label.frame.width
+        customView.frame = CGRect(x: 0, y: 0, width: customViewWidth, height: 40)
+        let barButtonItem = UIBarButtonItem(customView: customView)
+
+        return barButtonItem
+    }()
+
+    lazy var notSureButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem(title: viewModel.notSureButtonTitle, style: .plain, target: self, action: #selector(didPressSkipButton))
+        barButton.tintColor = theme.link
+
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: WKFont.for(.boldCallout),
+            .foregroundColor: theme.link
+        ]
+
+        barButton.setTitleTextAttributes(attributes, for: .normal)
+        return barButton
+    }()
+
     // MARK: Lifecycle
 
     public init(frame: CGRect, viewModel: WKImageRecommendationBottomSheetViewModel) {
@@ -207,57 +310,37 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         imageView.image = viewModel.populateImage()
         textView.text = viewModel.getCleanDescription()
         titleLabel.text = viewModel.headerTitle
-        imageLinkButton.setAttributedTitle(getButtonTitle(), for: .normal)
+        imageLinkButton.setAttributedTitle(getImageLinkButtonTitle(), for: .normal)
         iconImageView.image = viewModel.headerIcon
     }
 
-    private func getButtonTitle() -> NSMutableAttributedString {
+    private func getImageLinkButtonTitle() -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString()
         if let imageAttachment = WKIcon.externalLink {
             let attachment = NSTextAttachment(image: imageAttachment)
             attachment.image?.withTintColor(theme.link)
             attributedString.append(NSAttributedString(string: viewModel.imageTitle))
-            attributedString.append(NSAttributedString(string: " "))
+            attributedString.append(NSAttributedString(string: "  "))
             attributedString.append(NSAttributedString(attachment: attachment))
         }
         return attributedString
     }
 
     private func setupToolbar() {
-        let yesButton = getToolbarButton(title: viewModel.yesButtonTitle, icon: WKSFSymbolIcon.for(symbol: .checkmark) ?? UIImage(), target: self, action: #selector(didPressYesButton))
-        let noButton = getToolbarButton(title: viewModel.noButtonTitle, icon: WKSFSymbolIcon.for(symbol: .xMark) ?? UIImage(), target: self, action: #selector(didPressNoButton))
-        let notSureButton = UIBarButtonItem(title: viewModel.notSureButtonTitle, style: .plain, target: self, action: #selector(didPressSkipButton))
         let spacer = UIBarButtonItem(systemItem: .flexibleSpace)
         toolbar.setItems([yesButton, spacer, noButton, spacer, notSureButton], animated: true)
     }
 
-    private func getToolbarButton(title: String, icon: UIImage, target: Any?, action: Selector) -> UIBarButtonItem {
-        let button = UIButton()
-        button.setImage(icon, for: .normal)
-        button.setTitle(title, for: .normal)
-        button.configuration?.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        button.contentHorizontalAlignment = .left
-        button.titleLabel?.font = WKFont.for(.body)
-        button.sizeToFit()
-        button.addTarget(target, action: action, for: .touchUpInside)
-
-        let barButtonItem = UIBarButtonItem(customView: button)
-        return barButtonItem
-    }
-
-    @objc func didPressYesButton() {
+    @objc private func didPressYesButton() {
         delegate?.didTapYesButton()
-
     }
 
-    @objc func didPressNoButton() {
+    @objc private func didPressNoButton() {
         delegate?.didTapNoButton()
     }
 
-    @objc func didPressSkipButton() {
+    @objc private func didPressSkipButton() {
         delegate?.didTapSkipButton()
     }
 
 }
-
-

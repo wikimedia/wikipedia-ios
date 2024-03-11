@@ -58,9 +58,10 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     }
 
     func didTapSkipButton() {
-        self.dismiss(animated: true)
-        self.viewModel.next {
+        self.dismiss(animated: true) {
+            self.viewModel.next {
 
+            }
         }
     }
 }
